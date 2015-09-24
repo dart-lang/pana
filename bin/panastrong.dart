@@ -19,13 +19,14 @@ main(List<String> args) {
       .fold(0, (length, level) => math.max(length, level.name.length + 1));
 
   Logger.root.onRecord.listen((item) {
-    print('${item.level.name.padRight(logHeaderLength, ' ')}' +
+    stderr.writeln('${item.level.name.padRight(logHeaderLength, ' ')}' +
         LineSplitter.split(item.message).join("\n${' ' * logHeaderLength}"));
   });
 
   Chain.capture(() async {
     for (var item in args) {
-      await run(item);
+      var summary = await run(item);
+      print(const JsonEncoder.withIndent(' ').convert(summary));
     }
   }, onError: (error, Chain chain) {
     print(error);
