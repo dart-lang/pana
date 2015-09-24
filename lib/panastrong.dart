@@ -13,8 +13,7 @@ import 'src/summary.dart';
 export 'src/analyzer_output.dart';
 export 'src/summary.dart';
 
-// TODO: this clearly needs to be a lot better
-final _summaryPattern = new RegExp("^.*?found\.?\$");
+final _summaryPattern = new RegExp(r"^No issues found|\d+.*?found\.$");
 
 final _firstLinePattern = new RegExp(r'Analyzing \[.*?\]\.\.\.');
 
