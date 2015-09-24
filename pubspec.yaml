@@ -4,3 +4,8 @@ description: A simple console application.
 author: Kevin Moore <github@j832.com>
 environment:
   sdk: '>=1.12.0 <2.0.0'
+dependencies:
+  http: ^0.11.3
+  logging: ^0.11.0
+  path: ^1.3.6
+  stack_trace: ^1.4.2
