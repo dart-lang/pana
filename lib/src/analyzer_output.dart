@@ -28,4 +28,12 @@ class AnalyzerOutput {
     return new AnalyzerOutput(
         match[1], match[2], match[3], int.parse(match[4]), int.parse(match[5]));
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'type': type,
+        'file': file,
+        'line': line,
+        'col': col,
+        'error': error,
+      };
 }

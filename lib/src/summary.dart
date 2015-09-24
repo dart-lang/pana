@@ -20,4 +20,6 @@ class Summary {
 
   Map<String, int> get issueSummary =>
       new Map.fromIterable(resultTypes, value: issuesForType);
+
+  toJson() => results;
 }
