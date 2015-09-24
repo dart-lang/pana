@@ -20,7 +20,6 @@ final _firstLinePattern = new RegExp(r'Analyzing \[.*?\]\.\.\.');
 
 Future<Summary> run(String packageName) async {
   log.info('Starting package "$packageName".');
-  // download latest version of the package
 
   var tempDir =
       await Directory.systemTemp.createTemp('panastrong.$packageName.');
@@ -44,6 +43,14 @@ Future<Summary> run(String packageName) async {
       downloadDate = await downloadAndExtract(tempDir.path, archiveUri, client);
     } finally {
       client.close();
+    }
+
+    // run pub get
+    var result =
+        await Process.run('pub', ['upgrade'], workingDirectory: tempDir.path);
+    if (result.exitCode != 0) {
+      throw new ProcessException(
+          'pub', ['upgrade'], result.stderr, result.exitCode);
     }
 
     var items = await analyze(tempDir.path, strong: true);
