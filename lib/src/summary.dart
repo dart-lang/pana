@@ -3,10 +3,13 @@ library panastrong.summary;
 import 'analyzer_output.dart';
 
 class Summary {
+  final String packageName;
+  final DateTime packageDownloadTime;
+  final Map<String, dynamic> packageDetails;
   final Map<String, List<AnalyzerOutput>> results;
 
-  Summary(this.results);
-
+  Summary(this.packageName, this.packageDetails, this.packageDownloadTime,
+      this.results);
   Iterable<AnalyzerOutput> get allOutputs => results.values.expand((a) => a);
 
   Set<String> get resultTypes =>
@@ -21,5 +24,10 @@ class Summary {
   Map<String, int> get issueSummary =>
       new Map.fromIterable(resultTypes, value: issuesForType);
 
-  toJson() => results;
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'packageName': packageName,
+        'packageDownloadTime': packageDownloadTime.toIso8601String(),
+        'packageDetails': packageDetails,
+        'results': results
+      };
 }

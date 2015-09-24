@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as p;
 
 import 'io.dart';
@@ -27,22 +28,27 @@ Future<Summary> run(String packageName) async {
   try {
     var client = new IOClient();
 
+    Map<String, dynamic> packageDetails;
+    DateTime downloadDate;
+
     try {
       var info = await getPackageInfo(packageName, client);
 
-      var latest = info['latest'];
+      packageDetails = info['latest'];
 
-      var version = latest['version'];
+      var version = packageDetails['version'];
       log.info('Version $version');
 
-      var archiveUri = Uri.parse(latest['archive_url']);
+      var archiveUri = Uri.parse(packageDetails['archive_url']);
 
-      await downloadAndExtract(tempDir.path, archiveUri, client);
+      downloadDate = await downloadAndExtract(tempDir.path, archiveUri, client);
     } finally {
       client.close();
     }
 
-    return await analyze(tempDir.path, strong: true);
+    var items = await analyze(tempDir.path, strong: true);
+
+    return new Summary(packageName, packageDetails, downloadDate, items);
   } finally {
     tempDir.deleteSync(recursive: true);
   }
@@ -57,7 +63,7 @@ Future<Map> getPackageInfo(String packageName, Client client) async {
   return JSON.decode(response);
 }
 
-Future<Null> downloadAndExtract(
+Future<DateTime> downloadAndExtract(
     String tempDir, Uri archiveUri, Client client) async {
   log.info('Downloading $archiveUri');
   assert(archiveUri.toString().endsWith('.tar.gz'));
@@ -74,6 +80,14 @@ Future<Null> downloadAndExtract(
   log.info('Extracting to $tempDir');
   await extractTarGz(streamedResponse.stream, tempDir);
   log.info('Extracted to $tempDir');
+
+  var dateHeader = streamedResponse.headers['date'];
+  DateTime date;
+  if (dateHeader != null) {
+    date = parseHttpDate(dateHeader);
+  }
+
+  return date;
 }
 
 Future<Map<String, List<AnalyzerOutput>>> analyze(String projectDir,
