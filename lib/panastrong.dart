@@ -7,6 +7,11 @@ import 'package:path/path.dart' as p;
 
 import 'io.dart';
 import 'logging.dart';
+import 'src/analyzer_output.dart';
+import 'src/summary.dart';
+
+export 'src/analyzer_output.dart';
+export 'src/summary.dart';
 
 // TODO: this clearly needs to be a lot better
 final _summaryPattern = new RegExp("^.*?found\.?\$");
@@ -69,26 +74,6 @@ Future<Stream<List<int>>> downloadPackage(
   }
 
   return streamedResponse.stream;
-}
-
-class Summary {
-  final Map<String, List<AnalyzerOutput>> results;
-
-  Summary(this.results);
-
-  Iterable<AnalyzerOutput> get allOutputs => results.values.expand((a) => a);
-
-  Set<String> get resultTypes =>
-      allOutputs.fold(new Set<String>(), (Set theSet, AnalyzerOutput item) {
-        theSet.add(item.type);
-        return theSet;
-      });
-
-  int issuesForType(String type) =>
-      allOutputs.where((AnalyzerOutput output) => output.type == type).length;
-
-  Map<String, int> get issueSummary =>
-      new Map.fromIterable(resultTypes, value: issuesForType);
 }
 
 Future<Summary> analyze(String projectDir, {bool strong}) async {
@@ -174,36 +159,6 @@ Future<Summary> analyze(String projectDir, {bool strong}) async {
       new Map<String, List<AnalyzerOutput>>.fromIterable(items.keys,
           value: (path) =>
               new List<AnalyzerOutput>.unmodifiable(items[path]))));
-}
-
-class AnalyzerOutput {
-  static final _regexp = new RegExp(
-      r'^\[(\w+)\]' // matches the type of notification
-      ' (.*?) ' // matches the error statement
-      '\\((.*?), line (\\d+), col (\\d+)' // matches the file, line, and col
-      ,
-      multiLine: true);
-
-  final String type;
-  final String error;
-  final String file;
-  final int line;
-  final int col;
-
-  AnalyzerOutput(this.type, this.error, this.file, this.line, this.col);
-
-  static AnalyzerOutput parseOrNull(String content) {
-    var allMatches = _regexp.allMatches(content).toList();
-
-    if (allMatches.isEmpty) {
-      return null;
-    }
-
-    var match = allMatches.single;
-
-    return new AnalyzerOutput(
-        match[1], match[2], match[3], int.parse(match[4]), int.parse(match[5]));
-  }
 }
 
 Future<List<String>> getLibraries(String projectDir) async {
