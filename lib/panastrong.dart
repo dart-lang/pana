@@ -27,13 +27,17 @@ Future<Summary> run(String packageName) async {
   try {
     var client = new IOClient();
 
-    Stream stream;
     try {
-      stream = await downloadPackage(packageName, client);
+      var info = await getPackageInfo(packageName, client);
 
-      log.info('Extracting to ${tempDir.path}');
-      await extractTarGz(stream, tempDir.path);
-      log.info('Extracted to ${tempDir.path}');
+      var latest = info['latest'];
+
+      var version = latest['version'];
+      log.info('Version $version');
+
+      var archiveUri = Uri.parse(latest['archive_url']);
+
+      await downloadAndExtract(tempDir.path, archiveUri, client);
     } finally {
       client.close();
     }
@@ -44,22 +48,17 @@ Future<Summary> run(String packageName) async {
   }
 }
 
-Future<Stream<List<int>>> downloadPackage(
-    String packageName, Client client) async {
+Future<Map> getPackageInfo(String packageName, Client client) async {
   var pkgUri = 'https://pub.dartlang.org/api/packages/$packageName';
   log.info('Downloading $pkgUri');
 
   var response = await client.read(pkgUri);
 
-  var json = JSON.decode(response);
+  return JSON.decode(response);
+}
 
-  var latest = json['latest'];
-
-  var version = latest['version'];
-  log.info('Version $version');
-
-  var archiveUri = Uri.parse(latest['archive_url']);
-
+Future<Null> downloadAndExtract(
+    String tempDir, Uri archiveUri, Client client) async {
   log.info('Downloading $archiveUri');
   assert(archiveUri.toString().endsWith('.tar.gz'));
 
@@ -72,10 +71,13 @@ Future<Stream<List<int>>> downloadPackage(
         uri: archiveUri);
   }
 
-  return streamedResponse.stream;
+  log.info('Extracting to $tempDir');
+  await extractTarGz(streamedResponse.stream, tempDir);
+  log.info('Extracted to $tempDir');
 }
 
-Future<Summary> analyze(String projectDir, {bool strong}) async {
+Future<Map<String, List<AnalyzerOutput>>> analyze(String projectDir,
+    {bool strong}) async {
   // find all dart files in 'lib' directory
   var dir = new Directory(projectDir).absolute;
   projectDir = dir.path;
@@ -154,10 +156,7 @@ Future<Summary> analyze(String projectDir, {bool strong}) async {
     throw "Analyzer failed with exit code $code";
   }
 
-  return new Summary(new Map<String, List<AnalyzerOutput>>.unmodifiable(
-      new Map<String, List<AnalyzerOutput>>.fromIterable(items.keys,
-          value: (path) =>
-              new List<AnalyzerOutput>.unmodifiable(items[path]))));
+  return items;
 }
 
 Future<List<String>> getLibraries(String projectDir) async {
