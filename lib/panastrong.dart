@@ -45,15 +45,18 @@ Future<Summary> run(String packageName) async {
       client.close();
     }
 
-    // run pub get
+    log.info('Running pub upgrade');
     var result =
         await Process.run('pub', ['upgrade'], workingDirectory: tempDir.path);
     if (result.exitCode != 0) {
       throw new ProcessException(
           'pub', ['upgrade'], result.stderr, result.exitCode);
     }
+    log.info('Finished pub upgrade');
 
+    log.info('Starting analysis');
     var items = await analyze(tempDir.path, strong: true);
+    log.info('Finished analysis');
 
     return new Summary(packageName, packageDetails, downloadDate, items);
   } finally {
