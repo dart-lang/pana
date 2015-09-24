@@ -1,0 +1,6 @@
+name: panastrong
+version: 0.1.0-dev
+description: A simple console application.
+author: Kevin Moore <github@j832.com>
+environment:
+  sdk: '>=1.12.0 <2.0.0'
