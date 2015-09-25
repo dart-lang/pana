@@ -1,5 +1,7 @@
 library panastrong.analyzer_output;
 
+import 'package:path/path.dart' as p;
+
 class AnalyzerOutput {
   static final _regexp = new RegExp('^' + // beginning of line
           '([\\w_\\.]+)\\|' * 3 + // first three error notes
@@ -17,7 +19,7 @@ class AnalyzerOutput {
 
   AnalyzerOutput(this.type, this.error, this.file, this.line, this.col);
 
-  static AnalyzerOutput parse(String content) {
+  static AnalyzerOutput parse(String content, {String projectDir}) {
     var matches = _regexp.allMatches(content).toList();
 
     var match = matches.single;
@@ -29,6 +31,10 @@ class AnalyzerOutput {
     var column = match[6];
     // length = 7
     var error = match[8];
+
+    if (projectDir != null) {
+      filePath = p.relative(filePath, from: projectDir);
+    }
 
     return new AnalyzerOutput(
         type, error, filePath, int.parse(line), int.parse(column));

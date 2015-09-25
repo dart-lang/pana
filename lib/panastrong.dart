@@ -99,8 +99,7 @@ Future<DateTime> downloadAndExtract(
 
 Future<List<AnalyzerOutput>> analyze(String projectDir, {bool strong}) async {
   // find all dart files in 'lib' directory
-  var dir = new Directory(projectDir).absolute;
-  projectDir = dir.path;
+  projectDir = new Directory(projectDir).resolveSymbolicLinksSync();
 
   var libsRelativePaths = await getLibraries(projectDir);
 
@@ -121,7 +120,9 @@ Future<List<AnalyzerOutput>> analyze(String projectDir, {bool strong}) async {
 
   List<AnalyzerOutput> items;
   try {
-    items = await getLines(process.stderr).map(AnalyzerOutput.parse).toList();
+    items = await getLines(process.stderr)
+        .map((line) => AnalyzerOutput.parse(line, projectDir: projectDir))
+        .toList();
   } finally {
     await stdoutDrain;
   }
