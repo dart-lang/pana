@@ -1,4 +1,4 @@
-library panastrong.analyzer_output;
+library pana.analyzer_output;
 
 import 'package:path/path.dart' as p;
 

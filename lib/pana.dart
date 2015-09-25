@@ -18,7 +18,7 @@ Future<Summary> run(String packageName) async {
   log.info('Starting package "$packageName".');
 
   var tempDir =
-      await Directory.systemTemp.createTemp('panastrong.$packageName.');
+      await Directory.systemTemp.createTemp('pana.$packageName.');
 
   try {
     var client = new IOClient();

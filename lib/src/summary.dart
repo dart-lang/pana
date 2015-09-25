@@ -1,4 +1,4 @@
-library panastrong.summary;
+library pana.summary;
 
 import 'analyzer_output.dart';
 

@@ -7,4 +7,4 @@ RUN pub get
 ADD . /app
 RUN pub get --offline
 
-ENTRYPOINT ["dart", "bin/panastrong.dart"]
+ENTRYPOINT ["dart", "bin/pana.dart"]

@@ -5,7 +5,7 @@ import 'dart:math' as math;
 import 'package:logging/logging.dart';
 import 'package:stack_trace/stack_trace.dart';
 
-import 'package:panastrong/panastrong.dart';
+import 'package:pana/pana.dart';
 
 // http://linux.die.net/include/sysexits.h
 // #define EX_SOFTWARE	70	/* internal software error */
