@@ -14,10 +14,6 @@ import 'src/summary.dart';
 export 'src/analyzer_output.dart';
 export 'src/summary.dart';
 
-final _summaryPattern = new RegExp(r"^No issues found|\d+.*?found\.$");
-
-final _firstLinePattern = new RegExp(r'Analyzing \[.*?\]\.\.\.');
-
 Future<Summary> run(String packageName) async {
   log.info('Starting package "$packageName".');
 
@@ -58,7 +54,8 @@ Future<Summary> run(String packageName) async {
     var items = await analyze(tempDir.path, strong: true);
     log.info('Finished analysis');
 
-    return new Summary(packageName, packageDetails, downloadDate, items);
+    return new Summary(packageName, packageDetails, downloadDate,
+        new List<AnalyzerOutput>.unmodifiable(items));
   } finally {
     tempDir.deleteSync(recursive: true);
   }
@@ -100,15 +97,14 @@ Future<DateTime> downloadAndExtract(
   return date;
 }
 
-Future<Map<String, List<AnalyzerOutput>>> analyze(String projectDir,
-    {bool strong}) async {
+Future<List<AnalyzerOutput>> analyze(String projectDir, {bool strong}) async {
   // find all dart files in 'lib' directory
   var dir = new Directory(projectDir).absolute;
   projectDir = dir.path;
 
   var libsRelativePaths = await getLibraries(projectDir);
 
-  var args = <String>[];
+  var args = <String>['--format', 'machine'];
 
   if (strong == true) {
     args.add('--strong');
@@ -119,59 +115,15 @@ Future<Map<String, List<AnalyzerOutput>>> analyze(String projectDir,
   var process =
       await Process.start('dartanalyzer', args, workingDirectory: projectDir);
 
-  var items = new Map<String, List<AnalyzerOutput>>.fromIterable(
-      libsRelativePaths,
-      value: (_) => <AnalyzerOutput>[]);
-
-  var errDrain = getLines(process.stderr).forEach((line) {
-    log.warning('Analyzer stderr: $line');
+  var stdoutDrain = getLines(process.stdout).forEach((line) {
+    log.warning('Analyzer stdout: $line');
   });
 
+  List<AnalyzerOutput> items;
   try {
-    var currentLibIndex = 0;
-    String currentFile = libsRelativePaths[currentLibIndex];
-
-    var buffer = new StringBuffer();
-
-    var firstLine = true;
-
-    await for (var line in getLines(process.stdout)) {
-      if (firstLine) {
-        if (_firstLinePattern.hasMatch(line)) {
-          firstLine = false;
-        } else {
-          log.warning('Weird:\t$line');
-        }
-
-        continue;
-      }
-
-      if (_summaryPattern.hasMatch(line)) {
-        if (buffer.isNotEmpty) {
-          print(items);
-          throw "weird!\n$buffer";
-        }
-
-        log.info('Done with $currentFile\n$line');
-        ++currentLibIndex;
-        if (currentLibIndex >= libsRelativePaths.length) {
-          currentFile = null;
-        } else {
-          currentFile = libsRelativePaths[currentLibIndex];
-        }
-        continue;
-      }
-
-      buffer.writeln(line);
-
-      var issue = AnalyzerOutput.parseOrNull(buffer.toString());
-      if (issue != null) {
-        buffer.clear();
-        items[currentFile].add(issue);
-      }
-    }
+    items = await getLines(process.stderr).map(AnalyzerOutput.parse).toList();
   } finally {
-    await errDrain;
+    await stdoutDrain;
   }
 
   var code = await process.exitCode;

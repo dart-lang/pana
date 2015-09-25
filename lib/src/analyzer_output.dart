@@ -1,12 +1,13 @@
 library panastrong.analyzer_output;
 
 class AnalyzerOutput {
-  static final _regexp = new RegExp(
-      r'^\[(\w+)\]' // matches the type of notification
-      ' (.*?) ' // matches the error statement
-      '\\((.*?), line (\\d+), col (\\d+)' // matches the file, line, and col
-      ,
-      multiLine: true);
+  static final _regexp = new RegExp('^' + // beginning of line
+          '([\\w_\\.]+)\\|' * 3 + // first three error notes
+          '([^\\|]+)\\|' + // file path
+          '([\\w_\\.]+)\\|' * 3 + // line, column, length
+          '(.*?)' + // rest is the error message
+          '\$' // end of line
+      );
 
   final String type;
   final String error;
@@ -16,17 +17,21 @@ class AnalyzerOutput {
 
   AnalyzerOutput(this.type, this.error, this.file, this.line, this.col);
 
-  static AnalyzerOutput parseOrNull(String content) {
-    var allMatches = _regexp.allMatches(content).toList();
+  static AnalyzerOutput parse(String content) {
+    var matches = _regexp.allMatches(content).toList();
 
-    if (allMatches.isEmpty) {
-      return null;
-    }
+    var match = matches.single;
 
-    var match = allMatches.single;
+    var type = [match[1], match[2], match[3]].join('|');
+
+    var filePath = match[4];
+    var line = match[5];
+    var column = match[6];
+    // length = 7
+    var error = match[8];
 
     return new AnalyzerOutput(
-        match[1], match[2], match[3], int.parse(match[4]), int.parse(match[5]));
+        type, error, filePath, int.parse(line), int.parse(column));
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
