@@ -6,9 +6,9 @@ import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as p;
 
-import 'io.dart';
-import 'logging.dart';
 import 'src/analyzer_output.dart';
+import 'src/io.dart';
+import 'src/logging.dart';
 import 'src/summary.dart';
 
 export 'src/analyzer_output.dart';
