@@ -1,5 +1,5 @@
 name: pana
-version: 0.1.0-dev
+version: 0.1.0
 description: Dart Package ANAlysis
 author: Kevin Moore <github@j832.com>
 homepage: https://github.com/kevmoo/pana.dart
@@ -11,3 +11,5 @@ dependencies:
   logging: ^0.11.0
   path: ^1.3.6
   stack_trace: ^1.4.2
+executable:
+  pana:
