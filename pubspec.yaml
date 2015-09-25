@@ -1,7 +1,8 @@
 name: pana
 version: 0.1.0-dev
-description: A simple console application.
+description: Dart Package ANAlysis
 author: Kevin Moore <github@j832.com>
+homepage: https://github.com/kevmoo/pana.dart
 environment:
   sdk: '>=1.12.0 <2.0.0'
 dependencies:
