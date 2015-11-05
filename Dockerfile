@@ -1,8 +1,8 @@
-FROM google/dart:1.13.0-dev.3.1
+FROM kevmoo/dart:1.13.0-dev.7.6
 
 WORKDIR /app
 
-ADD pubspec.* /app/
+ADD pubspec.yaml pubspec.lock /app/
 RUN pub get
 ADD . /app
 RUN pub get --offline
