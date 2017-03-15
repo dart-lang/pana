@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:pub_semver/pub_semver.dart';
@@ -5,33 +6,29 @@ import 'package:pub_semver/pub_semver.dart';
 import 'analyzer_output.dart';
 
 class Summary {
+  // TODO: version
+  // TODO: dartfmt
+  // TODO: dart sdk version
   final String packageName;
-  final DateTime packageDownloadTime;
-  final Map<String, dynamic> packageDetails;
   final PubSummary pubSummary;
-  final List<AnalyzerOutput> results;
+  final List<AnalyzerOutput> analyzerItems;
 
-  Summary(this.packageName, this.packageDetails, this.packageDownloadTime,
-      this.pubSummary, this.results);
+  Summary(this.packageName, this.pubSummary, this.analyzerItems);
 
-  Set<String> get resultTypes => results.fold(new Set<String>(),
-          (Set<String> theSet, AnalyzerOutput item) {
-        theSet.add(item.type);
-        return theSet;
-      });
+  Set<String> get resultTypes =>
+      new SplayTreeSet<String>.from(analyzerItems.map((ao) => ao.type));
 
-  int issuesForType(String type) =>
-      results.where((AnalyzerOutput output) => output.type == type).length;
+  int issuesForType(String type) => analyzerItems
+      .where((AnalyzerOutput output) => output.type == type)
+      .length;
 
   Map<String, int> get issueSummary =>
       new Map.fromIterable(resultTypes, value: issuesForType);
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'packageName': packageName,
-        'packageDownloadTime': packageDownloadTime.toIso8601String(),
-        'packageDetails': packageDetails,
         'pubSummary': pubSummary,
-        'results': results
+        'analyzerItems': analyzerItems
       };
 }
 

@@ -1,29 +1,31 @@
 // Copyright (c) 2017, Kevin Moore. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:logging/logging.dart' as log;
 import 'package:pkg_clean/pkg_clean.dart';
 
-String _pretty(obj) => const JsonEncoder.withIndent(' ').convert(obj);
+final _gray = '\u001b[1;30m';
+final _none = '\u001b[0m';
+
+String gray(text) => "$_gray$text$_none";
 
 main(List<String> arguments) async {
-  var tempDir = Directory.systemTemp.createTempSync(
-      'pkg_clean.${new DateTime.now().millisecondsSinceEpoch}.');
+  log.Logger.root.level = log.Level.ALL;
+  log.Logger.root.onRecord.listen((record) {
+    stderr.writeln(
+        gray("${record.level.toString().padRight(10)} ${record.message}"));
+  });
 
-  try {
-    var pkgDir = await downloadPkg(tempDir.path, arguments.single);
+  var pkg = arguments.first;
 
-    var summary = await pkgSummary(pkgDir);
-
-    print(arguments.single);
-    print(_pretty(summary));
-
-    var thing = await pkgAnalyze(pkgDir);
-
-    print(thing.map((ao) => ao.error).join('\n'));
-  } finally {
-    await tempDir.delete(recursive: true);
+  String version;
+  if (arguments.length > 1) {
+    version = arguments[1];
   }
+
+  var summary = await doIt(pkg, version: version);
+
+  print(prettyJson(summary));
 }

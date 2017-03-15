@@ -39,6 +39,7 @@ class AnalyzerOutput {
     var error = match[8];
 
     if (projectDir != null) {
+      assert(p.isWithin(projectDir, filePath));
       filePath = p.relative(filePath, from: projectDir);
     }
 
