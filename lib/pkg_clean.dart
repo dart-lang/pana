@@ -2,12 +2,26 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
+import 'src/analyzer_output.dart';
 import 'src/logging.dart';
 import 'src/summary.dart';
+
+Future<List<AnalyzerOutput>> pkgAnalyze(String pkgPath) async {
+  log.info('Running pub upgrade');
+  var result = await Process.run(
+      'dartanalyzer', ['--strong', '--format', 'machine', '.'],
+      workingDirectory: pkgPath);
+
+  return LineSplitter
+      .split(result.stderr)
+      .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath))
+      .toList();
+}
 
 Future<PubSummary> pkgSummary(String pkgPath) async {
   log.info('Running pub upgrade');

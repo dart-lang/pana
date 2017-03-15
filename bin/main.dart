@@ -19,6 +19,10 @@ main(List<String> arguments) async {
 
     print(arguments.single);
     print(_pretty(summary));
+
+    var thing = await pkgAnalyze(pkgDir);
+
+    print(thing.map((ao) => ao.error).join('\n'));
   } finally {
     await tempDir.delete(recursive: true);
   }
