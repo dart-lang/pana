@@ -1,3 +1,3 @@
-# pkg_clean
+# pana
 
-A sample command-line application.
+Is your package "clean"?

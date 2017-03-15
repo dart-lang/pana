@@ -29,8 +29,8 @@ Future<Summary> doIt(String pkgName, {String version}) async {
   }
 
   log.fine('Created tmp dir...');
-  var tempDir = Directory.systemTemp.createTempSync(
-      'pkg_clean.${new DateTime.now().millisecondsSinceEpoch}.');
+  var tempDir = Directory.systemTemp
+      .createTempSync('pana.${new DateTime.now().millisecondsSinceEpoch}.');
 
   // Critical to make sure analyzer paths align well
   var tempPath = await tempDir.resolveSymbolicLinks();

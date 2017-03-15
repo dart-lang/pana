@@ -1,7 +1,7 @@
 // Copyright (c) 2017, Kevin Moore. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-import 'package:pkg_clean/src/summary.dart';
+import 'package:pana/src/summary.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
