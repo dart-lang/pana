@@ -4,8 +4,6 @@
 // import 'package:pkg_clean/pkg_clean.dart';
 
 main(List<String> arguments) {
-
-  print("hello!");
+  print("args: ${arguments.join(', ')}");
   // download package – or just cache it?
-
 }
