@@ -62,10 +62,16 @@ Future<List<AnalyzerOutput>> pkgAnalyze(String pkgPath) async {
       'dartanalyzer', ['--strong', '--format', 'machine', '.'],
       workingDirectory: pkgPath);
 
-  return LineSplitter
-      .split(result.stderr)
-      .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath))
-      .toList();
+  try {
+    return LineSplitter
+        .split(result.stderr)
+        .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath))
+        .toList();
+  } on ArgumentError catch (e) {
+    log.severe("Bad input?");
+    log.severe(result.stderr);
+    rethrow;
+  }
 }
 
 Future<PubSummary> pkgSummary(String pkgPath) async {

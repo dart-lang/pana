@@ -1,6 +1,7 @@
 // Copyright (c) 2017, Kevin Moore. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart' as log;
@@ -14,8 +15,20 @@ String gray(text) => "$_gray$text$_none";
 main(List<String> arguments) async {
   log.Logger.root.level = log.Level.ALL;
   log.Logger.root.onRecord.listen((record) {
-    stderr.writeln(
-        gray("${record.level.toString().padRight(10)} ${record.message}"));
+    var wroteHeader = false;
+
+    var msg = LineSplitter.split(record.message).map((l) {
+      String prefix;
+      if (wroteHeader) {
+        prefix = '';
+      } else {
+        wroteHeader = true;
+        prefix = record.level.toString();
+      }
+      return "${prefix.padRight(10)} ${l}";
+    }).join('\n');
+
+    stderr.writeln(gray(msg));
   });
 
   var pkg = arguments.first;
