@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('pub parse', () {
-    var summary = new PubSummary(0, _pubUpgradeOutput, '');
+    var summary = PubSummary.create(0, _pubUpgradeOutput, '', null);
 
     expect(summary.stdout, _pubUpgradeOutput);
 

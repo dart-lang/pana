@@ -2,6 +2,7 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
@@ -37,37 +38,35 @@ Future<Summary> doIt(String pkgName, {String version}) async {
 
   log.fine('Temp dir: $tempPath');
 
-  var data = <String, Object>{'package': pkgName};
-
   try {
     log.info("Downloading package...");
     var pkgDir = await downloadPkg(tempPath, pkgName, version: ver);
 
     var summary = await pkgSummary(pkgDir);
+    log.info("Package version: ${summary.pkgVersion}");
 
-    data['pub'] = summary;
+    var analyzerItems = await pkgAnalyze(pkgDir);
 
-    var thing = await pkgAnalyze(pkgDir);
-
-    return new Summary(pkgName, summary, thing);
+    return new Summary(pkgName, summary, analyzerItems);
   } finally {
     log.fine("Deleting temp dir: $tempPath");
     await tempDir.delete(recursive: true);
   }
 }
 
-Future<List<AnalyzerOutput>> pkgAnalyze(String pkgPath) async {
+Future<Set<AnalyzerOutput>> pkgAnalyze(String pkgPath) async {
   log.info('Running `dartanalyzer`...');
   var result = await Process.run(
       'dartanalyzer', ['--strong', '--format', 'machine', '.'],
       workingDirectory: pkgPath);
 
   try {
-    return LineSplitter
+    return new SplayTreeSet.from(LineSplitter
         .split(result.stderr)
-        .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath))
-        .toList();
-  } on ArgumentError catch (e) {
+        .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath)));
+  } on ArgumentError {
+    // TODO: we should figure out a way to succeed here, right?
+    // Or at least do partial results and not blow up
     log.severe("Bad input?");
     log.severe(result.stderr);
     rethrow;
@@ -79,7 +78,8 @@ Future<PubSummary> pkgSummary(String pkgPath) async {
   var result = await Process.run('pub', ['upgrade', '--verbosity', 'all'],
       workingDirectory: pkgPath);
 
-  return new PubSummary(result.exitCode, result.stdout, result.stderr);
+  return PubSummary.create(
+      result.exitCode, result.stdout, result.stderr, pkgPath);
 }
 
 Future<String> downloadPkg(String tempRoot, String pkgName,
@@ -96,8 +96,8 @@ Future<String> downloadPkg(String tempRoot, String pkgName,
       await Process.run('pub', args, environment: {'PUB_CACHE': tempRoot});
 
   if (result.exitCode != 0) {
-    print(result.stderr.trim());
-    print(result.stdout.trim());
+    log.severe(result.stderr.trim());
+    log.severe(result.stdout.trim());
     throw 'oops!';
   }
 

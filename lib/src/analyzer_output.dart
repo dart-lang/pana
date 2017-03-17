@@ -1,6 +1,7 @@
 import 'package:path/path.dart' as p;
+import 'package:quiver/core.dart';
 
-class AnalyzerOutput {
+class AnalyzerOutput implements Comparable<AnalyzerOutput> {
   static final _regexp = new RegExp('^' + // beginning of line
           '([\\w_\\.]+)\\|' * 3 + // first three error notes
           '([^\\|]+)\\|' + // file path
@@ -54,4 +55,41 @@ class AnalyzerOutput {
         'col': col,
         'error': error,
       };
+
+  @override
+  int compareTo(AnalyzerOutput other) {
+    var myVals = _values;
+    var otherVals = other._values;
+    for (var i = 0; i < myVals.length; i++) {
+      var compare = (_values[i] as Comparable).compareTo(otherVals[i]);
+
+      if (compare != 0) {
+        return compare;
+      }
+    }
+
+    assert(this == other);
+
+    return 0;
+  }
+
+  @override
+  int get hashCode => hashObjects(_values);
+
+  @override
+  bool operator ==(Object other) {
+    if (other is AnalyzerOutput) {
+      var myVals = _values;
+      var otherVals = other._values;
+      for (var i = 0; i < myVals.length; i++) {
+        if (myVals[i] != otherVals[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  List<Object> get _values => [file, line, col, type, error];
 }
