@@ -38,7 +38,18 @@ main(List<String> arguments) async {
     version = arguments[1];
   }
 
-  var summary = await doIt(pkg, version: version);
+  var tempDir = Directory.systemTemp
+      .createTempSync('pana.${new DateTime.now().millisecondsSinceEpoch}.');
 
-  print(prettyJson(summary));
+  // Critical to make sure analyzer paths align well
+  var tempPath = await tempDir.resolveSymbolicLinks();
+
+  try {
+    var summary =
+        await inspectPackage(pkg, version: version, pubCachePath: tempPath);
+
+    print(prettyJson(summary));
+  } finally {
+    tempDir.deleteSync(recursive: true);
+  }
 }

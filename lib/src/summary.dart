@@ -35,7 +35,7 @@ class Summary {
       };
 }
 
-final _prefix = new RegExp(r"(MSG|  ) (:|\|) \+ (.+)");
+final _prefix = new RegExp(r"(MSG|  ) (:|\|) (?:\+| ) (.+)");
 final _infoRegexp = new RegExp(r"(\w+) (\S+)(?: \((\S+) available\))?");
 
 class PubSummary {
