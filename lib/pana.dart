@@ -74,9 +74,9 @@ Future<Set<AnalyzerOutput>> pkgAnalyze(String pkgPath) async {
 }
 
 Future<PubSummary> pkgSummary(String pkgPath, {String pubCachePath}) async {
-  Map<String, String> pubEnv;
+  var pubEnv = new Map<String, String>.from(_pubEnv);
   if (pubCachePath != null) {
-    pubEnv = {'PUB_CACHE': pubCachePath};
+    pubEnv['PUB_CACHE'] = pubCachePath;
   }
 
   log.info('Running `pub upgrade`...');
@@ -97,9 +97,9 @@ Future<PkgInstallInfo> downloadPkg(String pkgName,
 
   args.add(pkgName);
 
-  Map<String, String> pubEnv;
+  var pubEnv = new Map<String, String>.from(_pubEnv);
   if (pubCachePath != null) {
-    pubEnv = {'PUB_CACHE': pubCachePath};
+    pubEnv['PUB_CACHE'] = pubCachePath;
   }
 
   var result = await Process.run('pub', args, environment: pubEnv);
@@ -156,3 +156,7 @@ class PkgInstallInfo {
 
 final _versionDownloadRexexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
+
+const _pubEnv = const <String, String>{
+  'PUB_ENVIRONMENT': 'kevmoo.pkg_clean'
+};
