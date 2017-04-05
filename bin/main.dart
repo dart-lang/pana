@@ -47,7 +47,7 @@ main(List<String> arguments) async {
   try {
     try {
       var summary =
-      await inspectPackage(pkg, version: version, pubCachePath: tempPath);
+          await inspectPackage(pkg, version: version, pubCachePath: tempPath);
 
       print(prettyJson(summary));
     } catch (e, stack) {

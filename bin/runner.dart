@@ -51,21 +51,11 @@ main() async {
     Directory.current.resolveSymbolicLinksSync()
   ]);
 
-  // get the list of packages
-  var packages = [
-    'test',
-    'path',
-    'shelf',
-    'glob',
-    'html',
-    'crypto',
-    'analyzer',
-    'args',
-    'barback'
-  ];
+  var packages = new File('tool/pkg_sample.txt').readAsLinesSync();
 
   var pool = new Pool(Platform.numberOfProcessors ~/ 2);
 
+  print("Hacking through ${packages.length} package(s).");
   var count = 0;
   await Future.wait(packages.map((pkg) async {
     var resource = await pool.request();
