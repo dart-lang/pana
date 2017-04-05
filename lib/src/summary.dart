@@ -67,7 +67,13 @@ class PubSummary {
           .split(stdout)
           .map((l) => _prefix.firstMatch(l)?.group(3))
           .where((m) => m != null)
-          .map((l) => _infoRegexp.allMatches(l).single)) {
+          .map((l) {
+        var allMatches = _infoRegexp.allMatches(l).toList();
+        if (allMatches.length > 1) {
+          throw "Weird! – can't parse '$l'";
+        }
+        return _infoRegexp.allMatches(l).single;
+      })) {
         var pkg = match.group(1);
 
         pkgVersions[pkg] = new Version.parse(match.group(2));
