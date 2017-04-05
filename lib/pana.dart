@@ -46,34 +46,51 @@ Future<Summary> inspectPackage(String pkgName,
       await downloadPkg(pkgName, version: ver, pubCachePath: pubCachePath);
   log.info("Package at ${pkgDir.path}");
 
-  var summary = await pkgSummary(pkgDir.path, pubCachePath: pubCachePath);
+  var unformattedFiles = filesNeedingFormat(pkgDir.path);
+
+  var summary = await pubUpgrade(pkgDir.path, pubCachePath: pubCachePath);
   log.info("Package version: ${summary.pkgVersion}");
 
   var analyzerItems = await pkgAnalyze(pkgDir.path);
 
-  return new Summary(pkgName, summary, analyzerItems);
+  return new Summary(pkgName, summary, analyzerItems, unformattedFiles);
+}
+
+List<String> filesNeedingFormat(String pkgPath) {
+  var result = Process
+      .runSync('dartfmt', ['--dry-run', '--set-exit-if-changed', pkgPath]);
+
+  if (result.exitCode == 0) {
+    return const [];
+  }
+
+  var lines = LineSplitter.split(result.stdout).toList();
+
+  assert(lines.isNotEmpty);
+
+  return lines;
 }
 
 Future<Set<AnalyzerOutput>> pkgAnalyze(String pkgPath) async {
   log.info('Running `dartanalyzer`...');
-  var result = await Process.run(
+  var proc = await Process.run(
       'dartanalyzer', ['--strong', '--format', 'machine', '.'],
       workingDirectory: pkgPath);
 
   try {
     return new SplayTreeSet.from(LineSplitter
-        .split(result.stderr)
+        .split(proc.stderr)
         .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath)));
   } on ArgumentError {
     // TODO: we should figure out a way to succeed here, right?
     // Or at least do partial results and not blow up
     log.severe("Bad input?");
-    log.severe(result.stderr);
+    log.severe(proc.stderr);
     rethrow;
   }
 }
 
-Future<PubSummary> pkgSummary(String pkgPath, {String pubCachePath}) async {
+Future<PubSummary> pubUpgrade(String pkgPath, {String pubCachePath}) async {
   var pubEnv = new Map<String, String>.from(_pubEnv);
   if (pubCachePath != null) {
     pubEnv['PUB_CACHE'] = pubCachePath;
@@ -157,6 +174,4 @@ class PkgInstallInfo {
 final _versionDownloadRexexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
 
-const _pubEnv = const <String, String>{
-  'PUB_ENVIRONMENT': 'kevmoo.pkg_clean'
-};
+const _pubEnv = const <String, String>{'PUB_ENVIRONMENT': 'kevmoo.pkg_clean'};

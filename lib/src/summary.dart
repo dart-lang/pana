@@ -15,8 +15,10 @@ class Summary {
   final String packageName;
   final PubSummary pubSummary;
   final Set<AnalyzerOutput> analyzerItems;
+  final List<String> unformattedFiles;
 
-  Summary(this.packageName, this.pubSummary, this.analyzerItems);
+  Summary(this.packageName, this.pubSummary, this.analyzerItems,
+      this.unformattedFiles);
 
   Set<String> get resultTypes =>
       new SplayTreeSet<String>.from(analyzerItems.map((ao) => ao.type));
@@ -31,7 +33,8 @@ class Summary {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'packageName': packageName,
         'pubSummary': pubSummary,
-        'analyzerItems': analyzerItems.toList(growable: false)
+        'analyzerItems': analyzerItems.toList(growable: false),
+        'unformattedFiles': unformattedFiles
       };
 }
 
