@@ -45,10 +45,17 @@ main(List<String> arguments) async {
   var tempPath = await tempDir.resolveSymbolicLinks();
 
   try {
-    var summary =
-        await inspectPackage(pkg, version: version, pubCachePath: tempPath);
+    try {
+      var summary =
+      await inspectPackage(pkg, version: version, pubCachePath: tempPath);
 
-    print(prettyJson(summary));
+      print(prettyJson(summary));
+    } catch (e, stack) {
+      stderr.writeln("Problem with pkg $pkg ($version)");
+      stderr.writeln(e);
+      stderr.writeln(stack);
+      exitCode = 1;
+    }
   } finally {
     tempDir.deleteSync(recursive: true);
   }
