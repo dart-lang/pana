@@ -18,14 +18,16 @@ String prettyJson(obj) => const JsonEncoder.withIndent(' ').convert(obj).trim();
 
 Future<Summary> inspectPackage(String pkgName,
     {String version, String pubCachePath}) async {
+  var versionResult = _handleErrors(await Process.run('dart', ['--version']));
+
+  var sdkVersion = versionResult.stderr.toString().trim();
+  log.info("SDK: $sdkVersion");
+
   log.info("Package: $pkgName");
 
   Version ver;
   if (version != null) {
     ver = new Version.parse(version);
-  }
-
-  if (ver != null) {
     log.info("Version: $ver");
   }
 
@@ -53,7 +55,8 @@ Future<Summary> inspectPackage(String pkgName,
 
   var analyzerItems = await pkgAnalyze(pkgDir.path);
 
-  return new Summary(pkgName, summary, analyzerItems, unformattedFiles);
+  return new Summary(sdkVersion, pkgName, pkgDir.version, summary,
+      analyzerItems, unformattedFiles);
 }
 
 List<String> filesNeedingFormat(String pkgPath) {
@@ -119,13 +122,8 @@ Future<PkgInstallInfo> downloadPkg(String pkgName,
     pubEnv['PUB_CACHE'] = pubCachePath;
   }
 
-  var result = await Process.run('pub', args, environment: pubEnv);
-
-  if (result.exitCode != 0) {
-    log.severe(result.stderr.trim());
-    log.severe(result.stdout.trim());
-    throw 'oops!';
-  }
+  var result =
+      _handleErrors(await Process.run('pub', args, environment: pubEnv));
 
   var match = _versionDownloadRexexp.allMatches(result.stdout.trim()).single;
 
@@ -145,12 +143,8 @@ Future<PkgInstallInfo> downloadPkg(String pkgName,
   }
 
   // now get all installed packages
-  result = await Process.run('pub', ['cache', 'list'], environment: pubEnv);
-  if (result.exitCode != 0) {
-    log.severe(result.stderr.trim());
-    log.severe(result.stdout.trim());
-    throw 'oops!';
-  }
+  result = _handleErrors(
+      await Process.run('pub', ['cache', 'list'], environment: pubEnv));
 
   var json = JSON.decode(result.stdout) as Map;
 
@@ -175,3 +169,24 @@ final _versionDownloadRexexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
 
 const _pubEnv = const <String, String>{'PUB_ENVIRONMENT': 'kevmoo.pkg_clean'};
+
+ProcessResult _handleErrors(ProcessResult result) {
+  if (result.exitCode != 0) {
+    if (result.exitCode == 69) {
+      // could be a pub error. Let's try to parse!
+      var lines = LineSplitter
+          .split(result.stderr)
+          .where((l) => l.startsWith("ERR "))
+          .join('\n');
+      if (lines.isNotEmpty) {
+        throw lines;
+      }
+    }
+
+    throw "Problem running proc: exit code - " +
+        [result.exitCode, result.stdout, result.stderr]
+            .map((e) => e.toString().trim())
+            .join('<***>');
+  }
+  return result;
+}

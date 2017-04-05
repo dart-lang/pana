@@ -9,16 +9,15 @@ import 'package:yaml/yaml.dart';
 import 'analyzer_output.dart';
 
 class Summary {
-  // TODO: version
-  // TODO: dartfmt
-  // TODO: dart sdk version
+  final String sdkVersion;
   final String packageName;
+  final Version packageVersion;
   final PubSummary pubSummary;
   final Set<AnalyzerOutput> analyzerItems;
   final List<String> unformattedFiles;
 
-  Summary(this.packageName, this.pubSummary, this.analyzerItems,
-      this.unformattedFiles);
+  Summary(this.sdkVersion, this.packageName, this.packageVersion,
+      this.pubSummary, this.analyzerItems, this.unformattedFiles);
 
   Set<String> get resultTypes =>
       new SplayTreeSet<String>.from(analyzerItems.map((ao) => ao.type));
@@ -31,7 +30,9 @@ class Summary {
       new Map.fromIterable(resultTypes, value: issuesForType);
 
   Map<String, dynamic> toJson() => <String, dynamic>{
+        'sdkVersion': sdkVersion,
         'packageName': packageName,
+        'packageVersion': packageVersion.toString(),
         'pubSummary': pubSummary,
         'analyzerItems': analyzerItems.toList(growable: false),
         'unformattedFiles': unformattedFiles
