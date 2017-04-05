@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:logging/logging.dart';
 import 'package:pool/pool.dart';
 
+final _clear = _isPosixTerminal ? '\x1b[2K\r' : '';
 final _cyan = _isPosixTerminal ? '\u001b[36m' : '';
 final _yellow = _isPosixTerminal ? '\u001b[33m' : '';
 final _red = _isPosixTerminal ? '\u001b[31m' : '';
@@ -14,20 +15,29 @@ final _isPosixTerminal =
 
 main() async {
   var lastLine = true;
+  int lastNumber;
   Logger.root.onRecord.listen((log) {
     var number = int.parse(log.loggerName, onError: (s) => null);
 
     if (number != null && log.error == null) {
-      var message = number.toString();
+      if (number == lastNumber) {
+        stderr.write(_clear);
+      } else {
+        stderr.writeln();
+        lastNumber = number;
+      }
+      var message = [log.loggerName, log.level, log.message].join('\t');
       if (log.level >= Level.WARNING) {
         message = "$_red$message$_endColor";
       }
 
-      stderr.write("$message,");
+      stderr.write(message);
       lastLine = false;
+      lastNumber = number;
     } else {
       if (!lastLine) {
         stderr.writeln();
+        lastLine = true;
       }
       stderr.writeln([log.loggerName, log.level, log.message].join('\t'));
       if (log.error != null) {
@@ -36,7 +46,6 @@ main() async {
       if (log.stackTrace != null) {
         stderr.writeln(log.stackTrace);
       }
-      lastLine = true;
     }
   });
 
@@ -100,11 +109,6 @@ Future<String> _runProc(String proc, List<String> args, {Logger logger}) async {
 
   var exitCode = items.first as int;
   if (exitCode != 0) {
-    stderr.writeln([
-      _red,
-      ([proc]..addAll(args)).join(' '),
-      _endColor
-    ].join());
     throw stderrLines.join('\n');
   }
 
