@@ -63,7 +63,7 @@ main() async {
   });
 
   // dockerName
-  var dockerName = 'pkg_clean.${new DateTime.now().millisecondsSinceEpoch}';
+  var dockerName = 'results';
 
   // docker build
   await _runProc('docker', [
