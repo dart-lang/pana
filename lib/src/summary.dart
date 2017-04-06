@@ -65,9 +65,17 @@ class PubSummary {
   final String lockFileContent;
   final Map<String, Version> packageVersions;
   final Map<String, Version> availableVersions;
+  final List<String> authors;
 
-  PubSummary._(this.exitCode, this.stdout, this.stderr, this.packageVersions,
-      this.availableVersions, this.pkgVersion, this.lockFileContent);
+  PubSummary._(
+      this.exitCode,
+      this.stdout,
+      this.stderr,
+      this.packageVersions,
+      this.availableVersions,
+      this.pkgVersion,
+      this.lockFileContent,
+      this.authors);
 
   static PubSummary create(
       int exitCode, String stdout, String stderr, String path) {
@@ -114,14 +122,23 @@ class PubSummary {
       }
     }
 
+    List<String> authors;
     Version pubspecVersion;
     if (pubspecContent != null) {
       var yaml = loadYaml(pubspecContent) as YamlMap;
       pubspecVersion = new Version.parse(yaml['version']);
+
+      authors = <String>[];
+
+      if (yaml['author'] != null) {
+        authors.add(yaml['author']);
+      } else if (yaml['authors'] != null) {
+        authors.addAll(yaml['authors'] as List<String>);
+      }
     }
 
     return new PubSummary._(exitCode, stdout, stderr, pkgVersions,
-        availVersions, pubspecVersion, lockFileContent);
+        availVersions, pubspecVersion, lockFileContent, authors);
   }
 
   factory PubSummary.fromJson(Map<String, dynamic> json) {
@@ -131,19 +148,20 @@ class PubSummary {
       var packageVersions = _jsonMapToVersion(json['packages']);
       var availableVersions = _jsonMapToVersion(json['availablePackages']);
 
-      return new PubSummary._(
-          0, '', '', packageVersions, availableVersions, packageVersion, '');
+      return new PubSummary._(0, '', '', packageVersions, availableVersions,
+          packageVersion, '', json['authors']);
     }
 
     return new PubSummary._(json['exitCode'], json['stdout'], json['stderr'],
-        null, null, null, null);
+        null, null, null, null, null);
   }
 
   Map<String, dynamic> toJson() {
     if (exitCode == 0) {
       var map = <String, dynamic>{
         'packages': _versionMapToJson(packageVersions),
-        'availablePackages': _versionMapToJson(availableVersions)
+        'availablePackages': _versionMapToJson(availableVersions),
+        'authors': authors
       };
 
       var ver = pkgVersion;
