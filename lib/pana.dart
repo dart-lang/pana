@@ -99,10 +99,14 @@ Future<PubSummary> pubUpgrade(String pkgPath, {String pubCachePath}) async {
     pubEnv['PUB_CACHE'] = pubCachePath;
   }
 
-  log.info('Running `pub upgrade`...');
-  var result = await Process.run('pub', ['upgrade', '--verbosity', 'all'],
-      workingDirectory: pkgPath, environment: pubEnv);
-
+  var retryCount = 3;
+  ProcessResult result;
+  do {
+    retryCount--;
+    log.info('Running `pub upgrade`...');
+    result = await Process.run('pub', ['upgrade', '--verbosity', 'all'],
+        workingDirectory: pkgPath, environment: pubEnv);
+  } while (result.exitCode != 0 && retryCount > 0);
   return PubSummary.create(
       result.exitCode, result.stdout, result.stderr, pkgPath);
 }
