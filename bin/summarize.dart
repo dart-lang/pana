@@ -7,7 +7,7 @@ import 'package:pana/src/summary.dart';
 import 'package:path/path.dart' as p;
 
 main() async {
-  var dir = new Directory("pkg_clean.1491503303478");
+  var dir = new Directory("results");
 
   var items = dir
       .listSync()
@@ -35,17 +35,22 @@ class _MiniSum {
   final int unformattedFiles;
   final Set<AnalyzerOutput> analyzerItems;
   final bool pubClean;
+  final Set<String> authorDomains;
 
   _MiniSum._(this.name, this.version, this.unformattedFiles, this.analyzerItems,
-      this.pubClean);
+      this.pubClean, this.authorDomains);
 
   factory _MiniSum.fromSummary(Summary summary) {
+    var authorDomains =
+        summary.pubSummary.authors.map(_domainFromAuthor).toSet();
+
     return new _MiniSum._(
         summary.packageName,
         summary.packageVersion.toString(),
         summary.unformattedFiles.length,
         summary.analyzerItems,
-        summary.pubSummary.exitCode == 0);
+        summary.pubSummary.exitCode == 0,
+        authorDomains);
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -53,7 +58,8 @@ class _MiniSum {
         'version': version,
         'unformattedFiles': unformattedFiles,
         'analyzerErrors': _analyzerItemJson.length,
-        'pubClean': pubClean
+        'pubClean': pubClean,
+        'authorDomains': (authorDomains.toList()..sort()).join(', ')
       };
 
   Iterable<Map<String, Object>> get _analyzerItemJson sync* {
@@ -73,4 +79,16 @@ class _MiniSum {
       yield {'error': errorType, 'count': errorTypes[errorType]};
     }
   }
+}
+
+const _domainRegep =
+    r"(?:[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)+[a-zA-Z]{2,}";
+final _domainThing = new RegExp("[@/]($_domainRegep)>");
+
+String _domainFromAuthor(String author) {
+  var match = _domainThing.firstMatch(author);
+  if (match == null) {
+    return 'unknown';
+  }
+  return match.group(1);
 }
