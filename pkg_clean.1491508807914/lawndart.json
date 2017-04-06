@@ -1,0 +1,136 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "lawndart",
+"packageVersion": "0.9.0",
+"pubSummary": {
+"packages": {
+"analyzer": "0.25.0+1",
+"args": "0.13.7",
+"async": "1.13.2",
+"barback": "0.15.2+10",
+"browser": "0.10.0+2",
+"charcode": "1.1.1",
+"collection": "1.14.0",
+"convert": "2.0.1",
+"crypto": "0.9.1",
+"glob": "1.1.3",
+"http": "0.11.3+13",
+"http_multi_server": "1.3.2",
+"http_parser": "0.0.2+8",
+"matcher": "0.12.0+2",
+"mime": "0.9.3",
+"package_config": "1.0.0",
+"package_resolver": "1.0.2",
+"path": "1.4.1",
+"pool": "1.3.0",
+"pub_semver": "1.3.2",
+"shelf": "0.6.3",
+"shelf_static": "0.2.4",
+"shelf_web_socket": "0.0.1+5",
+"source_map_stack_trace": "1.1.4",
+"source_maps": "0.10.4",
+"source_span": "1.3.1",
+"stack_trace": "1.7.3",
+"string_scanner": "0.1.5",
+"test": "0.12.3+9",
+"typed_data": "1.1.3",
+"unittest": "0.12.3",
+"watcher": "0.9.7+3",
+"yaml": "2.1.12"
+},
+"availablePackages": {
+"analyzer": "0.29.10",
+"crypto": "2.0.1",
+"http_multi_server": "2.0.3",
+"http_parser": "3.1.1",
+"shelf": "0.6.7+2",
+"shelf_web_socket": "0.2.1",
+"string_scanner": "1.0.1",
+"test": "0.12.20+9",
+"unittest": "0.12.4+1"
+},
+"version": "0.9.0"
+},
+"analyzerItems": [
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+"file": "lib/src/_map_store.dart",
+"line": 38,
+"col": 3,
+"error": "Invalid override. The type of '_MapStore.save' ('(String, String) → Future<dynamic>') isn't a subtype of 'Store.save' ('(String, String) → Future<String>')."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_OPERATOR",
+"file": "lib/src/indexeddb_store.dart",
+"line": 54,
+"col": 68,
+"error": "The operator '+' isn't defined for the class 'Object'."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+"file": "lib/src/indexeddb_store.dart",
+"line": 75,
+"col": 3,
+"error": "Invalid override. The type of 'IndexedDbStore.save' ('(String, String) → Future<dynamic>') isn't a subtype of 'Store.save' ('(String, String) → Future<String>')."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+"file": "lib/src/local_storage_store.dart",
+"line": 33,
+"col": 3,
+"error": "Invalid override. The type of 'LocalStorageStore._generateMap' ('() → Map<dynamic, dynamic>') isn't a subtype of '_MapStore._generateMap' ('() → Map<String, String>')."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+"file": "lib/src/websql_store.dart",
+"line": 73,
+"col": 3,
+"error": "Invalid override. The type of 'WebSqlStore.save' ('(String, String) → Future<dynamic>') isn't a subtype of 'Store.save' ('(String, String) → Future<String>')."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "lib/src/websql_store.dart",
+"line": 173,
+"col": 29,
+"error": "'SqlTransaction' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "lib/src/websql_store.dart",
+"line": 187,
+"col": 40,
+"error": "'SqlTransaction' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/store_tests.dart",
+"line": 20,
+"col": 1,
+"error": "'unittest' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/test_harness.dart",
+"line": 15,
+"col": 1,
+"error": "'test.html_enhanced_config' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/test_harness.dart",
+"line": 19,
+"col": 3,
+"error": "'useHtmlEnhancedConfiguration' is deprecated and shouldn't be used."
+}
+],
+"unformattedFiles": [
+"test/store_tests.dart",
+"test/test_harness.dart",
+"example/simple_run_through/index.dart",
+"lib/lawndart.dart",
+"lib/src/indexeddb_store.dart",
+"lib/src/memory_store.dart",
+"lib/src/local_storage_store.dart",
+"lib/src/websql_store.dart"
+]
+}

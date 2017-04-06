@@ -1,0 +1,54 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "propcheck",
+"packageVersion": "0.5.1",
+"pubSummary": {
+"packages": {
+"collection": "0.9.4",
+"enumerators": "0.5.5",
+"path": "1.4.1",
+"rational": "0.1.10+1",
+"stack_trace": "0.9.3+2",
+"unittest": "0.9.3"
+},
+"availablePackages": {
+"collection": "1.14.0",
+"stack_trace": "1.7.3",
+"unittest": "0.12.4+1"
+},
+"version": "0.5.1"
+},
+"analyzerItems": [
+{
+"type": "INFO|HINT|UNUSED_IMPORT",
+"file": "example/mirrors_demo.dart",
+"line": 5,
+"col": 8,
+"error": "Unused import."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+"file": "lib/propcheck.dart",
+"line": 77,
+"col": 3,
+"error": "Invalid override. The type of 'SmallCheck.check' ('(Property) → void') isn't a subtype of 'Check.check' ('(dynamic) → dynamic')."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+"file": "lib/propcheck.dart",
+"line": 113,
+"col": 3,
+"error": "Invalid override. The type of 'QuickCheck.check' ('(Property) → void') isn't a subtype of 'Check.check' ('(dynamic) → dynamic')."
+}
+],
+"unformattedFiles": [
+"test/quickcheck_test.dart",
+"test/smallcheck_test.dart",
+"test/mirrors_test.dart",
+"example/demo.dart",
+"example/mirrors_demo.dart",
+"lib/propcheck_mirrors.dart",
+"lib/propcheck.dart",
+"lib/src/random.dart"
+]
+}

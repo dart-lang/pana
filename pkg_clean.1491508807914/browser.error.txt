@@ -1,0 +1,36 @@
+[1;30mINFO       SDK: Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on "linux_x64"[0m
+[1;30mINFO       Package: browser[0m
+[1;30mINFO       Using .package-cache: /tmp/pana.1491508854420.11ypRM[0m
+[1;30mINFO       Downloading package...[0m
+[1;30mINFO       Package at /tmp/pana.1491508854420.11ypRM/hosted/pub.dartlang.org/browser-0.10.0+2[0m
+[1;30mINFO       Running `pub upgrade`...[0m
+[1;30mINFO       Package version: 0.10.0+2[0m
+[1;30mINFO       Running `dartanalyzer`...[0m
+[1;30mSEVERE     Bad input?[0m
+[1;30mSEVERE     No dart files found at: .[0m
+Problem with pkg browser (null)
+Invalid argument(s): Provided content does not align with expectations.
+#0      AnalyzerOutput.parse (package:pana/src/analyzer_output.dart:28:7)
+#1      pkgAnalyze.<anonymous closure> (package:pana/pana.dart:86:36)
+#2      MappedIterator.moveNext (dart:_internal/iterable.dart:391)
+#3      SplayTreeSet.SplayTreeSet.from (dart:collection/splay_tree.dart:722)
+#4      pkgAnalyze (package:pana/pana.dart:84:16)
+<asynchronous suspension>
+#5      inspectPackage (package:pana/pana.dart:56:29)
+<asynchronous suspension>
+#6      main (file:///app/bin/main.dart:50:17)
+<asynchronous suspension>
+#7      _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:263)
+#8      _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:151)
+
+#0      _runProc (file:///usr/local/google/home/kevmoo/src/pana.dart/bin/runner.dart:139:5)
+<asynchronous suspension>
+#1      main.<anonymous closure> (file:///usr/local/google/home/kevmoo/src/pana.dart/bin/runner.dart:88:26)
+<asynchronous suspension>
+#2      MappedListIterable.elementAt (dart:_internal/iterable.dart:412)
+#3      ListIterator.moveNext (dart:_internal/iterable.dart:341)
+#4      Future.wait (dart:async/future.dart:335)
+#5      main (file:///usr/local/google/home/kevmoo/src/pana.dart/bin/runner.dart:82:16)
+<asynchronous suspension>
+#6      _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:261)
+#7      _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:148)

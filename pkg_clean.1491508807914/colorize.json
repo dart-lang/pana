@@ -1,0 +1,18 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "colorize",
+"packageVersion": "0.1.2",
+"pubSummary": {
+"packages": {},
+"availablePackages": {},
+"version": "0.1.2"
+},
+"analyzerItems": [],
+"unformattedFiles": [
+"test/example.dart",
+"lib/colorize.dart",
+"lib/src/styles.dart",
+"lib/src/colorize.dart",
+"lib/src/color.dart"
+]
+}

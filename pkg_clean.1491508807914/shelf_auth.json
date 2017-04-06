@@ -1,0 +1,218 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "shelf_auth",
+"packageVersion": "0.7.4",
+"pubSummary": {
+"packages": {
+"analyzer": "0.29.10",
+"args": "0.13.7",
+"async": "1.13.2",
+"barback": "0.15.2+10",
+"bignum": "0.0.7",
+"boolean_selector": "1.0.2",
+"charcode": "1.1.1",
+"cipher": "0.7.1",
+"cli_util": "0.0.1+2",
+"collection": "1.14.0",
+"concepts": "0.2.0",
+"convert": "2.0.1",
+"crypto": "2.0.1",
+"csslib": "0.13.4",
+"dart_jwt": "0.5.2",
+"either": "0.1.8",
+"fixnum": "0.9.1+2",
+"glob": "1.1.3",
+"html": "0.13.1",
+"http": "0.11.3+13",
+"http_exception": "0.1.0",
+"http_multi_server": "2.0.3",
+"http_parser": "3.1.1",
+"isolate": "1.0.0",
+"logging": "0.11.3+1",
+"matcher": "0.12.0+2",
+"meta": "1.0.5",
+"mime": "0.9.3",
+"mock": "0.12.0",
+"mockito": "0.11.0",
+"option": "1.2.0",
+"package_config": "1.0.0",
+"package_resolver": "1.0.2",
+"path": "1.4.1",
+"petitparser": "1.5.4",
+"plugin": "0.2.0",
+"pool": "1.3.0",
+"pub_semver": "1.3.2",
+"quiver": "0.21.4",
+"shelf": "0.6.7+2",
+"shelf_exception_handler": "0.1.0",
+"shelf_packages_handler": "1.0.0",
+"shelf_path": "0.1.8",
+"shelf_response_formatter": "0.1.0",
+"shelf_route": "0.14.3",
+"shelf_static": "0.2.4",
+"shelf_web_socket": "0.2.1",
+"source_map_stack_trace": "1.1.4",
+"source_maps": "0.10.4",
+"source_span": "1.3.1",
+"stack_trace": "1.7.3",
+"stream_channel": "1.6.1",
+"string_scanner": "1.0.1",
+"term_glyph": "1.0.0",
+"test": "0.12.20+9",
+"typed_data": "1.1.3",
+"uri": "0.11.0",
+"utf": "0.9.0+3",
+"uuid": "0.5.3",
+"watcher": "0.9.7+3",
+"web_socket_channel": "1.0.4",
+"when": "0.2.0",
+"which": "0.1.3",
+"xml": "2.5.0",
+"yaml": "2.1.12"
+},
+"availablePackages": {
+"analyzer": "0.30.0-alpha.1",
+"bignum": "0.1.0",
+"dart_jwt": "0.6.0",
+"fixnum": "0.10.5",
+"mockito": "2.0.2",
+"quiver": "0.25.0"
+},
+"version": "0.7.4"
+},
+"analyzerItems": [
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/authenticators/username_password_auth.dart",
+"line": 76,
+"col": 33,
+"error": "The argument type '(Option<P>) → Option<dynamic>' can't be assigned to the parameter type '(Option<P>) → FutureOr<Option<AuthenticatedContext<P>>>'."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION",
+"file": "lib/src/session/jwt/jwt_session_auth.dart",
+"line": 41,
+"col": 26,
+"error": "The function 'decodeSessionToken' has type '(String, {validationContext: JwsValidationContext}) → JsonWebToken<SessionClaimSet>' that isn't of expected type '(String, {validationContext: JwsValidationContext}) → JsonWebToken<CS>'. This means its parameter or return type does not match what is expected."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "lib/src/session/jwt/jwt_session_auth.dart",
+"line": 41,
+"col": 26,
+"error": "'decodeSessionToken' is deprecated and shouldn't be used."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_COULD_NOT_INFER",
+"file": "lib/src/session/jwt/jwt_session_auth.dart",
+"line": 72,
+"col": 20,
+"error": "Couldn't infer type parameter 'P'.\\n\\nTried to infer 'dynamic' for 'P' which doesn't work:\\n  Type parameter 'P' declared to extend 'Principal'.\\nThe type 'dynamic' was inferred from:\\n  Parameter 'principal' declared as     'P'\\n                        but argument is 'dynamic'.\\n\\nConsider passing explicit type argument(s) to the generic.\\n\\n"
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR",
+"file": "lib/src/session/jwt/jwt_session_handler.dart",
+"line": 49,
+"col": 13,
+"error": "The function expression type '(String, P, String, Duration, Duration) → Future<SessionClaimSet>' isn't of type '(String, P, String, Duration, Duration) → Future<CS>'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s)."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR",
+"file": "lib/src/session/jwt/jwt_session_handler.dart",
+"line": 71,
+"col": 27,
+"error": "The function expression type '(String, {validationContext: JwsValidationContext}) → JsonWebToken<JwtClaimSet>' isn't of type '(String, {validationContext: JwsValidationContext}) → JsonWebToken<CS>'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s)."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/authenticators/basic_auth_test.dart",
+"line": 62,
+"col": 15,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/authenticators/username_password_auth_test.dart",
+"line": 63,
+"col": 72,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/authenticators/username_password_auth_test.dart",
+"line": 70,
+"col": 61,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/session/jwt/jwt_session_auth_test.dart",
+"line": 26,
+"col": 7,
+"error": "'createSessionToken' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/session/jwt/jwt_session_auth_test.dart",
+"line": 84,
+"col": 72,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/session/jwt/jwt_session_auth_test.dart",
+"line": 90,
+"col": 64,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/session/jwt/jwt_session_test.dart",
+"line": 19,
+"col": 9,
+"error": "'createSessionToken' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/session/jwt/jwt_session_test.dart",
+"line": 20,
+"col": 50,
+"error": "'decodeSessionToken' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/shelf_auth_test.dart",
+"line": 178,
+"col": 46,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/shelf_auth_test.dart",
+"line": 188,
+"col": 19,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/shelf_auth_test.dart",
+"line": 199,
+"col": 19,
+"error": "'throws' is deprecated and shouldn't be used."
+}
+],
+"unformattedFiles": [
+"test/authorisers/principal_whitelist_authoriser_test.dart",
+"test/session/jwt/jwt_session_handler_test.dart",
+"test/authenticators/username_password_auth_test.dart",
+"example/authorisation_example.dart",
+"example/example_with_jwt_session.dart",
+"lib/src/context.dart",
+"lib/src/authentication_impl.dart",
+"lib/src/authorisation_builder.dart",
+"lib/src/zone_context.dart",
+"lib/src/session/jwt/jwt_session_handler.dart",
+"lib/src/session/jwt/jwt_session_auth.dart",
+"lib/src/authentication.dart"
+]
+}

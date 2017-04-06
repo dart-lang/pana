@@ -1,0 +1,1424 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "linter",
+"packageVersion": "0.1.29",
+"pubSummary": {
+"packages": {
+"analyzer": "0.28.2-alpha.0",
+"ansicolor": "0.0.9",
+"args": "0.13.7",
+"async": "1.13.2",
+"barback": "0.15.2+10",
+"boolean_selector": "1.0.2",
+"charcode": "1.1.1",
+"cli_util": "0.0.1+2",
+"collection": "1.14.0",
+"convert": "2.0.1",
+"crypto": "2.0.1",
+"csslib": "0.13.4",
+"glob": "1.1.3",
+"grinder": "0.8.0+3",
+"html": "0.13.1",
+"http": "0.11.3+13",
+"http_multi_server": "2.0.3",
+"http_parser": "3.1.1",
+"isolate": "0.2.3",
+"logging": "0.11.3+1",
+"markdown": "0.11.3",
+"matcher": "0.12.0+2",
+"meta": "1.0.5",
+"mime": "0.9.3",
+"mockable_filesystem": "0.0.3",
+"mockito": "1.0.1",
+"package_config": "1.0.0",
+"package_resolver": "1.0.2",
+"path": "1.4.1",
+"plugin": "0.2.0",
+"pool": "1.3.0",
+"pub_semver": "1.3.2",
+"shelf": "0.6.7+2",
+"shelf_packages_handler": "1.0.0",
+"shelf_static": "0.2.4",
+"shelf_web_socket": "0.2.1",
+"source_map_stack_trace": "1.1.4",
+"source_maps": "0.10.4",
+"source_span": "1.3.1",
+"stack_trace": "1.7.3",
+"stream_channel": "1.6.1",
+"string_scanner": "1.0.1",
+"supports_color": "0.1.1",
+"term_glyph": "1.0.0",
+"test": "0.12.20+9",
+"typed_data": "1.1.3",
+"unscripted": "0.6.2",
+"utf": "0.9.0+3",
+"watcher": "0.9.7+3",
+"web_socket_channel": "1.0.4",
+"when": "0.2.0",
+"which": "0.1.3",
+"yaml": "2.1.12"
+},
+"availablePackages": {
+"analyzer": "0.29.10",
+"isolate": "1.0.0",
+"mockito": "2.0.2"
+},
+"version": "0.1.29"
+},
+"analyzerItems": [
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/_data/cancel_subscriptions/cancel_subscriptions.dart",
+"line": 8,
+"col": 22,
+"error": "The value of the field '_subscriptionA' isn't used."
+},
+{
+"type": "INFO|LINT|cancel_subscriptions",
+"file": "test/_data/cancel_subscriptions/cancel_subscriptions.dart",
+"line": 8,
+"col": 22,
+"error": "Cancel instances of dart.async.StreamSubscription."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/_data/cancel_subscriptions/cancel_subscriptions.dart",
+"line": 26,
+"col": 22,
+"error": "The value of the local variable '_subscriptionF' isn't used."
+},
+{
+"type": "INFO|LINT|cancel_subscriptions",
+"file": "test/_data/cancel_subscriptions/cancel_subscriptions.dart",
+"line": 26,
+"col": 22,
+"error": "Cancel instances of dart.async.StreamSubscription."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 13,
+"col": 10,
+"error": "The value of the local variable 'currentOut' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 17,
+"col": 10,
+"error": "The value of the field '_sinkA' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 46,
+"col": 16,
+"error": "The value of the field '_sinkC' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 52,
+"col": 16,
+"error": "The value of the field '_sinkC1' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 59,
+"col": 10,
+"error": "The value of the field '_sinkC2' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 67,
+"col": 10,
+"error": "The value of the field '_sinkC3' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 82,
+"col": 10,
+"error": "The value of the local variable '_sinkF' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 96,
+"col": 10,
+"error": "The value of the local variable 'stringSink' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/_data/close_sinks/src/a.dart",
+"line": 122,
+"col": 20,
+"error": "The value of the local variable 'cascadeController' isn't used."
+},
+{
+"type": "INFO|LINT|only_throw_errors",
+"file": "test/_data/only_throw_errors/only_throw_errors.dart",
+"line": 8,
+"col": 9,
+"error": "Only throw instances of classes extending either Exception or Error"
+},
+{
+"type": "INFO|LINT|only_throw_errors",
+"file": "test/_data/only_throw_errors/only_throw_errors.dart",
+"line": 12,
+"col": 9,
+"error": "Only throw instances of classes extending either Exception or Error"
+},
+{
+"type": "INFO|LINT|only_throw_errors",
+"file": "test/_data/only_throw_errors/only_throw_errors.dart",
+"line": 16,
+"col": 9,
+"error": "Only throw instances of classes extending either Exception or Error"
+},
+{
+"type": "INFO|LINT|only_throw_errors",
+"file": "test/_data/only_throw_errors/only_throw_errors.dart",
+"line": 20,
+"col": 9,
+"error": "Only throw instances of classes extending either Exception or Error"
+},
+{
+"type": "INFO|LINT|only_throw_errors",
+"file": "test/_data/only_throw_errors/only_throw_errors.dart",
+"line": 48,
+"col": 9,
+"error": "Only throw instances of classes extending either Exception or Error"
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/_data/overridden_fields/src/a.dart",
+"line": 3,
+"col": 7,
+"error": "The value of the field '_private' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/_data/overridden_fields/src/b.dart",
+"line": 5,
+"col": 7,
+"error": "The value of the field '_private' isn't used."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/_data/overridden_fields/src/b.dart",
+"line": 7,
+"col": 7,
+"error": "Do not override fields."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+"file": "test/_data/p4/lib/lib1.dart",
+"line": 7,
+"col": 8,
+"error": "Target of URI doesn't exist: 'package:p4/lib2.dart'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+"file": "test/_data/p4/lib/lib1.dart",
+"line": 12,
+"col": 3,
+"error": "The function 'f' isn't defined."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+"file": "test/_data/p5/p5.dart",
+"line": 5,
+"col": 8,
+"error": "Target of URI doesn't exist: 'package:p6/p6_lib.dart'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+"file": "test/_data/p5/p5.dart",
+"line": 9,
+"col": 3,
+"error": "The function 'p6_lib' isn't defined."
+},
+{
+"type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+"file": "test/_data/synthetic/synthetic.dart",
+"line": 6,
+"col": 1,
+"error": "Undefined class 'XXX'."
+},
+{
+"type": "ERROR|SYNTACTIC_ERROR|EXPECTED_EXECUTABLE",
+"file": "test/_data/synthetic/synthetic.dart",
+"line": 6,
+"col": 1,
+"error": "Expected a method, getter, setter or operator declaration."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/always_declare_return_types.dart",
+"line": 11,
+"col": 3,
+"error": "The method '_foo' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/always_declare_return_types.dart",
+"line": 22,
+"col": 7,
+"error": "The class '_Foo2' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/always_declare_return_types.dart",
+"line": 23,
+"col": 7,
+"error": "The method '_foo' isn't used."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|NON_GENERATIVE_CONSTRUCTOR",
+"file": "test/rules/always_declare_return_types.dart",
+"line": 33,
+"col": 16,
+"error": "The generative constructor 'List([int length]) → List<E>' expected, but factory found."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/rules/always_specify_types.dart",
+"line": 40,
+"col": 7,
+"error": "The value of the local variable 'x' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/rules/always_specify_types.dart",
+"line": 65,
+"col": 5,
+"error": "The value of the local variable 'p' isn't used."
+},
+{
+"type": "INFO|LINT|annotate_overrides",
+"file": "test/rules/annotate_overrides.dart",
+"line": 14,
+"col": 7,
+"error": "Annotate overridden members"
+},
+{
+"type": "INFO|LINT|annotate_overrides",
+"file": "test/rules/annotate_overrides.dart",
+"line": 15,
+"col": 3,
+"error": "Annotate overridden members"
+},
+{
+"type": "INFO|LINT|annotate_overrides",
+"file": "test/rules/annotate_overrides.dart",
+"line": 21,
+"col": 11,
+"error": "Annotate overridden members"
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/rules/avoid_as.dart",
+"line": 14,
+"col": 10,
+"error": "The value of the local variable 'p' isn't used."
+},
+{
+"type": "INFO|LINT|avoid_empty_else",
+"file": "test/rules/avoid_empty_else.dart",
+"line": 11,
+"col": 8,
+"error": "Avoid empty else statements."
+},
+{
+"type": "INFO|LINT|empty_statements",
+"file": "test/rules/avoid_empty_else.dart",
+"line": 11,
+"col": 8,
+"error": "Avoid empty statements."
+},
+{
+"type": "INFO|LINT|avoid_init_to_null",
+"file": "test/rules/avoid_init_to_null.dart",
+"line": 7,
+"col": 5,
+"error": "Don't explicitly initialize variables to null"
+},
+{
+"type": "INFO|LINT|avoid_init_to_null",
+"file": "test/rules/avoid_init_to_null.dart",
+"line": 16,
+"col": 7,
+"error": "Don't explicitly initialize variables to null"
+},
+{
+"type": "INFO|LINT|avoid_return_types_on_setters",
+"file": "test/rules/avoid_return_types_on_setters.dart",
+"line": 8,
+"col": 1,
+"error": "Avoid return types on setters."
+},
+{
+"type": "INFO|LINT|avoid_return_types_on_setters",
+"file": "test/rules/avoid_return_types_on_setters.dart",
+"line": 12,
+"col": 10,
+"error": "Avoid return types on setters."
+},
+{
+"type": "INFO|LINT|avoid_return_types_on_setters",
+"file": "test/rules/avoid_return_types_on_setters.dart",
+"line": 15,
+"col": 3,
+"error": "Avoid return types on setters."
+},
+{
+"type": "INFO|LINT|await_only_futures",
+"file": "test/rules/await_only_futures.dart",
+"line": 10,
+"col": 9,
+"error": "Await only futures."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+"file": "test/rules/await_only_futures.dart",
+"line": 33,
+"col": 3,
+"error": "Invalid override. The type of 'CancellableFuture.then' ('((T) → dynamic, {onError: Function}) → Future<dynamic>') isn't a subtype of 'Future<T>.then' ('<S>((T) → FutureOr<S>, {onError: Function}) → Future<S>')."
+},
+{
+"type": "INFO|LINT|comment_references",
+"file": "test/rules/comment_references.dart",
+"line": 7,
+"col": 13,
+"error": "Only reference in scope identifiers in doc comments."
+},
+{
+"type": "INFO|LINT|comment_references",
+"file": "test/rules/comment_references.dart",
+"line": 12,
+"col": 12,
+"error": "Only reference in scope identifiers in doc comments."
+},
+{
+"type": "INFO|LINT|comment_references",
+"file": "test/rules/comment_references.dart",
+"line": 18,
+"col": 15,
+"error": "Only reference in scope identifiers in doc comments."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+"file": "test/rules/control_flow_in_finally.dart",
+"line": 11,
+"col": 11,
+"error": "A value of type 'double' can't be assigned to a variable of type 'int'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+"file": "test/rules/control_flow_in_finally.dart",
+"line": 17,
+"col": 12,
+"error": "The return type 'int' isn't a 'double', as defined by the method 'compliantMethod'."
+},
+{
+"type": "INFO|LINT|control_flow_in_finally",
+"file": "test/rules/control_flow_in_finally.dart",
+"line": 28,
+"col": 7,
+"error": "Avoid control flow in `finally` block."
+},
+{
+"type": "INFO|HINT|MISSING_RETURN",
+"file": "test/rules/control_flow_in_finally.dart",
+"line": 34,
+"col": 3,
+"error": "This function declares a return type of 'double', but doesn't end with a return statement."
+},
+{
+"type": "INFO|LINT|control_flow_in_finally",
+"file": "test/rules/control_flow_in_finally.dart",
+"line": 55,
+"col": 9,
+"error": "Avoid control flow in `finally` block."
+},
+{
+"type": "INFO|LINT|control_flow_in_finally",
+"file": "test/rules/control_flow_in_finally.dart",
+"line": 89,
+"col": 11,
+"error": "Avoid control flow in `finally` block."
+},
+{
+"type": "INFO|LINT|empty_constructor_bodies",
+"file": "test/rules/empty_constructor_bodies.dart",
+"line": 11,
+"col": 7,
+"error": "Use `;` instead of `{}` for empty constructor bodies."
+},
+{
+"type": "INFO|LINT|empty_statements",
+"file": "test/rules/empty_statements.dart",
+"line": 8,
+"col": 13,
+"error": "Avoid empty statements."
+},
+{
+"type": "INFO|LINT|empty_statements",
+"file": "test/rules/empty_statements.dart",
+"line": 11,
+"col": 13,
+"error": "Avoid empty statements."
+},
+{
+"type": "INFO|LINT|empty_statements",
+"file": "test/rules/empty_statements.dart",
+"line": 20,
+"col": 15,
+"error": "Avoid empty statements."
+},
+{
+"type": "INFO|LINT|empty_statements",
+"file": "test/rules/empty_statements.dart",
+"line": 26,
+"col": 19,
+"error": "Avoid empty statements."
+},
+{
+"type": "INFO|LINT|hash_and_equals",
+"file": "test/rules/hash_and_equals.dart",
+"line": 12,
+"col": 17,
+"error": "Always override `hashCode` if overriding `==`"
+},
+{
+"type": "INFO|LINT|hash_and_equals",
+"file": "test/rules/hash_and_equals.dart",
+"line": 20,
+"col": 11,
+"error": "Always override `hashCode` if overriding `==`"
+},
+{
+"type": "INFO|LINT|avoid_init_to_null",
+"file": "test/rules/invariant_booleans.dart",
+"line": 12,
+"col": 6,
+"error": "Don't explicitly initialize variables to null"
+},
+{
+"type": "INFO|HINT|DEAD_CODE",
+"file": "test/rules/invariant_booleans.dart",
+"line": 35,
+"col": 15,
+"error": "Dead code."
+},
+{
+"type": "INFO|HINT|DEAD_CODE",
+"file": "test/rules/invariant_booleans.dart",
+"line": 37,
+"col": 16,
+"error": "Dead code."
+},
+{
+"type": "INFO|LINT|iterable_contains_unrelated_type",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 129,
+"col": 47,
+"error": "Invocation of Iterable<E>.contains with references of unrelated types."
+},
+{
+"type": "INFO|LINT|iterable_contains_unrelated_type",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 137,
+"col": 21,
+"error": "Invocation of Iterable<E>.contains with references of unrelated types."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|DUPLICATE_DEFINITION",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 149,
+"col": 16,
+"error": "The name 'A2' is already defined."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|RECURSIVE_INTERFACE_INHERITANCE",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 149,
+"col": 16,
+"error": "'A2' can't be a superinterface of itself: A2, B2, A2."
+},
+{
+"type": "INFO|LINT|iterable_contains_unrelated_type",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 155,
+"col": 35,
+"error": "Invocation of Iterable<E>.contains with references of unrelated types."
+},
+{
+"type": "INFO|LINT|iterable_contains_unrelated_type",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 156,
+"col": 36,
+"error": "Invocation of Iterable<E>.contains with references of unrelated types."
+},
+{
+"type": "INFO|LINT|iterable_contains_unrelated_type",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 160,
+"col": 45,
+"error": "Invocation of Iterable<E>.contains with references of unrelated types."
+},
+{
+"type": "INFO|LINT|iterable_contains_unrelated_type",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 161,
+"col": 46,
+"error": "Invocation of Iterable<E>.contains with references of unrelated types."
+},
+{
+"type": "INFO|LINT|iterable_contains_unrelated_type",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 173,
+"col": 45,
+"error": "Invocation of Iterable<E>.contains with references of unrelated types."
+},
+{
+"type": "INFO|LINT|iterable_contains_unrelated_type",
+"file": "test/rules/iterable_contains_unrelated_type.dart",
+"line": 174,
+"col": 46,
+"error": "Invocation of Iterable<E>.contains with references of unrelated types."
+},
+{
+"type": "INFO|LINT|library_names",
+"file": "test/rules/library_names.dart",
+"line": 5,
+"col": 9,
+"error": "Name libraries and source files using `lowercase_with_underscores`."
+},
+{
+"type": "INFO|LINT|library_prefixes",
+"file": "test/rules/library_prefixes.dart",
+"line": 5,
+"col": 23,
+"error": "Use `lowercase_with_underscores` when specifying a library prefix."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|DUPLICATE_DEFINITION",
+"file": "test/rules/list_remove_unrelated_type.dart",
+"line": 149,
+"col": 16,
+"error": "The name 'A2' is already defined."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|RECURSIVE_INTERFACE_INHERITANCE",
+"file": "test/rules/list_remove_unrelated_type.dart",
+"line": 149,
+"col": 16,
+"error": "'A2' can't be a superinterface of itself: A2, B2, A2."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/non_constant_identifier_names.dart",
+"line": 9,
+"col": 7,
+"error": "The value of the field '_x' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/non_constant_identifier_names.dart",
+"line": 10,
+"col": 7,
+"error": "The value of the field '__x' isn't used."
+},
+{
+"type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_FIELD",
+"file": "test/rules/overridden_fields.dart",
+"line": 15,
+"col": 9,
+"error": "Field doesn't override an inherited getter or setter."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 15,
+"col": 16,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 20,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 25,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 49,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|MIXIN_INHERITS_FROM_NOT_OBJECT",
+"file": "test/rules/overridden_fields.dart",
+"line": 59,
+"col": 32,
+"error": "The class 'Bad1' can't be used as a mixin because it extends a class other than Object."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 64,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 69,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|MIXIN_INHERITS_FROM_NOT_OBJECT",
+"file": "test/rules/overridden_fields.dart",
+"line": 77,
+"col": 32,
+"error": "The class 'GC13' can't be used as a mixin because it extends a class other than Object."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 79,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 82,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 87,
+"col": 7,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 92,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|MIXIN_INHERITS_FROM_NOT_OBJECT",
+"file": "test/rules/overridden_fields.dart",
+"line": 100,
+"col": 30,
+"error": "The class 'GC13' can't be used as a mixin because it extends a class other than Object."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 102,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 105,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 110,
+"col": 7,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 113,
+"col": 10,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_FIELD",
+"file": "test/rules/overridden_fields.dart",
+"line": 120,
+"col": 7,
+"error": "Field doesn't override an inherited getter or setter."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 129,
+"col": 7,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|annotate_overrides",
+"file": "test/rules/overridden_fields.dart",
+"line": 137,
+"col": 7,
+"error": "Annotate overridden members"
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 137,
+"col": 7,
+"error": "Do not override fields."
+},
+{
+"type": "INFO|LINT|overridden_fields",
+"file": "test/rules/overridden_fields.dart",
+"line": 150,
+"col": 7,
+"error": "Do not override fields."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|RECURSIVE_INTERFACE_INHERITANCE",
+"file": "test/rules/overridden_fields.dart",
+"line": 153,
+"col": 7,
+"error": "'A' can't be a superinterface of itself: A, B, A."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|RECURSIVE_INTERFACE_INHERITANCE",
+"file": "test/rules/overridden_fields.dart",
+"line": 154,
+"col": 7,
+"error": "'B' can't be a superinterface of itself: B, A, B."
+},
+{
+"type": "INFO|LINT|annotate_overrides",
+"file": "test/rules/overridden_fields.dart",
+"line": 155,
+"col": 7,
+"error": "Annotate overridden members"
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/rules/parameter_assignments.dart",
+"line": 35,
+"col": 9,
+"error": "The value of the local variable 'parameter' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 8,
+"col": 7,
+"error": "The value of the field '_label' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 14,
+"col": 9,
+"error": "The value of the field '_label' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 14,
+"col": 46,
+"error": "The value of the field '_bla' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 18,
+"col": 7,
+"error": "The value of the field '_label' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 19,
+"col": 7,
+"error": "The value of the field '_someInt' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 20,
+"col": 7,
+"error": "The value of the field '_otherInt' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 30,
+"col": 7,
+"error": "The value of the field '_label' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 30,
+"col": 43,
+"error": "The value of the field '_offender' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 31,
+"col": 7,
+"error": "The value of the field '_someOther' isn't used."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|DUPLICATE_CONSTRUCTOR_DEFAULT",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 33,
+"col": 3,
+"error": "The default constructor is already defined."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|DUPLICATE_CONSTRUCTOR_DEFAULT",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 35,
+"col": 3,
+"error": "The default constructor is already defined."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 43,
+"col": 7,
+"error": "The value of the field '_f' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 45,
+"col": 12,
+"error": "The value of the local variable '_f' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/prefer_final_fields.dart",
+"line": 51,
+"col": 7,
+"error": "The value of the field '_f' isn't used."
+},
+{
+"type": "INFO|LINT|prefer_is_not_empty",
+"file": "test/rules/prefer_is_not_empty.dart",
+"line": 5,
+"col": 12,
+"error": "Use isNotEmpty for Iterables and Maps."
+},
+{
+"type": "INFO|LINT|prefer_is_not_empty",
+"file": "test/rules/prefer_is_not_empty.dart",
+"line": 6,
+"col": 12,
+"error": "Use isNotEmpty for Iterables and Maps."
+},
+{
+"type": "INFO|LINT|prefer_is_not_empty",
+"file": "test/rules/prefer_is_not_empty.dart",
+"line": 7,
+"col": 12,
+"error": "Use isNotEmpty for Iterables and Maps."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/public_member_api_docs.dart",
+"line": 20,
+"col": 14,
+"error": "The value of the field '_Z' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/public_member_api_docs.dart",
+"line": 26,
+"col": 7,
+"error": "The value of the field '_y' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/public_member_api_docs.dart",
+"line": 28,
+"col": 6,
+"error": "The value of the field '_z' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/public_member_api_docs.dart",
+"line": 31,
+"col": 5,
+"error": "The function 'inner' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/public_member_api_docs.dart",
+"line": 55,
+"col": 16,
+"error": "The class '_B' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/public_member_api_docs.dart",
+"line": 62,
+"col": 3,
+"error": "The value of the field '_B' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/public_member_api_docs.dart",
+"line": 65,
+"col": 6,
+"error": "The class '_F' isn't used."
+},
+{
+"type": "INFO|LINT|annotate_overrides",
+"file": "test/rules/public_member_api_docs.dart",
+"line": 77,
+"col": 3,
+"error": "Annotate overridden members"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 5,
+"col": 1,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 8,
+"col": 1,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 14,
+"col": 3,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 17,
+"col": 3,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 20,
+"col": 3,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 24,
+"col": 1,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 26,
+"col": 3,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 31,
+"col": 1,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 34,
+"col": 1,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 40,
+"col": 1,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|LINT|slash_for_doc_comments",
+"file": "test/rules/slash_for_doc_comments.dart",
+"line": 43,
+"col": 1,
+"error": "Prefer to use /// for doc comments"
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/super_goes_last.dart",
+"line": 11,
+"col": 7,
+"error": "The value of the field '_b' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/super_goes_last.dart",
+"line": 18,
+"col": 7,
+"error": "The value of the field '_c' isn't used."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_SUPER_INVOCATION",
+"file": "test/rules/super_goes_last.dart",
+"line": 20,
+"col": 9,
+"error": "super call must be last in an initializer list (see https://goo.gl/EY6hDP): 'super(a)'."
+},
+{
+"type": "INFO|LINT|test_types_in_equals",
+"file": "test/rules/test_types_in_equals.dart",
+"line": 36,
+"col": 20,
+"error": "Test type arguments in operator ==(Object other)."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+"file": "test/rules/throw_in_finally.dart",
+"line": 11,
+"col": 11,
+"error": "A value of type 'double' can't be assigned to a variable of type 'int'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+"file": "test/rules/throw_in_finally.dart",
+"line": 17,
+"col": 12,
+"error": "The return type 'int' isn't a 'double', as defined by the method 'compliantMethod'."
+},
+{
+"type": "INFO|LINT|throw_in_finally",
+"file": "test/rules/throw_in_finally.dart",
+"line": 29,
+"col": 9,
+"error": "Avoid `throw` in finally block."
+},
+{
+"type": "INFO|LINT|only_throw_errors",
+"file": "test/rules/throw_in_finally.dart",
+"line": 29,
+"col": 15,
+"error": "Only throw instances of classes extending either Exception or Error"
+},
+{
+"type": "INFO|LINT|only_throw_errors",
+"file": "test/rules/throw_in_finally.dart",
+"line": 48,
+"col": 15,
+"error": "Only throw instances of classes extending either Exception or Error"
+},
+{
+"type": "INFO|LINT|only_throw_errors",
+"file": "test/rules/throw_in_finally.dart",
+"line": 64,
+"col": 13,
+"error": "Only throw instances of classes extending either Exception or Error"
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 23,
+"col": 1,
+"error": "The function '_f' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 42,
+"col": 7,
+"error": "The value of the field '_zzz' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 53,
+"col": 7,
+"error": "The value of the field '_x' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 54,
+"col": 9,
+"error": "The value of the field '_xx' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 55,
+"col": 16,
+"error": "The value of the field '_y' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 56,
+"col": 16,
+"error": "The value of the field '_z' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 60,
+"col": 3,
+"error": "The method '_f' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 61,
+"col": 8,
+"error": "The method '_g' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 62,
+"col": 10,
+"error": "The method '_h' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 63,
+"col": 10,
+"error": "The method '_j' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 64,
+"col": 10,
+"error": "The method '_k' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 67,
+"col": 9,
+"error": "The function type alias '_PrivateMethod' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "test/rules/type_annotate_public_apis.dart",
+"line": 68,
+"col": 14,
+"error": "The function type alias '_PrivateMethod2' isn't used."
+},
+{
+"type": "INFO|LINT|type_init_formals",
+"file": "test/rules/type_init_formals.dart",
+"line": 12,
+"col": 7,
+"error": "Don't type annotate initializing formals."
+},
+{
+"type": "INFO|LINT|unawaited_futures",
+"file": "test/rules/unawaited_futures.dart",
+"line": 9,
+"col": 3,
+"error": "Await for future expression statements inside async function bodies."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/rules/unawaited_futures.dart",
+"line": 15,
+"col": 20,
+"error": "The value of the local variable 'x' isn't used."
+},
+{
+"type": "INFO|LINT|unawaited_futures",
+"file": "test/rules/unawaited_futures.dart",
+"line": 17,
+"col": 3,
+"error": "Await for future expression statements inside async function bodies."
+},
+{
+"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+"file": "test/rules/unawaited_futures.dart",
+"line": 17,
+"col": 22,
+"error": "Undefined name 'd'."
+},
+{
+"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+"file": "test/rules/unawaited_futures.dart",
+"line": 18,
+"col": 22,
+"error": "Undefined name 'd'."
+},
+{
+"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+"file": "test/rules/unawaited_futures.dart",
+"line": 18,
+"col": 25,
+"error": "Undefined name 'bar'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "test/rules/unawaited_futures.dart",
+"line": 22,
+"col": 26,
+"error": "The argument type 'Future' can't be assigned to the parameter type '() → Future<dynamic>'."
+},
+{
+"type": "INFO|LINT|unnecessary_brace_in_string_interp",
+"file": "test/rules/unnecessary_brace_in_string_interp.dart",
+"line": 12,
+"col": 16,
+"error": "Avoid using braces in interpolation when not needed."
+},
+{
+"type": "INFO|LINT|unnecessary_brace_in_string_interp",
+"file": "test/rules/unnecessary_brace_in_string_interp.dart",
+"line": 13,
+"col": 16,
+"error": "Avoid using braces in interpolation when not needed."
+},
+{
+"type": "INFO|LINT|unnecessary_getters_setters",
+"file": "test/rules/unnecessary_getters.dart",
+"line": 26,
+"col": 7,
+"error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+},
+{
+"type": "INFO|LINT|unnecessary_getters_setters",
+"file": "test/rules/unnecessary_getters.dart",
+"line": 27,
+"col": 7,
+"error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+},
+{
+"type": "INFO|LINT|unnecessary_getters_setters",
+"file": "test/rules/unnecessary_getters_setters.dart",
+"line": 18,
+"col": 7,
+"error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+},
+{
+"type": "INFO|LINT|unnecessary_getters_setters",
+"file": "test/rules/unnecessary_getters_setters.dart",
+"line": 19,
+"col": 7,
+"error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+},
+{
+"type": "INFO|LINT|unnecessary_getters_setters",
+"file": "test/rules/unnecessary_getters_setters.dart",
+"line": 27,
+"col": 7,
+"error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+},
+{
+"type": "INFO|LINT|unnecessary_getters_setters",
+"file": "test/rules/unnecessary_getters_setters.dart",
+"line": 31,
+"col": 7,
+"error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+},
+{
+"type": "INFO|LINT|unnecessary_getters_setters",
+"file": "test/rules/unnecessary_getters_setters.dart",
+"line": 39,
+"col": 7,
+"error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+},
+{
+"type": "INFO|LINT|unnecessary_getters_setters",
+"file": "test/rules/unnecessary_getters_setters.dart",
+"line": 43,
+"col": 7,
+"error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+},
+{
+"type": "INFO|LINT|unrelated_type_equality_checks",
+"file": "test/rules/unrelated_type_equality_checks.dart",
+"line": 9,
+"col": 7,
+"error": "Equality operator (==) invocation with references of unrelated types."
+},
+{
+"type": "INFO|LINT|unrelated_type_equality_checks",
+"file": "test/rules/unrelated_type_equality_checks.dart",
+"line": 14,
+"col": 7,
+"error": "Equality operator (==) invocation with references of unrelated types."
+},
+{
+"type": "INFO|LINT|unrelated_type_equality_checks",
+"file": "test/rules/unrelated_type_equality_checks.dart",
+"line": 96,
+"col": 7,
+"error": "Equality operator (==) invocation with references of unrelated types."
+}
+],
+"unformattedFiles": [
+"test/engine_test.dart",
+"test/rules/list_remove_unrelated_type.dart",
+"test/rules/package_prefixed_library_names.dart",
+"test/rules/iterable_contains_unrelated_type.dart",
+"test/rules/empty_catches.dart",
+"test/rules/type_annotate_public_apis.dart",
+"test/rules/slash_for_doc_comments.dart",
+"test/rules/unnecessary_getters_setters.dart",
+"test/rules/public_member_api_docs.dart",
+"test/rules/parameter_assignments.dart",
+"test/rules/avoid_empty_else.dart",
+"test/rules/always_declare_return_types.dart",
+"test/rules/always_specify_types.dart",
+"test/rules/unrelated_type_equality_checks.dart",
+"test/rules/overridden_fields.dart",
+"test/rules/invariant_booleans.dart",
+"test/rules/prefer_final_fields.dart",
+"test/rules/non_constant_identifier_names.dart",
+"test/rules/unawaited_futures.dart",
+"test/rules/empty_statements.dart",
+"test/_data/overridden_fields/src/a.dart",
+"test/_data/close_sinks/src/a.dart",
+"test/_data/p1/p1.dart",
+"test/_data/p1/src/p2.dart",
+"test/_data/only_throw_errors/only_throw_errors.dart",
+"test/plugin_test.dart",
+"test/all.dart",
+"lib/src/rules/list_remove_unrelated_type.dart",
+"lib/src/rules/iterable_contains_unrelated_type.dart",
+"lib/src/rules/always_declare_return_types.dart",
+"lib/src/rules/overridden_fields.dart",
+"lib/src/rules/invariant_booleans.dart",
+"lib/src/rules/literal_only_boolean_expressions.dart",
+"lib/src/util/tested_expressions.dart",
+"lib/src/util/unrelated_types_visitor.dart",
+"lib/src/util/boolean_expression_utilities.dart"
+]
+}

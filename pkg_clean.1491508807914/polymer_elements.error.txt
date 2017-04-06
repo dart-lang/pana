@@ -1,0 +1,31 @@
+[1;30mINFO       SDK: Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on "linux_x64"[0m
+[1;30mINFO       Package: polymer_elements[0m
+[1;30mINFO       Using .package-cache: /tmp/pana.1491509017430.qHjkdR[0m
+[1;30mINFO       Downloading package...[0m
+[1;30mINFO       Package at /tmp/pana.1491509017430.qHjkdR/hosted/pub.dartlang.org/polymer_elements-0.3.0[0m
+[1;30mINFO       Running `pub upgrade`...[0m
+Problem with pkg polymer_elements (null)
+Weird! – can't parse 'polymer_ui_elements 0.3.0 from git https://github.com/bwu-dart/polymer_ui_elements at 012d62'
+#0      PubSummary.create.<anonymous closure> (package:pana/src/summary.dart:88:11)
+#1      MappedIterator.moveNext (dart:_internal/iterable.dart:391)
+#2      PubSummary.create (package:pana/src/summary.dart:81:25)
+#3      pubUpgrade (package:pana/pana.dart:106:21)
+<asynchronous suspension>
+#4      inspectPackage (package:pana/pana.dart:53:23)
+<asynchronous suspension>
+#5      main (file:///app/bin/main.dart:50:17)
+<asynchronous suspension>
+#6      _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:263)
+#7      _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:151)
+
+#0      _runProc (file:///usr/local/google/home/kevmoo/src/pana.dart/bin/runner.dart:139:5)
+<asynchronous suspension>
+#1      main.<anonymous closure> (file:///usr/local/google/home/kevmoo/src/pana.dart/bin/runner.dart:88:26)
+<asynchronous suspension>
+#2      MappedListIterable.elementAt (dart:_internal/iterable.dart:412)
+#3      ListIterator.moveNext (dart:_internal/iterable.dart:341)
+#4      Future.wait (dart:async/future.dart:335)
+#5      main (file:///usr/local/google/home/kevmoo/src/pana.dart/bin/runner.dart:82:16)
+<asynchronous suspension>
+#6      _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:261)
+#7      _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:148)

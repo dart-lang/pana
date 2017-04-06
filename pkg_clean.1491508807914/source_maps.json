@@ -1,0 +1,199 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "source_maps",
+"packageVersion": "0.10.4",
+"pubSummary": {
+"packages": {
+"analyzer": "0.29.10",
+"args": "0.13.7",
+"async": "1.13.2",
+"barback": "0.15.2+10",
+"boolean_selector": "1.0.2",
+"charcode": "1.1.1",
+"cli_util": "0.0.1+2",
+"collection": "1.14.0",
+"convert": "2.0.1",
+"crypto": "2.0.1",
+"csslib": "0.13.4",
+"glob": "1.1.3",
+"html": "0.13.1",
+"http": "0.11.3+13",
+"http_multi_server": "2.0.3",
+"http_parser": "3.1.1",
+"isolate": "1.0.0",
+"logging": "0.11.3+1",
+"matcher": "0.12.0+2",
+"meta": "1.0.5",
+"mime": "0.9.3",
+"package_config": "1.0.0",
+"package_resolver": "1.0.2",
+"path": "1.4.1",
+"plugin": "0.2.0",
+"pool": "1.3.0",
+"pub_semver": "1.3.2",
+"shelf": "0.6.7+2",
+"shelf_packages_handler": "1.0.0",
+"shelf_static": "0.2.4",
+"shelf_web_socket": "0.2.1",
+"source_map_stack_trace": "1.1.4",
+"source_span": "1.3.1",
+"stack_trace": "1.7.3",
+"stream_channel": "1.6.1",
+"string_scanner": "1.0.1",
+"term_glyph": "1.0.0",
+"test": "0.12.20+9",
+"typed_data": "1.1.3",
+"utf": "0.9.0+3",
+"watcher": "0.9.7+3",
+"web_socket_channel": "1.0.4",
+"when": "0.2.0",
+"which": "0.1.3",
+"yaml": "2.1.12"
+},
+"availablePackages": {
+"analyzer": "0.30.0-alpha.1"
+},
+"version": "0.10.4"
+},
+"analyzerItems": [
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/end2end_test.dart",
+"line": 114,
+"col": 10,
+"error": "The value of the local variable 'first' isn't used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+"file": "test/parser_test.dart",
+"line": 151,
+"col": 13,
+"error": "The setter 'sourceRoot' isn't defined for the class 'Mapping'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "test/parser_test.dart",
+"line": 154,
+"col": 20,
+"error": "The method 'toJson' isn't defined for the class 'Mapping'."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/parser_test.dart",
+"line": 241,
+"col": 43,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "test/parser_test.dart",
+"line": 333,
+"col": 22,
+"error": "The method 'toJson' isn't defined for the class 'Mapping'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "test/parser_test.dart",
+"line": 336,
+"col": 22,
+"error": "The method 'toJson' isn't defined for the class 'Mapping'."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/parser_test.dart",
+"line": 339,
+"col": 59,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "test/parser_test.dart",
+"line": 342,
+"col": 20,
+"error": "The method 'toJson' isn't defined for the class 'Mapping'."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+"file": "test/run.dart",
+"line": 8,
+"col": 8,
+"error": "Target of URI doesn't exist: 'package:test/compact_vm_config.dart'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+"file": "test/run.dart",
+"line": 21,
+"col": 3,
+"error": "The function 'useCompactVMConfiguration' isn't defined."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/vlq_test.dart",
+"line": 40,
+"col": 42,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/vlq_test.dart",
+"line": 41,
+"col": 42,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/vlq_test.dart",
+"line": 42,
+"col": 42,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/vlq_test.dart",
+"line": 43,
+"col": 42,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/vlq_test.dart",
+"line": 48,
+"col": 59,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/vlq_test.dart",
+"line": 49,
+"col": 59,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/vlq_test.dart",
+"line": 50,
+"col": 59,
+"error": "'throws' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/vlq_test.dart",
+"line": 51,
+"col": 59,
+"error": "'throws' is deprecated and shouldn't be used."
+}
+],
+"unformattedFiles": [
+"test/refactor_test.dart",
+"test/printer_test.dart",
+"test/vlq_test.dart",
+"test/builder_test.dart",
+"test/utils_test.dart",
+"test/common.dart",
+"test/end2end_test.dart",
+"lib/refactor.dart",
+"lib/printer.dart",
+"lib/builder.dart",
+"lib/src/vlq.dart"
+]
+}

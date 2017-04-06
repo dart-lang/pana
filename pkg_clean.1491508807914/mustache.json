@@ -1,0 +1,204 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "mustache",
+"packageVersion": "0.2.5+1",
+"pubSummary": {
+"packages": {
+"path": "1.4.1",
+"stack_trace": "1.7.3",
+"unittest": "0.11.7"
+},
+"availablePackages": {
+"unittest": "0.12.4+1"
+},
+"version": "0.2.5+1"
+},
+"analyzerItems": [
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/lambda_context.dart",
+"line": 14,
+"col": 14,
+"error": "The value of the field '_isSection' isn't used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "lib/src/lambda_context.dart",
+"line": 75,
+"col": 74,
+"error": "The getter 'text' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "lib/src/parser.dart",
+"line": 150,
+"col": 36,
+"error": "The getter 'text' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_WARNING|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 262,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "INFO|CHECKED_MODE_COMPILE_TIME_ERROR|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 262,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 263,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "INFO|CHECKED_MODE_COMPILE_TIME_ERROR|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 263,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 264,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "INFO|CHECKED_MODE_COMPILE_TIME_ERROR|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 264,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 265,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "INFO|CHECKED_MODE_COMPILE_TIME_ERROR|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 265,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 266,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "INFO|CHECKED_MODE_COMPILE_TIME_ERROR|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 266,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 267,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "INFO|CHECKED_MODE_COMPILE_TIME_ERROR|MAP_KEY_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/renderer.dart",
+"line": 267,
+"col": 5,
+"error": "The element type 'int' can't be assigned to the map key type 'String'."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/scanner.dart",
+"line": 38,
+"col": 14,
+"error": "The value of the field '_lenient' isn't used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "test/mustache_specs.dart",
+"line": 49,
+"col": 62,
+"error": "The method 'reset' isn't defined for the class 'Function'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "test/parser_test.dart",
+"line": 164,
+"col": 28,
+"error": "The getter 'children' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "test/parser_test.dart",
+"line": 176,
+"col": 28,
+"error": "The getter 'children' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "test/parser_test.dart",
+"line": 189,
+"col": 28,
+"error": "The getter 'children' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "test/parser_test.dart",
+"line": 200,
+"col": 28,
+"error": "The getter 'children' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "test/parser_test.dart",
+"line": 208,
+"col": 28,
+"error": "The getter 'children' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "test/parser_test.dart",
+"line": 231,
+"col": 28,
+"error": "The getter 'children' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "test/parser_test.dart",
+"line": 256,
+"col": 23,
+"error": "The getter 'delimiters' isn't defined for the class 'Node'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "test/parser_test.dart",
+"line": 262,
+"col": 28,
+"error": "The getter 'children' isn't defined for the class 'Node'."
+}
+],
+"unformattedFiles": [
+"test/parser_test.dart",
+"test/mustache_test.dart",
+"example/lambdas.dart",
+"example/partials.dart",
+"example/nested_paths.dart",
+"example/basic.dart",
+"lib/src/renderer.dart",
+"lib/src/lambda_context.dart",
+"lib/src/scanner.dart"
+]
+}

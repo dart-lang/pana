@@ -1,0 +1,1417 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "image",
+"packageVersion": "1.1.26",
+"pubSummary": {
+"packages": {
+"analyzer": "0.25.0+1",
+"archive": "1.0.28",
+"args": "0.13.7",
+"async": "1.13.2",
+"barback": "0.15.2+10",
+"boolean_selector": "1.0.2",
+"browser": "0.10.0+2",
+"charcode": "1.1.1",
+"collection": "1.14.0",
+"convert": "1.1.1",
+"crypto": "0.9.2+1",
+"glob": "1.1.3",
+"http": "0.11.3+13",
+"http_multi_server": "2.0.3",
+"http_parser": "3.1.1",
+"matcher": "0.12.0+2",
+"meta": "1.0.5",
+"mime": "0.9.3",
+"package_config": "1.0.0",
+"package_resolver": "1.0.2",
+"path": "1.4.1",
+"petitparser": "1.5.4",
+"pool": "1.3.0",
+"pub_semver": "1.3.2",
+"shelf": "0.6.7+2",
+"shelf_packages_handler": "1.0.0",
+"shelf_static": "0.2.4",
+"shelf_web_socket": "0.2.1",
+"source_map_stack_trace": "1.1.4",
+"source_maps": "0.10.4",
+"source_span": "1.3.1",
+"stack_trace": "1.7.3",
+"stream_channel": "1.6.1",
+"string_scanner": "1.0.1",
+"term_glyph": "1.0.0",
+"test": "0.12.20+9",
+"typed_data": "1.1.3",
+"watcher": "0.9.7+3",
+"web_socket_channel": "1.0.4",
+"xml": "2.5.0",
+"yaml": "2.1.12"
+},
+"availablePackages": {
+"analyzer": "0.29.10",
+"convert": "2.0.1",
+"crypto": "2.0.1"
+},
+"version": "1.1.26"
+},
+"analyzerItems": [
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "lib/src/bitmap_font.dart",
+"line": 130,
+"col": 23,
+"error": "The getter 'name' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 208,
+"col": 35,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 209,
+"col": 34,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 232,
+"col": 41,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 233,
+"col": 42,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 234,
+"col": 42,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "lib/src/bitmap_font.dart",
+"line": 248,
+"col": 23,
+"error": "The getter 'name' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 254,
+"col": 35,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 255,
+"col": 34,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 256,
+"col": 34,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 257,
+"col": 38,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 258,
+"col": 39,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 259,
+"col": 40,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 260,
+"col": 40,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 261,
+"col": 41,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 262,
+"col": 37,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "lib/src/bitmap_font.dart",
+"line": 263,
+"col": 37,
+"error": "The method 'getAttribute' isn't defined for the class 'XmlNode'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 309,
+"col": 66,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlAttribute>'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 314,
+"col": 68,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlAttribute>'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 319,
+"col": 66,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlAttribute>'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 327,
+"col": 66,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlAttribute>'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 335,
+"col": 69,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlAttribute>'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 343,
+"col": 11,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlNode>'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 349,
+"col": 11,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlNode>'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 354,
+"col": 68,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlNode>'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/bitmap_font.dart",
+"line": 358,
+"col": 63,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<XmlNode>'."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "lib/src/color.dart",
+"line": 74,
+"col": 5,
+"error": "The function '_clamp' isn't used."
+},
+{
+"type": "INFO|HINT|DEAD_CODE",
+"file": "lib/src/color.dart",
+"line": 287,
+"col": 3,
+"error": "Dead code."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/exr/exr_b44_compressor.dart",
+"line": 24,
+"col": 8,
+"error": "The value of the field '_optFlatFields' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 90,
+"col": 8,
+"error": "The method '_isNonImage' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 99,
+"col": 16,
+"error": "The value of the local variable 'multiPart' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 129,
+"col": 16,
+"error": "The value of the local variable 'fbi' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 152,
+"col": 17,
+"error": "The value of the local variable 'levelX' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 153,
+"col": 17,
+"error": "The value of the local variable 'levelY' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 184,
+"col": 17,
+"error": "The value of the local variable 'lineCount' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 219,
+"col": 9,
+"error": "The value of the local variable 'scanLineMin' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 220,
+"col": 9,
+"error": "The value of the local variable 'scanLineMax' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 224,
+"col": 9,
+"error": "The value of the local variable 'maxY' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 227,
+"col": 9,
+"error": "The value of the local variable 'total' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 229,
+"col": 9,
+"error": "The value of the local variable 'xx' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 243,
+"col": 11,
+"error": "The value of the local variable 'y' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_image.dart",
+"line": 257,
+"col": 11,
+"error": "The value of the local variable 'lineCount' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/exr/exr_part.dart",
+"line": 333,
+"col": 7,
+"error": "The value of the field '_type' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/exr/exr_part.dart",
+"line": 334,
+"col": 7,
+"error": "The value of the field '_lineOrder' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/exr/exr_part.dart",
+"line": 341,
+"col": 7,
+"error": "The value of the field '_lineBufferSize' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/exr/exr_part.dart",
+"line": 355,
+"col": 7,
+"error": "The value of the field '_tileBufferSize' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/exr/exr_piz_compressor.dart",
+"line": 110,
+"col": 9,
+"error": "The value of the local variable 'count' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/gif_decoder.dart",
+"line": 59,
+"col": 19,
+"error": "The value of the local variable 'blockSize' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/gif_decoder.dart",
+"line": 63,
+"col": 19,
+"error": "The value of the local variable 'endBlock' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/gif_decoder.dart",
+"line": 65,
+"col": 19,
+"error": "The value of the local variable 'userInput' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "lib/src/formats/gif_decoder.dart",
+"line": 189,
+"col": 8,
+"error": "The method '_skipExtension' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/gif_decoder.dart",
+"line": 190,
+"col": 9,
+"error": "The value of the local variable 'extCode' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/jpeg/jpeg_data.dart",
+"line": 101,
+"col": 21,
+"error": "The value of the local variable 'component' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/jpeg_decoder.dart",
+"line": 14,
+"col": 17,
+"error": "The value of the local variable 'input' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/jpeg_encoder.dart",
+"line": 58,
+"col": 9,
+"error": "The value of the local variable 'tripleWidth' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/jpeg_encoder.dart",
+"line": 59,
+"col": 10,
+"error": "The value of the local variable 'first' isn't used."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+"file": "lib/src/formats/jpeg_encoder.dart",
+"line": 568,
+"col": 23,
+"error": "The type of 'bitcode' can't be inferred because type arguments were not given for 'List'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+"file": "lib/src/formats/jpeg_encoder.dart",
+"line": 569,
+"col": 24,
+"error": "The type of 'category' can't be inferred because type arguments were not given for 'List'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+"file": "lib/src/formats/jpeg_encoder.dart",
+"line": 571,
+"col": 18,
+"error": "The type of 'DU' can't be inferred because type arguments were not given for 'List'."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/png_decoder.dart",
+"line": 160,
+"col": 15,
+"error": "The value of the local variable 'sequenceNumber' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/png_decoder.dart",
+"line": 229,
+"col": 16,
+"error": "The value of the local variable 'chunkType' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/png_decoder.dart",
+"line": 376,
+"col": 9,
+"error": "The value of the local variable 'pi' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/png_decoder.dart",
+"line": 398,
+"col": 11,
+"error": "The value of the local variable 'yMax' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/png_decoder.dart",
+"line": 408,
+"col": 15,
+"error": "The value of the local variable 'xPixels' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/png_encoder.dart",
+"line": 251,
+"col": 19,
+"error": "The value of the field '_crcTable' isn't used."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_SUPER_INVOCATION",
+"file": "lib/src/formats/psd/layer_data/psd_layer_additional_data.dart",
+"line": 7,
+"col": 5,
+"error": "super call must be last in an initializer list (see https://goo.gl/EY6hDP): 'super.type(tag)'."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 109,
+"col": 11,
+"error": "The value of the local variable 'ns' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 471,
+"col": 11,
+"error": "The value of the local variable 'colorSpace' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 472,
+"col": 11,
+"error": "The value of the local variable 'rc' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 473,
+"col": 11,
+"error": "The value of the local variable 'gc' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 474,
+"col": 11,
+"error": "The value of the local variable 'bc' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 475,
+"col": 11,
+"error": "The value of the local variable 'ac' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 476,
+"col": 11,
+"error": "The value of the local variable 'opacity' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 477,
+"col": 11,
+"error": "The value of the local variable 'kind' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/psd/psd_image.dart",
+"line": 603,
+"col": 15,
+"error": "The value of the field '_colorData' isn't used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "lib/src/formats/psd/psd_layer.dart",
+"line": 149,
+"col": 50,
+"error": "The getter 'data' isn't defined for the class 'PsdLayerData'."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_layer.dart",
+"line": 150,
+"col": 15,
+"error": "The value of the local variable 'version' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/psd/psd_layer.dart",
+"line": 154,
+"col": 17,
+"error": "The value of the local variable 'tag' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 37,
+"col": 11,
+"error": "The value of the local variable 'height' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 38,
+"col": 11,
+"error": "The value of the local variable 'width' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 39,
+"col": 11,
+"error": "The value of the local variable 'mipcount' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 40,
+"col": 11,
+"error": "The value of the local variable 'flags' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 41,
+"col": 11,
+"error": "The value of the local variable 'texdatasize' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 42,
+"col": 11,
+"error": "The value of the local variable 'bpp' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 43,
+"col": 11,
+"error": "The value of the local variable 'rmask' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 44,
+"col": 11,
+"error": "The value of the local variable 'gmask' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 45,
+"col": 11,
+"error": "The value of the local variable 'bmask' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 59,
+"col": 9,
+"error": "The value of the local variable 'format' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 102,
+"col": 9,
+"error": "The value of the local variable 'numMips' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 138,
+"col": 9,
+"error": "The value of the local variable 'mipcount' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 140,
+"col": 9,
+"error": "The value of the local variable 'texdatasize' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 142,
+"col": 9,
+"error": "The value of the local variable 'rmask' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 143,
+"col": 9,
+"error": "The value of the local variable 'gmask' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 144,
+"col": 9,
+"error": "The value of the local variable 'bmask' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 313,
+"col": 15,
+"error": "The value of the local variable 'PVR3_PVRTC_2BPP_RGB' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 314,
+"col": 15,
+"error": "The value of the local variable 'PVR3_PVRTC_2BPP_RGBA' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 317,
+"col": 15,
+"error": "The value of the local variable 'PVR3_PVRTC2_2BPP' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 318,
+"col": 15,
+"error": "The value of the local variable 'PVR3_PVRTC2_4BPP' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 319,
+"col": 15,
+"error": "The value of the local variable 'PVR3_ETC1' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 320,
+"col": 15,
+"error": "The value of the local variable 'PVR3_DXT1' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 321,
+"col": 15,
+"error": "The value of the local variable 'PVR3_DXT2' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 322,
+"col": 15,
+"error": "The value of the local variable 'PVR3_DXT3' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 323,
+"col": 15,
+"error": "The value of the local variable 'PVR3_DXT4' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 324,
+"col": 15,
+"error": "The value of the local variable 'PVR3_DXT5' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 325,
+"col": 15,
+"error": "The value of the local variable 'PVR3_BC1' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 326,
+"col": 15,
+"error": "The value of the local variable 'PVR3_BC2' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 327,
+"col": 15,
+"error": "The value of the local variable 'PVR3_BC3' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 328,
+"col": 15,
+"error": "The value of the local variable 'PVR3_BC4' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 329,
+"col": 15,
+"error": "The value of the local variable 'PVR3_BC5' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 330,
+"col": 15,
+"error": "The value of the local variable 'PVR3_BC6' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 331,
+"col": 15,
+"error": "The value of the local variable 'PVR3_BC7' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 332,
+"col": 15,
+"error": "The value of the local variable 'PVR3_UYVY' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 333,
+"col": 15,
+"error": "The value of the local variable 'PVR3_YUY2' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 334,
+"col": 15,
+"error": "The value of the local variable 'PVR3_BW_1BPP' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 335,
+"col": 15,
+"error": "The value of the local variable 'PVR3_R9G9B9E5' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 336,
+"col": 15,
+"error": "The value of the local variable 'PVR3_RGBG8888' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 337,
+"col": 15,
+"error": "The value of the local variable 'PVR3_GRGB8888' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 338,
+"col": 15,
+"error": "The value of the local variable 'PVR3_ETC2_RGB' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 339,
+"col": 15,
+"error": "The value of the local variable 'PVR3_ETC2_RGBA' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 340,
+"col": 15,
+"error": "The value of the local variable 'PVR3_ETC2_RGB_A1' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 341,
+"col": 15,
+"error": "The value of the local variable 'PVR3_EAC_R11_U' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 342,
+"col": 15,
+"error": "The value of the local variable 'PVR3_EAC_R11_S' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 343,
+"col": 15,
+"error": "The value of the local variable 'PVR3_EAC_RG11_U' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 344,
+"col": 15,
+"error": "The value of the local variable 'PVR3_EAC_RG11_S' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 354,
+"col": 9,
+"error": "The value of the local variable 'flags' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 358,
+"col": 9,
+"error": "The value of the local variable 'colorspace' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 359,
+"col": 9,
+"error": "The value of the local variable 'channeltype' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 362,
+"col": 9,
+"error": "The value of the local variable 'depth' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 363,
+"col": 9,
+"error": "The value of the local variable 'num_surfaces' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 364,
+"col": 9,
+"error": "The value of the local variable 'num_faces' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"line": 365,
+"col": 9,
+"error": "The value of the local variable 'mipcount' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_ELEMENT",
+"file": "lib/src/formats/pvrtc/pvrtc_encoder.dart",
+"line": 351,
+"col": 15,
+"error": "The method '_getPacket' isn't used."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "lib/src/formats/tiff/tiff_entry.dart",
+"line": 43,
+"col": 37,
+"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<int>'."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/tiff/tiff_image.dart",
+"line": 459,
+"col": 9,
+"error": "The value of the local variable 'j' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/tiff/tiff_lzw_decoder.dart",
+"line": 23,
+"col": 9,
+"error": "The value of the local variable 'num' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/tiff/tiff_lzw_decoder.dart",
+"line": 129,
+"col": 7,
+"error": "The value of the field '_bitPointer' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp/vp8.dart",
+"line": 823,
+"col": 9,
+"error": "The value of the local variable 'numLinesOut' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp/vp8.dart",
+"line": 1092,
+"col": 9,
+"error": "The value of the local variable 'di' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/vp8.dart",
+"line": 1394,
+"col": 13,
+"error": "The value of the field '_ditheringRand' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/vp8.dart",
+"line": 1439,
+"col": 13,
+"error": "The value of the field '_mem' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/vp8.dart",
+"line": 1459,
+"col": 7,
+"error": "The value of the field '_isAlphaDecoded' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/vp8.dart",
+"line": 1464,
+"col": 7,
+"error": "The value of the field '_layerColorspace' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/vp8.dart",
+"line": 1466,
+"col": 13,
+"error": "The value of the field '_layerData' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/vp8_filter.dart",
+"line": 713,
+"col": 14,
+"error": "The value of the field '__maxN' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/vp8l.dart",
+"line": 487,
+"col": 14,
+"error": "The value of the field '__count' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp/vp8l.dart",
+"line": 498,
+"col": 9,
+"error": "The value of the local variable 'count' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp/vp8l.dart",
+"line": 499,
+"col": 9,
+"error": "The value of the local variable 'di' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp/vp8l.dart",
+"line": 642,
+"col": 10,
+"error": "The value of the local variable 'ok' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/vp8l.dart",
+"line": 842,
+"col": 7,
+"error": "The value of the field '_ioHeight' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_FIELD",
+"file": "lib/src/formats/webp/webp_info.dart",
+"line": 37,
+"col": 7,
+"error": "The value of the field '_alphaSize' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp_decoder.dart",
+"line": 215,
+"col": 9,
+"error": "The value of the local variable 'fileSize' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp_decoder.dart",
+"line": 307,
+"col": 9,
+"error": "The value of the local variable 'icc' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp_decoder.dart",
+"line": 309,
+"col": 9,
+"error": "The value of the local variable 'exif' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/formats/webp_decoder.dart",
+"line": 310,
+"col": 9,
+"error": "The value of the local variable 'xmp' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "lib/src/hdr/hdr_bloom.dart",
+"line": 44,
+"col": 19,
+"error": "The value of the local variable 'bloomOffset' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/filter_test.dart",
+"line": 35,
+"col": 15,
+"error": "The value of the local variable 'fp' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/filter_test.dart",
+"line": 359,
+"col": 15,
+"error": "The value of the local variable 'fp' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/png_test.dart",
+"line": 74,
+"col": 19,
+"error": "The value of the local variable 'image' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/tga_test.dart",
+"line": 42,
+"col": 15,
+"error": "The value of the local variable 'out' isn't used."
+},
+{
+"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION",
+"file": "web/image_http_input.dart",
+"line": 26,
+"col": 35,
+"error": "The function 'onFileLoaded' has type '(ProgressEvent) → void' that isn't of expected type '(Event) → dynamic'. This means its parameter or return type does not match what is expected."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "web/image_http_input.dart",
+"line": 80,
+"col": 17,
+"error": "'CryptoUtils' is deprecated and shouldn't be used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 8,
+"col": 7,
+"error": "The setter 'width' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 8,
+"col": 22,
+"error": "The getter 'width' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 9,
+"col": 7,
+"error": "The setter 'height' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 9,
+"col": 23,
+"error": "The getter 'height' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+"file": "web/test_jpeg_encoder.dart",
+"line": 11,
+"col": 17,
+"error": "The method 'getContext' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 15,
+"col": 42,
+"error": "The getter 'width' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 15,
+"col": 53,
+"error": "The getter 'height' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 16,
+"col": 41,
+"error": "The getter 'width' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 16,
+"col": 52,
+"error": "The getter 'height' isn't defined for the class 'Element'."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "web/test_jpeg_encoder.dart",
+"line": 20,
+"col": 15,
+"error": "'CryptoUtils' is deprecated and shouldn't be used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+"file": "web/test_jpeg_encoder.dart",
+"line": 22,
+"col": 7,
+"error": "The setter 'src' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "web/webp_viewer.dart",
+"line": 13,
+"col": 13,
+"error": "The getter 'src' isn't defined for the class 'Element'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+"file": "web/webp_viewer.dart",
+"line": 15,
+"col": 27,
+"error": "The getter 'src' isn't defined for the class 'Element'."
+},
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "web/webp_viewer.dart",
+"line": 26,
+"col": 23,
+"error": "'CryptoUtils' is deprecated and shouldn't be used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+"file": "web/webp_viewer.dart",
+"line": 27,
+"col": 15,
+"error": "The setter 'src' isn't defined for the class 'Element'."
+}
+],
+"unformattedFiles": [
+"web/image_http_input.dart",
+"web/filter_lab.dart",
+"web/test_formats.dart",
+"web/test_jpeg_encoder.dart",
+"web/webp_viewer.dart",
+"test/exr_test.dart",
+"test/filter_test.dart",
+"test/jpeg_test.dart",
+"test/half_test.dart",
+"test/font_test.dart",
+"test/psd_test.dart",
+"test/pvrtc_test.dart",
+"test/tiff_test.dart",
+"test/png_test.dart",
+"test/tga_test.dart",
+"test/webp_test.dart",
+"test/gif_test.dart",
+"lib/src/image.dart",
+"lib/src/bitmap_font.dart",
+"lib/src/fonts/arial_24.dart",
+"lib/src/fonts/arial_14.dart",
+"lib/src/fonts/arial_48.dart",
+"lib/src/draw/draw_string.dart",
+"lib/src/draw/draw_line.dart",
+"lib/src/draw/draw_char.dart",
+"lib/src/draw/draw_circle.dart",
+"lib/src/draw/draw_image.dart",
+"lib/src/transform/flip.dart",
+"lib/src/transform/copy_into.dart",
+"lib/src/transform/trim.dart",
+"lib/src/transform/copy_resize.dart",
+"lib/src/transform/copy_rotate.dart",
+"lib/src/color.dart",
+"lib/src/animation.dart",
+"lib/src/hdr/reinhard_tone_map.dart",
+"lib/src/hdr/hdr_image.dart",
+"lib/src/hdr/hdr_to_image.dart",
+"lib/src/hdr/hdr_bloom.dart",
+"lib/src/hdr/hdr_slice.dart",
+"lib/src/hdr/half.dart",
+"lib/src/effects/drop_shadow.dart",
+"lib/src/formats/gif/gif_color_map.dart",
+"lib/src/formats/gif/gif_image_desc.dart",
+"lib/src/formats/png_decoder.dart",
+"lib/src/formats/tiff_decoder.dart",
+"lib/src/formats/jpeg_encoder.dart",
+"lib/src/formats/gif_encoder.dart",
+"lib/src/formats/tiff/tiff_bit_reader.dart",
+"lib/src/formats/tiff/tiff_image.dart",
+"lib/src/formats/tiff/tiff_fax_decoder.dart",
+"lib/src/formats/tiff/tiff_entry.dart",
+"lib/src/formats/psd/effect/psd_bevel_effect.dart",
+"lib/src/formats/psd/effect/psd_inner_shadow_effect.dart",
+"lib/src/formats/psd/effect/psd_inner_glow_effect.dart",
+"lib/src/formats/psd/effect/psd_drop_shadow_effect.dart",
+"lib/src/formats/psd/effect/psd_solid_fill_effect.dart",
+"lib/src/formats/psd/effect/psd_outer_glow_effect.dart",
+"lib/src/formats/psd/psd_layer.dart",
+"lib/src/formats/psd/psd_image.dart",
+"lib/src/formats/psd/psd_blending_ranges.dart",
+"lib/src/formats/psd/layer_data/psd_layer_additional_data.dart",
+"lib/src/formats/psd/layer_data/psd_layer_section_divider.dart",
+"lib/src/formats/psd/psd_channel.dart",
+"lib/src/formats/webp_decoder.dart",
+"lib/src/formats/webp/vp8l.dart",
+"lib/src/formats/webp/vp8l_bit_reader.dart",
+"lib/src/formats/webp/webp_info.dart",
+"lib/src/formats/webp/webp_frame.dart",
+"lib/src/formats/webp/vp8_filter.dart",
+"lib/src/formats/webp/webp_alpha.dart",
+"lib/src/formats/webp/vp8l_color_cache.dart",
+"lib/src/formats/webp/vp8_types.dart",
+"lib/src/formats/webp/vp8.dart",
+"lib/src/formats/webp/vp8_bit_reader.dart",
+"lib/src/formats/webp/webp_huffman.dart",
+"lib/src/formats/webp/vp8l_transform.dart",
+"lib/src/formats/webp/webp_filters.dart",
+"lib/src/formats/gif_decoder.dart",
+"lib/src/formats/jpeg/jpeg_scan.dart",
+"lib/src/formats/jpeg/jpeg.dart",
+"lib/src/formats/jpeg/jpeg_frame.dart",
+"lib/src/formats/jpeg/jpeg_data.dart",
+"lib/src/formats/jpeg/jpeg_component.dart",
+"lib/src/formats/exr/exr_piz_compressor.dart",
+"lib/src/formats/exr/exr_wavelet.dart",
+"lib/src/formats/exr/exr_image.dart",
+"lib/src/formats/exr/exr_channel.dart",
+"lib/src/formats/exr/exr_zip_compressor.dart",
+"lib/src/formats/exr/exr_pxr24_compressor.dart",
+"lib/src/formats/exr/exr_huffman.dart",
+"lib/src/formats/exr/exr_rle_compressor.dart",
+"lib/src/formats/exr/exr_compressor.dart",
+"lib/src/formats/exr/exr_part.dart",
+"lib/src/formats/exr/exr_b44_compressor.dart",
+"lib/src/formats/tga_decoder.dart",
+"lib/src/formats/pvrtc/pvrtc_color.dart",
+"lib/src/formats/pvrtc/pvrtc_encoder.dart",
+"lib/src/formats/pvrtc/pvrtc_bit_utility.dart",
+"lib/src/formats/pvrtc/pvrtc_color_bounding_box.dart",
+"lib/src/formats/pvrtc/pvrtc_decoder.dart",
+"lib/src/formats/pvrtc/pvrtc_packet.dart",
+"lib/src/formats/webp_encoder.dart",
+"lib/src/formats/formats.dart",
+"lib/src/formats/decode_info.dart",
+"lib/src/formats/exr_decoder.dart",
+"lib/src/formats/png_encoder.dart",
+"lib/src/filter/noise.dart",
+"lib/src/filter/pixelate.dart",
+"lib/src/filter/sobel.dart",
+"lib/src/filter/vignette.dart",
+"lib/src/filter/convolution.dart",
+"lib/src/filter/adjust_color.dart",
+"lib/src/filter/smooth.dart",
+"lib/src/filter/bump_to_normal.dart",
+"lib/src/filter/emboss.dart",
+"lib/src/filter/remap_colors.dart",
+"lib/src/filter/seperable_kernel.dart",
+"lib/src/util/random.dart",
+"lib/src/util/clip_line.dart",
+"lib/src/util/min_max.dart",
+"lib/src/util/neural_quantizer.dart",
+"lib/src/util/interpolation.dart",
+"lib/src/util/bit_operators.dart",
+"lib/src/util/input_buffer.dart",
+"lib/src/util/output_buffer.dart"
+]
+}

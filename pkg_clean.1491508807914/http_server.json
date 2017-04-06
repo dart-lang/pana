@@ -1,0 +1,299 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "http_server",
+"packageVersion": "0.9.6",
+"pubSummary": {
+"packages": {
+"mime": "0.9.3",
+"path": "1.4.1",
+"stack_trace": "1.7.3",
+"unittest": "0.11.7"
+},
+"availablePackages": {
+"unittest": "0.12.4+1"
+},
+"version": "0.9.6"
+},
+"analyzerItems": [
+{
+"type": "INFO|HINT|UNUSED_CATCH_CLAUSE",
+"file": "test/http_mock.dart",
+"line": 21,
+"col": 29,
+"error": "The exception variable 'e' isn't used, so the 'catch' clause can be removed."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "test/http_multipart_test.dart",
+"line": 82,
+"col": 17,
+"error": "The argument type '(Iterable<Future<dynamic>>, {eagerError: bool, cleanUp: (dynamic) → void}) → Future<List<dynamic>>' can't be assigned to the parameter type '(List<dynamic>) → FutureOr<List<dynamic>>'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+"file": "test/http_multipart_test.dart",
+"line": 152,
+"col": 13,
+"error": "A value of type 'List<int>' can't be assigned to a variable of type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "test/http_multipart_test.dart",
+"line": 186,
+"col": 16,
+"error": "The argument type 'String' can't be assigned to the parameter type 'List<int>'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+"file": "test/http_multipart_test.dart",
+"line": 198,
+"col": 13,
+"error": "A value of type 'List<int>' can't be assigned to a variable of type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "test/http_multipart_test.dart",
+"line": 210,
+"col": 16,
+"error": "The argument type 'String' can't be assigned to the parameter type 'List<int>'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+"file": "test/http_multipart_test.dart",
+"line": 218,
+"col": 13,
+"error": "A value of type 'List<int>' can't be assigned to a variable of type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "test/http_multipart_test.dart",
+"line": 230,
+"col": 16,
+"error": "The argument type 'String' can't be assigned to the parameter type 'List<int>'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+"file": "test/http_multipart_test.dart",
+"line": 236,
+"col": 13,
+"error": "A value of type 'List<int>' can't be assigned to a variable of type 'String'."
+},
+{
+"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+"file": "test/http_multipart_test.dart",
+"line": 247,
+"col": 16,
+"error": "The argument type 'String' can't be assigned to the parameter type 'List<int>'."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+"file": "test/utils.dart",
+"line": 219,
+"col": 14,
+"error": "The return type 'HttpResponse' isn't a 'FutureOr<MockHttpResponse>', as defined by the method ''."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 52,
+"col": 13,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 73,
+"col": 19,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 82,
+"col": 19,
+"error": "The value of the local variable 'dir2' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 83,
+"col": 19,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 178,
+"col": 15,
+"error": "The value of the local variable 'link' isn't used."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+"file": "test/virtual_directory_test.dart",
+"line": 315,
+"col": 18,
+"error": "The return type 'Future' isn't a 'void', as defined by the method ''."
+},
+{
+"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+"file": "test/virtual_directory_test.dart",
+"line": 329,
+"col": 18,
+"error": "The return type 'Future' isn't a 'void', as defined by the method ''."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 353,
+"col": 15,
+"error": "The value of the local variable 'link' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 354,
+"col": 15,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 365,
+"col": 15,
+"error": "The value of the local variable 'link' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 366,
+"col": 15,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 378,
+"col": 19,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 379,
+"col": 19,
+"error": "The value of the local variable 'link' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 392,
+"col": 19,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 393,
+"col": 19,
+"error": "The value of the local variable 'link' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 409,
+"col": 17,
+"error": "The value of the local variable 'link' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 410,
+"col": 17,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 424,
+"col": 19,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 425,
+"col": 19,
+"error": "The value of the local variable 'link' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 439,
+"col": 19,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 440,
+"col": 19,
+"error": "The value of the local variable 'link' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 459,
+"col": 15,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 477,
+"col": 15,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 503,
+"col": 15,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 740,
+"col": 13,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_directory_test.dart",
+"line": 750,
+"col": 13,
+"error": "The value of the local variable 'file' isn't used."
+},
+{
+"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+"file": "test/virtual_host_test.dart",
+"line": 18,
+"col": 11,
+"error": "The value of the local variable 'virHost' isn't used."
+}
+],
+"unformattedFiles": [
+"test/http_mock.dart",
+"test/virtual_host_test.dart",
+"test/virtual_directory_test.dart",
+"test/http_multipart_test.dart",
+"test/http_body_test.dart",
+"test/utils.dart",
+"lib/src/http_body.dart",
+"lib/src/virtual_host.dart",
+"lib/src/http_multipart_form_data.dart",
+"lib/src/http_body_impl.dart",
+"lib/src/virtual_directory.dart",
+"lib/src/http_multipart_form_data_impl.dart"
+]
+}

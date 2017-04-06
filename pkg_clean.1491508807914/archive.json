@@ -1,0 +1,193 @@
+{
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"packageName": "archive",
+"packageVersion": "1.0.28",
+"pubSummary": {
+"packages": {
+"analyzer": "0.29.10",
+"args": "0.13.7",
+"async": "1.13.2",
+"barback": "0.15.2+10",
+"boolean_selector": "1.0.2",
+"browser": "0.10.0+2",
+"charcode": "1.1.1",
+"cli_util": "0.0.1+2",
+"collection": "1.14.0",
+"convert": "2.0.1",
+"crypto": "2.0.1",
+"csslib": "0.13.4",
+"glob": "1.1.3",
+"html": "0.13.1",
+"http": "0.11.3+13",
+"http_multi_server": "2.0.3",
+"http_parser": "3.1.1",
+"isolate": "1.0.0",
+"logging": "0.11.3+1",
+"matcher": "0.12.0+2",
+"meta": "1.0.5",
+"mime": "0.9.3",
+"package_config": "1.0.0",
+"package_resolver": "1.0.2",
+"path": "1.4.1",
+"plugin": "0.2.0",
+"pool": "1.3.0",
+"pub_semver": "1.3.2",
+"shelf": "0.6.7+2",
+"shelf_packages_handler": "1.0.0",
+"shelf_static": "0.2.4",
+"shelf_web_socket": "0.2.1",
+"source_map_stack_trace": "1.1.4",
+"source_maps": "0.10.4",
+"source_span": "1.3.1",
+"stack_trace": "1.7.3",
+"stream_channel": "1.6.1",
+"string_scanner": "1.0.1",
+"term_glyph": "1.0.0",
+"test": "0.12.20+9",
+"typed_data": "1.1.3",
+"utf": "0.9.0+3",
+"watcher": "0.9.7+3",
+"web_socket_channel": "1.0.4",
+"when": "0.2.0",
+"which": "0.1.3",
+"yaml": "2.1.12"
+},
+"availablePackages": {
+"analyzer": "0.30.0-alpha.1"
+},
+"version": "1.0.28"
+},
+"analyzerItems": [
+{
+"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+"file": "test/archive_test.dart",
+"line": 28,
+"col": 32,
+"error": "'verbose' is deprecated and shouldn't be used."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 10,
+"col": 50,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 28,
+"col": 50,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 57,
+"col": 32,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 74,
+"col": 49,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 114,
+"col": 28,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 120,
+"col": 28,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 131,
+"col": 28,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 136,
+"col": 28,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 165,
+"col": 28,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 171,
+"col": 28,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 185,
+"col": 31,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 193,
+"col": 28,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+},
+{
+"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+"file": "test/zip_test.dart",
+"line": 205,
+"col": 60,
+"error": "The type of 'zipTests' can't be inferred because of the use of the instance getter 'codeUnits'."
+}
+],
+"unformattedFiles": [
+"test/deflate_test.dart",
+"test/tar_test.dart",
+"test/bzip2_test.dart",
+"test/inflate_test.dart",
+"test/zip_test.dart",
+"test/adler32_test.dart",
+"test/commands_test.dart",
+"test/input_stream_test.dart",
+"test/crc32_test.dart",
+"example/decode_zip.dart",
+"lib/src/zip/zip_directory.dart",
+"lib/src/zlib/deflate.dart",
+"lib/src/zlib/inflate.dart",
+"lib/src/zlib_decoder.dart",
+"lib/src/archive_file.dart",
+"lib/src/zip_encoder.dart",
+"lib/src/bzip2_decoder.dart",
+"lib/src/tar_decoder.dart",
+"lib/src/gzip_decoder.dart",
+"lib/src/bzip2/bzip2.dart",
+"lib/src/bzip2/bz2_bit_reader.dart",
+"lib/src/tar/tar_file.dart",
+"lib/src/bzip2_encoder.dart",
+"lib/src/archive.dart",
+"lib/src/zip_decoder.dart",
+"lib/src/util/output_stream.dart",
+"lib/src/util/mem_ptr.dart",
+"lib/src/util/input_stream.dart",
+"lib/src/util/crc32.dart",
+"lib/src/util/adler32.dart",
+"bin/tar.dart"
+]
+}
