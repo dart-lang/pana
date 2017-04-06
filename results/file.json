@@ -56,6 +56,11 @@
 "analyzer": "0.30.0-alpha.1",
 "intl": "0.15.0"
 },
+"authors": [
+"Matan Lurey <matanl@google.com>",
+"Yegor Jbanov <yjbanov@google.com>",
+"Todd Volkert <tvolkert@google.com>"
+],
 "version": "2.3.2"
 },
 "analyzerItems": [],

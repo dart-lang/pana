@@ -58,6 +58,10 @@
 "analyzer": "0.30.0-alpha.1",
 "intl": "0.15.0"
 },
+"authors": [
+"Todd Volkert <tvolkert@google.com>",
+"Michael Goderbauer <goderbauer@google.com>"
+],
 "version": "2.0.3"
 },
 "analyzerItems": [],

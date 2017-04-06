@@ -58,8 +58,11 @@
 },
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1",
-"dart_style": "1.0.1"
+"dart_style": "1.0.3"
 },
+"authors": [
+"Polymer.dart Authors <web-ui-dev@dartlang.org>"
+],
 "version": "0.12.5"
 },
 "analyzerItems": [

@@ -54,6 +54,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Yulian Kuncheff <yulian@kuncheff.com>"
+],
 "version": "0.5.3"
 },
 "analyzerItems": [],

@@ -55,6 +55,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Dart Team <misc@dartlang.org>"
+],
 "version": "1.13.2"
 },
 "analyzerItems": [

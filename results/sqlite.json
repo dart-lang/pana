@@ -54,6 +54,10 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Sam McCall",
+"P.Y. Laligand"
+],
 "version": "0.4.2"
 },
 "analyzerItems": [

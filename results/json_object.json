@@ -48,6 +48,10 @@
 "test": "0.12.20+9",
 "unittest": "0.12.4+1"
 },
+"authors": [
+"Chris Buckett <chrisbuckett@gmail.com>",
+"Steven Roose <stevenroose@gmail.com>"
+],
 "version": "1.0.19+1"
 },
 "analyzerItems": [

@@ -58,6 +58,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Daniel Davidson <dbdavidson@yahoo.com>"
+],
 "version": "1.0.6"
 },
 "analyzerItems": [

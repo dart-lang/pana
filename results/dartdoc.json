@@ -64,6 +64,9 @@
 "analyzer": "0.30.0-alpha.1",
 "quiver": "0.25.0"
 },
+"authors": [
+"Dart Team <misc@dartlang.org>"
+],
 "version": "0.9.13"
 },
 "analyzerItems": [
@@ -282,7 +285,7 @@
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 24,
 "col": 22,
-"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEven'."
+"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEven'."
 },
 {
 "type": "ERROR|STATIC_WARNING|CONCRETE_CLASS_WITH_ABSTRACT_MEMBER",
@@ -331,7 +334,7 @@
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 71,
 "col": 23,
-"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'hashCode'."
+"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'hashCode'."
 },
 {
 "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
@@ -366,42 +369,42 @@
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 73,
 "col": 24,
-"error": "The return type 'String (/usr/lib/dart/lib/core/string.dart)' isn't a 'String (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'toString'."
+"error": "The return type 'String (/usr/lib/dart/lib/core/string.dart)' isn't a 'String (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'toString'."
 },
 {
 "type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 80,
 "col": 20,
-"error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
+"error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
 },
 {
 "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 82,
 "col": 23,
-"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEmpty'."
+"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEmpty'."
 },
 {
 "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 83,
 "col": 26,
-"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isNotEmpty'."
+"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isNotEmpty'."
 },
 {
 "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 84,
 "col": 21,
-"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'length'."
+"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'length'."
 },
 {
 "type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 93,
 "col": 63,
-"error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
+"error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
 },
 {
 "type": "INFO|HINT|UNUSED_ELEMENT",
@@ -415,7 +418,7 @@
 "file": "testing/test_package_embedder_yaml/sdk/core.dart",
 "line": 95,
 "col": 14,
-"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491508884586.u2cqoP/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'parseHex'."
+"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491512071358.8N1UKt/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'parseHex'."
 }
 ],
 "unformattedFiles": []

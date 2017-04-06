@@ -16,6 +16,9 @@
 "typed_data": "1.1.3"
 },
 "availablePackages": {},
+"authors": [
+"Michael Bullington <mikebullingtn@gmail.com>"
+],
 "version": "1.3.0"
 },
 "analyzerItems": [],

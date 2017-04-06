@@ -56,6 +56,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"John McCutchan <john@johnmccutchan.com>"
+],
 "version": "2.0.4"
 },
 "analyzerItems": [],

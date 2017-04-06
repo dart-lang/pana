@@ -7,6 +7,9 @@
 "browser": "0.10.0+2"
 },
 "availablePackages": {},
+"authors": [
+"Dart Team <misc@dartlang.org>"
+],
 "version": "0.6.1"
 },
 "analyzerItems": [],

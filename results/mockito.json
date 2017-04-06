@@ -54,6 +54,10 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Dmitriy Fibulwinter <fibulwinter@gmail.com>",
+"Dart Team <misc@dartlang.org>"
+],
 "version": "2.0.2"
 },
 "analyzerItems": [

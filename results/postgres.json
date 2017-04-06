@@ -57,6 +57,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"stable|kernel <jobs@stablekernel.com>"
+],
 "version": "0.9.5"
 },
 "analyzerItems": [

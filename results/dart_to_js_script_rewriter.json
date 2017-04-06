@@ -84,11 +84,20 @@
 "analyzer": "0.30.0-alpha.1",
 "coverage": "0.9.2",
 "dart_dev": "2.0.0-alpha",
-"dart_style": "1.0.1",
+"dart_style": "1.0.3",
 "quiver": "0.25.0",
 "sass": "1.0.0-alpha.9",
 "unittest": "0.12.4+1"
 },
+"authors": [
+"Seth Ladd <sethladd@gmail.com>",
+"Workiva Client Platform Team <clientplatform@workiva.com>",
+"Dustin Lessard <dustin.lessard@workiva.com>",
+"Evan Weible <evan.weible@workiva.com>",
+"Jay Udey <jay.udey@workiva.com>",
+"Max Peterson <maxwell.peterson@workiva.com>",
+"Trent Grover <trent.grover@workiva.com>"
+],
 "version": "1.0.2"
 },
 "analyzerItems": [],

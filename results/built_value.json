@@ -57,6 +57,9 @@
 "analyzer": "0.30.0-alpha.1",
 "quiver": "0.25.0"
 },
+"authors": [
+"David Morgan <davidmorgan@google.com>"
+],
 "version": "1.0.0"
 },
 "analyzerItems": [

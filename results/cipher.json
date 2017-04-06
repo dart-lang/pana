@@ -19,6 +19,9 @@
 "stack_trace": "1.7.3",
 "unittest": "0.12.4+1"
 },
+"authors": [
+"Iván Zaera Avellón <izaera@gmail.com>"
+],
 "version": "0.7.1"
 },
 "analyzerItems": [

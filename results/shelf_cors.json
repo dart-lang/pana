@@ -20,6 +20,9 @@
 "availablePackages": {
 "unittest": "0.12.4+1"
 },
+"authors": [
+"George Moschovitis <george.moschovitis@gmail.com>"
+],
 "version": "0.2.1"
 },
 "analyzerItems": [],

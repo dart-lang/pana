@@ -21,7 +21,7 @@
 "convert": "2.0.1",
 "crypto": "2.0.1",
 "csslib": "0.13.4",
-"dart_style": "1.0.1",
+"dart_style": "1.0.3",
 "dart_to_js_script_rewriter": "1.0.2",
 "dev_string_converter": "0.1.0",
 "fixnum": "0.10.5",
@@ -67,11 +67,14 @@
 },
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1",
-"dart_style": "1.0.2-dev",
 "intl": "0.15.0",
 "markdown": "0.11.3",
 "unittest": "0.12.4+1"
 },
+"authors": [
+"Luis Vargas <luisvargastijerino@gmail.com>",
+"Adao Jr. <itsjunnior@gmail.com>"
+],
 "version": "0.6.0"
 },
 "analyzerItems": [],

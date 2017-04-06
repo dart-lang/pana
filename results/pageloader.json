@@ -58,6 +58,9 @@
 "analyzer": "0.30.0-alpha.1",
 "unittest": "0.12.4+1"
 },
+"authors": [
+"Marc Fisher II <fisherii@google.com>"
+],
 "version": "2.2.6"
 },
 "analyzerItems": [

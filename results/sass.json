@@ -55,6 +55,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Juha Komulainen <juha.komulainen@evident.fi>"
+],
 "version": "0.4.2+7"
 },
 "analyzerItems": [

@@ -11,6 +11,9 @@
 "availablePackages": {
 "unittest": "0.12.4+1"
 },
+"authors": [
+"Sean Eagan <seaneagan1@gmail.com>"
+],
 "version": "0.1.1"
 },
 "analyzerItems": [],

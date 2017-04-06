@@ -49,6 +49,9 @@
 "test": "0.12.20+9",
 "unittest": "0.12.4+1"
 },
+"authors": [
+"Seth Ladd <sethladd@gmail.com>"
+],
 "version": "0.9.0"
 },
 "analyzerItems": [

@@ -54,6 +54,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Keith Elliott <keith.b.elliott@gmail.com>"
+],
 "version": "1.0.0+1"
 },
 "analyzerItems": [],

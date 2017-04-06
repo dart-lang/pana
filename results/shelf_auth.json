@@ -78,6 +78,9 @@
 "mockito": "2.0.2",
 "quiver": "0.25.0"
 },
+"authors": [
+"Anders Holmgren <andersmholmgren@gmail.com>"
+],
 "version": "0.7.4"
 },
 "analyzerItems": [

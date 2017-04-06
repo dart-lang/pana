@@ -51,6 +51,9 @@
 "convert": "2.0.1",
 "crypto": "2.0.1"
 },
+"authors": [
+"Brendan Duncan <brendanduncan@gmail.com>"
+],
 "version": "1.1.26"
 },
 "analyzerItems": [

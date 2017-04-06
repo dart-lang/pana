@@ -57,6 +57,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Bernhard Pichler <support@stagexl.org>"
+],
 "version": "1.1.0+1"
 },
 "analyzerItems": [],

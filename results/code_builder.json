@@ -15,7 +15,7 @@
 "convert": "2.0.1",
 "crypto": "2.0.1",
 "csslib": "0.13.4",
-"dart_style": "1.0.1",
+"dart_style": "1.0.3",
 "func": "0.1.1",
 "glob": "1.1.3",
 "html": "0.13.1",
@@ -54,9 +54,11 @@
 "yaml": "2.1.12"
 },
 "availablePackages": {
-"analyzer": "0.30.0-alpha.1",
-"dart_style": "1.0.2-dev"
+"analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Dart Team <misc@dartlang.org>"
+],
 "version": "1.0.1"
 },
 "analyzerItems": [],

@@ -60,6 +60,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Devon Carew <devoncarew@google.com>"
+],
 "version": "0.4.1+5.13.4"
 },
 "analyzerItems": [

@@ -11,6 +11,9 @@
 "availablePackages": {
 "unittest": "0.12.4+1"
 },
+"authors": [
+"Greg Lowe <greg@vis.net.nz>"
+],
 "version": "0.2.5+1"
 },
 "analyzerItems": [

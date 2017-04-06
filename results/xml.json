@@ -55,6 +55,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Lukas Renggli <renggli@gmail.com>"
+],
 "version": "2.5.0"
 },
 "analyzerItems": [],

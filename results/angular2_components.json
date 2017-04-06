@@ -56,11 +56,14 @@
 "analyzer": "0.30.0-alpha.1",
 "angular2": "3.0.0-beta",
 "build": "0.7.2",
-"dart_style": "1.0.1",
+"dart_style": "1.0.3",
 "intl": "0.15.0",
 "observable": "0.20.4+1",
 "quiver": "0.25.0"
 },
+"authors": [
+"Dart Team <misc@dartlang.org>"
+],
 "version": "0.2.2"
 },
 "analyzerItems": [

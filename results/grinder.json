@@ -58,6 +58,10 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Devon Carew <devoncarew@google.com>",
+"Sean Eagan <seaneagan1@gmail.com>"
+],
 "version": "0.8.0+3"
 },
 "analyzerItems": [

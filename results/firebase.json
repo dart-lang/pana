@@ -58,6 +58,10 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Jana Moudra <jana.moudra@gmail.com>",
+"Kevin Moore <kevmoo@google.com>"
+],
 "version": "3.0.1"
 },
 "analyzerItems": [

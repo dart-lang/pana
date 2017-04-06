@@ -68,7 +68,7 @@
 "availablePackages": {
 "analyzer": "0.29.10",
 "code_transformers": "0.5.1",
-"dart_style": "1.0.1",
+"dart_style": "1.0.3",
 "html": "0.13.1",
 "isolate": "1.0.0",
 "markdown": "0.11.3",
@@ -76,6 +76,9 @@
 "observe": "0.15.0",
 "polymer_interop": "1.0.0-rc.10"
 },
+"authors": [
+"Polymer.dart Authors <web-ui-dev@dartlang.org>"
+],
 "version": "0.16.4+4"
 },
 "analyzerItems": [

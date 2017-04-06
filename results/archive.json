@@ -55,6 +55,9 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Brendan Duncan <brendanduncan@gmail.com>"
+],
 "version": "1.0.28"
 },
 "analyzerItems": [

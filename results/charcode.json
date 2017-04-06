@@ -5,6 +5,9 @@
 "pubSummary": {
 "packages": {},
 "availablePackages": {},
+"authors": [
+"Dart Team <misc@dartlang.org>"
+],
 "version": "1.1.1"
 },
 "analyzerItems": [],

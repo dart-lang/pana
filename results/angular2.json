@@ -71,13 +71,16 @@
 "build": "0.7.2",
 "build_test": "0.4.1",
 "code_builder": "1.0.1",
-"dart_style": "1.0.1",
+"dart_style": "1.0.3",
 "intl": "0.15.0",
 "mockito": "2.0.2",
 "observable": "0.20.4+1",
 "quiver": "0.25.0",
 "source_gen": "0.5.4+3"
 },
+"authors": [
+"Dart Team <web@dartlang.org>"
+],
 "version": "2.2.0"
 },
 "analyzerItems": [

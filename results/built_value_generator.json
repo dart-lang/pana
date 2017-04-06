@@ -22,7 +22,7 @@
 "convert": "2.0.1",
 "crypto": "2.0.1",
 "csslib": "0.13.4",
-"dart_style": "1.0.1",
+"dart_style": "1.0.3",
 "glob": "1.1.3",
 "html": "0.13.1",
 "http": "0.11.3+13",
@@ -63,9 +63,11 @@
 },
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1",
-"dart_style": "1.0.2-dev",
 "quiver": "0.25.0"
 },
+"authors": [
+"David Morgan <davidmorgan@google.com>"
+],
 "version": "1.0.0"
 },
 "analyzerItems": [],

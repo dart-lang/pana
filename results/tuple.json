@@ -55,6 +55,10 @@
 "availablePackages": {
 "analyzer": "0.30.0-alpha.1"
 },
+"authors": [
+"Boris Kaul <localvoid@gmail.com>",
+"Kwang Yul Seo <kwangyul.seo@gmail.com>"
+],
 "version": "1.0.1"
 },
 "analyzerItems": [],

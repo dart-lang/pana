@@ -9,6 +9,9 @@
 "js": "0.6.1"
 },
 "availablePackages": {},
+"authors": [
+"Kevin Moore <kevmoo+github@google.com>"
+],
 "version": "0.3.2"
 },
 "analyzerItems": [

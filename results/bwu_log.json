@@ -62,6 +62,10 @@
 "intl": "0.15.0",
 "isolate": "1.0.0"
 },
+"authors": [
+"Günter Zöchbauer <guenter@gzoechbauer.com>",
+"Adam Bender <bendera@google.com>"
+],
 "version": "0.1.2"
 },
 "analyzerItems": [
