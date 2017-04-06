@@ -19,7 +19,7 @@ main() async {
   Logger.root.onRecord.listen((log) {
     var number = int.parse(log.loggerName, onError: (s) => null);
 
-    if (number != null && log.error == null) {
+    if (number != null && log.error == null && log.level < Level.SEVERE) {
       if (number == lastNumber) {
         stderr.write(_clear);
       } else {
