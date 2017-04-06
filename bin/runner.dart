@@ -14,6 +14,16 @@ final _isPosixTerminal =
     !Platform.isWindows && stdioType(stdout) == StdioType.TERMINAL;
 
 main() async {
+  int cols;
+  try {
+    var result = Process.runSync('tput', ['cols']);
+    cols = int.parse(result.stdout.trim());
+  } catch (_) {
+    // nevermind
+  }
+
+  print(cols);
+
   var lastLine = true;
   int lastNumber;
   Logger.root.onRecord.listen((log) {
@@ -29,6 +39,10 @@ main() async {
       var message = [log.loggerName, log.level, log.message].join('\t');
       if (log.level >= Level.WARNING) {
         message = "$_red$message$_endColor";
+      }
+
+      if (cols != null && message.length > cols) {
+        message = message.substring(0, cols);
       }
 
       stderr.write(message);
