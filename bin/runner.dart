@@ -22,8 +22,6 @@ main() async {
     // nevermind
   }
 
-  print(cols);
-
   var lastLine = true;
   int lastNumber;
   Logger.root.onRecord.listen((log) {
