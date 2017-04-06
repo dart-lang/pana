@@ -48,6 +48,15 @@ class AnalyzerOutput implements Comparable<AnalyzerOutput> {
         type, error, filePath, int.parse(line), int.parse(column));
   }
 
+  factory AnalyzerOutput.fromJson(Map<String, dynamic> json) {
+    var type = json['type'];
+    var error = json['error'];
+    var file = json['file'];
+    var line = json['line'];
+    var col = json['col'];
+    return new AnalyzerOutput(type, error, file, line, col);
+  }
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'type': type,
         'file': file,

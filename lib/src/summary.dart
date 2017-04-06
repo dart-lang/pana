@@ -19,6 +19,21 @@ class Summary {
   Summary(this.sdkVersion, this.packageName, this.packageVersion,
       this.pubSummary, this.analyzerItems, this.unformattedFiles);
 
+  factory Summary.fromJson(Map<String, dynamic> json) {
+    var sdkVersion = json['sdkVersion'] as String;
+    var packageName = json['packageName'] as String;
+    var packageVersion = new Version.parse(json['packageVersion'] as String);
+    var unformattedFiles = new List<String>.from(json['unformattedFiles']);
+
+    var pubSummary = new PubSummary.fromJson(json['pubSummary']);
+    var analyzerItems = (json['analyzerItems'] as List)
+        .map((e) => new AnalyzerOutput.fromJson(e))
+        .toSet();
+
+    return new Summary(sdkVersion, packageName, packageVersion, pubSummary,
+        analyzerItems, unformattedFiles);
+  }
+
   Set<String> get resultTypes =>
       new SplayTreeSet<String>.from(analyzerItems.map((ao) => ao.type));
 
@@ -46,13 +61,13 @@ class PubSummary {
   final int exitCode;
   final String stdout;
   final String stderr;
-  final String pubspecContent;
+  final Version pkgVersion;
   final String lockFileContent;
   final Map<String, Version> packageVersions;
   final Map<String, Version> availableVersions;
 
   PubSummary._(this.exitCode, this.stdout, this.stderr, this.packageVersions,
-      this.availableVersions, this.pubspecContent, this.lockFileContent);
+      this.availableVersions, this.pkgVersion, this.lockFileContent);
 
   static PubSummary create(
       int exitCode, String stdout, String stderr, String path) {
@@ -99,18 +114,29 @@ class PubSummary {
       }
     }
 
-    return new PubSummary._(exitCode, stdout, stderr, pkgVersions,
-        availVersions, pubspecContent, lockFileContent);
-  }
-
-  Version get pkgVersion {
-    if (pubspecContent == null) {
-      return null;
+    Version pubspecVersion;
+    if (pubspecContent != null) {
+      var yaml = loadYaml(pubspecContent) as YamlMap;
+      pubspecVersion = new Version.parse(yaml['version']);
     }
 
-    var yaml = loadYaml(pubspecContent) as YamlMap;
+    return new PubSummary._(exitCode, stdout, stderr, pkgVersions,
+        availVersions, pubspecVersion, lockFileContent);
+  }
 
-    return new Version.parse(yaml['version']);
+  factory PubSummary.fromJson(Map<String, dynamic> json) {
+    if (json.containsKey('packages')) {
+      var packageVersion = new Version.parse(json['version']);
+
+      var packageVersions = _jsonMapToVersion(json['packages']);
+      var availableVersions = _jsonMapToVersion(json['availablePackages']);
+
+      return new PubSummary._(
+          0, '', '', packageVersions, availableVersions, packageVersion, '');
+    }
+
+    return new PubSummary._(json['exitCode'], json['stdout'], json['stderr'],
+        null, null, null, null);
   }
 
   Map<String, dynamic> toJson() {
@@ -138,4 +164,8 @@ class PubSummary {
   static Map<String, dynamic> _versionMapToJson(Map<String, Version> input) =>
       new Map<String, String>.fromIterable(input.keys,
           value: (String i) => input[i].toString());
+
+  static Map<String, dynamic> _jsonMapToVersion(Map<String, String> input) =>
+      new Map<String, Version>.fromIterable(input.keys,
+          value: (String i) => new Version.parse(input[i]));
 }
