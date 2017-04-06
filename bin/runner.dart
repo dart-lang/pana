@@ -87,22 +87,24 @@ main() async {
       // do things here!
       var result = await _runProc('docker', ['run', '--rm', dockerName, pkg],
           logger: logger);
-      await _writeResult(dockerName, pkg, result);
+      await _writeResult(dockerName, pkg, result, false);
     } catch (e, stack) {
       logger.severe("Oops!", e, stack);
+      await _writeResult(dockerName, pkg, [e, stack].join('\n'), true);
     } finally {
       resource.release();
     }
   }));
 }
 
-_writeResult(String dockerName, String pkg, String output) async {
+_writeResult(String dockerName, String pkg, String output, bool isError) async {
   var dir = new Directory(dockerName);
   if (!dir.existsSync()) {
     dir.createSync(recursive: true);
   }
 
-  var file = new File(p.join(dockerName, '$pkg.json'));
+  var name = isError ? '$pkg.error.txt' : '$pkg.json';
+  var file = new File(p.join(dockerName, name));
 
   await file.writeAsString(output, mode: WRITE_ONLY, flush: true);
 }
