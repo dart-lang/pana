@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as p;
 import 'package:pool/pool.dart';
 
 final _clear = _isPosixTerminal ? '\x1b[2K\r' : '';
@@ -84,14 +85,26 @@ main() async {
     var logger = new Logger((++count).toString());
     try {
       // do things here!
-      await _runProc('docker', ['run', '--rm', dockerName, pkg],
+      var result = await _runProc('docker', ['run', '--rm', dockerName, pkg],
           logger: logger);
+      await _writeResult(dockerName, pkg, result);
     } catch (e, stack) {
       logger.severe("Oops!", e, stack);
     } finally {
       resource.release();
     }
   }));
+}
+
+_writeResult(String dockerName, String pkg, String output) async {
+  var dir = new Directory(dockerName);
+  if (!dir.existsSync()) {
+    dir.createSync(recursive: true);
+  }
+
+  var file = new File(p.join(dockerName, '$pkg.json'));
+
+  await file.writeAsString(output, mode: WRITE_ONLY, flush: true);
 }
 
 Stream<String> _split(Stream<List<int>> stream) => stream
