@@ -1,0 +1,473 @@
+{
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "google_maps",
+ "packageVersion": "3.2.0+2",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.29.10",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "boolean_selector": "1.0.2",
+   "browser": "0.10.0+2",
+   "build": "0.7.2",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "dart_style": "1.0.3",
+   "func": "0.1.1",
+   "glob": "1.1.3",
+   "html": "0.12.2+2",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "isolate": "1.0.0",
+   "js_wrapping": "0.3.0+1",
+   "js_wrapping_generator": "0.3.0+1",
+   "logging": "0.11.3+1",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.2.0",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "source_gen": "0.5.4+3",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "typed_data": "1.1.3",
+   "utf": "0.9.0+3",
+   "watcher": "0.9.7+3",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.30.0-alpha.1",
+   "html": "0.13.1"
+  },
+  "authors": [
+   "Alexandre Ardhuin <alexandre.ardhuin@gmail.com>"
+  ],
+  "version": "3.2.0+2"
+ },
+ "analyzerItems": [
+  {
+   "type": "WEIRD",
+   "file": "lib/src/core/save_to_google_maps/place.dart",
+   "line": 0,
+   "col": 0,
+   "error": "is a part and cannot be analyzed."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 51,
+   "col": 24,
+   "error": "The type of '__codec160' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 65,
+   "col": 9,
+   "error": "The type of '__codec158' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 95,
+   "col": 24,
+   "error": "The type of '__codec152' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 226,
+   "col": 9,
+   "error": "The type of '__codec119' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 252,
+   "col": 24,
+   "error": "The type of '__codec114' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 267,
+   "col": 9,
+   "error": "The type of '__codec111' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 399,
+   "col": 9,
+   "error": "The type of '__codec78' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 445,
+   "col": 9,
+   "error": "The type of '__codec68' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 556,
+   "col": 23,
+   "error": "The type of '__codec40' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 562,
+   "col": 23,
+   "error": "The type of '__codec39' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 661,
+   "col": 23,
+   "error": "The type of '__codec15' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 687,
+   "col": 23,
+   "error": "The type of '__codec10' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 694,
+   "col": 22,
+   "error": "The type of '__codec9' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 704,
+   "col": 22,
+   "error": "The type of '__codec7' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 710,
+   "col": 22,
+   "error": "The type of '__codec6' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 716,
+   "col": 22,
+   "error": "The type of '__codec5' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src.g.dart",
+   "line": 725,
+   "col": 22,
+   "error": "The type of '__codec3' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 20,
+   "col": 9,
+   "error": "The type of '__codec43' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 35,
+   "col": 9,
+   "error": "The type of '__codec41' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 57,
+   "col": 9,
+   "error": "The type of '__codec37' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 102,
+   "col": 9,
+   "error": "The type of '__codec26' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 121,
+   "col": 9,
+   "error": "The type of '__codec22' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 172,
+   "col": 9,
+   "error": "The type of '__codec10' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 183,
+   "col": 9,
+   "error": "The type of '__codec9' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 193,
+   "col": 22,
+   "error": "The type of '__codec8' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_places.g.dart",
+   "line": 210,
+   "col": 22,
+   "error": "The type of '__codec4' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_visualization.g.dart",
+   "line": 15,
+   "col": 23,
+   "error": "The type of '__codec12' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/google_maps_src_visualization.g.dart",
+   "line": 49,
+   "col": 22,
+   "error": "The type of '__codec4' can't be inferred because type arguments were not given for 'FunctionCodec'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "tool/build.dart",
+   "line": 17,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "tool/build.dart",
+   "line": 22,
+   "col": 9,
+   "error": "The function 'build' isn't defined."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "tool/phases.dart",
+   "line": 17,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "tool/phases.dart",
+   "line": 25,
+   "col": 7,
+   "error": "Undefined class 'PhaseGroup'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "tool/phases.dart",
+   "line": 25,
+   "col": 31,
+   "error": "Undefined class 'PhaseGroup'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "tool/phases.dart",
+   "line": 26,
+   "col": 18,
+   "error": "Undefined class 'Phase'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "tool/phases.dart",
+   "line": 29,
+   "col": 13,
+   "error": "Undefined class 'InputSet'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "tool/phases.dart",
+   "line": 32,
+   "col": 18,
+   "error": "Undefined class 'Phase'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "tool/phases.dart",
+   "line": 35,
+   "col": 13,
+   "error": "Undefined class 'InputSet'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "tool/phases.dart",
+   "line": 38,
+   "col": 18,
+   "error": "Undefined class 'Phase'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "tool/phases.dart",
+   "line": 41,
+   "col": 13,
+   "error": "Undefined class 'InputSet'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "tool/watch.dart",
+   "line": 17,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "tool/watch.dart",
+   "line": 22,
+   "col": 3,
+   "error": "The function 'watch' isn't defined."
+  }
+ ],
+ "unformattedFiles": [
+  "lib/google_maps_adsense.dart",
+  "lib/google_maps_places.dart",
+  "lib/util/async.dart",
+  "lib/google_maps_panoramio.dart",
+  "lib/google_maps_visualization.dart",
+  "lib/google_maps_drawing.dart",
+  "lib/src/core/map/map_options.dart",
+  "lib/src/core/map/map.dart",
+  "lib/src/core/mvc/mvcarray.dart",
+  "lib/src/core/base/lat_lng_literal.dart",
+  "lib/src/core/base/lat_lng_bounds_literal.dart",
+  "lib/src/core/map_types/map_type_styler.dart",
+  "lib/src/core/data/data_set_geometry_event.dart",
+  "lib/src/core/data/data_feature.dart",
+  "lib/src/core/data/data_geometry_collection.dart",
+  "lib/src/core/data/data_multi_polygon.dart",
+  "lib/src/core/data/data_style_options.dart",
+  "lib/src/core/data/data_feature_options.dart",
+  "lib/src/core/data/data_multi_line_string.dart",
+  "lib/src/core/data/data_polygon.dart",
+  "lib/src/core/services/directions_leg.dart",
+  "lib/src/core/services/directions_step.dart",
+  "lib/src/core/services/directions_request.dart",
+  "lib/src/core/services/distance_matrix_response_element.dart",
+  "lib/src/core/services/geocoder_geometry.dart",
+  "lib/src/core/services/directions_waypoint.dart",
+  "lib/src/core/services/geocoder_address_component.dart",
+  "lib/src/core/services/directions_route.dart",
+  "lib/src/core/services/time.dart",
+  "lib/src/core/services/transit_line.dart",
+  "lib/src/core/services/geocoder_result.dart",
+  "lib/src/core/services/directions_geocoded_waypoint.dart",
+  "lib/src/core/services/transit_vehicle.dart",
+  "lib/src/core/services/transit_details.dart",
+  "lib/src/core/services/directions_result.dart",
+  "lib/src/core/services/distance_matrix_request.dart",
+  "lib/src/core/overlays/marker_options.dart",
+  "lib/src/core/overlays/polyline_options.dart",
+  "lib/src/core/overlays/info_window.dart",
+  "lib/src/core/overlays/symbol.dart",
+  "lib/src/core/overlays/polygon_options.dart",
+  "lib/src/core/overlays/polygon.dart",
+  "lib/src/core/overlays/polyline.dart",
+  "lib/src/core/overlays/overlay_view.dart",
+  "lib/src/core/overlays/marker.dart",
+  "lib/src/google_maps_src_geometry.g.dart",
+  "lib/src/library/drawing/drawing_manager.dart",
+  "lib/src/library/drawing/overlay_complete_event.dart",
+  "lib/src/library/geometry/encoding.dart",
+  "lib/src/library/geometry/spherical.dart",
+  "lib/src/library/geometry/poly.dart",
+  "lib/src/library/places/autocomplete_prediction.dart",
+  "lib/src/library/places/place_review.dart",
+  "lib/src/library/places/query_autocomplete_prediction.dart",
+  "lib/src/library/places/place_result.dart",
+  "lib/src/library/places/place_photo.dart",
+  "lib/src/google_maps_src.g.dart",
+  "lib/src/google_maps_src_drawing.g.dart",
+  "lib/src/google_maps_src.dart",
+  "lib/google_maps.dart",
+  "lib/google_maps_weather.dart",
+  "tool/build.dart",
+  "tool/watch.dart",
+  "tool/generate_lib.dart",
+  "example/10-places/place-search/page.dart",
+  "example/10-places/place-search-pagination/page.dart",
+  "example/10-places/place-details/page.dart",
+  "example/10-places/place-radar-search/page.dart",
+  "example/10-places/places-autocomplete/page.dart",
+  "example/03-controls/control-custom/page.dart",
+  "example/03-controls/control-options/page.dart",
+  "example/03-controls/control-disableUI/page.dart",
+  "example/03-controls/control-positioning/page.dart",
+  "example/08-services/streetview-overlays/page.dart",
+  "example/08-services/directions-travel-modes/page.dart",
+  "example/08-services/directions-draggable/page.dart",
+  "example/08-services/streetview-controls/page.dart",
+  "example/08-services/elevation-paths/page.dart",
+  "example/08-services/elevation-simple/page.dart",
+  "example/08-services/distance-matrix/page.dart",
+  "example/07-maptypes/maptype-image-overlay/page.dart",
+  "example/07-maptypes/maptype-overlay/page.dart",
+  "example/07-maptypes/maptype-base/page.dart",
+  "example/07-maptypes/maptype-image/page.dart",
+  "example/05-drawing_on_map/overlay-hideshow/page.dart",
+  "example/05-drawing_on_map/marker-remove/page.dart",
+  "example/05-drawing_on_map/polyline-simple/page.dart",
+  "example/05-drawing_on_map/rectangle-simple/page.dart",
+  "example/05-drawing_on_map/marker-symbol-custom/page.dart",
+  "example/05-drawing_on_map/polyline-complex/page.dart",
+  "example/05-drawing_on_map/overlay-remove/page.dart",
+  "example/05-drawing_on_map/polygon-simple/page.dart",
+  "example/05-drawing_on_map/overlay-symbol-custom/page.dart",
+  "example/06-layers/layer-fusiontables-query/page.dart",
+  "example/06-layers/layer-fusiontables-heatmap/page.dart",
+  "example/06-layers/layer-kml-features/page.dart",
+  "example/06-layers/layer-fusiontables-styling/page.dart",
+  "example/06-layers/layer-data-style/page.dart",
+  "example/06-layers/layer-data-dynamic/page.dart",
+  "example/06-layers/layer-fusiontables-simple/page.dart",
+  "example/06-layers/layer-georss/page.dart",
+  "example/06-layers/layer-data-simple/page.dart",
+  "example/09-libraries/drawing-tools/page.dart",
+  "example/01-basics/map-simple-async/page.dart",
+  "example/01-basics/map-projection-simple/page.dart"
+ ]
+}
