@@ -25,8 +25,25 @@ class AnalyzerOutput implements Comparable<AnalyzerOutput> {
     var matches = _regexp.allMatches(content).toList();
 
     if (matches.isEmpty) {
+      if (content.endsWith(" is a part and cannot be analyzed.")) {
+        var filePath = content.split(' ').first;
+
+        content = content.replaceAll(filePath, '').trim();
+
+        if (projectDir != null) {
+          assert(p.isWithin(projectDir, filePath));
+          filePath = p.relative(filePath, from: projectDir);
+        }
+
+        return new AnalyzerOutput('WEIRD', content, filePath, 0, 0);
+      }
+
+      if (content == "Please pass in a library that contains this part.") {
+        return null;
+      }
+
       throw new ArgumentError(
-          'Provided content does not align with expectations.');
+          'Provided content does not align with expectations.\n`$content`');
     }
 
     var match = matches.single;

@@ -48,11 +48,14 @@ Future<Summary> inspectPackage(String pkgName,
       await downloadPkg(pkgName, version: ver, pubCachePath: pubCachePath);
   log.info("Package at ${pkgDir.path}");
 
+  log.info("Checking formatting...");
   var unformattedFiles = filesNeedingFormat(pkgDir.path);
 
+  log.info("Pub upgrade...");
   var summary = await pubUpgrade(pkgDir.path, pubCachePath: pubCachePath);
   log.info("Package version: ${summary.pkgVersion}");
 
+  log.info("Analyzing...");
   var analyzerItems = await pkgAnalyze(pkgDir.path);
 
   return new Summary(sdkVersion, pkgName, pkgDir.version, summary,
@@ -83,7 +86,8 @@ Future<Set<AnalyzerOutput>> pkgAnalyze(String pkgPath) async {
   try {
     return new SplayTreeSet.from(LineSplitter
         .split(proc.stderr)
-        .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath)));
+        .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath))
+        .where((e) => e != null));
   } on ArgumentError {
     // TODO: we should figure out a way to succeed here, right?
     // Or at least do partial results and not blow up
