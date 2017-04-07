@@ -1,924 +1,924 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "json_schema",
-"packageVersion": "1.0.6",
-"pubSummary": {
-"packages": {
-"analyzer": "0.29.10",
-"args": "0.13.7",
-"async": "1.13.2",
-"barback": "0.15.2+10",
-"boolean_selector": "1.0.2",
-"browser": "0.10.0+2",
-"charcode": "1.1.1",
-"cli_util": "0.0.1+2",
-"collection": "1.14.0",
-"convert": "2.0.1",
-"coverage": "0.9.2",
-"crypto": "2.0.1",
-"csslib": "0.13.4",
-"glob": "1.1.3",
-"html": "0.13.1",
-"http": "0.11.3+13",
-"http_multi_server": "2.0.3",
-"http_parser": "3.1.1",
-"isolate": "1.0.0",
-"json_rpc_2": "2.0.4",
-"logging": "0.11.3+1",
-"matcher": "0.12.0+2",
-"meta": "1.0.5",
-"mime": "0.9.3",
-"package_config": "1.0.0",
-"package_resolver": "1.0.2",
-"path": "1.4.1",
-"plugin": "0.2.0",
-"pool": "1.3.0",
-"pub_semver": "1.3.2",
-"shelf": "0.6.7+2",
-"shelf_packages_handler": "1.0.0",
-"shelf_static": "0.2.4",
-"shelf_web_socket": "0.2.1",
-"source_map_stack_trace": "1.1.4",
-"source_maps": "0.10.4",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"stream_channel": "1.6.1",
-"string_scanner": "1.0.1",
-"term_glyph": "1.0.0",
-"test": "0.12.20+9",
-"typed_data": "1.1.3",
-"utf": "0.9.0+3",
-"vm_service_client": "0.2.3",
-"watcher": "0.9.7+3",
-"web_socket_channel": "1.0.4",
-"when": "0.2.0",
-"which": "0.1.3",
-"yaml": "2.1.12"
-},
-"availablePackages": {
-"analyzer": "0.30.0-alpha.1"
-},
-"authors": [
-"Daniel Davidson <dbdavidson@yahoo.com>"
-],
-"version": "1.0.6"
-},
-"analyzerItems": [
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "bin/schemadot.dart",
-"line": 14,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "bin/schemadot.dart",
-"line": 36,
-"col": 17,
-"error": "'getUsage' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "bin/schemadot.dart",
-"line": 44,
-"col": 8,
-"error": "The value of the local variable 'remaining' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "bin/schemadot.dart",
-"line": 124,
-"col": 8,
-"error": "The value of the local variable 'positionals' isn't used."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 3,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:ebisu/ebisu_dart_meta.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 4,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:ebisu/ebisu.dart'."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 14,
-"col": 3,
-"error": "Undefined name 'useDartFormatter'."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 15,
-"col": 3,
-"error": "Undefined class 'System'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 15,
-"col": 18,
-"error": "The function 'system' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 22,
-"col": 7,
-"error": "The function 'library' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 28,
-"col": 7,
-"error": "The function 'library' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 36,
-"col": 7,
-"error": "The function 'script' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 54,
-"col": 9,
-"error": "The function 'scriptArg' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 57,
-"col": 9,
-"error": "The function 'scriptArg' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 62,
-"col": 7,
-"error": "The function 'library' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 70,
-"col": 9,
-"error": "The function 'class_' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 73,
-"col": 11,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 76,
-"col": 11,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 81,
-"col": 7,
-"error": "The function 'library' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 85,
-"col": 9,
-"error": "The function 'enum_' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 89,
-"col": 11,
-"error": "The function 'id' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 89,
-"col": 24,
-"error": "The function 'id' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 89,
-"col": 39,
-"error": "The function 'id' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 90,
-"col": 11,
-"error": "The function 'id' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 90,
-"col": 25,
-"error": "The function 'id' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 90,
-"col": 37,
-"error": "The function 'id' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 91,
-"col": 11,
-"error": "The function 'id' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 102,
-"col": 9,
-"error": "The function 'part' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 104,
-"col": 11,
-"error": "The function 'class_' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 105,
-"col": 35,
-"error": "Undefined name 'RO'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 113,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 116,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 120,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 124,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 126,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 128,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 130,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 131,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 133,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 135,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 136,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 138,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 140,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 144,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 147,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 150,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 153,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 156,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 158,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 163,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 165,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 166,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 167,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 169,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 171,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 174,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 177,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 179,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 181,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 183,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 187,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 189,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 191,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 194,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 197,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 199,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 201,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 205,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 208,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 212,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 215,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 219,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 222,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 224,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 228,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 229,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 233,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 234,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 237,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 238,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 241,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 242,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 246,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 247,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 249,
-"col": 24,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 252,
-"col": 9,
-"error": "The function 'part' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 254,
-"col": 9,
-"error": "The function 'variable' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 264,
-"col": 9,
-"error": "The function 'variable' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 268,
-"col": 9,
-"error": "The function 'variable' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 272,
-"col": 9,
-"error": "The function 'variable' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 283,
-"col": 9,
-"error": "The function 'variable' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 307,
-"col": 9,
-"error": "The function 'variable' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 320,
-"col": 9,
-"error": "The function 'variable' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 330,
-"col": 9,
-"error": "The function 'variable' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 336,
-"col": 11,
-"error": "The function 'class_' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 337,
-"col": 35,
-"error": "Undefined name 'IA'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 340,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 343,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 345,
-"col": 24,
-"error": "Undefined name 'RO'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "codegen/json_schema.ebisu_dart.dart",
-"line": 347,
-"col": 13,
-"error": "The function 'member' isn't defined."
-},
-{
-"type": "INFO|HINT|DEAD_CODE",
-"file": "example/from_url/validate_instance_from_url.dart",
-"line": 21,
-"col": 17,
-"error": "Dead code."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/schema_dot.dart",
-"line": 4,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/schema_dot.dart",
-"line": 5,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/json_schema/validator.dart",
-"line": 412,
-"col": 28,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/cover.dart",
-"line": 1,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/cover.dart",
-"line": 4,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/cover.dart",
-"line": 5,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNNECESSARY_CAST",
-"file": "test/test_invalid_schemas.dart",
-"line": 35,
-"col": 34,
-"error": "Unnecessary cast."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/test_invalid_schemas.dart",
-"line": 47,
-"col": 33,
-"error": "'expectAsync' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNNECESSARY_CAST",
-"file": "test/test_validation.dart",
-"line": 55,
-"col": 34,
-"error": "Unnecessary cast."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/test_validation.dart",
-"line": 68,
-"col": 19,
-"error": "'expectAsync' is deprecated and shouldn't be used."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "tool/hop_runner.dart",
-"line": 5,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:hop/hop.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "tool/hop_runner.dart",
-"line": 6,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:hop/hop_tasks.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "tool/hop_runner.dart",
-"line": 7,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:hop_docgen/hop_docgen.dart'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "tool/hop_runner.dart",
-"line": 9,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "tool/hop_runner.dart",
-"line": 15,
-"col": 3,
-"error": "The function 'addTask' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "tool/hop_runner.dart",
-"line": 15,
-"col": 26,
-"error": "The function 'createAnalyzerTask' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "tool/hop_runner.dart",
-"line": 17,
-"col": 3,
-"error": "The function 'addTask' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "tool/hop_runner.dart",
-"line": 18,
-"col": 7,
-"error": "The function 'createAnalyzerTask' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "tool/hop_runner.dart",
-"line": 24,
-"col": 3,
-"error": "The function 'runHop' isn't defined."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR",
-"file": "tool/hop_runner.dart",
-"line": 30,
-"col": 12,
-"error": "The function expression type '(File) → String' isn't of type '(FileSystemEntity) → String'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s)."
-}
-],
-"unformattedFiles": [
-"codegen/json_schema.ebisu_dart.dart",
-"test/cover.dart",
-"example/from_json/validate_json_from_data.dart",
-"example/from_json/movie_sample.dart",
-"example/from_url/validate_instance_from_url.dart",
-"tool/hop_runner.dart",
-"bin/gensamples.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "json_schema",
+ "packageVersion": "1.0.6",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.29.10",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "boolean_selector": "1.0.2",
+   "browser": "0.10.0+2",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "coverage": "0.9.2",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "glob": "1.1.3",
+   "html": "0.13.1",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "isolate": "1.0.0",
+   "json_rpc_2": "2.0.4",
+   "logging": "0.11.3+1",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.2.0",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "typed_data": "1.1.3",
+   "utf": "0.9.0+3",
+   "vm_service_client": "0.2.3",
+   "watcher": "0.9.7+3",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.30.0-alpha.1"
+  },
+  "authors": [
+   "Daniel Davidson <dbdavidson@yahoo.com>"
+  ],
+  "version": "1.0.6"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "bin/schemadot.dart",
+   "line": 14,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "bin/schemadot.dart",
+   "line": 36,
+   "col": 17,
+   "error": "'getUsage' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "bin/schemadot.dart",
+   "line": 44,
+   "col": 8,
+   "error": "The value of the local variable 'remaining' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "bin/schemadot.dart",
+   "line": 124,
+   "col": 8,
+   "error": "The value of the local variable 'positionals' isn't used."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 3,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:ebisu/ebisu_dart_meta.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:ebisu/ebisu.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 14,
+   "col": 3,
+   "error": "Undefined name 'useDartFormatter'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 15,
+   "col": 3,
+   "error": "Undefined class 'System'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 15,
+   "col": 18,
+   "error": "The function 'system' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 22,
+   "col": 7,
+   "error": "The function 'library' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 28,
+   "col": 7,
+   "error": "The function 'library' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 36,
+   "col": 7,
+   "error": "The function 'script' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 54,
+   "col": 9,
+   "error": "The function 'scriptArg' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 57,
+   "col": 9,
+   "error": "The function 'scriptArg' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 62,
+   "col": 7,
+   "error": "The function 'library' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 70,
+   "col": 9,
+   "error": "The function 'class_' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 73,
+   "col": 11,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 76,
+   "col": 11,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 81,
+   "col": 7,
+   "error": "The function 'library' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 85,
+   "col": 9,
+   "error": "The function 'enum_' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 89,
+   "col": 11,
+   "error": "The function 'id' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 89,
+   "col": 24,
+   "error": "The function 'id' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 89,
+   "col": 39,
+   "error": "The function 'id' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 90,
+   "col": 11,
+   "error": "The function 'id' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 90,
+   "col": 25,
+   "error": "The function 'id' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 90,
+   "col": 37,
+   "error": "The function 'id' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 91,
+   "col": 11,
+   "error": "The function 'id' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 102,
+   "col": 9,
+   "error": "The function 'part' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 104,
+   "col": 11,
+   "error": "The function 'class_' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 105,
+   "col": 35,
+   "error": "Undefined name 'RO'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 113,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 116,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 120,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 124,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 126,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 128,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 130,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 131,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 133,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 135,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 136,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 138,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 140,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 144,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 147,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 150,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 153,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 156,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 158,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 163,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 165,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 166,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 167,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 169,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 171,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 174,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 177,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 179,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 181,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 183,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 187,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 189,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 191,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 194,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 197,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 199,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 201,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 205,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 208,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 212,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 215,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 219,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 222,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 224,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 228,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 229,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 233,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 234,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 237,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 238,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 241,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 242,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 246,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 247,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 249,
+   "col": 24,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 252,
+   "col": 9,
+   "error": "The function 'part' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 254,
+   "col": 9,
+   "error": "The function 'variable' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 264,
+   "col": 9,
+   "error": "The function 'variable' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 268,
+   "col": 9,
+   "error": "The function 'variable' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 272,
+   "col": 9,
+   "error": "The function 'variable' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 283,
+   "col": 9,
+   "error": "The function 'variable' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 307,
+   "col": 9,
+   "error": "The function 'variable' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 320,
+   "col": 9,
+   "error": "The function 'variable' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 330,
+   "col": 9,
+   "error": "The function 'variable' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 336,
+   "col": 11,
+   "error": "The function 'class_' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 337,
+   "col": 35,
+   "error": "Undefined name 'IA'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 340,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 343,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 345,
+   "col": 24,
+   "error": "Undefined name 'RO'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "codegen/json_schema.ebisu_dart.dart",
+   "line": 347,
+   "col": 13,
+   "error": "The function 'member' isn't defined."
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "example/from_url/validate_instance_from_url.dart",
+   "line": 21,
+   "col": 17,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/schema_dot.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/schema_dot.dart",
+   "line": 5,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/json_schema/validator.dart",
+   "line": 412,
+   "col": 28,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/cover.dart",
+   "line": 1,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/cover.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/cover.dart",
+   "line": 5,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNNECESSARY_CAST",
+   "file": "test/test_invalid_schemas.dart",
+   "line": 35,
+   "col": 34,
+   "error": "Unnecessary cast."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/test_invalid_schemas.dart",
+   "line": 47,
+   "col": 33,
+   "error": "'expectAsync' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNNECESSARY_CAST",
+   "file": "test/test_validation.dart",
+   "line": 55,
+   "col": 34,
+   "error": "Unnecessary cast."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/test_validation.dart",
+   "line": 68,
+   "col": 19,
+   "error": "'expectAsync' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "tool/hop_runner.dart",
+   "line": 5,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:hop/hop.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "tool/hop_runner.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:hop/hop_tasks.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "tool/hop_runner.dart",
+   "line": 7,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:hop_docgen/hop_docgen.dart'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "tool/hop_runner.dart",
+   "line": 9,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "tool/hop_runner.dart",
+   "line": 15,
+   "col": 3,
+   "error": "The function 'addTask' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "tool/hop_runner.dart",
+   "line": 15,
+   "col": 26,
+   "error": "The function 'createAnalyzerTask' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "tool/hop_runner.dart",
+   "line": 17,
+   "col": 3,
+   "error": "The function 'addTask' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "tool/hop_runner.dart",
+   "line": 18,
+   "col": 7,
+   "error": "The function 'createAnalyzerTask' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "tool/hop_runner.dart",
+   "line": 24,
+   "col": 3,
+   "error": "The function 'runHop' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR",
+   "file": "tool/hop_runner.dart",
+   "line": 30,
+   "col": 12,
+   "error": "The function expression type '(File) → String' isn't of type '(FileSystemEntity) → String'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s)."
+  }
+ ],
+ "unformattedFiles": [
+  "codegen/json_schema.ebisu_dart.dart",
+  "test/cover.dart",
+  "example/from_json/validate_json_from_data.dart",
+  "example/from_json/movie_sample.dart",
+  "example/from_url/validate_instance_from_url.dart",
+  "tool/hop_runner.dart",
+  "bin/gensamples.dart"
+ ]
 }

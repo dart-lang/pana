@@ -1,2970 +1,2970 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "polymer",
-"packageVersion": "0.16.4+4",
-"pubSummary": {
-"packages": {
-"analyzer": "0.27.6",
-"args": "0.13.7",
-"async": "1.13.2",
-"barback": "0.15.2+10",
-"boolean_selector": "1.0.2",
-"browser": "0.10.0+2",
-"charcode": "1.1.1",
-"cli_util": "0.0.1+2",
-"code_transformers": "0.4.2+3",
-"collection": "1.14.0",
-"convert": "2.0.1",
-"crypto": "2.0.1",
-"csslib": "0.13.4",
-"dart_style": "0.2.11+1",
-"func": "0.1.1",
-"glob": "1.1.3",
-"html": "0.12.2+2",
-"http": "0.11.3+13",
-"http_multi_server": "2.0.3",
-"http_parser": "3.1.1",
-"initialize": "0.6.2+5",
-"isolate": "0.2.3",
-"logging": "0.11.3+1",
-"markdown": "0.7.2",
-"matcher": "0.12.0+2",
-"meta": "1.0.5",
-"mime": "0.9.3",
-"observable": "0.14.0+1",
-"observe": "0.14.0",
-"package_config": "1.0.0",
-"package_resolver": "1.0.2",
-"path": "1.4.1",
-"plugin": "0.2.0",
-"polymer_expressions": "0.13.1+1",
-"polymer_interop": "0.1.2+1",
-"pool": "1.3.0",
-"pub_semver": "1.3.2",
-"shelf": "0.6.7+2",
-"shelf_packages_handler": "1.0.0",
-"shelf_static": "0.2.4",
-"shelf_web_socket": "0.2.1",
-"smoke": "0.3.6+2",
-"source_map_stack_trace": "1.1.4",
-"source_maps": "0.10.4",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"stream_channel": "1.6.1",
-"string_scanner": "1.0.1",
-"template_binding": "0.14.0+6",
-"term_glyph": "1.0.0",
-"test": "0.12.20+9",
-"transformer_test": "0.2.1+1",
-"typed_data": "1.1.3",
-"utf": "0.9.0+3",
-"watcher": "0.9.7+3",
-"web_components": "0.12.5",
-"web_socket_channel": "1.0.4",
-"when": "0.2.0",
-"which": "0.1.3",
-"yaml": "2.1.12"
-},
-"availablePackages": {
-"analyzer": "0.29.10",
-"code_transformers": "0.5.1",
-"dart_style": "1.0.3",
-"html": "0.13.1",
-"isolate": "1.0.0",
-"markdown": "0.11.3",
-"observable": "0.20.4+1",
-"observe": "0.15.0",
-"polymer_interop": "1.0.0-rc.10"
-},
-"authors": [
-"Polymer.dart Authors <web-ui-dev@dartlang.org>"
-],
-"version": "0.16.4+4"
-},
-"analyzerItems": [
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "bin/new_element.dart",
-"line": 22,
-"col": 16,
-"error": "'getUsage' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "bin/new_element.dart",
-"line": 56,
-"col": 18,
-"error": "The value of the local variable 'startDir' isn't used."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import1/test/import_test.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import1/test/import_test.dart",
-"line": 9,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import1/test/import_test.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:bad_import1/a.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import1/test/import_test.dart",
-"line": 16,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import1/test/import_test.dart",
-"line": 18,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import1/test/import_test.dart",
-"line": 20,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import1/test/import_test.dart",
-"line": 21,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/bad_import1/test/import_test.dart",
-"line": 21,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import2/test/import_test.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import2/test/import_test.dart",
-"line": 9,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import2/test/import_test.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:bad_import2/a.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import2/test/import_test.dart",
-"line": 16,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import2/test/import_test.dart",
-"line": 18,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import2/test/import_test.dart",
-"line": 20,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import2/test/import_test.dart",
-"line": 21,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/bad_import2/test/import_test.dart",
-"line": 21,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import3/test/import_test.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import3/test/import_test.dart",
-"line": 9,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/bad_import3/test/import_test.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:bad_import3/a.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import3/test/import_test.dart",
-"line": 16,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import3/test/import_test.dart",
-"line": 18,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import3/test/import_test.dart",
-"line": 20,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/bad_import3/test/import_test.dart",
-"line": 21,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/bad_import3/test/import_test.dart",
-"line": 21,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/lib/a.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/lib/a.dart",
-"line": 14,
-"col": 3,
-"error": "Undefined name 'c'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/lib/b.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/lib/b.dart",
-"line": 14,
-"col": 3,
-"error": "Undefined name 'c'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 9,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/a.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 13,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/canonicalization/b.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 14,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 15,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/d.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 16,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/canonicalization/d.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 20,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 22,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 24,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 25,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 25,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 30,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 33,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 33,
-"col": 12,
-"error": "Undefined name 'c'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 34,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 34,
-"col": 12,
-"error": "Undefined name 'd1'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/deploy_common.dart",
-"line": 35,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 9,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/a.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 13,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/canonicalization/b.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 14,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 15,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/d.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 16,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/canonicalization/d.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 20,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 22,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 24,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 25,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 25,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 29,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 30,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 30,
-"col": 12,
-"error": "Undefined name 'c'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 31,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 31,
-"col": 12,
-"error": "Undefined name 'd1'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dev_common.dart",
-"line": 32,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 11,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 15,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/a.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 16,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/canonicalization/b.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 17,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 18,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/d.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 19,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/canonicalization/d.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 23,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 25,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 27,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 28,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 28,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 32,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 34,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 34,
-"col": 12,
-"error": "Undefined name 'c'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 35,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 35,
-"col": 12,
-"error": "Undefined name 'd1'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-"line": 36,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 11,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 15,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/a.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 16,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/canonicalization/b.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 17,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 18,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:canonicalization/d.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 19,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/canonicalization/d.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 23,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 25,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 27,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 28,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 28,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 32,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 33,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 33,
-"col": 12,
-"error": "Undefined name 'c'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 34,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 34,
-"col": 12,
-"error": "Undefined name 'd1'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-"line": 35,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/lib/a.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:experimental_boot/c.dart'."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/experimental_boot/lib/a.dart",
-"line": 14,
-"col": 3,
-"error": "Undefined name 'c'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/lib/b.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:experimental_boot/c.dart'."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/experimental_boot/lib/b.dart",
-"line": 14,
-"col": 3,
-"error": "Undefined name 'c'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "e2e_test/experimental_boot/test/double_init_test.dart",
-"line": 6,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "e2e_test/experimental_boot/test/double_init_test.dart",
-"line": 7,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/double_init_test.dart",
-"line": 10,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/double_init_test.dart",
-"line": 11,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/double_init_test.dart",
-"line": 15,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/double_init_test.dart",
-"line": 16,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/double_init_test.dart",
-"line": 17,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/double_init_test.dart",
-"line": 17,
-"col": 33,
-"error": "The function 'throwsA' isn't defined."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 6,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 7,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 10,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:experimental_boot/a.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 11,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/experimental_boot/b.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:experimental_boot/c.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 13,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:experimental_boot/d.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 14,
-"col": 8,
-"error": "Target of URI doesn't exist: 'packages/experimental_boot/d.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 18,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 20,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 22,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 23,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 23,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 28,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 31,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 31,
-"col": 12,
-"error": "Undefined name 'c'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 32,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 32,
-"col": 12,
-"error": "Undefined name 'd1'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/experimental_boot/test/import_test.dart",
-"line": 33,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/good_import/test/import_test.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/good_import/test/import_test.dart",
-"line": 9,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "e2e_test/good_import/test/import_test.dart",
-"line": 12,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:good_import/a.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/good_import/test/import_test.dart",
-"line": 16,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/good_import/test/import_test.dart",
-"line": 18,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/good_import/test/import_test.dart",
-"line": 20,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "e2e_test/good_import/test/import_test.dart",
-"line": 21,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "e2e_test/good_import/test/import_test.dart",
-"line": 21,
-"col": 12,
-"error": "Undefined name 'a'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 7,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 13,
-"col": 3,
-"error": "The function 'useHtmlConfiguration' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 20,
-"col": 3,
-"error": "The function 'setUp' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 22,
-"col": 3,
-"error": "The function 'test' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 25,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 26,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 27,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 30,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 31,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 31,
-"col": 37,
-"error": "The method 'getDistributedNodes' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 33,
-"col": 5,
-"error": "The function 'expect' isn't defined."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "example/component/news/test/news_index_test.dart",
-"line": 34,
-"col": 34,
-"error": "The method 'getDistributedNodes' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/builder.dart",
-"line": 311,
-"col": 18,
-"error": "'getUsage' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 10,
-"col": 12,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 10,
-"col": 15,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter '_' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 11,
-"col": 10,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 11,
-"col": 13,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter '_' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/deserialize.dart",
-"line": 12,
-"col": 13,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 12,
-"col": 14,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 12,
-"col": 17,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'def' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 21,
-"col": 10,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 21,
-"col": 13,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter '_' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 22,
-"col": 9,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 22,
-"col": 12,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'def' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 23,
-"col": 12,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/deserialize.dart",
-"line": 23,
-"col": 15,
-"error": "The type of '_typeHandlers' can't be inferred because the parameter 'def' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/polymer.dart",
-"line": 65,
-"col": 1,
-"error": "'observe.html' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/src/build/build_filter.dart",
-"line": 9,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "lib/src/build/build_log_combiner.dart",
-"line": 25,
-"col": 59,
-"error": "The getter 'id' isn't defined for the class 'AssetId'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/build/common.dart",
-"line": 10,
-"col": 1,
-"error": "'analyzer.src.generated.ast' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/src/build/common.dart",
-"line": 10,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/src/build/common.dart",
-"line": 11,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/src/build/common.dart",
-"line": 12,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/build/common.dart",
-"line": 13,
-"col": 1,
-"error": "'analyzer.src.generated.scanner' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/src/build/common.dart",
-"line": 13,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/build/common.dart",
-"line": 18,
-"col": 1,
-"error": "'observe.transformer' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_SHOWN_NAME",
-"file": "lib/src/build/html_finalizer.dart",
-"line": 19,
-"col": 20,
-"error": "The name DocumentFragment is shown, but not used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "lib/src/build/index_page_builder.dart",
-"line": 42,
-"col": 15,
-"error": "The value of the local variable 'relativeDir' isn't used."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "lib/src/build/index_page_builder.dart",
-"line": 54,
-"col": 26,
-"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<Future>'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/src/build/linter.dart",
-"line": 10,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNNECESSARY_CAST",
-"file": "lib/src/build/linter.dart",
-"line": 57,
-"col": 19,
-"error": "Unnecessary cast."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "lib/src/build/linter.dart",
-"line": 113,
-"col": 24,
-"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<Future<AssetId>>'."
-},
-{
-"type": "INFO|HINT|UNUSED_FIELD",
-"file": "lib/src/build/linter.dart",
-"line": 173,
-"col": 8,
-"error": "The value of the field '_polymerHtmlSeen' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/src/build/log_injector.dart",
-"line": 14,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "lib/src/build/log_injector.dart",
-"line": 15,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_SHOWN_NAME",
-"file": "lib/src/build/polyfill_injector.dart",
-"line": 12,
-"col": 10,
-"error": "The name Document is shown, but not used."
-},
-{
-"type": "INFO|HINT|UNUSED_SHOWN_NAME",
-"file": "lib/src/build/polyfill_injector.dart",
-"line": 12,
-"col": 20,
-"error": "The name DocumentFragment is shown, but not used."
-},
-{
-"type": "INFO|HINT|UNUSED_SHOWN_NAME",
-"file": "lib/src/build/polyfill_injector.dart",
-"line": 12,
-"col": 47,
-"error": "The name Node is shown, but not used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/build/polymer_smoke_generator.dart",
-"line": 13,
-"col": 1,
-"error": "'analyzer.src.generated.ast' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/build/polymer_smoke_generator.dart",
-"line": 14,
-"col": 1,
-"error": "'analyzer.src.generated.element' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/build/polymer_smoke_generator.dart",
-"line": 15,
-"col": 1,
-"error": "'analyzer.src.generated.element' is deprecated and shouldn't be used."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "lib/src/build/polymer_smoke_generator.dart",
-"line": 345,
-"col": 45,
-"error": "The getter 'metadata' isn't defined for the class 'AstNode'."
-},
-{
-"type": "INFO|HINT|UNUSED_ELEMENT",
-"file": "lib/src/build/polymer_smoke_generator.dart",
-"line": 712,
-"col": 23,
-"error": "The function '_visibleTopLevelMethodsOf' isn't used."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "lib/src/build/runner.dart",
-"line": 192,
-"col": 25,
-"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<AssetId>'."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "lib/src/build/runner.dart",
-"line": 240,
-"col": 7,
-"error": "The value of the local variable 'futures' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_FIELD",
-"file": "lib/src/declaration.dart",
-"line": 74,
-"col": 24,
-"error": "The value of the field '_templateDelegates' isn't used."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "lib/src/declaration.dart",
-"line": 433,
-"col": 36,
-"error": "The argument type '(dynamic) → dynamic' can't be assigned to the parameter type '(Element) → bool'."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "lib/src/declaration.dart",
-"line": 439,
-"col": 36,
-"error": "The argument type '(dynamic) → dynamic' can't be assigned to the parameter type '(Element) → bool'."
-},
-{
-"type": "INFO|HINT|UNUSED_ELEMENT",
-"file": "lib/src/declaration.dart",
-"line": 546,
-"col": 6,
-"error": "The function '_isRegistered' isn't used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/events.dart",
-"line": 159,
-"col": 35,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|UNUSED_ELEMENT",
-"file": "lib/src/events.dart",
-"line": 170,
-"col": 8,
-"error": "The function '_eventNameFromType' isn't used."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR",
-"file": "lib/src/instance.dart",
-"line": 625,
-"col": 36,
-"error": "The function expression type '() → Object' isn't of type '() → String'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s)."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "lib/src/instance.dart",
-"line": 723,
-"col": 23,
-"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<Bindable>'."
-},
-{
-"type": "INFO|HINT|UNUSED_ELEMENT",
-"file": "lib/src/instance.dart",
-"line": 814,
-"col": 15,
-"error": "The method '_forNodeTree' isn't used."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "lib/src/instance.dart",
-"line": 913,
-"col": 25,
-"error": "The getter 'name' isn't defined for the class 'ChangeRecord'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "lib/src/instance.dart",
-"line": 917,
-"col": 36,
-"error": "The getter 'newValue' isn't defined for the class 'ChangeRecord'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "lib/src/instance.dart",
-"line": 917,
-"col": 53,
-"error": "The getter 'oldValue' isn't defined for the class 'ChangeRecord'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
-"file": "lib/src/instance.dart",
-"line": 1255,
-"col": 19,
-"error": "A value of type 'String' can't be assigned to a variable of type 'StringBuffer'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/instance.dart",
-"line": 1306,
-"col": 35,
-"error": "The type of '_scopeStyles' can't be inferred because type arguments were not given for 'Expando'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/src/instance.dart",
-"line": 1426,
-"col": 3,
-"error": "Invalid override. The type of '_PolymerBinding.open' ('((dynamic) → dynamic) → dynamic') isn't a subtype of 'Bindable.open' ('(dynamic) → dynamic')."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/transformer.dart",
-"line": 10,
-"col": 1,
-"error": "'observe.transformer' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "lib/transformer.dart",
-"line": 71,
-"col": 7,
-"error": "The value of the local variable 'lint' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "test/attr_deserialize_test.dart",
-"line": 27,
-"col": 11,
-"error": "The value of the local variable 'msg' isn't used."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/attr_mustache_test.dart",
-"line": 54,
-"col": 20,
-"error": "The getter 'foundSrc' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/bind_mdv_test.dart",
-"line": 12,
-"col": 1,
-"error": "'observe.mirrors_used' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/bind_properties_test.dart",
-"line": 58,
-"col": 21,
-"error": "The type of 'completer' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 82,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 83,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 84,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 85,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/bind_properties_test.dart",
-"line": 87,
-"col": 9,
-"error": "The setter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 89,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 90,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 91,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 92,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/bind_properties_test.dart",
-"line": 94,
-"col": 9,
-"error": "The setter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 96,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 97,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 98,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 99,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 101,
-"col": 7,
-"error": "The getter 'obj' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 103,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 104,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 105,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/bind_properties_test.dart",
-"line": 106,
-"col": 16,
-"error": "The getter 'val' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/bind_test.dart",
-"line": 21,
-"col": 26,
-"error": "The type of '_testReady' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "test/build/common.dart",
-"line": 127,
-"col": 26,
-"error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<Future>'."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-"file": "test/build/common.dart",
-"line": 145,
-"col": 11,
-"error": "Undefined name 'solo_test'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/build/index_page_builder_test.dart",
-"line": 7,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|DUPLICATE_IMPORT",
-"file": "test/build/index_page_builder_test.dart",
-"line": 13,
-"col": 8,
-"error": "Duplicate import."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "test/build/index_page_builder_test.dart",
-"line": 18,
-"col": 37,
-"error": "The argument type 'List<List<IndexPageBuilder>>' can't be assigned to the parameter type 'List<List<Transformer>>'."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "test/build/index_page_builder_test.dart",
-"line": 48,
-"col": 51,
-"error": "The argument type 'List<List<IndexPageBuilder>>' can't be assigned to the parameter type 'List<List<Transformer>>'."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "test/build/index_page_builder_test.dart",
-"line": 61,
-"col": 70,
-"error": "The argument type 'List<List<IndexPageBuilder>>' can't be assigned to the parameter type 'List<List<Transformer>>'."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "test/build/index_page_builder_test.dart",
-"line": 99,
-"col": 55,
-"error": "The argument type 'List<List<IndexPageBuilder>>' can't be assigned to the parameter type 'List<List<Transformer>>'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/build/linter_test.dart",
-"line": 8,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/build/log_injector_test.dart",
-"line": 6,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_SHOWN_NAME",
-"file": "test/build/polymer_smoke_generator_test.dart",
-"line": 9,
-"col": 35,
-"error": "The name StringFormatter is shown, but not used."
-},
-{
-"type": "INFO|HINT|UNUSED_ELEMENT",
-"file": "test/build/static_clean_test.dart",
-"line": 10,
-"col": 1,
-"error": "The function '_unused' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/computed_properties_test.dart",
-"line": 6,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 61,
-"col": 17,
-"error": "The getter 'fooBar' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 67,
-"col": 17,
-"error": "The getter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 68,
-"col": 17,
-"error": "The getter 'foo2' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/computed_properties_test.dart",
-"line": 69,
-"col": 10,
-"error": "The setter 'foo2' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 70,
-"col": 17,
-"error": "The getter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 71,
-"col": 17,
-"error": "The getter 'foo2' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 76,
-"col": 17,
-"error": "The getter 'bar' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 77,
-"col": 17,
-"error": "The getter 'bar2' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/computed_properties_test.dart",
-"line": 78,
-"col": 10,
-"error": "The setter 'bar2' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 79,
-"col": 17,
-"error": "The getter 'bar' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/computed_properties_test.dart",
-"line": 80,
-"col": 17,
-"error": "The getter 'bar2' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/custom_event_test.dart",
-"line": 51,
-"col": 31,
-"error": "The getter 'fooBar' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/custom_event_test.dart",
-"line": 64,
-"col": 31,
-"error": "The getter 'events' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/event_binding_release_handler_test.dart",
-"line": 12,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/event_controller_test.dart",
-"line": 8,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "ERROR|STATIC_WARNING|CONFLICTING_INSTANCE_GETTER_AND_SUPERCLASS_MEMBER",
-"file": "test/event_handlers_test.dart",
-"line": 23,
-"col": 14,
-"error": "Superclass 'Polymer' declares static member with the same name."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "test/event_path_test.dart",
-"line": 43,
-"col": 9,
-"error": "The value of the local variable 'overlay' isn't used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/event_path_test.dart",
-"line": 69,
-"col": 27,
-"error": "'expectAsync' is deprecated and shouldn't be used."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 54,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 56,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 61,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 63,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 66,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 69,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 74,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 76,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 79,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/events_test.dart",
-"line": 82,
-"col": 18,
-"error": "The getter 'clicks' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/import_test.dart",
-"line": 6,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/js_custom_event_test.dart",
-"line": 29,
-"col": 20,
-"error": "The getter 'called' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/js_custom_event_test.dart",
-"line": 31,
-"col": 20,
-"error": "The getter 'called' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/js_interop_test.dart",
-"line": 78,
-"col": 23,
-"error": "The getter 'twoWay' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/js_interop_test.dart",
-"line": 85,
-"col": 23,
-"error": "The getter 'twoWay' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/layout_test.dart",
-"line": 8,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/layout_test.dart",
-"line": 10,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "ERROR|STATIC_WARNING|CONFLICTING_INSTANCE_GETTER_AND_SUPERCLASS_MEMBER",
-"file": "test/nested_binding_test.dart",
-"line": 18,
-"col": 9,
-"error": "Superclass 'Polymer' declares static member with the same name."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/nested_binding_test.dart",
-"line": 18,
-"col": 23,
-"error": "The type of 'onReady' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_bind_reflection_test.dart",
-"line": 39,
-"col": 18,
-"error": "The getter 'lowercase' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_bind_reflection_test.dart",
-"line": 40,
-"col": 18,
-"error": "The getter 'camelCase' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 85,
-"col": 25,
-"error": "The getter 'nog' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 89,
-"col": 25,
-"error": "The getter 'nog' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 94,
-"col": 17,
-"error": "The getter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 98,
-"col": 17,
-"error": "The getter 'zim' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 101,
-"col": 17,
-"error": "The getter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 105,
-"col": 10,
-"error": "The setter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 107,
-"col": 10,
-"error": "The setter 'def2' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 112,
-"col": 23,
-"error": "The getter '$' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 118,
-"col": 19,
-"error": "The getter 'def1' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 121,
-"col": 22,
-"error": "The getter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 126,
-"col": 22,
-"error": "The getter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 129,
-"col": 12,
-"error": "The setter 'baz' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 131,
-"col": 19,
-"error": "The getter 'baz' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 134,
-"col": 12,
-"error": "The setter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 135,
-"col": 12,
-"error": "The setter 'zot' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 136,
-"col": 12,
-"error": "The setter 'zim' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 137,
-"col": 12,
-"error": "The setter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 138,
-"col": 12,
-"error": "The setter 'obj' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 140,
-"col": 19,
-"error": "The getter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 142,
-"col": 22,
-"error": "The getter 'zot' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 147,
-"col": 19,
-"error": "The getter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 156,
-"col": 19,
-"error": "The getter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 158,
-"col": 19,
-"error": "The getter 'zot' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 159,
-"col": 19,
-"error": "The getter 'zim' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 160,
-"col": 19,
-"error": "The getter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 162,
-"col": 19,
-"error": "The getter 'obj' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 164,
-"col": 12,
-"error": "The setter 'zim' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 169,
-"col": 12,
-"error": "The setter 'obj' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 174,
-"col": 19,
-"error": "The getter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 175,
-"col": 19,
-"error": "The getter 'zot' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 176,
-"col": 12,
-"error": "The setter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 177,
-"col": 12,
-"error": "The setter 'zot' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/prop_attr_reflection_test.dart",
-"line": 179,
-"col": 43,
-"error": "The getter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/property_change_test.dart",
-"line": 17,
-"col": 19,
-"error": "The type of '_zonk' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/property_change_test.dart",
-"line": 18,
-"col": 18,
-"error": "The type of '_bar' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/property_observe_test.dart",
-"line": 14,
-"col": 19,
-"error": "The type of '_done' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "test/publish_attributes_test.dart",
-"line": 39,
-"col": 14,
-"error": "Invalid override. The type of 'XSquid.baz=' ('(int) → void') isn't a subtype of 'XFoo.baz=' ('(dynamic) → void')."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 58,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 59,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 60,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 61,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 63,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 65,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 67,
-"col": 31,
-"error": "The getter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 68,
-"col": 31,
-"error": "The getter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 70,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 71,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 72,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 73,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 75,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 77,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 79,
-"col": 31,
-"error": "The getter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 80,
-"col": 31,
-"error": "The getter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 82,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 83,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 84,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 85,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 87,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 89,
-"col": 31,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 94,
-"col": 31,
-"error": "The getter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 95,
-"col": 31,
-"error": "The getter 'str' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 98,
-"col": 32,
-"error": "The getter 'value' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 99,
-"col": 32,
-"error": "The getter 'value' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 101,
-"col": 32,
-"error": "The getter 'value' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 102,
-"col": 32,
-"error": "The getter 'value' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 110,
-"col": 31,
-"error": "The getter 'values' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 111,
-"col": 31,
-"error": "The getter 'values' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 113,
-"col": 31,
-"error": "The getter 'values' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 114,
-"col": 31,
-"error": "The getter 'values' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/take_attributes_test.dart",
-"line": 115,
-"col": 31,
-"error": "The getter 'values' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_WARNING|CONFLICTING_INSTANCE_GETTER_AND_SUPERCLASS_MEMBER",
-"file": "test/template_attr_template_test.dart",
-"line": 17,
-"col": 13,
-"error": "Superclass 'Polymer' declares static member with the same name."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/template_attr_template_test.dart",
-"line": 46,
-"col": 38,
-"error": "The method 'test' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/template_attr_template_test.dart",
-"line": 47,
-"col": 39,
-"error": "The method 'test' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/template_distribute_dynamic_test.dart",
-"line": 15,
-"col": 27,
-"error": "The type of '_onAttached' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 36,
-"col": 18,
-"error": "The getter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 37,
-"col": 18,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 38,
-"col": 18,
-"error": "The getter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 46,
-"col": 11,
-"error": "The setter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 47,
-"col": 11,
-"error": "The setter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 48,
-"col": 11,
-"error": "The setter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 50,
-"col": 20,
-"error": "The getter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 51,
-"col": 20,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 52,
-"col": 20,
-"error": "The getter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 54,
-"col": 13,
-"error": "The setter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 55,
-"col": 13,
-"error": "The setter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 56,
-"col": 13,
-"error": "The setter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 58,
-"col": 20,
-"error": "The getter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 59,
-"col": 20,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 60,
-"col": 20,
-"error": "The getter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 69,
-"col": 11,
-"error": "The setter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 70,
-"col": 11,
-"error": "The setter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 71,
-"col": 11,
-"error": "The setter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 73,
-"col": 20,
-"error": "The getter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 74,
-"col": 20,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 75,
-"col": 20,
-"error": "The getter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 77,
-"col": 13,
-"error": "The setter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 78,
-"col": 13,
-"error": "The setter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 79,
-"col": 13,
-"error": "The setter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 81,
-"col": 20,
-"error": "The getter 'number' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 82,
-"col": 20,
-"error": "The getter 'boolean' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/two_way_bind_test.dart",
-"line": 83,
-"col": 20,
-"error": "The getter 'string' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
-"file": "test/unbind_test.dart",
-"line": 62,
-"col": 58,
-"error": "The type of 'unboundSymbol' can't be inferred because of the use of the instance getter 'keys'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
-"file": "test/unbind_test.dart",
-"line": 64,
-"col": 60,
-"error": "The type of 'observersSymbol' can't be inferred because of the use of the instance getter 'keys'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
-"file": "test/unbind_test.dart",
-"line": 73,
-"col": 9,
-"error": "The setter 'foo' isn't defined for the class 'Element'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "test/unbind_test.dart",
-"line": 78,
-"col": 18,
-"error": "The getter 'fooWasChanged' isn't defined for the class 'Element'."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "test/web_components_less_test.dart",
-"line": 37,
-"col": 9,
-"error": "The value of the local variable 'jsDoc' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "test/web_components_less_test.dart",
-"line": 38,
-"col": 9,
-"error": "The value of the local variable 'htmlImports' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "tool/create_message_details_page.dart",
-"line": 21,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "tool/create_message_details_page.dart",
-"line": 22,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "tool/create_message_details_page.dart",
-"line": 23,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "tool/create_message_details_page.dart",
-"line": 24,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "tool/create_message_details_page.dart",
-"line": 121,
-"col": 18,
-"error": "'getUsage' is deprecated and shouldn't be used."
-}
-],
-"unformattedFiles": [
-"e2e_test/bad_import3/lib/a.dart",
-"e2e_test/experimental_boot/test/import_test.dart",
-"e2e_test/experimental_boot/lib/b.dart",
-"e2e_test/experimental_boot/lib/a.dart",
-"e2e_test/bad_import2/lib/a.dart",
-"e2e_test/bad_import1/lib/a.dart",
-"e2e_test/good_import/lib/a.dart",
-"e2e_test/canonicalization/test/deploy_common.dart",
-"e2e_test/canonicalization/test/dir/deploy_common.dart",
-"e2e_test/canonicalization/lib/b.dart",
-"e2e_test/canonicalization/lib/a.dart",
-"test/register_test.dart",
-"test/event_controller_test.dart",
-"test/event_path_test.dart",
-"test/force_ready_test.dart",
-"test/bind_properties_test.dart",
-"test/web_components_less_test.dart",
-"test/bind_mdv_test.dart",
-"test/attr_deserialize_test.dart",
-"test/event_path_declarative_test.dart",
-"test/build/polyfill_injector_test.dart",
-"test/build/html_finalizer_test.dart",
-"test/build/build_log_combiner_test.dart",
-"test/build/unique_message_test.dart",
-"test/build/all_phases_test.dart",
-"test/build/common.dart",
-"test/build/polymer_smoke_generator_test.dart",
-"test/build/linter_test.dart",
-"test/build/index_page_builder_test.dart",
-"test/sort_registration_test.dart",
-"test/layout_test.dart",
-"test/property_observe_test.dart",
-"test/template_distribute_dynamic_test.dart",
-"test/inject_bound_html_test.dart",
-"test/unbind_test.dart",
-"test/two_way_bind_test.dart",
-"test/custom_event_test.dart",
-"test/auto_binding_test.dart",
-"test/bind_test.dart",
-"test/attr_mustache_test.dart",
-"test/js_interop_test.dart",
-"test/event_handlers_test.dart",
-"test/instance_attrs_test.dart",
-"test/prop_attr_reflection_test.dart",
-"test/js_custom_event_test.dart",
-"test/common.dart",
-"test/property_change_test.dart",
-"test/events_test.dart",
-"test/prop_attr_bind_reflection_test.dart",
-"test/publish_attributes_test.dart",
-"test/computed_properties_test.dart",
-"test/entered_view_test.dart",
-"test/publish_inherited_properties_test.dart",
-"test/event_binding_release_handler_test.dart",
-"test/take_attributes_test.dart",
-"test/noscript_test.dart",
-"test/template_attr_template_test.dart",
-"lib/auto_binding.dart",
-"lib/transformer.dart",
-"lib/builder.dart",
-"lib/src/loader.dart",
-"lib/src/instance.dart",
-"lib/src/build/runner.dart",
-"lib/src/build/messages.dart",
-"lib/src/build/html_finalizer.dart",
-"lib/src/build/polymer_smoke_generator.dart",
-"lib/src/build/polyfill_injector.dart",
-"lib/src/build/linter.dart",
-"lib/src/build/common.dart",
-"lib/src/build/log_injector.dart",
-"lib/src/events.dart",
-"lib/src/declaration.dart",
-"lib/src/initializers.dart",
-"tool/create_message_details_page.dart",
-"bin/new_entry.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "polymer",
+ "packageVersion": "0.16.4+4",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.27.6",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "boolean_selector": "1.0.2",
+   "browser": "0.10.0+2",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "code_transformers": "0.4.2+3",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "dart_style": "0.2.11+1",
+   "func": "0.1.1",
+   "glob": "1.1.3",
+   "html": "0.12.2+2",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "initialize": "0.6.2+5",
+   "isolate": "0.2.3",
+   "logging": "0.11.3+1",
+   "markdown": "0.7.2",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "observable": "0.14.0+1",
+   "observe": "0.14.0",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.2.0",
+   "polymer_expressions": "0.13.1+1",
+   "polymer_interop": "0.1.2+1",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "smoke": "0.3.6+2",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "template_binding": "0.14.0+6",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "transformer_test": "0.2.1+1",
+   "typed_data": "1.1.3",
+   "utf": "0.9.0+3",
+   "watcher": "0.9.7+3",
+   "web_components": "0.12.5",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.29.10",
+   "code_transformers": "0.5.1",
+   "dart_style": "1.0.3",
+   "html": "0.13.1",
+   "isolate": "1.0.0",
+   "markdown": "0.11.3",
+   "observable": "0.20.4+1",
+   "observe": "0.15.0",
+   "polymer_interop": "1.0.0-rc.10"
+  },
+  "authors": [
+   "Polymer.dart Authors <web-ui-dev@dartlang.org>"
+  ],
+  "version": "0.16.4+4"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "bin/new_element.dart",
+   "line": 22,
+   "col": 16,
+   "error": "'getUsage' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "bin/new_element.dart",
+   "line": 56,
+   "col": 18,
+   "error": "The value of the local variable 'startDir' isn't used."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import1/test/import_test.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import1/test/import_test.dart",
+   "line": 9,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import1/test/import_test.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:bad_import1/a.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import1/test/import_test.dart",
+   "line": 16,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import1/test/import_test.dart",
+   "line": 18,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import1/test/import_test.dart",
+   "line": 20,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import1/test/import_test.dart",
+   "line": 21,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/bad_import1/test/import_test.dart",
+   "line": 21,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import2/test/import_test.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import2/test/import_test.dart",
+   "line": 9,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import2/test/import_test.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:bad_import2/a.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import2/test/import_test.dart",
+   "line": 16,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import2/test/import_test.dart",
+   "line": 18,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import2/test/import_test.dart",
+   "line": 20,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import2/test/import_test.dart",
+   "line": 21,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/bad_import2/test/import_test.dart",
+   "line": 21,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import3/test/import_test.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import3/test/import_test.dart",
+   "line": 9,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/bad_import3/test/import_test.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:bad_import3/a.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import3/test/import_test.dart",
+   "line": 16,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import3/test/import_test.dart",
+   "line": 18,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import3/test/import_test.dart",
+   "line": 20,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/bad_import3/test/import_test.dart",
+   "line": 21,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/bad_import3/test/import_test.dart",
+   "line": 21,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/lib/a.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/lib/a.dart",
+   "line": 14,
+   "col": 3,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/lib/b.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/lib/b.dart",
+   "line": 14,
+   "col": 3,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 9,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/a.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 13,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/canonicalization/b.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 14,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 15,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/d.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 16,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/canonicalization/d.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 20,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 22,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 24,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 25,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 25,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 30,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 33,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 33,
+   "col": 12,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 34,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 34,
+   "col": 12,
+   "error": "Undefined name 'd1'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/deploy_common.dart",
+   "line": 35,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 9,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/a.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 13,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/canonicalization/b.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 14,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 15,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/d.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 16,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/canonicalization/d.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 20,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 22,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 24,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 25,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 25,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 29,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 30,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 30,
+   "col": 12,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 31,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 31,
+   "col": 12,
+   "error": "Undefined name 'd1'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dev_common.dart",
+   "line": 32,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 11,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 15,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/a.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 16,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/canonicalization/b.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 17,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 18,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/d.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 19,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/canonicalization/d.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 23,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 25,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 27,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 28,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 28,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 32,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 34,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 34,
+   "col": 12,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 35,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 35,
+   "col": 12,
+   "error": "Undefined name 'd1'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
+   "line": 36,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 11,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 15,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/a.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 16,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/canonicalization/b.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 17,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/c.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 18,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:canonicalization/d.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 19,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/canonicalization/d.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 23,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 25,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 27,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 28,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 28,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 32,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 33,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 33,
+   "col": 12,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 34,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 34,
+   "col": 12,
+   "error": "Undefined name 'd1'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
+   "line": 35,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/lib/a.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:experimental_boot/c.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/experimental_boot/lib/a.dart",
+   "line": 14,
+   "col": 3,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/lib/b.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:experimental_boot/c.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/experimental_boot/lib/b.dart",
+   "line": 14,
+   "col": 3,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "e2e_test/experimental_boot/test/double_init_test.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "e2e_test/experimental_boot/test/double_init_test.dart",
+   "line": 7,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/double_init_test.dart",
+   "line": 10,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/double_init_test.dart",
+   "line": 11,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/double_init_test.dart",
+   "line": 15,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/double_init_test.dart",
+   "line": 16,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/double_init_test.dart",
+   "line": 17,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/double_init_test.dart",
+   "line": 17,
+   "col": 33,
+   "error": "The function 'throwsA' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 7,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 10,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:experimental_boot/a.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 11,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/experimental_boot/b.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:experimental_boot/c.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 13,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:experimental_boot/d.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 14,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'packages/experimental_boot/d.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 18,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 20,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 22,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 23,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 23,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 28,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 31,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 31,
+   "col": 12,
+   "error": "Undefined name 'c'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 32,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 32,
+   "col": 12,
+   "error": "Undefined name 'd1'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/experimental_boot/test/import_test.dart",
+   "line": 33,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/good_import/test/import_test.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/good_import/test/import_test.dart",
+   "line": 9,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "e2e_test/good_import/test/import_test.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:good_import/a.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/good_import/test/import_test.dart",
+   "line": 16,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/good_import/test/import_test.dart",
+   "line": 18,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/good_import/test/import_test.dart",
+   "line": 20,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "e2e_test/good_import/test/import_test.dart",
+   "line": 21,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "e2e_test/good_import/test/import_test.dart",
+   "line": 21,
+   "col": 12,
+   "error": "Undefined name 'a'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 7,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/unittest.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:unittest/html_config.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 13,
+   "col": 3,
+   "error": "The function 'useHtmlConfiguration' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 20,
+   "col": 3,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 22,
+   "col": 3,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 25,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 26,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 27,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 30,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 31,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 31,
+   "col": 37,
+   "error": "The method 'getDistributedNodes' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 33,
+   "col": 5,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "example/component/news/test/news_index_test.dart",
+   "line": 34,
+   "col": 34,
+   "error": "The method 'getDistributedNodes' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/builder.dart",
+   "line": 311,
+   "col": 18,
+   "error": "'getUsage' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 10,
+   "col": 12,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 10,
+   "col": 15,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter '_' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 11,
+   "col": 10,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 11,
+   "col": 13,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter '_' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/deserialize.dart",
+   "line": 12,
+   "col": 13,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 12,
+   "col": 14,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 12,
+   "col": 17,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'def' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 21,
+   "col": 10,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 21,
+   "col": 13,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter '_' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 22,
+   "col": 9,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 22,
+   "col": 12,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'def' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 23,
+   "col": 12,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/deserialize.dart",
+   "line": 23,
+   "col": 15,
+   "error": "The type of '_typeHandlers' can't be inferred because the parameter 'def' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/polymer.dart",
+   "line": 65,
+   "col": 1,
+   "error": "'observe.html' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/src/build/build_filter.dart",
+   "line": 9,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "lib/src/build/build_log_combiner.dart",
+   "line": 25,
+   "col": 59,
+   "error": "The getter 'id' isn't defined for the class 'AssetId'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/build/common.dart",
+   "line": 10,
+   "col": 1,
+   "error": "'analyzer.src.generated.ast' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/src/build/common.dart",
+   "line": 10,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/src/build/common.dart",
+   "line": 11,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/src/build/common.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/build/common.dart",
+   "line": 13,
+   "col": 1,
+   "error": "'analyzer.src.generated.scanner' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/src/build/common.dart",
+   "line": 13,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/build/common.dart",
+   "line": 18,
+   "col": 1,
+   "error": "'observe.transformer' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_SHOWN_NAME",
+   "file": "lib/src/build/html_finalizer.dart",
+   "line": 19,
+   "col": 20,
+   "error": "The name DocumentFragment is shown, but not used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "lib/src/build/index_page_builder.dart",
+   "line": 42,
+   "col": 15,
+   "error": "The value of the local variable 'relativeDir' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/build/index_page_builder.dart",
+   "line": 54,
+   "col": 26,
+   "error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<Future>'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/src/build/linter.dart",
+   "line": 10,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNNECESSARY_CAST",
+   "file": "lib/src/build/linter.dart",
+   "line": 57,
+   "col": 19,
+   "error": "Unnecessary cast."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/build/linter.dart",
+   "line": 113,
+   "col": 24,
+   "error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<Future<AssetId>>'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_FIELD",
+   "file": "lib/src/build/linter.dart",
+   "line": 173,
+   "col": 8,
+   "error": "The value of the field '_polymerHtmlSeen' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/src/build/log_injector.dart",
+   "line": 14,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "lib/src/build/log_injector.dart",
+   "line": 15,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_SHOWN_NAME",
+   "file": "lib/src/build/polyfill_injector.dart",
+   "line": 12,
+   "col": 10,
+   "error": "The name Document is shown, but not used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_SHOWN_NAME",
+   "file": "lib/src/build/polyfill_injector.dart",
+   "line": 12,
+   "col": 20,
+   "error": "The name DocumentFragment is shown, but not used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_SHOWN_NAME",
+   "file": "lib/src/build/polyfill_injector.dart",
+   "line": 12,
+   "col": 47,
+   "error": "The name Node is shown, but not used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/build/polymer_smoke_generator.dart",
+   "line": 13,
+   "col": 1,
+   "error": "'analyzer.src.generated.ast' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/build/polymer_smoke_generator.dart",
+   "line": 14,
+   "col": 1,
+   "error": "'analyzer.src.generated.element' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/build/polymer_smoke_generator.dart",
+   "line": 15,
+   "col": 1,
+   "error": "'analyzer.src.generated.element' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "lib/src/build/polymer_smoke_generator.dart",
+   "line": 345,
+   "col": 45,
+   "error": "The getter 'metadata' isn't defined for the class 'AstNode'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_ELEMENT",
+   "file": "lib/src/build/polymer_smoke_generator.dart",
+   "line": 712,
+   "col": 23,
+   "error": "The function '_visibleTopLevelMethodsOf' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/build/runner.dart",
+   "line": 192,
+   "col": 25,
+   "error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<AssetId>'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "lib/src/build/runner.dart",
+   "line": 240,
+   "col": 7,
+   "error": "The value of the local variable 'futures' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_FIELD",
+   "file": "lib/src/declaration.dart",
+   "line": 74,
+   "col": 24,
+   "error": "The value of the field '_templateDelegates' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/declaration.dart",
+   "line": 433,
+   "col": 36,
+   "error": "The argument type '(dynamic) → dynamic' can't be assigned to the parameter type '(Element) → bool'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/declaration.dart",
+   "line": 439,
+   "col": 36,
+   "error": "The argument type '(dynamic) → dynamic' can't be assigned to the parameter type '(Element) → bool'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_ELEMENT",
+   "file": "lib/src/declaration.dart",
+   "line": 546,
+   "col": 6,
+   "error": "The function '_isRegistered' isn't used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/events.dart",
+   "line": 159,
+   "col": 35,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_ELEMENT",
+   "file": "lib/src/events.dart",
+   "line": 170,
+   "col": 8,
+   "error": "The function '_eventNameFromType' isn't used."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR",
+   "file": "lib/src/instance.dart",
+   "line": 625,
+   "col": 36,
+   "error": "The function expression type '() → Object' isn't of type '() → String'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s)."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/instance.dart",
+   "line": 723,
+   "col": 23,
+   "error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<Bindable>'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_ELEMENT",
+   "file": "lib/src/instance.dart",
+   "line": 814,
+   "col": 15,
+   "error": "The method '_forNodeTree' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "lib/src/instance.dart",
+   "line": 913,
+   "col": 25,
+   "error": "The getter 'name' isn't defined for the class 'ChangeRecord'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "lib/src/instance.dart",
+   "line": 917,
+   "col": 36,
+   "error": "The getter 'newValue' isn't defined for the class 'ChangeRecord'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "lib/src/instance.dart",
+   "line": 917,
+   "col": 53,
+   "error": "The getter 'oldValue' isn't defined for the class 'ChangeRecord'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+   "file": "lib/src/instance.dart",
+   "line": 1255,
+   "col": 19,
+   "error": "A value of type 'String' can't be assigned to a variable of type 'StringBuffer'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/instance.dart",
+   "line": 1306,
+   "col": 35,
+   "error": "The type of '_scopeStyles' can't be inferred because type arguments were not given for 'Expando'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/src/instance.dart",
+   "line": 1426,
+   "col": 3,
+   "error": "Invalid override. The type of '_PolymerBinding.open' ('((dynamic) → dynamic) → dynamic') isn't a subtype of 'Bindable.open' ('(dynamic) → dynamic')."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/transformer.dart",
+   "line": 10,
+   "col": 1,
+   "error": "'observe.transformer' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "lib/transformer.dart",
+   "line": 71,
+   "col": 7,
+   "error": "The value of the local variable 'lint' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/attr_deserialize_test.dart",
+   "line": 27,
+   "col": 11,
+   "error": "The value of the local variable 'msg' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/attr_mustache_test.dart",
+   "line": 54,
+   "col": 20,
+   "error": "The getter 'foundSrc' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/bind_mdv_test.dart",
+   "line": 12,
+   "col": 1,
+   "error": "'observe.mirrors_used' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/bind_properties_test.dart",
+   "line": 58,
+   "col": 21,
+   "error": "The type of 'completer' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 82,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 83,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 84,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 85,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 87,
+   "col": 9,
+   "error": "The setter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 89,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 90,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 91,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 92,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 94,
+   "col": 9,
+   "error": "The setter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 96,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 97,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 98,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 99,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 101,
+   "col": 7,
+   "error": "The getter 'obj' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 103,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 104,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 105,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/bind_properties_test.dart",
+   "line": 106,
+   "col": 16,
+   "error": "The getter 'val' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/bind_test.dart",
+   "line": 21,
+   "col": 26,
+   "error": "The type of '_testReady' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "test/build/common.dart",
+   "line": 127,
+   "col": 26,
+   "error": "The argument type 'List' can't be assigned to the parameter type 'Iterable<Future>'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/build/common.dart",
+   "line": 145,
+   "col": 11,
+   "error": "Undefined name 'solo_test'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/build/index_page_builder_test.dart",
+   "line": 7,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|DUPLICATE_IMPORT",
+   "file": "test/build/index_page_builder_test.dart",
+   "line": 13,
+   "col": 8,
+   "error": "Duplicate import."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "test/build/index_page_builder_test.dart",
+   "line": 18,
+   "col": 37,
+   "error": "The argument type 'List<List<IndexPageBuilder>>' can't be assigned to the parameter type 'List<List<Transformer>>'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "test/build/index_page_builder_test.dart",
+   "line": 48,
+   "col": 51,
+   "error": "The argument type 'List<List<IndexPageBuilder>>' can't be assigned to the parameter type 'List<List<Transformer>>'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "test/build/index_page_builder_test.dart",
+   "line": 61,
+   "col": 70,
+   "error": "The argument type 'List<List<IndexPageBuilder>>' can't be assigned to the parameter type 'List<List<Transformer>>'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "test/build/index_page_builder_test.dart",
+   "line": 99,
+   "col": 55,
+   "error": "The argument type 'List<List<IndexPageBuilder>>' can't be assigned to the parameter type 'List<List<Transformer>>'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/build/linter_test.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/build/log_injector_test.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_SHOWN_NAME",
+   "file": "test/build/polymer_smoke_generator_test.dart",
+   "line": 9,
+   "col": 35,
+   "error": "The name StringFormatter is shown, but not used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_ELEMENT",
+   "file": "test/build/static_clean_test.dart",
+   "line": 10,
+   "col": 1,
+   "error": "The function '_unused' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/computed_properties_test.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 61,
+   "col": 17,
+   "error": "The getter 'fooBar' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 67,
+   "col": 17,
+   "error": "The getter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 68,
+   "col": 17,
+   "error": "The getter 'foo2' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 69,
+   "col": 10,
+   "error": "The setter 'foo2' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 70,
+   "col": 17,
+   "error": "The getter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 71,
+   "col": 17,
+   "error": "The getter 'foo2' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 76,
+   "col": 17,
+   "error": "The getter 'bar' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 77,
+   "col": 17,
+   "error": "The getter 'bar2' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 78,
+   "col": 10,
+   "error": "The setter 'bar2' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 79,
+   "col": 17,
+   "error": "The getter 'bar' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/computed_properties_test.dart",
+   "line": 80,
+   "col": 17,
+   "error": "The getter 'bar2' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/custom_event_test.dart",
+   "line": 51,
+   "col": 31,
+   "error": "The getter 'fooBar' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/custom_event_test.dart",
+   "line": 64,
+   "col": 31,
+   "error": "The getter 'events' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/event_binding_release_handler_test.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/event_controller_test.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|CONFLICTING_INSTANCE_GETTER_AND_SUPERCLASS_MEMBER",
+   "file": "test/event_handlers_test.dart",
+   "line": 23,
+   "col": 14,
+   "error": "Superclass 'Polymer' declares static member with the same name."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/event_path_test.dart",
+   "line": 43,
+   "col": 9,
+   "error": "The value of the local variable 'overlay' isn't used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/event_path_test.dart",
+   "line": 69,
+   "col": 27,
+   "error": "'expectAsync' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 54,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 56,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 61,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 63,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 66,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 69,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 74,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 76,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 79,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/events_test.dart",
+   "line": 82,
+   "col": 18,
+   "error": "The getter 'clicks' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/import_test.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/js_custom_event_test.dart",
+   "line": 29,
+   "col": 20,
+   "error": "The getter 'called' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/js_custom_event_test.dart",
+   "line": 31,
+   "col": 20,
+   "error": "The getter 'called' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/js_interop_test.dart",
+   "line": 78,
+   "col": 23,
+   "error": "The getter 'twoWay' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/js_interop_test.dart",
+   "line": 85,
+   "col": 23,
+   "error": "The getter 'twoWay' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/layout_test.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/layout_test.dart",
+   "line": 10,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|CONFLICTING_INSTANCE_GETTER_AND_SUPERCLASS_MEMBER",
+   "file": "test/nested_binding_test.dart",
+   "line": 18,
+   "col": 9,
+   "error": "Superclass 'Polymer' declares static member with the same name."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/nested_binding_test.dart",
+   "line": 18,
+   "col": 23,
+   "error": "The type of 'onReady' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_bind_reflection_test.dart",
+   "line": 39,
+   "col": 18,
+   "error": "The getter 'lowercase' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_bind_reflection_test.dart",
+   "line": 40,
+   "col": 18,
+   "error": "The getter 'camelCase' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 85,
+   "col": 25,
+   "error": "The getter 'nog' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 89,
+   "col": 25,
+   "error": "The getter 'nog' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 94,
+   "col": 17,
+   "error": "The getter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 98,
+   "col": 17,
+   "error": "The getter 'zim' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 101,
+   "col": 17,
+   "error": "The getter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 105,
+   "col": 10,
+   "error": "The setter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 107,
+   "col": 10,
+   "error": "The setter 'def2' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 112,
+   "col": 23,
+   "error": "The getter '$' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 118,
+   "col": 19,
+   "error": "The getter 'def1' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 121,
+   "col": 22,
+   "error": "The getter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 126,
+   "col": 22,
+   "error": "The getter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 129,
+   "col": 12,
+   "error": "The setter 'baz' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 131,
+   "col": 19,
+   "error": "The getter 'baz' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 134,
+   "col": 12,
+   "error": "The setter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 135,
+   "col": 12,
+   "error": "The setter 'zot' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 136,
+   "col": 12,
+   "error": "The setter 'zim' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 137,
+   "col": 12,
+   "error": "The setter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 138,
+   "col": 12,
+   "error": "The setter 'obj' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 140,
+   "col": 19,
+   "error": "The getter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 142,
+   "col": 22,
+   "error": "The getter 'zot' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 147,
+   "col": 19,
+   "error": "The getter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 156,
+   "col": 19,
+   "error": "The getter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 158,
+   "col": 19,
+   "error": "The getter 'zot' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 159,
+   "col": 19,
+   "error": "The getter 'zim' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 160,
+   "col": 19,
+   "error": "The getter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 162,
+   "col": 19,
+   "error": "The getter 'obj' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 164,
+   "col": 12,
+   "error": "The setter 'zim' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 169,
+   "col": 12,
+   "error": "The setter 'obj' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 174,
+   "col": 19,
+   "error": "The getter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 175,
+   "col": 19,
+   "error": "The getter 'zot' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 176,
+   "col": 12,
+   "error": "The setter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 177,
+   "col": 12,
+   "error": "The setter 'zot' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/prop_attr_reflection_test.dart",
+   "line": 179,
+   "col": 43,
+   "error": "The getter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/property_change_test.dart",
+   "line": 17,
+   "col": 19,
+   "error": "The type of '_zonk' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/property_change_test.dart",
+   "line": 18,
+   "col": 18,
+   "error": "The type of '_bar' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/property_observe_test.dart",
+   "line": 14,
+   "col": 19,
+   "error": "The type of '_done' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "test/publish_attributes_test.dart",
+   "line": 39,
+   "col": 14,
+   "error": "Invalid override. The type of 'XSquid.baz=' ('(int) → void') isn't a subtype of 'XFoo.baz=' ('(dynamic) → void')."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 58,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 59,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 60,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 61,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 63,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 65,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 67,
+   "col": 31,
+   "error": "The getter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 68,
+   "col": 31,
+   "error": "The getter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 70,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 71,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 72,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 73,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 75,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 77,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 79,
+   "col": 31,
+   "error": "The getter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 80,
+   "col": 31,
+   "error": "The getter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 82,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 83,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 84,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 85,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 87,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 89,
+   "col": 31,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 94,
+   "col": 31,
+   "error": "The getter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 95,
+   "col": 31,
+   "error": "The getter 'str' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 98,
+   "col": 32,
+   "error": "The getter 'value' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 99,
+   "col": 32,
+   "error": "The getter 'value' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 101,
+   "col": 32,
+   "error": "The getter 'value' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 102,
+   "col": 32,
+   "error": "The getter 'value' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 110,
+   "col": 31,
+   "error": "The getter 'values' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 111,
+   "col": 31,
+   "error": "The getter 'values' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 113,
+   "col": 31,
+   "error": "The getter 'values' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 114,
+   "col": 31,
+   "error": "The getter 'values' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/take_attributes_test.dart",
+   "line": 115,
+   "col": 31,
+   "error": "The getter 'values' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|CONFLICTING_INSTANCE_GETTER_AND_SUPERCLASS_MEMBER",
+   "file": "test/template_attr_template_test.dart",
+   "line": 17,
+   "col": 13,
+   "error": "Superclass 'Polymer' declares static member with the same name."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/template_attr_template_test.dart",
+   "line": 46,
+   "col": 38,
+   "error": "The method 'test' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/template_attr_template_test.dart",
+   "line": 47,
+   "col": 39,
+   "error": "The method 'test' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/template_distribute_dynamic_test.dart",
+   "line": 15,
+   "col": 27,
+   "error": "The type of '_onAttached' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 36,
+   "col": 18,
+   "error": "The getter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 37,
+   "col": 18,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 38,
+   "col": 18,
+   "error": "The getter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 46,
+   "col": 11,
+   "error": "The setter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 47,
+   "col": 11,
+   "error": "The setter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 48,
+   "col": 11,
+   "error": "The setter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 50,
+   "col": 20,
+   "error": "The getter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 51,
+   "col": 20,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 52,
+   "col": 20,
+   "error": "The getter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 54,
+   "col": 13,
+   "error": "The setter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 55,
+   "col": 13,
+   "error": "The setter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 56,
+   "col": 13,
+   "error": "The setter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 58,
+   "col": 20,
+   "error": "The getter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 59,
+   "col": 20,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 60,
+   "col": 20,
+   "error": "The getter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 69,
+   "col": 11,
+   "error": "The setter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 70,
+   "col": 11,
+   "error": "The setter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 71,
+   "col": 11,
+   "error": "The setter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 73,
+   "col": 20,
+   "error": "The getter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 74,
+   "col": 20,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 75,
+   "col": 20,
+   "error": "The getter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 77,
+   "col": 13,
+   "error": "The setter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 78,
+   "col": 13,
+   "error": "The setter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 79,
+   "col": 13,
+   "error": "The setter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 81,
+   "col": 20,
+   "error": "The getter 'number' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 82,
+   "col": 20,
+   "error": "The getter 'boolean' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/two_way_bind_test.dart",
+   "line": 83,
+   "col": 20,
+   "error": "The getter 'string' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+   "file": "test/unbind_test.dart",
+   "line": 62,
+   "col": 58,
+   "error": "The type of 'unboundSymbol' can't be inferred because of the use of the instance getter 'keys'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+   "file": "test/unbind_test.dart",
+   "line": 64,
+   "col": 60,
+   "error": "The type of 'observersSymbol' can't be inferred because of the use of the instance getter 'keys'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SETTER",
+   "file": "test/unbind_test.dart",
+   "line": 73,
+   "col": 9,
+   "error": "The setter 'foo' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "test/unbind_test.dart",
+   "line": 78,
+   "col": 18,
+   "error": "The getter 'fooWasChanged' isn't defined for the class 'Element'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/web_components_less_test.dart",
+   "line": 37,
+   "col": 9,
+   "error": "The value of the local variable 'jsDoc' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/web_components_less_test.dart",
+   "line": 38,
+   "col": 9,
+   "error": "The value of the local variable 'htmlImports' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "tool/create_message_details_page.dart",
+   "line": 21,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "tool/create_message_details_page.dart",
+   "line": 22,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "tool/create_message_details_page.dart",
+   "line": 23,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "tool/create_message_details_page.dart",
+   "line": 24,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "tool/create_message_details_page.dart",
+   "line": 121,
+   "col": 18,
+   "error": "'getUsage' is deprecated and shouldn't be used."
+  }
+ ],
+ "unformattedFiles": [
+  "e2e_test/bad_import3/lib/a.dart",
+  "e2e_test/experimental_boot/test/import_test.dart",
+  "e2e_test/experimental_boot/lib/b.dart",
+  "e2e_test/experimental_boot/lib/a.dart",
+  "e2e_test/bad_import2/lib/a.dart",
+  "e2e_test/bad_import1/lib/a.dart",
+  "e2e_test/good_import/lib/a.dart",
+  "e2e_test/canonicalization/test/deploy_common.dart",
+  "e2e_test/canonicalization/test/dir/deploy_common.dart",
+  "e2e_test/canonicalization/lib/b.dart",
+  "e2e_test/canonicalization/lib/a.dart",
+  "test/register_test.dart",
+  "test/event_controller_test.dart",
+  "test/event_path_test.dart",
+  "test/force_ready_test.dart",
+  "test/bind_properties_test.dart",
+  "test/web_components_less_test.dart",
+  "test/bind_mdv_test.dart",
+  "test/attr_deserialize_test.dart",
+  "test/event_path_declarative_test.dart",
+  "test/build/polyfill_injector_test.dart",
+  "test/build/html_finalizer_test.dart",
+  "test/build/build_log_combiner_test.dart",
+  "test/build/unique_message_test.dart",
+  "test/build/all_phases_test.dart",
+  "test/build/common.dart",
+  "test/build/polymer_smoke_generator_test.dart",
+  "test/build/linter_test.dart",
+  "test/build/index_page_builder_test.dart",
+  "test/sort_registration_test.dart",
+  "test/layout_test.dart",
+  "test/property_observe_test.dart",
+  "test/template_distribute_dynamic_test.dart",
+  "test/inject_bound_html_test.dart",
+  "test/unbind_test.dart",
+  "test/two_way_bind_test.dart",
+  "test/custom_event_test.dart",
+  "test/auto_binding_test.dart",
+  "test/bind_test.dart",
+  "test/attr_mustache_test.dart",
+  "test/js_interop_test.dart",
+  "test/event_handlers_test.dart",
+  "test/instance_attrs_test.dart",
+  "test/prop_attr_reflection_test.dart",
+  "test/js_custom_event_test.dart",
+  "test/common.dart",
+  "test/property_change_test.dart",
+  "test/events_test.dart",
+  "test/prop_attr_bind_reflection_test.dart",
+  "test/publish_attributes_test.dart",
+  "test/computed_properties_test.dart",
+  "test/entered_view_test.dart",
+  "test/publish_inherited_properties_test.dart",
+  "test/event_binding_release_handler_test.dart",
+  "test/take_attributes_test.dart",
+  "test/noscript_test.dart",
+  "test/template_attr_template_test.dart",
+  "lib/auto_binding.dart",
+  "lib/transformer.dart",
+  "lib/builder.dart",
+  "lib/src/loader.dart",
+  "lib/src/instance.dart",
+  "lib/src/build/runner.dart",
+  "lib/src/build/messages.dart",
+  "lib/src/build/html_finalizer.dart",
+  "lib/src/build/polymer_smoke_generator.dart",
+  "lib/src/build/polyfill_injector.dart",
+  "lib/src/build/linter.dart",
+  "lib/src/build/common.dart",
+  "lib/src/build/log_injector.dart",
+  "lib/src/events.dart",
+  "lib/src/declaration.dart",
+  "lib/src/initializers.dart",
+  "tool/create_message_details_page.dart",
+  "bin/new_entry.dart"
+ ]
 }

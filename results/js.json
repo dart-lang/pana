@@ -1,19 +1,19 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "js",
-"packageVersion": "0.6.1",
-"pubSummary": {
-"packages": {
-"browser": "0.10.0+2"
-},
-"availablePackages": {},
-"authors": [
-"Dart Team <misc@dartlang.org>"
-],
-"version": "0.6.1"
-},
-"analyzerItems": [],
-"unformattedFiles": [
-"lib/src/varargs.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "js",
+ "packageVersion": "0.6.1",
+ "pubSummary": {
+  "packages": {
+   "browser": "0.10.0+2"
+  },
+  "availablePackages": {},
+  "authors": [
+   "Dart Team <misc@dartlang.org>"
+  ],
+  "version": "0.6.1"
+ },
+ "analyzerItems": [],
+ "unformattedFiles": [
+  "lib/src/varargs.dart"
+ ]
 }

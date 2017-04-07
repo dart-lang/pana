@@ -1,1193 +1,1193 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "angular2",
-"packageVersion": "2.2.0",
-"pubSummary": {
-"packages": {
-"analyzer": "0.29.10",
-"args": "0.13.7",
-"async": "1.13.2",
-"barback": "0.15.2+10",
-"boolean_selector": "1.0.2",
-"build": "0.5.0",
-"build_test": "0.2.0+1",
-"charcode": "1.1.1",
-"cli_util": "0.0.1+2",
-"code_builder": "1.0.0-alpha+5",
-"code_transformers": "0.5.1",
-"collection": "1.14.0",
-"convert": "2.0.1",
-"crypto": "2.0.1",
-"csslib": "0.13.4",
-"dart_style": "0.2.16",
-"fixnum": "0.10.5",
-"func": "0.1.1",
-"glob": "1.1.3",
-"html": "0.13.1",
-"http": "0.11.3+13",
-"http_multi_server": "2.0.3",
-"http_parser": "3.1.1",
-"intl": "0.14.0",
-"isolate": "1.0.0",
-"js": "0.6.1",
-"logging": "0.11.3+1",
-"matcher": "0.12.0+2",
-"meta": "1.0.5",
-"mime": "0.9.3",
-"mockito": "1.0.1",
-"observable": "0.14.0+1",
-"package_config": "1.0.0",
-"package_resolver": "1.0.2",
-"path": "1.4.1",
-"plugin": "0.2.0",
-"pool": "1.3.0",
-"protobuf": "0.5.3+2",
-"pub_semver": "1.3.2",
-"quiver": "0.24.0",
-"shelf": "0.6.7+2",
-"shelf_packages_handler": "1.0.0",
-"shelf_static": "0.2.4",
-"shelf_web_socket": "0.2.1",
-"source_gen": "0.5.3+2",
-"source_map_stack_trace": "1.1.4",
-"source_maps": "0.10.4",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"stream_channel": "1.6.1",
-"string_scanner": "1.0.1",
-"term_glyph": "1.0.0",
-"test": "0.12.20+9",
-"transformer_test": "0.2.1+1",
-"typed_data": "1.1.3",
-"utf": "0.9.0+3",
-"watcher": "0.9.7+3",
-"web_socket_channel": "1.0.4",
-"when": "0.2.0",
-"which": "0.1.3",
-"yaml": "2.1.12"
-},
-"availablePackages": {
-"analyzer": "0.30.0-alpha.1",
-"build": "0.7.2",
-"build_test": "0.4.1",
-"code_builder": "1.0.1",
-"dart_style": "1.0.3",
-"intl": "0.15.0",
-"mockito": "2.0.2",
-"observable": "0.20.4+1",
-"quiver": "0.25.0",
-"source_gen": "0.5.4+3"
-},
-"authors": [
-"Dart Team <web@dartlang.org>"
-],
-"version": "2.2.0"
-},
-"analyzerItems": [
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/directives.dart",
-"line": 7,
-"col": 41,
-"error": "'NgPlural' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/directives.dart",
-"line": 7,
-"col": 51,
-"error": "'NgPluralCase' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/directives.dart",
-"line": 7,
-"col": 65,
-"error": "'NgLocalization' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/directives/core_directives.dart",
-"line": 4,
-"col": 30,
-"error": "'NgPlural' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/directives/core_directives.dart",
-"line": 4,
-"col": 40,
-"error": "'NgPluralCase' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/directives/core_directives.dart",
-"line": 70,
-"col": 3,
-"error": "'NgPlural' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/directives/core_directives.dart",
-"line": 71,
-"col": 3,
-"error": "'NgPluralCase' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/forms.dart",
-"line": 26,
-"col": 55,
-"error": "'NgControlStatus' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/common/forms/directives.dart",
-"line": 29,
-"col": 49,
-"error": "'NgControlStatus' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/checkbox_value_accessor.dart",
-"line": 27,
-"col": 18,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/checkbox_value_accessor.dart",
-"line": 28,
-"col": 19,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/default_value_accessor.dart",
-"line": 27,
-"col": 18,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/default_value_accessor.dart",
-"line": 28,
-"col": 19,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/common/forms/directives/ng_control_name.dart",
-"line": 95,
-"col": 20,
-"error": "The type of 'update' can't be inferred because type arguments were not given for 'EventEmitter'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/common/forms/directives/ng_form_control.dart",
-"line": 78,
-"col": 20,
-"error": "The type of 'update' can't be inferred because type arguments were not given for 'EventEmitter'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/common/forms/directives/ng_model.dart",
-"line": 55,
-"col": 20,
-"error": "The type of 'update' can't be inferred because type arguments were not given for 'EventEmitter'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/number_value_accessor.dart",
-"line": 29,
-"col": 18,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "lib/src/common/forms/directives/number_value_accessor.dart",
-"line": 29,
-"col": 19,
-"error": "The type of 'onChange' can't be inferred because the parameter '_' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/number_value_accessor.dart",
-"line": 30,
-"col": 19,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/radio_control_value_accessor.dart",
-"line": 88,
-"col": 18,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/radio_control_value_accessor.dart",
-"line": 89,
-"col": 19,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/select_control_value_accessor.dart",
-"line": 47,
-"col": 18,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
-"file": "lib/src/common/forms/directives/select_control_value_accessor.dart",
-"line": 48,
-"col": 19,
-"error": "The type of the function literal can't be inferred because the literal has a block as its body."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/expression_parser/lexer.dart",
-"line": 451,
-"col": 21,
-"error": "The type of 'OPERATORS' can't be inferred because type arguments were not given for 'Set'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/expression_parser/lexer.dart",
-"line": 477,
-"col": 20,
-"error": "The type of 'KEYWORDS' can't be inferred because type arguments were not given for 'Set'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 80,
-"col": 35,
-"error": "The type of 'appViewUtils' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 83,
-"col": 30,
-"error": "The type of 'AppView' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 85,
-"col": 35,
-"error": "The type of 'DebugAppView' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 87,
-"col": 36,
-"error": "The type of 'ViewContainer' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 90,
-"col": 33,
-"error": "The type of 'ElementRef' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 94,
-"col": 39,
-"error": "The type of 'ViewContainerRef' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 97,
-"col": 40,
-"error": "The type of 'ChangeDetectorRef' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 102,
-"col": 39,
-"error": "The type of 'ComponentFactory' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 105,
-"col": 42,
-"error": "The type of 'RenderComponentType' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 109,
-"col": 32,
-"error": "The type of 'QueryList' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 112,
-"col": 34,
-"error": "The type of 'TemplateRef' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 115,
-"col": 37,
-"error": "The type of 'ValueUnwrapper' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 119,
-"col": 31,
-"error": "The type of 'Injector' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 123,
-"col": 38,
-"error": "The type of 'InjectorFactory' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 128,
-"col": 38,
-"error": "The type of 'CodegenInjector' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 132,
-"col": 40,
-"error": "The type of 'ViewEncapsulation' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 136,
-"col": 31,
-"error": "The type of 'ViewType' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 140,
-"col": 46,
-"error": "The type of 'ChangeDetectionStrategy' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 144,
-"col": 42,
-"error": "The type of 'StaticNodeDebugInfo' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 147,
-"col": 35,
-"error": "The type of 'DebugContext' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 150,
-"col": 46,
-"error": "The type of 'TemplateSecurityContext' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 154,
-"col": 35,
-"error": "The type of 'SimpleChange' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 156,
-"col": 36,
-"error": "The type of 'uninitialized' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 160,
-"col": 42,
-"error": "The type of 'ChangeDetectorState' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 164,
-"col": 35,
-"error": "The type of 'checkBinding' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 168,
-"col": 35,
-"error": "The type of 'devModeEqual' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 173,
-"col": 37,
-"error": "The type of 'throwOnChanges' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 177,
-"col": 35,
-"error": "The type of 'interpolate0' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 181,
-"col": 35,
-"error": "The type of 'interpolate1' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 185,
-"col": 35,
-"error": "The type of 'interpolate2' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 189,
-"col": 34,
-"error": "The type of 'interpolate' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 193,
-"col": 34,
-"error": "The type of 'castByValue' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 197,
-"col": 34,
-"error": "The type of 'EMPTY_ARRAY' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 201,
-"col": 32,
-"error": "The type of 'EMPTY_MAP' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 207,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 211,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 215,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 219,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 223,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 227,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 231,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 235,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 239,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 243,
-"col": 9,
-"error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 251,
-"col": 11,
-"error": "The type of 'HTML_COMMENT_NODE' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 253,
-"col": 11,
-"error": "The type of 'HTML_TEXT_NODE' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 255,
-"col": 11,
-"error": "The type of 'HTML_DOCUMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 257,
-"col": 11,
-"error": "The type of 'HTML_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 258,
-"col": 42,
-"error": "The type of 'HTML_ANCHOR_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 260,
-"col": 40,
-"error": "The type of 'HTML_AREA_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 262,
-"col": 41,
-"error": "The type of 'HTML_AUDIO_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 264,
-"col": 42,
-"error": "The type of 'HTML_BUTTON_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 266,
-"col": 42,
-"error": "The type of 'HTML_CANVAS_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 268,
-"col": 40,
-"error": "The type of 'HTML_FORM_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 270,
-"col": 42,
-"error": "The type of 'HTML_IFRAME_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 272,
-"col": 41,
-"error": "The type of 'HTML_IMAGE_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 274,
-"col": 41,
-"error": "The type of 'HTML_INPUT_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 276,
-"col": 44,
-"error": "The type of 'HTML_TEXTAREA_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 278,
-"col": 41,
-"error": "The type of 'HTML_MEDIA_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 280,
-"col": 40,
-"error": "The type of 'HTML_MENU_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 282,
-"col": 42,
-"error": "The type of 'HTML_OPTION_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 284,
-"col": 41,
-"error": "The type of 'HTML_OLIST_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 286,
-"col": 42,
-"error": "The type of 'HTML_SELECT_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 288,
-"col": 41,
-"error": "The type of 'HTML_TABLE_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 290,
-"col": 45,
-"error": "The type of 'HTML_TABLE_ROW_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 292,
-"col": 45,
-"error": "The type of 'HTML_TABLE_COL_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 294,
-"col": 41,
-"error": "The type of 'HTML_ULIST_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 297,
-"col": 11,
-"error": "The type of 'HTML_EVENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/compiler/identifiers.dart",
-"line": 299,
-"col": 11,
-"error": "The type of 'HTML_NODE' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_UNSUPPORTED",
-"file": "lib/src/compiler/template_parser.dart",
-"line": 72,
-"col": 27,
-"error": "The type of 'TEXT_CSS_SELECTOR' can't be inferred because IndexExpressionImpl expressions aren't supported."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_UNSUPPORTED",
-"file": "lib/src/facade/browser.dart",
-"line": 23,
-"col": 13,
-"error": "The type of '_gc' can't be inferred because IndexExpressionImpl expressions aren't supported."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/src/mock/mock_application_ref.dart",
-"line": 27,
-"col": 13,
-"error": "Invalid override. The type of 'MockApplicationRef.run' ('<R>(() → R) → R') isn't a subtype of 'ApplicationRef.run' ('(() → dynamic) → dynamic')."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/modules/testing/lib/src/error_matchers.dart",
-"line": 13,
-"col": 49,
-"error": "'Throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/router/directives/router_outlet.dart",
-"line": 24,
-"col": 26,
-"error": "The type of '_resolveToTrue' can't be inferred because type arguments were not given for 'Future'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/router/route_registry.dart",
-"line": 25,
-"col": 26,
-"error": "The type of '_resolveToNull' can't be inferred because type arguments were not given for 'Future'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/router/router.dart",
-"line": 15,
-"col": 26,
-"error": "The type of '_resolveToTrue' can't be inferred because type arguments were not given for 'Future'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/router/router.dart",
-"line": 16,
-"col": 27,
-"error": "The type of '_resolveToFalse' can't be inferred because type arguments were not given for 'Future'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/testing/internal_injector.dart",
-"line": 95,
-"col": 26,
-"error": "The type of '_completer' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/transform/common/type_metadata_reader.dart",
-"line": 946,
-"col": 11,
-"error": "The type of '_viewEncapsulationMap' can't be inferred because type arguments were not given for 'Map'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/ng_plural_test.dart",
-"line": 5,
-"col": 10,
-"error": "'NgPlural' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/ng_plural_test.dart",
-"line": 5,
-"col": 20,
-"error": "'NgPluralCase' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/ng_plural_test.dart",
-"line": 5,
-"col": 34,
-"error": "'NgLocalization' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/ng_plural_test.dart",
-"line": 14,
-"col": 26,
-"error": "'NgLocalization' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/ng_plural_test.dart",
-"line": 119,
-"col": 35,
-"error": "'NgLocalization' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/ng_plural_test.dart",
-"line": 134,
-"col": 24,
-"error": "'NgPlural' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/ng_plural_test.dart",
-"line": 134,
-"col": 34,
-"error": "'NgPluralCase' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/observable_list_diff_test.dart",
-"line": 4,
-"col": 44,
-"error": "'ObservableListDiffFactory' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/directives/observable_list_diff_test.dart",
-"line": 18,
-"col": 23,
-"error": "'ObservableListDiffFactory' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/forms/directives_test.dart",
-"line": 59,
-"col": 50,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/forms/directives_test.dart",
-"line": 78,
-"col": 11,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/forms/directives_test.dart",
-"line": 91,
-"col": 11,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "test/common/forms/integration_test.dart",
-"line": 1279,
-"col": 12,
-"error": "The return type 'Future' isn't a 'Map<String, dynamic>', as defined by the method 'validate'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/forms/integration_test.dart",
-"line": 1285,
-"col": 3,
-"error": "'NgControlStatus' is deprecated and shouldn't be used."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "test/common/forms/model_test.dart",
-"line": 64,
-"col": 46,
-"error": "The argument type '(AbstractControl) → EventEmitter<dynamic>' can't be assigned to the parameter type 'AsyncValidatorFn(AbstractControl) → Future<dynamic>'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "test/common/forms/validators_test.dart",
-"line": 122,
-"col": 18,
-"error": "The return type 'EventEmitter' isn't a 'Future', as defined by the method ''."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/async_pipe_test.dart",
-"line": 197,
-"col": 70,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/lowercase_pipe_test.dart",
-"line": 29,
-"col": 52,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/number_pipe_test.dart",
-"line": 25,
-"col": 54,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/number_pipe_test.dart",
-"line": 40,
-"col": 54,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/number_pipe_test.dart",
-"line": 55,
-"col": 54,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/replace_pipe_test.dart",
-"line": 19,
-"col": 61,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/replace_pipe_test.dart",
-"line": 20,
-"col": 68,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/replace_pipe_test.dart",
-"line": 25,
-"col": 55,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/replace_pipe_test.dart",
-"line": 26,
-"col": 57,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/replace_pipe_test.dart",
-"line": 27,
-"col": 56,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/replace_pipe_test.dart",
-"line": 31,
-"col": 58,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/replace_pipe_test.dart",
-"line": 32,
-"col": 60,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/replace_pipe_test.dart",
-"line": 33,
-"col": 59,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/common/pipes/uppercase_pipe_test.dart",
-"line": 29,
-"col": 52,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/compiler/expression_parser/parser_test.dart",
-"line": 288,
-"col": 41,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/compiler/expression_parser/parser_test.dart",
-"line": 289,
-"col": 37,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/compiler/output/dart_emitter_test.dart",
-"line": 12,
-"col": 32,
-"error": "The type of 'sameModuleIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/compiler/output/dart_emitter_test.dart",
-"line": 14,
-"col": 36,
-"error": "The type of 'externalModuleIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/compiler/output/output_emitter_util.dart",
-"line": 23,
-"col": 30,
-"error": "The type of 'testDataIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/compiler/output/output_emitter_util.dart",
-"line": 28,
-"col": 34,
-"error": "The type of 'eventEmitterIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/compiler/output/output_emitter_util.dart",
-"line": 32,
-"col": 26,
-"error": "The type of 'enumIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/compiler/output/output_emitter_util.dart",
-"line": 37,
-"col": 35,
-"error": "The type of 'baseExceptionIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/di/reflective_injector_test.dart",
-"line": 468,
-"col": 36,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/di/reflective_injector_test.dart",
-"line": 960,
-"col": 36,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/linker/change_detection_lifecycle_test.dart",
-"line": 461,
-"col": 50,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/linker/integration_dart_test.dart",
-"line": 264,
-"col": 19,
-"error": "'ObservableListDiffFactory' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/linker/integration_test.dart",
-"line": 1550,
-"col": 34,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/core/linker/integration_test.dart",
-"line": 2380,
-"col": 25,
-"error": "The type of 'customEvent' can't be inferred because type arguments were not given for 'EventEmitter'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/core/linker/integration_test.dart",
-"line": 2460,
-"col": 27,
-"error": "The type of 'controlChange' can't be inferred because type arguments were not given for 'EventEmitter'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/core/linker/integration_test.dart",
-"line": 2657,
-"col": 19,
-"error": "The type of 'event' can't be inferred because type arguments were not given for 'EventEmitter'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/linker/security_integration_test.dart",
-"line": 97,
-"col": 51,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/reflection/reflector_test.dart",
-"line": 115,
-"col": 60,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/reflection/reflector_test.dart",
-"line": 202,
-"col": 71,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/core/reflection/reflector_test.dart",
-"line": 208,
-"col": 71,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "test/core/zone/ng_zone_test.dart",
-"line": 415,
-"col": 27,
-"error": "The argument type 'LogFunction([dynamic, dynamic, dynamic, dynamic, dynamic]) → void' can't be assigned to the parameter type '(String) → FutureOr<void>'."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "test/core/zone/ng_zone_test.dart",
-"line": 416,
-"col": 27,
-"error": "The argument type 'LogFunction([dynamic, dynamic, dynamic, dynamic, dynamic]) → void' can't be assigned to the parameter type '(String) → FutureOr<void>'."
-}
-],
-"unformattedFiles": [
-"test/compiler/selector_test.dart",
-"test/compiler/template_parser_test.dart",
-"lib/src/testing/test_injector.dart",
-"lib/src/testing/internal.dart",
-"lib/src/common/forms/validators.dart",
-"lib/src/transform/template_compiler/compile_data_creator.dart",
-"lib/src/compiler/provider_parser.dart",
-"lib/src/compiler/compile_metadata.dart",
-"lib/src/compiler/view_compiler/expression_converter.dart",
-"lib/src/compiler/view_compiler/view_builder.dart",
-"lib/src/platform/browser/testability.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "angular2",
+ "packageVersion": "2.2.0",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.29.10",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "boolean_selector": "1.0.2",
+   "build": "0.5.0",
+   "build_test": "0.2.0+1",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "code_builder": "1.0.0-alpha+5",
+   "code_transformers": "0.5.1",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "dart_style": "0.2.16",
+   "fixnum": "0.10.5",
+   "func": "0.1.1",
+   "glob": "1.1.3",
+   "html": "0.13.1",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "intl": "0.14.0",
+   "isolate": "1.0.0",
+   "js": "0.6.1",
+   "logging": "0.11.3+1",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "mockito": "1.0.1",
+   "observable": "0.14.0+1",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.2.0",
+   "pool": "1.3.0",
+   "protobuf": "0.5.3+2",
+   "pub_semver": "1.3.2",
+   "quiver": "0.24.0",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "source_gen": "0.5.3+2",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "transformer_test": "0.2.1+1",
+   "typed_data": "1.1.3",
+   "utf": "0.9.0+3",
+   "watcher": "0.9.7+3",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.30.0-alpha.1",
+   "build": "0.7.2",
+   "build_test": "0.4.1",
+   "code_builder": "1.0.1",
+   "dart_style": "1.0.3",
+   "intl": "0.15.0",
+   "mockito": "2.0.2",
+   "observable": "0.20.4+1",
+   "quiver": "0.25.0",
+   "source_gen": "0.5.4+3"
+  },
+  "authors": [
+   "Dart Team <web@dartlang.org>"
+  ],
+  "version": "2.2.0"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/directives.dart",
+   "line": 7,
+   "col": 41,
+   "error": "'NgPlural' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/directives.dart",
+   "line": 7,
+   "col": 51,
+   "error": "'NgPluralCase' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/directives.dart",
+   "line": 7,
+   "col": 65,
+   "error": "'NgLocalization' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/directives/core_directives.dart",
+   "line": 4,
+   "col": 30,
+   "error": "'NgPlural' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/directives/core_directives.dart",
+   "line": 4,
+   "col": 40,
+   "error": "'NgPluralCase' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/directives/core_directives.dart",
+   "line": 70,
+   "col": 3,
+   "error": "'NgPlural' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/directives/core_directives.dart",
+   "line": 71,
+   "col": 3,
+   "error": "'NgPluralCase' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/forms.dart",
+   "line": 26,
+   "col": 55,
+   "error": "'NgControlStatus' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/common/forms/directives.dart",
+   "line": 29,
+   "col": 49,
+   "error": "'NgControlStatus' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/checkbox_value_accessor.dart",
+   "line": 27,
+   "col": 18,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/checkbox_value_accessor.dart",
+   "line": 28,
+   "col": 19,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/default_value_accessor.dart",
+   "line": 27,
+   "col": 18,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/default_value_accessor.dart",
+   "line": 28,
+   "col": 19,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/common/forms/directives/ng_control_name.dart",
+   "line": 95,
+   "col": 20,
+   "error": "The type of 'update' can't be inferred because type arguments were not given for 'EventEmitter'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/common/forms/directives/ng_form_control.dart",
+   "line": 78,
+   "col": 20,
+   "error": "The type of 'update' can't be inferred because type arguments were not given for 'EventEmitter'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/common/forms/directives/ng_model.dart",
+   "line": 55,
+   "col": 20,
+   "error": "The type of 'update' can't be inferred because type arguments were not given for 'EventEmitter'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/number_value_accessor.dart",
+   "line": 29,
+   "col": 18,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "lib/src/common/forms/directives/number_value_accessor.dart",
+   "line": 29,
+   "col": 19,
+   "error": "The type of 'onChange' can't be inferred because the parameter '_' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/number_value_accessor.dart",
+   "line": 30,
+   "col": 19,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/radio_control_value_accessor.dart",
+   "line": 88,
+   "col": 18,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/radio_control_value_accessor.dart",
+   "line": 89,
+   "col": 19,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/select_control_value_accessor.dart",
+   "line": 47,
+   "col": 18,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_BLOCK",
+   "file": "lib/src/common/forms/directives/select_control_value_accessor.dart",
+   "line": 48,
+   "col": 19,
+   "error": "The type of the function literal can't be inferred because the literal has a block as its body."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/expression_parser/lexer.dart",
+   "line": 451,
+   "col": 21,
+   "error": "The type of 'OPERATORS' can't be inferred because type arguments were not given for 'Set'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/expression_parser/lexer.dart",
+   "line": 477,
+   "col": 20,
+   "error": "The type of 'KEYWORDS' can't be inferred because type arguments were not given for 'Set'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 80,
+   "col": 35,
+   "error": "The type of 'appViewUtils' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 83,
+   "col": 30,
+   "error": "The type of 'AppView' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 85,
+   "col": 35,
+   "error": "The type of 'DebugAppView' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 87,
+   "col": 36,
+   "error": "The type of 'ViewContainer' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 90,
+   "col": 33,
+   "error": "The type of 'ElementRef' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 94,
+   "col": 39,
+   "error": "The type of 'ViewContainerRef' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 97,
+   "col": 40,
+   "error": "The type of 'ChangeDetectorRef' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 102,
+   "col": 39,
+   "error": "The type of 'ComponentFactory' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 105,
+   "col": 42,
+   "error": "The type of 'RenderComponentType' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 109,
+   "col": 32,
+   "error": "The type of 'QueryList' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 112,
+   "col": 34,
+   "error": "The type of 'TemplateRef' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 115,
+   "col": 37,
+   "error": "The type of 'ValueUnwrapper' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 119,
+   "col": 31,
+   "error": "The type of 'Injector' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 123,
+   "col": 38,
+   "error": "The type of 'InjectorFactory' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 128,
+   "col": 38,
+   "error": "The type of 'CodegenInjector' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 132,
+   "col": 40,
+   "error": "The type of 'ViewEncapsulation' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 136,
+   "col": 31,
+   "error": "The type of 'ViewType' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 140,
+   "col": 46,
+   "error": "The type of 'ChangeDetectionStrategy' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 144,
+   "col": 42,
+   "error": "The type of 'StaticNodeDebugInfo' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 147,
+   "col": 35,
+   "error": "The type of 'DebugContext' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 150,
+   "col": 46,
+   "error": "The type of 'TemplateSecurityContext' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 154,
+   "col": 35,
+   "error": "The type of 'SimpleChange' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 156,
+   "col": 36,
+   "error": "The type of 'uninitialized' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 160,
+   "col": 42,
+   "error": "The type of 'ChangeDetectorState' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 164,
+   "col": 35,
+   "error": "The type of 'checkBinding' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 168,
+   "col": 35,
+   "error": "The type of 'devModeEqual' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 173,
+   "col": 37,
+   "error": "The type of 'throwOnChanges' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 177,
+   "col": 35,
+   "error": "The type of 'interpolate0' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 181,
+   "col": 35,
+   "error": "The type of 'interpolate1' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 185,
+   "col": 35,
+   "error": "The type of 'interpolate2' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 189,
+   "col": 34,
+   "error": "The type of 'interpolate' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 193,
+   "col": 34,
+   "error": "The type of 'castByValue' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 197,
+   "col": 34,
+   "error": "The type of 'EMPTY_ARRAY' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 201,
+   "col": 32,
+   "error": "The type of 'EMPTY_MAP' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 207,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 211,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 215,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 219,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 223,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 227,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 231,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 235,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 239,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 243,
+   "col": 9,
+   "error": "The type of 'pureProxies' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 251,
+   "col": 11,
+   "error": "The type of 'HTML_COMMENT_NODE' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 253,
+   "col": 11,
+   "error": "The type of 'HTML_TEXT_NODE' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 255,
+   "col": 11,
+   "error": "The type of 'HTML_DOCUMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 257,
+   "col": 11,
+   "error": "The type of 'HTML_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 258,
+   "col": 42,
+   "error": "The type of 'HTML_ANCHOR_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 260,
+   "col": 40,
+   "error": "The type of 'HTML_AREA_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 262,
+   "col": 41,
+   "error": "The type of 'HTML_AUDIO_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 264,
+   "col": 42,
+   "error": "The type of 'HTML_BUTTON_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 266,
+   "col": 42,
+   "error": "The type of 'HTML_CANVAS_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 268,
+   "col": 40,
+   "error": "The type of 'HTML_FORM_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 270,
+   "col": 42,
+   "error": "The type of 'HTML_IFRAME_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 272,
+   "col": 41,
+   "error": "The type of 'HTML_IMAGE_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 274,
+   "col": 41,
+   "error": "The type of 'HTML_INPUT_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 276,
+   "col": 44,
+   "error": "The type of 'HTML_TEXTAREA_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 278,
+   "col": 41,
+   "error": "The type of 'HTML_MEDIA_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 280,
+   "col": 40,
+   "error": "The type of 'HTML_MENU_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 282,
+   "col": 42,
+   "error": "The type of 'HTML_OPTION_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 284,
+   "col": 41,
+   "error": "The type of 'HTML_OLIST_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 286,
+   "col": 42,
+   "error": "The type of 'HTML_SELECT_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 288,
+   "col": 41,
+   "error": "The type of 'HTML_TABLE_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 290,
+   "col": 45,
+   "error": "The type of 'HTML_TABLE_ROW_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 292,
+   "col": 45,
+   "error": "The type of 'HTML_TABLE_COL_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 294,
+   "col": 41,
+   "error": "The type of 'HTML_ULIST_ELEMENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 297,
+   "col": 11,
+   "error": "The type of 'HTML_EVENT' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/compiler/identifiers.dart",
+   "line": 299,
+   "col": 11,
+   "error": "The type of 'HTML_NODE' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_UNSUPPORTED",
+   "file": "lib/src/compiler/template_parser.dart",
+   "line": 72,
+   "col": 27,
+   "error": "The type of 'TEXT_CSS_SELECTOR' can't be inferred because IndexExpressionImpl expressions aren't supported."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_UNSUPPORTED",
+   "file": "lib/src/facade/browser.dart",
+   "line": 23,
+   "col": 13,
+   "error": "The type of '_gc' can't be inferred because IndexExpressionImpl expressions aren't supported."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/src/mock/mock_application_ref.dart",
+   "line": 27,
+   "col": 13,
+   "error": "Invalid override. The type of 'MockApplicationRef.run' ('<R>(() → R) → R') isn't a subtype of 'ApplicationRef.run' ('(() → dynamic) → dynamic')."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/modules/testing/lib/src/error_matchers.dart",
+   "line": 13,
+   "col": 49,
+   "error": "'Throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/router/directives/router_outlet.dart",
+   "line": 24,
+   "col": 26,
+   "error": "The type of '_resolveToTrue' can't be inferred because type arguments were not given for 'Future'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/router/route_registry.dart",
+   "line": 25,
+   "col": 26,
+   "error": "The type of '_resolveToNull' can't be inferred because type arguments were not given for 'Future'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/router/router.dart",
+   "line": 15,
+   "col": 26,
+   "error": "The type of '_resolveToTrue' can't be inferred because type arguments were not given for 'Future'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/router/router.dart",
+   "line": 16,
+   "col": 27,
+   "error": "The type of '_resolveToFalse' can't be inferred because type arguments were not given for 'Future'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/testing/internal_injector.dart",
+   "line": 95,
+   "col": 26,
+   "error": "The type of '_completer' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/transform/common/type_metadata_reader.dart",
+   "line": 946,
+   "col": 11,
+   "error": "The type of '_viewEncapsulationMap' can't be inferred because type arguments were not given for 'Map'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/ng_plural_test.dart",
+   "line": 5,
+   "col": 10,
+   "error": "'NgPlural' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/ng_plural_test.dart",
+   "line": 5,
+   "col": 20,
+   "error": "'NgPluralCase' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/ng_plural_test.dart",
+   "line": 5,
+   "col": 34,
+   "error": "'NgLocalization' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/ng_plural_test.dart",
+   "line": 14,
+   "col": 26,
+   "error": "'NgLocalization' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/ng_plural_test.dart",
+   "line": 119,
+   "col": 35,
+   "error": "'NgLocalization' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/ng_plural_test.dart",
+   "line": 134,
+   "col": 24,
+   "error": "'NgPlural' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/ng_plural_test.dart",
+   "line": 134,
+   "col": 34,
+   "error": "'NgPluralCase' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/observable_list_diff_test.dart",
+   "line": 4,
+   "col": 44,
+   "error": "'ObservableListDiffFactory' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/directives/observable_list_diff_test.dart",
+   "line": 18,
+   "col": 23,
+   "error": "'ObservableListDiffFactory' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/forms/directives_test.dart",
+   "line": 59,
+   "col": 50,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/forms/directives_test.dart",
+   "line": 78,
+   "col": 11,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/forms/directives_test.dart",
+   "line": 91,
+   "col": 11,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "test/common/forms/integration_test.dart",
+   "line": 1279,
+   "col": 12,
+   "error": "The return type 'Future' isn't a 'Map<String, dynamic>', as defined by the method 'validate'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/forms/integration_test.dart",
+   "line": 1285,
+   "col": 3,
+   "error": "'NgControlStatus' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "test/common/forms/model_test.dart",
+   "line": 64,
+   "col": 46,
+   "error": "The argument type '(AbstractControl) → EventEmitter<dynamic>' can't be assigned to the parameter type 'AsyncValidatorFn(AbstractControl) → Future<dynamic>'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "test/common/forms/validators_test.dart",
+   "line": 122,
+   "col": 18,
+   "error": "The return type 'EventEmitter' isn't a 'Future', as defined by the method ''."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/async_pipe_test.dart",
+   "line": 197,
+   "col": 70,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/lowercase_pipe_test.dart",
+   "line": 29,
+   "col": 52,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/number_pipe_test.dart",
+   "line": 25,
+   "col": 54,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/number_pipe_test.dart",
+   "line": 40,
+   "col": 54,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/number_pipe_test.dart",
+   "line": 55,
+   "col": 54,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/replace_pipe_test.dart",
+   "line": 19,
+   "col": 61,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/replace_pipe_test.dart",
+   "line": 20,
+   "col": 68,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/replace_pipe_test.dart",
+   "line": 25,
+   "col": 55,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/replace_pipe_test.dart",
+   "line": 26,
+   "col": 57,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/replace_pipe_test.dart",
+   "line": 27,
+   "col": 56,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/replace_pipe_test.dart",
+   "line": 31,
+   "col": 58,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/replace_pipe_test.dart",
+   "line": 32,
+   "col": 60,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/replace_pipe_test.dart",
+   "line": 33,
+   "col": 59,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/common/pipes/uppercase_pipe_test.dart",
+   "line": 29,
+   "col": 52,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/compiler/expression_parser/parser_test.dart",
+   "line": 288,
+   "col": 41,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/compiler/expression_parser/parser_test.dart",
+   "line": 289,
+   "col": 37,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/compiler/output/dart_emitter_test.dart",
+   "line": 12,
+   "col": 32,
+   "error": "The type of 'sameModuleIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/compiler/output/dart_emitter_test.dart",
+   "line": 14,
+   "col": 36,
+   "error": "The type of 'externalModuleIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/compiler/output/output_emitter_util.dart",
+   "line": 23,
+   "col": 30,
+   "error": "The type of 'testDataIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/compiler/output/output_emitter_util.dart",
+   "line": 28,
+   "col": 34,
+   "error": "The type of 'eventEmitterIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/compiler/output/output_emitter_util.dart",
+   "line": 32,
+   "col": 26,
+   "error": "The type of 'enumIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/compiler/output/output_emitter_util.dart",
+   "line": 37,
+   "col": 35,
+   "error": "The type of 'baseExceptionIdentifier' can't be inferred because type arguments were not given for 'CompileIdentifierMetadata'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/di/reflective_injector_test.dart",
+   "line": 468,
+   "col": 36,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/di/reflective_injector_test.dart",
+   "line": 960,
+   "col": 36,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/linker/change_detection_lifecycle_test.dart",
+   "line": 461,
+   "col": 50,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/linker/integration_dart_test.dart",
+   "line": 264,
+   "col": 19,
+   "error": "'ObservableListDiffFactory' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/linker/integration_test.dart",
+   "line": 1550,
+   "col": 34,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/core/linker/integration_test.dart",
+   "line": 2380,
+   "col": 25,
+   "error": "The type of 'customEvent' can't be inferred because type arguments were not given for 'EventEmitter'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/core/linker/integration_test.dart",
+   "line": 2460,
+   "col": 27,
+   "error": "The type of 'controlChange' can't be inferred because type arguments were not given for 'EventEmitter'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/core/linker/integration_test.dart",
+   "line": 2657,
+   "col": 19,
+   "error": "The type of 'event' can't be inferred because type arguments were not given for 'EventEmitter'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/linker/security_integration_test.dart",
+   "line": 97,
+   "col": 51,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/reflection/reflector_test.dart",
+   "line": 115,
+   "col": 60,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/reflection/reflector_test.dart",
+   "line": 202,
+   "col": 71,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/core/reflection/reflector_test.dart",
+   "line": 208,
+   "col": 71,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "test/core/zone/ng_zone_test.dart",
+   "line": 415,
+   "col": 27,
+   "error": "The argument type 'LogFunction([dynamic, dynamic, dynamic, dynamic, dynamic]) → void' can't be assigned to the parameter type '(String) → FutureOr<void>'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "test/core/zone/ng_zone_test.dart",
+   "line": 416,
+   "col": 27,
+   "error": "The argument type 'LogFunction([dynamic, dynamic, dynamic, dynamic, dynamic]) → void' can't be assigned to the parameter type '(String) → FutureOr<void>'."
+  }
+ ],
+ "unformattedFiles": [
+  "test/compiler/selector_test.dart",
+  "test/compiler/template_parser_test.dart",
+  "lib/src/testing/test_injector.dart",
+  "lib/src/testing/internal.dart",
+  "lib/src/common/forms/validators.dart",
+  "lib/src/transform/template_compiler/compile_data_creator.dart",
+  "lib/src/compiler/provider_parser.dart",
+  "lib/src/compiler/compile_metadata.dart",
+  "lib/src/compiler/view_compiler/expression_converter.dart",
+  "lib/src/compiler/view_compiler/view_builder.dart",
+  "lib/src/platform/browser/testability.dart"
+ ]
 }

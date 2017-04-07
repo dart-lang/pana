@@ -1,378 +1,378 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "json_object",
-"packageVersion": "1.0.19+1",
-"pubSummary": {
-"packages": {
-"analyzer": "0.25.0+1",
-"args": "0.13.7",
-"async": "1.13.2",
-"barback": "0.15.2+10",
-"charcode": "1.1.1",
-"collection": "1.14.0",
-"convert": "2.0.1",
-"crypto": "0.9.1",
-"glob": "1.1.3",
-"http": "0.11.3+13",
-"http_multi_server": "1.3.2",
-"http_parser": "0.0.2+8",
-"matcher": "0.12.0+2",
-"mime": "0.9.3",
-"package_config": "1.0.0",
-"package_resolver": "1.0.2",
-"path": "1.4.1",
-"pool": "1.3.0",
-"pub_semver": "1.3.2",
-"shelf": "0.6.3",
-"shelf_static": "0.2.4",
-"shelf_web_socket": "0.0.1+5",
-"source_map_stack_trace": "1.1.4",
-"source_maps": "0.10.4",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"string_scanner": "0.1.5",
-"test": "0.12.3+9",
-"typed_data": "1.1.3",
-"unittest": "0.12.3",
-"watcher": "0.9.7+3",
-"yaml": "2.1.12"
-},
-"availablePackages": {
-"analyzer": "0.29.10",
-"crypto": "2.0.1",
-"http_multi_server": "2.0.3",
-"http_parser": "3.1.1",
-"shelf": "0.6.7+2",
-"shelf_web_socket": "0.2.1",
-"string_scanner": "1.0.1",
-"test": "0.12.20+9",
-"unittest": "0.12.4+1"
-},
-"authors": [
-"Chris Buckett <chrisbuckett@gmail.com>",
-"Steven Roose <stevenroose@gmail.com>"
-],
-"version": "1.0.19+1"
-},
-"analyzerItems": [
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 236,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.map' ('((E) → dynamic) → Iterable<dynamic>') isn't a subtype of 'Iterable<dynamic>.map' ('<T>((dynamic) → T) → Iterable<T>')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 238,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.where' ('((E) → bool) → Iterable<E>') isn't a subtype of 'Iterable<dynamic>.where' ('((dynamic) → bool) → Iterable<dynamic>')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 240,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.expand' ('((E) → Iterable<dynamic>) → Iterable<dynamic>') isn't a subtype of 'Iterable<dynamic>.expand' ('<T>((dynamic) → Iterable<T>) → Iterable<T>')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 242,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.contains' ('(E) → bool') isn't a subtype of 'Iterable<dynamic>.contains' ('(Object) → bool')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 244,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.reduce' ('((E, E) → E) → dynamic') isn't a subtype of 'Iterable<dynamic>.reduce' ('((dynamic, dynamic) → dynamic) → dynamic')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 246,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.every' ('((E) → bool) → bool') isn't a subtype of 'Iterable<dynamic>.every' ('((dynamic) → bool) → bool')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 250,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.any' ('((E) → bool) → bool') isn't a subtype of 'Iterable<dynamic>.any' ('((dynamic) → bool) → bool')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 254,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.takeWhile' ('((E) → bool) → Iterable<E>') isn't a subtype of 'Iterable<dynamic>.takeWhile' ('((dynamic) → bool) → Iterable<dynamic>')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 258,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.skipWhile' ('((E) → bool) → Iterable<E>') isn't a subtype of 'Iterable<dynamic>.skipWhile' ('((dynamic) → bool) → Iterable<dynamic>')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/json_object.dart",
-"line": 266,
-"col": 3,
-"error": "Invalid override. The type of 'JsonObject.fold' ('(dynamic, (dynamic, dynamic) → dynamic) → E') isn't a subtype of 'Iterable<dynamic>.fold' ('<T>(T, (T, dynamic) → T) → T')."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "lib/src/mirror_based_serializer.dart",
-"line": 127,
-"col": 16,
-"error": "The getter 'getters' isn't defined for the class 'ClassMirror'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "lib/src/mirror_based_serializer.dart",
-"line": 150,
-"col": 21,
-"error": "The method 'then' isn't defined for the class 'InstanceMirror'."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "lib/src/mirror_based_serializer.dart",
-"line": 151,
-"col": 25,
-"error": "The argument type 'InstanceMirror' can't be assigned to the parameter type 'Future'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-"file": "lib/src/mirror_based_serializer.dart",
-"line": 156,
-"col": 17,
-"error": "The getter 'variables' isn't defined for the class 'ClassMirror'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "lib/src/mirror_based_serializer.dart",
-"line": 174,
-"col": 21,
-"error": "The method 'then' isn't defined for the class 'InstanceMirror'."
-},
-{
-"type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
-"file": "lib/src/mirror_based_serializer.dart",
-"line": 175,
-"col": 25,
-"error": "The argument type 'InstanceMirror' can't be assigned to the parameter type 'Future'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/json_object_test.dart",
-"line": 3,
-"col": 1,
-"error": "'unittest' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "test/test_is_extendable.dart",
-"line": 16,
-"col": 23,
-"error": "The value of the local variable 'expectedException' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_FIELD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 98,
-"col": 7,
-"error": "The value of the field '_iAmPrivate' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_ELEMENT",
-"file": "test/test_mirrors_serialize.dart",
-"line": 104,
-"col": 3,
-"error": "The method '_privateMethod' isn't used."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 234,
-"col": 40,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 241,
-"col": 40,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 248,
-"col": 40,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 255,
-"col": 40,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 262,
-"col": 40,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 269,
-"col": 40,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 276,
-"col": 40,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "test/test_mirrors_serialize.dart",
-"line": 678,
-"col": 3,
-"error": "Invalid override. The type of 'JsonMapMatcher.matches' ('(String, Map<dynamic, dynamic>) → bool') isn't a subtype of 'Matcher.matches' ('(dynamic, Map<dynamic, dynamic>) → bool')."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "test/test_mirrors_serialize.dart",
-"line": 679,
-"col": 9,
-"error": "The value of the local variable 'result' isn't used."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 682,
-"col": 39,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 684,
-"col": 14,
-"error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/test_mirrors_serialize.dart",
-"line": 689,
-"col": 22,
-"error": "The method 'parse' isn't defined for the class 'JsonCodec'."
-},
-{
-"type": "INFO|HINT|MISSING_RETURN",
-"file": "test/test_sample_data.dart",
-"line": 3,
-"col": 1,
-"error": "This function declares a return type of 'bool', but doesn't end with a return statement."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|INCONSISTENT_METHOD_INHERITANCE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 16,
-"error": "Inconsistent declarations of 'addAll' are inherited from (Map<dynamic, dynamic>) → void, (Iterable<dynamic>) → void."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|INCONSISTENT_METHOD_INHERITANCE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 16,
-"error": "Inconsistent declarations of 'expand' are inherited from ((dynamic) → Iterable<dynamic>) → Iterable<dynamic>, <T>((dynamic) → Iterable<T>) → Iterable<T>."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|INCONSISTENT_METHOD_INHERITANCE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 16,
-"error": "Inconsistent declarations of 'fold' are inherited from (dynamic, (dynamic, dynamic) → dynamic) → dynamic, <T>(T, (T, dynamic) → T) → T."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|INCONSISTENT_METHOD_INHERITANCE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 16,
-"error": "Inconsistent declarations of 'map' are inherited from ((dynamic) → dynamic) → Iterable<dynamic>, <T>((dynamic) → T) → Iterable<T>."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 28,
-"error": "Base class introduces an invalid override. The type of 'JsonObject.addAll' ('(Map<dynamic, dynamic>) → void') isn't a subtype of 'List<dynamic>.addAll' ('(Iterable<dynamic>) → void')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 28,
-"error": "Base class introduces an invalid override. The type of 'JsonObject.expand' ('((dynamic) → Iterable<dynamic>) → Iterable<dynamic>') isn't a subtype of 'Iterable<dynamic>.expand' ('<T>((dynamic) → Iterable<T>) → Iterable<T>')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 28,
-"error": "Base class introduces an invalid override. The type of 'JsonObject.fold' ('(dynamic, (dynamic, dynamic) → dynamic) → dynamic') isn't a subtype of 'Iterable<dynamic>.fold' ('<T>(T, (T, dynamic) → T) → T')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 28,
-"error": "Base class introduces an invalid override. The type of 'JsonObject.map' ('((dynamic) → dynamic) → Iterable<dynamic>') isn't a subtype of 'Iterable<dynamic>.map' ('<T>((dynamic) → T) → Iterable<T>')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
-"file": "test/test_strong_typing.dart",
-"line": 14,
-"col": 28,
-"error": "Base class introduces an invalid override. The type of 'JsonObject.remove' ('(Object) → dynamic') isn't a subtype of 'List<dynamic>.remove' ('(Object) → bool')."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "test/test_strong_typing.dart",
-"line": 44,
-"col": 7,
-"error": "The value of the local variable 'noSuchMethodException' isn't used."
-}
-],
-"unformattedFiles": [
-"test/test_sample_data.dart",
-"test/test_json_stringify.dart",
-"test/test_to_string.dart",
-"test/test_list.dart",
-"test/test_mirrors_serialize.dart",
-"test/json_object_test.dart",
-"test/test_print_list.dart",
-"test/test_dartlang_article.dart",
-"test/test_strong_typing.dart",
-"test/test_is_extendable.dart",
-"test/test_extend_object.dart",
-"test/test_list_serialization.dart",
-"test/test_todo_vo.dart",
-"lib/json_object.dart",
-"lib/src/mirror_based_deserializer.dart",
-"lib/src/mirror_based_serializer.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "json_object",
+ "packageVersion": "1.0.19+1",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.25.0+1",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "charcode": "1.1.1",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "crypto": "0.9.1",
+   "glob": "1.1.3",
+   "http": "0.11.3+13",
+   "http_multi_server": "1.3.2",
+   "http_parser": "0.0.2+8",
+   "matcher": "0.12.0+2",
+   "mime": "0.9.3",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "shelf": "0.6.3",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.0.1+5",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "string_scanner": "0.1.5",
+   "test": "0.12.3+9",
+   "typed_data": "1.1.3",
+   "unittest": "0.12.3",
+   "watcher": "0.9.7+3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.29.10",
+   "crypto": "2.0.1",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "shelf": "0.6.7+2",
+   "shelf_web_socket": "0.2.1",
+   "string_scanner": "1.0.1",
+   "test": "0.12.20+9",
+   "unittest": "0.12.4+1"
+  },
+  "authors": [
+   "Chris Buckett <chrisbuckett@gmail.com>",
+   "Steven Roose <stevenroose@gmail.com>"
+  ],
+  "version": "1.0.19+1"
+ },
+ "analyzerItems": [
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 236,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.map' ('((E) → dynamic) → Iterable<dynamic>') isn't a subtype of 'Iterable<dynamic>.map' ('<T>((dynamic) → T) → Iterable<T>')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 238,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.where' ('((E) → bool) → Iterable<E>') isn't a subtype of 'Iterable<dynamic>.where' ('((dynamic) → bool) → Iterable<dynamic>')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 240,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.expand' ('((E) → Iterable<dynamic>) → Iterable<dynamic>') isn't a subtype of 'Iterable<dynamic>.expand' ('<T>((dynamic) → Iterable<T>) → Iterable<T>')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 242,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.contains' ('(E) → bool') isn't a subtype of 'Iterable<dynamic>.contains' ('(Object) → bool')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 244,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.reduce' ('((E, E) → E) → dynamic') isn't a subtype of 'Iterable<dynamic>.reduce' ('((dynamic, dynamic) → dynamic) → dynamic')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 246,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.every' ('((E) → bool) → bool') isn't a subtype of 'Iterable<dynamic>.every' ('((dynamic) → bool) → bool')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 250,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.any' ('((E) → bool) → bool') isn't a subtype of 'Iterable<dynamic>.any' ('((dynamic) → bool) → bool')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 254,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.takeWhile' ('((E) → bool) → Iterable<E>') isn't a subtype of 'Iterable<dynamic>.takeWhile' ('((dynamic) → bool) → Iterable<dynamic>')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 258,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.skipWhile' ('((E) → bool) → Iterable<E>') isn't a subtype of 'Iterable<dynamic>.skipWhile' ('((dynamic) → bool) → Iterable<dynamic>')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/json_object.dart",
+   "line": 266,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonObject.fold' ('(dynamic, (dynamic, dynamic) → dynamic) → E') isn't a subtype of 'Iterable<dynamic>.fold' ('<T>(T, (T, dynamic) → T) → T')."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "lib/src/mirror_based_serializer.dart",
+   "line": 127,
+   "col": 16,
+   "error": "The getter 'getters' isn't defined for the class 'ClassMirror'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "lib/src/mirror_based_serializer.dart",
+   "line": 150,
+   "col": 21,
+   "error": "The method 'then' isn't defined for the class 'InstanceMirror'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/mirror_based_serializer.dart",
+   "line": 151,
+   "col": 25,
+   "error": "The argument type 'InstanceMirror' can't be assigned to the parameter type 'Future'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
+   "file": "lib/src/mirror_based_serializer.dart",
+   "line": 156,
+   "col": 17,
+   "error": "The getter 'variables' isn't defined for the class 'ClassMirror'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "lib/src/mirror_based_serializer.dart",
+   "line": 174,
+   "col": 21,
+   "error": "The method 'then' isn't defined for the class 'InstanceMirror'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/mirror_based_serializer.dart",
+   "line": 175,
+   "col": 25,
+   "error": "The argument type 'InstanceMirror' can't be assigned to the parameter type 'Future'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/json_object_test.dart",
+   "line": 3,
+   "col": 1,
+   "error": "'unittest' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/test_is_extendable.dart",
+   "line": 16,
+   "col": 23,
+   "error": "The value of the local variable 'expectedException' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_FIELD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 98,
+   "col": 7,
+   "error": "The value of the field '_iAmPrivate' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_ELEMENT",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 104,
+   "col": 3,
+   "error": "The method '_privateMethod' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 234,
+   "col": 40,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 241,
+   "col": 40,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 248,
+   "col": 40,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 255,
+   "col": 40,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 262,
+   "col": 40,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 269,
+   "col": 40,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 276,
+   "col": 40,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 678,
+   "col": 3,
+   "error": "Invalid override. The type of 'JsonMapMatcher.matches' ('(String, Map<dynamic, dynamic>) → bool') isn't a subtype of 'Matcher.matches' ('(dynamic, Map<dynamic, dynamic>) → bool')."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 679,
+   "col": 9,
+   "error": "The value of the local variable 'result' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 682,
+   "col": 39,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 684,
+   "col": 14,
+   "error": "The method 'stringify' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/test_mirrors_serialize.dart",
+   "line": 689,
+   "col": 22,
+   "error": "The method 'parse' isn't defined for the class 'JsonCodec'."
+  },
+  {
+   "type": "INFO|HINT|MISSING_RETURN",
+   "file": "test/test_sample_data.dart",
+   "line": 3,
+   "col": 1,
+   "error": "This function declares a return type of 'bool', but doesn't end with a return statement."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|INCONSISTENT_METHOD_INHERITANCE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 16,
+   "error": "Inconsistent declarations of 'addAll' are inherited from (Map<dynamic, dynamic>) → void, (Iterable<dynamic>) → void."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|INCONSISTENT_METHOD_INHERITANCE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 16,
+   "error": "Inconsistent declarations of 'expand' are inherited from ((dynamic) → Iterable<dynamic>) → Iterable<dynamic>, <T>((dynamic) → Iterable<T>) → Iterable<T>."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|INCONSISTENT_METHOD_INHERITANCE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 16,
+   "error": "Inconsistent declarations of 'fold' are inherited from (dynamic, (dynamic, dynamic) → dynamic) → dynamic, <T>(T, (T, dynamic) → T) → T."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|INCONSISTENT_METHOD_INHERITANCE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 16,
+   "error": "Inconsistent declarations of 'map' are inherited from ((dynamic) → dynamic) → Iterable<dynamic>, <T>((dynamic) → T) → Iterable<T>."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 28,
+   "error": "Base class introduces an invalid override. The type of 'JsonObject.addAll' ('(Map<dynamic, dynamic>) → void') isn't a subtype of 'List<dynamic>.addAll' ('(Iterable<dynamic>) → void')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 28,
+   "error": "Base class introduces an invalid override. The type of 'JsonObject.expand' ('((dynamic) → Iterable<dynamic>) → Iterable<dynamic>') isn't a subtype of 'Iterable<dynamic>.expand' ('<T>((dynamic) → Iterable<T>) → Iterable<T>')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 28,
+   "error": "Base class introduces an invalid override. The type of 'JsonObject.fold' ('(dynamic, (dynamic, dynamic) → dynamic) → dynamic') isn't a subtype of 'Iterable<dynamic>.fold' ('<T>(T, (T, dynamic) → T) → T')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 28,
+   "error": "Base class introduces an invalid override. The type of 'JsonObject.map' ('((dynamic) → dynamic) → Iterable<dynamic>') isn't a subtype of 'Iterable<dynamic>.map' ('<T>((dynamic) → T) → Iterable<T>')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE_FROM_BASE",
+   "file": "test/test_strong_typing.dart",
+   "line": 14,
+   "col": 28,
+   "error": "Base class introduces an invalid override. The type of 'JsonObject.remove' ('(Object) → dynamic') isn't a subtype of 'List<dynamic>.remove' ('(Object) → bool')."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/test_strong_typing.dart",
+   "line": 44,
+   "col": 7,
+   "error": "The value of the local variable 'noSuchMethodException' isn't used."
+  }
+ ],
+ "unformattedFiles": [
+  "test/test_sample_data.dart",
+  "test/test_json_stringify.dart",
+  "test/test_to_string.dart",
+  "test/test_list.dart",
+  "test/test_mirrors_serialize.dart",
+  "test/json_object_test.dart",
+  "test/test_print_list.dart",
+  "test/test_dartlang_article.dart",
+  "test/test_strong_typing.dart",
+  "test/test_is_extendable.dart",
+  "test/test_extend_object.dart",
+  "test/test_list_serialization.dart",
+  "test/test_todo_vo.dart",
+  "lib/json_object.dart",
+  "lib/src/mirror_based_deserializer.dart",
+  "lib/src/mirror_based_serializer.dart"
+ ]
 }

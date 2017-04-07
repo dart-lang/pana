@@ -1,183 +1,183 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "collection",
-"packageVersion": "1.14.0",
-"pubSummary": {
-"packages": {
-"analyzer": "0.29.10",
-"args": "0.13.7",
-"async": "1.13.2",
-"barback": "0.15.2+10",
-"boolean_selector": "1.0.2",
-"charcode": "1.1.1",
-"cli_util": "0.0.1+2",
-"convert": "2.0.1",
-"crypto": "2.0.1",
-"csslib": "0.13.4",
-"glob": "1.1.3",
-"html": "0.13.1",
-"http": "0.11.3+13",
-"http_multi_server": "2.0.3",
-"http_parser": "3.1.1",
-"isolate": "1.0.0",
-"logging": "0.11.3+1",
-"matcher": "0.12.0+2",
-"meta": "1.0.5",
-"mime": "0.9.3",
-"package_config": "1.0.0",
-"package_resolver": "1.0.2",
-"path": "1.4.1",
-"plugin": "0.2.0",
-"pool": "1.3.0",
-"pub_semver": "1.3.2",
-"shelf": "0.6.7+2",
-"shelf_packages_handler": "1.0.0",
-"shelf_static": "0.2.4",
-"shelf_web_socket": "0.2.1",
-"source_map_stack_trace": "1.1.4",
-"source_maps": "0.10.4",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"stream_channel": "1.6.1",
-"string_scanner": "1.0.1",
-"term_glyph": "1.0.0",
-"test": "0.12.20+9",
-"typed_data": "1.1.3",
-"utf": "0.9.0+3",
-"watcher": "0.9.7+3",
-"web_socket_channel": "1.0.4",
-"when": "0.2.0",
-"which": "0.1.3",
-"yaml": "2.1.12"
-},
-"availablePackages": {
-"analyzer": "0.30.0-alpha.1"
-},
-"authors": [
-"Dart Team <misc@dartlang.org>"
-],
-"version": "1.14.0"
-},
-"analyzerItems": [
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 85,
-"col": 42,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 103,
-"col": 35,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 111,
-"col": 53,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 116,
-"col": 52,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 157,
-"col": 34,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 165,
-"col": 52,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 170,
-"col": 51,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 184,
-"col": 53,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 193,
-"col": 36,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 201,
-"col": 54,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 206,
-"col": 53,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/unmodifiable_collection_test.dart",
-"line": 349,
-"col": 39,
-"error": "'throws' is deprecated and shouldn't be used."
-}
-],
-"unformattedFiles": [
-"test/iterable_zip_test.dart",
-"test/equality_set_test.dart",
-"test/equality_test.dart",
-"test/ignore_ascii_case_test.dart",
-"test/canonicalized_map_test.dart",
-"test/algorithms_test.dart",
-"test/wrapper_test.dart",
-"test/queue_list_test.dart",
-"test/functions_test.dart",
-"test/comparators_test.dart",
-"test/unmodifiable_collection_test.dart",
-"test/typed_wrapper/map_test.dart",
-"test/typed_wrapper/set_test.dart",
-"test/typed_wrapper/queue_test.dart",
-"test/typed_wrapper/iterable_test.dart",
-"test/combined_wrapper/map_test.dart",
-"test/combined_wrapper/iterable_test.dart",
-"test/combined_wrapper/list_test.dart",
-"test/priority_queue_test.dart",
-"lib/wrappers.dart",
-"lib/src/algorithms.dart",
-"lib/src/functions.dart",
-"lib/src/comparators.dart",
-"lib/src/typed_wrappers.dart",
-"lib/src/iterable_zip.dart",
-"lib/src/queue_list.dart",
-"lib/src/priority_queue.dart",
-"lib/src/unmodifiable_wrappers.dart",
-"lib/src/equality_set.dart",
-"lib/src/canonicalized_map.dart",
-"lib/src/empty_unmodifiable_set.dart",
-"lib/src/wrappers.dart",
-"lib/src/equality.dart",
-"lib/src/equality_map.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "collection",
+ "packageVersion": "1.14.0",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.29.10",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "boolean_selector": "1.0.2",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "convert": "2.0.1",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "glob": "1.1.3",
+   "html": "0.13.1",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "isolate": "1.0.0",
+   "logging": "0.11.3+1",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.2.0",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "typed_data": "1.1.3",
+   "utf": "0.9.0+3",
+   "watcher": "0.9.7+3",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.30.0-alpha.1"
+  },
+  "authors": [
+   "Dart Team <misc@dartlang.org>"
+  ],
+  "version": "1.14.0"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 85,
+   "col": 42,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 103,
+   "col": 35,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 111,
+   "col": 53,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 116,
+   "col": 52,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 157,
+   "col": 34,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 165,
+   "col": 52,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 170,
+   "col": 51,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 184,
+   "col": 53,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 193,
+   "col": 36,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 201,
+   "col": 54,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 206,
+   "col": 53,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/unmodifiable_collection_test.dart",
+   "line": 349,
+   "col": 39,
+   "error": "'throws' is deprecated and shouldn't be used."
+  }
+ ],
+ "unformattedFiles": [
+  "test/iterable_zip_test.dart",
+  "test/equality_set_test.dart",
+  "test/equality_test.dart",
+  "test/ignore_ascii_case_test.dart",
+  "test/canonicalized_map_test.dart",
+  "test/algorithms_test.dart",
+  "test/wrapper_test.dart",
+  "test/queue_list_test.dart",
+  "test/functions_test.dart",
+  "test/comparators_test.dart",
+  "test/unmodifiable_collection_test.dart",
+  "test/typed_wrapper/map_test.dart",
+  "test/typed_wrapper/set_test.dart",
+  "test/typed_wrapper/queue_test.dart",
+  "test/typed_wrapper/iterable_test.dart",
+  "test/combined_wrapper/map_test.dart",
+  "test/combined_wrapper/iterable_test.dart",
+  "test/combined_wrapper/list_test.dart",
+  "test/priority_queue_test.dart",
+  "lib/wrappers.dart",
+  "lib/src/algorithms.dart",
+  "lib/src/functions.dart",
+  "lib/src/comparators.dart",
+  "lib/src/typed_wrappers.dart",
+  "lib/src/iterable_zip.dart",
+  "lib/src/queue_list.dart",
+  "lib/src/priority_queue.dart",
+  "lib/src/unmodifiable_wrappers.dart",
+  "lib/src/equality_set.dart",
+  "lib/src/canonicalized_map.dart",
+  "lib/src/empty_unmodifiable_set.dart",
+  "lib/src/wrappers.dart",
+  "lib/src/equality.dart",
+  "lib/src/equality_map.dart"
+ ]
 }

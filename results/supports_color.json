@@ -1,25 +1,25 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "supports_color",
-"packageVersion": "0.1.1",
-"pubSummary": {
-"packages": {
-"path": "1.4.1",
-"stack_trace": "1.7.3",
-"unittest": "0.11.7"
-},
-"availablePackages": {
-"unittest": "0.12.4+1"
-},
-"authors": [
-"Sean Eagan <seaneagan1@gmail.com>"
-],
-"version": "0.1.1"
-},
-"analyzerItems": [],
-"unformattedFiles": [
-"test/supports_color_test.dart",
-"lib/supports_color.dart",
-"lib/src/supports_color.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "supports_color",
+ "packageVersion": "0.1.1",
+ "pubSummary": {
+  "packages": {
+   "path": "1.4.1",
+   "stack_trace": "1.7.3",
+   "unittest": "0.11.7"
+  },
+  "availablePackages": {
+   "unittest": "0.12.4+1"
+  },
+  "authors": [
+   "Sean Eagan <seaneagan1@gmail.com>"
+  ],
+  "version": "0.1.1"
+ },
+ "analyzerItems": [],
+ "unformattedFiles": [
+  "test/supports_color_test.dart",
+  "lib/supports_color.dart",
+  "lib/src/supports_color.dart"
+ ]
 }

@@ -1,62 +1,62 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "chartjs",
-"packageVersion": "0.3.2",
-"pubSummary": {
-"packages": {
-"browser": "0.10.0+2",
-"func": "0.1.1",
-"js": "0.6.1"
-},
-"availablePackages": {},
-"authors": [
-"Kevin Moore <kevmoo+github@google.com>"
-],
-"version": "0.3.2"
-},
-"analyzerItems": [
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/chartjs.dart",
-"line": 740,
-"col": 3,
-"error": "Invalid override. The type of 'LinearTickOptions.min=' ('(num) → void') isn't a subtype of 'TickOptions.min=' ('(dynamic) → void')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/chartjs.dart",
-"line": 742,
-"col": 3,
-"error": "Invalid override. The type of 'LinearTickOptions.max=' ('(num) → void') isn't a subtype of 'TickOptions.max=' ('(dynamic) → void')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/chartjs.dart",
-"line": 782,
-"col": 3,
-"error": "Invalid override. The type of 'LogarithmicTickOptions.min=' ('(num) → void') isn't a subtype of 'TickOptions.min=' ('(dynamic) → void')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/chartjs.dart",
-"line": 784,
-"col": 3,
-"error": "Invalid override. The type of 'LogarithmicTickOptions.max=' ('(num) → void') isn't a subtype of 'TickOptions.max=' ('(dynamic) → void')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/chartjs.dart",
-"line": 1040,
-"col": 3,
-"error": "Invalid override. The type of 'LinearScale.ticks=' ('(LinearTickOptions) → void') isn't a subtype of 'ChartScales.ticks=' ('(TickOptions) → void')."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "lib/chartjs.dart",
-"line": 1070,
-"col": 3,
-"error": "Invalid override. The type of 'LogarithmicScale.ticks=' ('(LogarithmicTickOptions) → void') isn't a subtype of 'ChartScales.ticks=' ('(TickOptions) → void')."
-}
-],
-"unformattedFiles": []
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "chartjs",
+ "packageVersion": "0.3.2",
+ "pubSummary": {
+  "packages": {
+   "browser": "0.10.0+2",
+   "func": "0.1.1",
+   "js": "0.6.1"
+  },
+  "availablePackages": {},
+  "authors": [
+   "Kevin Moore <kevmoo+github@google.com>"
+  ],
+  "version": "0.3.2"
+ },
+ "analyzerItems": [
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/chartjs.dart",
+   "line": 740,
+   "col": 3,
+   "error": "Invalid override. The type of 'LinearTickOptions.min=' ('(num) → void') isn't a subtype of 'TickOptions.min=' ('(dynamic) → void')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/chartjs.dart",
+   "line": 742,
+   "col": 3,
+   "error": "Invalid override. The type of 'LinearTickOptions.max=' ('(num) → void') isn't a subtype of 'TickOptions.max=' ('(dynamic) → void')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/chartjs.dart",
+   "line": 782,
+   "col": 3,
+   "error": "Invalid override. The type of 'LogarithmicTickOptions.min=' ('(num) → void') isn't a subtype of 'TickOptions.min=' ('(dynamic) → void')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/chartjs.dart",
+   "line": 784,
+   "col": 3,
+   "error": "Invalid override. The type of 'LogarithmicTickOptions.max=' ('(num) → void') isn't a subtype of 'TickOptions.max=' ('(dynamic) → void')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/chartjs.dart",
+   "line": 1040,
+   "col": 3,
+   "error": "Invalid override. The type of 'LinearScale.ticks=' ('(LinearTickOptions) → void') isn't a subtype of 'ChartScales.ticks=' ('(TickOptions) → void')."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "lib/chartjs.dart",
+   "line": 1070,
+   "col": 3,
+   "error": "Invalid override. The type of 'LogarithmicScale.ticks=' ('(LogarithmicTickOptions) → void') isn't a subtype of 'ChartScales.ticks=' ('(TickOptions) → void')."
+  }
+ ],
+ "unformattedFiles": []
 }

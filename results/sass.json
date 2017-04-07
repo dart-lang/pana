@@ -1,127 +1,127 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "sass",
-"packageVersion": "0.4.2+7",
-"pubSummary": {
-"packages": {
-"analyzer": "0.29.10",
-"args": "0.13.7",
-"async": "1.13.2",
-"barback": "0.15.2+10",
-"boolean_selector": "1.0.2",
-"charcode": "1.1.1",
-"cli_util": "0.0.1+2",
-"collection": "1.14.0",
-"convert": "2.0.1",
-"crypto": "2.0.1",
-"csslib": "0.13.4",
-"glob": "1.1.3",
-"html": "0.13.1",
-"http": "0.11.3+13",
-"http_multi_server": "2.0.3",
-"http_parser": "3.1.1",
-"isolate": "1.0.0",
-"logging": "0.11.3+1",
-"matcher": "0.12.0+2",
-"meta": "1.0.5",
-"mime": "0.9.3",
-"mock": "0.12.0",
-"package_config": "1.0.0",
-"package_resolver": "1.0.2",
-"path": "1.4.1",
-"plugin": "0.2.0",
-"pool": "1.3.0",
-"pub_semver": "1.3.2",
-"shelf": "0.6.7+2",
-"shelf_packages_handler": "1.0.0",
-"shelf_static": "0.2.4",
-"shelf_web_socket": "0.2.1",
-"source_map_stack_trace": "1.1.4",
-"source_maps": "0.10.4",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"stream_channel": "1.6.1",
-"string_scanner": "1.0.1",
-"term_glyph": "1.0.0",
-"test": "0.12.20+9",
-"typed_data": "1.1.3",
-"utf": "0.9.0+3",
-"watcher": "0.9.7+3",
-"web_socket_channel": "1.0.4",
-"when": "0.2.0",
-"which": "0.1.3",
-"yaml": "2.1.12"
-},
-"availablePackages": {
-"analyzer": "0.30.0-alpha.1"
-},
-"authors": [
-"Juha Komulainen <juha.komulainen@evident.fi>"
-],
-"version": "0.4.2+7"
-},
-"analyzerItems": [
-{
-"type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
-"file": "test/inlined_sass_transformer_test.dart",
-"line": 101,
-"col": 21,
-"error": "The method 'getLogs' isn't defined for the class 'Transform'."
-},
-{
-"type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
-"file": "test/inlined_sass_transformer_test.dart",
-"line": 109,
-"col": 3,
-"error": "Unnecessary 'noSuchMethod' declaration."
-},
-{
-"type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
-"file": "test/inlined_sass_transformer_test.dart",
-"line": 113,
-"col": 3,
-"error": "Unnecessary 'noSuchMethod' declaration."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/transformer_test.dart",
-"line": 63,
-"col": 43,
-"error": "'expectAsync' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "test/transformer_test.dart",
-"line": 64,
-"col": 15,
-"error": "The value of the local variable 'assetPathContainsCompass' isn't used."
-},
-{
-"type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
-"file": "test/transformer_test.dart",
-"line": 75,
-"col": 3,
-"error": "Unnecessary 'noSuchMethod' declaration."
-},
-{
-"type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
-"file": "test/transformer_test.dart",
-"line": 79,
-"col": 3,
-"error": "Unnecessary 'noSuchMethod' declaration."
-}
-],
-"unformattedFiles": [
-"test/sass_file_test.dart",
-"test/integration_test.dart",
-"test/inlined_sass_transformer_test.dart",
-"test/transformer_test.dart",
-"lib/inlined_sass_transformer.dart",
-"lib/transformer.dart",
-"lib/sass.dart",
-"lib/src/inlined_sass_file.dart",
-"lib/src/base_sass_transformer.dart",
-"lib/src/transformer_options.dart",
-"lib/src/sass_file.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "sass",
+ "packageVersion": "0.4.2+7",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.29.10",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "boolean_selector": "1.0.2",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "glob": "1.1.3",
+   "html": "0.13.1",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "isolate": "1.0.0",
+   "logging": "0.11.3+1",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "mock": "0.12.0",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.2.0",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "typed_data": "1.1.3",
+   "utf": "0.9.0+3",
+   "watcher": "0.9.7+3",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.30.0-alpha.1"
+  },
+  "authors": [
+   "Juha Komulainen <juha.komulainen@evident.fi>"
+  ],
+  "version": "0.4.2+7"
+ },
+ "analyzerItems": [
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "test/inlined_sass_transformer_test.dart",
+   "line": 101,
+   "col": 21,
+   "error": "The method 'getLogs' isn't defined for the class 'Transform'."
+  },
+  {
+   "type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
+   "file": "test/inlined_sass_transformer_test.dart",
+   "line": 109,
+   "col": 3,
+   "error": "Unnecessary 'noSuchMethod' declaration."
+  },
+  {
+   "type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
+   "file": "test/inlined_sass_transformer_test.dart",
+   "line": 113,
+   "col": 3,
+   "error": "Unnecessary 'noSuchMethod' declaration."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/transformer_test.dart",
+   "line": 63,
+   "col": 43,
+   "error": "'expectAsync' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/transformer_test.dart",
+   "line": 64,
+   "col": 15,
+   "error": "The value of the local variable 'assetPathContainsCompass' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
+   "file": "test/transformer_test.dart",
+   "line": 75,
+   "col": 3,
+   "error": "Unnecessary 'noSuchMethod' declaration."
+  },
+  {
+   "type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
+   "file": "test/transformer_test.dart",
+   "line": 79,
+   "col": 3,
+   "error": "Unnecessary 'noSuchMethod' declaration."
+  }
+ ],
+ "unformattedFiles": [
+  "test/sass_file_test.dart",
+  "test/integration_test.dart",
+  "test/inlined_sass_transformer_test.dart",
+  "test/transformer_test.dart",
+  "lib/inlined_sass_transformer.dart",
+  "lib/transformer.dart",
+  "lib/sass.dart",
+  "lib/src/inlined_sass_file.dart",
+  "lib/src/base_sass_transformer.dart",
+  "lib/src/transformer_options.dart",
+  "lib/src/sass_file.dart"
+ ]
 }

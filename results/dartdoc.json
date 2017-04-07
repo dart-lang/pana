@@ -1,425 +1,425 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "dartdoc",
-"packageVersion": "0.9.13",
-"pubSummary": {
-"packages": {
-"analyzer": "0.29.10",
-"ansicolor": "0.0.9",
-"args": "0.13.7",
-"async": "1.13.2",
-"barback": "0.15.2+10",
-"boolean_selector": "1.0.2",
-"charcode": "1.1.1",
-"cli_util": "0.0.1+2",
-"collection": "1.14.0",
-"convert": "2.0.1",
-"crypto": "2.0.1",
-"csslib": "0.13.4",
-"glob": "1.1.3",
-"grinder": "0.8.0+3",
-"html": "0.13.1",
-"http": "0.11.3+13",
-"http_multi_server": "2.0.3",
-"http_parser": "3.1.1",
-"isolate": "1.0.0",
-"logging": "0.11.3+1",
-"markdown": "0.11.3",
-"matcher": "0.12.0+2",
-"meta": "1.0.5",
-"mime": "0.9.3",
-"mockable_filesystem": "0.0.3",
-"mustache4dart": "1.0.12",
-"package_config": "1.0.0",
-"package_resolver": "1.0.2",
-"path": "1.4.1",
-"plugin": "0.2.0",
-"pool": "1.3.0",
-"pub_semver": "1.3.2",
-"quiver": "0.24.0",
-"resource": "2.1.2",
-"shelf": "0.6.7+2",
-"shelf_packages_handler": "1.0.0",
-"shelf_static": "0.2.4",
-"shelf_web_socket": "0.2.1",
-"source_map_stack_trace": "1.1.4",
-"source_maps": "0.10.4",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"stream_channel": "1.6.1",
-"string_scanner": "1.0.1",
-"supports_color": "0.1.1",
-"term_glyph": "1.0.0",
-"test": "0.12.20+9",
-"typed_data": "1.1.3",
-"unscripted": "0.6.2",
-"utf": "0.9.0+3",
-"watcher": "0.9.7+3",
-"web_socket_channel": "1.0.4",
-"when": "0.2.0",
-"which": "0.1.3",
-"yaml": "2.1.12"
-},
-"availablePackages": {
-"analyzer": "0.30.0-alpha.1",
-"quiver": "0.25.0"
-},
-"authors": [
-"Dart Team <misc@dartlang.org>"
-],
-"version": "0.9.13"
-},
-"analyzerItems": [
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/dartdoc.dart",
-"line": 15,
-"col": 1,
-"error": "'analyzer.source.embedder' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/dartdoc.dart",
-"line": 15,
-"col": 53,
-"error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/dartdoc.dart",
-"line": 203,
-"col": 5,
-"error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/dartdoc.dart",
-"line": 210,
-"col": 33,
-"error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/markdown_processor.dart",
-"line": 441,
-"col": 19,
-"error": "'escapeHtml' is deprecated and shouldn't be used."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "testing/test_package/lib/example.dart",
-"line": 8,
-"col": 8,
-"error": "Target of URI doesn't exist: 'package:test_package_imported/main.dart'."
-},
-{
-"type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_1",
-"file": "testing/test_package/lib/example.dart",
-"line": 102,
-"col": 3,
-"error": "The final variable 'fieldWithTypedef' must be initialized."
-},
-{
-"type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_1",
-"file": "testing/test_package/lib/example.dart",
-"line": 108,
-"col": 3,
-"error": "The final variable 'fieldWithTypedef' must be initialized."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
-"file": "testing/test_package/lib/example.dart",
-"line": 111,
-"col": 24,
-"error": "The name 'Whataclass' isn't a type so it can't be used as a type argument."
-},
-{
-"type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_3",
-"file": "testing/test_package/lib/example.dart",
-"line": 250,
-"col": 3,
-"error": "The final variables 'aFinalField', 'aProtectedFinalField' and '1' more must be initialized."
-},
-{
-"type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_3",
-"file": "testing/test_package/lib/example.dart",
-"line": 255,
-"col": 3,
-"error": "The final variables 'aFinalField', 'aProtectedFinalField' and '1' more must be initialized."
-},
-{
-"type": "INFO|HINT|MISSING_RETURN",
-"file": "testing/test_package/lib/example.dart",
-"line": 288,
-"col": 10,
-"error": "This function declares a return type of 'int', but doesn't end with a return statement."
-},
-{
-"type": "WARNING|STATIC_WARNING|NON_VOID_RETURN_FOR_SETTER",
-"file": "testing/test_package/lib/example.dart",
-"line": 288,
-"col": 10,
-"error": "The return type of the setter must be 'void' or absent."
-},
-{
-"type": "INFO|HINT|INVALID_FACTORY_METHOD_IMPL",
-"file": "testing/test_package/lib/example.dart",
-"line": 350,
-"col": 3,
-"error": "Factory method 'imAFactoryNoReally' doesn't return a newly allocated object."
-},
-{
-"type": "INFO|HINT|MISSING_RETURN",
-"file": "testing/test_package/lib/fake.dart",
-"line": 143,
-"col": 3,
-"error": "This function declares a return type of 'Cool', but doesn't end with a return statement."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "testing/test_package/lib/fake.dart",
-"line": 165,
-"col": 9,
-"error": "The value of the local variable 'x' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "testing/test_package/lib/fake.dart",
-"line": 166,
-"col": 9,
-"error": "The value of the local variable 'i' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "testing/test_package/lib/fake.dart",
-"line": 166,
-"col": 12,
-"error": "The value of the local variable 'y' isn't used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "testing/test_package/lib/fake.dart",
-"line": 182,
-"col": 29,
-"error": "'SuperAwesomeClass' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|LINT|annotate_overrides",
-"file": "testing/test_package/lib/fake.dart",
-"line": 390,
-"col": 14,
-"error": "Annotate overridden members"
-},
-{
-"type": "INFO|LINT|annotate_overrides",
-"file": "testing/test_package/lib/fake.dart",
-"line": 394,
-"col": 11,
-"error": "Annotate overridden members"
-},
-{
-"type": "INFO|LINT|annotate_overrides",
-"file": "testing/test_package/lib/fake.dart",
-"line": 396,
-"col": 12,
-"error": "Annotate overridden members"
-},
-{
-"type": "INFO|LINT|annotate_overrides",
-"file": "testing/test_package/lib/fake.dart",
-"line": 398,
-"col": 17,
-"error": "Annotate overridden members"
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "testing/test_package/lib/fake.dart",
-"line": 417,
-"col": 58,
-"error": "'topLevelFunction' is deprecated and shouldn't be used."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
-"file": "testing/test_package_bad/lib/test_package_bad.dart",
-"line": 1,
-"col": 8,
-"error": "Target of URI doesn't exist: 'foo.dart'."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
-"file": "testing/test_package_bad/lib/test_package_bad.dart",
-"line": 7,
-"col": 3,
-"error": "Undefined class 'Foo'."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "testing/test_package_bad/lib/test_package_bad.dart",
-"line": 7,
-"col": 7,
-"error": "The value of the local variable 'foo' isn't used."
-},
-{
-"type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
-"file": "testing/test_package_bad/lib/test_package_bad.dart",
-"line": 7,
-"col": 17,
-"error": "Undefined class 'Foo'."
-},
-{
-"type": "ERROR|STATIC_WARNING|NON_ABSTRACT_CLASS_INHERITS_ABSTRACT_MEMBER_FIVE_PLUS",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 19,
-"col": 7,
-"error": "Missing concrete implementations of 'Comparable.compareTo', 'num.%', 'num.*', 'num.+' and 9 more."
-},
-{
-"type": "INFO|HINT|DEPRECATED_FUNCTION_CLASS_DECLARATION",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 21,
-"col": 7,
-"error": "Declaring a class named 'Function' is deprecated."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 24,
-"col": 22,
-"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEven'."
-},
-{
-"type": "ERROR|STATIC_WARNING|CONCRETE_CLASS_WITH_ABSTRACT_MEMBER",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 36,
-"col": 9,
-"error": "'current' must have a method body because 'Iterator' isn't abstract."
-},
-{
-"type": "ERROR|STATIC_WARNING|CONCRETE_CLASS_WITH_ABSTRACT_MEMBER",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 37,
-"col": 8,
-"error": "'moveNext' must have a method body because 'Iterator' isn't abstract."
-},
-{
-"type": "INFO|LINT|annotate_overrides",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 41,
-"col": 19,
-"error": "Annotate overridden members"
-},
-{
-"type": "ERROR|STATIC_WARNING|FUNCTION_WITHOUT_CALL",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 53,
-"col": 7,
-"error": "Concrete classes that implement 'Function' must implement the method 'call'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 71,
-"col": 3,
-"error": "Invalid override. The type of 'Object.hashCode' ('() → int') isn't a subtype of 'Object.hashCode' ('() → int')."
-},
-{
-"type": "INFO|LINT|annotate_overrides",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 71,
-"col": 11,
-"error": "Annotate overridden members"
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 71,
-"col": 23,
-"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'hashCode'."
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 72,
-"col": 3,
-"error": "Invalid override. The type of 'Object.==' ('(dynamic) → bool') isn't a subtype of 'Object.==' ('(dynamic) → bool')."
-},
-{
-"type": "INFO|LINT|annotate_overrides",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 72,
-"col": 17,
-"error": "Annotate overridden members"
-},
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 73,
-"col": 3,
-"error": "Invalid override. The type of 'Object.toString' ('() → String') isn't a subtype of 'Object.toString' ('() → String')."
-},
-{
-"type": "INFO|LINT|annotate_overrides",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 73,
-"col": 10,
-"error": "Annotate overridden members"
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 73,
-"col": 24,
-"error": "The return type 'String (/usr/lib/dart/lib/core/string.dart)' isn't a 'String (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'toString'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 80,
-"col": 20,
-"error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 82,
-"col": 23,
-"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEmpty'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 83,
-"col": 26,
-"error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isNotEmpty'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 84,
-"col": 21,
-"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'length'."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 93,
-"col": 63,
-"error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
-},
-{
-"type": "INFO|HINT|UNUSED_ELEMENT",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 94,
-"col": 9,
-"error": "The function 'parseHex' isn't used."
-},
-{
-"type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
-"file": "testing/test_package_embedder_yaml/sdk/core.dart",
-"line": 95,
-"col": 14,
-"error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491579675483.2SXaaK/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'parseHex'."
-}
-],
-"unformattedFiles": []
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "dartdoc",
+ "packageVersion": "0.9.13",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.29.10",
+   "ansicolor": "0.0.9",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "boolean_selector": "1.0.2",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "glob": "1.1.3",
+   "grinder": "0.8.0+3",
+   "html": "0.13.1",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "isolate": "1.0.0",
+   "logging": "0.11.3+1",
+   "markdown": "0.11.3",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "mockable_filesystem": "0.0.3",
+   "mustache4dart": "1.0.12",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.2.0",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "quiver": "0.24.0",
+   "resource": "2.1.2",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "supports_color": "0.1.1",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "typed_data": "1.1.3",
+   "unscripted": "0.6.2",
+   "utf": "0.9.0+3",
+   "watcher": "0.9.7+3",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.30.0-alpha.1",
+   "quiver": "0.25.0"
+  },
+  "authors": [
+   "Dart Team <misc@dartlang.org>"
+  ],
+  "version": "0.9.13"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/dartdoc.dart",
+   "line": 15,
+   "col": 1,
+   "error": "'analyzer.source.embedder' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/dartdoc.dart",
+   "line": 15,
+   "col": 53,
+   "error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/dartdoc.dart",
+   "line": 203,
+   "col": 5,
+   "error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/dartdoc.dart",
+   "line": 210,
+   "col": 33,
+   "error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/markdown_processor.dart",
+   "line": 441,
+   "col": 19,
+   "error": "'escapeHtml' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:test_package_imported/main.dart'."
+  },
+  {
+   "type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_1",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 102,
+   "col": 3,
+   "error": "The final variable 'fieldWithTypedef' must be initialized."
+  },
+  {
+   "type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_1",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 108,
+   "col": 3,
+   "error": "The final variable 'fieldWithTypedef' must be initialized."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 111,
+   "col": 24,
+   "error": "The name 'Whataclass' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_3",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 250,
+   "col": 3,
+   "error": "The final variables 'aFinalField', 'aProtectedFinalField' and '1' more must be initialized."
+  },
+  {
+   "type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_3",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 255,
+   "col": 3,
+   "error": "The final variables 'aFinalField', 'aProtectedFinalField' and '1' more must be initialized."
+  },
+  {
+   "type": "INFO|HINT|MISSING_RETURN",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 288,
+   "col": 10,
+   "error": "This function declares a return type of 'int', but doesn't end with a return statement."
+  },
+  {
+   "type": "WARNING|STATIC_WARNING|NON_VOID_RETURN_FOR_SETTER",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 288,
+   "col": 10,
+   "error": "The return type of the setter must be 'void' or absent."
+  },
+  {
+   "type": "INFO|HINT|INVALID_FACTORY_METHOD_IMPL",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 350,
+   "col": 3,
+   "error": "Factory method 'imAFactoryNoReally' doesn't return a newly allocated object."
+  },
+  {
+   "type": "INFO|HINT|MISSING_RETURN",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 143,
+   "col": 3,
+   "error": "This function declares a return type of 'Cool', but doesn't end with a return statement."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 165,
+   "col": 9,
+   "error": "The value of the local variable 'x' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 166,
+   "col": 9,
+   "error": "The value of the local variable 'i' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 166,
+   "col": 12,
+   "error": "The value of the local variable 'y' isn't used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 182,
+   "col": 29,
+   "error": "'SuperAwesomeClass' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 390,
+   "col": 14,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 394,
+   "col": 11,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 396,
+   "col": 12,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 398,
+   "col": 17,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 417,
+   "col": 58,
+   "error": "'topLevelFunction' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "testing/test_package_bad/lib/test_package_bad.dart",
+   "line": 1,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'foo.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "testing/test_package_bad/lib/test_package_bad.dart",
+   "line": 7,
+   "col": 3,
+   "error": "Undefined class 'Foo'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "testing/test_package_bad/lib/test_package_bad.dart",
+   "line": 7,
+   "col": 7,
+   "error": "The value of the local variable 'foo' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "testing/test_package_bad/lib/test_package_bad.dart",
+   "line": 7,
+   "col": 17,
+   "error": "Undefined class 'Foo'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|NON_ABSTRACT_CLASS_INHERITS_ABSTRACT_MEMBER_FIVE_PLUS",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 19,
+   "col": 7,
+   "error": "Missing concrete implementations of 'Comparable.compareTo', 'num.%', 'num.*', 'num.+' and 9 more."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_FUNCTION_CLASS_DECLARATION",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 21,
+   "col": 7,
+   "error": "Declaring a class named 'Function' is deprecated."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 24,
+   "col": 22,
+   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEven'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|CONCRETE_CLASS_WITH_ABSTRACT_MEMBER",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 36,
+   "col": 9,
+   "error": "'current' must have a method body because 'Iterator' isn't abstract."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|CONCRETE_CLASS_WITH_ABSTRACT_MEMBER",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 37,
+   "col": 8,
+   "error": "'moveNext' must have a method body because 'Iterator' isn't abstract."
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 41,
+   "col": 19,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|FUNCTION_WITHOUT_CALL",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 53,
+   "col": 7,
+   "error": "Concrete classes that implement 'Function' must implement the method 'call'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 71,
+   "col": 3,
+   "error": "Invalid override. The type of 'Object.hashCode' ('() → int') isn't a subtype of 'Object.hashCode' ('() → int')."
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 71,
+   "col": 11,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 71,
+   "col": 23,
+   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'hashCode'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 72,
+   "col": 3,
+   "error": "Invalid override. The type of 'Object.==' ('(dynamic) → bool') isn't a subtype of 'Object.==' ('(dynamic) → bool')."
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 72,
+   "col": 17,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 73,
+   "col": 3,
+   "error": "Invalid override. The type of 'Object.toString' ('() → String') isn't a subtype of 'Object.toString' ('() → String')."
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 73,
+   "col": 10,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 73,
+   "col": 24,
+   "error": "The return type 'String (/usr/lib/dart/lib/core/string.dart)' isn't a 'String (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'toString'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 80,
+   "col": 20,
+   "error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 82,
+   "col": 23,
+   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEmpty'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 83,
+   "col": 26,
+   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isNotEmpty'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 84,
+   "col": 21,
+   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'length'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 93,
+   "col": 63,
+   "error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_ELEMENT",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 94,
+   "col": 9,
+   "error": "The function 'parseHex' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
+   "file": "testing/test_package_embedder_yaml/sdk/core.dart",
+   "line": 95,
+   "col": 14,
+   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana.1491580028490.qegPOu/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'parseHex'."
+  }
+ ],
+ "unformattedFiles": []
 }

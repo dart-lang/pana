@@ -1,773 +1,773 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "html",
-"packageVersion": "0.13.1",
-"pubSummary": {
-"packages": {
-"args": "0.13.7",
-"charcode": "1.1.1",
-"csslib": "0.13.4",
-"logging": "0.11.3+1",
-"path": "1.4.1",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"unittest": "0.11.7",
-"utf": "0.9.0+3"
-},
-"availablePackages": {
-"unittest": "0.12.4+1"
-},
-"authors": [
-"Dart Team <misc@dartlang.org>"
-],
-"version": "0.13.1"
-},
-"analyzerItems": [
-{
-"type": "INFO|HINT|UNUSED_FIELD",
-"file": "lib/dom.dart",
-"line": 812,
-"col": 14,
-"error": "The value of the field '_node' isn't used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 288,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 289,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 290,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 291,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 292,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 293,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 294,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 295,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 296,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 297,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 298,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 299,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 300,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 301,
-"col": 9,
-"error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 305,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 306,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 307,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 308,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 309,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 310,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 311,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 312,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 313,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 314,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 315,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 316,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 317,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 318,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 319,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 320,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 321,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 322,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 323,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 324,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 325,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 326,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 327,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 328,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 329,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 330,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 331,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 332,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 333,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 334,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 335,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 336,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 337,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 338,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 339,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 340,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 341,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 342,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 343,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 344,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 345,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 348,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 349,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 350,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 351,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 352,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 353,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 354,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 355,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 356,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 357,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 358,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 359,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 360,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 361,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 362,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 363,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 364,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 365,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 366,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 367,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 368,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 369,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 370,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 371,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 372,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 373,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 374,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 375,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 376,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 377,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 378,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 379,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 380,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 381,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 382,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 383,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 384,
-"col": 9,
-"error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 388,
-"col": 9,
-"error": "The type of 'htmlIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 389,
-"col": 9,
-"error": "The type of 'htmlIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 390,
-"col": 9,
-"error": "The type of 'htmlIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 391,
-"col": 9,
-"error": "The type of 'htmlIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 395,
-"col": 9,
-"error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 396,
-"col": 9,
-"error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 397,
-"col": 9,
-"error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 398,
-"col": 9,
-"error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/constants.dart",
-"line": 399,
-"col": 9,
-"error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
-},
-{
-"type": "INFO|HINT|DEAD_CODE",
-"file": "lib/src/encoding_parser.dart",
-"line": 203,
-"col": 5,
-"error": "Dead code."
-},
-{
-"type": "INFO|HINT|DEAD_CODE",
-"file": "lib/src/encoding_parser.dart",
-"line": 325,
-"col": 5,
-"error": "Dead code."
-}
-],
-"unformattedFiles": [
-"test/parser_test.dart",
-"test/selectors/level1_lib.dart",
-"test/parser_feature_test.dart",
-"lib/dom.dart",
-"lib/parser.dart",
-"lib/src/char_encodings.dart",
-"lib/src/treebuilder.dart",
-"lib/src/inputstream.dart",
-"lib/src/token.dart",
-"lib/src/list_proxy.dart",
-"lib/src/css_class_set.dart",
-"lib/src/encoding_parser.dart",
-"lib/src/tokenizer.dart",
-"lib/src/query_selector.dart",
-"lib/src/constants.dart",
-"lib/src/utils.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "html",
+ "packageVersion": "0.13.1",
+ "pubSummary": {
+  "packages": {
+   "args": "0.13.7",
+   "charcode": "1.1.1",
+   "csslib": "0.13.4",
+   "logging": "0.11.3+1",
+   "path": "1.4.1",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "unittest": "0.11.7",
+   "utf": "0.9.0+3"
+  },
+  "availablePackages": {
+   "unittest": "0.12.4+1"
+  },
+  "authors": [
+   "Dart Team <misc@dartlang.org>"
+  ],
+  "version": "0.13.1"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|UNUSED_FIELD",
+   "file": "lib/dom.dart",
+   "line": 812,
+   "col": 14,
+   "error": "The value of the field '_node' isn't used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 288,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 289,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 290,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 291,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 292,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 293,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 294,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 295,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 296,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 297,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 298,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 299,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 300,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 301,
+   "col": 9,
+   "error": "The type of 'formattingElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 305,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 306,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 307,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 308,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 309,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 310,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 311,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 312,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 313,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 314,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 315,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 316,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 317,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 318,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 319,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 320,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 321,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 322,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 323,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 324,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 325,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 326,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 327,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 328,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 329,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 330,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 331,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 332,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 333,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 334,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 335,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 336,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 337,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 338,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 339,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 340,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 341,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 342,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 343,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 344,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 345,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 348,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 349,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 350,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 351,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 352,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 353,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 354,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 355,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 356,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 357,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 358,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 359,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 360,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 361,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 362,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 363,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 364,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 365,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 366,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 367,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 368,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 369,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 370,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 371,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 372,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 373,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 374,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 375,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 376,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 377,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 378,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 379,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 380,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 381,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 382,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 383,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 384,
+   "col": 9,
+   "error": "The type of 'specialElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 388,
+   "col": 9,
+   "error": "The type of 'htmlIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 389,
+   "col": 9,
+   "error": "The type of 'htmlIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 390,
+   "col": 9,
+   "error": "The type of 'htmlIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 391,
+   "col": 9,
+   "error": "The type of 'htmlIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 395,
+   "col": 9,
+   "error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 396,
+   "col": 9,
+   "error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 397,
+   "col": 9,
+   "error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 398,
+   "col": 9,
+   "error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/constants.dart",
+   "line": 399,
+   "col": 9,
+   "error": "The type of 'mathmlTextIntegrationPointElements' can't be inferred because type arguments were not given for 'Pair'."
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "lib/src/encoding_parser.dart",
+   "line": 203,
+   "col": 5,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "lib/src/encoding_parser.dart",
+   "line": 325,
+   "col": 5,
+   "error": "Dead code."
+  }
+ ],
+ "unformattedFiles": [
+  "test/parser_test.dart",
+  "test/selectors/level1_lib.dart",
+  "test/parser_feature_test.dart",
+  "lib/dom.dart",
+  "lib/parser.dart",
+  "lib/src/char_encodings.dart",
+  "lib/src/treebuilder.dart",
+  "lib/src/inputstream.dart",
+  "lib/src/token.dart",
+  "lib/src/list_proxy.dart",
+  "lib/src/css_class_set.dart",
+  "lib/src/encoding_parser.dart",
+  "lib/src/tokenizer.dart",
+  "lib/src/query_selector.dart",
+  "lib/src/constants.dart",
+  "lib/src/utils.dart"
+ ]
 }

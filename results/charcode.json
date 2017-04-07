@@ -1,15 +1,15 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "charcode",
-"packageVersion": "1.1.1",
-"pubSummary": {
-"packages": {},
-"availablePackages": {},
-"authors": [
-"Dart Team <misc@dartlang.org>"
-],
-"version": "1.1.1"
-},
-"analyzerItems": [],
-"unformattedFiles": []
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "charcode",
+ "packageVersion": "1.1.1",
+ "pubSummary": {
+  "packages": {},
+  "availablePackages": {},
+  "authors": [
+   "Dart Team <misc@dartlang.org>"
+  ],
+  "version": "1.1.1"
+ },
+ "analyzerItems": [],
+ "unformattedFiles": []
 }

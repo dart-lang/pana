@@ -1,141 +1,141 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "prompt",
-"packageVersion": "0.1.7",
-"pubSummary": {
-"packages": {
-"ansicolor": "0.0.9",
-"mock": "0.11.0+4",
-"path": "1.4.1",
-"stack_trace": "1.7.3",
-"supports_color": "0.1.1",
-"unittest": "0.11.7",
-"when": "0.2.0"
-},
-"availablePackages": {
-"mock": "0.12.0",
-"unittest": "0.12.4+1"
-},
-"authors": [
-"Sean Eagan <seaneagan1@gmail.com>"
-],
-"version": "0.1.7"
-},
-"analyzerItems": [
-{
-"type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-"file": "example/barista/coffee_order.dart",
-"line": 16,
-"col": 3,
-"error": "Invalid override. The type of 'CoffeeOrder.==' ('(CoffeeOrder) → bool') isn't a subtype of 'Object.==' ('(dynamic) → bool')."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "example/barista/serve.dart",
-"line": 82,
-"col": 20,
-"error": "The type of '_surfacePen' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "example/barista/serve.dart",
-"line": 85,
-"col": 16,
-"error": "The type of '_icePen' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
-"file": "example/barista/serve.dart",
-"line": 86,
-"col": 17,
-"error": "The type of '_textPen' can't be inferred because the parameter 'x' does not have an explicit type."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "example/basic/basic.dart",
-"line": 8,
-"col": 7,
-"error": "The value of the local variable 'name' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "example/basic/basic.dart",
-"line": 11,
-"col": 7,
-"error": "The value of the local variable 'asyncName' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "example/basic/basic.dart",
-"line": 16,
-"col": 10,
-"error": "The value of the local variable 'password' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "example/basic/basic.dart",
-"line": 19,
-"col": 8,
-"error": "The value of the local variable 'likeCats' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "example/basic/basic.dart",
-"line": 22,
-"col": 10,
-"error": "The value of the local variable 'favoriteColor' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "example/basic/basic.dart",
-"line": 26,
-"col": 7,
-"error": "The value of the local variable 'favoriteNumber' isn't used."
-},
-{
-"type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-"file": "example/basic/basic.dart",
-"line": 31,
-"col": 7,
-"error": "The value of the local variable 'sum' isn't used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/stdio.dart",
-"line": 11,
-"col": 22,
-"error": "The type of '_lines' can't be inferred because type arguments were not given for 'transform'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/stdio.dart",
-"line": 11,
-"col": 46,
-"error": "The type of '_lines' can't be inferred because type arguments were not given for 'transform'."
-},
-{
-"type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
-"file": "lib/testing.dart",
-"line": 26,
-"col": 3,
-"error": "Unnecessary 'noSuchMethod' declaration."
-}
-],
-"unformattedFiles": [
-"test/question_test.dart",
-"test/theme_test.dart",
-"example/barista/barista_test.dart",
-"example/barista/serve.dart",
-"example/barista/coffee_order.dart",
-"example/barista/barista.dart",
-"example/basic/basic_test.dart",
-"example/basic/basic.dart",
-"lib/prompt.dart",
-"lib/testing.dart",
-"lib/src/prompt.dart",
-"lib/src/stdio.dart",
-"lib/src/util.dart",
-"lib/src/theme.dart",
-"lib/src/question.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "prompt",
+ "packageVersion": "0.1.7",
+ "pubSummary": {
+  "packages": {
+   "ansicolor": "0.0.9",
+   "mock": "0.11.0+4",
+   "path": "1.4.1",
+   "stack_trace": "1.7.3",
+   "supports_color": "0.1.1",
+   "unittest": "0.11.7",
+   "when": "0.2.0"
+  },
+  "availablePackages": {
+   "mock": "0.12.0",
+   "unittest": "0.12.4+1"
+  },
+  "authors": [
+   "Sean Eagan <seaneagan1@gmail.com>"
+  ],
+  "version": "0.1.7"
+ },
+ "analyzerItems": [
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
+   "file": "example/barista/coffee_order.dart",
+   "line": 16,
+   "col": 3,
+   "error": "Invalid override. The type of 'CoffeeOrder.==' ('(CoffeeOrder) → bool') isn't a subtype of 'Object.==' ('(dynamic) → bool')."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "example/barista/serve.dart",
+   "line": 82,
+   "col": 20,
+   "error": "The type of '_surfacePen' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "example/barista/serve.dart",
+   "line": 85,
+   "col": 16,
+   "error": "The type of '_icePen' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "example/barista/serve.dart",
+   "line": 86,
+   "col": 17,
+   "error": "The type of '_textPen' can't be inferred because the parameter 'x' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/basic/basic.dart",
+   "line": 8,
+   "col": 7,
+   "error": "The value of the local variable 'name' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/basic/basic.dart",
+   "line": 11,
+   "col": 7,
+   "error": "The value of the local variable 'asyncName' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/basic/basic.dart",
+   "line": 16,
+   "col": 10,
+   "error": "The value of the local variable 'password' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/basic/basic.dart",
+   "line": 19,
+   "col": 8,
+   "error": "The value of the local variable 'likeCats' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/basic/basic.dart",
+   "line": 22,
+   "col": 10,
+   "error": "The value of the local variable 'favoriteColor' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/basic/basic.dart",
+   "line": 26,
+   "col": 7,
+   "error": "The value of the local variable 'favoriteNumber' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/basic/basic.dart",
+   "line": 31,
+   "col": 7,
+   "error": "The value of the local variable 'sum' isn't used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/stdio.dart",
+   "line": 11,
+   "col": 22,
+   "error": "The type of '_lines' can't be inferred because type arguments were not given for 'transform'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/stdio.dart",
+   "line": 11,
+   "col": 46,
+   "error": "The type of '_lines' can't be inferred because type arguments were not given for 'transform'."
+  },
+  {
+   "type": "INFO|HINT|UNNECESSARY_NO_SUCH_METHOD",
+   "file": "lib/testing.dart",
+   "line": 26,
+   "col": 3,
+   "error": "Unnecessary 'noSuchMethod' declaration."
+  }
+ ],
+ "unformattedFiles": [
+  "test/question_test.dart",
+  "test/theme_test.dart",
+  "example/barista/barista_test.dart",
+  "example/barista/serve.dart",
+  "example/barista/coffee_order.dart",
+  "example/barista/barista.dart",
+  "example/basic/basic_test.dart",
+  "example/basic/basic.dart",
+  "lib/prompt.dart",
+  "lib/testing.dart",
+  "lib/src/prompt.dart",
+  "lib/src/stdio.dart",
+  "lib/src/util.dart",
+  "lib/src/theme.dart",
+  "lib/src/question.dart"
+ ]
 }

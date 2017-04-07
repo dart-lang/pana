@@ -1,264 +1,264 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
-"packageName": "async",
-"packageVersion": "1.13.2",
-"pubSummary": {
-"packages": {
-"analyzer": "0.29.10",
-"args": "0.13.7",
-"barback": "0.15.2+10",
-"boolean_selector": "1.0.2",
-"charcode": "1.1.1",
-"cli_util": "0.0.1+2",
-"clock": "0.1.2",
-"collection": "1.14.0",
-"convert": "2.0.1",
-"crypto": "2.0.1",
-"csslib": "0.13.4",
-"fake_async": "0.1.2",
-"glob": "1.1.3",
-"html": "0.13.1",
-"http": "0.11.3+13",
-"http_multi_server": "2.0.3",
-"http_parser": "3.1.1",
-"isolate": "1.0.0",
-"logging": "0.11.3+1",
-"matcher": "0.12.0+2",
-"meta": "1.0.5",
-"mime": "0.9.3",
-"package_config": "1.0.0",
-"package_resolver": "1.0.2",
-"path": "1.4.1",
-"plugin": "0.2.0",
-"pool": "1.3.0",
-"pub_semver": "1.3.2",
-"shelf": "0.6.7+2",
-"shelf_packages_handler": "1.0.0",
-"shelf_static": "0.2.4",
-"shelf_web_socket": "0.2.1",
-"source_map_stack_trace": "1.1.4",
-"source_maps": "0.10.4",
-"source_span": "1.3.1",
-"stack_trace": "1.7.3",
-"stream_channel": "1.6.1",
-"string_scanner": "1.0.1",
-"term_glyph": "1.0.0",
-"test": "0.12.20+9",
-"typed_data": "1.1.3",
-"utf": "0.9.0+3",
-"watcher": "0.9.7+3",
-"web_socket_channel": "1.0.4",
-"when": "0.2.0",
-"which": "0.1.3",
-"yaml": "2.1.12"
-},
-"availablePackages": {
-"analyzer": "0.30.0-alpha.1"
-},
-"authors": [
-"Dart Team <misc@dartlang.org>"
-],
-"version": "1.13.2"
-},
-"analyzerItems": [
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/cancelable_operation.dart",
-"line": 120,
-"col": 27,
-"error": "The type of '_cancelMemo' can't be inferred because type arguments were not given for 'AsyncMemoizer'."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/result.dart",
-"line": 26,
-"col": 13,
-"error": "'CaptureStreamTransformer' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/result.dart",
-"line": 33,
-"col": 13,
-"error": "'ReleaseStreamTransformer' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/result.dart",
-"line": 41,
-"col": 17,
-"error": "'CaptureStreamTransformer' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/result.dart",
-"line": 49,
-"col": 17,
-"error": "'ReleaseStreamTransformer' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/result.dart",
-"line": 100,
-"col": 28,
-"error": "'CaptureStreamTransformer' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "lib/src/result.dart",
-"line": 108,
-"col": 28,
-"error": "'ReleaseStreamTransformer' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/stream_queue.dart",
-"line": 873,
-"col": 26,
-"error": "The type of '_completer' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/stream_splitter.dart",
-"line": 48,
-"col": 27,
-"error": "The type of '_closeGroup' can't be inferred because type arguments were not given for 'FutureGroup'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "lib/src/stream_subscription_transformer.dart",
-"line": 89,
-"col": 31,
-"error": "The type of '_cancelMemoizer' can't be inferred because type arguments were not given for 'AsyncMemoizer'."
-},
-{
-"type": "INFO|HINT|UNUSED_IMPORT",
-"file": "test/byte_collection_test.dart",
-"line": 6,
-"col": 8,
-"error": "Unused import."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/result_test.dart",
-"line": 296,
-"col": 12,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/result_test.dart",
-"line": 298,
-"col": 12,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/result_test.dart",
-"line": 300,
-"col": 12,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/result_test.dart",
-"line": 302,
-"col": 12,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/result_test.dart",
-"line": 304,
-"col": 12,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/result_test.dart",
-"line": 306,
-"col": 12,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/stream_queue_test.dart",
-"line": 446,
-"col": 27,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/subscription_stream_test.dart",
-"line": 43,
-"col": 51,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-"file": "test/subscription_stream_test.dart",
-"line": 147,
-"col": 43,
-"error": "'throws' is deprecated and shouldn't be used."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/utils.dart",
-"line": 60,
-"col": 25,
-"error": "The type of 'completer' can't be inferred because type arguments were not given for 'Completer'."
-},
-{
-"type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
-"file": "test/utils.dart",
-"line": 82,
-"col": 30,
-"error": "The type of '_doneCompleter' can't be inferred because type arguments were not given for 'Completer'."
-}
-],
-"unformattedFiles": [
-"test/subscription_transformer_test.dart",
-"test/async_cache_test.dart",
-"test/stream_completer_test.dart",
-"test/stream_queue_test.dart",
-"test/restartable_timer_test.dart",
-"test/cancelable_operation_test.dart",
-"test/single_subscription_transformer_test.dart",
-"test/stream_group_test.dart",
-"test/byte_collection_test.dart",
-"test/stream_zip_zone_test.dart",
-"test/typed_wrapper/future_test.dart",
-"test/typed_wrapper/stream_subscription_test.dart",
-"test/typed_wrapper/stream_test.dart",
-"test/stream_sink_transformer_test.dart",
-"test/stream_splitter_test.dart",
-"test/stream_sink_completer_test.dart",
-"test/result_test.dart",
-"test/subscription_stream_test.dart",
-"test/utils.dart",
-"test/stream_zip_test.dart",
-"lib/src/stream_queue.dart",
-"lib/src/typed/stream_subscription.dart",
-"lib/src/typed/stream.dart",
-"lib/src/future_group.dart",
-"lib/src/stream_sink_transformer/stream_transformer_wrapper.dart",
-"lib/src/stream_sink_transformer/handler_transformer.dart",
-"lib/src/subscription_stream.dart",
-"lib/src/stream_completer.dart",
-"lib/src/result/future.dart",
-"lib/src/result.dart",
-"lib/src/stream_splitter.dart",
-"lib/src/stream_zip.dart",
-"lib/src/cancelable_operation.dart",
-"lib/src/stream_sink_completer.dart",
-"lib/src/lazy_stream.dart",
-"lib/src/stream_group.dart",
-"lib/src/stream_sink_transformer.dart",
-"lib/src/stream_subscription_transformer.dart",
-"lib/src/delegate/future.dart",
-"lib/src/delegate/stream_subscription.dart",
-"lib/src/byte_collector.dart",
-"lib/src/single_subscription_transformer.dart",
-"lib/src/async_cache.dart"
-]
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "async",
+ "packageVersion": "1.13.2",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.29.10",
+   "args": "0.13.7",
+   "barback": "0.15.2+10",
+   "boolean_selector": "1.0.2",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "clock": "0.1.2",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "fake_async": "0.1.2",
+   "glob": "1.1.3",
+   "html": "0.13.1",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "isolate": "1.0.0",
+   "logging": "0.11.3+1",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "package_config": "1.0.0",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.2.0",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "typed_data": "1.1.3",
+   "utf": "0.9.0+3",
+   "watcher": "0.9.7+3",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.30.0-alpha.1"
+  },
+  "authors": [
+   "Dart Team <misc@dartlang.org>"
+  ],
+  "version": "1.13.2"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/cancelable_operation.dart",
+   "line": 120,
+   "col": 27,
+   "error": "The type of '_cancelMemo' can't be inferred because type arguments were not given for 'AsyncMemoizer'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/result.dart",
+   "line": 26,
+   "col": 13,
+   "error": "'CaptureStreamTransformer' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/result.dart",
+   "line": 33,
+   "col": 13,
+   "error": "'ReleaseStreamTransformer' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/result.dart",
+   "line": 41,
+   "col": 17,
+   "error": "'CaptureStreamTransformer' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/result.dart",
+   "line": 49,
+   "col": 17,
+   "error": "'ReleaseStreamTransformer' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/result.dart",
+   "line": 100,
+   "col": 28,
+   "error": "'CaptureStreamTransformer' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/result.dart",
+   "line": 108,
+   "col": 28,
+   "error": "'ReleaseStreamTransformer' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/stream_queue.dart",
+   "line": 873,
+   "col": 26,
+   "error": "The type of '_completer' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/stream_splitter.dart",
+   "line": 48,
+   "col": 27,
+   "error": "The type of '_closeGroup' can't be inferred because type arguments were not given for 'FutureGroup'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "lib/src/stream_subscription_transformer.dart",
+   "line": 89,
+   "col": 31,
+   "error": "The type of '_cancelMemoizer' can't be inferred because type arguments were not given for 'AsyncMemoizer'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test/byte_collection_test.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/result_test.dart",
+   "line": 296,
+   "col": 12,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/result_test.dart",
+   "line": 298,
+   "col": 12,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/result_test.dart",
+   "line": 300,
+   "col": 12,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/result_test.dart",
+   "line": 302,
+   "col": 12,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/result_test.dart",
+   "line": 304,
+   "col": 12,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/result_test.dart",
+   "line": 306,
+   "col": 12,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/stream_queue_test.dart",
+   "line": 446,
+   "col": 27,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/subscription_stream_test.dart",
+   "line": 43,
+   "col": 51,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/subscription_stream_test.dart",
+   "line": 147,
+   "col": 43,
+   "error": "'throws' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/utils.dart",
+   "line": 60,
+   "col": 25,
+   "error": "The type of 'completer' can't be inferred because type arguments were not given for 'Completer'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/utils.dart",
+   "line": 82,
+   "col": 30,
+   "error": "The type of '_doneCompleter' can't be inferred because type arguments were not given for 'Completer'."
+  }
+ ],
+ "unformattedFiles": [
+  "test/subscription_transformer_test.dart",
+  "test/async_cache_test.dart",
+  "test/stream_completer_test.dart",
+  "test/stream_queue_test.dart",
+  "test/restartable_timer_test.dart",
+  "test/cancelable_operation_test.dart",
+  "test/single_subscription_transformer_test.dart",
+  "test/stream_group_test.dart",
+  "test/byte_collection_test.dart",
+  "test/stream_zip_zone_test.dart",
+  "test/typed_wrapper/future_test.dart",
+  "test/typed_wrapper/stream_subscription_test.dart",
+  "test/typed_wrapper/stream_test.dart",
+  "test/stream_sink_transformer_test.dart",
+  "test/stream_splitter_test.dart",
+  "test/stream_sink_completer_test.dart",
+  "test/result_test.dart",
+  "test/subscription_stream_test.dart",
+  "test/utils.dart",
+  "test/stream_zip_test.dart",
+  "lib/src/stream_queue.dart",
+  "lib/src/typed/stream_subscription.dart",
+  "lib/src/typed/stream.dart",
+  "lib/src/future_group.dart",
+  "lib/src/stream_sink_transformer/stream_transformer_wrapper.dart",
+  "lib/src/stream_sink_transformer/handler_transformer.dart",
+  "lib/src/subscription_stream.dart",
+  "lib/src/stream_completer.dart",
+  "lib/src/result/future.dart",
+  "lib/src/result.dart",
+  "lib/src/stream_splitter.dart",
+  "lib/src/stream_zip.dart",
+  "lib/src/cancelable_operation.dart",
+  "lib/src/stream_sink_completer.dart",
+  "lib/src/lazy_stream.dart",
+  "lib/src/stream_group.dart",
+  "lib/src/stream_sink_transformer.dart",
+  "lib/src/stream_subscription_transformer.dart",
+  "lib/src/delegate/future.dart",
+  "lib/src/delegate/stream_subscription.dart",
+  "lib/src/byte_collector.dart",
+  "lib/src/single_subscription_transformer.dart",
+  "lib/src/async_cache.dart"
+ ]
 }
