@@ -3,25 +3,30 @@
 [1;30mINFO       Using .package-cache: /tmp/pana[0m
 [1;30mINFO       Downloading package...[0m
 [1;30mINFO       Package at /tmp/pana/hosted/pub.dartlang.org/browser-0.10.0+2[0m
+[1;30mINFO       Checking formatting...[0m
+[1;30mINFO       Pub upgrade...[0m
 [1;30mINFO       Running `pub upgrade`...[0m
 [1;30mINFO       Package version: 0.10.0+2[0m
+[1;30mINFO       Analyzing...[0m
 [1;30mINFO       Running `dartanalyzer`...[0m
 [1;30mSEVERE     Bad input?[0m
 [1;30mSEVERE     No dart files found at: .[0m
 Problem with pkg browser (null)
 Invalid argument(s): Provided content does not align with expectations.
-#0      AnalyzerOutput.parse (package:pana/src/analyzer_output.dart:28:7)
-#1      pkgAnalyze.<anonymous closure> (package:pana/pana.dart:86:36)
+`No dart files found at: .`
+#0      AnalyzerOutput.parse (package:pana/src/analyzer_output.dart:45:7)
+#1      pkgAnalyze.<anonymous closure> (package:pana/pana.dart:89:36)
 #2      MappedIterator.moveNext (dart:_internal/iterable.dart:391)
-#3      SplayTreeSet.SplayTreeSet.from (dart:collection/splay_tree.dart:722)
-#4      pkgAnalyze (package:pana/pana.dart:84:16)
+#3      WhereIterator.moveNext (dart:_internal/iterable.dart:437)
+#4      SplayTreeSet.SplayTreeSet.from (dart:collection/splay_tree.dart:722)
+#5      pkgAnalyze (package:pana/pana.dart:87:16)
 <asynchronous suspension>
-#5      inspectPackage (package:pana/pana.dart:56:29)
+#6      inspectPackage (package:pana/pana.dart:59:29)
 <asynchronous suspension>
-#6      main (file:///app/bin/main.dart:50:17)
+#7      main (file:///app/bin/main.dart:50:17)
 <asynchronous suspension>
-#7      _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:263)
-#8      _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:151)
+#8      _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:263)
+#9      _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:151)
 
 #0      _runProc (file:///usr/local/google/home/kevmoo/src/pana.dart/bin/runner.dart:146:5)
 <asynchronous suspension>

@@ -3,15 +3,17 @@
 [1;30mINFO       Using .package-cache: /tmp/pana[0m
 [1;30mINFO       Downloading package...[0m
 [1;30mINFO       Package at /tmp/pana/hosted/pub.dartlang.org/polymer_elements-0.3.0[0m
+[1;30mINFO       Checking formatting...[0m
+[1;30mINFO       Pub upgrade...[0m
 [1;30mINFO       Running `pub upgrade`...[0m
 Problem with pkg polymer_elements (null)
 Weird! – can't parse 'polymer_ui_elements 0.3.0 from git https://github.com/bwu-dart/polymer_ui_elements at 012d62'
 #0      PubSummary.create.<anonymous closure> (package:pana/src/summary.dart:96:11)
 #1      MappedIterator.moveNext (dart:_internal/iterable.dart:391)
 #2      PubSummary.create (package:pana/src/summary.dart:89:25)
-#3      pubUpgrade (package:pana/pana.dart:110:21)
+#3      pubUpgrade (package:pana/pana.dart:114:21)
 <asynchronous suspension>
-#4      inspectPackage (package:pana/pana.dart:53:23)
+#4      inspectPackage (package:pana/pana.dart:55:23)
 <asynchronous suspension>
 #5      main (file:///app/bin/main.dart:50:17)
 <asynchronous suspension>
