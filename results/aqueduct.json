@@ -1,7 +1,7 @@
 {
-"sdkVersion": "Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on \"linux_x64\"",
+"sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
 "packageName": "aqueduct",
-"packageVersion": "2.0.1",
+"packageVersion": "2.0.2",
 "pubSummary": {
 "packages": {
 "analyzer": "0.29.10",
@@ -62,7 +62,7 @@
 "authors": [
 "stable|kernel <http://stablekernel.com>"
 ],
-"version": "2.0.1"
+"version": "2.0.2"
 },
 "analyzerItems": [
 {
@@ -201,91 +201,91 @@
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 51,
+"line": 52,
 "col": 5,
 "error": "Undefined name 'ManagedContext'."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 64,
+"line": 65,
 "col": 3,
 "error": "Undefined class 'Future'."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 73,
+"line": 75,
 "col": 10,
 "error": "Undefined class 'Future'."
 },
 {
 "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 73,
+"line": 75,
 "col": 17,
 "error": "The name 'ManagedClient' isn't a type so it can't be used as a type argument."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 76,
+"line": 78,
 "col": 16,
 "error": "Undefined name 'AuthUtility'."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 77,
+"line": 79,
 "col": 26,
 "error": "Undefined name 'AuthUtility'."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 79,
+"line": 81,
 "col": 23,
 "error": "Undefined class 'Query'."
 },
 {
 "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 79,
+"line": 81,
 "col": 29,
 "error": "The name 'ManagedClient' isn't a type so it can't be used as a type argument."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 89,
+"line": 91,
 "col": 10,
 "error": "Undefined class 'Future'."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 90,
+"line": 92,
 "col": 7,
 "error": "Undefined class 'ManagedContext'."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 90,
+"line": 92,
 "col": 31,
 "error": "Undefined class 'Logger'."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 91,
+"line": 93,
 "col": 23,
 "error": "Undefined class 'SchemaBuilder.toSchema'."
 },
 {
 "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
 "file": "example/templates/default/test/harness/app.dart",
-"line": 92,
+"line": 94,
 "col": 38,
 "error": "Undefined class 'Schema.fromDataModel'."
 },
@@ -347,33 +347,40 @@
 }
 ],
 "unformattedFiles": [
+"test/base/isolate_application_test.dart",
 "test/base/body_decoder_test.dart",
 "test/base/cors_test.dart",
 "test/base/request_controller_test.dart",
 "test/managed_auth/managed_auth_storage_test.dart",
 "test/helpers.dart",
 "test/db/model_test.dart",
+"test/db/data_model_test.dart",
 "test/db/model_controller_test.dart",
 "test/db/postgresql/many_to_many_fetch_test.dart",
 "test/db/postgresql/matcher_test.dart",
 "test/db/postgresql/belongs_to_fetch_test.dart",
 "test/db/postgresql/insert_test.dart",
 "test/command/auth_test.dart",
+"test/command/serve_test.dart",
 "test/auth/auth_code_controller_test.dart",
 "test/auth/auth_controller_test.dart",
 "test/auth/auth_scope_test.dart",
 "test/auth/authorizer_test.dart",
+"test/utilities/test_client_test.dart",
 "example/templates/default/test/register_test.dart",
 "example/templates/default/test/user_controller_test.dart",
 "lib/aqueduct.dart",
 "lib/managed_auth.dart",
 "lib/src/commands/db_generate.dart",
+"lib/src/commands/serve.dart",
 "lib/src/commands/auth.dart",
+"lib/src/db/managed/data_model_builder.dart",
 "lib/src/db/query/matcher_expression.dart",
 "lib/src/db/query/matcher_internal.dart",
 "lib/src/db/query/query.dart",
 "lib/src/db/postgresql/property_expression.dart",
 "lib/src/db/postgresql/row_mapper.dart",
+"lib/src/http/request_sink.dart",
 "lib/src/http/controller_routing.dart",
 "lib/src/http/request_controller.dart",
 "lib/src/http/router.dart",
@@ -382,6 +389,8 @@
 "lib/src/auth/objects.dart",
 "lib/src/auth/auth_code_controller.dart",
 "lib/src/auth/authorizer.dart",
-"lib/src/auth/auth_controller.dart"
+"lib/src/auth/auth_controller.dart",
+"lib/src/utilities/test_client.dart",
+"lib/src/application/application_server.dart"
 ]
 }

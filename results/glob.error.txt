@@ -1,8 +1,8 @@
-[1;30mINFO       SDK: Dart VM version: 1.23.0-dev.11.5 (Wed Apr  5 09:55:11 2017) on "linux_x64"[0m
+[1;30mINFO       SDK: Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on "linux_x64"[0m
 [1;30mINFO       Package: glob[0m
-[1;30mINFO       Using .package-cache: /tmp/pana.1491512188760.tyFYdd[0m
+[1;30mINFO       Using .package-cache: /tmp/pana.1491579791386.5xGzZK[0m
 [1;30mINFO       Downloading package...[0m
-[1;30mINFO       Package at /tmp/pana.1491512188760.tyFYdd/hosted/pub.dartlang.org/glob-1.1.3[0m
+[1;30mINFO       Package at /tmp/pana.1491579791386.5xGzZK/hosted/pub.dartlang.org/glob-1.1.3[0m
 [1;30mINFO       Running `pub upgrade`...[0m
 [1;30mINFO       Package version: 1.1.3[0m
 [1;30mINFO       Running `dartanalyzer`...[0m
@@ -180,7 +180,7 @@ Tried calling: isSynthetic
 <asynchronous suspension>
 #160    Driver.start (package:analyzer_cli/src/driver.dart:146)
 <asynchronous suspension>
-#161    main (file:///tmp/tmpuOsKpF/dart-1.23.0-dev.11.5/dart/pkg/analyzer_cli/bin/analyzer.dart:11)
+#161    main (file:///tmp/tmpyGNZop/dart-1.23.0-dev.11.6/dart/pkg/analyzer_cli/bin/analyzer.dart:11)
 #162    _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:263)
 #163    _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:151)
 
@@ -203,7 +203,7 @@ Tried calling: isSynthetic
 <asynchronous suspension>
 #10     Driver.start (package:analyzer_cli/src/driver.dart:146)
 <asynchronous suspension>
-#11     main (file:///tmp/tmpuOsKpF/dart-1.23.0-dev.11.5/dart/pkg/analyzer_cli/bin/analyzer.dart:11)
+#11     main (file:///tmp/tmpyGNZop/dart-1.23.0-dev.11.6/dart/pkg/analyzer_cli/bin/analyzer.dart:11)
 #12     _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:263)
 #13     _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:151)[0m
 Problem with pkg glob (null)
