@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:pana/pana.dart';
 import 'package:path/path.dart' as p;
 import 'package:pool/pool.dart';
 
@@ -87,6 +88,7 @@ main() async {
       // do things here!
       var result = await _runProc('docker', ['run', '--rm', dockerName, pkg],
           logger: logger);
+      result = prettyJson(JSON.decode(result));
       await _writeResult(dockerName, pkg, result, false);
     } catch (e, stack) {
       logger.severe("Oops!", e, stack);
