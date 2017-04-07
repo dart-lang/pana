@@ -45,13 +45,13 @@
   }
  ],
  "unformattedFiles": [
-  "test/quickcheck_test.dart",
-  "test/smallcheck_test.dart",
-  "test/mirrors_test.dart",
   "example/demo.dart",
   "example/mirrors_demo.dart",
-  "lib/propcheck_mirrors.dart",
   "lib/propcheck.dart",
-  "lib/src/random.dart"
+  "lib/propcheck_mirrors.dart",
+  "lib/src/random.dart",
+  "test/mirrors_test.dart",
+  "test/quickcheck_test.dart",
+  "test/smallcheck_test.dart"
  ]
 }

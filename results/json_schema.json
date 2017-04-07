@@ -913,12 +913,12 @@
   }
  ],
  "unformattedFiles": [
+  "bin/gensamples.dart",
   "codegen/json_schema.ebisu_dart.dart",
-  "test/cover.dart",
-  "example/from_json/validate_json_from_data.dart",
   "example/from_json/movie_sample.dart",
+  "example/from_json/validate_json_from_data.dart",
   "example/from_url/validate_instance_from_url.dart",
-  "tool/hop_runner.dart",
-  "bin/gensamples.dart"
+  "test/cover.dart",
+  "tool/hop_runner.dart"
  ]
 }

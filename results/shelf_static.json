@@ -61,13 +61,13 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/alternative_root_test.dart",
-  "test/test_util.dart",
-  "test/directory_listing_test.dart",
-  "test/default_document_test.dart",
-  "test/symbolic_link_test.dart",
-  "test/get_handler_test.dart",
   "example/example_server.dart",
-  "lib/src/directory_listing.dart"
+  "lib/src/directory_listing.dart",
+  "test/alternative_root_test.dart",
+  "test/default_document_test.dart",
+  "test/directory_listing_test.dart",
+  "test/get_handler_test.dart",
+  "test/symbolic_link_test.dart",
+  "test/test_util.dart"
  ]
 }

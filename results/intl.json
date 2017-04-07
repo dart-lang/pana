@@ -43,8 +43,8 @@
  "unformattedFiles": [
   "lib/date_symbols.dart",
   "lib/src/file_data_reader.dart",
-  "lib/src/intl/date_format_field.dart",
+  "lib/src/http_request_data_reader.dart",
   "lib/src/intl/bidi_formatter.dart",
-  "lib/src/http_request_data_reader.dart"
+  "lib/src/intl/date_format_field.dart"
  ]
 }

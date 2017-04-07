@@ -753,21 +753,21 @@
   }
  ],
  "unformattedFiles": [
-  "test/parser_test.dart",
-  "test/selectors/level1_lib.dart",
-  "test/parser_feature_test.dart",
   "lib/dom.dart",
   "lib/parser.dart",
   "lib/src/char_encodings.dart",
-  "lib/src/treebuilder.dart",
-  "lib/src/inputstream.dart",
-  "lib/src/token.dart",
-  "lib/src/list_proxy.dart",
+  "lib/src/constants.dart",
   "lib/src/css_class_set.dart",
   "lib/src/encoding_parser.dart",
-  "lib/src/tokenizer.dart",
+  "lib/src/inputstream.dart",
+  "lib/src/list_proxy.dart",
   "lib/src/query_selector.dart",
-  "lib/src/constants.dart",
-  "lib/src/utils.dart"
+  "lib/src/token.dart",
+  "lib/src/tokenizer.dart",
+  "lib/src/treebuilder.dart",
+  "lib/src/utils.dart",
+  "test/parser_feature_test.dart",
+  "test/parser_test.dart",
+  "test/selectors/level1_lib.dart"
  ]
 }

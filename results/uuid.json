@@ -61,9 +61,9 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/uuid_test.dart",
   "lib/aes.dart",
   "lib/uuid.dart",
-  "lib/uuid_util.dart"
+  "lib/uuid_util.dart",
+  "test/uuid_test.dart"
  ]
 }

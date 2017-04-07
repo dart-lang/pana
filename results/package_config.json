@@ -110,9 +110,9 @@
   }
  ],
  "unformattedFiles": [
-  "test/parse_write_test.dart",
-  "test/discovery_test.dart",
   "lib/discovery.dart",
-  "lib/discovery_analysis.dart"
+  "lib/discovery_analysis.dart",
+  "test/discovery_test.dart",
+  "test/parse_write_test.dart"
  ]
 }

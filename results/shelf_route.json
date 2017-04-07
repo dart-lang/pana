@@ -567,11 +567,11 @@
   }
  ],
  "unformattedFiles": [
-  "test/src/router_builder_test.dart",
-  "test/src/default_router_test.dart",
   "example/flat_example.dart",
-  "lib/src/default_route_impl.dart",
   "lib/src/api.dart",
-  "lib/src/default_segment_router.dart"
+  "lib/src/default_route_impl.dart",
+  "lib/src/default_segment_router.dart",
+  "test/src/default_router_test.dart",
+  "test/src/router_builder_test.dart"
  ]
 }

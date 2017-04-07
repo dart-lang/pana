@@ -63,7 +63,7 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/tuple_test.dart",
-  "lib/src/tuple.dart"
+  "lib/src/tuple.dart",
+  "test/tuple_test.dart"
  ]
 }

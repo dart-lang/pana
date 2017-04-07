@@ -132,16 +132,16 @@
   }
  ],
  "unformattedFiles": [
-  "lib/src/components/reorder_list/reorder_list.dart",
   "lib/src/components/button_decorator/button_decorator.dart",
-  "lib/src/utils/browser/dom_service/dom_service.dart",
-  "lib/src/utils/color/material.dart",
+  "lib/src/components/reorder_list/reorder_list.dart",
+  "lib/src/laminate/components/popup/src/popup_source_directive.dart",
+  "lib/src/laminate/overlay/overlay.dart",
+  "lib/src/model/selection/src/multi_selection_model_impl.dart",
+  "lib/src/model/ui/highlighted_text_model.dart",
   "lib/src/utils/angular/managed_zone/interface.dart",
   "lib/src/utils/async/src/debounce_stream.dart",
   "lib/src/utils/async/src/rate_limit.dart",
-  "lib/src/model/ui/highlighted_text_model.dart",
-  "lib/src/model/selection/src/multi_selection_model_impl.dart",
-  "lib/src/laminate/components/popup/src/popup_source_directive.dart",
-  "lib/src/laminate/overlay/overlay.dart"
+  "lib/src/utils/browser/dom_service/dom_service.dart",
+  "lib/src/utils/color/material.dart"
  ]
 }

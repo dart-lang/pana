@@ -90,20 +90,20 @@
   }
  ],
  "unformattedFiles": [
-  "test/server/invalid_request_test.dart",
+  "lib/error_code.dart",
+  "lib/src/channel_manager.dart",
+  "lib/src/client.dart",
+  "lib/src/peer.dart",
+  "lib/src/server.dart",
+  "test/client/client_test.dart",
+  "test/client/stream_test.dart",
+  "test/client/utils.dart",
+  "test/peer_test.dart",
   "test/server/batch_test.dart",
+  "test/server/invalid_request_test.dart",
   "test/server/parameters_test.dart",
   "test/server/server_test.dart",
   "test/server/stream_test.dart",
-  "test/server/utils.dart",
-  "test/peer_test.dart",
-  "test/client/stream_test.dart",
-  "test/client/client_test.dart",
-  "test/client/utils.dart",
-  "lib/error_code.dart",
-  "lib/src/client.dart",
-  "lib/src/server.dart",
-  "lib/src/channel_manager.dart",
-  "lib/src/peer.dart"
+  "test/server/utils.dart"
  ]
 }

@@ -27,7 +27,7 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/shelf_corst_test.dart",
-  "lib/shelf_cors.dart"
+  "lib/shelf_cors.dart",
+  "test/shelf_corst_test.dart"
  ]
 }

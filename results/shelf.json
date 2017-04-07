@@ -195,24 +195,24 @@
   }
  ],
  "unformattedFiles": [
-  "test/shelf_io_test.dart",
-  "test/hijack_test.dart",
-  "test/cascade_test.dart",
-  "test/message_test.dart",
-  "test/response_test.dart",
-  "test/create_middleware_test.dart",
-  "test/log_middleware_test.dart",
-  "test/message_change_test.dart",
-  "test/add_chunked_encoding_test.dart",
-  "test/request_test.dart",
   "lib/shelf_io.dart",
-  "lib/src/middleware/logger.dart",
-  "lib/src/message.dart",
   "lib/src/cascade.dart",
-  "lib/src/server_handler.dart",
+  "lib/src/message.dart",
+  "lib/src/middleware.dart",
+  "lib/src/middleware/logger.dart",
   "lib/src/request.dart",
   "lib/src/response.dart",
+  "lib/src/server_handler.dart",
   "lib/src/util.dart",
-  "lib/src/middleware.dart"
+  "test/add_chunked_encoding_test.dart",
+  "test/cascade_test.dart",
+  "test/create_middleware_test.dart",
+  "test/hijack_test.dart",
+  "test/log_middleware_test.dart",
+  "test/message_change_test.dart",
+  "test/message_test.dart",
+  "test/request_test.dart",
+  "test/response_test.dart",
+  "test/shelf_io_test.dart"
  ]
 }

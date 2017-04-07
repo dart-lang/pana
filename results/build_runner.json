@@ -80,7 +80,7 @@
   }
  ],
  "unformattedFiles": [
-  "test/generate/build_test.dart",
-  "lib/src/generate/watch_impl.dart"
+  "lib/src/generate/watch_impl.dart",
+  "test/generate/build_test.dart"
  ]
 }

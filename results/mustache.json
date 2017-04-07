@@ -194,14 +194,14 @@
   }
  ],
  "unformattedFiles": [
-  "test/parser_test.dart",
-  "test/mustache_test.dart",
-  "example/lambdas.dart",
-  "example/partials.dart",
-  "example/nested_paths.dart",
   "example/basic.dart",
-  "lib/src/renderer.dart",
+  "example/lambdas.dart",
+  "example/nested_paths.dart",
+  "example/partials.dart",
   "lib/src/lambda_context.dart",
-  "lib/src/scanner.dart"
+  "lib/src/renderer.dart",
+  "lib/src/scanner.dart",
+  "test/mustache_test.dart",
+  "test/parser_test.dart"
  ]
 }

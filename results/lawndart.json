@@ -127,13 +127,13 @@
   }
  ],
  "unformattedFiles": [
-  "test/store_tests.dart",
-  "test/test_harness.dart",
   "example/simple_run_through/index.dart",
   "lib/lawndart.dart",
   "lib/src/indexeddb_store.dart",
-  "lib/src/memory_store.dart",
   "lib/src/local_storage_store.dart",
-  "lib/src/websql_store.dart"
+  "lib/src/memory_store.dart",
+  "lib/src/websql_store.dart",
+  "test/store_tests.dart",
+  "test/test_harness.dart"
  ]
 }

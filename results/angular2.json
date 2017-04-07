@@ -1178,16 +1178,16 @@
   }
  ],
  "unformattedFiles": [
-  "test/compiler/selector_test.dart",
-  "test/compiler/template_parser_test.dart",
-  "lib/src/testing/test_injector.dart",
-  "lib/src/testing/internal.dart",
   "lib/src/common/forms/validators.dart",
-  "lib/src/transform/template_compiler/compile_data_creator.dart",
-  "lib/src/compiler/provider_parser.dart",
   "lib/src/compiler/compile_metadata.dart",
+  "lib/src/compiler/provider_parser.dart",
   "lib/src/compiler/view_compiler/expression_converter.dart",
   "lib/src/compiler/view_compiler/view_builder.dart",
-  "lib/src/platform/browser/testability.dart"
+  "lib/src/platform/browser/testability.dart",
+  "lib/src/testing/internal.dart",
+  "lib/src/testing/test_injector.dart",
+  "lib/src/transform/template_compiler/compile_data_creator.dart",
+  "test/compiler/selector_test.dart",
+  "test/compiler/template_parser_test.dart"
  ]
 }

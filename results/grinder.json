@@ -137,14 +137,14 @@
   }
  ],
  "unformattedFiles": [
+  "lib/grinder_tools.dart",
+  "lib/src/cli.dart",
+  "lib/src/cli_util.dart",
+  "lib/src/discover_tasks.dart",
+  "lib/src/task_invocation.dart",
+  "lib/src/utils.dart",
   "test/grinder_files_test.dart",
   "test/src/discover_tasks_test.dart",
-  "test/src/utils_test.dart",
-  "lib/grinder_tools.dart",
-  "lib/src/cli_util.dart",
-  "lib/src/task_invocation.dart",
-  "lib/src/cli.dart",
-  "lib/src/discover_tasks.dart",
-  "lib/src/utils.dart"
+  "test/src/utils_test.dart"
  ]
 }

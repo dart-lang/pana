@@ -358,21 +358,21 @@
   }
  ],
  "unformattedFiles": [
-  "test/test_sample_data.dart",
-  "test/test_json_stringify.dart",
-  "test/test_to_string.dart",
-  "test/test_list.dart",
-  "test/test_mirrors_serialize.dart",
-  "test/json_object_test.dart",
-  "test/test_print_list.dart",
-  "test/test_dartlang_article.dart",
-  "test/test_strong_typing.dart",
-  "test/test_is_extendable.dart",
-  "test/test_extend_object.dart",
-  "test/test_list_serialization.dart",
-  "test/test_todo_vo.dart",
   "lib/json_object.dart",
   "lib/src/mirror_based_deserializer.dart",
-  "lib/src/mirror_based_serializer.dart"
+  "lib/src/mirror_based_serializer.dart",
+  "test/json_object_test.dart",
+  "test/test_dartlang_article.dart",
+  "test/test_extend_object.dart",
+  "test/test_is_extendable.dart",
+  "test/test_json_stringify.dart",
+  "test/test_list.dart",
+  "test/test_list_serialization.dart",
+  "test/test_mirrors_serialize.dart",
+  "test/test_print_list.dart",
+  "test/test_sample_data.dart",
+  "test/test_strong_typing.dart",
+  "test/test_to_string.dart",
+  "test/test_todo_vo.dart"
  ]
 }

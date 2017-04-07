@@ -1,0 +1,2151 @@
+{
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "flutter_flux",
+ "packageVersion": "4.0.0",
+ "pubSummary": {
+  "exitCode": 69,
+  "stdout": "MSG : Resolving dependencies...\n",
+  "stderr": "FINE: Pub 1.23.0-dev.11.6\nSLVR: Solving dependencies:\n    | - flutter any from sdk (flutter)\n    | - meta ^1.0.3 from hosted (meta)\nSLVR: Could not get versions for flutter from sdk:\n    | The Flutter SDK is not available.\n    | \n    | package:pub/src/source/sdk.dart 98                                           BoundSdkSource._verifiedPackagePath\n    | package:pub/src/source/sdk.dart 85                                           BoundSdkSource._loadPubspec\n    | package:pub/src/source/sdk.dart 72                                           BoundSdkSource.doGetVersions\n    | package:pub/src/source.dart 165                                              BoundSource.getVersions\n    | package:pub/src/solver/version_solver.dart 230                               SolverCache.getVersions.<fn>\n    | dart:async                                                                   runZoned\n    | package:pub/src/http.dart 228                                                withDependencyType\n    | package:pub/src/solver/version_solver.dart 229                               SolverCache.getVersions\n    | package:pub/src/solver/unselected_package_queue.dart 121                     UnselectedPackageQueue._getNumVersions\n    | package:pub/src/solver/unselected_package_queue.dart 50                      UnselectedPackageQueue.add\n    | package:pub/src/solver/version_selection.dart 68                             VersionSelection.select.<fn>\n    | dart:async                                                                   Future.forEach\n    | package:pub/src/solver/version_selection.dart 61                             VersionSelection.select\n    | package:pub/src/solver/backtracking_solver.dart 171                          BacktrackingSolver.solve\n    | package:pub/src/solver/version_solver.dart 41                                resolveVersions.<fn>\n    | package:pub/src/log.dart 408                                                 progress\n    | package:pub/src/solver/version_solver.dart 39                                resolveVersions\n    | package:pub/src/entrypoint.dart 190                                          Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                                      UpgradeCommand.run\n    | package:args/command_runner.dart 194                                         CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand.<fn>\n    | dart:async                                                                   Future.Future.sync\n    | package:pub/src/utils.dart 99                                                captureErrors.<fn>\n    | package:stack_trace                                                          Chain.capture\n    | package:pub/src/utils.dart 114                                               captureErrors\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand\n    | package:pub/src/command_runner.dart 117                                      PubCommandRunner.run\n    | /tmp/tmpyGNZop/dart-1.23.0-dev.11.6/dart/third_party/pkg/pub/bin/pub.dart 8  main\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   _Completer.completeError\n    | package:pub/src/source/sdk.dart 76                                           BoundSdkSource.doGetVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/source/sdk.dart 63                                           BoundSdkSource.doGetVersions\n    | package:pub/src/source.dart 165                                              BoundSource.getVersions\n    | package:pub/src/solver/version_solver.dart 230                               SolverCache.getVersions.<fn>\n    | dart:async                                                                   runZoned\n    | package:pub/src/http.dart 228                                                withDependencyType\n    | package:pub/src/solver/version_solver.dart 229                               SolverCache.getVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/version_solver.dart 203                               SolverCache.getVersions\n    | package:pub/src/solver/unselected_package_queue.dart 121                     UnselectedPackageQueue._getNumVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/unselected_package_queue.dart 115                     UnselectedPackageQueue._getNumVersions\n    | package:pub/src/solver/unselected_package_queue.dart 50                      UnselectedPackageQueue.add\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/unselected_package_queue.dart 44                      UnselectedPackageQueue.add\n    | package:pub/src/solver/version_selection.dart 68                             VersionSelection.select.<fn>\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/version_selection.dart 61                             VersionSelection.select.<fn>\n    | dart:async                                                                   Future.forEach\n    | package:pub/src/solver/version_selection.dart 61                             VersionSelection.select\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.forEach\n    | package:pub/src/solver/version_selection.dart 61                             VersionSelection.select\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   _asyncThenWrapperHelper\n    | package:pub/src/solver/version_selection.dart 53                             VersionSelection.select\n    | package:pub/src/solver/backtracking_solver.dart 171                          BacktrackingSolver.solve\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/backtracking_solver.dart 157                          BacktrackingSolver.solve\n    | package:pub/src/solver/version_solver.dart 41                                resolveVersions.<fn>\n    | package:pub/src/log.dart 408                                                 progress\n    | package:pub/src/solver/version_solver.dart 39                                resolveVersions\n    | package:pub/src/entrypoint.dart 190                                          Entrypoint.acquireDependencies\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/entrypoint.dart 189                                          Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                                      UpgradeCommand.run\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/command/upgrade.dart 40                                      UpgradeCommand.run\n    | package:args/command_runner.dart 194                                         CommandRunner.runCommand\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:args/command_runner.dart 142                                         CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand.<fn>\n    | dart:async                                                                   Future.Future.sync\n    | package:pub/src/utils.dart 99                                                captureErrors.<fn>\n    | package:stack_trace                                                          Chain.capture\n    | package:pub/src/utils.dart 114                                               captureErrors\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand\nSLVR: Could not get versions for flutter from sdk:\n    | The Flutter SDK is not available.\n    | \n    | package:pub/src/source/sdk.dart 98                                           BoundSdkSource._verifiedPackagePath\n    | package:pub/src/source/sdk.dart 85                                           BoundSdkSource._loadPubspec\n    | package:pub/src/source/sdk.dart 72                                           BoundSdkSource.doGetVersions\n    | package:pub/src/source.dart 165                                              BoundSource.getVersions\n    | package:pub/src/solver/version_solver.dart 230                               SolverCache.getVersions.<fn>\n    | dart:async                                                                   runZoned\n    | package:pub/src/http.dart 228                                                withDependencyType\n    | package:pub/src/solver/version_solver.dart 229                               SolverCache.getVersions\n    | package:pub/src/solver/unselected_package_queue.dart 121                     UnselectedPackageQueue._getNumVersions\n    | package:pub/src/solver/unselected_package_queue.dart 50                      UnselectedPackageQueue.add\n    | package:pub/src/solver/version_selection.dart 68                             VersionSelection.select.<fn>\n    | dart:async                                                                   Future.forEach\n    | package:pub/src/solver/version_selection.dart 61                             VersionSelection.select\n    | package:pub/src/solver/backtracking_solver.dart 171                          BacktrackingSolver.solve\n    | package:pub/src/solver/version_solver.dart 41                                resolveVersions.<fn>\n    | package:pub/src/log.dart 408                                                 progress\n    | package:pub/src/solver/version_solver.dart 39                                resolveVersions\n    | package:pub/src/entrypoint.dart 190                                          Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                                      UpgradeCommand.run\n    | package:args/command_runner.dart 194                                         CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand.<fn>\n    | dart:async                                                                   Future.Future.sync\n    | package:pub/src/utils.dart 99                                                captureErrors.<fn>\n    | package:stack_trace                                                          Chain.capture\n    | package:pub/src/utils.dart 114                                               captureErrors\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand\n    | package:pub/src/command_runner.dart 117                                      PubCommandRunner.run\n    | /tmp/tmpyGNZop/dart-1.23.0-dev.11.6/dart/third_party/pkg/pub/bin/pub.dart 8  main\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   _Completer.completeError\n    | package:pub/src/source/sdk.dart 76                                           BoundSdkSource.doGetVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/source/sdk.dart 63                                           BoundSdkSource.doGetVersions\n    | package:pub/src/source.dart 165                                              BoundSource.getVersions\n    | package:pub/src/solver/version_solver.dart 230                               SolverCache.getVersions.<fn>\n    | dart:async                                                                   runZoned\n    | package:pub/src/http.dart 228                                                withDependencyType\n    | package:pub/src/solver/version_solver.dart 229                               SolverCache.getVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/version_solver.dart 203                               SolverCache.getVersions\n    | package:pub/src/solver/unselected_package_queue.dart 121                     UnselectedPackageQueue._getNumVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/unselected_package_queue.dart 115                     UnselectedPackageQueue._getNumVersions\n    | package:pub/src/solver/unselected_package_queue.dart 50                      UnselectedPackageQueue.add\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/unselected_package_queue.dart 44                      UnselectedPackageQueue.add\n    | package:pub/src/solver/version_selection.dart 68                             VersionSelection.select.<fn>\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/version_selection.dart 61                             VersionSelection.select.<fn>\n    | dart:async                                                                   Future.forEach\n    | package:pub/src/solver/version_selection.dart 61                             VersionSelection.select\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.forEach\n    | package:pub/src/solver/version_selection.dart 61                             VersionSelection.select\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   _asyncThenWrapperHelper\n    | package:pub/src/solver/version_selection.dart 53                             VersionSelection.select\n    | package:pub/src/solver/backtracking_solver.dart 171                          BacktrackingSolver.solve\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/solver/backtracking_solver.dart 157                          BacktrackingSolver.solve\n    | package:pub/src/solver/version_solver.dart 41                                resolveVersions.<fn>\n    | package:pub/src/log.dart 408                                                 progress\n    | package:pub/src/solver/version_solver.dart 39                                resolveVersions\n    | package:pub/src/entrypoint.dart 190                                          Entrypoint.acquireDependencies\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/entrypoint.dart 189                                          Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                                      UpgradeCommand.run\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/command/upgrade.dart 40                                      UpgradeCommand.run\n    | package:args/command_runner.dart 194                                         CommandRunner.runCommand\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:args/command_runner.dart 142                                         CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand.<fn>\n    | dart:async                                                                   Future.Future.sync\n    | package:pub/src/utils.dart 99                                                captureErrors.<fn>\n    | package:stack_trace                                                          Chain.capture\n    | package:pub/src/utils.dart 114                                               captureErrors\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand\nIO  : Get versions from https://pub.dartlang.org/api/packages/meta.\nFINE: HTTP GET https://pub.dartlang.org/api/packages/meta\n    | Accept: application/vnd.pub.v2+json\n    | X-Pub-OS: linux\n    | X-Pub-Command: upgrade\n    | X-Pub-Session-ID: 36B3546C-C10B-439D-9DF6-06A9813672B0\n    | X-Pub-Environment: kevmoo.pkg_clean\n    | X-Pub-Reason: direct\n    | user-agent: Dart pub 1.23.0-dev.11.6\nFINE: HTTP response 200 OK for GET https://pub.dartlang.org/api/packages/meta\n    | took 0:00:00.160367\n    | x-google-appengine-version: 20170331t104203\n    | transfer-encoding: chunked\n    | date: Fri, 07 Apr 2017 16:43:42 GMT\n    | x-google-backends: [fda3:e722:ac3:10:0:fa1b:af0:3]:8443,phm2:9840,/bns/ph/borg/ph/bns/cloud-gfe-prod-dedicated/cloud-layer2-gfe/14,phal23:9867\n    | x-google-gfe-response-code-details-trace: response_code_set_by_backend,response_code_set_by_backend\n    | content-type: application/json\n    | x-xss-protection: 1; mode=block\n    | x-google-service: cloud_475963186251_1161351608541620236_https,cloud-layer2-gfe-apphosting\n    | server: nginx\n    | x-google-gfe-request-trace: phal23:9867,phm2:9840,[fda3:e722:ac3:10:0:fa1b:af0:3]:8443,phm2:9840,phal23:9867\n    | x-google-gfe-service-trace: apphosting-frontend-l2,cloud_475963186251_1161351608541620236_https,shared-layer2-gfe-dasher,cloud-layer2-gfe-apphosting\n    | x-google-appengine-appid: s~dartlang-pub\n    | x-google-gslb-service: cloud_475963186251_1161351608541620236_https\n    | x-frame-options: SAMEORIGIN\n    | via: 1.1 google\n    | x-content-type-options: nosniff\n    | x-google-appengine-module: default\n    | x-google-dos-service-trace: cloud-l7:cloud_475963186251_1161351608541620236_https,main:apphosting\nIO  : Get versions from https://pub.dartlang.org/api/packages/test.\nFINE: HTTP GET https://pub.dartlang.org/api/packages/test\n    | Accept: application/vnd.pub.v2+json\n    | X-Pub-OS: linux\n    | X-Pub-Command: upgrade\n    | X-Pub-Session-ID: 36B3546C-C10B-439D-9DF6-06A9813672B0\n    | X-Pub-Environment: kevmoo.pkg_clean\n    | X-Pub-Reason: dev\n    | user-agent: Dart pub 1.23.0-dev.11.6\nFINE: HTTP response 200 OK for GET https://pub.dartlang.org/api/packages/test\n    | took 0:00:00.084953\n    | x-google-appengine-version: 20170331t104203\n    | transfer-encoding: chunked\n    | date: Fri, 07 Apr 2017 16:43:42 GMT\n    | x-google-backends: [fda3:e722:ac3:10:0:fa1b:af0:2]:8443,phf59:9802,/bns/ph/borg/ph/bns/cloud-gfe-prod-dedicated/cloud-layer2-gfe/8,phal23:9867\n    | x-google-gfe-response-code-details-trace: response_code_set_by_backend,response_code_set_by_backend\n    | content-type: application/json\n    | x-xss-protection: 1; mode=block\n    | x-google-service: cloud_475963186251_1161351608541620236_https,cloud-layer2-gfe-apphosting\n    | server: nginx\n    | x-google-gfe-request-trace: phal23:9867,phf59:9802,[fda3:e722:ac3:10:0:fa1b:af0:2]:8443,phf59:9802,phal23:9867\n    | x-google-gfe-service-trace: apphosting-frontend-l2,cloud_475963186251_1161351608541620236_https,shared-layer2-gfe-dasher,cloud-layer2-gfe-apphosting\n    | x-google-appengine-appid: s~dartlang-pub\n    | x-google-gslb-service: cloud_475963186251_1161351608541620236_https\n    | x-frame-options: SAMEORIGIN\n    | via: 1.1 google\n    | x-content-type-options: nosniff\n    | x-google-appengine-module: default\n    | x-google-dos-service-trace: cloud-l7:cloud_475963186251_1161351608541620236_https,main:apphosting\nSLVR: Could not get versions for flutter_test from sdk:\n    | The Flutter SDK is not available.\n    | \n    | package:pub/src/source/sdk.dart 98                        BoundSdkSource._verifiedPackagePath\n    | package:pub/src/source/sdk.dart 85                        BoundSdkSource._loadPubspec\n    | package:pub/src/source/sdk.dart 72                        BoundSdkSource.doGetVersions\n    | package:pub/src/source.dart 165                           BoundSource.getVersions\n    | package:pub/src/solver/version_solver.dart 230            SolverCache.getVersions.<fn>\n    | dart:async                                                runZoned\n    | package:pub/src/http.dart 228                             withDependencyType\n    | package:pub/src/solver/version_solver.dart 229            SolverCache.getVersions\n    | package:pub/src/solver/unselected_package_queue.dart 121  UnselectedPackageQueue._getNumVersions\n    | package:pub/src/solver/unselected_package_queue.dart 50   UnselectedPackageQueue.add\n    | package:pub/src/solver/version_selection.dart 68          VersionSelection.select.<fn>\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/version_selection.dart 70          VersionSelection.select.<fn>\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/unselected_package_queue.dart 54   UnselectedPackageQueue.add\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/unselected_package_queue.dart 137  UnselectedPackageQueue._getNumVersions\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/version_solver.dart 252            SolverCache.getVersions\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/source/hosted.dart 143                    BoundHostedSource.doGetVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                _Completer.completeError\n    | package:pub/src/source/sdk.dart 76                        BoundSdkSource.doGetVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/source/sdk.dart 63                        BoundSdkSource.doGetVersions\n    | package:pub/src/source.dart 165                           BoundSource.getVersions\n    | package:pub/src/solver/version_solver.dart 230            SolverCache.getVersions.<fn>\n    | dart:async                                                runZoned\n    | package:pub/src/http.dart 228                             withDependencyType\n    | package:pub/src/solver/version_solver.dart 229            SolverCache.getVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/version_solver.dart 203            SolverCache.getVersions\n    | package:pub/src/solver/unselected_package_queue.dart 121  UnselectedPackageQueue._getNumVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/unselected_package_queue.dart 115  UnselectedPackageQueue._getNumVersions\n    | package:pub/src/solver/unselected_package_queue.dart 50   UnselectedPackageQueue.add\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/unselected_package_queue.dart 44   UnselectedPackageQueue.add\n    | package:pub/src/solver/version_selection.dart 68          VersionSelection.select.<fn>\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/version_selection.dart 61          VersionSelection.select.<fn>\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/version_selection.dart 70          VersionSelection.select.<fn>\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/unselected_package_queue.dart 54   UnselectedPackageQueue.add\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/unselected_package_queue.dart 137  UnselectedPackageQueue._getNumVersions\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/version_solver.dart 252            SolverCache.getVersions\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/source/hosted.dart 143                    BoundHostedSource.doGetVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.forEach\n    | package:pub/src/solver/version_selection.dart 61          VersionSelection.select\n    | ===== asynchronous gap ===========================\n    | dart:async                                                _asyncThenWrapperHelper\n    | package:pub/src/solver/version_selection.dart 53          VersionSelection.select\n    | package:pub/src/solver/backtracking_solver.dart 171       BacktrackingSolver.solve\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/backtracking_solver.dart 157       BacktrackingSolver.solve\n    | package:pub/src/solver/version_solver.dart 41             resolveVersions.<fn>\n    | package:pub/src/log.dart 408                              progress\n    | package:pub/src/solver/version_solver.dart 39             resolveVersions\n    | package:pub/src/entrypoint.dart 190                       Entrypoint.acquireDependencies\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/entrypoint.dart 189                       Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                   UpgradeCommand.run\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/command/upgrade.dart 40                   UpgradeCommand.run\n    | package:args/command_runner.dart 194                      CommandRunner.runCommand\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:args/command_runner.dart 142                      CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                   PubCommandRunner.runCommand.<fn>\n    | dart:async                                                Future.Future.sync\n    | package:pub/src/utils.dart 99                             captureErrors.<fn>\n    | package:stack_trace                                       Chain.capture\n    | package:pub/src/utils.dart 114                            captureErrors\n    | package:pub/src/command_runner.dart 168                   PubCommandRunner.runCommand\nSLVR: Could not get versions for flutter_test from sdk:\n    | The Flutter SDK is not available.\n    | \n    | package:pub/src/source/sdk.dart 98                        BoundSdkSource._verifiedPackagePath\n    | package:pub/src/source/sdk.dart 85                        BoundSdkSource._loadPubspec\n    | package:pub/src/source/sdk.dart 72                        BoundSdkSource.doGetVersions\n    | package:pub/src/source.dart 165                           BoundSource.getVersions\n    | package:pub/src/solver/version_solver.dart 230            SolverCache.getVersions.<fn>\n    | dart:async                                                runZoned\n    | package:pub/src/http.dart 228                             withDependencyType\n    | package:pub/src/solver/version_solver.dart 229            SolverCache.getVersions\n    | package:pub/src/solver/unselected_package_queue.dart 121  UnselectedPackageQueue._getNumVersions\n    | package:pub/src/solver/unselected_package_queue.dart 50   UnselectedPackageQueue.add\n    | package:pub/src/solver/version_selection.dart 68          VersionSelection.select.<fn>\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/version_selection.dart 70          VersionSelection.select.<fn>\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/unselected_package_queue.dart 54   UnselectedPackageQueue.add\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/unselected_package_queue.dart 137  UnselectedPackageQueue._getNumVersions\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/version_solver.dart 252            SolverCache.getVersions\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/source/hosted.dart 143                    BoundHostedSource.doGetVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                _Completer.completeError\n    | package:pub/src/source/sdk.dart 76                        BoundSdkSource.doGetVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/source/sdk.dart 63                        BoundSdkSource.doGetVersions\n    | package:pub/src/source.dart 165                           BoundSource.getVersions\n    | package:pub/src/solver/version_solver.dart 230            SolverCache.getVersions.<fn>\n    | dart:async                                                runZoned\n    | package:pub/src/http.dart 228                             withDependencyType\n    | package:pub/src/solver/version_solver.dart 229            SolverCache.getVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/version_solver.dart 203            SolverCache.getVersions\n    | package:pub/src/solver/unselected_package_queue.dart 121  UnselectedPackageQueue._getNumVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/unselected_package_queue.dart 115  UnselectedPackageQueue._getNumVersions\n    | package:pub/src/solver/unselected_package_queue.dart 50   UnselectedPackageQueue.add\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/unselected_package_queue.dart 44   UnselectedPackageQueue.add\n    | package:pub/src/solver/version_selection.dart 68          VersionSelection.select.<fn>\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/version_selection.dart 61          VersionSelection.select.<fn>\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/version_selection.dart 70          VersionSelection.select.<fn>\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/unselected_package_queue.dart 54   UnselectedPackageQueue.add\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/unselected_package_queue.dart 137  UnselectedPackageQueue._getNumVersions\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/solver/version_solver.dart 252            SolverCache.getVersions\n    | dart:async                                                _completeOnAsyncReturn\n    | package:pub/src/source/hosted.dart 143                    BoundHostedSource.doGetVersions\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.forEach\n    | package:pub/src/solver/version_selection.dart 61          VersionSelection.select\n    | ===== asynchronous gap ===========================\n    | dart:async                                                _asyncThenWrapperHelper\n    | package:pub/src/solver/version_selection.dart 53          VersionSelection.select\n    | package:pub/src/solver/backtracking_solver.dart 171       BacktrackingSolver.solve\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/solver/backtracking_solver.dart 157       BacktrackingSolver.solve\n    | package:pub/src/solver/version_solver.dart 41             resolveVersions.<fn>\n    | package:pub/src/log.dart 408                              progress\n    | package:pub/src/solver/version_solver.dart 39             resolveVersions\n    | package:pub/src/entrypoint.dart 190                       Entrypoint.acquireDependencies\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/entrypoint.dart 189                       Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                   UpgradeCommand.run\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:pub/src/command/upgrade.dart 40                   UpgradeCommand.run\n    | package:args/command_runner.dart 194                      CommandRunner.runCommand\n    | ===== asynchronous gap ===========================\n    | dart:async                                                Future.Future.microtask\n    | package:args/command_runner.dart 142                      CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                   PubCommandRunner.runCommand.<fn>\n    | dart:async                                                Future.Future.sync\n    | package:pub/src/utils.dart 99                             captureErrors.<fn>\n    | package:stack_trace                                       Chain.capture\n    | package:pub/src/utils.dart 114                            captureErrors\n    | package:pub/src/command_runner.dart 168                   PubCommandRunner.runCommand\nIO  : Get versions from https://pub.dartlang.org/api/packages/quiver.\nFINE: HTTP GET https://pub.dartlang.org/api/packages/quiver\n    | Accept: application/vnd.pub.v2+json\n    | X-Pub-OS: linux\n    | X-Pub-Command: upgrade\n    | X-Pub-Session-ID: 36B3546C-C10B-439D-9DF6-06A9813672B0\n    | X-Pub-Environment: kevmoo.pkg_clean\n    | X-Pub-Reason: dev\n    | user-agent: Dart pub 1.23.0-dev.11.6\nFINE: HTTP response 200 OK for GET https://pub.dartlang.org/api/packages/quiver\n    | took 0:00:00.083192\n    | x-google-appengine-version: 20170331t104203\n    | transfer-encoding: chunked\n    | date: Fri, 07 Apr 2017 16:43:42 GMT\n    | x-google-backends: [fda3:e722:ac3:10:0:fa1b:af0:2]:8443,pcba19:9856,/bns/pc/borg/pc/bns/cloud-gfe-prod-dedicated/cloud-layer2-gfe/7,phal23:9867\n    | x-google-gfe-response-code-details-trace: response_code_set_by_backend,response_code_set_by_backend\n    | content-type: application/json\n    | x-xss-protection: 1; mode=block\n    | x-google-service: cloud_475963186251_1161351608541620236_https,cloud-layer2-gfe-apphosting\n    | server: nginx\n    | x-google-gfe-request-trace: phal23:9867,pcba19:9856,[fda3:e722:ac3:10:0:fa1b:af0:2]:8443,pcba19:9856,phal23:9867\n    | x-google-gfe-service-trace: apphosting-frontend-l2,cloud_475963186251_1161351608541620236_https,shared-layer2-gfe-dasher,cloud-layer2-gfe-apphosting\n    | x-google-appengine-appid: s~dartlang-pub\n    | x-google-gslb-service: cloud_475963186251_1161351608541620236_https\n    | x-frame-options: SAMEORIGIN\n    | via: 1.1 google\n    | x-content-type-options: nosniff\n    | x-google-appengine-module: default\n    | x-google-dos-service-trace: cloud-l7:cloud_475963186251_1161351608541620236_https,main:apphosting\nIO  : Get versions from https://pub.dartlang.org/api/packages/rate_limit.\nFINE: HTTP GET https://pub.dartlang.org/api/packages/rate_limit\n    | Accept: application/vnd.pub.v2+json\n    | X-Pub-OS: linux\n    | X-Pub-Command: upgrade\n    | X-Pub-Session-ID: 36B3546C-C10B-439D-9DF6-06A9813672B0\n    | X-Pub-Environment: kevmoo.pkg_clean\n    | X-Pub-Reason: dev\n    | user-agent: Dart pub 1.23.0-dev.11.6\nFINE: HTTP response 200 OK for GET https://pub.dartlang.org/api/packages/rate_limit\n    | took 0:00:00.047345\n    | x-google-appengine-version: 20170331t104203\n    | transfer-encoding: chunked\n    | date: Fri, 07 Apr 2017 16:43:43 GMT\n    | x-google-backends: [fda3:e722:ac3:10:0:fa1b:af0:3]:8443,pjaj88:9827,/bns/pj/borg/pj/bns/cloud-gfe-prod-dedicated/cloud-layer2-gfe/8,phal23:9867\n    | x-google-gfe-response-code-details-trace: response_code_set_by_backend,response_code_set_by_backend\n    | content-type: application/json\n    | x-xss-protection: 1; mode=block\n    | x-google-service: cloud_475963186251_1161351608541620236_https,cloud-layer2-gfe-apphosting\n    | server: nginx\n    | x-google-gfe-request-trace: phal23:9867,pjaj88:9827,[fda3:e722:ac3:10:0:fa1b:af0:3]:8443,pjaj88:9827,phal23:9867\n    | x-google-gfe-service-trace: apphosting-frontend-l2,cloud_475963186251_1161351608541620236_https,shared-layer2-gfe-dasher,cloud-layer2-gfe-apphosting\n    | x-google-appengine-appid: s~dartlang-pub\n    | x-google-gslb-service: cloud_475963186251_1161351608541620236_https\n    | x-frame-options: SAMEORIGIN\n    | via: 1.1 google\n    | x-content-type-options: nosniff\n    | x-google-appengine-module: default\n    | x-google-dos-service-trace: cloud-l7:cloud_475963186251_1161351608541620236_https,main:apphosting\nSLVR: * start at root\nSLVR: BacktrackingSolver took 0:00:00.995915 seconds.\n    | - Tried 1 solutions\n    | - Requested 6 version lists\n    | - Looked up 1 cached version lists\n    | \nFINE: Resolving dependencies finished (1.025s).\nERR : The Flutter SDK is not available.\n    | Depended on by:\n    | - flutter_flux \nFINE: Exception type: DependencyNotFoundException\nFINE: package:pub/src/entrypoint.dart 192                                          Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                                      UpgradeCommand.run\n    | package:args/command_runner.dart 194                                         CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand.<fn>\n    | dart:async                                                                   Future.Future.sync\n    | package:pub/src/utils.dart 99                                                captureErrors.<fn>\n    | package:stack_trace                                                          Chain.capture\n    | package:pub/src/utils.dart 114                                               captureErrors\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand\n    | package:pub/src/command_runner.dart 117                                      PubCommandRunner.run\n    | /tmp/tmpyGNZop/dart-1.23.0-dev.11.6/dart/third_party/pkg/pub/bin/pub.dart 8  main\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   _Completer.completeError\n    | package:pub/src/entrypoint.dart 240                                          Entrypoint.acquireDependencies\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   _asyncThenWrapperHelper\n    | package:pub/src/entrypoint.dart 189                                          Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                                      UpgradeCommand.run\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/command/upgrade.dart 40                                      UpgradeCommand.run\n    | package:args/command_runner.dart 194                                         CommandRunner.runCommand\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:args/command_runner.dart 142                                         CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand.<fn>\n    | dart:async                                                                   Future.Future.sync\n    | package:pub/src/utils.dart 99                                                captureErrors.<fn>\n    | package:stack_trace                                                          Chain.capture\n    | package:pub/src/utils.dart 114                                               captureErrors\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand\n"
+ },
+ "analyzerItems": [
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 5,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter/material.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter_flux/flutter_flux.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 11,
+   "col": 3,
+   "error": "The function 'runApp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 11,
+   "col": 14,
+   "error": "Undefined class 'MaterialApp'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 13,
+   "col": 18,
+   "error": "Undefined class 'ThemeData'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 14,
+   "col": 26,
+   "error": "Undefined name 'Colors'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 14,
+   "col": 54,
+   "error": "Undefined name 'Colors'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|EXTENDS_NON_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 18,
+   "col": 26,
+   "error": "Classes can only extend other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 18,
+   "col": 26,
+   "error": "Undefined class 'StoreWatcher'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 19,
+   "col": 15,
+   "error": "Undefined class 'Key'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_NAMED_PARAMETER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 19,
+   "col": 33,
+   "error": "The named parameter 'key' isn't defined."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 22,
+   "col": 8,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 22,
+   "col": 19,
+   "error": "Undefined class 'ListenToStore'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 27,
+   "col": 3,
+   "error": "Undefined class 'Widget'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 27,
+   "col": 29,
+   "error": "Undefined class 'BuildContext'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 29,
+   "col": 11,
+   "error": "Undefined class 'ValueChanged'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 29,
+   "col": 24,
+   "error": "The name 'InputValue' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 29,
+   "col": 53,
+   "error": "Undefined class 'InputValue'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 33,
+   "col": 5,
+   "error": "Undefined class 'ThemeData'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 33,
+   "col": 27,
+   "error": "Undefined name 'Theme'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 34,
+   "col": 16,
+   "error": "Undefined class 'Row'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 34,
+   "col": 31,
+   "error": "The name 'Widget' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 35,
+   "col": 11,
+   "error": "Undefined class 'Flexible'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 36,
+   "col": 22,
+   "error": "Undefined class 'Input'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 41,
+   "col": 11,
+   "error": "Undefined class 'Container'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 42,
+   "col": 23,
+   "error": "Undefined class 'EdgeInsets.symmetric'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 43,
+   "col": 22,
+   "error": "Undefined class 'IconButton'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 44,
+   "col": 25,
+   "error": "Undefined class 'Icon'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 44,
+   "col": 30,
+   "error": "Undefined name 'Icons'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 54,
+   "col": 3,
+   "error": "Undefined class 'Widget'."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 54,
+   "col": 10,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 54,
+   "col": 16,
+   "error": "Undefined class 'BuildContext'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 54,
+   "col": 42,
+   "error": "The name 'StoreToken' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 54,
+   "col": 54,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 58,
+   "col": 16,
+   "error": "Undefined class 'Scaffold'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 60,
+   "col": 17,
+   "error": "Undefined class 'AppBar'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 60,
+   "col": 35,
+   "error": "Undefined class 'Text'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 61,
+   "col": 19,
+   "error": "Undefined class 'Column'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 61,
+   "col": 37,
+   "error": "The name 'Widget' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 62,
+   "col": 15,
+   "error": "Undefined class 'Flexible'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 63,
+   "col": 26,
+   "error": "Undefined class 'Block'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 64,
+   "col": 32,
+   "error": "Undefined class 'EdgeInsets.symmetric'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 65,
+   "col": 33,
+   "error": "Undefined name 'ViewportAnchor'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|EXTENDS_NON_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 74,
+   "col": 35,
+   "error": "Classes can only extend other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 74,
+   "col": 35,
+   "error": "Undefined class 'StatefulWidget'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_NAMED_PARAMETER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 77,
+   "col": 15,
+   "error": "The named parameter 'key' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 77,
+   "col": 24,
+   "error": "Undefined class 'ObjectKey'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 82,
+   "col": 3,
+   "error": "Undefined class 'State'."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 82,
+   "col": 9,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|MIXIN_WITH_NON_CLASS_SUPERCLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 85,
+   "col": 40,
+   "error": "Mixin can only be applied to class."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 85,
+   "col": 40,
+   "error": "Undefined class 'State'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|MIXIN_OF_NON_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 86,
+   "col": 10,
+   "error": "Classes can only mixin other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 86,
+   "col": 10,
+   "error": "Undefined class 'SingleTickerProviderStateMixin'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 87,
+   "col": 3,
+   "error": "Undefined class 'AnimationController'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 88,
+   "col": 3,
+   "error": "Undefined class 'Animation'."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 91,
+   "col": 8,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SUPER_METHOD",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 92,
+   "col": 11,
+   "error": "The method 'initState' isn't defined in a superclass of 'Object'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 93,
+   "col": 32,
+   "error": "Undefined class 'AnimationController'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 95,
+   "col": 22,
+   "error": "Undefined class 'CurvedAnimation'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 96,
+   "col": 46,
+   "error": "Undefined name 'Curves'."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 101,
+   "col": 8,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SUPER_METHOD",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 103,
+   "col": 11,
+   "error": "The method 'dispose' isn't defined in a superclass of 'Object'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 107,
+   "col": 3,
+   "error": "Undefined class 'Widget'."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 107,
+   "col": 10,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 107,
+   "col": 16,
+   "error": "Undefined class 'BuildContext'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 108,
+   "col": 33,
+   "error": "Undefined name 'config'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 109,
+   "col": 16,
+   "error": "Undefined class 'SizeTransition'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 112,
+   "col": 20,
+   "error": "Undefined class 'ListItem'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 114,
+   "col": 26,
+   "error": "Undefined class 'CircleAvatar'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 115,
+   "col": 28,
+   "error": "Undefined class 'Text'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 117,
+   "col": 24,
+   "error": "Undefined class 'Text'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/main.dart",
+   "line": 118,
+   "col": 27,
+   "error": "Undefined class 'Text'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 7,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter/material.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter_flux/flutter_flux.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 13,
+   "col": 9,
+   "error": "Undefined class 'Color'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|EXTENDS_NON_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 22,
+   "col": 32,
+   "error": "Classes can only extend other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 22,
+   "col": 32,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 24,
+   "col": 5,
+   "error": "The method 'triggerOnAction' isn't defined for the class 'ChatMessageStore'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 24,
+   "col": 47,
+   "error": "Undefined class 'InputValue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 27,
+   "col": 5,
+   "error": "The method 'triggerOnAction' isn't defined for the class 'ChatMessageStore'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 31,
+   "col": 25,
+   "error": "Undefined name 'InputValue'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 36,
+   "col": 3,
+   "error": "Undefined class 'InputValue'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 36,
+   "col": 32,
+   "error": "Undefined name 'InputValue'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 40,
+   "col": 3,
+   "error": "Undefined class 'InputValue'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|EXTENDS_NON_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 45,
+   "col": 29,
+   "error": "Classes can only extend other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 45,
+   "col": 29,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 48,
+   "col": 11,
+   "error": "Undefined class 'Color'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 49,
+   "col": 9,
+   "error": "Undefined name 'Colors'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 49,
+   "col": 45,
+   "error": "Undefined name 'Colors'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 58,
+   "col": 7,
+   "error": "Undefined class 'StoreToken'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 58,
+   "col": 42,
+   "error": "Undefined class 'StoreToken'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 59,
+   "col": 7,
+   "error": "Undefined class 'StoreToken'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 59,
+   "col": 39,
+   "error": "Undefined class 'StoreToken'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 61,
+   "col": 7,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 61,
+   "col": 14,
+   "error": "The name 'InputValue' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 61,
+   "col": 56,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 61,
+   "col": 63,
+   "error": "The name 'InputValue' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 62,
+   "col": 7,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "example/chat_app/lib/stores.dart",
+   "line": 62,
+   "col": 57,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "lib/src/store.dart",
+   "line": 17,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter_flux/src/action.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store.dart",
+   "line": 86,
+   "col": 24,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store.dart",
+   "line": 108,
+   "col": 7,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "lib/src/store_watcher.dart",
+   "line": 17,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:meta/meta.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "lib/src/store_watcher.dart",
+   "line": 18,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter/widgets.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "lib/src/store_watcher.dart",
+   "line": 19,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter_flux/src/store.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 22,
+   "col": 9,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 22,
+   "col": 48,
+   "error": "Undefined class 'ValueChanged'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 22,
+   "col": 61,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|EXTENDS_NON_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 25,
+   "col": 37,
+   "error": "Classes can only extend other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 25,
+   "col": 37,
+   "error": "Undefined class 'StatefulWidget'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 27,
+   "col": 18,
+   "error": "Undefined class 'Key'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_NAMED_PARAMETER",
+   "file": "lib/src/store_watcher.dart",
+   "line": 27,
+   "col": 37,
+   "error": "The named parameter 'key' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|INVALID_ANNOTATION",
+   "file": "lib/src/store_watcher.dart",
+   "line": 31,
+   "col": 3,
+   "error": "Annotation must be either a const variable reference or const constructor invocation."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 32,
+   "col": 3,
+   "error": "Undefined class 'Widget'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 32,
+   "col": 16,
+   "error": "Undefined class 'BuildContext'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 32,
+   "col": 54,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|INVALID_ANNOTATION",
+   "file": "lib/src/store_watcher.dart",
+   "line": 42,
+   "col": 3,
+   "error": "Annotation must be either a const variable reference or const constructor invocation."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "lib/src/store_watcher.dart",
+   "line": 46,
+   "col": 21,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|MIXIN_WITH_NON_CLASS_SUPERCLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 50,
+   "col": 33,
+   "error": "Mixin can only be applied to class."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 50,
+   "col": 33,
+   "error": "Undefined class 'State'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 58,
+   "col": 25,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 58,
+   "col": 60,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "lib/src/store_watcher.dart",
+   "line": 61,
+   "col": 8,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "lib/src/store_watcher.dart",
+   "line": 62,
+   "col": 5,
+   "error": "Undefined name 'config'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SUPER_METHOD",
+   "file": "lib/src/store_watcher.dart",
+   "line": 63,
+   "col": 11,
+   "error": "The method 'initState' isn't defined in a superclass of 'Object'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 73,
+   "col": 3,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 73,
+   "col": 42,
+   "error": "Undefined class 'ValueChanged'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 73,
+   "col": 55,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 74,
+   "col": 11,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 80,
+   "col": 3,
+   "error": "Undefined class 'Widget'."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "lib/src/store_watcher.dart",
+   "line": 80,
+   "col": 10,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 80,
+   "col": 16,
+   "error": "Undefined class 'BuildContext'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "lib/src/store_watcher.dart",
+   "line": 81,
+   "col": 12,
+   "error": "Undefined name 'config'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|IMPLEMENTS_NON_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 88,
+   "col": 45,
+   "error": "Classes can only implement other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 88,
+   "col": 45,
+   "error": "Undefined class 'State'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 89,
+   "col": 13,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 89,
+   "col": 39,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 89,
+   "col": 71,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 89,
+   "col": 97,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|INVALID_ANNOTATION",
+   "file": "lib/src/store_watcher.dart",
+   "line": 95,
+   "col": 3,
+   "error": "Annotation must be either a const variable reference or const constructor invocation."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 96,
+   "col": 3,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 96,
+   "col": 42,
+   "error": "Undefined class 'ValueChanged'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 96,
+   "col": 55,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 97,
+   "col": 11,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|INVALID_ANNOTATION",
+   "file": "lib/src/store_watcher.dart",
+   "line": 103,
+   "col": 3,
+   "error": "Annotation must be either a const variable reference or const constructor invocation."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 104,
+   "col": 26,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "INFO|HINT|OVERRIDE_ON_NON_OVERRIDING_METHOD",
+   "file": "lib/src/store_watcher.dart",
+   "line": 111,
+   "col": 8,
+   "error": "Method doesn't override an inherited method."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 112,
+   "col": 39,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "lib/src/store_watcher.dart",
+   "line": 114,
+   "col": 35,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_SUPER_METHOD",
+   "file": "lib/src/store_watcher.dart",
+   "line": 117,
+   "col": 11,
+   "error": "The method 'dispose' isn't defined in a superclass of 'Object'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 120,
+   "col": 28,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "lib/src/store_watcher.dart",
+   "line": 124,
+   "col": 10,
+   "error": "Undefined name 'mounted'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "lib/src/store_watcher.dart",
+   "line": 126,
+   "col": 5,
+   "error": "The method 'setState' isn't defined for the class 'StoreWatcherMixin'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/src/store_watcher.dart",
+   "line": 144,
+   "col": 9,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|INVALID_ANNOTATION",
+   "file": "test/action_test.dart",
+   "line": 15,
+   "col": 1,
+   "error": "Annotation must be either a const variable reference or const constructor invocation."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "test/action_test.dart",
+   "line": 18,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter_flux/src/action.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "test/action_test.dart",
+   "line": 19,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:test/test.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 22,
+   "col": 3,
+   "error": "The function 'group' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 23,
+   "col": 5,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 25,
+   "col": 5,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 26,
+   "col": 20,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 29,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 30,
+   "col": 13,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 30,
+   "col": 40,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 31,
+   "col": 13,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 31,
+   "col": 41,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 32,
+   "col": 7,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 32,
+   "col": 34,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 33,
+   "col": 7,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 33,
+   "col": 35,
+   "error": "Undefined name 'isFalse'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 36,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 38,
+   "col": 13,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 38,
+   "col": 42,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 41,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 41,
+   "col": 25,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 49,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 52,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 52,
+   "col": 25,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 60,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 63,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 63,
+   "col": 25,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 71,
+   "col": 5,
+   "error": "The function 'group' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 72,
+   "col": 7,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 75,
+   "col": 15,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 75,
+   "col": 41,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 83,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 83,
+   "col": 35,
+   "error": "Undefined name 'isFalse'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 87,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 87,
+   "col": 35,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 90,
+   "col": 7,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 93,
+   "col": 15,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 93,
+   "col": 41,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 105,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 105,
+   "col": 33,
+   "error": "Undefined name 'isFalse'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 109,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 109,
+   "col": 33,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 110,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 110,
+   "col": 35,
+   "error": "Undefined name 'isFalse'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 114,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 114,
+   "col": 35,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 117,
+   "col": 7,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 118,
+   "col": 15,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 118,
+   "col": 41,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 127,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 127,
+   "col": 40,
+   "error": "Undefined name 'isFalse'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 130,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 130,
+   "col": 40,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 133,
+   "col": 7,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 134,
+   "col": 9,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 134,
+   "col": 34,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 136,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 136,
+   "col": 27,
+   "error": "Undefined name 'throwsUnimplementedError'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 140,
+   "col": 5,
+   "error": "The function 'group' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 141,
+   "col": 7,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 142,
+   "col": 9,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 142,
+   "col": 35,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 144,
+   "col": 9,
+   "error": "Undefined class 'ActionSubscription'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 147,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 147,
+   "col": 26,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 152,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 152,
+   "col": 26,
+   "error": "Undefined name 'isFalse'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 155,
+   "col": 7,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 156,
+   "col": 15,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 156,
+   "col": 41,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 161,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 161,
+   "col": 26,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 166,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/action_test.dart",
+   "line": 166,
+   "col": 26,
+   "error": "Undefined name 'isFalse'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 170,
+   "col": 5,
+   "error": "The function 'group' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/action_test.dart",
+   "line": 171,
+   "col": 7,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 175,
+   "col": 15,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 175,
+   "col": 50,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 190,
+   "col": 9,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/action_test.dart",
+   "line": 190,
+   "col": 35,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|INVALID_ANNOTATION",
+   "file": "test/store_test.dart",
+   "line": 15,
+   "col": 1,
+   "error": "Annotation must be either a const variable reference or const constructor invocation."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "test/store_test.dart",
+   "line": 18,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter_flux/src/action.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "test/store_test.dart",
+   "line": 19,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:flutter_flux/src/store.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "test/store_test.dart",
+   "line": 20,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:quiver/testing/async.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "test/store_test.dart",
+   "line": 21,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:rate_limit/rate_limit.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "test/store_test.dart",
+   "line": 22,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:test/test.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 25,
+   "col": 3,
+   "error": "The function 'group' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 26,
+   "col": 5,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 27,
+   "col": 5,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 29,
+   "col": 5,
+   "error": "The function 'setUp' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 30,
+   "col": 19,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 31,
+   "col": 20,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 34,
+   "col": 5,
+   "error": "The function 'tearDown' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 39,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 40,
+   "col": 20,
+   "error": "The function 'expectAsync' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 40,
+   "col": 33,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 41,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 41,
+   "col": 31,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 47,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 48,
+   "col": 11,
+   "error": "Undefined class 'FakeAsync'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 48,
+   "col": 28,
+   "error": "Undefined class 'FakeAsync'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 54,
+   "col": 21,
+   "error": "Undefined class 'Store.withTransformer'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 55,
+   "col": 17,
+   "error": "Undefined class 'Throttler'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|NON_TYPE_AS_TYPE_ARGUMENT",
+   "file": "test/store_test.dart",
+   "line": 55,
+   "col": 27,
+   "error": "The name 'Store' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 56,
+   "col": 23,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 66,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 66,
+   "col": 23,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 68,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 68,
+   "col": 23,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 71,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 71,
+   "col": 23,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 75,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 77,
+   "col": 20,
+   "error": "The function 'expectAsync' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 77,
+   "col": 33,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 78,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 78,
+   "col": 31,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 83,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 91,
+   "col": 20,
+   "error": "The function 'expectAsync' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 91,
+   "col": 33,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 92,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 92,
+   "col": 31,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 93,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/store_test.dart",
+   "line": 93,
+   "col": 30,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 98,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 107,
+   "col": 20,
+   "error": "The function 'expectAsync' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 107,
+   "col": 33,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 108,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 108,
+   "col": 31,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 109,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/store_test.dart",
+   "line": 109,
+   "col": 30,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 114,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 117,
+   "col": 11,
+   "error": "Undefined class 'FakeAsync'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 117,
+   "col": 28,
+   "error": "Undefined class 'FakeAsync'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 120,
+   "col": 23,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 121,
+   "col": 11,
+   "error": "The function 'fail' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 128,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 137,
+   "col": 20,
+   "error": "The function 'expectAsync' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 137,
+   "col": 33,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 138,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 138,
+   "col": 31,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 139,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/store_test.dart",
+   "line": 139,
+   "col": 28,
+   "error": "Undefined name 'isTrue'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 144,
+   "col": 5,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 147,
+   "col": 13,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 147,
+   "col": 39,
+   "error": "Undefined class 'Action'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 150,
+   "col": 20,
+   "error": "The function 'expectAsync' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/store_test.dart",
+   "line": 150,
+   "col": 33,
+   "error": "Undefined class 'Store'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 151,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 151,
+   "col": 31,
+   "error": "The function 'equals' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 152,
+   "col": 9,
+   "error": "The function 'expect' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "test/store_test.dart",
+   "line": 152,
+   "col": 25,
+   "error": "The function 'equals' isn't defined."
+  }
+ ],
+ "unformattedFiles": [
+  "lib/src/store_watcher.dart",
+  "test/store_test.dart"
+ ]
+}

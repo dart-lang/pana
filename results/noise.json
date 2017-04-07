@@ -204,10 +204,10 @@
   }
  ],
  "unformattedFiles": [
-  "test/noise_test.dart",
   "example/noise_example.dart",
   "lib/noise.dart",
+  "lib/src/octaves.dart",
   "lib/src/simplex.dart",
-  "lib/src/octaves.dart"
+  "test/noise_test.dart"
  ]
 }

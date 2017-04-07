@@ -60,18 +60,18 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/parse_test.dart",
-  "test/command_runner_test.dart",
-  "test/args_test.dart",
-  "test/trailing_options_test.dart",
-  "test/usage_test.dart",
-  "test/command_test.dart",
   "example/test_runner.dart",
   "lib/command_runner.dart",
   "lib/src/arg_parser.dart",
-  "lib/src/arg_results.dart",
   "lib/src/arg_parser_exception.dart",
+  "lib/src/arg_results.dart",
+  "lib/src/option.dart",
   "lib/src/parser.dart",
-  "lib/src/option.dart"
+  "test/args_test.dart",
+  "test/command_runner_test.dart",
+  "test/command_test.dart",
+  "test/parse_test.dart",
+  "test/trailing_options_test.dart",
+  "test/usage_test.dart"
  ]
 }

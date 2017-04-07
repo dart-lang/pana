@@ -205,17 +205,17 @@
   }
  ],
  "unformattedFiles": [
-  "test/authorisers/principal_whitelist_authoriser_test.dart",
-  "test/session/jwt/jwt_session_handler_test.dart",
-  "test/authenticators/username_password_auth_test.dart",
   "example/authorisation_example.dart",
   "example/example_with_jwt_session.dart",
-  "lib/src/context.dart",
+  "lib/src/authentication.dart",
   "lib/src/authentication_impl.dart",
   "lib/src/authorisation_builder.dart",
-  "lib/src/zone_context.dart",
-  "lib/src/session/jwt/jwt_session_handler.dart",
+  "lib/src/context.dart",
   "lib/src/session/jwt/jwt_session_auth.dart",
-  "lib/src/authentication.dart"
+  "lib/src/session/jwt/jwt_session_handler.dart",
+  "lib/src/zone_context.dart",
+  "test/authenticators/username_password_auth_test.dart",
+  "test/authorisers/principal_whitelist_authoriser_test.dart",
+  "test/session/jwt/jwt_session_handler_test.dart"
  ]
 }

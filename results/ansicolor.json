@@ -1,7 +1,7 @@
 {
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
- "packageName": "lorem",
- "packageVersion": "0.1.0",
+ "packageName": "ansicolor",
+ "packageVersion": "0.0.9",
  "pubSummary": {
   "packages": {
    "analyzer": "0.25.0+1",
@@ -49,22 +49,43 @@
    "unittest": "0.12.4+1"
   },
   "authors": [
-   "Andres Araujo <a.araujo.azua@gmail.com>"
+   "John Thomas McDole <codefu@google.com>"
   ],
-  "version": "0.1.0"
+  "version": "0.0.9"
  },
  "analyzerItems": [
   {
    "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "test/lorem_test.dart",
-   "line": 1,
+   "file": "test/ansicolor_test.dart",
+   "line": 3,
    "col": 1,
    "error": "'unittest' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/ansicolor_test.dart",
+   "line": 6,
+   "col": 30,
+   "error": "'SimpleConfiguration' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/ansicolor_test.dart",
+   "line": 7,
+   "col": 21,
+   "error": "'TestCase' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "test/ansicolor_test.dart",
+   "line": 14,
+   "col": 3,
+   "error": "Undefined name 'unittestConfiguration'."
   }
  ],
  "unformattedFiles": [
-  "lib/lorem.dart",
-  "lib/words.dart",
-  "test/lorem_test.dart"
+  "lib/ansicolor.dart",
+  "src/demo.dart",
+  "test/ansicolor_test.dart"
  ]
 }

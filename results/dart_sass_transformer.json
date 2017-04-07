@@ -112,16 +112,16 @@
   }
  ],
  "unformattedFiles": [
-  "test/sass_file_test.dart",
-  "test/integration_test.dart",
-  "test/inlined_sass_transformer_test.dart",
-  "test/transformer_test.dart",
   "lib/inlined_sass_transformer.dart",
-  "lib/transformer.dart",
   "lib/sass.dart",
-  "lib/src/inlined_sass_file.dart",
   "lib/src/base_sass_transformer.dart",
+  "lib/src/inlined_sass_file.dart",
+  "lib/src/sass_file.dart",
   "lib/src/transformer_options.dart",
-  "lib/src/sass_file.dart"
+  "lib/transformer.dart",
+  "test/inlined_sass_transformer_test.dart",
+  "test/integration_test.dart",
+  "test/sass_file_test.dart",
+  "test/transformer_test.dart"
  ]
 }

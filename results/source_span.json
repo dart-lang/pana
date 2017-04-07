@@ -60,15 +60,15 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/span_test.dart",
+  "lib/src/colors.dart",
+  "lib/src/file.dart",
+  "lib/src/location.dart",
+  "lib/src/location_mixin.dart",
+  "lib/src/span_mixin.dart",
+  "lib/src/span_with_context.dart",
+  "test/file_test.dart",
   "test/highlight_test.dart",
   "test/location_test.dart",
-  "test/file_test.dart",
-  "lib/src/location.dart",
-  "lib/src/span_mixin.dart",
-  "lib/src/colors.dart",
-  "lib/src/span_with_context.dart",
-  "lib/src/location_mixin.dart",
-  "lib/src/file.dart"
+  "test/span_test.dart"
  ]
 }

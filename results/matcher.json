@@ -110,19 +110,19 @@
   }
  ],
  "unformattedFiles": [
-  "test/pretty_print_test.dart",
-  "test/iterable_matchers_test.dart",
-  "test/numeric_matchers_test.dart",
-  "test/string_matchers_test.dart",
-  "test/operator_matchers_test.dart",
-  "test/escape_test.dart",
-  "test/mirror_matchers_test.dart",
-  "test/core_matchers_test.dart",
+  "lib/src/core_matchers.dart",
+  "lib/src/interfaces.dart",
   "lib/src/iterable_matchers.dart",
   "lib/src/numeric_matchers.dart",
-  "lib/src/string_matchers.dart",
   "lib/src/pretty_print.dart",
-  "lib/src/core_matchers.dart",
-  "lib/src/interfaces.dart"
+  "lib/src/string_matchers.dart",
+  "test/core_matchers_test.dart",
+  "test/escape_test.dart",
+  "test/iterable_matchers_test.dart",
+  "test/mirror_matchers_test.dart",
+  "test/numeric_matchers_test.dart",
+  "test/operator_matchers_test.dart",
+  "test/pretty_print_test.dart",
+  "test/string_matchers_test.dart"
  ]
 }

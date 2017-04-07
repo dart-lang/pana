@@ -122,20 +122,20 @@
   }
  ],
  "unformattedFiles": [
-  "test/question_test.dart",
-  "test/theme_test.dart",
-  "example/barista/barista_test.dart",
-  "example/barista/serve.dart",
-  "example/barista/coffee_order.dart",
   "example/barista/barista.dart",
-  "example/basic/basic_test.dart",
+  "example/barista/barista_test.dart",
+  "example/barista/coffee_order.dart",
+  "example/barista/serve.dart",
   "example/basic/basic.dart",
+  "example/basic/basic_test.dart",
   "lib/prompt.dart",
-  "lib/testing.dart",
   "lib/src/prompt.dart",
+  "lib/src/question.dart",
   "lib/src/stdio.dart",
-  "lib/src/util.dart",
   "lib/src/theme.dart",
-  "lib/src/question.dart"
+  "lib/src/util.dart",
+  "lib/testing.dart",
+  "test/question_test.dart",
+  "test/theme_test.dart"
  ]
 }

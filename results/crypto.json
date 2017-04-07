@@ -75,17 +75,17 @@
   }
  ],
  "unformattedFiles": [
-  "test/hmac_md5_test.dart",
-  "test/hmac_sha1_test.dart",
-  "test/sha256_test.dart",
-  "test/hmac_sha256_test.dart",
-  "test/sha1_test.dart",
+  "lib/src/digest.dart",
   "lib/src/digest_sink.dart",
-  "lib/src/sha256.dart",
   "lib/src/hash_sink.dart",
   "lib/src/md5.dart",
-  "lib/src/digest.dart",
   "lib/src/sha1.dart",
-  "lib/src/utils.dart"
+  "lib/src/sha256.dart",
+  "lib/src/utils.dart",
+  "test/hmac_md5_test.dart",
+  "test/hmac_sha1_test.dart",
+  "test/hmac_sha256_test.dart",
+  "test/sha1_test.dart",
+  "test/sha256_test.dart"
  ]
 }

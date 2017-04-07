@@ -60,12 +60,12 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/span_scanner_test.dart",
-  "test/string_scanner_test.dart",
-  "lib/src/relative_span_scanner.dart",
-  "lib/src/string_scanner.dart",
-  "lib/src/span_scanner.dart",
   "lib/src/eager_span_scanner.dart",
-  "lib/src/line_scanner.dart"
+  "lib/src/line_scanner.dart",
+  "lib/src/relative_span_scanner.dart",
+  "lib/src/span_scanner.dart",
+  "lib/src/string_scanner.dart",
+  "test/span_scanner_test.dart",
+  "test/string_scanner_test.dart"
  ]
 }

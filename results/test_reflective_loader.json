@@ -1,7 +1,7 @@
 {
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
- "packageName": "firebase",
- "packageVersion": "3.0.1",
+ "packageName": "test_reflective_loader",
+ "packageVersion": "0.1.0",
  "pubSummary": {
   "packages": {
    "analyzer": "0.29.10",
@@ -9,22 +9,18 @@
    "async": "1.13.2",
    "barback": "0.15.2+10",
    "boolean_selector": "1.0.2",
-   "browser": "0.10.0+2",
    "charcode": "1.1.1",
    "cli_util": "0.0.1+2",
    "collection": "1.14.0",
    "convert": "2.0.1",
    "crypto": "2.0.1",
    "csslib": "0.13.4",
-   "func": "0.1.1",
    "glob": "1.1.3",
-   "googleapis_auth": "0.2.3+6",
    "html": "0.13.1",
    "http": "0.11.3+13",
    "http_multi_server": "2.0.3",
    "http_parser": "3.1.1",
    "isolate": "1.0.0",
-   "js": "0.6.1",
    "logging": "0.11.3+1",
    "matcher": "0.12.0+2",
    "meta": "1.0.5",
@@ -59,47 +55,10 @@
    "analyzer": "0.30.0-alpha.1"
   },
   "authors": [
-   "Jana Moudra <jana.moudra@gmail.com>",
-   "Kevin Moore <kevmoo@google.com>"
+   "Dart Team <misc@dartlang.org>"
   ],
-  "version": "3.0.1"
+  "version": "0.1.0"
  },
- "analyzerItems": [
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "test/database_test.dart",
-   "line": 234,
-   "col": 71,
-   "error": "'throws' is deprecated and shouldn't be used."
-  },
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "test/database_test.dart",
-   "line": 260,
-   "col": 73,
-   "error": "'throws' is deprecated and shouldn't be used."
-  },
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "test/database_test.dart",
-   "line": 284,
-   "col": 13,
-   "error": "'throws' is deprecated and shouldn't be used."
-  },
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "test/database_test.dart",
-   "line": 443,
-   "col": 13,
-   "error": "'throws' is deprecated and shouldn't be used."
-  },
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "test/database_test.dart",
-   "line": 448,
-   "col": 13,
-   "error": "'throws' is deprecated and shouldn't be used."
-  }
- ],
+ "analyzerItems": [],
  "unformattedFiles": []
 }

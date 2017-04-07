@@ -63,14 +63,14 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/colors_test.dart",
   "lib/src/vector_math/matrix3.dart",
   "lib/src/vector_math/matrix4.dart",
-  "lib/src/vector_math/vector4.dart",
   "lib/src/vector_math/vector2.dart",
+  "lib/src/vector_math/vector4.dart",
   "lib/src/vector_math_64/matrix3.dart",
   "lib/src/vector_math_64/matrix4.dart",
+  "lib/src/vector_math_64/vector2.dart",
   "lib/src/vector_math_64/vector4.dart",
-  "lib/src/vector_math_64/vector2.dart"
+  "test/colors_test.dart"
  ]
 }

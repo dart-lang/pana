@@ -75,12 +75,12 @@
   }
  ],
  "unformattedFiles": [
-  "test/url_test.dart",
+  "benchmark/benchmark.dart",
   "lib/path.dart",
   "lib/src/context.dart",
   "lib/src/parsed_path.dart",
   "lib/src/style/windows.dart",
   "lib/src/utils.dart",
-  "benchmark/benchmark.dart"
+  "test/url_test.dart"
  ]
 }

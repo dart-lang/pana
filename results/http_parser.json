@@ -103,14 +103,14 @@
   }
  ],
  "unformattedFiles": [
-  "test/authentication_challenge_test.dart",
-  "test/chunked_coding_test.dart",
-  "test/media_type_test.dart",
-  "lib/src/scan.dart",
   "lib/src/authentication_challenge.dart",
   "lib/src/chunked_coding/decoder.dart",
-  "lib/src/media_type.dart",
   "lib/src/http_date.dart",
-  "lib/src/utils.dart"
+  "lib/src/media_type.dart",
+  "lib/src/scan.dart",
+  "lib/src/utils.dart",
+  "test/authentication_challenge_test.dart",
+  "test/chunked_coding_test.dart",
+  "test/media_type_test.dart"
  ]
 }

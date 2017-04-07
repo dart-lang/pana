@@ -18,8 +18,8 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/supports_color_test.dart",
+  "lib/src/supports_color.dart",
   "lib/supports_color.dart",
-  "lib/src/supports_color.dart"
+  "test/supports_color_test.dart"
  ]
 }

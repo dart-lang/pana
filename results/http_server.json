@@ -286,17 +286,17 @@
   }
  ],
  "unformattedFiles": [
-  "test/http_mock.dart",
-  "test/virtual_host_test.dart",
-  "test/virtual_directory_test.dart",
-  "test/http_multipart_test.dart",
-  "test/http_body_test.dart",
-  "test/utils.dart",
   "lib/src/http_body.dart",
-  "lib/src/virtual_host.dart",
-  "lib/src/http_multipart_form_data.dart",
   "lib/src/http_body_impl.dart",
+  "lib/src/http_multipart_form_data.dart",
+  "lib/src/http_multipart_form_data_impl.dart",
   "lib/src/virtual_directory.dart",
-  "lib/src/http_multipart_form_data_impl.dart"
+  "lib/src/virtual_host.dart",
+  "test/http_body_test.dart",
+  "test/http_mock.dart",
+  "test/http_multipart_test.dart",
+  "test/utils.dart",
+  "test/virtual_directory_test.dart",
+  "test/virtual_host_test.dart"
  ]
 }

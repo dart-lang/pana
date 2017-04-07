@@ -68,13 +68,13 @@
   }
  ],
  "unformattedFiles": [
-  "test/package_config_info_test.dart",
-  "test/package_root_info_test.dart",
-  "test/no_package_info_test.dart",
-  "test/current_isolate_info_test.dart",
-  "lib/src/sync_package_resolver.dart",
   "lib/src/current_isolate_resolver.dart",
   "lib/src/package_config_resolver.dart",
-  "lib/src/utils.dart"
+  "lib/src/sync_package_resolver.dart",
+  "lib/src/utils.dart",
+  "test/current_isolate_info_test.dart",
+  "test/no_package_info_test.dart",
+  "test/package_config_info_test.dart",
+  "test/package_root_info_test.dart"
  ]
 }

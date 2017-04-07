@@ -103,16 +103,16 @@
   }
  ],
  "unformattedFiles": [
-  "test/html_test.dart",
-  "test/web_socket_test.dart",
-  "test/io_test.dart",
   "lib/html.dart",
   "lib/io.dart",
-  "lib/src/sink_completer.dart",
-  "lib/src/copy/web_socket_impl.dart",
-  "lib/src/copy/io_sink.dart",
+  "lib/src/channel.dart",
   "lib/src/copy/bytes_builder.dart",
+  "lib/src/copy/io_sink.dart",
+  "lib/src/copy/web_socket_impl.dart",
   "lib/src/exception.dart",
-  "lib/src/channel.dart"
+  "lib/src/sink_completer.dart",
+  "test/html_test.dart",
+  "test/io_test.dart",
+  "test/web_socket_test.dart"
  ]
 }

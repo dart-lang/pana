@@ -1,0 +1,151 @@
+{
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "dnd",
+ "packageVersion": "0.3.5",
+ "pubSummary": {
+  "packages": {
+   "browser": "0.10.0+2"
+  },
+  "availablePackages": {},
+  "authors": [
+   "Marco Jakob <majakob@gmx.ch>"
+  ],
+  "version": "0.3.5"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/basic/web/example.dart",
+   "line": 7,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/cancel/web/example.dart",
+   "line": 7,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/custom-acceptor/web/example.dart",
+   "line": 7,
+   "col": 13,
+   "error": "The value of the local variable 'draggableA' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/custom-acceptor/web/example.dart",
+   "line": 11,
+   "col": 13,
+   "error": "The value of the local variable 'draggableC' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/custom-acceptor/web/example.dart",
+   "line": 16,
+   "col": 12,
+   "error": "The value of the local variable 'dropzone1' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/custom-acceptor/web/example.dart",
+   "line": 19,
+   "col": 12,
+   "error": "The value of the local variable 'dropzone2' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/custom-acceptor/web/example.dart",
+   "line": 24,
+   "col": 12,
+   "error": "The value of the local variable 'dropzone3' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/free-dragging/web/example.dart",
+   "line": 8,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/handle/web/example.dart",
+   "line": 7,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/horizontal-only/web/example.dart",
+   "line": 9,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/nested-elements/web/example.dart",
+   "line": 8,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "example/simple-sortable/web/example.dart",
+   "line": 8,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_FIELD",
+   "file": "lib/src/dropzone.dart",
+   "line": 89,
+   "col": 8,
+   "error": "The value of the field '_childOfCurrentOverElementEntered' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/parent-offset/example.dart",
+   "line": 7,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/scroll-offset/example.dart",
+   "line": 7,
+   "col": 13,
+   "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/scroll-offset/example.dart",
+   "line": 11,
+   "col": 12,
+   "error": "The value of the local variable 'dropzone' isn't used."
+  }
+ ],
+ "unformattedFiles": [
+  "example/basic/web/example.dart",
+  "example/cancel/web/example.dart",
+  "example/custom-acceptor/web/example.dart",
+  "example/custom-avatar/web/example.dart",
+  "example/detection-only/web/example.dart",
+  "example/free-dragging/web/example.dart",
+  "example/handle/web/example.dart",
+  "example/horizontal-only/web/example.dart",
+  "example/nested-dropzones/web/example.dart",
+  "example/nested-elements/web/example.dart",
+  "example/simple-sortable/web/example.dart",
+  "lib/dnd.dart",
+  "lib/src/draggable.dart",
+  "lib/src/draggable_avatar.dart",
+  "lib/src/draggable_dispatch.dart",
+  "lib/src/draggable_manager.dart",
+  "lib/src/dropzone.dart",
+  "lib/src/dropzone_acceptor.dart",
+  "test/parent-offset/example.dart",
+  "test/scroll-offset/example.dart"
+ ]
+}

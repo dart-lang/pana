@@ -75,18 +75,18 @@
   }
  ],
  "unformattedFiles": [
-  "test/trace_test.dart",
-  "test/chain/vm_test.dart",
-  "test/chain/dart2js_test.dart",
-  "test/chain/chain_test.dart",
-  "test/chain/utils.dart",
-  "test/frame_test.dart",
-  "test/utils.dart",
-  "lib/src/unparsed_frame.dart",
-  "lib/src/frame.dart",
   "lib/src/chain.dart",
+  "lib/src/frame.dart",
   "lib/src/lazy_trace.dart",
   "lib/src/stack_zone_specification.dart",
-  "lib/src/trace.dart"
+  "lib/src/trace.dart",
+  "lib/src/unparsed_frame.dart",
+  "test/chain/chain_test.dart",
+  "test/chain/dart2js_test.dart",
+  "test/chain/utils.dart",
+  "test/chain/vm_test.dart",
+  "test/frame_test.dart",
+  "test/trace_test.dart",
+  "test/utils.dart"
  ]
 }

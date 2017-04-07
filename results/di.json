@@ -1,0 +1,1058 @@
+{
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "di",
+ "packageVersion": "3.3.10",
+ "pubSummary": {
+  "packages": {
+   "analyzer": "0.27.2",
+   "args": "0.13.7",
+   "async": "1.13.2",
+   "barback": "0.15.2+10",
+   "benchmark_harness": "1.0.4",
+   "boolean_selector": "1.0.2",
+   "browser": "0.10.0+2",
+   "charcode": "1.1.1",
+   "cli_util": "0.0.1+2",
+   "code_transformers": "0.3.1",
+   "collection": "1.14.0",
+   "convert": "2.0.1",
+   "crypto": "2.0.1",
+   "csslib": "0.13.4",
+   "glob": "1.1.3",
+   "guinness2": "0.0.5",
+   "html": "0.12.2+2",
+   "http": "0.11.3+13",
+   "http_multi_server": "2.0.3",
+   "http_parser": "3.1.1",
+   "logging": "0.11.3+1",
+   "matcher": "0.12.0+2",
+   "meta": "1.0.5",
+   "mime": "0.9.3",
+   "package_config": "0.1.5",
+   "package_resolver": "1.0.2",
+   "path": "1.4.1",
+   "plugin": "0.1.0",
+   "pool": "1.3.0",
+   "pub_semver": "1.3.2",
+   "shelf": "0.6.7+2",
+   "shelf_packages_handler": "1.0.0",
+   "shelf_static": "0.2.4",
+   "shelf_web_socket": "0.2.1",
+   "source_map_stack_trace": "1.1.4",
+   "source_maps": "0.10.4",
+   "source_span": "1.3.1",
+   "stack_trace": "1.7.3",
+   "stream_channel": "1.6.1",
+   "string_scanner": "1.0.1",
+   "term_glyph": "1.0.0",
+   "test": "0.12.20+9",
+   "typed_data": "1.1.3",
+   "utf": "0.9.0+3",
+   "watcher": "0.9.7+3",
+   "web_socket_channel": "1.0.4",
+   "when": "0.2.0",
+   "which": "0.1.3",
+   "yaml": "2.1.12"
+  },
+  "availablePackages": {
+   "analyzer": "0.29.10",
+   "code_transformers": "0.5.1",
+   "html": "0.13.1",
+   "package_config": "1.0.0",
+   "plugin": "0.2.0"
+  },
+  "authors": [
+   "Vojta Jina <vojta.jina@gmail.com>",
+   "Pavel Jbanov <pavelgj@gmail.com>",
+   "Anting Shen <shenantingtt@gmail.com>",
+   "Misko Hevery <misko@hevery.com>",
+   "Victor Berchet <victor@suumit.com>"
+  ],
+  "version": "3.3.10"
+ },
+ "analyzerItems": [
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "benchmark/dynamic_injector_benchmark.dart",
+   "line": 1,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "benchmark/injector_benchmark_common.dart",
+   "line": 116,
+   "col": 9,
+   "error": "The type of 'typeFactories' can't be inferred because the parameter 'a1' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "benchmark/injector_benchmark_common.dart",
+   "line": 116,
+   "col": 13,
+   "error": "The type of 'typeFactories' can't be inferred because the parameter 'a2' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "benchmark/injector_benchmark_common.dart",
+   "line": 117,
+   "col": 9,
+   "error": "The type of 'typeFactories' can't be inferred because the parameter 'a1' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "benchmark/injector_benchmark_common.dart",
+   "line": 117,
+   "col": 13,
+   "error": "The type of 'typeFactories' can't be inferred because the parameter 'a2' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "benchmark/injector_benchmark_common.dart",
+   "line": 123,
+   "col": 9,
+   "error": "The type of 'typeFactories' can't be inferred because the parameter 'a1' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "benchmark/injector_benchmark_common.dart",
+   "line": 123,
+   "col": 13,
+   "error": "The type of 'typeFactories' can't be inferred because the parameter 'a2' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "benchmark/injector_benchmark_common.dart",
+   "line": 124,
+   "col": 9,
+   "error": "The type of 'typeFactories' can't be inferred because the parameter 'a1' does not have an explicit type."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "benchmark/injector_create_child_benchmark.dart",
+   "line": 1,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:di/static_injector.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "benchmark/injector_create_child_benchmark.dart",
+   "line": 8,
+   "col": 3,
+   "error": "Undefined class 'StaticInjector'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "benchmark/injector_create_child_benchmark.dart",
+   "line": 13,
+   "col": 19,
+   "error": "Undefined class 'Module'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_METHOD",
+   "file": "benchmark/injector_create_child_benchmark.dart",
+   "line": 28,
+   "col": 16,
+   "error": "The method 'injectorFactory' isn't defined for the class 'CreateChildBenchmark'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "benchmark/injector_create_child_benchmark.dart",
+   "line": 45,
+   "col": 18,
+   "error": "Undefined class 'StaticInjector'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'generated_files/factories.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 21,
+   "col": 19,
+   "error": "Undefined name 'key999'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 22,
+   "col": 19,
+   "error": "Undefined name 'key998'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 23,
+   "col": 19,
+   "error": "Undefined name 'key997'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 24,
+   "col": 19,
+   "error": "Undefined name 'key996'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 25,
+   "col": 19,
+   "error": "Undefined name 'key995'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 36,
+   "col": 21,
+   "error": "Undefined name 'allKeys'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 54,
+   "col": 27,
+   "error": "Undefined name 'key999'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 67,
+   "col": 57,
+   "error": "Undefined name 'typeFactories'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
+   "file": "benchmark/large_benchmark.dart",
+   "line": 67,
+   "col": 72,
+   "error": "Undefined name 'parameterKeys'."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/module_benchmark.dart",
+   "line": 17,
+   "col": 9,
+   "error": "The value of the local variable 'm' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 6,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 23,
+   "col": 9,
+   "error": "The value of the local variable 'a' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 24,
+   "col": 9,
+   "error": "The value of the local variable 'b' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 26,
+   "col": 9,
+   "error": "The value of the local variable 'c' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 27,
+   "col": 9,
+   "error": "The value of the local variable 'd' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 40,
+   "col": 14,
+   "error": "The value of the local variable 'injector' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 47,
+   "col": 9,
+   "error": "The value of the local variable 'a' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 48,
+   "col": 9,
+   "error": "The value of the local variable 'b' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 50,
+   "col": 9,
+   "error": "The value of the local variable 'c' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 51,
+   "col": 9,
+   "error": "The value of the local variable 'd' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 61,
+   "col": 9,
+   "error": "The value of the local variable 'childInjector' isn't used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 61,
+   "col": 34,
+   "error": "'createChild' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 68,
+   "col": 9,
+   "error": "The value of the local variable 'a' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 69,
+   "col": 9,
+   "error": "The value of the local variable 'b' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 71,
+   "col": 9,
+   "error": "The value of the local variable 'c' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 72,
+   "col": 9,
+   "error": "The value of the local variable 'd' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "benchmark/static_injector_baseline_benchmark.dart",
+   "line": 94,
+   "col": 7,
+   "error": "The value of the local variable 'oldTypeFactories' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "benchmark/static_injector_benchmark.dart",
+   "line": 1,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "test/main.dart",
+   "line": 28,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'type_factories_gen.dart'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 55,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 60,
+   "col": 30,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 66,
+   "col": 32,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 75,
+   "col": 30,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 80,
+   "col": 34,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 86,
+   "col": 3,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 101,
+   "col": 3,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_FIELD",
+   "file": "test/main.dart",
+   "line": 197,
+   "col": 38,
+   "error": "The value of the field '_p' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_FIELD",
+   "file": "test/main.dart",
+   "line": 203,
+   "col": 27,
+   "error": "The value of the field '_p' isn't used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 271,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 271,
+   "col": 50,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 277,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 277,
+   "col": 50,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 283,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 283,
+   "col": 50,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 289,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 301,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 307,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 382,
+   "col": 42,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 384,
+   "col": 35,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 386,
+   "col": 41,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 392,
+   "col": 18,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 393,
+   "col": 36,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 395,
+   "col": 48,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 403,
+   "col": 18,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 404,
+   "col": 36,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 406,
+   "col": 48,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 415,
+   "col": 19,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 418,
+   "col": 22,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 435,
+   "col": 22,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 447,
+   "col": 18,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/main.dart",
+   "line": 482,
+   "col": 13,
+   "error": "The value of the local variable 'wrongInstance' isn't used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 483,
+   "col": 10,
+   "error": "'toThrow' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 547,
+   "col": 42,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 553,
+   "col": 35,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 559,
+   "col": 64,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 560,
+   "col": 32,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 561,
+   "col": 33,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 568,
+   "col": 18,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 572,
+   "col": 38,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 581,
+   "col": 18,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 584,
+   "col": 41,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 594,
+   "col": 20,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 596,
+   "col": 42,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 599,
+   "col": 33,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 600,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 610,
+   "col": 29,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 612,
+   "col": 42,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/main.dart",
+   "line": 616,
+   "col": 13,
+   "error": "The value of the local variable 'engine' isn't used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 616,
+   "col": 35,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_CATCH_CLAUSE",
+   "file": "test/main.dart",
+   "line": 617,
+   "col": 43,
+   "error": "The exception variable 'e' isn't used, so the 'catch' clause can be removed."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 624,
+   "col": 42,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 629,
+   "col": 35,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 636,
+   "col": 19,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 639,
+   "col": 35,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 646,
+   "col": 18,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 647,
+   "col": 35,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 649,
+   "col": 25,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_CATCH_STACK",
+   "file": "test/main.dart",
+   "line": 736,
+   "col": 19,
+   "error": "The stack trace variable 's' isn't used and can be removed."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 775,
+   "col": 42,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 777,
+   "col": 62,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 780,
+   "col": 38,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 781,
+   "col": 36,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 788,
+   "col": 62,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 791,
+   "col": 56,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 792,
+   "col": 55,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 798,
+   "col": 73,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 803,
+   "col": 38,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 804,
+   "col": 36,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 811,
+   "col": 42,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 813,
+   "col": 73,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 818,
+   "col": 38,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 819,
+   "col": 36,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 880,
+   "col": 28,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 890,
+   "col": 28,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 894,
+   "col": 28,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 894,
+   "col": 50,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 904,
+   "col": 32,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 904,
+   "col": 62,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 914,
+   "col": 47,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 919,
+   "col": 38,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 919,
+   "col": 68,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/main.dart",
+   "line": 920,
+   "col": 53,
+   "error": "'Engine' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test_assets/gen_test1/a.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test_assets/gen_test1/a.dart",
+   "line": 5,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test_assets/gen_test1/a2.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test_assets/gen_test1/b.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test_assets/gen_test1/b.dart",
+   "line": 5,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test_assets/gen_test1/b2.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test_assets/gen_test1/main.dart",
+   "line": 1,
+   "col": 8,
+   "error": "Unused import."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_IMPORT",
+   "file": "test_assets/gen_test1/main.dart",
+   "line": 4,
+   "col": 8,
+   "error": "Unused import."
+  }
+ ],
+ "unformattedFiles": [
+  "benchmark/dynamic_injector_benchmark.dart",
+  "benchmark/injector_benchmark_common.dart",
+  "benchmark/injector_create_child_benchmark.dart",
+  "benchmark/instance_benchmark.dart",
+  "benchmark/large_benchmark.dart",
+  "benchmark/module_benchmark.dart",
+  "benchmark/static_injector_baseline_benchmark.dart",
+  "benchmark/static_injector_benchmark.dart",
+  "lib/check_bind_args.dart",
+  "lib/dynamic_injector.dart",
+  "lib/generator.dart",
+  "lib/key.dart",
+  "lib/module_transformer.dart",
+  "lib/src/errors.dart",
+  "lib/src/injector.dart",
+  "lib/src/module.dart",
+  "lib/src/reflector.dart",
+  "lib/src/reflector_dynamic.dart",
+  "lib/src/reflector_null.dart",
+  "lib/src/reflector_static.dart",
+  "lib/transformer.dart",
+  "lib/transformer/injector_generator.dart",
+  "lib/transformer/options.dart",
+  "lib/type_literal.dart",
+  "scripts/class_gen.dart",
+  "scripts/reflector_dynamic_script.dart",
+  "test/main.dart",
+  "test/transformer_test.dart",
+  "test_assets/gen_test1/a.dart",
+  "test_assets/gen_test1/a2.dart",
+  "test_assets/gen_test1/annotations.dart",
+  "test_assets/gen_test1/b.dart",
+  "test_assets/gen_test1/b2.dart",
+  "test_assets/gen_test1/c.dart",
+  "test_assets/gen_test1/common1.dart",
+  "test_assets/gen_test1/common2.dart"
+ ]
+}

@@ -60,8 +60,8 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/web_socket_test.dart",
   "lib/shelf_web_socket.dart",
-  "lib/src/web_socket_handler.dart"
+  "lib/src/web_socket_handler.dart",
+  "test/web_socket_test.dart"
  ]
 }

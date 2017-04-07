@@ -554,10 +554,10 @@
   }
  ],
  "unformattedFiles": [
-  "test/io.dart",
-  "lib/src/runner/debugger.dart",
   "lib/src/runner/browser/browser_manager.dart",
+  "lib/src/runner/configuration/args.dart",
   "lib/src/runner/configuration/load.dart",
-  "lib/src/runner/configuration/args.dart"
+  "lib/src/runner/debugger.dart",
+  "test/io.dart"
  ]
 }

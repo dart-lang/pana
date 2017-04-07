@@ -261,9 +261,9 @@
   }
  ],
  "unformattedFiles": [
-  "test/collection/treeset_test.dart",
   "lib/src/collection/delegates/iterable.dart",
+  "lib/src/iterables/concat.dart",
   "lib/src/iterables/enumerate.dart",
-  "lib/src/iterables/concat.dart"
+  "test/collection/treeset_test.dart"
  ]
 }

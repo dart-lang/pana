@@ -1,0 +1,106 @@
+{
+ "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "packageName": "unittest",
+ "packageVersion": "0.12.4+1",
+ "pubSummary": {
+  "exitCode": 1,
+  "stdout": "MSG : Resolving dependencies...\n",
+  "stderr": "FINE: Pub 1.23.0-dev.11.6\nSLVR: Solving dependencies:\n    | - test >=0.12.4 <0.12.5 from hosted (test)\nIO  : Get versions from https://pub.dartlang.org/api/packages/test.\nFINE: HTTP GET https://pub.dartlang.org/api/packages/test\n    | Accept: application/vnd.pub.v2+json\n    | X-Pub-OS: linux\n    | X-Pub-Command: upgrade\n    | X-Pub-Session-ID: C203ED9B-5057-4A78-9DC2-DF47A169F6CC\n    | X-Pub-Environment: kevmoo.pkg_clean\n    | X-Pub-Reason: direct\n    | user-agent: Dart pub 1.23.0-dev.11.6\nFINE: HTTP response 200 OK for GET https://pub.dartlang.org/api/packages/test\n    | took 0:00:00.183574\n    | x-google-appengine-version: 20170331t104203\n    | transfer-encoding: chunked\n    | date: Fri, 07 Apr 2017 16:45:58 GMT\n    | x-google-backends: [fda3:e722:ac3:10:0:fa1b:af0:3]:8443,pfdd10:9884,/bns/pf/borg/pf/bns/cloud-gfe-prod-dedicated/cloud-layer2-gfe/2,phac38:9877\n    | x-google-gfe-response-code-details-trace: response_code_set_by_backend,response_code_set_by_backend\n    | content-type: application/json\n    | x-xss-protection: 1; mode=block\n    | x-google-service: cloud_475963186251_1161351608541620236_https,cloud-layer2-gfe-apphosting\n    | server: nginx\n    | x-google-gfe-request-trace: phac38:9877,pfdd10:9884,[fda3:e722:ac3:10:0:fa1b:af0:3]:8443,pfdd10:9884,phac38:9877\n    | x-google-gfe-service-trace: apphosting-frontend-l2,cloud_475963186251_1161351608541620236_https,shared-layer2-gfe-dasher,cloud-layer2-gfe-apphosting\n    | x-google-appengine-appid: s~dartlang-pub\n    | x-google-gslb-service: cloud_475963186251_1161351608541620236_https\n    | x-frame-options: SAMEORIGIN\n    | via: 1.1 google\n    | x-content-type-options: nosniff\n    | x-google-appengine-module: default\n    | x-google-dos-service-trace: cloud-l7:cloud_475963186251_1161351608541620236_https,main:apphosting\nSLVR: * start at root\nSLVR: | version 0.12.20+9 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.20+8 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.20+4 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.20+3 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.20+2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.20+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.20 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.19+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.19 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.18+2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.18+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.18 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.17+3 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.17+2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.17+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.17 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.16 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+12 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+11 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+10 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+9 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+8 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+7 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+6 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+5 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+4 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+3 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.15 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.14+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.14 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.13+5 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.13+4 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.13+3 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.13+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.13 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.12 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.11+2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.11+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.11 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.10+2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.10+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.10 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.9 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.8 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.7 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.6+2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.6+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.6 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.5+2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.5+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.5 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.3+9 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.3+8 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.3+7 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.3+1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.3 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.19-dev of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-rc.1 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-rc.0 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.10 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.9 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.8 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.7 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.6 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.5 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.4 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.3 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: | version 0.12.0-beta.2 of test doesn't match >=0.12.4 <0.12.5:\n    | |   unittest 0.12.4+1 (root) -> test >=0.12.4 <0.12.5 from hosted (test)\nSLVR: BacktrackingSolver took 0:00:00.356033 seconds.\n    | - Tried 1 solutions\n    | - Requested 1 version lists\n    | - Looked up 1 cached version lists\n    | \nFINE: Resolving dependencies finished (0.377s).\nERR : Package test has no versions that match >=0.12.4 <0.12.5 derived from:\n    | - unittest depends on version >=0.12.4 <0.12.5\nFINE: Exception type: NoVersionException\nFINE: package:pub/src/entrypoint.dart 192                                          Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                                      UpgradeCommand.run\n    | package:args/command_runner.dart 194                                         CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand.<fn>\n    | dart:async                                                                   Future.Future.sync\n    | package:pub/src/utils.dart 99                                                captureErrors.<fn>\n    | package:stack_trace                                                          Chain.capture\n    | package:pub/src/utils.dart 114                                               captureErrors\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand\n    | package:pub/src/command_runner.dart 117                                      PubCommandRunner.run\n    | /tmp/tmpyGNZop/dart-1.23.0-dev.11.6/dart/third_party/pkg/pub/bin/pub.dart 8  main\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   _Completer.completeError\n    | package:pub/src/entrypoint.dart 240                                          Entrypoint.acquireDependencies\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   _asyncThenWrapperHelper\n    | package:pub/src/entrypoint.dart 189                                          Entrypoint.acquireDependencies\n    | package:pub/src/command/upgrade.dart 41                                      UpgradeCommand.run\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:pub/src/command/upgrade.dart 40                                      UpgradeCommand.run\n    | package:args/command_runner.dart 194                                         CommandRunner.runCommand\n    | ===== asynchronous gap ===========================\n    | dart:async                                                                   Future.Future.microtask\n    | package:args/command_runner.dart 142                                         CommandRunner.runCommand\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand.<fn>\n    | dart:async                                                                   Future.Future.sync\n    | package:pub/src/utils.dart 99                                                captureErrors.<fn>\n    | package:stack_trace                                                          Chain.capture\n    | package:pub/src/utils.dart 114                                               captureErrors\n    | package:pub/src/command_runner.dart 168                                      PubCommandRunner.runCommand\n"
+ },
+ "analyzerItems": [
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "bin/unittest.dart",
+   "line": 5,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:test/src/executable.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "lib/html_config.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'src/deprecated/simple_configuration.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|EXTENDS_NON_CLASS",
+   "file": "lib/html_config.dart",
+   "line": 14,
+   "col": 33,
+   "error": "Classes can only extend other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/html_config.dart",
+   "line": 14,
+   "col": 33,
+   "error": "Undefined class 'SimpleConfiguration'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "lib/html_enhanced_config.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'src/deprecated/simple_configuration.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|EXTENDS_NON_CLASS",
+   "file": "lib/html_enhanced_config.dart",
+   "line": 14,
+   "col": 41,
+   "error": "Classes can only extend other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/html_enhanced_config.dart",
+   "line": 14,
+   "col": 41,
+   "error": "Undefined class 'SimpleConfiguration'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "lib/unittest.dart",
+   "line": 12,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'package:test/test.dart'."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "lib/unittest.dart",
+   "line": 62,
+   "col": 51,
+   "error": "The function 'test' isn't defined."
+  },
+  {
+   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
+   "file": "lib/unittest.dart",
+   "line": 68,
+   "col": 53,
+   "error": "The function 'group' isn't defined."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
+   "file": "lib/vm_config.dart",
+   "line": 8,
+   "col": 8,
+   "error": "Target of URI doesn't exist: 'src/deprecated/simple_configuration.dart'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|EXTENDS_NON_CLASS",
+   "file": "lib/vm_config.dart",
+   "line": 14,
+   "col": 31,
+   "error": "Classes can only extend other classes."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "lib/vm_config.dart",
+   "line": 14,
+   "col": 31,
+   "error": "Undefined class 'SimpleConfiguration'."
+  }
+ ],
+ "unformattedFiles": [
+  "bin/unittest.dart"
+ ]
+}

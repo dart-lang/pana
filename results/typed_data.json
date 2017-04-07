@@ -60,7 +60,7 @@
  },
  "analyzerItems": [],
  "unformattedFiles": [
-  "test/typed_buffers_test.dart",
-  "lib/typed_buffers.dart"
+  "lib/typed_buffers.dart",
+  "test/typed_buffers_test.dart"
  ]
 }
