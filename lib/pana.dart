@@ -70,7 +70,7 @@ List<String> filesNeedingFormat(String pkgPath) {
     return const [];
   }
 
-  var lines = LineSplitter.split(result.stdout).toList();
+  var lines = LineSplitter.split(result.stdout).toList()..sort();
 
   assert(lines.isNotEmpty);
 
