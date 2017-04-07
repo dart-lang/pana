@@ -99,11 +99,16 @@ main() async {
   }));
 }
 
+final _tempDirFind = new RegExp(r'/tmp/pana\.\d+\.[a-zA-Z0-9]+');
+
 _writeResult(String dockerName, String pkg, String output, bool isError) async {
   var dir = new Directory(dockerName);
   if (!dir.existsSync()) {
     dir.createSync(recursive: true);
   }
+
+  // cleanup random pana path fun
+  output = output.replaceAll(_tempDirFind, '/tmp/pana');
 
   var name = isError ? '$pkg.error.txt' : '$pkg.json';
   var file = new File(p.join(dockerName, name));
