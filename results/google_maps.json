@@ -2,6 +2,12 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "google_maps",
  "packageVersion": "3.2.0+2",
+ "dartFileCounts": {
+  "example": 116,
+  "lib": 264,
+  "test": 1,
+  "tool": 4
+ },
  "pubSummary": {
   "packages": {
    "analyzer": "0.29.10",

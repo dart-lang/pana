@@ -2,6 +2,12 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "aqueduct",
  "packageVersion": "2.0.2",
+ "dartFileCounts": {
+  "bin": 1,
+  "example": 12,
+  "lib": 93,
+  "test": 53
+ },
  "pubSummary": {
   "packages": {
    "analyzer": "0.29.10",

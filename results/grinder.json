@@ -2,6 +2,13 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "grinder",
  "packageVersion": "0.8.0+3",
+ "dartFileCounts": {
+  "bin": 2,
+  "example": 1,
+  "lib": 18,
+  "test": 15,
+  "tool": 1
+ },
  "pubSummary": {
   "packages": {
    "analyzer": "0.29.10",

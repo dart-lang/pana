@@ -2,6 +2,11 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "angular_test",
  "packageVersion": "1.0.0-beta+2",
+ "dartFileCounts": {
+  "bin": 1,
+  "lib": 14,
+  "test": 7
+ },
  "pubSummary": {
   "packages": {
    "analyzer": "0.29.10",

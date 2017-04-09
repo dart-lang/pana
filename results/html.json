@@ -2,6 +2,10 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "html",
  "packageVersion": "0.13.1",
+ "dartFileCounts": {
+  "lib": 15,
+  "test": 9
+ },
  "pubSummary": {
   "packages": {
    "args": "0.13.7",

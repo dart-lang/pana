@@ -2,6 +2,11 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "mustache",
  "packageVersion": "0.2.5+1",
+ "dartFileCounts": {
+  "example": 4,
+  "lib": 9,
+  "test": 4
+ },
  "pubSummary": {
   "packages": {
    "path": "1.4.1",

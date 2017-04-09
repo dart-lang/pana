@@ -2,6 +2,13 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "vector_math",
  "packageVersion": "2.0.4",
+ "dartFileCounts": {
+  "benchmark": 1,
+  "bin": 1,
+  "lib": 75,
+  "test": 27,
+  "tool": 1
+ },
  "pubSummary": {
   "packages": {
    "analyzer": "0.29.10",

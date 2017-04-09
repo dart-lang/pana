@@ -2,6 +2,11 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "dnd",
  "packageVersion": "0.3.5",
+ "dartFileCounts": {
+  "example": 11,
+  "lib": 7,
+  "test": 2
+ },
  "pubSummary": {
   "packages": {
    "browser": "0.10.0+2"

@@ -3,6 +3,7 @@
 [1;30mINFO       Using .package-cache: /tmp/pana[0m
 [1;30mINFO       Downloading package...[0m
 [1;30mINFO       Package at /tmp/pana/hosted/pub.dartlang.org/browser-0.10.0+2[0m
+[1;30mINFO       Counting files...[0m
 [1;30mINFO       Checking formatting...[0m
 [1;30mINFO       Pub upgrade...[0m
 [1;30mINFO       Running `pub upgrade`...[0m
@@ -15,13 +16,13 @@ Problem with pkg browser (null)
 Invalid argument(s): Provided content does not align with expectations.
 `No dart files found at: .`
 #0      AnalyzerOutput.parse (package:pana/src/analyzer_output.dart:45:7)
-#1      pkgAnalyze.<anonymous closure> (package:pana/pana.dart:89:36)
+#1      pkgAnalyze.<anonymous closure> (package:pana/pana.dart:113:36)
 #2      MappedIterator.moveNext (dart:_internal/iterable.dart:391)
 #3      WhereIterator.moveNext (dart:_internal/iterable.dart:437)
 #4      SplayTreeSet.SplayTreeSet.from (dart:collection/splay_tree.dart:722)
-#5      pkgAnalyze (package:pana/pana.dart:87:16)
+#5      pkgAnalyze (package:pana/pana.dart:111:16)
 <asynchronous suspension>
-#6      inspectPackage (package:pana/pana.dart:59:29)
+#6      inspectPackage (package:pana/pana.dart:83:29)
 <asynchronous suspension>
 #7      main (file:///app/bin/main.dart:50:17)
 <asynchronous suspension>

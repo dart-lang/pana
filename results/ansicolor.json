@@ -2,6 +2,11 @@
  "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
  "packageName": "ansicolor",
  "packageVersion": "0.0.9",
+ "dartFileCounts": {
+  "lib": 1,
+  "src": 1,
+  "test": 1
+ },
  "pubSummary": {
   "packages": {
    "analyzer": "0.25.0+1",
