@@ -6,6 +6,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'src/analyzer_output.dart';
@@ -48,6 +49,29 @@ Future<Summary> inspectPackage(String pkgName,
       await downloadPkg(pkgName, version: ver, pubCachePath: pubCachePath);
   log.info("Package at ${pkgDir.path}");
 
+  log.info('Counting files...');
+  var result = _handleErrors(
+      await Process.run('find', [pkgDir.path, '-name', '*.dart']));
+
+  var dartFileCount = new SplayTreeMap<String, int>();
+
+  for (var filePath in LineSplitter.split(result.stdout).map((path) {
+    assert(p.isWithin(pkgDir.path, path));
+
+    return p.relative(path, from: pkgDir.path);
+  })) {
+    var split = p.split(filePath);
+
+    String dirName;
+    if (split.length == 1) {
+      dirName = '!root!';
+    } else {
+      dirName = split.first;
+    }
+
+    dartFileCount[dirName] = 1 + dartFileCount.putIfAbsent(dirName, () => 0);
+  }
+
   log.info("Checking formatting...");
   var unformattedFiles = filesNeedingFormat(pkgDir.path);
 
@@ -58,8 +82,8 @@ Future<Summary> inspectPackage(String pkgName,
   log.info("Analyzing...");
   var analyzerItems = await pkgAnalyze(pkgDir.path);
 
-  return new Summary(sdkVersion, pkgName, pkgDir.version, summary,
-      analyzerItems, unformattedFiles);
+  return new Summary(sdkVersion, pkgName, pkgDir.version, dartFileCount,
+      summary, analyzerItems, unformattedFiles);
 }
 
 List<String> filesNeedingFormat(String pkgPath) {

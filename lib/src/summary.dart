@@ -15,9 +15,16 @@ class Summary {
   final PubSummary pubSummary;
   final Set<AnalyzerOutput> analyzerItems;
   final List<String> unformattedFiles;
+  final Map<String, int> dartFileCounts;
 
-  Summary(this.sdkVersion, this.packageName, this.packageVersion,
-      this.pubSummary, this.analyzerItems, this.unformattedFiles);
+  Summary(
+      this.sdkVersion,
+      this.packageName,
+      this.packageVersion,
+      this.dartFileCounts,
+      this.pubSummary,
+      this.analyzerItems,
+      this.unformattedFiles);
 
   factory Summary.fromJson(Map<String, dynamic> json) {
     var sdkVersion = json['sdkVersion'] as String;
@@ -30,8 +37,10 @@ class Summary {
         .map((e) => new AnalyzerOutput.fromJson(e))
         .toSet();
 
-    return new Summary(sdkVersion, packageName, packageVersion, pubSummary,
-        analyzerItems, unformattedFiles);
+    var dartFileCounts = json['dartFileCounts'] as Map<String, int>;
+
+    return new Summary(sdkVersion, packageName, packageVersion, dartFileCounts,
+        pubSummary, analyzerItems, unformattedFiles);
   }
 
   Set<String> get resultTypes =>
@@ -48,6 +57,7 @@ class Summary {
         'sdkVersion': sdkVersion,
         'packageName': packageName,
         'packageVersion': packageVersion.toString(),
+        'dartFileCounts': dartFileCounts,
         'pubSummary': pubSummary,
         'analyzerItems': analyzerItems.toList(growable: false),
         'unformattedFiles': unformattedFiles
