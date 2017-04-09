@@ -55,10 +55,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.13.2"
+  "pubspecContent": "name: async\nversion: 1.13.2\nauthor: Dart Team <misc@dartlang.org>\ndescription: Utility functions and classes related to the 'dart:async' library.\nhomepage: https://www.github.com/dart-lang/async\ndependencies:\n  collection: \"^1.5.0\"\ndev_dependencies:\n  fake_async: \"^0.1.2\"\n  stack_trace: \"^1.0.0\"\n  test: \"^0.12.0\"\nenvironment:\n  sdk: \">=1.22.0 <2.0.0\"\n"
  },
  "analyzerItems": [
   {

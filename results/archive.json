@@ -55,10 +55,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Brendan Duncan <brendanduncan@gmail.com>"
-  ],
-  "version": "1.0.28"
+  "pubspecContent": "name: archive\r\nversion: 1.0.28\r\nauthor: Brendan Duncan <brendanduncan@gmail.com>\r\ndescription: Provides encoders and decoders for various archive and compression formats such as zip, tar, bzip2, gzip, and zlib.\r\nhomepage: https://github.com/brendan-duncan/archive\r\nenvironment:\r\n  sdk: '>=1.0.0 <2.0.0'\r\ndocumentation: https://github.com/brendan-duncan/archive/wiki\r\ndependencies:\r\n  crypto: '>=0.9.2 <3.0.0'\r\ndev_dependencies:\r\n  browser: '<1.0.0'\r\n  test: '>=0.12.13 <1.0.0'\r\n"
  },
  "analyzerItems": [
   {

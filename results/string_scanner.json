@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.0.1"
+  "pubspecContent": "name: string_scanner\nversion: 1.0.1\nauthor: \"Dart Team <misc@dartlang.org>\"\nhomepage: https://github.com/dart-lang/string_scanner\ndescription: >\n  A class for parsing strings using a sequence of patterns.\ndependencies:\n  charcode: \"^1.1.0\"\n  source_span: \"^1.0.0\"\ndev_dependencies:\n  test: \">=0.12.0 <0.13.0\"\nenvironment:\n  sdk: \">=1.8.0 <2.0.0\"\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

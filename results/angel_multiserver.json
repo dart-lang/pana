@@ -85,10 +85,7 @@
    "quiver": "0.25.0",
    "vector_math": "2.0.4"
   },
-  "authors": [
-   "Tobe O <thosakwe@gmail.com>"
-  ],
-  "version": "1.0.9"
+  "pubspecContent": "name: angel_multiserver\ndescription: Framework-agnostic load balancer, as well as Angel-specific scaling support.\nenvironment:\n  sdk: \">=1.19.0\"\nversion: 1.0.9\nauthor: Tobe O <thosakwe@gmail.com>\nhomepage: https://github.com/angel-dart/angel_multiserver\ndependencies:\n  angel_framework: ^1.0.0-dev\n  angel_websocket: ^1.0.0\n  glob: ^1.0.0\n  memcached_client: ^0.5.3\n  mongo_dart: ^0.2.10\n  pool: ^1.3.0\n  random_string: ^0.0.1\n  redis_client: ^0.1.16\ndev_dependencies:\n  angel_compress: ^1.0.0\n  angel_diagnostics: ^1.0.0-dev\n  angel_errors: ^1.0.0-dev\n  angel_static: ^1.1.0\n  http: ^0.11.3\n  test: ^0.12.15\n"
  },
  "analyzerItems": [
   {

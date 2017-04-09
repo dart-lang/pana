@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.4.1"
+  "pubspecContent": "name: path\nversion: 1.4.1\nauthor: Dart Team <misc@dartlang.org>\ndescription: >\n A string-based path manipulation library. All of the path operations you know\n and love, with solid support on both Windows and POSIX (Linux and Mac OS X)\n machines.\nhomepage: http://github.com/dart-lang/path\ndev_dependencies:\n  test: \">=0.12.0 <0.13.0\"\nenvironment:\n  sdk: \">=1.0.0 <2.0.0\"\n"
  },
  "analyzerItems": [
   {

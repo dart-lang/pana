@@ -69,10 +69,7 @@
    "mockito": "2.0.2",
    "quiver": "0.25.0"
   },
-  "authors": [
-   "Anders Holmgren <andersmholmgren@gmail.com>"
-  ],
-  "version": "0.14.3"
+  "pubspecContent": "author: \"Anders Holmgren <andersmholmgren@gmail.com>\"\ndescription: \"Routing middleware for Shelf\"\nhomepage: \"https://bitbucket.org/andersmholmgren/shelf_route\"\nname: \"shelf_route\"\nversion: \"0.14.3\"\ndependencies: \n  matcher: \">=0.10.0 <0.13.0\"\n  option: \"^1.1.0\"\n  path: \">=1.1.0 <2.0.0\"\n  shelf: \"^0.6.0\"\n  shelf_path: \">=0.1.8 <0.1.9\"\n  uri: \"^0.11.0\"\ndev_dependencies: \n  mock: \">=0.11.0+1 <0.13.0\"\n  mockito: \">=0.11.0 <0.12.0\"\n  shelf_exception_handler: \"^0.1.0\"\n  test: \"^0.12.0\"\nenvironment: \n  sdk: \">=1.8.0 <2.0.0\"\n"
  },
  "analyzerItems": [
   {

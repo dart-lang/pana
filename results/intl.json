@@ -12,10 +12,7 @@
   "availablePackages": {
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.15.0"
+  "pubspecContent": "name: intl\nversion: 0.15.0\nauthor: Dart Team <misc@dartlang.org>\ndescription: Contains code to deal with internationalized/localized messages, date and number formatting and parsing, bi-directional text, and other internationalization issues.\nhomepage: https://github.com/dart-lang/intl\nenvironment:\n  sdk: '>=1.12.0 <2.0.0'\ndocumentation: http://www.dartdocs.org/documentation/intl/latest\ndependencies:\n  path: '>=0.9.0 <2.0.0'\ndev_dependencies:\n  fixnum: '>=0.9.0 <0.11.0'\n  unittest: '>=0.10.0 <0.12.0'\ntransformers:\n- $dart2js:\n    $exclude:\n    - test/date_time_format_file_even_test.dart\n    - test/date_time_format_file_odd_test.dart\n    - test/find_default_locale_standalone_test.dart\n"
  },
  "analyzerItems": [
   {

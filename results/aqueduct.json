@@ -59,10 +59,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "stable|kernel <http://stablekernel.com>"
-  ],
-  "version": "2.0.2"
+  "pubspecContent": "name: aqueduct\nversion: 2.0.2\ndescription: A fully featured server-side framework built for productivity and testability.\nauthor: stable|kernel <http://stablekernel.com>\nhomepage: https://github.com/stablekernel/aqueduct\ndocumentation:\n\nenvironment:\n  sdk: \">=1.20.0 <2.0.0\"\n\ndependencies:\n  safe_config: \">=1.1.0 <2.0.0\"\n  yaml: \">=2.1.9 <3.0.0\"\n  matcher: \">=0.12.0+2 <0.13.0\"\n  crypto: \"^2.0.0\"\n  logging: \">=0.11.3 <0.12.0\"\n  analyzer: \">=0.28.0 <0.30.0\"\n  postgres: \">=0.9.1 <1.0.0\"\n  args: \">=0.13.5 <1.0.0\"\n  stack_trace: \"^1.0.0\"\n\ndev_dependencies:\n  test: any\n  http: \">=0.11.3+7 <0.12.0\"\n  coverage: any\n\nexecutables:\n  aqueduct: aqueduct\n"
  },
  "analyzerItems": [
   {

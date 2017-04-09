@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.11.3+1"
+  "pubspecContent": "name: logging\nversion: 0.11.3+1\nauthor: Dart Team <misc@dartlang.org>\ndescription: >\n  Provides APIs for debugging and error logging. This library introduces\n  abstractions similar to those used in other languages, such as the Closure\n  JS Logger and java.util.logging.Logger.\nhomepage: https://github.com/dart-lang/logging\nenvironment:\n  sdk: '>=1.5.0 <2.0.0'\ndev_dependencies:\n  test: '>=0.12.0 <0.13.0'\n"
  },
  "analyzerItems": [
   {

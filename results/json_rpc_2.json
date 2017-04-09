@@ -54,10 +54,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "2.0.4"
+  "pubspecContent": "name: json_rpc_2\nversion: 2.0.4\nauthor: Dart Team <misc@dartlang.org>\ndescription: An implementation of the JSON-RPC 2.0 spec.\nhomepage: http://github.com/dart-lang/json_rpc_2\ndependencies:\n  stack_trace: '>=0.9.1 <2.0.0'\n  stream_channel: '^1.1.0'\ndev_dependencies:\n  test: \">=0.12.0 <0.13.0\"\nenvironment:\n  sdk: \">=1.8.0 <2.0.0\"\n"
  },
  "analyzerItems": [
   {

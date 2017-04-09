@@ -58,10 +58,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Daniel Davidson <dbdavidson@yahoo.com>"
-  ],
-  "version": "1.0.6"
+  "pubspecContent": "name: json_schema\nversion: 1.0.6\nauthor: Daniel Davidson <dbdavidson@yahoo.com>\nhomepage: https://github.com/patefacio/json_schema\ndescription: >\n  Provide support for validating instances against json schema\nenvironment:\n  sdk: '>=1.8.2 <2.0.0'\n\ndependencies:\n\n# custom <json_schema dependencies>\n\n  path: \"^1.3.0\"\n  logging: \">=0.9.3<0.12.0\"\n  args: \">=0.11.0 <0.14.0\"\n\n# end <json_schema dependencies>\n\ndev_dependencies:\n  browser: \"any\"\n\n# custom <json_schema dev dependencies>\n\n  test: \"^0.12.13\"\n  yaml: \"^2.1.0\"\n  coverage: \">=0.7.6\"\n\n# end <json_schema dev dependencies>\n\ndependency_overrides:\n# custom <json_schema dependency overrides>\n\n# end <json_schema dependency overrides>\n\ntransformers:\n\n# custom <json_schema transformers>\n# end <json_schema transformers>\n\n"
  },
  "analyzerItems": [
   {

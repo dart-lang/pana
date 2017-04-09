@@ -8,9 +8,9 @@
 [1;30mINFO       Running `pub upgrade`...[0m
 Problem with pkg sembast (null)
 Weird! – can't parse 'chrome_travis 0.1.3 from git git://github.com/tekartik/chrome_travis.dart at a4bb46'
-#0      PubSummary.create.<anonymous closure> (package:pana/src/summary.dart:96:11)
+#0      PubSummary.create.<anonymous closure> (package:pana/src/summary.dart:92:11)
 #1      MappedIterator.moveNext (dart:_internal/iterable.dart:391)
-#2      PubSummary.create (package:pana/src/summary.dart:89:25)
+#2      PubSummary.create (package:pana/src/summary.dart:85:25)
 #3      pubUpgrade (package:pana/pana.dart:114:21)
 <asynchronous suspension>
 #4      inspectPackage (package:pana/pana.dart:55:23)

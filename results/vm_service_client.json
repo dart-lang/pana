@@ -55,10 +55,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.2.3"
+  "pubspecContent": "name: vm_service_client\nversion: 0.2.3\ndescription: A client for the Dart VM service.\nauthor: Dart Team <misc@dartlang.org>\nhomepage: https://github.com/dart-lang/vm_service_client\n\nenvironment:\n  sdk: '>=1.16.0 <2.0.0'\n\ndependencies:\n  async: '^1.7.0'\n  collection: '^1.5.0'\n  json_rpc_2: '^2.0.0'\n  pub_semver: '^1.0.0'\n  source_span: '^1.2.0'\n  stack_trace: '^1.5.0'\n  stream_channel: '^1.1.0'\n  web_socket_channel: '^1.0.0'\n\ndev_dependencies:\n  test: '^0.12.0'\n"
  },
  "analyzerItems": [
   {

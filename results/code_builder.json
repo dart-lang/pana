@@ -56,10 +56,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.0.1"
+  "pubspecContent": "name: code_builder\nversion: 1.0.1\ndescription: A fluent API for generating Dart code\nauthor: Dart Team <misc@dartlang.org>\nhomepage: https://github.com/dart-lang/code_builder\n\nenvironment:\n  sdk: '>=1.22.0 <2.0.0'\n\ndependencies:\n  analyzer: '>=0.29.1 <0.30.0'\n  dart_style: '>=0.2.10 <2.0.0'\n  func: ^0.1.0\n  matcher: ^0.12.0+2\n  meta: ^1.0.2\n\ndev_dependencies:\n  test: ^0.12.0\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

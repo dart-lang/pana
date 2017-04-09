@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.14.0"
+  "pubspecContent": "name: collection\nversion: 1.14.0\nauthor: Dart Team <misc@dartlang.org>\ndescription: Collections and utilities functions and classes related to collections.\nhomepage: https://www.github.com/dart-lang/collection\nenvironment:\n  sdk: '>=1.21.0-dev.1.0 <2.0.0'\ndev_dependencies:\n  test: '^0.12.0'\n"
  },
  "analyzerItems": [
   {

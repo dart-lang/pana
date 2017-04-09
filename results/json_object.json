@@ -48,11 +48,7 @@
    "test": "0.12.20+9",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Chris Buckett <chrisbuckett@gmail.com>",
-   "Steven Roose <stevenroose@gmail.com>"
-  ],
-  "version": "1.0.19+1"
+  "pubspecContent": "name: json_object\nversion: 1.0.19+1\nauthors:\n - Chris Buckett <chrisbuckett@gmail.com>\n - Steven Roose <stevenroose@gmail.com>\ndescription: Allow use of JSON Maps in dot notation format\nhomepage: https://github.com/chrisbu/dartwatch-JsonObject\nenvironment:\n  sdk: '>=0.6.0+1.r24898'\ndev_dependencies:\n  unittest: '>=0.6.0+1'\n"
  },
  "analyzerItems": [
   {

@@ -12,10 +12,7 @@
   "availablePackages": {
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.9.6"
+  "pubspecContent": "name: http_server\nversion: 0.9.6\nauthor: Dart Team <misc@dartlang.org>\ndescription: Library of HTTP server classes.\nhomepage: https://www.github.com/dart-lang/http_server\nenvironment:\n  sdk: '>=1.15.0 <2.0.0'\ndependencies:\n  mime: '>=0.9.0 <0.10.0'\n  path: '>=0.9.0 <2.0.0'\ndev_dependencies:\n  unittest: '>=0.10.0 <0.12.0'\n"
  },
  "analyzerItems": [
   {

@@ -16,10 +16,7 @@
    "typed_data": "1.1.3"
   },
   "availablePackages": {},
-  "authors": [
-   "Michael Bullington <mikebullingtn@gmail.com>"
-  ],
-  "version": "1.3.0"
+  "pubspecContent": "name: node_preamble\nauthor: Michael Bullington <mikebullingtn@gmail.com>\nhomepage: https://github.com/mbullington/node_preamble.dart\nversion: 1.3.0\ndescription: Better node.js preamble for dart2js, use it in your build system.\n\ndev_dependencies:\n  http: '^0.11.0'\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

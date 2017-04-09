@@ -5,10 +5,7 @@
  "pubSummary": {
   "packages": {},
   "availablePackages": {},
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.1.1"
+  "pubspecContent": "name: charcode\nversion: 1.1.1\nauthor: Dart Team <misc@dartlang.org>\ndescription: >\n  Constants for ASCII and common non-ASCII character codes.\n\n  When working with characters in Dart, there is no simple way to\n  represent the code point of a character.\n  This library declares readable symbolic names for character codes.\nhomepage: https://github.com/dart-lang/charcode\nenvironment:\n  sdk: '>=1.0.0 <2.0.0'\n"
  },
  "analyzerItems": [],
  "unformattedFiles": []

@@ -80,10 +80,7 @@
    "quiver": "0.25.0",
    "vector_math": "2.0.4"
   },
-  "authors": [
-   "Tobe O <thosakwe@gmail.com>"
-  ],
-  "version": "1.0.0-beta"
+  "pubspecContent": "name: angel_common\nversion: 1.0.0-beta\ndescription: Master package to install the current Angel framework.\nhomepage: https://github.com/angel-dart/common\nauthor: Tobe O <thosakwe@gmail.com>\nenvironment:\n    sdk: \">=1.19.0\"\ndependencies:\n    angel_auth: \"^1.0.0-dev\"\n    angel_client: \"^1.0.0-dev\"\n    angel_compress: \"^1.0.0\"\n    angel_configuration: \"^1.0.0-dev\"\n    angel_cors: \"^1.0.0-dev\"\n    angel_diagnostics: \"^1.0.0-dev\"\n    angel_errors: \"^1.0.0-dev\"\n    angel_framework: \"^1.0.0-dev\"\n    angel_mongo: \"^1.0.0-dev\"\n    angel_mustache: \"^1.0.0-dev\"\n    angel_proxy: \"^1.0.0-dev\"\n    angel_static: \"^1.1.0-dev\"\n    angel_test: \"^1.0.0-dev\"\n    angel_validate: \"^1.0.0-beta\"\n"
  },
  "analyzerItems": [
   {

@@ -60,10 +60,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "3.0.1"
+  "pubspecContent": "# Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file\n# for details. All rights reserved. Use of this source code is governed by a\n# BSD-style license that can be found in the LICENSE file.\n\nname: usage\nversion: 3.0.1\ndescription: A Google Analytics wrapper for both command-line, web, and Flutter apps.\nhomepage: https://github.com/dart-lang/usage\nauthor: Dart Team <misc@dartlang.org>\n\nenvironment:\n  sdk: '>=1.19.0 <2.0.0'\n\ndependencies:\n  path: ^1.4.0\n\ndev_dependencies:\n  browser: ^0.10.0\n  grinder: ^0.8.0\n  test: ^0.12.0\n"
  },
  "analyzerItems": [],
  "unformattedFiles": []

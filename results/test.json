@@ -56,10 +56,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.12.20+9"
+  "pubspecContent": "name: test\nversion: 0.12.20+9\nauthor: Dart Team <misc@dartlang.org>\ndescription: A library for writing dart unit tests.\nhomepage: https://github.com/dart-lang/test\nenvironment:\n  sdk: '>=1.14.0 <2.0.0'\ndependencies:\n  analyzer: '>=0.23.0 <0.30.0'\n  args: '^0.13.1'\n  async: '^1.13.0'\n  barback: '>=0.14.0 <0.16.0'\n  boolean_selector: '^1.0.0'\n  collection: '^1.8.0'\n  glob: '^1.0.0'\n  http_multi_server: '>=1.0.0 <3.0.0'\n  meta: '^1.0.0'\n  package_resolver: '^1.0.0'\n  path: '^1.2.0'\n  pool: '^1.3.0'\n  pub_semver: '^1.0.0'\n  shelf: '>=0.6.5 <0.8.0'\n  shelf_packages_handler: '^1.0.0'\n  shelf_static: '^0.2.0'\n  shelf_web_socket: '^0.2.0'\n  source_map_stack_trace: '^1.1.4'\n  source_maps: '^0.10.2'\n  source_span: '^1.0.0'\n  stack_trace: '^1.2.1'\n  stream_channel: '^1.6.0'\n  string_scanner: '>=0.1.1 <2.0.0'\n  term_glyph: '^1.0.0'\n  web_socket_channel: '^1.0.0'\n  yaml: '^2.0.0'\n\n  # Use a tight version constraint to ensure that a constraint on matcher\n  # properly constrains all features it provides.\n  matcher: '>=0.12.0 <0.12.1'\ndev_dependencies:\n  fake_async: '^0.1.2'\n  http: '^0.11.0'\n  js: '^0.6.0'\n  scheduled_test: '^0.12.5'\n\ndependency_overrides:\n  scheduled_test: '^0.12.5'\n"
  },
  "analyzerItems": [
   {

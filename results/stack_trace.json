@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.7.3"
+  "pubspecContent": "name: stack_trace\n\n# Note! This version number is referenced directly in the pub source code in\n# lib/src/barback.dart. Pub implicitly places a version constraint on\n# stack_trace to ensure users only select a version of stack_trace that works\n# with their current version of pub.\n#\n# When the major version is upgraded, you *must* update that version constraint\n# in pub to stay in sync with this.\nversion: 1.7.3\nauthor: \"Dart Team <misc@dartlang.org>\"\nhomepage: https://github.com/dart-lang/stack_trace\ndescription: >\n  A package for manipulating stack traces and printing them readably.\n\ndependencies:\n  path: \"^1.2.0\"\n\ndev_dependencies:\n  test: \"^0.12.0\"\nenvironment:\n  sdk: \">=1.14.0 <2.0.0\"\n"
  },
  "analyzerItems": [
   {

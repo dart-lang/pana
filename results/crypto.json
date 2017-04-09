@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "2.0.1"
+  "pubspecContent": "name: crypto\nversion: 2.0.1\nauthor: Dart Team <misc@dartlang.org>\ndescription: Library of cryptographic functions.\nhomepage: https://www.github.com/dart-lang/crypto\nenvironment:\n  sdk: '>=1.16.0-dev.5.0 <2.0.0'\ndependencies:\n  collection: '^1.0.0'\n  convert: '>=1.0.0 <3.0.0'\ndev_dependencies:\n  test: '>=0.12.0 <0.13.0'\n"
  },
  "analyzerItems": [
   {

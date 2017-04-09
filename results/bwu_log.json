@@ -62,11 +62,7 @@
    "intl": "0.15.0",
    "isolate": "1.0.0"
   },
-  "authors": [
-   "Günter Zöchbauer <guenter@gzoechbauer.com>",
-   "Adam Bender <bendera@google.com>"
-  ],
-  "version": "0.1.2"
+  "pubspecContent": "name: bwu_log\nversion: 0.1.2\nauthors:\n  - Günter Zöchbauer <guenter@gzoechbauer.com>\n  - Adam Bender <bendera@google.com>\ndescription: A logging utility for Dart (fork of quiver-log)\nhomepage: https://github.com/bwu-dart/bwu_log\nenvironment:\n  sdk: '>=1.12.0 <2.0.0'\ndependencies:\n  intl: '^0.12.7'\n  logging: '^0.11.0'\n  path: '^1.1.0'\ndev_dependencies:\n  bwu_grinder_tasks: '^0.1.0-dev'\n  grinder: '^0.8.0+2'\n  mock: '^0.12.0'\n  test: '^0.12.0'\n"
  },
  "analyzerItems": [
   {

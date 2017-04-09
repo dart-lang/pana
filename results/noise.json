@@ -49,10 +49,7 @@
    "test": "0.12.20+9",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Andrew Magill <AMagill@gmail.com>"
-  ],
-  "version": "0.5.1"
+  "pubspecContent": "name: noise\nauthor: Andrew Magill <AMagill@gmail.com>\nversion: 0.5.1\nhomepage: https://github.com/AMagill/noise\ndescription: Noise algorithms.\ndev_dependencies:\n  browser: any\n  unittest: any\n"
  },
  "analyzerItems": [
   {

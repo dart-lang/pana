@@ -57,10 +57,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "stable|kernel <jobs@stablekernel.com>"
-  ],
-  "version": "0.9.5"
+  "pubspecContent": "name: postgres\ndescription: PostgreSQL database driver. Supports statement reuse and binary protocol.\nversion: 0.9.5\nauthor: stable|kernel <jobs@stablekernel.com>\nhomepage: https://github.com/stablekernel/postgresql-dart\ndocumentation:\n\nenvironment:\n  sdk: '>=1.19.0 <2.0.0'\n\ndependencies:\n  crypto: \"^2.0.0\"\n\ndev_dependencies:\n  test: '>=0.12.0 <0.13.0'\n  coverage: any\n"
  },
  "analyzerItems": [
   {

@@ -54,10 +54,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Yulian Kuncheff <yulian@kuncheff.com>"
-  ],
-  "version": "0.5.3"
+  "pubspecContent": "name: uuid\nversion: 0.5.3\ndescription: >\n  RFC4122(v1,v4,v5) UUID Generator and Parser.\nauthor: Yulian Kuncheff <yulian@kuncheff.com>\nhomepage: https://github.com/Daegalus/dart-uuid\nenvironment:\n  sdk: \">=1.0.0 <2.0.0\"\ndependencies:\n  crypto: \">=1.0.0 <3.0.0\"\n  convert: \">=1.0.0 <3.0.0\"\ndev_dependencies:\n  test: any\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

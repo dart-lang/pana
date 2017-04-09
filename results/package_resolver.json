@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.0.2"
+  "pubspecContent": "name: package_resolver\nversion: 1.0.2\ndescription: First-class package resolution strategy classes.\nauthor: Dart Team <misc@dartlang.org>\nhomepage: https://github.com/dart-lang/package_resolver\n\nenvironment:\n  sdk: '>=1.14.0 <2.0.0'\n\ndependencies:\n  collection: '^1.9.0'\n  http: '^0.11.0'\n  package_config: '>=0.1.0 <2.0.0'\n  path: '^1.0.0'\ndev_dependencies:\n  shelf: '^0.6.0'\n  test: '^0.12.0'\n"
  },
  "analyzerItems": [
   {

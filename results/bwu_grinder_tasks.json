@@ -60,10 +60,7 @@
    "analyzer": "0.30.0-alpha.1",
    "grinder": "0.8.0+3"
   },
-  "authors": [
-   "Günter Zöchbauer <guenter@gzoechbauer.com>"
-  ],
-  "version": "0.1.0"
+  "pubspecContent": "name: bwu_grinder_tasks\nversion: 0.1.0\ndescription: A collection of common grinder tasks to reuse in different projects.\nhomepage: https://github.com/bwu-dart/bwu_grinder_tasks\nauthor: Günter Zöchbauer <guenter@gzoechbauer.com>\nenvironment:\n  sdk: '>=1.9.0 <2.0.0'\n\ndependencies:\n  grinder: '>=0.7.1+3 <0.8.0'\n\ndev_dependencies:\n  test: '>=0.12.0 < 0.13.0'\n\ndependency_overrides:\n\n#transformers:\n#- test/pub_serve:\n#    $include: test/**_test{.*,}.dart\n\n"
  },
  "analyzerItems": [
   {

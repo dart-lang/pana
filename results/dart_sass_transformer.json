@@ -55,10 +55,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Juha Komulainen <juha.komulainen@evident.fi>"
-  ],
-  "version": "0.5.0+1"
+  "pubspecContent": "name: dart_sass_transformer\nversion: 0.5.0+1\ndescription: >\n  Sass-transformer for pub-serve and pub-build.\nauthor: Juha Komulainen <juha.komulainen@evident.fi>\nhomepage: https://github.com/dart-league/dart-sass\ndependencies:\n  barback: \">=0.15.0 <0.16.0\"\n  utf: \">=0.9.0 <0.9.1\"\ndev_dependencies:\n  test: \">=0.12.0 <0.13.0\"\n  mock: \">=0.11.0 <0.13.0\"\n"
  },
  "analyzerItems": [
   {

@@ -57,10 +57,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Bernhard Pichler <support@stagexl.org>"
-  ],
-  "version": "1.1.0+1"
+  "pubspecContent": "name: stagexl\r\nversion: 1.1.0+1\r\nauthor: Bernhard Pichler <support@stagexl.org>\r\ndescription: A fast and universal 2D rendering engine for HTML5 and Dart.\r\nhomepage: http://www.stagexl.org\r\nenvironment:\r\n  sdk: '>=1.21.0 <2.0.0'\r\ndocumentation: http://www.stagexl.org/docs/api/index.html\r\ndependencies:\r\n  xml: any\r\ndev_dependencies:\r\n  browser: any\r\n  test: any\r\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

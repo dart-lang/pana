@@ -54,11 +54,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dmitriy Fibulwinter <fibulwinter@gmail.com>",
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "2.0.2"
+  "pubspecContent": "name: mockito\nversion: 2.0.2\nauthors:\n  - Dmitriy Fibulwinter <fibulwinter@gmail.com>\n  - Dart Team <misc@dartlang.org>\ndescription: A mock framework inspired by Mockito.\nhomepage: https://github.com/dart-lang/mockito\nenvironment:\n  sdk: '>=1.21.0 <2.0.0'\ndependencies:\n  matcher: '^0.12.0'\n  meta: '^1.0.4'\n  test: '>=0.12.0 <0.13.0'\n"
  },
  "analyzerItems": [
   {

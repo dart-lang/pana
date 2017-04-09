@@ -16,10 +16,7 @@
    "stack_trace": "1.7.3",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Paul Brauner <polux@google.com>"
-  ],
-  "version": "0.5.1"
+  "pubspecContent": "name: propcheck\nversion: 0.5.1\nauthor: Paul Brauner <polux@google.com>\ndescription: A library for exhaustive and randomized testing of Dart properties\nhomepage: https://github.com/polux/propcheck\nenvironment:\n  sdk: '>=0.8.10+6 <2.0.0'\ndocumentation: http://www.dartdocs.org/documentation/propcheck/0.5.0/index.html#propcheck\ndependencies:\n  enumerators: '>=0.5.3 <0.6.0'\ndev_dependencies:\n  collection: '>=0.9.3 <0.10.0'\n  unittest: '>=0.9.0 <0.10.0'\n"
  },
  "analyzerItems": [
   {

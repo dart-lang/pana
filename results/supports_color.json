@@ -11,10 +11,7 @@
   "availablePackages": {
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Sean Eagan <seaneagan1@gmail.com>"
-  ],
-  "version": "0.1.1"
+  "pubspecContent": "name: supports_color\nversion: 0.1.1\nauthor: Sean Eagan <seaneagan1@gmail.com>\ndescription: Detect whether the current terminal supports color.  This is a dart port of the https://www.npmjs.org/package/supports-color.\nhomepage: https://github.com/seaneagan/supports_color\ndev_dependencies:\n  unittest: '>=0.11.0 <0.12.0'\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

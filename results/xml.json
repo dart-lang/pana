@@ -55,10 +55,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Lukas Renggli <renggli@gmail.com>"
-  ],
-  "version": "2.5.0"
+  "pubspecContent": "name: xml\nversion: 2.5.0\nauthor: Lukas Renggli <renggli@gmail.com>\ndescription: A lightweight library for parsing, traversing, querying and building XML documents.\nhomepage: https://github.com/renggli/dart-xml\nenvironment:\n  sdk: '>=1.21.0 <2.0.0'\ndependencies:\n  petitparser: ^1.5.0\ndev_dependencies:\n  test: ^0.12.0\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

@@ -49,10 +49,7 @@
    "test": "0.12.20+9",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Seth Ladd <sethladd@gmail.com>"
-  ],
-  "version": "0.9.0"
+  "pubspecContent": "name: lawndart\nversion: 0.9.0\nauthor: Seth Ladd <sethladd@gmail.com>\ndescription: An easier way to access storage APIs in the browser.\nhomepage: https://github.com/sethladd/lawndart\ndocumentation: http://sethladd.github.com/lawndart/\ndev_dependencies:\n  browser: any\n  unittest: any\n"
  },
  "analyzerItems": [
   {

@@ -48,10 +48,7 @@
    "test": "0.12.20+9",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "John Thomas McDole <codefu@google.com>"
-  ],
-  "version": "0.0.9"
+  "pubspecContent": "name: ansicolor\nversion: 0.0.9\nauthor: John Thomas McDole <codefu@google.com>\ndescription: An xterm 256 color support library\nhomepage: https://github.com/google/ansicolor-dart\ndev_dependencies:\n  unittest: \">=0.6.19\"\n"
  },
  "analyzerItems": [
   {

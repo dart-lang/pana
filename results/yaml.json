@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "2.1.12"
+  "pubspecContent": "name: yaml\nversion: 2.1.12\nauthor: \"Dart Team <misc@dartlang.org>\"\nhomepage: https://github.com/dart-lang/yaml\ndescription: A parser for YAML.\ndependencies:\n  charcode: \"^1.1.0\"\n  collection: \">=1.1.0 <2.0.0\"\n  string_scanner: \">=0.1.4 <2.0.0\"\n  source_span: \">=1.0.0 <2.0.0\"\ndev_dependencies:\n  path: \">=1.2.0 <2.0.0\"\n  test: \">=0.12.0 <0.13.0\"\nenvironment:\n  sdk: '>=1.12.0 <2.0.0'\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

@@ -61,21 +61,17 @@ class PubSummary {
   final int exitCode;
   final String stdout;
   final String stderr;
-  final Version pkgVersion;
   final String lockFileContent;
   final Map<String, Version> packageVersions;
   final Map<String, Version> availableVersions;
-  final List<String> authors;
+  final String pubspecContent;
+  final YamlMap _pubspecYaml;
 
-  PubSummary._(
-      this.exitCode,
-      this.stdout,
-      this.stderr,
-      this.packageVersions,
-      this.availableVersions,
-      this.pkgVersion,
-      this.lockFileContent,
-      this.authors);
+  PubSummary._(this.exitCode, this.stdout, this.stderr, this.packageVersions,
+      this.availableVersions, this.pubspecContent, this.lockFileContent)
+      : _pubspecYaml = (pubspecContent == null)
+            ? null
+            : loadYaml(pubspecContent) as YamlMap;
 
   static PubSummary create(
       int exitCode, String stdout, String stderr, String path) {
@@ -122,52 +118,48 @@ class PubSummary {
       }
     }
 
-    List<String> authors;
-    Version pubspecVersion;
-    if (pubspecContent != null) {
-      var yaml = loadYaml(pubspecContent) as YamlMap;
-      pubspecVersion = new Version.parse(yaml['version']);
-
-      authors = <String>[];
-
-      if (yaml['author'] != null) {
-        authors.add(yaml['author']);
-      } else if (yaml['authors'] != null) {
-        authors.addAll(yaml['authors'] as List<String>);
-      }
-    }
-
     return new PubSummary._(exitCode, stdout, stderr, pkgVersions,
-        availVersions, pubspecVersion, lockFileContent, authors);
+        availVersions, pubspecContent, lockFileContent);
   }
 
   factory PubSummary.fromJson(Map<String, dynamic> json) {
     if (json.containsKey('packages')) {
-      var packageVersion = new Version.parse(json['version']);
-
+      var pubspecContent = json['pubspecContent'];
       var packageVersions = _jsonMapToVersion(json['packages']);
       var availableVersions = _jsonMapToVersion(json['availablePackages']);
 
       return new PubSummary._(0, '', '', packageVersions, availableVersions,
-          packageVersion, '', json['authors']);
+          pubspecContent, '' // lock file content
+          );
     }
 
     return new PubSummary._(json['exitCode'], json['stdout'], json['stderr'],
-        null, null, null, null, null);
+        null, null, null, null);
   }
+
+  List<String> get authors {
+    List<String> authors;
+
+    authors = <String>[];
+
+    if (_pubspecYaml['author'] != null) {
+      authors.add(_pubspecYaml['author']);
+    } else if (_pubspecYaml['authors'] != null) {
+      authors.addAll(_pubspecYaml['authors'] as List<String>);
+    }
+
+    return authors;
+  }
+
+  Version get pkgVersion => new Version.parse(_pubspecYaml['version']);
 
   Map<String, dynamic> toJson() {
     if (exitCode == 0) {
       var map = <String, dynamic>{
         'packages': _versionMapToJson(packageVersions),
         'availablePackages': _versionMapToJson(availableVersions),
-        'authors': authors
+        'pubspecContent': pubspecContent
       };
-
-      var ver = pkgVersion;
-      if (ver != null) {
-        map['version'] = ver.toString();
-      }
 
       return map;
     } else {

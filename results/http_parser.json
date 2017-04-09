@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "3.1.1"
+  "pubspecContent": "name: http_parser\nversion: 3.1.1\nauthor: \"Dart Team <misc@dartlang.org>\"\nhomepage: https://github.com/dart-lang/http_parser\ndescription: >\n  A platform-independent package for parsing and serializing HTTP formats.\ndependencies:\n  charcode: \"^1.1.0\"\n  collection: \">=0.9.1 <2.0.0\"\n  source_span: \"^1.0.0\"\n  string_scanner: \">=0.0.0 <2.0.0\"\n  typed_data: \"^1.1.0\"\ndev_dependencies:\n  test: \"^0.12.0\"\nenvironment:\n  sdk: \">=1.8.0 <2.0.0\"\n"
  },
  "analyzerItems": [
   {

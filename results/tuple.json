@@ -55,11 +55,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Boris Kaul <localvoid@gmail.com>",
-   "Kwang Yul Seo <kwangyul.seo@gmail.com>"
-  ],
-  "version": "1.0.1"
+  "pubspecContent": "name: tuple\nversion: 1.0.1\nauthors:\n- Boris Kaul <localvoid@gmail.com>\n- Kwang Yul Seo <kwangyul.seo@gmail.com>\ndescription: Tuple data structure\nhomepage: https://github.com/kseo/tuple\nenvironment:\n  sdk: '>=1.6.0'\ndependencies:\n  quiver_hashcode: '>=1.0.0-dev.1 <1.1.0'\ndev_dependencies:\n  test: any\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

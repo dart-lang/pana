@@ -62,10 +62,7 @@
    "analyzer": "0.30.0-alpha.1",
    "html": "0.13.1"
   },
-  "authors": [
-   "Alexandre Ardhuin <alexandre.ardhuin@gmail.com>"
-  ],
-  "version": "3.2.0+2"
+  "pubspecContent": "name: google_maps\nversion: 3.2.0+2\nauthor: Alexandre Ardhuin <alexandre.ardhuin@gmail.com>\ndescription: With that package you will be able to use Google Maps JavaScript API from Dart scripts.\nhomepage: https://github.com/a14n/dart-google-maps\nenvironment:\n  sdk: '>=1.9.0 <2.0.0'\ndependencies:\n  func: ^0.1.0\n  js_wrapping: ^0.3.0\n  meta: ^1.0.3\ndev_dependencies:\n  browser: ^0.10.0\n  html: ^0.12.0\n  js_wrapping_generator: ^0.3.0\n  test: ^0.12.0\n#dependency_overrides:\n#  js_wrapping:\n#    path: ../dart-js-wrapping2/js_wrapping\n#  js_wrapping_generator:\n#    path: ../dart-js-wrapping2/js_wrapping_generator\n"
  },
  "analyzerItems": [
   {

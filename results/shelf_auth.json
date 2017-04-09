@@ -78,10 +78,7 @@
    "mockito": "2.0.2",
    "quiver": "0.25.0"
   },
-  "authors": [
-   "Anders Holmgren <andersmholmgren@gmail.com>"
-  ],
-  "version": "0.7.4"
+  "pubspecContent": "author: \"Anders Holmgren <andersmholmgren@gmail.com>\"\ndescription: \"A shelf handler for authentication and authorisation\"\nhomepage: \"https://bitbucket.org/andersmholmgren/shelf_auth\"\nname: \"shelf_auth\"\nversion: \"0.7.4\"\ndependencies: \n  dart_jwt: \"^0.5.2\"\n  http_exception: \"^0.1.0\"\n  matcher: \"^0.12.0\"\n  option: \"^1.1.0\"\n  shelf: \"^0.6.2\"\n  shelf_path: \"^0.1.8\"\n  uuid: \">=0.4.0 <0.6.0\"\ndev_dependencies: \n  mock: \">=0.11.0+1 <0.13.0\"\n  mockito: \">=0.11.0 <0.12.0\"\n  shelf_exception_handler: \">=0.1.0\"\n  shelf_route: \"^0.14.3\"\n  test: \"^0.12.0\"\nenvironment: \n  sdk: \">=1.16.0 <2.0.0\"\n"
  },
  "analyzerItems": [
   {

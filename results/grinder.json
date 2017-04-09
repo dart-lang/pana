@@ -58,11 +58,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Devon Carew <devoncarew@google.com>",
-   "Sean Eagan <seaneagan1@gmail.com>"
-  ],
-  "version": "0.8.0+3"
+  "pubspecContent": "name: grinder\n# This version must be updated in tandem with the lib/src/cli.dart version.\nversion: 0.8.0+3\ndescription: Dart workflows, automated.\n\nhomepage: https://github.com/google/grinder.dart\nauthors:\n- Devon Carew <devoncarew@google.com>\n- Sean Eagan <seaneagan1@gmail.com>\n\nenvironment:\n  sdk: '>=1.11.0 <2.0.0'\n\ndependencies:\n  ansicolor: '>=0.0.9 <0.1.0'\n  collection: '>=1.1.0 <2.0.0'\n  glob: '>=1.0.0 <2.0.0'\n  path: '>=1.0.0 <2.0.0'\n  unscripted: '>=0.6.1+1 <0.7.0'\n\ndev_dependencies:\n  test: '^0.12.0'\n\nexecutables:\n  grind: grinder\n"
  },
  "analyzerItems": [
   {

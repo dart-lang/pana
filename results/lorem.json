@@ -48,10 +48,7 @@
    "test": "0.12.20+9",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Andres Araujo <a.araujo.azua@gmail.com>"
-  ],
-  "version": "0.1.0"
+  "pubspecContent": "name: lorem\ndescription: Lorem ipsum text generator\nversion: 0.1.0\nauthor: Andres Araujo <a.araujo.azua@gmail.com>\nhomepage: https://github.com/andresaraujo/lorem-dart\n\ndev_dependencies:\n  unittest: any"
  },
  "analyzerItems": [
   {

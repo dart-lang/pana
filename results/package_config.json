@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.0.0"
+  "pubspecContent": "name: package_config\nversion: 1.0.0 \ndescription: Support for working with Package Resolution config files.\nauthor: Dart Team <misc@dartlang.org>\nhomepage: https://github.com/dart-lang/package_config\n\nenvironment:\n  sdk: '>=1.11.0-dev.0.0 <2.0.0'\n\ndependencies:\n  charcode: ^1.1.0\n  path: ^1.0.0\n\ndev_dependencies:\n  test: '>=0.12.0 <0.13.0'\n"
  },
  "analyzerItems": [
   {

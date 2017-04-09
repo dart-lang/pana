@@ -16,10 +16,7 @@
    "mock": "0.12.0",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Sean Eagan <seaneagan1@gmail.com>"
-  ],
-  "version": "0.1.7"
+  "pubspecContent": "name: prompt\nversion: 0.1.7\nauthor: Sean Eagan <seaneagan1@gmail.com>\ndescription: Command-line prompting that is easy to data-drive, customize, and test.\nhomepage: https://github.com/seaneagan/prompt\ndependencies:\n  ansicolor: '>=0.0.9 <0.1.0'\n  mock: '>=0.11.0 <0.12.0'\n  supports_color: '>=0.1.1 <0.2.0'\n  when: '>=0.2.0 <0.3.0'\ndev_dependencies:\n  unittest: '>=0.11.0 <0.12.0'\n"
  },
  "analyzerItems": [
   {

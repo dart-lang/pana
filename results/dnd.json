@@ -7,10 +7,7 @@
    "browser": "0.10.0+2"
   },
   "availablePackages": {},
-  "authors": [
-   "Marco Jakob <majakob@gmx.ch>"
-  ],
-  "version": "0.3.5"
+  "pubspecContent": "name: dnd\r\nversion: 0.3.5\r\nauthor: Marco Jakob <majakob@gmx.ch>\r\ndescription: Drag and Drop for Dart web apps with mouse and touch support.\r\nhomepage: http://code.makery.ch/library/dart-drag-and-drop/\r\ndocumentation: http://www.dartdocs.org/documentation/dnd/latest/\r\nenvironment:\r\n  sdk: '>=1.0.0 <2.0.0'\r\ndependencies:\r\n  browser: '>=0.10.0 <0.11.0'\r\n"
  },
  "analyzerItems": [
   {

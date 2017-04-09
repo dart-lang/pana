@@ -7,10 +7,7 @@
    "browser": "0.10.0+2"
   },
   "availablePackages": {},
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.6.1"
+  "pubspecContent": "name: js\nversion: 0.6.1\nauthors:\n- Dart Team <misc@dartlang.org>\ndescription: Access JavaScript from Dart.\nhomepage: https://github.com/dart-lang/sdk/tree/master/pkg/js\nenvironment:\n  sdk: '>=1.19.0-dev.0.0 <2.0.0'\ndev_dependencies:\n  browser: '^0.10.0+2'\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

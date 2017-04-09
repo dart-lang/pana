@@ -54,20 +54,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Justin Fagnani <justinfagnani@google.com>",
-   "Yegor Jbanov <yjbanov@google.com>",
-   "Chris Bracken <cbracken@google.com>",
-   "Alexandre Ardhuin <alexandre.ardhuin@gmail.com>",
-   "David Morgan <davidmorgan@google.com>",
-   "John McDole <codefu@google.com>",
-   "Matan Lurey <matanl@google.com>",
-   "Günter Zöchbauer <guenter@gzoechbauer.com>",
-   "Sean Eagan <seaneagan1@gmail.com>",
-   "Victor Berchet <victor@suumit.com>",
-   "Wil Pirino <willyp@google.com>"
-  ],
-  "version": "0.25.0"
+  "pubspecContent": "name: quiver\nversion: 0.25.0\nauthors:\n- Justin Fagnani <justinfagnani@google.com>\n- Yegor Jbanov <yjbanov@google.com>\n- Chris Bracken <cbracken@google.com>\n- Alexandre Ardhuin <alexandre.ardhuin@gmail.com>\n- David Morgan <davidmorgan@google.com>\n- John McDole <codefu@google.com>\n- Matan Lurey <matanl@google.com>\n- Günter Zöchbauer <guenter@gzoechbauer.com>\n- Sean Eagan <seaneagan1@gmail.com>\n- Victor Berchet <victor@suumit.com>\n- Wil Pirino <willyp@google.com>\ndescription: A set of utility libraries for Dart\nhomepage: https://github.com/google/quiver-dart\nenvironment:\n  sdk: '>=1.21.0 <2.0.0'\ndependencies:\n  matcher: '>=0.10.0 <0.13.0'\ndev_dependencies:\n  path: '>=1.0.0 <2.0.0'\n  test: '>=0.12.20 <=0.13.0'\n"
  },
  "analyzerItems": [
   {

@@ -78,10 +78,7 @@
    "quiver": "0.25.0",
    "source_gen": "0.5.4+3"
   },
-  "authors": [
-   "Dart Team <web@dartlang.org>"
-  ],
-  "version": "2.2.0"
+  "pubspecContent": "name: angular2\nversion: 2.2.0\nauthor: Dart Team <web@dartlang.org>\ndescription: Framework for modern web applications\nhomepage: 'https://angulardart.org'\ndocumentation: 'https://angular.io/docs/dart/latest/api/'\nenvironment:\n  sdk: '>=1.19.0 <2.0.0'\ndependencies:\n  analyzer: '>=0.27.0 <0.30.0'\n  barback: ^0.15.2+2\n  build: '>=0.3.0 <0.6.0'\n  dart_style: '>=0.1.8 <0.3.0'\n  glob: ^1.0.0\n  html: '>=0.12.0 <0.14.0'\n  intl: '>=0.13.0 <0.15.0'\n  logging: '>=0.9.0 <0.12.0'\n  observable: ^0.14.0+1\n  path: ^1.0.0\n  protobuf: ^0.5.1\n  source_span: ^1.0.0\n  stack_trace: ^1.6.5\n  js: ^0.6.0\ndev_dependencies:\n  args: ^0.13.6\n  build_test: ^0.2.0\n  code_builder: '1.0.0-alpha+5'\n  func: ^0.1.0\n  mockito: '>=0.11.0 <2.0.0'\n  source_gen: ^0.5.0\n  quiver: '>=0.21.4 <0.25.0'\n  test: ^0.12.6\n  transformer_test: ^0.2.0\ntransformers:\n  - test/pub_serve:\n      $include: test/**_test.dart\n  - angular2/transform/codegen\n  - angular2/transform/reflection_remover:\n      $include:\n          - test/testing/ng_test_bed_test.dart\n          - test/security/safe_inner_html_test.dart\n  - $dart2js:\n      commandLineOptions:\n        - '--show-package-warnings'\n"
  },
  "analyzerItems": [
   {

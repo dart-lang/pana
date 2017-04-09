@@ -61,10 +61,7 @@
    "observable": "0.20.4+1",
    "quiver": "0.25.0"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.2.2"
+  "pubspecContent": "name: angular2_components\nversion: 0.2.2\ndescription: >\n  The official Material Design components for AngularDart. Used at Google\n  in production apps.\nhomepage: https://github.com/dart-lang/angular2_components\nauthor: Dart Team <misc@dartlang.org>\nenvironment:\n  sdk: '>=1.20.0 <2.0.0'\ndependencies:\n  angular2: '>=2.2.0 <2.3.0'\n  intl: ^0.14.0\n  js: ^0.6.1\n  observable: ^0.14.0+1\n  perf_api: ^0.1.0\n  quiver: '>=0.22.0 <0.25.0'\n  uuid: ^0.5.3\ntransformers:\n- angular2:\n    resolved_identifiers:\n      Document: 'dart:html'\n      Observable: 'package:observable/observable.dart'\n      Profiler: 'package:perf_api/perf_api.dart'\n      Window: 'dart:html'\n"
  },
  "analyzerItems": [
   {

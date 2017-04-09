@@ -56,10 +56,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "David Morgan <davidmorgan@google.com>"
-  ],
-  "version": "1.0.1"
+  "pubspecContent": "name: built_value\nversion: 1.0.1\ndescription: >\n  Value types with builders, Dart classes as enums, and serialization.\n  This library is the runtime dependency.\nauthors:\n- David Morgan <davidmorgan@google.com>\nhomepage: https://github.com/google/built_value.dart\n\nenvironment:\n  sdk: '>=1.8.0 <2.0.0'\n\ndependencies:\n  built_collection: ^1.0.0\n  collection: ^1.0.0\n  quiver: '>=0.21.0 <0.26.0'\n\ndev_dependencies:\n  test: any\n"
  },
  "analyzerItems": [
   {

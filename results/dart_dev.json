@@ -81,15 +81,7 @@
    "sass": "1.0.0-alpha.9",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Workiva Client Platform Team <clientplatform@workiva.com>",
-   "Dustin Lessard <dustin.lessard@workiva.com>",
-   "Evan Weible <evan.weible@workiva.com>",
-   "Jay Udey <jay.udey@workiva.com>",
-   "Max Peterson <maxwell.peterson@workiva.com>",
-   "Trent Grover <trent.grover@workiva.com>"
-  ],
-  "version": "1.7.3"
+  "pubspecContent": "name: dart_dev\nversion: 1.7.3\ndescription: Centralized tooling for Dart projects. Consistent interface across projects. Easily configurable.\nauthors:\n  - Workiva Client Platform Team <clientplatform@workiva.com>\n  - Dustin Lessard <dustin.lessard@workiva.com>\n  - Evan Weible <evan.weible@workiva.com>\n  - Jay Udey <jay.udey@workiva.com>\n  - Max Peterson <maxwell.peterson@workiva.com>\n  - Trent Grover <trent.grover@workiva.com>\nhomepage: https://github.com/Workiva/dart_dev\ndependencies:\n  ansicolor: ^0.0.9\n  args: ^0.13.0\n  browser: '>=0.10.0 <0.11.0'\n  browser_detect: ^1.0.3\n  completion: ^0.1.5\n  coverage: ^0.7.3\n  dart_style: '>=0.2.4 <2.0.0'\n  dartdoc: ^0.9.0\n  fluri: ^1.1.1\n  path: ^1.3.6\n  rate_limit: ^0.1.0\n  resource: '>=1.0.0 <3.0.0'\n  sass: ^0.4.2\n  test: ^0.12.0\n  uuid: ^0.5.0\n  webdriver: ^1.0.0\n  yaml: ^2.1.0\n  xml: ^2.4.2\nexecutables:\n  dart_dev:\nenvironment:\n  sdk: '>=1.9.0 <2.0.0'\n\ntransformers:\n  - test/pub_serve:\n      $include: test/**_test{.*,}.dart\n  - dart_dev/src/sauce_test_harness_transformer:\n      $include: [\n         \"test/**_test{.*,}.dart\",\n         \"test/**_test{.*,}.html\",\n        ]\n"
  },
  "analyzerItems": [
   {

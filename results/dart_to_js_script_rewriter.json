@@ -89,16 +89,7 @@
    "sass": "1.0.0-alpha.9",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Seth Ladd <sethladd@gmail.com>",
-   "Workiva Client Platform Team <clientplatform@workiva.com>",
-   "Dustin Lessard <dustin.lessard@workiva.com>",
-   "Evan Weible <evan.weible@workiva.com>",
-   "Jay Udey <jay.udey@workiva.com>",
-   "Max Peterson <maxwell.peterson@workiva.com>",
-   "Trent Grover <trent.grover@workiva.com>"
-  ],
-  "version": "1.0.2"
+  "pubspecContent": "name: dart_to_js_script_rewriter\ndescription: Replaces Dart script tags with JavaScript script tags,\n             speeding up initial loads and reducing 404s. Use when\n             ready to deploy.\nauthors:\n  - Seth Ladd <sethladd@gmail.com>\n  - Workiva Client Platform Team <clientplatform@workiva.com>\n  - Dustin Lessard <dustin.lessard@workiva.com>\n  - Evan Weible <evan.weible@workiva.com>\n  - Jay Udey <jay.udey@workiva.com>\n  - Max Peterson <maxwell.peterson@workiva.com>\n  - Trent Grover <trent.grover@workiva.com>\nversion: 1.0.2\nhomepage: https://github.com/Workiva/dart_to_js_script_rewriter\nenvironment:\n  sdk: \">=1.12.0 <2.0.0\"\ndependencies:\n  barback: \"^0.15.2+7\"\n  html: \">=0.12.2+1 <0.14.0\"\ndev_dependencies:\n  browser: \"^0.10.0+2\"\n  coverage: \"^0.7.2\"\n  dart_dev: \"^1.0.6\"\n  dart_style: \">=0.1.8 <0.3.0\"\n  dartdoc: \">=0.4.0 <0.10.0\"\n  grinder: \"^0.8.0+1\"\n  mockito: any\n  test: \"^0.12.6+2\"\ntransformers:\n- dart_to_js_script_rewriter\n- test/pub_serve:\n    $include: test/**_test{.*,}.dart\n"
  },
  "analyzerItems": [],
  "unformattedFiles": []

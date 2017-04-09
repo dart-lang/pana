@@ -20,10 +20,7 @@
   "availablePackages": {
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "George Moschovitis <george.moschovitis@gmail.com>"
-  ],
-  "version": "0.2.1"
+  "pubspecContent": "name: shelf_cors\nversion: 0.2.1\nauthor: George Moschovitis <george.moschovitis@gmail.com>\ndescription: Middleware to add CORS headers to shelf responses.\nhomepage: https://github.com/gmosx/dart-shelf_cors\ndependencies:\n  shelf: '>=0.6.1 <0.7.0'\ndev_dependencies:\n  unittest: any\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

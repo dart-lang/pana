@@ -53,10 +53,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.12.0+2"
+  "pubspecContent": "name: matcher\nversion: 0.12.0+2\nauthor: Dart Team <misc@dartlang.org>\ndescription: Support for specifying test expectations\nhomepage: https://github.com/dart-lang/matcher\nenvironment:\n  sdk: '>=1.0.0 <2.0.0'\ndev_dependencies:\n  test: '>=0.12.0 <0.13.0'\n"
  },
  "analyzerItems": [
   {

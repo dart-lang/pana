@@ -63,10 +63,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.0.3"
+  "pubspecContent": "name: dart_style\n# Note: See tool/grind.dart for how to bump the version.\nversion: 1.0.3\nauthor: Dart Team <misc@dartlang.org>\ndescription: Opinionated, automatic Dart source code formatter.\nhomepage: https://github.com/dart-lang/dart_style\nenvironment:\n  sdk: \">=1.8.0 <2.0.0\"\ndependencies:\n  analyzer: '^0.29.9'\n  args: '>=0.12.1 <0.14.0'\n  path: '>=1.0.0 <2.0.0'\n  source_span: '>=1.1.1 <2.0.0'\ndev_dependencies:\n  async: '>=1.0.0 <=2.0.0'\n  browser: '>=0.10.0 <0.11.0'\n  grinder: '^0.8.0'\n  js: ^0.6.0\n  node_preamble: ^1.0.0\n  pub_semver: '^1.2.3'\n  scheduled_test: '>=0.12.0 <0.13.0'\n  test: '>=0.12.0 <0.13.0'\n  yaml: '^2.0.0'\nexecutables:\n  dartfmt: format\n  dartformat: format # Allow the old name for compatibility.\n# Tell the bots not to bother building the tests since they don't run in a\n# browser anyway.\ntransformers:\n- $dart2js:\n    $exclude: 'test/**'\n"
  },
  "analyzerItems": [
   {

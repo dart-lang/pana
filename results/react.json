@@ -56,10 +56,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Clean Team <clean@vacuumlabs.com>"
-  ],
-  "version": "3.2.1"
+  "pubspecContent": "name: react\nversion: 3.2.1\nauthor: Clean Team <clean@vacuumlabs.com>\ndescription: Bindings of the ReactJS library for building interactive interfaces.\nhomepage: http://cleandart.github.io/react-dart/\nenvironment:\n  sdk: '>=1.13.0 <2.0.0'\ndependencies:\n  browser: '>=0.9.0 <0.11.0'\n  js: '^0.6.0'\ndev_dependencies:\n  test: '^0.12.18+1'\n"
  },
  "analyzerItems": [
   {

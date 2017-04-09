@@ -58,10 +58,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.7.2"
+  "pubspecContent": "name: build\nversion: 0.7.2\ndescription: A build system for Dart.\nauthor: Dart Team <misc@dartlang.org>\nhomepage: https://github.com/dart-lang/build\n\nenvironment:\n  sdk: '>=1.9.1 <2.0.0'\n\ndependencies:\n  analyzer: \">=0.27.1 <0.30.0\"\n  logging: ^0.11.2\n  path: ^1.1.0\n\ndev_dependencies:\n  build_barback: ^0.1.0\n  build_test: ^0.4.0\n  glob: ^1.1.0\n  test: ^0.12.0\n  transformer_test: ^0.2.0\n"
  },
  "analyzerItems": [
   {

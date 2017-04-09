@@ -5,10 +5,7 @@
  "pubSummary": {
   "packages": {},
   "availablePackages": {},
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "1.0.5"
+  "pubspecContent": "name: meta\nversion: 1.0.5\nauthor: Dart Team <misc@dartlang.org>\nhomepage: http://www.dartlang.org\ndescription: >\n This library contains the definitions of annotations that provide additional\n semantic information about the program being annotated. These annotations are\n intended to be used by tools to provide a better user experience.\nenvironment:\n  sdk: '>=1.12.0 <2.0.0'\n"
  },
  "analyzerItems": [],
  "unformattedFiles": []

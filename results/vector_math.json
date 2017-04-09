@@ -56,10 +56,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "John McCutchan <john@johnmccutchan.com>"
-  ],
-  "version": "2.0.4"
+  "pubspecContent": "name: vector_math\nversion: 2.0.4\nauthor: John McCutchan <john@johnmccutchan.com>\ndescription: A Vector Math library for 2D and 3D applications.\nhomepage: https://github.com/google/vector_math.dart\nenvironment:\n  sdk: '>=1.0.0 <2.0.0'\ndev_dependencies:\n  benchmark_harness: any\n  browser: any\n  path: '>=1.0.0 <2.0.0'\n  test: '>=0.12.0 <0.13.0'\n"
  },
  "analyzerItems": [],
  "unformattedFiles": [

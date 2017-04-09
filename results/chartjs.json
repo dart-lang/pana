@@ -9,10 +9,7 @@
    "js": "0.6.1"
   },
   "availablePackages": {},
-  "authors": [
-   "Kevin Moore <kevmoo+github@google.com>"
-  ],
-  "version": "0.3.2"
+  "pubspecContent": "name: chartjs\nversion: 0.3.2\ndescription: Chart.js wrapper for Dart\nauthor: Kevin Moore <kevmoo+github@google.com>\nhomepage: https://github.com/google/chartjs.dart/\nenvironment:\n  sdk: '>=1.13.1 <2.0.0'\ndependencies:\n  func: ^0.1.0\n  js: ^0.6.0\ndev_dependencies:\n  browser: ^0.10.0+2\n"
  },
  "analyzerItems": [
   {

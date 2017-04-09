@@ -55,10 +55,7 @@
   "availablePackages": {
    "analyzer": "0.30.0-alpha.1"
   },
-  "authors": [
-   "Dart Team <misc@dartlang.org>"
-  ],
-  "version": "0.12.11"
+  "pubspecContent": "name: scheduled_test\nversion: 0.12.11\nauthor: Dart Team <misc@dartlang.org>\ndescription: >\n  A package for writing readable tests of asynchronous behavior.\n\n  This package works by building up a queue of asynchronous tasks called a\n  \"schedule\", then executing those tasks in order. This allows the tests to\n  read like synchronous, linear code, despite executing asynchronously.\n\nhomepage: https://github.com/dart-lang/scheduled_test\nenvironment:\n  sdk: '>=1.22.0 <2.0.0'\ndependencies:\n  async: '^1.10.0'\n  collection: '^1.5.0'\n  http_multi_server: '>=1.0.0 <3.0.0'\n  http: '>=0.9.0 <0.12.0'\n  path: '>=0.9.0 <2.0.0'\n  shelf: '>=0.5.2 <0.8.0'\n  stack_trace: '>=0.9.1 <2.0.0'\n\n  # Because scheduled_test exports test, it needs to keep its version constraint\n  # tight to ensure that a constraint on scheduled_test properly constraints all\n  # features it provides.\n  test: '>=0.12.20 <0.12.21'\ndev_dependencies:\n  metatest: \"^0.2.1\"\n  shelf_web_socket: \"^0.2.0\"\n"
  },
  "analyzerItems": [
   {

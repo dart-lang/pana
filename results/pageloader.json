@@ -58,10 +58,7 @@
    "analyzer": "0.30.0-alpha.1",
    "unittest": "0.12.4+1"
   },
-  "authors": [
-   "Marc Fisher II <fisherii@google.com>"
-  ],
-  "version": "2.2.6"
+  "pubspecContent": "name: pageloader\nversion: 2.2.6\nauthor: Marc Fisher II <fisherii@google.com>\ndescription: >\n  Supports the creation of page objects that can be shared between in-browser tests\n  and WebDriver tests.\nhomepage: https://github.com/google/pageloader\nenvironment:\n  sdk: '>=1.21.0 <2.0.0'\ndependencies:\n  stack_trace: '^1.7.0'\n  webdriver: '^1.2.0'\ndev_dependencies:\n  path: '^1.4.0'\n  test: '^0.12.18'\n"
  },
  "analyzerItems": [
   {
