@@ -41,8 +41,8 @@ class _MiniSum {
       this.pubClean, this.authorDomains);
 
   factory _MiniSum.fromSummary(Summary summary) {
-    var authorDomains =
-        summary.pubSummary.authors.map(_domainFromAuthor).toSet();
+    var authorDomains = new SplayTreeSet<String>.from(
+        summary.pubSummary.authors.map(_domainFromAuthor));
 
     return new _MiniSum._(
         summary.packageName,
@@ -59,7 +59,7 @@ class _MiniSum {
         'unformattedFiles': unformattedFiles,
         'analyzerErrors': _analyzerItemJson.length,
         'pubClean': pubClean,
-        'authorDomains': (authorDomains.toList()..sort()).join(', ')
+        'authorDomains': authorDomains.join(', ')
       };
 
   Iterable<Map<String, Object>> get _analyzerItemJson sync* {
