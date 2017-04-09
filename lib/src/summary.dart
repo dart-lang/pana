@@ -138,9 +138,11 @@ class PubSummary {
   }
 
   List<String> get authors {
-    List<String> authors;
+    var authors = <String>[];
 
-    authors = <String>[];
+    if (_pubspecYaml == null) {
+      return authors;
+    }
 
     if (_pubspecYaml['author'] != null) {
       authors.add(_pubspecYaml['author']);
