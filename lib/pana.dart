@@ -11,8 +11,10 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'src/analyzer_output.dart';
 import 'src/logging.dart';
+import 'src/pub_summary.dart';
 import 'src/summary.dart';
 
+export 'src/pub_summary.dart';
 export 'src/summary.dart';
 
 String prettyJson(obj) => const JsonEncoder.withIndent(' ').convert(obj).trim();
@@ -53,37 +55,35 @@ Future<Summary> inspectPackage(String pkgName,
   var result = _handleErrors(
       await Process.run('find', [pkgDir.path, '-name', '*.dart']));
 
-  var dartFileCount = new SplayTreeMap<String, int>();
-
-  for (var filePath in LineSplitter.split(result.stdout).map((path) {
+  var dartFiles = new SplayTreeSet<String>.from(
+      LineSplitter.split(result.stdout).map((path) {
     assert(p.isWithin(pkgDir.path, path));
 
     return p.relative(path, from: pkgDir.path);
-  })) {
-    var split = p.split(filePath);
-
-    String dirName;
-    if (split.length == 1) {
-      dirName = '!root!';
-    } else {
-      dirName = split.first;
-    }
-
-    dartFileCount[dirName] = 1 + dartFileCount.putIfAbsent(dirName, () => 0);
-  }
+  }));
 
   log.info("Checking formatting...");
-  var unformattedFiles = filesNeedingFormat(pkgDir.path);
+  var unformattedFiles =
+      new SplayTreeSet<String>.from(filesNeedingFormat(pkgDir.path));
 
   log.info("Pub upgrade...");
   var summary = await pubUpgrade(pkgDir.path, pubCachePath: pubCachePath);
   log.info("Package version: ${summary.pkgVersion}");
 
-  log.info("Analyzing...");
-  var analyzerItems = await pkgAnalyze(pkgDir.path);
+  Set<AnalyzerOutput> analyzerItems;
+  try {
+    analyzerItems = await pkgAnalyze(pkgDir.path);
+  } on ArgumentError catch (e) {
+    if (e.toString().contains("No dart files found at: .")) {
+      log.warning("No files to analyze...");
+      analyzerItems = new Set<AnalyzerOutput>();
+    } else {
+      rethrow;
+    }
+  }
 
-  return new Summary(sdkVersion, pkgName, pkgDir.version, dartFileCount,
-      summary, analyzerItems, unformattedFiles);
+  return new Summary(sdkVersion, pkgName, pkgDir.version, dartFiles, summary,
+      analyzerItems, unformattedFiles);
 }
 
 List<String> filesNeedingFormat(String pkgPath) {
