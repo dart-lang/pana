@@ -1,24 +1,11 @@
 // Copyright (c) 2017, Kevin Moore. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
-
 import 'package:pana/src/pub_summary.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test("sorted json", () {
-    expect(
-        JSON.encode(sortedJson({
-          'b': [
-            {'e': 3, 'd': 4}
-          ],
-          'a': 2
-        })),
-        '{"a":2,"b":[{"d":4,"e":3}]}');
-  });
-
   test('pub parse', () {
     var summary = PubSummary.create(0, _pubUpgradeOutput, '', null);
 
