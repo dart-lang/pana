@@ -4,37 +4,11 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:yaml/yaml.dart';
+
+import 'utils.dart';
 
 final _prefix = new RegExp(r"(MSG|  ) (:|\|) (?:\+| ) (.+)");
 final _infoRegexp = new RegExp(r"(\w+) (\S+)(?: \((\S+) available\))?");
-
-_toSortedMap(Object item) {
-  if (item is Map) {
-    return new SplayTreeMap<String, Object>.fromIterable(item.keys,
-        value: (k) => _toSortedMap(item[k]));
-  } else if (item is List) {
-    return item.map(_toSortedMap).toList();
-  } else {
-    return item;
-  }
-}
-
-Object sortedJson(obj) {
-  var fullJson = JSON.decode(JSON.encode(obj));
-  return _toSortedMap(fullJson);
-}
-
-Map<String, Object> _yamlToJson(String pubspecContent) {
-  if (pubspecContent == null) {
-    return null;
-  }
-  var yamlMap = loadYaml(pubspecContent) as YamlMap;
-
-  // A bit paranoid, but I want to make sure this is valid JSON before we got to
-  // the encode phase.
-  return sortedJson(JSON.decode(JSON.encode(yamlMap)));
-}
 
 class PubSummary {
   final int exitCode;
@@ -53,7 +27,7 @@ class PubSummary {
       this.availableVersions,
       String pubspecContent,
       this.lockFileContent)
-      : pubspec = _yamlToJson(pubspecContent);
+      : pubspec = yamlToJson(pubspecContent);
 
   static PubSummary create(
       int exitCode, String procStdout, String procStderr, String path) {
