@@ -20,16 +20,16 @@ export 'src/summary.dart';
 export 'src/utils.dart';
 
 class PackageAnalyzer {
-  DartSdk _dartSdk;
+  final DartSdk _dartSdk;
   PubEnvironment _pubEnv;
 
-  PackageAnalyzer({String sdkDir, String pubCacheDir}) {
-    _dartSdk = new DartSdk(sdkDir: sdkDir);
+  PackageAnalyzer({String sdkDir, String pubCacheDir})
+      : _dartSdk = new DartSdk(sdkDir: sdkDir) {
     _pubEnv = new PubEnvironment(dartSdk: _dartSdk, pubCacheDir: pubCacheDir);
   }
 
   Future<Summary> inspectPackage(String package, {String version}) async {
-    var sdkVersion = await _dartSdk.version;
+    var sdkVersion = _dartSdk.version;
     log.info("SDK: $sdkVersion");
 
     log.info("Package: $package");

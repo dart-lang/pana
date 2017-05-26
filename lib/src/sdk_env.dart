@@ -6,7 +6,7 @@ import 'logging.dart';
 import 'utils.dart';
 
 class DartSdk {
-  Map<String, String> _environment = {};
+  final Map<String, String> _environment = {};
   String _dartCmd;
   String _dartAnalyzerCmd;
   String _dartfmtCmd;
@@ -21,7 +21,10 @@ class DartSdk {
         path += Platform.pathSeparator;
       }
     }
-    if (environment != null) {
+
+    if (environment == null) {
+      _environment['PUB_ENVIRONMENT'] = 'kevmoo.pkg_clean';
+    } else {
       _environment.addAll(environment);
     }
     _dartCmd = '${path}dart';
@@ -30,10 +33,10 @@ class DartSdk {
     _pubCmd = '${path}pub';
   }
 
-  Future<String> get version async {
+  String get version {
     if (_version == null) {
-      var r = handleProcessErrors(await Process.run(_dartCmd, ['--version'],
-          environment: _environment));
+      var r = handleProcessErrors(
+          Process.runSync(_dartCmd, ['--version'], environment: _environment));
       _version = r.stderr.toString().trim();
     }
     return _version;
@@ -65,14 +68,13 @@ class DartSdk {
 }
 
 class PubEnvironment {
-  DartSdk _dartSdk;
-  String _pubCacheDir;
-  Map<String, String> _environment = {};
+  final DartSdk dartSdk;
+  final String pubCacheDir;
+  final Map<String, String> _environment = {};
 
-  PubEnvironment({DartSdk dartSdk, String pubCacheDir}) {
-    _dartSdk = dartSdk ?? new DartSdk();
-    _environment.addAll(_dartSdk._environment);
-    _pubCacheDir = pubCacheDir;
+  PubEnvironment({DartSdk dartSdk, this.pubCacheDir})
+      : this.dartSdk = dartSdk ?? new DartSdk() {
+    _environment.addAll(dartSdk._environment);
     if (pubCacheDir != null) {
       var resolvedDir = new Directory(pubCacheDir).resolveSymbolicLinksSync();
       if (resolvedDir != pubCacheDir) {
@@ -86,9 +88,6 @@ class PubEnvironment {
     }
   }
 
-  DartSdk get sdk => _dartSdk;
-  String get pubCacheDir => _pubCacheDir;
-
   Future<ProcessResult> runUpgrade(String packageDir,
       {int retryCount: 3}) async {
     ProcessResult result;
@@ -96,7 +95,7 @@ class PubEnvironment {
       retryCount--;
       log.info('Running `pub upgrade`...');
       result = await Process.run(
-        _dartSdk._pubCmd,
+        dartSdk._pubCmd,
         ['upgrade', '--verbosity', 'all'],
         workingDirectory: packageDir,
         environment: _environment,
@@ -113,7 +112,7 @@ class PubEnvironment {
     args.add(package);
 
     var result = handleProcessErrors(await Process.run(
-      _dartSdk._pubCmd,
+      dartSdk._pubCmd,
       args,
       environment: _environment,
     ));
@@ -134,7 +133,7 @@ class PubEnvironment {
 
     // now get all installed packages
     result = handleProcessErrors(await Process.run(
-      _dartSdk._pubCmd,
+      dartSdk._pubCmd,
       ['cache', 'list'],
       environment: _environment,
     ));
