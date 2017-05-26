@@ -34,6 +34,6 @@ void main() {
       var summary =
           await analyzer.inspectPackage('pub_server', version: '0.1.1+3');
       expectGoldenSummary(summary);
-    });
+    }, timeout: const Timeout.factor(2));
   });
 }
