@@ -39,7 +39,7 @@ Future<List<String>> listFiles(String directory, {String endsWith}) {
 }
 
 String prettyJson(obj) =>
-    const JsonEncoder.withIndent('  ').convert(obj).trim();
+    const JsonEncoder.withIndent(' ').convert(obj).trim();
 
 Object sortedJson(obj) {
   var fullJson = JSON.decode(JSON.encode(obj));
