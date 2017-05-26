@@ -22,9 +22,7 @@ class DartSdk {
       }
     }
 
-    if (environment == null) {
-      _environment['PUB_ENVIRONMENT'] = 'kevmoo.pkg_clean';
-    } else {
+    if (environment != null) {
       _environment.addAll(environment);
     }
     _dartCmd = '${path}dart';
@@ -75,6 +73,7 @@ class PubEnvironment {
   PubEnvironment({DartSdk dartSdk, this.pubCacheDir})
       : this.dartSdk = dartSdk ?? new DartSdk() {
     _environment.addAll(dartSdk._environment);
+    _environment.addAll(_defaultPubEnv);
     if (pubCacheDir != null) {
       var resolvedDir = new Directory(pubCacheDir).resolveSymbolicLinksSync();
       if (resolvedDir != pubCacheDir) {
@@ -161,3 +160,7 @@ class PackageLocation {
 
 final _versionDownloadRexexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
+
+const _defaultPubEnv = const <String, String>{
+  'PUB_ENVIRONMENT': 'kevmoo.pkg_clean',
+};
