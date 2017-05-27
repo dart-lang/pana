@@ -8,7 +8,7 @@
 [1;30mINFO       Pub upgrade...[0m
 [1;30mINFO       Running `pub upgrade`...[0m
 Problem with pkg aqueduct (null)
-Weird! – can't parse 'coverage 0.9.2 from git https://github.com/joeconwaystk/coverage.git at 1ed798'
+Weird! – can't parse 'coverage 0.9.2 from git https://github.com/joeconwaystk/coverage.git at ca33d7'
 #0      PubSummary.create.<anonymous closure> (package:pana/src/pub_summary.dart:48:11)
 #1      MappedIterator.moveNext (dart:_internal/iterable.dart:391)
 #2      PubSummary.create (package:pana/src/pub_summary.dart:41:25)

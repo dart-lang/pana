@@ -32,7 +32,7 @@
    "angel_compress": "1.0.0+2",
    "angel_diagnostics": "1.0.1",
    "angel_errors": "1.0.0",
-   "angel_framework": "1.0.2+4",
+   "angel_framework": "1.0.2+5",
    "angel_route": "1.0.3",
    "angel_static": "1.1.4+1",
    "angel_websocket": "1.0.6+1",
