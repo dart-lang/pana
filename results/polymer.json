@@ -1,30 +1,145 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "polymer",
  "packageVersion": "0.16.4+4",
- "dartFileCounts": {
-  "bin": 2,
-  "e2e_test": 32,
-  "example": 1,
-  "lib": 29,
-  "test": 56,
-  "tool": 1
- },
+ "dartFiles": [
+  "bin/new_element.dart",
+  "bin/new_entry.dart",
+  "e2e_test/bad_import1/lib/a.dart",
+  "e2e_test/bad_import1/test/import_test.dart",
+  "e2e_test/bad_import2/lib/a.dart",
+  "e2e_test/bad_import2/test/import_test.dart",
+  "e2e_test/bad_import3/lib/a.dart",
+  "e2e_test/bad_import3/test/import_test.dart",
+  "e2e_test/canonicalization/lib/a.dart",
+  "e2e_test/canonicalization/lib/b.dart",
+  "e2e_test/canonicalization/lib/c.dart",
+  "e2e_test/canonicalization/lib/d.dart",
+  "e2e_test/canonicalization/test/deploy1_test.dart",
+  "e2e_test/canonicalization/test/deploy2_test.dart",
+  "e2e_test/canonicalization/test/deploy3_test.dart",
+  "e2e_test/canonicalization/test/deploy_common.dart",
+  "e2e_test/canonicalization/test/dev1_test.dart",
+  "e2e_test/canonicalization/test/dev2_test.dart",
+  "e2e_test/canonicalization/test/dev3_test.dart",
+  "e2e_test/canonicalization/test/dev_common.dart",
+  "e2e_test/canonicalization/test/dir/deploy1_test.dart",
+  "e2e_test/canonicalization/test/dir/deploy2_test.dart",
+  "e2e_test/canonicalization/test/dir/deploy_common.dart",
+  "e2e_test/canonicalization/test/dir/dev1_test.dart",
+  "e2e_test/canonicalization/test/dir/dev2_test.dart",
+  "e2e_test/canonicalization/test/dir/dev_common.dart",
+  "e2e_test/experimental_boot/lib/a.dart",
+  "e2e_test/experimental_boot/lib/b.dart",
+  "e2e_test/experimental_boot/lib/c.dart",
+  "e2e_test/experimental_boot/lib/d.dart",
+  "e2e_test/experimental_boot/test/double_init_test.dart",
+  "e2e_test/experimental_boot/test/import_test.dart",
+  "e2e_test/good_import/lib/a.dart",
+  "e2e_test/good_import/test/import_test.dart",
+  "example/component/news/test/news_index_test.dart",
+  "lib/auto_binding.dart",
+  "lib/builder.dart",
+  "lib/default_build.dart",
+  "lib/deserialize.dart",
+  "lib/html_element_names.dart",
+  "lib/init.dart",
+  "lib/polymer.dart",
+  "lib/src/build/build_filter.dart",
+  "lib/src/build/build_log_combiner.dart",
+  "lib/src/build/common.dart",
+  "lib/src/build/constants.dart",
+  "lib/src/build/html_finalizer.dart",
+  "lib/src/build/index_page_builder.dart",
+  "lib/src/build/linter.dart",
+  "lib/src/build/log_injector.dart",
+  "lib/src/build/messages.dart",
+  "lib/src/build/polyfill_injector.dart",
+  "lib/src/build/polymer_bootstrap.dart",
+  "lib/src/build/polymer_smoke_generator.dart",
+  "lib/src/build/runner.dart",
+  "lib/src/build/utils.dart",
+  "lib/src/declaration.dart",
+  "lib/src/events.dart",
+  "lib/src/initializers.dart",
+  "lib/src/instance.dart",
+  "lib/src/job.dart",
+  "lib/src/loader.dart",
+  "lib/src/property_accessor.dart",
+  "lib/transformer.dart",
+  "test/attr_deserialize_test.dart",
+  "test/attr_mustache_test.dart",
+  "test/auto_binding_test.dart",
+  "test/bind_mdv_test.dart",
+  "test/bind_properties_test.dart",
+  "test/bind_test.dart",
+  "test/build/all_phases_test.dart",
+  "test/build/build_log_combiner_test.dart",
+  "test/build/common.dart",
+  "test/build/html_finalizer_test.dart",
+  "test/build/index_page_builder_test.dart",
+  "test/build/linter_test.dart",
+  "test/build/log_injector_test.dart",
+  "test/build/polyfill_injector_test.dart",
+  "test/build/polymer_smoke_generator_test.dart",
+  "test/build/static_clean_test.dart",
+  "test/build/unique_message_test.dart",
+  "test/build/utils_test.dart",
+  "test/common.dart",
+  "test/computed_properties_test.dart",
+  "test/custom_event_test.dart",
+  "test/element_import/import_a.dart",
+  "test/element_import/import_b.dart",
+  "test/entered_view_test.dart",
+  "test/event_binding_release_handler_test.dart",
+  "test/event_controller_test.dart",
+  "test/event_handlers_test.dart",
+  "test/event_path_declarative_test.dart",
+  "test/event_path_test.dart",
+  "test/events_test.dart",
+  "test/force_ready_test.dart",
+  "test/import_test.dart",
+  "test/inject_bound_html_test.dart",
+  "test/instance_attrs_test.dart",
+  "test/js_custom_event_test.dart",
+  "test/js_interop_test.dart",
+  "test/layout_test.dart",
+  "test/nested_binding_test.dart",
+  "test/noscript_test.dart",
+  "test/prop_attr_bind_reflection_test.dart",
+  "test/prop_attr_reflection_test.dart",
+  "test/property_change_test.dart",
+  "test/property_observe_test.dart",
+  "test/publish_attributes_test.dart",
+  "test/publish_inherited_properties_test.dart",
+  "test/register_test.dart",
+  "test/sort_registration_part1.dart",
+  "test/sort_registration_part2.dart",
+  "test/sort_registration_test.dart",
+  "test/take_attributes_test.dart",
+  "test/template_attr_template_test.dart",
+  "test/template_distribute_dynamic_test.dart",
+  "test/two_way_bind_test.dart",
+  "test/unbind_test.dart",
+  "test/web_components_less_test.dart",
+  "test/when_polymer_ready_test.dart",
+  "tool/create_message_details_page.dart"
+ ],
  "pubSummary": {
   "packages": {
    "analyzer": "0.27.6",
    "args": "0.13.7",
-   "async": "1.13.2",
-   "barback": "0.15.2+10",
+   "async": "1.13.3",
+   "barback": "0.15.2+11",
    "boolean_selector": "1.0.2",
    "browser": "0.10.0+2",
    "charcode": "1.1.1",
    "cli_util": "0.0.1+2",
    "code_transformers": "0.4.2+3",
-   "collection": "1.14.0",
+   "collection": "1.14.1",
    "convert": "2.0.1",
    "crypto": "2.0.1",
-   "csslib": "0.13.4",
+   "csslib": "0.13.7+1",
    "dart_style": "0.2.11+1",
    "func": "0.1.1",
    "glob": "1.1.3",
@@ -32,38 +147,38 @@
    "http": "0.11.3+13",
    "http_multi_server": "2.0.3",
    "http_parser": "3.1.1",
-   "initialize": "0.6.2+5",
+   "initialize": "0.6.2+6",
    "isolate": "0.2.3",
    "logging": "0.11.3+1",
    "markdown": "0.7.2",
-   "matcher": "0.12.0+2",
+   "matcher": "0.12.1+1",
    "meta": "1.0.5",
    "mime": "0.9.3",
    "observable": "0.14.0+1",
    "observe": "0.14.0",
-   "package_config": "1.0.0",
+   "package_config": "1.0.1",
    "package_resolver": "1.0.2",
    "path": "1.4.1",
    "plugin": "0.2.0",
    "polymer_expressions": "0.13.1+1",
    "polymer_interop": "0.1.2+1",
-   "pool": "1.3.0",
+   "pool": "1.3.1",
    "pub_semver": "1.3.2",
    "shelf": "0.6.7+2",
    "shelf_packages_handler": "1.0.0",
    "shelf_static": "0.2.4",
    "shelf_web_socket": "0.2.1",
-   "smoke": "0.3.6+2",
+   "smoke": "0.3.6+3",
    "source_map_stack_trace": "1.1.4",
    "source_maps": "0.10.4",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
    "stream_channel": "1.6.1",
-   "string_scanner": "1.0.1",
+   "string_scanner": "1.0.2",
    "template_binding": "0.14.0+6",
    "term_glyph": "1.0.0",
-   "test": "0.12.20+9",
-   "transformer_test": "0.2.1+1",
+   "test": "0.12.20+13",
+   "transformer_test": "0.2.1+2",
    "typed_data": "1.1.3",
    "utf": "0.9.0+3",
    "watcher": "0.9.7+3",
@@ -74,17 +189,120 @@
    "yaml": "2.1.12"
   },
   "availablePackages": {
-   "analyzer": "0.29.10",
-   "code_transformers": "0.5.1",
-   "dart_style": "1.0.3",
+   "analyzer": "0.30.0+2",
+   "cli_util": "0.1.1",
+   "code_transformers": "0.5.1+3",
+   "dart_style": "1.0.6",
+   "func": "1.0.0",
    "html": "0.13.1",
    "isolate": "1.0.0",
    "markdown": "0.11.3",
    "observable": "0.20.4+1",
-   "observe": "0.15.0",
+   "observe": "0.15.1",
    "polymer_interop": "1.0.0-rc.10"
   },
-  "pubspecContent": "name: polymer\nversion: 0.16.4+4\nauthor: Polymer.dart Authors <web-ui-dev@dartlang.org>\ndescription: >\n  Polymer.dart is a new type of library for the web, built on top of Web\n  Components, and designed to leverage the evolving web platform on modern\n  browsers.\nhomepage: https://www.dartlang.org/polymer-dart/\ndependencies:\n  analyzer: ^0.27.0\n  args: '>=0.11.0 <0.14.0'\n  barback: '>=0.14.2 <0.16.0'\n  browser: '>=0.10.0 <0.11.0'\n  code_transformers: '>=0.3.0 <0.5.0'\n  html: '>=0.12.0 <0.13.0'\n  initialize: '>=0.5.1+3 <0.7.0'\n  logging: '>=0.9.2 <0.12.0'\n  path: '>=0.9.0 <2.0.0'\n  polymer_expressions: '>=0.13.1+1 <0.14.0'\n  polymer_interop: '>=0.1.0+2 <0.2.0'\n  smoke: '>=0.2.0 <0.4.0'\n  source_maps: '>=0.9.4 <0.11.0'\n  source_span: '>=1.0.0 <2.0.0'\n  template_binding: '>=0.12.0 <0.15.0'\n  web_components: '>=0.11.3 <0.13.0'\n  yaml: '>=0.9.0 <3.0.0'\n\n  # Because polymer exports observe, it needs to keep its version constraint\n  # tight to ensure that a constraint on polymer properly constraints all\n  # features it provides.\n  observe: '^0.14.0'\n  observable: '^0.14.0'\ndev_dependencies:\n  test: '^0.12.0'\n  transformer_test: '^0.2.0'\n  markdown: '>=0.7.0 <0.8.0'\ntransformers:\n- code_transformers/src/delete_file:\n    $include:\n      - lib/src/build/log_injector.css\n- observe:\n    files: lib/src/instance.dart\n    $include: lib/src/instance.dart\n\n- polymer:\n    entry_points:\n      - test/attr_deserialize_test.html\n      - test/attr_mustache_test.html\n      - test/auto_binding_test.html\n      - test/bind_mdv_test.html\n      - test/bind_properties_test.html\n      - test/bind_test.html\n      - test/computed_properties_test.html\n      - test/custom_event_test.html\n      - test/entered_view_test.html\n      - test/event_binding_release_handler_test.html\n      - test/event_controller_test.html\n      - test/event_handlers_test.html\n      - test/event_path_declarative_test.html\n      - test/event_path_test.html\n      - test/events_test.html\n      - test/force_ready_test.html\n      - test/import_test.html\n      - test/inject_bound_html_test.html\n      - test/instance_attrs_test.html\n      - test/js_custom_event_test.html\n      - test/js_interop_test.html\n      - test/layout_test.html\n      - test/nested_binding_test.html\n      - test/noscript_test.html\n      - test/prop_attr_bind_reflection_test.html\n      - test/prop_attr_reflection_test.html\n      - test/property_change_test.html\n      - test/property_observe_test.html\n      - test/publish_attributes_test.html\n      - test/publish_inherited_properties_test.html\n      - test/register_test.html\n      - test/sort_registration_test.html\n      - test/take_attributes_test.html\n      - test/template_attr_template_test.html\n      - test/template_distribute_dynamic_test.html\n      - test/two_way_bind_test.html\n      - test/unbind_test.html\n      - test/web_components_less_test.html\n      - test/when_polymer_ready_test.html\n    $include: \"test/**_test.{html,dart}\"\n\n- test/pub_serve:\n    $include: test/**_test{.*,}.dart\n\nenvironment:\n  sdk: '>=1.8.0 <2.0.0'\n"
+  "pubspecContent": {
+   "author": "Polymer.dart Authors <web-ui-dev@dartlang.org>",
+   "dependencies": {
+    "analyzer": "^0.27.0",
+    "args": ">=0.11.0 <0.14.0",
+    "barback": ">=0.14.2 <0.16.0",
+    "browser": ">=0.10.0 <0.11.0",
+    "code_transformers": ">=0.3.0 <0.5.0",
+    "html": ">=0.12.0 <0.13.0",
+    "initialize": ">=0.5.1+3 <0.7.0",
+    "logging": ">=0.9.2 <0.12.0",
+    "observable": "^0.14.0",
+    "observe": "^0.14.0",
+    "path": ">=0.9.0 <2.0.0",
+    "polymer_expressions": ">=0.13.1+1 <0.14.0",
+    "polymer_interop": ">=0.1.0+2 <0.2.0",
+    "smoke": ">=0.2.0 <0.4.0",
+    "source_maps": ">=0.9.4 <0.11.0",
+    "source_span": ">=1.0.0 <2.0.0",
+    "template_binding": ">=0.12.0 <0.15.0",
+    "web_components": ">=0.11.3 <0.13.0",
+    "yaml": ">=0.9.0 <3.0.0"
+   },
+   "description": "Polymer.dart is a new type of library for the web, built on top of Web Components, and designed to leverage the evolving web platform on modern browsers.\n",
+   "dev_dependencies": {
+    "markdown": ">=0.7.0 <0.8.0",
+    "test": "^0.12.0",
+    "transformer_test": "^0.2.0"
+   },
+   "environment": {
+    "sdk": ">=1.8.0 <2.0.0"
+   },
+   "homepage": "https://www.dartlang.org/polymer-dart/",
+   "name": "polymer",
+   "transformers": [
+    {
+     "code_transformers/src/delete_file": {
+      "$include": [
+       "lib/src/build/log_injector.css"
+      ]
+     }
+    },
+    {
+     "observe": {
+      "$include": "lib/src/instance.dart",
+      "files": "lib/src/instance.dart"
+     }
+    },
+    {
+     "polymer": {
+      "$include": "test/**_test.{html,dart}",
+      "entry_points": [
+       "test/attr_deserialize_test.html",
+       "test/attr_mustache_test.html",
+       "test/auto_binding_test.html",
+       "test/bind_mdv_test.html",
+       "test/bind_properties_test.html",
+       "test/bind_test.html",
+       "test/computed_properties_test.html",
+       "test/custom_event_test.html",
+       "test/entered_view_test.html",
+       "test/event_binding_release_handler_test.html",
+       "test/event_controller_test.html",
+       "test/event_handlers_test.html",
+       "test/event_path_declarative_test.html",
+       "test/event_path_test.html",
+       "test/events_test.html",
+       "test/force_ready_test.html",
+       "test/import_test.html",
+       "test/inject_bound_html_test.html",
+       "test/instance_attrs_test.html",
+       "test/js_custom_event_test.html",
+       "test/js_interop_test.html",
+       "test/layout_test.html",
+       "test/nested_binding_test.html",
+       "test/noscript_test.html",
+       "test/prop_attr_bind_reflection_test.html",
+       "test/prop_attr_reflection_test.html",
+       "test/property_change_test.html",
+       "test/property_observe_test.html",
+       "test/publish_attributes_test.html",
+       "test/publish_inherited_properties_test.html",
+       "test/register_test.html",
+       "test/sort_registration_test.html",
+       "test/take_attributes_test.html",
+       "test/template_attr_template_test.html",
+       "test/template_distribute_dynamic_test.html",
+       "test/two_way_bind_test.html",
+       "test/unbind_test.html",
+       "test/web_components_less_test.html",
+       "test/when_polymer_ready_test.html"
+      ]
+     }
+    },
+    {
+     "test/pub_serve": {
+      "$include": "test/**_test{.*,}.dart"
+     }
+    }
+   ],
+   "version": "0.16.4+4"
+  }
  },
  "analyzerItems": [
   {
@@ -375,13 +593,6 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/deploy_common.dart",
-   "line": 25,
-   "col": 12,
-   "error": "Undefined name 'a'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/canonicalization/test/deploy_common.dart",
    "line": 30,
@@ -396,25 +607,11 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/deploy_common.dart",
-   "line": 33,
-   "col": 12,
-   "error": "Undefined name 'c'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/canonicalization/test/deploy_common.dart",
    "line": 34,
    "col": 5,
    "error": "The function 'expect' isn't defined."
-  },
-  {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/deploy_common.dart",
-   "line": 34,
-   "col": 12,
-   "error": "Undefined name 'd1'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
@@ -501,13 +698,6 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dev_common.dart",
-   "line": 25,
-   "col": 12,
-   "error": "Undefined name 'a'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/canonicalization/test/dev_common.dart",
    "line": 29,
@@ -522,25 +712,11 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dev_common.dart",
-   "line": 30,
-   "col": 12,
-   "error": "Undefined name 'c'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/canonicalization/test/dev_common.dart",
    "line": 31,
    "col": 5,
    "error": "The function 'expect' isn't defined."
-  },
-  {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dev_common.dart",
-   "line": 31,
-   "col": 12,
-   "error": "Undefined name 'd1'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
@@ -627,13 +803,6 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-   "line": 28,
-   "col": 12,
-   "error": "Undefined name 'a'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
    "line": 32,
@@ -648,25 +817,11 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-   "line": 34,
-   "col": 12,
-   "error": "Undefined name 'c'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
    "line": 35,
    "col": 5,
    "error": "The function 'expect' isn't defined."
-  },
-  {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dir/deploy_common.dart",
-   "line": 35,
-   "col": 12,
-   "error": "Undefined name 'd1'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
@@ -753,13 +908,6 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-   "line": 28,
-   "col": 12,
-   "error": "Undefined name 'a'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
    "line": 32,
@@ -774,25 +922,11 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-   "line": 33,
-   "col": 12,
-   "error": "Undefined name 'c'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
    "line": 34,
    "col": 5,
    "error": "The function 'expect' isn't defined."
-  },
-  {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/canonicalization/test/dir/dev_common.dart",
-   "line": 34,
-   "col": 12,
-   "error": "Undefined name 'd1'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
@@ -963,13 +1097,6 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/experimental_boot/test/import_test.dart",
-   "line": 23,
-   "col": 12,
-   "error": "Undefined name 'a'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/experimental_boot/test/import_test.dart",
    "line": 28,
@@ -984,25 +1111,11 @@
    "error": "The function 'expect' isn't defined."
   },
   {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/experimental_boot/test/import_test.dart",
-   "line": 31,
-   "col": 12,
-   "error": "Undefined name 'c'."
-  },
-  {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
    "file": "e2e_test/experimental_boot/test/import_test.dart",
    "line": 32,
    "col": 5,
    "error": "The function 'expect' isn't defined."
-  },
-  {
-   "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
-   "file": "e2e_test/experimental_boot/test/import_test.dart",
-   "line": 32,
-   "col": 12,
-   "error": "Undefined name 'd1'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_FUNCTION",
@@ -1332,6 +1445,13 @@
    "line": 19,
    "col": 20,
    "error": "The name DocumentFragment is shown, but not used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/build/html_finalizer.dart",
+   "line": 202,
+   "col": 15,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",

@@ -1,18 +1,48 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "dnd",
  "packageVersion": "0.3.5",
- "dartFileCounts": {
-  "example": 11,
-  "lib": 7,
-  "test": 2
- },
+ "dartFiles": [
+  "example/basic/web/example.dart",
+  "example/cancel/web/example.dart",
+  "example/custom-acceptor/web/example.dart",
+  "example/custom-avatar/web/example.dart",
+  "example/detection-only/web/example.dart",
+  "example/free-dragging/web/example.dart",
+  "example/handle/web/example.dart",
+  "example/horizontal-only/web/example.dart",
+  "example/nested-dropzones/web/example.dart",
+  "example/nested-elements/web/example.dart",
+  "example/simple-sortable/web/example.dart",
+  "lib/dnd.dart",
+  "lib/src/draggable.dart",
+  "lib/src/draggable_avatar.dart",
+  "lib/src/draggable_dispatch.dart",
+  "lib/src/draggable_manager.dart",
+  "lib/src/dropzone.dart",
+  "lib/src/dropzone_acceptor.dart",
+  "test/parent-offset/example.dart",
+  "test/scroll-offset/example.dart"
+ ],
  "pubSummary": {
   "packages": {
    "browser": "0.10.0+2"
   },
   "availablePackages": {},
-  "pubspecContent": "name: dnd\r\nversion: 0.3.5\r\nauthor: Marco Jakob <majakob@gmx.ch>\r\ndescription: Drag and Drop for Dart web apps with mouse and touch support.\r\nhomepage: http://code.makery.ch/library/dart-drag-and-drop/\r\ndocumentation: http://www.dartdocs.org/documentation/dnd/latest/\r\nenvironment:\r\n  sdk: '>=1.0.0 <2.0.0'\r\ndependencies:\r\n  browser: '>=0.10.0 <0.11.0'\r\n"
+  "pubspecContent": {
+   "author": "Marco Jakob <majakob@gmx.ch>",
+   "dependencies": {
+    "browser": ">=0.10.0 <0.11.0"
+   },
+   "description": "Drag and Drop for Dart web apps with mouse and touch support.",
+   "documentation": "http://www.dartdocs.org/documentation/dnd/latest/",
+   "environment": {
+    "sdk": ">=1.0.0 <2.0.0"
+   },
+   "homepage": "http://code.makery.ch/library/dart-drag-and-drop/",
+   "name": "dnd",
+   "version": "0.3.5"
+  }
  },
  "analyzerItems": [
   {

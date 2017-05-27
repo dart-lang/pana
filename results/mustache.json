@@ -1,12 +1,26 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "mustache",
  "packageVersion": "0.2.5+1",
- "dartFileCounts": {
-  "example": 4,
-  "lib": 9,
-  "test": 4
- },
+ "dartFiles": [
+  "example/basic.dart",
+  "example/lambdas.dart",
+  "example/nested_paths.dart",
+  "example/partials.dart",
+  "lib/mustache.dart",
+  "lib/src/lambda_context.dart",
+  "lib/src/node.dart",
+  "lib/src/parser.dart",
+  "lib/src/renderer.dart",
+  "lib/src/scanner.dart",
+  "lib/src/template.dart",
+  "lib/src/template_exception.dart",
+  "lib/src/token.dart",
+  "test/all.dart",
+  "test/mustache_specs.dart",
+  "test/mustache_test.dart",
+  "test/parser_test.dart"
+ ],
  "pubSummary": {
   "packages": {
    "path": "1.4.1",
@@ -16,7 +30,19 @@
   "availablePackages": {
    "unittest": "0.12.4+1"
   },
-  "pubspecContent": "name: mustache\nversion: 0.2.5+1\nauthor: Greg Lowe <greg@vis.net.nz>\ndescription: Mustache template library\nhomepage: https://github.com/xxgreg/mustache\nenvironment:\n  sdk: '>=1.0.0 <2.0.0'\ndev_dependencies:\n  unittest: \">=0.9.0 <0.12.0\"\n"
+  "pubspecContent": {
+   "author": "Greg Lowe <greg@vis.net.nz>",
+   "description": "Mustache template library",
+   "dev_dependencies": {
+    "unittest": ">=0.9.0 <0.12.0"
+   },
+   "environment": {
+    "sdk": ">=1.0.0 <2.0.0"
+   },
+   "homepage": "https://github.com/xxgreg/mustache",
+   "name": "mustache",
+   "version": "0.2.5+1"
+  }
  },
  "analyzerItems": [
   {

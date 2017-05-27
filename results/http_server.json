@@ -1,11 +1,22 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "http_server",
  "packageVersion": "0.9.6",
- "dartFileCounts": {
-  "lib": 7,
-  "test": 6
- },
+ "dartFiles": [
+  "lib/http_server.dart",
+  "lib/src/http_body.dart",
+  "lib/src/http_body_impl.dart",
+  "lib/src/http_multipart_form_data.dart",
+  "lib/src/http_multipart_form_data_impl.dart",
+  "lib/src/virtual_directory.dart",
+  "lib/src/virtual_host.dart",
+  "test/http_body_test.dart",
+  "test/http_mock.dart",
+  "test/http_multipart_test.dart",
+  "test/utils.dart",
+  "test/virtual_directory_test.dart",
+  "test/virtual_host_test.dart"
+ ],
  "pubSummary": {
   "packages": {
    "mime": "0.9.3",
@@ -16,7 +27,23 @@
   "availablePackages": {
    "unittest": "0.12.4+1"
   },
-  "pubspecContent": "name: http_server\nversion: 0.9.6\nauthor: Dart Team <misc@dartlang.org>\ndescription: Library of HTTP server classes.\nhomepage: https://www.github.com/dart-lang/http_server\nenvironment:\n  sdk: '>=1.15.0 <2.0.0'\ndependencies:\n  mime: '>=0.9.0 <0.10.0'\n  path: '>=0.9.0 <2.0.0'\ndev_dependencies:\n  unittest: '>=0.10.0 <0.12.0'\n"
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "dependencies": {
+    "mime": ">=0.9.0 <0.10.0",
+    "path": ">=0.9.0 <2.0.0"
+   },
+   "description": "Library of HTTP server classes.",
+   "dev_dependencies": {
+    "unittest": ">=0.10.0 <0.12.0"
+   },
+   "environment": {
+    "sdk": ">=1.15.0 <2.0.0"
+   },
+   "homepage": "https://www.github.com/dart-lang/http_server",
+   "name": "http_server",
+   "version": "0.9.6"
+  }
  },
  "analyzerItems": [
   {

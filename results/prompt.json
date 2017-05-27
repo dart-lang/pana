@@ -1,12 +1,24 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "prompt",
  "packageVersion": "0.1.7",
- "dartFileCounts": {
-  "example": 6,
-  "lib": 7,
-  "test": 2
- },
+ "dartFiles": [
+  "example/barista/barista.dart",
+  "example/barista/barista_test.dart",
+  "example/barista/coffee_order.dart",
+  "example/barista/serve.dart",
+  "example/basic/basic.dart",
+  "example/basic/basic_test.dart",
+  "lib/prompt.dart",
+  "lib/src/prompt.dart",
+  "lib/src/question.dart",
+  "lib/src/stdio.dart",
+  "lib/src/theme.dart",
+  "lib/src/util.dart",
+  "lib/testing.dart",
+  "test/question_test.dart",
+  "test/theme_test.dart"
+ ],
  "pubSummary": {
   "packages": {
    "ansicolor": "0.0.9",
@@ -21,7 +33,22 @@
    "mock": "0.12.0",
    "unittest": "0.12.4+1"
   },
-  "pubspecContent": "name: prompt\nversion: 0.1.7\nauthor: Sean Eagan <seaneagan1@gmail.com>\ndescription: Command-line prompting that is easy to data-drive, customize, and test.\nhomepage: https://github.com/seaneagan/prompt\ndependencies:\n  ansicolor: '>=0.0.9 <0.1.0'\n  mock: '>=0.11.0 <0.12.0'\n  supports_color: '>=0.1.1 <0.2.0'\n  when: '>=0.2.0 <0.3.0'\ndev_dependencies:\n  unittest: '>=0.11.0 <0.12.0'\n"
+  "pubspecContent": {
+   "author": "Sean Eagan <seaneagan1@gmail.com>",
+   "dependencies": {
+    "ansicolor": ">=0.0.9 <0.1.0",
+    "mock": ">=0.11.0 <0.12.0",
+    "supports_color": ">=0.1.1 <0.2.0",
+    "when": ">=0.2.0 <0.3.0"
+   },
+   "description": "Command-line prompting that is easy to data-drive, customize, and test.",
+   "dev_dependencies": {
+    "unittest": ">=0.11.0 <0.12.0"
+   },
+   "homepage": "https://github.com/seaneagan/prompt",
+   "name": "prompt",
+   "version": "0.1.7"
+  }
  },
  "analyzerItems": [
   {

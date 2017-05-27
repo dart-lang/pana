@@ -1,32 +1,55 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "angular_test",
  "packageVersion": "1.0.0-beta+2",
- "dartFileCounts": {
-  "bin": 1,
-  "lib": 14,
-  "test": 7
- },
+ "dartFiles": [
+  "bin/angular_test.dart",
+  "lib/angular_test.dart",
+  "lib/compatibility.dart",
+  "lib/src/bin/logging.dart",
+  "lib/src/bootstrap.dart",
+  "lib/src/errors.dart",
+  "lib/src/errors/generic_type_missing.dart",
+  "lib/src/errors/test_already_running.dart",
+  "lib/src/errors/will_never_stabilize.dart",
+  "lib/src/frontend.dart",
+  "lib/src/frontend/bed.dart",
+  "lib/src/frontend/fixture.dart",
+  "lib/src/frontend/stabilizer.dart",
+  "lib/src/matchers.dart",
+  "lib/src/matchers/throws_in_angular.dart",
+  "test/bootstrap_test.dart",
+  "test/frontend/bed_error_test.dart",
+  "test/frontend/bed_lifecycle_test.dart",
+  "test/frontend/pageloader_test.dart",
+  "test/frontend/query_test.dart",
+  "test/frontend/stabilizer_test.dart",
+  "test/matchers/throws_in_angular_test.dart"
+ ],
  "pubSummary": {
   "packages": {
-   "analyzer": "0.29.10",
-   "angular2": "3.0.0-beta",
+   "analyzer": "0.30.0+2",
+   "angular2": "3.1.0",
    "ansicolor": "0.0.9",
-   "archive": "1.0.28",
+   "archive": "1.0.29",
    "args": "0.13.7",
-   "async": "1.13.2",
-   "barback": "0.15.2+10",
+   "async": "1.13.3",
+   "barback": "0.15.2+11",
    "boolean_selector": "1.0.2",
-   "build": "0.7.2",
+   "build": "0.9.3",
+   "build_barback": "0.2.2",
    "charcode": "1.1.1",
-   "cli_util": "0.0.1+2",
-   "collection": "1.14.0",
+   "cli_util": "0.1.1",
+   "code_builder": "1.0.3",
+   "code_transformers": "0.5.1+3",
+   "collection": "1.14.1",
    "convert": "2.0.1",
    "crypto": "2.0.1",
-   "csslib": "0.13.4",
-   "dart_style": "1.0.3",
+   "csslib": "0.13.7+1",
+   "dart_style": "1.0.6",
    "fixnum": "0.10.5",
-   "func": "0.1.1",
+   "front_end": "0.1.0-alpha.4",
+   "func": "1.0.0",
    "glob": "1.1.3",
    "html": "0.13.1",
    "http": "0.11.3+13",
@@ -35,45 +58,86 @@
    "intl": "0.15.0",
    "isolate": "1.0.0",
    "js": "0.6.1",
+   "kernel": "0.3.0-alpha.1",
    "logging": "0.11.3+1",
-   "matcher": "0.12.0+2",
+   "matcher": "0.12.1+1",
    "meta": "1.0.5",
    "mime": "0.9.3",
-   "package_config": "1.0.0",
+   "package_config": "1.0.1",
    "package_resolver": "1.0.2",
    "pageloader": "2.2.6",
    "path": "1.4.1",
    "plugin": "0.2.0",
-   "pool": "1.3.0",
-   "protobuf": "0.5.3+2",
+   "pool": "1.3.1",
+   "protobuf": "0.5.4",
    "pub_semver": "1.3.2",
+   "quiver": "0.25.0",
    "shelf": "0.6.7+2",
    "shelf_packages_handler": "1.0.0",
    "shelf_static": "0.2.4",
    "shelf_web_socket": "0.2.1",
+   "source_gen": "0.5.7",
    "source_map_stack_trace": "1.1.4",
    "source_maps": "0.10.4",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
    "stream_channel": "1.6.1",
-   "string_scanner": "1.0.1",
+   "string_scanner": "1.0.2",
    "term_glyph": "1.0.0",
-   "test": "0.12.20+9",
+   "test": "0.12.20+13",
    "typed_data": "1.1.3",
    "unittest": "0.11.7",
    "utf": "0.9.0+3",
    "watcher": "0.9.7+3",
    "web_socket_channel": "1.0.4",
    "webdriver": "1.2.3",
-   "when": "0.2.0",
-   "which": "0.1.3",
    "yaml": "2.1.12"
   },
   "availablePackages": {
-   "analyzer": "0.30.0-alpha.1",
    "unittest": "0.12.4+1"
   },
-  "pubspecContent": "name: angular_test\nauthor: Dart Team <misc@dartlang.org>\nhomepage: https://github.com/dart-lang/angular_test\ndescription: Testing infrastructure for AngularDart\nversion: 1.0.0-beta+2\n\nenvironment:\n  sdk: '>=1.22.0 <2.0.0'\n\nexecutables:\n  angular_test:\n\ndependencies:\n  angular2: '>=3.0.0-alpha+1 <4.0.0'\n  ansicolor: '^0.0.9'\n  args: '^0.13.7'\n  logging: '^0.11.3+1'\n  matcher: '^0.12.0+2'\n  pageloader: '^2.2.5'\n  path: '^1.4.1'\n  test: '^0.12.17'\n\ntransformers:\n  # Run the code generator on the entire package.\n  - angular2/transform/codegen\n\n  # Run the reflection remover just on tests that have AoT enabled.\n  # TODO: Automate this, either via script or a naming convention.\n  - angular2/transform/reflection_remover:\n      $include:\n          - test/frontend/bed_error_test.dart\n          - test/frontend/bed_lifecycle_test.dart\n          - test/frontend/pageloader_test.dart\n          - test/frontend/query_test.dart\n          - test/bootstrap_test.dart\n\n  # Allow test to proxy-load files so we can run AoT tests w/ pub serve.\n  - test/pub_serve:\n      $include: test/**_test.dart\n"
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "dependencies": {
+    "angular2": ">=3.0.0-alpha+1 <4.0.0",
+    "ansicolor": "^0.0.9",
+    "args": "^0.13.7",
+    "logging": "^0.11.3+1",
+    "matcher": "^0.12.0+2",
+    "pageloader": "^2.2.5",
+    "path": "^1.4.1",
+    "test": "^0.12.17"
+   },
+   "description": "Testing infrastructure for AngularDart",
+   "environment": {
+    "sdk": ">=1.22.0 <2.0.0"
+   },
+   "executables": {
+    "angular_test": null
+   },
+   "homepage": "https://github.com/dart-lang/angular_test",
+   "name": "angular_test",
+   "transformers": [
+    "angular2/transform/codegen",
+    {
+     "angular2/transform/reflection_remover": {
+      "$include": [
+       "test/frontend/bed_error_test.dart",
+       "test/frontend/bed_lifecycle_test.dart",
+       "test/frontend/pageloader_test.dart",
+       "test/frontend/query_test.dart",
+       "test/bootstrap_test.dart"
+      ]
+     }
+    },
+    {
+     "test/pub_serve": {
+      "$include": "test/**_test.dart"
+     }
+    }
+   ],
+   "version": "1.0.0-beta+2"
+  }
  },
  "analyzerItems": [],
  "unformattedFiles": []

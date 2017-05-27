@@ -1,27 +1,263 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "linter",
- "packageVersion": "0.1.30",
- "dartFileCounts": {
-  "bin": 1,
-  "lib": 82,
-  "test": 109,
-  "tool": 4
- },
+ "packageVersion": "0.1.31",
+ "dartFiles": [
+  "bin/linter.dart",
+  "lib/src/analyzer.dart",
+  "lib/src/ast.dart",
+  "lib/src/formatter.dart",
+  "lib/src/rules.dart",
+  "lib/src/rules/always_declare_return_types.dart",
+  "lib/src/rules/always_put_control_body_on_new_line.dart",
+  "lib/src/rules/always_require_non_null_named_parameters.dart",
+  "lib/src/rules/always_specify_types.dart",
+  "lib/src/rules/annotate_overrides.dart",
+  "lib/src/rules/avoid_annotating_with_dynamic.dart",
+  "lib/src/rules/avoid_as.dart",
+  "lib/src/rules/avoid_catches_without_on_clauses.dart",
+  "lib/src/rules/avoid_catching_errors.dart",
+  "lib/src/rules/avoid_classes_with_only_static_members.dart",
+  "lib/src/rules/avoid_empty_else.dart",
+  "lib/src/rules/avoid_function_literals_in_foreach_calls.dart",
+  "lib/src/rules/avoid_init_to_null.dart",
+  "lib/src/rules/avoid_null_checks_in_equality_operators.dart",
+  "lib/src/rules/avoid_positional_boolean_parameters.dart",
+  "lib/src/rules/avoid_return_types_on_setters.dart",
+  "lib/src/rules/avoid_returning_null.dart",
+  "lib/src/rules/avoid_returning_this.dart",
+  "lib/src/rules/avoid_setters_without_getters.dart",
+  "lib/src/rules/avoid_slow_async_io.dart",
+  "lib/src/rules/avoid_types_on_closure_parameters.dart",
+  "lib/src/rules/await_only_futures.dart",
+  "lib/src/rules/camel_case_types.dart",
+  "lib/src/rules/cancel_subscriptions.dart",
+  "lib/src/rules/cascade_invocations.dart",
+  "lib/src/rules/close_sinks.dart",
+  "lib/src/rules/comment_references.dart",
+  "lib/src/rules/constant_identifier_names.dart",
+  "lib/src/rules/control_flow_in_finally.dart",
+  "lib/src/rules/directives_ordering.dart",
+  "lib/src/rules/empty_catches.dart",
+  "lib/src/rules/empty_constructor_bodies.dart",
+  "lib/src/rules/empty_statements.dart",
+  "lib/src/rules/hash_and_equals.dart",
+  "lib/src/rules/implementation_imports.dart",
+  "lib/src/rules/invariant_booleans.dart",
+  "lib/src/rules/iterable_contains_unrelated_type.dart",
+  "lib/src/rules/join_return_with_assignment.dart",
+  "lib/src/rules/library_names.dart",
+  "lib/src/rules/library_prefixes.dart",
+  "lib/src/rules/list_remove_unrelated_type.dart",
+  "lib/src/rules/literal_only_boolean_expressions.dart",
+  "lib/src/rules/no_adjacent_strings_in_list.dart",
+  "lib/src/rules/no_duplicate_case_values.dart",
+  "lib/src/rules/non_constant_identifier_names.dart",
+  "lib/src/rules/omit_local_variable_types.dart",
+  "lib/src/rules/one_member_abstracts.dart",
+  "lib/src/rules/only_throw_errors.dart",
+  "lib/src/rules/overridden_fields.dart",
+  "lib/src/rules/package_api_docs.dart",
+  "lib/src/rules/package_prefixed_library_names.dart",
+  "lib/src/rules/parameter_assignments.dart",
+  "lib/src/rules/prefer_adjacent_string_concatenation.dart",
+  "lib/src/rules/prefer_collection_literals.dart",
+  "lib/src/rules/prefer_conditional_assignment.dart",
+  "lib/src/rules/prefer_const_constructors.dart",
+  "lib/src/rules/prefer_constructors_over_static_methods.dart",
+  "lib/src/rules/prefer_contains.dart",
+  "lib/src/rules/prefer_expression_function_bodies.dart",
+  "lib/src/rules/prefer_final_fields.dart",
+  "lib/src/rules/prefer_final_locals.dart",
+  "lib/src/rules/prefer_foreach.dart",
+  "lib/src/rules/prefer_function_declarations_over_variables.dart",
+  "lib/src/rules/prefer_initializing_formals.dart",
+  "lib/src/rules/prefer_interpolation_to_compose_strings.dart",
+  "lib/src/rules/prefer_is_empty.dart",
+  "lib/src/rules/prefer_is_not_empty.dart",
+  "lib/src/rules/pub/package_names.dart",
+  "lib/src/rules/public_member_api_docs.dart",
+  "lib/src/rules/recursive_getters.dart",
+  "lib/src/rules/slash_for_doc_comments.dart",
+  "lib/src/rules/sort_constructors_first.dart",
+  "lib/src/rules/sort_unnamed_constructors_first.dart",
+  "lib/src/rules/super_goes_last.dart",
+  "lib/src/rules/test_types_in_equals.dart",
+  "lib/src/rules/throw_in_finally.dart",
+  "lib/src/rules/type_annotate_public_apis.dart",
+  "lib/src/rules/type_init_formals.dart",
+  "lib/src/rules/unawaited_futures.dart",
+  "lib/src/rules/unnecessary_brace_in_string_interps.dart",
+  "lib/src/rules/unnecessary_getters.dart",
+  "lib/src/rules/unnecessary_getters_setters.dart",
+  "lib/src/rules/unnecessary_lambdas.dart",
+  "lib/src/rules/unnecessary_null_aware_assignments.dart",
+  "lib/src/rules/unnecessary_null_in_if_null_operators.dart",
+  "lib/src/rules/unnecessary_overrides.dart",
+  "lib/src/rules/unnecessary_this.dart",
+  "lib/src/rules/unrelated_type_equality_checks.dart",
+  "lib/src/rules/use_rethrow_when_possible.dart",
+  "lib/src/rules/use_setters_to_change_properties.dart",
+  "lib/src/rules/use_string_buffers.dart",
+  "lib/src/rules/use_to_and_as_if_applicable.dart",
+  "lib/src/rules/valid_regexps.dart",
+  "lib/src/util/boolean_expression_utilities.dart",
+  "lib/src/util/condition_scope_visitor.dart",
+  "lib/src/util/dart_type_utilities.dart",
+  "lib/src/util/leak_detector_visitor.dart",
+  "lib/src/util/tested_expressions.dart",
+  "lib/src/util/unrelated_types_visitor.dart",
+  "test/_data/always_require_non_null_named_parameters/lib.dart",
+  "test/_data/cancel_subscriptions/cancel_subscriptions.dart",
+  "test/_data/close_sinks/src/a.dart",
+  "test/_data/directives_ordering/dart_directives_go_first/bad.dart",
+  "test/_data/directives_ordering/dart_directives_go_first/dummy.dart",
+  "test/_data/directives_ordering/export_directives_after_import_directives/bad.dart",
+  "test/_data/directives_ordering/export_directives_after_import_directives/dummy.dart",
+  "test/_data/directives_ordering/export_directives_after_import_directives/dummy2.dart",
+  "test/_data/directives_ordering/export_directives_after_import_directives/dummy3.dart",
+  "test/_data/directives_ordering/lint_one_node_no_more_than_once/bad.dart",
+  "test/_data/directives_ordering/lint_one_node_no_more_than_once/dummy.dart",
+  "test/_data/directives_ordering/package_directives_before_relative/bad.dart",
+  "test/_data/directives_ordering/package_directives_before_relative/dummy.dart",
+  "test/_data/directives_ordering/package_directives_before_relative/dummy2.dart",
+  "test/_data/directives_ordering/sort_directive_sections_alphabetically/bad.dart",
+  "test/_data/directives_ordering/sort_directive_sections_alphabetically/dummy1.dart",
+  "test/_data/directives_ordering/sort_directive_sections_alphabetically/dummy2.dart",
+  "test/_data/directives_ordering/sort_directive_sections_alphabetically/dummy3.dart",
+  "test/_data/directives_ordering/sort_directive_sections_alphabetically/dummy4.dart",
+  "test/_data/directives_ordering/third_party_package_directives_before_own/bad.dart",
+  "test/_data/only_throw_errors/only_throw_errors.dart",
+  "test/_data/overridden_fields/src/a.dart",
+  "test/_data/overridden_fields/src/b.dart",
+  "test/_data/p1/p1.dart",
+  "test/_data/p1/src/p2.dart",
+  "test/_data/p2/src/a.dart",
+  "test/_data/p2/src/ignored/b.dart",
+  "test/_data/p2/src/ignored/c.dart",
+  "test/_data/p4/lib/lib1.dart",
+  "test/_data/p4/lib/lib2.dart",
+  "test/_data/p4/lib/lib3.dart",
+  "test/_data/p5/p5.dart",
+  "test/_data/p6/lib/p6_lib.dart",
+  "test/_data/p8/src/a.dart",
+  "test/_data/p8/src/ignored/b.dart",
+  "test/_data/synthetic/synthetic.dart",
+  "test/all.dart",
+  "test/engine_test.dart",
+  "test/formatter_test.dart",
+  "test/integration_test.dart",
+  "test/mock_sdk.dart",
+  "test/mocks.dart",
+  "test/rule_test.dart",
+  "test/rules/always_declare_return_types.dart",
+  "test/rules/always_put_control_body_on_new_line.dart",
+  "test/rules/always_require_non_null_named_parameters.dart",
+  "test/rules/always_specify_types.dart",
+  "test/rules/annotate_overrides.dart",
+  "test/rules/avoid_annotating_with_dynamic.dart",
+  "test/rules/avoid_as.dart",
+  "test/rules/avoid_catches_without_on_clauses.dart",
+  "test/rules/avoid_catching_errors.dart",
+  "test/rules/avoid_classes_with_only_static_members.dart",
+  "test/rules/avoid_empty_else.dart",
+  "test/rules/avoid_function_literals_in_foreach_calls.dart",
+  "test/rules/avoid_init_to_null.dart",
+  "test/rules/avoid_null_checks_in_equality_operators.dart",
+  "test/rules/avoid_positional_boolean_parameters.dart",
+  "test/rules/avoid_return_types_on_setters.dart",
+  "test/rules/avoid_returning_null.dart",
+  "test/rules/avoid_returning_this.dart",
+  "test/rules/avoid_setters_without_getters.dart",
+  "test/rules/avoid_slow_async_io.dart",
+  "test/rules/avoid_types_on_closure_parameters.dart",
+  "test/rules/await_only_futures.dart",
+  "test/rules/camel_case_types.dart",
+  "test/rules/cascade_invocations.dart",
+  "test/rules/comment_references.dart",
+  "test/rules/constant_identifier_names.dart",
+  "test/rules/control_flow_in_finally.dart",
+  "test/rules/empty_catches.dart",
+  "test/rules/empty_constructor_bodies.dart",
+  "test/rules/empty_statements.dart",
+  "test/rules/hash_and_equals.dart",
+  "test/rules/invariant_booleans.dart",
+  "test/rules/iterable_contains_unrelated_type.dart",
+  "test/rules/join_return_with_assignment.dart",
+  "test/rules/library_names.dart",
+  "test/rules/library_prefixes.dart",
+  "test/rules/list_remove_unrelated_type.dart",
+  "test/rules/literal_only_boolean_expressions.dart",
+  "test/rules/no_adjacent_strings_in_list.dart",
+  "test/rules/no_duplicate_case_values.dart",
+  "test/rules/non_constant_identifier_names.dart",
+  "test/rules/omit_local_variable_types.dart",
+  "test/rules/one_member_abstracts.dart",
+  "test/rules/overridden_fields.dart",
+  "test/rules/package_api_docs.dart",
+  "test/rules/package_prefixed_library_names.dart",
+  "test/rules/parameter_assignments.dart",
+  "test/rules/prefer_adjacent_string_concatenation.dart",
+  "test/rules/prefer_collection_literals.dart",
+  "test/rules/prefer_conditional_assignment.dart",
+  "test/rules/prefer_const_constructors.dart",
+  "test/rules/prefer_constructors_over_static_methods.dart",
+  "test/rules/prefer_contains.dart",
+  "test/rules/prefer_expression_function_bodies.dart",
+  "test/rules/prefer_final_fields.dart",
+  "test/rules/prefer_final_locals.dart",
+  "test/rules/prefer_foreach.dart",
+  "test/rules/prefer_function_declarations_over_variables.dart",
+  "test/rules/prefer_initializing_formals.dart",
+  "test/rules/prefer_interpolation_to_compose_strings.dart",
+  "test/rules/prefer_is_empty.dart",
+  "test/rules/prefer_is_not_empty.dart",
+  "test/rules/public_member_api_docs.dart",
+  "test/rules/recursive_getters.dart",
+  "test/rules/slash_for_doc_comments.dart",
+  "test/rules/sort_constructors_first.dart",
+  "test/rules/sort_unnamed_constructors_first.dart",
+  "test/rules/super_goes_last.dart",
+  "test/rules/test_types_in_equals.dart",
+  "test/rules/throw_in_finally.dart",
+  "test/rules/type_annotate_public_apis.dart",
+  "test/rules/type_init_formals.dart",
+  "test/rules/unawaited_futures.dart",
+  "test/rules/unnecessary_brace_in_string_interps.dart",
+  "test/rules/unnecessary_getters.dart",
+  "test/rules/unnecessary_getters_setters.dart",
+  "test/rules/unnecessary_lambdas.dart",
+  "test/rules/unnecessary_null_aware_assignments.dart",
+  "test/rules/unnecessary_null_in_if_null_operators.dart",
+  "test/rules/unnecessary_overrides.dart",
+  "test/rules/unnecessary_this.dart",
+  "test/rules/unrelated_type_equality_checks.dart",
+  "test/rules/use_rethrow_when_possible.dart",
+  "test/rules/use_setters_to_change_properties.dart",
+  "test/rules/use_string_buffers.dart",
+  "test/rules/use_to_and_as_if_applicable.dart",
+  "test/rules/valid_regexps.dart",
+  "test/util/rule_debug.dart",
+  "tool/doc.dart",
+  "tool/grind.dart",
+  "tool/rule.dart",
+  "tool/spelunk.dart"
+ ],
  "pubSummary": {
   "packages": {
-   "analyzer": "0.29.10",
+   "analyzer": "0.30.0+2",
    "ansicolor": "0.0.9",
    "args": "0.13.7",
-   "async": "1.13.2",
-   "barback": "0.15.2+10",
+   "async": "1.13.3",
+   "barback": "0.15.2+11",
    "boolean_selector": "1.0.2",
    "charcode": "1.1.1",
-   "cli_util": "0.0.1+2",
-   "collection": "1.14.0",
+   "cli_util": "0.1.1",
+   "collection": "1.14.1",
    "convert": "2.0.1",
    "crypto": "2.0.1",
-   "csslib": "0.13.4",
+   "csslib": "0.13.7+1",
+   "front_end": "0.1.0-alpha.4",
    "glob": "1.1.3",
    "grinder": "0.8.0+3",
    "html": "0.13.1",
@@ -29,18 +265,19 @@
    "http_multi_server": "2.0.3",
    "http_parser": "3.1.1",
    "isolate": "1.0.0",
+   "kernel": "0.3.0-alpha.1",
    "logging": "0.11.3+1",
    "markdown": "0.11.3",
-   "matcher": "0.12.0+2",
+   "matcher": "0.12.1+1",
    "meta": "1.0.5",
    "mime": "0.9.3",
    "mockable_filesystem": "0.0.3",
    "mockito": "1.0.1",
-   "package_config": "1.0.0",
+   "package_config": "1.0.1",
    "package_resolver": "1.0.2",
    "path": "1.4.1",
    "plugin": "0.2.0",
-   "pool": "1.3.0",
+   "pool": "1.3.1",
    "pub_semver": "1.3.2",
    "shelf": "0.6.7+2",
    "shelf_packages_handler": "1.0.0",
@@ -48,29 +285,260 @@
    "shelf_web_socket": "0.2.1",
    "source_map_stack_trace": "1.1.4",
    "source_maps": "0.10.4",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
    "stream_channel": "1.6.1",
-   "string_scanner": "1.0.1",
+   "string_scanner": "1.0.2",
    "supports_color": "0.1.1",
    "term_glyph": "1.0.0",
-   "test": "0.12.20+9",
+   "test": "0.12.20+13",
    "typed_data": "1.1.3",
    "unscripted": "0.6.2",
    "utf": "0.9.0+3",
    "watcher": "0.9.7+3",
    "web_socket_channel": "1.0.4",
-   "when": "0.2.0",
-   "which": "0.1.3",
    "yaml": "2.1.12"
   },
   "availablePackages": {
-   "analyzer": "0.30.0-alpha.1",
    "mockito": "2.0.2"
   },
-  "pubspecContent": "name: linter\nversion: 0.1.30\nauthor: Dart Team <misc@dartlang.org>\ndescription: Style linter for Dart.\nhomepage: https://github.com/dart-lang/linter\nenvironment:\n  sdk: '>=1.12.0 <2.0.0'\ndependencies:\n  analyzer: ^0.29.6\n  args: '>=0.12.1 <0.14.0'\n  cli_util: ^0.0.1\n  glob: ^1.0.3\n  plugin: ^0.2.0\n  source_span: ^1.0.2\n  yaml: ^2.1.2\ndev_dependencies:\n  grinder: ^0.8.0\n  markdown: ^0.11.0\n  matcher: ^0.12.0\n  mockito: ^1.0.0\n  test: ^0.12.0\n"
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "dependencies": {
+    "analyzer": "^0.30.0",
+    "args": ">=0.12.1 <0.14.0",
+    "glob": "^1.0.3",
+    "plugin": "^0.2.0",
+    "source_span": "^1.0.2",
+    "yaml": "^2.1.2"
+   },
+   "description": "Style linter for Dart.",
+   "dev_dependencies": {
+    "grinder": "^0.8.0",
+    "markdown": "^0.11.0",
+    "matcher": "^0.12.0",
+    "mockito": "^1.0.0",
+    "test": "^0.12.0"
+   },
+   "environment": {
+    "sdk": ">=1.12.0 <2.0.0"
+   },
+   "homepage": "https://github.com/dart-lang/linter",
+   "name": "linter",
+   "version": "0.1.31"
+  }
  },
  "analyzerItems": [
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|INITIALIZER_FOR_NON_EXISTENT_FIELD",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 9,
+   "error": "'assert' isn't a field in the enclosing class."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 9,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|MISSING_ASSIGNMENT_IN_INITIALIZER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 9,
+   "error": "Expected an assignment after the field name."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|MISSING_FUNCTION_BODY",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 9,
+   "error": "A function body must be provided."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|MISSING_IDENTIFIER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 9,
+   "error": "Expected an identifier."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 9,
+   "error": "Unexpected text 'assert'."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 15,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 15,
+   "error": "Unexpected text '('."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|NOT_A_TYPE",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 16,
+   "error": "a isn't a type."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 18,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 18,
+   "error": "Unexpected text '!='."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 21,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 21,
+   "error": "Unexpected text 'null'."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 25,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 25,
+   "error": "Unexpected text ')'."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 26,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 16,
+   "col": 26,
+   "error": "Unexpected text ','."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 9,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 9,
+   "error": "Unexpected text 'assert'."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 15,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 15,
+   "error": "Unexpected text '('."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 16,
+   "error": "Undefined class 'b'."
+  },
+  {
+   "type": "ERROR|COMPILE_TIME_ERROR|DUPLICATE_DEFINITION",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 18,
+   "error": "The name '' is already defined."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 18,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 18,
+   "error": "Unexpected text '!='."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 21,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 21,
+   "error": "Unexpected text 'null'."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_CLASS_MEMBER",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 25,
+   "error": "Expected a class member."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 25,
+   "error": "Unexpected text ')'."
+  },
+  {
+   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
+   "file": "test/_data/always_require_non_null_named_parameters/lib.dart",
+   "line": 17,
+   "col": 26,
+   "error": "Unexpected text ';'."
+  },
   {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/_data/cancel_subscriptions/cancel_subscriptions.dart",
@@ -527,25 +995,11 @@
    "error": "The value of the field '_private' isn't used."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/_data/overridden_fields/src/a.dart",
-   "line": 3,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/_data/overridden_fields/src/b.dart",
    "line": 5,
    "col": 7,
    "error": "The value of the field '_private' isn't used."
-  },
-  {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/_data/overridden_fields/src/b.dart",
-   "line": 5,
-   "col": 7,
-   "error": "Private field could be final."
   },
   {
    "type": "INFO|LINT|overridden_fields",
@@ -583,83 +1037,6 @@
    "error": "The function 'p6_lib' isn't defined."
   },
   {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 10,
-   "col": 7,
-   "error": "The value of the local variable 'listToLint' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 11,
-   "col": 7,
-   "error": "The value of the local variable 'mapToLint' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 12,
-   "col": 7,
-   "error": "The value of the local variable 'LinkedHashMapToLint' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 14,
-   "col": 7,
-   "error": "The value of the local variable 'constructedListInsideLiteralList' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 16,
-   "col": 7,
-   "error": "The value of the local variable 'literalListInsideLiteralList' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 18,
-   "col": 7,
-   "error": "The value of the local variable 'fiveLengthList' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 20,
-   "col": 7,
-   "error": "The value of the local variable 'namedConstructorList' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 21,
-   "col": 7,
-   "error": "The value of the local variable 'namedConstructorMap' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 22,
-   "col": 7,
-   "error": "The value of the local variable 'namedConstructorLinkedHashMap' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 24,
-   "col": 7,
-   "error": "The value of the local variable 'literalList' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/_data/prefer_collection_literals/test.dart",
-   "line": 25,
-   "col": 7,
-   "error": "The value of the local variable 'literalMap' isn't used."
-  },
-  {
    "type": "ERROR|STATIC_WARNING|UNDEFINED_CLASS",
    "file": "test/_data/synthetic/synthetic.dart",
    "line": 6,
@@ -676,42 +1053,259 @@
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/always_declare_return_types.dart",
-   "line": 11,
+   "line": 12,
    "col": 3,
    "error": "The method '_foo' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/always_declare_return_types.dart",
-   "line": 22,
+   "line": 23,
    "col": 7,
    "error": "The class '_Foo2' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/always_declare_return_types.dart",
-   "line": 23,
+   "line": 24,
    "col": 7,
    "error": "The method '_foo' isn't used."
   },
   {
    "type": "ERROR|COMPILE_TIME_ERROR|NON_GENERATIVE_CONSTRUCTOR",
    "file": "test/rules/always_declare_return_types.dart",
-   "line": 33,
+   "line": 34,
    "col": 16,
    "error": "The generative constructor 'List([int length]) → List<E>' expected, but factory found."
   },
   {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 8,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 8,
+   "col": 14,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 10,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 10,
+   "col": 14,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 12,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 13,
+   "col": 5,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 15,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 15,
+   "col": 14,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 18,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 19,
+   "col": 5,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 22,
+   "col": 3,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 22,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 24,
+   "col": 8,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 29,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 30,
+   "col": 10,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 34,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 37,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 42,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 45,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 49,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 54,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 56,
+   "col": 3,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 56,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 58,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 63,
+   "col": 12,
+   "error": "The value of the local variable 'i' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 65,
+   "col": 12,
+   "error": "The value of the local variable 'i' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 67,
+   "col": 12,
+   "error": "The value of the local variable 'i' isn't used."
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 74,
+   "col": 3,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 81,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
+   "type": "INFO|HINT|DEAD_CODE",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 84,
+   "col": 3,
+   "error": "Dead code."
+  },
+  {
+   "type": "INFO|LINT|literal_only_boolean_expressions",
+   "file": "test/rules/always_put_control_body_on_new_line.dart",
+   "line": 84,
+   "col": 3,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\""
+  },
+  {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/always_specify_types.dart",
-   "line": 40,
+   "line": 42,
    "col": 7,
    "error": "The value of the local variable 'x' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/always_specify_types.dart",
-   "line": 65,
+   "line": 67,
    "col": 5,
    "error": "The value of the local variable 'p' isn't used."
   },
@@ -739,16 +1333,58 @@
   {
    "type": "INFO|LINT|empty_catches",
    "file": "test/rules/avoid_as.dart",
-   "line": 9,
+   "line": 11,
    "col": 18,
    "error": "Avoid empty catch blocks."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/avoid_as.dart",
-   "line": 14,
+   "line": 16,
    "col": 10,
    "error": "The value of the local variable 'p' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_CATCH_CLAUSE",
+   "file": "test/rules/avoid_catches_without_on_clauses.dart",
+   "line": 16,
+   "col": 23,
+   "error": "The exception variable 'e' isn't used, so the 'catch' clause can be removed."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_CATCH_CLAUSE",
+   "file": "test/rules/avoid_catching_errors.dart",
+   "line": 8,
+   "col": 22,
+   "error": "The exception variable 'e' isn't used, so the 'catch' clause can be removed."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_CATCH_CLAUSE",
+   "file": "test/rules/avoid_catching_errors.dart",
+   "line": 10,
+   "col": 17,
+   "error": "The exception variable 'e' isn't used, so the 'catch' clause can be removed."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_CATCH_CLAUSE",
+   "file": "test/rules/avoid_catching_errors.dart",
+   "line": 16,
+   "col": 21,
+   "error": "The exception variable 'e' isn't used, so the 'catch' clause can be removed."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_CATCH_CLAUSE",
+   "file": "test/rules/avoid_catching_errors.dart",
+   "line": 18,
+   "col": 25,
+   "error": "The exception variable 'e' isn't used, so the 'catch' clause can be removed."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_CATCH_CLAUSE",
+   "file": "test/rules/avoid_catching_errors.dart",
+   "line": 20,
+   "col": 22,
+   "error": "The exception variable 'e' isn't used, so the 'catch' clause can be removed."
   },
   {
    "type": "INFO|LINT|avoid_empty_else",
@@ -779,6 +1415,48 @@
    "error": "Don't explicitly initialize variables to null"
   },
   {
+   "type": "INFO|LINT|hash_and_equals",
+   "file": "test/rules/avoid_null_checks_in_equality_operators.dart",
+   "line": 13,
+   "col": 12,
+   "error": "Always override `hashCode` if overriding `==`"
+  },
+  {
+   "type": "INFO|LINT|hash_and_equals",
+   "file": "test/rules/avoid_null_checks_in_equality_operators.dart",
+   "line": 23,
+   "col": 12,
+   "error": "Always override `hashCode` if overriding `==`"
+  },
+  {
+   "type": "INFO|LINT|hash_and_equals",
+   "file": "test/rules/avoid_null_checks_in_equality_operators.dart",
+   "line": 33,
+   "col": 12,
+   "error": "Always override `hashCode` if overriding `==`"
+  },
+  {
+   "type": "INFO|LINT|hash_and_equals",
+   "file": "test/rules/avoid_null_checks_in_equality_operators.dart",
+   "line": 45,
+   "col": 12,
+   "error": "Always override `hashCode` if overriding `==`"
+  },
+  {
+   "type": "INFO|LINT|hash_and_equals",
+   "file": "test/rules/avoid_null_checks_in_equality_operators.dart",
+   "line": 57,
+   "col": 12,
+   "error": "Always override `hashCode` if overriding `==`"
+  },
+  {
+   "type": "INFO|LINT|hash_and_equals",
+   "file": "test/rules/avoid_null_checks_in_equality_operators.dart",
+   "line": 71,
+   "col": 12,
+   "error": "Always override `hashCode` if overriding `==`"
+  },
+  {
    "type": "INFO|LINT|avoid_return_types_on_setters",
    "file": "test/rules/avoid_return_types_on_setters.dart",
    "line": 8,
@@ -800,6 +1478,55 @@
    "error": "Avoid return types on setters."
   },
   {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/rules/avoid_types_on_closure_parameters.dart",
+   "line": 13,
+   "col": 24,
+   "error": "The type of 'goodName1' can't be inferred because type arguments were not given for 'map'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
+   "file": "test/rules/avoid_types_on_closure_parameters.dart",
+   "line": 14,
+   "col": 23,
+   "error": "The type of 'badName1' can't be inferred because type arguments were not given for 'map'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "test/rules/avoid_types_on_closure_parameters.dart",
+   "line": 16,
+   "col": 19,
+   "error": "The type of 'goodName2' can't be inferred because the parameter 'person' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+   "file": "test/rules/avoid_types_on_closure_parameters.dart",
+   "line": 17,
+   "col": 37,
+   "error": "The type of 'badName2' can't be inferred because of the use of the instance getter 'name'."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "test/rules/avoid_types_on_closure_parameters.dart",
+   "line": 19,
+   "col": 19,
+   "error": "The type of 'goodName3' can't be inferred because the parameter 'person' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_FUNCTION_LITERAL_PARAMETER",
+   "file": "test/rules/avoid_types_on_closure_parameters.dart",
+   "line": 22,
+   "col": 19,
+   "error": "The type of 'goodName4' can't be inferred because the parameter 'person' does not have an explicit type."
+  },
+  {
+   "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",
+   "file": "test/rules/avoid_types_on_closure_parameters.dart",
+   "line": 23,
+   "col": 37,
+   "error": "The type of 'badName4' can't be inferred because of the use of the instance getter 'name'."
+  },
+  {
    "type": "INFO|LINT|await_only_futures",
    "file": "test/rules/await_only_futures.dart",
    "line": 10,
@@ -812,20 +1539,6 @@
    "line": 33,
    "col": 3,
    "error": "Invalid override. The type of 'CancellableFuture.then' ('((T) → dynamic, {onError: Function}) → Future<dynamic>') isn't a subtype of 'Future<T>.then' ('<S>((T) → FutureOr<S>, {onError: Function}) → Future<S>')."
-  },
-  {
-   "type": "ERROR|SYNTACTIC_ERROR|EXPECTED_EXECUTABLE",
-   "file": "test/rules/cascade_invocations.dart",
-   "line": 87,
-   "col": 1,
-   "error": "Expected a method, getter, setter or operator declaration."
-  },
-  {
-   "type": "ERROR|SYNTACTIC_ERROR|UNEXPECTED_TOKEN",
-   "file": "test/rules/cascade_invocations.dart",
-   "line": 87,
-   "col": 1,
-   "error": "Unexpected text '}'."
   },
   {
    "type": "INFO|LINT|comment_references",
@@ -921,7 +1634,7 @@
   {
    "type": "INFO|LINT|empty_constructor_bodies",
    "file": "test/rules/empty_constructor_bodies.dart",
-   "line": 11,
+   "line": 13,
    "col": 7,
    "error": "Use `;` instead of `{}` for empty constructor bodies."
   },
@@ -970,29 +1683,29 @@
   {
    "type": "INFO|LINT|invariant_booleans",
    "file": "test/rules/invariant_booleans.dart",
-   "line": 16,
+   "line": 83,
    "col": 7,
    "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: localFoo < localBar."
   },
   {
    "type": "INFO|LINT|invariant_booleans",
    "file": "test/rules/invariant_booleans.dart",
-   "line": 26,
-   "col": 9,
+   "line": 95,
+   "col": 7,
    "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: localFoo < localBar."
   },
   {
    "type": "INFO|LINT|invariant_booleans",
    "file": "test/rules/invariant_booleans.dart",
-   "line": 37,
-   "col": 9,
+   "line": 115,
+   "col": 7,
    "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: localFoo < localBar."
   },
   {
    "type": "INFO|LINT|invariant_booleans",
    "file": "test/rules/invariant_booleans.dart",
-   "line": 50,
-   "col": 11,
+   "line": 127,
+   "col": 7,
    "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: localFoo < localBar."
   },
   {
@@ -1152,7 +1865,42 @@
   {
    "type": "INFO|LINT|invariant_booleans",
    "file": "test/rules/invariant_booleans.dart",
+   "line": 218,
+   "col": 24,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo == bar."
+  },
+  {
+   "type": "INFO|LINT|invariant_booleans",
+   "file": "test/rules/invariant_booleans.dart",
+   "line": 219,
+   "col": 24,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo == bar."
+  },
+  {
+   "type": "INFO|LINT|invariant_booleans",
+   "file": "test/rules/invariant_booleans.dart",
+   "line": 220,
+   "col": 30,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo == bar."
+  },
+  {
+   "type": "INFO|LINT|invariant_booleans",
+   "file": "test/rules/invariant_booleans.dart",
    "line": 225,
+   "col": 9,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo == bar."
+  },
+  {
+   "type": "INFO|LINT|invariant_booleans",
+   "file": "test/rules/invariant_booleans.dart",
+   "line": 231,
+   "col": 12,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo == bar."
+  },
+  {
+   "type": "INFO|LINT|invariant_booleans",
+   "file": "test/rules/invariant_booleans.dart",
+   "line": 237,
    "col": 9,
    "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo == bar."
   },
@@ -1213,18 +1961,25 @@
    "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo == 4."
   },
   {
+   "type": "INFO|LINT|invariant_booleans",
+   "file": "test/rules/invariant_booleans.dart",
+   "line": 384,
+   "col": 9,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo == 4."
+  },
+  {
+   "type": "INFO|LINT|invariant_booleans",
+   "file": "test/rules/invariant_booleans.dart",
+   "line": 397,
+   "col": 7,
+   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: foo."
+  },
+  {
    "type": "INFO|LINT|parameter_assignments",
    "file": "test/rules/invariant_booleans.dart",
    "line": 407,
    "col": 3,
    "error": "Don't reassign references to parameters of functions or methods."
-  },
-  {
-   "type": "INFO|LINT|invariant_booleans",
-   "file": "test/rules/invariant_booleans.dart",
-   "line": 408,
-   "col": 7,
-   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: offset >= length."
   },
   {
    "type": "INFO|LINT|parameter_assignments",
@@ -1234,13 +1989,6 @@
    "error": "Don't reassign references to parameters of functions or methods."
   },
   {
-   "type": "INFO|LINT|invariant_booleans",
-   "file": "test/rules/invariant_booleans.dart",
-   "line": 418,
-   "col": 7,
-   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: offset >= length."
-  },
-  {
    "type": "INFO|LINT|parameter_assignments",
    "file": "test/rules/invariant_booleans.dart",
    "line": 427,
@@ -1248,39 +1996,11 @@
    "error": "Don't reassign references to parameters of functions or methods."
   },
   {
-   "type": "INFO|LINT|invariant_booleans",
-   "file": "test/rules/invariant_booleans.dart",
-   "line": 428,
-   "col": 7,
-   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: offset >= length."
-  },
-  {
    "type": "INFO|LINT|parameter_assignments",
    "file": "test/rules/invariant_booleans.dart",
    "line": 437,
    "col": 3,
    "error": "Don't reassign references to parameters of functions or methods."
-  },
-  {
-   "type": "INFO|LINT|invariant_booleans",
-   "file": "test/rules/invariant_booleans.dart",
-   "line": 438,
-   "col": 7,
-   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: offset >= length."
-  },
-  {
-   "type": "INFO|LINT|invariant_booleans",
-   "file": "test/rules/invariant_booleans.dart",
-   "line": 446,
-   "col": 9,
-   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: b > 0."
-  },
-  {
-   "type": "INFO|LINT|invariant_booleans",
-   "file": "test/rules/invariant_booleans.dart",
-   "line": 449,
-   "col": 9,
-   "error": "Conditions should not unconditionally evaluate to \"TRUE\" or to \"FALSE\" verify: b > 0."
   },
   {
    "type": "INFO|LINT|iterable_contains_unrelated_type",
@@ -1355,14 +2075,14 @@
   {
    "type": "INFO|LINT|library_names",
    "file": "test/rules/library_names.dart",
-   "line": 5,
+   "line": 7,
    "col": 9,
    "error": "Name libraries and source files using `lowercase_with_underscores`."
   },
   {
    "type": "INFO|LINT|library_prefixes",
    "file": "test/rules/library_prefixes.dart",
-   "line": 5,
+   "line": 7,
    "col": 23,
    "error": "Use `lowercase_with_underscores` when specifying a library prefix."
   },
@@ -1579,56 +2299,42 @@
   {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/non_constant_identifier_names.dart",
-   "line": 9,
+   "line": 11,
    "col": 7,
    "error": "The value of the field '_x' isn't used."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/non_constant_identifier_names.dart",
-   "line": 9,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/non_constant_identifier_names.dart",
-   "line": 10,
+   "line": 12,
    "col": 7,
    "error": "The value of the field '__x' isn't used."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/non_constant_identifier_names.dart",
-   "line": 10,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/omit_local_variable_types.dart",
-   "line": 33,
+   "line": 64,
    "col": 14,
    "error": "The value of the local variable 'a' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/omit_local_variable_types.dart",
-   "line": 33,
+   "line": 64,
    "col": 22,
    "error": "The value of the local variable 'b' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/omit_local_variable_types.dart",
-   "line": 34,
+   "line": 65,
    "col": 14,
    "error": "The value of the local variable 'c' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/omit_local_variable_types.dart",
-   "line": 34,
+   "line": 65,
    "col": 40,
    "error": "The value of the local variable 'd' isn't used."
   },
@@ -1900,6 +2606,118 @@
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_adjacent_string_concatenation.dart",
+   "line": 8,
+   "col": 10,
+   "error": "The value of the local variable 'string1' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_adjacent_string_concatenation.dart",
+   "line": 11,
+   "col": 10,
+   "error": "The value of the local variable 'string2' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_adjacent_string_concatenation.dart",
+   "line": 14,
+   "col": 16,
+   "error": "The value of the local variable 'list' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_adjacent_string_concatenation.dart",
+   "line": 22,
+   "col": 10,
+   "error": "The value of the local variable 'string4' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_adjacent_string_concatenation.dart",
+   "line": 24,
+   "col": 10,
+   "error": "The value of the local variable 'string5' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 10,
+   "col": 7,
+   "error": "The value of the local variable 'listToLint' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 11,
+   "col": 7,
+   "error": "The value of the local variable 'mapToLint' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 12,
+   "col": 7,
+   "error": "The value of the local variable 'LinkedHashMapToLint' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 14,
+   "col": 7,
+   "error": "The value of the local variable 'constructedListInsideLiteralList' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 16,
+   "col": 7,
+   "error": "The value of the local variable 'literalListInsideLiteralList' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 18,
+   "col": 7,
+   "error": "The value of the local variable 'fiveLengthList' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 20,
+   "col": 7,
+   "error": "The value of the local variable 'namedConstructorList' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 21,
+   "col": 7,
+   "error": "The value of the local variable 'namedConstructorMap' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 22,
+   "col": 7,
+   "error": "The value of the local variable 'namedConstructorLinkedHashMap' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 24,
+   "col": 7,
+   "error": "The value of the local variable 'literalList' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
+   "file": "test/rules/prefer_collection_literals.dart",
+   "line": 25,
+   "col": 7,
+   "error": "The value of the local variable 'literalMap' isn't used."
+  },
+  {
+   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/prefer_const_constructors.dart",
    "line": 12,
    "col": 5,
@@ -1960,13 +2778,6 @@
    "line": 43,
    "col": 13,
    "error": "The value of the local variable 'a' isn't used."
-  },
-  {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/prefer_final_fields.dart",
-   "line": 8,
-   "col": 7,
-   "error": "Private field could be final."
   },
   {
    "type": "INFO|HINT|UNUSED_FIELD",
@@ -2055,13 +2866,6 @@
   {
    "type": "INFO|LINT|prefer_final_fields",
    "file": "test/rules/prefer_final_fields.dart",
-   "line": 39,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/prefer_final_fields.dart",
    "line": 51,
    "col": 7,
    "error": "Private field could be final."
@@ -2077,6 +2881,13 @@
    "type": "INFO|LINT|prefer_final_fields",
    "file": "test/rules/prefer_final_fields.dart",
    "line": 68,
+   "col": 7,
+   "error": "Private field could be final."
+  },
+  {
+   "type": "INFO|LINT|prefer_final_fields",
+   "file": "test/rules/prefer_final_fields.dart",
+   "line": 77,
    "col": 7,
    "error": "Private field could be final."
   },
@@ -2118,21 +2929,21 @@
   {
    "type": "INFO|LINT|prefer_is_not_empty",
    "file": "test/rules/prefer_is_not_empty.dart",
-   "line": 5,
-   "col": 12,
-   "error": "Use isNotEmpty for Iterables and Maps."
-  },
-  {
-   "type": "INFO|LINT|prefer_is_not_empty",
-   "file": "test/rules/prefer_is_not_empty.dart",
-   "line": 6,
-   "col": 12,
-   "error": "Use isNotEmpty for Iterables and Maps."
-  },
-  {
-   "type": "INFO|LINT|prefer_is_not_empty",
-   "file": "test/rules/prefer_is_not_empty.dart",
    "line": 7,
+   "col": 12,
+   "error": "Use isNotEmpty for Iterables and Maps."
+  },
+  {
+   "type": "INFO|LINT|prefer_is_not_empty",
+   "file": "test/rules/prefer_is_not_empty.dart",
+   "line": 8,
+   "col": 12,
+   "error": "Use isNotEmpty for Iterables and Maps."
+  },
+  {
+   "type": "INFO|LINT|prefer_is_not_empty",
+   "file": "test/rules/prefer_is_not_empty.dart",
+   "line": 9,
    "col": 12,
    "error": "Use isNotEmpty for Iterables and Maps."
   },
@@ -2158,25 +2969,11 @@
    "error": "The value of the field '_y' isn't used."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/public_member_api_docs.dart",
-   "line": 26,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/public_member_api_docs.dart",
    "line": 28,
    "col": 6,
    "error": "The value of the field '_z' isn't used."
-  },
-  {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/public_member_api_docs.dart",
-   "line": 28,
-   "col": 6,
-   "error": "Private field could be final."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
@@ -2215,7 +3012,7 @@
   },
   {
    "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/recursive_getter.dart",
+   "file": "test/rules/recursive_getters.dart",
    "line": 8,
    "col": 7,
    "error": "Private field could be final."
@@ -2223,112 +3020,98 @@
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 5,
+   "line": 7,
    "col": 1,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 8,
+   "line": 10,
    "col": 1,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 14,
+   "line": 16,
    "col": 3,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 17,
+   "line": 19,
    "col": 3,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 20,
+   "line": 22,
    "col": 3,
-   "error": "Prefer to use /// for doc comments"
-  },
-  {
-   "type": "INFO|LINT|slash_for_doc_comments",
-   "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 24,
-   "col": 1,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
    "line": 26,
+   "col": 1,
+   "error": "Prefer to use /// for doc comments"
+  },
+  {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "test/rules/slash_for_doc_comments.dart",
+   "line": 28,
    "col": 3,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 31,
+   "line": 33,
    "col": 1,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 34,
+   "line": 36,
    "col": 1,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 40,
+   "line": 42,
    "col": 1,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|LINT|slash_for_doc_comments",
    "file": "test/rules/slash_for_doc_comments.dart",
-   "line": 43,
+   "line": 45,
    "col": 1,
    "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/super_goes_last.dart",
-   "line": 11,
+   "line": 13,
    "col": 7,
    "error": "The value of the field '_b' isn't used."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/super_goes_last.dart",
-   "line": 11,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/super_goes_last.dart",
-   "line": 18,
+   "line": 20,
    "col": 7,
    "error": "The value of the field '_c' isn't used."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/super_goes_last.dart",
-   "line": 18,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_SUPER_INVOCATION",
    "file": "test/rules/super_goes_last.dart",
-   "line": 20,
+   "line": 22,
    "col": 9,
    "error": "super call must be last in an initializer list (see https://goo.gl/EY6hDP): 'super(a)'."
   },
@@ -2391,307 +3174,265 @@
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 23,
+   "line": 25,
    "col": 1,
    "error": "The function '_f' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 42,
+   "line": 44,
    "col": 7,
    "error": "The value of the field '_zzz' isn't used."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 42,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 53,
+   "line": 55,
    "col": 7,
    "error": "The value of the field '_x' isn't used."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 53,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 54,
+   "line": 56,
    "col": 9,
    "error": "The value of the field '_xx' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 55,
+   "line": 57,
    "col": 16,
    "error": "The value of the field '_y' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_FIELD",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 56,
+   "line": 58,
    "col": 16,
    "error": "The value of the field '_z' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 60,
+   "line": 62,
    "col": 3,
    "error": "The method '_f' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 61,
+   "line": 63,
    "col": 8,
    "error": "The method '_g' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 62,
+   "line": 64,
    "col": 10,
    "error": "The method '_h' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 63,
+   "line": 65,
    "col": 10,
    "error": "The method '_j' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 64,
+   "line": 66,
    "col": 10,
    "error": "The method '_k' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 67,
+   "line": 69,
    "col": 9,
    "error": "The function type alias '_PrivateMethod' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
    "file": "test/rules/type_annotate_public_apis.dart",
-   "line": 68,
+   "line": 70,
    "col": 14,
    "error": "The function type alias '_PrivateMethod2' isn't used."
   },
   {
    "type": "INFO|LINT|type_init_formals",
    "file": "test/rules/type_init_formals.dart",
-   "line": 12,
+   "line": 14,
    "col": 7,
    "error": "Don't type annotate initializing formals."
   },
   {
    "type": "INFO|LINT|unawaited_futures",
    "file": "test/rules/unawaited_futures.dart",
-   "line": 9,
+   "line": 15,
    "col": 3,
    "error": "Await for future expression statements inside async function bodies."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "test/rules/unawaited_futures.dart",
-   "line": 15,
+   "line": 21,
    "col": 20,
    "error": "The value of the local variable 'x' isn't used."
   },
   {
    "type": "INFO|LINT|unawaited_futures",
    "file": "test/rules/unawaited_futures.dart",
-   "line": 17,
+   "line": 23,
    "col": 3,
    "error": "Await for future expression statements inside async function bodies."
   },
   {
    "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
    "file": "test/rules/unawaited_futures.dart",
-   "line": 17,
+   "line": 23,
    "col": 22,
    "error": "Undefined name 'd'."
   },
   {
    "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
    "file": "test/rules/unawaited_futures.dart",
-   "line": 18,
+   "line": 24,
    "col": 22,
    "error": "Undefined name 'd'."
   },
   {
    "type": "ERROR|STATIC_WARNING|UNDEFINED_IDENTIFIER",
    "file": "test/rules/unawaited_futures.dart",
-   "line": 18,
+   "line": 24,
    "col": 25,
    "error": "Undefined name 'bar'."
   },
   {
    "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
    "file": "test/rules/unawaited_futures.dart",
-   "line": 22,
+   "line": 28,
    "col": 26,
    "error": "The argument type 'Future' can't be assigned to the parameter type '() → Future<dynamic>'."
   },
   {
-   "type": "INFO|LINT|unnecessary_brace_in_string_interp",
-   "file": "test/rules/unnecessary_brace_in_string_interp.dart",
+   "type": "INFO|LINT|unnecessary_brace_in_string_interps",
+   "file": "test/rules/unnecessary_brace_in_string_interps.dart",
    "line": 12,
    "col": 16,
    "error": "Avoid using braces in interpolation when not needed."
   },
   {
-   "type": "INFO|LINT|unnecessary_brace_in_string_interp",
-   "file": "test/rules/unnecessary_brace_in_string_interp.dart",
+   "type": "INFO|LINT|unnecessary_brace_in_string_interps",
+   "file": "test/rules/unnecessary_brace_in_string_interps.dart",
    "line": 13,
    "col": 16,
    "error": "Avoid using braces in interpolation when not needed."
   },
   {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/unnecessary_getters.dart",
-   "line": 8,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/unnecessary_getters.dart",
-   "line": 17,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
    "type": "INFO|LINT|unnecessary_getters_setters",
    "file": "test/rules/unnecessary_getters.dart",
-   "line": 26,
+   "line": 28,
    "col": 7,
    "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
   },
   {
    "type": "INFO|LINT|unnecessary_getters_setters",
    "file": "test/rules/unnecessary_getters.dart",
-   "line": 27,
+   "line": 29,
    "col": 7,
    "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
   },
   {
    "type": "INFO|LINT|prefer_final_fields",
    "file": "test/rules/unnecessary_getters.dart",
-   "line": 33,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
-   "type": "INFO|LINT|prefer_final_fields",
-   "file": "test/rules/unnecessary_getters.dart",
-   "line": 41,
-   "col": 7,
-   "error": "Private field could be final."
-  },
-  {
-   "type": "INFO|LINT|unnecessary_getters_setters",
-   "file": "test/rules/unnecessary_getters_setters.dart",
-   "line": 18,
-   "col": 7,
-   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
-  },
-  {
-   "type": "INFO|LINT|unnecessary_getters_setters",
-   "file": "test/rules/unnecessary_getters_setters.dart",
-   "line": 19,
-   "col": 7,
-   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
-  },
-  {
-   "type": "INFO|LINT|unnecessary_getters_setters",
-   "file": "test/rules/unnecessary_getters_setters.dart",
-   "line": 27,
-   "col": 7,
-   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
-  },
-  {
-   "type": "INFO|LINT|unnecessary_getters_setters",
-   "file": "test/rules/unnecessary_getters_setters.dart",
-   "line": 31,
-   "col": 7,
-   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
-  },
-  {
-   "type": "INFO|LINT|unnecessary_getters_setters",
-   "file": "test/rules/unnecessary_getters_setters.dart",
-   "line": 39,
-   "col": 7,
-   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
-  },
-  {
-   "type": "INFO|LINT|unnecessary_getters_setters",
-   "file": "test/rules/unnecessary_getters_setters.dart",
    "line": 43,
    "col": 7,
+   "error": "Private field could be final."
+  },
+  {
+   "type": "INFO|LINT|unnecessary_getters_setters",
+   "file": "test/rules/unnecessary_getters_setters.dart",
+   "line": 20,
+   "col": 7,
    "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
   },
   {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/unnecessary_null_aware_assignment.dart",
-   "line": 9,
-   "col": 9,
-   "error": "The value of the local variable 'x' isn't used."
+   "type": "INFO|LINT|unnecessary_getters_setters",
+   "file": "test/rules/unnecessary_getters_setters.dart",
+   "line": 21,
+   "col": 7,
+   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+  },
+  {
+   "type": "INFO|LINT|unnecessary_getters_setters",
+   "file": "test/rules/unnecessary_getters_setters.dart",
+   "line": 29,
+   "col": 7,
+   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+  },
+  {
+   "type": "INFO|LINT|unnecessary_getters_setters",
+   "file": "test/rules/unnecessary_getters_setters.dart",
+   "line": 33,
+   "col": 7,
+   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+  },
+  {
+   "type": "INFO|LINT|unnecessary_getters_setters",
+   "file": "test/rules/unnecessary_getters_setters.dart",
+   "line": 41,
+   "col": 7,
+   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
+  },
+  {
+   "type": "INFO|LINT|unnecessary_getters_setters",
+   "file": "test/rules/unnecessary_getters_setters.dart",
+   "line": 45,
+   "col": 7,
+   "error": "Avoid wrapping fields in getters and setters just to be \"safe\"."
   },
   {
    "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_UNSUPPORTED",
-   "file": "test/rules/unnecessary_null_in_if_null_operator.dart",
+   "file": "test/rules/unnecessary_null_in_if_null_operators.dart",
    "line": 7,
    "col": 9,
    "error": "The type of 'x' can't be inferred because BinaryExpressionImpl expressions aren't supported."
   },
   {
    "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_UNSUPPORTED",
-   "file": "test/rules/unnecessary_null_in_if_null_operator.dart",
+   "file": "test/rules/unnecessary_null_in_if_null_operators.dart",
    "line": 8,
    "col": 9,
    "error": "The type of 'y' can't be inferred because BinaryExpressionImpl expressions aren't supported."
   },
   {
    "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_UNSUPPORTED",
-   "file": "test/rules/unnecessary_null_in_if_null_operator.dart",
+   "file": "test/rules/unnecessary_null_in_if_null_operators.dart",
    "line": 9,
    "col": 9,
    "error": "The type of 'z' can't be inferred because BinaryExpressionImpl expressions aren't supported."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/unnecessary_null_in_if_null_operator.dart",
+   "file": "test/rules/unnecessary_null_in_if_null_operators.dart",
    "line": 13,
    "col": 9,
    "error": "The value of the local variable 'x' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/unnecessary_null_in_if_null_operator.dart",
+   "file": "test/rules/unnecessary_null_in_if_null_operators.dart",
    "line": 14,
    "col": 9,
    "error": "The value of the local variable 'y' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/unnecessary_null_in_if_null_operator.dart",
+   "file": "test/rules/unnecessary_null_in_if_null_operators.dart",
    "line": 15,
    "col": 9,
    "error": "The value of the local variable 'z' isn't used."
@@ -2718,39 +3459,18 @@
    "error": "Equality operator (==) invocation with references of unrelated types."
   },
   {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/use_adjacent_strings_to_concatenate_literals.dart",
-   "line": 8,
-   "col": 10,
-   "error": "The value of the local variable 'string1' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/use_adjacent_strings_to_concatenate_literals.dart",
-   "line": 11,
-   "col": 10,
-   "error": "The value of the local variable 'string2' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/use_adjacent_strings_to_concatenate_literals.dart",
-   "line": 14,
-   "col": 16,
-   "error": "The value of the local variable 'list' isn't used."
-  },
-  {
-   "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/use_adjacent_strings_to_concatenate_literals.dart",
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "test/rules/use_setters_to_change_properties.dart",
    "line": 22,
-   "col": 10,
-   "error": "The value of the local variable 'string4' isn't used."
+   "col": 8,
+   "error": "Annotate overridden members"
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
-   "file": "test/rules/use_adjacent_strings_to_concatenate_literals.dart",
-   "line": 24,
+   "file": "test/rules/use_string_buffers.dart",
+   "line": 46,
    "col": 10,
-   "error": "The value of the local variable 'string5' isn't used."
+   "error": "The value of the local variable 'buffer' isn't used."
   },
   {
    "type": "INFO|LINT|valid_regexps",
@@ -2786,11 +3506,23 @@
   "test/_data/p1/p1.dart",
   "test/_data/p1/src/p2.dart",
   "test/formatter_test.dart",
+  "test/integration_test.dart",
   "test/rule_test.dart",
   "test/rules/always_declare_return_types.dart",
+  "test/rules/always_put_control_body_on_new_line.dart",
   "test/rules/always_specify_types.dart",
+  "test/rules/avoid_annotating_with_dynamic.dart",
+  "test/rules/avoid_catches_without_on_clauses.dart",
+  "test/rules/avoid_catching_errors.dart",
+  "test/rules/avoid_classes_with_only_static_members.dart",
   "test/rules/avoid_empty_else.dart",
   "test/rules/avoid_function_literals_in_foreach_calls.dart",
+  "test/rules/avoid_null_checks_in_equality_operators.dart",
+  "test/rules/avoid_positional_boolean_parameters.dart",
+  "test/rules/avoid_returning_this.dart",
+  "test/rules/avoid_setters_without_getters.dart",
+  "test/rules/avoid_types_on_closure_parameters.dart",
+  "test/rules/cascade_invocations.dart",
   "test/rules/empty_catches.dart",
   "test/rules/empty_statements.dart",
   "test/rules/invariant_booleans.dart",
@@ -2798,23 +3530,26 @@
   "test/rules/list_remove_unrelated_type.dart",
   "test/rules/no_adjacent_strings_in_list.dart",
   "test/rules/no_duplicate_case_values.dart",
-  "test/rules/non_constant_identifier_names.dart",
   "test/rules/omit_local_variable_types.dart",
   "test/rules/overridden_fields.dart",
-  "test/rules/package_prefixed_library_names.dart",
   "test/rules/parameter_assignments.dart",
+  "test/rules/prefer_adjacent_string_concatenation.dart",
+  "test/rules/prefer_conditional_assignment.dart",
+  "test/rules/prefer_constructors_over_static_methods.dart",
   "test/rules/prefer_expression_function_bodies.dart",
   "test/rules/prefer_final_fields.dart",
+  "test/rules/prefer_foreach.dart",
   "test/rules/prefer_function_declarations_over_variables.dart",
   "test/rules/prefer_interpolation_to_compose_strings.dart",
   "test/rules/public_member_api_docs.dart",
-  "test/rules/recursive_getter.dart",
   "test/rules/slash_for_doc_comments.dart",
   "test/rules/type_annotate_public_apis.dart",
   "test/rules/unawaited_futures.dart",
   "test/rules/unnecessary_getters_setters.dart",
   "test/rules/unnecessary_lambdas.dart",
-  "test/rules/unrelated_type_equality_checks.dart",
-  "test/rules/use_adjacent_strings_to_concatenate_literals.dart"
+  "test/rules/unnecessary_overrides.dart",
+  "test/rules/use_setters_to_change_properties.dart",
+  "test/rules/use_string_buffers.dart",
+  "test/rules/use_to_and_as_if_applicable.dart"
  ]
 }

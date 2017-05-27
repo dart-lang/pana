@@ -1,19 +1,33 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "json_object",
  "packageVersion": "1.0.19+1",
- "dartFileCounts": {
-  "lib": 3,
-  "test": 13
- },
+ "dartFiles": [
+  "lib/json_object.dart",
+  "lib/src/mirror_based_deserializer.dart",
+  "lib/src/mirror_based_serializer.dart",
+  "test/json_object_test.dart",
+  "test/test_dartlang_article.dart",
+  "test/test_extend_object.dart",
+  "test/test_is_extendable.dart",
+  "test/test_json_stringify.dart",
+  "test/test_list.dart",
+  "test/test_list_serialization.dart",
+  "test/test_mirrors_serialize.dart",
+  "test/test_print_list.dart",
+  "test/test_sample_data.dart",
+  "test/test_strong_typing.dart",
+  "test/test_to_string.dart",
+  "test/test_todo_vo.dart"
+ ],
  "pubSummary": {
   "packages": {
    "analyzer": "0.25.0+1",
    "args": "0.13.7",
-   "async": "1.13.2",
-   "barback": "0.15.2+10",
+   "async": "1.13.3",
+   "barback": "0.15.2+11",
    "charcode": "1.1.1",
-   "collection": "1.14.0",
+   "collection": "1.14.1",
    "convert": "2.0.1",
    "crypto": "0.9.1",
    "glob": "1.1.3",
@@ -22,17 +36,17 @@
    "http_parser": "0.0.2+8",
    "matcher": "0.12.0+2",
    "mime": "0.9.3",
-   "package_config": "1.0.0",
+   "package_config": "1.0.1",
    "package_resolver": "1.0.2",
    "path": "1.4.1",
-   "pool": "1.3.0",
+   "pool": "1.3.1",
    "pub_semver": "1.3.2",
    "shelf": "0.6.3",
    "shelf_static": "0.2.4",
    "shelf_web_socket": "0.0.1+5",
    "source_map_stack_trace": "1.1.4",
    "source_maps": "0.10.4",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
    "string_scanner": "0.1.5",
    "test": "0.12.3+9",
@@ -42,17 +56,33 @@
    "yaml": "2.1.12"
   },
   "availablePackages": {
-   "analyzer": "0.29.10",
+   "analyzer": "0.30.0+2",
    "crypto": "2.0.1",
    "http_multi_server": "2.0.3",
    "http_parser": "3.1.1",
+   "matcher": "0.12.1+1",
    "shelf": "0.6.7+2",
    "shelf_web_socket": "0.2.1",
-   "string_scanner": "1.0.1",
-   "test": "0.12.20+9",
+   "string_scanner": "1.0.2",
+   "test": "0.12.20+13",
    "unittest": "0.12.4+1"
   },
-  "pubspecContent": "name: json_object\nversion: 1.0.19+1\nauthors:\n - Chris Buckett <chrisbuckett@gmail.com>\n - Steven Roose <stevenroose@gmail.com>\ndescription: Allow use of JSON Maps in dot notation format\nhomepage: https://github.com/chrisbu/dartwatch-JsonObject\nenvironment:\n  sdk: '>=0.6.0+1.r24898'\ndev_dependencies:\n  unittest: '>=0.6.0+1'\n"
+  "pubspecContent": {
+   "authors": [
+    "Chris Buckett <chrisbuckett@gmail.com>",
+    "Steven Roose <stevenroose@gmail.com>"
+   ],
+   "description": "Allow use of JSON Maps in dot notation format",
+   "dev_dependencies": {
+    "unittest": ">=0.6.0+1"
+   },
+   "environment": {
+    "sdk": ">=0.6.0+1.r24898"
+   },
+   "homepage": "https://github.com/chrisbu/dartwatch-JsonObject",
+   "name": "json_object",
+   "version": "1.0.19+1"
+  }
  },
  "analyzerItems": [
   {

@@ -1,19 +1,37 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "chartjs",
  "packageVersion": "0.3.2",
- "dartFileCounts": {
-  "example": 1,
-  "lib": 1
- },
+ "dartFiles": [
+  "example/example.dart",
+  "lib/chartjs.dart"
+ ],
  "pubSummary": {
   "packages": {
    "browser": "0.10.0+2",
    "func": "0.1.1",
    "js": "0.6.1"
   },
-  "availablePackages": {},
-  "pubspecContent": "name: chartjs\nversion: 0.3.2\ndescription: Chart.js wrapper for Dart\nauthor: Kevin Moore <kevmoo+github@google.com>\nhomepage: https://github.com/google/chartjs.dart/\nenvironment:\n  sdk: '>=1.13.1 <2.0.0'\ndependencies:\n  func: ^0.1.0\n  js: ^0.6.0\ndev_dependencies:\n  browser: ^0.10.0+2\n"
+  "availablePackages": {
+   "func": "1.0.0"
+  },
+  "pubspecContent": {
+   "author": "Kevin Moore <kevmoo+github@google.com>",
+   "dependencies": {
+    "func": "^0.1.0",
+    "js": "^0.6.0"
+   },
+   "description": "Chart.js wrapper for Dart",
+   "dev_dependencies": {
+    "browser": "^0.10.0+2"
+   },
+   "environment": {
+    "sdk": ">=1.13.1 <2.0.0"
+   },
+   "homepage": "https://github.com/google/chartjs.dart/",
+   "name": "chartjs",
+   "version": "0.3.2"
+  }
  },
  "analyzerItems": [
   {

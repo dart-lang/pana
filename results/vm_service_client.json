@@ -1,24 +1,72 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "vm_service_client",
  "packageVersion": "0.2.3",
- "dartFileCounts": {
-  "lib": 31,
-  "test": 18
- },
+ "dartFiles": [
+  "lib/src/bound_field.dart",
+  "lib/src/breakpoint.dart",
+  "lib/src/class.dart",
+  "lib/src/code.dart",
+  "lib/src/context.dart",
+  "lib/src/error.dart",
+  "lib/src/exceptions.dart",
+  "lib/src/field.dart",
+  "lib/src/flag.dart",
+  "lib/src/frame.dart",
+  "lib/src/function.dart",
+  "lib/src/instance.dart",
+  "lib/src/isolate.dart",
+  "lib/src/library.dart",
+  "lib/src/message.dart",
+  "lib/src/object.dart",
+  "lib/src/pause_event.dart",
+  "lib/src/scope.dart",
+  "lib/src/script.dart",
+  "lib/src/sentinel.dart",
+  "lib/src/service_version.dart",
+  "lib/src/source_location.dart",
+  "lib/src/source_report.dart",
+  "lib/src/stack.dart",
+  "lib/src/stream_manager.dart",
+  "lib/src/type_arguments.dart",
+  "lib/src/unresolved_source_location.dart",
+  "lib/src/utils.dart",
+  "lib/src/v1_compatibility.dart",
+  "lib/src/vm.dart",
+  "lib/vm_service_client.dart",
+  "test/bound_field_test.dart",
+  "test/bound_variable_test.dart",
+  "test/breakpoint_test.dart",
+  "test/class_test.dart",
+  "test/client_test.dart",
+  "test/code_test.dart",
+  "test/error_test.dart",
+  "test/field_test.dart",
+  "test/frame_test.dart",
+  "test/function_test.dart",
+  "test/instance_test.dart",
+  "test/isolate_test.dart",
+  "test/library_test.dart",
+  "test/message_test.dart",
+  "test/script_test.dart",
+  "test/source_report_test.dart",
+  "test/utils.dart",
+  "test/vm_test.dart"
+ ],
  "pubSummary": {
   "packages": {
-   "analyzer": "0.29.10",
+   "analyzer": "0.30.0+2",
    "args": "0.13.7",
-   "async": "1.13.2",
-   "barback": "0.15.2+10",
+   "async": "1.13.3",
+   "barback": "0.15.2+11",
    "boolean_selector": "1.0.2",
    "charcode": "1.1.1",
-   "cli_util": "0.0.1+2",
-   "collection": "1.14.0",
+   "cli_util": "0.1.1",
+   "collection": "1.14.1",
    "convert": "2.0.1",
    "crypto": "2.0.1",
-   "csslib": "0.13.4",
+   "csslib": "0.13.7+1",
+   "front_end": "0.1.0-alpha.4",
    "glob": "1.1.3",
    "html": "0.13.1",
    "http": "0.11.3+13",
@@ -26,15 +74,16 @@
    "http_parser": "3.1.1",
    "isolate": "1.0.0",
    "json_rpc_2": "2.0.4",
+   "kernel": "0.3.0-alpha.1",
    "logging": "0.11.3+1",
-   "matcher": "0.12.0+2",
+   "matcher": "0.12.1+1",
    "meta": "1.0.5",
    "mime": "0.9.3",
-   "package_config": "1.0.0",
+   "package_config": "1.0.1",
    "package_resolver": "1.0.2",
    "path": "1.4.1",
    "plugin": "0.2.0",
-   "pool": "1.3.0",
+   "pool": "1.3.1",
    "pub_semver": "1.3.2",
    "shelf": "0.6.7+2",
    "shelf_packages_handler": "1.0.0",
@@ -42,24 +91,42 @@
    "shelf_web_socket": "0.2.1",
    "source_map_stack_trace": "1.1.4",
    "source_maps": "0.10.4",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
    "stream_channel": "1.6.1",
-   "string_scanner": "1.0.1",
+   "string_scanner": "1.0.2",
    "term_glyph": "1.0.0",
-   "test": "0.12.20+9",
+   "test": "0.12.20+13",
    "typed_data": "1.1.3",
    "utf": "0.9.0+3",
    "watcher": "0.9.7+3",
    "web_socket_channel": "1.0.4",
-   "when": "0.2.0",
-   "which": "0.1.3",
    "yaml": "2.1.12"
   },
-  "availablePackages": {
-   "analyzer": "0.30.0-alpha.1"
-  },
-  "pubspecContent": "name: vm_service_client\nversion: 0.2.3\ndescription: A client for the Dart VM service.\nauthor: Dart Team <misc@dartlang.org>\nhomepage: https://github.com/dart-lang/vm_service_client\n\nenvironment:\n  sdk: '>=1.16.0 <2.0.0'\n\ndependencies:\n  async: '^1.7.0'\n  collection: '^1.5.0'\n  json_rpc_2: '^2.0.0'\n  pub_semver: '^1.0.0'\n  source_span: '^1.2.0'\n  stack_trace: '^1.5.0'\n  stream_channel: '^1.1.0'\n  web_socket_channel: '^1.0.0'\n\ndev_dependencies:\n  test: '^0.12.0'\n"
+  "availablePackages": {},
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "dependencies": {
+    "async": "^1.7.0",
+    "collection": "^1.5.0",
+    "json_rpc_2": "^2.0.0",
+    "pub_semver": "^1.0.0",
+    "source_span": "^1.2.0",
+    "stack_trace": "^1.5.0",
+    "stream_channel": "^1.1.0",
+    "web_socket_channel": "^1.0.0"
+   },
+   "description": "A client for the Dart VM service.",
+   "dev_dependencies": {
+    "test": "^0.12.0"
+   },
+   "environment": {
+    "sdk": ">=1.16.0 <2.0.0"
+   },
+   "homepage": "https://github.com/dart-lang/vm_service_client",
+   "name": "vm_service_client",
+   "version": "0.2.3"
+  }
  },
  "analyzerItems": [
   {
@@ -75,6 +142,13 @@
    "line": 141,
    "col": 27,
    "error": "The type of '_onExitMemo' can't be inferred because type arguments were not given for 'AsyncMemoizer'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "lib/src/script.dart",
+   "line": 170,
+   "col": 44,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
   },
   {
    "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS",
@@ -810,6 +884,90 @@
    "line": 39,
    "col": 18,
    "error": "The getter 'value' isn't defined for the class 'VMInstance'."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 78,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 97,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 109,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 114,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 187,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 212,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 224,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 230,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 251,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 273,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 287,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
+   "file": "test/script_test.dart",
+   "line": 304,
+   "col": 20,
+   "error": "'SourceFile' is deprecated and shouldn't be used."
   },
   {
    "type": "INFO|HINT|STRONG_MODE_TOP_LEVEL_INSTANCE_GETTER",

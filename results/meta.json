@@ -1,14 +1,23 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "meta",
  "packageVersion": "1.0.5",
- "dartFileCounts": {
-  "lib": 1
- },
+ "dartFiles": [
+  "lib/meta.dart"
+ ],
  "pubSummary": {
   "packages": {},
   "availablePackages": {},
-  "pubspecContent": "name: meta\nversion: 1.0.5\nauthor: Dart Team <misc@dartlang.org>\nhomepage: http://www.dartlang.org\ndescription: >\n This library contains the definitions of annotations that provide additional\n semantic information about the program being annotated. These annotations are\n intended to be used by tools to provide a better user experience.\nenvironment:\n  sdk: '>=1.12.0 <2.0.0'\n"
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "description": "This library contains the definitions of annotations that provide additional semantic information about the program being annotated. These annotations are intended to be used by tools to provide a better user experience.\n",
+   "environment": {
+    "sdk": ">=1.12.0 <2.0.0"
+   },
+   "homepage": "http://www.dartlang.org",
+   "name": "meta",
+   "version": "1.0.5"
+  }
  },
  "analyzerItems": [],
  "unformattedFiles": []

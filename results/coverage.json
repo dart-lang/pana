@@ -1,25 +1,43 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "coverage",
  "packageVersion": "0.9.2",
- "dartFileCounts": {
-  "bin": 3,
-  "lib": 7,
-  "test": 10
- },
+ "dartFiles": [
+  "bin/collect_coverage.dart",
+  "bin/format_coverage.dart",
+  "bin/run_and_collect.dart",
+  "lib/coverage.dart",
+  "lib/src/collect.dart",
+  "lib/src/formatter.dart",
+  "lib/src/hitmap.dart",
+  "lib/src/resolver.dart",
+  "lib/src/run_and_collect.dart",
+  "lib/src/util.dart",
+  "test/collect_coverage_api_test.dart",
+  "test/collect_coverage_test.dart",
+  "test/lcov_test.dart",
+  "test/resolver_test.dart",
+  "test/run_and_collect_test.dart",
+  "test/test_all.dart",
+  "test/test_files/test_app.dart",
+  "test/test_files/test_app_isolate.dart",
+  "test/test_util.dart",
+  "test/util_test.dart"
+ ],
  "pubSummary": {
   "packages": {
-   "analyzer": "0.29.10",
+   "analyzer": "0.30.0+2",
    "args": "0.13.7",
-   "async": "1.13.2",
-   "barback": "0.15.2+10",
+   "async": "1.13.3",
+   "barback": "0.15.2+11",
    "boolean_selector": "1.0.2",
    "charcode": "1.1.1",
-   "cli_util": "0.0.1+2",
-   "collection": "1.14.0",
+   "cli_util": "0.1.1",
+   "collection": "1.14.1",
    "convert": "2.0.1",
    "crypto": "2.0.1",
-   "csslib": "0.13.4",
+   "csslib": "0.13.7+1",
+   "front_end": "0.1.0-alpha.4",
    "glob": "1.1.3",
    "html": "0.13.1",
    "http": "0.11.3+13",
@@ -27,15 +45,16 @@
    "http_parser": "3.1.1",
    "isolate": "1.0.0",
    "json_rpc_2": "2.0.4",
+   "kernel": "0.3.0-alpha.1",
    "logging": "0.11.3+1",
-   "matcher": "0.12.0+2",
+   "matcher": "0.12.1+1",
    "meta": "1.0.5",
    "mime": "0.9.3",
-   "package_config": "1.0.0",
+   "package_config": "1.0.1",
    "package_resolver": "1.0.2",
    "path": "1.4.1",
    "plugin": "0.2.0",
-   "pool": "1.3.0",
+   "pool": "1.3.1",
    "pub_semver": "1.3.2",
    "shelf": "0.6.7+2",
    "shelf_packages_handler": "1.0.0",
@@ -43,25 +62,46 @@
    "shelf_web_socket": "0.2.1",
    "source_map_stack_trace": "1.1.4",
    "source_maps": "0.10.4",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
    "stream_channel": "1.6.1",
-   "string_scanner": "1.0.1",
+   "string_scanner": "1.0.2",
    "term_glyph": "1.0.0",
-   "test": "0.12.20+9",
+   "test": "0.12.20+13",
    "typed_data": "1.1.3",
    "utf": "0.9.0+3",
    "vm_service_client": "0.2.3",
    "watcher": "0.9.7+3",
    "web_socket_channel": "1.0.4",
-   "when": "0.2.0",
-   "which": "0.1.3",
    "yaml": "2.1.12"
   },
-  "availablePackages": {
-   "analyzer": "0.30.0-alpha.1"
-  },
-  "pubspecContent": "name: coverage\nversion: 0.9.2\nauthor: Dart Team <misc@dartlang.org>\ndescription: Coverage data manipulation and formatting\nhomepage: https://github.com/dart-lang/coverage\nenvironment:\n  sdk: '>=1.16.0 <2.0.0'\ndependencies:\n  args: '>=0.12.1 <1.0.0'\n  async: ^1.8.0\n  logging: '>=0.9.0 <0.12.0'\n  package_config: \">=0.1.5 <2.0.0\"\n  path: '>=0.9.0 <2.0.0'\n  stack_trace: ^1.3.0\n  vm_service_client: ^0.2.2+1\ndev_dependencies:\n  test: '>=0.12.0 <0.13.0'\nexecutables:\n  collect_coverage:\n  format_coverage:\n"
+  "availablePackages": {},
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "dependencies": {
+    "args": ">=0.12.1 <1.0.0",
+    "async": "^1.8.0",
+    "logging": ">=0.9.0 <0.12.0",
+    "package_config": ">=0.1.5 <2.0.0",
+    "path": ">=0.9.0 <2.0.0",
+    "stack_trace": "^1.3.0",
+    "vm_service_client": "^0.2.2+1"
+   },
+   "description": "Coverage data manipulation and formatting",
+   "dev_dependencies": {
+    "test": ">=0.12.0 <0.13.0"
+   },
+   "environment": {
+    "sdk": ">=1.16.0 <2.0.0"
+   },
+   "executables": {
+    "collect_coverage": null,
+    "format_coverage": null
+   },
+   "homepage": "https://github.com/dart-lang/coverage",
+   "name": "coverage",
+   "version": "0.9.2"
+  }
  },
  "analyzerItems": [],
  "unformattedFiles": []

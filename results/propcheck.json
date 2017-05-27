@@ -1,12 +1,18 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "propcheck",
  "packageVersion": "0.5.1",
- "dartFileCounts": {
-  "example": 3,
-  "lib": 3,
-  "test": 3
- },
+ "dartFiles": [
+  "example/demo.dart",
+  "example/demolib.dart",
+  "example/mirrors_demo.dart",
+  "lib/propcheck.dart",
+  "lib/propcheck_mirrors.dart",
+  "lib/src/random.dart",
+  "test/mirrors_test.dart",
+  "test/quickcheck_test.dart",
+  "test/smallcheck_test.dart"
+ ],
  "pubSummary": {
   "packages": {
    "collection": "0.9.4",
@@ -17,11 +23,28 @@
    "unittest": "0.9.3"
   },
   "availablePackages": {
-   "collection": "1.14.0",
+   "collection": "1.14.1",
    "stack_trace": "1.7.3",
    "unittest": "0.12.4+1"
   },
-  "pubspecContent": "name: propcheck\nversion: 0.5.1\nauthor: Paul Brauner <polux@google.com>\ndescription: A library for exhaustive and randomized testing of Dart properties\nhomepage: https://github.com/polux/propcheck\nenvironment:\n  sdk: '>=0.8.10+6 <2.0.0'\ndocumentation: http://www.dartdocs.org/documentation/propcheck/0.5.0/index.html#propcheck\ndependencies:\n  enumerators: '>=0.5.3 <0.6.0'\ndev_dependencies:\n  collection: '>=0.9.3 <0.10.0'\n  unittest: '>=0.9.0 <0.10.0'\n"
+  "pubspecContent": {
+   "author": "Paul Brauner <polux@google.com>",
+   "dependencies": {
+    "enumerators": ">=0.5.3 <0.6.0"
+   },
+   "description": "A library for exhaustive and randomized testing of Dart properties",
+   "dev_dependencies": {
+    "collection": ">=0.9.3 <0.10.0",
+    "unittest": ">=0.9.0 <0.10.0"
+   },
+   "documentation": "http://www.dartdocs.org/documentation/propcheck/0.5.0/index.html#propcheck",
+   "environment": {
+    "sdk": ">=0.8.10+6 <2.0.0"
+   },
+   "homepage": "https://github.com/polux/propcheck",
+   "name": "propcheck",
+   "version": "0.5.1"
+  }
  },
  "analyzerItems": [
   {

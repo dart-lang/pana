@@ -1,39 +1,58 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "json_rpc_2",
  "packageVersion": "2.0.4",
- "dartFileCounts": {
-  "lib": 9,
-  "test": 10
- },
+ "dartFiles": [
+  "lib/error_code.dart",
+  "lib/json_rpc_2.dart",
+  "lib/src/channel_manager.dart",
+  "lib/src/client.dart",
+  "lib/src/exception.dart",
+  "lib/src/parameters.dart",
+  "lib/src/peer.dart",
+  "lib/src/server.dart",
+  "lib/src/utils.dart",
+  "test/client/client_test.dart",
+  "test/client/stream_test.dart",
+  "test/client/utils.dart",
+  "test/peer_test.dart",
+  "test/server/batch_test.dart",
+  "test/server/invalid_request_test.dart",
+  "test/server/parameters_test.dart",
+  "test/server/server_test.dart",
+  "test/server/stream_test.dart",
+  "test/server/utils.dart"
+ ],
  "pubSummary": {
   "packages": {
-   "analyzer": "0.29.10",
+   "analyzer": "0.30.0+2",
    "args": "0.13.7",
-   "async": "1.13.2",
-   "barback": "0.15.2+10",
+   "async": "1.13.3",
+   "barback": "0.15.2+11",
    "boolean_selector": "1.0.2",
    "charcode": "1.1.1",
-   "cli_util": "0.0.1+2",
-   "collection": "1.14.0",
+   "cli_util": "0.1.1",
+   "collection": "1.14.1",
    "convert": "2.0.1",
    "crypto": "2.0.1",
-   "csslib": "0.13.4",
+   "csslib": "0.13.7+1",
+   "front_end": "0.1.0-alpha.4",
    "glob": "1.1.3",
    "html": "0.13.1",
    "http": "0.11.3+13",
    "http_multi_server": "2.0.3",
    "http_parser": "3.1.1",
    "isolate": "1.0.0",
+   "kernel": "0.3.0-alpha.1",
    "logging": "0.11.3+1",
-   "matcher": "0.12.0+2",
+   "matcher": "0.12.1+1",
    "meta": "1.0.5",
    "mime": "0.9.3",
-   "package_config": "1.0.0",
+   "package_config": "1.0.1",
    "package_resolver": "1.0.2",
    "path": "1.4.1",
    "plugin": "0.2.0",
-   "pool": "1.3.0",
+   "pool": "1.3.1",
    "pub_semver": "1.3.2",
    "shelf": "0.6.7+2",
    "shelf_packages_handler": "1.0.0",
@@ -41,24 +60,36 @@
    "shelf_web_socket": "0.2.1",
    "source_map_stack_trace": "1.1.4",
    "source_maps": "0.10.4",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
    "stream_channel": "1.6.1",
-   "string_scanner": "1.0.1",
+   "string_scanner": "1.0.2",
    "term_glyph": "1.0.0",
-   "test": "0.12.20+9",
+   "test": "0.12.20+13",
    "typed_data": "1.1.3",
    "utf": "0.9.0+3",
    "watcher": "0.9.7+3",
    "web_socket_channel": "1.0.4",
-   "when": "0.2.0",
-   "which": "0.1.3",
    "yaml": "2.1.12"
   },
-  "availablePackages": {
-   "analyzer": "0.30.0-alpha.1"
-  },
-  "pubspecContent": "name: json_rpc_2\nversion: 2.0.4\nauthor: Dart Team <misc@dartlang.org>\ndescription: An implementation of the JSON-RPC 2.0 spec.\nhomepage: http://github.com/dart-lang/json_rpc_2\ndependencies:\n  stack_trace: '>=0.9.1 <2.0.0'\n  stream_channel: '^1.1.0'\ndev_dependencies:\n  test: \">=0.12.0 <0.13.0\"\nenvironment:\n  sdk: \">=1.8.0 <2.0.0\"\n"
+  "availablePackages": {},
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "dependencies": {
+    "stack_trace": ">=0.9.1 <2.0.0",
+    "stream_channel": "^1.1.0"
+   },
+   "description": "An implementation of the JSON-RPC 2.0 spec.",
+   "dev_dependencies": {
+    "test": ">=0.12.0 <0.13.0"
+   },
+   "environment": {
+    "sdk": ">=1.8.0 <2.0.0"
+   },
+   "homepage": "http://github.com/dart-lang/json_rpc_2",
+   "name": "json_rpc_2",
+   "version": "2.0.4"
+  }
  },
  "analyzerItems": [
   {

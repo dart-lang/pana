@@ -1,28 +1,77 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "dartdoc",
- "packageVersion": "0.9.13",
- "dartFileCounts": {
-  "bin": 1,
-  "lib": 21,
-  "test": 13,
-  "testing": 18,
-  "tool": 2
- },
+ "packageVersion": "0.12.0",
+ "dartFiles": [
+  "bin/dartdoc.dart",
+  "lib/dartdoc.dart",
+  "lib/src/config.dart",
+  "lib/src/debug.dart",
+  "lib/src/element_type.dart",
+  "lib/src/generator.dart",
+  "lib/src/html/html_generator.dart",
+  "lib/src/html/html_generator_instance.dart",
+  "lib/src/html/resource_loader.dart",
+  "lib/src/html/resources.g.dart",
+  "lib/src/html/template_data.dart",
+  "lib/src/html/templates.dart",
+  "lib/src/io_utils.dart",
+  "lib/src/line_number_cache.dart",
+  "lib/src/markdown_processor.dart",
+  "lib/src/model.dart",
+  "lib/src/model_utils.dart",
+  "lib/src/package_meta.dart",
+  "lib/src/sdk.dart",
+  "lib/src/utils.dart",
+  "test/all.dart",
+  "test/compare_output_test.dart",
+  "test/dartdoc_test.dart",
+  "test/html_generator_test.dart",
+  "test/io_utils_test.dart",
+  "test/markdown_processor_test.dart",
+  "test/model_test.dart",
+  "test/model_utils_test.dart",
+  "test/package_meta_test.dart",
+  "test/resource_loader_test.dart",
+  "test/src/utils.dart",
+  "test/template_test.dart",
+  "test/utils_test.dart",
+  "testing/test_package/lib/anonymous_library.dart",
+  "testing/test_package/lib/another_anonymous_lib.dart",
+  "testing/test_package/lib/code_in_comments.dart",
+  "testing/test_package/lib/css.dart",
+  "testing/test_package/lib/example.dart",
+  "testing/test_package/lib/excluded.dart",
+  "testing/test_package/lib/fake.dart",
+  "testing/test_package/lib/is_deprecated.dart",
+  "testing/test_package/lib/src/base.dart",
+  "testing/test_package/lib/src/extending.dart",
+  "testing/test_package/lib/src/mylib.dart",
+  "testing/test_package/lib/two_exports.dart",
+  "testing/test_package_bad/lib/test_package_bad.dart",
+  "testing/test_package_embedder_yaml/sdk/async.dart",
+  "testing/test_package_embedder_yaml/sdk/core.dart",
+  "testing/test_package_embedder_yaml/sdk/grizzly.dart",
+  "testing/test_package_imported/lib/main.dart",
+  "testing/test_package_small/lib/main.dart",
+  "tool/doc_packages.dart",
+  "tool/grind.dart"
+ ],
  "pubSummary": {
   "packages": {
-   "analyzer": "0.29.10",
+   "analyzer": "0.30.0+2",
    "ansicolor": "0.0.9",
    "args": "0.13.7",
-   "async": "1.13.2",
-   "barback": "0.15.2+10",
+   "async": "1.13.3",
+   "barback": "0.15.2+11",
    "boolean_selector": "1.0.2",
    "charcode": "1.1.1",
-   "cli_util": "0.0.1+2",
-   "collection": "1.14.0",
+   "cli_util": "0.1.1",
+   "collection": "1.14.1",
    "convert": "2.0.1",
    "crypto": "2.0.1",
-   "csslib": "0.13.4",
+   "csslib": "0.13.7+1",
+   "front_end": "0.1.0-alpha.4",
    "glob": "1.1.3",
    "grinder": "0.8.0+3",
    "html": "0.13.1",
@@ -30,84 +79,104 @@
    "http_multi_server": "2.0.3",
    "http_parser": "3.1.1",
    "isolate": "1.0.0",
+   "kernel": "0.3.0-alpha.1",
    "logging": "0.11.3+1",
    "markdown": "0.11.3",
-   "matcher": "0.12.0+2",
+   "matcher": "0.12.1+1",
    "meta": "1.0.5",
    "mime": "0.9.3",
    "mockable_filesystem": "0.0.3",
-   "mustache4dart": "1.0.12",
-   "package_config": "1.0.0",
+   "mustache4dart": "1.1.0",
+   "package_config": "1.0.1",
    "package_resolver": "1.0.2",
    "path": "1.4.1",
    "plugin": "0.2.0",
-   "pool": "1.3.0",
+   "pool": "1.3.1",
    "pub_semver": "1.3.2",
-   "quiver": "0.24.0",
-   "resource": "2.1.2",
+   "quiver_hashcode": "1.0.0",
+   "resource": "1.1.0",
    "shelf": "0.6.7+2",
    "shelf_packages_handler": "1.0.0",
    "shelf_static": "0.2.4",
    "shelf_web_socket": "0.2.1",
    "source_map_stack_trace": "1.1.4",
    "source_maps": "0.10.4",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
    "stream_channel": "1.6.1",
-   "string_scanner": "1.0.1",
+   "string_scanner": "1.0.2",
    "supports_color": "0.1.1",
    "term_glyph": "1.0.0",
-   "test": "0.12.20+9",
+   "test": "0.12.20+13",
+   "tuple": "1.0.1",
    "typed_data": "1.1.3",
    "unscripted": "0.6.2",
    "utf": "0.9.0+3",
    "watcher": "0.9.7+3",
    "web_socket_channel": "1.0.4",
-   "when": "0.2.0",
-   "which": "0.1.3",
    "yaml": "2.1.12"
   },
   "availablePackages": {
-   "analyzer": "0.30.0-alpha.1",
-   "quiver": "0.25.0"
+   "resource": "2.1.2"
   },
-  "pubspecContent": "name: dartdoc\n# Also update the `version` field in lib/dartdoc.dart.\nversion: 0.9.13\nauthor: Dart Team <misc@dartlang.org>\ndescription: A documentation generator for Dart.\nhomepage: https://github.com/dart-lang/dartdoc\nenvironment:\n  sdk: '>=1.14.0 <2.0.0'\ndependencies:\n  analyzer: ^0.29.8\n  args: ^0.13.0\n  collection: ^1.2.0\n  html: '>=0.12.1 <0.14.0'\n  # We don't use http_parser directly; this dep exists to ensure that we get at\n  # least version 3.0.3 to work around an issue with 3.0.2.\n  http_parser: '>=3.0.3 <4.0.0'\n  logging: '>=0.9.0 <0.12.0'\n  markdown: ^0.11.2\n  mustache4dart: ^1.0.9\n  package_config: '>=0.1.5 <2.0.0'\n  path: ^1.3.0\n  quiver: '>=0.18.0 <0.25.0'\n  resource: '>=1.1.0 <3.0.0'\n  stack_trace: ^1.4.2\n  yaml: ^2.1.0\ndev_dependencies:\n  grinder: ^0.8.0\n  http: ^0.11.0\n  meta: ^1.0.0\n  pub_semver: ^1.0.0\n  test: ^0.12.0\nexecutables:\n  dartdoc: null\n"
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "dependencies": {
+    "analyzer": "^0.30.0",
+    "args": "^0.13.0",
+    "collection": "^1.2.0",
+    "html": ">=0.12.1 <0.14.0",
+    "http_parser": ">=3.0.3 <4.0.0",
+    "logging": ">=0.9.0 <0.12.0",
+    "markdown": "^0.11.2",
+    "mustache4dart": "^1.1.0",
+    "package_config": ">=0.1.5 <2.0.0",
+    "path": "^1.3.0",
+    "resource": "^1.1.0",
+    "stack_trace": "^1.4.2",
+    "tuple": "^1.0.1",
+    "yaml": "^2.1.0"
+   },
+   "description": "A documentation generator for Dart.",
+   "dev_dependencies": {
+    "grinder": "^0.8.0",
+    "http": "^0.11.0",
+    "meta": "^1.0.0",
+    "pub_semver": "^1.0.0",
+    "test": "^0.12.0"
+   },
+   "environment": {
+    "sdk": ">=1.23.0-dev.11.5 <2.0.0"
+   },
+   "executables": {
+    "dartdoc": null
+   },
+   "homepage": "https://github.com/dart-lang/dartdoc",
+   "name": "dartdoc",
+   "version": "0.12.0"
+  }
  },
  "analyzerItems": [
   {
    "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "lib/dartdoc.dart",
-   "line": 15,
-   "col": 1,
-   "error": "'analyzer.source.embedder' is deprecated and shouldn't be used."
-  },
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "lib/dartdoc.dart",
-   "line": 15,
-   "col": 53,
-   "error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
-  },
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "lib/dartdoc.dart",
-   "line": 203,
-   "col": 5,
-   "error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
-  },
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-   "file": "lib/dartdoc.dart",
-   "line": 210,
-   "col": 33,
-   "error": "'EmbedderUriResolver' is deprecated and shouldn't be used."
-  },
-  {
-   "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
    "file": "lib/src/markdown_processor.dart",
-   "line": 441,
+   "line": 806,
    "col": 19,
    "error": "'escapeHtml' is deprecated and shouldn't be used."
+  },
+  {
+   "type": "INFO|LINT|annotate_overrides",
+   "file": "lib/src/model.dart",
+   "line": 3838,
+   "col": 14,
+   "error": "Annotate overridden members"
+  },
+  {
+   "type": "INFO|LINT|directives_ordering",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 8,
+   "col": 1,
+   "error": "Place 'package:' imports before relative imports."
   },
   {
    "type": "ERROR|COMPILE_TIME_ERROR|URI_DOES_NOT_EXIST",
@@ -115,6 +184,27 @@
    "line": 8,
    "col": 8,
    "error": "Target of URI doesn't exist: 'package:test_package_imported/main.dart'."
+  },
+  {
+   "type": "INFO|LINT|directives_ordering",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 10,
+   "col": 1,
+   "error": "Specify exports in a separate section after all imports."
+  },
+  {
+   "type": "INFO|LINT|directives_ordering",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 11,
+   "col": 1,
+   "error": "Place 'package:' imports before relative imports."
+  },
+  {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 81,
+   "col": 1,
+   "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_1",
@@ -136,6 +226,48 @@
    "line": 111,
    "col": 24,
    "error": "The name 'Whataclass' isn't a type so it can't be used as a type argument."
+  },
+  {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 113,
+   "col": 3,
+   "error": "Prefer to use /// for doc comments"
+  },
+  {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 118,
+   "col": 3,
+   "error": "Prefer to use /// for doc comments"
+  },
+  {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 138,
+   "col": 3,
+   "error": "Prefer to use /// for doc comments"
+  },
+  {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 147,
+   "col": 3,
+   "error": "Prefer to use /// for doc comments"
+  },
+  {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 169,
+   "col": 3,
+   "error": "Prefer to use /// for doc comments"
+  },
+  {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 175,
+   "col": 3,
+   "error": "Prefer to use /// for doc comments"
   },
   {
    "type": "WARNING|STATIC_WARNING|FINAL_NOT_INITIALIZED_CONSTRUCTOR_3",
@@ -173,72 +305,93 @@
    "error": "Factory method 'imAFactoryNoReally' doesn't return a newly allocated object."
   },
   {
+   "type": "INFO|LINT|slash_for_doc_comments",
+   "file": "testing/test_package/lib/example.dart",
+   "line": 396,
+   "col": 1,
+   "error": "Prefer to use /// for doc comments"
+  },
+  {
+   "type": "INFO|LINT|directives_ordering",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 55,
+   "col": 1,
+   "error": "Sort directive sections alphabetically."
+  },
+  {
    "type": "INFO|HINT|MISSING_RETURN",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 143,
+   "line": 146,
    "col": 3,
    "error": "This function declares a return type of 'Cool', but doesn't end with a return statement."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 165,
+   "line": 168,
    "col": 9,
    "error": "The value of the local variable 'x' isn't used."
   },
   {
+   "type": "INFO|LINT|avoid_init_to_null",
+   "file": "testing/test_package/lib/fake.dart",
+   "line": 168,
+   "col": 9,
+   "error": "Don't explicitly initialize variables to null"
+  },
+  {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 166,
+   "line": 169,
    "col": 9,
    "error": "The value of the local variable 'i' isn't used."
   },
   {
    "type": "INFO|HINT|UNUSED_LOCAL_VARIABLE",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 166,
+   "line": 169,
    "col": 12,
    "error": "The value of the local variable 'y' isn't used."
   },
   {
    "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 182,
+   "line": 229,
    "col": 29,
    "error": "'SuperAwesomeClass' is deprecated and shouldn't be used."
   },
   {
    "type": "INFO|LINT|annotate_overrides",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 390,
+   "line": 442,
    "col": 14,
    "error": "Annotate overridden members"
   },
   {
    "type": "INFO|LINT|annotate_overrides",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 394,
+   "line": 446,
    "col": 11,
    "error": "Annotate overridden members"
   },
   {
    "type": "INFO|LINT|annotate_overrides",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 396,
+   "line": 448,
    "col": 12,
    "error": "Annotate overridden members"
   },
   {
    "type": "INFO|LINT|annotate_overrides",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 398,
+   "line": 450,
    "col": 17,
    "error": "Annotate overridden members"
   },
   {
    "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
    "file": "testing/test_package/lib/fake.dart",
-   "line": 417,
+   "line": 469,
    "col": 58,
    "error": "'topLevelFunction' is deprecated and shouldn't be used."
   },
@@ -289,7 +442,7 @@
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 24,
    "col": 22,
-   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEven'."
+   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEven'."
   },
   {
    "type": "ERROR|STATIC_WARNING|CONCRETE_CLASS_WITH_ABSTRACT_MEMBER",
@@ -338,7 +491,7 @@
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 71,
    "col": 23,
-   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'hashCode'."
+   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'hashCode'."
   },
   {
    "type": "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
@@ -373,42 +526,42 @@
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 73,
    "col": 24,
-   "error": "The return type 'String (/usr/lib/dart/lib/core/string.dart)' isn't a 'String (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'toString'."
+   "error": "The return type 'String (/usr/lib/dart/lib/core/string.dart)' isn't a 'String (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'toString'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 80,
    "col": 20,
-   "error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
+   "error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 82,
    "col": 23,
-   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEmpty'."
+   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isEmpty'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 83,
    "col": 26,
-   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isNotEmpty'."
+   "error": "The return type 'bool (/usr/lib/dart/lib/core/bool.dart)' isn't a 'bool (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'isNotEmpty'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|RETURN_OF_INVALID_TYPE",
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 84,
    "col": 21,
-   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'length'."
+   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'length'."
   },
   {
    "type": "ERROR|STATIC_TYPE_WARNING|INVALID_ASSIGNMENT",
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 93,
    "col": 63,
-   "error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)'."
+   "error": "A value of type 'int (/usr/lib/dart/lib/core/int.dart)' can't be assigned to a variable of type 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)'."
   },
   {
    "type": "INFO|HINT|UNUSED_ELEMENT",
@@ -422,8 +575,10 @@
    "file": "testing/test_package_embedder_yaml/sdk/core.dart",
    "line": 95,
    "col": 14,
-   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.9.13/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'parseHex'."
+   "error": "The return type 'int (/usr/lib/dart/lib/core/int.dart)' isn't a 'int (/tmp/pana/hosted/pub.dartlang.org/dartdoc-0.12.0/testing/test_package_embedder_yaml/sdk/core.dart)', as defined by the method 'parseHex'."
   }
  ],
- "unformattedFiles": []
+ "unformattedFiles": [
+  "lib/src/model.dart"
+ ]
 }

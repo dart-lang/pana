@@ -1,28 +1,79 @@
 {
- "sdkVersion": "Dart VM version: 1.23.0-dev.11.6 (Fri Apr  7 08:27:41 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
  "packageName": "http",
  "packageVersion": "0.11.3+13",
- "dartFileCounts": {
-  "lib": 19,
-  "test": 15
- },
+ "dartFiles": [
+  "lib/browser_client.dart",
+  "lib/http.dart",
+  "lib/src/base_client.dart",
+  "lib/src/base_request.dart",
+  "lib/src/base_response.dart",
+  "lib/src/boundary_characters.dart",
+  "lib/src/byte_stream.dart",
+  "lib/src/client.dart",
+  "lib/src/exception.dart",
+  "lib/src/io_client.dart",
+  "lib/src/mock_client.dart",
+  "lib/src/multipart_file.dart",
+  "lib/src/multipart_request.dart",
+  "lib/src/request.dart",
+  "lib/src/response.dart",
+  "lib/src/streamed_request.dart",
+  "lib/src/streamed_response.dart",
+  "lib/src/utils.dart",
+  "lib/testing.dart",
+  "test/html/client_test.dart",
+  "test/html/streamed_request_test.dart",
+  "test/html/utils.dart",
+  "test/io/client_test.dart",
+  "test/io/http_test.dart",
+  "test/io/multipart_test.dart",
+  "test/io/request_test.dart",
+  "test/io/streamed_request_test.dart",
+  "test/io/utils.dart",
+  "test/mock_client_test.dart",
+  "test/multipart_test.dart",
+  "test/request_test.dart",
+  "test/response_test.dart",
+  "test/streamed_request_test.dart",
+  "test/utils.dart"
+ ],
  "pubSummary": {
   "packages": {
-   "async": "1.13.2",
+   "async": "1.13.3",
    "charcode": "1.1.1",
-   "collection": "1.14.0",
+   "collection": "1.14.1",
    "http_parser": "3.1.1",
    "path": "1.4.1",
-   "source_span": "1.3.1",
+   "source_span": "1.4.0",
    "stack_trace": "1.7.3",
-   "string_scanner": "1.0.1",
+   "string_scanner": "1.0.2",
    "typed_data": "1.1.3",
    "unittest": "0.11.7"
   },
   "availablePackages": {
    "unittest": "0.12.4+1"
   },
-  "pubspecContent": "name: http\nversion: 0.11.3+13\nauthor: \"Dart Team <misc@dartlang.org>\"\nhomepage: https://github.com/dart-lang/http\ndescription: A composable, Future-based API for making HTTP requests.\ndependencies:\n  async: \"^1.10.0\"\n  collection: \"^1.5.0\"\n  http_parser: \">=0.0.1 <4.0.0\"\n  path: \">=0.9.0 <2.0.0\"\n  stack_trace: \">=0.9.1 <2.0.0\"\ndev_dependencies:\n  unittest: \">=0.9.0 <0.12.0\"\nenvironment:\n  sdk: \">=1.23.0-dev.0.0 <2.0.0\"\n"
+  "pubspecContent": {
+   "author": "Dart Team <misc@dartlang.org>",
+   "dependencies": {
+    "async": "^1.10.0",
+    "collection": "^1.5.0",
+    "http_parser": ">=0.0.1 <4.0.0",
+    "path": ">=0.9.0 <2.0.0",
+    "stack_trace": ">=0.9.1 <2.0.0"
+   },
+   "description": "A composable, Future-based API for making HTTP requests.",
+   "dev_dependencies": {
+    "unittest": ">=0.9.0 <0.12.0"
+   },
+   "environment": {
+    "sdk": ">=1.23.0-dev.0.0 <2.0.0"
+   },
+   "homepage": "https://github.com/dart-lang/http",
+   "name": "http",
+   "version": "0.11.3+13"
+  }
  },
  "analyzerItems": [
   {
