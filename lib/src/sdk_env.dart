@@ -93,7 +93,7 @@ class PubEnvironment {
     do {
       retryCount--;
       log.info('Running `pub upgrade`...');
-      result = await Process.run(
+      result = await runProc(
         dartSdk._pubCmd,
         ['upgrade', '--verbosity', 'all'],
         workingDirectory: packageDir,

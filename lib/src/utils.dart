@@ -6,6 +6,46 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+Stream<String> byteStreamSplit(Stream<List<int>> stream) => stream
+    .transform(SYSTEM_ENCODING.decoder)
+    .transform(const LineSplitter());
+
+final _timeout = const Duration(minutes: 1);
+
+Future<ProcessResult> runProc(String executable, List<String> arguments,
+    {String workingDirectory, Map<String, String> environment}) async {
+  var process = await Process.start(executable, arguments,
+      workingDirectory: workingDirectory, environment: environment);
+
+  var stdoutLines = new StringBuffer();
+  var stderrLines = new StringBuffer();
+
+  var timer = new Timer(_timeout, () {
+    stderr.writeln("Exceeded timeout of $_timeout, Killing $process");
+    var result = process.kill();
+    stderr.writeln("  killed? - $result");
+  });
+
+  var items = await Future.wait(<Future<Object>>[
+    process.exitCode,
+    byteStreamSplit(process.stdout).forEach((outLine) {
+      stdoutLines.writeln(outLine);
+      // Uncomment to debug long execution
+      // stderr.writeln(outLine);
+    }),
+    byteStreamSplit(process.stderr).forEach((errLine) {
+      stderrLines.writeln(errLine);
+      // Uncomment to debug long execution
+      // stderr.writeln(errLine);
+    })
+  ]);
+
+  timer.cancel();
+
+  return new ProcessResult(
+      process.pid, items[0], stdoutLines.toString(), stderrLines.toString());
+}
+
 ProcessResult handleProcessErrors(ProcessResult result) {
   if (result.exitCode != 0) {
     if (result.exitCode == 69) {

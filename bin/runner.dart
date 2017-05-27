@@ -116,11 +116,6 @@ _writeResult(String dockerName, String pkg, String output, bool isError) async {
   await file.writeAsString(output, mode: WRITE_ONLY, flush: true);
 }
 
-Stream<String> _split(Stream<List<int>> stream) => stream
-    .transform(SYSTEM_ENCODING.decoder)
-    .transform(const LineSplitter())
-    .map((line) => line.trim());
-
 Future<String> _runProc(String proc, List<String> args, {Logger logger}) async {
   logger ??= Logger.root;
 
@@ -131,11 +126,11 @@ Future<String> _runProc(String proc, List<String> args, {Logger logger}) async {
 
   var items = await Future.wait(<Future<Object>>[
     process.exitCode,
-    _split(process.stdout).forEach((outLine) {
+    byteStreamSplit(process.stdout).forEach((outLine) {
       stdoutLines.add(outLine);
       logger.info(outLine);
     }),
-    _split(process.stderr).forEach((errLine) {
+    byteStreamSplit(process.stderr).forEach((errLine) {
       stderrLines.add(errLine);
       logger.warning(errLine);
     })
