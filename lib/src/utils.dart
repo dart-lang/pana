@@ -6,44 +6,72 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
-Stream<String> byteStreamSplit(Stream<List<int>> stream) => stream
-    .transform(SYSTEM_ENCODING.decoder)
-    .transform(const LineSplitter());
+Stream<String> byteStreamSplit(Stream<List<int>> stream) =>
+    stream.transform(SYSTEM_ENCODING.decoder).transform(const LineSplitter());
 
 final _timeout = const Duration(minutes: 1);
+final _maxLines = 100000;
 
 Future<ProcessResult> runProc(String executable, List<String> arguments,
     {String workingDirectory, Map<String, String> environment}) async {
   var process = await Process.start(executable, arguments,
       workingDirectory: workingDirectory, environment: environment);
 
-  var stdoutLines = new StringBuffer();
-  var stderrLines = new StringBuffer();
+  var stdoutLines = <String>[];
+  var stderrLines = <String>[];
+
+  bool killed;
+  String killMessage;
+
+  void killProc(String message) {
+    if (killed != true) {
+      killMessage = message;
+      stderr.writeln("Killing $process");
+      stderr.writeln("  $message");
+      killed = process.kill();
+      stderr.writeln("  killed? - $killed");
+    }
+  }
 
   var timer = new Timer(_timeout, () {
-    stderr.writeln("Exceeded timeout of $_timeout, Killing $process");
-    var result = process.kill();
-    stderr.writeln("  killed? - $result");
+    killProc("Exceeded timeout of $_timeout");
   });
 
   var items = await Future.wait(<Future<Object>>[
     process.exitCode,
     byteStreamSplit(process.stdout).forEach((outLine) {
-      stdoutLines.writeln(outLine);
+      stdoutLines.add(outLine);
       // Uncomment to debug long execution
       // stderr.writeln(outLine);
+      if (stdoutLines.length > _maxLines) {
+        killProc("STDOUT exceeded $_maxLines lines.");
+      }
     }),
     byteStreamSplit(process.stderr).forEach((errLine) {
-      stderrLines.writeln(errLine);
+      stderrLines.add(errLine);
       // Uncomment to debug long execution
       // stderr.writeln(errLine);
+      if (stderrLines.length > _maxLines) {
+        killProc("STDERR exceeded $_maxLines lines.");
+      }
     })
   ]);
 
   timer.cancel();
 
+  var exitCode = items[0] as int;
+  if (killed == true) {
+    assert(exitCode < 0);
+
+    stdoutLines.insert(0, killMessage);
+    stderrLines.insert(0, killMessage);
+
+    return new ProcessResult(process.pid, exitCode,
+        stdoutLines.take(1000).join('\n'), stderrLines.take(1000).join('\n'));
+  }
+
   return new ProcessResult(
-      process.pid, items[0], stdoutLines.toString(), stderrLines.toString());
+      process.pid, items[0], stdoutLines.join('\n'), stderrLines.join('\n'));
 }
 
 ProcessResult handleProcessErrors(ProcessResult result) {

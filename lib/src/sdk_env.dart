@@ -99,7 +99,7 @@ class PubEnvironment {
         workingDirectory: packageDir,
         environment: _environment,
       );
-    } while (result.exitCode != 0 && retryCount > 0);
+    } while (result.exitCode > 0 && retryCount > 0);
     return result;
   }
 
