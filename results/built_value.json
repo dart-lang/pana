@@ -1,7 +1,7 @@
 {
- "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.6.4 (Fri May 26 19:59:50 2017) on \"linux_x64\"",
  "packageName": "built_value",
- "packageVersion": "1.1.1",
+ "packageVersion": "1.1.2",
  "dartFiles": [
   "lib/built_value.dart",
   "lib/json_object.dart",
@@ -105,7 +105,7 @@
    },
    "homepage": "https://github.com/google/built_value.dart",
    "name": "built_value",
-   "version": "1.1.1"
+   "version": "1.1.2"
   }
  },
  "analyzerItems": [

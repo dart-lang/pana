@@ -1,5 +1,5 @@
 {
- "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.6.4 (Fri May 26 19:59:50 2017) on \"linux_x64\"",
  "packageName": "dnd",
  "packageVersion": "0.3.5",
  "dartFiles": [
@@ -128,6 +128,27 @@
    "line": 8,
    "col": 13,
    "error": "The value of the local variable 'draggable' isn't used."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/draggable_manager.dart",
+   "line": 376,
+   "col": 54,
+   "error": "The argument type '(MouseEvent) → Null' can't be assigned to the parameter type '(Event) → void'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/draggable_manager.dart",
+   "line": 433,
+   "col": 52,
+   "error": "The argument type '(MouseEvent) → Null' can't be assigned to the parameter type '(Event) → void'."
+  },
+  {
+   "type": "ERROR|STATIC_WARNING|ARGUMENT_TYPE_NOT_ASSIGNABLE",
+   "file": "lib/src/draggable_manager.dart",
+   "line": 442,
+   "col": 51,
+   "error": "The argument type '(MouseEvent) → Null' can't be assigned to the parameter type '(Event) → void'."
   },
   {
    "type": "INFO|HINT|UNUSED_FIELD",

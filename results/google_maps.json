@@ -1,5 +1,5 @@
 {
- "sdkVersion": "Dart VM version: 1.24.0-dev.5.0 (Fri May 19 08:42:29 2017) on \"linux_x64\"",
+ "sdkVersion": "Dart VM version: 1.24.0-dev.6.4 (Fri May 26 19:59:50 2017) on \"linux_x64\"",
  "packageName": "google_maps",
  "packageVersion": "3.2.0+2",
  "dartFiles": [
@@ -472,20 +472,6 @@
   }
  },
  "analyzerItems": [
-  {
-   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-   "file": "example/06-layers/layer-data-dragndrop/page.dart",
-   "line": 90,
-   "col": 17,
-   "error": "The getter 'dataTransfer' isn't defined for the class 'MouseEvent'."
-  },
-  {
-   "type": "ERROR|STATIC_TYPE_WARNING|UNDEFINED_GETTER",
-   "file": "example/06-layers/layer-data-dragndrop/page.dart",
-   "line": 107,
-   "col": 23,
-   "error": "The getter 'dataTransfer' isn't defined for the class 'MouseEvent'."
-  },
   {
    "type": "WEIRD",
    "file": "lib/src/core/save_to_google_maps/place.dart",
