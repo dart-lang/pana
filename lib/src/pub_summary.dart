@@ -17,6 +17,7 @@ class PubSummary {
   final String lockFileContent;
   final Map<String, Version> packageVersions;
   final Map<String, Version> availableVersions;
+  final Map<String, Version> lockedVersions;
   final Map<String, Object> pubspec;
 
   PubSummary._(
@@ -25,6 +26,7 @@ class PubSummary {
       this.stderrValue,
       this.packageVersions,
       this.availableVersions,
+      this.lockedVersions,
       String pubspecContent,
       this.lockFileContent)
       : pubspec = yamlToJson(pubspecContent);
@@ -62,6 +64,7 @@ class PubSummary {
     }
 
     String pubspecContent, lockFileContent;
+    Map<String, Version> lockedVersions;
     if (path != null) {
       var theFile = new File(p.join(path, 'pubspec.yaml'));
       if (theFile.existsSync()) {
@@ -71,6 +74,16 @@ class PubSummary {
       theFile = new File(p.join(path, 'pubspec.lock'));
       if (theFile.existsSync()) {
         lockFileContent = theFile.readAsStringSync();
+        if (lockFileContent.isNotEmpty) {
+          Map lockMap = yamlToJson(lockFileContent);
+          Map pkgs = lockMap['packages'];
+          if (pkgs != null) {
+            lockedVersions = {};
+            pkgs.forEach((String key, Map m) {
+              lockedVersions[key] = new Version.parse(m['version']);
+            });
+          }
+        }
       }
     }
 
@@ -79,7 +92,7 @@ class PubSummary {
     }
 
     return new PubSummary._(exitCode, procStdout, procStderr, pkgVersions,
-        availVersions, pubspecContent, lockFileContent);
+        availVersions, lockedVersions, pubspecContent, lockFileContent);
   }
 
   factory PubSummary.fromJson(Map<String, dynamic> json) {
@@ -87,14 +100,22 @@ class PubSummary {
       var pubspecContent = json['pubspecContent'];
       var packageVersions = _jsonMapToVersion(json['packages']);
       var availableVersions = _jsonMapToVersion(json['availablePackages']);
+      var lockedVersions = _jsonMapToVersion(json['lockedVersions']);
 
-      return new PubSummary._(0, '', '', packageVersions, availableVersions,
-          JSON.encode(pubspecContent), '' // lock file content
-          );
+      return new PubSummary._(
+        0,
+        '', // stdout
+        '', // stderr
+        packageVersions,
+        availableVersions,
+        lockedVersions,
+        JSON.encode(pubspecContent),
+        '', // lock file content
+      );
     }
 
     return new PubSummary._(json['exitCode'], json['stdout'], json['stderr'],
-        null, null, null, null);
+        null, null, null, null, null);
   }
 
   Map<String, int> getStats() {
@@ -188,6 +209,7 @@ class PubSummary {
       return <String, dynamic>{
         'packages': _versionMapToJson(packageVersions),
         'availablePackages': _versionMapToJson(availableVersions),
+        'lockedVersions': _versionMapToJson(lockedVersions),
         'pubspecContent': pubspec
       };
     } else {
@@ -200,11 +222,11 @@ class PubSummary {
   }
 
   static Map<String, dynamic> _versionMapToJson(Map<String, Version> input) =>
-      new Map<String, String>.fromIterable(input.keys,
+      new Map<String, String>.fromIterable(input?.keys ?? [],
           value: (String i) => input[i].toString());
 
   static Map<String, dynamic> _jsonMapToVersion(Map<String, String> input) =>
-      new Map<String, Version>.fromIterable(input.keys,
+      new Map<String, Version>.fromIterable(input?.keys ?? [],
           value: (String i) => new Version.parse(input[i]));
 }
 

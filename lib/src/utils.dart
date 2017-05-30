@@ -124,11 +124,11 @@ _toSortedMap(Object item) {
   }
 }
 
-Map<String, Object> yamlToJson(String pubspecContent) {
-  if (pubspecContent == null) {
+Map<String, Object> yamlToJson(String yamlContent) {
+  if (yamlContent == null) {
     return null;
   }
-  var yamlMap = loadYaml(pubspecContent) as YamlMap;
+  var yamlMap = loadYaml(yamlContent) as YamlMap;
 
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
