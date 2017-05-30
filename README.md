@@ -1,3 +1,3 @@
-# pana
+[![Build Status](https://travis-ci.org/kevmoo/pana.dart.svg?branch=master)](https://travis-ci.org/kevmoo/pana.dart)
 
-Is your package "clean"?
+## pana - Dart Package ANAlyzer
