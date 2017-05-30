@@ -74,7 +74,7 @@ main() async {
     Directory.current.resolveSymbolicLinksSync()
   ]);
 
-  var packages = new File('tool/pkg_sample.txt').readAsLinesSync();
+  var packages = new File('input_packages.txt').readAsLinesSync();
 
   var pool = new Pool(Platform.numberOfProcessors ~/ 2);
 
