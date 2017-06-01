@@ -13,15 +13,20 @@ class Summary {
   final Set<AnalyzerOutput> analyzerItems;
   final Set<String> unformattedFiles;
   final Set<String> dartFiles;
+  final Map<String, List<String>> directLibs;
+  final Map<String, List<String>> transitiveLibs;
 
   Summary(
-      this.sdkVersion,
-      this.packageName,
-      this.packageVersion,
-      this.dartFiles,
-      this.pubSummary,
-      this.analyzerItems,
-      this.unformattedFiles);
+    this.sdkVersion,
+    this.packageName,
+    this.packageVersion,
+    this.dartFiles,
+    this.pubSummary,
+    this.analyzerItems,
+    this.unformattedFiles,
+    this.directLibs,
+    this.transitiveLibs,
+  );
 
   factory Summary.fromJson(Map<String, dynamic> json) {
     var sdkVersion = json['sdkVersion'] as String;
@@ -36,15 +41,20 @@ class Summary {
         .toSet();
 
     var dartFiles = json['dartFiles'] as List<String>;
+    var directLibs = json['directLibs'] as Map<String, List<String>>;
+    var transitiveLibs = json['transitiveLibs'] as Map<String, List<String>>;
 
     return new Summary(
-        sdkVersion,
-        packageName,
-        packageVersion,
-        new SplayTreeSet<String>.from(dartFiles),
-        pubSummary,
-        analyzerItems,
-        unformattedFiles);
+      sdkVersion,
+      packageName,
+      packageVersion,
+      new SplayTreeSet<String>.from(dartFiles),
+      pubSummary,
+      analyzerItems,
+      unformattedFiles,
+      directLibs,
+      transitiveLibs,
+    );
   }
 
   Set<String> get resultTypes =>
@@ -64,6 +74,8 @@ class Summary {
         'dartFiles': dartFiles.toList(growable: false),
         'pubSummary': pubSummary,
         'analyzerItems': analyzerItems.toList(growable: false),
-        'unformattedFiles': unformattedFiles.toList(growable: false)
+        'unformattedFiles': unformattedFiles.toList(growable: false),
+        'directLibs': directLibs,
+        'transitiveLibs': transitiveLibs,
       };
 }

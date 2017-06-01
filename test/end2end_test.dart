@@ -29,8 +29,11 @@ void main() {
 
     test('pub_server 0.1.1+3', () async {
       var analyzer = new PackageAnalyzer(pubCacheDir: pubCacheDir);
-      var summary =
-          await analyzer.inspectPackage('pub_server', version: '0.1.1+3');
+      var summary = await analyzer.inspectPackage(
+        'pub_server',
+        version: '0.1.1+3',
+        keepTransitiveLibs: true,
+      );
       expectGoldenSummary(summary, pub_server_data.data);
     }, timeout: const Timeout.factor(2));
   });
