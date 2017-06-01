@@ -77,7 +77,27 @@ class PubEnvironment {
   PubEnvironment({DartSdk dartSdk, this.pubCacheDir})
       : this.dartSdk = dartSdk ?? new DartSdk() {
     _environment.addAll(dartSdk._environment);
-    _environment.addAll(_defaultPubEnv);
+    if (!_environment.containsKey(_pubEnvironmentKey)) {
+      // Then do the standard behavior. Extract the current value, if any,
+      // and append the default value
+
+      var pubEnvironment = <String>[];
+
+      var currentEnv = Platform.environment[_pubEnvironmentKey];
+
+      if (currentEnv != null) {
+        pubEnvironment.addAll(currentEnv
+                .split(
+                    ':') // if there are many values, they should be separated by `:`
+                .map((v) => v.trim()) // don't want whitespace
+                .where((v) => v.isNotEmpty) // don't want empty values
+            );
+      }
+
+      pubEnvironment.add('bot.pkg_pana');
+
+      _environment[_pubEnvironmentKey] = pubEnvironment.join(':');
+    }
     if (pubCacheDir != null) {
       var resolvedDir = new Directory(pubCacheDir).resolveSymbolicLinksSync();
       if (resolvedDir != pubCacheDir) {
@@ -172,6 +192,4 @@ class PackageLocation {
 final _versionDownloadRexexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
 
-const _defaultPubEnv = const <String, String>{
-  'PUB_ENVIRONMENT': 'bot.pkg_pana',
-};
+const _pubEnvironmentKey = 'PUB_ENVIRONMENT';
