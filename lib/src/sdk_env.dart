@@ -162,5 +162,5 @@ final _versionDownloadRexexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
 
 const _defaultPubEnv = const <String, String>{
-  'PUB_ENVIRONMENT': 'kevmoo.pkg_clean',
+  'PUB_ENVIRONMENT': 'bot.pkg_pana',
 };
