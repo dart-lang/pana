@@ -12,7 +12,7 @@ class Summary {
   final PubSummary pubSummary;
   final Set<AnalyzerOutput> analyzerItems;
   final Set<String> unformattedFiles;
-  final Set<String> dartFiles;
+  final Map<String, int> dartFiles;
 
   Summary(
       this.sdkVersion,
@@ -35,13 +35,13 @@ class Summary {
         .map((e) => new AnalyzerOutput.fromJson(e))
         .toSet();
 
-    var dartFiles = json['dartFiles'] as List<String>;
+    var dartFiles = json['dartFiles'] as Map;
 
     return new Summary(
         sdkVersion,
         packageName,
         packageVersion,
-        new SplayTreeSet<String>.from(dartFiles),
+        new SplayTreeMap<String, int>.from(dartFiles),
         pubSummary,
         analyzerItems,
         unformattedFiles);
@@ -61,7 +61,7 @@ class Summary {
         'sdkVersion': sdkVersion,
         'packageName': packageName,
         'packageVersion': packageVersion.toString(),
-        'dartFiles': dartFiles.toList(growable: false),
+        'dartFiles': dartFiles,
         'pubSummary': pubSummary,
         'analyzerItems': analyzerItems.toList(growable: false),
         'unformattedFiles': unformattedFiles.toList(growable: false)

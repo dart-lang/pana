@@ -95,15 +95,14 @@ ProcessResult handleProcessErrors(ProcessResult result) {
   return result;
 }
 
-Future<List<String>> listFiles(String directory, {String endsWith}) {
-  Directory dir = new Directory(directory);
-  return dir
-      .list(recursive: true)
-      .where((fse) => fse is File)
-      .map((fse) => fse.path)
-      .where((path) => endsWith == null || path.endsWith(endsWith))
-      .map((path) => p.relative(path, from: directory))
-      .toList();
+Future<Map<String, int>> listFiles(String directory, {String endsWith}) async {
+  var dir = new Directory(directory);
+
+  return new SplayTreeMap<String, int>.fromIterable(
+      dir.listSync(recursive: true).where((fse) =>
+          fse is File && (endsWith == null || fse.path.endsWith(endsWith))),
+      key: (File f) => p.relative(f.path, from: directory),
+      value: (File f) => f.statSync().size);
 }
 
 String prettyJson(obj) => const JsonEncoder.withIndent(' ').convert(obj).trim();
