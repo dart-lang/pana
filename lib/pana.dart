@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'src/analyzer_output.dart';
+import 'src/library_analyzer.dart';
 import 'src/logging.dart';
 import 'src/pub_summary.dart';
 import 'src/sdk_env.dart';
@@ -28,7 +29,8 @@ class PackageAnalyzer {
     _pubEnv = new PubEnvironment(dartSdk: _dartSdk, pubCacheDir: pubCacheDir);
   }
 
-  Future<Summary> inspectPackage(String package, {String version}) async {
+  Future<Summary> inspectPackage(String package,
+      {String version, bool keepTransitiveLibs: false}) async {
     var sdkVersion = _dartSdk.version;
     log.info("SDK: $sdkVersion");
 
@@ -64,6 +66,22 @@ class PackageAnalyzer {
         upgrade.exitCode, upgrade.stdout, upgrade.stderr, pkgDir);
     log.info("Package version: ${summary.pkgVersion}");
 
+    LibraryScanner libraryScanner = new LibraryScanner(package, pkgDir);
+    Map<String, List<String>> directLibs;
+    try {
+      directLibs = await libraryScanner.scanDirectLibs();
+    } catch (e, st) {
+      log.severe('Error scanning direct librariers', e, st);
+    }
+    Map<String, List<String>> transitiveLibs;
+    try {
+      transitiveLibs = await libraryScanner.scanTransitiveLibs();
+      // TODO: add platform classification based on transitive libs
+    } catch (e, st) {
+      log.severe('Error scanning transitive librariers', e, st);
+    }
+    if (!keepTransitiveLibs) transitiveLibs = null;
+
     Set<AnalyzerOutput> analyzerItems;
     try {
       analyzerItems = await _pkgAnalyze(pkgDir);
@@ -76,8 +94,17 @@ class PackageAnalyzer {
       }
     }
 
-    return new Summary(sdkVersion, package, new Version.parse(pkgInfo.version),
-        dartFiles, summary, analyzerItems, unformattedFiles);
+    return new Summary(
+      sdkVersion,
+      package,
+      new Version.parse(pkgInfo.version),
+      dartFiles,
+      summary,
+      analyzerItems,
+      unformattedFiles,
+      directLibs,
+      transitiveLibs,
+    );
   }
 
   Future<Set<AnalyzerOutput>> _pkgAnalyze(String pkgPath) async {
