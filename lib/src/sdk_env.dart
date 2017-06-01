@@ -103,6 +103,13 @@ class PubEnvironment {
         workingDirectory: packageDir,
         environment: _environment,
       );
+
+      if (result.exitCode > 0 &&
+          result.stderr
+              .contains("Could not get versions for flutter from sdk")) {
+        log.warning("Flutter SDK required!");
+        retryCount = 0;
+      }
     } while (result.exitCode > 0 && retryCount > 0);
     return result;
   }
