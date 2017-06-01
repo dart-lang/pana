@@ -1,8 +1,8 @@
 name: pana
-description: A sample command-line application.
-version: 0.2.0
-homepage: https://github.com/kevmoo/pana.dart
-author: Kevin Moore <kevmoo@google.com>
+description: Evaluate the health and quality of a Dart package
+version: 0.2.1-dev
+homepage: https://github.com/dart-lang/pana
+author: Dart Team <misc@dartlang.org>
 
 environment:
   sdk: '>=1.20.1 <2.0.0'
