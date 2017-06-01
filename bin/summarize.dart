@@ -95,7 +95,7 @@ class _MiniSum {
     map.addAll(_analyzerThings(_summary.analyzerItems));
 
     // file info
-    map.addAll(_classifyFiles(_summary.dartFiles));
+    map.addAll(_classifyFiles(_summary.dartFiles.keys));
 
     // format
     map['pctFormatted'] = _summary.dartFiles.isEmpty

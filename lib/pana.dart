@@ -51,8 +51,8 @@ class PackageAnalyzer {
     log.info("Package at $pkgDir");
 
     log.info('Counting files...');
-    var dartFiles = new SplayTreeSet<String>.from(
-        await listFiles(pkgDir, endsWith: '.dart'));
+    var dartFiles =
+        await listFiles(pkgDir, endsWith: '.dart');
 
     log.info("Checking formatting...");
     var unformattedFiles = new SplayTreeSet<String>.from(
