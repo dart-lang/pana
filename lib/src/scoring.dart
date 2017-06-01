@@ -23,13 +23,8 @@ class Summary {
       count++;
       total += i;
 
-      if (max == null || i > max) {
-        max = i;
-      }
-
-      if (min == null || i < min) {
-        min = i;
-      }
+      max = math.max(i, max ?? i);
+      min = math.min(i, min ?? i);
     }
 
     if (count == 0) {
