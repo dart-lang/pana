@@ -110,6 +110,9 @@ Future<List<String>> listFiles(String directory, {String endsWith}) {
       .toList();
 }
 
+Future<int> fileSize(String packageDir, String relativePath) =>
+    new File(p.join(packageDir, relativePath)).length();
+
 String prettyJson(obj) => const JsonEncoder.withIndent(' ').convert(obj).trim();
 
 /// If no `pubspec.yaml` file exists, `null` is returned.
@@ -146,4 +149,12 @@ Map<String, Object> yamlToJson(String yamlContent) {
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
   return sortedJson(JSON.decode(JSON.encode(yamlMap)));
+}
+
+String toPackageUri(String package, String relativePath) {
+  if (relativePath.startsWith('lib/')) {
+    return 'package:$package/${relativePath.substring(4)}';
+  } else {
+    return 'path:$package/$relativePath';
+  }
 }

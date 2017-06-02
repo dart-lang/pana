@@ -76,7 +76,8 @@ class _MiniSum {
   Set<String> get authorDomains => new SplayTreeSet<String>.from(
       _summary.pubSummary.authors.map(_domainFromAuthor));
 
-  int get unformattedFiles => _summary.unformattedFiles.length;
+  int get unformattedFiles =>
+      _summary.dartFiles.values.where((f) => !f.isFormatted).length;
 
   Set<AnalyzerOutput> get analyzerItems => _summary.analyzerItems;
 
@@ -99,12 +100,12 @@ class _MiniSum {
     map.addAll(_analyzerThings(_summary.analyzerItems));
 
     // file info
-    map.addAll(_classifyFiles(_summary.dartFiles));
+    map.addAll(_classifyFiles(_summary.dartFiles.keys));
 
     // format
     map['pctFormatted'] = _summary.dartFiles.isEmpty
         ? 1.0
-        : 1.0 - _summary.unformattedFiles.length / _summary.dartFiles.length;
+        : 1.0 - unformattedFiles / _summary.dartFiles.length;
 
     map['authorDomains'] = authorDomains.join(', ');
 
