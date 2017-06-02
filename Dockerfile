@@ -1,4 +1,4 @@
-FROM google/dart:1.24.0-dev.6.5
+FROM google/dart:1.24.0-dev.6.6
 
 # Required for flutter install
 RUN apt-get update && \
