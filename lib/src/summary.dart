@@ -39,7 +39,9 @@ class DartFileSummary {
             ?.toList(growable: false),
         json['directLibs'],
         json['transitiveLibs'],
-        new Platform.fromMap(json['plaform']),
+        json['platform'] == null
+            ? null
+            : new Platform.fromJson(json['plaform']),
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{

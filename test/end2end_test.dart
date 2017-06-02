@@ -11,34 +11,43 @@ import 'package:test/test.dart';
 import 'end2end/pub_server_data.dart' as pub_server_data;
 
 void main() {
-  void expectGoldenSummary(Summary summary, Map data) {
-    // round-trip the content to get a pure JSON output
-    var actualMap = JSON.decode(JSON.encode(summary));
-
-    expect(actualMap, data);
-  }
-
   group('PackageAnalyzer', () {
     Directory tempDir;
-    String pubCacheDir;
+    PackageAnalyzer analyzer;
 
     setUpAll(() async {
       tempDir = await Directory.systemTemp.createTemp('pana-test');
-      pubCacheDir = await tempDir.resolveSymbolicLinks();
+      var pubCacheDir = await tempDir.resolveSymbolicLinks();
+      analyzer = new PackageAnalyzer(pubCacheDir: pubCacheDir);
     });
 
     tearDownAll(() async {
       await tempDir.delete(recursive: true);
     });
 
-    test('pub_server 0.1.1+3', () async {
-      var analyzer = new PackageAnalyzer(pubCacheDir: pubCacheDir);
-      var summary = await analyzer.inspectPackage(
-        'pub_server',
-        version: '0.1.1+3',
-        keepTransitiveLibs: true,
-      );
-      expectGoldenSummary(summary, pub_server_data.data);
+    group('pub_server 0.1.1+3', () {
+      Map actualMap;
+
+      setUpAll(() async {
+        var summary = await analyzer.inspectPackage(
+          'pub_server',
+          version: '0.1.1+3',
+          keepTransitiveLibs: true,
+        );
+
+        actualMap = JSON.decode(JSON.encode(summary));
+      });
+
+      test('matches known good', () {
+        expect(actualMap, pub_server_data.data);
+      });
+
+      test('Summary can round-trip', () {
+        var summary = new Summary.fromJson(actualMap);
+
+        var roundTrip = JSON.decode(JSON.encode(summary));
+        expect(roundTrip, actualMap);
+      });
     }, timeout: const Timeout.factor(2));
   });
 }

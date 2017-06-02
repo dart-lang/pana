@@ -33,7 +33,7 @@ class Platform {
   factory Platform(Iterable<String> uses) =>
       new Platform._((uses ?? []).toList()..sort());
 
-  factory Platform.fromMap(Map<String, dynamic> map) {
+  factory Platform.fromJson(Map<String, dynamic> map) {
     map ??= {};
     return new Platform(map['uses']);
   }
