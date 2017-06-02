@@ -135,7 +135,12 @@ class _MiniSum {
 }
 
 Map<String, int> _analyzerThings(Iterable<AnalyzerOutput> analyzerThings) {
-  var items = <String, int>{'analyzerError': 0, 'analyzerStrong': 0};
+  var items = <String, int>{
+    'analyzerError': 0,
+    'analyzerStrong': 0,
+    'topLevelStrong': 0,
+    'allOther': 0
+  };
 
   for (var item in analyzerThings) {
     var fileClazz = _classifyFile(item.file);
@@ -145,8 +150,13 @@ Map<String, int> _analyzerThings(Iterable<AnalyzerOutput> analyzerThings) {
 
       if (type.startsWith('ERROR|')) {
         items['analyzerError'] += 1;
+      } else if (type
+          .contains("INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS")) {
+        items['topLevelStrong'] += 1;
       } else if (type.contains("|STRONG_MODE_")) {
         items['analyzerStrong'] += 1;
+      } else {
+        items['allOther'] += 1;
       }
     }
   }
