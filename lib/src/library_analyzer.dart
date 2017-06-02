@@ -131,9 +131,18 @@ class LibraryScanner {
       String package, String packageDir) async {
     Map<String, List<String>> results = new SplayTreeMap();
     List<String> dartFiles = await listFiles(packageDir, endsWith: '.dart');
-    List<String> mainFiles = dartFiles
-        .where((path) => path.startsWith('lib/') || path.startsWith('bin/'))
-        .toList();
+    List<String> mainFiles = dartFiles.where((path) {
+      if (p.isWithin('bin', path)) {
+        return true;
+      }
+
+      // Include all Dart files in lib – except for implementation files.
+      if (p.isWithin('lib', path) && !p.isWithin('lib/src', path)) {
+        return true;
+      }
+
+      return false;
+    }).toList();
     for (String relativePath in mainFiles) {
       String uri = _toUri(package, relativePath);
       if (!_cachedLibs.containsKey(uri)) {
