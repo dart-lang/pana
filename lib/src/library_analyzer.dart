@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/element/element.dart';
@@ -32,7 +33,7 @@ class LibraryScanner {
   LibraryScanner._(
       this._package, this._projectPath, this._packageResolver, this._context);
 
-  factory LibraryScanner(String package, String projectPath) {
+  factory LibraryScanner(String package, String projectPath, bool useFlutter) {
     // TODO: fail more clearly if this...fails
     var sdkPath = cli.getSdkDir().path;
 
@@ -46,13 +47,20 @@ class LibraryScanner {
       throw new StateError('A package configuration file was not found at the '
           'expectetd location. $dotPackagesPath');
     }
-    var pubPackageMapProvider =
-        new PubPackageMapProvider(PhysicalResourceProvider.INSTANCE, sdk);
+
+    RunPubList runPubList;
+    if (useFlutter) {
+      runPubList = _flutterPubList;
+    }
+
+    var pubPackageMapProvider = new PubPackageMapProvider(
+        PhysicalResourceProvider.INSTANCE, sdk, runPubList);
     var packageMapInfo = pubPackageMapProvider.computePackageMap(
         PhysicalResourceProvider.INSTANCE.getResource(projectPath));
     var packageMap = packageMapInfo.packageMap;
     if (packageMap == null) {
-      throw new StateError('An error occurred getting the package map.');
+      throw new StateError('An error occurred getting the package map '
+          'for the file at `$dotPackagesPath`.');
     }
     UriResolver packageResolver = new PackageMapUriResolver(
         PhysicalResourceProvider.INSTANCE, packageMap);
@@ -178,4 +186,27 @@ String _toUri(String package, String relativePath) {
   } else {
     return 'path:$package/$relativePath';
   }
+}
+
+ProcessResult _flutterPubList(Folder folder) {
+  var result =
+      Process.runSync('flutter', ['packages', 'pub', 'list-package-dirs']);
+
+  if (result.exitCode == 0 &&
+      (result.stdout as String).contains('without superuser privileges')) {
+    // So flutter's wrapper around pub yells about superuser
+    // ... which only comes up when running via docker
+    // SO...we need to strip this crazy out.
+
+    var lines = LineSplitter.split(result.stdout).toList();
+
+    while (lines.isNotEmpty && !lines.first.startsWith("{")) {
+      lines.removeAt(0);
+    }
+
+    return new ProcessResult(
+        result.pid, result.exitCode, lines.join('\n'), result.stderr);
+  }
+
+  return result;
 }

@@ -53,6 +53,10 @@ class PackageAnalyzer {
     String pkgDir = pkgInfo.location;
     log.info("Package at $pkgDir");
 
+    log.info('Is this a flutter package?');
+    var isFlutter = isFlutterPackage(pkgDir);
+    log.info("...Is flutter? $isFlutter");
+
     log.info('Counting files...');
     var dartFiles = new SplayTreeSet<String>.from(
         await listFiles(pkgDir, endsWith: '.dart'));
@@ -62,12 +66,13 @@ class PackageAnalyzer {
         await _dartSdk.filesNeedingFormat(pkgDir));
 
     log.info("Pub upgrade...");
-    ProcessResult upgrade = await _pubEnv.runUpgrade(pkgDir);
+    ProcessResult upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
     var summary = PubSummary.create(
         upgrade.exitCode, upgrade.stdout, upgrade.stderr, pkgDir);
     log.info("Package version: ${summary.pkgVersion}");
 
-    LibraryScanner libraryScanner = new LibraryScanner(package, pkgDir);
+    LibraryScanner libraryScanner =
+        new LibraryScanner(package, pkgDir, isFlutter);
     Map<String, List<String>> directLibs;
     try {
       directLibs = await libraryScanner.scanDirectLibs();
@@ -95,6 +100,7 @@ class PackageAnalyzer {
       }
     }
 
+    //TODO(kevmoo): If this is a flutter package, include flutter SDK info
     return new Summary(
       sdkVersion,
       package,

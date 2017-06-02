@@ -111,15 +111,29 @@ class PubEnvironment {
     }
   }
 
-  Future<ProcessResult> runUpgrade(String packageDir,
+  Future<ProcessResult> runUpgrade(String packageDir, bool isFlutter,
       {int retryCount: 3}) async {
     ProcessResult result;
+
+    var cmd = dartSdk._pubCmd;
+    var args = <String>[];
+
+    if (isFlutter) {
+      //TODO(kevmoo) should we detect this and populate `sdk`?
+      cmd = 'flutter';
+      args.addAll(['packages', 'pub']);
+    }
+
+    args.addAll(['upgrade', '--verbosity', 'all']);
+
     do {
       retryCount--;
-      log.info('Running `pub upgrade`...');
+
+      log.info('Running `${ ([cmd]..addAll(args)).join(' ') }`...');
+
       result = await runProc(
-        dartSdk._pubCmd,
-        ['upgrade', '--verbosity', 'all'],
+        cmd,
+        args,
         workingDirectory: packageDir,
         environment: _environment,
       );

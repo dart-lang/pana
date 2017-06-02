@@ -71,12 +71,9 @@ class PubSummary {
     String pubspecContent, lockFileContent;
     Map<String, Version> lockedVersions;
     if (path != null) {
-      var theFile = new File(p.join(path, 'pubspec.yaml'));
-      if (theFile.existsSync()) {
-        pubspecContent = theFile.readAsStringSync();
-      }
+      pubspecContent = getPubspecContent(path);
 
-      theFile = new File(p.join(path, 'pubspec.lock'));
+      var theFile = new File(p.join(path, 'pubspec.lock'));
       if (theFile.existsSync()) {
         lockFileContent = theFile.readAsStringSync();
         if (lockFileContent.isNotEmpty) {

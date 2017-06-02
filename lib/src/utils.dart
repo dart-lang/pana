@@ -112,6 +112,53 @@ Future<List<String>> listFiles(String directory, {String endsWith}) {
 
 String prettyJson(obj) => const JsonEncoder.withIndent(' ').convert(obj).trim();
 
+/// If no `pubspec.yaml` file exists, `null` is returned.
+String getPubspecContent(String packagePath) {
+  var theFile = new File(p.join(packagePath, 'pubspec.yaml'));
+  if (theFile.existsSync()) {
+    return theFile.readAsStringSync();
+  }
+  return null;
+}
+
+bool isFlutterPackage(String packageDir) {
+  var pubspecContent = getPubspecContent(packageDir);
+
+  if (pubspecContent == null) {
+    throw "Couldn't find a pubspec.yaml file.";
+  }
+
+  var yamlMap = loadYaml(pubspecContent) as YamlMap;
+
+  var allDeps = <String, Object>{};
+
+  allDeps.addAll(yamlMap['dependencies'] ?? {});
+  allDeps.addAll(yamlMap['dev_dependencies'] ?? {});
+
+  var sdks = new Set<String>();
+
+  for (var k in allDeps.keys) {
+    var v = allDeps[k];
+    if (v is Map) {
+      var sdk = v['sdk'] as String;
+      if (sdk != null) {
+        sdks.add(sdk);
+      }
+    }
+  }
+
+  if (sdks.isEmpty) {
+    return false;
+  }
+
+  if (sdks.remove('flutter') && sdks.isEmpty) {
+    // flutter was there (and is now removed) AND there are no other SDKs.
+    return true;
+  }
+
+  throw 'Found unrecognized sdks: ${sdks.join(', ')}';
+}
+
 Object sortedJson(obj) {
   var fullJson = JSON.decode(JSON.encode(obj));
   return _toSortedMap(fullJson);
