@@ -37,7 +37,6 @@ class LibraryScanner {
     // TODO: fail more clearly if this...fails
     var sdkPath = cli.getSdkDir().path;
 
-    JavaSystemIO.setProperty("com.google.dart.sdk", sdkPath);
     var resourceProvider = PhysicalResourceProvider.INSTANCE;
     DartSdk sdk = new FolderBasedDartSdk(
         resourceProvider, resourceProvider.getFolder(sdkPath));
