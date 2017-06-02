@@ -81,13 +81,11 @@ class LibraryScanner {
     return new LibraryScanner._(package, projectPath, packageResolver, context);
   }
 
-  Future<Map<String, List<String>>> scanDirectLibs() =>
-      _scanPackage(_package, _projectPath);
+  Future<Map<String, List<String>>> scanDirectLibs() => _scanPackage();
 
   Future<Map<String, List<String>>> scanTransitiveLibs() async {
     Map<String, List<String>> results = new SplayTreeMap();
-    Map<String, List<String>> direct =
-        await _scanPackage(_package, _projectPath);
+    Map<String, List<String>> direct = await _scanPackage();
     for (String key in direct.keys) {
       Set<String> processed = new Set();
       Set<String> todo = new Set.from(direct[key]);
@@ -127,10 +125,9 @@ class LibraryScanner {
     }
   }
 
-  Future<Map<String, List<String>>> _scanPackage(
-      String package, String packageDir) async {
+  Future<Map<String, List<String>>> _scanPackage() async {
     Map<String, List<String>> results = new SplayTreeMap();
-    List<String> dartFiles = await listFiles(packageDir, endsWith: '.dart');
+    List<String> dartFiles = await listFiles(_projectPath, endsWith: '.dart');
     List<String> mainFiles = dartFiles.where((path) {
       if (p.isWithin('bin', path)) {
         return true;
@@ -144,9 +141,9 @@ class LibraryScanner {
       return false;
     }).toList();
     for (String relativePath in mainFiles) {
-      String uri = _toUri(package, relativePath);
+      String uri = toPackageUri(_package, relativePath);
       if (!_cachedLibs.containsKey(uri)) {
-        _cachedLibs[uri] = _parseLibs(package, packageDir, relativePath);
+        _cachedLibs[uri] = _parseLibs(_package, _projectPath, relativePath);
       }
       results[uri] = _cachedLibs[uri];
     }
@@ -181,20 +178,12 @@ class LibraryScanner {
 String _normalizeLibRef(Uri uri, String package, String packageDir) {
   if (uri.isScheme('file')) {
     String relativePath = p.relative(p.fromUri(uri), from: packageDir);
-    return _toUri(package, relativePath);
+    return toPackageUri(package, relativePath);
   } else if (uri.isScheme('package') || uri.isScheme('dart')) {
     return uri.toString();
   }
 
   throw "not supported - $uri";
-}
-
-String _toUri(String package, String relativePath) {
-  if (relativePath.startsWith('lib/')) {
-    return 'package:$package/${relativePath.substring(4)}';
-  } else {
-    return 'path:$package/$relativePath';
-  }
 }
 
 ProcessResult _flutterPubList(Folder folder) {

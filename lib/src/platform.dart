@@ -33,8 +33,10 @@ class Platform {
   factory Platform(Iterable<String> uses) =>
       new Platform._((uses ?? []).toList()..sort());
 
-  factory Platform.fromMap(Map<String, dynamic> map) =>
-      new Platform(map['uses']);
+  factory Platform.fromMap(Map<String, dynamic> map) {
+    map ??= {};
+    return new Platform(map['uses']);
+  }
 
   bool get hasConflict =>
       (!worksAnywhere) ||
@@ -58,10 +60,14 @@ class Platform {
 
   bool _hasNoUseOf(Iterable<String> platforms) =>
       !platforms.any((p) => uses.contains(p));
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'uses': uses,
+      };
 }
 
 PlatformSummary classifyPlatforms(
-    Pubspec pubspec, Map<String, List<String>> transientLibs) {
+    Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
   Set<String> uses = new Set();
 
   bool isFlutterOnly = pubspec.hasFlutterKey || pubspec.dependsOnFlutterSdk;
@@ -71,8 +77,8 @@ PlatformSummary classifyPlatforms(
 
   return new PlatformSummary(
       new Platform(uses),
-      new Map.fromIterable(transientLibs.keys,
-          value: (key) => classifyPlatform(transientLibs[key])));
+      new Map.fromIterable(transitiveLibs.keys ?? [],
+          value: (key) => classifyPlatform(transitiveLibs[key])));
 }
 
 Platform classifyPlatform(Iterable<String> dependencies) {

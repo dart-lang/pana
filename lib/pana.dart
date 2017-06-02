@@ -5,13 +5,14 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' hide Platform;
 
 import 'package:pub_semver/pub_semver.dart';
 
 import 'src/analyzer_output.dart';
 import 'src/library_analyzer.dart';
 import 'src/logging.dart';
+import 'src/platform.dart';
 import 'src/pub_summary.dart';
 import 'src/pubspec.dart';
 import 'src/sdk_env.dart';
@@ -55,8 +56,7 @@ class PackageAnalyzer {
     log.info("Package at $pkgDir");
 
     log.info('Counting files...');
-    var dartFiles = new SplayTreeSet<String>.from(
-        await listFiles(pkgDir, endsWith: '.dart'));
+    var dartFiles = await listFiles(pkgDir, endsWith: '.dart');
 
     log.info("Checking formatting...");
     var unformattedFiles = new SplayTreeSet<String>.from(
@@ -76,8 +76,8 @@ class PackageAnalyzer {
         upgrade.exitCode, upgrade.stdout, upgrade.stderr, pkgDir);
     log.info("Package version: ${summary.pkgVersion}");
 
-    Map<String, List<String>> directLibs;
-    Map<String, List<String>> transitiveLibs;
+    Map<String, List<String>> allDirectLibs;
+    Map<String, List<String>> allTransitiveLibs;
 
     LibraryScanner libraryScanner;
 
@@ -89,17 +89,15 @@ class PackageAnalyzer {
 
     if (libraryScanner != null) {
       try {
-        directLibs = await libraryScanner.scanDirectLibs();
+        allDirectLibs = await libraryScanner.scanDirectLibs();
       } catch (e, st) {
         log.severe('Error scanning direct librariers', e, st);
       }
       try {
-        transitiveLibs = await libraryScanner.scanTransitiveLibs();
-        // TODO: add platform classification based on transitive libs
+        allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
       } catch (e, st) {
         log.severe('Error scanning transitive librariers', e, st);
       }
-      if (!keepTransitiveLibs) transitiveLibs = null;
     }
 
     Set<AnalyzerOutput> analyzerItems;
@@ -108,10 +106,29 @@ class PackageAnalyzer {
     } on ArgumentError catch (e) {
       if (e.toString().contains("No dart files found at: .")) {
         log.warning("No files to analyze...");
-        analyzerItems = new Set<AnalyzerOutput>();
       } else {
         rethrow;
       }
+    }
+
+    Map<String, DartFileSummary> files = new SplayTreeMap();
+    for (String dartFile in dartFiles) {
+      int size = await fileSize(pkgDir, dartFile);
+      String uri = toPackageUri(package, dartFile);
+      var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
+      var transitiveLibs =
+          allTransitiveLibs == null ? null : allTransitiveLibs[uri];
+      var platform =
+          transitiveLibs == null ? null : classifyPlatform(transitiveLibs);
+      files[dartFile] = new DartFileSummary(
+        uri,
+        size,
+        !unformattedFiles.contains(dartFile),
+        analyzerItems?.where((item) => item.file == dartFile)?.toList(),
+        directLibs,
+        keepTransitiveLibs ? transitiveLibs : null,
+        platform,
+      );
     }
 
     //TODO(kevmoo): If this is a flutter package, include flutter SDK info
@@ -119,12 +136,8 @@ class PackageAnalyzer {
       sdkVersion,
       package,
       new Version.parse(pkgInfo.version),
-      dartFiles,
       summary,
-      analyzerItems,
-      unformattedFiles,
-      directLibs,
-      transitiveLibs,
+      files,
     );
   }
 
