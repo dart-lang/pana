@@ -13,6 +13,7 @@ import 'src/analyzer_output.dart';
 import 'src/library_analyzer.dart';
 import 'src/logging.dart';
 import 'src/pub_summary.dart';
+import 'src/pubspec.dart';
 import 'src/sdk_env.dart';
 import 'src/summary.dart';
 import 'src/utils.dart';
@@ -53,10 +54,6 @@ class PackageAnalyzer {
     String pkgDir = pkgInfo.location;
     log.info("Package at $pkgDir");
 
-    log.info('Is this a flutter package?');
-    var isFlutter = isFlutterPackage(pkgDir);
-    log.info("...Is flutter? $isFlutter");
-
     log.info('Counting files...');
     var dartFiles = new SplayTreeSet<String>.from(
         await listFiles(pkgDir, endsWith: '.dart'));
@@ -65,7 +62,15 @@ class PackageAnalyzer {
     var unformattedFiles = new SplayTreeSet<String>.from(
         await _dartSdk.filesNeedingFormat(pkgDir));
 
+    log.info("Checking pubspec.yaml...");
+    var pubspec = new Pubspec.parseFromDir(pkgDir);
+    if (pubspec.hasUnknownSdks) {
+      throw new Exception(
+          'Unknown SDKs in pubspec.yaml: ${pubspec.dependentSdks}');
+    }
+
     log.info("Pub upgrade...");
+    var isFlutter = pubspec.dependsOnFlutterSdk;
     ProcessResult upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
     var summary = PubSummary.create(
         upgrade.exitCode, upgrade.stdout, upgrade.stderr, pkgDir);

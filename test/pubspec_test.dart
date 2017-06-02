@@ -18,6 +18,16 @@ void main() {
     expect(flutterSdkPubspec.hasFlutterPluginKey, isFalse);
     expect(flutterSdkPubspec.dependsOnFlutterSdk, isTrue);
     expect(flutterSdkPubspec.dependsOnAnyVersion, isFalse);
+    expect(flutterSdkDevPubspec.dependentSdks.toList(), ['flutter']);
+    expect(flutterSdkDevPubspec.hasFlutterKey, isFalse);
+    expect(flutterSdkDevPubspec.hasFlutterPluginKey, isFalse);
+    expect(flutterSdkDevPubspec.dependsOnFlutterSdk, isTrue);
+    expect(flutterSdkDevPubspec.dependsOnAnyVersion, isFalse);
+    expect(flutterSdkDevPubspec.dependentSdks.toList(), ['flutter']);
+  });
+
+  test('unknown sdk', () {
+    expect(unknownSdkPubspec.dependentSdks.toList(), ['unknown']);
   });
 
   test('detect any', () {
@@ -38,6 +48,22 @@ final Pubspec flutterSdkPubspec = new Pubspec({
   'dependencies': {
     'example': {
       'sdk': 'flutter',
+    },
+  },
+});
+
+final Pubspec flutterSdkDevPubspec = new Pubspec({
+  'dev_dependencies': {
+    'example': {
+      'sdk': 'flutter',
+    },
+  },
+});
+
+final Pubspec unknownSdkPubspec = new Pubspec({
+  'dependencies': {
+    'example': {
+      'sdk': 'unknown',
     },
   },
 });
