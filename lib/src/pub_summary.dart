@@ -134,12 +134,12 @@ class PubSummary {
     var details = getDependencyDetails();
 
     var data = <String, int>{
-      'directDeps': directDeps,
-      'devDeps': devDeps,
-      'transitiveDeps': transitiveDeps,
-      'directOutdated': details.where((pvd) => !pvd.isDevDep).length,
-      'devOutdated': details.where((pvd) => pvd.isDevDep).length,
-      'transitiveOutdated': (availableVersions.keys.toSet()
+      'deps_direct': directDeps,
+      'deps_dev': devDeps,
+      'deps_transitive': transitiveDeps,
+      'outdated_direct': details.where((pvd) => !pvd.isDevDep).length,
+      'outdated_dev': details.where((pvd) => pvd.isDevDep).length,
+      'outdated_transitive': (availableVersions.keys.toSet()
             ..removeAll(details.map((pvd) => pvd.package)))
           .length,
     };

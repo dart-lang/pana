@@ -137,42 +137,45 @@ class _MiniSum {
 
 Map<String, int> _analyzerThings(Iterable<AnalyzerOutput> analyzerThings) {
   var items = <String, int>{
-    'analyzerError': 0,
-    'analyzerStrong': 0,
-    'topLevelStrong': 0,
-    'allOther': 0
+    'analyzer_strong_error': 0,
+    'analyzer_error': 0,
+    'analyzer_topLevelStrong': 0,
+    'analyzer_other': 0
   };
 
   for (var item in analyzerThings) {
     var fileClazz = _classifyFile(item.file);
 
-    if (fileClazz == 'libFiles' || fileClazz == 'binFiles') {
-      var type = item.type;
-
-      if (type.startsWith('ERROR|')) {
-        items['analyzerError'] += 1;
-      } else if (type
-          .contains("INFO|HINT|STRONG_MODE_TOP_LEVEL_TYPE_ARGUMENTS")) {
-        items['topLevelStrong'] += 1;
-      } else if (type.contains("|STRONG_MODE_")) {
-        items['analyzerStrong'] += 1;
-      } else {
-        items['allOther'] += 1;
-      }
+    if (fileClazz == 'lib' || fileClazz == 'bin') {
+      var key = _getAnalyzerOutputClass(item.type);
+      items[key] += 1;
     }
   }
 
   return items;
 }
 
+String _getAnalyzerOutputClass(String type) {
+  if (type.startsWith('ERROR|')) {
+    if (type.contains("|STRONG_MODE_")) {
+      return 'analyzer_strong_error';
+    }
+    return 'analyzer_error';
+  }
+  if (type.contains("INFO|HINT|STRONG_MODE_TOP_LEVEL_")) {
+    return 'analyzer_topLevelStrong';
+  }
+
+  return 'analyzer_other';
+}
+
 Map<String, int> _classifyFiles(Iterable<String> paths) {
   var map = new SplayTreeMap<String, int>.fromIterable(
-      (["unspecified"]..addAll(_MiniSum._importantDirs))
-          .map((e) => "${e}Files"),
+      (["other"]..addAll(_MiniSum._importantDirs)).map((e) => "files_${e}"),
       value: (_) => 0);
 
   for (var path in paths) {
-    var key = _classifyFile(path);
+    var key = 'files_${_classifyFile(path)}';
     map[key] = 1 + map.putIfAbsent(key, () => 0);
   }
 
@@ -183,10 +186,10 @@ String _classifyFile(String path) {
   var split = path.split('/');
 
   if (split.length >= 2 && _MiniSum._importantDirs.contains(split.first)) {
-    return "${split.first}Files";
+    return split.first;
   }
 
-  return 'unspecifiedFiles';
+  return 'other';
 }
 
 const _domainRegep =
