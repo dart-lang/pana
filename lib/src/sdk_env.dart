@@ -138,11 +138,18 @@ class PubEnvironment {
         environment: _environment,
       );
 
-      if (result.exitCode > 0 &&
-          result.stderr
-              .contains("Could not get versions for flutter from sdk")) {
-        log.warning("Flutter SDK required!");
-        retryCount = 0;
+      if (result.exitCode > 0) {
+        var errOutput = result.stderr as String;
+
+        // find cases where retrying is not going to help – and short-circuit
+        if (errOutput.contains("Could not get versions for flutter from sdk")) {
+          log.severe("Flutter SDK required!");
+          retryCount = 0;
+        } else if (errOutput
+            .contains("FINE: Exception type: NoVersionException")) {
+          log.severe("Version solve failure");
+          retryCount = 0;
+        }
       }
     } while (result.exitCode > 0 && retryCount > 0);
     return result;
