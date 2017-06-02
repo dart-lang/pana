@@ -12,7 +12,8 @@ import 'package:pub_semver/pub_semver.dart';
 import 'utils.dart';
 
 final _prefix = new RegExp(r"(MSG|  ) (:|\|) (?:\+| ) (.+)");
-final _infoRegexp = new RegExp(r"(\w+) (\S+)(?: \((\S+) available\))?");
+final _infoRegexp =
+    new RegExp(r"(\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
 
 class PubSummary {
   final int exitCode;
