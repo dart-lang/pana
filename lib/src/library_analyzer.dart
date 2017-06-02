@@ -45,7 +45,7 @@ class LibraryScanner {
     var dotPackagesPath = p.join(projectPath, '.packages');
     if (!FileSystemEntity.isFileSync(dotPackagesPath)) {
       throw new StateError('A package configuration file was not found at the '
-          'expectetd location. $dotPackagesPath');
+          'expectetd location.\n$dotPackagesPath');
     }
 
     RunPubList runPubList;

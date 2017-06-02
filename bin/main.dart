@@ -18,7 +18,11 @@ main(List<String> arguments) async {
   log.Logger.root.onRecord.listen((record) {
     var wroteHeader = false;
 
-    var msg = LineSplitter.split(record.message).map((l) {
+    var msg = LineSplitter
+        .split([record.message, record.error, record.stackTrace]
+            .where((e) => e != null)
+            .join('\n'))
+        .map((l) {
       String prefix;
       if (wroteHeader) {
         prefix = '';

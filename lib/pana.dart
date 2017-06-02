@@ -71,22 +71,31 @@ class PackageAnalyzer {
         upgrade.exitCode, upgrade.stdout, upgrade.stderr, pkgDir);
     log.info("Package version: ${summary.pkgVersion}");
 
-    LibraryScanner libraryScanner =
-        new LibraryScanner(package, pkgDir, isFlutter);
     Map<String, List<String>> directLibs;
-    try {
-      directLibs = await libraryScanner.scanDirectLibs();
-    } catch (e, st) {
-      log.severe('Error scanning direct librariers', e, st);
-    }
     Map<String, List<String>> transitiveLibs;
+
+    LibraryScanner libraryScanner;
+
     try {
-      transitiveLibs = await libraryScanner.scanTransitiveLibs();
-      // TODO: add platform classification based on transitive libs
-    } catch (e, st) {
-      log.severe('Error scanning transitive librariers', e, st);
+      libraryScanner = new LibraryScanner(package, pkgDir, isFlutter);
+    } on StateError catch (e, stack) {
+      log.severe("Could not create LibraryScanner", e, stack);
     }
-    if (!keepTransitiveLibs) transitiveLibs = null;
+
+    if (libraryScanner != null) {
+      try {
+        directLibs = await libraryScanner.scanDirectLibs();
+      } catch (e, st) {
+        log.severe('Error scanning direct librariers', e, st);
+      }
+      try {
+        transitiveLibs = await libraryScanner.scanTransitiveLibs();
+        // TODO: add platform classification based on transitive libs
+      } catch (e, st) {
+        log.severe('Error scanning transitive librariers', e, st);
+      }
+      if (!keepTransitiveLibs) transitiveLibs = null;
+    }
 
     Set<AnalyzerOutput> analyzerItems;
     try {
