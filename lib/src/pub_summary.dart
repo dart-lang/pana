@@ -155,8 +155,21 @@ class PubSummary {
 
     var details = new SplayTreeSet<PkgVersionDetails>();
 
-    void addDetail(String package, String versionConstraint, bool isDev) {
-      var vc = new VersionConstraint.parse(versionConstraint);
+    /// [versionConstraint] can be a `String` or `Map`
+    /// If it's a `Map` – just log and continue.
+    void addDetail(String package, versionConstraint, bool isDev) {
+      if (versionConstraint == null) {
+        stderr.writeln('No constraint provided for $package');
+        return;
+      }
+
+      if (versionConstraint is Map) {
+        stderr.writeln(
+            'Non-versioned constraint for $package\n  $versionConstraint');
+        return;
+      }
+
+      var vc = new VersionConstraint.parse(versionConstraint as String);
       var usedVersion = packageVersions[package];
 
       if (usedVersion == null) {
