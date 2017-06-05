@@ -222,8 +222,8 @@ class PubSummary {
   Map<String, dynamic> toJson() {
     if (exitCode == 0) {
       return <String, dynamic>{
-        'packages': _versionMapToJson(packageVersions),
         'pubspecContent': pubspec,
+        'packages': _versionMapToJson(packageVersions),
         'lockedVersions': _versionMapToJson(lockedVersions),
         'availablePackages': _versionMapToJson(availableVersions),
       };
