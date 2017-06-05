@@ -115,7 +115,7 @@ Future<int> fileSize(String packageDir, String relativePath) =>
 
 String prettyJson(obj) {
   try {
-    return const JsonEncoder.withIndent(' ').convert(o);
+    return const JsonEncoder.withIndent(' ').convert(obj);
   } on JsonUnsupportedObjectError catch (e) {
     stderr.writeln([
       e,

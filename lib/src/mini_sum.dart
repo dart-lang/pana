@@ -72,6 +72,8 @@ class MiniSum {
   }
 }
 
+const _analyzeDirs = const ['lib', 'bin'];
+
 Map<String, int> _analyzerThings(Iterable<AnalyzerOutput> analyzerThings) {
   var items = <String, int>{
     'analyzer_strong_error': 0,
@@ -81,9 +83,7 @@ Map<String, int> _analyzerThings(Iterable<AnalyzerOutput> analyzerThings) {
   };
 
   for (var item in analyzerThings) {
-    var fileClazz = _classifyFile(item.file);
-
-    if (fileClazz == 'lib' || fileClazz == 'bin') {
+    if (_analyzeDirs.contains(_classifyFile(item.file))) {
       var key = _getAnalyzerOutputClass(item.type);
       items[key] += 1;
     }
