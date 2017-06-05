@@ -41,7 +41,7 @@ class DartFileSummary {
         json['transitiveLibs'],
         json['platform'] == null
             ? null
-            : new Platform.fromJson(json['plaform']),
+            : new Platform.fromJson(json['platform']),
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
