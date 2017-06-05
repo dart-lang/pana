@@ -163,6 +163,8 @@ String _getAnalyzerOutputClass(String type) {
     return 'analyzer_error';
   }
   if (type.contains("INFO|HINT|STRONG_MODE_TOP_LEVEL_")) {
+    //TODO(kevmoo) The story is changing here in Dart 1.25+
+    // https://github.com/dart-lang/pana/issues/16
     return 'analyzer_topLevelStrong';
   }
 
