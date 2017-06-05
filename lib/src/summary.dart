@@ -27,7 +27,10 @@ class DartFileSummary {
     this.directLibs,
     this.transitiveLibs,
     this.platform,
-  );
+  ) {
+    assert((platform == null) == (directLibs == null));
+    assert((platform == null) == (transitiveLibs == null));
+  }
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
       new DartFileSummary(
@@ -44,15 +47,27 @@ class DartFileSummary {
             : new Platform.fromJson(json['platform']),
       );
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'uri': uri,
-        'size': size,
-        'isFormatted': isFormatted,
-        'analyzerItems': analyzerItems?.map((item) => item.toJson())?.toList(),
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{
+      'uri': uri,
+      'size': size,
+      'isFormatted': isFormatted,
+      'analyzerItems': analyzerItems?.map((item) => item.toJson())?.toList()
+    };
+
+    if (platform != null) {
+      assert(directLibs != null);
+      assert(transitiveLibs != null);
+
+      map.addAll({
         'directLibs': directLibs,
         'transitiveLibs': transitiveLibs,
         'platform': platform,
-      };
+      });
+    }
+
+    return map;
+  }
 }
 
 class Summary {

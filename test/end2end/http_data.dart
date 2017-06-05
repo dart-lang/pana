@@ -371,144 +371,96 @@ final data = {
       "size": 7821,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/base_request.dart": {
       "uri": "package:http/src/base_request.dart",
       "size": 4739,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/base_response.dart": {
       "uri": "package:http/src/base_response.dart",
       "size": 1727,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/boundary_characters.dart": {
       "uri": "package:http/src/boundary_characters.dart",
       "size": 957,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/byte_stream.dart": {
       "uri": "package:http/src/byte_stream.dart",
       "size": 1391,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/client.dart": {
       "uri": "package:http/src/client.dart",
       "size": 6152,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/exception.dart": {
       "uri": "package:http/src/exception.dart",
       "size": 502,
       "isFormatted": true,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/io_client.dart": {
       "uri": "package:http/src/io_client.dart",
       "size": 2530,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/mock_client.dart": {
       "uri": "package:http/src/mock_client.dart",
       "size": 3320,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/multipart_file.dart": {
       "uri": "package:http/src/multipart_file.dart",
       "size": 4431,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/multipart_request.dart": {
       "uri": "package:http/src/multipart_request.dart",
       "size": 5905,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/request.dart": {
       "uri": "package:http/src/request.dart",
       "size": 5952,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/response.dart": {
       "uri": "package:http/src/response.dart",
       "size": 3431,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/streamed_request.dart": {
       "uri": "package:http/src/streamed_request.dart",
       "size": 1650,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/streamed_response.dart": {
       "uri": "package:http/src/streamed_response.dart",
       "size": 1326,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/src/utils.dart": {
       "uri": "package:http/src/utils.dart",
       "size": 4843,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "lib/testing.dart": {
       "uri": "package:http/testing.dart",
@@ -652,81 +604,54 @@ final data = {
       "size": 1144,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/html/streamed_request_test.dart": {
       "uri": "path:http/test/html/streamed_request_test.dart",
       "size": 1210,
       "isFormatted": true,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/html/utils.dart": {
       "uri": "path:http/test/html/utils.dart",
       "size": 391,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/io/client_test.dart": {
       "uri": "path:http/test/io/client_test.dart",
       "size": 3502,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/io/http_test.dart": {
       "uri": "path:http/test/io/http_test.dart",
       "size": 14300,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/io/multipart_test.dart": {
       "uri": "path:http/test/io/multipart_test.dart",
       "size": 1195,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/io/request_test.dart": {
       "uri": "path:http/test/io/request_test.dart",
       "size": 1952,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/io/streamed_request_test.dart": {
       "uri": "path:http/test/io/streamed_request_test.dart",
       "size": 1883,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/io/utils.dart": {
       "uri": "path:http/test/io/utils.dart",
       "size": 4568,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/mock_client_test.dart": {
       "uri": "path:http/test/mock_client_test.dart",
@@ -741,54 +666,36 @@ final data = {
           "error": "Unused import."
         }
       ],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/multipart_test.dart": {
       "uri": "path:http/test/multipart_test.dart",
       "size": 7313,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/request_test.dart": {
       "uri": "path:http/test/request_test.dart",
       "size": 12436,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/response_test.dart": {
       "uri": "path:http/test/response_test.dart",
       "size": 2641,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/streamed_request_test.dart": {
       "uri": "path:http/test/streamed_request_test.dart",
       "size": 916,
       "isFormatted": true,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     },
     "test/utils.dart": {
       "uri": "path:http/test/utils.dart",
       "size": 3632,
       "isFormatted": false,
       "analyzerItems": [],
-      "directLibs": null,
-      "transitiveLibs": null,
-      "platform": null
     }
   }
 };
