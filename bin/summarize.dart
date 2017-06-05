@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:pana/src/mini_sum.dart';
 import 'package:pana/src/summary.dart';
+import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as p;
 
 main() async {
@@ -41,26 +42,11 @@ void _updateResults(List<MiniSum> summaries) {
   }
 }
 
-String _prettyString(Object o) {
-  try {
-    return const JsonEncoder.withIndent(' ').convert(o);
-  } on JsonUnsupportedObjectError catch (e) {
-    print([
-      e,
-      e.cause,
-      e.unsupportedObject,
-      e.unsupportedObject.runtimeType,
-      e.stackTrace
-    ].join('\n'));
-    rethrow;
-  }
-}
-
 MiniSum _process(String content) {
   var output = JSON.decode(content);
   var summary = new Summary.fromJson(output);
 
-  assert(_prettyString(summary.toJson()) == _prettyString(output));
+  assert(prettyJson(summary.toJson()) == prettyJson(output));
 
   return new MiniSum.fromSummary(summary);
 }

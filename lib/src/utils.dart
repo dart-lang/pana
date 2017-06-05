@@ -113,7 +113,20 @@ Future<List<String>> listFiles(String directory, {String endsWith}) {
 Future<int> fileSize(String packageDir, String relativePath) =>
     new File(p.join(packageDir, relativePath)).length();
 
-String prettyJson(obj) => const JsonEncoder.withIndent(' ').convert(obj).trim();
+String prettyJson(obj) {
+  try {
+    return const JsonEncoder.withIndent(' ').convert(o);
+  } on JsonUnsupportedObjectError catch (e) {
+    stderr.writeln([
+      e,
+      e.cause,
+      e.unsupportedObject,
+      e.unsupportedObject.runtimeType,
+      e.stackTrace
+    ].where((i) => i != null).join('\n'));
+    rethrow;
+  }
+}
 
 /// If no `pubspec.yaml` file exists, `null` is returned.
 String getPubspecContent(String packagePath) {
