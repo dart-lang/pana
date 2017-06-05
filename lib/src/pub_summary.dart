@@ -223,9 +223,9 @@ class PubSummary {
     if (exitCode == 0) {
       return <String, dynamic>{
         'packages': _versionMapToJson(packageVersions),
-        'availablePackages': _versionMapToJson(availableVersions),
+        'pubspecContent': pubspec,
         'lockedVersions': _versionMapToJson(lockedVersions),
-        'pubspecContent': pubspec
+        'availablePackages': _versionMapToJson(availableVersions),
       };
     } else {
       return <String, dynamic>{
