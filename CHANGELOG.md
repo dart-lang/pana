@@ -1,3 +1,11 @@
+## 0.2.2
+
+* Lot's of cleanup to JSON output.
+
+* Improved stability.
+
+* Platform detection basics.
+
 ## 0.2.1
 
 * Added support for `flutter` packages.
