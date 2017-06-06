@@ -72,18 +72,15 @@ class DartFileSummary {
 
 class Summary {
   final String sdkVersion;
+  final String flutterVersion;
   final String packageName;
   final Version packageVersion;
   final PubSummary pubSummary;
   final Map<String, DartFileSummary> dartFiles;
 
-  Summary(
-    this.sdkVersion,
-    this.packageName,
-    this.packageVersion,
-    this.pubSummary,
-    this.dartFiles,
-  );
+  Summary(this.sdkVersion, this.packageName, this.packageVersion,
+      this.pubSummary, this.dartFiles,
+      {this.flutterVersion});
 
   factory Summary.fromJson(Map<String, dynamic> json) {
     var sdkVersion = json['sdkVersion'] as String;
@@ -97,12 +94,8 @@ class Summary {
         value: (key) => new DartFileSummary.fromJson(filesMap[key]));
 
     return new Summary(
-      sdkVersion,
-      packageName,
-      packageVersion,
-      pubSummary,
-      dartFiles,
-    );
+        sdkVersion, packageName, packageVersion, pubSummary, dartFiles,
+        flutterVersion: json['flutterVersion']);
   }
 
   Iterable<AnalyzerOutput> get analyzerItems sync* {
@@ -111,11 +104,20 @@ class Summary {
     }
   }
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'sdkVersion': sdkVersion,
-        'packageName': packageName,
-        'packageVersion': packageVersion.toString(),
-        'pubSummary': pubSummary,
-        'dartFiles': dartFiles,
-      };
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{'sdkVersion': sdkVersion};
+
+    if (flutterVersion != null) {
+      map['flutterVersion'] = flutterVersion;
+    }
+
+    map.addAll({
+      'packageName': packageName,
+      'packageVersion': packageVersion.toString(),
+      'pubSummary': pubSummary,
+      'dartFiles': dartFiles,
+    });
+
+    return map;
+  }
 }

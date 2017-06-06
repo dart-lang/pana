@@ -131,14 +131,16 @@ class PackageAnalyzer {
       );
     }
 
-    //TODO(kevmoo): If this is a flutter package, include flutter SDK info
+    String flutterVersion;
+    if (isFlutter) {
+      var result = await runProc('flutter', ['--version']);
+      assert(result.exitCode == 0);
+      flutterVersion = (result.stdout as String).trim();
+    }
+
     return new Summary(
-      sdkVersion,
-      package,
-      new Version.parse(pkgInfo.version),
-      summary,
-      files,
-    );
+        sdkVersion, package, new Version.parse(pkgInfo.version), summary, files,
+        flutterVersion: flutterVersion);
   }
 
   Future<Set<AnalyzerOutput>> _pkgAnalyze(String pkgPath) async {
