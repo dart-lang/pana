@@ -19,7 +19,13 @@ final _endColor = _isPosixTerminal ? '\u001b[0m' : '';
 final _isPosixTerminal =
     !Platform.isWindows && stdioType(stdout) == StdioType.TERMINAL;
 
-main() async {
+main(List<String> args) async {
+  var instanceCount = Platform.numberOfProcessors ~/ 2;
+  if (args.isNotEmpty) {
+    //TODO(kevmoo) - use pkg/args here instead
+    instanceCount = int.parse(args.single);
+  }
+
   int cols;
   try {
     var result = Process.runSync('tput', ['cols']);
@@ -80,12 +86,16 @@ main() async {
 
   var packages = new File('input_packages.txt').readAsLinesSync();
 
-  var pool = new Pool(Platform.numberOfProcessors ~/ 2);
+  var pool = new Pool(instanceCount);
 
-  print("Hacking through ${packages.length} package(s).");
+  print(
+      "Hacking through ${packages.length} package(s) - $instanceCount at a time.");
   var count = 0;
+  var finished = 0;
+  var watch = new Stopwatch()..start();
   await Future.wait(packages.map((pkg) async {
     var resource = await pool.request();
+    var pkgWatch = new Stopwatch()..start();
 
     var logger = new Logger((++count).toString());
     try {
@@ -98,7 +108,14 @@ main() async {
       logger.severe("Oops!", e, stack);
       await _writeResult(dockerName, pkg, [e, stack].join('\n'), true);
     } finally {
+      finished++;
       resource.release();
+      print('''
+    
+Finished ${pkg}
+  $finished of ${packages.length}
+  Took ${pkgWatch.elapsed}
+  Averaging ${watch.elapsed ~/ finished} per pkg across $instanceCount instances.''');
     }
   }));
 }
