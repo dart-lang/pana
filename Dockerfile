@@ -1,4 +1,4 @@
-FROM google/dart:1.24.0-dev.6.6
+FROM google/dart:1.24.0-dev.6.8
 
 # Required for flutter install
 RUN apt-get update && \
@@ -10,7 +10,7 @@ ENV PATH="/flutter/bin:${PATH}"
 
 # Running `flutter config --no-analytics` downloads the Dart SDK and
 # disables analytics tracking – which we always want
-RUN git clone https://github.com/flutter/flutter.git && \
+RUN git clone -b alpha https://github.com/flutter/flutter.git && \
   flutter config --no-analytics
 
 WORKDIR /app
