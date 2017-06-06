@@ -133,9 +133,20 @@ class PackageAnalyzer {
 
     String flutterVersion;
     if (isFlutter) {
+      //TOOD(kevmoo) should parse this information – the raw text is not ideal
+      //  or wait for flutter to do something pretty
+      //  see https://github.com/flutter/flutter/issues/10534
       var result = await runProc('flutter', ['--version']);
       assert(result.exitCode == 0);
+      // Flutter likes to warn about `root` - which happens in Docker
+      // Skip those lines
+      // See https://github.com/flutter/flutter/issues/10529
       flutterVersion = (result.stdout as String).trim();
+      if (flutterVersion.startsWith('Woah!')) {
+        var startIndex = flutterVersion.indexOf("Flutter •");
+        assert(startIndex > 0);
+        flutterVersion = flutterVersion.substring(startIndex);
+      }
     }
 
     return new Summary(
