@@ -11,11 +11,10 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'utils.dart';
 
-final _prefix = new RegExp(r"(MSG|  ) (:|\|) (?:\+| ) (.+)");
-final _infoRegexp =
-    new RegExp(r"(\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
-
 class PubSummary {
+  static final _solvePkgLine = new RegExp(
+      r"(?:[><\+ ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
+
   final int exitCode;
   final String stdoutValue;
   final String stderrValue;
@@ -45,17 +44,15 @@ class PubSummary {
       pkgVersions = <String, Version>{};
       availVersions = <String, Version>{};
 
-      for (var match in LineSplitter
-          .split(procStdout)
-          .map((l) => _prefix.firstMatch(l)?.group(3))
-          .where((m) => m != null)
-          .map((l) {
-        var allMatches = _infoRegexp.allMatches(l).toList();
-        if (allMatches.length > 1) {
-          throw "Weird! – can't parse '$l'";
+      var entry = PubEntry.parse(procStdout).singleWhere((entry) {
+        if (entry.header != 'MSG') {
+          return false;
         }
-        return _infoRegexp.allMatches(l).single;
-      })) {
+
+        return entry.content.every((line) => _solvePkgLine.hasMatch(line));
+      });
+
+      for (var match in entry.content.map(_solvePkgLine.firstMatch)) {
         var pkg = match.group(1);
 
         pkgVersions[pkg] = new Version.parse(match.group(2));
@@ -293,4 +290,56 @@ class PkgVersionDetails implements Comparable<PkgVersionDetails> {
     }
     return items.join(' ');
   }
+}
+
+class PubEntry {
+  static final _headerMatch = new RegExp(r"^([A-Z]{2,4})[ ]{0,2}: (.*)");
+  static final _lineMatch = new RegExp(r"^    \|(.*)");
+
+  final String header;
+  final List<String> content;
+
+  PubEntry(this.header, this.content);
+
+  static Iterable<PubEntry> parse(String input) sync* {
+    String header;
+    List<String> entryLines;
+
+    for (var line in LineSplitter.split(input)) {
+      if (line.trim().isEmpty) {
+        continue;
+      }
+      var match = _headerMatch.firstMatch(line);
+
+      if (match != null) {
+        if (header != null || entryLines != null) {
+          assert(entryLines.isNotEmpty);
+          yield new PubEntry(header, entryLines);
+          header = null;
+          entryLines = null;
+        }
+        header = match[1];
+        entryLines = <String>[match[2]];
+      } else {
+        match = _lineMatch.firstMatch(line);
+
+        if (match == null) {
+          throw "no line match for\n\t`$line`";
+        }
+
+        assert(entryLines != null);
+        entryLines.add(match[1]);
+      }
+    }
+
+    if (header != null || entryLines != null) {
+      assert(entryLines.isNotEmpty);
+      yield new PubEntry(header, entryLines);
+      header = null;
+      entryLines = null;
+    }
+  }
+
+  @override
+  String toString() => '$header: ${content.join('\n')}';
 }
