@@ -117,13 +117,18 @@ String prettyJson(obj) {
   try {
     return const JsonEncoder.withIndent(' ').convert(obj);
   } on JsonUnsupportedObjectError catch (e) {
-    stderr.writeln([
-      e,
-      e.cause,
-      e.unsupportedObject,
-      e.unsupportedObject.runtimeType,
-      e.stackTrace
-    ].where((i) => i != null).join('\n'));
+    var error = e;
+
+    while (error is JsonUnsupportedObjectError) {
+      stderr.writeln([
+        error,
+        "${error.unsupportedObject} - (${error.unsupportedObject.runtimeType})",
+        error.cause == null ? null : "Nested cause: ${error.cause}",
+        error.stackTrace
+      ].where((i) => i != null).join('\n'));
+
+      error = error.cause;
+    }
     rethrow;
   }
 }
