@@ -57,13 +57,15 @@ class DartFileSummary {
 
     if (platform != null) {
       assert(directLibs != null);
-      assert(transitiveLibs != null);
 
       map.addAll({
-        'directLibs': directLibs,
-        'transitiveLibs': transitiveLibs,
         'platform': platform,
+        'directLibs': directLibs,
       });
+
+      if (transitiveLibs != null) {
+        map['transitiveLibs'] = transitiveLibs;
+      }
     }
 
     return map;
