@@ -20,4 +20,4 @@ RUN pub get
 ADD . /app
 RUN pub get --offline
 
-ENTRYPOINT ["/usr/bin/dart", "bin/main.dart"]
+ENTRYPOINT ["/usr/bin/dart", "--checked", "bin/main.dart"]
