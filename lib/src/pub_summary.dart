@@ -331,7 +331,9 @@ class PubEntry {
         match = _lineMatch.firstMatch(line);
 
         if (match == null) {
-          throw "no line match for\n\t`$line`";
+          // Likely due to Flutter silly
+          // stderr.writeln("Could not parse pub line `$line`.");
+          continue;
         }
 
         assert(entryLines != null);
