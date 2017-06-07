@@ -139,8 +139,9 @@ class PackageAnalyzer {
       var result = await runProc('flutter', ['--version']);
       assert(result.exitCode == 0);
       // Flutter likes to warn about `root` - which happens in Docker
-      // Skip those lines
-      // See https://github.com/flutter/flutter/issues/10529
+      //   – Skip those lines
+      // Can remove once https://github.com/flutter/flutter/commit/a5aaaa8422
+      //   is in the flutter version we target
       flutterVersion = (result.stdout as String).trim();
       if (flutterVersion.startsWith('Woah!')) {
         var startIndex = flutterVersion.indexOf("Flutter •");
