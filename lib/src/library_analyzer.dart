@@ -107,6 +107,12 @@ class LibraryScanner {
     return results;
   }
 
+  /// [AnalysisEngine] caches analyzed fragments, and we need to clear those
+  /// after we have analyzed a package.
+  void clearCaches() {
+    AnalysisEngine.instance.clearCaches();
+  }
+
   Future<List<String>> _scanUri(String libUri) async {
     Uri uri = Uri.parse(libUri);
     String package = uri.path.split('/').first;

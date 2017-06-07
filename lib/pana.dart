@@ -98,6 +98,7 @@ class PackageAnalyzer {
       } catch (e, st) {
         log.severe('Error scanning transitive librariers', e, st);
       }
+      libraryScanner.clearCaches();
     }
 
     Set<AnalyzerOutput> analyzerItems;
