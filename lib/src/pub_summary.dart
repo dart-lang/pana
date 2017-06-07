@@ -44,24 +44,31 @@ class PubSummary {
       pkgVersions = <String, Version>{};
       availVersions = <String, Version>{};
 
-      var entry = PubEntry.parse(procStdout).singleWhere((entry) {
+      var entries = PubEntry.parse(procStdout).where((entry) {
         if (entry.header != 'MSG') {
           return false;
         }
 
         return entry.content.every((line) => _solvePkgLine.hasMatch(line));
-      });
+      }).toList();
 
-      for (var match in entry.content.map(_solvePkgLine.firstMatch)) {
-        var pkg = match.group(1);
+      if (entries.length == 1) {
+        for (var match
+            in entries.single.content.map(_solvePkgLine.firstMatch)) {
+          var pkg = match.group(1);
 
-        pkgVersions[pkg] = new Version.parse(match.group(2));
+          pkgVersions[pkg] = new Version.parse(match.group(2));
 
-        var availVerStr = match.group(3);
+          var availVerStr = match.group(3);
 
-        if (availVerStr != null) {
-          availVersions[pkg] = new Version.parse(availVerStr);
+          if (availVerStr != null) {
+            availVersions[pkg] = new Version.parse(availVerStr);
+          }
         }
+      } else if (entries.length > 1) {
+        throw "Seems that we have two sections of packages solves - weird!";
+      } else {
+        // it's empty – which is fine for a package with no dependencies
       }
     }
 
