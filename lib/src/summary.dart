@@ -29,7 +29,6 @@ class DartFileSummary {
     this.platform,
   ) {
     assert((platform == null) == (directLibs == null));
-    assert((platform == null) == (transitiveLibs == null));
   }
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
