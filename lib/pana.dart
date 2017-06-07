@@ -133,15 +133,12 @@ class PackageAnalyzer {
 
     String flutterVersion;
     if (isFlutter) {
-      //TOOD(kevmoo) should parse this information – the raw text is not ideal
-      //  or wait for flutter to do something pretty
-      //  see https://github.com/flutter/flutter/issues/10534
+      //TODO(kevmoo) Use --version --json when we upgrade Flutter with commit
+      //  https://github.com/flutter/flutter/commit/1b56cb790c
       var result = await runProc('flutter', ['--version']);
       assert(result.exitCode == 0);
-      // Flutter likes to warn about `root` - which happens in Docker
-      //   – Skip those lines
-      // Can remove once https://github.com/flutter/flutter/commit/a5aaaa8422
-      //   is in the flutter version we target
+      //TODO(kevmoo) Skip warning when we upgrade to Flutter with commit
+      //  https://github.com/flutter/flutter/commit/a5aaaa8422
       flutterVersion = (result.stdout as String).trim();
       if (flutterVersion.startsWith('Woah!')) {
         var startIndex = flutterVersion.indexOf("Flutter •");
