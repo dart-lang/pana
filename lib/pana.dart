@@ -25,11 +25,14 @@ export 'src/utils.dart';
 
 class PackageAnalyzer {
   final DartSdk _dartSdk;
+  final FlutterSdk _flutterSdk;
   PubEnvironment _pubEnv;
 
-  PackageAnalyzer({String sdkDir, String pubCacheDir})
-      : _dartSdk = new DartSdk(sdkDir: sdkDir) {
-    _pubEnv = new PubEnvironment(dartSdk: _dartSdk, pubCacheDir: pubCacheDir);
+  PackageAnalyzer({String sdkDir, String flutterDir, String pubCacheDir})
+      : _dartSdk = new DartSdk(sdkDir: sdkDir),
+        _flutterSdk = new FlutterSdk(sdkDir: flutterDir) {
+    _pubEnv = new PubEnvironment(
+        dartSdk: _dartSdk, flutterSdk: _flutterSdk, pubCacheDir: pubCacheDir);
   }
 
   Future<Summary> inspectPackage(String package,
@@ -170,18 +173,7 @@ class PackageAnalyzer {
 
     String flutterVersion;
     if (isFlutter) {
-      //TODO(kevmoo) Use --version --json when we upgrade Flutter with commit
-      //  https://github.com/flutter/flutter/commit/1b56cb790c
-      var result = await runProc('flutter', ['--version']);
-      assert(result.exitCode == 0);
-      //TODO(kevmoo) Skip warning when we upgrade to Flutter with commit
-      //  https://github.com/flutter/flutter/commit/a5aaaa8422
-      flutterVersion = (result.stdout as String).trim();
-      if (flutterVersion.startsWith('Woah!')) {
-        var startIndex = flutterVersion.indexOf("Flutter •");
-        assert(startIndex > 0);
-        flutterVersion = flutterVersion.substring(startIndex);
-      }
+      flutterVersion = await _flutterSdk.getVersion();
     }
 
     return new Summary(sdkVersion, package, new Version.parse(pkgInfo.version),

@@ -6,33 +6,27 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:path/path.dart' as p;
+
 import 'logging.dart';
 import 'utils.dart';
 
 class DartSdk {
   final Map<String, String> _environment = {};
-  String _dartCmd;
-  String _dartAnalyzerCmd;
-  String _dartfmtCmd;
-  String _pubCmd;
+  final String _dartCmd;
+  final String _dartAnalyzerCmd;
+  final String _dartfmtCmd;
+  final String _pubCmd;
   String _version;
 
-  DartSdk({String sdkDir, Map<String, String> environment}) {
-    String path = '';
-    if (sdkDir != null) {
-      path = sdkDir;
-      if (!sdkDir.endsWith(Platform.pathSeparator)) {
-        path += Platform.pathSeparator;
-      }
-    }
-
+  DartSdk({String sdkDir, Map<String, String> environment})
+      : _dartCmd = _join(sdkDir, 'bin', 'dart'),
+        _dartAnalyzerCmd = _join(sdkDir, 'bin', 'dartanalyzer'),
+        _dartfmtCmd = _join(sdkDir, 'bin', 'dartfmt'),
+        _pubCmd = _join(sdkDir, 'bin', 'pub') {
     if (environment != null) {
       _environment.addAll(environment);
     }
-    _dartCmd = '${path}dart';
-    _dartAnalyzerCmd = '${path}dartanalyzer';
-    _dartfmtCmd = '${path}dartfmt';
-    _pubCmd = '${path}pub';
   }
 
   String get version {
@@ -67,15 +61,55 @@ class DartSdk {
     assert(lines.isNotEmpty);
     return lines;
   }
+
+  Future<ProcessResult> _execUpgrade(String packageDir) => runProc(
+        _pubCmd,
+        ['upgrade', '--verbosity', 'all'],
+        workingDirectory: packageDir,
+        environment: _environment,
+      );
+}
+
+class FlutterSdk {
+  final String _flutterBin;
+
+  FlutterSdk({String sdkDir}) : _flutterBin = _join(sdkDir, 'bin', 'flutter');
+
+  Future<ProcessResult> _execUpgrade(
+          String packageDir, Map<String, String> environment) =>
+      runProc(
+        _flutterBin,
+        ['packages', 'pub', 'upgrade', '--verbosity', 'all'],
+        workingDirectory: packageDir,
+        environment: environment,
+      );
+
+  Future<String> getVersion() async {
+    //TODO(kevmoo) Use --version --json when we upgrade Flutter with commit
+    //  https://github.com/flutter/flutter/commit/1b56cb790c
+    var result = await runProc(_flutterBin, ['--version']);
+    assert(result.exitCode == 0);
+    //TODO(kevmoo) Skip warning when we upgrade to Flutter with commit
+    //  https://github.com/flutter/flutter/commit/a5aaaa8422
+    String version = (result.stdout as String).trim();
+    if (version.startsWith('Woah!')) {
+      var startIndex = version.indexOf("Flutter •");
+      assert(startIndex > 0);
+      version = version.substring(startIndex);
+    }
+    return version;
+  }
 }
 
 class PubEnvironment {
   final DartSdk dartSdk;
+  final FlutterSdk flutterSdk;
   final String pubCacheDir;
   final Map<String, String> _environment = {};
 
-  PubEnvironment({DartSdk dartSdk, this.pubCacheDir})
-      : this.dartSdk = dartSdk ?? new DartSdk() {
+  PubEnvironment({DartSdk dartSdk, FlutterSdk flutterSdk, this.pubCacheDir})
+      : this.dartSdk = dartSdk ?? new DartSdk(),
+        this.flutterSdk = flutterSdk ?? new FlutterSdk() {
     _environment.addAll(dartSdk._environment);
     if (!_environment.containsKey(_pubEnvironmentKey)) {
       // Then do the standard behavior. Extract the current value, if any,
@@ -114,29 +148,14 @@ class PubEnvironment {
   Future<ProcessResult> runUpgrade(String packageDir, bool isFlutter,
       {int retryCount: 3}) async {
     ProcessResult result;
-
-    var cmd = dartSdk._pubCmd;
-    var args = <String>[];
-
-    if (isFlutter) {
-      //TODO(kevmoo) should we detect this and populate `sdk`?
-      cmd = 'flutter';
-      args.addAll(['packages', 'pub']);
-    }
-
-    args.addAll(['upgrade', '--verbosity', 'all']);
-
     do {
       retryCount--;
 
-      log.info('Running `${ ([cmd]..addAll(args)).join(' ') }`...');
-
-      result = await runProc(
-        cmd,
-        args,
-        workingDirectory: packageDir,
-        environment: _environment,
-      );
+      if (isFlutter) {
+        result = await flutterSdk._execUpgrade(packageDir, _environment);
+      } else {
+        result = await dartSdk._execUpgrade(packageDir);
+      }
 
       if (result.exitCode > 0) {
         var errOutput = result.stderr as String;
@@ -214,3 +233,6 @@ final _versionDownloadRexexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
 
 const _pubEnvironmentKey = 'PUB_ENVIRONMENT';
+
+String _join(String path, String binDir, String executable) =>
+    path == null ? executable : p.join(path, binDir, executable);
