@@ -34,6 +34,7 @@ class PackageAnalyzer {
 
   Future<Summary> inspectPackage(String package,
       {String version, bool keepTransitiveLibs: false}) async {
+    List<AnalyzerIssue> issues = [];
     var sdkVersion = _dartSdk.version;
     log.info("SDK: $sdkVersion");
 
@@ -65,8 +66,8 @@ class PackageAnalyzer {
     log.info("Checking pubspec.yaml...");
     var pubspec = new Pubspec.parseFromDir(pkgDir);
     if (pubspec.hasUnknownSdks) {
-      throw new Exception(
-          'Unknown SDKs in pubspec.yaml: ${pubspec.dependentSdks}');
+      issues.add(new AnalyzerIssue(AnalyzerScopes.pubspec,
+          'Unknown SDKs: ${pubspec.unknownSdks}', 'unknown-sdks'));
     }
 
     log.info("Pub upgrade...");
@@ -85,6 +86,8 @@ class PackageAnalyzer {
       libraryScanner = new LibraryScanner(package, pkgDir, isFlutter);
     } on StateError catch (e, stack) {
       log.severe("Could not create LibraryScanner", e, stack);
+      issues.add(new AnalyzerIssue(
+          AnalyzerScopes.libraryScanner, e.toString(), 'init'));
     }
 
     if (libraryScanner != null) {
@@ -92,11 +95,15 @@ class PackageAnalyzer {
         allDirectLibs = await libraryScanner.scanDirectLibs();
       } catch (e, st) {
         log.severe('Error scanning direct librariers', e, st);
+        issues.add(new AnalyzerIssue(
+            AnalyzerScopes.libraryScanner, e.toString(), 'direct'));
       }
       try {
         allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
       } catch (e, st) {
         log.severe('Error scanning transitive librariers', e, st);
+        issues.add(new AnalyzerIssue(
+            AnalyzerScopes.libraryScanner, e.toString(), 'transient'));
       }
       libraryScanner.clearCaches();
     }
@@ -108,7 +115,8 @@ class PackageAnalyzer {
       if (e.toString().contains("No dart files found at: .")) {
         log.warning("No files to analyze...");
       } else {
-        rethrow;
+        issues
+            .add(new AnalyzerIssue(AnalyzerScopes.dartAnalyzer, e.toString()));
       }
     }
 
@@ -148,8 +156,8 @@ class PackageAnalyzer {
       }
     }
 
-    return new Summary(
-        sdkVersion, package, new Version.parse(pkgInfo.version), summary, files,
+    return new Summary(sdkVersion, package, new Version.parse(pkgInfo.version),
+        summary, files, issues,
         flutterVersion: flutterVersion);
   }
 
@@ -157,16 +165,25 @@ class PackageAnalyzer {
     log.info('Running `dartanalyzer`...');
     var proc = await _dartSdk.runAnalyzer(pkgPath);
 
+    String output = proc.stderr;
+    if ('\n$output'.contains('\nUnhandled exception:\n')) {
+      log.severe("Bad input?");
+      log.severe(output);
+      String errorMessage =
+          '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
+      throw new ArgumentError('dartanalyzer exception: $errorMessage');
+    }
+
     try {
       return new SplayTreeSet.from(LineSplitter
-          .split(proc.stderr)
+          .split(output)
           .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath))
           .where((e) => e != null));
     } on ArgumentError {
       // TODO: we should figure out a way to succeed here, right?
       // Or at least do partial results and not blow up
       log.severe("Bad input?");
-      log.severe(proc.stderr);
+      log.severe(output);
       rethrow;
     }
   }

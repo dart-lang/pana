@@ -75,9 +75,10 @@ class Summary {
   final Version packageVersion;
   final PubSummary pubSummary;
   final Map<String, DartFileSummary> dartFiles;
+  final List<AnalyzerIssue> issues;
 
   Summary(this.sdkVersion, this.packageName, this.packageVersion,
-      this.pubSummary, this.dartFiles,
+      this.pubSummary, this.dartFiles, this.issues,
       {this.flutterVersion});
 
   factory Summary.fromJson(Map<String, dynamic> json) {
@@ -90,9 +91,12 @@ class Summary {
     Map<String, DartFileSummary> dartFiles = new SplayTreeMap.fromIterable(
         filesMap.keys,
         value: (key) => new DartFileSummary.fromJson(filesMap[key]));
+    List issuesRaw = json['issues'];
+    List<AnalyzerIssue> issues =
+        issuesRaw?.map((Map map) => new AnalyzerIssue.fromJson(map))?.toList();
 
     return new Summary(
-        sdkVersion, packageName, packageVersion, pubSummary, dartFiles,
+        sdkVersion, packageName, packageVersion, pubSummary, dartFiles, issues,
         flutterVersion: json['flutterVersion']);
   }
 
@@ -116,6 +120,37 @@ class Summary {
       'dartFiles': dartFiles,
     });
 
+    if (issues != null && issues.isNotEmpty) {
+      map['issues'] = issues;
+    }
+
     return map;
   }
+}
+
+class AnalyzerIssue {
+  final String scope;
+  final String message;
+  final dynamic code;
+
+  AnalyzerIssue(this.scope, this.message, [this.code]);
+
+  factory AnalyzerIssue.fromJson(Map<String, dynamic> json) =>
+      new AnalyzerIssue(
+        json['scope'],
+        json['message'],
+        json['code'],
+      );
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{'scope': scope, 'message': message};
+    if (code != null) map['code'] = code;
+    return map;
+  }
+}
+
+abstract class AnalyzerScopes {
+  static const String pubspec = 'pubspec';
+  static const String dartAnalyzer = 'dart-analyzer';
+  static const String libraryScanner = 'library-scanner';
 }
