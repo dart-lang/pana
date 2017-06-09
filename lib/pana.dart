@@ -73,50 +73,78 @@ class PackageAnalyzer {
     log.info("Pub upgrade...");
     var isFlutter = pubspec.dependsOnFlutterSdk;
     ProcessResult upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
-    var summary = PubSummary.create(
-        upgrade.exitCode, upgrade.stdout, upgrade.stderr, pkgDir);
-    log.info("Package version: ${summary.pkgVersion}");
+
+    PubSummary summary;
+    if (upgrade.exitCode == 0) {
+      summary = PubSummary.create(upgrade.stdout, path: pkgDir);
+      log.info("Package version: ${summary.pkgVersion}");
+    } else {
+      String message;
+      if (upgrade.exitCode > 0) {
+        message = PubEntry
+            .parse(upgrade.stderr)
+            .where((e) => e.header == 'ERR')
+            .toList()
+            .join('\n');
+      } else {
+        message = LineSplitter.split(upgrade.stderr).first;
+      }
+
+      if (message.isEmpty) {
+        message = null;
+      }
+
+      message =
+          ["`pub upgrade` failed.", message].where((m) => m != null).join('\n');
+
+      log.severe(message);
+      issues.add(new AnalyzerIssue(
+          AnalyzerScopes.pubUpgrade, message, upgrade.exitCode));
+    }
 
     Map<String, List<String>> allDirectLibs;
     Map<String, List<String>> allTransitiveLibs;
 
     LibraryScanner libraryScanner;
 
-    try {
-      libraryScanner = new LibraryScanner(package, pkgDir, isFlutter);
-    } on StateError catch (e, stack) {
-      log.severe("Could not create LibraryScanner", e, stack);
-      issues.add(new AnalyzerIssue(
-          AnalyzerScopes.libraryScanner, e.toString(), 'init'));
-    }
-
-    if (libraryScanner != null) {
-      try {
-        allDirectLibs = await libraryScanner.scanDirectLibs();
-      } catch (e, st) {
-        log.severe('Error scanning direct librariers', e, st);
-        issues.add(new AnalyzerIssue(
-            AnalyzerScopes.libraryScanner, e.toString(), 'direct'));
-      }
-      try {
-        allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
-      } catch (e, st) {
-        log.severe('Error scanning transitive librariers', e, st);
-        issues.add(new AnalyzerIssue(
-            AnalyzerScopes.libraryScanner, e.toString(), 'transient'));
-      }
-      libraryScanner.clearCaches();
-    }
-
     Set<AnalyzerOutput> analyzerItems;
-    try {
-      analyzerItems = await _pkgAnalyze(pkgDir);
-    } on ArgumentError catch (e) {
-      if (e.toString().contains("No dart files found at: .")) {
-        log.warning("No files to analyze...");
-      } else {
-        issues
-            .add(new AnalyzerIssue(AnalyzerScopes.dartAnalyzer, e.toString()));
+
+    if (summary != null) {
+      try {
+        libraryScanner = new LibraryScanner(package, pkgDir, isFlutter);
+      } on StateError catch (e, stack) {
+        log.severe("Could not create LibraryScanner", e, stack);
+        issues.add(new AnalyzerIssue(
+            AnalyzerScopes.libraryScanner, e.toString(), 'init'));
+      }
+
+      if (libraryScanner != null) {
+        try {
+          allDirectLibs = await libraryScanner.scanDirectLibs();
+        } catch (e, st) {
+          log.severe('Error scanning direct librariers', e, st);
+          issues.add(new AnalyzerIssue(
+              AnalyzerScopes.libraryScanner, e.toString(), 'direct'));
+        }
+        try {
+          allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
+        } catch (e, st) {
+          log.severe('Error scanning transitive librariers', e, st);
+          issues.add(new AnalyzerIssue(
+              AnalyzerScopes.libraryScanner, e.toString(), 'transient'));
+        }
+        libraryScanner.clearCaches();
+      }
+
+      try {
+        analyzerItems = await _pkgAnalyze(pkgDir);
+      } on ArgumentError catch (e) {
+        if (e.toString().contains("No dart files found at: .")) {
+          log.warning("No files to analyze...");
+        } else {
+          issues.add(
+              new AnalyzerIssue(AnalyzerScopes.dartAnalyzer, e.toString()));
+        }
       }
     }
 

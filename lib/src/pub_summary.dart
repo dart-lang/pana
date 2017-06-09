@@ -4,7 +4,7 @@
 
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' hide exitCode;
 
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
@@ -15,71 +15,53 @@ class PubSummary {
   static final _solvePkgLine = new RegExp(
       r"(?:[><\+ ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
 
-  final int exitCode;
-  final String stdoutValue;
-  final String stderrValue;
-  final String lockFileContent;
   final Map<String, Version> packageVersions;
   final Map<String, Version> availableVersions;
   final Map<String, Version> lockedVersions;
   final Map<String, Object> pubspec;
 
-  PubSummary._(
-      this.exitCode,
-      this.stdoutValue,
-      this.stderrValue,
-      this.packageVersions,
-      this.availableVersions,
-      this.lockedVersions,
-      String pubspecContent,
-      this.lockFileContent)
-      : pubspec = yamlToJson(pubspecContent);
+  PubSummary._(this.packageVersions, this.availableVersions,
+      this.lockedVersions, this.pubspec);
 
-  static PubSummary create(
-      int exitCode, String procStdout, String procStderr, String path) {
-    Map<String, Version> pkgVersions;
-    Map<String, Version> availVersions;
+  static PubSummary create(String procStdout, {String path}) {
+    var pkgVersions = <String, Version>{};
+    var availVersions = <String, Version>{};
 
-    if (exitCode == 0) {
-      pkgVersions = <String, Version>{};
-      availVersions = <String, Version>{};
-
-      var entries = PubEntry.parse(procStdout).where((entry) {
-        if (entry.header != 'MSG') {
-          return false;
-        }
-
-        return entry.content.every((line) => _solvePkgLine.hasMatch(line));
-      }).toList();
-
-      if (entries.length == 1) {
-        for (var match
-            in entries.single.content.map(_solvePkgLine.firstMatch)) {
-          var pkg = match.group(1);
-
-          pkgVersions[pkg] = new Version.parse(match.group(2));
-
-          var availVerStr = match.group(3);
-
-          if (availVerStr != null) {
-            availVersions[pkg] = new Version.parse(availVerStr);
-          }
-        }
-      } else if (entries.length > 1) {
-        throw "Seems that we have two sections of packages solves - weird!";
-      } else {
-        // it's empty – which is fine for a package with no dependencies
+    var entries = PubEntry.parse(procStdout).where((entry) {
+      if (entry.header != 'MSG') {
+        return false;
       }
+
+      return entry.content.every((line) => _solvePkgLine.hasMatch(line));
+    }).toList();
+
+    if (entries.length == 1) {
+      for (var match in entries.single.content.map(_solvePkgLine.firstMatch)) {
+        var pkg = match.group(1);
+
+        pkgVersions[pkg] = new Version.parse(match.group(2));
+
+        var availVerStr = match.group(3);
+
+        if (availVerStr != null) {
+          availVersions[pkg] = new Version.parse(availVerStr);
+        }
+      }
+    } else if (entries.length > 1) {
+      throw "Seems that we have two sections of packages solves - weird!";
+    } else {
+      // it's empty – which is fine for a package with no dependencies
     }
 
-    String pubspecContent, lockFileContent;
     Map<String, Version> lockedVersions;
+    Map<String, Object> pubspecContent;
+
     if (path != null) {
-      pubspecContent = getPubspecContent(path);
+      pubspecContent = yamlToJson(getPubspecContent(path));
 
       var theFile = new File(p.join(path, 'pubspec.lock'));
       if (theFile.existsSync()) {
-        lockFileContent = theFile.readAsStringSync();
+        var lockFileContent = theFile.readAsStringSync();
         if (lockFileContent.isNotEmpty) {
           Map lockMap = yamlToJson(lockFileContent);
           Map pkgs = lockMap['packages'];
@@ -93,35 +75,17 @@ class PubSummary {
       }
     }
 
-    if (exitCode != 0 && procStderr != null && procStderr.trim().isNotEmpty) {
-      stderr.writeln(procStderr.trim());
-    }
-
-    return new PubSummary._(exitCode, procStdout, procStderr, pkgVersions,
-        availVersions, lockedVersions, pubspecContent, lockFileContent);
+    return new PubSummary._(
+        pkgVersions, availVersions, lockedVersions, pubspecContent);
   }
 
   factory PubSummary.fromJson(Map<String, dynamic> json) {
-    if (json.containsKey('packages')) {
-      var pubspecContent = json['pubspecContent'];
-      var packageVersions = _jsonMapToVersion(json['packages']);
-      var availableVersions = _jsonMapToVersion(json['availablePackages']);
-      var lockedVersions = _jsonMapToVersion(json['lockedVersions']);
+    var packageVersions = _jsonMapToVersion(json['packages']);
+    var availableVersions = _jsonMapToVersion(json['availablePackages']);
+    var lockedVersions = _jsonMapToVersion(json['lockedVersions']);
 
-      return new PubSummary._(
-        0,
-        '', // stdout
-        '', // stderr
-        packageVersions,
-        availableVersions,
-        lockedVersions,
-        JSON.encode(pubspecContent),
-        '', // lock file content
-      );
-    }
-
-    return new PubSummary._(json['exitCode'], json['stdout'], json['stderr'],
-        null, null, null, null, null);
+    return new PubSummary._(packageVersions, availableVersions, lockedVersions,
+        json['pubspecContent']);
   }
 
   Map<String, int> getStats() {
@@ -223,22 +187,12 @@ class PubSummary {
 
   Version get pkgVersion => new Version.parse(pubspec['version']);
 
-  Map<String, dynamic> toJson() {
-    if (exitCode == 0) {
-      return <String, dynamic>{
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'pubspecContent': pubspec,
         'packages': _versionMapToJson(packageVersions),
         'lockedVersions': _versionMapToJson(lockedVersions),
         'availablePackages': _versionMapToJson(availableVersions),
       };
-    } else {
-      return <String, dynamic>{
-        'exitCode': exitCode,
-        'stdout': stdoutValue,
-        'stderr': stderrValue
-      };
-    }
-  }
 
   static Map<String, dynamic> _versionMapToJson(Map<String, Version> input) =>
       new Map<String, String>.fromIterable(input?.keys ?? [],

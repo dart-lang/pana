@@ -8,7 +8,7 @@ class MiniSum {
 
   final Summary _summary;
 
-  bool get pubClean => _summary.pubSummary.exitCode == 0;
+  bool get pubClean => _summary.pubSummary != null;
 
   Set<String> get authorDomains => new SplayTreeSet<String>.from(
       _summary.pubSummary.authors.map(_domainFromAuthor));

@@ -9,9 +9,7 @@ import 'package:test/test.dart';
 void main() {
   group('PubSummary.create', () {
     test('pub parse', () {
-      var summary = PubSummary.create(0, _pubUpgradeOutput, '', null);
-
-      expect(summary.stdoutValue, _pubUpgradeOutput);
+      var summary = PubSummary.create(_pubUpgradeOutput);
 
       expect(summary.packageVersions, hasLength(61));
       expect(summary.packageVersions,
@@ -25,19 +23,14 @@ void main() {
     });
 
     test('upgrade', () {
-      var summary = PubSummary.create(0, _upgradeOutput, '', null);
+      var summary = PubSummary.create(_upgradeOutput);
 
       expect(summary.packageVersions, hasLength(47));
     });
 
     test('downgrade', () {
-      var summary = PubSummary.create(0, _downgradeOutput, '', null);
+      var summary = PubSummary.create(_downgradeOutput);
       expect(summary.packageVersions, hasLength(47));
-    });
-
-    test('pub parse an error', () {
-      var summary = PubSummary.create(1, '', _pubErrorOutput, null);
-      expect(summary.stderrValue, _pubErrorOutput);
     });
   });
 
