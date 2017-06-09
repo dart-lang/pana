@@ -10,6 +10,8 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'logging.dart';
+
 Stream<String> byteStreamSplit(Stream<List<int>> stream) =>
     stream.transform(SYSTEM_ENCODING.decoder).transform(const LineSplitter());
 
@@ -18,6 +20,7 @@ final _maxLines = 100000;
 
 Future<ProcessResult> runProc(String executable, List<String> arguments,
     {String workingDirectory, Map<String, String> environment}) async {
+  log.info('Running `${ ([executable]..addAll(arguments)).join(' ') }`...');
   var process = await Process.start(executable, arguments,
       workingDirectory: workingDirectory, environment: environment);
 
