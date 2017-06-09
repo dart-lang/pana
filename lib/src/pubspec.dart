@@ -56,9 +56,11 @@ class Pubspec {
     return _dependentSdks;
   }
 
-  bool get hasUnknownSdks {
-    Set<String> sdks = new Set.from(dependentSdks);
-    sdks.remove('flutter');
-    return sdks.isNotEmpty;
+  Set<String> get unknownSdks {
+    Set<String> unknowns = new Set.from(dependentSdks);
+    unknowns.remove('flutter');
+    return unknowns;
   }
+
+  bool get hasUnknownSdks => unknownSdks.isNotEmpty;
 }
