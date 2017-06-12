@@ -9,6 +9,7 @@ import 'package:pub_semver/pub_semver.dart';
 import 'analyzer_output.dart';
 import 'platform.dart';
 import 'pub_summary.dart';
+import 'pubspec.dart';
 
 class DartFileSummary {
   final String uri;
@@ -125,6 +126,16 @@ class Summary {
     }
 
     return map;
+  }
+
+  PlatformSummary getPlatformSummary() {
+    final Platform package = classifyPubspec(new Pubspec(pubSummary.pubspec));
+    final Map<String, Platform> libraries = new Map.fromIterable(
+      dartFiles.values.where((dfs) => dfs.platform != null),
+      key: (DartFileSummary dfs) => dfs.uri,
+      value: (DartFileSummary dfs) => dfs.platform,
+    );
+    return new PlatformSummary(package, libraries);
   }
 }
 
