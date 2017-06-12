@@ -66,17 +66,19 @@ class Platform {
       };
 }
 
-PlatformSummary classifyPlatforms(
-    Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
-  Set<String> uses = new Set();
-
-  bool isFlutterOnly = pubspec.hasFlutterKey || pubspec.dependsOnFlutterSdk;
-  if (isFlutterOnly) {
+Platform classifyPubspec(Pubspec pubspec) {
+  final Set<String> uses = new Set();
+  if (pubspec.hasFlutterKey || pubspec.dependsOnFlutterSdk) {
     uses.add(KnownPlatforms.flutter);
   }
+  return new Platform(uses);
+}
 
+PlatformSummary classifyPlatforms(
+    Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
+  final Platform package = classifyPubspec(pubspec);
   return new PlatformSummary(
-      new Platform(uses),
+      package,
       new Map.fromIterable(transitiveLibs.keys ?? [],
           value: (key) => classifyPlatform(transitiveLibs[key])));
 }
