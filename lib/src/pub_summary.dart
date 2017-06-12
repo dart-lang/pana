@@ -13,15 +13,13 @@ import 'utils.dart';
 
 class PubSummary {
   static final _solvePkgLine = new RegExp(
-      r"(?:[><\+ ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
+      r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
 
   final Map<String, Version> packageVersions;
   final Map<String, Version> availableVersions;
-  final Map<String, Version> lockedVersions;
   final Map<String, Object> pubspec;
 
-  PubSummary._(this.packageVersions, this.availableVersions,
-      this.lockedVersions, this.pubspec);
+  PubSummary._(this.packageVersions, this.availableVersions, this.pubspec);
 
   static PubSummary create(String procStdout, {String path}) {
     var pkgVersions = <String, Version>{};
@@ -53,7 +51,6 @@ class PubSummary {
       // it's empty – which is fine for a package with no dependencies
     }
 
-    Map<String, Version> lockedVersions;
     Map<String, Object> pubspecContent;
 
     if (path != null) {
@@ -66,26 +63,42 @@ class PubSummary {
           Map lockMap = yamlToJson(lockFileContent);
           Map pkgs = lockMap['packages'];
           if (pkgs != null) {
-            lockedVersions = {};
+            var expectedPackages = pkgVersions.keys.toSet();
+
             pkgs.forEach((String key, Map m) {
-              lockedVersions[key] = new Version.parse(m['version']);
+              if (!expectedPackages.remove(key)) {
+                throw new StateError(
+                    "Did not parse package `$key` from pub output, "
+                    "but it was found in `pubspec.lock`.");
+              }
+
+              var lockedVersion = new Version.parse(m['version']);
+              if (pkgVersions[key] != lockedVersion) {
+                throw new StateError(
+                    "For $key, the parsed version ${pkgVersions[key]} did not "
+                    "match the locked version $lockedVersion.");
+              }
             });
+
+            if (expectedPackages.isNotEmpty) {
+              throw new StateError(
+                  "We parsed more packaged than were found in the lock file: "
+                  "${expectedPackages.join(', ')}");
+            }
           }
         }
       }
     }
 
-    return new PubSummary._(
-        pkgVersions, availVersions, lockedVersions, pubspecContent);
+    return new PubSummary._(pkgVersions, availVersions, pubspecContent);
   }
 
   factory PubSummary.fromJson(Map<String, dynamic> json) {
     var packageVersions = _jsonMapToVersion(json['packages']);
     var availableVersions = _jsonMapToVersion(json['availablePackages']);
-    var lockedVersions = _jsonMapToVersion(json['lockedVersions']);
 
-    return new PubSummary._(packageVersions, availableVersions, lockedVersions,
-        json['pubspecContent']);
+    return new PubSummary._(
+        packageVersions, availableVersions, json['pubspecContent']);
   }
 
   Map<String, int> getStats() {
@@ -190,7 +203,6 @@ class PubSummary {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'pubspecContent': pubspec,
         'packages': _versionMapToJson(packageVersions),
-        'lockedVersions': _versionMapToJson(lockedVersions),
         'availablePackages': _versionMapToJson(availableVersions),
       };
 

@@ -79,8 +79,18 @@ class PackageAnalyzer {
 
     PubSummary summary;
     if (upgrade.exitCode == 0) {
-      summary = PubSummary.create(upgrade.stdout, path: pkgDir);
-      log.info("Package version: ${summary.pkgVersion}");
+      try {
+        summary = PubSummary.create(upgrade.stdout, path: pkgDir);
+      } catch (e, stack) {
+        log.severe("Problem summarizing package", e, stack);
+        //(TODO)kevmoo - should add a helper that handles logging exceptions
+        //  and writing to issues in one go.
+        issues.add(new AnalyzerIssue(
+            AnalyzerScopes.pubspec, "Problem summarizing package: $e"));
+      }
+      if (summary != null) {
+        log.info("Package version: ${summary.pkgVersion}");
+      }
     } else {
       String message;
       if (upgrade.exitCode > 0) {
