@@ -20,7 +20,7 @@ main() async {
 
   var summaries = items
       .map((fse) => _process((fse as File).readAsStringSync()))
-      .where((sum) => sum.pubClean)
+      .where((sum) => sum != null && sum.pubClean)
       .toList();
 
   _updateResults(summaries);
@@ -43,7 +43,13 @@ void _updateResults(List<MiniSum> summaries) {
 }
 
 MiniSum _process(String content) {
-  var output = JSON.decode(content);
+  var output = JSON.decode(content) as Map<String, dynamic>;
+
+  if (output['pubSummary'] == null) {
+    stderr.writeln('Could not process ${output['packageName']}');
+    return null;
+  }
+
   var summary = new Summary.fromJson(output);
 
   assert(prettyJson(summary.toJson()) == prettyJson(output));
