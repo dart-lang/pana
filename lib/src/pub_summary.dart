@@ -63,15 +63,28 @@ class PubSummary {
           Map lockMap = yamlToJson(lockFileContent);
           Map pkgs = lockMap['packages'];
           if (pkgs != null) {
-            var lockedVersions = {};
+            var expectedPackages = pkgVersions.keys.toSet();
+
             pkgs.forEach((String key, Map m) {
-              lockedVersions[key] = new Version.parse(m['version']);
-              assert(
-                  pkgVersions[key] == lockedVersions[key],
-                  "For `$key` expected locked value `${lockedVersions[key]}` "
-                  "to match `${pkgVersions[key]}`");
+              if (!expectedPackages.remove(key)) {
+                throw new StateError(
+                    "Did not parse package `$key` from pub output, "
+                    "but it was found in `pubspec.lock`.");
+              }
+
+              var lockedVersion = new Version.parse(m['version']);
+              if (pkgVersions[key] != lockedVersion) {
+                throw new StateError(
+                    "For $key, the parsed version ${pkgVersions[key]} did not "
+                    "match the locked version $lockedVersion.");
+              }
             });
-            assert(pkgVersions.length == lockedVersions.length);
+
+            if (expectedPackages.isNotEmpty) {
+              throw new StateError(
+                  "We parsed more packaged than were found in the lock file: "
+                  "${expectedPackages.join(', ')}");
+            }
           }
         }
       }
