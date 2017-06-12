@@ -134,19 +134,37 @@ class PubSummary {
       return null;
     }
 
+    var loggedWeird = false;
+    void logWeird(String input) {
+      if (!loggedWeird) {
+        // only write the header if there is "weirdness" in processing
+        stderr.writeln("Package: ${this.pubspec['name']}");
+        loggedWeird = true;
+      }
+      // write every line of the input indented 2 spaces
+      stderr.writeAll(LineSplitter.split(input).map((line) => '  $line\n'));
+    }
+
     var details = new SplayTreeSet<PkgVersionDetails>();
 
     /// [versionConstraint] can be a `String` or `Map`
     /// If it's a `Map` – just log and continue.
     void addDetail(String package, versionConstraint, bool isDev) {
       if (versionConstraint == null) {
-        stderr.writeln('No constraint provided for $package');
+        logWeird('BAD! No constraint provided for $package');
         return;
       }
 
       if (versionConstraint is Map) {
-        stderr.writeln(
-            'Non-versioned constraint for $package\n  $versionConstraint');
+        if (versionConstraint['sdk'] == 'flutter') {
+          logWeird('Flutter SDK constraint for pkg/$package');
+        } else if (versionConstraint.containsKey('git')) {
+          logWeird(
+              'BAD! git constraint for pkg/$package - ${versionConstraint['git']}');
+        } else {
+          logWeird(
+              'BAD! Unknown version constraint for $package\n  $versionConstraint');
+        }
         return;
       }
 
@@ -154,7 +172,7 @@ class PubSummary {
       var usedVersion = packageVersions[package];
 
       if (usedVersion == null) {
-        stderr.writeln('Weird! No version for $package');
+        logWeird('Weird! No version for $package');
         return;
       }
 
