@@ -1,3 +1,9 @@
+## 0.2.3
+
+* Lot's of stability improvements.
+
+* Improvements to error handling.
+
 ## 0.2.2
 
 * Lot's of cleanup to JSON output.
