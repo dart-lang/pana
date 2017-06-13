@@ -64,7 +64,7 @@ class DartSdk {
 
   Future<ProcessResult> _execUpgrade(String packageDir) => runProc(
         _pubCmd,
-        ['upgrade', '--verbosity', 'all'],
+        ['upgrade', '--verbosity', 'all', '--no-precompile'],
         workingDirectory: packageDir,
         environment: _environment,
       );
@@ -79,7 +79,7 @@ class FlutterSdk {
           String packageDir, Map<String, String> environment) =>
       runProc(
         _flutterBin,
-        ['packages', 'pub', 'upgrade', '--verbosity', 'all'],
+        ['packages', 'pub', 'upgrade', '--verbosity', 'all', '--no-precompile'],
         workingDirectory: packageDir,
         environment: environment,
       );
