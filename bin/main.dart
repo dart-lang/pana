@@ -14,26 +14,52 @@ final _none = '\u001b[0m';
 String gray(text) => "$_gray$text$_none";
 
 main(List<String> arguments) async {
+  // as provided, `arguments` is fixed length – turn it into a mutable `List`
+  arguments = arguments.toList();
+
+  var json = false;
+  if (arguments.contains('--json')) {
+    json = true;
+    arguments.removeWhere((a) => a == '--json');
+  }
+
   log.Logger.root.level = log.Level.ALL;
-  log.Logger.root.onRecord.listen((record) {
-    var wroteHeader = false;
 
-    var msg = LineSplitter
-        .split([record.message, record.error, record.stackTrace]
-            .where((e) => e != null)
-            .join('\n'))
-        .map((l) {
-      String prefix;
-      if (wroteHeader) {
-        prefix = '';
-      } else {
-        wroteHeader = true;
-        prefix = record.level.toString();
+  if (json) {
+    log.Logger.root.onRecord.listen((log) {
+      var map = <String, Object>{};
+
+      if (log.loggerName.isNotEmpty) {
+        map['logName'] = log.loggerName;
       }
-      return "${prefix.padRight(10)} ${l}";
-    }).join('\n');
 
-    stderr.writeln(gray(msg));
+      map.addAll({
+        'level': log.level.name,
+        'message': log.message,
+      });
+
+      if (log.error != null) {
+        map['error'] = log.error.toString();
+      }
+
+      if (log.stackTrace != null) {
+        map['stackTrace'] = log.stackTrace.toString();
+      }
+      stderr.writeln(JSON.encode(map));
+    });
+  } else {
+    log.Logger.root.onRecord.listen(_logWriter);
+  }
+
+  // Docker is WEIRD
+  // The SIGTERM signal sent to `docker run...` DOES propagate a signal to the
+  // running process. But...
+  //   * It is received as SIGINT
+  //   * It won't terminal the Dart process either – *BUT* we can listen for it
+  // So this is how we do "clean" shutdown when running in Docker.
+  var subscription = getSignals().listen((sig) async {
+    log.Logger.root.severe("Received signal `$sig` – terminating.");
+    exit(130);
   });
 
   var pkg = arguments.first;
@@ -56,12 +82,33 @@ main(List<String> arguments) async {
 
       print(prettyJson(summary));
     } catch (e, stack) {
-      stderr.writeln("Problem with pkg $pkg ($version)");
-      stderr.writeln(e);
-      stderr.writeln(stack);
+      log.Logger.root.shout("Problem with pkg $pkg ($version)", e, stack);
       exitCode = 1;
     }
   } finally {
     tempDir.deleteSync(recursive: true);
   }
+
+  await subscription.cancel();
+}
+
+void _logWriter(record) {
+  var wroteHeader = false;
+
+  var msg = LineSplitter
+      .split([record.message, record.error, record.stackTrace]
+          .where((e) => e != null)
+          .join('\n'))
+      .map((l) {
+    String prefix;
+    if (wroteHeader) {
+      prefix = '';
+    } else {
+      wroteHeader = true;
+      prefix = record.level.toString();
+    }
+    return "${prefix.padRight(10)} ${l}";
+  }).join('\n');
+
+  stderr.writeln(gray(msg));
 }

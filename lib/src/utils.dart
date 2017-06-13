@@ -7,6 +7,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:async/async.dart' show StreamGroup;
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
@@ -179,3 +180,14 @@ String toPackageUri(String package, String relativePath) {
     return 'path:$package/$relativePath';
   }
 }
+
+/// A merged stream of all signals that tell the test runner to shut down
+/// gracefully.
+///
+/// Signals will only be captured as long as this has an active subscription.
+/// Otherwise, they'll be handled by Dart's default signal handler, which
+/// terminates the program immediately.
+Stream<ProcessSignal> getSignals() => Platform.isWindows
+    ? ProcessSignal.SIGINT.watch()
+    : StreamGroup
+        .merge([ProcessSignal.SIGTERM.watch(), ProcessSignal.SIGINT.watch()]);
