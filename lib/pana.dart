@@ -50,14 +50,14 @@ class PackageAnalyzer {
     }
 
     if (_pubEnv.pubCacheDir != null) {
-      log.info("Using .package-cache: ${_pubEnv.pubCacheDir}");
+      log.fine("Using .package-cache: ${_pubEnv.pubCacheDir}");
     }
 
     log.info("Downloading package...");
     PackageLocation pkgInfo =
         await _pubEnv.getLocation(package, version: ver?.toString());
     String pkgDir = pkgInfo.location;
-    log.info("Package at $pkgDir");
+    log.fine("Package at $pkgDir");
 
     log.info('Counting files...');
     var dartFiles = await listFiles(pkgDir, endsWith: '.dart');
@@ -192,7 +192,7 @@ class PackageAnalyzer {
   }
 
   Future<Set<AnalyzerOutput>> _pkgAnalyze(String pkgPath) async {
-    log.info('Running `dartanalyzer`...');
+    log.info('Analyzing package...');
     var proc = await _dartSdk.runAnalyzer(pkgPath);
 
     String output = proc.stderr;
