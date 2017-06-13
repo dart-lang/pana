@@ -18,7 +18,6 @@ linter:
      - valid_regexps
 
      # Style
-     - annotate_overrides
      - avoid_init_to_null
      - avoid_return_types_on_setters
      - await_only_futures
