@@ -84,20 +84,10 @@ class FlutterSdk {
         environment: environment,
       );
 
-  Future<String> getVersion() async {
-    //TODO(kevmoo) Use --version --json when we upgrade Flutter with commit
-    //  https://github.com/flutter/flutter/commit/1b56cb790c
-    var result = await runProc(_flutterBin, ['--version']);
+  Future<Map<String, Object>> getVersion() async {
+    var result = await runProc(_flutterBin, ['--version', '--machine']);
     assert(result.exitCode == 0);
-    //TODO(kevmoo) Skip warning when we upgrade to Flutter with commit
-    //  https://github.com/flutter/flutter/commit/a5aaaa8422
-    String version = (result.stdout as String).trim();
-    if (version.startsWith('Woah!')) {
-      var startIndex = version.indexOf("Flutter •");
-      assert(startIndex > 0);
-      version = version.substring(startIndex);
-    }
-    return version;
+    return JSON.decode(result.stdout);
   }
 }
 
