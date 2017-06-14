@@ -82,7 +82,11 @@ main(List<String> arguments) async {
 
       print(prettyJson(summary));
     } catch (e, stack) {
-      log.Logger.root.shout("Problem with pkg $pkg ($version)", e, stack);
+      var message = "Problem with pkg $pkg";
+      if (version != null) {
+        message = "$message ($version)";
+      }
+      log.Logger.root.shout(message, e, stack);
       exitCode = 1;
     }
   } finally {
