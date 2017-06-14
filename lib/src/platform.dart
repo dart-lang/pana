@@ -38,7 +38,7 @@ class Platform extends Object with _$PlatformSerializerMixin {
   Platform._(this.uses);
 
   factory Platform(Iterable<String> uses) =>
-      new Platform._((uses ?? []).toList()..sort());
+      new Platform._((uses?.toList() ?? <String>[])..sort());
 
   factory Platform.fromJson(Map<String, dynamic> map) =>
       _$PlatformFromJson(map);
