@@ -2,10 +2,18 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+library pana.analyzer_output;
+
 import 'package:path/path.dart' as p;
 import 'package:quiver/core.dart';
+import 'package:source_gen/generators/json_serializable.dart';
 
-class AnalyzerOutput implements Comparable<AnalyzerOutput> {
+part 'analyzer_output.g.dart';
+
+@JsonSerializable()
+class AnalyzerOutput extends Object
+    with _$AnalyzerOutputSerializerMixin
+    implements Comparable<AnalyzerOutput> {
   static final _regexp = new RegExp('^' + // beginning of line
           '([\\w_\\.]+)\\|' * 3 + // first three error notes
           '([^\\|]+)\\|' + // file path
@@ -69,22 +77,8 @@ class AnalyzerOutput implements Comparable<AnalyzerOutput> {
         type, error, filePath, int.parse(line), int.parse(column));
   }
 
-  factory AnalyzerOutput.fromJson(Map<String, dynamic> json) {
-    var type = json['type'];
-    var error = json['error'];
-    var file = json['file'];
-    var line = json['line'];
-    var col = json['col'];
-    return new AnalyzerOutput(type, error, file, line, col);
-  }
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'type': type,
-        'file': file,
-        'line': line,
-        'col': col,
-        'error': error,
-      };
+  factory AnalyzerOutput.fromJson(Map<String, dynamic> json) =>
+      _$AnalyzerOutputFromJson(json);
 
   @override
   int compareTo(AnalyzerOutput other) {

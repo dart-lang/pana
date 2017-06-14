@@ -1,4 +1,10 @@
+library pana.platform;
+
+import 'package:source_gen/generators/json_serializable.dart';
+
 import 'pubspec.dart';
+
+part 'platform.g.dart';
 
 abstract class KnownPlatforms {
   static const String browser = 'browser';
@@ -25,7 +31,8 @@ class PlatformSummary {
       libraries.values.any((p) => !p.worksInFlutter);
 }
 
-class Platform {
+@JsonSerializable()
+class Platform extends Object with _$PlatformSerializerMixin {
   final List<String> uses;
 
   Platform._(this.uses);
@@ -33,10 +40,8 @@ class Platform {
   factory Platform(Iterable<String> uses) =>
       new Platform._((uses ?? []).toList()..sort());
 
-  factory Platform.fromJson(Map<String, dynamic> map) {
-    map ??= {};
-    return new Platform(map['uses']);
-  }
+  factory Platform.fromJson(Map<String, dynamic> map) =>
+      _$PlatformFromJson(map);
 
   bool get hasConflict =>
       (!worksAnywhere) ||
@@ -60,10 +65,6 @@ class Platform {
 
   bool _hasNoUseOf(Iterable<String> platforms) =>
       !platforms.any((p) => uses.contains(p));
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'uses': uses,
-      };
 }
 
 Platform classifyPubspec(Pubspec pubspec) {
