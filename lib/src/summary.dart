@@ -71,7 +71,7 @@ class DartFileSummary {
 
 class Summary {
   final String sdkVersion;
-  final String flutterVersion;
+  final Map<String, Object> flutterVersion;
   final String packageName;
   final Version packageVersion;
   final PubSummary pubSummary;

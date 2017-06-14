@@ -181,7 +181,7 @@ class PackageAnalyzer {
       );
     }
 
-    String flutterVersion;
+    Map<String, Object> flutterVersion;
     if (isFlutter) {
       flutterVersion = await _flutterSdk.getVersion();
     }
