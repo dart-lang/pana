@@ -58,7 +58,7 @@ final data = {
       "web_socket_channel": "1.0.4",
       "yaml": "2.1.12"
     },
-    "availablePackages": {},
+    "availablePackages": isMap,
     "pubspecContent": {
       "author": "Dart Team <misc@dartlang.org>",
       "dependencies": {
