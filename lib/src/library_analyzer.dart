@@ -115,8 +115,14 @@ class LibraryScanner {
 
   Future<List<String>> _scanUri(String libUri) async {
     Uri uri = Uri.parse(libUri);
-    String package = uri.path.split('/').first;
-    String fullPath = _packageResolver.resolveAbsolute(uri).fullName;
+    String package = uri.pathSegments.first;
+
+    var source = _packageResolver.resolveAbsolute(uri);
+    if (source == null) {
+      throw "Could not resolve package URI for $uri";
+    }
+
+    String fullPath = source.fullName;
     String relativePath =
         p.join('lib', libUri.substring(libUri.indexOf('/') + 1));
     if (fullPath.endsWith('/$relativePath')) {
