@@ -16,15 +16,15 @@ AnalyzerOutput _$AnalyzerOutputFromJson(Map json) => new AnalyzerOutput(
 
 abstract class _$AnalyzerOutputSerializerMixin {
   String get type;
-  String get error;
   String get file;
   int get line;
   int get col;
+  String get error;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'type': type,
-        'error': error,
         'file': file,
         'line': line,
-        'col': col
+        'col': col,
+        'error': error
       };
 }

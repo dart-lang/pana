@@ -23,10 +23,10 @@ class AnalyzerOutput extends Object
       );
 
   final String type;
-  final String error;
   final String file;
   final int line;
   final int col;
+  final String error;
 
   AnalyzerOutput(this.type, this.error, this.file, this.line, this.col);
 
