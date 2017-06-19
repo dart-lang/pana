@@ -165,4 +165,5 @@ abstract class AnalyzerScopes {
   static const String dartAnalyzer = 'dart-analyzer';
   static const String libraryScanner = 'library-scanner';
   static const String pubUpgrade = 'pub-upgrade';
+  static const String dartfmt = 'dartfmt';
 }
