@@ -63,8 +63,23 @@ class PackageAnalyzer {
     var dartFiles = await listFiles(pkgDir, endsWith: '.dart');
 
     log.info("Checking formatting...");
-    var unformattedFiles = new SplayTreeSet<String>.from(
-        await _dartSdk.filesNeedingFormat(pkgDir));
+    Set<String> unformattedFiles;
+    try {
+      unformattedFiles = new SplayTreeSet<String>.from(
+          await _dartSdk.filesNeedingFormat(pkgDir));
+
+      assert(unformattedFiles.every((f) => dartFiles.contains(f)),
+          'dartfmt should only return Dart files');
+    } catch (e, stack) {
+      // FYI: seeing a lot of failures due to
+      //   https://github.com/dart-lang/dart_style/issues/522
+      log.severe("Failed dartfmt", e, stack);
+
+      var errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
+
+      issues.add(new AnalyzerIssue(
+          AnalyzerScopes.dartfmt, "Problem formatting package:\n$errorMsg"));
+    }
 
     log.info("Checking pubspec.yaml...");
     var pubspec = new Pubspec.parseFromDir(pkgDir);
@@ -173,7 +188,7 @@ class PackageAnalyzer {
       files[dartFile] = new DartFileSummary(
         uri,
         size,
-        !unformattedFiles.contains(dartFile),
+        unformattedFiles == null ? null : !unformattedFiles.contains(dartFile),
         analyzerItems?.where((item) => item.file == dartFile)?.toList(),
         directLibs,
         keepTransitiveLibs ? transitiveLibs : null,

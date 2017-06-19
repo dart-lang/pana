@@ -14,6 +14,12 @@ import 'pubspec.dart';
 class DartFileSummary {
   final String uri;
   final int size;
+
+  /// If this file is formatted with `dartfmt`.
+  ///
+  /// `true` if it is.
+  /// `false` if it is not.
+  /// `null` if `dartfmt` failed while running.
   final bool isFormatted;
   final List<AnalyzerOutput> analyzerItems;
   final List<String> directLibs;
@@ -165,4 +171,5 @@ abstract class AnalyzerScopes {
   static const String dartAnalyzer = 'dart-analyzer';
   static const String libraryScanner = 'library-scanner';
   static const String pubUpgrade = 'pub-upgrade';
+  static const String dartfmt = 'dartfmt';
 }
