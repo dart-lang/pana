@@ -58,8 +58,15 @@ class DartSdk {
     }
 
     var lines = LineSplitter.split(result.stdout).toList()..sort();
-    assert(lines.isNotEmpty);
-    return lines;
+
+    if (result.exitCode == 1) {
+      assert(lines.isNotEmpty);
+      return lines;
+    }
+
+    throw ["dartfmt failed with exit code ${result.exitCode}", result.stderr]
+        .join('\n')
+        .toString();
   }
 
   Future<ProcessResult> _execUpgrade(String packageDir) => runProc(
