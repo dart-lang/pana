@@ -14,6 +14,12 @@ import 'pubspec.dart';
 class DartFileSummary {
   final String uri;
   final int size;
+
+  /// If this file is formatted with `dartfmt`.
+  ///
+  /// `true` if it is.
+  /// `false` if it is not.
+  /// `null` if `dartfmt` failed while running.
   final bool isFormatted;
   final List<AnalyzerOutput> analyzerItems;
   final List<String> directLibs;
