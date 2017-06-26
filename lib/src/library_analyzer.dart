@@ -15,7 +15,6 @@ import 'package:analyzer/source/pub_package_map_provider.dart';
 import 'package:analyzer/src/dart/sdk/sdk.dart' show FolderBasedDartSdk;
 import 'package:analyzer/src/generated/engine.dart';
 import 'package:analyzer/src/generated/java_io.dart';
-import 'package:analyzer/src/generated/sdk.dart' show DartSdk;
 import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer/src/generated/source_io.dart';
 import 'package:cli_util/cli_util.dart' as cli;
@@ -38,7 +37,7 @@ class LibraryScanner {
     var sdkPath = cli.getSdkDir().path;
 
     var resourceProvider = PhysicalResourceProvider.INSTANCE;
-    DartSdk sdk = new FolderBasedDartSdk(
+    var sdk = new FolderBasedDartSdk(
         resourceProvider, resourceProvider.getFolder(sdkPath));
 
     var dotPackagesPath = p.join(projectPath, '.packages');

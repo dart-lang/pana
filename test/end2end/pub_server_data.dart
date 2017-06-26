@@ -40,7 +40,7 @@ final data = {
       "plugin": "0.2.0",
       "pool": "1.3.1",
       "pub_semver": "1.3.2",
-      "shelf": "0.6.7+2",
+      "shelf": startsWith("0.6."),
       "shelf_packages_handler": "1.0.0",
       "shelf_static": "0.2.4",
       "shelf_web_socket": "0.2.1",

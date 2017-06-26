@@ -1,11 +1,9 @@
 analyzer:
-analyzer:
-  strong-mode:
-    implicit-casts: false
- errors:
-   unused_import: error
-   unused_local_variable: error
-   dead_code: error
+  strong-mode: true
+  errors:
+    unused_import: error
+    unused_local_variable: error
+    dead_code: error
 linter:
   rules:
      # Errors
