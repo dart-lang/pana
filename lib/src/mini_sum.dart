@@ -16,7 +16,7 @@ class MiniSum {
   int get unformattedFiles =>
       _summary.dartFiles.values.where((f) => !f.isFormatted).length;
 
-  Set<AnalyzerOutput> get analyzerItems => _summary.analyzerItems;
+  Iterable<AnalyzerOutput> get analyzerItems => _summary.analyzerItems;
 
   MiniSum._(this._summary);
 

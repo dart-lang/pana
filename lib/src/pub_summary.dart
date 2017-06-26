@@ -227,11 +227,11 @@ class PubSummary {
       };
 
   static Map<String, dynamic> _versionMapToJson(Map<String, Version> input) =>
-      new Map<String, String>.fromIterable(input?.keys ?? [],
+      new Map<String, String>.fromIterable(input?.keys ?? <String>[],
           value: (String i) => input[i].toString());
 
-  static Map<String, dynamic> _jsonMapToVersion(Map<String, String> input) =>
-      new Map<String, Version>.fromIterable(input?.keys ?? [],
+  static Map<String, Version> _jsonMapToVersion(Map<String, String> input) =>
+      new Map<String, Version>.fromIterable(input?.keys ?? <String>[],
           value: (String i) => new Version.parse(input[i]));
 }
 

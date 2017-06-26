@@ -54,7 +54,7 @@ class LibraryScanner {
     var pubPackageMapProvider = new PubPackageMapProvider(
         PhysicalResourceProvider.INSTANCE, sdk, runPubList);
     var packageMapInfo = pubPackageMapProvider.computePackageMap(
-        PhysicalResourceProvider.INSTANCE.getResource(projectPath));
+        PhysicalResourceProvider.INSTANCE.getResource(projectPath) as Folder);
     var packageMap = packageMapInfo.packageMap;
     if (packageMap == null) {
       throw new StateError('An error occurred getting the package map '
@@ -200,13 +200,15 @@ ProcessResult _flutterPubList(Folder folder) {
   var result =
       Process.runSync('flutter', ['packages', 'pub', 'list-package-dirs']);
 
+  var stdoutString = result.stdout as String;
+
   if (result.exitCode == 0 &&
-      (result.stdout as String).contains('without superuser privileges')) {
+      stdoutString.contains('without superuser privileges')) {
     // So flutter's wrapper around pub yells about superuser
     // ... which only comes up when running via docker
     // SO...we need to strip this crazy out.
 
-    var lines = LineSplitter.split(result.stdout).toList();
+    var lines = LineSplitter.split(stdoutString).toList();
 
     while (lines.isNotEmpty && !lines.first.startsWith("{")) {
       lines.removeAt(0);

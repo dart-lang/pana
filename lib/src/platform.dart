@@ -80,7 +80,7 @@ PlatformSummary classifyPlatforms(
   final Platform package = classifyPubspec(pubspec);
   return new PlatformSummary(
       package,
-      new Map.fromIterable(transitiveLibs.keys ?? [],
+      new Map.fromIterable(transitiveLibs.keys ?? <String>[],
           value: (key) => classifyPlatform(transitiveLibs[key])));
 }
 
