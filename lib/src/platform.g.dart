@@ -11,6 +11,6 @@ Platform _$PlatformFromJson(Map json) =>
     new Platform((json['uses'] as List)?.map((v0) => v0 as String));
 
 abstract class _$PlatformSerializerMixin {
-  List get uses;
+  List<String> get uses;
   Map<String, dynamic> toJson() => <String, dynamic>{'uses': uses};
 }
