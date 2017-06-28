@@ -11,7 +11,7 @@ final data = {
   "pubSummary": {
     "packages": {
       "analyzer": "0.30.0+2",
-      "archive": "1.0.29",
+      "archive": startsWith("1.0."),
       "args": "0.13.7",
       "async": "1.13.3",
       "barback": "0.15.2+11",
