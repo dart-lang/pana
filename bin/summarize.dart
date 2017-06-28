@@ -6,8 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:pana/src/mini_sum.dart';
-import 'package:pana/src/summary.dart';
-import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as p;
 
 main() async {
@@ -19,7 +17,14 @@ main() async {
       .toList();
 
   var summaries = items
-      .map((fse) => _process((fse as File).readAsStringSync()))
+      .map((fse) {
+        try {
+          return new MiniSum.fromFileContent((fse as File).readAsStringSync());
+        } catch (e) {
+          stderr.writeln(e);
+          return null;
+        }
+      })
       .where((sum) => sum != null && sum.pubClean)
       .toList();
 
@@ -40,19 +45,4 @@ void _updateResults(List<MiniSum> summaries) {
     print([e, e.unsupportedObject, e.cause, e.stackTrace]);
     rethrow;
   }
-}
-
-MiniSum _process(String content) {
-  var output = JSON.decode(content) as Map<String, dynamic>;
-
-  if (output['pubSummary'] == null) {
-    stderr.writeln('Could not process ${output['packageName']}');
-    return null;
-  }
-
-  var summary = new Summary.fromJson(output);
-
-  assert(prettyJson(summary.toJson()) == prettyJson(output));
-
-  return new MiniSum.fromSummary(summary);
 }

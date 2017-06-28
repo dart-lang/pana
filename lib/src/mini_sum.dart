@@ -1,7 +1,9 @@
 import 'dart:collection';
-import 'package:pana/src/summary.dart';
+import 'dart:convert';
 
-import 'package:pana/src/analyzer_output.dart';
+import 'analyzer_output.dart';
+import 'summary.dart';
+import 'utils.dart';
 
 class MiniSum {
   static const _importantDirs = const ['bin', 'lib', 'test'];
@@ -22,6 +24,20 @@ class MiniSum {
 
   factory MiniSum.fromSummary(Summary summary) {
     return new MiniSum._(summary);
+  }
+
+  factory MiniSum.fromFileContent(String content) {
+    var output = JSON.decode(content) as Map<String, dynamic>;
+
+    if (output['pubSummary'] == null) {
+      throw 'Could not process ${output['packageName']}';
+    }
+
+    var summary = new Summary.fromJson(output);
+
+    assert(prettyJson(summary.toJson()) == prettyJson(output));
+
+    return new MiniSum.fromSummary(summary);
   }
 
   Map<String, dynamic> toJson() {
