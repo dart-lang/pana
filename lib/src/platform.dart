@@ -12,6 +12,9 @@ abstract class KnownPlatforms {
   static const String flutter = 'flutter';
   static const String mirrors = 'mirrors';
 
+  /// Native extensions (Dart VM with C/C++ code).
+  static const String native = 'native';
+
   static const String angular = 'angular';
 }
 
@@ -45,7 +48,8 @@ class Platform extends Object with _$PlatformSerializerMixin {
 
   bool get hasConflict =>
       (!worksAnywhere) ||
-      (uses.contains(KnownPlatforms.flutter) && !worksInFlutter);
+      (uses.contains(KnownPlatforms.flutter) && !worksInFlutter) ||
+      (uses.contains(KnownPlatforms.native) && !worksInConsole);
 
   bool get worksEverywhere =>
       worksInBrowser && worksInConsole && worksInFlutter;
@@ -53,15 +57,18 @@ class Platform extends Object with _$PlatformSerializerMixin {
   bool get worksAnywhere => worksInBrowser || worksInConsole || worksInFlutter;
 
   bool get worksInBrowser =>
-      _hasNoUseOf([KnownPlatforms.flutter]) &&
+      _hasNoUseOf([KnownPlatforms.flutter, KnownPlatforms.native]) &&
       (uses.contains(KnownPlatforms.browser) ||
           _hasNoUseOf([KnownPlatforms.console]));
 
   bool get worksInConsole =>
       _hasNoUseOf([KnownPlatforms.browser, KnownPlatforms.flutter]);
 
-  bool get worksInFlutter =>
-      _hasNoUseOf([KnownPlatforms.browser, KnownPlatforms.mirrors]);
+  bool get worksInFlutter => _hasNoUseOf([
+        KnownPlatforms.browser,
+        KnownPlatforms.mirrors,
+        KnownPlatforms.native,
+      ]);
 
   bool _hasNoUseOf(Iterable<String> platforms) =>
       !platforms.any((p) => uses.contains(p));
@@ -102,6 +109,10 @@ Platform classifyPlatform(Iterable<String> dependencies) {
 
   if (libs.contains('dart:mirrors')) {
     uses.add(KnownPlatforms.mirrors);
+  }
+
+  if (libs.any((String lib) => lib.startsWith('dart-ext:'))) {
+    uses.add(KnownPlatforms.native);
   }
 
   // packages
