@@ -47,7 +47,7 @@ final data = {
       "source_map_stack_trace": "1.1.4",
       "source_maps": "0.10.4",
       "source_span": "1.4.0",
-      "stack_trace": "1.7.3",
+      "stack_trace": startsWith("1.7."),
       "stream_channel": "1.6.1",
       "string_scanner": "1.0.2",
       "term_glyph": "1.0.0",
