@@ -19,8 +19,8 @@ abstract class KnownPlatforms {
 }
 
 class PlatformSummary {
-  final Platform package;
-  final Map<String, Platform> libraries;
+  final PlatformInfo package;
+  final Map<String, PlatformInfo> libraries;
 
   PlatformSummary(this.package, this.libraries);
 
@@ -35,15 +35,15 @@ class PlatformSummary {
 }
 
 @JsonSerializable()
-class Platform extends Object with _$PlatformSerializerMixin {
+class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
   final List<String> uses;
 
-  Platform._(this.uses);
+  PlatformInfo._(this.uses);
 
-  factory Platform(Iterable<String> uses) =>
-      new Platform._((uses?.toList() ?? <String>[])..sort());
+  factory PlatformInfo(Iterable<String> uses) =>
+      new PlatformInfo._((uses?.toList() ?? <String>[])..sort());
 
-  factory Platform.fromJson(Map<String, dynamic> map) =>
+  factory PlatformInfo.fromJson(Map<String, dynamic> map) =>
       _$PlatformFromJson(map);
 
   bool get hasConflict =>
@@ -74,24 +74,24 @@ class Platform extends Object with _$PlatformSerializerMixin {
       !platforms.any((p) => uses.contains(p));
 }
 
-Platform classifyPubspec(Pubspec pubspec) {
+PlatformInfo classifyPubspec(Pubspec pubspec) {
   final Set<String> uses = new Set();
   if (pubspec.hasFlutterKey || pubspec.dependsOnFlutterSdk) {
     uses.add(KnownPlatforms.flutter);
   }
-  return new Platform(uses);
+  return new PlatformInfo(uses);
 }
 
 PlatformSummary classifyPlatforms(
     Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
-  final Platform package = classifyPubspec(pubspec);
+  final PlatformInfo package = classifyPubspec(pubspec);
   return new PlatformSummary(
       package,
       new Map.fromIterable(transitiveLibs.keys ?? <String>[],
           value: (key) => classifyPlatform(transitiveLibs[key])));
 }
 
-Platform classifyPlatform(Iterable<String> dependencies) {
+PlatformInfo classifyPlatform(Iterable<String> dependencies) {
   Set<String> libs = dependencies.toSet();
   Set<String> uses = new Set();
 
@@ -120,7 +120,7 @@ Platform classifyPlatform(Iterable<String> dependencies) {
     uses.add(KnownPlatforms.angular);
   }
 
-  return new Platform(uses);
+  return new PlatformInfo(uses);
 }
 
 const List<String> _webPackages = const [

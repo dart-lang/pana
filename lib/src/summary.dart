@@ -24,7 +24,7 @@ class DartFileSummary {
   final List<AnalyzerOutput> analyzerItems;
   final List<String> directLibs;
   final List<String> transitiveLibs;
-  final Platform platform;
+  final PlatformInfo platform;
 
   DartFileSummary(
     this.uri,
@@ -48,7 +48,7 @@ class DartFileSummary {
         json['transitiveLibs'],
         json['platform'] == null
             ? null
-            : new Platform.fromJson(json['platform']),
+            : new PlatformInfo.fromJson(json['platform']),
       );
 
   Map<String, dynamic> toJson() {
@@ -135,8 +135,9 @@ class Summary {
   }
 
   PlatformSummary getPlatformSummary() {
-    final Platform package = classifyPubspec(new Pubspec(pubSummary.pubspec));
-    final Map<String, Platform> libraries = new Map.fromIterable(
+    final PlatformInfo package =
+        classifyPubspec(new Pubspec(pubSummary.pubspec));
+    final Map<String, PlatformInfo> libraries = new Map.fromIterable(
       dartFiles.values.where((dfs) => dfs.platform != null),
       key: (DartFileSummary dfs) => dfs.uri,
       value: (DartFileSummary dfs) => dfs.platform,
