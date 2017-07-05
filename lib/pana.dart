@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io' hide Platform;
+import 'dart:io';
 
 import 'package:pub_semver/pub_semver.dart';
 
@@ -19,7 +19,10 @@ import 'src/sdk_env.dart';
 import 'src/summary.dart';
 import 'src/utils.dart';
 
+export 'src/analyzer_output.dart';
+export 'src/platform.dart';
 export 'src/pub_summary.dart';
+export 'src/pubspec.dart';
 export 'src/summary.dart';
 export 'src/utils.dart';
 
