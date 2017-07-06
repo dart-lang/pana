@@ -194,7 +194,7 @@ final data = {
         "package:typed_data/typed_data.dart"
       ],
       "platform": {
-        "uses": ["browser", "console"]
+        "uses": ["browser", "standalone"]
       }
     },
     "lib/http.dart": {
@@ -351,7 +351,7 @@ final data = {
         "package:typed_data/typed_data.dart"
       ],
       "platform": {
-        "uses": ["console"]
+        "uses": ["standalone"]
       }
     },
     "lib/src/base_client.dart": {
@@ -584,7 +584,7 @@ final data = {
         "package:typed_data/typed_data.dart"
       ],
       "platform": {
-        "uses": ["console"]
+        "uses": ["standalone"]
       }
     },
     "test/html/client_test.dart": {

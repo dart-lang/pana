@@ -11,7 +11,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isTrue);
       expect(p.worksInBrowser, isTrue);
-      expect(p.worksInConsole, isTrue);
+      expect(p.worksInStandalone, isTrue);
       expect(p.worksInFlutter, isTrue);
     });
 
@@ -21,7 +21,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isTrue);
       expect(p.worksInBrowser, isTrue);
-      expect(p.worksInConsole, isTrue);
+      expect(p.worksInStandalone, isTrue);
       expect(p.worksInFlutter, isTrue);
     });
 
@@ -31,7 +31,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isFalse);
-      expect(p.worksInConsole, isTrue);
+      expect(p.worksInStandalone, isTrue);
       expect(p.worksInFlutter, isTrue);
     });
 
@@ -41,7 +41,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isTrue);
-      expect(p.worksInConsole, isFalse);
+      expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
 
       p = classifyPlatform(['dart:svg']);
@@ -49,7 +49,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isTrue);
-      expect(p.worksInConsole, isFalse);
+      expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
     });
 
@@ -59,7 +59,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isFalse);
-      expect(p.worksInConsole, isFalse);
+      expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isTrue);
     });
 
@@ -69,7 +69,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isTrue);
-      expect(p.worksInConsole, isTrue);
+      expect(p.worksInStandalone, isTrue);
       expect(p.worksInFlutter, isFalse);
     });
 
@@ -79,7 +79,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isTrue);
-      expect(p.worksInConsole, isFalse);
+      expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
     });
 
@@ -89,9 +89,9 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isFalse);
-      expect(p.worksInConsole, isTrue);
+      expect(p.worksInStandalone, isTrue);
       expect(p.worksInFlutter, isFalse);
-      expect(p.uses, [KnownPlatforms.console, KnownPlatforms.native]);
+      expect(p.uses, [KnownPlatforms.native, KnownPlatforms.standalone]);
     });
 
     test('detect angular', () {
@@ -101,7 +101,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isTrue);
-      expect(p.worksInConsole, isFalse);
+      expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
       expect(p.uses, [KnownPlatforms.angular, KnownPlatforms.browser]);
     });
@@ -114,7 +114,7 @@ void main() {
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isFalse);
-      expect(p.worksInConsole, isFalse);
+      expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
     });
 
@@ -124,7 +124,7 @@ void main() {
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isFalse);
-      expect(p.worksInConsole, isFalse);
+      expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
     });
 
@@ -134,7 +134,7 @@ void main() {
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksInBrowser, isFalse);
-      expect(p.worksInConsole, isFalse);
+      expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
       expect(p.uses, [KnownPlatforms.flutter, KnownPlatforms.native]);
     });
@@ -152,16 +152,16 @@ void main() {
       PlatformInfo pa = sum.libraries['package:_example/a.dart'];
       PlatformInfo pb = sum.libraries['package:_example/b.dart'];
       expect(pa.worksInBrowser, isTrue);
-      expect(pa.worksInConsole, isFalse);
+      expect(pa.worksInStandalone, isFalse);
       expect(pb.worksInBrowser, isFalse);
-      expect(pb.worksInConsole, isTrue);
+      expect(pb.worksInStandalone, isTrue);
     });
 
     test('detects flutter in pubspec', () {
       PlatformSummary sum = classifyPlatforms(flutterPluginPubspec, {});
       expect(sum.hasConflict, isFalse);
       expect(sum.package.worksInFlutter, isTrue);
-      expect(sum.package.worksInConsole, isFalse);
+      expect(sum.package.worksInStandalone, isFalse);
       expect(sum.package.worksInBrowser, isFalse);
     });
 
@@ -169,7 +169,7 @@ void main() {
       PlatformSummary sum = classifyPlatforms(flutterSdkPubspec, {});
       expect(sum.hasConflict, isFalse);
       expect(sum.package.worksInFlutter, isTrue);
-      expect(sum.package.worksInConsole, isFalse);
+      expect(sum.package.worksInStandalone, isFalse);
       expect(sum.package.worksInBrowser, isFalse);
     });
   });

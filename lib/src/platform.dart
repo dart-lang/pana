@@ -8,7 +8,7 @@ part 'platform.g.dart';
 
 abstract class KnownPlatforms {
   static const String browser = 'browser';
-  static const String console = 'console';
+  static const String standalone = 'standalone';
   static const String flutter = 'flutter';
   static const String mirrors = 'mirrors';
 
@@ -49,19 +49,20 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
   bool get hasConflict =>
       (!worksAnywhere) ||
       (uses.contains(KnownPlatforms.flutter) && !worksInFlutter) ||
-      (uses.contains(KnownPlatforms.native) && !worksInConsole);
+      (uses.contains(KnownPlatforms.native) && !worksInStandalone);
 
   bool get worksEverywhere =>
-      worksInBrowser && worksInConsole && worksInFlutter;
+      worksInBrowser && worksInStandalone && worksInFlutter;
 
-  bool get worksAnywhere => worksInBrowser || worksInConsole || worksInFlutter;
+  bool get worksAnywhere =>
+      worksInBrowser || worksInStandalone || worksInFlutter;
 
   bool get worksInBrowser =>
       _hasNoUseOf([KnownPlatforms.flutter, KnownPlatforms.native]) &&
       (uses.contains(KnownPlatforms.browser) ||
-          _hasNoUseOf([KnownPlatforms.console]));
+          _hasNoUseOf([KnownPlatforms.standalone]));
 
-  bool get worksInConsole =>
+  bool get worksInStandalone =>
       _hasNoUseOf([KnownPlatforms.browser, KnownPlatforms.flutter]);
 
   bool get worksInFlutter => _hasNoUseOf([
@@ -100,7 +101,7 @@ PlatformInfo classifyPlatform(Iterable<String> dependencies) {
   }
 
   if (libs.contains('dart:io')) {
-    uses.add(KnownPlatforms.console);
+    uses.add(KnownPlatforms.standalone);
   }
 
   if (libs.contains('dart:ui')) {
