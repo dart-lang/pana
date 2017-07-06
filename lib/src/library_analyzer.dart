@@ -144,7 +144,7 @@ class LibraryScanner {
       }
 
       // Include all Dart files in lib – except for implementation files.
-      if (p.isWithin('lib', path) && !p.isWithin('lib/src', path)) {
+      if (p.isWithin('lib', path) && !p.split(path).contains('src')) {
         return true;
       }
 
