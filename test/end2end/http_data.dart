@@ -25,18 +25,7 @@ final data = {
       "name": "http",
       "version": "0.11.3+13"
     },
-    "packages": {
-      "async": "1.13.3",
-      "charcode": "1.1.1",
-      "collection": "1.14.1",
-      "http_parser": "3.1.1",
-      "path": startsWith("1.4."),
-      "source_span": "1.4.0",
-      "stack_trace": startsWith("1.7."),
-      "string_scanner": "1.0.2",
-      "typed_data": "1.1.3",
-      "unittest": "0.11.7"
-    },
+    "packages": isMap,
     "availablePackages": {"unittest": "0.12.4+1"}
   },
   "dartFiles": {
