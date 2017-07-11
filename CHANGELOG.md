@@ -1,3 +1,9 @@
+## 0.2.4
+
+* Detect native extensions.
+
+* Detect licenses.
+
 ## 0.2.3
 
 * Lot's of stability improvements.
