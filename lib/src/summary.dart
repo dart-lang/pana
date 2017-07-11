@@ -7,6 +7,7 @@ import 'dart:collection';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'analyzer_output.dart';
+import 'license.dart';
 import 'platform.dart';
 import 'pub_summary.dart';
 import 'pubspec.dart';
@@ -83,9 +84,10 @@ class Summary {
   final PubSummary pubSummary;
   final Map<String, DartFileSummary> dartFiles;
   final List<AnalyzerIssue> issues;
+  final License license;
 
   Summary(this.sdkVersion, this.packageName, this.packageVersion,
-      this.pubSummary, this.dartFiles, this.issues,
+      this.pubSummary, this.dartFiles, this.issues, this.license,
       {this.flutterVersion});
 
   factory Summary.fromJson(Map<String, dynamic> json) {
@@ -102,8 +104,12 @@ class Summary {
     List<AnalyzerIssue> issues =
         issuesRaw?.map((Map map) => new AnalyzerIssue.fromJson(map))?.toList();
 
-    return new Summary(
-        sdkVersion, packageName, packageVersion, pubSummary, dartFiles, issues,
+    Map licenseRaw = json['license'];
+    License license =
+        licenseRaw == null ? null : new License.fromJson(licenseRaw);
+
+    return new Summary(sdkVersion, packageName, packageVersion, pubSummary,
+        dartFiles, issues, license,
         flutterVersion: json['flutterVersion']);
   }
 
@@ -125,6 +131,7 @@ class Summary {
       'packageVersion': packageVersion.toString(),
       'pubSummary': pubSummary,
       'dartFiles': dartFiles,
+      'license': license,
     });
 
     if (issues != null && issues.isNotEmpty) {

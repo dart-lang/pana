@@ -674,5 +674,6 @@ final data = {
       "isFormatted": false,
       "analyzerItems": [],
     }
-  }
+  },
+  "license": {"name": "BSD"}
 };

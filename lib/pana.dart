@@ -11,6 +11,7 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'src/analyzer_output.dart';
 import 'src/library_analyzer.dart';
+import 'src/license.dart';
 import 'src/logging.dart';
 import 'src/platform.dart';
 import 'src/pub_summary.dart';
@@ -20,6 +21,7 @@ import 'src/summary.dart';
 import 'src/utils.dart';
 
 export 'src/analyzer_output.dart';
+export 'src/license.dart';
 export 'src/platform.dart';
 export 'src/pub_summary.dart';
 export 'src/pubspec.dart';
@@ -204,8 +206,10 @@ class PackageAnalyzer {
       flutterVersion = await _flutterSdk.getVersion();
     }
 
+    License license = await detectLicenseInDir(pkgDir);
+
     return new Summary(sdkVersion, package, new Version.parse(pkgInfo.version),
-        summary, files, issues,
+        summary, files, issues, license,
         flutterVersion: flutterVersion);
   }
 
