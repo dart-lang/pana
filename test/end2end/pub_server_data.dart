@@ -385,6 +385,7 @@ final data = {
           "error": "'expectAsync' is deprecated and shouldn't be used."
         }
       ]
-    }
+    },
   },
+  "license": {"name": "BSD"}
 };
