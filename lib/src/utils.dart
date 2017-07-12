@@ -104,7 +104,7 @@ ProcessResult handleProcessErrors(ProcessResult result) {
 }
 
 Future<List<String>> listFiles(String directory, {String endsWith}) {
-  Directory dir = new Directory(directory);
+  var dir = new Directory(directory);
   return dir
       .list(recursive: true)
       .where((fse) => fse is File)

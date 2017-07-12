@@ -99,7 +99,7 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
 }
 
 PlatformInfo classifyPubspec(Pubspec pubspec) {
-  final Set<String> uses = new Set();
+  var uses = new Set<String>();
   if (pubspec.hasFlutterKey || pubspec.dependsOnFlutterSdk) {
     uses.add(PlatformFlags.flutter);
   }
@@ -108,7 +108,7 @@ PlatformInfo classifyPubspec(Pubspec pubspec) {
 
 PlatformSummary classifyPlatforms(
     Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
-  final PlatformInfo package = classifyPubspec(pubspec);
+  var package = classifyPubspec(pubspec);
   return new PlatformSummary(
       package,
       new Map.fromIterable(transitiveLibs.keys ?? <String>[],
@@ -116,8 +116,8 @@ PlatformSummary classifyPlatforms(
 }
 
 PlatformInfo classifyPlatform(Iterable<String> dependencies) {
-  Set<String> libs = dependencies.toSet();
-  Set<String> uses = new SplayTreeSet<String>();
+  var libs = dependencies.toSet();
+  var uses = new SplayTreeSet<String>();
 
   uses.addAll(libs.where((l) => _dartLibRegexp.hasMatch(l)));
 

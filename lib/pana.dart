@@ -5,7 +5,6 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:pub_semver/pub_semver.dart';
 
@@ -42,7 +41,7 @@ class PackageAnalyzer {
 
   Future<Summary> inspectPackage(String package,
       {String version, bool keepTransitiveLibs: false}) async {
-    List<AnalyzerIssue> issues = [];
+    var issues = <AnalyzerIssue>[];
     var sdkVersion = _dartSdk.version;
     log.info("SDK: $sdkVersion");
 
@@ -59,9 +58,8 @@ class PackageAnalyzer {
     }
 
     log.info("Downloading package...");
-    PackageLocation pkgInfo =
-        await _pubEnv.getLocation(package, version: ver?.toString());
-    String pkgDir = pkgInfo.location;
+    var pkgInfo = await _pubEnv.getLocation(package, version: ver?.toString());
+    var pkgDir = pkgInfo.location;
     log.fine("Package at $pkgDir");
 
     log.info('Counting files...');
@@ -95,7 +93,7 @@ class PackageAnalyzer {
 
     log.info("Pub upgrade...");
     var isFlutter = pubspec.dependsOnFlutterSdk;
-    ProcessResult upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
+    var upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
 
     PubSummary summary;
     if (upgrade.exitCode == 0) {
@@ -184,9 +182,9 @@ class PackageAnalyzer {
     }
 
     Map<String, DartFileSummary> files = new SplayTreeMap();
-    for (String dartFile in dartFiles) {
-      int size = await fileSize(pkgDir, dartFile);
-      String uri = toPackageUri(package, dartFile);
+    for (var dartFile in dartFiles) {
+      var size = await fileSize(pkgDir, dartFile);
+      var uri = toPackageUri(package, dartFile);
       var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
@@ -208,7 +206,7 @@ class PackageAnalyzer {
       flutterVersion = await _flutterSdk.getVersion();
     }
 
-    License license = await detectLicenseInDir(pkgDir);
+    var license = await detectLicenseInDir(pkgDir);
 
     return new Summary(sdkVersion, package, new Version.parse(pkgInfo.version),
         summary, files, issues, license,
@@ -223,7 +221,7 @@ class PackageAnalyzer {
     if ('\n$output'.contains('\nUnhandled exception:\n')) {
       log.severe("Bad input?");
       log.severe(output);
-      String errorMessage =
+      var errorMessage =
           '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
       throw new ArgumentError('dartanalyzer exception: $errorMessage');
     }

@@ -27,7 +27,7 @@ class LibraryScanner {
   final String _projectPath;
   final UriResolver _packageResolver;
   final AnalysisContext _context;
-  final Map<String, List<String>> _cachedLibs = {};
+  final _cachedLibs = <String, List<String>>{};
 
   LibraryScanner._(
       this._package, this._projectPath, this._packageResolver, this._context);
@@ -73,7 +73,7 @@ class LibraryScanner {
 
     var options = new AnalysisOptionsImpl()..analyzeFunctionBodies = false;
 
-    AnalysisContext context = AnalysisEngine.instance.createAnalysisContext()
+    var context = AnalysisEngine.instance.createAnalysisContext()
       ..analysisOptions = options
       ..sourceFactory = new SourceFactory(resolvers);
     return new LibraryScanner._(package, projectPath, packageResolver, context);
@@ -82,13 +82,13 @@ class LibraryScanner {
   Future<Map<String, List<String>>> scanDirectLibs() => _scanPackage();
 
   Future<Map<String, List<String>>> scanTransitiveLibs() async {
-    Map<String, List<String>> results = new SplayTreeMap();
-    Map<String, List<String>> direct = await _scanPackage();
-    for (String key in direct.keys) {
-      Set<String> processed = new Set();
-      Set<String> todo = new Set.from(direct[key]);
+    var results = new SplayTreeMap<String, List<String>>();
+    var direct = await _scanPackage();
+    for (var key in direct.keys) {
+      var processed = new Set<String>();
+      var todo = new Set<String>.from(direct[key]);
       while (todo.isNotEmpty) {
-        String lib = todo.first;
+        var lib = todo.first;
         todo.remove(lib);
         if (processed.contains(lib)) continue;
         processed.add(lib);
@@ -113,21 +113,20 @@ class LibraryScanner {
   }
 
   Future<List<String>> _scanUri(String libUri) async {
-    Uri uri = Uri.parse(libUri);
-    String package = uri.pathSegments.first;
+    var uri = Uri.parse(libUri);
+    var package = uri.pathSegments.first;
 
     var source = _packageResolver.resolveAbsolute(uri);
     if (source == null) {
       throw "Could not resolve package URI for $uri";
     }
 
-    String fullPath = source.fullName;
-    String relativePath =
-        p.join('lib', libUri.substring(libUri.indexOf('/') + 1));
+    var fullPath = source.fullName;
+    var relativePath = p.join('lib', libUri.substring(libUri.indexOf('/') + 1));
     if (fullPath.endsWith('/$relativePath')) {
-      String packageDir =
+      var packageDir =
           fullPath.substring(0, fullPath.length - relativePath.length - 1);
-      List<String> libs = _parseLibs(package, packageDir, relativePath);
+      var libs = _parseLibs(package, packageDir, relativePath);
       _cachedLibs[libUri] = libs;
       return libs;
     } else {
@@ -136,9 +135,9 @@ class LibraryScanner {
   }
 
   Future<Map<String, List<String>>> _scanPackage() async {
-    Map<String, List<String>> results = new SplayTreeMap();
-    List<String> dartFiles = await listFiles(_projectPath, endsWith: '.dart');
-    List<String> mainFiles = dartFiles.where((path) {
+    var results = new SplayTreeMap<String, List<String>>();
+    var dartFiles = await listFiles(_projectPath, endsWith: '.dart');
+    var mainFiles = dartFiles.where((path) {
       if (p.isWithin('bin', path)) {
         return true;
       }
@@ -150,8 +149,8 @@ class LibraryScanner {
 
       return false;
     }).toList();
-    for (String relativePath in mainFiles) {
-      String uri = toPackageUri(_package, relativePath);
+    for (var relativePath in mainFiles) {
+      var uri = toPackageUri(_package, relativePath);
       results[uri] = _cachedLibs.putIfAbsent(
           uri, () => _parseLibs(_package, _projectPath, relativePath));
     }
@@ -160,8 +159,8 @@ class LibraryScanner {
 
   List<String> _parseLibs(
       String package, String packageDir, String relativePath) {
-    String fullPath = p.join(packageDir, relativePath);
-    LibraryElement lib = _getLibraryElement(fullPath);
+    var fullPath = p.join(packageDir, relativePath);
+    var lib = _getLibraryElement(fullPath);
     if (lib == null) return [];
     Set<String> refs = new SplayTreeSet();
     lib.importedLibraries.forEach((le) {
@@ -185,7 +184,7 @@ class LibraryScanner {
 
 String _normalizeLibRef(Uri uri, String package, String packageDir) {
   if (uri.isScheme('file')) {
-    String relativePath = p.relative(p.fromUri(uri), from: packageDir);
+    var relativePath = p.relative(p.fromUri(uri), from: packageDir);
     return toPackageUri(package, relativePath);
   } else if (uri.isScheme('package') || uri.isScheme('dart')) {
     return uri.toString();

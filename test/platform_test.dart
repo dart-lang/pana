@@ -6,7 +6,7 @@ import 'pubspec_test.dart';
 void main() {
   group('Platform', () {
     test('no libraries', () {
-      PlatformInfo p = classifyPlatform([]);
+      var p = classifyPlatform([]);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isTrue);
@@ -17,7 +17,7 @@ void main() {
     });
 
     test('unknown library', () {
-      PlatformInfo p = classifyPlatform(['package:_unknown/_unknown.dart']);
+      var p = classifyPlatform(['package:_unknown/_unknown.dart']);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isTrue);
@@ -28,7 +28,7 @@ void main() {
     });
 
     test('dart:io', () {
-      PlatformInfo p = classifyPlatform(['dart:io']);
+      var p = classifyPlatform(['dart:io']);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
@@ -39,7 +39,7 @@ void main() {
     });
 
     test('dart:html', () {
-      PlatformInfo p = classifyPlatform(['dart:html']);
+      var p = classifyPlatform(['dart:html']);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
@@ -59,7 +59,7 @@ void main() {
     });
 
     test('dart:ui', () {
-      PlatformInfo p = classifyPlatform(['dart:ui']);
+      var p = classifyPlatform(['dart:ui']);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
@@ -70,7 +70,7 @@ void main() {
     });
 
     test('dart:mirrors', () {
-      PlatformInfo p = classifyPlatform(['dart:mirrors']);
+      var p = classifyPlatform(['dart:mirrors']);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
@@ -81,7 +81,7 @@ void main() {
     });
 
     test('http package: both html and io', () {
-      PlatformInfo p = classifyPlatform(['dart:html', 'dart:io']);
+      var p = classifyPlatform(['dart:html', 'dart:io']);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
@@ -92,7 +92,7 @@ void main() {
     });
 
     test('detect native', () {
-      PlatformInfo p = classifyPlatform(['dart:io', 'dart-ext:some-extension']);
+      var p = classifyPlatform(['dart:io', 'dart-ext:some-extension']);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
@@ -106,7 +106,7 @@ void main() {
 
   group('Conflicting Platform', () {
     test('dart:html + dart:ui', () {
-      PlatformInfo p = classifyPlatform(['dart:html', 'dart:ui']);
+      var p = classifyPlatform(['dart:html', 'dart:ui']);
       expect(p.hasConflict, isTrue);
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
@@ -117,7 +117,7 @@ void main() {
     });
 
     test('dart:mirrors + dart:ui', () {
-      PlatformInfo p = classifyPlatform(['dart:mirrors', 'dart:ui']);
+      var p = classifyPlatform(['dart:mirrors', 'dart:ui']);
       expect(p.hasConflict, isTrue);
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
@@ -128,7 +128,7 @@ void main() {
     });
 
     test('native + dart:ui', () {
-      PlatformInfo p = classifyPlatform(['dart:ui', 'dart-ext:some-extension']);
+      var p = classifyPlatform(['dart:ui', 'dart-ext:some-extension']);
       expect(p.hasConflict, isTrue);
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
@@ -142,7 +142,7 @@ void main() {
 
   group('PlatformSummary', () {
     test('handles multiple libraries', () {
-      PlatformSummary sum = classifyPlatforms(emptyPubspec, {
+      var sum = classifyPlatforms(emptyPubspec, {
         'package:_example/a.dart': ['dart:html'],
         'package:_example/b.dart': ['dart:io'],
       });
@@ -151,19 +151,19 @@ void main() {
       expect(sum.libraries.length, 2);
       expect(sum.package.description, 'everywhere');
 
-      PlatformInfo pa = sum.libraries['package:_example/a.dart'];
+      var pa = sum.libraries['package:_example/a.dart'];
       expect(pa.worksOnWeb, isTrue);
       expect(pa.worksOnServer, isFalse);
       expect(pa.description, 'web');
 
-      PlatformInfo pb = sum.libraries['package:_example/b.dart'];
+      var pb = sum.libraries['package:_example/b.dart'];
       expect(pb.worksOnWeb, isFalse);
       expect(pb.worksOnServer, isTrue);
       expect(pb.description, 'flutter, server');
     });
 
     test('detects flutter in pubspec', () {
-      PlatformSummary sum = classifyPlatforms(flutterPluginPubspec, {});
+      var sum = classifyPlatforms(flutterPluginPubspec, {});
       expect(sum.hasConflict, isFalse);
       expect(sum.package.worksOnFlutter, isTrue);
       expect(sum.package.worksOnServer, isFalse);
@@ -172,7 +172,7 @@ void main() {
     });
 
     test('detects flutter in dependencies', () {
-      PlatformSummary sum = classifyPlatforms(flutterSdkPubspec, {});
+      var sum = classifyPlatforms(flutterSdkPubspec, {});
       expect(sum.hasConflict, isFalse);
       expect(sum.package.worksOnFlutter, isTrue);
       expect(sum.package.worksOnServer, isFalse);
@@ -183,7 +183,7 @@ void main() {
 
   group('Conflicting PlatformSummary', () {
     test('Flutter package with mirrors', () {
-      PlatformSummary sum = classifyPlatforms(flutterPluginPubspec, {
+      var sum = classifyPlatforms(flutterPluginPubspec, {
         'package:_example/lib.dart': ['dart:mirrors'],
       });
       expect(sum.hasConflict, isTrue);

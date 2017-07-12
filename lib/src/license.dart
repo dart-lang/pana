@@ -17,7 +17,7 @@ class License {
       new License(json['name'], json['version']);
 
   Map<String, dynamic> toJson() {
-    Map map = {
+    var map = <String, dynamic>{
       'name': name,
     };
     if (version != null) {
@@ -54,22 +54,21 @@ abstract class LicenseNames {
 }
 
 Future<License> detectLicenseInDir(String baseDir) async {
-  final List<FileSystemEntity> list =
-      await new Directory(baseDir).list().toList();
+  var list = await new Directory(baseDir).list().toList();
   final File licenseFile = list.firstWhere(_isLicenseFile, orElse: () => null);
   if (licenseFile == null) {
     return new License(LicenseNames.missing);
   }
-  final String content = await licenseFile.readAsString();
-  final License license = detectLicenseInContent(content);
+  var content = await licenseFile.readAsString();
+  var license = detectLicenseInContent(content);
   return license ?? new License(LicenseNames.unknown);
 }
 
 License detectLicenseInContent(String content) {
-  final String stripped = _longTextPrepare(content);
+  var stripped = _longTextPrepare(content);
 
   String version;
-  final Match versionMatch = _version.firstMatch(stripped);
+  var versionMatch = _version.firstMatch(stripped);
   if (versionMatch != null) {
     version = versionMatch.group(1);
     if (version.isNotEmpty && !version.contains('.')) {
@@ -123,8 +122,8 @@ DISCLAIMED.
 
 bool _isLicenseFile(FileSystemEntity fse) {
   if (fse is File) {
-    final String relative = p.relative(fse.path, from: fse.parent.path);
-    final String lower = relative.toLowerCase();
+    var relative = p.relative(fse.path, from: fse.parent.path);
+    var lower = relative.toLowerCase();
     return lower == 'license' ||
         lower == 'license.txt' ||
         lower == 'license.md';

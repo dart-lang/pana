@@ -77,7 +77,7 @@ main(List<String> arguments) async {
 
   try {
     try {
-      PackageAnalyzer analyzer = new PackageAnalyzer(pubCacheDir: tempPath);
+      var analyzer = new PackageAnalyzer(pubCacheDir: tempPath);
       var summary = await analyzer.inspectPackage(pkg, version: version);
 
       print(prettyJson(summary));

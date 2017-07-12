@@ -12,7 +12,7 @@ class Pubspec {
   Pubspec(this._data);
 
   factory Pubspec.parseFromDir(String packageDir) {
-    String content = getPubspecContent(packageDir);
+    var content = getPubspecContent(packageDir);
     if (content == null) {
       throw new Exception("Couldn't find a pubspec.yaml in $packageDir.");
     }
@@ -57,7 +57,7 @@ class Pubspec {
   }
 
   Set<String> get unknownSdks {
-    Set<String> unknowns = new Set.from(dependentSdks);
+    var unknowns = new Set<String>.from(dependentSdks);
     unknowns.remove('flutter');
     return unknowns;
   }

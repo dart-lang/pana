@@ -101,12 +101,11 @@ class Summary {
         filesMap.keys,
         value: (key) => new DartFileSummary.fromJson(filesMap[key]));
     List issuesRaw = json['issues'];
-    List<AnalyzerIssue> issues =
+    var issues =
         issuesRaw?.map((Map map) => new AnalyzerIssue.fromJson(map))?.toList();
 
     Map licenseRaw = json['license'];
-    License license =
-        licenseRaw == null ? null : new License.fromJson(licenseRaw);
+    var license = licenseRaw == null ? null : new License.fromJson(licenseRaw);
 
     return new Summary(sdkVersion, packageName, packageVersion, pubSummary,
         dartFiles, issues, license,
@@ -114,7 +113,7 @@ class Summary {
   }
 
   Iterable<AnalyzerOutput> get analyzerItems sync* {
-    for (DartFileSummary dfs in dartFiles.values) {
+    for (var dfs in dartFiles.values) {
       yield* dfs.analyzerItems;
     }
   }
@@ -142,9 +141,8 @@ class Summary {
   }
 
   PlatformSummary getPlatformSummary() {
-    final PlatformInfo package =
-        classifyPubspec(new Pubspec(pubSummary.pubspec));
-    final Map<String, PlatformInfo> libraries = new Map.fromIterable(
+    var package = classifyPubspec(new Pubspec(pubSummary.pubspec));
+    var libraries = new Map<String, PlatformInfo>.fromIterable(
       dartFiles.values.where((dfs) => dfs.platform != null),
       key: (DartFileSummary dfs) => dfs.uri,
       value: (DartFileSummary dfs) => dfs.platform,
