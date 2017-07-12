@@ -152,10 +152,8 @@ class LibraryScanner {
     }).toList();
     for (String relativePath in mainFiles) {
       String uri = toPackageUri(_package, relativePath);
-      if (!_cachedLibs.containsKey(uri)) {
-        _cachedLibs[uri] = _parseLibs(_package, _projectPath, relativePath);
-      }
-      results[uri] = _cachedLibs[uri];
+      results[uri] = _cachedLibs.putIfAbsent(
+          uri, () => _parseLibs(_package, _projectPath, relativePath));
     }
     return results;
   }
