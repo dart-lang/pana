@@ -1,20 +1,20 @@
 library pana.platform;
 
+import 'dart:collection';
 import 'package:source_gen/generators/json_serializable.dart';
 
 import 'pubspec.dart';
 
 part 'platform.g.dart';
 
-abstract class KnownPlatforms {
-  static const String browser = 'browser';
-  static const String standalone = 'standalone';
+abstract class PlatformFlags {
+  /// Denotes a package that references Flutter in `pubspec.yaml`.
   static const String flutter = 'flutter';
-  static const String mirrors = 'mirrors';
 
-  /// Native extensions (Dart VM with C/C++ code).
-  static const String native = 'native';
+  /// Denotes a library that depends on a native extensions via `dart-ext:`
+  static const String dartExtension = 'dart-ext';
 
+  /// Denotes a library that depends on pkg/angular or pkg/angular2
   static const String angular = 'angular';
 }
 
@@ -30,7 +30,7 @@ class PlatformSummary {
       _conflictsFlutter;
 
   bool get _conflictsFlutter =>
-      package.uses.contains(KnownPlatforms.flutter) &&
+      package.uses.contains(PlatformFlags.flutter) &&
       libraries.values.any((p) => !p.worksInFlutter);
 }
 
@@ -48,8 +48,8 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
 
   bool get hasConflict =>
       (!worksAnywhere) ||
-      (uses.contains(KnownPlatforms.flutter) && !worksInFlutter) ||
-      (uses.contains(KnownPlatforms.native) && !worksInStandalone);
+      (uses.contains(PlatformFlags.flutter) && !worksInFlutter) ||
+      (uses.contains(PlatformFlags.dartExtension) && !worksInStandalone);
 
   bool get worksEverywhere =>
       worksInBrowser && worksInStandalone && worksInFlutter;
@@ -58,18 +58,17 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
       worksInBrowser || worksInStandalone || worksInFlutter;
 
   bool get worksInBrowser =>
-      _hasNoUseOf([KnownPlatforms.flutter, KnownPlatforms.native]) &&
-      (uses.contains(KnownPlatforms.browser) ||
-          _hasNoUseOf([KnownPlatforms.standalone]));
+      _hasNoUseOf(
+          [PlatformFlags.flutter, 'dart:ui', PlatformFlags.dartExtension]) &&
+      (_webPackages.any(uses.contains) || _hasNoUseOf(['dart:io']));
 
   bool get worksInStandalone =>
-      _hasNoUseOf([KnownPlatforms.browser, KnownPlatforms.flutter]);
+      _hasNoUseOf(_webAnd(['dart:ui', PlatformFlags.flutter]));
 
-  bool get worksInFlutter => _hasNoUseOf([
-        KnownPlatforms.browser,
-        KnownPlatforms.mirrors,
-        KnownPlatforms.native,
-      ]);
+  bool get worksInFlutter => _hasNoUseOf(_webAnd([
+        'dart:mirrors',
+        PlatformFlags.dartExtension,
+      ]));
 
   bool _hasNoUseOf(Iterable<String> platforms) =>
       !platforms.any((p) => uses.contains(p));
@@ -78,7 +77,7 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
 PlatformInfo classifyPubspec(Pubspec pubspec) {
   final Set<String> uses = new Set();
   if (pubspec.hasFlutterKey || pubspec.dependsOnFlutterSdk) {
-    uses.add(KnownPlatforms.flutter);
+    uses.add(PlatformFlags.flutter);
   }
   return new PlatformInfo(uses);
 }
@@ -94,35 +93,28 @@ PlatformSummary classifyPlatforms(
 
 PlatformInfo classifyPlatform(Iterable<String> dependencies) {
   Set<String> libs = dependencies.toSet();
-  Set<String> uses = new Set();
+  Set<String> uses = new SplayTreeSet<String>();
 
-  if (_webPackages.any(libs.contains)) {
-    uses.add(KnownPlatforms.browser);
-  }
-
-  if (libs.contains('dart:io')) {
-    uses.add(KnownPlatforms.standalone);
-  }
-
-  if (libs.contains('dart:ui')) {
-    uses.add(KnownPlatforms.flutter);
-  }
-
-  if (libs.contains('dart:mirrors')) {
-    uses.add(KnownPlatforms.mirrors);
-  }
+  uses.addAll(libs.where((l) => _dartLibRegexp.hasMatch(l)));
 
   if (libs.any((String lib) => lib.startsWith('dart-ext:'))) {
-    uses.add(KnownPlatforms.native);
+    uses.add(PlatformFlags.dartExtension);
   }
 
   // packages
-  if (libs.any((p) => p.startsWith('package:angular2/'))) {
-    uses.add(KnownPlatforms.angular);
+  if (libs.any((p) => p.startsWith(_angularRegexp))) {
+    uses.add(PlatformFlags.angular);
   }
 
   return new PlatformInfo(uses);
 }
+
+final _angularRegexp = new RegExp(r"package:angular2?/");
+
+final _dartLibRegexp = new RegExp(r"^dart:[a-z_]+$");
+
+Iterable<String> _webAnd(Iterable<String> other) =>
+    [_webPackages, other].expand((s) => s);
 
 const List<String> _webPackages = const [
   'dart:html',

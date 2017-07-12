@@ -1,3 +1,12 @@
+## 0.3.0
+
+* Renamed `KnownPlatforms` to `PlatformFlags`. Also:
+  * Removed `mirrors`, `browser` and `standalone`.
+  * Renamed `native` to `dartExtension`.
+
+* Now store `dart:*` references directly in
+  `PlatformInfo.uses`.
+
 ## 0.2.4
 
 * Detect native extensions.

@@ -91,10 +91,10 @@ void main() {
       expect(p.worksInBrowser, isFalse);
       expect(p.worksInStandalone, isTrue);
       expect(p.worksInFlutter, isFalse);
-      expect(p.uses, [KnownPlatforms.native, KnownPlatforms.standalone]);
+      expect(p.uses, [PlatformFlags.dartExtension, 'dart:io']);
     });
 
-    test('detect angular', () {
+    test('detect angular2', () {
       PlatformInfo p =
           classifyPlatform(['dart:html', 'package:angular2/angular2.dart']);
       expect(p.hasConflict, isFalse);
@@ -103,7 +103,19 @@ void main() {
       expect(p.worksInBrowser, isTrue);
       expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
-      expect(p.uses, [KnownPlatforms.angular, KnownPlatforms.browser]);
+      expect(p.uses, [PlatformFlags.angular, 'dart:html']);
+    });
+
+    test('detect angular', () {
+      PlatformInfo p =
+          classifyPlatform(['dart:html', 'package:angular/angular.dart']);
+      expect(p.hasConflict, isFalse);
+      expect(p.worksAnywhere, isTrue);
+      expect(p.worksEverywhere, isFalse);
+      expect(p.worksInBrowser, isTrue);
+      expect(p.worksInStandalone, isFalse);
+      expect(p.worksInFlutter, isFalse);
+      expect(p.uses, [PlatformFlags.angular, 'dart:html']);
     });
   });
 
@@ -136,7 +148,7 @@ void main() {
       expect(p.worksInBrowser, isFalse);
       expect(p.worksInStandalone, isFalse);
       expect(p.worksInFlutter, isFalse);
-      expect(p.uses, [KnownPlatforms.flutter, KnownPlatforms.native]);
+      expect(p.uses, [PlatformFlags.dartExtension, 'dart:ui']);
     });
   });
 
