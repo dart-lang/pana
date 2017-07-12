@@ -4,8 +4,13 @@
   * Removed `mirrors`, `browser` and `standalone`.
   * Renamed `native` to `dartExtension`.
 
-* Now store `dart:*` references directly in
-  `PlatformInfo.uses`.
+* `PlatformInfo`
+  * Now store `dart:*` references directly in `uses`.
+  * `worksInStandalone` renamed to `worksOnServer`.
+  * Other `.worksIn*` renamed to `worksOn*`.
+  * Added `String get description` which returns a simple `String` description
+    of the supported platforms. Examples: `everywhere`, `flutter`, 
+    `server, web`, `conflict`.
 
 ## 0.2.4
 

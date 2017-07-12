@@ -14,7 +14,7 @@ abstract class PlatformFlags {
   /// Denotes a library that depends on a native extensions via `dart-ext:`
   static const String dartExtension = 'dart-ext';
 
-  /// Denotes a library that depends on pkg/angular or pkg/angular2
+  /// Denotes a library that depends on `pkg/angular` or `pkg/angular2`.
   static const String angular = 'angular';
 }
 
@@ -31,7 +31,7 @@ class PlatformSummary {
 
   bool get _conflictsFlutter =>
       package.uses.contains(PlatformFlags.flutter) &&
-      libraries.values.any((p) => !p.worksInFlutter);
+      libraries.values.any((p) => !p.worksOnFlutter);
 }
 
 @JsonSerializable()
@@ -48,27 +48,54 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
 
   bool get hasConflict =>
       (!worksAnywhere) ||
-      (uses.contains(PlatformFlags.flutter) && !worksInFlutter) ||
-      (uses.contains(PlatformFlags.dartExtension) && !worksInStandalone);
+      (uses.contains(PlatformFlags.flutter) && !worksOnFlutter) ||
+      (uses.contains(PlatformFlags.dartExtension) && !worksOnServer);
 
-  bool get worksEverywhere =>
-      worksInBrowser && worksInStandalone && worksInFlutter;
+  bool get worksEverywhere => worksOnWeb && worksOnServer && worksOnFlutter;
 
-  bool get worksAnywhere =>
-      worksInBrowser || worksInStandalone || worksInFlutter;
+  bool get worksAnywhere => worksOnWeb || worksOnServer || worksOnFlutter;
 
-  bool get worksInBrowser =>
+  bool get worksOnWeb =>
       _hasNoUseOf(
           [PlatformFlags.flutter, 'dart:ui', PlatformFlags.dartExtension]) &&
       (_webPackages.any(uses.contains) || _hasNoUseOf(['dart:io']));
 
-  bool get worksInStandalone =>
+  bool get worksOnServer =>
       _hasNoUseOf(_webAnd(['dart:ui', PlatformFlags.flutter]));
 
-  bool get worksInFlutter => _hasNoUseOf(_webAnd([
+  bool get worksOnFlutter => _hasNoUseOf(_webAnd([
         'dart:mirrors',
         PlatformFlags.dartExtension,
       ]));
+
+  String get description {
+    if (worksEverywhere) {
+      return 'everywhere';
+    }
+
+    var items = <String>[];
+    if (worksOnFlutter) {
+      items.add('flutter');
+    }
+
+    if (worksOnServer) {
+      items.add('server');
+    }
+
+    if (worksOnWeb) {
+      items.add('web');
+    }
+
+    if (items.isEmpty) {
+      assert(hasConflict);
+      return 'conflict';
+    }
+
+    return items.join(', ');
+  }
+
+  @override
+  String toString() => 'PlatformInfo: $description';
 
   bool _hasNoUseOf(Iterable<String> platforms) =>
       !platforms.any((p) => uses.contains(p));
