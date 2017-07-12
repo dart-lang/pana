@@ -153,6 +153,7 @@ class PackageAnalyzer {
 
       if (libraryScanner != null) {
         try {
+          log.info('Scanning direct dependencies...');
           allDirectLibs = await libraryScanner.scanDirectLibs();
         } catch (e, st) {
           log.severe('Error scanning direct librariers', e, st);
@@ -160,6 +161,7 @@ class PackageAnalyzer {
               AnalyzerScopes.libraryScanner, e.toString(), 'direct'));
         }
         try {
+          log.info('Scanning transitive dependencies...');
           allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
         } catch (e, st) {
           log.severe('Error scanning transitive librariers', e, st);
