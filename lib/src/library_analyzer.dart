@@ -27,7 +27,7 @@ class LibraryScanner {
   final String _packagePath;
   final UriResolver _packageResolver;
   final AnalysisContext _context;
-  final _cachedLibs = <String, List<String>>{};
+  final _cachedLibs = new HashMap<String, List<String>>();
 
   LibraryScanner._(this.packageName, this._packagePath, this._packageResolver,
       this._context);
@@ -178,7 +178,7 @@ class LibraryScanner {
     var fullPath = p.join(packageDir, relativePath);
     var lib = _getLibraryElement(fullPath);
     if (lib == null) return [];
-    Set<String> refs = new SplayTreeSet();
+    var refs = new SplayTreeSet<String>();
     lib.importedLibraries.forEach((le) {
       refs.add(_normalizeLibRef(le.librarySource.uri, package, packageDir));
     });
@@ -186,7 +186,7 @@ class LibraryScanner {
       refs.add(_normalizeLibRef(le.librarySource.uri, package, packageDir));
     });
     refs.remove('dart:core');
-    return refs.toList();
+    return new List<String>.unmodifiable(refs);
   }
 
   LibraryElement _getLibraryElement(String path) {
