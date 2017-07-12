@@ -23,16 +23,16 @@ import 'package:path/path.dart' as p;
 import 'utils.dart';
 
 class LibraryScanner {
-  final String _package;
-  final String _projectPath;
+  final String packageName;
+  final String _packagePath;
   final UriResolver _packageResolver;
   final AnalysisContext _context;
   final _cachedLibs = <String, List<String>>{};
 
-  LibraryScanner._(
-      this._package, this._projectPath, this._packageResolver, this._context);
+  LibraryScanner._(this.packageName, this._packagePath, this._packageResolver,
+      this._context);
 
-  factory LibraryScanner(String package, String projectPath, bool useFlutter) {
+  factory LibraryScanner(String packagePath, bool useFlutter) {
     // TODO: fail more clearly if this...fails
     var sdkPath = cli.getSdkDir().path;
 
@@ -40,7 +40,7 @@ class LibraryScanner {
     var sdk = new FolderBasedDartSdk(
         resourceProvider, resourceProvider.getFolder(sdkPath));
 
-    var dotPackagesPath = p.join(projectPath, '.packages');
+    var dotPackagesPath = p.join(packagePath, '.packages');
     if (!FileSystemEntity.isFileSync(dotPackagesPath)) {
       throw new StateError('A package configuration file was not found at the '
           'expectetd location.\n$dotPackagesPath');
@@ -54,8 +54,24 @@ class LibraryScanner {
     var pubPackageMapProvider = new PubPackageMapProvider(
         PhysicalResourceProvider.INSTANCE, sdk, runPubList);
     var packageMapInfo = pubPackageMapProvider.computePackageMap(
-        PhysicalResourceProvider.INSTANCE.getResource(projectPath) as Folder);
+        PhysicalResourceProvider.INSTANCE.getResource(packagePath) as Folder);
     var packageMap = packageMapInfo.packageMap;
+
+    var packageNames = <String>[];
+    packageMap.forEach((k, v) {
+      if (v.any((f) => p.isWithin(packagePath, f.path))) {
+        packageNames.add(k);
+      }
+    });
+
+    String package;
+    if (packageNames.length == 1) {
+      package = packageNames.single;
+    } else {
+      throw new StateError(
+          "Could not determine package name for package at $packagePath");
+    }
+
     if (packageMap == null) {
       throw new StateError('An error occurred getting the package map '
           'for the file at `$dotPackagesPath`.');
@@ -76,7 +92,7 @@ class LibraryScanner {
     var context = AnalysisEngine.instance.createAnalysisContext()
       ..analysisOptions = options
       ..sourceFactory = new SourceFactory(resolvers);
-    return new LibraryScanner._(package, projectPath, packageResolver, context);
+    return new LibraryScanner._(package, packagePath, packageResolver, context);
   }
 
   Future<Map<String, List<String>>> scanDirectLibs() => _scanPackage();
@@ -136,7 +152,7 @@ class LibraryScanner {
 
   Future<Map<String, List<String>>> _scanPackage() async {
     var results = new SplayTreeMap<String, List<String>>();
-    var dartFiles = await listFiles(_projectPath, endsWith: '.dart');
+    var dartFiles = await listFiles(_packagePath, endsWith: '.dart');
     var mainFiles = dartFiles.where((path) {
       if (p.isWithin('bin', path)) {
         return true;
@@ -150,9 +166,9 @@ class LibraryScanner {
       return false;
     }).toList();
     for (var relativePath in mainFiles) {
-      var uri = toPackageUri(_package, relativePath);
+      var uri = toPackageUri(packageName, relativePath);
       results[uri] = _cachedLibs.putIfAbsent(
-          uri, () => _parseLibs(_package, _projectPath, relativePath));
+          uri, () => _parseLibs(packageName, _packagePath, relativePath));
     }
     return results;
   }

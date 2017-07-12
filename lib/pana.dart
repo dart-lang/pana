@@ -142,7 +142,8 @@ class PackageAnalyzer {
 
     if (summary != null) {
       try {
-        libraryScanner = new LibraryScanner(package, pkgDir, isFlutter);
+        libraryScanner = new LibraryScanner(pkgDir, isFlutter);
+        assert(libraryScanner.packageName == package);
       } on StateError catch (e, stack) {
         log.severe("Could not create LibraryScanner", e, stack);
         issues.add(new AnalyzerIssue(
