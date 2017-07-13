@@ -10,6 +10,7 @@ import 'package:test/test.dart';
 
 import 'end2end/http_data.dart' as http_data;
 import 'end2end/pub_server_data.dart' as pub_server_data;
+import 'end2end/shared.dart';
 
 void main() {
   group('PackageAnalyzer', () {
@@ -26,22 +27,24 @@ void main() {
       await tempDir.delete(recursive: true);
     });
 
-    void _verifyPackage(String package, String version, Map data) {
-      group('$package $version', () {
+    void _verifyPackage(E2EData data) {
+      group('${data.name} ${data.version}', () {
         Map actualMap;
 
         setUpAll(() async {
           var summary = await analyzer.inspectPackage(
-            package,
-            version: version,
+            data.name,
+            version: data.version,
             keepTransitiveLibs: true,
           );
 
+          // summary.toJson contains types which are not directly JSON-able
+          // throwing it through `JSON.encode` does the trick
           actualMap = JSON.decode(JSON.encode(summary));
         });
 
         test('matches known good', () {
-          expect(actualMap, data);
+          expect(actualMap, data.data);
         });
 
         test('Summary can round-trip', () {
@@ -50,10 +53,17 @@ void main() {
           var roundTrip = JSON.decode(JSON.encode(summary));
           expect(roundTrip, actualMap);
         });
+
+        test('platform fun', () {
+          var summary = new Summary.fromJson(actualMap);
+          var platSummary = summary.getPlatformSummary();
+
+          print(prettyJson(platSummary));
+        });
       }, timeout: const Timeout.factor(2));
     }
 
-    _verifyPackage('pub_server', '0.1.1+3', pub_server_data.data);
-    _verifyPackage('http', '0.11.3+13', http_data.data);
+    _verifyPackage(pub_server_data.data);
+    _verifyPackage(http_data.data);
   });
 }
