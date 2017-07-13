@@ -234,8 +234,9 @@ String _normalizeLibRef(Uri uri, String package, String packageDir) {
 }
 
 ProcessResult _flutterPubList(Folder folder) {
-  var result =
-      Process.runSync('flutter', ['packages', 'pub', 'list-package-dirs']);
+  var result = Process.runSync(
+      'flutter', ['packages', 'pub', 'list-package-dirs'],
+      workingDirectory: folder.path);
 
   var stdoutString = result.stdout as String;
 
