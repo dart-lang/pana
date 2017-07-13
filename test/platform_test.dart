@@ -102,32 +102,6 @@ void main() {
       expect(p.uses, [PlatformFlags.dartExtension, 'dart:io']);
       expect(p.description, 'server');
     });
-
-    test('detect angular2', () {
-      PlatformInfo p =
-          classifyPlatform(['dart:html', 'package:angular2/angular2.dart']);
-      expect(p.hasConflict, isFalse);
-      expect(p.worksAnywhere, isTrue);
-      expect(p.worksEverywhere, isFalse);
-      expect(p.worksOnWeb, isTrue);
-      expect(p.worksOnServer, isFalse);
-      expect(p.worksOnFlutter, isFalse);
-      expect(p.uses, [PlatformFlags.angular, 'dart:html']);
-      expect(p.description, 'web');
-    });
-
-    test('detect angular', () {
-      PlatformInfo p =
-          classifyPlatform(['dart:html', 'package:angular/angular.dart']);
-      expect(p.hasConflict, isFalse);
-      expect(p.worksAnywhere, isTrue);
-      expect(p.worksEverywhere, isFalse);
-      expect(p.worksOnWeb, isTrue);
-      expect(p.worksOnServer, isFalse);
-      expect(p.worksOnFlutter, isFalse);
-      expect(p.uses, [PlatformFlags.angular, 'dart:html']);
-      expect(p.description, 'web');
-    });
   });
 
   group('Conflicting Platform', () {

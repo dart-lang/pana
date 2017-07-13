@@ -13,9 +13,6 @@ abstract class PlatformFlags {
 
   /// Denotes a library that depends on a native extensions via `dart-ext:`
   static const String dartExtension = 'dart-ext';
-
-  /// Denotes a library that depends on `pkg/angular` or `pkg/angular2`.
-  static const String angular = 'angular';
 }
 
 class PlatformSummary {
@@ -128,15 +125,8 @@ PlatformInfo classifyPlatform(Iterable<String> dependencies) {
     uses.add(PlatformFlags.dartExtension);
   }
 
-  // packages
-  if (libs.any((p) => p.startsWith(_angularRegexp))) {
-    uses.add(PlatformFlags.angular);
-  }
-
   return new PlatformInfo(uses);
 }
-
-final _angularRegexp = new RegExp(r"package:angular2?/");
 
 final _dartLibRegexp = new RegExp(r"^dart:[a-z_]+$");
 
