@@ -128,6 +128,30 @@ class LibraryScanner {
     AnalysisEngine.instance.clearCaches();
   }
 
+  Future<Map<String, List<String>>> scanDependencyGraph() async {
+    var items = await scanTransitiveLibs();
+
+    var graph = new SplayTreeMap<String, List<String>>();
+
+    var todo = new LinkedHashSet<String>.from(items.keys);
+    while (todo.isNotEmpty) {
+      var first = todo.first;
+      todo.remove(first);
+
+      if (first.startsWith('dart:')) {
+        continue;
+      }
+
+      graph.putIfAbsent(first, () {
+        var cache = _cachedLibs[first];
+        todo.addAll(cache);
+        return cache;
+      });
+    }
+
+    return graph;
+  }
+
   Future<List<String>> _scanUri(String libUri) async {
     var uri = Uri.parse(libUri);
     var package = uri.pathSegments.first;
