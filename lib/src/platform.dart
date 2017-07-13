@@ -15,11 +15,15 @@ abstract class PlatformFlags {
   static const String dartExtension = 'dart-ext';
 }
 
-class PlatformSummary {
+@JsonSerializable()
+class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
   final PlatformInfo package;
   final Map<String, PlatformInfo> libraries;
 
   PlatformSummary(this.package, this.libraries);
+
+  factory PlatformSummary.fromJson(Map<String, dynamic> json) =>
+      _$PlatformSummaryFromJson(json);
 
   bool get hasConflict =>
       package.hasConflict ||
@@ -41,7 +45,7 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
       new PlatformInfo._((uses?.toList() ?? <String>[])..sort());
 
   factory PlatformInfo.fromJson(Map<String, dynamic> map) =>
-      _$PlatformFromJson(map);
+      _$PlatformInfoFromJson(map);
 
   bool get hasConflict =>
       (!worksAnywhere) ||
