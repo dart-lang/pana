@@ -11,6 +11,7 @@
   * Added `String get description` which returns a simple `String` description
     of the supported platforms. Examples: `everywhere`, `flutter`, 
     `server, web`, `conflict`.
+  * Removed `angular` as a value in `uses`.
 
 ## 0.2.4
 
