@@ -58,7 +58,13 @@ void main() {
           var summary = new Summary.fromJson(actualMap);
           var platSummary = summary.getPlatformSummary();
 
-          print(prettyJson(platSummary));
+          var descriptions = {'pkg': platSummary.package.description};
+
+          platSummary.libraries.forEach((k, v) {
+            descriptions[k] = v.description;
+          });
+
+          expect(descriptions, data.descriptions);
         });
       }, timeout: const Timeout.factor(2));
     }

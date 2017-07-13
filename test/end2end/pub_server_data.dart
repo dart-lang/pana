@@ -6,7 +6,11 @@ import 'package:test/test.dart';
 
 import 'shared.dart';
 
-final data = new E2EData('pub_server', '0.1.1+3', _data);
+final data = new E2EData('pub_server', '0.1.1+3', _data, {
+  'pkg': 'everywhere',
+  'package:pub_server/repository.dart': 'everywhere',
+  'package:pub_server/shelf_pubserver.dart': 'everywhere'
+});
 
 final _data = {
   "sdkVersion": startsWith("Dart VM version"),
