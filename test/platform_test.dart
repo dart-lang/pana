@@ -10,9 +10,10 @@ void main() {
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isTrue);
-      expect(p.worksInBrowser, isTrue);
-      expect(p.worksInStandalone, isTrue);
-      expect(p.worksInFlutter, isTrue);
+      expect(p.worksOnWeb, isTrue);
+      expect(p.worksOnServer, isTrue);
+      expect(p.worksOnFlutter, isTrue);
+      expect(p.description, 'everywhere');
     });
 
     test('unknown library', () {
@@ -20,9 +21,10 @@ void main() {
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isTrue);
-      expect(p.worksInBrowser, isTrue);
-      expect(p.worksInStandalone, isTrue);
-      expect(p.worksInFlutter, isTrue);
+      expect(p.worksOnWeb, isTrue);
+      expect(p.worksOnServer, isTrue);
+      expect(p.worksOnFlutter, isTrue);
+      expect(p.description, 'everywhere');
     });
 
     test('dart:io', () {
@@ -30,9 +32,10 @@ void main() {
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isFalse);
-      expect(p.worksInStandalone, isTrue);
-      expect(p.worksInFlutter, isTrue);
+      expect(p.worksOnWeb, isFalse);
+      expect(p.worksOnServer, isTrue);
+      expect(p.worksOnFlutter, isTrue);
+      expect(p.description, 'flutter, server');
     });
 
     test('dart:html', () {
@@ -40,17 +43,19 @@ void main() {
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isTrue);
-      expect(p.worksInStandalone, isFalse);
-      expect(p.worksInFlutter, isFalse);
+      expect(p.worksOnWeb, isTrue);
+      expect(p.worksOnServer, isFalse);
+      expect(p.worksOnFlutter, isFalse);
+      expect(p.description, 'web');
 
       p = classifyPlatform(['dart:svg']);
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isTrue);
-      expect(p.worksInStandalone, isFalse);
-      expect(p.worksInFlutter, isFalse);
+      expect(p.worksOnWeb, isTrue);
+      expect(p.worksOnServer, isFalse);
+      expect(p.worksOnFlutter, isFalse);
+      expect(p.description, 'web');
     });
 
     test('dart:ui', () {
@@ -58,9 +63,10 @@ void main() {
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isFalse);
-      expect(p.worksInStandalone, isFalse);
-      expect(p.worksInFlutter, isTrue);
+      expect(p.worksOnWeb, isFalse);
+      expect(p.worksOnServer, isFalse);
+      expect(p.worksOnFlutter, isTrue);
+      expect(p.description, 'flutter');
     });
 
     test('dart:mirrors', () {
@@ -68,9 +74,10 @@ void main() {
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isTrue);
-      expect(p.worksInStandalone, isTrue);
-      expect(p.worksInFlutter, isFalse);
+      expect(p.worksOnWeb, isTrue);
+      expect(p.worksOnServer, isTrue);
+      expect(p.worksOnFlutter, isFalse);
+      expect(p.description, 'server, web');
     });
 
     test('http package: both html and io', () {
@@ -78,9 +85,10 @@ void main() {
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isTrue);
-      expect(p.worksInStandalone, isFalse);
-      expect(p.worksInFlutter, isFalse);
+      expect(p.worksOnWeb, isTrue);
+      expect(p.worksOnServer, isFalse);
+      expect(p.worksOnFlutter, isFalse);
+      expect(p.description, 'web');
     });
 
     test('detect native', () {
@@ -88,22 +96,11 @@ void main() {
       expect(p.hasConflict, isFalse);
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isFalse);
-      expect(p.worksInStandalone, isTrue);
-      expect(p.worksInFlutter, isFalse);
-      expect(p.uses, [KnownPlatforms.native, KnownPlatforms.standalone]);
-    });
-
-    test('detect angular', () {
-      PlatformInfo p =
-          classifyPlatform(['dart:html', 'package:angular2/angular2.dart']);
-      expect(p.hasConflict, isFalse);
-      expect(p.worksAnywhere, isTrue);
-      expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isTrue);
-      expect(p.worksInStandalone, isFalse);
-      expect(p.worksInFlutter, isFalse);
-      expect(p.uses, [KnownPlatforms.angular, KnownPlatforms.browser]);
+      expect(p.worksOnWeb, isFalse);
+      expect(p.worksOnServer, isTrue);
+      expect(p.worksOnFlutter, isFalse);
+      expect(p.uses, [PlatformFlags.dartExtension, 'dart:io']);
+      expect(p.description, 'server');
     });
   });
 
@@ -113,9 +110,10 @@ void main() {
       expect(p.hasConflict, isTrue);
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isFalse);
-      expect(p.worksInStandalone, isFalse);
-      expect(p.worksInFlutter, isFalse);
+      expect(p.worksOnWeb, isFalse);
+      expect(p.worksOnServer, isFalse);
+      expect(p.worksOnFlutter, isFalse);
+      expect(p.description, 'conflict');
     });
 
     test('dart:mirrors + dart:ui', () {
@@ -123,9 +121,10 @@ void main() {
       expect(p.hasConflict, isTrue);
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isFalse);
-      expect(p.worksInStandalone, isFalse);
-      expect(p.worksInFlutter, isFalse);
+      expect(p.worksOnWeb, isFalse);
+      expect(p.worksOnServer, isFalse);
+      expect(p.worksOnFlutter, isFalse);
+      expect(p.description, 'conflict');
     });
 
     test('native + dart:ui', () {
@@ -133,10 +132,11 @@ void main() {
       expect(p.hasConflict, isTrue);
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
-      expect(p.worksInBrowser, isFalse);
-      expect(p.worksInStandalone, isFalse);
-      expect(p.worksInFlutter, isFalse);
-      expect(p.uses, [KnownPlatforms.flutter, KnownPlatforms.native]);
+      expect(p.worksOnWeb, isFalse);
+      expect(p.worksOnServer, isFalse);
+      expect(p.worksOnFlutter, isFalse);
+      expect(p.uses, [PlatformFlags.dartExtension, 'dart:ui']);
+      expect(p.description, 'conflict');
     });
   });
 
@@ -149,28 +149,35 @@ void main() {
       expect(sum.hasConflict, isFalse);
       expect(sum.package.worksEverywhere, isTrue);
       expect(sum.libraries.length, 2);
+      expect(sum.package.description, 'everywhere');
+
       PlatformInfo pa = sum.libraries['package:_example/a.dart'];
+      expect(pa.worksOnWeb, isTrue);
+      expect(pa.worksOnServer, isFalse);
+      expect(pa.description, 'web');
+
       PlatformInfo pb = sum.libraries['package:_example/b.dart'];
-      expect(pa.worksInBrowser, isTrue);
-      expect(pa.worksInStandalone, isFalse);
-      expect(pb.worksInBrowser, isFalse);
-      expect(pb.worksInStandalone, isTrue);
+      expect(pb.worksOnWeb, isFalse);
+      expect(pb.worksOnServer, isTrue);
+      expect(pb.description, 'flutter, server');
     });
 
     test('detects flutter in pubspec', () {
       PlatformSummary sum = classifyPlatforms(flutterPluginPubspec, {});
       expect(sum.hasConflict, isFalse);
-      expect(sum.package.worksInFlutter, isTrue);
-      expect(sum.package.worksInStandalone, isFalse);
-      expect(sum.package.worksInBrowser, isFalse);
+      expect(sum.package.worksOnFlutter, isTrue);
+      expect(sum.package.worksOnServer, isFalse);
+      expect(sum.package.worksOnWeb, isFalse);
+      expect(sum.package.description, 'flutter');
     });
 
     test('detects flutter in dependencies', () {
       PlatformSummary sum = classifyPlatforms(flutterSdkPubspec, {});
       expect(sum.hasConflict, isFalse);
-      expect(sum.package.worksInFlutter, isTrue);
-      expect(sum.package.worksInStandalone, isFalse);
-      expect(sum.package.worksInBrowser, isFalse);
+      expect(sum.package.worksOnFlutter, isTrue);
+      expect(sum.package.worksOnServer, isFalse);
+      expect(sum.package.worksOnWeb, isFalse);
+      expect(sum.package.description, 'flutter');
     });
   });
 
@@ -180,6 +187,7 @@ void main() {
         'package:_example/lib.dart': ['dart:mirrors'],
       });
       expect(sum.hasConflict, isTrue);
+      expect(sum.package.description, 'flutter');
     });
   });
 }

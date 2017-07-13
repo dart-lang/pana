@@ -127,7 +127,9 @@ final data = {
         "package:pub_semver/src/version_range.dart",
         "package:pub_semver/src/version_union.dart"
       ],
-      "platform": {"uses": []}
+      "platform": {
+        "uses": ['dart:async', 'dart:collection', 'dart:math']
+      }
     },
     "lib/shelf_pubserver.dart": {
       "uri": "package:pub_server/shelf_pubserver.dart",
@@ -328,7 +330,16 @@ final data = {
         "package:yaml/src/yaml_node_wrapper.dart",
         "package:yaml/yaml.dart"
       ],
-      "platform": {"uses": []}
+      "platform": {
+        "uses": [
+          'dart:async',
+          'dart:collection',
+          'dart:convert',
+          'dart:isolate',
+          'dart:math',
+          'dart:typed_data'
+        ]
+      }
     },
     "test/shelf_pubserver_test.dart": {
       "uri": "path:pub_server/test/shelf_pubserver_test.dart",

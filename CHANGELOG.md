@@ -1,3 +1,18 @@
+## 0.3.0
+
+* Renamed `KnownPlatforms` to `PlatformFlags`. Also:
+  * Removed `mirrors`, `browser` and `standalone`.
+  * Renamed `native` to `dartExtension`.
+
+* `PlatformInfo`
+  * Now store `dart:*` references directly in `uses`.
+  * `worksInStandalone` renamed to `worksOnServer`.
+  * Other `.worksIn*` renamed to `worksOn*`.
+  * Added `String get description` which returns a simple `String` description
+    of the supported platforms. Examples: `everywhere`, `flutter`, 
+    `server, web`, `conflict`.
+  * Removed `angular` as a value in `uses`.
+
 ## 0.2.4
 
 * Detect native extensions.

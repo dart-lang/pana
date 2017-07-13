@@ -183,7 +183,15 @@ final data = {
         "package:typed_data/typed_data.dart"
       ],
       "platform": {
-        "uses": ["browser", "standalone"]
+        "uses": [
+          'dart:async',
+          'dart:collection',
+          'dart:convert',
+          'dart:html',
+          'dart:io',
+          'dart:math',
+          'dart:typed_data'
+        ]
       }
     },
     "lib/http.dart": {
@@ -340,7 +348,14 @@ final data = {
         "package:typed_data/typed_data.dart"
       ],
       "platform": {
-        "uses": ["standalone"]
+        "uses": [
+          'dart:async',
+          'dart:collection',
+          'dart:convert',
+          'dart:io',
+          'dart:math',
+          'dart:typed_data'
+        ]
       }
     },
     "lib/src/base_client.dart": {
@@ -573,7 +588,14 @@ final data = {
         "package:typed_data/typed_data.dart"
       ],
       "platform": {
-        "uses": ["standalone"]
+        "uses": [
+          'dart:async',
+          'dart:collection',
+          'dart:convert',
+          'dart:io',
+          'dart:math',
+          'dart:typed_data'
+        ]
       }
     },
     "test/html/client_test.dart": {
