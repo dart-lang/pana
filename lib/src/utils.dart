@@ -181,6 +181,11 @@ String toPackageUri(String package, String relativePath) {
   }
 }
 
+String toRelativePath(String packageUri) {
+  final uriPath = packageUri.substring(packageUri.indexOf('/') + 1);
+  return packageUri.startsWith('package:') ? 'lib/$uriPath' : uriPath;
+}
+
 /// A merged stream of all signals that tell the test runner to shut down
 /// gracefully.
 ///

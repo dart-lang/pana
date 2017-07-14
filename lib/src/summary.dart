@@ -11,6 +11,7 @@ import 'license.dart';
 import 'platform.dart';
 import 'pub_summary.dart';
 import 'pubspec.dart';
+import 'utils.dart' show toRelativePath;
 
 class DartFileSummary {
   final String uri;
@@ -51,6 +52,15 @@ class DartFileSummary {
             ? null
             : new PlatformInfo.fromJson(json['platform']),
       );
+
+  /// The relative path in the package archive.
+  String get path => toRelativePath(uri);
+  bool get isInBin => path.startsWith('bin/');
+  bool get isInLib => path.startsWith('lib/');
+  bool get isInLibSrc => path.startsWith('lib/src/');
+
+  /// Whether the file provides a public API for the package users.
+  bool get isPublicApi => isInLib && !isInLibSrc;
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{
