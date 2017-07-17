@@ -7,6 +7,33 @@ import 'pubspec.dart';
 
 part 'platform.g.dart';
 
+class PubspecPlatform {
+  final String description;
+
+  static const PubspecPlatform flutter = const PubspecPlatform._('flutter');
+
+  static const PubspecPlatform undefined = const PubspecPlatform._('undefined');
+
+  bool get isFlutter => description == flutter.description;
+
+  const PubspecPlatform._(this.description);
+
+  factory PubspecPlatform.fromJson(String value) {
+    switch (value) {
+      case 'flutter':
+        return flutter;
+      case 'undefined':
+        return undefined;
+      default:
+        throw new ArgumentError.value(value, 'value', 'Not a supported value.');
+    }
+  }
+
+  String toJson() => description;
+
+  String toString() => 'PubspecPlatform: $description';
+}
+
 abstract class PlatformFlags {
   /// Denotes a package that references Flutter in `pubspec.yaml`.
   static const String flutter = 'flutter';
@@ -17,22 +44,19 @@ abstract class PlatformFlags {
 
 @JsonSerializable()
 class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
-  final PlatformInfo package;
+  final PubspecPlatform pubspec;
   final Map<String, PlatformInfo> libraries;
 
-  PlatformSummary(this.package, this.libraries);
+  PlatformSummary(this.pubspec, this.libraries);
 
   factory PlatformSummary.fromJson(Map<String, dynamic> json) =>
       _$PlatformSummaryFromJson(json);
 
   bool get hasConflict =>
-      package.hasConflict ||
-      libraries.values.any((p) => p.hasConflict) ||
-      _conflictsFlutter;
+      libraries.values.any((p) => p.hasConflict) || _conflictsFlutter;
 
   bool get _conflictsFlutter =>
-      package.uses.contains(PlatformFlags.flutter) &&
-      libraries.values.any((p) => !p.worksOnFlutter);
+      pubspec.isFlutter && libraries.values.any((p) => !p.worksOnFlutter);
 }
 
 @JsonSerializable()

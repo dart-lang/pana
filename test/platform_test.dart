@@ -147,9 +147,9 @@ void main() {
         'package:_example/b.dart': ['dart:io'],
       });
       expect(sum.hasConflict, isFalse);
-      expect(sum.package.worksEverywhere, isTrue);
+      expect(sum.pubspec.isFlutter, isFalse);
       expect(sum.libraries.length, 2);
-      expect(sum.package.description, 'everywhere');
+      expect(sum.pubspec.description, 'undefined');
 
       var pa = sum.libraries['package:_example/a.dart'];
       expect(pa.worksOnWeb, isTrue);
@@ -165,19 +165,15 @@ void main() {
     test('detects flutter in pubspec', () {
       var sum = classifyPlatforms(flutterPluginPubspec, {});
       expect(sum.hasConflict, isFalse);
-      expect(sum.package.worksOnFlutter, isTrue);
-      expect(sum.package.worksOnServer, isFalse);
-      expect(sum.package.worksOnWeb, isFalse);
-      expect(sum.package.description, 'flutter');
+      expect(sum.pubspec.isFlutter, isTrue);
+      expect(sum.pubspec.description, 'flutter');
     });
 
     test('detects flutter in dependencies', () {
       var sum = classifyPlatforms(flutterSdkPubspec, {});
       expect(sum.hasConflict, isFalse);
-      expect(sum.package.worksOnFlutter, isTrue);
-      expect(sum.package.worksOnServer, isFalse);
-      expect(sum.package.worksOnWeb, isFalse);
-      expect(sum.package.description, 'flutter');
+      expect(sum.pubspec.isFlutter, isTrue);
+      expect(sum.pubspec.description, 'flutter');
     });
   });
 
@@ -186,8 +182,8 @@ void main() {
       var sum = classifyPlatforms(flutterPluginPubspec, {
         'package:_example/lib.dart': ['dart:mirrors'],
       });
+      expect(sum.pubspec.description, 'flutter');
       expect(sum.hasConflict, isTrue);
-      expect(sum.package.description, 'flutter');
     });
   });
 }

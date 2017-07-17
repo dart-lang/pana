@@ -8,14 +8,16 @@ part of pana.platform;
 // **************************************************************************
 
 PlatformSummary _$PlatformSummaryFromJson(Map json) => new PlatformSummary(
-    json['package'] == null ? null : new PlatformInfo.fromJson(json['package']),
+    json['pubspec'] == null
+        ? null
+        : new PubspecPlatform.fromJson(json['pubspec']),
     json['libraries'] as Map<String, PlatformInfo>);
 
 abstract class _$PlatformSummarySerializerMixin {
-  PlatformInfo get package;
+  PubspecPlatform get pubspec;
   Map<String, PlatformInfo> get libraries;
   Map<String, dynamic> toJson() =>
-      <String, dynamic>{'package': package, 'libraries': libraries};
+      <String, dynamic>{'pubspec': pubspec, 'libraries': libraries};
 }
 
 // **************************************************************************

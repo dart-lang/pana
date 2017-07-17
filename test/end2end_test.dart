@@ -58,7 +58,7 @@ void main() {
           var summary = new Summary.fromJson(actualMap);
           var platSummary = summary.getPlatformSummary();
 
-          var descriptions = {'pkg': platSummary.package.description};
+          var descriptions = {'pkg': platSummary.pubspec.description};
 
           platSummary.libraries.forEach((k, v) {
             descriptions[k] = v.description;

@@ -1,5 +1,8 @@
 ## 0.3.0
 
+* Removed `PlatformSummary.package` in favor of `PlatformSummary.pubspec` of
+  (new) type `PubspecPlatform`.
+
 * Renamed `KnownPlatforms` to `PlatformFlags`. Also:
   * Removed `mirrors`, `browser` and `standalone`.
   * Renamed `native` to `dartExtension`.
