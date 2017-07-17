@@ -9,7 +9,7 @@ import 'dart:convert';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'src/analyzer_output.dart';
-import 'src/library_analyzer.dart';
+import 'src/library_scanner.dart';
 import 'src/license.dart';
 import 'src/logging.dart';
 import 'src/platform.dart';
