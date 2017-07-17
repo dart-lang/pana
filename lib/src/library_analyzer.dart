@@ -36,7 +36,7 @@ class LibraryScanner {
   factory LibraryScanner(String packagePath, bool useFlutter,
       {Map<String, List<String>> overrides}) {
     // TODO: fail more clearly if this...fails
-    var sdkPath = cli.getSdkDir().path;
+    var sdkPath = cli.getSdkPath();
 
     var resourceProvider = PhysicalResourceProvider.INSTANCE;
     var sdk = new FolderBasedDartSdk(
