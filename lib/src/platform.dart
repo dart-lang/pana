@@ -57,6 +57,27 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
 
   bool get _conflictsFlutter =>
       pubspec.isFlutter && libraries.values.any((p) => !p.worksOnFlutter);
+
+  String get description {
+    if (pubspec.isFlutter) {
+      if (libraries.values.every((pi) => pi.worksOnFlutter)) {
+        return 'flutter';
+      }
+      assert(hasConflict);
+      return 'conflict';
+    }
+
+    assert(pubspec == PubspecPlatform.undefined);
+
+    var items = libraries.values.expand((pi) => pi.descriptionSet).toSet();
+
+    // TODO(kevmoo) – the comma thing is a hack!
+    if (items.length == 1) {
+      return items.single;
+    }
+
+    return "Unclear...";
+  }
 }
 
 @JsonSerializable()
@@ -93,9 +114,9 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
         PlatformFlags.dartExtension,
       ]));
 
-  String get description {
+  Set<String> get descriptionSet {
     if (worksEverywhere) {
-      return 'everywhere';
+      return new Set.from(['everywhere']);
     }
 
     var items = <String>[];
@@ -113,11 +134,15 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
 
     if (items.isEmpty) {
       assert(hasConflict);
-      return 'conflict';
+      return new Set.from(['conflict']);
     }
 
-    return items.join(', ');
+    assert(!hasConflict);
+
+    return (items..sort()).toSet();
   }
+
+  String get description => descriptionSet.join(', ');
 
   @override
   String toString() => 'PlatformInfo: $description';
@@ -126,12 +151,11 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
       !platforms.any((p) => uses.contains(p));
 }
 
-PlatformInfo classifyPubspec(Pubspec pubspec) {
-  var uses = new Set<String>();
+PubspecPlatform classifyPubspec(Pubspec pubspec) {
   if (pubspec.hasFlutterKey || pubspec.dependsOnFlutterSdk) {
-    uses.add(PlatformFlags.flutter);
+    return PubspecPlatform.flutter;
   }
-  return new PlatformInfo(uses);
+  return PubspecPlatform.undefined;
 }
 
 PlatformSummary classifyPlatforms(
