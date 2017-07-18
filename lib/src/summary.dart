@@ -89,11 +89,10 @@ class Summary extends Object with _$SummarySerializerMixin {
   factory Summary.fromJson(Map<String, dynamic> json) =>
       _$SummaryFromJson(json);
 
-  Iterable<AnalyzerOutput> get analyzerItems sync* {
-    for (var dfs in dartFiles.values) {
-      yield* dfs.analyzerItems;
-    }
-  }
+  Iterable<AnalyzerOutput> get analyzerItems => dartFiles.values
+      .map((dfs) => dfs.analyzerItems)
+      .where((l) => l != null)
+      .expand((list) => list);
 
   PlatformSummary getPlatformSummary() {
     var package = classifyPubspec(new Pubspec(pubSummary.pubspec));
