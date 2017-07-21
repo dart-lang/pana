@@ -62,6 +62,11 @@ class DartFileSummary {
   /// Whether the file provides a public API for the package users.
   bool get isPublicApi => isInLib && !isInLibSrc;
 
+  /// Whether the file has any local import that point outside of the lib/
+  bool get hasOutsideLibDependency =>
+      directLibs != null &&
+      directLibs.any((String lib) => lib.startsWith('path:'));
+
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{
       'uri': uri,
