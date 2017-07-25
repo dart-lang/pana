@@ -6,7 +6,7 @@ library pana.analyzer_output;
 
 import 'package:path/path.dart' as p;
 import 'package:quiver/core.dart';
-import 'package:source_gen/generators/json_serializable.dart';
+import 'package:json_serializable/annotations.dart';
 
 part 'analyzer_output.g.dart';
 

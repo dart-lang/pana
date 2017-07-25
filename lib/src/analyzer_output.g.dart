@@ -7,12 +7,9 @@ part of pana.analyzer_output;
 // Target: class AnalyzerOutput
 // **************************************************************************
 
-AnalyzerOutput _$AnalyzerOutputFromJson(Map json) => new AnalyzerOutput(
-    json['type'] as String,
-    json['error'] as String,
-    json['file'] as String,
-    json['line'] as int,
-    json['col'] as int);
+AnalyzerOutput _$AnalyzerOutputFromJson(Map<String, dynamic> json) =>
+    new AnalyzerOutput(json['type'] as String, json['error'] as String,
+        json['file'] as String, json['line'] as int, json['col'] as int);
 
 abstract class _$AnalyzerOutputSerializerMixin {
   String get type;

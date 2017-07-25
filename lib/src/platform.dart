@@ -1,7 +1,7 @@
 library pana.platform;
 
 import 'dart:collection';
-import 'package:source_gen/generators/json_serializable.dart';
+import 'package:json_serializable/annotations.dart';
 
 import 'pubspec.dart';
 
