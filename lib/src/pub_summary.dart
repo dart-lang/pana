@@ -10,18 +10,25 @@ import 'dart:io' hide exitCode;
 
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
+import 'package:json_serializable/annotations.dart';
 
 import 'utils.dart';
 
-class PubSummary {
+part 'pub_summary.g.dart';
+
+@JsonSerializable()
+class PubSummary extends Object with _$PubSummarySerializerMixin {
   static final _solvePkgLine = new RegExp(
       r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
 
-  final Map<String, Version> packageVersions;
-  final Map<String, Version> availableVersions;
+  @JsonKey(name: 'pubspecContent')
   final Map<String, Object> pubspec;
+  @JsonKey(name: 'packages')
+  final Map<String, Version> packageVersions;
+  @JsonKey(name: 'availablePackages')
+  final Map<String, Version> availableVersions;
 
-  PubSummary._(this.packageVersions, this.availableVersions, this.pubspec);
+  PubSummary(this.packageVersions, this.availableVersions, this.pubspec);
 
   static PubSummary create(String procStdout, {String path}) {
     var pkgVersions = <String, Version>{};
@@ -92,16 +99,11 @@ class PubSummary {
       }
     }
 
-    return new PubSummary._(pkgVersions, availVersions, pubspecContent);
+    return new PubSummary(pkgVersions, availVersions, pubspecContent);
   }
 
-  factory PubSummary.fromJson(Map<String, dynamic> json) {
-    var packageVersions = _jsonMapToVersion(json['packages']);
-    var availableVersions = _jsonMapToVersion(json['availablePackages']);
-
-    return new PubSummary._(
-        packageVersions, availableVersions, json['pubspecContent']);
-  }
+  factory PubSummary.fromJson(Map<String, dynamic> json) =>
+      _$PubSummaryFromJson(json);
 
   Map<String, int> getStats() {
     // counts: direct, dev, transitive
@@ -219,20 +221,6 @@ class PubSummary {
   }
 
   Version get pkgVersion => new Version.parse(pubspec['version']);
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'pubspecContent': pubspec,
-        'packages': _versionMapToJson(packageVersions),
-        'availablePackages': _versionMapToJson(availableVersions),
-      };
-
-  static Map<String, dynamic> _versionMapToJson(Map<String, Version> input) =>
-      new Map<String, String>.fromIterable(input?.keys ?? <String>[],
-          value: (String i) => input[i].toString());
-
-  static Map<String, Version> _jsonMapToVersion(Map<String, String> input) =>
-      new Map<String, Version>.fromIterable(input?.keys ?? <String>[],
-          value: (String i) => new Version.parse(input[i]));
 }
 
 enum PkgVersionDetailType { match, missLatestByConstraint, missLatestByOther }

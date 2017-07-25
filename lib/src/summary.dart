@@ -2,8 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:collection';
+library pana.summary;
 
+import 'package:json_serializable/annotations.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'analyzer_output.dart';
@@ -13,7 +14,10 @@ import 'pub_summary.dart';
 import 'pubspec.dart';
 import 'utils.dart' show toRelativePath;
 
-class DartFileSummary {
+part 'summary.g.dart';
+
+@JsonSerializable()
+class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   final String uri;
   final int size;
 
@@ -24,8 +28,12 @@ class DartFileSummary {
   /// `null` if `dartfmt` failed while running.
   final bool isFormatted;
   final List<AnalyzerOutput> analyzerItems;
+
+  @JsonKey(includeIfNull: false)
   final List<String> directLibs;
+  @JsonKey(includeIfNull: false)
   final List<String> transitiveLibs;
+  @JsonKey(includeIfNull: false)
   final PlatformInfo platform;
 
   DartFileSummary(
@@ -39,19 +47,7 @@ class DartFileSummary {
   );
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
-      new DartFileSummary(
-        json['uri'],
-        json['size'],
-        json['isFormatted'],
-        (json['analyzerItems'] as List)
-            ?.map((Map m) => new AnalyzerOutput.fromJson(m))
-            ?.toList(growable: false),
-        json['directLibs'],
-        json['transitiveLibs'],
-        json['platform'] == null
-            ? null
-            : new PlatformInfo.fromJson(json['platform']),
-      );
+      _$DartFileSummaryFromJson(json);
 
   /// The relative path in the package archive.
   String get path => toRelativePath(uri);
@@ -66,93 +62,37 @@ class DartFileSummary {
   bool get hasOutsideLibDependency =>
       directLibs != null &&
       directLibs.any((String lib) => lib.startsWith('path:'));
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{
-      'uri': uri,
-      'size': size,
-      'isFormatted': isFormatted,
-      'analyzerItems': analyzerItems?.map((item) => item.toJson())?.toList()
-    };
-
-    var other = {
-      'directLibs': directLibs,
-      'transitiveLibs': transitiveLibs,
-      'platform': platform,
-    };
-
-    other.forEach((k, v) {
-      if (v != null) {
-        map[k] = v;
-      }
-    });
-
-    return map;
-  }
 }
 
-class Summary {
+@JsonSerializable()
+class Summary extends Object with _$SummarySerializerMixin {
   final String sdkVersion;
+
+  @JsonKey(includeIfNull: false)
   final Map<String, Object> flutterVersion;
   final String packageName;
   final Version packageVersion;
   final PubSummary pubSummary;
   final Map<String, DartFileSummary> dartFiles;
-  final List<AnalyzerIssue> issues;
   final License license;
 
+  @JsonKey(includeIfNull: false)
+  final List<AnalyzerIssue> issues;
+
   Summary(this.sdkVersion, this.packageName, this.packageVersion,
-      this.pubSummary, this.dartFiles, this.issues, this.license,
-      {this.flutterVersion});
+      this.pubSummary, this.dartFiles, List<AnalyzerIssue> issues, this.license,
+      {this.flutterVersion})
+      : this.issues = (issues == null || issues.isEmpty)
+            ? null
+            : new List<AnalyzerIssue>.unmodifiable(issues);
 
-  factory Summary.fromJson(Map<String, dynamic> json) {
-    var sdkVersion = json['sdkVersion'] as String;
-    var packageName = json['packageName'] as String;
-    var packageVersion = new Version.parse(json['packageVersion'] as String);
-
-    var pubSummary = new PubSummary.fromJson(json['pubSummary']);
-    Map filesMap = json['dartFiles'];
-    Map<String, DartFileSummary> dartFiles = new SplayTreeMap.fromIterable(
-        filesMap.keys,
-        value: (key) => new DartFileSummary.fromJson(filesMap[key]));
-    List issuesRaw = json['issues'];
-    var issues =
-        issuesRaw?.map((Map map) => new AnalyzerIssue.fromJson(map))?.toList();
-
-    Map licenseRaw = json['license'];
-    var license = licenseRaw == null ? null : new License.fromJson(licenseRaw);
-
-    return new Summary(sdkVersion, packageName, packageVersion, pubSummary,
-        dartFiles, issues, license,
-        flutterVersion: json['flutterVersion']);
-  }
+  factory Summary.fromJson(Map<String, dynamic> json) =>
+      _$SummaryFromJson(json);
 
   Iterable<AnalyzerOutput> get analyzerItems sync* {
     for (var dfs in dartFiles.values) {
       yield* dfs.analyzerItems;
     }
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{'sdkVersion': sdkVersion};
-
-    if (flutterVersion != null) {
-      map['flutterVersion'] = flutterVersion;
-    }
-
-    map.addAll({
-      'packageName': packageName,
-      'packageVersion': packageVersion.toString(),
-      'pubSummary': pubSummary,
-      'dartFiles': dartFiles,
-      'license': license,
-    });
-
-    if (issues != null && issues.isNotEmpty) {
-      map['issues'] = issues;
-    }
-
-    return map;
   }
 
   PlatformSummary getPlatformSummary() {
@@ -166,25 +106,17 @@ class Summary {
   }
 }
 
-class AnalyzerIssue {
+@JsonSerializable()
+class AnalyzerIssue extends Object with _$AnalyzerIssueSerializerMixin {
   final String scope;
   final String message;
+  @JsonKey(includeIfNull: false)
   final dynamic code;
 
   AnalyzerIssue(this.scope, this.message, [this.code]);
 
   factory AnalyzerIssue.fromJson(Map<String, dynamic> json) =>
-      new AnalyzerIssue(
-        json['scope'],
-        json['message'],
-        json['code'],
-      );
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{'scope': scope, 'message': message};
-    if (code != null) map['code'] = code;
-    return map;
-  }
+      _$AnalyzerIssueFromJson(json);
 }
 
 abstract class AnalyzerScopes {

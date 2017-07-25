@@ -2,29 +2,26 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+library pana.license;
+
 import 'dart:async';
 import 'dart:io';
 
+import 'package:json_serializable/annotations.dart';
 import 'package:path/path.dart' as p;
 
-class License {
+part 'license.g.dart';
+
+@JsonSerializable()
+class License extends Object with _$LicenseSerializerMixin {
   final String name;
+  @JsonKey(includeIfNull: false)
   final String version;
 
   License(this.name, [this.version]);
 
-  factory License.fromJson(Map json) =>
-      new License(json['name'], json['version']);
-
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{
-      'name': name,
-    };
-    if (version != null) {
-      map['version'] = version;
-    }
-    return map;
-  }
+  factory License.fromJson(Map<String, dynamic> json) =>
+      _$LicenseFromJson(json);
 
   @override
   String toString() {
