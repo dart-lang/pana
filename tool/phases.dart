@@ -20,19 +20,27 @@ final PhaseGroup phases = new PhaseGroup.singleAction(
 class VersionHelper extends TypeHelper {
   final _checker = new TypeChecker.fromRuntime(Version);
 
-  String serialize(DartType targetType, String expression, _, __) {
+  String serialize(DartType targetType, String expression, bool nullable, _) {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
 
-    return "$expression?.toString()";
+    var nullThing = nullable ? '?' : '';
+
+    return "$expression$nullThing.toString()";
   }
 
-  String deserialize(DartType targetType, String expression, _, __) {
+  String deserialize(DartType targetType, String expression, bool nullable, _) {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
 
-    return '$expression == null ? null : new Version.parse($expression)';
+    var value = 'new Version.parse($expression)';
+
+    if (nullable) {
+      value = '$expression == null ? null : $value';
+    }
+
+    return value;
   }
 }

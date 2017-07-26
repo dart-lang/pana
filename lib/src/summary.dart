@@ -71,6 +71,8 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final Map<String, Object> flutterVersion;
   final String packageName;
+
+  @JsonKey(nullable: false)
   final Version packageVersion;
   final PubSummary pubSummary;
   final Map<String, DartFileSummary> dartFiles;

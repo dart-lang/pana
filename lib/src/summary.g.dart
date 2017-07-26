@@ -59,9 +59,7 @@ abstract class _$DartFileSummarySerializerMixin {
 Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     json['sdkVersion'] as String,
     json['packageName'] as String,
-    json['packageVersion'] == null
-        ? null
-        : new Version.parse(json['packageVersion']),
+    new Version.parse(json['packageVersion']),
     json['pubSummary'] == null
         ? null
         : new PubSummary.fromJson(json['pubSummary'] as Map<String, dynamic>),
@@ -102,7 +100,7 @@ abstract class _$SummarySerializerMixin {
     $map['sdkVersion'] = sdkVersion;
     $writeNotNull('flutterVersion', flutterVersion);
     $map['packageName'] = packageName;
-    $map['packageVersion'] = packageVersion?.toString();
+    $map['packageVersion'] = packageVersion.toString();
     $map['pubSummary'] = pubSummary;
     $map['dartFiles'] = dartFiles == null
         ? null
