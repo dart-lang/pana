@@ -66,6 +66,9 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
 
 @JsonSerializable()
 class Summary extends Object with _$SummarySerializerMixin {
+  @JsonKey(nullable: false)
+  final Version panaVersion;
+
   final String sdkVersion;
 
   @JsonKey(includeIfNull: false)
@@ -81,8 +84,15 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final List<AnalyzerIssue> issues;
 
-  Summary(this.sdkVersion, this.packageName, this.packageVersion,
-      this.pubSummary, this.dartFiles, List<AnalyzerIssue> issues, this.license,
+  Summary(
+      this.panaVersion,
+      this.sdkVersion,
+      this.packageName,
+      this.packageVersion,
+      this.pubSummary,
+      this.dartFiles,
+      List<AnalyzerIssue> issues,
+      this.license,
       {this.flutterVersion})
       : this.issues = (issues == null || issues.isEmpty)
             ? null

@@ -18,6 +18,7 @@ import 'src/pubspec.dart';
 import 'src/sdk_env.dart';
 import 'src/summary.dart';
 import 'src/utils.dart';
+import 'src/version.dart';
 
 export 'src/analyzer_output.dart';
 export 'src/license.dart';
@@ -216,8 +217,8 @@ class PackageAnalyzer {
 
     var license = await detectLicenseInDir(pkgDir);
 
-    return new Summary(sdkVersion, package, new Version.parse(pkgInfo.version),
-        summary, files, issues, license,
+    return new Summary(panaPkgVersion, sdkVersion, package,
+        new Version.parse(pkgInfo.version), summary, files, issues, license,
         flutterVersion: flutterVersion);
   }
 

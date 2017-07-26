@@ -57,6 +57,7 @@ abstract class _$DartFileSummarySerializerMixin {
 // **************************************************************************
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
+    new Version.parse(json['panaVersion']),
     json['sdkVersion'] as String,
     json['packageName'] as String,
     new Version.parse(json['packageVersion']),
@@ -81,6 +82,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     flutterVersion: json['flutterVersion'] as Map<String, dynamic>);
 
 abstract class _$SummarySerializerMixin {
+  Version get panaVersion;
   String get sdkVersion;
   Map<String, Object> get flutterVersion;
   String get packageName;
@@ -97,6 +99,7 @@ abstract class _$SummarySerializerMixin {
       }
     }
 
+    $map['panaVersion'] = panaVersion.toString();
     $map['sdkVersion'] = sdkVersion;
     $writeNotNull('flutterVersion', flutterVersion);
     $map['packageName'] = packageName;

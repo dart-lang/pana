@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:test/test.dart';
+import 'package:pana/src/version.dart';
 
 import 'shared.dart';
 
@@ -13,6 +14,7 @@ final data = new E2EData('pub_server', '0.1.1+3', _data, {
 });
 
 final _data = {
+  "panaVersion": panaPkgVersion.toString(),
   "sdkVersion": startsWith("Dart VM version"),
   "packageName": "pub_server",
   "packageVersion": "0.1.1+3",
