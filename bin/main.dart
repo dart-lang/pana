@@ -11,7 +11,7 @@ import 'package:pana/pana.dart';
 final _gray = '\u001b[1;30m';
 final _none = '\u001b[0m';
 
-String gray(text) => "$_gray$text$_none";
+String gray(text) => Platform.isMacOS ? text : '$_gray$text$_none';
 
 main(List<String> arguments) async {
   // as provided, `arguments` is fixed length – turn it into a mutable `List`
