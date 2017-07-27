@@ -155,14 +155,16 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
     /// If it's a `Map` – just log and continue.
     void addDetail(String package, versionConstraint, bool isDev) {
       if (versionConstraint == null) {
-        logWeird('BAD! No constraint provided for $package');
+        if (!isDev) {
+          logWeird('BAD! No constraint provided for $package');
+        }
         return;
       }
 
       if (versionConstraint is Map) {
         if (versionConstraint['sdk'] == 'flutter') {
-          logWeird('Flutter SDK constraint for pkg/$package');
-        } else if (versionConstraint.containsKey('git')) {
+          // NOOP logWeird('Flutter SDK constraint for pkg/$package');
+        } else if (versionConstraint.containsKey('git') && !isDev) {
           logWeird(
               'BAD! git constraint for pkg/$package - ${versionConstraint['git']}');
         } else {
