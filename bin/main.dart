@@ -55,7 +55,7 @@ main(List<String> arguments) async {
   // The SIGTERM signal sent to `docker run...` DOES propagate a signal to the
   // running process. But...
   //   * It is received as SIGINT
-  //   * It won't terminal the Dart process either – *BUT* we can listen for it
+  //   * It won't terminate the Dart process either – *BUT* we can listen for it
   // So this is how we do "clean" shutdown when running in Docker.
   var subscription = getSignals().listen((sig) async {
     log.Logger.root.severe("Received signal `$sig` – terminating.");
