@@ -178,14 +178,16 @@ class PackageAnalyzer {
         libraryScanner.clearCaches();
       }
 
-      try {
-        analyzerItems = await _pkgAnalyze(pkgDir);
-      } on ArgumentError catch (e) {
-        if (e.toString().contains("No dart files found at: .")) {
-          log.warning("No files to analyze...");
-        } else {
-          issues.add(
-              new AnalyzerIssue(AnalyzerScopes.dartAnalyzer, e.toString()));
+      if (dartFiles.isNotEmpty) {
+        try {
+          analyzerItems = await _pkgAnalyze(pkgDir);
+        } on ArgumentError catch (e) {
+          if (e.toString().contains("No dart files found at: .")) {
+            log.warning("No files to analyze...");
+          } else {
+            issues.add(
+                new AnalyzerIssue(AnalyzerScopes.dartAnalyzer, e.toString()));
+          }
         }
       }
     }
