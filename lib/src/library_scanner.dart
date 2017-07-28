@@ -57,7 +57,12 @@ class LibraryScanner {
         PhysicalResourceProvider.INSTANCE, sdk, runPubList);
     var packageMapInfo = pubPackageMapProvider.computePackageMap(
         PhysicalResourceProvider.INSTANCE.getResource(packagePath) as Folder);
+
     var packageMap = packageMapInfo.packageMap;
+    if (packageMap == null) {
+      throw new StateError('An error occurred getting the package map '
+          'for the file at `$dotPackagesPath`.');
+    }
 
     var packageNames = <String>[];
     packageMap.forEach((k, v) {
@@ -74,10 +79,6 @@ class LibraryScanner {
           "Could not determine package name for package at $packagePath");
     }
 
-    if (packageMap == null) {
-      throw new StateError('An error occurred getting the package map '
-          'for the file at `$dotPackagesPath`.');
-    }
     UriResolver packageResolver = new PackageMapUriResolver(
         PhysicalResourceProvider.INSTANCE, packageMap);
 
