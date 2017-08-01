@@ -149,8 +149,8 @@ class PackageAnalyzer {
           'package:package_resolver/package_resolver.dart': ['dart:web_safe_io']
         };
 
-        libraryScanner =
-            new LibraryScanner(pkgDir, isFlutter, overrides: overrides);
+        libraryScanner = new LibraryScanner(_pubEnv, pkgDir, isFlutter,
+            overrides: overrides);
         assert(libraryScanner.packageName == package);
       } on StateError catch (e, stack) {
         log.severe("Could not create LibraryScanner", e, stack);

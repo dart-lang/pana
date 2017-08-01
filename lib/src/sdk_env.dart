@@ -6,12 +6,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cli_util/cli_util.dart' as cli;
 import 'package:path/path.dart' as p;
 
 import 'logging.dart';
 import 'utils.dart';
 
 class DartSdk {
+  final String _sdkDir;
   final Map<String, String> _environment = {};
   final String _dartCmd;
   final String _dartAnalyzerCmd;
@@ -19,8 +21,9 @@ class DartSdk {
   final String _pubCmd;
   String _version;
 
-  DartSdk({String sdkDir, Map<String, String> environment})
-      : _dartCmd = _join(sdkDir, 'bin', 'dart'),
+  DartSdk._(String sdkDir, Map<String, String> environment)
+      : _sdkDir = sdkDir,
+        _dartCmd = _join(sdkDir, 'bin', 'dart'),
         _dartAnalyzerCmd = _join(sdkDir, 'bin', 'dartanalyzer'),
         _dartfmtCmd = _join(sdkDir, 'bin', 'dartfmt'),
         _pubCmd = _join(sdkDir, 'bin', 'pub') {
@@ -28,6 +31,11 @@ class DartSdk {
       _environment.addAll(environment);
     }
   }
+
+  factory DartSdk({String sdkDir, Map<String, String> environment}) =>
+      new DartSdk._(sdkDir ?? cli.getSdkPath(), environment);
+
+  String get sdkDir => _sdkDir;
 
   String get version {
     if (_version == null) {
@@ -215,6 +223,26 @@ class PubEnvironment {
     }
 
     return new PackageLocation(package, versionString, location);
+  }
+
+  ProcessResult listPackageDirsSync(String packageDir, bool useFlutter) {
+    if (useFlutter) {
+      // flutter env
+      return runProcSync(
+        flutterSdk._flutterBin,
+        ['packages', 'pub', 'list-package-dirs'],
+        workingDirectory: packageDir,
+        environment: _environment,
+      );
+    } else {
+      // normal pub
+      return runProcSync(
+        dartSdk._pubCmd,
+        ['list-package-dirs'],
+        workingDirectory: packageDir,
+        environment: _environment,
+      );
+    }
   }
 }
 
