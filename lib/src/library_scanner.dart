@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/element/element.dart';
@@ -17,9 +16,9 @@ import 'package:analyzer/src/generated/engine.dart';
 import 'package:analyzer/src/generated/java_io.dart';
 import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer/src/generated/source_io.dart';
-import 'package:cli_util/cli_util.dart' as cli;
 import 'package:path/path.dart' as p;
 
+import 'sdk_env.dart';
 import 'utils.dart';
 
 class LibraryScanner {
@@ -33,10 +32,11 @@ class LibraryScanner {
   LibraryScanner._(this.packageName, this._packagePath, this._packageResolver,
       this._context, this._overrides);
 
-  factory LibraryScanner(String packagePath, bool useFlutter,
+  factory LibraryScanner(
+      PubEnvironment pubEnv, String packagePath, bool useFlutter,
       {Map<String, List<String>> overrides}) {
     // TODO: fail more clearly if this...fails
-    var sdkPath = cli.getSdkPath();
+    var sdkPath = pubEnv.dartSdk.sdkDir;
 
     var resourceProvider = PhysicalResourceProvider.INSTANCE;
     var sdk = new FolderBasedDartSdk(
@@ -48,9 +48,11 @@ class LibraryScanner {
           'expectetd location.\n$dotPackagesPath');
     }
 
+    // TODO: figure out why non-flutter pub list doesn't work the same way as the default
     RunPubList runPubList;
     if (useFlutter) {
-      runPubList = _flutterPubList;
+      runPubList = (Folder folder) =>
+          pubEnv.listPackageDirsSync(folder.path, useFlutter);
     }
 
     var pubPackageMapProvider = new PubPackageMapProvider(
@@ -242,30 +244,4 @@ String _normalizeLibRef(Uri uri, String package, String packageDir) {
   }
 
   throw "not supported - $uri";
-}
-
-ProcessResult _flutterPubList(Folder folder) {
-  var result = Process.runSync(
-      'flutter', ['packages', 'pub', 'list-package-dirs'],
-      workingDirectory: folder.path);
-
-  var stdoutString = result.stdout as String;
-
-  if (result.exitCode == 0 &&
-      stdoutString.contains('without superuser privileges')) {
-    // So flutter's wrapper around pub yells about superuser
-    // ... which only comes up when running via docker
-    // SO...we need to strip this crazy out.
-
-    var lines = LineSplitter.split(stdoutString).toList();
-
-    while (lines.isNotEmpty && !lines.first.startsWith("{")) {
-      lines.removeAt(0);
-    }
-
-    return new ProcessResult(
-        result.pid, result.exitCode, lines.join('\n'), result.stderr);
-  }
-
-  return result;
 }
