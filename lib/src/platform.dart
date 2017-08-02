@@ -93,7 +93,7 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
       return items.single;
     }
 
-    return "Unclear...";
+    return PlatformFlags.undefined;
   }
 }
 
