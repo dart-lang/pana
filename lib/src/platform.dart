@@ -123,6 +123,9 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
           [PlatformFlags.flutter, 'dart:ui', PlatformFlags.dartExtension]) &&
       (_webPackages.any(uses.contains) || _hasNoUseOf(['dart:io']));
 
+  bool get mayWorkOnWeb => _hasNoUseOf(
+      [PlatformFlags.flutter, 'dart:ui', PlatformFlags.dartExtension]);
+
   bool get worksOnServer =>
       _hasNoUseOf(_webAnd(['dart:ui', PlatformFlags.flutter]));
 
@@ -147,6 +150,8 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
 
     if (worksOnWeb) {
       items.add(PlatformFlags.web);
+    } else if (mayWorkOnWeb) {
+      items.add('${PlatformFlags.web}?');
     }
 
     if (items.isEmpty) {
