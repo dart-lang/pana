@@ -115,7 +115,7 @@ class PubEnvironment {
   PubEnvironment({DartSdk dartSdk, FlutterSdk flutterSdk, this.pubCacheDir})
       : this.dartSdk = dartSdk ?? new DartSdk(),
         this.flutterSdk = flutterSdk ?? new FlutterSdk() {
-    _environment.addAll(dartSdk._environment);
+    _environment.addAll(this.dartSdk._environment);
     if (!_environment.containsKey(_pubEnvironmentKey)) {
       // Then do the standard behavior. Extract the current value, if any,
       // and append the default value
