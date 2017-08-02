@@ -88,9 +88,35 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
 
     var items = libraries.values.expand((pi) => pi.descriptionSet).toSet();
 
-    // TODO(kevmoo) – the comma thing is a hack!
     if (items.length == 1) {
       return items.single;
+    }
+
+    String pkgName;
+    var primaryLibrary = libraries.keys.firstWhere((path) {
+      var uri = Uri.parse(path);
+      assert(uri.pathSegments.length >= 2);
+      if (pkgName == null) {
+        pkgName = uri.pathSegments[0];
+      } else {
+        assert(uri.pathSegments[0] == pkgName);
+      }
+
+      if (uri.scheme == 'path') {
+        return false;
+      }
+      assert(uri.scheme == 'package');
+
+
+      return uri.pathSegments.length == 2 &&
+          uri.pathSegments[1] == '$pkgName.dart';
+    }, orElse: () => null);
+
+    if (primaryLibrary != null) {
+      var primaryPlatform = libraries[primaryLibrary];
+      if (primaryPlatform.descriptionSet.length == 1) {
+        return primaryPlatform.descriptionSet.single;
+      }
     }
 
     return PlatformFlags.undefined;
