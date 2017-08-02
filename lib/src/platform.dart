@@ -10,9 +10,11 @@ part 'platform.g.dart';
 class PubspecPlatform {
   final String description;
 
-  static const PubspecPlatform flutter = const PubspecPlatform._('flutter');
+  static const PubspecPlatform flutter =
+      const PubspecPlatform._(PlatformFlags.flutter);
 
-  static const PubspecPlatform undefined = const PubspecPlatform._('undefined');
+  static const PubspecPlatform undefined =
+      const PubspecPlatform._(PlatformFlags.undefined);
 
   bool get isFlutter => description == flutter.description;
 
@@ -20,9 +22,9 @@ class PubspecPlatform {
 
   factory PubspecPlatform.fromJson(String value) {
     switch (value) {
-      case 'flutter':
+      case PlatformFlags.flutter:
         return flutter;
-      case 'undefined':
+      case PlatformFlags.undefined:
         return undefined;
       default:
         throw new ArgumentError.value(value, 'value', 'Not a supported value.');
@@ -35,11 +37,26 @@ class PubspecPlatform {
 }
 
 abstract class PlatformFlags {
-  /// Denotes a package that references Flutter in `pubspec.yaml`.
+  /// Package uses or depends on Flutter.
   static const String flutter = 'flutter';
 
-  /// Denotes a library that depends on a native extensions via `dart-ext:`
+  /// Package uses or depends on a native extensions via `dart-ext:`
   static const String dartExtension = 'dart-ext';
+
+  /// Package works everywhere.
+  static const String everywhere = 'everywhere';
+
+  /// Package's platform is unspecified.
+  static const String undefined = 'undefined';
+
+  /// Package's dependencies are in conflict, won't work.
+  static const String conflict = 'conflict';
+
+  /// Package is available in server applications.
+  static const String server = 'server';
+
+  /// Package is available in web applications.
+  static const String web = 'web';
 }
 
 @JsonSerializable()
@@ -61,10 +78,10 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
   String get description {
     if (pubspec.isFlutter) {
       if (libraries.values.every((pi) => pi.worksOnFlutter)) {
-        return 'flutter';
+        return PlatformFlags.flutter;
       }
       assert(hasConflict);
-      return 'conflict';
+      return PlatformFlags.conflict;
     }
 
     assert(pubspec == PubspecPlatform.undefined);
@@ -116,25 +133,25 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
 
   Set<String> get descriptionSet {
     if (worksEverywhere) {
-      return new Set.from(['everywhere']);
+      return new Set.from([PlatformFlags.everywhere]);
     }
 
     var items = <String>[];
     if (worksOnFlutter) {
-      items.add('flutter');
+      items.add(PlatformFlags.flutter);
     }
 
     if (worksOnServer) {
-      items.add('server');
+      items.add(PlatformFlags.server);
     }
 
     if (worksOnWeb) {
-      items.add('web');
+      items.add(PlatformFlags.web);
     }
 
     if (items.isEmpty) {
       assert(hasConflict);
-      return new Set.from(['conflict']);
+      return new Set.from([PlatformFlags.conflict]);
     }
 
     assert(!hasConflict);
