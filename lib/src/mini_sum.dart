@@ -16,7 +16,7 @@ class MiniSum {
       _summary.pubSummary.authors.map(_domainFromAuthor));
 
   int get unformattedFiles =>
-      _summary.dartFiles.values.where((f) => !f.isFormatted).length;
+      _summary.dartFiles.values.where((f) => !(f?.isFormatted ?? false)).length;
 
   Iterable<AnalyzerOutput> get analyzerItems => _summary.analyzerItems;
 
