@@ -75,6 +75,27 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
   bool get _conflictsFlutter =>
       pubspec.isFlutter && libraries.values.any((p) => !p.worksOnFlutter);
 
+  String get primaryLibrary {
+    String pkgName;
+    return libraries.keys.firstWhere((path) {
+      var uri = Uri.parse(path);
+      assert(uri.pathSegments.length >= 2);
+      if (pkgName == null) {
+        pkgName = uri.pathSegments[0];
+      } else {
+        assert(uri.pathSegments[0] == pkgName);
+      }
+
+      if (uri.scheme == 'path') {
+        return false;
+      }
+      assert(uri.scheme == 'package');
+
+      return uri.pathSegments.length == 2 &&
+          uri.pathSegments[1] == '$pkgName.dart';
+    }, orElse: () => null);
+  }
+
   String get description {
     if (pubspec.isFlutter) {
       if (libraries.values.every((pi) => pi.worksOnFlutter)) {
@@ -92,30 +113,13 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
       return items.single;
     }
 
-    String pkgName;
-    var primaryLibrary = libraries.keys.firstWhere((path) {
-      var uri = Uri.parse(path);
-      assert(uri.pathSegments.length >= 2);
-      if (pkgName == null) {
-        pkgName = uri.pathSegments[0];
-      } else {
-        assert(uri.pathSegments[0] == pkgName);
-      }
-
-      if (uri.scheme == 'path') {
-        return false;
-      }
-      assert(uri.scheme == 'package');
-
-
-      return uri.pathSegments.length == 2 &&
-          uri.pathSegments[1] == '$pkgName.dart';
-    }, orElse: () => null);
+    var primaryLibrary = this.primaryLibrary;
 
     if (primaryLibrary != null) {
       var primaryPlatform = libraries[primaryLibrary];
-      if (primaryPlatform.descriptionSet.length == 1) {
-        return primaryPlatform.descriptionSet.single;
+      var primaryPlatformSet = primaryPlatform.descriptionSet;
+      if (primaryPlatformSet.length == 1) {
+        return primaryPlatformSet.single;
       }
     }
 
