@@ -4,7 +4,6 @@ part of pana.license;
 
 // **************************************************************************
 // Generator: JsonSerializableGenerator
-// Target: class License
 // **************************************************************************
 
 License _$LicenseFromJson(Map<String, dynamic> json) =>

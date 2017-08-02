@@ -17,7 +17,7 @@ class PackageVersionGenerator extends GeneratorForAnnotation<PackageVersion> {
 
   @override
   Future<String> generateForAnnotatedElement(
-      Element element, PackageVersion annotation, BuildStep buildStep) async {
+      Element element, ConstantReader annotation, BuildStep buildStep) async {
     var content =
         await buildStep.readAsString(new AssetId.parse('pana|pubspec.yaml'));
 

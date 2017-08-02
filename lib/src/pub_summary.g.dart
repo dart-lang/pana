@@ -4,7 +4,6 @@ part of pana.pub_summary;
 
 // **************************************************************************
 // Generator: JsonSerializableGenerator
-// Target: class PubSummary
 // **************************************************************************
 
 PubSummary _$PubSummaryFromJson(Map<String, dynamic> json) => new PubSummary(

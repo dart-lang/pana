@@ -9,7 +9,7 @@ import 'package:pana/src/source_gen/version_generator.dart';
 import 'package:pana/src/source_gen/version_helper.dart';
 
 final PhaseGroup phases = new PhaseGroup.singleAction(
-    new GeneratorBuilder([
+    new PartBuilder([
       new JsonSerializableGenerator.withDefaultHelpers([new VersionHelper()]),
       new PackageVersionGenerator()
     ]),

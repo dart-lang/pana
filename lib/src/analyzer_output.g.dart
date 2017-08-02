@@ -4,7 +4,6 @@ part of pana.analyzer_output;
 
 // **************************************************************************
 // Generator: JsonSerializableGenerator
-// Target: class AnalyzerOutput
 // **************************************************************************
 
 AnalyzerOutput _$AnalyzerOutputFromJson(Map<String, dynamic> json) =>

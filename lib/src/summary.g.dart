@@ -4,7 +4,6 @@ part of pana.summary;
 
 // **************************************************************************
 // Generator: JsonSerializableGenerator
-// Target: class DartFileSummary
 // **************************************************************************
 
 DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) =>
@@ -50,11 +49,6 @@ abstract class _$DartFileSummarySerializerMixin {
     return $map;
   }
 }
-
-// **************************************************************************
-// Generator: JsonSerializableGenerator
-// Target: class Summary
-// **************************************************************************
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     new Version.parse(json['panaVersion']),
@@ -114,11 +108,6 @@ abstract class _$SummarySerializerMixin {
     return $map;
   }
 }
-
-// **************************************************************************
-// Generator: JsonSerializableGenerator
-// Target: class AnalyzerIssue
-// **************************************************************************
 
 AnalyzerIssue _$AnalyzerIssueFromJson(Map<String, dynamic> json) =>
     new AnalyzerIssue(

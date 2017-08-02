@@ -4,7 +4,6 @@ part of pana.platform;
 
 // **************************************************************************
 // Generator: JsonSerializableGenerator
-// Target: class PlatformSummary
 // **************************************************************************
 
 PlatformSummary _$PlatformSummaryFromJson(Map<String, dynamic> json) =>
@@ -31,11 +30,6 @@ abstract class _$PlatformSummarySerializerMixin {
                 libraries.keys, libraries.values.map((e) => e))
       };
 }
-
-// **************************************************************************
-// Generator: JsonSerializableGenerator
-// Target: class PlatformInfo
-// **************************************************************************
 
 PlatformInfo _$PlatformInfoFromJson(Map<String, dynamic> json) =>
     new PlatformInfo((json['uses'] as List)?.map((e) => e as String));
