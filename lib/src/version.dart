@@ -6,7 +6,7 @@ library pana.version;
 
 import 'package:pub_semver/pub_semver.dart';
 
-import 'source_gen/annotations.dart';
+import 'annotations.dart';
 
 part 'version.g.dart';
 

@@ -20,6 +20,7 @@ dependencies:
   yaml: ^2.1.12
 
 dev_dependencies:
+  build: ^0.9.3
   build_runner: ^0.3.4
   source_gen: ^0.7.0
   test: ^0.12.0

@@ -10,7 +10,7 @@ import 'package:pub_semver/pub_semver.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:yaml/yaml.dart';
 
-import 'annotations.dart';
+import 'package:pana/src/annotations.dart';
 
 class PackageVersionGenerator extends GeneratorForAnnotation<PackageVersion> {
   const PackageVersionGenerator();
