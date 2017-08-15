@@ -3,8 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 import 'package:build_runner/build_runner.dart';
 
-import 'phases.dart';
+import 'build_actions.dart';
 
 main() {
-  watch(phases, deleteFilesByDefault: true);
+  watch(buildActions, deleteFilesByDefault: true);
 }
