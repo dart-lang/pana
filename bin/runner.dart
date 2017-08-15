@@ -8,19 +8,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:io/ansi.dart';
 import 'package:logging/logging.dart';
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as p;
 import 'package:pool/pool.dart';
-
-final _clear = _isPosixTerminal ? '\x1b[2K\r' : '';
-final _cyan = _isPosixTerminal ? '\u001b[36m' : '';
-final _yellow = _isPosixTerminal ? '\u001b[33m' : '';
-final _red = _isPosixTerminal ? '\u001b[31m' : '';
-final _endColor = _isPosixTerminal ? '\u001b[0m' : '';
-final _dimColor = _isPosixTerminal ? '\u001b[2m' : '';
-final _isPosixTerminal =
-    !Platform.isWindows && stdioType(stdout) == StdioType.TERMINAL;
 
 // Name of Docker instance and output directory
 final _dockerName = 'results';
@@ -59,8 +51,7 @@ main(List<String> args) async {
       toProcess.add(pkg);
     } else {
       // skip it
-      stderr.writeAll(
-          [_cyan, "Skipping `$pkg` – already exists.", _endColor, '\n']);
+      stderr.writeln(cyan.wrap("Skipping `$pkg` – already exists."));
     }
   }
 
@@ -96,16 +87,14 @@ main(List<String> args) async {
         line = line.substring(0, cols);
       }
 
-      String color;
-      if (log.level < Level.INFO) {
-        color = _dimColor;
-      } else if (log.level >= Level.WARNING) {
-        color = _red;
-      }
+      overrideAnsiOutput(stderr.supportsAnsiEscapes, () {
+        if (log.level < Level.INFO) {
+          line = styleDim.wrap(line);
+        } else if (log.level >= Level.WARNING) {
+          line = red.wrap(line);
+        }
+      });
 
-      if (color != null) {
-        line = "$color$line$_endColor";
-      }
       stderr.writeln(line);
     }
   });

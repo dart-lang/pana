@@ -1,3 +1,4 @@
+#!/usr/bin/env dart --checked
 // Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
@@ -5,13 +6,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:io/ansi.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pana/pana.dart';
-
-final _gray = '\u001b[1;30m';
-final _none = '\u001b[0m';
-
-String gray(text) => "$_gray$text$_none";
 
 main(List<String> arguments) async {
   // as provided, `arguments` is fixed length – turn it into a mutable `List`
@@ -96,7 +93,7 @@ main(List<String> arguments) async {
   await subscription.cancel();
 }
 
-void _logWriter(record) {
+void _logWriter(log.LogRecord record) {
   var wroteHeader = false;
 
   var msg = LineSplitter
@@ -114,5 +111,7 @@ void _logWriter(record) {
     return "${prefix.padRight(10)} ${l}";
   }).join('\n');
 
-  stderr.writeln(gray(msg));
+  overrideAnsiOutput(stderr.supportsAnsiEscapes, () {
+    stderr.writeln(darkGray.wrap(msg));
+  });
 }
