@@ -99,10 +99,7 @@ abstract class _$SummarySerializerMixin {
     $map['packageName'] = packageName;
     $map['packageVersion'] = packageVersion.toString();
     $map['pubSummary'] = pubSummary;
-    $map['dartFiles'] = dartFiles == null
-        ? null
-        : new Map<String, dynamic>.fromIterables(
-            dartFiles.keys, dartFiles.values.map((e) => e));
+    $map['dartFiles'] = dartFiles;
     $map['license'] = license;
     $writeNotNull('issues', issues);
     return $map;

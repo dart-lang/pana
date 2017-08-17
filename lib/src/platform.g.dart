@@ -22,13 +22,8 @@ PlatformSummary _$PlatformSummaryFromJson(Map<String, dynamic> json) =>
 abstract class _$PlatformSummarySerializerMixin {
   PubspecPlatform get pubspec;
   Map<String, PlatformInfo> get libraries;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'pubspec': pubspec,
-        'libraries': libraries == null
-            ? null
-            : new Map<String, dynamic>.fromIterables(
-                libraries.keys, libraries.values.map((e) => e))
-      };
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'pubspec': pubspec, 'libraries': libraries};
 }
 
 PlatformInfo _$PlatformInfoFromJson(Map<String, dynamic> json) =>
