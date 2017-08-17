@@ -2,10 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:pana/src/mini_sum.dart';
+import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as p;
 
 main() async {
@@ -45,4 +47,18 @@ void _updateResults(List<MiniSum> summaries) {
     print([e, e.unsupportedObject, e.cause, e.stackTrace]);
     rethrow;
   }
+
+  var types = new SplayTreeMap<String, int>();
+
+  for (var miniSum in summaries) {
+    print(miniSum.summary.packageName);
+    var platformSummary = miniSum.summary.getPlatformSummary();
+
+    print('\t${platformSummary.description}');
+
+    types[platformSummary.description] =
+        (types[platformSummary.description] ?? 0) + 1;
+  }
+
+  print(prettyJson(types));
 }

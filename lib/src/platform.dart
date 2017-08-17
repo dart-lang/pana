@@ -107,7 +107,9 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
 
     assert(pubspec == PubspecPlatform.undefined);
 
-    var items = libraries.values.expand((pi) => pi.descriptionSet).toSet();
+    var items = (libraries.values.expand((pi) => pi.descriptionSet).toList()
+          ..sort())
+        .toSet();
 
     if (items.length == 1) {
       return items.single;
@@ -123,7 +125,23 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
       }
     }
 
-    return PlatformFlags.undefined;
+    // If the primary library search fails, go back to the roll-up of all
+    // platforms. See if excluding `everywhere` leads us to something more
+    // specific.
+
+    if (items.length > 1) {
+      items.remove(PlatformFlags.everywhere);
+
+      if (items.length == 1) {
+        return items.single;
+      }
+    }
+
+    if (items.isEmpty) {
+      return PlatformFlags.undefined;
+    }
+
+    return items.join(',');
   }
 }
 
