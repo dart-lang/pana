@@ -8,23 +8,19 @@ import 'utils.dart';
 class MiniSum {
   static const _importantDirs = const ['bin', 'lib', 'test'];
 
-  final Summary _summary;
+  final Summary summary;
 
-  bool get pubClean => _summary.pubSummary != null;
+  bool get pubClean => summary.pubSummary != null;
 
   Set<String> get authorDomains => new SplayTreeSet<String>.from(
-      _summary.pubSummary.authors.map(_domainFromAuthor));
+      summary.pubSummary.authors.map(_domainFromAuthor));
 
   int get unformattedFiles =>
-      _summary.dartFiles.values.where((f) => !(f?.isFormatted ?? false)).length;
+      summary.dartFiles.values.where((f) => !(f?.isFormatted ?? false)).length;
 
-  Iterable<AnalyzerOutput> get analyzerItems => _summary.analyzerItems;
+  Iterable<AnalyzerOutput> get analyzerItems => summary.analyzerItems;
 
-  MiniSum._(this._summary);
-
-  factory MiniSum.fromSummary(Summary summary) {
-    return new MiniSum._(summary);
-  }
+  MiniSum(this.summary);
 
   factory MiniSum.fromFileContent(String content) {
     var output = JSON.decode(content) as Map<String, dynamic>;
@@ -37,28 +33,31 @@ class MiniSum {
 
     assert(prettyJson(summary.toJson()) == prettyJson(output));
 
-    return new MiniSum.fromSummary(summary);
+    return new MiniSum(summary);
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{
-      'name': _summary.packageName,
-      'version': _summary.packageVersion.toString(),
+      'name': summary.packageName,
+      'version': summary.packageVersion.toString(),
     };
 
     // dependency info
-    map.addAll(_summary.pubSummary.getStats());
+    map.addAll(summary.pubSummary.getStats());
 
     // analyzer info
-    map.addAll(_analyzerThings(_summary.analyzerItems));
+    map.addAll(_analyzerThings(summary.analyzerItems));
+
+    // analyzer bytes - total bytes of dart files in _analyzeDirs
+    map['analyzed_bytes'] = _analyzerDartBytes(summary.dartFiles);
 
     // file info
-    map.addAll(_classifyFiles(_summary.dartFiles.keys));
+    map.addAll(_classifyFiles(summary.dartFiles.keys));
 
     // format
-    map['pctFormatted'] = _summary.dartFiles.isEmpty
+    map['pctFormatted'] = summary.dartFiles.isEmpty
         ? 1.0
-        : 1.0 - unformattedFiles / _summary.dartFiles.length;
+        : 1.0 - unformattedFiles / summary.dartFiles.length;
 
     map['authorDomains'] = authorDomains.join(', ');
 
@@ -86,6 +85,17 @@ class MiniSum {
 
     return items.join(',');
   }
+}
+
+int _analyzerDartBytes(Map<String, DartFileSummary> data) {
+  var bytes = 0;
+  data.forEach((path, summary) {
+    if (_analyzeDirs.contains(_classifyFile(path))) {
+      bytes += summary.size;
+    }
+  });
+
+  return bytes;
 }
 
 const _analyzeDirs = const ['lib', 'bin'];
