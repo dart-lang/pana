@@ -46,13 +46,13 @@ final _data = {
   },
   "dartFiles": {
     "example/server.dart": {
-      "uri": "path:pub_server/example/server.dart",
+      "uri": "asset:pub_server/example/server.dart",
       "size": 2209,
       "isFormatted": true,
       "analyzerItems": [],
     },
     "example/src/examples/cow_repository.dart": {
-      "uri": "path:pub_server/example/src/examples/cow_repository.dart",
+      "uri": "asset:pub_server/example/src/examples/cow_repository.dart",
       "size": 5001,
       "isFormatted": false,
       "analyzerItems": [
@@ -68,7 +68,7 @@ final _data = {
       ]
     },
     "example/src/examples/file_repository.dart": {
-      "uri": "path:pub_server/example/src/examples/file_repository.dart",
+      "uri": "asset:pub_server/example/src/examples/file_repository.dart",
       "size": 4145,
       "isFormatted": true,
       "analyzerItems": [
@@ -93,7 +93,7 @@ final _data = {
       ]
     },
     "example/src/examples/http_proxy_repository.dart": {
-      "uri": "path:pub_server/example/src/examples/http_proxy_repository.dart",
+      "uri": "asset:pub_server/example/src/examples/http_proxy_repository.dart",
       "size": 2956,
       "isFormatted": false,
       "analyzerItems": []
@@ -352,7 +352,7 @@ final _data = {
       }
     },
     "test/shelf_pubserver_test.dart": {
-      "uri": "path:pub_server/test/shelf_pubserver_test.dart",
+      "uri": "asset:pub_server/test/shelf_pubserver_test.dart",
       "size": 22061,
       "isFormatted": false,
       "analyzerItems": [

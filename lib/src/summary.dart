@@ -61,7 +61,7 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   /// Whether the file has any local import that point outside of the lib/
   bool get hasOutsideLibDependency =>
       directLibs != null &&
-      directLibs.any((String lib) => lib.startsWith('path:'));
+      directLibs.any((String lib) => lib.startsWith('asset:'));
 }
 
 @JsonSerializable()

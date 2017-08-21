@@ -86,7 +86,7 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
         assert(uri.pathSegments[0] == pkgName);
       }
 
-      if (uri.scheme == 'path') {
+      if (uri.scheme == 'asset') {
         return false;
       }
       assert(uri.scheme == 'package');

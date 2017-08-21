@@ -188,7 +188,7 @@ String toPackageUri(String package, String relativePath) {
   if (relativePath.startsWith('lib/')) {
     return 'package:$package/${relativePath.substring(4)}';
   } else {
-    return 'path:$package/$relativePath';
+    return 'asset:$package/$relativePath';
   }
 }
 
