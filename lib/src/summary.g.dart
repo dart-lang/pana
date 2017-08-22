@@ -32,21 +32,23 @@ abstract class _$DartFileSummarySerializerMixin {
   List<String> get transitiveLibs;
   PlatformInfo get platform;
   Map<String, dynamic> toJson() {
-    var $map = <String, dynamic>{};
-    void $writeNotNull(String key, dynamic value) {
+    var val = <String, dynamic>{
+      'uri': uri,
+      'size': size,
+      'isFormatted': isFormatted,
+      'analyzerItems': analyzerItems,
+    };
+
+    void writeNotNull(String key, dynamic value) {
       if (value != null) {
-        $map[key] = value;
+        val[key] = value;
       }
     }
 
-    $map['uri'] = uri;
-    $map['size'] = size;
-    $map['isFormatted'] = isFormatted;
-    $map['analyzerItems'] = analyzerItems;
-    $writeNotNull('directLibs', directLibs);
-    $writeNotNull('transitiveLibs', transitiveLibs);
-    $writeNotNull('platform', platform);
-    return $map;
+    writeNotNull('directLibs', directLibs);
+    writeNotNull('transitiveLibs', transitiveLibs);
+    writeNotNull('platform', platform);
+    return val;
   }
 }
 
@@ -86,23 +88,25 @@ abstract class _$SummarySerializerMixin {
   License get license;
   List<AnalyzerIssue> get issues;
   Map<String, dynamic> toJson() {
-    var $map = <String, dynamic>{};
-    void $writeNotNull(String key, dynamic value) {
+    var val = <String, dynamic>{
+      'panaVersion': panaVersion.toString(),
+      'sdkVersion': sdkVersion,
+    };
+
+    void writeNotNull(String key, dynamic value) {
       if (value != null) {
-        $map[key] = value;
+        val[key] = value;
       }
     }
 
-    $map['panaVersion'] = panaVersion.toString();
-    $map['sdkVersion'] = sdkVersion;
-    $writeNotNull('flutterVersion', flutterVersion);
-    $map['packageName'] = packageName;
-    $map['packageVersion'] = packageVersion.toString();
-    $map['pubSummary'] = pubSummary;
-    $map['dartFiles'] = dartFiles;
-    $map['license'] = license;
-    $writeNotNull('issues', issues);
-    return $map;
+    writeNotNull('flutterVersion', flutterVersion);
+    val['packageName'] = packageName;
+    val['packageVersion'] = packageVersion.toString();
+    val['pubSummary'] = pubSummary;
+    val['dartFiles'] = dartFiles;
+    val['license'] = license;
+    writeNotNull('issues', issues);
+    return val;
   }
 }
 
@@ -115,16 +119,18 @@ abstract class _$AnalyzerIssueSerializerMixin {
   String get message;
   dynamic get code;
   Map<String, dynamic> toJson() {
-    var $map = <String, dynamic>{};
-    void $writeNotNull(String key, dynamic value) {
+    var val = <String, dynamic>{
+      'scope': scope,
+      'message': message,
+    };
+
+    void writeNotNull(String key, dynamic value) {
       if (value != null) {
-        $map[key] = value;
+        val[key] = value;
       }
     }
 
-    $map['scope'] = scope;
-    $map['message'] = message;
-    $writeNotNull('code', code);
-    return $map;
+    writeNotNull('code', code);
+    return val;
   }
 }

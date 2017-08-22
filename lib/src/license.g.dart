@@ -13,15 +13,17 @@ abstract class _$LicenseSerializerMixin {
   String get name;
   String get version;
   Map<String, dynamic> toJson() {
-    var $map = <String, dynamic>{};
-    void $writeNotNull(String key, dynamic value) {
+    var val = <String, dynamic>{
+      'name': name,
+    };
+
+    void writeNotNull(String key, dynamic value) {
       if (value != null) {
-        $map[key] = value;
+        val[key] = value;
       }
     }
 
-    $map['name'] = name;
-    $writeNotNull('version', version);
-    return $map;
+    writeNotNull('version', version);
+    return val;
   }
 }
