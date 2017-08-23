@@ -18,6 +18,7 @@ import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer/src/generated/source_io.dart';
 import 'package:path/path.dart' as p;
 
+import 'logging.dart';
 import 'sdk_env.dart';
 import 'utils.dart';
 
@@ -66,19 +67,35 @@ class LibraryScanner {
           'for the file at `$dotPackagesPath`.');
     }
 
+    String package;
     var packageNames = <String>[];
     packageMap.forEach((k, v) {
+      if (package != null) {
+        return;
+      }
+
+      assert(package == null);
+
+      // if there is an exact match to the lib directory, use that
+      if (v.any((f) => p.equals(p.join(packagePath, 'lib'), f.path))) {
+        package = k;
+        return;
+      }
+
       if (v.any((f) => p.isWithin(packagePath, f.path))) {
         packageNames.add(k);
       }
     });
 
-    String package;
-    if (packageNames.length == 1) {
-      package = packageNames.single;
-    } else {
-      throw new StateError(
-          "Could not determine package name for package at $packagePath");
+    if (package == null) {
+      if (packageNames.length == 1) {
+        package = packageNames.single;
+        log.warning("Weird: `$package` at `${packageMap[package]}`.");
+      } else {
+        throw new StateError(
+            "Could not determine package name for package at `$packagePath` "
+            "- found ${packageNames.toSet().join(', ')}");
+      }
     }
 
     UriResolver packageResolver = new PackageMapUriResolver(
