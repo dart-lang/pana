@@ -58,14 +58,14 @@ final _data = {
       "isFormatted": false,
       "analyzerItems": [
         {
-          "type":
-              "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-          "file": "example/src/examples/cow_repository.dart",
-          "line": 89,
-          "col": 3,
-          "error":
-              "Invalid override. The type of 'CopyAndWriteRepository.upload' ('(Stream<List<int>>) → Future<dynamic>') isn't a subtype of 'PackageRepository.upload' ('(Stream<List<int>>) → Future<PackageVersion>')."
-        }
+          'type':
+              'ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE',
+          'file': 'example/src/examples/cow_repository.dart',
+          'line': 89,
+          'col': 3,
+          'error':
+              'Invalid override. The type of \'CopyAndWriteRepository.upload\' (\'(Stream<List<int>>) → Future<dynamic>\') isn\'t a subtype of \'PackageRepository.upload\' (\'(Stream<List<int>>) → Future<PackageVersion>\').'
+        },
       ]
     },
     "example/src/examples/file_repository.dart": {
@@ -74,23 +74,23 @@ final _data = {
       "isFormatted": true,
       "analyzerItems": [
         {
-          "type":
-              "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR",
-          "file": "example/src/examples/file_repository.dart",
-          "line": 31,
-          "col": 16,
-          "error":
-              "The function expression type '(Directory) → PackageVersion' isn't of type '(FileSystemEntity) → PackageVersion'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s)."
+          'type':
+              'ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
+          'file': 'example/src/examples/file_repository.dart',
+          'line': 31,
+          'col': 16,
+          'error':
+              'The function expression type \'(Directory) → PackageVersion\' isn\'t of type \'(FileSystemEntity) → PackageVersion\'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).'
         },
         {
-          "type":
-              "ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE",
-          "file": "example/src/examples/file_repository.dart",
-          "line": 59,
-          "col": 3,
-          "error":
-              "Invalid override. The type of 'FileRepository.upload' ('(Stream<List<int>>) → Future<dynamic>') isn't a subtype of 'PackageRepository.upload' ('(Stream<List<int>>) → Future<PackageVersion>')."
-        }
+          'type':
+              'ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE',
+          'file': 'example/src/examples/file_repository.dart',
+          'line': 59,
+          'col': 3,
+          'error':
+              'Invalid override. The type of \'FileRepository.upload\' (\'(Stream<List<int>>) → Future<dynamic>\') isn\'t a subtype of \'PackageRepository.upload\' (\'(Stream<List<int>>) → Future<PackageVersion>\').'
+        },
       ]
     },
     "example/src/examples/http_proxy_repository.dart": {
@@ -358,54 +358,54 @@ final _data = {
       "isFormatted": false,
       "analyzerItems": [
         {
-          "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-          "file": "test/shelf_pubserver_test.dart",
-          "line": 215,
-          "col": 54,
-          "error": "'expectAsync' is deprecated and shouldn't be used."
+          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
+          'file': 'test/shelf_pubserver_test.dart',
+          'line': 215,
+          'col': 54,
+          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
         },
         {
-          "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-          "file": "test/shelf_pubserver_test.dart",
-          "line": 236,
-          "col": 54,
-          "error": "'expectAsync' is deprecated and shouldn't be used."
+          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
+          'file': 'test/shelf_pubserver_test.dart',
+          'line': 236,
+          'col': 54,
+          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
         },
         {
-          "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-          "file": "test/shelf_pubserver_test.dart",
-          "line": 239,
-          "col": 21,
-          "error": "'expectAsync' is deprecated and shouldn't be used."
+          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
+          'file': 'test/shelf_pubserver_test.dart',
+          'line': 239,
+          'col': 21,
+          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
         },
         {
-          "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-          "file": "test/shelf_pubserver_test.dart",
-          "line": 362,
-          "col": 32,
-          "error": "'expectAsync' is deprecated and shouldn't be used."
+          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
+          'file': 'test/shelf_pubserver_test.dart',
+          'line': 362,
+          'col': 32,
+          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
         },
         {
-          "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-          "file": "test/shelf_pubserver_test.dart",
-          "line": 415,
-          "col": 32,
-          "error": "'expectAsync' is deprecated and shouldn't be used."
+          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
+          'file': 'test/shelf_pubserver_test.dart',
+          'line': 415,
+          'col': 32,
+          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
         },
         {
-          "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-          "file": "test/shelf_pubserver_test.dart",
-          "line": 506,
-          "col": 31,
-          "error": "'expectAsync' is deprecated and shouldn't be used."
+          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
+          'file': 'test/shelf_pubserver_test.dart',
+          'line': 506,
+          'col': 31,
+          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
         },
         {
-          "type": "INFO|HINT|DEPRECATED_MEMBER_USE",
-          "file": "test/shelf_pubserver_test.dart",
-          "line": 559,
-          "col": 34,
-          "error": "'expectAsync' is deprecated and shouldn't be used."
-        }
+          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
+          'file': 'test/shelf_pubserver_test.dart',
+          'line': 559,
+          'col': 34,
+          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
+        },
       ]
     },
   },
