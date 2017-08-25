@@ -26,6 +26,17 @@ abstract class _$PlatformSummarySerializerMixin {
       <String, dynamic>{'pubspec': pubspec, 'libraries': libraries};
 }
 
+PlatformDescription _$PlatformDescriptionFromJson(Map<String, dynamic> json) =>
+    new PlatformDescription(
+        json['description'] as String, json['details'] as String);
+
+abstract class _$PlatformDescriptionSerializerMixin {
+  String get description;
+  String get details;
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'description': description, 'details': details};
+}
+
 PlatformInfo _$PlatformInfoFromJson(Map<String, dynamic> json) =>
     new PlatformInfo((json['uses'] as List)?.map((e) => e as String));
 

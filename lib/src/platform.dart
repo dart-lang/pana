@@ -96,23 +96,31 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
     }, orElse: () => null);
   }
 
-  String get description {
+  String get description => fullDescription.description;
+
+  PlatformDescription get fullDescription {
     if (pubspec.isFlutter) {
       if (libraries.values.every((pi) => pi.worksOnFlutter)) {
-        return PlatformFlags.flutter;
+        return new PlatformDescription(
+            PlatformFlags.flutter, 'pubspec reference with no conflicts');
       }
       assert(hasConflict);
-      return PlatformFlags.conflict;
+      return new PlatformDescription(
+          PlatformFlags.conflict, 'flutter package with library conflicts');
     }
 
     assert(pubspec == PubspecPlatform.undefined);
+
+    if (libraries.isEmpty) {
+      return new PlatformDescription(PlatformFlags.undefined, 'no libraries!');
+    }
 
     var items = (libraries.values.expand((pi) => pi.descriptionSet).toList()
           ..sort())
         .toSet();
 
     if (items.length == 1) {
-      return items.single;
+      return new PlatformDescription(items.single, 'All libraries agree');
     }
 
     var primaryLibrary = this.primaryLibrary;
@@ -121,7 +129,8 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
       var primaryPlatform = libraries[primaryLibrary];
       var primaryPlatformSet = primaryPlatform.descriptionSet;
       if (primaryPlatformSet.length == 1) {
-        return primaryPlatformSet.single;
+        return new PlatformDescription(
+            primaryPlatformSet.single, 'primary library - `$primaryLibrary');
       }
     }
 
@@ -129,20 +138,35 @@ class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
     // platforms. See if excluding `everywhere` leads us to something more
     // specific.
 
+    var everythingRemoved = false;
     if (items.length > 1) {
-      items.remove(PlatformFlags.everywhere);
+      everythingRemoved = items.remove(PlatformFlags.everywhere);
 
       if (items.length == 1) {
-        return items.single;
+        return new PlatformDescription(
+            items.single, 'one library with an opinion - $everythingRemoved');
       }
     }
 
     if (items.isEmpty) {
-      return PlatformFlags.undefined;
+      return new PlatformDescription(
+          PlatformFlags.undefined, 'no library opinions? - $everythingRemoved');
     }
 
-    return items.join(',');
+    return new PlatformDescription(items.join(','), 'all of the above');
   }
+}
+
+@JsonSerializable()
+class PlatformDescription extends Object
+    with _$PlatformDescriptionSerializerMixin {
+  final String description;
+  final String details;
+
+  PlatformDescription(this.description, this.details);
+
+  factory PlatformDescription.fromJson(Map<String, dynamic> json) =>
+      _$PlatformDescriptionFromJson(json);
 }
 
 @JsonSerializable()

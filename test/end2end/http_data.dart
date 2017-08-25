@@ -8,7 +8,8 @@ import 'package:pana/src/version.dart';
 import 'shared.dart';
 
 final data = new E2EData('http', '0.11.3+13', _data, {
-  'pkg': 'undefined',
+  'rollup': 'everywhere',
+  'pubspec': 'undefined',
   'package:http/browser_client.dart': 'web',
   'package:http/http.dart': 'everywhere',
   'package:http/testing.dart': 'flutter, server'
