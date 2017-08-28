@@ -27,11 +27,10 @@ class LibraryScanner {
   final String _packagePath;
   final UriResolver _packageResolver;
   final AnalysisContext _context;
-  final Map<String, List<String>> _overrides;
   final _cachedLibs = new HashMap<String, List<String>>();
 
   LibraryScanner._(this.packageName, this._packagePath, this._packageResolver,
-      this._context, this._overrides);
+      this._context);
 
   factory LibraryScanner(
       PubEnvironment pubEnv, String packagePath, bool useFlutter,
@@ -115,8 +114,7 @@ class LibraryScanner {
       ..analysisOptions = options
       ..sourceFactory = new SourceFactory(resolvers);
 
-    return new LibraryScanner._(package, packagePath, packageResolver, context,
-        overrides ?? <String, List<String>>{});
+    return new LibraryScanner._(package, packagePath, packageResolver, context);
   }
 
   Future<Map<String, List<String>>> scanDirectLibs() => _scanPackage();
@@ -223,12 +221,6 @@ class LibraryScanner {
 
   List<String> _parseLibs(
       String package, String packageDir, String relativePath) {
-    var pkgUri = toPackageUri(package, relativePath);
-    var match = _overrides[pkgUri];
-    if (match != null) {
-      return match;
-    }
-
     var fullPath = p.join(packageDir, relativePath);
     var lib = _getLibraryElement(fullPath);
     if (lib == null) return [];

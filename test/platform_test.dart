@@ -11,6 +11,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isTrue);
       expect(p.worksOnWeb, isTrue);
+      expect(p.mayWorkOnWeb, isTrue);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isTrue);
       expect(p.description, 'everywhere');
@@ -22,6 +23,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isTrue);
       expect(p.worksOnWeb, isTrue);
+      expect(p.mayWorkOnWeb, isTrue);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isTrue);
       expect(p.description, 'everywhere');
@@ -33,9 +35,10 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isFalse);
+      expect(p.mayWorkOnWeb, isTrue);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isTrue);
-      expect(p.description, 'flutter, server');
+      expect(p.description, 'flutter, server, web?');
     });
 
     test('dart:html', () {
@@ -44,6 +47,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isTrue);
+      expect(p.mayWorkOnWeb, isTrue);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
       expect(p.description, 'web');
@@ -64,6 +68,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isFalse);
+      expect(p.mayWorkOnWeb, isFalse);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isTrue);
       expect(p.description, 'flutter');
@@ -75,6 +80,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isTrue);
+      expect(p.mayWorkOnWeb, isTrue);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isFalse);
       expect(p.description, 'server, web');
@@ -86,6 +92,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isTrue);
+      expect(p.mayWorkOnWeb, isTrue);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
       expect(p.description, 'web');
@@ -97,6 +104,7 @@ void main() {
       expect(p.worksAnywhere, isTrue);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isFalse);
+      expect(p.mayWorkOnWeb, isFalse);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isFalse);
       expect(p.uses, [PlatformFlags.dartExtension, 'dart:io']);
@@ -111,6 +119,7 @@ void main() {
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isFalse);
+      expect(p.mayWorkOnWeb, isFalse);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
       expect(p.description, 'conflict');
@@ -122,6 +131,7 @@ void main() {
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isFalse);
+      expect(p.mayWorkOnWeb, isFalse);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
       expect(p.description, 'conflict');
@@ -133,6 +143,7 @@ void main() {
       expect(p.worksAnywhere, isFalse);
       expect(p.worksEverywhere, isFalse);
       expect(p.worksOnWeb, isFalse);
+      expect(p.mayWorkOnWeb, isFalse);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
       expect(p.uses, [PlatformFlags.dartExtension, 'dart:ui']);
@@ -158,8 +169,9 @@ void main() {
 
       var pb = sum.libraries['package:_example/b.dart'];
       expect(pb.worksOnWeb, isFalse);
+      expect(pb.mayWorkOnWeb, isTrue);
       expect(pb.worksOnServer, isTrue);
-      expect(pb.description, 'flutter, server');
+      expect(pb.description, 'flutter, server, web?');
     });
 
     test('detects flutter in pubspec', () {
