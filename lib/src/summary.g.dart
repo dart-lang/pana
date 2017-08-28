@@ -6,7 +6,8 @@ part of pana.summary;
 // Generator: JsonSerializableGenerator
 // **************************************************************************
 
-DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) =>
+DartFileSummary _$DartFileSummaryFromJson(
+        Map<String, dynamic> json) =>
     new DartFileSummary(
         json['uri'] as String,
         json['size'] as int,
@@ -21,7 +22,10 @@ DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) =>
         json['platform'] == null
             ? null
             : new PlatformInfo.fromJson(
-                json['platform'] as Map<String, dynamic>));
+                json['platform'] as Map<String, dynamic>),
+        json['fitness'] == null
+            ? null
+            : new Fitness.fromJson(json['fitness'] as Map<dynamic, dynamic>));
 
 abstract class _$DartFileSummarySerializerMixin {
   String get uri;
@@ -31,6 +35,7 @@ abstract class _$DartFileSummarySerializerMixin {
   List<String> get directLibs;
   List<String> get transitiveLibs;
   PlatformInfo get platform;
+  Fitness get fitness;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'uri': uri,
@@ -48,6 +53,7 @@ abstract class _$DartFileSummarySerializerMixin {
     writeNotNull('directLibs', directLibs);
     writeNotNull('transitiveLibs', transitiveLibs);
     writeNotNull('platform', platform);
+    writeNotNull('fitness', fitness);
     return val;
   }
 }
@@ -75,6 +81,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     json['license'] == null
         ? null
         : new License.fromJson(json['license'] as Map<String, dynamic>),
+    json['fitness'] == null
+        ? null
+        : new Fitness.fromJson(json['fitness'] as Map<dynamic, dynamic>),
     flutterVersion: json['flutterVersion'] as Map<String, dynamic>);
 
 abstract class _$SummarySerializerMixin {
@@ -87,6 +96,7 @@ abstract class _$SummarySerializerMixin {
   Map<String, DartFileSummary> get dartFiles;
   License get license;
   List<AnalyzerIssue> get issues;
+  Fitness get fitness;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'panaVersion': panaVersion.toString(),
@@ -106,6 +116,7 @@ abstract class _$SummarySerializerMixin {
     val['dartFiles'] = dartFiles;
     val['license'] = license;
     writeNotNull('issues', issues);
+    val['fitness'] = fitness;
     return val;
   }
 }

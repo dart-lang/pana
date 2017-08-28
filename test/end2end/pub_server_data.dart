@@ -66,7 +66,7 @@ final _data = {
           'error':
               'Invalid override. The type of \'CopyAndWriteRepository.upload\' (\'(Stream<List<int>>) → Future<dynamic>\') isn\'t a subtype of \'PackageRepository.upload\' (\'(Stream<List<int>>) → Future<PackageVersion>\').'
         },
-      ]
+      ],
     },
     "example/src/examples/file_repository.dart": {
       "uri": "asset:pub_server/example/src/examples/file_repository.dart",
@@ -91,13 +91,13 @@ final _data = {
           'error':
               'Invalid override. The type of \'FileRepository.upload\' (\'(Stream<List<int>>) → Future<dynamic>\') isn\'t a subtype of \'PackageRepository.upload\' (\'(Stream<List<int>>) → Future<PackageVersion>\').'
         },
-      ]
+      ],
     },
     "example/src/examples/http_proxy_repository.dart": {
       "uri": "asset:pub_server/example/src/examples/http_proxy_repository.dart",
       "size": 2956,
       "isFormatted": false,
-      "analyzerItems": []
+      "analyzerItems": [],
     },
     "lib/repository.dart": {
       "uri": "package:pub_server/repository.dart",
@@ -140,7 +140,8 @@ final _data = {
       ],
       "platform": {
         "uses": ['dart:async', 'dart:collection', 'dart:math']
-      }
+      },
+      'fitness': {'value': 95.0, 'total': 95.0},
     },
     "lib/shelf_pubserver.dart": {
       "uri": "package:pub_server/shelf_pubserver.dart",
@@ -350,7 +351,8 @@ final _data = {
           'dart:math',
           'dart:typed_data'
         ]
-      }
+      },
+      'fitness': {'value': 359.0, 'total': 360.0},
     },
     "test/shelf_pubserver_test.dart": {
       "uri": "asset:pub_server/test/shelf_pubserver_test.dart",
@@ -406,8 +408,9 @@ final _data = {
           'col': 34,
           'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
         },
-      ]
+      ],
     },
   },
-  "license": {"name": "BSD"}
+  "license": {"name": "BSD"},
+  'fitness': {'value': 454.0, 'total': 455.0},
 };

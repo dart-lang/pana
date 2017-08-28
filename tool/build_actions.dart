@@ -18,6 +18,7 @@ final List<BuildAction> buildActions = [
       'pana',
       inputs: const [
         'lib/src/analyzer_output.dart',
+        'lib/src/fitness.dart',
         'lib/src/license.dart',
         'lib/src/platform.dart',
         'lib/src/pub_summary.dart',
