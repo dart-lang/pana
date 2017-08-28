@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:cli_util/cli_util.dart' as cli;
 import 'package:path/path.dart' as p;
 
+import 'analysis_options.dart';
 import 'logging.dart';
 import 'utils.dart';
 
@@ -46,13 +47,19 @@ class DartSdk {
     return _version;
   }
 
-  Future<ProcessResult> runAnalyzer(String packageDir) {
-    return Process.run(
+  Future<ProcessResult> runAnalyzer(String packageDir) async {
+    final optionsFileName =
+        'pana_analysis_options_${new DateTime.now().microsecondsSinceEpoch}.g.yaml';
+    final optionsFile = new File(p.join(packageDir, optionsFileName));
+    await optionsFile.writeAsString(analysisOptions);
+    final pr = await Process.run(
       _dartAnalyzerCmd,
-      ['--strong', '--format', 'machine', '.'],
+      ['--options', optionsFile.path, '--format', 'machine', '.'],
       environment: _environment,
       workingDirectory: packageDir,
     );
+    await optionsFile.delete();
+    return pr;
   }
 
   Future<List<String>> filesNeedingFormat(String packageDir) async {
