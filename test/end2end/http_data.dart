@@ -204,7 +204,8 @@ final _data = {
           "dart:math",
           "dart:typed_data",
         ]
-      }
+      },
+      'fitness': {'value': 82.0, 'total': 83.0},
     },
     "lib/http.dart": {
       "uri": "package:http/http.dart",
@@ -368,103 +369,120 @@ final _data = {
           "dart:math",
           "dart:typed_data",
         ]
-      }
+      },
+      'fitness': {'value': 138.0, 'total': 139.0},
     },
     "lib/src/base_client.dart": {
       "uri": "package:http/src/base_client.dart",
       "size": 7821,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 135.0, 'total': 136.0},
     },
     "lib/src/base_request.dart": {
       "uri": "package:http/src/base_request.dart",
       "size": 4739,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 92.0, 'total': 93.0},
     },
     "lib/src/base_response.dart": {
       "uri": "package:http/src/base_response.dart",
       "size": 1727,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 31.0, 'total': 32.0},
     },
     "lib/src/boundary_characters.dart": {
       "uri": "package:http/src/boundary_characters.dart",
       "size": 957,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 12.0, 'total': 13.0},
     },
     "lib/src/byte_stream.dart": {
       "uri": "package:http/src/byte_stream.dart",
       "size": 1391,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 24.0, 'total': 25.0},
     },
     "lib/src/client.dart": {
       "uri": "package:http/src/client.dart",
       "size": 6152,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 100.0, 'total': 101.0},
     },
     "lib/src/exception.dart": {
       "uri": "package:http/src/exception.dart",
       "size": 502,
       "isFormatted": true,
       "analyzerItems": [],
+      'fitness': {'value': 9.0, 'total': 9.0},
     },
     "lib/src/io_client.dart": {
       "uri": "package:http/src/io_client.dart",
       "size": 2530,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 48.0, 'total': 49.0},
     },
     "lib/src/mock_client.dart": {
       "uri": "package:http/src/mock_client.dart",
       "size": 3320,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 58.0, 'total': 59.0},
     },
     "lib/src/multipart_file.dart": {
       "uri": "package:http/src/multipart_file.dart",
       "size": 4431,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 78.0, 'total': 79.0},
     },
     "lib/src/multipart_request.dart": {
       "uri": "package:http/src/multipart_request.dart",
       "size": 5905,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 115.0, 'total': 116.0},
     },
     "lib/src/request.dart": {
       "uri": "package:http/src/request.dart",
       "size": 5952,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 108.0, 'total': 109.0},
     },
     "lib/src/response.dart": {
       "uri": "package:http/src/response.dart",
       "size": 3431,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 61.0, 'total': 62.0},
     },
     "lib/src/streamed_request.dart": {
       "uri": "package:http/src/streamed_request.dart",
       "size": 1650,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 27.0, 'total': 28.0},
     },
     "lib/src/streamed_response.dart": {
       "uri": "package:http/src/streamed_response.dart",
       "size": 1326,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 24.0, 'total': 25.0},
     },
     "lib/src/utils.dart": {
       "uri": "package:http/src/utils.dart",
       "size": 4843,
       "isFormatted": false,
       "analyzerItems": [],
+      'fitness': {'value': 95.0, 'total': 96.0},
     },
     "lib/testing.dart": {
       "uri": "package:http/testing.dart",
@@ -608,7 +626,8 @@ final _data = {
           'dart:math',
           'dart:typed_data'
         ]
-      }
+      },
+      'fitness': {'value': 19.0, 'total': 19.0},
     },
     "test/html/client_test.dart": {
       "uri": "asset:http/test/html/client_test.dart",
@@ -709,5 +728,6 @@ final _data = {
       "analyzerItems": [],
     }
   },
-  "license": {"name": "BSD"}
+  "license": {"name": "BSD"},
+  'fitness': {'value': 1256.0, 'total': 1273.0},
 };

@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'src/analyzer_output.dart';
+import 'src/fitness.dart';
 import 'src/library_scanner.dart';
 import 'src/license.dart';
 import 'src/logging.dart';
@@ -21,6 +22,7 @@ import 'src/utils.dart';
 import 'src/version.dart';
 
 export 'src/analyzer_output.dart';
+export 'src/fitness.dart';
 export 'src/license.dart';
 export 'src/platform.dart';
 export 'src/pub_summary.dart';
@@ -196,20 +198,31 @@ class PackageAnalyzer {
     Map<String, DartFileSummary> files = new SplayTreeMap();
     for (var dartFile in dartFiles) {
       var size = await fileSize(pkgDir, dartFile);
+      final isFormatted = unformattedFiles == null
+          ? null
+          : !unformattedFiles.contains(dartFile);
+      final fileAnalyzerItems =
+          analyzerItems?.where((item) => item.file == dartFile)?.toList();
       var uri = toPackageUri(package, dartFile);
       var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
       var platform =
           transitiveLibs == null ? null : classifyPlatform(transitiveLibs);
+      final isInLib = dartFile.startsWith('lib/');
+      final fitness = isInLib
+          ? await calcFitness(pkgDir, dartFile, isFormatted, fileAnalyzerItems,
+              directLibs, platform)
+          : null;
       files[dartFile] = new DartFileSummary(
         uri,
         size,
-        unformattedFiles == null ? null : !unformattedFiles.contains(dartFile),
-        analyzerItems?.where((item) => item.file == dartFile)?.toList(),
+        isFormatted,
+        fileAnalyzerItems,
         directLibs,
         keepTransitiveLibs ? transitiveLibs : null,
         platform,
+        fitness,
       );
     }
 
@@ -219,9 +232,18 @@ class PackageAnalyzer {
     }
 
     var license = await detectLicenseInDir(pkgDir);
+    final pkgFitness = calcPkgFitness(files.values, issues);
 
-    return new Summary(panaPkgVersion, sdkVersion, package,
-        new Version.parse(pkgInfo.version), summary, files, issues, license,
+    return new Summary(
+        panaPkgVersion,
+        sdkVersion,
+        package,
+        new Version.parse(pkgInfo.version),
+        summary,
+        files,
+        issues,
+        license,
+        pkgFitness,
         flutterVersion: flutterVersion);
   }
 

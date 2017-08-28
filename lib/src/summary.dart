@@ -8,6 +8,7 @@ import 'package:json_serializable/annotations.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'analyzer_output.dart';
+import 'fitness.dart';
 import 'license.dart';
 import 'platform.dart';
 import 'pub_summary.dart';
@@ -35,6 +36,8 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   final List<String> transitiveLibs;
   @JsonKey(includeIfNull: false)
   final PlatformInfo platform;
+  @JsonKey(includeIfNull: false)
+  final Fitness fitness;
 
   DartFileSummary(
     this.uri,
@@ -44,6 +47,7 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
     this.directLibs,
     this.transitiveLibs,
     this.platform,
+    this.fitness,
   );
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
@@ -84,6 +88,8 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final List<AnalyzerIssue> issues;
 
+  final Fitness fitness;
+
   Summary(
       this.panaVersion,
       this.sdkVersion,
@@ -93,6 +99,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.dartFiles,
       List<AnalyzerIssue> issues,
       this.license,
+      this.fitness,
       {this.flutterVersion})
       : this.issues = (issues == null || issues.isEmpty)
             ? null
