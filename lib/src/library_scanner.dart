@@ -22,12 +22,23 @@ import 'logging.dart';
 import 'sdk_env.dart';
 import 'utils.dart';
 
+class LibraryOverride {
+  final String uri;
+  final String dependency;
+  final String overrideTo;
+
+  LibraryOverride(this.uri, this.dependency, this.overrideTo);
+  LibraryOverride.webSafeIO(this.uri)
+      : dependency = 'dart:io',
+        overrideTo = 'dart-pana:web_safe_io';
+}
+
 class LibraryScanner {
   final String packageName;
   final String _packagePath;
   final UriResolver _packageResolver;
   final AnalysisContext _context;
-  final Map<String, List<String>> _overrides;
+  final List<LibraryOverride> _overrides;
   final _cachedLibs = new HashMap<String, List<String>>();
 
   LibraryScanner._(this.packageName, this._packagePath, this._packageResolver,
@@ -35,7 +46,7 @@ class LibraryScanner {
 
   factory LibraryScanner(
       PubEnvironment pubEnv, String packagePath, bool useFlutter,
-      {Map<String, List<String>> overrides}) {
+      {List<LibraryOverride> overrides}) {
     // TODO: fail more clearly if this...fails
     var sdkPath = pubEnv.dartSdk.sdkDir;
 
@@ -115,8 +126,8 @@ class LibraryScanner {
       ..analysisOptions = options
       ..sourceFactory = new SourceFactory(resolvers);
 
-    return new LibraryScanner._(package, packagePath, packageResolver, context,
-        overrides ?? <String, List<String>>{});
+    return new LibraryScanner._(
+        package, packagePath, packageResolver, context, overrides);
   }
 
   Future<Map<String, List<String>>> scanDirectLibs() => _scanPackage();
@@ -140,7 +151,7 @@ class LibraryScanner {
           todo.addAll(await _scanUri(lib));
         }
       }
-
+      _applyOverrides(key, processed);
       results[key] = processed.toList()..sort();
     }
     return results;
@@ -223,12 +234,6 @@ class LibraryScanner {
 
   List<String> _parseLibs(
       String package, String packageDir, String relativePath) {
-    var pkgUri = toPackageUri(package, relativePath);
-    var match = _overrides[pkgUri];
-    if (match != null) {
-      return match;
-    }
-
     var fullPath = p.join(packageDir, relativePath);
     var lib = _getLibraryElement(fullPath);
     if (lib == null) return [];
@@ -239,8 +244,24 @@ class LibraryScanner {
     lib.exportedLibraries.forEach((le) {
       refs.add(_normalizeLibRef(le.librarySource.uri, package, packageDir));
     });
+
+    var pkgUri = toPackageUri(package, relativePath);
+    _applyOverrides(pkgUri, refs);
+
     refs.remove('dart:core');
     return new List<String>.unmodifiable(refs);
+  }
+
+  void _applyOverrides(String pkgUri, Set<String> set) {
+    if (_overrides != null) {
+      for (var override in _overrides) {
+        if (override.uri == pkgUri) {
+          if (set.remove(override.dependency) && override.overrideTo != null) {
+            set.add(override.overrideTo);
+          }
+        }
+      }
+    }
   }
 
   LibraryElement _getLibraryElement(String path) {
