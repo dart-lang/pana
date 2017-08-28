@@ -143,11 +143,12 @@ class PackageAnalyzer {
 
     if (summary != null) {
       try {
-        var overrides = {
-          'package:http/http.dart': ['dart:web_safe_io'],
-          'package:http/browser_client.dart': ['dart:html', 'dart:web_safe_io'],
-          'package:package_resolver/package_resolver.dart': ['dart:web_safe_io']
-        };
+        var overrides = [
+          new LibraryOverride.webSafeIO('package:http/http.dart'),
+          new LibraryOverride.webSafeIO('package:http/browser_client.dart'),
+          new LibraryOverride.webSafeIO(
+              'package:package_resolver/package_resolver.dart'),
+        ];
 
         libraryScanner = new LibraryScanner(_pubEnv, pkgDir, isFlutter,
             overrides: overrides);
