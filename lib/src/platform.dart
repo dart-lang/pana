@@ -261,6 +261,7 @@ PlatformInfo classifyPlatform(Iterable<String> dependencies) {
   var uses = new SplayTreeSet<String>();
 
   uses.addAll(libs.where((l) => _dartLibRegexp.hasMatch(l)));
+  uses.addAll(libs.where((l) => _dartPanaLibRegexp.hasMatch(l)));
 
   if (libs.any((String lib) => lib.startsWith('dart-ext:'))) {
     uses.add(PlatformFlags.dartExtension);
@@ -270,6 +271,7 @@ PlatformInfo classifyPlatform(Iterable<String> dependencies) {
 }
 
 final _dartLibRegexp = new RegExp(r"^dart:[a-z_]+$");
+final _dartPanaLibRegexp = new RegExp(r"^dart-pana:[a-z_]+$");
 
 Iterable<String> _webAnd(Iterable<String> other) =>
     [_webPackages, other].expand((s) => s);
