@@ -38,7 +38,7 @@ final _data = {
       "version": "0.11.3+13"
     },
     "packages": isMap,
-    "availablePackages": {"unittest": "0.12.4+1"}
+    "availablePackages": {'async': '2.0.0', "unittest": "0.12.4+1"}
   },
   "dartFiles": {
     "lib/browser_client.dart": {
