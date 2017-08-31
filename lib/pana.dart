@@ -43,8 +43,12 @@ class PackageAnalyzer {
         dartSdk: _dartSdk, flutterSdk: _flutterSdk, pubCacheDir: pubCacheDir);
   }
 
-  Future<Summary> inspectPackage(String package,
-      {String version, bool keepTransitiveLibs: false}) async {
+  Future<Summary> inspectPackage(
+    String package, {
+    String version,
+    String packageDir,
+    bool keepTransitiveLibs: false,
+  }) async {
     var issues = <AnalyzerIssue>[];
     var sdkVersion = _dartSdk.version;
     log.info("SDK: $sdkVersion");
@@ -61,10 +65,19 @@ class PackageAnalyzer {
       log.fine("Using .package-cache: ${_pubEnv.pubCacheDir}");
     }
 
-    log.info("Downloading package...");
-    var pkgInfo = await _pubEnv.getLocation(package, version: ver?.toString());
-    var pkgDir = pkgInfo.location;
-    log.fine("Package at $pkgDir");
+    var pkgDir;
+    Version pkgVersion;
+    if (packageDir != null) {
+      log.info("Using package directory at $packageDir");
+      pkgDir = packageDir;
+    } else {
+      log.info("Downloading package $package...");
+      var pkgInfo =
+          await _pubEnv.getLocation(package, version: ver?.toString());
+      pkgDir = pkgInfo.location;
+      pkgVersion = new Version.parse(pkgInfo.version);
+      log.fine("Package at $pkgDir");
+    }
 
     log.info('Counting files...');
     var dartFiles = await listFiles(pkgDir, endsWith: '.dart');
@@ -234,18 +247,20 @@ class PackageAnalyzer {
 
     var license = await detectLicenseInDir(pkgDir);
     final pkgFitness = calcPkgFitness(pubspec, files.values, issues);
+    pkgVersion ??= summary?.pkgVersion;
 
     return new Summary(
-        panaPkgVersion,
-        sdkVersion,
-        package,
-        new Version.parse(pkgInfo.version),
-        summary,
-        files,
-        issues,
-        license,
-        pkgFitness,
-        flutterVersion: flutterVersion);
+      panaPkgVersion,
+      sdkVersion,
+      package,
+      pkgVersion,
+      summary,
+      files,
+      issues,
+      license,
+      pkgFitness,
+      flutterVersion: flutterVersion,
+    );
   }
 
   Future<Set<AnalyzerOutput>> _pkgAnalyze(String pkgPath) async {
