@@ -25,6 +25,7 @@ export 'src/license.dart';
 export 'src/platform.dart';
 export 'src/pub_summary.dart';
 export 'src/pubspec.dart';
+export 'src/sdk_env.dart';
 export 'src/summary.dart';
 export 'src/utils.dart';
 
