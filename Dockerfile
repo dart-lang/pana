@@ -1,4 +1,4 @@
-FROM google/dart:1.25.0-dev.14.0
+FROM google/dart:1.25.0-dev.15.0
 
 # Required for flutter install
 RUN apt-get update && \
@@ -10,11 +10,11 @@ ENV PATH="/flutter/bin:${PATH}"
 
 # Running `flutter config --no-analytics` downloads the Dart SDK and
 # disables analytics tracking – which we always want
-# `b156a0f054` maps to alpha release 0.0.13 @ Aug 11, 2017
+# `1c372c6803` maps to alpha release 0.0.14 @ Aug 31, 2017
 #    We hard wire the SHA to ensure Docker rebuilds
 RUN git clone -b alpha https://github.com/flutter/flutter.git && \
   cd flutter && \
-  git reset b156a0f054 --hard && \
+  git reset 1c372c6803 --hard && \
   flutter config --no-analytics
 
 WORKDIR /app
