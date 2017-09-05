@@ -11,9 +11,9 @@ import 'package:json_serializable/annotations.dart';
 part 'analyzer_output.g.dart';
 
 @JsonSerializable()
-class AnalyzerOutput extends Object
-    with _$AnalyzerOutputSerializerMixin
-    implements Comparable<AnalyzerOutput> {
+class CodeProblem extends Object
+    with _$CodeProblemSerializerMixin
+    implements Comparable<CodeProblem> {
   static final _regexp = new RegExp('^' + // beginning of line
           '([\\w_\\.]+)\\|' * 3 + // first three error notes
           '([^\\|]+)\\|' + // file path
@@ -28,9 +28,9 @@ class AnalyzerOutput extends Object
   final int col;
   final String error;
 
-  AnalyzerOutput(this.type, this.error, this.file, this.line, this.col);
+  CodeProblem(this.type, this.error, this.file, this.line, this.col);
 
-  static AnalyzerOutput parse(String content, {String projectDir}) {
+  static CodeProblem parse(String content, {String projectDir}) {
     if (content.isEmpty) {
       throw new ArgumentError('Provided content is empty.');
     }
@@ -47,7 +47,7 @@ class AnalyzerOutput extends Object
           filePath = p.relative(filePath, from: projectDir);
         }
 
-        return new AnalyzerOutput('WEIRD', content, filePath, 0, 0);
+        return new CodeProblem('WEIRD', content, filePath, 0, 0);
       }
 
       if (content == "Please pass in a library that contains this part.") {
@@ -73,15 +73,15 @@ class AnalyzerOutput extends Object
       filePath = p.relative(filePath, from: projectDir);
     }
 
-    return new AnalyzerOutput(
+    return new CodeProblem(
         type, error, filePath, int.parse(line), int.parse(column));
   }
 
-  factory AnalyzerOutput.fromJson(Map<String, dynamic> json) =>
-      _$AnalyzerOutputFromJson(json);
+  factory CodeProblem.fromJson(Map<String, dynamic> json) =>
+      _$CodeProblemFromJson(json);
 
   @override
-  int compareTo(AnalyzerOutput other) {
+  int compareTo(CodeProblem other) {
     var myVals = _values;
     var otherVals = other._values;
     for (var i = 0; i < myVals.length; i++) {
@@ -102,7 +102,7 @@ class AnalyzerOutput extends Object
 
   @override
   bool operator ==(Object other) {
-    if (other is AnalyzerOutput) {
+    if (other is CodeProblem) {
       var myVals = _values;
       var otherVals = other._values;
       for (var i = 0; i < myVals.length; i++) {

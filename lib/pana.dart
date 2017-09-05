@@ -49,7 +49,7 @@ class PackageAnalyzer {
     String packageDir,
     bool keepTransitiveLibs: false,
   }) async {
-    var issues = <AnalyzerIssue>[];
+    var toolProblems = <ToolProblem>[];
     var sdkVersion = _dartSdk.version;
     log.info("SDK: $sdkVersion");
 
@@ -97,14 +97,14 @@ class PackageAnalyzer {
 
       var errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
 
-      issues.add(new AnalyzerIssue(
-          AnalyzerScopes.dartfmt, "Problem formatting package:\n$errorMsg"));
+      toolProblems.add(new ToolProblem(
+          ToolNames.dartfmt, "Problem formatting package:\n$errorMsg"));
     }
 
     log.info("Checking pubspec.yaml...");
     var pubspec = new Pubspec.parseFromDir(pkgDir);
     if (pubspec.hasUnknownSdks) {
-      issues.add(new AnalyzerIssue(AnalyzerScopes.pubspec,
+      toolProblems.add(new ToolProblem(ToolNames.pubspec,
           'Unknown SDKs: ${pubspec.unknownSdks}', 'unknown-sdks'));
     }
 
@@ -120,8 +120,8 @@ class PackageAnalyzer {
         log.severe("Problem summarizing package", e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
         //  and writing to issues in one go.
-        issues.add(new AnalyzerIssue(
-            AnalyzerScopes.pubspec, "Problem summarizing package: $e"));
+        toolProblems.add(new ToolProblem(
+            ToolNames.pubspec, "Problem summarizing package: $e"));
       }
       if (summary != null) {
         log.info("Package version: ${summary.pkgVersion}");
@@ -146,8 +146,8 @@ class PackageAnalyzer {
           ["`pub upgrade` failed.", message].where((m) => m != null).join('\n');
 
       log.severe(message);
-      issues.add(new AnalyzerIssue(
-          AnalyzerScopes.pubUpgrade, message, upgrade.exitCode));
+      toolProblems.add(
+          new ToolProblem(ToolNames.pubUpgrade, message, upgrade.exitCode));
     }
 
     Map<String, List<String>> allDirectLibs;
@@ -155,7 +155,7 @@ class PackageAnalyzer {
 
     LibraryScanner libraryScanner;
 
-    Set<AnalyzerOutput> analyzerItems;
+    Set<CodeProblem> analyzerItems;
 
     if (summary != null) {
       try {
@@ -171,8 +171,8 @@ class PackageAnalyzer {
         assert(libraryScanner.packageName == package);
       } on StateError catch (e, stack) {
         log.severe("Could not create LibraryScanner", e, stack);
-        issues.add(new AnalyzerIssue(
-            AnalyzerScopes.libraryScanner, e.toString(), 'init'));
+        toolProblems.add(
+            new ToolProblem(ToolNames.libraryScanner, e.toString(), 'init'));
       }
 
       if (libraryScanner != null) {
@@ -181,16 +181,16 @@ class PackageAnalyzer {
           allDirectLibs = await libraryScanner.scanDirectLibs();
         } catch (e, st) {
           log.severe('Error scanning direct librariers', e, st);
-          issues.add(new AnalyzerIssue(
-              AnalyzerScopes.libraryScanner, e.toString(), 'direct'));
+          toolProblems.add(new ToolProblem(
+              ToolNames.libraryScanner, e.toString(), 'direct'));
         }
         try {
           log.info('Scanning transitive dependencies...');
           allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
         } catch (e, st) {
           log.severe('Error scanning transitive librariers', e, st);
-          issues.add(new AnalyzerIssue(
-              AnalyzerScopes.libraryScanner, e.toString(), 'transient'));
+          toolProblems.add(new ToolProblem(
+              ToolNames.libraryScanner, e.toString(), 'transient'));
         }
         libraryScanner.clearCaches();
       }
@@ -202,8 +202,8 @@ class PackageAnalyzer {
           if (e.toString().contains("No dart files found at: .")) {
             log.warning("No files to analyze...");
           } else {
-            issues.add(
-                new AnalyzerIssue(AnalyzerScopes.dartAnalyzer, e.toString()));
+            toolProblems
+                .add(new ToolProblem(ToolNames.dartAnalyzer, e.toString()));
           }
         }
       }
@@ -246,7 +246,7 @@ class PackageAnalyzer {
     }
 
     var license = await detectLicenseInDir(pkgDir);
-    final pkgFitness = calcPkgFitness(pubspec, files.values, issues);
+    final pkgFitness = calcPkgFitness(pubspec, files.values, toolProblems);
     pkgVersion ??= summary?.pkgVersion;
 
     return new Summary(
@@ -256,14 +256,14 @@ class PackageAnalyzer {
       pkgVersion,
       summary,
       files,
-      issues,
+      toolProblems,
       license,
       pkgFitness,
       flutterVersion: flutterVersion,
     );
   }
 
-  Future<Set<AnalyzerOutput>> _pkgAnalyze(String pkgPath) async {
+  Future<Set<CodeProblem>> _pkgAnalyze(String pkgPath) async {
     log.info('Analyzing package...');
     var proc = await _dartSdk.runAnalyzer(pkgPath);
 
@@ -279,7 +279,7 @@ class PackageAnalyzer {
     try {
       return new SplayTreeSet.from(LineSplitter
           .split(output)
-          .map((s) => AnalyzerOutput.parse(s, projectDir: pkgPath))
+          .map((s) => CodeProblem.parse(s, projectDir: pkgPath))
           .where((e) => e != null));
     } on ArgumentError {
       // TODO: we should figure out a way to succeed here, right?

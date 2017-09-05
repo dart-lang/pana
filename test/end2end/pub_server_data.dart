@@ -50,13 +50,13 @@ final _data = {
       "uri": "asset:pub_server/example/server.dart",
       "size": 2209,
       "isFormatted": true,
-      "analyzerItems": [],
+      "codeProblems": [],
     },
     "example/src/examples/cow_repository.dart": {
       "uri": "asset:pub_server/example/src/examples/cow_repository.dart",
       "size": 5001,
       "isFormatted": false,
-      "analyzerItems": [
+      "codeProblems": [
         {
           'type':
               'ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE',
@@ -72,7 +72,7 @@ final _data = {
       "uri": "asset:pub_server/example/src/examples/file_repository.dart",
       "size": 4145,
       "isFormatted": true,
-      "analyzerItems": [
+      "codeProblems": [
         {
           'type':
               'ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
@@ -97,13 +97,13 @@ final _data = {
       "uri": "asset:pub_server/example/src/examples/http_proxy_repository.dart",
       "size": 2956,
       "isFormatted": false,
-      "analyzerItems": [],
+      "codeProblems": [],
     },
     "lib/repository.dart": {
       "uri": "package:pub_server/repository.dart",
       "size": 5129,
       "isFormatted": true,
-      "analyzerItems": [],
+      "codeProblems": [],
       "directLibs": ["dart:async", "package:pub_semver/pub_semver.dart"],
       "transitiveLibs": [
         "dart:async",
@@ -147,7 +147,7 @@ final _data = {
       "uri": "package:pub_server/shelf_pubserver.dart",
       "size": 17852,
       "isFormatted": false,
-      "analyzerItems": [],
+      "codeProblems": [],
       "directLibs": [
         "dart:async",
         "dart:convert",
@@ -358,7 +358,7 @@ final _data = {
       "uri": "asset:pub_server/test/shelf_pubserver_test.dart",
       "size": 22061,
       "isFormatted": false,
-      "analyzerItems": isNotNull,
+      "codeProblems": isNotNull,
     },
   },
   "license": {"name": "BSD"},

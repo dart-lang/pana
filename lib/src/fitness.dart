@@ -37,7 +37,7 @@ Future<Fitness> calcFitness(
     String pkgDir,
     String dartFile,
     bool isFormatted,
-    List<AnalyzerOutput> fileAnalyzerItems,
+    List<CodeProblem> fileAnalyzerItems,
     List<String> directLibs,
     PlatformInfo platform) async {
   // statement count estimated by:
@@ -92,7 +92,7 @@ Future<Fitness> calcFitness(
 }
 
 Fitness calcPkgFitness(Pubspec pubspec, Iterable<DartFileSummary> files,
-    List<AnalyzerIssue> issues) {
+    List<ToolProblem> toolIssues) {
   var total = 0.0;
   var value = 0.0;
   for (var dfs in files) {
@@ -105,7 +105,7 @@ Fitness calcPkgFitness(Pubspec pubspec, Iterable<DartFileSummary> files,
 
   // major tool errors are penalized in the percent of the total
   final toolErrorPoints = max(20.0, total * 0.20); // 20%
-  value -= issues.length * toolErrorPoints;
+  value -= toolIssues.length * toolErrorPoints;
 
   // unconstrained dependencies are penalized in the percent of the total
   final unconstrainedErrorPoints = max(5.0, total * 0.05); // 5%

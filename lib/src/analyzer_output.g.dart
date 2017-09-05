@@ -6,11 +6,14 @@ part of pana.analyzer_output;
 // Generator: JsonSerializableGenerator
 // **************************************************************************
 
-AnalyzerOutput _$AnalyzerOutputFromJson(Map<String, dynamic> json) =>
-    new AnalyzerOutput(json['type'] as String, json['error'] as String,
-        json['file'] as String, json['line'] as int, json['col'] as int);
+CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) => new CodeProblem(
+    json['type'] as String,
+    json['error'] as String,
+    json['file'] as String,
+    json['line'] as int,
+    json['col'] as int);
 
-abstract class _$AnalyzerOutputSerializerMixin {
+abstract class _$CodeProblemSerializerMixin {
   String get type;
   String get file;
   int get line;
