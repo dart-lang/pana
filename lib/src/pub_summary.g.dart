@@ -20,15 +20,12 @@ PubSummary _$PubSummaryFromJson(Map<String, dynamic> json) => new PubSummary(
             (json['availablePackages'] as Map<String, dynamic>).keys,
             (json['availablePackages'] as Map)
                 .values
-                .map((e) => e == null ? null : new Version.parse(e))),
-    json['pubspecContent'] as Map<String, dynamic>);
+                .map((e) => e == null ? null : new Version.parse(e))));
 
 abstract class _$PubSummarySerializerMixin {
-  Map<String, Object> get pubspec;
   Map<String, Version> get packageVersions;
   Map<String, Version> get availableVersions;
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'pubspecContent': pubspec,
         'packages': packageVersions == null
             ? null
             : new Map<String, dynamic>.fromIterables(packageVersions.keys,

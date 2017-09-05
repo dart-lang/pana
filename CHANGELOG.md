@@ -14,6 +14,11 @@
     * Split up `type`, new fields: `severity`, `errorType`, `errorCode`
     * Renamed `error` to `description`
 
+  * Refactored `PubSummary`
+    * Moved `pubspec` -> `Summary`
+    * Moved `pkgVersion` -> `Pubspec.version`
+    * Moved `authors` -> `Pubspec.authors`
+
 ## 0.3.0
 
 * Removed `PlatformSummary.package` in favor of `PlatformSummary.pubspec` of

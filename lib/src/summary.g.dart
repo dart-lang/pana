@@ -65,6 +65,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     json['packageVersion'] == null
         ? null
         : new Version.parse(json['packageVersion']),
+    json['pubspec'] == null
+        ? null
+        : new Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
     json['pubSummary'] == null
         ? null
         : new PubSummary.fromJson(json['pubSummary'] as Map<String, dynamic>),
@@ -94,6 +97,7 @@ abstract class _$SummarySerializerMixin {
   Map<String, Object> get flutterVersion;
   String get packageName;
   Version get packageVersion;
+  Pubspec get pubspec;
   PubSummary get pubSummary;
   Map<String, DartFileSummary> get dartFiles;
   License get license;
@@ -114,6 +118,7 @@ abstract class _$SummarySerializerMixin {
     writeNotNull('flutterVersion', flutterVersion);
     val['packageName'] = packageName;
     writeNotNull('packageVersion', packageVersion?.toString());
+    val['pubspec'] = pubspec;
     val['pubSummary'] = pubSummary;
     val['dartFiles'] = dartFiles;
     val['license'] = license;

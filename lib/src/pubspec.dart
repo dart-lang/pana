@@ -6,11 +6,11 @@ import 'package:yaml/yaml.dart' as yaml;
 import 'utils.dart';
 
 class Pubspec {
-  final Map<String, dynamic> _data;
+  final Map<String, dynamic> _content;
 
   Set<String> _dependentSdks;
 
-  Pubspec(this._data);
+  Pubspec(this._content);
 
   factory Pubspec.parseFromDir(String packageDir) {
     var content = getPubspecContent(packageDir);
@@ -23,21 +23,45 @@ class Pubspec {
   factory Pubspec.parseYaml(String content) =>
       new Pubspec(yaml.loadYaml(content));
 
+  factory Pubspec.fromJson(Map<String, dynamic> json) => new Pubspec(json);
+
+  Map<String, dynamic> toJson() => _content;
+
+  String get name => _content['name'];
+
+  Version get version => new Version.parse(_content['version']);
+
+  List<String> get authors {
+    var authors = <String>[];
+
+    if (_content == null) {
+      return authors;
+    }
+
+    if (_content['author'] != null) {
+      authors.add(_content['author']);
+    } else if (_content['authors'] != null) {
+      authors.addAll(_content['authors'] as List<String>);
+    }
+
+    return authors;
+  }
+
   Map<String, dynamic> get dependencies {
-    final deps = _data['dependencies'];
+    final deps = _content['dependencies'];
     return deps is Map ? deps : null;
   }
 
   Map<String, dynamic> get devDependencies {
-    final deps = _data['dev_dependencies'];
+    final deps = _content['dev_dependencies'];
     return deps is Map ? deps : null;
   }
 
-  bool get hasFlutterKey => _data.containsKey('flutter');
+  bool get hasFlutterKey => _content.containsKey('flutter');
   bool get hasFlutterPluginKey =>
       hasFlutterKey &&
-      _data['flutter'] is Map &&
-      _data['flutter']['plugin'] != null;
+      _content['flutter'] is Map &&
+      _content['flutter']['plugin'] != null;
 
   bool get dependsOnFlutterSdk => dependentSdks.contains('flutter');
 
