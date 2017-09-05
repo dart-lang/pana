@@ -13,6 +13,7 @@ import 'package:path/path.dart' as p;
 
 import 'analyzer_output.dart';
 import 'platform.dart';
+import 'pubspec.dart';
 import 'summary.dart';
 
 part 'fitness.g.dart';
@@ -90,8 +91,8 @@ Future<Fitness> calcFitness(
   return new Fitness(score, total);
 }
 
-Fitness calcPkgFitness(
-    Iterable<DartFileSummary> files, List<AnalyzerIssue> issues) {
+Fitness calcPkgFitness(Pubspec pubspec, Iterable<DartFileSummary> files,
+    List<AnalyzerIssue> issues) {
   var total = 0.0;
   var value = 0.0;
   for (var dfs in files) {
@@ -105,6 +106,10 @@ Fitness calcPkgFitness(
   // major tool errors are penalized in the percent of the total
   final toolErrorPoints = max(20.0, total * 0.20); // 20%
   value -= issues.length * toolErrorPoints;
+
+  // unconstrained dependencies are penalized in the percent of the total
+  final unconstrainedErrorPoints = max(5.0, total * 0.05); // 5%
+  value -= pubspec.unconstrainedDependencies.length * unconstrainedErrorPoints;
 
   return new Fitness(max(0.0, value), total);
 }

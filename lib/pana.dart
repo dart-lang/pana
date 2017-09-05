@@ -233,7 +233,7 @@ class PackageAnalyzer {
     }
 
     var license = await detectLicenseInDir(pkgDir);
-    final pkgFitness = calcPkgFitness(files.values, issues);
+    final pkgFitness = calcPkgFitness(pubspec, files.values, issues);
 
     return new Summary(
         panaPkgVersion,
