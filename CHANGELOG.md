@@ -1,3 +1,16 @@
+## (next release)
+
+* **Breaking changes**
+
+  * Renamed `AnalyzerIssue` -> `ToolProblem`
+    * Renamed `Summary.issues` -> `toolProblems`
+    * Renamed `AnalyzerIssue.scope` -> `tool`
+    * Renamed `AnalyzerScopes` -> `ToolNames`
+
+  * Renamed `AnalyzerOutput` -> `CodeProblem`
+    * Renamed `Summary.analyzerItems` and `DartFileSummary.analyzerItems` -> `codeProblems`
+
+
 ## 0.3.0
 
 * Removed `PlatformSummary.package` in favor of `PlatformSummary.pubspec` of

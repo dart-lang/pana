@@ -28,7 +28,7 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   /// `false` if it is not.
   /// `null` if `dartfmt` failed while running.
   final bool isFormatted;
-  final List<AnalyzerOutput> analyzerItems;
+  final List<CodeProblem> codeProblems;
 
   @JsonKey(includeIfNull: false)
   final List<String> directLibs;
@@ -43,7 +43,7 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
     this.uri,
     this.size,
     this.isFormatted,
-    this.analyzerItems,
+    this.codeProblems,
     this.directLibs,
     this.transitiveLibs,
     this.platform,
@@ -86,7 +86,7 @@ class Summary extends Object with _$SummarySerializerMixin {
   final License license;
 
   @JsonKey(includeIfNull: false)
-  final List<AnalyzerIssue> issues;
+  final List<ToolProblem> toolProblems;
 
   final Fitness fitness;
 
@@ -97,19 +97,19 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.packageVersion,
       this.pubSummary,
       this.dartFiles,
-      List<AnalyzerIssue> issues,
+      List<ToolProblem> toolProblems,
       this.license,
       this.fitness,
       {this.flutterVersion})
-      : this.issues = (issues == null || issues.isEmpty)
+      : this.toolProblems = (toolProblems == null || toolProblems.isEmpty)
             ? null
-            : new List<AnalyzerIssue>.unmodifiable(issues);
+            : new List<ToolProblem>.unmodifiable(toolProblems);
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
       _$SummaryFromJson(json);
 
-  Iterable<AnalyzerOutput> get analyzerItems => dartFiles.values
-      .map((dfs) => dfs.analyzerItems)
+  Iterable<CodeProblem> get codeProblems => dartFiles.values
+      .map((dfs) => dfs.codeProblems)
       .where((l) => l != null)
       .expand((list) => list);
 
@@ -125,19 +125,19 @@ class Summary extends Object with _$SummarySerializerMixin {
 }
 
 @JsonSerializable()
-class AnalyzerIssue extends Object with _$AnalyzerIssueSerializerMixin {
-  final String scope;
+class ToolProblem extends Object with _$ToolProblemSerializerMixin {
+  final String tool;
   final String message;
   @JsonKey(includeIfNull: false)
   final dynamic code;
 
-  AnalyzerIssue(this.scope, this.message, [this.code]);
+  ToolProblem(this.tool, this.message, [this.code]);
 
-  factory AnalyzerIssue.fromJson(Map<String, dynamic> json) =>
-      _$AnalyzerIssueFromJson(json);
+  factory ToolProblem.fromJson(Map<String, dynamic> json) =>
+      _$ToolProblemFromJson(json);
 }
 
-abstract class AnalyzerScopes {
+abstract class ToolNames {
   static const String pubspec = 'pubspec';
   static const String dartAnalyzer = 'dart-analyzer';
   static const String libraryScanner = 'library-scanner';

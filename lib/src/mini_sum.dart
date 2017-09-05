@@ -18,7 +18,7 @@ class MiniSum {
   int get unformattedFiles =>
       summary.dartFiles.values.where((f) => !(f?.isFormatted ?? false)).length;
 
-  Iterable<AnalyzerOutput> get analyzerItems => summary.analyzerItems;
+  Iterable<CodeProblem> get analyzerItems => summary.codeProblems;
 
   MiniSum(this.summary);
 
@@ -46,7 +46,7 @@ class MiniSum {
     map.addAll(summary.pubSummary.getStats());
 
     // analyzer info
-    map.addAll(_analyzerThings(summary.analyzerItems));
+    map.addAll(_analyzerThings(summary.codeProblems));
 
     // analyzer bytes - total bytes of dart files in _analyzeDirs
     map['analyzed_bytes'] = _analyzerDartBytes(summary.dartFiles);
@@ -100,7 +100,7 @@ int _analyzerDartBytes(Map<String, DartFileSummary> data) {
 
 const _analyzeDirs = const ['lib', 'bin'];
 
-Map<String, int> _analyzerThings(Iterable<AnalyzerOutput> analyzerThings) {
+Map<String, int> _analyzerThings(Iterable<CodeProblem> analyzerThings) {
   var items = <String, int>{
     'analyzer_strong_error': 0,
     'analyzer_error': 0,

@@ -12,10 +12,10 @@ DartFileSummary _$DartFileSummaryFromJson(
         json['uri'] as String,
         json['size'] as int,
         json['isFormatted'] as bool,
-        (json['analyzerItems'] as List)
+        (json['codeProblems'] as List)
             ?.map((e) => e == null
                 ? null
-                : new AnalyzerOutput.fromJson(e as Map<String, dynamic>))
+                : new CodeProblem.fromJson(e as Map<String, dynamic>))
             ?.toList(),
         (json['directLibs'] as List)?.map((e) => e as String)?.toList(),
         (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
@@ -31,7 +31,7 @@ abstract class _$DartFileSummarySerializerMixin {
   String get uri;
   int get size;
   bool get isFormatted;
-  List<AnalyzerOutput> get analyzerItems;
+  List<CodeProblem> get codeProblems;
   List<String> get directLibs;
   List<String> get transitiveLibs;
   PlatformInfo get platform;
@@ -41,7 +41,7 @@ abstract class _$DartFileSummarySerializerMixin {
       'uri': uri,
       'size': size,
       'isFormatted': isFormatted,
-      'analyzerItems': analyzerItems,
+      'codeProblems': codeProblems,
     };
 
     void writeNotNull(String key, dynamic value) {
@@ -75,10 +75,10 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
             (json['dartFiles'] as Map).values.map((e) => e == null
                 ? null
                 : new DartFileSummary.fromJson(e as Map<String, dynamic>))),
-    (json['issues'] as List)
+    (json['toolProblems'] as List)
         ?.map((e) => e == null
             ? null
-            : new AnalyzerIssue.fromJson(e as Map<String, dynamic>))
+            : new ToolProblem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     json['license'] == null
         ? null
@@ -97,7 +97,7 @@ abstract class _$SummarySerializerMixin {
   PubSummary get pubSummary;
   Map<String, DartFileSummary> get dartFiles;
   License get license;
-  List<AnalyzerIssue> get issues;
+  List<ToolProblem> get toolProblems;
   Fitness get fitness;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
@@ -117,23 +117,22 @@ abstract class _$SummarySerializerMixin {
     val['pubSummary'] = pubSummary;
     val['dartFiles'] = dartFiles;
     val['license'] = license;
-    writeNotNull('issues', issues);
+    writeNotNull('toolProblems', toolProblems);
     val['fitness'] = fitness;
     return val;
   }
 }
 
-AnalyzerIssue _$AnalyzerIssueFromJson(Map<String, dynamic> json) =>
-    new AnalyzerIssue(
-        json['scope'] as String, json['message'] as String, json['code']);
+ToolProblem _$ToolProblemFromJson(Map<String, dynamic> json) => new ToolProblem(
+    json['tool'] as String, json['message'] as String, json['code']);
 
-abstract class _$AnalyzerIssueSerializerMixin {
-  String get scope;
+abstract class _$ToolProblemSerializerMixin {
+  String get tool;
   String get message;
   dynamic get code;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
-      'scope': scope,
+      'tool': tool,
       'message': message,
     };
 
