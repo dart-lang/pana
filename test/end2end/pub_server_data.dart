@@ -358,57 +358,7 @@ final _data = {
       "uri": "asset:pub_server/test/shelf_pubserver_test.dart",
       "size": 22061,
       "isFormatted": false,
-      "analyzerItems": [
-        {
-          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
-          'file': 'test/shelf_pubserver_test.dart',
-          'line': 215,
-          'col': 54,
-          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
-        },
-        {
-          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
-          'file': 'test/shelf_pubserver_test.dart',
-          'line': 236,
-          'col': 54,
-          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
-        },
-        {
-          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
-          'file': 'test/shelf_pubserver_test.dart',
-          'line': 239,
-          'col': 21,
-          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
-        },
-        {
-          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
-          'file': 'test/shelf_pubserver_test.dart',
-          'line': 362,
-          'col': 32,
-          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
-        },
-        {
-          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
-          'file': 'test/shelf_pubserver_test.dart',
-          'line': 415,
-          'col': 32,
-          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
-        },
-        {
-          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
-          'file': 'test/shelf_pubserver_test.dart',
-          'line': 506,
-          'col': 31,
-          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
-        },
-        {
-          'type': 'INFO|HINT|DEPRECATED_MEMBER_USE',
-          'file': 'test/shelf_pubserver_test.dart',
-          'line': 559,
-          'col': 34,
-          'error': '\'expectAsync\' is deprecated and shouldn\'t be used.'
-        },
-      ],
+      "analyzerItems": isNotNull,
     },
   },
   "license": {"name": "BSD"},
