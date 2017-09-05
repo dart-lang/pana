@@ -77,9 +77,9 @@ Future<Fitness> calcFitness(
 
   if (fileAnalyzerItems != null) {
     for (var item in fileAnalyzerItems) {
-      if (item.type.startsWith('INFO')) {
+      if (item.severity == 'INFO') {
         penalties += hintPoints;
-      } else if (item.type.startsWith('WARN')) {
+      } else if (item.severity == 'WARNING') {
         penalties += warnPoints;
       } else {
         penalties += errorPoints;

@@ -110,7 +110,8 @@ Map<String, int> _analyzerThings(Iterable<CodeProblem> analyzerThings) {
 
   for (var item in analyzerThings) {
     if (_analyzeDirs.contains(_classifyFile(item.file))) {
-      var key = _getAnalyzerOutputClass(item.type);
+      var key = _getAnalyzerOutputClass(
+          item.severity, item.errorType, item.errorCode);
       items[key] += 1;
     }
   }
@@ -118,14 +119,15 @@ Map<String, int> _analyzerThings(Iterable<CodeProblem> analyzerThings) {
   return items;
 }
 
-String _getAnalyzerOutputClass(String type) {
-  if (type.startsWith('ERROR|')) {
-    if (type.contains("|STRONG_MODE_")) {
+String _getAnalyzerOutputClass(
+    String severity, String errorType, String errorCode) {
+  if (severity == 'ERROR') {
+    if (errorCode.startsWith("STRONG_MODE_")) {
       return 'analyzer_strong_error';
     }
     return 'analyzer_error';
   }
-  if (type.contains("INFO|HINT|STRONG_MODE_TOP_LEVEL_")) {
+  if (errorCode.startsWith("STRONG_MODE_TOP_LEVEL_")) {
     //TODO(kevmoo) The story is changing here in Dart 1.25+
     // https://github.com/dart-lang/pana/issues/16
     return 'analyzer_topLevelStrong';
