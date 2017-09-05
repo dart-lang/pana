@@ -22,13 +22,17 @@ class CodeProblem extends Object
           '\$' // end of line
       );
 
-  final String type;
+  final String severity;
+  final String errorType;
+  final String errorCode;
+
   final String file;
   final int line;
   final int col;
-  final String error;
+  final String description;
 
-  CodeProblem(this.type, this.error, this.file, this.line, this.col);
+  CodeProblem(this.severity, this.errorType, this.errorCode, this.description,
+      this.file, this.line, this.col);
 
   static CodeProblem parse(String content, {String projectDir}) {
     if (content.isEmpty) {
@@ -47,7 +51,8 @@ class CodeProblem extends Object
           filePath = p.relative(filePath, from: projectDir);
         }
 
-        return new CodeProblem('WEIRD', content, filePath, 0, 0);
+        return new CodeProblem(
+            'WEIRD', 'UNKNOWN', 'UNKNOWN', content, filePath, 0, 0);
       }
 
       if (content == "Please pass in a library that contains this part.") {
@@ -60,21 +65,23 @@ class CodeProblem extends Object
 
     var match = matches.single;
 
-    var type = [match[1], match[2], match[3]].join('|');
+    var severity = match[1];
+    var errorType = match[2];
+    var errorCode = match[3];
 
     var filePath = match[4];
     var line = match[5];
     var column = match[6];
     // length = 7
-    var error = match[8];
+    var description = match[8];
 
     if (projectDir != null) {
       assert(p.isWithin(projectDir, filePath));
       filePath = p.relative(filePath, from: projectDir);
     }
 
-    return new CodeProblem(
-        type, error, filePath, int.parse(line), int.parse(column));
+    return new CodeProblem(severity, errorType, errorCode, description,
+        filePath, int.parse(line), int.parse(column));
   }
 
   factory CodeProblem.fromJson(Map<String, dynamic> json) =>
@@ -115,5 +122,6 @@ class CodeProblem extends Object
     return false;
   }
 
-  List<Object> get _values => [file, line, col, type, error];
+  List<Object> get _values =>
+      [file, line, col, severity, errorType, errorCode, description];
 }

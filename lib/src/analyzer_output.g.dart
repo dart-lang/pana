@@ -7,23 +7,29 @@ part of pana.analyzer_output;
 // **************************************************************************
 
 CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) => new CodeProblem(
-    json['type'] as String,
-    json['error'] as String,
+    json['severity'] as String,
+    json['errorType'] as String,
+    json['errorCode'] as String,
+    json['description'] as String,
     json['file'] as String,
     json['line'] as int,
     json['col'] as int);
 
 abstract class _$CodeProblemSerializerMixin {
-  String get type;
+  String get severity;
+  String get errorType;
+  String get errorCode;
   String get file;
   int get line;
   int get col;
-  String get error;
+  String get description;
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'type': type,
+        'severity': severity,
+        'errorType': errorType,
+        'errorCode': errorCode,
         'file': file,
         'line': line,
         'col': col,
-        'error': error
+        'description': description
       };
 }

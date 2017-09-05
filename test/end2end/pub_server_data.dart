@@ -58,12 +58,13 @@ final _data = {
       "isFormatted": false,
       "codeProblems": [
         {
-          'type':
-              'ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE',
+          'severity': 'ERROR',
+          'errorType': 'COMPILE_TIME_ERROR',
+          'errorCode': 'STRONG_MODE_INVALID_METHOD_OVERRIDE',
           'file': 'example/src/examples/cow_repository.dart',
           'line': 89,
           'col': 3,
-          'error':
+          'description':
               'Invalid override. The type of \'CopyAndWriteRepository.upload\' (\'(Stream<List<int>>) → Future<dynamic>\') isn\'t a subtype of \'PackageRepository.upload\' (\'(Stream<List<int>>) → Future<PackageVersion>\').'
         },
       ],
@@ -74,21 +75,23 @@ final _data = {
       "isFormatted": true,
       "codeProblems": [
         {
-          'type':
-              'ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
+          'severity': 'ERROR',
+          'errorType': 'COMPILE_TIME_ERROR',
+          'errorCode': 'STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
           'file': 'example/src/examples/file_repository.dart',
           'line': 31,
           'col': 16,
-          'error':
+          'description':
               'The function expression type \'(Directory) → PackageVersion\' isn\'t of type \'(FileSystemEntity) → PackageVersion\'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).'
         },
         {
-          'type':
-              'ERROR|COMPILE_TIME_ERROR|STRONG_MODE_INVALID_METHOD_OVERRIDE',
+          'severity': 'ERROR',
+          'errorType': 'COMPILE_TIME_ERROR',
+          'errorCode': 'STRONG_MODE_INVALID_METHOD_OVERRIDE',
           'file': 'example/src/examples/file_repository.dart',
           'line': 59,
           'col': 3,
-          'error':
+          'description':
               'Invalid override. The type of \'FileRepository.upload\' (\'(Stream<List<int>>) → Future<dynamic>\') isn\'t a subtype of \'PackageRepository.upload\' (\'(Stream<List<int>>) → Future<PackageVersion>\').'
         },
       ],

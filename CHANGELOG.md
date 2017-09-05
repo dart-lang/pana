@@ -10,6 +10,9 @@
   * Renamed `AnalyzerOutput` -> `CodeProblem`
     * Renamed `Summary.analyzerItems` and `DartFileSummary.analyzerItems` -> `codeProblems`
 
+  * Refactored `CodeProblem` (previously `AnalyzerOutput`):
+    * Split up `type`, new fields: `severity`, `errorType`, `errorCode`
+    * Renamed `error` to `description`
 
 ## 0.3.0
 

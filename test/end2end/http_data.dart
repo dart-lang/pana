@@ -689,11 +689,13 @@ final _data = {
       "isFormatted": false,
       "codeProblems": [
         {
-          "type": "INFO|HINT|UNUSED_IMPORT",
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "UNUSED_IMPORT",
           "file": "test/mock_client_test.dart",
           "line": 9,
           "col": 8,
-          "error": "Unused import."
+          "description": "Unused import."
         }
       ],
     },
