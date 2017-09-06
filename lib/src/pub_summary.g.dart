@@ -39,3 +39,30 @@ abstract class _$PubSummarySerializerMixin {
                 availableVersions.values.map((e) => e?.toString()))
       };
 }
+
+PkgDependency _$PkgDependencyFromJson(Map<String, dynamic> json) =>
+    new PkgDependency(
+        json['package'] as String,
+        json['isDev'] as bool,
+        json['constraint'] == null
+            ? null
+            : new VersionConstraint.parse(json['constraint']),
+        json['resolved'] == null ? null : new Version.parse(json['resolved']),
+        json['available'] == null
+            ? null
+            : new Version.parse(json['available']));
+
+abstract class _$PkgDependencySerializerMixin {
+  String get package;
+  bool get isDev;
+  VersionConstraint get constraint;
+  Version get resolved;
+  Version get available;
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'package': package,
+        'isDev': isDev,
+        'constraint': constraint?.toString(),
+        'resolved': resolved?.toString(),
+        'available': available?.toString()
+      };
+}
