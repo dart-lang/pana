@@ -114,11 +114,23 @@ ProcessResult handleProcessErrors(ProcessResult result) {
   return result;
 }
 
-Future<List<String>> listFiles(String directory, {String endsWith}) {
+Future<List<String>> listFiles(String directory,
+    {String endsWith, bool deleteBadExtracted = false}) {
   var dir = new Directory(directory);
   return dir
       .list(recursive: true)
       .where((fse) => fse is File)
+      .where((fse) {
+        if (deleteBadExtracted) {
+          var segments = p.split(fse.path);
+          if (segments.last.startsWith('._')) {
+            log.warning("Deleting invalid file: `${fse.path}`.");
+            fse.deleteSync();
+            return false;
+          }
+        }
+        return true;
+      })
       .map((fse) => fse.path)
       .where((path) => endsWith == null || path.endsWith(endsWith))
       .map((path) => p.relative(path, from: directory))

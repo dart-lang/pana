@@ -20,23 +20,23 @@ final _data = {
   "sdkVersion": startsWith("Dart VM version: "),
   "packageName": "http",
   "packageVersion": "0.11.3+13",
-  "pubSummary": {
-    "pubspecContent": {
-      "author": "Dart Team <misc@dartlang.org>",
-      "dependencies": {
-        "async": "^1.10.0",
-        "collection": "^1.5.0",
-        "http_parser": ">=0.0.1 <4.0.0",
-        "path": ">=0.9.0 <2.0.0",
-        "stack_trace": ">=0.9.1 <2.0.0"
-      },
-      "description": "A composable, Future-based API for making HTTP requests.",
-      "dev_dependencies": {"unittest": ">=0.9.0 <0.12.0"},
-      "environment": {"sdk": ">=1.23.0-dev.0.0 <2.0.0"},
-      "homepage": "https://github.com/dart-lang/http",
-      "name": "http",
-      "version": "0.11.3+13"
+  "pubspec": {
+    "author": "Dart Team <misc@dartlang.org>",
+    "dependencies": {
+      "async": "^1.10.0",
+      "collection": "^1.5.0",
+      "http_parser": ">=0.0.1 <4.0.0",
+      "path": ">=0.9.0 <2.0.0",
+      "stack_trace": ">=0.9.1 <2.0.0"
     },
+    "description": "A composable, Future-based API for making HTTP requests.",
+    "dev_dependencies": {"unittest": ">=0.9.0 <0.12.0"},
+    "environment": {"sdk": ">=1.23.0-dev.0.0 <2.0.0"},
+    "homepage": "https://github.com/dart-lang/http",
+    "name": "http",
+    "version": "0.11.3+13",
+  },
+  "pubSummary": {
     "packages": isMap,
     "availablePackages": {'async': '2.0.0', "unittest": "0.12.4+1"}
   },

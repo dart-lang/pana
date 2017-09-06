@@ -13,7 +13,7 @@ class MiniSum {
   bool get pubClean => summary.pubSummary != null;
 
   Set<String> get authorDomains => new SplayTreeSet<String>.from(
-      summary.pubSummary.authors.map(_domainFromAuthor));
+      summary.pubspec.authors.map(_domainFromAuthor));
 
   int get unformattedFiles =>
       summary.dartFiles.values.where((f) => !(f?.isFormatted ?? false)).length;
@@ -43,7 +43,7 @@ class MiniSum {
     };
 
     // dependency info
-    map.addAll(summary.pubSummary.getStats());
+    map.addAll(summary.pubSummary.getStats(summary.pubspec));
 
     // analyzer info
     map.addAll(_analyzerThings(summary.codeProblems));

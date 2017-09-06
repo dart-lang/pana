@@ -18,6 +18,11 @@
     * Renamed `total` -> `magnitude`
     * Removed `value`, using `shortcoming` instead (`value` = `magnitude - shortcoming;`)
 
+  * Refactored `PubSummary`
+    * Moved `pubspec` -> `Summary`
+    * Moved `pkgVersion` -> `Pubspec.version`
+    * Moved `authors` -> `Pubspec.authors`
+
 ## 0.3.0
 
 * Removed `PlatformSummary.package` in favor of `PlatformSummary.pubspec` of

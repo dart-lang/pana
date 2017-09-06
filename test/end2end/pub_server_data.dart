@@ -19,31 +19,31 @@ final _data = {
   "sdkVersion": startsWith("Dart VM version"),
   "packageName": "pub_server",
   "packageVersion": "0.1.1+3",
+  "pubspec": {
+    "author": "Dart Team <misc@dartlang.org>",
+    "dependencies": {
+      "logging": ">=0.9.3 <1.0.0",
+      "mime": ">=0.9.3 <0.10.0",
+      "pub_semver": ">=1.1.0 <1.4.0",
+      "shelf": ">=0.5.6 <0.7.0",
+      "yaml": ">=2.1.2 <3.0.0"
+    },
+    "description":
+        "A Dart package containing re-usable components for making a pub package server.",
+    "dev_dependencies": {
+      "archive": ">=1.0.0 <2.0.0",
+      "args": ">=0.12.2 <0.14.0",
+      "http": ">0.11.0 <0.12.0",
+      "test": ">=0.12.0 <0.13.0"
+    },
+    "environment": {"sdk": ">=1.5.0 <2.0.0"},
+    "homepage": "https://github.com/dart-lang/pub_server",
+    "name": "pub_server",
+    "version": "0.1.1+3",
+  },
   "pubSummary": {
     "packages": isMap,
     "availablePackages": isMap,
-    "pubspecContent": {
-      "author": "Dart Team <misc@dartlang.org>",
-      "dependencies": {
-        "logging": ">=0.9.3 <1.0.0",
-        "mime": ">=0.9.3 <0.10.0",
-        "pub_semver": ">=1.1.0 <1.4.0",
-        "shelf": ">=0.5.6 <0.7.0",
-        "yaml": ">=2.1.2 <3.0.0"
-      },
-      "description":
-          "A Dart package containing re-usable components for making a pub package server.",
-      "dev_dependencies": {
-        "archive": ">=1.0.0 <2.0.0",
-        "args": ">=0.12.2 <0.14.0",
-        "http": ">0.11.0 <0.12.0",
-        "test": ">=0.12.0 <0.13.0"
-      },
-      "environment": {"sdk": ">=1.5.0 <2.0.0"},
-      "homepage": "https://github.com/dart-lang/pub_server",
-      "name": "pub_server",
-      "version": "0.1.1+3"
-    }
   },
   "dartFiles": {
     "example/server.dart": {

@@ -12,6 +12,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:json_serializable/annotations.dart';
 
+import 'pubspec.dart';
 import 'utils.dart';
 
 part 'pub_summary.g.dart';
@@ -21,14 +22,12 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
   static final _solvePkgLine = new RegExp(
       r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
 
-  @JsonKey(name: 'pubspecContent')
-  final Map<String, Object> pubspec;
   @JsonKey(name: 'packages')
   final Map<String, Version> packageVersions;
   @JsonKey(name: 'availablePackages')
   final Map<String, Version> availableVersions;
 
-  PubSummary(this.packageVersions, this.availableVersions, this.pubspec);
+  PubSummary(this.packageVersions, this.availableVersions);
 
   static PubSummary create(String procStdout, {String path}) {
     var pkgVersions = <String, Version>{};
@@ -60,26 +59,24 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
       // it's empty – which is fine for a package with no dependencies
     }
 
-    Map<String, Object> pubspecContent;
-
     if (path != null) {
-      pubspecContent = yamlToJson(getPubspecContent(path));
-
       var theFile = new File(p.join(path, 'pubspec.lock'));
       if (theFile.existsSync()) {
         var lockFileContent = theFile.readAsStringSync();
         if (lockFileContent.isNotEmpty) {
           Map lockMap = yamlToJson(lockFileContent);
-          Map pkgs = lockMap['packages'];
+          Map<String, Object> pkgs = lockMap['packages'];
           if (pkgs != null) {
             var expectedPackages = pkgVersions.keys.toSet();
 
-            pkgs.forEach((String key, Map m) {
+            pkgs.forEach((String key, Object v) {
               if (!expectedPackages.remove(key)) {
                 throw new StateError(
                     "Did not parse package `$key` from pub output, "
                     "but it was found in `pubspec.lock`.");
               }
+
+              var m = v as Map;
 
               var lockedVersion = new Version.parse(m['version']);
               if (pkgVersions[key] != lockedVersion) {
@@ -99,31 +96,30 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
       }
     }
 
-    return new PubSummary(pkgVersions, availVersions, pubspecContent);
+    return new PubSummary(pkgVersions, availVersions);
   }
 
   factory PubSummary.fromJson(Map<String, dynamic> json) =>
       _$PubSummaryFromJson(json);
 
-  Map<String, int> getStats() {
+  Map<String, int> getStats(Pubspec pubspec) {
     // counts: direct, dev, transitive
     // outdated count, by constraint: direct, dev
     // outdated count, other: all
-
-    var directDeps = (pubspec['dependencies'] as Map ?? {}).length;
-    var devDeps = (pubspec['dev_dependencies'] as Map ?? {}).length;
+    var directDeps = pubspec.dependencies?.length ?? 0;
+    var devDeps = pubspec.devDependencies?.length ?? 0;
 
     var transitiveDeps = packageVersions.length - (directDeps + devDeps);
     assert(transitiveDeps >= 0);
 
-    var details = getDependencyDetails();
+    var details = _getDependencyDetails(pubspec);
 
     var data = <String, int>{
       'deps_direct': directDeps,
       'deps_dev': devDeps,
       'deps_transitive': transitiveDeps,
-      'outdated_direct': details.where((pvd) => !pvd.isDevDep).length,
-      'outdated_dev': details.where((pvd) => pvd.isDevDep).length,
+      'outdated_direct': details.where((pvd) => !pvd.isDev).length,
+      'outdated_dev': details.where((pvd) => pvd.isDev).length,
       'outdated_transitive': (availableVersions.keys.toSet()
             ..removeAll(details.map((pvd) => pvd.package)))
           .length,
@@ -132,24 +128,19 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
     return data;
   }
 
-  /// Can be `null` if there is no [pubspec].
-  Set<PkgVersionDetails> getDependencyDetails() {
-    if (pubspec == null) {
-      return null;
-    }
-
+  Set<PkgDependency> _getDependencyDetails(Pubspec pubspec) {
     var loggedWeird = false;
     void logWeird(String input) {
       if (!loggedWeird) {
         // only write the header if there is "weirdness" in processing
-        stderr.writeln("Package: ${this.pubspec['name']}");
+        stderr.writeln("Package: ${pubspec.name}");
         loggedWeird = true;
       }
       // write every line of the input indented 2 spaces
       stderr.writeAll(LineSplitter.split(input).map((line) => '  $line\n'));
     }
 
-    var details = new SplayTreeSet<PkgVersionDetails>();
+    var details = new SplayTreeSet<PkgDependency>();
 
     /// [versionConstraint] can be a `String` or `Map`
     /// If it's a `Map` – just log and continue.
@@ -190,86 +181,83 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
         return;
       }
 
-      var added = details.add(new PkgVersionDetails._(
-          package, isDev, vc, usedVersion, availableVersion));
+      var added = details.add(
+          new PkgDependency(package, isDev, vc, usedVersion, availableVersion));
       assert(added);
     }
 
-    (pubspec['dependencies'] as Map ?? {}).forEach((k, v) {
+    pubspec.dependencies?.forEach((k, v) {
       addDetail(k, v, false);
     });
 
-    (pubspec['dev_dependencies'] as Map ?? {}).forEach((k, v) {
+    pubspec.devDependencies?.forEach((k, v) {
       addDetail(k, v, true);
     });
 
     return details;
   }
-
-  List<String> get authors {
-    var authors = <String>[];
-
-    if (pubspec == null) {
-      return authors;
-    }
-
-    if (pubspec['author'] != null) {
-      authors.add(pubspec['author']);
-    } else if (pubspec['authors'] != null) {
-      authors.addAll(pubspec['authors'] as List<String>);
-    }
-
-    return authors;
-  }
-
-  Version get pkgVersion => new Version.parse(pubspec['version']);
 }
 
-enum PkgVersionDetailType { match, missLatestByConstraint, missLatestByOther }
+enum VersionResolutionType {
+  /// The resolved version is the latest.
+  latest,
 
-class PkgVersionDetails implements Comparable<PkgVersionDetails> {
+  /// The latest version is not available due to a version constraint.
+  constrained,
+
+  /// Other, unknown?
+  other,
+}
+
+@JsonSerializable()
+class PkgDependency extends Object
+    with _$PkgDependencySerializerMixin
+    implements Comparable<PkgDependency> {
   final String package;
-  final bool isDevDep;
+  final bool isDev;
   final VersionConstraint constraint;
-  final Version usedVersion;
-  final Version availableVersion;
+  final Version resolved;
+  final Version available;
 
-  PkgVersionDetails._(this.package, this.isDevDep, this.constraint,
-      this.usedVersion, this.availableVersion);
+  PkgDependency(
+      this.package, this.isDev, this.constraint, this.resolved, this.available);
 
-  PkgVersionDetailType get type {
-    if (usedVersion == availableVersion) {
-      return PkgVersionDetailType.match;
+  factory PkgDependency.fromJson(Map<String, dynamic> json) =>
+      _$PkgDependencyFromJson(json);
+
+  VersionResolutionType get resolutionType {
+    if (resolved == available) {
+      return VersionResolutionType.latest;
     }
 
-    if (constraint.allows(availableVersion)) {
-      return PkgVersionDetailType.missLatestByConstraint;
+    if (constraint.allows(available)) {
+      return VersionResolutionType.constrained;
     }
 
-    if (availableVersion.isPreRelease) {
+    if (available.isPreRelease) {
       // If the pre-release isn't allowed by the constraint, then ignore it
       // ... call it a match
-      return PkgVersionDetailType.match;
+      return VersionResolutionType.latest;
     }
 
-    return PkgVersionDetailType.missLatestByOther;
+    return VersionResolutionType.other;
   }
 
   @override
-  int compareTo(PkgVersionDetails other) => package.compareTo(other.package);
+  int compareTo(PkgDependency other) => package.compareTo(other.package);
 
   @override
   String toString() {
     var items = <Object>[package];
-    if (isDevDep) {
+    if (isDev) {
       items.add('(dev)');
     }
-    items.add('@$usedVersion');
+    items.add('@$resolved');
 
-    items.add(type.toString().split('.').last);
+    items.add(resolutionType.toString().split('.').last);
 
-    if (type != PkgVersionDetailType.match) {
-      items.add(availableVersion);
+    if (resolutionType != VersionResolutionType.latest) {
+      items.add(available);
     }
     return items.join(' ');
   }
