@@ -14,6 +14,10 @@
     * Split up `type`, new fields: `severity`, `errorType`, `errorCode`
     * Renamed `error` to `description`
 
+  * Refactored `Fitness`:
+    * Renamed `total` -> `magnitude`
+    * Removed `value`, using `shortcoming` instead (`value` = `magnitude - shortcoming;`)
+
   * Refactored `PubSummary`
     * Moved `pubspec` -> `Summary`
     * Moved `pkgVersion` -> `Pubspec.version`

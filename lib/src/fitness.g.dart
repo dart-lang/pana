@@ -7,11 +7,12 @@ part of pana.health;
 // **************************************************************************
 
 Fitness _$FitnessFromJson(Map<String, dynamic> json) => new Fitness(
-    (json['value'] as num)?.toDouble(), (json['total'] as num)?.toDouble());
+    (json['magnitude'] as num)?.toDouble(),
+    (json['shortcoming'] as num)?.toDouble());
 
 abstract class _$FitnessSerializerMixin {
-  double get value;
-  double get total;
+  double get magnitude;
+  double get shortcoming;
   Map<String, dynamic> toJson() =>
-      <String, dynamic>{'value': value, 'total': total};
+      <String, dynamic>{'magnitude': magnitude, 'shortcoming': shortcoming};
 }
