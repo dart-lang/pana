@@ -144,7 +144,7 @@ final _data = {
       "platform": {
         "uses": ['dart:async', 'dart:collection', 'dart:math']
       },
-      'fitness': {'value': 95.0, 'total': 95.0},
+      'fitness': {'magnitude': 95.0, 'shortcoming': 0.0},
     },
     "lib/shelf_pubserver.dart": {
       "uri": "package:pub_server/shelf_pubserver.dart",
@@ -355,7 +355,7 @@ final _data = {
           'dart:typed_data'
         ]
       },
-      'fitness': {'value': 359.0, 'total': 360.0},
+      'fitness': {'magnitude': 360.0, 'shortcoming': 1.0},
     },
     "test/shelf_pubserver_test.dart": {
       "uri": "asset:pub_server/test/shelf_pubserver_test.dart",
@@ -365,5 +365,5 @@ final _data = {
     },
   },
   "license": {"name": "BSD"},
-  'fitness': {'value': 454.0, 'total': 455.0},
+  'fitness': {'magnitude': 455.0, 'shortcoming': 1.0},
 };

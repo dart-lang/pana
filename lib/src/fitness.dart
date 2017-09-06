@@ -19,18 +19,20 @@ import 'summary.dart';
 part 'fitness.g.dart';
 
 /// Describes a health metric that takes size and complexity into account.
-/// It can be displayed in the form of [value] out of [total].
 @JsonSerializable()
 class Fitness extends Object with _$FitnessSerializerMixin {
-  /// The current fitness score.
-  final double value;
+  /// Represents the size and complexity of the library.
+  final double magnitude;
 
-  /// The maximum score, representing the size and complexity of the library.
-  final double total;
+  /// The faults, penalties and failures to meet the standards.
+  final double shortcoming;
 
-  Fitness(this.value, this.total);
+  Fitness(this.magnitude, this.shortcoming);
 
   factory Fitness.fromJson(Map json) => _$FitnessFromJson(json);
+
+  String toSimpleText() =>
+      '${(magnitude - shortcoming).toStringAsFixed(2)} out of ${magnitude.toStringAsFixed(2)}';
 }
 
 Future<Fitness> calcFitness(
@@ -56,62 +58,62 @@ Future<Fitness> calcFitness(
       (semiColonCount + nonEmptyLineCount + statementEstimate) ~/ 3;
 
   // code magnitude is estimated by the imported lib count and statement count
-  final total =
+  final magnitude =
       max(1.0, ((directLibs?.length ?? 0) + statementCount).toDouble());
 
   // major issues are penalized in the percent of the total
   // minor issues are penalized in a fixed amount
-  final errorPoints = max(10.0, total * 0.20); // 20%
-  final warnPoints = max(4.0, total * 0.05); // 5%
+  final errorPoints = max(10.0, magnitude * 0.20); // 20%
+  final warnPoints = max(4.0, magnitude * 0.05); // 5%
   final hintPoints = 1.0;
 
-  var penalties = 0.0;
+  var shortcoming = 0.0;
 
   if (platform != null && platform.hasConflict) {
-    penalties += errorPoints;
+    shortcoming += errorPoints;
   }
 
   if (isFormatted == null || !isFormatted) {
-    penalties += hintPoints;
+    shortcoming += hintPoints;
   }
 
   if (fileAnalyzerItems != null) {
     for (var item in fileAnalyzerItems) {
       if (item.severity == 'INFO') {
-        penalties += hintPoints;
+        shortcoming += hintPoints;
       } else if (item.severity == 'WARNING') {
-        penalties += warnPoints;
+        shortcoming += warnPoints;
       } else {
-        penalties += errorPoints;
+        shortcoming += errorPoints;
       }
     }
   }
 
-  final score = max(0.0, total - penalties);
-  return new Fitness(score, total);
+  return new Fitness(magnitude, min(shortcoming, magnitude));
 }
 
 Fitness calcPkgFitness(Pubspec pubspec, Iterable<DartFileSummary> files,
     List<ToolProblem> toolIssues) {
-  var total = 0.0;
-  var value = 0.0;
+  var magnitude = 0.0;
+  var shortcoming = 0.0;
   for (var dfs in files) {
     if (dfs.isInLib && dfs.fitness != null) {
-      total += dfs.fitness.total;
-      value += dfs.fitness.value;
+      magnitude += dfs.fitness.magnitude;
+      shortcoming += dfs.fitness.shortcoming;
     }
   }
-  total = max(1.0, total);
+  magnitude = max(1.0, magnitude);
 
   // major tool errors are penalized in the percent of the total
-  final toolErrorPoints = max(20.0, total * 0.20); // 20%
-  value -= toolIssues.length * toolErrorPoints;
+  final toolErrorPoints = max(20.0, magnitude * 0.20); // 20%
+  shortcoming += toolIssues.length * toolErrorPoints;
 
   // unconstrained dependencies are penalized in the percent of the total
-  final unconstrainedErrorPoints = max(5.0, total * 0.05); // 5%
-  value -= pubspec.unconstrainedDependencies.length * unconstrainedErrorPoints;
+  final unconstrainedErrorPoints = max(5.0, magnitude * 0.05); // 5%
+  shortcoming +=
+      pubspec.unconstrainedDependencies.length * unconstrainedErrorPoints;
 
-  return new Fitness(max(0.0, value), total);
+  return new Fitness(magnitude, min(shortcoming, magnitude));
 }
 
 final _blockCommentRegExp = new RegExp(r'\/\*.*\*\/', multiLine: true);

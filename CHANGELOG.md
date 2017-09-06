@@ -14,6 +14,10 @@
     * Split up `type`, new fields: `severity`, `errorType`, `errorCode`
     * Renamed `error` to `description`
 
+  * Refactored `Fitness`:
+    * Renamed `total` -> `magnitude`
+    * Removed `value`, using `shortcoming` instead (`value` = `magnitude - shortcoming;`)
+
 ## 0.3.0
 
 * Removed `PlatformSummary.package` in favor of `PlatformSummary.pubspec` of
