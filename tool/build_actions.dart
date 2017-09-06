@@ -12,7 +12,10 @@ import 'version_helper.dart';
 final List<BuildAction> buildActions = [
   new BuildAction(
       new PartBuilder([
-        new JsonSerializableGenerator.withDefaultHelpers([new VersionHelper()]),
+        new JsonSerializableGenerator.withDefaultHelpers([
+          new VersionHelper(),
+          new VersionConstraintHelper(),
+        ]),
         new PackageVersionGenerator()
       ]),
       'pana',

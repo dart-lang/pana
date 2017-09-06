@@ -122,8 +122,8 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
       'deps_direct': directDeps,
       'deps_dev': devDeps,
       'deps_transitive': transitiveDeps,
-      'outdated_direct': details.where((pvd) => !pvd.isDevDep).length,
-      'outdated_dev': details.where((pvd) => pvd.isDevDep).length,
+      'outdated_direct': details.where((pvd) => !pvd.isDev).length,
+      'outdated_dev': details.where((pvd) => pvd.isDev).length,
       'outdated_transitive': (availableVersions.keys.toSet()
             ..removeAll(details.map((pvd) => pvd.package)))
           .length,
@@ -133,7 +133,7 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
   }
 
   /// Can be `null` if there is no [pubspec].
-  Set<PkgVersionDetails> getDependencyDetails() {
+  Set<PkgDependency> getDependencyDetails() {
     if (pubspec == null) {
       return null;
     }
@@ -149,7 +149,7 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
       stderr.writeAll(LineSplitter.split(input).map((line) => '  $line\n'));
     }
 
-    var details = new SplayTreeSet<PkgVersionDetails>();
+    var details = new SplayTreeSet<PkgDependency>();
 
     /// [versionConstraint] can be a `String` or `Map`
     /// If it's a `Map` – just log and continue.
@@ -190,8 +190,8 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
         return;
       }
 
-      var added = details.add(new PkgVersionDetails._(
-          package, isDev, vc, usedVersion, availableVersion));
+      var added = details.add(
+          new PkgDependency(package, isDev, vc, usedVersion, availableVersion));
       assert(added);
     }
 
@@ -225,51 +225,66 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
   Version get pkgVersion => new Version.parse(pubspec['version']);
 }
 
-enum PkgVersionDetailType { match, missLatestByConstraint, missLatestByOther }
+enum VersionResolutionType {
+  /// The resolved version is the latest.
+  latest,
 
-class PkgVersionDetails implements Comparable<PkgVersionDetails> {
+  /// The latest version is not available due to a version constraint.
+  constrained,
+
+  /// Other, unknown?
+  other,
+}
+
+@JsonSerializable()
+class PkgDependency extends Object
+    with _$PkgDependencySerializerMixin
+    implements Comparable<PkgDependency> {
   final String package;
-  final bool isDevDep;
+  final bool isDev;
   final VersionConstraint constraint;
-  final Version usedVersion;
-  final Version availableVersion;
+  final Version resolved;
+  final Version available;
 
-  PkgVersionDetails._(this.package, this.isDevDep, this.constraint,
-      this.usedVersion, this.availableVersion);
+  PkgDependency(
+      this.package, this.isDev, this.constraint, this.resolved, this.available);
 
-  PkgVersionDetailType get type {
-    if (usedVersion == availableVersion) {
-      return PkgVersionDetailType.match;
+  factory PkgDependency.fromJson(Map<String, dynamic> json) =>
+      _$PkgDependencyFromJson(json);
+
+  VersionResolutionType get resolutionType {
+    if (resolved == available) {
+      return VersionResolutionType.latest;
     }
 
-    if (constraint.allows(availableVersion)) {
-      return PkgVersionDetailType.missLatestByConstraint;
+    if (constraint.allows(available)) {
+      return VersionResolutionType.constrained;
     }
 
-    if (availableVersion.isPreRelease) {
+    if (available.isPreRelease) {
       // If the pre-release isn't allowed by the constraint, then ignore it
       // ... call it a match
-      return PkgVersionDetailType.match;
+      return VersionResolutionType.latest;
     }
 
-    return PkgVersionDetailType.missLatestByOther;
+    return VersionResolutionType.other;
   }
 
   @override
-  int compareTo(PkgVersionDetails other) => package.compareTo(other.package);
+  int compareTo(PkgDependency other) => package.compareTo(other.package);
 
   @override
   String toString() {
     var items = <Object>[package];
-    if (isDevDep) {
+    if (isDev) {
       items.add('(dev)');
     }
-    items.add('@$usedVersion');
+    items.add('@$resolved');
 
-    items.add(type.toString().split('.').last);
+    items.add(resolutionType.toString().split('.').last);
 
-    if (type != PkgVersionDetailType.match) {
-      items.add(availableVersion);
+    if (resolutionType != VersionResolutionType.latest) {
+      items.add(available);
     }
     return items.join(' ');
   }

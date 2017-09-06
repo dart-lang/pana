@@ -14,9 +14,7 @@ class VersionHelper extends TypeHelper {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
-
     var nullThing = nullable ? '?' : '';
-
     return "$expression$nullThing.toString()";
   }
 
@@ -24,13 +22,33 @@ class VersionHelper extends TypeHelper {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
-
     var value = 'new Version.parse($expression)';
-
     if (nullable) {
       value = '$expression == null ? null : $value';
     }
+    return value;
+  }
+}
 
+class VersionConstraintHelper extends TypeHelper {
+  final _checker = new TypeChecker.fromRuntime(VersionConstraint);
+
+  String serialize(DartType targetType, String expression, bool nullable, _) {
+    if (!_checker.isExactlyType(targetType)) {
+      return null;
+    }
+    var nullThing = nullable ? '?' : '';
+    return "$expression$nullThing.toString()";
+  }
+
+  String deserialize(DartType targetType, String expression, bool nullable, _) {
+    if (!_checker.isExactlyType(targetType)) {
+      return null;
+    }
+    var value = 'new VersionConstraint.parse($expression)';
+    if (nullable) {
+      value = '$expression == null ? null : $value';
+    }
     return value;
   }
 }
