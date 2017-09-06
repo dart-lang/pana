@@ -80,7 +80,8 @@ class PackageAnalyzer {
     }
 
     log.info('Counting files...');
-    var dartFiles = await listFiles(pkgDir, endsWith: '.dart');
+    var dartFiles =
+        await listFiles(pkgDir, endsWith: '.dart', deleteBadExtracted: true);
 
     log.info("Checking formatting...");
     Set<String> unformattedFiles;
