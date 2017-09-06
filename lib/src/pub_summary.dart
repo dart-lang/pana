@@ -70,16 +70,18 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
         var lockFileContent = theFile.readAsStringSync();
         if (lockFileContent.isNotEmpty) {
           Map lockMap = yamlToJson(lockFileContent);
-          Map pkgs = lockMap['packages'];
+          Map<String, Object> pkgs = lockMap['packages'];
           if (pkgs != null) {
             var expectedPackages = pkgVersions.keys.toSet();
 
-            pkgs.forEach((String key, Map m) {
+            pkgs.forEach((String key, Object v) {
               if (!expectedPackages.remove(key)) {
                 throw new StateError(
                     "Did not parse package `$key` from pub output, "
                     "but it was found in `pubspec.lock`.");
               }
+
+              var m = v as Map;
 
               var lockedVersion = new Version.parse(m['version']);
               if (pkgVersions[key] != lockedVersion) {
