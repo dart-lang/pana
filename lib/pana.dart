@@ -108,6 +108,7 @@ class PackageAnalyzer {
       toolProblems.add(new ToolProblem(ToolNames.pubspec,
           'Unknown SDKs: ${pubspec.unknownSdks}', 'unknown-sdks'));
     }
+    log.info('Package version: ${pubspec.version}');
 
     log.info("Pub upgrade...");
     var isFlutter = pubspec.dependsOnFlutterSdk;
@@ -118,14 +119,11 @@ class PackageAnalyzer {
       try {
         summary = PubSummary.create(upgrade.stdout, path: pkgDir);
       } catch (e, stack) {
-        log.severe("Problem summarizing package", e, stack);
+        log.severe("Problem with pub upgrade", e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
         //  and writing to issues in one go.
-        toolProblems.add(new ToolProblem(
-            ToolNames.pubspec, "Problem summarizing package: $e"));
-      }
-      if (summary != null) {
-        log.info("Package version: ${summary.pkgVersion}");
+        toolProblems.add(
+            new ToolProblem(ToolNames.pubspec, "Problem with pub upgrade: $e"));
       }
     } else {
       String message;
@@ -248,13 +246,14 @@ class PackageAnalyzer {
 
     var license = await detectLicenseInDir(pkgDir);
     final pkgFitness = calcPkgFitness(pubspec, files.values, toolProblems);
-    pkgVersion ??= summary?.pkgVersion;
+    pkgVersion ??= pubspec?.version;
 
     return new Summary(
       panaPkgVersion,
       sdkVersion,
       package,
       pkgVersion,
+      pubspec,
       summary,
       files,
       toolProblems,

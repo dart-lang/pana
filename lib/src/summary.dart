@@ -81,6 +81,9 @@ class Summary extends Object with _$SummarySerializerMixin {
 
   @JsonKey(includeIfNull: false)
   final Version packageVersion;
+
+  final Pubspec pubspec;
+
   final PubSummary pubSummary;
   final Map<String, DartFileSummary> dartFiles;
   final License license;
@@ -95,6 +98,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.sdkVersion,
       this.packageName,
       this.packageVersion,
+      this.pubspec,
       this.pubSummary,
       this.dartFiles,
       List<ToolProblem> toolProblems,
@@ -114,7 +118,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       .expand((list) => list);
 
   PlatformSummary getPlatformSummary() {
-    var package = classifyPubspec(new Pubspec(pubSummary.pubspec));
+    var package = classifyPubspec(pubspec);
     var libraries = new Map<String, PlatformInfo>.fromIterable(
       dartFiles.values.where((dfs) => dfs.platform != null),
       key: (DartFileSummary dfs) => dfs.uri,

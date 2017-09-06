@@ -12,6 +12,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:json_serializable/annotations.dart';
 
+import 'pubspec.dart';
 import 'utils.dart';
 
 part 'pub_summary.g.dart';
@@ -21,14 +22,12 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
   static final _solvePkgLine = new RegExp(
       r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
 
-  @JsonKey(name: 'pubspecContent')
-  final Map<String, Object> pubspec;
   @JsonKey(name: 'packages')
   final Map<String, Version> packageVersions;
   @JsonKey(name: 'availablePackages')
   final Map<String, Version> availableVersions;
 
-  PubSummary(this.packageVersions, this.availableVersions, this.pubspec);
+  PubSummary(this.packageVersions, this.availableVersions);
 
   static PubSummary create(String procStdout, {String path}) {
     var pkgVersions = <String, Version>{};
@@ -60,11 +59,7 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
       // it's empty – which is fine for a package with no dependencies
     }
 
-    Map<String, Object> pubspecContent;
-
     if (path != null) {
-      pubspecContent = yamlToJson(getPubspecContent(path));
-
       var theFile = new File(p.join(path, 'pubspec.lock'));
       if (theFile.existsSync()) {
         var lockFileContent = theFile.readAsStringSync();
@@ -101,24 +96,23 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
       }
     }
 
-    return new PubSummary(pkgVersions, availVersions, pubspecContent);
+    return new PubSummary(pkgVersions, availVersions);
   }
 
   factory PubSummary.fromJson(Map<String, dynamic> json) =>
       _$PubSummaryFromJson(json);
 
-  Map<String, int> getStats() {
+  Map<String, int> getStats(Pubspec pubspec) {
     // counts: direct, dev, transitive
     // outdated count, by constraint: direct, dev
     // outdated count, other: all
-
-    var directDeps = (pubspec['dependencies'] as Map ?? {}).length;
-    var devDeps = (pubspec['dev_dependencies'] as Map ?? {}).length;
+    var directDeps = pubspec.dependencies?.length ?? 0;
+    var devDeps = pubspec.devDependencies?.length ?? 0;
 
     var transitiveDeps = packageVersions.length - (directDeps + devDeps);
     assert(transitiveDeps >= 0);
 
-    var details = getDependencyDetails();
+    var details = _getDependencyDetails(pubspec);
 
     var data = <String, int>{
       'deps_direct': directDeps,
@@ -134,17 +128,12 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
     return data;
   }
 
-  /// Can be `null` if there is no [pubspec].
-  Set<PkgDependency> getDependencyDetails() {
-    if (pubspec == null) {
-      return null;
-    }
-
+  Set<PkgDependency> _getDependencyDetails(Pubspec pubspec) {
     var loggedWeird = false;
     void logWeird(String input) {
       if (!loggedWeird) {
         // only write the header if there is "weirdness" in processing
-        stderr.writeln("Package: ${this.pubspec['name']}");
+        stderr.writeln("Package: ${pubspec.name}");
         loggedWeird = true;
       }
       // write every line of the input indented 2 spaces
@@ -197,34 +186,16 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
       assert(added);
     }
 
-    (pubspec['dependencies'] as Map ?? {}).forEach((k, v) {
+    pubspec.dependencies?.forEach((k, v) {
       addDetail(k, v, false);
     });
 
-    (pubspec['dev_dependencies'] as Map ?? {}).forEach((k, v) {
+    pubspec.devDependencies?.forEach((k, v) {
       addDetail(k, v, true);
     });
 
     return details;
   }
-
-  List<String> get authors {
-    var authors = <String>[];
-
-    if (pubspec == null) {
-      return authors;
-    }
-
-    if (pubspec['author'] != null) {
-      authors.add(pubspec['author']);
-    } else if (pubspec['authors'] != null) {
-      authors.addAll(pubspec['authors'] as List<String>);
-    }
-
-    return authors;
-  }
-
-  Version get pkgVersion => new Version.parse(pubspec['version']);
 }
 
 enum VersionResolutionType {
