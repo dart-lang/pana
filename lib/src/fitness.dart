@@ -71,7 +71,7 @@ Future<Fitness> calcFitness(
     penalties += errorPoints;
   }
 
-  if (!isFormatted) {
+  if (isFormatted == null || !isFormatted) {
     penalties += hintPoints;
   }
 
