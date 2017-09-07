@@ -31,6 +31,8 @@ main() async {
       .where((sum) => sum != null && sum.pubClean)
       .toList();
 
+  summaries.sort((a, b) => a.packageName.compareTo(b.packageName));
+
   _updateResults(summaries);
 }
 

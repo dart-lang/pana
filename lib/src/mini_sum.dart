@@ -10,6 +10,8 @@ class MiniSum {
 
   final Summary summary;
 
+  String get packageName => summary.packageName;
+
   bool get pubClean => summary.pkgResolution != null;
 
   Set<String> get authorDomains => new SplayTreeSet<String>.from(
