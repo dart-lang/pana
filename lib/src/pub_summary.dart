@@ -4,7 +4,6 @@
 
 library pana.pub_summary;
 
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:io' hide exitCode;
 
@@ -17,38 +16,32 @@ import 'utils.dart';
 
 part 'pub_summary.g.dart';
 
+final _solvePkgLine = new RegExp(
+    r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
+
 @JsonSerializable()
-class PubSummary extends Object with _$PubSummarySerializerMixin {
-  static final _solvePkgLine = new RegExp(
-      r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
+class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
+  final List<PkgDependency> dependencies;
 
-  @JsonKey(name: 'packages')
-  final Map<String, Version> packageVersions;
-  @JsonKey(name: 'availablePackages')
-  final Map<String, Version> availableVersions;
+  PkgResolution(this.dependencies);
 
-  PubSummary(this.packageVersions, this.availableVersions);
-
-  static PubSummary create(String procStdout, {String path}) {
+  static PkgResolution create(Pubspec pubspec, String procStdout,
+      {String path}) {
     var pkgVersions = <String, Version>{};
     var availVersions = <String, Version>{};
 
-    var entries = PubEntry.parse(procStdout).where((entry) {
-      if (entry.header != 'MSG') {
-        return false;
-      }
-
-      return entry.content.every((line) => _solvePkgLine.hasMatch(line));
-    }).toList();
+    var entries = PubEntry
+        .parse(procStdout)
+        .where((entry) => entry.header == 'MSG')
+        .where((entry) =>
+            entry.content.every((line) => _solvePkgLine.hasMatch(line)))
+        .toList();
 
     if (entries.length == 1) {
       for (var match in entries.single.content.map(_solvePkgLine.firstMatch)) {
         var pkg = match.group(1);
-
         pkgVersions[pkg] = new Version.parse(match.group(2));
-
         var availVerStr = match.group(3);
-
         if (availVerStr != null) {
           availVersions[pkg] = new Version.parse(availVerStr);
         }
@@ -60,47 +53,18 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
     }
 
     if (path != null) {
-      var theFile = new File(p.join(path, 'pubspec.lock'));
-      if (theFile.existsSync()) {
-        var lockFileContent = theFile.readAsStringSync();
-        if (lockFileContent.isNotEmpty) {
-          Map lockMap = yamlToJson(lockFileContent);
-          Map<String, Object> pkgs = lockMap['packages'];
-          if (pkgs != null) {
-            var expectedPackages = pkgVersions.keys.toSet();
-
-            pkgs.forEach((String key, Object v) {
-              if (!expectedPackages.remove(key)) {
-                throw new StateError(
-                    "Did not parse package `$key` from pub output, "
-                    "but it was found in `pubspec.lock`.");
-              }
-
-              var m = v as Map;
-
-              var lockedVersion = new Version.parse(m['version']);
-              if (pkgVersions[key] != lockedVersion) {
-                throw new StateError(
-                    "For $key, the parsed version ${pkgVersions[key]} did not "
-                    "match the locked version $lockedVersion.");
-              }
-            });
-
-            if (expectedPackages.isNotEmpty) {
-              throw new StateError(
-                  "We parsed more packaged than were found in the lock file: "
-                  "${expectedPackages.join(', ')}");
-            }
-          }
-        }
-      }
+      _validateLockedVersions(path, pkgVersions);
     }
 
-    return new PubSummary(pkgVersions, availVersions);
+    final deps = _buildDeps(pubspec, pkgVersions, availVersions);
+    return new PkgResolution(deps);
   }
 
-  factory PubSummary.fromJson(Map<String, dynamic> json) =>
-      _$PubSummaryFromJson(json);
+  factory PkgResolution.fromJson(Map<String, dynamic> json) =>
+      _$PkgResolutionFromJson(json);
+
+  List<PkgDependency> get outdated =>
+      dependencies.where((pd) => pd.isOutdated).toList();
 
   Map<String, int> getStats(Pubspec pubspec) {
     // counts: direct, dev, transitive
@@ -109,93 +73,181 @@ class PubSummary extends Object with _$PubSummarySerializerMixin {
     var directDeps = pubspec.dependencies?.length ?? 0;
     var devDeps = pubspec.devDependencies?.length ?? 0;
 
-    var transitiveDeps = packageVersions.length - (directDeps + devDeps);
-    assert(transitiveDeps >= 0);
-
-    var details = _getDependencyDetails(pubspec);
+    var transitiveDeps = dependencies.where((pd) => pd.isTransitive).length;
 
     var data = <String, int>{
       'deps_direct': directDeps,
       'deps_dev': devDeps,
       'deps_transitive': transitiveDeps,
-      'outdated_direct': details.where((pvd) => !pvd.isDev).length,
-      'outdated_dev': details.where((pvd) => pvd.isDev).length,
-      'outdated_transitive': (availableVersions.keys.toSet()
-            ..removeAll(details.map((pvd) => pvd.package)))
-          .length,
+      'outdated_direct': outdated.where((pvd) => pvd.isDirect).length,
+      'outdated_dev': outdated.where((pvd) => pvd.isDev).length,
+      'outdated_transitive': outdated.where((pvd) => pvd.isTransitive).length,
     };
 
     return data;
   }
+}
 
-  Set<PkgDependency> _getDependencyDetails(Pubspec pubspec) {
-    var loggedWeird = false;
-    void logWeird(String input) {
-      if (!loggedWeird) {
-        // only write the header if there is "weirdness" in processing
-        stderr.writeln("Package: ${pubspec.name}");
-        loggedWeird = true;
-      }
-      // write every line of the input indented 2 spaces
-      stderr.writeAll(LineSplitter.split(input).map((line) => '  $line\n'));
-    }
+void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
+  var theFile = new File(p.join(path, 'pubspec.lock'));
+  if (theFile.existsSync()) {
+    var lockFileContent = theFile.readAsStringSync();
+    if (lockFileContent.isNotEmpty) {
+      Map lockMap = yamlToJson(lockFileContent);
+      Map<String, Object> pkgs = lockMap['packages'];
+      if (pkgs != null) {
+        var expectedPackages = pkgVersions.keys.toSet();
 
-    var details = new SplayTreeSet<PkgDependency>();
+        pkgs.forEach((String key, Object v) {
+          if (!expectedPackages.remove(key)) {
+            throw new StateError(
+                "Did not parse package `$key` from pub output, "
+                "but it was found in `pubspec.lock`.");
+          }
 
-    /// [versionConstraint] can be a `String` or `Map`
-    /// If it's a `Map` – just log and continue.
-    void addDetail(String package, versionConstraint, bool isDev) {
-      if (versionConstraint == null) {
-        if (!isDev) {
-          logWeird('BAD! No constraint provided for $package');
+          var m = v as Map;
+
+          var lockedVersion = new Version.parse(m['version']);
+          if (pkgVersions[key] != lockedVersion) {
+            throw new StateError(
+                "For $key, the parsed version ${pkgVersions[key]} did not "
+                "match the locked version $lockedVersion.");
+          }
+        });
+
+        if (expectedPackages.isNotEmpty) {
+          throw new StateError(
+              "We parsed more packaged than were found in the lock file: "
+              "${expectedPackages.join(', ')}");
         }
-        return;
       }
-
-      if (versionConstraint is Map) {
-        if (versionConstraint['sdk'] == 'flutter') {
-          // NOOP logWeird('Flutter SDK constraint for pkg/$package');
-        } else if (versionConstraint.containsKey('git') && !isDev) {
-          logWeird(
-              'BAD! git constraint for pkg/$package - ${versionConstraint['git']}');
-        } else {
-          logWeird(
-              'BAD! Unknown version constraint for $package\n  $versionConstraint');
-        }
-        return;
-      }
-
-      var vc = new VersionConstraint.parse(versionConstraint as String);
-      var usedVersion = packageVersions[package];
-
-      if (usedVersion == null) {
-        logWeird('Weird! No version for $package');
-        return;
-      }
-
-      assert(vc.allows(usedVersion));
-
-      var availableVersion = availableVersions[package];
-
-      if (availableVersion == null) {
-        return;
-      }
-
-      var added = details.add(
-          new PkgDependency(package, isDev, vc, usedVersion, availableVersion));
-      assert(added);
     }
-
-    pubspec.dependencies?.forEach((k, v) {
-      addDetail(k, v, false);
-    });
-
-    pubspec.devDependencies?.forEach((k, v) {
-      addDetail(k, v, true);
-    });
-
-    return details;
   }
+}
+
+List<PkgDependency> _buildDeps(Pubspec pubspec,
+    Map<String, Version> pkgVersions, Map<String, Version> availVersions) {
+  var loggedWeird = false;
+  void logWeird(String input) {
+    if (!loggedWeird) {
+      // only write the header if there is "weirdness" in processing
+      stderr.writeln("Package: ${pubspec.name}");
+      loggedWeird = true;
+    }
+    // write every line of the input indented 2 spaces
+    stderr.writeAll(LineSplitter.split(input).map((line) => '  $line\n'));
+  }
+
+  var deps = <PkgDependency>[];
+
+  /// [versionConstraint] can be a `String` or `Map`
+  /// If it's a `Map` – just log and continue.
+  void addDetail(String package, versionConstraint, String dependencyType) {
+    String constraintType;
+    final errors = <String>[];
+    String constraintValue;
+    if (dependencyType == DependencyTypes.transitive) {
+      constraintType = ConstraintTypes.inherited;
+    } else if (versionConstraint == null) {
+      constraintType = ConstraintTypes.empty;
+    } else if (versionConstraint is Map) {
+      if (versionConstraint.containsKey('sdk')) {
+        constraintType = ConstraintTypes.sdk;
+        if (versionConstraint['sdk'] != 'flutter') {
+          errors.add(
+              'Unsupported SDK for package $package: ${versionConstraint['sdk']}');
+        }
+      } else if (versionConstraint.containsKey('git')) {
+        constraintType = ConstraintTypes.git;
+        if (dependencyType != DependencyTypes.dev) {
+          errors.add(
+              'Git constraint for package $package: ${versionConstraint['git']}');
+        }
+      } else if (versionConstraint.containsKey('path')) {
+        constraintType = ConstraintTypes.path;
+        errors.add(
+            'Path constraint for package $package: ${versionConstraint['path']}');
+      } else if (versionConstraint.containsKey('version') &&
+          versionConstraint['version'] is String) {
+        constraintType = ConstraintTypes.normal;
+        constraintValue = versionConstraint['version'];
+      } else if (versionConstraint.isEmpty) {
+        constraintType = ConstraintTypes.empty;
+      } else {
+        constraintType = ConstraintTypes.unknown;
+        errors.add(
+            'Unknown constraint for package $package:\n$versionConstraint');
+      }
+    } else if (versionConstraint is String) {
+      constraintType = ConstraintTypes.normal;
+      constraintValue = versionConstraint;
+    } else {
+      constraintType = ConstraintTypes.unknown;
+    }
+
+    VersionConstraint constraint;
+    if (constraintValue != null) {
+      try {
+        constraint = new VersionConstraint.parse(constraintValue);
+      } catch (e) {
+        errors.add(
+            'Error parsing constraint for package $package: $constraintValue');
+      }
+    }
+    var resolved = pkgVersions[package];
+    var available = availVersions[package];
+    if (resolved == null) {
+      errors.add('No resolved version for package $package');
+    }
+
+    if (resolved != null &&
+        constraint != null &&
+        !constraint.allows(resolved)) {
+      errors.add(
+          'Package $package has version $resolved but $constraint does not allow it!');
+    }
+
+    errors.forEach(logWeird);
+
+    deps.add(new PkgDependency(
+      package,
+      dependencyType,
+      constraintType,
+      constraint,
+      resolved,
+      available,
+      errors.isEmpty ? null : errors,
+    ));
+  }
+
+  final packageNames = new Set<String>();
+
+  pubspec.dependencies?.forEach((k, v) {
+    if (packageNames.add(k)) {
+      addDetail(k, v, DependencyTypes.direct);
+    }
+  });
+
+  pubspec.devDependencies?.forEach((k, v) {
+    if (packageNames.add(k)) {
+      addDetail(k, v, DependencyTypes.dev);
+    }
+  });
+
+  pkgVersions.forEach((k, v) {
+    if (packageNames.add(k)) {
+      addDetail(k, null, DependencyTypes.transitive);
+    }
+  });
+
+  availVersions.forEach((k, v) {
+    if (packageNames.add(k)) {
+      addDetail(k, null, DependencyTypes.transitive);
+    }
+  });
+
+  deps.sort((a, b) => a.package.compareTo(b.package));
+  return deps;
 }
 
 enum VersionResolutionType {
@@ -209,28 +261,61 @@ enum VersionResolutionType {
   other,
 }
 
+abstract class DependencyTypes {
+  static final String direct = 'direct';
+  static final String dev = 'dev';
+  static final String transitive = 'transitive';
+}
+
+abstract class ConstraintTypes {
+  static final String empty = 'empty';
+  static final String normal = 'normal';
+  static final String sdk = 'sdk';
+  static final String git = 'git';
+  static final String path = 'path';
+  static final String inherited = 'inherited';
+  static final String unknown = 'unknown';
+}
+
 @JsonSerializable()
 class PkgDependency extends Object
     with _$PkgDependencySerializerMixin
     implements Comparable<PkgDependency> {
   final String package;
-  final bool isDev;
+
+  final String dependencyType;
+
+  final String constraintType;
+
+  @JsonKey(includeIfNull: false)
   final VersionConstraint constraint;
+
+  @JsonKey(includeIfNull: false)
   final Version resolved;
+
+  @JsonKey(includeIfNull: false)
   final Version available;
 
-  PkgDependency(
-      this.package, this.isDev, this.constraint, this.resolved, this.available);
+  @JsonKey(includeIfNull: false)
+  final List<String> errors;
+
+  PkgDependency(this.package, this.dependencyType, this.constraintType,
+      this.constraint, this.resolved, this.available, this.errors);
 
   factory PkgDependency.fromJson(Map<String, dynamic> json) =>
       _$PkgDependencyFromJson(json);
 
-  VersionResolutionType get resolutionType {
-    if (resolved == available) {
-      return VersionResolutionType.latest;
-    }
+  bool get isDirect => dependencyType == DependencyTypes.direct;
+  bool get isDev => dependencyType == DependencyTypes.dev;
+  bool get isTransitive => dependencyType == DependencyTypes.transitive;
 
-    if (constraint.allows(available)) {
+  bool get isLatest => available == null;
+  bool get isOutdated => !isLatest;
+
+  VersionResolutionType get resolutionType {
+    if (isLatest) return VersionResolutionType.latest;
+
+    if (constraint != null && constraint.allows(available)) {
       return VersionResolutionType.constrained;
     }
 
@@ -251,6 +336,8 @@ class PkgDependency extends Object
     var items = <Object>[package];
     if (isDev) {
       items.add('(dev)');
+    } else if (isTransitive) {
+      items.add('(transitive)');
     }
     items.add('@$resolved');
 

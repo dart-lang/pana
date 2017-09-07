@@ -68,9 +68,10 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     json['pubspec'] == null
         ? null
         : new Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
-    json['pubSummary'] == null
+    json['pkgResolution'] == null
         ? null
-        : new PubSummary.fromJson(json['pubSummary'] as Map<String, dynamic>),
+        : new PkgResolution.fromJson(
+            json['pkgResolution'] as Map<String, dynamic>),
     json['dartFiles'] == null
         ? null
         : new Map<String, DartFileSummary>.fromIterables(
@@ -98,7 +99,7 @@ abstract class _$SummarySerializerMixin {
   String get packageName;
   Version get packageVersion;
   Pubspec get pubspec;
-  PubSummary get pubSummary;
+  PkgResolution get pkgResolution;
   Map<String, DartFileSummary> get dartFiles;
   License get license;
   List<ToolProblem> get toolProblems;
@@ -119,7 +120,7 @@ abstract class _$SummarySerializerMixin {
     val['packageName'] = packageName;
     writeNotNull('packageVersion', packageVersion?.toString());
     val['pubspec'] = pubspec;
-    val['pubSummary'] = pubSummary;
+    val['pkgResolution'] = pkgResolution;
     val['dartFiles'] = dartFiles;
     val['license'] = license;
     writeNotNull('toolProblems', toolProblems);

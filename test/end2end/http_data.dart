@@ -36,9 +36,77 @@ final _data = {
     "name": "http",
     "version": "0.11.3+13",
   },
-  "pubSummary": {
-    "packages": isMap,
-    "availablePackages": {'async': '2.0.0', "unittest": "0.12.4+1"}
+  "pkgResolution": {
+    "dependencies": [
+      {
+        "package": "async",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "^1.10.0",
+        "resolved": isNotNull,
+        "available": isNotNull,
+      },
+      {
+        "package": "charcode",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": isNotNull,
+      },
+      {
+        "package": "collection",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "^1.5.0",
+        "resolved": isNotNull,
+      },
+      {
+        "package": "http_parser",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": ">=0.0.1 <4.0.0",
+        "resolved": isNotNull,
+      },
+      {
+        "package": "path",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": ">=0.9.0 <2.0.0",
+        "resolved": isNotNull,
+      },
+      {
+        "package": "source_span",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": isNotNull,
+      },
+      {
+        "package": "stack_trace",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": ">=0.9.1 <2.0.0",
+        "resolved": isNotNull,
+      },
+      {
+        "package": "string_scanner",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": isNotNull,
+      },
+      {
+        "package": "typed_data",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": isNotNull,
+      },
+      {
+        "package": "unittest",
+        "dependencyType": "dev",
+        "constraintType": "normal",
+        "constraint": ">=0.9.0 <0.12.0",
+        "resolved": isNotNull,
+        "available": isNotNull,
+      }
+    ]
   },
   "dartFiles": {
     "lib/browser_client.dart": {

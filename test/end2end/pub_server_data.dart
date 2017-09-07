@@ -41,9 +41,8 @@ final _data = {
     "name": "pub_server",
     "version": "0.1.1+3",
   },
-  "pubSummary": {
-    "packages": isMap,
-    "availablePackages": isMap,
+  "pkgResolution": {
+    "dependencies": hasLength(49),
   },
   "dartFiles": {
     "example/server.dart": {

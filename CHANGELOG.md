@@ -18,10 +18,12 @@
     * Renamed `total` -> `magnitude`
     * Removed `value`, using `shortcoming` instead (`value` = `magnitude - shortcoming;`)
 
-  * Refactored `PubSummary`
+  * Refactored `PubSummary`, renamed to `PkgResolution`
     * Moved `pubspec` -> `Summary`
     * Moved `pkgVersion` -> `Pubspec.version`
     * Moved `authors` -> `Pubspec.authors`
+    * Merged `packageVersions` and `availableVersions` into `dependencies`
+    * Renamed `Summary.pubSummary` -> `pkgResolution`
 
 ## 0.3.0
 

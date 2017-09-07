@@ -84,7 +84,7 @@ class Summary extends Object with _$SummarySerializerMixin {
 
   final Pubspec pubspec;
 
-  final PubSummary pubSummary;
+  final PkgResolution pkgResolution;
   final Map<String, DartFileSummary> dartFiles;
   final License license;
 
@@ -99,7 +99,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.packageName,
       this.packageVersion,
       this.pubspec,
-      this.pubSummary,
+      this.pkgResolution,
       this.dartFiles,
       List<ToolProblem> toolProblems,
       this.license,
