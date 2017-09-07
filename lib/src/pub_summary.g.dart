@@ -6,60 +6,56 @@ part of pana.pub_summary;
 // Generator: JsonSerializableGenerator
 // **************************************************************************
 
-PubSummary _$PubSummaryFromJson(Map<String, dynamic> json) => new PubSummary(
-    json['packages'] == null
-        ? null
-        : new Map<String, Version>.fromIterables(
-            (json['packages'] as Map<String, dynamic>).keys,
-            (json['packages'] as Map)
-                .values
-                .map((e) => e == null ? null : new Version.parse(e))),
-    json['availablePackages'] == null
-        ? null
-        : new Map<String, Version>.fromIterables(
-            (json['availablePackages'] as Map<String, dynamic>).keys,
-            (json['availablePackages'] as Map)
-                .values
-                .map((e) => e == null ? null : new Version.parse(e))));
+PkgResolution _$PkgResolutionFromJson(Map<String, dynamic> json) =>
+    new PkgResolution((json['dependencies'] as List)
+        ?.map((e) => e == null
+            ? null
+            : new PkgDependency.fromJson(e as Map<String, dynamic>))
+        ?.toList());
 
-abstract class _$PubSummarySerializerMixin {
-  Map<String, Version> get packageVersions;
-  Map<String, Version> get availableVersions;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'packages': packageVersions == null
-            ? null
-            : new Map<String, dynamic>.fromIterables(packageVersions.keys,
-                packageVersions.values.map((e) => e?.toString())),
-        'availablePackages': availableVersions == null
-            ? null
-            : new Map<String, dynamic>.fromIterables(availableVersions.keys,
-                availableVersions.values.map((e) => e?.toString()))
-      };
+abstract class _$PkgResolutionSerializerMixin {
+  List<PkgDependency> get dependencies;
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'dependencies': dependencies};
 }
 
 PkgDependency _$PkgDependencyFromJson(Map<String, dynamic> json) =>
     new PkgDependency(
         json['package'] as String,
-        json['isDev'] as bool,
+        json['dependencyType'] as String,
+        json['constraintType'] as String,
         json['constraint'] == null
             ? null
             : new VersionConstraint.parse(json['constraint']),
         json['resolved'] == null ? null : new Version.parse(json['resolved']),
-        json['available'] == null
-            ? null
-            : new Version.parse(json['available']));
+        json['available'] == null ? null : new Version.parse(json['available']),
+        (json['errors'] as List)?.map((e) => e as String)?.toList());
 
 abstract class _$PkgDependencySerializerMixin {
   String get package;
-  bool get isDev;
+  String get dependencyType;
+  String get constraintType;
   VersionConstraint get constraint;
   Version get resolved;
   Version get available;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'package': package,
-        'isDev': isDev,
-        'constraint': constraint?.toString(),
-        'resolved': resolved?.toString(),
-        'available': available?.toString()
-      };
+  List<String> get errors;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'package': package,
+      'dependencyType': dependencyType,
+      'constraintType': constraintType,
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('constraint', constraint?.toString());
+    writeNotNull('resolved', resolved?.toString());
+    writeNotNull('available', available?.toString());
+    writeNotNull('errors', errors);
+    return val;
+  }
 }

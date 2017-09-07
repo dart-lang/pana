@@ -114,10 +114,11 @@ class PackageAnalyzer {
     var isFlutter = pubspec.dependsOnFlutterSdk;
     var upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
 
-    PubSummary summary;
+    PkgResolution pkgResolution;
     if (upgrade.exitCode == 0) {
       try {
-        summary = PubSummary.create(upgrade.stdout, path: pkgDir);
+        pkgResolution =
+            PkgResolution.create(pubspec, upgrade.stdout, path: pkgDir);
       } catch (e, stack) {
         log.severe("Problem with pub upgrade", e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
@@ -156,7 +157,7 @@ class PackageAnalyzer {
 
     Set<CodeProblem> analyzerItems;
 
-    if (summary != null) {
+    if (pkgResolution != null) {
       try {
         var overrides = [
           new LibraryOverride.webSafeIO('package:http/http.dart'),
@@ -254,7 +255,7 @@ class PackageAnalyzer {
       package,
       pkgVersion,
       pubspec,
-      summary,
+      pkgResolution,
       files,
       toolProblems,
       license,

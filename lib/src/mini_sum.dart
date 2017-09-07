@@ -10,7 +10,7 @@ class MiniSum {
 
   final Summary summary;
 
-  bool get pubClean => summary.pubSummary != null;
+  bool get pubClean => summary.pkgResolution != null;
 
   Set<String> get authorDomains => new SplayTreeSet<String>.from(
       summary.pubspec.authors.map(_domainFromAuthor));
@@ -25,7 +25,7 @@ class MiniSum {
   factory MiniSum.fromFileContent(String content) {
     var output = JSON.decode(content) as Map<String, dynamic>;
 
-    if (output['pubSummary'] == null) {
+    if (output['pkgResolution'] == null) {
       throw 'Could not process ${output['packageName']}';
     }
 
@@ -43,7 +43,7 @@ class MiniSum {
     };
 
     // dependency info
-    map.addAll(summary.pubSummary.getStats(summary.pubspec));
+    map.addAll(summary.pkgResolution.getStats(summary.pubspec));
 
     // analyzer info
     map.addAll(_analyzerThings(summary.codeProblems));

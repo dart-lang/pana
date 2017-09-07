@@ -3,34 +3,43 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/src/pub_summary.dart';
+import 'package:pana/src/pubspec.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('PubSummary.create', () {
+  group('PkgResolution.create', () {
+    final pubspec = new Pubspec({});
+
     test('pub parse', () {
-      var summary = PubSummary.create(_pubUpgradeOutput);
+      var summary = PkgResolution.create(pubspec, _pubUpgradeOutput);
 
-      expect(summary.packageVersions, hasLength(61));
-      expect(summary.packageVersions,
-          containsPair('args', new Version.parse('0.13.7')));
-      expect(summary.packageVersions,
-          containsPair('analyzer', new Version.parse('0.29.8')));
+      expect(summary.dependencies, hasLength(61));
+      final args =
+          summary.dependencies.firstWhere((pd) => pd.package == 'args');
+      expect(args.resolved, new Version.parse('0.13.7'));
+      expect(args.available, isNull);
+      expect(args.isLatest, isTrue);
 
-      expect(summary.availableVersions, hasLength(7));
-      expect(summary.availableVersions,
-          containsPair('analyzer', new Version.parse('0.30.0-alpha.1')));
+      final analyzer =
+          summary.dependencies.firstWhere((pd) => pd.package == 'analyzer');
+      expect(analyzer.resolved, new Version.parse('0.29.8'));
+      expect(analyzer.available, new Version.parse('0.30.0-alpha.1'));
+      expect(analyzer.isOutdated, isTrue);
+
+      expect(summary.outdated, hasLength(7));
+      expect(summary.outdated, contains(analyzer));
     });
 
     test('upgrade', () {
-      var summary = PubSummary.create(_upgradeOutput);
+      var summary = PkgResolution.create(pubspec, _upgradeOutput);
 
-      expect(summary.packageVersions, hasLength(47));
+      expect(summary.dependencies, hasLength(47));
     });
 
     test('downgrade', () {
-      var summary = PubSummary.create(_downgradeOutput);
-      expect(summary.packageVersions, hasLength(47));
+      var summary = PkgResolution.create(pubspec, _downgradeOutput);
+      expect(summary.dependencies, hasLength(47));
     });
   });
 
