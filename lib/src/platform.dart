@@ -119,6 +119,9 @@ class _LibInspector {
 
 DartPlatform classifyPkgPlatform(
     Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
+  if (transitiveLibs == null) {
+    return new DartPlatform.conflict('failed to scan transitive libraries');
+  }
   final libraries = new Map.fromIterable(transitiveLibs.keys ?? <String>[],
       value: (key) => classifyLibPlatform(transitiveLibs[key]));
   final primaryLibrary =
