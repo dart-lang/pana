@@ -41,7 +41,7 @@ Future<Fitness> calcFitness(
     bool isFormatted,
     List<CodeProblem> fileAnalyzerItems,
     List<String> directLibs,
-    PlatformInfo platform) async {
+    DartPlatform platform) async {
   // statement count estimated by:
   // - counting the non-comment ';' characters
   // - counting the non-empty lines

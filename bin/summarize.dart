@@ -53,13 +53,13 @@ void _updateResults(List<MiniSum> summaries) {
 
   var types = new SplayTreeMap<String, int>();
 
-  var descriptions = <String, PlatformDescription>{};
+  var descriptions = <String, DartPlatform>{};
 
   for (var miniSum in summaries) {
     print(miniSum.summary.packageName);
-    var platformSummary = miniSum.summary.getPlatformSummary();
+    var platformSummary = miniSum.summary.platform;
 
-    print('\t${platformSummary.fullDescription}');
+    print('\t${platformSummary.descriptionAndReason}');
 
     types[platformSummary.description] =
         (types[platformSummary.description] ?? 0) + 1;

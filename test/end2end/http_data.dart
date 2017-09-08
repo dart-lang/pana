@@ -7,13 +7,7 @@ import 'package:pana/src/version.dart';
 
 import 'shared.dart';
 
-final data = new E2EData('http', '0.11.3+13', _data, {
-  'rollup': 'everywhere',
-  'pubspec': 'undefined',
-  'package:http/browser_client.dart': 'web',
-  'package:http/http.dart': 'everywhere',
-  'package:http/testing.dart': 'flutter, server'
-});
+final data = new E2EData('http', '0.11.3+13', _data);
 
 final _data = {
   "panaVersion": panaPkgVersion.toString(),
@@ -263,15 +257,8 @@ final _data = {
         "package:typed_data/typed_data.dart",
       ],
       'platform': {
-        'uses': [
-          "dart-pana:web_safe_io",
-          "dart:async",
-          "dart:collection",
-          "dart:convert",
-          "dart:html",
-          "dart:math",
-          "dart:typed_data",
-        ]
+        'worksEverywhere': false,
+        'restrictedTo': ['web'],
       },
       'fitness': {'magnitude': 83.0, 'shortcoming': 1.0},
     },
@@ -428,15 +415,8 @@ final _data = {
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart",
       ],
-      "platform": {
-        "uses": [
-          "dart-pana:web_safe_io",
-          "dart:async",
-          "dart:collection",
-          "dart:convert",
-          "dart:math",
-          "dart:typed_data",
-        ]
+      'platform': {
+        'worksEverywhere': true,
       },
       'fitness': {'magnitude': 139.0, 'shortcoming': 1.0},
     },
@@ -685,15 +665,9 @@ final _data = {
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart"
       ],
-      "platform": {
-        "uses": [
-          'dart:async',
-          'dart:collection',
-          'dart:convert',
-          'dart:io',
-          'dart:math',
-          'dart:typed_data'
-        ]
+      'platform': {
+        'worksEverywhere': false,
+        'restrictedTo': ['flutter', 'server'],
       },
       'fitness': {'magnitude': 19.0, 'shortcoming': 0.0},
     },
@@ -797,6 +771,10 @@ final _data = {
       "isFormatted": false,
       "codeProblems": [],
     }
+  },
+  'platform': {
+    'worksEverywhere': true,
+    'reason': 'primary library - `package:http/http.dart`'
   },
   "license": {"name": "BSD"},
   'fitness': {'magnitude': 1273.0, 'shortcoming': 17.0},

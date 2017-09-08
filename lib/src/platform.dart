@@ -1,190 +1,100 @@
 library pana.platform;
 
-import 'dart:collection';
 import 'package:json_serializable/annotations.dart';
 
 import 'pubspec.dart';
 
 part 'platform.g.dart';
 
-class PubspecPlatform {
-  final String description;
-
-  static const PubspecPlatform flutter =
-      const PubspecPlatform._(PlatformFlags.flutter);
-
-  static const PubspecPlatform undefined =
-      const PubspecPlatform._(PlatformFlags.undefined);
-
-  bool get isFlutter => description == flutter.description;
-
-  const PubspecPlatform._(this.description);
-
-  factory PubspecPlatform.fromJson(String value) {
-    switch (value) {
-      case PlatformFlags.flutter:
-        return flutter;
-      case PlatformFlags.undefined:
-        return undefined;
-      default:
-        throw new ArgumentError.value(value, 'value', 'Not a supported value.');
-    }
-  }
-
-  String toJson() => description;
-
-  String toString() => 'PubspecPlatform: $description';
-}
-
-abstract class PlatformFlags {
-  /// Package uses or depends on Flutter.
-  static const String flutter = 'flutter';
-
-  /// Package uses or depends on a native extensions via `dart-ext:`
-  static const String dartExtension = 'dart-ext';
-
+abstract class PlatformNames {
   /// Package works everywhere.
   static const String everywhere = 'everywhere';
 
-  /// Package's platform is unspecified.
-  static const String undefined = 'undefined';
-
-  /// Package's dependencies are in conflict, won't work.
-  static const String conflict = 'conflict';
+  /// Package uses or depends on Flutter.
+  static const String flutter = 'flutter';
 
   /// Package is available in server applications.
   static const String server = 'server';
 
   /// Package is available in web applications.
   static const String web = 'web';
+
+  /// Package's platform is unspecified.
+  static const String undefined = 'undefined';
+
+  /// Package uses or depends on a native extensions via `dart-ext:`
+  static const String dartExtension = 'dart-ext';
 }
 
 @JsonSerializable()
-class PlatformSummary extends Object with _$PlatformSummarySerializerMixin {
-  final PubspecPlatform pubspec;
-  final Map<String, PlatformInfo> libraries;
+class DartPlatform extends Object with _$DartPlatformSerializerMixin {
+  final bool worksEverywhere;
 
-  PlatformSummary(this.pubspec, this.libraries);
+  @JsonKey(includeIfNull: false)
+  final List<String> restrictedTo;
 
-  factory PlatformSummary.fromJson(Map<String, dynamic> json) =>
-      _$PlatformSummaryFromJson(json);
+  @JsonKey(includeIfNull: false)
+  final String reason;
 
-  bool get hasConflict =>
-      libraries.values.any((p) => p.hasConflict) || _conflictsFlutter;
+  DartPlatform(this.worksEverywhere, this.restrictedTo, this.reason);
 
-  bool get _conflictsFlutter =>
-      pubspec.isFlutter && libraries.values.any((p) => !p.worksOnFlutter);
+  factory DartPlatform.conflict(String reason) =>
+      new DartPlatform(false, null, reason);
 
-  String get primaryLibrary {
-    String pkgName;
-    return libraries.keys.firstWhere((path) {
-      var uri = Uri.parse(path);
-      assert(uri.pathSegments.length >= 2);
-      if (pkgName == null) {
-        pkgName = uri.pathSegments[0];
-      } else {
-        assert(uri.pathSegments[0] == pkgName);
-      }
+  factory DartPlatform.universal({String reason}) =>
+      new DartPlatform(true, null, reason);
 
-      if (uri.scheme == 'asset') {
-        return false;
-      }
-      assert(uri.scheme == 'package');
+  factory DartPlatform.withRestrictions(List<String> restrictedTo,
+          {String reason}) =>
+      new DartPlatform(false, restrictedTo, reason);
 
-      return uri.pathSegments.length == 2 &&
-          uri.pathSegments[1] == '$pkgName.dart';
-    }, orElse: () => null);
+  factory DartPlatform.fromJson(Map<String, dynamic> json) =>
+      _$DartPlatformFromJson(json);
+
+  String get description {
+    if (worksEverywhere) return PlatformNames.everywhere;
+    if (hasConflict || restrictedTo == null || restrictedTo.isEmpty) {
+      return PlatformNames.undefined;
+    }
+    if (restrictedTo.length == 1) return restrictedTo.single;
+    return restrictedTo.join(',');
   }
 
-  String get description => fullDescription.description;
+  String get descriptionAndReason => '$description: $reason';
 
-  PlatformDescription get fullDescription {
-    if (pubspec.isFlutter) {
-      if (libraries.values.every((pi) => pi.worksOnFlutter)) {
-        return new PlatformDescription(
-            PlatformFlags.flutter, 'pubspec reference with no conflicts');
-      }
-      assert(hasConflict);
-      return new PlatformDescription(
-          PlatformFlags.conflict, 'flutter package with library conflicts');
+  bool get worksAnywhere =>
+      worksEverywhere || worksOnFlutter || worksOnServer || worksOnWeb;
+  bool get hasConflict => !worksAnywhere;
+
+  bool get worksOnFlutter => _worksOn(PlatformNames.flutter);
+  bool get worksOnServer => _worksOn(PlatformNames.server);
+  bool get worksOnWeb => _worksOn(PlatformNames.web);
+
+  bool _worksOn(String name) =>
+      worksEverywhere || (restrictedTo != null && restrictedTo.contains(name));
+}
+
+class _LibInspector {
+  final Set<String> _deps;
+  _LibInspector._(this._deps);
+
+  factory _LibInspector(Set<String> dependencies) {
+    var deps = new Set<String>();
+
+    deps.addAll(dependencies.where((l) => _dartLibRegexp.hasMatch(l)));
+    deps.addAll(dependencies.where((l) => _dartPanaLibRegexp.hasMatch(l)));
+
+    if (dependencies.any((String lib) => lib.startsWith('dart-ext:'))) {
+      deps.add(PlatformNames.dartExtension);
     }
 
-    assert(pubspec == PubspecPlatform.undefined);
-
-    if (libraries.isEmpty) {
-      return new PlatformDescription(PlatformFlags.undefined, 'no libraries!');
-    }
-
-    var items = (libraries.values.expand((pi) => pi.descriptionSet).toList()
-          ..sort())
-        .toSet();
-
-    if (items.length == 1) {
-      return new PlatformDescription(items.single, 'All libraries agree');
-    }
-
-    var primaryLibrary = this.primaryLibrary;
-
-    if (primaryLibrary != null) {
-      var primaryPlatform = libraries[primaryLibrary];
-      var primaryPlatformSet = primaryPlatform.descriptionSet;
-      if (primaryPlatformSet.length == 1) {
-        return new PlatformDescription(
-            primaryPlatformSet.single, 'primary library - `$primaryLibrary');
-      }
-    }
-
-    // If the primary library search fails, go back to the roll-up of all
-    // platforms. See if excluding `everywhere` leads us to something more
-    // specific.
-
-    var everythingRemoved = false;
-    if (items.length > 1) {
-      everythingRemoved = items.remove(PlatformFlags.everywhere);
-
-      if (items.length == 1) {
-        return new PlatformDescription(
-            items.single, 'one library with an opinion - $everythingRemoved');
-      }
-    }
-
-    if (items.isEmpty) {
-      return new PlatformDescription(
-          PlatformFlags.undefined, 'no library opinions? - $everythingRemoved');
-    }
-
-    return new PlatformDescription(items.join(','), 'all of the above');
+    return new _LibInspector._(deps);
   }
-}
-
-@JsonSerializable()
-class PlatformDescription extends Object
-    with _$PlatformDescriptionSerializerMixin {
-  final String description;
-  final String details;
-
-  PlatformDescription(this.description, this.details);
-
-  factory PlatformDescription.fromJson(Map<String, dynamic> json) =>
-      _$PlatformDescriptionFromJson(json);
-}
-
-@JsonSerializable()
-class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
-  final List<String> uses;
-
-  PlatformInfo._(this.uses);
-
-  factory PlatformInfo(Iterable<String> uses) =>
-      new PlatformInfo._((uses?.toList() ?? <String>[])..sort());
-
-  factory PlatformInfo.fromJson(Map<String, dynamic> map) =>
-      _$PlatformInfoFromJson(map);
 
   bool get hasConflict =>
       (!worksAnywhere) ||
-      (uses.contains(PlatformFlags.flutter) && !worksOnFlutter) ||
-      (uses.contains(PlatformFlags.dartExtension) && !worksOnServer);
+      (_deps.contains(PlatformNames.flutter) && !worksOnFlutter) ||
+      (_deps.contains(PlatformNames.dartExtension) && !worksOnServer);
 
   bool get worksEverywhere => worksOnWeb && worksOnServer && worksOnFlutter;
 
@@ -192,82 +102,126 @@ class PlatformInfo extends Object with _$PlatformInfoSerializerMixin {
 
   bool get worksOnWeb =>
       _hasNoUseOf(
-          [PlatformFlags.flutter, 'dart:ui', PlatformFlags.dartExtension]) &&
-      (_webPackages.any(uses.contains) || _hasNoUseOf(['dart:io']));
+          [PlatformNames.flutter, 'dart:ui', PlatformNames.dartExtension]) &&
+      (_webPackages.any(_deps.contains) || _hasNoUseOf(['dart:io']));
 
   bool get worksOnServer =>
-      _hasNoUseOf(_webAnd(['dart:ui', PlatformFlags.flutter]));
+      _hasNoUseOf(_webAnd(['dart:ui', PlatformNames.flutter]));
 
   bool get worksOnFlutter => _hasNoUseOf(_webAnd([
         'dart:mirrors',
-        PlatformFlags.dartExtension,
+        PlatformNames.dartExtension,
       ]));
 
-  Set<String> get descriptionSet {
-    if (worksEverywhere) {
-      return new Set.from([PlatformFlags.everywhere]);
-    }
-
-    var items = <String>[];
-    if (worksOnFlutter) {
-      items.add(PlatformFlags.flutter);
-    }
-
-    if (worksOnServer) {
-      items.add(PlatformFlags.server);
-    }
-
-    if (worksOnWeb) {
-      items.add(PlatformFlags.web);
-    }
-
-    if (items.isEmpty) {
-      assert(hasConflict);
-      return new Set.from([PlatformFlags.conflict]);
-    }
-
-    assert(!hasConflict);
-
-    return (items..sort()).toSet();
-  }
-
-  String get description => descriptionSet.join(', ');
-
-  @override
-  String toString() => 'PlatformInfo: $description';
-
   bool _hasNoUseOf(Iterable<String> platforms) =>
-      !platforms.any((p) => uses.contains(p));
+      !platforms.any((p) => _deps.contains(p));
 }
 
-PubspecPlatform classifyPubspec(Pubspec pubspec) {
-  if (pubspec.hasFlutterKey || pubspec.dependsOnFlutterSdk) {
-    return PubspecPlatform.flutter;
-  }
-  return PubspecPlatform.undefined;
-}
-
-PlatformSummary classifyPlatforms(
+DartPlatform classifyPkgPlatform(
     Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
-  var package = classifyPubspec(pubspec);
-  return new PlatformSummary(
-      package,
-      new Map.fromIterable(transitiveLibs.keys ?? <String>[],
-          value: (key) => classifyPlatform(transitiveLibs[key])));
-}
+  final libraries = new Map.fromIterable(transitiveLibs.keys ?? <String>[],
+      value: (key) => classifyLibPlatform(transitiveLibs[key]));
+  final primaryLibrary =
+      _selectPrimaryLibrary(pubspec, transitiveLibs.keys.toSet());
 
-PlatformInfo classifyPlatform(Iterable<String> dependencies) {
-  var libs = dependencies.toSet();
-  var uses = new SplayTreeSet<String>();
-
-  uses.addAll(libs.where((l) => _dartLibRegexp.hasMatch(l)));
-  uses.addAll(libs.where((l) => _dartPanaLibRegexp.hasMatch(l)));
-
-  if (libs.any((String lib) => lib.startsWith('dart-ext:'))) {
-    uses.add(PlatformFlags.dartExtension);
+  if (pubspec.hasFlutterKey || pubspec.hasFlutterPluginKey) {
+    final hasConflict = libraries.values.any((pi) => !pi.worksOnFlutter);
+    if (hasConflict) {
+      return new DartPlatform.conflict(
+          'flutter reference with library conflicts');
+    } else {
+      return new DartPlatform.withRestrictions([PlatformNames.flutter],
+          reason: 'pubspec reference with no conflicts');
+    }
   }
 
-  return new PlatformInfo(uses);
+  if (libraries.isEmpty) {
+    // TODO: if there is a `bin/` asset, maybe this is server-only?
+    return new DartPlatform.conflict('no libraries!');
+  }
+
+  for (var lib in libraries.keys) {
+    final libp = libraries[lib];
+    if (libp.hasConflict) {
+      return new DartPlatform.conflict('conflict in library - `$lib`');
+    }
+  }
+
+  if (libraries.values.every((lp) => lp.worksEverywhere)) {
+    return new DartPlatform.universal(reason: 'All libraries agree');
+  }
+
+  final items = libraries.values
+      .where((p) => !p.worksEverywhere)
+      .expand((p) => p.restrictedTo)
+      .toSet();
+  if (items.length == 1) {
+    return new DartPlatform.withRestrictions([items.single],
+        reason: 'All libraries agree');
+  }
+
+  if (primaryLibrary != null) {
+    var primaryPlatform = libraries[primaryLibrary];
+    if (primaryPlatform.worksEverywhere) {
+      return new DartPlatform.universal(
+          reason: 'primary library - `$primaryLibrary`');
+    }
+    if (primaryPlatform.restrictedTo != null &&
+        primaryPlatform.restrictedTo.length == 1) {
+      return new DartPlatform.withRestrictions(primaryPlatform.restrictedTo,
+          reason: 'primary library - `$primaryLibrary`');
+    }
+  }
+
+  // If the primary library search fails, go back to the roll-up of all
+  // platforms. See if excluding `everywhere` leads us to something more
+  // specific.
+
+  var everythingRemoved = false;
+  if (items.length > 1) {
+    everythingRemoved = items.remove(PlatformNames.everywhere);
+
+    if (items.length == 1) {
+      return new DartPlatform.withRestrictions([items.single],
+          reason: 'one library with an opinion - $everythingRemoved');
+    }
+  }
+
+  if (items.isEmpty) {
+    return new DartPlatform.conflict(
+        'no library opinions? - $everythingRemoved');
+  }
+
+  return new DartPlatform.withRestrictions(items.toList()..sort(),
+      reason: 'all of the above');
+}
+
+String _selectPrimaryLibrary(Pubspec pubspec, Set<String> libraryUris) {
+  final pkg = pubspec.name;
+  final primaryCandidates = <String>[
+    'package:$pkg/$pkg.dart',
+    'package:$pkg/main.dart',
+  ];
+  return primaryCandidates.firstWhere(libraryUris.contains, orElse: () => null);
+}
+
+DartPlatform classifyLibPlatform(Iterable<String> dependencies) {
+  final inspector = new _LibInspector(dependencies.toSet());
+  if (inspector.hasConflict) {
+    return new DartPlatform.conflict('Transitive dependencies in conflict.');
+  }
+  if (inspector.worksEverywhere) {
+    return new DartPlatform.universal();
+  }
+  final restrictedTo = <String>[];
+  if (inspector.worksOnFlutter) restrictedTo.add(PlatformNames.flutter);
+  if (inspector.worksOnServer) restrictedTo.add(PlatformNames.server);
+  if (inspector.worksOnWeb) restrictedTo.add(PlatformNames.web);
+  restrictedTo.sort();
+  if (restrictedTo.isEmpty) {
+    return new DartPlatform.conflict('Transitive dependencies in conflict.');
+  }
+  return new DartPlatform.withRestrictions(restrictedTo);
 }
 
 final _dartLibRegexp = new RegExp(r"^dart:[a-z_]+$");

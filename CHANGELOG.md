@@ -25,6 +25,10 @@
     * Merged `packageVersions` and `availableVersions` into `dependencies`
     * Renamed `Summary.pubSummary` -> `pkgResolution`
 
+  * Refactored `platform`:
+    * Renamed `PlatformFlags` -> `PlatformNames`
+    * Removed most of the platform-related classes, using `DartPlatform` instead
+
 ## 0.3.0
 
 * Removed `PlatformSummary.package` in favor of `PlatformSummary.pubspec` of

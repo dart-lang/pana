@@ -222,7 +222,7 @@ class PackageAnalyzer {
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
       var platform =
-          transitiveLibs == null ? null : classifyPlatform(transitiveLibs);
+          transitiveLibs == null ? null : classifyLibPlatform(transitiveLibs);
       final isInLib = dartFile.startsWith('lib/');
       final fitness = isInLib
           ? await calcFitness(pkgDir, dartFile, isFormatted, fileAnalyzerItems,
@@ -245,6 +245,7 @@ class PackageAnalyzer {
       flutterVersion = await _flutterSdk.getVersion();
     }
 
+    final platform = classifyPkgPlatform(pubspec, allTransitiveLibs);
     var license = await detectLicenseInDir(pkgDir);
     final pkgFitness = calcPkgFitness(pubspec, files.values, toolProblems);
     pkgVersion ??= pubspec?.version;
@@ -258,6 +259,7 @@ class PackageAnalyzer {
       pkgResolution,
       files,
       toolProblems,
+      platform,
       license,
       pkgFitness,
       flutterVersion: flutterVersion,
