@@ -7,11 +7,11 @@ library pana.summary;
 import 'package:json_serializable/annotations.dart';
 import 'package:pub_semver/pub_semver.dart';
 
-import 'analyzer_output.dart';
+import 'code_problem.dart';
 import 'fitness.dart';
 import 'license.dart';
+import 'pkg_resolution.dart';
 import 'platform.dart';
-import 'pub_summary.dart';
 import 'pubspec.dart';
 import 'utils.dart' show toRelativePath;
 

@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'analyzer_output.dart';
+import 'code_problem.dart';
 import 'summary.dart';
 import 'utils.dart';
 

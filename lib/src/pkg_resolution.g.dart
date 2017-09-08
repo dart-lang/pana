@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of pana.pub_summary;
+part of pana.pkg_resolution;
 
 // **************************************************************************
 // Generator: JsonSerializableGenerator

@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library pana.pub_summary;
+library pana.pkg_resolution;
 
 import 'dart:convert';
 import 'dart:io' hide exitCode;
@@ -14,7 +14,7 @@ import 'package:json_serializable/annotations.dart';
 import 'pubspec.dart';
 import 'utils.dart';
 
-part 'pub_summary.g.dart';
+part 'pkg_resolution.g.dart';
 
 final _solvePkgLine = new RegExp(
     r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
