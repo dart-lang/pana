@@ -2,13 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library pana.analyzer_output;
+library pana.code_problem;
 
 import 'package:path/path.dart' as p;
 import 'package:quiver/core.dart';
 import 'package:json_serializable/annotations.dart';
 
-part 'analyzer_output.g.dart';
+part 'code_problem.g.dart';
 
 @JsonSerializable()
 class CodeProblem extends Object

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of pana.analyzer_output;
+part of pana.code_problem;
 
 // **************************************************************************
 // Generator: JsonSerializableGenerator

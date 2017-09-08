@@ -11,7 +11,7 @@ import 'dart:math';
 import 'package:json_serializable/annotations.dart';
 import 'package:path/path.dart' as p;
 
-import 'analyzer_output.dart';
+import 'code_problem.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'summary.dart';

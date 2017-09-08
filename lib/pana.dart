@@ -8,24 +8,24 @@ import 'dart:convert';
 
 import 'package:pub_semver/pub_semver.dart';
 
-import 'src/analyzer_output.dart';
+import 'src/code_problem.dart';
 import 'src/fitness.dart';
 import 'src/library_scanner.dart';
 import 'src/license.dart';
 import 'src/logging.dart';
+import 'src/pkg_resolution.dart';
 import 'src/platform.dart';
-import 'src/pub_summary.dart';
 import 'src/pubspec.dart';
 import 'src/sdk_env.dart';
 import 'src/summary.dart';
 import 'src/utils.dart';
 import 'src/version.dart';
 
-export 'src/analyzer_output.dart';
+export 'src/code_problem.dart';
 export 'src/fitness.dart';
 export 'src/license.dart';
+export 'src/pkg_resolution.dart';
 export 'src/platform.dart';
-export 'src/pub_summary.dart';
 export 'src/pubspec.dart';
 export 'src/sdk_env.dart';
 export 'src/summary.dart';
