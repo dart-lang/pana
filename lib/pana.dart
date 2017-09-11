@@ -66,7 +66,6 @@ class PackageAnalyzer {
     }
 
     var pkgDir;
-    Version pkgVersion;
     if (packageDir != null) {
       log.info("Using package directory at $packageDir");
       pkgDir = packageDir;
@@ -75,7 +74,6 @@ class PackageAnalyzer {
       var pkgInfo =
           await _pubEnv.getLocation(package, version: ver?.toString());
       pkgDir = pkgInfo.location;
-      pkgVersion = new Version.parse(pkgInfo.version);
       log.fine("Package at $pkgDir");
     }
 
@@ -249,13 +247,12 @@ class PackageAnalyzer {
     var license = await detectLicenseInDir(pkgDir);
     final pkgFitness =
         calcPkgFitness(pubspec, platform, files.values, toolProblems);
-    pkgVersion ??= pubspec?.version;
 
     return new Summary(
       panaPkgVersion,
       sdkVersion,
-      package,
-      pkgVersion,
+      pubspec.name,
+      pubspec.version,
       pubspec,
       pkgResolution,
       files,
