@@ -6,8 +6,6 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:pub_semver/pub_semver.dart';
-
 import 'src/code_problem.dart';
 import 'src/fitness.dart';
 import 'src/library_scanner.dart';
@@ -46,38 +44,26 @@ class PackageAnalyzer {
   Future<Summary> inspectPackage(
     String package, {
     String version,
-    String packageDir,
     bool keepTransitiveLibs: false,
   }) async {
-    var toolProblems = <ToolProblem>[];
-    var sdkVersion = _dartSdk.version;
-    log.info("SDK: $sdkVersion");
+    log.info("Downloading package $package ${version ?? 'latest'}");
+    var pkgInfo = await _pubEnv.getLocation(package, version: version);
+    final packageDir = pkgInfo.location;
+    return _inspect(packageDir, keepTransitiveLibs);
+  }
 
-    log.info("Package: $package");
+  Future<Summary> inspectDir(String packageDir,
+      {bool keepTransitiveLibs: false}) {
+    return _inspect(packageDir, keepTransitiveLibs);
+  }
 
-    Version ver;
-    if (version != null) {
-      ver = new Version.parse(version);
-      log.info("Version: $ver");
-    }
-
+  Future<Summary> _inspect(String pkgDir, bool keepTransitiveLibs) async {
+    log.info("SDK: ${_dartSdk.version}");
     if (_pubEnv.pubCacheDir != null) {
       log.fine("Using .package-cache: ${_pubEnv.pubCacheDir}");
     }
-
-    var pkgDir;
-    Version pkgVersion;
-    if (packageDir != null) {
-      log.info("Using package directory at $packageDir");
-      pkgDir = packageDir;
-    } else {
-      log.info("Downloading package $package...");
-      var pkgInfo =
-          await _pubEnv.getLocation(package, version: ver?.toString());
-      pkgDir = pkgInfo.location;
-      pkgVersion = new Version.parse(pkgInfo.version);
-      log.fine("Package at $pkgDir");
-    }
+    log.fine('Inspecting package at $pkgDir');
+    var toolProblems = <ToolProblem>[];
 
     log.info('Counting files...');
     var dartFiles =
@@ -108,7 +94,8 @@ class PackageAnalyzer {
       toolProblems.add(new ToolProblem(ToolNames.pubspec,
           'Unknown SDKs: ${pubspec.unknownSdks}', 'unknown-sdks'));
     }
-    log.info('Package version: ${pubspec.version}');
+    final package = pubspec.name;
+    log.info('Package: $package ${pubspec.version}');
 
     log.info("Pub upgrade...");
     var isFlutter = pubspec.dependsOnFlutterSdk;
@@ -249,13 +236,12 @@ class PackageAnalyzer {
     var license = await detectLicenseInDir(pkgDir);
     final pkgFitness =
         calcPkgFitness(pubspec, platform, files.values, toolProblems);
-    pkgVersion ??= pubspec?.version;
 
     return new Summary(
       panaPkgVersion,
-      sdkVersion,
-      package,
-      pkgVersion,
+      _dartSdk.version,
+      pubspec.name,
+      pubspec.version,
       pubspec,
       pkgResolution,
       files,
