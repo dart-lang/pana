@@ -46,7 +46,6 @@ class PackageAnalyzer {
     String version,
     bool keepTransitiveLibs: false,
   }) async {
-    _logEnv();
     log.info("Downloading package $package ${version ?? 'latest'}");
     var pkgInfo = await _pubEnv.getLocation(package, version: version);
     final packageDir = pkgInfo.location;
@@ -54,20 +53,15 @@ class PackageAnalyzer {
   }
 
   Future<Summary> inspectDir(String packageDir,
-      {bool keepTransitiveLibs: false}) async {
-    _logEnv();
+      {bool keepTransitiveLibs: false}) {
     return _inspect(packageDir, keepTransitiveLibs);
   }
 
-  void _logEnv() {
+  Future<Summary> _inspect(String pkgDir, bool keepTransitiveLibs) async {
     log.info("SDK: ${_dartSdk.version}");
     if (_pubEnv.pubCacheDir != null) {
       log.fine("Using .package-cache: ${_pubEnv.pubCacheDir}");
     }
-  }
-
-  Future<Summary> _inspect(String pkgDir, bool keepTransitiveLibs) async {
-    _logEnv();
     log.fine('Inspecting package at $pkgDir');
     var toolProblems = <ToolProblem>[];
 
