@@ -7,12 +7,7 @@ import 'package:pana/src/version.dart';
 
 import 'shared.dart';
 
-final data = new E2EData('pub_server', '0.1.1+3', _data, {
-  'rollup': 'everywhere',
-  'pubspec': 'undefined',
-  'package:pub_server/repository.dart': 'everywhere',
-  'package:pub_server/shelf_pubserver.dart': 'everywhere'
-});
+final data = new E2EData('pub_server', '0.1.1+3', _data);
 
 final _data = {
   "panaVersion": panaPkgVersion.toString(),
@@ -140,8 +135,8 @@ final _data = {
         "package:pub_semver/src/version_range.dart",
         "package:pub_semver/src/version_union.dart"
       ],
-      "platform": {
-        "uses": ['dart:async', 'dart:collection', 'dart:math']
+      'platform': {
+        'worksEverywhere': true,
       },
       'fitness': {'magnitude': 95.0, 'shortcoming': 0.0},
     },
@@ -344,15 +339,8 @@ final _data = {
         "package:yaml/src/yaml_node_wrapper.dart",
         "package:yaml/yaml.dart"
       ],
-      "platform": {
-        "uses": [
-          'dart:async',
-          'dart:collection',
-          'dart:convert',
-          'dart:isolate',
-          'dart:math',
-          'dart:typed_data'
-        ]
+      'platform': {
+        'worksEverywhere': true,
       },
       'fitness': {'magnitude': 360.0, 'shortcoming': 1.0},
     },
@@ -363,6 +351,7 @@ final _data = {
       "codeProblems": isNotNull,
     },
   },
+  'platform': {'worksEverywhere': true, 'reason': 'All libraries agree'},
   "license": {"name": "BSD"},
   'fitness': {'magnitude': 455.0, 'shortcoming': 1.0},
 };

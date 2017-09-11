@@ -21,7 +21,7 @@ DartFileSummary _$DartFileSummaryFromJson(
         (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
         json['platform'] == null
             ? null
-            : new PlatformInfo.fromJson(
+            : new DartPlatform.fromJson(
                 json['platform'] as Map<String, dynamic>),
         json['fitness'] == null
             ? null
@@ -34,7 +34,7 @@ abstract class _$DartFileSummarySerializerMixin {
   List<CodeProblem> get codeProblems;
   List<String> get directLibs;
   List<String> get transitiveLibs;
-  PlatformInfo get platform;
+  DartPlatform get platform;
   Fitness get fitness;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
@@ -84,6 +84,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
             ? null
             : new ToolProblem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    json['platform'] == null
+        ? null
+        : new DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
     json['license'] == null
         ? null
         : new License.fromJson(json['license'] as Map<String, dynamic>),
@@ -101,6 +104,7 @@ abstract class _$SummarySerializerMixin {
   Pubspec get pubspec;
   PkgResolution get pkgResolution;
   Map<String, DartFileSummary> get dartFiles;
+  DartPlatform get platform;
   License get license;
   List<ToolProblem> get toolProblems;
   Fitness get fitness;
@@ -122,6 +126,7 @@ abstract class _$SummarySerializerMixin {
     val['pubspec'] = pubspec;
     val['pkgResolution'] = pkgResolution;
     val['dartFiles'] = dartFiles;
+    val['platform'] = platform;
     val['license'] = license;
     writeNotNull('toolProblems', toolProblems);
     val['fitness'] = fitness;

@@ -41,7 +41,7 @@ Future<Fitness> calcFitness(
     bool isFormatted,
     List<CodeProblem> fileAnalyzerItems,
     List<String> directLibs,
-    PlatformInfo platform) async {
+    DartPlatform platform) async {
   // statement count estimated by:
   // - counting the non-comment ';' characters
   // - counting the non-empty lines
@@ -92,8 +92,8 @@ Future<Fitness> calcFitness(
   return new Fitness(magnitude, min(shortcoming, magnitude));
 }
 
-Fitness calcPkgFitness(Pubspec pubspec, Iterable<DartFileSummary> files,
-    List<ToolProblem> toolIssues) {
+Fitness calcPkgFitness(Pubspec pubspec, DartPlatform pkgPlatform,
+    Iterable<DartFileSummary> files, List<ToolProblem> toolIssues) {
   var magnitude = 0.0;
   var shortcoming = 0.0;
   for (var dfs in files) {
@@ -103,6 +103,12 @@ Fitness calcPkgFitness(Pubspec pubspec, Iterable<DartFileSummary> files,
     }
   }
   magnitude = max(1.0, magnitude);
+
+  // platform conflict means it is unlikely it can run in any environment
+  if (pkgPlatform.hasConflict) {
+    final platformError = max(20.0, magnitude * 0.20); // 20 %
+    shortcoming += platformError;
+  }
 
   // major tool errors are penalized in the percent of the total
   final toolErrorPoints = max(20.0, magnitude * 0.20); // 20%

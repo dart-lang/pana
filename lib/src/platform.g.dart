@@ -6,41 +6,29 @@ part of pana.platform;
 // Generator: JsonSerializableGenerator
 // **************************************************************************
 
-PlatformSummary _$PlatformSummaryFromJson(Map<String, dynamic> json) =>
-    new PlatformSummary(
-        json['pubspec'] == null
-            ? null
-            : new PubspecPlatform.fromJson(json['pubspec'] as String),
-        json['libraries'] == null
-            ? null
-            : new Map<String, PlatformInfo>.fromIterables(
-                (json['libraries'] as Map<String, dynamic>).keys,
-                (json['libraries'] as Map).values.map((e) => e == null
-                    ? null
-                    : new PlatformInfo.fromJson(e as Map<String, dynamic>))));
+DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) =>
+    new DartPlatform(
+        json['worksEverywhere'] as bool,
+        (json['restrictedTo'] as List)?.map((e) => e as String)?.toList(),
+        json['reason'] as String);
 
-abstract class _$PlatformSummarySerializerMixin {
-  PubspecPlatform get pubspec;
-  Map<String, PlatformInfo> get libraries;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'pubspec': pubspec, 'libraries': libraries};
-}
+abstract class _$DartPlatformSerializerMixin {
+  bool get worksEverywhere;
+  List<String> get restrictedTo;
+  String get reason;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'worksEverywhere': worksEverywhere,
+    };
 
-PlatformDescription _$PlatformDescriptionFromJson(Map<String, dynamic> json) =>
-    new PlatformDescription(
-        json['description'] as String, json['details'] as String);
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
 
-abstract class _$PlatformDescriptionSerializerMixin {
-  String get description;
-  String get details;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'description': description, 'details': details};
-}
-
-PlatformInfo _$PlatformInfoFromJson(Map<String, dynamic> json) =>
-    new PlatformInfo((json['uses'] as List)?.map((e) => e as String));
-
-abstract class _$PlatformInfoSerializerMixin {
-  List<String> get uses;
-  Map<String, dynamic> toJson() => <String, dynamic>{'uses': uses};
+    writeNotNull('restrictedTo', restrictedTo);
+    writeNotNull('reason', reason);
+    return val;
+  }
 }

@@ -35,7 +35,7 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final List<String> transitiveLibs;
   @JsonKey(includeIfNull: false)
-  final PlatformInfo platform;
+  final DartPlatform platform;
   @JsonKey(includeIfNull: false)
   final Fitness fitness;
 
@@ -86,6 +86,7 @@ class Summary extends Object with _$SummarySerializerMixin {
 
   final PkgResolution pkgResolution;
   final Map<String, DartFileSummary> dartFiles;
+  final DartPlatform platform;
   final License license;
 
   @JsonKey(includeIfNull: false)
@@ -102,6 +103,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.pkgResolution,
       this.dartFiles,
       List<ToolProblem> toolProblems,
+      this.platform,
       this.license,
       this.fitness,
       {this.flutterVersion})
@@ -116,16 +118,6 @@ class Summary extends Object with _$SummarySerializerMixin {
       .map((dfs) => dfs.codeProblems)
       .where((l) => l != null)
       .expand((list) => list);
-
-  PlatformSummary getPlatformSummary() {
-    var package = classifyPubspec(pubspec);
-    var libraries = new Map<String, PlatformInfo>.fromIterable(
-      dartFiles.values.where((dfs) => dfs.platform != null),
-      key: (DartFileSummary dfs) => dfs.uri,
-      value: (DartFileSummary dfs) => dfs.platform,
-    );
-    return new PlatformSummary(package, libraries);
-  }
 }
 
 @JsonSerializable()

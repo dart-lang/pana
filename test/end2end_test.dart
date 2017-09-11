@@ -53,22 +53,6 @@ void main() {
           var roundTrip = JSON.decode(JSON.encode(summary));
           expect(roundTrip, actualMap);
         });
-
-        test('platform fun', () {
-          var summary = new Summary.fromJson(actualMap);
-          var platSummary = summary.getPlatformSummary();
-
-          var descriptions = {
-            'rollup': platSummary.description,
-            'pubspec': platSummary.pubspec.description
-          };
-
-          platSummary.libraries.forEach((k, v) {
-            descriptions[k] = v.description;
-          });
-
-          expect(descriptions, data.descriptions);
-        });
       }, timeout: const Timeout.factor(2));
     }
 
