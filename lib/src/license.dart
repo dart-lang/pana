@@ -60,7 +60,11 @@ Future<License> detectLicenseInDir(String baseDir) async {
   if (licenseFile == null) {
     return new License(LicenseNames.missing);
   }
-  var content = await licenseFile.readAsString();
+  return detectLicenseInFile(licenseFile);
+}
+
+Future<License> detectLicenseInFile(File file) async {
+  var content = await file.readAsString();
   var license = detectLicenseInContent(content);
   return license ?? new License(LicenseNames.unknown);
 }
@@ -77,13 +81,16 @@ License detectLicenseInContent(String content) {
     }
   }
 
-  if (_agpl.hasMatch(stripped)) {
+  if (_mpl.hasMatch(stripped)) {
+    return new License(LicenseNames.MPL, version);
+  }
+  if (_agpl.hasMatch(stripped) && !_useWithAgpl.hasMatch(stripped)) {
     return new License(LicenseNames.AGPL, version);
   }
   if (_apache.hasMatch(stripped)) {
     return new License(LicenseNames.Apache, version);
   }
-  if (_lgpl.hasMatch(stripped)) {
+  if (_lgpl.hasMatch(stripped) && !_useLgplInstead.hasMatch(stripped)) {
     return new License(LicenseNames.LGPL, version);
   }
   if (_gplLong.hasMatch(stripped)) {
@@ -94,9 +101,6 @@ License detectLicenseInContent(String content) {
   }
   if (_mit.hasMatch(stripped)) {
     return new License(LicenseNames.MIT, version);
-  }
-  if (_mpl.hasMatch(stripped)) {
-    return new License(LicenseNames.MPL, version);
   }
   if (_unlicense.hasMatch(stripped)) {
     return new License(LicenseNames.Unlicense, version);
@@ -114,12 +118,18 @@ final RegExp _extraCharacters = new RegExp('\\"|\\\'|\\*');
 
 final RegExp _agpl =
     new RegExp('GNU AFFERO GENERAL PUBLIC LICENSE', caseSensitive: false);
+final RegExp _useWithAgpl = new RegExp(
+    'Use with the GNU Affero General Public License',
+    caseSensitive: false);
 final RegExp _apache = new RegExp(r'Apache License', caseSensitive: false);
 final RegExp _gplLong =
     new RegExp('GENERAL PUBLIC LICENSE', caseSensitive: false);
 final RegExp _gplShort = new RegExp('GNU GPL', caseSensitive: false);
 final RegExp _lgpl =
     new RegExp(r'GNU LESSER GENERAL PUBLIC LICENSE', caseSensitive: false);
+final RegExp _useLgplInstead = new RegExp(
+    'use the GNU Lesser General Public License instead',
+    caseSensitive: false);
 final RegExp _mit = new RegExp(r'(^|\s)MIT License', caseSensitive: false);
 final RegExp _mpl = new RegExp('Mozilla Public License', caseSensitive: false);
 final RegExp _unlicense = new RegExp(
@@ -128,10 +138,11 @@ final RegExp _unlicense = new RegExp(
 final RegExp _version =
     new RegExp(r'Version (\d+(\.\d*)?)', caseSensitive: false);
 
-final RegExp _bsdPreamble = _longTextRegExp('''
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met''');
+final RegExp _bsdPreamble = new RegExp(
+    'Redistribution and use in source and binary forms, with or without '
+    'modification, are permitted (\\(subject to the limitations in the disclaimer below\\) )?'
+    'provided that the following conditions are met',
+    caseSensitive: false);
 
 final RegExp _bsdEmphasis = _longTextRegExp('''
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
