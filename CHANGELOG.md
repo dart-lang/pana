@@ -1,3 +1,7 @@
+## 0.4.1
+
+* Greatly expanded and improved license detection.
+
 ## 0.4.0
 
 * **Breaking changes**
