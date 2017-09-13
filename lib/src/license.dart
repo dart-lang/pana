@@ -43,9 +43,13 @@ class License extends Object with _$LicenseSerializerMixin {
 
 abstract class LicenseNames {
   static const String AGPL = 'AGPL';
+  static const String Apache = 'Apache';
   static const String BSD = 'BSD';
   static const String GPL = 'GPL';
+  static const String LGPL = 'LGPL';
   static const String MIT = 'MIT';
+  static const String MPL = 'MPL';
+  static const String Unlicense = 'Unlicense';
   static const String missing = 'missing';
   static const String unknown = 'unknown';
 }
@@ -76,6 +80,12 @@ License detectLicenseInContent(String content) {
   if (_agpl.hasMatch(stripped)) {
     return new License(LicenseNames.AGPL, version);
   }
+  if (_apache.hasMatch(stripped)) {
+    return new License(LicenseNames.Apache, version);
+  }
+  if (_lgpl.hasMatch(stripped)) {
+    return new License(LicenseNames.LGPL, version);
+  }
   if (_gplLong.hasMatch(stripped)) {
     return new License(LicenseNames.GPL, version);
   }
@@ -84,6 +94,12 @@ License detectLicenseInContent(String content) {
   }
   if (_mit.hasMatch(stripped)) {
     return new License(LicenseNames.MIT, version);
+  }
+  if (_mpl.hasMatch(stripped)) {
+    return new License(LicenseNames.MPL, version);
+  }
+  if (_unlicense.hasMatch(stripped)) {
+    return new License(LicenseNames.Unlicense, version);
   }
 
   if (_bsdPreamble.hasMatch(stripped) && _bsdEmphasis.hasMatch(stripped)) {
@@ -98,10 +114,17 @@ final RegExp _extraCharacters = new RegExp('\\"|\\\'|\\*');
 
 final RegExp _agpl =
     new RegExp('GNU AFFERO GENERAL PUBLIC LICENSE', caseSensitive: false);
+final RegExp _apache = new RegExp(r'Apache License', caseSensitive: false);
 final RegExp _gplLong =
     new RegExp('GENERAL PUBLIC LICENSE', caseSensitive: false);
 final RegExp _gplShort = new RegExp('GNU GPL', caseSensitive: false);
-final RegExp _mit = new RegExp('The MIT License', caseSensitive: false);
+final RegExp _lgpl =
+    new RegExp(r'GNU LESSER GENERAL PUBLIC LICENSE', caseSensitive: false);
+final RegExp _mit = new RegExp(r'(^|\s)MIT License', caseSensitive: false);
+final RegExp _mpl = new RegExp('Mozilla Public License', caseSensitive: false);
+final RegExp _unlicense = new RegExp(
+    'This is free and unencumbered software released into the public domain',
+    caseSensitive: true);
 final RegExp _version =
     new RegExp(r'Version (\d+(\.\d*)?)', caseSensitive: false);
 
