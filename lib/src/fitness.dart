@@ -8,7 +8,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:json_serializable/annotations.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 
 import 'code_problem.dart';

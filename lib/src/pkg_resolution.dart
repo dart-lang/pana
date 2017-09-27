@@ -9,7 +9,7 @@ import 'dart:io' hide exitCode;
 
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:json_serializable/annotations.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'pubspec.dart';
 import 'utils.dart';

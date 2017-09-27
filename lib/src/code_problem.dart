@@ -6,7 +6,7 @@ library pana.code_problem;
 
 import 'package:path/path.dart' as p;
 import 'package:quiver/core.dart';
-import 'package:json_serializable/annotations.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'code_problem.g.dart';
 

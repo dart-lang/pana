@@ -7,7 +7,7 @@ library pana.license;
 import 'dart:async';
 import 'dart:io';
 
-import 'package:json_serializable/annotations.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 
 part 'license.g.dart';

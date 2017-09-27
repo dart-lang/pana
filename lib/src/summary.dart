@@ -4,7 +4,7 @@
 
 library pana.summary;
 
-import 'package:json_serializable/annotations.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
