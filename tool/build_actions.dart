@@ -17,7 +17,7 @@ final List<BuildAction> buildActions = [
           new VersionConstraintHelper(),
         ]),
         new PackageVersionGenerator()
-      ]),
+      ], header: _copyrightHeader),
       'pana',
       inputs: const [
         'lib/src/analyzer_output.dart',
@@ -29,3 +29,11 @@ final List<BuildAction> buildActions = [
         'lib/src/version.dart',
       ])
 ];
+
+final _copyrightHeader =
+    '''// Copyright (c) 2017, the Dart project authors. Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+$defaultFileHeader
+''';

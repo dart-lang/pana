@@ -24,5 +24,5 @@ dev_dependencies:
   build: ^0.10.0
   build_runner: ^0.5.0
   json_serializable: ^0.2.4
-  source_gen: ^0.7.0
+  source_gen: ^0.7.2
   test: ^0.12.0
