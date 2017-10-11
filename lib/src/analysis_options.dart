@@ -11,15 +11,10 @@ analyzer:
 
 linter:
   rules:
+    - camel_case_types
     - hash_and_equals
+    - iterable_contains_unrelated_type
+    - list_remove_unrelated_type
+    - unrelated_type_equality_checks
     - valid_regexps
-#    - annotate_overrides
-#    - camel_case_types
-#    - cancel_subscriptions
-#    - close_sinks
-#    - implementation_imports
-#    - no_adjacent_strings_in_list
-#    - prefer_is_empty
-#    - prefer_is_not_empty
-#    - test_types_in_equals
 ''';
