@@ -87,7 +87,7 @@ class Summary extends Object with _$SummarySerializerMixin {
   final PkgResolution pkgResolution;
   final Map<String, DartFileSummary> dartFiles;
   final DartPlatform platform;
-  final License license;
+  final List<License> licenses;
 
   @JsonKey(includeIfNull: false)
   final List<ToolProblem> toolProblems;
@@ -104,7 +104,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.dartFiles,
       List<ToolProblem> toolProblems,
       this.platform,
-      this.license,
+      this.licenses,
       this.fitness,
       {this.flutterVersion})
       : this.toolProblems = (toolProblems == null || toolProblems.isEmpty)

@@ -35,7 +35,7 @@ main() {
 
   group('BSD', () {
     test('detect project LICENSE', () async {
-      expect(await detectLicenseInDir('.'), new License('BSD'));
+      expect(await detectLicensesInDir('.'), [new License('BSD')]);
       await expectFile('test/licenses/bsd_2_clause.txt', new License('BSD'));
       await expectFile('test/licenses/bsd_3_clause.txt', new License('BSD'));
       await expectFile('test/licenses/bsd_revised.txt', new License('BSD'));

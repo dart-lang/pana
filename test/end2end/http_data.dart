@@ -776,6 +776,8 @@ final _data = {
     'worksEverywhere': true,
     'reason': 'primary library - `package:http/http.dart`'
   },
-  "license": {"name": "BSD"},
+  "licenses": [
+    {"name": "BSD"},
+  ],
   'fitness': {'magnitude': 1273.0, 'shortcoming': 17.0},
 };

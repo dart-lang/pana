@@ -352,6 +352,8 @@ final _data = {
     },
   },
   'platform': {'worksEverywhere': true, 'reason': 'All libraries agree'},
-  "license": {"name": "BSD"},
+  "licenses": [
+    {"name": "BSD"},
+  ],
   'fitness': {'magnitude': 455.0, 'shortcoming': 1.0},
 };

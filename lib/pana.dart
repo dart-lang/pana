@@ -233,7 +233,7 @@ class PackageAnalyzer {
     }
 
     final platform = classifyPkgPlatform(pubspec, allTransitiveLibs);
-    var license = await detectLicenseInDir(pkgDir);
+    var licenses = await detectLicensesInDir(pkgDir);
     final pkgFitness =
         calcPkgFitness(pubspec, platform, files.values, toolProblems);
 
@@ -247,7 +247,7 @@ class PackageAnalyzer {
       files,
       toolProblems,
       platform,
-      license,
+      licenses,
       pkgFitness,
       flutterVersion: flutterVersion,
     );
