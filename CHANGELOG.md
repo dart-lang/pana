@@ -2,6 +2,13 @@
 
 * Greatly expanded and improved license detection.
 
+## 0.5.0
+
+* **Breaking changes**
+
+  * `Summary.license` -> `licenses`: we'll return multiple licenses
+  * Removed `LicenseNames.missing`: empty List will indicate no license file
+
 ## 0.4.0
 
 * **Breaking changes**

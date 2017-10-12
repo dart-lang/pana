@@ -50,17 +50,16 @@ abstract class LicenseNames {
   static const String MIT = 'MIT';
   static const String MPL = 'MPL';
   static const String Unlicense = 'Unlicense';
-  static const String missing = 'missing';
   static const String unknown = 'unknown';
 }
 
-Future<License> detectLicenseInDir(String baseDir) async {
+Future<List<License>> detectLicensesInDir(String baseDir) async {
   var list = await new Directory(baseDir).list().toList();
   final File licenseFile = list.firstWhere(_isLicenseFile, orElse: () => null);
   if (licenseFile == null) {
-    return new License(LicenseNames.missing);
+    return [];
   }
-  return detectLicenseInFile(licenseFile);
+  return [await detectLicenseInFile(licenseFile)];
 }
 
 Future<License> detectLicenseInFile(File file) async {
