@@ -777,7 +777,10 @@ final _data = {
     'reason': 'primary library - `package:http/http.dart`'
   },
   "licenses": [
-    {"name": "BSD"},
+    {
+      "path": "LICENSE",
+      "name": "BSD",
+    },
   ],
   'fitness': {'magnitude': 1273.0, 'shortcoming': 17.0},
 };

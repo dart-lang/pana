@@ -13,32 +13,34 @@ import 'package:path/path.dart' as p;
 part 'license.g.dart';
 
 @JsonSerializable()
-class License extends Object with _$LicenseSerializerMixin {
+class LicenseFile extends Object with _$LicenseFileSerializerMixin {
+  final String path;
   final String name;
+
   @JsonKey(includeIfNull: false)
   final String version;
 
-  License(this.name, [this.version]);
+  LicenseFile(this.path, this.name, {this.version});
 
-  factory License.fromJson(Map<String, dynamic> json) =>
-      _$LicenseFromJson(json);
+  factory LicenseFile.fromJson(Map<String, dynamic> json) =>
+      _$LicenseFileFromJson(json);
+
+  String get shortFormatted => version == null ? name : '$name $version';
 
   @override
-  String toString() {
-    if (version == null) return name;
-    return '$name $version';
-  }
+  String toString() => '$path: $shortFormatted';
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is License &&
+      other is LicenseFile &&
           runtimeType == other.runtimeType &&
+          path == other.path &&
           name == other.name &&
           version == other.version;
 
   @override
-  int get hashCode => name.hashCode ^ version.hashCode;
+  int get hashCode => path.hashCode ^ name.hashCode ^ version.hashCode;
 }
 
 abstract class LicenseNames {
@@ -53,22 +55,34 @@ abstract class LicenseNames {
   static const String unknown = 'unknown';
 }
 
-Future<List<License>> detectLicensesInDir(String baseDir) async {
-  var list = await new Directory(baseDir).list().toList();
-  final File licenseFile = list.firstWhere(_isLicenseFile, orElse: () => null);
-  if (licenseFile == null) {
-    return [];
-  }
-  return [await detectLicenseInFile(licenseFile)];
+Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
+  final rootFiles = await new Directory(baseDir).list().toList();
+  final licenseCandidates = rootFiles
+      .where((fse) => fse is File)
+      .where(_isLicenseFile)
+      .take(5) // only the first 5 files are considered
+      .toList();
+  if (licenseCandidates.isEmpty) return [];
+
+  final licenses = await Future.wait(licenseCandidates.map(
+    (FileSystemEntity fse) {
+      final relativePath = p.relative(fse.path, from: baseDir);
+      return detectLicenseInFile(fse, relativePath: relativePath);
+    },
+  ));
+
+  licenses.sort((l1, l2) => Comparable.compare(l1.path, l2.path));
+  return licenses;
 }
 
-Future<License> detectLicenseInFile(File file) async {
+Future<LicenseFile> detectLicenseInFile(File file,
+    {String relativePath}) async {
   var content = await file.readAsString();
-  var license = detectLicenseInContent(content);
-  return license ?? new License(LicenseNames.unknown);
+  var license = detectLicenseInContent(content, relativePath: relativePath);
+  return license ?? new LicenseFile(relativePath, LicenseNames.unknown);
 }
 
-License detectLicenseInContent(String content) {
+LicenseFile detectLicenseInContent(String content, {String relativePath}) {
   var stripped = _longTextPrepare(content);
 
   String version;
@@ -81,32 +95,33 @@ License detectLicenseInContent(String content) {
   }
 
   if (_mpl.hasMatch(stripped)) {
-    return new License(LicenseNames.MPL, version);
+    return new LicenseFile(relativePath, LicenseNames.MPL, version: version);
   }
   if (_agpl.hasMatch(stripped) && !_useWithAgpl.hasMatch(stripped)) {
-    return new License(LicenseNames.AGPL, version);
+    return new LicenseFile(relativePath, LicenseNames.AGPL, version: version);
   }
   if (_apache.hasMatch(stripped)) {
-    return new License(LicenseNames.Apache, version);
+    return new LicenseFile(relativePath, LicenseNames.Apache, version: version);
   }
   if (_lgpl.hasMatch(stripped) && !_useLgplInstead.hasMatch(stripped)) {
-    return new License(LicenseNames.LGPL, version);
+    return new LicenseFile(relativePath, LicenseNames.LGPL, version: version);
   }
   if (_gplLong.hasMatch(stripped)) {
-    return new License(LicenseNames.GPL, version);
+    return new LicenseFile(relativePath, LicenseNames.GPL, version: version);
   }
   if (_gplShort.hasMatch(stripped)) {
-    return new License(LicenseNames.GPL, version);
+    return new LicenseFile(relativePath, LicenseNames.GPL, version: version);
   }
   if (_mit.hasMatch(stripped)) {
-    return new License(LicenseNames.MIT, version);
+    return new LicenseFile(relativePath, LicenseNames.MIT, version: version);
   }
   if (_unlicense.hasMatch(stripped)) {
-    return new License(LicenseNames.Unlicense, version);
+    return new LicenseFile(relativePath, LicenseNames.Unlicense,
+        version: version);
   }
 
   if (_bsdPreamble.hasMatch(stripped) && _bsdEmphasis.hasMatch(stripped)) {
-    return new License(LicenseNames.BSD);
+    return new LicenseFile(relativePath, LicenseNames.BSD);
   }
 
   return null;
@@ -155,8 +170,8 @@ bool _isLicenseFile(FileSystemEntity fse) {
     var relative = p.relative(fse.path, from: fse.parent.path);
     var lower = relative.toLowerCase();
     return lower == 'license' ||
-        lower == 'license.txt' ||
-        lower == 'license.md';
+        (lower.startsWith('license') &&
+            (lower.endsWith('.txt') || lower.endsWith('.md')));
   }
   return false;
 }

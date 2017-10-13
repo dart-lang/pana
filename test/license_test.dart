@@ -10,15 +10,19 @@ import 'package:test/test.dart';
 import 'package:pana/src/license.dart';
 
 main() {
-  Future expectFile(String path, License expected) async {
-    expect(await detectLicenseInFile(new File(path)), expected);
+  Future expectFile(String path, LicenseFile expected) async {
+    final relativePath = path.substring('test/licenses/'.length);
+    expect(
+        await detectLicenseInFile(new File(path), relativePath: relativePath),
+        expected);
   }
 
   group('AGPL', () {
     test('explicit', () async {
       expect(detectLicenseInContent('GNU AFFERO GENERAL PUBLIC LICENSE'),
-          new License('AGPL'));
-      await expectFile('test/licenses/agpl_v3.txt', new License('AGPL', '3.0'));
+          new LicenseFile(null, 'AGPL'));
+      await expectFile('test/licenses/agpl_v3.txt',
+          new LicenseFile('agpl_v3.txt', 'AGPL', version: '3.0'));
     });
   });
 
@@ -27,18 +31,20 @@ main() {
       expect(
           detectLicenseInContent(
               '   Apache License\n     Version 2.0, January 2004\n'),
-          new License('Apache', '2.0'));
-      await expectFile(
-          'test/licenses/apache_v2.txt', new License('Apache', '2.0'));
+          new LicenseFile(null, 'Apache', version: '2.0'));
+      await expectFile('test/licenses/apache_v2.txt',
+          new LicenseFile('apache_v2.txt', 'Apache', version: '2.0'));
     });
   });
 
   group('BSD', () {
-    test('detect project LICENSE', () async {
-      expect(await detectLicensesInDir('.'), [new License('BSD')]);
-      await expectFile('test/licenses/bsd_2_clause.txt', new License('BSD'));
-      await expectFile('test/licenses/bsd_3_clause.txt', new License('BSD'));
-      await expectFile('test/licenses/bsd_revised.txt', new License('BSD'));
+    test('explicit', () async {
+      await expectFile('test/licenses/bsd_2_clause.txt',
+          new LicenseFile('bsd_2_clause.txt', 'BSD'));
+      await expectFile('test/licenses/bsd_3_clause.txt',
+          new LicenseFile('bsd_3_clause.txt', 'BSD'));
+      await expectFile('test/licenses/bsd_revised.txt',
+          new LicenseFile('bsd_revised.txt', 'BSD'));
     });
   });
 
@@ -49,10 +55,11 @@ main() {
             'GNU GENERAL PUBLIC LICENSE',
             'Version 2, June 1991'
           ].join('\n')),
-          new License('GPL', '2.0'));
+          new LicenseFile(null, 'GPL', version: '2.0'));
       expect(detectLicenseInContent(['GNU GPL Version 2'].join('\n')),
-          new License('GPL', '2.0'));
-      await expectFile('test/licenses/gpl_v3.txt', new License('GPL', '3.0'));
+          new LicenseFile(null, 'GPL', version: '2.0'));
+      await expectFile('test/licenses/gpl_v3.txt',
+          new LicenseFile('gpl_v3.txt', 'GPL', version: '3.0'));
     });
   });
 
@@ -61,18 +68,20 @@ main() {
       expect(
           detectLicenseInContent(
               '\nGNU LESSER GENERAL PUBLIC LICENSE\n    Version 3, 29 June 2007'),
-          new License('LGPL', '3.0'));
-      await expectFile('test/licenses/lgpl_v3.txt', new License('LGPL', '3.0'));
+          new LicenseFile(null, 'LGPL', version: '3.0'));
+      await expectFile('test/licenses/lgpl_v3.txt',
+          new LicenseFile('lgpl_v3.txt', 'LGPL', version: '3.0'));
     });
   });
 
   group('MIT', () {
     test('explicit', () async {
       expect(detectLicenseInContent('\n\n   The MIT license\n\n blah...'),
-          new License('MIT'));
+          new LicenseFile(null, 'MIT'));
       expect(detectLicenseInContent('MIT license\n\n blah...'),
-          new License('MIT'));
-      await expectFile('test/licenses/mit.txt', new License('MIT'));
+          new LicenseFile(null, 'MIT'));
+      await expectFile(
+          'test/licenses/mit.txt', new LicenseFile('mit.txt', 'MIT'));
     });
   });
 
@@ -81,8 +90,9 @@ main() {
       expect(
           detectLicenseInContent(
               '\n\n   Mozilla Public License Version 2.0\n\n blah...'),
-          new License('MPL', '2.0'));
-      await expectFile('test/licenses/mpl_v2.txt', new License('MPL', '2.0'));
+          new LicenseFile(null, 'MPL', version: '2.0'));
+      await expectFile('test/licenses/mpl_v2.txt',
+          new LicenseFile('mpl_v2.txt', 'MPL', version: '2.0'));
     });
   });
 
@@ -91,14 +101,33 @@ main() {
       expect(
           detectLicenseInContent(
               '\n\n   This is free and unencumbered software released into the public domain.\n'),
-          new License('Unlicense'));
-      await expectFile('test/licenses/unlicense.txt', new License('Unlicense'));
+          new LicenseFile(null, 'Unlicense'));
+      await expectFile('test/licenses/unlicense.txt',
+          new LicenseFile('unlicense.txt', 'Unlicense'));
     });
   });
 
   group('unknown', () {
     test('empty content', () {
       expect(detectLicenseInContent(''), isNull);
+    });
+  });
+
+  group('Directory scans', () {
+    test('detect pana LICENSE', () async {
+      expect(
+          await detectLicensesInDir('.'), [new LicenseFile('LICENSE', 'BSD')]);
+    });
+
+    test('no license files', () async {
+      expect(await detectLicensesInDir('lib/src'), []);
+    });
+
+    test('multiple license files', () async {
+      expect(await detectLicensesInDir('test/licenses/multiple'), [
+        new LicenseFile('LICENSE.core.txt', 'GPL', version: '3.0'),
+        new LicenseFile('LICENSE.libs.txt', 'LGPL', version: '3.0'),
+      ]);
     });
   });
 }
