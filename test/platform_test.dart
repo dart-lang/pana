@@ -157,12 +157,20 @@ void main() {
           'flutter: pubspec reference with no conflicts');
     });
 
-    test('detects flutter in dependencies', () {
-      var sum = classifyPkgPlatform(flutterSdkPubspec, {});
-      // TODO: fix logic, detect SDK
+    test('detects flutter package in dependencies', () {
+      var sum = classifyPkgPlatform(flutterDependencyPubspec, {});
       expect(sum.worksEverywhere, isFalse);
-      expect(sum.restrictedTo, isNull);
-      expect(sum.descriptionAndReason, 'undefined: no libraries!');
+      expect(sum.restrictedTo, ['flutter']);
+      expect(sum.descriptionAndReason,
+          'flutter: pubspec reference with no conflicts');
+    });
+
+    test('detects flutter sdk in dependencies', () {
+      var sum = classifyPkgPlatform(flutterSdkPubspec, {});
+      expect(sum.worksEverywhere, isFalse);
+      expect(sum.restrictedTo, ['flutter']);
+      expect(sum.descriptionAndReason,
+          'flutter: pubspec reference with no conflicts');
     });
   });
 

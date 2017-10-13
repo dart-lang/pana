@@ -44,6 +44,12 @@ final Pubspec flutterPluginPubspec = new Pubspec({
   },
 });
 
+final Pubspec flutterDependencyPubspec = new Pubspec({
+  'dependencies': {
+    'flutter': 'any',
+  },
+});
+
 final Pubspec flutterSdkPubspec = new Pubspec({
   'dependencies': {
     'example': {

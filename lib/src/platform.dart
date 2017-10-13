@@ -127,7 +127,10 @@ DartPlatform classifyPkgPlatform(
   final primaryLibrary =
       _selectPrimaryLibrary(pubspec, transitiveLibs.keys.toSet());
 
-  if (pubspec.hasFlutterKey || pubspec.hasFlutterPluginKey) {
+  if (pubspec.hasFlutterKey ||
+      pubspec.hasFlutterPluginKey ||
+      pubspec.dependsOnFlutterPackage ||
+      pubspec.dependsOnFlutterSdk) {
     final hasConflict = libraries.values.any((pi) => !pi.worksOnFlutter);
     if (hasConflict) {
       return new DartPlatform.conflict(
