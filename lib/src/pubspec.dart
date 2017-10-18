@@ -57,6 +57,10 @@ class Pubspec {
     return deps is Map ? deps : null;
   }
 
+  bool dependsOnPackage(String package) =>
+      (dependencies?.containsKey(package) ?? false) ||
+      (devDependencies?.containsKey(package) ?? false);
+
   bool get hasFlutterKey => _content.containsKey('flutter');
   bool get hasFlutterPluginKey =>
       hasFlutterKey &&
@@ -64,6 +68,7 @@ class Pubspec {
       _content['flutter']['plugin'] != null;
 
   bool get dependsOnFlutterSdk => dependentSdks.contains('flutter');
+  bool get dependsOnFlutterPackage => dependsOnPackage('flutter');
 
   List<String> get unconstrainedDependencies {
     final set = new Set<String>();
