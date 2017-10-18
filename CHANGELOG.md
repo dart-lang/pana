@@ -6,6 +6,7 @@
 
 * **Breaking changes**
 
+  * `License` renamed to `LicenseFile`
   * `Summary.license` -> `licenses`: we'll return multiple licenses
   * Removed `LicenseNames.missing`: empty List will indicate no license file
 

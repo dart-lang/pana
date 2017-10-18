@@ -92,8 +92,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
         ? null
         : new DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
     (json['licenses'] as List)
-        ?.map((e) =>
-            e == null ? null : new License.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null
+            ? null
+            : new LicenseFile.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     json['fitness'] == null
         ? null
@@ -110,7 +111,7 @@ abstract class _$SummarySerializerMixin {
   PkgResolution get pkgResolution;
   Map<String, DartFileSummary> get dartFiles;
   DartPlatform get platform;
-  List<License> get licenses;
+  List<LicenseFile> get licenses;
   List<ToolProblem> get toolProblems;
   Fitness get fitness;
   Map<String, dynamic> toJson() {

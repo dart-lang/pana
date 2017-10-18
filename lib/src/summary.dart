@@ -87,7 +87,7 @@ class Summary extends Object with _$SummarySerializerMixin {
   final PkgResolution pkgResolution;
   final Map<String, DartFileSummary> dartFiles;
   final DartPlatform platform;
-  final List<License> licenses;
+  final List<LicenseFile> licenses;
 
   @JsonKey(includeIfNull: false)
   final List<ToolProblem> toolProblems;
