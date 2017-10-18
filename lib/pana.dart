@@ -67,7 +67,9 @@ class PackageAnalyzer {
 
     log.info('Counting files...');
     var dartFiles =
-        await listFiles(pkgDir, endsWith: '.dart', deleteBadExtracted: true);
+        (await listFiles(pkgDir, endsWith: '.dart', deleteBadExtracted: true))
+            .where((file) => file.startsWith('bin/') || file.startsWith('lib/'))
+            .toList();
 
     log.info("Checking formatting...");
     Set<String> unformattedFiles;
@@ -255,7 +257,11 @@ class PackageAnalyzer {
 
   Future<Set<CodeProblem>> _pkgAnalyze(String pkgPath) async {
     log.info('Analyzing package...');
-    var proc = await _dartSdk.runAnalyzer(pkgPath);
+    final dirs = await listFocusDirs(pkgPath);
+    if (dirs.isEmpty) {
+      return null;
+    }
+    final proc = await _dartSdk.runAnalyzer(pkgPath, dirs);
 
     String output = proc.stderr;
     if ('\n$output'.contains('\nUnhandled exception:\n')) {

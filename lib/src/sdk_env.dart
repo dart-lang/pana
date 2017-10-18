@@ -47,14 +47,17 @@ class DartSdk {
     return _version;
   }
 
-  Future<ProcessResult> runAnalyzer(String packageDir) async {
+  Future<ProcessResult> runAnalyzer(
+      String packageDir, List<String> dirs) async {
     final optionsFileName =
         'pana_analysis_options_${new DateTime.now().microsecondsSinceEpoch}.g.yaml';
     final optionsFile = new File(p.join(packageDir, optionsFileName));
     await optionsFile.writeAsString(analysisOptions);
+    final params = ['--options', optionsFile.path, '--format', 'machine']
+      ..addAll(dirs);
     final pr = await Process.run(
       _dartAnalyzerCmd,
-      ['--options', optionsFile.path, '--format', 'machine', '.'],
+      params,
       environment: _environment,
       workingDirectory: packageDir,
     );
@@ -63,25 +66,38 @@ class DartSdk {
   }
 
   Future<List<String>> filesNeedingFormat(String packageDir) async {
-    var result = await Process.run(
-      _dartfmtCmd,
-      ['--dry-run', '--set-exit-if-changed', packageDir],
-      environment: _environment,
-    );
-    if (result.exitCode == 0) {
+    final dirs = await listFocusDirs(packageDir);
+    if (dirs.isEmpty) {
       return const [];
     }
+    final files = <String>[];
+    for (final dir in dirs) {
+      var result = await Process.run(
+        _dartfmtCmd,
+        ['--dry-run', '--set-exit-if-changed', p.join(packageDir, dir)],
+        environment: _environment,
+      );
+      if (result.exitCode == 0) {
+        return const [];
+      }
 
-    var lines = LineSplitter.split(result.stdout).toList()..sort();
+      final lines = LineSplitter
+          .split(result.stdout)
+          .map((file) => p.join(dir, file))
+          .toList();
+      if (result.exitCode == 1) {
+        assert(lines.isNotEmpty);
+        files.addAll(lines);
+        continue;
+      }
 
-    if (result.exitCode == 1) {
-      assert(lines.isNotEmpty);
-      return lines;
+      throw [
+        "dartfmt on $dir/ failed with exit code ${result.exitCode}",
+        result.stderr
+      ].join('\n').toString();
     }
-
-    throw ["dartfmt failed with exit code ${result.exitCode}", result.stderr]
-        .join('\n')
-        .toString();
+    files.sort();
+    return files;
   }
 
   Future<ProcessResult> _execUpgrade(String packageDir) => runProc(
