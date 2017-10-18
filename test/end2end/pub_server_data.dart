@@ -40,62 +40,6 @@ final _data = {
     "dependencies": hasLength(49),
   },
   "dartFiles": {
-    "example/server.dart": {
-      "uri": "asset:pub_server/example/server.dart",
-      "size": 2209,
-      "isFormatted": true,
-      "codeProblems": [],
-    },
-    "example/src/examples/cow_repository.dart": {
-      "uri": "asset:pub_server/example/src/examples/cow_repository.dart",
-      "size": 5001,
-      "isFormatted": false,
-      "codeProblems": [
-        {
-          'severity': 'ERROR',
-          'errorType': 'COMPILE_TIME_ERROR',
-          'errorCode': 'STRONG_MODE_INVALID_METHOD_OVERRIDE',
-          'file': 'example/src/examples/cow_repository.dart',
-          'line': 89,
-          'col': 3,
-          'description':
-              'Invalid override. The type of \'CopyAndWriteRepository.upload\' (\'(Stream<List<int>>) → Future<dynamic>\') isn\'t a subtype of \'PackageRepository.upload\' (\'(Stream<List<int>>) → Future<PackageVersion>\').'
-        },
-      ],
-    },
-    "example/src/examples/file_repository.dart": {
-      "uri": "asset:pub_server/example/src/examples/file_repository.dart",
-      "size": 4145,
-      "isFormatted": true,
-      "codeProblems": [
-        {
-          'severity': 'ERROR',
-          'errorType': 'COMPILE_TIME_ERROR',
-          'errorCode': 'STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
-          'file': 'example/src/examples/file_repository.dart',
-          'line': 31,
-          'col': 16,
-          'description':
-              'The function expression type \'(Directory) → PackageVersion\' isn\'t of type \'(FileSystemEntity) → PackageVersion\'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).'
-        },
-        {
-          'severity': 'ERROR',
-          'errorType': 'COMPILE_TIME_ERROR',
-          'errorCode': 'STRONG_MODE_INVALID_METHOD_OVERRIDE',
-          'file': 'example/src/examples/file_repository.dart',
-          'line': 59,
-          'col': 3,
-          'description':
-              'Invalid override. The type of \'FileRepository.upload\' (\'(Stream<List<int>>) → Future<dynamic>\') isn\'t a subtype of \'PackageRepository.upload\' (\'(Stream<List<int>>) → Future<PackageVersion>\').'
-        },
-      ],
-    },
-    "example/src/examples/http_proxy_repository.dart": {
-      "uri": "asset:pub_server/example/src/examples/http_proxy_repository.dart",
-      "size": 2956,
-      "isFormatted": false,
-      "codeProblems": [],
-    },
     "lib/repository.dart": {
       "uri": "package:pub_server/repository.dart",
       "size": 5129,
@@ -343,12 +287,6 @@ final _data = {
         'worksEverywhere': true,
       },
       'fitness': {'magnitude': 360.0, 'shortcoming': 1.0},
-    },
-    "test/shelf_pubserver_test.dart": {
-      "uri": "asset:pub_server/test/shelf_pubserver_test.dart",
-      "size": 22061,
-      "isFormatted": false,
-      "codeProblems": isNotNull,
     },
   },
   'platform': {'worksEverywhere': true, 'reason': 'All libraries agree'},

@@ -209,6 +209,18 @@ String toRelativePath(String packageUri) {
   return packageUri.startsWith('package:') ? 'lib/$uriPath' : uriPath;
 }
 
+/// Returns the list of directories to focus on (e.g. bin, lib) - if they exist.
+Future<List<String>> listFocusDirs(String packageDir) async {
+  final dirs = <String>[];
+  for (final dir in ['bin', 'lib']) {
+    final path = p.join(packageDir, dir);
+    if ((await FileSystemEntity.type(path)) == FileSystemEntityType.DIRECTORY) {
+      dirs.add(dir);
+    }
+  }
+  return dirs;
+}
+
 /// A merged stream of all signals that tell the test runner to shut down
 /// gracefully.
 ///
