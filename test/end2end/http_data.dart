@@ -97,8 +97,6 @@ final _data = {
         "dependencyType": "dev",
         "constraintType": "normal",
         "constraint": ">=0.9.0 <0.12.0",
-        "resolved": isNotNull,
-        "available": isNotNull,
       }
     ]
   },

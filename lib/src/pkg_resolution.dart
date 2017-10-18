@@ -196,7 +196,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
     }
     var resolved = pkgVersions[package];
     var available = availVersions[package];
-    if (resolved == null) {
+    if (resolved == null && dependencyType != DependencyTypes.dev) {
       errors.add('No resolved version for package $package');
     }
 
