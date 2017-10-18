@@ -100,7 +100,7 @@ class PackageAnalyzer {
     log.info('Package: $package ${pubspec.version}');
 
     log.info("Pub upgrade...");
-    var isFlutter = pubspec.dependsOnFlutterSdk;
+    final isFlutter = pubspec.isFlutter;
     var upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
 
     PkgResolution pkgResolution;

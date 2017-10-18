@@ -70,6 +70,9 @@ class Pubspec {
   bool get dependsOnFlutterSdk => dependentSdks.contains('flutter');
   bool get dependsOnFlutterPackage => dependsOnPackage('flutter');
 
+  bool get isFlutter =>
+      dependsOnFlutterSdk || dependsOnFlutterPackage || hasFlutterKey;
+
   List<String> get unconstrainedDependencies {
     final set = new Set<String>();
     void inspectDependency(String pkg, dynamic v) {
