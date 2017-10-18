@@ -114,7 +114,7 @@ ProcessResult handleProcessErrors(ProcessResult result) {
   return result;
 }
 
-Future<List<String>> listFiles(String directory,
+Stream<String> listFiles(String directory,
     {String endsWith, bool deleteBadExtracted = false}) {
   var dir = new Directory(directory);
   return dir
@@ -133,8 +133,7 @@ Future<List<String>> listFiles(String directory,
       })
       .map((fse) => fse.path)
       .where((path) => endsWith == null || path.endsWith(endsWith))
-      .map((path) => p.relative(path, from: directory))
-      .toList();
+      .map((path) => p.relative(path, from: directory));
 }
 
 Future<int> fileSize(String packageDir, String relativePath) =>

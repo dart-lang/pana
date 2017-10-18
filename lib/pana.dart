@@ -67,7 +67,7 @@ class PackageAnalyzer {
 
     log.info('Counting files...');
     var dartFiles =
-        (await listFiles(pkgDir, endsWith: '.dart', deleteBadExtracted: true))
+        await listFiles(pkgDir, endsWith: '.dart', deleteBadExtracted: true)
             .where((file) => file.startsWith('bin/') || file.startsWith('lib/'))
             .toList();
 

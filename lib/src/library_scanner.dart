@@ -228,8 +228,8 @@ class LibraryScanner {
 
   Future<Map<String, List<String>>> _scanPackage() async {
     var results = new SplayTreeMap<String, List<String>>();
-    var dartFiles = await listFiles(_packagePath, endsWith: '.dart');
-    var mainFiles = dartFiles.where((path) {
+    await for (var relativePath
+        in listFiles(_packagePath, endsWith: '.dart').where((path) {
       if (p.isWithin('bin', path)) {
         return true;
       }
@@ -240,8 +240,7 @@ class LibraryScanner {
       }
 
       return false;
-    }).toList();
-    for (var relativePath in mainFiles) {
+    })) {
       var uri = toPackageUri(packageName, relativePath);
       results[uri] = _cachedLibs.putIfAbsent(
           uri, () => _parseLibs(packageName, _packagePath, relativePath));
