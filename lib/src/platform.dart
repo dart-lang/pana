@@ -122,7 +122,8 @@ DartPlatform classifyPkgPlatform(
   if (transitiveLibs == null) {
     return new DartPlatform.conflict('failed to scan transitive libraries');
   }
-  final libraries = new Map.fromIterable(transitiveLibs.keys ?? <String>[],
+  final libraries = new Map<String, DartPlatform>.fromIterable(
+      transitiveLibs.keys ?? <String>[],
       value: (key) => classifyLibPlatform(transitiveLibs[key]));
   final primaryLibrary =
       _selectPrimaryLibrary(pubspec, transitiveLibs.keys.toSet());
@@ -154,6 +155,11 @@ DartPlatform classifyPkgPlatform(
     return new DartPlatform.universal(reason: 'All libraries agree');
   }
 
+  if (primaryLibrary != null && libraries[primaryLibrary].worksEverywhere) {
+    return new DartPlatform.universal(
+        reason: 'primary library - `$primaryLibrary`');
+  }
+
   final items = libraries.values
       .where((p) => !p.worksEverywhere)
       .expand((p) => p.restrictedTo)
@@ -165,12 +171,7 @@ DartPlatform classifyPkgPlatform(
 
   if (primaryLibrary != null) {
     var primaryPlatform = libraries[primaryLibrary];
-    if (primaryPlatform.worksEverywhere) {
-      return new DartPlatform.universal(
-          reason: 'primary library - `$primaryLibrary`');
-    }
-    if (primaryPlatform.restrictedTo != null &&
-        primaryPlatform.restrictedTo.length == 1) {
+    if (primaryPlatform.restrictedTo?.length == 1) {
       return new DartPlatform.withRestrictions(primaryPlatform.restrictedTo,
           reason: 'primary library - `$primaryLibrary`');
     }
