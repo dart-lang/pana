@@ -267,6 +267,15 @@ class PubEnvironment {
       );
     }
   }
+
+  /// Removes the dev_dependencies from the pubspec.yaml
+  Future removeDevDependencies(String packageDir) async {
+    final file = new File(p.join(packageDir, 'pubspec.yaml'));
+    final original = await file.readAsString();
+    final parsed = yamlToJson(original);
+    parsed.remove('dev_dependencies');
+    await file.writeAsString(JSON.encode(parsed));
+  }
 }
 
 class PackageLocation {

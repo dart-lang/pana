@@ -37,7 +37,7 @@ final _data = {
     "version": "0.1.1+3",
   },
   "pkgResolution": {
-    "dependencies": hasLength(49),
+    "dependencies": hasLength(19),
   },
   "dartFiles": {
     "lib/repository.dart": {
