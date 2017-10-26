@@ -211,8 +211,16 @@ class PackageAnalyzer {
       var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
-      var platform =
-          transitiveLibs == null ? null : classifyLibPlatform(transitiveLibs);
+      var platform;
+      final firstError =
+          fileAnalyzerItems?.firstWhere((cp) => cp.isError, orElse: () => null);
+      if (firstError != null) {
+        platform = new DartPlatform.conflict(
+            'Error(s) in ${dartFile}: ${firstError.description}');
+      }
+      if (transitiveLibs != null) {
+        platform ??= classifyLibPlatform(transitiveLibs);
+      }
       final isInLib = dartFile.startsWith('lib/');
       final fitness = isInLib
           ? await calcFitness(pkgDir, dartFile, isFormatted, fileAnalyzerItems,
@@ -235,7 +243,21 @@ class PackageAnalyzer {
       flutterVersion = await _flutterSdk.getVersion();
     }
 
-    final platform = classifyPkgPlatform(pubspec, allTransitiveLibs);
+    DartPlatform platform;
+    if (toolProblems.isNotEmpty) {
+      platform = new DartPlatform.conflict(
+          'Tool problems prevent platform classification.');
+    } else {
+      final dfs = files.values.firstWhere(
+          (dfs) => dfs.isPublicApi && dfs.hasCodeError,
+          orElse: () => null);
+      if (dfs != null) {
+        platform = new DartPlatform.conflict(
+            'Error(s) in ${dfs.path}: ${dfs.firstCodeError.description}');
+      }
+    }
+    platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
+
     var licenses = await detectLicensesInDir(pkgDir);
     final pkgFitness =
         calcPkgFitness(pubspec, platform, files.values, toolProblems);

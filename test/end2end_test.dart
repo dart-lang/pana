@@ -11,6 +11,7 @@ import 'package:test/test.dart';
 import 'end2end/http_data.dart' as http_data;
 import 'end2end/pub_server_data.dart' as pub_server_data;
 import 'end2end/shared.dart';
+import 'end2end/skiplist_data.dart' as skiplist_data;
 
 void main() {
   group('PackageAnalyzer', () {
@@ -58,5 +59,6 @@ void main() {
 
     _verifyPackage(pub_server_data.data);
     _verifyPackage(http_data.data);
+    _verifyPackage(skiplist_data.data);
   });
 }
