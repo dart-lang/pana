@@ -35,7 +35,7 @@ class Summary {
     return new Summary._(max, min, total / count);
   }
 
-  num simpleScore(num value) {
+  double simpleScore(num value) {
     if (value < min || value > max) {
       throw new RangeError("Value '$value' must be >= '$min' and <= '$max'.");
     }
@@ -50,7 +50,7 @@ class Summary {
     return (value - min) / scale;
   }
 
-  num bezierScore(num value) =>
+  double bezierScore(num value) =>
       calculateBezierScore(simpleScore(value), simpleScore(mean));
 
   @override
@@ -64,7 +64,7 @@ const epsilon = 1e-8;
 ///
 /// Mirrors work in npms.io – with great appreciation.
 /// github.com/npms-io/npms-analyzer/blob/7832c17f/lib/scoring/score.js#L156
-num calculateBezierScore(num normValue, num normAvg) {
+double calculateBezierScore(num normValue, num normAvg) {
   if (normValue < 0 || normValue > 1) {
     throw new RangeError.range(normValue, 0, 1, 'normValue');
   }
@@ -79,11 +79,11 @@ num calculateBezierScore(num normValue, num normAvg) {
   var t2 = math.pow(t, 3) - (3 * avgY * math.pow(t, 2)) + (3 * t * avgY);
 
   if (t2 <= epsilon) {
-    return 0;
+    return 0.0;
   }
 
   if (t2 >= (1 - epsilon)) {
-    return 1;
+    return 1.0;
   }
 
   return t2;
@@ -93,7 +93,7 @@ num calculateBezierScore(num normValue, num normAvg) {
 /// [calculateBezierScore].
 ///
 /// Inspired by https://stackoverflow.com/a/27176424/39827
-num solveCubicSpecial(num b, num c, num d) {
+double solveCubicSpecial(num b, num c, num d) {
   // Convert to depressed cubic t^3+pt+q = 0 (subst x = t - b/3a)
   var p = (3 * c - b * b) / 3;
   var q = (2 * b * b * b - 9 * b * c + 27 * d) / 27;

@@ -59,13 +59,13 @@ void main() {
         expect(() => summary.simpleScore(49), throwsRangeError);
         expect(() => summary.simpleScore(151), throwsRangeError);
 
-        expect(summary.simpleScore(150), 1);
+        expect(summary.simpleScore(150) as double, 1);
         expect(summary.simpleScore(100), 0.5);
-        expect(summary.simpleScore(50), 0);
+        expect(summary.simpleScore(50) as double, 0);
 
-        expect(summary.bezierScore(150), 1);
+        expect(summary.bezierScore(150) as double, 1);
         expect(summary.bezierScore(100), 0.6875);
-        expect(summary.bezierScore(50), 0);
+        expect(summary.bezierScore(50) as double, 0);
       });
 
       test('negative', () {
@@ -86,17 +86,36 @@ void main() {
         expect(summary.bezierScore(-100), 1);
       });
 
-      test('random', () {
+      test('random doubles', () {
         var rnd = new Random();
         for (var x = 0; x < 1000; x++) {
-          var summary = new Summary(
-              new Iterable.generate(1000, (i) => 50 - rnd.nextDouble() * 100));
+          var summary = new Summary(new Iterable<double>.generate(
+              1000, (i) => 50 - rnd.nextDouble() * 100));
           expect(summary.min, isNegative);
           expect(summary.max, isPositive);
           expect(summary.mean, inInclusiveRange(-25, 25));
 
           expect(() => summary.simpleScore(-50), throwsRangeError);
           expect(() => summary.simpleScore(50), throwsRangeError);
+
+          expect(summary.simpleScore(25), closeTo(0.75, 0.05));
+          expect(summary.simpleScore(0), closeTo(0.5, 0.01));
+          expect(summary.simpleScore(45), closeTo(0.95, 0.05));
+
+          expect(summary.bezierScore(25), closeTo(0.87, 0.05));
+          expect(summary.bezierScore(0), closeTo(0.68, 0.05));
+          expect(summary.bezierScore(45), closeTo(0.975, 0.01));
+        }
+      });
+
+      test('random ints', () {
+        var rnd = new Random();
+        for (var x = 0; x < 1000; x++) {
+          var summary = new Summary(
+              new Iterable<int>.generate(1000, (i) => 50 - rnd.nextInt(100)));
+          expect(summary.min, isNegative);
+          expect(summary.max, isPositive);
+          expect(summary.mean, inInclusiveRange(-25, 25));
 
           expect(summary.simpleScore(25), closeTo(0.75, 0.05));
           expect(summary.simpleScore(0), closeTo(0.5, 0.01));
