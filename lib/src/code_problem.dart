@@ -87,6 +87,8 @@ class CodeProblem extends Object
   factory CodeProblem.fromJson(Map<String, dynamic> json) =>
       _$CodeProblemFromJson(json);
 
+  bool get isError => severity?.toUpperCase() == 'ERROR';
+
   @override
   int compareTo(CodeProblem other) {
     var myVals = _values;

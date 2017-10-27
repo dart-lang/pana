@@ -66,6 +66,13 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   bool get hasOutsideLibDependency =>
       directLibs != null &&
       directLibs.any((String lib) => lib.startsWith('asset:'));
+
+  bool get hasCodeError =>
+      (codeProblems?.any((cp) => cp.isError) ?? false) ||
+      hasOutsideLibDependency;
+
+  CodeProblem get firstCodeError =>
+      codeProblems?.firstWhere((cp) => cp.isError, orElse: () => null);
 }
 
 @JsonSerializable()
