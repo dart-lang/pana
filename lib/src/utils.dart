@@ -16,7 +16,7 @@ import 'logging.dart';
 Stream<String> byteStreamSplit(Stream<List<int>> stream) =>
     stream.transform(SYSTEM_ENCODING.decoder).transform(const LineSplitter());
 
-final _timeout = const Duration(minutes: 1);
+final _timeout = const Duration(minutes: 2);
 final _maxLines = 100000;
 
 ProcessResult runProcSync(String executable, List<String> arguments,

@@ -55,7 +55,7 @@ class DartSdk {
     await optionsFile.writeAsString(analysisOptions);
     final params = ['--options', optionsFile.path, '--format', 'machine']
       ..addAll(dirs);
-    final pr = await Process.run(
+    final pr = await runProc(
       _dartAnalyzerCmd,
       params,
       environment: _environment,
@@ -72,7 +72,7 @@ class DartSdk {
     }
     final files = <String>[];
     for (final dir in dirs) {
-      var result = await Process.run(
+      var result = await runProc(
         _dartfmtCmd,
         ['--dry-run', '--set-exit-if-changed', p.join(packageDir, dir)],
         environment: _environment,
@@ -209,7 +209,7 @@ class PubEnvironment {
     }
     args.add(package);
 
-    var result = handleProcessErrors(await Process.run(
+    var result = handleProcessErrors(await runProc(
       dartSdk._pubCmd,
       args,
       environment: _environment,
@@ -230,7 +230,7 @@ class PubEnvironment {
     }
 
     // now get all installed packages
-    result = handleProcessErrors(await Process.run(
+    result = handleProcessErrors(await runProc(
       dartSdk._pubCmd,
       ['cache', 'list'],
       environment: _environment,
