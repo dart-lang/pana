@@ -1,3 +1,9 @@
+## 0.5.1
+
+* Use a consistent 2 minute timeout for all processes.
+
+* Classify platform as `nowhere` when part of analysis fails.
+
 ## 0.5.0
 
 * **Breaking changes**
