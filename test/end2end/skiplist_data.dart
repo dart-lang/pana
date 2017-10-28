@@ -3,14 +3,15 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:test/test.dart';
+import 'package:pana/src/version.dart';
 
 import 'shared.dart';
 
 final data = new E2EData('skiplist', '0.1.0', _data);
 
 final _data = {
-  'panaVersion': '0.5.0',
-  'sdkVersion': isNotNull,
+  'panaVersion': panaPkgVersion.toString(),
+  'sdkVersion': startsWith("Dart VM version: "),
   'packageName': 'skiplist',
   'packageVersion': '0.1.0',
   'pubspec': {
@@ -28,14 +29,14 @@ final _data = {
         'package': 'meta',
         'dependencyType': 'transitive',
         'constraintType': 'inherited',
-        'resolved': '1.1.2'
+        'resolved': isNotNull,
       },
       {
         'package': 'quiver_iterables',
         'dependencyType': 'direct',
         'constraintType': 'normal',
         'constraint': '>=1.0.0 <2.0.0',
-        'resolved': '1.0.1'
+        'resolved': isNotNull,
       },
       {
         'package': 'test',
