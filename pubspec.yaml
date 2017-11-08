@@ -11,6 +11,7 @@ dependencies:
   analyzer: ^0.30.0
   async: '>=1.13.3 <3.0.0'
   cli_util: ^0.1.1
+  http: '>=0.11.3 <0.12.0'
   io: ^0.3.0
   json_annotation: ^0.2.0
   logging: ^0.11.3+1
