@@ -33,6 +33,11 @@ class Fitness extends Object with _$FitnessSerializerMixin {
 
   String toSimpleText() =>
       '${(magnitude - shortcoming).toStringAsFixed(2)} out of ${magnitude.toStringAsFixed(2)}';
+
+  double get healthScore {
+    final score = (magnitude - shortcoming) / magnitude;
+    return max(0.0, min(1.0, score));
+  }
 }
 
 Future<Fitness> calcFitness(
