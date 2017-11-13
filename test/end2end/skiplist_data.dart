@@ -168,7 +168,11 @@ final _data = {
         'Error(s) in lib/skiplist.dart: Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.[]\' (\'(Object) → V\').'
   },
   'licenses': [
-    {'path': 'LICENSE', 'name': 'MIT'}
+    {
+      'path': 'LICENSE',
+      'name': 'MIT',
+      'url': 'https://github.com/stevenroose/dart-skiplist/blob/master/LICENSE',
+    },
   ],
   'fitness': {'magnitude': 185.0, 'shortcoming': 185.0}
 };

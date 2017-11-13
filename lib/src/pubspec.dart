@@ -127,4 +127,10 @@ class Pubspec {
   }
 
   bool get hasUnknownSdks => unknownSdks.isNotEmpty;
+
+  String get homepage {
+    final value = _content['homepage'];
+    if (value is String) return value.trim();
+    return null;
+  }
 }

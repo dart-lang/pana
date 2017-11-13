@@ -273,6 +273,7 @@ class PackageAnalyzer {
     platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
 
     var licenses = await detectLicensesInDir(pkgDir);
+    licenses = await updateLicenseUrls(pubspec.homepage, licenses);
     final pkgFitness =
         calcPkgFitness(pubspec, platform, files.values, toolProblems);
 
