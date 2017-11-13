@@ -681,5 +681,14 @@ final _data = {
       'url': 'https://github.com/dart-lang/http/blob/master/LICENSE',
     },
   ],
+  'maintenance': {
+    'missingChangelog': false,
+    'missingReadme': false,
+    'missingAnalysisOptions': false,
+    'oldAnalysisOptions': true,
+    'isExperimentalVersion': false,
+    'isPreReleaseVersion': true,
+    'toolIssueCount': 0,
+  },
   'fitness': {'magnitude': 1273.0, 'shortcoming': 17.0},
 };

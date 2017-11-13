@@ -98,7 +98,7 @@ Future<Fitness> calcFitness(
 }
 
 Fitness calcPkgFitness(Pubspec pubspec, DartPlatform pkgPlatform,
-    Iterable<DartFileSummary> files, List<ToolProblem> toolIssues) {
+    Iterable<DartFileSummary> files) {
   var magnitude = 0.0;
   var shortcoming = 0.0;
   for (var dfs in files) {
@@ -114,10 +114,6 @@ Fitness calcPkgFitness(Pubspec pubspec, DartPlatform pkgPlatform,
     final platformError = max(20.0, magnitude * 0.20); // 20 %
     shortcoming += platformError;
   }
-
-  // major tool errors are penalized in the percent of the total
-  final toolErrorPoints = max(20.0, magnitude * 0.20); // 20%
-  shortcoming += toolIssues.length * toolErrorPoints;
 
   // unconstrained dependencies are penalized in the percent of the total
   final unconstrainedErrorPoints = max(5.0, magnitude * 0.05); // 5%
