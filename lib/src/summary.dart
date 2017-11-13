@@ -10,6 +10,7 @@ import 'package:pub_semver/pub_semver.dart';
 import 'code_problem.dart';
 import 'fitness.dart';
 import 'license.dart';
+import 'maintenance.dart';
 import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
@@ -98,6 +99,8 @@ class Summary extends Object with _$SummarySerializerMixin {
 
   @JsonKey(includeIfNull: false)
   final List<ToolProblem> toolProblems;
+  @JsonKey(includeIfNull: false)
+  final Maintenance maintenance;
 
   final Fitness fitness;
 
@@ -113,6 +116,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.platform,
       this.licenses,
       this.fitness,
+      this.maintenance,
       {this.flutterVersion})
       : this.toolProblems = (toolProblems == null || toolProblems.isEmpty)
             ? null

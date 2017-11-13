@@ -174,5 +174,14 @@ final _data = {
       'url': 'https://github.com/stevenroose/dart-skiplist/blob/master/LICENSE',
     },
   ],
+  'maintenance': {
+    'missingChangelog': true,
+    'missingReadme': false,
+    'missingAnalysisOptions': true,
+    'oldAnalysisOptions': false,
+    'isExperimentalVersion': false,
+    'isPreReleaseVersion': true,
+    'toolIssueCount': 0,
+  },
   'fitness': {'magnitude': 185.0, 'shortcoming': 185.0}
 };

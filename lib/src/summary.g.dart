@@ -99,6 +99,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     json['fitness'] == null
         ? null
         : new Fitness.fromJson(json['fitness'] as Map<dynamic, dynamic>),
+    json['maintenance'] == null
+        ? null
+        : new Maintenance.fromJson(json['maintenance'] as Map<String, dynamic>),
     flutterVersion: json['flutterVersion'] as Map<String, dynamic>);
 
 abstract class _$SummarySerializerMixin {
@@ -113,6 +116,7 @@ abstract class _$SummarySerializerMixin {
   DartPlatform get platform;
   List<LicenseFile> get licenses;
   List<ToolProblem> get toolProblems;
+  Maintenance get maintenance;
   Fitness get fitness;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
@@ -135,6 +139,7 @@ abstract class _$SummarySerializerMixin {
     val['platform'] = platform;
     val['licenses'] = licenses;
     writeNotNull('toolProblems', toolProblems);
+    writeNotNull('maintenance', maintenance);
     val['fitness'] = fitness;
     return val;
   }

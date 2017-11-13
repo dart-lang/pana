@@ -13,6 +13,7 @@ import 'src/fitness.dart';
 import 'src/library_scanner.dart';
 import 'src/license.dart';
 import 'src/logging.dart';
+import 'src/maintenance.dart';
 import 'src/pkg_resolution.dart';
 import 'src/platform.dart';
 import 'src/pubspec.dart';
@@ -274,8 +275,10 @@ class PackageAnalyzer {
 
     var licenses = await detectLicensesInDir(pkgDir);
     licenses = await updateLicenseUrls(pubspec.homepage, licenses);
-    final pkgFitness =
-        calcPkgFitness(pubspec, platform, files.values, toolProblems);
+    final pkgFitness = calcPkgFitness(pubspec, platform, files.values);
+
+    final maintenance = await detectMaintenance(
+        pkgDir, pubspec.version?.toString(), toolProblems);
 
     return new Summary(
       panaPkgVersion,
@@ -289,6 +292,7 @@ class PackageAnalyzer {
       platform,
       licenses,
       pkgFitness,
+      maintenance,
       flutterVersion: flutterVersion,
     );
   }

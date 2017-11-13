@@ -1,3 +1,9 @@
+## 0.6.0
+
+* Detect and store maintenance-related data in summary.
+
+  * Scoring of tool problems moved from `Fitness` to `Maintenance`.
+
 ## 0.5.1
 
 * Use a consistent 2 minute timeout for all processes.
