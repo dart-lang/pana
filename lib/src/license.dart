@@ -10,6 +10,8 @@ import 'dart:io';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 
+import 'download_utils.dart';
+
 part 'license.g.dart';
 
 @JsonSerializable()
@@ -20,10 +22,16 @@ class LicenseFile extends Object with _$LicenseFileSerializerMixin {
   @JsonKey(includeIfNull: false)
   final String version;
 
-  LicenseFile(this.path, this.name, {this.version});
+  @JsonKey(includeIfNull: false)
+  final String url;
+
+  LicenseFile(this.path, this.name, {this.version, this.url});
 
   factory LicenseFile.fromJson(Map<String, dynamic> json) =>
       _$LicenseFileFromJson(json);
+
+  LicenseFile change({String url}) =>
+      new LicenseFile(path, name, version: version, url: url ?? this.url);
 
   String get shortFormatted => version == null ? name : '$name $version';
 
@@ -37,10 +45,12 @@ class LicenseFile extends Object with _$LicenseFileSerializerMixin {
           runtimeType == other.runtimeType &&
           path == other.path &&
           name == other.name &&
-          version == other.version;
+          version == other.version &&
+          url == other.url;
 
   @override
-  int get hashCode => path.hashCode ^ name.hashCode ^ version.hashCode;
+  int get hashCode =>
+      path.hashCode ^ name.hashCode ^ version.hashCode ^ url.hashCode;
 }
 
 abstract class LicenseNames {
@@ -73,6 +83,34 @@ Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
 
   licenses.sort((l1, l2) => Comparable.compare(l1.path, l2.path));
   return licenses;
+}
+
+Future<List<LicenseFile>> updateLicenseUrls(
+    String baseUrl, List<LicenseFile> licenses) async {
+  if (baseUrl == null || baseUrl.isEmpty) {
+    return licenses;
+  }
+
+  Future<LicenseFile> update(LicenseFile license) async {
+    if (license.path == null || license.path.isEmpty) {
+      return license;
+    }
+    final url = joinDownloadUrl(baseUrl, license.path);
+    if (url == null) {
+      return license;
+    }
+    if (await isExistingUrl(url)) {
+      return license.change(url: url);
+    } else {
+      return license;
+    }
+  }
+
+  final results = <LicenseFile>[];
+  for (var license in licenses) {
+    results.add(await update(license));
+  }
+  return results;
 }
 
 Future<LicenseFile> detectLicenseInFile(File file,

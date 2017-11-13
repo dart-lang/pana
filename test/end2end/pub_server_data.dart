@@ -294,6 +294,7 @@ final _data = {
     {
       "path": "LICENSE",
       "name": "BSD",
+      'url': 'https://github.com/dart-lang/pub_server/blob/master/LICENSE',
     },
   ],
   'fitness': {'magnitude': 455.0, 'shortcoming': 1.0},
