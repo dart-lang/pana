@@ -686,9 +686,20 @@ final _data = {
     'missingReadme': false,
     'missingAnalysisOptions': false,
     'oldAnalysisOptions': true,
+    'strongModeEnabled': true,
     'isExperimentalVersion': false,
     'isPreReleaseVersion': true,
-    'toolIssueCount': 0,
+    'errorCount': 0,
+    'warningCount': 0,
+    'hintCount': 1,
   },
   'fitness': {'magnitude': 1273.0, 'shortcoming': 17.0},
+  'suggestions': [
+    {
+      'level': 'hint',
+      'title': 'Use `analysis_options.yaml`.',
+      'description':
+          'Rename old `.analysis_options` file to `analysis_options.yaml`.',
+    },
+  ],
 };

@@ -78,7 +78,7 @@ class PackageAnalyzer {
       log.fine("Using .package-cache: ${_pubEnv.pubCacheDir}");
     }
     log.fine('Inspecting package at $pkgDir');
-    var toolProblems = <ToolProblem>[];
+    final suggestions = <Suggestion>[];
 
     log.info('Counting files...');
     var dartFiles =
@@ -100,16 +100,20 @@ class PackageAnalyzer {
       log.severe("Failed dartfmt", e, stack);
 
       var errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
-
-      toolProblems.add(new ToolProblem(
-          ToolNames.dartfmt, "Problem formatting package:\n$errorMsg"));
+      suggestions.add(new Suggestion.error(
+          'Make sure `dartfmt` runs.',
+          'Running `dartfmt -n .` failed with the following output:\n\n'
+          '```\n$errorMsg\n```\n'));
     }
 
     log.info("Checking pubspec.yaml...");
     var pubspec = new Pubspec.parseFromDir(pkgDir);
     if (pubspec.hasUnknownSdks) {
-      toolProblems.add(new ToolProblem(ToolNames.pubspec,
-          'Unknown SDKs: ${pubspec.unknownSdks}', 'unknown-sdks'));
+      suggestions.add(new Suggestion.error(
+          'Check SDKs in `pubspec.yaml`.',
+          'We have found the following unknown SDKs in your `pubspec.yaml`:\n'
+          '  `${pubspec.unknownSdks}`.\n\n'
+          '`pana` does not recognizes them, please remove or report it to us.\n'));
     }
     final package = pubspec.name;
     log.info('Package: $package ${pubspec.version}');
@@ -128,8 +132,12 @@ class PackageAnalyzer {
         log.severe("Problem with pub upgrade", e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
         //  and writing to issues in one go.
-        toolProblems.add(
-            new ToolProblem(ToolNames.pubspec, "Problem with pub upgrade: $e"));
+
+        final cmd = isFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
+        suggestions.add(new Suggestion.error(
+            'Fix dependencies in `pubspec.yaml`.',
+            'Running `$cmd` failed with the following output:\n\n'
+            '```\n$e\n```\n'));
       }
     } else {
       String message;
@@ -137,22 +145,20 @@ class PackageAnalyzer {
         message = PubEntry
             .parse(upgrade.stderr)
             .where((e) => e.header == 'ERR')
-            .toList()
             .join('\n');
       } else {
         message = LineSplitter.split(upgrade.stderr).first;
       }
 
-      if (message.isEmpty) {
-        message = null;
-      }
+      log.severe('`pub upgrade` failed.\n$message'.trim());
 
-      message =
-          ["`pub upgrade` failed.", message].where((m) => m != null).join('\n');
-
-      log.severe(message);
-      toolProblems.add(
-          new ToolProblem(ToolNames.pubUpgrade, message, upgrade.exitCode));
+      final cmd = isFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
+      suggestions.add(new Suggestion.error(
+          'Fix dependencies in `pubspec.yaml`.',
+          message.isEmpty
+              ? 'Running `$cmd` failed.'
+              : 'Running `$cmd` failed with the following output:\n\n'
+              '```\n$message\n```\n'));
     }
 
     Map<String, List<String>> allDirectLibs;
@@ -176,8 +182,9 @@ class PackageAnalyzer {
         assert(libraryScanner.packageName == package);
       } on StateError catch (e, stack) {
         log.severe("Could not create LibraryScanner", e, stack);
-        toolProblems.add(
-            new ToolProblem(ToolNames.libraryScanner, e.toString(), 'init'));
+        suggestions.add(new Suggestion.error(
+            'Check your code structure and library use.',
+            'Our library analysis failed with the following error:\n\n$e'));
       }
 
       if (libraryScanner != null) {
@@ -186,16 +193,18 @@ class PackageAnalyzer {
           allDirectLibs = await libraryScanner.scanDirectLibs();
         } catch (e, st) {
           log.severe('Error scanning direct librariers', e, st);
-          toolProblems.add(new ToolProblem(
-              ToolNames.libraryScanner, e.toString(), 'direct'));
+          suggestions.add(new Suggestion.error(
+              'Check your code structure and library use.',
+              'Our library analysis failed with the following error:\n\n$e'));
         }
         try {
           log.info('Scanning transitive dependencies...');
           allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
         } catch (e, st) {
           log.severe('Error scanning transitive librariers', e, st);
-          toolProblems.add(new ToolProblem(
-              ToolNames.libraryScanner, e.toString(), 'transient'));
+          suggestions.add(new Suggestion.error(
+              'Check your code structure and library use.',
+              'Our library analysis failed with the following error:\n\n$e'));
         }
         libraryScanner.clearCaches();
       }
@@ -207,13 +216,16 @@ class PackageAnalyzer {
           if (e.toString().contains("No dart files found at: .")) {
             log.warning("No files to analyze...");
           } else {
-            toolProblems
-                .add(new ToolProblem(ToolNames.dartAnalyzer, e.toString()));
+            suggestions.add(new Suggestion.error(
+                'Make sure `dartanalyzer` runs.',
+                'Running `dartanalyzer .` failed with the following output:\n\n'
+                '```\n$e\n```\n'));
           }
         }
       }
     }
 
+    final dartFileSuggestions = <Suggestion>[];
     Map<String, DartFileSummary> files = new SplayTreeMap();
     for (var dartFile in dartFiles) {
       var size = await fileSize(pkgDir, dartFile);
@@ -251,6 +263,27 @@ class PackageAnalyzer {
         platform,
         fitness,
       );
+      if (isInLib && firstError != null) {
+        dartFileSuggestions.add(new Suggestion.error(
+          'Fix `${dartFile}`.',
+          'Strong-mode analysis of `${dartFile}` failed with the following error:\n\n'
+              'line: ${firstError.line} col: ${firstError.col}  \n'
+              '${firstError.description}\n',
+          file: dartFile,
+        ));
+      }
+    }
+    if (dartFileSuggestions.length < 3) {
+      suggestions.addAll(dartFileSuggestions);
+    } else {
+      suggestions.addAll(dartFileSuggestions.take(2));
+      // Fold the rest of the files into a single suggestions.
+      final items =
+          dartFileSuggestions.skip(2).map((s) => '- ${s.file}\n').toList();
+      suggestions.add(new Suggestion.error(
+          'Fix further ${items.length} Dart files.',
+          'Similar analysis of the following files failed:\n\n'
+          '${items.join()}\n'));
     }
 
     Map<String, Object> flutterVersion;
@@ -259,9 +292,9 @@ class PackageAnalyzer {
     }
 
     DartPlatform platform;
-    if (toolProblems.isNotEmpty) {
-      platform = new DartPlatform.conflict(
-          'Tool problems prevent platform classification.');
+    if (suggestions.where((s) => s.isError).isNotEmpty) {
+      platform =
+          new DartPlatform.conflict('Errors prevent platform classification.');
     } else {
       final dfs = files.values.firstWhere(
           (dfs) => dfs.isPublicApi && dfs.hasCodeError,
@@ -278,7 +311,8 @@ class PackageAnalyzer {
     final pkgFitness = calcPkgFitness(pubspec, platform, files.values);
 
     final maintenance = await detectMaintenance(
-        pkgDir, pubspec.version?.toString(), toolProblems);
+        pkgDir, pubspec.version?.toString(), suggestions);
+    suggestions.sort();
 
     return new Summary(
       panaPkgVersion,
@@ -288,11 +322,11 @@ class PackageAnalyzer {
       pubspec,
       pkgResolution,
       files,
-      toolProblems,
       platform,
       licenses,
       pkgFitness,
       maintenance,
+      suggestions.isEmpty ? null : suggestions,
       flutterVersion: flutterVersion,
     );
   }

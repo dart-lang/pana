@@ -164,8 +164,7 @@ final _data = {
   },
   'platform': {
     'worksEverywhere': false,
-    'reason':
-        'Error(s) in lib/skiplist.dart: Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.[]\' (\'(Object) → V\').'
+    'reason': 'Errors prevent platform classification.',
   },
   'licenses': [
     {
@@ -179,9 +178,46 @@ final _data = {
     'missingReadme': false,
     'missingAnalysisOptions': true,
     'oldAnalysisOptions': false,
+    'strongModeEnabled': false,
     'isExperimentalVersion': false,
     'isPreReleaseVersion': true,
-    'toolIssueCount': 0,
+    'errorCount': 1,
+    'warningCount': 3,
+    'hintCount': 0,
   },
-  'fitness': {'magnitude': 185.0, 'shortcoming': 185.0}
+  'fitness': {'magnitude': 185.0, 'shortcoming': 185.0},
+  'suggestions': [
+    {
+      'level': 'error',
+      'title': 'Fix `lib/skiplist.dart`.',
+      'description':
+          'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n\n'
+          'line: 77 col: 3  \n'
+          'Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.[]\' (\'(Object) → V\').\n'
+          '',
+      'file': 'lib/skiplist.dart',
+    },
+    {
+      'level': 'warning',
+      'title': 'Maintain `CHANGELOG.md`.',
+      'description':
+          'Changelog entries help clients to follow the progress in your code.',
+    },
+    {
+      'level': 'warning',
+      'title': 'Use `analysis_options.yaml`.',
+      'description':
+          'Static analysis will help you to detect bugs and potential issues earlier.',
+    },
+    {
+      'level': 'warning',
+      'title': 'Enable strong mode analysis.',
+      'description':
+          'Strong mode helps you to detect bugs and potential issues earlier.Start your `analysis_options.yaml` file with the following:\n\n'
+          '```\n'
+          'analyzer:\n'
+          '  strong-mode: true\n'
+          '```\n'
+    },
+  ],
 };

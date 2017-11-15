@@ -1,8 +1,16 @@
 ## 0.6.0
 
+* **Breaking changes**
+
+  * Removed `ToolProblem` class.
+  * Removed `Summary.toolProblems`, in favor of `Summary.suggestions`.
+
 * Detect and store maintenance-related data in summary.
 
   * Scoring of tool problems moved from `Fitness` to `Maintenance`.
+
+* Provide human-readable feedback and instructions on some of the issues
+  we find during the analysis.
 
 ## 0.5.1
 

@@ -98,11 +98,12 @@ class Summary extends Object with _$SummarySerializerMixin {
   final List<LicenseFile> licenses;
 
   @JsonKey(includeIfNull: false)
-  final List<ToolProblem> toolProblems;
-  @JsonKey(includeIfNull: false)
   final Maintenance maintenance;
 
   final Fitness fitness;
+
+  @JsonKey(includeIfNull: false)
+  final List<Suggestion> suggestions;
 
   Summary(
       this.panaVersion,
@@ -112,15 +113,12 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.pubspec,
       this.pkgResolution,
       this.dartFiles,
-      List<ToolProblem> toolProblems,
       this.platform,
       this.licenses,
       this.fitness,
       this.maintenance,
-      {this.flutterVersion})
-      : this.toolProblems = (toolProblems == null || toolProblems.isEmpty)
-            ? null
-            : new List<ToolProblem>.unmodifiable(toolProblems);
+      this.suggestions,
+      {this.flutterVersion});
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
       _$SummaryFromJson(json);
@@ -132,22 +130,51 @@ class Summary extends Object with _$SummarySerializerMixin {
 }
 
 @JsonSerializable()
-class ToolProblem extends Object with _$ToolProblemSerializerMixin {
-  final String tool;
-  final String message;
+class Suggestion extends Object
+    with _$SuggestionSerializerMixin
+    implements Comparable<Suggestion> {
+  final String level;
+  final String title;
+  final String description;
+
   @JsonKey(includeIfNull: false)
-  final dynamic code;
+  final dynamic file;
 
-  ToolProblem(this.tool, this.message, [this.code]);
+  Suggestion(this.level, this.title, this.description, {this.file});
 
-  factory ToolProblem.fromJson(Map<String, dynamic> json) =>
-      _$ToolProblemFromJson(json);
+  factory Suggestion.error(String title, String description, {String file}) =>
+      new Suggestion(SuggestionLevel.error, title, description, file: file);
+
+  factory Suggestion.warning(String title, String description, {String file}) =>
+      new Suggestion(SuggestionLevel.warning, title, description, file: file);
+
+  factory Suggestion.hint(String title, String description, {String file}) =>
+      new Suggestion(SuggestionLevel.hint, title, description, file: file);
+
+  factory Suggestion.fromJson(Map<String, dynamic> json) =>
+      _$SuggestionFromJson(json);
+
+  /// An issue that prevents platform classification.
+  bool get isError => level == SuggestionLevel.error;
+
+  /// An issue that would improve the package quality if fixed.
+  bool get isWarning => level == SuggestionLevel.warning;
+
+  /// An issue that would be nice if it were fixed.
+  bool get isHint => level == SuggestionLevel.hint;
+
+  @override
+  int compareTo(Suggestion other) {
+    if (isError && !other.isError) return -1;
+    if (other.isError && !isError) return 1;
+    if (isWarning && !other.isError && !other.isWarning) return -1;
+    if (other.isWarning && !isError && !isWarning) return 1;
+    return 0;
+  }
 }
 
-abstract class ToolNames {
-  static const String pubspec = 'pubspec';
-  static const String dartAnalyzer = 'dart-analyzer';
-  static const String libraryScanner = 'library-scanner';
-  static const String pubUpgrade = 'pub-upgrade';
-  static const String dartfmt = 'dartfmt';
+abstract class SuggestionLevel {
+  static const String error = 'error';
+  static const String warning = 'warning';
+  static const String hint = 'hint';
 }
