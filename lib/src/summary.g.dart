@@ -83,11 +83,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
             (json['dartFiles'] as Map).values.map((e) => e == null
                 ? null
                 : new DartFileSummary.fromJson(e as Map<String, dynamic>))),
-    (json['toolProblems'] as List)
-        ?.map((e) => e == null
-            ? null
-            : new ToolProblem.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     json['platform'] == null
         ? null
         : new DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
@@ -102,6 +97,11 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     json['maintenance'] == null
         ? null
         : new Maintenance.fromJson(json['maintenance'] as Map<String, dynamic>),
+    (json['suggestions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : new Suggestion.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     flutterVersion: json['flutterVersion'] as Map<String, dynamic>);
 
 abstract class _$SummarySerializerMixin {
@@ -115,9 +115,9 @@ abstract class _$SummarySerializerMixin {
   Map<String, DartFileSummary> get dartFiles;
   DartPlatform get platform;
   List<LicenseFile> get licenses;
-  List<ToolProblem> get toolProblems;
   Maintenance get maintenance;
   Fitness get fitness;
+  List<Suggestion> get suggestions;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'panaVersion': panaVersion.toString(),
@@ -138,24 +138,29 @@ abstract class _$SummarySerializerMixin {
     val['dartFiles'] = dartFiles;
     val['platform'] = platform;
     val['licenses'] = licenses;
-    writeNotNull('toolProblems', toolProblems);
     writeNotNull('maintenance', maintenance);
     val['fitness'] = fitness;
+    writeNotNull('suggestions', suggestions);
     return val;
   }
 }
 
-ToolProblem _$ToolProblemFromJson(Map<String, dynamic> json) => new ToolProblem(
-    json['tool'] as String, json['message'] as String, json['code']);
+Suggestion _$SuggestionFromJson(Map<String, dynamic> json) => new Suggestion(
+    json['level'] as String,
+    json['title'] as String,
+    json['description'] as String,
+    file: json['file']);
 
-abstract class _$ToolProblemSerializerMixin {
-  String get tool;
-  String get message;
-  dynamic get code;
+abstract class _$SuggestionSerializerMixin {
+  String get level;
+  String get title;
+  String get description;
+  dynamic get file;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
-      'tool': tool,
-      'message': message,
+      'level': level,
+      'title': title,
+      'description': description,
     };
 
     void writeNotNull(String key, dynamic value) {
@@ -164,7 +169,7 @@ abstract class _$ToolProblemSerializerMixin {
       }
     }
 
-    writeNotNull('code', code);
+    writeNotNull('file', file);
     return val;
   }
 }
