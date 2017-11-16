@@ -182,7 +182,7 @@ final _data = {
     'isExperimentalVersion': false,
     'isPreReleaseVersion': true,
     'errorCount': 1,
-    'warningCount': 3,
+    'warningCount': 1,
     'hintCount': 0,
   },
   'fitness': {'magnitude': 185.0, 'shortcoming': 185.0},
@@ -202,22 +202,6 @@ final _data = {
       'title': 'Maintain `CHANGELOG.md`.',
       'description':
           'Changelog entries help clients to follow the progress in your code.',
-    },
-    {
-      'level': 'warning',
-      'title': 'Use `analysis_options.yaml`.',
-      'description':
-          'Static analysis will help you to detect bugs and potential issues earlier.',
-    },
-    {
-      'level': 'warning',
-      'title': 'Enable strong mode analysis.',
-      'description':
-          'Strong mode helps you to detect bugs and potential issues earlier.Start your `analysis_options.yaml` file with the following:\n\n'
-          '```\n'
-          'analyzer:\n'
-          '  strong-mode: true\n'
-          '```\n'
     },
   ],
 };

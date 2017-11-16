@@ -306,26 +306,8 @@ final _data = {
     'isExperimentalVersion': false,
     'isPreReleaseVersion': true,
     'errorCount': 0,
-    'warningCount': 2,
+    'warningCount': 0,
     'hintCount': 0,
   },
   'fitness': {'magnitude': 455.0, 'shortcoming': 1.0},
-  'suggestions': [
-    {
-      'level': 'warning',
-      'title': 'Use `analysis_options.yaml`.',
-      'description':
-          'Static analysis will help you to detect bugs and potential issues earlier.',
-    },
-    {
-      'level': 'warning',
-      'title': 'Enable strong mode analysis.',
-      'description':
-          'Strong mode helps you to detect bugs and potential issues earlier.Start your `analysis_options.yaml` file with the following:\n\n'
-          '```\n'
-          'analyzer:\n'
-          '  strong-mode: true\n'
-          '```\n'
-    },
-  ],
 };
