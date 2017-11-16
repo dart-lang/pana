@@ -119,14 +119,6 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
     // missing files
     if (missingChangelog) score *= 0.80;
     if (missingReadme) score *= 0.95;
-    if (missingAnalysisOptions) {
-      score *= 0.98;
-    } else if (oldAnalysisOptions) {
-      score *= 0.99;
-    }
-    if (!strongModeEnabled) {
-      score *= 0.95;
-    }
 
     // lack of confidence
     if (isExperimentalVersion) {
@@ -208,15 +200,12 @@ Future<Maintenance> detectMaintenance(
     suggestions.add(new Suggestion.warning('Maintain `README.md`.',
         'Readme should inform others about your project, what it does, and how they can use it.'));
   }
-  if (!analysisOptionsExists) {
-    suggestions.add(new Suggestion.warning('Use `analysis_options.yaml`.',
-        'Static analysis will help you to detect bugs and potential issues earlier.'));
-  } else if (oldAnalysisOptions) {
+  if (oldAnalysisOptions) {
     suggestions.add(new Suggestion.hint('Use `analysis_options.yaml`.',
         'Rename old `.analysis_options` file to `analysis_options.yaml`.'));
   }
-  if (!strongModeEnabled) {
-    suggestions.add(new Suggestion.warning(
+  if (analysisOptionsExists && !strongModeEnabled) {
+    suggestions.add(new Suggestion.hint(
         'Enable strong mode analysis.',
         'Strong mode helps you to detect bugs and potential issues earlier.'
         'Start your `analysis_options.yaml` file with the following:\n\n'
