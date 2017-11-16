@@ -1,3 +1,7 @@
+## 0.6.1
+
+* Don't count the absence of an `analysis_options.yaml` file against a package. 
+
 ## 0.6.0
 
 * **Breaking changes**
