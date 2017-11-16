@@ -50,7 +50,7 @@ class PackageAnalyzer {
     bool keepTransitiveLibs: false,
   }) async {
     log.info("Downloading package $package ${version ?? 'latest'}");
-    var packageDir;
+    String packageDir;
     Directory tempDir;
     if (version != null) {
       tempDir = await downloadPackage(package, version);
@@ -238,7 +238,7 @@ class PackageAnalyzer {
       var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
-      var platform;
+      DartPlatform platform;
       final firstError =
           fileAnalyzerItems?.firstWhere((cp) => cp.isError, orElse: () => null);
       if (firstError != null) {
