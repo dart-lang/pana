@@ -94,8 +94,6 @@ class Summary extends Object with _$SummarySerializerMixin {
 
   final Pubspec pubspec;
 
-  final PkgResolution pkgResolution;
-  final Map<String, DartFileSummary> dartFiles;
   final DartPlatform platform;
   final List<LicenseFile> licenses;
 
@@ -106,6 +104,9 @@ class Summary extends Object with _$SummarySerializerMixin {
 
   @JsonKey(includeIfNull: false)
   final List<Suggestion> suggestions;
+
+  final PkgResolution pkgResolution;
+  final Map<String, DartFileSummary> dartFiles;
 
   Summary(
       this.panaVersion,
