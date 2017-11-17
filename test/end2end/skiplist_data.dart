@@ -164,7 +164,7 @@ final _data = {
   },
   'platform': {
     'worksEverywhere': false,
-    'reason': 'Errors prevent platform classification.',
+    'reason': 'Error(s) prevent platform classification.',
   },
   'licenses': [
     {
