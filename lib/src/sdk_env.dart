@@ -31,14 +31,15 @@ class DartSdk implements DartSdkInfo {
         _dartfmtCmd = _join(sdkDir, 'bin', 'dartfmt'),
         _pubCmd = _join(sdkDir, 'bin', 'pub');
 
-  factory DartSdk({String sdkDir, Map<String, String> environment}) {
+  static Future<DartSdk> create(
+      {String sdkDir, Map<String, String> environment}) async {
     sdkDir ??= cli.getSdkPath();
     environment ??= {};
 
     var dartCmd = _join(sdkDir, 'bin', 'dart');
 
     var r = handleProcessErrors(
-        Process.runSync(dartCmd, ['--version'], environment: environment));
+        await runProc(dartCmd, ['--version'], environment: environment));
     var versionString = r.stderr.toString().trim();
 
     var info = new DartSdkInfo.parse(versionString);
@@ -135,9 +136,8 @@ class PubEnvironment {
   final String pubCacheDir;
   final Map<String, String> _environment = {};
 
-  PubEnvironment({DartSdk dartSdk, FlutterSdk flutterSdk, this.pubCacheDir})
-      : this.dartSdk = dartSdk ?? new DartSdk(),
-        this.flutterSdk = flutterSdk ?? new FlutterSdk() {
+  PubEnvironment(this.dartSdk, {FlutterSdk flutterSdk, this.pubCacheDir})
+      : this.flutterSdk = flutterSdk ?? new FlutterSdk() {
     _environment.addAll(this.dartSdk._environment);
     if (!_environment.containsKey(_pubEnvironmentKey)) {
       // Then do the standard behavior. Extract the current value, if any,

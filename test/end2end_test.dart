@@ -20,7 +20,7 @@ void main() {
   setUpAll(() async {
     tempDir = await Directory.systemTemp.createTemp('pana-test');
     var pubCacheDir = await tempDir.resolveSymbolicLinks();
-    analyzer = new PackageAnalyzer(pubCacheDir: pubCacheDir);
+    analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
   });
 
   tearDownAll(() async {

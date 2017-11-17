@@ -1,6 +1,13 @@
 ## 0.7.0
 
-* `Summary.sdkVersion` is now a `Version` instead of `String`.
+* **Breaking changes**
+
+  * `Summary.sdkVersion` is now a `Version` instead of `String`.
+  
+  * `new PackageAnalyzer(...)` now takes a `DartSdk` instance instead of
+    a `String`.
+
+* `static Future<PackageAnalyzer> create(...)` was added to `PackageAnalyzer`.
 
 ## 0.6.2
 

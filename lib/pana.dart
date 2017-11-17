@@ -35,14 +35,24 @@ export 'src/utils.dart';
 class PackageAnalyzer {
   final DartSdk _dartSdk;
   final FlutterSdk _flutterSdk;
-  PubEnvironment _pubEnv;
+  final PubEnvironment _pubEnv;
 
-  PackageAnalyzer({String sdkDir, String flutterDir, String pubCacheDir})
-      : _dartSdk = new DartSdk(sdkDir: sdkDir),
-        _flutterSdk = new FlutterSdk(sdkDir: flutterDir) {
-    _pubEnv = new PubEnvironment(
-        dartSdk: _dartSdk, flutterSdk: _flutterSdk, pubCacheDir: pubCacheDir);
+  PackageAnalyzer._(this._dartSdk, this._flutterSdk, this._pubEnv);
+
+  factory PackageAnalyzer(DartSdk dartSdk,
+      {String flutterDir, String pubCacheDir}) {
+    var flutterSdk = new FlutterSdk(sdkDir: flutterDir);
+
+    var pubEnv = new PubEnvironment(dartSdk,
+        flutterSdk: flutterSdk, pubCacheDir: pubCacheDir);
+
+    return new PackageAnalyzer._(dartSdk, flutterSdk, pubEnv);
   }
+
+  static Future<PackageAnalyzer> create(
+          {String sdkDir, String flutterDir, String pubCacheDir}) async =>
+      new PackageAnalyzer(await DartSdk.create(sdkDir: sdkDir),
+          flutterDir: flutterDir, pubCacheDir: pubCacheDir);
 
   Future<Summary> inspectPackage(
     String package, {
