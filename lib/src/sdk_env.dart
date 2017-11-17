@@ -12,12 +12,10 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_options.dart';
 import 'logging.dart';
+import 'sdk_info.dart';
 import 'utils.dart';
 
-final _sdkRegexp =
-    new RegExp('Dart VM version:\\s([^\\s]+)\\s\\(([^\\)]+)\\) on "(\\w+)"');
-
-class DartSdk {
+class DartSdk implements DartSdkInfo {
   final String sdkDir;
   final Map<String, String> _environment;
   final String _dartAnalyzerCmd;
@@ -42,12 +40,11 @@ class DartSdk {
     var r = handleProcessErrors(
         Process.runSync(dartCmd, ['--version'], environment: environment));
     var versionString = r.stderr.toString().trim();
-    var match = _sdkRegexp.firstMatch(versionString);
-    var version = new Version.parse(match[1]);
-    var dateString = match[2];
-    var platform = match[3];
 
-    return new DartSdk._(sdkDir, environment, version, dateString, platform);
+    var info = new DartSdkInfo.parse(versionString);
+
+    return new DartSdk._(
+        sdkDir, environment, info.version, info.dateString, info.platform);
   }
 
   Future<ProcessResult> runAnalyzer(
