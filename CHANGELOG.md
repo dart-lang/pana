@@ -1,3 +1,7 @@
+## 0.7.0
+
+* `Summary.sdkVersion` is now a `Version` instead of `String`.
+
 ## 0.6.2
 
 * Allow platform classification for a small class of analysis errors.

@@ -81,7 +81,8 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(nullable: false)
   final Version panaVersion;
 
-  final String sdkVersion;
+  @JsonKey(nullable: false)
+  final Version sdkVersion;
 
   @JsonKey(includeIfNull: false)
   final Map<String, Object> flutterVersion;
