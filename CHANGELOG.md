@@ -1,3 +1,7 @@
+## 0.6.2
+
+* Allow platform classification for a small class of analysis errors.
+
 ## 0.6.1
 
 * Don't count the absence of an `analysis_options.yaml` file against a package. 
