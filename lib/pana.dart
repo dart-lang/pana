@@ -224,6 +224,7 @@ class PackageAnalyzer {
         }
       }
     }
+    var pkgPlatformBlocked = suggestions.where((s) => s.isError).isNotEmpty;
 
     final dartFileSuggestions = <Suggestion>[];
     Map<String, DartFileSummary> files = new SplayTreeMap();
@@ -234,16 +235,23 @@ class PackageAnalyzer {
           : !unformattedFiles.contains(dartFile);
       final fileAnalyzerItems =
           analyzerItems?.where((item) => item.file == dartFile)?.toList();
+      final codeErrors =
+          fileAnalyzerItems?.where((cp) => cp.isError)?.toList() ?? const [];
+      final platformBlockers = codeErrors
+          .where((cp) => cp.errorType != 'STATIC_WARNING')
+          .where((cp) => cp.errorType != 'STATIC_TYPE_WARNING')
+          .toList();
+      final libPlatformBlocked = platformBlockers.isNotEmpty;
+      pkgPlatformBlocked = pkgPlatformBlocked || libPlatformBlocked;
       var uri = toPackageUri(package, dartFile);
       var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
       DartPlatform platform;
-      final firstError =
-          fileAnalyzerItems?.firstWhere((cp) => cp.isError, orElse: () => null);
-      if (firstError != null) {
+      final firstError = codeErrors.isEmpty ? null : codeErrors.first;
+      if (libPlatformBlocked) {
         platform = new DartPlatform.conflict(
-            'Error(s) in ${dartFile}: ${firstError.description}');
+            'Error(s) in ${dartFile}: ${platformBlockers.first.description}');
       }
       if (transitiveLibs != null) {
         platform ??= classifyLibPlatform(transitiveLibs);
@@ -292,9 +300,9 @@ class PackageAnalyzer {
     }
 
     DartPlatform platform;
-    if (suggestions.where((s) => s.isError).isNotEmpty) {
-      platform =
-          new DartPlatform.conflict('Errors prevent platform classification.');
+    if (pkgPlatformBlocked) {
+      platform = new DartPlatform.conflict(
+          'Error(s) prevent platform classification.');
     } else {
       final dfs = files.values.firstWhere(
           (dfs) => dfs.isPublicApi && dfs.hasCodeError,
