@@ -124,7 +124,7 @@ class Summary extends Object with _$SummarySerializerMixin {
 
   factory Summary.fromJson(Map<String, dynamic> json) {
     var panaVersion = new Version.parse(json['panaVersion']);
-    if (panaVersion.major == 0 && panaVersion.minor == 6) {
+    if (panaVersion.major == 0 && panaVersion.minor < 7) {
       // Update the json in-place to have the expected values
       var info = new DartSdkInfo.parse(json['sdkVersion']);
       json['sdkVersion'] = info.version.toString();
