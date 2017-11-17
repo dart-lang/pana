@@ -14,6 +14,12 @@ part 'code_problem.g.dart';
 class CodeProblem extends Object
     with _$CodeProblemSerializerMixin
     implements Comparable<CodeProblem> {
+  /// The errors which don't block platform classification.
+  static const _platformNonBlockers = const <String>[
+    'STATIC_WARNING',
+    'STATIC_TYPE_WARNING'
+  ];
+
   static final _regexp = new RegExp('^' + // beginning of line
           '([\\w_\\.]+)\\|' * 3 + // first three error notes
           '([^\\|]+)\\|' + // file path
@@ -88,6 +94,11 @@ class CodeProblem extends Object
       _$CodeProblemFromJson(json);
 
   bool get isError => severity?.toUpperCase() == 'ERROR';
+
+  /// `true` iff [isError] is `true` and [errorType] is not safe to ignore for
+  /// platform classification.
+  bool get isPlatformBlockingError =>
+      isError && !_platformNonBlockers.contains(errorType);
 
   @override
   int compareTo(CodeProblem other) {

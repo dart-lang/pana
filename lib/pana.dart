@@ -237,10 +237,8 @@ class PackageAnalyzer {
           analyzerItems?.where((item) => item.file == dartFile)?.toList();
       final codeErrors =
           fileAnalyzerItems?.where((cp) => cp.isError)?.toList() ?? const [];
-      final platformBlockers = codeErrors
-          .where((cp) => cp.errorType != 'STATIC_WARNING')
-          .where((cp) => cp.errorType != 'STATIC_TYPE_WARNING')
-          .toList();
+      final platformBlockers =
+          codeErrors.where((cp) => cp.isPlatformBlockingError).toList();
       final libPlatformBlocked = platformBlockers.isNotEmpty;
       pkgPlatformBlocked = pkgPlatformBlocked || libPlatformBlocked;
       var uri = toPackageUri(package, dartFile);
