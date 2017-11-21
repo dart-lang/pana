@@ -1,3 +1,14 @@
+## 0.7.0
+
+* **Breaking changes**
+
+  * `Summary.sdkVersion` is now a `Version` instead of `String`.
+  
+  * `new PackageAnalyzer(...)` now takes a `DartSdk` instance instead of
+    a `String`.
+
+* `static Future<PackageAnalyzer> create(...)` was added to `PackageAnalyzer`.
+
 ## 0.6.2
 
 * Allow platform classification for a small class of analysis errors.

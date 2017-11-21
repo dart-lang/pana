@@ -8,43 +8,44 @@ import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_options.dart';
 import 'logging.dart';
+import 'sdk_info.dart';
 import 'utils.dart';
 
-class DartSdk {
-  final String _sdkDir;
-  final Map<String, String> _environment = {};
-  final String _dartCmd;
+class DartSdk implements DartSdkInfo {
+  final String sdkDir;
+  final Map<String, String> _environment;
   final String _dartAnalyzerCmd;
   final String _dartfmtCmd;
   final String _pubCmd;
-  String _version;
+  final String dateString;
+  final String platform;
+  final Version version;
 
-  DartSdk._(String sdkDir, Map<String, String> environment)
-      : _sdkDir = sdkDir,
-        _dartCmd = _join(sdkDir, 'bin', 'dart'),
-        _dartAnalyzerCmd = _join(sdkDir, 'bin', 'dartanalyzer'),
+  DartSdk._(this.sdkDir, this._environment, this.version, this.dateString,
+      this.platform)
+      : _dartAnalyzerCmd = _join(sdkDir, 'bin', 'dartanalyzer'),
         _dartfmtCmd = _join(sdkDir, 'bin', 'dartfmt'),
-        _pubCmd = _join(sdkDir, 'bin', 'pub') {
-    if (environment != null) {
-      _environment.addAll(environment);
-    }
-  }
+        _pubCmd = _join(sdkDir, 'bin', 'pub');
 
-  factory DartSdk({String sdkDir, Map<String, String> environment}) =>
-      new DartSdk._(sdkDir ?? cli.getSdkPath(), environment);
+  static Future<DartSdk> create(
+      {String sdkDir, Map<String, String> environment}) async {
+    sdkDir ??= cli.getSdkPath();
+    environment ??= {};
 
-  String get sdkDir => _sdkDir;
+    var dartCmd = _join(sdkDir, 'bin', 'dart');
 
-  String get version {
-    if (_version == null) {
-      var r = handleProcessErrors(
-          Process.runSync(_dartCmd, ['--version'], environment: _environment));
-      _version = r.stderr.toString().trim();
-    }
-    return _version;
+    var r = handleProcessErrors(
+        await runProc(dartCmd, ['--version'], environment: environment));
+    var versionString = r.stderr.toString().trim();
+
+    var info = new DartSdkInfo.parse(versionString);
+
+    return new DartSdk._(
+        sdkDir, environment, info.version, info.dateString, info.platform);
   }
 
   Future<ProcessResult> runAnalyzer(
@@ -135,9 +136,8 @@ class PubEnvironment {
   final String pubCacheDir;
   final Map<String, String> _environment = {};
 
-  PubEnvironment({DartSdk dartSdk, FlutterSdk flutterSdk, this.pubCacheDir})
-      : this.dartSdk = dartSdk ?? new DartSdk(),
-        this.flutterSdk = flutterSdk ?? new FlutterSdk() {
+  PubEnvironment(this.dartSdk, {FlutterSdk flutterSdk, this.pubCacheDir})
+      : this.flutterSdk = flutterSdk ?? new FlutterSdk() {
     _environment.addAll(this.dartSdk._environment);
     if (!_environment.containsKey(_pubEnvironmentKey)) {
       // Then do the standard behavior. Extract the current value, if any,

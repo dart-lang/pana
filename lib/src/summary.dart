@@ -14,6 +14,7 @@ import 'maintenance.dart';
 import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
+import 'sdk_info.dart';
 import 'utils.dart' show toRelativePath;
 
 part 'summary.g.dart';
@@ -81,7 +82,8 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(nullable: false)
   final Version panaVersion;
 
-  final String sdkVersion;
+  @JsonKey(nullable: false)
+  final Version sdkVersion;
 
   @JsonKey(includeIfNull: false)
   final Map<String, Object> flutterVersion;
@@ -120,8 +122,16 @@ class Summary extends Object with _$SummarySerializerMixin {
       this.suggestions,
       {this.flutterVersion});
 
-  factory Summary.fromJson(Map<String, dynamic> json) =>
-      _$SummaryFromJson(json);
+  factory Summary.fromJson(Map<String, dynamic> json) {
+    var panaVersion = new Version.parse(json['panaVersion']);
+    if (panaVersion.major == 0 && panaVersion.minor < 7) {
+      // Update the json in-place to have the expected values
+      var info = new DartSdkInfo.parse(json['sdkVersion']);
+      json['sdkVersion'] = info.version.toString();
+    }
+
+    return _$SummaryFromJson(json);
+  }
 
   Iterable<CodeProblem> get codeProblems => dartFiles.values
       .map((dfs) => dfs.codeProblems)
