@@ -111,13 +111,13 @@ abstract class _$SummarySerializerMixin {
   String get packageName;
   Version get packageVersion;
   Pubspec get pubspec;
-  PkgResolution get pkgResolution;
-  Map<String, DartFileSummary> get dartFiles;
   DartPlatform get platform;
   List<LicenseFile> get licenses;
   Maintenance get maintenance;
   Fitness get fitness;
   List<Suggestion> get suggestions;
+  PkgResolution get pkgResolution;
+  Map<String, DartFileSummary> get dartFiles;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'panaVersion': panaVersion.toString(),
@@ -134,13 +134,13 @@ abstract class _$SummarySerializerMixin {
     val['packageName'] = packageName;
     writeNotNull('packageVersion', packageVersion?.toString());
     val['pubspec'] = pubspec;
-    val['pkgResolution'] = pkgResolution;
-    val['dartFiles'] = dartFiles;
     val['platform'] = platform;
     val['licenses'] = licenses;
     writeNotNull('maintenance', maintenance);
     val['fitness'] = fitness;
     writeNotNull('suggestions', suggestions);
+    val['pkgResolution'] = pkgResolution;
+    val['dartFiles'] = dartFiles;
     return val;
   }
 }
