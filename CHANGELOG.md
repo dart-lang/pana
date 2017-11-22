@@ -9,6 +9,8 @@
 
 * `static Future<PackageAnalyzer> create(...)` was added to `PackageAnalyzer`.
 
+* Added `logger` optional argument to `PackageAnalyzer.inspectPackage`.
+
 ## 0.6.2
 
 * Allow platform classification for a small class of analysis errors.

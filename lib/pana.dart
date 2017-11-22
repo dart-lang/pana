@@ -63,7 +63,6 @@ class PackageAnalyzer {
     Logger logger,
   }) async {
     return withLogger(
-      logger ?? new Logger.detached('pana/$package/${version ?? 'latest'}'),
       () async {
         log.info("Downloading package $package ${version ?? 'latest'}");
         String packageDir;
@@ -82,6 +81,7 @@ class PackageAnalyzer {
           await tempDir?.delete(recursive: true);
         }
       },
+      logger: logger
     );
   }
 
