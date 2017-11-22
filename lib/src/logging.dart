@@ -2,6 +2,16 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
+
 import 'package:logging/logging.dart';
 
-final Logger log = new Logger('pana');
+final Logger _log = new Logger('pana');
+
+const _key = #_logger;
+
+Future<R> withLogger<R>(Logger logger, Future<R> fn()) {
+  return runZoned(fn, zoneValues: {_key: logger});
+}
+
+Logger get log => Zone.current[_key] ?? _log;

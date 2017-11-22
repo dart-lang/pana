@@ -7,6 +7,8 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:logging/logging.dart';
+
 import 'src/code_problem.dart';
 import 'src/download_utils.dart';
 import 'src/fitness.dart';
@@ -58,23 +60,29 @@ class PackageAnalyzer {
     String package, {
     String version,
     bool keepTransitiveLibs: false,
+    Logger logger,
   }) async {
-    log.info("Downloading package $package ${version ?? 'latest'}");
-    String packageDir;
-    Directory tempDir;
-    if (version != null) {
-      tempDir = await downloadPackage(package, version);
-      packageDir = tempDir?.path;
-    }
-    if (packageDir == null) {
-      var pkgInfo = await _pubEnv.getLocation(package, version: version);
-      packageDir = pkgInfo.location;
-    }
-    try {
-      return await _inspect(packageDir, keepTransitiveLibs);
-    } finally {
-      await tempDir?.delete(recursive: true);
-    }
+    return withLogger(
+      logger ?? new Logger.detached('pana/$package/${version ?? 'latest'}'),
+      () async {
+        log.info("Downloading package $package ${version ?? 'latest'}");
+        String packageDir;
+        Directory tempDir;
+        if (version != null) {
+          tempDir = await downloadPackage(package, version);
+          packageDir = tempDir?.path;
+        }
+        if (packageDir == null) {
+          var pkgInfo = await _pubEnv.getLocation(package, version: version);
+          packageDir = pkgInfo.location;
+        }
+        try {
+          return await _inspect(packageDir, keepTransitiveLibs);
+        } finally {
+          await tempDir?.delete(recursive: true);
+        }
+      },
+    );
   }
 
   Future<Summary> inspectDir(String packageDir,
