@@ -213,9 +213,13 @@ Future<List<String>> listFocusDirs(String packageDir) async {
   final dirs = <String>[];
   for (final dir in ['bin', 'lib']) {
     final path = p.join(packageDir, dir);
-    if ((await FileSystemEntity.type(path)) == FileSystemEntityType.DIRECTORY) {
-      dirs.add(dir);
+    if ((await FileSystemEntity.type(path)) != FileSystemEntityType.DIRECTORY) {
+      continue;
     }
+    if (await listFiles(path, endsWith: '.dart').isEmpty) {
+      continue;
+    }
+    dirs.add(dir);
   }
   return dirs;
 }
