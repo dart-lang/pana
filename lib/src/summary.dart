@@ -4,6 +4,8 @@
 
 library pana.summary;
 
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pub_semver/pub_semver.dart';
 
@@ -153,6 +155,24 @@ class Suggestion extends Object
 
   Suggestion(this.level, this.title, this.description, {this.file});
 
+  factory Suggestion.bug(Object error, StackTrace stack) {
+    var lines = LineSplitter
+        .split([
+          'File an issue at `https://github.com/dart-lang/pana/`',
+          'Include the version of `pana` and any other details.',
+          error,
+          '',
+          stack
+        ].join('\n'))
+        .take(100)
+        .join('\n');
+
+    return new Suggestion(
+        SuggestionLevel.bug,
+        'There is a bug in the `pana` package or one of its dependencies.',
+        lines);
+  }
+
   factory Suggestion.error(String title, String description, {String file}) =>
       new Suggestion(SuggestionLevel.error, title, description, file: file);
 
@@ -166,7 +186,8 @@ class Suggestion extends Object
       _$SuggestionFromJson(json);
 
   /// An issue that prevents platform classification.
-  bool get isError => level == SuggestionLevel.error;
+  bool get isError =>
+      level == SuggestionLevel.error || level == SuggestionLevel.bug;
 
   /// An issue that would improve the package quality if fixed.
   bool get isWarning => level == SuggestionLevel.warning;
@@ -188,4 +209,5 @@ abstract class SuggestionLevel {
   static const String error = 'error';
   static const String warning = 'warning';
   static const String hint = 'hint';
+  static const String bug = 'bug';
 }
