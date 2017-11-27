@@ -161,9 +161,9 @@ String _classifyFile(String path) {
   return 'other';
 }
 
-const _domainRegep =
+const _domainRegexp =
     r"(?:[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)+[a-zA-Z]{2,}";
-final _domainThing = new RegExp("[@/]($_domainRegep)>");
+final _domainThing = new RegExp("[@/]($_domainRegexp)>");
 
 String _domainFromAuthor(String author) {
   var match = _domainThing.firstMatch(author);

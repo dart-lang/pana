@@ -215,7 +215,7 @@ class PubEnvironment {
       environment: _environment,
     ));
 
-    var match = _versionDownloadRexexp.allMatches(result.stdout.trim()).single;
+    var match = _versionDownloadRegexp.allMatches(result.stdout.trim()).single;
     var pkgMatch = match[1];
     assert(pkgMatch == package);
 
@@ -286,7 +286,7 @@ class PackageLocation {
   PackageLocation(this.package, this.version, this.location);
 }
 
-final _versionDownloadRexexp =
+final _versionDownloadRegexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
 
 const _pubEnvironmentKey = 'PUB_ENVIRONMENT';
