@@ -1,3 +1,7 @@
+## 0.7.1
+
+* Add `SuggestionLevel.bug` and use it to record fatal errors with the tool.
+
 ## 0.7.0+1
 
 * Fixed issue where analyzer and/or formatter were run on directories with no

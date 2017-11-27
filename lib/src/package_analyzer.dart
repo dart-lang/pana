@@ -187,9 +187,7 @@ class PackageAnalyzer {
         assert(libraryScanner.packageName == package);
       } on StateError catch (e, stack) {
         log.severe("Could not create LibraryScanner", e, stack);
-        suggestions.add(new Suggestion.error(
-            'Check your code structure and library use.',
-            'Our library analysis failed with the following error:\n\n$e'));
+        suggestions.add(new Suggestion.bug(e, stack));
       }
 
       if (libraryScanner != null) {
@@ -198,18 +196,14 @@ class PackageAnalyzer {
           allDirectLibs = await libraryScanner.scanDirectLibs();
         } catch (e, st) {
           log.severe('Error scanning direct librariers', e, st);
-          suggestions.add(new Suggestion.error(
-              'Check your code structure and library use.',
-              'Our library analysis failed with the following error:\n\n$e'));
+          suggestions.add(new Suggestion.bug(e, st));
         }
         try {
           log.info('Scanning transitive dependencies...');
           allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
         } catch (e, st) {
           log.severe('Error scanning transitive librariers', e, st);
-          suggestions.add(new Suggestion.error(
-              'Check your code structure and library use.',
-              'Our library analysis failed with the following error:\n\n$e'));
+          suggestions.add(new Suggestion.bug(e, st));
         }
         libraryScanner.clearCaches();
       }
