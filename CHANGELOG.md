@@ -1,3 +1,8 @@
+## 0.7.0+1
+
+* Fixed issue where analyzer and/or formatter were run on directories with no
+  Dart files.
+
 ## 0.7.0
 
 * **Breaking changes**
