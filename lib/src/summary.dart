@@ -156,21 +156,11 @@ class Suggestion extends Object
   Suggestion(this.level, this.title, this.description, {this.file});
 
   factory Suggestion.bug(Object error, StackTrace stack) {
-    var lines = LineSplitter
-        .split([
-          'File an issue at `https://github.com/dart-lang/pana/`',
-          'Include the version of `pana` and any other details.',
-          error,
-          '',
-          stack
-        ].join('\n'))
-        .take(100)
-        .join('\n');
+    var lines =
+        LineSplitter.split([error, '', stack].join('\n')).take(100).join('\n');
 
-    return new Suggestion(
-        SuggestionLevel.bug,
-        'There is a bug in the `pana` package or one of its dependencies.',
-        lines);
+    return new Suggestion(SuggestionLevel.bug,
+        'There is likely a bug in the analysis code or a dependency.', lines);
   }
 
   factory Suggestion.error(String title, String description, {String file}) =>
