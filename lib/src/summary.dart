@@ -155,12 +155,12 @@ class Suggestion extends Object
 
   Suggestion(this.level, this.title, this.description, {this.file});
 
-  factory Suggestion.bug(Object error, StackTrace stack) {
-    var lines =
+  factory Suggestion.bug(String message, Object error, StackTrace stack) {
+    final title =
+        'There is likely a bug in the analysis code or a dependency: $message';
+    final description =
         LineSplitter.split([error, '', stack].join('\n')).take(100).join('\n');
-
-    return new Suggestion(SuggestionLevel.bug,
-        'There is likely a bug in the analysis code or a dependency.', lines);
+    return new Suggestion(SuggestionLevel.bug, title, description);
   }
 
   factory Suggestion.error(String title, String description, {String file}) =>

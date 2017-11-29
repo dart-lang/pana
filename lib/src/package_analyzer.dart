@@ -187,7 +187,8 @@ class PackageAnalyzer {
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
         log.severe("Could not create LibraryScanner", e, stack);
-        suggestions.add(new Suggestion.bug(e, stack));
+        suggestions.add(
+            new Suggestion.bug('LibraryScanner creation failed.', e, stack));
       }
 
       if (libraryScanner != null) {
@@ -195,15 +196,17 @@ class PackageAnalyzer {
           log.info('Scanning direct dependencies...');
           allDirectLibs = await libraryScanner.scanDirectLibs();
         } catch (e, st) {
-          log.severe('Error scanning direct librariers', e, st);
-          suggestions.add(new Suggestion.bug(e, st));
+          log.severe('Error scanning direct libraries', e, st);
+          suggestions.add(
+              new Suggestion.bug('Error scanning direct libraries.', e, st));
         }
         try {
           log.info('Scanning transitive dependencies...');
           allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
         } catch (e, st) {
-          log.severe('Error scanning transitive librariers', e, st);
-          suggestions.add(new Suggestion.bug(e, st));
+          log.severe('Error scanning transitive libraries', e, st);
+          suggestions.add(new Suggestion.bug(
+              'Error scanning transitive libraries.', e, st));
         }
         libraryScanner.clearCaches();
       }
