@@ -214,7 +214,7 @@ class PackageAnalyzer {
       if (dartFiles.isNotEmpty) {
         try {
           analyzerItems = await _pkgAnalyze(pkgDir);
-        } catch (e) {
+        } on ArgumentError catch (e) {
           if (e.toString().contains("No dart files found at: .")) {
             log.warning("No files to analyze...");
           } else {
