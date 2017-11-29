@@ -185,7 +185,7 @@ class PackageAnalyzer {
         libraryScanner = new LibraryScanner(_pubEnv, pkgDir, isFlutter,
             overrides: overrides);
         assert(libraryScanner.packageName == package);
-      } on StateError catch (e, stack) {
+      } catch (e, stack) {
         log.severe("Could not create LibraryScanner", e, stack);
         suggestions.add(new Suggestion.bug(e, stack));
       }
@@ -211,7 +211,7 @@ class PackageAnalyzer {
       if (dartFiles.isNotEmpty) {
         try {
           analyzerItems = await _pkgAnalyze(pkgDir);
-        } on ArgumentError catch (e) {
+        } catch (e) {
           if (e.toString().contains("No dart files found at: .")) {
             log.warning("No files to analyze...");
           } else {
