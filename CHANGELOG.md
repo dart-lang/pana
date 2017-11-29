@@ -1,3 +1,10 @@
+## 0.7.2
+
+* Handle more critical exceptions and report them with more details.
+
+* The `Suggestion.bug` constructor had a breaking change – a required argument
+  was added, but this is not intended for invocation by end-users.
+
 ## 0.7.1
 
 * Add `SuggestionLevel.bug` and use it to record fatal errors with the tool.
