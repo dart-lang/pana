@@ -1,3 +1,8 @@
+## 0.7.3
+
+* Removed `hash_and_equals` from the default set of lints.
+  There are valid reasons to not follow this rule.
+
 ## 0.7.2
 
 * Handle more critical exceptions and report them with more details.
