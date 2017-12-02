@@ -12,7 +12,6 @@ analyzer:
 linter:
   rules:
     - camel_case_types
-    - hash_and_equals
     - iterable_contains_unrelated_type
     - list_remove_unrelated_type
     - unrelated_type_equality_checks
