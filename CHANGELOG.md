@@ -3,6 +3,8 @@
 * Added `pana` as an executable.
   Enables `pub global activate pana`.
 
+* Improved license detection: commented license files are now recognized.
+
 ## 0.7.2
 
 * Handle more critical exceptions and report them with more details.
