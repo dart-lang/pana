@@ -5,7 +5,9 @@ dart:
   - stable
 dart_task:
   # Run the tests -- include the default-skipped presubmit tests
-  - test: --run-skipped
+  # Run with concurrency = 1 – the build-test command edits files, which might
+  #   crash other tests run in parallel
+  - test: --run-skipped -j 1
   - dartfmt
   - dartanalyzer
 
