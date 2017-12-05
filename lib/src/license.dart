@@ -120,7 +120,14 @@ Future<LicenseFile> detectLicenseInFile(File file,
   return license ?? new LicenseFile(relativePath, LicenseNames.unknown);
 }
 
-LicenseFile detectLicenseInContent(String content, {String relativePath}) {
+LicenseFile detectLicenseInContent(String originalContent,
+    {String relativePath}) {
+  var content = originalContent;
+  if (content.startsWith('// ')) {
+    content = content.split('\n').map((s) {
+      return s.startsWith('// ') ? s.substring(3) : s;
+    }).join('\n');
+  }
   var stripped = _longTextPrepare(content);
 
   String version;

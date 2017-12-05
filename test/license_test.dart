@@ -41,6 +41,8 @@ main() {
     test('explicit', () async {
       await expectFile('test/licenses/bsd_2_clause.txt',
           new LicenseFile('bsd_2_clause.txt', 'BSD'));
+      await expectFile('test/licenses/bsd_2_clause_in_comments.txt',
+          new LicenseFile('bsd_2_clause_in_comments.txt', 'BSD'));
       await expectFile('test/licenses/bsd_3_clause.txt',
           new LicenseFile('bsd_3_clause.txt', 'BSD'));
       await expectFile('test/licenses/bsd_revised.txt',
