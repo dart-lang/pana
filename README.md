@@ -8,3 +8,20 @@ A library for analyzing Dart packages.
 * Infers supported platforms: Flutter, web, and/or server.
 
 Used by the [Dart Package site](https://pub.dartlang.org/).
+
+## Use as an executable
+
+### Installation
+
+```console
+> pub global activate pana
+```
+
+### Usage
+
+```
+Usage: pana [<options>] <package name> [<package version>]
+
+Options:
+  -j, --json    Output log items as JSON.
+```

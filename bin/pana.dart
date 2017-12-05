@@ -6,18 +6,53 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:io/ansi.dart';
+import 'package:io/io.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pana/pana.dart';
 
-main(List<String> arguments) async {
-  // as provided, `arguments` is fixed length – turn it into a mutable `List`
-  arguments = arguments.toList();
+final _parser = new ArgParser()
+  ..addFlag('json',
+      abbr: 'j',
+      help: 'Output log items as JSON.',
+      defaultsTo: false,
+      negatable: false);
 
-  var json = false;
-  if (arguments.contains('--json')) {
-    json = true;
-    arguments.removeWhere((a) => a == '--json');
+void _printHelp({String errorMessage}) {
+  if (errorMessage != null) {
+    print(red.wrap(errorMessage));
+    print('');
+  }
+  print('''Usage: pana [<options>] <package name> [<package version>]
+
+Options:
+${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
+}
+
+main(List<String> args) async {
+  ArgResults result;
+  try {
+    result = _parser.parse(args);
+  } on FormatException catch (e) {
+    _printHelp(errorMessage: e.message);
+    exitCode = ExitCode.usage.code;
+    return;
+  }
+
+  final json = result['json'] as bool;
+
+  if (result.rest.isEmpty) {
+    _printHelp(errorMessage: 'No package was provided.');
+    exitCode = ExitCode.usage.code;
+    return;
+  }
+
+  var pkg = result.rest.first;
+
+  String version;
+  if (result.rest.length > 1) {
+    version = result.rest[1];
   }
 
   log.Logger.root.level = log.Level.ALL;
@@ -58,13 +93,6 @@ main(List<String> arguments) async {
     log.Logger.root.severe("Received signal `$sig` – terminating.");
     exit(130);
   });
-
-  var pkg = arguments.first;
-
-  String version;
-  if (arguments.length > 1) {
-    version = arguments[1];
-  }
 
   var tempDir = Directory.systemTemp
       .createTempSync('pana.${new DateTime.now().millisecondsSinceEpoch}.');
