@@ -1,3 +1,8 @@
+## 0.7.3
+
+* Added `pana` as an executable.
+  Enables `pub global activate pana`.
+
 ## 0.7.2
 
 * Handle more critical exceptions and report them with more details.
