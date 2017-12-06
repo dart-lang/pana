@@ -1,3 +1,7 @@
+## 0.7.3+1
+
+* Allow more versions of `package:args`.
+
 ## 0.7.3
 
 * Added `pana` as an executable.
