@@ -1,3 +1,7 @@
+## 0.7.4-dev
+
+* Detect the new format of native extensions.
+
 ## 0.7.3+1
 
 * Allow more versions of `package:args`.

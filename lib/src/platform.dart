@@ -84,7 +84,8 @@ class _LibInspector {
     deps.addAll(dependencies.where((l) => _dartLibRegexp.hasMatch(l)));
     deps.addAll(dependencies.where((l) => _dartPanaLibRegexp.hasMatch(l)));
 
-    if (dependencies.any((String lib) => lib.startsWith('dart-ext:'))) {
+    if (dependencies.any((String lib) => lib.startsWith('dart-ext:')) ||
+        dependencies.contains('dart:nativewrappers')) {
       deps.add(PlatformNames.dartExtension);
     }
 
