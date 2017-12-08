@@ -182,7 +182,7 @@ final _data = {
     'isExperimentalVersion': false,
     'isPreReleaseVersion': true,
     'errorCount': 1,
-    'warningCount': 1,
+    'warningCount': 0,
     'hintCount': 0,
   },
   'fitness': {'magnitude': 185.0, 'shortcoming': 185.0},
@@ -196,12 +196,6 @@ final _data = {
           'Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.[]\' (\'(Object) → V\').\n'
           '',
       'file': 'lib/skiplist.dart',
-    },
-    {
-      'level': 'warning',
-      'title': 'Maintain `CHANGELOG.md`.',
-      'description':
-          'Changelog entries help clients to follow the progress in your code.',
     },
   ],
 };
