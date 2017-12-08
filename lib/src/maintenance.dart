@@ -10,6 +10,7 @@ import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
 import 'summary.dart' show Suggestion;
@@ -138,7 +139,7 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
 }
 
 Future<Maintenance> detectMaintenance(
-    String pkgDir, String version, List<Suggestion> suggestions) async {
+    String pkgDir, Version version, List<Suggestion> suggestions) async {
   final files = await listFiles(pkgDir).toList();
 
   Future<bool> anyFileExists(
@@ -189,6 +190,9 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
+  final isPreReleaseVersion = version.major == 0;
+  final isExperimentalVersion = isPreReleaseVersion && version.minor == 0;
+
   // it is a bit crappy to update the list of suggestions here
   // TODO: make these in separate steps
 
@@ -218,8 +222,8 @@ Future<Maintenance> detectMaintenance(
     missingAnalysisOptions: !analysisOptionsExists,
     oldAnalysisOptions: oldAnalysisOptions,
     strongModeEnabled: strongModeEnabled,
-    isExperimentalVersion: version.startsWith('0.0.'),
-    isPreReleaseVersion: version.startsWith('0.'),
+    isExperimentalVersion: isExperimentalVersion,
+    isPreReleaseVersion: isPreReleaseVersion,
     errorCount: suggestions.where((s) => s.isError).length,
     warningCount: suggestions.where((s) => s.isWarning).length,
     hintCount: suggestions.where((s) => s.isHint).length,
