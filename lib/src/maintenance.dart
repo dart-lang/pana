@@ -69,10 +69,10 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   /// whether the analysis_options.yaml file has strong mode enabled
   final bool strongModeEnabled;
 
-  /// whether version is 0.0.*
+  /// whether version is `0.*`
   final bool isExperimentalVersion;
 
-  /// whether version is 0.*.*
+  /// whether version is flagged `-beta`, `-alpha`, etc.
   final bool isPreReleaseVersion;
 
   /// the number of errors encountered during analysis
@@ -121,11 +121,14 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
     if (missingChangelog) score *= 0.80;
     if (missingReadme) score *= 0.95;
 
-    // lack of confidence
+    // Pre-v1
     if (isExperimentalVersion) {
+      score *= 0.98;
+    }
+
+    // Not a "gold" release
+    if (isPreReleaseVersion) {
       score *= 0.95;
-    } else if (isPreReleaseVersion) {
-      score *= 0.99;
     }
 
     // Bulk penalties. A few of these overlap with the penalties above, but the
@@ -189,9 +192,6 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
-  final isPreReleaseVersion = version.major == 0;
-  final isExperimentalVersion = isPreReleaseVersion && version.minor == 0;
-
   // it is a bit crappy to update the list of suggestions here
   // TODO: make these in separate steps
 
@@ -221,8 +221,8 @@ Future<Maintenance> detectMaintenance(
     missingAnalysisOptions: !analysisOptionsExists,
     oldAnalysisOptions: oldAnalysisOptions,
     strongModeEnabled: strongModeEnabled,
-    isExperimentalVersion: isExperimentalVersion,
-    isPreReleaseVersion: isPreReleaseVersion,
+    isExperimentalVersion: version.major == 0,
+    isPreReleaseVersion: version.isPreRelease,
     errorCount: suggestions.where((s) => s.isError).length,
     warningCount: suggestions.where((s) => s.isWarning).length,
     hintCount: suggestions.where((s) => s.isHint).length,
