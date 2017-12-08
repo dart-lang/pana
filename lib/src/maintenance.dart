@@ -159,9 +159,8 @@ Future<Maintenance> detectMaintenance(
     return false;
   }
 
-  final changelogExists =
-      await anyFileExists(changelogFileNames, minLength: 100);
-  final readmeExists = await anyFileExists(readmeFileNames, minLength: 100);
+  final changelogExists = await anyFileExists(changelogFileNames);
+  final readmeExists = await anyFileExists(readmeFileNames);
   final analysisOptionsExists =
       await anyFileExists(analysisOptionsFiles, caseSensitive: true);
   final oldAnalysisOptions =

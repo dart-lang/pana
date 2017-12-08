@@ -174,7 +174,7 @@ final _data = {
     },
   ],
   'maintenance': {
-    'missingChangelog': true,
+    'missingChangelog': false,
     'missingReadme': false,
     'missingAnalysisOptions': true,
     'oldAnalysisOptions': false,
