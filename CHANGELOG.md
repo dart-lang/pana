@@ -1,6 +1,7 @@
 ## 0.7.4-dev
 
 * Detect the new format of native extensions.
+* Unblock platform classification on a new class of errors.
 
 ## 0.7.3+1
 

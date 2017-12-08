@@ -15,9 +15,13 @@ class CodeProblem extends Object
     with _$CodeProblemSerializerMixin
     implements Comparable<CodeProblem> {
   /// The errors which don't block platform classification.
-  static const _platformNonBlockers = const <String>[
+  static const _platformNonBlockerTypes = const <String>[
     'STATIC_WARNING',
-    'STATIC_TYPE_WARNING'
+    'STATIC_TYPE_WARNING',
+  ];
+
+  static const _platformNonBlockerCodes = const <String>[
+    'STRONG_MODE_INVALID_CAST_NEW_EXPR',
   ];
 
   static final _regexp = new RegExp('^' + // beginning of line
@@ -98,7 +102,9 @@ class CodeProblem extends Object
   /// `true` iff [isError] is `true` and [errorType] is not safe to ignore for
   /// platform classification.
   bool get isPlatformBlockingError =>
-      isError && !_platformNonBlockers.contains(errorType);
+      isError &&
+      !_platformNonBlockerTypes.contains(errorType) &&
+      !_platformNonBlockerCodes.contains(errorCode);
 
   @override
   int compareTo(CodeProblem other) {
