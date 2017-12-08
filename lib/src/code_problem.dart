@@ -23,6 +23,7 @@ class CodeProblem extends Object
   static const _platformNonBlockerCodes = const <String>[
     'STRONG_MODE_INVALID_CAST_NEW_EXPR',
     'ARGUMENT_TYPE_NOT_ASSIGNABLE',
+    'STRONG_MODE_COULD_NOT_INFER',
   ];
 
   static final _regexp = new RegExp('^' + // beginning of line
