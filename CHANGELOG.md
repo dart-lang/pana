@@ -1,16 +1,17 @@
-## 0.7.4-dev
-
-* Detect the new format of native extensions.
-
-* Unblock platform classification on a new class of errors.
+## 0.8.0
 
 * `Maintenance`
+  * **BREAKING** `getMaintenanceScore` now takes an optional `age` parameter 
+    replacing the previously required `publishDate` parameter.
+
   * Changed the meaning of version fields:
     * `isExperimentalVersion` now means pre-V1.
     * `isPreReleaseVersion` now means there is a pre-release flag
       like `-beta`, `-alpha`, etc.
 
-  * Added optional `now` positional param to `getMaintenanceScore`.
+* Detect the new format of native extensions.
+
+* Unblock platform classification on a new class of errors.
 
 ## 0.7.3+1
 
