@@ -101,10 +101,8 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
       _$MaintenanceFromJson(json);
 
-  // TODO(kevmoo): just make this a `age` parameter
-  double getMaintenanceScore(DateTime publishDate, {DateTime now}) {
-    now ??= new DateTime.now().toUtc();
-    final age = now.difference(publishDate);
+  double getMaintenanceScore({Duration age}) {
+    age ??= const Duration();
 
     if (age > _twoYears) {
       return 0.0;

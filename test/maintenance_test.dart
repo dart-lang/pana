@@ -52,8 +52,16 @@ void main() {
           ['error', 'warning', 'hint', 'warning', 'warning']);
     });
   });
+
   group('getMaintenanceScore', () {
-    final now = new DateTime(2018);
+    test('with issues', () {
+      expect(_withIssues.getMaintenanceScore(), closeTo(0.548, 0.01));
+    });
+
+    test('perfect', () {
+      expect(_perfect.getMaintenanceScore(), 1);
+    });
+
     group('publish date affects score', () {
       final expectedScores = {
         -1: 1.0, // possible for time issues to be off – treated as 'now'
@@ -66,8 +74,7 @@ void main() {
 
       for (var offset in expectedScores.keys) {
         test("from $offset days ago", () {
-          final publishDate = now.subtract(new Duration(days: offset));
-
+          final age = offset == null ? null : new Duration(days: offset);
           final expectedScore = expectedScores[offset];
 
           Matcher matcher;
@@ -79,21 +86,7 @@ void main() {
             matcher = closeTo(expectedScore, 0.01);
           }
 
-          expect(_perfect.getMaintenanceScore(publishDate, now: now), matcher);
-
-          // Also test the `withIssues` version, which is scaled down due to
-          // issues
-          final issueScore = expectedScore * 0.5486865725436479;
-          if (issueScore == issueScore.toInt().toDouble()) {
-            // we expect an exact match
-            matcher = equals(issueScore);
-          } else {
-            // we expect a close match
-            matcher = closeTo(issueScore, 0.01);
-          }
-
-          expect(
-              _withIssues.getMaintenanceScore(publishDate, now: now), matcher);
+          expect(_perfect.getMaintenanceScore(age: age), matcher);
         });
       }
     });
