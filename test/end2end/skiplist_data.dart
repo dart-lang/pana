@@ -157,7 +157,7 @@ final _data = {
       'platform': {
         'worksEverywhere': false,
         'reason':
-            'Error(s) in lib/skiplist.dart: Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.[]\' (\'(Object) → V\').'
+            'Error(s) in lib/skiplist.dart: The function expression type \'(_SkipListEntry<Comparable<dynamic>, dynamic>) → Comparable<dynamic>\' isn\'t of type \'(_SkipListEntry<Comparable<dynamic>, dynamic>) → K\'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).'
       },
       'fitness': {'magnitude': 185.0, 'shortcoming': 185.0}
     }

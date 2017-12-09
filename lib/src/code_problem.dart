@@ -16,14 +16,15 @@ class CodeProblem extends Object
     implements Comparable<CodeProblem> {
   /// The errors which don't block platform classification.
   static const _platformNonBlockerTypes = const <String>[
-    'STATIC_WARNING',
     'STATIC_TYPE_WARNING',
+    'STATIC_WARNING',
   ];
 
   static const _platformNonBlockerCodes = const <String>[
-    'STRONG_MODE_INVALID_CAST_NEW_EXPR',
     'ARGUMENT_TYPE_NOT_ASSIGNABLE',
     'STRONG_MODE_COULD_NOT_INFER',
+    'STRONG_MODE_INVALID_CAST_NEW_EXPR',
+    'STRONG_MODE_INVALID_METHOD_OVERRIDE',
   ];
 
   static final _regexp = new RegExp('^' + // beginning of line
