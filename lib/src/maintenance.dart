@@ -9,6 +9,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart' as yaml;
@@ -85,16 +86,16 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   final int hintCount;
 
   Maintenance({
-    this.missingChangelog: false,
-    this.missingReadme: false,
-    this.missingAnalysisOptions: false,
-    this.oldAnalysisOptions: false,
-    this.strongModeEnabled: false,
-    this.isExperimentalVersion: false,
-    this.isPreReleaseVersion: false,
-    this.errorCount: 0,
-    this.warningCount: 0,
-    this.hintCount: 0,
+    @required this.missingChangelog,
+    @required this.missingReadme,
+    @required this.missingAnalysisOptions,
+    @required this.oldAnalysisOptions,
+    @required this.strongModeEnabled,
+    @required this.isExperimentalVersion,
+    @required this.isPreReleaseVersion,
+    @required this.errorCount,
+    @required this.warningCount,
+    @required this.hintCount,
   });
 
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
