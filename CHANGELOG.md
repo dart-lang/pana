@@ -1,11 +1,16 @@
 ## 0.7.4-dev
 
 * Detect the new format of native extensions.
+
 * Unblock platform classification on a new class of errors.
-* Changed the meaning of version fields in `Maintenance`:
-  * `isExperimentalVersion` now means pre-V1.
-  * `isPreReleaseVersion` now means there is a pre-release flag
-    like `-beta`, `-alpha`, etc.
+
+* `Maintenance`
+  * Changed the meaning of version fields:
+    * `isExperimentalVersion` now means pre-V1.
+    * `isPreReleaseVersion` now means there is a pre-release flag
+      like `-beta`, `-alpha`, etc.
+
+  * Added optional `now` positional param to `getMaintenanceScore`.
 
 ## 0.7.3+1
 
