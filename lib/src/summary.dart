@@ -193,6 +193,8 @@ class Suggestion extends Object
     if (other.isWarning && !isError && !isWarning) return 1;
     return 0;
   }
+
+  String toString() => 'Sugestion: $level - $description';
 }
 
 abstract class SuggestionLevel {
