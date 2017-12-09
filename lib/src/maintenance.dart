@@ -101,43 +101,129 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
       _$MaintenanceFromJson(json);
 
-  double getMaintenanceScore({Duration age}) {
-    age ??= const Duration();
+  List<ExplainScore> explainScore({Duration age}) {
+    final explanations = <ExplainScore>[];
 
-    if (age > _twoYears) {
-      return 0.0;
-    }
-
-    var score = 1.0;
-
-    // adjust score to the age
-    if (age > _year) {
+    if (age != null) {
       final daysLeft = (_twoYears - age).inDays;
       final p = daysLeft / 365;
-      score *= max(0.0, min(1.0, p));
+      final score = max(0.0, min(1.0, p));
+
+      if (score == 0.0) {
+        explanations.add(new ExplainScore._(ExplainType.vintage, 0.0));
+        return explanations;
+      } else if (score < 1.0) {
+        explanations.add(new ExplainScore._(ExplainType.outdated, score));
+      } else {
+        explanations.add(new ExplainScore._(ExplainType.vintage, 1.0));
+      }
     }
 
-    // missing files
-    if (missingChangelog) score *= 0.80;
-    if (missingReadme) score *= 0.95;
+    explanations.add(ExplainScore._readme(missingReadme));
+    explanations.add(ExplainScore._changelog(missingChangelog));
 
     // Pre-v1
     if (isExperimentalVersion) {
-      score *= 0.98;
+      explanations.add(new ExplainScore._(ExplainType.experimental, 0.98));
     }
 
     // Not a "gold" release
     if (isPreReleaseVersion) {
-      score *= 0.95;
+      explanations.add(new ExplainScore._(ExplainType.preRelease, 0.95));
+    }
+
+    // Stable!
+    if (!(isPreReleaseVersion || isExperimentalVersion)) {
+      explanations.add(new ExplainScore._(ExplainType.stable, 1.00));
     }
 
     // Bulk penalties. A few of these overlap with the penalties above, but the
     // difference is negligible, and not worth to compensate it.
-    score *= pow(0.80, errorCount);
-    score *= pow(0.99, warningCount);
-    score *= pow(0.999, hintCount);
+    explanations.add(new ExplainScore._(ExplainType.errors, 0.8, errorCount));
+    explanations
+        .add(new ExplainScore._(ExplainType.warnings, 0.99, warningCount));
+    explanations.add(new ExplainScore._(ExplainType.hints, 0.999, hintCount));
 
-    return score;
+    return explanations;
+  }
+
+  double getMaintenanceScore({Duration age}) => explainScore(age: age)
+      .fold(1.0, (previous, score) => previous * score.scale);
+}
+
+enum ExplainType {
+  /// More than 2 years since last update.
+  vintage,
+
+  /// More than 1 year since last update.
+  outdated,
+
+  /// Less than a year since the last update.
+  updated,
+
+  /// Package has a changelog.
+  hasChangelog,
+
+  /// Package is missing a changelog
+  missingChangelog,
+
+  /// Package has a readme.
+  hasReadme,
+
+  /// Package is missing a readme
+  missingReadme,
+
+  /// whether version is `0.*`
+  experimental,
+
+  /// Whether version is flagged `-beta`, `-alpha`, etc.
+  preRelease,
+
+  /// This is a stable release.
+  stable,
+
+  errors,
+
+  warnings,
+
+  hints,
+}
+
+final _explainTypeStrings = new Map<ExplainType, String>.fromIterable(
+    ExplainType.values,
+    key: (e) => e as ExplainType,
+    value: (e) => e.toString().split('.').last);
+
+class ExplainScore {
+  final ExplainType explanation;
+  final double simpleScale;
+  final int exponent;
+  final double scale;
+
+  static ExplainScore _readme(bool missing) => missing
+      ? new ExplainScore._(ExplainType.missingReadme, 0.95)
+      : new ExplainScore._(ExplainType.hasReadme, 1.0);
+
+  static ExplainScore _changelog(bool missing) => missing
+      ? new ExplainScore._(ExplainType.missingChangelog, 0.8)
+      : new ExplainScore._(ExplainType.hasChangelog, 1.0);
+
+  ExplainScore._(this.explanation, this.simpleScale, [this.exponent])
+      : this.scale = pow(simpleScale, exponent ?? 1) {
+    assert(explanation != null);
+    assert(simpleScale >= 0.0 && simpleScale <= 1.0);
+    assert(exponent == null || exponent >= 0);
+    assert(scale >= 0.0 && scale <= 1.0);
+  }
+
+  String toString() {
+    final typeStr = _explainTypeStrings[explanation];
+
+    final value = 'ExplainScore: $typeStr ${scale.toStringAsFixed(2)}';
+    if (exponent == null) {
+      return value;
+    }
+    return '$value ($simpleScale ^ $exponent)';
   }
 }
 
