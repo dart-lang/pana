@@ -9,6 +9,8 @@
     * `isPreReleaseVersion` now means there is a pre-release flag
       like `-beta`, `-alpha`, etc.
 
+* **BREAKING** `Suggestion.file` is now `String` instead of `dynamic`.
+
 * Detect the new format of native extensions.
 
 * Unblock platform classification on a new class of errors.

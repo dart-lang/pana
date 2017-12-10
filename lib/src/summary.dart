@@ -151,7 +151,7 @@ class Suggestion extends Object
   final String description;
 
   @JsonKey(includeIfNull: false)
-  final dynamic file;
+  final String file;
 
   Suggestion(this.level, this.title, this.description, {this.file});
 
