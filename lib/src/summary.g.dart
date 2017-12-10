@@ -149,13 +149,13 @@ Suggestion _$SuggestionFromJson(Map<String, dynamic> json) => new Suggestion(
     json['level'] as String,
     json['title'] as String,
     json['description'] as String,
-    file: json['file']);
+    file: json['file'] as String);
 
 abstract class _$SuggestionSerializerMixin {
   String get level;
   String get title;
   String get description;
-  dynamic get file;
+  String get file;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'level': level,
