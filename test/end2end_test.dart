@@ -12,6 +12,7 @@ import 'end2end/http_data.dart' as http_data;
 import 'end2end/pub_server_data.dart' as pub_server_data;
 import 'end2end/shared.dart';
 import 'end2end/skiplist_data.dart' as skiplist_data;
+import 'end2end/stream_broken_data.dart' as stream_broken_data;
 
 void main() {
   Directory tempDir;
@@ -59,6 +60,7 @@ void main() {
   _verifyPackage(pub_server_data.data);
   _verifyPackage(http_data.data);
   _verifyPackage(skiplist_data.data);
+  _verifyPackage(stream_broken_data.data);
 
   test('can parse v0.6 output', () {
     var actualMap = JSON.decode(_v6Output);

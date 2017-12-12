@@ -234,9 +234,12 @@ class PackageAnalyzer {
     var pkgPlatformBlocked = suggestions.where((s) => s.isError).isNotEmpty;
 
     final dartFileSuggestions = <Suggestion>[];
-    Map<String, DartFileSummary> files = new SplayTreeMap();
+    final files = new SplayTreeMap<String, DartFileSummary>();
     for (var dartFile in dartFiles) {
-      var size = await fileSize(pkgDir, dartFile);
+      final size = fileSize(pkgDir, dartFile);
+      if (size == null) {
+        log.warning('File deleted: $dartFile');
+      }
       final isFormatted = unformattedFiles == null
           ? null
           : !unformattedFiles.contains(dartFile);

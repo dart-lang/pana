@@ -136,8 +136,15 @@ Stream<String> listFiles(String directory,
       .map((path) => p.relative(path, from: directory));
 }
 
-Future<int> fileSize(String packageDir, String relativePath) =>
-    new File(p.join(packageDir, relativePath)).length();
+int fileSize(String packageDir, String relativePath) {
+  final file = new File(p.join(packageDir, relativePath));
+
+  if (!file.existsSync()) {
+    return null;
+  }
+
+  return file.lengthSync();
+}
 
 String prettyJson(obj) {
   try {
