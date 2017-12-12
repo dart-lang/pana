@@ -703,7 +703,7 @@ final _data = {
         'level': 'hint',
         'title': 'Package is pre-v1 release.',
         'description':
-            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the generic direction API.',
+            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
         'penalty': {'amount': 10, 'fraction': 0}
       }
     ],

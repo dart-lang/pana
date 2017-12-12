@@ -239,7 +239,11 @@ class Penalty extends Object with _$PenaltySerializerMixin {
   Penalty({
     this.amount: 0,
     this.fraction: 0,
-  });
+  }) {
+    assert(amount > 0 || fraction > 0);
+    assert(0 <= amount && amount <= 10000);
+    assert(0 <= fraction && fraction <= 10000);
+  }
 
   factory Penalty.fromJson(Map<String, dynamic> json) =>
       _$PenaltyFromJson(json);

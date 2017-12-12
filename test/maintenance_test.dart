@@ -40,7 +40,7 @@ final _withIssuesJson = {
       "level": "hint",
       "title": "Package is pre-v1 release.",
       "description":
-          "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the generic direction API.",
+          "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.",
       "penalty": {"amount": 10, "fraction": 0}
     },
     {
@@ -53,13 +53,13 @@ final _withIssuesJson = {
     {
       "level": "warning",
       "title": "Fix issues reported by `dartanalyzer`.",
-      "description": "`dartanalyzer` reported 1 errors and 1 warnings.",
+      "description": "`dartanalyzer` reported 1 error(s) and 1 warning(s).",
       "penalty": {"amount": 0, "fraction": 600}
     },
     {
       "level": "warning",
       "title": "Fix hints reported by `dartanalyzer`.",
-      "description": "`dartanalyzer` reported 1 hints.",
+      "description": "`dartanalyzer` reported 1 hint(s).",
       "penalty": {"amount": 10, "fraction": 0}
     }
   ]

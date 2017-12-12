@@ -227,7 +227,7 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(new Suggestion.hint(
         'Package is pre-v1 release.',
         'While there is nothing inherently wrong with versions of `0.*.*`, it '
-        'usually means that the author is still experimenting with the generic '
+        'usually means that the author is still experimenting with the general '
         'direction API.',
         penalty: new Penalty(amount: 10)));
   }
@@ -248,14 +248,14 @@ Future<Maintenance> detectMaintenance(
   if (errorCount > 0 || warningCount > 0) {
     maintenanceSuggestions.add(new Suggestion.warning(
         'Fix issues reported by `dartanalyzer`.',
-        '`dartanalyzer` reported $errorCount errors and $warningCount warnings.',
+        '`dartanalyzer` reported $errorCount error(s) and $warningCount warning(s).',
         // 5% for each error, 1% for each warning
         penalty: new Penalty(fraction: errorCount * 500 + warningCount * 100)));
   }
   if (hintCount > 0) {
     maintenanceSuggestions.add(new Suggestion.warning(
         'Fix hints reported by `dartanalyzer`.',
-        '`dartanalyzer` reported $hintCount hints.',
+        '`dartanalyzer` reported $hintCount hint(s).',
         // 0.001 for each hint
         penalty: new Penalty(amount: hintCount * 10)));
   }
