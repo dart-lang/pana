@@ -149,13 +149,17 @@ Suggestion _$SuggestionFromJson(Map<String, dynamic> json) => new Suggestion(
     json['level'] as String,
     json['title'] as String,
     json['description'] as String,
-    file: json['file'] as String);
+    file: json['file'] as String,
+    penalty: json['penalty'] == null
+        ? null
+        : new Penalty.fromJson(json['penalty'] as Map<String, dynamic>));
 
 abstract class _$SuggestionSerializerMixin {
   String get level;
   String get title;
   String get description;
   String get file;
+  Penalty get penalty;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'level': level,
@@ -170,6 +174,28 @@ abstract class _$SuggestionSerializerMixin {
     }
 
     writeNotNull('file', file);
+    writeNotNull('penalty', penalty);
+    return val;
+  }
+}
+
+Penalty _$PenaltyFromJson(Map<String, dynamic> json) => new Penalty(
+    amount: json['amount'] as int, fraction: json['fraction'] as int);
+
+abstract class _$PenaltySerializerMixin {
+  int get amount;
+  int get fraction;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{};
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('amount', amount);
+    writeNotNull('fraction', fraction);
     return val;
   }
 }

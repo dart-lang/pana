@@ -153,7 +153,16 @@ class Suggestion extends Object
   @JsonKey(includeIfNull: false)
   final String file;
 
-  Suggestion(this.level, this.title, this.description, {this.file});
+  @JsonKey(includeIfNull: false)
+  final Penalty penalty;
+
+  Suggestion(
+    this.level,
+    this.title,
+    this.description, {
+    this.file,
+    this.penalty,
+  });
 
   factory Suggestion.bug(String message, Object error, StackTrace stack) {
     final title =
@@ -163,14 +172,20 @@ class Suggestion extends Object
     return new Suggestion(SuggestionLevel.bug, title, description);
   }
 
-  factory Suggestion.error(String title, String description, {String file}) =>
-      new Suggestion(SuggestionLevel.error, title, description, file: file);
+  factory Suggestion.error(String title, String description,
+          {String file, Penalty penalty}) =>
+      new Suggestion(SuggestionLevel.error, title, description,
+          file: file, penalty: penalty);
 
-  factory Suggestion.warning(String title, String description, {String file}) =>
-      new Suggestion(SuggestionLevel.warning, title, description, file: file);
+  factory Suggestion.warning(String title, String description,
+          {String file, Penalty penalty}) =>
+      new Suggestion(SuggestionLevel.warning, title, description,
+          file: file, penalty: penalty);
 
-  factory Suggestion.hint(String title, String description, {String file}) =>
-      new Suggestion(SuggestionLevel.hint, title, description, file: file);
+  factory Suggestion.hint(String title, String description,
+          {String file, Penalty penalty}) =>
+      new Suggestion(SuggestionLevel.hint, title, description,
+          file: file, penalty: penalty);
 
   factory Suggestion.fromJson(Map<String, dynamic> json) =>
       _$SuggestionFromJson(json);
@@ -202,4 +217,29 @@ abstract class SuggestionLevel {
   static const String warning = 'warning';
   static const String hint = 'hint';
   static const String bug = 'bug';
+}
+
+/// Penalty values are set as integers, and shall be divided by 10000 for any
+/// numerical calculation (similar to basis points in finance).
+///
+/// When multiple operations are present, the larger penalty is applied.
+@JsonSerializable()
+class Penalty extends Object with _$PenaltySerializerMixin {
+  /// The value to subtract from the original score.
+  /// E.g. if [amount] is 123, this is `x = x - 0.0123;`
+  @JsonKey(includeIfNull: false)
+  final int amount;
+
+  /// The fraction to substract from the original score.
+  /// E.g. if [fraction is 123, this is `x = x * (1.0 - 0.0123);`
+  @JsonKey(includeIfNull: false)
+  final int fraction;
+
+  Penalty({
+    this.amount: 0,
+    this.fraction: 0,
+  });
+
+  factory Penalty.fromJson(Map<String, dynamic> json) =>
+      _$PenaltyFromJson(json);
 }
