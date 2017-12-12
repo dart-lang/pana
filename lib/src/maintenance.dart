@@ -14,7 +14,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
-import 'summary.dart' show Suggestion;
+import 'summary.dart' show applyPenalties, Penalty, Suggestion;
 import 'utils.dart';
 
 part 'maintenance.g.dart';
@@ -113,7 +113,7 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
       return 0.0;
     }
 
-    var score = 1.0;
+    var score = applyPenalties(1.0, suggestions?.map((s) => s.penalty));
 
     // adjust score to the age
     if (age > _year) {
@@ -121,10 +121,6 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
       final p = daysLeft / 365;
       score *= max(0.0, min(1.0, p));
     }
-
-    // missing files
-    if (missingChangelog) score *= 0.80;
-    if (missingReadme) score *= 0.95;
 
     // Pre-v1
     if (isExperimentalVersion) {
@@ -204,11 +200,13 @@ Future<Maintenance> detectMaintenance(
   if (!changelogExists) {
     maintenanceSuggestions.add(new Suggestion.warning(
         'Maintain `CHANGELOG.md`.',
-        'Changelog entries help clients to follow the progress in your code.'));
+        'Changelog entries help clients to follow the progress in your code.',
+        penalty: new Penalty(fraction: 2000)));
   }
   if (!readmeExists) {
     maintenanceSuggestions.add(new Suggestion.warning('Maintain `README.md`.',
-        'Readme should inform others about your project, what it does, and how they can use it.'));
+        'Readme should inform others about your project, what it does, and how they can use it.',
+        penalty: new Penalty(fraction: 500)));
   }
   if (oldAnalysisOptions) {
     maintenanceSuggestions.add(new Suggestion.hint(

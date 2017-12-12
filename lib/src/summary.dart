@@ -5,6 +5,7 @@
 library pana.summary;
 
 import 'dart:convert';
+import 'dart:math' as math;
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -242,4 +243,21 @@ class Penalty extends Object with _$PenaltySerializerMixin {
 
   factory Penalty.fromJson(Map<String, dynamic> json) =>
       _$PenaltyFromJson(json);
+
+  double apply(double score) {
+    final d1 = amount / 10000;
+    final d2 = score * fraction / 10000;
+    final s = score - math.max(d1, d2);
+    return math.max(0.0, s);
+  }
+}
+
+double applyPenalties(double initialScore, Iterable<Penalty> penalties) {
+  if (penalties == null) return initialScore;
+  var score = initialScore;
+  for (var p in penalties) {
+    if (p == null) continue;
+    score = p.apply(score);
+  }
+  return score;
 }
