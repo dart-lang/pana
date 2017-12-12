@@ -20,7 +20,12 @@ Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) => new Maintenance(
     isPreReleaseVersion: json['isPreReleaseVersion'] as bool,
     errorCount: json['errorCount'] as int,
     warningCount: json['warningCount'] as int,
-    hintCount: json['hintCount'] as int);
+    hintCount: json['hintCount'] as int,
+    suggestions: (json['suggestions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : new Suggestion.fromJson(e as Map<String, dynamic>))
+        ?.toList());
 
 abstract class _$MaintenanceSerializerMixin {
   bool get missingChangelog;
@@ -33,16 +38,28 @@ abstract class _$MaintenanceSerializerMixin {
   int get errorCount;
   int get warningCount;
   int get hintCount;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'missingChangelog': missingChangelog,
-        'missingReadme': missingReadme,
-        'missingAnalysisOptions': missingAnalysisOptions,
-        'oldAnalysisOptions': oldAnalysisOptions,
-        'strongModeEnabled': strongModeEnabled,
-        'isExperimentalVersion': isExperimentalVersion,
-        'isPreReleaseVersion': isPreReleaseVersion,
-        'errorCount': errorCount,
-        'warningCount': warningCount,
-        'hintCount': hintCount
-      };
+  List<Suggestion> get suggestions;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'missingChangelog': missingChangelog,
+      'missingReadme': missingReadme,
+      'missingAnalysisOptions': missingAnalysisOptions,
+      'oldAnalysisOptions': oldAnalysisOptions,
+      'strongModeEnabled': strongModeEnabled,
+      'isExperimentalVersion': isExperimentalVersion,
+      'isPreReleaseVersion': isPreReleaseVersion,
+      'errorCount': errorCount,
+      'warningCount': warningCount,
+      'hintCount': hintCount,
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('suggestions', suggestions);
+    return val;
+  }
 }

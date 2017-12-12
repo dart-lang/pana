@@ -85,6 +85,10 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   /// the number of hints encountered during analysis
   final int hintCount;
 
+  /// The suggestions that affect the maintenance score.
+  @JsonKey(includeIfNull: false)
+  final List<Suggestion> suggestions;
+
   Maintenance({
     @required this.missingChangelog,
     @required this.missingReadme,
@@ -96,6 +100,7 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
     @required this.errorCount,
     @required this.warningCount,
     @required this.hintCount,
+    this.suggestions,
   });
 
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
@@ -143,6 +148,7 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
 
 Future<Maintenance> detectMaintenance(
     String pkgDir, Version version, List<Suggestion> suggestions) async {
+  final maintenanceSuggestions = <Suggestion>[];
   final files = await listFiles(pkgDir).toList();
 
   Future<bool> anyFileExists(
@@ -183,7 +189,7 @@ Future<Maintenance> detectMaintenance(
                 value != null && (value == true || value is Map);
           }
         } catch (_) {
-          suggestions.add(new Suggestion.warning(
+          maintenanceSuggestions.add(new Suggestion.warning(
               'Fix `$name`.', 'We were unable to parse `$name`.',
               file: name));
         }
@@ -196,19 +202,21 @@ Future<Maintenance> detectMaintenance(
   // TODO: make these in separate steps
 
   if (!changelogExists) {
-    suggestions.add(new Suggestion.warning('Maintain `CHANGELOG.md`.',
+    maintenanceSuggestions.add(new Suggestion.warning(
+        'Maintain `CHANGELOG.md`.',
         'Changelog entries help clients to follow the progress in your code.'));
   }
   if (!readmeExists) {
-    suggestions.add(new Suggestion.warning('Maintain `README.md`.',
+    maintenanceSuggestions.add(new Suggestion.warning('Maintain `README.md`.',
         'Readme should inform others about your project, what it does, and how they can use it.'));
   }
   if (oldAnalysisOptions) {
-    suggestions.add(new Suggestion.hint('Use `analysis_options.yaml`.',
+    maintenanceSuggestions.add(new Suggestion.hint(
+        'Use `analysis_options.yaml`.',
         'Rename old `.analysis_options` file to `analysis_options.yaml`.'));
   }
   if (analysisOptionsExists && !strongModeEnabled) {
-    suggestions.add(new Suggestion.hint(
+    maintenanceSuggestions.add(new Suggestion.hint(
         'Enable strong mode analysis.',
         'Strong mode helps you to detect bugs and potential issues earlier.'
         'Start your `analysis_options.yaml` file with the following:\n\n'
@@ -226,5 +234,6 @@ Future<Maintenance> detectMaintenance(
     errorCount: suggestions.where((s) => s.isError).length,
     warningCount: suggestions.where((s) => s.isWarning).length,
     hintCount: suggestions.where((s) => s.isHint).length,
+    suggestions: maintenanceSuggestions,
   );
 }
