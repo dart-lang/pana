@@ -122,16 +122,6 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
       score *= max(0.0, min(1.0, p));
     }
 
-    // Pre-v1
-    if (isExperimentalVersion) {
-      score *= 0.98;
-    }
-
-    // Not a "gold" release
-    if (isPreReleaseVersion) {
-      score *= 0.95;
-    }
-
     return score;
   }
 }
@@ -215,6 +205,28 @@ Future<Maintenance> detectMaintenance(
         '```\nanalyzer:\n  strong-mode: true\n```\n'));
   }
 
+  final isExperimentalVersion = version.major == 0;
+  final isPreReleaseVersion = version.isPreRelease;
+
+  // Pre-v1
+  if (isExperimentalVersion) {
+    maintenanceSuggestions.add(new Suggestion.hint(
+        'Package is pre-v1 release.',
+        'While there is nothing inherently wrong with versions of `0.*.*`, it '
+        'usually means that the author is still experimenting with the generic '
+        'direction API.',
+        penalty: new Penalty(amount: 10)));
+  }
+
+  // Not a "gold" release
+  if (isPreReleaseVersion) {
+    maintenanceSuggestions.add(new Suggestion.hint(
+        'Package is pre-release.',
+        'Pre-release versions should be used with caution, their API may change '
+        'in breaking ways.',
+        penalty: new Penalty(fraction: 200)));
+  }
+
   final errorCount = suggestions.where((s) => s.isError).length;
   final warningCount = suggestions.where((s) => s.isWarning).length;
   final hintCount = suggestions.where((s) => s.isHint).length;
@@ -240,8 +252,8 @@ Future<Maintenance> detectMaintenance(
     missingAnalysisOptions: !analysisOptionsExists,
     oldAnalysisOptions: oldAnalysisOptions,
     strongModeEnabled: strongModeEnabled,
-    isExperimentalVersion: version.major == 0,
-    isPreReleaseVersion: version.isPreRelease,
+    isExperimentalVersion: isExperimentalVersion,
+    isPreReleaseVersion: isPreReleaseVersion,
     errorCount: errorCount,
     warningCount: warningCount,
     hintCount: hintCount,
