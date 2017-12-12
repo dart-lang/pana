@@ -106,23 +106,37 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
       _$MaintenanceFromJson(json);
 
-  double getMaintenanceScore({Duration age}) {
+  double getMaintenanceScore({Duration age}) =>
+      applyPenalties(1.0, getAllSuggestion(age: age)?.map((s) => s.penalty));
+
+  List<Suggestion> getAllSuggestion({Duration age}) {
+    final list = <Suggestion>[];
+    final ageSuggestion = getAgeSuggestion(age);
+    if (ageSuggestion != null) list.add(ageSuggestion);
+    if (suggestions != null) list.addAll(suggestions);
+    return list;
+  }
+
+  Suggestion getAgeSuggestion(Duration age) {
     age ??= const Duration();
 
     if (age > _twoYears) {
-      return 0.0;
+      return new Suggestion.warning('Package is too old.',
+          'The package was released more than two years ago.',
+          penalty: new Penalty(amount: 10000));
     }
-
-    var score = applyPenalties(1.0, suggestions?.map((s) => s.penalty));
 
     // adjust score to the age
     if (age > _year) {
-      final daysLeft = (_twoYears - age).inDays;
-      final p = daysLeft / 365;
-      score *= max(0.0, min(1.0, p));
+      final ageInWeeks = age.inDays ~/ 7;
+      final daysOverAYear = age.inDays - _year.inDays;
+      final basisPoints = daysOverAYear * 10000 ~/ 365;
+      return new Suggestion.hint('Package is getting outdated.',
+          'The package was released ${ageInWeeks} weeks ago.',
+          penalty: new Penalty(fraction: min(10000, max(0, basisPoints))));
     }
 
-    return score;
+    return null;
   }
 }
 
