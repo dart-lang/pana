@@ -132,12 +132,6 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
       score *= 0.95;
     }
 
-    // Bulk penalties. A few of these overlap with the penalties above, but the
-    // difference is negligible, and not worth to compensate it.
-    score *= pow(0.80, errorCount);
-    score *= pow(0.99, warningCount);
-    score *= pow(0.999, hintCount);
-
     return score;
   }
 }
@@ -221,6 +215,25 @@ Future<Maintenance> detectMaintenance(
         '```\nanalyzer:\n  strong-mode: true\n```\n'));
   }
 
+  final errorCount = suggestions.where((s) => s.isError).length;
+  final warningCount = suggestions.where((s) => s.isWarning).length;
+  final hintCount = suggestions.where((s) => s.isHint).length;
+
+  if (errorCount > 0 || warningCount > 0) {
+    maintenanceSuggestions.add(new Suggestion.warning(
+        'Fix issues reported by `dartanalyzer`.',
+        '`dartanalyzer` reported $errorCount errors and $warningCount warnings.',
+        // 5% for each error, 1% for each warning
+        penalty: new Penalty(fraction: errorCount * 500 + warningCount * 100)));
+  }
+  if (hintCount > 0) {
+    maintenanceSuggestions.add(new Suggestion.warning(
+        'Fix hints reported by `dartanalyzer`.',
+        '`dartanalyzer` reported $hintCount hints.',
+        // 0.001 for each hint
+        penalty: new Penalty(amount: hintCount * 10)));
+  }
+
   return new Maintenance(
     missingChangelog: !changelogExists,
     missingReadme: !readmeExists,
@@ -229,9 +242,9 @@ Future<Maintenance> detectMaintenance(
     strongModeEnabled: strongModeEnabled,
     isExperimentalVersion: version.major == 0,
     isPreReleaseVersion: version.isPreRelease,
-    errorCount: suggestions.where((s) => s.isError).length,
-    warningCount: suggestions.where((s) => s.isWarning).length,
-    hintCount: suggestions.where((s) => s.isHint).length,
+    errorCount: errorCount,
+    warningCount: warningCount,
+    hintCount: hintCount,
     suggestions: maintenanceSuggestions,
   );
 }
