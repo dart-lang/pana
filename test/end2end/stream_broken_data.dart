@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/src/version.dart';
+import 'package:test/test.dart';
 
 import 'shared.dart';
 
@@ -53,7 +54,7 @@ final _data = {
       "level": "error",
       "title": "Make sure `dartfmt` runs.",
       "description":
-          "Running `dartfmt -n .` failed with the following output:\n\n```\ndartfmt on bin/ failed with exit code 65\nCould not format because the source could not be parsed:\n\nline 681, column 9 of /private/var/folders/bj/09dxmvxx5hl4t07lbvqgj66w0071_k/T/pana-Eb1Jqi/bin/packages/stream/src/rspc/compiler.dart: Unexpected text '?'.\n    if (?str) _current.writeln(str);\n        ^\nCould not format because the source could not be parsed:\n\nline 48, column 9 of /private/var/folders/bj/09dxmvxx5hl4t07lbvqgj66w0071_k/T/pana-Eb1Jqi/bin/packages/stream/src/rspc/tag.dart: Unexpected text '?'.\n    if (?str)\n```\n"
+          startsWith("Running `dartfmt -n .` failed with the following output:")
     },
     {
       "level": "error",
