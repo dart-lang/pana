@@ -184,6 +184,21 @@ final _data = {
     'errorCount': 1,
     'warningCount': 0,
     'hintCount': 0,
+    'suggestions': [
+      {
+        'level': 'hint',
+        'title': 'Package is pre-v1 release.',
+        'description':
+            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the generic direction API.',
+        'penalty': {'amount': 10, 'fraction': 0}
+      },
+      {
+        'level': 'warning',
+        'title': 'Fix issues reported by `dartanalyzer`.',
+        'description': '`dartanalyzer` reported 1 errors and 0 warnings.',
+        'penalty': {'amount': 0, 'fraction': 500}
+      }
+    ],
   },
   'fitness': {'magnitude': 185.0, 'shortcoming': 185.0},
   'suggestions': [

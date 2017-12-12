@@ -2,13 +2,15 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:pana/src/maintenance.dart';
 import 'package:pana/src/summary.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
-const _withIssuesJson = const {
+final _withIssuesJson = {
   "missingChangelog": true,
   "missingReadme": true,
   "missingAnalysisOptions": true,
@@ -17,8 +19,50 @@ const _withIssuesJson = const {
   "isExperimentalVersion": true,
   "isPreReleaseVersion": true,
   "errorCount": 1,
-  "warningCount": 3,
-  "hintCount": 1
+  "warningCount": 1,
+  "hintCount": 1,
+  "suggestions": [
+    {
+      "level": "warning",
+      "title": "Maintain `CHANGELOG.md`.",
+      "description":
+          "Changelog entries help clients to follow the progress in your code.",
+      "penalty": {"amount": 0, "fraction": 2000}
+    },
+    {
+      "level": "warning",
+      "title": "Maintain `README.md`.",
+      "description":
+          "Readme should inform others about your project, what it does, and how they can use it.",
+      "penalty": {"amount": 0, "fraction": 500}
+    },
+    {
+      "level": "hint",
+      "title": "Package is pre-v1 release.",
+      "description":
+          "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the generic direction API.",
+      "penalty": {"amount": 10, "fraction": 0}
+    },
+    {
+      "level": "hint",
+      "title": "Package is pre-release.",
+      "description":
+          "Pre-release versions should be used with caution, their API may change in breaking ways.",
+      "penalty": {"amount": 0, "fraction": 200}
+    },
+    {
+      "level": "warning",
+      "title": "Fix issues reported by `dartanalyzer`.",
+      "description": "`dartanalyzer` reported 1 errors and 1 warnings.",
+      "penalty": {"amount": 0, "fraction": 600}
+    },
+    {
+      "level": "warning",
+      "title": "Fix hints reported by `dartanalyzer`.",
+      "description": "`dartanalyzer` reported 1 hints.",
+      "penalty": {"amount": 10, "fraction": 0}
+    }
+  ]
 };
 
 final _perfect = new Maintenance(
@@ -46,16 +90,13 @@ void main() {
       final maintenance = await detectMaintenance(
           d.sandbox, new Version(0, 1, 0, pre: 'alpha'), suggestions);
 
-      expect(maintenance.toJson(), _withIssuesJson);
-
-      expect(suggestions.map((s) => s.level),
-          ['error', 'warning', 'hint', 'warning', 'warning']);
+      expect(JSON.decode(JSON.encode(maintenance.toJson())), _withIssuesJson);
     });
   });
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(_withIssues.getMaintenanceScore(), closeTo(0.548, 0.01));
+      expect(_withIssues.getMaintenanceScore(), closeTo(0.698, 0.001));
     });
 
     test('perfect', () {

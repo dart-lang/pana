@@ -308,6 +308,15 @@ final _data = {
     'errorCount': 0,
     'warningCount': 0,
     'hintCount': 0,
+    'suggestions': [
+      {
+        'level': 'hint',
+        'title': 'Package is pre-v1 release.',
+        'description':
+            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the generic direction API.',
+        'penalty': {'amount': 10, 'fraction': 0}
+      }
+    ],
   },
   'fitness': {'magnitude': 455.0, 'shortcoming': 1.0},
 };
