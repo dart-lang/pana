@@ -1,5 +1,9 @@
 ## 0.8.0
 
+* `PackageAnalyzer.inspectPackage` added a named argument 
+  `deleteTemporaryDirectory`. Setting this to `false` retains the
+  directory and prints its location to the log. Useful for debugging.
+
 * `Maintenance`
   * **BREAKING** `getMaintenanceScore` now takes an optional `age` parameter 
     replacing the previously required `publishDate` parameter.
