@@ -12,6 +12,8 @@
     * `isExperimentalVersion` now means pre-V1.
     * `isPreReleaseVersion` now means there is a pre-release flag
       like `-beta`, `-alpha`, etc.
+  
+  * **BREAKING** maintenance-related `Suggestion` entries as moved to `Maintenance.suggestions`
 
 * **BREAKING** `Suggestion.file` is now `String` instead of `dynamic`.
 
