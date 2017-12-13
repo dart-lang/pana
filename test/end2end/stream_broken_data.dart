@@ -45,8 +45,30 @@ final _data = {
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
     "errorCount": 2,
-    "warningCount": 1,
-    "hintCount": 0
+    "warningCount": 0,
+    "hintCount": 0,
+    'suggestions': [
+      {
+        'level': 'warning',
+        'title': 'Maintain `CHANGELOG.md`.',
+        'description':
+            'Changelog entries help clients to follow the progress in your code.',
+        'penalty': {'amount': 0, 'fraction': 2000}
+      },
+      {
+        'level': 'hint',
+        'title': 'Package is pre-v1 release.',
+        'description':
+            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
+        'penalty': {'amount': 10, 'fraction': 0}
+      },
+      {
+        'level': 'warning',
+        'title': 'Fix issues reported by `dartanalyzer`.',
+        'description': '`dartanalyzer` reported 2 error(s) and 0 warning(s).',
+        'penalty': {'amount': 0, 'fraction': 1000}
+      }
+    ],
   },
   "fitness": {"magnitude": 2324.0, "shortcoming": 945.6},
   "suggestions": [
@@ -62,12 +84,6 @@ final _data = {
       "description":
           "Running `pub upgrade` failed with the following output:\n\n```\nBad state: Did not parse package `args` from pub output, but it was found in `pubspec.lock`.\n```\n"
     },
-    {
-      "level": "warning",
-      "title": "Maintain `CHANGELOG.md`.",
-      "description":
-          "Changelog entries help clients to follow the progress in your code."
-    }
   ],
   "pkgResolution": null,
   "dartFiles": {
