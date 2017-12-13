@@ -9,7 +9,7 @@ dart_task:
   #   crash other tests run in parallel
   - test: --run-skipped -j 1
   - dartfmt
-  - dartanalyzer
+  - dartanalyzer: --fatal-infos --fatal-warnings .
 
 # Only building master means that we don't run two builds for each pull request.
 branches:

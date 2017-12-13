@@ -118,7 +118,7 @@ Future<LicenseFile> detectLicenseInFile(File file,
   String content;
   try {
     content = await file.readAsString();
-  } on FileSystemException catch (e, stack) {
+  } on FileSystemException catch (e) {
     // TODO(kevmoo): Have to throw a copy of this exception due to
     //   https://github.com/dart-lang/sdk/issues/31619
     //   otherwise the log won't have a helpful stacktrace
