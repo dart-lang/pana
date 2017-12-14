@@ -21,6 +21,8 @@
 
 * Unblock platform classification on a new class of errors.
 
+* Use `PUB_HOSTED_URL` for package downloads.
+
 ## 0.7.3+1
 
 * Allow more versions of `package:args`.
