@@ -17,6 +17,11 @@ main() {
         expected);
   }
 
+  test('bad encoding', () async {
+    await expectFile('test/licenses/bad_encoding.txt',
+        new LicenseFile('bad_encoding.txt', 'unknown'));
+  });
+
   group('AGPL', () {
     test('explicit', () async {
       expect(detectLicenseInContent('GNU AFFERO GENERAL PUBLIC LICENSE'),

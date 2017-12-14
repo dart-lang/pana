@@ -5,6 +5,7 @@
 library pana.license;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:json_annotation/json_annotation.dart';
@@ -117,7 +118,7 @@ Future<LicenseFile> detectLicenseInFile(File file,
     {String relativePath}) async {
   String content;
   try {
-    content = await file.readAsString();
+    content = UTF8.decode(await file.readAsBytes(), allowMalformed: true);
   } on FileSystemException catch (e) {
     // TODO(kevmoo): Have to throw a copy of this exception due to
     //   https://github.com/dart-lang/sdk/issues/31619
