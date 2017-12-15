@@ -6,8 +6,8 @@ import 'package:build_runner/build_runner.dart';
 import 'package:json_serializable/json_serializable.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'version_generator.dart';
-import 'version_helper.dart';
+import 'src/version_generator.dart';
+import 'src/version_helper.dart';
 
 final List<BuildAction> buildActions = [
   new BuildAction(
