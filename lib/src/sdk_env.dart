@@ -49,11 +49,12 @@ class DartSdk implements DartSdkInfo {
   }
 
   Future<ProcessResult> runAnalyzer(
-      String packageDir, List<String> dirs) async {
+      String packageDir, List<String> dirs, bool isFlutter) async {
     final optionsFileName =
         'pana_analysis_options_${new DateTime.now().microsecondsSinceEpoch}.g.yaml';
     final optionsFile = new File(p.join(packageDir, optionsFileName));
-    await optionsFile.writeAsString(analysisOptions);
+    await optionsFile
+        .writeAsString(isFlutter ? flutterAnalysisOptions : analysisOptions);
     final params = ['--options', optionsFile.path, '--format', 'machine']
       ..addAll(dirs);
     final pr = await runProc(

@@ -218,7 +218,7 @@ class PackageAnalyzer {
 
       if (dartFiles.isNotEmpty) {
         try {
-          analyzerItems = await _pkgAnalyze(pkgDir);
+          analyzerItems = await _pkgAnalyze(pkgDir, isFlutter);
         } on ArgumentError catch (e) {
           if (e.toString().contains("No dart files found at: .")) {
             log.warning("No files to analyze...");
@@ -347,13 +347,13 @@ class PackageAnalyzer {
     );
   }
 
-  Future<Set<CodeProblem>> _pkgAnalyze(String pkgPath) async {
+  Future<Set<CodeProblem>> _pkgAnalyze(String pkgPath, bool isFlutter) async {
     log.info('Analyzing package...');
     final dirs = await listFocusDirs(pkgPath);
     if (dirs.isEmpty) {
       return null;
     }
-    final proc = await _dartSdk.runAnalyzer(pkgPath, dirs);
+    final proc = await _dartSdk.runAnalyzer(pkgPath, dirs, isFlutter);
 
     String output = proc.stderr;
     if ('\n$output'.contains('\nUnhandled exception:\n')) {
