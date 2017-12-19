@@ -40,4 +40,5 @@ final _helpOutput =
     '''Usage: pana [<options>] <package name> [<package version>]
 
 Options:
-  -j, --json    Output log items as JSON.''';
+  -j, --json          Output log items as JSON.
+      --hosted-url    The (non-public) pub server that hosts the package.''';

@@ -11,18 +11,16 @@ import 'package:path/path.dart' as p;
 import 'logging.dart';
 import 'utils.dart';
 
-final String _pubHostedUrl =
-    Platform.environment['PUB_HOSTED_URL'] ?? 'https://pub.dartlang.org';
-final Uri _pubHostedUri = Uri.parse(_pubHostedUrl);
-
 /// Returns a non-null Directory instance only if it is able to download and
 /// extract the direct package dependency. On any failure it clears the temp
 /// directory, otherwise it is the caller's responsibility to delete it.
-Future<Directory> downloadPackage(String package, String version) async {
+Future<Directory> downloadPackage(String package, String version,
+    {String pubHostedUrl}) async {
+  final pubHostedUri = Uri.parse(pubHostedUrl ?? 'https://pub.dartlang.org');
   final temp = await Directory.systemTemp.createTemp('pana-');
   final dir = new Directory(await temp.resolveSymbolicLinks());
   try {
-    final uri = _pubHostedUri.replace(
+    final uri = pubHostedUri.replace(
         path: '/packages/$package/versions/$version.tar.gz');
     final bytes = await http.readBytes(uri);
     final archiveFileName = p.join(dir.path, '$package-$version.tar.gz');
