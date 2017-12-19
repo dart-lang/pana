@@ -1,4 +1,6 @@
-## 0.8.1-dev
+## 0.8.1
+
+* Use Flutter-recommended analysis options when analyzer Flutter packages.
 
 * **BREAKING BEHAVIOR**: Don't use `PUB_HOSTED_URL` for package downloads,
   as it has not worked out in practice. Instead, we've added a `--hosted-url`
