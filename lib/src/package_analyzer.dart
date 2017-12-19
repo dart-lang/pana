@@ -46,18 +46,22 @@ class PackageAnalyzer {
       new PackageAnalyzer(await DartSdk.create(sdkDir: sdkDir),
           flutterDir: flutterDir, pubCacheDir: pubCacheDir);
 
-  Future<Summary> inspectPackage(String package,
-      {String version,
-      bool keepTransitiveLibs: false,
-      Logger logger,
-      bool deleteTemporaryDirectory: true}) async {
+  Future<Summary> inspectPackage(
+    String package, {
+    String version,
+    bool keepTransitiveLibs: false,
+    Logger logger,
+    bool deleteTemporaryDirectory: true,
+    String pubHostedUrl,
+  }) async {
     deleteTemporaryDirectory ??= true;
     return withLogger(() async {
       log.info("Downloading package $package ${version ?? 'latest'}");
       String packageDir;
       Directory tempDir;
       if (version != null) {
-        tempDir = await downloadPackage(package, version);
+        tempDir =
+            await downloadPackage(package, version, pubHostedUrl: pubHostedUrl);
         packageDir = tempDir?.path;
       }
       if (packageDir == null) {

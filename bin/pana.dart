@@ -17,7 +17,9 @@ final _parser = new ArgParser()
       abbr: 'j',
       help: 'Output log items as JSON.',
       defaultsTo: false,
-      negatable: false);
+      negatable: false)
+  ..addOption('hosted-url',
+      help: 'The (non-public) pub server that hosts the package.');
 
 void _printHelp({String errorMessage}) {
   if (errorMessage != null) {
@@ -103,7 +105,8 @@ main(List<String> args) async {
   try {
     try {
       var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
-      var summary = await analyzer.inspectPackage(pkg, version: version);
+      var summary = await analyzer.inspectPackage(pkg,
+          version: version, pubHostedUrl: result['hosted-url']);
 
       print(prettyJson(summary));
     } catch (e, stack) {
