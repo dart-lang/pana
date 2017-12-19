@@ -19,14 +19,15 @@ final _parser = new ArgParser()
       defaultsTo: false,
       negatable: false)
   ..addOption('hosted-url',
-      help: 'The (non-public) pub server that hosts the package.');
+      help: 'The server that hosts <package>.',
+      defaultsTo: 'https://pub.dartlang.org');
 
 void _printHelp({String errorMessage}) {
   if (errorMessage != null) {
     print(red.wrap(errorMessage));
     print('');
   }
-  print('''Usage: pana [<options>] <package name> [<package version>]
+  print('''Usage: pana [<options>] <package> [<version>]
 
 Options:
 ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
