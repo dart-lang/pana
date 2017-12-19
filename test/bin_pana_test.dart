@@ -37,8 +37,9 @@ void main() {
 }
 
 final _helpOutput =
-    '''Usage: pana [<options>] <package name> [<package version>]
+    '''Usage: pana [<options>] <package> [<version>]
 
 Options:
   -j, --json          Output log items as JSON.
-      --hosted-url    The (non-public) pub server that hosts the package.''';
+      --hosted-url    The server that hosts <package>.
+                      (defaults to "https://pub.dartlang.org")''';
