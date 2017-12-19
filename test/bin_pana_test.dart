@@ -36,8 +36,7 @@ void main() {
   });
 }
 
-final _helpOutput =
-    '''Usage: pana [<options>] <package> [<version>]
+final _helpOutput = '''Usage: pana [<options>] <package> [<version>]
 
 Options:
   -j, --json          Output log items as JSON.
