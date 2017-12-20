@@ -121,7 +121,7 @@ class _LibInspector {
 DartPlatform classifyPkgPlatform(
     Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
   if (transitiveLibs == null) {
-    return new DartPlatform.conflict('failed to scan transitive libraries');
+    return new DartPlatform.conflict('Failed to scan transitive libraries.');
   }
   final libraries = new Map<String, DartPlatform>.fromIterable(
       transitiveLibs.keys ?? <String>[],
@@ -130,35 +130,43 @@ DartPlatform classifyPkgPlatform(
       _selectPrimaryLibrary(pubspec, transitiveLibs.keys.toSet());
 
   if (pubspec.isFlutter) {
-    final hasConflict = libraries.values.any((pi) => !pi.worksOnFlutter);
-    if (hasConflict) {
+    final flutterConflicts =
+        libraries.keys.where((key) => !libraries[key].worksOnFlutter).toList();
+    if (flutterConflicts.isNotEmpty) {
+      flutterConflicts.sort();
+      var sample = flutterConflicts.take(3).map((s) => '`$s`').join(', ');
+      if (flutterConflicts.length > 3) {
+        sample = '$sample (and ${flutterConflicts.length - 3} more).';
+      }
       return new DartPlatform.conflict(
-          'flutter reference with library conflicts');
+          'References Flutter, but has conflicting libraries: $sample.');
     } else {
       return new DartPlatform.withRestrictions([PlatformNames.flutter],
-          reason: 'pubspec reference with no conflicts');
+          reason: 'References Flutter with no conflicting libraries.');
     }
   }
 
   if (libraries.isEmpty) {
     // TODO: if there is a `bin/` asset, maybe this is server-only?
-    return new DartPlatform.conflict('no libraries!');
+    return new DartPlatform.conflict('No libraries!');
   }
 
   for (var lib in libraries.keys) {
     final libp = libraries[lib];
     if (libp.hasConflict) {
-      return new DartPlatform.conflict('conflict in library - `$lib`');
+      return new DartPlatform.conflict('Conflict in library `$lib`.');
     }
   }
 
   if (libraries.values.every((lp) => lp.worksEverywhere)) {
-    return new DartPlatform.universal(reason: 'All libraries agree');
+    return new DartPlatform.universal(
+        reason: 'No platform restriction found in libraries.');
   }
 
   if (primaryLibrary != null && libraries[primaryLibrary].worksEverywhere) {
     return new DartPlatform.universal(
-        reason: 'primary library - `$primaryLibrary`');
+        reason:
+            'No platform restriction found in primary library `$primaryLibrary`.');
   }
 
   final items = libraries.values
@@ -167,38 +175,35 @@ DartPlatform classifyPkgPlatform(
       .toSet();
   if (items.length == 1) {
     return new DartPlatform.withRestrictions([items.single],
-        reason: 'All libraries agree');
+        reason: 'All libraries have the same platform restriction.');
   }
 
   if (primaryLibrary != null) {
     var primaryPlatform = libraries[primaryLibrary];
     if (primaryPlatform.restrictedTo?.length == 1) {
+      final platform = primaryPlatform.restrictedTo.single;
       return new DartPlatform.withRestrictions(primaryPlatform.restrictedTo,
-          reason: 'primary library - `$primaryLibrary`');
+          reason:
+              'Primary library `$primaryLibrary` is restricted to `$platform`.');
     }
   }
 
   // If the primary library search fails, go back to the roll-up of all
-  // platforms. See if excluding `everywhere` leads us to something more
-  // specific.
-
-  var everythingRemoved = false;
-  if (items.length > 1) {
-    everythingRemoved = items.remove(PlatformNames.everywhere);
-
-    if (items.length == 1) {
-      return new DartPlatform.withRestrictions([items.single],
-          reason: 'one library with an opinion - $everythingRemoved');
-    }
-  }
+  // platforms.
 
   if (items.isEmpty) {
     return new DartPlatform.conflict(
-        'no library opinions? - $everythingRemoved');
+        'Unable to identify platform from libraries (no restriction found).');
+  }
+
+  if (items.length == 1) {
+    final platform = items.single;
+    return new DartPlatform.withRestrictions([items.single],
+        reason: 'Libraries are restricted to `$platform`.');
   }
 
   return new DartPlatform.withRestrictions(items.toList()..sort(),
-      reason: 'all of the above');
+      reason: 'Multiple platform identified in libraries.');
 }
 
 String _selectPrimaryLibrary(Pubspec pubspec, Set<String> libraryUris) {

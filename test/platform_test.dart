@@ -146,7 +146,8 @@ void main() {
       });
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter', 'server', 'web']);
-      expect(sum.descriptionAndReason, 'flutter,server,web: all of the above');
+      expect(sum.descriptionAndReason,
+          'flutter,server,web: Multiple platform identified in libraries.');
     });
 
     test('detects flutter in pubspec', () {
@@ -154,7 +155,7 @@ void main() {
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
       expect(sum.descriptionAndReason,
-          'flutter: pubspec reference with no conflicts');
+          'flutter: References Flutter with no conflicting libraries.');
     });
 
     test('detects flutter package in dependencies', () {
@@ -162,7 +163,7 @@ void main() {
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
       expect(sum.descriptionAndReason,
-          'flutter: pubspec reference with no conflicts');
+          'flutter: References Flutter with no conflicting libraries.');
     });
 
     test('detects flutter sdk in dependencies', () {
@@ -170,7 +171,7 @@ void main() {
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
       expect(sum.descriptionAndReason,
-          'flutter: pubspec reference with no conflicts');
+          'flutter: References Flutter with no conflicting libraries.');
     });
   });
 
@@ -182,7 +183,7 @@ void main() {
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, isNull);
       expect(sum.descriptionAndReason,
-          'undefined: flutter reference with library conflicts');
+          'undefined: References Flutter, but has conflicting libraries: `package:_example/lib.dart`.');
     });
   });
 }
