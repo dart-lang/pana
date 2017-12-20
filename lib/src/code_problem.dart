@@ -23,6 +23,7 @@ class CodeProblem extends Object
   static const _platformNonBlockerCodes = const <String>[
     'ARGUMENT_TYPE_NOT_ASSIGNABLE',
     'STRONG_MODE_COULD_NOT_INFER',
+    'STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
     'STRONG_MODE_INVALID_CAST_NEW_EXPR',
     'STRONG_MODE_INVALID_METHOD_OVERRIDE',
   ];

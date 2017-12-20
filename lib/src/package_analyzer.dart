@@ -317,11 +317,10 @@ class PackageAnalyzer {
           'Error(s) prevent platform classification.');
     } else {
       final dfs = files.values.firstWhere(
-          (dfs) => dfs.isPublicApi && dfs.hasCodeError,
+          (dfs) => dfs.isPublicApi && dfs.platform.hasConflict,
           orElse: () => null);
       if (dfs != null) {
-        platform = new DartPlatform.conflict(
-            'Error(s) in ${dfs.path}: ${dfs.firstCodeError.description}');
+        platform = new DartPlatform.conflict(dfs.platform.reason);
       }
     }
     platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
