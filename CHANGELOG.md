@@ -1,3 +1,7 @@
+## 0.8.2-dev
+
+* Unblock platform classification on a new class of errors.
+
 ## 0.8.1
 
 * Use Flutter-recommended analysis options when analyzer Flutter packages.

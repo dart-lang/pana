@@ -154,18 +154,11 @@ final _data = {
         'package:meta/meta.dart',
         'package:quiver_iterables/iterables.dart'
       ],
-      'platform': {
-        'worksEverywhere': false,
-        'reason':
-            'Error(s) in lib/skiplist.dart: The function expression type \'(_SkipListEntry<Comparable<dynamic>, dynamic>) → Comparable<dynamic>\' isn\'t of type \'(_SkipListEntry<Comparable<dynamic>, dynamic>) → K\'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).'
-      },
+      'platform': {'worksEverywhere': true},
       'fitness': {'magnitude': 185.0, 'shortcoming': 185.0}
     }
   },
-  'platform': {
-    'worksEverywhere': false,
-    'reason': 'Error(s) prevent platform classification.',
-  },
+  'platform': {'worksEverywhere': true, 'reason': 'All libraries agree'},
   'licenses': [
     {
       'path': 'LICENSE',
