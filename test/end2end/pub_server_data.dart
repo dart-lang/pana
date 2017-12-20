@@ -289,7 +289,10 @@ final _data = {
       'fitness': {'magnitude': 360.0, 'shortcoming': 1.0},
     },
   },
-  'platform': {'worksEverywhere': true, 'reason': 'All libraries agree'},
+  'platform': {
+    'worksEverywhere': true,
+    'reason': 'No platform restriction found in libraries.',
+  },
   "licenses": [
     {
       "path": "LICENSE",

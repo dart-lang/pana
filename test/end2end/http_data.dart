@@ -672,7 +672,8 @@ final _data = {
   },
   'platform': {
     'worksEverywhere': true,
-    'reason': 'primary library - `package:http/http.dart`'
+    'reason':
+        'No platform restriction found in primary library `package:http/http.dart`.',
   },
   "licenses": [
     {

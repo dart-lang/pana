@@ -2,6 +2,8 @@
 
 * Unblock platform classification on a new class of errors.
 
+* Better messages in platform classification.
+
 ## 0.8.1
 
 * Use Flutter-recommended analysis options when analyzer Flutter packages.
