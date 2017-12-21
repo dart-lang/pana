@@ -177,6 +177,7 @@ class PackageAnalyzer {
 
     Map<String, List<String>> allDirectLibs;
     Map<String, List<String>> allTransitiveLibs;
+    Set<String> reachableLibs;
 
     LibraryScanner libraryScanner;
 
@@ -212,6 +213,7 @@ class PackageAnalyzer {
         try {
           log.info('Scanning transitive dependencies...');
           allTransitiveLibs = await libraryScanner.scanTransitiveLibs();
+          reachableLibs = _reachableLibs(allTransitiveLibs);
         } catch (e, st) {
           log.severe('Error scanning transitive libraries', e, st);
           suggestions.add(new Suggestion.bug(
@@ -253,9 +255,10 @@ class PackageAnalyzer {
           fileAnalyzerItems?.where((cp) => cp.isError)?.toList() ?? const [];
       final platformBlockers =
           codeErrors.where((cp) => cp.isPlatformBlockingError).toList();
-      final libPlatformBlocked = platformBlockers.isNotEmpty;
-      pkgPlatformBlocked = pkgPlatformBlocked || libPlatformBlocked;
       var uri = toPackageUri(package, dartFile);
+      final libPlatformBlocked = platformBlockers.isNotEmpty &&
+          (reachableLibs == null || reachableLibs.contains(uri));
+      pkgPlatformBlocked = pkgPlatformBlocked || libPlatformBlocked;
       var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
@@ -379,5 +382,19 @@ class PackageAnalyzer {
       log.severe(output);
       rethrow;
     }
+  }
+
+  Set<String> _reachableLibs(Map<String, List<String>> allTransitiveLibs) {
+    final reached = new Set<String>();
+    for (var lib in allTransitiveLibs.keys) {
+      if (lib.startsWith('package:')) {
+        final path = toRelativePath(lib);
+        if (path.startsWith('lib/') && !path.startsWith('lib/src')) {
+          reached.add(lib);
+          reached.addAll(allTransitiveLibs[lib]);
+        }
+      }
+    }
+    return reached.intersection(allTransitiveLibs.keys.toSet());
   }
 }
