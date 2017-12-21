@@ -1,4 +1,4 @@
-## 0.8.2-dev
+## 0.8.2
 
 * Unblock platform classification on a new class of errors.
 
