@@ -155,7 +155,7 @@ void main() {
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
       expect(sum.descriptionAndReason,
-          'flutter: References Flutter with no conflicting libraries.');
+          'flutter: References Flutter, and has no conflicting libraries.');
     });
 
     test('detects flutter package in dependencies', () {
@@ -163,7 +163,7 @@ void main() {
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
       expect(sum.descriptionAndReason,
-          'flutter: References Flutter with no conflicting libraries.');
+          'flutter: References Flutter, and has no conflicting libraries.');
     });
 
     test('detects flutter sdk in dependencies', () {
@@ -171,7 +171,7 @@ void main() {
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
       expect(sum.descriptionAndReason,
-          'flutter: References Flutter with no conflicting libraries.');
+          'flutter: References Flutter, and has no conflicting libraries.');
     });
   });
 

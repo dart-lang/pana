@@ -142,7 +142,7 @@ DartPlatform classifyPkgPlatform(
           'References Flutter, but has conflicting libraries: $sample.');
     } else {
       return new DartPlatform.withRestrictions([PlatformNames.flutter],
-          reason: 'References Flutter with no conflicting libraries.');
+          reason: 'References Flutter, and has no conflicting libraries.');
     }
   }
 
