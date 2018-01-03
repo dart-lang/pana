@@ -270,12 +270,26 @@ class PubEnvironment {
   }
 
   /// Removes the dev_dependencies from the pubspec.yaml
-  Future removeDevDependencies(String packageDir) async {
-    final file = new File(p.join(packageDir, 'pubspec.yaml'));
-    final original = await file.readAsString();
+  /// Returns the backup file with the original content.
+  Future<File> stripPubspecYaml(String packageDir) async {
+    final now = new DateTime.now();
+    final backup = new File(
+        p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'));
+
+    final pubspec = new File(p.join(packageDir, 'pubspec.yaml'));
+    final original = await pubspec.readAsString();
     final parsed = yamlToJson(original);
     parsed.remove('dev_dependencies');
-    await file.writeAsString(JSON.encode(parsed));
+
+    await pubspec.rename(backup.path);
+    await pubspec.writeAsString(JSON.encode(parsed));
+
+    return backup;
+  }
+
+  Future restorePubspecYaml(String packageDir, File backup) async {
+    final pubspec = new File(p.join(packageDir, 'pubspec.yaml'));
+    await backup.rename(pubspec.path);
   }
 }
 
