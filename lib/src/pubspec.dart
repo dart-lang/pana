@@ -73,36 +73,6 @@ class Pubspec {
   bool get isFlutter =>
       dependsOnFlutterSdk || dependsOnFlutterPackage || hasFlutterKey;
 
-  List<String> get unconstrainedDependencies {
-    final set = new Set<String>();
-    void inspectDependency(String pkg, dynamic v) {
-      if (v == null || v == 'any') {
-        set.add(pkg);
-        return;
-      }
-      if (v is Map && v.containsKey('version') && !v.containsKey('sdk')) {
-        final version = v['version'];
-        if (version == null || version == 'any') {
-          set.add(pkg);
-          return;
-        }
-      }
-
-      final constraint = v is Map ? v['version'] : v;
-      if (constraint is String) {
-        final vc = new VersionConstraint.parse(constraint);
-        if (vc is VersionRange && vc.max == null) {
-          set.add(pkg);
-          return;
-        }
-      }
-    }
-
-    dependencies?.forEach(inspectDependency);
-    devDependencies?.forEach(inspectDependency);
-    return set.toList()..sort();
-  }
-
   Set<String> get dependentSdks {
     if (_dependentSdks == null) {
       _dependentSdks = new SplayTreeSet();

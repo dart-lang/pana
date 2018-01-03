@@ -1,3 +1,7 @@
+## 0.9.0-dev
+
+* Only direct unconstrained dependencies decrease the health score.
+
 ## 0.8.2
 
 * Unblock platform classification on a new class of errors.

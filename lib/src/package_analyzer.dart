@@ -330,7 +330,7 @@ class PackageAnalyzer {
 
     var licenses = await detectLicensesInDir(pkgDir);
     licenses = await updateLicenseUrls(pubspec.homepage, licenses);
-    final pkgFitness = calcPkgFitness(pubspec, platform, files.values);
+    final pkgFitness = calcPkgFitness(pkgResolution, platform, files.values);
 
     final maintenance =
         await detectMaintenance(pkgDir, pubspec.version, suggestions);
