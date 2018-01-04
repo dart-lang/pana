@@ -2,6 +2,8 @@
 
 * Only direct unconstrained dependencies decrease the health score.
 
+* Remove some of the `pubspec.lock` validation.
+
 ## 0.8.2
 
 * Unblock platform classification on a new class of errors.
