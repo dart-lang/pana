@@ -38,6 +38,7 @@ final _data = {
   ],
   "maintenance": {
     "missingChangelog": true,
+    "missingExample": true,
     "missingReadme": false,
     "missingAnalysisOptions": true,
     "oldAnalysisOptions": false,
@@ -54,6 +55,13 @@ final _data = {
         'description':
             'Changelog entries help clients to follow the progress in your code.',
         'penalty': {'amount': 0, 'fraction': 2000}
+      },
+      {
+        'level': 'hint',
+        'title': 'Maintain an example.',
+        'description':
+            'None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`.',
+        'penalty': {'amount': 1, 'fraction': 0}
       },
       {
         'level': 'hint',

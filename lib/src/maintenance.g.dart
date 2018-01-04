@@ -12,6 +12,7 @@ part of pana.maintenance;
 
 Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) => new Maintenance(
     missingChangelog: json['missingChangelog'] as bool,
+    missingExample: json['missingExample'] as bool,
     missingReadme: json['missingReadme'] as bool,
     missingAnalysisOptions: json['missingAnalysisOptions'] as bool,
     oldAnalysisOptions: json['oldAnalysisOptions'] as bool,
@@ -29,6 +30,7 @@ Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) => new Maintenance(
 
 abstract class _$MaintenanceSerializerMixin {
   bool get missingChangelog;
+  bool get missingExample;
   bool get missingReadme;
   bool get missingAnalysisOptions;
   bool get oldAnalysisOptions;
@@ -42,6 +44,7 @@ abstract class _$MaintenanceSerializerMixin {
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'missingChangelog': missingChangelog,
+      'missingExample': missingExample,
       'missingReadme': missingReadme,
       'missingAnalysisOptions': missingAnalysisOptions,
       'oldAnalysisOptions': oldAnalysisOptions,

@@ -332,8 +332,8 @@ class PackageAnalyzer {
     licenses = await updateLicenseUrls(pubspec.homepage, licenses);
     final pkgFitness = calcPkgFitness(pubspec, platform, files.values);
 
-    final maintenance =
-        await detectMaintenance(pkgDir, pubspec.version, suggestions);
+    final maintenance = await detectMaintenance(
+        pkgDir, pubspec.name, pubspec.version, suggestions);
     suggestions.sort();
 
     return new Summary(
