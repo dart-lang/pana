@@ -32,6 +32,18 @@ final List<String> readmeFileNames = const [
   'readme',
 ];
 
+/// Returns the candidates in priority order to display under the 'Example' tab.
+List<String> exampleFileCandidates(String package) => [
+      'example/lib/main.dart',
+      'example/main.dart',
+      'example/lib/$package.dart',
+      'example/$package.dart',
+      'example/lib/${package}_example.dart',
+      'example/${package}_example.dart',
+      'example/lib/example.dart',
+      'example/example.dart',
+    ];
+
 const String currentAnalysisOptionsFileName = 'analysis_options.yaml';
 final List<String> analysisOptionsFiles = const [
   currentAnalysisOptionsFileName,
@@ -57,6 +69,9 @@ String firstFileFromNames(List<String> files, List<String> names,
 class Maintenance extends Object with _$MaintenanceSerializerMixin {
   /// whether the package has no or too small changelog
   final bool missingChangelog;
+
+  /// whether the package has no example
+  final bool missingExample;
 
   /// whether the package has no or too small readme
   final bool missingReadme;
@@ -91,6 +106,7 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
 
   Maintenance({
     @required this.missingChangelog,
+    @required this.missingExample,
     @required this.missingReadme,
     @required this.missingAnalysisOptions,
     @required this.oldAnalysisOptions,
@@ -140,8 +156,8 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   }
 }
 
-Future<Maintenance> detectMaintenance(
-    String pkgDir, Version version, List<Suggestion> suggestions) async {
+Future<Maintenance> detectMaintenance(String pkgDir, String pkgName,
+    Version version, List<Suggestion> suggestions) async {
   final maintenanceSuggestions = <Suggestion>[];
   final files = await listFiles(pkgDir).toList();
 
@@ -164,6 +180,7 @@ Future<Maintenance> detectMaintenance(
 
   final changelogExists = await anyFileExists(changelogFileNames);
   final readmeExists = await anyFileExists(readmeFileNames);
+  final exampleExists = await anyFileExists(exampleFileCandidates(pkgName));
   final analysisOptionsExists =
       await anyFileExists(analysisOptionsFiles, caseSensitive: true);
   final oldAnalysisOptions =
@@ -205,6 +222,22 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(new Suggestion.warning('Maintain `README.md`.',
         'Readme should inform others about your project, what it does, and how they can use it.',
         penalty: new Penalty(fraction: 500)));
+  }
+  if (!exampleExists) {
+    final exampleDirExists = files.any((file) => file.startsWith('example/'));
+    if (exampleDirExists) {
+      maintenanceSuggestions.add(new Suggestion.hint(
+          'Maintain an example.',
+          'None of the files in your `example/` directory matches a known example patterns. '
+          'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`.',
+          penalty: new Penalty(amount: 1)));
+    } else {
+      maintenanceSuggestions.add(new Suggestion.hint(
+          'Maintain an example.',
+          'Create a short demo in the `example/` directory to show how to use this package. '
+          'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`.',
+          penalty: new Penalty(amount: 5)));
+    }
   }
   if (oldAnalysisOptions) {
     maintenanceSuggestions.add(new Suggestion.hint(
@@ -263,6 +296,7 @@ Future<Maintenance> detectMaintenance(
   return new Maintenance(
     missingChangelog: !changelogExists,
     missingReadme: !readmeExists,
+    missingExample: !exampleExists,
     missingAnalysisOptions: !analysisOptionsExists,
     oldAnalysisOptions: oldAnalysisOptions,
     strongModeEnabled: strongModeEnabled,

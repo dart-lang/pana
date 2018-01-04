@@ -302,6 +302,7 @@ final _data = {
   ],
   'maintenance': {
     'missingChangelog': false,
+    'missingExample': true,
     'missingReadme': false,
     'missingAnalysisOptions': true,
     'oldAnalysisOptions': false,
@@ -312,6 +313,13 @@ final _data = {
     'warningCount': 0,
     'hintCount': 0,
     'suggestions': [
+      {
+        'level': 'hint',
+        'title': 'Maintain an example.',
+        'description':
+            'None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `pub_server.dart`.',
+        'penalty': {'amount': 1, 'fraction': 0}
+      },
       {
         'level': 'hint',
         'title': 'Package is pre-v1 release.',

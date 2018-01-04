@@ -12,6 +12,7 @@ import 'package:test_descriptor/test_descriptor.dart' as d;
 
 final _withIssuesJson = {
   "missingChangelog": true,
+  "missingExample": true,
   "missingReadme": true,
   "missingAnalysisOptions": true,
   "oldAnalysisOptions": false,
@@ -35,6 +36,13 @@ final _withIssuesJson = {
       "description":
           "Readme should inform others about your project, what it does, and how they can use it.",
       "penalty": {"amount": 0, "fraction": 500}
+    },
+    {
+      'level': 'hint',
+      'title': 'Maintain an example.',
+      'description':
+          'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `sandbox.dart`.',
+      'penalty': {'amount': 5, 'fraction': 0}
     },
     {
       "level": "hint",
@@ -68,6 +76,7 @@ final _withIssuesJson = {
 final _perfect = new Maintenance(
     missingChangelog: false,
     missingReadme: false,
+    missingExample: false,
     missingAnalysisOptions: false,
     oldAnalysisOptions: false,
     strongModeEnabled: true,
@@ -87,8 +96,8 @@ void main() {
         new Suggestion.warning('warning', 'warning'),
         new Suggestion.hint('hint', 'hint'),
       ];
-      final maintenance = await detectMaintenance(
-          d.sandbox, new Version(0, 1, 0, pre: 'alpha'), suggestions);
+      final maintenance = await detectMaintenance(d.sandbox, 'sandbox',
+          new Version(0, 1, 0, pre: 'alpha'), suggestions);
 
       expect(JSON.decode(JSON.encode(maintenance.toJson())), _withIssuesJson);
     });

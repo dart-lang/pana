@@ -2637,6 +2637,7 @@ final _v6Output = r'''{
   ],
   "maintenance": {
    "missingChangelog": false,
+   "missingExample": false,
    "missingReadme": false,
    "missingAnalysisOptions": true,
    "oldAnalysisOptions": false,

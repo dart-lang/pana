@@ -171,6 +171,7 @@ final _data = {
   ],
   'maintenance': {
     'missingChangelog': false,
+    'missingExample': true,
     'missingReadme': false,
     'missingAnalysisOptions': true,
     'oldAnalysisOptions': false,
@@ -181,6 +182,13 @@ final _data = {
     'warningCount': 0,
     'hintCount': 0,
     'suggestions': [
+      {
+        'level': 'hint',
+        'title': 'Maintain an example.',
+        'description':
+            'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `skiplist.dart`.',
+        'penalty': {'amount': 5, 'fraction': 0}
+      },
       {
         'level': 'hint',
         'title': 'Package is pre-v1 release.',
