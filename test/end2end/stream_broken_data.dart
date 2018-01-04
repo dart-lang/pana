@@ -70,7 +70,7 @@ final _data = {
       }
     ],
   },
-  "fitness": {"magnitude": 2324.0, "shortcoming": 945.6},
+  "fitness": {"magnitude": 2324.0, "shortcoming": 480.8},
   "suggestions": [
     {
       "level": "error",
