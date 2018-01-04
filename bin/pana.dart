@@ -3,6 +3,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -18,9 +19,19 @@ final _parser = new ArgParser()
       help: 'Output log items as JSON.',
       defaultsTo: false,
       negatable: false)
+  ..addOption('source',
+      abbr: 's',
+      help: 'The source used to find the package.',
+      allowed: ['hosted', 'path'],
+      defaultsTo: 'hosted')
   ..addOption('hosted-url',
       help: 'The server that hosts <package>.',
-      defaultsTo: 'https://pub.dartlang.org');
+      defaultsTo: 'https://pub.dartlang.org')
+  ..addFlag('warning',
+      help:
+          'Shows the warning message before potentially destructive operation.',
+      negatable: true,
+      defaultsTo: true);
 
 void _printHelp({String errorMessage}) {
   if (errorMessage != null) {
@@ -28,6 +39,7 @@ void _printHelp({String errorMessage}) {
     print('');
   }
   print('''Usage: pana [<options>] <package> [<version>]
+       pana [<options>] --source path <directory>
 
 Options:
 ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
@@ -44,18 +56,15 @@ main(List<String> args) async {
   }
 
   final json = result['json'] as bool;
+  final showWarning = result['warning'] as bool;
 
-  if (result.rest.isEmpty) {
-    _printHelp(errorMessage: 'No package was provided.');
-    exitCode = ExitCode.usage.code;
-    return;
-  }
-
-  var pkg = result.rest.first;
-
-  String version;
-  if (result.rest.length > 1) {
-    version = result.rest[1];
+  final source = result['source'];
+  String firstArg(String error) {
+    if (result.rest.isEmpty) {
+      _printHelp(errorMessage: error);
+      exit(ExitCode.usage.code);
+    }
+    return result.rest.first;
   }
 
   log.Logger.root.level = log.Level.ALL;
@@ -105,16 +114,32 @@ main(List<String> args) async {
 
   try {
     try {
-      var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
-      var summary = await analyzer.inspectPackage(pkg,
-          version: version, pubHostedUrl: result['hosted-url']);
+      Summary summary;
+      if (source == 'hosted') {
+        final package = firstArg('No package was provided.');
+        String version;
+        if (result.rest.length > 1) {
+          version = result.rest[1];
+        }
+        var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
+        summary = await analyzer.inspectPackage(package,
+            version: version, pubHostedUrl: result['hosted-url']);
+      } else if (source == 'path') {
+        final path = firstArg('No path was provided.');
+        if (showWarning) {
+          log.Logger.root
+              .warning('pana might update or modify files in `$path`.\n'
+                  'Analysis will begin in 15 seconds, hit CTRL+C to abort it.\n'
+                  'To remove this message, use `--no-warning`.');
+          await new Future.delayed(const Duration(seconds: 15));
+        }
 
+        var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
+        summary = await analyzer.inspectDir(path);
+      }
       print(prettyJson(summary));
     } catch (e, stack) {
-      var message = "Problem with pkg $pkg";
-      if (version != null) {
-        message = "$message ($version)";
-      }
+      final message = "Problem analyzing ${result.rest.join(' ')}";
       log.Logger.root.shout(message, e, stack);
       exitCode = 1;
     }

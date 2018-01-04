@@ -19,11 +19,20 @@ Used by the [Dart Package site](https://pub.dartlang.org/).
 
 ### Usage
 
+You can specify either a package (+ version) or a local directory to analyze:
+
 ```
 Usage: pana [<options>] <package> [<version>]
+       pana [<options>] --source path <directory>
 
 Options:
-  -j, --json          Output log items as JSON.
-      --hosted-url    The server that hosts <package>.
-                      (defaults to "https://pub.dartlang.org")
+  -j, --json            Output log items as JSON.
+  -s, --source          The source used to find the package.
+                        [hosted (default), path]
+  
+      --hosted-url      The server that hosts <package>.
+                        (defaults to "https://pub.dartlang.org")
+  
+      --[no-]warning    Shows the warning message before potentially destructive operation.
+                        (defaults to on)
 ```

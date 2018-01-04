@@ -133,9 +133,14 @@ class PackageAnalyzer {
     log.info('Package: $package ${pubspec.version}');
 
     log.info("Pub upgrade...");
-    await _pubEnv.removeDevDependencies(pkgDir);
+    final backup = await _pubEnv.stripPubspecYaml(pkgDir);
     final isFlutter = pubspec.isFlutter;
-    var upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
+    ProcessResult upgrade;
+    try {
+      upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
+    } finally {
+      await _pubEnv.restorePubspecYaml(pkgDir, backup);
+    }
 
     PkgResolution pkgResolution;
     if (upgrade.exitCode == 0) {
