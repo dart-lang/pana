@@ -13,6 +13,8 @@ import 'package:io/io.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pana/pana.dart';
 
+const defaultHostedUrl = 'https://pub.dartlang.org';
+
 final _parser = new ArgParser()
   ..addFlag('json',
       abbr: 'j',
@@ -25,8 +27,7 @@ final _parser = new ArgParser()
       allowed: ['hosted', 'path'],
       defaultsTo: 'hosted')
   ..addOption('hosted-url',
-      help: 'The server that hosts <package>.',
-      defaultsTo: 'https://pub.dartlang.org')
+      help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
   ..addFlag('warning',
       help:
           'Shows the warning message before potentially destructive operation.',
@@ -121,9 +122,16 @@ main(List<String> args) async {
         if (result.rest.length > 1) {
           version = result.rest[1];
         }
+        final pubHostedUrl = result['hosted-url'];
+        if (pubHostedUrl != defaultHostedUrl && version == null) {
+          _printHelp(
+              errorMessage:
+                  'Version must be specified when using --hosted-url option.');
+          return;
+        }
         var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
         summary = await analyzer.inspectPackage(package,
-            version: version, pubHostedUrl: result['hosted-url']);
+            version: version, pubHostedUrl: pubHostedUrl);
       } else if (source == 'path') {
         final path = firstArg('No path was provided.');
         if (showWarning) {
