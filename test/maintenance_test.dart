@@ -5,8 +5,8 @@
 import 'dart:convert';
 
 import 'package:pana/src/maintenance.dart';
+import 'package:pana/src/pubspec.dart';
 import 'package:pana/src/summary.dart';
-import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
@@ -59,6 +59,13 @@ final _withIssuesJson = {
       "penalty": {"amount": 0, "fraction": 200}
     },
     {
+      'level': 'warning',
+      'title': 'Add `description` in `pubspec.yaml`.',
+      'description':
+          'Description is critical to giving users a quick insight into the features of the package and why it is relevant to their query. Ideal length is between 60 and 180 characters.',
+      'penalty': {'amount': 0, 'fraction': 500}
+    },
+    {
       "level": "warning",
       "title": "Fix issues reported by `dartanalyzer`.",
       "description": "`dartanalyzer` reported 1 error(s) and 1 warning(s).",
@@ -96,8 +103,10 @@ void main() {
         new Suggestion.warning('warning', 'warning'),
         new Suggestion.hint('hint', 'hint'),
       ];
-      final maintenance = await detectMaintenance(d.sandbox, 'sandbox',
-          new Version(0, 1, 0, pre: 'alpha'), suggestions);
+      final maintenance = await detectMaintenance(
+          d.sandbox,
+          new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
+          suggestions);
 
       expect(JSON.decode(JSON.encode(maintenance.toJson())), _withIssuesJson);
     });
@@ -105,7 +114,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(_withIssues.getMaintenanceScore(), closeTo(0.698, 0.001));
+      expect(_withIssues.getMaintenanceScore(), closeTo(0.662, 0.001));
     });
 
     test('perfect', () {
