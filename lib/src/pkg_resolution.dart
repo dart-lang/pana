@@ -96,17 +96,8 @@ void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
       Map lockMap = yamlToJson(lockFileContent);
       Map<String, Object> pkgs = lockMap['packages'];
       if (pkgs != null) {
-        var expectedPackages = pkgVersions.keys.toSet();
-
         pkgs.forEach((String key, Object v) {
-          if (!expectedPackages.remove(key)) {
-            throw new StateError(
-                "Did not parse package `$key` from pub output, "
-                "but it was found in `pubspec.lock`.");
-          }
-
           var m = v as Map;
-
           var lockedVersion = new Version.parse(m['version']);
           if (pkgVersions[key] != lockedVersion) {
             throw new StateError(
@@ -114,12 +105,6 @@ void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
                 "match the locked version $lockedVersion.");
           }
         });
-
-        if (expectedPackages.isNotEmpty) {
-          throw new StateError(
-              "We parsed more packaged than were found in the lock file: "
-              "${expectedPackages.join(', ')}");
-        }
       }
     }
   }
