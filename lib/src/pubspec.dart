@@ -28,6 +28,7 @@ class Pubspec {
   Map<String, dynamic> toJson() => _content;
 
   String get name => _content['name'];
+  String get description => _content['description'];
 
   Version get version => new Version.parse(_content['version']);
 
