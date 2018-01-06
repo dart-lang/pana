@@ -197,6 +197,13 @@ final _data = {
         'penalty': {'amount': 10, 'fraction': 0}
       },
       {
+        'level': 'hint',
+        'title': 'The description is too short.',
+        'description':
+            'Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.',
+        'penalty': {'amount': 20, 'fraction': 0}
+      },
+      {
         'level': 'warning',
         'title': 'Fix issues reported by `dartanalyzer`.',
         'description': '`dartanalyzer` reported 1 error(s) and 0 warning(s).',

@@ -2,6 +2,8 @@
 
 * Only direct unconstrained dependencies decrease the health score.
 
+* Recommend descriptions between 60 and 180 characters.
+
 ## 0.8.2
 
 * Unblock platform classification on a new class of errors.

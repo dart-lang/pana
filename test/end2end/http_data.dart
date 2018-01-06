@@ -714,6 +714,13 @@ final _data = {
         'description':
             'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
         'penalty': {'amount': 10, 'fraction': 0}
+      },
+      {
+        'level': 'hint',
+        'title': 'The description is too short.',
+        'description':
+            'Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.',
+        'penalty': {'amount': 20, 'fraction': 0}
       }
     ],
   },

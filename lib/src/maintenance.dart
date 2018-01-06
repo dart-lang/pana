@@ -11,9 +11,9 @@ import 'dart:math';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
+import 'pubspec.dart';
 import 'summary.dart' show applyPenalties, Penalty, Suggestion;
 import 'utils.dart';
 
@@ -156,8 +156,9 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   }
 }
 
-Future<Maintenance> detectMaintenance(String pkgDir, String pkgName,
-    Version version, List<Suggestion> suggestions) async {
+Future<Maintenance> detectMaintenance(
+    String pkgDir, Pubspec pubspec, List<Suggestion> suggestions) async {
+  final pkgName = pubspec.name;
   final maintenanceSuggestions = <Suggestion>[];
   final files = await listFiles(pkgDir).toList();
 
@@ -252,6 +253,7 @@ Future<Maintenance> detectMaintenance(String pkgDir, String pkgName,
         '```\nanalyzer:\n  strong-mode: true\n```\n'));
   }
 
+  final version = pubspec.version;
   final isExperimentalVersion = version.major == 0;
   final isPreReleaseVersion = version.isPreRelease;
 
@@ -272,6 +274,29 @@ Future<Maintenance> detectMaintenance(String pkgDir, String pkgName,
         'Pre-release versions should be used with caution, their API may change '
         'in breaking ways.',
         penalty: new Penalty(fraction: 200)));
+  }
+
+  // Checking the length of description.
+  final description = pubspec.description?.trim();
+  if (description == null || description.isEmpty) {
+    maintenanceSuggestions.add(new Suggestion.warning(
+        'Add `description` in `pubspec.yaml`.',
+        'Description is critical to giving users a quick insight into the features '
+        'of the package and why it is relevant to their query. '
+        'Ideal length is between 60 and 180 characters.',
+        penalty: new Penalty(fraction: 500)));
+  } else if (description.length < 60) {
+    maintenanceSuggestions.add(new Suggestion.hint(
+        'The description is too short.',
+        'Add more detail about the package, what it does and what is its target use case. '
+        'Try to write at least 60 characters.',
+        penalty: new Penalty(amount: 20)));
+  } else if (description.length > 180) {
+    maintenanceSuggestions.add(new Suggestion.hint(
+        'The description is too long.',
+        'Search engines will display only the first part of the description. '
+        'Try to keep it under 180 characters.',
+        penalty: new Penalty(amount: 10)));
   }
 
   final errorCount = suggestions.where((s) => s.isError).length;
