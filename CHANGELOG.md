@@ -1,4 +1,4 @@
-## 0.9.0-dev
+## 0.9.0
 
 * Only direct unconstrained dependencies decrease the health score.
 
