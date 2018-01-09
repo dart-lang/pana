@@ -29,7 +29,12 @@ void main() {
     //expect(_changedGeneratedFiles(), isEmpty);
 
     // 2 - run build - should be no output, since nothing should change
-    var result = _runProc('dart', ['--checked', 'tool/build.dart']);
+    var result = _runProc('dart', [
+      '--checked',
+      'tool/build.dart',
+      'build',
+      '--delete-conflicting-outputs'
+    ]);
     expect(result,
         contains(new RegExp(r"Build: Succeeded after \S+ with \d+ outputs")));
 
