@@ -96,7 +96,7 @@ Future<List<LicenseFile>> updateLicenseUrls(
     if (license.path == null || license.path.isEmpty) {
       return license;
     }
-    final url = joinDownloadUrl(baseUrl, license.path);
+    final url = getRepositoryUrl(baseUrl, license.path);
     if (url == null) {
       return license;
     }
