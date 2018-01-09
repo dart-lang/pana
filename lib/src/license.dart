@@ -166,7 +166,7 @@ LicenseFile detectLicenseInContent(String originalContent,
   if (_gplShort.hasMatch(stripped)) {
     return new LicenseFile(relativePath, LicenseNames.GPL, version: version);
   }
-  if (_mit.hasMatch(stripped)) {
+  if (_mit.hasMatch(stripped) || _mitEmphasis.hasMatch(stripped)) {
     return new LicenseFile(relativePath, LicenseNames.MIT, version: version);
   }
   if (_unlicense.hasMatch(stripped)) {
@@ -218,6 +218,15 @@ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED.
 ''');
+
+final RegExp _mitEmphasis = _longTextRegExp('''
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.''');
 
 bool _isLicenseFile(FileSystemEntity fse) {
   if (fse is File) {

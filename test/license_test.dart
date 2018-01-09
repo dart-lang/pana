@@ -89,6 +89,8 @@ main() {
           new LicenseFile(null, 'MIT'));
       await expectFile(
           'test/licenses/mit.txt', new LicenseFile('mit.txt', 'MIT'));
+      await expectFile('test/licenses/mit_without_mit.txt',
+          new LicenseFile('mit_without_mit.txt', 'MIT'));
     });
   });
 

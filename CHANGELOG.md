@@ -6,6 +6,8 @@
 
 * Recommend descriptions between 60 and 180 characters.
 
+* Detect another license format
+
 ## 0.8.2
 
 * Unblock platform classification on a new class of errors.
