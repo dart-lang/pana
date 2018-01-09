@@ -2,7 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-const String analysisOptions = '''
+import 'dart:convert';
+
+import 'package:yaml/yaml.dart' as yaml;
+
+const String _analysisOptions = '''
 analyzer:
   strong-mode: true
 
@@ -21,7 +25,7 @@ linter:
 
 // Keep it updated with
 // https://github.com/flutter/flutter/blob/master/packages/flutter/lib/analysis_options_user.yaml
-const String flutterAnalysisOptions = '''
+const String _flutterAnalysisOptions = '''
 analyzer:
   language:
     enableStrictCallChecks: true
@@ -48,3 +52,35 @@ linter:
     - unrelated_type_equality_checks
     - valid_regexps
 ''';
+
+const _analyzerErrorKeys = const <String>['uri_has_not_been_generated'];
+
+String customizeAnalysisOptions(String original, bool isFlutter) {
+  Map origMap;
+  if (original != null) {
+    try {
+      origMap = yaml.loadYaml(original);
+    } catch (_) {}
+  }
+  origMap ??= {};
+
+  final customMap = JSON.decode(JSON.encode(
+      yaml.loadYaml(isFlutter ? _flutterAnalysisOptions : _analysisOptions)));
+
+  final origAnalyzer = origMap['analyzer'];
+  if (origAnalyzer is Map) {
+    final origErrors = origAnalyzer['errors'];
+    if (origErrors is Map) {
+      final Map customAnalyzer = customMap.putIfAbsent('analyzer', () => {});
+      final Map customErrors = customAnalyzer.putIfAbsent('errors', () => {});
+
+      for (var key in _analyzerErrorKeys) {
+        if (origErrors.containsKey(key)) {
+          customErrors[key] = origErrors[key];
+        }
+      }
+    }
+  }
+
+  return JSON.encode(customMap);
+}

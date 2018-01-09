@@ -8,6 +8,8 @@
 
 * Detect another license format
 
+* Pass-through values of `analyzer_options.yaml` errors like `uri_has_not_been_generated`.
+
 ## 0.8.2
 
 * Unblock platform classification on a new class of errors.

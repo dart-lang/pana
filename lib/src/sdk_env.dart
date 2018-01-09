@@ -50,21 +50,29 @@ class DartSdk implements DartSdkInfo {
 
   Future<ProcessResult> runAnalyzer(
       String packageDir, List<String> dirs, bool isFlutter) async {
-    final optionsFileName =
+    final originalOptionsFile =
+        new File(p.join('packageDir', 'analysis_options.yaml'));
+    String originalOptions;
+    if (await originalOptionsFile.exists()) {
+      originalOptions = await originalOptionsFile.readAsString();
+    }
+    final customFileName =
         'pana_analysis_options_${new DateTime.now().microsecondsSinceEpoch}.g.yaml';
-    final optionsFile = new File(p.join(packageDir, optionsFileName));
-    await optionsFile
-        .writeAsString(isFlutter ? flutterAnalysisOptions : analysisOptions);
-    final params = ['--options', optionsFile.path, '--format', 'machine']
+    final customOptionsFile = new File(p.join(packageDir, customFileName));
+    await customOptionsFile
+        .writeAsString(customizeAnalysisOptions(originalOptions, isFlutter));
+    final params = ['--options', customOptionsFile.path, '--format', 'machine']
       ..addAll(dirs);
-    final pr = await runProc(
-      _dartAnalyzerCmd,
-      params,
-      environment: _environment,
-      workingDirectory: packageDir,
-    );
-    await optionsFile.delete();
-    return pr;
+    try {
+      return await runProc(
+        _dartAnalyzerCmd,
+        params,
+        environment: _environment,
+        workingDirectory: packageDir,
+      );
+    } finally {
+      await customOptionsFile.delete();
+    }
   }
 
   Future<List<String>> filesNeedingFormat(String packageDir) async {
