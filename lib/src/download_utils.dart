@@ -45,13 +45,31 @@ Future<Directory> downloadPackage(String package, String version,
 }
 
 /// Returns an URL that is likely the downloadable URL of the given path.
-String joinDownloadUrl(String baseUrl, String relativePath) {
-  if (baseUrl == null || baseUrl.isEmpty) return null;
-  if (baseUrl.startsWith('https://github.com/')) {
-    return p.join(baseUrl, 'blob/master', relativePath);
-  }
-  if (baseUrl.startsWith('https://gitlab.com/')) {
-    return p.join(baseUrl, 'blob/master', relativePath);
+String getRepositoryUrl(String repository, String relativePath) {
+  if (repository == null || repository.isEmpty) return null;
+  try {
+    final uri = Uri.parse(repository);
+    final segments = new List<String>.from(uri.pathSegments);
+    while (segments.isNotEmpty && segments.last.isEmpty) {
+      segments.removeLast();
+    }
+
+    if (repository.startsWith('https://github.com/') ||
+        repository.startsWith('https://gitlab.com/')) {
+      if (segments.length < 2) {
+        return null;
+      } else if (segments.length == 2) {
+        return p.join(repository, 'blob/master', relativePath);
+      } else if (segments[2] == 'tree' || segments[2] == 'blob') {
+        segments[2] = 'blob';
+        final newUrl = uri.replace(pathSegments: segments).toString();
+        return p.join(newUrl, relativePath);
+      } else {
+        return null;
+      }
+    }
+  } catch (_) {
+    return null;
   }
   return null;
 }
