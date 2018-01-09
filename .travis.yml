@@ -1,8 +1,8 @@
 language: dart
-sudo: false
+
 dart:
   - dev
-  - stable
+
 dart_task:
   # Run the tests -- include the default-skipped presubmit tests
   # Run with concurrency = 1 – the build-test command edits files, which might
