@@ -1,3 +1,7 @@
+## 0.9.0+1
+
+* Fix NPE when dependency has no constraint (e.g. git repo).
+
 ## 0.9.0
 
 * Only direct unconstrained dependencies decrease the health score.
