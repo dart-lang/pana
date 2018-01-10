@@ -121,6 +121,7 @@ Fitness calcPkgFitness(PkgResolution pkgResolution, DartPlatform pkgPlatform,
   final unconstrainedCount = (pkgResolution?.dependencies ?? const [])
       .where((pd) => pd.isDirect)
       .where((pd) =>
+          pd.constraint == null ||
           pd.constraint.isAny ||
           (pd.constraint is VersionRange &&
               (pd.constraint as VersionRange).max == null))
