@@ -1,3 +1,7 @@
+## 0.9.1-dev
+
+* Use raw links for images in repository URLs.
+
 ## 0.9.0+1
 
 * Fix NPE when dependency has no constraint (e.g. git repo).
