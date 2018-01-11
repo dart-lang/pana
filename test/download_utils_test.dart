@@ -20,7 +20,7 @@ void main() {
           '$prefix/dart-lang/angular/blob/master/README.md');
     });
 
-    test('project directory', () {
+    test('project subdir', () {
       expect(
           getRepositoryUrl(
               '$prefix/dart-lang/angular/tree/master/angular', 'README.md'),
@@ -29,6 +29,24 @@ void main() {
           getRepositoryUrl(
               '$prefix/dart-lang/angular/tree/master/angular/', 'README.md'),
           '$prefix/dart-lang/angular/blob/master/angular/README.md');
+    });
+
+    test('image links in root', () {
+      expect(getRepositoryUrl('$prefix/dart-lang/angular', 'logo.png'),
+          '$prefix/dart-lang/angular/raw/master/logo.png');
+      expect(getRepositoryUrl('$prefix/dart-lang/angular/', 'logo.png'),
+          '$prefix/dart-lang/angular/raw/master/logo.png');
+    });
+
+    test('image links in project subdir', () {
+      expect(
+          getRepositoryUrl(
+              '$prefix/dart-lang/angular/tree/master/angular', 'logo.png'),
+          '$prefix/dart-lang/angular/raw/master/angular/logo.png');
+      expect(
+          getRepositoryUrl(
+              '$prefix/dart-lang/angular/tree/master/angular/', 'logo.png'),
+          '$prefix/dart-lang/angular/raw/master/angular/logo.png');
     });
   }
 

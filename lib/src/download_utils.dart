@@ -11,6 +11,8 @@ import 'package:path/path.dart' as p;
 import 'logging.dart';
 import 'utils.dart';
 
+final imageExtensions = new Set.from(['.gif', '.jpg', '.jpeg', '.png']);
+
 /// Returns a non-null Directory instance only if it is able to download and
 /// extract the direct package dependency. On any failure it clears the temp
 /// directory, otherwise it is the caller's responsibility to delete it.
@@ -56,12 +58,16 @@ String getRepositoryUrl(String repository, String relativePath) {
 
     if (repository.startsWith('https://github.com/') ||
         repository.startsWith('https://gitlab.com/')) {
+      final extension = p.extension(relativePath).toLowerCase();
+      final isRaw = imageExtensions.contains(extension);
+      final typeSegment = isRaw ? 'raw' : 'blob';
+
       if (segments.length < 2) {
         return null;
       } else if (segments.length == 2) {
-        return p.join(repository, 'blob/master', relativePath);
+        return p.join(repository, typeSegment, 'master', relativePath);
       } else if (segments[2] == 'tree' || segments[2] == 'blob') {
-        segments[2] = 'blob';
+        segments[2] = typeSegment;
         final newUrl = uri.replace(pathSegments: segments).toString();
         return p.join(newUrl, relativePath);
       } else {
