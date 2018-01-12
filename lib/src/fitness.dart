@@ -10,10 +10,8 @@ import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
-import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'summary.dart';
 
@@ -98,8 +96,8 @@ Future<Fitness> calcFitness(
   return new Fitness(magnitude, min(shortcoming, magnitude));
 }
 
-Fitness calcPkgFitness(PkgResolution pkgResolution, DartPlatform pkgPlatform,
-    Iterable<DartFileSummary> files) {
+Fitness calcPkgFitness(
+    DartPlatform pkgPlatform, Iterable<DartFileSummary> files) {
   var magnitude = 0.0;
   var shortcoming = 0.0;
   for (var dfs in files) {
@@ -115,18 +113,6 @@ Fitness calcPkgFitness(PkgResolution pkgResolution, DartPlatform pkgPlatform,
     final platformError = max(20.0, magnitude * 0.20); // 20 %
     shortcoming += platformError;
   }
-
-  // unconstrained dependencies are penalized in the percent of the total
-  final unconstrainedErrorPoints = max(5.0, magnitude * 0.05); // 5%
-  final unconstrainedCount = (pkgResolution?.dependencies ?? const [])
-      .where((pd) => pd.isDirect)
-      .where((pd) =>
-          pd.constraint == null ||
-          pd.constraint.isAny ||
-          (pd.constraint is VersionRange &&
-              (pd.constraint as VersionRange).max == null))
-      .length;
-  shortcoming += unconstrainedCount * unconstrainedErrorPoints;
 
   return new Fitness(magnitude, min(shortcoming, magnitude));
 }

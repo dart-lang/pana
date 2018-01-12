@@ -86,6 +86,17 @@ class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
 
     return data;
   }
+
+  List<PkgDependency> getUnconstrainedDeps({bool onlyDirect: false}) {
+    return dependencies
+        .where((pd) => !onlyDirect || pd.isDirect)
+        .where((pd) =>
+            pd.constraint == null ||
+            pd.constraint.isAny ||
+            (pd.constraint is VersionRange &&
+                (pd.constraint as VersionRange).max == null))
+        .toList();
+  }
 }
 
 void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {

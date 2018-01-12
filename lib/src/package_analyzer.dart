@@ -335,9 +335,10 @@ class PackageAnalyzer {
 
     var licenses = await detectLicensesInDir(pkgDir);
     licenses = await updateLicenseUrls(pubspec.homepage, licenses);
-    final pkgFitness = calcPkgFitness(pkgResolution, platform, files.values);
+    final pkgFitness = calcPkgFitness(platform, files.values);
 
-    final maintenance = await detectMaintenance(pkgDir, pubspec, suggestions);
+    final maintenance = await detectMaintenance(pkgDir, pubspec, suggestions,
+        pkgResolution?.getUnconstrainedDeps(onlyDirect: true));
     suggestions.sort();
 
     return new Summary(

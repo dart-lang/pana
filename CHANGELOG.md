@@ -2,6 +2,8 @@
 
 * Use raw links for images in repository URLs.
 
+* Move unconstrained version penalty from health score to maintenance.
+
 ## 0.9.0+1
 
 * Fix NPE when dependency has no constraint (e.g. git repo).
