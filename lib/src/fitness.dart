@@ -96,8 +96,7 @@ Future<Fitness> calcFitness(
   return new Fitness(magnitude, min(shortcoming, magnitude));
 }
 
-Fitness calcPkgFitness(
-    DartPlatform pkgPlatform, Iterable<DartFileSummary> files) {
+Fitness calcPkgFitness(Iterable<DartFileSummary> files) {
   var magnitude = 0.0;
   var shortcoming = 0.0;
   for (var dfs in files) {
@@ -107,12 +106,6 @@ Fitness calcPkgFitness(
     }
   }
   magnitude = max(1.0, magnitude);
-
-  // platform conflict means it is unlikely it can run in any environment
-  if (pkgPlatform.hasConflict) {
-    final platformError = max(20.0, magnitude * 0.20); // 20 %
-    shortcoming += platformError;
-  }
 
   return new Fitness(magnitude, min(shortcoming, magnitude));
 }
