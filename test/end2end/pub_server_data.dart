@@ -315,18 +315,18 @@ final _data = {
     'suggestions': [
       {
         'level': 'hint',
+        'title': 'Package is pre-v1 release.',
+        'description':
+            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
+        'penalty': {'amount': 10, 'fraction': 0}
+      },
+      {
+        'level': 'hint',
         'title': 'Maintain an example.',
         'description':
             'None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `pub_server.dart`.',
         'penalty': {'amount': 1, 'fraction': 0}
       },
-      {
-        'level': 'hint',
-        'title': 'Package is pre-v1 release.',
-        'description':
-            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
-        'penalty': {'amount': 10, 'fraction': 0}
-      }
     ],
   },
   'fitness': {'magnitude': 455.0, 'shortcoming': 1.0},

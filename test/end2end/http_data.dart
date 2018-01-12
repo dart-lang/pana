@@ -697,6 +697,20 @@ final _data = {
     'suggestions': [
       {
         'level': 'hint',
+        'title': 'The description is too short.',
+        'description':
+            'Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.',
+        'penalty': {'amount': 20, 'fraction': 0}
+      },
+      {
+        'level': 'hint',
+        'title': 'Package is pre-v1 release.',
+        'description':
+            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
+        'penalty': {'amount': 10, 'fraction': 0}
+      },
+      {
+        'level': 'hint',
         'title': 'Maintain an example.',
         'description':
             'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `http.dart`.',
@@ -708,20 +722,6 @@ final _data = {
         'description':
             'Rename old `.analysis_options` file to `analysis_options.yaml`.'
       },
-      {
-        'level': 'hint',
-        'title': 'Package is pre-v1 release.',
-        'description':
-            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
-        'penalty': {'amount': 10, 'fraction': 0}
-      },
-      {
-        'level': 'hint',
-        'title': 'The description is too short.',
-        'description':
-            'Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.',
-        'penalty': {'amount': 20, 'fraction': 0}
-      }
     ],
   },
   'fitness': {'magnitude': 1273.0, 'shortcoming': 17.0},

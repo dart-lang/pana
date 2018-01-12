@@ -344,6 +344,7 @@ Future<Maintenance> detectMaintenance(
         penalty: new Penalty(fraction: 500)));
   }
 
+  maintenanceSuggestions.sort();
   return new Maintenance(
     missingChangelog: !changelogExists,
     missingReadme: !readmeExists,
