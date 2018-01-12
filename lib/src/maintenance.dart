@@ -216,9 +216,6 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
-  // it is a bit crappy to update the list of suggestions here
-  // TODO: make these in separate steps
-
   if (hasPlatformConflict) {
     maintenanceSuggestions.add(new Suggestion.error('Fix platform conflicts.',
         'Make sure none of the libraries use mutually exclusive dependendencies.',
