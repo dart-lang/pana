@@ -13,6 +13,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
+import 'pkg_resolution.dart';
 import 'pubspec.dart';
 import 'summary.dart' show applyPenalties, Penalty, Suggestion;
 import 'utils.dart';
@@ -156,8 +157,8 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   }
 }
 
-Future<Maintenance> detectMaintenance(
-    String pkgDir, Pubspec pubspec, List<Suggestion> suggestions) async {
+Future<Maintenance> detectMaintenance(String pkgDir, Pubspec pubspec,
+    List<Suggestion> suggestions, List<PkgDependency> unconstrainedDeps) async {
   final pkgName = pubspec.name;
   final maintenanceSuggestions = <Suggestion>[];
   final files = await listFiles(pkgDir).toList();
@@ -316,6 +317,20 @@ Future<Maintenance> detectMaintenance(
         '`dartanalyzer` reported $hintCount hint(s).',
         // 0.001 for each hint
         penalty: new Penalty(amount: hintCount * 10)));
+  }
+
+  if (unconstrainedDeps != null && unconstrainedDeps.isNotEmpty) {
+    final count = unconstrainedDeps.length;
+    final pluralized = count == 1 ? '1 dependency' : '$count dependencies';
+    final names = unconstrainedDeps
+        .map((pd) => pd.package)
+        .map((name) => '`$name`')
+        .join(', ');
+    maintenanceSuggestions.add(new Suggestion.warning(
+        'Use constrained dependencies.',
+        'The `pubspec.yaml` contains $pluralized without version constraints. '
+        'Specify version ranges for the following dependencies: $names.',
+        penalty: new Penalty(fraction: 500)));
   }
 
   return new Maintenance(

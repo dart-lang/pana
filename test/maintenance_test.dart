@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:pana/src/maintenance.dart';
+import 'package:pana/src/pkg_resolution.dart';
 import 'package:pana/src/pubspec.dart';
 import 'package:pana/src/summary.dart';
 import 'package:test/test.dart';
@@ -76,7 +77,14 @@ final _withIssuesJson = {
       "title": "Fix hints reported by `dartanalyzer`.",
       "description": "`dartanalyzer` reported 1 hint(s).",
       "penalty": {"amount": 10, "fraction": 0}
-    }
+    },
+    {
+      'level': 'warning',
+      'title': 'Use constrained dependencies.',
+      'description':
+          'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
+      'penalty': {'amount': 0, 'fraction': 500}
+    },
   ]
 };
 
@@ -104,9 +112,11 @@ void main() {
         new Suggestion.hint('hint', 'hint'),
       ];
       final maintenance = await detectMaintenance(
-          d.sandbox,
-          new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
-          suggestions);
+        d.sandbox,
+        new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
+        suggestions,
+        [new PkgDependency('foo', 'direct', 'empty', null, null, null, null)],
+      );
 
       expect(JSON.decode(JSON.encode(maintenance.toJson())), _withIssuesJson);
     });
@@ -114,7 +124,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(_withIssues.getMaintenanceScore(), closeTo(0.662, 0.001));
+      expect(_withIssues.getMaintenanceScore(), closeTo(0.629, 0.001));
     });
 
     test('perfect', () {
