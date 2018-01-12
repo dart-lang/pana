@@ -25,6 +25,13 @@ final _withIssuesJson = {
   "hintCount": 1,
   "suggestions": [
     {
+      'level': 'error',
+      'title': 'Fix platform conflicts.',
+      'description':
+          'Make sure none of the libraries use mutually exclusive dependendencies.',
+      'penalty': {'amount': 0, 'fraction': 2000}
+    },
+    {
       "level": "warning",
       "title": "Maintain `CHANGELOG.md`.",
       "description":
@@ -116,6 +123,7 @@ void main() {
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
         suggestions,
         [new PkgDependency('foo', 'direct', 'empty', null, null, null, null)],
+        hasPlatformConflict: true,
       );
 
       expect(JSON.decode(JSON.encode(maintenance.toJson())), _withIssuesJson);
@@ -124,7 +132,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(_withIssues.getMaintenanceScore(), closeTo(0.629, 0.001));
+      expect(_withIssues.getMaintenanceScore(), closeTo(0.503, 0.001));
     });
 
     test('perfect', () {

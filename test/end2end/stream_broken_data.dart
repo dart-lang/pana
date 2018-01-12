@@ -50,6 +50,13 @@ final _data = {
     "hintCount": 0,
     'suggestions': [
       {
+        'level': 'error',
+        'title': 'Fix platform conflicts.',
+        'description':
+            'Make sure none of the libraries use mutually exclusive dependendencies.',
+        'penalty': {'amount': 0, 'fraction': 2000}
+      },
+      {
         'level': 'warning',
         'title': 'Maintain `CHANGELOG.md`.',
         'description':
@@ -78,7 +85,7 @@ final _data = {
       }
     ],
   },
-  "fitness": {"magnitude": 2324.0, "shortcoming": 480.8},
+  "fitness": {"magnitude": 2324.0, "shortcoming": 16.0},
   "suggestions": [
     {
       "level": "error",

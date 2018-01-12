@@ -157,8 +157,13 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   }
 }
 
-Future<Maintenance> detectMaintenance(String pkgDir, Pubspec pubspec,
-    List<Suggestion> suggestions, List<PkgDependency> unconstrainedDeps) async {
+Future<Maintenance> detectMaintenance(
+  String pkgDir,
+  Pubspec pubspec,
+  List<Suggestion> suggestions,
+  List<PkgDependency> unconstrainedDeps, {
+  @required bool hasPlatformConflict,
+}) async {
   final pkgName = pubspec.name;
   final maintenanceSuggestions = <Suggestion>[];
   final files = await listFiles(pkgDir).toList();
@@ -213,6 +218,12 @@ Future<Maintenance> detectMaintenance(String pkgDir, Pubspec pubspec,
 
   // it is a bit crappy to update the list of suggestions here
   // TODO: make these in separate steps
+
+  if (hasPlatformConflict) {
+    maintenanceSuggestions.add(new Suggestion.error('Fix platform conflicts.',
+        'Make sure none of the libraries use mutually exclusive dependendencies.',
+        penalty: new Penalty(fraction: 2000)));
+  }
 
   if (!changelogExists) {
     maintenanceSuggestions.add(new Suggestion.warning(
