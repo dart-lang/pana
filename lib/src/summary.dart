@@ -207,6 +207,11 @@ class Suggestion extends Object
     if (other.isError && !isError) return 1;
     if (isWarning && !other.isError && !other.isWarning) return -1;
     if (other.isWarning && !isError && !isWarning) return 1;
+    if (penalty != null && other.penalty == null) return -1;
+    if (penalty == null && other.penalty != null) return 1;
+    if (penalty != null && other.penalty != null) {
+      return -penalty.compareTo(other.penalty);
+    }
     return 0;
   }
 
@@ -225,7 +230,9 @@ abstract class SuggestionLevel {
 ///
 /// When multiple operations are present, the larger penalty is applied.
 @JsonSerializable()
-class Penalty extends Object with _$PenaltySerializerMixin {
+class Penalty extends Object
+    with _$PenaltySerializerMixin
+    implements Comparable<Penalty> {
   /// The value to subtract from the original score.
   /// E.g. if [amount] is 123, this is `x = x - 0.0123;`
   @JsonKey(includeIfNull: false)
@@ -253,6 +260,16 @@ class Penalty extends Object with _$PenaltySerializerMixin {
     final d2 = score * fraction / 10000;
     final s = score - math.max(d1, d2);
     return math.max(0.0, s);
+  }
+
+  @override
+  int compareTo(Penalty other) {
+    final fractionDir = fraction.compareTo(other.fraction);
+    if (fractionDir == 0) {
+      return amount.compareTo(other.amount);
+    } else {
+      return fractionDir;
+    }
   }
 }
 

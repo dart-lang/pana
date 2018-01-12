@@ -32,39 +32,24 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 2000}
     },
     {
-      "level": "warning",
-      "title": "Maintain `CHANGELOG.md`.",
-      "description":
-          "Changelog entries help clients to follow the progress in your code.",
-      "penalty": {"amount": 0, "fraction": 2000}
-    },
-    {
-      "level": "warning",
-      "title": "Maintain `README.md`.",
-      "description":
-          "Readme should inform others about your project, what it does, and how they can use it.",
-      "penalty": {"amount": 0, "fraction": 500}
-    },
-    {
-      'level': 'hint',
-      'title': 'Maintain an example.',
+      'level': 'warning',
+      'title': 'Maintain `CHANGELOG.md`.',
       'description':
-          'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `sandbox.dart`.',
-      'penalty': {'amount': 5, 'fraction': 0}
+          'Changelog entries help clients to follow the progress in your code.',
+      'penalty': {'amount': 0, 'fraction': 2000}
     },
     {
-      "level": "hint",
-      "title": "Package is pre-v1 release.",
-      "description":
-          "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.",
-      "penalty": {"amount": 10, "fraction": 0}
+      'level': 'warning',
+      'title': 'Fix issues reported by `dartanalyzer`.',
+      'description': '`dartanalyzer` reported 1 error(s) and 1 warning(s).',
+      'penalty': {'amount': 0, 'fraction': 600}
     },
     {
-      "level": "hint",
-      "title": "Package is pre-release.",
-      "description":
-          "Pre-release versions should be used with caution, their API may change in breaking ways.",
-      "penalty": {"amount": 0, "fraction": 200}
+      'level': 'warning',
+      'title': 'Maintain `README.md`.',
+      'description':
+          'Readme should inform others about your project, what it does, and how they can use it.',
+      'penalty': {'amount': 0, 'fraction': 500}
     },
     {
       'level': 'warning',
@@ -74,23 +59,38 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 500}
     },
     {
-      "level": "warning",
-      "title": "Fix issues reported by `dartanalyzer`.",
-      "description": "`dartanalyzer` reported 1 error(s) and 1 warning(s).",
-      "penalty": {"amount": 0, "fraction": 600}
-    },
-    {
-      "level": "warning",
-      "title": "Fix hints reported by `dartanalyzer`.",
-      "description": "`dartanalyzer` reported 1 hint(s).",
-      "penalty": {"amount": 10, "fraction": 0}
-    },
-    {
       'level': 'warning',
       'title': 'Use constrained dependencies.',
       'description':
           'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
       'penalty': {'amount': 0, 'fraction': 500}
+    },
+    {
+      'level': 'warning',
+      'title': 'Fix hints reported by `dartanalyzer`.',
+      'description': '`dartanalyzer` reported 1 hint(s).',
+      'penalty': {'amount': 10, 'fraction': 0}
+    },
+    {
+      'level': 'hint',
+      'title': 'Package is pre-release.',
+      'description':
+          'Pre-release versions should be used with caution, their API may change in breaking ways.',
+      'penalty': {'amount': 0, 'fraction': 200}
+    },
+    {
+      'level': 'hint',
+      'title': 'Package is pre-v1 release.',
+      'description':
+          'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
+      'penalty': {'amount': 10, 'fraction': 0}
+    },
+    {
+      'level': 'hint',
+      'title': 'Maintain an example.',
+      'description':
+          'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `sandbox.dart`.',
+      'penalty': {'amount': 5, 'fraction': 0}
     },
   ]
 };

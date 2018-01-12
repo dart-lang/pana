@@ -64,11 +64,10 @@ final _data = {
         'penalty': {'amount': 0, 'fraction': 2000}
       },
       {
-        'level': 'hint',
-        'title': 'Maintain an example.',
-        'description':
-            'None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`.',
-        'penalty': {'amount': 1, 'fraction': 0}
+        'level': 'warning',
+        'title': 'Fix issues reported by `dartanalyzer`.',
+        'description': '`dartanalyzer` reported 2 error(s) and 0 warning(s).',
+        'penalty': {'amount': 0, 'fraction': 1000}
       },
       {
         'level': 'hint',
@@ -78,11 +77,12 @@ final _data = {
         'penalty': {'amount': 10, 'fraction': 0}
       },
       {
-        'level': 'warning',
-        'title': 'Fix issues reported by `dartanalyzer`.',
-        'description': '`dartanalyzer` reported 2 error(s) and 0 warning(s).',
-        'penalty': {'amount': 0, 'fraction': 1000}
-      }
+        'level': 'hint',
+        'title': 'Maintain an example.',
+        'description':
+            'None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`.',
+        'penalty': {'amount': 1, 'fraction': 0}
+      },
     ],
   },
   "fitness": {"magnitude": 2324.0, "shortcoming": 16.0},

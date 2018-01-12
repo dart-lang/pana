@@ -6,6 +6,8 @@
 
 * Move platform conflict penalty from health score to maintenance.
 
+* Sort maintenance suggestions in decreasing importance.
+
 ## 0.9.0+1
 
 * Fix NPE when dependency has no constraint (e.g. git repo).
