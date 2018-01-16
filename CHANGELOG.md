@@ -1,4 +1,4 @@
-## 0.9.1-dev
+## 0.9.1
 
 * Use raw links for images in repository URLs.
 
