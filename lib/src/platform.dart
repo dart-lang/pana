@@ -7,9 +7,6 @@ import 'pubspec.dart';
 part 'platform.g.dart';
 
 abstract class PlatformNames {
-  /// Package works everywhere.
-  static const String everywhere = 'everywhere';
-
   /// Package uses or depends on Flutter.
   static const String flutter = 'flutter';
 
@@ -18,9 +15,6 @@ abstract class PlatformNames {
 
   /// Package is available in web applications.
   static const String web = 'web';
-
-  /// Package's platform is unspecified.
-  static const String undefined = 'undefined';
 
   /// Package uses or depends on a native extensions via `dart-ext:`
   static const String dartExtension = 'dart-ext';
@@ -51,19 +45,8 @@ class DartPlatform extends Object with _$DartPlatformSerializerMixin {
   factory DartPlatform.fromJson(Map<String, dynamic> json) =>
       _$DartPlatformFromJson(json);
 
-  String get description {
-    if (worksEverywhere) return PlatformNames.everywhere;
-    if (hasConflict || restrictedTo == null || restrictedTo.isEmpty) {
-      return PlatformNames.undefined;
-    }
-    if (restrictedTo.length == 1) return restrictedTo.single;
-    return restrictedTo.join(',');
-  }
-
-  String get descriptionAndReason => '$description: $reason';
-
   bool get worksAnywhere =>
-      worksEverywhere || worksOnFlutter || worksOnServer || worksOnWeb;
+      worksEverywhere || (restrictedTo != null && restrictedTo.isNotEmpty);
   bool get hasConflict => !worksAnywhere;
 
   bool get worksOnFlutter => _worksOn(PlatformNames.flutter);
