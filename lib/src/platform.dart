@@ -17,6 +17,183 @@ abstract class PlatformNames {
   static const String web = 'web';
 }
 
+abstract class ComponentNames {
+  /// Flutter and related libraries
+  static const String flutter = 'flutter';
+
+  /// dart:html and related libraries
+  static const String html = 'html';
+
+  /// dart:js and related libraries
+  static const String js = 'js';
+
+  /// dart:io and related libraries
+  static const String io = 'io';
+
+  /// dart:nativewrappers and related libraries
+  static const String nativewrappers = 'nativewrappers';
+
+  /// dart:mirrors and related libraries
+  static const String mirrors = 'mirrors';
+}
+
+class ComponentDef {
+  final String name;
+
+  /// The packages that this component uses.
+  final List<String> dependencies;
+
+  const ComponentDef(this.name, this.dependencies);
+
+  /// Flutter and related libraries
+  static const ComponentDef flutter = const ComponentDef(
+    ComponentNames.flutter,
+    const <String>[
+      'dart:ui',
+      'package:flutter',
+    ],
+  );
+
+  /// dart:html and related libraries
+  static const ComponentDef html = const ComponentDef(
+    ComponentNames.html,
+    const <String>[
+      'dart:html',
+      'dart:indexed_db',
+      'dart:svg',
+      'dart:web_audio',
+      'dart:web_gl',
+      'dart:web_sql',
+    ],
+  );
+
+  /// dart:js and related libraries
+  static const ComponentDef js = const ComponentDef(
+    ComponentNames.js,
+    const <String>[
+      'dart:js',
+      'dart:js_util',
+    ],
+  );
+
+  /// dart:io and related libraries
+  static const ComponentDef io = const ComponentDef(
+    ComponentNames.io,
+    const <String>[
+      'dart:io',
+    ],
+  );
+
+  /// dart:nativewrappers and related libraries
+  static const ComponentDef nativewrappers = const ComponentDef(
+    ComponentNames.nativewrappers,
+    const <String>[
+      'dart:nativewrappers',
+      'dart-ext:',
+    ],
+  );
+
+  /// dart:mirrors and related libraries
+  static const ComponentDef mirrors = const ComponentDef(
+    ComponentNames.mirrors,
+    const <String>[
+      'dart:mirrors',
+    ],
+  );
+
+  static const List<ComponentDef> values = const <ComponentDef>[
+    ComponentDef.flutter,
+    ComponentDef.html,
+    ComponentDef.js,
+    ComponentDef.io,
+    ComponentDef.nativewrappers,
+    ComponentDef.mirrors,
+  ];
+
+  static List<ComponentDef> detectComponents(Iterable<String> dependencies) {
+    final deps = _normalizeDependencies(dependencies);
+    return values.where((c) => c.dependencies.any(deps.contains)).toList();
+  }
+}
+
+class PlatformDef {
+  final String name;
+  final List<ComponentDef> required;
+  final List<ComponentDef> forbidden;
+
+  const PlatformDef(this.name, this.required, this.forbidden);
+
+  /// Package uses or depends on Flutter.
+  static const PlatformDef flutter = const PlatformDef(
+    PlatformNames.flutter,
+    const <ComponentDef>[
+      ComponentDef.flutter,
+    ],
+    const <ComponentDef>[
+      ComponentDef.html,
+      ComponentDef.js,
+      ComponentDef.mirrors,
+      ComponentDef.nativewrappers,
+    ],
+  );
+
+  /// Package is available in server applications.
+  static const PlatformDef server = const PlatformDef(
+    PlatformNames.server,
+    const <ComponentDef>[
+      ComponentDef.io,
+      ComponentDef.nativewrappers,
+    ],
+    const <ComponentDef>[
+      ComponentDef.flutter,
+      ComponentDef.html,
+      ComponentDef.js,
+    ],
+  );
+
+  /// Package is available in web applications.
+  static const PlatformDef web = const PlatformDef(
+    PlatformNames.web,
+    const <ComponentDef>[
+      ComponentDef.html,
+      ComponentDef.js,
+    ],
+    const <ComponentDef>[
+      ComponentDef.flutter,
+      ComponentDef.nativewrappers,
+    ],
+  );
+
+  static const List<PlatformDef> values = const <PlatformDef>[
+    PlatformDef.flutter,
+    PlatformDef.server,
+    PlatformDef.web,
+  ];
+
+  static List<PlatformStatus> detectPlatforms(List<ComponentDef> components) =>
+      values.map((p) => p.detectStatus(components)).toList();
+
+  PlatformStatus detectStatus(List<ComponentDef> components) {
+    final isAllowed =
+        components.isEmpty || components.every((c) => !forbidden.contains(c));
+    final isUsed = components.any((c) => required.contains(c));
+    return new PlatformStatus(name, isAllowed, isUsed);
+  }
+}
+
+@JsonSerializable()
+class PlatformStatus extends Object with _$PlatformStatusSerializerMixin {
+  final String name;
+  final bool isAllowed;
+  final bool isUsed;
+
+  PlatformStatus(this.name, this.isAllowed, this.isUsed);
+  factory PlatformStatus.fromJson(Map<String, dynamic> json) =>
+      _$PlatformStatusFromJson(json);
+
+  bool get hasConflict => !isAllowed && isUsed;
+}
+
 @JsonSerializable()
 class DartPlatform extends Object with _$DartPlatformSerializerMixin {
   final bool worksEverywhere;
