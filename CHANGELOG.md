@@ -11,6 +11,8 @@
 
 * Removed `PlatformNames.dartExtension`, because we use it only internally.
 
+* Removed `DartPlatform.restrictedTo`, using the fields `components` and `uses` instead.
+
 ## 0.9.1
 
 * Use raw links for images in repository URLs.

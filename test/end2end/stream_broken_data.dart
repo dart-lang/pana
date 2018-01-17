@@ -29,10 +29,7 @@ final _data = {
     "homepage": "http://rikulo.org/projects/stream",
     "documentation": "http://docs.rikulo.org/stream"
   },
-  "platform": {
-    "worksEverywhere": false,
-    "reason": "Error(s) prevent platform classification."
-  },
+  "platform": {"reason": "Error(s) prevent platform classification."},
   "licenses": [
     {"path": "LICENSE", "name": "Apache", "version": "2.0"}
   ],
