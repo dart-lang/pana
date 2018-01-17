@@ -10,32 +10,25 @@ part of pana.platform;
 // Generator: JsonSerializableGenerator
 // **************************************************************************
 
-PlatformStatus _$PlatformStatusFromJson(Map<String, dynamic> json) =>
-    new PlatformStatus(json['name'] as String, json['isAllowed'] as bool,
-        json['isUsed'] as bool);
-
-abstract class _$PlatformStatusSerializerMixin {
-  String get name;
-  bool get isAllowed;
-  bool get isUsed;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'name': name, 'isAllowed': isAllowed, 'isUsed': isUsed};
-}
-
 DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) =>
     new DartPlatform(
-        json['worksEverywhere'] as bool,
-        (json['restrictedTo'] as List)?.map((e) => e as String)?.toList(),
-        json['reason'] as String);
+        (json['components'] as List)?.map((e) => e as String)?.toList(),
+        json['uses'] == null
+            ? null
+            : new Map<String, PlatformUse>.fromIterables(
+                (json['uses'] as Map<String, dynamic>).keys,
+                (json['uses'] as Map).values.map((e) => e == null
+                    ? null
+                    : PlatformUse.values.singleWhere(
+                        (x) => x.toString() == "PlatformUse.${e}"))),
+        reason: json['reason'] as String);
 
 abstract class _$DartPlatformSerializerMixin {
-  bool get worksEverywhere;
-  List<String> get restrictedTo;
+  List<String> get components;
+  Map<String, PlatformUse> get uses;
   String get reason;
   Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'worksEverywhere': worksEverywhere,
-    };
+    var val = <String, dynamic>{};
 
     void writeNotNull(String key, dynamic value) {
       if (value != null) {
@@ -43,7 +36,15 @@ abstract class _$DartPlatformSerializerMixin {
       }
     }
 
-    writeNotNull('restrictedTo', restrictedTo);
+    writeNotNull('components', components);
+    writeNotNull(
+        'uses',
+        uses == null
+            ? null
+            : new Map<String, dynamic>.fromIterables(
+                uses.keys,
+                uses.values.map(
+                    (e) => e == null ? null : e.toString().split('.')[1])));
     writeNotNull('reason', reason);
     return val;
   }
