@@ -13,7 +13,6 @@ void main() {
       expect(p.worksOnWeb, isTrue);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isTrue);
-      expect(p.description, 'everywhere');
     });
 
     test('unknown library', () {
@@ -24,7 +23,6 @@ void main() {
       expect(p.worksOnWeb, isTrue);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isTrue);
-      expect(p.description, 'everywhere');
     });
 
     test('dart:io', () {
@@ -35,7 +33,6 @@ void main() {
       expect(p.worksOnWeb, isFalse);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isTrue);
-      expect(p.description, 'flutter,server');
     });
 
     test('dart:html', () {
@@ -46,7 +43,6 @@ void main() {
       expect(p.worksOnWeb, isTrue);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
-      expect(p.description, 'web');
 
       p = classifyLibPlatform(['dart:svg']);
       expect(p.worksEverywhere, isFalse);
@@ -55,7 +51,6 @@ void main() {
       expect(p.worksOnWeb, isTrue);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
-      expect(p.description, 'web');
     });
 
     test('dart:ui', () {
@@ -66,7 +61,6 @@ void main() {
       expect(p.worksOnWeb, isFalse);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isTrue);
-      expect(p.description, 'flutter');
     });
 
     test('dart:mirrors', () {
@@ -77,7 +71,6 @@ void main() {
       expect(p.worksOnWeb, isTrue);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isFalse);
-      expect(p.description, 'server,web');
     });
 
     test('http package: both html and io', () {
@@ -88,7 +81,6 @@ void main() {
       expect(p.worksOnWeb, isTrue);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
-      expect(p.description, 'web');
     });
 
     test('detect native', () {
@@ -99,7 +91,6 @@ void main() {
       expect(p.worksOnWeb, isFalse);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isFalse);
-      expect(p.description, 'server');
     });
   });
 
@@ -112,7 +103,6 @@ void main() {
       expect(p.worksOnWeb, isFalse);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
-      expect(p.description, 'undefined');
     });
 
     test('dart:mirrors + dart:ui', () {
@@ -123,7 +113,6 @@ void main() {
       expect(p.worksOnWeb, isFalse);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
-      expect(p.description, 'undefined');
     });
 
     test('native + dart:ui', () {
@@ -134,7 +123,6 @@ void main() {
       expect(p.worksOnWeb, isFalse);
       expect(p.worksOnServer, isFalse);
       expect(p.worksOnFlutter, isFalse);
-      expect(p.description, 'undefined');
     });
   });
 
@@ -146,32 +134,31 @@ void main() {
       });
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter', 'server', 'web']);
-      expect(sum.descriptionAndReason,
-          'flutter,server,web: Multiple platform identified in libraries.');
+      expect(sum.reason, 'Multiple platform identified in libraries.');
     });
 
     test('detects flutter in pubspec', () {
       var sum = classifyPkgPlatform(flutterPluginPubspec, {});
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
-      expect(sum.descriptionAndReason,
-          'flutter: References Flutter, and has no conflicting libraries.');
+      expect(
+          sum.reason, 'References Flutter, and has no conflicting libraries.');
     });
 
     test('detects flutter package in dependencies', () {
       var sum = classifyPkgPlatform(flutterDependencyPubspec, {});
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
-      expect(sum.descriptionAndReason,
-          'flutter: References Flutter, and has no conflicting libraries.');
+      expect(
+          sum.reason, 'References Flutter, and has no conflicting libraries.');
     });
 
     test('detects flutter sdk in dependencies', () {
       var sum = classifyPkgPlatform(flutterSdkPubspec, {});
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, ['flutter']);
-      expect(sum.descriptionAndReason,
-          'flutter: References Flutter, and has no conflicting libraries.');
+      expect(
+          sum.reason, 'References Flutter, and has no conflicting libraries.');
     });
   });
 
@@ -182,8 +169,8 @@ void main() {
       });
       expect(sum.worksEverywhere, isFalse);
       expect(sum.restrictedTo, isNull);
-      expect(sum.descriptionAndReason,
-          'undefined: References Flutter, but has conflicting libraries: `package:_example/lib.dart`.');
+      expect(sum.reason,
+          'References Flutter, but has conflicting libraries: `package:_example/lib.dart`.');
     });
   });
 }

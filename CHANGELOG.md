@@ -1,3 +1,14 @@
+## 0.10.0-dev
+
+**BREAKING CHANGES**:
+
+* Removed `DartPlatform.description` and `DartPlatform.descriptionAndReason`
+  because we don't use them elsewhere and complicates the `PlatformNames`
+  with `everywhere` and `undefined`.
+    
+* Removed `PlatformNames.everywhere` and `PlatformNames.undefined`, because
+  we don't print these anywhere except in tests.
+
 ## 0.9.1
 
 * Use raw links for images in repository URLs.
