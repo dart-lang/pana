@@ -154,13 +154,18 @@ final _data = {
         'package:meta/meta.dart',
         'package:quiver_iterables/iterables.dart'
       ],
-      'platform': {'worksEverywhere': true},
+      'platform': {
+        'components': [],
+        'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+      },
       'fitness': {'magnitude': 185.0, 'shortcoming': 185.0}
     }
   },
   'platform': {
-    'worksEverywhere': true,
-    'reason': 'No platform restriction found in libraries.',
+    'components': [],
+    'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+    'reason':
+        'No platform restriction found in primary library `package:skiplist/skiplist.dart`.',
   },
   'licenses': [
     {
