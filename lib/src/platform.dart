@@ -15,9 +15,6 @@ abstract class PlatformNames {
 
   /// Package is available in web applications.
   static const String web = 'web';
-
-  /// Package uses or depends on a native extensions via `dart-ext:`
-  static const String dartExtension = 'dart-ext';
 }
 
 @JsonSerializable()
@@ -61,32 +58,26 @@ class _LibInspector {
   final Set<String> _deps;
   _LibInspector._(this._deps);
 
-  factory _LibInspector(Set<String> dependencies) {
-    var deps = new Set<String>();
-
-    deps.addAll(dependencies.where((l) => _dartLibRegexp.hasMatch(l)));
-    deps.addAll(dependencies.where((l) => _dartPanaLibRegexp.hasMatch(l)));
-
-    if (dependencies.any((String lib) => lib.startsWith('dart-ext:')) ||
-        dependencies.contains('dart:nativewrappers')) {
-      deps.add(PlatformNames.dartExtension);
-    }
-
-    return new _LibInspector._(deps);
-  }
+  factory _LibInspector(Set<String> dependencies) =>
+      new _LibInspector._(_normalizeDependencies(dependencies));
 
   bool get hasConflict =>
       (!worksAnywhere) ||
       (_deps.contains(PlatformNames.flutter) && !worksOnFlutter) ||
-      (_deps.contains(PlatformNames.dartExtension) && !worksOnServer);
+      ((_deps.contains('dart-ext:') || _deps.contains('dart:nativewrappers')) &&
+          !worksOnServer);
 
   bool get worksEverywhere => worksOnWeb && worksOnServer && worksOnFlutter;
 
   bool get worksAnywhere => worksOnWeb || worksOnServer || worksOnFlutter;
 
   bool get worksOnWeb =>
-      _hasNoUseOf(
-          [PlatformNames.flutter, 'dart:ui', PlatformNames.dartExtension]) &&
+      _hasNoUseOf([
+        PlatformNames.flutter,
+        'dart:ui',
+        'dart-ext:',
+        'dart:nativewrappers',
+      ]) &&
       (_webPackages.any(_deps.contains) || _hasNoUseOf(['dart:io']));
 
   bool get worksOnServer =>
@@ -94,7 +85,8 @@ class _LibInspector {
 
   bool get worksOnFlutter => _hasNoUseOf(_webAnd([
         'dart:mirrors',
-        PlatformNames.dartExtension,
+        'dart-ext:',
+        'dart:nativewrappers',
       ]));
 
   bool _hasNoUseOf(Iterable<String> platforms) =>
@@ -217,9 +209,6 @@ DartPlatform classifyLibPlatform(Iterable<String> dependencies) {
   return new DartPlatform.withRestrictions(restrictedTo);
 }
 
-final _dartLibRegexp = new RegExp(r"^dart:[a-z_]+$");
-final _dartPanaLibRegexp = new RegExp(r"^dart-pana:[a-z_]+$");
-
 Iterable<String> _webAnd(Iterable<String> other) =>
     [_webPackages, other].expand((s) => s);
 
@@ -233,3 +222,13 @@ const List<String> _webPackages = const [
   'dart:web_gl',
   'dart:web_sql',
 ];
+
+Set<String> _normalizeDependencies(Iterable<String> dependencies) {
+  var deps = new Set<String>();
+  deps.addAll(dependencies);
+  // maps `package:pkg/lib.dart` -> `package:pkg`
+  deps.addAll(dependencies.map((dep) => dep.split('/').first));
+  // maps prefixes `dart:io` -> `dart:`, `dart-ext:whatever` -> `dart-ext`
+  deps.addAll(dependencies.map((dep) => '${dep.split(':').first}:'));
+  return deps;
+}

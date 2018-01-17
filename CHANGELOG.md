@@ -9,6 +9,8 @@
 * Removed `PlatformNames.everywhere` and `PlatformNames.undefined`, because
   we don't print these anywhere except in tests.
 
+* Removed `PlatformNames.dartExtension`, because we use it only internally.
+
 ## 0.9.1
 
 * Use raw links for images in repository URLs.
