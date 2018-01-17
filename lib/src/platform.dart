@@ -181,9 +181,17 @@ class PlatformDef {
   }
 
   PlatformUse detectUse(List<ComponentDef> components) {
-    final isAllowed =
-        components.isEmpty || components.every((c) => !forbidden.contains(c));
     final isUsed = components.any((c) => required.contains(c));
+    // Default: everything is allowed, except explicitly forbidden components.
+    var isAllowed =
+        components.isEmpty || components.every((c) => !forbidden.contains(c));
+    // Web packages may use dart:io, but only if they use html components too.
+    if (isAllowed &&
+        name == PlatformNames.web &&
+        !isUsed &&
+        components.contains(ComponentDef.io)) {
+      isAllowed = false;
+    }
     return _getPlatformStatus(isAllowed, isUsed);
   }
 }

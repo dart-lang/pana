@@ -31,12 +31,12 @@ void main() {
 
     test('dart:io', () {
       var p = classifyLibPlatform(['dart:io']);
-      expect(p.worksEverywhere, isTrue);
+      expect(p.worksEverywhere, isFalse);
       expect(p.components, ['io']);
-      expect(
-          p.longPlatformDebug, 'flutter: allowed, server: used, web: allowed');
+      expect(p.longPlatformDebug,
+          'flutter: allowed, server: used, web: forbidden');
       expect(p.hasConflict, isFalse);
-      expect(p.worksOnWeb, isTrue);
+      expect(p.worksOnWeb, isFalse);
       expect(p.worksOnServer, isTrue);
       expect(p.worksOnFlutter, isTrue);
     });
