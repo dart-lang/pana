@@ -10,6 +10,18 @@ part of pana.platform;
 // Generator: JsonSerializableGenerator
 // **************************************************************************
 
+PlatformStatus _$PlatformStatusFromJson(Map<String, dynamic> json) =>
+    new PlatformStatus(json['name'] as String, json['isAllowed'] as bool,
+        json['isUsed'] as bool);
+
+abstract class _$PlatformStatusSerializerMixin {
+  String get name;
+  bool get isAllowed;
+  bool get isUsed;
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'name': name, 'isAllowed': isAllowed, 'isUsed': isUsed};
+}
+
 DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) =>
     new DartPlatform(
         json['worksEverywhere'] as bool,
