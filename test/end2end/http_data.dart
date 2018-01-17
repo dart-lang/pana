@@ -666,7 +666,7 @@ final _data = {
       ],
       'platform': {
         'components': ['io'],
-        'uses': {'flutter': 'allowed', 'server': 'used', 'web': 'allowed'},
+        'uses': {'flutter': 'allowed', 'server': 'used', 'web': 'forbidden'},
       },
       'fitness': {'magnitude': 19.0, 'shortcoming': 0.0},
     },
