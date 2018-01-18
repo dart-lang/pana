@@ -10,11 +10,11 @@ abstract class PlatformNames {
   /// Package uses or depends on Flutter.
   static const String flutter = 'flutter';
 
-  /// Package is available in server applications.
-  static const String server = 'server';
-
   /// Package is available in web applications.
   static const String web = 'web';
+
+  /// Package is available in web applications.
+  static const String other = 'other';
 }
 
 abstract class ComponentNames {
@@ -137,20 +137,6 @@ class PlatformDef {
     ],
   );
 
-  /// Package is available in server applications.
-  static const PlatformDef server = const PlatformDef(
-    PlatformNames.server,
-    const <ComponentDef>[
-      ComponentDef.io,
-      ComponentDef.nativewrappers,
-    ],
-    const <ComponentDef>[
-      ComponentDef.flutter,
-      ComponentDef.html,
-      ComponentDef.js,
-    ],
-  );
-
   /// Package is available in web applications.
   static const PlatformDef web = const PlatformDef(
     PlatformNames.web,
@@ -164,10 +150,25 @@ class PlatformDef {
     ],
   );
 
+  /// Fallback platform
+  static const PlatformDef other = const PlatformDef(
+    PlatformNames.other,
+    const <ComponentDef>[
+      ComponentDef.js,
+      ComponentDef.io,
+      ComponentDef.nativewrappers,
+      ComponentDef.mirrors,
+    ],
+    const <ComponentDef>[
+      ComponentDef.flutter,
+      ComponentDef.html,
+    ],
+  );
+
   static const List<PlatformDef> values = const <PlatformDef>[
     PlatformDef.flutter,
-    PlatformDef.server,
     PlatformDef.web,
+    PlatformDef.other,
   ];
 
   static Map<String, PlatformUse> detectUses(List<ComponentDef> components) {
@@ -259,8 +260,8 @@ class DartPlatform extends Object with _$DartPlatformSerializerMixin {
   bool get hasConflict => !worksAnywhere;
 
   bool get worksOnFlutter => _worksOn(PlatformNames.flutter);
-  bool get worksOnServer => _worksOn(PlatformNames.server);
   bool get worksOnWeb => _worksOn(PlatformNames.web);
+  bool get worksOnOther => _worksOn(PlatformNames.other);
 
   bool get usesFlutter => _uses(PlatformNames.flutter);
 

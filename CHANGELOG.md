@@ -13,6 +13,8 @@
 
 * Removed `DartPlatform.restrictedTo`, using the fields `components` and `uses` instead.
 
+* Removed `PlatformNames.server` (and its platform detection), using a wider `other` platform instead.
+
 ## 0.9.1
 
 * Use raw links for images in repository URLs.

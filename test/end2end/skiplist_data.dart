@@ -156,14 +156,14 @@ final _data = {
       ],
       'platform': {
         'components': [],
-        'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+        'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
       },
       'fitness': {'magnitude': 185.0, 'shortcoming': 185.0}
     }
   },
   'platform': {
     'components': [],
-    'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+    'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
     'reason':
         'No platform restriction found in primary library `package:skiplist/skiplist.dart`.',
   },
