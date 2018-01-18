@@ -256,7 +256,7 @@ final _data = {
       ],
       'platform': {
         'components': ['html'],
-        'uses': {'flutter': 'forbidden', 'server': 'forbidden', 'web': 'used'},
+        'uses': {'flutter': 'forbidden', 'web': 'used', 'other': 'forbidden'},
       },
       'fitness': {'magnitude': 83.0, 'shortcoming': 1.0},
     },
@@ -415,7 +415,7 @@ final _data = {
       ],
       'platform': {
         'components': [],
-        'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+        'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
       },
       'fitness': {'magnitude': 139.0, 'shortcoming': 1.0},
     },
@@ -666,14 +666,14 @@ final _data = {
       ],
       'platform': {
         'components': ['io'],
-        'uses': {'flutter': 'allowed', 'server': 'used', 'web': 'forbidden'},
+        'uses': {'flutter': 'allowed', 'web': 'forbidden', 'other': 'used'},
       },
       'fitness': {'magnitude': 19.0, 'shortcoming': 0.0},
     },
   },
   'platform': {
     'components': [],
-    'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+    'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
     'reason':
         'No platform restriction found in primary library `package:http/http.dart`.',
   },

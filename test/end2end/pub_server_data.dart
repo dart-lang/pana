@@ -81,7 +81,7 @@ final _data = {
       ],
       'platform': {
         'components': [],
-        'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+        'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
       },
       'fitness': {'magnitude': 95.0, 'shortcoming': 0.0},
     },
@@ -286,14 +286,14 @@ final _data = {
       ],
       'platform': {
         'components': [],
-        'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+        'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
       },
       'fitness': {'magnitude': 360.0, 'shortcoming': 1.0},
     },
   },
   'platform': {
     'components': [],
-    'uses': {'flutter': 'allowed', 'server': 'allowed', 'web': 'allowed'},
+    'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
     'reason': 'No platform restriction found in libraries.',
   },
   "licenses": [
