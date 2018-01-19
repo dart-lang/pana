@@ -1,3 +1,7 @@
+## 0.10.1-dev
+
+* Include component list in platform classification reasons.
+
 ## 0.10.0
 
 **BREAKING CHANGES**:

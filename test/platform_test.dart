@@ -160,7 +160,8 @@ void main() {
       expect(sum.components, ['html', 'io']);
       expect(sum.longPlatformDebug,
           'flutter: forbidden, web: used, other: conflict');
-      expect(sum.reason, 'Multiple platform identified in libraries.');
+      expect(sum.reason,
+          'Platform components identified in package: `html`, `io`.');
     });
 
     test('detects flutter in pubspec', () {

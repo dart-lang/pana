@@ -333,8 +333,11 @@ DartPlatform classifyPkgPlatform(
       return new DartPlatform.everywhere(
           'No platform restriction found in primary library `$primaryLibrary`.');
     } else {
+      final componentsFound =
+          primaryPlatform.components.map((name) => '`$name`').join(', ');
       return new DartPlatform.fromComponents(primaryPlatform.components,
-          reason: 'Primary library: `$primaryLibrary`.');
+          reason:
+              'Primary library: `$primaryLibrary` with components: $componentsFound.');
     }
   }
 
@@ -346,8 +349,10 @@ DartPlatform classifyPkgPlatform(
     return new DartPlatform.everywhere(
         'No platform restriction found in libraries.');
   } else {
+    final componentsFound =
+        allComponentNames.map((name) => '`$name`').join(', ');
     return new DartPlatform.fromComponents(allComponentNames,
-        reason: 'Multiple platform identified in libraries.');
+        reason: 'Platform components identified in package: $componentsFound.');
   }
 }
 
