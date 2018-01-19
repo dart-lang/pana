@@ -372,7 +372,7 @@ Set<String> _normalizeDependencies(Iterable<String> dependencies) {
   deps.addAll(dependencies);
   // maps `package:pkg/lib.dart` -> `package:pkg`
   deps.addAll(dependencies.map((dep) => dep.split('/').first));
-  // maps prefixes `dart:io` -> `dart:`, `dart-ext:whatever` -> `dart-ext`
+  // maps prefixes `dart:io` -> `dart:`, `dart-ext:whatever` -> `dart-ext:`
   deps.addAll(dependencies.map((dep) => '${dep.split(':').first}:'));
   return deps;
 }
