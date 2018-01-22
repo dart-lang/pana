@@ -2,6 +2,8 @@
 
 * Include component list in platform classification reasons.
 
+* New platform component: `build`.
+
 ## 0.10.0
 
 **BREAKING CHANGES**:
