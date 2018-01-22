@@ -308,6 +308,12 @@ class PkgDependency extends Object
   bool get isLatest => available == null;
   bool get isOutdated => !isLatest;
 
+  bool get isHosted =>
+      constraintType != ConstraintTypes.sdk &&
+      constraintType != ConstraintTypes.path &&
+      constraintType != ConstraintTypes.git &&
+      constraintType != ConstraintTypes.unknown;
+
   VersionResolutionType get resolutionType {
     if (isLatest) return VersionResolutionType.latest;
 
