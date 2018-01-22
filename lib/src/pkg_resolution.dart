@@ -87,9 +87,11 @@ class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
     return data;
   }
 
-  List<PkgDependency> getUnconstrainedDeps({bool onlyDirect: false}) {
+  List<PkgDependency> getUnconstrainedDeps(
+      {bool onlyDirect: false, bool includeSdk: false}) {
     return dependencies
         .where((pd) => !onlyDirect || pd.isDirect)
+        .where((pd) => includeSdk || pd.constraintType != ConstraintTypes.sdk)
         .where((pd) =>
             pd.constraint == null ||
             pd.constraint.isAny ||

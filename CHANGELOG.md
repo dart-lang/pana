@@ -2,6 +2,8 @@
 
 * Include component list in platform classification reasons.
 
+* Do not report on unconstrained SDK dependencies.
+
 ## 0.10.0
 
 **BREAKING CHANGES**:
