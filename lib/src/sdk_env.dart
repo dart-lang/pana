@@ -288,6 +288,7 @@ class PubEnvironment {
     final original = await pubspec.readAsString();
     final parsed = yamlToJson(original);
     parsed.remove('dev_dependencies');
+    parsed.remove('dependency_overrides');
 
     await pubspec.rename(backup.path);
     await pubspec.writeAsString(JSON.encode(parsed));
