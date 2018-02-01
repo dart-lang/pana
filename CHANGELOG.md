@@ -4,6 +4,8 @@
 
 * Do not report on unconstrained SDK dependencies.
 
+* New platform component: `build`.
+
 ## 0.10.0
 
 **BREAKING CHANGES**:

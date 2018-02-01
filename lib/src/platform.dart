@@ -33,6 +33,9 @@ abstract class ComponentNames {
   /// dart:nativewrappers and related libraries
   static const String nativewrappers = 'nativewrappers';
 
+  /// Transformers and other build tools.
+  static const String build = 'build';
+
   /// dart:mirrors and related libraries
   static const String mirrors = 'mirrors';
 }
@@ -93,6 +96,15 @@ class ComponentDef {
     ],
   );
 
+  /// dart:nativewrappers and related libraries
+  static const ComponentDef build = const ComponentDef(
+    ComponentNames.build,
+    const <String>[
+      'package:barback',
+      'package:build',
+    ],
+  );
+
   /// dart:mirrors and related libraries
   static const ComponentDef mirrors = const ComponentDef(
     ComponentNames.mirrors,
@@ -107,6 +119,7 @@ class ComponentDef {
     ComponentDef.js,
     ComponentDef.io,
     ComponentDef.nativewrappers,
+    ComponentDef.build,
     ComponentDef.mirrors,
   ];
 
