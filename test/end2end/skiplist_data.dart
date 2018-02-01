@@ -132,16 +132,6 @@ final _data = {
           'description':
               'Invalid override. The type of \'SkipList.containsValue\' (\'(V) → bool\') isn\'t a subtype of \'MapMixin<K, V>.containsValue\' (\'(Object) → bool\').'
         },
-        {
-          'severity': 'ERROR',
-          'errorType': 'COMPILE_TIME_ERROR',
-          'errorCode': 'STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
-          'file': 'lib/skiplist.dart',
-          'line': 168,
-          'col': 40,
-          'description':
-              'The function expression type \'(_SkipListEntry<Comparable<dynamic>, dynamic>) → Comparable<dynamic>\' isn\'t of type \'(_SkipListEntry<Comparable<dynamic>, dynamic>) → K\'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).'
-        }
       ],
       'directLibs': [
         'dart:collection',

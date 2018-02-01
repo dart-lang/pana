@@ -187,9 +187,9 @@ class PlatformDef {
   static Map<String, PlatformUse> detectUses(List<ComponentDef> components) {
     return new Map<String, PlatformUse>.fromIterable(
       values,
-      // ignore: uses_dynamic_as_bottom
+      // ignore: strong_mode_uses_dynamic_as_bottom
       key: (PlatformDef p) => p.name,
-      // ignore: uses_dynamic_as_bottom
+      // ignore: strong_mode_uses_dynamic_as_bottom
       value: (PlatformDef p) => p.detectUse(components),
     );
   }

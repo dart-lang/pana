@@ -87,9 +87,11 @@ class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
     return data;
   }
 
-  List<PkgDependency> getUnconstrainedDeps({bool onlyDirect: false}) {
+  List<PkgDependency> getUnconstrainedDeps(
+      {bool onlyDirect: false, bool includeSdk: false}) {
     return dependencies
         .where((pd) => !onlyDirect || pd.isDirect)
+        .where((pd) => includeSdk || pd.constraintType != ConstraintTypes.sdk)
         .where((pd) =>
             pd.constraint == null ||
             pd.constraint.isAny ||
@@ -307,6 +309,12 @@ class PkgDependency extends Object
 
   bool get isLatest => available == null;
   bool get isOutdated => !isLatest;
+
+  bool get isHosted =>
+      constraintType != ConstraintTypes.sdk &&
+      constraintType != ConstraintTypes.path &&
+      constraintType != ConstraintTypes.git &&
+      constraintType != ConstraintTypes.unknown;
 
   VersionResolutionType get resolutionType {
     if (isLatest) return VersionResolutionType.latest;
