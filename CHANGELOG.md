@@ -1,4 +1,4 @@
-## 0.10.1-dev
+## 0.10.1
 
 * Include component list in platform classification reasons.
 
