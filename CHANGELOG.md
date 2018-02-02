@@ -6,6 +6,8 @@
 
 * New platform component: `build`.
 
+* Remove `dependency_overrides` from `pubspec.yaml`.
+
 ## 0.10.0
 
 **BREAKING CHANGES**:
