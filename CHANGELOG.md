@@ -1,3 +1,7 @@
+## 0.10.2-dev
+
+* Fix issue of not using the `PUB_CACHE` directory when it was set.
+
 ## 0.10.1
 
 * Include component list in platform classification reasons.
