@@ -110,12 +110,15 @@ class DartSdk implements DartSdkInfo {
     return files;
   }
 
-  Future<ProcessResult> _execUpgrade(String packageDir) => runProc(
-        _pubCmd,
-        ['upgrade', '--verbosity', 'io', '--no-precompile'],
-        workingDirectory: packageDir,
-        environment: _environment,
-      );
+  Future<ProcessResult> _execUpgrade(
+      String packageDir, Map<String, String> environment) {
+    return runProc(
+      _pubCmd,
+      ['upgrade', '--verbosity', 'io', '--no-precompile'],
+      workingDirectory: packageDir,
+      environment: environment,
+    );
+  }
 }
 
 class FlutterSdk {
@@ -191,7 +194,7 @@ class PubEnvironment {
       if (isFlutter) {
         result = await flutterSdk._execUpgrade(packageDir, _environment);
       } else {
-        result = await dartSdk._execUpgrade(packageDir);
+        result = await dartSdk._execUpgrade(packageDir, _environment);
       }
 
       if (result.exitCode > 0) {
