@@ -2,6 +2,8 @@
 
 * Fix issue of not using the `PUB_CACHE` directory when it was set.
 
+* Update `analyzer` to 0.31 and extends `quiver` version range.
+
 ## 0.10.1
 
 * Include component list in platform classification reasons.
