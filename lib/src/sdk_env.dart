@@ -51,7 +51,7 @@ class DartSdk implements DartSdkInfo {
   Future<ProcessResult> runAnalyzer(
       String packageDir, List<String> dirs, bool isFlutter) async {
     final originalOptionsFile =
-        new File(p.join('packageDir', 'analysis_options.yaml'));
+        new File(p.join(packageDir, 'analysis_options.yaml'));
     String originalOptions;
     if (await originalOptionsFile.exists()) {
       originalOptions = await originalOptionsFile.readAsString();

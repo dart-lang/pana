@@ -4,6 +4,8 @@
 
 * Update `analyzer` to 0.31 and extends `quiver` version range.
 
+* Fix issue where we were not passing the proper package directory variable.
+
 ## 0.10.1
 
 * Include component list in platform classification reasons.
