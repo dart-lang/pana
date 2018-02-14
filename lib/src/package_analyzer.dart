@@ -268,7 +268,6 @@ class PackageAnalyzer {
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
       DartPlatform platform;
-      final firstError = codeErrors.isEmpty ? null : codeErrors.first;
       if (libPlatformBlocked) {
         platform = new DartPlatform.conflict(
             'Error(s) in ${dartFile}: ${platformBlockers.first.description}');
@@ -291,28 +290,11 @@ class PackageAnalyzer {
         platform,
         fitness,
       );
-      if (isInLib && firstError != null) {
-        dartFileSuggestions.add(new Suggestion.error(
-          'Fix `${dartFile}`.',
-          'Strong-mode analysis of `${dartFile}` failed with the following error:\n\n'
-              'line: ${firstError.line} col: ${firstError.col}  \n'
-              '${firstError.description}\n',
-          file: dartFile,
-        ));
+      if (fitness != null && fitness.hasSuggestion) {
+        dartFileSuggestions.addAll(fitness.suggestions);
       }
     }
-    if (dartFileSuggestions.length < 3) {
-      suggestions.addAll(dartFileSuggestions);
-    } else {
-      suggestions.addAll(dartFileSuggestions.take(2));
-      // Fold the rest of the files into a single suggestions.
-      final items =
-          dartFileSuggestions.skip(2).map((s) => '- ${s.file}\n').toList();
-      suggestions.add(new Suggestion.error(
-          'Fix further ${items.length} Dart files.',
-          'Similar analysis of the following files failed:\n\n'
-          '${items.join()}\n'));
-    }
+    dartFileSuggestions.sort();
 
     Map<String, Object> flutterVersion;
     if (isFlutter) {
@@ -340,7 +322,7 @@ class PackageAnalyzer {
     final maintenance = await detectMaintenance(
       pkgDir,
       pubspec,
-      suggestions,
+      dartFileSuggestions,
       pkgResolution?.getUnconstrainedDeps(onlyDirect: true),
       hasPlatformConflict: platform.hasConflict,
     );

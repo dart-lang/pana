@@ -6,6 +6,8 @@
 
 * Fix issue where we were not passing the proper package directory variable.
 
+* Expose all `dartanalyzer` and `dartfmt` problems as suggestions.
+
 ## 0.10.1
 
 * Include component list in platform classification reasons.

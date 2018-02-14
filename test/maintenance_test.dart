@@ -40,12 +40,6 @@ final _withIssuesJson = {
     },
     {
       'level': 'warning',
-      'title': 'Fix issues reported by `dartanalyzer`.',
-      'description': '`dartanalyzer` reported 1 error(s) and 1 warning(s).',
-      'penalty': {'amount': 0, 'fraction': 600}
-    },
-    {
-      'level': 'warning',
       'title': 'Maintain `README.md`.',
       'description':
           'Readme should inform others about your project, what it does, and how they can use it.',
@@ -67,9 +61,10 @@ final _withIssuesJson = {
     },
     {
       'level': 'warning',
-      'title': 'Fix hints reported by `dartanalyzer`.',
-      'description': '`dartanalyzer` reported 1 hint(s).',
-      'penalty': {'amount': 10, 'fraction': 0}
+      'title': 'Fix issues reported by `dartanalyzer` or `dartfmt`.',
+      'description':
+          '`dartanalyzer` or `dartfmt` reported 1 error 1 warning 1 hint.\n\nerror\n\n',
+      'penalty': {'amount': 61, 'fraction': 0},
     },
     {
       'level': 'hint',
@@ -132,7 +127,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(_withIssues.getMaintenanceScore(), closeTo(0.503, 0.001));
+      expect(_withIssues.getMaintenanceScore(), closeTo(0.530, 0.001));
     });
 
     test('perfect', () {

@@ -258,7 +258,19 @@ final _data = {
         'components': ['html'],
         'uses': {'flutter': 'forbidden', 'web': 'used', 'other': 'forbidden'},
       },
-      'fitness': {'magnitude': 83.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 83.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/browser_client.dart`.',
+            'description': 'Run `dartfmt` to format `lib/browser_client.dart`.',
+            'file': 'lib/browser_client.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/http.dart": {
       "uri": "package:http/http.dart",
@@ -417,49 +429,138 @@ final _data = {
         'components': [],
         'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
       },
-      'fitness': {'magnitude': 139.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 139.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/http.dart`.',
+            'description': 'Run `dartfmt` to format `lib/http.dart`.',
+            'file': 'lib/http.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/base_client.dart": {
       "uri": "package:http/src/base_client.dart",
       "size": 7821,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 136.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 136.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/base_client.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/base_client.dart`.',
+            'file': 'lib/src/base_client.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/base_request.dart": {
       "uri": "package:http/src/base_request.dart",
       "size": 4739,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 93.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 93.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/base_request.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/base_request.dart`.',
+            'file': 'lib/src/base_request.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/base_response.dart": {
       "uri": "package:http/src/base_response.dart",
       "size": 1727,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 32.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 32.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/base_response.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/base_response.dart`.',
+            'file': 'lib/src/base_response.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/boundary_characters.dart": {
       "uri": "package:http/src/boundary_characters.dart",
       "size": 957,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 13.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 13.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/boundary_characters.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/boundary_characters.dart`.',
+            'file': 'lib/src/boundary_characters.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/byte_stream.dart": {
       "uri": "package:http/src/byte_stream.dart",
       "size": 1391,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 25.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 25.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/byte_stream.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/byte_stream.dart`.',
+            'file': 'lib/src/byte_stream.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/client.dart": {
       "uri": "package:http/src/client.dart",
       "size": 6152,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 101.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 101.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/client.dart`.',
+            'description': 'Run `dartfmt` to format `lib/src/client.dart`.',
+            'file': 'lib/src/client.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/exception.dart": {
       "uri": "package:http/src/exception.dart",
@@ -473,63 +574,176 @@ final _data = {
       "size": 2530,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 49.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 49.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/io_client.dart`.',
+            'description': 'Run `dartfmt` to format `lib/src/io_client.dart`.',
+            'file': 'lib/src/io_client.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/mock_client.dart": {
       "uri": "package:http/src/mock_client.dart",
       "size": 3320,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 59.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 59.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/mock_client.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/mock_client.dart`.',
+            'file': 'lib/src/mock_client.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/multipart_file.dart": {
       "uri": "package:http/src/multipart_file.dart",
       "size": 4431,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 79.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 79.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/multipart_file.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/multipart_file.dart`.',
+            'file': 'lib/src/multipart_file.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/multipart_request.dart": {
       "uri": "package:http/src/multipart_request.dart",
       "size": 5905,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 116.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 116.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/multipart_request.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/multipart_request.dart`.',
+            'file': 'lib/src/multipart_request.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/request.dart": {
       "uri": "package:http/src/request.dart",
       "size": 5952,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 109.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 109.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/request.dart`.',
+            'description': 'Run `dartfmt` to format `lib/src/request.dart`.',
+            'file': 'lib/src/request.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/response.dart": {
       "uri": "package:http/src/response.dart",
       "size": 3431,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 62.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 62.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/response.dart`.',
+            'description': 'Run `dartfmt` to format `lib/src/response.dart`.',
+            'file': 'lib/src/response.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/streamed_request.dart": {
       "uri": "package:http/src/streamed_request.dart",
       "size": 1650,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 28.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 28.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/streamed_request.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/streamed_request.dart`.',
+            'file': 'lib/src/streamed_request.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/streamed_response.dart": {
       "uri": "package:http/src/streamed_response.dart",
       "size": 1326,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 25.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 25.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/streamed_response.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/src/streamed_response.dart`.',
+            'file': 'lib/src/streamed_response.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/src/utils.dart": {
       "uri": "package:http/src/utils.dart",
       "size": 4843,
       "isFormatted": false,
       "codeProblems": [],
-      'fitness': {'magnitude': 96.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 96.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/src/utils.dart`.',
+            'description': 'Run `dartfmt` to format `lib/src/utils.dart`.',
+            'file': 'lib/src/utils.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
     "lib/testing.dart": {
       "uri": "package:http/testing.dart",
@@ -695,7 +909,7 @@ final _data = {
     'isPreReleaseVersion': false,
     'errorCount': 0,
     'warningCount': 0,
-    'hintCount': 0,
+    'hintCount': 17,
     'suggestions': [
       {
         'level': 'hint',
@@ -703,6 +917,30 @@ final _data = {
         'description':
             'Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.',
         'penalty': {'amount': 20, 'fraction': 0}
+      },
+      {
+        'level': 'hint',
+        'title': 'Fix issues reported by `dartanalyzer` or `dartfmt`.',
+        'description': '`dartanalyzer` or `dartfmt` reported 17 hints.\n\n'
+            'Run `dartfmt` to format `lib/browser_client.dart`.\n\n'
+            'Run `dartfmt` to format `lib/http.dart`.\n\n'
+            'Similar analysis of the following files failed:\n\n'
+            '- `lib/src/base_client.dart` (hint)\n'
+            '- `lib/src/base_request.dart` (hint)\n'
+            '- `lib/src/base_response.dart` (hint)\n'
+            '- `lib/src/boundary_characters.dart` (hint)\n'
+            '- `lib/src/byte_stream.dart` (hint)\n'
+            '- `lib/src/client.dart` (hint)\n'
+            '- `lib/src/io_client.dart` (hint)\n'
+            '- `lib/src/mock_client.dart` (hint)\n'
+            '- `lib/src/multipart_file.dart` (hint)\n'
+            '- `lib/src/multipart_request.dart` (hint)\n'
+            '- `lib/src/request.dart` (hint)\n'
+            '- `lib/src/response.dart` (hint)\n'
+            '- `lib/src/streamed_request.dart` (hint)\n'
+            '- `lib/src/streamed_response.dart` (hint)\n'
+            '- `lib/src/utils.dart` (hint)\n',
+        'penalty': {'amount': 17, 'fraction': 0},
       },
       {
         'level': 'hint',

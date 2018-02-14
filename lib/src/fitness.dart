@@ -26,7 +26,10 @@ class Fitness extends Object with _$FitnessSerializerMixin {
   /// The faults, penalties and failures to meet the standards.
   final double shortcoming;
 
-  Fitness(this.magnitude, this.shortcoming);
+  @JsonKey(includeIfNull: false)
+  final List<Suggestion> suggestions;
+
+  Fitness(this.magnitude, this.shortcoming, {this.suggestions});
 
   factory Fitness.fromJson(Map json) => _$FitnessFromJson(json);
 
@@ -37,6 +40,8 @@ class Fitness extends Object with _$FitnessSerializerMixin {
     final score = (magnitude - shortcoming) / magnitude;
     return max(0.0, min(1.0, score));
   }
+
+  bool get hasSuggestion => suggestions != null && suggestions.isNotEmpty;
 }
 
 Future<Fitness> calcFitness(
@@ -71,29 +76,74 @@ Future<Fitness> calcFitness(
   final warnPoints = max(4.0, magnitude * 0.05); // 5%
   final hintPoints = 1.0;
 
+  final suggestions = <Suggestion>[];
   var shortcoming = 0.0;
 
   if (platform != null && platform.hasConflict) {
     shortcoming += errorPoints;
+    final components = platform?.components?.map((s) => '`$s`')?.join(', ');
+    var description =
+        'Make sure that the imported libraries are not in conflict.';
+    if (components != null) {
+      description += ' Detected components: $components.';
+    }
+    suggestions.add(new Suggestion.error(
+      'Fix platform conflict in `$dartFile`.',
+      description,
+      file: dartFile,
+      penalty: new Penalty(fraction: 2000, amount: errorPoints.ceil()),
+    ));
   }
 
   if (isFormatted == null || !isFormatted) {
     shortcoming += hintPoints;
+    suggestions.add(new Suggestion.hint(
+      'Format `$dartFile`.',
+      'Run `dartfmt` to format `$dartFile`.',
+      file: dartFile,
+      penalty: new Penalty(amount: hintPoints.ceil()),
+    ));
+  }
+
+  String suggestionDescription(CodeProblem cp, String local) {
+    // TODO: after Dart 2.0, use the phrase: "Analysis of ..."
+    return 'Strong-mode analysis of `$dartFile` $local:\n\n'
+        'line: ${cp.line} col: ${cp.col}  \n'
+        '${cp.description}\n';
   }
 
   if (fileAnalyzerItems != null) {
     for (var item in fileAnalyzerItems) {
-      if (item.severity == 'INFO') {
+      if (item.isInfo) {
         shortcoming += hintPoints;
-      } else if (item.severity == 'WARNING') {
+        suggestions.add(new Suggestion.hint(
+          'Fix `$dartFile`.',
+          suggestionDescription(item, 'gave the following hint'),
+          file: dartFile,
+          penalty: new Penalty(amount: hintPoints.ceil()),
+        ));
+      } else if (item.isWarning) {
         shortcoming += warnPoints;
+        suggestions.add(new Suggestion.warning(
+          'Fix `$dartFile`.',
+          suggestionDescription(item, 'gave the following warning'),
+          file: dartFile,
+          penalty: new Penalty(fraction: 500, amount: hintPoints.ceil()),
+        ));
       } else {
         shortcoming += errorPoints;
+        suggestions.add(new Suggestion.error(
+          'Fix `$dartFile`.',
+          suggestionDescription(item, 'failed with the following error'),
+          file: dartFile,
+          penalty: new Penalty(fraction: 2000, amount: hintPoints.ceil()),
+        ));
       }
     }
   }
-
-  return new Fitness(magnitude, min(shortcoming, magnitude));
+  suggestions.sort();
+  return new Fitness(magnitude, min(shortcoming, magnitude),
+      suggestions: suggestions.isEmpty ? null : suggestions);
 }
 
 Fitness calcPkgFitness(Iterable<DartFileSummary> files) {

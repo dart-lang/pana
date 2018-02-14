@@ -15,7 +15,7 @@ import 'package:yaml/yaml.dart' as yaml;
 
 import 'pkg_resolution.dart';
 import 'pubspec.dart';
-import 'summary.dart' show applyPenalties, Penalty, Suggestion;
+import 'summary.dart' show Penalty, Suggestion, SuggestionLevel, applyPenalties;
 import 'utils.dart';
 
 part 'maintenance.g.dart';
@@ -160,7 +160,7 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
 Future<Maintenance> detectMaintenance(
   String pkgDir,
   Pubspec pubspec,
-  List<Suggestion> suggestions,
+  List<Suggestion> dartFileSuggestions,
   List<PkgDependency> unconstrainedDeps, {
   @required bool hasPlatformConflict,
 }) async {
@@ -308,23 +308,57 @@ Future<Maintenance> detectMaintenance(
         penalty: new Penalty(amount: 10)));
   }
 
-  final errorCount = suggestions.where((s) => s.isError).length;
-  final warningCount = suggestions.where((s) => s.isWarning).length;
-  final hintCount = suggestions.where((s) => s.isHint).length;
+  final errorCount = dartFileSuggestions.where((s) => s.isError).length;
+  final warningCount = dartFileSuggestions.where((s) => s.isWarning).length;
+  final hintCount = dartFileSuggestions.where((s) => s.isHint).length;
 
-  if (errorCount > 0 || warningCount > 0) {
-    maintenanceSuggestions.add(new Suggestion.warning(
-        'Fix issues reported by `dartanalyzer`.',
-        '`dartanalyzer` reported $errorCount error(s) and $warningCount warning(s).',
-        // 5% for each error, 1% for each warning
-        penalty: new Penalty(fraction: errorCount * 500 + warningCount * 100)));
-  }
-  if (hintCount > 0) {
-    maintenanceSuggestions.add(new Suggestion.warning(
-        'Fix hints reported by `dartanalyzer`.',
-        '`dartanalyzer` reported $hintCount hint(s).',
-        // 0.001 for each hint
-        penalty: new Penalty(amount: hintCount * 10)));
+  if (dartFileSuggestions.isNotEmpty) {
+    final sb = new StringBuffer();
+    sb.write('`dartanalyzer` or `dartfmt` reported');
+    void reportIssues(int count, String name) {
+      if (count == 1) {
+        sb.write(' $count $name');
+      } else if (count > 1) {
+        sb.write(' $count ${name}s');
+      }
+    }
+
+    reportIssues(errorCount, 'error');
+    reportIssues(warningCount, 'warning');
+    reportIssues(hintCount, 'hint');
+    sb.write('.\n\n');
+
+    final reportedFiles = new Set();
+    final onePerFileSuggestions =
+        dartFileSuggestions.where((s) => reportedFiles.add(s.file)).toList();
+    final topSuggestions = onePerFileSuggestions.take(2).toList();
+    final restSuggestions = onePerFileSuggestions.skip(2).toList();
+
+    for (var suggestion in topSuggestions) {
+      sb.write('${suggestion.description.trim()}\n\n');
+    }
+    if (restSuggestions.isNotEmpty) {
+      sb.write('Similar analysis of the following files failed:\n\n');
+      final items =
+          restSuggestions.map((s) => '- `${s.file}` (${s.level})\n').join();
+      sb.write(items);
+    }
+
+    final level = (errorCount > 0 || warningCount > 0)
+        ? SuggestionLevel.warning
+        : SuggestionLevel.hint;
+    maintenanceSuggestions.add(
+      new Suggestion(
+        level,
+        'Fix issues reported by `dartanalyzer` or `dartfmt`.',
+        sb.toString(),
+        // These are already reflected in the fitness score, but we'll also
+        // penalize them here (with a much smaller amount), reflecting the need
+        // of work.
+        penalty: new Penalty(
+            amount: errorCount * 50 + warningCount * 10 + hintCount),
+      ),
+    );
   }
 
   if (unconstrainedDeps != null && unconstrainedDeps.isNotEmpty) {
