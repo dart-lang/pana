@@ -1,4 +1,4 @@
-## 0.10.2-dev
+## 0.10.2
 
 * Fix issue of not using the `PUB_CACHE` directory when it was set.
 
