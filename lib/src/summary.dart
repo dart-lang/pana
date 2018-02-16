@@ -210,7 +210,11 @@ class Suggestion extends Object
     if (penalty != null && other.penalty == null) return -1;
     if (penalty == null && other.penalty != null) return 1;
     if (penalty != null && other.penalty != null) {
-      return -penalty.compareTo(other.penalty);
+      final compared = -penalty.compareTo(other.penalty);
+      if (compared != 0) return compared;
+    }
+    if (file != null && other.file != null && file != other.file) {
+      return file.compareTo(other.file);
     }
     return 0;
   }

@@ -288,7 +288,20 @@ final _data = {
         'components': [],
         'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
       },
-      'fitness': {'magnitude': 360.0, 'shortcoming': 1.0},
+      'fitness': {
+        'magnitude': 360.0,
+        'shortcoming': 1.0,
+        'suggestions': [
+          {
+            'level': 'hint',
+            'title': 'Format `lib/shelf_pubserver.dart`.',
+            'description':
+                'Run `dartfmt` to format `lib/shelf_pubserver.dart`.',
+            'file': 'lib/shelf_pubserver.dart',
+            'penalty': {'amount': 1, 'fraction': 0},
+          },
+        ],
+      },
     },
   },
   'platform': {
@@ -314,7 +327,7 @@ final _data = {
     'isPreReleaseVersion': false,
     'errorCount': 0,
     'warningCount': 0,
-    'hintCount': 0,
+    'hintCount': 1,
     'suggestions': [
       {
         'level': 'hint',
@@ -329,6 +342,13 @@ final _data = {
         'description':
             'None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `pub_server.dart`.',
         'penalty': {'amount': 1, 'fraction': 0}
+      },
+      {
+        'level': 'hint',
+        'title': 'Fix issues reported by `dartanalyzer` or `dartfmt`.',
+        'description': '`dartanalyzer` or `dartfmt` reported 1 hint.\n\n'
+            'Run `dartfmt` to format `lib/shelf_pubserver.dart`.\n\n',
+        'penalty': {'amount': 1, 'fraction': 0},
       },
     ],
   },

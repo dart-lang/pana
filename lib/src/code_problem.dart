@@ -102,6 +102,8 @@ class CodeProblem extends Object
       _$CodeProblemFromJson(json);
 
   bool get isError => severity?.toUpperCase() == 'ERROR';
+  bool get isWarning => severity?.toUpperCase() == 'WARNING';
+  bool get isInfo => severity?.toUpperCase() == 'INFO';
 
   /// `true` iff [isError] is `true` and [errorType] is not safe to ignore for
   /// platform classification.
