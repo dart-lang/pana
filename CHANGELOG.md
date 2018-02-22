@@ -1,3 +1,7 @@
+## 0.10.3-dev
+
+* Fix end-to-end test (package dependency changed).
+
 ## 0.10.2
 
 * Fix issue of not using the `PUB_CACHE` directory when it was set.
