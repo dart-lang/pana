@@ -111,7 +111,7 @@ final _data = {
       "level": "error",
       "title": "Fix dependencies in `pubspec.yaml`.",
       "description":
-          "Running `pub upgrade` failed with the following output:\n\n```\nBad state: For args, the parsed version null did not match the locked version 1.3.0.\n```\n"
+          "Running `pub upgrade` failed with the following output:\n\n```\nBad state: For args, the parsed version null did not match the locked version 1.4.0.\n```\n"
     },
   ],
   "pkgResolution": null,
