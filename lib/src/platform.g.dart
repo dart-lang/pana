@@ -19,8 +19,8 @@ DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) =>
                 (json['uses'] as Map<String, dynamic>).keys,
                 (json['uses'] as Map).values.map((e) => e == null
                     ? null
-                    : PlatformUse.values.singleWhere(
-                        (x) => x.toString() == "PlatformUse.${e}"))),
+                    : PlatformUse.values
+                        .singleWhere((x) => x.toString() == 'PlatformUse.$e'))),
         reason: json['reason'] as String);
 
 abstract class _$DartPlatformSerializerMixin {
