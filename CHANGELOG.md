@@ -2,6 +2,8 @@
 
 * Fix end-to-end test (package dependency changed).
 
+* Move pubspec stripping inside `PubEnvironment.runUpgrade` (`dartdoc` service will get it for free).
+
 ## 0.10.2
 
 * Fix issue of not using the `PUB_CACHE` directory when it was set.
