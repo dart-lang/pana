@@ -49,6 +49,11 @@ Future<Directory> downloadPackage(String package, String version,
 /// Returns an URL that is likely the downloadable URL of the given path.
 String getRepositoryUrl(String repository, String relativePath) {
   if (repository == null || repository.isEmpty) return null;
+  for (var key in _repoReplacePrefixes.keys) {
+    if (repository.startsWith(key)) {
+      repository = repository.replaceFirst(key, _repoReplacePrefixes[key]);
+    }
+  }
   try {
     final uri = Uri.parse(repository);
     final segments = new List<String>.from(uri.pathSegments);
@@ -90,3 +95,9 @@ Future<bool> isExistingUrl(String url) async {
   }
   return false;
 }
+
+const _repoReplacePrefixes = const {
+  'http://github.com': 'https://github.com',
+  'https://www.github.com': 'https://github.com',
+  'https://www.gitlab.com': 'https://gitlab.com',
+};
