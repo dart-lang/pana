@@ -6,6 +6,8 @@
 
 * Handle more repository URLs (e.g. `www.github.com`).
 
+* Expose Flutter detection to clients, with better naming (`isFlutter` -> `usesFlutter`).
+
 ## 0.10.2
 
 * Fix issue of not using the `PUB_CACHE` directory when it was set.

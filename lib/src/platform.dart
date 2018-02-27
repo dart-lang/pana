@@ -317,7 +317,7 @@ DartPlatform classifyPkgPlatform(
   final allComponentNames = allComponentsSet.toList()..sort();
 
   final usesFlutter = libraries.values.any((p) => p.usesFlutter);
-  if (pubspec.isFlutter || usesFlutter) {
+  if (pubspec.usesFlutter || usesFlutter) {
     final flutterConflicts =
         libraries.keys.where((key) => !libraries[key].worksOnFlutter).toList();
     if (flutterConflicts.isEmpty) {
