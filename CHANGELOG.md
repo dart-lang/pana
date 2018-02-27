@@ -4,6 +4,8 @@
 
 * Move pubspec stripping inside `PubEnvironment.runUpgrade` (`dartdoc` service will get it for free).
 
+* Handle more repository URLs (e.g. `www.github.com`).
+
 ## 0.10.2
 
 * Fix issue of not using the `PUB_CACHE` directory when it was set.

@@ -57,4 +57,14 @@ void main() {
   group('GitLab URLs', () {
     testGitHubUrls('https://gitlab.com');
   });
+
+  group('URL replacements', () {
+    test('GitHub replacements', () {
+      expect(getRepositoryUrl('http://github.com/user/project/', 'README.md'),
+          'https://github.com/user/project/blob/master/README.md');
+      expect(
+          getRepositoryUrl('https://www.github.com/user/project/', 'README.md'),
+          'https://github.com/user/project/blob/master/README.md');
+    });
+  });
 }
