@@ -1,4 +1,4 @@
-## 0.10.3-dev
+## 0.10.3
 
 * Fix end-to-end test (package dependency changed).
 
