@@ -71,8 +71,11 @@ class Pubspec {
   bool get dependsOnFlutterSdk => dependentSdks.contains('flutter');
   bool get dependsOnFlutterPackage => dependsOnPackage('flutter');
 
-  bool get isFlutter =>
+  bool get usesFlutter =>
       dependsOnFlutterSdk || dependsOnFlutterPackage || hasFlutterKey;
+
+  @deprecated
+  bool get isFlutter => usesFlutter;
 
   Set<String> get dependentSdks {
     if (_dependentSdks == null) {

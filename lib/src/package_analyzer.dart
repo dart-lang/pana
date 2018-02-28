@@ -133,8 +133,8 @@ class PackageAnalyzer {
     log.info('Package: $package ${pubspec.version}');
 
     log.info("Pub upgrade...");
-    final isFlutter = pubspec.isFlutter;
-    final upgrade = await _pubEnv.runUpgrade(pkgDir, isFlutter);
+    final usesFlutter = pubspec.usesFlutter;
+    final upgrade = await _pubEnv.runUpgrade(pkgDir, usesFlutter);
 
     PkgResolution pkgResolution;
     if (upgrade.exitCode == 0) {
@@ -146,7 +146,8 @@ class PackageAnalyzer {
         //(TODO)kevmoo - should add a helper that handles logging exceptions
         //  and writing to issues in one go.
 
-        final cmd = isFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
+        final cmd =
+            usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
         suggestions.add(new Suggestion.error(
             'Fix dependencies in `pubspec.yaml`.',
             'Running `$cmd` failed with the following output:\n\n'
@@ -165,7 +166,7 @@ class PackageAnalyzer {
 
       log.severe('`pub upgrade` failed.\n$message'.trim());
 
-      final cmd = isFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
+      final cmd = usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
       suggestions.add(new Suggestion.error(
           'Fix dependencies in `pubspec.yaml`.',
           message.isEmpty
@@ -191,7 +192,7 @@ class PackageAnalyzer {
               'package:package_resolver/package_resolver.dart'),
         ];
 
-        libraryScanner = new LibraryScanner(_pubEnv, pkgDir, isFlutter,
+        libraryScanner = new LibraryScanner(_pubEnv, pkgDir, usesFlutter,
             overrides: overrides);
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
@@ -223,7 +224,7 @@ class PackageAnalyzer {
 
       if (dartFiles.isNotEmpty) {
         try {
-          analyzerItems = await _pkgAnalyze(pkgDir, isFlutter);
+          analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter);
         } on ArgumentError catch (e) {
           if (e.toString().contains("No dart files found at: .")) {
             log.warning("No files to analyze...");
@@ -291,7 +292,7 @@ class PackageAnalyzer {
     dartFileSuggestions.sort();
 
     Map<String, Object> flutterVersion;
-    if (isFlutter) {
+    if (usesFlutter) {
       flutterVersion = await _flutterSdk.getVersion();
     }
 
@@ -339,13 +340,13 @@ class PackageAnalyzer {
     );
   }
 
-  Future<Set<CodeProblem>> _pkgAnalyze(String pkgPath, bool isFlutter) async {
+  Future<Set<CodeProblem>> _pkgAnalyze(String pkgPath, bool usesFlutter) async {
     log.info('Analyzing package...');
     final dirs = await listFocusDirs(pkgPath);
     if (dirs.isEmpty) {
       return null;
     }
-    final proc = await _dartSdk.runAnalyzer(pkgPath, dirs, isFlutter);
+    final proc = await _dartSdk.runAnalyzer(pkgPath, dirs, usesFlutter);
 
     String output = proc.stderr;
     if ('\n$output'.contains('\nUnhandled exception:\n')) {

@@ -12,6 +12,7 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_options.dart';
 import 'logging.dart';
+import 'pubspec.dart';
 import 'sdk_info.dart';
 import 'utils.dart';
 
@@ -49,7 +50,7 @@ class DartSdk implements DartSdkInfo {
   }
 
   Future<ProcessResult> runAnalyzer(
-      String packageDir, List<String> dirs, bool isFlutter) async {
+      String packageDir, List<String> dirs, bool usesFlutter) async {
     final originalOptionsFile =
         new File(p.join(packageDir, 'analysis_options.yaml'));
     String originalOptions;
@@ -60,7 +61,7 @@ class DartSdk implements DartSdkInfo {
         'pana_analysis_options_${new DateTime.now().microsecondsSinceEpoch}.g.yaml';
     final customOptionsFile = new File(p.join(packageDir, customFileName));
     await customOptionsFile
-        .writeAsString(customizeAnalysisOptions(originalOptions, isFlutter));
+        .writeAsString(customizeAnalysisOptions(originalOptions, usesFlutter));
     final params = ['--options', customOptionsFile.path, '--format', 'machine']
       ..addAll(dirs);
     try {
@@ -185,7 +186,12 @@ class PubEnvironment {
     }
   }
 
-  Future<ProcessResult> runUpgrade(String packageDir, bool isFlutter,
+  Future<bool> detectFlutterUse(String packageDir) async {
+    final pubspec = new Pubspec.parseFromDir(packageDir);
+    return pubspec.usesFlutter;
+  }
+
+  Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,
       {int retryCount: 3}) async {
     final backup = await stripPubspecYaml(packageDir);
     ProcessResult result;
@@ -193,7 +199,7 @@ class PubEnvironment {
       do {
         retryCount--;
 
-        if (isFlutter) {
+        if (usesFlutter) {
           result = await flutterSdk._execUpgrade(packageDir, _environment);
         } else {
           result = await dartSdk._execUpgrade(packageDir, _environment);
@@ -266,8 +272,8 @@ class PubEnvironment {
     return new PackageLocation(package, versionString, location);
   }
 
-  ProcessResult listPackageDirsSync(String packageDir, bool useFlutter) {
-    if (useFlutter) {
+  ProcessResult listPackageDirsSync(String packageDir, bool usesFlutter) {
+    if (usesFlutter) {
       // flutter env
       return runProcSync(
         flutterSdk._flutterBin,

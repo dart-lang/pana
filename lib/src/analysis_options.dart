@@ -55,7 +55,7 @@ linter:
 
 const _analyzerErrorKeys = const <String>['uri_has_not_been_generated'];
 
-String customizeAnalysisOptions(String original, bool isFlutter) {
+String customizeAnalysisOptions(String original, bool usesFlutter) {
   Map origMap;
   if (original != null) {
     try {
@@ -65,7 +65,7 @@ String customizeAnalysisOptions(String original, bool isFlutter) {
   origMap ??= {};
 
   final customMap = JSON.decode(JSON.encode(
-      yaml.loadYaml(isFlutter ? _flutterAnalysisOptions : _analysisOptions)));
+      yaml.loadYaml(usesFlutter ? _flutterAnalysisOptions : _analysisOptions)));
 
   final origAnalyzer = origMap['analyzer'];
   if (origAnalyzer is Map) {
