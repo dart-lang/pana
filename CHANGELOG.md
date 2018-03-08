@@ -1,3 +1,7 @@
+## 0.10.4-dev
+
+* Fix CI test
+
 ## 0.10.3
 
 * Fix end-to-end test (package dependency changed).
