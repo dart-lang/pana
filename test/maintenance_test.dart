@@ -61,9 +61,9 @@ final _withIssuesJson = {
     },
     {
       'level': 'warning',
-      'title': 'Fix issues reported by `dartanalyzer` or `dartfmt`.',
+      'title': 'Fix analysis and formatting issues.',
       'description':
-          '`dartanalyzer` or `dartfmt` reported 1 error 1 warning 1 hint.\n\nerror\n\n',
+          'Analysis or formatting checks reported 1 error 1 warning 1 hint.\n\nerror\n\n',
       'penalty': {'amount': 61, 'fraction': 0},
     },
     {

@@ -287,8 +287,9 @@ final _data = {
     'suggestions': [
       {
         'level': 'warning',
-        'title': 'Fix issues reported by `dartanalyzer` or `dartfmt`.',
-        'description': '`dartanalyzer` or `dartfmt` reported 8 errors 1 hint.\n'
+        'title': 'Fix analysis and formatting issues.',
+        'description':
+            'Analysis or formatting checks reported 8 errors 1 hint.\n'
             '\n'
             'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
             '\n'

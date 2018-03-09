@@ -345,8 +345,8 @@ final _data = {
       },
       {
         'level': 'hint',
-        'title': 'Fix issues reported by `dartanalyzer` or `dartfmt`.',
-        'description': '`dartanalyzer` or `dartfmt` reported 1 hint.\n\n'
+        'title': 'Fix analysis and formatting issues.',
+        'description': 'Analysis or formatting checks reported 1 hint.\n\n'
             'Run `dartfmt` to format `lib/shelf_pubserver.dart`.\n\n',
         'penalty': {'amount': 1, 'fraction': 0},
       },

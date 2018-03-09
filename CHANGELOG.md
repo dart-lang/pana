@@ -2,6 +2,8 @@
 
 * Fix CI test
 
+* Flutter-specific suggestion messages for `dartfmt` and `dartanalyzer`.
+
 ## 0.10.3
 
 * Fix end-to-end test (package dependency changed).

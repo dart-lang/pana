@@ -16,6 +16,7 @@ import 'library_scanner.dart';
 import 'license.dart';
 import 'logging.dart';
 import 'maintenance.dart';
+import 'messages.dart' as messages;
 import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
@@ -100,6 +101,21 @@ class PackageAnalyzer {
             .where((file) => file.startsWith('bin/') || file.startsWith('lib/'))
             .toList();
 
+    log.info("Checking pubspec.yaml...");
+    var pubspec = new Pubspec.parseFromDir(pkgDir);
+    if (pubspec.hasUnknownSdks) {
+      suggestions.add(new Suggestion.error(
+          'Check SDKs in `pubspec.yaml`.',
+          'We have found the following unknown SDKs in your `pubspec.yaml`:\n'
+          '  `${pubspec.unknownSdks}`.\n\n'
+          '`pana` does not recognizes them, please remove or report it to us.\n'));
+    }
+
+    final package = pubspec.name;
+    log.info('Package: $package ${pubspec.version}');
+
+    final usesFlutter = pubspec.usesFlutter;
+
     log.info("Checking formatting...");
     Set<String> unformattedFiles;
     try {
@@ -115,25 +131,11 @@ class PackageAnalyzer {
 
       var errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
       suggestions.add(new Suggestion.error(
-          'Make sure `dartfmt` runs.',
-          'Running `dartfmt -n .` failed with the following output:\n\n'
-          '```\n$errorMsg\n```\n'));
+          messages.makeSureDartfmtRuns(usesFlutter),
+          messages.runningDartfmtFailed(usesFlutter, errorMsg)));
     }
-
-    log.info("Checking pubspec.yaml...");
-    var pubspec = new Pubspec.parseFromDir(pkgDir);
-    if (pubspec.hasUnknownSdks) {
-      suggestions.add(new Suggestion.error(
-          'Check SDKs in `pubspec.yaml`.',
-          'We have found the following unknown SDKs in your `pubspec.yaml`:\n'
-          '  `${pubspec.unknownSdks}`.\n\n'
-          '`pana` does not recognizes them, please remove or report it to us.\n'));
-    }
-    final package = pubspec.name;
-    log.info('Package: $package ${pubspec.version}');
 
     log.info("Pub upgrade...");
-    final usesFlutter = pubspec.usesFlutter;
     final upgrade = await _pubEnv.runUpgrade(pkgDir, usesFlutter);
 
     PkgResolution pkgResolution;
@@ -230,9 +232,8 @@ class PackageAnalyzer {
             log.warning("No files to analyze...");
           } else {
             suggestions.add(new Suggestion.error(
-                'Make sure `dartanalyzer` runs.',
-                'Running `dartanalyzer .` failed with the following output:\n\n'
-                '```\n$e\n```\n'));
+                messages.makeSureDartanalyzerRuns(usesFlutter),
+                messages.runningDartanalyzerFailed(usesFlutter, e)));
           }
         }
       }
@@ -272,8 +273,8 @@ class PackageAnalyzer {
       }
       final isInLib = dartFile.startsWith('lib/');
       final fitness = isInLib
-          ? await calcFitness(pkgDir, dartFile, isFormatted, fileAnalyzerItems,
-              directLibs, platform)
+          ? await calcFitness(pkgDir, pubspec, dartFile, isFormatted,
+              fileAnalyzerItems, directLibs, platform)
           : null;
       files[dartFile] = new DartFileSummary(
         uri,
