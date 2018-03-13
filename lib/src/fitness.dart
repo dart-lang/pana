@@ -12,7 +12,9 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 
 import 'code_problem.dart';
+import 'messages.dart' as messages;
 import 'platform.dart';
+import 'pubspec.dart';
 import 'summary.dart';
 
 part 'fitness.g.dart';
@@ -46,6 +48,7 @@ class Fitness extends Object with _$FitnessSerializerMixin {
 
 Future<Fitness> calcFitness(
     String pkgDir,
+    Pubspec pubspec,
     String dartFile,
     bool isFormatted,
     List<CodeProblem> fileAnalyzerItems,
@@ -99,7 +102,7 @@ Future<Fitness> calcFitness(
     shortcoming += hintPoints;
     suggestions.add(new Suggestion.hint(
       'Format `$dartFile`.',
-      'Run `dartfmt` to format `$dartFile`.',
+      messages.runDartfmtToFormatFile(pubspec.usesFlutter, dartFile),
       file: dartFile,
       penalty: new Penalty(amount: hintPoints.ceil()),
     ));

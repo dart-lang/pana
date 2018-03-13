@@ -62,8 +62,8 @@ final _data = {
       },
       {
         'level': 'hint',
-        'title': 'Fix issues reported by `dartanalyzer` or `dartfmt`.',
-        'description': '`dartanalyzer` or `dartfmt` reported 16 hints.\n\n'
+        'title': 'Fix analysis and formatting issues.',
+        'description': 'Analysis or formatting checks reported 16 hints.\n\n'
             'Run `dartfmt` to format `lib/plugin.dart`.\n\n'
             'Run `dartfmt` to format `lib/rspc.dart`.\n\n'
             'Similar analysis of the following files failed:\n\n'

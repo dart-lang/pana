@@ -314,7 +314,7 @@ Future<Maintenance> detectMaintenance(
 
   if (dartFileSuggestions.isNotEmpty) {
     final sb = new StringBuffer();
-    sb.write('`dartanalyzer` or `dartfmt` reported');
+    sb.write('Analysis or formatting checks reported');
     void reportIssues(int count, String name) {
       if (count == 1) {
         sb.write(' $count $name');
@@ -350,7 +350,7 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(
       new Suggestion(
         level,
-        'Fix issues reported by `dartanalyzer` or `dartfmt`.',
+        'Fix analysis and formatting issues.',
         sb.toString(),
         // These are already reflected in the fitness score, but we'll also
         // penalize them here (with a much smaller amount), reflecting the need
