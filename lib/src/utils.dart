@@ -30,8 +30,13 @@ ProcessResult runProcSync(String executable, List<String> arguments,
   );
 }
 
-Future<ProcessResult> runProc(String executable, List<String> arguments,
-    {String workingDirectory, Map<String, String> environment}) async {
+Future<ProcessResult> runProc(
+  String executable,
+  List<String> arguments, {
+  String workingDirectory,
+  Map<String, String> environment,
+  Duration timeout,
+}) async {
   log.fine('Running `${ ([executable]..addAll(arguments)).join(' ') }`...');
   var process = await Process.start(executable, arguments,
       workingDirectory: workingDirectory, environment: environment);
@@ -52,8 +57,9 @@ Future<ProcessResult> runProc(String executable, List<String> arguments,
     }
   }
 
-  var timer = new Timer(_timeout, () {
-    killProc("Exceeded timeout of $_timeout");
+  timeout ??= _timeout;
+  var timer = new Timer(timeout, () {
+    killProc("Exceeded timeout of $timeout");
   });
 
   var items = await Future.wait(<Future<Object>>[
