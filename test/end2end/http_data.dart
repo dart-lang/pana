@@ -276,7 +276,35 @@ final _data = {
       "uri": "package:http/http.dart",
       "size": 7234,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/http.dart',
+          'line': 64,
+          'col': 29,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/http.dart',
+          'line': 88,
+          'col': 29,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/http.dart',
+          'line': 112,
+          'col': 29,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:convert",
@@ -431,7 +459,7 @@ final _data = {
       },
       'fitness': {
         'magnitude': 139.0,
-        'shortcoming': 1.0,
+        'shortcoming': 4.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -439,6 +467,42 @@ final _data = {
             'description': 'Run `dartfmt` to format `lib/http.dart`.',
             'file': 'lib/http.dart',
             'penalty': {'amount': 1, 'fraction': 0},
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/http.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/http.dart` gave the following hint:\n'
+                '\n'
+                'line: 64 col: 29  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/http.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/http.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/http.dart` gave the following hint:\n'
+                '\n'
+                'line: 88 col: 29  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/http.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/http.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/http.dart` gave the following hint:\n'
+                '\n'
+                'line: 112 col: 29  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/http.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
           },
         ],
       },
@@ -527,10 +591,29 @@ final _data = {
       "uri": "package:http/src/byte_stream.dart",
       "size": 1391,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/byte_stream.dart',
+          'line': 31,
+          'col': 51,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/byte_stream.dart',
+          'line': 34,
+          'col': 52,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       'fitness': {
         'magnitude': 25.0,
-        'shortcoming': 1.0,
+        'shortcoming': 3.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -540,6 +623,30 @@ final _data = {
             'file': 'lib/src/byte_stream.dart',
             'penalty': {'amount': 1, 'fraction': 0},
           },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/byte_stream.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/byte_stream.dart` gave the following hint:\n'
+                '\n'
+                'line: 31 col: 51  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/byte_stream.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/byte_stream.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/byte_stream.dart` gave the following hint:\n'
+                '\n'
+                'line: 34 col: 52  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/byte_stream.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
         ],
       },
     },
@@ -547,10 +654,38 @@ final _data = {
       "uri": "package:http/src/client.dart",
       "size": 6152,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/client.dart',
+          'line': 59,
+          'col': 31,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/client.dart',
+          'line': 80,
+          'col': 31,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/client.dart',
+          'line': 101,
+          'col': 31,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       'fitness': {
         'magnitude': 101.0,
-        'shortcoming': 1.0,
+        'shortcoming': 4.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -558,6 +693,42 @@ final _data = {
             'description': 'Run `dartfmt` to format `lib/src/client.dart`.',
             'file': 'lib/src/client.dart',
             'penalty': {'amount': 1, 'fraction': 0},
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/client.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/client.dart` gave the following hint:\n'
+                '\n'
+                'line: 59 col: 31  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/client.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/client.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/client.dart` gave the following hint:\n'
+                '\n'
+                'line: 80 col: 31  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/client.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/client.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/client.dart` gave the following hint:\n'
+                '\n'
+                'line: 101 col: 31  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/client.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
           },
         ],
       },
@@ -612,10 +783,20 @@ final _data = {
       "uri": "package:http/src/multipart_file.dart",
       "size": 4431,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/multipart_file.dart',
+          'line': 73,
+          'col': 74,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       'fitness': {
         'magnitude': 79.0,
-        'shortcoming': 1.0,
+        'shortcoming': 2.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -625,6 +806,18 @@ final _data = {
             'file': 'lib/src/multipart_file.dart',
             'penalty': {'amount': 1, 'fraction': 0},
           },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/multipart_file.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/multipart_file.dart` gave the following hint:\n'
+                '\n'
+                'line: 73 col: 74  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/multipart_file.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
         ],
       },
     },
@@ -632,10 +825,56 @@ final _data = {
       "uri": "package:http/src/multipart_request.dart",
       "size": 5905,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/multipart_request.dart',
+          'line': 64,
+          'col': 11,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/multipart_request.dart',
+          'line': 65,
+          'col': 11,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/multipart_request.dart',
+          'line': 70,
+          'col': 11,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/multipart_request.dart',
+          'line': 93,
+          'col': 22,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/multipart_request.dart',
+          'line': 96,
+          'col': 48,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       'fitness': {
         'magnitude': 116.0,
-        'shortcoming': 1.0,
+        'shortcoming': 6.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -645,6 +884,66 @@ final _data = {
             'file': 'lib/src/multipart_request.dart',
             'penalty': {'amount': 1, 'fraction': 0},
           },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/multipart_request.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n'
+                '\n'
+                'line: 64 col: 11  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/multipart_request.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/multipart_request.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n'
+                '\n'
+                'line: 65 col: 11  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/multipart_request.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/multipart_request.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n'
+                '\n'
+                'line: 70 col: 11  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/multipart_request.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/multipart_request.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n'
+                '\n'
+                'line: 93 col: 22  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/multipart_request.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/multipart_request.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n'
+                '\n'
+                'line: 96 col: 48  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/multipart_request.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
         ],
       },
     },
@@ -652,10 +951,29 @@ final _data = {
       "uri": "package:http/src/request.dart",
       "size": 5952,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/request.dart',
+          'line': 39,
+          'col': 42,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/request.dart',
+          'line': 133,
+          'col': 26,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       'fitness': {
         'magnitude': 109.0,
-        'shortcoming': 1.0,
+        'shortcoming': 3.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -664,6 +982,30 @@ final _data = {
             'file': 'lib/src/request.dart',
             'penalty': {'amount': 1, 'fraction': 0},
           },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/request.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/request.dart` gave the following hint:\n'
+                '\n'
+                'line: 39 col: 42  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/request.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/request.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/request.dart` gave the following hint:\n'
+                '\n'
+                'line: 133 col: 26  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/request.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
         ],
       },
     },
@@ -671,10 +1013,29 @@ final _data = {
       "uri": "package:http/src/response.dart",
       "size": 3431,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/response.dart',
+          'line': 24,
+          'col': 8,
+          'description': '\'LATIN1\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/response.dart',
+          'line': 83,
+          'col': 18,
+          'description': '\'LATIN1\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       'fitness': {
         'magnitude': 62.0,
-        'shortcoming': 1.0,
+        'shortcoming': 3.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -682,6 +1043,30 @@ final _data = {
             'description': 'Run `dartfmt` to format `lib/src/response.dart`.',
             'file': 'lib/src/response.dart',
             'penalty': {'amount': 1, 'fraction': 0},
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/response.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/response.dart` gave the following hint:\n'
+                '\n'
+                'line: 24 col: 8  \n'
+                '\'LATIN1\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/response.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/response.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/response.dart` gave the following hint:\n'
+                '\n'
+                'line: 83 col: 18  \n'
+                '\'LATIN1\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/response.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
           },
         ],
       },
@@ -730,10 +1115,20 @@ final _data = {
       "uri": "package:http/src/utils.dart",
       "size": 4843,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/utils.dart',
+          'line': 43,
+          'col': 66,
+          'description': '\'LATIN1\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       'fitness': {
         'magnitude': 96.0,
-        'shortcoming': 1.0,
+        'shortcoming': 2.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -741,6 +1136,18 @@ final _data = {
             'description': 'Run `dartfmt` to format `lib/src/utils.dart`.',
             'file': 'lib/src/utils.dart',
             'penalty': {'amount': 1, 'fraction': 0},
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/utils.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/utils.dart` gave the following hint:\n'
+                '\n'
+                'line: 43 col: 66  \n'
+                '\'LATIN1\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/utils.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
           },
         ],
       },
@@ -909,22 +1316,19 @@ final _data = {
     'isPreReleaseVersion': false,
     'errorCount': 0,
     'warningCount': 0,
-    'hintCount': 17,
+    'hintCount': 36,
     'suggestions': [
       {
         'level': 'hint',
-        'title': 'The description is too short.',
-        'description':
-            'Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.',
-        'penalty': {'amount': 20, 'fraction': 0}
-      },
-      {
-        'level': 'hint',
         'title': 'Fix analysis and formatting issues.',
-        'description': 'Analysis or formatting checks reported 17 hints.\n\n'
-            'Run `dartfmt` to format `lib/browser_client.dart`.\n\n'
-            'Run `dartfmt` to format `lib/http.dart`.\n\n'
-            'Similar analysis of the following files failed:\n\n'
+        'description': 'Analysis or formatting checks reported 36 hints.\n'
+            '\n'
+            'Run `dartfmt` to format `lib/browser_client.dart`.\n'
+            '\n'
+            'Run `dartfmt` to format `lib/http.dart`.\n'
+            '\n'
+            'Similar analysis of the following files failed:\n'
+            '\n'
             '- `lib/src/base_client.dart` (hint)\n'
             '- `lib/src/base_request.dart` (hint)\n'
             '- `lib/src/base_response.dart` (hint)\n'
@@ -939,8 +1343,16 @@ final _data = {
             '- `lib/src/response.dart` (hint)\n'
             '- `lib/src/streamed_request.dart` (hint)\n'
             '- `lib/src/streamed_response.dart` (hint)\n'
-            '- `lib/src/utils.dart` (hint)\n',
-        'penalty': {'amount': 17, 'fraction': 0},
+            '- `lib/src/utils.dart` (hint)\n'
+            '',
+        'penalty': {'amount': 36, 'fraction': 0}
+      },
+      {
+        'level': 'hint',
+        'title': 'The description is too short.',
+        'description':
+            'Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.',
+        'penalty': {'amount': 20, 'fraction': 0}
       },
       {
         'level': 'hint',
@@ -964,5 +1376,5 @@ final _data = {
       },
     ],
   },
-  'fitness': {'magnitude': 1273.0, 'shortcoming': 17.0},
+  'fitness': {'magnitude': 1273.0, 'shortcoming': 36.0},
 };

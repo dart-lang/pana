@@ -64,7 +64,7 @@ String customizeAnalysisOptions(String original, bool usesFlutter) {
   }
   origMap ??= {};
 
-  final customMap = JSON.decode(JSON.encode(
+  final customMap = json.decode(json.encode(
       yaml.loadYaml(usesFlutter ? _flutterAnalysisOptions : _analysisOptions)));
 
   final origAnalyzer = origMap['analyzer'];
@@ -82,5 +82,5 @@ String customizeAnalysisOptions(String original, bool usesFlutter) {
     }
   }
 
-  return JSON.encode(customMap);
+  return json.encode(customMap);
 }

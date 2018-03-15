@@ -56,7 +56,7 @@ main(List<String> args) async {
     return;
   }
 
-  final json = result['json'] as bool;
+  final isJson = result['json'] as bool;
   final showWarning = result['warning'] as bool;
 
   final source = result['source'];
@@ -70,7 +70,7 @@ main(List<String> args) async {
 
   log.Logger.root.level = log.Level.ALL;
 
-  if (json) {
+  if (isJson) {
     log.Logger.root.onRecord.listen((log) {
       var map = <String, Object>{};
 
@@ -90,7 +90,7 @@ main(List<String> args) async {
       if (log.stackTrace != null) {
         map['stackTrace'] = log.stackTrace.toString();
       }
-      stderr.writeln(JSON.encode(map));
+      stderr.writeln(json.encode(map));
     });
   } else {
     log.Logger.root.onRecord.listen(_logWriter);

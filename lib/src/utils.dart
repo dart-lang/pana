@@ -182,7 +182,7 @@ String getPubspecContent(String packagePath) {
 }
 
 Object sortedJson(obj) {
-  var fullJson = JSON.decode(JSON.encode(obj));
+  var fullJson = json.decode(json.encode(obj));
   return _toSortedMap(fullJson);
 }
 
@@ -205,7 +205,7 @@ Map<String, Object> yamlToJson(String yamlContent) {
 
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
-  return sortedJson(JSON.decode(JSON.encode(yamlMap)));
+  return sortedJson(json.decode(json.encode(yamlMap)));
 }
 
 String toPackageUri(String package, String relativePath) {

@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 void main() {
   test("sorted json", () {
     expect(
-        JSON.encode(sortedJson({
+        json.encode(sortedJson({
           'b': [
             {'e': 3, 'd': 4}
           ],
