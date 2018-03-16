@@ -41,7 +41,7 @@ void main() {
 
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
-        actualMap = JSON.decode(JSON.encode(summary));
+        actualMap = json.decode(json.encode(summary));
       });
 
       test('matches known good', () {
@@ -51,7 +51,7 @@ void main() {
       test('Summary can round-trip', () {
         var summary = new Summary.fromJson(actualMap);
 
-        var roundTrip = JSON.decode(JSON.encode(summary));
+        var roundTrip = json.decode(json.encode(summary));
         expect(roundTrip, actualMap);
       });
     }, timeout: const Timeout.factor(2));

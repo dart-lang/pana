@@ -139,7 +139,7 @@ class FlutterSdk {
   Future<Map<String, Object>> getVersion() async {
     var result = await runProc(_flutterBin, ['--version', '--machine']);
     assert(result.exitCode == 0);
-    return JSON.decode(result.stdout);
+    return json.decode(result.stdout);
   }
 }
 
@@ -260,10 +260,10 @@ class PubEnvironment {
       environment: _environment,
     ));
 
-    var json = JSON.decode(result.stdout) as Map;
+    var map = json.decode(result.stdout) as Map;
 
     var location =
-        json['packages'][package][versionString]['location'] as String;
+        map['packages'][package][versionString]['location'] as String;
 
     if (location == null) {
       throw "Huh? This should be cached!";
@@ -306,7 +306,7 @@ class PubEnvironment {
     parsed.remove('dependency_overrides');
 
     await pubspec.rename(backup.path);
-    await pubspec.writeAsString(JSON.encode(parsed));
+    await pubspec.writeAsString(json.encode(parsed));
 
     return backup;
   }

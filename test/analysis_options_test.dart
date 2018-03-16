@@ -10,7 +10,7 @@ import 'package:pana/src/analysis_options.dart';
 
 void main() {
   test('flutter without original', () {
-    expect(JSON.decode(customizeAnalysisOptions(null, true)), {
+    expect(json.decode(customizeAnalysisOptions(null, true)), {
       'analyzer': {
         'strong-mode': true,
         'language': {
@@ -43,7 +43,7 @@ analyzer:
   errors:
     todo: ignore
 ''';
-    expect(JSON.decode(customizeAnalysisOptions(original, false)), {
+    expect(json.decode(customizeAnalysisOptions(original, false)), {
       'analyzer': {
         'strong-mode': true,
         'errors': {},
@@ -67,7 +67,7 @@ analyzer:
   errors:
     uri_has_not_been_generated: ignore
 ''';
-    expect(JSON.decode(customizeAnalysisOptions(original, false)), {
+    expect(json.decode(customizeAnalysisOptions(original, false)), {
       'analyzer': {
         'strong-mode': true,
         'errors': {

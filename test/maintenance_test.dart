@@ -121,7 +121,7 @@ void main() {
         hasPlatformConflict: true,
       );
 
-      expect(JSON.decode(JSON.encode(maintenance.toJson())), _withIssuesJson);
+      expect(json.decode(json.encode(maintenance.toJson())), _withIssuesJson);
     });
   });
 

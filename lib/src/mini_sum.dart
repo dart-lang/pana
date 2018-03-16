@@ -25,7 +25,7 @@ class MiniSum {
   MiniSum(this.summary);
 
   factory MiniSum.fromFileContent(String content) {
-    var output = JSON.decode(content) as Map<String, dynamic>;
+    var output = json.decode(content) as Map<String, dynamic>;
 
     if (output['pkgResolution'] == null) {
       throw 'Could not process ${output['packageName']}';

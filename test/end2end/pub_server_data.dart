@@ -89,7 +89,62 @@ final _data = {
       "uri": "package:pub_server/shelf_pubserver.dart",
       "size": 17852,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/shelf_pubserver.dart',
+          'line': 275,
+          'col': 24,
+          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/shelf_pubserver.dart',
+          'line': 275,
+          'col': 42,
+          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/shelf_pubserver.dart',
+          'line': 455,
+          'col': 15,
+          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/shelf_pubserver.dart',
+          'line': 463,
+          'col': 15,
+          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/shelf_pubserver.dart',
+          'line': 471,
+          'col': 15,
+          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/shelf_pubserver.dart',
+          'line': 488,
+          'col': 17,
+          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:convert",
@@ -290,7 +345,7 @@ final _data = {
       },
       'fitness': {
         'magnitude': 360.0,
-        'shortcoming': 1.0,
+        'shortcoming': 7.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -299,6 +354,78 @@ final _data = {
                 'Run `dartfmt` to format `lib/shelf_pubserver.dart`.',
             'file': 'lib/shelf_pubserver.dart',
             'penalty': {'amount': 1, 'fraction': 0},
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/shelf_pubserver.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
+                '\n'
+                'line: 275 col: 24  \n'
+                '\'JSON\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/shelf_pubserver.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/shelf_pubserver.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
+                '\n'
+                'line: 275 col: 42  \n'
+                '\'UTF8\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/shelf_pubserver.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/shelf_pubserver.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
+                '\n'
+                'line: 455 col: 15  \n'
+                '\'JSON\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/shelf_pubserver.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/shelf_pubserver.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
+                '\n'
+                'line: 463 col: 15  \n'
+                '\'JSON\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/shelf_pubserver.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/shelf_pubserver.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
+                '\n'
+                'line: 471 col: 15  \n'
+                '\'JSON\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/shelf_pubserver.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/shelf_pubserver.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
+                '\n'
+                'line: 488 col: 17  \n'
+                '\'JSON\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/shelf_pubserver.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
           },
         ],
       },
@@ -327,7 +454,7 @@ final _data = {
     'isPreReleaseVersion': false,
     'errorCount': 0,
     'warningCount': 0,
-    'hintCount': 1,
+    'hintCount': 7,
     'suggestions': [
       {
         'level': 'hint',
@@ -338,19 +465,19 @@ final _data = {
       },
       {
         'level': 'hint',
+        'title': 'Fix analysis and formatting issues.',
+        'description': 'Analysis or formatting checks reported 7 hints.\n\n'
+            'Run `dartfmt` to format `lib/shelf_pubserver.dart`.\n\n',
+        'penalty': {'amount': 7, 'fraction': 0},
+      },
+      {
+        'level': 'hint',
         'title': 'Maintain an example.',
         'description':
             'None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `pub_server.dart`.',
         'penalty': {'amount': 1, 'fraction': 0}
       },
-      {
-        'level': 'hint',
-        'title': 'Fix analysis and formatting issues.',
-        'description': 'Analysis or formatting checks reported 1 hint.\n\n'
-            'Run `dartfmt` to format `lib/shelf_pubserver.dart`.\n\n',
-        'penalty': {'amount': 1, 'fraction': 0},
-      },
     ],
   },
-  'fitness': {'magnitude': 455.0, 'shortcoming': 1.0},
+  'fitness': {'magnitude': 455.0, 'shortcoming': 7.0},
 };
