@@ -1,3 +1,7 @@
+## 0.10.5-dev
+
+* Enable Dart 2 Preview in Flutter analyzer options.
+
 ## 0.10.4
 
 * Fix CI test

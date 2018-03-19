@@ -28,9 +28,9 @@ linter:
 const String _flutterAnalysisOptions = '''
 analyzer:
   language:
+    enablePreviewDart2: true
     enableStrictCallChecks: true
     enableSuperMixins: true
-    enableAssertInitializer: true
   strong-mode: true
   errors:
     # treat missing required parameters as a warning (not a hint)

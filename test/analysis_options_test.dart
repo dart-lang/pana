@@ -14,9 +14,9 @@ void main() {
       'analyzer': {
         'strong-mode': true,
         'language': {
+          'enablePreviewDart2': true,
           'enableSuperMixins': true,
           'enableStrictCallChecks': true,
-          'enableAssertInitializer': true
         },
         'errors': {
           'todo': 'ignore',
