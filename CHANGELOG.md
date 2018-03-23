@@ -1,4 +1,4 @@
-## 0.10.5-dev
+## 0.10.5
 
 * Enable Dart 2 Preview in Flutter analyzer options.
 
