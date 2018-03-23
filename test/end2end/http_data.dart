@@ -185,7 +185,6 @@ final _data = {
         "package:collection/src/iterable_zip.dart",
         "package:collection/src/priority_queue.dart",
         "package:collection/src/queue_list.dart",
-        "package:collection/src/typed_wrappers.dart",
         "package:collection/src/union_set.dart",
         "package:collection/src/union_set_controller.dart",
         "package:collection/src/unmodifiable_wrappers.dart",
@@ -390,7 +389,6 @@ final _data = {
         "package:collection/src/iterable_zip.dart",
         "package:collection/src/priority_queue.dart",
         "package:collection/src/queue_list.dart",
-        "package:collection/src/typed_wrappers.dart",
         "package:collection/src/union_set.dart",
         "package:collection/src/union_set_controller.dart",
         "package:collection/src/unmodifiable_wrappers.dart",
@@ -511,10 +509,29 @@ final _data = {
       "uri": "package:http/src/base_client.dart",
       "size": 7821,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/base_client.dart',
+          'line': 163,
+          'col': 44,
+          'description': '\'typed\' is deprecated and shouldn\'t be used.'
+        },
+        {
+          'severity': 'INFO',
+          'errorType': 'HINT',
+          'errorCode': 'DEPRECATED_MEMBER_USE',
+          'file': 'lib/src/base_client.dart',
+          'line': 165,
+          'col': 44,
+          'description': '\'typed\' is deprecated and shouldn\'t be used.'
+        }
+      ],
       'fitness': {
         'magnitude': 136.0,
-        'shortcoming': 1.0,
+        'shortcoming': 3.0,
         'suggestions': [
           {
             'level': 'hint',
@@ -523,6 +540,30 @@ final _data = {
                 'Run `dartfmt` to format `lib/src/base_client.dart`.',
             'file': 'lib/src/base_client.dart',
             'penalty': {'amount': 1, 'fraction': 0},
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/base_client.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/base_client.dart` gave the following hint:\n'
+                '\n'
+                'line: 163 col: 44  \n'
+                '\'typed\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/base_client.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
+          },
+          {
+            'level': 'hint',
+            'title': 'Fix `lib/src/base_client.dart`.',
+            'description':
+                'Strong-mode analysis of `lib/src/base_client.dart` gave the following hint:\n'
+                '\n'
+                'line: 165 col: 44  \n'
+                '\'typed\' is deprecated and shouldn\'t be used.\n'
+                '',
+            'file': 'lib/src/base_client.dart',
+            'penalty': {'amount': 1, 'fraction': 0}
           },
         ],
       },
@@ -1225,7 +1266,6 @@ final _data = {
         "package:collection/src/iterable_zip.dart",
         "package:collection/src/priority_queue.dart",
         "package:collection/src/queue_list.dart",
-        "package:collection/src/typed_wrappers.dart",
         "package:collection/src/union_set.dart",
         "package:collection/src/union_set_controller.dart",
         "package:collection/src/unmodifiable_wrappers.dart",
@@ -1316,12 +1356,12 @@ final _data = {
     'isPreReleaseVersion': false,
     'errorCount': 0,
     'warningCount': 0,
-    'hintCount': 36,
+    'hintCount': 38,
     'suggestions': [
       {
         'level': 'hint',
         'title': 'Fix analysis and formatting issues.',
-        'description': 'Analysis or formatting checks reported 36 hints.\n'
+        'description': 'Analysis or formatting checks reported 38 hints.\n'
             '\n'
             'Run `dartfmt` to format `lib/browser_client.dart`.\n'
             '\n'
@@ -1345,7 +1385,7 @@ final _data = {
             '- `lib/src/streamed_response.dart` (hint)\n'
             '- `lib/src/utils.dart` (hint)\n'
             '',
-        'penalty': {'amount': 36, 'fraction': 0}
+        'penalty': {'amount': 38, 'fraction': 0}
       },
       {
         'level': 'hint',
@@ -1376,5 +1416,5 @@ final _data = {
       },
     ],
   },
-  'fitness': {'magnitude': 1273.0, 'shortcoming': 36.0},
+  'fitness': {'magnitude': 1273.0, 'shortcoming': 38.0},
 };
