@@ -30,6 +30,9 @@ abstract class ComponentNames {
   /// dart:io and related libraries
   static const String io = 'io';
 
+  /// dart:isolate and related libraries
+  static const String isolate = 'isolate';
+
   /// dart:nativewrappers and related libraries
   static const String nativewrappers = 'nativewrappers';
 
@@ -87,6 +90,14 @@ class ComponentDef {
     ],
   );
 
+  /// dart:isolate and related libraries
+  static const ComponentDef isolate = const ComponentDef(
+    ComponentNames.isolate,
+    const <String>[
+      'dart:isolate',
+    ],
+  );
+
   /// dart:nativewrappers and related libraries
   static const ComponentDef nativewrappers = const ComponentDef(
     ComponentNames.nativewrappers,
@@ -118,6 +129,7 @@ class ComponentDef {
     ComponentDef.html,
     ComponentDef.js,
     ComponentDef.io,
+    ComponentDef.isolate,
     ComponentDef.nativewrappers,
     ComponentDef.build,
     ComponentDef.mirrors,
@@ -159,6 +171,7 @@ class PlatformDef {
     ],
     const <ComponentDef>[
       ComponentDef.flutter,
+      ComponentDef.isolate,
       ComponentDef.nativewrappers,
     ],
   );
@@ -169,6 +182,7 @@ class PlatformDef {
     const <ComponentDef>[
       ComponentDef.js,
       ComponentDef.io,
+      ComponentDef.isolate,
       ComponentDef.nativewrappers,
       ComponentDef.mirrors,
     ],
