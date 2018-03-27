@@ -8,6 +8,8 @@ import 'package:yaml/yaml.dart' as yaml;
 
 const String _analysisOptions = '''
 analyzer:
+  language:
+    enablePreviewDart2: true
   strong-mode: true
 
 # Source of linter options:

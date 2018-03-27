@@ -1,3 +1,7 @@
+## 0.10.6-dev
+
+* Enable Dart 2 Preview in analyzer options (including non-Flutter packages).
+
 ## 0.10.5
 
 * Enable Dart 2 Preview in Flutter analyzer options.

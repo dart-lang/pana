@@ -45,6 +45,7 @@ analyzer:
 ''';
     expect(json.decode(customizeAnalysisOptions(original, false)), {
       'analyzer': {
+        'language': {'enablePreviewDart2': true},
         'strong-mode': true,
         'errors': {},
       },
@@ -69,6 +70,7 @@ analyzer:
 ''';
     expect(json.decode(customizeAnalysisOptions(original, false)), {
       'analyzer': {
+        'language': {'enablePreviewDart2': true},
         'strong-mode': true,
         'errors': {
           'uri_has_not_been_generated': 'ignore',
