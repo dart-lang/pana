@@ -41,6 +41,18 @@ void main() {
       expect(p.worksOnOther, isTrue);
     });
 
+    test('dart:isolate', () {
+      var p = classifyLibPlatform(['dart:isolate']);
+      expect(p.worksEverywhere, isFalse);
+      expect(p.components, ['isolate']);
+      expect(
+          p.longPlatformDebug, 'flutter: allowed, web: forbidden, other: used');
+      expect(p.hasConflict, isFalse);
+      expect(p.worksOnWeb, isFalse);
+      expect(p.worksOnFlutter, isTrue);
+      expect(p.worksOnOther, isTrue);
+    });
+
     test('dart:html', () {
       var p = classifyLibPlatform(['dart:html']);
       expect(p.worksEverywhere, isFalse);

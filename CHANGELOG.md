@@ -2,6 +2,8 @@
 
 * Enable Dart 2 Preview in analyzer options (including non-Flutter packages).
 
+* Change platform classification of `dart:isolate`: no longer available on `web`.
+
 ## 0.10.5
 
 * Enable Dart 2 Preview in Flutter analyzer options.

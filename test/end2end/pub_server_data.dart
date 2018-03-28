@@ -338,8 +338,8 @@ final _data = {
         "package:yaml/yaml.dart"
       ],
       'platform': {
-        'components': [],
-        'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
+        'components': ['isolate'],
+        'uses': {'flutter': 'allowed', 'web': 'forbidden', 'other': 'used'},
       },
       'fitness': {
         'magnitude': 360.0,
@@ -430,9 +430,9 @@ final _data = {
     },
   },
   'platform': {
-    'components': [],
-    'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
-    'reason': 'No platform restriction found in libraries.',
+    'components': ['isolate'],
+    'uses': {'flutter': 'allowed', 'web': 'forbidden', 'other': 'used'},
+    'reason': 'Platform components identified in package: `isolate`.',
   },
   "licenses": [
     {
