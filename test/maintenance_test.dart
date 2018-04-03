@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:pana/src/maintenance.dart';
 import 'package:pana/src/pkg_resolution.dart';
+import 'package:pana/src/platform.dart';
 import 'package:pana/src/pubspec.dart';
 import 'package:pana/src/summary.dart';
 import 'package:test/test.dart';
@@ -27,8 +28,7 @@ final _withIssuesJson = {
     {
       'level': 'error',
       'title': 'Fix platform conflicts.',
-      'description':
-          'Make sure none of the libraries use mutually exclusive dependendencies.',
+      'description': 'conflict description',
       'penalty': {'amount': 0, 'fraction': 2000}
     },
     {
@@ -118,7 +118,7 @@ void main() {
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
         suggestions,
         [new PkgDependency('foo', 'direct', 'empty', null, null, null, null)],
-        hasPlatformConflict: true,
+        pkgPlatform: new DartPlatform.conflict('conflict description'),
       );
 
       expect(json.decode(json.encode(maintenance.toJson())), _withIssuesJson);

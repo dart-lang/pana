@@ -8,6 +8,8 @@
 
 * Use `LibraryElement.hasExtUri` to detect `dart-ext:` imports.
 
+* Detailed suggestion messages when package has conflicting platforms.
+
 ## 0.10.5
 
 * Enable Dart 2 Preview in Flutter analyzer options.
