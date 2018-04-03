@@ -90,6 +90,12 @@ class Pubspec {
           _dependentSdks.add(value['sdk']);
         }
       });
+      final environmentMap = _content['environment'];
+      if (environmentMap is Map) {
+        final List<String> keys = environmentMap.keys.toList();
+        keys.remove('sdk');
+        _dependentSdks.addAll(keys);
+      }
     }
     return _dependentSdks;
   }

@@ -4,6 +4,8 @@
 
 * Change platform classification of `dart:isolate`: no longer available on `web`.
 
+* Treat `environment:` keys as dependent SDKs (e.g. `flutter`).
+
 ## 0.10.5
 
 * Enable Dart 2 Preview in Flutter analyzer options.

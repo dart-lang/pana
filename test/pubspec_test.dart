@@ -6,6 +6,7 @@ void main() {
     expect(emptyPubspec.hasFlutterKey, isFalse);
     expect(emptyPubspec.hasFlutterPluginKey, isFalse);
     expect(emptyPubspec.dependsOnFlutterSdk, isFalse);
+    expect(sdkOnlyEnvPubspec.dependsOnFlutterSdk, isFalse);
   });
 
   test('flutter', () {
@@ -20,6 +21,7 @@ void main() {
     expect(flutterSdkDevPubspec.hasFlutterPluginKey, isFalse);
     expect(flutterSdkDevPubspec.dependsOnFlutterSdk, isTrue);
     expect(flutterSdkDevPubspec.dependentSdks.toList(), ['flutter']);
+    expect(flutterInEnvPubspec.dependsOnFlutterSdk, isTrue);
   });
 
   test('unknown sdk', () {
@@ -62,5 +64,18 @@ final Pubspec unknownSdkPubspec = new Pubspec({
     'example': {
       'sdk': 'unknown',
     },
+  },
+});
+
+final Pubspec sdkOnlyEnvPubspec = new Pubspec({
+  'environment': {
+    'sdk': '^2.0.0',
+  },
+});
+
+final Pubspec flutterInEnvPubspec = new Pubspec({
+  'environment': {
+    'sdk': '^2.0.0',
+    'flutter': '^1.0.0',
   },
 });
