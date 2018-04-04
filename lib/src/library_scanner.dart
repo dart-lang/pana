@@ -260,6 +260,9 @@ class LibraryScanner {
     lib.exportedLibraries.forEach((le) {
       refs.add(_normalizeLibRef(le.librarySource.uri, package, packageDir));
     });
+    if (lib.hasExtUri) {
+      refs.add('dart-ext:');
+    }
 
     var pkgUri = toPackageUri(package, relativePath);
     _applyOverrides(pkgUri, refs);
