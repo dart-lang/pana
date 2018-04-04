@@ -10,20 +10,22 @@ import 'package:source_gen/source_gen.dart';
 class VersionHelper extends TypeHelper {
   final _checker = new TypeChecker.fromRuntime(Version);
 
-  String serialize(DartType targetType, String expression, bool nullable, _) {
+  String serialize(
+      DartType targetType, String expression, SerializeContext context) {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
-    var nullThing = nullable ? '?' : '';
+    var nullThing = context.nullable ? '?' : '';
     return "$expression$nullThing.toString()";
   }
 
-  String deserialize(DartType targetType, String expression, bool nullable, _) {
+  String deserialize(
+      DartType targetType, String expression, DeserializeContext context) {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
     var value = 'new Version.parse($expression)';
-    if (nullable) {
+    if (context.nullable) {
       value = '$expression == null ? null : $value';
     }
     return value;
@@ -33,20 +35,22 @@ class VersionHelper extends TypeHelper {
 class VersionConstraintHelper extends TypeHelper {
   final _checker = new TypeChecker.fromRuntime(VersionConstraint);
 
-  String serialize(DartType targetType, String expression, bool nullable, _) {
+  String serialize(
+      DartType targetType, String expression, SerializeContext context) {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
-    var nullThing = nullable ? '?' : '';
+    var nullThing = context.nullable ? '?' : '';
     return "$expression$nullThing.toString()";
   }
 
-  String deserialize(DartType targetType, String expression, bool nullable, _) {
+  String deserialize(
+      DartType targetType, String expression, DeserializeContext context) {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
     var value = 'new VersionConstraint.parse($expression)';
-    if (nullable) {
+    if (context.nullable) {
       value = '$expression == null ? null : $value';
     }
     return value;
