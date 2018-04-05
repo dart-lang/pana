@@ -14,6 +14,7 @@ import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
 import 'pkg_resolution.dart';
+import 'platform.dart';
 import 'pubspec.dart';
 import 'summary.dart' show Penalty, Suggestion, SuggestionLevel, applyPenalties;
 import 'utils.dart';
@@ -162,7 +163,7 @@ Future<Maintenance> detectMaintenance(
   Pubspec pubspec,
   List<Suggestion> dartFileSuggestions,
   List<PkgDependency> unconstrainedDeps, {
-  @required bool hasPlatformConflict,
+  @required DartPlatform pkgPlatform,
 }) async {
   final pkgName = pubspec.name;
   final maintenanceSuggestions = <Suggestion>[];
@@ -216,9 +217,9 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
-  if (hasPlatformConflict) {
-    maintenanceSuggestions.add(new Suggestion.error('Fix platform conflicts.',
-        'Make sure none of the libraries use mutually exclusive dependendencies.',
+  if (pkgPlatform.hasConflict) {
+    maintenanceSuggestions.add(new Suggestion.error(
+        'Fix platform conflicts.', pkgPlatform.reason,
         penalty: new Penalty(fraction: 2000)));
   }
 

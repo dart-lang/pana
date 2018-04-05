@@ -29,7 +29,10 @@ final _data = {
     "homepage": "http://rikulo.org/projects/stream",
     "documentation": "http://docs.rikulo.org/stream"
   },
-  "platform": {"reason": "Error(s) prevent platform classification."},
+  "platform": {
+    "reason":
+        "Error(s) prevent platform classification:\n\nMake sure `dartfmt` runs."
+  },
   "licenses": [
     {"path": "LICENSE", "name": "Apache", "version": "2.0"}
   ],
@@ -50,7 +53,7 @@ final _data = {
         'level': 'error',
         'title': 'Fix platform conflicts.',
         'description':
-            'Make sure none of the libraries use mutually exclusive dependendencies.',
+            'Error(s) prevent platform classification:\n\nMake sure `dartfmt` runs.',
         'penalty': {'amount': 0, 'fraction': 2000}
       },
       {

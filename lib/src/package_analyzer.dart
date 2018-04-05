@@ -238,7 +238,9 @@ class PackageAnalyzer {
         }
       }
     }
-    var pkgPlatformBlocked = suggestions.where((s) => s.isError).isNotEmpty;
+    final pkgPlatformBlockerSuggestion =
+        suggestions.firstWhere((s) => s.isError, orElse: () => null);
+    var pkgPlatformConflict = pkgPlatformBlockerSuggestion?.title;
 
     final dartFileSuggestions = <Suggestion>[];
     final files = new SplayTreeMap<String, DartFileSummary>();
@@ -259,7 +261,6 @@ class PackageAnalyzer {
       var uri = toPackageUri(package, dartFile);
       final libPlatformBlocked = platformBlockers.isNotEmpty &&
           (reachableLibs == null || reachableLibs.contains(uri));
-      pkgPlatformBlocked = pkgPlatformBlocked || libPlatformBlocked;
       var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
@@ -267,6 +268,7 @@ class PackageAnalyzer {
       if (libPlatformBlocked) {
         platform = new DartPlatform.conflict(
             'Error(s) in ${dartFile}: ${platformBlockers.first.description}');
+        pkgPlatformConflict ??= platform.reason;
       }
       if (transitiveLibs != null) {
         platform ??= classifyLibPlatform(transitiveLibs);
@@ -298,9 +300,9 @@ class PackageAnalyzer {
     }
 
     DartPlatform platform;
-    if (pkgPlatformBlocked) {
+    if (pkgPlatformConflict != null) {
       platform = new DartPlatform.conflict(
-          'Error(s) prevent platform classification.');
+          'Error(s) prevent platform classification:\n\n$pkgPlatformConflict');
     } else {
       final dfs = files.values.firstWhere(
           (dfs) => dfs.isPublicApi && dfs.platform.hasConflict,
@@ -320,7 +322,7 @@ class PackageAnalyzer {
       pubspec,
       dartFileSuggestions,
       pkgResolution?.getUnconstrainedDeps(onlyDirect: true),
-      hasPlatformConflict: platform.hasConflict,
+      pkgPlatform: platform,
     );
     suggestions.sort();
 
