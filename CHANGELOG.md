@@ -6,6 +6,8 @@
 
 * Treat `environment:` keys as dependent SDKs (e.g. `flutter`).
 
+* Use `LibraryElement.hasExtUri` to detect `dart-ext:` imports.
+
 ## 0.10.5
 
 * Enable Dart 2 Preview in Flutter analyzer options.
