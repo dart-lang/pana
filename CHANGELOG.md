@@ -4,6 +4,8 @@
 
 * `DartSdk`, `FlutterSdk` and `PubEnvironment` is replaced with `ToolEnvironment`.
 
+* `ToolEnvironment.runAnalyzer` returns the text output of the process.
+
 ## 0.10.6
 
 * Enable Dart 2 Preview in analyzer options (including non-Flutter packages).

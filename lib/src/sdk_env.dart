@@ -91,7 +91,7 @@ class ToolEnvironment {
     return toolEnv;
   }
 
-  Future<ProcessResult> runAnalyzer(
+  Future<String> runAnalyzer(
       String packageDir, List<String> dirs, bool usesFlutter) async {
     final originalOptionsFile =
         new File(p.join(packageDir, 'analysis_options.yaml'));
@@ -107,12 +107,21 @@ class ToolEnvironment {
     final params = ['--options', customOptionsFile.path, '--format', 'machine']
       ..addAll(dirs);
     try {
-      return await runProc(
+      final proc = await runProc(
         _dartAnalyzerCmd,
         params,
         environment: _environment,
         workingDirectory: packageDir,
       );
+      final String output = proc.stderr;
+      if ('\n$output'.contains('\nUnhandled exception:\n')) {
+        log.severe('Bad input?');
+        log.severe(output);
+        var errorMessage =
+            '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
+        throw new ArgumentError('dartanalyzer exception: $errorMessage');
+      }
+      return output;
     } finally {
       await customOptionsFile.delete();
     }
@@ -185,7 +194,7 @@ class ToolEnvironment {
 
   Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,
       {int retryCount: 3}) async {
-    final backup = await stripPubspecYaml(packageDir);
+    final backup = await _stripPubspecYaml(packageDir);
     ProcessResult result;
     try {
       do {
@@ -213,7 +222,7 @@ class ToolEnvironment {
         }
       } while (result.exitCode > 0 && retryCount > 0);
     } finally {
-      await restorePubspecYaml(packageDir, backup);
+      await _restorePubspecYaml(packageDir, backup);
     }
     return result;
   }
@@ -286,7 +295,7 @@ class ToolEnvironment {
 
   /// Removes the dev_dependencies from the pubspec.yaml
   /// Returns the backup file with the original content.
-  Future<File> stripPubspecYaml(String packageDir) async {
+  Future<File> _stripPubspecYaml(String packageDir) async {
     final now = new DateTime.now();
     final backup = new File(
         p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'));
@@ -303,7 +312,7 @@ class ToolEnvironment {
     return backup;
   }
 
-  Future restorePubspecYaml(String packageDir, File backup) async {
+  Future _restorePubspecYaml(String packageDir, File backup) async {
     final pubspec = new File(p.join(packageDir, 'pubspec.yaml'));
     await backup.rename(pubspec.path);
   }
