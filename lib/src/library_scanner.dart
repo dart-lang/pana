@@ -46,10 +46,10 @@ class LibraryScanner {
       this._context, this._overrides);
 
   factory LibraryScanner(
-      PubEnvironment pubEnv, String packagePath, bool useFlutter,
+      ToolEnvironment toolEnv, String packagePath, bool useFlutter,
       {List<LibraryOverride> overrides}) {
     // TODO: fail more clearly if this...fails
-    var sdkPath = pubEnv.dartSdk.sdkDir;
+    var sdkPath = toolEnv.dartSdkDir;
 
     var resourceProvider = PhysicalResourceProvider.INSTANCE;
     var sdk = new FolderBasedDartSdk(
@@ -65,7 +65,7 @@ class LibraryScanner {
     RunPubList runPubList;
     if (useFlutter) {
       runPubList = (Folder folder) =>
-          pubEnv.listPackageDirsSync(folder.path, useFlutter);
+          toolEnv.listPackageDirsSync(folder.path, useFlutter);
     }
 
     var pubPackageMapProvider = new PubPackageMapProvider(

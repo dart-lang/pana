@@ -8,7 +8,6 @@ import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
 import 'package:path/path.dart' as p;
-import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_options.dart';
 import 'logging.dart';
@@ -16,37 +15,80 @@ import 'pubspec.dart';
 import 'sdk_info.dart';
 import 'utils.dart';
 
-class DartSdk implements DartSdkInfo {
-  final String sdkDir;
-  final Map<String, String> _environment;
+class ToolEnvironment {
+  final String dartSdkDir;
+  final String pubCacheDir;
+  final String _dartCmd;
+  final String _pubCmd;
   final String _dartAnalyzerCmd;
   final String _dartfmtCmd;
-  final String _pubCmd;
-  final String dateString;
-  final String platform;
-  final Version version;
+  final String _flutterCmd;
+  final Map<String, String> _environment;
+  DartSdkInfo _dartSdkInfo;
 
-  DartSdk._(this.sdkDir, this._environment, this.version, this.dateString,
-      this.platform)
-      : _dartAnalyzerCmd = _join(sdkDir, 'bin', 'dartanalyzer'),
-        _dartfmtCmd = _join(sdkDir, 'bin', 'dartfmt'),
-        _pubCmd = _join(sdkDir, 'bin', 'pub');
+  ToolEnvironment._(
+    this.dartSdkDir,
+    this.pubCacheDir,
+    this._dartCmd,
+    this._pubCmd,
+    this._dartAnalyzerCmd,
+    this._dartfmtCmd,
+    this._flutterCmd,
+    this._environment,
+  );
 
-  static Future<DartSdk> create(
-      {String sdkDir, Map<String, String> environment}) async {
-    sdkDir ??= cli.getSdkPath();
-    environment ??= {};
+  DartSdkInfo get dartSdkInfo => _dartSdkInfo;
 
-    var dartCmd = _join(sdkDir, 'bin', 'dart');
+  Future _init() async {
+    final dartVersionResult = handleProcessErrors(
+        await runProc(_dartCmd, ['--version'], environment: _environment));
+    final dartVersionString = dartVersionResult.stderr.toString().trim();
+    _dartSdkInfo = new DartSdkInfo.parse(dartVersionString);
+  }
 
-    var r = handleProcessErrors(
-        await runProc(dartCmd, ['--version'], environment: environment));
-    var versionString = r.stderr.toString().trim();
+  static Future<ToolEnvironment> create({
+    String dartSdkDir,
+    String flutterSdkDir,
+    String pubCacheDir,
+    Map<String, String> environment,
+  }) async {
+    Future<String> resolve(String dir) async {
+      if (dir == null) return null;
+      return new Directory(dir).resolveSymbolicLinks();
+    }
 
-    var info = new DartSdkInfo.parse(versionString);
+    dartSdkDir ??= cli.getSdkPath();
+    final resolvedDartSdk = await resolve(dartSdkDir);
+    final resolvedFlutterSdk = await resolve(flutterSdkDir);
+    final resolvedPubCache = await resolve(pubCacheDir);
+    final env = <String, String>{};
+    env.addAll(environment ?? const {});
 
-    return new DartSdk._(
-        sdkDir, environment, info.version, info.dateString, info.platform);
+    if (resolvedPubCache != null) {
+      env['PUB_CACHE'] = resolvedPubCache;
+    }
+
+    final pubEnvValues = <String>[];
+    final origPubEnvValue = Platform.environment[_pubEnvironmentKey] ?? '';
+    pubEnvValues.addAll(origPubEnvValue
+        .split(':')
+        .map((s) => s.trim())
+        .where((s) => s.isNotEmpty));
+    pubEnvValues.add('bot.pkg_pana');
+    env[_pubEnvironmentKey] = pubEnvValues.join(':');
+
+    final toolEnv = new ToolEnvironment._(
+      resolvedDartSdk,
+      resolvedPubCache,
+      _join(resolvedDartSdk, 'bin', 'dart'),
+      _join(resolvedDartSdk, 'bin', 'pub'),
+      _join(resolvedDartSdk, 'bin', 'dartanalyzer'),
+      _join(resolvedDartSdk, 'bin', 'dartfmt'),
+      _join(resolvedFlutterSdk, 'bin', 'flutter'),
+      env,
+    );
+    await toolEnv._init();
+    return toolEnv;
   }
 
   Future<ProcessResult> runAnalyzer(
@@ -111,7 +153,7 @@ class DartSdk implements DartSdkInfo {
     return files;
   }
 
-  Future<ProcessResult> _execUpgrade(
+  Future<ProcessResult> _execPubUpgrade(
       String packageDir, Map<String, String> environment) {
     return runProc(
       _pubCmd,
@@ -120,70 +162,20 @@ class DartSdk implements DartSdkInfo {
       environment: environment,
     );
   }
-}
 
-class FlutterSdk {
-  final String _flutterBin;
-
-  FlutterSdk({String sdkDir}) : _flutterBin = _join(sdkDir, 'bin', 'flutter');
-
-  Future<ProcessResult> _execUpgrade(
+  Future<ProcessResult> _execFlutterUpgrade(
           String packageDir, Map<String, String> environment) =>
       runProc(
-        _flutterBin,
+        _flutterCmd,
         ['packages', 'pub', 'upgrade', '--verbosity', 'io', '--no-precompile'],
         workingDirectory: packageDir,
         environment: environment,
       );
 
-  Future<Map<String, Object>> getVersion() async {
-    var result = await runProc(_flutterBin, ['--version', '--machine']);
+  Future<Map<String, Object>> getFlutterVersion() async {
+    var result = await runProc(_flutterCmd, ['--version', '--machine']);
     assert(result.exitCode == 0);
     return json.decode(result.stdout);
-  }
-}
-
-class PubEnvironment {
-  final DartSdk dartSdk;
-  final FlutterSdk flutterSdk;
-  final String pubCacheDir;
-  final Map<String, String> _environment = {};
-
-  PubEnvironment(this.dartSdk, {FlutterSdk flutterSdk, this.pubCacheDir})
-      : this.flutterSdk = flutterSdk ?? new FlutterSdk() {
-    _environment.addAll(this.dartSdk._environment);
-    if (!_environment.containsKey(_pubEnvironmentKey)) {
-      // Then do the standard behavior. Extract the current value, if any,
-      // and append the default value
-
-      var pubEnvironment = <String>[];
-
-      var currentEnv = Platform.environment[_pubEnvironmentKey];
-
-      if (currentEnv != null) {
-        pubEnvironment.addAll(currentEnv
-                .split(
-                    ':') // if there are many values, they should be separated by `:`
-                .map((v) => v.trim()) // don't want whitespace
-                .where((v) => v.isNotEmpty) // don't want empty values
-            );
-      }
-
-      pubEnvironment.add('bot.pkg_pana');
-
-      _environment[_pubEnvironmentKey] = pubEnvironment.join(':');
-    }
-    if (pubCacheDir != null) {
-      var resolvedDir = new Directory(pubCacheDir).resolveSymbolicLinksSync();
-      if (resolvedDir != pubCacheDir) {
-        throw new ArgumentError([
-          "Make sure you resolve symlinks:",
-          pubCacheDir,
-          resolvedDir
-        ].join('\n'));
-      }
-      _environment['PUB_CACHE'] = pubCacheDir;
-    }
   }
 
   Future<bool> detectFlutterUse(String packageDir) async {
@@ -200,9 +192,9 @@ class PubEnvironment {
         retryCount--;
 
         if (usesFlutter) {
-          result = await flutterSdk._execUpgrade(packageDir, _environment);
+          result = await _execFlutterUpgrade(packageDir, _environment);
         } else {
-          result = await dartSdk._execUpgrade(packageDir, _environment);
+          result = await _execPubUpgrade(packageDir, _environment);
         }
 
         if (result.exitCode > 0) {
@@ -234,7 +226,7 @@ class PubEnvironment {
     args.add(package);
 
     var result = handleProcessErrors(await runProc(
-      dartSdk._pubCmd,
+      _pubCmd,
       args,
       environment: _environment,
     ));
@@ -255,7 +247,7 @@ class PubEnvironment {
 
     // now get all installed packages
     result = handleProcessErrors(await runProc(
-      dartSdk._pubCmd,
+      _pubCmd,
       ['cache', 'list'],
       environment: _environment,
     ));
@@ -276,7 +268,7 @@ class PubEnvironment {
     if (usesFlutter) {
       // flutter env
       return runProcSync(
-        flutterSdk._flutterBin,
+        _flutterCmd,
         ['packages', 'pub', 'list-package-dirs'],
         workingDirectory: packageDir,
         environment: _environment,
@@ -284,7 +276,7 @@ class PubEnvironment {
     } else {
       // normal pub
       return runProcSync(
-        dartSdk._pubCmd,
+        _pubCmd,
         ['list-package-dirs'],
         workingDirectory: packageDir,
         environment: _environment,
