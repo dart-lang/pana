@@ -1,3 +1,9 @@
+## 0.11.0-dev
+
+**Breaking changes:**
+
+* `DartSdk`, `FlutterSdk` and `PubEnvironment` is replaced with `ToolEnvironment`.
+
 ## 0.10.6
 
 * Enable Dart 2 Preview in analyzer options (including non-Flutter packages).

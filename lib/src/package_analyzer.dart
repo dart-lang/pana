@@ -26,26 +26,17 @@ import 'utils.dart';
 import 'version.dart';
 
 class PackageAnalyzer {
-  final DartSdk _dartSdk;
-  final FlutterSdk _flutterSdk;
-  final PubEnvironment _pubEnv;
+  final ToolEnvironment _toolEnv;
 
-  PackageAnalyzer._(this._dartSdk, this._flutterSdk, this._pubEnv);
-
-  factory PackageAnalyzer(DartSdk dartSdk,
-      {String flutterDir, String pubCacheDir}) {
-    var flutterSdk = new FlutterSdk(sdkDir: flutterDir);
-
-    var pubEnv = new PubEnvironment(dartSdk,
-        flutterSdk: flutterSdk, pubCacheDir: pubCacheDir);
-
-    return new PackageAnalyzer._(dartSdk, flutterSdk, pubEnv);
-  }
+  PackageAnalyzer(this._toolEnv);
 
   static Future<PackageAnalyzer> create(
-          {String sdkDir, String flutterDir, String pubCacheDir}) async =>
-      new PackageAnalyzer(await DartSdk.create(sdkDir: sdkDir),
-          flutterDir: flutterDir, pubCacheDir: pubCacheDir);
+      {String sdkDir, String flutterDir, String pubCacheDir}) async {
+    return new PackageAnalyzer(await ToolEnvironment.create(
+        dartSdkDir: sdkDir,
+        flutterSdkDir: flutterDir,
+        pubCacheDir: pubCacheDir));
+  }
 
   Future<Summary> inspectPackage(
     String package, {
@@ -66,7 +57,7 @@ class PackageAnalyzer {
         packageDir = tempDir?.path;
       }
       if (packageDir == null) {
-        var pkgInfo = await _pubEnv.getLocation(package, version: version);
+        var pkgInfo = await _toolEnv.getLocation(package, version: version);
         packageDir = pkgInfo.location;
       }
       try {
@@ -88,9 +79,9 @@ class PackageAnalyzer {
   }
 
   Future<Summary> _inspect(String pkgDir, bool keepTransitiveLibs) async {
-    log.info("SDK: ${_dartSdk.version}");
-    if (_pubEnv.pubCacheDir != null) {
-      log.fine("Using .package-cache: ${_pubEnv.pubCacheDir}");
+    log.info("SDK: ${_toolEnv.dartSdkInfo.version}");
+    if (_toolEnv.pubCacheDir != null) {
+      log.fine("Using .package-cache: ${_toolEnv.pubCacheDir}");
     }
     log.fine('Inspecting package at $pkgDir');
     final suggestions = <Suggestion>[];
@@ -120,7 +111,7 @@ class PackageAnalyzer {
     Set<String> unformattedFiles;
     try {
       unformattedFiles = new SplayTreeSet<String>.from(
-          await _dartSdk.filesNeedingFormat(pkgDir));
+          await _toolEnv.filesNeedingFormat(pkgDir));
 
       assert(unformattedFiles.every((f) => dartFiles.contains(f)),
           'dartfmt should only return Dart files');
@@ -136,7 +127,7 @@ class PackageAnalyzer {
     }
 
     log.info("Pub upgrade...");
-    final upgrade = await _pubEnv.runUpgrade(pkgDir, usesFlutter);
+    final upgrade = await _toolEnv.runUpgrade(pkgDir, usesFlutter);
 
     PkgResolution pkgResolution;
     if (upgrade.exitCode == 0) {
@@ -194,7 +185,7 @@ class PackageAnalyzer {
               'package:package_resolver/package_resolver.dart'),
         ];
 
-        libraryScanner = new LibraryScanner(_pubEnv, pkgDir, usesFlutter,
+        libraryScanner = new LibraryScanner(_toolEnv, pkgDir, usesFlutter,
             overrides: overrides);
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
@@ -296,7 +287,7 @@ class PackageAnalyzer {
 
     Map<String, Object> flutterVersion;
     if (usesFlutter) {
-      flutterVersion = await _flutterSdk.getVersion();
+      flutterVersion = await _toolEnv.getFlutterVersion();
     }
 
     DartPlatform platform;
@@ -328,7 +319,7 @@ class PackageAnalyzer {
 
     return new Summary(
       panaPkgVersion,
-      _dartSdk.version,
+      _toolEnv.dartSdkInfo.version,
       pubspec.name,
       pubspec.version,
       pubspec,
@@ -349,7 +340,7 @@ class PackageAnalyzer {
     if (dirs.isEmpty) {
       return null;
     }
-    final proc = await _dartSdk.runAnalyzer(pkgPath, dirs, usesFlutter);
+    final proc = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter);
 
     String output = proc.stderr;
     if ('\n$output'.contains('\nUnhandled exception:\n')) {
