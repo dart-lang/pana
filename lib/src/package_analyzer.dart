@@ -340,17 +340,7 @@ class PackageAnalyzer {
     if (dirs.isEmpty) {
       return null;
     }
-    final proc = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter);
-
-    String output = proc.stderr;
-    if ('\n$output'.contains('\nUnhandled exception:\n')) {
-      log.severe("Bad input?");
-      log.severe(output);
-      var errorMessage =
-          '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
-      throw new ArgumentError('dartanalyzer exception: $errorMessage');
-    }
-
+    final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter);
     try {
       return new SplayTreeSet.from(LineSplitter
           .split(output)
