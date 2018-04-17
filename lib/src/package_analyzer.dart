@@ -176,6 +176,15 @@ class PackageAnalyzer {
 
     Set<CodeProblem> analyzerItems;
 
+    var dartdocSuccessful = false;
+    if (pkgResolution != null) {
+      try {
+        dartdocSuccessful = await _toolEnv.checkDartdoc(pkgDir);
+      } catch (e, st) {
+        log.severe('Could not run dartdoc.', e, st);
+      }
+    }
+
     if (pkgResolution != null) {
       try {
         var overrides = [
@@ -314,6 +323,7 @@ class PackageAnalyzer {
       dartFileSuggestions,
       pkgResolution?.getUnconstrainedDeps(onlyDirect: true),
       pkgPlatform: platform,
+      dartdocSuccessful: dartdocSuccessful,
     );
     suggestions.sort();
 

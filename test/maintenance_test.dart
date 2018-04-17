@@ -32,6 +32,12 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 2000}
     },
     {
+      'level': 'error',
+      'title': 'Running `dartdoc` failed.',
+      'description': 'Make sure `dartdoc` runs without any issues.',
+      'penalty': {'amount': 0, 'fraction': 1000},
+    },
+    {
       'level': 'warning',
       'title': 'Maintain `CHANGELOG.md`.',
       'description':
@@ -119,6 +125,7 @@ void main() {
         suggestions,
         [new PkgDependency('foo', 'direct', 'empty', null, null, null, null)],
         pkgPlatform: new DartPlatform.conflict('conflict description'),
+        dartdocSuccessful: false,
       );
 
       expect(json.decode(json.encode(maintenance.toJson())), _withIssuesJson);
@@ -127,7 +134,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(_withIssues.getMaintenanceScore(), closeTo(0.530, 0.001));
+      expect(_withIssues.getMaintenanceScore(), closeTo(0.476, 0.001));
     });
 
     test('perfect', () {

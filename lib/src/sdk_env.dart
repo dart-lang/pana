@@ -22,9 +22,11 @@ class ToolEnvironment {
   final String _pubCmd;
   final String _dartAnalyzerCmd;
   final String _dartfmtCmd;
+  final String _dartdocCmd;
   final String _flutterCmd;
   final Map<String, String> _environment;
   DartSdkInfo _dartSdkInfo;
+  bool _useGlobalDartdoc;
 
   ToolEnvironment._(
     this.dartSdkDir,
@@ -33,8 +35,10 @@ class ToolEnvironment {
     this._pubCmd,
     this._dartAnalyzerCmd,
     this._dartfmtCmd,
+    this._dartdocCmd,
     this._flutterCmd,
     this._environment,
+    this._useGlobalDartdoc,
   );
 
   DartSdkInfo get dartSdkInfo => _dartSdkInfo;
@@ -51,6 +55,7 @@ class ToolEnvironment {
     String flutterSdkDir,
     String pubCacheDir,
     Map<String, String> environment,
+    bool useGlobalDartdoc: false,
   }) async {
     Future<String> resolve(String dir) async {
       if (dir == null) return null;
@@ -65,7 +70,7 @@ class ToolEnvironment {
     env.addAll(environment ?? const {});
 
     if (resolvedPubCache != null) {
-      env['PUB_CACHE'] = resolvedPubCache;
+      env[_pubCacheKey] = resolvedPubCache;
     }
 
     final pubEnvValues = <String>[];
@@ -84,8 +89,10 @@ class ToolEnvironment {
       _join(resolvedDartSdk, 'bin', 'pub'),
       _join(resolvedDartSdk, 'bin', 'dartanalyzer'),
       _join(resolvedDartSdk, 'bin', 'dartfmt'),
+      _join(resolvedDartSdk, 'bin', 'dartdoc'),
       _join(resolvedFlutterSdk, 'bin', 'flutter'),
       env,
+      useGlobalDartdoc,
     );
     await toolEnv._init();
     return toolEnv;
@@ -227,6 +234,45 @@ class ToolEnvironment {
     return result;
   }
 
+  Map<String, String> _globalDartdocEnv() {
+    final env = new Map<String, String>.from(_environment);
+    if (pubCacheDir != null) {
+      env.remove(_pubCacheKey);
+    }
+    return env;
+  }
+
+  Future activateGlobalDartdoc(String version) async {
+    handleProcessErrors(await runProc(
+      _pubCmd,
+      ['global', 'activate', 'dartdoc', version],
+      environment: _globalDartdocEnv(),
+    ));
+    _useGlobalDartdoc = true;
+  }
+
+  Future<bool> checkDartdoc(String packageDir) async {
+    ProcessResult pr;
+    final args = ['--exclude', dartdocExcludedLibraries.join(',')];
+    if (_useGlobalDartdoc) {
+      pr = await runProc(
+        _pubCmd,
+        ['global', 'run', 'dartdoc']..addAll(args),
+        workingDirectory: packageDir,
+        environment: _globalDartdocEnv(),
+      );
+    } else {
+      pr = await runProc(
+        _dartdocCmd,
+        args,
+        workingDirectory: packageDir,
+        environment: _environment,
+      );
+    }
+    // TODO: check generated content e.g. index.html and index.json
+    return pr.exitCode == 0;
+  }
+
   Future<PackageLocation> getLocation(String package, {String version}) async {
     var args = ['cache', 'add', '--verbose'];
     if (version != null) {
@@ -326,9 +372,23 @@ class PackageLocation {
   PackageLocation(this.package, this.version, this.location);
 }
 
+const dartdocExcludedLibraries = const <String>[
+  'dart:async',
+  'dart:collection',
+  'dart:convert',
+  'dart:core',
+  'dart:developer',
+  'dart:io',
+  'dart:isolate',
+  'dart:math',
+  'dart:typed_data',
+  'dart:ui',
+];
+
 final _versionDownloadRegexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
 
+const _pubCacheKey = 'PUB_CACHE';
 const _pubEnvironmentKey = 'PUB_ENVIRONMENT';
 
 String _join(String path, String binDir, String executable) =>

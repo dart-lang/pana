@@ -6,6 +6,10 @@
 
 * `ToolEnvironment.runAnalyzer` returns the text output of the process.
 
+Updates:
+
+* Check if `dartdoc` can run on the package.
+
 ## 0.10.6
 
 * Enable Dart 2 Preview in analyzer options (including non-Flutter packages).
