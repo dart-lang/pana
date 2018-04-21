@@ -380,3 +380,30 @@ abstract class _$FitnessSerializerMixin {
     return val;
   }
 }
+
+LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) =>
+    new LicenseFile(json['path'] as String, json['name'] as String,
+        version: json['version'] as String, url: json['url'] as String);
+
+abstract class _$LicenseFileSerializerMixin {
+  String get path;
+  String get name;
+  String get version;
+  String get url;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'path': path,
+      'name': name,
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('version', version);
+    writeNotNull('url', url);
+    return val;
+  }
+}

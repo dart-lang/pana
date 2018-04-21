@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:test/test.dart';
 
 import 'package:pana/src/license.dart';
+import 'package:pana/src/model.dart';
 
 main() {
   Future expectFile(String path, LicenseFile expected) async {

@@ -8,63 +8,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 
 import 'download_utils.dart';
-
-part 'license.g.dart';
-
-@JsonSerializable()
-class LicenseFile extends Object with _$LicenseFileSerializerMixin {
-  final String path;
-  final String name;
-
-  @JsonKey(includeIfNull: false)
-  final String version;
-
-  @JsonKey(includeIfNull: false)
-  final String url;
-
-  LicenseFile(this.path, this.name, {this.version, this.url});
-
-  factory LicenseFile.fromJson(Map<String, dynamic> json) =>
-      _$LicenseFileFromJson(json);
-
-  LicenseFile change({String url}) =>
-      new LicenseFile(path, name, version: version, url: url ?? this.url);
-
-  String get shortFormatted => version == null ? name : '$name $version';
-
-  @override
-  String toString() => '$path: $shortFormatted';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is LicenseFile &&
-          runtimeType == other.runtimeType &&
-          path == other.path &&
-          name == other.name &&
-          version == other.version &&
-          url == other.url;
-
-  @override
-  int get hashCode =>
-      path.hashCode ^ name.hashCode ^ version.hashCode ^ url.hashCode;
-}
-
-abstract class LicenseNames {
-  static const String AGPL = 'AGPL';
-  static const String Apache = 'Apache';
-  static const String BSD = 'BSD';
-  static const String GPL = 'GPL';
-  static const String LGPL = 'LGPL';
-  static const String MIT = 'MIT';
-  static const String MPL = 'MPL';
-  static const String Unlicense = 'Unlicense';
-  static const String unknown = 'unknown';
-}
+import 'model.dart';
 
 Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
   final rootFiles = await new Directory(baseDir).list().toList();
