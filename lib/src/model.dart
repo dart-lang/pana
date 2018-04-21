@@ -1,8 +1,6 @@
-// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2018, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
-
-library pana.summary;
 
 import 'dart:convert';
 import 'dart:math' as math;
@@ -20,65 +18,7 @@ import 'pubspec.dart';
 import 'sdk_info.dart';
 import 'utils.dart' show toRelativePath;
 
-part 'summary.g.dart';
-
-@JsonSerializable()
-class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
-  final String uri;
-  final int size;
-
-  /// If this file is formatted with `dartfmt`.
-  ///
-  /// `true` if it is.
-  /// `false` if it is not.
-  /// `null` if `dartfmt` failed while running.
-  final bool isFormatted;
-  final List<CodeProblem> codeProblems;
-
-  @JsonKey(includeIfNull: false)
-  final List<String> directLibs;
-  @JsonKey(includeIfNull: false)
-  final List<String> transitiveLibs;
-  @JsonKey(includeIfNull: false)
-  final DartPlatform platform;
-  @JsonKey(includeIfNull: false)
-  final Fitness fitness;
-
-  DartFileSummary(
-    this.uri,
-    this.size,
-    this.isFormatted,
-    this.codeProblems,
-    this.directLibs,
-    this.transitiveLibs,
-    this.platform,
-    this.fitness,
-  );
-
-  factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
-      _$DartFileSummaryFromJson(json);
-
-  /// The relative path in the package archive.
-  String get path => toRelativePath(uri);
-  bool get isInBin => path.startsWith('bin/');
-  bool get isInLib => path.startsWith('lib/');
-  bool get isInLibSrc => path.startsWith('lib/src/');
-
-  /// Whether the file provides a public API for the package users.
-  bool get isPublicApi => isInLib && !isInLibSrc;
-
-  /// Whether the file has any local import that point outside of the lib/
-  bool get hasOutsideLibDependency =>
-      directLibs != null &&
-      directLibs.any((String lib) => lib.startsWith('asset:'));
-
-  bool get hasCodeError =>
-      (codeProblems?.any((cp) => cp.isError) ?? false) ||
-      hasOutsideLibDependency;
-
-  CodeProblem get firstCodeError =>
-      codeProblems?.firstWhere((cp) => cp.isError, orElse: () => null);
-}
+part 'model.g.dart';
 
 @JsonSerializable()
 class Summary extends Object with _$SummarySerializerMixin {
@@ -144,6 +84,64 @@ class Summary extends Object with _$SummarySerializerMixin {
 }
 
 @JsonSerializable()
+class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
+  final String uri;
+  final int size;
+
+  /// If this file is formatted with `dartfmt`.
+  ///
+  /// `true` if it is.
+  /// `false` if it is not.
+  /// `null` if `dartfmt` failed while running.
+  final bool isFormatted;
+  final List<CodeProblem> codeProblems;
+
+  @JsonKey(includeIfNull: false)
+  final List<String> directLibs;
+  @JsonKey(includeIfNull: false)
+  final List<String> transitiveLibs;
+  @JsonKey(includeIfNull: false)
+  final DartPlatform platform;
+  @JsonKey(includeIfNull: false)
+  final Fitness fitness;
+
+  DartFileSummary(
+      this.uri,
+      this.size,
+      this.isFormatted,
+      this.codeProblems,
+      this.directLibs,
+      this.transitiveLibs,
+      this.platform,
+      this.fitness,
+      );
+
+  factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
+      _$DartFileSummaryFromJson(json);
+
+  /// The relative path in the package archive.
+  String get path => toRelativePath(uri);
+  bool get isInBin => path.startsWith('bin/');
+  bool get isInLib => path.startsWith('lib/');
+  bool get isInLibSrc => path.startsWith('lib/src/');
+
+  /// Whether the file provides a public API for the package users.
+  bool get isPublicApi => isInLib && !isInLibSrc;
+
+  /// Whether the file has any local import that point outside of the lib/
+  bool get hasOutsideLibDependency =>
+      directLibs != null &&
+          directLibs.any((String lib) => lib.startsWith('asset:'));
+
+  bool get hasCodeError =>
+      (codeProblems?.any((cp) => cp.isError) ?? false) ||
+          hasOutsideLibDependency;
+
+  CodeProblem get firstCodeError =>
+      codeProblems?.firstWhere((cp) => cp.isError, orElse: () => null);
+}
+
+@JsonSerializable()
 class Suggestion extends Object
     with _$SuggestionSerializerMixin
     implements Comparable<Suggestion> {
@@ -158,33 +156,33 @@ class Suggestion extends Object
   final Penalty penalty;
 
   Suggestion(
-    this.level,
-    this.title,
-    this.description, {
-    this.file,
-    this.penalty,
-  });
+      this.level,
+      this.title,
+      this.description, {
+        this.file,
+        this.penalty,
+      });
 
   factory Suggestion.bug(String message, Object error, StackTrace stack) {
     final title =
         'There is likely a bug in the analysis code or a dependency: $message';
     final description =
-        LineSplitter.split([error, '', stack].join('\n')).take(100).join('\n');
+    LineSplitter.split([error, '', stack].join('\n')).take(100).join('\n');
     return new Suggestion(SuggestionLevel.bug, title, description);
   }
 
   factory Suggestion.error(String title, String description,
-          {String file, Penalty penalty}) =>
+      {String file, Penalty penalty}) =>
       new Suggestion(SuggestionLevel.error, title, description,
           file: file, penalty: penalty);
 
   factory Suggestion.warning(String title, String description,
-          {String file, Penalty penalty}) =>
+      {String file, Penalty penalty}) =>
       new Suggestion(SuggestionLevel.warning, title, description,
           file: file, penalty: penalty);
 
   factory Suggestion.hint(String title, String description,
-          {String file, Penalty penalty}) =>
+      {String file, Penalty penalty}) =>
       new Suggestion(SuggestionLevel.hint, title, description,
           file: file, penalty: penalty);
 
@@ -275,14 +273,4 @@ class Penalty extends Object
       return fractionDir;
     }
   }
-}
-
-double applyPenalties(double initialScore, Iterable<Penalty> penalties) {
-  if (penalties == null) return initialScore;
-  var score = initialScore;
-  for (var p in penalties) {
-    if (p == null) continue;
-    score = p.apply(score);
-  }
-  return score;
 }

@@ -4,63 +4,11 @@
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of pana.summary;
+part of 'model.dart';
 
 // **************************************************************************
 // Generator: JsonSerializableGenerator
 // **************************************************************************
-
-DartFileSummary _$DartFileSummaryFromJson(
-        Map<String, dynamic> json) =>
-    new DartFileSummary(
-        json['uri'] as String,
-        json['size'] as int,
-        json['isFormatted'] as bool,
-        (json['codeProblems'] as List)
-            ?.map((e) => e == null
-                ? null
-                : new CodeProblem.fromJson(e as Map<String, dynamic>))
-            ?.toList(),
-        (json['directLibs'] as List)?.map((e) => e as String)?.toList(),
-        (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
-        json['platform'] == null
-            ? null
-            : new DartPlatform.fromJson(
-                json['platform'] as Map<String, dynamic>),
-        json['fitness'] == null
-            ? null
-            : new Fitness.fromJson(json['fitness'] as Map<dynamic, dynamic>));
-
-abstract class _$DartFileSummarySerializerMixin {
-  String get uri;
-  int get size;
-  bool get isFormatted;
-  List<CodeProblem> get codeProblems;
-  List<String> get directLibs;
-  List<String> get transitiveLibs;
-  DartPlatform get platform;
-  Fitness get fitness;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'uri': uri,
-      'size': size,
-      'isFormatted': isFormatted,
-      'codeProblems': codeProblems,
-    };
-
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
-    }
-
-    writeNotNull('directLibs', directLibs);
-    writeNotNull('transitiveLibs', transitiveLibs);
-    writeNotNull('platform', platform);
-    writeNotNull('fitness', fitness);
-    return val;
-  }
-}
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     new Version.parse(json['panaVersion']),
@@ -144,6 +92,60 @@ abstract class _$SummarySerializerMixin {
     return val;
   }
 }
+
+
+DartFileSummary _$DartFileSummaryFromJson(
+    Map<String, dynamic> json) =>
+    new DartFileSummary(
+        json['uri'] as String,
+        json['size'] as int,
+        json['isFormatted'] as bool,
+        (json['codeProblems'] as List)
+            ?.map((e) => e == null
+            ? null
+            : new CodeProblem.fromJson(e as Map<String, dynamic>))
+            ?.toList(),
+        (json['directLibs'] as List)?.map((e) => e as String)?.toList(),
+        (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
+        json['platform'] == null
+            ? null
+            : new DartPlatform.fromJson(
+            json['platform'] as Map<String, dynamic>),
+        json['fitness'] == null
+            ? null
+            : new Fitness.fromJson(json['fitness'] as Map<dynamic, dynamic>));
+
+abstract class _$DartFileSummarySerializerMixin {
+  String get uri;
+  int get size;
+  bool get isFormatted;
+  List<CodeProblem> get codeProblems;
+  List<String> get directLibs;
+  List<String> get transitiveLibs;
+  DartPlatform get platform;
+  Fitness get fitness;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'uri': uri,
+      'size': size,
+      'isFormatted': isFormatted,
+      'codeProblems': codeProblems,
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('directLibs', directLibs);
+    writeNotNull('transitiveLibs', transitiveLibs);
+    writeNotNull('platform', platform);
+    writeNotNull('fitness', fitness);
+    return val;
+  }
+}
+
 
 Suggestion _$SuggestionFromJson(Map<String, dynamic> json) => new Suggestion(
     json['level'] as String,

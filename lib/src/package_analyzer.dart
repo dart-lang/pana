@@ -17,11 +17,11 @@ import 'license.dart';
 import 'logging.dart';
 import 'maintenance.dart';
 import 'messages.dart' as messages;
+import 'model.dart';
 import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
-import 'summary.dart';
 import 'utils.dart';
 import 'version.dart';
 

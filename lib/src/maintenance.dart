@@ -13,10 +13,10 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
+import 'model.dart' show Penalty, Suggestion, SuggestionLevel;
 import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
-import 'summary.dart' show Penalty, Suggestion, SuggestionLevel, applyPenalties;
 import 'utils.dart';
 
 part 'maintenance.g.dart';
@@ -400,4 +400,14 @@ Future<Maintenance> detectMaintenance(
     hintCount: hintCount,
     suggestions: maintenanceSuggestions,
   );
+}
+
+double applyPenalties(double initialScore, Iterable<Penalty> penalties) {
+  if (penalties == null) return initialScore;
+  var score = initialScore;
+  for (var p in penalties) {
+    if (p == null) continue;
+    score = p.apply(score);
+  }
+  return score;
 }

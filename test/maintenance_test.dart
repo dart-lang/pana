@@ -5,10 +5,10 @@
 import 'dart:convert';
 
 import 'package:pana/src/maintenance.dart';
+import 'package:pana/src/model.dart';
 import 'package:pana/src/pkg_resolution.dart';
 import 'package:pana/src/platform.dart';
 import 'package:pana/src/pubspec.dart';
-import 'package:pana/src/summary.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 

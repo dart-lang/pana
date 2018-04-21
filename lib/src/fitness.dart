@@ -13,9 +13,9 @@ import 'package:path/path.dart' as p;
 
 import 'code_problem.dart';
 import 'messages.dart' as messages;
+import 'model.dart';
 import 'platform.dart';
 import 'pubspec.dart';
-import 'summary.dart';
 
 part 'fitness.g.dart';
 

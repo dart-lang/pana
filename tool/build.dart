@@ -30,9 +30,9 @@ final _builders = <BuilderApplication>[
         'lib/src/fitness.dart',
         'lib/src/license.dart',
         'lib/src/maintenance.dart',
+        'lib/src/model.dart',
         'lib/src/platform.dart',
         'lib/src/pub_summary.dart',
-        'lib/src/summary.dart',
         'lib/src/version.dart',
       ]))
 ];
