@@ -8,42 +8,12 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 
 import 'code_problem.dart';
 import 'messages.dart' as messages;
 import 'model.dart';
 import 'pubspec.dart';
-
-part 'fitness.g.dart';
-
-/// Describes a health metric that takes size and complexity into account.
-@JsonSerializable()
-class Fitness extends Object with _$FitnessSerializerMixin {
-  /// Represents the size and complexity of the library.
-  final double magnitude;
-
-  /// The faults, penalties and failures to meet the standards.
-  final double shortcoming;
-
-  @JsonKey(includeIfNull: false)
-  final List<Suggestion> suggestions;
-
-  Fitness(this.magnitude, this.shortcoming, {this.suggestions});
-
-  factory Fitness.fromJson(Map json) => _$FitnessFromJson(json);
-
-  String toSimpleText() =>
-      '${(magnitude - shortcoming).toStringAsFixed(2)} out of ${magnitude.toStringAsFixed(2)}';
-
-  double get healthScore {
-    final score = (magnitude - shortcoming) / magnitude;
-    return max(0.0, min(1.0, score));
-  }
-
-  bool get hasSuggestion => suggestions != null && suggestions.isNotEmpty;
-}
 
 Future<Fitness> calcFitness(
     String pkgDir,

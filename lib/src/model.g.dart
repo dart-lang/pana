@@ -350,3 +350,33 @@ abstract class _$MaintenanceSerializerMixin {
     return val;
   }
 }
+
+Fitness _$FitnessFromJson(Map<String, dynamic> json) => new Fitness(
+    (json['magnitude'] as num)?.toDouble(),
+    (json['shortcoming'] as num)?.toDouble(),
+    suggestions: (json['suggestions'] as List)
+        ?.map((e) => e == null
+            ? null
+            : new Suggestion.fromJson(e as Map<String, dynamic>))
+        ?.toList());
+
+abstract class _$FitnessSerializerMixin {
+  double get magnitude;
+  double get shortcoming;
+  List<Suggestion> get suggestions;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'magnitude': magnitude,
+      'shortcoming': shortcoming,
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('suggestions', suggestions);
+    return val;
+  }
+}

@@ -10,7 +10,6 @@ import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
-import 'fitness.dart';
 import 'license.dart';
 import 'platform.dart';
 import 'pubspec.dart';
@@ -420,14 +419,13 @@ class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
         .where((pd) => !onlyDirect || pd.isDirect)
         .where((pd) => includeSdk || pd.constraintType != ConstraintTypes.sdk)
         .where((pd) =>
-    pd.constraint == null ||
-        pd.constraint.isAny ||
-        (pd.constraint is VersionRange &&
-            (pd.constraint as VersionRange).max == null))
+            pd.constraint == null ||
+            pd.constraint.isAny ||
+            (pd.constraint is VersionRange &&
+                (pd.constraint as VersionRange).max == null))
         .toList();
   }
 }
-
 
 enum VersionResolutionType {
   /// The resolved version is the latest.
@@ -493,9 +491,9 @@ class PkgDependency extends Object
 
   bool get isHosted =>
       constraintType != ConstraintTypes.sdk &&
-          constraintType != ConstraintTypes.path &&
-          constraintType != ConstraintTypes.git &&
-          constraintType != ConstraintTypes.unknown;
+      constraintType != ConstraintTypes.path &&
+      constraintType != ConstraintTypes.git &&
+      constraintType != ConstraintTypes.unknown;
 
   VersionResolutionType get resolutionType {
     if (isLatest) return VersionResolutionType.latest;
@@ -534,7 +532,6 @@ class PkgDependency extends Object
     return items.join(' ');
   }
 }
-
 
 /// Describes the maintenance status of the package.
 @JsonSerializable()
@@ -593,4 +590,31 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
 
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
       _$MaintenanceFromJson(json);
+}
+
+/// Describes a health metric that takes size and complexity into account.
+@JsonSerializable()
+class Fitness extends Object with _$FitnessSerializerMixin {
+  /// Represents the size and complexity of the library.
+  final double magnitude;
+
+  /// The faults, penalties and failures to meet the standards.
+  final double shortcoming;
+
+  @JsonKey(includeIfNull: false)
+  final List<Suggestion> suggestions;
+
+  Fitness(this.magnitude, this.shortcoming, {this.suggestions});
+
+  factory Fitness.fromJson(Map json) => _$FitnessFromJson(json);
+
+  String toSimpleText() =>
+      '${(magnitude - shortcoming).toStringAsFixed(2)} out of ${magnitude.toStringAsFixed(2)}';
+
+  double get healthScore {
+    final score = (magnitude - shortcoming) / magnitude;
+    return math.max(0.0, math.min(1.0, score));
+  }
+
+  bool get hasSuggestion => suggestions != null && suggestions.isNotEmpty;
 }
