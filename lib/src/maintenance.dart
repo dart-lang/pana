@@ -13,9 +13,8 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
-import 'model.dart' show Penalty, Suggestion, SuggestionLevel;
+import 'model.dart';
 import 'pkg_resolution.dart';
-import 'platform.dart';
 import 'pubspec.dart';
 import 'utils.dart';
 

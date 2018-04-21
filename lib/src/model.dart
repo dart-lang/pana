@@ -106,15 +106,15 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   final Fitness fitness;
 
   DartFileSummary(
-      this.uri,
-      this.size,
-      this.isFormatted,
-      this.codeProblems,
-      this.directLibs,
-      this.transitiveLibs,
-      this.platform,
-      this.fitness,
-      );
+    this.uri,
+    this.size,
+    this.isFormatted,
+    this.codeProblems,
+    this.directLibs,
+    this.transitiveLibs,
+    this.platform,
+    this.fitness,
+  );
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
       _$DartFileSummaryFromJson(json);
@@ -131,11 +131,11 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   /// Whether the file has any local import that point outside of the lib/
   bool get hasOutsideLibDependency =>
       directLibs != null &&
-          directLibs.any((String lib) => lib.startsWith('asset:'));
+      directLibs.any((String lib) => lib.startsWith('asset:'));
 
   bool get hasCodeError =>
       (codeProblems?.any((cp) => cp.isError) ?? false) ||
-          hasOutsideLibDependency;
+      hasOutsideLibDependency;
 
   CodeProblem get firstCodeError =>
       codeProblems?.firstWhere((cp) => cp.isError, orElse: () => null);
@@ -156,33 +156,33 @@ class Suggestion extends Object
   final Penalty penalty;
 
   Suggestion(
-      this.level,
-      this.title,
-      this.description, {
-        this.file,
-        this.penalty,
-      });
+    this.level,
+    this.title,
+    this.description, {
+    this.file,
+    this.penalty,
+  });
 
   factory Suggestion.bug(String message, Object error, StackTrace stack) {
     final title =
         'There is likely a bug in the analysis code or a dependency: $message';
     final description =
-    LineSplitter.split([error, '', stack].join('\n')).take(100).join('\n');
+        LineSplitter.split([error, '', stack].join('\n')).take(100).join('\n');
     return new Suggestion(SuggestionLevel.bug, title, description);
   }
 
   factory Suggestion.error(String title, String description,
-      {String file, Penalty penalty}) =>
+          {String file, Penalty penalty}) =>
       new Suggestion(SuggestionLevel.error, title, description,
           file: file, penalty: penalty);
 
   factory Suggestion.warning(String title, String description,
-      {String file, Penalty penalty}) =>
+          {String file, Penalty penalty}) =>
       new Suggestion(SuggestionLevel.warning, title, description,
           file: file, penalty: penalty);
 
   factory Suggestion.hint(String title, String description,
-      {String file, Penalty penalty}) =>
+          {String file, Penalty penalty}) =>
       new Suggestion(SuggestionLevel.hint, title, description,
           file: file, penalty: penalty);
 
@@ -273,4 +273,111 @@ class Penalty extends Object
       return fractionDir;
     }
   }
+}
+
+abstract class PlatformNames {
+  /// Package uses or depends on Flutter.
+  static const String flutter = 'flutter';
+
+  /// Package is available in web applications.
+  static const String web = 'web';
+
+  /// Package is available in web applications.
+  static const String other = 'other';
+}
+
+abstract class ComponentNames {
+  /// Flutter and related libraries
+  static const String flutter = 'flutter';
+
+  /// dart:html and related libraries
+  static const String html = 'html';
+
+  /// dart:js and related libraries
+  static const String js = 'js';
+
+  /// dart:io and related libraries
+  static const String io = 'io';
+
+  /// dart:isolate and related libraries
+  static const String isolate = 'isolate';
+
+  /// dart:nativewrappers and related libraries
+  static const String nativewrappers = 'nativewrappers';
+
+  /// Transformers and other build tools.
+  static const String build = 'build';
+
+  /// dart:mirrors and related libraries
+  static const String mirrors = 'mirrors';
+}
+
+enum PlatformUse {
+  /// is allowed, but not used
+  allowed,
+
+  /// is allowed AND used
+  used,
+
+  /// is forbidden AND used
+  conflict,
+
+  /// is forbidden, but not used
+  forbidden,
+}
+
+bool _isAllowed(PlatformUse value) =>
+    value == PlatformUse.allowed || value == PlatformUse.used;
+
+@JsonSerializable()
+class DartPlatform extends Object with _$DartPlatformSerializerMixin {
+  @JsonKey(includeIfNull: false)
+  final List<String> components;
+
+  @JsonKey(includeIfNull: false)
+  final Map<String, PlatformUse> uses;
+
+  @JsonKey(includeIfNull: false)
+  final String reason;
+
+  DartPlatform(this.components, this.uses, {this.reason});
+
+  factory DartPlatform.conflict(String reason) =>
+      new DartPlatform(null, null, reason: reason);
+
+  factory DartPlatform.fromComponents(List<String> components,
+      {String reason}) {
+    final defs = components
+        .map((c) => ComponentDef.values.singleWhere((def) => def.name == c))
+        .toList();
+    return new DartPlatform(components, PlatformDef.detectUses(defs),
+        reason: reason);
+  }
+
+  factory DartPlatform.everywhere(String reason) =>
+      new DartPlatform.fromComponents([], reason: reason);
+
+  factory DartPlatform.fromJson(Map<String, dynamic> json) =>
+      _$DartPlatformFromJson(json);
+
+  bool get worksEverywhere =>
+      uses != null && uses.values.every((s) => _isAllowed(s));
+  bool get worksAnywhere =>
+      uses != null && uses.values.any((s) => _isAllowed(s));
+  bool get hasConflict => !worksAnywhere;
+
+  bool get worksOnFlutter => _worksOn(PlatformNames.flutter);
+  bool get worksOnWeb => _worksOn(PlatformNames.web);
+  bool get worksOnOther => _worksOn(PlatformNames.other);
+
+  bool get usesFlutter => _uses(PlatformNames.flutter);
+
+  /// Visible for testing only, DO NOT USE in clients.
+  String get longPlatformDebug => uses.keys
+      .map((k) => '$k: ${uses[k].toString().split('.').last}')
+      .join(', ');
+
+  bool _worksOn(String name) => uses != null && _isAllowed(uses[name]);
+
+  bool _uses(String name) => uses != null && uses[name] == PlatformUse.used;
 }

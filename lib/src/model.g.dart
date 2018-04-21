@@ -93,24 +93,23 @@ abstract class _$SummarySerializerMixin {
   }
 }
 
-
 DartFileSummary _$DartFileSummaryFromJson(
-    Map<String, dynamic> json) =>
+        Map<String, dynamic> json) =>
     new DartFileSummary(
         json['uri'] as String,
         json['size'] as int,
         json['isFormatted'] as bool,
         (json['codeProblems'] as List)
             ?.map((e) => e == null
-            ? null
-            : new CodeProblem.fromJson(e as Map<String, dynamic>))
+                ? null
+                : new CodeProblem.fromJson(e as Map<String, dynamic>))
             ?.toList(),
         (json['directLibs'] as List)?.map((e) => e as String)?.toList(),
         (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
         json['platform'] == null
             ? null
             : new DartPlatform.fromJson(
-            json['platform'] as Map<String, dynamic>),
+                json['platform'] as Map<String, dynamic>),
         json['fitness'] == null
             ? null
             : new Fitness.fromJson(json['fitness'] as Map<dynamic, dynamic>));
@@ -145,7 +144,6 @@ abstract class _$DartFileSummarySerializerMixin {
     return val;
   }
 }
-
 
 Suggestion _$SuggestionFromJson(Map<String, dynamic> json) => new Suggestion(
     json['level'] as String,
@@ -198,6 +196,46 @@ abstract class _$PenaltySerializerMixin {
 
     writeNotNull('amount', amount);
     writeNotNull('fraction', fraction);
+    return val;
+  }
+}
+
+DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) =>
+    new DartPlatform(
+        (json['components'] as List)?.map((e) => e as String)?.toList(),
+        json['uses'] == null
+            ? null
+            : new Map<String, PlatformUse>.fromIterables(
+                (json['uses'] as Map<String, dynamic>).keys,
+                (json['uses'] as Map).values.map((e) => e == null
+                    ? null
+                    : PlatformUse.values
+                        .singleWhere((x) => x.toString() == 'PlatformUse.$e'))),
+        reason: json['reason'] as String);
+
+abstract class _$DartPlatformSerializerMixin {
+  List<String> get components;
+  Map<String, PlatformUse> get uses;
+  String get reason;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{};
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('components', components);
+    writeNotNull(
+        'uses',
+        uses == null
+            ? null
+            : new Map<String, dynamic>.fromIterables(
+                uses.keys,
+                uses.values.map(
+                    (e) => e == null ? null : e.toString().split('.')[1])));
+    writeNotNull('reason', reason);
     return val;
   }
 }

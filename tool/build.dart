@@ -31,7 +31,6 @@ final _builders = <BuilderApplication>[
         'lib/src/license.dart',
         'lib/src/maintenance.dart',
         'lib/src/model.dart',
-        'lib/src/platform.dart',
         'lib/src/pub_summary.dart',
         'lib/src/version.dart',
       ]))

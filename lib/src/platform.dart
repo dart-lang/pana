@@ -1,47 +1,8 @@
 library pana.platform;
 
-import 'package:json_annotation/json_annotation.dart';
-
+import 'model.dart'
+    show ComponentNames, DartPlatform, PlatformNames, PlatformUse;
 import 'pubspec.dart';
-
-part 'platform.g.dart';
-
-abstract class PlatformNames {
-  /// Package uses or depends on Flutter.
-  static const String flutter = 'flutter';
-
-  /// Package is available in web applications.
-  static const String web = 'web';
-
-  /// Package is available in web applications.
-  static const String other = 'other';
-}
-
-abstract class ComponentNames {
-  /// Flutter and related libraries
-  static const String flutter = 'flutter';
-
-  /// dart:html and related libraries
-  static const String html = 'html';
-
-  /// dart:js and related libraries
-  static const String js = 'js';
-
-  /// dart:io and related libraries
-  static const String io = 'io';
-
-  /// dart:isolate and related libraries
-  static const String isolate = 'isolate';
-
-  /// dart:nativewrappers and related libraries
-  static const String nativewrappers = 'nativewrappers';
-
-  /// Transformers and other build tools.
-  static const String build = 'build';
-
-  /// dart:mirrors and related libraries
-  static const String mirrors = 'mirrors';
-}
 
 class ComponentDef {
   final String name;
@@ -222,82 +183,12 @@ class PlatformDef {
   }
 }
 
-enum PlatformUse {
-  /// is allowed, but not used
-  allowed,
-
-  /// is allowed AND used
-  used,
-
-  /// is forbidden AND used
-  conflict,
-
-  /// is forbidden, but not used
-  forbidden,
-}
-
 PlatformUse _getPlatformStatus(bool isAllowed, bool isUsed) {
   if (isAllowed) {
     return isUsed ? PlatformUse.used : PlatformUse.allowed;
   } else {
     return isUsed ? PlatformUse.conflict : PlatformUse.forbidden;
   }
-}
-
-bool _isAllowed(PlatformUse value) =>
-    value == PlatformUse.allowed || value == PlatformUse.used;
-
-@JsonSerializable()
-class DartPlatform extends Object with _$DartPlatformSerializerMixin {
-  @JsonKey(includeIfNull: false)
-  final List<String> components;
-
-  @JsonKey(includeIfNull: false)
-  final Map<String, PlatformUse> uses;
-
-  @JsonKey(includeIfNull: false)
-  final String reason;
-
-  DartPlatform(this.components, this.uses, {this.reason});
-
-  factory DartPlatform.conflict(String reason) =>
-      new DartPlatform(null, null, reason: reason);
-
-  factory DartPlatform.fromComponents(List<String> components,
-      {String reason}) {
-    final defs = components
-        .map((c) => ComponentDef.values.singleWhere((def) => def.name == c))
-        .toList();
-    return new DartPlatform(components, PlatformDef.detectUses(defs),
-        reason: reason);
-  }
-
-  factory DartPlatform.everywhere(String reason) =>
-      new DartPlatform.fromComponents([], reason: reason);
-
-  factory DartPlatform.fromJson(Map<String, dynamic> json) =>
-      _$DartPlatformFromJson(json);
-
-  bool get worksEverywhere =>
-      uses != null && uses.values.every((s) => _isAllowed(s));
-  bool get worksAnywhere =>
-      uses != null && uses.values.any((s) => _isAllowed(s));
-  bool get hasConflict => !worksAnywhere;
-
-  bool get worksOnFlutter => _worksOn(PlatformNames.flutter);
-  bool get worksOnWeb => _worksOn(PlatformNames.web);
-  bool get worksOnOther => _worksOn(PlatformNames.other);
-
-  bool get usesFlutter => _uses(PlatformNames.flutter);
-
-  /// Visible for testing only, DO NOT USE in clients.
-  String get longPlatformDebug => uses.keys
-      .map((k) => '$k: ${uses[k].toString().split('.').last}')
-      .join(', ');
-
-  bool _worksOn(String name) => uses != null && _isAllowed(uses[name]);
-
-  bool _uses(String name) => uses != null && uses[name] == PlatformUse.used;
 }
 
 DartPlatform classifyPkgPlatform(
