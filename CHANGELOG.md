@@ -8,6 +8,11 @@
 
 * Consolidating options in `InspectOptions`, changing `PackageAnalyzer` APIs.
 
+* Move all output-related data structure to `src/model.dart`:
+  * `CodeProblem.parse` -> `parseCodeProblem`
+  * `Maintenance.getMaintenanceScore` -> `getMaintenanceScore`
+  * `PkgResolution.create` -> `createPkgResolution`
+
 Updates:
 
 * Check if `dartdoc` can run on the package.
