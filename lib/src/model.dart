@@ -6,12 +6,12 @@ import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
 import 'fitness.dart';
 import 'license.dart';
-import 'maintenance.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_info.dart';
@@ -533,4 +533,64 @@ class PkgDependency extends Object
     }
     return items.join(' ');
   }
+}
+
+
+/// Describes the maintenance status of the package.
+@JsonSerializable()
+class Maintenance extends Object with _$MaintenanceSerializerMixin {
+  /// whether the package has no or too small changelog
+  final bool missingChangelog;
+
+  /// whether the package has no example
+  final bool missingExample;
+
+  /// whether the package has no or too small readme
+  final bool missingReadme;
+
+  /// whether the package has no analysis_options.yaml file
+  final bool missingAnalysisOptions;
+
+  /// whether the package has only an old .analysis-options file
+  final bool oldAnalysisOptions;
+
+  /// whether the analysis_options.yaml file has strong mode enabled
+  final bool strongModeEnabled;
+
+  /// whether version is `0.*`
+  final bool isExperimentalVersion;
+
+  /// whether version is flagged `-beta`, `-alpha`, etc.
+  final bool isPreReleaseVersion;
+
+  /// the number of errors encountered during analysis
+  final int errorCount;
+
+  /// the number of warning encountered during analysis
+  final int warningCount;
+
+  /// the number of hints encountered during analysis
+  final int hintCount;
+
+  /// The suggestions that affect the maintenance score.
+  @JsonKey(includeIfNull: false)
+  final List<Suggestion> suggestions;
+
+  Maintenance({
+    @required this.missingChangelog,
+    @required this.missingExample,
+    @required this.missingReadme,
+    @required this.missingAnalysisOptions,
+    @required this.oldAnalysisOptions,
+    @required this.strongModeEnabled,
+    @required this.isExperimentalVersion,
+    @required this.isPreReleaseVersion,
+    @required this.errorCount,
+    @required this.warningCount,
+    @required this.hintCount,
+    this.suggestions,
+  });
+
+  factory Maintenance.fromJson(Map<String, dynamic> json) =>
+      _$MaintenanceFromJson(json);
 }

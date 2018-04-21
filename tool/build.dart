@@ -29,7 +29,6 @@ final _builders = <BuilderApplication>[
         'lib/src/analyzer_output.dart',
         'lib/src/fitness.dart',
         'lib/src/license.dart',
-        'lib/src/maintenance.dart',
         'lib/src/model.dart',
         'lib/src/pub_summary.dart',
         'lib/src/version.dart',
