@@ -12,7 +12,6 @@ import 'code_problem.dart';
 import 'fitness.dart';
 import 'license.dart';
 import 'maintenance.dart';
-import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_info.dart';
@@ -380,4 +379,158 @@ class DartPlatform extends Object with _$DartPlatformSerializerMixin {
   bool _worksOn(String name) => uses != null && _isAllowed(uses[name]);
 
   bool _uses(String name) => uses != null && uses[name] == PlatformUse.used;
+}
+
+@JsonSerializable()
+class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
+  final List<PkgDependency> dependencies;
+
+  PkgResolution(this.dependencies);
+
+  factory PkgResolution.fromJson(Map<String, dynamic> json) =>
+      _$PkgResolutionFromJson(json);
+
+  List<PkgDependency> get outdated =>
+      dependencies.where((pd) => pd.isOutdated).toList();
+
+  Map<String, int> getStats(Pubspec pubspec) {
+    // counts: direct, dev, transitive
+    // outdated count, by constraint: direct, dev
+    // outdated count, other: all
+    var directDeps = pubspec.dependencies?.length ?? 0;
+    var devDeps = pubspec.devDependencies?.length ?? 0;
+
+    var transitiveDeps = dependencies.where((pd) => pd.isTransitive).length;
+
+    var data = <String, int>{
+      'deps_direct': directDeps,
+      'deps_dev': devDeps,
+      'deps_transitive': transitiveDeps,
+      'outdated_direct': outdated.where((pvd) => pvd.isDirect).length,
+      'outdated_dev': outdated.where((pvd) => pvd.isDev).length,
+      'outdated_transitive': outdated.where((pvd) => pvd.isTransitive).length,
+    };
+
+    return data;
+  }
+
+  List<PkgDependency> getUnconstrainedDeps(
+      {bool onlyDirect: false, bool includeSdk: false}) {
+    return dependencies
+        .where((pd) => !onlyDirect || pd.isDirect)
+        .where((pd) => includeSdk || pd.constraintType != ConstraintTypes.sdk)
+        .where((pd) =>
+    pd.constraint == null ||
+        pd.constraint.isAny ||
+        (pd.constraint is VersionRange &&
+            (pd.constraint as VersionRange).max == null))
+        .toList();
+  }
+}
+
+
+enum VersionResolutionType {
+  /// The resolved version is the latest.
+  latest,
+
+  /// The latest version is not available due to a version constraint.
+  constrained,
+
+  /// Other, unknown?
+  other,
+}
+
+abstract class DependencyTypes {
+  static final String direct = 'direct';
+  static final String dev = 'dev';
+  static final String transitive = 'transitive';
+}
+
+abstract class ConstraintTypes {
+  static final String empty = 'empty';
+  static final String normal = 'normal';
+  static final String sdk = 'sdk';
+  static final String git = 'git';
+  static final String path = 'path';
+  static final String inherited = 'inherited';
+  static final String unknown = 'unknown';
+}
+
+@JsonSerializable()
+class PkgDependency extends Object
+    with _$PkgDependencySerializerMixin
+    implements Comparable<PkgDependency> {
+  final String package;
+
+  final String dependencyType;
+
+  final String constraintType;
+
+  @JsonKey(includeIfNull: false)
+  final VersionConstraint constraint;
+
+  @JsonKey(includeIfNull: false)
+  final Version resolved;
+
+  @JsonKey(includeIfNull: false)
+  final Version available;
+
+  @JsonKey(includeIfNull: false)
+  final List<String> errors;
+
+  PkgDependency(this.package, this.dependencyType, this.constraintType,
+      this.constraint, this.resolved, this.available, this.errors);
+
+  factory PkgDependency.fromJson(Map<String, dynamic> json) =>
+      _$PkgDependencyFromJson(json);
+
+  bool get isDirect => dependencyType == DependencyTypes.direct;
+  bool get isDev => dependencyType == DependencyTypes.dev;
+  bool get isTransitive => dependencyType == DependencyTypes.transitive;
+
+  bool get isLatest => available == null;
+  bool get isOutdated => !isLatest;
+
+  bool get isHosted =>
+      constraintType != ConstraintTypes.sdk &&
+          constraintType != ConstraintTypes.path &&
+          constraintType != ConstraintTypes.git &&
+          constraintType != ConstraintTypes.unknown;
+
+  VersionResolutionType get resolutionType {
+    if (isLatest) return VersionResolutionType.latest;
+
+    if (constraint != null && constraint.allows(available)) {
+      return VersionResolutionType.constrained;
+    }
+
+    if (available.isPreRelease) {
+      // If the pre-release isn't allowed by the constraint, then ignore it
+      // ... call it a match
+      return VersionResolutionType.latest;
+    }
+
+    return VersionResolutionType.other;
+  }
+
+  @override
+  int compareTo(PkgDependency other) => package.compareTo(other.package);
+
+  @override
+  String toString() {
+    var items = <Object>[package];
+    if (isDev) {
+      items.add('(dev)');
+    } else if (isTransitive) {
+      items.add('(transitive)');
+    }
+    items.add('@$resolved');
+
+    items.add(resolutionType.toString().split('.').last);
+
+    if (resolutionType != VersionResolutionType.latest) {
+      items.add(available);
+    }
+    return items.join(' ');
+  }
 }

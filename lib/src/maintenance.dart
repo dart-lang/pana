@@ -14,7 +14,6 @@ import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
 import 'model.dart';
-import 'pkg_resolution.dart';
 import 'pubspec.dart';
 import 'utils.dart';
 
