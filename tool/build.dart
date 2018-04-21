@@ -26,9 +26,7 @@ final _builders = <BuilderApplication>[
       ], header: _copyrightHeader),
       generateFor: const InputSet(include: const [
         'pubspec.yaml',
-        'lib/src/analyzer_output.dart',
         'lib/src/model.dart',
-        'lib/src/pub_summary.dart',
         'lib/src/version.dart',
       ]))
 ];

@@ -645,12 +645,12 @@ class LicenseFile extends Object with _$LicenseFileSerializerMixin {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is LicenseFile &&
-              runtimeType == other.runtimeType &&
-              path == other.path &&
-              name == other.name &&
-              version == other.version &&
-              url == other.url;
+      other is LicenseFile &&
+          runtimeType == other.runtimeType &&
+          path == other.path &&
+          name == other.name &&
+          version == other.version &&
+          url == other.url;
 
   @override
   int get hashCode =>
@@ -668,7 +668,6 @@ abstract class LicenseNames {
   static const String Unlicense = 'Unlicense';
   static const String unknown = 'unknown';
 }
-
 
 @JsonSerializable()
 class CodeProblem extends Object
@@ -711,8 +710,8 @@ class CodeProblem extends Object
   /// platform classification.
   bool get isPlatformBlockingError =>
       isError &&
-          !_platformNonBlockerTypes.contains(errorType) &&
-          !_platformNonBlockerCodes.contains(errorCode);
+      !_platformNonBlockerTypes.contains(errorType) &&
+      !_platformNonBlockerCodes.contains(errorCode);
 
   @override
   int compareTo(CodeProblem other) {
