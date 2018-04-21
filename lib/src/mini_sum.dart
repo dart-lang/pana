@@ -1,7 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'code_problem.dart';
 import 'model.dart';
 import 'utils.dart';
 

@@ -8,8 +8,8 @@ import 'dart:math' as math;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
+import 'package:quiver/core.dart' show hashObjects;
 
-import 'code_problem.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_info.dart';
@@ -667,4 +667,88 @@ abstract class LicenseNames {
   static const String MPL = 'MPL';
   static const String Unlicense = 'Unlicense';
   static const String unknown = 'unknown';
+}
+
+
+@JsonSerializable()
+class CodeProblem extends Object
+    with _$CodeProblemSerializerMixin
+    implements Comparable<CodeProblem> {
+  /// The errors which don't block platform classification.
+  static const _platformNonBlockerTypes = const <String>[
+    'STATIC_TYPE_WARNING',
+    'STATIC_WARNING',
+  ];
+
+  static const _platformNonBlockerCodes = const <String>[
+    'ARGUMENT_TYPE_NOT_ASSIGNABLE',
+    'STRONG_MODE_COULD_NOT_INFER',
+    'STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
+    'STRONG_MODE_INVALID_CAST_NEW_EXPR',
+    'STRONG_MODE_INVALID_METHOD_OVERRIDE',
+  ];
+
+  final String severity;
+  final String errorType;
+  final String errorCode;
+
+  final String file;
+  final int line;
+  final int col;
+  final String description;
+
+  CodeProblem(this.severity, this.errorType, this.errorCode, this.description,
+      this.file, this.line, this.col);
+
+  factory CodeProblem.fromJson(Map<String, dynamic> json) =>
+      _$CodeProblemFromJson(json);
+
+  bool get isError => severity?.toUpperCase() == 'ERROR';
+  bool get isWarning => severity?.toUpperCase() == 'WARNING';
+  bool get isInfo => severity?.toUpperCase() == 'INFO';
+
+  /// `true` iff [isError] is `true` and [errorType] is not safe to ignore for
+  /// platform classification.
+  bool get isPlatformBlockingError =>
+      isError &&
+          !_platformNonBlockerTypes.contains(errorType) &&
+          !_platformNonBlockerCodes.contains(errorCode);
+
+  @override
+  int compareTo(CodeProblem other) {
+    var myVals = _values;
+    var otherVals = other._values;
+    for (var i = 0; i < myVals.length; i++) {
+      var compare = (_values[i] as Comparable).compareTo(otherVals[i]);
+
+      if (compare != 0) {
+        return compare;
+      }
+    }
+
+    assert(this == other);
+
+    return 0;
+  }
+
+  @override
+  int get hashCode => hashObjects(_values);
+
+  @override
+  bool operator ==(Object other) {
+    if (other is CodeProblem) {
+      var myVals = _values;
+      var otherVals = other._values;
+      for (var i = 0; i < myVals.length; i++) {
+        if (myVals[i] != otherVals[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  List<Object> get _values =>
+      [file, line, col, severity, errorType, errorCode, description];
 }

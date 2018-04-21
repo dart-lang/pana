@@ -364,7 +364,7 @@ class PackageAnalyzer {
     try {
       return new SplayTreeSet.from(LineSplitter
           .split(output)
-          .map((s) => CodeProblem.parse(s, projectDir: pkgPath))
+          .map((s) => parseCodeProblem(s, projectDir: pkgPath))
           .where((e) => e != null));
     } on ArgumentError {
       // TODO: we should figure out a way to succeed here, right?
