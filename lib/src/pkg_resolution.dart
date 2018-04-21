@@ -25,41 +25,6 @@ class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
 
   PkgResolution(this.dependencies);
 
-  static PkgResolution create(Pubspec pubspec, String procStdout,
-      {String path}) {
-    var pkgVersions = <String, Version>{};
-    var availVersions = <String, Version>{};
-
-    var entries = PubEntry
-        .parse(procStdout)
-        .where((entry) => entry.header == 'MSG')
-        .where((entry) =>
-            entry.content.every((line) => _solvePkgLine.hasMatch(line)))
-        .toList();
-
-    if (entries.length == 1) {
-      for (var match in entries.single.content.map(_solvePkgLine.firstMatch)) {
-        var pkg = match.group(1);
-        pkgVersions[pkg] = new Version.parse(match.group(2));
-        var availVerStr = match.group(3);
-        if (availVerStr != null) {
-          availVersions[pkg] = new Version.parse(availVerStr);
-        }
-      }
-    } else if (entries.length > 1) {
-      throw "Seems that we have two sections of packages solves - weird!";
-    } else {
-      // it's empty – which is fine for a package with no dependencies
-    }
-
-    if (path != null) {
-      _validateLockedVersions(path, pkgVersions);
-    }
-
-    final deps = _buildDeps(pubspec, pkgVersions, availVersions);
-    return new PkgResolution(deps);
-  }
-
   factory PkgResolution.fromJson(Map<String, dynamic> json) =>
       _$PkgResolutionFromJson(json);
 
@@ -99,6 +64,41 @@ class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
                 (pd.constraint as VersionRange).max == null))
         .toList();
   }
+}
+
+PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
+    {String path}) {
+  var pkgVersions = <String, Version>{};
+  var availVersions = <String, Version>{};
+
+  var entries = PubEntry
+      .parse(procStdout)
+      .where((entry) => entry.header == 'MSG')
+      .where((entry) =>
+          entry.content.every((line) => _solvePkgLine.hasMatch(line)))
+      .toList();
+
+  if (entries.length == 1) {
+    for (var match in entries.single.content.map(_solvePkgLine.firstMatch)) {
+      var pkg = match.group(1);
+      pkgVersions[pkg] = new Version.parse(match.group(2));
+      var availVerStr = match.group(3);
+      if (availVerStr != null) {
+        availVersions[pkg] = new Version.parse(availVerStr);
+      }
+    }
+  } else if (entries.length > 1) {
+    throw "Seems that we have two sections of packages solves - weird!";
+  } else {
+    // it's empty – which is fine for a package with no dependencies
+  }
+
+  if (path != null) {
+    _validateLockedVersions(path, pkgVersions);
+  }
+
+  final deps = _buildDeps(pubspec, pkgVersions, availVersions);
+  return new PkgResolution(deps);
 }
 
 void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {

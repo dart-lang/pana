@@ -143,7 +143,7 @@ class PackageAnalyzer {
     if (upgrade.exitCode == 0) {
       try {
         pkgResolution =
-            PkgResolution.create(pubspec, upgrade.stdout, path: pkgDir);
+            createPkgResolution(pubspec, upgrade.stdout, path: pkgDir);
       } catch (e, stack) {
         log.severe("Problem with pub upgrade", e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
