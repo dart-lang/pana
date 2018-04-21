@@ -121,39 +121,41 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
 
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
       _$MaintenanceFromJson(json);
+}
 
-  double getMaintenanceScore({Duration age}) =>
-      applyPenalties(1.0, getAllSuggestion(age: age)?.map((s) => s.penalty));
+double getMaintenanceScore(Maintenance maintenance, {Duration age}) {
+  return applyPenalties(
+      1.0, _getAllSuggestion(maintenance, age: age)?.map((s) => s.penalty));
+}
 
-  List<Suggestion> getAllSuggestion({Duration age}) {
-    final list = <Suggestion>[];
-    final ageSuggestion = getAgeSuggestion(age);
-    if (ageSuggestion != null) list.add(ageSuggestion);
-    if (suggestions != null) list.addAll(suggestions);
-    return list;
+List<Suggestion> _getAllSuggestion(Maintenance maintenance, {Duration age}) {
+  final list = <Suggestion>[];
+  final ageSuggestion = _getAgeSuggestion(age);
+  if (ageSuggestion != null) list.add(ageSuggestion);
+  if (maintenance.suggestions != null) list.addAll(maintenance.suggestions);
+  return list;
+}
+
+Suggestion _getAgeSuggestion(Duration age) {
+  age ??= const Duration();
+
+  if (age > _twoYears) {
+    return new Suggestion.warning('Package is too old.',
+        'The package was released more than two years ago.',
+        penalty: new Penalty(amount: 10000));
   }
 
-  Suggestion getAgeSuggestion(Duration age) {
-    age ??= const Duration();
-
-    if (age > _twoYears) {
-      return new Suggestion.warning('Package is too old.',
-          'The package was released more than two years ago.',
-          penalty: new Penalty(amount: 10000));
-    }
-
-    // adjust score to the age
-    if (age > _year) {
-      final ageInWeeks = age.inDays ~/ 7;
-      final daysOverAYear = age.inDays - _year.inDays;
-      final basisPoints = daysOverAYear * 10000 ~/ 365;
-      return new Suggestion.hint('Package is getting outdated.',
-          'The package was released ${ageInWeeks} weeks ago.',
-          penalty: new Penalty(fraction: min(10000, max(0, basisPoints))));
-    }
-
-    return null;
+  // adjust score to the age
+  if (age > _year) {
+    final ageInWeeks = age.inDays ~/ 7;
+    final daysOverAYear = age.inDays - _year.inDays;
+    final basisPoints = daysOverAYear * 10000 ~/ 365;
+    return new Suggestion.hint('Package is getting outdated.',
+        'The package was released ${ageInWeeks} weeks ago.',
+        penalty: new Penalty(fraction: min(10000, max(0, basisPoints))));
   }
+
+  return null;
 }
 
 Future<Maintenance> detectMaintenance(
