@@ -286,6 +286,12 @@ final _data = {
     'hintCount': 1,
     'suggestions': [
       {
+        'level': 'error',
+        'title': 'Running `dartdoc` failed.',
+        'description': 'Make sure `dartdoc` runs without any issues.',
+        'penalty': {'amount': 0, 'fraction': 1000},
+      },
+      {
         'level': 'warning',
         'title': 'Fix analysis and formatting issues.',
         'description':

@@ -57,6 +57,12 @@ final _data = {
         'penalty': {'amount': 0, 'fraction': 2000}
       },
       {
+        'level': 'error',
+        'title': 'Running `dartdoc` failed.',
+        'description': 'Make sure `dartdoc` runs without any issues.',
+        'penalty': {'amount': 0, 'fraction': 1000},
+      },
+      {
         'level': 'warning',
         'title': 'Maintain `CHANGELOG.md`.',
         'description':

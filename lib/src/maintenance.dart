@@ -164,6 +164,7 @@ Future<Maintenance> detectMaintenance(
   List<Suggestion> dartFileSuggestions,
   List<PkgDependency> unconstrainedDeps, {
   @required DartPlatform pkgPlatform,
+  @required bool dartdocSuccessful,
 }) async {
   final pkgName = pubspec.name;
   final maintenanceSuggestions = <Suggestion>[];
@@ -215,6 +216,14 @@ Future<Maintenance> detectMaintenance(
         break;
       }
     }
+  }
+
+  if (!dartdocSuccessful) {
+    maintenanceSuggestions.add(new Suggestion.error(
+      'Running `dartdoc` failed.',
+      'Make sure `dartdoc` runs without any issues.',
+      penalty: new Penalty(fraction: 1000),
+    ));
   }
 
   if (pkgPlatform.hasConflict) {
