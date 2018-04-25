@@ -36,7 +36,7 @@ void main() {
         var summary = await analyzer.inspectPackage(
           data.name,
           version: data.version,
-          keepTransitiveLibs: true,
+          options: new InspectOptions(keepTransitiveLibs: true),
         );
 
         // summary.toJson contains types which are not directly JSON-able

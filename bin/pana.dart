@@ -129,9 +129,10 @@ main(List<String> args) async {
                   'Version must be specified when using --hosted-url option.');
           return;
         }
+        final options = new InspectOptions(pubHostedUrl: pubHostedUrl);
         var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
         summary = await analyzer.inspectPackage(package,
-            version: version, pubHostedUrl: pubHostedUrl);
+            version: version, options: options);
       } else if (source == 'path') {
         final path = firstArg('No path was provided.');
         if (showWarning) {
