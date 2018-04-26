@@ -25,6 +25,18 @@ import 'summary.dart';
 import 'utils.dart';
 import 'version.dart';
 
+class InspectOptions {
+  final bool deleteTemporaryDirectory;
+  final bool keepTransitiveLibs;
+  final String pubHostedUrl;
+
+  InspectOptions({
+    this.deleteTemporaryDirectory: true,
+    this.keepTransitiveLibs: false,
+    this.pubHostedUrl,
+  });
+}
+
 class PackageAnalyzer {
   final ToolEnvironment _toolEnv;
 
@@ -41,19 +53,17 @@ class PackageAnalyzer {
   Future<Summary> inspectPackage(
     String package, {
     String version,
-    bool keepTransitiveLibs: false,
+    InspectOptions options,
     Logger logger,
-    bool deleteTemporaryDirectory: true,
-    String pubHostedUrl,
   }) async {
-    deleteTemporaryDirectory ??= true;
+    options ??= new InspectOptions();
     return withLogger(() async {
       log.info("Downloading package $package ${version ?? 'latest'}");
       String packageDir;
       Directory tempDir;
       if (version != null) {
-        tempDir =
-            await downloadPackage(package, version, pubHostedUrl: pubHostedUrl);
+        tempDir = await downloadPackage(package, version,
+            pubHostedUrl: options.pubHostedUrl);
         packageDir = tempDir?.path;
       }
       if (packageDir == null) {
@@ -61,9 +71,9 @@ class PackageAnalyzer {
         packageDir = pkgInfo.location;
       }
       try {
-        return await _inspect(packageDir, keepTransitiveLibs);
+        return await _inspect(packageDir, options);
       } finally {
-        if (deleteTemporaryDirectory) {
+        if (options.deleteTemporaryDirectory) {
           await tempDir?.delete(recursive: true);
         } else {
           log.warning(
@@ -73,12 +83,12 @@ class PackageAnalyzer {
     }, logger: logger);
   }
 
-  Future<Summary> inspectDir(String packageDir,
-      {bool keepTransitiveLibs: false}) {
-    return _inspect(packageDir, keepTransitiveLibs);
+  Future<Summary> inspectDir(String packageDir, {InspectOptions options}) {
+    options ??= new InspectOptions();
+    return _inspect(packageDir, options);
   }
 
-  Future<Summary> _inspect(String pkgDir, bool keepTransitiveLibs) async {
+  Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
     log.info("SDK: ${_toolEnv.dartSdkInfo.version}");
     if (_toolEnv.pubCacheDir != null) {
       log.fine("Using .package-cache: ${_toolEnv.pubCacheDir}");
@@ -284,7 +294,7 @@ class PackageAnalyzer {
         isFormatted,
         fileAnalyzerItems,
         directLibs,
-        keepTransitiveLibs ? transitiveLibs : null,
+        options.keepTransitiveLibs ? transitiveLibs : null,
         platform,
         fitness,
       );

@@ -6,6 +6,8 @@
 
 * `ToolEnvironment.runAnalyzer` returns the text output of the process.
 
+* Consolidating options in `InspectOptions`, changing `PackageAnalyzer` APIs.
+
 Updates:
 
 * Check if `dartdoc` can run on the package.
