@@ -15,7 +15,7 @@
 
 Updates:
 
-* Check if `dartdoc` can run on the package.
+* Check if `dartdoc` can run on the package (optional).
 
 ## 0.10.6
 

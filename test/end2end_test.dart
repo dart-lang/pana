@@ -16,11 +16,14 @@ import 'end2end/stream_broken_data.dart' as stream_broken_data;
 
 void main() {
   Directory tempDir;
+  String rootPath;
   PackageAnalyzer analyzer;
 
   setUpAll(() async {
     tempDir = await Directory.systemTemp.createTemp('pana-test');
-    var pubCacheDir = await tempDir.resolveSymbolicLinks();
+    rootPath = await tempDir.resolveSymbolicLinks();
+    final pubCacheDir = '$rootPath/pub-cache';
+    await new Directory(pubCacheDir).create();
     analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
   });
 
@@ -36,7 +39,10 @@ void main() {
         var summary = await analyzer.inspectPackage(
           data.name,
           version: data.version,
-          options: new InspectOptions(keepTransitiveLibs: true),
+          options: new InspectOptions(
+            keepTransitiveLibs: true,
+            dartdocOutputDir: '$rootPath/dartdoc',
+          ),
         );
 
         // summary.toJson contains types which are not directly JSON-able
