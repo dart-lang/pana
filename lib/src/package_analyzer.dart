@@ -17,11 +17,11 @@ import 'license.dart';
 import 'logging.dart';
 import 'maintenance.dart';
 import 'messages.dart' as messages;
+import 'model.dart';
 import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
-import 'summary.dart';
 import 'utils.dart';
 import 'version.dart';
 
@@ -143,7 +143,7 @@ class PackageAnalyzer {
     if (upgrade.exitCode == 0) {
       try {
         pkgResolution =
-            PkgResolution.create(pubspec, upgrade.stdout, path: pkgDir);
+            createPkgResolution(pubspec, upgrade.stdout, path: pkgDir);
       } catch (e, stack) {
         log.severe("Problem with pub upgrade", e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
@@ -364,7 +364,7 @@ class PackageAnalyzer {
     try {
       return new SplayTreeSet.from(LineSplitter
           .split(output)
-          .map((s) => CodeProblem.parse(s, projectDir: pkgPath))
+          .map((s) => parseCodeProblem(s, projectDir: pkgPath))
           .where((e) => e != null));
     } on ArgumentError {
       // TODO: we should figure out a way to succeed here, right?

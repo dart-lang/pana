@@ -8,18 +8,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
-import 'pkg_resolution.dart';
-import 'platform.dart';
+import 'model.dart';
 import 'pubspec.dart';
-import 'summary.dart' show Penalty, Suggestion, SuggestionLevel, applyPenalties;
 import 'utils.dart';
-
-part 'maintenance.g.dart';
 
 final Duration _year = const Duration(days: 365);
 final Duration _twoYears = _year * 2;
@@ -66,96 +61,39 @@ String firstFileFromNames(List<String> files, List<String> names,
   return null;
 }
 
-/// Describes the maintenance status of the package.
-@JsonSerializable()
-class Maintenance extends Object with _$MaintenanceSerializerMixin {
-  /// whether the package has no or too small changelog
-  final bool missingChangelog;
+double getMaintenanceScore(Maintenance maintenance, {Duration age}) {
+  return applyPenalties(
+      1.0, _getAllSuggestion(maintenance, age: age)?.map((s) => s.penalty));
+}
 
-  /// whether the package has no example
-  final bool missingExample;
+List<Suggestion> _getAllSuggestion(Maintenance maintenance, {Duration age}) {
+  final list = <Suggestion>[];
+  final ageSuggestion = _getAgeSuggestion(age);
+  if (ageSuggestion != null) list.add(ageSuggestion);
+  if (maintenance.suggestions != null) list.addAll(maintenance.suggestions);
+  return list;
+}
 
-  /// whether the package has no or too small readme
-  final bool missingReadme;
+Suggestion _getAgeSuggestion(Duration age) {
+  age ??= const Duration();
 
-  /// whether the package has no analysis_options.yaml file
-  final bool missingAnalysisOptions;
-
-  /// whether the package has only an old .analysis-options file
-  final bool oldAnalysisOptions;
-
-  /// whether the analysis_options.yaml file has strong mode enabled
-  final bool strongModeEnabled;
-
-  /// whether version is `0.*`
-  final bool isExperimentalVersion;
-
-  /// whether version is flagged `-beta`, `-alpha`, etc.
-  final bool isPreReleaseVersion;
-
-  /// the number of errors encountered during analysis
-  final int errorCount;
-
-  /// the number of warning encountered during analysis
-  final int warningCount;
-
-  /// the number of hints encountered during analysis
-  final int hintCount;
-
-  /// The suggestions that affect the maintenance score.
-  @JsonKey(includeIfNull: false)
-  final List<Suggestion> suggestions;
-
-  Maintenance({
-    @required this.missingChangelog,
-    @required this.missingExample,
-    @required this.missingReadme,
-    @required this.missingAnalysisOptions,
-    @required this.oldAnalysisOptions,
-    @required this.strongModeEnabled,
-    @required this.isExperimentalVersion,
-    @required this.isPreReleaseVersion,
-    @required this.errorCount,
-    @required this.warningCount,
-    @required this.hintCount,
-    this.suggestions,
-  });
-
-  factory Maintenance.fromJson(Map<String, dynamic> json) =>
-      _$MaintenanceFromJson(json);
-
-  double getMaintenanceScore({Duration age}) =>
-      applyPenalties(1.0, getAllSuggestion(age: age)?.map((s) => s.penalty));
-
-  List<Suggestion> getAllSuggestion({Duration age}) {
-    final list = <Suggestion>[];
-    final ageSuggestion = getAgeSuggestion(age);
-    if (ageSuggestion != null) list.add(ageSuggestion);
-    if (suggestions != null) list.addAll(suggestions);
-    return list;
+  if (age > _twoYears) {
+    return new Suggestion.warning('Package is too old.',
+        'The package was released more than two years ago.',
+        penalty: new Penalty(amount: 10000));
   }
 
-  Suggestion getAgeSuggestion(Duration age) {
-    age ??= const Duration();
-
-    if (age > _twoYears) {
-      return new Suggestion.warning('Package is too old.',
-          'The package was released more than two years ago.',
-          penalty: new Penalty(amount: 10000));
-    }
-
-    // adjust score to the age
-    if (age > _year) {
-      final ageInWeeks = age.inDays ~/ 7;
-      final daysOverAYear = age.inDays - _year.inDays;
-      final basisPoints = daysOverAYear * 10000 ~/ 365;
-      return new Suggestion.hint('Package is getting outdated.',
-          'The package was released ${ageInWeeks} weeks ago.',
-          penalty: new Penalty(fraction: min(10000, max(0, basisPoints))));
-    }
-
-    return null;
+  // adjust score to the age
+  if (age > _year) {
+    final ageInWeeks = age.inDays ~/ 7;
+    final daysOverAYear = age.inDays - _year.inDays;
+    final basisPoints = daysOverAYear * 10000 ~/ 365;
+    return new Suggestion.hint('Package is getting outdated.',
+        'The package was released ${ageInWeeks} weeks ago.',
+        penalty: new Penalty(fraction: min(10000, max(0, basisPoints))));
   }
+
+  return null;
 }
 
 Future<Maintenance> detectMaintenance(
@@ -400,4 +338,14 @@ Future<Maintenance> detectMaintenance(
     hintCount: hintCount,
     suggestions: maintenanceSuggestions,
   );
+}
+
+double applyPenalties(double initialScore, Iterable<Penalty> penalties) {
+  if (penalties == null) return initialScore;
+  var score = initialScore;
+  for (var p in penalties) {
+    if (p == null) continue;
+    score = p.apply(score);
+  }
+  return score;
 }

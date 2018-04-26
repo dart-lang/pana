@@ -5,148 +5,63 @@
 library pana.code_problem;
 
 import 'package:path/path.dart' as p;
-import 'package:quiver/core.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'code_problem.g.dart';
+import 'model.dart';
 
-@JsonSerializable()
-class CodeProblem extends Object
-    with _$CodeProblemSerializerMixin
-    implements Comparable<CodeProblem> {
-  /// The errors which don't block platform classification.
-  static const _platformNonBlockerTypes = const <String>[
-    'STATIC_TYPE_WARNING',
-    'STATIC_WARNING',
-  ];
+final _regexp = new RegExp('^' + // beginning of line
+        '([\\w_\\.]+)\\|' * 3 + // first three error notes
+        '([^\\|]+)\\|' + // file path
+        '([\\w_\\.]+)\\|' * 3 + // line, column, length
+        '(.*?)' + // rest is the error message
+        '\$' // end of line
+    );
 
-  static const _platformNonBlockerCodes = const <String>[
-    'ARGUMENT_TYPE_NOT_ASSIGNABLE',
-    'STRONG_MODE_COULD_NOT_INFER',
-    'STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',
-    'STRONG_MODE_INVALID_CAST_NEW_EXPR',
-    'STRONG_MODE_INVALID_METHOD_OVERRIDE',
-  ];
+CodeProblem parseCodeProblem(String content, {String projectDir}) {
+  if (content.isEmpty) {
+    throw new ArgumentError('Provided content is empty.');
+  }
+  var matches = _regexp.allMatches(content).toList();
 
-  static final _regexp = new RegExp('^' + // beginning of line
-          '([\\w_\\.]+)\\|' * 3 + // first three error notes
-          '([^\\|]+)\\|' + // file path
-          '([\\w_\\.]+)\\|' * 3 + // line, column, length
-          '(.*?)' + // rest is the error message
-          '\$' // end of line
-      );
+  if (matches.isEmpty) {
+    if (content.endsWith(" is a part and cannot be analyzed.")) {
+      var filePath = content.split(' ').first;
 
-  final String severity;
-  final String errorType;
-  final String errorCode;
+      content = content.replaceAll(filePath, '').trim();
 
-  final String file;
-  final int line;
-  final int col;
-  final String description;
-
-  CodeProblem(this.severity, this.errorType, this.errorCode, this.description,
-      this.file, this.line, this.col);
-
-  static CodeProblem parse(String content, {String projectDir}) {
-    if (content.isEmpty) {
-      throw new ArgumentError('Provided content is empty.');
-    }
-    var matches = _regexp.allMatches(content).toList();
-
-    if (matches.isEmpty) {
-      if (content.endsWith(" is a part and cannot be analyzed.")) {
-        var filePath = content.split(' ').first;
-
-        content = content.replaceAll(filePath, '').trim();
-
-        if (projectDir != null) {
-          assert(p.isWithin(projectDir, filePath));
-          filePath = p.relative(filePath, from: projectDir);
-        }
-
-        return new CodeProblem(
-            'WEIRD', 'UNKNOWN', 'UNKNOWN', content, filePath, 0, 0);
+      if (projectDir != null) {
+        assert(p.isWithin(projectDir, filePath));
+        filePath = p.relative(filePath, from: projectDir);
       }
 
-      if (content == "Please pass in a library that contains this part.") {
-        return null;
-      }
-
-      throw new ArgumentError(
-          'Provided content does not align with expectations.\n`$content`');
+      return new CodeProblem(
+          'WEIRD', 'UNKNOWN', 'UNKNOWN', content, filePath, 0, 0);
     }
 
-    var match = matches.single;
-
-    var severity = match[1];
-    var errorType = match[2];
-    var errorCode = match[3];
-
-    var filePath = match[4];
-    var line = match[5];
-    var column = match[6];
-    // length = 7
-    var description = match[8];
-
-    if (projectDir != null) {
-      assert(p.isWithin(projectDir, filePath));
-      filePath = p.relative(filePath, from: projectDir);
+    if (content == "Please pass in a library that contains this part.") {
+      return null;
     }
 
-    return new CodeProblem(severity, errorType, errorCode, description,
-        filePath, int.parse(line), int.parse(column));
+    throw new ArgumentError(
+        'Provided content does not align with expectations.\n`$content`');
   }
 
-  factory CodeProblem.fromJson(Map<String, dynamic> json) =>
-      _$CodeProblemFromJson(json);
+  var match = matches.single;
 
-  bool get isError => severity?.toUpperCase() == 'ERROR';
-  bool get isWarning => severity?.toUpperCase() == 'WARNING';
-  bool get isInfo => severity?.toUpperCase() == 'INFO';
+  var severity = match[1];
+  var errorType = match[2];
+  var errorCode = match[3];
 
-  /// `true` iff [isError] is `true` and [errorType] is not safe to ignore for
-  /// platform classification.
-  bool get isPlatformBlockingError =>
-      isError &&
-      !_platformNonBlockerTypes.contains(errorType) &&
-      !_platformNonBlockerCodes.contains(errorCode);
+  var filePath = match[4];
+  var line = match[5];
+  var column = match[6];
+  // length = 7
+  var description = match[8];
 
-  @override
-  int compareTo(CodeProblem other) {
-    var myVals = _values;
-    var otherVals = other._values;
-    for (var i = 0; i < myVals.length; i++) {
-      var compare = (_values[i] as Comparable).compareTo(otherVals[i]);
-
-      if (compare != 0) {
-        return compare;
-      }
-    }
-
-    assert(this == other);
-
-    return 0;
+  if (projectDir != null) {
+    assert(p.isWithin(projectDir, filePath));
+    filePath = p.relative(filePath, from: projectDir);
   }
 
-  @override
-  int get hashCode => hashObjects(_values);
-
-  @override
-  bool operator ==(Object other) {
-    if (other is CodeProblem) {
-      var myVals = _values;
-      var otherVals = other._values;
-      for (var i = 0; i < myVals.length; i++) {
-        if (myVals[i] != otherVals[i]) {
-          return false;
-        }
-      }
-      return true;
-    }
-    return false;
-  }
-
-  List<Object> get _values =>
-      [file, line, col, severity, errorType, errorCode, description];
+  return new CodeProblem(severity, errorType, errorCode, description, filePath,
+      int.parse(line), int.parse(column));
 }

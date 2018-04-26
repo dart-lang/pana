@@ -12,7 +12,7 @@ void main() {
     final pubspec = new Pubspec({});
 
     test('pub parse', () {
-      var summary = PkgResolution.create(pubspec, _pubUpgradeOutput);
+      var summary = createPkgResolution(pubspec, _pubUpgradeOutput);
 
       expect(summary.dependencies, hasLength(61));
       final args =
@@ -32,13 +32,13 @@ void main() {
     });
 
     test('upgrade', () {
-      var summary = PkgResolution.create(pubspec, _upgradeOutput);
+      var summary = createPkgResolution(pubspec, _upgradeOutput);
 
       expect(summary.dependencies, hasLength(47));
     });
 
     test('downgrade', () {
-      var summary = PkgResolution.create(pubspec, _downgradeOutput);
+      var summary = createPkgResolution(pubspec, _downgradeOutput);
       expect(summary.dependencies, hasLength(47));
     });
   });

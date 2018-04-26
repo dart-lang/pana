@@ -5,10 +5,8 @@
 import 'dart:convert';
 
 import 'package:pana/src/maintenance.dart';
-import 'package:pana/src/pkg_resolution.dart';
-import 'package:pana/src/platform.dart';
+import 'package:pana/src/model.dart';
 import 'package:pana/src/pubspec.dart';
-import 'package:pana/src/summary.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
@@ -134,11 +132,11 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(_withIssues.getMaintenanceScore(), closeTo(0.476, 0.001));
+      expect(getMaintenanceScore(_withIssues), closeTo(0.476, 0.001));
     });
 
     test('perfect', () {
-      expect(_perfect.getMaintenanceScore(), 1);
+      expect(getMaintenanceScore(_perfect), 1);
     });
 
     group('publish date affects score', () {
@@ -165,7 +163,7 @@ void main() {
             matcher = closeTo(expectedScore, 0.01);
           }
 
-          expect(_perfect.getMaintenanceScore(age: age), matcher);
+          expect(getMaintenanceScore(_perfect, age: age), matcher);
         });
       }
     });
