@@ -10,8 +10,10 @@ import 'shared.dart';
 final data = new E2EData('stream', '0.7.2+2', _data);
 
 final _data = {
-  "panaVersion": panaPkgVersion.toString(),
-  "sdkVersion": isSemVer,
+  'runtimeInfo': {
+    'panaVersion': panaPkgVersion.toString(),
+    'sdkVersion': isSemVer,
+  },
   "packageName": "stream",
   "packageVersion": "0.7.2+2",
   "pubspec": {

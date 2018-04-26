@@ -23,7 +23,6 @@ import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
 import 'utils.dart';
-import 'version.dart';
 
 class InspectOptions {
   final bool deleteTemporaryDirectory;
@@ -89,7 +88,7 @@ class PackageAnalyzer {
   }
 
   Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
-    log.info("SDK: ${_toolEnv.dartSdkInfo.version}");
+    log.info("SDK: ${_toolEnv.runtimeInfo.sdkVersion}");
     if (_toolEnv.pubCacheDir != null) {
       log.fine("Using .package-cache: ${_toolEnv.pubCacheDir}");
     }
@@ -304,11 +303,6 @@ class PackageAnalyzer {
     }
     dartFileSuggestions.sort();
 
-    Map<String, Object> flutterVersion;
-    if (usesFlutter) {
-      flutterVersion = await _toolEnv.getFlutterVersion();
-    }
-
     DartPlatform platform;
     if (pkgPlatformConflict != null) {
       platform = new DartPlatform.conflict(
@@ -338,8 +332,7 @@ class PackageAnalyzer {
     suggestions.sort();
 
     return new Summary(
-      panaPkgVersion,
-      _toolEnv.dartSdkInfo.version,
+      _toolEnv.runtimeInfo,
       pubspec.name,
       pubspec.version,
       pubspec,
@@ -350,7 +343,6 @@ class PackageAnalyzer {
       pkgFitness,
       maintenance,
       suggestions.isEmpty ? null : suggestions,
-      flutterVersion: flutterVersion,
     );
   }
 

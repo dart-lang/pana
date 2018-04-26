@@ -11,8 +11,7 @@ part of 'model.dart';
 // **************************************************************************
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
-    new Version.parse(json['panaVersion']),
-    new Version.parse(json['sdkVersion']),
+    new PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
     json['packageName'] as String,
     json['packageVersion'] == null
         ? null
@@ -49,13 +48,10 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
         ?.map((e) => e == null
             ? null
             : new Suggestion.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    flutterVersion: json['flutterVersion'] as Map<String, dynamic>);
+        ?.toList());
 
 abstract class _$SummarySerializerMixin {
-  Version get panaVersion;
-  Version get sdkVersion;
-  Map<String, Object> get flutterVersion;
+  PanaRuntimeInfo get runtimeInfo;
   String get packageName;
   Version get packageVersion;
   Pubspec get pubspec;
@@ -68,8 +64,8 @@ abstract class _$SummarySerializerMixin {
   Map<String, DartFileSummary> get dartFiles;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
-      'panaVersion': panaVersion.toString(),
-      'sdkVersion': sdkVersion.toString(),
+      'runtimeInfo': runtimeInfo,
+      'packageName': packageName,
     };
 
     void writeNotNull(String key, dynamic value) {
@@ -78,8 +74,6 @@ abstract class _$SummarySerializerMixin {
       }
     }
 
-    writeNotNull('flutterVersion', flutterVersion);
-    val['packageName'] = packageName;
     writeNotNull('packageVersion', packageVersion?.toString());
     val['pubspec'] = pubspec;
     val['platform'] = platform;
@@ -89,6 +83,33 @@ abstract class _$SummarySerializerMixin {
     writeNotNull('suggestions', suggestions);
     val['pkgResolution'] = pkgResolution;
     val['dartFiles'] = dartFiles;
+    return val;
+  }
+}
+
+PanaRuntimeInfo _$PanaRuntimeInfoFromJson(Map<String, dynamic> json) =>
+    new PanaRuntimeInfo(
+        panaVersion: json['panaVersion'] as String,
+        sdkVersion: json['sdkVersion'] as String,
+        flutterVersions: json['flutterVersions'] as Map<String, dynamic>);
+
+abstract class _$PanaRuntimeInfoSerializerMixin {
+  String get panaVersion;
+  String get sdkVersion;
+  Map<String, dynamic> get flutterVersions;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'panaVersion': panaVersion,
+      'sdkVersion': sdkVersion,
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('flutterVersions', flutterVersions);
     return val;
   }
 }

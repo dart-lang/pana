@@ -12,7 +12,6 @@ import 'package:quiver/core.dart' show hashObjects;
 
 import 'platform.dart';
 import 'pubspec.dart';
-import 'sdk_info.dart';
 import 'utils.dart' show toRelativePath;
 
 part 'model.g.dart';
@@ -20,13 +19,8 @@ part 'model.g.dart';
 @JsonSerializable()
 class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(nullable: false)
-  final Version panaVersion;
+  final PanaRuntimeInfo runtimeInfo;
 
-  @JsonKey(nullable: false)
-  final Version sdkVersion;
-
-  @JsonKey(includeIfNull: false)
-  final Map<String, Object> flutterVersion;
   final String packageName;
 
   @JsonKey(includeIfNull: false)
@@ -49,35 +43,43 @@ class Summary extends Object with _$SummarySerializerMixin {
   final Map<String, DartFileSummary> dartFiles;
 
   Summary(
-      this.panaVersion,
-      this.sdkVersion,
-      this.packageName,
-      this.packageVersion,
-      this.pubspec,
-      this.pkgResolution,
-      this.dartFiles,
-      this.platform,
-      this.licenses,
-      this.fitness,
-      this.maintenance,
-      this.suggestions,
-      {this.flutterVersion});
+    this.runtimeInfo,
+    this.packageName,
+    this.packageVersion,
+    this.pubspec,
+    this.pkgResolution,
+    this.dartFiles,
+    this.platform,
+    this.licenses,
+    this.fitness,
+    this.maintenance,
+    this.suggestions,
+  );
 
-  factory Summary.fromJson(Map<String, dynamic> json) {
-    var panaVersion = new Version.parse(json['panaVersion']);
-    if (panaVersion.major == 0 && panaVersion.minor < 7) {
-      // Update the json in-place to have the expected values
-      var info = new DartSdkInfo.parse(json['sdkVersion']);
-      json['sdkVersion'] = info.version.toString();
-    }
-
-    return _$SummaryFromJson(json);
-  }
+  factory Summary.fromJson(Map<String, dynamic> json) =>
+      _$SummaryFromJson(json);
 
   Iterable<CodeProblem> get codeProblems => dartFiles.values
       .map((dfs) => dfs.codeProblems)
       .where((l) => l != null)
       .expand((list) => list);
+}
+
+@JsonSerializable()
+class PanaRuntimeInfo extends Object with _$PanaRuntimeInfoSerializerMixin {
+  final String panaVersion;
+  final String sdkVersion;
+  @JsonKey(includeIfNull: false)
+  final Map<String, dynamic> flutterVersions;
+
+  PanaRuntimeInfo({
+    this.panaVersion,
+    this.sdkVersion,
+    this.flutterVersions,
+  });
+
+  factory PanaRuntimeInfo.fromJson(Map<String, dynamic> json) =>
+      _$PanaRuntimeInfoFromJson(json);
 }
 
 @JsonSerializable()
