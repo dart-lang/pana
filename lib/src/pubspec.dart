@@ -113,4 +113,10 @@ class Pubspec {
     if (value is String) return value.trim();
     return null;
   }
+
+  String get documentation {
+    final value = _content['documentation'];
+    if (value is String) return value.trim();
+    return null;
+  }
 }

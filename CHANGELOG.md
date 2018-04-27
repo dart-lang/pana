@@ -21,6 +21,8 @@ Updates:
 
 * Added a top-level `models.dart` library exposing several of the data classes.
 
+* Check `homepage` and `documentation` properties to point to an existing and external web page.
+
 ## 0.10.6
 
 * Enable Dart 2 Preview in analyzer options (including non-Flutter packages).

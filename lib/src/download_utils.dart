@@ -85,13 +85,15 @@ String getRepositoryUrl(String repository, String relativePath) {
   return null;
 }
 
-Future<bool> isExistingUrl(String url) async {
-  try {
-    log.info('Checking URL $url...');
-    final rs = await http.get(url).timeout(const Duration(seconds: 10));
-    return rs.statusCode == 200;
-  } catch (e) {
-    log.warning('Check of URL $url failed', e);
+Future<bool> isExistingUrl(String url, {int retry: 0}) async {
+  for (var i = 0; i <= retry; i++) {
+    try {
+      log.info('Checking URL $url...');
+      final rs = await http.get(url).timeout(const Duration(seconds: 10));
+      return rs.statusCode == 200;
+    } catch (e) {
+      log.warning('Check of URL $url failed', e);
+    }
   }
   return false;
 }
