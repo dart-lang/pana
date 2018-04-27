@@ -17,6 +17,8 @@ Updates:
 
 * Check if `dartdoc` can run on the package.
 
+* Added a top-level `models.dart` library exposing several of the data classes.
+
 ## 0.10.6
 
 * Enable Dart 2 Preview in analyzer options (including non-Flutter packages).
