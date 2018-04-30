@@ -44,6 +44,13 @@ final _withIssuesJson = {
     },
     {
       'level': 'warning',
+      'title': 'Homepage does not exists.',
+      'description':
+          'We were unable to access `null` at the time of the analysis.',
+      'penalty': {'amount': 0, 'fraction': 1000},
+    },
+    {
+      'level': 'warning',
       'title': 'Maintain `README.md`.',
       'description':
           'Readme should inform others about your project, what it does, and how they can use it.',
@@ -132,7 +139,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(getMaintenanceScore(_withIssues), closeTo(0.476, 0.001));
+      expect(getMaintenanceScore(_withIssues), closeTo(0.428, 0.001));
     });
 
     test('perfect', () {

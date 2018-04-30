@@ -12,6 +12,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
+import 'download_utils.dart';
 import 'model.dart';
 import 'pubspec.dart';
 import 'utils.dart';
@@ -156,8 +157,43 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
+  final homepageExists = await isExistingUrl(pubspec.homepage, retry: 1);
+  final homepageExternal = _isExternalUrl(pubspec.homepage);
+  if (!homepageExists) {
+    maintenanceSuggestions.add(new Suggestion.warning(
+      'Homepage does not exists.',
+      'We were unable to access `${pubspec.homepage}` at the time of the analysis.',
+      penalty: new Penalty(fraction: 1000),
+    ));
+  } else if (!homepageExternal) {
+    maintenanceSuggestions.add(new Suggestion.warning(
+      'Homepage is not helpful.',
+      'Update the `homepage` property: create a website about the package or use the source repository URL.',
+      penalty: new Penalty(fraction: 1000),
+    ));
+  }
+
+  if (pubspec.documentation != null && pubspec.documentation.isNotEmpty) {
+    final documentationExists =
+        await isExistingUrl(pubspec.documentation, retry: 1);
+    final documentationExternal = _isExternalUrl(pubspec.documentation);
+
+    if (!documentationExists) {
+      maintenanceSuggestions.add(new Suggestion.warning(
+        'Documentation URL does not exists.',
+        'We were unable to access `${pubspec.documentation}` at the time of the analysis.',
+        penalty: new Penalty(fraction: 500),
+      ));
+    } else if (!documentationExternal) {
+      maintenanceSuggestions.add(new Suggestion.warning(
+        'Documentation URL is not helpful.',
+        'Update the `documentation` property: create a website about the package or remove it.',
+        penalty: new Penalty(fraction: 100),
+      ));
+    }
+  }
+
   if (dartdocSuccessful == false) {
-    // implicit null check
     maintenanceSuggestions.add(new Suggestion.error(
       'Running `dartdoc` failed.',
       'Make sure `dartdoc` runs without any issues.',
@@ -349,4 +385,24 @@ double applyPenalties(double initialScore, Iterable<Penalty> penalties) {
     score = p.apply(score);
   }
   return score;
+}
+
+bool _isExternalUrl(String url) {
+  try {
+    final uri = Uri.parse(url.toLowerCase());
+    if (uri.scheme != 'http' && uri.scheme != 'https') {
+      return false;
+    }
+    if (uri.host == 'pub.dartlang.org' ||
+        uri.host == 'www.dartdocs.org' ||
+        uri.host == 'localhost' ||
+        uri.host == '127.0.0.1' ||
+        uri.host == 'example.com') {
+      return false;
+    }
+    return true;
+  } catch (_) {
+    // no-op
+  }
+  return false;
 }
