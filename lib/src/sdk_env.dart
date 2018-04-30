@@ -251,9 +251,14 @@ class ToolEnvironment {
     _useGlobalDartdoc = true;
   }
 
-  Future<bool> checkDartdoc(String packageDir) async {
+  Future<bool> checkDartdoc(String packageDir, String outputDir) async {
     ProcessResult pr;
-    final args = ['--exclude', dartdocExcludedLibraries.join(',')];
+    final args = [
+      '--output',
+      outputDir,
+      '--exclude',
+      dartdocExcludedLibraries.join(',')
+    ];
     if (_useGlobalDartdoc) {
       pr = await runProc(
         _pubCmd,

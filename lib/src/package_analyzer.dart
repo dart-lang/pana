@@ -29,11 +29,13 @@ class InspectOptions {
   final bool deleteTemporaryDirectory;
   final bool keepTransitiveLibs;
   final String pubHostedUrl;
+  final String dartdocOutputDir;
 
   InspectOptions({
     this.deleteTemporaryDirectory: true,
     this.keepTransitiveLibs: false,
     this.pubHostedUrl,
+    this.dartdocOutputDir,
   });
 }
 
@@ -186,10 +188,11 @@ class PackageAnalyzer {
 
     Set<CodeProblem> analyzerItems;
 
-    var dartdocSuccessful = false;
-    if (pkgResolution != null) {
+    bool dartdocSuccessful;
+    if (pkgResolution != null && options.dartdocOutputDir != null) {
       try {
-        dartdocSuccessful = await _toolEnv.checkDartdoc(pkgDir);
+        dartdocSuccessful =
+            await _toolEnv.checkDartdoc(pkgDir, options.dartdocOutputDir);
       } catch (e, st) {
         log.severe('Could not run dartdoc.', e, st);
       }

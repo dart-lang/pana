@@ -15,7 +15,7 @@
 
 Updates:
 
-* Check if `dartdoc` can run on the package.
+* Check if `dartdoc` can run on the package (optional).
 
 * Added a top-level `models.dart` library exposing several of the data classes.
 
