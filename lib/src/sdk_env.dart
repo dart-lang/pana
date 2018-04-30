@@ -7,13 +7,18 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
+import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_options.dart';
 import 'logging.dart';
+import 'model.dart' show PanaRuntimeInfo;
 import 'pubspec.dart';
-import 'sdk_info.dart';
 import 'utils.dart';
+import 'version.dart';
+
+final _logger = new Logger('pana.env');
 
 class ToolEnvironment {
   final String dartSdkDir;
@@ -25,7 +30,7 @@ class ToolEnvironment {
   final String _dartdocCmd;
   final String _flutterCmd;
   final Map<String, String> _environment;
-  DartSdkInfo _dartSdkInfo;
+  PanaRuntimeInfo _runtimeInfo;
   bool _useGlobalDartdoc;
 
   ToolEnvironment._(
@@ -41,13 +46,24 @@ class ToolEnvironment {
     this._useGlobalDartdoc,
   );
 
-  DartSdkInfo get dartSdkInfo => _dartSdkInfo;
+  PanaRuntimeInfo get runtimeInfo => _runtimeInfo;
 
   Future _init() async {
     final dartVersionResult = handleProcessErrors(
         await runProc(_dartCmd, ['--version'], environment: _environment));
     final dartVersionString = dartVersionResult.stderr.toString().trim();
-    _dartSdkInfo = new DartSdkInfo.parse(dartVersionString);
+    final dartSdkInfo = new DartSdkInfo.parse(dartVersionString);
+    Map<String, dynamic> flutterVersions;
+    try {
+      flutterVersions = await getFlutterVersion();
+    } catch (_) {
+      _logger.warning('Unable to detect Flutter version.');
+    }
+    _runtimeInfo = new PanaRuntimeInfo(
+      panaVersion: panaPkgVersion.toString(),
+      sdkVersion: dartSdkInfo.version.toString(),
+      flutterVersions: flutterVersions,
+    );
   }
 
   static Future<ToolEnvironment> create({
@@ -189,8 +205,8 @@ class ToolEnvironment {
       );
 
   Future<Map<String, Object>> getFlutterVersion() async {
-    var result = await runProc(_flutterCmd, ['--version', '--machine']);
-    assert(result.exitCode == 0);
+    var result = handleProcessErrors(
+        await runProc(_flutterCmd, ['--version', '--machine']));
     return json.decode(result.stdout);
   }
 
@@ -389,6 +405,27 @@ const dartdocExcludedLibraries = const <String>[
   'dart:typed_data',
   'dart:ui',
 ];
+
+class DartSdkInfo {
+  static final _sdkRegexp =
+      new RegExp('Dart VM version:\\s([^\\s]+)\\s\\(([^\\)]+)\\) on "(\\w+)"');
+
+  // TODO: parse an actual `DateTime` here. Likely requires using pkg/intl
+  final String dateString;
+  final String platform;
+  final Version version;
+
+  DartSdkInfo._(this.version, this.dateString, this.platform);
+
+  factory DartSdkInfo.parse(String versionOutput) {
+    var match = _sdkRegexp.firstMatch(versionOutput);
+    var version = new Version.parse(match[1]);
+    var dateString = match[2];
+    var platform = match[3];
+
+    return new DartSdkInfo._(version, dateString, platform);
+  }
+}
 
 final _versionDownloadRegexp =
     new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");

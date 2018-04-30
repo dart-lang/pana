@@ -10,8 +10,10 @@ import 'shared.dart';
 final data = new E2EData('pub_server', '0.1.1+3', _data);
 
 final _data = {
-  "panaVersion": panaPkgVersion.toString(),
-  "sdkVersion": isSemVer,
+  'runtimeInfo': {
+    'panaVersion': panaPkgVersion.toString(),
+    'sdkVersion': isSemVer,
+  },
   "packageName": "pub_server",
   "packageVersion": "0.1.1+3",
   "pubspec": {

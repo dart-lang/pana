@@ -10,8 +10,10 @@ import 'shared.dart';
 final data = new E2EData('http', '0.11.3+13', _data);
 
 final _data = {
-  "panaVersion": panaPkgVersion.toString(),
-  "sdkVersion": isSemVer,
+  'runtimeInfo': {
+    'panaVersion': panaPkgVersion.toString(),
+    'sdkVersion': isSemVer,
+  },
   "packageName": "http",
   "packageVersion": "0.11.3+13",
   "pubspec": {

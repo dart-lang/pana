@@ -13,6 +13,8 @@
   * `Maintenance.getMaintenanceScore` -> `getMaintenanceScore`
   * `PkgResolution.create` -> `createPkgResolution`
 
+* Move all runtime/version info into `PanaRuntimeInfo` (and use it in `Summary`).
+
 Updates:
 
 * Check if `dartdoc` can run on the package (optional).

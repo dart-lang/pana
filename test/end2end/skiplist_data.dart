@@ -10,8 +10,10 @@ import 'shared.dart';
 final data = new E2EData('skiplist', '0.1.0', _data);
 
 final _data = {
-  'panaVersion': panaPkgVersion.toString(),
-  'sdkVersion': isSemVer,
+  'runtimeInfo': {
+    'panaVersion': panaPkgVersion.toString(),
+    'sdkVersion': isSemVer,
+  },
   'packageName': 'skiplist',
   'packageVersion': '0.1.0',
   'pubspec': {
