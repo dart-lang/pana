@@ -25,14 +25,14 @@ import 'sdk_env.dart';
 import 'utils.dart';
 
 class InspectOptions {
+  final bool verbose;
   final bool deleteTemporaryDirectory;
-  final bool keepTransitiveLibs;
   final String pubHostedUrl;
   final String dartdocOutputDir;
 
   InspectOptions({
+    this.verbose: false,
     this.deleteTemporaryDirectory: true,
-    this.keepTransitiveLibs: false,
     this.pubHostedUrl,
     this.dartdocOutputDir,
   });
@@ -286,7 +286,7 @@ class PackageAnalyzer {
         platform ??= classifyLibPlatform(transitiveLibs);
       }
       final isInLib = dartFile.startsWith('lib/');
-      final fitness = isInLib
+      final fitnessResult = isInLib
           ? await calcFitness(pkgDir, pubspec, dartFile, isFormatted,
               fileAnalyzerItems, directLibs, platform)
           : null;
@@ -296,12 +296,13 @@ class PackageAnalyzer {
         isFormatted,
         fileAnalyzerItems,
         directLibs,
-        options.keepTransitiveLibs ? transitiveLibs : null,
+        options.verbose ? transitiveLibs : null,
         platform,
-        fitness,
+        fitnessResult?.fitness,
+        options.verbose ? fitnessResult?.suggestions : null,
       );
-      if (fitness != null && fitness.hasSuggestion) {
-        dartFileSuggestions.addAll(fitness.suggestions);
+      if (fitnessResult?.suggestions != null) {
+        dartFileSuggestions.addAll(fitnessResult.suggestions);
       }
     }
     dartFileSuggestions.sort();

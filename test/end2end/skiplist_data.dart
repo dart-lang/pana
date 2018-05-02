@@ -153,112 +153,112 @@ final _data = {
       'fitness': {
         'magnitude': 185.0,
         'shortcoming': 185.0,
-        'suggestions': [
-          {
-            'level': 'error',
-            'title': 'Fix `lib/skiplist.dart`.',
-            'description':
-                'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
-                '\n'
-                'line: 77 col: 3  \n'
-                'Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.[]\' (\'(Object) → V\').\n'
-                '',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 2000}
-          },
-          {
-            'level': 'error',
-            'title': 'Fix `lib/skiplist.dart`.',
-            'description':
-                'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
-                '\n'
-                'line: 77 col: 3  \n'
-                'Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'MapMixin<K, V>.[]\' (\'(Object) → V\').\n'
-                '',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 2000}
-          },
-          {
-            'level': 'error',
-            'title': 'Fix `lib/skiplist.dart`.',
-            'description':
-                'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
-                '\n'
-                'line: 91 col: 3  \n'
-                'Invalid override. The type of \'SkipList.containsKey\' (\'(K) → bool\') isn\'t a subtype of \'Map<K, V>.containsKey\' (\'(Object) → bool\').\n'
-                '',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 2000}
-          },
-          {
-            'level': 'error',
-            'title': 'Fix `lib/skiplist.dart`.',
-            'description':
-                'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
-                '\n'
-                'line: 91 col: 3  \n'
-                'Invalid override. The type of \'SkipList.containsKey\' (\'(K) → bool\') isn\'t a subtype of \'MapMixin<K, V>.containsKey\' (\'(Object) → bool\').\n'
-                '',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 2000}
-          },
-          {
-            'level': 'error',
-            'title': 'Fix `lib/skiplist.dart`.',
-            'description':
-                'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
-                '\n'
-                'line: 116 col: 3  \n'
-                'Invalid override. The type of \'SkipList.remove\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.remove\' (\'(Object) → V\').\n'
-                '',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 2000}
-          },
-          {
-            'level': 'error',
-            'title': 'Fix `lib/skiplist.dart`.',
-            'description':
-                'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
-                '\n'
-                'line: 116 col: 3  \n'
-                'Invalid override. The type of \'SkipList.remove\' (\'(K) → V\') isn\'t a subtype of \'MapMixin<K, V>.remove\' (\'(Object) → V\').\n'
-                '',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 2000}
-          },
-          {
-            'level': 'error',
-            'title': 'Fix `lib/skiplist.dart`.',
-            'description':
-                'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
-                '\n'
-                'line: 165 col: 3  \n'
-                'Invalid override. The type of \'SkipList.containsValue\' (\'(V) → bool\') isn\'t a subtype of \'Map<K, V>.containsValue\' (\'(Object) → bool\').\n'
-                '',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 2000}
-          },
-          {
-            'level': 'error',
-            'title': 'Fix `lib/skiplist.dart`.',
-            'description':
-                'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
-                '\n'
-                'line: 165 col: 3  \n'
-                'Invalid override. The type of \'SkipList.containsValue\' (\'(V) → bool\') isn\'t a subtype of \'MapMixin<K, V>.containsValue\' (\'(Object) → bool\').\n'
-                '',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 2000}
-          },
-          {
-            'level': 'hint',
-            'title': 'Format `lib/skiplist.dart`.',
-            'description': 'Run `dartfmt` to format `lib/skiplist.dart`.',
-            'file': 'lib/skiplist.dart',
-            'penalty': {'amount': 1, 'fraction': 0}
-          },
-        ],
       },
+      'suggestions': [
+        {
+          'level': 'error',
+          'title': 'Fix `lib/skiplist.dart`.',
+          'description':
+              'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
+              '\n'
+              'line: 77 col: 3  \n'
+              'Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.[]\' (\'(Object) → V\').\n'
+              '',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 2000}
+        },
+        {
+          'level': 'error',
+          'title': 'Fix `lib/skiplist.dart`.',
+          'description':
+              'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
+              '\n'
+              'line: 77 col: 3  \n'
+              'Invalid override. The type of \'SkipList.[]\' (\'(K) → V\') isn\'t a subtype of \'MapMixin<K, V>.[]\' (\'(Object) → V\').\n'
+              '',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 2000}
+        },
+        {
+          'level': 'error',
+          'title': 'Fix `lib/skiplist.dart`.',
+          'description':
+              'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
+              '\n'
+              'line: 91 col: 3  \n'
+              'Invalid override. The type of \'SkipList.containsKey\' (\'(K) → bool\') isn\'t a subtype of \'Map<K, V>.containsKey\' (\'(Object) → bool\').\n'
+              '',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 2000}
+        },
+        {
+          'level': 'error',
+          'title': 'Fix `lib/skiplist.dart`.',
+          'description':
+              'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
+              '\n'
+              'line: 91 col: 3  \n'
+              'Invalid override. The type of \'SkipList.containsKey\' (\'(K) → bool\') isn\'t a subtype of \'MapMixin<K, V>.containsKey\' (\'(Object) → bool\').\n'
+              '',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 2000}
+        },
+        {
+          'level': 'error',
+          'title': 'Fix `lib/skiplist.dart`.',
+          'description':
+              'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
+              '\n'
+              'line: 116 col: 3  \n'
+              'Invalid override. The type of \'SkipList.remove\' (\'(K) → V\') isn\'t a subtype of \'Map<K, V>.remove\' (\'(Object) → V\').\n'
+              '',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 2000}
+        },
+        {
+          'level': 'error',
+          'title': 'Fix `lib/skiplist.dart`.',
+          'description':
+              'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
+              '\n'
+              'line: 116 col: 3  \n'
+              'Invalid override. The type of \'SkipList.remove\' (\'(K) → V\') isn\'t a subtype of \'MapMixin<K, V>.remove\' (\'(Object) → V\').\n'
+              '',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 2000}
+        },
+        {
+          'level': 'error',
+          'title': 'Fix `lib/skiplist.dart`.',
+          'description':
+              'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
+              '\n'
+              'line: 165 col: 3  \n'
+              'Invalid override. The type of \'SkipList.containsValue\' (\'(V) → bool\') isn\'t a subtype of \'Map<K, V>.containsValue\' (\'(Object) → bool\').\n'
+              '',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 2000}
+        },
+        {
+          'level': 'error',
+          'title': 'Fix `lib/skiplist.dart`.',
+          'description':
+              'Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n'
+              '\n'
+              'line: 165 col: 3  \n'
+              'Invalid override. The type of \'SkipList.containsValue\' (\'(V) → bool\') isn\'t a subtype of \'MapMixin<K, V>.containsValue\' (\'(Object) → bool\').\n'
+              '',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 2000}
+        },
+        {
+          'level': 'hint',
+          'title': 'Format `lib/skiplist.dart`.',
+          'description': 'Run `dartfmt` to format `lib/skiplist.dart`.',
+          'file': 'lib/skiplist.dart',
+          'penalty': {'amount': 1, 'fraction': 0}
+        },
+      ],
     },
   },
   'platform': {

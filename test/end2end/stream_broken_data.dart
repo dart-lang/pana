@@ -619,16 +619,16 @@ final _data = {
       "fitness": {
         "magnitude": 13.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/plugin.dart`.',
-            'description': 'Run `dartfmt` to format `lib/plugin.dart`.',
-            'file': 'lib/plugin.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/plugin.dart`.',
+          'description': 'Run `dartfmt` to format `lib/plugin.dart`.',
+          'file': 'lib/plugin.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/rspc.dart": {
       "uri": "package:stream/rspc.dart",
@@ -638,16 +638,16 @@ final _data = {
       "fitness": {
         "magnitude": 14.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/rspc.dart`.',
-            'description': 'Run `dartfmt` to format `lib/rspc.dart`.',
-            'file': 'lib/rspc.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/rspc.dart`.',
+          'description': 'Run `dartfmt` to format `lib/rspc.dart`.',
+          'file': 'lib/rspc.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/connect.dart": {
       "uri": "package:stream/src/connect.dart",
@@ -657,16 +657,16 @@ final _data = {
       "fitness": {
         "magnitude": 242.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/connect.dart`.',
-            'description': 'Run `dartfmt` to format `lib/src/connect.dart`.',
-            'file': 'lib/src/connect.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/connect.dart`.',
+          'description': 'Run `dartfmt` to format `lib/src/connect.dart`.',
+          'file': 'lib/src/connect.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/connect_impl.dart": {
       "uri": "package:stream/src/connect_impl.dart",
@@ -676,17 +676,16 @@ final _data = {
       "fitness": {
         "magnitude": 139.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/connect_impl.dart`.',
-            'description':
-                'Run `dartfmt` to format `lib/src/connect_impl.dart`.',
-            'file': 'lib/src/connect_impl.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/connect_impl.dart`.',
+          'description': 'Run `dartfmt` to format `lib/src/connect_impl.dart`.',
+          'file': 'lib/src/connect_impl.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/plugin/configurer.dart": {
       "uri": "package:stream/src/plugin/configurer.dart",
@@ -696,17 +695,17 @@ final _data = {
       "fitness": {
         "magnitude": 19.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/plugin/configurer.dart`.',
-            'description':
-                'Run `dartfmt` to format `lib/src/plugin/configurer.dart`.',
-            'file': 'lib/src/plugin/configurer.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/plugin/configurer.dart`.',
+          'description':
+              'Run `dartfmt` to format `lib/src/plugin/configurer.dart`.',
+          'file': 'lib/src/plugin/configurer.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/plugin/loader.dart": {
       "uri": "package:stream/src/plugin/loader.dart",
@@ -716,17 +715,17 @@ final _data = {
       "fitness": {
         "magnitude": 51.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/plugin/loader.dart`.',
-            'description':
-                'Run `dartfmt` to format `lib/src/plugin/loader.dart`.',
-            'file': 'lib/src/plugin/loader.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/plugin/loader.dart`.',
+          'description':
+              'Run `dartfmt` to format `lib/src/plugin/loader.dart`.',
+          'file': 'lib/src/plugin/loader.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/plugin/router.dart": {
       "uri": "package:stream/src/plugin/router.dart",
@@ -736,17 +735,17 @@ final _data = {
       "fitness": {
         "magnitude": 280.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/plugin/router.dart`.',
-            'description':
-                'Run `dartfmt` to format `lib/src/plugin/router.dart`.',
-            'file': 'lib/src/plugin/router.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/plugin/router.dart`.',
+          'description':
+              'Run `dartfmt` to format `lib/src/plugin/router.dart`.',
+          'file': 'lib/src/plugin/router.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/rsp_util.dart": {
       "uri": "package:stream/src/rsp_util.dart",
@@ -756,16 +755,16 @@ final _data = {
       "fitness": {
         "magnitude": 26.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/rsp_util.dart`.',
-            'description': 'Run `dartfmt` to format `lib/src/rsp_util.dart`.',
-            'file': 'lib/src/rsp_util.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/rsp_util.dart`.',
+          'description': 'Run `dartfmt` to format `lib/src/rsp_util.dart`.',
+          'file': 'lib/src/rsp_util.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/rspc/build.dart": {
       "uri": "package:stream/src/rspc/build.dart",
@@ -775,16 +774,16 @@ final _data = {
       "fitness": {
         "magnitude": 109.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/rspc/build.dart`.',
-            'description': 'Run `dartfmt` to format `lib/src/rspc/build.dart`.',
-            'file': 'lib/src/rspc/build.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/rspc/build.dart`.',
+          'description': 'Run `dartfmt` to format `lib/src/rspc/build.dart`.',
+          'file': 'lib/src/rspc/build.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/rspc/compiler.dart": {
       "uri": "package:stream/src/rspc/compiler.dart",
@@ -794,17 +793,17 @@ final _data = {
       "fitness": {
         "magnitude": 595.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/rspc/compiler.dart`.',
-            'description':
-                'Run `dartfmt` to format `lib/src/rspc/compiler.dart`.',
-            'file': 'lib/src/rspc/compiler.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/rspc/compiler.dart`.',
+          'description':
+              'Run `dartfmt` to format `lib/src/rspc/compiler.dart`.',
+          'file': 'lib/src/rspc/compiler.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/rspc/main.dart": {
       "uri": "package:stream/src/rspc/main.dart",
@@ -814,16 +813,16 @@ final _data = {
       "fitness": {
         "magnitude": 46.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/rspc/main.dart`.',
-            'description': 'Run `dartfmt` to format `lib/src/rspc/main.dart`.',
-            'file': 'lib/src/rspc/main.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/rspc/main.dart`.',
+          'description': 'Run `dartfmt` to format `lib/src/rspc/main.dart`.',
+          'file': 'lib/src/rspc/main.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/rspc/tag.dart": {
       "uri": "package:stream/src/rspc/tag.dart",
@@ -833,16 +832,16 @@ final _data = {
       "fitness": {
         "magnitude": 271.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/rspc/tag.dart`.',
-            'description': 'Run `dartfmt` to format `lib/src/rspc/tag.dart`.',
-            'file': 'lib/src/rspc/tag.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/rspc/tag.dart`.',
+          'description': 'Run `dartfmt` to format `lib/src/rspc/tag.dart`.',
+          'file': 'lib/src/rspc/tag.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/rspc/tag_util.dart": {
       "uri": "package:stream/src/rspc/tag_util.dart",
@@ -852,17 +851,17 @@ final _data = {
       "fitness": {
         "magnitude": 106.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/rspc/tag_util.dart`.',
-            'description':
-                'Run `dartfmt` to format `lib/src/rspc/tag_util.dart`.',
-            'file': 'lib/src/rspc/tag_util.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/rspc/tag_util.dart`.',
+          'description':
+              'Run `dartfmt` to format `lib/src/rspc/tag_util.dart`.',
+          'file': 'lib/src/rspc/tag_util.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/server.dart": {
       "uri": "package:stream/src/server.dart",
@@ -872,16 +871,16 @@ final _data = {
       "fitness": {
         "magnitude": 174.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/server.dart`.',
-            'description': 'Run `dartfmt` to format `lib/src/server.dart`.',
-            'file': 'lib/src/server.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/server.dart`.',
+          'description': 'Run `dartfmt` to format `lib/src/server.dart`.',
+          'file': 'lib/src/server.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/src/server_impl.dart": {
       "uri": "package:stream/src/server_impl.dart",
@@ -891,17 +890,16 @@ final _data = {
       "fitness": {
         "magnitude": 221.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/src/server_impl.dart`.',
-            'description':
-                'Run `dartfmt` to format `lib/src/server_impl.dart`.',
-            'file': 'lib/src/server_impl.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/src/server_impl.dart`.',
+          'description': 'Run `dartfmt` to format `lib/src/server_impl.dart`.',
+          'file': 'lib/src/server_impl.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
     },
     "lib/stream.dart": {
       "uri": "package:stream/stream.dart",
@@ -911,16 +909,16 @@ final _data = {
       "fitness": {
         "magnitude": 18.0,
         "shortcoming": 1.0,
-        'suggestions': [
-          {
-            'level': 'hint',
-            'title': 'Format `lib/stream.dart`.',
-            'description': 'Run `dartfmt` to format `lib/stream.dart`.',
-            'file': 'lib/stream.dart',
-            'penalty': {'amount': 1, 'fraction': 0},
-          },
-        ],
-      }
-    }
-  }
+      },
+      'suggestions': [
+        {
+          'level': 'hint',
+          'title': 'Format `lib/stream.dart`.',
+          'description': 'Run `dartfmt` to format `lib/stream.dart`.',
+          'file': 'lib/stream.dart',
+          'penalty': {'amount': 1, 'fraction': 0},
+        },
+      ],
+    },
+  },
 };

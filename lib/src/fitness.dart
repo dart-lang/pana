@@ -14,7 +14,14 @@ import 'messages.dart' as messages;
 import 'model.dart';
 import 'pubspec.dart';
 
-Future<Fitness> calcFitness(
+class FitnessResult {
+  final Fitness fitness;
+  final List<Suggestion> suggestions;
+
+  FitnessResult(this.fitness, this.suggestions);
+}
+
+Future<FitnessResult> calcFitness(
     String pkgDir,
     Pubspec pubspec,
     String dartFile,
@@ -114,8 +121,8 @@ Future<Fitness> calcFitness(
     }
   }
   suggestions.sort();
-  return new Fitness(magnitude, min(shortcoming, magnitude),
-      suggestions: suggestions.isEmpty ? null : suggestions);
+  final fitness = new Fitness(magnitude, min(shortcoming, magnitude));
+  return new FitnessResult(fitness, suggestions.isEmpty ? null : suggestions);
 }
 
 Fitness calcPkgFitness(Iterable<DartFileSummary> files) {
