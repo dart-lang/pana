@@ -190,8 +190,8 @@ class PackageAnalyzer {
     bool dartdocSuccessful;
     if (pkgResolution != null && options.dartdocOutputDir != null) {
       try {
-        dartdocSuccessful =
-            await _toolEnv.checkDartdoc(pkgDir, options.dartdocOutputDir);
+        final r = await _toolEnv.dartdoc(pkgDir, options.dartdocOutputDir);
+        dartdocSuccessful = r.wasSuccessful;
       } catch (e, st) {
         log.severe('Could not run dartdoc.', e, st);
       }

@@ -267,14 +267,29 @@ class ToolEnvironment {
     _useGlobalDartdoc = true;
   }
 
-  Future<bool> checkDartdoc(String packageDir, String outputDir) async {
+  Future<DartdocResult> dartdoc(
+    String packageDir,
+    String outputDir, {
+    String hostedUrl,
+    String canonicalPrefix,
+    bool validateLinks: true,
+  }) async {
     ProcessResult pr;
     final args = [
       '--output',
       outputDir,
       '--exclude',
-      dartdocExcludedLibraries.join(',')
+      dartdocExcludedLibraries.join(','),
     ];
+    if (hostedUrl != null) {
+      args.addAll(['--hosted-url', hostedUrl]);
+    }
+    if (canonicalPrefix != null) {
+      args.addAll(['--rel-canonical-prefix', canonicalPrefix]);
+    }
+    if (!validateLinks) {
+      args.add('--no-validate-links');
+    }
     if (_useGlobalDartdoc) {
       pr = await runProc(
         _pubCmd,
@@ -290,8 +305,11 @@ class ToolEnvironment {
         environment: _environment,
       );
     }
-    // TODO: check generated content e.g. index.html and index.json
-    return pr.exitCode == 0;
+    final hasIndexHtml =
+        await new File(p.join(outputDir, 'index.html')).exists();
+    final hasIndexJson =
+        await new File(p.join(outputDir, 'index.json')).exists();
+    return new DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
   }
 
   Future<PackageLocation> getLocation(String package, {String version}) async {
@@ -405,6 +423,19 @@ const dartdocExcludedLibraries = const <String>[
   'dart:typed_data',
   'dart:ui',
 ];
+
+class DartdocResult {
+  final ProcessResult processResult;
+  final bool wasTimeout;
+  final bool hasIndexHtml;
+  final bool hasIndexJson;
+
+  DartdocResult(this.processResult, this.wasTimeout, this.hasIndexHtml,
+      this.hasIndexJson);
+
+  bool get wasSuccessful =>
+      processResult.exitCode == 0 && hasIndexHtml && hasIndexJson;
+}
 
 class DartSdkInfo {
   static final _sdkRegexp =
