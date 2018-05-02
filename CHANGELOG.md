@@ -15,6 +15,8 @@
 
 * Move all runtime/version info into `PanaRuntimeInfo` (and use it in `Summary`).
 
+* Removed `Fitness.suggestions` (moved it to `DartFileSummary`)
+
 Updates:
 
 * Check if `dartdoc` can run on the package (optional).

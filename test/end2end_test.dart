@@ -40,7 +40,7 @@ void main() {
           data.name,
           version: data.version,
           options: new InspectOptions(
-            keepTransitiveLibs: true,
+            verbose: true,
             dartdocOutputDir: '$rootPath/dartdoc',
           ),
         );

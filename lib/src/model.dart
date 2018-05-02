@@ -104,6 +104,10 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final Fitness fitness;
 
+  /// The suggestions that affect the maintenance score.
+  @JsonKey(includeIfNull: false)
+  final List<Suggestion> suggestions;
+
   DartFileSummary(
     this.uri,
     this.size,
@@ -113,6 +117,7 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
     this.transitiveLibs,
     this.platform,
     this.fitness,
+    this.suggestions,
   );
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
@@ -602,10 +607,7 @@ class Fitness extends Object with _$FitnessSerializerMixin {
   /// The faults, penalties and failures to meet the standards.
   final double shortcoming;
 
-  @JsonKey(includeIfNull: false)
-  final List<Suggestion> suggestions;
-
-  Fitness(this.magnitude, this.shortcoming, {this.suggestions});
+  Fitness(this.magnitude, this.shortcoming);
 
   factory Fitness.fromJson(Map json) => _$FitnessFromJson(json);
 
@@ -616,8 +618,6 @@ class Fitness extends Object with _$FitnessSerializerMixin {
     final score = (magnitude - shortcoming) / magnitude;
     return math.max(0.0, math.min(1.0, score));
   }
-
-  bool get hasSuggestion => suggestions != null && suggestions.isNotEmpty;
 }
 
 @JsonSerializable()
