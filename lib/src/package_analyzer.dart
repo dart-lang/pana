@@ -24,14 +24,20 @@ import 'pubspec.dart';
 import 'sdk_env.dart';
 import 'utils.dart';
 
+enum Verbosity {
+  compact,
+  normal,
+  verbose,
+}
+
 class InspectOptions {
-  final bool verbose;
+  final Verbosity verbosity;
   final bool deleteTemporaryDirectory;
   final String pubHostedUrl;
   final String dartdocOutputDir;
 
   InspectOptions({
-    this.verbose: false,
+    this.verbosity: Verbosity.normal,
     this.deleteTemporaryDirectory: true,
     this.pubHostedUrl,
     this.dartdocOutputDir,
@@ -296,10 +302,12 @@ class PackageAnalyzer {
         isFormatted,
         fileAnalyzerItems,
         directLibs,
-        options.verbose ? transitiveLibs : null,
+        options.verbosity == Verbosity.verbose ? transitiveLibs : null,
         platform,
         fitnessResult?.fitness,
-        options.verbose ? fitnessResult?.suggestions : null,
+        options.verbosity == Verbosity.verbose
+            ? fitnessResult?.suggestions
+            : null,
       );
       if (fitnessResult?.suggestions != null) {
         dartFileSuggestions.addAll(fitnessResult.suggestions);
@@ -339,9 +347,9 @@ class PackageAnalyzer {
       _toolEnv.runtimeInfo,
       pubspec.name,
       pubspec.version,
-      pubspec,
-      pkgResolution,
-      files,
+      options.verbosity == Verbosity.compact ? null : pubspec,
+      options.verbosity == Verbosity.compact ? null : pkgResolution,
+      options.verbosity == Verbosity.compact ? null : files,
       platform,
       licenses,
       pkgFitness,

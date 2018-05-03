@@ -119,7 +119,6 @@ final _data = {
           "Running `pub upgrade` failed with the following output:\n\n```\nBad state: For args, the parsed version null did not match the locked version"),
     },
   ],
-  "pkgResolution": null,
   "dartFiles": {
     "bin/packages/args/args.dart": {
       "uri": "asset:stream/bin/packages/args/args.dart",

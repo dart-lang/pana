@@ -25,6 +25,8 @@ Updates:
 
 * Check `homepage` and `documentation` properties to point to an existing and external web page.
 
+* `--verbose` command-line and `Verbosity` option to control the details in the analysis output.
+
 ## 0.10.6
 
 * Enable Dart 2 Preview in analyzer options (including non-Flutter packages).

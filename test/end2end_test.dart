@@ -40,7 +40,7 @@ void main() {
           data.name,
           version: data.version,
           options: new InspectOptions(
-            verbose: true,
+            verbosity: Verbosity.verbose,
             dartdocOutputDir: '$rootPath/dartdoc',
           ),
         );
