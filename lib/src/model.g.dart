@@ -75,14 +75,14 @@ abstract class _$SummarySerializerMixin {
     }
 
     writeNotNull('packageVersion', packageVersion?.toString());
-    val['pubspec'] = pubspec;
+    writeNotNull('pubspec', pubspec);
     val['platform'] = platform;
     val['licenses'] = licenses;
     writeNotNull('maintenance', maintenance);
     val['fitness'] = fitness;
     writeNotNull('suggestions', suggestions);
-    val['pkgResolution'] = pkgResolution;
-    val['dartFiles'] = dartFiles;
+    writeNotNull('pkgResolution', pkgResolution);
+    writeNotNull('dartFiles', dartFiles);
     return val;
   }
 }

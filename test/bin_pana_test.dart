@@ -47,5 +47,8 @@ Options:
       --hosted-url      The server that hosts <package>.
                         (defaults to "https://pub.dartlang.org")
   
+      --verbosity       Configure the details in the output.
+                        [compact, normal (default), verbose]
+  
       --[no-]warning    Shows the warning message before potentially destructive operation.
                         (defaults to on)''';

@@ -28,6 +28,10 @@ final _parser = new ArgParser()
       defaultsTo: 'hosted')
   ..addOption('hosted-url',
       help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
+  ..addOption('verbosity',
+      help: 'Configure the details in the output.',
+      allowed: ['compact', 'normal', 'verbose'],
+      defaultsTo: 'normal')
   ..addFlag('warning',
       help:
           'Shows the warning message before potentially destructive operation.',
@@ -60,6 +64,8 @@ main(List<String> args) async {
   final showWarning = result['warning'] as bool;
 
   final source = result['source'];
+  final verbosity = Verbosity.values
+      .firstWhere((v) => v.toString().split('.').last == result['verbosity']);
   String firstArg(String error) {
     if (result.rest.isEmpty) {
       _printHelp(errorMessage: error);
@@ -129,7 +135,10 @@ main(List<String> args) async {
                   'Version must be specified when using --hosted-url option.');
           return;
         }
-        final options = new InspectOptions(pubHostedUrl: pubHostedUrl);
+        final options = new InspectOptions(
+          verbosity: verbosity,
+          pubHostedUrl: pubHostedUrl,
+        );
         var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
         summary = await analyzer.inspectPackage(package,
             version: version, options: options);

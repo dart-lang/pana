@@ -26,6 +26,7 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final Version packageVersion;
 
+  @JsonKey(includeIfNull: false)
   final Pubspec pubspec;
 
   final DartPlatform platform;
@@ -39,7 +40,10 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final List<Suggestion> suggestions;
 
+  @JsonKey(includeIfNull: false)
   final PkgResolution pkgResolution;
+
+  @JsonKey(includeIfNull: false)
   final Map<String, DartFileSummary> dartFiles;
 
   Summary(
