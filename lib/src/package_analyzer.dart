@@ -193,7 +193,7 @@ class PackageAnalyzer {
 
     Set<CodeProblem> analyzerItems;
 
-    bool dartdocSuccessful;
+    var dartdocSuccessful = false;
     if (pkgResolution != null && options.dartdocOutputDir != null) {
       try {
         final r = await _toolEnv.dartdoc(pkgDir, options.dartdocOutputDir);

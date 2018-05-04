@@ -19,6 +19,7 @@ final _withIssuesJson = {
   "strongModeEnabled": false,
   "isExperimentalVersion": true,
   "isPreReleaseVersion": true,
+  "dartdocSuccessful": false,
   "errorCount": 1,
   "warningCount": 1,
   "hintCount": 1,
@@ -110,6 +111,7 @@ final _perfect = new Maintenance(
     strongModeEnabled: true,
     isExperimentalVersion: false,
     isPreReleaseVersion: false,
+    dartdocSuccessful: true,
     errorCount: 0,
     warningCount: 0,
     hintCount: 0);

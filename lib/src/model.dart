@@ -570,6 +570,9 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   /// whether version is flagged `-beta`, `-alpha`, etc.
   final bool isPreReleaseVersion;
 
+  /// whether running dartdoc was successful (null if was not running)
+  final bool dartdocSuccessful;
+
   /// the number of errors encountered during analysis
   final int errorCount;
 
@@ -595,6 +598,7 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
     @required this.errorCount,
     @required this.warningCount,
     @required this.hintCount,
+    @required this.dartdocSuccessful,
     this.suggestions,
   });
 

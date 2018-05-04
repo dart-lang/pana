@@ -335,6 +335,7 @@ Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) => new Maintenance(
     errorCount: json['errorCount'] as int,
     warningCount: json['warningCount'] as int,
     hintCount: json['hintCount'] as int,
+    dartdocSuccessful: json['dartdocSuccessful'] as bool,
     suggestions: (json['suggestions'] as List)
         ?.map((e) => e == null
             ? null
@@ -350,6 +351,7 @@ abstract class _$MaintenanceSerializerMixin {
   bool get strongModeEnabled;
   bool get isExperimentalVersion;
   bool get isPreReleaseVersion;
+  bool get dartdocSuccessful;
   int get errorCount;
   int get warningCount;
   int get hintCount;
@@ -364,6 +366,7 @@ abstract class _$MaintenanceSerializerMixin {
       'strongModeEnabled': strongModeEnabled,
       'isExperimentalVersion': isExperimentalVersion,
       'isPreReleaseVersion': isPreReleaseVersion,
+      'dartdocSuccessful': dartdocSuccessful,
       'errorCount': errorCount,
       'warningCount': warningCount,
       'hintCount': hintCount,
