@@ -273,6 +273,7 @@ class ToolEnvironment {
     String hostedUrl,
     String canonicalPrefix,
     bool validateLinks: true,
+    Duration timeout,
   }) async {
     ProcessResult pr;
     final args = [
@@ -303,6 +304,7 @@ class ToolEnvironment {
         args,
         workingDirectory: packageDir,
         environment: _environment,
+        timeout: timeout,
       );
     }
     final hasIndexHtml =
