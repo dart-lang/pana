@@ -273,6 +273,7 @@ class ToolEnvironment {
     String hostedUrl,
     String canonicalPrefix,
     bool validateLinks: true,
+    bool linkToRemote: false,
     Duration timeout,
   }) async {
     ProcessResult pr;
@@ -290,6 +291,9 @@ class ToolEnvironment {
     }
     if (!validateLinks) {
       args.add('--no-validate-links');
+    }
+    if (linkToRemote) {
+      args.add('--link-to-remote');
     }
     if (_useGlobalDartdoc) {
       pr = await runProc(
