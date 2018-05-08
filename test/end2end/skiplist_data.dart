@@ -283,6 +283,7 @@ final _data = {
     'strongModeEnabled': false,
     'isExperimentalVersion': true,
     'isPreReleaseVersion': false,
+    'dartdocSuccessful': false,
     'errorCount': 8,
     'warningCount': 0,
     'hintCount': 1,

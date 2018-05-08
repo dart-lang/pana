@@ -370,6 +370,7 @@ Future<Maintenance> detectMaintenance(
     strongModeEnabled: strongModeEnabled,
     isExperimentalVersion: isExperimentalVersion,
     isPreReleaseVersion: isPreReleaseVersion,
+    dartdocSuccessful: dartdocSuccessful,
     errorCount: errorCount,
     warningCount: warningCount,
     hintCount: hintCount,
