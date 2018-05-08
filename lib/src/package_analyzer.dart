@@ -35,12 +35,16 @@ class InspectOptions {
   final bool deleteTemporaryDirectory;
   final String pubHostedUrl;
   final String dartdocOutputDir;
+  final int dartdocRetry;
+  final Duration dartdocTimeout;
 
   InspectOptions({
     this.verbosity: Verbosity.normal,
     this.deleteTemporaryDirectory: true,
     this.pubHostedUrl,
     this.dartdocOutputDir,
+    this.dartdocRetry: 0,
+    this.dartdocTimeout,
   });
 }
 
@@ -195,11 +199,21 @@ class PackageAnalyzer {
 
     var dartdocSuccessful = false;
     if (pkgResolution != null && options.dartdocOutputDir != null) {
-      try {
-        final r = await _toolEnv.dartdoc(pkgDir, options.dartdocOutputDir);
-        dartdocSuccessful = r.wasSuccessful;
-      } catch (e, st) {
-        log.severe('Could not run dartdoc.', e, st);
+      for (var i = 0; i <= options.dartdocRetry; i++) {
+        try {
+          final r = await _toolEnv.dartdoc(
+            pkgDir,
+            options.dartdocOutputDir,
+            validateLinks: i == 0,
+            timeout: options.dartdocTimeout,
+          );
+          dartdocSuccessful = r.wasSuccessful;
+          if (!r.wasTimeout) {
+            break;
+          }
+        } catch (e, st) {
+          log.severe('Could not run dartdoc.', e, st);
+        }
       }
     }
 
