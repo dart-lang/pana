@@ -1,4 +1,4 @@
-## 0.11.0-dev
+## 0.11.0
 
 **Breaking changes:**
 
