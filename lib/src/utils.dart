@@ -14,7 +14,7 @@ import 'package:yaml/yaml.dart';
 import 'logging.dart';
 
 Stream<String> byteStreamSplit(Stream<List<int>> stream) =>
-    stream.transform(SYSTEM_ENCODING.decoder).transform(const LineSplitter());
+    stream.transform(systemEncoding.decoder).transform(const LineSplitter());
 
 final _timeout = const Duration(minutes: 2);
 final _maxLines = 100000;
@@ -226,7 +226,7 @@ Future<List<String>> listFocusDirs(String packageDir) async {
   final dirs = <String>[];
   for (final dir in ['bin', 'lib']) {
     final path = p.join(packageDir, dir);
-    if ((await FileSystemEntity.type(path)) != FileSystemEntityType.DIRECTORY) {
+    if ((await FileSystemEntity.type(path)) != FileSystemEntityType.directory) {
       continue;
     }
     if (await listFiles(path, endsWith: '.dart').isEmpty) {
@@ -244,6 +244,6 @@ Future<List<String>> listFocusDirs(String packageDir) async {
 /// Otherwise, they'll be handled by Dart's default signal handler, which
 /// terminates the program immediately.
 Stream<ProcessSignal> getSignals() => Platform.isWindows
-    ? ProcessSignal.SIGINT.watch()
+    ? ProcessSignal.sigint.watch()
     : StreamGroup
-        .merge([ProcessSignal.SIGTERM.watch(), ProcessSignal.SIGINT.watch()]);
+        .merge([ProcessSignal.sigterm.watch(), ProcessSignal.sigint.watch()]);
