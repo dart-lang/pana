@@ -1,45 +1,223 @@
-// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
-import 'package:test/test.dart';
-import 'package:pana/src/version.dart';
-
-import 'shared.dart';
-
-final data = new E2EData('pub_server', '0.1.1+3', _data);
-
-final _data = {
-  'runtimeInfo': {
-    'panaVersion': panaPkgVersion.toString(),
-    'sdkVersion': isSemVer,
+{
+  "runtimeInfo": {
+    "panaVersion": "0.11.1-dev",
+    "sdkVersion": "2.0.0-dev.54.0"
   },
   "packageName": "pub_server",
   "packageVersion": "0.1.1+3",
   "pubspec": {
-    "author": "Dart Team <misc@dartlang.org>",
-    "dependencies": {
-      "logging": ">=0.9.3 <1.0.0",
-      "mime": ">=0.9.3 <0.10.0",
-      "pub_semver": ">=1.1.0 <1.4.0",
-      "shelf": ">=0.5.6 <0.7.0",
-      "yaml": ">=2.1.2 <3.0.0"
-    },
-    "description":
-        "A Dart package containing re-usable components for making a pub package server.",
-    "dev_dependencies": {
-      "archive": ">=1.0.0 <2.0.0",
-      "args": ">=0.12.2 <0.14.0",
-      "http": ">0.11.0 <0.12.0",
-      "test": ">=0.12.0 <0.13.0"
-    },
-    "environment": {"sdk": ">=1.5.0 <2.0.0"},
-    "homepage": "https://github.com/dart-lang/pub_server",
-    "name": "pub_server",
     "version": "0.1.1+3",
+    "name": "pub_server",
+    "dependencies": {
+      "pub_semver": ">=1.1.0 <1.4.0",
+      "logging": ">=0.9.3 <1.0.0",
+      "yaml": ">=2.1.2 <3.0.0",
+      "shelf": ">=0.5.6 <0.7.0",
+      "mime": ">=0.9.3 <0.10.0"
+    },
+    "author": "Dart Team <misc@dartlang.org>",
+    "description": "A Dart package containing re-usable components for making a pub package server.",
+    "homepage": "https://github.com/dart-lang/pub_server",
+    "environment": {
+      "sdk": ">=1.5.0 <2.0.0"
+    },
+    "dev_dependencies": {
+      "test": ">=0.12.0 <0.13.0",
+      "http": ">0.11.0 <0.12.0",
+      "archive": ">=1.0.0 <2.0.0",
+      "args": ">=0.12.2 <0.14.0"
+    }
+  },
+  "platform": {
+    "components": [
+      "isolate"
+    ],
+    "uses": {
+      "flutter": "allowed",
+      "web": "forbidden",
+      "other": "used"
+    },
+    "reason": "Platform components identified in package: `isolate`."
+  },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "name": "BSD",
+      "url": "https://github.com/dart-lang/pub_server/blob/master/LICENSE"
+    }
+  ],
+  "maintenance": {
+    "missingChangelog": false,
+    "missingExample": true,
+    "missingReadme": false,
+    "missingAnalysisOptions": true,
+    "oldAnalysisOptions": false,
+    "strongModeEnabled": false,
+    "isExperimentalVersion": true,
+    "isPreReleaseVersion": false,
+    "dartdocSuccessful": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "hintCount": 7,
+    "suggestions": [
+      {
+        "level": "hint",
+        "title": "Package is pre-v1 release.",
+        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.",
+        "penalty": {
+          "amount": 10,
+          "fraction": 0
+        }
+      },
+      {
+        "level": "hint",
+        "title": "Fix analysis and formatting issues.",
+        "description": "Analysis or formatting checks reported 7 hints.\n\nRun `dartfmt` to format `lib/shelf_pubserver.dart`.\n\n",
+        "penalty": {
+          "amount": 7,
+          "fraction": 0
+        }
+      },
+      {
+        "level": "hint",
+        "title": "Maintain an example.",
+        "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `pub_server.dart`.",
+        "penalty": {
+          "amount": 1,
+          "fraction": 0
+        }
+      }
+    ]
+  },
+  "fitness": {
+    "magnitude": 455.0,
+    "shortcoming": 7.0
   },
   "pkgResolution": {
-    "dependencies": hasLength(19),
+    "dependencies": [
+      {
+        "package": "archive",
+        "dependencyType": "dev",
+        "constraintType": "normal",
+        "constraint": ">=1.0.0 <2.0.0"
+      },
+      {
+        "package": "args",
+        "dependencyType": "dev",
+        "constraintType": "normal",
+        "constraint": ">=0.12.2 <0.14.0"
+      },
+      {
+        "package": "async",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.13.3",
+        "available": "2.0.7"
+      },
+      {
+        "package": "charcode",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.1.1"
+      },
+      {
+        "package": "collection",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.14.9"
+      },
+      {
+        "package": "http",
+        "dependencyType": "dev",
+        "constraintType": "normal",
+        "constraint": ">0.11.0 <0.12.0"
+      },
+      {
+        "package": "http_parser",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "3.1.2"
+      },
+      {
+        "package": "logging",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": ">=0.9.3 <1.0.0",
+        "resolved": "0.11.3+1"
+      },
+      {
+        "package": "mime",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": ">=0.9.3 <0.10.0",
+        "resolved": "0.9.6"
+      },
+      {
+        "package": "path",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.5.1"
+      },
+      {
+        "package": "pub_semver",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": ">=1.1.0 <1.4.0",
+        "resolved": "1.3.7",
+        "available": "1.4.1"
+      },
+      {
+        "package": "shelf",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": ">=0.5.6 <0.7.0",
+        "resolved": "0.6.8",
+        "available": "0.7.3"
+      },
+      {
+        "package": "source_span",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.4.0"
+      },
+      {
+        "package": "stack_trace",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.9.2"
+      },
+      {
+        "package": "stream_channel",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.6.6"
+      },
+      {
+        "package": "string_scanner",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.0.2"
+      },
+      {
+        "package": "test",
+        "dependencyType": "dev",
+        "constraintType": "normal",
+        "constraint": ">=0.12.0 <0.13.0"
+      },
+      {
+        "package": "typed_data",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.1.5"
+      },
+      {
+        "package": "yaml",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": ">=2.1.2 <3.0.0",
+        "resolved": "2.1.13"
+      }
+    ]
   },
   "dartFiles": {
     "lib/repository.dart": {
@@ -47,7 +225,10 @@ final _data = {
       "size": 5129,
       "isFormatted": true,
       "codeProblems": [],
-      "directLibs": ["dart:async", "package:pub_semver/pub_semver.dart"],
+      "directLibs": [
+        "dart:async",
+        "package:pub_semver/pub_semver.dart"
+      ],
       "transitiveLibs": [
         "dart:async",
         "dart:collection",
@@ -80,11 +261,18 @@ final _data = {
         "package:pub_semver/src/version_range.dart",
         "package:pub_semver/src/version_union.dart"
       ],
-      'platform': {
-        'components': [],
-        'uses': {'flutter': 'allowed', 'web': 'allowed', 'other': 'allowed'},
+      "platform": {
+        "components": [],
+        "uses": {
+          "flutter": "allowed",
+          "web": "allowed",
+          "other": "allowed"
+        }
       },
-      'fitness': {'magnitude': 95.0, 'shortcoming': 0.0},
+      "fitness": {
+        "magnitude": 95.0,
+        "shortcoming": 0.0
+      }
     },
     "lib/shelf_pubserver.dart": {
       "uri": "package:pub_server/shelf_pubserver.dart",
@@ -92,58 +280,58 @@ final _data = {
       "isFormatted": false,
       "codeProblems": [
         {
-          'severity': 'INFO',
-          'errorType': 'HINT',
-          'errorCode': 'DEPRECATED_MEMBER_USE',
-          'file': 'lib/shelf_pubserver.dart',
-          'line': 275,
-          'col': 24,
-          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 275,
+          "col": 24,
+          "description": "'JSON' is deprecated and shouldn't be used."
         },
         {
-          'severity': 'INFO',
-          'errorType': 'HINT',
-          'errorCode': 'DEPRECATED_MEMBER_USE',
-          'file': 'lib/shelf_pubserver.dart',
-          'line': 275,
-          'col': 42,
-          'description': '\'UTF8\' is deprecated and shouldn\'t be used.'
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 275,
+          "col": 42,
+          "description": "'UTF8' is deprecated and shouldn't be used."
         },
         {
-          'severity': 'INFO',
-          'errorType': 'HINT',
-          'errorCode': 'DEPRECATED_MEMBER_USE',
-          'file': 'lib/shelf_pubserver.dart',
-          'line': 455,
-          'col': 15,
-          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 455,
+          "col": 15,
+          "description": "'JSON' is deprecated and shouldn't be used."
         },
         {
-          'severity': 'INFO',
-          'errorType': 'HINT',
-          'errorCode': 'DEPRECATED_MEMBER_USE',
-          'file': 'lib/shelf_pubserver.dart',
-          'line': 463,
-          'col': 15,
-          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 463,
+          "col": 15,
+          "description": "'JSON' is deprecated and shouldn't be used."
         },
         {
-          'severity': 'INFO',
-          'errorType': 'HINT',
-          'errorCode': 'DEPRECATED_MEMBER_USE',
-          'file': 'lib/shelf_pubserver.dart',
-          'line': 471,
-          'col': 15,
-          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 471,
+          "col": 15,
+          "description": "'JSON' is deprecated and shouldn't be used."
         },
         {
-          'severity': 'INFO',
-          'errorType': 'HINT',
-          'errorCode': 'DEPRECATED_MEMBER_USE',
-          'file': 'lib/shelf_pubserver.dart',
-          'line': 488,
-          'col': 17,
-          'description': '\'JSON\' is deprecated and shouldn\'t be used.'
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 488,
+          "col": 17,
+          "description": "'JSON' is deprecated and shouldn't be used."
         }
       ],
       "directLibs": [
@@ -339,145 +527,92 @@ final _data = {
         "package:yaml/src/yaml_node_wrapper.dart",
         "package:yaml/yaml.dart"
       ],
-      'platform': {
-        'components': ['isolate'],
-        'uses': {'flutter': 'allowed', 'web': 'forbidden', 'other': 'used'},
+      "platform": {
+        "components": [
+          "isolate"
+        ],
+        "uses": {
+          "flutter": "allowed",
+          "web": "forbidden",
+          "other": "used"
+        }
       },
-      'fitness': {
-        'magnitude': 360.0,
-        'shortcoming': 7.0,
+      "fitness": {
+        "magnitude": 360.0,
+        "shortcoming": 7.0
       },
-      'suggestions': [
+      "suggestions": [
         {
-          'level': 'hint',
-          'title': 'Format `lib/shelf_pubserver.dart`.',
-          'description': 'Run `dartfmt` to format `lib/shelf_pubserver.dart`.',
-          'file': 'lib/shelf_pubserver.dart',
-          'penalty': {'amount': 1, 'fraction': 0},
+          "level": "hint",
+          "title": "Format `lib/shelf_pubserver.dart`.",
+          "description": "Run `dartfmt` to format `lib/shelf_pubserver.dart`.",
+          "file": "lib/shelf_pubserver.dart",
+          "penalty": {
+            "amount": 1,
+            "fraction": 0
+          }
         },
         {
-          'level': 'hint',
-          'title': 'Fix `lib/shelf_pubserver.dart`.',
-          'description':
-              'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
-              '\n'
-              'line: 275 col: 24  \n'
-              '\'JSON\' is deprecated and shouldn\'t be used.\n'
-              '',
-          'file': 'lib/shelf_pubserver.dart',
-          'penalty': {'amount': 1, 'fraction': 0}
+          "level": "hint",
+          "title": "Fix `lib/shelf_pubserver.dart`.",
+          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n",
+          "file": "lib/shelf_pubserver.dart",
+          "penalty": {
+            "amount": 1,
+            "fraction": 0
+          }
         },
         {
-          'level': 'hint',
-          'title': 'Fix `lib/shelf_pubserver.dart`.',
-          'description':
-              'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
-              '\n'
-              'line: 275 col: 42  \n'
-              '\'UTF8\' is deprecated and shouldn\'t be used.\n'
-              '',
-          'file': 'lib/shelf_pubserver.dart',
-          'penalty': {'amount': 1, 'fraction': 0}
+          "level": "hint",
+          "title": "Fix `lib/shelf_pubserver.dart`.",
+          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 42  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "file": "lib/shelf_pubserver.dart",
+          "penalty": {
+            "amount": 1,
+            "fraction": 0
+          }
         },
         {
-          'level': 'hint',
-          'title': 'Fix `lib/shelf_pubserver.dart`.',
-          'description':
-              'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
-              '\n'
-              'line: 455 col: 15  \n'
-              '\'JSON\' is deprecated and shouldn\'t be used.\n'
-              '',
-          'file': 'lib/shelf_pubserver.dart',
-          'penalty': {'amount': 1, 'fraction': 0}
+          "level": "hint",
+          "title": "Fix `lib/shelf_pubserver.dart`.",
+          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 455 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
+          "file": "lib/shelf_pubserver.dart",
+          "penalty": {
+            "amount": 1,
+            "fraction": 0
+          }
         },
         {
-          'level': 'hint',
-          'title': 'Fix `lib/shelf_pubserver.dart`.',
-          'description':
-              'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
-              '\n'
-              'line: 463 col: 15  \n'
-              '\'JSON\' is deprecated and shouldn\'t be used.\n'
-              '',
-          'file': 'lib/shelf_pubserver.dart',
-          'penalty': {'amount': 1, 'fraction': 0}
+          "level": "hint",
+          "title": "Fix `lib/shelf_pubserver.dart`.",
+          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 463 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
+          "file": "lib/shelf_pubserver.dart",
+          "penalty": {
+            "amount": 1,
+            "fraction": 0
+          }
         },
         {
-          'level': 'hint',
-          'title': 'Fix `lib/shelf_pubserver.dart`.',
-          'description':
-              'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
-              '\n'
-              'line: 471 col: 15  \n'
-              '\'JSON\' is deprecated and shouldn\'t be used.\n'
-              '',
-          'file': 'lib/shelf_pubserver.dart',
-          'penalty': {'amount': 1, 'fraction': 0}
+          "level": "hint",
+          "title": "Fix `lib/shelf_pubserver.dart`.",
+          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 471 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
+          "file": "lib/shelf_pubserver.dart",
+          "penalty": {
+            "amount": 1,
+            "fraction": 0
+          }
         },
         {
-          'level': 'hint',
-          'title': 'Fix `lib/shelf_pubserver.dart`.',
-          'description':
-              'Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n'
-              '\n'
-              'line: 488 col: 17  \n'
-              '\'JSON\' is deprecated and shouldn\'t be used.\n'
-              '',
-          'file': 'lib/shelf_pubserver.dart',
-          'penalty': {'amount': 1, 'fraction': 0}
-        },
-      ],
-    },
-  },
-  'platform': {
-    'components': ['isolate'],
-    'uses': {'flutter': 'allowed', 'web': 'forbidden', 'other': 'used'},
-    'reason': 'Platform components identified in package: `isolate`.',
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "name": "BSD",
-      'url': 'https://github.com/dart-lang/pub_server/blob/master/LICENSE',
-    },
-  ],
-  'maintenance': {
-    'missingChangelog': false,
-    'missingExample': true,
-    'missingReadme': false,
-    'missingAnalysisOptions': true,
-    'oldAnalysisOptions': false,
-    'strongModeEnabled': false,
-    'isExperimentalVersion': true,
-    'isPreReleaseVersion': false,
-    'dartdocSuccessful': true,
-    'errorCount': 0,
-    'warningCount': 0,
-    'hintCount': 7,
-    'suggestions': [
-      {
-        'level': 'hint',
-        'title': 'Package is pre-v1 release.',
-        'description':
-            'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.',
-        'penalty': {'amount': 10, 'fraction': 0}
-      },
-      {
-        'level': 'hint',
-        'title': 'Fix analysis and formatting issues.',
-        'description': 'Analysis or formatting checks reported 7 hints.\n\n'
-            'Run `dartfmt` to format `lib/shelf_pubserver.dart`.\n\n',
-        'penalty': {'amount': 7, 'fraction': 0},
-      },
-      {
-        'level': 'hint',
-        'title': 'Maintain an example.',
-        'description':
-            'None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `pub_server.dart`.',
-        'penalty': {'amount': 1, 'fraction': 0}
-      },
-    ],
-  },
-  'fitness': {'magnitude': 455.0, 'shortcoming': 7.0},
-};
+          "level": "hint",
+          "title": "Fix `lib/shelf_pubserver.dart`.",
+          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 488 col: 17  \n'JSON' is deprecated and shouldn't be used.\n",
+          "file": "lib/shelf_pubserver.dart",
+          "penalty": {
+            "amount": 1,
+            "fraction": 0
+          }
+        }
+      ]
+    }
+  }
+}
