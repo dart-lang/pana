@@ -1,8 +1,21 @@
 # Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
-# Do not use `pub run build_runner` on the package - use `dart tool/build.dart` instead!
 targets:
+  $default:
+    builders:
+      pana:
+        generate_for:
+          include:
+          - pubspec.yaml
+          - lib/src/model.dart
+          - lib/src/version.dart
+      json_serializable:
+        # tool/builder.dart handles this
+        enabled: false
+
+builders:
   pana:
-    sources:
-      - 'pubspec.yaml'
-      - 'lib/**'
-      - 'tool/**'
+    # See https://github.com/dart-lang/build/issues/1423
+    import: "../../../tool/builder.dart"
+    builder_factories: ["buildPana"]
+    build_extensions: {".dart": [".g.dart"]}
+    build_to: source
