@@ -16,6 +16,7 @@ import 'package:pana/pana.dart';
 const defaultHostedUrl = 'https://pub.dartlang.org';
 
 final _parser = new ArgParser()
+  ..addOption('flutter-sdk', help: 'The directory of the Flutter SDK.')
   ..addFlag('json',
       abbr: 'j',
       help: 'Output log items as JSON.',
@@ -139,7 +140,10 @@ main(List<String> args) async {
           verbosity: verbosity,
           pubHostedUrl: pubHostedUrl,
         );
-        var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
+        var analyzer = await PackageAnalyzer.create(
+          pubCacheDir: tempPath,
+          flutterDir: result['flutter-sdk'],
+        );
         summary = await analyzer.inspectPackage(package,
             version: version, options: options);
       } else if (source == 'path') {

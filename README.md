@@ -26,6 +26,7 @@ Usage: pana [<options>] <package> [<version>]
        pana [<options>] --source path <directory>
 
 Options:
+      --flutter-sdk     The directory of the Flutter SDK.
   -j, --json            Output log items as JSON.
   -s, --source          The source used to find the package.
                         [hosted (default), path]
