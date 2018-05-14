@@ -1,4 +1,4 @@
-## 0.11.1-dev
+## 0.11.1
 
 * Upgrade CI to dev.54 and fix new deprecation warnings.
 
