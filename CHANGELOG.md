@@ -2,6 +2,8 @@
 
 * Upgrade CI to dev.54 and fix new deprecation warnings.
 
+* Bugfix: do not initialize `dartdocSuccessful` with a value.
+
 ## 0.11.0
 
 **Breaking changes:**

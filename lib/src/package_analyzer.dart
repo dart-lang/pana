@@ -197,7 +197,7 @@ class PackageAnalyzer {
 
     Set<CodeProblem> analyzerItems;
 
-    var dartdocSuccessful = false;
+    bool dartdocSuccessful;
     if (pkgResolution != null && options.dartdocOutputDir != null) {
       for (var i = 0; i <= options.dartdocRetry; i++) {
         try {

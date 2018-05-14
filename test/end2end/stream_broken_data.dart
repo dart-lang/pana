@@ -47,7 +47,7 @@ final _data = {
     "strongModeEnabled": false,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
-    "dartdocSuccessful": false,
+    "dartdocSuccessful": null,
     "errorCount": 0,
     "warningCount": 0,
     "hintCount": 16,
@@ -58,12 +58,6 @@ final _data = {
         'description':
             'Error(s) prevent platform classification:\n\nMake sure `dartfmt` runs.',
         'penalty': {'amount': 0, 'fraction': 2000}
-      },
-      {
-        'level': 'error',
-        'title': 'Running `dartdoc` failed.',
-        'description': 'Make sure `dartdoc` runs without any issues.',
-        'penalty': {'amount': 0, 'fraction': 1000},
       },
       {
         'level': 'warning',
