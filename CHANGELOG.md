@@ -4,6 +4,8 @@
 
 * Bugfix: do not initialize `dartdocSuccessful` with a value.
 
+* Support `--flutter-sdk` in the `pana` binary.
+
 ## 0.11.0
 
 **Breaking changes:**
