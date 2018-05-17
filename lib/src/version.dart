@@ -6,9 +6,4 @@ library pana.version;
 
 import 'package:pub_semver/pub_semver.dart';
 
-import 'annotations.dart';
-
-part 'version.g.dart';
-
-@PackageVersion()
-Version get panaPkgVersion => _$panaPkgVersionPubSemverVersion;
+final panaPkgVersion = new Version.parse("0.11.2-dev");
