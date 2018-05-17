@@ -1,3 +1,7 @@
+## 0.11.2-dev
+
+* `dartdoc` processing: do not exclude packages by default, as `dartdoc` `0.19` handles SDK links.
+
 ## 0.11.1
 
 * Upgrade CI to dev.54 and fix new deprecation warnings.

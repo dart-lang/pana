@@ -275,14 +275,16 @@ class ToolEnvironment {
     bool validateLinks: true,
     bool linkToRemote: false,
     Duration timeout,
+    List<String> excludedLibs,
   }) async {
     ProcessResult pr;
     final args = [
       '--output',
       outputDir,
-      '--exclude',
-      dartdocExcludedLibraries.join(','),
     ];
+    if (excludedLibs != null && excludedLibs.isNotEmpty) {
+      args.addAll(['--exclude', excludedLibs.join(',')]);
+    }
     if (hostedUrl != null) {
       args.addAll(['--hosted-url', hostedUrl]);
     }
@@ -416,19 +418,6 @@ class PackageLocation {
 
   PackageLocation(this.package, this.version, this.location);
 }
-
-const dartdocExcludedLibraries = const <String>[
-  'dart:async',
-  'dart:collection',
-  'dart:convert',
-  'dart:core',
-  'dart:developer',
-  'dart:io',
-  'dart:isolate',
-  'dart:math',
-  'dart:typed_data',
-  'dart:ui',
-];
 
 class DartdocResult {
   final ProcessResult processResult;
