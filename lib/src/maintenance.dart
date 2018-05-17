@@ -12,6 +12,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
+import 'dartdoc_analyzer.dart';
 import 'download_utils.dart';
 import 'model.dart';
 import 'pubspec.dart';
@@ -194,11 +195,7 @@ Future<Maintenance> detectMaintenance(
   }
 
   if (dartdocSuccessful == false) {
-    maintenanceSuggestions.add(new Suggestion.error(
-      'Running `dartdoc` failed.',
-      'Make sure `dartdoc` runs without any issues.',
-      penalty: new Penalty(fraction: 1000),
-    ));
+    maintenanceSuggestions.add(getDartdocRunFailedSuggestion());
   }
 
   if (pkgPlatform.hasConflict) {
