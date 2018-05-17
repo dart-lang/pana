@@ -69,14 +69,14 @@ double getMaintenanceScore(Maintenance maintenance, {Duration age}) {
 
 List<Suggestion> _getAllSuggestion(Maintenance maintenance, {Duration age}) {
   final list = <Suggestion>[];
-  final ageSuggestion = _getAgeSuggestion(age);
+  final ageSuggestion = getAgeSuggestion(age);
   if (ageSuggestion != null) list.add(ageSuggestion);
   if (maintenance.suggestions != null) list.addAll(maintenance.suggestions);
   return list;
 }
 
-Suggestion _getAgeSuggestion(Duration age) {
-  age ??= const Duration();
+Suggestion getAgeSuggestion(Duration age) {
+  age ??= Duration.zero;
 
   if (age > _twoYears) {
     return new Suggestion.warning('Package is too old.',

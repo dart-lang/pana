@@ -177,4 +177,28 @@ void main() {
       }
     });
   });
+
+  group('Age-based suggestion', () {
+    test('young package', () {
+      expect(getAgeSuggestion(const Duration(days: 10)), isNull);
+    });
+
+    test('age: one and half years', () {
+      final suggestion = getAgeSuggestion(const Duration(days: 555));
+      expect(suggestion, isNotNull);
+      expect(suggestion.title, 'Package is getting outdated.');
+      expect(suggestion.level, 'hint');
+      expect(suggestion.penalty.amount, 0);
+      expect(suggestion.penalty.fraction, 5205);
+    });
+
+    test('age: two and half years', () {
+      final suggestion = getAgeSuggestion(const Duration(days: 910));
+      expect(suggestion, isNotNull);
+      expect(suggestion.title, 'Package is too old.');
+      expect(suggestion.level, 'warning');
+      expect(suggestion.penalty.amount, 10000);
+      expect(suggestion.penalty.fraction, 0);
+    });
+  });
 }
