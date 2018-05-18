@@ -12,8 +12,8 @@ import 'package:yaml/yaml.dart';
 class PackageVersionBulder extends Builder {
   @override
   Future build(BuildStep buildStep) async {
-    var content =
-        await buildStep.readAsString(new AssetId.parse('pana|pubspec.yaml'));
+    var content = await buildStep
+        .readAsString(new AssetId(buildStep.inputId.package, 'pubspec.yaml'));
 
     var yaml = loadYaml(content) as Map;
 
