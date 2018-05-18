@@ -2,10 +2,11 @@
 targets:
   $default:
     builders:
+      pana|version:
+        enabled: true
       pana:
         generate_for:
           include:
-          - pubspec.yaml
           - lib/src/model.dart
           - lib/src/version.dart
       json_serializable:
@@ -18,4 +19,11 @@ builders:
     import: "../../../tool/builder.dart"
     builder_factories: ["buildPana"]
     build_extensions: {".dart": [".g.dart"]}
+    build_to: source
+
+  version:
+    # See https://github.com/dart-lang/build/issues/1423
+    import: "../../../tool/builder.dart"
+    builder_factories: ["versionBuilder"]
+    build_extensions: {"$lib$": ["src/version.dart"]}
     build_to: source

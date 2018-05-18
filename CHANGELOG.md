@@ -2,6 +2,8 @@
 
 * `dartdoc` processing: do not exclude packages by default, as `dartdoc` `0.19` handles SDK links.
 
+* Update `analyzer` dependency to `^0.32.0`.
+
 ## 0.11.1
 
 * Upgrade CI to dev.54 and fix new deprecation warnings.
