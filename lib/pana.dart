@@ -3,8 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 export 'src/code_problem.dart';
+export 'src/dartdoc_analyzer.dart';
 export 'src/fitness.dart';
 export 'src/license.dart';
+export 'src/maintenance.dart';
 export 'src/model.dart';
 export 'src/package_analyzer.dart';
 export 'src/pkg_resolution.dart';
