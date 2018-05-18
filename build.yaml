@@ -25,5 +25,5 @@ builders:
     # See https://github.com/dart-lang/build/issues/1423
     import: "../../../tool/builder.dart"
     builder_factories: ["versionBuilder"]
-    build_extensions: {"$lib$": [".dart"]}
+    build_extensions: {"$lib$": ["src/version.dart"]}
     build_to: source

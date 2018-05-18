@@ -20,7 +20,8 @@ class PackageVersionBulder extends Builder {
     var versionString = yaml['version'] as String;
     versionString = new Version.parse(versionString).toString();
 
-    var versionFileId = new AssetId('pana', 'lib/src/version.dart');
+    var versionFileId =
+        new AssetId(buildStep.inputId.package, 'lib/src/version.dart');
 
     await buildStep.writeAsString(versionFileId, '''
 $copyrightHeader
