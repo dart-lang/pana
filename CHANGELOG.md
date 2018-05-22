@@ -4,6 +4,8 @@
 
 * expose `getAgeSuggestion` method for pub site
 
+* Update `analyzer` dependency to `^0.32.0`.
+
 ## 0.11.1
 
 * Upgrade CI to dev.54 and fix new deprecation warnings.
