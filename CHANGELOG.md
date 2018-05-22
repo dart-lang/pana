@@ -1,4 +1,4 @@
-## 0.11.2-dev
+## 0.11.2
 
 * `dartdoc` processing: do not exclude packages by default, as `dartdoc` `0.19` handles SDK links.
 
