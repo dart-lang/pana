@@ -57,8 +57,9 @@ class Summary extends Object with _$SummarySerializerMixin {
     this.licenses,
     this.fitness,
     this.maintenance,
-    this.suggestions,
-  );
+    List<Suggestion> suggestions,
+  ) : this.suggestions =
+            suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
       _$SummaryFromJson(json);
@@ -67,6 +68,27 @@ class Summary extends Object with _$SummarySerializerMixin {
       .map((dfs) => dfs.codeProblems)
       .where((l) => l != null)
       .expand((list) => list);
+
+  Summary change({
+    Fitness fitness,
+    DartPlatform platform,
+    Maintenance maintenance,
+    List<Suggestion> suggestions,
+  }) {
+    return new Summary(
+      runtimeInfo,
+      packageName,
+      packageVersion,
+      pubspec,
+      pkgResolution,
+      dartFiles,
+      platform ?? this.platform,
+      licenses,
+      fitness ?? this.fitness,
+      maintenance ?? this.maintenance,
+      suggestions ?? this.suggestions,
+    );
+  }
 }
 
 @JsonSerializable()
@@ -599,11 +621,33 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
     @required this.warningCount,
     @required this.hintCount,
     @required this.dartdocSuccessful,
-    this.suggestions,
-  });
+    List<Suggestion> suggestions,
+  }) : this.suggestions =
+            suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
       _$MaintenanceFromJson(json);
+
+  Maintenance change({
+    bool dartdocSuccessful,
+    List<Suggestion> suggestions,
+  }) {
+    return new Maintenance(
+      missingChangelog: missingChangelog,
+      missingExample: missingExample,
+      missingReadme: missingReadme,
+      missingAnalysisOptions: missingAnalysisOptions,
+      oldAnalysisOptions: oldAnalysisOptions,
+      strongModeEnabled: strongModeEnabled,
+      isExperimentalVersion: isExperimentalVersion,
+      isPreReleaseVersion: isPreReleaseVersion,
+      errorCount: errorCount,
+      warningCount: warningCount,
+      hintCount: hintCount,
+      dartdocSuccessful: dartdocSuccessful ?? this.dartdocSuccessful,
+      suggestions: suggestions ?? this.suggestions,
+    );
+  }
 }
 
 /// Describes a health metric that takes size and complexity into account.
