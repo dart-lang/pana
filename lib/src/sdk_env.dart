@@ -303,6 +303,7 @@ class ToolEnvironment {
         ['global', 'run', 'dartdoc']..addAll(args),
         workingDirectory: packageDir,
         environment: _globalDartdocEnv(),
+        timeout: timeout,
       );
     } else {
       pr = await runProc(
