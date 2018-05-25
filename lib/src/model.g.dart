@@ -23,13 +23,11 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
         ? null
         : new PkgResolution.fromJson(
             json['pkgResolution'] as Map<String, dynamic>),
-    json['dartFiles'] == null
-        ? null
-        : new Map<String, DartFileSummary>.fromIterables(
-            (json['dartFiles'] as Map<String, dynamic>).keys,
-            (json['dartFiles'] as Map).values.map((e) => e == null
-                ? null
-                : new DartFileSummary.fromJson(e as Map<String, dynamic>))),
+    (json['dartFiles'] as Map<String, dynamic>)?.map((k, e) => new MapEntry(
+        k,
+        e == null
+            ? null
+            : new DartFileSummary.fromJson(e as Map<String, dynamic>))),
     json['platform'] == null
         ? null
         : new DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
@@ -40,7 +38,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
         ?.toList(),
     json['fitness'] == null
         ? null
-        : new Fitness.fromJson(json['fitness'] as Map<dynamic, dynamic>),
+        : new Fitness.fromJson(json['fitness'] as Map),
     json['maintenance'] == null
         ? null
         : new Maintenance.fromJson(json['maintenance'] as Map<String, dynamic>),
@@ -133,8 +131,7 @@ DartFileSummary
                     json['platform'] as Map<String, dynamic>),
             json['fitness'] == null
                 ? null
-                : new Fitness.fromJson(
-                    json['fitness'] as Map<dynamic, dynamic>),
+                : new Fitness.fromJson(json['fitness'] as Map),
             (json['suggestions'] as List)
                 ?.map((e) => e == null
                     ? null
@@ -232,14 +229,12 @@ abstract class _$PenaltySerializerMixin {
 DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) =>
     new DartPlatform(
         (json['components'] as List)?.map((e) => e as String)?.toList(),
-        json['uses'] == null
-            ? null
-            : new Map<String, PlatformUse>.fromIterables(
-                (json['uses'] as Map<String, dynamic>).keys,
-                (json['uses'] as Map).values.map((e) => e == null
-                    ? null
-                    : PlatformUse.values
-                        .singleWhere((x) => x.toString() == 'PlatformUse.$e'))),
+        (json['uses'] as Map<String, dynamic>)?.map((k, e) => new MapEntry(
+            k,
+            e == null
+                ? null
+                : PlatformUse.values
+                    .singleWhere((e2) => e2.toString() == 'PlatformUse.$e'))),
         reason: json['reason'] as String);
 
 abstract class _$DartPlatformSerializerMixin {
@@ -258,12 +253,8 @@ abstract class _$DartPlatformSerializerMixin {
     writeNotNull('components', components);
     writeNotNull(
         'uses',
-        uses == null
-            ? null
-            : new Map<String, dynamic>.fromIterables(
-                uses.keys,
-                uses.values.map(
-                    (e) => e == null ? null : e.toString().split('.')[1])));
+        uses?.map((k, e) =>
+            new MapEntry(k, e == null ? null : e.toString().split('.')[1])));
     writeNotNull('reason', reason);
     return val;
   }
