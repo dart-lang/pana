@@ -1,4 +1,4 @@
-## 0.11.3-dev
+## 0.11.3
 
 * Support changing part of the analysis result.
 
