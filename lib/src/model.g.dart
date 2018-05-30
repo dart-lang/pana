@@ -231,10 +231,8 @@ DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) =>
         (json['components'] as List)?.map((e) => e as String)?.toList(),
         (json['uses'] as Map<String, dynamic>)?.map((k, e) => new MapEntry(
             k,
-            e == null
-                ? null
-                : PlatformUse.values
-                    .singleWhere((e2) => e2.toString() == 'PlatformUse.$e'))),
+            $enumDecodeNullable(
+                'PlatformUse', PlatformUse.values, e as String))),
         reason: json['reason'] as String);
 
 abstract class _$DartPlatformSerializerMixin {
@@ -251,10 +249,8 @@ abstract class _$DartPlatformSerializerMixin {
     }
 
     writeNotNull('components', components);
-    writeNotNull(
-        'uses',
-        uses?.map((k, e) =>
-            new MapEntry(k, e == null ? null : e.toString().split('.')[1])));
+    writeNotNull('uses',
+        uses?.map((k, e) => new MapEntry(k, e?.toString()?.split('.')?.last)));
     writeNotNull('reason', reason);
     return val;
   }
