@@ -29,21 +29,26 @@ void main() {
   });
 }
 
-final Pubspec emptyPubspec = new Pubspec({});
+final Pubspec emptyPubspec = new Pubspec({
+  'name': 'sample',
+});
 
 final Pubspec flutterPluginPubspec = new Pubspec({
+  'name': 'sample',
   'flutter': {
     'plugin': {},
   },
 });
 
 final Pubspec flutterDependencyPubspec = new Pubspec({
+  'name': 'sample',
   'dependencies': {
     'flutter': 'any',
   },
 });
 
 final Pubspec flutterSdkPubspec = new Pubspec({
+  'name': 'sample',
   'dependencies': {
     'example': {
       'sdk': 'flutter',
@@ -52,6 +57,7 @@ final Pubspec flutterSdkPubspec = new Pubspec({
 });
 
 final Pubspec flutterSdkDevPubspec = new Pubspec({
+  'name': 'sample',
   'dev_dependencies': {
     'example': {
       'sdk': 'flutter',
@@ -60,6 +66,7 @@ final Pubspec flutterSdkDevPubspec = new Pubspec({
 });
 
 final Pubspec unknownSdkPubspec = new Pubspec({
+  'name': 'sample',
   'dependencies': {
     'example': {
       'sdk': 'unknown',
@@ -68,12 +75,14 @@ final Pubspec unknownSdkPubspec = new Pubspec({
 });
 
 final Pubspec sdkOnlyEnvPubspec = new Pubspec({
+  'name': 'sample',
   'environment': {
     'sdk': '^2.0.0',
   },
 });
 
 final Pubspec flutterInEnvPubspec = new Pubspec({
+  'name': 'sample',
   'environment': {
     'sdk': '^2.0.0',
     'flutter': '^1.0.0',

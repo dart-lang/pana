@@ -9,7 +9,9 @@ import 'package:test/test.dart';
 
 void main() {
   group('PkgResolution.create', () {
-    final pubspec = new Pubspec({});
+    final pubspec = new Pubspec({
+      'name': 'sample',
+    });
 
     test('pub parse', () {
       var summary = createPkgResolution(pubspec, _pubUpgradeOutput);

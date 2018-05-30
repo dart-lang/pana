@@ -9,6 +9,7 @@ import 'dart:io' hide exitCode;
 
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
+import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 
 import 'model.dart';
 import 'pubspec.dart';
@@ -90,60 +91,35 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
 
   var deps = <PkgDependency>[];
 
-  /// [versionConstraint] can be a `String` or `Map`
-  /// If it's a `Map` – just log and continue.
-  void addDetail(String package, versionConstraint, String dependencyType) {
+  void addDetail(String package, Dependency dependency, String dependencyType) {
     String constraintType;
     final errors = <String>[];
-    String constraintValue;
+    VersionConstraint constraint;
     if (dependencyType == DependencyTypes.transitive) {
       constraintType = ConstraintTypes.inherited;
-    } else if (versionConstraint == null) {
-      constraintType = ConstraintTypes.empty;
-    } else if (versionConstraint is Map) {
-      if (versionConstraint.containsKey('sdk')) {
+    } else {
+      if (dependency is SdkDependency) {
         constraintType = ConstraintTypes.sdk;
-        if (versionConstraint['sdk'] != 'flutter') {
-          errors.add(
-              'Unsupported SDK for package $package: ${versionConstraint['sdk']}');
+        if (dependency.sdk != 'flutter') {
+          errors.add('Unsupported SDK for package $package: ${dependency.sdk}');
         }
-      } else if (versionConstraint.containsKey('git')) {
+      } else if (dependency is GitDependency) {
         constraintType = ConstraintTypes.git;
         if (dependencyType != DependencyTypes.dev) {
-          errors.add(
-              'Git constraint for package $package: ${versionConstraint['git']}');
+          errors.add('Git constraint for package $package: ${dependency.url}');
         }
-      } else if (versionConstraint.containsKey('path')) {
+      } else if (dependency is PathDependency) {
         constraintType = ConstraintTypes.path;
-        errors.add(
-            'Path constraint for package $package: ${versionConstraint['path']}');
-      } else if (versionConstraint.containsKey('version') &&
-          versionConstraint['version'] is String) {
+        errors.add('Path constraint for package $package: ${dependency.path}');
+      } else if (dependency is HostedDependency) {
         constraintType = ConstraintTypes.normal;
-        constraintValue = versionConstraint['version'] as String;
-      } else if (versionConstraint.isEmpty) {
-        constraintType = ConstraintTypes.empty;
+        constraint = dependency.version;
       } else {
         constraintType = ConstraintTypes.unknown;
-        errors.add(
-            'Unknown constraint for package $package:\n$versionConstraint');
+        errors.add('Unknown constraint for package $package:\n$dependency');
       }
-    } else if (versionConstraint is String) {
-      constraintType = ConstraintTypes.normal;
-      constraintValue = versionConstraint;
-    } else {
-      constraintType = ConstraintTypes.unknown;
     }
 
-    VersionConstraint constraint;
-    if (constraintValue != null) {
-      try {
-        constraint = new VersionConstraint.parse(constraintValue);
-      } catch (e) {
-        errors.add(
-            'Error parsing constraint for package $package: $constraintValue');
-      }
-    }
     var resolved = pkgVersions[package];
     var available = availVersions[package];
     if (resolved == null && dependencyType != DependencyTypes.dev) {
