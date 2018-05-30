@@ -6,16 +6,11 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/context_builder.dart';
+import 'package:analyzer/dart/analysis/context_locator.dart';
+import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/file_system/file_system.dart' hide File;
-import 'package:analyzer/file_system/physical_file_system.dart';
-import 'package:analyzer/src/dart/sdk/sdk.dart' show FolderBasedDartSdk;
-import 'package:analyzer/src/generated/engine.dart';
-import 'package:analyzer/src/generated/java_io.dart';
-import 'package:analyzer/src/generated/source.dart';
-import 'package:analyzer/src/generated/source_io.dart';
-import 'package:analyzer/src/source/package_map_resolver.dart';
-import 'package:analyzer/src/source/pub_package_map_provider.dart';
+import 'package:package_config/packages_file.dart' as package_config;
 import 'package:path/path.dart' as p;
 
 import 'logging.dart';
@@ -36,14 +31,13 @@ class LibraryOverride {
 class LibraryScanner {
   final String packageName;
   final String _packagePath;
-  final UriResolver _packageResolver;
-  final AnalysisContext _context;
+  final AnalysisSession _session;
   final List<LibraryOverride> _overrides;
   final _cachedLibs = new HashMap<String, List<String>>();
   final _cachedTransitiveLibs = new HashMap<String, List<String>>();
 
-  LibraryScanner._(this.packageName, this._packagePath, this._packageResolver,
-      this._context, this._overrides);
+  LibraryScanner._(
+      this.packageName, this._packagePath, this._session, this._overrides);
 
   factory LibraryScanner(
       ToolEnvironment toolEnv, String packagePath, bool useFlutter,
@@ -51,33 +45,14 @@ class LibraryScanner {
     // TODO: fail more clearly if this...fails
     var sdkPath = toolEnv.dartSdkDir;
 
-    var resourceProvider = PhysicalResourceProvider.INSTANCE;
-    var sdk = new FolderBasedDartSdk(
-        resourceProvider, resourceProvider.getFolder(sdkPath));
-
     var dotPackagesPath = p.join(packagePath, '.packages');
     if (!FileSystemEntity.isFileSync(dotPackagesPath)) {
       throw new StateError('A package configuration file was not found at the '
-          'expectetd location.\n$dotPackagesPath');
+          'expected location.\n$dotPackagesPath');
     }
-
-    // TODO: figure out why non-flutter pub list doesn't work the same way as the default
-    RunPubList runPubList;
-    if (useFlutter) {
-      runPubList = (Folder folder) =>
-          toolEnv.listPackageDirsSync(folder.path, useFlutter);
-    }
-
-    var pubPackageMapProvider = new PubPackageMapProvider(
-        PhysicalResourceProvider.INSTANCE, sdk, runPubList);
-    var packageMapInfo = pubPackageMapProvider.computePackageMap(
-        PhysicalResourceProvider.INSTANCE.getResource(packagePath) as Folder);
-
-    var packageMap = packageMapInfo.packageMap;
-    if (packageMap == null) {
-      throw new StateError('An error occurred getting the package map '
-          'for the file at `$dotPackagesPath`.');
-    }
+    var dotPackagesBytes = new File(dotPackagesPath).readAsBytesSync();
+    var packageMap =
+        package_config.parse(dotPackagesBytes, p.toUri(dotPackagesPath));
 
     String package;
     var packageNames = <String>[];
@@ -89,12 +64,11 @@ class LibraryScanner {
       assert(package == null);
 
       // if there is an exact match to the lib directory, use that
-      if (v.any((f) => p.equals(p.join(packagePath, 'lib'), f.path))) {
+      if (p.fromUri(v) == p.join(packagePath, 'lib/')) {
         package = k;
-        return;
       }
 
-      if (v.any((f) => p.isWithin(packagePath, f.path))) {
+      if (p.isWithin(packagePath, p.fromUri(v))) {
         packageNames.add(k);
       }
     });
@@ -110,25 +84,17 @@ class LibraryScanner {
       }
     }
 
-    UriResolver packageResolver = new PackageMapUriResolver(
-        PhysicalResourceProvider.INSTANCE, packageMap);
+    var contextLocator = new ContextLocator();
+    var roots = contextLocator.locateRoots(includedPaths: [packagePath]);
+    if (roots.length != 1) {
+      throw new StateError('Expected exactly one context root, got $roots');
+    }
 
-    var resolvers = [
-      new DartUriResolver(sdk),
-      new ResourceUriResolver(PhysicalResourceProvider.INSTANCE),
-      packageResolver,
-    ];
-
-    AnalysisEngine.instance.processRequiredPlugins();
-
-    var options = new AnalysisOptionsImpl()..analyzeFunctionBodies = false;
-
-    var context = AnalysisEngine.instance.createAnalysisContext()
-      ..analysisOptions = options
-      ..sourceFactory = new SourceFactory(resolvers);
+    var analysisContext = new ContextBuilder()
+        .createContext(contextRoot: roots.single, sdkPath: sdkPath);
 
     return new LibraryScanner._(
-        package, packagePath, packageResolver, context, overrides);
+        package, packagePath, analysisContext.currentSession, overrides);
   }
 
   Future<Map<String, List<String>>> scanDirectLibs() => _scanPackage();
@@ -171,12 +137,6 @@ class LibraryScanner {
     return _cachedTransitiveLibs[uri];
   }
 
-  /// [AnalysisEngine] caches analyzed fragments, and we need to clear those
-  /// after we have analyzed a package.
-  void clearCaches() {
-    AnalysisEngine.instance.clearCaches();
-  }
-
   Future<Map<String, List<String>>> scanDependencyGraph() async {
     var items = await scanTransitiveLibs();
 
@@ -208,7 +168,7 @@ class LibraryScanner {
     var uri = Uri.parse(libUri);
     var package = uri.pathSegments.first;
 
-    var source = _packageResolver.resolveAbsolute(uri);
+    var source = _session.sourceFactory.forUri2(uri);
     if (source == null) {
       throw "Could not resolve package URI for $uri";
     }
@@ -218,7 +178,7 @@ class LibraryScanner {
     if (fullPath.endsWith('/$relativePath')) {
       var packageDir =
           fullPath.substring(0, fullPath.length - relativePath.length - 1);
-      var libs = _parseLibs(package, packageDir, relativePath);
+      var libs = await _parseLibs(package, packageDir, relativePath);
       _cachedLibs[libUri] = libs;
       return libs;
     } else {
@@ -242,16 +202,19 @@ class LibraryScanner {
       return false;
     })) {
       var uri = toPackageUri(packageName, relativePath);
-      results[uri] = _cachedLibs.putIfAbsent(
-          uri, () => _parseLibs(packageName, _packagePath, relativePath));
+      if (_cachedLibs[uri] == null) {
+        _cachedLibs[uri] =
+            await _parseLibs(packageName, _packagePath, relativePath);
+      }
+      results[uri] = _cachedLibs[uri];
     }
     return results;
   }
 
-  List<String> _parseLibs(
-      String package, String packageDir, String relativePath) {
+  Future<List<String>> _parseLibs(
+      String package, String packageDir, String relativePath) async {
     var fullPath = p.join(packageDir, relativePath);
-    var lib = _getLibraryElement(fullPath);
+    var lib = await _getLibraryElement(fullPath);
     if (lib == null) return [];
     var refs = new SplayTreeSet<String>();
     lib.importedLibraries.forEach((le) {
@@ -283,12 +246,9 @@ class LibraryScanner {
     }
   }
 
-  LibraryElement _getLibraryElement(String path) {
-    Source source = new FileBasedSource(new JavaFile(path));
-    if (_context.computeKindOf(source) == SourceKind.LIBRARY) {
-      return _context.computeLibraryElement(source);
-    }
-    return null;
+  Future<LibraryElement> _getLibraryElement(String path) async {
+    var unitElement = await _session.getUnitElement(path);
+    return unitElement.element.library;
   }
 }
 

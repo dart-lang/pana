@@ -253,7 +253,6 @@ class PackageAnalyzer {
           suggestions.add(new Suggestion.bug(
               'Error scanning transitive libraries.', e, st));
         }
-        libraryScanner.clearCaches();
       }
 
       if (dartFiles.isNotEmpty) {
