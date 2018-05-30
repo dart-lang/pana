@@ -10,4 +10,4 @@ part of pana.version;
 // Generator: PackageVersionGenerator
 // **************************************************************************
 
-final _$panaPkgVersionPubSemverVersion = new Version.parse("0.11.3");
+final _$panaPkgVersionPubSemverVersion = new Version.parse("0.11.4-dev");

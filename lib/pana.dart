@@ -4,6 +4,7 @@
 
 export 'src/code_problem.dart';
 export 'src/dartdoc_analyzer.dart';
+export 'src/download_utils.dart';
 export 'src/fitness.dart';
 export 'src/license.dart';
 export 'src/maintenance.dart';
@@ -14,3 +15,4 @@ export 'src/platform.dart';
 export 'src/pubspec.dart';
 export 'src/sdk_env.dart';
 export 'src/utils.dart';
+export 'src/version.dart';
