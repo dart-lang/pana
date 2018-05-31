@@ -17,15 +17,16 @@ Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
   final rootFiles = await new Directory(baseDir).list().toList();
   final licenseCandidates = rootFiles
       .where((fse) => fse is File)
+      .cast<File>()
       .where(_isLicenseFile)
       .take(5) // only the first 5 files are considered
       .toList();
   if (licenseCandidates.isEmpty) return [];
 
   final licenses = await Future.wait(licenseCandidates.map(
-    (FileSystemEntity fse) {
-      final relativePath = p.relative(fse.path, from: baseDir);
-      return detectLicenseInFile(fse, relativePath: relativePath);
+    (File file) {
+      final relativePath = p.relative(file.path, from: baseDir);
+      return detectLicenseInFile(file, relativePath: relativePath);
     },
   ));
 

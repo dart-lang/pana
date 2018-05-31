@@ -661,7 +661,8 @@ class Fitness extends Object with _$FitnessSerializerMixin {
 
   Fitness(this.magnitude, this.shortcoming);
 
-  factory Fitness.fromJson(Map json) => _$FitnessFromJson(json);
+  factory Fitness.fromJson(Map<String, dynamic> json) =>
+      _$FitnessFromJson(json);
 
   String toSimpleText() =>
       '${(magnitude - shortcoming).toStringAsFixed(2)} out of ${magnitude.toStringAsFixed(2)}';

@@ -62,7 +62,7 @@ void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
       if (pkgs != null) {
         pkgs.forEach((String key, Object v) {
           var m = v as Map;
-          var lockedVersion = new Version.parse(m['version']);
+          var lockedVersion = new Version.parse(m['version'] as String);
           if (pkgVersions[key] != lockedVersion) {
             throw new StateError(
                 "For $key, the parsed version ${pkgVersions[key]} did not "
@@ -119,7 +119,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
       } else if (versionConstraint.containsKey('version') &&
           versionConstraint['version'] is String) {
         constraintType = ConstraintTypes.normal;
-        constraintValue = versionConstraint['version'];
+        constraintValue = versionConstraint['version'] as String;
       } else if (versionConstraint.isEmpty) {
         constraintType = ConstraintTypes.empty;
       } else {

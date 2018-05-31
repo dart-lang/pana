@@ -24,7 +24,7 @@ class VersionHelper extends TypeHelper {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
-    var value = 'new Version.parse($expression)';
+    var value = 'new Version.parse($expression as String)';
     if (context.nullable) {
       value = '$expression == null ? null : $value';
     }
@@ -49,7 +49,7 @@ class VersionConstraintHelper extends TypeHelper {
     if (!_checker.isExactlyType(targetType)) {
       return null;
     }
-    var value = 'new VersionConstraint.parse($expression)';
+    var value = 'new VersionConstraint.parse($expression as String)';
     if (context.nullable) {
       value = '$expression == null ? null : $value';
     }

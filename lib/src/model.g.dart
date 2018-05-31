@@ -15,7 +15,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
     json['packageName'] as String,
     json['packageVersion'] == null
         ? null
-        : new Version.parse(json['packageVersion']),
+        : new Version.parse(json['packageVersion'] as String),
     json['pubspec'] == null
         ? null
         : new Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
@@ -38,7 +38,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => new Summary(
         ?.toList(),
     json['fitness'] == null
         ? null
-        : new Fitness.fromJson(json['fitness'] as Map),
+        : new Fitness.fromJson(json['fitness'] as Map<String, dynamic>),
     json['maintenance'] == null
         ? null
         : new Maintenance.fromJson(json['maintenance'] as Map<String, dynamic>),
@@ -131,7 +131,7 @@ DartFileSummary
                     json['platform'] as Map<String, dynamic>),
             json['fitness'] == null
                 ? null
-                : new Fitness.fromJson(json['fitness'] as Map),
+                : new Fitness.fromJson(json['fitness'] as Map<String, dynamic>),
             (json['suggestions'] as List)
                 ?.map((e) => e == null
                     ? null
@@ -276,9 +276,13 @@ PkgDependency _$PkgDependencyFromJson(Map<String, dynamic> json) =>
         json['constraintType'] as String,
         json['constraint'] == null
             ? null
-            : new VersionConstraint.parse(json['constraint']),
-        json['resolved'] == null ? null : new Version.parse(json['resolved']),
-        json['available'] == null ? null : new Version.parse(json['available']),
+            : new VersionConstraint.parse(json['constraint'] as String),
+        json['resolved'] == null
+            ? null
+            : new Version.parse(json['resolved'] as String),
+        json['available'] == null
+            ? null
+            : new Version.parse(json['available'] as String),
         (json['errors'] as List)?.map((e) => e as String)?.toList());
 
 abstract class _$PkgDependencySerializerMixin {

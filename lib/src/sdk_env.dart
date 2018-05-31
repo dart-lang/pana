@@ -167,7 +167,7 @@ class ToolEnvironment {
       }
 
       final lines = LineSplitter
-          .split(result.stdout)
+          .split(result.stdout as String)
           .map((file) => p.join(dir, file))
           .toList();
       if (result.exitCode == 1) {
@@ -207,7 +207,7 @@ class ToolEnvironment {
   Future<Map<String, Object>> getFlutterVersion() async {
     var result = handleProcessErrors(
         await runProc(_flutterCmd, ['--version', '--machine']));
-    return json.decode(result.stdout);
+    return json.decode(result.stdout as String) as Map<String, Object>;
   }
 
   Future<bool> detectFlutterUse(String packageDir) async {
@@ -334,7 +334,9 @@ class ToolEnvironment {
       environment: _environment,
     ));
 
-    var match = _versionDownloadRegexp.allMatches(result.stdout.trim()).single;
+    var match = _versionDownloadRegexp
+        .allMatches((result.stdout as String).trim())
+        .single;
     var pkgMatch = match[1];
     assert(pkgMatch == package);
 
@@ -355,7 +357,7 @@ class ToolEnvironment {
       environment: _environment,
     ));
 
-    var map = json.decode(result.stdout) as Map;
+    var map = json.decode(result.stdout as String) as Map;
 
     var location =
         map['packages'][package][versionString]['location'] as String;

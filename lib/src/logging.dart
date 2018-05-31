@@ -15,4 +15,4 @@ Future<R> withLogger<R>(Future<R> fn(), {Logger logger}) => runZoned(
       zoneValues: {_key: logger},
     );
 
-Logger get log => Zone.current[_key] ?? _log;
+Logger get log => Zone.current[_key] as Logger ?? _log;

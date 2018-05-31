@@ -129,7 +129,7 @@ main(List<String> args) async {
         if (result.rest.length > 1) {
           version = result.rest[1];
         }
-        final pubHostedUrl = result['hosted-url'];
+        final String pubHostedUrl = result['hosted-url'];
         if (pubHostedUrl != defaultHostedUrl && version == null) {
           _printHelp(
               errorMessage:
@@ -142,7 +142,7 @@ main(List<String> args) async {
         );
         var analyzer = await PackageAnalyzer.create(
           pubCacheDir: tempPath,
-          flutterDir: result['flutter-sdk'],
+          flutterDir: result['flutter-sdk'] as String,
         );
         summary = await analyzer.inspectPackage(package,
             version: version, options: options);

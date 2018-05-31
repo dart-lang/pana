@@ -21,16 +21,16 @@ class Pubspec {
   }
 
   factory Pubspec.parseYaml(String content) =>
-      new Pubspec(yaml.loadYaml(content));
+      new Pubspec(new Map<String, dynamic>.from(yaml.loadYaml(content) as Map));
 
   factory Pubspec.fromJson(Map<String, dynamic> json) => new Pubspec(json);
 
   Map<String, dynamic> toJson() => _content;
 
-  String get name => _content['name'];
-  String get description => _content['description'];
+  String get name => _content['name'] as String;
+  String get description => _content['description'] as String;
 
-  Version get version => new Version.parse(_content['version']);
+  Version get version => new Version.parse(_content['version'] as String);
 
   List<String> get authors {
     var authors = <String>[];
@@ -40,7 +40,7 @@ class Pubspec {
     }
 
     if (_content['author'] != null) {
-      authors.add(_content['author']);
+      authors.add(_content['author'] as String);
     } else if (_content['authors'] != null) {
       authors.addAll(_content['authors'] as List<String>);
     }
@@ -50,12 +50,14 @@ class Pubspec {
 
   Map<String, dynamic> get dependencies {
     final deps = _content['dependencies'];
-    return deps is Map ? deps : null;
+    // TODO: check if wrap is necessary after Dart2 gets published.
+    return deps is Map ? new Map<String, dynamic>.from(deps) : null;
   }
 
   Map<String, dynamic> get devDependencies {
     final deps = _content['dev_dependencies'];
-    return deps is Map ? deps : null;
+    // TODO: check if wrap is necessary after Dart2 gets published.
+    return deps is Map ? new Map<String, dynamic>.from(deps) : null;
   }
 
   bool dependsOnPackage(String package) =>
@@ -82,17 +84,17 @@ class Pubspec {
       _dependentSdks = new SplayTreeSet();
       dependencies?.values?.forEach((value) {
         if (value is Map && value['sdk'] != null) {
-          _dependentSdks.add(value['sdk']);
+          _dependentSdks.add(value['sdk'] as String);
         }
       });
       devDependencies?.values?.forEach((value) {
         if (value is Map && value['sdk'] != null) {
-          _dependentSdks.add(value['sdk']);
+          _dependentSdks.add(value['sdk'] as String);
         }
       });
       final environmentMap = _content['environment'];
       if (environmentMap is Map) {
-        final List<String> keys = environmentMap.keys.toList();
+        final keys = environmentMap.keys.cast<String>().toList();
         keys.remove('sdk');
         _dependentSdks.addAll(keys);
       }
