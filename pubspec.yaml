@@ -14,7 +14,7 @@ dependencies:
   cli_util: ^0.1.1
   http: '>=0.11.3 <0.12.0'
   io: ^0.3.0
-  json_annotation: ^0.2.2
+  json_annotation: ^0.2.6
   logging: ^0.11.3+1
   meta: ^1.1.2
   package_config: '>=0.1.5 <2.0.0'
@@ -27,7 +27,7 @@ dev_dependencies:
   build: '>=0.11.0 <0.13.0'
   build_config: ^0.2.1
   build_runner: ^0.8.0
-  json_serializable: ^0.5.0
+  json_serializable: ^0.5.5
   source_gen: ^0.8.0
   test: ^0.12.0
   test_descriptor: ^1.0.3
