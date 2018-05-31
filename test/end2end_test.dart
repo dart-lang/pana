@@ -34,7 +34,7 @@ void main() {
 
   void _verifyPackage(String fileName, String package, String version) {
     group('end2end: $package $version', () {
-      Map actualMap;
+      Map<String, dynamic> actualMap;
 
       setUpAll(() async {
         var summary = await analyzer.inspectPackage(
@@ -48,7 +48,7 @@ void main() {
 
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
-        actualMap = json.decode(json.encode(summary));
+        actualMap = json.decode(json.encode(summary)) as Map<String, dynamic>;
       });
 
       test('matches known good', () {
@@ -67,8 +67,10 @@ void main() {
         content['runtimeInfo']['sdkVersion'] = isSemVer;
 
         if (content.containsKey('pkgResolution') &&
-            content['pkgResolution'].containsKey('dependencies')) {
-          content['pkgResolution']['dependencies']?.forEach((Map map) {
+            (content['pkgResolution'] as Map).containsKey('dependencies')) {
+          final deps = (content['pkgResolution']['dependencies'] as List)
+              .cast<Map<dynamic, dynamic>>();
+          deps?.forEach((Map map) {
             // TODO: allow future versions and remove this override
             if (map.containsKey('resolved')) {
               map['resolved'] = isNotNull;
@@ -81,7 +83,9 @@ void main() {
         }
 
         if (content.containsKey('suggestions')) {
-          content['suggestions']?.forEach((Map map) {
+          final suggestions =
+              (content['suggestions'] as List).cast<Map<dynamic, dynamic>>();
+          suggestions?.forEach((Map map) {
             // TODO: normalize paths in error reports and remove this override
             map['description'] = isNotEmpty;
           });

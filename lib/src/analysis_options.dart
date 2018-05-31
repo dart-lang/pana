@@ -61,7 +61,7 @@ String customizeAnalysisOptions(String original, bool usesFlutter) {
   Map origMap;
   if (original != null) {
     try {
-      origMap = yaml.loadYaml(original);
+      origMap = yaml.loadYaml(original) as Map;
     } catch (_) {}
   }
   origMap ??= {};

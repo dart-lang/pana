@@ -84,7 +84,7 @@ Future<ProcessResult> runProc(
 
   timer.cancel();
 
-  var exitCode = items[0] as int;
+  final exitCode = items[0] as int;
   if (killed == true) {
     assert(exitCode < 0);
 
@@ -96,7 +96,7 @@ Future<ProcessResult> runProc(
   }
 
   return new ProcessResult(
-      process.pid, items[0], stdoutLines.join('\n'), stderrLines.join('\n'));
+      process.pid, exitCode, stdoutLines.join('\n'), stderrLines.join('\n'));
 }
 
 ProcessResult handleProcessErrors(ProcessResult result) {
@@ -104,7 +104,7 @@ ProcessResult handleProcessErrors(ProcessResult result) {
     if (result.exitCode == 69) {
       // could be a pub error. Let's try to parse!
       var lines = LineSplitter
-          .split(result.stderr)
+          .split(result.stderr as String)
           .where((l) => l.startsWith("ERR "))
           .join('\n');
       if (lines.isNotEmpty) {
@@ -156,7 +156,7 @@ String prettyJson(obj) {
   try {
     return const JsonEncoder.withIndent(' ').convert(obj);
   } on JsonUnsupportedObjectError catch (e) {
-    var error = e;
+    dynamic error = e;
 
     while (error is JsonUnsupportedObjectError) {
       stderr.writeln([
@@ -205,7 +205,7 @@ Map<String, Object> yamlToJson(String yamlContent) {
 
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
-  return sortedJson(json.decode(json.encode(yamlMap)));
+  return sortedJson(json.decode(json.encode(yamlMap))) as Map<String, Object>;
 }
 
 String toPackageUri(String package, String relativePath) {
