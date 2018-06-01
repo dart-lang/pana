@@ -176,10 +176,10 @@ class ToolEnvironment {
         continue;
       }
 
-      throw [
-        "dartfmt on $dir/ failed with exit code ${result.exitCode}",
+      throw new Exception([
+        'dartfmt on $dir/ failed with exit code ${result.exitCode}',
         result.stderr
-      ].join('\n').toString();
+      ].join('\n').toString());
     }
     files.sort();
     return files;
@@ -363,7 +363,7 @@ class ToolEnvironment {
         map['packages'][package][versionString]['location'] as String;
 
     if (location == null) {
-      throw "Huh? This should be cached!";
+      throw new Exception('Huh? This should be cached!');
     }
 
     return new PackageLocation(package, versionString, location);

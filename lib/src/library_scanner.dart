@@ -170,7 +170,7 @@ class LibraryScanner {
 
     var source = _session.sourceFactory.forUri2(uri);
     if (source == null) {
-      throw "Could not resolve package URI for $uri";
+      throw new Exception('Could not resolve package URI for $uri');
     }
 
     var fullPath = source.fullName;
@@ -260,5 +260,5 @@ String _normalizeLibRef(Uri uri, String package, String packageDir) {
     return uri.toString();
   }
 
-  throw "not supported - $uri";
+  throw new Exception('not supported - $uri');
 }
