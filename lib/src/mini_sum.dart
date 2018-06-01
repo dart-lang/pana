@@ -27,7 +27,7 @@ class MiniSum {
     var output = json.decode(content) as Map<String, dynamic>;
 
     if (output['pkgResolution'] == null) {
-      throw 'Could not process ${output['packageName']}';
+      throw new Exception('Could not process ${output['packageName']}');
     }
 
     var summary = new Summary.fromJson(output);
@@ -78,7 +78,7 @@ class MiniSum {
       } else if (v is double) {
         type = 'FLOAT';
       } else {
-        throw 'Not supported! - $v - ${v.runtimeType}';
+        throw new Exception('Not supported! - $v - ${v.runtimeType}');
       }
 
       items.add("$k:$type");

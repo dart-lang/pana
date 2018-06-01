@@ -108,14 +108,14 @@ ProcessResult handleProcessErrors(ProcessResult result) {
           .where((l) => l.startsWith("ERR "))
           .join('\n');
       if (lines.isNotEmpty) {
-        throw lines;
+        throw new Exception(lines);
       }
     }
 
-    throw "Problem running proc: exit code - " +
+    throw new Exception('Problem running proc: exit code - ' +
         [result.exitCode, result.stdout, result.stderr]
             .map((e) => e.toString().trim())
-            .join('<***>');
+            .join('<***>'));
   }
   return result;
 }

@@ -15,6 +15,7 @@ linter:
      - control_flow_in_finally
      - empty_statements
      - hash_and_equals
+     - only_throw_errors
      - test_types_in_equals
      - throw_in_finally
      - unrelated_type_equality_checks

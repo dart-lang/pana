@@ -39,7 +39,8 @@ PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
       }
     }
   } else if (entries.length > 1) {
-    throw "Seems that we have two sections of packages solves - weird!";
+    throw new Exception(
+        'Seems that we have two sections of packages solves - weird!');
   } else {
     // it's empty – which is fine for a package with no dependencies
   }
