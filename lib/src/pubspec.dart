@@ -1,16 +1,21 @@
 import 'dart:collection';
 
 import 'package:pub_semver/pub_semver.dart';
+import 'package:pubspec_parse/pubspec_parse.dart' as pubspek show Pubspec;
+import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 import 'package:yaml/yaml.dart' as yaml;
 
 import 'utils.dart';
 
 class Pubspec {
-  final Map<String, dynamic> _content;
+  final pubspek.Pubspec _inner;
+  final Map _content;
 
   Set<String> _dependentSdks;
 
-  Pubspec(this._content);
+  Pubspec(Map content)
+      : _inner = new pubspek.Pubspec.fromJson(content),
+        this._content = content;
 
   factory Pubspec.parseFromDir(String packageDir) {
     var content = getPubspecContent(packageDir);
@@ -25,40 +30,18 @@ class Pubspec {
 
   factory Pubspec.fromJson(Map<String, dynamic> json) => new Pubspec(json);
 
-  Map<String, dynamic> toJson() => _content;
+  Map toJson() => _content;
 
-  String get name => _content['name'] as String;
-  String get description => _content['description'] as String;
+  String get name => _inner.name;
+  String get description => _inner.description;
 
-  Version get version => new Version.parse(_content['version'] as String);
+  Version get version => _inner.version;
 
-  List<String> get authors {
-    var authors = <String>[];
+  List<String> get authors => _inner.authors;
 
-    if (_content == null) {
-      return authors;
-    }
+  Map<String, Dependency> get dependencies => _inner.dependencies;
 
-    if (_content['author'] != null) {
-      authors.add(_content['author'] as String);
-    } else if (_content['authors'] != null) {
-      authors.addAll(_content['authors'] as List<String>);
-    }
-
-    return authors;
-  }
-
-  Map<String, dynamic> get dependencies {
-    final deps = _content['dependencies'];
-    // TODO: check if wrap is necessary after Dart2 gets published.
-    return deps is Map ? new Map<String, dynamic>.from(deps) : null;
-  }
-
-  Map<String, dynamic> get devDependencies {
-    final deps = _content['dev_dependencies'];
-    // TODO: check if wrap is necessary after Dart2 gets published.
-    return deps is Map ? new Map<String, dynamic>.from(deps) : null;
-  }
+  Map<String, Dependency> get devDependencies => _inner.devDependencies;
 
   bool dependsOnPackage(String package) =>
       (dependencies?.containsKey(package) ?? false) ||
@@ -83,18 +66,17 @@ class Pubspec {
     if (_dependentSdks == null) {
       _dependentSdks = new SplayTreeSet();
       dependencies?.values?.forEach((value) {
-        if (value is Map && value['sdk'] != null) {
-          _dependentSdks.add(value['sdk'] as String);
+        if (value is SdkDependency) {
+          _dependentSdks.add(value.sdk);
         }
       });
       devDependencies?.values?.forEach((value) {
-        if (value is Map && value['sdk'] != null) {
-          _dependentSdks.add(value['sdk'] as String);
+        if (value is SdkDependency) {
+          _dependentSdks.add(value.sdk);
         }
       });
-      final environmentMap = _content['environment'];
-      if (environmentMap is Map) {
-        final keys = environmentMap.keys.cast<String>().toList();
+      if (_inner.environment != null) {
+        final keys = _inner.environment.keys.toList();
         keys.remove('sdk');
         _dependentSdks.addAll(keys);
       }
@@ -110,15 +92,7 @@ class Pubspec {
 
   bool get hasUnknownSdks => unknownSdks.isNotEmpty;
 
-  String get homepage {
-    final value = _content['homepage'];
-    if (value is String) return value.trim();
-    return null;
-  }
+  String get homepage => _inner.homepage;
 
-  String get documentation {
-    final value = _content['documentation'];
-    if (value is String) return value.trim();
-    return null;
-  }
+  String get documentation => _inner.documentation;
 }
