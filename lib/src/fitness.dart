@@ -67,6 +67,7 @@ Future<FitnessResult> calcFitness(
     }
     description += ' ${platform.reason}';
     suggestions.add(new Suggestion.error(
+      SuggestionCode.platformConflictInFile,
       'Fix platform conflict in `$dartFile`.',
       description,
       file: dartFile,
@@ -77,6 +78,7 @@ Future<FitnessResult> calcFitness(
   if (isFormatted == null || !isFormatted) {
     shortcoming += hintPoints;
     suggestions.add(new Suggestion.hint(
+      SuggestionCode.dartfmtWarning,
       'Format `$dartFile`.',
       messages.runDartfmtToFormatFile(pubspec.usesFlutter, dartFile),
       file: dartFile,
@@ -96,6 +98,7 @@ Future<FitnessResult> calcFitness(
       if (item.isInfo) {
         shortcoming += hintPoints;
         suggestions.add(new Suggestion.hint(
+          SuggestionCode.dartanalyzerWarning,
           'Fix `$dartFile`.',
           suggestionDescription(item, 'gave the following hint'),
           file: dartFile,
@@ -104,6 +107,7 @@ Future<FitnessResult> calcFitness(
       } else if (item.isWarning) {
         shortcoming += warnPoints;
         suggestions.add(new Suggestion.warning(
+          SuggestionCode.dartanalyzerWarning,
           'Fix `$dartFile`.',
           suggestionDescription(item, 'gave the following warning'),
           file: dartFile,
@@ -112,6 +116,7 @@ Future<FitnessResult> calcFitness(
       } else {
         shortcoming += errorPoints;
         suggestions.add(new Suggestion.error(
+          SuggestionCode.dartanalyzerWarning,
           'Fix `$dartFile`.',
           suggestionDescription(item, 'failed with the following error'),
           file: dartFile,

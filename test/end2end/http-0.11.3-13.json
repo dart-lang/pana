@@ -56,6 +56,7 @@
     "hintCount": 38,
     "suggestions": [
       {
+        "code": "bulk",
         "level": "hint",
         "title": "Fix analysis and formatting issues.",
         "description": "Analysis or formatting checks reported 38 hints.\n\nRun `dartfmt` to format `lib/browser_client.dart`.\n\nRun `dartfmt` to format `lib/http.dart`.\n\nSimilar analysis of the following files failed:\n\n- `lib/src/base_client.dart` (hint)\n- `lib/src/base_request.dart` (hint)\n- `lib/src/base_response.dart` (hint)\n- `lib/src/boundary_characters.dart` (hint)\n- `lib/src/byte_stream.dart` (hint)\n- `lib/src/client.dart` (hint)\n- `lib/src/io_client.dart` (hint)\n- `lib/src/mock_client.dart` (hint)\n- `lib/src/multipart_file.dart` (hint)\n- `lib/src/multipart_request.dart` (hint)\n- `lib/src/request.dart` (hint)\n- `lib/src/response.dart` (hint)\n- `lib/src/streamed_request.dart` (hint)\n- `lib/src/streamed_response.dart` (hint)\n- `lib/src/utils.dart` (hint)\n",
@@ -65,6 +66,7 @@
         }
       },
       {
+        "code": "pubspec.description.tooShort",
         "level": "hint",
         "title": "The description is too short.",
         "description": "Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.",
@@ -74,6 +76,7 @@
         }
       },
       {
+        "code": "packageVersion.preV1",
         "level": "hint",
         "title": "Package is pre-v1 release.",
         "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.",
@@ -83,6 +86,7 @@
         }
       },
       {
+        "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
         "description": "Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `http.dart`.",
@@ -92,6 +96,7 @@
         }
       },
       {
+        "code": "analysisOptions.renameRequired",
         "level": "hint",
         "title": "Use `analysis_options.yaml`.",
         "description": "Rename old `.analysis_options` file to `analysis_options.yaml`."
@@ -343,6 +348,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/browser_client.dart`.",
           "description": "Run `dartfmt` to format `lib/browser_client.dart`.",
@@ -550,6 +556,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/http.dart`.",
           "description": "Run `dartfmt` to format `lib/http.dart`.",
@@ -560,6 +567,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/http.dart`.",
           "description": "Strong-mode analysis of `lib/http.dart` gave the following hint:\n\nline: 64 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -570,6 +578,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/http.dart`.",
           "description": "Strong-mode analysis of `lib/http.dart` gave the following hint:\n\nline: 88 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -580,6 +589,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/http.dart`.",
           "description": "Strong-mode analysis of `lib/http.dart` gave the following hint:\n\nline: 112 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -621,6 +631,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/base_client.dart`.",
           "description": "Run `dartfmt` to format `lib/src/base_client.dart`.",
@@ -631,6 +642,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/base_client.dart`.",
           "description": "Strong-mode analysis of `lib/src/base_client.dart` gave the following hint:\n\nline: 163 col: 44  \n'typed' is deprecated and shouldn't be used.\n",
@@ -641,6 +653,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/base_client.dart`.",
           "description": "Strong-mode analysis of `lib/src/base_client.dart` gave the following hint:\n\nline: 165 col: 44  \n'typed' is deprecated and shouldn't be used.\n",
@@ -663,6 +676,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/base_request.dart`.",
           "description": "Run `dartfmt` to format `lib/src/base_request.dart`.",
@@ -685,6 +699,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/base_response.dart`.",
           "description": "Run `dartfmt` to format `lib/src/base_response.dart`.",
@@ -707,6 +722,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/boundary_characters.dart`.",
           "description": "Run `dartfmt` to format `lib/src/boundary_characters.dart`.",
@@ -748,6 +764,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/byte_stream.dart`.",
           "description": "Run `dartfmt` to format `lib/src/byte_stream.dart`.",
@@ -758,6 +775,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/byte_stream.dart`.",
           "description": "Strong-mode analysis of `lib/src/byte_stream.dart` gave the following hint:\n\nline: 31 col: 51  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -768,6 +786,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/byte_stream.dart`.",
           "description": "Strong-mode analysis of `lib/src/byte_stream.dart` gave the following hint:\n\nline: 34 col: 52  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -818,6 +837,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/client.dart`.",
           "description": "Run `dartfmt` to format `lib/src/client.dart`.",
@@ -828,6 +848,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/client.dart`.",
           "description": "Strong-mode analysis of `lib/src/client.dart` gave the following hint:\n\nline: 59 col: 31  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -838,6 +859,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/client.dart`.",
           "description": "Strong-mode analysis of `lib/src/client.dart` gave the following hint:\n\nline: 80 col: 31  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -848,6 +870,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/client.dart`.",
           "description": "Strong-mode analysis of `lib/src/client.dart` gave the following hint:\n\nline: 101 col: 31  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -880,6 +903,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/io_client.dart`.",
           "description": "Run `dartfmt` to format `lib/src/io_client.dart`.",
@@ -902,6 +926,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/mock_client.dart`.",
           "description": "Run `dartfmt` to format `lib/src/mock_client.dart`.",
@@ -934,6 +959,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/multipart_file.dart`.",
           "description": "Run `dartfmt` to format `lib/src/multipart_file.dart`.",
@@ -944,6 +970,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/multipart_file.dart`.",
           "description": "Strong-mode analysis of `lib/src/multipart_file.dart` gave the following hint:\n\nline: 73 col: 74  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -1012,6 +1039,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/multipart_request.dart`.",
           "description": "Run `dartfmt` to format `lib/src/multipart_request.dart`.",
@@ -1022,6 +1050,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/multipart_request.dart`.",
           "description": "Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 64 col: 11  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -1032,6 +1061,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/multipart_request.dart`.",
           "description": "Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 65 col: 11  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -1042,6 +1072,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/multipart_request.dart`.",
           "description": "Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 70 col: 11  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -1052,6 +1083,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/multipart_request.dart`.",
           "description": "Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 93 col: 22  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -1062,6 +1094,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/multipart_request.dart`.",
           "description": "Strong-mode analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 96 col: 48  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -1103,6 +1136,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/request.dart`.",
           "description": "Run `dartfmt` to format `lib/src/request.dart`.",
@@ -1113,6 +1147,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/request.dart`.",
           "description": "Strong-mode analysis of `lib/src/request.dart` gave the following hint:\n\nline: 39 col: 42  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -1123,6 +1158,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/request.dart`.",
           "description": "Strong-mode analysis of `lib/src/request.dart` gave the following hint:\n\nline: 133 col: 26  \n'UTF8' is deprecated and shouldn't be used.\n",
@@ -1164,6 +1200,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/response.dart`.",
           "description": "Run `dartfmt` to format `lib/src/response.dart`.",
@@ -1174,6 +1211,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/response.dart`.",
           "description": "Strong-mode analysis of `lib/src/response.dart` gave the following hint:\n\nline: 24 col: 8  \n'LATIN1' is deprecated and shouldn't be used.\n",
@@ -1184,6 +1222,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/response.dart`.",
           "description": "Strong-mode analysis of `lib/src/response.dart` gave the following hint:\n\nline: 83 col: 18  \n'LATIN1' is deprecated and shouldn't be used.\n",
@@ -1206,6 +1245,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/streamed_request.dart`.",
           "description": "Run `dartfmt` to format `lib/src/streamed_request.dart`.",
@@ -1228,6 +1268,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/streamed_response.dart`.",
           "description": "Run `dartfmt` to format `lib/src/streamed_response.dart`.",
@@ -1260,6 +1301,7 @@
       },
       "suggestions": [
         {
+          "code": "dartfmt.warning",
           "level": "hint",
           "title": "Format `lib/src/utils.dart`.",
           "description": "Run `dartfmt` to format `lib/src/utils.dart`.",
@@ -1270,6 +1312,7 @@
           }
         },
         {
+          "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/utils.dart`.",
           "description": "Strong-mode analysis of `lib/src/utils.dart` gave the following hint:\n\nline: 43 col: 66  \n'LATIN1' is deprecated and shouldn't be used.\n",
