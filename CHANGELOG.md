@@ -6,6 +6,8 @@
   * The SDK was effectively restricted to at least this version due to other
     dependencies.
 
+* Better expose platform conflict reasons.
+
 ## 0.11.3
 
 * Support changing part of the analysis result.

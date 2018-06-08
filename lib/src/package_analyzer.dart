@@ -332,13 +332,6 @@ class PackageAnalyzer {
     if (pkgPlatformConflict != null) {
       platform = new DartPlatform.conflict(
           'Error(s) prevent platform classification:\n\n$pkgPlatformConflict');
-    } else {
-      final dfs = files.values.firstWhere(
-          (dfs) => dfs.isPublicApi && dfs.platform.hasConflict,
-          orElse: () => null);
-      if (dfs != null) {
-        platform = new DartPlatform.conflict(dfs.platform.reason);
-      }
     }
     platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
 
