@@ -2,6 +2,10 @@
 
 * Export libraries used by pub site.
 
+* Update minimum SDK to `2.0.0-dev.42.0`
+  * The SDK was effectively restricted to at least this version due to other
+    dependencies.
+
 ## 0.11.3
 
 * Support changing part of the analysis result.
