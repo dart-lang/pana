@@ -441,6 +441,8 @@
         "package:path/src/internal_style.dart",
         "package:path/src/parsed_path.dart",
         "package:path/src/path_exception.dart",
+        "package:path/src/path_map.dart",
+        "package:path/src/path_set.dart",
         "package:path/src/style.dart",
         "package:path/src/style/posix.dart",
         "package:path/src/style/url.dart",
