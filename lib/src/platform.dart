@@ -205,9 +205,12 @@ DartPlatform classifyPkgPlatform(
       libraries.keys.where((key) => libraries[key].hasConflict).toList();
   if (conflicts.isNotEmpty) {
     conflicts.sort();
-    var sample = conflicts.take(3).map((s) => '`$s`').join(', ');
+    var sample = conflicts.take(3).map((s) {
+      final components = libraries[s].components.map((s) => '`$s`').join(', ');
+      return '`$s` (components: $components)';
+    }).join(', ');
     if (conflicts.length > 3) {
-      sample = '$sample (and ${conflicts.length - 3} more).';
+      sample = '$sample and ${conflicts.length - 3} more.';
     }
     return new DartPlatform.conflict('Conflicting libraries: $sample.');
   }
@@ -232,9 +235,13 @@ DartPlatform classifyPkgPlatform(
       );
     } else {
       flutterConflicts.sort();
-      var sample = flutterConflicts.take(3).map((s) => '`$s`').join(', ');
+      var sample = flutterConflicts.take(3).map((s) {
+        final components =
+            libraries[s].components.map((s) => '`$s`').join(', ');
+        return '`$s` (components: $components)';
+      }).join(', ');
       if (flutterConflicts.length > 3) {
-        sample = '$sample (and ${flutterConflicts.length - 3} more).';
+        sample = '$sample and ${flutterConflicts.length - 3} more.';
       }
       return new DartPlatform.conflict(
           'References Flutter, but has conflicting libraries: $sample.');

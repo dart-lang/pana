@@ -210,6 +210,17 @@ void main() {
   });
 
   group('Conflicting PkgPlatform', () {
+    test('Web package with isolate', () {
+      var sum = classifyPkgPlatform(emptyPubspec, {
+        'package:_example/lib.dart': ['dart:html', 'dart:isolate'],
+      });
+      expect(sum.worksEverywhere, isFalse);
+      expect(sum.worksAnywhere, isFalse);
+      expect(sum.components, null);
+      expect(sum.reason,
+          'Conflicting libraries: `package:_example/lib.dart` (components: `html`, `isolate`).');
+    });
+
     test('Flutter package with mirrors', () {
       var sum = classifyPkgPlatform(flutterPluginPubspec, {
         'package:_example/lib.dart': ['dart:mirrors'],
@@ -218,7 +229,7 @@ void main() {
       expect(sum.worksAnywhere, isFalse);
       expect(sum.components, null);
       expect(sum.reason,
-          'References Flutter, but has conflicting libraries: `package:_example/lib.dart`.');
+          'References Flutter, but has conflicting libraries: `package:_example/lib.dart` (components: `mirrors`).');
     });
   });
 }
