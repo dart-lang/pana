@@ -14,7 +14,6 @@ import 'package:package_config/packages_file.dart' as package_config;
 import 'package:path/path.dart' as p;
 
 import 'logging.dart';
-import 'sdk_env.dart';
 import 'utils.dart';
 
 class LibraryOverride {
@@ -39,12 +38,8 @@ class LibraryScanner {
   LibraryScanner._(
       this.packageName, this._packagePath, this._session, this._overrides);
 
-  factory LibraryScanner(
-      ToolEnvironment toolEnv, String packagePath, bool useFlutter,
+  factory LibraryScanner(String dartSdkPath, String packagePath,
       {List<LibraryOverride> overrides}) {
-    // TODO: fail more clearly if this...fails
-    var sdkPath = toolEnv.dartSdkDir;
-
     var dotPackagesPath = p.join(packagePath, '.packages');
     if (!FileSystemEntity.isFileSync(dotPackagesPath)) {
       throw new StateError('A package configuration file was not found at the '
@@ -91,7 +86,7 @@ class LibraryScanner {
     }
 
     var analysisContext = new ContextBuilder()
-        .createContext(contextRoot: roots.single, sdkPath: sdkPath);
+        .createContext(contextRoot: roots.single, sdkPath: dartSdkPath);
 
     return new LibraryScanner._(
         package, packagePath, analysisContext.currentSession, overrides);

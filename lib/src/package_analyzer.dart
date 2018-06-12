@@ -226,7 +226,7 @@ class PackageAnalyzer {
               'package:package_resolver/package_resolver.dart'),
         ];
 
-        libraryScanner = new LibraryScanner(_toolEnv, pkgDir, usesFlutter,
+        libraryScanner = new LibraryScanner(_toolEnv.dartSdkDir, pkgDir,
             overrides: overrides);
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
