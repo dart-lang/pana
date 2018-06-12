@@ -9,6 +9,27 @@ import 'package:test/test.dart';
 import 'package:pana/src/analysis_options.dart';
 
 void main() {
+  test('default options', () {
+    expect(json.decode(customizeAnalysisOptions(null, false)), {
+      'analyzer': {
+        'strong-mode': true,
+        'language': {
+          'enablePreviewDart2': true,
+        },
+      },
+      'linter': {
+        'rules': [
+          'camel_case_types',
+          'hash_and_equals',
+          'iterable_contains_unrelated_type',
+          'list_remove_unrelated_type',
+          'unrelated_type_equality_checks',
+          'valid_regexps',
+        ]
+      },
+    });
+  });
+
   test('flutter without original', () {
     expect(json.decode(customizeAnalysisOptions(null, true)), {
       'analyzer': {
