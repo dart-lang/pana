@@ -175,8 +175,8 @@ abstract class _$DartFileSummarySerializerMixin {
 }
 
 Suggestion _$SuggestionFromJson(Map<String, dynamic> json) {
-  return new Suggestion(json['level'] as String, json['title'] as String,
-      json['description'] as String,
+  return new Suggestion(json['code'] as String, json['level'] as String,
+      json['title'] as String, json['description'] as String,
       file: json['file'] as String,
       penalty: json['penalty'] == null
           ? null
@@ -184,6 +184,7 @@ Suggestion _$SuggestionFromJson(Map<String, dynamic> json) {
 }
 
 abstract class _$SuggestionSerializerMixin {
+  String get code;
   String get level;
   String get title;
   String get description;
@@ -191,6 +192,7 @@ abstract class _$SuggestionSerializerMixin {
   Penalty get penalty;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
+      'code': code,
       'level': level,
       'title': title,
       'description': description,

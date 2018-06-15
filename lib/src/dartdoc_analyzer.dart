@@ -21,6 +21,7 @@ List<Suggestion> getDartdocSuggestions(DartdocResult result) {
 
 Suggestion getDartdocRunFailedSuggestion() {
   return new Suggestion.error(
+    SuggestionCode.dartdocAborted,
     'Running `dartdoc` failed.',
     'Make sure `dartdoc` runs without any issues.',
     penalty: new Penalty(fraction: 1000),

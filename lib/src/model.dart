@@ -175,6 +175,7 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
 class Suggestion extends Object
     with _$SuggestionSerializerMixin
     implements Comparable<Suggestion> {
+  final String code;
   final String level;
   final String title;
   final String description;
@@ -186,6 +187,7 @@ class Suggestion extends Object
   final Penalty penalty;
 
   Suggestion(
+    this.code,
     this.level,
     this.title,
     this.description, {
@@ -193,27 +195,28 @@ class Suggestion extends Object
     this.penalty,
   });
 
-  factory Suggestion.bug(String message, Object error, StackTrace stack) {
+  factory Suggestion.bug(
+      String code, String message, Object error, StackTrace stack) {
     final title =
         'There is likely a bug in the analysis code or a dependency: $message';
     final description =
         LineSplitter.split([error, '', stack].join('\n')).take(100).join('\n');
-    return new Suggestion(SuggestionLevel.bug, title, description);
+    return new Suggestion(code, SuggestionLevel.bug, title, description);
   }
 
-  factory Suggestion.error(String title, String description,
+  factory Suggestion.error(String code, String title, String description,
           {String file, Penalty penalty}) =>
-      new Suggestion(SuggestionLevel.error, title, description,
+      new Suggestion(code, SuggestionLevel.error, title, description,
           file: file, penalty: penalty);
 
-  factory Suggestion.warning(String title, String description,
+  factory Suggestion.warning(String code, String title, String description,
           {String file, Penalty penalty}) =>
-      new Suggestion(SuggestionLevel.warning, title, description,
+      new Suggestion(code, SuggestionLevel.warning, title, description,
           file: file, penalty: penalty);
 
-  factory Suggestion.hint(String title, String description,
+  factory Suggestion.hint(String code, String title, String description,
           {String file, Penalty penalty}) =>
-      new Suggestion(SuggestionLevel.hint, title, description,
+      new Suggestion(code, SuggestionLevel.hint, title, description,
           file: file, penalty: penalty);
 
   factory Suggestion.fromJson(Map<String, dynamic> json) =>
@@ -247,7 +250,59 @@ class Suggestion extends Object
     return 0;
   }
 
+  @override
   String toString() => 'Sugestion: $level - $description';
+}
+
+abstract class SuggestionCode {
+  static const String dartanalyzerAborted = 'dartanalyzer.aborted';
+  static const String dartanalyzerWarning = 'dartanalyzer.warning';
+
+  static const String dartdocAborted = 'dartdoc.aborted';
+
+  static const String dartfmtAborted = 'dartfmt.aborted';
+  static const String dartfmtWarning = 'dartfmt.warning';
+
+  static const String analysisOptionsParseFailed =
+      'analysisOptions.parseFailed';
+  static const String analysisOptionsRenameRequired =
+      'analysisOptions.renameRequired';
+  static const String analysisOptionsWeakMode = 'analysisOptions.weakMode';
+
+  static const String pubspecDependenciesFailedToResolve =
+      'pubspec.dependencies.failedToResolve';
+  static const String pubspecDependenciesUnconstrained =
+      'pubspec.dependencies.unconstrained';
+  static const String pubspecDescriptionTooShort =
+      'pubspec.description.tooShort';
+  static const String pubspecDescriptionTooLong = 'pubspec.description.tooLong';
+  static const String pubspecDocumentationDoesNotExists =
+      'pubspec.documentation.doesNotExists';
+  static const String pubspecDocumentationIsNotHelpful =
+      'pubspec.documentation.isNotHelpful';
+  static const String pubspecHomepageDoesNotExists =
+      'pubspec.homepage.doesNotExists';
+  static const String pubspecHomepageIsNotHelpful =
+      'pubspec.homepage.isNotHelpful';
+  static const String pubspecSdkUnknown = 'pubspec.sdk.unknown';
+
+  static const String changelogMissing = 'changelog.missing';
+
+  static const String readmeMissing = 'readme.missing';
+
+  static const String exampleMissing = 'example.missing';
+
+  static const String platformConflictInFile = 'platform.conflict.inFile';
+  static const String platformConflictInPkg = 'platform.conflict.inPkg';
+
+  static const String packageVersionObsolete = 'packageVersion.obsolete';
+  static const String packageVersionOld = 'packageVersion.old';
+  static const String packageVersionPreV1 = 'packageVersion.preV1';
+  static const String packageVersionPreRelease = 'packageVersion.preRelease';
+
+  static const String bulk = 'bulk';
+
+  static const String exceptionInLibraryScanner = 'exception.inLibraryScanner';
 }
 
 abstract class SuggestionLevel {

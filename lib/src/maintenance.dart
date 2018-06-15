@@ -80,7 +80,9 @@ Suggestion getAgeSuggestion(Duration age) {
   age ??= Duration.zero;
 
   if (age > _twoYears) {
-    return new Suggestion.warning('Package is too old.',
+    return new Suggestion.warning(
+        SuggestionCode.packageVersionObsolete,
+        'Package is too old.',
         'The package was released more than two years ago.',
         penalty: new Penalty(amount: 10000));
   }
@@ -90,7 +92,9 @@ Suggestion getAgeSuggestion(Duration age) {
     final ageInWeeks = age.inDays ~/ 7;
     final daysOverAYear = age.inDays - _year.inDays;
     final basisPoints = daysOverAYear * 10000 ~/ 365;
-    return new Suggestion.hint('Package is getting outdated.',
+    return new Suggestion.hint(
+        SuggestionCode.packageVersionOld,
+        'Package is getting outdated.',
         'The package was released ${ageInWeeks} weeks ago.',
         penalty: new Penalty(fraction: min(10000, max(0, basisPoints))));
   }
@@ -150,7 +154,9 @@ Future<Maintenance> detectMaintenance(
           }
         } catch (_) {
           maintenanceSuggestions.add(new Suggestion.warning(
-              'Fix `$name`.', 'We were unable to parse `$name`.',
+              SuggestionCode.analysisOptionsParseFailed,
+              'Fix `$name`.',
+              'We were unable to parse `$name`.',
               file: name));
         }
         break;
@@ -162,12 +168,14 @@ Future<Maintenance> detectMaintenance(
   final homepageExternal = _isExternalUrl(pubspec.homepage);
   if (!homepageExists) {
     maintenanceSuggestions.add(new Suggestion.warning(
+      SuggestionCode.pubspecHomepageDoesNotExists,
       'Homepage does not exists.',
       'We were unable to access `${pubspec.homepage}` at the time of the analysis.',
       penalty: new Penalty(fraction: 1000),
     ));
   } else if (!homepageExternal) {
     maintenanceSuggestions.add(new Suggestion.warning(
+      SuggestionCode.pubspecHomepageIsNotHelpful,
       'Homepage is not helpful.',
       'Update the `homepage` property: create a website about the package or use the source repository URL.',
       penalty: new Penalty(fraction: 1000),
@@ -181,12 +189,14 @@ Future<Maintenance> detectMaintenance(
 
     if (!documentationExists) {
       maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.pubspecDocumentationDoesNotExists,
         'Documentation URL does not exists.',
         'We were unable to access `${pubspec.documentation}` at the time of the analysis.',
         penalty: new Penalty(fraction: 500),
       ));
     } else if (!documentationExternal) {
       maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.pubspecDocumentationIsNotHelpful,
         'Documentation URL is not helpful.',
         'Update the `documentation` property: create a website about the package or remove it.',
         penalty: new Penalty(fraction: 100),
@@ -200,18 +210,23 @@ Future<Maintenance> detectMaintenance(
 
   if (pkgPlatform.hasConflict) {
     maintenanceSuggestions.add(new Suggestion.error(
-        'Fix platform conflicts.', pkgPlatform.reason,
+        SuggestionCode.platformConflictInPkg,
+        'Fix platform conflicts.',
+        pkgPlatform.reason,
         penalty: new Penalty(fraction: 2000)));
   }
 
   if (!changelogExists) {
     maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.changelogMissing,
         'Maintain `CHANGELOG.md`.',
         'Changelog entries help clients to follow the progress in your code.',
         penalty: new Penalty(fraction: 2000)));
   }
   if (!readmeExists) {
-    maintenanceSuggestions.add(new Suggestion.warning('Maintain `README.md`.',
+    maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.readmeMissing,
+        'Maintain `README.md`.',
         'Readme should inform others about your project, what it does, and how they can use it.',
         penalty: new Penalty(fraction: 500)));
   }
@@ -219,12 +234,14 @@ Future<Maintenance> detectMaintenance(
     final exampleDirExists = files.any((file) => file.startsWith('example/'));
     if (exampleDirExists) {
       maintenanceSuggestions.add(new Suggestion.hint(
+          SuggestionCode.exampleMissing,
           'Maintain an example.',
           'None of the files in your `example/` directory matches a known example patterns. '
           'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`.',
           penalty: new Penalty(amount: 1)));
     } else {
       maintenanceSuggestions.add(new Suggestion.hint(
+          SuggestionCode.exampleMissing,
           'Maintain an example.',
           'Create a short demo in the `example/` directory to show how to use this package. '
           'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`.',
@@ -233,11 +250,13 @@ Future<Maintenance> detectMaintenance(
   }
   if (oldAnalysisOptions) {
     maintenanceSuggestions.add(new Suggestion.hint(
+        SuggestionCode.analysisOptionsRenameRequired,
         'Use `analysis_options.yaml`.',
         'Rename old `.analysis_options` file to `analysis_options.yaml`.'));
   }
   if (analysisOptionsExists && !strongModeEnabled) {
     maintenanceSuggestions.add(new Suggestion.hint(
+        SuggestionCode.analysisOptionsWeakMode,
         'Enable strong mode analysis.',
         'Strong mode helps you to detect bugs and potential issues earlier.'
         'Start your `analysis_options.yaml` file with the following:\n\n'
@@ -251,6 +270,7 @@ Future<Maintenance> detectMaintenance(
   // Pre-v1
   if (isExperimentalVersion) {
     maintenanceSuggestions.add(new Suggestion.hint(
+        SuggestionCode.packageVersionPreV1,
         'Package is pre-v1 release.',
         'While there is nothing inherently wrong with versions of `0.*.*`, it '
         'usually means that the author is still experimenting with the general '
@@ -261,6 +281,7 @@ Future<Maintenance> detectMaintenance(
   // Not a "gold" release
   if (isPreReleaseVersion) {
     maintenanceSuggestions.add(new Suggestion.hint(
+        SuggestionCode.packageVersionPreRelease,
         'Package is pre-release.',
         'Pre-release versions should be used with caution, their API may change '
         'in breaking ways.',
@@ -271,6 +292,7 @@ Future<Maintenance> detectMaintenance(
   final description = pubspec.description?.trim();
   if (description == null || description.isEmpty) {
     maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.pubspecDescriptionTooShort,
         'Add `description` in `pubspec.yaml`.',
         'Description is critical to giving users a quick insight into the features '
         'of the package and why it is relevant to their query. '
@@ -278,12 +300,14 @@ Future<Maintenance> detectMaintenance(
         penalty: new Penalty(fraction: 500)));
   } else if (description.length < 60) {
     maintenanceSuggestions.add(new Suggestion.hint(
+        SuggestionCode.pubspecDescriptionTooShort,
         'The description is too short.',
         'Add more detail about the package, what it does and what is its target use case. '
         'Try to write at least 60 characters.',
         penalty: new Penalty(amount: 20)));
   } else if (description.length > 180) {
     maintenanceSuggestions.add(new Suggestion.hint(
+        SuggestionCode.pubspecDescriptionTooLong,
         'The description is too long.',
         'Search engines will display only the first part of the description. '
         'Try to keep it under 180 characters.',
@@ -331,6 +355,7 @@ Future<Maintenance> detectMaintenance(
         : SuggestionLevel.hint;
     maintenanceSuggestions.add(
       new Suggestion(
+        SuggestionCode.bulk,
         level,
         'Fix analysis and formatting issues.',
         sb.toString(),
@@ -351,6 +376,7 @@ Future<Maintenance> detectMaintenance(
         .map((name) => '`$name`')
         .join(', ');
     maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.pubspecDependenciesUnconstrained,
         'Use constrained dependencies.',
         'The `pubspec.yaml` contains $pluralized without version constraints. '
         'Specify version ranges for the following dependencies: $names.',

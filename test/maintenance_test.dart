@@ -25,18 +25,21 @@ final _withIssuesJson = {
   "hintCount": 1,
   "suggestions": [
     {
+      'code': 'platform.conflict.inPkg',
       'level': 'error',
       'title': 'Fix platform conflicts.',
       'description': 'conflict description',
       'penalty': {'amount': 0, 'fraction': 2000}
     },
     {
+      'code': 'dartdoc.aborted',
       'level': 'error',
       'title': 'Running `dartdoc` failed.',
       'description': 'Make sure `dartdoc` runs without any issues.',
       'penalty': {'amount': 0, 'fraction': 1000},
     },
     {
+      'code': 'changelog.missing',
       'level': 'warning',
       'title': 'Maintain `CHANGELOG.md`.',
       'description':
@@ -44,6 +47,7 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 2000}
     },
     {
+      'code': 'pubspec.homepage.doesNotExists',
       'level': 'warning',
       'title': 'Homepage does not exists.',
       'description':
@@ -51,6 +55,7 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 1000},
     },
     {
+      'code': 'readme.missing',
       'level': 'warning',
       'title': 'Maintain `README.md`.',
       'description':
@@ -58,6 +63,7 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 500}
     },
     {
+      'code': 'pubspec.description.tooShort',
       'level': 'warning',
       'title': 'Add `description` in `pubspec.yaml`.',
       'description':
@@ -65,6 +71,7 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 500}
     },
     {
+      'code': 'pubspec.dependencies.unconstrained',
       'level': 'warning',
       'title': 'Use constrained dependencies.',
       'description':
@@ -72,6 +79,7 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 500}
     },
     {
+      'code': 'bulk',
       'level': 'warning',
       'title': 'Fix analysis and formatting issues.',
       'description':
@@ -79,6 +87,7 @@ final _withIssuesJson = {
       'penalty': {'amount': 61, 'fraction': 0},
     },
     {
+      'code': 'packageVersion.preRelease',
       'level': 'hint',
       'title': 'Package is pre-release.',
       'description':
@@ -86,6 +95,7 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 200}
     },
     {
+      'code': 'packageVersion.preV1',
       'level': 'hint',
       'title': 'Package is pre-v1 release.',
       'description':
@@ -93,6 +103,7 @@ final _withIssuesJson = {
       'penalty': {'amount': 10, 'fraction': 0}
     },
     {
+      'code': 'example.missing',
       'level': 'hint',
       'title': 'Maintain an example.',
       'description':
@@ -122,9 +133,9 @@ void main() {
   group('detectMaintenance', () {
     test('empty directory', () async {
       final suggestions = <Suggestion>[
-        new Suggestion.error('error', 'error'),
-        new Suggestion.warning('warning', 'warning'),
-        new Suggestion.hint('hint', 'hint'),
+        new Suggestion.error('errorCode', 'error', 'error'),
+        new Suggestion.warning('warningCode', 'warning', 'warning'),
+        new Suggestion.hint('hintCode', 'hint', 'hint'),
       ];
       final maintenance = await detectMaintenance(
         d.sandbox,

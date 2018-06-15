@@ -117,6 +117,7 @@ class PackageAnalyzer {
     var pubspec = new Pubspec.parseFromDir(pkgDir);
     if (pubspec.hasUnknownSdks) {
       suggestions.add(new Suggestion.error(
+          SuggestionCode.pubspecSdkUnknown,
           'Check SDKs in `pubspec.yaml`.',
           'We have found the following unknown SDKs in your `pubspec.yaml`:\n'
           '  `${pubspec.unknownSdks}`.\n\n'
@@ -143,6 +144,7 @@ class PackageAnalyzer {
 
       var errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
       suggestions.add(new Suggestion.error(
+          SuggestionCode.dartfmtAborted,
           messages.makeSureDartfmtRuns(usesFlutter),
           messages.runningDartfmtFailed(usesFlutter, errorMsg)));
     }
@@ -163,6 +165,7 @@ class PackageAnalyzer {
         final cmd =
             usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
         suggestions.add(new Suggestion.error(
+            SuggestionCode.pubspecDependenciesFailedToResolve,
             'Fix dependencies in `pubspec.yaml`.',
             'Running `$cmd` failed with the following output:\n\n'
             '```\n$e\n```\n'));
@@ -182,6 +185,7 @@ class PackageAnalyzer {
 
       final cmd = usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
       suggestions.add(new Suggestion.error(
+          SuggestionCode.pubspecDependenciesFailedToResolve,
           'Fix dependencies in `pubspec.yaml`.',
           message.isEmpty
               ? 'Running `$cmd` failed.'
@@ -231,8 +235,11 @@ class PackageAnalyzer {
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
         log.severe("Could not create LibraryScanner", e, stack);
-        suggestions.add(
-            new Suggestion.bug('LibraryScanner creation failed.', e, stack));
+        suggestions.add(new Suggestion.bug(
+            SuggestionCode.exceptionInLibraryScanner,
+            'LibraryScanner creation failed.',
+            e,
+            stack));
       }
 
       if (libraryScanner != null) {
@@ -241,8 +248,11 @@ class PackageAnalyzer {
           allDirectLibs = await libraryScanner.scanDirectLibs();
         } catch (e, st) {
           log.severe('Error scanning direct libraries', e, st);
-          suggestions.add(
-              new Suggestion.bug('Error scanning direct libraries.', e, st));
+          suggestions.add(new Suggestion.bug(
+              SuggestionCode.exceptionInLibraryScanner,
+              'Error scanning direct libraries.',
+              e,
+              st));
         }
         try {
           log.info('Scanning transitive dependencies...');
@@ -251,7 +261,10 @@ class PackageAnalyzer {
         } catch (e, st) {
           log.severe('Error scanning transitive libraries', e, st);
           suggestions.add(new Suggestion.bug(
-              'Error scanning transitive libraries.', e, st));
+              SuggestionCode.exceptionInLibraryScanner,
+              'Error scanning transitive libraries.',
+              e,
+              st));
         }
       }
 
@@ -263,6 +276,7 @@ class PackageAnalyzer {
             log.warning("No files to analyze...");
           } else {
             suggestions.add(new Suggestion.error(
+                SuggestionCode.dartanalyzerAborted,
                 messages.makeSureDartanalyzerRuns(usesFlutter),
                 messages.runningDartanalyzerFailed(usesFlutter, e)));
           }
