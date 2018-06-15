@@ -176,10 +176,9 @@ class ToolEnvironment {
         continue;
       }
 
-      throw new Exception([
-        'dartfmt on $dir/ failed with exit code ${result.exitCode}',
-        result.stderr
-      ].join('\n').toString());
+      final output = result.stderr.toString().replaceAll('$packageDir/', '');
+      throw new Exception(
+          'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
     }
     files.sort();
     return files;

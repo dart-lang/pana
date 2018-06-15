@@ -106,7 +106,7 @@
       "code": "dartfmt.aborted",
       "level": "error",
       "title": "Make sure `dartfmt` runs.",
-      "description": "Running `dartfmt -n .` failed with the following output:\n\n```\nException: dartfmt on bin/ failed with exit code 65\nCould not format because the source could not be parsed:\n\nline 681, column 9 of /private/var/folders/zl/s18b7btj7c11xzc2y49w38dc0000gn/T/pana-l8zugB/bin/packages/stream/src/rspc/compiler.dart: Unexpected text '?'.\n    if (?str) _current.writeln(str);\n        ^\nCould not format because the source could not be parsed:\n\nline 48, column 9 of /private/var/folders/zl/s18b7btj7c11xzc2y49w38dc0000gn/T/pana-l8zugB/bin/packages/stream/src/rspc/tag.dart: Unexpected text '?'.\n    if (?str)\n```\n"
+      "description": "Running `dartfmt -n .` failed with the following output:\n\n```\nException: dartfmt on bin/ failed with exit code 65\nCould not format because the source could not be parsed:\n\nline 681, column 9 of bin/packages/stream/src/rspc/compiler.dart: Unexpected text '?'.\n    if (?str) _current.writeln(str);\n        ^\nCould not format because the source could not be parsed:\n\nline 48, column 9 of bin/packages/stream/src/rspc/tag.dart: Unexpected text '?'.\n    if (?str)\n```\n"
     },
     {
       "code": "pubspec.dependencies.failedToResolve",
