@@ -51,3 +51,14 @@ String runningDartanalyzerFailed(bool usesFlutter, errorMsg) {
   return 'Running `${dict.dartanalyzerShortCmd}` failed with the following output:\n\n'
       '```\n$errorMsg\n```\n';
 }
+
+/// Build a list like "A, B and 3 more".
+String buildSample(Iterable<String> items) {
+  final total = items.length;
+  final fullCount = total <= 3 ? total : 2;
+  var sample = items.take(fullCount).join(', ');
+  if (total > fullCount) {
+    sample = '$sample and ${total - fullCount} more.';
+  }
+  return sample;
+}
