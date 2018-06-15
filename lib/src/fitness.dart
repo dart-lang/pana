@@ -65,7 +65,9 @@ Future<FitnessResult> calcFitness(
     if (components != null) {
       description += ' Detected components: $components.';
     }
-    description += ' ${platform.reason}';
+    if (platform.reason != null && platform.reason.isNotEmpty) {
+      description += ' ${platform.reason}';
+    }
     suggestions.add(new Suggestion.error(
       SuggestionCode.platformConflictInFile,
       'Fix platform conflict in `$dartFile`.',
