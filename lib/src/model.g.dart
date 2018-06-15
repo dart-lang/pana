@@ -7,7 +7,7 @@
 part of 'model.dart';
 
 // **************************************************************************
-// Generator: JsonSerializableGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) {
