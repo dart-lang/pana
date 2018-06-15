@@ -1,4 +1,4 @@
-## 0.11.4-dev
+## 0.11.4
 
 * Export libraries used by pub site.
 
