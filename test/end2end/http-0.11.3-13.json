@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.1-dev",
-    "sdkVersion": "2.0.0-dev.54.0"
+    "panaVersion": "0.11.4-dev",
+    "sdkVersion": "2.0.0-dev.62.0"
   },
   "packageName": "http",
   "packageVersion": "0.11.3+13",
@@ -123,7 +123,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.5.0",
-        "resolved": "1.14.9"
+        "resolved": "1.14.10"
       },
       {
         "package": "http_parser",
@@ -137,7 +137,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.9.0 <2.0.0",
-        "resolved": "1.5.1"
+        "resolved": "1.6.1"
       },
       {
         "package": "source_span",

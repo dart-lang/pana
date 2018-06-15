@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.1-dev",
-    "sdkVersion": "2.0.0-dev.54.0"
+    "panaVersion": "0.11.4-dev",
+    "sdkVersion": "2.0.0-dev.62.0"
   },
   "packageName": "pub_server",
   "packageVersion": "0.1.1+3",
@@ -124,7 +124,7 @@
         "package": "collection",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.14.9"
+        "resolved": "1.14.10"
       },
       {
         "package": "http",
@@ -150,13 +150,13 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.9.3 <0.10.0",
-        "resolved": "0.9.6"
+        "resolved": "0.9.6+1"
       },
       {
         "package": "path",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.1"
+        "resolved": "1.6.1"
       },
       {
         "package": "pub_semver",
@@ -172,7 +172,7 @@
         "constraintType": "normal",
         "constraint": ">=0.5.6 <0.7.0",
         "resolved": "0.6.8",
-        "available": "0.7.3"
+        "available": "0.7.3+1"
       },
       {
         "package": "source_span",
@@ -190,7 +190,7 @@
         "package": "stream_channel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.6.6"
+        "resolved": "1.6.7+1"
       },
       {
         "package": "string_scanner",
@@ -215,7 +215,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=2.1.2 <3.0.0",
-        "resolved": "2.1.13"
+        "resolved": "2.1.14"
       }
     ]
   },
