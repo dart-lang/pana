@@ -37,7 +37,7 @@ Future<ProcessResult> runProc(
   Map<String, String> environment,
   Duration timeout,
 }) async {
-  log.fine('Running `${ ([executable]..addAll(arguments)).join(' ') }`...');
+  log.info('Running `${ ([executable]..addAll(arguments)).join(' ') }`...');
   var process = await Process.start(executable, arguments,
       workingDirectory: workingDirectory, environment: environment);
 
@@ -130,7 +130,7 @@ Stream<String> listFiles(String directory,
         if (deleteBadExtracted) {
           var segments = p.split(fse.path);
           if (segments.last.startsWith('._')) {
-            log.warning("Deleting invalid file: `${fse.path}`.");
+            log.info('Deleting invalid file: `${fse.path}`.');
             fse.deleteSync();
             return false;
           }

@@ -1,3 +1,7 @@
+## 0.11.5-dev
+
+* Less verbose logging.
+
 ## 0.11.4
 
 * Export libraries used by pub site.
