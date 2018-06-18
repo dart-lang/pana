@@ -69,7 +69,7 @@ class PackageAnalyzer {
   }) async {
     options ??= new InspectOptions();
     return withLogger(() async {
-      log.info("Downloading package $package ${version ?? 'latest'}");
+      log.info('Downloading package $package ${version ?? 'latest'}');
       String packageDir;
       Directory tempDir;
       if (version != null) {
@@ -100,20 +100,14 @@ class PackageAnalyzer {
   }
 
   Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
-    log.info("SDK: ${_toolEnv.runtimeInfo.sdkVersion}");
-    if (_toolEnv.pubCacheDir != null) {
-      log.fine("Using .package-cache: ${_toolEnv.pubCacheDir}");
-    }
-    log.fine('Inspecting package at $pkgDir');
     final suggestions = <Suggestion>[];
 
-    log.info('Counting files...');
     var dartFiles =
         await listFiles(pkgDir, endsWith: '.dart', deleteBadExtracted: true)
             .where((file) => file.startsWith('bin/') || file.startsWith('lib/'))
             .toList();
 
-    log.info("Checking pubspec.yaml...");
+    log.info('Parsing pubspec.yaml...');
     var pubspec = new Pubspec.parseFromDir(pkgDir);
     if (pubspec.hasUnknownSdks) {
       suggestions.add(new Suggestion.error(
@@ -125,11 +119,8 @@ class PackageAnalyzer {
     }
 
     final package = pubspec.name;
-    log.info('Package: $package ${pubspec.version}');
-
     final usesFlutter = pubspec.usesFlutter;
 
-    log.info("Checking formatting...");
     Set<String> unformattedFiles;
     try {
       unformattedFiles = new SplayTreeSet<String>.from(
@@ -140,7 +131,7 @@ class PackageAnalyzer {
     } catch (e, stack) {
       // FYI: seeing a lot of failures due to
       //   https://github.com/dart-lang/dart_style/issues/522
-      log.severe("Failed dartfmt", e, stack);
+      log.severe('Failed dartfmt', e, stack);
 
       var errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
       suggestions.add(new Suggestion.error(
@@ -149,7 +140,6 @@ class PackageAnalyzer {
           messages.runningDartfmtFailed(usesFlutter, errorMsg)));
     }
 
-    log.info("Pub upgrade...");
     final upgrade = await _toolEnv.runUpgrade(pkgDir, usesFlutter);
 
     PkgResolution pkgResolution;
@@ -158,7 +148,7 @@ class PackageAnalyzer {
         pkgResolution = createPkgResolution(pubspec, upgrade.stdout as String,
             path: pkgDir);
       } catch (e, stack) {
-        log.severe("Problem with pub upgrade", e, stack);
+        log.severe('Problem with pub upgrade', e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
         //  and writing to issues in one go.
 
@@ -234,7 +224,7 @@ class PackageAnalyzer {
             overrides: overrides);
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
-        log.severe("Could not create LibraryScanner", e, stack);
+        log.severe('Could not create LibraryScanner', e, stack);
         suggestions.add(new Suggestion.bug(
             SuggestionCode.exceptionInLibraryScanner,
             'LibraryScanner creation failed.',
@@ -272,8 +262,8 @@ class PackageAnalyzer {
         try {
           analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter);
         } on ArgumentError catch (e) {
-          if (e.toString().contains("No dart files found at: .")) {
-            log.warning("No files to analyze...");
+          if (e.toString().contains('No dart files found at: .')) {
+            log.warning('`dartanalyzer` found no files to analyze.');
           } else {
             suggestions.add(new Suggestion.error(
                 SuggestionCode.dartanalyzerAborted,
@@ -393,8 +383,7 @@ class PackageAnalyzer {
     } on ArgumentError {
       // TODO: we should figure out a way to succeed here, right?
       // Or at least do partial results and not blow up
-      log.severe("Bad input?");
-      log.severe(output);
+      log.severe('Bad input?\n\n$output');
       rethrow;
     }
   }
