@@ -56,8 +56,8 @@ class ToolEnvironment {
     Map<String, dynamic> flutterVersions;
     try {
       flutterVersions = await getFlutterVersion();
-    } catch (_) {
-      _logger.warning('Unable to detect Flutter version.');
+    } catch (e, st) {
+      _logger.warning('Unable to detect Flutter version.', e, st);
     }
     _runtimeInfo = new PanaRuntimeInfo(
       panaVersion: panaPkgVersion.toString(),
