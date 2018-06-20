@@ -335,8 +335,10 @@ Future<Maintenance> detectMaintenance(
     sb.write('.\n\n');
 
     final reportedFiles = new Set();
-    final onePerFileSuggestions =
-        dartFileSuggestions.where((s) => reportedFiles.add(s.file)).toList();
+    final onePerFileSuggestions = dartFileSuggestions
+        .where((s) => reportedFiles.add(s.file))
+        .toList()
+          ..sort();
     final topSuggestions = onePerFileSuggestions.take(2).toList();
     final restSuggestions = onePerFileSuggestions.skip(2).toList();
 
