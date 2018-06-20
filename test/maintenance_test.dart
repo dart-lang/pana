@@ -55,11 +55,11 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 1000},
     },
     {
-      'code': 'readme.missing',
+      'code': 'pubspec.dependencies.unconstrained',
       'level': 'warning',
-      'title': 'Maintain `README.md`.',
+      'title': 'Use constrained dependencies.',
       'description':
-          'Readme should inform others about your project, what it does, and how they can use it.',
+          'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
       'penalty': {'amount': 0, 'fraction': 500}
     },
     {
@@ -71,11 +71,11 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 500}
     },
     {
-      'code': 'pubspec.dependencies.unconstrained',
+      'code': 'readme.missing',
       'level': 'warning',
-      'title': 'Use constrained dependencies.',
+      'title': 'Maintain `README.md`.',
       'description':
-          'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
+          'Readme should inform others about your project, what it does, and how they can use it.',
       'penalty': {'amount': 0, 'fraction': 500}
     },
     {

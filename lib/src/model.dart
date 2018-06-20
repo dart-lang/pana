@@ -247,6 +247,24 @@ class Suggestion extends Object
     if (file != null && other.file != null && file != other.file) {
       return file.compareTo(other.file);
     }
+    if (code != null && other.code == null) return -1;
+    if (code == null && other.code != null) return 1;
+    if (code != null && other.code != null) {
+      final compared = code.compareTo(other.code);
+      if (compared != 0) return compared;
+    }
+    if (title != null && other.title == null) return -1;
+    if (title == null && other.title != null) return 1;
+    if (title != null && other.title != null) {
+      final compared = title.compareTo(other.title);
+      if (compared != 0) return compared;
+    }
+    if (description != null && other.description == null) return -1;
+    if (description == null && other.description != null) return 1;
+    if (description != null && other.description != null) {
+      final compared = description.compareTo(other.description);
+      if (compared != 0) return compared;
+    }
     return 0;
   }
 
