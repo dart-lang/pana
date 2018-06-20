@@ -107,6 +107,7 @@ void main() {
   _verifyPackage('pub_server-0.1.1-3.json', 'pub_server', '0.1.1+3');
   _verifyPackage('skiplist-0.1.0.json', 'skiplist', '0.1.0');
   _verifyPackage('stream-0.7.2-2.json', 'stream', '0.7.2+2');
+  _verifyPackage('fs_shim-0.7.1.json', 'fs_shim', '0.7.1');
 }
 
 Matcher isSemVer = predicate<String>((String versionString) {
