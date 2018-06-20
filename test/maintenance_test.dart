@@ -53,11 +53,11 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 2000}
     },
     {
-      'code': 'pubspec.homepage.doesNotExists',
+      'code': 'pubspec.homepage.isNotHelpful',
       'level': 'warning',
-      'title': 'Homepage does not exists.',
+      'title': 'Homepage is not helpful.',
       'description':
-          'We were unable to access `null` at the time of the analysis.',
+          'Update the `homepage` property: create a website about the package or use the source repository URL.',
       'penalty': {'amount': 0, 'fraction': 1000},
     },
     {

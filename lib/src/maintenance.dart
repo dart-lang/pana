@@ -165,43 +165,46 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
-  final homepageExists = await isExistingUrl(pubspec.homepage, retry: 1);
   final homepageExternal = _isExternalUrl(pubspec.homepage);
-  if (!homepageExists) {
-    maintenanceSuggestions.add(new Suggestion.warning(
-      SuggestionCode.pubspecHomepageDoesNotExists,
-      'Homepage does not exists.',
-      'We were unable to access `${pubspec.homepage}` at the time of the analysis.',
-      penalty: new Penalty(fraction: 1000),
-    ));
-  } else if (!homepageExternal) {
+  if (!homepageExternal) {
     maintenanceSuggestions.add(new Suggestion.warning(
       SuggestionCode.pubspecHomepageIsNotHelpful,
       'Homepage is not helpful.',
       'Update the `homepage` property: create a website about the package or use the source repository URL.',
       penalty: new Penalty(fraction: 1000),
     ));
+  } else {
+    final homepageExists = await isExistingUrl(pubspec.homepage, retry: 1);
+    if (!homepageExists) {
+      maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.pubspecHomepageDoesNotExists,
+        'Homepage does not exists.',
+        'We were unable to access `${pubspec.homepage}` at the time of the analysis.',
+        penalty: new Penalty(fraction: 1000),
+      ));
+    }
   }
 
   if (pubspec.documentation != null && pubspec.documentation.isNotEmpty) {
-    final documentationExists =
-        await isExistingUrl(pubspec.documentation, retry: 1);
     final documentationExternal = _isExternalUrl(pubspec.documentation);
-
-    if (!documentationExists) {
-      maintenanceSuggestions.add(new Suggestion.warning(
-        SuggestionCode.pubspecDocumentationDoesNotExists,
-        'Documentation URL does not exists.',
-        'We were unable to access `${pubspec.documentation}` at the time of the analysis.',
-        penalty: new Penalty(fraction: 500),
-      ));
-    } else if (!documentationExternal) {
+    if (!documentationExternal) {
       maintenanceSuggestions.add(new Suggestion.warning(
         SuggestionCode.pubspecDocumentationIsNotHelpful,
         'Documentation URL is not helpful.',
         'Update the `documentation` property: create a website about the package or remove it.',
         penalty: new Penalty(fraction: 100),
       ));
+    } else {
+      final documentationExists =
+          await isExistingUrl(pubspec.documentation, retry: 1);
+      if (!documentationExists) {
+        maintenanceSuggestions.add(new Suggestion.warning(
+          SuggestionCode.pubspecDocumentationDoesNotExists,
+          'Documentation URL does not exists.',
+          'We were unable to access `${pubspec.documentation}` at the time of the analysis.',
+          penalty: new Penalty(fraction: 500),
+        ));
+      }
     }
   }
 

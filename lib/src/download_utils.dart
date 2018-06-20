@@ -89,10 +89,10 @@ Future<bool> isExistingUrl(String url, {int retry: 0}) async {
   for (var i = 0; i <= retry; i++) {
     try {
       log.info('Checking URL $url...');
-      final rs = await http.get(url).timeout(const Duration(seconds: 10));
+      final rs = await http.head(url).timeout(const Duration(seconds: 10));
       return rs.statusCode == 200;
     } catch (e) {
-      log.warning('Check of URL $url failed', e);
+      log.info('Check of URL $url failed', e);
     }
   }
   return false;

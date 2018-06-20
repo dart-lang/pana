@@ -23,6 +23,8 @@
 
 * Updated suggestion messages.
 
+* Do not check existence of non-external URLs.
+
 ## 0.11.4
 
 * Export libraries used by pub site.
