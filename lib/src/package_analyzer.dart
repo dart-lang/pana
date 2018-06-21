@@ -332,16 +332,21 @@ class PackageAnalyzer {
     }
     dartFileSuggestions.sort();
 
+    final pkgFitness = calcPkgFitness(files.values);
+
     DartPlatform platform;
     if (pkgPlatformConflict != null) {
       platform = new DartPlatform.conflict(
           'Error(s) prevent platform classification:\n\n$pkgPlatformConflict');
     }
     platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
+    if (!platform.hasConflict && pkgFitness.healthScore < 0.33) {
+      platform = new DartPlatform.conflict(
+          'Low code quality prevents platform classification.');
+    }
 
     var licenses = await detectLicensesInDir(pkgDir);
     licenses = await updateLicenseUrls(pubspec.homepage, licenses);
-    final pkgFitness = calcPkgFitness(files.values);
 
     final maintenance = await detectMaintenance(
       pkgDir,

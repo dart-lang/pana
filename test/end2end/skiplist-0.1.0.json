@@ -19,13 +19,7 @@
     }
   },
   "platform": {
-    "components": [],
-    "uses": {
-      "flutter": "allowed",
-      "web": "allowed",
-      "other": "allowed"
-    },
-    "reason": "No platform restriction found in primary library `package:skiplist/skiplist.dart`."
+    "reason": "Low code quality prevents platform classification."
   },
   "licenses": [
     {
@@ -48,6 +42,16 @@
     "warningCount": 0,
     "hintCount": 1,
     "suggestions": [
+      {
+        "code": "platform.conflict.inPkg",
+        "level": "error",
+        "title": "Fix platform conflicts.",
+        "description": "Low code quality prevents platform classification.",
+        "penalty": {
+          "amount": 0,
+          "fraction": 2000
+        }
+      },
       {
         "code": "dartdoc.aborted",
         "level": "error",
