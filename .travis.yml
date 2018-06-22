@@ -1,7 +1,7 @@
 language: dart
 
 dart:
-  - 2.0.0-dev.63.0
+  - 2.0.0-dev.64.1
 
 dart_task:
   # Run the tests -- include the default-skipped presubmit tests
