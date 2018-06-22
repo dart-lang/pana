@@ -367,10 +367,6 @@ abstract class _$MaintenanceSerializerMixin {
       'strongModeEnabled': strongModeEnabled,
       'isExperimentalVersion': isExperimentalVersion,
       'isPreReleaseVersion': isPreReleaseVersion,
-      'dartdocSuccessful': dartdocSuccessful,
-      'errorCount': errorCount,
-      'warningCount': warningCount,
-      'hintCount': hintCount,
     };
 
     void writeNotNull(String key, dynamic value) {
@@ -379,6 +375,10 @@ abstract class _$MaintenanceSerializerMixin {
       }
     }
 
+    writeNotNull('dartdocSuccessful', dartdocSuccessful);
+    val['errorCount'] = errorCount;
+    val['warningCount'] = warningCount;
+    val['hintCount'] = hintCount;
     writeNotNull('suggestions', suggestions);
     return val;
   }

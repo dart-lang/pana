@@ -665,7 +665,8 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   /// whether version is flagged `-beta`, `-alpha`, etc.
   final bool isPreReleaseVersion;
 
-  /// whether running dartdoc was successful (null if was not running)
+  /// whether running dartdoc was successful (null if it hasn't run yet)
+  @JsonKey(includeIfNull: false)
   final bool dartdocSuccessful;
 
   /// the number of errors encountered during analysis

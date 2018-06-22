@@ -37,7 +37,6 @@
     "strongModeEnabled": false,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
-    "dartdocSuccessful": false,
     "errorCount": 8,
     "warningCount": 0,
     "hintCount": 1,
@@ -50,16 +49,6 @@
         "penalty": {
           "amount": 0,
           "fraction": 2000
-        }
-      },
-      {
-        "code": "dartdoc.aborted",
-        "level": "error",
-        "title": "Running `dartdoc` failed.",
-        "description": "Make sure `dartdoc` runs without any issues.",
-        "penalty": {
-          "amount": 0,
-          "fraction": 1000
         }
       },
       {
