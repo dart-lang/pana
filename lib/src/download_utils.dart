@@ -85,21 +85,108 @@ String getRepositoryUrl(String repository, String relativePath) {
   return null;
 }
 
-Future<bool> isExistingUrl(String url, {int retry: 0}) async {
-  for (var i = 0; i <= retry; i++) {
-    try {
-      log.info('Checking URL $url...');
-      final rs = await http.head(url).timeout(const Duration(seconds: 10));
-      return rs.statusCode == 200;
-    } catch (e) {
-      log.info('Check of URL $url failed', e);
-    }
-  }
-  return false;
-}
-
 const _repoReplacePrefixes = const {
   'http://github.com': 'https://github.com',
   'https://www.github.com': 'https://github.com',
   'https://www.gitlab.com': 'https://gitlab.com',
 };
+
+enum UrlStatus {
+  invalid,
+  internal,
+  missing,
+  exists,
+}
+
+class UrlChecker {
+  final _internalHosts = new Set<Pattern>();
+  final _resolveCache = <String, bool>{};
+  final int _resolveCacheLimit;
+
+  UrlChecker({
+    int resolveCacheLimit: 1000,
+  }) : _resolveCacheLimit = resolveCacheLimit {
+    addInternalHosts([
+      'dartlang.org',
+      new RegExp(r'.*\.dartlang\.org'),
+      'example.com',
+      new RegExp(r'.*\.example.com'),
+      'localhost',
+    ]);
+  }
+
+  void addInternalHosts(Iterable<Pattern> hosts) {
+    _internalHosts.addAll(hosts);
+  }
+
+  /// Check the hostname against known patterns.
+  Future<bool> hasExternalHostname(Uri uri) async {
+    if (uri == null) {
+      return false;
+    }
+    return _internalHosts.every((p) => p.allMatches(uri.host).isEmpty);
+  }
+
+  /// Make sure that it is not an IP address.
+  Future<bool> hasResolvableAddress(Uri uri) async {
+    if (uri == null) {
+      return false;
+    }
+    if (_resolveCache.containsKey(uri.host)) {
+      return _resolveCache[uri.host];
+    }
+    try {
+      final list = await InternetAddress
+          .lookup(uri.host)
+          .timeout(const Duration(seconds: 15));
+      final result = list.every((a) => a.address != uri.host);
+
+      while (_resolveCache.length > _resolveCacheLimit) {
+        _resolveCache.remove(_resolveCache.keys.first);
+      }
+      _resolveCache[uri.host] = result;
+
+      return result;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// Issues a HTTP HEAD request.
+  Future<bool> urlExists(Uri uri) async {
+    if (uri == null) {
+      return false;
+    }
+    try {
+      log.info('Requesting HEAD $uri ...');
+      final rs = await http.head(uri).timeout(const Duration(seconds: 15));
+      return rs.statusCode >= 200 && rs.statusCode < 300;
+    } catch (e) {
+      log.info('HEAD $uri failed', e);
+    }
+    return false;
+  }
+
+  Future<UrlStatus> checkStatus(String url) async {
+    if (url == null) {
+      return UrlStatus.invalid;
+    }
+    final uri = Uri.tryParse(url);
+    if (uri == null) {
+      return UrlStatus.invalid;
+    }
+    if (uri.scheme != 'http' && uri.scheme != 'https') {
+      return UrlStatus.invalid;
+    }
+    final isExternal = await hasExternalHostname(uri);
+    if (!isExternal) {
+      return UrlStatus.internal;
+    }
+    final isResolvable = await hasResolvableAddress(uri);
+    if (!isResolvable) {
+      return UrlStatus.invalid;
+    }
+    final exists = await urlExists(uri);
+    return exists ? UrlStatus.exists : UrlStatus.missing;
+  }
+}

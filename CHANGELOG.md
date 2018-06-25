@@ -25,6 +25,8 @@
 
 * Do not check existence of non-external URLs.
 
+* API for external caching of URL existence checks.
+
 ## 0.11.4
 
 * Export libraries used by pub site.

@@ -4,11 +4,13 @@
 
 import 'dart:convert';
 
+import 'package:test/test.dart';
+import 'package:test_descriptor/test_descriptor.dart' as d;
+
+import 'package:pana/src/download_utils.dart';
 import 'package:pana/src/maintenance.dart';
 import 'package:pana/src/model.dart';
 import 'package:pana/src/pubspec.dart';
-import 'package:test/test.dart';
-import 'package:test_descriptor/test_descriptor.dart' as d;
 
 final _withIssuesJson = {
   "missingChangelog": true,
@@ -144,6 +146,7 @@ void main() {
         new Suggestion.hint('hintCode', 'hint', 'hint'),
       ];
       final maintenance = await detectMaintenance(
+        new UrlChecker(),
         d.sandbox,
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
         <CodeProblem>[
