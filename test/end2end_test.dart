@@ -42,7 +42,6 @@ void main() {
           version: version,
           options: new InspectOptions(
             verbosity: Verbosity.verbose,
-            dartdocOutputDir: '$rootPath/dartdoc',
           ),
         );
 
