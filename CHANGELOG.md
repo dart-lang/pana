@@ -2,6 +2,11 @@
 
 * Less verbose logging.
 
+* Updated platform classification:
+  * Library conflict rule is moved to the end of the evaluation.
+  * Top file-related suggestions are directly exposed.
+  * The bulk summary suggestion is more compact.
+
 ## 0.11.4
 
 * Export libraries used by pub site.
