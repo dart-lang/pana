@@ -55,16 +55,6 @@
     "hintCount": 38,
     "suggestions": [
       {
-        "code": "bulk",
-        "level": "hint",
-        "title": "Fix analysis and formatting issues.",
-        "description": "Analysis or formatting checks reported 38 hints.\n\nRun `dartfmt` to format `lib/browser_client.dart`.\n\nStrong-mode analysis of `lib/http.dart` gave the following hint:\n\nline: 112 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n\nSimilar analysis of the following files failed:\n\n- `lib/src/base_client.dart` (hint)\n- `lib/src/base_request.dart` (hint)\n- `lib/src/base_response.dart` (hint)\n- `lib/src/boundary_characters.dart` (hint)\n- `lib/src/byte_stream.dart` (hint)\n- `lib/src/client.dart` (hint)\n- `lib/src/io_client.dart` (hint)\n- `lib/src/mock_client.dart` (hint)\n- `lib/src/multipart_file.dart` (hint)\n- `lib/src/multipart_request.dart` (hint)\n- `lib/src/request.dart` (hint)\n- `lib/src/response.dart` (hint)\n- `lib/src/streamed_request.dart` (hint)\n- `lib/src/streamed_response.dart` (hint)\n- `lib/src/utils.dart` (hint)\n",
-        "penalty": {
-          "amount": 38,
-          "fraction": 0
-        }
-      },
-      {
         "code": "pubspec.description.tooShort",
         "level": "hint",
         "title": "The description is too short.",
@@ -95,10 +85,42 @@
         }
       },
       {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/browser_client.dart`.",
+        "description": "Run `dartfmt` to format `lib/browser_client.dart`.",
+        "file": "lib/browser_client.dart",
+        "penalty": {
+          "amount": 1,
+          "fraction": 0
+        }
+      },
+      {
+        "code": "dartanalyzer.warning",
+        "level": "hint",
+        "title": "Fix `lib/http.dart`.",
+        "description": "Strong-mode analysis of `lib/http.dart` gave the following hint:\n\nline: 112 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n",
+        "file": "lib/http.dart",
+        "penalty": {
+          "amount": 1,
+          "fraction": 0
+        }
+      },
+      {
         "code": "analysisOptions.renameRequired",
         "level": "hint",
         "title": "Use `analysis_options.yaml`.",
         "description": "Rename old `.analysis_options` file to `analysis_options.yaml`."
+      },
+      {
+        "code": "bulk",
+        "level": "hint",
+        "title": "Fix analysis and formatting issues.",
+        "description": "Additional issues in the following files (15 hints):\n\n- `lib/browser_client.dart` (hint)\n- `lib/http.dart` (hint)\n- `lib/src/base_client.dart` (hint)\n- `lib/src/base_request.dart` (hint)\n- `lib/src/base_response.dart` (hint)\n- `lib/src/boundary_characters.dart` (hint)\n- `lib/src/byte_stream.dart` (hint)\n- `lib/src/client.dart` (hint)\n- `lib/src/io_client.dart` (hint)\n- `lib/src/mock_client.dart` (hint)\n- `lib/src/multipart_file.dart` (hint)\n- `lib/src/multipart_request.dart` (hint)\n- `lib/src/request.dart` (hint)\n- `lib/src/response.dart` (hint)\n- `lib/src/streamed_request.dart` (hint)\n- `lib/src/streamed_response.dart` (hint)\n- `lib/src/utils.dart` (hint)\n",
+        "penalty": {
+          "amount": 38,
+          "fraction": 0
+        }
       }
     ]
   },

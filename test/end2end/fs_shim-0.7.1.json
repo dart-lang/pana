@@ -77,6 +77,28 @@
     "hintCount": 28,
     "suggestions": [
       {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/src/idb/idb_file_system.dart`.",
+        "description": "Strong-mode analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 303 col: 49  \nThe argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n",
+        "file": "lib/src/idb/idb_file_system.dart",
+        "penalty": {
+          "amount": 1,
+          "fraction": 2000
+        }
+      },
+      {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/src/idb/idb_file_system_storage.dart`.",
+        "description": "Strong-mode analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 101 col: 41  \nThe function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected.\n",
+        "file": "lib/src/idb/idb_file_system_storage.dart",
+        "penalty": {
+          "amount": 1,
+          "fraction": 2000
+        }
+      },
+      {
         "code": "pubspec.dependencies.unconstrained",
         "level": "warning",
         "title": "Use constrained dependencies.",
@@ -90,7 +112,7 @@
         "code": "bulk",
         "level": "warning",
         "title": "Fix analysis and formatting issues.",
-        "description": "Analysis or formatting checks reported 11 errors 28 hints.\n\nStrong-mode analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 303 col: 49  \nThe argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n\nStrong-mode analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 101 col: 41  \nThe function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected.\n\nSimilar analysis of the following files failed:\n\n- `lib/src/io/io_directory.dart` (error)\n- `lib/src/io/io_file_system.dart` (error)\n- `lib/src/io/io_file_system_entity.dart` (error)\n- `lib/src/io/io_link.dart` (error)\n- `lib/fs.dart` (hint)\n- `lib/src/common/fs_mixin.dart` (hint)\n- `lib/src/idb/idb_file.dart` (hint)\n- `lib/src/io/io_file.dart` (hint)\n- `lib/src/io/io_fs.dart` (hint)\n- `lib/utils/copy.dart` (hint)\n- `lib/utils/io/entity.dart` (hint)\n- `lib/utils/src/utils_impl.dart` (hint)\n",
+        "description": "Additional issues in the following files (4 errors, 8 hints):\n\n- `lib/src/idb/idb_file_system.dart` (error)\n- `lib/src/idb/idb_file_system_storage.dart` (error)\n- `lib/src/io/io_directory.dart` (error)\n- `lib/src/io/io_file_system.dart` (error)\n- `lib/src/io/io_file_system_entity.dart` (error)\n- `lib/src/io/io_link.dart` (error)\n- `lib/fs.dart` (hint)\n- `lib/src/common/fs_mixin.dart` (hint)\n- `lib/src/idb/idb_file.dart` (hint)\n- `lib/src/io/io_file.dart` (hint)\n- `lib/src/io/io_fs.dart` (hint)\n- `lib/utils/copy.dart` (hint)\n- `lib/utils/io/entity.dart` (hint)\n- `lib/utils/src/utils_impl.dart` (hint)\n",
         "penalty": {
           "amount": 578,
           "fraction": 0

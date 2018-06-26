@@ -238,6 +238,15 @@ class Suggestion extends Object
     if (other.isError && !isError) return 1;
     if (isWarning && !other.isError && !other.isWarning) return -1;
     if (other.isWarning && !isError && !isWarning) return 1;
+
+    // special case: `bulk` should go to the end of its level
+    if (code == SuggestionCode.bulk && other.code != SuggestionCode.bulk) {
+      return 1;
+    }
+    if (code != SuggestionCode.bulk && other.code == SuggestionCode.bulk) {
+      return -1;
+    }
+
     if (penalty != null && other.penalty == null) return -1;
     if (penalty == null && other.penalty != null) return 1;
     if (penalty != null && other.penalty != null) {

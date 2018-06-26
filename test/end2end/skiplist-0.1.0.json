@@ -42,6 +42,17 @@
     "hintCount": 1,
     "suggestions": [
       {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/skiplist.dart`.",
+        "description": "Strong-mode analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 116 col: 3  \nInvalid override. The type of 'SkipList.remove' ('(K) → V') isn't a subtype of 'Map<K, V>.remove' ('(Object) → V').\n",
+        "file": "lib/skiplist.dart",
+        "penalty": {
+          "amount": 1,
+          "fraction": 2000
+        }
+      },
+      {
         "code": "platform.conflict.inPkg",
         "level": "error",
         "title": "Fix platform conflicts.",
@@ -49,16 +60,6 @@
         "penalty": {
           "amount": 0,
           "fraction": 2000
-        }
-      },
-      {
-        "code": "bulk",
-        "level": "warning",
-        "title": "Fix analysis and formatting issues.",
-        "description": "Analysis or formatting checks reported 8 errors 1 hint.\n\nStrong-mode analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 116 col: 3  \nInvalid override. The type of 'SkipList.remove' ('(K) → V') isn't a subtype of 'Map<K, V>.remove' ('(Object) → V').\n\n",
-        "penalty": {
-          "amount": 401,
-          "fraction": 0
         }
       },
       {

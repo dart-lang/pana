@@ -65,16 +65,6 @@
         }
       },
       {
-        "code": "bulk",
-        "level": "hint",
-        "title": "Fix analysis and formatting issues.",
-        "description": "Analysis or formatting checks reported 16 hints.\n\nRun `dartfmt` to format `lib/plugin.dart`.\n\nRun `dartfmt` to format `lib/rspc.dart`.\n\nSimilar analysis of the following files failed:\n\n- `lib/src/connect.dart` (hint)\n- `lib/src/connect_impl.dart` (hint)\n- `lib/src/plugin/configurer.dart` (hint)\n- `lib/src/plugin/loader.dart` (hint)\n- `lib/src/plugin/router.dart` (hint)\n- `lib/src/rsp_util.dart` (hint)\n- `lib/src/rspc/build.dart` (hint)\n- `lib/src/rspc/compiler.dart` (hint)\n- `lib/src/rspc/main.dart` (hint)\n- `lib/src/rspc/tag.dart` (hint)\n- `lib/src/rspc/tag_util.dart` (hint)\n- `lib/src/server.dart` (hint)\n- `lib/src/server_impl.dart` (hint)\n- `lib/stream.dart` (hint)\n",
-        "penalty": {
-          "amount": 16,
-          "fraction": 0
-        }
-      },
-      {
         "code": "packageVersion.preV1",
         "level": "hint",
         "title": "Package is pre-v1 release.",
@@ -85,12 +75,44 @@
         }
       },
       {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/plugin.dart`.",
+        "description": "Run `dartfmt` to format `lib/plugin.dart`.",
+        "file": "lib/plugin.dart",
+        "penalty": {
+          "amount": 1,
+          "fraction": 0
+        }
+      },
+      {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/rspc.dart`.",
+        "description": "Run `dartfmt` to format `lib/rspc.dart`.",
+        "file": "lib/rspc.dart",
+        "penalty": {
+          "amount": 1,
+          "fraction": 0
+        }
+      },
+      {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
         "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`.",
         "penalty": {
           "amount": 1,
+          "fraction": 0
+        }
+      },
+      {
+        "code": "bulk",
+        "level": "hint",
+        "title": "Fix analysis and formatting issues.",
+        "description": "Additional issues in the following files (14 hints):\n\n- `lib/plugin.dart` (hint)\n- `lib/rspc.dart` (hint)\n- `lib/src/connect.dart` (hint)\n- `lib/src/connect_impl.dart` (hint)\n- `lib/src/plugin/configurer.dart` (hint)\n- `lib/src/plugin/loader.dart` (hint)\n- `lib/src/plugin/router.dart` (hint)\n- `lib/src/rsp_util.dart` (hint)\n- `lib/src/rspc/build.dart` (hint)\n- `lib/src/rspc/compiler.dart` (hint)\n- `lib/src/rspc/main.dart` (hint)\n- `lib/src/rspc/tag.dart` (hint)\n- `lib/src/rspc/tag_util.dart` (hint)\n- `lib/src/server.dart` (hint)\n- `lib/src/server_impl.dart` (hint)\n- `lib/stream.dart` (hint)\n",
+        "penalty": {
+          "amount": 16,
           "fraction": 0
         }
       }
