@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
     "panaVersion": "0.11.5-dev",
-    "sdkVersion": "2.0.0-dev.63.0"
+    "sdkVersion": "2.0.0-dev.65.0"
   },
   "packageName": "fs_shim",
   "packageVersion": "0.7.1",
@@ -188,8 +188,7 @@
         "package": "sembast",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.8.0",
-        "available": "1.9.0-dev.1"
+        "resolved": "1.9.0"
       },
       {
         "package": "synchronized",
