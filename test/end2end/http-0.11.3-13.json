@@ -68,7 +68,7 @@
         "code": "packageVersion.preV1",
         "level": "hint",
         "title": "Package is pre-v1 release.",
-        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.",
+        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
         "penalty": {
           "amount": 10,
           "fraction": 0
@@ -115,10 +115,10 @@
       {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix analysis and formatting issues.",
+        "title": "Fix additional 15 files with analysis or formatting issues.",
         "description": "Additional issues in the following files (15 hints):\n\n- `lib/browser_client.dart` (hint)\n- `lib/http.dart` (hint)\n- `lib/src/base_client.dart` (hint)\n- `lib/src/base_request.dart` (hint)\n- `lib/src/base_response.dart` (hint)\n- `lib/src/boundary_characters.dart` (hint)\n- `lib/src/byte_stream.dart` (hint)\n- `lib/src/client.dart` (hint)\n- `lib/src/io_client.dart` (hint)\n- `lib/src/mock_client.dart` (hint)\n- `lib/src/multipart_file.dart` (hint)\n- `lib/src/multipart_request.dart` (hint)\n- `lib/src/request.dart` (hint)\n- `lib/src/response.dart` (hint)\n- `lib/src/streamed_request.dart` (hint)\n- `lib/src/streamed_response.dart` (hint)\n- `lib/src/utils.dart` (hint)\n",
         "penalty": {
-          "amount": 38,
+          "amount": 15,
           "fraction": 0
         }
       }

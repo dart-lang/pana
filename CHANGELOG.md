@@ -7,6 +7,8 @@
   * Top file-related suggestions are directly exposed.
   * The bulk summary suggestion is more compact.
 
+* Updated suggestion messages.
+
 ## 0.11.4
 
 * Export libraries used by pub site.

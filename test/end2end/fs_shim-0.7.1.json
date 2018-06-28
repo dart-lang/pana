@@ -111,10 +111,10 @@
       {
         "code": "bulk",
         "level": "warning",
-        "title": "Fix analysis and formatting issues.",
+        "title": "Fix additional 12 files with analysis or formatting issues.",
         "description": "Additional issues in the following files (4 errors, 8 hints):\n\n- `lib/src/idb/idb_file_system.dart` (error)\n- `lib/src/idb/idb_file_system_storage.dart` (error)\n- `lib/src/io/io_directory.dart` (error)\n- `lib/src/io/io_file_system.dart` (error)\n- `lib/src/io/io_file_system_entity.dart` (error)\n- `lib/src/io/io_link.dart` (error)\n- `lib/fs.dart` (hint)\n- `lib/src/common/fs_mixin.dart` (hint)\n- `lib/src/idb/idb_file.dart` (hint)\n- `lib/src/io/io_file.dart` (hint)\n- `lib/src/io/io_fs.dart` (hint)\n- `lib/utils/copy.dart` (hint)\n- `lib/utils/io/entity.dart` (hint)\n- `lib/utils/src/utils_impl.dart` (hint)\n",
         "penalty": {
-          "amount": 578,
+          "amount": 208,
           "fraction": 0
         }
       },
@@ -122,7 +122,7 @@
         "code": "packageVersion.preV1",
         "level": "hint",
         "title": "Package is pre-v1 release.",
-        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction API.",
+        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
         "penalty": {
           "amount": 10,
           "fraction": 0
