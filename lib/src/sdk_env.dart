@@ -166,8 +166,7 @@ class ToolEnvironment {
         return const [];
       }
 
-      final lines = LineSplitter
-          .split(result.stdout as String)
+      final lines = LineSplitter.split(result.stdout as String)
           .map((file) => p.join(dir, file))
           .toList();
       if (result.exitCode == 1) {

@@ -23,8 +23,7 @@ PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
   var pkgVersions = <String, Version>{};
   var availVersions = <String, Version>{};
 
-  var entries = PubEntry
-      .parse(procStdout)
+  var entries = PubEntry.parse(procStdout)
       .where((entry) => entry.header == 'MSG')
       .where((entry) =>
           entry.content.every((line) => _solvePkgLine.hasMatch(line)))
