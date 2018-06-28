@@ -39,6 +39,12 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 1000},
     },
     {
+      'code': 'errorCode',
+      'level': 'error',
+      'title': 'error',
+      'description': 'error'
+    },
+    {
       'code': 'changelog.missing',
       'level': 'warning',
       'title': 'Maintain `CHANGELOG.md`.',
@@ -77,14 +83,6 @@ final _withIssuesJson = {
       'description':
           'Readme should inform others about your project, what it does, and how they can use it.',
       'penalty': {'amount': 0, 'fraction': 500}
-    },
-    {
-      'code': 'bulk',
-      'level': 'warning',
-      'title': 'Fix analysis and formatting issues.',
-      'description':
-          'Analysis or formatting checks reported 1 error 1 warning 1 hint.\n\nerror\n\n',
-      'penalty': {'amount': 61, 'fraction': 0},
     },
     {
       'code': 'packageVersion.preRelease',
@@ -152,7 +150,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(getMaintenanceScore(_withIssues), closeTo(0.428, 0.001));
+      expect(getMaintenanceScore(_withIssues), closeTo(0.434, 0.001));
     });
 
     test('perfect', () {

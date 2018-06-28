@@ -207,14 +207,6 @@ DartPlatform classifyPkgPlatform(
     return '`$s` (components: $components)';
   }
 
-  final conflicts =
-      libraries.keys.where((key) => libraries[key].hasConflict).toList();
-  if (conflicts.isNotEmpty) {
-    conflicts.sort();
-    final sample = buildSample(conflicts.map(formatConflictSample));
-    return new DartPlatform.conflict('Conflicting libraries: $sample.');
-  }
-
   final allComponentsSet = new Set<String>();
   libraries.values
       .map((p) => p.components)
@@ -264,12 +256,19 @@ DartPlatform classifyPkgPlatform(
   if (allComponentsSet.isEmpty) {
     return new DartPlatform.everywhere(
         'No platform restriction found in libraries.');
-  } else {
-    final componentsFound =
-        allComponentNames.map((name) => '`$name`').join(', ');
-    return new DartPlatform.fromComponents(allComponentNames,
-        reason: 'Platform components identified in package: $componentsFound.');
   }
+
+  final conflicts =
+      libraries.keys.where((key) => libraries[key].hasConflict).toList();
+  if (conflicts.isNotEmpty) {
+    conflicts.sort();
+    final sample = buildSample(conflicts.map(formatConflictSample));
+    return new DartPlatform.conflict('Conflicting libraries: $sample.');
+  }
+
+  final componentsFound = allComponentNames.map((name) => '`$name`').join(', ');
+  return new DartPlatform.fromComponents(allComponentNames,
+      reason: 'Platform components identified in package: $componentsFound.');
 }
 
 String _selectPrimaryLibrary(Pubspec pubspec, Set<String> libraryUris) {

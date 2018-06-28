@@ -318,56 +318,63 @@ Future<Maintenance> detectMaintenance(
   final warningCount = dartFileSuggestions.where((s) => s.isWarning).length;
   final hintCount = dartFileSuggestions.where((s) => s.isHint).length;
 
-  if (dartFileSuggestions.isNotEmpty) {
-    final sb = new StringBuffer();
-    sb.write('Analysis or formatting checks reported');
-    void reportIssues(int count, String name) {
-      if (count == 1) {
-        sb.write(' $count $name');
-      } else if (count > 1) {
-        sb.write(' $count ${name}s');
-      }
-    }
+  final reportedFiles = new Set();
+  final onePerFileSuggestions = dartFileSuggestions
+      .where((s) => reportedFiles.add(s.file))
+      .toList()
+        ..sort();
 
-    reportIssues(errorCount, 'error');
-    reportIssues(warningCount, 'warning');
-    reportIssues(hintCount, 'hint');
-    sb.write('.\n\n');
-
-    final reportedFiles = new Set();
-    final onePerFileSuggestions = dartFileSuggestions
-        .where((s) => reportedFiles.add(s.file))
-        .toList()
-          ..sort();
+  if (onePerFileSuggestions.length < 5) {
+    maintenanceSuggestions.addAll(onePerFileSuggestions);
+  } else {
     final topSuggestions = onePerFileSuggestions.take(2).toList();
     final restSuggestions = onePerFileSuggestions.skip(2).toList();
+    maintenanceSuggestions.addAll(topSuggestions);
 
-    for (var suggestion in topSuggestions) {
-      sb.write('${suggestion.description.trim()}\n\n');
-    }
     if (restSuggestions.isNotEmpty) {
-      sb.write('Similar analysis of the following files failed:\n\n');
-      final items =
-          restSuggestions.map((s) => '- `${s.file}` (${s.level})\n').join();
-      sb.write(items);
-    }
+      String pluralize(int count, String name) {
+        if (count <= 0) {
+          return null;
+        } else if (count == 1) {
+          return '$count $name';
+        } else {
+          return '$count ${name}s';
+        }
+      }
 
-    final level = (errorCount > 0 || warningCount > 0)
-        ? SuggestionLevel.warning
-        : SuggestionLevel.hint;
-    maintenanceSuggestions.add(
-      new Suggestion(
-        SuggestionCode.bulk,
-        level,
-        'Fix analysis and formatting issues.',
-        sb.toString(),
-        // These are already reflected in the fitness score, but we'll also
-        // penalize them here (with a much smaller amount), reflecting the need
-        // of work.
-        penalty: new Penalty(
-            amount: errorCount * 50 + warningCount * 10 + hintCount),
-      ),
-    );
+      final reportParts = <String>[
+        pluralize(restSuggestions.where((s) => s.isError).length, 'error'),
+        pluralize(restSuggestions.where((s) => s.isWarning).length, 'warning'),
+        pluralize(restSuggestions.where((s) => s.isHint).length, 'hint'),
+      ];
+      reportParts.removeWhere((s) => s == null);
+
+      final sb = new StringBuffer();
+      sb.write(
+          'Additional issues in the following files (${reportParts.join(', ')}):\n\n');
+
+      final items = onePerFileSuggestions
+          .map((s) => '- `${s.file}` (${s.level})\n')
+          .join();
+      sb.write(items);
+
+      final level = (errorCount > 0 || warningCount > 0)
+          ? SuggestionLevel.warning
+          : SuggestionLevel.hint;
+      maintenanceSuggestions.add(
+        new Suggestion(
+          SuggestionCode.bulk,
+          level,
+          'Fix analysis and formatting issues.',
+          sb.toString(),
+          // These are already reflected in the fitness score, but we'll also
+          // penalize them here (with a much smaller amount), reflecting the need
+          // of work.
+          penalty: new Penalty(
+              amount: errorCount * 50 + warningCount * 10 + hintCount),
+        ),
+      );
+    }
   }
 
   if (unconstrainedDeps != null && unconstrainedDeps.isNotEmpty) {

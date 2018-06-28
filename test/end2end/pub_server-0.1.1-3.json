@@ -70,12 +70,13 @@
         }
       },
       {
-        "code": "bulk",
+        "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix analysis and formatting issues.",
-        "description": "Analysis or formatting checks reported 7 hints.\n\nStrong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n\n",
+        "title": "Fix `lib/shelf_pubserver.dart`.",
+        "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n",
+        "file": "lib/shelf_pubserver.dart",
         "penalty": {
-          "amount": 7,
+          "amount": 1,
           "fraction": 0
         }
       },
