@@ -136,8 +136,7 @@ class UrlChecker {
       return _resolveCache[uri.host];
     }
     try {
-      final list = await InternetAddress
-          .lookup(uri.host)
+      final list = await InternetAddress.lookup(uri.host)
           .timeout(const Duration(seconds: 15));
       final result = list.every((a) => a.address != uri.host);
 
