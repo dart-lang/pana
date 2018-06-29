@@ -103,8 +103,7 @@ ProcessResult handleProcessErrors(ProcessResult result) {
   if (result.exitCode != 0) {
     if (result.exitCode == 69) {
       // could be a pub error. Let's try to parse!
-      var lines = LineSplitter
-          .split(result.stderr as String)
+      var lines = LineSplitter.split(result.stderr as String)
           .where((l) => l.startsWith("ERR "))
           .join('\n');
       if (lines.isNotEmpty) {
@@ -245,5 +244,5 @@ Future<List<String>> listFocusDirs(String packageDir) async {
 /// terminates the program immediately.
 Stream<ProcessSignal> getSignals() => Platform.isWindows
     ? ProcessSignal.sigint.watch()
-    : StreamGroup
-        .merge([ProcessSignal.sigterm.watch(), ProcessSignal.sigint.watch()]);
+    : StreamGroup.merge(
+        [ProcessSignal.sigterm.watch(), ProcessSignal.sigint.watch()]);

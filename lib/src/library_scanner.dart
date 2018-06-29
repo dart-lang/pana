@@ -163,12 +163,11 @@ class LibraryScanner {
     var uri = Uri.parse(libUri);
     var package = uri.pathSegments.first;
 
-    var source = _session.sourceFactory.forUri2(uri);
-    if (source == null) {
+    final fullPath = _session.uriConverter.uriToPath(uri);
+    if (fullPath == null) {
       throw new Exception('Could not resolve package URI for $uri');
     }
 
-    var fullPath = source.fullName;
     var relativePath = p.join('lib', libUri.substring(libUri.indexOf('/') + 1));
     if (fullPath.endsWith('/$relativePath')) {
       var packageDir =

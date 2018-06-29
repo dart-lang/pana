@@ -163,8 +163,7 @@ class PackageAnalyzer {
     } else {
       String message;
       if (upgrade.exitCode > 0) {
-        message = PubEntry
-            .parse(upgrade.stderr as String)
+        message = PubEntry.parse(upgrade.stderr as String)
             .where((e) => e.header == 'ERR')
             .join('\n');
       } else {
@@ -381,8 +380,7 @@ class PackageAnalyzer {
     }
     final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter);
     try {
-      return new SplayTreeSet.from(LineSplitter
-          .split(output)
+      return new SplayTreeSet.from(LineSplitter.split(output)
           .map((s) => parseCodeProblem(s, projectDir: pkgPath))
           .where((e) => e != null));
     } on ArgumentError {

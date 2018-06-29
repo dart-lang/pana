@@ -175,8 +175,7 @@ main(List<String> args) async {
 void _logWriter(log.LogRecord record) {
   var wroteHeader = false;
 
-  var msg = LineSplitter
-      .split([record.message, record.error, record.stackTrace]
+  var msg = LineSplitter.split([record.message, record.error, record.stackTrace]
           .where((e) => e != null)
           .join('\n'))
       .map((l) {
