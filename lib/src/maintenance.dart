@@ -258,7 +258,7 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(new Suggestion.hint(
         SuggestionCode.analysisOptionsWeakMode,
         'Enable strong mode analysis.',
-        'Strong mode helps you to detect bugs and potential issues earlier.'
+        'Strong mode helps detect bugs and potential issues earlier. '
         'Start your `analysis_options.yaml` file with the following:\n\n'
         '```\nanalyzer:\n  strong-mode: true\n```\n'));
   }
@@ -274,7 +274,7 @@ Future<Maintenance> detectMaintenance(
         'Package is pre-v1 release.',
         'While there is nothing inherently wrong with versions of `0.*.*`, it '
         'usually means that the author is still experimenting with the general '
-        'direction API.',
+        'direction of the API.',
         penalty: new Penalty(amount: 10)));
   }
 
@@ -342,10 +342,13 @@ Future<Maintenance> detectMaintenance(
         }
       }
 
+      final bulkErrorCount = restSuggestions.where((s) => s.isError).length;
+      final bulkWarningCount = restSuggestions.where((s) => s.isWarning).length;
+      final bulkHintCount = restSuggestions.where((s) => s.isHint).length;
       final reportParts = <String>[
-        pluralize(restSuggestions.where((s) => s.isError).length, 'error'),
-        pluralize(restSuggestions.where((s) => s.isWarning).length, 'warning'),
-        pluralize(restSuggestions.where((s) => s.isHint).length, 'hint'),
+        pluralize(bulkErrorCount, 'error'),
+        pluralize(bulkWarningCount, 'warning'),
+        pluralize(bulkHintCount, 'hint'),
       ];
       reportParts.removeWhere((s) => s == null);
 
@@ -358,20 +361,21 @@ Future<Maintenance> detectMaintenance(
           .join();
       sb.write(items);
 
-      final level = (errorCount > 0 || warningCount > 0)
+      final level = (bulkErrorCount > 0 || bulkWarningCount > 0)
           ? SuggestionLevel.warning
           : SuggestionLevel.hint;
       maintenanceSuggestions.add(
         new Suggestion(
           SuggestionCode.bulk,
           level,
-          'Fix analysis and formatting issues.',
+          'Fix additional ${restSuggestions.length} files with analysis or formatting issues.',
           sb.toString(),
           // These are already reflected in the fitness score, but we'll also
           // penalize them here (with a much smaller amount), reflecting the need
           // of work.
           penalty: new Penalty(
-              amount: errorCount * 50 + warningCount * 10 + hintCount),
+              amount:
+                  bulkErrorCount * 50 + bulkWarningCount * 10 + bulkHintCount),
         ),
       );
     }
