@@ -58,6 +58,18 @@ void main() {
           fail('Set `_regenerateGoldens` to `false` to run tests.');
         }
 
+        void removeDependencyDetails(Map map) {
+          if (map.containsKey('pkgResolution') &&
+              (map['pkgResolution'] as Map).containsKey('dependencies')) {
+            final deps = (map['pkgResolution']['dependencies'] as List)
+                .cast<Map<dynamic, dynamic>>();
+            deps?.forEach((Map m) {
+              m.remove('resolved');
+              m.remove('available');
+            });
+          }
+        }
+
         final Map content = json.decode(file.readAsStringSync());
         content['runtimeInfo']['panaVersion'] =
             matches(panaPkgVersion.toString());
@@ -65,21 +77,10 @@ void main() {
         // TODO: allow future versions and remove this override
         content['runtimeInfo']['sdkVersion'] = isSemVer;
 
-        if (content.containsKey('pkgResolution') &&
-            (content['pkgResolution'] as Map).containsKey('dependencies')) {
-          final deps = (content['pkgResolution']['dependencies'] as List)
-              .cast<Map<dynamic, dynamic>>();
-          deps?.forEach((Map map) {
-            // TODO: allow future versions and remove this override
-            if (map.containsKey('resolved')) {
-              map['resolved'] = isNotNull;
-            }
-            // TODO: allow future versions and remove this override
-            if (map.containsKey('available')) {
-              map['available'] = isNotNull;
-            }
-          });
-        }
+        // Reduce the time-invariability of the tests: resolved and available
+        // versions may change over time or because of SDK version changes.
+        removeDependencyDetails(actualMap);
+        removeDependencyDetails(content);
 
         if (content.containsKey('suggestions')) {
           final suggestions =
