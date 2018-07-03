@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
     "panaVersion": "0.11.5-dev",
-    "sdkVersion": "2.0.0-dev.65.0"
+    "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "fs_shim",
   "packageVersion": "0.7.1",
@@ -180,7 +180,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.0",
-        "resolved": "1.5.0"
+        "resolved": "1.5.0",
+        "available": "1.6.0-dev.1"
       },
       {
         "package": "js",
