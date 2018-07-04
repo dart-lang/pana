@@ -73,7 +73,7 @@
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/shelf_pubserver.dart`.",
-        "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n",
+        "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n",
         "file": "lib/shelf_pubserver.dart",
         "penalty": {
           "amount": 1,
@@ -551,7 +551,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n",
           "file": "lib/shelf_pubserver.dart",
           "penalty": {
             "amount": 1,
@@ -562,7 +562,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 42  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 42  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/shelf_pubserver.dart",
           "penalty": {
             "amount": 1,
@@ -573,7 +573,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 455 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 455 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
           "file": "lib/shelf_pubserver.dart",
           "penalty": {
             "amount": 1,
@@ -584,7 +584,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 463 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 463 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
           "file": "lib/shelf_pubserver.dart",
           "penalty": {
             "amount": 1,
@@ -595,7 +595,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 471 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 471 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
           "file": "lib/shelf_pubserver.dart",
           "penalty": {
             "amount": 1,
@@ -606,7 +606,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Strong-mode analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 488 col: 17  \n'JSON' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 488 col: 17  \n'JSON' is deprecated and shouldn't be used.\n",
           "file": "lib/shelf_pubserver.dart",
           "penalty": {
             "amount": 1,

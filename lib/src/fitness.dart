@@ -89,8 +89,7 @@ Future<FitnessResult> calcFitness(
   }
 
   String suggestionDescription(CodeProblem cp, String local) {
-    // TODO: after Dart 2.0, use the phrase: "Analysis of ..."
-    return 'Strong-mode analysis of `$dartFile` $local:\n\n'
+    return 'Analysis of `$dartFile` $local:\n\n'
         'line: ${cp.line} col: ${cp.col}  \n'
         '${cp.description}\n';
   }

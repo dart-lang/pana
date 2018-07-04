@@ -80,7 +80,7 @@
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/idb/idb_file_system.dart`.",
-        "description": "Strong-mode analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 303 col: 49  \nThe argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n",
+        "description": "Analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 303 col: 49  \nThe argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n",
         "file": "lib/src/idb/idb_file_system.dart",
         "penalty": {
           "amount": 1,
@@ -91,7 +91,7 @@
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/idb/idb_file_system_storage.dart`.",
-        "description": "Strong-mode analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 101 col: 41  \nThe function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected.\n",
+        "description": "Analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 101 col: 41  \nThe function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected.\n",
         "file": "lib/src/idb/idb_file_system_storage.dart",
         "penalty": {
           "amount": 1,
@@ -180,7 +180,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.0",
-        "resolved": "1.5.0"
+        "resolved": "1.5.0",
+        "available": "1.6.0-dev.1"
       },
       {
         "package": "js",
@@ -301,7 +302,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/fs.dart`.",
-          "description": "Strong-mode analysis of `lib/fs.dart` gave the following hint:\n\nline: 179 col: 58  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/fs.dart` gave the following hint:\n\nline: 179 col: 58  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/fs.dart",
           "penalty": {
             "amount": 1,
@@ -312,7 +313,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/fs.dart`.",
-          "description": "Strong-mode analysis of `lib/fs.dart` gave the following hint:\n\nline: 229 col: 26  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/fs.dart` gave the following hint:\n\nline: 229 col: 26  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/fs.dart",
           "penalty": {
             "amount": 1,
@@ -323,7 +324,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/fs.dart`.",
-          "description": "Strong-mode analysis of `lib/fs.dart` gave the following hint:\n\nline: 246 col: 51  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/fs.dart` gave the following hint:\n\nline: 246 col: 51  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/fs.dart",
           "penalty": {
             "amount": 1,
@@ -605,7 +606,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/common/fs_mixin.dart`.",
-          "description": "Strong-mode analysis of `lib/src/common/fs_mixin.dart` gave the following hint:\n\nline: 34 col: 58  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/common/fs_mixin.dart` gave the following hint:\n\nline: 34 col: 58  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/src/common/fs_mixin.dart",
           "penalty": {
             "amount": 1,
@@ -616,7 +617,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/common/fs_mixin.dart`.",
-          "description": "Strong-mode analysis of `lib/src/common/fs_mixin.dart` gave the following hint:\n\nline: 50 col: 30  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/common/fs_mixin.dart` gave the following hint:\n\nline: 50 col: 30  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/src/common/fs_mixin.dart",
           "penalty": {
             "amount": 1,
@@ -627,7 +628,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/common/fs_mixin.dart`.",
-          "description": "Strong-mode analysis of `lib/src/common/fs_mixin.dart` gave the following hint:\n\nline: 74 col: 51  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/common/fs_mixin.dart` gave the following hint:\n\nline: 74 col: 51  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/src/common/fs_mixin.dart",
           "penalty": {
             "amount": 1,
@@ -709,7 +710,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/idb/idb_file.dart`.",
-          "description": "Strong-mode analysis of `lib/src/idb/idb_file.dart` gave the following hint:\n\nline: 20 col: 68  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/idb/idb_file.dart` gave the following hint:\n\nline: 20 col: 68  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/src/idb/idb_file.dart",
           "penalty": {
             "amount": 1,
@@ -720,7 +721,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/idb/idb_file.dart`.",
-          "description": "Strong-mode analysis of `lib/src/idb/idb_file.dart` gave the following hint:\n\nline: 48 col: 30  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/idb/idb_file.dart` gave the following hint:\n\nline: 48 col: 30  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/src/idb/idb_file.dart",
           "penalty": {
             "amount": 1,
@@ -781,7 +782,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/idb/idb_file_system.dart`.",
-          "description": "Strong-mode analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 303 col: 49  \nThe argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n",
+          "description": "Analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 303 col: 49  \nThe argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n",
           "file": "lib/src/idb/idb_file_system.dart",
           "penalty": {
             "amount": 1,
@@ -792,7 +793,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/idb/idb_file_system.dart`.",
-          "description": "Strong-mode analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 571 col: 54  \nThe argument type '(int) → Null' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'.\n",
+          "description": "Analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 571 col: 54  \nThe argument type '(int) → Null' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'.\n",
           "file": "lib/src/idb/idb_file_system.dart",
           "penalty": {
             "amount": 1,
@@ -803,7 +804,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/idb/idb_file_system.dart`.",
-          "description": "Strong-mode analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 710 col: 45  \nThe function expression type '(int) → dynamic' isn't of type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).\n",
+          "description": "Analysis of `lib/src/idb/idb_file_system.dart` failed with the following error:\n\nline: 710 col: 45  \nThe function expression type '(int) → dynamic' isn't of type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).\n",
           "file": "lib/src/idb/idb_file_system.dart",
           "penalty": {
             "amount": 1,
@@ -874,7 +875,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/idb/idb_file_system_storage.dart`.",
-          "description": "Strong-mode analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 101 col: 41  \nThe function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected.\n",
+          "description": "Analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 101 col: 41  \nThe function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected.\n",
           "file": "lib/src/idb/idb_file_system_storage.dart",
           "penalty": {
             "amount": 1,
@@ -885,7 +886,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/idb/idb_file_system_storage.dart`.",
-          "description": "Strong-mode analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 104 col: 42  \nThe argument type '(int) → Future<dynamic>' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'.\n",
+          "description": "Analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 104 col: 42  \nThe argument type '(int) → Future<dynamic>' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'.\n",
           "file": "lib/src/idb/idb_file_system_storage.dart",
           "penalty": {
             "amount": 1,
@@ -896,7 +897,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/idb/idb_file_system_storage.dart`.",
-          "description": "Strong-mode analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 246 col: 43  \nThe argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n",
+          "description": "Analysis of `lib/src/idb/idb_file_system_storage.dart` failed with the following error:\n\nline: 246 col: 43  \nThe argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n",
           "file": "lib/src/idb/idb_file_system_storage.dart",
           "penalty": {
             "amount": 1,
@@ -958,7 +959,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/io/io_directory.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_directory.dart` failed with the following error:\n\nline: 39 col: 55  \nThe argument type '(Directory) → DirectoryImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<DirectoryImpl>'.\n",
+          "description": "Analysis of `lib/src/io/io_directory.dart` failed with the following error:\n\nline: 39 col: 55  \nThe argument type '(Directory) → DirectoryImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<DirectoryImpl>'.\n",
           "file": "lib/src/io/io_directory.dart",
           "penalty": {
             "amount": 1,
@@ -969,7 +970,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/io/io_directory.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_directory.dart` failed with the following error:\n\nline: 43 col: 13  \nThe argument type '(FileSystemEntity) → DirectoryImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<DirectoryImpl>'.\n",
+          "description": "Analysis of `lib/src/io/io_directory.dart` failed with the following error:\n\nline: 43 col: 13  \nThe argument type '(FileSystemEntity) → DirectoryImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<DirectoryImpl>'.\n",
           "file": "lib/src/io/io_directory.dart",
           "penalty": {
             "amount": 1,
@@ -1020,7 +1021,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_file.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_file.dart` gave the following hint:\n\nline: 35 col: 64  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_file.dart` gave the following hint:\n\nline: 35 col: 64  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_file.dart",
           "penalty": {
             "amount": 1,
@@ -1031,7 +1032,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_file.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_file.dart` gave the following hint:\n\nline: 70 col: 30  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_file.dart` gave the following hint:\n\nline: 70 col: 30  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_file.dart",
           "penalty": {
             "amount": 1,
@@ -1042,7 +1043,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_file.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_file.dart` gave the following hint:\n\nline: 81 col: 51  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_file.dart` gave the following hint:\n\nline: 81 col: 51  \n'UTF8' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_file.dart",
           "penalty": {
             "amount": 1,
@@ -1085,7 +1086,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/io/io_file_system.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_file_system.dart` failed with the following error:\n\nline: 19 col: 11  \nThe argument type '(FileSystemEntityType) → FileSystemEntityType' can't be assigned to the parameter type '(dynamic) → FutureOr<FileSystemEntityType>'.\n",
+          "description": "Analysis of `lib/src/io/io_file_system.dart` failed with the following error:\n\nline: 19 col: 11  \nThe argument type '(FileSystemEntityType) → FileSystemEntityType' can't be assigned to the parameter type '(dynamic) → FutureOr<FileSystemEntityType>'.\n",
           "file": "lib/src/io/io_file_system.dart",
           "penalty": {
             "amount": 1,
@@ -1118,7 +1119,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/io/io_file_system_entity.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_file_system_entity.dart` failed with the following error:\n\nline: 40 col: 13  \nThe argument type '(FileStat) → FileStatImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<FileStat>'.\n",
+          "description": "Analysis of `lib/src/io/io_file_system_entity.dart` failed with the following error:\n\nline: 40 col: 13  \nThe argument type '(FileStat) → FileStatImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<FileStat>'.\n",
           "file": "lib/src/io/io_file_system_entity.dart",
           "penalty": {
             "amount": 1,
@@ -1278,7 +1279,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 20 col: 26  \n'WRITE' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 20 col: 26  \n'WRITE' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1289,7 +1290,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 22 col: 26  \n'READ' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 22 col: 26  \n'READ' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1300,7 +1301,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 24 col: 26  \n'APPEND' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 24 col: 26  \n'APPEND' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1311,7 +1312,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 32 col: 22  \n'WRITE' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 32 col: 22  \n'WRITE' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1322,7 +1323,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 34 col: 22  \n'READ' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 34 col: 22  \n'READ' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1333,7 +1334,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 36 col: 22  \n'APPEND' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 36 col: 22  \n'APPEND' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1344,7 +1345,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 62 col: 34  \n'FILE' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 62 col: 34  \n'FILE' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1355,7 +1356,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 64 col: 34  \n'DIRECTORY' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 64 col: 34  \n'DIRECTORY' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1366,7 +1367,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 66 col: 34  \n'LINK' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 66 col: 34  \n'LINK' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1377,7 +1378,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 68 col: 34  \n'NOT_FOUND' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 68 col: 34  \n'NOT_FOUND' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1388,7 +1389,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 79 col: 38  \n'FILE' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 79 col: 38  \n'FILE' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1399,7 +1400,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 81 col: 38  \n'DIRECTORY' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 81 col: 38  \n'DIRECTORY' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1410,7 +1411,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 83 col: 38  \n'LINK' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 83 col: 38  \n'LINK' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1421,7 +1422,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 85 col: 38  \n'NOT_FOUND' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/io/io_fs.dart` gave the following hint:\n\nline: 85 col: 38  \n'NOT_FOUND' is deprecated and shouldn't be used.\n",
           "file": "lib/src/io/io_fs.dart",
           "penalty": {
             "amount": 1,
@@ -1454,7 +1455,7 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/io/io_link.dart`.",
-          "description": "Strong-mode analysis of `lib/src/io/io_link.dart` failed with the following error:\n\nline: 28 col: 13  \nThe argument type '(FileSystemEntity) → LinkImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<LinkImpl>'.\n",
+          "description": "Analysis of `lib/src/io/io_link.dart` failed with the following error:\n\nline: 28 col: 13  \nThe argument type '(FileSystemEntity) → LinkImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<LinkImpl>'.\n",
           "file": "lib/src/io/io_link.dart",
           "penalty": {
             "amount": 1,
@@ -1755,7 +1756,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/utils/io/entity.dart`.",
-          "description": "Strong-mode analysis of `lib/utils/io/entity.dart` gave the following hint:\n\nline: 59 col: 28  \n'NOT_FOUND' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/utils/io/entity.dart` gave the following hint:\n\nline: 59 col: 28  \n'NOT_FOUND' is deprecated and shouldn't be used.\n",
           "file": "lib/utils/io/entity.dart",
           "penalty": {
             "amount": 1,
