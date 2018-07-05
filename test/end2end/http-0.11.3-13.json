@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
     "panaVersion": "0.11.5-dev",
-    "sdkVersion": "2.0.0-dev.65.0"
+    "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "http",
   "packageVersion": "0.11.3+13",
