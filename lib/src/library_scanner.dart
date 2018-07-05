@@ -81,12 +81,22 @@ class LibraryScanner {
 
     var contextLocator = new ContextLocator();
     var roots = contextLocator.locateRoots(includedPaths: [packagePath]);
-    if (roots.length != 1) {
-      throw new StateError('Expected exactly one context root, got $roots');
+    var root = roots.firstWhere(
+        (r) => r.packagesFile.parent.path == packagePath,
+        orElse: () => null);
+    if (root == null) {
+      log.warning(
+          'No context root on the default path, selecting the one with the most files.');
+      roots.sort((r1, r2) =>
+          -r1.analyzedFiles().length.compareTo(r2.analyzedFiles().length));
+      root = roots.first;
+    }
+    if (root == null) {
+      throw new StateError('No context root found!');
     }
 
     var analysisContext = new ContextBuilder()
-        .createContext(contextRoot: roots.single, sdkPath: dartSdkPath);
+        .createContext(contextRoot: root, sdkPath: dartSdkPath);
 
     return new LibraryScanner._(
         package, packagePath, analysisContext.currentSession, overrides);
