@@ -1,4 +1,4 @@
-## 0.11.5-dev
+## 0.11.5
 
 * Less verbose logging.
 
