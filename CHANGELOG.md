@@ -1,3 +1,7 @@
+## 0.11.6
+
+* Updated report on `dartanalyzer` suggestions.
+
 ## 0.11.5
 
 * Less verbose logging.
