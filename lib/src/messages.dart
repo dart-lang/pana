@@ -62,3 +62,23 @@ String buildSample(Iterable<String> items) {
   }
   return sample;
 }
+
+String pluralizeCount(int count, String name) {
+  if (count <= 0) {
+    return null;
+  } else if (count == 1) {
+    return '$count $name';
+  } else {
+    return '$count ${name}s';
+  }
+}
+
+String formatIssueCounts(int errorCount, int warningCount, int hintCount) {
+  final reportParts = <String>[
+    pluralizeCount(errorCount, 'error'),
+    pluralizeCount(warningCount, 'warning'),
+    pluralizeCount(hintCount, 'hint'),
+  ];
+  reportParts.removeWhere((s) => s == null);
+  return reportParts.join(', ');
+}

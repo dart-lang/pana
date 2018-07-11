@@ -22,7 +22,7 @@ final _withIssuesJson = {
   "dartdocSuccessful": false,
   "errorCount": 1,
   "warningCount": 1,
-  "hintCount": 1,
+  "hintCount": 0,
   "suggestions": [
     {
       'code': 'platform.conflict.inPkg',
@@ -138,6 +138,12 @@ void main() {
       final maintenance = await detectMaintenance(
         d.sandbox,
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
+        <CodeProblem>[
+          new CodeProblem('ERROR', 'COMPILE_ERROR', 'COMPILE_ERROR_1',
+              'Unable to compile', 'lib/file.dart', 10, 12),
+          new CodeProblem('WARNING', 'COMPILE_WARNING', 'COMPILE_WARNING_1',
+              'Unable to compile', 'lib/file.dart', 16, 5),
+        ],
         suggestions,
         [new PkgDependency('foo', 'direct', 'empty', null, null, null, null)],
         pkgPlatform: new DartPlatform.conflict('conflict description'),

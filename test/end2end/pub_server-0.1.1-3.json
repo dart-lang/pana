@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.5-dev",
+    "panaVersion": "0.11.6",
     "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "pub_server",
@@ -57,7 +57,7 @@
     "isPreReleaseVersion": false,
     "errorCount": 0,
     "warningCount": 0,
-    "hintCount": 7,
+    "hintCount": 6,
     "suggestions": [
       {
         "code": "packageVersion.preV1",
@@ -73,10 +73,10 @@
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/shelf_pubserver.dart`.",
-        "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n",
+        "description": "Analysis of `lib/shelf_pubserver.dart` reported 6 hints, including:\n\nline 275 col 24: 'JSON' is deprecated and shouldn't be used.\n\nline 275 col 42: 'UTF8' is deprecated and shouldn't be used.\n\nline 455 col 15: 'JSON' is deprecated and shouldn't be used.\n\nline 463 col 15: 'JSON' is deprecated and shouldn't be used.\n\nline 471 col 15: 'JSON' is deprecated and shouldn't be used.",
         "file": "lib/shelf_pubserver.dart",
         "penalty": {
-          "amount": 1,
+          "amount": 6,
           "fraction": 0
         }
       },
@@ -175,7 +175,7 @@
         "constraintType": "normal",
         "constraint": ">=0.5.6 <0.7.0",
         "resolved": "0.6.8",
-        "available": "0.7.3+1"
+        "available": "0.7.3+2"
       },
       {
         "package": "source_span",
@@ -551,65 +551,10 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 24  \n'JSON' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/shelf_pubserver.dart` reported 6 hints, including:\n\nline 275 col 24: 'JSON' is deprecated and shouldn't be used.\n\nline 275 col 42: 'UTF8' is deprecated and shouldn't be used.\n\nline 455 col 15: 'JSON' is deprecated and shouldn't be used.\n\nline 463 col 15: 'JSON' is deprecated and shouldn't be used.\n\nline 471 col 15: 'JSON' is deprecated and shouldn't be used.",
           "file": "lib/shelf_pubserver.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 275 col: 42  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/shelf_pubserver.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 455 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
-          "file": "lib/shelf_pubserver.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 463 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
-          "file": "lib/shelf_pubserver.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 471 col: 15  \n'JSON' is deprecated and shouldn't be used.\n",
-          "file": "lib/shelf_pubserver.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Analysis of `lib/shelf_pubserver.dart` gave the following hint:\n\nline: 488 col: 17  \n'JSON' is deprecated and shouldn't be used.\n",
-          "file": "lib/shelf_pubserver.dart",
-          "penalty": {
-            "amount": 1,
+            "amount": 6,
             "fraction": 0
           }
         },

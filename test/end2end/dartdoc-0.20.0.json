@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.5-dev",
+    "panaVersion": "0.11.6",
     "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "dartdoc",
@@ -82,10 +82,10 @@
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` failed with the following error:\n\nline: 4782 col: 21  \nThe class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n",
+        "description": "Analysis of `lib/src/model.dart` failed with 1 error, 2 hints:\n\nline 4782 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1063 col 17: Always override `hashCode` if overriding `==`.\n\nline 2110 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
         "file": "lib/src/model.dart",
         "penalty": {
-          "amount": 1,
+          "amount": 805,
           "fraction": 2000
         }
       },
@@ -123,7 +123,7 @@
   },
   "fitness": {
     "magnitude": 7994.0,
-    "shortcoming": 804.8000000000001
+    "shortcoming": 805.0
   },
   "pkgResolution": {
     "dependencies": [
@@ -1229,6 +1229,15 @@
       "isFormatted": true,
       "codeProblems": [
         {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "MIXIN_INHERITS_FROM_NOT_OBJECT",
+          "file": "lib/src/model.dart",
+          "line": 4782,
+          "col": 21,
+          "description": "The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object."
+        },
+        {
           "severity": "INFO",
           "errorType": "LINT",
           "errorCode": "hash_and_equals",
@@ -1245,53 +1254,22 @@
           "line": 2110,
           "col": 25,
           "description": "Invocation of Iterable<E>.contains with references of unrelated types."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "MIXIN_INHERITS_FROM_NOT_OBJECT",
-          "file": "lib/src/model.dart",
-          "line": 4782,
-          "col": 21,
-          "description": "The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object."
         }
       ],
       "fitness": {
         "magnitude": 4014.0,
-        "shortcoming": 804.8000000000001
+        "shortcoming": 805.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/model.dart`.",
-          "description": "Analysis of `lib/src/model.dart` failed with the following error:\n\nline: 4782 col: 21  \nThe class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n",
+          "description": "Analysis of `lib/src/model.dart` failed with 1 error, 2 hints:\n\nline 4782 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1063 col 17: Always override `hashCode` if overriding `==`.\n\nline 2110 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
           "file": "lib/src/model.dart",
           "penalty": {
-            "amount": 1,
+            "amount": 805,
             "fraction": 2000
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/model.dart`.",
-          "description": "Analysis of `lib/src/model.dart` gave the following hint:\n\nline: 1063 col: 17  \nAlways override `hashCode` if overriding `==`.\n",
-          "file": "lib/src/model.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/model.dart`.",
-          "description": "Analysis of `lib/src/model.dart` gave the following hint:\n\nline: 2110 col: 25  \nInvocation of Iterable<E>.contains with references of unrelated types.\n",
-          "file": "lib/src/model.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
           }
         }
       ]

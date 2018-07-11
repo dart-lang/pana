@@ -14,6 +14,7 @@ import 'package:yaml/yaml.dart' as yaml;
 
 import 'dartdoc_analyzer.dart';
 import 'download_utils.dart';
+import 'messages.dart';
 import 'model.dart';
 import 'pubspec.dart';
 import 'utils.dart';
@@ -105,6 +106,7 @@ Suggestion getAgeSuggestion(Duration age) {
 Future<Maintenance> detectMaintenance(
   String pkgDir,
   Pubspec pubspec,
+  List<CodeProblem> analyzerItems,
   List<Suggestion> dartFileSuggestions,
   List<PkgDependency> unconstrainedDeps, {
   @required DartPlatform pkgPlatform,
@@ -314,9 +316,9 @@ Future<Maintenance> detectMaintenance(
         penalty: new Penalty(amount: 10)));
   }
 
-  final errorCount = dartFileSuggestions.where((s) => s.isError).length;
-  final warningCount = dartFileSuggestions.where((s) => s.isWarning).length;
-  final hintCount = dartFileSuggestions.where((s) => s.isHint).length;
+  final errorCount = analyzerItems.where((s) => s.isError).length;
+  final warningCount = analyzerItems.where((s) => s.isWarning).length;
+  final hintCount = analyzerItems.where((s) => s.isInfo).length;
 
   final reportedFiles = new Set();
   final onePerFileSuggestions = dartFileSuggestions
@@ -332,34 +334,28 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.addAll(topSuggestions);
 
     if (restSuggestions.isNotEmpty) {
-      String pluralize(int count, String name) {
-        if (count <= 0) {
-          return null;
-        } else if (count == 1) {
-          return '$count $name';
-        } else {
-          return '$count ${name}s';
-        }
-      }
-
       final bulkErrorCount = restSuggestions.where((s) => s.isError).length;
       final bulkWarningCount = restSuggestions.where((s) => s.isWarning).length;
       final bulkHintCount = restSuggestions.where((s) => s.isHint).length;
-      final reportParts = <String>[
-        pluralize(bulkErrorCount, 'error'),
-        pluralize(bulkWarningCount, 'warning'),
-        pluralize(bulkHintCount, 'hint'),
-      ];
-      reportParts.removeWhere((s) => s == null);
-
       final sb = new StringBuffer();
-      sb.write(
-          'Additional issues in the following files (${reportParts.join(', ')}):\n\n');
+      sb.write('Additional issues in the following files:\n\n');
 
-      final items = onePerFileSuggestions
-          .map((s) => '- `${s.file}` (${s.level})\n')
-          .join();
-      sb.write(items);
+      for (var s in restSuggestions) {
+        final fileAnalyzerItems =
+            analyzerItems.where((cp) => cp.file == s.file).toList();
+
+        if (fileAnalyzerItems.isNotEmpty) {
+          final errorCount = fileAnalyzerItems.where((cp) => cp.isError).length;
+          final warningCount =
+              fileAnalyzerItems.where((cp) => cp.isWarning).length;
+          final hintCount = fileAnalyzerItems.where((cp) => cp.isInfo).length;
+          final issueCounts =
+              formatIssueCounts(errorCount, warningCount, hintCount);
+          sb.writeln('- `${s.file}` ($issueCounts)');
+        } else {
+          sb.writeln('- `${s.file}` (${s.description})');
+        }
+      }
 
       final level = (bulkErrorCount > 0 || bulkWarningCount > 0)
           ? SuggestionLevel.warning
