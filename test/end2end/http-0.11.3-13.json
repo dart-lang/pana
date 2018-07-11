@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.5-dev",
+    "panaVersion": "0.11.6",
     "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "http",
@@ -52,7 +52,7 @@
     "isPreReleaseVersion": false,
     "errorCount": 0,
     "warningCount": 0,
-    "hintCount": 38,
+    "hintCount": 21,
     "suggestions": [
       {
         "code": "pubspec.description.tooShort",
@@ -75,6 +75,17 @@
         }
       },
       {
+        "code": "dartanalyzer.warning",
+        "level": "hint",
+        "title": "Fix `lib/src/multipart_request.dart`.",
+        "description": "Analysis of `lib/src/multipart_request.dart` reported 5 hints:\n\nline 64 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 65 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 70 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 93 col 22: 'UTF8' is deprecated and shouldn't be used.\n\nline 96 col 48: 'UTF8' is deprecated and shouldn't be used.",
+        "file": "lib/src/multipart_request.dart",
+        "penalty": {
+          "amount": 5,
+          "fraction": 0
+        }
+      },
+      {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
@@ -85,24 +96,13 @@
         }
       },
       {
-        "code": "dartfmt.warning",
-        "level": "hint",
-        "title": "Format `lib/browser_client.dart`.",
-        "description": "Run `dartfmt` to format `lib/browser_client.dart`.",
-        "file": "lib/browser_client.dart",
-        "penalty": {
-          "amount": 1,
-          "fraction": 0
-        }
-      },
-      {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/http.dart`.",
-        "description": "Analysis of `lib/http.dart` gave the following hint:\n\nline: 112 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n",
+        "description": "Analysis of `lib/http.dart` reported 3 hints:\n\nline 64 col 29: 'UTF8' is deprecated and shouldn't be used.\n\nline 88 col 29: 'UTF8' is deprecated and shouldn't be used.\n\nline 112 col 29: 'UTF8' is deprecated and shouldn't be used.",
         "file": "lib/http.dart",
         "penalty": {
-          "amount": 1,
+          "amount": 3,
           "fraction": 0
         }
       },
@@ -116,7 +116,7 @@
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 15 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files (15 hints):\n\n- `lib/browser_client.dart` (hint)\n- `lib/http.dart` (hint)\n- `lib/src/base_client.dart` (hint)\n- `lib/src/base_request.dart` (hint)\n- `lib/src/base_response.dart` (hint)\n- `lib/src/boundary_characters.dart` (hint)\n- `lib/src/byte_stream.dart` (hint)\n- `lib/src/client.dart` (hint)\n- `lib/src/io_client.dart` (hint)\n- `lib/src/mock_client.dart` (hint)\n- `lib/src/multipart_file.dart` (hint)\n- `lib/src/multipart_request.dart` (hint)\n- `lib/src/request.dart` (hint)\n- `lib/src/response.dart` (hint)\n- `lib/src/streamed_request.dart` (hint)\n- `lib/src/streamed_response.dart` (hint)\n- `lib/src/utils.dart` (hint)\n",
+        "description": "Additional issues in the following files:\n\n- `lib/src/client.dart` (3 hints)\n- `lib/src/base_client.dart` (2 hints)\n- `lib/src/byte_stream.dart` (2 hints)\n- `lib/src/request.dart` (2 hints)\n- `lib/src/response.dart` (2 hints)\n- `lib/browser_client.dart` (Run `dartfmt` to format `lib/browser_client.dart`.)\n- `lib/src/base_request.dart` (Run `dartfmt` to format `lib/src/base_request.dart`.)\n- `lib/src/base_response.dart` (Run `dartfmt` to format `lib/src/base_response.dart`.)\n- `lib/src/boundary_characters.dart` (Run `dartfmt` to format `lib/src/boundary_characters.dart`.)\n- `lib/src/io_client.dart` (Run `dartfmt` to format `lib/src/io_client.dart`.)\n- `lib/src/mock_client.dart` (Run `dartfmt` to format `lib/src/mock_client.dart`.)\n- `lib/src/multipart_file.dart` (1 hint)\n- `lib/src/streamed_request.dart` (Run `dartfmt` to format `lib/src/streamed_request.dart`.)\n- `lib/src/streamed_response.dart` (Run `dartfmt` to format `lib/src/streamed_response.dart`.)\n- `lib/src/utils.dart` (1 hint)\n",
         "penalty": {
           "amount": 15,
           "fraction": 0
@@ -580,32 +580,10 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/http.dart`.",
-          "description": "Analysis of `lib/http.dart` gave the following hint:\n\nline: 112 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/http.dart` reported 3 hints:\n\nline 64 col 29: 'UTF8' is deprecated and shouldn't be used.\n\nline 88 col 29: 'UTF8' is deprecated and shouldn't be used.\n\nline 112 col 29: 'UTF8' is deprecated and shouldn't be used.",
           "file": "lib/http.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/http.dart`.",
-          "description": "Analysis of `lib/http.dart` gave the following hint:\n\nline: 64 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/http.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/http.dart`.",
-          "description": "Analysis of `lib/http.dart` gave the following hint:\n\nline: 88 col: 29  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/http.dart",
-          "penalty": {
-            "amount": 1,
+            "amount": 3,
             "fraction": 0
           }
         },
@@ -655,21 +633,10 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/base_client.dart`.",
-          "description": "Analysis of `lib/src/base_client.dart` gave the following hint:\n\nline: 163 col: 44  \n'typed' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/base_client.dart` reported 2 hints:\n\nline 163 col 44: 'typed' is deprecated and shouldn't be used.\n\nline 165 col 44: 'typed' is deprecated and shouldn't be used.",
           "file": "lib/src/base_client.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/base_client.dart`.",
-          "description": "Analysis of `lib/src/base_client.dart` gave the following hint:\n\nline: 165 col: 44  \n'typed' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/base_client.dart",
-          "penalty": {
-            "amount": 1,
+            "amount": 2,
             "fraction": 0
           }
         },
@@ -788,21 +755,10 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/byte_stream.dart`.",
-          "description": "Analysis of `lib/src/byte_stream.dart` gave the following hint:\n\nline: 31 col: 51  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/byte_stream.dart` reported 2 hints:\n\nline 31 col 51: 'UTF8' is deprecated and shouldn't be used.\n\nline 34 col 52: 'UTF8' is deprecated and shouldn't be used.",
           "file": "lib/src/byte_stream.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/byte_stream.dart`.",
-          "description": "Analysis of `lib/src/byte_stream.dart` gave the following hint:\n\nline: 34 col: 52  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/byte_stream.dart",
-          "penalty": {
-            "amount": 1,
+            "amount": 2,
             "fraction": 0
           }
         },
@@ -861,32 +817,10 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/client.dart`.",
-          "description": "Analysis of `lib/src/client.dart` gave the following hint:\n\nline: 101 col: 31  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/client.dart` reported 3 hints:\n\nline 59 col 31: 'UTF8' is deprecated and shouldn't be used.\n\nline 80 col 31: 'UTF8' is deprecated and shouldn't be used.\n\nline 101 col 31: 'UTF8' is deprecated and shouldn't be used.",
           "file": "lib/src/client.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/client.dart`.",
-          "description": "Analysis of `lib/src/client.dart` gave the following hint:\n\nline: 59 col: 31  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/client.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/client.dart`.",
-          "description": "Analysis of `lib/src/client.dart` gave the following hint:\n\nline: 80 col: 31  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/client.dart",
-          "penalty": {
-            "amount": 1,
+            "amount": 3,
             "fraction": 0
           }
         },
@@ -983,7 +917,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/multipart_file.dart`.",
-          "description": "Analysis of `lib/src/multipart_file.dart` gave the following hint:\n\nline: 73 col: 74  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/multipart_file.dart` reported 1 hint:\n\nline 73 col 74: 'UTF8' is deprecated and shouldn't be used.",
           "file": "lib/src/multipart_file.dart",
           "penalty": {
             "amount": 1,
@@ -1063,54 +997,10 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/multipart_request.dart`.",
-          "description": "Analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 64 col: 11  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/multipart_request.dart` reported 5 hints:\n\nline 64 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 65 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 70 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 93 col 22: 'UTF8' is deprecated and shouldn't be used.\n\nline 96 col 48: 'UTF8' is deprecated and shouldn't be used.",
           "file": "lib/src/multipart_request.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/multipart_request.dart`.",
-          "description": "Analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 65 col: 11  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/multipart_request.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/multipart_request.dart`.",
-          "description": "Analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 70 col: 11  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/multipart_request.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/multipart_request.dart`.",
-          "description": "Analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 93 col: 22  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/multipart_request.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/multipart_request.dart`.",
-          "description": "Analysis of `lib/src/multipart_request.dart` gave the following hint:\n\nline: 96 col: 48  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/multipart_request.dart",
-          "penalty": {
-            "amount": 1,
+            "amount": 5,
             "fraction": 0
           }
         },
@@ -1160,21 +1050,10 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/request.dart`.",
-          "description": "Analysis of `lib/src/request.dart` gave the following hint:\n\nline: 133 col: 26  \n'UTF8' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/request.dart` reported 2 hints:\n\nline 39 col 42: 'UTF8' is deprecated and shouldn't be used.\n\nline 133 col 26: 'UTF8' is deprecated and shouldn't be used.",
           "file": "lib/src/request.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/request.dart`.",
-          "description": "Analysis of `lib/src/request.dart` gave the following hint:\n\nline: 39 col: 42  \n'UTF8' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/request.dart",
-          "penalty": {
-            "amount": 1,
+            "amount": 2,
             "fraction": 0
           }
         },
@@ -1224,21 +1103,10 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/response.dart`.",
-          "description": "Analysis of `lib/src/response.dart` gave the following hint:\n\nline: 24 col: 8  \n'LATIN1' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/response.dart` reported 2 hints:\n\nline 24 col 8: 'LATIN1' is deprecated and shouldn't be used.\n\nline 83 col 18: 'LATIN1' is deprecated and shouldn't be used.",
           "file": "lib/src/response.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/response.dart`.",
-          "description": "Analysis of `lib/src/response.dart` gave the following hint:\n\nline: 83 col: 18  \n'LATIN1' is deprecated and shouldn't be used.\n",
-          "file": "lib/src/response.dart",
-          "penalty": {
-            "amount": 1,
+            "amount": 2,
             "fraction": 0
           }
         },
@@ -1325,7 +1193,7 @@
           "code": "dartanalyzer.warning",
           "level": "hint",
           "title": "Fix `lib/src/utils.dart`.",
-          "description": "Analysis of `lib/src/utils.dart` gave the following hint:\n\nline: 43 col: 66  \n'LATIN1' is deprecated and shouldn't be used.\n",
+          "description": "Analysis of `lib/src/utils.dart` reported 1 hint:\n\nline 43 col 66: 'LATIN1' is deprecated and shouldn't be used.",
           "file": "lib/src/utils.dart",
           "penalty": {
             "amount": 1,

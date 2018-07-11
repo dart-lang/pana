@@ -188,7 +188,7 @@ class PackageAnalyzer {
 
     LibraryScanner libraryScanner;
 
-    Set<CodeProblem> analyzerItems;
+    List<CodeProblem> analyzerItems;
 
     bool dartdocSuccessful;
     if (pkgResolution != null && options.dartdocOutputDir != null) {
@@ -350,6 +350,7 @@ class PackageAnalyzer {
     final maintenance = await detectMaintenance(
       pkgDir,
       pubspec,
+      analyzerItems ?? <CodeProblem>[],
       dartFileSuggestions,
       pkgResolution?.getUnconstrainedDeps(onlyDirect: true),
       pkgPlatform: platform,
@@ -372,7 +373,8 @@ class PackageAnalyzer {
     );
   }
 
-  Future<Set<CodeProblem>> _pkgAnalyze(String pkgPath, bool usesFlutter) async {
+  Future<List<CodeProblem>> _pkgAnalyze(
+      String pkgPath, bool usesFlutter) async {
     log.info('Analyzing package...');
     final dirs = await listFocusDirs(pkgPath);
     if (dirs.isEmpty) {
@@ -380,9 +382,13 @@ class PackageAnalyzer {
     }
     final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter);
     try {
-      return new SplayTreeSet.from(LineSplitter.split(output)
+      final list = LineSplitter.split(output)
           .map((s) => parseCodeProblem(s, projectDir: pkgPath))
-          .where((e) => e != null));
+          .where((e) => e != null)
+          .toSet()
+          .toList();
+      list.sort();
+      return list;
     } on ArgumentError {
       // TODO: we should figure out a way to succeed here, right?
       // Or at least do partial results and not blow up

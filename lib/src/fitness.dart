@@ -88,43 +88,40 @@ Future<FitnessResult> calcFitness(
     ));
   }
 
-  String suggestionDescription(CodeProblem cp, String local) {
-    return 'Analysis of `$dartFile` $local:\n\n'
-        'line: ${cp.line} col: ${cp.col}  \n'
-        '${cp.description}\n';
-  }
+  if (fileAnalyzerItems != null && fileAnalyzerItems.isNotEmpty) {
+    fileAnalyzerItems.sort((a, b) => a.severityCompareTo(b));
+    final errorCount = fileAnalyzerItems.where((c) => c.isError).length;
+    final warningCount = fileAnalyzerItems.where((c) => c.isWarning).length;
+    final hintCount = fileAnalyzerItems.where((c) => c.isInfo).length;
+    final maxLevel = errorCount > 0
+        ? SuggestionLevel.error
+        : (warningCount > 0 ? SuggestionLevel.warning : SuggestionLevel.hint);
 
-  if (fileAnalyzerItems != null) {
-    for (var item in fileAnalyzerItems) {
-      if (item.isInfo) {
-        shortcoming += hintPoints;
-        suggestions.add(new Suggestion.hint(
-          SuggestionCode.dartanalyzerWarning,
-          'Fix `$dartFile`.',
-          suggestionDescription(item, 'gave the following hint'),
-          file: dartFile,
-          penalty: new Penalty(amount: hintPoints.ceil()),
-        ));
-      } else if (item.isWarning) {
-        shortcoming += warnPoints;
-        suggestions.add(new Suggestion.warning(
-          SuggestionCode.dartanalyzerWarning,
-          'Fix `$dartFile`.',
-          suggestionDescription(item, 'gave the following warning'),
-          file: dartFile,
-          penalty: new Penalty(fraction: 500, amount: hintPoints.ceil()),
-        ));
-      } else {
-        shortcoming += errorPoints;
-        suggestions.add(new Suggestion.error(
-          SuggestionCode.dartanalyzerWarning,
-          'Fix `$dartFile`.',
-          suggestionDescription(item, 'failed with the following error'),
-          file: dartFile,
-          penalty: new Penalty(fraction: 2000, amount: hintPoints.ceil()),
-        ));
-      }
-    }
+    final failedWith =
+        maxLevel == SuggestionLevel.error ? 'failed with' : 'reported';
+    final issueCounts =
+        messages.formatIssueCounts(errorCount, warningCount, hintCount);
+    final including = fileAnalyzerItems.length > 5 ? ', including' : '';
+    final issueList = fileAnalyzerItems
+        .take(5)
+        .map((cp) => '\n\nline ${cp.line} col ${cp.col}: ${cp.description}')
+        .join();
+
+    final penalty = new Penalty(
+        fraction: min(10000, 2000 * errorCount + 500 * warningCount),
+        amount: min(
+            10000,
+            errorPoints.ceil() * errorCount +
+                warnPoints.ceil() * warningCount +
+                hintPoints.ceil() * hintCount));
+    shortcoming += max(penalty.amount, magnitude * penalty.fraction / 10000.0);
+    suggestions.add(new Suggestion(
+        SuggestionCode.dartanalyzerWarning,
+        maxLevel,
+        'Fix `$dartFile`.',
+        'Analysis of `$dartFile` $failedWith $issueCounts$including:$issueList',
+        file: dartFile,
+        penalty: penalty));
   }
   suggestions.sort();
   final fitness = new Fitness(magnitude, min(shortcoming, magnitude));

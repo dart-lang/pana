@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.5-dev",
+    "panaVersion": "0.11.6",
     "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "skiplist",
@@ -39,17 +39,17 @@
     "isPreReleaseVersion": false,
     "errorCount": 8,
     "warningCount": 0,
-    "hintCount": 1,
+    "hintCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/skiplist.dart`.",
-        "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 116 col: 3  \nInvalid override. The type of 'SkipList.remove' ('(K) → V') isn't a subtype of 'Map<K, V>.remove' ('(Object) → V').\n",
+        "description": "Analysis of `lib/skiplist.dart` failed with 8 errors, including:\n\nline 77 col 3: Invalid override. The type of 'SkipList.[]' ('(K) → V') isn't a subtype of 'Map<K, V>.[]' ('(Object) → V').\n\nline 77 col 3: Invalid override. The type of 'SkipList.[]' ('(K) → V') isn't a subtype of 'MapMixin<K, V>.[]' ('(Object) → V').\n\nline 91 col 3: Invalid override. The type of 'SkipList.containsKey' ('(K) → bool') isn't a subtype of 'Map<K, V>.containsKey' ('(Object) → bool').\n\nline 91 col 3: Invalid override. The type of 'SkipList.containsKey' ('(K) → bool') isn't a subtype of 'MapMixin<K, V>.containsKey' ('(Object) → bool').\n\nline 116 col 3: Invalid override. The type of 'SkipList.remove' ('(K) → V') isn't a subtype of 'Map<K, V>.remove' ('(Object) → V').",
         "file": "lib/skiplist.dart",
         "penalty": {
-          "amount": 1,
-          "fraction": 2000
+          "amount": 296,
+          "fraction": 10000
         }
       },
       {
@@ -228,88 +228,11 @@
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/skiplist.dart`.",
-          "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 116 col: 3  \nInvalid override. The type of 'SkipList.remove' ('(K) → V') isn't a subtype of 'Map<K, V>.remove' ('(Object) → V').\n",
+          "description": "Analysis of `lib/skiplist.dart` failed with 8 errors, including:\n\nline 77 col 3: Invalid override. The type of 'SkipList.[]' ('(K) → V') isn't a subtype of 'Map<K, V>.[]' ('(Object) → V').\n\nline 77 col 3: Invalid override. The type of 'SkipList.[]' ('(K) → V') isn't a subtype of 'MapMixin<K, V>.[]' ('(Object) → V').\n\nline 91 col 3: Invalid override. The type of 'SkipList.containsKey' ('(K) → bool') isn't a subtype of 'Map<K, V>.containsKey' ('(Object) → bool').\n\nline 91 col 3: Invalid override. The type of 'SkipList.containsKey' ('(K) → bool') isn't a subtype of 'MapMixin<K, V>.containsKey' ('(Object) → bool').\n\nline 116 col 3: Invalid override. The type of 'SkipList.remove' ('(K) → V') isn't a subtype of 'Map<K, V>.remove' ('(Object) → V').",
           "file": "lib/skiplist.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 2000
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/skiplist.dart`.",
-          "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 116 col: 3  \nInvalid override. The type of 'SkipList.remove' ('(K) → V') isn't a subtype of 'MapMixin<K, V>.remove' ('(Object) → V').\n",
-          "file": "lib/skiplist.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 2000
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/skiplist.dart`.",
-          "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 165 col: 3  \nInvalid override. The type of 'SkipList.containsValue' ('(V) → bool') isn't a subtype of 'Map<K, V>.containsValue' ('(Object) → bool').\n",
-          "file": "lib/skiplist.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 2000
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/skiplist.dart`.",
-          "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 165 col: 3  \nInvalid override. The type of 'SkipList.containsValue' ('(V) → bool') isn't a subtype of 'MapMixin<K, V>.containsValue' ('(Object) → bool').\n",
-          "file": "lib/skiplist.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 2000
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/skiplist.dart`.",
-          "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 77 col: 3  \nInvalid override. The type of 'SkipList.[]' ('(K) → V') isn't a subtype of 'Map<K, V>.[]' ('(Object) → V').\n",
-          "file": "lib/skiplist.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 2000
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/skiplist.dart`.",
-          "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 77 col: 3  \nInvalid override. The type of 'SkipList.[]' ('(K) → V') isn't a subtype of 'MapMixin<K, V>.[]' ('(Object) → V').\n",
-          "file": "lib/skiplist.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 2000
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/skiplist.dart`.",
-          "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 91 col: 3  \nInvalid override. The type of 'SkipList.containsKey' ('(K) → bool') isn't a subtype of 'Map<K, V>.containsKey' ('(Object) → bool').\n",
-          "file": "lib/skiplist.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 2000
-          }
-        },
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/skiplist.dart`.",
-          "description": "Analysis of `lib/skiplist.dart` failed with the following error:\n\nline: 91 col: 3  \nInvalid override. The type of 'SkipList.containsKey' ('(K) → bool') isn't a subtype of 'MapMixin<K, V>.containsKey' ('(Object) → bool').\n",
-          "file": "lib/skiplist.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 2000
+            "amount": 296,
+            "fraction": 10000
           }
         },
         {

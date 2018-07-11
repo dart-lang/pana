@@ -868,6 +868,16 @@ class CodeProblem extends Object
     return 0;
   }
 
+  int severityCompareTo(CodeProblem other) {
+    if (isError && !other.isError) return -1;
+    if (!isError && other.isError) return 1;
+    if (isWarning && !other.isWarning) return -1;
+    if (!isWarning && other.isWarning) return 1;
+    if (isInfo && !other.isInfo) return -1;
+    if (!isInfo && other.isInfo) return 1;
+    return compareTo(other);
+  }
+
   @override
   int get hashCode => hashObjects(_values);
 
