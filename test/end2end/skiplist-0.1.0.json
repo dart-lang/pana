@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.6",
+    "panaVersion": "0.11.7",
     "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "skiplist",
@@ -60,6 +60,16 @@
         "penalty": {
           "amount": 0,
           "fraction": 2000
+        }
+      },
+      {
+        "code": "pubspec.sdk.missing",
+        "level": "warning",
+        "title": "Add SDK constraint in `pubspec.yaml`.",
+        "description": "For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).",
+        "penalty": {
+          "amount": 0,
+          "fraction": 500
         }
       },
       {

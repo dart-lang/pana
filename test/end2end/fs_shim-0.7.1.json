@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.6",
+    "panaVersion": "0.11.7",
     "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "fs_shim",
@@ -96,6 +96,16 @@
         "penalty": {
           "amount": 168,
           "fraction": 6000
+        }
+      },
+      {
+        "code": "pubspec.sdk.devOnly",
+        "level": "error",
+        "title": "Support Dart 2 in `pubspec.yaml`.",
+        "description": "The SDK constraint in pubspec.yaml doesn't allow the Dart 2.0.0 release. For information about upgrading it to be Dart 2 compatible, please see [https://www.dartlang.org/dart-2#migration](https://www.dartlang.org/dart-2#migration).",
+        "penalty": {
+          "amount": 0,
+          "fraction": 2000
         }
       },
       {
