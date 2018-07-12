@@ -206,6 +206,25 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
+  if (!pubspec.hasDartSdkConstraint) {
+    maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.pubspecSdkConstraintMissing,
+        'Add SDK constraint in `pubspec.yaml`.',
+        'For information about setting SDK constraint, please see '
+        '[https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
+        penalty: new Penalty(fraction: 500)));
+  }
+
+  if (pubspec.shouldWarnDart2Constraint) {
+    maintenanceSuggestions.add(new Suggestion.error(
+        SuggestionCode.pubspecSdkConstraintDevOnly,
+        'Support Dart 2 in `pubspec.yaml`.',
+        'The SDK constraint in pubspec.yaml doesn\'t allow the Dart 2.0.0 release. '
+        'For information about upgrading it to be Dart 2 compatible, please see '
+        '[https://www.dartlang.org/dart-2#migration](https://www.dartlang.org/dart-2#migration).',
+        penalty: new Penalty(fraction: 2000)));
+  }
+
   if (dartdocSuccessful == false) {
     maintenanceSuggestions.add(getDartdocRunFailedSuggestion());
   }

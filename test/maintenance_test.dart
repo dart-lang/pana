@@ -77,6 +77,14 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 500}
     },
     {
+      'code': 'pubspec.sdk.missing',
+      'level': 'warning',
+      'title': 'Add SDK constraint in `pubspec.yaml`.',
+      'description':
+          'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
+      'penalty': {'amount': 0, 'fraction': 500}
+    },
+    {
       'code': 'readme.missing',
       'level': 'warning',
       'title': 'Maintain `README.md`.',
@@ -156,7 +164,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(getMaintenanceScore(_withIssues), closeTo(0.434, 0.001));
+      expect(getMaintenanceScore(_withIssues), closeTo(0.412, 0.001));
     });
 
     test('perfect', () {

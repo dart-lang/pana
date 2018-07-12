@@ -6,10 +6,21 @@ void main() {
     expect(emptyPubspec.hasFlutterKey, isFalse);
     expect(emptyPubspec.hasFlutterPluginKey, isFalse);
     expect(emptyPubspec.dependsOnFlutterSdk, isFalse);
-    expect(sdkOnlyEnvPubspec.dependsOnFlutterSdk, isFalse);
+    expect(emptyPubspec.hasDartSdkConstraint, isFalse);
+    expect(emptyPubspec.shouldWarnDart2Constraint, isFalse);
+  });
+
+  test('dart1 vs dart2', () {
+    expect(dart1OnlyPubspec.hasDartSdkConstraint, isTrue);
+    expect(dart1OnlyPubspec.shouldWarnDart2Constraint, isTrue);
+    expect(devSdkOnlyPubspec.hasDartSdkConstraint, isTrue);
+    expect(devSdkOnlyPubspec.shouldWarnDart2Constraint, isTrue);
+    expect(dart2Pubspec.hasDartSdkConstraint, isTrue);
+    expect(dart2Pubspec.shouldWarnDart2Constraint, isFalse);
   });
 
   test('flutter', () {
+    expect(dart2Pubspec.dependsOnFlutterSdk, isFalse);
     expect(flutterPluginPubspec.hasFlutterKey, isTrue);
     expect(flutterPluginPubspec.hasFlutterPluginKey, isTrue);
     expect(flutterPluginPubspec.dependsOnFlutterSdk, isFalse);
@@ -74,7 +85,7 @@ final Pubspec unknownSdkPubspec = new Pubspec({
   },
 });
 
-final Pubspec sdkOnlyEnvPubspec = new Pubspec({
+final Pubspec dart2Pubspec = new Pubspec({
   'name': 'sample',
   'environment': {
     'sdk': '^2.0.0',
@@ -86,5 +97,19 @@ final Pubspec flutterInEnvPubspec = new Pubspec({
   'environment': {
     'sdk': '^2.0.0',
     'flutter': '^1.0.0',
+  },
+});
+
+final Pubspec dart1OnlyPubspec = new Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '<1.25.0',
+  },
+});
+
+final Pubspec devSdkOnlyPubspec = new Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '<2.0.0',
   },
 });

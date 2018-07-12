@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.6",
+    "panaVersion": "0.11.7",
     "sdkVersion": "2.0.0-dev.66.0"
   },
   "packageName": "dartdoc",
@@ -152,7 +152,7 @@
         "package": "charcode",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.1"
+        "resolved": "1.1.2"
       },
       {
         "package": "collection",

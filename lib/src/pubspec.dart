@@ -7,6 +7,8 @@ import 'package:yaml/yaml.dart' as yaml;
 
 import 'utils.dart';
 
+final _dart2First = new Version.parse('2.0.0');
+
 class Pubspec {
   final pubspek.Pubspec _inner;
   final Map _content;
@@ -95,4 +97,14 @@ class Pubspec {
   String get homepage => _inner.homepage;
 
   String get documentation => _inner.documentation;
+
+  bool get hasDartSdkConstraint => _inner.environment.containsKey('sdk');
+
+  bool get shouldWarnDart2Constraint {
+    final vc = _inner.environment['sdk'];
+    if (vc == null) {
+      return false;
+    }
+    return !vc.allows(_dart2First);
+  }
 }
