@@ -1,3 +1,7 @@
+## 0.11.7
+
+* Suggestions for SDK constraint and Dart 2 compatibility.
+
 ## 0.11.6
 
 * Updated report on `dartanalyzer` suggestions.
