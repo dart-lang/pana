@@ -21,7 +21,7 @@ final _maxLines = 100000;
 
 ProcessResult runProcSync(String executable, List<String> arguments,
     {String workingDirectory, Map<String, String> environment}) {
-  log.fine('Running `${ ([executable]..addAll(arguments)).join(' ') }`...');
+  log.fine('Running `${([executable]..addAll(arguments)).join(' ')}`...');
   return Process.runSync(
     executable,
     arguments,
@@ -37,7 +37,7 @@ Future<ProcessResult> runProc(
   Map<String, String> environment,
   Duration timeout,
 }) async {
-  log.info('Running `${ ([executable]..addAll(arguments)).join(' ') }`...');
+  log.info('Running `${([executable]..addAll(arguments)).join(' ')}`...');
   var process = await Process.start(executable, arguments,
       workingDirectory: workingDirectory, environment: environment);
 
