@@ -1,3 +1,7 @@
+## 0.11.8
+
+* Support Dart 2 gold release.
+
 ## 0.11.7
 
 * Suggestions for SDK constraint and Dart 2 compatibility.

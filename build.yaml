@@ -14,8 +14,7 @@ targets:
 
 builders:
   pana:
-    # See https://github.com/dart-lang/build/issues/1423
-    import: "../../../tool/builder.dart"
+    import: tool/builder.dart
     builder_factories: ["buildPana"]
     build_extensions: {".dart": [".g.dart"]}
     build_to: source
