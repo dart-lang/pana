@@ -140,7 +140,7 @@ Future<Maintenance> detectMaintenance(
       await anyFileExists(analysisOptionsFiles, caseSensitive: true);
   final oldAnalysisOptions =
       analysisOptionsExists && !files.contains(currentAnalysisOptionsFileName);
-  var strongModeEnabled = false;
+  var strongModeDisabled = false;
   if (analysisOptionsExists) {
     for (var name in analysisOptionsFiles) {
       final file = new File(p.join(pkgDir, name));
@@ -151,8 +151,7 @@ Future<Maintenance> detectMaintenance(
           final analyzer = map['analyzer'];
           if (analyzer != null) {
             final value = analyzer['strong-mode'];
-            strongModeEnabled =
-                value != null && (value == true || value is Map);
+            strongModeDisabled = value is bool && value == false;
           }
         } catch (_) {
           maintenanceSuggestions.add(new Suggestion.warning(
@@ -275,13 +274,12 @@ Future<Maintenance> detectMaintenance(
         'Use `analysis_options.yaml`.',
         'Rename old `.analysis_options` file to `analysis_options.yaml`.'));
   }
-  if (analysisOptionsExists && !strongModeEnabled) {
+  if (analysisOptionsExists && strongModeDisabled) {
     maintenanceSuggestions.add(new Suggestion.hint(
         SuggestionCode.analysisOptionsWeakMode,
-        'Enable strong mode analysis.',
-        'Strong mode helps detect bugs and potential issues earlier. '
-        'Start your `analysis_options.yaml` file with the following:\n\n'
-        '```\nanalyzer:\n  strong-mode: true\n```\n'));
+        'The option `strong-mode: false` is being deprecated.',
+        'Remove `strong-mode: false` from your `analysis_options.yaml` file:\n\n'
+        '```\nanalyzer:\n  strong-mode: false\n```\n'));
   }
 
   final version = pubspec.version;
@@ -418,7 +416,7 @@ Future<Maintenance> detectMaintenance(
     missingExample: !exampleExists,
     missingAnalysisOptions: !analysisOptionsExists,
     oldAnalysisOptions: oldAnalysisOptions,
-    strongModeEnabled: strongModeEnabled,
+    strongModeEnabled: !strongModeDisabled,
     isExperimentalVersion: isExperimentalVersion,
     isPreReleaseVersion: isPreReleaseVersion,
     dartdocSuccessful: dartdocSuccessful,

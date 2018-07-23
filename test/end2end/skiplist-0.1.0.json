@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.7",
-    "sdkVersion": "2.0.0-dev.66.0"
+    "panaVersion": "0.11.8-dev",
+    "sdkVersion": "2.0.0-dev.68.0"
   },
   "packageName": "skiplist",
   "packageVersion": "0.1.0",
@@ -34,7 +34,7 @@
     "missingReadme": false,
     "missingAnalysisOptions": true,
     "oldAnalysisOptions": false,
-    "strongModeEnabled": false,
+    "strongModeEnabled": true,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
     "errorCount": 8,
@@ -114,7 +114,7 @@
         "package": "meta",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.5"
+        "resolved": "1.1.6"
       },
       {
         "package": "quiver_iterables",

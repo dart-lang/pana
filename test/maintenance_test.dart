@@ -16,7 +16,7 @@ final _withIssuesJson = {
   "missingReadme": true,
   "missingAnalysisOptions": true,
   "oldAnalysisOptions": false,
-  "strongModeEnabled": false,
+  "strongModeEnabled": true,
   "isExperimentalVersion": true,
   "isPreReleaseVersion": true,
   "dartdocSuccessful": false,

@@ -1,6 +1,8 @@
-## 0.11.8
+## 0.11.8-dev
 
 * Support Dart 2 gold release.
+
+* Remove `strong-mode: true` check and suggestion.
 
 ## 0.11.7
 
