@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.7",
-    "sdkVersion": "2.0.0-dev.66.0"
+    "panaVersion": "0.11.8-dev",
+    "sdkVersion": "2.0.0-dev.68.0"
   },
   "packageName": "dartdoc",
   "packageVersion": "0.20.0",
@@ -133,20 +133,20 @@
         "constraintType": "normal",
         "constraint": "0.32.1",
         "resolved": "0.32.1",
-        "available": "0.32.3"
+        "available": "0.32.4"
       },
       {
         "package": "args",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.1 <2.0.0",
-        "resolved": "1.4.3"
+        "resolved": "1.4.4"
       },
       {
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.0.7"
+        "resolved": "2.0.8"
       },
       {
         "package": "charcode",
@@ -159,25 +159,25 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.2.0",
-        "resolved": "1.14.10"
+        "resolved": "1.14.11"
       },
       {
         "package": "convert",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.0.1"
+        "resolved": "2.0.2"
       },
       {
         "package": "crypto",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.0.5"
+        "resolved": "2.0.6"
       },
       {
         "package": "csslib",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.14.4"
+        "resolved": "0.14.4+1"
       },
       {
         "package": "dhttpd",
@@ -191,13 +191,13 @@
         "constraintType": "normal",
         "constraint": "^0.1.1",
         "resolved": "0.1.1",
-        "available": "0.1.3"
+        "available": "0.1.4"
       },
       {
         "package": "glob",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.6"
+        "resolved": "1.1.7"
       },
       {
         "package": "grinder",
@@ -210,7 +210,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.12.1 <0.14.0",
-        "resolved": "0.13.3+1"
+        "resolved": "0.13.3+2"
       },
       {
         "package": "http",
@@ -223,7 +223,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=3.0.3 <4.0.0",
-        "resolved": "3.1.2"
+        "resolved": "3.1.3"
       },
       {
         "package": "io",
@@ -236,34 +236,34 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.1",
-        "available": "0.3.3"
+        "available": "0.3.4"
       },
       {
         "package": "logging",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.11.3+1",
-        "resolved": "0.11.3+1"
+        "resolved": "0.11.3+2"
       },
       {
         "package": "markdown",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.0.1"
+        "resolved": "2.0.2"
       },
       {
         "package": "matcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.12.3"
+        "resolved": "0.12.4"
       },
       {
         "package": "meta",
         "dependencyType": "dev",
         "constraintType": "normal",
         "constraint": "^1.0.0",
-        "resolved": "1.1.5"
+        "resolved": "1.1.6"
       },
       {
         "package": "mustache4dart",
@@ -277,27 +277,27 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.1.5 <2.0.0",
-        "resolved": "1.0.3"
+        "resolved": "1.0.5"
       },
       {
         "package": "path",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.3.0",
-        "resolved": "1.6.1"
+        "resolved": "1.6.2"
       },
       {
         "package": "plugin",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.2.0+2"
+        "resolved": "0.2.0+3"
       },
       {
         "package": "pub_semver",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.3.7",
-        "resolved": "1.4.1"
+        "resolved": "1.4.2"
       },
       {
         "package": "quiver",
@@ -305,7 +305,7 @@
         "constraintType": "normal",
         "constraint": "^0.27.0",
         "resolved": "0.27.0",
-        "available": "0.29.0+1"
+        "available": "2.0.0+1"
       },
       {
         "package": "quiver_hashcode",
@@ -318,26 +318,26 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.1.2",
-        "resolved": "2.1.4"
+        "resolved": "2.1.5"
       },
       {
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.4.0"
+        "resolved": "1.4.1"
       },
       {
         "package": "stack_trace",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.4.2",
-        "resolved": "1.9.2"
+        "resolved": "1.9.3"
       },
       {
         "package": "string_scanner",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.2"
+        "resolved": "1.0.3"
       },
       {
         "package": "test",
@@ -356,26 +356,26 @@
         "package": "typed_data",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.5"
+        "resolved": "1.1.6"
       },
       {
         "package": "utf",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.0+4"
+        "resolved": "0.9.0+5"
       },
       {
         "package": "watcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.7+9"
+        "resolved": "0.9.7+10"
       },
       {
         "package": "yaml",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.1.0",
-        "resolved": "2.1.14"
+        "resolved": "2.1.15"
       }
     ]
   },
@@ -656,7 +656,6 @@
         "package:async/src/stream_subscription_transformer.dart",
         "package:async/src/stream_zip.dart",
         "package:async/src/subscription_stream.dart",
-        "package:async/src/typed/future.dart",
         "package:async/src/typed/stream_subscription.dart",
         "package:async/src/typed_stream_transformer.dart",
         "package:async/src/utils.dart",

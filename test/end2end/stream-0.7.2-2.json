@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.7",
-    "sdkVersion": "2.0.0-dev.66.0"
+    "panaVersion": "0.11.8-dev",
+    "sdkVersion": "2.0.0-dev.68.0"
   },
   "packageName": "stream",
   "packageVersion": "0.7.2+2",
@@ -37,7 +37,7 @@
     "missingReadme": false,
     "missingAnalysisOptions": true,
     "oldAnalysisOptions": false,
-    "strongModeEnabled": false,
+    "strongModeEnabled": true,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
     "errorCount": 0,
@@ -143,7 +143,7 @@
       "code": "pubspec.dependencies.failedToResolve",
       "level": "error",
       "title": "Fix dependencies in `pubspec.yaml`.",
-      "description": "Running `pub upgrade` failed with the following output:\n\n```\nBad state: For args, the parsed version null did not match the locked version 1.4.3.\n```\n"
+      "description": "Running `pub upgrade` failed with the following output:\n\n```\nBad state: For args, the parsed version null did not match the locked version 1.4.4.\n```\n"
     }
   ],
   "dartFiles": {
