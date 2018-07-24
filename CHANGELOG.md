@@ -1,4 +1,4 @@
-## 0.11.8-dev
+## 0.11.8
 
 * Support Dart 2 gold release.
 
