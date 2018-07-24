@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.8-dev",
-    "sdkVersion": "2.0.0-dev.68.0"
+    "panaVersion": "0.11.8",
+    "sdkVersion": "2.0.0-dev.69.0"
   },
   "packageName": "fs_shim",
   "packageVersion": "0.7.1",
@@ -190,8 +190,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.0",
-        "resolved": "1.5.0",
-        "available": "1.6.0-dev.2"
+        "resolved": "1.6.0+1"
       },
       {
         "package": "js",
@@ -221,13 +220,13 @@
         "package": "sembast",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.9.0"
+        "resolved": "1.9.1+1"
       },
       {
         "package": "synchronized",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.0+1"
+        "resolved": "1.5.1"
       },
       {
         "package": "test",
@@ -352,6 +351,8 @@
         "package:idb_shim/idb_client.dart",
         "package:idb_shim/src/client/client.dart",
         "package:idb_shim/src/client/error.dart",
+        "package:idb_shim/src/common/common_factory.dart",
+        "package:idb_shim/src/common/common_value.dart",
         "package:path/path.dart",
         "package:path/src/characters.dart",
         "package:path/src/context.dart",
@@ -495,9 +496,20 @@
         "package:idb_shim/idb_client_sembast.dart",
         "package:idb_shim/src/client/client.dart",
         "package:idb_shim/src/client/error.dart",
+        "package:idb_shim/src/common/common_database.dart",
+        "package:idb_shim/src/common/common_factory.dart",
         "package:idb_shim/src/common/common_meta.dart",
+        "package:idb_shim/src/common/common_transaction.dart",
         "package:idb_shim/src/common/common_validation.dart",
         "package:idb_shim/src/common/common_value.dart",
+        "package:idb_shim/src/sembast/sembast_cursor.dart",
+        "package:idb_shim/src/sembast/sembast_database.dart",
+        "package:idb_shim/src/sembast/sembast_factory.dart",
+        "package:idb_shim/src/sembast/sembast_index.dart",
+        "package:idb_shim/src/sembast/sembast_object_store.dart",
+        "package:idb_shim/src/sembast/sembast_transaction.dart",
+        "package:idb_shim/src/utils/core_imports.dart",
+        "package:idb_shim/src/utils/dev_utils.dart",
         "package:logging/logging.dart",
         "package:path/path.dart",
         "package:path/src/characters.dart",
