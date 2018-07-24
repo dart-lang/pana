@@ -4,11 +4,13 @@
 
 import 'dart:convert';
 
+import 'package:test/test.dart';
+import 'package:test_descriptor/test_descriptor.dart' as d;
+
+import 'package:pana/src/download_utils.dart';
 import 'package:pana/src/maintenance.dart';
 import 'package:pana/src/model.dart';
 import 'package:pana/src/pubspec.dart';
-import 'package:test/test.dart';
-import 'package:test_descriptor/test_descriptor.dart' as d;
 
 final _withIssuesJson = {
   "missingChangelog": true,
@@ -53,11 +55,11 @@ final _withIssuesJson = {
       'penalty': {'amount': 0, 'fraction': 2000}
     },
     {
-      'code': 'pubspec.homepage.doesNotExists',
+      'code': 'pubspec.homepage.isNotHelpful',
       'level': 'warning',
-      'title': 'Homepage does not exists.',
+      'title': 'Homepage is not helpful.',
       'description':
-          'We were unable to access `null` at the time of the analysis.',
+          'Update the `homepage` property: create a website about the package or use the source repository URL.',
       'penalty': {'amount': 0, 'fraction': 1000},
     },
     {
@@ -144,6 +146,7 @@ void main() {
         new Suggestion.hint('hintCode', 'hint', 'hint'),
       ];
       final maintenance = await detectMaintenance(
+        new UrlChecker(),
         d.sandbox,
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
         <CodeProblem>[

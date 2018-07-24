@@ -4,6 +4,10 @@
 
 * Remove `strong-mode: true` check and suggestion.
 
+* Do not check existence of non-external URLs.
+
+* API for external caching of URL existence checks.
+
 ## 0.11.7
 
 * Suggestions for SDK constraint and Dart 2 compatibility.

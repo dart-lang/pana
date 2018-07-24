@@ -35,7 +35,7 @@ Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
 }
 
 Future<List<LicenseFile>> updateLicenseUrls(
-    String baseUrl, List<LicenseFile> licenses) async {
+    UrlChecker urlChecker, String baseUrl, List<LicenseFile> licenses) async {
   if (baseUrl == null || baseUrl.isEmpty) {
     return licenses;
   }
@@ -48,7 +48,8 @@ Future<List<LicenseFile>> updateLicenseUrls(
     if (url == null) {
       return license;
     }
-    if (await isExistingUrl(url)) {
+    final status = await urlChecker.checkStatus(url);
+    if (status == UrlStatus.exists) {
       return license.change(url: url);
     } else {
       return license;

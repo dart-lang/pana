@@ -50,8 +50,10 @@ class InspectOptions {
 
 class PackageAnalyzer {
   final ToolEnvironment _toolEnv;
+  final UrlChecker _urlChecker;
 
-  PackageAnalyzer(this._toolEnv);
+  PackageAnalyzer(this._toolEnv, {UrlChecker urlChecker})
+      : _urlChecker = urlChecker ?? new UrlChecker();
 
   static Future<PackageAnalyzer> create(
       {String sdkDir, String flutterDir, String pubCacheDir}) async {
@@ -345,9 +347,10 @@ class PackageAnalyzer {
     }
 
     var licenses = await detectLicensesInDir(pkgDir);
-    licenses = await updateLicenseUrls(pubspec.homepage, licenses);
+    licenses = await updateLicenseUrls(_urlChecker, pubspec.homepage, licenses);
 
     final maintenance = await detectMaintenance(
+      _urlChecker,
       pkgDir,
       pubspec,
       analyzerItems ?? <CodeProblem>[],
