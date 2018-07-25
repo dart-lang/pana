@@ -33,9 +33,10 @@ class Summary extends Object with _$SummarySerializerMixin {
   final List<LicenseFile> licenses;
 
   @JsonKey(includeIfNull: false)
-  final Maintenance maintenance;
+  final Health health;
 
-  final Fitness fitness;
+  @JsonKey(includeIfNull: false)
+  final Maintenance maintenance;
 
   @JsonKey(includeIfNull: false)
   final List<Suggestion> suggestions;
@@ -55,7 +56,7 @@ class Summary extends Object with _$SummarySerializerMixin {
     @required this.dartFiles,
     @required this.platform,
     @required this.licenses,
-    @required this.fitness,
+    @required this.health,
     @required this.maintenance,
     @required List<Suggestion> suggestions,
   }) : this.suggestions =
@@ -70,7 +71,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       .expand((list) => list);
 
   Summary change({
-    Fitness fitness,
+    Health health,
     DartPlatform platform,
     Maintenance maintenance,
     List<Suggestion> suggestions,
@@ -84,7 +85,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       dartFiles: dartFiles,
       platform: platform ?? this.platform,
       licenses: licenses,
-      fitness: fitness ?? this.fitness,
+      health: health ?? this.health,
       maintenance: maintenance ?? this.maintenance,
       suggestions: suggestions ?? this.suggestions,
     );
@@ -127,12 +128,6 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   final List<String> transitiveLibs;
   @JsonKey(includeIfNull: false)
   final DartPlatform platform;
-  @JsonKey(includeIfNull: false)
-  final Fitness fitness;
-
-  /// The suggestions that affect the maintenance score.
-  @JsonKey(includeIfNull: false)
-  final List<Suggestion> suggestions;
 
   DartFileSummary({
     @required this.uri,
@@ -142,8 +137,6 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
     @required this.directLibs,
     @required this.transitiveLibs,
     @required this.platform,
-    @required this.fitness,
-    @required this.suggestions,
   });
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
@@ -656,6 +649,44 @@ class PkgDependency extends Object
   }
 }
 
+@JsonSerializable()
+class Health extends Object with _$HealthSerializerMixin {
+  /// The number of errors from `dartanalyzer`.
+  final int analyzerErrorCount;
+
+  /// The number of warnings from `dartanalyzer`.
+  final int analyzerWarningCount;
+
+  /// The number of hints/info messages from `dartanalyzer`.
+  final int analyzerHintCount;
+
+  /// The number of files having platform conflicts.
+  final int platformConflictCount;
+
+  /// The suggestions about the issues affecting the health score.
+  @JsonKey(includeIfNull: false)
+  final List<Suggestion> suggestions;
+
+  Health({
+    @required this.analyzerErrorCount,
+    @required this.analyzerWarningCount,
+    @required this.analyzerHintCount,
+    @required this.platformConflictCount,
+    @required List<Suggestion> suggestions,
+  }) : suggestions =
+            suggestions == null || suggestions.isEmpty ? null : suggestions;
+
+  factory Health.fromJson(Map<String, dynamic> json) => _$HealthFromJson(json);
+
+  double get healthScore {
+    double score = math.pow(0.75, analyzerErrorCount) *
+        math.pow(0.95, analyzerWarningCount) *
+        math.pow(0.995, analyzerHintCount);
+    score -= 0.25 * platformConflictCount;
+    return math.max(0.0, score);
+  }
+}
+
 /// Describes the maintenance status of the package.
 @JsonSerializable()
 class Maintenance extends Object with _$MaintenanceSerializerMixin {
@@ -687,15 +718,6 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   @JsonKey(includeIfNull: false)
   final bool dartdocSuccessful;
 
-  /// the number of errors encountered during analysis
-  final int errorCount;
-
-  /// the number of warning encountered during analysis
-  final int warningCount;
-
-  /// the number of hints encountered during analysis
-  final int hintCount;
-
   /// The suggestions that affect the maintenance score.
   @JsonKey(includeIfNull: false)
   final List<Suggestion> suggestions;
@@ -709,9 +731,6 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
     @required this.strongModeEnabled,
     @required this.isExperimentalVersion,
     @required this.isPreReleaseVersion,
-    @required this.errorCount,
-    @required this.warningCount,
-    @required this.hintCount,
     @required this.dartdocSuccessful,
     List<Suggestion> suggestions,
   }) : this.suggestions =
@@ -733,35 +752,9 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
       strongModeEnabled: strongModeEnabled,
       isExperimentalVersion: isExperimentalVersion,
       isPreReleaseVersion: isPreReleaseVersion,
-      errorCount: errorCount,
-      warningCount: warningCount,
-      hintCount: hintCount,
       dartdocSuccessful: dartdocSuccessful ?? this.dartdocSuccessful,
       suggestions: suggestions ?? this.suggestions,
     );
-  }
-}
-
-/// Describes a health metric that takes size and complexity into account.
-@JsonSerializable()
-class Fitness extends Object with _$FitnessSerializerMixin {
-  /// Represents the size and complexity of the library.
-  final double magnitude;
-
-  /// The faults, penalties and failures to meet the standards.
-  final double shortcoming;
-
-  Fitness(this.magnitude, this.shortcoming);
-
-  factory Fitness.fromJson(Map<String, dynamic> json) =>
-      _$FitnessFromJson(json);
-
-  String toSimpleText() =>
-      '${(magnitude - shortcoming).toStringAsFixed(2)} out of ${magnitude.toStringAsFixed(2)}';
-
-  double get healthScore {
-    final score = (magnitude - shortcoming) / magnitude;
-    return math.max(0.0, math.min(1.0, score));
   }
 }
 

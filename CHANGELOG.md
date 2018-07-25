@@ -4,6 +4,9 @@
 
 * Named parameters in the following constructors: `Summary`, `DartFileSummary`, `PkgDependency`, `CodeProblem`. 
 
+* Removed per-file and overall `Fitness`, using a top-level `Health` report instead.
+  Follows the proposed changes that allow us to clearly communicate the scoring mechanism.
+
 ## 0.11.8
 
 * Support Dart 2 gold release.

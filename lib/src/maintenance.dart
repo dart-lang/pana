@@ -14,7 +14,6 @@ import 'package:yaml/yaml.dart' as yaml;
 
 import 'dartdoc_analyzer.dart';
 import 'download_utils.dart';
-import 'messages.dart';
 import 'model.dart';
 import 'pubspec.dart';
 import 'utils.dart';
@@ -107,8 +106,6 @@ Future<Maintenance> detectMaintenance(
   UrlChecker urlChecker,
   String pkgDir,
   Pubspec pubspec,
-  List<CodeProblem> analyzerItems,
-  List<Suggestion> dartFileSuggestions,
   List<PkgDependency> unconstrainedDeps, {
   @required DartPlatform pkgPlatform,
   bool dartdocSuccessful,
@@ -332,67 +329,6 @@ Future<Maintenance> detectMaintenance(
         penalty: new Penalty(amount: 10)));
   }
 
-  final errorCount = analyzerItems.where((s) => s.isError).length;
-  final warningCount = analyzerItems.where((s) => s.isWarning).length;
-  final hintCount = analyzerItems.where((s) => s.isInfo).length;
-
-  final reportedFiles = new Set();
-  final onePerFileSuggestions = dartFileSuggestions
-      .where((s) => reportedFiles.add(s.file))
-      .toList()
-        ..sort();
-
-  if (onePerFileSuggestions.length < 5) {
-    maintenanceSuggestions.addAll(onePerFileSuggestions);
-  } else {
-    final topSuggestions = onePerFileSuggestions.take(2).toList();
-    final restSuggestions = onePerFileSuggestions.skip(2).toList();
-    maintenanceSuggestions.addAll(topSuggestions);
-
-    if (restSuggestions.isNotEmpty) {
-      final bulkErrorCount = restSuggestions.where((s) => s.isError).length;
-      final bulkWarningCount = restSuggestions.where((s) => s.isWarning).length;
-      final bulkHintCount = restSuggestions.where((s) => s.isHint).length;
-      final sb = new StringBuffer();
-      sb.write('Additional issues in the following files:\n\n');
-
-      for (var s in restSuggestions) {
-        final fileAnalyzerItems =
-            analyzerItems.where((cp) => cp.file == s.file).toList();
-
-        if (fileAnalyzerItems.isNotEmpty) {
-          final errorCount = fileAnalyzerItems.where((cp) => cp.isError).length;
-          final warningCount =
-              fileAnalyzerItems.where((cp) => cp.isWarning).length;
-          final hintCount = fileAnalyzerItems.where((cp) => cp.isInfo).length;
-          final issueCounts =
-              formatIssueCounts(errorCount, warningCount, hintCount);
-          sb.writeln('- `${s.file}` ($issueCounts)');
-        } else {
-          sb.writeln('- `${s.file}` (${s.description})');
-        }
-      }
-
-      final level = (bulkErrorCount > 0 || bulkWarningCount > 0)
-          ? SuggestionLevel.warning
-          : SuggestionLevel.hint;
-      maintenanceSuggestions.add(
-        new Suggestion(
-          SuggestionCode.bulk,
-          level,
-          'Fix additional ${restSuggestions.length} files with analysis or formatting issues.',
-          sb.toString(),
-          // These are already reflected in the fitness score, but we'll also
-          // penalize them here (with a much smaller amount), reflecting the need
-          // of work.
-          penalty: new Penalty(
-              amount:
-                  bulkErrorCount * 50 + bulkWarningCount * 10 + bulkHintCount),
-        ),
-      );
-    }
-  }
-
   if (unconstrainedDeps != null && unconstrainedDeps.isNotEmpty) {
     final count = unconstrainedDeps.length;
     final pluralized = count == 1 ? '1 dependency' : '$count dependencies';
@@ -419,9 +355,6 @@ Future<Maintenance> detectMaintenance(
     isExperimentalVersion: isExperimentalVersion,
     isPreReleaseVersion: isPreReleaseVersion,
     dartdocSuccessful: dartdocSuccessful,
-    errorCount: errorCount,
-    warningCount: warningCount,
-    hintCount: hintCount,
     suggestions: maintenanceSuggestions,
   );
 }

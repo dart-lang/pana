@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.9",
-    "sdkVersion": "2.0.0-dev.69.5"
+    "panaVersion": "0.12.0-dev",
+    "sdkVersion": "2.1.0-dev.1.0"
   },
   "packageName": "fs_shim",
   "packageVersion": "0.7.1",
@@ -46,7 +46,7 @@
     }
   },
   "platform": {
-    "reason": "Error(s) prevent platform classification:\n\nError(s) in lib/fs.dart: Default values of an optional parameter must be constant."
+    "reason": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`."
   },
   "licenses": [
     {
@@ -55,6 +55,28 @@
       "url": "https://github.com/tekartik/fs_shim.dart/blob/master/LICENSE"
     }
   ],
+  "health": {
+    "analyzerErrorCount": 0,
+    "analyzerWarningCount": 0,
+    "analyzerHintCount": 0,
+    "platformConflictCount": 0,
+    "suggestions": [
+      {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/utils/copy.dart`.",
+        "description": "Run `dartfmt` to format `lib/utils/copy.dart`.",
+        "file": "lib/utils/copy.dart"
+      },
+      {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/utils/src/utils_impl.dart`.",
+        "description": "Run `dartfmt` to format `lib/utils/src/utils_impl.dart`.",
+        "file": "lib/utils/src/utils_impl.dart"
+      }
+    ]
+  },
   "maintenance": {
     "missingChangelog": false,
     "missingExample": true,
@@ -64,37 +86,12 @@
     "strongModeEnabled": true,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
-    "errorCount": 33,
-    "warningCount": 0,
-    "hintCount": 15,
     "suggestions": [
-      {
-        "code": "dartanalyzer.warning",
-        "level": "error",
-        "title": "Fix `lib/fs.dart`.",
-        "description": "Analysis of `lib/fs.dart` failed with 6 errors, including:\n\nline 179 col 58: Default values of an optional parameter must be constant.\n\nline 179 col 58: Undefined name 'UTF8'.\n\nline 229 col 26: Default values of an optional parameter must be constant.\n\nline 229 col 26: Undefined name 'UTF8'.\n\nline 246 col 51: Default values of an optional parameter must be constant.",
-        "file": "lib/fs.dart",
-        "penalty": {
-          "amount": 390,
-          "fraction": 10000
-        }
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "error",
-        "title": "Fix `lib/src/io/io_file.dart`.",
-        "description": "Analysis of `lib/src/io/io_file.dart` failed with 6 errors, including:\n\nline 35 col 64: Default values of an optional parameter must be constant.\n\nline 35 col 64: Undefined name 'UTF8'.\n\nline 70 col 30: Default values of an optional parameter must be constant.\n\nline 70 col 30: Undefined name 'UTF8'.\n\nline 81 col 51: Default values of an optional parameter must be constant.",
-        "file": "lib/src/io/io_file.dart",
-        "penalty": {
-          "amount": 66,
-          "fraction": 10000
-        }
-      },
       {
         "code": "platform.conflict.inPkg",
         "level": "error",
         "title": "Fix platform conflicts.",
-        "description": "Error(s) prevent platform classification:\n\nError(s) in lib/fs.dart: Default values of an optional parameter must be constant.",
+        "description": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`.",
         "penalty": {
           "amount": 0,
           "fraction": 2000
@@ -108,26 +105,6 @@
         "penalty": {
           "amount": 0,
           "fraction": 2000
-        }
-      },
-      {
-        "code": "pubspec.dependencies.unconstrained",
-        "level": "warning",
-        "title": "Use constrained dependencies.",
-        "description": "The `pubspec.yaml` contains 2 dependencies without version constraints. Specify version ranges for the following dependencies: `idb_shim`, `path`.",
-        "penalty": {
-          "amount": 0,
-          "fraction": 500
-        }
-      },
-      {
-        "code": "bulk",
-        "level": "warning",
-        "title": "Fix additional 12 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/common/fs_mixin.dart` (6 errors)\n- `lib/src/idb/idb_file.dart` (4 errors)\n- `lib/src/idb/idb_file_system.dart` (3 errors)\n- `lib/src/idb/idb_file_system_storage.dart` (3 errors)\n- `lib/src/io/io_directory.dart` (2 errors)\n- `lib/src/io/io_file_system.dart` (1 error)\n- `lib/src/io/io_file_system_entity.dart` (1 error)\n- `lib/src/io/io_link.dart` (1 error)\n- `lib/src/io/io_fs.dart` (14 hints)\n- `lib/utils/copy.dart` (Run `dartfmt` to format `lib/utils/copy.dart`.)\n- `lib/utils/io/entity.dart` (1 hint)\n- `lib/utils/src/utils_impl.dart` (Run `dartfmt` to format `lib/utils/src/utils_impl.dart`.)\n",
-        "penalty": {
-          "amount": 404,
-          "fraction": 0
         }
       },
       {
@@ -152,1744 +129,224 @@
       }
     ]
   },
-  "fitness": {
-    "magnitude": 2873.0,
-    "shortcoming": 1045.0
-  },
-  "pkgResolution": {
-    "dependencies": [
-      {
-        "package": "browser",
-        "dependencyType": "dev",
-        "constraintType": "normal",
-        "constraint": "any"
-      },
-      {
-        "package": "chrome_travis",
-        "dependencyType": "dev",
-        "constraintType": "git"
-      },
-      {
-        "package": "collection",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.14.11"
-      },
-      {
-        "package": "dart2_constant",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.0.2+dart2"
-      },
-      {
-        "package": "dev_test",
-        "dependencyType": "dev",
-        "constraintType": "normal",
-        "constraint": "any"
-      },
-      {
-        "package": "idb_shim",
-        "dependencyType": "direct",
-        "constraintType": "normal",
-        "constraint": ">=1.4.0",
-        "resolved": "1.6.0+2"
-      },
-      {
-        "package": "js",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.6.1+1"
-      },
-      {
-        "package": "logging",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.11.3+2"
-      },
-      {
-        "package": "path",
-        "dependencyType": "direct",
-        "constraintType": "normal",
-        "constraint": ">=1.3.9",
-        "resolved": "1.6.2"
-      },
-      {
-        "package": "platform_context",
-        "dependencyType": "dev",
-        "constraintType": "git"
-      },
-      {
-        "package": "sembast",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.9.1+1"
-      },
-      {
-        "package": "synchronized",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.5.1+1"
-      },
-      {
-        "package": "test",
-        "dependencyType": "dev",
-        "constraintType": "normal",
-        "constraint": "any"
-      }
-    ]
-  },
+  "suggestions": [
+    {
+      "code": "pubspec.dependencies.failedToResolve",
+      "level": "error",
+      "title": "Fix dependencies in `pubspec.yaml`.",
+      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is 2.1.0-dev.1.0.\n \n Because fs_shim requires SDK version >=1.24.0 <2.0.0, version solving failed.\n```\n"
+    }
+  ],
   "dartFiles": {
     "lib/fs.dart": {
       "uri": "package:fs_shim/fs.dart",
       "size": 17558,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/fs.dart",
-          "line": 179,
-          "col": 58,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/fs.dart",
-          "line": 179,
-          "col": 58,
-          "description": "Undefined name 'UTF8'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/fs.dart",
-          "line": 229,
-          "col": 26,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/fs.dart",
-          "line": 229,
-          "col": 26,
-          "description": "Undefined name 'UTF8'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/fs.dart",
-          "line": 246,
-          "col": 51,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/fs.dart",
-          "line": 246,
-          "col": 51,
-          "description": "Undefined name 'UTF8'."
-        }
-      ],
-      "directLibs": [
-        "dart:async",
-        "dart:convert",
-        "package:path/path.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "reason": "Error(s) in lib/fs.dart: Default values of an optional parameter must be constant."
-      },
-      "fitness": {
-        "magnitude": 321.0,
-        "shortcoming": 321.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/fs.dart`.",
-          "description": "Analysis of `lib/fs.dart` failed with 6 errors, including:\n\nline 179 col 58: Default values of an optional parameter must be constant.\n\nline 179 col 58: Undefined name 'UTF8'.\n\nline 229 col 26: Default values of an optional parameter must be constant.\n\nline 229 col 26: Undefined name 'UTF8'.\n\nline 246 col 51: Default values of an optional parameter must be constant.",
-          "file": "lib/fs.dart",
-          "penalty": {
-            "amount": 390,
-            "fraction": 10000
-          }
-        },
-        {
-          "code": "platform.conflict.inFile",
-          "level": "error",
-          "title": "Fix platform conflict in `lib/fs.dart`.",
-          "description": "Make sure that the imported libraries are not in conflict. Error(s) in lib/fs.dart: Default values of an optional parameter must be constant.",
-          "file": "lib/fs.dart",
-          "penalty": {
-            "amount": 65,
-            "fraction": 2000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/fs_idb.dart": {
       "uri": "package:fs_shim/fs_idb.dart",
       "size": 328,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/idb/idb_fs.dart",
-        "package:idb_shim/idb.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/fs_mixin.dart",
-        "package:fs_shim/src/common/memory_sink.dart",
-        "package:fs_shim/src/idb/idb_directory.dart",
-        "package:fs_shim/src/idb/idb_file.dart",
-        "package:fs_shim/src/idb/idb_file_stat.dart",
-        "package:fs_shim/src/idb/idb_file_system.dart",
-        "package:fs_shim/src/idb/idb_file_system_entity.dart",
-        "package:fs_shim/src/idb/idb_file_system_exception.dart",
-        "package:fs_shim/src/idb/idb_file_system_storage.dart",
-        "package:fs_shim/src/idb/idb_fs.dart",
-        "package:fs_shim/src/idb/idb_link.dart",
-        "package:idb_shim/idb.dart",
-        "package:idb_shim/idb_client.dart",
-        "package:idb_shim/src/client/client.dart",
-        "package:idb_shim/src/client/error.dart",
-        "package:idb_shim/src/common/common_factory.dart",
-        "package:idb_shim/src/common/common_value.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 11.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/fs_io.dart": {
       "uri": "package:fs_shim/fs_io.dart",
       "size": 5025,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "dart:async",
-        "dart:io",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/io/io_directory.dart",
-        "package:fs_shim/src/io/io_file.dart",
-        "package:fs_shim/src/io/io_file_stat.dart",
-        "package:fs_shim/src/io/io_file_system.dart",
-        "package:fs_shim/src/io/io_file_system_exception.dart",
-        "package:fs_shim/src/io/io_fs.dart",
-        "package:fs_shim/src/io/io_link.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:io",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/fs_mixin.dart",
-        "package:fs_shim/src/io/io_directory.dart",
-        "package:fs_shim/src/io/io_file.dart",
-        "package:fs_shim/src/io/io_file_stat.dart",
-        "package:fs_shim/src/io/io_file_system.dart",
-        "package:fs_shim/src/io/io_file_system_entity.dart",
-        "package:fs_shim/src/io/io_file_system_exception.dart",
-        "package:fs_shim/src/io/io_fs.dart",
-        "package:fs_shim/src/io/io_link.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [
-          "io"
-        ],
-        "uses": {
-          "flutter": "allowed",
-          "web": "forbidden",
-          "other": "used"
-        }
-      },
-      "fitness": {
-        "magnitude": 110.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/fs_memory.dart": {
       "uri": "package:fs_shim/fs_memory.dart",
       "size": 271,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/fs_idb.dart",
-        "package:idb_shim/idb_client_memory.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:collection/collection.dart",
-        "package:collection/src/algorithms.dart",
-        "package:collection/src/canonicalized_map.dart",
-        "package:collection/src/combined_wrappers/combined_iterable.dart",
-        "package:collection/src/combined_wrappers/combined_list.dart",
-        "package:collection/src/combined_wrappers/combined_map.dart",
-        "package:collection/src/comparators.dart",
-        "package:collection/src/empty_unmodifiable_set.dart",
-        "package:collection/src/equality.dart",
-        "package:collection/src/equality_map.dart",
-        "package:collection/src/equality_set.dart",
-        "package:collection/src/functions.dart",
-        "package:collection/src/iterable_zip.dart",
-        "package:collection/src/priority_queue.dart",
-        "package:collection/src/queue_list.dart",
-        "package:collection/src/union_set.dart",
-        "package:collection/src/union_set_controller.dart",
-        "package:collection/src/unmodifiable_wrappers.dart",
-        "package:collection/src/utils.dart",
-        "package:collection/src/wrappers.dart",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/fs_idb.dart",
-        "package:fs_shim/src/common/fs_mixin.dart",
-        "package:fs_shim/src/common/memory_sink.dart",
-        "package:fs_shim/src/idb/idb_directory.dart",
-        "package:fs_shim/src/idb/idb_file.dart",
-        "package:fs_shim/src/idb/idb_file_stat.dart",
-        "package:fs_shim/src/idb/idb_file_system.dart",
-        "package:fs_shim/src/idb/idb_file_system_entity.dart",
-        "package:fs_shim/src/idb/idb_file_system_exception.dart",
-        "package:fs_shim/src/idb/idb_file_system_storage.dart",
-        "package:fs_shim/src/idb/idb_fs.dart",
-        "package:fs_shim/src/idb/idb_link.dart",
-        "package:idb_shim/idb.dart",
-        "package:idb_shim/idb_client.dart",
-        "package:idb_shim/idb_client_memory.dart",
-        "package:idb_shim/idb_client_sembast.dart",
-        "package:idb_shim/src/client/client.dart",
-        "package:idb_shim/src/client/error.dart",
-        "package:idb_shim/src/common/common_database.dart",
-        "package:idb_shim/src/common/common_factory.dart",
-        "package:idb_shim/src/common/common_meta.dart",
-        "package:idb_shim/src/common/common_transaction.dart",
-        "package:idb_shim/src/common/common_validation.dart",
-        "package:idb_shim/src/common/common_value.dart",
-        "package:idb_shim/src/sembast/sembast_cursor.dart",
-        "package:idb_shim/src/sembast/sembast_database.dart",
-        "package:idb_shim/src/sembast/sembast_factory.dart",
-        "package:idb_shim/src/sembast/sembast_index.dart",
-        "package:idb_shim/src/sembast/sembast_object_store.dart",
-        "package:idb_shim/src/sembast/sembast_transaction.dart",
-        "package:idb_shim/src/utils/core_imports.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:logging/logging.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart",
-        "package:sembast/sembast.dart",
-        "package:sembast/sembast_memory.dart",
-        "package:sembast/src/database.dart",
-        "package:sembast/src/database_impl.dart",
-        "package:sembast/src/database_mode.dart",
-        "package:sembast/src/file_system.dart",
-        "package:sembast/src/filter.dart",
-        "package:sembast/src/finder.dart",
-        "package:sembast/src/memory/memory_file_system.dart",
-        "package:sembast/src/memory/memory_file_system_impl.dart",
-        "package:sembast/src/meta.dart",
-        "package:sembast/src/record.dart",
-        "package:sembast/src/record_impl.dart",
-        "package:sembast/src/sembast_fs.dart",
-        "package:sembast/src/sembast_impl.dart",
-        "package:sembast/src/sort_order.dart",
-        "package:sembast/src/sort_order_impl.dart",
-        "package:sembast/src/storage.dart",
-        "package:sembast/src/store.dart",
-        "package:sembast/src/store_impl.dart",
-        "package:sembast/src/transaction_impl.dart",
-        "package:sembast/src/utils.dart",
-        "package:synchronized/src/synchronized_compat.dart",
-        "package:synchronized/src/synchronized_impl.dart",
-        "package:synchronized/src/utils.dart",
-        "package:synchronized/synchronized.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 10.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/common/fs_mixin.dart": {
       "uri": "package:fs_shim/src/common/fs_mixin.dart",
       "size": 2259,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/src/common/fs_mixin.dart",
-          "line": 34,
-          "col": 58,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/src/common/fs_mixin.dart",
-          "line": 34,
-          "col": 58,
-          "description": "Undefined name 'UTF8'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/src/common/fs_mixin.dart",
-          "line": 50,
-          "col": 30,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/src/common/fs_mixin.dart",
-          "line": 50,
-          "col": 30,
-          "description": "Undefined name 'UTF8'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/src/common/fs_mixin.dart",
-          "line": 74,
-          "col": 51,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/src/common/fs_mixin.dart",
-          "line": 74,
-          "col": 51,
-          "description": "Undefined name 'UTF8'."
-        }
-      ],
-      "fitness": {
-        "magnitude": 50.0,
-        "shortcoming": 50.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/common/fs_mixin.dart`.",
-          "description": "Analysis of `lib/src/common/fs_mixin.dart` failed with 6 errors, including:\n\nline 34 col 58: Default values of an optional parameter must be constant.\n\nline 34 col 58: Undefined name 'UTF8'.\n\nline 50 col 30: Default values of an optional parameter must be constant.\n\nline 50 col 30: Undefined name 'UTF8'.\n\nline 74 col 51: Default values of an optional parameter must be constant.",
-          "file": "lib/src/common/fs_mixin.dart",
-          "penalty": {
-            "amount": 60,
-            "fraction": 10000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/common/fs_path.dart": {
       "uri": "package:fs_shim/src/common/fs_path.dart",
       "size": 36,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 1.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/common/import.dart": {
       "uri": "package:fs_shim/src/common/import.dart",
       "size": 382,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 11.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/common/memory_sink.dart": {
       "uri": "package:fs_shim/src/common/memory_sink.dart",
       "size": 742,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 20.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/idb/idb_directory.dart": {
       "uri": "package:fs_shim/src/idb/idb_directory.dart",
       "size": 1029,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 21.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/idb/idb_file.dart": {
       "uri": "package:fs_shim/src/idb/idb_file.dart",
       "size": 1704,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/src/idb/idb_file.dart",
-          "line": 20,
-          "col": 68,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/src/idb/idb_file.dart",
-          "line": 20,
-          "col": 68,
-          "description": "Undefined name 'UTF8'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/src/idb/idb_file.dart",
-          "line": 48,
-          "col": 30,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/src/idb/idb_file.dart",
-          "line": 48,
-          "col": 30,
-          "description": "Undefined name 'UTF8'."
-        }
-      ],
-      "fitness": {
-        "magnitude": 34.0,
-        "shortcoming": 34.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/idb/idb_file.dart`.",
-          "description": "Analysis of `lib/src/idb/idb_file.dart` failed with 4 errors:\n\nline 20 col 68: Default values of an optional parameter must be constant.\n\nline 20 col 68: Undefined name 'UTF8'.\n\nline 48 col 30: Default values of an optional parameter must be constant.\n\nline 48 col 30: Undefined name 'UTF8'.",
-          "file": "lib/src/idb/idb_file.dart",
-          "penalty": {
-            "amount": 40,
-            "fraction": 8000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/idb/idb_file_stat.dart": {
       "uri": "package:fs_shim/src/idb/idb_file_stat.dart",
       "size": 435,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 12.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/idb/idb_file_system.dart": {
       "uri": "package:fs_shim/src/idb/idb_file_system.dart",
       "size": 26984,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/idb/idb_file_system.dart",
-          "line": 303,
-          "col": 49,
-          "description": "The argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/idb/idb_file_system.dart",
-          "line": 571,
-          "col": 54,
-          "description": "The argument type '(int) → Null' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "STRONG_MODE_INVALID_CAST_FUNCTION_EXPR",
-          "file": "lib/src/idb/idb_file_system.dart",
-          "line": 710,
-          "col": 45,
-          "description": "The function expression type '(int) → dynamic' isn't of type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s)."
-        }
-      ],
-      "fitness": {
-        "magnitude": 580.0,
-        "shortcoming": 348.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/idb/idb_file_system.dart`.",
-          "description": "Analysis of `lib/src/idb/idb_file_system.dart` failed with 3 errors:\n\nline 303 col 49: The argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n\nline 571 col 54: The argument type '(int) → Null' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'.\n\nline 710 col 45: The function expression type '(int) → dynamic' isn't of type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).",
-          "file": "lib/src/idb/idb_file_system.dart",
-          "penalty": {
-            "amount": 348,
-            "fraction": 6000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/idb/idb_file_system_entity.dart": {
       "uri": "package:fs_shim/src/idb/idb_file_system_entity.dart",
       "size": 1262,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 31.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/idb/idb_file_system_exception.dart": {
       "uri": "package:fs_shim/src/idb/idb_file_system_exception.dart",
       "size": 1971,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 38.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/idb/idb_file_system_storage.dart": {
       "uri": "package:fs_shim/src/idb/idb_file_system_storage.dart",
       "size": 11956,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "STRONG_MODE_INVALID_CAST_FUNCTION",
-          "file": "lib/src/idb/idb_file_system_storage.dart",
-          "line": 101,
-          "col": 41,
-          "description": "The function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/idb/idb_file_system_storage.dart",
-          "line": 104,
-          "col": 42,
-          "description": "The argument type '(int) → Future<dynamic>' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/idb/idb_file_system_storage.dart",
-          "line": 246,
-          "col": 43,
-          "description": "The argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'."
-        }
-      ],
-      "fitness": {
-        "magnitude": 280.0,
-        "shortcoming": 168.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/idb/idb_file_system_storage.dart`.",
-          "description": "Analysis of `lib/src/idb/idb_file_system_storage.dart` failed with 3 errors:\n\nline 101 col 41: The function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected.\n\nline 104 col 42: The argument type '(int) → Future<dynamic>' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'.\n\nline 246 col 43: The argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.",
-          "file": "lib/src/idb/idb_file_system_storage.dart",
-          "penalty": {
-            "amount": 168,
-            "fraction": 6000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/idb/idb_fs.dart": {
       "uri": "package:fs_shim/src/idb/idb_fs.dart",
       "size": 76,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 2.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/idb/idb_link.dart": {
       "uri": "package:fs_shim/src/idb/idb_link.dart",
       "size": 1622,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 35.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/io/io_directory.dart": {
       "uri": "package:fs_shim/src/io/io_directory.dart",
       "size": 2867,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/io/io_directory.dart",
-          "line": 39,
-          "col": 55,
-          "description": "The argument type '(Directory) → DirectoryImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<DirectoryImpl>'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/io/io_directory.dart",
-          "line": 43,
-          "col": 13,
-          "description": "The argument type '(FileSystemEntity) → DirectoryImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<DirectoryImpl>'."
-        }
-      ],
-      "fitness": {
-        "magnitude": 59.0,
-        "shortcoming": 24.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/io/io_directory.dart`.",
-          "description": "Analysis of `lib/src/io/io_directory.dart` failed with 2 errors:\n\nline 39 col 55: The argument type '(Directory) → DirectoryImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<DirectoryImpl>'.\n\nline 43 col 13: The argument type '(FileSystemEntity) → DirectoryImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<DirectoryImpl>'.",
-          "file": "lib/src/io/io_directory.dart",
-          "penalty": {
-            "amount": 24,
-            "fraction": 4000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/io/io_file.dart": {
       "uri": "package:fs_shim/src/io/io_file.dart",
       "size": 2623,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/src/io/io_file.dart",
-          "line": 35,
-          "col": 64,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/src/io/io_file.dart",
-          "line": 35,
-          "col": 64,
-          "description": "Undefined name 'UTF8'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/src/io/io_file.dart",
-          "line": 70,
-          "col": 30,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/src/io/io_file.dart",
-          "line": 70,
-          "col": 30,
-          "description": "Undefined name 'UTF8'."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
-          "file": "lib/src/io/io_file.dart",
-          "line": 81,
-          "col": 51,
-          "description": "Default values of an optional parameter must be constant."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "UNDEFINED_IDENTIFIER",
-          "file": "lib/src/io/io_file.dart",
-          "line": 81,
-          "col": 51,
-          "description": "Undefined name 'UTF8'."
-        }
-      ],
-      "fitness": {
-        "magnitude": 53.0,
-        "shortcoming": 53.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/io/io_file.dart`.",
-          "description": "Analysis of `lib/src/io/io_file.dart` failed with 6 errors, including:\n\nline 35 col 64: Default values of an optional parameter must be constant.\n\nline 35 col 64: Undefined name 'UTF8'.\n\nline 70 col 30: Default values of an optional parameter must be constant.\n\nline 70 col 30: Undefined name 'UTF8'.\n\nline 81 col 51: Default values of an optional parameter must be constant.",
-          "file": "lib/src/io/io_file.dart",
-          "penalty": {
-            "amount": 66,
-            "fraction": 10000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/io/io_file_stat.dart": {
       "uri": "package:fs_shim/src/io/io_file_stat.dart",
       "size": 570,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 15.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/io/io_file_system.dart": {
       "uri": "package:fs_shim/src/io/io_file_system.dart",
       "size": 1230,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/io/io_file_system.dart",
-          "line": 19,
-          "col": 11,
-          "description": "The argument type '(FileSystemEntityType) → FileSystemEntityType' can't be assigned to the parameter type '(dynamic) → FutureOr<FileSystemEntityType>'."
-        }
-      ],
-      "fitness": {
-        "magnitude": 30.0,
-        "shortcoming": 10.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/io/io_file_system.dart`.",
-          "description": "Analysis of `lib/src/io/io_file_system.dart` failed with 1 error:\n\nline 19 col 11: The argument type '(FileSystemEntityType) → FileSystemEntityType' can't be assigned to the parameter type '(dynamic) → FutureOr<FileSystemEntityType>'.",
-          "file": "lib/src/io/io_file_system.dart",
-          "penalty": {
-            "amount": 10,
-            "fraction": 2000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/io/io_file_system_entity.dart": {
       "uri": "package:fs_shim/src/io/io_file_system_entity.dart",
       "size": 1070,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/io/io_file_system_entity.dart",
-          "line": 40,
-          "col": 13,
-          "description": "The argument type '(FileStat) → FileStatImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<FileStat>'."
-        }
-      ],
-      "fitness": {
-        "magnitude": 24.0,
-        "shortcoming": 10.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/io/io_file_system_entity.dart`.",
-          "description": "Analysis of `lib/src/io/io_file_system_entity.dart` failed with 1 error:\n\nline 40 col 13: The argument type '(FileStat) → FileStatImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<FileStat>'.",
-          "file": "lib/src/io/io_file_system_entity.dart",
-          "penalty": {
-            "amount": 10,
-            "fraction": 2000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/io/io_file_system_exception.dart": {
       "uri": "package:fs_shim/src/io/io_file_system_exception.dart",
       "size": 3711,
       "isFormatted": true,
-      "codeProblems": [],
-      "fitness": {
-        "magnitude": 84.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/src/io/io_fs.dart": {
       "uri": "package:fs_shim/src/io/io_fs.dart",
       "size": 3119,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 20,
-          "col": 26,
-          "description": "'WRITE' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 22,
-          "col": 26,
-          "description": "'READ' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 24,
-          "col": 26,
-          "description": "'APPEND' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 32,
-          "col": 22,
-          "description": "'WRITE' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 34,
-          "col": 22,
-          "description": "'READ' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 36,
-          "col": 22,
-          "description": "'APPEND' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 62,
-          "col": 34,
-          "description": "'FILE' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 64,
-          "col": 34,
-          "description": "'DIRECTORY' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 66,
-          "col": 34,
-          "description": "'LINK' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 68,
-          "col": 34,
-          "description": "'NOT_FOUND' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 79,
-          "col": 38,
-          "description": "'FILE' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 81,
-          "col": 38,
-          "description": "'DIRECTORY' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 83,
-          "col": 38,
-          "description": "'LINK' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/io/io_fs.dart",
-          "line": 85,
-          "col": 38,
-          "description": "'NOT_FOUND' is deprecated and shouldn't be used."
-        }
-      ],
-      "fitness": {
-        "magnitude": 77.0,
-        "shortcoming": 14.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/io/io_fs.dart`.",
-          "description": "Analysis of `lib/src/io/io_fs.dart` reported 14 hints, including:\n\nline 20 col 26: 'WRITE' is deprecated and shouldn't be used.\n\nline 22 col 26: 'READ' is deprecated and shouldn't be used.\n\nline 24 col 26: 'APPEND' is deprecated and shouldn't be used.\n\nline 32 col 22: 'WRITE' is deprecated and shouldn't be used.\n\nline 34 col 22: 'READ' is deprecated and shouldn't be used.",
-          "file": "lib/src/io/io_fs.dart",
-          "penalty": {
-            "amount": 14,
-            "fraction": 0
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/src/io/io_link.dart": {
       "uri": "package:fs_shim/src/io/io_link.dart",
       "size": 1011,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "ARGUMENT_TYPE_NOT_ASSIGNABLE",
-          "file": "lib/src/io/io_link.dart",
-          "line": 28,
-          "col": 13,
-          "description": "The argument type '(FileSystemEntity) → LinkImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<LinkImpl>'."
-        }
-      ],
-      "fitness": {
-        "magnitude": 22.0,
-        "shortcoming": 10.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/io/io_link.dart`.",
-          "description": "Analysis of `lib/src/io/io_link.dart` failed with 1 error:\n\nline 28 col 13: The argument type '(FileSystemEntity) → LinkImpl' can't be assigned to the parameter type '(dynamic) → FutureOr<LinkImpl>'.",
-          "file": "lib/src/io/io_link.dart",
-          "penalty": {
-            "amount": 10,
-            "fraction": 2000
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/utils/copy.dart": {
       "uri": "package:fs_shim/utils/copy.dart",
       "size": 4567,
       "isFormatted": false,
-      "codeProblems": [],
-      "directLibs": [
-        "dart:async",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/utils/src/utils_impl.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/fs_path.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/utils/entity.dart",
-        "package:fs_shim/utils/glob.dart",
-        "package:fs_shim/utils/part.dart",
-        "package:fs_shim/utils/path.dart",
-        "package:fs_shim/utils/read_write.dart",
-        "package:fs_shim/utils/src/utils_impl.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 99.0,
-        "shortcoming": 1.0
-      },
-      "suggestions": [
-        {
-          "code": "dartfmt.warning",
-          "level": "hint",
-          "title": "Format `lib/utils/copy.dart`.",
-          "description": "Run `dartfmt` to format `lib/utils/copy.dart`.",
-          "file": "lib/utils/copy.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/utils/entity.dart": {
       "uri": "package:fs_shim/utils/entity.dart",
       "size": 1278,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "dart:async",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:path/path.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/fs_path.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/utils/glob.dart",
-        "package:fs_shim/utils/part.dart",
-        "package:fs_shim/utils/path.dart",
-        "package:fs_shim/utils/read_write.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 36.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/utils/glob.dart": {
       "uri": "package:fs_shim/utils/glob.dart",
       "size": 4695,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "package:fs_shim/src/common/import.dart",
-        "package:path/path.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/fs_path.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/utils/entity.dart",
-        "package:fs_shim/utils/part.dart",
-        "package:fs_shim/utils/path.dart",
-        "package:fs_shim/utils/read_write.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 132.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/utils/io/copy.dart": {
       "uri": "package:fs_shim/utils/io/copy.dart",
       "size": 1339,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "dart:async",
-        "dart:io",
-        "package:fs_shim/fs_io.dart",
-        "package:fs_shim/utils/copy.dart",
-        "package:fs_shim/utils/io/copy.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:io",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/fs_io.dart",
-        "package:fs_shim/src/common/fs_mixin.dart",
-        "package:fs_shim/src/common/fs_path.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/src/io/io_directory.dart",
-        "package:fs_shim/src/io/io_file.dart",
-        "package:fs_shim/src/io/io_file_stat.dart",
-        "package:fs_shim/src/io/io_file_system.dart",
-        "package:fs_shim/src/io/io_file_system_entity.dart",
-        "package:fs_shim/src/io/io_file_system_exception.dart",
-        "package:fs_shim/src/io/io_fs.dart",
-        "package:fs_shim/src/io/io_link.dart",
-        "package:fs_shim/utils/copy.dart",
-        "package:fs_shim/utils/entity.dart",
-        "package:fs_shim/utils/glob.dart",
-        "package:fs_shim/utils/part.dart",
-        "package:fs_shim/utils/path.dart",
-        "package:fs_shim/utils/read_write.dart",
-        "package:fs_shim/utils/src/utils_impl.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [
-          "io"
-        ],
-        "uses": {
-          "flutter": "allowed",
-          "web": "forbidden",
-          "other": "used"
-        }
-      },
-      "fitness": {
-        "magnitude": 32.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/utils/io/entity.dart": {
       "uri": "package:fs_shim/utils/io/entity.dart",
       "size": 1215,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/utils/io/entity.dart",
-          "line": 59,
-          "col": 28,
-          "description": "'NOT_FOUND' is deprecated and shouldn't be used."
-        }
-      ],
-      "directLibs": [
-        "dart:async",
-        "dart:io",
-        "package:path/path.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:io",
-        "dart:math",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [
-          "io"
-        ],
-        "uses": {
-          "flutter": "allowed",
-          "web": "forbidden",
-          "other": "used"
-        }
-      },
-      "fitness": {
-        "magnitude": 35.0,
-        "shortcoming": 1.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/utils/io/entity.dart`.",
-          "description": "Analysis of `lib/utils/io/entity.dart` reported 1 hint:\n\nline 59 col 28: 'NOT_FOUND' is deprecated and shouldn't be used.",
-          "file": "lib/utils/io/entity.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        }
-      ]
+      "codeProblems": null
     },
     "lib/utils/io/read_write.dart": {
       "uri": "package:fs_shim/utils/io/read_write.dart",
       "size": 551,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "dart:async",
-        "dart:io",
-        "package:fs_shim/fs_io.dart",
-        "package:fs_shim/utils/read_write.dart",
-        "package:fs_shim/utils/src/utils_impl.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:io",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/fs_io.dart",
-        "package:fs_shim/src/common/fs_mixin.dart",
-        "package:fs_shim/src/common/fs_path.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/src/io/io_directory.dart",
-        "package:fs_shim/src/io/io_file.dart",
-        "package:fs_shim/src/io/io_file_stat.dart",
-        "package:fs_shim/src/io/io_file_system.dart",
-        "package:fs_shim/src/io/io_file_system_entity.dart",
-        "package:fs_shim/src/io/io_file_system_exception.dart",
-        "package:fs_shim/src/io/io_fs.dart",
-        "package:fs_shim/src/io/io_link.dart",
-        "package:fs_shim/utils/copy.dart",
-        "package:fs_shim/utils/entity.dart",
-        "package:fs_shim/utils/glob.dart",
-        "package:fs_shim/utils/part.dart",
-        "package:fs_shim/utils/path.dart",
-        "package:fs_shim/utils/read_write.dart",
-        "package:fs_shim/utils/src/utils_impl.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [
-          "io"
-        ],
-        "uses": {
-          "flutter": "allowed",
-          "web": "forbidden",
-          "other": "used"
-        }
-      },
-      "fitness": {
-        "magnitude": 17.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/utils/part.dart": {
       "uri": "package:fs_shim/utils/part.dart",
       "size": 340,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "package:path/path.dart"
-      ],
-      "transitiveLibs": [
-        "dart:collection",
-        "dart:math",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 9.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/utils/path.dart": {
       "uri": "package:fs_shim/utils/path.dart",
       "size": 349,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "package:fs_shim/src/common/import.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/fs_path.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/utils/entity.dart",
-        "package:fs_shim/utils/glob.dart",
-        "package:fs_shim/utils/part.dart",
-        "package:fs_shim/utils/read_write.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 9.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/utils/read_write.dart": {
       "uri": "package:fs_shim/utils/read_write.dart",
       "size": 465,
       "isFormatted": true,
-      "codeProblems": [],
-      "directLibs": [
-        "dart:async",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/import.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/fs_path.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/utils/entity.dart",
-        "package:fs_shim/utils/glob.dart",
-        "package:fs_shim/utils/part.dart",
-        "package:fs_shim/utils/path.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 15.0,
-        "shortcoming": 0.0
-      }
+      "codeProblems": null
     },
     "lib/utils/src/utils_impl.dart": {
       "uri": "package:fs_shim/utils/src/utils_impl.dart",
       "size": 22969,
       "isFormatted": false,
-      "codeProblems": [],
-      "directLibs": [
-        "dart:async",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/utils/copy.dart",
-        "package:fs_shim/utils/glob.dart",
-        "package:path/path.dart"
-      ],
-      "transitiveLibs": [
-        "dart:async",
-        "dart:collection",
-        "dart:convert",
-        "dart:math",
-        "package:fs_shim/fs.dart",
-        "package:fs_shim/src/common/fs_path.dart",
-        "package:fs_shim/src/common/import.dart",
-        "package:fs_shim/utils/copy.dart",
-        "package:fs_shim/utils/entity.dart",
-        "package:fs_shim/utils/glob.dart",
-        "package:fs_shim/utils/part.dart",
-        "package:fs_shim/utils/path.dart",
-        "package:fs_shim/utils/read_write.dart",
-        "package:idb_shim/src/utils/dev_utils.dart",
-        "package:path/path.dart",
-        "package:path/src/characters.dart",
-        "package:path/src/context.dart",
-        "package:path/src/internal_style.dart",
-        "package:path/src/parsed_path.dart",
-        "package:path/src/path_exception.dart",
-        "package:path/src/path_map.dart",
-        "package:path/src/path_set.dart",
-        "package:path/src/style.dart",
-        "package:path/src/style/posix.dart",
-        "package:path/src/style/url.dart",
-        "package:path/src/style/windows.dart",
-        "package:path/src/utils.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      },
-      "fitness": {
-        "magnitude": 558.0,
-        "shortcoming": 1.0
-      },
-      "suggestions": [
-        {
-          "code": "dartfmt.warning",
-          "level": "hint",
-          "title": "Format `lib/utils/src/utils_impl.dart`.",
-          "description": "Run `dartfmt` to format `lib/utils/src/utils_impl.dart`.",
-          "file": "lib/utils/src/utils_impl.dart",
-          "penalty": {
-            "amount": 1,
-            "fraction": 0
-          }
-        }
-      ]
+      "codeProblems": null
     }
   }
 }

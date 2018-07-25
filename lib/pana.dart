@@ -5,7 +5,7 @@
 export 'src/code_problem.dart';
 export 'src/dartdoc_analyzer.dart';
 export 'src/download_utils.dart';
-export 'src/fitness.dart';
+export 'src/health.dart';
 export 'src/license.dart';
 export 'src/maintenance.dart';
 export 'src/model.dart';

@@ -22,9 +22,6 @@ final _withIssuesJson = {
   "isExperimentalVersion": true,
   "isPreReleaseVersion": true,
   "dartdocSuccessful": false,
-  "errorCount": 1,
-  "warningCount": 1,
-  "hintCount": 0,
   "suggestions": [
     {
       'code': 'platform.conflict.inPkg',
@@ -39,12 +36,6 @@ final _withIssuesJson = {
       'title': 'Running `dartdoc` failed.',
       'description': 'Make sure `dartdoc` runs without any issues.',
       'penalty': {'amount': 0, 'fraction': 1000},
-    },
-    {
-      'code': 'errorCode',
-      'level': 'error',
-      'title': 'error',
-      'description': 'error'
     },
     {
       'code': 'changelog.missing',
@@ -122,54 +113,26 @@ final _withIssuesJson = {
 };
 
 final _perfect = new Maintenance(
-    missingChangelog: false,
-    missingReadme: false,
-    missingExample: false,
-    missingAnalysisOptions: false,
-    oldAnalysisOptions: false,
-    strongModeEnabled: true,
-    isExperimentalVersion: false,
-    isPreReleaseVersion: false,
-    dartdocSuccessful: true,
-    errorCount: 0,
-    warningCount: 0,
-    hintCount: 0);
+  missingChangelog: false,
+  missingReadme: false,
+  missingExample: false,
+  missingAnalysisOptions: false,
+  oldAnalysisOptions: false,
+  strongModeEnabled: true,
+  isExperimentalVersion: false,
+  isPreReleaseVersion: false,
+  dartdocSuccessful: true,
+);
 
 final _withIssues = new Maintenance.fromJson(_withIssuesJson);
 
 void main() {
   group('detectMaintenance', () {
     test('empty directory', () async {
-      final suggestions = <Suggestion>[
-        new Suggestion.error('errorCode', 'error', 'error'),
-        new Suggestion.warning('warningCode', 'warning', 'warning'),
-        new Suggestion.hint('hintCode', 'hint', 'hint'),
-      ];
       final maintenance = await detectMaintenance(
         new UrlChecker(),
         d.sandbox,
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
-        <CodeProblem>[
-          new CodeProblem(
-            severity: 'ERROR',
-            errorType: 'COMPILE_ERROR',
-            errorCode: 'COMPILE_ERROR_1',
-            description: 'Unable to compile',
-            file: 'lib/file.dart',
-            line: 10,
-            col: 12,
-          ),
-          new CodeProblem(
-            severity: 'WARNING',
-            errorType: 'COMPILE_WARNING',
-            errorCode: 'COMPILE_WARNING_1',
-            description: 'Unable to compile',
-            file: 'lib/file.dart',
-            line: 16,
-            col: 5,
-          ),
-        ],
-        suggestions,
         [
           new PkgDependency(
             package: 'foo',

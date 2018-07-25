@@ -11,7 +11,7 @@ import 'package:logging/logging.dart';
 
 import 'code_problem.dart';
 import 'download_utils.dart';
-import 'fitness.dart';
+import 'health.dart';
 import 'library_scanner.dart';
 import 'license.dart';
 import 'logging.dart';
@@ -278,7 +278,6 @@ class PackageAnalyzer {
         suggestions.firstWhere((s) => s.isError, orElse: () => null);
     var pkgPlatformConflict = pkgPlatformBlockerSuggestion?.title;
 
-    final dartFileSuggestions = <Suggestion>[];
     final files = new SplayTreeMap<String, DartFileSummary>();
     for (var dartFile in dartFiles) {
       final size = fileSize(pkgDir, dartFile);
@@ -309,11 +308,6 @@ class PackageAnalyzer {
       if (transitiveLibs != null) {
         platform ??= classifyLibPlatform(transitiveLibs);
       }
-      final isInLib = dartFile.startsWith('lib/');
-      final fitnessResult = isInLib
-          ? await calcFitness(pkgDir, pubspec, dartFile, isFormatted,
-              fileAnalyzerItems, directLibs, platform)
-          : null;
       files[dartFile] = new DartFileSummary(
         uri: uri,
         size: size,
@@ -323,18 +317,10 @@ class PackageAnalyzer {
         transitiveLibs:
             options.verbosity == Verbosity.verbose ? transitiveLibs : null,
         platform: platform,
-        fitness: fitnessResult?.fitness,
-        suggestions: options.verbosity == Verbosity.verbose
-            ? fitnessResult?.suggestions
-            : null,
       );
-      if (fitnessResult?.suggestions != null) {
-        dartFileSuggestions.addAll(fitnessResult.suggestions);
-      }
     }
-    dartFileSuggestions.sort();
 
-    final pkgFitness = calcPkgFitness(files.values);
+    final health = calcHealth(pubspec, analyzerItems, files.values);
 
     DartPlatform platform;
     if (pkgPlatformConflict != null) {
@@ -342,7 +328,7 @@ class PackageAnalyzer {
           'Error(s) prevent platform classification:\n\n$pkgPlatformConflict');
     }
     platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
-    if (!platform.hasConflict && pkgFitness.healthScore < 0.33) {
+    if (!platform.hasConflict && health.healthScore < 0.33) {
       platform = new DartPlatform.conflict(
           'Low code quality prevents platform classification.');
     }
@@ -354,8 +340,6 @@ class PackageAnalyzer {
       _urlChecker,
       pkgDir,
       pubspec,
-      analyzerItems ?? <CodeProblem>[],
-      dartFileSuggestions,
       pkgResolution?.getUnconstrainedDeps(onlyDirect: true),
       pkgPlatform: platform,
       dartdocSuccessful: dartdocSuccessful,
@@ -372,7 +356,7 @@ class PackageAnalyzer {
       dartFiles: options.verbosity == Verbosity.compact ? null : files,
       platform: platform,
       licenses: licenses,
-      fitness: pkgFitness,
+      health: health,
       maintenance: maintenance,
       suggestions: suggestions.isEmpty ? null : suggestions,
     );

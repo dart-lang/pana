@@ -35,9 +35,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
               ? null
               : LicenseFile.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      fitness: json['fitness'] == null
+      health: json['health'] == null
           ? null
-          : Fitness.fromJson(json['fitness'] as Map<String, dynamic>),
+          : Health.fromJson(json['health'] as Map<String, dynamic>),
       maintenance: json['maintenance'] == null
           ? null
           : Maintenance.fromJson(json['maintenance'] as Map<String, dynamic>),
@@ -54,8 +54,8 @@ abstract class _$SummarySerializerMixin {
   Pubspec get pubspec;
   DartPlatform get platform;
   List<LicenseFile> get licenses;
+  Health get health;
   Maintenance get maintenance;
-  Fitness get fitness;
   List<Suggestion> get suggestions;
   PkgResolution get pkgResolution;
   Map<String, DartFileSummary> get dartFiles;
@@ -75,8 +75,8 @@ abstract class _$SummarySerializerMixin {
     writeNotNull('pubspec', pubspec);
     val['platform'] = platform;
     val['licenses'] = licenses;
+    writeNotNull('health', health);
     writeNotNull('maintenance', maintenance);
-    val['fitness'] = fitness;
     writeNotNull('suggestions', suggestions);
     writeNotNull('pkgResolution', pkgResolution);
     writeNotNull('dartFiles', dartFiles);
@@ -128,14 +128,7 @@ DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) {
           (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
       platform: json['platform'] == null
           ? null
-          : DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
-      fitness: json['fitness'] == null
-          ? null
-          : Fitness.fromJson(json['fitness'] as Map<String, dynamic>),
-      suggestions: (json['suggestions'] as List)
-          ?.map((e) =>
-              e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
-          ?.toList());
+          : DartPlatform.fromJson(json['platform'] as Map<String, dynamic>));
 }
 
 abstract class _$DartFileSummarySerializerMixin {
@@ -146,8 +139,6 @@ abstract class _$DartFileSummarySerializerMixin {
   List<String> get directLibs;
   List<String> get transitiveLibs;
   DartPlatform get platform;
-  Fitness get fitness;
-  List<Suggestion> get suggestions;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'uri': uri,
@@ -165,8 +156,6 @@ abstract class _$DartFileSummarySerializerMixin {
     writeNotNull('directLibs', directLibs);
     writeNotNull('transitiveLibs', transitiveLibs);
     writeNotNull('platform', platform);
-    writeNotNull('fitness', fitness);
-    writeNotNull('suggestions', suggestions);
     return val;
   }
 }
@@ -345,6 +334,43 @@ abstract class _$PkgDependencySerializerMixin {
   }
 }
 
+Health _$HealthFromJson(Map<String, dynamic> json) {
+  return Health(
+      analyzerErrorCount: json['analyzerErrorCount'] as int,
+      analyzerWarningCount: json['analyzerWarningCount'] as int,
+      analyzerHintCount: json['analyzerHintCount'] as int,
+      platformConflictCount: json['platformConflictCount'] as int,
+      suggestions: (json['suggestions'] as List)
+          ?.map((e) =>
+              e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
+          ?.toList());
+}
+
+abstract class _$HealthSerializerMixin {
+  int get analyzerErrorCount;
+  int get analyzerWarningCount;
+  int get analyzerHintCount;
+  int get platformConflictCount;
+  List<Suggestion> get suggestions;
+  Map<String, dynamic> toJson() {
+    var val = <String, dynamic>{
+      'analyzerErrorCount': analyzerErrorCount,
+      'analyzerWarningCount': analyzerWarningCount,
+      'analyzerHintCount': analyzerHintCount,
+      'platformConflictCount': platformConflictCount,
+    };
+
+    void writeNotNull(String key, dynamic value) {
+      if (value != null) {
+        val[key] = value;
+      }
+    }
+
+    writeNotNull('suggestions', suggestions);
+    return val;
+  }
+}
+
 Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) {
   return Maintenance(
       missingChangelog: json['missingChangelog'] as bool,
@@ -355,9 +381,6 @@ Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) {
       strongModeEnabled: json['strongModeEnabled'] as bool,
       isExperimentalVersion: json['isExperimentalVersion'] as bool,
       isPreReleaseVersion: json['isPreReleaseVersion'] as bool,
-      errorCount: json['errorCount'] as int,
-      warningCount: json['warningCount'] as int,
-      hintCount: json['hintCount'] as int,
       dartdocSuccessful: json['dartdocSuccessful'] as bool,
       suggestions: (json['suggestions'] as List)
           ?.map((e) =>
@@ -375,9 +398,6 @@ abstract class _$MaintenanceSerializerMixin {
   bool get isExperimentalVersion;
   bool get isPreReleaseVersion;
   bool get dartdocSuccessful;
-  int get errorCount;
-  int get warningCount;
-  int get hintCount;
   List<Suggestion> get suggestions;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
@@ -398,24 +418,9 @@ abstract class _$MaintenanceSerializerMixin {
     }
 
     writeNotNull('dartdocSuccessful', dartdocSuccessful);
-    val['errorCount'] = errorCount;
-    val['warningCount'] = warningCount;
-    val['hintCount'] = hintCount;
     writeNotNull('suggestions', suggestions);
     return val;
   }
-}
-
-Fitness _$FitnessFromJson(Map<String, dynamic> json) {
-  return Fitness((json['magnitude'] as num)?.toDouble(),
-      (json['shortcoming'] as num)?.toDouble());
-}
-
-abstract class _$FitnessSerializerMixin {
-  double get magnitude;
-  double get shortcoming;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'magnitude': magnitude, 'shortcoming': shortcoming};
 }
 
 LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) {
