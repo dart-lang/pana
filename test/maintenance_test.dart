@@ -150,13 +150,37 @@ void main() {
         d.sandbox,
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
         <CodeProblem>[
-          new CodeProblem('ERROR', 'COMPILE_ERROR', 'COMPILE_ERROR_1',
-              'Unable to compile', 'lib/file.dart', 10, 12),
-          new CodeProblem('WARNING', 'COMPILE_WARNING', 'COMPILE_WARNING_1',
-              'Unable to compile', 'lib/file.dart', 16, 5),
+          new CodeProblem(
+            severity: 'ERROR',
+            errorType: 'COMPILE_ERROR',
+            errorCode: 'COMPILE_ERROR_1',
+            description: 'Unable to compile',
+            file: 'lib/file.dart',
+            line: 10,
+            col: 12,
+          ),
+          new CodeProblem(
+            severity: 'WARNING',
+            errorType: 'COMPILE_WARNING',
+            errorCode: 'COMPILE_WARNING_1',
+            description: 'Unable to compile',
+            file: 'lib/file.dart',
+            line: 16,
+            col: 5,
+          ),
         ],
         suggestions,
-        [new PkgDependency('foo', 'direct', 'empty', null, null, null, null)],
+        [
+          new PkgDependency(
+            package: 'foo',
+            dependencyType: 'direct',
+            constraintType: 'empty',
+            constraint: null,
+            resolved: null,
+            available: null,
+            errors: null,
+          )
+        ],
         pkgPlatform: new DartPlatform.conflict('conflict description'),
         dartdocSuccessful: false,
       );

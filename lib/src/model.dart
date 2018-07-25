@@ -46,19 +46,19 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final Map<String, DartFileSummary> dartFiles;
 
-  Summary(
-    this.runtimeInfo,
-    this.packageName,
-    this.packageVersion,
-    this.pubspec,
-    this.pkgResolution,
-    this.dartFiles,
-    this.platform,
-    this.licenses,
-    this.fitness,
-    this.maintenance,
-    List<Suggestion> suggestions,
-  ) : this.suggestions =
+  Summary({
+    @required this.runtimeInfo,
+    @required this.packageName,
+    @required this.packageVersion,
+    @required this.pubspec,
+    @required this.pkgResolution,
+    @required this.dartFiles,
+    @required this.platform,
+    @required this.licenses,
+    @required this.fitness,
+    @required this.maintenance,
+    @required List<Suggestion> suggestions,
+  }) : this.suggestions =
             suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
@@ -76,17 +76,17 @@ class Summary extends Object with _$SummarySerializerMixin {
     List<Suggestion> suggestions,
   }) {
     return new Summary(
-      runtimeInfo,
-      packageName,
-      packageVersion,
-      pubspec,
-      pkgResolution,
-      dartFiles,
-      platform ?? this.platform,
-      licenses,
-      fitness ?? this.fitness,
-      maintenance ?? this.maintenance,
-      suggestions ?? this.suggestions,
+      runtimeInfo: runtimeInfo,
+      packageName: packageName,
+      packageVersion: packageVersion,
+      pubspec: pubspec,
+      pkgResolution: pkgResolution,
+      dartFiles: dartFiles,
+      platform: platform ?? this.platform,
+      licenses: licenses,
+      fitness: fitness ?? this.fitness,
+      maintenance: maintenance ?? this.maintenance,
+      suggestions: suggestions ?? this.suggestions,
     );
   }
 }
@@ -134,17 +134,17 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final List<Suggestion> suggestions;
 
-  DartFileSummary(
-    this.uri,
-    this.size,
-    this.isFormatted,
-    this.codeProblems,
-    this.directLibs,
-    this.transitiveLibs,
-    this.platform,
-    this.fitness,
-    this.suggestions,
-  );
+  DartFileSummary({
+    @required this.uri,
+    @required this.size,
+    @required this.isFormatted,
+    @required this.codeProblems,
+    @required this.directLibs,
+    @required this.transitiveLibs,
+    @required this.platform,
+    @required this.fitness,
+    @required this.suggestions,
+  });
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
       _$DartFileSummaryFromJson(json);
@@ -592,8 +592,15 @@ class PkgDependency extends Object
   @JsonKey(includeIfNull: false)
   final List<String> errors;
 
-  PkgDependency(this.package, this.dependencyType, this.constraintType,
-      this.constraint, this.resolved, this.available, this.errors);
+  PkgDependency({
+    @required this.package,
+    @required this.dependencyType,
+    @required this.constraintType,
+    @required this.constraint,
+    @required this.resolved,
+    @required this.available,
+    @required this.errors,
+  });
 
   factory PkgDependency.fromJson(Map<String, dynamic> json) =>
       _$PkgDependencyFromJson(json);
@@ -836,8 +843,15 @@ class CodeProblem extends Object
   final int col;
   final String description;
 
-  CodeProblem(this.severity, this.errorType, this.errorCode, this.description,
-      this.file, this.line, this.col);
+  CodeProblem({
+    @required this.severity,
+    @required this.errorType,
+    @required this.errorCode,
+    @required this.description,
+    @required this.file,
+    @required this.line,
+    @required this.col,
+  });
 
   factory CodeProblem.fromJson(Map<String, dynamic> json) =>
       _$CodeProblemFromJson(json);

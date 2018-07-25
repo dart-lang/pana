@@ -1,3 +1,9 @@
+## 0.12.0-dev
+
+**Breaking changes:**
+
+* Named parameters in the following constructors: `Summary`, `DartFileSummary`, `PkgDependency`, `CodeProblem`. 
+
 ## 0.11.8
 
 * Support Dart 2 gold release.

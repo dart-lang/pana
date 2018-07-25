@@ -315,15 +315,16 @@ class PackageAnalyzer {
               fileAnalyzerItems, directLibs, platform)
           : null;
       files[dartFile] = new DartFileSummary(
-        uri,
-        size,
-        isFormatted,
-        fileAnalyzerItems,
-        directLibs,
-        options.verbosity == Verbosity.verbose ? transitiveLibs : null,
-        platform,
-        fitnessResult?.fitness,
-        options.verbosity == Verbosity.verbose
+        uri: uri,
+        size: size,
+        isFormatted: isFormatted,
+        codeProblems: fileAnalyzerItems,
+        directLibs: directLibs,
+        transitiveLibs:
+            options.verbosity == Verbosity.verbose ? transitiveLibs : null,
+        platform: platform,
+        fitness: fitnessResult?.fitness,
+        suggestions: options.verbosity == Verbosity.verbose
             ? fitnessResult?.suggestions
             : null,
       );
@@ -362,17 +363,18 @@ class PackageAnalyzer {
     suggestions.sort();
 
     return new Summary(
-      _toolEnv.runtimeInfo,
-      pubspec.name,
-      pubspec.version,
-      options.verbosity == Verbosity.compact ? null : pubspec,
-      options.verbosity == Verbosity.compact ? null : pkgResolution,
-      options.verbosity == Verbosity.compact ? null : files,
-      platform,
-      licenses,
-      pkgFitness,
-      maintenance,
-      suggestions.isEmpty ? null : suggestions,
+      runtimeInfo: _toolEnv.runtimeInfo,
+      packageName: pubspec.name,
+      packageVersion: pubspec.version,
+      pubspec: options.verbosity == Verbosity.compact ? null : pubspec,
+      pkgResolution:
+          options.verbosity == Verbosity.compact ? null : pkgResolution,
+      dartFiles: options.verbosity == Verbosity.compact ? null : files,
+      platform: platform,
+      licenses: licenses,
+      fitness: pkgFitness,
+      maintenance: maintenance,
+      suggestions: suggestions.isEmpty ? null : suggestions,
     );
   }
 
