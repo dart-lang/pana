@@ -68,40 +68,27 @@
         "level": "error",
         "title": "Fix platform conflicts.",
         "description": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`.",
-        "penalty": {
-          "amount": 2000,
-          "fraction": 0
-        }
+        "score": 20.0
       },
       {
         "code": "pubspec.sdk.devOnly",
         "level": "error",
         "title": "Support Dart 2 in `pubspec.yaml`.",
         "description": "The SDK constraint in pubspec.yaml doesn't allow the Dart 2.0.0 release. For information about upgrading it to be Dart 2 compatible, please see [https://www.dartlang.org/dart-2#migration](https://www.dartlang.org/dart-2#migration).",
-        "penalty": {
-          "amount": 2000,
-          "fraction": 0
-        }
+        "score": 20.0
       },
       {
         "code": "packageVersion.preV1",
         "level": "hint",
         "title": "Package is pre-v1 release.",
         "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
-        "penalty": {
-          "amount": 1000,
-          "fraction": 0
-        }
+        "score": 10.0
       },
       {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
-        "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `pub_server.dart`.",
-        "penalty": {
-          "amount": 1,
-          "fraction": 0
-        }
+        "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `pub_server.dart`."
       }
     ]
   },

@@ -24,6 +24,6 @@ Suggestion getDartdocRunFailedSuggestion() {
     SuggestionCode.dartdocAborted,
     'Running `dartdoc` failed.',
     'Make sure `dartdoc` runs without any issues.',
-    penalty: new Penalty(amount: 1000),
+    score: 10.0,
   );
 }

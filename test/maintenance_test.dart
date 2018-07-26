@@ -28,14 +28,14 @@ final _withIssuesJson = {
       'level': 'error',
       'title': 'Fix platform conflicts.',
       'description': 'conflict description',
-      'penalty': {'amount': 2000, 'fraction': 0}
+      'score': 20.0,
     },
     {
       'code': 'dartdoc.aborted',
       'level': 'error',
       'title': 'Running `dartdoc` failed.',
       'description': 'Make sure `dartdoc` runs without any issues.',
-      'penalty': {'amount': 1000, 'fraction': 0}
+      'score': 10.0,
     },
     {
       'code': 'readme.missing',
@@ -43,7 +43,7 @@ final _withIssuesJson = {
       'title': 'Maintain `README.md`.',
       'description':
           'Readme should inform others about your project, what it does, and how they can use it.',
-      'penalty': {'amount': 3000, 'fraction': 0}
+      'score': 30.0,
     },
     {
       'code': 'changelog.missing',
@@ -51,7 +51,7 @@ final _withIssuesJson = {
       'title': 'Maintain `CHANGELOG.md`.',
       'description':
           'Changelog entries help clients to follow the progress in your code.',
-      'penalty': {'amount': 2000, 'fraction': 0}
+      'score': 20.0,
     },
     {
       'code': 'pubspec.dependencies.unconstrained',
@@ -59,7 +59,7 @@ final _withIssuesJson = {
       'title': 'Use constrained dependencies.',
       'description':
           'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
-      'penalty': {'amount': 2000, 'fraction': 0}
+      'score': 20.0,
     },
     {
       'code': 'pubspec.description.tooShort',
@@ -67,7 +67,7 @@ final _withIssuesJson = {
       'title': 'Add `description` in `pubspec.yaml`.',
       'description':
           'Description is critical to giving users a quick insight into the features of the package and why it is relevant to their query. Ideal length is between 60 and 180 characters.',
-      'penalty': {'amount': 2000, 'fraction': 0}
+      'score': 20.0,
     },
     {
       'code': 'pubspec.homepage.isNotHelpful',
@@ -75,7 +75,7 @@ final _withIssuesJson = {
       'title': 'Homepage is not helpful.',
       'description':
           'Update the `homepage` property: create a website about the package or use the source repository URL.',
-      'penalty': {'amount': 1000, 'fraction': 0}
+      'score': 10.0,
     },
     {
       'code': 'pubspec.sdk.missing',
@@ -83,7 +83,7 @@ final _withIssuesJson = {
       'title': 'Add SDK constraint in `pubspec.yaml`.',
       'description':
           'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
-      'penalty': {'amount': 500, 'fraction': 0}
+      'score': 5.0,
     },
     {
       'code': 'example.missing',
@@ -91,7 +91,7 @@ final _withIssuesJson = {
       'title': 'Maintain an example.',
       'description':
           'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `sandbox.dart`.',
-      'penalty': {'amount': 1000, 'fraction': 0}
+      'score': 10.0,
     },
     {
       'code': 'packageVersion.preV1',
@@ -99,7 +99,7 @@ final _withIssuesJson = {
       'title': 'Package is pre-v1 release.',
       'description':
           'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.',
-      'penalty': {'amount': 1000, 'fraction': 0}
+      'score': 10.0,
     },
     {
       'code': 'packageVersion.preRelease',
@@ -107,7 +107,7 @@ final _withIssuesJson = {
       'title': 'Package is pre-release.',
       'description':
           'Pre-release versions should be used with caution, their API may change in breaking ways.',
-      'penalty': {'amount': 500, 'fraction': 0}
+      'score': 5.0,
     }
   ]
 };
@@ -158,16 +158,16 @@ void main() {
     });
 
     test('perfect', () {
-      expect(getMaintenanceScore(_perfect), 1);
+      expect(getMaintenanceScore(_perfect), 100.0);
     });
 
     group('publish date affects score', () {
       final expectedScores = {
-        -1: 1.0, // possible for time issues to be off – treated as 'now'
-        0: 1.0,
-        1: 1.0,
-        365: 1.0,
-        (365 * 1.5).toInt(): 0.5013,
+        -1: 100.0, // possible for time issues to be off – treated as 'now'
+        0: 100.0,
+        1: 100.0,
+        365: 100.0,
+        (365 * 1.5).toInt(): 50.13,
         365 * 2: 0.0
       };
 
@@ -201,8 +201,7 @@ void main() {
       expect(suggestion, isNotNull);
       expect(suggestion.title, 'Package is getting outdated.');
       expect(suggestion.level, 'hint');
-      expect(suggestion.penalty.amount, 0);
-      expect(suggestion.penalty.fraction, 5205);
+      expect(suggestion.score, closeTo(52.05, 0.01));
     });
 
     test('age: two and half years', () {
@@ -210,8 +209,7 @@ void main() {
       expect(suggestion, isNotNull);
       expect(suggestion.title, 'Package is too old.');
       expect(suggestion.level, 'warning');
-      expect(suggestion.penalty.amount, 10000);
-      expect(suggestion.penalty.fraction, 0);
+      expect(suggestion.score, 100.0);
     });
   });
 }

@@ -78,60 +78,42 @@
         "level": "error",
         "title": "Fix platform conflicts.",
         "description": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`.",
-        "penalty": {
-          "amount": 2000,
-          "fraction": 0
-        }
+        "score": 20.0
       },
       {
         "code": "pubspec.sdk.devOnly",
         "level": "error",
         "title": "Support Dart 2 in `pubspec.yaml`.",
         "description": "The SDK constraint in pubspec.yaml doesn't allow the Dart 2.0.0 release. For information about upgrading it to be Dart 2 compatible, please see [https://www.dartlang.org/dart-2#migration](https://www.dartlang.org/dart-2#migration).",
-        "penalty": {
-          "amount": 2000,
-          "fraction": 0
-        }
+        "score": 20.0
       },
       {
         "code": "analysisOptions.renameRequired",
         "level": "warning",
         "title": "Use `analysis_options.yaml`.",
         "description": "Rename old `.analysis_options` file to `analysis_options.yaml`.",
-        "penalty": {
-          "amount": 1000,
-          "fraction": 0
-        }
+        "score": 10.0
       },
       {
         "code": "pubspec.description.tooShort",
         "level": "hint",
         "title": "The description is too short.",
         "description": "Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.",
-        "penalty": {
-          "amount": 2000,
-          "fraction": 0
-        }
+        "score": 20.0
       },
       {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
         "description": "Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `http.dart`.",
-        "penalty": {
-          "amount": 1000,
-          "fraction": 0
-        }
+        "score": 10.0
       },
       {
         "code": "packageVersion.preV1",
         "level": "hint",
         "title": "Package is pre-v1 release.",
         "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
-        "penalty": {
-          "amount": 1000,
-          "fraction": 0
-        }
+        "score": 10.0
       }
     ]
   },

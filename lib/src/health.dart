@@ -37,7 +37,7 @@ Health calcHealth(
         'Fix platform conflict in `${s.path}`.',
         description,
         file: s.path,
-        penalty: new Penalty(amount: 2500),
+        score: 25.0,
       ));
     }
 

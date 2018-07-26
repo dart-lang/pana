@@ -7,6 +7,8 @@
 * Removed per-file and overall `Fitness`, using a top-level `Health` report instead.
   Follows the proposed changes that allow us to clearly communicate the scoring mechanism.
 
+* Removed `Penalty` and using the simpler to understand `score` in place of it.
+
 ## 0.11.8
 
 * Support Dart 2 gold release.

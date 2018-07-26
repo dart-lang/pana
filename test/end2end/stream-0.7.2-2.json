@@ -52,50 +52,34 @@
         "level": "error",
         "title": "Fix platform conflicts.",
         "description": "Error(s) prevent platform classification:\n\nMake sure `dartfmt` runs.",
-        "penalty": {
-          "amount": 2000,
-          "fraction": 0
-        }
+        "score": 20.0
       },
       {
         "code": "changelog.missing",
         "level": "warning",
         "title": "Maintain `CHANGELOG.md`.",
         "description": "Changelog entries help clients to follow the progress in your code.",
-        "penalty": {
-          "amount": 2000,
-          "fraction": 0
-        }
+        "score": 20.0
       },
       {
         "code": "pubspec.sdk.missing",
         "level": "warning",
         "title": "Add SDK constraint in `pubspec.yaml`.",
         "description": "For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).",
-        "penalty": {
-          "amount": 500,
-          "fraction": 0
-        }
+        "score": 5.0
       },
       {
         "code": "packageVersion.preV1",
         "level": "hint",
         "title": "Package is pre-v1 release.",
         "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
-        "penalty": {
-          "amount": 1000,
-          "fraction": 0
-        }
+        "score": 10.0
       },
       {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
-        "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`.",
-        "penalty": {
-          "amount": 1,
-          "fraction": 0
-        }
+        "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`."
       }
     ]
   },

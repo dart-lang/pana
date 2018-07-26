@@ -163,10 +163,7 @@ abstract class _$DartFileSummarySerializerMixin {
 Suggestion _$SuggestionFromJson(Map<String, dynamic> json) {
   return Suggestion(json['code'] as String, json['level'] as String,
       json['title'] as String, json['description'] as String,
-      file: json['file'] as String,
-      penalty: json['penalty'] == null
-          ? null
-          : Penalty.fromJson(json['penalty'] as Map<String, dynamic>));
+      file: json['file'] as String, score: (json['score'] as num)?.toDouble());
 }
 
 abstract class _$SuggestionSerializerMixin {
@@ -175,7 +172,7 @@ abstract class _$SuggestionSerializerMixin {
   String get title;
   String get description;
   String get file;
-  Penalty get penalty;
+  double get score;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'code': code,
@@ -191,30 +188,7 @@ abstract class _$SuggestionSerializerMixin {
     }
 
     writeNotNull('file', file);
-    writeNotNull('penalty', penalty);
-    return val;
-  }
-}
-
-Penalty _$PenaltyFromJson(Map<String, dynamic> json) {
-  return Penalty(
-      amount: json['amount'] as int, fraction: json['fraction'] as int);
-}
-
-abstract class _$PenaltySerializerMixin {
-  int get amount;
-  int get fraction;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{};
-
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
-    }
-
-    writeNotNull('amount', amount);
-    writeNotNull('fraction', fraction);
+    writeNotNull('score', score);
     return val;
   }
 }

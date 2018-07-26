@@ -177,7 +177,10 @@ class Suggestion extends Object
   final String file;
 
   @JsonKey(includeIfNull: false)
-  final Penalty penalty;
+
+  /// The potential score gain if the suggestion is applied and the issue gets
+  /// fixed in the package. Values are between 0.0 and 100.0.
+  final double score;
 
   Suggestion(
     this.code,
@@ -185,7 +188,7 @@ class Suggestion extends Object
     this.title,
     this.description, {
     this.file,
-    this.penalty,
+    this.score,
   });
 
   factory Suggestion.bug(
@@ -198,19 +201,19 @@ class Suggestion extends Object
   }
 
   factory Suggestion.error(String code, String title, String description,
-          {String file, Penalty penalty}) =>
+          {String file, double score}) =>
       new Suggestion(code, SuggestionLevel.error, title, description,
-          file: file, penalty: penalty);
+          file: file, score: score);
 
   factory Suggestion.warning(String code, String title, String description,
-          {String file, Penalty penalty}) =>
+          {String file, double score}) =>
       new Suggestion(code, SuggestionLevel.warning, title, description,
-          file: file, penalty: penalty);
+          file: file, score: score);
 
   factory Suggestion.hint(String code, String title, String description,
-          {String file, Penalty penalty}) =>
+          {String file, double score}) =>
       new Suggestion(code, SuggestionLevel.hint, title, description,
-          file: file, penalty: penalty);
+          file: file, score: score);
 
   factory Suggestion.fromJson(Map<String, dynamic> json) =>
       _$SuggestionFromJson(json);
@@ -240,10 +243,10 @@ class Suggestion extends Object
       return -1;
     }
 
-    if (penalty != null && other.penalty == null) return -1;
-    if (penalty == null && other.penalty != null) return 1;
-    if (penalty != null && other.penalty != null) {
-      final compared = -penalty.compareTo(other.penalty);
+    if (score != null && other.score == null) return -1;
+    if (score == null && other.score != null) return 1;
+    if (score != null && other.score != null) {
+      final compared = -score.compareTo(other.score);
       if (compared != 0) return compared;
     }
     if (file != null && other.file != null && file != other.file) {
@@ -332,54 +335,6 @@ abstract class SuggestionLevel {
   static const String warning = 'warning';
   static const String hint = 'hint';
   static const String bug = 'bug';
-}
-
-/// Penalty values are set as integers, and shall be divided by 10000 for any
-/// numerical calculation (similar to basis points in finance).
-///
-/// When multiple operations are present, the larger penalty is applied.
-@JsonSerializable()
-class Penalty extends Object
-    with _$PenaltySerializerMixin
-    implements Comparable<Penalty> {
-  /// The value to subtract from the original score.
-  /// E.g. if [amount] is 123, this is `x = x - 0.0123;`
-  @JsonKey(includeIfNull: false)
-  final int amount;
-
-  /// The fraction to substract from the original score.
-  /// E.g. if [fraction is 123, this is `x = x * (1.0 - 0.0123);`
-  @JsonKey(includeIfNull: false)
-  final int fraction;
-
-  Penalty({
-    this.amount: 0,
-    this.fraction: 0,
-  }) {
-    assert(amount > 0 || fraction > 0);
-    assert(0 <= amount && amount <= 10000);
-    assert(0 <= fraction && fraction <= 10000);
-  }
-
-  factory Penalty.fromJson(Map<String, dynamic> json) =>
-      _$PenaltyFromJson(json);
-
-  double apply(double score) {
-    final d1 = amount / 10000;
-    final d2 = score * fraction / 10000;
-    final s = score - math.max(d1, d2);
-    return math.max(0.0, s);
-  }
-
-  @override
-  int compareTo(Penalty other) {
-    final fractionDir = fraction.compareTo(other.fraction);
-    if (fractionDir == 0) {
-      return amount.compareTo(other.amount);
-    } else {
-      return fractionDir;
-    }
-  }
 }
 
 abstract class PlatformNames {
