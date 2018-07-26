@@ -170,14 +170,14 @@ Future<Maintenance> detectMaintenance(
       SuggestionCode.pubspecHomepageIsNotHelpful,
       'Homepage is not helpful.',
       'Update the `homepage` property: create a website about the package or use the source repository URL.',
-      penalty: new Penalty(fraction: 1000),
+      penalty: new Penalty(amount: 1000),
     ));
   } else if (homepageStatus == UrlStatus.missing) {
     maintenanceSuggestions.add(new Suggestion.warning(
       SuggestionCode.pubspecHomepageDoesNotExists,
       'Homepage does not exists.',
       'We were unable to access `${pubspec.homepage}` at the time of the analysis.',
-      penalty: new Penalty(fraction: 1000),
+      penalty: new Penalty(amount: 2000),
     ));
   }
 
@@ -189,14 +189,14 @@ Future<Maintenance> detectMaintenance(
         SuggestionCode.pubspecDocumentationIsNotHelpful,
         'Documentation URL is not helpful.',
         'Update the `documentation` property: create a website about the package or remove it.',
-        penalty: new Penalty(fraction: 100),
+        penalty: new Penalty(amount: 1000),
       ));
     } else if (documentationStatus == UrlStatus.missing) {
       maintenanceSuggestions.add(new Suggestion.warning(
         SuggestionCode.pubspecDocumentationDoesNotExists,
         'Documentation URL does not exists.',
         'We were unable to access `${pubspec.documentation}` at the time of the analysis.',
-        penalty: new Penalty(fraction: 500),
+        penalty: new Penalty(amount: 1000),
       ));
     }
   }
@@ -207,7 +207,7 @@ Future<Maintenance> detectMaintenance(
         'Add SDK constraint in `pubspec.yaml`.',
         'For information about setting SDK constraint, please see '
         '[https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
-        penalty: new Penalty(fraction: 500)));
+        penalty: new Penalty(amount: 500)));
   }
 
   if (pubspec.shouldWarnDart2Constraint) {
@@ -217,7 +217,7 @@ Future<Maintenance> detectMaintenance(
         'The SDK constraint in pubspec.yaml doesn\'t allow the Dart 2.0.0 release. '
         'For information about upgrading it to be Dart 2 compatible, please see '
         '[https://www.dartlang.org/dart-2#migration](https://www.dartlang.org/dart-2#migration).',
-        penalty: new Penalty(fraction: 2000)));
+        penalty: new Penalty(amount: 2000)));
   }
 
   if (dartdocSuccessful == false) {
@@ -229,7 +229,7 @@ Future<Maintenance> detectMaintenance(
         SuggestionCode.platformConflictInPkg,
         'Fix platform conflicts.',
         pkgPlatform.reason,
-        penalty: new Penalty(fraction: 2000)));
+        penalty: new Penalty(amount: 2000)));
   }
 
   if (!changelogExists) {
@@ -237,14 +237,14 @@ Future<Maintenance> detectMaintenance(
         SuggestionCode.changelogMissing,
         'Maintain `CHANGELOG.md`.',
         'Changelog entries help clients to follow the progress in your code.',
-        penalty: new Penalty(fraction: 2000)));
+        penalty: new Penalty(amount: 2000)));
   }
   if (!readmeExists) {
     maintenanceSuggestions.add(new Suggestion.warning(
         SuggestionCode.readmeMissing,
         'Maintain `README.md`.',
         'Readme should inform others about your project, what it does, and how they can use it.',
-        penalty: new Penalty(fraction: 500)));
+        penalty: new Penalty(amount: 3000)));
   }
   if (!exampleExists) {
     final exampleDirExists = files.any((file) => file.startsWith('example/'));
@@ -261,21 +261,23 @@ Future<Maintenance> detectMaintenance(
           'Maintain an example.',
           'Create a short demo in the `example/` directory to show how to use this package. '
           'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`.',
-          penalty: new Penalty(amount: 5)));
+          penalty: new Penalty(amount: 1000)));
     }
   }
   if (oldAnalysisOptions) {
-    maintenanceSuggestions.add(new Suggestion.hint(
+    maintenanceSuggestions.add(new Suggestion.warning(
         SuggestionCode.analysisOptionsRenameRequired,
         'Use `analysis_options.yaml`.',
-        'Rename old `.analysis_options` file to `analysis_options.yaml`.'));
+        'Rename old `.analysis_options` file to `analysis_options.yaml`.',
+        penalty: new Penalty(amount: 1000)));
   }
   if (analysisOptionsExists && strongModeDisabled) {
-    maintenanceSuggestions.add(new Suggestion.hint(
+    maintenanceSuggestions.add(new Suggestion.warning(
         SuggestionCode.analysisOptionsWeakMode,
         'The option `strong-mode: false` is being deprecated.',
         'Remove `strong-mode: false` from your `analysis_options.yaml` file:\n\n'
-        '```\nanalyzer:\n  strong-mode: false\n```\n'));
+        '```\nanalyzer:\n  strong-mode: false\n```\n',
+        penalty: new Penalty(amount: 5000)));
   }
 
   final version = pubspec.version;
@@ -290,7 +292,7 @@ Future<Maintenance> detectMaintenance(
         'While there is nothing inherently wrong with versions of `0.*.*`, it '
         'usually means that the author is still experimenting with the general '
         'direction of the API.',
-        penalty: new Penalty(amount: 10)));
+        penalty: new Penalty(amount: 1000)));
   }
 
   // Not a "gold" release
@@ -300,7 +302,7 @@ Future<Maintenance> detectMaintenance(
         'Package is pre-release.',
         'Pre-release versions should be used with caution, their API may change '
         'in breaking ways.',
-        penalty: new Penalty(fraction: 200)));
+        penalty: new Penalty(amount: 500)));
   }
 
   // Checking the length of description.
@@ -312,21 +314,21 @@ Future<Maintenance> detectMaintenance(
         'Description is critical to giving users a quick insight into the features '
         'of the package and why it is relevant to their query. '
         'Ideal length is between 60 and 180 characters.',
-        penalty: new Penalty(fraction: 500)));
+        penalty: new Penalty(amount: 2000)));
   } else if (description.length < 60) {
     maintenanceSuggestions.add(new Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooShort,
         'The description is too short.',
         'Add more detail about the package, what it does and what is its target use case. '
         'Try to write at least 60 characters.',
-        penalty: new Penalty(amount: 20)));
+        penalty: new Penalty(amount: 2000)));
   } else if (description.length > 180) {
     maintenanceSuggestions.add(new Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooLong,
         'The description is too long.',
         'Search engines will display only the first part of the description. '
         'Try to keep it under 180 characters.',
-        penalty: new Penalty(amount: 10)));
+        penalty: new Penalty(amount: 1000)));
   }
 
   if (unconstrainedDeps != null && unconstrainedDeps.isNotEmpty) {
@@ -341,7 +343,7 @@ Future<Maintenance> detectMaintenance(
         'Use constrained dependencies.',
         'The `pubspec.yaml` contains $pluralized without version constraints. '
         'Specify version ranges for the following dependencies: $names.',
-        penalty: new Penalty(fraction: 500)));
+        penalty: new Penalty(amount: 2000)));
   }
 
   maintenanceSuggestions.sort();

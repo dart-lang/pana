@@ -59,8 +59,8 @@
         "title": "Fix platform conflicts.",
         "description": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`.",
         "penalty": {
-          "amount": 0,
-          "fraction": 2000
+          "amount": 2000,
+          "fraction": 0
         }
       },
       {
@@ -69,8 +69,8 @@
         "title": "Add SDK constraint in `pubspec.yaml`.",
         "description": "For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).",
         "penalty": {
-          "amount": 0,
-          "fraction": 500
+          "amount": 500,
+          "fraction": 0
         }
       },
       {
@@ -79,17 +79,7 @@
         "title": "The description is too short.",
         "description": "Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.",
         "penalty": {
-          "amount": 20,
-          "fraction": 0
-        }
-      },
-      {
-        "code": "packageVersion.preV1",
-        "level": "hint",
-        "title": "Package is pre-v1 release.",
-        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
-        "penalty": {
-          "amount": 10,
+          "amount": 2000,
           "fraction": 0
         }
       },
@@ -99,7 +89,17 @@
         "title": "Maintain an example.",
         "description": "Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `skiplist.dart`.",
         "penalty": {
-          "amount": 5,
+          "amount": 1000,
+          "fraction": 0
+        }
+      },
+      {
+        "code": "packageVersion.preV1",
+        "level": "hint",
+        "title": "Package is pre-v1 release.",
+        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
+        "penalty": {
+          "amount": 1000,
           "fraction": 0
         }
       }

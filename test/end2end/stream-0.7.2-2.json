@@ -53,8 +53,8 @@
         "title": "Fix platform conflicts.",
         "description": "Error(s) prevent platform classification:\n\nMake sure `dartfmt` runs.",
         "penalty": {
-          "amount": 0,
-          "fraction": 2000
+          "amount": 2000,
+          "fraction": 0
         }
       },
       {
@@ -63,8 +63,8 @@
         "title": "Maintain `CHANGELOG.md`.",
         "description": "Changelog entries help clients to follow the progress in your code.",
         "penalty": {
-          "amount": 0,
-          "fraction": 2000
+          "amount": 2000,
+          "fraction": 0
         }
       },
       {
@@ -73,8 +73,8 @@
         "title": "Add SDK constraint in `pubspec.yaml`.",
         "description": "For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).",
         "penalty": {
-          "amount": 0,
-          "fraction": 500
+          "amount": 500,
+          "fraction": 0
         }
       },
       {
@@ -83,7 +83,7 @@
         "title": "Package is pre-v1 release.",
         "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
         "penalty": {
-          "amount": 10,
+          "amount": 1000,
           "fraction": 0
         }
       },

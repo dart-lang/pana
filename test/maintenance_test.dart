@@ -28,54 +28,14 @@ final _withIssuesJson = {
       'level': 'error',
       'title': 'Fix platform conflicts.',
       'description': 'conflict description',
-      'penalty': {'amount': 0, 'fraction': 2000}
+      'penalty': {'amount': 2000, 'fraction': 0}
     },
     {
       'code': 'dartdoc.aborted',
       'level': 'error',
       'title': 'Running `dartdoc` failed.',
       'description': 'Make sure `dartdoc` runs without any issues.',
-      'penalty': {'amount': 0, 'fraction': 1000},
-    },
-    {
-      'code': 'changelog.missing',
-      'level': 'warning',
-      'title': 'Maintain `CHANGELOG.md`.',
-      'description':
-          'Changelog entries help clients to follow the progress in your code.',
-      'penalty': {'amount': 0, 'fraction': 2000}
-    },
-    {
-      'code': 'pubspec.homepage.isNotHelpful',
-      'level': 'warning',
-      'title': 'Homepage is not helpful.',
-      'description':
-          'Update the `homepage` property: create a website about the package or use the source repository URL.',
-      'penalty': {'amount': 0, 'fraction': 1000},
-    },
-    {
-      'code': 'pubspec.dependencies.unconstrained',
-      'level': 'warning',
-      'title': 'Use constrained dependencies.',
-      'description':
-          'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
-      'penalty': {'amount': 0, 'fraction': 500}
-    },
-    {
-      'code': 'pubspec.description.tooShort',
-      'level': 'warning',
-      'title': 'Add `description` in `pubspec.yaml`.',
-      'description':
-          'Description is critical to giving users a quick insight into the features of the package and why it is relevant to their query. Ideal length is between 60 and 180 characters.',
-      'penalty': {'amount': 0, 'fraction': 500}
-    },
-    {
-      'code': 'pubspec.sdk.missing',
-      'level': 'warning',
-      'title': 'Add SDK constraint in `pubspec.yaml`.',
-      'description':
-          'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
-      'penalty': {'amount': 0, 'fraction': 500}
+      'penalty': {'amount': 1000, 'fraction': 0}
     },
     {
       'code': 'readme.missing',
@@ -83,23 +43,47 @@ final _withIssuesJson = {
       'title': 'Maintain `README.md`.',
       'description':
           'Readme should inform others about your project, what it does, and how they can use it.',
-      'penalty': {'amount': 0, 'fraction': 500}
+      'penalty': {'amount': 3000, 'fraction': 0}
     },
     {
-      'code': 'packageVersion.preRelease',
-      'level': 'hint',
-      'title': 'Package is pre-release.',
+      'code': 'changelog.missing',
+      'level': 'warning',
+      'title': 'Maintain `CHANGELOG.md`.',
       'description':
-          'Pre-release versions should be used with caution, their API may change in breaking ways.',
-      'penalty': {'amount': 0, 'fraction': 200}
+          'Changelog entries help clients to follow the progress in your code.',
+      'penalty': {'amount': 2000, 'fraction': 0}
     },
     {
-      'code': 'packageVersion.preV1',
-      'level': 'hint',
-      'title': 'Package is pre-v1 release.',
+      'code': 'pubspec.dependencies.unconstrained',
+      'level': 'warning',
+      'title': 'Use constrained dependencies.',
       'description':
-          'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.',
-      'penalty': {'amount': 10, 'fraction': 0}
+          'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
+      'penalty': {'amount': 2000, 'fraction': 0}
+    },
+    {
+      'code': 'pubspec.description.tooShort',
+      'level': 'warning',
+      'title': 'Add `description` in `pubspec.yaml`.',
+      'description':
+          'Description is critical to giving users a quick insight into the features of the package and why it is relevant to their query. Ideal length is between 60 and 180 characters.',
+      'penalty': {'amount': 2000, 'fraction': 0}
+    },
+    {
+      'code': 'pubspec.homepage.isNotHelpful',
+      'level': 'warning',
+      'title': 'Homepage is not helpful.',
+      'description':
+          'Update the `homepage` property: create a website about the package or use the source repository URL.',
+      'penalty': {'amount': 1000, 'fraction': 0}
+    },
+    {
+      'code': 'pubspec.sdk.missing',
+      'level': 'warning',
+      'title': 'Add SDK constraint in `pubspec.yaml`.',
+      'description':
+          'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
+      'penalty': {'amount': 500, 'fraction': 0}
     },
     {
       'code': 'example.missing',
@@ -107,8 +91,24 @@ final _withIssuesJson = {
       'title': 'Maintain an example.',
       'description':
           'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `sandbox.dart`.',
-      'penalty': {'amount': 5, 'fraction': 0}
+      'penalty': {'amount': 1000, 'fraction': 0}
     },
+    {
+      'code': 'packageVersion.preV1',
+      'level': 'hint',
+      'title': 'Package is pre-v1 release.',
+      'description':
+          'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.',
+      'penalty': {'amount': 1000, 'fraction': 0}
+    },
+    {
+      'code': 'packageVersion.preRelease',
+      'level': 'hint',
+      'title': 'Package is pre-release.',
+      'description':
+          'Pre-release versions should be used with caution, their API may change in breaking ways.',
+      'penalty': {'amount': 500, 'fraction': 0}
+    }
   ]
 };
 
@@ -154,7 +154,7 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(getMaintenanceScore(_withIssues), closeTo(0.412, 0.001));
+      expect(getMaintenanceScore(_withIssues), 0.0);
     });
 
     test('perfect', () {
