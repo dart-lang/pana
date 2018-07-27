@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
     "panaVersion": "0.11.8",
-    "sdkVersion": "2.0.0-dev.69.0"
+    "sdkVersion": "2.0.0-dev.69.3"
   },
   "packageName": "fs_shim",
   "packageVersion": "0.7.1",
@@ -46,15 +46,7 @@
     }
   },
   "platform": {
-    "components": [
-      "io"
-    ],
-    "uses": {
-      "flutter": "allowed",
-      "web": "forbidden",
-      "other": "used"
-    },
-    "reason": "Platform components identified in package: `io`."
+    "reason": "Error(s) prevent platform classification:\n\nError(s) in lib/fs.dart: Default values of an optional parameter must be constant."
   },
   "licenses": [
     {
@@ -72,30 +64,40 @@
     "strongModeEnabled": true,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
-    "errorCount": 11,
+    "errorCount": 33,
     "warningCount": 0,
-    "hintCount": 26,
+    "hintCount": 15,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "error",
-        "title": "Fix `lib/src/idb/idb_file_system.dart`.",
-        "description": "Analysis of `lib/src/idb/idb_file_system.dart` failed with 3 errors:\n\nline 303 col 49: The argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.\n\nline 571 col 54: The argument type '(int) → Null' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'.\n\nline 710 col 45: The function expression type '(int) → dynamic' isn't of type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected. Consider changing parameter type(s) or the returned type(s).",
-        "file": "lib/src/idb/idb_file_system.dart",
+        "title": "Fix `lib/fs.dart`.",
+        "description": "Analysis of `lib/fs.dart` failed with 6 errors, including:\n\nline 179 col 58: Default values of an optional parameter must be constant.\n\nline 179 col 58: Undefined name 'UTF8'.\n\nline 229 col 26: Default values of an optional parameter must be constant.\n\nline 229 col 26: Undefined name 'UTF8'.\n\nline 246 col 51: Default values of an optional parameter must be constant.",
+        "file": "lib/fs.dart",
         "penalty": {
-          "amount": 348,
-          "fraction": 6000
+          "amount": 390,
+          "fraction": 10000
         }
       },
       {
         "code": "dartanalyzer.warning",
         "level": "error",
-        "title": "Fix `lib/src/idb/idb_file_system_storage.dart`.",
-        "description": "Analysis of `lib/src/idb/idb_file_system_storage.dart` failed with 3 errors:\n\nline 101 col 41: The function '_nodeFromMap' has type '(Map<dynamic, dynamic>) → Object' that isn't of expected type '(dynamic) → FutureOr<dynamic>'. This means its parameter or return type does not match what is expected.\n\nline 104 col 42: The argument type '(int) → Future<dynamic>' can't be assigned to the parameter type '(dynamic) → FutureOr<dynamic>'.\n\nline 246 col 43: The argument type '(int) → Node' can't be assigned to the parameter type '(dynamic) → FutureOr<Node>'.",
-        "file": "lib/src/idb/idb_file_system_storage.dart",
+        "title": "Fix `lib/src/io/io_file.dart`.",
+        "description": "Analysis of `lib/src/io/io_file.dart` failed with 6 errors, including:\n\nline 35 col 64: Default values of an optional parameter must be constant.\n\nline 35 col 64: Undefined name 'UTF8'.\n\nline 70 col 30: Default values of an optional parameter must be constant.\n\nline 70 col 30: Undefined name 'UTF8'.\n\nline 81 col 51: Default values of an optional parameter must be constant.",
+        "file": "lib/src/io/io_file.dart",
         "penalty": {
-          "amount": 168,
-          "fraction": 6000
+          "amount": 66,
+          "fraction": 10000
+        }
+      },
+      {
+        "code": "platform.conflict.inPkg",
+        "level": "error",
+        "title": "Fix platform conflicts.",
+        "description": "Error(s) prevent platform classification:\n\nError(s) in lib/fs.dart: Default values of an optional parameter must be constant.",
+        "penalty": {
+          "amount": 0,
+          "fraction": 2000
         }
       },
       {
@@ -122,9 +124,9 @@
         "code": "bulk",
         "level": "warning",
         "title": "Fix additional 12 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/io/io_directory.dart` (2 errors)\n- `lib/src/io/io_file_system.dart` (1 error)\n- `lib/src/io/io_file_system_entity.dart` (1 error)\n- `lib/src/io/io_link.dart` (1 error)\n- `lib/src/io/io_fs.dart` (14 hints)\n- `lib/fs.dart` (3 hints)\n- `lib/src/common/fs_mixin.dart` (3 hints)\n- `lib/src/io/io_file.dart` (3 hints)\n- `lib/src/idb/idb_file.dart` (2 hints)\n- `lib/utils/copy.dart` (Run `dartfmt` to format `lib/utils/copy.dart`.)\n- `lib/utils/io/entity.dart` (1 hint)\n- `lib/utils/src/utils_impl.dart` (Run `dartfmt` to format `lib/utils/src/utils_impl.dart`.)\n",
+        "description": "Additional issues in the following files:\n\n- `lib/src/common/fs_mixin.dart` (6 errors)\n- `lib/src/idb/idb_file.dart` (4 errors)\n- `lib/src/idb/idb_file_system.dart` (3 errors)\n- `lib/src/idb/idb_file_system_storage.dart` (3 errors)\n- `lib/src/io/io_directory.dart` (2 errors)\n- `lib/src/io/io_file_system.dart` (1 error)\n- `lib/src/io/io_file_system_entity.dart` (1 error)\n- `lib/src/io/io_link.dart` (1 error)\n- `lib/src/io/io_fs.dart` (14 hints)\n- `lib/utils/copy.dart` (Run `dartfmt` to format `lib/utils/copy.dart`.)\n- `lib/utils/io/entity.dart` (1 hint)\n- `lib/utils/src/utils_impl.dart` (Run `dartfmt` to format `lib/utils/src/utils_impl.dart`.)\n",
         "penalty": {
-          "amount": 208,
+          "amount": 404,
           "fraction": 0
         }
       },
@@ -152,7 +154,7 @@
   },
   "fitness": {
     "magnitude": 2873.0,
-    "shortcoming": 598.0
+    "shortcoming": 1045.0
   },
   "pkgResolution": {
     "dependencies": [
@@ -243,31 +245,58 @@
       "isFormatted": true,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/fs.dart",
           "line": 179,
           "col": 58,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/fs.dart",
+          "line": 179,
+          "col": 58,
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/fs.dart",
           "line": 229,
           "col": 26,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/fs.dart",
+          "line": 229,
+          "col": 26,
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/fs.dart",
           "line": 246,
           "col": 51,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/fs.dart",
+          "line": 246,
+          "col": 51,
+          "description": "Undefined name 'UTF8'."
         }
       ],
       "directLibs": [
@@ -295,27 +324,33 @@
         "package:path/src/utils.dart"
       ],
       "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
+        "reason": "Error(s) in lib/fs.dart: Default values of an optional parameter must be constant."
       },
       "fitness": {
         "magnitude": 321.0,
-        "shortcoming": 3.0
+        "shortcoming": 321.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/fs.dart`.",
-          "description": "Analysis of `lib/fs.dart` reported 3 hints:\n\nline 179 col 58: 'UTF8' is deprecated and shouldn't be used.\n\nline 229 col 26: 'UTF8' is deprecated and shouldn't be used.\n\nline 246 col 51: 'UTF8' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/fs.dart` failed with 6 errors, including:\n\nline 179 col 58: Default values of an optional parameter must be constant.\n\nline 179 col 58: Undefined name 'UTF8'.\n\nline 229 col 26: Default values of an optional parameter must be constant.\n\nline 229 col 26: Undefined name 'UTF8'.\n\nline 246 col 51: Default values of an optional parameter must be constant.",
           "file": "lib/fs.dart",
           "penalty": {
-            "amount": 3,
-            "fraction": 0
+            "amount": 390,
+            "fraction": 10000
+          }
+        },
+        {
+          "code": "platform.conflict.inFile",
+          "level": "error",
+          "title": "Fix platform conflict in `lib/fs.dart`.",
+          "description": "Make sure that the imported libraries are not in conflict. Error(s) in lib/fs.dart: Default values of an optional parameter must be constant.",
+          "file": "lib/fs.dart",
+          "penalty": {
+            "amount": 65,
+            "fraction": 2000
           }
         }
       ]
@@ -570,47 +605,74 @@
       "isFormatted": true,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/common/fs_mixin.dart",
           "line": 34,
           "col": 58,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/common/fs_mixin.dart",
+          "line": 34,
+          "col": 58,
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/common/fs_mixin.dart",
           "line": 50,
           "col": 30,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/common/fs_mixin.dart",
+          "line": 50,
+          "col": 30,
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/common/fs_mixin.dart",
           "line": 74,
           "col": 51,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/common/fs_mixin.dart",
+          "line": 74,
+          "col": 51,
+          "description": "Undefined name 'UTF8'."
         }
       ],
       "fitness": {
         "magnitude": 50.0,
-        "shortcoming": 3.0
+        "shortcoming": 50.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/src/common/fs_mixin.dart`.",
-          "description": "Analysis of `lib/src/common/fs_mixin.dart` reported 3 hints:\n\nline 34 col 58: 'UTF8' is deprecated and shouldn't be used.\n\nline 50 col 30: 'UTF8' is deprecated and shouldn't be used.\n\nline 74 col 51: 'UTF8' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/src/common/fs_mixin.dart` failed with 6 errors, including:\n\nline 34 col 58: Default values of an optional parameter must be constant.\n\nline 34 col 58: Undefined name 'UTF8'.\n\nline 50 col 30: Default values of an optional parameter must be constant.\n\nline 50 col 30: Undefined name 'UTF8'.\n\nline 74 col 51: Default values of an optional parameter must be constant.",
           "file": "lib/src/common/fs_mixin.dart",
           "penalty": {
-            "amount": 3,
-            "fraction": 0
+            "amount": 60,
+            "fraction": 10000
           }
         }
       ]
@@ -661,38 +723,56 @@
       "isFormatted": true,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/idb/idb_file.dart",
           "line": 20,
           "col": 68,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/idb/idb_file.dart",
+          "line": 20,
+          "col": 68,
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/idb/idb_file.dart",
           "line": 48,
           "col": 30,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/idb/idb_file.dart",
+          "line": 48,
+          "col": 30,
+          "description": "Undefined name 'UTF8'."
         }
       ],
       "fitness": {
         "magnitude": 34.0,
-        "shortcoming": 2.0
+        "shortcoming": 34.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/src/idb/idb_file.dart`.",
-          "description": "Analysis of `lib/src/idb/idb_file.dart` reported 2 hints:\n\nline 20 col 68: 'UTF8' is deprecated and shouldn't be used.\n\nline 48 col 30: 'UTF8' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/src/idb/idb_file.dart` failed with 4 errors:\n\nline 20 col 68: Default values of an optional parameter must be constant.\n\nline 20 col 68: Undefined name 'UTF8'.\n\nline 48 col 30: Default values of an optional parameter must be constant.\n\nline 48 col 30: Undefined name 'UTF8'.",
           "file": "lib/src/idb/idb_file.dart",
           "penalty": {
-            "amount": 2,
-            "fraction": 0
+            "amount": 40,
+            "fraction": 8000
           }
         }
       ]
@@ -897,47 +977,74 @@
       "isFormatted": true,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/io/io_file.dart",
           "line": 35,
           "col": 64,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/io/io_file.dart",
+          "line": 35,
+          "col": 64,
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/io/io_file.dart",
           "line": 70,
           "col": 30,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/io/io_file.dart",
+          "line": 70,
+          "col": 30,
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/io/io_file.dart",
           "line": 81,
           "col": 51,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/io/io_file.dart",
+          "line": 81,
+          "col": 51,
+          "description": "Undefined name 'UTF8'."
         }
       ],
       "fitness": {
         "magnitude": 53.0,
-        "shortcoming": 3.0
+        "shortcoming": 53.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/src/io/io_file.dart`.",
-          "description": "Analysis of `lib/src/io/io_file.dart` reported 3 hints:\n\nline 35 col 64: 'UTF8' is deprecated and shouldn't be used.\n\nline 70 col 30: 'UTF8' is deprecated and shouldn't be used.\n\nline 81 col 51: 'UTF8' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/src/io/io_file.dart` failed with 6 errors, including:\n\nline 35 col 64: Default values of an optional parameter must be constant.\n\nline 35 col 64: Undefined name 'UTF8'.\n\nline 70 col 30: Default values of an optional parameter must be constant.\n\nline 70 col 30: Undefined name 'UTF8'.\n\nline 81 col 51: Default values of an optional parameter must be constant.",
           "file": "lib/src/io/io_file.dart",
           "penalty": {
-            "amount": 3,
-            "fraction": 0
+            "amount": 66,
+            "fraction": 10000
           }
         }
       ]
