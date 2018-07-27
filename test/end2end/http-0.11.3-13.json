@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
     "panaVersion": "0.11.8",
-    "sdkVersion": "2.0.0-dev.69.0"
+    "sdkVersion": "2.0.0-dev.69.3"
   },
   "packageName": "http",
   "packageVersion": "0.11.3+13",
@@ -50,10 +50,32 @@
     "strongModeEnabled": true,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
-    "errorCount": 0,
+    "errorCount": 13,
     "warningCount": 0,
-    "hintCount": 21,
+    "hintCount": 4,
     "suggestions": [
+      {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/src/multipart_request.dart`.",
+        "description": "Analysis of `lib/src/multipart_request.dart` failed with 5 errors, 1 hint, including:\n\nline 64 col 11: Undefined name 'UTF8'.\n\nline 65 col 11: Undefined name 'UTF8'.\n\nline 70 col 11: Undefined name 'UTF8'.\n\nline 93 col 22: Undefined name 'UTF8'.\n\nline 96 col 48: Undefined name 'UTF8'.",
+        "file": "lib/src/multipart_request.dart",
+        "penalty": {
+          "amount": 121,
+          "fraction": 10000
+        }
+      },
+      {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/src/byte_stream.dart`.",
+        "description": "Analysis of `lib/src/byte_stream.dart` failed with 4 errors:\n\nline 31 col 51: Default values of an optional parameter must be constant.\n\nline 31 col 51: Undefined name 'UTF8'.\n\nline 34 col 52: Default values of an optional parameter must be constant.\n\nline 34 col 52: Undefined name 'UTF8'.",
+        "file": "lib/src/byte_stream.dart",
+        "penalty": {
+          "amount": 40,
+          "fraction": 8000
+        }
+      },
       {
         "code": "pubspec.sdk.devOnly",
         "level": "error",
@@ -62,6 +84,16 @@
         "penalty": {
           "amount": 0,
           "fraction": 2000
+        }
+      },
+      {
+        "code": "bulk",
+        "level": "warning",
+        "title": "Fix additional 15 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/src/utils.dart` (2 errors)\n- `lib/src/request.dart` (1 error)\n- `lib/src/multipart_file.dart` (1 error, 1 hint)\n- `lib/src/base_client.dart` (2 hints)\n- `lib/browser_client.dart` (Run `dartfmt` to format `lib/browser_client.dart`.)\n- `lib/http.dart` (Run `dartfmt` to format `lib/http.dart`.)\n- `lib/src/base_request.dart` (Run `dartfmt` to format `lib/src/base_request.dart`.)\n- `lib/src/base_response.dart` (Run `dartfmt` to format `lib/src/base_response.dart`.)\n- `lib/src/boundary_characters.dart` (Run `dartfmt` to format `lib/src/boundary_characters.dart`.)\n- `lib/src/client.dart` (Run `dartfmt` to format `lib/src/client.dart`.)\n- `lib/src/io_client.dart` (Run `dartfmt` to format `lib/src/io_client.dart`.)\n- `lib/src/mock_client.dart` (Run `dartfmt` to format `lib/src/mock_client.dart`.)\n- `lib/src/response.dart` (Run `dartfmt` to format `lib/src/response.dart`.)\n- `lib/src/streamed_request.dart` (Run `dartfmt` to format `lib/src/streamed_request.dart`.)\n- `lib/src/streamed_response.dart` (Run `dartfmt` to format `lib/src/streamed_response.dart`.)\n",
+        "penalty": {
+          "amount": 162,
+          "fraction": 0
         }
       },
       {
@@ -85,17 +117,6 @@
         }
       },
       {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/multipart_request.dart`.",
-        "description": "Analysis of `lib/src/multipart_request.dart` reported 5 hints:\n\nline 64 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 65 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 70 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 93 col 22: 'UTF8' is deprecated and shouldn't be used.\n\nline 96 col 48: 'UTF8' is deprecated and shouldn't be used.",
-        "file": "lib/src/multipart_request.dart",
-        "penalty": {
-          "amount": 5,
-          "fraction": 0
-        }
-      },
-      {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
@@ -106,37 +127,16 @@
         }
       },
       {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/http.dart`.",
-        "description": "Analysis of `lib/http.dart` reported 3 hints:\n\nline 64 col 29: 'UTF8' is deprecated and shouldn't be used.\n\nline 88 col 29: 'UTF8' is deprecated and shouldn't be used.\n\nline 112 col 29: 'UTF8' is deprecated and shouldn't be used.",
-        "file": "lib/http.dart",
-        "penalty": {
-          "amount": 3,
-          "fraction": 0
-        }
-      },
-      {
         "code": "analysisOptions.renameRequired",
         "level": "hint",
         "title": "Use `analysis_options.yaml`.",
         "description": "Rename old `.analysis_options` file to `analysis_options.yaml`."
-      },
-      {
-        "code": "bulk",
-        "level": "hint",
-        "title": "Fix additional 15 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/client.dart` (3 hints)\n- `lib/src/base_client.dart` (2 hints)\n- `lib/src/byte_stream.dart` (2 hints)\n- `lib/src/request.dart` (2 hints)\n- `lib/src/response.dart` (2 hints)\n- `lib/browser_client.dart` (Run `dartfmt` to format `lib/browser_client.dart`.)\n- `lib/src/base_request.dart` (Run `dartfmt` to format `lib/src/base_request.dart`.)\n- `lib/src/base_response.dart` (Run `dartfmt` to format `lib/src/base_response.dart`.)\n- `lib/src/boundary_characters.dart` (Run `dartfmt` to format `lib/src/boundary_characters.dart`.)\n- `lib/src/io_client.dart` (Run `dartfmt` to format `lib/src/io_client.dart`.)\n- `lib/src/mock_client.dart` (Run `dartfmt` to format `lib/src/mock_client.dart`.)\n- `lib/src/multipart_file.dart` (1 hint)\n- `lib/src/streamed_request.dart` (Run `dartfmt` to format `lib/src/streamed_request.dart`.)\n- `lib/src/streamed_response.dart` (Run `dartfmt` to format `lib/src/streamed_response.dart`.)\n- `lib/src/utils.dart` (1 hint)\n",
-        "penalty": {
-          "amount": 15,
-          "fraction": 0
-        }
       }
     ]
   },
   "fitness": {
     "magnitude": 1273.0,
-    "shortcoming": 38.0
+    "shortcoming": 237.0
   },
   "pkgResolution": {
     "dependencies": [
@@ -395,35 +395,7 @@
       "uri": "package:http/http.dart",
       "size": 7234,
       "isFormatted": false,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/http.dart",
-          "line": 64,
-          "col": 29,
-          "description": "'UTF8' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/http.dart",
-          "line": 88,
-          "col": 29,
-          "description": "'UTF8' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/http.dart",
-          "line": 112,
-          "col": 29,
-          "description": "'UTF8' is deprecated and shouldn't be used."
-        }
-      ],
+      "codeProblems": [],
       "directLibs": [
         "dart:async",
         "dart:convert",
@@ -583,20 +555,9 @@
       },
       "fitness": {
         "magnitude": 139.0,
-        "shortcoming": 4.0
+        "shortcoming": 1.0
       },
       "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/http.dart`.",
-          "description": "Analysis of `lib/http.dart` reported 3 hints:\n\nline 64 col 29: 'UTF8' is deprecated and shouldn't be used.\n\nline 88 col 29: 'UTF8' is deprecated and shouldn't be used.\n\nline 112 col 29: 'UTF8' is deprecated and shouldn't be used.",
-          "file": "lib/http.dart",
-          "penalty": {
-            "amount": 3,
-            "fraction": 0
-          }
-        },
         {
           "code": "dartfmt.warning",
           "level": "hint",
@@ -738,38 +699,56 @@
       "isFormatted": false,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/byte_stream.dart",
           "line": 31,
           "col": 51,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/byte_stream.dart",
+          "line": 31,
+          "col": 51,
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/byte_stream.dart",
           "line": 34,
           "col": 52,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/byte_stream.dart",
+          "line": 34,
+          "col": 52,
+          "description": "Undefined name 'UTF8'."
         }
       ],
       "fitness": {
         "magnitude": 25.0,
-        "shortcoming": 3.0
+        "shortcoming": 25.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/src/byte_stream.dart`.",
-          "description": "Analysis of `lib/src/byte_stream.dart` reported 2 hints:\n\nline 31 col 51: 'UTF8' is deprecated and shouldn't be used.\n\nline 34 col 52: 'UTF8' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/src/byte_stream.dart` failed with 4 errors:\n\nline 31 col 51: Default values of an optional parameter must be constant.\n\nline 31 col 51: Undefined name 'UTF8'.\n\nline 34 col 52: Default values of an optional parameter must be constant.\n\nline 34 col 52: Undefined name 'UTF8'.",
           "file": "lib/src/byte_stream.dart",
           "penalty": {
-            "amount": 2,
-            "fraction": 0
+            "amount": 40,
+            "fraction": 8000
           }
         },
         {
@@ -789,51 +768,12 @@
       "uri": "package:http/src/client.dart",
       "size": 6152,
       "isFormatted": false,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/client.dart",
-          "line": 59,
-          "col": 31,
-          "description": "'UTF8' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/client.dart",
-          "line": 80,
-          "col": 31,
-          "description": "'UTF8' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/client.dart",
-          "line": 101,
-          "col": 31,
-          "description": "'UTF8' is deprecated and shouldn't be used."
-        }
-      ],
+      "codeProblems": [],
       "fitness": {
         "magnitude": 101.0,
-        "shortcoming": 4.0
+        "shortcoming": 1.0
       },
       "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/client.dart`.",
-          "description": "Analysis of `lib/src/client.dart` reported 3 hints:\n\nline 59 col 31: 'UTF8' is deprecated and shouldn't be used.\n\nline 80 col 31: 'UTF8' is deprecated and shouldn't be used.\n\nline 101 col 31: 'UTF8' is deprecated and shouldn't be used.",
-          "file": "lib/src/client.dart",
-          "penalty": {
-            "amount": 3,
-            "fraction": 0
-          }
-        },
         {
           "code": "dartfmt.warning",
           "level": "hint",
@@ -909,29 +849,38 @@
       "isFormatted": false,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/src/multipart_file.dart",
           "line": 73,
           "col": 74,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "UNUSED_IMPORT",
+          "file": "lib/src/multipart_file.dart",
+          "line": 6,
+          "col": 8,
+          "description": "Unused import: 'dart:convert'."
         }
       ],
       "fitness": {
         "magnitude": 79.0,
-        "shortcoming": 2.0
+        "shortcoming": 18.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/src/multipart_file.dart`.",
-          "description": "Analysis of `lib/src/multipart_file.dart` reported 1 hint:\n\nline 73 col 74: 'UTF8' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/src/multipart_file.dart` failed with 1 error, 1 hint:\n\nline 73 col 74: Undefined name 'UTF8'.\n\nline 6 col 8: Unused import: 'dart:convert'.",
           "file": "lib/src/multipart_file.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
+            "amount": 17,
+            "fraction": 2000
           }
         },
         {
@@ -953,65 +902,74 @@
       "isFormatted": false,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/src/multipart_request.dart",
           "line": 64,
           "col": 11,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Undefined name 'UTF8'."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/src/multipart_request.dart",
           "line": 65,
           "col": 11,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Undefined name 'UTF8'."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/src/multipart_request.dart",
           "line": 70,
           "col": 11,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Undefined name 'UTF8'."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/src/multipart_request.dart",
           "line": 93,
           "col": 22,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Undefined name 'UTF8'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/multipart_request.dart",
+          "line": 96,
+          "col": 48,
+          "description": "Undefined name 'UTF8'."
         },
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "UNUSED_IMPORT",
           "file": "lib/src/multipart_request.dart",
-          "line": 96,
-          "col": 48,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "line": 6,
+          "col": 8,
+          "description": "Unused import: 'dart:convert'."
         }
       ],
       "fitness": {
         "magnitude": 116.0,
-        "shortcoming": 6.0
+        "shortcoming": 116.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/src/multipart_request.dart`.",
-          "description": "Analysis of `lib/src/multipart_request.dart` reported 5 hints:\n\nline 64 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 65 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 70 col 11: 'UTF8' is deprecated and shouldn't be used.\n\nline 93 col 22: 'UTF8' is deprecated and shouldn't be used.\n\nline 96 col 48: 'UTF8' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/src/multipart_request.dart` failed with 5 errors, 1 hint, including:\n\nline 64 col 11: Undefined name 'UTF8'.\n\nline 65 col 11: Undefined name 'UTF8'.\n\nline 70 col 11: Undefined name 'UTF8'.\n\nline 93 col 22: Undefined name 'UTF8'.\n\nline 96 col 48: Undefined name 'UTF8'.",
           "file": "lib/src/multipart_request.dart",
           "penalty": {
-            "amount": 5,
-            "fraction": 0
+            "amount": 121,
+            "fraction": 10000
           }
         },
         {
@@ -1033,38 +991,29 @@
       "isFormatted": false,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/request.dart",
-          "line": 39,
-          "col": 42,
-          "description": "'UTF8' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/src/request.dart",
           "line": 133,
           "col": 26,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Undefined name 'UTF8'."
         }
       ],
       "fitness": {
         "magnitude": 109.0,
-        "shortcoming": 3.0
+        "shortcoming": 23.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/src/request.dart`.",
-          "description": "Analysis of `lib/src/request.dart` reported 2 hints:\n\nline 39 col 42: 'UTF8' is deprecated and shouldn't be used.\n\nline 133 col 26: 'UTF8' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/src/request.dart` failed with 1 error:\n\nline 133 col 26: Undefined name 'UTF8'.",
           "file": "lib/src/request.dart",
           "penalty": {
-            "amount": 2,
-            "fraction": 0
+            "amount": 22,
+            "fraction": 2000
           }
         },
         {
@@ -1084,42 +1033,12 @@
       "uri": "package:http/src/response.dart",
       "size": 3431,
       "isFormatted": false,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/response.dart",
-          "line": 24,
-          "col": 8,
-          "description": "'LATIN1' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/response.dart",
-          "line": 83,
-          "col": 18,
-          "description": "'LATIN1' is deprecated and shouldn't be used."
-        }
-      ],
+      "codeProblems": [],
       "fitness": {
         "magnitude": 62.0,
-        "shortcoming": 3.0
+        "shortcoming": 1.0
       },
       "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "hint",
-          "title": "Fix `lib/src/response.dart`.",
-          "description": "Analysis of `lib/src/response.dart` reported 2 hints:\n\nline 24 col 8: 'LATIN1' is deprecated and shouldn't be used.\n\nline 83 col 18: 'LATIN1' is deprecated and shouldn't be used.",
-          "file": "lib/src/response.dart",
-          "penalty": {
-            "amount": 2,
-            "fraction": 0
-          }
-        },
         {
           "code": "dartfmt.warning",
           "level": "hint",
@@ -1185,29 +1104,38 @@
       "isFormatted": false,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "NON_CONSTANT_DEFAULT_VALUE",
           "file": "lib/src/utils.dart",
           "line": 43,
           "col": 66,
-          "description": "'LATIN1' is deprecated and shouldn't be used."
+          "description": "Default values of an optional parameter must be constant."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/src/utils.dart",
+          "line": 43,
+          "col": 66,
+          "description": "Undefined name 'LATIN1'."
         }
       ],
       "fitness": {
         "magnitude": 96.0,
-        "shortcoming": 2.0
+        "shortcoming": 41.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/src/utils.dart`.",
-          "description": "Analysis of `lib/src/utils.dart` reported 1 hint:\n\nline 43 col 66: 'LATIN1' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/src/utils.dart` failed with 2 errors:\n\nline 43 col 66: Default values of an optional parameter must be constant.\n\nline 43 col 66: Undefined name 'LATIN1'.",
           "file": "lib/src/utils.dart",
           "penalty": {
-            "amount": 1,
-            "fraction": 0
+            "amount": 40,
+            "fraction": 4000
           }
         },
         {

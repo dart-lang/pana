@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
     "panaVersion": "0.11.8",
-    "sdkVersion": "2.0.0-dev.69.0"
+    "sdkVersion": "2.0.0-dev.69.3"
   },
   "packageName": "pub_server",
   "packageVersion": "0.1.1+3",
@@ -29,15 +29,7 @@
     }
   },
   "platform": {
-    "components": [
-      "isolate"
-    ],
-    "uses": {
-      "flutter": "allowed",
-      "web": "forbidden",
-      "other": "used"
-    },
-    "reason": "Platform components identified in package: `isolate`."
+    "reason": "Low code quality prevents platform classification."
   },
   "licenses": [
     {
@@ -55,10 +47,31 @@
     "strongModeEnabled": true,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
-    "errorCount": 0,
+    "errorCount": 6,
     "warningCount": 0,
-    "hintCount": 6,
+    "hintCount": 1,
     "suggestions": [
+      {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/shelf_pubserver.dart`.",
+        "description": "Analysis of `lib/shelf_pubserver.dart` failed with 6 errors, 1 hint, including:\n\nline 275 col 24: Undefined name 'JSON'.\n\nline 275 col 42: Undefined name 'UTF8'.\n\nline 455 col 15: Undefined name 'JSON'.\n\nline 463 col 15: Undefined name 'JSON'.\n\nline 471 col 15: Undefined name 'JSON'.",
+        "file": "lib/shelf_pubserver.dart",
+        "penalty": {
+          "amount": 433,
+          "fraction": 10000
+        }
+      },
+      {
+        "code": "platform.conflict.inPkg",
+        "level": "error",
+        "title": "Fix platform conflicts.",
+        "description": "Low code quality prevents platform classification.",
+        "penalty": {
+          "amount": 0,
+          "fraction": 2000
+        }
+      },
       {
         "code": "pubspec.sdk.devOnly",
         "level": "error",
@@ -80,17 +93,6 @@
         }
       },
       {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/shelf_pubserver.dart`.",
-        "description": "Analysis of `lib/shelf_pubserver.dart` reported 6 hints, including:\n\nline 275 col 24: 'JSON' is deprecated and shouldn't be used.\n\nline 275 col 42: 'UTF8' is deprecated and shouldn't be used.\n\nline 455 col 15: 'JSON' is deprecated and shouldn't be used.\n\nline 463 col 15: 'JSON' is deprecated and shouldn't be used.\n\nline 471 col 15: 'JSON' is deprecated and shouldn't be used.",
-        "file": "lib/shelf_pubserver.dart",
-        "penalty": {
-          "amount": 6,
-          "fraction": 0
-        }
-      },
-      {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
@@ -104,7 +106,7 @@
   },
   "fitness": {
     "magnitude": 455.0,
-    "shortcoming": 7.0
+    "shortcoming": 360.0
   },
   "pkgResolution": {
     "dependencies": [
@@ -293,58 +295,67 @@
       "isFormatted": false,
       "codeProblems": [
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/shelf_pubserver.dart",
           "line": 275,
           "col": 24,
-          "description": "'JSON' is deprecated and shouldn't be used."
+          "description": "Undefined name 'JSON'."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/shelf_pubserver.dart",
           "line": 275,
           "col": 42,
-          "description": "'UTF8' is deprecated and shouldn't be used."
+          "description": "Undefined name 'UTF8'."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/shelf_pubserver.dart",
           "line": 455,
           "col": 15,
-          "description": "'JSON' is deprecated and shouldn't be used."
+          "description": "Undefined name 'JSON'."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/shelf_pubserver.dart",
           "line": 463,
           "col": 15,
-          "description": "'JSON' is deprecated and shouldn't be used."
+          "description": "Undefined name 'JSON'."
         },
         {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
           "file": "lib/shelf_pubserver.dart",
           "line": 471,
           "col": 15,
-          "description": "'JSON' is deprecated and shouldn't be used."
+          "description": "Undefined name 'JSON'."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "UNDEFINED_IDENTIFIER",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 488,
+          "col": 17,
+          "description": "Undefined name 'JSON'."
         },
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "UNUSED_IMPORT",
           "file": "lib/shelf_pubserver.dart",
-          "line": 488,
-          "col": 17,
-          "description": "'JSON' is deprecated and shouldn't be used."
+          "line": 8,
+          "col": 8,
+          "description": "Unused import: 'dart:convert'."
         }
       ],
       "directLibs": [
@@ -554,18 +565,18 @@
       },
       "fitness": {
         "magnitude": 360.0,
-        "shortcoming": 7.0
+        "shortcoming": 360.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
-          "level": "hint",
+          "level": "error",
           "title": "Fix `lib/shelf_pubserver.dart`.",
-          "description": "Analysis of `lib/shelf_pubserver.dart` reported 6 hints, including:\n\nline 275 col 24: 'JSON' is deprecated and shouldn't be used.\n\nline 275 col 42: 'UTF8' is deprecated and shouldn't be used.\n\nline 455 col 15: 'JSON' is deprecated and shouldn't be used.\n\nline 463 col 15: 'JSON' is deprecated and shouldn't be used.\n\nline 471 col 15: 'JSON' is deprecated and shouldn't be used.",
+          "description": "Analysis of `lib/shelf_pubserver.dart` failed with 6 errors, 1 hint, including:\n\nline 275 col 24: Undefined name 'JSON'.\n\nline 275 col 42: Undefined name 'UTF8'.\n\nline 455 col 15: Undefined name 'JSON'.\n\nline 463 col 15: Undefined name 'JSON'.\n\nline 471 col 15: Undefined name 'JSON'.",
           "file": "lib/shelf_pubserver.dart",
           "penalty": {
-            "amount": 6,
-            "fraction": 0
+            "amount": 433,
+            "fraction": 10000
           }
         },
         {
