@@ -59,7 +59,16 @@
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
     "analyzerHintCount": 0,
-    "platformConflictCount": 0
+    "platformConflictCount": 0,
+    "suggestions": [
+      {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/src/model.dart`.",
+        "description": "Run `dartfmt` to format `lib/src/model.dart`.",
+        "file": "lib/src/model.dart"
+      }
+    ]
   },
   "maintenance": {
     "missingChangelog": false,
@@ -209,7 +218,7 @@
     "lib/src/model.dart": {
       "uri": "package:dartdoc/src/model.dart",
       "size": 199428,
-      "isFormatted": true,
+      "isFormatted": false,
       "codeProblems": null
     },
     "lib/src/model_utils.dart": {
