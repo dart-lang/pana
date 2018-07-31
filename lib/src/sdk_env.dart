@@ -150,37 +150,56 @@ class ToolEnvironment {
     }
   }
 
-  Future<List<String>> filesNeedingFormat(String packageDir) async {
+  Future<List<String>> filesNeedingFormat(
+      String packageDir, bool usesFlutter) async {
     final dirs = await listFocusDirs(packageDir);
     if (dirs.isEmpty) {
       return const [];
     }
-    final files = <String>[];
+    final files = new Set<String>();
     for (final dir in dirs) {
-      var result = await runProc(
-        _dartfmtCmd,
-        ['--dry-run', '--set-exit-if-changed', p.join(packageDir, dir)],
-        environment: _environment,
-      );
-      if (result.exitCode == 0) {
-        return const [];
-      }
+      final fullPath = p.join(packageDir, dir);
 
-      final lines = LineSplitter.split(result.stdout as String)
-          .map((file) => p.join(dir, file))
-          .toList();
-      if (result.exitCode == 1) {
-        assert(lines.isNotEmpty);
+      if (usesFlutter) {
+        final result = await runProc(
+          _flutterCmd,
+          ['format', fullPath],
+          workingDirectory: packageDir,
+          environment: _environment,
+        );
+
+        final lines = LineSplitter.split(result.stdout as String)
+            .where((line) =>
+                line.startsWith('Formatted ') && line.endsWith('.dart'))
+            .map((line) => line.substring(10).trim())
+            .map((file) => p.join(dir, file))
+            .toList();
         files.addAll(lines);
-        continue;
-      }
+      } else {
+        final result = await runProc(
+          _dartfmtCmd,
+          ['--dry-run', '--set-exit-if-changed', fullPath],
+          environment: _environment,
+        );
+        if (result.exitCode == 0) {
+          continue;
+        }
 
-      final output = result.stderr.toString().replaceAll('$packageDir/', '');
-      throw new Exception(
-          'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
+        final lines = LineSplitter.split(result.stdout as String)
+            .map((file) => p.join(dir, file))
+            .toList();
+        if (result.exitCode == 1) {
+          assert(lines.isNotEmpty);
+          files.addAll(lines);
+          continue;
+        }
+
+        final output = result.stderr.toString().replaceAll('$packageDir/', '');
+        throw new Exception(
+            'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
+      }
     }
-    files.sort();
-    return files;
+    return files.toList()..sort();
   }
 
   Future<ProcessResult> _execPubUpgrade(

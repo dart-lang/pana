@@ -126,7 +126,7 @@ class PackageAnalyzer {
     Set<String> unformattedFiles;
     try {
       unformattedFiles = new SplayTreeSet<String>.from(
-          await _toolEnv.filesNeedingFormat(pkgDir));
+          await _toolEnv.filesNeedingFormat(pkgDir, usesFlutter));
 
       assert(unformattedFiles.every((f) => dartFiles.contains(f)),
           'dartfmt should only return Dart files');
