@@ -1,7 +1,3 @@
-// Copyright (c) 2017, the Dart project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'model.dart';
@@ -236,8 +232,8 @@ abstract class _$PenaltySerializerMixin {
 DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) {
   return new DartPlatform(
       (json['components'] as List)?.map((e) => e as String)?.toList(),
-      (json['uses'] as Map<String, dynamic>)?.map((k, e) => new MapEntry(k,
-          $enumDecodeNullable('PlatformUse', PlatformUse.values, e as String))),
+      (json['uses'] as Map<String, dynamic>)?.map((k, e) =>
+          new MapEntry(k, _$enumDecodeNullable(_$PlatformUseEnumMap, e))),
       reason: json['reason'] as String);
 }
 
@@ -255,12 +251,39 @@ abstract class _$DartPlatformSerializerMixin {
     }
 
     writeNotNull('components', components);
-    writeNotNull('uses',
-        uses?.map((k, e) => new MapEntry(k, e?.toString()?.split('.')?.last)));
+    writeNotNull(
+        'uses', uses?.map((k, e) => new MapEntry(k, _$PlatformUseEnumMap[e])));
     writeNotNull('reason', reason);
     return val;
   }
 }
+
+T _$enumDecode<T>(Map<T, dynamic> enumValues, dynamic source) {
+  if (source == null) {
+    throw new ArgumentError('A value must be provided. Supported values: '
+        '${enumValues.values.join(', ')}');
+  }
+  return enumValues.entries
+      .singleWhere((e) => e.value == source,
+          orElse: () => throw new ArgumentError(
+              '`$source` is not one of the supported values: '
+              '${enumValues.values.join(', ')}'))
+      .key;
+}
+
+T _$enumDecodeNullable<T>(Map<T, dynamic> enumValues, dynamic source) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<T>(enumValues, source);
+}
+
+const _$PlatformUseEnumMap = const <PlatformUse, dynamic>{
+  PlatformUse.allowed: 'allowed',
+  PlatformUse.used: 'used',
+  PlatformUse.conflict: 'conflict',
+  PlatformUse.forbidden: 'forbidden'
+};
 
 PkgResolution _$PkgResolutionFromJson(Map<String, dynamic> json) {
   return new PkgResolution((json['dependencies'] as List)
