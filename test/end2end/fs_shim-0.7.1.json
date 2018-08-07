@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.8",
-    "sdkVersion": "2.0.0-dev.69.3"
+    "panaVersion": "0.11.9",
+    "sdkVersion": "2.0.0-dev.69.5"
   },
   "packageName": "fs_shim",
   "packageVersion": "0.7.1",
@@ -179,7 +179,7 @@
         "package": "dart2_constant",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.1+dart2"
+        "resolved": "1.0.2+dart2"
       },
       {
         "package": "dev_test",

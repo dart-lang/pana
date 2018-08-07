@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.11.8",
-    "sdkVersion": "2.0.0-dev.69.3"
+    "panaVersion": "0.11.9",
+    "sdkVersion": "2.0.0-dev.69.5"
   },
   "packageName": "dartdoc",
   "packageVersion": "0.20.0",
@@ -74,7 +74,7 @@
     "strongModeEnabled": true,
     "isExperimentalVersion": true,
     "isPreReleaseVersion": false,
-    "errorCount": 4,
+    "errorCount": 1,
     "warningCount": 0,
     "hintCount": 2,
     "suggestions": [
@@ -82,22 +82,11 @@
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` failed with 2 errors, 2 hints:\n\nline 4782 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 5665 col 11: The expression here has a type of 'void', and therefore cannot be used.\n\nline 1063 col 17: Always override `hashCode` if overriding `==`.\n\nline 2110 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
+        "description": "Analysis of `lib/src/model.dart` failed with 1 error, 2 hints:\n\nline 4782 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1063 col 17: Always override `hashCode` if overriding `==`.\n\nline 2110 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
         "file": "lib/src/model.dart",
         "penalty": {
-          "amount": 1608,
-          "fraction": 4000
-        }
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "error",
-        "title": "Fix `lib/src/io_utils.dart`.",
-        "description": "Analysis of `lib/src/io_utils.dart` failed with 2 errors:\n\nline 87 col 11: The expression here has a type of 'void', and therefore cannot be used.\n\nline 98 col 30: The expression here has a type of 'void', and therefore cannot be used.",
-        "file": "lib/src/io_utils.dart",
-        "penalty": {
-          "amount": 56,
-          "fraction": 4000
+          "amount": 805,
+          "fraction": 2000
         }
       },
       {
@@ -134,7 +123,7 @@
   },
   "fitness": {
     "magnitude": 7994.0,
-    "shortcoming": 1664.0
+    "shortcoming": 805.0
   },
   "pkgResolution": {
     "dependencies": [
@@ -151,7 +140,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.1 <2.0.0",
-        "resolved": "1.4.4"
+        "resolved": "1.5.0"
       },
       {
         "package": "async",
@@ -319,12 +308,6 @@
         "available": "2.0.0+1"
       },
       {
-        "package": "quiver_hashcode",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.0.0"
-      },
-      {
         "package": "resource",
         "dependencyType": "direct",
         "constraintType": "normal",
@@ -361,7 +344,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.0.1",
-        "resolved": "1.0.1"
+        "resolved": "1.0.2"
       },
       {
         "package": "typed_data",
@@ -1007,7 +990,6 @@
         "package:pub_semver/src/version_range.dart",
         "package:pub_semver/src/version_union.dart",
         "package:quiver/core.dart",
-        "package:quiver_hashcode/hashcode.dart",
         "package:resource/resource.dart",
         "package:resource/src/io_none.dart",
         "package:resource/src/package_loader.dart",
@@ -1197,43 +1179,11 @@
       "uri": "package:dartdoc/src/io_utils.dart",
       "size": 6977,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "USE_OF_VOID_RESULT",
-          "file": "lib/src/io_utils.dart",
-          "line": 87,
-          "col": 11,
-          "description": "The expression here has a type of 'void', and therefore cannot be used."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "USE_OF_VOID_RESULT",
-          "file": "lib/src/io_utils.dart",
-          "line": 98,
-          "col": 30,
-          "description": "The expression here has a type of 'void', and therefore cannot be used."
-        }
-      ],
+      "codeProblems": [],
       "fitness": {
         "magnitude": 138.0,
-        "shortcoming": 56.0
-      },
-      "suggestions": [
-        {
-          "code": "dartanalyzer.warning",
-          "level": "error",
-          "title": "Fix `lib/src/io_utils.dart`.",
-          "description": "Analysis of `lib/src/io_utils.dart` failed with 2 errors:\n\nline 87 col 11: The expression here has a type of 'void', and therefore cannot be used.\n\nline 98 col 30: The expression here has a type of 'void', and therefore cannot be used.",
-          "file": "lib/src/io_utils.dart",
-          "penalty": {
-            "amount": 56,
-            "fraction": 4000
-          }
-        }
-      ]
+        "shortcoming": 0.0
+      }
     },
     "lib/src/line_number_cache.dart": {
       "uri": "package:dartdoc/src/line_number_cache.dart",
@@ -1280,15 +1230,6 @@
           "description": "The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object."
         },
         {
-          "severity": "ERROR",
-          "errorType": "STATIC_WARNING",
-          "errorCode": "USE_OF_VOID_RESULT",
-          "file": "lib/src/model.dart",
-          "line": 5665,
-          "col": 11,
-          "description": "The expression here has a type of 'void', and therefore cannot be used."
-        },
-        {
           "severity": "INFO",
           "errorType": "LINT",
           "errorCode": "hash_and_equals",
@@ -1309,18 +1250,18 @@
       ],
       "fitness": {
         "magnitude": 4014.0,
-        "shortcoming": 1608.0
+        "shortcoming": 805.0
       },
       "suggestions": [
         {
           "code": "dartanalyzer.warning",
           "level": "error",
           "title": "Fix `lib/src/model.dart`.",
-          "description": "Analysis of `lib/src/model.dart` failed with 2 errors, 2 hints:\n\nline 4782 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 5665 col 11: The expression here has a type of 'void', and therefore cannot be used.\n\nline 1063 col 17: Always override `hashCode` if overriding `==`.\n\nline 2110 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
+          "description": "Analysis of `lib/src/model.dart` failed with 1 error, 2 hints:\n\nline 4782 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1063 col 17: Always override `hashCode` if overriding `==`.\n\nline 2110 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
           "file": "lib/src/model.dart",
           "penalty": {
-            "amount": 1608,
-            "fraction": 4000
+            "amount": 805,
+            "fraction": 2000
           }
         }
       ]
