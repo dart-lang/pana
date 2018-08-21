@@ -161,6 +161,12 @@
         "resolved": "0.11.3+2"
       },
       {
+        "package": "meta",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.1.6"
+      },
+      {
         "package": "mime",
         "dependencyType": "direct",
         "constraintType": "normal",
@@ -211,7 +217,7 @@
         "package": "string_scanner",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.3"
+        "resolved": "1.0.4"
       },
       {
         "package": "test",
@@ -451,6 +457,7 @@
         "package:http_parser/src/scan.dart",
         "package:http_parser/src/utils.dart",
         "package:logging/logging.dart",
+        "package:meta/meta.dart",
         "package:mime/mime.dart",
         "package:mime/src/bound_multipart_stream.dart",
         "package:mime/src/char_code.dart",
