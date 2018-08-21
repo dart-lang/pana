@@ -192,7 +192,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.0",
-        "resolved": "1.6.0+1"
+        "resolved": "1.6.0+2"
       },
       {
         "package": "js",
@@ -228,7 +228,7 @@
         "package": "synchronized",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.1"
+        "resolved": "1.5.1+1"
       },
       {
         "package": "test",

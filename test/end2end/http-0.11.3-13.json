@@ -169,6 +169,12 @@
         "resolved": "3.1.3"
       },
       {
+        "package": "meta",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.1.6"
+      },
+      {
         "package": "path",
         "dependencyType": "direct",
         "constraintType": "normal",
@@ -192,7 +198,7 @@
         "package": "string_scanner",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.3"
+        "resolved": "1.0.4"
       },
       {
         "package": "typed_data",
@@ -319,6 +325,7 @@
         "package:http_parser/src/media_type.dart",
         "package:http_parser/src/scan.dart",
         "package:http_parser/src/utils.dart",
+        "package:meta/meta.dart",
         "package:path/path.dart",
         "package:path/src/characters.dart",
         "package:path/src/context.dart",
@@ -511,6 +518,7 @@
         "package:http_parser/src/media_type.dart",
         "package:http_parser/src/scan.dart",
         "package:http_parser/src/utils.dart",
+        "package:meta/meta.dart",
         "package:path/path.dart",
         "package:path/src/characters.dart",
         "package:path/src/context.dart",
@@ -1253,6 +1261,7 @@
         "package:http_parser/src/media_type.dart",
         "package:http_parser/src/scan.dart",
         "package:http_parser/src/utils.dart",
+        "package:meta/meta.dart",
         "package:path/path.dart",
         "package:path/src/characters.dart",
         "package:path/src/context.dart",
