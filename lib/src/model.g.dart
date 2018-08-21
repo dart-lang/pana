@@ -7,43 +7,41 @@ part of 'model.dart';
 // **************************************************************************
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) {
-  return new Summary(
-      new PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
+  return Summary(
+      PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
       json['packageName'] as String,
       json['packageVersion'] == null
           ? null
           : new Version.parse(json['packageVersion'] as String),
       json['pubspec'] == null
           ? null
-          : new Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
+          : Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
       json['pkgResolution'] == null
           ? null
-          : new PkgResolution.fromJson(
+          : PkgResolution.fromJson(
               json['pkgResolution'] as Map<String, dynamic>),
-      (json['dartFiles'] as Map<String, dynamic>)?.map((k, e) => new MapEntry(
+      (json['dartFiles'] as Map<String, dynamic>)?.map((k, e) => MapEntry(
           k,
           e == null
               ? null
-              : new DartFileSummary.fromJson(e as Map<String, dynamic>))),
+              : DartFileSummary.fromJson(e as Map<String, dynamic>))),
       json['platform'] == null
           ? null
-          : new DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
+          : DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
       (json['licenses'] as List)
           ?.map((e) => e == null
               ? null
-              : new LicenseFile.fromJson(e as Map<String, dynamic>))
+              : LicenseFile.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['fitness'] == null
           ? null
-          : new Fitness.fromJson(json['fitness'] as Map<String, dynamic>),
+          : Fitness.fromJson(json['fitness'] as Map<String, dynamic>),
       json['maintenance'] == null
           ? null
-          : new Maintenance.fromJson(
-              json['maintenance'] as Map<String, dynamic>),
+          : Maintenance.fromJson(json['maintenance'] as Map<String, dynamic>),
       (json['suggestions'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new Suggestion.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
@@ -85,7 +83,7 @@ abstract class _$SummarySerializerMixin {
 }
 
 PanaRuntimeInfo _$PanaRuntimeInfoFromJson(Map<String, dynamic> json) {
-  return new PanaRuntimeInfo(
+  return PanaRuntimeInfo(
       panaVersion: json['panaVersion'] as String,
       sdkVersion: json['sdkVersion'] as String,
       flutterVersions: json['flutterVersions'] as Map<String, dynamic>);
@@ -113,27 +111,26 @@ abstract class _$PanaRuntimeInfoSerializerMixin {
 }
 
 DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) {
-  return new DartFileSummary(
+  return DartFileSummary(
       json['uri'] as String,
       json['size'] as int,
       json['isFormatted'] as bool,
       (json['codeProblems'] as List)
           ?.map((e) => e == null
               ? null
-              : new CodeProblem.fromJson(e as Map<String, dynamic>))
+              : CodeProblem.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       (json['directLibs'] as List)?.map((e) => e as String)?.toList(),
       (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
       json['platform'] == null
           ? null
-          : new DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
+          : DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
       json['fitness'] == null
           ? null
-          : new Fitness.fromJson(json['fitness'] as Map<String, dynamic>),
+          : Fitness.fromJson(json['fitness'] as Map<String, dynamic>),
       (json['suggestions'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new Suggestion.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
@@ -171,12 +168,12 @@ abstract class _$DartFileSummarySerializerMixin {
 }
 
 Suggestion _$SuggestionFromJson(Map<String, dynamic> json) {
-  return new Suggestion(json['code'] as String, json['level'] as String,
+  return Suggestion(json['code'] as String, json['level'] as String,
       json['title'] as String, json['description'] as String,
       file: json['file'] as String,
       penalty: json['penalty'] == null
           ? null
-          : new Penalty.fromJson(json['penalty'] as Map<String, dynamic>));
+          : Penalty.fromJson(json['penalty'] as Map<String, dynamic>));
 }
 
 abstract class _$SuggestionSerializerMixin {
@@ -207,7 +204,7 @@ abstract class _$SuggestionSerializerMixin {
 }
 
 Penalty _$PenaltyFromJson(Map<String, dynamic> json) {
-  return new Penalty(
+  return Penalty(
       amount: json['amount'] as int, fraction: json['fraction'] as int);
 }
 
@@ -230,10 +227,10 @@ abstract class _$PenaltySerializerMixin {
 }
 
 DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) {
-  return new DartPlatform(
+  return DartPlatform(
       (json['components'] as List)?.map((e) => e as String)?.toList(),
-      (json['uses'] as Map<String, dynamic>)?.map((k, e) =>
-          new MapEntry(k, _$enumDecodeNullable(_$PlatformUseEnumMap, e))),
+      (json['uses'] as Map<String, dynamic>)?.map(
+          (k, e) => MapEntry(k, _$enumDecodeNullable(_$PlatformUseEnumMap, e))),
       reason: json['reason'] as String);
 }
 
@@ -252,7 +249,7 @@ abstract class _$DartPlatformSerializerMixin {
 
     writeNotNull('components', components);
     writeNotNull(
-        'uses', uses?.map((k, e) => new MapEntry(k, _$PlatformUseEnumMap[e])));
+        'uses', uses?.map((k, e) => MapEntry(k, _$PlatformUseEnumMap[e])));
     writeNotNull('reason', reason);
     return val;
   }
@@ -260,12 +257,12 @@ abstract class _$DartPlatformSerializerMixin {
 
 T _$enumDecode<T>(Map<T, dynamic> enumValues, dynamic source) {
   if (source == null) {
-    throw new ArgumentError('A value must be provided. Supported values: '
+    throw ArgumentError('A value must be provided. Supported values: '
         '${enumValues.values.join(', ')}');
   }
   return enumValues.entries
       .singleWhere((e) => e.value == source,
-          orElse: () => throw new ArgumentError(
+          orElse: () => throw ArgumentError(
               '`$source` is not one of the supported values: '
               '${enumValues.values.join(', ')}'))
       .key;
@@ -278,7 +275,7 @@ T _$enumDecodeNullable<T>(Map<T, dynamic> enumValues, dynamic source) {
   return _$enumDecode<T>(enumValues, source);
 }
 
-const _$PlatformUseEnumMap = const <PlatformUse, dynamic>{
+const _$PlatformUseEnumMap = <PlatformUse, dynamic>{
   PlatformUse.allowed: 'allowed',
   PlatformUse.used: 'used',
   PlatformUse.conflict: 'conflict',
@@ -286,10 +283,9 @@ const _$PlatformUseEnumMap = const <PlatformUse, dynamic>{
 };
 
 PkgResolution _$PkgResolutionFromJson(Map<String, dynamic> json) {
-  return new PkgResolution((json['dependencies'] as List)
-      ?.map((e) => e == null
-          ? null
-          : new PkgDependency.fromJson(e as Map<String, dynamic>))
+  return PkgResolution((json['dependencies'] as List)
+      ?.map((e) =>
+          e == null ? null : PkgDependency.fromJson(e as Map<String, dynamic>))
       ?.toList());
 }
 
@@ -300,7 +296,7 @@ abstract class _$PkgResolutionSerializerMixin {
 }
 
 PkgDependency _$PkgDependencyFromJson(Map<String, dynamic> json) {
-  return new PkgDependency(
+  return PkgDependency(
       json['package'] as String,
       json['dependencyType'] as String,
       json['constraintType'] as String,
@@ -346,7 +342,7 @@ abstract class _$PkgDependencySerializerMixin {
 }
 
 Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) {
-  return new Maintenance(
+  return Maintenance(
       missingChangelog: json['missingChangelog'] as bool,
       missingExample: json['missingExample'] as bool,
       missingReadme: json['missingReadme'] as bool,
@@ -360,9 +356,8 @@ Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) {
       hintCount: json['hintCount'] as int,
       dartdocSuccessful: json['dartdocSuccessful'] as bool,
       suggestions: (json['suggestions'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new Suggestion.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
@@ -408,7 +403,7 @@ abstract class _$MaintenanceSerializerMixin {
 }
 
 Fitness _$FitnessFromJson(Map<String, dynamic> json) {
-  return new Fitness((json['magnitude'] as num)?.toDouble(),
+  return Fitness((json['magnitude'] as num)?.toDouble(),
       (json['shortcoming'] as num)?.toDouble());
 }
 
@@ -420,7 +415,7 @@ abstract class _$FitnessSerializerMixin {
 }
 
 LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) {
-  return new LicenseFile(json['path'] as String, json['name'] as String,
+  return LicenseFile(json['path'] as String, json['name'] as String,
       version: json['version'] as String, url: json['url'] as String);
 }
 
@@ -448,7 +443,7 @@ abstract class _$LicenseFileSerializerMixin {
 }
 
 CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) {
-  return new CodeProblem(
+  return CodeProblem(
       json['severity'] as String,
       json['errorType'] as String,
       json['errorCode'] as String,
