@@ -104,11 +104,12 @@ List<Suggestion> _compact(
   final onePerFileSuggestions =
       allSuggestions.where((s) => reportedFiles.add(s.file)).toList()..sort();
 
-  if (onePerFileSuggestions.length < 5) {
+  if (onePerFileSuggestions.length < 6) {
     suggestions.addAll(onePerFileSuggestions);
   } else {
-    final topSuggestions = onePerFileSuggestions.take(2).toList();
-    final restSuggestions = onePerFileSuggestions.skip(2).toList();
+    final takeItemCount = 3;
+    final topSuggestions = onePerFileSuggestions.take(takeItemCount).toList();
+    final restSuggestions = onePerFileSuggestions.skip(takeItemCount).toList();
     suggestions.addAll(topSuggestions);
 
     if (restSuggestions.isNotEmpty) {

@@ -56,10 +56,17 @@
         "file": "lib/http.dart"
       },
       {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/src/base_client.dart`.",
+        "description": "Run `dartfmt` to format `lib/src/base_client.dart`.",
+        "file": "lib/src/base_client.dart"
+      },
+      {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix additional 15 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/base_client.dart` (Run `dartfmt` to format `lib/src/base_client.dart`.)\n- `lib/src/base_request.dart` (Run `dartfmt` to format `lib/src/base_request.dart`.)\n- `lib/src/base_response.dart` (Run `dartfmt` to format `lib/src/base_response.dart`.)\n- `lib/src/boundary_characters.dart` (Run `dartfmt` to format `lib/src/boundary_characters.dart`.)\n- `lib/src/byte_stream.dart` (Run `dartfmt` to format `lib/src/byte_stream.dart`.)\n- `lib/src/client.dart` (Run `dartfmt` to format `lib/src/client.dart`.)\n- `lib/src/io_client.dart` (Run `dartfmt` to format `lib/src/io_client.dart`.)\n- `lib/src/mock_client.dart` (Run `dartfmt` to format `lib/src/mock_client.dart`.)\n- `lib/src/multipart_file.dart` (Run `dartfmt` to format `lib/src/multipart_file.dart`.)\n- `lib/src/multipart_request.dart` (Run `dartfmt` to format `lib/src/multipart_request.dart`.)\n- `lib/src/request.dart` (Run `dartfmt` to format `lib/src/request.dart`.)\n- `lib/src/response.dart` (Run `dartfmt` to format `lib/src/response.dart`.)\n- `lib/src/streamed_request.dart` (Run `dartfmt` to format `lib/src/streamed_request.dart`.)\n- `lib/src/streamed_response.dart` (Run `dartfmt` to format `lib/src/streamed_response.dart`.)\n- `lib/src/utils.dart` (Run `dartfmt` to format `lib/src/utils.dart`.)\n"
+        "title": "Fix additional 14 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/src/base_request.dart` (Run `dartfmt` to format `lib/src/base_request.dart`.)\n- `lib/src/base_response.dart` (Run `dartfmt` to format `lib/src/base_response.dart`.)\n- `lib/src/boundary_characters.dart` (Run `dartfmt` to format `lib/src/boundary_characters.dart`.)\n- `lib/src/byte_stream.dart` (Run `dartfmt` to format `lib/src/byte_stream.dart`.)\n- `lib/src/client.dart` (Run `dartfmt` to format `lib/src/client.dart`.)\n- `lib/src/io_client.dart` (Run `dartfmt` to format `lib/src/io_client.dart`.)\n- `lib/src/mock_client.dart` (Run `dartfmt` to format `lib/src/mock_client.dart`.)\n- `lib/src/multipart_file.dart` (Run `dartfmt` to format `lib/src/multipart_file.dart`.)\n- `lib/src/multipart_request.dart` (Run `dartfmt` to format `lib/src/multipart_request.dart`.)\n- `lib/src/request.dart` (Run `dartfmt` to format `lib/src/request.dart`.)\n- `lib/src/response.dart` (Run `dartfmt` to format `lib/src/response.dart`.)\n- `lib/src/streamed_request.dart` (Run `dartfmt` to format `lib/src/streamed_request.dart`.)\n- `lib/src/streamed_response.dart` (Run `dartfmt` to format `lib/src/streamed_response.dart`.)\n- `lib/src/utils.dart` (Run `dartfmt` to format `lib/src/utils.dart`.)\n"
       }
     ]
   },
