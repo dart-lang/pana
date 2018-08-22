@@ -8,6 +8,7 @@ import 'messages.dart' as messages;
 import 'model.dart';
 import 'pubspec.dart';
 
+/// Extracts and summarizes the output of `dartanalyzer` and `dartfmt`.
 Health calcHealth(
   Pubspec pubspec,
   List<CodeProblem> analyzerItems,

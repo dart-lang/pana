@@ -633,10 +633,12 @@ class Health extends Object with _$HealthSerializerMixin {
 
   factory Health.fromJson(Map<String, dynamic> json) => _$HealthFromJson(json);
 
+  /// Returns a health score between 0.0 and 1.0 (1.0 being the top score it can get).
   double get healthScore {
     double score = math.pow(0.75, analyzerErrorCount) *
         math.pow(0.95, analyzerWarningCount) *
         math.pow(0.995, analyzerHintCount);
+    // TODO: document why and how platform conflict influence the score
     score -= 0.25 * platformConflictCount;
     return math.max(0.0, score);
   }
