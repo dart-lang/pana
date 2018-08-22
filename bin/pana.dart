@@ -24,7 +24,7 @@ final _parser = new ArgParser()
       negatable: false)
   ..addOption('source',
       abbr: 's',
-      help: 'The source used to find the package.',
+      help: 'The source where the package is located (hosted on http://pub.dartlang.org, or local directory path).',
       allowed: ['hosted', 'path'],
       defaultsTo: 'hosted')
   ..addOption('hosted-url',
@@ -44,8 +44,8 @@ void _printHelp({String errorMessage}) {
     print(red.wrap(errorMessage));
     print('');
   }
-  print('''Usage: pana [<options>] <package> [<version>]
-       pana [<options>] --source path <directory>
+  print('''pana [<options>] --source path <absolute directory path>
+       Usage: pana [<options>] <published package name> [<version>]
 
 Options:
 ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
