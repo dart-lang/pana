@@ -20,7 +20,7 @@ Health calcHealth(
   var platformConflictCount = 0;
   final suggestions = <Suggestion>[];
 
-  for (var s in dartFileSummaries) {
+  for (final s in dartFileSummaries) {
     if (s.platform != null && s.platform.hasConflict) {
       platformConflictCount++;
       final components = s.platform.components?.map((s) => '`$s`')?.join(', ');
@@ -52,7 +52,7 @@ Health calcHealth(
   }
 
   final reportedFiles = analyzerItems.map((cp) => cp.file).toSet();
-  for (var path in reportedFiles) {
+  for (final path in reportedFiles) {
     final fileAnalyzerItems =
         analyzerItems.where((cp) => cp.file == path).toList();
     if (fileAnalyzerItems.isNotEmpty) {
@@ -116,7 +116,7 @@ List<Suggestion> _compact(
       final sb = new StringBuffer();
       sb.write('Additional issues in the following files:\n\n');
 
-      for (var s in restSuggestions) {
+      for (final s in restSuggestions) {
         final fileAnalyzerItems =
             analyzerItems.where((cp) => cp.file == s.file).toList();
 
