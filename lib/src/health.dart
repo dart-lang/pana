@@ -112,8 +112,6 @@ List<Suggestion> _compact(
     suggestions.addAll(topSuggestions);
 
     if (restSuggestions.isNotEmpty) {
-      final hasWarningOrError =
-          restSuggestions.where((s) => s.isWarning || s.isError).isNotEmpty;
       final sb = new StringBuffer();
       sb.write('Additional issues in the following files:\n\n');
 
@@ -134,8 +132,12 @@ List<Suggestion> _compact(
         }
       }
 
-      final level =
-          hasWarningOrError ? SuggestionLevel.warning : SuggestionLevel.hint;
+      final hasError = restSuggestions.where((s) => s.isError).isNotEmpty;
+      final hasWarning = restSuggestions.where((s) => s.isWarning).isNotEmpty;
+      final level = hasError
+          ? SuggestionLevel.error
+          : (hasWarning ? SuggestionLevel.warning : SuggestionLevel.hint);
+
       suggestions.add(
         new Suggestion(
           SuggestionCode.bulk,
