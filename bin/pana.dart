@@ -148,6 +148,7 @@ main(List<String> args) async {
             version: version, options: options);
       } else if (source == 'path') {
         final path = firstArg('No path was provided.');
+        final absolutePath = await new Directory(path).resolveSymbolicLinks();
         if (showWarning) {
           log.Logger.root
               .warning('pana might update or modify files in `$path`.\n'
@@ -157,7 +158,7 @@ main(List<String> args) async {
         }
 
         var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
-        summary = await analyzer.inspectDir(path);
+        summary = await analyzer.inspectDir(absolutePath);
       }
       print(prettyJson(summary));
     } catch (e, stack) {

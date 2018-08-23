@@ -13,6 +13,8 @@
 
 * Use `flutter format` for Flutter packages.
 
+* Support relative local path with `--source path`.
+
 ## 0.11.8
 
 * Support Dart 2 gold release.
