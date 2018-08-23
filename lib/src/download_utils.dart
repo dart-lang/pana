@@ -100,6 +100,7 @@ enum UrlStatus {
 
 class UrlChecker {
   final _internalHosts = new Set<Pattern>();
+  final _internalPackages = new Set<Pattern>();
   final _resolveCache = <String, bool>{};
   final int _resolveCacheLimit;
 
@@ -166,7 +167,7 @@ class UrlChecker {
     return false;
   }
 
-  Future<UrlStatus> checkStatus(String url) async {
+  Future<UrlStatus> checkStatus(String url, {String packageName}) async {
     if (url == null) {
       return UrlStatus.invalid;
     }
@@ -177,8 +178,9 @@ class UrlChecker {
     if (uri.scheme != 'http' && uri.scheme != 'https') {
       return UrlStatus.invalid;
     }
-    final isExternal = await hasExternalHostname(uri);
-    if (!isExternal) {
+    final isExternalHost = await hasExternalHostname(uri);
+    final isInternalPackage = _isInternalPackage(packageName);
+    if (!isExternalHost && !isInternalPackage) {
       return UrlStatus.internal;
     }
     final isResolvable = await hasResolvableAddress(uri);
@@ -187,5 +189,13 @@ class UrlChecker {
     }
     final exists = await urlExists(uri);
     return exists ? UrlStatus.exists : UrlStatus.missing;
+  }
+
+  bool _isInternalPackage(String packageName) {
+    if (packageName == null) return false;
+    return _internalPackages.any((p) {
+      final match = p.matchAsPrefix(packageName);
+      return match != null && match.end == packageName.length;
+    });
   }
 }

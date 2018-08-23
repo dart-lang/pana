@@ -166,7 +166,8 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
-  final homepageStatus = await urlChecker.checkStatus(pubspec.homepage);
+  final homepageStatus =
+      await urlChecker.checkStatus(pubspec.homepage, packageName: pubspec.name);
   if (homepageStatus == UrlStatus.invalid ||
       homepageStatus == UrlStatus.internal) {
     maintenanceSuggestions.add(new Suggestion.warning(
@@ -185,8 +186,8 @@ Future<Maintenance> detectMaintenance(
   }
 
   if (pubspec.documentation != null && pubspec.documentation.isNotEmpty) {
-    final documentationStatus =
-        await urlChecker.checkStatus(pubspec.documentation);
+    final documentationStatus = await urlChecker
+        .checkStatus(pubspec.documentation, packageName: pubspec.name);
     if (documentationStatus == UrlStatus.internal) {
       maintenanceSuggestions.add(new Suggestion.warning(
         SuggestionCode.pubspecDocumentationIsNotHelpful,
