@@ -22,69 +22,20 @@ final _withIssuesJson = {
   "isExperimentalVersion": true,
   "isPreReleaseVersion": true,
   "dartdocSuccessful": false,
-  "errorCount": 1,
-  "warningCount": 1,
-  "hintCount": 0,
   "suggestions": [
     {
       'code': 'platform.conflict.inPkg',
       'level': 'error',
       'title': 'Fix platform conflicts.',
       'description': 'conflict description',
-      'penalty': {'amount': 0, 'fraction': 2000}
+      'score': 20.0,
     },
     {
       'code': 'dartdoc.aborted',
       'level': 'error',
       'title': 'Running `dartdoc` failed.',
       'description': 'Make sure `dartdoc` runs without any issues.',
-      'penalty': {'amount': 0, 'fraction': 1000},
-    },
-    {
-      'code': 'errorCode',
-      'level': 'error',
-      'title': 'error',
-      'description': 'error'
-    },
-    {
-      'code': 'changelog.missing',
-      'level': 'warning',
-      'title': 'Maintain `CHANGELOG.md`.',
-      'description':
-          'Changelog entries help clients to follow the progress in your code.',
-      'penalty': {'amount': 0, 'fraction': 2000}
-    },
-    {
-      'code': 'pubspec.homepage.isNotHelpful',
-      'level': 'warning',
-      'title': 'Homepage is not helpful.',
-      'description':
-          'Update the `homepage` property: create a website about the package or use the source repository URL.',
-      'penalty': {'amount': 0, 'fraction': 1000},
-    },
-    {
-      'code': 'pubspec.dependencies.unconstrained',
-      'level': 'warning',
-      'title': 'Use constrained dependencies.',
-      'description':
-          'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
-      'penalty': {'amount': 0, 'fraction': 500}
-    },
-    {
-      'code': 'pubspec.description.tooShort',
-      'level': 'warning',
-      'title': 'Add `description` in `pubspec.yaml`.',
-      'description':
-          'Description is critical to giving users a quick insight into the features of the package and why it is relevant to their query. Ideal length is between 60 and 180 characters.',
-      'penalty': {'amount': 0, 'fraction': 500}
-    },
-    {
-      'code': 'pubspec.sdk.missing',
-      'level': 'warning',
-      'title': 'Add SDK constraint in `pubspec.yaml`.',
-      'description':
-          'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
-      'penalty': {'amount': 0, 'fraction': 500}
+      'score': 10.0,
     },
     {
       'code': 'readme.missing',
@@ -92,23 +43,47 @@ final _withIssuesJson = {
       'title': 'Maintain `README.md`.',
       'description':
           'Readme should inform others about your project, what it does, and how they can use it.',
-      'penalty': {'amount': 0, 'fraction': 500}
+      'score': 30.0,
     },
     {
-      'code': 'packageVersion.preRelease',
-      'level': 'hint',
-      'title': 'Package is pre-release.',
+      'code': 'changelog.missing',
+      'level': 'warning',
+      'title': 'Maintain `CHANGELOG.md`.',
       'description':
-          'Pre-release versions should be used with caution, their API may change in breaking ways.',
-      'penalty': {'amount': 0, 'fraction': 200}
+          'Changelog entries help clients to follow the progress in your code.',
+      'score': 20.0,
     },
     {
-      'code': 'packageVersion.preV1',
-      'level': 'hint',
-      'title': 'Package is pre-v1 release.',
+      'code': 'pubspec.dependencies.unconstrained',
+      'level': 'warning',
+      'title': 'Use constrained dependencies.',
       'description':
-          'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.',
-      'penalty': {'amount': 10, 'fraction': 0}
+          'The `pubspec.yaml` contains 1 dependency without version constraints. Specify version ranges for the following dependencies: `foo`.',
+      'score': 20.0,
+    },
+    {
+      'code': 'pubspec.description.tooShort',
+      'level': 'warning',
+      'title': 'Add `description` in `pubspec.yaml`.',
+      'description':
+          'Description is critical to giving users a quick insight into the features of the package and why it is relevant to their query. Ideal length is between 60 and 180 characters.',
+      'score': 20.0,
+    },
+    {
+      'code': 'pubspec.homepage.isNotHelpful',
+      'level': 'warning',
+      'title': 'Homepage is not helpful.',
+      'description':
+          'Update the `homepage` property: create a website about the package or use the source repository URL.',
+      'score': 10.0,
+    },
+    {
+      'code': 'pubspec.sdk.missing',
+      'level': 'warning',
+      'title': 'Add SDK constraint in `pubspec.yaml`.',
+      'description':
+          'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
+      'score': 5.0,
     },
     {
       'code': 'example.missing',
@@ -116,47 +91,59 @@ final _withIssuesJson = {
       'title': 'Maintain an example.',
       'description':
           'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `sandbox.dart`.',
-      'penalty': {'amount': 5, 'fraction': 0}
+      'score': 10.0,
     },
+    {
+      'code': 'packageVersion.preV1',
+      'level': 'hint',
+      'title': 'Package is pre-v1 release.',
+      'description':
+          'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.',
+      'score': 10.0,
+    },
+    {
+      'code': 'packageVersion.preRelease',
+      'level': 'hint',
+      'title': 'Package is pre-release.',
+      'description':
+          'Pre-release versions should be used with caution, their API may change in breaking ways.',
+      'score': 5.0,
+    }
   ]
 };
 
 final _perfect = new Maintenance(
-    missingChangelog: false,
-    missingReadme: false,
-    missingExample: false,
-    missingAnalysisOptions: false,
-    oldAnalysisOptions: false,
-    strongModeEnabled: true,
-    isExperimentalVersion: false,
-    isPreReleaseVersion: false,
-    dartdocSuccessful: true,
-    errorCount: 0,
-    warningCount: 0,
-    hintCount: 0);
+  missingChangelog: false,
+  missingReadme: false,
+  missingExample: false,
+  missingAnalysisOptions: false,
+  oldAnalysisOptions: false,
+  strongModeEnabled: true,
+  isExperimentalVersion: false,
+  isPreReleaseVersion: false,
+  dartdocSuccessful: true,
+);
 
 final _withIssues = new Maintenance.fromJson(_withIssuesJson);
 
 void main() {
   group('detectMaintenance', () {
     test('empty directory', () async {
-      final suggestions = <Suggestion>[
-        new Suggestion.error('errorCode', 'error', 'error'),
-        new Suggestion.warning('warningCode', 'warning', 'warning'),
-        new Suggestion.hint('hintCode', 'hint', 'hint'),
-      ];
       final maintenance = await detectMaintenance(
         new UrlChecker(),
         d.sandbox,
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
-        <CodeProblem>[
-          new CodeProblem('ERROR', 'COMPILE_ERROR', 'COMPILE_ERROR_1',
-              'Unable to compile', 'lib/file.dart', 10, 12),
-          new CodeProblem('WARNING', 'COMPILE_WARNING', 'COMPILE_WARNING_1',
-              'Unable to compile', 'lib/file.dart', 16, 5),
+        [
+          new PkgDependency(
+            package: 'foo',
+            dependencyType: 'direct',
+            constraintType: 'empty',
+            constraint: null,
+            resolved: null,
+            available: null,
+            errors: null,
+          )
         ],
-        suggestions,
-        [new PkgDependency('foo', 'direct', 'empty', null, null, null, null)],
         pkgPlatform: new DartPlatform.conflict('conflict description'),
         dartdocSuccessful: false,
       );
@@ -167,20 +154,20 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(getMaintenanceScore(_withIssues), closeTo(0.412, 0.001));
+      expect(getMaintenanceScore(_withIssues), 0.0);
     });
 
     test('perfect', () {
-      expect(getMaintenanceScore(_perfect), 1);
+      expect(getMaintenanceScore(_perfect), 100.0);
     });
 
     group('publish date affects score', () {
       final expectedScores = {
-        -1: 1.0, // possible for time issues to be off – treated as 'now'
-        0: 1.0,
-        1: 1.0,
-        365: 1.0,
-        (365 * 1.5).toInt(): 0.5013,
+        -1: 100.0, // possible for time issues to be off – treated as 'now'
+        0: 100.0,
+        1: 100.0,
+        365: 100.0,
+        (365 * 1.5).toInt(): 50.13,
         365 * 2: 0.0
       };
 
@@ -214,8 +201,7 @@ void main() {
       expect(suggestion, isNotNull);
       expect(suggestion.title, 'Package is getting outdated.');
       expect(suggestion.level, 'hint');
-      expect(suggestion.penalty.amount, 0);
-      expect(suggestion.penalty.fraction, 5205);
+      expect(suggestion.score, closeTo(52.05, 0.01));
     });
 
     test('age: two and half years', () {
@@ -223,8 +209,7 @@ void main() {
       expect(suggestion, isNotNull);
       expect(suggestion.title, 'Package is too old.');
       expect(suggestion.level, 'warning');
-      expect(suggestion.penalty.amount, 10000);
-      expect(suggestion.penalty.fraction, 0);
+      expect(suggestion.score, 100.0);
     });
   });
 }

@@ -34,7 +34,14 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
       }
 
       return new CodeProblem(
-          'WEIRD', 'UNKNOWN', 'UNKNOWN', content, filePath, 0, 0);
+        severity: 'WEIRD',
+        errorType: 'UNKNOWN',
+        errorCode: 'UNKNOWN',
+        description: content,
+        file: filePath,
+        line: 0,
+        col: 0,
+      );
     }
 
     if (content == "Please pass in a library that contains this part.") {
@@ -62,6 +69,13 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
     filePath = p.relative(filePath, from: projectDir);
   }
 
-  return new CodeProblem(severity, errorType, errorCode, description, filePath,
-      int.parse(line), int.parse(column));
+  return new CodeProblem(
+    severity: severity,
+    errorType: errorType,
+    errorCode: errorCode,
+    description: description,
+    file: filePath,
+    line: int.parse(line),
+    col: int.parse(column),
+  );
 }

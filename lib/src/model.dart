@@ -33,9 +33,10 @@ class Summary extends Object with _$SummarySerializerMixin {
   final List<LicenseFile> licenses;
 
   @JsonKey(includeIfNull: false)
-  final Maintenance maintenance;
+  final Health health;
 
-  final Fitness fitness;
+  @JsonKey(includeIfNull: false)
+  final Maintenance maintenance;
 
   @JsonKey(includeIfNull: false)
   final List<Suggestion> suggestions;
@@ -46,19 +47,19 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final Map<String, DartFileSummary> dartFiles;
 
-  Summary(
-    this.runtimeInfo,
-    this.packageName,
-    this.packageVersion,
-    this.pubspec,
-    this.pkgResolution,
-    this.dartFiles,
-    this.platform,
-    this.licenses,
-    this.fitness,
-    this.maintenance,
-    List<Suggestion> suggestions,
-  ) : this.suggestions =
+  Summary({
+    @required this.runtimeInfo,
+    @required this.packageName,
+    @required this.packageVersion,
+    @required this.pubspec,
+    @required this.pkgResolution,
+    @required this.dartFiles,
+    @required this.platform,
+    @required this.licenses,
+    @required this.health,
+    @required this.maintenance,
+    @required List<Suggestion> suggestions,
+  }) : this.suggestions =
             suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
@@ -70,23 +71,23 @@ class Summary extends Object with _$SummarySerializerMixin {
       .expand((list) => list);
 
   Summary change({
-    Fitness fitness,
+    Health health,
     DartPlatform platform,
     Maintenance maintenance,
     List<Suggestion> suggestions,
   }) {
     return new Summary(
-      runtimeInfo,
-      packageName,
-      packageVersion,
-      pubspec,
-      pkgResolution,
-      dartFiles,
-      platform ?? this.platform,
-      licenses,
-      fitness ?? this.fitness,
-      maintenance ?? this.maintenance,
-      suggestions ?? this.suggestions,
+      runtimeInfo: runtimeInfo,
+      packageName: packageName,
+      packageVersion: packageVersion,
+      pubspec: pubspec,
+      pkgResolution: pkgResolution,
+      dartFiles: dartFiles,
+      platform: platform ?? this.platform,
+      licenses: licenses,
+      health: health ?? this.health,
+      maintenance: maintenance ?? this.maintenance,
+      suggestions: suggestions ?? this.suggestions,
     );
   }
 }
@@ -127,24 +128,16 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   final List<String> transitiveLibs;
   @JsonKey(includeIfNull: false)
   final DartPlatform platform;
-  @JsonKey(includeIfNull: false)
-  final Fitness fitness;
 
-  /// The suggestions that affect the maintenance score.
-  @JsonKey(includeIfNull: false)
-  final List<Suggestion> suggestions;
-
-  DartFileSummary(
-    this.uri,
-    this.size,
-    this.isFormatted,
-    this.codeProblems,
-    this.directLibs,
-    this.transitiveLibs,
-    this.platform,
-    this.fitness,
-    this.suggestions,
-  );
+  DartFileSummary({
+    @required this.uri,
+    @required this.size,
+    @required this.isFormatted,
+    @required this.codeProblems,
+    @required this.directLibs,
+    @required this.transitiveLibs,
+    @required this.platform,
+  });
 
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
       _$DartFileSummaryFromJson(json);
@@ -184,7 +177,10 @@ class Suggestion extends Object
   final String file;
 
   @JsonKey(includeIfNull: false)
-  final Penalty penalty;
+
+  /// The potential score gain if the suggestion is applied and the issue gets
+  /// fixed in the package. Values are between 0.0 and 100.0.
+  final double score;
 
   Suggestion(
     this.code,
@@ -192,7 +188,7 @@ class Suggestion extends Object
     this.title,
     this.description, {
     this.file,
-    this.penalty,
+    this.score,
   });
 
   factory Suggestion.bug(
@@ -205,19 +201,19 @@ class Suggestion extends Object
   }
 
   factory Suggestion.error(String code, String title, String description,
-          {String file, Penalty penalty}) =>
+          {String file, double score}) =>
       new Suggestion(code, SuggestionLevel.error, title, description,
-          file: file, penalty: penalty);
+          file: file, score: score);
 
   factory Suggestion.warning(String code, String title, String description,
-          {String file, Penalty penalty}) =>
+          {String file, double score}) =>
       new Suggestion(code, SuggestionLevel.warning, title, description,
-          file: file, penalty: penalty);
+          file: file, score: score);
 
   factory Suggestion.hint(String code, String title, String description,
-          {String file, Penalty penalty}) =>
+          {String file, double score}) =>
       new Suggestion(code, SuggestionLevel.hint, title, description,
-          file: file, penalty: penalty);
+          file: file, score: score);
 
   factory Suggestion.fromJson(Map<String, dynamic> json) =>
       _$SuggestionFromJson(json);
@@ -247,10 +243,10 @@ class Suggestion extends Object
       return -1;
     }
 
-    if (penalty != null && other.penalty == null) return -1;
-    if (penalty == null && other.penalty != null) return 1;
-    if (penalty != null && other.penalty != null) {
-      final compared = -penalty.compareTo(other.penalty);
+    if (score != null && other.score == null) return -1;
+    if (score == null && other.score != null) return 1;
+    if (score != null && other.score != null) {
+      final compared = -score.compareTo(other.score);
       if (compared != 0) return compared;
     }
     if (file != null && other.file != null && file != other.file) {
@@ -339,54 +335,6 @@ abstract class SuggestionLevel {
   static const String warning = 'warning';
   static const String hint = 'hint';
   static const String bug = 'bug';
-}
-
-/// Penalty values are set as integers, and shall be divided by 10000 for any
-/// numerical calculation (similar to basis points in finance).
-///
-/// When multiple operations are present, the larger penalty is applied.
-@JsonSerializable()
-class Penalty extends Object
-    with _$PenaltySerializerMixin
-    implements Comparable<Penalty> {
-  /// The value to subtract from the original score.
-  /// E.g. if [amount] is 123, this is `x = x - 0.0123;`
-  @JsonKey(includeIfNull: false)
-  final int amount;
-
-  /// The fraction to substract from the original score.
-  /// E.g. if [fraction is 123, this is `x = x * (1.0 - 0.0123);`
-  @JsonKey(includeIfNull: false)
-  final int fraction;
-
-  Penalty({
-    this.amount: 0,
-    this.fraction: 0,
-  }) {
-    assert(amount > 0 || fraction > 0);
-    assert(0 <= amount && amount <= 10000);
-    assert(0 <= fraction && fraction <= 10000);
-  }
-
-  factory Penalty.fromJson(Map<String, dynamic> json) =>
-      _$PenaltyFromJson(json);
-
-  double apply(double score) {
-    final d1 = amount / 10000;
-    final d2 = score * fraction / 10000;
-    final s = score - math.max(d1, d2);
-    return math.max(0.0, s);
-  }
-
-  @override
-  int compareTo(Penalty other) {
-    final fractionDir = fraction.compareTo(other.fraction);
-    if (fractionDir == 0) {
-      return amount.compareTo(other.amount);
-    } else {
-      return fractionDir;
-    }
-  }
 }
 
 abstract class PlatformNames {
@@ -592,8 +540,15 @@ class PkgDependency extends Object
   @JsonKey(includeIfNull: false)
   final List<String> errors;
 
-  PkgDependency(this.package, this.dependencyType, this.constraintType,
-      this.constraint, this.resolved, this.available, this.errors);
+  PkgDependency({
+    @required this.package,
+    @required this.dependencyType,
+    @required this.constraintType,
+    @required this.constraint,
+    @required this.resolved,
+    @required this.available,
+    @required this.errors,
+  });
 
   factory PkgDependency.fromJson(Map<String, dynamic> json) =>
       _$PkgDependencyFromJson(json);
@@ -649,6 +604,46 @@ class PkgDependency extends Object
   }
 }
 
+@JsonSerializable()
+class Health extends Object with _$HealthSerializerMixin {
+  /// The number of errors from `dartanalyzer`.
+  final int analyzerErrorCount;
+
+  /// The number of warnings from `dartanalyzer`.
+  final int analyzerWarningCount;
+
+  /// The number of hints/info messages from `dartanalyzer`.
+  final int analyzerHintCount;
+
+  /// The number of files having platform conflicts.
+  final int platformConflictCount;
+
+  /// The suggestions about the issues affecting the health score.
+  @JsonKey(includeIfNull: false)
+  final List<Suggestion> suggestions;
+
+  Health({
+    @required this.analyzerErrorCount,
+    @required this.analyzerWarningCount,
+    @required this.analyzerHintCount,
+    @required this.platformConflictCount,
+    @required List<Suggestion> suggestions,
+  }) : suggestions =
+            suggestions == null || suggestions.isEmpty ? null : suggestions;
+
+  factory Health.fromJson(Map<String, dynamic> json) => _$HealthFromJson(json);
+
+  /// Returns a health score between 0.0 and 1.0 (1.0 being the top score it can get).
+  double get healthScore {
+    double score = math.pow(0.75, analyzerErrorCount) *
+        math.pow(0.95, analyzerWarningCount) *
+        math.pow(0.995, analyzerHintCount);
+    // TODO: document why and how platform conflict influence the score
+    score -= 0.25 * platformConflictCount;
+    return math.max(0.0, score);
+  }
+}
+
 /// Describes the maintenance status of the package.
 @JsonSerializable()
 class Maintenance extends Object with _$MaintenanceSerializerMixin {
@@ -680,15 +675,6 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   @JsonKey(includeIfNull: false)
   final bool dartdocSuccessful;
 
-  /// the number of errors encountered during analysis
-  final int errorCount;
-
-  /// the number of warning encountered during analysis
-  final int warningCount;
-
-  /// the number of hints encountered during analysis
-  final int hintCount;
-
   /// The suggestions that affect the maintenance score.
   @JsonKey(includeIfNull: false)
   final List<Suggestion> suggestions;
@@ -702,9 +688,6 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
     @required this.strongModeEnabled,
     @required this.isExperimentalVersion,
     @required this.isPreReleaseVersion,
-    @required this.errorCount,
-    @required this.warningCount,
-    @required this.hintCount,
     @required this.dartdocSuccessful,
     List<Suggestion> suggestions,
   }) : this.suggestions =
@@ -726,35 +709,9 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
       strongModeEnabled: strongModeEnabled,
       isExperimentalVersion: isExperimentalVersion,
       isPreReleaseVersion: isPreReleaseVersion,
-      errorCount: errorCount,
-      warningCount: warningCount,
-      hintCount: hintCount,
       dartdocSuccessful: dartdocSuccessful ?? this.dartdocSuccessful,
       suggestions: suggestions ?? this.suggestions,
     );
-  }
-}
-
-/// Describes a health metric that takes size and complexity into account.
-@JsonSerializable()
-class Fitness extends Object with _$FitnessSerializerMixin {
-  /// Represents the size and complexity of the library.
-  final double magnitude;
-
-  /// The faults, penalties and failures to meet the standards.
-  final double shortcoming;
-
-  Fitness(this.magnitude, this.shortcoming);
-
-  factory Fitness.fromJson(Map<String, dynamic> json) =>
-      _$FitnessFromJson(json);
-
-  String toSimpleText() =>
-      '${(magnitude - shortcoming).toStringAsFixed(2)} out of ${magnitude.toStringAsFixed(2)}';
-
-  double get healthScore {
-    final score = (magnitude - shortcoming) / magnitude;
-    return math.max(0.0, math.min(1.0, score));
   }
 }
 
@@ -836,8 +793,15 @@ class CodeProblem extends Object
   final int col;
   final String description;
 
-  CodeProblem(this.severity, this.errorType, this.errorCode, this.description,
-      this.file, this.line, this.col);
+  CodeProblem({
+    @required this.severity,
+    @required this.errorType,
+    @required this.errorCode,
+    @required this.description,
+    @required this.file,
+    @required this.line,
+    @required this.col,
+  });
 
   factory CodeProblem.fromJson(Map<String, dynamic> json) =>
       _$CodeProblemFromJson(json);

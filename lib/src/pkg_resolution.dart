@@ -135,13 +135,13 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
     errors.forEach(logWeird);
 
     deps.add(new PkgDependency(
-      package,
-      dependencyType,
-      constraintType,
-      constraint,
-      resolved,
-      available,
-      errors.isEmpty ? null : errors,
+      package: package,
+      dependencyType: dependencyType,
+      constraintType: constraintType,
+      constraint: constraint,
+      resolved: resolved,
+      available: available,
+      errors: errors.isEmpty ? null : errors,
     ));
   }
 
