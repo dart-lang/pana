@@ -25,7 +25,7 @@ final _parser = new ArgParser()
   ..addOption('source',
       abbr: 's',
       help:
-          'The source where the package is located (hosted on http://pub.dartlang.org, or local directory path).',
+          'The source where the package is located (hosted on $defaultHostedUrl, or local directory path).',
       allowed: ['hosted', 'path'],
       defaultsTo: 'hosted')
   ..addOption('hosted-url',
