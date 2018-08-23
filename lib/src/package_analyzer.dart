@@ -172,7 +172,10 @@ class PackageAnalyzer {
         message = LineSplitter.split(upgrade.stderr as String).first;
       }
 
-      log.severe('`pub upgrade` failed.\n$message'.trim());
+      final isUserProblem = message.contains('version solving failed');
+      if (!isUserProblem) {
+        log.severe('`pub upgrade` failed.\n$message'.trim());
+      }
 
       final cmd = usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
       suggestions.add(new Suggestion.error(
