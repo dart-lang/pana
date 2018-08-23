@@ -174,7 +174,8 @@ class PackageAnalyzer {
         message = LineSplitter.split(upgrade.stderr as String).first;
       }
 
-      final isUserProblem = message.contains('version solving failed');
+      final isUserProblem = message.contains('version solving failed') ||
+          message.contains('Git error.');
       if (!isUserProblem) {
         log.severe('`pub upgrade` failed.\n$message'.trim());
       }
