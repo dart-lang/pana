@@ -166,7 +166,8 @@ class UrlChecker {
     return false;
   }
 
-  Future<UrlStatus> checkStatus(String url) async {
+  Future<UrlStatus> checkStatus(String url,
+      {bool isInternalPackage: false}) async {
     if (url == null) {
       return UrlStatus.invalid;
     }
@@ -178,7 +179,7 @@ class UrlChecker {
       return UrlStatus.invalid;
     }
     final isExternal = await hasExternalHostname(uri);
-    if (!isExternal) {
+    if (!isExternal && !isInternalPackage) {
       return UrlStatus.internal;
     }
     final isResolvable = await hasResolvableAddress(uri);

@@ -15,6 +15,7 @@ import 'package:yaml/yaml.dart' as yaml;
 import 'dartdoc_analyzer.dart';
 import 'download_utils.dart';
 import 'model.dart';
+import 'package_analyzer.dart' show InspectOptions;
 import 'pubspec.dart';
 import 'utils.dart';
 
@@ -106,6 +107,7 @@ Suggestion getAgeSuggestion(Duration age) {
 }
 
 Future<Maintenance> detectMaintenance(
+  InspectOptions options,
   UrlChecker urlChecker,
   String pkgDir,
   Pubspec pubspec,
@@ -166,7 +168,8 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
-  final homepageStatus = await urlChecker.checkStatus(pubspec.homepage);
+  final homepageStatus = await urlChecker.checkStatus(pubspec.homepage,
+      isInternalPackage: options.isInternal);
   if (homepageStatus == UrlStatus.invalid ||
       homepageStatus == UrlStatus.internal) {
     maintenanceSuggestions.add(new Suggestion.warning(
@@ -185,8 +188,9 @@ Future<Maintenance> detectMaintenance(
   }
 
   if (pubspec.documentation != null && pubspec.documentation.isNotEmpty) {
-    final documentationStatus =
-        await urlChecker.checkStatus(pubspec.documentation);
+    final documentationStatus = await urlChecker.checkStatus(
+        pubspec.documentation,
+        isInternalPackage: options.isInternal);
     if (documentationStatus == UrlStatus.internal) {
       maintenanceSuggestions.add(new Suggestion.warning(
         SuggestionCode.pubspecDocumentationIsNotHelpful,
