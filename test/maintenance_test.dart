@@ -10,6 +10,7 @@ import 'package:test_descriptor/test_descriptor.dart' as d;
 import 'package:pana/src/download_utils.dart';
 import 'package:pana/src/maintenance.dart';
 import 'package:pana/src/model.dart';
+import 'package:pana/src/package_analyzer.dart' show InspectOptions;
 import 'package:pana/src/pubspec.dart';
 
 final _withIssuesJson = {
@@ -130,6 +131,7 @@ void main() {
   group('detectMaintenance', () {
     test('empty directory', () async {
       final maintenance = await detectMaintenance(
+        new InspectOptions(),
         new UrlChecker(),
         d.sandbox,
         new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),

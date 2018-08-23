@@ -37,6 +37,7 @@ class InspectOptions {
   final String dartdocOutputDir;
   final int dartdocRetry;
   final Duration dartdocTimeout;
+  final bool isInternal;
 
   InspectOptions({
     this.verbosity: Verbosity.normal,
@@ -45,6 +46,7 @@ class InspectOptions {
     this.dartdocOutputDir,
     this.dartdocRetry: 0,
     this.dartdocTimeout,
+    this.isInternal: false,
   });
 }
 
@@ -343,6 +345,7 @@ class PackageAnalyzer {
     licenses = await updateLicenseUrls(_urlChecker, pubspec.homepage, licenses);
 
     final maintenance = await detectMaintenance(
+      options,
       _urlChecker,
       pkgDir,
       pubspec,
