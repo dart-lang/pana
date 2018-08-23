@@ -162,7 +162,10 @@ main(List<String> args) async {
       print(prettyJson(summary));
     } catch (e, stack) {
       final message = "Problem analyzing ${result.rest.join(' ')}";
-      log.Logger.root.shout(message, e, stack);
+      final errorStr = e.toString();
+      final isInputError = errorStr.contains('Package doesn\'t exist');
+      final showStack = !isInputError;
+      log.Logger.root.shout(message, e, showStack ? stack : null);
       exitCode = 1;
     }
   } finally {
