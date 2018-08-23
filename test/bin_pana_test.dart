@@ -36,13 +36,14 @@ void main() {
   });
 }
 
-final _helpOutput = '''Usage: pana [<options>] <package> [<version>]
-       pana [<options>] --source path <directory>
+final _helpOutput =
+    '''Usage: pana [<options>] <published package name> [<version>]
+       pana [<options>] --source path <local directory>
 
 Options:
       --flutter-sdk     The directory of the Flutter SDK.
   -j, --json            Output log items as JSON.
-  -s, --source          The source used to find the package.
+  -s, --source          The source where the package is located (hosted on https://pub.dartlang.org, or local directory path).
                         [hosted (default), path]
   
       --hosted-url      The server that hosts <package>.
