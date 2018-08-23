@@ -131,11 +131,13 @@ class PackageAnalyzer {
       assert(unformattedFiles.every((f) => dartFiles.contains(f)),
           'dartfmt should only return Dart files');
     } catch (e, stack) {
-      // FYI: seeing a lot of failures due to
-      //   https://github.com/dart-lang/dart_style/issues/522
-      log.severe('Failed dartfmt', e, stack);
+      final errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
+      final isUserProblem = errorMsg
+          .contains('Could not format because the source could not be parsed');
+      if (!isUserProblem) {
+        log.severe('`dartfmt` failed.\n$errorMsg', e, stack);
+      }
 
-      var errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
       suggestions.add(new Suggestion.error(
           SuggestionCode.dartfmtAborted,
           messages.makeSureDartfmtRuns(usesFlutter),
