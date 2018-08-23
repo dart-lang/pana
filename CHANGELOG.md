@@ -9,6 +9,10 @@
 
 * Removed `Penalty` and using the simpler to understand `score` in place of it.
 
+**Updates:**
+
+* Use `flutter format` for Flutter packages.
+
 ## 0.11.8
 
 * Support Dart 2 gold release.
