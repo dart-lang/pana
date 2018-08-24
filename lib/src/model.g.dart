@@ -310,6 +310,9 @@ abstract class _$PkgDependencySerializerMixin {
 
 Health _$HealthFromJson(Map<String, dynamic> json) {
   return Health(
+      analyzeProcessFailed: json['analyzeProcessFailed'] as bool,
+      formatProcessFailed: json['formatProcessFailed'] as bool,
+      resolveProcessFailed: json['resolveProcessFailed'] as bool,
       analyzerErrorCount: json['analyzerErrorCount'] as int,
       analyzerWarningCount: json['analyzerWarningCount'] as int,
       analyzerHintCount: json['analyzerHintCount'] as int,
@@ -321,6 +324,9 @@ Health _$HealthFromJson(Map<String, dynamic> json) {
 }
 
 abstract class _$HealthSerializerMixin {
+  bool get analyzeProcessFailed;
+  bool get formatProcessFailed;
+  bool get resolveProcessFailed;
   int get analyzerErrorCount;
   int get analyzerWarningCount;
   int get analyzerHintCount;
@@ -328,6 +334,9 @@ abstract class _$HealthSerializerMixin {
   List<Suggestion> get suggestions;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
+      'analyzeProcessFailed': analyzeProcessFailed,
+      'formatProcessFailed': formatProcessFailed,
+      'resolveProcessFailed': resolveProcessFailed,
       'analyzerErrorCount': analyzerErrorCount,
       'analyzerWarningCount': analyzerWarningCount,
       'analyzerHintCount': analyzerHintCount,

@@ -15,6 +15,8 @@
 
 * Support relative local path with `--source path`.
 
+* Track tool failures and set health score to 0 if there is any.
+
 ## 0.11.8
 
 * Support Dart 2 gold release.

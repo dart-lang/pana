@@ -606,6 +606,15 @@ class PkgDependency extends Object
 
 @JsonSerializable()
 class Health extends Object with _$HealthSerializerMixin {
+  /// Whether runnnig `dartanalyzer` was successful.
+  final bool analyzeProcessFailed;
+
+  /// Whether runnnig `dartfmt` was successful.
+  final bool formatProcessFailed;
+
+  /// Whether runnnig `pub upgrade` was successful.
+  final bool resolveProcessFailed;
+
   /// The number of errors from `dartanalyzer`.
   final int analyzerErrorCount;
 
@@ -623,6 +632,9 @@ class Health extends Object with _$HealthSerializerMixin {
   final List<Suggestion> suggestions;
 
   Health({
+    @required this.analyzeProcessFailed,
+    @required this.formatProcessFailed,
+    @required this.resolveProcessFailed,
     @required this.analyzerErrorCount,
     @required this.analyzerWarningCount,
     @required this.analyzerHintCount,
@@ -633,8 +645,15 @@ class Health extends Object with _$HealthSerializerMixin {
 
   factory Health.fromJson(Map<String, dynamic> json) => _$HealthFromJson(json);
 
+  bool get anyProcessFailed =>
+      analyzeProcessFailed || formatProcessFailed || resolveProcessFailed;
+
   /// Returns a health score between 0.0 and 1.0 (1.0 being the top score it can get).
   double get healthScore {
+    if (anyProcessFailed) {
+      // can't reliably determine the score if we can't parse and analyze the sources
+      return 0.0;
+    }
     double score = math.pow(0.75, analyzerErrorCount) *
         math.pow(0.95, analyzerWarningCount) *
         math.pow(0.995, analyzerHintCount);
