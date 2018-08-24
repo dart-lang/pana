@@ -1,0 +1,686 @@
+{
+  "runtimeInfo": {
+    "panaVersion": "0.12.0-dev",
+    "sdkVersion": "2.1.0-dev.2.0"
+  },
+  "packageName": "stream",
+  "packageVersion": "2.0.1",
+  "pubspec": {
+    "authors": [
+      "Tom Yeh <tomyeh@rikulo.org>"
+    ],
+    "version": "2.0.1",
+    "name": "stream",
+    "dependencies": {
+      "charcode": "any",
+      "logging": "any",
+      "http": "any",
+      "args": "any",
+      "rikulo_commons": "any",
+      "path": "any"
+    },
+    "description": "Lightweight Dart web server supporting request routing, filtering, template engine, MVC design pattern, and file-based static resources.\n",
+    "environment": {
+      "sdk": ">=2.0.0-dev <3.0.0"
+    },
+    "homepage": "http://rikulo.org/projects/stream",
+    "documentation": "http://docs.rikulo.org/stream"
+  },
+  "platform": {
+    "components": [
+      "io",
+      "mirrors"
+    ],
+    "uses": {
+      "flutter": "forbidden",
+      "web": "forbidden",
+      "other": "used"
+    },
+    "reason": "Primary library: `package:stream/stream.dart` with components: `io`, `mirrors`."
+  },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "name": "Apache",
+      "version": "2.0"
+    }
+  ],
+  "health": {
+    "analyzeProcessFailed": false,
+    "formatProcessFailed": false,
+    "resolveProcessFailed": false,
+    "analyzerErrorCount": 0,
+    "analyzerWarningCount": 0,
+    "analyzerHintCount": 1,
+    "platformConflictCount": 0,
+    "suggestions": [
+      {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/proxy.dart`.",
+        "description": "Run `dartfmt` to format `lib/proxy.dart`.",
+        "file": "lib/proxy.dart"
+      },
+      {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/src/connect.dart`.",
+        "description": "Run `dartfmt` to format `lib/src/connect.dart`.",
+        "file": "lib/src/connect.dart"
+      },
+      {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/src/connect_impl.dart`.",
+        "description": "Run `dartfmt` to format `lib/src/connect_impl.dart`.",
+        "file": "lib/src/connect_impl.dart"
+      },
+      {
+        "code": "bulk",
+        "level": "hint",
+        "title": "Fix additional 11 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/src/plugin/loader.dart` (1 hint)\n- `lib/src/plugin/loader_impl.dart` (Run `dartfmt` to format `lib/src/plugin/loader_impl.dart`.)\n- `lib/src/plugin/router.dart` (Run `dartfmt` to format `lib/src/plugin/router.dart`.)\n- `lib/src/rsp_util.dart` (Run `dartfmt` to format `lib/src/rsp_util.dart`.)\n- `lib/src/rspc/build.dart` (Run `dartfmt` to format `lib/src/rspc/build.dart`.)\n- `lib/src/rspc/compiler.dart` (Run `dartfmt` to format `lib/src/rspc/compiler.dart`.)\n- `lib/src/rspc/main.dart` (Run `dartfmt` to format `lib/src/rspc/main.dart`.)\n- `lib/src/rspc/tag.dart` (Run `dartfmt` to format `lib/src/rspc/tag.dart`.)\n- `lib/src/rspc/tag_util.dart` (Run `dartfmt` to format `lib/src/rspc/tag_util.dart`.)\n- `lib/src/server.dart` (Run `dartfmt` to format `lib/src/server.dart`.)\n- `lib/src/server_impl.dart` (Run `dartfmt` to format `lib/src/server_impl.dart`.)\n"
+      }
+    ]
+  },
+  "maintenance": {
+    "missingChangelog": true,
+    "missingExample": true,
+    "missingReadme": false,
+    "missingAnalysisOptions": false,
+    "oldAnalysisOptions": false,
+    "strongModeEnabled": true,
+    "isExperimentalVersion": false,
+    "isPreReleaseVersion": false,
+    "suggestions": [
+      {
+        "code": "changelog.missing",
+        "level": "warning",
+        "title": "Maintain `CHANGELOG.md`.",
+        "description": "Changelog entries help clients to follow the progress in your code.",
+        "score": 20.0
+      },
+      {
+        "code": "pubspec.dependencies.unconstrained",
+        "level": "warning",
+        "title": "Use constrained dependencies.",
+        "description": "The `pubspec.yaml` contains 6 dependencies without version constraints. Specify version ranges for the following dependencies: `args`, `charcode`, `http`, `logging`, `path`, `rikulo_commons`.",
+        "score": 20.0
+      },
+      {
+        "code": "example.missing",
+        "level": "hint",
+        "title": "Maintain an example.",
+        "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`."
+      }
+    ]
+  },
+  "pkgResolution": {
+    "dependencies": [
+      {
+        "package": "args",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "any",
+        "resolved": "1.5.0"
+      },
+      {
+        "package": "async",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "2.0.8"
+      },
+      {
+        "package": "charcode",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "any",
+        "resolved": "1.1.2"
+      },
+      {
+        "package": "collection",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.14.11"
+      },
+      {
+        "package": "http",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "any",
+        "resolved": "0.11.3+17"
+      },
+      {
+        "package": "http_parser",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "3.1.3"
+      },
+      {
+        "package": "logging",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "any",
+        "resolved": "0.11.3+2"
+      },
+      {
+        "package": "meta",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.1.6"
+      },
+      {
+        "package": "mime",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "0.9.6+2"
+      },
+      {
+        "package": "path",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "any",
+        "resolved": "1.6.2"
+      },
+      {
+        "package": "rikulo_commons",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "any",
+        "resolved": "3.0.2+1"
+      },
+      {
+        "package": "source_span",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.4.1"
+      },
+      {
+        "package": "string_scanner",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.0.4"
+      },
+      {
+        "package": "typed_data",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.1.6"
+      }
+    ]
+  },
+  "dartFiles": {
+    "lib/plugin.dart": {
+      "uri": "package:stream/plugin.dart",
+      "size": 599,
+      "isFormatted": true,
+      "codeProblems": [],
+      "directLibs": [
+        "dart:async",
+        "dart:collection",
+        "dart:io",
+        "dart:mirrors",
+        "package:charcode/ascii.dart",
+        "package:path/path.dart",
+        "package:rikulo_commons/io.dart",
+        "package:rikulo_commons/mirrors.dart",
+        "package:rikulo_commons/util.dart",
+        "package:stream/stream.dart"
+      ],
+      "transitiveLibs": [
+        "dart:async",
+        "dart:collection",
+        "dart:convert",
+        "dart:io",
+        "dart:math",
+        "dart:mirrors",
+        "dart:typed_data",
+        "package:charcode/ascii.dart",
+        "package:logging/logging.dart",
+        "package:mime/mime.dart",
+        "package:mime/src/bound_multipart_stream.dart",
+        "package:mime/src/char_code.dart",
+        "package:mime/src/default_extension_map.dart",
+        "package:mime/src/magic_number.dart",
+        "package:mime/src/mime_multipart_transformer.dart",
+        "package:mime/src/mime_shared.dart",
+        "package:mime/src/mime_type.dart",
+        "package:path/path.dart",
+        "package:path/src/characters.dart",
+        "package:path/src/context.dart",
+        "package:path/src/internal_style.dart",
+        "package:path/src/parsed_path.dart",
+        "package:path/src/path_exception.dart",
+        "package:path/src/path_map.dart",
+        "package:path/src/path_set.dart",
+        "package:path/src/style.dart",
+        "package:path/src/style/posix.dart",
+        "package:path/src/style/url.dart",
+        "package:path/src/style/windows.dart",
+        "package:path/src/utils.dart",
+        "package:rikulo_commons/async.dart",
+        "package:rikulo_commons/browser.dart",
+        "package:rikulo_commons/convert.dart",
+        "package:rikulo_commons/io.dart",
+        "package:rikulo_commons/logging.dart",
+        "package:rikulo_commons/mirrors.dart",
+        "package:rikulo_commons/util.dart",
+        "package:stream/stream.dart"
+      ],
+      "platform": {
+        "components": [
+          "io",
+          "mirrors"
+        ],
+        "uses": {
+          "flutter": "forbidden",
+          "web": "forbidden",
+          "other": "used"
+        }
+      }
+    },
+    "lib/proxy.dart": {
+      "uri": "package:stream/proxy.dart",
+      "size": 5111,
+      "isFormatted": false,
+      "codeProblems": [],
+      "directLibs": [
+        "dart:async",
+        "dart:io",
+        "package:http/http.dart",
+        "package:path/path.dart",
+        "package:stream/stream.dart"
+      ],
+      "transitiveLibs": [
+        "dart-pana:web_safe_io",
+        "dart:async",
+        "dart:collection",
+        "dart:convert",
+        "dart:io",
+        "dart:math",
+        "dart:mirrors",
+        "dart:typed_data",
+        "package:async/async.dart",
+        "package:async/src/async_cache.dart",
+        "package:async/src/async_memoizer.dart",
+        "package:async/src/byte_collector.dart",
+        "package:async/src/cancelable_operation.dart",
+        "package:async/src/delegate/event_sink.dart",
+        "package:async/src/delegate/future.dart",
+        "package:async/src/delegate/sink.dart",
+        "package:async/src/delegate/stream.dart",
+        "package:async/src/delegate/stream_consumer.dart",
+        "package:async/src/delegate/stream_sink.dart",
+        "package:async/src/delegate/stream_subscription.dart",
+        "package:async/src/future_group.dart",
+        "package:async/src/lazy_stream.dart",
+        "package:async/src/null_stream_sink.dart",
+        "package:async/src/restartable_timer.dart",
+        "package:async/src/result/capture_sink.dart",
+        "package:async/src/result/capture_transformer.dart",
+        "package:async/src/result/error.dart",
+        "package:async/src/result/future.dart",
+        "package:async/src/result/release_sink.dart",
+        "package:async/src/result/release_transformer.dart",
+        "package:async/src/result/result.dart",
+        "package:async/src/result/value.dart",
+        "package:async/src/single_subscription_transformer.dart",
+        "package:async/src/stream_completer.dart",
+        "package:async/src/stream_group.dart",
+        "package:async/src/stream_queue.dart",
+        "package:async/src/stream_sink_completer.dart",
+        "package:async/src/stream_sink_transformer.dart",
+        "package:async/src/stream_sink_transformer/handler_transformer.dart",
+        "package:async/src/stream_sink_transformer/stream_transformer_wrapper.dart",
+        "package:async/src/stream_sink_transformer/typed.dart",
+        "package:async/src/stream_splitter.dart",
+        "package:async/src/stream_subscription_transformer.dart",
+        "package:async/src/stream_zip.dart",
+        "package:async/src/subscription_stream.dart",
+        "package:async/src/typed/stream_subscription.dart",
+        "package:async/src/typed_stream_transformer.dart",
+        "package:async/src/utils.dart",
+        "package:charcode/ascii.dart",
+        "package:charcode/charcode.dart",
+        "package:charcode/html_entity.dart",
+        "package:collection/collection.dart",
+        "package:collection/src/algorithms.dart",
+        "package:collection/src/canonicalized_map.dart",
+        "package:collection/src/combined_wrappers/combined_iterable.dart",
+        "package:collection/src/combined_wrappers/combined_list.dart",
+        "package:collection/src/combined_wrappers/combined_map.dart",
+        "package:collection/src/comparators.dart",
+        "package:collection/src/empty_unmodifiable_set.dart",
+        "package:collection/src/equality.dart",
+        "package:collection/src/equality_map.dart",
+        "package:collection/src/equality_set.dart",
+        "package:collection/src/functions.dart",
+        "package:collection/src/iterable_zip.dart",
+        "package:collection/src/priority_queue.dart",
+        "package:collection/src/queue_list.dart",
+        "package:collection/src/union_set.dart",
+        "package:collection/src/union_set_controller.dart",
+        "package:collection/src/unmodifiable_wrappers.dart",
+        "package:collection/src/utils.dart",
+        "package:collection/src/wrappers.dart",
+        "package:http/http.dart",
+        "package:http/src/base_client.dart",
+        "package:http/src/base_request.dart",
+        "package:http/src/base_response.dart",
+        "package:http/src/boundary_characters.dart",
+        "package:http/src/byte_stream.dart",
+        "package:http/src/client.dart",
+        "package:http/src/exception.dart",
+        "package:http/src/io_client.dart",
+        "package:http/src/multipart_file.dart",
+        "package:http/src/multipart_request.dart",
+        "package:http/src/request.dart",
+        "package:http/src/response.dart",
+        "package:http/src/streamed_request.dart",
+        "package:http/src/streamed_response.dart",
+        "package:http/src/utils.dart",
+        "package:http_parser/http_parser.dart",
+        "package:http_parser/src/authentication_challenge.dart",
+        "package:http_parser/src/case_insensitive_map.dart",
+        "package:http_parser/src/chunked_coding.dart",
+        "package:http_parser/src/chunked_coding/decoder.dart",
+        "package:http_parser/src/chunked_coding/encoder.dart",
+        "package:http_parser/src/http_date.dart",
+        "package:http_parser/src/media_type.dart",
+        "package:http_parser/src/scan.dart",
+        "package:http_parser/src/utils.dart",
+        "package:logging/logging.dart",
+        "package:meta/meta.dart",
+        "package:mime/mime.dart",
+        "package:mime/src/bound_multipart_stream.dart",
+        "package:mime/src/char_code.dart",
+        "package:mime/src/default_extension_map.dart",
+        "package:mime/src/magic_number.dart",
+        "package:mime/src/mime_multipart_transformer.dart",
+        "package:mime/src/mime_shared.dart",
+        "package:mime/src/mime_type.dart",
+        "package:path/path.dart",
+        "package:path/src/characters.dart",
+        "package:path/src/context.dart",
+        "package:path/src/internal_style.dart",
+        "package:path/src/parsed_path.dart",
+        "package:path/src/path_exception.dart",
+        "package:path/src/path_map.dart",
+        "package:path/src/path_set.dart",
+        "package:path/src/style.dart",
+        "package:path/src/style/posix.dart",
+        "package:path/src/style/url.dart",
+        "package:path/src/style/windows.dart",
+        "package:path/src/utils.dart",
+        "package:rikulo_commons/async.dart",
+        "package:rikulo_commons/browser.dart",
+        "package:rikulo_commons/convert.dart",
+        "package:rikulo_commons/io.dart",
+        "package:rikulo_commons/logging.dart",
+        "package:rikulo_commons/mirrors.dart",
+        "package:rikulo_commons/util.dart",
+        "package:source_span/source_span.dart",
+        "package:source_span/src/colors.dart",
+        "package:source_span/src/file.dart",
+        "package:source_span/src/location.dart",
+        "package:source_span/src/location_mixin.dart",
+        "package:source_span/src/span.dart",
+        "package:source_span/src/span_exception.dart",
+        "package:source_span/src/span_mixin.dart",
+        "package:source_span/src/span_with_context.dart",
+        "package:source_span/src/utils.dart",
+        "package:stream/plugin.dart",
+        "package:stream/stream.dart",
+        "package:string_scanner/src/eager_span_scanner.dart",
+        "package:string_scanner/src/exception.dart",
+        "package:string_scanner/src/line_scanner.dart",
+        "package:string_scanner/src/relative_span_scanner.dart",
+        "package:string_scanner/src/span_scanner.dart",
+        "package:string_scanner/src/string_scanner.dart",
+        "package:string_scanner/src/utils.dart",
+        "package:string_scanner/string_scanner.dart",
+        "package:typed_data/typed_buffers.dart",
+        "package:typed_data/typed_data.dart"
+      ],
+      "platform": {
+        "components": [
+          "io",
+          "mirrors"
+        ],
+        "uses": {
+          "flutter": "forbidden",
+          "web": "forbidden",
+          "other": "used"
+        }
+      }
+    },
+    "lib/rspc.dart": {
+      "uri": "package:stream/rspc.dart",
+      "size": 743,
+      "isFormatted": true,
+      "codeProblems": [],
+      "directLibs": [
+        "dart:async",
+        "dart:collection",
+        "dart:convert",
+        "dart:io",
+        "dart:math",
+        "package:args/args.dart",
+        "package:charcode/ascii.dart",
+        "package:path/path.dart",
+        "package:rikulo_commons/io.dart",
+        "package:rikulo_commons/util.dart"
+      ],
+      "transitiveLibs": [
+        "dart:async",
+        "dart:collection",
+        "dart:convert",
+        "dart:io",
+        "dart:math",
+        "dart:typed_data",
+        "package:args/args.dart",
+        "package:args/src/allow_anything_parser.dart",
+        "package:args/src/arg_parser.dart",
+        "package:args/src/arg_parser_exception.dart",
+        "package:args/src/arg_results.dart",
+        "package:args/src/option.dart",
+        "package:args/src/parser.dart",
+        "package:args/src/usage.dart",
+        "package:charcode/ascii.dart",
+        "package:mime/mime.dart",
+        "package:mime/src/bound_multipart_stream.dart",
+        "package:mime/src/char_code.dart",
+        "package:mime/src/default_extension_map.dart",
+        "package:mime/src/magic_number.dart",
+        "package:mime/src/mime_multipart_transformer.dart",
+        "package:mime/src/mime_shared.dart",
+        "package:mime/src/mime_type.dart",
+        "package:path/path.dart",
+        "package:path/src/characters.dart",
+        "package:path/src/context.dart",
+        "package:path/src/internal_style.dart",
+        "package:path/src/parsed_path.dart",
+        "package:path/src/path_exception.dart",
+        "package:path/src/path_map.dart",
+        "package:path/src/path_set.dart",
+        "package:path/src/style.dart",
+        "package:path/src/style/posix.dart",
+        "package:path/src/style/url.dart",
+        "package:path/src/style/windows.dart",
+        "package:path/src/utils.dart",
+        "package:rikulo_commons/async.dart",
+        "package:rikulo_commons/convert.dart",
+        "package:rikulo_commons/io.dart",
+        "package:rikulo_commons/util.dart"
+      ],
+      "platform": {
+        "components": [
+          "io"
+        ],
+        "uses": {
+          "flutter": "allowed",
+          "web": "forbidden",
+          "other": "used"
+        }
+      }
+    },
+    "lib/src/connect.dart": {
+      "uri": "package:stream/src/connect.dart",
+      "size": 15015,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/connect_impl.dart": {
+      "uri": "package:stream/src/connect_impl.dart",
+      "size": 10184,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/plugin/loader.dart": {
+      "uri": "package:stream/src/plugin/loader.dart",
+      "size": 11214,
+      "isFormatted": false,
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "hash_and_equals",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 83,
+          "col": 16,
+          "description": "Always override `hashCode` if overriding `==`."
+        }
+      ]
+    },
+    "lib/src/plugin/loader_impl.dart": {
+      "uri": "package:stream/src/plugin/loader_impl.dart",
+      "size": 10276,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/plugin/router.dart": {
+      "uri": "package:stream/src/plugin/router.dart",
+      "size": 14486,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/rsp_util.dart": {
+      "uri": "package:stream/src/rsp_util.dart",
+      "size": 6231,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/rspc/build.dart": {
+      "uri": "package:stream/src/rspc/build.dart",
+      "size": 6337,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/rspc/compiler.dart": {
+      "uri": "package:stream/src/rspc/compiler.dart",
+      "size": 26182,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/rspc/main.dart": {
+      "uri": "package:stream/src/rspc/main.dart",
+      "size": 3448,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/rspc/tag.dart": {
+      "uri": "package:stream/src/rspc/tag.dart",
+      "size": 15588,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/rspc/tag_util.dart": {
+      "uri": "package:stream/src/rspc/tag_util.dart",
+      "size": 8297,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/server.dart": {
+      "uri": "package:stream/src/server.dart",
+      "size": 16918,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/src/server_impl.dart": {
+      "uri": "package:stream/src/server_impl.dart",
+      "size": 12006,
+      "isFormatted": false,
+      "codeProblems": []
+    },
+    "lib/stream.dart": {
+      "uri": "package:stream/stream.dart",
+      "size": 740,
+      "isFormatted": true,
+      "codeProblems": [],
+      "directLibs": [
+        "dart:async",
+        "dart:collection",
+        "dart:convert",
+        "dart:io",
+        "package:logging/logging.dart",
+        "package:path/path.dart",
+        "package:rikulo_commons/browser.dart",
+        "package:rikulo_commons/io.dart",
+        "package:rikulo_commons/logging.dart",
+        "package:rikulo_commons/util.dart",
+        "package:stream/plugin.dart"
+      ],
+      "transitiveLibs": [
+        "dart:async",
+        "dart:collection",
+        "dart:convert",
+        "dart:io",
+        "dart:math",
+        "dart:mirrors",
+        "dart:typed_data",
+        "package:charcode/ascii.dart",
+        "package:logging/logging.dart",
+        "package:mime/mime.dart",
+        "package:mime/src/bound_multipart_stream.dart",
+        "package:mime/src/char_code.dart",
+        "package:mime/src/default_extension_map.dart",
+        "package:mime/src/magic_number.dart",
+        "package:mime/src/mime_multipart_transformer.dart",
+        "package:mime/src/mime_shared.dart",
+        "package:mime/src/mime_type.dart",
+        "package:path/path.dart",
+        "package:path/src/characters.dart",
+        "package:path/src/context.dart",
+        "package:path/src/internal_style.dart",
+        "package:path/src/parsed_path.dart",
+        "package:path/src/path_exception.dart",
+        "package:path/src/path_map.dart",
+        "package:path/src/path_set.dart",
+        "package:path/src/style.dart",
+        "package:path/src/style/posix.dart",
+        "package:path/src/style/url.dart",
+        "package:path/src/style/windows.dart",
+        "package:path/src/utils.dart",
+        "package:rikulo_commons/async.dart",
+        "package:rikulo_commons/browser.dart",
+        "package:rikulo_commons/convert.dart",
+        "package:rikulo_commons/io.dart",
+        "package:rikulo_commons/logging.dart",
+        "package:rikulo_commons/mirrors.dart",
+        "package:rikulo_commons/util.dart",
+        "package:stream/plugin.dart"
+      ],
+      "platform": {
+        "components": [
+          "io",
+          "mirrors"
+        ],
+        "uses": {
+          "flutter": "forbidden",
+          "web": "forbidden",
+          "other": "used"
+        }
+      }
+    }
+  }
+}
