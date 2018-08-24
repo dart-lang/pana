@@ -328,7 +328,11 @@ class PackageAnalyzer {
       );
     }
 
-    final health = calcHealth(pubspec, analyzerItems, files.values);
+    final health = calcHealth(
+      pubspec: pubspec,
+      analyzerItems: analyzerItems,
+      dartFileSummaries: files.values,
+    );
 
     DartPlatform platform;
     if (pkgPlatformConflict != null) {

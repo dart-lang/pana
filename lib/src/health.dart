@@ -4,16 +4,18 @@
 
 library pana.health;
 
+import 'package:meta/meta.dart';
+
 import 'messages.dart' as messages;
 import 'model.dart';
 import 'pubspec.dart';
 
 /// Extracts and summarizes the output of `dartanalyzer` and `dartfmt`.
-Health calcHealth(
-  Pubspec pubspec,
-  List<CodeProblem> analyzerItems,
-  Iterable<DartFileSummary> dartFileSummaries,
-) {
+Health calcHealth({
+  @required Pubspec pubspec,
+  @required List<CodeProblem> analyzerItems,
+  @required Iterable<DartFileSummary> dartFileSummaries,
+}) {
   analyzerItems ??= const <CodeProblem>[];
   final analyzerErrorCount = analyzerItems.where((c) => c.isError).length;
   final analyzerWarningCount = analyzerItems.where((c) => c.isWarning).length;
