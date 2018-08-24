@@ -163,7 +163,7 @@ main(List<String> args) async {
     } catch (e, stack) {
       final message = "Problem analyzing ${result.rest.join(' ')}";
       final errorStr = e.toString();
-      final isInputError = errorStr.contains('Package doesn\'t exist');
+      final isInputError = errorStr.contains("Package doesn't exist");
       final showStack = !isInputError;
       log.Logger.root.shout(message, e, showStack ? stack : null);
       exitCode = 1;
