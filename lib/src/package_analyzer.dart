@@ -330,6 +330,9 @@ class PackageAnalyzer {
 
     final health = calcHealth(
       pubspec: pubspec,
+      analyzeProcessFailed: analyzerItems == null,
+      formatProcessFailed: unformattedFiles == null,
+      resolveProcessFailed: pkgResolution == null,
       analyzerItems: analyzerItems,
       dartFileSummaries: files.values,
     );

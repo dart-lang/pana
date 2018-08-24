@@ -32,6 +32,9 @@
     }
   ],
   "health": {
+    "analyzeProcessFailed": true,
+    "formatProcessFailed": true,
+    "resolveProcessFailed": true,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
     "analyzerHintCount": 0,

@@ -13,6 +13,9 @@ import 'pubspec.dart';
 /// Extracts and summarizes the output of `dartanalyzer` and `dartfmt`.
 Health calcHealth({
   @required Pubspec pubspec,
+  @required bool analyzeProcessFailed,
+  @required bool formatProcessFailed,
+  @required bool resolveProcessFailed,
   @required List<CodeProblem> analyzerItems,
   @required Iterable<DartFileSummary> dartFileSummaries,
 }) {
@@ -90,6 +93,9 @@ Health calcHealth({
   suggestions.sort();
 
   return new Health(
+    analyzeProcessFailed: analyzeProcessFailed,
+    formatProcessFailed: formatProcessFailed,
+    resolveProcessFailed: resolveProcessFailed,
     analyzerErrorCount: analyzerErrorCount,
     analyzerWarningCount: analyzerWarningCount,
     analyzerHintCount: analyzerHintCount,
