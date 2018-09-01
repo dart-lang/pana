@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.0-dev",
-    "sdkVersion": "2.1.0-dev.2.0"
+    "panaVersion": "0.12.1-dev",
+    "sdkVersion": "2.1.0-dev.3.0"
   },
   "packageName": "dartdoc",
   "packageVersion": "0.20.3",
@@ -72,14 +72,14 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 1,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 4,
+    "analyzerHintCount": 6,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` failed with 1 error, 2 hints:\n\nline 4855 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1064 col 17: Always override `hashCode` if overriding `==`.\n\nline 2118 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
+        "description": "Analysis of `lib/src/model.dart` failed with 1 error, 4 hints:\n\nline 4855 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1064 col 17: Always override `hashCode` if overriding `==`.\n\nline 2118 col 25: Invocation of Iterable<E>.contains with references of unrelated types.\n\nline 5228 col 37: 'element' is deprecated and shouldn't be used.\n\nline 5229 col 25: 'element' is deprecated and shouldn't be used.",
         "file": "lib/src/model.dart"
       },
       {
@@ -131,7 +131,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.32.4",
-        "resolved": "0.32.4"
+        "resolved": "0.32.5"
       },
       {
         "package": "args",
@@ -200,7 +200,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.1.1",
-        "resolved": "0.1.4"
+        "resolved": "0.1.4+1"
       },
       {
         "package": "glob",
@@ -245,7 +245,7 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.4"
+        "resolved": "0.3.4+1"
       },
       {
         "package": "logging",
@@ -791,7 +791,6 @@
         "package:front_end/src/fasta/kernel/constness.dart",
         "package:front_end/src/fasta/kernel/expression_generator.dart",
         "package:front_end/src/fasta/kernel/expression_generator_helper.dart",
-        "package:front_end/src/fasta/kernel/factory.dart",
         "package:front_end/src/fasta/kernel/fangorn.dart",
         "package:front_end/src/fasta/kernel/forest.dart",
         "package:front_end/src/fasta/kernel/kernel_api.dart",
@@ -801,7 +800,6 @@
         "package:front_end/src/fasta/kernel/kernel_class_builder.dart",
         "package:front_end/src/fasta/kernel/kernel_enum_builder.dart",
         "package:front_end/src/fasta/kernel/kernel_expression_generator.dart",
-        "package:front_end/src/fasta/kernel/kernel_factory.dart",
         "package:front_end/src/fasta/kernel/kernel_field_builder.dart",
         "package:front_end/src/fasta/kernel/kernel_formal_parameter_builder.dart",
         "package:front_end/src/fasta/kernel/kernel_function_type_alias_builder.dart",
@@ -820,7 +818,6 @@
         "package:front_end/src/fasta/kernel/load_library_builder.dart",
         "package:front_end/src/fasta/kernel/metadata_collector.dart",
         "package:front_end/src/fasta/kernel/redirecting_factory_body.dart",
-        "package:front_end/src/fasta/kernel/toplevel_inference_factory.dart",
         "package:front_end/src/fasta/kernel/type_algorithms.dart",
         "package:front_end/src/fasta/kernel/unlinked_scope.dart",
         "package:front_end/src/fasta/kernel/utils.dart",
@@ -873,6 +870,7 @@
         "package:front_end/src/fasta/source/diet_parser.dart",
         "package:front_end/src/fasta/source/directive_listener.dart",
         "package:front_end/src/fasta/source/outline_builder.dart",
+        "package:front_end/src/fasta/source/outline_listener.dart",
         "package:front_end/src/fasta/source/scope_listener.dart",
         "package:front_end/src/fasta/source/source_class_builder.dart",
         "package:front_end/src/fasta/source/source_library_builder.dart",
@@ -903,7 +901,6 @@
         "package:front_end/src/scanner/errors.dart",
         "package:front_end/src/scanner/interner.dart",
         "package:front_end/src/scanner/reader.dart",
-        "package:front_end/src/scanner/scanner.dart",
         "package:front_end/src/scanner/string_utilities.dart",
         "package:front_end/src/scanner/token.dart",
         "package:glob/glob.dart",
@@ -939,14 +936,9 @@
         "package:kernel/kernel.dart",
         "package:kernel/library_index.dart",
         "package:kernel/src/heap.dart",
-        "package:kernel/target/flutter.dart",
         "package:kernel/target/targets.dart",
-        "package:kernel/target/vm.dart",
         "package:kernel/text/ast_to_text.dart",
-        "package:kernel/transformations/async.dart",
-        "package:kernel/transformations/continuation.dart",
         "package:kernel/transformations/flags.dart",
-        "package:kernel/transformations/mixin_full_resolution.dart",
         "package:kernel/transformations/treeshaker.dart",
         "package:kernel/type_algebra.dart",
         "package:kernel/type_environment.dart",
@@ -1190,6 +1182,24 @@
           "line": 4855,
           "col": 21,
           "description": "The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/src/model.dart",
+          "line": 5228,
+          "col": 37,
+          "description": "'element' is deprecated and shouldn't be used."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/src/model.dart",
+          "line": 5229,
+          "col": 25,
+          "description": "'element' is deprecated and shouldn't be used."
         }
       ]
     },
