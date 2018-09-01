@@ -71,8 +71,7 @@ void main() {
         }
 
         final Map content = json.decode(file.readAsStringSync());
-        content['runtimeInfo']['panaVersion'] =
-            matches(panaPkgVersion.toString());
+        content['runtimeInfo']['panaVersion'] = matches(packageVersion);
 
         // TODO: allow future versions and remove this override
         content['runtimeInfo']['sdkVersion'] = isSemVer;
