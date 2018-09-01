@@ -2,6 +2,8 @@
 targets:
   $default:
     builders:
+      build_version:
+        enabled: true
       pana:
         generate_for:
           include:

@@ -60,7 +60,7 @@ class ToolEnvironment {
       _logger.warning('Unable to detect Flutter version.', e, st);
     }
     _runtimeInfo = new PanaRuntimeInfo(
-      panaVersion: panaPkgVersion.toString(),
+      panaVersion: packageVersion,
       sdkVersion: dartSdkInfo.version.toString(),
       flutterVersions: flutterVersions,
     );
