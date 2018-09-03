@@ -280,6 +280,8 @@ class PackageAnalyzer {
                 messages.runningDartanalyzerFailed(usesFlutter, e)));
           }
         }
+      } else {
+        analyzerItems = <CodeProblem>[];
       }
     }
     final pkgPlatformBlockerSuggestion =
@@ -330,7 +332,7 @@ class PackageAnalyzer {
 
     final health = calcHealth(
       pubspec: pubspec,
-      analyzeProcessFailed: analyzerItems == null,
+      analyzeProcessFailed: pkgResolution == null || analyzerItems == null,
       formatProcessFailed: unformattedFiles == null,
       resolveProcessFailed: pkgResolution == null,
       analyzerItems: analyzerItems,
