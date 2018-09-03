@@ -1,3 +1,7 @@
+## 0.12.1
+
+* Bugfix: packages without Dart files failed the health checks.
+
 ## 0.12.0
 
 **Breaking changes:**
