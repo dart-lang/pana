@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.1-dev",
-    "sdkVersion": "2.1.0-dev.3.0"
+    "panaVersion": "0.12.2-dev",
+    "sdkVersion": "2.1.0-dev.2.0"
   },
   "packageName": "stream",
   "packageVersion": "2.0.1",

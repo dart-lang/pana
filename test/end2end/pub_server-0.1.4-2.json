@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.1-dev",
-    "sdkVersion": "2.1.0-dev.3.0"
+    "panaVersion": "0.12.2-dev",
+    "sdkVersion": "2.1.0-dev.2.0"
   },
   "packageName": "pub_server",
   "packageVersion": "0.1.4+2",
@@ -65,17 +65,8 @@
     "missingAnalysisOptions": false,
     "oldAnalysisOptions": false,
     "strongModeEnabled": true,
-    "isExperimentalVersion": true,
-    "isPreReleaseVersion": false,
-    "suggestions": [
-      {
-        "code": "packageVersion.preV1",
-        "level": "hint",
-        "title": "Package is pre-v1 release.",
-        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
-        "score": 10.0
-      }
-    ]
+    "isExperimentalVersion": false,
+    "isPreReleaseVersion": false
   },
   "pkgResolution": {
     "dependencies": [

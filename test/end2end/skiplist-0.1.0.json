@@ -1,7 +1,7 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.1-dev",
-    "sdkVersion": "2.1.0-dev.3.0"
+    "panaVersion": "0.12.2-dev",
+    "sdkVersion": "2.1.0-dev.2.0"
   },
   "packageName": "skiplist",
   "packageVersion": "0.1.0",
@@ -53,7 +53,7 @@
     "missingAnalysisOptions": true,
     "oldAnalysisOptions": false,
     "strongModeEnabled": true,
-    "isExperimentalVersion": true,
+    "isExperimentalVersion": false,
     "isPreReleaseVersion": false,
     "suggestions": [
       {
@@ -83,13 +83,6 @@
         "title": "Maintain an example.",
         "description": "Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `skiplist.dart`.",
         "score": 10.0
-      },
-      {
-        "code": "packageVersion.preV1",
-        "level": "hint",
-        "title": "Package is pre-v1 release.",
-        "description": "While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.",
-        "score": 10.0
       }
     ]
   },
@@ -98,7 +91,7 @@
       "code": "pubspec.dependencies.failedToResolve",
       "level": "error",
       "title": "Fix dependencies in `pubspec.yaml`.",
-      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is 2.1.0-dev.3.0.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```\n"
+      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is 2.1.0-dev.2.0.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```\n"
     }
   ],
   "dartFiles": {
