@@ -323,6 +323,7 @@ abstract class SuggestionCode {
   static const String packageVersionObsolete = 'packageVersion.obsolete';
   static const String packageVersionOld = 'packageVersion.old';
   static const String packageVersionPreV1 = 'packageVersion.preV1';
+  static const String packageVersionPreV01 = 'packageVersion.preV01';
   static const String packageVersionPreRelease = 'packageVersion.preRelease';
 
   static const String bulk = 'bulk';

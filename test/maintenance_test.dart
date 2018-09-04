@@ -95,12 +95,12 @@ final _withIssuesJson = {
       'score': 10.0,
     },
     {
-      'code': 'packageVersion.preV1',
+      'code': 'packageVersion.preV01',
       'level': 'hint',
-      'title': 'Package is pre-v1 release.',
+      'title': 'Package is pre-v0.1 release.',
       'description':
-          'While there is nothing inherently wrong with versions of `0.*.*`, it usually means that the author is still experimenting with the general direction of the API.',
-      'score': 10.0,
+          'While there is nothing inherently wrong with versions of `0.0.*`, it usually means that the author is still experimenting with the general direction of the API.',
+      'score': 10.0
     },
     {
       'code': 'packageVersion.preRelease',
@@ -134,7 +134,7 @@ void main() {
         new InspectOptions(),
         new UrlChecker(),
         d.sandbox,
-        new Pubspec.fromJson({'name': 'sandbox', 'version': '0.1.0-alpha'}),
+        new Pubspec.fromJson({'name': 'sandbox', 'version': '0.0.1-alpha'}),
         [
           new PkgDependency(
             package: 'foo',

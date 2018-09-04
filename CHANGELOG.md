@@ -1,3 +1,7 @@
+## 0.12.2-dev
+
+* Bugfix: pre-v1 release should be pre-v0.1 instead.
+
 ## 0.12.1
 
 * Bugfix: packages without Dart files failed the health checks.

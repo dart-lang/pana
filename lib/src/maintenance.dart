@@ -287,15 +287,15 @@ Future<Maintenance> detectMaintenance(
   }
 
   final version = pubspec.version;
-  final isExperimentalVersion = version.major == 0;
+  final isExperimentalVersion = version.major == 0 && version.minor == 0;
   final isPreReleaseVersion = version.isPreRelease;
 
   // Pre-v1
   if (isExperimentalVersion) {
     maintenanceSuggestions.add(new Suggestion.hint(
-        SuggestionCode.packageVersionPreV1,
-        'Package is pre-v1 release.',
-        'While there is nothing inherently wrong with versions of `0.*.*`, it '
+        SuggestionCode.packageVersionPreV01,
+        'Package is pre-v0.1 release.',
+        'While there is nothing inherently wrong with versions of `0.0.*`, it '
         'usually means that the author is still experimenting with the general '
         'direction of the API.',
         score: 10.0));
