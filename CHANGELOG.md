@@ -1,4 +1,4 @@
-## 0.12.2-dev
+## 0.12.2
 
 * Bugfix: pre-v1 release should be pre-v0.1 instead.
 
