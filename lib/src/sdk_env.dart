@@ -20,6 +20,8 @@ import 'version.dart';
 
 final _logger = new Logger('pana.env');
 
+const _dartfmtTimeout = const Duration(minutes: 5);
+
 class ToolEnvironment {
   final String dartSdkDir;
   final String pubCacheDir;
@@ -166,6 +168,7 @@ class ToolEnvironment {
           ['format', fullPath],
           workingDirectory: packageDir,
           environment: _environment,
+          timeout: _dartfmtTimeout,
         );
 
         final lines = LineSplitter.split(result.stdout as String)
@@ -180,6 +183,7 @@ class ToolEnvironment {
           _dartfmtCmd,
           ['--dry-run', '--set-exit-if-changed', fullPath],
           environment: _environment,
+          timeout: _dartfmtTimeout,
         );
         if (result.exitCode == 0) {
           continue;
