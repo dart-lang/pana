@@ -607,13 +607,13 @@ class PkgDependency extends Object
 
 @JsonSerializable()
 class Health extends Object with _$HealthSerializerMixin {
-  /// Whether runnnig `dartanalyzer` was successful.
+  /// Whether running `dartanalyzer` was successful.
   final bool analyzeProcessFailed;
 
-  /// Whether runnnig `dartfmt` was successful.
+  /// Whether running `dartfmt` was successful.
   final bool formatProcessFailed;
 
-  /// Whether runnnig `pub upgrade` was successful.
+  /// Whether running `pub upgrade` was successful.
   final bool resolveProcessFailed;
 
   /// The number of errors from `dartanalyzer`.
