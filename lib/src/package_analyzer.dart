@@ -104,6 +104,10 @@ class PackageAnalyzer {
   }
 
   Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
+    final totalStopwatch = new Stopwatch()..start();
+    final resolveProcessStopwatch = new Stopwatch();
+    final analyzeProcessStopwatch = new Stopwatch();
+    final formatProcessStopwatch = new Stopwatch();
     final suggestions = <Suggestion>[];
 
     var dartFiles =
@@ -125,6 +129,7 @@ class PackageAnalyzer {
     final package = pubspec.name;
     final usesFlutter = pubspec.usesFlutter;
 
+    formatProcessStopwatch.start();
     Set<String> unformattedFiles;
     try {
       unformattedFiles = new SplayTreeSet<String>.from(
@@ -145,8 +150,11 @@ class PackageAnalyzer {
           messages.makeSureDartfmtRuns(usesFlutter),
           messages.runningDartfmtFailed(usesFlutter, errorMsg)));
     }
+    formatProcessStopwatch.stop();
 
+    resolveProcessStopwatch.start();
     final upgrade = await _toolEnv.runUpgrade(pkgDir, usesFlutter);
+    resolveProcessStopwatch.stop();
 
     PkgResolution pkgResolution;
     if (upgrade.exitCode == 0) {
@@ -268,6 +276,7 @@ class PackageAnalyzer {
       }
 
       if (dartFiles.isNotEmpty) {
+        analyzeProcessStopwatch.start();
         try {
           analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter);
         } on ArgumentError catch (e) {
@@ -280,6 +289,7 @@ class PackageAnalyzer {
                 messages.runningDartanalyzerFailed(usesFlutter, e)));
           }
         }
+        analyzeProcessStopwatch.stop();
       } else {
         analyzerItems = <CodeProblem>[];
       }
@@ -364,6 +374,14 @@ class PackageAnalyzer {
     );
     suggestions.sort();
 
+    totalStopwatch.stop();
+    final stats = new Stats(
+      analyzeProcessElapsed: analyzeProcessStopwatch.elapsedMilliseconds,
+      formatProcessElapsed: formatProcessStopwatch.elapsedMilliseconds,
+      resolveProcessElapsed: resolveProcessStopwatch.elapsedMilliseconds,
+      totalElapsed: totalStopwatch.elapsedMilliseconds,
+    );
+
     return new Summary(
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
@@ -377,6 +395,7 @@ class PackageAnalyzer {
       health: health,
       maintenance: maintenance,
       suggestions: suggestions.isEmpty ? null : suggestions,
+      stats: stats,
     );
   }
 

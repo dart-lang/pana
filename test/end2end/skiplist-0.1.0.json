@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.2-dev",
+    "panaVersion": "0.12.3-dev",
     "sdkVersion": "2.1.0-dev.2.0"
   },
   "packageName": "skiplist",
@@ -101,5 +101,11 @@
       "isFormatted": false,
       "codeProblems": null
     }
+  },
+  "stats": {
+    "analyzeProcessElapsed": 0,
+    "formatProcessElapsed": 198,
+    "resolveProcessElapsed": 2013,
+    "totalElapsed": 3526
   }
 }

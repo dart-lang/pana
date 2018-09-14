@@ -90,6 +90,16 @@ void main() {
           });
         }
 
+        // Stat numbers may change between runs, making sure they exist, but
+        // don't validate the amount.
+        final Map stats = content['stats'];
+        for (var k in stats.keys.toList()) {
+          final value = stats[k];
+          if (value is int) {
+            stats[k] = isNotNull;
+          }
+        }
+
         expect(actualMap, content);
       });
 

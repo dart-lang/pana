@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.2-dev",
+    "panaVersion": "0.12.3-dev",
     "sdkVersion": "2.1.0-dev.2.0"
   },
   "packageName": "stream",
@@ -682,5 +682,11 @@
         }
       }
     }
+  },
+  "stats": {
+    "analyzeProcessElapsed": 3193,
+    "formatProcessElapsed": 378,
+    "resolveProcessElapsed": 3653,
+    "totalElapsed": 9476
   }
 }

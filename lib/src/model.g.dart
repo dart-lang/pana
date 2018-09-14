@@ -44,7 +44,10 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
       suggestions: (json['suggestions'] as List)
           ?.map((e) =>
               e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
-          ?.toList());
+          ?.toList(),
+      stats: json['stats'] == null
+          ? null
+          : Stats.fromJson(json['stats'] as Map<String, dynamic>));
 }
 
 abstract class _$SummarySerializerMixin {
@@ -59,6 +62,7 @@ abstract class _$SummarySerializerMixin {
   List<Suggestion> get suggestions;
   PkgResolution get pkgResolution;
   Map<String, DartFileSummary> get dartFiles;
+  Stats get stats;
   Map<String, dynamic> toJson() {
     var val = <String, dynamic>{
       'runtimeInfo': runtimeInfo,
@@ -80,6 +84,7 @@ abstract class _$SummarySerializerMixin {
     writeNotNull('suggestions', suggestions);
     writeNotNull('pkgResolution', pkgResolution);
     writeNotNull('dartFiles', dartFiles);
+    writeNotNull('stats', stats);
     return val;
   }
 }
@@ -461,5 +466,26 @@ abstract class _$CodeProblemSerializerMixin {
         'line': line,
         'col': col,
         'description': description
+      };
+}
+
+Stats _$StatsFromJson(Map<String, dynamic> json) {
+  return Stats(
+      analyzeProcessElapsed: json['analyzeProcessElapsed'] as int,
+      formatProcessElapsed: json['formatProcessElapsed'] as int,
+      resolveProcessElapsed: json['resolveProcessElapsed'] as int,
+      totalElapsed: json['totalElapsed'] as int);
+}
+
+abstract class _$StatsSerializerMixin {
+  int get analyzeProcessElapsed;
+  int get formatProcessElapsed;
+  int get resolveProcessElapsed;
+  int get totalElapsed;
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'analyzeProcessElapsed': analyzeProcessElapsed,
+        'formatProcessElapsed': formatProcessElapsed,
+        'resolveProcessElapsed': resolveProcessElapsed,
+        'totalElapsed': totalElapsed
       };
 }
