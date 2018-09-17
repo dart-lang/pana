@@ -1,6 +1,6 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.2-dev",
+    "panaVersion": "0.12.3-dev",
     "sdkVersion": "2.1.0-dev.2.0"
   },
   "packageName": "dartdoc",
@@ -124,7 +124,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.32.4",
-        "resolved": "0.32.5"
+        "resolved": "0.32.5",
+        "available": "0.33.0-alpha.0"
       },
       {
         "package": "args",
@@ -193,7 +194,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.1.1",
-        "resolved": "0.1.4+1"
+        "resolved": "0.1.4+1",
+        "available": "0.1.5"
       },
       {
         "package": "glob",
@@ -238,7 +240,8 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.4+1"
+        "resolved": "0.3.4+1",
+        "available": "0.3.5"
       },
       {
         "package": "logging",
@@ -1293,5 +1296,11 @@
       "isFormatted": true,
       "codeProblems": []
     }
+  },
+  "stats": {
+    "analyzeProcessElapsed": 1234,
+    "formatProcessElapsed": 567,
+    "resolveProcessElapsed": 899,
+    "totalElapsed": 4567
   }
 }

@@ -47,6 +47,9 @@ class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(includeIfNull: false)
   final Map<String, DartFileSummary> dartFiles;
 
+  @JsonKey(includeIfNull: false)
+  final Stats stats;
+
   Summary({
     @required this.runtimeInfo,
     @required this.packageName,
@@ -59,6 +62,7 @@ class Summary extends Object with _$SummarySerializerMixin {
     @required this.health,
     @required this.maintenance,
     @required List<Suggestion> suggestions,
+    @required this.stats,
   }) : this.suggestions =
             suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
@@ -75,6 +79,7 @@ class Summary extends Object with _$SummarySerializerMixin {
     DartPlatform platform,
     Maintenance maintenance,
     List<Suggestion> suggestions,
+    Stats stats,
   }) {
     return new Summary(
       runtimeInfo: runtimeInfo,
@@ -88,6 +93,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       health: health ?? this.health,
       maintenance: maintenance ?? this.maintenance,
       suggestions: suggestions ?? this.suggestions,
+      stats: stats ?? this.stats,
     );
   }
 }
@@ -884,4 +890,28 @@ class CodeProblem extends Object
 
   List<Object> get _values =>
       [file, line, col, severity, errorType, errorCode, description];
+}
+
+@JsonSerializable()
+class Stats extends Object with _$StatsSerializerMixin {
+  /// The elapsed time in milliseconds for running `dartanalyzer`.
+  final int analyzeProcessElapsed;
+
+  /// The elapsed time in milliseconds for running `dartfmt`.
+  final int formatProcessElapsed;
+
+  /// The elapsed time in milliseconds for running `pub upgrade`.
+  final int resolveProcessElapsed;
+
+  /// The total time the analysis was running, in milliseconds.
+  final int totalElapsed;
+
+  Stats({
+    @required this.analyzeProcessElapsed,
+    @required this.formatProcessElapsed,
+    @required this.resolveProcessElapsed,
+    @required this.totalElapsed,
+  });
+
+  factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
 }

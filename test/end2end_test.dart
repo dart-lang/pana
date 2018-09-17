@@ -45,6 +45,21 @@ void main() {
           ),
         );
 
+        // Fixed stats to reduce changes on each modification.
+        assert(summary.stats != null);
+        assert(summary.stats.analyzeProcessElapsed != null);
+        assert(summary.stats.formatProcessElapsed != null);
+        assert(summary.stats.resolveProcessElapsed != null);
+        assert(summary.stats.totalElapsed != null);
+        summary = summary.change(
+          stats: new Stats(
+            analyzeProcessElapsed: 1234,
+            formatProcessElapsed: 567,
+            resolveProcessElapsed: 899,
+            totalElapsed: 4567,
+          ),
+        );
+
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
         actualMap = json.decode(json.encode(summary)) as Map<String, dynamic>;
