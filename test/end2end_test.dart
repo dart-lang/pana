@@ -46,6 +46,11 @@ void main() {
         );
 
         // Fixed stats to reduce changes on each modification.
+        assert(summary.stats != null);
+        assert(summary.stats.analyzeProcessElapsed != null);
+        assert(summary.stats.formatProcessElapsed != null);
+        assert(summary.stats.resolveProcessElapsed != null);
+        assert(summary.stats.totalElapsed != null);
         summary = summary.change(
           stats: new Stats(
             analyzeProcessElapsed: 1234,
