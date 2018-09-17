@@ -79,6 +79,7 @@ class Summary extends Object with _$SummarySerializerMixin {
     DartPlatform platform,
     Maintenance maintenance,
     List<Suggestion> suggestions,
+    Stats stats,
   }) {
     return new Summary(
       runtimeInfo: runtimeInfo,
@@ -92,7 +93,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       health: health ?? this.health,
       maintenance: maintenance ?? this.maintenance,
       suggestions: suggestions ?? this.suggestions,
-      stats: stats,
+      stats: stats ?? this.stats,
     );
   }
 }

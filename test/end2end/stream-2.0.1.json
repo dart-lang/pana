@@ -684,9 +684,9 @@
     }
   },
   "stats": {
-    "analyzeProcessElapsed": 3193,
-    "formatProcessElapsed": 378,
-    "resolveProcessElapsed": 3653,
-    "totalElapsed": 9476
+    "analyzeProcessElapsed": 1234,
+    "formatProcessElapsed": 567,
+    "resolveProcessElapsed": 899,
+    "totalElapsed": 4567
   }
 }

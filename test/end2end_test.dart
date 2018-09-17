@@ -45,6 +45,16 @@ void main() {
           ),
         );
 
+        // Fixed stats to reduce changes on each modification.
+        summary = summary.change(
+          stats: new Stats(
+            analyzeProcessElapsed: 1234,
+            formatProcessElapsed: 567,
+            resolveProcessElapsed: 899,
+            totalElapsed: 4567,
+          ),
+        );
+
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
         actualMap = json.decode(json.encode(summary)) as Map<String, dynamic>;
@@ -88,16 +98,6 @@ void main() {
             // TODO: normalize paths in error reports and remove this override
             map['description'] = isNotEmpty;
           });
-        }
-
-        // Stat numbers may change between runs, making sure they exist, but
-        // don't validate the amount.
-        final Map stats = content['stats'];
-        for (var k in stats.keys.toList()) {
-          final value = stats[k];
-          if (value is int) {
-            stats[k] = isNotNull;
-          }
         }
 
         expect(actualMap, content);
