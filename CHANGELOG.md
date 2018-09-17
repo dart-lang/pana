@@ -4,6 +4,8 @@
 
 * Store basic stats in the analysis summary.
 
+* Detect `example/readme.md` (or similar pattern) as an alternative to single `.dart` example.
+
 ## 0.12.2
 
 * Bugfix: pre-v1 release should be pre-v0.1 instead.

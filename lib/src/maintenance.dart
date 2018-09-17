@@ -32,6 +32,13 @@ final List<String> readmeFileNames = const [
   'readme',
 ];
 
+final List<String> exampleReadmeFileNames = const [
+  'example/readme.md',
+  'example/readme',
+  'example/example.md',
+  'example/example',
+];
+
 /// Returns the candidates in priority order to display under the 'Example' tab.
 List<String> exampleFileCandidates(String package) => [
       'example/lib/main.dart',
@@ -138,7 +145,8 @@ Future<Maintenance> detectMaintenance(
 
   final changelogExists = await anyFileExists(changelogFileNames);
   final readmeExists = await anyFileExists(readmeFileNames);
-  final exampleExists = await anyFileExists(exampleFileCandidates(pkgName));
+  final exampleReadmeExists = await anyFileExists(exampleReadmeFileNames);
+  final exampleFileExists = await anyFileExists(exampleFileCandidates(pkgName));
   final analysisOptionsExists =
       await anyFileExists(analysisOptionsFiles, caseSensitive: true);
   final oldAnalysisOptions =
@@ -253,7 +261,7 @@ Future<Maintenance> detectMaintenance(
         'Readme should inform others about your project, what it does, and how they can use it.',
         score: 30.0));
   }
-  if (!exampleExists) {
+  if (!exampleFileExists && !exampleReadmeExists) {
     final exampleDirExists = files.any((file) => file.startsWith('example/'));
     if (exampleDirExists) {
       maintenanceSuggestions.add(new Suggestion.hint(
@@ -356,7 +364,7 @@ Future<Maintenance> detectMaintenance(
   return new Maintenance(
     missingChangelog: !changelogExists,
     missingReadme: !readmeExists,
-    missingExample: !exampleExists,
+    missingExample: !exampleFileExists,
     missingAnalysisOptions: !analysisOptionsExists,
     oldAnalysisOptions: oldAnalysisOptions,
     strongModeEnabled: !strongModeDisabled,
