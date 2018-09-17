@@ -1,4 +1,4 @@
-## 0.12.3-dev
+## 0.12.3
 
 * Increased `dartfmt` timeout to 5 minutes.
 
