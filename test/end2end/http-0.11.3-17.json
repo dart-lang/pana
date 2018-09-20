@@ -1,7 +1,8 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.3",
-    "sdkVersion": "2.1.0-dev.5.0"
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
   },
   "packageName": "http",
   "packageVersion": "0.11.3+17",

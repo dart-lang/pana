@@ -45,6 +45,16 @@ void main() {
           ),
         );
 
+        // Fixed version strings to reduce changes on each upgrades.
+        assert(summary.runtimeInfo.panaVersion == packageVersion);
+        assert(summary.runtimeInfo.sdkVersion != null);
+        summary = summary.change(
+            runtimeInfo: new PanaRuntimeInfo(
+          panaVersion: '{{pana-version}}',
+          sdkVersion: '{{sdk-version}}',
+          flutterVersions: {},
+        ));
+
         // Fixed stats to reduce changes on each modification.
         assert(summary.stats != null);
         assert(summary.stats.analyzeProcessElapsed != null);
@@ -86,10 +96,6 @@ void main() {
         }
 
         final Map content = json.decode(file.readAsStringSync());
-        content['runtimeInfo']['panaVersion'] = matches(packageVersion);
-
-        // TODO: allow future versions and remove this override
-        content['runtimeInfo']['sdkVersion'] = isSemVer;
 
         // Reduce the time-invariability of the tests: resolved and available
         // versions may change over time or because of SDK version changes.

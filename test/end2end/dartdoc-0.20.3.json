@@ -1,7 +1,8 @@
 {
   "runtimeInfo": {
-    "panaVersion": "0.12.3",
-    "sdkVersion": "2.1.0-dev.5.0"
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
   },
   "packageName": "dartdoc",
   "packageVersion": "0.20.3",

@@ -75,6 +75,7 @@ class Summary extends Object with _$SummarySerializerMixin {
       .expand((list) => list);
 
   Summary change({
+    PanaRuntimeInfo runtimeInfo,
     Health health,
     DartPlatform platform,
     Maintenance maintenance,
@@ -82,7 +83,7 @@ class Summary extends Object with _$SummarySerializerMixin {
     Stats stats,
   }) {
     return new Summary(
-      runtimeInfo: runtimeInfo,
+      runtimeInfo: runtimeInfo ?? this.runtimeInfo,
       packageName: packageName,
       packageVersion: packageVersion,
       pubspec: pubspec,
