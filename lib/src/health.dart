@@ -57,6 +57,8 @@ Health calcHealth({
     }
   }
 
+  final analyzerSuggestions = <_Suggestion>[];
+
   final reportedFiles = analyzerItems.map((cp) => cp.file).toSet();
   for (final path in reportedFiles) {
     final fileAnalyzerItems =
@@ -80,14 +82,27 @@ Health calcHealth({
           .map((cp) => '\n\nline ${cp.line} col ${cp.col}: ${cp.description}')
           .join();
 
-      suggestions.add(new Suggestion(
+      final suggestion = new Suggestion(
         SuggestionCode.dartanalyzerWarning,
         maxLevel,
         'Fix `$path`.',
         'Analysis of `$path` $failedWith $issueCounts$including:$issueList',
         file: path,
-      ));
+      );
+      analyzerSuggestions.add(new _Suggestion(suggestion,
+          calculateBaseHealth(errorCount, warningCount, hintCount)));
     }
+  }
+  analyzerSuggestions.sort((a, b) {
+    final x = a.suggestion.compareTo(b.suggestion);
+    if (x != 0) return x;
+    return -a.percent.compareTo(b.percent);
+  });
+  var remainingScore = 100.0;
+  for (var s in analyzerSuggestions) {
+    final score = (100.0 * remainingScore * (1.0 - s.percent)).round() / 100.0;
+    remainingScore *= s.percent;
+    suggestions.add(s.suggestion.change(score: score));
   }
 
   suggestions.sort();
@@ -147,12 +162,17 @@ List<Suggestion> _compact(
           ? SuggestionLevel.error
           : (hasWarning ? SuggestionLevel.warning : SuggestionLevel.hint);
 
+      final score = restSuggestions
+          .map((s) => s.score)
+          .where((d) => d != null)
+          .fold<double>(0.0, (a, b) => a + b);
       suggestions.add(
         new Suggestion(
           SuggestionCode.bulk,
           level,
           'Fix additional ${restSuggestions.length} files with analysis or formatting issues.',
           sb.toString(),
+          score: score > 0.0 ? score : null,
         ),
       );
     }
@@ -160,4 +180,11 @@ List<Suggestion> _compact(
 
   suggestions.sort();
   return suggestions;
+}
+
+class _Suggestion {
+  final Suggestion suggestion;
+  final double percent;
+
+  _Suggestion(this.suggestion, this.percent);
 }

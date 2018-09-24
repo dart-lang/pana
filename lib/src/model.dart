@@ -16,6 +16,11 @@ import 'utils.dart' show toRelativePath;
 
 part 'model.g.dart';
 
+/// NOTE: In case this changes, update README.md
+const healthErrorMultiplier = 0.75;
+const healthWarningMultiplier = 0.95;
+const healthHintMultiplier = 0.995;
+
 @JsonSerializable()
 class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(nullable: false)
@@ -282,6 +287,11 @@ class Suggestion extends Object
 
   @override
   String toString() => 'Sugestion: $level - $description';
+
+  Suggestion change({double score}) {
+    return new Suggestion(code, level, title, description,
+        file: file, score: score ?? this.score);
+  }
 }
 
 abstract class SuggestionCode {
@@ -664,13 +674,19 @@ class Health extends Object with _$HealthSerializerMixin {
       // can't reliably determine the score if we can't parse and analyze the sources
       return 0.0;
     }
-    double score = math.pow(0.75, analyzerErrorCount) *
-        math.pow(0.95, analyzerWarningCount) *
-        math.pow(0.995, analyzerHintCount);
-    // TODO: document why and how platform conflict influence the score
+    var score = calculateBaseHealth(
+        analyzerErrorCount, analyzerWarningCount, analyzerHintCount);
     score -= 0.25 * platformConflictCount;
     return math.max(0.0, score);
   }
+}
+
+double calculateBaseHealth(
+    int analyzerErrorCount, int analyzerWarningCount, int analyzerHintCount) {
+  final score = math.pow(healthErrorMultiplier, analyzerErrorCount) *
+      math.pow(healthWarningMultiplier, analyzerWarningCount) *
+      math.pow(healthHintMultiplier, analyzerHintCount);
+  return score.toDouble();
 }
 
 /// Describes the maintenance status of the package.
