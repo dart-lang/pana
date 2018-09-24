@@ -657,6 +657,8 @@ class Health extends Object with _$HealthSerializerMixin {
       analyzeProcessFailed || formatProcessFailed || resolveProcessFailed;
 
   /// Returns a health score between 0.0 and 1.0 (1.0 being the top score it can get).
+  ///
+  /// NOTE: In case this changes, update README.md
   double get healthScore {
     if (anyProcessFailed) {
       // can't reliably determine the score if we can't parse and analyze the sources

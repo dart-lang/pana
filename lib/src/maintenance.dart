@@ -113,6 +113,10 @@ Suggestion getAgeSuggestion(Duration age) {
   return null;
 }
 
+/// Creates [Maintenance] with suggestions.
+///
+/// NOTE: In case this changes, update README.md
+/// TODO: refactor method, for easier matching with documentation.
 Future<Maintenance> detectMaintenance(
   InspectOptions options,
   UrlChecker urlChecker,
