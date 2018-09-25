@@ -288,9 +288,22 @@ class Suggestion extends Object
   @override
   String toString() => 'Sugestion: $level - $description';
 
-  Suggestion change({double score}) {
-    return new Suggestion(code, level, title, description,
-        file: file, score: score ?? this.score);
+  Suggestion change({
+    String code,
+    String level,
+    String title,
+    String description,
+    String file,
+    double score,
+  }) {
+    return new Suggestion(
+      code ?? this.code,
+      level ?? this.level,
+      title ?? this.title,
+      description ?? this.description,
+      file: file ?? this.file,
+      score: score ?? this.score,
+    );
   }
 }
 
