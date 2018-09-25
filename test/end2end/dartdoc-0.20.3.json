@@ -81,14 +81,16 @@
         "level": "error",
         "title": "Fix `lib/src/model.dart`.",
         "description": "Analysis of `lib/src/model.dart` failed with 1 error, 4 hints:\n\nline 4855 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1064 col 17: Always override `hashCode` if overriding `==`.\n\nline 2118 col 25: Invocation of Iterable<E>.contains with references of unrelated types.\n\nline 5228 col 37: 'element' is deprecated and shouldn't be used.\n\nline 5229 col 25: 'element' is deprecated and shouldn't be used.",
-        "file": "lib/src/model.dart"
+        "file": "lib/src/model.dart",
+        "score": 26.49
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart`.",
         "description": "Analysis of `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` reported 2 hints:\n\nline 274 col 12: Equality operator `==` invocation with references of unrelated types.\n\nline 274 col 23: Equality operator `==` invocation with references of unrelated types.",
-        "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart"
+        "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
+        "score": 0.73
       }
     ]
   },

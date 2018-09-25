@@ -56,6 +56,14 @@
     "platformConflictCount": 0,
     "suggestions": [
       {
+        "code": "dartanalyzer.warning",
+        "level": "hint",
+        "title": "Fix `lib/src/plugin/loader.dart`.",
+        "description": "Analysis of `lib/src/plugin/loader.dart` reported 1 hint:\n\nline 83 col 16: Always override `hashCode` if overriding `==`.",
+        "file": "lib/src/plugin/loader.dart",
+        "score": 0.5
+      },
+      {
         "code": "dartfmt.warning",
         "level": "hint",
         "title": "Format `lib/proxy.dart`.",
@@ -70,17 +78,10 @@
         "file": "lib/src/connect.dart"
       },
       {
-        "code": "dartfmt.warning",
-        "level": "hint",
-        "title": "Format `lib/src/connect_impl.dart`.",
-        "description": "Run `dartfmt` to format `lib/src/connect_impl.dart`.",
-        "file": "lib/src/connect_impl.dart"
-      },
-      {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 11 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/plugin/loader.dart` (1 hint)\n- `lib/src/plugin/loader_impl.dart` (Run `dartfmt` to format `lib/src/plugin/loader_impl.dart`.)\n- `lib/src/plugin/router.dart` (Run `dartfmt` to format `lib/src/plugin/router.dart`.)\n- `lib/src/rsp_util.dart` (Run `dartfmt` to format `lib/src/rsp_util.dart`.)\n- `lib/src/rspc/build.dart` (Run `dartfmt` to format `lib/src/rspc/build.dart`.)\n- `lib/src/rspc/compiler.dart` (Run `dartfmt` to format `lib/src/rspc/compiler.dart`.)\n- `lib/src/rspc/main.dart` (Run `dartfmt` to format `lib/src/rspc/main.dart`.)\n- `lib/src/rspc/tag.dart` (Run `dartfmt` to format `lib/src/rspc/tag.dart`.)\n- `lib/src/rspc/tag_util.dart` (Run `dartfmt` to format `lib/src/rspc/tag_util.dart`.)\n- `lib/src/server.dart` (Run `dartfmt` to format `lib/src/server.dart`.)\n- `lib/src/server_impl.dart` (Run `dartfmt` to format `lib/src/server_impl.dart`.)\n"
+        "description": "Additional issues in the following files:\n\n- `lib/src/connect_impl.dart` (Run `dartfmt` to format `lib/src/connect_impl.dart`.)\n- `lib/src/plugin/loader_impl.dart` (Run `dartfmt` to format `lib/src/plugin/loader_impl.dart`.)\n- `lib/src/plugin/router.dart` (Run `dartfmt` to format `lib/src/plugin/router.dart`.)\n- `lib/src/rsp_util.dart` (Run `dartfmt` to format `lib/src/rsp_util.dart`.)\n- `lib/src/rspc/build.dart` (Run `dartfmt` to format `lib/src/rspc/build.dart`.)\n- `lib/src/rspc/compiler.dart` (Run `dartfmt` to format `lib/src/rspc/compiler.dart`.)\n- `lib/src/rspc/main.dart` (Run `dartfmt` to format `lib/src/rspc/main.dart`.)\n- `lib/src/rspc/tag.dart` (Run `dartfmt` to format `lib/src/rspc/tag.dart`.)\n- `lib/src/rspc/tag_util.dart` (Run `dartfmt` to format `lib/src/rspc/tag_util.dart`.)\n- `lib/src/server.dart` (Run `dartfmt` to format `lib/src/server.dart`.)\n- `lib/src/server_impl.dart` (Run `dartfmt` to format `lib/src/server_impl.dart`.)\n"
       }
     ]
   },

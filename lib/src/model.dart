@@ -16,6 +16,11 @@ import 'utils.dart' show toRelativePath;
 
 part 'model.g.dart';
 
+/// NOTE: In case these change, update README.md
+const healthErrorMultiplier = 0.75;
+const healthWarningMultiplier = 0.95;
+const healthHintMultiplier = 0.995;
+
 @JsonSerializable()
 class Summary extends Object with _$SummarySerializerMixin {
   @JsonKey(nullable: false)
@@ -282,6 +287,24 @@ class Suggestion extends Object
 
   @override
   String toString() => 'Sugestion: $level - $description';
+
+  Suggestion change({
+    String code,
+    String level,
+    String title,
+    String description,
+    String file,
+    double score,
+  }) {
+    return new Suggestion(
+      code ?? this.code,
+      level ?? this.level,
+      title ?? this.title,
+      description ?? this.description,
+      file: file ?? this.file,
+      score: score ?? this.score,
+    );
+  }
 }
 
 abstract class SuggestionCode {
@@ -658,19 +681,28 @@ class Health extends Object with _$HealthSerializerMixin {
 
   /// Returns a health score between 0.0 and 1.0 (1.0 being the top score it can get).
   ///
-  /// NOTE: In case this changes, update README.md
+  /// NOTE: In case these change, update README.md
   double get healthScore {
     if (anyProcessFailed) {
       // can't reliably determine the score if we can't parse and analyze the sources
       return 0.0;
     }
-    double score = math.pow(0.75, analyzerErrorCount) *
-        math.pow(0.95, analyzerWarningCount) *
-        math.pow(0.995, analyzerHintCount);
-    // TODO: document why and how platform conflict influence the score
+    var score = calculateBaseHealth(
+        analyzerErrorCount, analyzerWarningCount, analyzerHintCount);
     score -= 0.25 * platformConflictCount;
     return math.max(0.0, score);
   }
+}
+
+/// Returns the part of the health score that is calculated from the number of
+/// `dartanalyzer` items. Other penalties will be deduced from this base score
+/// (e.g. platform conflict, dartdoc coverage).
+double calculateBaseHealth(
+    int analyzerErrorCount, int analyzerWarningCount, int analyzerHintCount) {
+  final score = math.pow(healthErrorMultiplier, analyzerErrorCount) *
+      math.pow(healthWarningMultiplier, analyzerWarningCount) *
+      math.pow(healthHintMultiplier, analyzerHintCount);
+  return score.toDouble();
 }
 
 /// Describes the maintenance status of the package.
