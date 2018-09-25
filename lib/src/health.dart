@@ -57,7 +57,7 @@ Health calcHealth({
     }
   }
 
-  final analyzerSuggestions = <_Suggestion>[];
+  final analyzerSuggestions = <_SuggestionWithPercent>[];
 
   final reportedFiles = analyzerItems.map((cp) => cp.file).toSet();
   for (final path in reportedFiles) {
@@ -89,7 +89,7 @@ Health calcHealth({
         'Analysis of `$path` $failedWith $issueCounts$including:$issueList',
         file: path,
       );
-      analyzerSuggestions.add(new _Suggestion(suggestion,
+      analyzerSuggestions.add(new _SuggestionWithPercent(suggestion,
           calculateBaseHealth(errorCount, warningCount, hintCount)));
     }
   }
@@ -99,7 +99,7 @@ Health calcHealth({
     return -a.percent.compareTo(b.percent);
   });
   var remainingScore = 100.0;
-  for (var s in analyzerSuggestions) {
+  for (final s in analyzerSuggestions) {
     final score = (100.0 * remainingScore * (1.0 - s.percent)).round() / 100.0;
     remainingScore *= s.percent;
     suggestions.add(s.suggestion.change(score: score));
@@ -182,9 +182,9 @@ List<Suggestion> _compact(
   return suggestions;
 }
 
-class _Suggestion {
+class _SuggestionWithPercent {
   final Suggestion suggestion;
   final double percent;
 
-  _Suggestion(this.suggestion, this.percent);
+  _SuggestionWithPercent(this.suggestion, this.percent);
 }
