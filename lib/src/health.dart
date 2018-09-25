@@ -4,6 +4,8 @@
 
 library pana.health;
 
+import 'dart:math' as math;
+
 import 'package:meta/meta.dart';
 
 import 'messages.dart' as messages;
@@ -100,9 +102,10 @@ Health calcHealth({
   });
   var remainingScore = 100.0;
   for (final s in analyzerSuggestions) {
-    final score = (100.0 * remainingScore * (1.0 - s.percent)).round() / 100.0;
-    remainingScore *= s.percent;
-    suggestions.add(s.suggestion.change(score: score));
+    var penalty = (100.0 * remainingScore * (1.0 - s.percent)).round() / 100.0;
+    penalty = math.min(penalty, remainingScore);
+    remainingScore = math.max(0.0, remainingScore - penalty);
+    suggestions.add(s.suggestion.change(score: penalty));
   }
 
   suggestions.sort();
