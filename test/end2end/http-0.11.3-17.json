@@ -51,6 +51,14 @@
     "platformConflictCount": 0,
     "suggestions": [
       {
+        "code": "dartanalyzer.warning",
+        "level": "hint",
+        "title": "Fix `lib/src/base_client.dart`.",
+        "description": "Analysis of `lib/src/base_client.dart` reported 2 hints:\n\nline 163 col 44: 'typed' is deprecated and shouldn't be used.\n\nline 165 col 44: 'typed' is deprecated and shouldn't be used.",
+        "file": "lib/src/base_client.dart",
+        "score": 1.0
+      },
+      {
         "code": "dartfmt.warning",
         "level": "hint",
         "title": "Format `lib/browser_client.dart`.",
@@ -63,13 +71,6 @@
         "title": "Format `lib/http.dart`.",
         "description": "Run `dartfmt` to format `lib/http.dart`.",
         "file": "lib/http.dart"
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/base_client.dart`.",
-        "description": "Analysis of `lib/src/base_client.dart` reported 2 hints:\n\nline 163 col 44: 'typed' is deprecated and shouldn't be used.\n\nline 165 col 44: 'typed' is deprecated and shouldn't be used.",
-        "file": "lib/src/base_client.dart"
       },
       {
         "code": "bulk",

@@ -1,3 +1,9 @@
+## 0.12.4
+
+* Documented how scoring works.
+
+* Estimate health score penalties.
+
 ## 0.12.3
 
 * Increased `dartfmt` timeout to 5 minutes.

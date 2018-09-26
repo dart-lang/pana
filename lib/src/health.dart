@@ -80,12 +80,18 @@ Health calcHealth({
           .map((cp) => '\n\nline ${cp.line} col ${cp.col}: ${cp.description}')
           .join();
 
+      // Calculating the maximum impact on the score. The sum of these penalties
+      // will add up more than the multiplied calculation of the health score,
+      // but we'll display a disclaimer on the pub site for it.
+      final score = calculateBaseHealth(errorCount, warningCount, hintCount);
+      final penalty = (10000.0 * (1.0 - score)).roundToDouble() / 100.0;
       suggestions.add(new Suggestion(
         SuggestionCode.dartanalyzerWarning,
         maxLevel,
         'Fix `$path`.',
         'Analysis of `$path` $failedWith $issueCounts$including:$issueList',
         file: path,
+        score: penalty == 0.0 ? null : penalty,
       ));
     }
   }
@@ -147,12 +153,17 @@ List<Suggestion> _compact(
           ? SuggestionLevel.error
           : (hasWarning ? SuggestionLevel.warning : SuggestionLevel.hint);
 
+      final bulkScore = restSuggestions
+          .map((s) => s.score)
+          .where((d) => d != null)
+          .fold<double>(0.0, (a, b) => a + b);
       suggestions.add(
         new Suggestion(
           SuggestionCode.bulk,
           level,
           'Fix additional ${restSuggestions.length} files with analysis or formatting issues.',
           sb.toString(),
+          score: bulkScore == 0.0 ? null : bulkScore,
         ),
       );
     }
