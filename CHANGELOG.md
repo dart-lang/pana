@@ -1,3 +1,7 @@
+## 0.12.5-dev
+
+* Increase the severity of missing SDK constraint.
+
 ## 0.12.4
 
 * Documented how scoring works.

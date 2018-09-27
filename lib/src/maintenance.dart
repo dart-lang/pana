@@ -221,12 +221,12 @@ Future<Maintenance> detectMaintenance(
   }
 
   if (!pubspec.hasDartSdkConstraint) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(new Suggestion.error(
         SuggestionCode.pubspecSdkConstraintMissing,
         'Add SDK constraint in `pubspec.yaml`.',
         'For information about setting SDK constraint, please see '
         '[https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
-        score: 5.0));
+        score: 50.0));
   }
 
   if (pubspec.shouldWarnDart2Constraint) {
