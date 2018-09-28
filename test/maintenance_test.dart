@@ -25,6 +25,14 @@ final _withIssuesJson = {
   "dartdocSuccessful": false,
   "suggestions": [
     {
+      'code': 'pubspec.sdk.missing',
+      'level': 'error',
+      'title': 'Add SDK constraint in `pubspec.yaml`.',
+      'description':
+          'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
+      'score': 50.0,
+    },
+    {
       'code': 'platform.conflict.inPkg',
       'level': 'error',
       'title': 'Fix platform conflicts.',
@@ -77,14 +85,6 @@ final _withIssuesJson = {
       'description':
           'Update the `homepage` property: create a website about the package or use the source repository URL.',
       'score': 10.0,
-    },
-    {
-      'code': 'pubspec.sdk.missing',
-      'level': 'warning',
-      'title': 'Add SDK constraint in `pubspec.yaml`.',
-      'description':
-          'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
-      'score': 5.0,
     },
     {
       'code': 'example.missing',
