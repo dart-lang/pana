@@ -29,7 +29,7 @@ final _withIssuesJson = {
       'level': 'error',
       'title': 'Add SDK constraint in `pubspec.yaml`.',
       'description':
-      'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
+          'For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
       'score': 50.0,
     },
     {
