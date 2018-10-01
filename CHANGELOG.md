@@ -2,6 +2,8 @@
 
 * Increase the severity of missing SDK constraint.
 
+* Make `example/readme.md` the first-level example-file candidate.
+
 ## 0.12.4
 
 * Documented how scoring works.
