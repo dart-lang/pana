@@ -2,6 +2,8 @@
 
 * Increase the severity of missing SDK constraint.
 
+* Scores values should be consistently in the `[0.0-1.0]` range.
+
 ## 0.12.4
 
 * Documented how scoring works.
