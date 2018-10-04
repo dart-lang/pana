@@ -156,20 +156,20 @@ void main() {
 
   group('getMaintenanceScore', () {
     test('with issues', () {
-      expect(getMaintenanceScore(_withIssues), 0.0);
+      expect(calculateMaintenanceScore(_withIssues), 0.0);
     });
 
     test('perfect', () {
-      expect(getMaintenanceScore(_perfect), 100.0);
+      expect(calculateMaintenanceScore(_perfect), 1.0);
     });
 
     group('publish date affects score', () {
       final expectedScores = {
-        -1: 100.0, // possible for time issues to be off – treated as 'now'
-        0: 100.0,
-        1: 100.0,
-        365: 100.0,
-        (365 * 1.5).toInt(): 50.13,
+        -1: 1.0, // possible for time issues to be off – treated as 'now'
+        0: 1.0,
+        1: 1.0,
+        365: 1.0,
+        (365 * 1.5).toInt(): 0.50,
         365 * 2: 0.0
       };
 
@@ -187,7 +187,7 @@ void main() {
             matcher = closeTo(expectedScore, 0.01);
           }
 
-          expect(getMaintenanceScore(_perfect, age: age), matcher);
+          expect(calculateMaintenanceScore(_perfect, age: age), matcher);
         });
       }
     });

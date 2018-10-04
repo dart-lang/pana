@@ -4,6 +4,8 @@
 
 * Make `example/readme.md` the first-level example-file candidate.
 
+* Scores values should be consistently in the `[0.0-1.0]` range.
+
 ## 0.12.4
 
 * Documented how scoring works.
