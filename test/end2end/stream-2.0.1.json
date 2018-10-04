@@ -113,7 +113,7 @@
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
-        "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`."
+        "description": "None of the files in your `example/` directory matches a known example patterns. Common file name patterns include: `main.dart`, `example.dart` or you could also use `stream.dart`. Packages with multiple examples should use `example/readme.md`."
       }
     ]
   },

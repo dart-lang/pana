@@ -32,6 +32,7 @@ final List<String> readmeFileNames = const [
   'readme',
 ];
 
+@deprecated
 final List<String> exampleReadmeFileNames = const [
   'example/readme.md',
   'example/readme',
@@ -40,16 +41,22 @@ final List<String> exampleReadmeFileNames = const [
 ];
 
 /// Returns the candidates in priority order to display under the 'Example' tab.
-List<String> exampleFileCandidates(String package) => [
-      'example/lib/main.dart',
-      'example/main.dart',
-      'example/lib/$package.dart',
-      'example/$package.dart',
-      'example/lib/${package}_example.dart',
-      'example/${package}_example.dart',
-      'example/lib/example.dart',
-      'example/example.dart',
-    ];
+List<String> exampleFileCandidates(String package) {
+  return <String>[
+    'example/readme.md',
+    'example/readme',
+    'example/example.md',
+    'example/example',
+    'example/lib/main.dart',
+    'example/main.dart',
+    'example/lib/$package.dart',
+    'example/$package.dart',
+    'example/lib/${package}_example.dart',
+    'example/${package}_example.dart',
+    'example/lib/example.dart',
+    'example/example.dart',
+  ];
+}
 
 const String currentAnalysisOptionsFileName = 'analysis_options.yaml';
 final List<String> analysisOptionsFiles = const [
@@ -160,7 +167,6 @@ Future<Maintenance> detectMaintenance(
 
   final changelogExists = await anyFileExists(changelogFileNames);
   final readmeExists = await anyFileExists(readmeFileNames);
-  final exampleReadmeExists = await anyFileExists(exampleReadmeFileNames);
   final exampleFileExists = await anyFileExists(exampleFileCandidates(pkgName));
   final analysisOptionsExists =
       await anyFileExists(analysisOptionsFiles, caseSensitive: true);
@@ -276,14 +282,15 @@ Future<Maintenance> detectMaintenance(
         'Readme should inform others about your project, what it does, and how they can use it.',
         score: 30.0));
   }
-  if (!exampleFileExists && !exampleReadmeExists) {
+  if (!exampleFileExists) {
     final exampleDirExists = files.any((file) => file.startsWith('example/'));
     if (exampleDirExists) {
       maintenanceSuggestions.add(new Suggestion.hint(
           SuggestionCode.exampleMissing,
           'Maintain an example.',
           'None of the files in your `example/` directory matches a known example patterns. '
-          'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`.'));
+          'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`. '
+          'Packages with multiple examples should use `example/readme.md`.'));
     } else {
       maintenanceSuggestions.add(new Suggestion.hint(
           SuggestionCode.exampleMissing,
