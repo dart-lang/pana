@@ -62,6 +62,7 @@ Otherwise the score starts with `1.0`, and
 
 A package starts with `100` points, and the following detected issues have point reductions:
 - uses `strong-mode: false` in `analysis_options.yaml` (-50 points)
+- SDK constraint is missing from `pubspec.yaml` (-50 points)
 - `readme.md` missing (-30 points)
 - `changelog.md` missing (-20 points)
 - has platform conflicts (-20 points)
@@ -76,7 +77,6 @@ A package starts with `100` points, and the following detected issues have point
 - uses old `.analysis_options` file (-10 points)
 - uses pre-v0.1 release versioning (`0.0.*`) (-10 points)
 - uses pre-release versioning (`*.*.*-beta2`) (-5 points)
-- SDK constraint is missing from `pubspec.yaml` (-5 points)
 
 On top of that, [pub site](https://pub.dartlang.org/) applies an age restriction:
  - outdated packages (age older than two years) are reduced to 0
