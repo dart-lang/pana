@@ -71,7 +71,18 @@ String firstFileFromNames(List<String> files, List<String> names,
   return null;
 }
 
+/// Calculates the maintenance score in the range of [0.0 - 100.0].
+@deprecated
 double getMaintenanceScore(Maintenance maintenance, {Duration age}) {
+  return _getMaintenanceScore(maintenance, age);
+}
+
+/// Calculates the maintenance score in the range of [0.0 - 1.0].
+double calculateMaintenanceScore(Maintenance maintenance, {Duration age}) {
+  return _getMaintenanceScore(maintenance, age) / 100.0;
+}
+
+double _getMaintenanceScore(Maintenance maintenance, Duration age) {
   var score = 100.0;
   maintenance?.suggestions
       ?.map((s) => s.score)
