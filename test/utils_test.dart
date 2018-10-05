@@ -18,4 +18,21 @@ void main() {
         })),
         '{"a":2,"b":[{"d":4,"e":3}]}');
   });
+
+  group('runes', () {
+    test('empty', () {
+      expect(nonAsciiRuneRatio(null), 0.0);
+      expect(nonAsciiRuneRatio(''), 0.0);
+      expect(nonAsciiRuneRatio('  \t\n\r'), 0.0);
+    });
+
+    test('ascii text', () {
+      expect(nonAsciiRuneRatio('a'), 0.0);
+      expect(nonAsciiRuneRatio('a b c'), 0.0);
+    });
+
+    test('non-ascii text', () {
+      expect(nonAsciiRuneRatio('封装http业务接口'), 0.6);
+    });
+  });
 }

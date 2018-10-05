@@ -367,6 +367,16 @@ Future<Maintenance> detectMaintenance(
         score: 10.0));
   }
 
+  // Checking the non-English characters in the description
+  if (nonAsciiRuneRatio(description) > 0.1) {
+    maintenanceSuggestions.add(new Suggestion.warning(
+        SuggestionCode.pubspecDescriptionAsciiOnly,
+        'The description contains too many non-ASCII characters.',
+        'The primary audience of this site will speak and use English, please '
+        'use fewer foreign characters in the description.',
+        score: 20.0));
+  }
+
   if (unconstrainedDeps != null && unconstrainedDeps.isNotEmpty) {
     final count = unconstrainedDeps.length;
     final pluralized = count == 1 ? '1 dependency' : '$count dependencies';

@@ -246,3 +246,24 @@ Stream<ProcessSignal> getSignals() => Platform.isWindows
     ? ProcessSignal.sigint.watch()
     : StreamGroup.merge(
         [ProcessSignal.sigterm.watch(), ProcessSignal.sigint.watch()]);
+
+/// Returns the ratio of non-ASCII runes (Unicode characters) in a given text:
+/// (number of runes that are non-ASCII) / (total number of character runes).
+///
+/// The return value is between [0.0 - 1.0].
+double nonAsciiRuneRatio(String text) {
+  if (text == null || text.isEmpty) {
+    return 0.0;
+  }
+  // 160 - non-breaking space
+  final total = text.runes.where((r) => r > 32 && r != 160).length;
+  if (total == 0) {
+    return 0.0;
+  }
+  final nonAscii = text.runes.where((r) => r >= 256).length;
+  if (nonAscii > total) {
+    // should not happen
+    return 1.0;
+  }
+  return nonAscii / total;
+}
