@@ -1,4 +1,4 @@
-## 0.12.5-dev
+## 0.12.5
 
 * Increase the severity of missing SDK constraint.
 
