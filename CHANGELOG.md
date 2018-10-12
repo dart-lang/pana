@@ -1,3 +1,7 @@
+## 0.12.6-dev
+
+* Bulk processing and comparison.
+
 ## 0.12.5
 
 * Increase the severity of missing SDK constraint.
