@@ -55,7 +55,7 @@ class AnalyzeCommand extends Command {
       final file = new File(packagesListFileName);
       if (!(await file.exists())) {
         print('Packages list file $packagesListFileName does not exists.');
-        exit(-1);
+        exit(1);
       }
       final lines = await file.readAsLines();
       packages.addAll(lines.where((l) => l.isNotEmpty));
@@ -63,13 +63,13 @@ class AnalyzeCommand extends Command {
 
     if (packages.isEmpty) {
       print('No package to analyze.');
-      exit(-1);
+      exit(0);
     }
 
     final String outputDirPath = argResults['output'];
     if (outputDirPath == null) {
       print('Output directory must be specified.');
-      exit(-1);
+      exit(1);
     }
     final outputDir = new Directory(outputDirPath);
     await outputDir.create(recursive: true);
