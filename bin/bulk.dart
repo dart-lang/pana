@@ -44,7 +44,7 @@ class AnalyzeCommand extends Command {
 
   @override
   Future run() async {
-    final concurrency = int.tryParse(argResults['concurrency'] as String) ?? 1;
+    final concurrency = int.parse(argResults['concurrency'] as String ?? '1');
     final pool = new Pool(concurrency);
 
     final packages = new Set<String>();
