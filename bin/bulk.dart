@@ -36,7 +36,8 @@ class AnalyzeCommand extends Command {
           defaultsTo: '1', help: 'The concurrent execution of the analyis.')
       ..addOption('dart-sdk', help: 'The directory of the Dart SDK.')
       ..addOption('flutter-sdk', help: 'The directory of the Flutter SDK.')
-      ..addOption('input', help: 'The input file with the list of packages.')
+      ..addOption('packages-list',
+          help: 'The input file with the list of packages.')
       ..addOption('output',
           help: 'The output directory to store the per-package results.');
   }
@@ -49,14 +50,14 @@ class AnalyzeCommand extends Command {
     final packages = new Set<String>();
     packages.addAll(argResults.rest);
 
-    final String inputFileName = argResults['input'];
-    if (inputFileName != null) {
-      final inputFile = new File(inputFileName);
-      if (!(await inputFile.exists())) {
-        print('Input file $inputFileName does not exists.');
+    final String packagesListFileName = argResults['packages-list'];
+    if (packagesListFileName != null) {
+      final file = new File(packagesListFileName);
+      if (!(await file.exists())) {
+        print('Packages list file $packagesListFileName does not exists.');
         exit(-1);
       }
-      final lines = await inputFile.readAsLines();
+      final lines = await file.readAsLines();
       packages.addAll(lines.where((l) => l.isNotEmpty));
     }
 
