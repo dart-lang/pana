@@ -372,8 +372,8 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(new Suggestion.warning(
         SuggestionCode.pubspecDescriptionAsciiOnly,
         'The description contains too many non-ASCII characters.',
-        'The primary audience of this site will speak and use English, please '
-        'use fewer foreign characters in the description.',
+        "The site uses English as it's primary language. Please use a "
+        'description that primarily contains characters used when writing English.',
         score: 20.0));
   }
 
