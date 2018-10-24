@@ -255,15 +255,10 @@ double nonAsciiRuneRatio(String text) {
   if (text == null || text.isEmpty) {
     return 0.0;
   }
-  // 160 - non-breaking space
-  final total = text.runes.where((r) => r > 32 && r != 160).length;
-  if (total == 0) {
+  final totalPrintable = text.runes.where((r) => r > 32).length;
+  if (totalPrintable == 0) {
     return 0.0;
   }
-  final nonAscii = text.runes.where((r) => r >= 256).length;
-  if (nonAscii > total) {
-    // should not happen
-    return 1.0;
-  }
-  return nonAscii / total;
+  final nonAscii = text.runes.where((r) => r >= 128).length;
+  return nonAscii / totalPrintable;
 }
