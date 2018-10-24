@@ -99,13 +99,18 @@ class AnalyzeCommand extends Command {
       for (final package in packages) {
         final f = pool.withResource(() async {
           print('Analyzing $package...');
-          final summary = await analyzer.inspectPackage(
-            package,
-            options: new InspectOptions(verbosity: Verbosity.compact),
-          );
-          final outputFile = new File('${outputDir.path}/${package}.json');
-          await outputFile
-              .writeAsString(_jsonEncoder.convert(summary.toJson()));
+          try {
+            final summary = await analyzer.inspectPackage(
+              package,
+              options: new InspectOptions(verbosity: Verbosity.compact),
+            );
+            final outputFile = new File('${outputDir.path}/${package}.json');
+            await outputFile
+                .writeAsString(_jsonEncoder.convert(summary.toJson()));
+          } catch (e, st) {
+            stdout.writeln('Analyzing $package failed: $e.');
+            stdout.writeln('Stacktrace:\n$st');
+          }
         });
         futures.add(f);
       }
