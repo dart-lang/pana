@@ -2,6 +2,8 @@
 
 * Bulk processing and comparison.
 
+* Penalty for description using too many non-ASCII characters.
+
 ## 0.12.5
 
 * Increase the severity of missing SDK constraint.

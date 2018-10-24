@@ -68,6 +68,7 @@ A package starts with `100` points, and the following detected issues have point
 - has platform conflicts (-20 points)
 - has unconstrained dependencies (-20 points)
 - `description` is too short (<60 characters) (-20 points)
+- `description` contains too many non-ASCII characters (-20 points)
 - `homepage` points to non-existent URL (-20 points)
 - `homepage` is not helpful (e.g. pointing to `http://localhost/`) (-10 points)
 - `documentation` points to non-existent URL (-10 points)

@@ -311,6 +311,8 @@ abstract class SuggestionCode {
   static const String pubspecDescriptionTooShort =
       'pubspec.description.tooShort';
   static const String pubspecDescriptionTooLong = 'pubspec.description.tooLong';
+  static const String pubspecDescriptionAsciiOnly =
+      'pubspec.description.asciiOnly';
   static const String pubspecDocumentationDoesNotExists =
       'pubspec.documentation.doesNotExists';
   static const String pubspecDocumentationIsNotHelpful =
