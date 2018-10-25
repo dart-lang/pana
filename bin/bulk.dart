@@ -41,7 +41,8 @@ class AnalyzeCommand extends Command {
       ..addOption('output',
           help: 'The output directory to store the per-package results.')
       ..addFlag('force',
-          help: 'Re-do analysis when the output file already exists.');
+          help:
+              'Re-do analysis for packages where the output file already exists.');
   }
 
   @override
