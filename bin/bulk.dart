@@ -39,13 +39,17 @@ class AnalyzeCommand extends Command {
       ..addOption('packages-list',
           help: 'The input file with the list of packages.')
       ..addOption('output',
-          help: 'The output directory to store the per-package results.');
+          help: 'The output directory to store the per-package results.')
+      ..addFlag('force',
+          help:
+              'Re-do analysis for packages where the output file already exists.');
   }
 
   @override
   Future run() async {
     final concurrency = int.parse(argResults['concurrency'] as String ?? '1');
     final pool = new Pool(concurrency);
+    final bool force = argResults['force'];
 
     final packages = new Set<String>();
     packages.addAll(argResults.rest);
@@ -97,6 +101,11 @@ class AnalyzeCommand extends Command {
       final analyzer = new PackageAnalyzer(toolEnv);
       final futures = <Future>[];
       for (final package in packages) {
+        final outputFile = new File('${outputDir.path}/${package}.json');
+        if (!force && outputFile.existsSync() && outputFile.lengthSync() > 0) {
+          continue;
+        }
+
         final f = pool.withResource(() async {
           print('Analyzing $package...');
           try {
@@ -104,7 +113,6 @@ class AnalyzeCommand extends Command {
               package,
               options: new InspectOptions(verbosity: Verbosity.compact),
             );
-            final outputFile = new File('${outputDir.path}/${package}.json');
             await outputFile
                 .writeAsString(_jsonEncoder.convert(summary.toJson()));
           } catch (e, st) {
