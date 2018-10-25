@@ -235,36 +235,28 @@ class ToolEnvironment {
   Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,
       {int retryCount: 3}) async {
     final backup = await _stripPubspecYaml(packageDir);
-    ProcessResult result;
     try {
-      do {
-        retryCount--;
-
+      return await retryProc(() async {
         if (usesFlutter) {
-          result = await _execFlutterUpgrade(packageDir, _environment);
+          return await _execFlutterUpgrade(packageDir, _environment);
         } else {
-          result = await _execPubUpgrade(packageDir, _environment);
+          return await _execPubUpgrade(packageDir, _environment);
         }
-
-        if (result.exitCode > 0) {
-          var errOutput = result.stderr as String;
-
-          // find cases where retrying is not going to help – and short-circuit
-          if (errOutput
-              .contains("Could not get versions for flutter from sdk")) {
-            log.severe("Flutter SDK required!");
-            retryCount = 0;
-          } else if (errOutput
-              .contains("FINE: Exception type: NoVersionException")) {
-            log.severe("Version solve failure");
-            retryCount = 0;
-          }
+      }, shouldRetry: (result) {
+        if (result.exitCode == 0) return false;
+        var errOutput = result.stderr as String;
+        // find cases where retrying is not going to help – and short-circuit
+        if (errOutput.contains("Could not get versions for flutter from sdk")) {
+          return false;
         }
-      } while (result.exitCode > 0 && retryCount > 0);
+        if (errOutput.contains("FINE: Exception type: NoVersionException")) {
+          return false;
+        }
+        return true;
+      });
     } finally {
       await _restorePubspecYaml(packageDir, backup);
     }
-    return result;
   }
 
   Map<String, String> _globalDartdocEnv() {
