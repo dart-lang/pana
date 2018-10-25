@@ -6,6 +6,8 @@
 
 * Use `--dry-run` on executing flutter format.
 
+* Retry the external process on downloading and listing packages.
+
 ## 0.12.5
 
 * Increase the severity of missing SDK constraint.
