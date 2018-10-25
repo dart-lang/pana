@@ -337,11 +337,15 @@ class ToolEnvironment {
     }
     args.add(package);
 
-    var result = handleProcessErrors(await runProc(
-      _pubCmd,
-      args,
-      environment: _environment,
-    ));
+    var result = handleProcessErrors(
+      await retryProc(
+        () => runProc(
+              _pubCmd,
+              args,
+              environment: _environment,
+            ),
+      ),
+    );
 
     var match = _versionDownloadRegexp
         .allMatches((result.stdout as String).trim())
@@ -360,11 +364,12 @@ class ToolEnvironment {
     }
 
     // now get all installed packages
-    result = handleProcessErrors(await runProc(
-      _pubCmd,
-      ['cache', 'list'],
-      environment: _environment,
-    ));
+    result = handleProcessErrors(
+      await retryProc(
+        () => runProc(_pubCmd, ['cache', 'list'], environment: _environment),
+        sleep: const Duration(seconds: 5),
+      ),
+    );
 
     var map = json.decode(result.stdout as String) as Map;
 
