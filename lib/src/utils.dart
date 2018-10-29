@@ -127,7 +127,7 @@ Future<ProcessResult> retryProc(
   Duration sleep = const Duration(seconds: 1),
 }) async {
   ProcessResult result;
-  for (var i = 1;; i++) {
+  for (var i = 1; i <= maxAttempt; i++) {
     try {
       result = await body();
       if (!shouldRetry(result)) {
@@ -142,7 +142,7 @@ Future<ProcessResult> retryProc(
       rethrow;
     }
   }
-  return handleProcessErrors(result);
+  return result;
 }
 
 bool _defaultShouldRetry(ProcessResult pr) => pr.exitCode != 0;
