@@ -4,6 +4,8 @@
 
 * Penalty for description using too many non-ASCII characters.
 
+* Use `--dry-run` on executing flutter format.
+
 ## 0.12.5
 
 * Increase the severity of missing SDK constraint.

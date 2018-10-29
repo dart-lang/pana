@@ -162,46 +162,42 @@ class ToolEnvironment {
     for (final dir in dirs) {
       final fullPath = p.join(packageDir, dir);
 
+      ProcessResult result;
       if (usesFlutter) {
-        final result = await runProc(
+        result = await runProc(
           _flutterCmd,
-          ['format', fullPath],
+          ['format', '--dry-run', fullPath],
           workingDirectory: packageDir,
           environment: _environment,
           timeout: _dartfmtTimeout,
         );
-
-        final lines = LineSplitter.split(result.stdout as String)
-            .where((line) =>
-                line.startsWith('Formatted ') && line.endsWith('.dart'))
-            .map((line) => line.substring(10).trim())
-            .map((file) => p.join(dir, file))
-            .toList();
-        files.addAll(lines);
       } else {
-        final result = await runProc(
+        result = await runProc(
           _dartfmtCmd,
           ['--dry-run', '--set-exit-if-changed', fullPath],
           environment: _environment,
           timeout: _dartfmtTimeout,
         );
-        if (result.exitCode == 0) {
-          continue;
-        }
-
-        final lines = LineSplitter.split(result.stdout as String)
-            .map((file) => p.join(dir, file))
-            .toList();
-        if (result.exitCode == 1) {
-          assert(lines.isNotEmpty);
-          files.addAll(lines);
-          continue;
-        }
-
-        final output = result.stderr.toString().replaceAll('$packageDir/', '');
-        throw new Exception(
-            'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
       }
+
+      if (result.exitCode == 0) {
+        continue;
+      }
+
+      final lines = LineSplitter.split(result.stdout as String)
+          .map((file) => p.join(dir, file))
+          .toList();
+
+      // `dartfmt` exits with code = 1, `flutter format` exits with code = 127
+      if (result.exitCode == 1 || result.exitCode == 127) {
+        assert(lines.isNotEmpty);
+        files.addAll(lines);
+        continue;
+      }
+
+      final output = result.stderr.toString().replaceAll('$packageDir/', '');
+      throw new Exception(
+          'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
     }
     return files.toList()..sort();
   }
