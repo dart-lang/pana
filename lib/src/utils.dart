@@ -119,6 +119,34 @@ ProcessResult handleProcessErrors(ProcessResult result) {
   return result;
 }
 
+/// Executes [body] and returns with the first clean or the last failure result.
+Future<ProcessResult> retryProc(
+  Future<ProcessResult> body(), {
+  bool shouldRetry(ProcessResult pr) = _defaultShouldRetry,
+  int maxAttempt = 3,
+  Duration sleep = const Duration(seconds: 1),
+}) async {
+  ProcessResult result;
+  for (var i = 1; i <= maxAttempt; i++) {
+    try {
+      result = await body();
+      if (!shouldRetry(result)) {
+        break;
+      }
+    } catch (e, st) {
+      if (i < maxAttempt) {
+        log.info('Async operation failed (attempt: $i of $maxAttempt).', e, st);
+        await new Future.delayed(sleep);
+        continue;
+      }
+      rethrow;
+    }
+  }
+  return result;
+}
+
+bool _defaultShouldRetry(ProcessResult pr) => pr.exitCode != 0;
+
 Stream<String> listFiles(String directory,
     {String endsWith, bool deleteBadExtracted = false}) {
   var dir = new Directory(directory);
