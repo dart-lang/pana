@@ -16,7 +16,7 @@ import 'pubspec.dart';
 import 'utils.dart';
 
 final _solvePkgLine =
-    RegExp(r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
+    RegExp(r'(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?');
 
 PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
     {String path}) {
@@ -65,8 +65,8 @@ void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
           var lockedVersion = Version.parse(m['version'] as String);
           if (pkgVersions[key] != lockedVersion) {
             throw StateError(
-                "For $key, the parsed version ${pkgVersions[key]} did not "
-                "match the locked version $lockedVersion.");
+                'For $key, the parsed version ${pkgVersions[key]} did not '
+                'match the locked version $lockedVersion.');
           }
         });
       }
@@ -80,7 +80,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
   void logWeird(String input) {
     if (!loggedWeird) {
       // only write the header if there is "weirdness" in processing
-      stderr.writeln("Package: ${pubspec.name}");
+      stderr.writeln('Package: ${pubspec.name}');
       loggedWeird = true;
     }
     // write every line of the input indented 2 spaces
@@ -175,8 +175,8 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
 }
 
 class PubEntry {
-  static final _headerMatch = RegExp(r"^([A-Z]{2,4})[ ]{0,2}: (.*)");
-  static final _lineMatch = RegExp(r"^    \|(.*)");
+  static final _headerMatch = RegExp(r'^([A-Z]{2,4})[ ]{0,2}: (.*)');
+  static final _lineMatch = RegExp(r'^    \|(.*)');
 
   final String header;
   final List<String> content;

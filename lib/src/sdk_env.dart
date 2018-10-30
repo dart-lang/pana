@@ -246,10 +246,10 @@ class ToolEnvironment {
         if (result.exitCode == 0) return false;
         var errOutput = result.stderr as String;
         // find cases where retrying is not going to help – and short-circuit
-        if (errOutput.contains("Could not get versions for flutter from sdk")) {
+        if (errOutput.contains('Could not get versions for flutter from sdk')) {
           return false;
         }
-        if (errOutput.contains("FINE: Exception type: NoVersionException")) {
+        if (errOutput.contains('FINE: Exception type: NoVersionException')) {
           return false;
         }
         return true;
@@ -469,7 +469,7 @@ class DartSdkInfo {
 }
 
 final _versionDownloadRegexp =
-    RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
+    RegExp(r'^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$');
 
 const _pubCacheKey = 'PUB_CACHE';
 const _pubEnvironmentKey = 'PUB_ENVIRONMENT';

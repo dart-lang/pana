@@ -50,16 +50,16 @@ Future<ProcessResult> runProc(
   void killProc(String message) {
     if (killed != true) {
       killMessage = message;
-      stderr.writeln("Killing $process");
-      stderr.writeln("  $message");
+      stderr.writeln('Killing $process');
+      stderr.writeln('  $message');
       killed = process.kill();
-      stderr.writeln("  killed? - $killed");
+      stderr.writeln('  killed? - $killed');
     }
   }
 
   timeout ??= _timeout;
   var timer = Timer(timeout, () {
-    killProc("Exceeded timeout of $timeout");
+    killProc('Exceeded timeout of $timeout');
   });
 
   var items = await Future.wait(<Future<Object>>[
@@ -69,7 +69,7 @@ Future<ProcessResult> runProc(
       // Uncomment to debug long execution
       // stderr.writeln(outLine);
       if (stdoutLines.length > _maxLines) {
-        killProc("STDOUT exceeded $_maxLines lines.");
+        killProc('STDOUT exceeded $_maxLines lines.');
       }
     }),
     byteStreamSplit(process.stderr).forEach((errLine) {
@@ -77,7 +77,7 @@ Future<ProcessResult> runProc(
       // Uncomment to debug long execution
       // stderr.writeln(errLine);
       if (stderrLines.length > _maxLines) {
-        killProc("STDERR exceeded $_maxLines lines.");
+        killProc('STDERR exceeded $_maxLines lines.');
       }
     })
   ]);
@@ -104,7 +104,7 @@ ProcessResult handleProcessErrors(ProcessResult result) {
     if (result.exitCode == 69) {
       // could be a pub error. Let's try to parse!
       var lines = LineSplitter.split(result.stderr as String)
-          .where((l) => l.startsWith("ERR "))
+          .where((l) => l.startsWith('ERR '))
           .join('\n');
       if (lines.isNotEmpty) {
         throw Exception(lines);
@@ -188,8 +188,8 @@ String prettyJson(obj) {
     while (error is JsonUnsupportedObjectError) {
       stderr.writeln([
         error,
-        "${error.unsupportedObject} - (${error.unsupportedObject.runtimeType})",
-        error.cause == null ? null : "Nested cause: ${error.cause}",
+        '${error.unsupportedObject} - (${error.unsupportedObject.runtimeType})',
+        error.cause == null ? null : 'Nested cause: ${error.cause}',
         error.stackTrace
       ].where((i) => i != null).join('\n'));
 

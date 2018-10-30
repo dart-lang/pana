@@ -81,7 +81,7 @@ class MiniSum {
         throw Exception('Not supported! - $v - ${v.runtimeType}');
       }
 
-      items.add("$k:$type");
+      items.add('$k:$type');
     });
 
     return items.join(',');
@@ -123,12 +123,12 @@ Map<String, int> _analyzerThings(Iterable<CodeProblem> analyzerThings) {
 String _getAnalyzerOutputClass(
     String severity, String errorType, String errorCode) {
   if (severity == 'ERROR') {
-    if (errorCode.startsWith("STRONG_MODE_")) {
+    if (errorCode.startsWith('STRONG_MODE_')) {
       return 'analyzer_strong_error';
     }
     return 'analyzer_error';
   }
-  if (errorCode.startsWith("STRONG_MODE_TOP_LEVEL_")) {
+  if (errorCode.startsWith('STRONG_MODE_TOP_LEVEL_')) {
     //TODO(kevmoo) The story is changing here in Dart 1.25+
     // https://github.com/dart-lang/pana/issues/16
     return 'analyzer_topLevelStrong';
@@ -139,7 +139,7 @@ String _getAnalyzerOutputClass(
 
 Map<String, int> _classifyFiles(Iterable<String> paths) {
   var map = SplayTreeMap<String, int>.fromIterable(
-      (["other"]..addAll(MiniSum._importantDirs)).map((e) => "files_$e"),
+      (['other']..addAll(MiniSum._importantDirs)).map((e) => 'files_$e'),
       value: (_) => 0);
 
   for (var path in paths) {
@@ -161,8 +161,8 @@ String _classifyFile(String path) {
 }
 
 const _domainRegexp =
-    r"(?:[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)+[a-zA-Z]{2,}";
-final _domainThing = RegExp("[@/]($_domainRegexp)>");
+    r'(?:[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)+[a-zA-Z]{2,}';
+final _domainThing = RegExp('[@/]($_domainRegexp)>');
 
 String _domainFromAuthor(String author) {
   var match = _domainThing.firstMatch(author);

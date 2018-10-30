@@ -46,7 +46,7 @@ void main() {
   });
 
   group('entries', () {
-    test("stderr", () {
+    test('stderr', () {
       var entries = PubEntry.parse(_pubErrorOutput).toList();
 
       expect(entries, hasLength(9));
@@ -55,7 +55,7 @@ void main() {
       expect(entries.first.content, hasLength(2));
     });
 
-    test("stdout", () {
+    test('stdout', () {
       var entries = PubEntry.parse(_pubUpgradeOutput).toList();
       expect(entries, hasLength(10));
     });

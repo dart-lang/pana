@@ -23,7 +23,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
   var matches = _regexp.allMatches(content).toList();
 
   if (matches.isEmpty) {
-    if (content.endsWith(" is a part and cannot be analyzed.")) {
+    if (content.endsWith(' is a part and cannot be analyzed.')) {
       var filePath = content.split(' ').first;
 
       content = content.replaceAll(filePath, '').trim();
@@ -44,7 +44,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
       );
     }
 
-    if (content == "Please pass in a library that contains this part.") {
+    if (content == 'Please pass in a library that contains this part.') {
       return null;
     }
 

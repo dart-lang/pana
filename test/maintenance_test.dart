@@ -4,26 +4,25 @@
 
 import 'dart:convert';
 
-import 'package:test/test.dart';
-import 'package:test_descriptor/test_descriptor.dart' as d;
-
 import 'package:pana/src/download_utils.dart';
 import 'package:pana/src/maintenance.dart';
 import 'package:pana/src/model.dart';
 import 'package:pana/src/package_analyzer.dart' show InspectOptions;
 import 'package:pana/src/pubspec.dart';
+import 'package:test/test.dart';
+import 'package:test_descriptor/test_descriptor.dart' as d;
 
-final _withIssuesJson = {
-  "missingChangelog": true,
-  "missingExample": true,
-  "missingReadme": true,
-  "missingAnalysisOptions": true,
-  "oldAnalysisOptions": false,
-  "strongModeEnabled": true,
-  "isExperimentalVersion": true,
-  "isPreReleaseVersion": true,
-  "dartdocSuccessful": false,
-  "suggestions": [
+const _withIssuesJson = {
+  'missingChangelog': true,
+  'missingExample': true,
+  'missingReadme': true,
+  'missingAnalysisOptions': true,
+  'oldAnalysisOptions': false,
+  'strongModeEnabled': true,
+  'isExperimentalVersion': true,
+  'isPreReleaseVersion': true,
+  'dartdocSuccessful': false,
+  'suggestions': [
     {
       'code': 'pubspec.sdk.missing',
       'level': 'error',
@@ -174,7 +173,7 @@ void main() {
       };
 
       for (var offset in expectedScores.keys) {
-        test("from $offset days ago", () {
+        test('from $offset days ago', () {
           final age = offset == null ? null : Duration(days: offset);
           final expectedScore = expectedScores[offset];
 

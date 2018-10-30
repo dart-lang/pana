@@ -8,7 +8,7 @@ import 'package:pana/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test("sorted json", () {
+  test('sorted json', () {
     expect(
         json.encode(sortedJson({
           'b': [

@@ -71,10 +71,10 @@ class LibraryScanner {
     if (package == null) {
       if (packageNames.length == 1) {
         package = packageNames.single;
-        log.warning("Weird: `$package` at `${packageMap[package]}`.");
+        log.warning('Weird: `$package` at `${packageMap[package]}`.');
       } else {
         throw StateError(
-            "Could not determine package name for package at `$packagePath` "
+            'Could not determine package name for package at `$packagePath` '
             "- found ${packageNames.toSet().join(', ')}");
       }
     }
