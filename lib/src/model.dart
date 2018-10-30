@@ -10,6 +10,7 @@ import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:quiver/core.dart' show hashObjects;
 
+import 'json_converters.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'utils.dart' show toRelativePath;
@@ -22,7 +23,8 @@ const healthWarningMultiplier = 0.95;
 const healthHintMultiplier = 0.995;
 
 @JsonSerializable()
-class Summary extends Object with _$SummarySerializerMixin {
+@VersionConverter()
+class Summary {
   @JsonKey(nullable: false)
   final PanaRuntimeInfo runtimeInfo;
 
@@ -74,6 +76,8 @@ class Summary extends Object with _$SummarySerializerMixin {
   factory Summary.fromJson(Map<String, dynamic> json) =>
       _$SummaryFromJson(json);
 
+  Map<String, dynamic> toJson() => _$SummaryToJson(this);
+
   Iterable<CodeProblem> get codeProblems => dartFiles.values
       .map((dfs) => dfs.codeProblems)
       .where((l) => l != null)
@@ -105,7 +109,7 @@ class Summary extends Object with _$SummarySerializerMixin {
 }
 
 @JsonSerializable()
-class PanaRuntimeInfo extends Object with _$PanaRuntimeInfoSerializerMixin {
+class PanaRuntimeInfo {
   final String panaVersion;
   final String sdkVersion;
   @JsonKey(includeIfNull: false)
@@ -119,10 +123,12 @@ class PanaRuntimeInfo extends Object with _$PanaRuntimeInfoSerializerMixin {
 
   factory PanaRuntimeInfo.fromJson(Map<String, dynamic> json) =>
       _$PanaRuntimeInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PanaRuntimeInfoToJson(this);
 }
 
 @JsonSerializable()
-class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
+class DartFileSummary {
   final String uri;
   final int size;
 
@@ -154,10 +160,15 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
   factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
       _$DartFileSummaryFromJson(json);
 
+  Map<String, dynamic> toJson() => _$DartFileSummaryToJson(this);
+
   /// The relative path in the package archive.
   String get path => toRelativePath(uri);
+
   bool get isInBin => path.startsWith('bin/');
+
   bool get isInLib => path.startsWith('lib/');
+
   bool get isInLibSrc => path.startsWith('lib/src/');
 
   /// Whether the file provides a public API for the package users.
@@ -177,9 +188,7 @@ class DartFileSummary extends Object with _$DartFileSummarySerializerMixin {
 }
 
 @JsonSerializable()
-class Suggestion extends Object
-    with _$SuggestionSerializerMixin
-    implements Comparable<Suggestion> {
+class Suggestion implements Comparable<Suggestion> {
   final String code;
   final String level;
   final String title;
@@ -229,6 +238,8 @@ class Suggestion extends Object
 
   factory Suggestion.fromJson(Map<String, dynamic> json) =>
       _$SuggestionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SuggestionToJson(this);
 
   /// An issue that prevents platform classification.
   bool get isError =>
@@ -407,7 +418,7 @@ bool _isAllowed(PlatformUse value) =>
     value == PlatformUse.allowed || value == PlatformUse.used;
 
 @JsonSerializable()
-class DartPlatform extends Object with _$DartPlatformSerializerMixin {
+class DartPlatform {
   @JsonKey(includeIfNull: false)
   final List<String> components;
 
@@ -437,14 +448,20 @@ class DartPlatform extends Object with _$DartPlatformSerializerMixin {
   factory DartPlatform.fromJson(Map<String, dynamic> json) =>
       _$DartPlatformFromJson(json);
 
+  Map<String, dynamic> toJson() => _$DartPlatformToJson(this);
+
   bool get worksEverywhere =>
       uses != null && uses.values.every((s) => _isAllowed(s));
+
   bool get worksAnywhere =>
       uses != null && uses.values.any((s) => _isAllowed(s));
+
   bool get hasConflict => !worksAnywhere;
 
   bool get worksOnFlutter => _worksOn(PlatformNames.flutter);
+
   bool get worksOnWeb => _worksOn(PlatformNames.web);
+
   bool get worksOnOther => _worksOn(PlatformNames.other);
 
   bool get usesFlutter => _uses(PlatformNames.flutter);
@@ -460,13 +477,15 @@ class DartPlatform extends Object with _$DartPlatformSerializerMixin {
 }
 
 @JsonSerializable()
-class PkgResolution extends Object with _$PkgResolutionSerializerMixin {
+class PkgResolution {
   final List<PkgDependency> dependencies;
 
   PkgResolution(this.dependencies);
 
   factory PkgResolution.fromJson(Map<String, dynamic> json) =>
       _$PkgResolutionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PkgResolutionToJson(this);
 
   List<PkgDependency> get outdated =>
       dependencies.where((pd) => pd.isOutdated).toList();
@@ -534,9 +553,9 @@ abstract class ConstraintTypes {
 }
 
 @JsonSerializable()
-class PkgDependency extends Object
-    with _$PkgDependencySerializerMixin
-    implements Comparable<PkgDependency> {
+@VersionConverter()
+@VersionConstraintConverter()
+class PkgDependency implements Comparable<PkgDependency> {
   final String package;
 
   final String dependencyType;
@@ -568,11 +587,16 @@ class PkgDependency extends Object
   factory PkgDependency.fromJson(Map<String, dynamic> json) =>
       _$PkgDependencyFromJson(json);
 
+  Map<String, dynamic> toJson() => _$PkgDependencyToJson(this);
+
   bool get isDirect => dependencyType == DependencyTypes.direct;
+
   bool get isDev => dependencyType == DependencyTypes.dev;
+
   bool get isTransitive => dependencyType == DependencyTypes.transitive;
 
   bool get isLatest => available == null;
+
   bool get isOutdated => !isLatest;
 
   bool get isHosted =>
@@ -620,7 +644,7 @@ class PkgDependency extends Object
 }
 
 @JsonSerializable()
-class Health extends Object with _$HealthSerializerMixin {
+class Health {
   /// Whether running `dartanalyzer` was successful.
   final bool analyzeProcessFailed;
 
@@ -660,6 +684,8 @@ class Health extends Object with _$HealthSerializerMixin {
 
   factory Health.fromJson(Map<String, dynamic> json) => _$HealthFromJson(json);
 
+  Map<String, dynamic> toJson() => _$HealthToJson(this);
+
   bool get anyProcessFailed =>
       analyzeProcessFailed || formatProcessFailed || resolveProcessFailed;
 
@@ -691,7 +717,7 @@ double calculateBaseHealth(
 
 /// Describes the maintenance status of the package.
 @JsonSerializable()
-class Maintenance extends Object with _$MaintenanceSerializerMixin {
+class Maintenance {
   /// whether the package has no or too small changelog
   final bool missingChangelog;
 
@@ -741,6 +767,8 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
       _$MaintenanceFromJson(json);
 
+  Map<String, dynamic> toJson() => _$MaintenanceToJson(this);
+
   Maintenance change({
     bool dartdocSuccessful,
     List<Suggestion> suggestions,
@@ -761,7 +789,7 @@ class Maintenance extends Object with _$MaintenanceSerializerMixin {
 }
 
 @JsonSerializable()
-class LicenseFile extends Object with _$LicenseFileSerializerMixin {
+class LicenseFile {
   final String path;
   final String name;
 
@@ -775,6 +803,8 @@ class LicenseFile extends Object with _$LicenseFileSerializerMixin {
 
   factory LicenseFile.fromJson(Map<String, dynamic> json) =>
       _$LicenseFileFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LicenseFileToJson(this);
 
   LicenseFile change({String url}) =>
       new LicenseFile(path, name, version: version, url: url ?? this.url);
@@ -812,9 +842,7 @@ abstract class LicenseNames {
 }
 
 @JsonSerializable()
-class CodeProblem extends Object
-    with _$CodeProblemSerializerMixin
-    implements Comparable<CodeProblem> {
+class CodeProblem implements Comparable<CodeProblem> {
   /// The errors which don't block platform classification.
   static const _platformNonBlockerTypes = const <String>[
     'STATIC_TYPE_WARNING',
@@ -851,8 +879,12 @@ class CodeProblem extends Object
   factory CodeProblem.fromJson(Map<String, dynamic> json) =>
       _$CodeProblemFromJson(json);
 
+  Map<String, dynamic> toJson() => _$CodeProblemToJson(this);
+
   bool get isError => severity?.toUpperCase() == 'ERROR';
+
   bool get isWarning => severity?.toUpperCase() == 'WARNING';
+
   bool get isInfo => severity?.toUpperCase() == 'INFO';
 
   /// `true` iff [isError] is `true` and [errorType] is not safe to ignore for
@@ -912,7 +944,7 @@ class CodeProblem extends Object
 }
 
 @JsonSerializable()
-class Stats extends Object with _$StatsSerializerMixin {
+class Stats {
   /// The elapsed time in milliseconds for running `dartanalyzer`.
   final int analyzeProcessElapsed;
 
@@ -933,4 +965,6 @@ class Stats extends Object with _$StatsSerializerMixin {
   });
 
   factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StatsToJson(this);
 }

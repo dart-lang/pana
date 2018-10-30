@@ -13,7 +13,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
       packageName: json['packageName'] as String,
       packageVersion: json['packageVersion'] == null
           ? null
-          : new Version.parse(json['packageVersion'] as String),
+          : const VersionConverter().fromJson(json['packageVersion'] as String),
       pubspec: json['pubspec'] == null
           ? null
           : Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
@@ -50,43 +50,33 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
           : Stats.fromJson(json['stats'] as Map<String, dynamic>));
 }
 
-abstract class _$SummarySerializerMixin {
-  PanaRuntimeInfo get runtimeInfo;
-  String get packageName;
-  Version get packageVersion;
-  Pubspec get pubspec;
-  DartPlatform get platform;
-  List<LicenseFile> get licenses;
-  Health get health;
-  Maintenance get maintenance;
-  List<Suggestion> get suggestions;
-  PkgResolution get pkgResolution;
-  Map<String, DartFileSummary> get dartFiles;
-  Stats get stats;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'runtimeInfo': runtimeInfo,
-      'packageName': packageName,
-    };
+Map<String, dynamic> _$SummaryToJson(Summary instance) {
+  final val = <String, dynamic>{
+    'runtimeInfo': instance.runtimeInfo,
+    'packageName': instance.packageName,
+  };
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('packageVersion', packageVersion?.toString());
-    writeNotNull('pubspec', pubspec);
-    val['platform'] = platform;
-    val['licenses'] = licenses;
-    writeNotNull('health', health);
-    writeNotNull('maintenance', maintenance);
-    writeNotNull('suggestions', suggestions);
-    writeNotNull('pkgResolution', pkgResolution);
-    writeNotNull('dartFiles', dartFiles);
-    writeNotNull('stats', stats);
-    return val;
   }
+
+  writeNotNull(
+      'packageVersion',
+      instance.packageVersion == null
+          ? null
+          : const VersionConverter().toJson(instance.packageVersion));
+  writeNotNull('pubspec', instance.pubspec);
+  val['platform'] = instance.platform;
+  val['licenses'] = instance.licenses;
+  writeNotNull('health', instance.health);
+  writeNotNull('maintenance', instance.maintenance);
+  writeNotNull('suggestions', instance.suggestions);
+  writeNotNull('pkgResolution', instance.pkgResolution);
+  writeNotNull('dartFiles', instance.dartFiles);
+  writeNotNull('stats', instance.stats);
+  return val;
 }
 
 PanaRuntimeInfo _$PanaRuntimeInfoFromJson(Map<String, dynamic> json) {
@@ -96,25 +86,20 @@ PanaRuntimeInfo _$PanaRuntimeInfoFromJson(Map<String, dynamic> json) {
       flutterVersions: json['flutterVersions'] as Map<String, dynamic>);
 }
 
-abstract class _$PanaRuntimeInfoSerializerMixin {
-  String get panaVersion;
-  String get sdkVersion;
-  Map<String, dynamic> get flutterVersions;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'panaVersion': panaVersion,
-      'sdkVersion': sdkVersion,
-    };
+Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) {
+  final val = <String, dynamic>{
+    'panaVersion': instance.panaVersion,
+    'sdkVersion': instance.sdkVersion,
+  };
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('flutterVersions', flutterVersions);
-    return val;
   }
+
+  writeNotNull('flutterVersions', instance.flutterVersions);
+  return val;
 }
 
 DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) {
@@ -136,33 +121,24 @@ DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) {
           : DartPlatform.fromJson(json['platform'] as Map<String, dynamic>));
 }
 
-abstract class _$DartFileSummarySerializerMixin {
-  String get uri;
-  int get size;
-  bool get isFormatted;
-  List<CodeProblem> get codeProblems;
-  List<String> get directLibs;
-  List<String> get transitiveLibs;
-  DartPlatform get platform;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'uri': uri,
-      'size': size,
-      'isFormatted': isFormatted,
-      'codeProblems': codeProblems,
-    };
+Map<String, dynamic> _$DartFileSummaryToJson(DartFileSummary instance) {
+  final val = <String, dynamic>{
+    'uri': instance.uri,
+    'size': instance.size,
+    'isFormatted': instance.isFormatted,
+    'codeProblems': instance.codeProblems,
+  };
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('directLibs', directLibs);
-    writeNotNull('transitiveLibs', transitiveLibs);
-    writeNotNull('platform', platform);
-    return val;
   }
+
+  writeNotNull('directLibs', instance.directLibs);
+  writeNotNull('transitiveLibs', instance.transitiveLibs);
+  writeNotNull('platform', instance.platform);
+  return val;
 }
 
 Suggestion _$SuggestionFromJson(Map<String, dynamic> json) {
@@ -171,31 +147,23 @@ Suggestion _$SuggestionFromJson(Map<String, dynamic> json) {
       file: json['file'] as String, score: (json['score'] as num)?.toDouble());
 }
 
-abstract class _$SuggestionSerializerMixin {
-  String get code;
-  String get level;
-  String get title;
-  String get description;
-  String get file;
-  double get score;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'code': code,
-      'level': level,
-      'title': title,
-      'description': description,
-    };
+Map<String, dynamic> _$SuggestionToJson(Suggestion instance) {
+  final val = <String, dynamic>{
+    'code': instance.code,
+    'level': instance.level,
+    'title': instance.title,
+    'description': instance.description,
+  };
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('file', file);
-    writeNotNull('score', score);
-    return val;
   }
+
+  writeNotNull('file', instance.file);
+  writeNotNull('score', instance.score);
+  return val;
 }
 
 DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) {
@@ -206,25 +174,20 @@ DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) {
       reason: json['reason'] as String);
 }
 
-abstract class _$DartPlatformSerializerMixin {
-  List<String> get components;
-  Map<String, PlatformUse> get uses;
-  String get reason;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{};
+Map<String, dynamic> _$DartPlatformToJson(DartPlatform instance) {
+  final val = <String, dynamic>{};
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('components', components);
-    writeNotNull(
-        'uses', uses?.map((k, e) => MapEntry(k, _$PlatformUseEnumMap[e])));
-    writeNotNull('reason', reason);
-    return val;
   }
+
+  writeNotNull('components', instance.components);
+  writeNotNull('uses',
+      instance.uses?.map((k, e) => MapEntry(k, _$PlatformUseEnumMap[e])));
+  writeNotNull('reason', instance.reason);
+  return val;
 }
 
 T _$enumDecode<T>(Map<T, dynamic> enumValues, dynamic source) {
@@ -261,11 +224,8 @@ PkgResolution _$PkgResolutionFromJson(Map<String, dynamic> json) {
       ?.toList());
 }
 
-abstract class _$PkgResolutionSerializerMixin {
-  List<PkgDependency> get dependencies;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'dependencies': dependencies};
-}
+Map<String, dynamic> _$PkgResolutionToJson(PkgResolution instance) =>
+    <String, dynamic>{'dependencies': instance.dependencies};
 
 PkgDependency _$PkgDependencyFromJson(Map<String, dynamic> json) {
   return PkgDependency(
@@ -274,43 +234,47 @@ PkgDependency _$PkgDependencyFromJson(Map<String, dynamic> json) {
       constraintType: json['constraintType'] as String,
       constraint: json['constraint'] == null
           ? null
-          : new VersionConstraint.parse(json['constraint'] as String),
+          : const VersionConstraintConverter()
+              .fromJson(json['constraint'] as String),
       resolved: json['resolved'] == null
           ? null
-          : new Version.parse(json['resolved'] as String),
+          : const VersionConverter().fromJson(json['resolved'] as String),
       available: json['available'] == null
           ? null
-          : new Version.parse(json['available'] as String),
+          : const VersionConverter().fromJson(json['available'] as String),
       errors: (json['errors'] as List)?.map((e) => e as String)?.toList());
 }
 
-abstract class _$PkgDependencySerializerMixin {
-  String get package;
-  String get dependencyType;
-  String get constraintType;
-  VersionConstraint get constraint;
-  Version get resolved;
-  Version get available;
-  List<String> get errors;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'package': package,
-      'dependencyType': dependencyType,
-      'constraintType': constraintType,
-    };
+Map<String, dynamic> _$PkgDependencyToJson(PkgDependency instance) {
+  final val = <String, dynamic>{
+    'package': instance.package,
+    'dependencyType': instance.dependencyType,
+    'constraintType': instance.constraintType,
+  };
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('constraint', constraint?.toString());
-    writeNotNull('resolved', resolved?.toString());
-    writeNotNull('available', available?.toString());
-    writeNotNull('errors', errors);
-    return val;
   }
+
+  writeNotNull(
+      'constraint',
+      instance.constraint == null
+          ? null
+          : const VersionConstraintConverter().toJson(instance.constraint));
+  writeNotNull(
+      'resolved',
+      instance.resolved == null
+          ? null
+          : const VersionConverter().toJson(instance.resolved));
+  writeNotNull(
+      'available',
+      instance.available == null
+          ? null
+          : const VersionConverter().toJson(instance.available));
+  writeNotNull('errors', instance.errors);
+  return val;
 }
 
 Health _$HealthFromJson(Map<String, dynamic> json) {
@@ -328,35 +292,25 @@ Health _$HealthFromJson(Map<String, dynamic> json) {
           ?.toList());
 }
 
-abstract class _$HealthSerializerMixin {
-  bool get analyzeProcessFailed;
-  bool get formatProcessFailed;
-  bool get resolveProcessFailed;
-  int get analyzerErrorCount;
-  int get analyzerWarningCount;
-  int get analyzerHintCount;
-  int get platformConflictCount;
-  List<Suggestion> get suggestions;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'analyzeProcessFailed': analyzeProcessFailed,
-      'formatProcessFailed': formatProcessFailed,
-      'resolveProcessFailed': resolveProcessFailed,
-      'analyzerErrorCount': analyzerErrorCount,
-      'analyzerWarningCount': analyzerWarningCount,
-      'analyzerHintCount': analyzerHintCount,
-      'platformConflictCount': platformConflictCount,
-    };
+Map<String, dynamic> _$HealthToJson(Health instance) {
+  final val = <String, dynamic>{
+    'analyzeProcessFailed': instance.analyzeProcessFailed,
+    'formatProcessFailed': instance.formatProcessFailed,
+    'resolveProcessFailed': instance.resolveProcessFailed,
+    'analyzerErrorCount': instance.analyzerErrorCount,
+    'analyzerWarningCount': instance.analyzerWarningCount,
+    'analyzerHintCount': instance.analyzerHintCount,
+    'platformConflictCount': instance.platformConflictCount,
+  };
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('suggestions', suggestions);
-    return val;
   }
+
+  writeNotNull('suggestions', instance.suggestions);
+  return val;
 }
 
 Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) {
@@ -376,39 +330,27 @@ Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) {
           ?.toList());
 }
 
-abstract class _$MaintenanceSerializerMixin {
-  bool get missingChangelog;
-  bool get missingExample;
-  bool get missingReadme;
-  bool get missingAnalysisOptions;
-  bool get oldAnalysisOptions;
-  bool get strongModeEnabled;
-  bool get isExperimentalVersion;
-  bool get isPreReleaseVersion;
-  bool get dartdocSuccessful;
-  List<Suggestion> get suggestions;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'missingChangelog': missingChangelog,
-      'missingExample': missingExample,
-      'missingReadme': missingReadme,
-      'missingAnalysisOptions': missingAnalysisOptions,
-      'oldAnalysisOptions': oldAnalysisOptions,
-      'strongModeEnabled': strongModeEnabled,
-      'isExperimentalVersion': isExperimentalVersion,
-      'isPreReleaseVersion': isPreReleaseVersion,
-    };
+Map<String, dynamic> _$MaintenanceToJson(Maintenance instance) {
+  final val = <String, dynamic>{
+    'missingChangelog': instance.missingChangelog,
+    'missingExample': instance.missingExample,
+    'missingReadme': instance.missingReadme,
+    'missingAnalysisOptions': instance.missingAnalysisOptions,
+    'oldAnalysisOptions': instance.oldAnalysisOptions,
+    'strongModeEnabled': instance.strongModeEnabled,
+    'isExperimentalVersion': instance.isExperimentalVersion,
+    'isPreReleaseVersion': instance.isPreReleaseVersion,
+  };
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('dartdocSuccessful', dartdocSuccessful);
-    writeNotNull('suggestions', suggestions);
-    return val;
   }
+
+  writeNotNull('dartdocSuccessful', instance.dartdocSuccessful);
+  writeNotNull('suggestions', instance.suggestions);
+  return val;
 }
 
 LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) {
@@ -416,27 +358,21 @@ LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) {
       version: json['version'] as String, url: json['url'] as String);
 }
 
-abstract class _$LicenseFileSerializerMixin {
-  String get path;
-  String get name;
-  String get version;
-  String get url;
-  Map<String, dynamic> toJson() {
-    var val = <String, dynamic>{
-      'path': path,
-      'name': name,
-    };
+Map<String, dynamic> _$LicenseFileToJson(LicenseFile instance) {
+  final val = <String, dynamic>{
+    'path': instance.path,
+    'name': instance.name,
+  };
 
-    void writeNotNull(String key, dynamic value) {
-      if (value != null) {
-        val[key] = value;
-      }
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
     }
-
-    writeNotNull('version', version);
-    writeNotNull('url', url);
-    return val;
   }
+
+  writeNotNull('version', instance.version);
+  writeNotNull('url', instance.url);
+  return val;
 }
 
 CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) {
@@ -450,24 +386,16 @@ CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) {
       col: json['col'] as int);
 }
 
-abstract class _$CodeProblemSerializerMixin {
-  String get severity;
-  String get errorType;
-  String get errorCode;
-  String get file;
-  int get line;
-  int get col;
-  String get description;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'severity': severity,
-        'errorType': errorType,
-        'errorCode': errorCode,
-        'file': file,
-        'line': line,
-        'col': col,
-        'description': description
-      };
-}
+Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>
+    <String, dynamic>{
+      'severity': instance.severity,
+      'errorType': instance.errorType,
+      'errorCode': instance.errorCode,
+      'file': instance.file,
+      'line': instance.line,
+      'col': instance.col,
+      'description': instance.description
+    };
 
 Stats _$StatsFromJson(Map<String, dynamic> json) {
   return Stats(
@@ -477,15 +405,9 @@ Stats _$StatsFromJson(Map<String, dynamic> json) {
       totalElapsed: json['totalElapsed'] as int);
 }
 
-abstract class _$StatsSerializerMixin {
-  int get analyzeProcessElapsed;
-  int get formatProcessElapsed;
-  int get resolveProcessElapsed;
-  int get totalElapsed;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'analyzeProcessElapsed': analyzeProcessElapsed,
-        'formatProcessElapsed': formatProcessElapsed,
-        'resolveProcessElapsed': resolveProcessElapsed,
-        'totalElapsed': totalElapsed
-      };
-}
+Map<String, dynamic> _$StatsToJson(Stats instance) => <String, dynamic>{
+      'analyzeProcessElapsed': instance.analyzeProcessElapsed,
+      'formatProcessElapsed': instance.formatProcessElapsed,
+      'resolveProcessElapsed': instance.resolveProcessElapsed,
+      'totalElapsed': instance.totalElapsed
+    };
