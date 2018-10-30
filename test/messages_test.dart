@@ -32,7 +32,7 @@ void main() {
     });
 
     test('10 items', () {
-      expect(buildSample(new List.generate(10, (i) => i + 1).map(format)),
+      expect(buildSample(List.generate(10, (i) => i + 1).map(format)),
           '1x1, 2x2 and 8 more.');
     });
   });

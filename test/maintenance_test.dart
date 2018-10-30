@@ -113,7 +113,7 @@ final _withIssuesJson = {
   ]
 };
 
-final _perfect = new Maintenance(
+final _perfect = Maintenance(
   missingChangelog: false,
   missingReadme: false,
   missingExample: false,
@@ -125,18 +125,18 @@ final _perfect = new Maintenance(
   dartdocSuccessful: true,
 );
 
-final _withIssues = new Maintenance.fromJson(_withIssuesJson);
+final _withIssues = Maintenance.fromJson(_withIssuesJson);
 
 void main() {
   group('detectMaintenance', () {
     test('empty directory', () async {
       final maintenance = await detectMaintenance(
-        new InspectOptions(),
-        new UrlChecker(),
+        InspectOptions(),
+        UrlChecker(),
         d.sandbox,
-        new Pubspec.fromJson({'name': 'sandbox', 'version': '0.0.1-alpha'}),
+        Pubspec.fromJson({'name': 'sandbox', 'version': '0.0.1-alpha'}),
         [
-          new PkgDependency(
+          PkgDependency(
             package: 'foo',
             dependencyType: 'direct',
             constraintType: 'empty',
@@ -146,7 +146,7 @@ void main() {
             errors: null,
           )
         ],
-        pkgPlatform: new DartPlatform.conflict('conflict description'),
+        pkgPlatform: DartPlatform.conflict('conflict description'),
         dartdocSuccessful: false,
       );
 
@@ -175,7 +175,7 @@ void main() {
 
       for (var offset in expectedScores.keys) {
         test("from $offset days ago", () {
-          final age = offset == null ? null : new Duration(days: offset);
+          final age = offset == null ? null : Duration(days: offset);
           final expectedScore = expectedScores[offset];
 
           Matcher matcher;

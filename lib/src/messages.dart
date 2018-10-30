@@ -9,15 +9,15 @@ class _MsgDict {
   final String dartfmtShortCmd;
 
   _MsgDict._({
-    this.dartanalyzerShortName: 'dartanalyzer',
-    this.dartanalyzerShortCmd: 'dartanalyzer .',
-    this.dartfmtShortName: 'dartfmt',
-    this.dartfmtShortCmd: 'dartfmt -n .',
+    this.dartanalyzerShortName = 'dartanalyzer',
+    this.dartanalyzerShortCmd = 'dartanalyzer .',
+    this.dartfmtShortName = 'dartfmt',
+    this.dartfmtShortCmd = 'dartfmt -n .',
   });
 
-  static _MsgDict defaultDict = new _MsgDict._();
+  static _MsgDict defaultDict = _MsgDict._();
 
-  static _MsgDict flutterDict = new _MsgDict._(
+  static _MsgDict flutterDict = _MsgDict._(
     dartanalyzerShortName: 'flutter analyze',
     dartanalyzerShortCmd: 'flutter analyze',
     dartfmtShortName: 'flutter format',

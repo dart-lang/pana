@@ -14,18 +14,18 @@ class ComponentDef {
   const ComponentDef(this.name, this.dependencies);
 
   /// Flutter and related libraries
-  static const ComponentDef flutter = const ComponentDef(
+  static const ComponentDef flutter = ComponentDef(
     ComponentNames.flutter,
-    const <String>[
+    <String>[
       'dart:ui',
       'package:flutter',
     ],
   );
 
   /// dart:html and related libraries
-  static const ComponentDef html = const ComponentDef(
+  static const ComponentDef html = ComponentDef(
     ComponentNames.html,
-    const <String>[
+    <String>[
       'dart:html',
       'dart:indexed_db',
       'dart:svg',
@@ -36,57 +36,57 @@ class ComponentDef {
   );
 
   /// dart:js and related libraries
-  static const ComponentDef js = const ComponentDef(
+  static const ComponentDef js = ComponentDef(
     ComponentNames.js,
-    const <String>[
+    <String>[
       'dart:js',
       'dart:js_util',
     ],
   );
 
   /// dart:io and related libraries
-  static const ComponentDef io = const ComponentDef(
+  static const ComponentDef io = ComponentDef(
     ComponentNames.io,
-    const <String>[
+    <String>[
       'dart:io',
     ],
   );
 
   /// dart:isolate and related libraries
-  static const ComponentDef isolate = const ComponentDef(
+  static const ComponentDef isolate = ComponentDef(
     ComponentNames.isolate,
-    const <String>[
+    <String>[
       'dart:isolate',
     ],
   );
 
   /// dart:nativewrappers and related libraries
-  static const ComponentDef nativewrappers = const ComponentDef(
+  static const ComponentDef nativewrappers = ComponentDef(
     ComponentNames.nativewrappers,
-    const <String>[
+    <String>[
       'dart:nativewrappers',
       'dart-ext:',
     ],
   );
 
   /// dart:nativewrappers and related libraries
-  static const ComponentDef build = const ComponentDef(
+  static const ComponentDef build = ComponentDef(
     ComponentNames.build,
-    const <String>[
+    <String>[
       'package:barback',
       'package:build',
     ],
   );
 
   /// dart:mirrors and related libraries
-  static const ComponentDef mirrors = const ComponentDef(
+  static const ComponentDef mirrors = ComponentDef(
     ComponentNames.mirrors,
-    const <String>[
+    <String>[
       'dart:mirrors',
     ],
   );
 
-  static const List<ComponentDef> values = const <ComponentDef>[
+  static const List<ComponentDef> values = <ComponentDef>[
     ComponentDef.flutter,
     ComponentDef.html,
     ComponentDef.js,
@@ -111,12 +111,12 @@ class PlatformDef {
   const PlatformDef(this.name, this.required, this.forbidden);
 
   /// Package uses or depends on Flutter.
-  static const PlatformDef flutter = const PlatformDef(
+  static const PlatformDef flutter = PlatformDef(
     PlatformNames.flutter,
-    const <ComponentDef>[
+    <ComponentDef>[
       ComponentDef.flutter,
     ],
-    const <ComponentDef>[
+    <ComponentDef>[
       ComponentDef.html,
       ComponentDef.js,
       ComponentDef.mirrors,
@@ -125,13 +125,13 @@ class PlatformDef {
   );
 
   /// Package is available in web applications.
-  static const PlatformDef web = const PlatformDef(
+  static const PlatformDef web = PlatformDef(
     PlatformNames.web,
-    const <ComponentDef>[
+    <ComponentDef>[
       ComponentDef.html,
       ComponentDef.js,
     ],
-    const <ComponentDef>[
+    <ComponentDef>[
       ComponentDef.flutter,
       ComponentDef.isolate,
       ComponentDef.nativewrappers,
@@ -139,29 +139,29 @@ class PlatformDef {
   );
 
   /// Fallback platform
-  static const PlatformDef other = const PlatformDef(
+  static const PlatformDef other = PlatformDef(
     PlatformNames.other,
-    const <ComponentDef>[
+    <ComponentDef>[
       ComponentDef.js,
       ComponentDef.io,
       ComponentDef.isolate,
       ComponentDef.nativewrappers,
       ComponentDef.mirrors,
     ],
-    const <ComponentDef>[
+    <ComponentDef>[
       ComponentDef.flutter,
       ComponentDef.html,
     ],
   );
 
-  static const List<PlatformDef> values = const <PlatformDef>[
+  static const List<PlatformDef> values = <PlatformDef>[
     PlatformDef.flutter,
     PlatformDef.web,
     PlatformDef.other,
   ];
 
   static Map<String, PlatformUse> detectUses(List<ComponentDef> components) {
-    return new Map<String, PlatformUse>.fromIterable(
+    return Map<String, PlatformUse>.fromIterable(
       values,
       key: (p) => (p as PlatformDef).name,
       value: (p) => (p as PlatformDef).detectUse(components),
@@ -169,7 +169,7 @@ class PlatformDef {
   }
 
   PlatformUse detectUse(List<ComponentDef> components) {
-    final isUsed = components.any((c) => required.contains(c));
+    final isUsed = components.any(required.contains);
     // Default: everything is allowed, except explicitly forbidden components.
     var isAllowed =
         components.isEmpty || components.every((c) => !forbidden.contains(c));
@@ -195,10 +195,10 @@ PlatformUse _getPlatformStatus(bool isAllowed, bool isUsed) {
 DartPlatform classifyPkgPlatform(
     Pubspec pubspec, Map<String, List<String>> transitiveLibs) {
   if (transitiveLibs == null) {
-    return new DartPlatform.conflict('Failed to scan transitive libraries.');
+    return DartPlatform.conflict('Failed to scan transitive libraries.');
   }
 
-  final libraries = new Map<String, DartPlatform>.fromIterable(
+  final libraries = Map<String, DartPlatform>.fromIterable(
       transitiveLibs.keys ?? <String>[],
       value: (key) => classifyLibPlatform(transitiveLibs[key]));
 
@@ -207,7 +207,7 @@ DartPlatform classifyPkgPlatform(
     return '`$s` (components: $components)';
   }
 
-  final allComponentsSet = new Set<String>();
+  final allComponentsSet = Set<String>();
   libraries.values
       .map((p) => p.components)
       .where((c) => c != null)
@@ -219,16 +219,16 @@ DartPlatform classifyPkgPlatform(
     final flutterConflicts =
         libraries.keys.where((key) => !libraries[key].worksOnFlutter).toList();
     if (flutterConflicts.isEmpty) {
-      final withFlutter = new Set<String>.from(allComponentsSet)
+      final withFlutter = Set<String>.from(allComponentsSet)
         ..add(ComponentNames.flutter);
-      return new DartPlatform.fromComponents(
+      return DartPlatform.fromComponents(
         withFlutter.toList()..sort(),
         reason: 'References Flutter, and has no conflicting libraries.',
       );
     } else {
       flutterConflicts.sort();
       final sample = buildSample(flutterConflicts.map(formatConflictSample));
-      return new DartPlatform.conflict(
+      return DartPlatform.conflict(
           'References Flutter, but has conflicting libraries: $sample.');
     }
   }
@@ -238,23 +238,23 @@ DartPlatform classifyPkgPlatform(
   if (primaryLibrary != null) {
     final primaryPlatform = libraries[primaryLibrary];
     if (primaryPlatform.worksEverywhere) {
-      return new DartPlatform.everywhere(
+      return DartPlatform.everywhere(
           'No platform restriction found in primary library `$primaryLibrary`.');
     } else {
       final componentsFound =
           primaryPlatform.components.map((name) => '`$name`').join(', ');
-      return new DartPlatform.fromComponents(primaryPlatform.components,
+      return DartPlatform.fromComponents(primaryPlatform.components,
           reason:
               'Primary library: `$primaryLibrary` with components: $componentsFound.');
     }
   }
 
   if (transitiveLibs.isEmpty) {
-    return new DartPlatform.everywhere('No libraries.');
+    return DartPlatform.everywhere('No libraries.');
   }
 
   if (allComponentsSet.isEmpty) {
-    return new DartPlatform.everywhere(
+    return DartPlatform.everywhere(
         'No platform restriction found in libraries.');
   }
 
@@ -263,11 +263,11 @@ DartPlatform classifyPkgPlatform(
   if (conflicts.isNotEmpty) {
     conflicts.sort();
     final sample = buildSample(conflicts.map(formatConflictSample));
-    return new DartPlatform.conflict('Conflicting libraries: $sample.');
+    return DartPlatform.conflict('Conflicting libraries: $sample.');
   }
 
   final componentsFound = allComponentNames.map((name) => '`$name`').join(', ');
-  return new DartPlatform.fromComponents(allComponentNames,
+  return DartPlatform.fromComponents(allComponentNames,
       reason: 'Platform components identified in package: $componentsFound.');
 }
 
@@ -284,11 +284,11 @@ DartPlatform classifyLibPlatform(Iterable<String> dependencies) {
   final components = ComponentDef.detectComponents(dependencies);
   final platforms = PlatformDef.detectUses(components);
   final componentNames = components.map((c) => c.name).toList();
-  return new DartPlatform(componentNames, platforms);
+  return DartPlatform(componentNames, platforms);
 }
 
 Set<String> _normalizeDependencies(Iterable<String> dependencies) {
-  var deps = new Set<String>();
+  var deps = Set<String>();
   deps.addAll(dependencies);
   // maps `package:pkg/lib.dart` -> `package:pkg`
   deps.addAll(dependencies.map((dep) => dep.split('/').first));

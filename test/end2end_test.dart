@@ -24,7 +24,7 @@ void main() {
     tempDir = await Directory.systemTemp.createTemp('pana-test');
     rootPath = await tempDir.resolveSymbolicLinks();
     final pubCacheDir = '$rootPath/pub-cache';
-    await new Directory(pubCacheDir).create();
+    await Directory(pubCacheDir).create();
     analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
   });
 
@@ -40,7 +40,7 @@ void main() {
         var summary = await analyzer.inspectPackage(
           package,
           version: version,
-          options: new InspectOptions(
+          options: InspectOptions(
             verbosity: Verbosity.verbose,
           ),
         );
@@ -49,7 +49,7 @@ void main() {
         assert(summary.runtimeInfo.panaVersion == packageVersion);
         assert(summary.runtimeInfo.sdkVersion != null);
         summary = summary.change(
-            runtimeInfo: new PanaRuntimeInfo(
+            runtimeInfo: PanaRuntimeInfo(
           panaVersion: '{{pana-version}}',
           sdkVersion: '{{sdk-version}}',
           flutterVersions: {},
@@ -62,7 +62,7 @@ void main() {
         assert(summary.stats.resolveProcessElapsed != null);
         assert(summary.stats.totalElapsed != null);
         summary = summary.change(
-          stats: new Stats(
+          stats: Stats(
             analyzeProcessElapsed: 1234,
             formatProcessElapsed: 567,
             resolveProcessElapsed: 899,
@@ -76,9 +76,9 @@ void main() {
       });
 
       test('matches known good', () {
-        final file = new File('$goldenDir/$fileName');
+        final file = File('$goldenDir/$fileName');
         if (_regenerateGoldens) {
-          final content = new JsonEncoder.withIndent('  ').convert(actualMap);
+          final content = const JsonEncoder.withIndent('  ').convert(actualMap);
           file.writeAsStringSync(content);
           fail('Set `_regenerateGoldens` to `false` to run tests.');
         }
@@ -115,7 +115,7 @@ void main() {
       });
 
       test('Summary can round-trip', () {
-        var summary = new Summary.fromJson(actualMap);
+        var summary = Summary.fromJson(actualMap);
 
         var roundTrip = json.decode(json.encode(summary));
         expect(roundTrip, actualMap);
@@ -133,7 +133,7 @@ void main() {
 
 Matcher isSemVer = predicate<String>((String versionString) {
   try {
-    new Version.parse(versionString);
+    Version.parse(versionString);
   } catch (e) {
     return false;
   }

@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('PkgResolution.create', () {
-    final pubspec = new Pubspec({
+    final pubspec = Pubspec({
       'name': 'sample',
     });
 
@@ -19,14 +19,14 @@ void main() {
       expect(summary.dependencies, hasLength(61));
       final args =
           summary.dependencies.firstWhere((pd) => pd.package == 'args');
-      expect(args.resolved, new Version.parse('0.13.7'));
+      expect(args.resolved, Version.parse('0.13.7'));
       expect(args.available, isNull);
       expect(args.isLatest, isTrue);
 
       final analyzer =
           summary.dependencies.firstWhere((pd) => pd.package == 'analyzer');
-      expect(analyzer.resolved, new Version.parse('0.29.8'));
-      expect(analyzer.available, new Version.parse('0.30.0-alpha.1'));
+      expect(analyzer.resolved, Version.parse('0.29.8'));
+      expect(analyzer.available, Version.parse('0.30.0-alpha.1'));
       expect(analyzer.isOutdated, isTrue);
 
       expect(summary.outdated, hasLength(7));

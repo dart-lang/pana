@@ -65,7 +65,7 @@ final List<String> analysisOptionsFiles = const [
 ];
 
 String firstFileFromNames(List<String> files, List<String> names,
-    {bool caseSensitive: false}) {
+    {bool caseSensitive = false}) {
   for (var name in names) {
     for (var file in files) {
       if (file == name) {
@@ -109,7 +109,7 @@ Suggestion getAgeSuggestion(Duration age) {
   age ??= Duration.zero;
 
   if (age > _twoYears) {
-    return new Suggestion.warning(
+    return Suggestion.warning(
         SuggestionCode.packageVersionObsolete,
         'Package is too old.',
         'The package was released more than two years ago.',
@@ -121,10 +121,10 @@ Suggestion getAgeSuggestion(Duration age) {
     final ageInWeeks = age.inDays ~/ 7;
     final daysOverAYear = age.inDays - _year.inDays;
     final score = max(0.0, min(100.0, daysOverAYear * 100.0 / 365));
-    return new Suggestion.hint(
+    return Suggestion.hint(
         SuggestionCode.packageVersionOld,
         'Package is getting outdated.',
-        'The package was released ${ageInWeeks} weeks ago.',
+        'The package was released $ageInWeeks weeks ago.',
         score: score);
   }
 
@@ -150,13 +150,13 @@ Future<Maintenance> detectMaintenance(
 
   Future<bool> anyFileExists(
     List<String> names, {
-    bool caseSensitive: false,
-    int minLength: 0,
+    bool caseSensitive = false,
+    int minLength = 0,
   }) async {
     final fileName =
         firstFileFromNames(files, names, caseSensitive: caseSensitive);
     if (fileName != null) {
-      final file = new File(p.join(pkgDir, fileName));
+      final file = File(p.join(pkgDir, fileName));
       if (await file.exists()) {
         final length = await file.length();
         return length >= minLength;
@@ -175,7 +175,7 @@ Future<Maintenance> detectMaintenance(
   var strongModeDisabled = false;
   if (analysisOptionsExists) {
     for (var name in analysisOptionsFiles) {
-      final file = new File(p.join(pkgDir, name));
+      final file = File(p.join(pkgDir, name));
       if (await file.exists()) {
         final content = await file.readAsString();
         try {
@@ -186,7 +186,7 @@ Future<Maintenance> detectMaintenance(
             strongModeDisabled = value is bool && value == false;
           }
         } catch (_) {
-          maintenanceSuggestions.add(new Suggestion.warning(
+          maintenanceSuggestions.add(Suggestion.warning(
               SuggestionCode.analysisOptionsParseFailed,
               'Fix `$name`.',
               'We were unable to parse `$name`.',
@@ -201,14 +201,14 @@ Future<Maintenance> detectMaintenance(
       isInternalPackage: options.isInternal);
   if (homepageStatus == UrlStatus.invalid ||
       homepageStatus == UrlStatus.internal) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
       SuggestionCode.pubspecHomepageIsNotHelpful,
       'Homepage is not helpful.',
       'Update the `homepage` property: create a website about the package or use the source repository URL.',
       score: 10.0,
     ));
   } else if (homepageStatus == UrlStatus.missing) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
       SuggestionCode.pubspecHomepageDoesNotExists,
       'Homepage does not exists.',
       'We were unable to access `${pubspec.homepage}` at the time of the analysis.',
@@ -221,14 +221,14 @@ Future<Maintenance> detectMaintenance(
         pubspec.documentation,
         isInternalPackage: options.isInternal);
     if (documentationStatus == UrlStatus.internal) {
-      maintenanceSuggestions.add(new Suggestion.warning(
+      maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.pubspecDocumentationIsNotHelpful,
         'Documentation URL is not helpful.',
         'Update the `documentation` property: create a website about the package or remove it.',
         score: 10.0,
       ));
     } else if (documentationStatus == UrlStatus.missing) {
-      maintenanceSuggestions.add(new Suggestion.warning(
+      maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.pubspecDocumentationDoesNotExists,
         'Documentation URL does not exists.',
         'We were unable to access `${pubspec.documentation}` at the time of the analysis.',
@@ -238,7 +238,7 @@ Future<Maintenance> detectMaintenance(
   }
 
   if (!pubspec.hasDartSdkConstraint) {
-    maintenanceSuggestions.add(new Suggestion.error(
+    maintenanceSuggestions.add(Suggestion.error(
         SuggestionCode.pubspecSdkConstraintMissing,
         'Add SDK constraint in `pubspec.yaml`.',
         'For information about setting SDK constraint, please see '
@@ -247,7 +247,7 @@ Future<Maintenance> detectMaintenance(
   }
 
   if (pubspec.shouldWarnDart2Constraint) {
-    maintenanceSuggestions.add(new Suggestion.error(
+    maintenanceSuggestions.add(Suggestion.error(
         SuggestionCode.pubspecSdkConstraintDevOnly,
         'Support Dart 2 in `pubspec.yaml`.',
         'The SDK constraint in pubspec.yaml doesn\'t allow the Dart 2.0.0 release. '
@@ -261,7 +261,7 @@ Future<Maintenance> detectMaintenance(
   }
 
   if (pkgPlatform.hasConflict) {
-    maintenanceSuggestions.add(new Suggestion.error(
+    maintenanceSuggestions.add(Suggestion.error(
         SuggestionCode.platformConflictInPkg,
         'Fix platform conflicts.',
         pkgPlatform.reason,
@@ -269,14 +269,14 @@ Future<Maintenance> detectMaintenance(
   }
 
   if (!changelogExists) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.changelogMissing,
         'Maintain `CHANGELOG.md`.',
         'Changelog entries help clients to follow the progress in your code.',
         score: 20.0));
   }
   if (!readmeExists) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.readmeMissing,
         'Maintain `README.md`.',
         'Readme should inform others about your project, what it does, and how they can use it.',
@@ -285,14 +285,14 @@ Future<Maintenance> detectMaintenance(
   if (!exampleFileExists) {
     final exampleDirExists = files.any((file) => file.startsWith('example/'));
     if (exampleDirExists) {
-      maintenanceSuggestions.add(new Suggestion.hint(
+      maintenanceSuggestions.add(Suggestion.hint(
           SuggestionCode.exampleMissing,
           'Maintain an example.',
           'None of the files in your `example/` directory matches a known example patterns. '
           'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`. '
           'Packages with multiple examples should use `example/readme.md`.'));
     } else {
-      maintenanceSuggestions.add(new Suggestion.hint(
+      maintenanceSuggestions.add(Suggestion.hint(
           SuggestionCode.exampleMissing,
           'Maintain an example.',
           'Create a short demo in the `example/` directory to show how to use this package. '
@@ -301,14 +301,14 @@ Future<Maintenance> detectMaintenance(
     }
   }
   if (oldAnalysisOptions) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.analysisOptionsRenameRequired,
         'Use `analysis_options.yaml`.',
         'Rename old `.analysis_options` file to `analysis_options.yaml`.',
         score: 10.0));
   }
   if (analysisOptionsExists && strongModeDisabled) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.analysisOptionsWeakMode,
         'The option `strong-mode: false` is being deprecated.',
         'Remove `strong-mode: false` from your `analysis_options.yaml` file:\n\n'
@@ -322,7 +322,7 @@ Future<Maintenance> detectMaintenance(
 
   // Pre-v1
   if (isExperimentalVersion) {
-    maintenanceSuggestions.add(new Suggestion.hint(
+    maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.packageVersionPreV01,
         'Package is pre-v0.1 release.',
         'While there is nothing inherently wrong with versions of `0.0.*`, it '
@@ -333,7 +333,7 @@ Future<Maintenance> detectMaintenance(
 
   // Not a "gold" release
   if (isPreReleaseVersion) {
-    maintenanceSuggestions.add(new Suggestion.hint(
+    maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.packageVersionPreRelease,
         'Package is pre-release.',
         'Pre-release versions should be used with caution, their API may change '
@@ -344,7 +344,7 @@ Future<Maintenance> detectMaintenance(
   // Checking the length of description.
   final description = pubspec.description?.trim();
   if (description == null || description.isEmpty) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.pubspecDescriptionTooShort,
         'Add `description` in `pubspec.yaml`.',
         'Description is critical to giving users a quick insight into the features '
@@ -352,14 +352,14 @@ Future<Maintenance> detectMaintenance(
         'Ideal length is between 60 and 180 characters.',
         score: 20.0));
   } else if (description.length < 60) {
-    maintenanceSuggestions.add(new Suggestion.hint(
+    maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooShort,
         'The description is too short.',
         'Add more detail about the package, what it does and what is its target use case. '
         'Try to write at least 60 characters.',
         score: 20.0));
   } else if (description.length > 180) {
-    maintenanceSuggestions.add(new Suggestion.hint(
+    maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooLong,
         'The description is too long.',
         'Search engines will display only the first part of the description. '
@@ -369,7 +369,7 @@ Future<Maintenance> detectMaintenance(
 
   // Checking the non-English characters in the description
   if (nonAsciiRuneRatio(description) > 0.1) {
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.pubspecDescriptionAsciiOnly,
         'The description contains too many non-ASCII characters.',
         "The site uses English as it's primary language. Please use a "
@@ -384,7 +384,7 @@ Future<Maintenance> detectMaintenance(
         .map((pd) => pd.package)
         .map((name) => '`$name`')
         .join(', ');
-    maintenanceSuggestions.add(new Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.pubspecDependenciesUnconstrained,
         'Use constrained dependencies.',
         'The `pubspec.yaml` contains $pluralized without version constraints. '
@@ -393,7 +393,7 @@ Future<Maintenance> detectMaintenance(
   }
 
   maintenanceSuggestions.sort();
-  return new Maintenance(
+  return Maintenance(
     missingChangelog: !changelogExists,
     missingReadme: !readmeExists,
     missingExample: !exampleFileExists,

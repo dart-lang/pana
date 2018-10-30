@@ -18,9 +18,9 @@ import 'pubspec.dart';
 import 'utils.dart';
 import 'version.dart';
 
-final _logger = new Logger('pana.env');
+final _logger = Logger('pana.env');
 
-const _dartfmtTimeout = const Duration(minutes: 5);
+const _dartfmtTimeout = Duration(minutes: 5);
 
 class ToolEnvironment {
   final String dartSdkDir;
@@ -54,14 +54,14 @@ class ToolEnvironment {
     final dartVersionResult = handleProcessErrors(
         await runProc(_dartCmd, ['--version'], environment: _environment));
     final dartVersionString = dartVersionResult.stderr.toString().trim();
-    final dartSdkInfo = new DartSdkInfo.parse(dartVersionString);
+    final dartSdkInfo = DartSdkInfo.parse(dartVersionString);
     Map<String, dynamic> flutterVersions;
     try {
       flutterVersions = await getFlutterVersion();
     } catch (e, st) {
       _logger.warning('Unable to detect Flutter version.', e, st);
     }
-    _runtimeInfo = new PanaRuntimeInfo(
+    _runtimeInfo = PanaRuntimeInfo(
       panaVersion: packageVersion,
       sdkVersion: dartSdkInfo.version.toString(),
       flutterVersions: flutterVersions,
@@ -73,11 +73,11 @@ class ToolEnvironment {
     String flutterSdkDir,
     String pubCacheDir,
     Map<String, String> environment,
-    bool useGlobalDartdoc: false,
+    bool useGlobalDartdoc = false,
   }) async {
     Future<String> resolve(String dir) async {
       if (dir == null) return null;
-      return new Directory(dir).resolveSymbolicLinks();
+      return Directory(dir).resolveSymbolicLinks();
     }
 
     dartSdkDir ??= cli.getSdkPath();
@@ -100,7 +100,7 @@ class ToolEnvironment {
     pubEnvValues.add('bot.pkg_pana');
     env[_pubEnvironmentKey] = pubEnvValues.join(':');
 
-    final toolEnv = new ToolEnvironment._(
+    final toolEnv = ToolEnvironment._(
       resolvedDartSdk,
       resolvedPubCache,
       _join(resolvedDartSdk, 'bin', 'dart'),
@@ -119,14 +119,14 @@ class ToolEnvironment {
   Future<String> runAnalyzer(
       String packageDir, List<String> dirs, bool usesFlutter) async {
     final originalOptionsFile =
-        new File(p.join(packageDir, 'analysis_options.yaml'));
+        File(p.join(packageDir, 'analysis_options.yaml'));
     String originalOptions;
     if (await originalOptionsFile.exists()) {
       originalOptions = await originalOptionsFile.readAsString();
     }
     final customFileName =
-        'pana_analysis_options_${new DateTime.now().microsecondsSinceEpoch}.g.yaml';
-    final customOptionsFile = new File(p.join(packageDir, customFileName));
+        'pana_analysis_options_${DateTime.now().microsecondsSinceEpoch}.g.yaml';
+    final customOptionsFile = File(p.join(packageDir, customFileName));
     await customOptionsFile
         .writeAsString(customizeAnalysisOptions(originalOptions, usesFlutter));
     final params = ['--options', customOptionsFile.path, '--format', 'machine']
@@ -144,7 +144,7 @@ class ToolEnvironment {
         log.severe(output);
         var errorMessage =
             '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
-        throw new ArgumentError('dartanalyzer exception: $errorMessage');
+        throw ArgumentError('dartanalyzer exception: $errorMessage');
       }
       return output;
     } finally {
@@ -158,7 +158,7 @@ class ToolEnvironment {
     if (dirs.isEmpty) {
       return const [];
     }
-    final files = new Set<String>();
+    final files = Set<String>();
     for (final dir in dirs) {
       final fullPath = p.join(packageDir, dir);
 
@@ -196,7 +196,7 @@ class ToolEnvironment {
       }
 
       final output = result.stderr.toString().replaceAll('$packageDir/', '');
-      throw new Exception(
+      throw Exception(
           'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
     }
     return files.toList()..sort();
@@ -228,12 +228,12 @@ class ToolEnvironment {
   }
 
   Future<bool> detectFlutterUse(String packageDir) async {
-    final pubspec = new Pubspec.parseFromDir(packageDir);
+    final pubspec = Pubspec.parseFromDir(packageDir);
     return pubspec.usesFlutter;
   }
 
   Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,
-      {int retryCount: 3}) async {
+      {int retryCount = 3}) async {
     final backup = await _stripPubspecYaml(packageDir);
     try {
       return await retryProc(() async {
@@ -260,7 +260,7 @@ class ToolEnvironment {
   }
 
   Map<String, String> _globalDartdocEnv() {
-    final env = new Map<String, String>.from(_environment);
+    final env = Map<String, String>.from(_environment);
     if (pubCacheDir != null) {
       env.remove(_pubCacheKey);
     }
@@ -281,8 +281,8 @@ class ToolEnvironment {
     String outputDir, {
     String hostedUrl,
     String canonicalPrefix,
-    bool validateLinks: true,
-    bool linkToRemote: false,
+    bool validateLinks = true,
+    bool linkToRemote = false,
     Duration timeout,
     List<String> excludedLibs,
   }) async {
@@ -323,11 +323,9 @@ class ToolEnvironment {
         timeout: timeout,
       );
     }
-    final hasIndexHtml =
-        await new File(p.join(outputDir, 'index.html')).exists();
-    final hasIndexJson =
-        await new File(p.join(outputDir, 'index.json')).exists();
-    return new DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
+    final hasIndexHtml = await File(p.join(outputDir, 'index.html')).exists();
+    final hasIndexJson = await File(p.join(outputDir, 'index.json')).exists();
+    return DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
   }
 
   Future<PackageLocation> getLocation(String package, {String version}) async {
@@ -377,10 +375,10 @@ class ToolEnvironment {
         map['packages'][package][versionString]['location'] as String;
 
     if (location == null) {
-      throw new Exception('Huh? This should be cached!');
+      throw Exception('Huh? This should be cached!');
     }
 
-    return new PackageLocation(package, versionString, location);
+    return PackageLocation(package, versionString, location);
   }
 
   ProcessResult listPackageDirsSync(String packageDir, bool usesFlutter) {
@@ -406,11 +404,11 @@ class ToolEnvironment {
   /// Removes the dev_dependencies from the pubspec.yaml
   /// Returns the backup file with the original content.
   Future<File> _stripPubspecYaml(String packageDir) async {
-    final now = new DateTime.now();
-    final backup = new File(
+    final now = DateTime.now();
+    final backup = File(
         p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'));
 
-    final pubspec = new File(p.join(packageDir, 'pubspec.yaml'));
+    final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
     final original = await pubspec.readAsString();
     final parsed = yamlToJson(original);
     parsed.remove('dev_dependencies');
@@ -423,7 +421,7 @@ class ToolEnvironment {
   }
 
   Future _restorePubspecYaml(String packageDir, File backup) async {
-    final pubspec = new File(p.join(packageDir, 'pubspec.yaml'));
+    final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
     await backup.rename(pubspec.path);
   }
 }
@@ -451,7 +449,7 @@ class DartdocResult {
 
 class DartSdkInfo {
   static final _sdkRegexp =
-      new RegExp('Dart VM version:\\s([^\\s]+)\\s\\(([^\\)]+)\\) on "(\\w+)"');
+      RegExp('Dart VM version:\\s([^\\s]+)\\s\\(([^\\)]+)\\) on "(\\w+)"');
 
   // TODO: parse an actual `DateTime` here. Likely requires using pkg/intl
   final String dateString;
@@ -462,16 +460,16 @@ class DartSdkInfo {
 
   factory DartSdkInfo.parse(String versionOutput) {
     var match = _sdkRegexp.firstMatch(versionOutput);
-    var version = new Version.parse(match[1]);
+    var version = Version.parse(match[1]);
     var dateString = match[2];
     var platform = match[3];
 
-    return new DartSdkInfo._(version, dateString, platform);
+    return DartSdkInfo._(version, dateString, platform);
   }
 }
 
 final _versionDownloadRegexp =
-    new RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
+    RegExp(r"^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$");
 
 const _pubCacheKey = 'PUB_CACHE';
 const _pubEnvironmentKey = 'PUB_ENVIRONMENT';

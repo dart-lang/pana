@@ -11,7 +11,7 @@ void main() {
   test('parsing SDK version', () {
     final version =
         'Dart VM version: 2.0.0-dev.49.0 (Wed Apr 18 20:41:36 2018 +0200) on "macos_x64"';
-    final sdkInfo = new DartSdkInfo.parse(version);
-    expect(sdkInfo.version, new Version.parse('2.0.0-dev.49.0'));
+    final sdkInfo = DartSdkInfo.parse(version);
+    expect(sdkInfo.version, Version.parse('2.0.0-dev.49.0'));
   });
 }

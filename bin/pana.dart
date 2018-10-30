@@ -15,7 +15,7 @@ import 'package:pana/pana.dart';
 
 const defaultHostedUrl = 'https://pub.dartlang.org';
 
-final _parser = new ArgParser()
+final _parser = ArgParser()
   ..addOption('flutter-sdk', help: 'The directory of the Flutter SDK.')
   ..addFlag('json',
       abbr: 'j',
@@ -116,7 +116,7 @@ main(List<String> args) async {
   });
 
   var tempDir = Directory.systemTemp
-      .createTempSync('pana.${new DateTime.now().millisecondsSinceEpoch}.');
+      .createTempSync('pana.${DateTime.now().millisecondsSinceEpoch}.');
 
   // Critical to make sure analyzer paths align well
   var tempPath = await tempDir.resolveSymbolicLinks();
@@ -137,7 +137,7 @@ main(List<String> args) async {
                   'Version must be specified when using --hosted-url option.');
           return;
         }
-        final options = new InspectOptions(
+        final options = InspectOptions(
           verbosity: verbosity,
           pubHostedUrl: pubHostedUrl,
         );
@@ -149,13 +149,13 @@ main(List<String> args) async {
             version: version, options: options);
       } else if (source == 'path') {
         final path = firstArg('No path was provided.');
-        final absolutePath = await new Directory(path).resolveSymbolicLinks();
+        final absolutePath = await Directory(path).resolveSymbolicLinks();
         if (showWarning) {
           log.Logger.root
               .warning('pana might update or modify files in `$path`.\n'
                   'Analysis will begin in 15 seconds, hit CTRL+C to abort it.\n'
                   'To remove this message, use `--no-warning`.');
-          await new Future.delayed(const Duration(seconds: 15));
+          await Future.delayed(const Duration(seconds: 15));
         }
 
         var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
@@ -191,7 +191,7 @@ void _logWriter(log.LogRecord record) {
       wroteHeader = true;
       prefix = record.level.toString();
     }
-    return "${prefix.padRight(10)} ${l}";
+    return "${prefix.padRight(10)} $l";
   }).join('\n');
 
   overrideAnsiOutput(stderr.supportsAnsiEscapes, () {

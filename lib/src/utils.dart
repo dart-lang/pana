@@ -58,7 +58,7 @@ Future<ProcessResult> runProc(
   }
 
   timeout ??= _timeout;
-  var timer = new Timer(timeout, () {
+  var timer = Timer(timeout, () {
     killProc("Exceeded timeout of $timeout");
   });
 
@@ -91,11 +91,11 @@ Future<ProcessResult> runProc(
     stdoutLines.insert(0, killMessage);
     stderrLines.insert(0, killMessage);
 
-    return new ProcessResult(process.pid, exitCode,
+    return ProcessResult(process.pid, exitCode,
         stdoutLines.take(1000).join('\n'), stderrLines.take(1000).join('\n'));
   }
 
-  return new ProcessResult(
+  return ProcessResult(
       process.pid, exitCode, stdoutLines.join('\n'), stderrLines.join('\n'));
 }
 
@@ -107,11 +107,11 @@ ProcessResult handleProcessErrors(ProcessResult result) {
           .where((l) => l.startsWith("ERR "))
           .join('\n');
       if (lines.isNotEmpty) {
-        throw new Exception(lines);
+        throw Exception(lines);
       }
     }
 
-    throw new Exception('Problem running proc: exit code - ' +
+    throw Exception('Problem running proc: exit code - ' +
         [result.exitCode, result.stdout, result.stderr]
             .map((e) => e.toString().trim())
             .join('<***>'));
@@ -136,7 +136,7 @@ Future<ProcessResult> retryProc(
     } catch (e, st) {
       if (i < maxAttempt) {
         log.info('Async operation failed (attempt: $i of $maxAttempt).', e, st);
-        await new Future.delayed(sleep);
+        await Future.delayed(sleep);
         continue;
       }
       rethrow;
@@ -149,7 +149,7 @@ bool _defaultShouldRetry(ProcessResult pr) => pr.exitCode != 0;
 
 Stream<String> listFiles(String directory,
     {String endsWith, bool deleteBadExtracted = false}) {
-  var dir = new Directory(directory);
+  var dir = Directory(directory);
   return dir
       .list(recursive: true)
       .where((fse) => fse is File)
@@ -170,7 +170,7 @@ Stream<String> listFiles(String directory,
 }
 
 int fileSize(String packageDir, String relativePath) {
-  final file = new File(p.join(packageDir, relativePath));
+  final file = File(p.join(packageDir, relativePath));
 
   if (!file.existsSync()) {
     return null;
@@ -201,7 +201,7 @@ String prettyJson(obj) {
 
 /// If no `pubspec.yaml` file exists, `null` is returned.
 String getPubspecContent(String packagePath) {
-  var theFile = new File(p.join(packagePath, 'pubspec.yaml'));
+  var theFile = File(p.join(packagePath, 'pubspec.yaml'));
   if (theFile.existsSync()) {
     return theFile.readAsStringSync();
   }
@@ -215,7 +215,7 @@ Object sortedJson(obj) {
 
 _toSortedMap(Object item) {
   if (item is Map) {
-    return new SplayTreeMap<String, Object>.fromIterable(item.keys,
+    return SplayTreeMap<String, Object>.fromIterable(item.keys,
         value: (k) => _toSortedMap(item[k]));
   } else if (item is List) {
     return item.map(_toSortedMap).toList();

@@ -38,7 +38,7 @@ Health calcHealth({
       if (s.platform.reason != null && s.platform.reason.isNotEmpty) {
         description += ' ${s.platform.reason}';
       }
-      suggestions.add(new Suggestion.error(
+      suggestions.add(Suggestion.error(
         SuggestionCode.platformConflictInFile,
         'Fix platform conflict in `${s.path}`.',
         description,
@@ -48,7 +48,7 @@ Health calcHealth({
     }
 
     if (s.isFormatted == false) {
-      suggestions.add(new Suggestion.hint(
+      suggestions.add(Suggestion.hint(
         SuggestionCode.dartfmtWarning,
         'Format `${s.path}`.',
         messages.runDartfmtToFormatFile(pubspec.usesFlutter, s.path),
@@ -85,7 +85,7 @@ Health calcHealth({
       // but we'll display a disclaimer on the pub site for it.
       final score = calculateBaseHealth(errorCount, warningCount, hintCount);
       final penalty = (10000.0 * (1.0 - score)).roundToDouble() / 100.0;
-      suggestions.add(new Suggestion(
+      suggestions.add(Suggestion(
         SuggestionCode.dartanalyzerWarning,
         maxLevel,
         'Fix `$path`.',
@@ -98,7 +98,7 @@ Health calcHealth({
 
   suggestions.sort();
 
-  return new Health(
+  return Health(
     analyzeProcessFailed: analyzeProcessFailed,
     formatProcessFailed: formatProcessFailed,
     resolveProcessFailed: resolveProcessFailed,
@@ -114,7 +114,7 @@ List<Suggestion> _compact(
     List<Suggestion> allSuggestions, List<CodeProblem> analyzerItems) {
   final suggestions = <Suggestion>[];
 
-  final reportedFiles = new Set();
+  final reportedFiles = Set();
   final onePerFileSuggestions =
       allSuggestions.where((s) => reportedFiles.add(s.file)).toList()..sort();
 
@@ -127,7 +127,7 @@ List<Suggestion> _compact(
     suggestions.addAll(topSuggestions);
 
     if (restSuggestions.isNotEmpty) {
-      final sb = new StringBuffer();
+      final sb = StringBuffer();
       sb.write('Additional issues in the following files:\n\n');
 
       for (final s in restSuggestions) {
@@ -158,7 +158,7 @@ List<Suggestion> _compact(
           .where((d) => d != null)
           .fold<double>(0.0, (a, b) => a + b);
       suggestions.add(
-        new Suggestion(
+        Suggestion(
           SuggestionCode.bulk,
           level,
           'Fix additional ${restSuggestions.length} files with analysis or formatting issues.',

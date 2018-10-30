@@ -5,7 +5,7 @@ import 'model.dart';
 import 'utils.dart';
 
 class MiniSum {
-  static const _importantDirs = const ['bin', 'lib', 'test'];
+  static const _importantDirs = ['bin', 'lib', 'test'];
 
   final Summary summary;
 
@@ -13,8 +13,8 @@ class MiniSum {
 
   bool get pubClean => summary.pkgResolution != null;
 
-  Set<String> get authorDomains => new SplayTreeSet<String>.from(
-      summary.pubspec.authors.map(_domainFromAuthor));
+  Set<String> get authorDomains =>
+      SplayTreeSet<String>.from(summary.pubspec.authors.map(_domainFromAuthor));
 
   int get unformattedFiles =>
       summary.dartFiles.values.where((f) => !(f?.isFormatted ?? false)).length;
@@ -27,14 +27,14 @@ class MiniSum {
     var output = json.decode(content) as Map<String, dynamic>;
 
     if (output['pkgResolution'] == null) {
-      throw new Exception('Could not process ${output['packageName']}');
+      throw Exception('Could not process ${output['packageName']}');
     }
 
-    var summary = new Summary.fromJson(output);
+    var summary = Summary.fromJson(output);
 
     assert(prettyJson(summary.toJson()) == prettyJson(output));
 
-    return new MiniSum(summary);
+    return MiniSum(summary);
   }
 
   Map<String, dynamic> toJson() {
@@ -78,7 +78,7 @@ class MiniSum {
       } else if (v is double) {
         type = 'FLOAT';
       } else {
-        throw new Exception('Not supported! - $v - ${v.runtimeType}');
+        throw Exception('Not supported! - $v - ${v.runtimeType}');
       }
 
       items.add("$k:$type");
@@ -99,7 +99,7 @@ int _analyzerDartBytes(Map<String, DartFileSummary> data) {
   return bytes;
 }
 
-const _analyzeDirs = const ['lib', 'bin'];
+const _analyzeDirs = ['lib', 'bin'];
 
 Map<String, int> _analyzerThings(Iterable<CodeProblem> analyzerThings) {
   var items = <String, int>{
@@ -138,8 +138,8 @@ String _getAnalyzerOutputClass(
 }
 
 Map<String, int> _classifyFiles(Iterable<String> paths) {
-  var map = new SplayTreeMap<String, int>.fromIterable(
-      (["other"]..addAll(MiniSum._importantDirs)).map((e) => "files_${e}"),
+  var map = SplayTreeMap<String, int>.fromIterable(
+      (["other"]..addAll(MiniSum._importantDirs)).map((e) => "files_$e"),
       value: (_) => 0);
 
   for (var path in paths) {
@@ -162,7 +162,7 @@ String _classifyFile(String path) {
 
 const _domainRegexp =
     r"(?:[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)+[a-zA-Z]{2,}";
-final _domainThing = new RegExp("[@/]($_domainRegexp)>");
+final _domainThing = RegExp("[@/]($_domainRegexp)>");
 
 String _domainFromAuthor(String author) {
   var match = _domainThing.firstMatch(author);

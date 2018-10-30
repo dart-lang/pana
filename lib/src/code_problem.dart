@@ -8,7 +8,7 @@ import 'package:path/path.dart' as p;
 
 import 'model.dart';
 
-final _regexp = new RegExp('^' + // beginning of line
+final _regexp = RegExp('^' + // beginning of line
         '([\\w_\\.]+)\\|' * 3 + // first three error notes
         '([^\\|]+)\\|' + // file path
         '([\\w_\\.]+)\\|' * 3 + // line, column, length
@@ -18,7 +18,7 @@ final _regexp = new RegExp('^' + // beginning of line
 
 CodeProblem parseCodeProblem(String content, {String projectDir}) {
   if (content.isEmpty) {
-    throw new ArgumentError('Provided content is empty.');
+    throw ArgumentError('Provided content is empty.');
   }
   var matches = _regexp.allMatches(content).toList();
 
@@ -33,7 +33,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
         filePath = p.relative(filePath, from: projectDir);
       }
 
-      return new CodeProblem(
+      return CodeProblem(
         severity: 'WEIRD',
         errorType: 'UNKNOWN',
         errorCode: 'UNKNOWN',
@@ -48,7 +48,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
       return null;
     }
 
-    throw new ArgumentError(
+    throw ArgumentError(
         'Provided content does not align with expectations.\n`$content`');
   }
 
@@ -69,7 +69,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
     filePath = p.relative(filePath, from: projectDir);
   }
 
-  return new CodeProblem(
+  return CodeProblem(
     severity: severity,
     errorType: errorType,
     errorCode: errorCode,
