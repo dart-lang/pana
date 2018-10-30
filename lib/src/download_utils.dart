@@ -11,7 +11,7 @@ import 'package:path/path.dart' as p;
 import 'logging.dart';
 import 'utils.dart';
 
-final imageExtensions = new Set.from(['.gif', '.jpg', '.jpeg', '.png']);
+final imageExtensions = Set.from(['.gif', '.jpg', '.jpeg', '.png']);
 
 /// Returns a non-null Directory instance only if it is able to download and
 /// extract the direct package dependency. On any failure it clears the temp
@@ -20,13 +20,13 @@ Future<Directory> downloadPackage(String package, String version,
     {String pubHostedUrl}) async {
   final pubHostedUri = Uri.parse(pubHostedUrl ?? 'https://pub.dartlang.org');
   final temp = await Directory.systemTemp.createTemp('pana-');
-  final dir = new Directory(await temp.resolveSymbolicLinks());
+  final dir = Directory(await temp.resolveSymbolicLinks());
   try {
     final uri = pubHostedUri.replace(
         path: '/packages/$package/versions/$version.tar.gz');
     final bytes = await http.readBytes(uri);
     final archiveFileName = p.join(dir.path, '$package-$version.tar.gz');
-    final archiveFile = new File(archiveFileName);
+    final archiveFile = File(archiveFileName);
     await archiveFile.writeAsBytes(bytes);
     final pr = await runProc(
       'tar',
@@ -56,7 +56,7 @@ String getRepositoryUrl(String repository, String relativePath) {
   }
   try {
     final uri = Uri.parse(repository);
-    final segments = new List<String>.from(uri.pathSegments);
+    final segments = List<String>.from(uri.pathSegments);
     while (segments.isNotEmpty && segments.last.isEmpty) {
       segments.removeLast();
     }
@@ -85,7 +85,7 @@ String getRepositoryUrl(String repository, String relativePath) {
   return null;
 }
 
-const _repoReplacePrefixes = const {
+const _repoReplacePrefixes = {
   'http://github.com': 'https://github.com',
   'https://www.github.com': 'https://github.com',
   'https://www.gitlab.com': 'https://gitlab.com',
@@ -99,18 +99,18 @@ enum UrlStatus {
 }
 
 class UrlChecker {
-  final _internalHosts = new Set<Pattern>();
+  final _internalHosts = Set<Pattern>();
   final _resolveCache = <String, bool>{};
   final int _resolveCacheLimit;
 
   UrlChecker({
-    int resolveCacheLimit: 1000,
+    int resolveCacheLimit = 1000,
   }) : _resolveCacheLimit = resolveCacheLimit {
     addInternalHosts([
       'dartlang.org',
-      new RegExp(r'.*\.dartlang\.org'),
+      RegExp(r'.*\.dartlang\.org'),
       'example.com',
-      new RegExp(r'.*\.example.com'),
+      RegExp(r'.*\.example.com'),
       'localhost',
     ]);
   }
@@ -167,7 +167,7 @@ class UrlChecker {
   }
 
   Future<UrlStatus> checkStatus(String url,
-      {bool isInternalPackage: false}) async {
+      {bool isInternalPackage = false}) async {
     if (url == null) {
       return UrlStatus.invalid;
     }

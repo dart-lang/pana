@@ -14,7 +14,7 @@ import 'download_utils.dart';
 import 'model.dart';
 
 Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
-  final rootFiles = await new Directory(baseDir).list().toList();
+  final rootFiles = await Directory(baseDir).list().toList();
   final licenseCandidates = rootFiles
       .where((fse) => fse is File)
       .cast<File>()
@@ -72,10 +72,10 @@ Future<LicenseFile> detectLicenseInFile(File file,
     // TODO(kevmoo): Have to throw a copy of this exception due to
     //   https://github.com/dart-lang/sdk/issues/31619
     //   otherwise the log won't have a helpful stacktrace
-    throw new FileSystemException(e.message, e.path, e.osError);
+    throw FileSystemException(e.message, e.path, e.osError);
   }
   var license = detectLicenseInContent(content, relativePath: relativePath);
-  return license ?? new LicenseFile(relativePath, LicenseNames.unknown);
+  return license ?? LicenseFile(relativePath, LicenseNames.unknown);
 }
 
 LicenseFile detectLicenseInContent(String originalContent,
@@ -98,64 +98,61 @@ LicenseFile detectLicenseInContent(String originalContent,
   }
 
   if (_mpl.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.MPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.MPL, version: version);
   }
   if (_agpl.hasMatch(stripped) && !_useWithAgpl.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.AGPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.AGPL, version: version);
   }
   if (_apache.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.Apache, version: version);
+    return LicenseFile(relativePath, LicenseNames.Apache, version: version);
   }
   if (_lgpl.hasMatch(stripped) && !_useLgplInstead.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.LGPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.LGPL, version: version);
   }
   if (_gplLong.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.GPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.GPL, version: version);
   }
   if (_gplShort.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.GPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.GPL, version: version);
   }
   if (_mit.hasMatch(stripped) || _mitEmphasis.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.MIT, version: version);
+    return LicenseFile(relativePath, LicenseNames.MIT, version: version);
   }
   if (_unlicense.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.Unlicense,
-        version: version);
+    return LicenseFile(relativePath, LicenseNames.Unlicense, version: version);
   }
 
   if (_bsdPreamble.hasMatch(stripped) && _bsdEmphasis.hasMatch(stripped)) {
-    return new LicenseFile(relativePath, LicenseNames.BSD);
+    return LicenseFile(relativePath, LicenseNames.BSD);
   }
 
   return null;
 }
 
-final RegExp _whitespace = new RegExp('\\s+');
-final RegExp _extraCharacters = new RegExp('\\"|\\\'|\\*');
+final RegExp _whitespace = RegExp('\\s+');
+final RegExp _extraCharacters = RegExp('\\"|\\\'|\\*');
 
 final RegExp _agpl =
-    new RegExp('GNU AFFERO GENERAL PUBLIC LICENSE', caseSensitive: false);
-final RegExp _useWithAgpl = new RegExp(
+    RegExp('GNU AFFERO GENERAL PUBLIC LICENSE', caseSensitive: false);
+final RegExp _useWithAgpl = RegExp(
     'Use with the GNU Affero General Public License',
     caseSensitive: false);
-final RegExp _apache = new RegExp(r'Apache License', caseSensitive: false);
-final RegExp _gplLong =
-    new RegExp('GENERAL PUBLIC LICENSE', caseSensitive: false);
-final RegExp _gplShort = new RegExp('GNU GPL', caseSensitive: false);
+final RegExp _apache = RegExp(r'Apache License', caseSensitive: false);
+final RegExp _gplLong = RegExp('GENERAL PUBLIC LICENSE', caseSensitive: false);
+final RegExp _gplShort = RegExp('GNU GPL', caseSensitive: false);
 final RegExp _lgpl =
-    new RegExp(r'GNU LESSER GENERAL PUBLIC LICENSE', caseSensitive: false);
-final RegExp _useLgplInstead = new RegExp(
+    RegExp(r'GNU LESSER GENERAL PUBLIC LICENSE', caseSensitive: false);
+final RegExp _useLgplInstead = RegExp(
     'use the GNU Lesser General Public License instead',
     caseSensitive: false);
-final RegExp _mit = new RegExp(r'(^|\s)MIT License', caseSensitive: false);
-final RegExp _mpl = new RegExp('Mozilla Public License', caseSensitive: false);
-final RegExp _unlicense = new RegExp(
+final RegExp _mit = RegExp(r'(^|\s)MIT License', caseSensitive: false);
+final RegExp _mpl = RegExp('Mozilla Public License', caseSensitive: false);
+final RegExp _unlicense = RegExp(
     'This is free and unencumbered software released into the public domain',
     caseSensitive: true);
-final RegExp _version =
-    new RegExp(r'Version (\d+(\.\d*)?)', caseSensitive: false);
+final RegExp _version = RegExp(r'Version (\d+(\.\d*)?)', caseSensitive: false);
 
-final RegExp _bsdPreamble = new RegExp(
+final RegExp _bsdPreamble = RegExp(
     'Redistribution and use in source and binary forms, with or without '
     'modification, are permitted (\\(subject to the limitations in the disclaimer below\\) )?'
     'provided that the following conditions are met',
@@ -192,4 +189,4 @@ String _longTextPrepare(String text) =>
     text.replaceAll(_extraCharacters, ' ').replaceAll(_whitespace, ' ').trim();
 
 RegExp _longTextRegExp(String text) =>
-    new RegExp(_longTextPrepare(text), caseSensitive: false);
+    RegExp(_longTextPrepare(text), caseSensitive: false);

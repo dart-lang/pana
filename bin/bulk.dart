@@ -14,12 +14,12 @@ import 'package:args/command_runner.dart';
 import 'package:pana/pana.dart';
 import 'package:pool/pool.dart';
 
-final _jsonEncoder = new JsonEncoder.withIndent('  ');
+final _jsonEncoder = const JsonEncoder.withIndent('  ');
 
 main(List<String> args) async {
-  final runner = new CommandRunner('bulk', 'Pana bulk processing')
-    ..addCommand(new AnalyzeCommand())
-    ..addCommand(new SummaryCommand());
+  final runner = CommandRunner('bulk', 'Pana bulk processing')
+    ..addCommand(AnalyzeCommand())
+    ..addCommand(SummaryCommand());
   await runner.run(args);
 }
 
@@ -48,15 +48,15 @@ class AnalyzeCommand extends Command {
   @override
   Future run() async {
     final concurrency = int.parse(argResults['concurrency'] as String ?? '1');
-    final pool = new Pool(concurrency);
+    final pool = Pool(concurrency);
     final bool force = argResults['force'];
 
-    final packages = new Set<String>();
+    final packages = Set<String>();
     packages.addAll(argResults.rest);
 
     final String packagesListFileName = argResults['packages-list'];
     if (packagesListFileName != null) {
-      final file = new File(packagesListFileName);
+      final file = File(packagesListFileName);
       if (!(await file.exists())) {
         print('Packages list file $packagesListFileName does not exists.');
         exit(1);
@@ -75,7 +75,7 @@ class AnalyzeCommand extends Command {
       print('Output directory must be specified.');
       exit(1);
     }
-    final outputDir = new Directory(outputDirPath);
+    final outputDir = Directory(outputDirPath);
     await outputDir.create(recursive: true);
 
     final String dartSdkDir = argResults['dart-sdk'];
@@ -98,10 +98,10 @@ class AnalyzeCommand extends Command {
         pubCacheDir: pubCacheDir,
       );
 
-      final analyzer = new PackageAnalyzer(toolEnv);
+      final analyzer = PackageAnalyzer(toolEnv);
       final futures = <Future>[];
       for (final package in packages) {
-        final outputFile = new File('${outputDir.path}/${package}.json');
+        final outputFile = File('${outputDir.path}/$package.json');
         if (!force && outputFile.existsSync() && outputFile.lengthSync() > 0) {
           continue;
         }
@@ -111,7 +111,7 @@ class AnalyzeCommand extends Command {
           try {
             final summary = await analyzer.inspectPackage(
               package,
-              options: new InspectOptions(verbosity: Verbosity.compact),
+              options: InspectOptions(verbosity: Verbosity.compact),
             );
             await outputFile
                 .writeAsString(_jsonEncoder.convert(summary.toJson()));
@@ -144,19 +144,18 @@ class SummaryCommand extends Command {
     BatchStats previous;
     final report = <String, dynamic>{};
     for (final directory in directories) {
-      final files = new Directory(directory)
+      final files = Directory(directory)
           .list()
           .where((fse) => fse is File && fse.path.endsWith('.json'));
-      final batchStats = new BatchStats();
+      final batchStats = BatchStats();
       await for (final file in files) {
         final jsonContent = await (file as File).readAsString();
-        final summary = new Summary.fromJson(
-            json.decode(jsonContent) as Map<String, dynamic>);
+        final summary =
+            Summary.fromJson(json.decode(jsonContent) as Map<String, dynamic>);
         batchStats.add(summary);
       }
 
-      final diff =
-          previous == null ? null : new BatchDiff(previous, batchStats);
+      final diff = previous == null ? null : BatchDiff(previous, batchStats);
 
       report[directory] = {
         'stats': batchStats.toJson(),

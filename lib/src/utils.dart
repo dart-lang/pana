@@ -50,16 +50,16 @@ Future<ProcessResult> runProc(
   void killProc(String message) {
     if (killed != true) {
       killMessage = message;
-      stderr.writeln("Killing $process");
-      stderr.writeln("  $message");
+      stderr.writeln('Killing $process');
+      stderr.writeln('  $message');
       killed = process.kill();
-      stderr.writeln("  killed? - $killed");
+      stderr.writeln('  killed? - $killed');
     }
   }
 
   timeout ??= _timeout;
-  var timer = new Timer(timeout, () {
-    killProc("Exceeded timeout of $timeout");
+  var timer = Timer(timeout, () {
+    killProc('Exceeded timeout of $timeout');
   });
 
   var items = await Future.wait(<Future<Object>>[
@@ -69,7 +69,7 @@ Future<ProcessResult> runProc(
       // Uncomment to debug long execution
       // stderr.writeln(outLine);
       if (stdoutLines.length > _maxLines) {
-        killProc("STDOUT exceeded $_maxLines lines.");
+        killProc('STDOUT exceeded $_maxLines lines.');
       }
     }),
     byteStreamSplit(process.stderr).forEach((errLine) {
@@ -77,7 +77,7 @@ Future<ProcessResult> runProc(
       // Uncomment to debug long execution
       // stderr.writeln(errLine);
       if (stderrLines.length > _maxLines) {
-        killProc("STDERR exceeded $_maxLines lines.");
+        killProc('STDERR exceeded $_maxLines lines.');
       }
     })
   ]);
@@ -91,11 +91,11 @@ Future<ProcessResult> runProc(
     stdoutLines.insert(0, killMessage);
     stderrLines.insert(0, killMessage);
 
-    return new ProcessResult(process.pid, exitCode,
+    return ProcessResult(process.pid, exitCode,
         stdoutLines.take(1000).join('\n'), stderrLines.take(1000).join('\n'));
   }
 
-  return new ProcessResult(
+  return ProcessResult(
       process.pid, exitCode, stdoutLines.join('\n'), stderrLines.join('\n'));
 }
 
@@ -104,14 +104,14 @@ ProcessResult handleProcessErrors(ProcessResult result) {
     if (result.exitCode == 69) {
       // could be a pub error. Let's try to parse!
       var lines = LineSplitter.split(result.stderr as String)
-          .where((l) => l.startsWith("ERR "))
+          .where((l) => l.startsWith('ERR '))
           .join('\n');
       if (lines.isNotEmpty) {
-        throw new Exception(lines);
+        throw Exception(lines);
       }
     }
 
-    throw new Exception('Problem running proc: exit code - ' +
+    throw Exception('Problem running proc: exit code - ' +
         [result.exitCode, result.stdout, result.stderr]
             .map((e) => e.toString().trim())
             .join('<***>'));
@@ -136,7 +136,7 @@ Future<ProcessResult> retryProc(
     } catch (e, st) {
       if (i < maxAttempt) {
         log.info('Async operation failed (attempt: $i of $maxAttempt).', e, st);
-        await new Future.delayed(sleep);
+        await Future.delayed(sleep);
         continue;
       }
       rethrow;
@@ -149,7 +149,7 @@ bool _defaultShouldRetry(ProcessResult pr) => pr.exitCode != 0;
 
 Stream<String> listFiles(String directory,
     {String endsWith, bool deleteBadExtracted = false}) {
-  var dir = new Directory(directory);
+  var dir = Directory(directory);
   return dir
       .list(recursive: true)
       .where((fse) => fse is File)
@@ -170,7 +170,7 @@ Stream<String> listFiles(String directory,
 }
 
 int fileSize(String packageDir, String relativePath) {
-  final file = new File(p.join(packageDir, relativePath));
+  final file = File(p.join(packageDir, relativePath));
 
   if (!file.existsSync()) {
     return null;
@@ -188,8 +188,8 @@ String prettyJson(obj) {
     while (error is JsonUnsupportedObjectError) {
       stderr.writeln([
         error,
-        "${error.unsupportedObject} - (${error.unsupportedObject.runtimeType})",
-        error.cause == null ? null : "Nested cause: ${error.cause}",
+        '${error.unsupportedObject} - (${error.unsupportedObject.runtimeType})',
+        error.cause == null ? null : 'Nested cause: ${error.cause}',
         error.stackTrace
       ].where((i) => i != null).join('\n'));
 
@@ -201,7 +201,7 @@ String prettyJson(obj) {
 
 /// If no `pubspec.yaml` file exists, `null` is returned.
 String getPubspecContent(String packagePath) {
-  var theFile = new File(p.join(packagePath, 'pubspec.yaml'));
+  var theFile = File(p.join(packagePath, 'pubspec.yaml'));
   if (theFile.existsSync()) {
     return theFile.readAsStringSync();
   }
@@ -215,7 +215,7 @@ Object sortedJson(obj) {
 
 _toSortedMap(Object item) {
   if (item is Map) {
-    return new SplayTreeMap<String, Object>.fromIterable(item.keys,
+    return SplayTreeMap<String, Object>.fromIterable(item.keys,
         value: (k) => _toSortedMap(item[k]));
   } else if (item is List) {
     return item.map(_toSortedMap).toList();

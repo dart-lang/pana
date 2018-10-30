@@ -30,7 +30,7 @@ void main() {
   });
 
   test('readme contains latest task output', () {
-    var readme = new File('README.md');
+    var readme = File('README.md');
 
     expect(readme.readAsStringSync(), contains('```\n$_helpOutput\n```'));
   });

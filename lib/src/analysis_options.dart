@@ -55,7 +55,7 @@ linter:
     - valid_regexps
 ''';
 
-const _analyzerErrorKeys = const <String>['uri_has_not_been_generated'];
+const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 
 String customizeAnalysisOptions(String original, bool usesFlutter) {
   Map origMap;

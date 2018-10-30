@@ -40,13 +40,13 @@ class InspectOptions {
   final bool isInternal;
 
   InspectOptions({
-    this.verbosity: Verbosity.normal,
-    this.deleteTemporaryDirectory: true,
+    this.verbosity = Verbosity.normal,
+    this.deleteTemporaryDirectory = true,
     this.pubHostedUrl,
     this.dartdocOutputDir,
-    this.dartdocRetry: 0,
+    this.dartdocRetry = 0,
     this.dartdocTimeout,
-    this.isInternal: false,
+    this.isInternal = false,
   });
 }
 
@@ -55,11 +55,11 @@ class PackageAnalyzer {
   final UrlChecker _urlChecker;
 
   PackageAnalyzer(this._toolEnv, {UrlChecker urlChecker})
-      : _urlChecker = urlChecker ?? new UrlChecker();
+      : _urlChecker = urlChecker ?? UrlChecker();
 
   static Future<PackageAnalyzer> create(
       {String sdkDir, String flutterDir, String pubCacheDir}) async {
-    return new PackageAnalyzer(await ToolEnvironment.create(
+    return PackageAnalyzer(await ToolEnvironment.create(
         dartSdkDir: sdkDir,
         flutterSdkDir: flutterDir,
         pubCacheDir: pubCacheDir));
@@ -71,7 +71,7 @@ class PackageAnalyzer {
     InspectOptions options,
     Logger logger,
   }) async {
-    options ??= new InspectOptions();
+    options ??= InspectOptions();
     return withLogger(() async {
       log.info('Downloading package $package ${version ?? 'latest'}');
       String packageDir;
@@ -99,15 +99,15 @@ class PackageAnalyzer {
   }
 
   Future<Summary> inspectDir(String packageDir, {InspectOptions options}) {
-    options ??= new InspectOptions();
+    options ??= InspectOptions();
     return _inspect(packageDir, options);
   }
 
   Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
-    final totalStopwatch = new Stopwatch()..start();
-    final resolveProcessStopwatch = new Stopwatch();
-    final analyzeProcessStopwatch = new Stopwatch();
-    final formatProcessStopwatch = new Stopwatch();
+    final totalStopwatch = Stopwatch()..start();
+    final resolveProcessStopwatch = Stopwatch();
+    final analyzeProcessStopwatch = Stopwatch();
+    final formatProcessStopwatch = Stopwatch();
     final suggestions = <Suggestion>[];
 
     var dartFiles =
@@ -116,9 +116,9 @@ class PackageAnalyzer {
             .toList();
 
     log.info('Parsing pubspec.yaml...');
-    var pubspec = new Pubspec.parseFromDir(pkgDir);
+    var pubspec = Pubspec.parseFromDir(pkgDir);
     if (pubspec.hasUnknownSdks) {
-      suggestions.add(new Suggestion.error(
+      suggestions.add(Suggestion.error(
           SuggestionCode.pubspecSdkUnknown,
           'Check SDKs in `pubspec.yaml`.',
           'We have found the following unknown SDKs in your `pubspec.yaml`:\n'
@@ -132,7 +132,7 @@ class PackageAnalyzer {
     formatProcessStopwatch.start();
     Set<String> unformattedFiles;
     try {
-      unformattedFiles = new SplayTreeSet<String>.from(
+      unformattedFiles = SplayTreeSet<String>.from(
           await _toolEnv.filesNeedingFormat(pkgDir, usesFlutter));
 
       assert(unformattedFiles.every((f) => dartFiles.contains(f)),
@@ -145,7 +145,7 @@ class PackageAnalyzer {
         log.severe('`dartfmt` failed.\n$errorMsg', e, stack);
       }
 
-      suggestions.add(new Suggestion.error(
+      suggestions.add(Suggestion.error(
           SuggestionCode.dartfmtAborted,
           messages.makeSureDartfmtRuns(usesFlutter),
           messages.runningDartfmtFailed(usesFlutter, errorMsg)));
@@ -168,7 +168,7 @@ class PackageAnalyzer {
 
         final cmd =
             usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
-        suggestions.add(new Suggestion.error(
+        suggestions.add(Suggestion.error(
             SuggestionCode.pubspecDependenciesFailedToResolve,
             'Fix dependencies in `pubspec.yaml`.',
             'Running `$cmd` failed with the following output:\n\n'
@@ -191,7 +191,7 @@ class PackageAnalyzer {
       }
 
       final cmd = usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
-      suggestions.add(new Suggestion.error(
+      suggestions.add(Suggestion.error(
           SuggestionCode.pubspecDependenciesFailedToResolve,
           'Fix dependencies in `pubspec.yaml`.',
           message.isEmpty
@@ -231,22 +231,19 @@ class PackageAnalyzer {
     if (pkgResolution != null) {
       try {
         var overrides = [
-          new LibraryOverride.webSafeIO('package:http/http.dart'),
-          new LibraryOverride.webSafeIO('package:http/browser_client.dart'),
-          new LibraryOverride.webSafeIO(
+          LibraryOverride.webSafeIO('package:http/http.dart'),
+          LibraryOverride.webSafeIO('package:http/browser_client.dart'),
+          LibraryOverride.webSafeIO(
               'package:package_resolver/package_resolver.dart'),
         ];
 
-        libraryScanner = new LibraryScanner(_toolEnv.dartSdkDir, pkgDir,
-            overrides: overrides);
+        libraryScanner =
+            LibraryScanner(_toolEnv.dartSdkDir, pkgDir, overrides: overrides);
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
         log.severe('Could not create LibraryScanner', e, stack);
-        suggestions.add(new Suggestion.bug(
-            SuggestionCode.exceptionInLibraryScanner,
-            'LibraryScanner creation failed.',
-            e,
-            stack));
+        suggestions.add(Suggestion.bug(SuggestionCode.exceptionInLibraryScanner,
+            'LibraryScanner creation failed.', e, stack));
       }
 
       if (libraryScanner != null) {
@@ -255,7 +252,7 @@ class PackageAnalyzer {
           allDirectLibs = await libraryScanner.scanDirectLibs();
         } catch (e, st) {
           log.severe('Error scanning direct libraries', e, st);
-          suggestions.add(new Suggestion.bug(
+          suggestions.add(Suggestion.bug(
               SuggestionCode.exceptionInLibraryScanner,
               'Error scanning direct libraries.',
               e,
@@ -267,7 +264,7 @@ class PackageAnalyzer {
           reachableLibs = _reachableLibs(allTransitiveLibs);
         } catch (e, st) {
           log.severe('Error scanning transitive libraries', e, st);
-          suggestions.add(new Suggestion.bug(
+          suggestions.add(Suggestion.bug(
               SuggestionCode.exceptionInLibraryScanner,
               'Error scanning transitive libraries.',
               e,
@@ -283,7 +280,7 @@ class PackageAnalyzer {
           if (e.toString().contains('No dart files found at: .')) {
             log.warning('`dartanalyzer` found no files to analyze.');
           } else {
-            suggestions.add(new Suggestion.error(
+            suggestions.add(Suggestion.error(
                 SuggestionCode.dartanalyzerAborted,
                 messages.makeSureDartanalyzerRuns(usesFlutter),
                 messages.runningDartanalyzerFailed(usesFlutter, e)));
@@ -298,7 +295,7 @@ class PackageAnalyzer {
         suggestions.firstWhere((s) => s.isError, orElse: () => null);
     var pkgPlatformConflict = pkgPlatformBlockerSuggestion?.title;
 
-    final files = new SplayTreeMap<String, DartFileSummary>();
+    final files = SplayTreeMap<String, DartFileSummary>();
     for (var dartFile in dartFiles) {
       final size = fileSize(pkgDir, dartFile);
       if (size == null) {
@@ -321,14 +318,14 @@ class PackageAnalyzer {
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
       DartPlatform platform;
       if (libPlatformBlocked) {
-        platform = new DartPlatform.conflict(
-            'Error(s) in ${dartFile}: ${platformBlockers.first.description}');
+        platform = DartPlatform.conflict(
+            'Error(s) in $dartFile: ${platformBlockers.first.description}');
         pkgPlatformConflict ??= platform.reason;
       }
       if (transitiveLibs != null) {
         platform ??= classifyLibPlatform(transitiveLibs);
       }
-      files[dartFile] = new DartFileSummary(
+      files[dartFile] = DartFileSummary(
         uri: uri,
         size: size,
         isFormatted: isFormatted,
@@ -351,12 +348,12 @@ class PackageAnalyzer {
 
     DartPlatform platform;
     if (pkgPlatformConflict != null) {
-      platform = new DartPlatform.conflict(
+      platform = DartPlatform.conflict(
           'Error(s) prevent platform classification:\n\n$pkgPlatformConflict');
     }
     platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
     if (!platform.hasConflict && health.healthScore < 0.33) {
-      platform = new DartPlatform.conflict(
+      platform = DartPlatform.conflict(
           'Low code quality prevents platform classification.');
     }
 
@@ -375,14 +372,14 @@ class PackageAnalyzer {
     suggestions.sort();
 
     totalStopwatch.stop();
-    final stats = new Stats(
+    final stats = Stats(
       analyzeProcessElapsed: analyzeProcessStopwatch.elapsedMilliseconds,
       formatProcessElapsed: formatProcessStopwatch.elapsedMilliseconds,
       resolveProcessElapsed: resolveProcessStopwatch.elapsedMilliseconds,
       totalElapsed: totalStopwatch.elapsedMilliseconds,
     );
 
-    return new Summary(
+    return Summary(
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
       packageVersion: pubspec.version,
@@ -424,7 +421,7 @@ class PackageAnalyzer {
   }
 
   Set<String> _reachableLibs(Map<String, List<String>> allTransitiveLibs) {
-    final reached = new Set<String>();
+    final reached = Set<String>();
     for (var lib in allTransitiveLibs.keys) {
       if (lib.startsWith('package:')) {
         final path = toRelativePath(lib);

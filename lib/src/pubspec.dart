@@ -7,7 +7,7 @@ import 'package:yaml/yaml.dart' as yaml;
 
 import 'utils.dart';
 
-final _dart2First = new Version.parse('2.0.0');
+final _dart2First = Version.parse('2.0.0');
 
 class Pubspec {
   final pubspek.Pubspec _inner;
@@ -16,21 +16,21 @@ class Pubspec {
   Set<String> _dependentSdks;
 
   Pubspec(Map content)
-      : _inner = new pubspek.Pubspec.fromJson(content),
-        this._content = content;
+      : _inner = pubspek.Pubspec.fromJson(content),
+        _content = content;
 
   factory Pubspec.parseFromDir(String packageDir) {
     var content = getPubspecContent(packageDir);
     if (content == null) {
-      throw new Exception("Couldn't find a pubspec.yaml in $packageDir.");
+      throw Exception("Couldn't find a pubspec.yaml in $packageDir.");
     }
-    return new Pubspec.parseYaml(content);
+    return Pubspec.parseYaml(content);
   }
 
   factory Pubspec.parseYaml(String content) =>
-      new Pubspec(new Map<String, dynamic>.from(yaml.loadYaml(content) as Map));
+      Pubspec(Map<String, dynamic>.from(yaml.loadYaml(content) as Map));
 
-  factory Pubspec.fromJson(Map<String, dynamic> json) => new Pubspec(json);
+  factory Pubspec.fromJson(Map<String, dynamic> json) => Pubspec(json);
 
   Map toJson() => _content;
 
@@ -66,7 +66,7 @@ class Pubspec {
 
   Set<String> get dependentSdks {
     if (_dependentSdks == null) {
-      _dependentSdks = new SplayTreeSet();
+      _dependentSdks = SplayTreeSet();
       dependencies?.values?.forEach((value) {
         if (value is SdkDependency) {
           _dependentSdks.add(value.sdk);
@@ -87,7 +87,7 @@ class Pubspec {
   }
 
   Set<String> get unknownSdks {
-    var unknowns = new Set<String>.from(dependentSdks);
+    var unknowns = Set<String>.from(dependentSdks);
     unknowns.remove('flutter');
     return unknowns;
   }

@@ -70,7 +70,7 @@ class Summary {
     @required this.maintenance,
     @required List<Suggestion> suggestions,
     @required this.stats,
-  }) : this.suggestions =
+  }) : suggestions =
             suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
@@ -91,7 +91,7 @@ class Summary {
     List<Suggestion> suggestions,
     Stats stats,
   }) {
-    return new Summary(
+    return Summary(
       runtimeInfo: runtimeInfo ?? this.runtimeInfo,
       packageName: packageName,
       packageVersion: packageVersion,
@@ -218,22 +218,22 @@ class Suggestion implements Comparable<Suggestion> {
         'There is likely a bug in the analysis code or a dependency: $message';
     final description =
         LineSplitter.split([error, '', stack].join('\n')).take(100).join('\n');
-    return new Suggestion(code, SuggestionLevel.bug, title, description);
+    return Suggestion(code, SuggestionLevel.bug, title, description);
   }
 
   factory Suggestion.error(String code, String title, String description,
           {String file, double score}) =>
-      new Suggestion(code, SuggestionLevel.error, title, description,
+      Suggestion(code, SuggestionLevel.error, title, description,
           file: file, score: score);
 
   factory Suggestion.warning(String code, String title, String description,
           {String file, double score}) =>
-      new Suggestion(code, SuggestionLevel.warning, title, description,
+      Suggestion(code, SuggestionLevel.warning, title, description,
           file: file, score: score);
 
   factory Suggestion.hint(String code, String title, String description,
           {String file, double score}) =>
-      new Suggestion(code, SuggestionLevel.hint, title, description,
+      Suggestion(code, SuggestionLevel.hint, title, description,
           file: file, score: score);
 
   factory Suggestion.fromJson(Map<String, dynamic> json) =>
@@ -431,30 +431,28 @@ class DartPlatform {
   DartPlatform(this.components, this.uses, {this.reason});
 
   factory DartPlatform.conflict(String reason) =>
-      new DartPlatform(null, null, reason: reason);
+      DartPlatform(null, null, reason: reason);
 
   factory DartPlatform.fromComponents(List<String> components,
       {String reason}) {
     final defs = components
         .map((c) => ComponentDef.values.singleWhere((def) => def.name == c))
         .toList();
-    return new DartPlatform(components, PlatformDef.detectUses(defs),
+    return DartPlatform(components, PlatformDef.detectUses(defs),
         reason: reason);
   }
 
   factory DartPlatform.everywhere(String reason) =>
-      new DartPlatform.fromComponents([], reason: reason);
+      DartPlatform.fromComponents([], reason: reason);
 
   factory DartPlatform.fromJson(Map<String, dynamic> json) =>
       _$DartPlatformFromJson(json);
 
   Map<String, dynamic> toJson() => _$DartPlatformToJson(this);
 
-  bool get worksEverywhere =>
-      uses != null && uses.values.every((s) => _isAllowed(s));
+  bool get worksEverywhere => uses != null && uses.values.every(_isAllowed);
 
-  bool get worksAnywhere =>
-      uses != null && uses.values.any((s) => _isAllowed(s));
+  bool get worksAnywhere => uses != null && uses.values.any(_isAllowed);
 
   bool get hasConflict => !worksAnywhere;
 
@@ -512,7 +510,7 @@ class PkgResolution {
   }
 
   List<PkgDependency> getUnconstrainedDeps(
-      {bool onlyDirect: false, bool includeSdk: false}) {
+      {bool onlyDirect = false, bool includeSdk = false}) {
     return dependencies
         .where((pd) => !onlyDirect || pd.isDirect)
         .where((pd) => includeSdk || pd.constraintType != ConstraintTypes.sdk)
@@ -761,7 +759,7 @@ class Maintenance {
     @required this.isPreReleaseVersion,
     @required this.dartdocSuccessful,
     List<Suggestion> suggestions,
-  }) : this.suggestions =
+  }) : suggestions =
             suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
   factory Maintenance.fromJson(Map<String, dynamic> json) =>
@@ -773,7 +771,7 @@ class Maintenance {
     bool dartdocSuccessful,
     List<Suggestion> suggestions,
   }) {
-    return new Maintenance(
+    return Maintenance(
       missingChangelog: missingChangelog,
       missingExample: missingExample,
       missingReadme: missingReadme,
@@ -807,7 +805,7 @@ class LicenseFile {
   Map<String, dynamic> toJson() => _$LicenseFileToJson(this);
 
   LicenseFile change({String url}) =>
-      new LicenseFile(path, name, version: version, url: url ?? this.url);
+      LicenseFile(path, name, version: version, url: url ?? this.url);
 
   String get shortFormatted => version == null ? name : '$name $version';
 
@@ -844,12 +842,12 @@ abstract class LicenseNames {
 @JsonSerializable()
 class CodeProblem implements Comparable<CodeProblem> {
   /// The errors which don't block platform classification.
-  static const _platformNonBlockerTypes = const <String>[
+  static const _platformNonBlockerTypes = <String>[
     'STATIC_TYPE_WARNING',
     'STATIC_WARNING',
   ];
 
-  static const _platformNonBlockerCodes = const <String>[
+  static const _platformNonBlockerCodes = <String>[
     'ARGUMENT_TYPE_NOT_ASSIGNABLE',
     'STRONG_MODE_COULD_NOT_INFER',
     'STRONG_MODE_INVALID_CAST_FUNCTION_EXPR',

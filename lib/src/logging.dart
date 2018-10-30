@@ -6,9 +6,9 @@ import 'dart:async';
 
 import 'package:logging/logging.dart';
 
-final Logger _log = new Logger('pana');
+final Logger _log = Logger('pana');
 
-final _key = new Object();
+final _key = Object();
 
 Future<R> withLogger<R>(Future<R> fn(), {Logger logger}) => runZoned(
       fn,

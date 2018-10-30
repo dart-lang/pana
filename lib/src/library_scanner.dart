@@ -32,8 +32,8 @@ class LibraryScanner {
   final String _packagePath;
   final AnalysisSession _session;
   final List<LibraryOverride> _overrides;
-  final _cachedLibs = new HashMap<String, List<String>>();
-  final _cachedTransitiveLibs = new HashMap<String, List<String>>();
+  final _cachedLibs = HashMap<String, List<String>>();
+  final _cachedTransitiveLibs = HashMap<String, List<String>>();
 
   LibraryScanner._(
       this.packageName, this._packagePath, this._session, this._overrides);
@@ -42,10 +42,10 @@ class LibraryScanner {
       {List<LibraryOverride> overrides}) {
     var dotPackagesPath = p.join(packagePath, '.packages');
     if (!FileSystemEntity.isFileSync(dotPackagesPath)) {
-      throw new StateError('A package configuration file was not found at the '
+      throw StateError('A package configuration file was not found at the '
           'expected location.\n$dotPackagesPath');
     }
-    var dotPackagesBytes = new File(dotPackagesPath).readAsBytesSync();
+    var dotPackagesBytes = File(dotPackagesPath).readAsBytesSync();
     var packageMap =
         package_config.parse(dotPackagesBytes, p.toUri(dotPackagesPath));
 
@@ -71,15 +71,15 @@ class LibraryScanner {
     if (package == null) {
       if (packageNames.length == 1) {
         package = packageNames.single;
-        log.warning("Weird: `$package` at `${packageMap[package]}`.");
+        log.warning('Weird: `$package` at `${packageMap[package]}`.');
       } else {
-        throw new StateError(
-            "Could not determine package name for package at `$packagePath` "
+        throw StateError(
+            'Could not determine package name for package at `$packagePath` '
             "- found ${packageNames.toSet().join(', ')}");
       }
     }
 
-    var contextLocator = new ContextLocator();
+    var contextLocator = ContextLocator();
     var roots = contextLocator.locateRoots(includedPaths: [packagePath]);
     var root = roots.firstWhere(
         (r) => r.packagesFile.parent.path == packagePath,
@@ -92,20 +92,20 @@ class LibraryScanner {
       root = roots.first;
     }
     if (root == null) {
-      throw new StateError('No context root found!');
+      throw StateError('No context root found!');
     }
 
-    var analysisContext = new ContextBuilder()
-        .createContext(contextRoot: root, sdkPath: dartSdkPath);
+    var analysisContext =
+        ContextBuilder().createContext(contextRoot: root, sdkPath: dartSdkPath);
 
-    return new LibraryScanner._(
+    return LibraryScanner._(
         package, packagePath, analysisContext.currentSession, overrides);
   }
 
   Future<Map<String, List<String>>> scanDirectLibs() => _scanPackage();
 
   Future<Map<String, List<String>>> scanTransitiveLibs() async {
-    var results = new SplayTreeMap<String, List<String>>();
+    var results = SplayTreeMap<String, List<String>>();
     var direct = await _scanPackage();
     for (var key in direct.keys) {
       results[key] = await _scanTransitiveLibs(key, [key]);
@@ -116,8 +116,8 @@ class LibraryScanner {
   Future<List<String>> _scanTransitiveLibs(
       String uri, List<String> stack) async {
     if (!_cachedTransitiveLibs.containsKey(uri)) {
-      final processed = new Set<String>();
-      final todo = new Set<String>.from([uri]);
+      final processed = Set<String>();
+      final todo = Set<String>.from([uri]);
       while (todo.isNotEmpty) {
         final lib = todo.first;
         todo.remove(lib);
@@ -131,7 +131,7 @@ class LibraryScanner {
         if (stack.contains(lib)) {
           todo.addAll(await _scanUri(lib));
         } else {
-          final newStack = new List<String>.from(stack)..add(lib);
+          final newStack = List<String>.from(stack)..add(lib);
           processed.addAll(await _scanTransitiveLibs(lib, newStack));
         }
       }
@@ -145,9 +145,9 @@ class LibraryScanner {
   Future<Map<String, List<String>>> scanDependencyGraph() async {
     var items = await scanTransitiveLibs();
 
-    var graph = new SplayTreeMap<String, List<String>>();
+    var graph = SplayTreeMap<String, List<String>>();
 
-    var todo = new LinkedHashSet<String>.from(items.keys);
+    var todo = LinkedHashSet<String>.from(items.keys);
     while (todo.isNotEmpty) {
       var first = todo.first;
       todo.remove(first);
@@ -175,7 +175,7 @@ class LibraryScanner {
 
     final fullPath = _session.uriConverter.uriToPath(uri);
     if (fullPath == null) {
-      throw new Exception('Could not resolve package URI for $uri');
+      throw Exception('Could not resolve package URI for $uri');
     }
 
     var relativePath = p.join('lib', libUri.substring(libUri.indexOf('/') + 1));
@@ -191,7 +191,7 @@ class LibraryScanner {
   }
 
   Future<Map<String, List<String>>> _scanPackage() async {
-    var results = new SplayTreeMap<String, List<String>>();
+    var results = SplayTreeMap<String, List<String>>();
     await for (var relativePath
         in listFiles(_packagePath, endsWith: '.dart').where((path) {
       if (p.isWithin('bin', path)) {
@@ -220,7 +220,7 @@ class LibraryScanner {
     var fullPath = p.join(packageDir, relativePath);
     var lib = await _getLibraryElement(fullPath);
     if (lib == null) return [];
-    var refs = new SplayTreeSet<String>();
+    var refs = SplayTreeSet<String>();
     lib.importedLibraries.forEach((le) {
       refs.add(_normalizeLibRef(le.librarySource.uri, package, packageDir));
     });
@@ -235,7 +235,7 @@ class LibraryScanner {
     _applyOverrides(pkgUri, refs);
 
     refs.remove('dart:core');
-    return new List<String>.unmodifiable(refs);
+    return List<String>.unmodifiable(refs);
   }
 
   void _applyOverrides(String pkgUri, Set<String> set) {
@@ -264,5 +264,5 @@ String _normalizeLibRef(Uri uri, String package, String packageDir) {
     return uri.toString();
   }
 
-  throw new Exception('not supported - $uri');
+  throw Exception('not supported - $uri');
 }

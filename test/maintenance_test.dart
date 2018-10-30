@@ -4,26 +4,25 @@
 
 import 'dart:convert';
 
-import 'package:test/test.dart';
-import 'package:test_descriptor/test_descriptor.dart' as d;
-
 import 'package:pana/src/download_utils.dart';
 import 'package:pana/src/maintenance.dart';
 import 'package:pana/src/model.dart';
 import 'package:pana/src/package_analyzer.dart' show InspectOptions;
 import 'package:pana/src/pubspec.dart';
+import 'package:test/test.dart';
+import 'package:test_descriptor/test_descriptor.dart' as d;
 
-final _withIssuesJson = {
-  "missingChangelog": true,
-  "missingExample": true,
-  "missingReadme": true,
-  "missingAnalysisOptions": true,
-  "oldAnalysisOptions": false,
-  "strongModeEnabled": true,
-  "isExperimentalVersion": true,
-  "isPreReleaseVersion": true,
-  "dartdocSuccessful": false,
-  "suggestions": [
+const _withIssuesJson = {
+  'missingChangelog': true,
+  'missingExample': true,
+  'missingReadme': true,
+  'missingAnalysisOptions': true,
+  'oldAnalysisOptions': false,
+  'strongModeEnabled': true,
+  'isExperimentalVersion': true,
+  'isPreReleaseVersion': true,
+  'dartdocSuccessful': false,
+  'suggestions': [
     {
       'code': 'pubspec.sdk.missing',
       'level': 'error',
@@ -113,7 +112,7 @@ final _withIssuesJson = {
   ]
 };
 
-final _perfect = new Maintenance(
+final _perfect = Maintenance(
   missingChangelog: false,
   missingReadme: false,
   missingExample: false,
@@ -125,18 +124,18 @@ final _perfect = new Maintenance(
   dartdocSuccessful: true,
 );
 
-final _withIssues = new Maintenance.fromJson(_withIssuesJson);
+final _withIssues = Maintenance.fromJson(_withIssuesJson);
 
 void main() {
   group('detectMaintenance', () {
     test('empty directory', () async {
       final maintenance = await detectMaintenance(
-        new InspectOptions(),
-        new UrlChecker(),
+        InspectOptions(),
+        UrlChecker(),
         d.sandbox,
-        new Pubspec.fromJson({'name': 'sandbox', 'version': '0.0.1-alpha'}),
+        Pubspec.fromJson({'name': 'sandbox', 'version': '0.0.1-alpha'}),
         [
-          new PkgDependency(
+          PkgDependency(
             package: 'foo',
             dependencyType: 'direct',
             constraintType: 'empty',
@@ -146,7 +145,7 @@ void main() {
             errors: null,
           )
         ],
-        pkgPlatform: new DartPlatform.conflict('conflict description'),
+        pkgPlatform: DartPlatform.conflict('conflict description'),
         dartdocSuccessful: false,
       );
 
@@ -174,8 +173,8 @@ void main() {
       };
 
       for (var offset in expectedScores.keys) {
-        test("from $offset days ago", () {
-          final age = offset == null ? null : new Duration(days: offset);
+        test('from $offset days ago', () {
+          final age = offset == null ? null : Duration(days: offset);
           final expectedScore = expectedScores[offset];
 
           Matcher matcher;

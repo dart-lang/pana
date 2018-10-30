@@ -15,8 +15,8 @@ import 'model.dart';
 import 'pubspec.dart';
 import 'utils.dart';
 
-final _solvePkgLine = new RegExp(
-    r"(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?");
+final _solvePkgLine =
+    RegExp(r'(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?');
 
 PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
     {String path}) {
@@ -25,21 +25,20 @@ PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
 
   var entries = PubEntry.parse(procStdout)
       .where((entry) => entry.header == 'MSG')
-      .where((entry) =>
-          entry.content.every((line) => _solvePkgLine.hasMatch(line)))
+      .where((entry) => entry.content.every(_solvePkgLine.hasMatch))
       .toList();
 
   if (entries.length == 1) {
     for (var match in entries.single.content.map(_solvePkgLine.firstMatch)) {
       var pkg = match.group(1);
-      pkgVersions[pkg] = new Version.parse(match.group(2));
+      pkgVersions[pkg] = Version.parse(match.group(2));
       var availVerStr = match.group(3);
       if (availVerStr != null) {
-        availVersions[pkg] = new Version.parse(availVerStr);
+        availVersions[pkg] = Version.parse(availVerStr);
       }
     }
   } else if (entries.length > 1) {
-    throw new Exception(
+    throw Exception(
         'Seems that we have two sections of packages solves - weird!');
   } else {
     // it's empty – which is fine for a package with no dependencies
@@ -50,11 +49,11 @@ PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
   }
 
   final deps = _buildDeps(pubspec, pkgVersions, availVersions);
-  return new PkgResolution(deps);
+  return PkgResolution(deps);
 }
 
 void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
-  var theFile = new File(p.join(path, 'pubspec.lock'));
+  var theFile = File(p.join(path, 'pubspec.lock'));
   if (theFile.existsSync()) {
     var lockFileContent = theFile.readAsStringSync();
     if (lockFileContent.isNotEmpty) {
@@ -63,11 +62,11 @@ void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
       if (pkgs != null) {
         pkgs.forEach((String key, Object v) {
           var m = v as Map;
-          var lockedVersion = new Version.parse(m['version'] as String);
+          var lockedVersion = Version.parse(m['version'] as String);
           if (pkgVersions[key] != lockedVersion) {
-            throw new StateError(
-                "For $key, the parsed version ${pkgVersions[key]} did not "
-                "match the locked version $lockedVersion.");
+            throw StateError(
+                'For $key, the parsed version ${pkgVersions[key]} did not '
+                'match the locked version $lockedVersion.');
           }
         });
       }
@@ -81,7 +80,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
   void logWeird(String input) {
     if (!loggedWeird) {
       // only write the header if there is "weirdness" in processing
-      stderr.writeln("Package: ${pubspec.name}");
+      stderr.writeln('Package: ${pubspec.name}');
       loggedWeird = true;
     }
     // write every line of the input indented 2 spaces
@@ -134,7 +133,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
 
     errors.forEach(logWeird);
 
-    deps.add(new PkgDependency(
+    deps.add(PkgDependency(
       package: package,
       dependencyType: dependencyType,
       constraintType: constraintType,
@@ -145,7 +144,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
     ));
   }
 
-  final packageNames = new Set<String>();
+  final packageNames = Set<String>();
 
   pubspec.dependencies?.forEach((k, v) {
     if (packageNames.add(k)) {
@@ -176,8 +175,8 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
 }
 
 class PubEntry {
-  static final _headerMatch = new RegExp(r"^([A-Z]{2,4})[ ]{0,2}: (.*)");
-  static final _lineMatch = new RegExp(r"^    \|(.*)");
+  static final _headerMatch = RegExp(r'^([A-Z]{2,4})[ ]{0,2}: (.*)');
+  static final _lineMatch = RegExp(r'^    \|(.*)');
 
   final String header;
   final List<String> content;
@@ -197,7 +196,7 @@ class PubEntry {
       if (match != null) {
         if (header != null || entryLines != null) {
           assert(entryLines.isNotEmpty);
-          yield new PubEntry(header, entryLines);
+          yield PubEntry(header, entryLines);
           header = null;
           entryLines = null;
         }
@@ -219,7 +218,7 @@ class PubEntry {
 
     if (header != null || entryLines != null) {
       assert(entryLines.isNotEmpty);
-      yield new PubEntry(header, entryLines);
+      yield PubEntry(header, entryLines);
       header = null;
       entryLines = null;
     }
