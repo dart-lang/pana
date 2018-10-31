@@ -474,5 +474,11 @@ final _versionDownloadRegexp =
 const _pubCacheKey = 'PUB_CACHE';
 const _pubEnvironmentKey = 'PUB_ENVIRONMENT';
 
-String _join(String path, String binDir, String executable) =>
-    path == null ? executable : p.join(path, binDir, executable);
+String _join(String path, String binDir, String executable) {
+  var cmd = path == null ? executable : p.join(path, binDir, executable);
+  if (Platform.isWindows) {
+    final ext = executable == 'dart' ? 'exe' : 'bat';
+    cmd = '$cmd.$ext';
+  }
+  return cmd;
+}
