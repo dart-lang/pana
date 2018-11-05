@@ -122,6 +122,15 @@ main(List<String> args) async {
   var tempPath = await tempDir.resolveSymbolicLinks();
 
   try {
+    final String pubHostedUrl = result['hosted-url'];
+    final analyzer = await PackageAnalyzer.create(
+      pubCacheDir: tempPath,
+      flutterDir: result['flutter-sdk'] as String,
+    );
+    final options = InspectOptions(
+      verbosity: verbosity,
+      pubHostedUrl: pubHostedUrl,
+    );
     try {
       Summary summary;
       if (source == 'hosted') {
@@ -130,21 +139,12 @@ main(List<String> args) async {
         if (result.rest.length > 1) {
           version = result.rest[1];
         }
-        final String pubHostedUrl = result['hosted-url'];
         if (pubHostedUrl != defaultHostedUrl && version == null) {
           _printHelp(
               errorMessage:
                   'Version must be specified when using --hosted-url option.');
           return;
         }
-        final options = InspectOptions(
-          verbosity: verbosity,
-          pubHostedUrl: pubHostedUrl,
-        );
-        var analyzer = await PackageAnalyzer.create(
-          pubCacheDir: tempPath,
-          flutterDir: result['flutter-sdk'] as String,
-        );
         summary = await analyzer.inspectPackage(package,
             version: version, options: options);
       } else if (source == 'path') {
@@ -157,9 +157,7 @@ main(List<String> args) async {
                   'To remove this message, use `--no-warning`.');
           await Future.delayed(const Duration(seconds: 15));
         }
-
-        var analyzer = await PackageAnalyzer.create(pubCacheDir: tempPath);
-        summary = await analyzer.inspectDir(absolutePath);
+        summary = await analyzer.inspectDir(absolutePath, options: options);
       }
       print(prettyJson(summary));
     } catch (e, stack) {
