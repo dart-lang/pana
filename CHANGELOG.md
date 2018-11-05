@@ -8,6 +8,8 @@
 
 * Retry the external process on downloading and listing packages.
 
+* Use Flutter's internal Dart SDK to run `dartanalyzer` on Flutter packages.
+
 ## 0.12.5
 
 * Increase the severity of missing SDK constraint.
