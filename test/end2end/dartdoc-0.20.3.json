@@ -48,17 +48,7 @@
     }
   },
   "platform": {
-    "components": [
-      "io",
-      "isolate",
-      "mirrors"
-    ],
-    "uses": {
-      "flutter": "forbidden",
-      "web": "forbidden",
-      "other": "used"
-    },
-    "reason": "Primary library: `package:dartdoc/dartdoc.dart` with components: `io`, `isolate`, `mirrors`."
+    "reason": "Low code quality prevents platform classification."
   },
   "licenses": [
     {
@@ -71,7 +61,7 @@
     "analyzeProcessFailed": false,
     "formatProcessFailed": false,
     "resolveProcessFailed": false,
-    "analyzerErrorCount": 1,
+    "analyzerErrorCount": 11,
     "analyzerWarningCount": 0,
     "analyzerHintCount": 6,
     "platformConflictCount": 0,
@@ -80,9 +70,9 @@
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` failed with 1 error, 4 hints:\n\nline 4855 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1064 col 17: Always override `hashCode` if overriding `==`.\n\nline 2118 col 25: Invocation of Iterable<E>.contains with references of unrelated types.\n\nline 5228 col 37: 'element' is deprecated and shouldn't be used.\n\nline 5229 col 25: 'element' is deprecated and shouldn't be used.",
+        "description": "Analysis of `lib/src/model.dart` failed with 11 errors, 4 hints, including:\n\nline 419 col 7: 'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType').\n\nline 1071 col 7: 'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType').\n\nline 1287 col 7: 'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType').\n\nline 2338 col 7: 'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType').\n\nline 3835 col 7: 'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType').",
         "file": "lib/src/model.dart",
-        "score": 26.49
+        "score": 95.86
       },
       {
         "code": "dartanalyzer.warning",
@@ -104,6 +94,13 @@
     "isExperimentalVersion": false,
     "isPreReleaseVersion": false,
     "suggestions": [
+      {
+        "code": "platform.conflict.inPkg",
+        "level": "error",
+        "title": "Fix platform conflicts.",
+        "description": "Low code quality prevents platform classification.",
+        "score": 20.0
+      },
       {
         "code": "pubspec.description.tooShort",
         "level": "hint",
@@ -127,8 +124,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.32.4",
-        "resolved": "0.32.5",
-        "available": "0.33.0-alpha.0"
+        "resolved": "0.32.6",
+        "available": "0.33.3"
       },
       {
         "package": "args",
@@ -184,7 +181,7 @@
         "package": "csslib",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.14.5"
+        "resolved": "0.14.6"
       },
       {
         "package": "dhttpd",
@@ -197,8 +194,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.1.1",
-        "resolved": "0.1.4+1",
-        "available": "0.1.5"
+        "resolved": "0.1.4+2",
+        "available": "0.1.6+3"
       },
       {
         "package": "glob",
@@ -243,8 +240,8 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.4+1",
-        "available": "0.3.5"
+        "resolved": "0.3.4+2",
+        "available": "0.3.6+3"
       },
       {
         "package": "logging",
@@ -305,7 +302,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.0.0+1"
+        "resolved": "2.0.1"
       },
       {
         "package": "resource",
@@ -1156,6 +1153,15 @@
       "isFormatted": true,
       "codeProblems": [
         {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 419,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
+        },
+        {
           "severity": "INFO",
           "errorType": "LINT",
           "errorCode": "hash_and_equals",
@@ -1165,6 +1171,24 @@
           "description": "Always override `hashCode` if overriding `==`."
         },
         {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 1071,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 1287,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
+        },
+        {
           "severity": "INFO",
           "errorType": "LINT",
           "errorCode": "iterable_contains_unrelated_type",
@@ -1172,6 +1196,60 @@
           "line": 2118,
           "col": 25,
           "description": "Invocation of Iterable<E>.contains with references of unrelated types."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 2338,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 3835,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 3858,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 3875,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 3893,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 3948,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
         },
         {
           "severity": "ERROR",
@@ -1199,6 +1277,15 @@
           "line": 5229,
           "col": 25,
           "description": "'element' is deprecated and shouldn't be used."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/model.dart",
+          "line": 5380,
+          "col": 7,
+          "description": "'ModelElement.modelType' ('() → ElementType') isn't a valid override of 'TypeParameters.modelType' ('() → DefinedElementType')."
         }
       ]
     },
