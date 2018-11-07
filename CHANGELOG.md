@@ -1,4 +1,4 @@
-## 0.12.6-dev
+## 0.12.6
 
 * Bulk processing and comparison.
 
