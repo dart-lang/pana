@@ -123,7 +123,7 @@ void main() {
     }, timeout: const Timeout.factor(2));
   }
 
-  _verifyPackage('dartdoc-0.20.3.json', 'dartdoc', '0.20.3');
+  _verifyPackage('dartdoc-0.24.1.json', 'dartdoc', '0.24.1');
   _verifyPackage('http-0.11.3-17.json', 'http', '0.11.3+17');
   _verifyPackage('pub_server-0.1.4-2.json', 'pub_server', '0.1.4+2');
   _verifyPackage('skiplist-0.1.0.json', 'skiplist', '0.1.0');

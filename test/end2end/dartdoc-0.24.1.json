@@ -5,9 +5,9 @@
     "flutterVersions": {}
   },
   "packageName": "dartdoc",
-  "packageVersion": "0.20.3",
+  "packageVersion": "0.24.1",
   "pubspec": {
-    "version": "0.20.3",
+    "version": "0.24.1",
     "name": "dartdoc",
     "dependencies": {
       "markdown": "^2.0.0",
@@ -15,32 +15,34 @@
       "args": ">=1.4.1 <2.0.0",
       "package_config": ">=0.1.5 <2.0.0",
       "collection": "^1.2.0",
+      "crypto": "^2.0.6",
       "html": ">=0.12.1 <0.14.0",
       "stack_trace": "^1.4.2",
       "pub_semver": "^1.3.7",
       "path": "^1.3.0",
-      "http_parser": ">=3.0.3 <4.0.0",
+      "process": "^3.0.5",
       "resource": "^2.1.2",
+      "http_parser": ">=3.0.3 <4.0.0",
       "logging": "^0.11.3+1",
       "yaml": "^2.1.0",
-      "front_end": "^0.1.1",
-      "analyzer": "^0.32.4"
+      "analyzer": "^0.33.0"
     },
     "author": "Dart Team <misc@dartlang.org>",
     "description": "A documentation generator for Dart.",
     "homepage": "https://github.com/dart-lang/dartdoc",
     "environment": {
-      "sdk": ">=2.0.0-dev.68 <3.0.0"
+      "sdk": ">=2.0.0 <3.0.0"
     },
     "executables": {
       "dartdoc": null
     },
     "dev_dependencies": {
-      "build_runner": "^0.9.0",
+      "build_runner": "^1.0.0",
       "dhttpd": "^3.0.0",
       "test": "^1.3.0",
-      "build": "^0.12.6",
+      "build": "^1.0.1",
       "meta": "^1.0.0",
+      "build_version": "^1.0.0",
       "grinder": "^0.8.2",
       "http": "^0.11.0",
       "glob": "^1.1.5",
@@ -71,18 +73,18 @@
     "analyzeProcessFailed": false,
     "formatProcessFailed": false,
     "resolveProcessFailed": false,
-    "analyzerErrorCount": 1,
+    "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
     "analyzerHintCount": 6,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
-        "level": "error",
+        "level": "hint",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` failed with 1 error, 4 hints:\n\nline 4855 col 21: The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object.\n\nline 1064 col 17: Always override `hashCode` if overriding `==`.\n\nline 2118 col 25: Invocation of Iterable<E>.contains with references of unrelated types.\n\nline 5228 col 37: 'element' is deprecated and shouldn't be used.\n\nline 5229 col 25: 'element' is deprecated and shouldn't be used.",
+        "description": "Analysis of `lib/src/model.dart` reported 4 hints:\n\nline 1070 col 12: 'getMembersInheritedFromClasses' is deprecated and shouldn't be used.\n\nline 1072 col 12: 'getMembersInheritedFromInterfaces' is deprecated and shouldn't be used.\n\nline 1207 col 17: Always override `hashCode` if overriding `==`.\n\nline 2386 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
         "file": "lib/src/model.dart",
-        "score": 26.49
+        "score": 1.99
       },
       {
         "code": "dartanalyzer.warning",
@@ -126,9 +128,8 @@
         "package": "analyzer",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^0.32.4",
-        "resolved": "0.32.5",
-        "available": "0.33.0-alpha.0"
+        "constraint": "^0.33.0",
+        "resolved": "0.33.3"
       },
       {
         "package": "args",
@@ -147,13 +148,19 @@
         "package": "build",
         "dependencyType": "dev",
         "constraintType": "normal",
-        "constraint": "^0.12.6"
+        "constraint": "^1.0.1"
       },
       {
         "package": "build_runner",
         "dependencyType": "dev",
         "constraintType": "normal",
-        "constraint": "^0.9.0"
+        "constraint": "^1.0.0"
+      },
+      {
+        "package": "build_version",
+        "dependencyType": "dev",
+        "constraintType": "normal",
+        "constraint": "^1.0.0"
       },
       {
         "package": "charcode",
@@ -176,15 +183,16 @@
       },
       {
         "package": "crypto",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "^2.0.6",
         "resolved": "2.0.6"
       },
       {
         "package": "csslib",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.14.5"
+        "resolved": "0.14.6"
       },
       {
         "package": "dhttpd",
@@ -193,12 +201,16 @@
         "constraint": "^3.0.0"
       },
       {
+        "package": "file",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "5.0.6"
+      },
+      {
         "package": "front_end",
-        "dependencyType": "direct",
-        "constraintType": "normal",
-        "constraint": "^0.1.1",
-        "resolved": "0.1.4+1",
-        "available": "0.1.5"
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "0.1.6+3"
       },
       {
         "package": "glob",
@@ -234,6 +246,12 @@
         "resolved": "3.1.3"
       },
       {
+        "package": "intl",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "0.15.7"
+      },
+      {
         "package": "io",
         "dependencyType": "dev",
         "constraintType": "normal",
@@ -243,8 +261,7 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.4+1",
-        "available": "0.3.5"
+        "resolved": "0.3.6+3"
       },
       {
         "package": "logging",
@@ -288,10 +305,23 @@
         "resolved": "1.6.2"
       },
       {
+        "package": "platform",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "2.2.0"
+      },
+      {
         "package": "plugin",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.2.0+3"
+      },
+      {
+        "package": "process",
+        "dependencyType": "direct",
+        "constraintType": "normal",
+        "constraint": "^3.0.5",
+        "resolved": "3.0.5"
       },
       {
         "package": "pub_semver",
@@ -305,7 +335,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.0.0+1"
+        "resolved": "2.0.1"
       },
       {
         "package": "resource",
@@ -369,7 +399,7 @@
   "dartFiles": {
     "bin/dartdoc.dart": {
       "uri": "asset:dartdoc/bin/dartdoc.dart",
-      "size": 3778,
+      "size": 3783,
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [
@@ -393,7 +423,7 @@
     },
     "lib/dartdoc.dart": {
       "uri": "package:dartdoc/dartdoc.dart",
-      "size": 16609,
+      "size": 17176,
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [
@@ -413,6 +443,7 @@
         "package:dartdoc/src/package_meta.dart",
         "package:dartdoc/src/tuple.dart",
         "package:dartdoc/src/utils.dart",
+        "package:dartdoc/src/version.dart",
         "package:dartdoc/src/warnings.dart",
         "package:html/dom.dart",
         "package:html/parser.dart",
@@ -464,16 +495,16 @@
         "package:analyzer/src/context/context.dart",
         "package:analyzer/src/context/context_root.dart",
         "package:analyzer/src/context/source.dart",
+        "package:analyzer/src/dart/analysis/byte_store.dart",
+        "package:analyzer/src/dart/analysis/cache.dart",
         "package:analyzer/src/dart/analysis/defined_names.dart",
         "package:analyzer/src/dart/analysis/driver.dart",
         "package:analyzer/src/dart/analysis/file_state.dart",
         "package:analyzer/src/dart/analysis/file_tracker.dart",
-        "package:analyzer/src/dart/analysis/frontend_resolution.dart",
         "package:analyzer/src/dart/analysis/index.dart",
-        "package:analyzer/src/dart/analysis/kernel_context.dart",
-        "package:analyzer/src/dart/analysis/kernel_metadata.dart",
         "package:analyzer/src/dart/analysis/library_analyzer.dart",
         "package:analyzer/src/dart/analysis/library_context.dart",
+        "package:analyzer/src/dart/analysis/performance_logger.dart",
         "package:analyzer/src/dart/analysis/referenced_names.dart",
         "package:analyzer/src/dart/analysis/search.dart",
         "package:analyzer/src/dart/analysis/session.dart",
@@ -482,15 +513,18 @@
         "package:analyzer/src/dart/analysis/uri_converter.dart",
         "package:analyzer/src/dart/ast/ast.dart",
         "package:analyzer/src/dart/ast/ast_factory.dart",
+        "package:analyzer/src/dart/ast/mixin_super_invoked_names.dart",
         "package:analyzer/src/dart/ast/resolution_map.dart",
         "package:analyzer/src/dart/ast/token.dart",
         "package:analyzer/src/dart/ast/utilities.dart",
+        "package:analyzer/src/dart/constant/constant_verifier.dart",
         "package:analyzer/src/dart/constant/evaluation.dart",
         "package:analyzer/src/dart/constant/utilities.dart",
         "package:analyzer/src/dart/constant/value.dart",
         "package:analyzer/src/dart/element/builder.dart",
         "package:analyzer/src/dart/element/element.dart",
         "package:analyzer/src/dart/element/handle.dart",
+        "package:analyzer/src/dart/element/inheritance_manager2.dart",
         "package:analyzer/src/dart/element/member.dart",
         "package:analyzer/src/dart/element/type.dart",
         "package:analyzer/src/dart/error/hint_codes.dart",
@@ -505,11 +539,10 @@
         "package:analyzer/src/dart/sdk/sdk.dart",
         "package:analyzer/src/error.dart",
         "package:analyzer/src/error/codes.dart",
+        "package:analyzer/src/error/inheritance_override.dart",
         "package:analyzer/src/error/pending_error.dart",
         "package:analyzer/src/fasta/ast_builder.dart",
         "package:analyzer/src/fasta/error_converter.dart",
-        "package:analyzer/src/fasta/resolution_applier.dart",
-        "package:analyzer/src/fasta/resolution_storer.dart",
         "package:analyzer/src/fasta/token_utils.dart",
         "package:analyzer/src/file_system/file_system.dart",
         "package:analyzer/src/generated/bazel.dart",
@@ -535,13 +568,13 @@
         "package:analyzer/src/generated/testing/ast_test_factory.dart",
         "package:analyzer/src/generated/testing/element_factory.dart",
         "package:analyzer/src/generated/testing/token_factory.dart",
+        "package:analyzer/src/generated/timestamped_data.dart",
         "package:analyzer/src/generated/type_system.dart",
         "package:analyzer/src/generated/utilities_collection.dart",
         "package:analyzer/src/generated/utilities_dart.dart",
         "package:analyzer/src/generated/utilities_general.dart",
         "package:analyzer/src/generated/workspace.dart",
         "package:analyzer/src/html/error/html_codes.dart",
-        "package:analyzer/src/kernel/resynthesize.dart",
         "package:analyzer/src/lint/analysis.dart",
         "package:analyzer/src/lint/config.dart",
         "package:analyzer/src/lint/io.dart",
@@ -599,6 +632,7 @@
         "package:analyzer/src/task/yaml.dart",
         "package:analyzer/src/util/asserts.dart",
         "package:analyzer/src/util/sdk.dart",
+        "package:analyzer/src/util/uri.dart",
         "package:analyzer/src/util/yaml.dart",
         "package:args/args.dart",
         "package:args/src/allow_anything_parser.dart",
@@ -716,116 +750,27 @@
         "package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart",
         "package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart",
         "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
+        "package:dartdoc/src/tool_runner.dart",
         "package:dartdoc/src/tuple.dart",
         "package:dartdoc/src/utils.dart",
+        "package:dartdoc/src/version.dart",
         "package:dartdoc/src/warnings.dart",
-        "package:front_end/src/api_prototype/byte_store.dart",
-        "package:front_end/src/api_prototype/compilation_message.dart",
         "package:front_end/src/api_prototype/compiler_options.dart",
+        "package:front_end/src/api_prototype/diagnostic_message.dart",
         "package:front_end/src/api_prototype/file_system.dart",
         "package:front_end/src/api_prototype/standard_file_system.dart",
-        "package:front_end/src/base/analysis_target.dart",
-        "package:front_end/src/base/api_signature.dart",
+        "package:front_end/src/api_prototype/terminal_color_support.dart",
         "package:front_end/src/base/errors.dart",
-        "package:front_end/src/base/flat_buffers.dart",
-        "package:front_end/src/base/instrumentation.dart",
-        "package:front_end/src/base/jenkins_smi_hash.dart",
         "package:front_end/src/base/libraries_specification.dart",
-        "package:front_end/src/base/performance_logger.dart",
         "package:front_end/src/base/processed_options.dart",
         "package:front_end/src/base/resolve_relative_uri.dart",
-        "package:front_end/src/base/source.dart",
         "package:front_end/src/base/syntactic_entity.dart",
-        "package:front_end/src/base/timestamped_data.dart",
-        "package:front_end/src/base/uri_kind.dart",
-        "package:front_end/src/byte_store/byte_store.dart",
-        "package:front_end/src/byte_store/cache.dart",
-        "package:front_end/src/byte_store/file_byte_store.dart",
-        "package:front_end/src/byte_store/fletcher16.dart",
-        "package:front_end/src/dependency_walker.dart",
-        "package:front_end/src/fasta/builder/builder.dart",
-        "package:front_end/src/fasta/builder/builtin_type_builder.dart",
-        "package:front_end/src/fasta/builder/class_builder.dart",
-        "package:front_end/src/fasta/builder/constructor_reference_builder.dart",
-        "package:front_end/src/fasta/builder/declaration.dart",
-        "package:front_end/src/fasta/builder/dynamic_type_builder.dart",
-        "package:front_end/src/fasta/builder/enum_builder.dart",
-        "package:front_end/src/fasta/builder/field_builder.dart",
-        "package:front_end/src/fasta/builder/formal_parameter_builder.dart",
-        "package:front_end/src/fasta/builder/function_type_alias_builder.dart",
-        "package:front_end/src/fasta/builder/function_type_builder.dart",
-        "package:front_end/src/fasta/builder/invalid_type_builder.dart",
-        "package:front_end/src/fasta/builder/library_builder.dart",
-        "package:front_end/src/fasta/builder/member_builder.dart",
-        "package:front_end/src/fasta/builder/metadata_builder.dart",
-        "package:front_end/src/fasta/builder/mixin_application_builder.dart",
-        "package:front_end/src/fasta/builder/modifier_builder.dart",
-        "package:front_end/src/fasta/builder/named_type_builder.dart",
-        "package:front_end/src/fasta/builder/prefix_builder.dart",
-        "package:front_end/src/fasta/builder/procedure_builder.dart",
-        "package:front_end/src/fasta/builder/qualified_name.dart",
-        "package:front_end/src/fasta/builder/type_builder.dart",
-        "package:front_end/src/fasta/builder/type_declaration_builder.dart",
-        "package:front_end/src/fasta/builder/type_variable_builder.dart",
-        "package:front_end/src/fasta/builder/unresolved_type.dart",
-        "package:front_end/src/fasta/builder/void_type_builder.dart",
         "package:front_end/src/fasta/colors.dart",
-        "package:front_end/src/fasta/combinator.dart",
         "package:front_end/src/fasta/command_line_reporting.dart",
         "package:front_end/src/fasta/compiler_context.dart",
-        "package:front_end/src/fasta/configuration.dart",
-        "package:front_end/src/fasta/constant_context.dart",
         "package:front_end/src/fasta/crash.dart",
-        "package:front_end/src/fasta/deprecated_problems.dart",
-        "package:front_end/src/fasta/dill/dill_class_builder.dart",
-        "package:front_end/src/fasta/dill/dill_library_builder.dart",
-        "package:front_end/src/fasta/dill/dill_loader.dart",
-        "package:front_end/src/fasta/dill/dill_member_builder.dart",
-        "package:front_end/src/fasta/dill/dill_target.dart",
-        "package:front_end/src/fasta/dill/dill_typedef_builder.dart",
-        "package:front_end/src/fasta/export.dart",
         "package:front_end/src/fasta/fasta_codes.dart",
-        "package:front_end/src/fasta/import.dart",
-        "package:front_end/src/fasta/kernel/body_builder.dart",
-        "package:front_end/src/fasta/kernel/constness.dart",
-        "package:front_end/src/fasta/kernel/expression_generator.dart",
-        "package:front_end/src/fasta/kernel/expression_generator_helper.dart",
-        "package:front_end/src/fasta/kernel/fangorn.dart",
-        "package:front_end/src/fasta/kernel/forest.dart",
-        "package:front_end/src/fasta/kernel/kernel_api.dart",
-        "package:front_end/src/fasta/kernel/kernel_ast_api.dart",
-        "package:front_end/src/fasta/kernel/kernel_body_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_class_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_enum_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_expression_generator.dart",
-        "package:front_end/src/fasta/kernel/kernel_field_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_formal_parameter_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_function_type_alias_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_function_type_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_invalid_type_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_library_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_mixin_application_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_named_type_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_prefix_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_procedure_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_shadow_ast.dart",
-        "package:front_end/src/fasta/kernel/kernel_target.dart",
-        "package:front_end/src/fasta/kernel/kernel_type_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_type_variable_builder.dart",
-        "package:front_end/src/fasta/kernel/kernel_variable_builder.dart",
-        "package:front_end/src/fasta/kernel/load_library_builder.dart",
-        "package:front_end/src/fasta/kernel/metadata_collector.dart",
-        "package:front_end/src/fasta/kernel/redirecting_factory_body.dart",
-        "package:front_end/src/fasta/kernel/type_algorithms.dart",
-        "package:front_end/src/fasta/kernel/unlinked_scope.dart",
-        "package:front_end/src/fasta/kernel/utils.dart",
-        "package:front_end/src/fasta/kernel/verifier.dart",
-        "package:front_end/src/fasta/loader.dart",
         "package:front_end/src/fasta/messages.dart",
-        "package:front_end/src/fasta/modifier.dart",
-        "package:front_end/src/fasta/names.dart",
-        "package:front_end/src/fasta/operator.dart",
         "package:front_end/src/fasta/parser.dart",
         "package:front_end/src/fasta/parser/assert.dart",
         "package:front_end/src/fasta/parser/async_modifier.dart",
@@ -850,7 +795,6 @@
         "package:front_end/src/fasta/parser/util.dart",
         "package:front_end/src/fasta/problems.dart",
         "package:front_end/src/fasta/quote.dart",
-        "package:front_end/src/fasta/rewrite_severity.dart",
         "package:front_end/src/fasta/scanner.dart",
         "package:front_end/src/fasta/scanner/abstract_scanner.dart",
         "package:front_end/src/fasta/scanner/array_based_scanner.dart",
@@ -863,40 +807,13 @@
         "package:front_end/src/fasta/scanner/token.dart",
         "package:front_end/src/fasta/scanner/token_constants.dart",
         "package:front_end/src/fasta/scanner/utf8_bytes_scanner.dart",
-        "package:front_end/src/fasta/scope.dart",
         "package:front_end/src/fasta/severity.dart",
-        "package:front_end/src/fasta/source/diet_listener.dart",
-        "package:front_end/src/fasta/source/diet_parser.dart",
-        "package:front_end/src/fasta/source/directive_listener.dart",
-        "package:front_end/src/fasta/source/outline_builder.dart",
-        "package:front_end/src/fasta/source/outline_listener.dart",
-        "package:front_end/src/fasta/source/scope_listener.dart",
-        "package:front_end/src/fasta/source/source_class_builder.dart",
-        "package:front_end/src/fasta/source/source_library_builder.dart",
-        "package:front_end/src/fasta/source/source_loader.dart",
         "package:front_end/src/fasta/source/stack_listener.dart",
-        "package:front_end/src/fasta/target.dart",
-        "package:front_end/src/fasta/target_implementation.dart",
         "package:front_end/src/fasta/ticker.dart",
-        "package:front_end/src/fasta/type_inference/inference_helper.dart",
-        "package:front_end/src/fasta/type_inference/interface_resolver.dart",
-        "package:front_end/src/fasta/type_inference/type_constraint_gatherer.dart",
-        "package:front_end/src/fasta/type_inference/type_inference_engine.dart",
-        "package:front_end/src/fasta/type_inference/type_inference_listener.dart",
-        "package:front_end/src/fasta/type_inference/type_inferrer.dart",
-        "package:front_end/src/fasta/type_inference/type_promotion.dart",
-        "package:front_end/src/fasta/type_inference/type_schema.dart",
-        "package:front_end/src/fasta/type_inference/type_schema_elimination.dart",
-        "package:front_end/src/fasta/type_inference/type_schema_environment.dart",
         "package:front_end/src/fasta/uri_translator.dart",
-        "package:front_end/src/fasta/uri_translator_impl.dart",
         "package:front_end/src/fasta/util/link.dart",
         "package:front_end/src/fasta/util/link_implementation.dart",
         "package:front_end/src/fasta/util/relativize.dart",
-        "package:front_end/src/incremental/file_state.dart",
-        "package:front_end/src/incremental/format.dart",
-        "package:front_end/src/incremental/kernel_driver.dart",
-        "package:front_end/src/incremental/unlinked_unit.dart",
         "package:front_end/src/scanner/errors.dart",
         "package:front_end/src/scanner/interner.dart",
         "package:front_end/src/scanner/reader.dart",
@@ -924,11 +841,9 @@
         "package:kernel/ast.dart",
         "package:kernel/binary/ast_from_binary.dart",
         "package:kernel/binary/ast_to_binary.dart",
-        "package:kernel/binary/limited_ast_to_binary.dart",
         "package:kernel/binary/tag.dart",
         "package:kernel/canonical_name.dart",
         "package:kernel/class_hierarchy.dart",
-        "package:kernel/clone.dart",
         "package:kernel/coq_annot.dart",
         "package:kernel/core_types.dart",
         "package:kernel/import_table.dart",
@@ -942,7 +857,6 @@
         "package:kernel/type_algebra.dart",
         "package:kernel/type_environment.dart",
         "package:kernel/util/graph.dart",
-        "package:kernel/verifier.dart",
         "package:kernel/visitor.dart",
         "package:logging/logging.dart",
         "package:markdown/markdown.dart",
@@ -1068,13 +982,7 @@
     },
     "lib/src/dartdoc_options.dart": {
       "uri": "package:dartdoc/src/dartdoc_options.dart",
-      "size": 43117,
-      "isFormatted": true,
-      "codeProblems": []
-    },
-    "lib/src/debug.dart": {
-      "uri": "package:dartdoc/src/debug.dart",
-      "size": 404,
+      "size": 52754,
       "isFormatted": true,
       "codeProblems": []
     },
@@ -1098,7 +1006,7 @@
     },
     "lib/src/html/html_generator_instance.dart": {
       "uri": "package:dartdoc/src/html/html_generator_instance.dart",
-      "size": 10497,
+      "size": 13988,
       "isFormatted": true,
       "codeProblems": []
     },
@@ -1116,19 +1024,19 @@
     },
     "lib/src/html/template_data.dart": {
       "uri": "package:dartdoc/src/html/template_data.dart",
-      "size": 14234,
+      "size": 15802,
       "isFormatted": true,
       "codeProblems": []
     },
     "lib/src/html/templates.dart": {
       "uri": "package:dartdoc/src/html/templates.dart",
-      "size": 5092,
+      "size": 5611,
       "isFormatted": true,
       "codeProblems": []
     },
     "lib/src/io_utils.dart": {
       "uri": "package:dartdoc/src/io_utils.dart",
-      "size": 7001,
+      "size": 7591,
       "isFormatted": true,
       "codeProblems": []
     },
@@ -1146,21 +1054,39 @@
     },
     "lib/src/markdown_processor.dart": {
       "uri": "package:dartdoc/src/markdown_processor.dart",
-      "size": 36848,
+      "size": 33534,
       "isFormatted": true,
       "codeProblems": []
     },
     "lib/src/model.dart": {
       "uri": "package:dartdoc/src/model.dart",
-      "size": 202816,
+      "size": 232684,
       "isFormatted": true,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/src/model.dart",
+          "line": 1070,
+          "col": 12,
+          "description": "'getMembersInheritedFromClasses' is deprecated and shouldn't be used."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/src/model.dart",
+          "line": 1072,
+          "col": 12,
+          "description": "'getMembersInheritedFromInterfaces' is deprecated and shouldn't be used."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
           "errorCode": "hash_and_equals",
           "file": "lib/src/model.dart",
-          "line": 1064,
+          "line": 1207,
           "col": 17,
           "description": "Always override `hashCode` if overriding `==`."
         },
@@ -1169,42 +1095,15 @@
           "errorType": "LINT",
           "errorCode": "iterable_contains_unrelated_type",
           "file": "lib/src/model.dart",
-          "line": 2118,
+          "line": 2386,
           "col": 25,
           "description": "Invocation of Iterable<E>.contains with references of unrelated types."
-        },
-        {
-          "severity": "ERROR",
-          "errorType": "COMPILE_TIME_ERROR",
-          "errorCode": "MIXIN_INHERITS_FROM_NOT_OBJECT",
-          "file": "lib/src/model.dart",
-          "line": 4855,
-          "col": 21,
-          "description": "The class 'Canonicalization' can't be used as a mixin because it extends a class other than Object."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/model.dart",
-          "line": 5228,
-          "col": 37,
-          "description": "'element' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/src/model.dart",
-          "line": 5229,
-          "col": 25,
-          "description": "'element' is deprecated and shouldn't be used."
         }
       ]
     },
     "lib/src/model_utils.dart": {
       "uri": "package:dartdoc/src/model_utils.dart",
-      "size": 13731,
+      "size": 13735,
       "isFormatted": true,
       "codeProblems": []
     },
@@ -1216,7 +1115,7 @@
     },
     "lib/src/special_elements.dart": {
       "uri": "package:dartdoc/src/special_elements.dart",
-      "size": 4524,
+      "size": 4682,
       "isFormatted": true,
       "codeProblems": []
     },
@@ -1281,6 +1180,12 @@
       "isFormatted": true,
       "codeProblems": []
     },
+    "lib/src/tool_runner.dart": {
+      "uri": "package:dartdoc/src/tool_runner.dart",
+      "size": 4994,
+      "isFormatted": true,
+      "codeProblems": []
+    },
     "lib/src/tuple.dart": {
       "uri": "package:dartdoc/src/tuple.dart",
       "size": 2279,
@@ -1289,13 +1194,19 @@
     },
     "lib/src/utils.dart": {
       "uri": "package:dartdoc/src/utils.dart",
-      "size": 2284,
+      "size": 2348,
+      "isFormatted": true,
+      "codeProblems": []
+    },
+    "lib/src/version.dart": {
+      "uri": "package:dartdoc/src/version.dart",
+      "size": 67,
       "isFormatted": true,
       "codeProblems": []
     },
     "lib/src/warnings.dart": {
       "uri": "package:dartdoc/src/warnings.dart",
-      "size": 11823,
+      "size": 12261,
       "isFormatted": true,
       "codeProblems": []
     }
