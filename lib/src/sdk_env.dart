@@ -31,6 +31,9 @@ class ToolEnvironment {
   final String _dartfmtCmd;
   final String _dartdocCmd;
   final String _flutterCmd;
+  // TODO: remove this after flutter analyze gets machine-readable output.
+  // https://github.com/flutter/flutter/issues/23664
+  final String _flutterDartAnalyzerCmd;
   final Map<String, String> _environment;
   PanaRuntimeInfo _runtimeInfo;
   bool _useGlobalDartdoc;
@@ -44,6 +47,7 @@ class ToolEnvironment {
     this._dartfmtCmd,
     this._dartdocCmd,
     this._flutterCmd,
+    this._flutterDartAnalyzerCmd,
     this._environment,
     this._useGlobalDartdoc,
   );
@@ -100,6 +104,19 @@ class ToolEnvironment {
     pubEnvValues.add('bot.pkg_pana');
     env[_pubEnvironmentKey] = pubEnvValues.join(':');
 
+    // Flutter stores its internal SDK in its bin/cache/dart-sdk directory.
+    // We can use that directory only if Flutter SDK path was specified,
+    // TODO: remove this after flutter analyze gets machine-readable output.
+    // https://github.com/flutter/flutter/issues/23664
+    final flutterDartSdkDir = resolvedFlutterSdk == null
+        ? resolvedDartSdk
+        : p.join(resolvedFlutterSdk, 'bin', 'cache', 'dart-sdk');
+    if (flutterDartSdkDir == null) {
+      _logger.warning(
+          'Flutter SDK path was not specified, pana will use the default '
+          'Dart SDK to run `dartanalyzer` on Flutter packages.');
+    }
+
     final toolEnv = ToolEnvironment._(
       resolvedDartSdk,
       resolvedPubCache,
@@ -109,6 +126,7 @@ class ToolEnvironment {
       _join(resolvedDartSdk, 'bin', 'dartfmt'),
       _join(resolvedDartSdk, 'bin', 'dartdoc'),
       _join(resolvedFlutterSdk, 'bin', 'flutter'),
+      _join(flutterDartSdkDir, 'bin', 'dartanalyzer'),
       env,
       useGlobalDartdoc,
     );
@@ -131,9 +149,11 @@ class ToolEnvironment {
         .writeAsString(customizeAnalysisOptions(originalOptions, usesFlutter));
     final params = ['--options', customOptionsFile.path, '--format', 'machine']
       ..addAll(dirs);
+    // TODO: run flutter analyze after it gets machine-readable output support:
+    // https://github.com/flutter/flutter/issues/23664
     try {
       final proc = await runProc(
-        _dartAnalyzerCmd,
+        usesFlutter ? _flutterDartAnalyzerCmd : _dartAnalyzerCmd,
         params,
         environment: _environment,
         workingDirectory: packageDir,
