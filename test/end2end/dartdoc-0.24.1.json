@@ -136,7 +136,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.1 <2.0.0",
-        "resolved": "1.5.0"
+        "resolved": "1.5.1"
       },
       {
         "package": "async",
@@ -321,7 +321,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^3.0.5",
-        "resolved": "3.0.5"
+        "resolved": "3.0.8"
       },
       {
         "package": "pub_semver",
@@ -642,6 +642,7 @@
         "package:args/src/option.dart",
         "package:args/src/parser.dart",
         "package:args/src/usage.dart",
+        "package:args/src/utils.dart",
         "package:async/async.dart",
         "package:async/src/async_cache.dart",
         "package:async/src/async_memoizer.dart",

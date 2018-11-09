@@ -124,7 +124,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "1.5.0"
+        "resolved": "1.5.1"
       },
       {
         "package": "async",
@@ -448,6 +448,7 @@
         "package:args/src/option.dart",
         "package:args/src/parser.dart",
         "package:args/src/usage.dart",
+        "package:args/src/utils.dart",
         "package:charcode/ascii.dart",
         "package:mime/mime.dart",
         "package:mime/src/bound_multipart_stream.dart",
