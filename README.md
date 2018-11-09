@@ -1,11 +1,13 @@
 [![Build Status](https://travis-ci.org/dart-lang/pana.svg?branch=master)](https://travis-ci.org/dart-lang/pana)
 
-A library for analyzing Dart packages.
+A library for analyzing Dart packages. It invokes executables from the Dart SDK
+(or from the Flutter SDK if the package uses Flutter).
 
+* Checks for outdated dependencies (calls `pub upgrade` or `flutter packages upgrade`).
 * Validates the code using [Dart Analyzer](https://www.dartlang.org/tools/analyzer).
-* Checks code formatting.
-* Checks for outdated dependencies.
-* Infers supported platforms: Flutter, web, and/or server.
+* Checks code formatting (`dartfmt` or `flutter format`).
+* Infers supported platforms: Flutter, web, and/or other (e.g console/server).
+* Creates suggestions to improve the package.
 
 Used by the [Dart Package site](https://pub.dartlang.org/).
 
