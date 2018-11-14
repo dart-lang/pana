@@ -50,11 +50,19 @@
     "analyzeProcessFailed": false,
     "formatProcessFailed": false,
     "resolveProcessFailed": false,
-    "analyzerErrorCount": 0,
+    "analyzerErrorCount": 1,
     "analyzerWarningCount": 0,
     "analyzerHintCount": 1,
     "platformConflictCount": 0,
     "suggestions": [
+      {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/src/rsp_util.dart`.",
+        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.",
+        "file": "lib/src/rsp_util.dart",
+        "score": 25.0
+      },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
@@ -71,17 +79,10 @@
         "file": "lib/proxy.dart"
       },
       {
-        "code": "dartfmt.warning",
-        "level": "hint",
-        "title": "Format `lib/src/connect.dart`.",
-        "description": "Run `dartfmt` to format `lib/src/connect.dart`.",
-        "file": "lib/src/connect.dart"
-      },
-      {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 11 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/connect_impl.dart` (Run `dartfmt` to format `lib/src/connect_impl.dart`.)\n- `lib/src/plugin/loader_impl.dart` (Run `dartfmt` to format `lib/src/plugin/loader_impl.dart`.)\n- `lib/src/plugin/router.dart` (Run `dartfmt` to format `lib/src/plugin/router.dart`.)\n- `lib/src/rsp_util.dart` (Run `dartfmt` to format `lib/src/rsp_util.dart`.)\n- `lib/src/rspc/build.dart` (Run `dartfmt` to format `lib/src/rspc/build.dart`.)\n- `lib/src/rspc/compiler.dart` (Run `dartfmt` to format `lib/src/rspc/compiler.dart`.)\n- `lib/src/rspc/main.dart` (Run `dartfmt` to format `lib/src/rspc/main.dart`.)\n- `lib/src/rspc/tag.dart` (Run `dartfmt` to format `lib/src/rspc/tag.dart`.)\n- `lib/src/rspc/tag_util.dart` (Run `dartfmt` to format `lib/src/rspc/tag_util.dart`.)\n- `lib/src/server.dart` (Run `dartfmt` to format `lib/src/server.dart`.)\n- `lib/src/server_impl.dart` (Run `dartfmt` to format `lib/src/server_impl.dart`.)\n"
+        "description": "Additional issues in the following files:\n\n- `lib/src/connect.dart` (Run `dartfmt` to format `lib/src/connect.dart`.)\n- `lib/src/connect_impl.dart` (Run `dartfmt` to format `lib/src/connect_impl.dart`.)\n- `lib/src/plugin/loader_impl.dart` (Run `dartfmt` to format `lib/src/plugin/loader_impl.dart`.)\n- `lib/src/plugin/router.dart` (Run `dartfmt` to format `lib/src/plugin/router.dart`.)\n- `lib/src/rspc/build.dart` (Run `dartfmt` to format `lib/src/rspc/build.dart`.)\n- `lib/src/rspc/compiler.dart` (Run `dartfmt` to format `lib/src/rspc/compiler.dart`.)\n- `lib/src/rspc/main.dart` (Run `dartfmt` to format `lib/src/rspc/main.dart`.)\n- `lib/src/rspc/tag.dart` (Run `dartfmt` to format `lib/src/rspc/tag.dart`.)\n- `lib/src/rspc/tag_util.dart` (Run `dartfmt` to format `lib/src/rspc/tag_util.dart`.)\n- `lib/src/server.dart` (Run `dartfmt` to format `lib/src/server.dart`.)\n- `lib/src/server_impl.dart` (Run `dartfmt` to format `lib/src/server_impl.dart`.)\n"
       }
     ]
   },
@@ -189,7 +190,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "3.0.4"
+        "resolved": "3.1.0"
       },
       {
         "package": "source_span",
@@ -531,7 +532,17 @@
       "uri": "package:stream/src/rsp_util.dart",
       "size": 6231,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "ERROR",
+          "errorType": "STATIC_TYPE_WARNING",
+          "errorCode": "UNDEFINED_GETTER",
+          "file": "lib/src/rsp_util.dart",
+          "line": 170,
+          "col": 47,
+          "description": "The getter 'dart' isn't defined for the class 'Browser'."
+        }
+      ]
     },
     "lib/src/rspc/build.dart": {
       "uri": "package:stream/src/rspc/build.dart",
