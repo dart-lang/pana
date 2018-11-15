@@ -139,8 +139,9 @@ class PackageAnalyzer {
           'dartfmt should only return Dart files');
     } catch (e, stack) {
       final errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
-      final isUserProblem = errorMsg
-          .contains('Could not format because the source could not be parsed');
+      final isUserProblem = errorMsg.contains(
+              'Could not format because the source could not be parsed') ||
+          errorMsg.contains('The formatter produced unexpected output.');
       if (!isUserProblem) {
         log.severe('`dartfmt` failed.\n$errorMsg', e, stack);
       }

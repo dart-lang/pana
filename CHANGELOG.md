@@ -1,3 +1,7 @@
+## 0.12.7-dev
+
+* Reduce the amount of logging when `dartfmt` fails due to an issue in the package.
+
 ## 0.12.6
 
 * Bulk processing and comparison.
