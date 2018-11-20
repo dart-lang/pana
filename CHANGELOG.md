@@ -2,6 +2,8 @@
 
 * Reduce the amount of logging when `dartfmt` fails due to an issue in the package.
 
+* Display Dart SDK warning if package doesn't allow the latest Dart 2.X version.
+
 ## 0.12.6
 
 * Bulk processing and comparison.

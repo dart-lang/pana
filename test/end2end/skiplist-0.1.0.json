@@ -92,7 +92,7 @@
       "code": "pubspec.dependencies.failedToResolve",
       "level": "error",
       "title": "Fix dependencies in `pubspec.yaml`.",
-      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is 2.1.0-dev.9.2.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```\n"
+      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is 2.2.0-dev.0.0.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```\n"
     }
   ],
   "dartFiles": {

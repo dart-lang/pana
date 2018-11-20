@@ -101,8 +101,8 @@
       {
         "code": "pubspec.sdk.devOnly",
         "level": "error",
-        "title": "Support Dart 2 in `pubspec.yaml`.",
-        "description": "The SDK constraint in pubspec.yaml doesn't allow the Dart 2.0.0 release. For information about upgrading it to be Dart 2 compatible, please see [https://www.dartlang.org/dart-2#migration](https://www.dartlang.org/dart-2#migration).",
+        "title": "Support latest stable Dart SDK in `pubspec.yaml`.",
+        "description": "The SDK constraint in pubspec.yaml doesn't allow the latest stable Dart SDK release.",
         "score": 20.0
       },
       {
@@ -118,7 +118,7 @@
       "code": "pubspec.dependencies.failedToResolve",
       "level": "error",
       "title": "Fix dependencies in `pubspec.yaml`.",
-      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is 2.1.0-dev.9.2.\n \n Because fs_shim requires SDK version >=1.24.0 <2.0.0, version solving failed.\n```\n"
+      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is 2.2.0-dev.0.0.\n \n Because fs_shim requires SDK version >=1.24.0 <2.0.0, version solving failed.\n```\n"
     }
   ],
   "dartFiles": {

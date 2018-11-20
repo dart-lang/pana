@@ -7,7 +7,7 @@ import 'package:yaml/yaml.dart' as yaml;
 
 import 'utils.dart';
 
-final _dart2First = Version.parse('2.0.0');
+final _dart2Last = Version.parse('2.9999.0');
 
 class Pubspec {
   final pubspek.Pubspec _inner;
@@ -105,6 +105,6 @@ class Pubspec {
     if (vc == null) {
       return false;
     }
-    return !vc.allows(_dart2First);
+    return !vc.allows(_dart2Last);
   }
 }

@@ -69,6 +69,7 @@ A package starts with `100` points, and the following detected issues have point
 - `changelog.md` missing (-20 points)
 - has platform conflicts (-20 points)
 - has unconstrained dependencies (-20 points)
+- does not allow latest stable SDK (-20 points)
 - `description` is too short (<60 characters) (-20 points)
 - `description` contains too many non-ASCII characters (-20 points)
 - `homepage` points to non-existent URL (-20 points)
