@@ -1,4 +1,4 @@
-## 0.12.7-dev
+## 0.12.7
 
 * Reduce the amount of logging when `dartfmt` fails due to an issue in the package.
 
