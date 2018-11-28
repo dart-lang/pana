@@ -129,7 +129,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.33.0",
-        "resolved": "0.33.3+2"
+        "resolved": "0.33.4"
       },
       {
         "package": "args",
@@ -210,7 +210,7 @@
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.6+5"
+        "resolved": "0.1.6+6"
       },
       {
         "package": "glob",
@@ -261,7 +261,7 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.6+5"
+        "resolved": "0.3.6+6"
       },
       {
         "package": "logging",
@@ -517,6 +517,7 @@
         "package:analyzer/src/dart/ast/resolution_map.dart",
         "package:analyzer/src/dart/ast/token.dart",
         "package:analyzer/src/dart/ast/utilities.dart",
+        "package:analyzer/src/dart/constant/compute.dart",
         "package:analyzer/src/dart/constant/constant_verifier.dart",
         "package:analyzer/src/dart/constant/evaluation.dart",
         "package:analyzer/src/dart/constant/utilities.dart",
@@ -574,6 +575,8 @@
         "package:analyzer/src/generated/utilities_dart.dart",
         "package:analyzer/src/generated/utilities_general.dart",
         "package:analyzer/src/generated/workspace.dart",
+        "package:analyzer/src/hint/sdk_constraint_extractor.dart",
+        "package:analyzer/src/hint/sdk_constraint_verifier.dart",
         "package:analyzer/src/html/error/html_codes.dart",
         "package:analyzer/src/lint/analysis.dart",
         "package:analyzer/src/lint/config.dart",
