@@ -65,15 +65,7 @@ Future<List<LicenseFile>> updateLicenseUrls(
 
 Future<LicenseFile> detectLicenseInFile(File file,
     {String relativePath}) async {
-  String content;
-  try {
-    content = utf8.decode(await file.readAsBytes(), allowMalformed: true);
-  } on FileSystemException catch (e) {
-    // TODO(kevmoo): Have to throw a copy of this exception due to
-    //   https://github.com/dart-lang/sdk/issues/31619
-    //   otherwise the log won't have a helpful stacktrace
-    throw FileSystemException(e.message, e.path, e.osError);
-  }
+  final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);
   var license = detectLicenseInContent(content, relativePath: relativePath);
   return license ?? LicenseFile(relativePath, LicenseNames.unknown);
 }
