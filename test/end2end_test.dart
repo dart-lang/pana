@@ -102,15 +102,6 @@ void main() {
         removeDependencyDetails(actualMap);
         removeDependencyDetails(content);
 
-        if (content.containsKey('suggestions')) {
-          final suggestions =
-              (content['suggestions'] as List).cast<Map<dynamic, dynamic>>();
-          suggestions?.forEach((Map map) {
-            // TODO: normalize paths in error reports and remove this override
-            map['description'] = isNotEmpty;
-          });
-        }
-
         expect(actualMap, content);
       });
 
