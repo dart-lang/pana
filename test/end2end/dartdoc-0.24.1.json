@@ -129,7 +129,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.33.0",
-        "resolved": "0.33.4"
+        "resolved": "0.33.5"
       },
       {
         "package": "args",
@@ -210,7 +210,7 @@
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.6+6"
+        "resolved": "0.1.6+7"
       },
       {
         "package": "glob",
@@ -261,7 +261,7 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.6+6"
+        "resolved": "0.3.6+7"
       },
       {
         "package": "logging",
@@ -506,6 +506,7 @@
         "package:analyzer/src/dart/analysis/library_context.dart",
         "package:analyzer/src/dart/analysis/performance_logger.dart",
         "package:analyzer/src/dart/analysis/referenced_names.dart",
+        "package:analyzer/src/dart/analysis/results.dart",
         "package:analyzer/src/dart/analysis/search.dart",
         "package:analyzer/src/dart/analysis/session.dart",
         "package:analyzer/src/dart/analysis/status.dart",
@@ -860,7 +861,6 @@
         "package:kernel/transformations/treeshaker.dart",
         "package:kernel/type_algebra.dart",
         "package:kernel/type_environment.dart",
-        "package:kernel/util/graph.dart",
         "package:kernel/visitor.dart",
         "package:logging/logging.dart",
         "package:markdown/markdown.dart",
