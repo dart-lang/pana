@@ -2,6 +2,8 @@
 
 * Code cleanup.
 
+* Reduce the amount of warning+ level log messages when tools fail.
+
 ## 0.12.7
 
 * Reduce the amount of logging when `dartfmt` fails due to an issue in the package.

@@ -405,20 +405,13 @@ class PackageAnalyzer {
       return null;
     }
     final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter);
-    try {
-      final list = LineSplitter.split(output)
-          .map((s) => parseCodeProblem(s, projectDir: pkgPath))
-          .where((e) => e != null)
-          .toSet()
-          .toList();
-      list.sort();
-      return list;
-    } on ArgumentError {
-      // TODO: we should figure out a way to succeed here, right?
-      // Or at least do partial results and not blow up
-      log.severe('Bad input?\n\n$output');
-      rethrow;
-    }
+    final list = LineSplitter.split(output)
+        .map((s) => parseCodeProblem(s, projectDir: pkgPath))
+        .where((e) => e != null)
+        .toSet()
+        .toList();
+    list.sort();
+    return list;
   }
 
   Set<String> _reachableLibs(Map<String, List<String>> allTransitiveLibs) {
