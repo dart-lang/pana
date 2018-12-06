@@ -4,6 +4,8 @@
 
 * Reduce the amount of warning+ level log messages when tools fail.
 
+* Handle package with bad `pubspec.yaml`.
+
 ## 0.12.7
 
 * Reduce the amount of logging when `dartfmt` fails due to an issue in the package.

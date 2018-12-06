@@ -32,7 +32,8 @@ void main() {
     await tempDir.delete(recursive: true);
   });
 
-  void _verifyPackage(String fileName, String package, String version) {
+  void _verifyPackage(String fileName, String package, String version,
+      {bool hasStats = true}) {
     group('end2end: $package $version', () {
       Map<String, dynamic> actualMap;
 
@@ -56,19 +57,21 @@ void main() {
         ));
 
         // Fixed stats to reduce changes on each modification.
-        assert(summary.stats != null);
-        assert(summary.stats.analyzeProcessElapsed != null);
-        assert(summary.stats.formatProcessElapsed != null);
-        assert(summary.stats.resolveProcessElapsed != null);
-        assert(summary.stats.totalElapsed != null);
-        summary = summary.change(
-          stats: Stats(
-            analyzeProcessElapsed: 1234,
-            formatProcessElapsed: 567,
-            resolveProcessElapsed: 899,
-            totalElapsed: 4567,
-          ),
-        );
+        if (hasStats) {
+          assert(summary.stats != null);
+          assert(summary.stats.analyzeProcessElapsed != null);
+          assert(summary.stats.formatProcessElapsed != null);
+          assert(summary.stats.resolveProcessElapsed != null);
+          assert(summary.stats.totalElapsed != null);
+          summary = summary.change(
+            stats: Stats(
+              analyzeProcessElapsed: 1234,
+              formatProcessElapsed: 567,
+              resolveProcessElapsed: 899,
+              totalElapsed: 4567,
+            ),
+          );
+        }
 
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
@@ -120,6 +123,9 @@ void main() {
   _verifyPackage('skiplist-0.1.0.json', 'skiplist', '0.1.0');
   _verifyPackage('stream-2.0.1.json', 'stream', '2.0.1');
   _verifyPackage('fs_shim-0.7.1.json', 'fs_shim', '0.7.1');
+
+  // packages with bad content
+  _verifyPackage('syntax-0.2.0.json', 'syntax', '0.2.0', hasStats: false);
 }
 
 Matcher isSemVer = predicate<String>((String versionString) {

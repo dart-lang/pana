@@ -116,7 +116,31 @@ class PackageAnalyzer {
             .toList();
 
     log.info('Parsing pubspec.yaml...');
-    var pubspec = Pubspec.parseFromDir(pkgDir);
+    Pubspec pubspec;
+    try {
+      pubspec = Pubspec.parseFromDir(pkgDir);
+    } catch (e, st) {
+      log.info('Unable to read pubspec.yaml', e, st);
+      suggestions.add(Suggestion.error(
+        SuggestionCode.pubspecParseError,
+        'Error while parsing `pubspec.yaml`.',
+        'Parsing throw an exception:\n\n```\n$e\n```.',
+      ));
+      return Summary(
+        runtimeInfo: _toolEnv.runtimeInfo,
+        packageName: null,
+        packageVersion: null,
+        pubspec: options.verbosity == Verbosity.compact ? null : pubspec,
+        pkgResolution: null,
+        dartFiles: null,
+        platform: null,
+        licenses: null,
+        health: null,
+        maintenance: null,
+        suggestions: suggestions,
+        stats: null,
+      );
+    }
     if (pubspec.hasUnknownSdks) {
       suggestions.add(Suggestion.error(
           SuggestionCode.pubspecSdkUnknown,
