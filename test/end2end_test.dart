@@ -32,7 +32,8 @@ void main() {
     await tempDir.delete(recursive: true);
   });
 
-  void _verifyPackage(String fileName, String package, String version, {bool hasStats = true}) {
+  void _verifyPackage(String fileName, String package, String version,
+      {bool hasStats = true}) {
     group('end2end: $package $version', () {
       Map<String, dynamic> actualMap;
 
