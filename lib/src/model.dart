@@ -305,6 +305,7 @@ abstract class SuggestionCode {
   static const String dartanalyzerWarning = 'dartanalyzer.warning';
 
   static const String dartdocAborted = 'dartdoc.aborted';
+  static const String dartdocCoverage = 'dartdoc.coverage';
 
   static const String dartfmtAborted = 'dartfmt.aborted';
   static const String dartfmtWarning = 'dartfmt.warning';
