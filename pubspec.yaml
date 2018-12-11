@@ -8,7 +8,7 @@ environment:
   sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
-  analyzer: ^0.33.0
+  analyzer: ^0.34.0
   args: '>=0.13.7 <2.0.0'
   async: '>=1.13.3 <3.0.0'
   cli_util: ^0.1.1
