@@ -60,7 +60,7 @@ linter:
     - unnecessary_getters_setters
     - unnecessary_statements
     - unrelated_type_equality_checks
-    - valid_regexps                   
+    - valid_regexps
 ''';
 
 const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
