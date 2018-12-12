@@ -11,12 +11,6 @@ import 'package:pana/src/analysis_options.dart';
 void main() {
   test('default options', () {
     expect(json.decode(customizeAnalysisOptions(null, false)), {
-      'analyzer': {
-        'strong-mode': true,
-        'language': {
-          'enablePreviewDart2': true,
-        },
-      },
       'linter': {
         'rules': [
           'camel_case_types',
@@ -33,27 +27,39 @@ void main() {
   test('flutter without original', () {
     expect(json.decode(customizeAnalysisOptions(null, true)), {
       'analyzer': {
-        'strong-mode': true,
-        'language': {
-          'enablePreviewDart2': true,
-          'enableSuperMixins': true,
-          'enableStrictCallChecks': true,
-        },
-        'errors': {
-          'todo': 'ignore',
-          'missing_return': 'warning',
-          'missing_required_param': 'warning'
-        },
+        'errors': {'missing_required_param': 'warning'},
       },
       'linter': {
         'rules': [
+          'avoid_empty_else',
+          'avoid_init_to_null',
+          'avoid_return_types_on_setters',
+          'await_only_futures',
           'camel_case_types',
+          'cancel_subscriptions',
+          'close_sinks',
+          'control_flow_in_finally',
+          'empty_constructor_bodies',
+          'empty_statements',
           'hash_and_equals',
-          'iterable_contains_unrelated_type',
-          'list_remove_unrelated_type',
+          'implementation_imports',
+          'library_names',
+          'non_constant_identifier_names',
+          'package_api_docs',
+          'package_names',
+          'package_prefixed_library_names',
+          'prefer_is_not_empty',
+          'slash_for_doc_comments',
+          'super_goes_last',
+          'test_types_in_equals',
+          'throw_in_finally',
+          'type_init_formals',
+          'unnecessary_brace_in_string_interps',
+          'unnecessary_getters_setters',
+          'unnecessary_statements',
           'unrelated_type_equality_checks',
-          'valid_regexps',
-        ],
+          'valid_regexps'
+        ]
       },
     });
   });
@@ -66,8 +72,6 @@ analyzer:
 ''';
     expect(json.decode(customizeAnalysisOptions(original, false)), {
       'analyzer': {
-        'language': {'enablePreviewDart2': true},
-        'strong-mode': true,
         'errors': {},
       },
       'linter': {
@@ -91,8 +95,6 @@ analyzer:
 ''';
     expect(json.decode(customizeAnalysisOptions(original, false)), {
       'analyzer': {
-        'language': {'enablePreviewDart2': true},
-        'strong-mode': true,
         'errors': {
           'uri_has_not_been_generated': 'ignore',
         },
