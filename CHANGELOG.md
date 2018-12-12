@@ -1,3 +1,8 @@
+## 0.12.9
+
+* Analysis options used in code health scoring updated remove stale options and 
+  to include latest flutter-enabled lints.
+
 ## 0.12.8
 
 * Code cleanup.
