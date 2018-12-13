@@ -1,7 +1,9 @@
 ## 0.12.9
 
-* Analysis options used in code health scoring updated remove stale options and 
-  to include latest flutter-enabled lints.
+* Analysis options used in code health scoring updated:
+  * removed stale options,
+  * included latest Flutter-enabled lints,
+  * included latest stagehand-enabled lints.
 
 ## 0.12.8
 
