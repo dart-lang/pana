@@ -5,6 +5,8 @@
   * included latest Flutter-enabled lints,
   * included latest stagehand-enabled lints.
 
+* Downgrading `package:analyzer`.
+
 ## 0.12.8
 
 * Code cleanup.
