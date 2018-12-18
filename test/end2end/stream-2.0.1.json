@@ -190,7 +190,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "3.1.0+1"
+        "resolved": "3.1.2"
       },
       {
         "package": "source_span",
