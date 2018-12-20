@@ -5,7 +5,7 @@
   * included latest Flutter-enabled lints,
   * included latest stagehand-enabled lints.
 
-* Downgrading `package:analyzer`.
+* Upgraded to `package:analyzer 0.34.1`, which fixed a NPE.
 
 ## 0.12.8
 
