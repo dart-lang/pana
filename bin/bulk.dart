@@ -7,6 +7,7 @@
 ///   bulk analyze --dart-sdk /path/to/sdk --output output-dir-2 pkg1 pkg2 pkg3
 ///   bulk summary output-dir-1 output-dir-2
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
