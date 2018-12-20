@@ -130,7 +130,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.34.0"
+        "available": "0.34.1"
       },
       {
         "package": "args",
@@ -180,7 +180,7 @@
         "package": "convert",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.0"
+        "resolved": "2.1.1"
       },
       {
         "package": "crypto",
@@ -212,7 +212,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.6+9",
-        "available": "0.1.7"
+        "available": "0.1.8"
       },
       {
         "package": "glob",
@@ -264,7 +264,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.6+9",
-        "available": "0.3.7"
+        "available": "0.3.8"
       },
       {
         "package": "logging",

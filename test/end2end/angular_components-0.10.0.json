@@ -138,7 +138,7 @@
         "package": "analyzer",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.34.0"
+        "resolved": "0.34.1"
       },
       {
         "package": "angular",
@@ -235,7 +235,7 @@
         "package": "convert",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.0"
+        "resolved": "2.1.1"
       },
       {
         "package": "crypto",
@@ -278,7 +278,7 @@
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.7"
+        "resolved": "0.1.8"
       },
       {
         "package": "glob",
@@ -328,7 +328,7 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.7"
+        "resolved": "0.3.8"
       },
       {
         "package": "logging",
@@ -2312,6 +2312,7 @@
         "package:analyzer/dart/constant/value.dart",
         "package:analyzer/dart/element/element.dart",
         "package:analyzer/dart/element/type.dart",
+        "package:analyzer/dart/element/type_system.dart",
         "package:analyzer/dart/element/visitor.dart",
         "package:analyzer/error/error.dart",
         "package:analyzer/error/listener.dart",
@@ -2340,6 +2341,7 @@
         "package:analyzer/src/dart/analysis/driver.dart",
         "package:analyzer/src/dart/analysis/driver_based_analysis_context.dart",
         "package:analyzer/src/dart/analysis/experiments.dart",
+        "package:analyzer/src/dart/analysis/experiments_impl.dart",
         "package:analyzer/src/dart/analysis/file_state.dart",
         "package:analyzer/src/dart/analysis/file_tracker.dart",
         "package:analyzer/src/dart/analysis/index.dart",
