@@ -43,6 +43,7 @@ Future<Directory> downloadPackage(String package, String version,
   } catch (e, st) {
     log.warning('Unable to download the archive of $package $version.', e, st);
   }
+  await temp.delete(recursive: true);
   return null;
 }
 
