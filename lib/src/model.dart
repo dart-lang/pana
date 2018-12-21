@@ -333,6 +333,14 @@ abstract class SuggestionCode {
       'pubspec.homepage.doesNotExists';
   static const String pubspecHomepageIsNotHelpful =
       'pubspec.homepage.isNotHelpful';
+  static const String pubspecRepositoryDoesNotExists =
+      'pubspec.repository.doesNotExists';
+  static const String pubspecRepositoryIsNotHelpful =
+      'pubspec.repository.isNotHelpful';
+  static const String pubspecIssueTrackerDoesNotExists =
+      'pubspec.issue_tracker.doesNotExists';
+  static const String pubspecIssueTrackerIsNotHelpful =
+      'pubspec.issue_tracker.isNotHelpful';
   static const String pubspecParseError = 'pubspec.parseError';
   static const String pubspecSdkUnknown = 'pubspec.sdk.unknown';
   static const String pubspecSdkConstraintMissing = 'pubspec.sdk.missing';

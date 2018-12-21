@@ -98,6 +98,10 @@ class Pubspec {
 
   String get documentation => _inner.documentation;
 
+  String get repository => _inner.repository?.toString();
+
+  String get issueTracker => _inner.issueTracker?.toString();
+
   bool get hasDartSdkConstraint => _inner.environment.containsKey('sdk');
 
   bool get shouldWarnDart2Constraint {

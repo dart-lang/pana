@@ -113,14 +113,14 @@
         "code": "pubspec.documentation.isNotHelpful",
         "level": "warning",
         "title": "Documentation URL is not helpful.",
-        "description": "Update the `documentation` property: create a website about the package or remove it.",
+        "description": "Update the `documentation` property: Create a website about the package or remove the `documentation` key.",
         "score": 10.0
       },
       {
         "code": "pubspec.homepage.isNotHelpful",
         "level": "warning",
-        "title": "Homepage is not helpful.",
-        "description": "Update the `homepage` property: create a website about the package or use the source repository URL.",
+        "title": "Homepage URL is not helpful.",
+        "description": "Update the `homepage` property: Create a website about the package or use the source repository URL.",
         "score": 10.0
       },
       {
@@ -399,7 +399,7 @@
         "package": "pubspec_parse",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.2+3"
+        "resolved": "0.1.3"
       },
       {
         "package": "quiver",
