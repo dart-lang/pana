@@ -7,6 +7,8 @@
 
 * Upgraded to `package:analyzer 0.34.1`, which fixed a NPE.
 
+* Validating `repository` and `issue_tracker` URLs.
+
 ## 0.12.8
 
 * Code cleanup.

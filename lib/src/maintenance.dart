@@ -197,44 +197,78 @@ Future<Maintenance> detectMaintenance(
     }
   }
 
-  final homepageStatus = await urlChecker.checkStatus(pubspec.homepage,
-      isInternalPackage: options.isInternal);
-  if (homepageStatus == UrlStatus.invalid ||
-      homepageStatus == UrlStatus.internal) {
-    maintenanceSuggestions.add(Suggestion.warning(
-      SuggestionCode.pubspecHomepageIsNotHelpful,
-      'Homepage is not helpful.',
-      'Update the `homepage` property: create a website about the package or use the source repository URL.',
-      score: 10.0,
-    ));
-  } else if (homepageStatus == UrlStatus.missing) {
-    maintenanceSuggestions.add(Suggestion.warning(
-      SuggestionCode.pubspecHomepageDoesNotExists,
-      'Homepage does not exists.',
-      'We were unable to access `${pubspec.homepage}` at the time of the analysis.',
-      score: 20.0,
-    ));
-  }
-
-  if (pubspec.documentation != null && pubspec.documentation.isNotEmpty) {
-    final documentationStatus = await urlChecker.checkStatus(
-        pubspec.documentation,
+  Future processUrlStatus(
+    String key,
+    String name,
+    String url, {
+    @required String invalidCode,
+    @required String invalidAction,
+    @required String http404Code,
+    double invalidPenalty = 10.0,
+    double http404Penalty = 10.0,
+  }) async {
+    final status = await urlChecker.checkStatus(url,
         isInternalPackage: options.isInternal);
-    if (documentationStatus == UrlStatus.internal) {
+    if (status == UrlStatus.invalid || status == UrlStatus.internal) {
       maintenanceSuggestions.add(Suggestion.warning(
-        SuggestionCode.pubspecDocumentationIsNotHelpful,
-        'Documentation URL is not helpful.',
-        'Update the `documentation` property: create a website about the package or remove it.',
-        score: 10.0,
+        invalidCode,
+        '$name is not helpful.',
+        'Update the `$key` property: $invalidAction',
+        score: invalidPenalty,
       ));
-    } else if (documentationStatus == UrlStatus.missing) {
+    } else if (status == UrlStatus.missing) {
       maintenanceSuggestions.add(Suggestion.warning(
-        SuggestionCode.pubspecDocumentationDoesNotExists,
-        'Documentation URL does not exists.',
-        'We were unable to access `${pubspec.documentation}` at the time of the analysis.',
-        score: 10.0,
+        http404Code,
+        '$name does not exists.',
+        'We were unable to access `$url` at the time of the analysis.',
+        score: http404Penalty,
       ));
     }
+  }
+
+  await processUrlStatus(
+    'homepage',
+    'Homepage URL',
+    pubspec.homepage,
+    invalidCode: SuggestionCode.pubspecHomepageIsNotHelpful,
+    invalidAction:
+        'Create a website about the package or use the source repository URL.',
+    http404Code: SuggestionCode.pubspecHomepageDoesNotExists,
+    http404Penalty: 20.0,
+  );
+
+  if (pubspec.documentation != null && pubspec.documentation.isNotEmpty) {
+    await processUrlStatus(
+      'documentation',
+      'Documentation URL',
+      pubspec.documentation,
+      invalidCode: SuggestionCode.pubspecDocumentationIsNotHelpful,
+      invalidAction:
+          'Create a website about the package or remove the `documentation` key.',
+      http404Code: SuggestionCode.pubspecDocumentationDoesNotExists,
+    );
+  }
+
+  if (pubspec.repository != null && pubspec.repository.isNotEmpty) {
+    await processUrlStatus(
+      'repository',
+      'Repository URL',
+      pubspec.repository,
+      invalidCode: SuggestionCode.pubspecRepositoryDoesNotExists,
+      invalidAction: 'Use the source code repository URL.',
+      http404Code: SuggestionCode.pubspecRepositoryIsNotHelpful,
+    );
+  }
+
+  if (pubspec.issueTracker != null && pubspec.issueTracker.isNotEmpty) {
+    await processUrlStatus(
+      'issue_tracker',
+      'Issue tracker URL',
+      pubspec.issueTracker,
+      invalidCode: SuggestionCode.pubspecIssueTrackerDoesNotExists,
+      invalidAction: 'Use the issue tracker URL of the source code repository.',
+      http404Code: SuggestionCode.pubspecIssueTrackerIsNotHelpful,
+    );
   }
 
   if (!pubspec.hasDartSdkConstraint) {
