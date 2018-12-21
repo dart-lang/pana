@@ -80,9 +80,9 @@ const _withIssuesJson = {
     {
       'code': 'pubspec.homepage.isNotHelpful',
       'level': 'warning',
-      'title': 'Homepage is not helpful.',
+      'title': 'Homepage URL is not helpful.',
       'description':
-          'Update the `homepage` property: create a website about the package or use the source repository URL.',
+          'Update the `homepage` property: Create a website about the package or use the source repository URL.',
       'score': 10.0,
     },
     {
