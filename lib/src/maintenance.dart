@@ -204,8 +204,8 @@ Future<Maintenance> detectMaintenance(
     @required String invalidCode,
     @required String invalidAction,
     @required String http404Code,
-    double invalidPenalty: 10.0,
-    double http404Penalty: 10.0,
+    double invalidPenalty = 10.0,
+    double http404Penalty = 10.0,
   }) async {
     final status = await urlChecker.checkStatus(url,
         isInternalPackage: options.isInternal);
