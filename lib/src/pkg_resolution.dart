@@ -23,13 +23,19 @@ PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
   var pkgVersions = <String, Version>{};
   var availVersions = <String, Version>{};
 
-  var entries = PubEntry.parse(procStdout)
+  // first select the which match the following pattern:
+  // MSG :   pkg1 [version]
+  //     |   pkg2 [version] ([version] available)
+  final entries = PubEntry.parse(procStdout)
       .where((entry) => entry.header == 'MSG')
-      .where((entry) => entry.content.every(_solvePkgLine.hasMatch))
+      .where((entry) => entry.content.any(_solvePkgLine.hasMatch))
       .toList();
 
   if (entries.length == 1) {
-    for (var match in entries.single.content.map(_solvePkgLine.firstMatch)) {
+    // normally there should be only one such content block:
+    for (var match in entries.single.content
+        .takeWhile(_solvePkgLine.hasMatch)
+        .map(_solvePkgLine.firstMatch)) {
       var pkg = match.group(1);
       pkgVersions[pkg] = Version.parse(match.group(2));
       var availVerStr = match.group(3);
