@@ -2,6 +2,8 @@
 
 * Support `--line-length` in command-line and in `InspectOptions` (pass-through to `dartfmt`).
 
+* Fix `pub upgrade` parsing.
+
 ## 0.12.9
 
 * Analysis options used in code health scoring updated:
