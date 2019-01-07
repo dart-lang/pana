@@ -63,7 +63,7 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 105,
+    "analyzerHintCount": 106,
     "platformConflictCount": 0,
     "suggestions": [
       {
@@ -94,8 +94,8 @@
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 43 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/model/selection/delegating_selection_model.dart` (6 hints)\n- `lib/material_input/material_input_multiline.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/model/menu/menu.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_menu/menu_item_groups.dart` (2 hints)\n- `lib/mixins/highlight_assistant_mixin.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/comparators/comparators.dart` (2 hints)\n- `lib/angular_components.dart` (1 hint)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/material_calendar_picker.dart` (1 hint)\n- `lib/material_datepicker/material_date_grid_base.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/model/date/date.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_datepicker/calendar/model.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/pan_controller_impl.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/position_sticky_controller.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/sticky_controller_impl.dart` (1 hint)\n- `lib/src/utils/async/simple_stream.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/browser/events/events.dart` (1 hint)\n",
-        "score": 37.870000000000005
+        "description": "Additional issues in the following files:\n\n- `lib/src/model/selection/delegating_selection_model.dart` (6 hints)\n- `lib/material_input/material_input_multiline.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_menu/menu_item_groups.dart` (2 hints)\n- `lib/mixins/highlight_assistant_mixin.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/comparators/comparators.dart` (2 hints)\n- `lib/angular_components.dart` (1 hint)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/material_calendar_picker.dart` (1 hint)\n- `lib/material_datepicker/material_date_grid_base.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/model/date/date.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_datepicker/calendar/model.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/pan_controller_impl.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/position_sticky_controller.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/sticky_controller_impl.dart` (1 hint)\n- `lib/src/utils/async/simple_stream.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/browser/events/events.dart` (1 hint)\n",
+        "score": 38.370000000000005
       }
     ]
   },
@@ -348,7 +348,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.0.4",
-        "resolved": "1.1.6"
+        "resolved": "1.1.7"
       },
       {
         "package": "observable",
@@ -387,7 +387,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.10.2",
-        "resolved": "0.10.5"
+        "resolved": "0.10.6"
       },
       {
         "package": "pub_semver",
@@ -413,7 +413,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.15.2"
+        "resolved": "1.15.3"
       },
       {
         "package": "sass_builder",
@@ -2859,6 +2859,7 @@
         "package:sass/src/ast/selector/simple.dart",
         "package:sass/src/ast/selector/type.dart",
         "package:sass/src/ast/selector/universal.dart",
+        "package:sass/src/async_compile.dart",
         "package:sass/src/async_environment.dart",
         "package:sass/src/async_import_cache.dart",
         "package:sass/src/callable.dart",
@@ -31762,6 +31763,15 @@
       "size": 9439,
       "isFormatted": true,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/model/menu/menu.dart",
+          "line": 164,
+          "col": 4,
+          "description": "'virtual' is deprecated and shouldn't be used."
+        },
         {
           "severity": "INFO",
           "errorType": "HINT",
