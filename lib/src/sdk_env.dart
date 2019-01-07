@@ -172,8 +172,8 @@ class ToolEnvironment {
     }
   }
 
-  Future<List<String>> filesNeedingFormat(
-      String packageDir, bool usesFlutter) async {
+  Future<List<String>> filesNeedingFormat(String packageDir, bool usesFlutter,
+      {int lineLength}) async {
     final dirs = await listFocusDirs(packageDir);
     if (dirs.isEmpty) {
       return const [];
@@ -182,24 +182,22 @@ class ToolEnvironment {
     for (final dir in dirs) {
       final fullPath = p.join(packageDir, dir);
 
-      ProcessResult result;
+      final params = <String>[];
       if (usesFlutter) {
-        result = await runProc(
-          _flutterCmd,
-          ['format', '--dry-run', fullPath],
-          workingDirectory: packageDir,
-          environment: _environment,
-          timeout: _dartfmtTimeout,
-        );
-      } else {
-        result = await runProc(
-          _dartfmtCmd,
-          ['--dry-run', '--set-exit-if-changed', fullPath],
-          environment: _environment,
-          timeout: _dartfmtTimeout,
-        );
+        params.add('format');
       }
+      params.addAll(['--dry-run', '--set-exit-if-changed']);
+      if (lineLength != null && lineLength > 0) {
+        params.addAll(<String>['--line-length', lineLength.toString()]);
+      }
+      params.add(fullPath);
 
+      final result = await runProc(
+        usesFlutter ? _flutterCmd : _dartfmtCmd,
+        params,
+        environment: _environment,
+        timeout: _dartfmtTimeout,
+      );
       if (result.exitCode == 0) {
         continue;
       }

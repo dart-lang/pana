@@ -36,6 +36,7 @@ Options:
       --hosted-url      The server that hosts <package>.
                         (defaults to "https://pub.dartlang.org")
   
+  -l, --line-length     The line length to use with dartfmt.  
       --verbosity       Configure the details in the output.
                         [compact, normal (default), verbose]
   

@@ -30,6 +30,8 @@ final _parser = ArgParser()
       defaultsTo: 'hosted')
   ..addOption('hosted-url',
       help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
+  ..addOption('line-length',
+      abbr: 'l', help: 'The line length to use with dartfmt.')
   ..addOption('verbosity',
       help: 'Configure the details in the output.',
       allowed: ['compact', 'normal', 'verbose'],
@@ -130,6 +132,7 @@ main(List<String> args) async {
     final options = InspectOptions(
       verbosity: verbosity,
       pubHostedUrl: pubHostedUrl,
+      lineLength: int.tryParse(result['line-length'] as String ?? ''),
     );
     try {
       Summary summary;
