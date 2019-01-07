@@ -170,7 +170,7 @@
         "package": "meta",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.6"
+        "resolved": "1.1.7"
       },
       {
         "package": "mime",

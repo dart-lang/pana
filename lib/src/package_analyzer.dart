@@ -38,6 +38,7 @@ class InspectOptions {
   final int dartdocRetry;
   final Duration dartdocTimeout;
   final bool isInternal;
+  final int lineLength;
 
   InspectOptions({
     this.verbosity = Verbosity.normal,
@@ -47,6 +48,7 @@ class InspectOptions {
     this.dartdocRetry = 0,
     this.dartdocTimeout,
     this.isInternal = false,
+    this.lineLength,
   });
 }
 
@@ -157,7 +159,8 @@ class PackageAnalyzer {
     Set<String> unformattedFiles;
     try {
       unformattedFiles = SplayTreeSet<String>.from(
-          await _toolEnv.filesNeedingFormat(pkgDir, usesFlutter));
+          await _toolEnv.filesNeedingFormat(pkgDir, usesFlutter,
+              lineLength: options.lineLength));
 
       assert(unformattedFiles.every((f) => dartFiles.contains(f)),
           'dartfmt should only return Dart files');

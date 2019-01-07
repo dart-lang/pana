@@ -291,7 +291,7 @@
         "dependencyType": "dev",
         "constraintType": "normal",
         "constraint": "^1.0.0",
-        "resolved": "1.1.6"
+        "resolved": "1.1.7"
       },
       {
         "package": "package_config",
