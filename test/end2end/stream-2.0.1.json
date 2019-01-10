@@ -111,6 +111,20 @@
         "score": 20.0
       },
       {
+        "code": "pubspec.documentation.isInsecure",
+        "level": "hint",
+        "title": "Documentation URL is insecure.",
+        "description": "Update the `documentation` property and use a secure (`https`) URL.",
+        "score": 5.0
+      },
+      {
+        "code": "pubspec.homepage.isInsecure",
+        "level": "hint",
+        "title": "Homepage URL is insecure.",
+        "description": "Update the `homepage` property and use a secure (`https`) URL.",
+        "score": 5.0
+      },
+      {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
