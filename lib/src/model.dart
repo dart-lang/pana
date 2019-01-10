@@ -327,18 +327,25 @@ abstract class SuggestionCode {
       'pubspec.description.asciiOnly';
   static const String pubspecDocumentationDoesNotExists =
       'pubspec.documentation.doesNotExists';
+  static const String pubspecDocumentationIsInsecure =
+      'pubspec.documentation.isInsecure';
   static const String pubspecDocumentationIsNotHelpful =
       'pubspec.documentation.isNotHelpful';
   static const String pubspecHomepageDoesNotExists =
       'pubspec.homepage.doesNotExists';
+  static const String pubspecHomepageIsInsecure = 'pubspec.homepage.isInsecure';
   static const String pubspecHomepageIsNotHelpful =
       'pubspec.homepage.isNotHelpful';
   static const String pubspecRepositoryDoesNotExists =
       'pubspec.repository.doesNotExists';
+  static const String pubspecRepositoryIsInsecure =
+      'pubspec.repository.isInsecure';
   static const String pubspecRepositoryIsNotHelpful =
       'pubspec.repository.isNotHelpful';
   static const String pubspecIssueTrackerDoesNotExists =
       'pubspec.issue_tracker.doesNotExists';
+  static const String pubspecIssueTrackerIsInsecure =
+      'pubspec.issue_tracker.isInsecure';
   static const String pubspecIssueTrackerIsNotHelpful =
       'pubspec.issue_tracker.isNotHelpful';
   static const String pubspecParseError = 'pubspec.parseError';

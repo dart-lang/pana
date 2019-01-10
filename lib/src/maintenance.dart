@@ -204,8 +204,10 @@ Future<Maintenance> detectMaintenance(
     @required String invalidCode,
     @required String invalidAction,
     @required String http404Code,
+    @required String insecureCode,
     double invalidPenalty = 10.0,
     double http404Penalty = 10.0,
+    double insecurePenalty = 5.0,
   }) async {
     final status = await urlChecker.checkStatus(url,
         isInternalPackage: options.isInternal);
@@ -223,6 +225,13 @@ Future<Maintenance> detectMaintenance(
         'We were unable to access `$url` at the time of the analysis.',
         score: http404Penalty,
       ));
+    } else if (status == UrlStatus.exists && !url.startsWith('https://')) {
+      maintenanceSuggestions.add(Suggestion.hint(
+        insecureCode,
+        '$name is insecure.',
+        'Update the `$key` property and use a secure (`https`) URL.',
+        score: insecurePenalty,
+      ));
     }
   }
 
@@ -235,6 +244,7 @@ Future<Maintenance> detectMaintenance(
         'Create a website about the package or use the source repository URL.',
     http404Code: SuggestionCode.pubspecHomepageDoesNotExists,
     http404Penalty: 20.0,
+    insecureCode: SuggestionCode.pubspecHomepageIsInsecure,
   );
 
   if (pubspec.documentation != null && pubspec.documentation.isNotEmpty) {
@@ -246,6 +256,7 @@ Future<Maintenance> detectMaintenance(
       invalidAction:
           'Create a website about the package or remove the `documentation` key.',
       http404Code: SuggestionCode.pubspecDocumentationDoesNotExists,
+      insecureCode: SuggestionCode.pubspecDocumentationIsInsecure,
     );
   }
 
@@ -257,6 +268,7 @@ Future<Maintenance> detectMaintenance(
       invalidCode: SuggestionCode.pubspecRepositoryDoesNotExists,
       invalidAction: 'Use the source code repository URL.',
       http404Code: SuggestionCode.pubspecRepositoryIsNotHelpful,
+      insecureCode: SuggestionCode.pubspecRepositoryIsInsecure,
     );
   }
 
@@ -268,6 +280,7 @@ Future<Maintenance> detectMaintenance(
       invalidCode: SuggestionCode.pubspecIssueTrackerDoesNotExists,
       invalidAction: 'Use the issue tracker URL of the source code repository.',
       http404Code: SuggestionCode.pubspecIssueTrackerIsNotHelpful,
+      insecureCode: SuggestionCode.pubspecIssueTrackerIsInsecure,
     );
   }
 

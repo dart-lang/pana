@@ -1,3 +1,7 @@
+## 0.12.11
+
+* Maintenance score penalty for non-https URLs.
+
 ## 0.12.10
 
 * Support `--line-length` in command-line and in `InspectOptions` (pass-through to `dartfmt`).
