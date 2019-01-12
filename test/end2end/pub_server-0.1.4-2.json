@@ -166,7 +166,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.4.1"
+        "resolved": "1.5.0"
       },
       {
         "package": "stack_trace",
@@ -185,6 +185,12 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.0.4"
+      },
+      {
+        "package": "term_glyph",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.1.0"
       },
       {
         "package": "test",
@@ -405,6 +411,7 @@
         "package:source_span/source_span.dart",
         "package:source_span/src/colors.dart",
         "package:source_span/src/file.dart",
+        "package:source_span/src/highlighter.dart",
         "package:source_span/src/location.dart",
         "package:source_span/src/location_mixin.dart",
         "package:source_span/src/span.dart",
@@ -442,6 +449,11 @@
         "package:string_scanner/src/string_scanner.dart",
         "package:string_scanner/src/utils.dart",
         "package:string_scanner/string_scanner.dart",
+        "package:term_glyph/src/generated/ascii_glyph_set.dart",
+        "package:term_glyph/src/generated/glyph_set.dart",
+        "package:term_glyph/src/generated/top_level.dart",
+        "package:term_glyph/src/generated/unicode_glyph_set.dart",
+        "package:term_glyph/term_glyph.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart",
         "package:yaml/src/equality.dart",

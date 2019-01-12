@@ -12,7 +12,7 @@
       "code": "pubspec.parseError",
       "level": "error",
       "title": "Error while parsing `pubspec.yaml`.",
-      "description": "Parsing throw an exception:\n\n```\nError on line 5, column 1: Duplicate mapping key.\ndescription:  Syntax library includes lexer and parser.\n^^^^^^^^^^^\n```."
+      "description": "Parsing throw an exception:\n\n```\nError on line 5, column 1: Duplicate mapping key.\n  ╷\n5 │ description:  Syntax library includes lexer and parser.\n  │ ^^^^^^^^^^^\n  ╵\n```."
     }
   ]
 }

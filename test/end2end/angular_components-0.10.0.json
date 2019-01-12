@@ -63,16 +63,16 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 106,
+    "analyzerHintCount": 102,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/material_select/material_select_item.dart`.",
-        "description": "Analysis of `lib/material_select/material_select_item.dart` reported 13 hints, including:\n\nline 36 col 5: 'GlyphComponent' is deprecated and shouldn't be used.\n\nline 48 col 9: 'HasComponentRenderer' is deprecated and shouldn't be used.\n\nline 87 col 17: 'getBool' is deprecated and shouldn't be used.\n\nline 124 col 21: 'getBool' is deprecated and shouldn't be used.\n\nline 145 col 3: 'ComponentRenderer' is deprecated and shouldn't be used.",
+        "description": "Analysis of `lib/material_select/material_select_item.dart` reported 12 hints, including:\n\nline 36 col 5: 'GlyphComponent' is deprecated and shouldn't be used.\n\nline 48 col 9: 'HasComponentRenderer' is deprecated and shouldn't be used.\n\nline 87 col 17: 'getBool' is deprecated and shouldn't be used.\n\nline 124 col 21: 'getBool' is deprecated and shouldn't be used.\n\nline 162 col 22: 'getBool' is deprecated and shouldn't be used.",
         "file": "lib/material_select/material_select_item.dart",
-        "score": 6.31
+        "score": 5.84
       },
       {
         "code": "dartanalyzer.warning",
@@ -85,17 +85,17 @@
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/material_input/material_auto_suggest_input.dart`.",
-        "description": "Analysis of `lib/material_input/material_auto_suggest_input.dart` reported 6 hints, including:\n\nline 62 col 14: 'HasComponentRenderer' is deprecated and shouldn't be used.\n\nline 112 col 9: 'HasComponentRenderer' is deprecated and shouldn't be used.\n\nline 413 col 3: 'ComponentRenderer' is deprecated and shouldn't be used.\n\nline 421 col 7: 'labelRenderer' is deprecated and shouldn't be used.\n\nline 440 col 3: 'ComponentRenderer' is deprecated and shouldn't be used.",
-        "file": "lib/material_input/material_auto_suggest_input.dart",
+        "title": "Fix `lib/src/model/selection/delegating_selection_model.dart`.",
+        "description": "Analysis of `lib/src/model/selection/delegating_selection_model.dart` reported 6 hints, including:\n\nline 49 col 43: 'deliverChanges' is deprecated and shouldn't be used.\n\nline 53 col 20: 'notifyChange' is deprecated and shouldn't be used.\n\nline 58 col 20: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 63 col 43: 'hasObservers' is deprecated and shouldn't be used.\n\nline 66 col 37: 'observed' is deprecated and shouldn't be used.",
+        "file": "lib/src/model/selection/delegating_selection_model.dart",
         "score": 2.96
       },
       {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix additional 43 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/model/selection/delegating_selection_model.dart` (6 hints)\n- `lib/material_input/material_input_multiline.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_menu/menu_item_groups.dart` (2 hints)\n- `lib/mixins/highlight_assistant_mixin.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/comparators/comparators.dart` (2 hints)\n- `lib/angular_components.dart` (1 hint)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/material_calendar_picker.dart` (1 hint)\n- `lib/material_datepicker/material_date_grid_base.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/model/date/date.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_datepicker/calendar/model.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/pan_controller_impl.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/position_sticky_controller.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/sticky_controller_impl.dart` (1 hint)\n- `lib/src/utils/async/simple_stream.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/browser/events/events.dart` (1 hint)\n",
-        "score": 38.370000000000005
+        "title": "Fix additional 42 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/material_input/material_auto_suggest_input.dart` (5 hints)\n- `lib/material_input/material_input_multiline.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_menu/menu_item_groups.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/comparators/comparators.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/material_calendar_picker.dart` (1 hint)\n- `lib/material_datepicker/material_date_grid_base.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/model/date/date.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_datepicker/calendar/model.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/pan_controller_impl.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/position_sticky_controller.dart` (1 hint)\n- `lib/src/utils/angular/scroll_host/sticky_controller_impl.dart` (1 hint)\n- `lib/src/utils/async/simple_stream.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/browser/events/events.dart` (1 hint)\n",
+        "score": 36.89
       }
     ]
   },
@@ -296,7 +296,7 @@
         "package": "http",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.12.0"
+        "resolved": "0.12.0+1"
       },
       {
         "package": "http_parser",
@@ -387,7 +387,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.10.2",
-        "resolved": "0.10.6"
+        "resolved": "0.10.8",
+        "available": "0.11.0"
       },
       {
         "package": "pub_semver",
@@ -399,7 +400,7 @@
         "package": "pubspec_parse",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.3"
+        "resolved": "0.1.4"
       },
       {
         "package": "quiver",
@@ -413,7 +414,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.15.3"
+        "resolved": "1.16.0"
       },
       {
         "package": "sass_builder",
@@ -438,7 +439,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.4.1"
+        "resolved": "1.5.0"
       },
       {
         "package": "stack_trace",
@@ -457,6 +458,12 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.0.4"
+      },
+      {
+        "package": "term_glyph",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.1.0"
       },
       {
         "package": "test",
@@ -501,17 +508,7 @@
       "uri": "package:angular_components/angular_components.dart",
       "size": 13447,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/angular_components.dart",
-          "line": 246,
-          "col": 3,
-          "description": "'GlyphComponent' is deprecated and shouldn't be used."
-        }
-      ],
+      "codeProblems": [],
       "directLibs": [
         "package:angular_components/annotations/rtl_annotation.dart",
         "package:angular_components/app_layout/material_drawer_base.dart",
@@ -2948,6 +2945,7 @@
         "package:source_span/source_span.dart",
         "package:source_span/src/colors.dart",
         "package:source_span/src/file.dart",
+        "package:source_span/src/highlighter.dart",
         "package:source_span/src/location.dart",
         "package:source_span/src/location_mixin.dart",
         "package:source_span/src/span.dart",
@@ -2973,6 +2971,11 @@
         "package:string_scanner/src/string_scanner.dart",
         "package:string_scanner/src/utils.dart",
         "package:string_scanner/string_scanner.dart",
+        "package:term_glyph/src/generated/ascii_glyph_set.dart",
+        "package:term_glyph/src/generated/glyph_set.dart",
+        "package:term_glyph/src/generated/top_level.dart",
+        "package:term_glyph/src/generated/unicode_glyph_set.dart",
+        "package:term_glyph/term_glyph.dart",
         "package:tuple/tuple.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart",
@@ -16327,15 +16330,6 @@
           "errorType": "HINT",
           "errorCode": "DEPRECATED_MEMBER_USE",
           "file": "lib/material_input/material_auto_suggest_input.dart",
-          "line": 413,
-          "col": 3,
-          "description": "'ComponentRenderer' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 421,
           "col": 7,
           "description": "'labelRenderer' is deprecated and shouldn't be used."
@@ -25016,15 +25010,6 @@
           "errorType": "HINT",
           "errorCode": "DEPRECATED_MEMBER_USE",
           "file": "lib/material_select/material_select_item.dart",
-          "line": 145,
-          "col": 3,
-          "description": "'ComponentRenderer' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/material_select/material_select_item.dart",
           "line": 162,
           "col": 22,
           "description": "'getBool' is deprecated and shouldn't be used."
@@ -29898,15 +29883,6 @@
       "size": 2901,
       "isFormatted": true,
       "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
-          "file": "lib/mixins/highlight_assistant_mixin.dart",
-          "line": 20,
-          "col": 9,
-          "description": "'ComponentRenderer' is deprecated and shouldn't be used."
-        },
         {
           "severity": "INFO",
           "errorType": "HINT",
