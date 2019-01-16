@@ -111,4 +111,10 @@ class Pubspec {
     }
     return !vc.allows(_dart2Last);
   }
+
+  bool get hasGitDependency =>
+      _inner.dependencies.values.any((d) => d is GitDependency);
+
+  bool get hasUnrestrictedGitDependency => _inner.dependencies.values
+      .any((d) => d is GitDependency && (d.ref == null || d.ref.length < 40));
 }

@@ -1,6 +1,8 @@
 ## 0.12.11
 
-* Maintenance score penalty for non-https URLs.
+* Maintenance score penalty for:
+  * non-https URLs
+  * `git` dependencies
 
 ## 0.12.10
 

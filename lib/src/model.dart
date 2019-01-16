@@ -352,6 +352,7 @@ abstract class SuggestionCode {
   static const String pubspecSdkUnknown = 'pubspec.sdk.unknown';
   static const String pubspecSdkConstraintMissing = 'pubspec.sdk.missing';
   static const String pubspecSdkConstraintDevOnly = 'pubspec.sdk.devOnly';
+  static const String pubspecHasGitDependency = 'pubspec.dependency.git';
 
   static const String changelogMissing = 'changelog.missing';
 
