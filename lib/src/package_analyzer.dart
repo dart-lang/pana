@@ -212,9 +212,13 @@ class PackageAnalyzer {
         message = LineSplitter.split(upgrade.stderr as String).first;
       }
 
-      final isUserProblem = pubspec.hasGitDependency ||
-          message.contains('version solving failed') ||
-          message.contains('Git error.');
+      // 1: Version constraint issue with direct or transitive dependencies.
+      //
+      // 2: Code in a git repository could change or disappear.
+      final isUserProblem = message.contains('version solving failed') || // 1
+          pubspec.hasGitDependency || // 2
+          message.contains('Git error.'); // 2
+
       if (!isUserProblem) {
         log.severe('`pub upgrade` failed.\n$message'.trim());
       }
