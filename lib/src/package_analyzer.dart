@@ -214,8 +214,7 @@ class PackageAnalyzer {
 
       final isUserProblem = pubspec.hasGitDependency ||
           message.contains('version solving failed') ||
-          message.contains('Git error.') ||
-          message.contains('Could not find a file named "pubspec.yaml" in');
+          message.contains('Git error.');
       if (!isUserProblem) {
         log.severe('`pub upgrade` failed.\n$message'.trim());
       }
