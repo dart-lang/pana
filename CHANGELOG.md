@@ -10,6 +10,10 @@
 
 * Fix `pub upgrade` parsing.
 
+* Strict SDK constraint status:
+  * `sdk: any` or `sdk:` is considered missing constraint
+  * handling cases without upper bound (`sdk: >1.0.0` is rejected by Dart2 latest)
+
 ## 0.12.9
 
 * Analysis options used in code health scoring updated:
