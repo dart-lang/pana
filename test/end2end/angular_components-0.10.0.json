@@ -138,7 +138,7 @@
         "package": "analyzer",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.34.1"
+        "resolved": "0.34.2"
       },
       {
         "package": "angular",
@@ -278,7 +278,7 @@
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.8"
+        "resolved": "0.1.9"
       },
       {
         "package": "glob",
@@ -328,7 +328,7 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.8"
+        "resolved": "0.3.9"
       },
       {
         "package": "logging",
@@ -2478,6 +2478,8 @@
         "package:analyzer/src/workspace/bazel.dart",
         "package:analyzer/src/workspace/gn.dart",
         "package:analyzer/src/workspace/package_build.dart",
+        "package:analyzer/src/workspace/pub.dart",
+        "package:analyzer/src/workspace/simple.dart",
         "package:analyzer/src/workspace/workspace.dart",
         "package:args/args.dart",
         "package:args/src/allow_anything_parser.dart",
@@ -2598,6 +2600,7 @@
         "package:csslib/visitor.dart",
         "package:front_end/src/api_prototype/compiler_options.dart",
         "package:front_end/src/api_prototype/diagnostic_message.dart",
+        "package:front_end/src/api_prototype/experimental_flags.dart",
         "package:front_end/src/api_prototype/file_system.dart",
         "package:front_end/src/api_prototype/standard_file_system.dart",
         "package:front_end/src/api_prototype/terminal_color_support.dart",
@@ -2720,6 +2723,7 @@
         "package:kernel/kernel.dart",
         "package:kernel/library_index.dart",
         "package:kernel/src/heap.dart",
+        "package:kernel/src/hierarchy_based_type_environment.dart",
         "package:kernel/target/targets.dart",
         "package:kernel/text/ast_to_text.dart",
         "package:kernel/transformations/flags.dart",
