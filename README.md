@@ -66,6 +66,7 @@ Otherwise the score starts with `1.0`, and
 A package starts with `100` points, and the following detected issues have point reductions:
 - uses `strong-mode: false` in `analysis_options.yaml` (-50 points)
 - SDK constraint is missing from `pubspec.yaml` (-50 points)
+- using `git` dependencies (-100 points, -50 if using commit hashes)
 - `readme.md` missing (-30 points)
 - `changelog.md` missing (-20 points)
 - has platform conflicts (-20 points)

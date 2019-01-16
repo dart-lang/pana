@@ -293,6 +293,16 @@ Future<Maintenance> detectMaintenance(
         score: 50.0));
   }
 
+  if (pubspec.hasGitDependency) {
+    final penalty = pubspec.hasUnrestrictedGitDependency ? 100.0 : 50.0;
+    maintenanceSuggestions.add(Suggestion.warning(
+      SuggestionCode.pubspecHasGitDependency,
+      'Prefer published dependencies.',
+      'The source code in a `git` repository is mutable and could disappear.',
+      score: penalty,
+    ));
+  }
+
   if (pubspec.shouldWarnDart2Constraint) {
     maintenanceSuggestions.add(Suggestion.error(
         SuggestionCode.pubspecSdkConstraintDevOnly,
