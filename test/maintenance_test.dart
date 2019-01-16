@@ -39,6 +39,14 @@ const _withIssuesJson = {
       'score': 20.0,
     },
     {
+      'code': 'pubspec.sdk.devOnly',
+      'level': 'error',
+      'title': 'Support latest stable Dart SDK in `pubspec.yaml`.',
+      'description':
+          'The SDK constraint in pubspec.yaml doesn\'t allow the latest stable Dart SDK release.',
+      'score': 20.0
+    },
+    {
       'code': 'dartdoc.aborted',
       'level': 'error',
       'title': 'Running `dartdoc` failed.',
