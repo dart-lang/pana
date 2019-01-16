@@ -124,7 +124,7 @@ main(List<String> args) async {
   var tempPath = await tempDir.resolveSymbolicLinks();
 
   try {
-    final String pubHostedUrl = result['hosted-url'];
+    final pubHostedUrl = result['hosted-url'] as String;
     final analyzer = await PackageAnalyzer.create(
       pubCacheDir: tempPath,
       flutterDir: result['flutter-sdk'] as String,

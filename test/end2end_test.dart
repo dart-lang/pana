@@ -98,7 +98,7 @@ void main() {
           }
         }
 
-        final Map content = json.decode(file.readAsStringSync());
+        final content = json.decode(file.readAsStringSync()) as Map;
 
         // Reduce the time-invariability of the tests: resolved and available
         // versions may change over time or because of SDK version changes.

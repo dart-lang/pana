@@ -83,8 +83,9 @@ String customizeAnalysisOptions(String original, bool usesFlutter) {
   if (origAnalyzer is Map) {
     final origErrors = origAnalyzer['errors'];
     if (origErrors is Map) {
-      final Map customAnalyzer = customMap.putIfAbsent('analyzer', () => {});
-      final Map customErrors = customAnalyzer.putIfAbsent('errors', () => {});
+      final customAnalyzer = customMap.putIfAbsent('analyzer', () => {}) as Map;
+      final customErrors =
+          customAnalyzer.putIfAbsent('errors', () => {}) as Map;
 
       for (var key in _analyzerErrorKeys) {
         if (origErrors.containsKey(key)) {

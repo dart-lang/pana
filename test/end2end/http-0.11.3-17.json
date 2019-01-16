@@ -159,7 +159,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.0"
+        "resolved": "1.5.1"
       },
       {
         "package": "string_scanner",

@@ -179,7 +179,7 @@ Future<Maintenance> detectMaintenance(
       if (await file.exists()) {
         final content = await file.readAsString();
         try {
-          final Map map = yaml.loadYaml(content);
+          final map = yaml.loadYaml(content) as Map;
           final analyzer = map['analyzer'];
           if (analyzer != null) {
             final value = analyzer['strong-mode'];
