@@ -246,8 +246,13 @@ class ToolEnvironment {
   }
 
   Future<bool> detectFlutterUse(String packageDir) async {
-    final pubspec = Pubspec.parseFromDir(packageDir);
-    return pubspec.usesFlutter;
+    try {
+      final pubspec = Pubspec.parseFromDir(packageDir);
+      return pubspec.usesFlutter;
+    } catch (e, st) {
+      _logger.info('Unable to read pubspec.yaml', e, st);
+    }
+    return false;
   }
 
   Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,

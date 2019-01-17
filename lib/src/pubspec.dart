@@ -16,7 +16,7 @@ class Pubspec {
   Set<String> _dependentSdks;
 
   Pubspec(Map content)
-      : _inner = pubspek.Pubspec.fromJson(content),
+      : _inner = pubspek.Pubspec.fromJson(content, lenient: true),
         _content = content;
 
   factory Pubspec.parseFromDir(String packageDir) {

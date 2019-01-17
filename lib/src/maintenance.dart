@@ -10,6 +10,7 @@ import 'dart:math';
 
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:pubspec_parse/pubspec_parse.dart' as pubspek;
 import 'package:yaml/yaml.dart' as yaml;
 
 import 'dartdoc_analyzer.dart';
@@ -129,6 +130,16 @@ Suggestion getAgeSuggestion(Duration age) {
   }
 
   return null;
+}
+
+/// Returns a suggestion for pubspec.yaml parse error.
+Suggestion pubspecParseError(error) {
+  return Suggestion.error(
+    SuggestionCode.pubspecParseError,
+    'Error while parsing `pubspec.yaml`.',
+    'Parsing throw an exception:\n\n```\n$error\n```.',
+    score: 100.0,
+  );
 }
 
 /// Creates [Maintenance] with suggestions.
@@ -445,6 +456,12 @@ Future<Maintenance> detectMaintenance(
         'The `pubspec.yaml` contains $pluralized without version constraints. '
         'Specify version ranges for the following dependencies: $names.',
         score: 20.0));
+  }
+
+  try {
+    pubspek.Pubspec.fromJson(pubspec.toJson(), lenient: false);
+  } catch (e) {
+    maintenanceSuggestions.add(pubspecParseError(e));
   }
 
   maintenanceSuggestions.sort();
