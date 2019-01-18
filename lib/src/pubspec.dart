@@ -114,7 +114,6 @@ class Pubspec {
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
 }
 
-final _range1 = VersionConstraint.parse('>=1.0.0 <2.0.0');
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
 final _range2Latest = VersionConstraint.parse('>=2.9999.0 <3.0.0');
 final _futureRange = VersionConstraint.parse('>=3.0.0');
@@ -124,40 +123,29 @@ class SdkConstraintStatus {
   /// Whether it is non-empty, bounded constraint.
   final bool hasConstraint;
 
-  /// Whether it allows anything from the ^1.0.0 range.
-  final bool enablesDart1;
-
-  /// Whether it allows anything from the ^2.0.0 range.
-  final bool enablesDart2;
-
   /// Whether it allows anything from the ^2.9999.0 range.
   final bool enablesDart2Latest;
 
-  /// Whether it allows anything from future SDKs.
-  final bool enablesFutureVersions;
+  /// Whether it is compatible with Dart 2 SDKs.
+  final bool isDart2Compatible;
 
   SdkConstraintStatus._({
     this.hasConstraint,
-    this.enablesDart1,
-    this.enablesDart2,
     this.enablesDart2Latest,
-    this.enablesFutureVersions,
+    this.isDart2Compatible,
   });
 
   factory SdkConstraintStatus.fromSdkVersion(VersionConstraint constraint) {
     final hasConstraint =
         constraint != null && !constraint.isAny && !constraint.isEmpty;
+    final enablesDart2 = hasConstraint && constraint.allowsAny(_range2);
+    final enablesFutureVersions =
+        hasConstraint && constraint.allowsAny(_futureRange);
     return SdkConstraintStatus._(
       hasConstraint: hasConstraint,
-      enablesDart1: !hasConstraint || constraint.allowsAny(_range1),
-      enablesDart2: hasConstraint && constraint.allowsAny(_range2),
       enablesDart2Latest: hasConstraint && constraint.allowsAny(_range2Latest),
-      enablesFutureVersions:
-          hasConstraint && constraint.allowsAny(_futureRange),
+      isDart2Compatible:
+          hasConstraint && enablesDart2 && !enablesFutureVersions,
     );
   }
-
-  /// Whether it is compatible with Dart 2 SDKs.
-  bool get isDart2Compatible =>
-      hasConstraint && enablesDart2 && !enablesFutureVersions;
 }

@@ -8,10 +8,7 @@ void main() {
     expect(emptyPubspec.dependsOnFlutterSdk, isFalse);
     expect(emptyPubspec.hasDartSdkConstraint, isFalse);
     expect(emptyPubspec.shouldWarnDart2Constraint, isTrue);
-    expect(emptyPubspec.sdkConstraintStatus.enablesDart1, isTrue);
-    expect(emptyPubspec.sdkConstraintStatus.enablesDart2, isFalse);
     expect(emptyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
-    expect(emptyPubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(emptyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
   });
 
@@ -23,44 +20,22 @@ void main() {
     expect(dart2Pubspec.hasDartSdkConstraint, isTrue);
     expect(dart2Pubspec.shouldWarnDart2Constraint, isFalse);
 
-    expect(dart1OnlyPubspec.sdkConstraintStatus.enablesDart1, isTrue);
-    expect(dart1OnlyPubspec.sdkConstraintStatus.enablesDart2, isFalse);
     expect(dart1OnlyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
-    expect(dart1OnlyPubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(dart1OnlyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
 
-    expect(devSdkOnlyPubspec.sdkConstraintStatus.enablesDart1, isTrue);
-    expect(devSdkOnlyPubspec.sdkConstraintStatus.enablesDart2, isFalse);
     expect(devSdkOnlyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
-    expect(
-        devSdkOnlyPubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(devSdkOnlyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
 
-    expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesDart1, isTrue);
-    expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesDart2, isTrue);
     expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
-    expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesFutureVersions,
-        isFalse);
     expect(dart1andDart2Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
 
-    expect(dart2Pubspec.sdkConstraintStatus.enablesDart1, isFalse);
-    expect(dart2Pubspec.sdkConstraintStatus.enablesDart2, isTrue);
     expect(dart2Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
-    expect(dart2Pubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(dart2Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
 
-    expect(dart1andDart3Pubspec.sdkConstraintStatus.enablesDart1, isTrue);
-    expect(dart1andDart3Pubspec.sdkConstraintStatus.enablesDart2, isTrue);
     expect(dart1andDart3Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
-    expect(
-        dart1andDart3Pubspec.sdkConstraintStatus.enablesFutureVersions, isTrue);
     expect(dart1andDart3Pubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
 
-    expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart1, isTrue);
-    expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart2, isTrue);
     expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
-    expect(
-        unboundedSdkPubspec.sdkConstraintStatus.enablesFutureVersions, isTrue);
     expect(unboundedSdkPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
   });
 
