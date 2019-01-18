@@ -64,6 +64,7 @@ Otherwise the score starts with `1.0`, and
 ### Maintenance score
 
 A package starts with `100` points, and the following detected issues have point reductions:
+- unable to parse `pubspec.yaml` with strict parsing (100 points)
 - uses `strong-mode: false` in `analysis_options.yaml` (-50 points)
 - SDK constraint is missing from `pubspec.yaml` (-50 points)
 - using `git` dependencies (-100 points, -50 if using commit hashes)

@@ -123,11 +123,7 @@ class PackageAnalyzer {
       pubspec = Pubspec.parseFromDir(pkgDir);
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
-      suggestions.add(Suggestion.error(
-        SuggestionCode.pubspecParseError,
-        'Error while parsing `pubspec.yaml`.',
-        'Parsing throw an exception:\n\n```\n$e\n```.',
-      ));
+      suggestions.add(pubspecParseError(e));
       return Summary(
         runtimeInfo: _toolEnv.runtimeInfo,
         packageName: null,

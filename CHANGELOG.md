@@ -3,6 +3,7 @@
 * Maintenance score penalty for:
   * non-https URLs
   * `git` dependencies
+  * strict parsing errors of `pubspec.yaml`
 
 ## 0.12.10
 
