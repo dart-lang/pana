@@ -159,5 +159,5 @@ class SdkConstraintStatus {
 
   /// Whether it is compatible with Dart 2 SDKs.
   bool get isDart2Compatible =>
-      hasConstraint && !enablesDart1 && enablesDart2 && !enablesFutureVersions;
+      hasConstraint && enablesDart2 && !enablesFutureVersions;
 }

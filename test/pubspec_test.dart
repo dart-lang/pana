@@ -36,11 +36,25 @@ void main() {
         devSdkOnlyPubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(devSdkOnlyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
 
+    expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesDart1, isTrue);
+    expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesDart2, isTrue);
+    expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
+    expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesFutureVersions,
+        isFalse);
+    expect(dart1andDart2Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
+
     expect(dart2Pubspec.sdkConstraintStatus.enablesDart1, isFalse);
     expect(dart2Pubspec.sdkConstraintStatus.enablesDart2, isTrue);
     expect(dart2Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
     expect(dart2Pubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(dart2Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
+
+    expect(dart1andDart3Pubspec.sdkConstraintStatus.enablesDart1, isTrue);
+    expect(dart1andDart3Pubspec.sdkConstraintStatus.enablesDart2, isTrue);
+    expect(dart1andDart3Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
+    expect(
+        dart1andDart3Pubspec.sdkConstraintStatus.enablesFutureVersions, isTrue);
+    expect(dart1andDart3Pubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
 
     expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart1, isTrue);
     expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart2, isTrue);
@@ -142,6 +156,20 @@ final unboundedSdkPubspec = Pubspec({
   'name': 'sample',
   'environment': {
     'sdk': '>1.2.0',
+  },
+});
+
+final dart1andDart2Pubspec = Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '>1.2.0 <3.0.0',
+  },
+});
+
+final dart1andDart3Pubspec = Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '>1.2.0 <4.0.0',
   },
 });
 
