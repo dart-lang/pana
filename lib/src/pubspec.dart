@@ -114,7 +114,6 @@ class Pubspec {
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
 }
 
-final _range0 = VersionConstraint.parse('<1.0.0');
 final _range1 = VersionConstraint.parse('>=1.0.0 <2.0.0');
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
 final _range2Latest = VersionConstraint.parse('>=2.9999.0 <3.0.0');
@@ -124,9 +123,6 @@ final _futureRange = VersionConstraint.parse('>=3.0.0');
 class SdkConstraintStatus {
   /// Whether it is non-empty, bounded constraint.
   final bool hasConstraint;
-
-  /// Whether it allows anything from the <1.0.0 range.
-  final bool enablesDart0;
 
   /// Whether it allows anything from the ^1.0.0 range.
   final bool enablesDart1;
@@ -142,7 +138,6 @@ class SdkConstraintStatus {
 
   SdkConstraintStatus._({
     this.hasConstraint,
-    this.enablesDart0,
     this.enablesDart1,
     this.enablesDart2,
     this.enablesDart2Latest,
@@ -154,7 +149,6 @@ class SdkConstraintStatus {
         constraint != null && !constraint.isAny && !constraint.isEmpty;
     return SdkConstraintStatus._(
       hasConstraint: hasConstraint,
-      enablesDart0: !hasConstraint || constraint.allowsAny(_range0),
       enablesDart1: !hasConstraint || constraint.allowsAny(_range1),
       enablesDart2: hasConstraint && constraint.allowsAny(_range2),
       enablesDart2Latest: hasConstraint && constraint.allowsAny(_range2Latest),
@@ -165,10 +159,6 @@ class SdkConstraintStatus {
 
   /// Whether it is compatible with Dart 2 SDKs.
   bool get isDart2Compatible =>
-      hasConstraint &&
-      !enablesDart0 &&
-      !enablesDart1 &&
-      enablesDart2 &&
-      !enablesFutureVersions;
+      hasConstraint && !enablesDart1 && enablesDart2 && !enablesFutureVersions;
   bool get isNotDart2Compatible => !isDart2Compatible;
 }

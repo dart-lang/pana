@@ -8,7 +8,6 @@ void main() {
     expect(emptyPubspec.dependsOnFlutterSdk, isFalse);
     expect(emptyPubspec.hasDartSdkConstraint, isFalse);
     expect(emptyPubspec.shouldWarnDart2Constraint, isTrue);
-    expect(emptyPubspec.sdkConstraintStatus.enablesDart0, isTrue);
     expect(emptyPubspec.sdkConstraintStatus.enablesDart1, isTrue);
     expect(emptyPubspec.sdkConstraintStatus.enablesDart2, isFalse);
     expect(emptyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
@@ -24,14 +23,12 @@ void main() {
     expect(dart2Pubspec.hasDartSdkConstraint, isTrue);
     expect(dart2Pubspec.shouldWarnDart2Constraint, isFalse);
 
-    expect(dart1OnlyPubspec.sdkConstraintStatus.enablesDart0, isTrue);
     expect(dart1OnlyPubspec.sdkConstraintStatus.enablesDart1, isTrue);
     expect(dart1OnlyPubspec.sdkConstraintStatus.enablesDart2, isFalse);
     expect(dart1OnlyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
     expect(dart1OnlyPubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(dart1OnlyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
 
-    expect(devSdkOnlyPubspec.sdkConstraintStatus.enablesDart0, isTrue);
     expect(devSdkOnlyPubspec.sdkConstraintStatus.enablesDart1, isTrue);
     expect(devSdkOnlyPubspec.sdkConstraintStatus.enablesDart2, isFalse);
     expect(devSdkOnlyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
@@ -39,14 +36,12 @@ void main() {
         devSdkOnlyPubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(devSdkOnlyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
 
-    expect(dart2Pubspec.sdkConstraintStatus.enablesDart0, isFalse);
     expect(dart2Pubspec.sdkConstraintStatus.enablesDart1, isFalse);
     expect(dart2Pubspec.sdkConstraintStatus.enablesDart2, isTrue);
     expect(dart2Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
     expect(dart2Pubspec.sdkConstraintStatus.enablesFutureVersions, isFalse);
     expect(dart2Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
 
-    expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart0, isFalse);
     expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart1, isTrue);
     expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart2, isTrue);
     expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
