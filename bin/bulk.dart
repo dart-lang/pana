@@ -50,12 +50,12 @@ class AnalyzeCommand extends Command {
   Future run() async {
     final concurrency = int.parse(argResults['concurrency'] as String ?? '1');
     final pool = Pool(concurrency);
-    final bool force = argResults['force'];
+    final force = argResults['force'] as bool;
 
     final packages = Set<String>();
     packages.addAll(argResults.rest);
 
-    final String packagesListFileName = argResults['packages-list'];
+    final packagesListFileName = argResults['packages-list'] as String;
     if (packagesListFileName != null) {
       final file = File(packagesListFileName);
       if (!(await file.exists())) {
@@ -71,7 +71,7 @@ class AnalyzeCommand extends Command {
       exit(0);
     }
 
-    final String outputDirPath = argResults['output'];
+    final outputDirPath = argResults['output'] as String;
     if (outputDirPath == null) {
       print('Output directory must be specified.');
       exit(1);
@@ -79,11 +79,11 @@ class AnalyzeCommand extends Command {
     final outputDir = Directory(outputDirPath);
     await outputDir.create(recursive: true);
 
-    final String dartSdkDir = argResults['dart-sdk'];
+    final dartSdkDir = argResults['dart-sdk'] as String;
     if (dartSdkDir == null) {
       print('Using default Dart SDK.');
     }
-    final String flutterSdkDir = argResults['flutter-sdk'];
+    final flutterSdkDir = argResults['flutter-sdk'] as String;
     if (flutterSdkDir == null) {
       print('Using default Flutter SDK.');
     }

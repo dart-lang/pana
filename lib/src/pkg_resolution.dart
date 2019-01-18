@@ -64,7 +64,7 @@ void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
     var lockFileContent = theFile.readAsStringSync();
     if (lockFileContent.isNotEmpty) {
       Map lockMap = yamlToJson(lockFileContent);
-      Map<String, Object> pkgs = lockMap['packages'];
+      var pkgs = lockMap['packages'] as Map<String, Object>;
       if (pkgs != null) {
         pkgs.forEach((String key, Object v) {
           var m = v as Map;

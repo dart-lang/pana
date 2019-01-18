@@ -158,7 +158,7 @@ class ToolEnvironment {
         environment: _environment,
         workingDirectory: packageDir,
       );
-      final String output = proc.stderr;
+      final output = proc.stderr as String;
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
         log.severe('Bad input?');
         log.severe(output);
