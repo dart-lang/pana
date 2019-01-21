@@ -351,7 +351,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.1"
+        "resolved": "1.5.2"
       },
       {
         "package": "stack_trace",
