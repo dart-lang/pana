@@ -48,7 +48,8 @@ void main() {
 
         // Fixed version strings to reduce changes on each upgrades.
         assert(summary.runtimeInfo.panaVersion == packageVersion);
-        assert(summary.runtimeInfo.sdkVersion != null);
+        final sdkVersion = summary.runtimeInfo.sdkVersion;
+        assert(sdkVersion != null);
         summary = summary.change(
             runtimeInfo: PanaRuntimeInfo(
           panaVersion: '{{pana-version}}',
@@ -75,7 +76,9 @@ void main() {
 
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
-        actualMap = json.decode(json.encode(summary)) as Map<String, dynamic>;
+        final encoded = json.encode(summary);
+        final updated = encoded.replaceAll(sdkVersion, '{{sdk-version}}');
+        actualMap = json.decode(updated) as Map<String, dynamic>;
       });
 
       test('matches known good', () {
