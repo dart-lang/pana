@@ -7,7 +7,9 @@ void main() {
     expect(emptyPubspec.hasFlutterPluginKey, isFalse);
     expect(emptyPubspec.dependsOnFlutterSdk, isFalse);
     expect(emptyPubspec.hasDartSdkConstraint, isFalse);
-    expect(emptyPubspec.shouldWarnDart2Constraint, isFalse);
+    expect(emptyPubspec.shouldWarnDart2Constraint, isTrue);
+    expect(emptyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
+    expect(emptyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
   });
 
   test('dart1 vs dart2', () {
@@ -17,6 +19,24 @@ void main() {
     expect(devSdkOnlyPubspec.shouldWarnDart2Constraint, isTrue);
     expect(dart2Pubspec.hasDartSdkConstraint, isTrue);
     expect(dart2Pubspec.shouldWarnDart2Constraint, isFalse);
+
+    expect(dart1OnlyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
+    expect(dart1OnlyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
+
+    expect(devSdkOnlyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
+    expect(devSdkOnlyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
+
+    expect(dart1andDart2Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
+    expect(dart1andDart2Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
+
+    expect(dart2Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
+    expect(dart2Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
+
+    expect(dart1andDart3Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
+    expect(dart1andDart3Pubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
+
+    expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
+    expect(unboundedSdkPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
   });
 
   test('flutter', () {
@@ -104,6 +124,27 @@ final Pubspec dart1OnlyPubspec = Pubspec({
   'name': 'sample',
   'environment': {
     'sdk': '<1.25.0',
+  },
+});
+
+final unboundedSdkPubspec = Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '>1.2.0',
+  },
+});
+
+final dart1andDart2Pubspec = Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '>1.2.0 <3.0.0',
+  },
+});
+
+final dart1andDart3Pubspec = Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '>1.2.0 <4.0.0',
   },
 });
 

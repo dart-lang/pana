@@ -7,8 +7,6 @@ import 'package:yaml/yaml.dart' as yaml;
 
 import 'utils.dart';
 
-final _dart2Last = Version.parse('2.9999.0');
-
 class Pubspec {
   final pubspek.Pubspec _inner;
   final Map _content;
@@ -102,19 +100,52 @@ class Pubspec {
 
   String get issueTracker => _inner.issueTracker?.toString();
 
-  bool get hasDartSdkConstraint => _inner.environment.containsKey('sdk');
+  bool get hasDartSdkConstraint => sdkConstraintStatus.hasConstraint;
 
-  bool get shouldWarnDart2Constraint {
-    final vc = _inner.environment['sdk'];
-    if (vc == null) {
-      return false;
-    }
-    return !vc.allows(_dart2Last);
-  }
+  bool get shouldWarnDart2Constraint => !sdkConstraintStatus.enablesDart2Latest;
 
   bool get hasGitDependency =>
       _inner.dependencies.values.any((d) => d is GitDependency);
 
   bool get hasUnrestrictedGitDependency => _inner.dependencies.values
       .any((d) => d is GitDependency && (d.ref == null || d.ref.length < 40));
+
+  SdkConstraintStatus get sdkConstraintStatus =>
+      SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
+}
+
+final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
+final _range2Latest = VersionConstraint.parse('>=2.9999.0 <3.0.0');
+final _futureRange = VersionConstraint.parse('>=3.0.0');
+
+/// Detailed support coverage for the SDK constraint.
+class SdkConstraintStatus {
+  /// Whether it is non-empty, bounded constraint.
+  final bool hasConstraint;
+
+  /// Whether it allows anything from the ^2.9999.0 range.
+  final bool enablesDart2Latest;
+
+  /// Whether it is compatible with Dart 2 SDKs.
+  final bool isDart2Compatible;
+
+  SdkConstraintStatus._({
+    this.hasConstraint,
+    this.enablesDart2Latest,
+    this.isDart2Compatible,
+  });
+
+  factory SdkConstraintStatus.fromSdkVersion(VersionConstraint constraint) {
+    final hasConstraint =
+        constraint != null && !constraint.isAny && !constraint.isEmpty;
+    final enablesDart2 = hasConstraint && constraint.allowsAny(_range2);
+    final enablesFutureVersions =
+        hasConstraint && constraint.allowsAny(_futureRange);
+    return SdkConstraintStatus._(
+      hasConstraint: hasConstraint,
+      enablesDart2Latest: hasConstraint && constraint.allowsAny(_range2Latest),
+      isDart2Compatible:
+          hasConstraint && enablesDart2 && !enablesFutureVersions,
+    );
+  }
 }
