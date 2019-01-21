@@ -350,19 +350,22 @@ Future<Maintenance> detectMaintenance(
   }
   if (!exampleFileExists) {
     final exampleDirExists = files.any((file) => file.startsWith('example/'));
+    final commonMsg =
+        'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`. '
+        'Packages with multiple examples should use `example/README.md`.\n\n'
+        'For more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).';
     if (exampleDirExists) {
       maintenanceSuggestions.add(Suggestion.hint(
           SuggestionCode.exampleMissing,
           'Maintain an example.',
-          'None of the files in your `example/` directory matches a known example patterns. '
-          'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`. '
-          'Packages with multiple examples should use `example/readme.md`.'));
+          'None of the files in your `example/` directory matches a known example patterns.\n\n'
+          '$commonMsg'));
     } else {
       maintenanceSuggestions.add(Suggestion.hint(
           SuggestionCode.exampleMissing,
           'Maintain an example.',
-          'Create a short demo in the `example/` directory to show how to use this package. '
-          'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`.',
+          'Create a short demo in the `example/` directory to show how to use this package.\n\n'
+          '$commonMsg',
           score: 10.0));
     }
   }

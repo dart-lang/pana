@@ -1,3 +1,7 @@
+## 0.12.12
+
+* Link to package layout conventions in example-related suggestions.
+
 ## 0.12.11
 
 * Maintenance score penalty for:
