@@ -98,7 +98,11 @@ const _withIssuesJson = {
       'level': 'hint',
       'title': 'Maintain an example.',
       'description':
-          'Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `sandbox.dart`.',
+          'Create a short demo in the `example/` directory to show how to use this package.\n'
+          '\n'
+          'Common file name patterns include: `main.dart`, `example.dart` or you could also use `sandbox.dart`. Packages with multiple examples should use `example/README.md`.\n'
+          '\n'
+          'For more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).',
       'score': 10.0,
     },
     {

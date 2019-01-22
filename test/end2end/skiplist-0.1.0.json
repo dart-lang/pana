@@ -89,7 +89,7 @@
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
-        "description": "Create a short demo in the `example/` directory to show how to use this package. Common file name patterns include: `main.dart`, `example.dart` or you could also use `skiplist.dart`.",
+        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon file name patterns include: `main.dart`, `example.dart` or you could also use `skiplist.dart`. Packages with multiple examples should use `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
         "score": 10.0
       }
     ]
