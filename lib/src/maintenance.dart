@@ -421,19 +421,21 @@ Future<Maintenance> detectMaintenance(
         'Ideal length is between 60 and 180 characters.',
         score: 20.0));
   } else if (description.length < 60) {
+    final penalty = min(20.0, 60.0 - description.length);
     maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooShort,
         'The description is too short.',
         'Add more detail about the package, what it does and what is its target use case. '
         'Try to write at least 60 characters.',
-        score: 20.0));
+        score: penalty));
   } else if (description.length > 180) {
+    final penalty = min(10.0, description.length.toDouble() - 180.0);
     maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooLong,
         'The description is too long.',
         'Search engines will display only the first part of the description. '
         'Try to keep it under 180 characters.',
-        score: 10.0));
+        score: penalty));
   }
 
   // Checking the non-English characters in the description

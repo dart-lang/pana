@@ -4,6 +4,8 @@
 
 * Use `package:pedantic` as default package analysis ruleset.
 
+* Linear penalties for description.
+
 ## 0.12.11
 
 * Maintenance score penalty for:
