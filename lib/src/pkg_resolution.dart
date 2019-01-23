@@ -176,6 +176,14 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
     }
   });
 
+  // We are adding pedantic to the dev_dependencies before running `pub upgrade`.
+  // If the package does not reference it directly, we should remove it from the
+  // analysis.
+  if (!pubspec.dependencies.containsKey('pedantic') &&
+      !pubspec.devDependencies.containsKey('pedantic')) {
+    deps.removeWhere((p) => p.package == 'pedantic');
+  }
+
   deps.sort((a, b) => a.package.compareTo(b.package));
   return deps;
 }

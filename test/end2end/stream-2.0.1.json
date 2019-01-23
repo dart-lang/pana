@@ -52,37 +52,39 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 1,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 1,
+    "analyzerHintCount": 117,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/rsp_util.dart`.",
-        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.",
+        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error, 4 hints:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.\n\nline 25 col 34: Use `isNotEmpty` for Iterables and Maps.\n\nline 75 col 57: Use `=` to separate a named parameter from its default value.\n\nline 75 col 76: Use `=` to separate a named parameter from its default value.\n\nline 76 col 8: Use `=` to separate a named parameter from its default value.",
         "file": "lib/src/rsp_util.dart",
-        "score": 25.0
+        "score": 26.49
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/plugin/loader.dart`.",
-        "description": "Analysis of `lib/src/plugin/loader.dart` reported 1 hint:\n\nline 83 col 16: Always override `hashCode` if overriding `==`.",
-        "file": "lib/src/plugin/loader.dart",
-        "score": 0.5
+        "title": "Fix `lib/src/server_impl.dart`.",
+        "description": "Analysis of `lib/src/server_impl.dart` reported 20 hints, including:\n\nline 186 col 31: Use isNotEmpty instead of length\n\nline 213 col 3: Avoid return types on setters.\n\nline 222 col 3: Avoid return types on setters.\n\nline 236 col 3: Avoid return types on setters.\n\nline 253 col 3: Avoid return types on setters.",
+        "file": "lib/src/server_impl.dart",
+        "score": 9.54
       },
       {
-        "code": "dartfmt.warning",
+        "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Format `lib/proxy.dart`.",
-        "description": "Run `dartfmt` to format `lib/proxy.dart`.",
-        "file": "lib/proxy.dart"
+        "title": "Fix `lib/src/rspc/compiler.dart`.",
+        "description": "Analysis of `lib/src/rspc/compiler.dart` reported 18 hints, including:\n\nline 30 col 59: Use `=` to separate a named parameter from its default value.\n\nline 31 col 19: Use `=` to separate a named parameter from its default value.\n\nline 31 col 43: Use `=` to separate a named parameter from its default value.\n\nline 128 col 15: Use `isNotEmpty` for Iterables and Maps.\n\nline 175 col 13: Use `isNotEmpty` for Iterables and Maps.",
+        "file": "lib/src/rspc/compiler.dart",
+        "score": 8.63
       },
       {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 11 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/connect.dart` (Run `dartfmt` to format `lib/src/connect.dart`.)\n- `lib/src/connect_impl.dart` (Run `dartfmt` to format `lib/src/connect_impl.dart`.)\n- `lib/src/plugin/loader_impl.dart` (Run `dartfmt` to format `lib/src/plugin/loader_impl.dart`.)\n- `lib/src/plugin/router.dart` (Run `dartfmt` to format `lib/src/plugin/router.dart`.)\n- `lib/src/rspc/build.dart` (Run `dartfmt` to format `lib/src/rspc/build.dart`.)\n- `lib/src/rspc/compiler.dart` (Run `dartfmt` to format `lib/src/rspc/compiler.dart`.)\n- `lib/src/rspc/main.dart` (Run `dartfmt` to format `lib/src/rspc/main.dart`.)\n- `lib/src/rspc/tag.dart` (Run `dartfmt` to format `lib/src/rspc/tag.dart`.)\n- `lib/src/rspc/tag_util.dart` (Run `dartfmt` to format `lib/src/rspc/tag_util.dart`.)\n- `lib/src/server.dart` (Run `dartfmt` to format `lib/src/server.dart`.)\n- `lib/src/server_impl.dart` (Run `dartfmt` to format `lib/src/server_impl.dart`.)\n"
+        "description": "Additional issues in the following files:\n\n- `lib/src/server.dart` (17 hints)\n- `lib/src/connect_impl.dart` (15 hints)\n- `lib/src/rspc/build.dart` (14 hints)\n- `lib/src/plugin/router.dart` (9 hints)\n- `lib/src/rspc/tag_util.dart` (8 hints)\n- `lib/src/connect.dart` (4 hints)\n- `lib/proxy.dart` (2 hints)\n- `lib/src/rspc/main.dart` (2 hints)\n- `lib/src/rspc/tag.dart` (2 hints)\n- `lib/src/plugin/loader.dart` (1 hint)\n- `lib/src/plugin/loader_impl.dart` (1 hint)\n",
+        "score": 36.52
       }
     ]
   },
@@ -306,7 +308,26 @@
       "uri": "package:stream/proxy.dart",
       "size": 5111,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/proxy.dart",
+          "line": 141,
+          "col": 24,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/proxy.dart",
+          "line": 141,
+          "col": 46,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:io",
@@ -518,13 +539,186 @@
       "uri": "package:stream/src/connect.dart",
       "size": 15015,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/connect.dart",
+          "line": 125,
+          "col": 65,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/connect.dart",
+          "line": 166,
+          "col": 40,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/connect.dart",
+          "line": 275,
+          "col": 40,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect.dart",
+          "line": 296,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        }
+      ]
     },
     "lib/src/connect_impl.dart": {
       "uri": "package:stream/src/connect_impl.dart",
       "size": 10184,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/connect_impl.dart",
+          "line": 73,
+          "col": 40,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/connect_impl.dart",
+          "line": 122,
+          "col": 13,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 189,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 261,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/connect_impl.dart",
+          "line": 272,
+          "col": 49,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 293,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 299,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 302,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 305,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 308,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 314,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 317,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 320,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/connect_impl.dart",
+          "line": 323,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/connect_impl.dart",
+          "line": 329,
+          "col": 75,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/plugin/loader.dart": {
       "uri": "package:stream/src/plugin/loader.dart",
@@ -534,11 +728,11 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
-          "errorCode": "hash_and_equals",
+          "errorCode": "prefer_is_not_empty",
           "file": "lib/src/plugin/loader.dart",
-          "line": 83,
-          "col": 16,
-          "description": "Always override `hashCode` if overriding `==`."
+          "line": 237,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
         }
       ]
     },
@@ -546,19 +740,147 @@
       "uri": "package:stream/src/plugin/loader_impl.dart",
       "size": 10276,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 223,
+          "col": 11,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        }
+      ]
     },
     "lib/src/plugin/router.dart": {
       "uri": "package:stream/src/plugin/router.dart",
       "size": 14486,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/plugin/router.dart",
+          "line": 19,
+          "col": 43,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/plugin/router.dart",
+          "line": 28,
+          "col": 59,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/plugin/router.dart",
+          "line": 72,
+          "col": 20,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/plugin/router.dart",
+          "line": 72,
+          "col": 43,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/plugin/router.dart",
+          "line": 132,
+          "col": 43,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/plugin/router.dart",
+          "line": 148,
+          "col": 59,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/plugin/router.dart",
+          "line": 239,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/plugin/router.dart",
+          "line": 308,
+          "col": 11,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/plugin/router.dart",
+          "line": 379,
+          "col": 35,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        }
+      ]
     },
     "lib/src/rsp_util.dart": {
       "uri": "package:stream/src/rsp_util.dart",
       "size": 6231,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rsp_util.dart",
+          "line": 25,
+          "col": 34,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rsp_util.dart",
+          "line": 75,
+          "col": 57,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rsp_util.dart",
+          "line": 75,
+          "col": 76,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rsp_util.dart",
+          "line": 76,
+          "col": 8,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
         {
           "severity": "ERROR",
           "errorType": "STATIC_TYPE_WARNING",
@@ -574,43 +896,779 @@
       "uri": "package:stream/src/rspc/build.dart",
       "size": 6337,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/build.dart",
+          "line": 12,
+          "col": 22,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/build.dart",
+          "line": 12,
+          "col": 42,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/build.dart",
+          "line": 12,
+          "col": 66,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/build.dart",
+          "line": 31,
+          "col": 17,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/build.dart",
+          "line": 31,
+          "col": 36,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/build.dart",
+          "line": 32,
+          "col": 20,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/build.dart",
+          "line": 32,
+          "col": 46,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unawaited_futures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 84,
+          "col": 5,
+          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unawaited_futures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 114,
+          "col": 5,
+          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/build.dart",
+          "line": 130,
+          "col": 22,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unawaited_futures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 163,
+          "col": 11,
+          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unawaited_futures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 169,
+          "col": 9,
+          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_contains",
+          "file": "lib/src/rspc/build.dart",
+          "line": 178,
+          "col": 19,
+          "description": "Use contains instead of indexOf"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_contains",
+          "file": "lib/src/rspc/build.dart",
+          "line": 178,
+          "col": 52,
+          "description": "Use contains instead of indexOf"
+        }
+      ]
     },
     "lib/src/rspc/compiler.dart": {
       "uri": "package:stream/src/rspc/compiler.dart",
       "size": 26182,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 30,
+          "col": 59,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 31,
+          "col": 19,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 31,
+          "col": 43,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 128,
+          "col": 15,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 175,
+          "col": 13,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 197,
+          "col": 30,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 202,
+          "col": 27,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 205,
+          "col": 13,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 209,
+          "col": 26,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 223,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 340,
+          "col": 25,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 357,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 518,
+          "col": 48,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 535,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 538,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 555,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 653,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 816,
+          "col": 30,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        }
+      ]
     },
     "lib/src/rspc/main.dart": {
       "uri": "package:stream/src/rspc/main.dart",
       "size": 3448,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/main.dart",
+          "line": 16,
+          "col": 46,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unawaited_futures",
+          "file": "lib/src/rspc/main.dart",
+          "line": 60,
+          "col": 7,
+          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        }
+      ]
     },
     "lib/src/rspc/tag.dart": {
       "uri": "package:stream/src/rspc/tag.dart",
       "size": 15588,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 180,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 194,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        }
+      ]
     },
     "lib/src/rspc/tag_util.dart": {
       "uri": "package:stream/src/rspc/tag_util.dart",
       "size": 8297,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 32,
+          "col": 33,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 44,
+          "col": 11,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_contains",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 56,
+          "col": 10,
+          "description": "Use contains instead of indexOf"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_contains",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 57,
+          "col": 5,
+          "description": "Use contains instead of indexOf"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 166,
+          "col": 20,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 166,
+          "col": 43,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 170,
+          "col": 27,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 191,
+          "col": 17,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        }
+      ]
     },
     "lib/src/server.dart": {
       "uri": "package:stream/src/server.dart",
       "size": 16918,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 96,
+          "col": 38,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 106,
+          "col": 22,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 205,
+          "col": 47,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 205,
+          "col": 66,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 206,
+          "col": 16,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 206,
+          "col": 36,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 206,
+          "col": 55,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 231,
+          "col": 25,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 232,
+          "col": 18,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 232,
+          "col": 56,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 233,
+          "col": 18,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 233,
+          "col": 34,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 233,
+          "col": 53,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 253,
+          "col": 55,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/server.dart",
+          "line": 371,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 385,
+          "col": 43,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server.dart",
+          "line": 393,
+          "col": 59,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/server_impl.dart": {
       "uri": "package:stream/src/server_impl.dart",
       "size": 12006,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_empty",
+          "file": "lib/src/server_impl.dart",
+          "line": 186,
+          "col": 31,
+          "description": "Use isNotEmpty instead of length"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/server_impl.dart",
+          "line": 213,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/server_impl.dart",
+          "line": 222,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/server_impl.dart",
+          "line": 236,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/server_impl.dart",
+          "line": 253,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/server_impl.dart",
+          "line": 258,
+          "col": 25,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 260,
+          "col": 47,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 260,
+          "col": 66,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 261,
+          "col": 18,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 261,
+          "col": 38,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 261,
+          "col": 57,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 275,
+          "col": 25,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 276,
+          "col": 18,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 276,
+          "col": 56,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 277,
+          "col": 18,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 277,
+          "col": 34,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 277,
+          "col": 53,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 298,
+          "col": 55,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 379,
+          "col": 43,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/server_impl.dart",
+          "line": 383,
+          "col": 59,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/stream.dart": {
       "uri": "package:stream/stream.dart",

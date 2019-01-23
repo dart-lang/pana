@@ -2,6 +2,8 @@
 
 * Link to package layout conventions in example-related suggestions.
 
+* Use `package:pedantic` as default package analysis ruleset.
+
 ## 0.12.11
 
 * Maintenance score penalty for:

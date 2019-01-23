@@ -11,18 +11,7 @@ import 'package:pana/src/analysis_options.dart';
 void main() {
   test('default options', () {
     expect(json.decode(customizeAnalysisOptions(null, false)), {
-      'linter': {
-        'rules': [
-          'camel_case_types',
-          'cancel_subscriptions',
-          'hash_and_equals',
-          'iterable_contains_unrelated_type',
-          'list_remove_unrelated_type',
-          'test_types_in_equals',
-          'unrelated_type_equality_checks',
-          'valid_regexps',
-        ]
-      },
+      'include': 'package:pedantic/analysis_options.yaml',
     });
   });
 
@@ -73,20 +62,9 @@ analyzer:
     todo: ignore
 ''';
     expect(json.decode(customizeAnalysisOptions(original, false)), {
+      'include': 'package:pedantic/analysis_options.yaml',
       'analyzer': {
         'errors': {},
-      },
-      'linter': {
-        'rules': [
-          'camel_case_types',
-          'cancel_subscriptions',
-          'hash_and_equals',
-          'iterable_contains_unrelated_type',
-          'list_remove_unrelated_type',
-          'test_types_in_equals',
-          'unrelated_type_equality_checks',
-          'valid_regexps',
-        ],
       },
     });
   });
@@ -98,22 +76,11 @@ analyzer:
     uri_has_not_been_generated: ignore
 ''';
     expect(json.decode(customizeAnalysisOptions(original, false)), {
+      'include': 'package:pedantic/analysis_options.yaml',
       'analyzer': {
         'errors': {
           'uri_has_not_been_generated': 'ignore',
         },
-      },
-      'linter': {
-        'rules': [
-          'camel_case_types',
-          'cancel_subscriptions',
-          'hash_and_equals',
-          'iterable_contains_unrelated_type',
-          'list_remove_unrelated_type',
-          'test_types_in_equals',
-          'unrelated_type_equality_checks',
-          'valid_regexps',
-        ],
       },
     });
   });
