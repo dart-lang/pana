@@ -75,24 +75,39 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 6,
+    "analyzerHintCount": 57,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` reported 4 hints:\n\nline 1070 col 12: 'getMembersInheritedFromClasses' is deprecated and shouldn't be used.\n\nline 1072 col 12: 'getMembersInheritedFromInterfaces' is deprecated and shouldn't be used.\n\nline 1207 col 17: Always override `hashCode` if overriding `==`.\n\nline 2386 col 25: Invocation of Iterable<E>.contains with references of unrelated types.",
+        "description": "Analysis of `lib/src/model.dart` reported 15 hints, including:\n\nline 1070 col 12: 'getMembersInheritedFromClasses' is deprecated and shouldn't be used.\n\nline 1072 col 12: 'getMembersInheritedFromInterfaces' is deprecated and shouldn't be used.\n\nline 1473 col 9: Use isNotEmpty instead of length\n\nline 1481 col 12: Use `isNotEmpty` for Iterables and Maps.\n\nline 1890 col 11: Use isEmpty instead of length",
         "file": "lib/src/model.dart",
-        "score": 1.99
+        "score": 7.24
+      },
+      {
+        "code": "dartanalyzer.warning",
+        "level": "hint",
+        "title": "Fix `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart`.",
+        "description": "Analysis of `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` reported 10 hints, including:\n\nline 49 col 3: Avoid return types on setters.\n\nline 61 col 3: Avoid return types on setters.\n\nline 168 col 58: Use `=` to separate a named parameter from its default value.\n\nline 191 col 58: Use `=` to separate a named parameter from its default value.\n\nline 207 col 58: Use `=` to separate a named parameter from its default value.",
+        "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+        "score": 4.89
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart`.",
-        "description": "Analysis of `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` reported 2 hints:\n\nline 274 col 12: Equality operator `==` invocation with references of unrelated types.\n\nline 274 col 23: Equality operator `==` invocation with references of unrelated types.",
+        "description": "Analysis of `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` reported 9 hints, including:\n\nline 72 col 8: Don't explicitly initialize variables to null.\n\nline 72 col 22: Use `=` to separate a named parameter from its default value.\n\nline 73 col 34: Use `=` to separate a named parameter from its default value.\n\nline 74 col 41: Use `=` to separate a named parameter from its default value.\n\nline 127 col 12: Use `=` to separate a named parameter from its default value.",
         "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-        "score": 1.0
+        "score": 4.41
+      },
+      {
+        "code": "bulk",
+        "level": "hint",
+        "title": "Fix additional 9 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/src/dartdoc_options.dart` (6 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (4 hints)\n- `lib/src/io_utils.dart` (3 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (3 hints)\n- `bin/dartdoc.dart` (2 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (2 hints)\n- `lib/src/html/html_generator.dart` (1 hint)\n- `lib/src/markdown_processor.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (1 hint)\n",
+        "score": 11.43
       }
     ]
   },
@@ -410,7 +425,26 @@
       "uri": "asset:dartdoc/bin/dartdoc.dart",
       "size": 3783,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "bin/dartdoc.dart",
+          "line": 94,
+          "col": 55,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "bin/dartdoc.dart",
+          "line": 100,
+          "col": 56,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:io",
@@ -1004,7 +1038,62 @@
       "uri": "package:dartdoc/src/dartdoc_options.dart",
       "size": 52754,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_types_as_parameter_names",
+          "file": "lib/src/dartdoc_options.dart",
+          "line": 479,
+          "col": 28,
+          "description": "Avoid types as parameter names."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_types_as_parameter_names",
+          "file": "lib/src/dartdoc_options.dart",
+          "line": 654,
+          "col": 30,
+          "description": "Avoid types as parameter names."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/dartdoc_options.dart",
+          "line": 706,
+          "col": 18,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/dartdoc_options.dart",
+          "line": 711,
+          "col": 35,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/dartdoc_options.dart",
+          "line": 758,
+          "col": 18,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/dartdoc_options.dart",
+          "line": 761,
+          "col": 35,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/element_type.dart": {
       "uri": "package:dartdoc/src/element_type.dart",
@@ -1022,7 +1111,17 @@
       "uri": "package:dartdoc/src/html/html_generator.dart",
       "size": 7857,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/html/html_generator.dart",
+          "line": 130,
+          "col": 27,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/html/html_generator_instance.dart": {
       "uri": "package:dartdoc/src/html/html_generator_instance.dart",
@@ -1058,7 +1157,35 @@
       "uri": "package:dartdoc/src/io_utils.dart",
       "size": 7591,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/io_utils.dart",
+          "line": 23,
+          "col": 20,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unawaited_futures",
+          "file": "lib/src/io_utils.dart",
+          "line": 86,
+          "col": 5,
+          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/io_utils.dart",
+          "line": 109,
+          "col": 21,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/line_number_cache.dart": {
       "uri": "package:dartdoc/src/line_number_cache.dart",
@@ -1076,7 +1203,17 @@
       "uri": "package:dartdoc/src/markdown_processor.dart",
       "size": 33534,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/markdown_processor.dart",
+          "line": 157,
+          "col": 46,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/model.dart": {
       "uri": "package:dartdoc/src/model.dart",
@@ -1104,20 +1241,119 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
-          "errorCode": "hash_and_equals",
+          "errorCode": "prefer_is_empty",
           "file": "lib/src/model.dart",
-          "line": 1207,
-          "col": 17,
-          "description": "Always override `hashCode` if overriding `==`."
+          "line": 1473,
+          "col": 9,
+          "description": "Use isNotEmpty instead of length"
         },
         {
           "severity": "INFO",
           "errorType": "LINT",
-          "errorCode": "iterable_contains_unrelated_type",
+          "errorCode": "prefer_is_not_empty",
           "file": "lib/src/model.dart",
-          "line": 2386,
+          "line": 1481,
+          "col": 12,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_empty",
+          "file": "lib/src/model.dart",
+          "line": 1890,
+          "col": 11,
+          "description": "Use isEmpty instead of length"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/model.dart",
+          "line": 3299,
+          "col": 15,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/model.dart",
+          "line": 3732,
           "col": 25,
-          "description": "Invocation of Iterable<E>.contains with references of unrelated types."
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/model.dart",
+          "line": 3732,
+          "col": 47,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/model.dart",
+          "line": 3732,
+          "col": 71,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/model.dart",
+          "line": 3804,
+          "col": 12,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/model.dart",
+          "line": 3869,
+          "col": 13,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/model.dart",
+          "line": 4355,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/model.dart",
+          "line": 5053,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_not_empty",
+          "file": "lib/src/model.dart",
+          "line": 5061,
+          "col": 9,
+          "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_empty",
+          "file": "lib/src/model.dart",
+          "line": 6437,
+          "col": 32,
+          "description": "Use isEmpty instead of length"
         }
       ]
     },
@@ -1143,7 +1379,17 @@
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
       "size": 573,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_relative_lib_imports",
+          "file": "lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
+          "line": 3,
+          "col": 8,
+          "description": "Avoid relative imports for files in `lib/`."
+        }
+      ]
     },
     "lib/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart",
@@ -1155,25 +1401,172 @@
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart",
       "size": 5395,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_relative_lib_imports",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart",
+          "line": 5,
+          "col": 8,
+          "description": "Avoid relative imports for files in `lib/`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart",
+          "line": 15,
+          "col": 61,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
       "size": 3155,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
+          "line": 5,
+          "col": 39,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_is_empty",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
+          "line": 105,
+          "col": 24,
+          "description": "Always true because length is always greater or equal 0."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
+          "line": 125,
+          "col": 24,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
       "size": 793,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
+          "line": 6,
+          "col": 17,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
+          "line": 8,
+          "col": 32,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
+          "line": 9,
+          "col": 39,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
+          "line": 18,
+          "col": 57,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
       "size": 7211,
       "isFormatted": true,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_init_to_null",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
+          "line": 72,
+          "col": 8,
+          "description": "Don't explicitly initialize variables to null."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
+          "line": 72,
+          "col": 22,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
+          "line": 73,
+          "col": 34,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
+          "line": 74,
+          "col": 41,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
+          "line": 127,
+          "col": 12,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
+          "line": 135,
+          "col": 12,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_init_to_null",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
+          "line": 238,
+          "col": 8,
+          "description": "Don't explicitly initialize variables to null."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -1198,7 +1591,98 @@
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
       "size": 9340,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 49,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "avoid_return_types_on_setters",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 61,
+          "col": 3,
+          "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 168,
+          "col": 58,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 191,
+          "col": 58,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 207,
+          "col": 58,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 237,
+          "col": 58,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 246,
+          "col": 58,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 274,
+          "col": 58,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 324,
+          "col": 58,
+          "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_equal_for_default_values",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 332,
+          "col": 58,
+          "description": "Use `=` to separate a named parameter from its default value."
+        }
+      ]
     },
     "lib/src/tool_runner.dart": {
       "uri": "package:dartdoc/src/tool_runner.dart",

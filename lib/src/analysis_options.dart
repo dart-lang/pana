@@ -7,19 +7,20 @@ import 'dart:convert';
 import 'package:yaml/yaml.dart' as yaml;
 
 const String _analysisOptions = '''
-# Source of linter options:
-# https://dart-lang.github.io/linter/lints/options/options.html
+# Defines a default set of lint rules enforced for
+# projects at Google. For details and rationale,
+# see https://github.com/dart-lang/pedantic#enabled-lints.
+include: package:pedantic/analysis_options.yaml
 
-linter:
-  rules:
-    - camel_case_types
-    - cancel_subscriptions
-    - hash_and_equals
-    - iterable_contains_unrelated_type
-    - list_remove_unrelated_type
-    - test_types_in_equals
-    - unrelated_type_equality_checks
-    - valid_regexps
+# For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
+# Uncomment to specify additional rules.
+# linter:
+#   rules:
+#     - camel_case_types
+
+# analyzer:
+#   exclude:
+#     - path/to/excluded/files/**
 ''';
 
 // Keep it updated with
