@@ -429,7 +429,7 @@ Future<Maintenance> detectMaintenance(
         'Try to write at least 60 characters.',
         score: penalty));
   } else if (description.length > 180) {
-    final penalty = min(10.0, description.length.toDouble() - 180.0);
+    final penalty = min(10.0, description.length - 180.0);
     maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooLong,
         'The description is too long.',
