@@ -60,8 +60,8 @@
       {
         "code": "pubspec.sdk.missing",
         "level": "error",
-        "title": "Add SDK constraint in `pubspec.yaml`.",
-        "description": "For information about setting SDK constraint, please see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).",
+        "title": "Add an `sdk` field to `pubspec.yaml`.",
+        "description": "For information about setting the SDK constraint, see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).",
         "score": 50.0
       },
       {
@@ -74,22 +74,22 @@
       {
         "code": "pubspec.sdk.devOnly",
         "level": "error",
-        "title": "Support latest stable Dart SDK in `pubspec.yaml`.",
-        "description": "The SDK constraint in pubspec.yaml doesn't allow the latest stable Dart SDK release.",
+        "title": "Support the latest stable Dart SDK in `pubspec.yaml`.",
+        "description": "The SDK constraint in `pubspec.yaml` doesn't allow the latest stable Dart SDK release.",
         "score": 20.0
       },
       {
         "code": "pubspec.description.tooShort",
         "level": "hint",
-        "title": "The description is too short.",
-        "description": "Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.",
+        "title": "The package description is too short.",
+        "description": "Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.",
         "score": 20.0
       },
       {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
-        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon file name patterns include: `main.dart`, `example.dart` or you could also use `skiplist.dart`. Packages with multiple examples should use `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
+        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `skiplist.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
         "score": 10.0
       }
     ]

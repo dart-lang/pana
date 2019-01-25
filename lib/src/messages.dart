@@ -32,7 +32,7 @@ String runDartfmtToFormatFile(bool usesFlutter, String dartFile) {
 
 String makeSureDartfmtRuns(bool usesFlutter) {
   final dict = usesFlutter ? _MsgDict.flutterDict : _MsgDict.defaultDict;
-  return 'Make sure `${dict.dartfmtShortName}` runs.';
+  return "Make sure `${dict.dartfmtShortName}` successfully runs on your package's source files.";
 }
 
 String runningDartfmtFailed(bool usesFlutter, errorMsg) {
@@ -43,7 +43,7 @@ String runningDartfmtFailed(bool usesFlutter, errorMsg) {
 
 String makeSureDartanalyzerRuns(bool usesFlutter) {
   final dict = usesFlutter ? _MsgDict.flutterDict : _MsgDict.defaultDict;
-  return 'Make sure `${dict.dartanalyzerShortName}` runs.';
+  return "Make sure `${dict.dartanalyzerShortName}` successfully runs on your package's source files.";
 }
 
 String runningDartanalyzerFailed(bool usesFlutter, errorMsg) {

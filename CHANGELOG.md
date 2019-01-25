@@ -6,6 +6,8 @@
 
 * Linear penalties for description.
 
+* Updated suggestion messages.
+
 ## 0.12.11
 
 * Maintenance score penalty for:

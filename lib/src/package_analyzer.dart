@@ -143,9 +143,10 @@ class PackageAnalyzer {
       suggestions.add(Suggestion.error(
           SuggestionCode.pubspecSdkUnknown,
           'Check SDKs in `pubspec.yaml`.',
-          'We have found the following unknown SDKs in your `pubspec.yaml`:\n'
+          'The following unknown SDKs are in `pubspec.yaml`:\n'
           '  `${pubspec.unknownSdks}`.\n\n'
-          '`pana` does not recognizes them, please remove or report it to us.\n'));
+          '`pana` doesn’t recognize them; please remove the `sdk` entry or '
+          '[report the issue](https://github.com/dart-lang/pana/issues).'));
     }
 
     final package = pubspec.name;
