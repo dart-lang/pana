@@ -13,17 +13,18 @@ List<Suggestion> getDartdocSuggestions(DartdocResult result) {
   final suggestions = <Suggestion>[];
 
   if (!result.wasSuccessful) {
-    suggestions.add(getDartdocRunFailedSuggestion());
+    suggestions.add(getDartdocRunFailedSuggestion(result));
   }
 
   return suggestions.isEmpty ? null : suggestions;
 }
 
-Suggestion getDartdocRunFailedSuggestion() {
+Suggestion getDartdocRunFailedSuggestion([DartdocResult result]) {
+  final errorMessage = result?.processResult?.stderr?.toString() ?? '';
   return Suggestion.error(
     SuggestionCode.dartdocAborted,
-    'Running `dartdoc` failed.',
-    'Make sure `dartdoc` runs without any issues.',
+    "Make sure `dartdoc` successfully runs on your package's source files.",
+    'Running `dartdoc` failed with the following output:\n\n```\n$errorMessage\n```\n',
     score: 10.0,
   );
 }

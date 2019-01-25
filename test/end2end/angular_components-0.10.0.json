@@ -112,22 +112,22 @@
       {
         "code": "pubspec.documentation.isNotHelpful",
         "level": "warning",
-        "title": "Documentation URL is not helpful.",
-        "description": "Update the `documentation` property: Create a website about the package or remove the `documentation` key.",
+        "title": "Documentation URL isn't helpful.",
+        "description": "Either remove the `documentation` field from `pubspec.yaml`, or update it to link to a website about the package.",
         "score": 10.0
       },
       {
         "code": "pubspec.homepage.isNotHelpful",
         "level": "warning",
-        "title": "Homepage URL is not helpful.",
-        "description": "Update the `homepage` property: Create a website about the package or use the source repository URL.",
+        "title": "Homepage URL isn't helpful.",
+        "description": "Update the `homepage` field from `pubspec.yaml`: link to a website about the package or use the source repository URL.",
         "score": 10.0
       },
       {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
-        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon file name patterns include: `main.dart`, `example.dart` or you could also use `angular_components.dart`. Packages with multiple examples should use `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
+        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `angular_components.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
         "score": 10.0
       }
     ]

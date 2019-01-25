@@ -113,7 +113,7 @@ Suggestion getAgeSuggestion(Duration age) {
     return Suggestion.warning(
         SuggestionCode.packageVersionObsolete,
         'Package is too old.',
-        'The package was released more than two years ago.',
+        'The package was last published more than two years ago.',
         score: 100.0);
   }
 
@@ -125,7 +125,7 @@ Suggestion getAgeSuggestion(Duration age) {
     return Suggestion.hint(
         SuggestionCode.packageVersionOld,
         'Package is getting outdated.',
-        'The package was released $ageInWeeks weeks ago.',
+        'The package was last published $ageInWeeks weeks ago.',
         score: score);
   }
 
@@ -200,7 +200,7 @@ Future<Maintenance> detectMaintenance(
           maintenanceSuggestions.add(Suggestion.warning(
               SuggestionCode.analysisOptionsParseFailed,
               'Fix `$name`.',
-              'We were unable to parse `$name`.',
+              "The analyzer can't parse `$name`.",
               file: name));
         }
         break;
@@ -225,22 +225,22 @@ Future<Maintenance> detectMaintenance(
     if (status == UrlStatus.invalid || status == UrlStatus.internal) {
       maintenanceSuggestions.add(Suggestion.warning(
         invalidCode,
-        '$name is not helpful.',
-        'Update the `$key` property: $invalidAction',
+        "$name isn't helpful.",
+        invalidAction,
         score: invalidPenalty,
       ));
     } else if (status == UrlStatus.missing) {
       maintenanceSuggestions.add(Suggestion.warning(
         http404Code,
-        '$name does not exists.',
-        'We were unable to access `$url` at the time of the analysis.',
+        "$name doesn't exist.",
+        'At the time of the analysis the `$key` field `$url` was unreachable.',
         score: http404Penalty,
       ));
     } else if (status == UrlStatus.exists && !url.startsWith('https://')) {
       maintenanceSuggestions.add(Suggestion.hint(
         insecureCode,
         '$name is insecure.',
-        'Update the `$key` property and use a secure (`https`) URL.',
+        'Update the `$key` field and use a secure (`https`) URL.',
         score: insecurePenalty,
       ));
     }
@@ -252,7 +252,8 @@ Future<Maintenance> detectMaintenance(
     pubspec.homepage,
     invalidCode: SuggestionCode.pubspecHomepageIsNotHelpful,
     invalidAction:
-        'Create a website about the package or use the source repository URL.',
+        'Update the `homepage` field from `pubspec.yaml`: link to a website '
+        'about the package or use the source repository URL.',
     http404Code: SuggestionCode.pubspecHomepageDoesNotExists,
     http404Penalty: 20.0,
     insecureCode: SuggestionCode.pubspecHomepageIsInsecure,
@@ -265,7 +266,8 @@ Future<Maintenance> detectMaintenance(
       pubspec.documentation,
       invalidCode: SuggestionCode.pubspecDocumentationIsNotHelpful,
       invalidAction:
-          'Create a website about the package or remove the `documentation` key.',
+          'Either remove the `documentation` field from `pubspec.yaml`, or '
+          'update it to link to a website about the package.',
       http404Code: SuggestionCode.pubspecDocumentationDoesNotExists,
       insecureCode: SuggestionCode.pubspecDocumentationIsInsecure,
     );
@@ -277,7 +279,9 @@ Future<Maintenance> detectMaintenance(
       'Repository URL',
       pubspec.repository,
       invalidCode: SuggestionCode.pubspecRepositoryDoesNotExists,
-      invalidAction: 'Use the source code repository URL.',
+      invalidAction:
+          'Either remove the `repository` field from `pubspec.yaml`, or '
+          'update it to link to the source code repository.',
       http404Code: SuggestionCode.pubspecRepositoryIsNotHelpful,
       insecureCode: SuggestionCode.pubspecRepositoryIsInsecure,
     );
@@ -289,7 +293,9 @@ Future<Maintenance> detectMaintenance(
       'Issue tracker URL',
       pubspec.issueTracker,
       invalidCode: SuggestionCode.pubspecIssueTrackerDoesNotExists,
-      invalidAction: 'Use the issue tracker URL of the source code repository.',
+      invalidAction:
+          'Either remove the `repository` field from `pubspec.yaml`, or '
+          'update it to link to the issue tracker of the source code repository.',
       http404Code: SuggestionCode.pubspecIssueTrackerIsNotHelpful,
       insecureCode: SuggestionCode.pubspecIssueTrackerIsInsecure,
     );
@@ -298,8 +304,8 @@ Future<Maintenance> detectMaintenance(
   if (!pubspec.hasDartSdkConstraint) {
     maintenanceSuggestions.add(Suggestion.error(
         SuggestionCode.pubspecSdkConstraintMissing,
-        'Add SDK constraint in `pubspec.yaml`.',
-        'For information about setting SDK constraint, please see '
+        'Add an `sdk` field to `pubspec.yaml`.',
+        'For information about setting the SDK constraint, see '
         '[https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).',
         score: 50.0));
   }
@@ -317,8 +323,8 @@ Future<Maintenance> detectMaintenance(
   if (pubspec.shouldWarnDart2Constraint) {
     maintenanceSuggestions.add(Suggestion.error(
         SuggestionCode.pubspecSdkConstraintDevOnly,
-        'Support latest stable Dart SDK in `pubspec.yaml`.',
-        'The SDK constraint in pubspec.yaml doesn\'t allow the latest stable Dart SDK release.',
+        'Support the latest stable Dart SDK in `pubspec.yaml`.',
+        'The SDK constraint in `pubspec.yaml` doesn\'t allow the latest stable Dart SDK release.',
         score: 20.0));
   }
 
@@ -337,28 +343,30 @@ Future<Maintenance> detectMaintenance(
   if (!changelogExists) {
     maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.changelogMissing,
-        'Maintain `CHANGELOG.md`.',
-        'Changelog entries help clients to follow the progress in your code.',
+        'Provide a file named `CHANGELOG.md`.',
+        'Changelog entries help developers follow the progress of your package. '
+        'See the [example](https://raw.githubusercontent.com/dart-lang/stagehand/master/templates/package-simple/CHANGELOG.md) generated by `stagehand`.',
         score: 20.0));
   }
   if (!readmeExists) {
     maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.readmeMissing,
-        'Maintain `README.md`.',
-        'Readme should inform others about your project, what it does, and how they can use it.',
+        'Provide a file named `README.md`.',
+        'The `README.md` file should inform others about your project, what it does, and how they can use it. '
+        'See the [example](https://raw.githubusercontent.com/dart-lang/stagehand/master/templates/package-simple/README.md) generated by `stagehand`.',
         score: 30.0));
   }
   if (!exampleFileExists) {
     final exampleDirExists = files.any((file) => file.startsWith('example/'));
     final commonMsg =
-        'Common file name patterns include: `main.dart`, `example.dart` or you could also use `$pkgName.dart`. '
-        'Packages with multiple examples should use `example/README.md`.\n\n'
+        'Common filename patterns include `main.dart`, `example.dart`, and `$pkgName.dart`. '
+        'Packages with multiple examples should provide `example/README.md`.\n\n'
         'For more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).';
     if (exampleDirExists) {
       maintenanceSuggestions.add(Suggestion.hint(
           SuggestionCode.exampleMissing,
           'Maintain an example.',
-          'None of the files in your `example/` directory matches a known example patterns.\n\n'
+          "None of the files in the package's `example/` directory matches known example patterns.\n\n"
           '$commonMsg'));
     } else {
       maintenanceSuggestions.add(Suggestion.hint(
@@ -373,13 +381,13 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.analysisOptionsRenameRequired,
         'Use `analysis_options.yaml`.',
-        'Rename old `.analysis_options` file to `analysis_options.yaml`.',
+        "Change the name of your package's `.analysis_options` file to `analysis_options.yaml`.",
         score: 10.0));
   }
   if (analysisOptionsExists && strongModeDisabled) {
     maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.analysisOptionsWeakMode,
-        'The option `strong-mode: false` is being deprecated.',
+        'The option `strong-mode: false` is deprecated.',
         'Remove `strong-mode: false` from your `analysis_options.yaml` file:\n\n'
         '```\nanalyzer:\n  strong-mode: false\n```\n',
         score: 50.0));
@@ -394,8 +402,8 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.packageVersionPreV01,
         'Package is pre-v0.1 release.',
-        'While there is nothing inherently wrong with versions of `0.0.*`, it '
-        'usually means that the author is still experimenting with the general '
+        'While nothing is inherently wrong with versions of `0.0.*`, it might '
+        'mean that the author is still experimenting with the general '
         'direction of the API.',
         score: 10.0));
   }
@@ -405,7 +413,7 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.packageVersionPreRelease,
         'Package is pre-release.',
-        'Pre-release versions should be used with caution, their API may change '
+        'Pre-release versions should be used with caution; their API can change '
         'in breaking ways.',
         score: 5.0));
   }
@@ -416,25 +424,26 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.pubspecDescriptionTooShort,
         'Add `description` in `pubspec.yaml`.',
-        'Description is critical to giving users a quick insight into the features '
-        'of the package and why it is relevant to their query. '
-        'Ideal length is between 60 and 180 characters.',
+        'The description gives users information about the features of your '
+        'package and why it is relevant to their query. We recommend a '
+        'description length of 60 to 180 characters.',
         score: 20.0));
   } else if (description.length < 60) {
     final penalty = min(20.0, 60.0 - description.length);
     maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooShort,
-        'The description is too short.',
-        'Add more detail about the package, what it does and what is its target use case. '
-        'Try to write at least 60 characters.',
+        'The package description is too short.',
+        'Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 '
+        'characters to describe the package, what it does, and its target use case.',
         score: penalty));
   } else if (description.length > 180) {
     final penalty = min(10.0, description.length - 180.0);
     maintenanceSuggestions.add(Suggestion.hint(
         SuggestionCode.pubspecDescriptionTooLong,
         'The description is too long.',
-        'Search engines will display only the first part of the description. '
-        'Try to keep it under 180 characters.',
+        'Search engines display only the first part of the description. '
+        "Try to keep the value of the `description` field in your package's "
+        '`pubspec.yaml` file between 60 and 180 characters.',
         score: penalty));
   }
 
@@ -443,8 +452,9 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.pubspecDescriptionAsciiOnly,
         'The description contains too many non-ASCII characters.',
-        "The site uses English as it's primary language. Please use a "
-        'description that primarily contains characters used when writing English.',
+        'The site uses English as its primary language. The value of the '
+        "`description` field in your package's `pubspec.yaml` field should "
+        'primarily contain characters used in English.',
         score: 20.0));
   }
 

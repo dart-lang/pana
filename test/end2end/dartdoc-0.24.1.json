@@ -124,15 +124,15 @@
       {
         "code": "pubspec.description.tooShort",
         "level": "hint",
-        "title": "The description is too short.",
-        "description": "Add more detail about the package, what it does and what is its target use case. Try to write at least 60 characters.",
+        "title": "The package description is too short.",
+        "description": "Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.",
         "score": 20.0
       },
       {
         "code": "example.missing",
         "level": "hint",
         "title": "Maintain an example.",
-        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon file name patterns include: `main.dart`, `example.dart` or you could also use `dartdoc.dart`. Packages with multiple examples should use `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
+        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `dartdoc.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
         "score": 10.0
       }
     ]
