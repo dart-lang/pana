@@ -11,6 +11,7 @@ import 'dart:math';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart' as pubspek;
+import 'package:json_annotation/json_annotation.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
 import 'dartdoc_analyzer.dart';
@@ -134,10 +135,15 @@ Suggestion getAgeSuggestion(Duration age) {
 
 /// Returns a suggestion for pubspec.yaml parse error.
 Suggestion pubspecParseError(error) {
+  // TODO: remove this after json_annotation is updated with CheckedFromJsonException.toString()
+  var message = error?.toString();
+  if (error is CheckedFromJsonException) {
+    message = 'CheckedFromJsonException: ${error.message}';
+  }
   return Suggestion.error(
     SuggestionCode.pubspecParseError,
     'Error while parsing `pubspec.yaml`.',
-    'Parsing throw an exception:\n\n```\n$error\n```.',
+    'Parsing throw an exception:\n\n```\n$message\n```.',
     score: 100.0,
   );
 }
