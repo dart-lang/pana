@@ -138,7 +138,9 @@ Suggestion pubspecParseError(error) {
   // TODO: remove this after json_annotation is updated with CheckedFromJsonException.toString()
   var message = error?.toString();
   if (error is CheckedFromJsonException) {
-    message = 'CheckedFromJsonException: ${error.message}';
+    final msg =
+        error.message ?? 'Error with `${error.key}`: ${error.innerError}';
+    message = 'CheckedFromJsonException: $msg';
   }
   return Suggestion.error(
     SuggestionCode.pubspecParseError,
