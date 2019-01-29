@@ -436,7 +436,17 @@ class ToolEnvironment {
     final parsed = yamlToJson(original);
     parsed.remove('dev_dependencies');
     parsed.remove('dependency_overrides');
-    if (parsed['name'] != 'pedantic') {
+
+    // Adding pedantic as a dev dependency, because the analysis_options.yaml
+    // file references its ruleset.
+    //
+    // If the package under analysis is pedantic, or pedantic is already a
+    // dependency of the package, we don't need to add it.
+    final isPedantic = parsed['name'] == 'pedantic';
+    final dependencies = parsed['dependencies'];
+    final hasPedantic =
+        (dependencies is Map) && (dependencies.keys.contains('pedantic'));
+    if (!isPedantic && !hasPedantic) {
       parsed['dev_dependencies'] = {'pedantic': '^1.0.0'};
     }
 
