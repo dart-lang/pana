@@ -718,6 +718,17 @@ class Health {
     score -= 0.25 * platformConflictCount;
     return math.max(0.0, score);
   }
+
+  bool get hasPlatformBlockingIssues {
+    // should not classify platform if any of the processes fail
+    if (anyProcessFailed) {
+      return true;
+    }
+    // calculate base score without (pedantic) hints
+    var score =
+        calculateBaseHealth(analyzerErrorCount, analyzerWarningCount, 0);
+    return score < 0.33;
+  }
 }
 
 /// Returns the part of the health score that is calculated from the number of

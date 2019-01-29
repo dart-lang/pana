@@ -1,3 +1,7 @@
+## 0.12.13
+
+* Don't block platform classification on hints.
+
 ## 0.12.12
 
 * Link to package layout conventions in example-related suggestions.
