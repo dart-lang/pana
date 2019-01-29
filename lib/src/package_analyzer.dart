@@ -382,7 +382,7 @@ class PackageAnalyzer {
           'Error(s) prevent platform classification:\n\n$pkgPlatformConflict');
     }
     platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
-    if (!platform.hasConflict && health.healthScore < 0.33) {
+    if (!platform.hasConflict && health.hasPlatformBlockingIssues) {
       platform = DartPlatform.conflict(
           'Low code quality prevents platform classification.');
     }
