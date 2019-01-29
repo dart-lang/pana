@@ -436,7 +436,9 @@ class ToolEnvironment {
     final parsed = yamlToJson(original);
     parsed.remove('dev_dependencies');
     parsed.remove('dependency_overrides');
-    parsed['dev_dependencies'] = {'pedantic': '^1.0.0'};
+    if (parsed['name'] != 'pedantic') {
+      parsed['dev_dependencies'] = {'pedantic': '^1.0.0'};
+    }
 
     await pubspec.rename(backup.path);
     await pubspec.writeAsString(json.encode(parsed));

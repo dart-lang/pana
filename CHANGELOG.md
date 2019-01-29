@@ -1,3 +1,7 @@
+## 0.12.13
+
+* Fix `pedantic` analyzing `package:pedantic`.
+
 ## 0.12.12
 
 * Link to package layout conventions in example-related suggestions.
