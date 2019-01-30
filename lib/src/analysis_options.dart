@@ -6,11 +6,11 @@ import 'dart:convert';
 
 import 'package:yaml/yaml.dart' as yaml;
 
-const String _analysisOptions = '''
+String _analysisOptions(String pedanticConfigPath) => '''
 # Defines a default set of lint rules enforced for
 # projects at Google. For details and rationale,
 # see https://github.com/dart-lang/pedantic#enabled-lints.
-include: package:pedantic/analysis_options.yaml
+include: $pedanticConfigPath
 
 # For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
 # Uncomment to specify additional rules.
@@ -68,7 +68,8 @@ linter:
 
 const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 
-String customizeAnalysisOptions(String original, bool usesFlutter) {
+String customizeAnalysisOptions(
+    String original, bool usesFlutter, String pedanticConfigPath) {
   Map origMap;
   if (original != null) {
     try {
@@ -77,8 +78,9 @@ String customizeAnalysisOptions(String original, bool usesFlutter) {
   }
   origMap ??= {};
 
-  final customMap = json.decode(json.encode(
-      yaml.loadYaml(usesFlutter ? _flutterAnalysisOptions : _analysisOptions)));
+  final customMap = json.decode(json.encode(yaml.loadYaml(usesFlutter
+      ? _flutterAnalysisOptions
+      : _analysisOptions(pedanticConfigPath))));
 
   final origAnalyzer = origMap['analyzer'];
   if (origAnalyzer is Map) {

@@ -2,6 +2,8 @@
 
 * Don't block platform classification on hints.
 
+* Apply `pedantic` rules without referencing `package:pedantic` in the inspected package's `pubspec.yaml`.
+
 ## 0.12.12
 
 * Link to package layout conventions in example-related suggestions.

@@ -10,6 +10,7 @@ import 'package:cli_util/cli_util.dart' as cli;
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
+import 'package:resource/resource.dart';
 
 import 'analysis_options.dart';
 import 'logging.dart';
@@ -142,11 +143,18 @@ class ToolEnvironment {
     if (await originalOptionsFile.exists()) {
       originalOptions = await originalOptionsFile.readAsString();
     }
+    final pedanticResource =
+        const Resource('package:pedantic/analysis_options.yaml');
+    final pedanticContent = await pedanticResource.readAsString();
+    final pedanticFileName =
+        'pedantic_analyis_options_${DateTime.now().microsecondsSinceEpoch}.g.yaml';
+    final pedanticOptionsFile = File(p.join(packageDir, pedanticFileName));
+    await pedanticOptionsFile.writeAsString(pedanticContent);
     final customFileName =
         'pana_analysis_options_${DateTime.now().microsecondsSinceEpoch}.g.yaml';
     final customOptionsFile = File(p.join(packageDir, customFileName));
-    await customOptionsFile
-        .writeAsString(customizeAnalysisOptions(originalOptions, usesFlutter));
+    await customOptionsFile.writeAsString(customizeAnalysisOptions(
+        originalOptions, usesFlutter, pedanticFileName));
     final params = ['--options', customOptionsFile.path, '--format', 'machine']
       ..addAll(dirs);
     // TODO: run flutter analyze after it gets machine-readable output support:
@@ -436,7 +444,6 @@ class ToolEnvironment {
     final parsed = yamlToJson(original);
     parsed.remove('dev_dependencies');
     parsed.remove('dependency_overrides');
-    parsed['dev_dependencies'] = {'pedantic': '^1.0.0'};
 
     await pubspec.rename(backup.path);
     await pubspec.writeAsString(json.encode(parsed));
