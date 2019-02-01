@@ -74,6 +74,10 @@ Future<Suggestion> analyzeMarkdownFile(File file, {String pkgDir}) async {
   }
 
   final checked = await _checkLinks(analysis.images);
+  // TODO: warn about relative image URLs
+  // TODO: warn about insecure links
+  // TODO: warn about relative links
+  // TODO: consider checking whether the URL exists and returns HTTP 200.
 
   final issues = <String>[];
   var score = 0.0;
