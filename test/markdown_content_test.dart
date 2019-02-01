@@ -26,7 +26,7 @@ void main() {
     final content = await scanMarkdownFileContent(file);
     expect(content.toJson(), {
       'parseError': null,
-      'images': ['http://example.com/logo.png', 'https::::img'],
+      'images': ['https::::img', 'http://example.com/logo.png'],
       'links': [],
     });
     final suggestion = await analyzeMarkdownFile(file);
