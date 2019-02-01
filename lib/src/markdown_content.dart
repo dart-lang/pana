@@ -34,19 +34,15 @@ ScannedMarkdownContent scanMarkdownText(String text) {
         .querySelectorAll('img')
         .where((e) => e.attributes.containsKey('src'))
         .map((e) => e.attributes['src'])
-        .toSet()
         .toList();
-    images.sort();
     final links = html
         .querySelectorAll('a')
         .where((e) => e.attributes.containsKey('href'))
         .map((e) => e.attributes['href'])
-        .toSet()
         .toList();
-    links.sort();
     return ScannedMarkdownContent()
-      ..images = images
-      ..links = links;
+      ..images = Set<String>.from(images).toList()
+      ..links = Set<String>.from(links).toList();
   } catch (e) {
     return ScannedMarkdownContent()..parseError = e.toString();
   }
