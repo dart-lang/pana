@@ -4,6 +4,8 @@
 
 * Apply `pedantic` rules without referencing `package:pedantic` in the inspected package's `pubspec.yaml`.
 
+* Warn about insecure (non-`https`) image URLs in markdown content (readme, changelog and example).
+
 ## 0.12.12
 
 * Link to package layout conventions in example-related suggestions.

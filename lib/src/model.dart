@@ -372,6 +372,9 @@ abstract class SuggestionCode {
   static const String bulk = 'bulk';
 
   static const String exceptionInLibraryScanner = 'exception.inLibraryScanner';
+
+  static const String markdownParseFailed = 'markdown.parseFailed';
+  static const String markdownContent = 'markdown.content';
 }
 
 abstract class SuggestionLevel {
