@@ -138,7 +138,8 @@
         "package": "analyzer",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.34.2"
+        "resolved": "0.34.3",
+        "available": "0.35.0"
       },
       {
         "package": "angular",
@@ -184,7 +185,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
-        "resolved": "1.1.0"
+        "resolved": "1.1.0",
+        "available": "1.1.1"
       },
       {
         "package": "build_config",
@@ -222,7 +224,7 @@
         "package": "code_builder",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "3.1.3"
+        "resolved": "3.2.0"
       },
       {
         "package": "collection",
@@ -265,7 +267,7 @@
         "package": "dart_style",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.2.2"
+        "resolved": "1.2.3"
       },
       {
         "package": "fixnum",
@@ -278,7 +280,8 @@
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.9"
+        "resolved": "0.1.9+1",
+        "available": "0.1.10"
       },
       {
         "package": "glob",
@@ -328,7 +331,8 @@
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.3.9"
+        "resolved": "0.3.9+1",
+        "available": "0.3.10"
       },
       {
         "package": "logging",
@@ -428,7 +432,7 @@
         "package": "source_gen",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.4"
+        "resolved": "0.9.4+1"
       },
       {
         "package": "source_maps",
@@ -440,7 +444,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.3"
+        "resolved": "1.5.4"
       },
       {
         "package": "stack_trace",
@@ -2610,6 +2614,7 @@
         "package:front_end/src/base/processed_options.dart",
         "package:front_end/src/base/resolve_relative_uri.dart",
         "package:front_end/src/base/syntactic_entity.dart",
+        "package:front_end/src/compute_platform_binaries_location.dart",
         "package:front_end/src/fasta/blacklisted_classes.dart",
         "package:front_end/src/fasta/colors.dart",
         "package:front_end/src/fasta/command_line_reporting.dart",

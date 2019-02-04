@@ -145,7 +145,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.34.2"
+        "available": "0.35.0"
       },
       {
         "package": "args",
@@ -227,7 +227,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.6+9",
-        "available": "0.1.9"
+        "available": "0.1.10"
       },
       {
         "package": "glob",
@@ -279,7 +279,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.6+9",
-        "available": "0.3.9"
+        "available": "0.3.10"
       },
       {
         "package": "logging",
@@ -366,7 +366,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.3"
+        "resolved": "1.5.4"
       },
       {
         "package": "stack_trace",
