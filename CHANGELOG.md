@@ -1,3 +1,7 @@
+## 0.12.13+1
+
+* Support the latest `package:analyzer`.
+
 ## 0.12.13
 
 * Don't block platform classification on hints.
