@@ -359,7 +359,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.22.1+3",
-        "resolved": "0.22.1+5"
+        "resolved": "0.22.2"
       },
       {
         "package": "package_config",
@@ -392,7 +392,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.13.0"
+        "available": "0.13.2"
       },
       {
         "package": "pub_semver",
@@ -418,8 +418,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.16.0",
-        "available": "1.16.1"
+        "resolved": "1.17.0"
       },
       {
         "package": "sass_builder",
@@ -2786,6 +2785,18 @@
         "package:sass/src/ast/css/keyframe_block.dart",
         "package:sass/src/ast/css/media_query.dart",
         "package:sass/src/ast/css/media_rule.dart",
+        "package:sass/src/ast/css/modifiable.dart",
+        "package:sass/src/ast/css/modifiable/at_rule.dart",
+        "package:sass/src/ast/css/modifiable/comment.dart",
+        "package:sass/src/ast/css/modifiable/declaration.dart",
+        "package:sass/src/ast/css/modifiable/import.dart",
+        "package:sass/src/ast/css/modifiable/keyframe_block.dart",
+        "package:sass/src/ast/css/modifiable/media_rule.dart",
+        "package:sass/src/ast/css/modifiable/node.dart",
+        "package:sass/src/ast/css/modifiable/style_rule.dart",
+        "package:sass/src/ast/css/modifiable/stylesheet.dart",
+        "package:sass/src/ast/css/modifiable/supports_rule.dart",
+        "package:sass/src/ast/css/modifiable/value.dart",
         "package:sass/src/ast/css/node.dart",
         "package:sass/src/ast/css/style_rule.dart",
         "package:sass/src/ast/css/stylesheet.dart",

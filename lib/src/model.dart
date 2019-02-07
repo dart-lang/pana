@@ -355,10 +355,13 @@ abstract class SuggestionCode {
   static const String pubspecHasGitDependency = 'pubspec.dependency.git';
 
   static const String changelogMissing = 'changelog.missing';
+  static const String changelogTooLarge = 'changelog.tooLarge';
 
   static const String readmeMissing = 'readme.missing';
+  static const String readmeTooLarge = 'readme.tooLarge';
 
   static const String exampleMissing = 'example.missing';
+  static const String exampleTooLarge = 'example.tooLarge';
 
   static const String platformConflictInFile = 'platform.conflict.inFile';
   static const String platformConflictInPkg = 'platform.conflict.inPkg';
