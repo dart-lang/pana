@@ -1,6 +1,7 @@
 ## 0.12.14
 
 * Penalty for too large readme, changelog or example.
+* Penalty for too large `pubspec.yaml`.
 
 ## 0.12.13+1
 

@@ -24,8 +24,7 @@ import 'utils.dart';
 
 final Duration _year = const Duration(days: 365);
 final Duration _twoYears = _year * 2;
-final _defaultLargeFileKB = 128;
-final _defaultLargeFileLength = _defaultLargeFileKB * 1024;
+const _defaultLargeFileKB = 128;
 
 final List<String> changelogFileNames = const [
   'changelog.md',
@@ -353,20 +352,29 @@ Future<Maintenance> detectMaintenance(
         score: 20.0));
   }
 
-  Future checkFileLength(File file, String code) async {
+  Future checkFileLength(File file, String code,
+      {int limitInKB = _defaultLargeFileKB}) async {
+    if (file == null || !file.existsSync()) return;
     final length = await file.length();
-    final lengthPenalty = (length - _defaultLargeFileLength) / 1024.0;
+    final lengthInKB = length / 1024.0;
+    final lengthPenalty = lengthInKB - limitInKB;
     if (lengthPenalty > 0.0) {
       final relativePath = p.relative(file.path, from: pkgDir);
       maintenanceSuggestions.add(Suggestion.warning(
         code,
         '`$relativePath` too large.',
-        'Try to keep the file size under ${_defaultLargeFileKB}k.',
+        'Try to keep the file size under ${limitInKB}k.',
         file: relativePath,
         score: lengthPenalty,
       ));
     }
   }
+
+  await checkFileLength(
+    File(p.join(pkgDir, 'pubspec.yaml')),
+    SuggestionCode.pubspecTooLarge,
+    limitInKB: 32,
+  );
 
   if (changelogFile == null) {
     maintenanceSuggestions.add(Suggestion.warning(
