@@ -139,7 +139,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.34.3",
-        "available": "0.35.0"
+        "available": "0.35.1"
       },
       {
         "package": "angular",
@@ -281,7 +281,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.9+1",
-        "available": "0.1.10"
+        "available": "0.1.11"
       },
       {
         "package": "glob",
@@ -332,7 +332,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.9+1",
-        "available": "0.3.10"
+        "available": "0.3.11"
       },
       {
         "package": "logging",
@@ -392,7 +392,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.13.2"
+        "available": "0.13.3"
       },
       {
         "package": "pub_semver",
@@ -455,7 +455,7 @@
         "package": "stream_transform",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.0.14+1"
+        "resolved": "0.0.15"
       },
       {
         "package": "string_scanner",
@@ -6127,7 +6127,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/laminate/overlay/module.dart",
           "line": 92,
           "col": 17,
@@ -6136,7 +6136,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/laminate/overlay/module.dart",
           "line": 92,
           "col": 40,
@@ -7236,7 +7236,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/laminate/portal/portal.dart",
           "line": 263,
           "col": 40,
@@ -7245,7 +7245,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/laminate/portal/portal.dart",
           "line": 313,
           "col": 29,
@@ -7659,7 +7659,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/laminate/ruler/module.dart",
           "line": 16,
           "col": 12,
@@ -7668,7 +7668,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/laminate/ruler/module.dart",
           "line": 16,
           "col": 35,
@@ -7677,7 +7677,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/laminate/ruler/module.dart",
           "line": 17,
           "col": 3,
@@ -10026,7 +10026,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_datepicker/date_input.dart",
           "line": 183,
           "col": 12,
@@ -10359,7 +10359,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_datepicker/date_range_editor.dart",
           "line": 211,
           "col": 9,
@@ -13607,7 +13607,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_datepicker/module.dart",
           "line": 43,
           "col": 42,
@@ -16311,7 +16311,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 62,
           "col": 14,
@@ -16320,7 +16320,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 112,
           "col": 9,
@@ -16329,7 +16329,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 421,
           "col": 7,
@@ -16338,7 +16338,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 440,
           "col": 3,
@@ -16347,7 +16347,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 443,
           "col": 9,
@@ -20442,7 +20442,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_menu/menu_item_groups.dart",
           "line": 97,
           "col": 26,
@@ -20451,7 +20451,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_menu/menu_item_groups.dart",
           "line": 126,
           "col": 32,
@@ -21240,7 +21240,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_menu/menu_popup_wrapper.dart",
           "line": 23,
           "col": 23,
@@ -23116,7 +23116,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/dropdown_button.dart",
           "line": 35,
           "col": 5,
@@ -24107,7 +24107,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select.dart",
           "line": 112,
           "col": 17,
@@ -24650,7 +24650,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_dropdown_item.dart",
           "line": 30,
           "col": 5,
@@ -24973,7 +24973,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 36,
           "col": 5,
@@ -24982,7 +24982,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 48,
           "col": 9,
@@ -24991,7 +24991,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 87,
           "col": 17,
@@ -25000,7 +25000,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 124,
           "col": 21,
@@ -25009,7 +25009,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 162,
           "col": 22,
@@ -25018,7 +25018,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 171,
           "col": 25,
@@ -25027,7 +25027,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 181,
           "col": 27,
@@ -25036,7 +25036,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 190,
           "col": 16,
@@ -25045,7 +25045,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 224,
           "col": 17,
@@ -25054,7 +25054,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 235,
           "col": 24,
@@ -25063,7 +25063,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 240,
           "col": 7,
@@ -25072,7 +25072,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_select/material_select_item.dart",
           "line": 240,
           "col": 35,
@@ -26173,7 +26173,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_stepper/material_step.dart",
           "line": 39,
           "col": 17,
@@ -26182,7 +26182,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_stepper/material_step.dart",
           "line": 54,
           "col": 20,
@@ -26191,7 +26191,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_stepper/material_step.dart",
           "line": 64,
           "col": 21,
@@ -26200,7 +26200,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_stepper/material_step.dart",
           "line": 76,
           "col": 17,
@@ -26209,7 +26209,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_stepper/material_step.dart",
           "line": 89,
           "col": 20,
@@ -26425,7 +26425,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/material_stepper/material_stepper.dart",
           "line": 82,
           "col": 21,
@@ -29887,7 +29887,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/mixins/highlight_assistant_mixin.dart",
           "line": 56,
           "col": 34,
@@ -31510,7 +31510,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/date/time_zone_aware_clock.dart",
           "line": 22,
           "col": 15,
@@ -31519,7 +31519,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/date/time_zone_aware_clock.dart",
           "line": 27,
           "col": 12,
@@ -31742,7 +31742,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/menu/menu.dart",
           "line": 184,
           "col": 39,
@@ -31751,7 +31751,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/menu/menu.dart",
           "line": 197,
           "col": 16,
@@ -31760,7 +31760,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/menu/menu.dart",
           "line": 203,
           "col": 36,
@@ -31886,7 +31886,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/menu/selectable_menu.dart",
           "line": 104,
           "col": 59,
@@ -32152,7 +32152,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/selection/selection_container.dart",
           "line": 12,
           "col": 32,
@@ -32161,7 +32161,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/selection/selection_container.dart",
           "line": 39,
           "col": 3,
@@ -32170,7 +32170,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/model/selection/selection_container.dart",
           "line": 41,
           "col": 3,
@@ -34547,7 +34547,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/src/material_tree/material_tree_root.dart",
           "line": 11,
           "col": 39,
@@ -34836,7 +34836,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/src/utils/angular/managed_zone/managed_zone.dart",
           "line": 64,
           "col": 34,
@@ -34845,7 +34845,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/src/utils/angular/managed_zone/managed_zone.dart",
           "line": 65,
           "col": 40,
@@ -35840,7 +35840,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/utils/angular/managed_zone/interface.dart",
           "line": 6,
           "col": 10,
@@ -36088,7 +36088,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/utils/angular/scroll_host/angular_2.dart",
           "line": 338,
           "col": 15,
@@ -36804,7 +36804,7 @@
         {
           "severity": "INFO",
           "errorType": "HINT",
-          "errorCode": "DEPRECATED_MEMBER_USE",
+          "errorCode": "DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE",
           "file": "lib/utils/browser/dom_service/dom_service.dart",
           "line": 257,
           "col": 9,
