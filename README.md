@@ -96,6 +96,7 @@ A package starts with `100` points, and the following detected issues have point
 - image links in markdown content are insecure (not using `https`) (-2 points per link) 
 - image links in markdown content are broken (unable to parse) (-1 point per link) 
 - `changelog.md`, `readme.md` or example content is too large (-1 point per every 1kb above 128kb).
+- `pubspec.yaml` too large (-1 point per every 1kb above 32kb).
 
 On top of that, [pub site](https://pub.dartlang.org/) applies an age restriction:
  - outdated packages (age older than two years) are reduced to 0
