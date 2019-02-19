@@ -53,5 +53,6 @@ Options:
       --verbosity       Configure the details in the output.
                         [compact, normal (default), verbose]
   
+      --[no-]scores     Include scores in the output JSON.
       --[no-]warning    Shows the warning message before potentially destructive operation.
                         (defaults to on)''';

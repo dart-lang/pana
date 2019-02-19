@@ -6,6 +6,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:args/args.dart';
 import 'package:io/ansi.dart';
@@ -36,6 +37,7 @@ final _parser = ArgParser()
       help: 'Configure the details in the output.',
       allowed: ['compact', 'normal', 'verbose'],
       defaultsTo: 'normal')
+  ..addFlag('scores', help: 'Include scores in the output JSON.')
   ..addFlag('warning',
       help:
           'Shows the warning message before potentially destructive operation.',
@@ -66,6 +68,7 @@ main(List<String> args) async {
 
   final isJson = result['json'] as bool;
   final showWarning = result['warning'] as bool;
+  final showScores = result['scores'] as bool;
 
   final source = result['source'];
   final verbosity = Verbosity.values
@@ -162,7 +165,14 @@ main(List<String> args) async {
         }
         summary = await analyzer.inspectDir(absolutePath, options: options);
       }
-      print(prettyJson(summary));
+      final map = summary.toJson();
+      if (showScores) {
+        map['scores'] = {
+          'health': _calculateScore(summary.health?.suggestions),
+          'maintenance': _calculateScore(summary.maintenance?.suggestions),
+        };
+      }
+      print(prettyJson(map));
     } catch (e, stack) {
       final message = "Problem analyzing ${result.rest.join(' ')}";
       final errorStr = e.toString();
@@ -198,4 +208,13 @@ void _logWriter(log.LogRecord record) {
   overrideAnsiOutput(stderr.supportsAnsiEscapes, () {
     stderr.writeln(darkGray.wrap(msg));
   });
+}
+
+double _calculateScore(List<Suggestion> suggestions) {
+  if (suggestions == null || suggestions.isEmpty) {
+    return 100.0;
+  }
+  final score = max(0.0,
+      suggestions?.fold<double>(100.0, (d, s) => d - (s.score ?? 0)) ?? 0.0);
+  return (score * 100.0).round() / 100.0;
 }
