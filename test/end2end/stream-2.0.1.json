@@ -125,12 +125,6 @@
         "title": "Homepage URL is insecure.",
         "description": "Update the `homepage` field and use a secure (`https`) URL.",
         "score": 5.0
-      },
-      {
-        "code": "example.missing",
-        "level": "hint",
-        "title": "Maintain an example.",
-        "description": "None of the files in the package's `example/` directory matches known example patterns.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `stream.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples)."
       }
     ]
   },

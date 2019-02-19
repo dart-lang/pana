@@ -2,6 +2,8 @@
 
 * Penalty for too large readme, changelog or example.
 
+* Detect usage section in `README.md` (substitute for `example/`).
+
 ## 0.12.13+1
 
 * Support the latest `package:analyzer`.
