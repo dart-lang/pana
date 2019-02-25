@@ -75,24 +75,24 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 57,
+    "analyzerHintCount": 67,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` reported 15 hints, including:\n\nline 1070 col 12: 'getMembersInheritedFromClasses' is deprecated and shouldn't be used.\n\nline 1072 col 12: 'getMembersInheritedFromInterfaces' is deprecated and shouldn't be used.\n\nline 1473 col 9: Use isNotEmpty instead of length\n\nline 1481 col 12: Use `isNotEmpty` for Iterables and Maps.\n\nline 1890 col 11: Use isEmpty instead of length",
+        "description": "Analysis of `lib/src/model.dart` reported 18 hints, including:\n\nline 493 col 47: Use `;` instead of `{}` for empty constructor bodies.\n\nline 1070 col 12: 'getMembersInheritedFromClasses' is deprecated and shouldn't be used.\n\nline 1072 col 12: 'getMembersInheritedFromInterfaces' is deprecated and shouldn't be used.\n\nline 1473 col 9: Use isNotEmpty instead of length\n\nline 1481 col 12: Use `isNotEmpty` for Iterables and Maps.",
         "file": "lib/src/model.dart",
-        "score": 7.24
+        "score": 8.63
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart`.",
-        "description": "Analysis of `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` reported 10 hints, including:\n\nline 49 col 3: Avoid return types on setters.\n\nline 61 col 3: Avoid return types on setters.\n\nline 168 col 58: Use `=` to separate a named parameter from its default value.\n\nline 191 col 58: Use `=` to separate a named parameter from its default value.\n\nline 207 col 58: Use `=` to separate a named parameter from its default value.",
+        "description": "Analysis of `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` reported 15 hints, including:\n\nline 3 col 1: Prefer using /// for doc comments.\n\nline 49 col 3: Avoid return types on setters.\n\nline 56 col 3: Prefer using /// for doc comments.\n\nline 61 col 3: Avoid return types on setters.\n\nline 67 col 3: Prefer using /// for doc comments.",
         "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-        "score": 4.89
+        "score": 7.24
       },
       {
         "code": "dartanalyzer.warning",
@@ -105,9 +105,9 @@
       {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix additional 9 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/dartdoc_options.dart` (6 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (4 hints)\n- `lib/src/io_utils.dart` (3 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (3 hints)\n- `bin/dartdoc.dart` (2 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (2 hints)\n- `lib/src/html/html_generator.dart` (1 hint)\n- `lib/src/markdown_processor.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (1 hint)\n",
-        "score": 11.43
+        "title": "Fix additional 10 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/src/dartdoc_options.dart` (6 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (4 hints)\n- `lib/src/io_utils.dart` (3 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (3 hints)\n- `bin/dartdoc.dart` (2 hints)\n- `lib/src/markdown_processor.dart` (2 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (2 hints)\n- `lib/src/element_type.dart` (1 hint)\n- `lib/src/html/html_generator.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (1 hint)\n",
+        "score": 12.43
       }
     ]
   },
@@ -145,7 +145,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.35.1"
+        "available": "0.35.2"
       },
       {
         "package": "args",
@@ -227,7 +227,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.6+9",
-        "available": "0.1.11"
+        "available": "0.1.12"
       },
       {
         "package": "glob",
@@ -279,7 +279,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.6+9",
-        "available": "0.3.11"
+        "available": "0.3.12"
       },
       {
         "package": "logging",
@@ -1099,7 +1099,17 @@
       "uri": "package:dartdoc/src/element_type.dart",
       "size": 11423,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "empty_constructor_bodies",
+          "file": "lib/src/element_type.dart",
+          "line": 321,
+          "col": 55,
+          "description": "Use `;` instead of `{}` for empty constructor bodies."
+        }
+      ]
     },
     "lib/src/generator.dart": {
       "uri": "package:dartdoc/src/generator.dart",
@@ -1212,6 +1222,15 @@
           "line": 157,
           "col": 46,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "empty_constructor_bodies",
+          "file": "lib/src/markdown_processor.dart",
+          "line": 843,
+          "col": 43,
+          "description": "Use `;` instead of `{}` for empty constructor bodies."
         }
       ]
     },
@@ -1220,6 +1239,15 @@
       "size": 232684,
       "isFormatted": true,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "empty_constructor_bodies",
+          "file": "lib/src/model.dart",
+          "line": 493,
+          "col": 47,
+          "description": "Use `;` instead of `{}` for empty constructor bodies."
+        },
         {
           "severity": "INFO",
           "errorType": "HINT",
@@ -1264,6 +1292,15 @@
           "line": 1890,
           "col": 11,
           "description": "Use isEmpty instead of length"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "empty_constructor_bodies",
+          "file": "lib/src/model.dart",
+          "line": 2820,
+          "col": 79,
+          "description": "Use `;` instead of `{}` for empty constructor bodies."
         },
         {
           "severity": "INFO",
@@ -1327,6 +1364,15 @@
           "line": 4355,
           "col": 9,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "empty_constructor_bodies",
+          "file": "lib/src/model.dart",
+          "line": 4395,
+          "col": 44,
+          "description": "Use `;` instead of `{}` for empty constructor bodies."
         },
         {
           "severity": "INFO",
@@ -1595,6 +1641,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 3,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "avoid_return_types_on_setters",
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 49,
@@ -1604,11 +1659,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 56,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "avoid_return_types_on_setters",
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 61,
           "col": 3,
           "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 67,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 85,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
+          "line": 128,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",

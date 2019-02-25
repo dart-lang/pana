@@ -52,39 +52,39 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 1,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 117,
+    "analyzerHintCount": 242,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/rsp_util.dart`.",
-        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error, 4 hints:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.\n\nline 25 col 34: Use `isNotEmpty` for Iterables and Maps.\n\nline 75 col 57: Use `=` to separate a named parameter from its default value.\n\nline 75 col 76: Use `=` to separate a named parameter from its default value.\n\nline 76 col 8: Use `=` to separate a named parameter from its default value.",
+        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error, 13 hints, including:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 12 col 3: Prefer using /// for doc comments.\n\nline 25 col 34: Use `isNotEmpty` for Iterables and Maps.\n\nline 50 col 3: Prefer using /// for doc comments.",
         "file": "lib/src/rsp_util.dart",
-        "score": 26.49
+        "score": 29.73
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/server_impl.dart`.",
-        "description": "Analysis of `lib/src/server_impl.dart` reported 20 hints, including:\n\nline 186 col 31: Use isNotEmpty instead of length\n\nline 213 col 3: Avoid return types on setters.\n\nline 222 col 3: Avoid return types on setters.\n\nline 236 col 3: Avoid return types on setters.\n\nline 253 col 3: Avoid return types on setters.",
-        "file": "lib/src/server_impl.dart",
-        "score": 9.54
+        "title": "Fix `lib/src/server.dart`.",
+        "description": "Analysis of `lib/src/server.dart` reported 43 hints, including:\n\nline 10 col 1: Prefer using /// for doc comments.\n\nline 31 col 3: Prefer using /// for doc comments.\n\nline 96 col 38: Use `=` to separate a named parameter from its default value.\n\nline 102 col 3: Prefer using /// for doc comments.\n\nline 106 col 22: Use `=` to separate a named parameter from its default value.",
+        "file": "lib/src/server.dart",
+        "score": 19.39
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/rspc/compiler.dart`.",
-        "description": "Analysis of `lib/src/rspc/compiler.dart` reported 18 hints, including:\n\nline 30 col 59: Use `=` to separate a named parameter from its default value.\n\nline 31 col 19: Use `=` to separate a named parameter from its default value.\n\nline 31 col 43: Use `=` to separate a named parameter from its default value.\n\nline 128 col 15: Use `isNotEmpty` for Iterables and Maps.\n\nline 175 col 13: Use `isNotEmpty` for Iterables and Maps.",
-        "file": "lib/src/rspc/compiler.dart",
-        "score": 8.63
+        "title": "Fix `lib/src/connect.dart`.",
+        "description": "Analysis of `lib/src/connect.dart` reported 28 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 17 col 3: Prefer using /// for doc comments.\n\nline 24 col 3: Prefer using /// for doc comments.\n\nline 29 col 3: Prefer using /// for doc comments.\n\nline 36 col 3: Prefer using /// for doc comments.",
+        "file": "lib/src/connect.dart",
+        "score": 13.09
       },
       {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 11 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/server.dart` (17 hints)\n- `lib/src/connect_impl.dart` (15 hints)\n- `lib/src/rspc/build.dart` (14 hints)\n- `lib/src/plugin/router.dart` (9 hints)\n- `lib/src/rspc/tag_util.dart` (8 hints)\n- `lib/src/connect.dart` (4 hints)\n- `lib/proxy.dart` (2 hints)\n- `lib/src/rspc/main.dart` (2 hints)\n- `lib/src/rspc/tag.dart` (2 hints)\n- `lib/src/plugin/loader.dart` (1 hint)\n- `lib/src/plugin/loader_impl.dart` (1 hint)\n",
-        "score": 36.52
+        "description": "Additional issues in the following files:\n\n- `lib/src/plugin/loader.dart` (24 hints)\n- `lib/src/rspc/tag.dart` (22 hints)\n- `lib/src/server_impl.dart` (20 hints)\n- `lib/src/plugin/router.dart` (19 hints)\n- `lib/src/rspc/compiler.dart` (19 hints)\n- `lib/src/rspc/build.dart` (17 hints)\n- `lib/src/rspc/tag_util.dart` (16 hints)\n- `lib/src/connect_impl.dart` (15 hints)\n- `lib/src/rspc/main.dart` (3 hints)\n- `lib/proxy.dart` (2 hints)\n- `lib/src/plugin/loader_impl.dart` (1 hint)\n",
+        "score": 75.57999999999998
       }
     ]
   },
@@ -543,6 +543,114 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 6,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 17,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 24,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 29,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 36,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 47,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 57,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 69,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 104,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 107,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 112,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 117,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/connect.dart",
           "line": 125,
@@ -552,11 +660,110 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 138,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 148,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 152,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 157,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/connect.dart",
           "line": 166,
           "col": 40,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 168,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 195,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 222,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 228,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 232,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 238,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 242,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",
@@ -575,6 +782,15 @@
           "line": 296,
           "col": 3,
           "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/connect.dart",
+          "line": 311,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
         }
       ]
     },
@@ -728,11 +944,218 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 6,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 22,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 26,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 31,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 41,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 46,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 52,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 62,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 86,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 92,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 96,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 101,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 112,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 133,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 138,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 143,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 155,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 164,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 172,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 181,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 192,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 223,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/plugin/loader.dart",
           "line": 237,
           "col": 9,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 283,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
         }
       ]
     },
@@ -760,6 +1183,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 6,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 10,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/plugin/router.dart",
           "line": 19,
@@ -769,11 +1210,56 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 20,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/plugin/router.dart",
           "line": 28,
           "col": 59,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 30,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 34,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 50,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 63,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",
@@ -796,6 +1282,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 119,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/plugin/router.dart",
           "line": 132,
@@ -805,11 +1300,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 140,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/plugin/router.dart",
           "line": 148,
           "col": 59,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/plugin/router.dart",
+          "line": 177,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",
@@ -848,11 +1361,56 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 6,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 12,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rsp_util.dart",
           "line": 25,
           "col": 34,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 50,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 56,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 61,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",
@@ -882,6 +1440,42 @@
           "description": "Use `=` to separate a named parameter from its default value."
         },
         {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 111,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 127,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 134,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rsp_util.dart",
+          "line": 153,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
           "severity": "ERROR",
           "errorType": "STATIC_TYPE_WARNING",
           "errorCode": "UNDEFINED_GETTER",
@@ -897,6 +1491,15 @@
       "size": 6337,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/build.dart",
+          "line": 6,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -923,6 +1526,15 @@
           "line": 12,
           "col": 66,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/build.dart",
+          "line": 19,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",
@@ -981,6 +1593,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/build.dart",
+          "line": 119,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/rspc/build.dart",
           "line": 130,
@@ -1030,6 +1651,15 @@
       "size": 26182,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 6,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -1211,6 +1841,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/main.dart",
+          "line": 31,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unawaited_futures",
           "file": "lib/src/rspc/main.dart",
           "line": 60,
@@ -1224,6 +1863,96 @@
       "size": 15588,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 6,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 11,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 18,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 71,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 75,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 78,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 82,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 85,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 91,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 99,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -1241,6 +1970,96 @@
           "line": 194,
           "col": 9,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 215,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 254,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 287,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 318,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 364,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 408,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 491,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 506,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 516,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 526,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
         }
       ]
     },
@@ -1249,6 +2068,24 @@
       "size": 8297,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 11,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 24,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -1288,6 +2125,42 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 82,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 88,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 122,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 155,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/rspc/tag_util.dart",
           "line": 166,
@@ -1320,6 +2193,24 @@
           "line": 191,
           "col": 17,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 216,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 241,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
         }
       ]
     },
@@ -1328,6 +2219,24 @@
       "size": 16918,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 10,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 31,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -1340,11 +2249,92 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 102,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/server.dart",
           "line": 106,
           "col": 22,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 109,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 112,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 116,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 123,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 128,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 162,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 175,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 178,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",
@@ -1390,6 +2380,15 @@
           "line": 206,
           "col": 55,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 207,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",
@@ -1448,11 +2447,92 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 234,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/server.dart",
           "line": 253,
           "col": 55,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 254,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 260,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 295,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 324,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 330,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 346,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 359,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 366,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
         },
         {
           "severity": "INFO",
@@ -1466,6 +2546,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 373,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/server.dart",
           "line": 385,
@@ -1475,11 +2564,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 386,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/server.dart",
           "line": 393,
           "col": 59,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 395,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 399,
+          "col": 3,
+          "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "slash_for_doc_comments",
+          "file": "lib/src/server.dart",
+          "line": 409,
+          "col": 1,
+          "description": "Prefer using /// for doc comments."
         }
       ]
     },
