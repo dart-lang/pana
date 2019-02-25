@@ -139,7 +139,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.34.3",
-        "available": "0.35.1"
+        "available": "0.35.2"
       },
       {
         "package": "angular",
@@ -281,7 +281,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.9+1",
-        "available": "0.1.11"
+        "available": "0.1.12"
       },
       {
         "package": "glob",
@@ -332,7 +332,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.9+1",
-        "available": "0.3.11"
+        "available": "0.3.12"
       },
       {
         "package": "logging",
@@ -371,7 +371,7 @@
         "package": "package_resolver",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.6"
+        "resolved": "1.0.7"
       },
       {
         "package": "path",
@@ -392,7 +392,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.13.3"
+        "available": "0.13.4"
       },
       {
         "package": "pub_semver",
@@ -418,7 +418,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.17.0"
+        "resolved": "1.17.2"
       },
       {
         "package": "sass_builder",
@@ -2292,7 +2292,6 @@
         "dart:convert",
         "dart:developer",
         "dart:io",
-        "dart:isolate",
         "dart:math",
         "dart:typed_data",
         "package:analyzer/dart/analysis/analysis_context.dart",
@@ -2744,14 +2743,15 @@
         "package:package_config/src/util.dart",
         "package:package_resolver/package_resolver.dart",
         "package:package_resolver/src/async_package_resolver.dart",
-        "package:package_resolver/src/current_isolate_resolver.dart",
+        "package:package_resolver/src/current_isolate_resolver_stub.dart",
         "package:package_resolver/src/no_package_resolver.dart",
         "package:package_resolver/src/package_config_resolver.dart",
         "package:package_resolver/src/package_resolver.dart",
         "package:package_resolver/src/package_root_resolver.dart",
         "package:package_resolver/src/sync_package_resolver.dart",
         "package:package_resolver/src/utils.dart",
-        "package:package_resolver/src/utils_stub.dart",
+        "package:package_resolver/src/utils_io_stub.dart",
+        "package:package_resolver/src/utils_isolate_stub.dart",
         "package:path/path.dart",
         "package:path/src/characters.dart",
         "package:path/src/context.dart",
@@ -2855,6 +2855,7 @@
         "package:sass/src/ast/sass/statement/style_rule.dart",
         "package:sass/src/ast/sass/statement/stylesheet.dart",
         "package:sass/src/ast/sass/statement/supports_rule.dart",
+        "package:sass/src/ast/sass/statement/use_rule.dart",
         "package:sass/src/ast/sass/statement/variable_declaration.dart",
         "package:sass/src/ast/sass/statement/warn_rule.dart",
         "package:sass/src/ast/sass/statement/while_rule.dart",
@@ -3044,7 +3045,6 @@
       "platform": {
         "components": [
           "io",
-          "isolate",
           "build"
         ],
         "uses": {
