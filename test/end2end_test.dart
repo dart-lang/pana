@@ -77,7 +77,11 @@ void main() {
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
         final encoded = json.encode(summary);
-        final updated = encoded.replaceAll(sdkVersion, '{{sdk-version}}');
+        final updated = encoded
+            .replaceAll(
+                '"sdkVersion":"$sdkVersion"', '"sdkVersion":"{{sdk-version}}"')
+            .replaceAll('The current Dart SDK version is $sdkVersion.',
+                'The current Dart SDK version is {{sdk-version}}.');
         actualMap = json.decode(updated) as Map<String, dynamic>;
       });
 
