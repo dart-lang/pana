@@ -207,7 +207,7 @@ DartPlatform classifyPkgPlatform(
     return '`$s` (components: $components)';
   }
 
-  final allComponentsSet = Set<String>();
+  final allComponentsSet = <String>{};
   libraries.values
       .map((p) => p.components)
       .where((c) => c != null)
@@ -288,7 +288,7 @@ DartPlatform classifyLibPlatform(Iterable<String> dependencies) {
 }
 
 Set<String> _normalizeDependencies(Iterable<String> dependencies) {
-  var deps = Set<String>();
+  var deps = <String>{};
   deps.addAll(dependencies);
   // maps `package:pkg/lib.dart` -> `package:pkg`
   deps.addAll(dependencies.map((dep) => dep.split('/').first));

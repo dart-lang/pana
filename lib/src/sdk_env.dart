@@ -186,7 +186,7 @@ class ToolEnvironment {
     if (dirs.isEmpty) {
       return const [];
     }
-    final files = Set<String>();
+    final files = <String>{};
     for (final dir in dirs) {
       final fullPath = p.join(packageDir, dir);
 

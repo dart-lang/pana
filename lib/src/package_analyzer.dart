@@ -444,7 +444,7 @@ class PackageAnalyzer {
   }
 
   Set<String> _reachableLibs(Map<String, List<String>> allTransitiveLibs) {
-    final reached = Set<String>();
+    final reached = <String>{};
     for (var lib in allTransitiveLibs.keys) {
       if (lib.startsWith('package:')) {
         final path = toRelativePath(lib);
