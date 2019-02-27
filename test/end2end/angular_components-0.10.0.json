@@ -62,40 +62,40 @@
     "formatProcessFailed": false,
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
-    "analyzerWarningCount": 0,
+    "analyzerWarningCount": 6,
     "analyzerHintCount": 95,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/material_select/material_select_item.dart`.",
-        "description": "Analysis of `lib/material_select/material_select_item.dart` reported 12 hints, including:\n\nline 36 col 5: 'GlyphComponent' is deprecated and shouldn't be used.\n\nline 48 col 9: 'HasComponentRenderer' is deprecated and shouldn't be used.\n\nline 87 col 17: 'getBool' is deprecated and shouldn't be used.\n\nline 124 col 21: 'getBool' is deprecated and shouldn't be used.\n\nline 162 col 22: 'getBool' is deprecated and shouldn't be used.",
-        "file": "lib/material_select/material_select_item.dart",
-        "score": 5.84
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/model/selection/multi_selection_model_impl.dart`.",
-        "description": "Analysis of `lib/src/model/selection/multi_selection_model_impl.dart` reported 10 hints, including:\n\nline 26 col 7: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 27 col 7: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 39 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 40 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 55 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used.",
-        "file": "lib/src/model/selection/multi_selection_model_impl.dart",
-        "score": 4.89
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
+        "level": "warning",
         "title": "Fix `lib/src/model/selection/delegating_selection_model.dart`.",
-        "description": "Analysis of `lib/src/model/selection/delegating_selection_model.dart` reported 7 hints, including:\n\nline 49 col 43: 'deliverChanges' is deprecated and shouldn't be used.\n\nline 53 col 20: 'notifyChange' is deprecated and shouldn't be used.\n\nline 57 col 26: Avoid shadowing type parameters.\n\nline 58 col 20: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 63 col 43: 'hasObservers' is deprecated and shouldn't be used.",
+        "description": "Analysis of `lib/src/model/selection/delegating_selection_model.dart` reported 2 warnings, 7 hints, including:\n\nline 78 col 8: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.\n\nline 78 col 38: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'removed' has a different value.\n\nline 49 col 43: 'deliverChanges' is deprecated and shouldn't be used.\n\nline 53 col 20: 'notifyChange' is deprecated and shouldn't be used.\n\nline 57 col 26: Avoid shadowing type parameters.",
         "file": "lib/src/model/selection/delegating_selection_model.dart",
-        "score": 3.45
+        "score": 12.86
+      },
+      {
+        "code": "dartanalyzer.warning",
+        "level": "warning",
+        "title": "Fix `lib/src/model/selection/noop_selection_model_impl.dart`.",
+        "description": "Analysis of `lib/src/model/selection/noop_selection_model_impl.dart` reported 2 warnings, 1 hint:\n\nline 20 col 31: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.\n\nline 20 col 38: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'removed' has a different value.\n\nline 37 col 26: Avoid shadowing type parameters.",
+        "file": "lib/src/model/selection/noop_selection_model_impl.dart",
+        "score": 10.2
+      },
+      {
+        "code": "dartanalyzer.warning",
+        "level": "warning",
+        "title": "Fix `lib/src/model/selection/selection_change_notifier.dart`.",
+        "description": "Analysis of `lib/src/model/selection/selection_change_notifier.dart` reported 2 warnings:\n\nline 47 col 8: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.\n\nline 47 col 38: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'removed' has a different value.",
+        "file": "lib/src/model/selection/selection_change_notifier.dart",
+        "score": 9.75
       },
       {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix additional 35 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/material_input/material_auto_suggest_input.dart` (5 hints)\n- `lib/material_input/material_input_multiline.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_menu/menu_item_groups.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/mixins/track_layout_changes.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/src/model/selection/noop_selection_model_impl.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/browser/events/events.dart` (1 hint)\n",
-        "score": 32.89
+        "title": "Fix additional 36 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/material_select/material_select_item.dart` (12 hints)\n- `lib/src/model/selection/multi_selection_model_impl.dart` (10 hints)\n- `lib/material_input/material_auto_suggest_input.dart` (5 hints)\n- `lib/material_input/material_input_multiline.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_menu/menu_item_groups.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/mixins/track_layout_changes.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/browser/events/events.dart` (1 hint)\n",
+        "score": 43.11999999999999
       }
     ]
   },
@@ -261,7 +261,7 @@
         "package": "dart_internal",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.2"
+        "resolved": "0.1.3"
       },
       {
         "package": "dart_style",
@@ -371,7 +371,7 @@
         "package": "package_resolver",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.8"
+        "resolved": "1.0.10"
       },
       {
         "package": "path",
@@ -34650,6 +34650,24 @@
           "line": 69,
           "col": 39,
           "description": "'unobserved' is deprecated and shouldn't be used."
+        },
+        {
+          "severity": "WARNING",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "INVALID_OVERRIDE_DIFFERENT_DEFAULT_VALUES_NAMED",
+          "file": "lib/src/model/selection/delegating_selection_model.dart",
+          "line": 78,
+          "col": 8,
+          "description": "Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value."
+        },
+        {
+          "severity": "WARNING",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "INVALID_OVERRIDE_DIFFERENT_DEFAULT_VALUES_NAMED",
+          "file": "lib/src/model/selection/delegating_selection_model.dart",
+          "line": 78,
+          "col": 38,
+          "description": "Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'removed' has a different value."
         }
       ]
     },
@@ -34786,6 +34804,24 @@
       "isFormatted": true,
       "codeProblems": [
         {
+          "severity": "WARNING",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "INVALID_OVERRIDE_DIFFERENT_DEFAULT_VALUES_NAMED",
+          "file": "lib/src/model/selection/noop_selection_model_impl.dart",
+          "line": 20,
+          "col": 31,
+          "description": "Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value."
+        },
+        {
+          "severity": "WARNING",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "INVALID_OVERRIDE_DIFFERENT_DEFAULT_VALUES_NAMED",
+          "file": "lib/src/model/selection/noop_selection_model_impl.dart",
+          "line": 20,
+          "col": 38,
+          "description": "Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'removed' has a different value."
+        },
+        {
           "severity": "INFO",
           "errorType": "LINT",
           "errorCode": "avoid_shadowing_type_parameters",
@@ -34806,7 +34842,26 @@
       "uri": "package:angular_components/src/model/selection/selection_change_notifier.dart",
       "size": 3162,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "WARNING",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "INVALID_OVERRIDE_DIFFERENT_DEFAULT_VALUES_NAMED",
+          "file": "lib/src/model/selection/selection_change_notifier.dart",
+          "line": 47,
+          "col": 8,
+          "description": "Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value."
+        },
+        {
+          "severity": "WARNING",
+          "errorType": "STATIC_WARNING",
+          "errorCode": "INVALID_OVERRIDE_DIFFERENT_DEFAULT_VALUES_NAMED",
+          "file": "lib/src/model/selection/selection_change_notifier.dart",
+          "line": 47,
+          "col": 38,
+          "description": "Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'removed' has a different value."
+        }
+      ]
     },
     "lib/src/model/selection/single_selection_model_impl.dart": {
       "uri": "package:angular_components/src/model/selection/single_selection_model_impl.dart",

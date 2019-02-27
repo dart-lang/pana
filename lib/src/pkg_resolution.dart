@@ -150,7 +150,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
     ));
   }
 
-  final packageNames = Set<String>();
+  final packageNames = <String>{};
 
   pubspec.dependencies?.forEach((k, v) {
     if (packageNames.add(k)) {

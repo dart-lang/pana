@@ -52,7 +52,7 @@ class AnalyzeCommand extends Command {
     final pool = Pool(concurrency);
     final force = argResults['force'] as bool;
 
-    final packages = Set<String>();
+    final packages = <String>{};
     packages.addAll(argResults.rest);
 
     final packagesListFileName = argResults['packages-list'] as String;

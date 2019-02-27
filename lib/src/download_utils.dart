@@ -11,7 +11,7 @@ import 'package:path/path.dart' as p;
 import 'logging.dart';
 import 'utils.dart';
 
-final imageExtensions = Set.from(['.gif', '.jpg', '.jpeg', '.png']);
+final imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
 /// Returns a non-null Directory instance only if it is able to download and
 /// extract the direct package dependency. On any failure it clears the temp
@@ -100,7 +100,7 @@ enum UrlStatus {
 }
 
 class UrlChecker {
-  final _internalHosts = Set<Pattern>();
+  final _internalHosts = <Pattern>{};
   final _resolveCache = <String, bool>{};
   final int _resolveCacheLimit;
 

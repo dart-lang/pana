@@ -114,7 +114,7 @@ List<Suggestion> _compact(
     List<Suggestion> allSuggestions, List<CodeProblem> analyzerItems) {
   final suggestions = <Suggestion>[];
 
-  final reportedFiles = Set();
+  final reportedFiles = <String>{};
   final onePerFileSuggestions =
       allSuggestions.where((s) => reportedFiles.add(s.file)).toList()..sort();
 

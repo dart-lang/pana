@@ -116,8 +116,8 @@ class LibraryScanner {
   Future<List<String>> _scanTransitiveLibs(
       String uri, List<String> stack) async {
     if (!_cachedTransitiveLibs.containsKey(uri)) {
-      final processed = Set<String>();
-      final todo = Set<String>.from([uri]);
+      final processed = <String>{};
+      final todo = <String>{uri};
       while (todo.isNotEmpty) {
         final lib = todo.first;
         todo.remove(lib);
