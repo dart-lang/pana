@@ -165,6 +165,8 @@ class ToolEnvironment {
         params,
         environment: _environment,
         workingDirectory: packageDir,
+        deduplicate: true,
+        timeout: const Duration(minutes: 5),
       );
       final output = proc.stderr as String;
       if ('\n$output'.contains('\nUnhandled exception:\n')) {

@@ -36,6 +36,7 @@ Future<ProcessResult> runProc(
   String workingDirectory,
   Map<String, String> environment,
   Duration timeout,
+  bool deduplicate = false,
 }) async {
   log.info('Running `${([executable]..addAll(arguments)).join(' ')}`...');
   var process = await Process.start(executable, arguments,
@@ -65,6 +66,9 @@ Future<ProcessResult> runProc(
   var items = await Future.wait(<Future<Object>>[
     process.exitCode,
     byteStreamSplit(process.stdout).forEach((outLine) {
+      if (deduplicate && stdoutLines.contains(outLine)) {
+        return;
+      }
       stdoutLines.add(outLine);
       // Uncomment to debug long execution
       // stderr.writeln(outLine);
@@ -73,6 +77,9 @@ Future<ProcessResult> runProc(
       }
     }),
     byteStreamSplit(process.stderr).forEach((errLine) {
+      if (deduplicate && stderrLines.contains(errLine)) {
+        return;
+      }
       stderrLines.add(errLine);
       // Uncomment to debug long execution
       // stderr.writeln(errLine);
