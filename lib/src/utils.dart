@@ -66,6 +66,7 @@ Future<ProcessResult> runProc(
   var items = await Future.wait(<Future<Object>>[
     process.exitCode,
     byteStreamSplit(process.stdout).forEach((outLine) {
+      // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
       if (deduplicate && stdoutLines.contains(outLine)) {
         return;
       }
@@ -77,6 +78,7 @@ Future<ProcessResult> runProc(
       }
     }),
     byteStreamSplit(process.stderr).forEach((errLine) {
+      // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
       if (deduplicate && stderrLines.contains(errLine)) {
         return;
       }
