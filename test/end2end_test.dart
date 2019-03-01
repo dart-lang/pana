@@ -13,7 +13,7 @@ import 'package:pana/src/version.dart';
 
 const String goldenDir = 'test/end2end';
 
-final _regenerateGoldens = false;
+final _regenerateGoldens = true;
 
 void main() {
   Directory tempDir;

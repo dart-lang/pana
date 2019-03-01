@@ -6,6 +6,8 @@
 
 * Display calculated health and maintenance scores when `pana` is called with `--scores`.
 
+* Ask for example only for packages with public libraries.
+
 ## 0.12.13+1
 
 * Support the latest `package:analyzer`.
