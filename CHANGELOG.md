@@ -8,6 +8,8 @@
 
 * Ask for example only for packages with public libraries.
 
+* Deduplicate `dartanalyzer` output lines.
+
 ## 0.12.13+1
 
 * Support the latest `package:analyzer`.
