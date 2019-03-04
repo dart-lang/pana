@@ -100,18 +100,6 @@ const _withIssuesJson = {
       'score': 10.0
     },
     {
-      'code': 'example.missing',
-      'level': 'hint',
-      'title': 'Maintain an example.',
-      'description':
-          'Create a short demo in the `example/` directory to show how to use this package.\n'
-          '\n'
-          'Common filename patterns include `main.dart`, `example.dart`, and `sandbox.dart`. Packages with multiple examples should provide `example/README.md`.\n'
-          '\n'
-          'For more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).',
-      'score': 10.0
-    },
-    {
       'code': 'packageVersion.preV01',
       'level': 'hint',
       'title': 'Package is pre-v0.1 release.',

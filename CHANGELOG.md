@@ -6,6 +6,8 @@
 
 * Display calculated health and maintenance scores when `pana` is called with `--scores`.
 
+* Ask for example only for packages with public libraries.
+
 * Deduplicate `dartanalyzer` output lines.
 
 ## 0.12.13+1

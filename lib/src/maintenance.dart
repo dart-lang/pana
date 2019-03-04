@@ -168,6 +168,10 @@ Future<Maintenance> detectMaintenance(
   final pkgName = pubspec.name;
   final maintenanceSuggestions = <Suggestion>[];
   final files = await listFiles(pkgDir).toList();
+  final hasPublicDartLibrary = files.any((path) =>
+      path.startsWith('lib/') &&
+      !path.startsWith('lib/src/') &&
+      path.endsWith('.dart'));
 
   Future<File> firstExistingFile(
     List<String> names, {
@@ -423,7 +427,7 @@ Future<Maintenance> detectMaintenance(
           'Maintain an example.',
           "None of the files in the package's `example/` directory matches known example patterns.\n\n"
           '$commonMsg'));
-    } else {
+    } else if (hasPublicDartLibrary) {
       maintenanceSuggestions.add(Suggestion.hint(
           SuggestionCode.exampleMissing,
           'Maintain an example.',
