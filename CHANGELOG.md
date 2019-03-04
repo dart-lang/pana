@@ -6,6 +6,8 @@
 
 * Display calculated health and maintenance scores when `pana` is called with `--scores`.
 
+* Deduplicate `dartanalyzer` output lines.
+
 ## 0.12.13+1
 
 * Support the latest `package:analyzer`.
