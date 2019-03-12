@@ -21,12 +21,13 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
           ? null
           : PkgResolution.fromJson(
               json['pkgResolution'] as Map<String, dynamic>),
-      dartFiles: (json['dartFiles'] as Map<String, dynamic>)?.map((k, e) =>
-          MapEntry(
-              k,
-              e == null
-                  ? null
-                  : DartFileSummary.fromJson(e as Map<String, dynamic>))),
+      dartFiles: (json['dartFiles'] as Map<String, dynamic>)?.map(
+        (k, e) => MapEntry(
+            k,
+            e == null
+                ? null
+                : DartFileSummary.fromJson(e as Map<String, dynamic>)),
+      ),
       platform: json['platform'] == null
           ? null
           : DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
@@ -170,7 +171,8 @@ DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) {
   return DartPlatform(
       (json['components'] as List)?.map((e) => e as String)?.toList(),
       (json['uses'] as Map<String, dynamic>)?.map(
-          (k, e) => MapEntry(k, _$enumDecodeNullable(_$PlatformUseEnumMap, e))),
+        (k, e) => MapEntry(k, _$enumDecodeNullable(_$PlatformUseEnumMap, e)),
+      ),
       reason: json['reason'] as String);
 }
 
