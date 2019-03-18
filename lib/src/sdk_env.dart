@@ -179,6 +179,7 @@ class ToolEnvironment {
       return output;
     } finally {
       await customOptionsFile.delete();
+      await pedanticOptionsFile.delete();
     }
   }
 

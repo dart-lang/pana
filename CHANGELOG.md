@@ -1,3 +1,7 @@
+## 0.12.15
+
+* Fix: delete local temporary `pedantic_analyis_options_[timestamp].g.yaml`.
+
 ## 0.12.14
 
 * Penalty for too large readme, changelog or example.
