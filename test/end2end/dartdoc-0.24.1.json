@@ -145,7 +145,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.35.2"
+        "available": "0.35.4"
       },
       {
         "package": "args",
@@ -227,7 +227,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.6+9",
-        "available": "0.1.12"
+        "available": "0.1.14"
       },
       {
         "package": "glob",
@@ -247,7 +247,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.12.1 <0.14.0",
-        "resolved": "0.13.3+3"
+        "resolved": "0.13.4+1"
       },
       {
         "package": "http",
@@ -279,7 +279,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.6+9",
-        "available": "0.3.12"
+        "available": "0.3.14"
       },
       {
         "package": "logging",
@@ -366,7 +366,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.4"
+        "resolved": "1.5.5"
       },
       {
         "package": "stack_trace",

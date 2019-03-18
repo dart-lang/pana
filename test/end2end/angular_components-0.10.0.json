@@ -139,7 +139,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.34.3",
-        "available": "0.35.2"
+        "available": "0.35.4"
       },
       {
         "package": "angular",
@@ -206,7 +206,7 @@
         "package": "built_value",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "6.3.0"
+        "resolved": "6.3.2"
       },
       {
         "package": "charcode",
@@ -267,7 +267,8 @@
         "package": "dart_style",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.2.3"
+        "resolved": "1.2.3",
+        "available": "1.2.4"
       },
       {
         "package": "fixnum",
@@ -281,7 +282,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.9+1",
-        "available": "0.1.12"
+        "available": "0.1.14"
       },
       {
         "package": "glob",
@@ -293,7 +294,7 @@
         "package": "html",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.13.3+3"
+        "resolved": "0.13.4+1"
       },
       {
         "package": "http",
@@ -332,7 +333,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.9+1",
-        "available": "0.3.12"
+        "available": "0.3.14"
       },
       {
         "package": "logging",
@@ -418,7 +419,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.17.2"
+        "resolved": "1.17.3"
       },
       {
         "package": "sass_builder",
@@ -443,7 +444,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.4"
+        "resolved": "1.5.5"
       },
       {
         "package": "stack_trace",
@@ -455,7 +456,7 @@
         "package": "stream_transform",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.0.15"
+        "resolved": "0.0.16+1"
       },
       {
         "package": "string_scanner",
@@ -2881,6 +2882,7 @@
         "package:sass/src/async_compile.dart",
         "package:sass/src/async_environment.dart",
         "package:sass/src/async_import_cache.dart",
+        "package:sass/src/async_module.dart",
         "package:sass/src/callable.dart",
         "package:sass/src/callable/async.dart",
         "package:sass/src/callable/async_built_in.dart",
@@ -2911,6 +2913,7 @@
         "package:sass/src/io/interface.dart",
         "package:sass/src/logger.dart",
         "package:sass/src/logger/stderr.dart",
+        "package:sass/src/module.dart",
         "package:sass/src/parse/at_root_query.dart",
         "package:sass/src/parse/css.dart",
         "package:sass/src/parse/keyframe_selector.dart",
@@ -2923,8 +2926,10 @@
         "package:sass/src/sync_package_resolver.dart",
         "package:sass/src/syntax.dart",
         "package:sass/src/util/character.dart",
+        "package:sass/src/util/fixed_length_list_builder.dart",
         "package:sass/src/util/no_source_map_buffer.dart",
         "package:sass/src/util/number.dart",
+        "package:sass/src/util/public_member_map.dart",
         "package:sass/src/util/source_map_buffer.dart",
         "package:sass/src/utils.dart",
         "package:sass/src/value.dart",
