@@ -178,7 +178,9 @@ class ToolEnvironment {
       }
       return output;
     } finally {
+      // TODO: create a withTempFile utility method that deletes these
       await customOptionsFile.delete();
+      await pedanticOptionsFile.delete();
     }
   }
 
