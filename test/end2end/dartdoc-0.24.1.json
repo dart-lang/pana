@@ -145,7 +145,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.35.4"
+        "available": "0.36.0"
       },
       {
         "package": "args",
@@ -158,7 +158,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.0.8"
+        "resolved": "2.1.0"
       },
       {
         "package": "build",
@@ -227,7 +227,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.6+9",
-        "available": "0.1.14"
+        "available": "0.1.15"
       },
       {
         "package": "glob",
@@ -266,7 +266,7 @@
         "package": "intl",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.15.7"
+        "resolved": "0.15.8"
       },
       {
         "package": "io",
@@ -279,7 +279,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.6+9",
-        "available": "0.3.14"
+        "available": "0.3.15"
       },
       {
         "package": "logging",
@@ -299,7 +299,7 @@
         "package": "matcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.12.4"
+        "resolved": "0.12.5"
       },
       {
         "package": "meta",
@@ -353,7 +353,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.0.1"
+        "resolved": "2.0.2"
       },
       {
         "package": "resource",

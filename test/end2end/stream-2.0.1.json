@@ -147,7 +147,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.0.8"
+        "resolved": "2.1.0"
       },
       {
         "package": "charcode",
