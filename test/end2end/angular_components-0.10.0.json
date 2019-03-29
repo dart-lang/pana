@@ -139,7 +139,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.34.3",
-        "available": "0.35.4"
+        "available": "0.36.0"
       },
       {
         "package": "angular",
@@ -178,7 +178,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.8",
-        "resolved": "2.0.8"
+        "resolved": "2.1.0"
       },
       {
         "package": "build",
@@ -186,7 +186,7 @@
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
         "resolved": "1.1.0",
-        "available": "1.1.1"
+        "available": "1.1.2"
       },
       {
         "package": "build_config",
@@ -268,7 +268,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.2.3",
-        "available": "1.2.4"
+        "available": "1.2.5"
       },
       {
         "package": "fixnum",
@@ -282,7 +282,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.9+1",
-        "available": "0.1.14"
+        "available": "0.1.15"
       },
       {
         "package": "glob",
@@ -313,7 +313,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.14.0 <0.16.0",
-        "resolved": "0.15.7"
+        "resolved": "0.15.8"
       },
       {
         "package": "js",
@@ -333,7 +333,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.9+1",
-        "available": "0.3.14"
+        "available": "0.3.15"
       },
       {
         "package": "logging",
@@ -346,7 +346,7 @@
         "package": "matcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.12.4"
+        "resolved": "0.12.5"
       },
       {
         "package": "meta",
@@ -413,7 +413,7 @@
         "constraintType": "normal",
         "constraint": ">=0.24.0 <0.30.0",
         "resolved": "0.29.0+2",
-        "available": "2.0.1"
+        "available": "2.0.2"
       },
       {
         "package": "sass",
@@ -456,7 +456,7 @@
         "package": "stream_transform",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.0.16+1"
+        "resolved": "0.0.17"
       },
       {
         "package": "string_scanner",

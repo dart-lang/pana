@@ -33,15 +33,13 @@
     }
   },
   "platform": {
-    "components": [
-      "isolate"
-    ],
+    "components": [],
     "uses": {
       "flutter": "allowed",
-      "web": "forbidden",
-      "other": "used"
+      "web": "allowed",
+      "other": "allowed"
     },
-    "reason": "Platform components identified in package: `isolate`."
+    "reason": "No platform restriction found in libraries."
   },
   "licenses": [
     {
@@ -97,7 +95,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.0.8"
+        "resolved": "2.1.0"
       },
       {
         "package": "charcode",
@@ -170,7 +168,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.5.6 <0.8.0",
-        "resolved": "0.7.4"
+        "resolved": "0.7.4+1"
       },
       {
         "package": "source_span",
@@ -188,7 +186,7 @@
         "package": "stream_channel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.6.8"
+        "resolved": "2.0.0"
       },
       {
         "package": "string_scanner",
@@ -331,7 +329,6 @@
         "dart:async",
         "dart:collection",
         "dart:convert",
-        "dart:isolate",
         "dart:math",
         "dart:typed_data",
         "package:async/async.dart",
@@ -480,13 +477,11 @@
         "package:stream_channel/src/delegating_stream_channel.dart",
         "package:stream_channel/src/disconnector.dart",
         "package:stream_channel/src/guarantee_channel.dart",
-        "package:stream_channel/src/isolate_channel.dart",
         "package:stream_channel/src/json_document_transformer.dart",
         "package:stream_channel/src/multi_channel.dart",
         "package:stream_channel/src/stream_channel_completer.dart",
         "package:stream_channel/src/stream_channel_controller.dart",
         "package:stream_channel/src/stream_channel_transformer.dart",
-        "package:stream_channel/src/transformer/typed.dart",
         "package:stream_channel/stream_channel.dart",
         "package:string_scanner/src/eager_span_scanner.dart",
         "package:string_scanner/src/exception.dart",
@@ -519,13 +514,11 @@
         "package:yaml/yaml.dart"
       ],
       "platform": {
-        "components": [
-          "isolate"
-        ],
+        "components": [],
         "uses": {
           "flutter": "allowed",
-          "web": "forbidden",
-          "other": "used"
+          "web": "allowed",
+          "other": "allowed"
         }
       }
     }
