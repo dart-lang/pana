@@ -158,7 +158,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.0"
+        "resolved": "2.2.0"
       },
       {
         "package": "build",
@@ -247,7 +247,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.12.1 <0.14.0",
-        "resolved": "0.13.4+1"
+        "resolved": "0.13.4+1",
+        "available": "0.14.0"
       },
       {
         "package": "http",

@@ -146,26 +146,30 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^5.1.0",
-        "resolved": "5.2.0"
+        "resolved": "5.2.0",
+        "available": "5.3.0"
       },
       {
         "package": "angular_ast",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.5.8"
+        "resolved": "0.5.8",
+        "available": "0.5.9"
       },
       {
         "package": "angular_compiler",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.4.2"
+        "resolved": "0.4.2",
+        "available": "0.4.3"
       },
       {
         "package": "angular_forms",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.1.0",
-        "resolved": "2.1.1"
+        "resolved": "2.1.1",
+        "available": "2.1.2"
       },
       {
         "package": "args",
@@ -178,7 +182,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.8",
-        "resolved": "2.1.0"
+        "resolved": "2.2.0"
       },
       {
         "package": "build",
@@ -186,7 +190,7 @@
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
         "resolved": "1.1.0",
-        "available": "1.1.2"
+        "available": "1.1.3"
       },
       {
         "package": "build_config",
@@ -200,13 +204,13 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^4.0.0",
-        "resolved": "4.1.0"
+        "resolved": "4.2.0"
       },
       {
         "package": "built_value",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "6.3.2"
+        "resolved": "6.4.0"
       },
       {
         "package": "charcode",
@@ -268,7 +272,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.2.3",
-        "available": "1.2.5"
+        "available": "1.2.7"
       },
       {
         "package": "fixnum",
@@ -294,13 +298,13 @@
         "package": "html",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.13.4+1"
+        "resolved": "0.14.0"
       },
       {
         "package": "http",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.12.0+1"
+        "resolved": "0.12.0+2"
       },
       {
         "package": "http_parser",
@@ -326,7 +330,7 @@
         "package": "json_annotation",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.0.0"
+        "resolved": "2.1.0"
       },
       {
         "package": "kernel",
@@ -382,6 +386,12 @@
         "resolved": "1.6.2"
       },
       {
+        "package": "pedantic",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.5.0"
+      },
+      {
         "package": "plugin",
         "dependencyType": "transitive",
         "constraintType": "inherited",
@@ -393,7 +403,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.13.4"
+        "available": "0.13.9"
       },
       {
         "package": "pub_semver",
@@ -419,7 +429,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.17.3"
+        "resolved": "1.18.0"
       },
       {
         "package": "sass_builder",
@@ -432,7 +442,8 @@
         "package": "source_gen",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.4+1"
+        "resolved": "0.9.4+1",
+        "available": "0.9.4+2"
       },
       {
         "package": "source_maps",
@@ -487,12 +498,6 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.1.6"
-      },
-      {
-        "package": "utf",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.9.0+5"
       },
       {
         "package": "watcher",
@@ -1083,6 +1088,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -2682,12 +2688,13 @@
         "package:html/src/constants.dart",
         "package:html/src/css_class_set.dart",
         "package:html/src/encoding_parser.dart",
-        "package:html/src/inputstream.dart",
+        "package:html/src/html_input_stream.dart",
         "package:html/src/list_proxy.dart",
         "package:html/src/query_selector.dart",
         "package:html/src/token.dart",
         "package:html/src/tokenizer.dart",
         "package:html/src/treebuilder.dart",
+        "package:html/src/utf.dart",
         "package:html/src/utils.dart",
         "package:http/http.dart",
         "package:http/src/base_client.dart",
@@ -3006,16 +3013,6 @@
         "package:tuple/tuple.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart",
-        "package:utf/src/constants.dart",
-        "package:utf/src/list_range.dart",
-        "package:utf/src/shared.dart",
-        "package:utf/src/utf16.dart",
-        "package:utf/src/utf32.dart",
-        "package:utf/src/utf8.dart",
-        "package:utf/src/utf_16_code_unit_decoder.dart",
-        "package:utf/src/utf_stream.dart",
-        "package:utf/src/util.dart",
-        "package:utf/utf.dart",
         "package:watcher/src/async_queue.dart",
         "package:watcher/src/constructable_file_system_event.dart",
         "package:watcher/src/directory_watcher.dart",
@@ -19312,6 +19309,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -19701,6 +19699,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -20085,6 +20084,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -20769,6 +20769,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -21149,6 +21150,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -21382,6 +21384,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -31689,6 +31692,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -31820,6 +31824,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",
@@ -31959,6 +31964,7 @@
         "package:built_collection/src/internal/copy_on_write_list.dart",
         "package:built_collection/src/internal/copy_on_write_map.dart",
         "package:built_collection/src/internal/copy_on_write_set.dart",
+        "package:built_collection/src/internal/iterables.dart",
         "package:built_collection/src/iterable.dart",
         "package:built_collection/src/list.dart",
         "package:built_collection/src/list_multimap.dart",

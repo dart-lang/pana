@@ -147,7 +147,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.0"
+        "resolved": "2.2.0"
       },
       {
         "package": "charcode",
@@ -167,7 +167,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "0.12.0+1"
+        "resolved": "0.12.0+2"
       },
       {
         "package": "http_parser",
@@ -200,6 +200,12 @@
         "constraintType": "normal",
         "constraint": "any",
         "resolved": "1.6.2"
+      },
+      {
+        "package": "pedantic",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.5.0"
       },
       {
         "package": "rikulo_commons",

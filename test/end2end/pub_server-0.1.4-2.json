@@ -95,7 +95,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.0"
+        "resolved": "2.2.0"
       },
       {
         "package": "charcode",
@@ -168,7 +168,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.5.6 <0.8.0",
-        "resolved": "0.7.4+1"
+        "resolved": "0.7.5"
       },
       {
         "package": "source_span",
