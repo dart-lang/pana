@@ -197,7 +197,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.2.6 <0.4.0",
-        "resolved": "0.3.1+4"
+        "resolved": "0.3.2"
       },
       {
         "package": "built_collection",
@@ -253,7 +253,8 @@
         "package": "csslib",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.14.6"
+        "resolved": "0.14.6",
+        "available": "0.15.0"
       },
       {
         "package": "dart2_constant",
@@ -298,7 +299,7 @@
         "package": "html",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.14.0"
+        "resolved": "0.14.0+1"
       },
       {
         "package": "http",
@@ -330,7 +331,7 @@
         "package": "json_annotation",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.0"
+        "resolved": "2.2.0"
       },
       {
         "package": "kernel",
@@ -403,7 +404,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.13.9"
+        "available": "0.13.11"
       },
       {
         "package": "pub_semver",
@@ -423,7 +424,7 @@
         "constraintType": "normal",
         "constraint": ">=0.24.0 <0.30.0",
         "resolved": "0.29.0+2",
-        "available": "2.0.2"
+        "available": "2.0.3"
       },
       {
         "package": "sass",
@@ -2684,7 +2685,6 @@
         "package:html/dom.dart",
         "package:html/dom_parsing.dart",
         "package:html/parser.dart",
-        "package:html/src/char_encodings.dart",
         "package:html/src/constants.dart",
         "package:html/src/css_class_set.dart",
         "package:html/src/encoding_parser.dart",
@@ -2694,7 +2694,6 @@
         "package:html/src/token.dart",
         "package:html/src/tokenizer.dart",
         "package:html/src/treebuilder.dart",
-        "package:html/src/utf.dart",
         "package:html/src/utils.dart",
         "package:http/http.dart",
         "package:http/src/base_client.dart",

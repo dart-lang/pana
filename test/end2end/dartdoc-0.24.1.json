@@ -208,7 +208,7 @@
         "package": "csslib",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.14.6"
+        "resolved": "0.15.0"
       },
       {
         "package": "dhttpd",
@@ -247,8 +247,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.12.1 <0.14.0",
-        "resolved": "0.13.4+1",
-        "available": "0.14.0"
+        "resolved": "0.13.4+2",
+        "available": "0.14.0+1"
       },
       {
         "package": "http",
@@ -354,7 +354,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.0.2"
+        "resolved": "2.0.3"
       },
       {
         "package": "resource",
@@ -778,7 +778,7 @@
         "package:crypto/src/utils.dart",
         "package:csslib/parser.dart",
         "package:csslib/src/messages.dart",
-        "package:csslib/src/options.dart",
+        "package:csslib/src/preprocessor_options.dart",
         "package:csslib/visitor.dart",
         "package:dartdoc/src/dartdoc_options.dart",
         "package:dartdoc/src/element_type.dart",
