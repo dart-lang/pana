@@ -63,7 +63,7 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 6,
-    "analyzerHintCount": 95,
+    "analyzerHintCount": 105,
     "platformConflictCount": 0,
     "suggestions": [
       {
@@ -93,9 +93,9 @@
       {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix additional 36 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/material_select/material_select_item.dart` (12 hints)\n- `lib/src/model/selection/multi_selection_model_impl.dart` (10 hints)\n- `lib/material_input/material_auto_suggest_input.dart` (5 hints)\n- `lib/material_input/material_input_multiline.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_menu/menu_item_groups.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/mixins/track_layout_changes.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/browser/events/events.dart` (1 hint)\n",
-        "score": 43.11999999999999
+        "title": "Fix additional 42 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/material_select/material_select_item.dart` (12 hints)\n- `lib/src/model/selection/multi_selection_model_impl.dart` (10 hints)\n- `lib/material_input/material_auto_suggest_input.dart` (5 hints)\n- `lib/material_input/material_input_multiline.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/material_menu/menu_item_groups.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_datepicker/date_range_input.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/material_tree/material_tree_node.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/browser/events/events.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/material_calendar_picker.dart` (1 hint)\n- `lib/material_datepicker/material_date_range_picker.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_input/material_number_validators.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/mixins/track_layout_changes.dart` (1 hint)\n- `lib/model/date/date_formatter.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n",
+        "score": 48.10999999999999
       }
     ]
   },
@@ -139,7 +139,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.34.3",
-        "available": "0.36.0"
+        "available": "0.36.3"
       },
       {
         "package": "angular",
@@ -154,14 +154,14 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.5.8",
-        "available": "0.5.9"
+        "available": "0.5.10"
       },
       {
         "package": "angular_compiler",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.4.2",
-        "available": "0.4.3"
+        "available": "0.4.4"
       },
       {
         "package": "angular_forms",
@@ -169,7 +169,7 @@
         "constraintType": "normal",
         "constraint": "^2.1.0",
         "resolved": "2.1.1",
-        "available": "2.1.2"
+        "available": "2.1.3"
       },
       {
         "package": "args",
@@ -190,27 +190,28 @@
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
         "resolved": "1.1.0",
-        "available": "1.1.3"
+        "available": "1.1.4"
       },
       {
         "package": "build_config",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.2.6 <0.4.0",
-        "resolved": "0.3.2"
+        "resolved": "0.3.2",
+        "available": "0.4.0"
       },
       {
         "package": "built_collection",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^4.0.0",
-        "resolved": "4.2.0"
+        "resolved": "4.2.1"
       },
       {
         "package": "built_value",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "6.4.0"
+        "resolved": "6.5.0"
       },
       {
         "package": "charcode",
@@ -254,7 +255,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.14.6",
-        "available": "0.15.0"
+        "available": "0.16.0"
       },
       {
         "package": "dart2_constant",
@@ -266,7 +267,7 @@
         "package": "dart_internal",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.3"
+        "resolved": "0.1.4"
       },
       {
         "package": "dart_style",
@@ -287,7 +288,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.9+1",
-        "available": "0.1.15"
+        "available": "0.1.18"
       },
       {
         "package": "glob",
@@ -299,7 +300,7 @@
         "package": "html",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.14.0+1"
+        "resolved": "0.14.0+2"
       },
       {
         "package": "http",
@@ -338,7 +339,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.9+1",
-        "available": "0.3.15"
+        "available": "0.3.18"
       },
       {
         "package": "logging",
@@ -390,7 +391,7 @@
         "package": "pedantic",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.0"
+        "resolved": "1.6.0"
       },
       {
         "package": "plugin",
@@ -430,14 +431,14 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.18.0"
+        "resolved": "1.20.1"
       },
       {
         "package": "sass_builder",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.2",
-        "resolved": "2.1.2"
+        "resolved": "2.1.3"
       },
       {
         "package": "source_gen",
@@ -468,7 +469,7 @@
         "package": "stream_transform",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.0.17"
+        "resolved": "0.0.19"
       },
       {
         "package": "string_scanner",
@@ -10833,7 +10834,26 @@
       "uri": "package:angular_components/material_datepicker/date_range_input.dart",
       "size": 7465,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/material_datepicker/date_range_input.dart",
+          "line": 94,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/material_datepicker/date_range_input.dart",
+          "line": 103,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "package:angular/angular.dart",
@@ -11156,7 +11176,17 @@
       "uri": "package:angular_components/material_datepicker/material_calendar_picker.dart",
       "size": 31550,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/material_datepicker/material_calendar_picker.dart",
+          "line": 918,
+          "col": 38,
+          "description": "DO use curly braces for all flow control structures."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:html",
@@ -11630,7 +11660,17 @@
       "uri": "package:angular_components/material_datepicker/material_date_range_picker.dart",
       "size": 21745,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/material_datepicker/material_date_range_picker.dart",
+          "line": 395,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:html",
@@ -18047,7 +18087,17 @@
       "uri": "package:angular_components/material_input/material_number_validators.dart",
       "size": 5092,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/material_input/material_number_validators.dart",
+          "line": 28,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        }
+      ],
       "directLibs": [
         "package:angular/angular.dart",
         "package:angular_components/material_input/material_input_error_keys.dart",
@@ -20460,6 +20510,15 @@
           "line": 126,
           "col": 32,
           "description": "'getBool' is deprecated and shouldn't be used."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/material_menu/menu_item_groups.dart",
+          "line": 422,
+          "col": 36,
+          "description": "DO use curly braces for all flow control structures."
         }
       ],
       "directLibs": [
@@ -31484,7 +31543,17 @@
       "uri": "package:angular_components/model/date/date_formatter.dart",
       "size": 3905,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/model/date/date_formatter.dart",
+          "line": 18,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        }
+      ],
       "directLibs": [
         "package:angular_components/model/date/date.dart",
         "package:intl/intl.dart"
@@ -34551,7 +34620,26 @@
       "uri": "package:angular_components/src/material_tree/material_tree_node.dart",
       "size": 10444,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/material_tree/material_tree_node.dart",
+          "line": 91,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/material_tree/material_tree_node.dart",
+          "line": 93,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        }
+      ]
     },
     "lib/src/material_tree/material_tree_rendering_options.dart": {
       "uri": "package:angular_components/src/material_tree/material_tree_rendering_options.dart",
@@ -37157,6 +37245,15 @@
           "line": 49,
           "col": 18,
           "description": "'ElementRef' is deprecated and shouldn't be used."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/utils/browser/events/events.dart",
+          "line": 93,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
         }
       ],
       "directLibs": [
