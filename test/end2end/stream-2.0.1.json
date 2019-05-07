@@ -52,39 +52,39 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 1,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 242,
+    "analyzerHintCount": 490,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/rsp_util.dart`.",
-        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error, 13 hints, including:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 12 col 3: Prefer using /// for doc comments.\n\nline 25 col 34: Use `isNotEmpty` for Iterables and Maps.\n\nline 50 col 3: Prefer using /// for doc comments.",
+        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error, 22 hints, including:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 12 col 3: Prefer using /// for doc comments.\n\nline 25 col 34: Use `isNotEmpty` for Iterables and Maps.\n\nline 26 col 9: DO use curly braces for all flow control structures.",
         "file": "lib/src/rsp_util.dart",
-        "score": 29.73
+        "score": 32.83
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/server.dart`.",
-        "description": "Analysis of `lib/src/server.dart` reported 43 hints, including:\n\nline 10 col 1: Prefer using /// for doc comments.\n\nline 31 col 3: Prefer using /// for doc comments.\n\nline 96 col 38: Use `=` to separate a named parameter from its default value.\n\nline 102 col 3: Prefer using /// for doc comments.\n\nline 106 col 22: Use `=` to separate a named parameter from its default value.",
-        "file": "lib/src/server.dart",
-        "score": 19.39
+        "title": "Fix `lib/src/rspc/compiler.dart`.",
+        "description": "Analysis of `lib/src/rspc/compiler.dart` reported 98 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 30 col 59: Use `=` to separate a named parameter from its default value.\n\nline 31 col 19: Use `=` to separate a named parameter from its default value.\n\nline 31 col 43: Use `=` to separate a named parameter from its default value.\n\nline 44 col 7: DO use curly braces for all flow control structures.",
+        "file": "lib/src/rspc/compiler.dart",
+        "score": 38.81
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/connect.dart`.",
-        "description": "Analysis of `lib/src/connect.dart` reported 28 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 17 col 3: Prefer using /// for doc comments.\n\nline 24 col 3: Prefer using /// for doc comments.\n\nline 29 col 3: Prefer using /// for doc comments.\n\nline 36 col 3: Prefer using /// for doc comments.",
-        "file": "lib/src/connect.dart",
-        "score": 13.09
+        "title": "Fix `lib/src/plugin/router.dart`.",
+        "description": "Analysis of `lib/src/plugin/router.dart` reported 56 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 10 col 3: Prefer using /// for doc comments.\n\nline 19 col 43: Use `=` to separate a named parameter from its default value.\n\nline 20 col 3: Prefer using /// for doc comments.\n\nline 28 col 59: Use `=` to separate a named parameter from its default value.",
+        "file": "lib/src/plugin/router.dart",
+        "score": 24.47
       },
       {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix additional 11 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/plugin/loader.dart` (24 hints)\n- `lib/src/rspc/tag.dart` (22 hints)\n- `lib/src/server_impl.dart` (20 hints)\n- `lib/src/plugin/router.dart` (19 hints)\n- `lib/src/rspc/compiler.dart` (19 hints)\n- `lib/src/rspc/build.dart` (17 hints)\n- `lib/src/rspc/tag_util.dart` (16 hints)\n- `lib/src/connect_impl.dart` (15 hints)\n- `lib/src/rspc/main.dart` (3 hints)\n- `lib/proxy.dart` (2 hints)\n- `lib/src/plugin/loader_impl.dart` (1 hint)\n",
-        "score": 75.57999999999998
+        "title": "Fix additional 14 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/src/rspc/tag.dart` (52 hints)\n- `lib/src/server.dart` (43 hints)\n- `lib/src/server_impl.dart` (39 hints)\n- `lib/src/plugin/loader.dart` (35 hints)\n- `lib/src/connect.dart` (30 hints)\n- `lib/src/rspc/tag_util.dart` (30 hints)\n- `lib/src/rspc/build.dart` (26 hints)\n- `lib/src/connect_impl.dart` (24 hints)\n- `lib/src/plugin/loader_impl.dart` (18 hints)\n- `lib/src/rspc/main.dart` (9 hints)\n- `lib/proxy.dart` (5 hints)\n- `lib/plugin.dart` (1 hint)\n- `lib/rspc.dart` (1 hint)\n- `lib/stream.dart` (1 hint)\n",
+        "score": 144.68
       }
     ]
   },
@@ -205,7 +205,7 @@
         "package": "pedantic",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.0"
+        "resolved": "1.6.0"
       },
       {
         "package": "rikulo_commons",
@@ -245,7 +245,17 @@
       "uri": "package:stream/plugin.dart",
       "size": 599,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "library_prefixes",
+          "file": "lib/plugin.dart",
+          "line": 10,
+          "col": 36,
+          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:collection",
@@ -315,6 +325,33 @@
       "size": 5111,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/proxy.dart",
+          "line": 53,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/proxy.dart",
+          "line": 84,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/proxy.dart",
+          "line": 97,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -474,7 +511,17 @@
       "uri": "package:stream/rspc.dart",
       "size": 743,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "library_prefixes",
+          "file": "lib/rspc.dart",
+          "line": 14,
+          "col": 36,
+          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:collection",
@@ -797,6 +844,24 @@
           "line": 311,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "type_init_formals",
+          "file": "lib/src/connect.dart",
+          "line": 320,
+          "col": 23,
+          "description": "Don't type annotate initializing formals."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "type_init_formals",
+          "file": "lib/src/connect.dart",
+          "line": 320,
+          "col": 61,
+          "description": "Don't type annotate initializing formals."
         }
       ]
     },
@@ -805,6 +870,15 @@
       "size": 10184,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 33,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -826,6 +900,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 125,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 161,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 165,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "avoid_return_types_on_setters",
           "file": "lib/src/connect_impl.dart",
           "line": 189,
@@ -840,6 +941,15 @@
           "line": 261,
           "col": 3,
           "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 267,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -939,6 +1049,42 @@
           "line": 329,
           "col": 75,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 331,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 350,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 364,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/connect_impl.dart",
+          "line": 366,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         }
       ]
     },
@@ -1139,6 +1285,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 214,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 217,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/plugin/loader.dart",
           "line": 223,
@@ -1157,11 +1321,92 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 240,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 256,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 259,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 266,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 270,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 279,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/plugin/loader.dart",
           "line": 283,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 295,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 318,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 334,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
         }
       ]
     },
@@ -1173,11 +1418,164 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 56,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 70,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 76,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 84,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 96,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 98,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 118,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 129,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 197,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 203,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 208,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 210,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 218,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/plugin/loader_impl.dart",
           "line": 223,
           "col": 11,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 224,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 240,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 244,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 277,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
         }
       ]
     },
@@ -1288,6 +1686,105 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 76,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 77,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 81,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 85,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 86,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 89,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 94,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 102,
+          "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 104,
+          "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 113,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 115,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/plugin/router.dart",
           "line": 119,
@@ -1302,6 +1799,15 @@
           "line": 132,
           "col": 43,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 134,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1324,11 +1830,101 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 150,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 157,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 163,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 171,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 173,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/plugin/router.dart",
           "line": 177,
           "col": 3,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 192,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 202,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 217,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 229,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 230,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1342,6 +1938,60 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 242,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 243,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 273,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 288,
+          "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 293,
+          "col": 17,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 296,
+          "col": 19,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/plugin/router.dart",
           "line": 308,
@@ -1351,11 +2001,92 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 310,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 334,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 360,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/plugin/router.dart",
           "line": 379,
           "col": 35,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 391,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 399,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 405,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 412,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 413,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 452,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
         }
       ]
     },
@@ -1390,6 +2121,51 @@
           "line": 25,
           "col": 34,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 26,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 31,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 37,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 39,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 45,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1448,11 +2224,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 95,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rsp_util.dart",
           "line": 111,
           "col": 3,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 115,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1482,6 +2276,15 @@
           "description": "Prefer using /// for doc comments."
         },
         {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 168,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
           "severity": "ERROR",
           "errorType": "STATIC_TYPE_WARNING",
           "errorCode": "UNDEFINED_GETTER",
@@ -1489,6 +2292,15 @@
           "line": 170,
           "col": 47,
           "description": "The getter 'dart' isn't defined for the class 'Browser'."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rsp_util.dart",
+          "line": 171,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         }
       ]
     },
@@ -1590,6 +2402,42 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 96,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 102,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 111,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 114,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unawaited_futures",
           "file": "lib/src/rspc/build.dart",
           "line": 114,
@@ -1617,11 +2465,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 146,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 152,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 163,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unawaited_futures",
           "file": "lib/src/rspc/build.dart",
           "line": 163,
           "col": 11,
           "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 169,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1649,6 +2533,15 @@
           "line": 178,
           "col": 52,
           "description": "Use contains instead of indexOf"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/build.dart",
+          "line": 179,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         }
       ]
     },
@@ -1696,11 +2589,128 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 44,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 51,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 55,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 57,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 68,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 99,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 113,
+          "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/compiler.dart",
           "line": 128,
           "col": 15,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 140,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 149,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 157,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 164,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 171,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 173,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1714,11 +2724,56 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 176,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 187,
+          "col": 45,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 188,
+          "col": 14,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 193,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/compiler.dart",
           "line": 197,
           "col": 30,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 198,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1732,11 +2787,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 205,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/compiler.dart",
           "line": 205,
           "col": 13,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 206,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1750,11 +2823,110 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 213,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 219,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/compiler.dart",
           "line": 223,
           "col": 9,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 240,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 242,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 247,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 249,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 279,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 284,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 288,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 298,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 322,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1768,11 +2940,155 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 347,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/compiler.dart",
           "line": 357,
           "col": 9,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 358,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 363,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 366,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 368,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 370,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 395,
+          "col": 21,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 435,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 443,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 445,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 459,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 463,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 466,
+          "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 469,
+          "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 482,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 496,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1786,11 +3102,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 524,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 526,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 530,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/compiler.dart",
           "line": 535,
           "col": 9,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 536,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1804,11 +3156,137 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 541,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/compiler.dart",
           "line": 555,
           "col": 9,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 556,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 564,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 568,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 580,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 596,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 608,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 614,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 621,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 626,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 630,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 640,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 646,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 651,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1822,11 +3300,137 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 662,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 665,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 670,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 682,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 683,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 694,
+          "col": 22,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 695,
+          "col": 10,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 701,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 706,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 803,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 805,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 810,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/compiler.dart",
           "line": 816,
           "col": 30,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 818,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "empty_catches",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 821,
+          "col": 17,
+          "description": "Avoid empty catch blocks."
         }
       ]
     },
@@ -1847,6 +3451,42 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/main.dart",
+          "line": 18,
+          "col": 18,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/main.dart",
+          "line": 19,
+          "col": 10,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/main.dart",
+          "line": 24,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/main.dart",
+          "line": 26,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rspc/main.dart",
           "line": 31,
@@ -1856,11 +3496,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/main.dart",
+          "line": 36,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unawaited_futures",
           "file": "lib/src/rspc/main.dart",
           "line": 60,
           "col": 7,
           "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/main.dart",
+          "line": 92,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
         }
       ]
     },
@@ -1895,6 +3553,15 @@
           "line": 18,
           "col": 3,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 62,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1962,11 +3629,38 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 111,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 147,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/tag.dart",
           "line": 180,
           "col": 9,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 181,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -1980,6 +3674,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 200,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 202,
+          "col": 20,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 203,
+          "col": 14,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rspc/tag.dart",
           "line": 215,
@@ -1989,11 +3710,65 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 236,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 238,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 249,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 250,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rspc/tag.dart",
           "line": 254,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 277,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 279,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2016,6 +3791,60 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 335,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 340,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 342,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 346,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 348,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 352,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rspc/tag.dart",
           "line": 364,
@@ -2025,11 +3854,92 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 380,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 385,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 387,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 391,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 393,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 397,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rspc/tag.dart",
           "line": 408,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 451,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 454,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 468,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2066,6 +3976,24 @@
           "line": 526,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 538,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 549,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
         }
       ]
     },
@@ -2082,6 +4010,15 @@
           "line": 11,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 20,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2104,11 +4041,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 34,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 43,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/tag_util.dart",
           "line": 44,
           "col": 11,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 45,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 53,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2149,11 +4122,38 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 97,
+          "col": 5,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rspc/tag_util.dart",
           "line": 122,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 135,
+          "col": 16,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 136,
+          "col": 10,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2194,11 +4194,56 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 181,
+          "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 186,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/rspc/tag_util.dart",
           "line": 191,
           "col": 17,
           "description": "Use `isNotEmpty` for Iterables and Maps."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 192,
+          "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 202,
+          "col": 13,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 205,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2217,6 +4262,15 @@
           "line": 241,
           "col": 3,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "type_init_formals",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 250,
+          "col": 13,
+          "description": "Don't type annotate initializing formals."
         }
       ]
     },
@@ -2622,11 +4676,110 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 47,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 65,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 69,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 93,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 98,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 105,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 119,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 150,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 157,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_empty",
           "file": "lib/src/server_impl.dart",
           "line": 186,
           "col": 31,
           "description": "Use isNotEmpty instead of length"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 191,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 198,
+          "col": 11,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2640,6 +4793,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 216,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "avoid_return_types_on_setters",
           "file": "lib/src/server_impl.dart",
           "line": 222,
@@ -2649,11 +4811,38 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 224,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 226,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "avoid_return_types_on_setters",
           "file": "lib/src/server_impl.dart",
           "line": 236,
           "col": 3,
           "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 238,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2721,6 +4910,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 263,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/server_impl.dart",
           "line": 275,
@@ -2775,11 +4973,38 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 279,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/server_impl.dart",
           "line": 298,
           "col": 55,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 371,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/server_impl.dart",
+          "line": 374,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
@@ -2805,7 +5030,17 @@
       "uri": "package:stream/stream.dart",
       "size": 740,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "library_prefixes",
+          "file": "lib/stream.dart",
+          "line": 12,
+          "col": 36,
+          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:collection",

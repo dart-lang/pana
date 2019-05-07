@@ -2,6 +2,8 @@
 
 * Fix: delete local temporary `pedantic_analyis_options_[timestamp].g.yaml`.
 
+* Upgrade dependencies: `analyzer` to `0.36`
+
 ## 0.12.14
 
 * Penalty for too large readme, changelog or example.
