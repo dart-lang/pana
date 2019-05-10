@@ -47,39 +47,36 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 17,
+    "analyzerHintCount": 2,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/response.dart`.",
-        "description": "Analysis of `lib/src/response.dart` reported 6 hints, including:\n\nline 34 col 35: Use `=` to separate a named parameter from its default value.\n\nline 35 col 23: Use `=` to separate a named parameter from its default value.\n\nline 36 col 33: Use `=` to separate a named parameter from its default value.\n\nline 52 col 35: Use `=` to separate a named parameter from its default value.\n\nline 53 col 23: Use `=` to separate a named parameter from its default value.",
-        "file": "lib/src/response.dart",
-        "score": 2.96
+        "title": "Fix `lib/src/base_client.dart`.",
+        "description": "Analysis of `lib/src/base_client.dart` reported 2 hints:\n\nline 163 col 44: 'typed' is deprecated and shouldn't be used.\n\nline 165 col 44: 'typed' is deprecated and shouldn't be used.",
+        "file": "lib/src/base_client.dart",
+        "score": 1.0
       },
       {
-        "code": "dartanalyzer.warning",
+        "code": "dartfmt.warning",
         "level": "hint",
-        "title": "Fix `lib/src/base_response.dart`.",
-        "description": "Analysis of `lib/src/base_response.dart` reported 3 hints:\n\nline 43 col 20: Use `=` to separate a named parameter from its default value.\n\nline 44 col 23: Use `=` to separate a named parameter from its default value.\n\nline 45 col 33: Use `=` to separate a named parameter from its default value.",
-        "file": "lib/src/base_response.dart",
-        "score": 1.49
+        "title": "Format `lib/browser_client.dart`.",
+        "description": "Run `dartfmt` to format `lib/browser_client.dart`.",
+        "file": "lib/browser_client.dart"
       },
       {
-        "code": "dartanalyzer.warning",
+        "code": "dartfmt.warning",
         "level": "hint",
-        "title": "Fix `lib/src/streamed_response.dart`.",
-        "description": "Analysis of `lib/src/streamed_response.dart` reported 3 hints:\n\nline 26 col 35: Use `=` to separate a named parameter from its default value.\n\nline 27 col 23: Use `=` to separate a named parameter from its default value.\n\nline 28 col 33: Use `=` to separate a named parameter from its default value.",
-        "file": "lib/src/streamed_response.dart",
-        "score": 1.49
+        "title": "Format `lib/http.dart`.",
+        "description": "Run `dartfmt` to format `lib/http.dart`.",
+        "file": "lib/http.dart"
       },
       {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 14 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/browser_client.dart` (2 hints)\n- `lib/src/base_client.dart` (2 hints)\n- `lib/src/multipart_request.dart` (1 hint)\n- `lib/http.dart` (Run `dartfmt` to format `lib/http.dart`.)\n- `lib/src/base_request.dart` (Run `dartfmt` to format `lib/src/base_request.dart`.)\n- `lib/src/boundary_characters.dart` (Run `dartfmt` to format `lib/src/boundary_characters.dart`.)\n- `lib/src/byte_stream.dart` (Run `dartfmt` to format `lib/src/byte_stream.dart`.)\n- `lib/src/client.dart` (Run `dartfmt` to format `lib/src/client.dart`.)\n- `lib/src/io_client.dart` (Run `dartfmt` to format `lib/src/io_client.dart`.)\n- `lib/src/mock_client.dart` (Run `dartfmt` to format `lib/src/mock_client.dart`.)\n- `lib/src/multipart_file.dart` (Run `dartfmt` to format `lib/src/multipart_file.dart`.)\n- `lib/src/request.dart` (Run `dartfmt` to format `lib/src/request.dart`.)\n- `lib/src/streamed_request.dart` (Run `dartfmt` to format `lib/src/streamed_request.dart`.)\n- `lib/src/utils.dart` (Run `dartfmt` to format `lib/src/utils.dart`.)\n",
-        "score": 2.5
+        "description": "Additional issues in the following files:\n\n- `lib/src/base_request.dart` (Run `dartfmt` to format `lib/src/base_request.dart`.)\n- `lib/src/base_response.dart` (Run `dartfmt` to format `lib/src/base_response.dart`.)\n- `lib/src/boundary_characters.dart` (Run `dartfmt` to format `lib/src/boundary_characters.dart`.)\n- `lib/src/byte_stream.dart` (Run `dartfmt` to format `lib/src/byte_stream.dart`.)\n- `lib/src/client.dart` (Run `dartfmt` to format `lib/src/client.dart`.)\n- `lib/src/io_client.dart` (Run `dartfmt` to format `lib/src/io_client.dart`.)\n- `lib/src/mock_client.dart` (Run `dartfmt` to format `lib/src/mock_client.dart`.)\n- `lib/src/multipart_file.dart` (Run `dartfmt` to format `lib/src/multipart_file.dart`.)\n- `lib/src/multipart_request.dart` (Run `dartfmt` to format `lib/src/multipart_request.dart`.)\n- `lib/src/request.dart` (Run `dartfmt` to format `lib/src/request.dart`.)\n- `lib/src/response.dart` (Run `dartfmt` to format `lib/src/response.dart`.)\n- `lib/src/streamed_request.dart` (Run `dartfmt` to format `lib/src/streamed_request.dart`.)\n- `lib/src/streamed_response.dart` (Run `dartfmt` to format `lib/src/streamed_response.dart`.)\n- `lib/src/utils.dart` (Run `dartfmt` to format `lib/src/utils.dart`.)\n"
       }
     ]
   },
@@ -195,26 +192,7 @@
       "uri": "package:http/browser_client.dart",
       "size": 3638,
       "isFormatted": false,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "unawaited_futures",
-          "file": "lib/browser_client.dart",
-          "line": 52,
-          "col": 5,
-          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "unawaited_futures",
-          "file": "lib/browser_client.dart",
-          "line": 78,
-          "col": 5,
-          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
-        }
-      ],
+      "codeProblems": [],
       "directLibs": [
         "dart:async",
         "dart:html",
@@ -572,35 +550,7 @@
       "uri": "package:http/src/base_response.dart",
       "size": 1727,
       "isFormatted": false,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/base_response.dart",
-          "line": 43,
-          "col": 20,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/base_response.dart",
-          "line": 44,
-          "col": 23,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/base_response.dart",
-          "line": 45,
-          "col": 33,
-          "description": "Use `=` to separate a named parameter from its default value."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/boundary_characters.dart": {
       "uri": "package:http/src/boundary_characters.dart",
@@ -648,17 +598,7 @@
       "uri": "package:http/src/multipart_request.dart",
       "size": 5905,
       "isFormatted": false,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_return_types_on_setters",
-          "file": "lib/src/multipart_request.dart",
-          "line": 77,
-          "col": 3,
-          "description": "Avoid return types on setters."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/request.dart": {
       "uri": "package:http/src/request.dart",
@@ -670,62 +610,7 @@
       "uri": "package:http/src/response.dart",
       "size": 3431,
       "isFormatted": false,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/response.dart",
-          "line": 34,
-          "col": 35,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/response.dart",
-          "line": 35,
-          "col": 23,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/response.dart",
-          "line": 36,
-          "col": 33,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/response.dart",
-          "line": 52,
-          "col": 35,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/response.dart",
-          "line": 53,
-          "col": 23,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/response.dart",
-          "line": 54,
-          "col": 33,
-          "description": "Use `=` to separate a named parameter from its default value."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/streamed_request.dart": {
       "uri": "package:http/src/streamed_request.dart",
@@ -737,35 +622,7 @@
       "uri": "package:http/src/streamed_response.dart",
       "size": 1326,
       "isFormatted": false,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/streamed_response.dart",
-          "line": 26,
-          "col": 35,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/streamed_response.dart",
-          "line": 27,
-          "col": 23,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/streamed_response.dart",
-          "line": 28,
-          "col": 33,
-          "description": "Use `=` to separate a named parameter from its default value."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/utils.dart": {
       "uri": "package:http/src/utils.dart",

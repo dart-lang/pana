@@ -205,7 +205,7 @@
         "package": "pedantic",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.6.0"
+        "resolved": "1.7.0"
       },
       {
         "package": "rikulo_commons",

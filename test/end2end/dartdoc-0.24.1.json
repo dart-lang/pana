@@ -75,39 +75,16 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 143,
+    "analyzerHintCount": 2,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` reported 52 hints, including:\n\nline 18 col 59: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 56 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 493 col 47: Use `;` instead of `{}` for empty constructor bodies.\n\nline 695 col 11: DO use curly braces for all flow control structures.\n\nline 799 col 7: DO use curly braces for all flow control structures.",
+        "description": "Analysis of `lib/src/model.dart` reported 2 hints:\n\nline 1070 col 12: 'getMembersInheritedFromClasses' is deprecated and shouldn't be used.\n\nline 1072 col 12: 'getMembersInheritedFromInterfaces' is deprecated and shouldn't be used.",
         "file": "lib/src/model.dart",
-        "score": 22.95
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/html/template_data.dart`.",
-        "description": "Analysis of `lib/src/html/template_data.dart` reported 22 hints, including:\n\nline 147 col 7: DO use curly braces for all flow control structures.\n\nline 149 col 7: DO use curly braces for all flow control structures.\n\nline 151 col 7: DO use curly braces for all flow control structures.\n\nline 153 col 7: DO use curly braces for all flow control structures.\n\nline 155 col 7: DO use curly braces for all flow control structures.",
-        "file": "lib/src/html/template_data.dart",
-        "score": 10.44
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart`.",
-        "description": "Analysis of `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` reported 16 hints, including:\n\nline 3 col 1: Prefer using /// for doc comments.\n\nline 39 col 7: DO use curly braces for all flow control structures.\n\nline 49 col 3: Avoid return types on setters.\n\nline 56 col 3: Prefer using /// for doc comments.\n\nline 61 col 3: Avoid return types on setters.",
-        "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-        "score": 7.71
-      },
-      {
-        "code": "bulk",
-        "level": "hint",
-        "title": "Fix additional 16 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/dartdoc_options.dart` (10 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` (9 hints)\n- `lib/src/io_utils.dart` (5 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (4 hints)\n- `lib/dartdoc.dart` (3 hints)\n- `lib/src/markdown_processor.dart` (3 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (3 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (3 hints)\n- `bin/dartdoc.dart` (2 hints)\n- `lib/src/html/html_generator.dart` (2 hints)\n- `lib/src/html/html_generator_instance.dart` (2 hints)\n- `lib/src/package_meta.dart` (2 hints)\n- `lib/src/tool_runner.dart` (2 hints)\n- `lib/src/element_type.dart` (1 hint)\n- `lib/src/model_utils.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (1 hint)\n",
-        "score": 26.229999999999997
+        "score": 1.0
       }
     ]
   },
@@ -427,26 +404,7 @@
       "uri": "asset:dartdoc/bin/dartdoc.dart",
       "size": 3783,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "bin/dartdoc.dart",
-          "line": 94,
-          "col": 55,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "bin/dartdoc.dart",
-          "line": 100,
-          "col": 56,
-          "description": "Use `=` to separate a named parameter from its default value."
-        }
-      ],
+      "codeProblems": [],
       "directLibs": [
         "dart:async",
         "dart:io",
@@ -470,35 +428,7 @@
       "uri": "package:dartdoc/dartdoc.dart",
       "size": 17176,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/dartdoc.dart",
-          "line": 31,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/dartdoc.dart",
-          "line": 228,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "empty_catches",
-          "file": "lib/dartdoc.dart",
-          "line": 370,
-          "col": 31,
-          "description": "Avoid empty catch blocks."
-        }
-      ],
+      "codeProblems": [],
       "directLibs": [
         "dart:async",
         "dart:convert",
@@ -1068,114 +998,13 @@
       "uri": "package:dartdoc/src/dartdoc_options.dart",
       "size": 52754,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 23,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 396,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 459,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_types_as_parameter_names",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 479,
-          "col": 28,
-          "description": "Avoid types as parameter names."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_types_as_parameter_names",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 654,
-          "col": 30,
-          "description": "Avoid types as parameter names."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 706,
-          "col": 18,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 711,
-          "col": 35,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 758,
-          "col": 18,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 761,
-          "col": 35,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "unnecessary_null_in_if_null_operators",
-          "file": "lib/src/dartdoc_options.dart",
-          "line": 1052,
-          "col": 23,
-          "description": "Avoid using `null` in `if null` operators."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/element_type.dart": {
       "uri": "package:dartdoc/src/element_type.dart",
       "size": 11423,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "empty_constructor_bodies",
-          "file": "lib/src/element_type.dart",
-          "line": 321,
-          "col": 55,
-          "description": "Use `;` instead of `{}` for empty constructor bodies."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/generator.dart": {
       "uri": "package:dartdoc/src/generator.dart",
@@ -1187,51 +1016,13 @@
       "uri": "package:dartdoc/src/html/html_generator.dart",
       "size": 7857,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/html/html_generator.dart",
-          "line": 17,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/html/html_generator.dart",
-          "line": 130,
-          "col": 27,
-          "description": "Use `=` to separate a named parameter from its default value."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/html/html_generator_instance.dart": {
       "uri": "package:dartdoc/src/html/html_generator_instance.dart",
       "size": 13988,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/html/html_generator_instance.dart",
-          "line": 20,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/html_generator_instance.dart",
-          "line": 88,
-          "col": 9,
-          "description": "DO use curly braces for all flow control structures."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/html/resource_loader.dart": {
       "uri": "package:dartdoc/src/html/resource_loader.dart",
@@ -1249,206 +1040,7 @@
       "uri": "package:dartdoc/src/html/template_data.dart",
       "size": 15802,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 147,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 149,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 151,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 153,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 155,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 157,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 159,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 161,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 189,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 191,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 193,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 195,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 197,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 199,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 201,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 256,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 258,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 260,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 262,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 264,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 266,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/html/template_data.dart",
-          "line": 268,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/html/templates.dart": {
       "uri": "package:dartdoc/src/html/templates.dart",
@@ -1460,53 +1052,7 @@
       "uri": "package:dartdoc/src/io_utils.dart",
       "size": 7591,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/io_utils.dart",
-          "line": 13,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/io_utils.dart",
-          "line": 23,
-          "col": 20,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "unawaited_futures",
-          "file": "lib/src/io_utils.dart",
-          "line": 86,
-          "col": 5,
-          "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/io_utils.dart",
-          "line": 109,
-          "col": 21,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "empty_catches",
-          "file": "lib/src/io_utils.dart",
-          "line": 147,
-          "col": 33,
-          "description": "Avoid empty catch blocks."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/line_number_cache.dart": {
       "uri": "package:dartdoc/src/line_number_cache.dart",
@@ -1524,86 +1070,13 @@
       "uri": "package:dartdoc/src/markdown_processor.dart",
       "size": 33534,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/markdown_processor.dart",
-          "line": 157,
-          "col": 46,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/markdown_processor.dart",
-          "line": 231,
-          "col": 5,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "empty_constructor_bodies",
-          "file": "lib/src/markdown_processor.dart",
-          "line": 843,
-          "col": 43,
-          "description": "Use `;` instead of `{}` for empty constructor bodies."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/model.dart": {
       "uri": "package:dartdoc/src/model.dart",
       "size": 232684,
       "isFormatted": true,
       "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/model.dart",
-          "line": 18,
-          "col": 59,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/model.dart",
-          "line": 56,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "empty_constructor_bodies",
-          "file": "lib/src/model.dart",
-          "line": 493,
-          "col": 47,
-          "description": "Use `;` instead of `{}` for empty constructor bodies."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 695,
-          "col": 11,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 799,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
         {
           "severity": "INFO",
           "errorType": "HINT",
@@ -1621,411 +1094,6 @@
           "line": 1072,
           "col": 12,
           "description": "'getMembersInheritedFromInterfaces' is deprecated and shouldn't be used."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 1242,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_empty",
-          "file": "lib/src/model.dart",
-          "line": 1473,
-          "col": 9,
-          "description": "Use isNotEmpty instead of length"
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_not_empty",
-          "file": "lib/src/model.dart",
-          "line": 1481,
-          "col": 12,
-          "description": "Use `isNotEmpty` for Iterables and Maps."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 1597,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 1688,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 1816,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 1818,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_empty",
-          "file": "lib/src/model.dart",
-          "line": 1890,
-          "col": 11,
-          "description": "Use isEmpty instead of length"
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 1892,
-          "col": 9,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2095,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2285,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2439,
-          "col": 9,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2442,
-          "col": 9,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2659,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "empty_constructor_bodies",
-          "file": "lib/src/model.dart",
-          "line": 2820,
-          "col": 79,
-          "description": "Use `;` instead of `{}` for empty constructor bodies."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2944,
-          "col": 13,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2946,
-          "col": 13,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2952,
-          "col": 13,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2954,
-          "col": 13,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2974,
-          "col": 15,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 2977,
-          "col": 15,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 3291,
-          "col": 15,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_not_empty",
-          "file": "lib/src/model.dart",
-          "line": 3299,
-          "col": 15,
-          "description": "Use `isNotEmpty` for Iterables and Maps."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 3336,
-          "col": 13,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 3713,
-          "col": 9,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/model.dart",
-          "line": 3732,
-          "col": 25,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/model.dart",
-          "line": 3732,
-          "col": 47,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/model.dart",
-          "line": 3732,
-          "col": 71,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_not_empty",
-          "file": "lib/src/model.dart",
-          "line": 3804,
-          "col": 12,
-          "description": "Use `isNotEmpty` for Iterables and Maps."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_not_empty",
-          "file": "lib/src/model.dart",
-          "line": 3869,
-          "col": 13,
-          "description": "Use `isNotEmpty` for Iterables and Maps."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 4301,
-          "col": 9,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_not_empty",
-          "file": "lib/src/model.dart",
-          "line": 4355,
-          "col": 9,
-          "description": "Use `isNotEmpty` for Iterables and Maps."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "empty_constructor_bodies",
-          "file": "lib/src/model.dart",
-          "line": 4395,
-          "col": 44,
-          "description": "Use `;` instead of `{}` for empty constructor bodies."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 4419,
-          "col": 9,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 4451,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 4799,
-          "col": 11,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 4956,
-          "col": 11,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_not_empty",
-          "file": "lib/src/model.dart",
-          "line": 5053,
-          "col": 9,
-          "description": "Use `isNotEmpty` for Iterables and Maps."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_not_empty",
-          "file": "lib/src/model.dart",
-          "line": 5061,
-          "col": 9,
-          "description": "Use `isNotEmpty` for Iterables and Maps."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 5292,
-          "col": 13,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 5294,
-          "col": 13,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 6200,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 6267,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/model.dart",
-          "line": 6305,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_empty",
-          "file": "lib/src/model.dart",
-          "line": 6437,
-          "col": 32,
-          "description": "Use isEmpty instead of length"
         }
       ]
     },
@@ -2033,42 +1101,13 @@
       "uri": "package:dartdoc/src/model_utils.dart",
       "size": 13735,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/model_utils.dart",
-          "line": 17,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/package_meta.dart": {
       "uri": "package:dartdoc/src/package_meta.dart",
       "size": 12354,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/package_meta.dart",
-          "line": 11,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/package_meta.dart",
-          "line": 89,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/special_elements.dart": {
       "uri": "package:dartdoc/src/special_elements.dart",
@@ -2080,17 +1119,7 @@
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
       "size": 573,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_relative_lib_imports",
-          "file": "lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
-          "line": 3,
-          "col": 8,
-          "description": "Avoid relative imports for files in `lib/`."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart",
@@ -2102,376 +1131,37 @@
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart",
       "size": 5395,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_relative_lib_imports",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart",
-          "line": 5,
-          "col": 8,
-          "description": "Avoid relative imports for files in `lib/`."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart",
-          "line": 15,
-          "col": 61,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "type_init_formals",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart",
-          "line": 58,
-          "col": 8,
-          "description": "Don't type annotate initializing formals."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
       "size": 3155,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
-          "line": 5,
-          "col": 39,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_is_empty",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
-          "line": 105,
-          "col": 24,
-          "description": "Always true because length is always greater or equal 0."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
-          "line": 125,
-          "col": 24,
-          "description": "Use `=` to separate a named parameter from its default value."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
       "size": 793,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
-          "line": 6,
-          "col": 17,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
-          "line": 8,
-          "col": 32,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
-          "line": 9,
-          "col": 39,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart",
-          "line": 18,
-          "col": 57,
-          "description": "Use `=` to separate a named parameter from its default value."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
       "size": 7211,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_init_to_null",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 72,
-          "col": 8,
-          "description": "Don't explicitly initialize variables to null."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 72,
-          "col": 22,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 73,
-          "col": 34,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 74,
-          "col": 41,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 127,
-          "col": 12,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 135,
-          "col": 12,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_init_to_null",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 238,
-          "col": 8,
-          "description": "Don't explicitly initialize variables to null."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "unrelated_type_equality_checks",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 274,
-          "col": 12,
-          "description": "Equality operator `==` invocation with references of unrelated types."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "unrelated_type_equality_checks",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
-          "line": 274,
-          "col": 23,
-          "description": "Equality operator `==` invocation with references of unrelated types."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart": {
       "uri": "package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
       "size": 9340,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "slash_for_doc_comments",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 3,
-          "col": 1,
-          "description": "Prefer using /// for doc comments."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 39,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_return_types_on_setters",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 49,
-          "col": 3,
-          "description": "Avoid return types on setters."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "slash_for_doc_comments",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 56,
-          "col": 3,
-          "description": "Prefer using /// for doc comments."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "avoid_return_types_on_setters",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 61,
-          "col": 3,
-          "description": "Avoid return types on setters."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "slash_for_doc_comments",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 67,
-          "col": 3,
-          "description": "Prefer using /// for doc comments."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "slash_for_doc_comments",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 85,
-          "col": 1,
-          "description": "Prefer using /// for doc comments."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "slash_for_doc_comments",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 128,
-          "col": 1,
-          "description": "Prefer using /// for doc comments."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 168,
-          "col": 58,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 191,
-          "col": 58,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 207,
-          "col": 58,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 237,
-          "col": 58,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 246,
-          "col": 58,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 274,
-          "col": 58,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 324,
-          "col": 58,
-          "description": "Use `=` to separate a named parameter from its default value."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_equal_for_default_values",
-          "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
-          "line": 332,
-          "col": 58,
-          "description": "Use `=` to separate a named parameter from its default value."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/tool_runner.dart": {
       "uri": "package:dartdoc/src/tool_runner.dart",
       "size": 4994,
       "isFormatted": true,
-      "codeProblems": [
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "library_prefixes",
-          "file": "lib/src/tool_runner.dart",
-          "line": 9,
-          "col": 36,
-          "description": "Use `lowercase_with_underscores` when specifying a library prefix."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "curly_braces_in_flow_control_structures",
-          "file": "lib/src/tool_runner.dart",
-          "line": 51,
-          "col": 7,
-          "description": "DO use curly braces for all flow control structures."
-        }
-      ]
+      "codeProblems": []
     },
     "lib/src/tuple.dart": {
       "uri": "package:dartdoc/src/tuple.dart",
