@@ -9,6 +9,14 @@ import 'package:test/test.dart';
 import 'package:pana/src/analysis_options.dart';
 
 void main() {
+  test('pedantic options', () async {
+    final content = await getPedanticContent();
+    expect(content, contains('linter:'));
+    expect(content, contains('rules:'));
+    expect(content, contains('avoid_empty_else'));
+    expect(content, contains('prefer_is_empty'));
+  });
+
   test('default options', () {
     expect(
       json.decode(customizeAnalysisOptions(

@@ -10,7 +10,6 @@ import 'package:cli_util/cli_util.dart' as cli;
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:resource/resource.dart';
 
 import 'analysis_options.dart';
 import 'logging.dart';
@@ -143,9 +142,7 @@ class ToolEnvironment {
     if (await originalOptionsFile.exists()) {
       originalOptions = await originalOptionsFile.readAsString();
     }
-    final pedanticResource =
-        const Resource('package:pedantic/analysis_options.yaml');
-    final pedanticContent = await pedanticResource.readAsString();
+    final pedanticContent = await getPedanticContent();
     final pedanticFileName =
         'pedantic_analyis_options_${DateTime.now().microsecondsSinceEpoch}.g.yaml';
     final pedanticOptionsFile = File(p.join(packageDir, pedanticFileName));
