@@ -144,9 +144,9 @@ class PackageAnalyzer {
           SuggestionCode.pubspecSdkUnknown,
           'Check SDKs in `pubspec.yaml`.',
           'The following unknown SDKs are in `pubspec.yaml`:\n'
-          '  `${pubspec.unknownSdks}`.\n\n'
-          '`pana` doesn’t recognize them; please remove the `sdk` entry or '
-          '[report the issue](https://github.com/dart-lang/pana/issues).'));
+              '  `${pubspec.unknownSdks}`.\n\n'
+              '`pana` doesn’t recognize them; please remove the `sdk` entry or '
+              '[report the issue](https://github.com/dart-lang/pana/issues).'));
     }
 
     final package = pubspec.name;
@@ -197,7 +197,7 @@ class PackageAnalyzer {
             SuggestionCode.pubspecDependenciesFailedToResolve,
             'Fix dependencies in `pubspec.yaml`.',
             'Running `$cmd` failed with the following output:\n\n'
-            '```\n$e\n```\n'));
+                '```\n$e\n```\n'));
       }
     } else {
       String message;
@@ -227,7 +227,7 @@ class PackageAnalyzer {
           message.isEmpty
               ? 'Running `$cmd` failed.'
               : 'Running `$cmd` failed with the following output:\n\n'
-              '```\n$message\n```\n'));
+                  '```\n$message\n```\n'));
     }
 
     Map<String, List<String>> allDirectLibs;
