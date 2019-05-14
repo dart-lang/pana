@@ -1,3 +1,7 @@
+## 0.12.16
+
+* Fixed the use of `pedantic` rules following the new versioned pattern.
+
 ## 0.12.15
 
 * Fix: delete local temporary `pedantic_analyis_options_[timestamp].g.yaml`.

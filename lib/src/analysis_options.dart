@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:resource/resource.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
 String _analysisOptions(String pedanticConfigPath) => '''
@@ -99,4 +100,20 @@ String customizeAnalysisOptions(
   }
 
   return json.encode(customMap);
+}
+
+final _pedanticVersionRegExp =
+    RegExp(r'package:pedantic/analysis_options\.(.*?)\.yaml');
+
+/// Returns the content of pedantic/analysis_options.yaml (resolving linked if
+/// needed).
+Future<String> getPedanticContent() async {
+  final rootResource = const Resource('package:pedantic/analysis_options.yaml');
+  final rootContent = await rootResource.readAsString();
+  final match = _pedanticVersionRegExp.firstMatch(rootContent);
+  if (match == null) {
+    return rootContent;
+  }
+  final versionedContent = await Resource(match.group(0)).readAsString();
+  return versionedContent;
 }
