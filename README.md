@@ -3,7 +3,7 @@
 A library for analyzing Dart packages. It invokes executables from the Dart SDK
 (or from the Flutter SDK if the package uses Flutter).
 
-* Checks for outdated dependencies (calls `pub upgrade` or `flutter packages upgrade`).
+* Checks for outdated dependencies (calls `pub upgrade` or `flutter pub upgrade`).
 * Validates the code using [Dart Analyzer](https://www.dartlang.org/tools/analyzer).
 * Checks code formatting (`dartfmt` or `flutter format`).
 * Infers supported platforms: Flutter, web, and/or other (e.g console/server).
