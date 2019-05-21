@@ -192,7 +192,7 @@ class PackageAnalyzer {
         //  and writing to issues in one go.
 
         final cmd =
-            usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
+            usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
         suggestions.add(Suggestion.error(
             SuggestionCode.pubspecDependenciesFailedToResolve,
             'Fix dependencies in `pubspec.yaml`.',
@@ -220,7 +220,7 @@ class PackageAnalyzer {
         log.severe('`pub upgrade` failed.\n$message'.trim());
       }
 
-      final cmd = usesFlutter ? 'flutter packages pub upgrade' : 'pub upgrade';
+      final cmd = usesFlutter ? 'flutter pub pub upgrade' : 'pub upgrade';
       suggestions.add(Suggestion.error(
           SuggestionCode.pubspecDependenciesFailedToResolve,
           'Fix dependencies in `pubspec.yaml`.',
