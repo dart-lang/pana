@@ -9,10 +9,10 @@ class VersionConverter implements JsonConverter<Version, String> {
   const VersionConverter();
 
   @override
-  Version fromJson(String json) => Version.parse(json);
+  Version fromJson(String json) => json == null ? null : Version.parse(json);
 
   @override
-  String toJson(Version object) => object.toString();
+  String toJson(Version object) => object?.toString();
 }
 
 class VersionConstraintConverter
@@ -20,8 +20,9 @@ class VersionConstraintConverter
   const VersionConstraintConverter();
 
   @override
-  VersionConstraint fromJson(String json) => VersionConstraint.parse(json);
+  VersionConstraint fromJson(String json) =>
+      json == null ? null : VersionConstraint.parse(json);
 
   @override
-  String toJson(VersionConstraint object) => object.toString();
+  String toJson(VersionConstraint object) => object?.toString();
 }
