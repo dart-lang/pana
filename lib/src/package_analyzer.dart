@@ -191,8 +191,8 @@ class PackageAnalyzer {
         //(TODO)kevmoo - should add a helper that handles logging exceptions
         //  and writing to issues in one go.
 
-        final cmd =
-            usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
+        // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
+        final cmd = usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
         suggestions.add(Suggestion.error(
             SuggestionCode.pubspecDependenciesFailedToResolve,
             'Fix dependencies in `pubspec.yaml`.',
@@ -220,6 +220,7 @@ class PackageAnalyzer {
         log.severe('`pub upgrade` failed.\n$message'.trim());
       }
 
+      // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
       final cmd = usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
       suggestions.add(Suggestion.error(
           SuggestionCode.pubspecDependenciesFailedToResolve,
