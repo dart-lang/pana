@@ -11,9 +11,8 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
       runtimeInfo:
           PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
       packageName: json['packageName'] as String,
-      packageVersion: json['packageVersion'] == null
-          ? null
-          : const VersionConverter().fromJson(json['packageVersion'] as String),
+      packageVersion:
+          const VersionConverter().fromJson(json['packageVersion'] as String),
       pubspec: json['pubspec'] == null
           ? null
           : Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
@@ -63,11 +62,8 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
     }
   }
 
-  writeNotNull(
-      'packageVersion',
-      instance.packageVersion == null
-          ? null
-          : const VersionConverter().toJson(instance.packageVersion));
+  writeNotNull('packageVersion',
+      const VersionConverter().toJson(instance.packageVersion));
   writeNotNull('pubspec', instance.pubspec);
   val['platform'] = instance.platform;
   val['licenses'] = instance.licenses;
@@ -234,16 +230,10 @@ PkgDependency _$PkgDependencyFromJson(Map<String, dynamic> json) {
       package: json['package'] as String,
       dependencyType: json['dependencyType'] as String,
       constraintType: json['constraintType'] as String,
-      constraint: json['constraint'] == null
-          ? null
-          : const VersionConstraintConverter()
-              .fromJson(json['constraint'] as String),
-      resolved: json['resolved'] == null
-          ? null
-          : const VersionConverter().fromJson(json['resolved'] as String),
-      available: json['available'] == null
-          ? null
-          : const VersionConverter().fromJson(json['available'] as String),
+      constraint: const VersionConstraintConverter()
+          .fromJson(json['constraint'] as String),
+      resolved: const VersionConverter().fromJson(json['resolved'] as String),
+      available: const VersionConverter().fromJson(json['available'] as String),
       errors: (json['errors'] as List)?.map((e) => e as String)?.toList());
 }
 
@@ -260,21 +250,11 @@ Map<String, dynamic> _$PkgDependencyToJson(PkgDependency instance) {
     }
   }
 
+  writeNotNull('constraint',
+      const VersionConstraintConverter().toJson(instance.constraint));
+  writeNotNull('resolved', const VersionConverter().toJson(instance.resolved));
   writeNotNull(
-      'constraint',
-      instance.constraint == null
-          ? null
-          : const VersionConstraintConverter().toJson(instance.constraint));
-  writeNotNull(
-      'resolved',
-      instance.resolved == null
-          ? null
-          : const VersionConverter().toJson(instance.resolved));
-  writeNotNull(
-      'available',
-      instance.available == null
-          ? null
-          : const VersionConverter().toJson(instance.available));
+      'available', const VersionConverter().toJson(instance.available));
   writeNotNull('errors', instance.errors);
   return val;
 }
