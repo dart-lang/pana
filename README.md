@@ -4,12 +4,12 @@ A library for analyzing Dart packages. It invokes executables from the Dart SDK
 (or from the Flutter SDK if the package uses Flutter).
 
 * Checks for outdated dependencies (calls `pub upgrade` or `flutter pub upgrade`).
-* Validates the code using [Dart Analyzer](https://www.dartlang.org/tools/analyzer).
+* Validates the code using [Dart Analyzer](https://dart.dev/tools/dartanalyzer).
 * Checks code formatting (`dartfmt` or `flutter format`).
 * Infers supported platforms: Flutter, web, and/or other (e.g console/server).
 * Creates suggestions to improve the package.
 
-Used by the [Dart Package site](https://pub.dartlang.org/).
+Used by the [Dart Package site](https://pub.dev/).
 
 ## Use as an executable
 
@@ -60,7 +60,7 @@ Otherwise the score starts with `1.0`, and
 
 `health = 0.75^errors * 0.95^warnings * 0.995^hints - 0.25*conflicts`
 
-[Pub site](https://pub.dartlang.org/) transforms this score into the [0 - 100] range.
+[Pub site](https://pub.dev/) transforms this score into the [0 - 100] range.
 
 ### Maintenance score
 
@@ -99,6 +99,6 @@ A package starts with `100` points, and the following detected issues have point
 - `changelog.md`, `readme.md` or example content is too large (-1 point per every 1kb above 128kb).
 - `pubspec.yaml` too large (-1 point per every 1kb above 32kb).
 
-On top of that, [pub site](https://pub.dartlang.org/) applies an age restriction:
+On top of that, [pub site](https://pub.dev/) applies an age restriction:
  - outdated packages (age older than two years) are reduced to 0
  - old packages (age between 1 and 2 years) get linear reduction (1.5 years old get 50% reduction)
