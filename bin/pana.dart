@@ -14,7 +14,7 @@ import 'package:io/io.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pana/pana.dart';
 
-const defaultHostedUrl = 'https://pub.dartlang.org';
+const defaultHostedUrl = 'https://pub.dev';
 
 final _parser = ArgParser()
   ..addOption('flutter-sdk', help: 'The directory of the Flutter SDK.')

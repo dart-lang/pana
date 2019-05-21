@@ -43,11 +43,11 @@ final _helpOutput =
 Options:
       --flutter-sdk     The directory of the Flutter SDK.
   -j, --json            Output log items as JSON.
-  -s, --source          The source where the package is located (hosted on https://pub.dartlang.org, or local directory path).
+  -s, --source          The source where the package is located (hosted on https://pub.dev, or local directory path).
                         [hosted (default), path]
   
       --hosted-url      The server that hosts <package>.
-                        (defaults to "https://pub.dartlang.org")
+                        (defaults to "https://pub.dev")
   
   -l, --line-length     The line length to use with dartfmt.
       --verbosity       Configure the details in the output.
