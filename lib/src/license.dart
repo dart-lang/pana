@@ -167,16 +167,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.''');
 
 final _licenseFileNames = <String>[
-  'copying',
-  'license',
-  'unlicense',
+  'COPYING',
+  'LICENSE',
+  'UNLICENSE',
 ];
 
 bool _isLicenseFile(FileSystemEntity fse) {
   if (fse is File) {
-    final relative = p.relative(fse.path, from: fse.parent.path);
-    final lower = relative.toLowerCase();
-    return _licenseFileNames.any((n) => n == lower || lower.startsWith('$n.'));
+    final name = p.relative(fse.path, from: fse.parent.path);
+    return _licenseFileNames.any((n) => n == name || name.startsWith('$n.'));
   }
   return false;
 }
