@@ -127,7 +127,7 @@ main() {
     });
 
     test('no license files', () async {
-      expect(await detectLicensesInDir('lib/src'), []);
+      expect(await detectLicensesInDir('bin/'), []);
     });
 
     test('multiple license files', () async {
