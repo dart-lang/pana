@@ -299,3 +299,14 @@ double nonAsciiRuneRatio(String text) {
   final nonAscii = text.runes.where((r) => r >= 128).length;
   return nonAscii / totalPrintable;
 }
+
+/// Returns common file name candidates for [base] (specified without any extension).
+List<String> textFileNameCandidates(String base) {
+  return <String>[
+    base,
+    '$base.md',
+    '$base.markdown',
+    '$base.mkdown',
+    '$base.txt',
+  ];
+}

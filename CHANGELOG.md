@@ -1,3 +1,9 @@
+## 0.12.17
+
+* Recognize `.markdown` and `.mdown` files.
+* Recognize `COPYING` and `UNLICENSE` as license file names (or prefix).
+* Accept any extension for license files.
+
 ## 0.12.16
 
 * Fixed the use of `pedantic` rules following the new versioned pattern.
