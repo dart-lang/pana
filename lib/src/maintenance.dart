@@ -26,31 +26,21 @@ final Duration _year = const Duration(days: 365);
 final Duration _twoYears = _year * 2;
 const _defaultLargeFileKB = 128;
 
-final List<String> changelogFileNames = const [
-  'changelog.md',
-  'changelog',
-];
+final List<String> changelogFileNames = textFileNameCandidates('changelog');
 
-final List<String> readmeFileNames = const [
-  'readme.md',
-  'readme',
-];
+final List<String> readmeFileNames = textFileNameCandidates('readme');
 
 @deprecated
-final List<String> exampleReadmeFileNames = const [
-  'example/readme.md',
-  'example/readme',
-  'example/example.md',
-  'example/example',
+final List<String> exampleReadmeFileNames = <String>[
+  ...textFileNameCandidates('example/readme'),
+  ...textFileNameCandidates('example/example'),
 ];
 
 /// Returns the candidates in priority order to display under the 'Example' tab.
 List<String> exampleFileCandidates(String package) {
   return <String>[
-    'example/readme.md',
-    'example/readme',
-    'example/example.md',
-    'example/example',
+    ...textFileNameCandidates('example/readme'),
+    ...textFileNameCandidates('example/example'),
     'example/lib/main.dart',
     'example/main.dart',
     'example/lib/$package.dart',

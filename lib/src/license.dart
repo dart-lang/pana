@@ -166,13 +166,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.''');
 
+final _licenseFileNames = <String>[
+  'COPYING',
+  'LICENSE',
+  'UNLICENSE',
+];
+
 bool _isLicenseFile(FileSystemEntity fse) {
   if (fse is File) {
-    var relative = p.relative(fse.path, from: fse.parent.path);
-    var lower = relative.toLowerCase();
-    return lower == 'license' ||
-        (lower.startsWith('license') &&
-            (lower.endsWith('.txt') || lower.endsWith('.md')));
+    final name = p.relative(fse.path, from: fse.parent.path);
+    return _licenseFileNames.any((n) => n == name || name.startsWith('$n.'));
   }
   return false;
 }
