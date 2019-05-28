@@ -518,6 +518,7 @@ Future<Maintenance> detectMaintenance(
         score: 20.0));
   }
 
+  // Checking the dependencies that have no constraints.
   unconstrainedDeps ??= pkgResolution?.getUnconstrainedDeps(onlyDirect: true);
   if (unconstrainedDeps != null && unconstrainedDeps.isNotEmpty) {
     final count = unconstrainedDeps.length;
@@ -534,6 +535,7 @@ Future<Maintenance> detectMaintenance(
         score: 20.0));
   }
 
+  // Checking the dependencies that can't be used with their latest version.
   final outdatedDeps = pkgResolution?.outdated ?? <PkgDependency>[];
   if (outdatedDeps.isNotEmpty) {
     final count = outdatedDeps.length;
