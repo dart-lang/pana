@@ -396,9 +396,10 @@ class PackageAnalyzer {
       _urlChecker,
       pkgDir,
       pubspec,
-      pkgResolution?.getUnconstrainedDeps(onlyDirect: true),
+      null, // unconstrainedDeps no longer used directly
       pkgPlatform: platform,
       dartdocSuccessful: dartdocSuccessful,
+      pkgResolution: pkgResolution,
     );
     suggestions.sort();
 

@@ -110,6 +110,13 @@
     "isPreReleaseVersion": false,
     "suggestions": [
       {
+        "code": "pubspec.dependencies.outdated",
+        "level": "warning",
+        "title": "Support latest dependencies.",
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 12 dependencies (5 direct: `angular`, `angular_forms`, `build_config`, `protobuf`, `quiver`).",
+        "score": 85.0
+      },
+      {
         "code": "pubspec.documentation.isNotHelpful",
         "level": "warning",
         "title": "Documentation URL isn't helpful.",
@@ -325,7 +332,7 @@
         "package": "json_annotation",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.3.0"
+        "resolved": "2.4.0"
       },
       {
         "package": "kernel",

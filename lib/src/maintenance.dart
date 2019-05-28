@@ -151,7 +151,9 @@ Future<Maintenance> detectMaintenance(
   UrlChecker urlChecker,
   String pkgDir,
   Pubspec pubspec,
+  // TODO: remove at next major version upgrade, use [pkgResolution] instead
   List<PkgDependency> unconstrainedDeps, {
+  @required PkgResolution pkgResolution,
   @required DartPlatform pkgPlatform,
   bool dartdocSuccessful,
 }) async {
@@ -516,6 +518,7 @@ Future<Maintenance> detectMaintenance(
         score: 20.0));
   }
 
+  unconstrainedDeps ??= pkgResolution?.getUnconstrainedDeps(onlyDirect: true);
   if (unconstrainedDeps != null && unconstrainedDeps.isNotEmpty) {
     final count = unconstrainedDeps.length;
     final pluralized = count == 1 ? '1 dependency' : '$count dependencies';
@@ -529,6 +532,26 @@ Future<Maintenance> detectMaintenance(
         'The `pubspec.yaml` contains $pluralized without version constraints. '
             'Specify version ranges for the following dependencies: $names.',
         score: 20.0));
+  }
+
+  final outdatedDeps = pkgResolution?.outdated ?? <PkgDependency>[];
+  if (outdatedDeps.isNotEmpty) {
+    final count = outdatedDeps.length;
+    final pluralized = count == 1 ? '1 dependency' : '$count dependencies';
+    final directPkgs =
+        outdatedDeps.where((pd) => pd.isDirect).map((p) => p.package).toList();
+    final nonDirectCount = count - directPkgs.length;
+    final penalty = directPkgs.length * 10.0 + nonDirectCount * 5.0;
+    final extraDescr = directPkgs.isEmpty
+        ? ''
+        : ' (${directPkgs.length} direct: ${directPkgs.map((s) => '`$s`').join(', ')})';
+    maintenanceSuggestions.add(Suggestion.warning(
+        SuggestionCode.pubspecDependenciesOutdated,
+        'Support latest dependencies.',
+        'The version constraint in `pubspec.yaml` does not support the latest '
+            'published versions for $pluralized'
+            '$extraDescr.',
+        score: penalty));
   }
 
   try {

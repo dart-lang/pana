@@ -320,6 +320,8 @@ abstract class SuggestionCode {
       'pubspec.dependencies.failedToResolve';
   static const String pubspecDependenciesUnconstrained =
       'pubspec.dependencies.unconstrained';
+  static const String pubspecDependenciesOutdated =
+      'pubspec.dependencies.outdated';
   static const String pubspecDescriptionTooShort =
       'pubspec.description.tooShort';
   static const String pubspecDescriptionTooLong = 'pubspec.description.tooLong';
