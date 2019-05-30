@@ -135,24 +135,26 @@ final _withIssues = Maintenance.fromJson(_withIssuesJson);
 void main() {
   group('detectMaintenance', () {
     test('empty directory', () async {
+      final pkgResolution = PkgResolution([
+        PkgDependency(
+          package: 'foo',
+          dependencyType: 'direct',
+          constraintType: 'empty',
+          constraint: null,
+          resolved: null,
+          available: null,
+          errors: null,
+        ),
+      ]);
       final maintenance = await detectMaintenance(
         InspectOptions(),
         UrlChecker(),
         d.sandbox,
         Pubspec.fromJson({'name': 'sandbox', 'version': '0.0.1-alpha'}),
-        [
-          PkgDependency(
-            package: 'foo',
-            dependencyType: 'direct',
-            constraintType: 'empty',
-            constraint: null,
-            resolved: null,
-            available: null,
-            errors: null,
-          )
-        ],
+        null,
         pkgPlatform: DartPlatform.conflict('conflict description'),
         dartdocSuccessful: false,
+        pkgResolution: pkgResolution,
       );
 
       expect(json.decode(json.encode(maintenance.toJson())), _withIssuesJson);

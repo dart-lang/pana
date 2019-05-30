@@ -122,6 +122,13 @@
     "isPreReleaseVersion": false,
     "suggestions": [
       {
+        "code": "pubspec.dependencies.outdated",
+        "level": "warning",
+        "title": "Support latest dependencies.",
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 5 dependencies (2 direct: `analyzer`, `html`).",
+        "score": 35.0
+      },
+      {
         "code": "pubspec.description.tooShort",
         "level": "hint",
         "title": "The package description is too short.",
@@ -221,7 +228,7 @@
         "package": "file",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "5.0.7"
+        "resolved": "5.0.8"
       },
       {
         "package": "front_end",

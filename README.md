@@ -90,6 +90,7 @@ A package starts with `100` points, and the following detected issues have point
 - `issue_tracker` is not helpful (e.g. pointing to `http://localhost/`) (-10 points)
 - `issue_tracker` is insecure (not using `https`) (-5 points)
 - `description` is too long (>180 characters) (-10 points)
+- does not support the latest version of its dependencies (-10 points for direct, -5 for transitive)
 - package has no example file (-10 points)
 - uses old `.analysis_options` file (-10 points)
 - uses pre-v0.1 release versioning (`0.0.*`) (-10 points)
