@@ -159,7 +159,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.1 <2.0.0",
-        "resolved": "1.5.1"
+        "resolved": "1.5.2"
       },
       {
         "package": "async",

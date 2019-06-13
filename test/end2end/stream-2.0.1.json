@@ -141,7 +141,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "1.5.1"
+        "resolved": "1.5.2"
       },
       {
         "package": "async",
@@ -192,7 +192,7 @@
         "package": "mime",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.6+2"
+        "resolved": "0.9.6+3"
       },
       {
         "package": "path",

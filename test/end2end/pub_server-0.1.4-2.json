@@ -147,7 +147,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.9.3 <0.10.0",
-        "resolved": "0.9.6+2"
+        "resolved": "0.9.6+3"
       },
       {
         "package": "path",

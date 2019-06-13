@@ -153,7 +153,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^5.1.0",
-        "resolved": "5.3.0",
+        "resolved": "5.3.1",
         "available": "6.0.0-alpha"
       },
       {
@@ -182,7 +182,7 @@
         "package": "args",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.1"
+        "resolved": "1.5.2"
       },
       {
         "package": "async",
@@ -217,7 +217,7 @@
         "package": "built_value",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "6.5.0"
+        "resolved": "6.6.0"
       },
       {
         "package": "charcode",
@@ -280,7 +280,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.2.4",
-        "available": "1.2.7"
+        "available": "1.2.8"
       },
       {
         "package": "fixnum",
@@ -399,7 +399,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.13.11"
+        "available": "0.13.12"
       },
       {
         "package": "pub_semver",
@@ -425,7 +425,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.20.1"
+        "resolved": "1.21.0"
       },
       {
         "package": "sass_builder",
@@ -2873,9 +2873,11 @@
         "package:sass/src/compile.dart",
         "package:sass/src/environment.dart",
         "package:sass/src/exception.dart",
+        "package:sass/src/extend/empty_extender.dart",
         "package:sass/src/extend/extender.dart",
         "package:sass/src/extend/extension.dart",
         "package:sass/src/extend/functions.dart",
+        "package:sass/src/extend/merged_extension.dart",
         "package:sass/src/extend/mode.dart",
         "package:sass/src/functions.dart",
         "package:sass/src/import_cache.dart",
@@ -2932,13 +2934,16 @@
         "package:sass/src/value/number.dart",
         "package:sass/src/value/string.dart",
         "package:sass/src/visitor/async_evaluate.dart",
+        "package:sass/src/visitor/clone_css.dart",
         "package:sass/src/visitor/evaluate.dart",
         "package:sass/src/visitor/interface/css.dart",
         "package:sass/src/visitor/interface/expression.dart",
+        "package:sass/src/visitor/interface/modifiable_css.dart",
         "package:sass/src/visitor/interface/selector.dart",
         "package:sass/src/visitor/interface/statement.dart",
         "package:sass/src/visitor/interface/value.dart",
         "package:sass/src/visitor/serialize.dart",
+        "package:sass/src/warn.dart",
         "package:sass_builder/sass_builder.dart",
         "package:sass_builder/src/build_importer.dart",
         "package:source_maps/builder.dart",
