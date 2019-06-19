@@ -535,18 +535,17 @@ Future<Maintenance> detectMaintenance(
         score: 20.0));
   }
 
-  // Checking the dependencies that can't be used with their latest version.
-  final outdatedDeps = pkgResolution?.outdated ?? <PkgDependency>[];
-  if (outdatedDeps.isNotEmpty) {
-    final count = outdatedDeps.length;
+  // Checking the direct dependencies that can't be used with their latest version.
+  final outdatedPackages = pkgResolution?.outdated
+          ?.where((pd) => pd.isDirect)
+          ?.map((p) => p.package)
+          ?.toList() ??
+      <PkgDependency>[];
+  if (outdatedPackages.isNotEmpty) {
+    final count = outdatedPackages.length;
     final pluralized = count == 1 ? '1 dependency' : '$count dependencies';
-    final directPkgs =
-        outdatedDeps.where((pd) => pd.isDirect).map((p) => p.package).toList();
-    final nonDirectCount = count - directPkgs.length;
-    final penalty = directPkgs.length * 10.0 + nonDirectCount * 5.0;
-    final extraDescr = directPkgs.isEmpty
-        ? ''
-        : ' (${directPkgs.length} direct: ${directPkgs.map((s) => '`$s`').join(', ')})';
+    final penalty = count * 10.0;
+    final extraDescr = ' (${outdatedPackages.map((s) => '`$s`').join(', ')})';
     maintenanceSuggestions.add(Suggestion.warning(
         SuggestionCode.pubspecDependenciesOutdated,
         'Support latest dependencies.',
