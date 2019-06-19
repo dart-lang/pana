@@ -113,8 +113,8 @@
         "code": "pubspec.dependencies.outdated",
         "level": "warning",
         "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 12 dependencies (5 direct: `angular`, `angular_forms`, `build_config`, `protobuf`, `quiver`).",
-        "score": 85.0
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 5 dependencies (`angular`, `angular_forms`, `build_config`, `protobuf`, `quiver`).",
+        "score": 50.0
       },
       {
         "code": "pubspec.documentation.isNotHelpful",
@@ -504,7 +504,7 @@
         "package": "yaml",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.15"
+        "resolved": "2.1.16"
       }
     ]
   },

@@ -1,3 +1,7 @@
+## 0.12.19
+
+* Fix: penalize outdated package constraints only for direct dependencies.
+
 ## 0.12.18
 
 * Penalize package constraints that does not support the latest published versions of their dependencies.
