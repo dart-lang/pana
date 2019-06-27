@@ -146,7 +146,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.35.4",
-        "available": "0.36.3"
+        "available": "0.36.4"
       },
       {
         "package": "angular",
@@ -273,7 +273,7 @@
         "package": "dart_internal",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.4"
+        "resolved": "0.1.5"
       },
       {
         "package": "dart_style",
@@ -294,7 +294,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.14",
-        "available": "0.1.18"
+        "available": "0.1.19"
       },
       {
         "package": "glob",
@@ -339,7 +339,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.14",
-        "available": "0.3.18"
+        "available": "0.3.19"
       },
       {
         "package": "logging",
@@ -425,7 +425,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.21.0"
+        "resolved": "1.22.1"
       },
       {
         "package": "sass_builder",
@@ -2823,6 +2823,7 @@
         "package:sass/src/ast/sass/statement/error_rule.dart",
         "package:sass/src/ast/sass/statement/extend_rule.dart",
         "package:sass/src/ast/sass/statement/for_rule.dart",
+        "package:sass/src/ast/sass/statement/forward_rule.dart",
         "package:sass/src/ast/sass/statement/function_rule.dart",
         "package:sass/src/ast/sass/statement/if_rule.dart",
         "package:sass/src/ast/sass/statement/import_rule.dart",
@@ -2862,7 +2863,6 @@
         "package:sass/src/async_compile.dart",
         "package:sass/src/async_environment.dart",
         "package:sass/src/async_import_cache.dart",
-        "package:sass/src/async_module.dart",
         "package:sass/src/callable.dart",
         "package:sass/src/callable/async.dart",
         "package:sass/src/callable/async_built_in.dart",
@@ -2880,6 +2880,13 @@
         "package:sass/src/extend/merged_extension.dart",
         "package:sass/src/extend/mode.dart",
         "package:sass/src/functions.dart",
+        "package:sass/src/functions/color.dart",
+        "package:sass/src/functions/list.dart",
+        "package:sass/src/functions/map.dart",
+        "package:sass/src/functions/math.dart",
+        "package:sass/src/functions/meta.dart",
+        "package:sass/src/functions/selector.dart",
+        "package:sass/src/functions/string.dart",
         "package:sass/src/import_cache.dart",
         "package:sass/src/importer.dart",
         "package:sass/src/importer/async.dart",
@@ -2896,6 +2903,8 @@
         "package:sass/src/logger.dart",
         "package:sass/src/logger/stderr.dart",
         "package:sass/src/module.dart",
+        "package:sass/src/module/built_in.dart",
+        "package:sass/src/module/forwarded_view.dart",
         "package:sass/src/parse/at_root_query.dart",
         "package:sass/src/parse/css.dart",
         "package:sass/src/parse/keyframe_selector.dart",
@@ -2909,9 +2918,12 @@
         "package:sass/src/syntax.dart",
         "package:sass/src/util/character.dart",
         "package:sass/src/util/fixed_length_list_builder.dart",
+        "package:sass/src/util/limited_map_view.dart",
+        "package:sass/src/util/merged_map_view.dart",
         "package:sass/src/util/no_source_map_buffer.dart",
         "package:sass/src/util/number.dart",
-        "package:sass/src/util/public_member_map.dart",
+        "package:sass/src/util/prefixed_map_view.dart",
+        "package:sass/src/util/public_member_map_view.dart",
         "package:sass/src/util/source_map_buffer.dart",
         "package:sass/src/utils.dart",
         "package:sass/src/value.dart",

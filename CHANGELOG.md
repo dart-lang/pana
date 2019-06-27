@@ -1,3 +1,7 @@
+## 0.12.20
+
+* Updated suggestion for not supporting future stable SDKs.
+
 ## 0.12.19
 
 * Fix: penalize outdated package constraints only for direct dependencies.
