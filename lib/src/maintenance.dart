@@ -331,8 +331,8 @@ Future<Maintenance> detectMaintenance(
   if (pubspec.shouldWarnDart2Constraint) {
     maintenanceSuggestions.add(Suggestion.error(
         SuggestionCode.pubspecSdkConstraintDevOnly,
-        'Support the latest stable Dart SDK in `pubspec.yaml`.',
-        'The SDK constraint in `pubspec.yaml` doesn\'t allow the latest stable Dart SDK release.',
+        'Support future stable Dart 2 SDKs in `pubspec.yaml`.',
+        'The SDK constraint in `pubspec.yaml` doesn\'t allow future stable Dart 2.x SDK releases.',
         score: 20.0));
   }
 

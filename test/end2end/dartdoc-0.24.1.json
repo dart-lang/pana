@@ -152,7 +152,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.36.3"
+        "available": "0.36.4"
       },
       {
         "package": "args",
@@ -228,14 +228,14 @@
         "package": "file",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "5.0.8"
+        "resolved": "5.0.8+1"
       },
       {
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.6+9",
-        "available": "0.1.18"
+        "available": "0.1.19"
       },
       {
         "package": "glob",
@@ -288,7 +288,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.6+9",
-        "available": "0.3.18"
+        "available": "0.3.19"
       },
       {
         "package": "logging",

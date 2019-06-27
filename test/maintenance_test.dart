@@ -41,9 +41,9 @@ const _withIssuesJson = {
     {
       'code': 'pubspec.sdk.devOnly',
       'level': 'error',
-      'title': 'Support the latest stable Dart SDK in `pubspec.yaml`.',
+      'title': 'Support future stable Dart 2 SDKs in `pubspec.yaml`.',
       'description':
-          'The SDK constraint in `pubspec.yaml` doesn\'t allow the latest stable Dart SDK release.',
+          'The SDK constraint in `pubspec.yaml` doesn\'t allow future stable Dart 2.x SDK releases.',
       'score': 20.0
     },
     {
