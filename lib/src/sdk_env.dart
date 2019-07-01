@@ -370,10 +370,10 @@ class ToolEnvironment {
     var result = handleProcessErrors(
       await retryProc(
         () => runProc(
-              _pubCmd,
-              args,
-              environment: _environment,
-            ),
+          _pubCmd,
+          args,
+          environment: _environment,
+        ),
       ),
     );
 
