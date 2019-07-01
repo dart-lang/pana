@@ -52,7 +52,7 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 1,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 490,
+    "analyzerHintCount": 495,
     "platformConflictCount": 0,
     "suggestions": [
       {
@@ -67,24 +67,24 @@
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/rspc/compiler.dart`.",
-        "description": "Analysis of `lib/src/rspc/compiler.dart` reported 98 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 30 col 59: Use `=` to separate a named parameter from its default value.\n\nline 31 col 19: Use `=` to separate a named parameter from its default value.\n\nline 31 col 43: Use `=` to separate a named parameter from its default value.\n\nline 44 col 7: DO use curly braces for all flow control structures.",
+        "description": "Analysis of `lib/src/rspc/compiler.dart` reported 100 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 30 col 59: Use `=` to separate a named parameter from its default value.\n\nline 31 col 19: Use `=` to separate a named parameter from its default value.\n\nline 31 col 43: Use `=` to separate a named parameter from its default value.\n\nline 44 col 7: DO use curly braces for all flow control structures.",
         "file": "lib/src/rspc/compiler.dart",
-        "score": 38.81
+        "score": 39.42
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/plugin/router.dart`.",
-        "description": "Analysis of `lib/src/plugin/router.dart` reported 56 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 10 col 3: Prefer using /// for doc comments.\n\nline 19 col 43: Use `=` to separate a named parameter from its default value.\n\nline 20 col 3: Prefer using /// for doc comments.\n\nline 28 col 59: Use `=` to separate a named parameter from its default value.",
+        "description": "Analysis of `lib/src/plugin/router.dart` reported 57 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 10 col 3: Prefer using /// for doc comments.\n\nline 19 col 43: Use `=` to separate a named parameter from its default value.\n\nline 20 col 3: Prefer using /// for doc comments.\n\nline 28 col 59: Use `=` to separate a named parameter from its default value.",
         "file": "lib/src/plugin/router.dart",
-        "score": 24.47
+        "score": 24.85
       },
       {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 14 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/rspc/tag.dart` (52 hints)\n- `lib/src/server.dart` (43 hints)\n- `lib/src/server_impl.dart` (39 hints)\n- `lib/src/plugin/loader.dart` (35 hints)\n- `lib/src/connect.dart` (30 hints)\n- `lib/src/rspc/tag_util.dart` (30 hints)\n- `lib/src/rspc/build.dart` (26 hints)\n- `lib/src/connect_impl.dart` (24 hints)\n- `lib/src/plugin/loader_impl.dart` (18 hints)\n- `lib/src/rspc/main.dart` (9 hints)\n- `lib/proxy.dart` (5 hints)\n- `lib/plugin.dart` (1 hint)\n- `lib/rspc.dart` (1 hint)\n- `lib/stream.dart` (1 hint)\n",
-        "score": 144.68
+        "description": "Additional issues in the following files:\n\n- `lib/src/rspc/tag.dart` (52 hints)\n- `lib/src/server.dart` (43 hints)\n- `lib/src/server_impl.dart` (39 hints)\n- `lib/src/plugin/loader.dart` (35 hints)\n- `lib/src/rspc/tag_util.dart` (31 hints)\n- `lib/src/connect.dart` (30 hints)\n- `lib/src/rspc/build.dart` (26 hints)\n- `lib/src/connect_impl.dart` (24 hints)\n- `lib/src/plugin/loader_impl.dart` (19 hints)\n- `lib/src/rspc/main.dart` (9 hints)\n- `lib/proxy.dart` (5 hints)\n- `lib/plugin.dart` (1 hint)\n- `lib/rspc.dart` (1 hint)\n- `lib/stream.dart` (1 hint)\n",
+        "score": 145.56000000000003
       }
     ]
   },
@@ -1576,6 +1576,15 @@
           "line": 277,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "MISSING_RETURN",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 299,
+          "col": 7,
+          "description": "This function has a return type of 'Future', but doesn't end with a return statement."
         }
       ]
     },
@@ -1762,6 +1771,15 @@
           "file": "lib/src/plugin/router.dart",
           "line": 104,
           "col": 15,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/plugin/router.dart",
+          "line": 111,
+          "col": 11,
           "description": "DO use curly braces for all flow control structures."
         },
         {
@@ -2852,6 +2870,15 @@
           "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
+          "line": 238,
+          "col": 9,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
           "line": 240,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
@@ -2899,6 +2926,15 @@
           "file": "lib/src/rspc/compiler.dart",
           "line": 284,
           "col": 7,
+          "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 285,
+          "col": 9,
           "description": "DO use curly braces for all flow control structures."
         },
         {
@@ -4010,6 +4046,15 @@
           "line": 11,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "curly_braces_in_flow_control_structures",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 18,
+          "col": 7,
+          "description": "DO use curly braces for all flow control structures."
         },
         {
           "severity": "INFO",
