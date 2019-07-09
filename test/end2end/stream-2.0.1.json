@@ -52,39 +52,39 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 1,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 495,
+    "analyzerHintCount": 645,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "error",
         "title": "Fix `lib/src/rsp_util.dart`.",
-        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error, 22 hints, including:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 12 col 3: Prefer using /// for doc comments.\n\nline 25 col 34: Use `isNotEmpty` for Iterables and Maps.\n\nline 26 col 9: DO use curly braces for all flow control structures.",
+        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error, 24 hints, including:\n\nline 170 col 47: The getter 'dart' isn't defined for the class 'Browser'.\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 12 col 3: Prefer using /// for doc comments.\n\nline 25 col 34: Use `isNotEmpty` for Iterables and Maps.\n\nline 26 col 9: DO use curly braces for all flow control structures.",
         "file": "lib/src/rsp_util.dart",
-        "score": 32.83
+        "score": 33.5
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/rspc/compiler.dart`.",
-        "description": "Analysis of `lib/src/rspc/compiler.dart` reported 100 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 30 col 59: Use `=` to separate a named parameter from its default value.\n\nline 31 col 19: Use `=` to separate a named parameter from its default value.\n\nline 31 col 43: Use `=` to separate a named parameter from its default value.\n\nline 44 col 7: DO use curly braces for all flow control structures.",
+        "description": "Analysis of `lib/src/rspc/compiler.dart` reported 118 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 30 col 59: Use `=` to separate a named parameter from its default value.\n\nline 31 col 19: Use `=` to separate a named parameter from its default value.\n\nline 31 col 43: Use `=` to separate a named parameter from its default value.\n\nline 35 col 29: Unnecessary new keyword.",
         "file": "lib/src/rspc/compiler.dart",
-        "score": 39.42
+        "score": 44.65
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/plugin/router.dart`.",
-        "description": "Analysis of `lib/src/plugin/router.dart` reported 57 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 10 col 3: Prefer using /// for doc comments.\n\nline 19 col 43: Use `=` to separate a named parameter from its default value.\n\nline 20 col 3: Prefer using /// for doc comments.\n\nline 28 col 59: Use `=` to separate a named parameter from its default value.",
+        "description": "Analysis of `lib/src/plugin/router.dart` reported 80 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 10 col 3: Prefer using /// for doc comments.\n\nline 19 col 43: Use `=` to separate a named parameter from its default value.\n\nline 20 col 3: Prefer using /// for doc comments.\n\nline 28 col 59: Use `=` to separate a named parameter from its default value.",
         "file": "lib/src/plugin/router.dart",
-        "score": 24.85
+        "score": 33.04
       },
       {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 14 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/rspc/tag.dart` (52 hints)\n- `lib/src/server.dart` (43 hints)\n- `lib/src/server_impl.dart` (39 hints)\n- `lib/src/plugin/loader.dart` (35 hints)\n- `lib/src/rspc/tag_util.dart` (31 hints)\n- `lib/src/connect.dart` (30 hints)\n- `lib/src/rspc/build.dart` (26 hints)\n- `lib/src/connect_impl.dart` (24 hints)\n- `lib/src/plugin/loader_impl.dart` (19 hints)\n- `lib/src/rspc/main.dart` (9 hints)\n- `lib/proxy.dart` (5 hints)\n- `lib/plugin.dart` (1 hint)\n- `lib/rspc.dart` (1 hint)\n- `lib/stream.dart` (1 hint)\n",
-        "score": 145.56000000000003
+        "description": "Additional issues in the following files:\n\n- `lib/src/rspc/tag.dart` (71 hints)\n- `lib/src/server_impl.dart` (60 hints)\n- `lib/src/server.dart` (46 hints)\n- `lib/src/plugin/loader.dart` (45 hints)\n- `lib/src/connect_impl.dart` (38 hints)\n- `lib/src/rspc/build.dart` (36 hints)\n- `lib/src/rspc/tag_util.dart` (36 hints)\n- `lib/src/connect.dart` (34 hints)\n- `lib/src/plugin/loader_impl.dart` (32 hints)\n- `lib/src/rspc/main.dart` (13 hints)\n- `lib/proxy.dart` (9 hints)\n- `lib/plugin.dart` (1 hint)\n- `lib/rspc.dart` (1 hint)\n- `lib/stream.dart` (1 hint)\n",
+        "score": 189.76999999999998
       }
     ]
   },
@@ -205,7 +205,7 @@
         "package": "pedantic",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.7.0"
+        "resolved": "1.8.0+1"
       },
       {
         "package": "rikulo_commons",
@@ -328,6 +328,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/proxy.dart",
+          "line": 38,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/proxy.dart",
+          "line": 41,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/proxy.dart",
+          "line": 49,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/proxy.dart",
           "line": 53,
@@ -369,6 +396,15 @@
           "line": 141,
           "col": 46,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/proxy.dart",
+          "line": 142,
+          "col": 19,
+          "description": "Unnecessary new keyword."
         }
       ],
       "directLibs": [
@@ -686,11 +722,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect.dart",
+          "line": 111,
+          "col": 6,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/connect.dart",
           "line": 112,
           "col": 3,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect.dart",
+          "line": 116,
+          "col": 6,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -709,6 +763,24 @@
           "line": 125,
           "col": 65,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect.dart",
+          "line": 128,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect.dart",
+          "line": 129,
+          "col": 7,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -873,6 +945,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 18,
+          "col": 38,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 20,
+          "col": 20,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/connect_impl.dart",
           "line": 33,
@@ -891,6 +981,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 102,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 117,
+          "col": 23,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/connect_impl.dart",
           "line": 122,
@@ -900,11 +1008,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 123,
+          "col": 32,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/connect_impl.dart",
           "line": 125,
           "col": 13,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 136,
+          "col": 65,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -936,6 +1062,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 203,
+          "col": 9,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 208,
+          "col": 9,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "avoid_return_types_on_setters",
           "file": "lib/src/connect_impl.dart",
           "line": 261,
@@ -954,11 +1098,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 267,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/connect_impl.dart",
           "line": 272,
           "col": 49,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 273,
+          "col": 11,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1071,6 +1233,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 352,
+          "col": 10,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 352,
+          "col": 37,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 357,
+          "col": 59,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/connect_impl.dart",
           "line": 364,
@@ -1085,6 +1274,15 @@
           "line": 366,
           "col": 7,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/connect_impl.dart",
+          "line": 373,
+          "col": 34,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -1101,6 +1299,15 @@
           "line": 6,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 20,
+          "col": 6,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1213,6 +1420,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 127,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/plugin/loader.dart",
           "line": 133,
@@ -1285,6 +1501,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 205,
+          "col": 6,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 205,
+          "col": 20,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 212,
+          "col": 23,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/loader.dart",
           "line": 214,
@@ -1294,11 +1537,38 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 214,
+          "col": 33,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 216,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/loader.dart",
           "line": 217,
           "col": 7,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 219,
+          "col": 11,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1330,6 +1600,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 248,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/loader.dart",
           "line": 256,
@@ -1344,6 +1623,15 @@
           "line": 259,
           "col": 5,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader.dart",
+          "line": 264,
+          "col": 7,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1418,6 +1706,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 35,
+          "col": 43,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/loader_impl.dart",
           "line": 56,
@@ -1436,6 +1733,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 71,
+          "col": 22,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/loader_impl.dart",
           "line": 76,
@@ -1450,6 +1756,33 @@
           "line": 84,
           "col": 5,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 84,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 86,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 88,
+          "col": 26,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1486,6 +1819,33 @@
           "line": 129,
           "col": 5,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_const",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 160,
+          "col": 40,
+          "description": "Avoid const keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_const",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 165,
+          "col": 29,
+          "description": "Avoid const keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 183,
+          "col": 12,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1535,6 +1895,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 220,
+          "col": 30,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/plugin/loader_impl.dart",
           "line": 223,
@@ -1549,6 +1918,15 @@
           "line": 224,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 231,
+          "col": 26,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1571,11 +1949,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 250,
+          "col": 25,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/loader_impl.dart",
           "line": 277,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 298,
+          "col": 12,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1585,6 +1981,15 @@
           "line": 299,
           "col": 7,
           "description": "This function has a return type of 'Future', but doesn't end with a return statement."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/loader_impl.dart",
+          "line": 314,
+          "col": 12,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -1668,6 +2073,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 55,
+          "col": 42,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 58,
+          "col": 31,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 61,
+          "col": 29,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/plugin/router.dart",
           "line": 63,
@@ -1722,6 +2154,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 81,
+          "col": 23,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/router.dart",
           "line": 85,
@@ -1754,6 +2195,24 @@
           "line": 94,
           "col": 13,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 94,
+          "col": 19,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 96,
+          "col": 17,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1794,11 +2253,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 113,
+          "col": 27,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/router.dart",
           "line": 115,
           "col": 11,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 115,
+          "col": 17,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1830,6 +2307,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 134,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/plugin/router.dart",
           "line": 140,
@@ -1857,6 +2343,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 150,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/router.dart",
           "line": 157,
@@ -1871,6 +2366,15 @@
           "line": 163,
           "col": 11,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 169,
+          "col": 17,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1916,6 +2420,15 @@
           "line": 202,
           "col": 11,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 212,
+          "col": 18,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -1974,11 +2487,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 251,
+          "col": 53,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/router.dart",
           "line": 273,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 273,
+          "col": 15,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -2010,6 +2541,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 296,
+          "col": 25,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 298,
+          "col": 28,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_not_empty",
           "file": "lib/src/plugin/router.dart",
           "line": 308,
@@ -2037,11 +2586,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 334,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 338,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 341,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/router.dart",
           "line": 360,
           "col": 13,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 366,
+          "col": 24,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -2073,6 +2658,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 400,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/router.dart",
           "line": 405,
@@ -2100,11 +2694,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 448,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/plugin/router.dart",
           "line": 452,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/plugin/router.dart",
+          "line": 459,
+          "col": 56,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -2206,6 +2818,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rsp_util.dart",
+          "line": 59,
+          "col": 46,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rsp_util.dart",
           "line": 61,
@@ -2274,6 +2895,15 @@
           "line": 127,
           "col": 3,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rsp_util.dart",
+          "line": 131,
+          "col": 36,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -2366,6 +2996,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 14,
+          "col": 3,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/rspc/build.dart",
           "line": 19,
@@ -2411,6 +3050,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 34,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 47,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unawaited_futures",
           "file": "lib/src/rspc/build.dart",
           "line": 84,
@@ -2429,6 +3086,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 98,
+          "col": 17,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 101,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/build.dart",
           "line": 102,
@@ -2438,11 +3113,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 103,
+          "col": 17,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/build.dart",
           "line": 111,
           "col": 5,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 112,
+          "col": 15,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -2461,6 +3154,15 @@
           "line": 114,
           "col": 5,
           "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 116,
+          "col": 10,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -2483,6 +3185,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 131,
+          "col": 31,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/build.dart",
           "line": 146,
@@ -2497,6 +3208,15 @@
           "line": 152,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/build.dart",
+          "line": 161,
+          "col": 26,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -2607,6 +3327,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 35,
+          "col": 29,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 44,
@@ -2652,6 +3381,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 81,
+          "col": 26,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 99,
@@ -2666,6 +3404,15 @@
           "line": 113,
           "col": 15,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 126,
+          "col": 20,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -2715,6 +3462,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 168,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 171,
@@ -2747,6 +3503,15 @@
           "line": 176,
           "col": 11,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 184,
+          "col": 18,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -2877,6 +3642,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 238,
+          "col": 59,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 240,
@@ -3003,6 +3777,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 360,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 363,
@@ -3039,11 +3822,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 382,
+          "col": 20,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 395,
           "col": 21,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 397,
+          "col": 26,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -3147,6 +3948,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 524,
+          "col": 24,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 526,
@@ -3237,11 +4047,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 571,
+          "col": 20,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 577,
+          "col": 19,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 580,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 589,
+          "col": 24,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 589,
+          "col": 54,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -3336,6 +4182,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 656,
+          "col": 19,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 662,
@@ -3417,6 +4272,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 708,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 721,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/compiler.dart",
           "line": 803,
@@ -3467,6 +4340,15 @@
           "line": 821,
           "col": 17,
           "description": "Avoid empty catch blocks."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/compiler.dart",
+          "line": 831,
+          "col": 24,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -3532,6 +4414,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/main.dart",
+          "line": 34,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/main.dart",
           "line": 36,
@@ -3541,11 +4432,38 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/main.dart",
+          "line": 38,
+          "col": 17,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/main.dart",
+          "line": 46,
+          "col": 17,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unawaited_futures",
           "file": "lib/src/rspc/main.dart",
           "line": 60,
           "col": 7,
           "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/main.dart",
+          "line": 68,
+          "col": 21,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -3665,6 +4583,132 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 106,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 107,
+          "col": 22,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 107,
+          "col": 37,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 107,
+          "col": 52,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 108,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 108,
+          "col": 25,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 108,
+          "col": 43,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 109,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 109,
+          "col": 22,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 109,
+          "col": 39,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 110,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 110,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 110,
+          "col": 37,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 110,
+          "col": 50,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/tag.dart",
           "line": 111,
@@ -3746,6 +4790,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 228,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 229,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/tag.dart",
           "line": 236,
@@ -3791,6 +4853,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 269,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 270,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/tag.dart",
           "line": 277,
@@ -3814,6 +4894,15 @@
           "line": 287,
           "col": 1,
           "description": "Prefer using /// for doc comments."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag.dart",
+          "line": 293,
+          "col": 21,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -4095,6 +5184,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 36,
+          "col": 14,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/tag_util.dart",
           "line": 43,
@@ -4145,6 +5243,15 @@
           "line": 57,
           "col": 5,
           "description": "Use contains instead of indexOf"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 79,
+          "col": 9,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -4275,6 +5382,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 198,
+          "col": 20,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/rspc/tag_util.dart",
           "line": 202,
@@ -4289,6 +5405,15 @@
           "line": 205,
           "col": 11,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 209,
+          "col": 12,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -4316,6 +5441,15 @@
           "line": 250,
           "col": 13,
           "description": "Don't type annotate initializing formals."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/rspc/tag_util.dart",
+          "line": 256,
+          "col": 24,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -4354,6 +5488,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server.dart",
+          "line": 97,
+          "col": 6,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server.dart",
+          "line": 98,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "slash_for_doc_comments",
           "file": "lib/src/server.dart",
           "line": 102,
@@ -4368,6 +5520,15 @@
           "line": 106,
           "col": 22,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server.dart",
+          "line": 107,
+          "col": 6,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -4721,11 +5882,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 33,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 46,
+          "col": 10,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/server_impl.dart",
           "line": 47,
           "col": 7,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 47,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 48,
+          "col": 18,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -4744,6 +5941,24 @@
           "line": 69,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 76,
+          "col": 28,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 82,
+          "col": 28,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -4784,6 +5999,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 119,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 130,
+          "col": 27,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 136,
+          "col": 17,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/server_impl.dart",
           "line": 150,
@@ -4798,6 +6040,15 @@
           "line": 157,
           "col": 9,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 179,
+          "col": 30,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -4874,6 +6125,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 226,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "avoid_return_types_on_setters",
           "file": "lib/src/server_impl.dart",
           "line": 236,
@@ -4888,6 +6148,15 @@
           "line": 238,
           "col": 7,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 238,
+          "col": 13,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -4964,6 +6233,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 268,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/server_impl.dart",
           "line": 275,
@@ -5027,6 +6305,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 285,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/src/server_impl.dart",
           "line": 298,
@@ -5036,11 +6323,65 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 299,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 300,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 323,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 326,
+          "col": 35,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "curly_braces_in_flow_control_structures",
           "file": "lib/src/server_impl.dart",
           "line": 371,
           "col": 7,
           "description": "DO use curly braces for all flow control structures."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 371,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 372,
+          "col": 30,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -5068,6 +6409,15 @@
           "line": 383,
           "col": 59,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/server_impl.dart",
+          "line": 392,
+          "col": 29,
+          "description": "Unnecessary new keyword."
         }
       ]
     },

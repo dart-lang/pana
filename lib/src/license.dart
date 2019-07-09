@@ -16,8 +16,7 @@ import 'model.dart';
 Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
   final rootFiles = await Directory(baseDir).list().toList();
   final licenseCandidates = rootFiles
-      .where((fse) => fse is File)
-      .cast<File>()
+      .whereType<File>()
       .where(_isLicenseFile)
       .take(5) // only the first 5 files are considered
       .toList();

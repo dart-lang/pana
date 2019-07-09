@@ -63,7 +63,7 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 2,
-    "analyzerHintCount": 112,
+    "analyzerHintCount": 125,
     "platformConflictCount": 0,
     "suggestions": [
       {
@@ -93,9 +93,9 @@
       {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix additional 47 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/model/selection/delegating_selection_model.dart` (7 hints)\n- `lib/material_input/material_input_multiline.dart` (6 hints)\n- `lib/material_input/material_auto_suggest_input.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_input/material_input.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/material_menu/menu_item_groups.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_datepicker/date_range_input.dart` (2 hints)\n- `lib/material_datepicker/material_calendar_picker.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/material_tree/material_tree_node.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/browser/events/events.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/material_date_range_picker.dart` (1 hint)\n- `lib/material_datepicker/material_month_picker.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_dialog/material_dialog.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_input/material_number_validators.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_ripple/material_ripple.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_dropdown_select.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_spinner/material_spinner.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/mixins/track_layout_changes.dart` (1 hint)\n- `lib/model/date/date_formatter.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/angular/properties/properties.dart` (Run `dartfmt` to format `lib/utils/angular/properties/properties.dart`.)\n",
-        "score": 44.309999999999995
+        "title": "Fix additional 49 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/material_datepicker/proto/date_range.pb.dart` (8 hints)\n- `lib/src/model/selection/delegating_selection_model.dart` (7 hints)\n- `lib/material_input/material_input_multiline.dart` (6 hints)\n- `lib/material_input/material_auto_suggest_input.dart` (5 hints)\n- `lib/material_input/material_input.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/material_datepicker/proto/date.pb.dart` (4 hints)\n- `lib/model/menu/menu.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/material_menu/menu_item_groups.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/laminate/portal/portal.dart` (2 hints)\n- `lib/material_datepicker/date_range_input.dart` (2 hints)\n- `lib/material_datepicker/material_calendar_picker.dart` (2 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (2 hints)\n- `lib/src/material_tree/material_tree_node.dart` (2 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/browser/events/events.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/date_range_editor.dart` (1 hint)\n- `lib/material_datepicker/material_date_range_picker.dart` (1 hint)\n- `lib/material_datepicker/material_month_picker.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_dialog/material_dialog.dart` (1 hint)\n- `lib/material_input/base_material_input.dart` (1 hint)\n- `lib/material_input/material_number_validators.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_popup/material_popup.dart` (1 hint)\n- `lib/material_ripple/material_ripple.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_dropdown_select.dart` (1 hint)\n- `lib/material_select/material_select.dart` (1 hint)\n- `lib/material_select/material_select_dropdown_item.dart` (1 hint)\n- `lib/material_spinner/material_spinner.dart` (1 hint)\n- `lib/material_stepper/material_stepper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/mixins/track_layout_changes.dart` (1 hint)\n- `lib/model/date/date_formatter.dart` (1 hint)\n- `lib/model/menu/selectable_menu.dart` (1 hint)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/angular/scroll_host/angular_2.dart` (1 hint)\n- `lib/utils/browser/dom_service/dom_service.dart` (1 hint)\n- `lib/utils/angular/properties/properties.dart` (Run `dartfmt` to format `lib/utils/angular/properties/properties.dart`.)\n",
+        "score": 50.71999999999999
       }
     ]
   },
@@ -146,7 +146,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.35.4",
-        "available": "0.36.4"
+        "available": "0.37.0"
       },
       {
         "package": "angular",
@@ -204,7 +204,7 @@
         "constraintType": "normal",
         "constraint": ">=0.2.6 <0.4.0",
         "resolved": "0.3.2",
-        "available": "0.4.0"
+        "available": "0.4.1"
       },
       {
         "package": "built_collection",
@@ -260,8 +260,8 @@
         "package": "csslib",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.14.6",
-        "available": "0.16.0"
+        "resolved": "0.14.6+1",
+        "available": "0.16.1"
       },
       {
         "package": "dart2_constant",
@@ -280,7 +280,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.2.4",
-        "available": "1.2.8"
+        "available": "1.2.9"
       },
       {
         "package": "fixnum",
@@ -294,7 +294,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.14",
-        "available": "0.1.19"
+        "available": "0.1.20"
       },
       {
         "package": "glob",
@@ -339,7 +339,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.14",
-        "available": "0.3.19"
+        "available": "0.3.20"
       },
       {
         "package": "logging",
@@ -391,7 +391,7 @@
         "package": "pedantic",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.7.0"
+        "resolved": "1.8.0+1"
       },
       {
         "package": "protobuf",
@@ -399,7 +399,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.13.12"
+        "available": "0.13.14"
       },
       {
         "package": "pub_semver",
@@ -425,7 +425,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.22.1"
+        "resolved": "1.22.3"
       },
       {
         "package": "sass_builder",
@@ -14184,7 +14184,44 @@
       "uri": "package:angular_components/material_datepicker/proto/date.pb.dart",
       "size": 1898,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date.pb.dart",
+          "line": 13,
+          "col": 37,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date.pb.dart",
+          "line": 28,
+          "col": 19,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date.pb.dart",
+          "line": 32,
+          "col": 27,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date.pb.dart",
+          "line": 33,
+          "col": 47,
+          "description": "Unnecessary new keyword."
+        }
+      ],
       "directLibs": [
         "package:protobuf/protobuf.dart"
       ],
@@ -14210,7 +14247,80 @@
       "uri": "package:angular_components/material_datepicker/proto/date_range.pb.dart",
       "size": 5797,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date_range.pb.dart",
+          "line": 15,
+          "col": 37,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date_range.pb.dart",
+          "line": 40,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date_range.pb.dart",
+          "line": 44,
+          "col": 42,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date_range.pb.dart",
+          "line": 46,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date_range.pb.dart",
+          "line": 144,
+          "col": 37,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date_range.pb.dart",
+          "line": 160,
+          "col": 24,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date_range.pb.dart",
+          "line": 164,
+          "col": 32,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_datepicker/proto/date_range.pb.dart",
+          "line": 165,
+          "col": 52,
+          "description": "Unnecessary new keyword."
+        }
+      ],
       "directLibs": [
         "package:angular_components/material_datepicker/proto/date.pb.dart",
         "package:protobuf/protobuf.dart"
@@ -16809,6 +16919,15 @@
           "line": 115,
           "col": 3,
           "description": "'ElementRef' is deprecated and shouldn't be used."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/material_input/material_input.dart",
+          "line": 130,
+          "col": 19,
+          "description": "Unnecessary new keyword."
         }
       ],
       "directLibs": [

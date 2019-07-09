@@ -47,39 +47,39 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 17,
+    "analyzerHintCount": 92,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/response.dart`.",
-        "description": "Analysis of `lib/src/response.dart` reported 6 hints, including:\n\nline 34 col 35: Use `=` to separate a named parameter from its default value.\n\nline 35 col 23: Use `=` to separate a named parameter from its default value.\n\nline 36 col 33: Use `=` to separate a named parameter from its default value.\n\nline 52 col 35: Use `=` to separate a named parameter from its default value.\n\nline 53 col 23: Use `=` to separate a named parameter from its default value.",
-        "file": "lib/src/response.dart",
-        "score": 2.96
+        "title": "Fix `lib/browser_client.dart`.",
+        "description": "Analysis of `lib/browser_client.dart` reported 11 hints, including:\n\nline 30 col 17: Unnecessary new keyword.\n\nline 44 col 15: Unnecessary new keyword.\n\nline 51 col 21: Unnecessary new keyword.\n\nline 52 col 5: `Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`.\n\nline 55 col 41: Unnecessary new keyword.",
+        "file": "lib/browser_client.dart",
+        "score": 5.36
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/base_response.dart`.",
-        "description": "Analysis of `lib/src/base_response.dart` reported 3 hints:\n\nline 43 col 20: Use `=` to separate a named parameter from its default value.\n\nline 44 col 23: Use `=` to separate a named parameter from its default value.\n\nline 45 col 33: Use `=` to separate a named parameter from its default value.",
-        "file": "lib/src/base_response.dart",
-        "score": 1.49
+        "title": "Fix `lib/src/multipart_file.dart`.",
+        "description": "Analysis of `lib/src/multipart_file.dart` reported 9 hints, including:\n\nline 49 col 11: Unnecessary new keyword.\n\nline 57 col 18: Unnecessary new keyword.\n\nline 58 col 12: Unnecessary new keyword.\n\nline 71 col 41: Unnecessary new keyword.\n\nline 76 col 12: Unnecessary new keyword.",
+        "file": "lib/src/multipart_file.dart",
+        "score": 4.41
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/streamed_response.dart`.",
-        "description": "Analysis of `lib/src/streamed_response.dart` reported 3 hints:\n\nline 26 col 35: Use `=` to separate a named parameter from its default value.\n\nline 27 col 23: Use `=` to separate a named parameter from its default value.\n\nline 28 col 33: Use `=` to separate a named parameter from its default value.",
-        "file": "lib/src/streamed_response.dart",
-        "score": 1.49
+        "title": "Fix `lib/src/request.dart`.",
+        "description": "Analysis of `lib/src/request.dart` reported 9 hints, including:\n\nline 24 col 11: Unnecessary new keyword.\n\nline 88 col 22: Unnecessary new keyword.\n\nline 112 col 13: Unnecessary new keyword.\n\nline 122 col 22: Unnecessary new keyword.\n\nline 124 col 13: Unnecessary new keyword.",
+        "file": "lib/src/request.dart",
+        "score": 4.41
       },
       {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 14 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/browser_client.dart` (2 hints)\n- `lib/src/base_client.dart` (2 hints)\n- `lib/src/multipart_request.dart` (1 hint)\n- `lib/http.dart` (Run `dartfmt` to format `lib/http.dart`.)\n- `lib/src/base_request.dart` (Run `dartfmt` to format `lib/src/base_request.dart`.)\n- `lib/src/boundary_characters.dart` (Run `dartfmt` to format `lib/src/boundary_characters.dart`.)\n- `lib/src/byte_stream.dart` (Run `dartfmt` to format `lib/src/byte_stream.dart`.)\n- `lib/src/client.dart` (Run `dartfmt` to format `lib/src/client.dart`.)\n- `lib/src/io_client.dart` (Run `dartfmt` to format `lib/src/io_client.dart`.)\n- `lib/src/mock_client.dart` (Run `dartfmt` to format `lib/src/mock_client.dart`.)\n- `lib/src/multipart_file.dart` (Run `dartfmt` to format `lib/src/multipart_file.dart`.)\n- `lib/src/request.dart` (Run `dartfmt` to format `lib/src/request.dart`.)\n- `lib/src/streamed_request.dart` (Run `dartfmt` to format `lib/src/streamed_request.dart`.)\n- `lib/src/utils.dart` (Run `dartfmt` to format `lib/src/utils.dart`.)\n",
-        "score": 2.5
+        "description": "Additional issues in the following files:\n\n- `lib/src/response.dart` (9 hints)\n- `lib/src/multipart_request.dart` (8 hints)\n- `lib/src/utils.dart` (8 hints)\n- `lib/src/base_request.dart` (7 hints)\n- `lib/src/base_client.dart` (5 hints)\n- `lib/src/base_response.dart` (5 hints)\n- `lib/src/byte_stream.dart` (5 hints)\n- `lib/src/io_client.dart` (4 hints)\n- `lib/src/mock_client.dart` (4 hints)\n- `lib/src/streamed_response.dart` (3 hints)\n- `lib/src/streamed_request.dart` (2 hints)\n- `lib/http.dart` (1 hint)\n- `lib/src/boundary_characters.dart` (1 hint)\n- `lib/src/client.dart` (1 hint)\n",
+        "score": 31.129999999999995
       }
     ]
   },
@@ -199,6 +199,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 30,
+          "col": 17,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 44,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 51,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unawaited_futures",
           "file": "lib/browser_client.dart",
           "line": 52,
@@ -208,11 +235,65 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 55,
+          "col": 41,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 56,
+          "col": 20,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 60,
+          "col": 28,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 61,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 71,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unawaited_futures",
           "file": "lib/browser_client.dart",
           "line": 78,
           "col": 5,
           "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/browser_client.dart",
+          "line": 82,
+          "col": 11,
+          "description": "Unnecessary new keyword."
         }
       ],
       "directLibs": [
@@ -373,7 +454,17 @@
       "uri": "package:http/http.dart",
       "size": 7234,
       "isFormatted": false,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/http.dart",
+          "line": 165,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "dart:convert",
@@ -544,6 +635,15 @@
       "codeProblems": [
         {
           "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_client.dart",
+          "line": 155,
+          "col": 19,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
           "errorType": "HINT",
           "errorCode": "DEPRECATED_MEMBER_USE",
           "file": "lib/src/base_client.dart",
@@ -559,6 +659,24 @@
           "line": 165,
           "col": 44,
           "description": "'typed' is deprecated and shouldn't be used."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_client.dart",
+          "line": 167,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_client.dart",
+          "line": 182,
+          "col": 11,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -566,7 +684,71 @@
       "uri": "package:http/src/base_request.dart",
       "size": 4739,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_request.dart",
+          "line": 37,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_request.dart",
+          "line": 86,
+          "col": 17,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_request.dart",
+          "line": 101,
+          "col": 26,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_request.dart",
+          "line": 113,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_request.dart",
+          "line": 118,
+          "col": 14,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_request.dart",
+          "line": 119,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_request.dart",
+          "line": 136,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/src/base_response.dart": {
       "uri": "package:http/src/base_response.dart",
@@ -599,6 +781,24 @@
           "line": 45,
           "col": 33,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_response.dart",
+          "line": 48,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/base_response.dart",
+          "line": 50,
+          "col": 13,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -606,19 +806,85 @@
       "uri": "package:http/src/boundary_characters.dart",
       "size": 953,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_const",
+          "file": "lib/src/boundary_characters.dart",
+          "line": 12,
+          "col": 39,
+          "description": "Avoid const keyword."
+        }
+      ]
     },
     "lib/src/byte_stream.dart": {
       "uri": "package:http/src/byte_stream.dart",
       "size": 1391,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/byte_stream.dart",
+          "line": 17,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/byte_stream.dart",
+          "line": 17,
+          "col": 22,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/byte_stream.dart",
+          "line": 21,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/byte_stream.dart",
+          "line": 22,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/byte_stream.dart",
+          "line": 23,
+          "col": 28,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/src/client.dart": {
       "uri": "package:http/src/client.dart",
       "size": 6152,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/client.dart",
+          "line": 30,
+          "col": 23,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/src/exception.dart": {
       "uri": "package:http/src/exception.dart",
@@ -630,19 +896,175 @@
       "uri": "package:http/src/io_client.dart",
       "size": 2530,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/io_client.dart",
+          "line": 23,
+          "col": 52,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/io_client.dart",
+          "line": 50,
+          "col": 14,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/io_client.dart",
+          "line": 52,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/io_client.dart",
+          "line": 64,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/src/mock_client.dart": {
       "uri": "package:http/src/mock_client.dart",
       "size": 3320,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/mock_client.dart",
+          "line": 33,
+          "col": 23,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/mock_client.dart",
+          "line": 43,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/mock_client.dart",
+          "line": 44,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/mock_client.dart",
+          "line": 60,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/src/multipart_file.dart": {
       "uri": "package:http/src/multipart_file.dart",
       "size": 4431,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 49,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 57,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 58,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 71,
+          "col": 41,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 76,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 93,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 95,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 96,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_file.dart",
+          "line": 106,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/src/multipart_request.dart": {
       "uri": "package:http/src/multipart_request.dart",
@@ -652,11 +1074,74 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_request.dart",
+          "line": 15,
+          "col": 24,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_request.dart",
+          "line": 40,
+          "col": 33,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "avoid_return_types_on_setters",
           "file": "lib/src/multipart_request.dart",
           "line": 77,
           "col": 3,
           "description": "Avoid return types on setters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_request.dart",
+          "line": 78,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_request.dart",
+          "line": 90,
+          "col": 22,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_request.dart",
+          "line": 118,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_request.dart",
+          "line": 159,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/multipart_request.dart",
+          "line": 163,
+          "col": 22,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -664,7 +1149,89 @@
       "uri": "package:http/src/request.dart",
       "size": 5952,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 24,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 88,
+          "col": 22,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 112,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 122,
+          "col": 22,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 124,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 134,
+          "col": 20,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 141,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 149,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/request.dart",
+          "line": 159,
+          "col": 11,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/src/response.dart": {
       "uri": "package:http/src/response.dart",
@@ -724,6 +1291,33 @@
           "line": 54,
           "col": 33,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/response.dart",
+          "line": 70,
+          "col": 14,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/response.dart",
+          "line": 93,
+          "col": 35,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/response.dart",
+          "line": 94,
+          "col": 10,
+          "description": "Unnecessary new keyword."
         }
       ]
     },
@@ -731,7 +1325,26 @@
       "uri": "package:http/src/streamed_request.dart",
       "size": 1650,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/streamed_request.dart",
+          "line": 31,
+          "col": 21,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/streamed_request.dart",
+          "line": 39,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/src/streamed_response.dart": {
       "uri": "package:http/src/streamed_response.dart",
@@ -771,7 +1384,80 @@
       "uri": "package:http/src/utils.dart",
       "size": 4843,
       "isFormatted": false,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/utils.dart",
+          "line": 56,
+          "col": 9,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/utils.dart",
+          "line": 61,
+          "col": 28,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/utils.dart",
+          "line": 74,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/utils.dart",
+          "line": 76,
+          "col": 10,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/utils.dart",
+          "line": 83,
+          "col": 10,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/utils.dart",
+          "line": 90,
+          "col": 22,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/utils.dart",
+          "line": 99,
+          "col": 19,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/src/utils.dart",
+          "line": 113,
+          "col": 19,
+          "description": "Unnecessary new keyword."
+        }
+      ]
     },
     "lib/testing.dart": {
       "uri": "package:http/testing.dart",

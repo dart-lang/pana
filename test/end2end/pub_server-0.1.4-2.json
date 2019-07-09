@@ -54,16 +54,24 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 4,
+    "analyzerHintCount": 39,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/shelf_pubserver.dart`.",
-        "description": "Analysis of `lib/shelf_pubserver.dart` reported 4 hints:\n\nline 245 col 9: Use isEmpty instead of length\n\nline 414 col 53: Use isNotEmpty instead of length\n\nline 470 col 62: Use `=` to separate a named parameter from its default value.\n\nline 475 col 53: Use `=` to separate a named parameter from its default value.",
+        "description": "Analysis of `lib/shelf_pubserver.dart` reported 31 hints, including:\n\nline 19 col 24: Unnecessary new keyword.\n\nline 131 col 40: Unnecessary new keyword.\n\nline 134 col 7: Unnecessary new keyword.\n\nline 137 col 7: Unnecessary new keyword.\n\nline 140 col 7: Unnecessary new keyword.",
         "file": "lib/shelf_pubserver.dart",
-        "score": 1.99
+        "score": 14.39
+      },
+      {
+        "code": "dartanalyzer.warning",
+        "level": "hint",
+        "title": "Fix `lib/repository.dart`.",
+        "description": "Analysis of `lib/repository.dart` reported 8 hints, including:\n\nline 27 col 15: Unnecessary new keyword.\n\nline 109 col 7: Unnecessary new keyword.\n\nline 130 col 13: Unnecessary new keyword.\n\nline 144 col 13: Unnecessary new keyword.\n\nline 148 col 13: Unnecessary new keyword.",
+        "file": "lib/repository.dart",
+        "score": 3.93
       }
     ]
   },
@@ -226,7 +234,80 @@
       "uri": "package:pub_server/repository.dart",
       "size": 5615,
       "isFormatted": true,
-      "codeProblems": [],
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/repository.dart",
+          "line": 27,
+          "col": 15,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/repository.dart",
+          "line": 109,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/repository.dart",
+          "line": 130,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/repository.dart",
+          "line": 144,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/repository.dart",
+          "line": 148,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/repository.dart",
+          "line": 158,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/repository.dart",
+          "line": 165,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/repository.dart",
+          "line": 169,
+          "col": 13,
+          "description": "Unnecessary new keyword."
+        }
+      ],
       "directLibs": [
         "dart:async",
         "package:pub_semver/pub_semver.dart"
@@ -280,11 +361,182 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 19,
+          "col": 24,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 131,
+          "col": 40,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 134,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 137,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 140,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 143,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 177,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 189,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 201,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 208,
+          "col": 18,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 221,
+          "col": 16,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 231,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_is_empty",
           "file": "lib/shelf_pubserver.dart",
           "line": 245,
           "col": 9,
           "description": "Use isEmpty instead of length"
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 246,
+          "col": 14,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 286,
+          "col": 14,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 304,
+          "col": 14,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 308,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 372,
+          "col": 29,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 390,
+          "col": 14,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 394,
+          "col": 14,
+          "description": "Unnecessary new keyword."
         },
         {
           "severity": "INFO",
@@ -298,6 +550,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 451,
+          "col": 12,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 458,
+          "col": 44,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 464,
+          "col": 49,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/shelf_pubserver.dart",
           "line": 470,
@@ -307,11 +586,56 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 471,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 472,
+          "col": 17,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "prefer_equal_for_default_values",
           "file": "lib/shelf_pubserver.dart",
           "line": 475,
           "col": 53,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 476,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 505,
+          "col": 7,
+          "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_new",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 523,
+          "col": 19,
+          "description": "Unnecessary new keyword."
         }
       ],
       "directLibs": [
