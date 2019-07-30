@@ -147,7 +147,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.2.0"
+        "resolved": "2.3.0"
       },
       {
         "package": "charcode",
@@ -199,7 +199,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "1.6.2"
+        "resolved": "1.6.4"
       },
       {
         "package": "pedantic",

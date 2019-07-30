@@ -103,7 +103,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.2.0"
+        "resolved": "2.3.0"
       },
       {
         "package": "charcode",
@@ -162,7 +162,7 @@
         "dependencyType": "dev",
         "constraintType": "normal",
         "constraint": "^1.5.1",
-        "resolved": "1.6.2"
+        "resolved": "1.6.4"
       },
       {
         "package": "pub_semver",

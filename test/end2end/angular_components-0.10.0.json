@@ -154,21 +154,21 @@
         "constraintType": "normal",
         "constraint": "^5.1.0",
         "resolved": "5.3.1",
-        "available": "6.0.0-alpha"
+        "available": "6.0.0-alpha+1"
       },
       {
         "package": "angular_ast",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.5.9",
-        "available": "0.5.10"
+        "available": "0.5.11"
       },
       {
         "package": "angular_compiler",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.4.3",
-        "available": "0.4.4"
+        "available": "0.4.5"
       },
       {
         "package": "angular_forms",
@@ -176,7 +176,7 @@
         "constraintType": "normal",
         "constraint": "^2.1.0",
         "resolved": "2.1.2",
-        "available": "2.1.3"
+        "available": "2.1.4"
       },
       {
         "package": "args",
@@ -189,14 +189,14 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.8",
-        "resolved": "2.2.0"
+        "resolved": "2.3.0"
       },
       {
         "package": "build",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
-        "resolved": "1.1.4"
+        "resolved": "1.1.5"
       },
       {
         "package": "build_config",
@@ -217,7 +217,7 @@
         "package": "built_value",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "6.6.0"
+        "resolved": "6.7.0"
       },
       {
         "package": "charcode",
@@ -385,7 +385,7 @@
         "dependencyType": "dev",
         "constraintType": "normal",
         "constraint": "^1.6.1",
-        "resolved": "1.6.2"
+        "resolved": "1.6.4"
       },
       {
         "package": "pedantic",
@@ -399,7 +399,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.13.14"
+        "available": "0.13.15"
       },
       {
         "package": "pub_semver",
@@ -425,7 +425,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.22.3"
+        "resolved": "1.22.9"
       },
       {
         "package": "sass_builder",
@@ -438,7 +438,7 @@
         "package": "source_gen",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.4+2"
+        "resolved": "0.9.4+3"
       },
       {
         "package": "source_maps",
@@ -498,7 +498,7 @@
         "package": "watcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.7+10"
+        "resolved": "0.9.7+12"
       },
       {
         "package": "yaml",
@@ -2749,6 +2749,7 @@
         "package:path/src/style/url.dart",
         "package:path/src/style/windows.dart",
         "package:path/src/utils.dart",
+        "package:pedantic/pedantic.dart",
         "package:pub_semver/pub_semver.dart",
         "package:pub_semver/src/patterns.dart",
         "package:pub_semver/src/utils.dart",
