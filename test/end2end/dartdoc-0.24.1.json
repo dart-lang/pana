@@ -165,7 +165,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.2.0"
+        "resolved": "2.3.0"
       },
       {
         "package": "build",
@@ -329,13 +329,19 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.3.0",
-        "resolved": "1.6.2"
+        "resolved": "1.6.4"
+      },
+      {
+        "package": "pedantic",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.8.0+1"
       },
       {
         "package": "platform",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.2.0"
+        "resolved": "2.2.1"
       },
       {
         "package": "plugin",
@@ -418,7 +424,7 @@
         "package": "watcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.7+10"
+        "resolved": "0.9.7+12"
       },
       {
         "package": "yaml",
@@ -1235,6 +1241,7 @@
         "package:path/src/style/url.dart",
         "package:path/src/style/windows.dart",
         "package:path/src/utils.dart",
+        "package:pedantic/pedantic.dart",
         "package:plugin/manager.dart",
         "package:plugin/plugin.dart",
         "package:plugin/src/plugin_impl.dart",

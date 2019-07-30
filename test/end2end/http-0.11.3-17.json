@@ -123,7 +123,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.10.0 <3.0.0",
-        "resolved": "2.2.0"
+        "resolved": "2.3.0"
       },
       {
         "package": "charcode",
@@ -156,7 +156,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.9.0 <2.0.0",
-        "resolved": "1.6.2"
+        "resolved": "1.6.4"
       },
       {
         "package": "source_span",
