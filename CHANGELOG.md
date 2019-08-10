@@ -4,6 +4,8 @@
 
 * Upgrade dependencies: `analyzer` to `0.37`
 
+* Support the latest `json_annotation`.
+
 ## 0.12.19
 
 * Fix: penalize outdated package constraints only for direct dependencies.
