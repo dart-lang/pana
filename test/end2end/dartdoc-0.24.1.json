@@ -209,7 +209,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.6",
-        "resolved": "2.0.6"
+        "resolved": "2.1.1+1"
       },
       {
         "package": "csslib",
@@ -354,7 +354,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^3.0.5",
-        "resolved": "3.0.9"
+        "resolved": "3.0.11"
       },
       {
         "package": "pub_semver",
@@ -368,7 +368,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.0.3"
+        "resolved": "2.0.5"
       },
       {
         "package": "resource",
@@ -394,7 +394,7 @@
         "package": "string_scanner",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.4"
+        "resolved": "1.0.5"
       },
       {
         "package": "term_glyph",
@@ -1078,6 +1078,8 @@
         "package:crypto/src/md5.dart",
         "package:crypto/src/sha1.dart",
         "package:crypto/src/sha256.dart",
+        "package:crypto/src/sha512.dart",
+        "package:crypto/src/sha512_fastsinks.dart",
         "package:crypto/src/utils.dart",
         "package:csslib/parser.dart",
         "package:csslib/src/messages.dart",
