@@ -204,7 +204,7 @@
         "constraintType": "normal",
         "constraint": ">=0.2.6 <0.4.0",
         "resolved": "0.3.2",
-        "available": "0.4.1"
+        "available": "0.4.1+1"
       },
       {
         "package": "built_collection",
@@ -224,6 +224,12 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.1.2"
+      },
+      {
+        "package": "checked_yaml",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.0.2"
       },
       {
         "package": "cli_repl",
@@ -254,7 +260,7 @@
         "package": "crypto",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.0.6"
+        "resolved": "2.1.1+1"
       },
       {
         "package": "csslib",
@@ -332,7 +338,8 @@
         "package": "json_annotation",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.4.0"
+        "resolved": "2.4.0",
+        "available": "3.0.0"
       },
       {
         "package": "kernel",
@@ -411,7 +418,7 @@
         "package": "pubspec_parse",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.4"
+        "resolved": "0.1.5"
       },
       {
         "package": "quiver",
@@ -419,7 +426,7 @@
         "constraintType": "normal",
         "constraint": ">=0.24.0 <0.30.0",
         "resolved": "0.29.0+2",
-        "available": "2.0.3"
+        "available": "2.0.5"
       },
       {
         "package": "sass",
@@ -468,7 +475,7 @@
         "package": "string_scanner",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.4"
+        "resolved": "1.0.5"
       },
       {
         "package": "term_glyph",
@@ -2595,6 +2602,8 @@
         "package:crypto/src/md5.dart",
         "package:crypto/src/sha1.dart",
         "package:crypto/src/sha256.dart",
+        "package:crypto/src/sha512.dart",
+        "package:crypto/src/sha512_fastsinks.dart",
         "package:crypto/src/utils.dart",
         "package:front_end/src/api_prototype/compiler_options.dart",
         "package:front_end/src/api_prototype/diagnostic_message.dart",

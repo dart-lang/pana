@@ -224,7 +224,7 @@
         "package": "string_scanner",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.4"
+        "resolved": "1.0.5"
       },
       {
         "package": "term_glyph",
