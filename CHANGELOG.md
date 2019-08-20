@@ -6,6 +6,9 @@
 
 * Support the latest `json_annotation`.
 
+* Don't penalize outdated dependency when the package's constraint allows it,
+  but a dependent package or SDK restricts it.
+
 ## 0.12.19
 
 * Fix: penalize outdated package constraints only for direct dependencies.
