@@ -113,8 +113,8 @@
         "code": "pubspec.dependencies.outdated",
         "level": "warning",
         "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 5 dependencies (`angular`, `angular_forms`, `build_config`, `protobuf`, `quiver`).",
-        "score": 50.0
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 4 dependencies (`angular`, `build_config`, `protobuf`, `quiver`).",
+        "score": 40.0
       },
       {
         "code": "pubspec.documentation.isNotHelpful",
@@ -146,7 +146,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.35.4",
-        "available": "0.37.0"
+        "available": "0.38.0"
       },
       {
         "package": "angular",
@@ -196,7 +196,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
-        "resolved": "1.1.5"
+        "resolved": "1.1.6"
       },
       {
         "package": "build_config",
@@ -248,7 +248,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.14.10",
-        "resolved": "1.14.11"
+        "resolved": "1.14.12"
       },
       {
         "package": "convert",
@@ -260,7 +260,7 @@
         "package": "crypto",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.1+1"
+        "resolved": "2.1.2"
       },
       {
         "package": "csslib",
@@ -279,14 +279,14 @@
         "package": "dart_internal",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.5"
+        "resolved": "0.1.6"
       },
       {
         "package": "dart_style",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.2.4",
-        "available": "1.2.9"
+        "available": "1.2.10"
       },
       {
         "package": "fixnum",
@@ -300,7 +300,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.14",
-        "available": "0.1.20"
+        "available": "0.1.22"
       },
       {
         "package": "glob",
@@ -346,7 +346,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.14",
-        "available": "0.3.20"
+        "available": "0.3.22"
       },
       {
         "package": "logging",
@@ -379,7 +379,7 @@
         "package": "package_config",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.5"
+        "resolved": "1.1.0"
       },
       {
         "package": "package_resolver",
@@ -432,7 +432,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.22.9"
+        "resolved": "1.22.10"
       },
       {
         "package": "sass_builder",
