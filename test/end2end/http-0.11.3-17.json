@@ -136,7 +136,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.5.0",
-        "resolved": "1.14.11"
+        "resolved": "1.14.12"
       },
       {
         "package": "http_parser",

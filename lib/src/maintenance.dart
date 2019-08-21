@@ -538,6 +538,7 @@ Future<Maintenance> detectMaintenance(
   // Checking the direct dependencies that can't be used with their latest version.
   final outdatedPackages = pkgResolution?.outdated
           ?.where((pd) => pd.isDirect)
+          ?.where((pd) => !pd.constraint.allows(pd.available))
           ?.map((p) => p.package)
           ?.toList() ??
       <PkgDependency>[];
