@@ -1,3 +1,7 @@
+## 0.12.21
+
+* Upgraded dependencies: `analyzer` `0.38.2`.
+
 ## 0.12.20
 
 * Updated suggestion for not supporting future stable SDKs.
