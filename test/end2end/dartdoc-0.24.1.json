@@ -152,7 +152,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.38.0"
+        "available": "0.38.2"
       },
       {
         "package": "args",
@@ -228,14 +228,14 @@
         "package": "file",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "5.0.8+1"
+        "resolved": "5.0.10"
       },
       {
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.6+9",
-        "available": "0.1.22"
+        "available": "0.1.24"
       },
       {
         "package": "glob",
@@ -275,7 +275,7 @@
         "package": "intl",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.15.8"
+        "resolved": "0.16.0"
       },
       {
         "package": "io",
@@ -288,7 +288,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.6+9",
-        "available": "0.3.22"
+        "available": "0.3.24"
       },
       {
         "package": "logging",
@@ -354,7 +354,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^3.0.5",
-        "resolved": "3.0.11"
+        "resolved": "3.0.12"
       },
       {
         "package": "pub_semver",

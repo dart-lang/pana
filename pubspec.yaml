@@ -1,6 +1,6 @@
 name: pana
 description: Evaluate the health and quality of a Dart package
-version: 0.12.20
+version: 0.12.21-dev
 homepage: https://github.com/dart-lang/pana
 author: Dart Team <misc@dartlang.org>
 
@@ -8,7 +8,7 @@ environment:
   sdk: '>=2.3.0 <3.0.0'
 
 dependencies:
-  analyzer: ^0.37.0
+  analyzer: ^0.38.0
   args: '>=0.13.7 <2.0.0'
   async: '>=1.13.3 <3.0.0'
   cli_util: ^0.1.3
