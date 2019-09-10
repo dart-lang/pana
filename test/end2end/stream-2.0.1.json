@@ -28,16 +28,7 @@
     "documentation": "http://docs.rikulo.org/stream"
   },
   "platform": {
-    "components": [
-      "io",
-      "mirrors"
-    ],
-    "uses": {
-      "flutter": "forbidden",
-      "web": "forbidden",
-      "other": "used"
-    },
-    "reason": "Primary library: `package:stream/stream.dart` with components: `io`, `mirrors`."
+    "reason": "Low code quality prevents platform classification."
   },
   "licenses": [
     {
@@ -50,11 +41,19 @@
     "analyzeProcessFailed": false,
     "formatProcessFailed": false,
     "resolveProcessFailed": false,
-    "analyzerErrorCount": 1,
+    "analyzerErrorCount": 26,
     "analyzerWarningCount": 0,
     "analyzerHintCount": 645,
     "platformConflictCount": 0,
     "suggestions": [
+      {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/src/connect_impl.dart`.",
+        "description": "Analysis of `lib/src/connect_impl.dart` failed with 25 errors, 38 hints, including:\n\nline 241 col 1: The class '_ReUriRequest' cannot implement both 'Stream<List<int>>' and 'Stream<Uint8List>' because the type arguments are different.\n\nline 242 col 7: 'StreamWrapper.any' ('any') isn't a valid override of 'Stream.any' ('any').\n\nline 242 col 7: 'StreamWrapper.asBroadcastStream' ('asBroadcastStream') isn't a valid override of 'Stream.asBroadcastStream' ('asBroadcastStream').\n\nline 242 col 7: 'StreamWrapper.asyncExpand' ('asyncExpand') isn't a valid override of 'Stream.asyncExpand' ('asyncExpand').\n\nline 242 col 7: 'StreamWrapper.asyncMap' ('asyncMap') isn't a valid override of 'Stream.asyncMap' ('asyncMap').",
+        "file": "lib/src/connect_impl.dart",
+        "score": 99.94
+      },
       {
         "code": "dartanalyzer.warning",
         "level": "error",
@@ -72,19 +71,11 @@
         "score": 44.65
       },
       {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/plugin/router.dart`.",
-        "description": "Analysis of `lib/src/plugin/router.dart` reported 80 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 10 col 3: Prefer using /// for doc comments.\n\nline 19 col 43: Use `=` to separate a named parameter from its default value.\n\nline 20 col 3: Prefer using /// for doc comments.\n\nline 28 col 59: Use `=` to separate a named parameter from its default value.",
-        "file": "lib/src/plugin/router.dart",
-        "score": 33.04
-      },
-      {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 14 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/rspc/tag.dart` (71 hints)\n- `lib/src/server_impl.dart` (60 hints)\n- `lib/src/server.dart` (46 hints)\n- `lib/src/plugin/loader.dart` (45 hints)\n- `lib/src/connect_impl.dart` (38 hints)\n- `lib/src/rspc/build.dart` (36 hints)\n- `lib/src/rspc/tag_util.dart` (36 hints)\n- `lib/src/connect.dart` (34 hints)\n- `lib/src/plugin/loader_impl.dart` (32 hints)\n- `lib/src/rspc/main.dart` (13 hints)\n- `lib/proxy.dart` (9 hints)\n- `lib/plugin.dart` (1 hint)\n- `lib/rspc.dart` (1 hint)\n- `lib/stream.dart` (1 hint)\n",
-        "score": 189.76999999999998
+        "description": "Additional issues in the following files:\n\n- `lib/src/plugin/router.dart` (80 hints)\n- `lib/src/rspc/tag.dart` (71 hints)\n- `lib/src/server_impl.dart` (60 hints)\n- `lib/src/server.dart` (46 hints)\n- `lib/src/plugin/loader.dart` (45 hints)\n- `lib/src/rspc/build.dart` (36 hints)\n- `lib/src/rspc/tag_util.dart` (36 hints)\n- `lib/src/connect.dart` (34 hints)\n- `lib/src/plugin/loader_impl.dart` (32 hints)\n- `lib/src/rspc/main.dart` (13 hints)\n- `lib/proxy.dart` (9 hints)\n- `lib/plugin.dart` (1 hint)\n- `lib/rspc.dart` (1 hint)\n- `lib/stream.dart` (1 hint)\n",
+        "score": 205.46999999999997
       }
     ]
   },
@@ -98,6 +89,13 @@
     "isExperimentalVersion": false,
     "isPreReleaseVersion": false,
     "suggestions": [
+      {
+        "code": "platform.conflict.inPkg",
+        "level": "error",
+        "title": "Fix platform conflicts.",
+        "description": "Low code quality prevents platform classification.",
+        "score": 20.0
+      },
       {
         "code": "changelog.missing",
         "level": "warning",
@@ -1076,6 +1074,231 @@
           "line": 208,
           "col": 9,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "CONFLICTING_GENERIC_INTERFACES",
+          "file": "lib/src/connect_impl.dart",
+          "line": 241,
+          "col": 1,
+          "description": "The class '_ReUriRequest' cannot implement both 'Stream<List<int>>' and 'Stream<Uint8List>' because the type arguments are different."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.any' ('any') isn't a valid override of 'Stream.any' ('any')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.asBroadcastStream' ('asBroadcastStream') isn't a valid override of 'Stream.asBroadcastStream' ('asBroadcastStream')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.asyncExpand' ('asyncExpand') isn't a valid override of 'Stream.asyncExpand' ('asyncExpand')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.asyncMap' ('asyncMap') isn't a valid override of 'Stream.asyncMap' ('asyncMap')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.distinct' ('distinct') isn't a valid override of 'Stream.distinct' ('distinct')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.elementAt' ('elementAt') isn't a valid override of 'Stream.elementAt' ('elementAt')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.every' ('every') isn't a valid override of 'Stream.every' ('every')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.expand' ('expand') isn't a valid override of 'Stream.expand' ('expand')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.first' ('first') isn't a valid override of 'Stream.first' ('first')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.fold' ('fold') isn't a valid override of 'Stream.fold' ('fold')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.forEach' ('forEach') isn't a valid override of 'Stream.forEach' ('forEach')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.handleError' ('handleError') isn't a valid override of 'Stream.handleError' ('handleError')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.last' ('last') isn't a valid override of 'Stream.last' ('last')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.listen' ('listen') isn't a valid override of 'Stream.listen' ('listen')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.map' ('map') isn't a valid override of 'Stream.map' ('map')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.single' ('single') isn't a valid override of 'Stream.single' ('single')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.skip' ('skip') isn't a valid override of 'Stream.skip' ('skip')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.skipWhile' ('skipWhile') isn't a valid override of 'Stream.skipWhile' ('skipWhile')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.take' ('take') isn't a valid override of 'Stream.take' ('take')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.takeWhile' ('takeWhile') isn't a valid override of 'Stream.takeWhile' ('takeWhile')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.timeout' ('timeout') isn't a valid override of 'Stream.timeout' ('timeout')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.toList' ('toList') isn't a valid override of 'Stream.toList' ('toList')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.toSet' ('toSet') isn't a valid override of 'Stream.toSet' ('toSet')."
+        },
+        {
+          "severity": "ERROR",
+          "errorType": "COMPILE_TIME_ERROR",
+          "errorCode": "INVALID_OVERRIDE",
+          "file": "lib/src/connect_impl.dart",
+          "line": 242,
+          "col": 7,
+          "description": "'StreamWrapper.where' ('where') isn't a valid override of 'Stream.where' ('where')."
         },
         {
           "severity": "INFO",
