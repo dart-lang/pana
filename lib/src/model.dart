@@ -201,7 +201,7 @@ class Suggestion implements Comparable<Suggestion> {
 
   /// The potential score gain if the suggestion is applied and the issue gets
   /// fixed in the package. Values are between 0.0 and 100.0.
-  final double score;
+  final double score; // TODO: Change this to penalty in range [0.0 - 1.0]
 
   Suggestion(
     this.code,

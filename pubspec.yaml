@@ -28,6 +28,8 @@ dependencies:
   quiver: '>=0.24.0 <3.0.0'
   resource: ^2.1.5
   yaml: ^2.1.15
+  file: ^5.0.10
+  source_span: ^1.5.5
 
 dev_dependencies:
   build: ^1.1.0
