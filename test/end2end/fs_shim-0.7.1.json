@@ -7,20 +7,33 @@
   "packageName": "fs_shim",
   "packageVersion": "0.7.1",
   "pubspec": {
-    "version": "0.7.1",
     "name": "fs_shim",
-    "dependencies": {
-      "path": ">=1.3.9",
-      "idb_shim": ">=1.4.0"
-    },
-    "author": "Tekartik <alex@tekartik.com>",
     "description": "A portable file system implementation working on io, browser and memory (through idb_shim)",
-    "web": {
-      "compiler": null
-    },
+    "version": "0.7.1",
+    "author": "Tekartik <alex@tekartik.com>",
     "homepage": "https://github.com/tekartik/fs_shim.dart",
     "environment": {
       "sdk": ">=1.24.0 <2.0.0"
+    },
+    "dependencies": {
+      "idb_shim": ">=1.4.0",
+      "path": ">=1.3.9"
+    },
+    "test_dependencies": [
+      "platform_context",
+      "idb_shim"
+    ],
+    "dev_dependencies": {
+      "test": "any",
+      "dev_test": "any",
+      "browser": "any",
+      "platform_context": {
+        "git": "https://github.com/alextekartik/platform_context.dart"
+      },
+      "chrome_travis": {
+        "git": "git://github.com/tekartik/chrome_travis.dart",
+        "version": ">=0.1.3"
+      }
     },
     "transformers": [
       {
@@ -29,21 +42,8 @@
         }
       }
     ],
-    "test_dependencies": [
-      "platform_context",
-      "idb_shim"
-    ],
-    "dev_dependencies": {
-      "test": "any",
-      "chrome_travis": {
-        "git": "git://github.com/tekartik/chrome_travis.dart",
-        "version": ">=0.1.3"
-      },
-      "browser": "any",
-      "dev_test": "any",
-      "platform_context": {
-        "git": "https://github.com/alextekartik/platform_context.dart"
-      }
+    "web": {
+      "compiler": null
     }
   },
   "platform": {
