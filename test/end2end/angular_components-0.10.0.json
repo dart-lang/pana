@@ -7,36 +7,36 @@
   "packageName": "angular_components",
   "packageVersion": "0.10.0",
   "pubspec": {
-    "version": "0.10.0",
-    "dependencies": {
-      "protobuf": "^0.10.2",
-      "quiver": ">=0.24.0 <0.30.0",
-      "async": "^2.0.8",
-      "collection": "^1.14.10",
-      "angular": "^5.1.0",
-      "build_config": ">=0.2.6 <0.4.0",
-      "meta": "^1.0.4",
-      "angular_forms": "^2.1.0",
-      "built_collection": "^4.0.0",
-      "intl": ">=0.14.0 <0.16.0",
-      "observable": "^0.22.1+3",
-      "fixnum": "^0.10.7",
-      "build": ">=0.11.1 <2.0.0",
-      "sass_builder": "^2.0.2",
-      "logging": "^0.11.2",
-      "js": "^0.6.1"
-    },
     "name": "angular_components",
-    "author": "Dart Team <misc@dartlang.org>",
+    "version": "0.10.0",
     "description": "The official Material Design components for AngularDart. Used at Google in production apps.\n",
     "homepage": "https://webdev.dartlang.org/components",
+    "documentation": "https://webdev.dartlang.org/api?package=angular_components",
+    "author": "Dart Team <misc@dartlang.org>",
     "environment": {
       "sdk": ">=2.1.0-dev.5.0 <3.0.0"
     },
-    "documentation": "https://webdev.dartlang.org/api?package=angular_components",
+    "dependencies": {
+      "angular": "^5.1.0",
+      "angular_forms": "^2.1.0",
+      "async": "^2.0.8",
+      "build": ">=0.11.1 <2.0.0",
+      "build_config": ">=0.2.6 <0.4.0",
+      "built_collection": "^4.0.0",
+      "collection": "^1.14.10",
+      "fixnum": "^0.10.7",
+      "intl": ">=0.14.0 <0.16.0",
+      "js": "^0.6.1",
+      "logging": "^0.11.2",
+      "meta": "^1.0.4",
+      "observable": "^0.22.1+3",
+      "protobuf": "^0.10.2",
+      "quiver": ">=0.24.0 <0.30.0",
+      "sass_builder": "^2.0.2"
+    },
     "dev_dependencies": {
-      "test": "^1.0.0",
-      "path": "^1.6.1"
+      "path": "^1.6.1",
+      "test": "^1.0.0"
     }
   },
   "platform": {
@@ -146,7 +146,13 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.35.4",
-        "available": "0.38.2"
+        "available": "0.39.1"
+      },
+      {
+        "package": "analyzer_plugin",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "0.2.1"
       },
       {
         "package": "angular",
@@ -189,14 +195,14 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.8",
-        "resolved": "2.3.0"
+        "resolved": "2.4.0"
       },
       {
         "package": "build",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
-        "resolved": "1.1.6"
+        "resolved": "1.2.1"
       },
       {
         "package": "build_config",
@@ -217,7 +223,15 @@
         "package": "built_value",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "6.7.1"
+        "resolved": "6.8.2",
+        "available": "7.0.0"
+      },
+      {
+        "package": "built_value_generator",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "6.8.2",
+        "available": "7.0.0"
       },
       {
         "package": "charcode",
@@ -260,7 +274,7 @@
         "package": "crypto",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.2"
+        "resolved": "2.1.3"
       },
       {
         "package": "csslib",
@@ -279,34 +293,40 @@
         "package": "dart_internal",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.6"
+        "resolved": "0.1.7"
       },
       {
         "package": "dart_style",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.2.4",
-        "available": "1.2.10"
+        "available": "1.3.3"
       },
       {
         "package": "fixnum",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.10.7",
-        "resolved": "0.10.9"
+        "resolved": "0.10.11"
       },
       {
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.14",
-        "available": "0.1.24"
+        "available": "0.1.29"
       },
       {
         "package": "glob",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.7"
+        "resolved": "1.2.0"
+      },
+      {
+        "package": "html",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "0.14.0+3"
       },
       {
         "package": "http",
@@ -347,7 +367,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.14",
-        "available": "0.3.24"
+        "available": "0.3.29"
       },
       {
         "package": "logging",
@@ -360,14 +380,26 @@
         "package": "matcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.12.5"
+        "resolved": "0.12.6"
       },
       {
         "package": "meta",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.0.4",
-        "resolved": "1.1.7"
+        "resolved": "1.1.8"
+      },
+      {
+        "package": "node_interop",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.0.3"
+      },
+      {
+        "package": "node_io",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.0.1+2"
       },
       {
         "package": "observable",
@@ -407,7 +439,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "0.14.1"
+        "available": "1.0.0"
       },
       {
         "package": "pub_semver",
@@ -427,14 +459,13 @@
         "constraintType": "normal",
         "constraint": ">=0.24.0 <0.30.0",
         "resolved": "0.29.0+2",
-        "available": "2.0.5"
+        "available": "2.1.1"
       },
       {
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.22.10",
-        "available": "1.23.0-module.beta.1"
+        "resolved": "1.23.3"
       },
       {
         "package": "sass_builder",
@@ -447,7 +478,8 @@
         "package": "source_gen",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.4+4"
+        "resolved": "0.9.4+4",
+        "available": "0.9.4+6"
       },
       {
         "package": "source_maps",
@@ -495,7 +527,7 @@
         "package": "tuple",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.2"
+        "resolved": "1.0.3"
       },
       {
         "package": "typed_data",
@@ -513,7 +545,7 @@
         "package": "yaml",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.16"
+        "resolved": "2.2.0"
       }
     ]
   },
@@ -2679,6 +2711,8 @@
         "package:front_end/src/scanner/token.dart",
         "package:glob/glob.dart",
         "package:glob/src/ast.dart",
+        "package:glob/src/io.dart",
+        "package:glob/src/io_export.dart",
         "package:glob/src/list_tree.dart",
         "package:glob/src/parser.dart",
         "package:glob/src/utils.dart",
@@ -2937,6 +2971,7 @@
         "package:sass/src/util/prefixed_map_view.dart",
         "package:sass/src/util/public_member_map_view.dart",
         "package:sass/src/util/source_map_buffer.dart",
+        "package:sass/src/util/unprefixed_map_view.dart",
         "package:sass/src/utils.dart",
         "package:sass/src/value.dart",
         "package:sass/src/value/argument_list.dart",

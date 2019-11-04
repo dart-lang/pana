@@ -7,14 +7,14 @@
   "packageName": "skiplist",
   "packageVersion": "0.1.0",
   "pubspec": {
-    "version": "0.1.0",
     "name": "skiplist",
+    "description": "A skiplist implementation in Dart.",
+    "version": "0.1.0",
+    "author": "Steven Roose <stevenroose@gmail.com>",
+    "homepage": "https://github.com/stevenroose/dart-skiplist",
     "dependencies": {
       "quiver_iterables": ">=1.0.0 <2.0.0"
     },
-    "author": "Steven Roose <stevenroose@gmail.com>",
-    "description": "A skiplist implementation in Dart.",
-    "homepage": "https://github.com/stevenroose/dart-skiplist",
     "dev_dependencies": {
       "test": ">=0.12.7 <0.13.0"
     }

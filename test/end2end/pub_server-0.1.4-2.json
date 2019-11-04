@@ -7,29 +7,29 @@
   "packageName": "pub_server",
   "packageVersion": "0.1.4+2",
   "pubspec": {
-    "version": "0.1.4+2",
     "name": "pub_server",
-    "dependencies": {
-      "pub_semver": "^1.1.0",
-      "http_parser": "^3.0.0",
-      "logging": ">=0.9.3 <1.0.0",
-      "shelf": ">=0.5.6 <0.8.0",
-      "yaml": "^2.1.2",
-      "dart2_constant": "^1.0.1",
-      "mime": ">=0.9.3 <0.10.0"
-    },
+    "version": "0.1.4+2",
     "author": "Dart Team <misc@dartlang.org>",
     "description": "A Dart package containing re-usable components for making a pub package server.",
     "homepage": "https://github.com/dart-lang/pub_server",
     "environment": {
       "sdk": ">=2.0.0-dev <3.0.0"
     },
+    "dependencies": {
+      "dart2_constant": "^1.0.1",
+      "http_parser": "^3.0.0",
+      "logging": ">=0.9.3 <1.0.0",
+      "mime": ">=0.9.3 <0.10.0",
+      "pub_semver": "^1.1.0",
+      "shelf": ">=0.5.6 <0.8.0",
+      "yaml": "^2.1.2"
+    },
     "dev_dependencies": {
-      "test": "^1.3.0",
-      "http": "^0.11.0",
       "archive": ">=1.0.0 <3.0.0",
       "args": "^1.4.0",
-      "path": "^1.5.1"
+      "http": "^0.11.0",
+      "path": "^1.5.1",
+      "test": "^1.3.0"
     }
   },
   "platform": {
@@ -103,7 +103,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.3.0"
+        "resolved": "2.4.0"
       },
       {
         "package": "charcode",
@@ -148,7 +148,7 @@
         "package": "meta",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.7"
+        "resolved": "1.1.8"
       },
       {
         "package": "mime",
@@ -225,7 +225,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.1.2",
-        "resolved": "2.1.16"
+        "resolved": "2.2.0"
       }
     ]
   },
