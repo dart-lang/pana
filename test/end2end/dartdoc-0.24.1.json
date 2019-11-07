@@ -386,7 +386,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.1.1"
+        "resolved": "2.1.2+1"
       },
       {
         "package": "resource",
