@@ -78,7 +78,7 @@
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/material_select/material_select_item.dart`.",
-        "description": "Analysis of `lib/material_select/material_select_item.dart` reported 12 hints, including:\n\nline 36 col 5: 'GlyphComponent' is deprecated and shouldn't be used.\n\nline 48 col 9: 'HasComponentRenderer' is deprecated and shouldn't be used.\n\nline 87 col 17: 'getBool' is deprecated and shouldn't be used.\n\nline 124 col 21: 'getBool' is deprecated and shouldn't be used.\n\nline 162 col 22: 'getBool' is deprecated and shouldn't be used.",
+        "description": "Analysis of `lib/material_select/material_select_item.dart` reported 12 hints, including:\n\nline 36 col 5: 'GlyphComponent' is deprecated and shouldn't be used. Use MaterialIconComponent instead.\n\nline 48 col 9: 'HasComponentRenderer' is deprecated and shouldn't be used. Use HasFactoryRenderer instead as it allows for treeshaking.\n\nline 87 col 17: 'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool]..\n\nline 124 col 21: 'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool]..\n\nline 162 col 22: 'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool]..",
         "file": "lib/material_select/material_select_item.dart",
         "score": 5.84
       },
@@ -86,7 +86,7 @@
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/model/selection/multi_selection_model_impl.dart`.",
-        "description": "Analysis of `lib/src/model/selection/multi_selection_model_impl.dart` reported 10 hints, including:\n\nline 26 col 7: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 27 col 7: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 39 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 40 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used.\n\nline 55 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used.",
+        "description": "Analysis of `lib/src/model/selection/multi_selection_model_impl.dart` reported 10 hints, including:\n\nline 26 col 7: 'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier.\n\nline 27 col 7: 'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier.\n\nline 39 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier.\n\nline 40 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier.\n\nline 55 col 9: 'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier.",
         "file": "lib/src/model/selection/multi_selection_model_impl.dart",
         "score": 4.89
       },
@@ -459,7 +459,7 @@
         "constraintType": "normal",
         "constraint": ">=0.24.0 <0.30.0",
         "resolved": "0.29.0+2",
-        "available": "2.1.1"
+        "available": "2.1.2+1"
       },
       {
         "package": "sass",
@@ -503,7 +503,7 @@
         "package": "stream_transform",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.0.19"
+        "resolved": "0.0.20"
       },
       {
         "package": "string_scanner",
@@ -3565,7 +3565,7 @@
           "file": "lib/dynamic_component/dynamic_component.dart",
           "line": 18,
           "col": 9,
-          "description": "'SlowComponentLoader' is deprecated and shouldn't be used."
+          "description": "'SlowComponentLoader' is deprecated and shouldn't be used. Use ComponentLoader with an imported ComponentFactory instead.."
         }
       ],
       "directLibs": [
@@ -6157,7 +6157,7 @@
           "file": "lib/laminate/overlay/module.dart",
           "line": 92,
           "col": 17,
-          "description": "'ManagedZone' is deprecated and shouldn't be used."
+          "description": "'ManagedZone' is deprecated and shouldn't be used. Use NgZone directly instead."
         },
         {
           "severity": "INFO",
@@ -6166,7 +6166,7 @@
           "file": "lib/laminate/overlay/module.dart",
           "line": 92,
           "col": 40,
-          "description": "'Angular2ManagedZone' is deprecated and shouldn't be used."
+          "description": "'Angular2ManagedZone' is deprecated and shouldn't be used. Use NgZone directly instead."
         }
       ],
       "directLibs": [
@@ -7261,7 +7261,7 @@
           "file": "lib/laminate/portal/portal.dart",
           "line": 263,
           "col": 40,
-          "description": "'createLocalsMap' is deprecated and shouldn't be used."
+          "description": "'createLocalsMap' is deprecated and shouldn't be used. No longer supported."
         },
         {
           "severity": "INFO",
@@ -7270,7 +7270,7 @@
           "file": "lib/laminate/portal/portal.dart",
           "line": 313,
           "col": 29,
-          "description": "'createLocalsMap' is deprecated and shouldn't be used."
+          "description": "'createLocalsMap' is deprecated and shouldn't be used. No longer supported."
         }
       ],
       "directLibs": [
@@ -7682,7 +7682,7 @@
           "file": "lib/laminate/ruler/module.dart",
           "line": 16,
           "col": 12,
-          "description": "'ManagedZone' is deprecated and shouldn't be used."
+          "description": "'ManagedZone' is deprecated and shouldn't be used. Use NgZone directly instead."
         },
         {
           "severity": "INFO",
@@ -7691,7 +7691,7 @@
           "file": "lib/laminate/ruler/module.dart",
           "line": 16,
           "col": 35,
-          "description": "'Angular2ManagedZone' is deprecated and shouldn't be used."
+          "description": "'Angular2ManagedZone' is deprecated and shouldn't be used. Use NgZone directly instead."
         },
         {
           "severity": "INFO",
@@ -7700,7 +7700,7 @@
           "file": "lib/laminate/ruler/module.dart",
           "line": 17,
           "col": 3,
-          "description": "'NgRuler' is deprecated and shouldn't be used."
+          "description": "'NgRuler' is deprecated and shouldn't be used. Use DomRuler instead. ElementRef is deprecated.."
         }
       ],
       "directLibs": [
@@ -10043,7 +10043,7 @@
           "file": "lib/material_datepicker/date_input.dart",
           "line": 183,
           "col": 12,
-          "description": "'checkValid' is deprecated and shouldn't be used."
+          "description": "'checkValid' is deprecated and shouldn't be used. Use angular2 forms API instead."
         }
       ],
       "directLibs": [
@@ -10375,7 +10375,7 @@
           "file": "lib/material_datepicker/date_range_editor.dart",
           "line": 211,
           "col": 9,
-          "description": "'ManagedZone' is deprecated and shouldn't be used."
+          "description": "'ManagedZone' is deprecated and shouldn't be used. Use NgZone directly instead."
         }
       ],
       "directLibs": [
@@ -14527,7 +14527,7 @@
           "file": "lib/material_dialog/material_dialog.dart",
           "line": 106,
           "col": 13,
-          "description": "'detectChanges' is deprecated and shouldn't be used."
+          "description": "'detectChanges' is deprecated and shouldn't be used. Breaks assumptions around change detection and will be removed."
         }
       ],
       "directLibs": [
@@ -15801,7 +15801,7 @@
           "file": "lib/material_input/base_material_input.dart",
           "line": 397,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         }
       ],
       "directLibs": [
@@ -16489,7 +16489,7 @@
           "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 62,
           "col": 14,
-          "description": "'HasComponentRenderer' is deprecated and shouldn't be used."
+          "description": "'HasComponentRenderer' is deprecated and shouldn't be used. Use HasFactoryRenderer instead as it allows for treeshaking."
         },
         {
           "severity": "INFO",
@@ -16498,7 +16498,7 @@
           "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 112,
           "col": 9,
-          "description": "'HasComponentRenderer' is deprecated and shouldn't be used."
+          "description": "'HasComponentRenderer' is deprecated and shouldn't be used. Use HasFactoryRenderer instead as it allows for treeshaking."
         },
         {
           "severity": "INFO",
@@ -16516,7 +16516,7 @@
           "file": "lib/material_input/material_auto_suggest_input.dart",
           "line": 440,
           "col": 3,
-          "description": "'ComponentRenderer' is deprecated and shouldn't be used."
+          "description": "'ComponentRenderer' is deprecated and shouldn't be used. Use FactoryRenderer instead as it allows for treeshaking."
         },
         {
           "severity": "INFO",
@@ -16938,7 +16938,7 @@
           "file": "lib/material_input/material_input.dart",
           "line": 99,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -16947,7 +16947,7 @@
           "file": "lib/material_input/material_input.dart",
           "line": 102,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -16956,7 +16956,7 @@
           "file": "lib/material_input/material_input.dart",
           "line": 106,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -16965,7 +16965,7 @@
           "file": "lib/material_input/material_input.dart",
           "line": 115,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -17587,7 +17587,7 @@
           "file": "lib/material_input/material_input_multiline.dart",
           "line": 59,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -17596,7 +17596,7 @@
           "file": "lib/material_input/material_input_multiline.dart",
           "line": 68,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -17605,7 +17605,7 @@
           "file": "lib/material_input/material_input_multiline.dart",
           "line": 104,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -17614,7 +17614,7 @@
           "file": "lib/material_input/material_input_multiline.dart",
           "line": 108,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -17623,7 +17623,7 @@
           "file": "lib/material_input/material_input_multiline.dart",
           "line": 114,
           "col": 25,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -17632,7 +17632,7 @@
           "file": "lib/material_input/material_input_multiline.dart",
           "line": 127,
           "col": 13,
-          "description": "'detectChanges' is deprecated and shouldn't be used."
+          "description": "'detectChanges' is deprecated and shouldn't be used. Breaks assumptions around change detection and will be removed."
         }
       ],
       "directLibs": [
@@ -20638,7 +20638,7 @@
           "file": "lib/material_menu/menu_item_groups.dart",
           "line": 97,
           "col": 26,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -20647,7 +20647,7 @@
           "file": "lib/material_menu/menu_item_groups.dart",
           "line": 126,
           "col": 32,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -21445,7 +21445,7 @@
           "file": "lib/material_menu/menu_popup_wrapper.dart",
           "line": 23,
           "col": 23,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         }
       ],
       "directLibs": [
@@ -21862,7 +21862,7 @@
           "file": "lib/material_popup/material_popup.dart",
           "line": 122,
           "col": 9,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         }
       ],
       "directLibs": [
@@ -23324,7 +23324,7 @@
           "file": "lib/material_select/dropdown_button.dart",
           "line": 35,
           "col": 5,
-          "description": "'GlyphComponent' is deprecated and shouldn't be used."
+          "description": "'GlyphComponent' is deprecated and shouldn't be used. Use MaterialIconComponent instead."
         }
       ],
       "directLibs": [
@@ -23601,7 +23601,7 @@
           "file": "lib/material_select/material_dropdown_select.dart",
           "line": 89,
           "col": 35,
-          "description": "'OnChanges' is deprecated and shouldn't be used."
+          "description": "'OnChanges' is deprecated and shouldn't be used. Please use AfterChanges instead.."
         }
       ],
       "directLibs": [
@@ -24322,7 +24322,7 @@
           "file": "lib/material_select/material_select.dart",
           "line": 112,
           "col": 17,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         }
       ],
       "directLibs": [
@@ -24863,7 +24863,7 @@
           "file": "lib/material_select/material_select_dropdown_item.dart",
           "line": 30,
           "col": 5,
-          "description": "'GlyphComponent' is deprecated and shouldn't be used."
+          "description": "'GlyphComponent' is deprecated and shouldn't be used. Use MaterialIconComponent instead."
         }
       ],
       "directLibs": [
@@ -25185,7 +25185,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 36,
           "col": 5,
-          "description": "'GlyphComponent' is deprecated and shouldn't be used."
+          "description": "'GlyphComponent' is deprecated and shouldn't be used. Use MaterialIconComponent instead."
         },
         {
           "severity": "INFO",
@@ -25194,7 +25194,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 48,
           "col": 9,
-          "description": "'HasComponentRenderer' is deprecated and shouldn't be used."
+          "description": "'HasComponentRenderer' is deprecated and shouldn't be used. Use HasFactoryRenderer instead as it allows for treeshaking."
         },
         {
           "severity": "INFO",
@@ -25203,7 +25203,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 87,
           "col": 17,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -25212,7 +25212,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 124,
           "col": 21,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -25221,7 +25221,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 162,
           "col": 22,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -25230,7 +25230,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 171,
           "col": 25,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -25239,7 +25239,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 181,
           "col": 27,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -25257,7 +25257,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 224,
           "col": 17,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -25266,7 +25266,7 @@
           "file": "lib/material_select/material_select_item.dart",
           "line": 235,
           "col": 24,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -26391,7 +26391,7 @@
           "file": "lib/material_stepper/material_step.dart",
           "line": 39,
           "col": 17,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -26400,7 +26400,7 @@
           "file": "lib/material_stepper/material_step.dart",
           "line": 54,
           "col": 20,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -26409,7 +26409,7 @@
           "file": "lib/material_stepper/material_step.dart",
           "line": 64,
           "col": 21,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -26418,7 +26418,7 @@
           "file": "lib/material_stepper/material_step.dart",
           "line": 76,
           "col": 17,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         },
         {
           "severity": "INFO",
@@ -26427,7 +26427,7 @@
           "file": "lib/material_stepper/material_step.dart",
           "line": 89,
           "col": 20,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         }
       ],
       "directLibs": [
@@ -26642,7 +26642,7 @@
           "file": "lib/material_stepper/material_stepper.dart",
           "line": 82,
           "col": 21,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         }
       ],
       "directLibs": [
@@ -31961,7 +31961,7 @@
           "file": "lib/model/menu/menu.dart",
           "line": 184,
           "col": 39,
-          "description": "'secondaryIconVisibility' is deprecated and shouldn't be used."
+          "description": "'secondaryIconVisibility' is deprecated and shouldn't be used. Please use itemSuffixes instead."
         },
         {
           "severity": "INFO",
@@ -31970,7 +31970,7 @@
           "file": "lib/model/menu/menu.dart",
           "line": 197,
           "col": 16,
-          "description": "'secondaryIcon' is deprecated and shouldn't be used."
+          "description": "'secondaryIcon' is deprecated and shouldn't be used. Please use itemSuffixes instead."
         },
         {
           "severity": "INFO",
@@ -31979,7 +31979,7 @@
           "file": "lib/model/menu/menu.dart",
           "line": 203,
           "col": 36,
-          "description": "'secondaryIconVisibility' is deprecated and shouldn't be used."
+          "description": "'secondaryIconVisibility' is deprecated and shouldn't be used. Please use itemSuffixes instead."
         }
       ],
       "directLibs": [
@@ -32106,7 +32106,7 @@
           "file": "lib/model/menu/selectable_menu.dart",
           "line": 104,
           "col": 59,
-          "description": "'secondaryIcon' is deprecated and shouldn't be used."
+          "description": "'secondaryIcon' is deprecated and shouldn't be used. Please use itemSuffixes instead."
         }
       ],
       "directLibs": [
@@ -32373,7 +32373,7 @@
           "file": "lib/model/selection/selection_container.dart",
           "line": 12,
           "col": 32,
-          "description": "'HasComponentRenderer' is deprecated and shouldn't be used."
+          "description": "'HasComponentRenderer' is deprecated and shouldn't be used. Use HasFactoryRenderer instead as it allows for treeshaking."
         },
         {
           "severity": "INFO",
@@ -32382,7 +32382,7 @@
           "file": "lib/model/selection/selection_container.dart",
           "line": 39,
           "col": 3,
-          "description": "'ComponentRenderer' is deprecated and shouldn't be used."
+          "description": "'ComponentRenderer' is deprecated and shouldn't be used. Use FactoryRenderer instead as it allows for treeshaking."
         },
         {
           "severity": "INFO",
@@ -32391,7 +32391,7 @@
           "file": "lib/model/selection/selection_container.dart",
           "line": 41,
           "col": 3,
-          "description": "'ComponentRenderer' is deprecated and shouldn't be used."
+          "description": "'ComponentRenderer' is deprecated and shouldn't be used. Use FactoryRenderer instead as it allows for treeshaking."
         }
       ],
       "directLibs": [
@@ -34535,7 +34535,7 @@
           "file": "lib/src/laminate/popup/popup_hierarchy.dart",
           "line": 101,
           "col": 3,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         }
       ]
     },
@@ -34780,7 +34780,7 @@
           "file": "lib/src/material_tree/material_tree_root.dart",
           "line": 11,
           "col": 39,
-          "description": "'HasComponentRenderer' is deprecated and shouldn't be used."
+          "description": "'HasComponentRenderer' is deprecated and shouldn't be used. Use HasFactoryRenderer instead as it allows for treeshaking."
         }
       ]
     },
@@ -34814,7 +34814,7 @@
           "file": "lib/src/model/selection/delegating_selection_model.dart",
           "line": 49,
           "col": 43,
-          "description": "'deliverChanges' is deprecated and shouldn't be used."
+          "description": "'deliverChanges' is deprecated and shouldn't be used. Use ChangeNotifier instead to have this method available."
         },
         {
           "severity": "INFO",
@@ -34823,7 +34823,7 @@
           "file": "lib/src/model/selection/delegating_selection_model.dart",
           "line": 53,
           "col": 20,
-          "description": "'notifyChange' is deprecated and shouldn't be used."
+          "description": "'notifyChange' is deprecated and shouldn't be used. Use ChangeNotifier instead to have this method available."
         },
         {
           "severity": "INFO",
@@ -34841,7 +34841,7 @@
           "file": "lib/src/model/selection/delegating_selection_model.dart",
           "line": 58,
           "col": 20,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34850,7 +34850,7 @@
           "file": "lib/src/model/selection/delegating_selection_model.dart",
           "line": 63,
           "col": 43,
-          "description": "'hasObservers' is deprecated and shouldn't be used."
+          "description": "'hasObservers' is deprecated and shouldn't be used. Use ChangeNotifier instead to have this method available."
         },
         {
           "severity": "INFO",
@@ -34859,7 +34859,7 @@
           "file": "lib/src/model/selection/delegating_selection_model.dart",
           "line": 66,
           "col": 37,
-          "description": "'observed' is deprecated and shouldn't be used."
+          "description": "'observed' is deprecated and shouldn't be used. Use ChangeNotifier instead to have this method available."
         },
         {
           "severity": "INFO",
@@ -34868,7 +34868,7 @@
           "file": "lib/src/model/selection/delegating_selection_model.dart",
           "line": 69,
           "col": 39,
-          "description": "'unobserved' is deprecated and shouldn't be used."
+          "description": "'unobserved' is deprecated and shouldn't be used. Use ChangeNotifier instead to have this method available."
         }
       ]
     },
@@ -34914,7 +34914,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 26,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34923,7 +34923,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 27,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34932,7 +34932,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 39,
           "col": 9,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34941,7 +34941,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 40,
           "col": 9,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34950,7 +34950,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 55,
           "col": 9,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34959,7 +34959,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 56,
           "col": 9,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34968,7 +34968,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 75,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34977,7 +34977,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 76,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34986,7 +34986,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 91,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -34995,7 +34995,7 @@
           "file": "lib/src/model/selection/multi_selection_model_impl.dart",
           "line": 92,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         }
       ]
     },
@@ -35057,7 +35057,7 @@
           "file": "lib/src/model/selection/single_selection_model_impl.dart",
           "line": 45,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -35066,7 +35066,7 @@
           "file": "lib/src/model/selection/single_selection_model_impl.dart",
           "line": 46,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -35075,7 +35075,7 @@
           "file": "lib/src/model/selection/single_selection_model_impl.dart",
           "line": 67,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         },
         {
           "severity": "INFO",
@@ -35084,7 +35084,7 @@
           "file": "lib/src/model/selection/single_selection_model_impl.dart",
           "line": 68,
           "col": 7,
-          "description": "'notifyPropertyChange' is deprecated and shouldn't be used."
+          "description": "'notifyPropertyChange' is deprecated and shouldn't be used. Use PropertyChangeNotifier."
         }
       ]
     },
@@ -35106,7 +35106,7 @@
           "file": "lib/src/utils/angular/managed_zone/managed_zone.dart",
           "line": 64,
           "col": 34,
-          "description": "'ManagedZone' is deprecated and shouldn't be used."
+          "description": "'ManagedZone' is deprecated and shouldn't be used. Use NgZone directly instead."
         },
         {
           "severity": "INFO",
@@ -35115,7 +35115,7 @@
           "file": "lib/src/utils/angular/managed_zone/managed_zone.dart",
           "line": 65,
           "col": 40,
-          "description": "'ManagedZone' is deprecated and shouldn't be used."
+          "description": "'ManagedZone' is deprecated and shouldn't be used. Use NgZone directly instead."
         }
       ]
     },
@@ -36107,7 +36107,7 @@
           "file": "lib/utils/angular/managed_zone/interface.dart",
           "line": 6,
           "col": 10,
-          "description": "'ManagedZone' is deprecated and shouldn't be used."
+          "description": "'ManagedZone' is deprecated and shouldn't be used. Use NgZone directly instead."
         }
       ],
       "directLibs": [
@@ -36156,7 +36156,7 @@
           "file": "lib/utils/angular/reference/reference.dart",
           "line": 12,
           "col": 53,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",
@@ -36165,7 +36165,7 @@
           "file": "lib/utils/angular/reference/reference.dart",
           "line": 22,
           "col": 9,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         }
       ],
       "directLibs": [
@@ -36354,7 +36354,7 @@
           "file": "lib/utils/angular/scroll_host/angular_2.dart",
           "line": 338,
           "col": 15,
-          "description": "'getBool' is deprecated and shouldn't be used."
+          "description": "'getBool' is deprecated and shouldn't be used. Angular now supports boolean properties natively, for @Attribute use [attributeToBool].."
         }
       ],
       "directLibs": [
@@ -37323,7 +37323,7 @@
           "file": "lib/utils/browser/events/events.dart",
           "line": 49,
           "col": 18,
-          "description": "'ElementRef' is deprecated and shouldn't be used."
+          "description": "'ElementRef' is deprecated and shouldn't be used. Inject or reference dart:html Element or HtmlElement instead."
         },
         {
           "severity": "INFO",

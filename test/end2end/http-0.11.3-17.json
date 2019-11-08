@@ -649,7 +649,7 @@
           "file": "lib/src/base_client.dart",
           "line": 163,
           "col": 44,
-          "description": "'typed' is deprecated and shouldn't be used."
+          "description": "'typed' is deprecated and shouldn't be used. Use list.cast<E> instead.."
         },
         {
           "severity": "INFO",
@@ -658,7 +658,7 @@
           "file": "lib/src/base_client.dart",
           "line": 165,
           "col": 44,
-          "description": "'typed' is deprecated and shouldn't be used."
+          "description": "'typed' is deprecated and shouldn't be used. Use map.cast<K, V> instead.."
         },
         {
           "severity": "INFO",
