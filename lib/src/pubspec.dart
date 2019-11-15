@@ -115,7 +115,7 @@ class Pubspec {
 
   bool get usesOldFlutterPluginFormat =>
       usesFlutter &&
-      _inner.flutter['plugin'] != null &&
+      _inner.flutter['plugin'] is Map<String, Object> &&
       const {
         'androidPackage',
         'iosPrefix',
