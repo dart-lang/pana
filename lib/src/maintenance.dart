@@ -346,7 +346,8 @@ Future<Maintenance> detectMaintenance(
         'In pubspec.yaml the '
             'flutter.plugin.{androidPackage,iosPrefix,pluginClass} keys are '
             'deprecated. Consider using the flutter.plugin.platforms key '
-            'introduced in Flutter 1.10.0\n\n See $_pluginDocsUrl'));
+            'introduced in Flutter 1.10.0\n\n See $_pluginDocsUrl',
+        score: 10.0));
   }
 
   if (dartdocSuccessful == false) {
