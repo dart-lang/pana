@@ -30,6 +30,9 @@ final List<String> changelogFileNames = textFileNameCandidates('changelog');
 
 final List<String> readmeFileNames = textFileNameCandidates('readme');
 
+const _pluginDocsUrl =
+    'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
+
 @deprecated
 final List<String> exampleReadmeFileNames = <String>[
   ...textFileNameCandidates('example/readme'),
@@ -334,6 +337,16 @@ Future<Maintenance> detectMaintenance(
         'Support future stable Dart 2 SDKs in `pubspec.yaml`.',
         'The SDK constraint in `pubspec.yaml` doesn\'t allow future stable Dart 2.x SDK releases.',
         score: 20.0));
+  }
+
+  if (pubspec.usesOldFlutterPluginFormat) {
+    maintenanceSuggestions.add(Suggestion.warning(
+        SuggestionCode.pubspecUsesOldFlutterPluginFormat,
+        'Update flutter plugin descriptor in `pubspec.yaml`.',
+        'In pubspec.yaml the '
+            'flutter.plugin.{androidPackage,iosPrefix,pluginClass} keys are '
+            'deprecated. Consider using the flutter.plugin.platforms key '
+            'introduced in Flutter 1.10.0\n\n See $_pluginDocsUrl'));
   }
 
   if (dartdocSuccessful == false) {

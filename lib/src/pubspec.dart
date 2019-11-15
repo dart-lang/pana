@@ -112,6 +112,15 @@ class Pubspec {
 
   SdkConstraintStatus get sdkConstraintStatus =>
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
+
+  bool get usesOldFlutterPluginFormat =>
+      usesFlutter &&
+      _inner.flutter['plugin'] != null &&
+      const {
+        'androidPackage',
+        'iosPrefix',
+        'pluginClass',
+      }.any((_inner.flutter['plugin'] as Map<String, Object>).containsKey);
 }
 
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
