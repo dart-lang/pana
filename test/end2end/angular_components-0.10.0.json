@@ -149,12 +149,6 @@
         "available": "0.39.1"
       },
       {
-        "package": "analyzer_plugin",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.2.1"
-      },
-      {
         "package": "angular",
         "dependencyType": "direct",
         "constraintType": "normal",
@@ -217,21 +211,13 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^4.0.0",
-        "resolved": "4.2.2"
+        "resolved": "4.3.0"
       },
       {
         "package": "built_value",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "6.8.2",
-        "available": "7.0.0"
-      },
-      {
-        "package": "built_value_generator",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "6.8.2",
-        "available": "7.0.0"
+        "resolved": "7.0.0"
       },
       {
         "package": "charcode",
@@ -255,7 +241,7 @@
         "package": "code_builder",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "3.2.0"
+        "resolved": "3.2.1"
       },
       {
         "package": "collection",
@@ -321,12 +307,6 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "1.2.0"
-      },
-      {
-        "package": "html",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.14.0+3"
       },
       {
         "package": "http",
@@ -439,7 +419,7 @@
         "constraintType": "normal",
         "constraint": "^0.10.2",
         "resolved": "0.10.8",
-        "available": "1.0.0"
+        "available": "1.0.1"
       },
       {
         "package": "pub_semver",
