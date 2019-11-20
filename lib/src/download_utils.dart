@@ -146,6 +146,10 @@ class UrlChecker {
     int resolveCacheLimit = 1000,
   }) : _resolveCacheLimit = resolveCacheLimit {
     addInternalHosts([
+      'dart.dev',
+      RegExp(r'.*\.dart\.dev'),
+      'pub.dev',
+      RegExp(r'.*\.pub\.dev'),
       'dartlang.org',
       RegExp(r'.*\.dartlang\.org'),
       'example.com',
@@ -195,12 +199,20 @@ class UrlChecker {
     if (uri == null) {
       return false;
     }
+    final client = http.Client();
     try {
       log.info('Requesting HEAD $uri ...');
-      final rs = await http.head(uri).timeout(const Duration(seconds: 15));
+      final request = http.Request('HEAD', uri)
+        ..followRedirects = true
+        ..maxRedirects = 10;
+      final rs =
+          await client.send(request).timeout(const Duration(seconds: 15));
+      await rs.stream.drain();
       return rs.statusCode >= 200 && rs.statusCode < 300;
     } catch (e) {
       log.info('HEAD $uri failed', e);
+    } finally {
+      client.close();
     }
     return false;
   }
