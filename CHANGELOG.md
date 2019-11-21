@@ -1,3 +1,7 @@
+## 0.12.22
+
+* `UrlChecker` follows redirects (max. 10 redirects).
+
 ## 0.12.21
 
 * Upgraded dependencies: `analyzer` `0.38.2`.

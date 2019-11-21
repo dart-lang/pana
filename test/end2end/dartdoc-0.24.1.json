@@ -7,46 +7,46 @@
   "packageName": "dartdoc",
   "packageVersion": "0.24.1",
   "pubspec": {
-    "version": "0.24.1",
     "name": "dartdoc",
-    "dependencies": {
-      "markdown": "^2.0.0",
-      "quiver": "^2.0.0",
-      "args": ">=1.4.1 <2.0.0",
-      "package_config": ">=0.1.5 <2.0.0",
-      "collection": "^1.2.0",
-      "crypto": "^2.0.6",
-      "html": ">=0.12.1 <0.14.0",
-      "stack_trace": "^1.4.2",
-      "pub_semver": "^1.3.7",
-      "path": "^1.3.0",
-      "process": "^3.0.5",
-      "resource": "^2.1.2",
-      "http_parser": ">=3.0.3 <4.0.0",
-      "logging": "^0.11.3+1",
-      "yaml": "^2.1.0",
-      "analyzer": "^0.33.0"
-    },
+    "version": "0.24.1",
     "author": "Dart Team <misc@dartlang.org>",
     "description": "A documentation generator for Dart.",
     "homepage": "https://github.com/dart-lang/dartdoc",
     "environment": {
       "sdk": ">=2.0.0 <3.0.0"
     },
-    "executables": {
-      "dartdoc": null
+    "dependencies": {
+      "analyzer": "^0.33.0",
+      "args": ">=1.4.1 <2.0.0",
+      "collection": "^1.2.0",
+      "crypto": "^2.0.6",
+      "html": ">=0.12.1 <0.14.0",
+      "http_parser": ">=3.0.3 <4.0.0",
+      "logging": "^0.11.3+1",
+      "process": "^3.0.5",
+      "markdown": "^2.0.0",
+      "package_config": ">=0.1.5 <2.0.0",
+      "path": "^1.3.0",
+      "pub_semver": "^1.3.7",
+      "quiver": "^2.0.0",
+      "resource": "^2.1.2",
+      "stack_trace": "^1.4.2",
+      "yaml": "^2.1.0"
     },
     "dev_dependencies": {
-      "build_runner": "^1.0.0",
-      "dhttpd": "^3.0.0",
-      "test": "^1.3.0",
       "build": "^1.0.1",
-      "meta": "^1.0.0",
+      "build_runner": "^1.0.0",
       "build_version": "^1.0.0",
-      "grinder": "^0.8.2",
-      "http": "^0.11.0",
+      "dhttpd": "^3.0.0",
       "glob": "^1.1.5",
-      "io": "^0.3.0"
+      "grinder": "^0.8.2",
+      "io": "^0.3.0",
+      "http": "^0.11.0",
+      "meta": "^1.0.0",
+      "test": "^1.3.0"
+    },
+    "executables": {
+      "dartdoc": null
     }
   },
   "platform": {
@@ -152,7 +152,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.38.2"
+        "available": "0.39.1"
       },
       {
         "package": "args",
@@ -165,7 +165,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.3.0"
+        "resolved": "2.4.0"
       },
       {
         "package": "build",
@@ -209,7 +209,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.6",
-        "resolved": "2.1.2"
+        "resolved": "2.1.3"
       },
       {
         "package": "csslib",
@@ -228,21 +228,21 @@
         "package": "file",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "5.0.10"
+        "resolved": "5.1.0"
       },
       {
         "package": "front_end",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.1.6+9",
-        "available": "0.1.24"
+        "available": "0.1.29"
       },
       {
         "package": "glob",
         "dependencyType": "dev",
         "constraintType": "normal",
         "constraint": "^1.1.5",
-        "resolved": "1.1.7"
+        "resolved": "1.2.0"
       },
       {
         "package": "grinder",
@@ -256,7 +256,7 @@
         "constraintType": "normal",
         "constraint": ">=0.12.1 <0.14.0",
         "resolved": "0.13.4+2",
-        "available": "0.14.0+2"
+        "available": "0.14.0+3"
       },
       {
         "package": "http",
@@ -284,11 +284,17 @@
         "constraint": "^0.3.0"
       },
       {
+        "package": "js",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "0.6.1+1"
+      },
+      {
         "package": "kernel",
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.3.6+9",
-        "available": "0.3.24"
+        "available": "0.3.29"
       },
       {
         "package": "logging",
@@ -302,20 +308,32 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.0.3"
+        "resolved": "2.1.1"
       },
       {
         "package": "matcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.12.5"
+        "resolved": "0.12.6"
       },
       {
         "package": "meta",
         "dependencyType": "dev",
         "constraintType": "normal",
         "constraint": "^1.0.0",
-        "resolved": "1.1.7"
+        "resolved": "1.1.8"
+      },
+      {
+        "package": "node_interop",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.0.3"
+      },
+      {
+        "package": "node_io",
+        "dependencyType": "transitive",
+        "constraintType": "inherited",
+        "resolved": "1.0.1+2"
       },
       {
         "package": "package_config",
@@ -368,7 +386,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.0.5"
+        "resolved": "2.1.2+1"
       },
       {
         "package": "resource",
@@ -431,7 +449,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.1.0",
-        "resolved": "2.1.16"
+        "resolved": "2.2.0"
       }
     ]
   },
@@ -1176,6 +1194,8 @@
         "package:front_end/src/scanner/token.dart",
         "package:glob/glob.dart",
         "package:glob/src/ast.dart",
+        "package:glob/src/io.dart",
+        "package:glob/src/io_export.dart",
         "package:glob/src/list_tree.dart",
         "package:glob/src/parser.dart",
         "package:glob/src/utils.dart",
