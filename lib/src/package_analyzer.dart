@@ -7,6 +7,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:logging/logging.dart';
 
 import 'code_problem.dart';
@@ -403,6 +404,8 @@ class PackageAnalyzer {
     );
     suggestions.sort();
 
+    final sdkTags = pubspec.sdkTags();
+
     totalStopwatch.stop();
     final stats = Stats(
       analyzeProcessElapsed: analyzeProcessStopwatch.elapsedMilliseconds,
@@ -425,6 +428,7 @@ class PackageAnalyzer {
       maintenance: maintenance,
       suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
+      tags: [...sdkTags],
     );
   }
 
