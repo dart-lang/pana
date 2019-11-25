@@ -113,8 +113,8 @@
         "code": "pubspec.dependencies.outdated",
         "level": "warning",
         "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 5 dependencies (`angular`, `build_config`, `intl`, `protobuf`, `quiver`).",
-        "score": 50.0
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 4 dependencies (`build_config`, `intl`, `protobuf`, `quiver`).",
+        "score": 40.0
       },
       {
         "code": "pubspec.documentation.isNotHelpful",

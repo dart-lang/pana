@@ -628,7 +628,7 @@ class PkgDependency implements Comparable<PkgDependency> {
 
   bool get isLatest => available == null;
 
-  bool get isOutdated => !isLatest;
+  bool get isOutdated => available != null && !available.isPreRelease;
 
   bool get isHosted =>
       constraintType != ConstraintTypes.sdk &&
