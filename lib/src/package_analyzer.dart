@@ -7,7 +7,6 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:async/async.dart';
 import 'package:logging/logging.dart';
 
 import 'code_problem.dart';
