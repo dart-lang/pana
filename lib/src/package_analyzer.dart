@@ -137,6 +137,7 @@ class PackageAnalyzer {
         maintenance: null,
         suggestions: suggestions,
         stats: null,
+        tags: null,
       );
     }
     if (pubspec.hasUnknownSdks) {
