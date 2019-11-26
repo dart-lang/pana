@@ -212,7 +212,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "3.3.1"
+        "resolved": "4.0.0"
       },
       {
         "package": "source_span",
@@ -6507,5 +6507,9 @@
     "formatProcessElapsed": 567,
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
-  }
+  },
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter"
+  ]
 }

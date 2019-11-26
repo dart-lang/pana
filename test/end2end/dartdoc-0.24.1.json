@@ -308,7 +308,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.1.1"
+        "resolved": "2.1.2"
       },
       {
         "package": "matcher",
@@ -442,7 +442,7 @@
         "package": "watcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.7+12"
+        "resolved": "0.9.7+13"
       },
       {
         "package": "yaml",
@@ -8550,5 +8550,9 @@
     "formatProcessElapsed": 567,
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
-  }
+  },
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter"
+  ]
 }
