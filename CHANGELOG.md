@@ -1,6 +1,8 @@
-## 0.12.22
+## 0.13.0
 
 * `UrlChecker` follows redirects (max. 10 redirects).
+
+* Detect and report sdk tags ('sdk:flutter', 'sdk:dart').
 
 ## 0.12.21
 
@@ -163,7 +165,7 @@
 
 **Breaking changes:**
 
-* Named parameters in the following constructors: `Summary`, `DartFileSummary`, `PkgDependency`, `CodeProblem`. 
+* Named parameters in the following constructors: `Summary`, `DartFileSummary`, `PkgDependency`, `CodeProblem`.
 
 * Removed per-file and overall `Fitness`, using a top-level `Health` report instead.
   Follows the proposed changes that allow us to clearly communicate the scoring mechanism.
@@ -327,7 +329,7 @@ Updates:
 * Removed `DartPlatform.description` and `DartPlatform.descriptionAndReason`
   because we don't use them elsewhere and complicates the `PlatformNames`
   with `everywhere` and `undefined`.
-    
+
 * Removed `PlatformNames.everywhere` and `PlatformNames.undefined`, because
   we don't print these anywhere except in tests.
 
@@ -379,19 +381,19 @@ Updates:
 
 ## 0.8.0
 
-* `PackageAnalyzer.inspectPackage` added a named argument 
+* `PackageAnalyzer.inspectPackage` added a named argument
   `deleteTemporaryDirectory`. Setting this to `false` retains the
   directory and prints its location to the log. Useful for debugging.
 
 * `Maintenance`
-  * **BREAKING** `getMaintenanceScore` now takes an optional `age` parameter 
+  * **BREAKING** `getMaintenanceScore` now takes an optional `age` parameter
     replacing the previously required `publishDate` parameter.
 
   * Changed the meaning of version fields:
     * `isExperimentalVersion` now means pre-V1.
     * `isPreReleaseVersion` now means there is a pre-release flag
       like `-beta`, `-alpha`, etc.
-  
+
   * **BREAKING** maintenance-related `Suggestion` entries as moved to `Maintenance.suggestions`
 
 * **BREAKING** `Suggestion.file` is now `String` instead of `dynamic`.
@@ -434,7 +436,7 @@ Updates:
 * **Breaking changes**
 
   * `Summary.sdkVersion` is now a `Version` instead of `String`.
-  
+
   * `new PackageAnalyzer(...)` now takes a `DartSdk` instance instead of
     a `String`.
 
@@ -448,7 +450,7 @@ Updates:
 
 ## 0.6.1
 
-* Don't count the absence of an `analysis_options.yaml` file against a package. 
+* Don't count the absence of an `analysis_options.yaml` file against a package.
 
 ## 0.6.0
 
@@ -525,7 +527,7 @@ Updates:
   * `worksInStandalone` renamed to `worksOnServer`.
   * Other `.worksIn*` renamed to `worksOn*`.
   * Added `String get description` which returns a simple `String` description
-    of the supported platforms. Examples: `everywhere`, `flutter`, 
+    of the supported platforms. Examples: `everywhere`, `flutter`,
     `server, web`, `conflict`.
   * Removed `angular` as a value in `uses`.
 

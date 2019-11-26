@@ -46,6 +46,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
     stats: json['stats'] == null
         ? null
         : Stats.fromJson(json['stats'] as Map<String, dynamic>),
+    tags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
   );
 }
 
@@ -72,6 +73,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('pkgResolution', instance.pkgResolution);
   writeNotNull('dartFiles', instance.dartFiles);
   writeNotNull('stats', instance.stats);
+  writeNotNull('tags', instance.tags);
   return val;
 }
 
