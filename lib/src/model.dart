@@ -628,6 +628,7 @@ class PkgDependency implements Comparable<PkgDependency> {
 
   bool get isLatest => available == null;
 
+  // TODO: investigate if `pub upgrade` reports the latest stable or the latest uploaded
   bool get isOutdated => available != null && !available.isPreRelease;
 
   bool get isHosted =>
