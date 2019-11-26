@@ -196,7 +196,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
-        "resolved": "1.2.1"
+        "resolved": "1.2.2"
       },
       {
         "package": "build_config",
@@ -445,7 +445,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.23.3"
+        "resolved": "1.23.7"
       },
       {
         "package": "sass_builder",
@@ -483,7 +483,8 @@
         "package": "stream_transform",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.0.20"
+        "resolved": "0.0.20",
+        "available": "1.0.0"
       },
       {
         "package": "string_scanner",
@@ -519,7 +520,7 @@
         "package": "watcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.7+12"
+        "resolved": "0.9.7+13"
       },
       {
         "package": "yaml",
@@ -38545,5 +38546,9 @@
     "formatProcessElapsed": 567,
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
-  }
+  },
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter"
+  ]
 }
