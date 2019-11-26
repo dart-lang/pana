@@ -113,7 +113,7 @@ class Pubspec {
   SdkConstraintStatus get sdkConstraintStatus =>
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
 
-  /// The sdk tags associated with [this].
+  /// The sdk tags associated with `this`.
   List<String> sdkTags() {
     final result = <String>[];
     final dependentSdks = this.dependentSdks;
