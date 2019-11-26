@@ -120,6 +120,7 @@ class Pubspec {
     if (dependentSdks.every(['dart'].contains)) {
       result.add('sdk:dart');
     }
+    // This is true for {'dart'}, {'dart', 'flutter'} and {'flutter'}.
     if (dependentSdks.every(['dart', 'flutter'].contains)) {
       // TODO(sigurdm): Check that the supported runtime is aot compatible.
       // Ie: native-aot or web.
