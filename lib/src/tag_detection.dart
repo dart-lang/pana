@@ -362,9 +362,10 @@ List<String> flutterPlatformTags(String packageDir) {
   return result;
 }
 
-main() async {
-  final packageDir =
-      '/usr/local/google/home/sigurdm/projects/analyzer_configurable_imports/example';
+main(List<String> args) {
+  final packageDir = args.isNotEmpty
+      ? args[0]
+      : '/usr/local/google/home/sigurdm/projects/analyzer_configurable_imports/example';
   print(flutterPlatformTags(packageDir));
   print(runtimeTags(packageDir));
 }
