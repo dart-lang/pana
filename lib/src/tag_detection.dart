@@ -55,7 +55,7 @@ class FindPath<T> {
   }
 }
 
-/// Dependencies for library at `package:` [uri] under some configuration of
+/// A graph of import/export dependencies for libraries under some configuration of
 /// declared variables.
 class LibraryGraph implements Graph<Uri> {
   final AnalysisSession _analysisSession;
@@ -150,6 +150,7 @@ class Runtime {
   Map<String, String> get declaredVariables =>
       {for (final lib in enabledLibs) 'dart.library.$lib': 'true'};
 
+  @override
   toString() => 'Runtime($name)';
 
   static final _onAllPlatforms = {
