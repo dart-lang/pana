@@ -268,7 +268,9 @@ class Runtime {
     'core',
     'developer',
     'math',
-    'typed_data'
+    'typed_data',
+    // TODO(sigurdm): Remove if/when package:dart_internal goes away.
+    '_internal',
   };
   static final _onAllNative = {'ffi', 'io', 'isolate'};
 
