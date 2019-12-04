@@ -484,7 +484,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.0.20",
-        "available": "1.0.0"
+        "available": "1.1.0"
       },
       {
         "package": "string_scanner",
@@ -38549,6 +38549,8 @@
   },
   "tags": [
     "sdk:dart",
-    "sdk:flutter"
+    "sdk:flutter",
+    "platform:web",
+    "runtime:web"
   ]
 }

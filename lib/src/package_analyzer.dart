@@ -22,6 +22,7 @@ import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
+import 'tag_detection.dart';
 import 'utils.dart';
 
 enum Verbosity {
@@ -260,6 +261,7 @@ class PackageAnalyzer {
       }
     }
 
+    final tags = <String>[];
     if (pkgResolution != null) {
       try {
         var overrides = [
@@ -322,6 +324,11 @@ class PackageAnalyzer {
       } else {
         analyzerItems = <CodeProblem>[];
       }
+
+      final tagger = Tagger(pkgDir);
+      tags.addAll(tagger.sdkTags());
+      tags.addAll(tagger.flutterPlatformTags());
+      tags.addAll(tagger.runtimeTags());
     }
     final pkgPlatformBlockerSuggestion =
         suggestions.firstWhere((s) => s.isError, orElse: () => null);
@@ -404,8 +411,6 @@ class PackageAnalyzer {
     );
     suggestions.sort();
 
-    final sdkTags = pubspec.sdkTags();
-
     totalStopwatch.stop();
     final stats = Stats(
       analyzeProcessElapsed: analyzeProcessStopwatch.elapsedMilliseconds,
@@ -428,7 +433,7 @@ class PackageAnalyzer {
       maintenance: maintenance,
       suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
-      tags: [...sdkTags],
+      tags: tags,
     );
   }
 

@@ -58,22 +58,6 @@ void main() {
   test('unknown sdk', () {
     expect(unknownSdkPubspec.dependentSdks.toList(), ['unknown']);
   });
-
-  test('sdkTags', () {
-    expect(emptyPubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-    expect(flutterPluginPubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-    expect(flutterDependencyPubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-    expect(flutterSdkPubspec.sdkTags(), {'sdk:flutter'});
-    expect(flutterSdkDevPubspec.sdkTags(), {'sdk:flutter'});
-    expect(unknownSdkPubspec.sdkTags(), isEmpty);
-    expect(dart2Pubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-    expect(flutterInEnvPubspec.sdkTags(), {'sdk:flutter'});
-    expect(dart1OnlyPubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-    expect(unboundedSdkPubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-    expect(dart1andDart2Pubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-    expect(devSdkOnlyPubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-    expect(dart1andDart3Pubspec.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-  });
 }
 
 final Pubspec emptyPubspec = Pubspec({

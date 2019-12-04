@@ -308,7 +308,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.1.2"
+        "resolved": "2.1.3"
       },
       {
         "package": "matcher",
@@ -8553,6 +8553,6 @@
   },
   "tags": [
     "sdk:dart",
-    "sdk:flutter"
+    "runtime:native-jit"
   ]
 }
