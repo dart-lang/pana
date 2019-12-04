@@ -855,6 +855,15 @@
   },
   "tags": [
     "sdk:dart",
-    "sdk:flutter"
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "platform:web",
+    "runtime:native-aot",
+    "runtime:native-jit",
+    "runtime:web"
   ]
 }

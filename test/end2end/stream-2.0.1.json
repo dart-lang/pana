@@ -212,7 +212,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "4.0.0"
+        "resolved": "4.0.1"
       },
       {
         "package": "source_span",
@@ -6510,6 +6510,6 @@
   },
   "tags": [
     "sdk:dart",
-    "sdk:flutter"
+    "runtime:native-jit"
   ]
 }

@@ -261,6 +261,7 @@ class PackageAnalyzer {
       }
     }
 
+    final tags = <String>[];
     if (pkgResolution != null) {
       try {
         var overrides = [
@@ -323,6 +324,11 @@ class PackageAnalyzer {
       } else {
         analyzerItems = <CodeProblem>[];
       }
+
+      final tagger = Tagger(pkgDir);
+      tags.addAll(tagger.sdkTags());
+      tags.addAll(tagger.flutterPlatformTags());
+      tags.addAll(tagger.runtimeTags());
     }
     final pkgPlatformBlockerSuggestion =
         suggestions.firstWhere((s) => s.isError, orElse: () => null);
@@ -405,11 +411,6 @@ class PackageAnalyzer {
     );
     suggestions.sort();
 
-    final tagger = Tagger(pkgDir);
-    final sdkTags = tagger.sdkTags();
-    final platformTags = tagger.flutterPlatformTags();
-    final runtimeTags = tagger.runtimeTags();
-
     totalStopwatch.stop();
     final stats = Stats(
       analyzeProcessElapsed: analyzeProcessStopwatch.elapsedMilliseconds,
@@ -432,11 +433,7 @@ class PackageAnalyzer {
       maintenance: maintenance,
       suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
-      tags: [
-        ...sdkTags,
-        ...platformTags,
-        ...runtimeTags,
-      ],
+      tags: tags,
     );
   }
 

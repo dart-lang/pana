@@ -103,6 +103,33 @@ name: my_package
       });
     });
 
+    test('no library named after package', () async {
+      final decriptor = d.dir('cache', [
+        d.dir('my_package', [
+          d.dir('lib', [
+            d.file('other.dart', '''
+import 'dart:mirrors';
+int fourtyTwo() => 42;
+'''),
+          ]),
+          d.file('.packages', '''
+my_package:lib/
+'''),
+          d.file(
+            'pubspec.yaml',
+            '''
+name: my_package
+''',
+          )
+        ])
+      ]);
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expect(tagger.sdkTags(), {'sdk:dart'});
+      expect(tagger.flutterPlatformTags(), isEmpty);
+      expect(tagger.runtimeTags(), {'runtime:native-jit'});
+    });
+
     test('using dart:mirrors disqualifies Flutter and aot', () async {
       final descriptor = d.dir('cache', [
         d.dir('my_package', [

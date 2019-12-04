@@ -72,6 +72,8 @@
 ///
 /// A package has the same platform tags as the primary library.
 
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/analysis/context_builder.dart';
@@ -460,6 +462,7 @@ class Tagger {
       : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
 
+  /// Assumes that `pub get` has been run.
   factory Tagger(String packageDir) {
     final session = ContextBuilder()
         .createContext(
@@ -470,9 +473,16 @@ class Tagger {
         .currentSession;
     final pubspecCache = _PubspecCache(session);
     final pubspec = pubspecCache.pubspecOfPackage(packageDir);
-    final primaryLibrary =
-        Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
-
+    final files = Directory('$packageDir/lib')
+        .listSync(recursive: false)
+        .where((e) => e is File && e.path.endsWith('.dart'))
+        .map((f) => f.path)
+        .toList()
+          ..sort();
+    final primaryLibrary = files.contains('${pubspec.name}.dart')
+        ? Uri.parse('package:${pubspec.name}/${pubspec.name}.dart')
+        // TODO(sigurdm): find a better heuristic for primary library.
+        : Uri.parse('package:${pubspec.name}/${path.basename(files.first)}');
     return Tagger._(packageDir, session, pubspecCache, primaryLibrary);
   }
 
@@ -483,7 +493,10 @@ class Tagger {
     };
   }
 
+  /// Returns [true] iff the package at [packageDir] suports [sdk].
   bool _supportsSdk(Sdk sdk) {
+    // Will find a path in the pacakage graph where a package declares an sdk
+    // not supported by [sdk].
     final declaredSdkViolationFinder =
         _PathFinder(_packageGraph, (String packageDir) {
       return !declaredSdks(packageDir).every(sdk.allowedSdks.contains);
@@ -519,10 +532,6 @@ class Tagger {
   List<String> flutterPlatformTags() {
     final result = <String>[];
 
-    final pubspec = Pubspec.parseFromDir(packageDir);
-    final primaryLibrary =
-        Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
-
     for (final flutterPlatform in FlutterPlatform.recognizedPlatforms) {
       final libraryGraph =
           LibraryGraph(_session, flutterPlatform.runtime.declaredVariables);
@@ -532,7 +541,8 @@ class Tagger {
           _DeclaredFlutterPlatformDetector(_pubspecCache),
           _pubspecCache,
           RuntimeViolationFinder(libraryGraph, flutterPlatform.runtime));
-      final pathResult = violationFinder._findPlatformViolation(primaryLibrary);
+      final pathResult =
+          violationFinder._findPlatformViolation(_primaryLibrary);
       if (pathResult.hasPath) {
         log.info(
             '$packageDir does not support platform ${flutterPlatform.name} '
@@ -551,12 +561,9 @@ class Tagger {
     if (!_supportsSdk(Sdk.dart)) return <String>[];
     final result = <String>[];
     for (final runtime in [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]) {
-      final pubspec = Pubspec.parseFromDir(packageDir);
-      final primaryLibrary =
-          Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
       final pathResult = RuntimeViolationFinder(
               LibraryGraph(_session, runtime.declaredVariables), runtime)
-          .findRuntimeViolation(primaryLibrary);
+          .findRuntimeViolation(_primaryLibrary);
       if (pathResult.hasPath) {
         log.info('$packageDir does not support runtime ${runtime.name} '
             'because of the import path: ${pathResult.path}');
