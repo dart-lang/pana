@@ -153,12 +153,23 @@ class LibraryGraph implements _DirectedGraph<Uri> {
       if (uriString.startsWith('dart:') || uriString.startsWith('dart-ext:')) {
         return <Uri>{};
       }
-      final unitResult = _analysisSession.getParsedUnit(
-        _analysisSession.uriConverter.uriToPath(uri),
-      );
-      if (unitResult.isPart || unitResult.unit == null) {
+      final path = _analysisSession.uriConverter.uriToPath(uri);
+      if (path == null) {
+        // Could not resolve uri.
+        // Probably a missing/broken dependency.
+        // TODO(sigurdm): Figure out the right thing to do here.
+        return <Uri>{};
+      }
+      final unitResult = _analysisSession.getParsedUnit(path);
+      if (unitResult.isPart) {
         // Part files cannot contain import/export directives.
-        return null;
+        return <Uri>{};
+      }
+      if (unitResult.unit == null) {
+        // Could not parse file.
+        // Probably broken code.
+        // TODO(sigurdm): Figure out the right thing to do here.
+        return <Uri>{};
       }
       final dependencies = <Uri>{};
       for (final node in unitResult.unit.sortedDirectivesAndDeclarations) {
@@ -214,6 +225,9 @@ class _PackageGraph implements _DirectedGraph<String> {
     final pubspec = _pubspecCache.pubspecOfPackage(packageDir);
     return pubspec.dependencies.keys
         .map((name) => _pubspecCache._packageDir(Uri.parse('package:$name/')))
+        // Probably a missing/broken dependency
+        // TODO(sigurdm): figure out the right thing to do here.
+        .where((x) => x != null)
         .toSet();
   }
 }
@@ -227,8 +241,12 @@ class _PubspecCache {
   String _packageDir(Uri uri) {
     final packageOnlyUri =
         uri.replace(path: uri.path.substring(0, uri.path.indexOf('/') + 1));
-    return path
-        .dirname(_analysisSession.uriConverter.uriToPath(packageOnlyUri));
+    final filePath = _analysisSession.uriConverter.uriToPath(packageOnlyUri);
+    // Could not resolve uri.
+    // Probably a missing/broken dependency.
+    // TODO(sigurdm): Figure out the right thing to do here.
+    if (filePath == null) return null;
+    return path.dirname(filePath);
   }
 
   final Map<String, Pubspec> _pubspecCache = <String, Pubspec>{};
@@ -420,9 +438,14 @@ class _PlatformViolationFinder {
     _PubspecCache libraryPackage,
     this._runtimeSupport,
   ) : declaredPlatformFinder = _PathFinder(libraryGraph, (uri) {
+          final path = libraryPackage._packageDir(uri);
+          // Could not resolve uri.
+          // Probably a missing/broken dependency.
+          // TODO(sigurdm): Figure out the right thing to do here.
+          if (path == null) return false;
           return !(uri.scheme == 'dart') &&
               !platformDetector
-                  ._declaredFlutterPlatforms(libraryPackage._packageDir(uri))
+                  ._declaredFlutterPlatforms(path)
                   .contains(platform);
         });
 
@@ -481,6 +504,10 @@ class Tagger {
         .map((f) => f.path)
         .toList()
           ..sort();
+    if (files.isEmpty) {
+      // No libraries in /lib
+      return Tagger._(packageDir, session, pubspecCache, null);
+    }
     final primaryLibrary = files.contains('${pubspec.name}.dart')
         ? Uri.parse('package:${pubspec.name}/${pubspec.name}.dart')
         // TODO(sigurdm): find a better heuristic for primary library.
@@ -497,6 +524,9 @@ class Tagger {
 
   /// Returns `true` iff the package at [packageDir] suports [sdk].
   bool _supportsSdk(Sdk sdk) {
+    if (_primaryLibrary == null) {
+      return false;
+    }
     // Will find a path in the pacakage graph where a package declares an sdk
     // not supported by [sdk].
     final declaredSdkViolationFinder =
@@ -532,6 +562,9 @@ class Tagger {
 
   /// The Flutter platforms that this package works in.
   List<String> flutterPlatformTags() {
+    if (_primaryLibrary == null) {
+      return <String>[];
+    }
     final result = <String>[];
 
     for (final flutterPlatform in FlutterPlatform.recognizedPlatforms) {
@@ -560,6 +593,9 @@ class Tagger {
   ///
   /// Returns the empty list if this package does not support the dart sdk.
   List<String> runtimeTags() {
+    if (_primaryLibrary == null) {
+      return <String>[];
+    }
     if (!_supportsSdk(Sdk.dart)) return <String>[];
     final result = <String>[];
     for (final runtime in [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]) {
