@@ -2,24 +2,97 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+/// # Package Classification
+///
+/// ## Dart Platform Detection
+///
+/// A package is tagged "sdk:dart" if the package dependency graph
+///
+/// * does not have any SDK constraints beyond `dart`.
+/// * the primary library does not transitively import "dart:ui" when the
+///   environment constant "dart.library.ui" is unset.
+///
+/// The **primary library** is the library with the same name as the package.
+/// If there is no such library we analyse
+///
+/// If a package is tagged "sdk:dart" it may also be tagged by any of the
+/// following runtime tags (corresponding to
+/// https://dart.dev/guides/libraries):
+///
+/// * runtime:native-jit
+///
+///   Can be run with the dart vm in jit mode. (Can use dart:io and
+///   dart:mirrors)
+///
+/// * runtime:native-aot
+///   Can be aot compiled with eg. dart2native (Can use dart:io but not
+///   dart:mirrors)
+///
+/// * runtime:web
+///   Can be compiled with DDC and dart2js. (Can use dart:html and friends, not
+///   dart:io, dart:mirrors, dart:ffi, etc.)
+///
+/// A package has the same runtime tags as the primary library.
+///
+/// ### Classification as "runtime:native-jit"
+///
+/// A library with tag sdk:dart is tagged runtime:native-jit, if when the
+/// environment constants are:
+///
+/// * dart.library.io = 'true'
+/// * dart.library.js = 'false' ...
+///
+/// it holds that:
+///
+/// * The library is not "dart:js", "dart:html", or friends;
+/// * The library does not transitively import a library which does not have the
+///   tag runtime:native-jit.
+///   (other runtime tags are derived similarly).
+///
+/// ## Flutter Platform Detection
+///
+/// A package is tagged "sdk:flutter" if:
+///
+/// * the package dependency graph does not have any SDK constraints beyond
+///   `dart` and `flutter`; and;
+/// * the primary library does not transitively import "dart:mirrors" when the
+///   environment constant "dart.library.mirrors = false" is set.
+///
+/// If a package is tagged "sdk:flutter" it may also be tagged by any of the
+/// following platform tags (corresponding to the target platforms supported by
+/// Flutter).
+///
+/// * platform:android
+/// * platform:ios
+/// * platform:web
+/// * platform:windows
+/// * platform:linux
+/// * platform:macos
+/// * platform:web
+///
+/// A package has the same platform tags as the primary library.
+
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 
-abstract class Graph<T> {
+import 'logging.dart';
+
+abstract class _DirectedGraph<T> {
   Set<T> directSuccessors(T t);
 }
 
-class FindPath<T> {
-  final Graph<T> graph;
+class _PathFinder<T> {
+  final _DirectedGraph<T> graph;
   final bool Function(T) predicate;
   final Map<T, PathResult<T>> _cache = <T, PathResult<T>>{};
 
-  FindPath(this.graph, this.predicate);
+  _PathFinder(this.graph, this.predicate);
 
   PathResult<T> findPath(T root) {
     final libraryStack = <T>[];
@@ -41,8 +114,7 @@ class FindPath<T> {
       visited.add(current);
 
       if (_cache.containsKey(current)) {
-        return _cache[root] =
-            PathResult.combine<T>(libraryStack, _cache[current]);
+        return _cache[root] = _cache[current].prefix(libraryStack);
       }
 
       libraryStack.add(current);
@@ -55,18 +127,28 @@ class FindPath<T> {
   }
 }
 
-/// A graph of import/export dependencies for libraries under some configuration of
-/// declared variables.
-class LibraryGraph implements Graph<Uri> {
+/// A graph of import/export dependencies for libraries under some configuration
+/// of declared variables.
+@visibleForTesting
+class LibraryGraph implements _DirectedGraph<Uri> {
   final AnalysisSession _analysisSession;
   final Map<String, String> _declaredVariables;
-  LibraryGraph(this._analysisSession, this._declaredVariables);
   final Map<Uri, Set<Uri>> _cache = <Uri, Set<Uri>>{};
 
+  LibraryGraph(this._analysisSession, this._declaredVariables);
+
+  /// The direct successors of the library [uri] are the libraries imported or
+  /// exported by that library.
+  ///
+  /// Part files have no successors.
+  ///
+  /// For the purposes of our analysis `dart:` and `dart-ext:` libraries have no
+  /// successors.
   @override
   Set<Uri> directSuccessors(Uri uri) {
     return _cache.putIfAbsent(uri, () {
-      if (uri.toString().startsWith('dart:')) {
+      final uriString = uri.toString();
+      if (uriString.startsWith('dart:') || uriString.startsWith('dart-ext:')) {
         return <Uri>{};
       }
       final unitResult = _analysisSession.getParsedUnit(
@@ -102,15 +184,14 @@ class LibraryGraph implements Graph<Uri> {
               configuration.name.components.map((i) => i.name).join('.');
 
           final testValue = configuration.value?.stringValue ?? 'true';
-          final actualValue = _declaredVariables[dottedName] ?? 'false';
+          final actualValue = _declaredVariables[dottedName] ?? '';
 
           if (actualValue == testValue) {
             dependency = uri.resolve(configuration.uri.stringValue);
-            break; // always pick the first satisfied configuration
+            break; // Aways pick the first satisfied configuration.
           }
         }
 
-        //TODO: Determine if there is any need to normalize the `dependency` Uri.
         dependencies.add(dependency);
       }
       return dependencies;
@@ -118,9 +199,29 @@ class LibraryGraph implements Graph<Uri> {
   }
 }
 
-class LibraryPackage {
+/// The dependency graph of a package.
+///
+/// Only considers non-dev-dependencies.
+class _PackageGraph implements _DirectedGraph<String> {
+  final _PubspecCache _pubspecCache;
+
+  _PackageGraph(this._pubspecCache);
+
+  @override
+  Set<String> directSuccessors(String packageDir) {
+    final pubspec = _pubspecCache.pubspecOfPackage(packageDir);
+    return pubspec.dependencies.keys
+        .map((name) => _pubspecCache._packageDir(Uri.parse('package:$name/')))
+        .toSet();
+  }
+}
+
+/// Remembers parsed pubspecs.
+///
+/// Maps between library Uri's and package directories.
+class _PubspecCache {
   final AnalysisSession _analysisSession;
-  LibraryPackage(this._analysisSession);
+  _PubspecCache(this._analysisSession);
   String _packageDir(Uri uri) {
     final packageOnlyUri =
         uri.replace(path: uri.path.substring(0, uri.path.indexOf('/') + 1));
@@ -141,6 +242,9 @@ class LibraryPackage {
   }
 }
 
+/// Represents a dart runtime and the `dart:` libraries available on that
+/// platform.
+@visibleForTesting
 class Runtime {
   final String name;
   final Set<String> enabledLibs;
@@ -153,6 +257,8 @@ class Runtime {
   @override
   toString() => 'Runtime($name)';
 
+  String get tag => 'runtime:$name';
+
   static final _onAllPlatforms = {
     'async',
     'collection',
@@ -162,7 +268,17 @@ class Runtime {
     'math',
     'typed_data'
   };
-  static final _onAllNative = {'io', 'isolate'};
+  static final _onAllNative = {'ffi', 'io', 'isolate'};
+
+  static final _onAllWeb = {
+    'html',
+    'indexed_db',
+    'web_audio',
+    'web_gl',
+    'js',
+    'js_util',
+    'web_sql',
+  };
 
   static final nativeJit = Runtime('native-jit', {
     ..._onAllPlatforms,
@@ -176,16 +292,26 @@ class Runtime {
   });
   static final web = Runtime('web', {
     ..._onAllPlatforms,
-    'html',
-    'indexed_db',
-    'web_audio',
-    'web_gl',
-    'js',
-    'js_util',
-    'web_sql',
+    ..._onAllWeb,
+  });
+
+  static final flutterNative = Runtime('flutter-native', {
+    ..._onAllPlatforms,
+    ..._onAllNative,
+    'ui',
+  });
+  static final flutterWeb = Runtime('flutter-web', {
+    ..._onAllPlatforms,
+    ..._onAllWeb,
+    'ui',
   });
 }
 
+/// The result of a path-finding.
+///
+/// Either there is no path or there is a path represented as the nodes on the
+/// path including the starting node and the final node.
+@visibleForTesting
 class PathResult<T> {
   final bool hasPath;
   final List<T> path;
@@ -193,9 +319,10 @@ class PathResult<T> {
       : hasPath = false,
         path = null;
   PathResult.path(this.path) : hasPath = true;
-  static PathResult<T> combine<T>(List<T> path, PathResult<T> other) {
-    return other.hasPath
-        ? PathResult.path([path, other.path].expand((x) => x).toList())
+
+  PathResult<T> prefix(List<T> prefix) {
+    return hasPath
+        ? PathResult.path([prefix, path].expand((x) => x).toList())
         : PathResult<T>.noPath();
   }
 
@@ -214,11 +341,13 @@ class PathResult<T> {
       hasPath ? 'RuntimeResult.path([$path])' : 'RuntimeResult.noPath()';
 }
 
-class RuntimeSupport {
-  final FindPath<Uri> finder;
+/// Detects forbidden imports given a runtime.
+@visibleForTesting
+class RuntimeViolationFinder {
+  final _PathFinder<Uri> finder;
 
-  RuntimeSupport(LibraryGraph resolver, Runtime runtime)
-      : finder = FindPath<Uri>(resolver, (uri) {
+  RuntimeViolationFinder(LibraryGraph libraryGraph, Runtime runtime)
+      : finder = _PathFinder<Uri>(libraryGraph, (uri) {
           final uriString = uri.toString();
           return (uriString.startsWith('dart:') &&
               !runtime.enabledLibs.contains(uriString.substring(5)));
@@ -229,75 +358,43 @@ class RuntimeSupport {
   }
 }
 
-/// Does a depth-first traversal of the import-graph trying to find libraries
-/// not allowed by [runtime].
-///
-/// Will initialize the analyzer with the declared variables from [runtime]
-/// leading to configurable imports being resolved.
-PathResult analyzeRuntimeSupport(String packageDir, Runtime runtime) {
-  final analysisContext = ContextBuilder().createContext(
-    contextRoot: ContextLocator().locateRoots(
-      includedPaths: [packageDir],
-    ).first,
-  );
-  final session = analysisContext.currentSession;
-  final libraryPackage = LibraryPackage(session);
-  final pubspec = libraryPackage.pubspecOfPackage(packageDir);
-  final mainLibrary = Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
-  return RuntimeSupport(
-          LibraryGraph(session, runtime.declaredVariables), runtime)
-      .findRuntimeViolation(mainLibrary);
-}
-
-List<String> runtimeTags(String packageDir) {
-  final result = <String>[];
-  for (final runtime in [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]) {
-    final analysisResult = analyzeRuntimeSupport(packageDir, runtime);
-    if (!analysisResult.hasPath) {
-      result.add('runtime:${runtime.name}');
-    } else {
-      print(
-          'Runtime ${runtime.name} not supported. Because of the import path: ${analysisResult.path}');
-    }
-  }
-  return result;
-}
-
+/// A platform where Flutter can be deployed.
 class FlutterPlatform {
   final String name;
   final Runtime runtime;
   FlutterPlatform(this.name, this.runtime);
-  static final List<FlutterPlatform> possiblePlatforms = [
-    FlutterPlatform('android', Runtime.nativeAot),
-    FlutterPlatform('ios', Runtime.nativeAot),
-    FlutterPlatform('windows', Runtime.nativeAot),
-    FlutterPlatform('linux', Runtime.nativeAot),
-    FlutterPlatform('macos', Runtime.nativeAot),
-    FlutterPlatform('web', Runtime.web)
+  static final List<FlutterPlatform> recognizedPlatforms = [
+    FlutterPlatform('android', Runtime.flutterNative),
+    FlutterPlatform('ios', Runtime.flutterNative),
+    FlutterPlatform('windows', Runtime.flutterNative),
+    FlutterPlatform('linux', Runtime.flutterNative),
+    FlutterPlatform('macos', Runtime.flutterNative),
+    FlutterPlatform('web', Runtime.flutterWeb)
   ];
   @override
   String toString() => 'FlutterPlatform($name)';
+
+  String get tag => 'platform:$name';
 }
 
-class DeclaredFlutterPlatformDetector {
-  final LibraryGraph dependencyResolver;
-  final LibraryPackage libraryPackage;
-  DeclaredFlutterPlatformDetector(this.dependencyResolver, this.libraryPackage);
-
+class _DeclaredFlutterPlatformDetector {
+  final _PubspecCache _pubspecCache;
   final Map<String, Set<FlutterPlatform>> _declaredPlatformCache =
       <String, Set<FlutterPlatform>>{};
 
-  Set<FlutterPlatform> declaredFlutterPlatforms(String packageDir) {
+  _DeclaredFlutterPlatformDetector(this._pubspecCache);
+
+  Set<FlutterPlatform> _declaredFlutterPlatforms(String packageDir) {
     return _declaredPlatformCache.putIfAbsent(packageDir, () {
       final result = <FlutterPlatform>{};
-      final fields = libraryPackage.pubspecOfPackage(packageDir).toJson();
+      final fields = _pubspecCache.pubspecOfPackage(packageDir).toJson();
       if (fields['flutter'] is! Map ||
           fields['flutter']['plugin'] is! Map ||
           fields['flutter']['plugin']['platforms'] is! Map) {
-        return FlutterPlatform.possiblePlatforms.toSet();
+        return FlutterPlatform.recognizedPlatforms.toSet();
       }
       final declaredPlatforms = fields['flutter']['plugin']['platforms'] as Map;
-      for (final platform in FlutterPlatform.possiblePlatforms) {
+      for (final platform in FlutterPlatform.recognizedPlatforms) {
         if (declaredPlatforms.containsKey(platform.name)) {
           result.add(platform);
         }
@@ -307,66 +404,166 @@ class DeclaredFlutterPlatformDetector {
   }
 }
 
-class PlatformViolationFinder {
-  FindPath<Uri> declaredPlatformFinder;
-  RuntimeSupport runtimeSupport;
-  LibraryGraph resolver;
-  DeclaredFlutterPlatformDetector platformDetector;
-  PlatformViolationFinder(FlutterPlatform platform, this.resolver,
-      this.platformDetector, LibraryPackage libraryPackage, this.runtimeSupport)
-      : declaredPlatformFinder = FindPath(resolver, (uri) {
+class _PlatformViolationFinder {
+  final _PathFinder<Uri> declaredPlatformFinder;
+  final RuntimeViolationFinder _runtimeSupport;
+  final _DeclaredFlutterPlatformDetector platformDetector;
+
+  _PlatformViolationFinder(
+    FlutterPlatform platform,
+    LibraryGraph libraryGraph,
+    this.platformDetector,
+    _PubspecCache libraryPackage,
+    this._runtimeSupport,
+  ) : declaredPlatformFinder = _PathFinder(libraryGraph, (uri) {
           return !(uri.scheme == 'dart') &&
               !platformDetector
-                  .declaredFlutterPlatforms(libraryPackage._packageDir(uri))
+                  ._declaredFlutterPlatforms(libraryPackage._packageDir(uri))
                   .contains(platform);
         });
 
-  PathResult findPlatformViolation(Uri root) {
+  PathResult _findPlatformViolation(Uri root) {
     final declaredPlatformResult = declaredPlatformFinder.findPath(root);
     if (declaredPlatformResult.hasPath) {
       return declaredPlatformResult;
     }
-    return runtimeSupport.findRuntimeViolation(root);
+    return _runtimeSupport.findRuntimeViolation(root);
   }
 }
 
-List<String> flutterPlatformTags(String packageDir) {
-  final result = <String>[];
+class Sdk {
+  final String name;
+  final List<String> allowedSdks;
+  final List<Runtime> allowedRuntimes;
+  Sdk(this.name, this.allowedSdks, this.allowedRuntimes);
 
-  final pubspec = Pubspec.parseFromDir(packageDir);
-  final mainLibrary = Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
-  final analysisContext = ContextBuilder().createContext(
-    contextRoot: ContextLocator().locateRoots(
-      includedPaths: [packageDir],
-    ).first,
-  );
+  String get tag => 'sdk:$name';
 
-  final libraryPackage = LibraryPackage(analysisContext.currentSession);
-  for (final flutterPlatform in FlutterPlatform.possiblePlatforms) {
-    final session = analysisContext.currentSession;
-    final resolver =
-        LibraryGraph(session, flutterPlatform.runtime.declaredVariables);
-    final violationFinder = PlatformViolationFinder(
-        flutterPlatform,
-        resolver,
-        DeclaredFlutterPlatformDetector(resolver, libraryPackage),
-        libraryPackage,
-        RuntimeSupport(resolver, flutterPlatform.runtime));
-    final pathResult = violationFinder.findPlatformViolation(mainLibrary);
+  static Sdk dart = Sdk(
+      'dart', ['dart'], [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]);
+  static Sdk flutter = Sdk('flutter', ['dart', 'flutter'],
+      [Runtime.flutterNative, Runtime.flutterWeb]);
+
+  static List<Sdk> knownSdks = [dart, flutter];
+}
+
+/// Calculates the tags for the package residing in a given directory.
+class Tagger {
+  String packageDir;
+  final AnalysisSession _session;
+  final _PubspecCache _pubspecCache;
+  final Uri _primaryLibrary;
+  final _PackageGraph _packageGraph;
+
+  Tagger._(this.packageDir, this._session, _PubspecCache pubspecCache,
+      this._primaryLibrary)
+      : _pubspecCache = pubspecCache,
+        _packageGraph = _PackageGraph(pubspecCache);
+
+  factory Tagger(String packageDir) {
+    final session = ContextBuilder()
+        .createContext(
+          contextRoot: ContextLocator().locateRoots(
+            includedPaths: [packageDir],
+          ).first,
+        )
+        .currentSession;
+    final pubspecCache = _PubspecCache(session);
+    final pubspec = pubspecCache.pubspecOfPackage(packageDir);
+    final primaryLibrary =
+        Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
+
+    return Tagger._(packageDir, session, pubspecCache, primaryLibrary);
+  }
+
+  Set<String> declaredSdks(String packageDir) {
+    return {
+      ..._pubspecCache.pubspecOfPackage(packageDir).dependentSdks,
+      'dart'
+    };
+  }
+
+  bool _supportsSdk(Sdk sdk) {
+    final declaredSdkViolationFinder =
+        _PathFinder(_packageGraph, (String packageDir) {
+      return !declaredSdks(packageDir).every(sdk.allowedSdks.contains);
+    });
+
+    final pathResult = declaredSdkViolationFinder.findPath(packageDir);
     if (pathResult.hasPath) {
-      print(
-          '$packageDir does not support platform ${flutterPlatform.name} because of the import path ${pathResult.path}');
+      log.info(
+          '$packageDir does not support $sdk because of the package: ${pathResult.path}');
+      return false;
     } else {
-      result.add('platform:${flutterPlatform.name}');
+      for (final runtime in sdk.allowedRuntimes) {
+        final finder = RuntimeViolationFinder(
+            LibraryGraph(_session, runtime.declaredVariables), runtime);
+        final runtimePathResult = finder.findRuntimeViolation(_primaryLibrary);
+        if (runtimePathResult.hasPath) {
+          log.info(
+              '$packageDir does not support $sdk with runtime: ${runtime.name} '
+              'because of import violation at: ${runtimePathResult.path}');
+        } else {
+          return true;
+        }
+      }
+      return false;
     }
   }
-  return result;
-}
 
-main(List<String> args) {
-  final packageDir = args.isNotEmpty
-      ? args[0]
-      : '/usr/local/google/home/sigurdm/projects/analyzer_configurable_imports/example';
-  print(flutterPlatformTags(packageDir));
-  print(runtimeTags(packageDir));
+  List<String> sdkTags() {
+    return Sdk.knownSdks.where(_supportsSdk).map((sdk) => sdk.tag).toList();
+  }
+
+  /// The Flutter platforms that this package works in.
+  List<String> flutterPlatformTags() {
+    final result = <String>[];
+
+    final pubspec = Pubspec.parseFromDir(packageDir);
+    final primaryLibrary =
+        Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
+
+    for (final flutterPlatform in FlutterPlatform.recognizedPlatforms) {
+      final libraryGraph =
+          LibraryGraph(_session, flutterPlatform.runtime.declaredVariables);
+      final violationFinder = _PlatformViolationFinder(
+          flutterPlatform,
+          libraryGraph,
+          _DeclaredFlutterPlatformDetector(_pubspecCache),
+          _pubspecCache,
+          RuntimeViolationFinder(libraryGraph, flutterPlatform.runtime));
+      final pathResult = violationFinder._findPlatformViolation(primaryLibrary);
+      if (pathResult.hasPath) {
+        log.info(
+            '$packageDir does not support platform ${flutterPlatform.name} '
+            'because of the import path ${pathResult.path}');
+      } else {
+        result.add(flutterPlatform.tag);
+      }
+    }
+    return result;
+  }
+
+  /// The Dart runtimes that this package supports.
+  ///
+  /// Returns the empty list if this package does not support the dart sdk.
+  List<String> runtimeTags() {
+    if (!_supportsSdk(Sdk.dart)) return <String>[];
+    final result = <String>[];
+    for (final runtime in [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]) {
+      final pubspec = Pubspec.parseFromDir(packageDir);
+      final primaryLibrary =
+          Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
+      final pathResult = RuntimeViolationFinder(
+              LibraryGraph(_session, runtime.declaredVariables), runtime)
+          .findRuntimeViolation(primaryLibrary);
+      if (pathResult.hasPath) {
+        log.info('$packageDir does not support runtime ${runtime.name} '
+            'because of the import path: ${pathResult.path}');
+      } else {
+        result.add(runtime.tag);
+      }
+    }
+    return result;
+  }
 }

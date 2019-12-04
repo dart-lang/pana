@@ -22,6 +22,7 @@ import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
+import 'tag_detection.dart';
 import 'utils.dart';
 
 enum Verbosity {
@@ -404,7 +405,10 @@ class PackageAnalyzer {
     );
     suggestions.sort();
 
-    final sdkTags = pubspec.sdkTags();
+    final tagger = Tagger(pkgDir);
+    final sdkTags = tagger.sdkTags();
+    final platformTags = tagger.flutterPlatformTags();
+    final runtimeTags = tagger.runtimeTags();
 
     totalStopwatch.stop();
     final stats = Stats(
@@ -428,7 +432,11 @@ class PackageAnalyzer {
       maintenance: maintenance,
       suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
-      tags: [...sdkTags],
+      tags: [
+        ...sdkTags,
+        ...platformTags,
+        ...runtimeTags,
+      ],
     );
   }
 

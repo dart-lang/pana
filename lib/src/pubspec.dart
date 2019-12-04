@@ -112,22 +112,6 @@ class Pubspec {
 
   SdkConstraintStatus get sdkConstraintStatus =>
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
-
-  /// The sdk tags associated with `this`.
-  List<String> sdkTags() {
-    final result = <String>[];
-    final dependentSdks = this.dependentSdks;
-    if (dependentSdks.every(['dart'].contains)) {
-      result.add('sdk:dart');
-    }
-    // This is true for {'dart'}, {'dart', 'flutter'} and {'flutter'}.
-    if (dependentSdks.every(['dart', 'flutter'].contains)) {
-      // TODO(sigurdm): Check that the supported runtime is aot compatible.
-      // Ie: native-aot or web.
-      result.add('sdk:flutter');
-    }
-    return result;
-  }
 }
 
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
