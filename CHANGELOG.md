@@ -1,7 +1,11 @@
+## 0.13.1
+
+* Compute sdk, platform and runtime tags.
+
 ## 0.13.0
 
 * `UrlChecker` follows redirects (max. 10 redirects).
-* Fix: pre-release versions are not considered when detecting outdated dependencies.  
+* Fix: pre-release versions are not considered when detecting outdated dependencies.
 
 * Detect and report sdk tags ('sdk:flutter', 'sdk:dart').
 
