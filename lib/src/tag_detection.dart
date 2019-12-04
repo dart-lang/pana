@@ -495,7 +495,7 @@ class Tagger {
     };
   }
 
-  /// Returns [true] iff the package at [packageDir] suports [sdk].
+  /// Returns `true` iff the package at [packageDir] suports [sdk].
   bool _supportsSdk(Sdk sdk) {
     // Will find a path in the pacakage graph where a package declares an sdk
     // not supported by [sdk].
@@ -507,7 +507,7 @@ class Tagger {
     final pathResult = declaredSdkViolationFinder.findPath(packageDir);
     if (pathResult.hasPath) {
       log.info(
-          '$packageDir does not support $sdk because of the package: ${pathResult.path}');
+          '$packageDir does not support ${sdk.name} because of the package: ${pathResult.path}');
       return false;
     } else {
       for (final runtime in sdk.allowedRuntimes) {
@@ -516,7 +516,7 @@ class Tagger {
         final runtimePathResult = finder.findRuntimeViolation(_primaryLibrary);
         if (runtimePathResult.hasPath) {
           log.info(
-              '$packageDir does not support $sdk with runtime: ${runtime.name} '
+              '$packageDir does not support ${sdk.name} with runtime: ${runtime.name} '
               'because of import violation at: ${runtimePathResult.path}');
         } else {
           return true;
