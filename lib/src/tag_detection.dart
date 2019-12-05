@@ -498,20 +498,27 @@ class Tagger {
         .currentSession;
     final pubspecCache = _PubspecCache(session);
     final pubspec = pubspecCache.pubspecOfPackage(packageDir);
-    final files = Directory('$packageDir/lib')
+    final lib = Directory('$packageDir/lib');
+    if (!lib.existsSync()) {
+      // No `lib/` folder.
+      return Tagger._(packageDir, session, pubspecCache, null);
+    }
+    final dartFiles = lib
         .listSync(recursive: false)
         .where((e) => e is File && e.path.endsWith('.dart'))
         .map((f) => f.path)
         .toList()
+          // Sort to make the arbitrary use of first file deterministic.
           ..sort();
-    if (files.isEmpty) {
-      // No libraries in /lib
+    if (dartFiles.isEmpty) {
+      // No libraries in `lib/`.
       return Tagger._(packageDir, session, pubspecCache, null);
     }
-    final primaryLibrary = files.contains('${pubspec.name}.dart')
+    final primaryLibrary = dartFiles.contains('${pubspec.name}.dart')
         ? Uri.parse('package:${pubspec.name}/${pubspec.name}.dart')
         // TODO(sigurdm): find a better heuristic for primary library.
-        : Uri.parse('package:${pubspec.name}/${path.basename(files.first)}');
+        : Uri.parse(
+            'package:${pubspec.name}/${path.basename(dartFiles.first)}');
     return Tagger._(packageDir, session, pubspecCache, primaryLibrary);
   }
 
