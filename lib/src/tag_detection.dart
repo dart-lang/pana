@@ -498,14 +498,13 @@ class Tagger {
         .currentSession;
     final pubspecCache = _PubspecCache(session);
     final pubspec = pubspecCache.pubspecOfPackage(packageDir);
-    List<FileSystemEntity> libFiles;
-    try {
-      libFiles = Directory('$packageDir/lib').listSync(recursive: false);
-    } on FileSystemException {
+    final lib = Directory('$packageDir/lib');
+    if (!lib.existsSync()) {
       // No `lib/` folder.
       return Tagger._(packageDir, session, pubspecCache, null);
     }
-    final dartFiles = libFiles
+    final dartFiles = lib
+        .listSync(recursive: false)
         .where((e) => e is File && e.path.endsWith('.dart'))
         .map((f) => f.path)
         .toList()
