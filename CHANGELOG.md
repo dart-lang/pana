@@ -1,3 +1,8 @@
+## 0.13.1+2
+
+* More handling of degenerate cases when computing sdk, platform and runtime
+  tags.
+
 ## 0.13.1+1
 
 * Handle degenerate cases when computing sdk, platform and runtime tags.
