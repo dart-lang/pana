@@ -56,7 +56,7 @@ Options:
 ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
 }
 
-main(List<String> args) async {
+Future main(List<String> args) async {
   ArgResults result;
   try {
     result = _parser.parse(args);

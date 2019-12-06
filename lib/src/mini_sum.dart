@@ -139,7 +139,7 @@ String _getAnalyzerOutputClass(
 
 Map<String, int> _classifyFiles(Iterable<String> paths) {
   var map = SplayTreeMap<String, int>.fromIterable(
-      (['other']..addAll(MiniSum._importantDirs)).map((e) => 'files_$e'),
+      ['other', ...MiniSum._importantDirs].map((e) => 'files_$e'),
       value: (_) => 0);
 
   for (var path in paths) {

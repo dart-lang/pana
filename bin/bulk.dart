@@ -17,7 +17,7 @@ import 'package:pool/pool.dart';
 
 final _jsonEncoder = const JsonEncoder.withIndent('  ');
 
-main(List<String> args) async {
+Future main(List<String> args) async {
   final runner = CommandRunner('bulk', 'Pana bulk processing')
     ..addCommand(AnalyzeCommand())
     ..addCommand(SummaryCommand());

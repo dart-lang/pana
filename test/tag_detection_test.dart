@@ -15,7 +15,7 @@ class FakeLibraryGraph implements LibraryGraph {
   }
 }
 
-main() {
+void main() {
   group('path finding', () {
     final graph = FakeLibraryGraph();
     graph.successors['dart:async'] = {};
