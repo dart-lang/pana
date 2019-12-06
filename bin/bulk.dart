@@ -17,7 +17,7 @@ import 'package:pool/pool.dart';
 
 final _jsonEncoder = const JsonEncoder.withIndent('  ');
 
-Future main(List<String> args) async {
+Future<void> main(List<String> args) async {
   final runner = CommandRunner('bulk', 'Pana bulk processing')
     ..addCommand(AnalyzeCommand())
     ..addCommand(SummaryCommand());
@@ -47,7 +47,7 @@ class AnalyzeCommand extends Command {
   }
 
   @override
-  Future run() async {
+  Future<void> run() async {
     final concurrency = int.parse(argResults['concurrency'] as String ?? '1');
     final pool = Pool(concurrency);
     final force = argResults['force'] as bool;
@@ -138,7 +138,7 @@ class SummaryCommand extends Command {
   String get description => 'Aggregates the pana results from a directory.';
 
   @override
-  Future run() async {
+  Future<void> run() async {
     final directories = <String>[];
     directories.addAll(argResults.rest);
 
