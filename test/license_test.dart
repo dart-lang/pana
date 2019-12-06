@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 import 'package:pana/src/license.dart';
 import 'package:pana/src/model.dart';
 
-main() {
+void main() {
   Future expectFile(String path, LicenseFile expected) async {
     final relativePath = path.substring('test/licenses/'.length);
     expect(await detectLicenseInFile(File(path), relativePath: relativePath),

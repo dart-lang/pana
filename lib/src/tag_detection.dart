@@ -275,7 +275,7 @@ class Runtime {
       {for (final lib in enabledLibs) 'dart.library.$lib': 'true'};
 
   @override
-  toString() => 'Runtime($name)';
+  String toString() => 'Runtime($name)';
 
   String get tag => 'runtime:$name';
 

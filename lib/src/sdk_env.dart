@@ -152,8 +152,13 @@ class ToolEnvironment {
     final customOptionsFile = File(p.join(packageDir, customFileName));
     await customOptionsFile.writeAsString(customizeAnalysisOptions(
         originalOptions, usesFlutter, pedanticFileName));
-    final params = ['--options', customOptionsFile.path, '--format', 'machine']
-      ..addAll(dirs);
+    final params = [
+      '--options',
+      customOptionsFile.path,
+      '--format',
+      'machine',
+      ...dirs,
+    ];
     // TODO: run flutter analyze after it gets machine-readable output support:
     // https://github.com/flutter/flutter/issues/23664
     try {
@@ -341,7 +346,7 @@ class ToolEnvironment {
     if (_useGlobalDartdoc) {
       pr = await runProc(
         _pubCmd,
-        ['global', 'run', 'dartdoc']..addAll(args),
+        ['global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment: _globalDartdocEnv(),
         timeout: timeout,

@@ -21,7 +21,7 @@ final _maxLines = 100000;
 
 ProcessResult runProcSync(String executable, List<String> arguments,
     {String workingDirectory, Map<String, String> environment}) {
-  log.fine('Running `${([executable]..addAll(arguments)).join(' ')}`...');
+  log.fine('Running `${[executable, ...arguments].join(' ')}`...');
   return Process.runSync(
     executable,
     arguments,
@@ -38,7 +38,7 @@ Future<ProcessResult> runProc(
   Duration timeout,
   bool deduplicate = false,
 }) async {
-  log.info('Running `${([executable]..addAll(arguments)).join(' ')}`...');
+  log.info('Running `${[executable, ...arguments].join(' ')}`...');
   var process = await Process.start(executable, arguments,
       workingDirectory: workingDirectory, environment: environment);
 
@@ -130,8 +130,8 @@ ProcessResult handleProcessErrors(ProcessResult result) {
 
 /// Executes [body] and returns with the first clean or the last failure result.
 Future<ProcessResult> retryProc(
-  Future<ProcessResult> body(), {
-  bool shouldRetry(ProcessResult pr) = _defaultShouldRetry,
+  Future<ProcessResult> Function() body, {
+  bool Function(ProcessResult pr) shouldRetry = _defaultShouldRetry,
   int maxAttempt = 3,
   Duration sleep = const Duration(seconds: 1),
 }) async {
@@ -222,7 +222,7 @@ Object sortedJson(obj) {
   return _toSortedMap(fullJson);
 }
 
-_toSortedMap(Object item) {
+dynamic _toSortedMap(Object item) {
   if (item is Map) {
     return SplayTreeMap<String, Object>.fromIterable(item.keys,
         value: (k) => _toSortedMap(item[k]));
