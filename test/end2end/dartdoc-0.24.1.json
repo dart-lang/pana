@@ -75,16 +75,16 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 1883,
+    "analyzerHintCount": 1882,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` reported 785 hints, including:\n\nline 18 col 59: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 56 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 68 col 39: Avoid const keyword.\n\nline 83 col 3: Omit type annotations for local variables.\n\nline 84 col 3: Omit type annotations for local variables.",
+        "description": "Analysis of `lib/src/model.dart` reported 784 hints, including:\n\nline 18 col 59: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 56 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 68 col 39: Avoid const keyword.\n\nline 83 col 3: Omit type annotations for local variables.\n\nline 84 col 3: Omit type annotations for local variables.",
         "file": "lib/src/model.dart",
-        "score": 98.05
+        "score": 98.04
       },
       {
         "code": "dartanalyzer.warning",
@@ -10239,15 +10239,6 @@
           "line": 3421,
           "col": 43,
           "description": "Prefer single quotes where they won't require escape sequences."
-        },
-        {
-          "severity": "INFO",
-          "errorType": "LINT",
-          "errorCode": "prefer_final_fields",
-          "file": "lib/src/model.dart",
-          "line": 3429,
-          "col": 8,
-          "description": "Private field could be final."
         },
         {
           "severity": "INFO",

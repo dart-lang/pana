@@ -1,3 +1,7 @@
+## 0.13.1+4
+
+* Fix the version number of pana
+
 ## 0.13.1+3
 
 * Allow import of platform:flutter on platform web when calculating tags.
