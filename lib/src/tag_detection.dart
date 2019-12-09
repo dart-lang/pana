@@ -308,10 +308,12 @@ class Runtime {
     'mirrors',
     'developer',
   });
+
   static final nativeAot = Runtime('native-aot', {
     ..._onAllPlatforms,
     ..._onAllNative,
   });
+
   static final web = Runtime('web', {
     ..._onAllPlatforms,
     ..._onAllWeb,
@@ -322,10 +324,13 @@ class Runtime {
     ..._onAllNative,
     'ui',
   });
+
   static final flutterWeb = Runtime('flutter-web', {
     ..._onAllPlatforms,
     ..._onAllWeb,
     'ui',
+    // Yes io is allowed in flutter-web.
+    'io',
   });
 }
 
