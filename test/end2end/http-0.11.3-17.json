@@ -47,39 +47,39 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 92,
+    "analyzerHintCount": 182,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/browser_client.dart`.",
-        "description": "Analysis of `lib/browser_client.dart` reported 11 hints, including:\n\nline 30 col 17: Unnecessary new keyword.\n\nline 44 col 15: Unnecessary new keyword.\n\nline 51 col 21: Unnecessary new keyword.\n\nline 52 col 5: `Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`.\n\nline 55 col 41: Unnecessary new keyword.",
-        "file": "lib/browser_client.dart",
-        "score": 5.36
+        "title": "Fix `lib/src/multipart_request.dart`.",
+        "description": "Analysis of `lib/src/multipart_request.dart` reported 28 hints, including:\n\nline 15 col 24: Unnecessary new keyword.\n\nline 15 col 35: Prefer single quotes where they won't require escape sequences.\n\nline 40 col 33: Unnecessary new keyword.\n\nline 59 col 11: Annotate overridden members.\n\nline 63 col 17: Prefer single quotes where they won't require escape sequences.",
+        "file": "lib/src/multipart_request.dart",
+        "score": 13.09
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/multipart_file.dart`.",
-        "description": "Analysis of `lib/src/multipart_file.dart` reported 9 hints, including:\n\nline 49 col 11: Unnecessary new keyword.\n\nline 57 col 18: Unnecessary new keyword.\n\nline 58 col 12: Unnecessary new keyword.\n\nline 71 col 41: Unnecessary new keyword.\n\nline 76 col 12: Unnecessary new keyword.",
-        "file": "lib/src/multipart_file.dart",
-        "score": 4.41
+        "title": "Fix `lib/src/base_client.dart`.",
+        "description": "Analysis of `lib/src/base_client.dart` reported 24 hints, including:\n\nline 26 col 20: Annotate overridden members.\n\nline 27 col 21: Prefer single quotes where they won't require escape sequences.\n\nline 33 col 20: Annotate overridden members.\n\nline 34 col 21: Prefer single quotes where they won't require escape sequences.\n\nline 54 col 20: Annotate overridden members.",
+        "file": "lib/src/base_client.dart",
+        "score": 11.33
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/request.dart`.",
-        "description": "Analysis of `lib/src/request.dart` reported 9 hints, including:\n\nline 24 col 11: Unnecessary new keyword.\n\nline 88 col 22: Unnecessary new keyword.\n\nline 112 col 13: Unnecessary new keyword.\n\nline 122 col 22: Unnecessary new keyword.\n\nline 124 col 13: Unnecessary new keyword.",
+        "description": "Analysis of `lib/src/request.dart` reported 21 hints, including:\n\nline 21 col 11: Annotate overridden members.\n\nline 23 col 7: Annotate overridden members.\n\nline 24 col 11: Unnecessary new keyword.\n\nline 24 col 32: Prefer single quotes where they won't require escape sequences.\n\nline 25 col 9: Prefer single quotes where they won't require escape sequences.",
         "file": "lib/src/request.dart",
-        "score": 4.41
+        "score": 9.99
       },
       {
         "code": "bulk",
         "level": "hint",
-        "title": "Fix additional 14 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/response.dart` (9 hints)\n- `lib/src/multipart_request.dart` (8 hints)\n- `lib/src/utils.dart` (8 hints)\n- `lib/src/base_request.dart` (7 hints)\n- `lib/src/base_client.dart` (5 hints)\n- `lib/src/base_response.dart` (5 hints)\n- `lib/src/byte_stream.dart` (5 hints)\n- `lib/src/io_client.dart` (4 hints)\n- `lib/src/mock_client.dart` (4 hints)\n- `lib/src/streamed_response.dart` (3 hints)\n- `lib/src/streamed_request.dart` (2 hints)\n- `lib/http.dart` (1 hint)\n- `lib/src/boundary_characters.dart` (1 hint)\n- `lib/src/client.dart` (1 hint)\n",
-        "score": 31.129999999999995
+        "title": "Fix additional 15 files with analysis or formatting issues.",
+        "description": "Additional issues in the following files:\n\n- `lib/src/multipart_file.dart` (18 hints)\n- `lib/browser_client.dart` (16 hints)\n- `lib/src/utils.dart` (16 hints)\n- `lib/src/response.dart` (11 hints)\n- `lib/src/base_request.dart` (10 hints)\n- `lib/src/base_response.dart` (7 hints)\n- `lib/src/io_client.dart` (7 hints)\n- `lib/src/mock_client.dart` (7 hints)\n- `lib/src/byte_stream.dart` (5 hints)\n- `lib/src/streamed_response.dart` (4 hints)\n- `lib/src/streamed_request.dart` (3 hints)\n- `lib/http.dart` (2 hints)\n- `lib/src/boundary_characters.dart` (1 hint)\n- `lib/src/client.dart` (1 hint)\n- `lib/src/exception.dart` (1 hint)\n",
+        "score": 53.11000000000001
       }
     ]
   },
@@ -199,11 +199,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_collection_literals",
+          "file": "lib/browser_client.dart",
+          "line": 30,
+          "col": 17,
+          "description": "Use collection literals when possible."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/browser_client.dart",
           "line": 30,
           "col": 17,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/browser_client.dart",
+          "line": 42,
+          "col": 28,
+          "description": "Annotate overridden members."
         },
         {
           "severity": "INFO",
@@ -231,6 +249,15 @@
           "line": 52,
           "col": 5,
           "description": "`Future` results in `async` function bodies must be `await`ed or marked `unawaited` using `package:pedantic`."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_if_null_operators",
+          "file": "lib/browser_client.dart",
+          "line": 55,
+          "col": 18,
+          "description": "Prefer using if null operators."
         },
         {
           "severity": "INFO",
@@ -294,6 +321,24 @@
           "line": 82,
           "col": 11,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/browser_client.dart",
+          "line": 82,
+          "col": 31,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/browser_client.dart",
+          "line": 104,
+          "col": 8,
+          "description": "Annotate overridden members."
         }
       ],
       "directLibs": [
@@ -455,6 +500,15 @@
       "size": 7234,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "use_function_type_syntax_for_parameters",
+          "file": "lib/http.dart",
+          "line": 164,
+          "col": 26,
+          "description": "Use generic function type syntax for parameters."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -636,6 +690,141 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 26,
+          "col": 20,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 27,
+          "col": 21,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 33,
+          "col": 20,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 34,
+          "col": 21,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 54,
+          "col": 20,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 56,
+          "col": 21,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 76,
+          "col": 20,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 78,
+          "col": 21,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 98,
+          "col": 20,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 100,
+          "col": 21,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 106,
+          "col": 20,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 107,
+          "col": 21,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 118,
+          "col": 18,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 134,
+          "col": 21,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 148,
+          "col": 28,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/base_client.dart",
           "line": 155,
@@ -672,11 +861,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 177,
+          "col": 19,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 179,
+          "col": 17,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/base_client.dart",
           "line": 182,
           "col": 11,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_client.dart",
+          "line": 182,
+          "col": 31,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_client.dart",
+          "line": 188,
+          "col": 8,
+          "description": "Annotate overridden members."
         }
       ]
     },
@@ -693,6 +918,15 @@
           "line": 37,
           "col": 13,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_request.dart",
+          "line": 37,
+          "col": 31,
+          "description": "Prefer single quotes where they won't require escape sequences."
         },
         {
           "severity": "INFO",
@@ -747,6 +981,24 @@
           "line": 136,
           "col": 11,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/base_request.dart",
+          "line": 139,
+          "col": 10,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_request.dart",
+          "line": 139,
+          "col": 24,
+          "description": "Prefer single quotes where they won't require escape sequences."
         }
       ]
     },
@@ -794,11 +1046,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_response.dart",
+          "line": 48,
+          "col": 31,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/base_response.dart",
           "line": 50,
           "col": 13,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/base_response.dart",
+          "line": 50,
+          "col": 31,
+          "description": "Prefer single quotes where they won't require escape sequences."
         }
       ]
     },
@@ -890,7 +1160,17 @@
       "uri": "package:http/src/exception.dart",
       "size": 502,
       "isFormatted": true,
-      "codeProblems": []
+      "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/exception.dart",
+          "line": 14,
+          "col": 10,
+          "description": "Annotate overridden members."
+        }
+      ]
     },
     "lib/src/io_client.dart": {
       "uri": "package:http/src/io_client.dart",
@@ -905,6 +1185,24 @@
           "line": 23,
           "col": 52,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/io_client.dart",
+          "line": 26,
+          "col": 28,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_if_null_operators",
+          "file": "lib/src/io_client.dart",
+          "line": 35,
+          "col": 29,
+          "description": "Prefer using if null operators."
         },
         {
           "severity": "INFO",
@@ -932,6 +1230,15 @@
           "line": 64,
           "col": 13,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/io_client.dart",
+          "line": 70,
+          "col": 8,
+          "description": "Annotate overridden members."
         }
       ]
     },
@@ -975,6 +1282,33 @@
           "line": 60,
           "col": 16,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/mock_client.dart",
+          "line": 73,
+          "col": 28,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_generic_function_type_aliases",
+          "file": "lib/src/mock_client.dart",
+          "line": 81,
+          "col": 34,
+          "description": "Prefer generic function type aliases."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_generic_function_type_aliases",
+          "file": "lib/src/mock_client.dart",
+          "line": 86,
+          "col": 26,
+          "description": "Prefer generic function type aliases."
         }
       ]
     },
@@ -986,11 +1320,56 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_this",
+          "file": "lib/src/multipart_file.dart",
+          "line": 47,
+          "col": 7,
+          "description": "Don't access members with `this` unless avoiding shadowing."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_this",
+          "file": "lib/src/multipart_file.dart",
+          "line": 48,
+          "col": 7,
+          "description": "Don't access members with `this` unless avoiding shadowing."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_if_null_operators",
+          "file": "lib/src/multipart_file.dart",
+          "line": 48,
+          "col": 26,
+          "description": "Prefer using if null operators."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/multipart_file.dart",
           "line": 49,
           "col": 11,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_file.dart",
+          "line": 49,
+          "col": 25,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_file.dart",
+          "line": 49,
+          "col": 40,
+          "description": "Prefer single quotes where they won't require escape sequences."
         },
         {
           "severity": "INFO",
@@ -1013,6 +1392,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_if_null_operators",
+          "file": "lib/src/multipart_file.dart",
+          "line": 71,
+          "col": 19,
+          "description": "Prefer using if null operators."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/multipart_file.dart",
           "line": 71,
@@ -1022,11 +1410,38 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_file.dart",
+          "line": 71,
+          "col": 55,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_file.dart",
+          "line": 71,
+          "col": 63,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/multipart_file.dart",
           "line": 76,
           "col": 12,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_conditional_assignment",
+          "file": "lib/src/multipart_file.dart",
+          "line": 92,
+          "col": 5,
+          "description": "Prefer using `??=` over testing for null."
         },
         {
           "severity": "INFO",
@@ -1083,11 +1498,101 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 15,
+          "col": 35,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/multipart_request.dart",
           "line": 40,
           "col": 33,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/multipart_request.dart",
+          "line": 59,
+          "col": 11,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 63,
+          "col": 17,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 63,
+          "col": 50,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 65,
+          "col": 39,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 69,
+          "col": 17,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 69,
+          "col": 50,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 71,
+          "col": 25,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 74,
+          "col": 21,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 74,
+          "col": 54,
+          "description": "Prefer single quotes where they won't require escape sequences."
         },
         {
           "severity": "INFO",
@@ -1101,11 +1606,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/multipart_request.dart",
+          "line": 77,
+          "col": 12,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/multipart_request.dart",
           "line": 78,
           "col": 11,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 78,
+          "col": 32,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 79,
+          "col": 9,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/multipart_request.dart",
+          "line": 84,
+          "col": 14,
+          "description": "Annotate overridden members."
         },
         {
           "severity": "INFO",
@@ -1119,6 +1660,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "always_declare_return_types",
+          "file": "lib/src/multipart_request.dart",
+          "line": 96,
+          "col": 5,
+          "description": "The function writeUtf8 should have a return type but doesn't."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "always_declare_return_types",
+          "file": "lib/src/multipart_request.dart",
+          "line": 97,
+          "col": 5,
+          "description": "The function writeLine should have a return type but doesn't."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/multipart_request.dart",
           "line": 118,
@@ -1128,11 +1687,47 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 153,
+          "col": 45,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 153,
+          "col": 71,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 158,
+          "col": 18,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/multipart_request.dart",
           "line": 159,
           "col": 16,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/multipart_request.dart",
+          "line": 163,
+          "col": 12,
+          "description": "Prefer single quotes where they won't require escape sequences."
         },
         {
           "severity": "INFO",
@@ -1153,6 +1748,24 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/request.dart",
+          "line": 21,
+          "col": 11,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/request.dart",
+          "line": 23,
+          "col": 7,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/request.dart",
           "line": 24,
@@ -1162,11 +1775,56 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/request.dart",
+          "line": 24,
+          "col": 32,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/request.dart",
+          "line": 25,
+          "col": 9,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/request.dart",
           "line": 88,
           "col": 22,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/request.dart",
+          "line": 88,
+          "col": 36,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/request.dart",
+          "line": 88,
+          "col": 44,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/request.dart",
+          "line": 111,
+          "col": 33,
+          "description": "Prefer single quotes where they won't require escape sequences."
         },
         {
           "severity": "INFO",
@@ -1189,6 +1847,33 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/request.dart",
+          "line": 122,
+          "col": 36,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/request.dart",
+          "line": 122,
+          "col": 51,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/request.dart",
+          "line": 123,
+          "col": 40,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/request.dart",
           "line": 124,
@@ -1198,11 +1883,29 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "unnecessary_this",
+          "file": "lib/src/request.dart",
+          "line": 128,
+          "col": 5,
+          "description": "Don't access members with `this` unless avoiding shadowing."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/request.dart",
           "line": 134,
           "col": 20,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/request.dart",
+          "line": 139,
+          "col": 14,
+          "description": "Annotate overridden members."
         },
         {
           "severity": "INFO",
@@ -1318,6 +2021,24 @@
           "line": 94,
           "col": 10,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/response.dart",
+          "line": 94,
+          "col": 24,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/response.dart",
+          "line": 94,
+          "col": 39,
+          "description": "Prefer single quotes where they won't require escape sequences."
         }
       ]
     },
@@ -1334,6 +2055,15 @@
           "line": 31,
           "col": 21,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/streamed_request.dart",
+          "line": 37,
+          "col": 14,
+          "description": "Annotate overridden members."
         },
         {
           "severity": "INFO",
@@ -1377,6 +2107,15 @@
           "line": 28,
           "col": 33,
           "description": "Use `=` to separate a named parameter from its default value."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "unnecessary_this",
+          "file": "lib/src/streamed_response.dart",
+          "line": 30,
+          "col": 7,
+          "description": "Don't access members with `this` unless avoiding shadowing."
         }
       ]
     },
@@ -1385,6 +2124,33 @@
       "size": 4843,
       "isFormatted": false,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/utils.dart",
+          "line": 20,
+          "col": 30,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/utils.dart",
+          "line": 20,
+          "col": 60,
+          "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_if_null_operators",
+          "file": "lib/src/utils.dart",
+          "line": 46,
+          "col": 10,
+          "description": "Prefer using if null operators."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -1402,6 +2168,15 @@
           "line": 61,
           "col": 28,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_single_quotes",
+          "file": "lib/src/utils.dart",
+          "line": 61,
+          "col": 39,
+          "description": "Prefer single quotes where they won't require escape sequences."
         },
         {
           "severity": "INFO",
@@ -1433,6 +2208,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "use_function_type_syntax_for_parameters",
+          "file": "lib/src/utils.dart",
+          "line": 89,
+          "col": 39,
+          "description": "Use generic function type syntax for parameters."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/src/utils.dart",
           "line": 90,
@@ -1456,6 +2240,33 @@
           "line": 113,
           "col": 19,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/utils.dart",
+          "line": 127,
+          "col": 10,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/utils.dart",
+          "line": 129,
+          "col": 16,
+          "description": "Annotate overridden members."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "annotate_overrides",
+          "file": "lib/src/utils.dart",
+          "line": 134,
+          "col": 11,
+          "description": "Annotate overridden members."
         }
       ]
     },
@@ -1626,7 +2437,6 @@
     "platform:windows",
     "platform:linux",
     "platform:macos",
-    "platform:web",
     "runtime:native-aot",
     "runtime:native-jit"
   ]
