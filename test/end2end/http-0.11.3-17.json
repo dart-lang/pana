@@ -2429,5 +2429,15 @@
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
   },
-  "tags": []
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "runtime:native-aot",
+    "runtime:native-jit"
+  ]
 }

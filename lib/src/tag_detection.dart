@@ -153,6 +153,14 @@ class LibraryGraph implements _DirectedGraph<Uri> {
       if (uriString.startsWith('dart:') || uriString.startsWith('dart-ext:')) {
         return <Uri>{};
       }
+      // HACK: package:flutter comes from the SDK, we do not want to look at its
+      // import graph.
+      //
+      // We need this because package:flutter imports dart:io, even though it is
+      // allowed on web.
+      if (uriString.startsWith('package:flutter/')) {
+        return <Uri>{Uri.parse('dart:ui')};
+      }
       final path = _analysisSession.uriConverter.uriToPath(uri);
       if (path == null) {
         // Could not resolve uri.
@@ -308,10 +316,12 @@ class Runtime {
     'mirrors',
     'developer',
   });
+
   static final nativeAot = Runtime('native-aot', {
     ..._onAllPlatforms,
     ..._onAllNative,
   });
+
   static final web = Runtime('web', {
     ..._onAllPlatforms,
     ..._onAllWeb,
@@ -322,6 +332,7 @@ class Runtime {
     ..._onAllNative,
     'ui',
   });
+
   static final flutterWeb = Runtime('flutter-web', {
     ..._onAllPlatforms,
     ..._onAllWeb,
@@ -506,7 +517,7 @@ class Tagger {
     final dartFiles = lib
         .listSync(recursive: false)
         .where((e) => e is File && e.path.endsWith('.dart'))
-        .map((f) => f.path)
+        .map((f) => path.basename(f.path))
         .toList()
           // Sort to make the arbitrary use of first file deterministic.
           ..sort();

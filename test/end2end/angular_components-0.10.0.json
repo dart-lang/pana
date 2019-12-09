@@ -146,7 +146,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.35.4",
-        "available": "0.39.1"
+        "available": "0.39.2+1"
       },
       {
         "package": "angular",
@@ -260,7 +260,7 @@
         "package": "crypto",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.3"
+        "resolved": "2.1.4"
       },
       {
         "package": "csslib",
@@ -279,7 +279,7 @@
         "package": "dart_internal",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.1.7"
+        "resolved": "0.1.8"
       },
       {
         "package": "dart_style",

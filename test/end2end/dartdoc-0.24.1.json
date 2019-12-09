@@ -75,16 +75,16 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 1882,
+    "analyzerHintCount": 1883,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` reported 784 hints, including:\n\nline 18 col 59: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 56 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 68 col 39: Avoid const keyword.\n\nline 83 col 3: Omit type annotations for local variables.\n\nline 84 col 3: Omit type annotations for local variables.",
+        "description": "Analysis of `lib/src/model.dart` reported 785 hints, including:\n\nline 18 col 59: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 56 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 68 col 39: Avoid const keyword.\n\nline 83 col 3: Omit type annotations for local variables.\n\nline 84 col 3: Omit type annotations for local variables.",
         "file": "lib/src/model.dart",
-        "score": 98.04
+        "score": 98.05
       },
       {
         "code": "dartanalyzer.warning",
@@ -152,7 +152,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.39.1"
+        "available": "0.39.2+1"
       },
       {
         "package": "args",
@@ -209,7 +209,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.6",
-        "resolved": "2.1.3"
+        "resolved": "2.1.4"
       },
       {
         "package": "csslib",
@@ -10239,6 +10239,15 @@
           "line": 3421,
           "col": 43,
           "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_final_fields",
+          "file": "lib/src/model.dart",
+          "line": 3429,
+          "col": 8,
+          "description": "Private field could be final."
         },
         {
           "severity": "INFO",
