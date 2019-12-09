@@ -511,7 +511,7 @@ class Tagger {
     final dartFiles = lib
         .listSync(recursive: false)
         .where((e) => e is File && e.path.endsWith('.dart'))
-        .map((f) => f.path)
+        .map((f) => path.basename(f.path))
         .toList()
           // Sort to make the arbitrary use of first file deterministic.
           ..sort();
