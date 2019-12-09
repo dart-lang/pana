@@ -101,7 +101,44 @@ name: my_package
         'runtime:web',
       });
     });
-
+    test('analyzes the primary libray', () async {
+      final decriptor = d.dir('cache', [
+        d.dir('my_package', [
+          d.dir('lib', [
+            d.file('a.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+            d.file('my_package.dart', '''
+import 'dart:html';
+int fourtyThree() => 43;
+'''),
+            d.file('z.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+          ]),
+          d.file('.packages', '''
+my_package:lib/
+'''),
+          d.file(
+            'pubspec.yaml',
+            '''
+name: my_package
+''',
+          )
+        ])
+      ]);
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expect(tagger.sdkTags(), {'sdk:dart', 'sdk:flutter'});
+      expect(tagger.flutterPlatformTags(), {
+        'platform:web',
+      });
+      expect(tagger.runtimeTags(), {
+        'runtime:web',
+      });
+    });
     test('no library named after package', () async {
       final decriptor = d.dir('cache', [
         d.dir('my_package', [
@@ -205,7 +242,58 @@ flutter:
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
       expect(tagger.sdkTags(), {'sdk:flutter'});
-      expect(tagger.flutterPlatformTags(), {'platform:ios'});
+      expect(tagger.flutterPlatformTags(), {'platform:ios', 'platform:web'});
+      expect(tagger.runtimeTags(), isEmpty);
+    });
+    test('using flutter plugin2', () async {
+      final decriptor = d.dir('cache', [
+        d.dir('my_package', [
+          d.dir('lib', [
+            d.file('my_package.dart', '''
+import "package:my_dependency/my_dependency.dart";
+import "dart:html";
+int fourtyTwo() => fourtyThree() - 1;
+'''),
+          ]),
+          d.file('.packages', '''
+my_package:lib/
+my_dependency:../my_dependency/lib
+'''),
+          d.file(
+            'pubspec.yaml',
+            '''
+name: my_package
+dependencies:
+  my_dependency:
+    path: ../my_dependency
+''',
+          )
+        ]),
+        d.dir('my_dependency', [
+          d.dir('lib', [
+            d.file('my_dependency.dart', '''
+int fourtyThree() => 43;
+'''),
+          ]),
+          d.file(
+            'pubspec.yaml',
+            '''
+name: my_dependency
+environment:
+  flutter: '>=1.2.0<=2.0.0'
+flutter:
+  plugin:
+    platforms:
+      web:
+      ios:
+''',
+          )
+        ]),
+      ]);
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expect(tagger.sdkTags(), {'sdk:flutter'});
+      expect(tagger.flutterPlatformTags(), {'platform:web'});
       expect(tagger.runtimeTags(), isEmpty);
     });
     test('Using mirrors', () async {
