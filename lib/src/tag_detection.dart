@@ -153,6 +153,10 @@ class LibraryGraph implements _DirectedGraph<Uri> {
       if (uriString.startsWith('dart:') || uriString.startsWith('dart-ext:')) {
         return <Uri>{};
       }
+      // HACK: Package flutter comes from the SDK, we do not want to look at its import graph.
+      if (uriString.startsWith('package:flutter/') {
+        return <Uri>{};
+      }
       final path = _analysisSession.uriConverter.uriToPath(uri);
       if (path == null) {
         // Could not resolve uri.
@@ -224,6 +228,9 @@ class _PackageGraph implements _DirectedGraph<String> {
   Set<String> directSuccessors(String packageDir) {
     final pubspec = _pubspecCache.pubspecOfPackage(packageDir);
     return pubspec.dependencies.keys
+        // HACK: Ignore package:flutter as it is provided by the SDK.
+        // TODO(jonasfj): Look at the package dependency kind, we should ignore SDK dependencies
+        .filter((name) => name == 'flutter')
         .map((name) => _pubspecCache._packageDir(Uri.parse('package:$name/')))
         // Probably a missing/broken dependency
         // TODO(sigurdm): figure out the right thing to do here.
