@@ -1,6 +1,6 @@
 ## 0.13.1+3
 
-* Allow import of dart:io on platform web when calculating tags.
+* Allow import of platform:flutter on platform web when calculating tags.
 * Fix the finding of primary library.
 
 ## 0.13.1+2
