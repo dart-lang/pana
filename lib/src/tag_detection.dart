@@ -232,10 +232,6 @@ class _PackageGraph implements _DirectedGraph<String> {
   Set<String> directSuccessors(String packageDir) {
     final pubspec = _pubspecCache.pubspecOfPackage(packageDir);
     return pubspec.dependencies.keys
-        // HACK: Ignore package:flutter as it is provided by the SDK.
-        // TODO(jonasfj): Look at the package dependency kind,
-        // we should ignore SDK dependencies
-        .where((name) => name != 'flutter')
         .map((name) => _pubspecCache._packageDir(Uri.parse('package:$name/')))
         // Probably a missing/broken dependency
         // TODO(sigurdm): figure out the right thing to do here.

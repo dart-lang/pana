@@ -242,7 +242,7 @@ flutter:
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
       expect(tagger.sdkTags(), {'sdk:flutter'});
-      expect(tagger.flutterPlatformTags(), {'platform:ios', 'platform:web'});
+      expect(tagger.flutterPlatformTags(), {'platform:ios'});
       expect(tagger.runtimeTags(), isEmpty);
     });
     test('using flutter plugin2', () async {
