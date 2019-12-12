@@ -75,16 +75,16 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 1882,
+    "analyzerHintCount": 1885,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` reported 784 hints, including:\n\nline 18 col 59: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 56 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 68 col 39: Avoid const keyword.\n\nline 83 col 3: Omit type annotations for local variables.\n\nline 84 col 3: Omit type annotations for local variables.",
+        "description": "Analysis of `lib/src/model.dart` reported 785 hints, including:\n\nline 18 col 59: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 56 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 68 col 39: Avoid const keyword.\n\nline 83 col 3: Omit type annotations for local variables.\n\nline 84 col 3: Omit type annotations for local variables.",
         "file": "lib/src/model.dart",
-        "score": 98.04
+        "score": 98.05
       },
       {
         "code": "dartanalyzer.warning",
@@ -98,9 +98,9 @@
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/dartdoc_options.dart`.",
-        "description": "Analysis of `lib/src/dartdoc_options.dart` reported 142 hints, including:\n\nline 23 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 29 col 38: Avoid const keyword.\n\nline 30 col 44: Avoid const keyword.\n\nline 88 col 12: Unnecessary new keyword.\n\nline 93 col 5: Omit type annotations for local variables.",
+        "description": "Analysis of `lib/src/dartdoc_options.dart` reported 144 hints, including:\n\nline 23 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 29 col 38: Avoid const keyword.\n\nline 30 col 44: Avoid const keyword.\n\nline 88 col 12: Unnecessary new keyword.\n\nline 93 col 5: Omit type annotations for local variables.",
         "file": "lib/src/dartdoc_options.dart",
-        "score": 50.92
+        "score": 51.41
       },
       {
         "code": "bulk",
@@ -2214,6 +2214,15 @@
         },
         {
           "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "UNUSED_ELEMENT",
+          "file": "lib/src/dartdoc_options.dart",
+          "line": 467,
+          "col": 8,
+          "description": "The declaration '_onAdd' isn't referenced."
+        },
+        {
+          "severity": "INFO",
           "errorType": "LINT",
           "errorCode": "use_function_type_syntax_for_parameters",
           "file": "lib/src/dartdoc_options.dart",
@@ -2661,6 +2670,15 @@
           "line": 1031,
           "col": 7,
           "description": "Omit type annotations for local variables."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "UNUSED_ELEMENT",
+          "file": "lib/src/dartdoc_options.dart",
+          "line": 1041,
+          "col": 8,
+          "description": "The declaration '_onAdd' isn't referenced."
         },
         {
           "severity": "INFO",
@@ -10239,6 +10257,15 @@
           "line": 3421,
           "col": 43,
           "description": "Prefer single quotes where they won't require escape sequences."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "prefer_final_fields",
+          "file": "lib/src/model.dart",
+          "line": 3429,
+          "col": 8,
+          "description": "Private field could be final."
         },
         {
           "severity": "INFO",
