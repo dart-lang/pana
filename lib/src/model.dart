@@ -374,6 +374,7 @@ abstract class SuggestionCode {
 
   static const String platformConflictInFile = 'platform.conflict.inFile';
   static const String platformConflictInPkg = 'platform.conflict.inPkg';
+  static const String sdkMissing = 'sdk.missing';
 
   static const String packageVersionObsolete = 'packageVersion.obsolete';
   static const String packageVersionOld = 'packageVersion.old';

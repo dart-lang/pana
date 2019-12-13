@@ -32,19 +32,20 @@ const _withIssuesJson = {
       'score': 50.0
     },
     {
-      'code': 'platform.conflict.inPkg',
-      'level': 'error',
-      'title': 'Fix platform conflicts.',
-      'description': 'conflict description',
-      'score': 20.0
-    },
-    {
       'code': 'pubspec.sdk.devOnly',
       'level': 'error',
       'title': 'Support future stable Dart 2 SDKs in `pubspec.yaml`.',
       'description':
           'The SDK constraint in `pubspec.yaml` doesn\'t allow future stable Dart 2.x SDK releases.',
       'score': 20.0
+    },
+    {
+      'code': 'sdk.missing',
+      'level': 'error',
+      'title': 'No valid SDK.',
+      'description':
+          'The analysis could not detect a valid SDK that can use this package.',
+      'score': 20.0,
     },
     {
       'code': 'dartdoc.aborted',
@@ -152,9 +153,9 @@ void main() {
         d.sandbox,
         Pubspec.fromJson({'name': 'sandbox', 'version': '0.0.1-alpha'}),
         null,
-        pkgPlatform: DartPlatform.conflict('conflict description'),
         dartdocSuccessful: false,
         pkgResolution: pkgResolution,
+        tags: [],
       );
 
       expect(json.decode(json.encode(maintenance.toJson())), _withIssuesJson);
