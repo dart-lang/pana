@@ -405,9 +405,9 @@ class PackageAnalyzer {
       pkgDir,
       pubspec,
       null, // unconstrainedDeps no longer used directly
-      pkgPlatform: platform,
       dartdocSuccessful: dartdocSuccessful,
       pkgResolution: pkgResolution,
+      tags: tags,
     );
     suggestions.sort();
 

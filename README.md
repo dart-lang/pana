@@ -72,7 +72,7 @@ A package starts with `100` points, and the following detected issues have point
 - unable to parse markdown content (-50 points)
 - `readme.md` missing (-30 points)
 - `changelog.md` missing (-20 points)
-- has platform conflicts (-20 points)
+- unable to detect valid SDKs (-20 points)
 - has unconstrained dependencies (-20 points)
 - does not allow latest stable SDK (-20 points)
 - `description` is too short (<60 characters) (-20 points)

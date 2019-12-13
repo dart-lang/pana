@@ -1,3 +1,7 @@
+## 0.13.2
+
+* Don't penalize packages on legacy platform detection results.
+
 ## 0.13.1+4
 
 * Fix the version number of pana
