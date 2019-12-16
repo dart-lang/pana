@@ -548,7 +548,7 @@ class Tagger {
     final topLibraries = primaryLibrary != null
         ? <Uri>[primaryLibrary]
         : topLibraryFiles
-            .map((name) => Uri.parse('package:${pubspec.name}/$name.dart'))
+            .map((name) => Uri.parse('package:${pubspec.name}/$name'))
             .toList();
 
     return Tagger._(packageDir, session, pubspecCache, topLibraries);
