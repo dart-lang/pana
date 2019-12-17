@@ -490,11 +490,12 @@ class Tagger {
   String packageDir;
   final AnalysisSession _session;
   final _PubspecCache _pubspecCache;
+  final bool _isBinaryOnly;
   final List<Uri> _topLibraries;
   final _PackageGraph _packageGraph;
 
   Tagger._(this.packageDir, this._session, _PubspecCache pubspecCache,
-      this._topLibraries)
+      this._isBinaryOnly, this._topLibraries)
       : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
 
@@ -510,32 +511,15 @@ class Tagger {
     final pubspecCache = _PubspecCache(session);
     final pubspec = pubspecCache.pubspecOfPackage(packageDir);
     final libDir = Directory(path.join(packageDir, 'lib'));
-    if (!libDir.existsSync()) {
-      // No `lib/` folder.
-      return Tagger._(packageDir, session, pubspecCache, <Uri>[]);
-    }
-
-    final libDartFiles = libDir
-        .listSync(recursive: false)
-        .where((e) => e is File && e.path.endsWith('.dart'))
-        .map((f) => path.basename(f.path))
-        .toList();
-
-    final libSrcDir = Directory(path.join(packageDir, 'lib', 'src'));
-    final libSrcDartFiles = !libSrcDir.existsSync()
-        ? <String>[]
-        : libSrcDir
+    final libDartFiles = libDir.existsSync()
+        ? libDir
             .listSync(recursive: false)
             .where((e) => e is File && e.path.endsWith('.dart'))
-            .map((f) => path.relative(f.path, from: libDir.path))
-            .toList();
+            .map((f) => path.basename(f.path))
+            .toList()
+        : <String>[];
     // Sort to make the order of files and the reported events deterministic.
     libDartFiles.sort();
-    libSrcDartFiles.sort();
-
-    // Use `lib/*.dart` otherwise `lib/src/*.dart`.
-    final topLibraryFiles =
-        libDartFiles.isNotEmpty ? libDartFiles : libSrcDartFiles;
 
     Uri primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
@@ -547,11 +531,22 @@ class Tagger {
     // otherwise take `lib/*.dart` or (if it was empty) `lib/src/*.dart`.
     final topLibraries = primaryLibrary != null
         ? <Uri>[primaryLibrary]
-        : topLibraryFiles
+        : libDartFiles
             .map((name) => Uri.parse('package:${pubspec.name}/$name'))
             .toList();
 
-    return Tagger._(packageDir, session, pubspecCache, topLibraries);
+    final binDir = Directory(path.join(packageDir, 'bin'));
+    final allBinFiles = binDir.existsSync()
+        ? binDir
+            .listSync(recursive: true)
+            .where((e) => e is File && e.path.endsWith('.dart'))
+            .map((f) => path.relative(f.path, from: binDir.path))
+            .toList()
+        : <String>[];
+    final isBinaryOnly = topLibraries.isEmpty && allBinFiles.isNotEmpty;
+
+    return Tagger._(
+        packageDir, session, pubspecCache, isBinaryOnly, topLibraries);
   }
 
   Set<String> declaredSdks(String packageDir) {
@@ -563,6 +558,9 @@ class Tagger {
 
   /// Returns `true` iff the package at [packageDir] supports [sdk].
   bool _supportsSdk(Sdk sdk) {
+    if (_isBinaryOnly) {
+      return sdk.name == 'dart';
+    }
     if (_topLibraries.isEmpty) {
       return false;
     }
@@ -606,6 +604,9 @@ class Tagger {
 
   /// The Flutter platforms that this package works in.
   List<String> flutterPlatformTags() {
+    if (_isBinaryOnly) {
+      return <String>[];
+    }
     if (_topLibraries.isEmpty) {
       return <String>[];
     }
@@ -642,6 +643,9 @@ class Tagger {
   ///
   /// Returns the empty list if this package does not support the dart sdk.
   List<String> runtimeTags() {
+    if (_isBinaryOnly) {
+      return <String>[Runtime.nativeAot.name, Runtime.nativeJit.name];
+    }
     if (_topLibraries.isEmpty) {
       return <String>[];
     }
