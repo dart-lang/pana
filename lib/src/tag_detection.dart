@@ -303,28 +303,34 @@ class Runtime {
   static final _onAllWeb = {
     'html',
     'indexed_db',
-    'web_audio',
-    'web_gl',
     'js',
     'js_util',
+    'svg',
+    'web_audio',
+    'web_gl',
     'web_sql',
   };
 
   static final nativeJit = Runtime('native-jit', {
     ..._onAllPlatforms,
     ..._onAllNative,
-    'mirrors',
+    'cli',
     'developer',
+    'mirrors',
+    'nativewrappers',
   });
 
   static final nativeAot = Runtime('native-aot', {
     ..._onAllPlatforms,
     ..._onAllNative,
+    'cli',
+    'nativewrappers',
   });
 
   static final web = Runtime('web', {
     ..._onAllPlatforms,
     ..._onAllWeb,
+    'html_common',
   });
 
   static final flutterNative = Runtime('flutter-native', {
