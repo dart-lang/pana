@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
+import 'package:safe_url_check/safe_url_check.dart';
 
 import 'logging.dart';
 import 'utils.dart';
@@ -139,12 +140,8 @@ enum UrlStatus {
 
 class UrlChecker {
   final _internalHosts = <Pattern>{};
-  final _resolveCache = <String, bool>{};
-  final int _resolveCacheLimit;
 
-  UrlChecker({
-    int resolveCacheLimit = 1000,
-  }) : _resolveCacheLimit = resolveCacheLimit {
+  UrlChecker() {
     addInternalHosts([
       'dart.dev',
       RegExp(r'.*\.dart\.dev'),
@@ -170,53 +167,6 @@ class UrlChecker {
     return _internalHosts.every((p) => p.allMatches(uri.host).isEmpty);
   }
 
-  /// Make sure that it is not an IP address.
-  Future<bool> hasResolvableAddress(Uri uri) async {
-    if (uri == null) {
-      return false;
-    }
-    if (_resolveCache.containsKey(uri.host)) {
-      return _resolveCache[uri.host];
-    }
-    try {
-      final list = await InternetAddress.lookup(uri.host)
-          .timeout(const Duration(seconds: 15));
-      final result = list.every((a) => a.address != uri.host);
-
-      while (_resolveCache.length > _resolveCacheLimit) {
-        _resolveCache.remove(_resolveCache.keys.first);
-      }
-      _resolveCache[uri.host] = result;
-
-      return result;
-    } catch (_) {
-      return false;
-    }
-  }
-
-  /// Issues a HTTP HEAD request.
-  Future<bool> urlExists(Uri uri) async {
-    if (uri == null) {
-      return false;
-    }
-    final client = http.Client();
-    try {
-      log.info('Requesting HEAD $uri ...');
-      final request = http.Request('HEAD', uri)
-        ..followRedirects = true
-        ..maxRedirects = 10;
-      final rs =
-          await client.send(request).timeout(const Duration(seconds: 15));
-      await rs.stream.drain();
-      return rs.statusCode >= 200 && rs.statusCode < 300;
-    } catch (e) {
-      log.info('HEAD $uri failed', e);
-    } finally {
-      client.close();
-    }
-    return false;
-  }
-
   Future<UrlStatus> checkStatus(String url,
       {bool isInternalPackage = false}) async {
     if (url == null) {
@@ -233,11 +183,7 @@ class UrlChecker {
     if (!isExternal && !isInternalPackage) {
       return UrlStatus.internal;
     }
-    final isResolvable = await hasResolvableAddress(uri);
-    if (!isResolvable) {
-      return UrlStatus.invalid;
-    }
-    final exists = await urlExists(uri);
+    final exists = await safeUrlCheck(uri);
     return exists ? UrlStatus.exists : UrlStatus.missing;
   }
 }

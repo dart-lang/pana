@@ -28,6 +28,7 @@ dependencies:
   quiver: '>=0.24.0 <3.0.0'
   resource: ^2.1.5
   yaml: ^2.1.15
+  safe_url_check: ^1.0.0
 
 dev_dependencies:
   build: ^1.1.0
