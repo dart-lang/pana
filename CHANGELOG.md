@@ -1,6 +1,7 @@
 ## 0.13.3
 
 * Updated tag detection for packages without a primary library.
+* Upgraded analyzer to `^0.39.0`.
 
 ## 0.13.2
 
