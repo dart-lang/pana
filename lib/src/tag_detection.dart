@@ -490,11 +490,12 @@ class Tagger {
   String packageDir;
   final AnalysisSession _session;
   final _PubspecCache _pubspecCache;
-  final Uri _primaryLibrary;
+  final bool _isBinaryOnly;
+  final List<Uri> _topLibraries;
   final _PackageGraph _packageGraph;
 
   Tagger._(this.packageDir, this._session, _PubspecCache pubspecCache,
-      this._primaryLibrary)
+      this._isBinaryOnly, this._topLibraries)
       : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
 
@@ -509,28 +510,43 @@ class Tagger {
         .currentSession;
     final pubspecCache = _PubspecCache(session);
     final pubspec = pubspecCache.pubspecOfPackage(packageDir);
-    final lib = Directory('$packageDir/lib');
-    if (!lib.existsSync()) {
-      // No `lib/` folder.
-      return Tagger._(packageDir, session, pubspecCache, null);
+    final libDir = Directory(path.join(packageDir, 'lib'));
+    final libDartFiles = libDir.existsSync()
+        ? libDir
+            .listSync(recursive: false)
+            .where((e) => e is File && e.path.endsWith('.dart'))
+            .map((f) => path.basename(f.path))
+            .toList()
+        : <String>[];
+    // Sort to make the order of files and the reported events deterministic.
+    libDartFiles.sort();
+
+    Uri primaryLibrary;
+    if (libDartFiles.contains('${pubspec.name}.dart')) {
+      primaryLibrary =
+          Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
     }
-    final dartFiles = lib
-        .listSync(recursive: false)
-        .where((e) => e is File && e.path.endsWith('.dart'))
-        .map((f) => path.basename(f.path))
-        .toList()
-          // Sort to make the arbitrary use of first file deterministic.
-          ..sort();
-    if (dartFiles.isEmpty) {
-      // No libraries in `lib/`.
-      return Tagger._(packageDir, session, pubspecCache, null);
-    }
-    final primaryLibrary = dartFiles.contains('${pubspec.name}.dart')
-        ? Uri.parse('package:${pubspec.name}/${pubspec.name}.dart')
-        // TODO(sigurdm): find a better heuristic for primary library.
-        : Uri.parse(
-            'package:${pubspec.name}/${path.basename(dartFiles.first)}');
-    return Tagger._(packageDir, session, pubspecCache, primaryLibrary);
+
+    // If there is a primary library, use it as a single source for top libraries,
+    // otherwise take `lib/*.dart` or (if it was empty) `lib/src/*.dart`.
+    final topLibraries = primaryLibrary != null
+        ? <Uri>[primaryLibrary]
+        : libDartFiles
+            .map((name) => Uri.parse('package:${pubspec.name}/$name'))
+            .toList();
+
+    final binDir = Directory(path.join(packageDir, 'bin'));
+    final allBinFiles = binDir.existsSync()
+        ? binDir
+            .listSync(recursive: true)
+            .where((e) => e is File && e.path.endsWith('.dart'))
+            .map((f) => path.relative(f.path, from: binDir.path))
+            .toList()
+        : <String>[];
+    final isBinaryOnly = topLibraries.isEmpty && allBinFiles.isNotEmpty;
+
+    return Tagger._(
+        packageDir, session, pubspecCache, isBinaryOnly, topLibraries);
   }
 
   Set<String> declaredSdks(String packageDir) {
@@ -540,12 +556,15 @@ class Tagger {
     };
   }
 
-  /// Returns `true` iff the package at [packageDir] suports [sdk].
+  /// Returns `true` iff the package at [packageDir] supports [sdk].
   bool _supportsSdk(Sdk sdk) {
-    if (_primaryLibrary == null) {
+    if (_isBinaryOnly) {
+      return sdk.name == 'dart';
+    }
+    if (_topLibraries.isEmpty) {
       return false;
     }
-    // Will find a path in the pacakage graph where a package declares an sdk
+    // Will find a path in the package graph where a package declares an sdk
     // not supported by [sdk].
     final declaredSdkViolationFinder =
         _PathFinder(_packageGraph, (String packageDir) {
@@ -561,14 +580,19 @@ class Tagger {
       for (final runtime in sdk.allowedRuntimes) {
         final finder = RuntimeViolationFinder(
             LibraryGraph(_session, runtime.declaredVariables), runtime);
-        final runtimePathResult = finder.findRuntimeViolation(_primaryLibrary);
-        if (runtimePathResult.hasPath) {
-          log.info(
-              '$packageDir does not support ${sdk.name} with runtime: ${runtime.name} '
-              'because of import violation at: ${runtimePathResult.path}');
-        } else {
-          return true;
+        // check if all of the top libraries are supported
+        var supports = true;
+        for (final lib in _topLibraries) {
+          final runtimePathResult = finder.findRuntimeViolation(lib);
+          if (runtimePathResult.hasPath) {
+            log.info(
+                '$packageDir does not support ${sdk.name} with runtime: ${runtime.name} '
+                'because of import violation at: ${runtimePathResult.path}');
+            supports = false;
+            break;
+          }
         }
+        if (supports) return true;
       }
       return false;
     }
@@ -580,7 +604,10 @@ class Tagger {
 
   /// The Flutter platforms that this package works in.
   List<String> flutterPlatformTags() {
-    if (_primaryLibrary == null) {
+    if (_isBinaryOnly) {
+      return <String>[];
+    }
+    if (_topLibraries.isEmpty) {
       return <String>[];
     }
     final result = <String>[];
@@ -594,13 +621,18 @@ class Tagger {
           _DeclaredFlutterPlatformDetector(_pubspecCache),
           _pubspecCache,
           RuntimeViolationFinder(libraryGraph, flutterPlatform.runtime));
-      final pathResult =
-          violationFinder._findPlatformViolation(_primaryLibrary);
-      if (pathResult.hasPath) {
-        log.info(
-            '$packageDir does not support platform ${flutterPlatform.name} '
-            'because of the import path ${pathResult.path}');
-      } else {
+      var supports = true;
+      for (final lib in _topLibraries) {
+        final pathResult = violationFinder._findPlatformViolation(lib);
+        if (pathResult.hasPath) {
+          log.info(
+              '$packageDir does not support platform ${flutterPlatform.name} '
+              'because of the import path ${pathResult.path}');
+          supports = false;
+          break;
+        }
+      }
+      if (supports) {
         result.add(flutterPlatform.tag);
       }
     }
@@ -611,19 +643,28 @@ class Tagger {
   ///
   /// Returns the empty list if this package does not support the dart sdk.
   List<String> runtimeTags() {
-    if (_primaryLibrary == null) {
+    if (_isBinaryOnly) {
+      return <String>[Runtime.nativeAot.name, Runtime.nativeJit.name];
+    }
+    if (_topLibraries.isEmpty) {
       return <String>[];
     }
     if (!_supportsSdk(Sdk.dart)) return <String>[];
     final result = <String>[];
     for (final runtime in [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]) {
-      final pathResult = RuntimeViolationFinder(
-              LibraryGraph(_session, runtime.declaredVariables), runtime)
-          .findRuntimeViolation(_primaryLibrary);
-      if (pathResult.hasPath) {
-        log.info('$packageDir does not support runtime ${runtime.name} '
-            'because of the import path: ${pathResult.path}');
-      } else {
+      final finder = RuntimeViolationFinder(
+          LibraryGraph(_session, runtime.declaredVariables), runtime);
+      var supports = true;
+      for (final lib in _topLibraries) {
+        final pathResult = finder.findRuntimeViolation(lib);
+        if (pathResult.hasPath) {
+          log.info('$packageDir does not support runtime ${runtime.name} '
+              'because of the import path: ${pathResult.path}');
+          supports = false;
+          break;
+        }
+      }
+      if (supports) {
         result.add(runtime.tag);
       }
     }

@@ -445,7 +445,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.23.7"
+        "resolved": "1.24.0"
       },
       {
         "package": "sass_builder",
@@ -2856,6 +2856,7 @@
         "package:sass/src/ast/sass/argument_invocation.dart",
         "package:sass/src/ast/sass/at_root_query.dart",
         "package:sass/src/ast/sass/callable_invocation.dart",
+        "package:sass/src/ast/sass/configured_variable.dart",
         "package:sass/src/ast/sass/expression.dart",
         "package:sass/src/ast/sass/expression/binary_operation.dart",
         "package:sass/src/ast/sass/expression/boolean.dart",
@@ -2937,6 +2938,8 @@
         "package:sass/src/callable/user_defined.dart",
         "package:sass/src/color_names.dart",
         "package:sass/src/compile.dart",
+        "package:sass/src/configuration.dart",
+        "package:sass/src/configured_value.dart",
         "package:sass/src/environment.dart",
         "package:sass/src/exception.dart",
         "package:sass/src/extend/empty_extender.dart",
@@ -2971,6 +2974,7 @@
         "package:sass/src/module.dart",
         "package:sass/src/module/built_in.dart",
         "package:sass/src/module/forwarded_view.dart",
+        "package:sass/src/module/shadowed_view.dart",
         "package:sass/src/parse/at_root_query.dart",
         "package:sass/src/parse/css.dart",
         "package:sass/src/parse/keyframe_selector.dart",
