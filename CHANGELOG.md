@@ -3,6 +3,7 @@
 * Updated tag detection for packages without a primary library.
 * Upgraded analyzer to `^0.39.0`.
 * More `dart:*` libraries in tag detection: `cli`, `nativewrappers`, `html_common`.
+* Limit overall style lint penalties on health score: 25%.
 
 ## 0.13.2
 

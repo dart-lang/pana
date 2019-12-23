@@ -81,18 +81,10 @@
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/model.dart`.",
-        "description": "Analysis of `lib/src/model.dart` reported 785 hints, including:\n\nline 18 col 59: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 56 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 68 col 39: Avoid const keyword.\n\nline 83 col 3: Omit type annotations for local variables.\n\nline 84 col 3: Omit type annotations for local variables.",
-        "file": "lib/src/model.dart",
-        "score": 98.05
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/markdown_processor.dart`.",
-        "description": "Analysis of `lib/src/markdown_processor.dart` reported 196 hints, including:\n\nline 20 col 23: Avoid const keyword.\n\nline 21 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 22 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 23 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 24 col 3: Prefer single quotes where they won't require escape sequences.",
-        "file": "lib/src/markdown_processor.dart",
-        "score": 62.56
+        "title": "Fix `lib/dartdoc.dart`.",
+        "description": "Analysis of `lib/dartdoc.dart` reported 78 hints, including:\n\nline 31 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 55 col 36: Use collection literals when possible.\n\nline 55 col 36: Unnecessary new keyword.\n\nline 60 col 7: Unnecessary new keyword.\n\nline 63 col 17: Unnecessary new keyword.",
+        "file": "lib/dartdoc.dart",
+        "score": 25.0
       },
       {
         "code": "dartanalyzer.warning",
@@ -100,14 +92,22 @@
         "title": "Fix `lib/src/dartdoc_options.dart`.",
         "description": "Analysis of `lib/src/dartdoc_options.dart` reported 144 hints, including:\n\nline 23 col 36: Use `lowercase_with_underscores` when specifying a library prefix.\n\nline 29 col 38: Avoid const keyword.\n\nline 30 col 44: Avoid const keyword.\n\nline 88 col 12: Unnecessary new keyword.\n\nline 93 col 5: Omit type annotations for local variables.",
         "file": "lib/src/dartdoc_options.dart",
-        "score": 51.41
+        "score": 25.0
+      },
+      {
+        "code": "dartanalyzer.warning",
+        "level": "hint",
+        "title": "Fix `lib/src/markdown_processor.dart`.",
+        "description": "Analysis of `lib/src/markdown_processor.dart` reported 196 hints, including:\n\nline 20 col 23: Avoid const keyword.\n\nline 21 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 22 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 23 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 24 col 3: Prefer single quotes where they won't require escape sequences.",
+        "file": "lib/src/markdown_processor.dart",
+        "score": 25.0
       },
       {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 25 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` (100 hints)\n- `lib/src/warnings.dart` (88 hints)\n- `lib/dartdoc.dart` (78 hints)\n- `lib/src/package_meta.dart` (56 hints)\n- `lib/src/html/template_data.dart` (54 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` (51 hints)\n- `lib/src/model_utils.dart` (47 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (46 hints)\n- `lib/src/io_utils.dart` (34 hints)\n- `lib/src/html/html_generator_instance.dart` (31 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (30 hints)\n- `lib/src/element_type.dart` (29 hints)\n- `lib/src/html/html_generator.dart` (25 hints)\n- `lib/src/html/templates.dart` (16 hints)\n- `bin/dartdoc.dart` (13 hints)\n- `lib/src/utils.dart` (13 hints)\n- `lib/src/line_number_cache.dart` (10 hints)\n- `lib/src/special_elements.dart` (10 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (8 hints)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (7 hints)\n- `lib/src/logging.dart` (6 hints)\n- `lib/src/tool_runner.dart` (4 hints)\n- `lib/src/html/resource_loader.dart` (2 hints)\n- `lib/src/html/resources.g.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` (1 hint)\n",
-        "score": 333.5399999999999
+        "description": "Additional issues in the following files:\n\n- `lib/src/model.dart` (785 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` (100 hints)\n- `lib/src/warnings.dart` (88 hints)\n- `lib/src/package_meta.dart` (56 hints)\n- `lib/src/html/template_data.dart` (54 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` (51 hints)\n- `lib/src/model_utils.dart` (47 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (46 hints)\n- `lib/src/io_utils.dart` (34 hints)\n- `lib/src/html/html_generator_instance.dart` (31 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (30 hints)\n- `lib/src/element_type.dart` (29 hints)\n- `lib/src/html/html_generator.dart` (25 hints)\n- `lib/src/html/templates.dart` (16 hints)\n- `bin/dartdoc.dart` (13 hints)\n- `lib/src/utils.dart` (13 hints)\n- `lib/src/line_number_cache.dart` (10 hints)\n- `lib/src/special_elements.dart` (10 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (8 hints)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (7 hints)\n- `lib/src/logging.dart` (6 hints)\n- `lib/src/tool_runner.dart` (4 hints)\n- `lib/src/html/resource_loader.dart` (2 hints)\n- `lib/src/html/resources.g.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` (1 hint)\n",
+        "score": 301.0899999999999
       }
     ]
   },

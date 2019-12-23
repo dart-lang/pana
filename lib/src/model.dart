@@ -755,7 +755,7 @@ double calculateBaseHealth(
     int analyzerErrorCount, int analyzerWarningCount, int analyzerHintCount) {
   final score = math.pow(healthErrorMultiplier, analyzerErrorCount) *
       math.pow(healthWarningMultiplier, analyzerWarningCount) *
-      math.pow(healthHintMultiplier, analyzerHintCount);
+      math.max(0.75, math.pow(healthHintMultiplier, analyzerHintCount));
   return score.toDouble();
 }
 
