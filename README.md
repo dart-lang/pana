@@ -55,10 +55,10 @@ A package gets `0.0` if any major analyzer process fails (e.g. `pub upgrade`,
 Otherwise the score starts with `1.0`, and
 - analyzer errors reduce it by 25%
 - analyzer warnings reduce it by 5%
-- analyzer hints reduce it by 0.5%
+- analyzer hints reduce it by 0.5% (maximum penalty: 25%)
 - platform conflicts reduce it by 0.25 points (absolute reduction)
 
-`health = 0.75^errors * 0.95^warnings * 0.995^hints - 0.25*conflicts`
+`health = 0.75^errors * 0.95^warnings * max(0.75, 0.995^hints) - 0.25*conflicts`
 
 [Pub site](https://pub.dev/) transforms this score into the [0 - 100] range.
 

@@ -66,25 +66,25 @@
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/rspc/compiler.dart`.",
-        "description": "Analysis of `lib/src/rspc/compiler.dart` reported 269 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 30 col 59: Use `=` to separate a named parameter from its default value.\n\nline 31 col 19: Use `=` to separate a named parameter from its default value.\n\nline 31 col 43: Use `=` to separate a named parameter from its default value.\n\nline 32 col 7: Don't access members with `this` unless avoiding shadowing.",
-        "file": "lib/src/rspc/compiler.dart",
-        "score": 74.03
+        "title": "Fix `lib/src/connect_impl.dart`.",
+        "description": "Analysis of `lib/src/connect_impl.dart` reported 66 hints, including:\n\nline 18 col 38: Unnecessary new keyword.\n\nline 20 col 20: Unnecessary new keyword.\n\nline 20 col 40: Don't access members with `this` unless avoiding shadowing.\n\nline 30 col 5: Omit type annotations for local variables.\n\nline 32 col 10: Omit type annotations for local variables.",
+        "file": "lib/src/connect_impl.dart",
+        "score": 25.0
       },
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
-        "title": "Fix `lib/src/rspc/tag.dart`.",
-        "description": "Analysis of `lib/src/rspc/tag.dart` reported 146 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 11 col 3: Prefer using /// for doc comments.\n\nline 18 col 3: Prefer using /// for doc comments.\n\nline 45 col 3: The method pop should have a return type but doesn't.\n\nline 62 col 7: DO use curly braces for all flow control structures.",
-        "file": "lib/src/rspc/tag.dart",
-        "score": 51.9
+        "title": "Fix `lib/src/plugin/loader.dart`.",
+        "description": "Analysis of `lib/src/plugin/loader.dart` reported 64 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 20 col 6: Unnecessary new keyword.\n\nline 22 col 3: Prefer using /// for doc comments.\n\nline 26 col 3: Prefer using /// for doc comments.\n\nline 31 col 1: Prefer using /// for doc comments.",
+        "file": "lib/src/plugin/loader.dart",
+        "score": 25.0
       },
       {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 14 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/plugin/router.dart` (107 hints)\n- `lib/src/server_impl.dart` (98 hints)\n- `lib/src/plugin/loader_impl.dart` (88 hints)\n- `lib/src/rspc/build.dart` (72 hints)\n- `lib/src/connect_impl.dart` (66 hints)\n- `lib/src/plugin/loader.dart` (64 hints)\n- `lib/src/rspc/tag_util.dart` (59 hints)\n- `lib/src/connect.dart` (57 hints)\n- `lib/src/server.dart` (51 hints)\n- `lib/src/rspc/main.dart` (37 hints)\n- `lib/rspc.dart` (17 hints)\n- `lib/stream.dart` (17 hints)\n- `lib/plugin.dart` (14 hints)\n- `lib/proxy.dart` (14 hints)\n",
-        "score": 321.73999999999995
+        "description": "Additional issues in the following files:\n\n- `lib/src/plugin/loader_impl.dart` (88 hints)\n- `lib/src/plugin/router.dart` (107 hints)\n- `lib/src/rspc/build.dart` (72 hints)\n- `lib/src/rspc/compiler.dart` (269 hints)\n- `lib/src/rspc/tag.dart` (146 hints)\n- `lib/src/rspc/tag_util.dart` (59 hints)\n- `lib/src/server_impl.dart` (98 hints)\n- `lib/src/connect.dart` (57 hints)\n- `lib/src/server.dart` (51 hints)\n- `lib/src/rspc/main.dart` (37 hints)\n- `lib/rspc.dart` (17 hints)\n- `lib/stream.dart` (17 hints)\n- `lib/plugin.dart` (14 hints)\n- `lib/proxy.dart` (14 hints)\n",
+        "score": 269.23999999999995
       }
     ]
   },

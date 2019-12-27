@@ -80,7 +80,7 @@
         "title": "Fix `lib/material_datepicker/range.dart`.",
         "description": "Analysis of `lib/material_datepicker/range.dart` reported 138 hints, including:\n\nline 17 col 28: Use generic function type syntax for parameters.\n\nline 34 col 29: Prefer generic function type aliases.\n\nline 170 col 1: The function _makeDateRangeProto should have a return type but doesn't.\n\nline 249 col 17: Annotate overridden members.\n\nline 254 col 11: Annotate overridden members.",
         "file": "lib/material_datepicker/range.dart",
-        "score": 49.93
+        "score": 25.0
       },
       {
         "code": "dartanalyzer.warning",
