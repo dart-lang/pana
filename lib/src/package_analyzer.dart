@@ -40,6 +40,7 @@ class InspectOptions {
   final Duration dartdocTimeout;
   final bool isInternal;
   final int lineLength;
+  final String analysisOptionsUri;
 
   InspectOptions({
     this.verbosity = Verbosity.normal,
@@ -50,6 +51,7 @@ class InspectOptions {
     this.dartdocTimeout,
     this.isInternal = false,
     this.lineLength,
+    this.analysisOptionsUri,
   });
 }
 
@@ -309,7 +311,7 @@ class PackageAnalyzer {
       if (dartFiles.isNotEmpty) {
         analyzeProcessStopwatch.start();
         try {
-          analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter);
+          analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter, options);
         } on ArgumentError catch (e) {
           if (e.toString().contains('No dart files found at: .')) {
             log.warning('`dartanalyzer` found no files to analyze.');
@@ -438,13 +440,14 @@ class PackageAnalyzer {
   }
 
   Future<List<CodeProblem>> _pkgAnalyze(
-      String pkgPath, bool usesFlutter) async {
+      String pkgPath, bool usesFlutter, InspectOptions inspectOptions) async {
     log.info('Analyzing package...');
     final dirs = await listFocusDirs(pkgPath);
     if (dirs.isEmpty) {
       return null;
     }
-    final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter);
+    final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter,
+        inspectOptions: inspectOptions);
     final list = LineSplitter.split(output)
         .map((s) => parseCodeProblem(s, projectDir: pkgPath))
         .where((e) => e != null)
