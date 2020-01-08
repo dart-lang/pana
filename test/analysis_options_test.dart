@@ -7,14 +7,28 @@ import 'dart:convert';
 import 'package:test/test.dart';
 
 import 'package:pana/src/analysis_options.dart';
+import 'package:pana/src/package_analyzer.dart' show InspectOptions;
 
 void main() {
-  test('pedantic options', () async {
-    final content = await getPedanticContent();
+  test('default pedantic options', () async {
+    final content = await getPedanticContent(inspectOptions: InspectOptions());
     expect(content, contains('linter:'));
     expect(content, contains('rules:'));
     expect(content, contains('avoid_empty_else'));
     expect(content, contains('prefer_is_empty'));
+    expect(content, contains('prefer_single_quotes')); // in 1.9.0
+  });
+
+  test('specific pedantic options', () async {
+    final content = await getPedanticContent(
+        inspectOptions: InspectOptions(
+            analysisOptionsUri:
+                'package:pedantic/analysis_options.1.8.0.yaml'));
+    expect(content, contains('linter:'));
+    expect(content, contains('rules:'));
+    expect(content, contains('avoid_empty_else'));
+    expect(content, contains('prefer_is_empty'));
+    expect(content, isNot(contains('prefer_single_quotes'))); // only from 1.9.0
   });
 
   test('default options', () {

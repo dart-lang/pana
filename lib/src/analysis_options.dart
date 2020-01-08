@@ -4,8 +4,11 @@
 
 import 'dart:convert';
 
+import 'package:meta/meta.dart';
 import 'package:resource/resource.dart';
 import 'package:yaml/yaml.dart' as yaml;
+
+import 'package_analyzer.dart' show InspectOptions;
 
 String _analysisOptions(String pedanticConfigPath) => '''
 # Defines a default set of lint rules enforced for
@@ -105,12 +108,23 @@ String customizeAnalysisOptions(
 final _pedanticVersionRegExp =
     RegExp(r'package:pedantic/analysis_options\.(.*?)\.yaml');
 
-/// Returns the content of pedantic/analysis_options.yaml (resolving linked if
-/// needed).
-Future<String> getPedanticContent() async {
-  final rootResource = const Resource('package:pedantic/analysis_options.yaml');
-  final rootContent = await rootResource.readAsString();
+/// Returns the content of the file with the linter ruleset content, which will
+/// be linked from our custom `analysis_options.yaml`.
+///
+/// - Returns the content of [InspectOptions.analysisOptionsUri] when specified
+///   in [inspectOptions].
+/// - Returns `pedantic/analysis_options.yaml` (if nothing is linked in it)
+/// - Returns the latest linked `pedantic/analysis_options.<version>.yaml`.
+Future<String> getPedanticContent({
+  @required InspectOptions inspectOptions,
+}) async {
+  final rootUri = inspectOptions?.analysisOptionsUri ??
+      'package:pedantic/analysis_options.yaml';
+  final rootContent = await Resource(rootUri).readAsString();
   final match = _pedanticVersionRegExp.firstMatch(rootContent);
+
+  // When there is not match, the root content does not have URI reference,
+  // the file is probably a ruleset itself.
   if (match == null) {
     return rootContent;
   }

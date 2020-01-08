@@ -1,3 +1,8 @@
+## 0.13.4
+
+* `InspectOptions.analysisOptionsUri` to optionally control which `pedantic`
+  version (or other package's) ruleset is used for analysis lints.
+
 ## 0.13.3
 
 * Updated tag detection for packages without a primary library.
