@@ -516,8 +516,10 @@ class Tagger {
         .currentSession;
     final pubspecCache = _PubspecCache(session);
     final pubspec = pubspecCache.pubspecOfPackage(packageDir);
+
     final libDir = Directory(path.join(packageDir, 'lib'));
-    final libDartFiles = libDir.existsSync()
+    final libDirExists = libDir.existsSync();
+    final libDartFiles = libDirExists
         ? libDir
             .listSync(recursive: false)
             .where((e) => e is File && e.path.endsWith('.dart'))
@@ -527,6 +529,18 @@ class Tagger {
     // Sort to make the order of files and the reported events deterministic.
     libDartFiles.sort();
 
+    // Fallback in case the lib/*.dart is empty.
+    final nonSrcDartFiles = libDirExists
+        ? libDir
+            .listSync(recursive: true)
+            .where((e) => e is File && e.path.endsWith('.dart'))
+            .map((f) => path.relative(f.path, from: libDir.path))
+            .where((p) => !p.startsWith('src/'))
+            .toList()
+        : <String>[];
+    // Sort to make the order of files and the reported events deterministic.
+    nonSrcDartFiles.sort();
+
     Uri primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
       primaryLibrary =
@@ -534,12 +548,19 @@ class Tagger {
     }
 
     // If there is a primary library, use it as a single source for top libraries,
-    // otherwise take `lib/*.dart` or (if it was empty) `lib/src/*.dart`.
-    final topLibraries = primaryLibrary != null
-        ? <Uri>[primaryLibrary]
-        : libDartFiles
-            .map((name) => Uri.parse('package:${pubspec.name}/$name'))
-            .toList();
+    // otherwise take `lib/*.dart` or (if it was empty) `lib/**/*.dart`.
+    List<Uri> topLibraries;
+    if (primaryLibrary != null) {
+      topLibraries = <Uri>[primaryLibrary];
+    } else if (libDartFiles.isNotEmpty) {
+      topLibraries = libDartFiles
+          .map((name) => Uri.parse('package:${pubspec.name}/$name'))
+          .toList();
+    } else {
+      topLibraries = nonSrcDartFiles
+          .map((name) => Uri.parse('package:${pubspec.name}/$name'))
+          .toList();
+    }
 
     final binDir = Directory(path.join(packageDir, 'bin'));
     final allBinFiles = binDir.existsSync()
@@ -549,7 +570,7 @@ class Tagger {
             .map((f) => path.relative(f.path, from: binDir.path))
             .toList()
         : <String>[];
-    final isBinaryOnly = topLibraries.isEmpty && allBinFiles.isNotEmpty;
+    final isBinaryOnly = nonSrcDartFiles.isEmpty && allBinFiles.isNotEmpty;
 
     return Tagger._(
         packageDir, session, pubspecCache, isBinaryOnly, topLibraries);

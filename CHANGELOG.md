@@ -1,3 +1,8 @@
+## 0.13.5
+
+* Fix: when there are no libraries matching `lib/*.dart`, other libraries
+  outside of `lib/src/` will be recognized as top-level libraries.
+
 ## 0.13.4
 
 * `InspectOptions.analysisOptionsUri` to optionally control which `pedantic`
