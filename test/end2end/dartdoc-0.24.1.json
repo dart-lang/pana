@@ -152,7 +152,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.39.2+1"
+        "available": "0.39.4"
       },
       {
         "package": "args",
@@ -275,7 +275,7 @@
         "package": "intl",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.16.0"
+        "resolved": "0.16.1"
       },
       {
         "package": "io",
@@ -301,7 +301,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.11.3+1",
-        "resolved": "0.11.3+2"
+        "resolved": "0.11.4"
       },
       {
         "package": "markdown",
@@ -399,7 +399,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.5"
+        "resolved": "1.6.0"
       },
       {
         "package": "stack_trace",
@@ -1746,6 +1746,9 @@
         "package:kernel/type_environment.dart",
         "package:kernel/visitor.dart",
         "package:logging/logging.dart",
+        "package:logging/src/level.dart",
+        "package:logging/src/log_record.dart",
+        "package:logging/src/logger.dart",
         "package:markdown/markdown.dart",
         "package:markdown/src/ast.dart",
         "package:markdown/src/block_parser.dart",

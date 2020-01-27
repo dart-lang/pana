@@ -167,7 +167,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "0.12.0+2"
+        "resolved": "0.12.0+4"
       },
       {
         "package": "http_parser",
@@ -180,7 +180,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "0.11.3+2"
+        "resolved": "0.11.4"
       },
       {
         "package": "meta",
@@ -218,7 +218,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.5"
+        "resolved": "1.6.0"
       },
       {
         "package": "string_scanner",
@@ -395,6 +395,9 @@
         "dart:typed_data",
         "package:charcode/ascii.dart",
         "package:logging/logging.dart",
+        "package:logging/src/level.dart",
+        "package:logging/src/log_record.dart",
+        "package:logging/src/logger.dart",
         "package:mime/mime.dart",
         "package:mime/src/bound_multipart_stream.dart",
         "package:mime/src/char_code.dart",
@@ -635,6 +638,9 @@
         "package:http_parser/src/scan.dart",
         "package:http_parser/src/utils.dart",
         "package:logging/logging.dart",
+        "package:logging/src/level.dart",
+        "package:logging/src/log_record.dart",
+        "package:logging/src/logger.dart",
         "package:meta/meta.dart",
         "package:mime/mime.dart",
         "package:mime/src/bound_multipart_stream.dart",
@@ -11670,6 +11676,9 @@
         "dart:typed_data",
         "package:charcode/ascii.dart",
         "package:logging/logging.dart",
+        "package:logging/src/level.dart",
+        "package:logging/src/log_record.dart",
+        "package:logging/src/logger.dart",
         "package:mime/mime.dart",
         "package:mime/src/bound_multipart_stream.dart",
         "package:mime/src/char_code.dart",
