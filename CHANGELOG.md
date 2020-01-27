@@ -2,6 +2,7 @@
 
 * Fix: when there are no libraries matching `lib/*.dart`, other libraries
   outside of `lib/src/` will be recognized as top-level libraries.
+* Use `repository` from `pubspec.yaml` to resolve license URLs.
 
 ## 0.13.4
 
