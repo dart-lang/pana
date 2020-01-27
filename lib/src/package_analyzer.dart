@@ -399,7 +399,8 @@ class PackageAnalyzer {
     }
 
     var licenses = await detectLicensesInDir(pkgDir);
-    licenses = await updateLicenseUrls(_urlChecker, pubspec.homepage, licenses);
+    licenses = await updateLicenseUrls(
+        _urlChecker, pubspec.repository ?? pubspec.homepage, licenses);
 
     final maintenance = await detectMaintenance(
       options,
