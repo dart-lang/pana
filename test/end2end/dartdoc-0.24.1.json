@@ -125,8 +125,8 @@
         "code": "pubspec.dependencies.outdated",
         "level": "warning",
         "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 2 dependencies (`analyzer`, `html`).",
-        "score": 20.0
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 3 dependencies (`analyzer`, `html`, `package_config`).",
+        "score": 30.0
       },
       {
         "code": "pubspec.description.tooShort",
@@ -340,7 +340,8 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.1.5 <2.0.0",
-        "resolved": "1.1.0"
+        "resolved": "1.1.0",
+        "available": "2.0.0"
       },
       {
         "package": "path",
