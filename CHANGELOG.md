@@ -3,6 +3,7 @@
 * Fix: when there are no libraries matching `lib/*.dart`, other libraries
   outside of `lib/src/` will be recognized as top-level libraries.
 * Use `repository` from `pubspec.yaml` to resolve license URLs.
+* Example detection: `README.md` is de-prioritized, Dart files take precedence.
 
 ## 0.13.4
 
