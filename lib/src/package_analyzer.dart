@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as path;
 
 import 'code_problem.dart';
 import 'download_utils.dart';
@@ -115,10 +116,14 @@ class PackageAnalyzer {
     final formatProcessStopwatch = Stopwatch();
     final suggestions = <Suggestion>[];
 
-    var dartFiles =
-        await listFiles(pkgDir, endsWith: '.dart', deleteBadExtracted: true)
-            .where((file) => file.startsWith('bin/') || file.startsWith('lib/'))
-            .toList();
+    var dartFiles = await listFiles(
+      pkgDir,
+      endsWith: '.dart',
+      deleteBadExtracted: true,
+    )
+        .where(
+            (file) => path.isWithin('bin', file) || path.isWithin('lib', file))
+        .toList();
 
     log.info('Parsing pubspec.yaml...');
     Pubspec pubspec;
