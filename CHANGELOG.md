@@ -1,3 +1,7 @@
+## 0.13.6
+
+* Fix: detect Dart files on Windows
+
 ## 0.13.5
 
 * Fix: when there are no libraries matching `lib/*.dart`, other libraries
