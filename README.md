@@ -25,7 +25,9 @@ You can specify either a package (+ version) or a local directory to analyze:
 
 ```
 Usage: pana [<options>] <published package name> [<version>]
-       pana [<options>] --source path <local directory>
+       pana [<options>] --source path/to/local/directory
+       or,
+       pub global run pana --source path/to/local/directory
 
 Options:
       --flutter-sdk     The directory of the Flutter SDK.
