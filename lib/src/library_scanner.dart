@@ -36,7 +36,8 @@ class LibraryScanner {
   LibraryScanner._(
       this.packageName, this._packagePath, this._session, this._overrides);
 
-  factory LibraryScanner(String dartSdkPath, String packageName, String packagePath,
+  factory LibraryScanner(
+      String dartSdkPath, String packageName, String packagePath,
       {List<LibraryOverride> overrides}) {
     var contextLocator = ContextLocator();
     var roots = contextLocator.locateRoots(includedPaths: [packagePath]);
