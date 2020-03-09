@@ -3,11 +3,11 @@
 A library for analyzing Dart packages. It invokes executables from the Dart SDK
 (or from the Flutter SDK if the package uses Flutter).
 
-* Checks for outdated dependencies (calls `pub upgrade` or `flutter pub upgrade`).
-* Validates the code using [Dart Analyzer](https://dart.dev/tools/dartanalyzer).
-* Checks code formatting (`dartfmt` or `flutter format`).
-* Infers supported platforms: Flutter, web, and/or other (e.g console/server).
-* Creates suggestions to improve the package.
+- Checks for outdated dependencies (calls `pub upgrade` or `flutter pub upgrade`).
+- Validates the code using [Dart Analyzer](https://dart.dev/tools/dartanalyzer).
+- Checks code formatting (`dartfmt` or `flutter format`).
+- Infers supported platforms: Flutter, web, and/or other (e.g console/server).
+- Creates suggestions to improve the package.
 
 Used by the [Dart Package site](https://pub.dev/).
 
@@ -25,23 +25,23 @@ You can specify either a package (+ version) or a local directory to analyze:
 
 ```
 Usage: pana [<options>] <published package name> [<version>]
-       pana [<options>] --source path/to/local/directory
+       pana [<options>] --source path <path/to/local/directory>
        or,
-       pub global run pana --source path/to/local/directory
+       pub global run pana --source path <path/to/local/directory>
 
 Options:
       --flutter-sdk     The directory of the Flutter SDK.
   -j, --json            Output log items as JSON.
   -s, --source          The source where the package is located (hosted on https://pub.dev, or local directory path).
                         [hosted (default), path]
-  
+
       --hosted-url      The server that hosts <package>.
                         (defaults to "https://pub.dev")
-  
+
   -l, --line-length     The line length to use with dartfmt.
       --verbosity       Configure the details in the output.
                         [compact, normal (default), verbose]
-  
+
       --[no-]scores     Include scores in the output JSON.
       --[no-]warning    Shows the warning message before potentially destructive operation.
                         (defaults to on)
@@ -55,6 +55,7 @@ A package gets `0.0` if any major analyzer process fails (e.g. `pub upgrade`,
 `dartanalyzer` or `dartfmt`).
 
 Otherwise the score starts with `1.0`, and
+
 - analyzer errors reduce it by 25%
 - analyzer warnings reduce it by 5%
 - analyzer hints reduce it by 0.5% (maximum penalty: 25%)
@@ -67,6 +68,7 @@ Otherwise the score starts with `1.0`, and
 ### Maintenance score
 
 A package starts with `100` points, and the following detected issues have point reductions:
+
 - unable to parse `pubspec.yaml` with strict parsing (100 points)
 - uses `strong-mode: false` in `analysis_options.yaml` (-50 points)
 - SDK constraint is missing from `pubspec.yaml` (-50 points)
@@ -97,11 +99,12 @@ A package starts with `100` points, and the following detected issues have point
 - uses old `.analysis_options` file (-10 points)
 - uses pre-v0.1 release versioning (`0.0.*`) (-10 points)
 - uses pre-release versioning (`*.*.*-beta2`) (-5 points)
-- image links in markdown content are insecure (not using `https`) (-2 points per link) 
-- image links in markdown content are broken (unable to parse) (-1 point per link) 
+- image links in markdown content are insecure (not using `https`) (-2 points per link)
+- image links in markdown content are broken (unable to parse) (-1 point per link)
 - `changelog.md`, `readme.md` or example content is too large (-1 point per every 1kb above 128kb).
 - `pubspec.yaml` too large (-1 point per every 1kb above 32kb).
 
 On top of that, [pub site](https://pub.dev/) applies an age restriction:
- - outdated packages (age older than two years) are reduced to 0
- - old packages (age between 1 and 2 years) get linear reduction (1.5 years old get 50% reduction)
+
+- outdated packages (age older than two years) are reduced to 0
+- old packages (age between 1 and 2 years) get linear reduction (1.5 years old get 50% reduction)
