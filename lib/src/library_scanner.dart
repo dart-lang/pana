@@ -4,15 +4,11 @@
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:io';
 
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/element/element.dart';
-// TODO: migrate to new version
-// ignore: deprecated_member_use
-import 'package:package_config/packages_file.dart' as package_config;
 import 'package:path/path.dart' as p;
 
 import 'logging.dart';
@@ -40,47 +36,8 @@ class LibraryScanner {
   LibraryScanner._(
       this.packageName, this._packagePath, this._session, this._overrides);
 
-  factory LibraryScanner(String dartSdkPath, String packagePath,
+  factory LibraryScanner(String dartSdkPath, String packageName, String packagePath,
       {List<LibraryOverride> overrides}) {
-    var dotPackagesPath = p.join(packagePath, '.packages');
-    if (!FileSystemEntity.isFileSync(dotPackagesPath)) {
-      throw StateError('A package configuration file was not found at the '
-          'expected location.\n$dotPackagesPath');
-    }
-    var dotPackagesBytes = File(dotPackagesPath).readAsBytesSync();
-    var packageMap =
-        package_config.parse(dotPackagesBytes, p.toUri(dotPackagesPath));
-
-    String package;
-    var packageNames = <String>[];
-    packageMap.forEach((k, v) {
-      if (package != null) {
-        return;
-      }
-
-      assert(package == null);
-
-      // if there is an exact match to the lib directory, use that
-      if (p.fromUri(v) == p.join(packagePath, 'lib/')) {
-        package = k;
-      }
-
-      if (p.isWithin(packagePath, p.fromUri(v))) {
-        packageNames.add(k);
-      }
-    });
-
-    if (package == null) {
-      if (packageNames.length == 1) {
-        package = packageNames.single;
-        log.warning('Weird: `$package` at `${packageMap[package]}`.');
-      } else {
-        throw StateError(
-            'Could not determine package name for package at `$packagePath` '
-            "- found ${packageNames.toSet().join(', ')}");
-      }
-    }
-
     var contextLocator = ContextLocator();
     var roots = contextLocator.locateRoots(includedPaths: [packagePath]);
     var root = roots.firstWhere(
@@ -101,7 +58,7 @@ class LibraryScanner {
         ContextBuilder().createContext(contextRoot: root, sdkPath: dartSdkPath);
 
     return LibraryScanner._(
-        package, packagePath, analysisContext.currentSession, overrides);
+        packageName, packagePath, analysisContext.currentSession, overrides);
   }
 
   Future<Map<String, List<String>>> scanDirectLibs() => _scanPackage();
