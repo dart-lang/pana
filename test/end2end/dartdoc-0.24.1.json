@@ -75,7 +75,7 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 1885,
+    "analyzerHintCount": 1886,
     "platformConflictCount": 0,
     "suggestions": [
       {
@@ -106,7 +106,7 @@
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 25 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/model.dart` (785 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` (100 hints)\n- `lib/src/warnings.dart` (88 hints)\n- `lib/src/package_meta.dart` (56 hints)\n- `lib/src/html/template_data.dart` (54 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` (51 hints)\n- `lib/src/model_utils.dart` (47 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (46 hints)\n- `lib/src/io_utils.dart` (34 hints)\n- `lib/src/html/html_generator_instance.dart` (31 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (30 hints)\n- `lib/src/element_type.dart` (29 hints)\n- `lib/src/html/html_generator.dart` (25 hints)\n- `lib/src/html/templates.dart` (16 hints)\n- `bin/dartdoc.dart` (13 hints)\n- `lib/src/utils.dart` (13 hints)\n- `lib/src/line_number_cache.dart` (10 hints)\n- `lib/src/special_elements.dart` (10 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (8 hints)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (7 hints)\n- `lib/src/logging.dart` (6 hints)\n- `lib/src/tool_runner.dart` (4 hints)\n- `lib/src/html/resource_loader.dart` (2 hints)\n- `lib/src/html/resources.g.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` (1 hint)\n",
+        "description": "Additional issues in the following files:\n\n- `lib/src/model.dart` (786 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` (100 hints)\n- `lib/src/warnings.dart` (88 hints)\n- `lib/src/package_meta.dart` (56 hints)\n- `lib/src/html/template_data.dart` (54 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` (51 hints)\n- `lib/src/model_utils.dart` (47 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (46 hints)\n- `lib/src/io_utils.dart` (34 hints)\n- `lib/src/html/html_generator_instance.dart` (31 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (30 hints)\n- `lib/src/element_type.dart` (29 hints)\n- `lib/src/html/html_generator.dart` (25 hints)\n- `lib/src/html/templates.dart` (16 hints)\n- `bin/dartdoc.dart` (13 hints)\n- `lib/src/utils.dart` (13 hints)\n- `lib/src/line_number_cache.dart` (10 hints)\n- `lib/src/special_elements.dart` (10 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (8 hints)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (7 hints)\n- `lib/src/logging.dart` (6 hints)\n- `lib/src/tool_runner.dart` (4 hints)\n- `lib/src/html/resource_loader.dart` (2 hints)\n- `lib/src/html/resources.g.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` (1 hint)\n",
         "score": 301.0899999999999
       }
     ]
@@ -125,8 +125,8 @@
         "code": "pubspec.dependencies.outdated",
         "level": "warning",
         "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 3 dependencies (`analyzer`, `html`, `package_config`).",
-        "score": 30.0
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 2 dependencies (`analyzer`, `html`).",
+        "score": 20.0
       },
       {
         "code": "pubspec.description.tooShort",
@@ -159,7 +159,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=1.4.1 <2.0.0",
-        "resolved": "1.5.2"
+        "resolved": "1.5.3"
       },
       {
         "package": "async",
@@ -189,7 +189,7 @@
         "package": "charcode",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.2"
+        "resolved": "1.1.3"
       },
       {
         "package": "collection",
@@ -340,8 +340,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.1.5 <2.0.0",
-        "resolved": "1.1.0",
-        "available": "2.0.0"
+        "resolved": "1.9.1"
       },
       {
         "package": "path",
@@ -380,14 +379,14 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.3.7",
-        "resolved": "1.4.2"
+        "resolved": "1.4.3"
       },
       {
         "package": "quiver",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.1.2+1"
+        "resolved": "2.1.3"
       },
       {
         "package": "resource",
@@ -443,7 +442,7 @@
         "package": "watcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.7+13"
+        "resolved": "0.9.7+14"
       },
       {
         "package": "yaml",
@@ -1764,9 +1763,11 @@
         "package:package_config/discovery.dart",
         "package:package_config/packages.dart",
         "package:package_config/packages_file.dart",
+        "package:package_config/src/errors.dart",
         "package:package_config/src/packages_impl.dart",
         "package:package_config/src/packages_io_impl.dart",
         "package:package_config/src/util.dart",
+        "package:package_config/src/util_io.dart",
         "package:path/path.dart",
         "package:path/src/characters.dart",
         "package:path/src/context.dart",
@@ -6922,6 +6923,15 @@
           "line": 56,
           "col": 36,
           "description": "Use `lowercase_with_underscores` when specifying a library prefix."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/src/model.dart",
+          "line": 58,
+          "col": 1,
+          "description": "'package:package_config/discovery.dart' is deprecated and shouldn't be used. Use the package_config.json based API."
         },
         {
           "severity": "INFO",
