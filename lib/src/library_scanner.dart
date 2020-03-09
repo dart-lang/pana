@@ -45,9 +45,13 @@ class LibraryScanner {
       throw StateError('A package configuration file was not found at the '
           'expected location.\n$dotPackagesPath');
     }
+
+    // Detect the package name based on the resolved dependencies file and the
+    // package directory.
+    // TODO: check why this is required and get the package name from the parsed
+    //       `pubspec.yaml` if possible.
     final dotPackagesFile = File(dotPackagesPath);
     final config = await package_config.loadPackageConfig(dotPackagesFile);
-
     String package;
     final packageNames = <String>[];
     config.packages.forEach((pkg) {
