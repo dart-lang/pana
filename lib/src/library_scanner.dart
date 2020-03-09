@@ -10,6 +10,8 @@ import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/element/element.dart';
+// TODO: migrate to new version
+// ignore: deprecated_member_use
 import 'package:package_config/packages_file.dart' as package_config;
 import 'package:path/path.dart' as p;
 
