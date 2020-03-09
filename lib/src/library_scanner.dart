@@ -10,9 +10,7 @@ import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/element/element.dart';
-// TODO: migrate to new version
-// ignore: deprecated_member_use
-import 'package:package_config/packages_file.dart' as package_config;
+import 'package:package_config/package_config.dart' as package_config;
 import 'package:path/path.dart' as p;
 
 import 'logging.dart';
@@ -40,40 +38,34 @@ class LibraryScanner {
   LibraryScanner._(
       this.packageName, this._packagePath, this._session, this._overrides);
 
-  factory LibraryScanner(String dartSdkPath, String packagePath,
-      {List<LibraryOverride> overrides}) {
+  static Future<LibraryScanner> create(String dartSdkPath, String packagePath,
+      {List<LibraryOverride> overrides}) async {
     var dotPackagesPath = p.join(packagePath, '.packages');
     if (!FileSystemEntity.isFileSync(dotPackagesPath)) {
       throw StateError('A package configuration file was not found at the '
           'expected location.\n$dotPackagesPath');
     }
-    var dotPackagesBytes = File(dotPackagesPath).readAsBytesSync();
-    var packageMap =
-        package_config.parse(dotPackagesBytes, p.toUri(dotPackagesPath));
+    final dotPackagesFile = File(dotPackagesPath);
+    final config = await package_config.loadPackageConfig(dotPackagesFile);
 
     String package;
-    var packageNames = <String>[];
-    packageMap.forEach((k, v) {
-      if (package != null) {
-        return;
-      }
+    final packageNames = <String>[];
+    config.packages.forEach((pkg) {
+      if (package != null) return;
 
-      assert(package == null);
-
-      // if there is an exact match to the lib directory, use that
-      if (p.fromUri(v) == p.join(packagePath, 'lib/')) {
-        package = k;
-      }
-
-      if (p.isWithin(packagePath, p.fromUri(v))) {
-        packageNames.add(k);
+      final pkgRootFilePath = Directory.fromUri(pkg.root).path;
+      if (pkgRootFilePath == '$packagePath${Platform.pathSeparator}') {
+        package = pkg.name;
+      } else if (p.isWithin(packagePath, pkgRootFilePath)) {
+        packageNames.add(pkg.name);
       }
     });
 
     if (package == null) {
       if (packageNames.length == 1) {
         package = packageNames.single;
-        log.warning('Weird: `$package` at `${packageMap[package]}`.');
+        log.warning(
+            'Weird: `$package` at `${config.packages.firstWhere((p) => p.name == package).root}`.');
       } else {
         throw StateError(
             'Could not determine package name for package at `$packagePath` '

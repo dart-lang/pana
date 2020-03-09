@@ -278,8 +278,9 @@ class PackageAnalyzer {
               'package:package_resolver/package_resolver.dart'),
         ];
 
-        libraryScanner =
-            LibraryScanner(_toolEnv.dartSdkDir, pkgDir, overrides: overrides);
+        libraryScanner = await LibraryScanner.create(
+            _toolEnv.dartSdkDir, pkgDir,
+            overrides: overrides);
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
         log.severe('Could not create LibraryScanner', e, stack);

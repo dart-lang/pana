@@ -1,6 +1,7 @@
 ## 0.13.6
 
 * Fix: detect Dart files on Windows
+* Migrated to use new `package:package_config` API.
 
 ## 0.13.5
 
