@@ -1,6 +1,7 @@
 ## 0.13.6
 
 * Fix: detect Dart files on Windows
+* Fix: unescape double-backslash from files reported by `dartanalyzer` on Windows. 
 
 ## 0.13.5
 

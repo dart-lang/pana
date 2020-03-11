@@ -64,6 +64,9 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
   // length = 7
   var description = match[8];
 
+  // dartanalyzer --format=machine returns backslashes escaped with double backslash
+  filePath = filePath.replaceAll(r'\\', r'\');
+
   if (projectDir != null) {
     assert(p.isWithin(projectDir, filePath));
     filePath = p.relative(filePath, from: projectDir);

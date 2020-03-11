@@ -392,6 +392,16 @@ class PackageAnalyzer {
       dartFileSummaries: files.values,
     );
 
+    if (analyzerItems != null) {
+      final reportedFiles = analyzerItems.map((i) => i.file).toSet();
+      final knownFiles = files.values.map((f) => f.path).toSet();
+      final unattributedFiles = <String>{...reportedFiles}
+        ..removeAll(knownFiles);
+      if (unattributedFiles.isNotEmpty) {
+        log.warning('Unattributed files from dartanalyzer: $unattributedFiles');
+      }
+    }
+
     DartPlatform platform;
     if (pkgPlatformConflict != null) {
       platform = DartPlatform.conflict(
