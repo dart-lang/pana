@@ -399,7 +399,7 @@ name: my_dependency
           {'runtime:native-aot', 'runtime:native-jit', 'runtime:web'});
     });
 
-       test('file: imports are ignored', () async {
+    test('file: imports are ignored', () async {
       final decriptor = d.dir('cache', [
         d.dir('my_package', [
           d.dir('lib', [
