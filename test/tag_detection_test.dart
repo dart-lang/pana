@@ -398,5 +398,43 @@ name: my_dependency
       expect(tagger.runtimeTags(),
           {'runtime:native-aot', 'runtime:native-jit', 'runtime:web'});
     });
+
+       test('file: imports are ignored', () async {
+      final decriptor = d.dir('cache', [
+        d.dir('my_package', [
+          d.dir('lib', [
+            d.file('my_package.dart', '''
+import 'file:/abc/def.dart';
+int fourtyTwo() => 42;
+'''),
+          ]),
+          d.file('.packages', '''
+my_package:lib/
+'''),
+          d.file(
+            'pubspec.yaml',
+            '''
+name: my_package
+''',
+          )
+        ])
+      ]);
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expect(tagger.sdkTags(), {'sdk:dart', 'sdk:flutter'});
+      expect(tagger.flutterPlatformTags(), {
+        'platform:ios',
+        'platform:android',
+        'platform:web',
+        'platform:linux',
+        'platform:windows',
+        'platform:macos'
+      });
+      expect(tagger.runtimeTags(), {
+        'runtime:native-jit',
+        'runtime:native-aot',
+        'runtime:web',
+      });
+    });
   });
 }

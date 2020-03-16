@@ -247,6 +247,10 @@ class _PubspecCache {
   final AnalysisSession _analysisSession;
   _PubspecCache(this._analysisSession);
   String _packageDir(Uri uri) {
+    if (uri.scheme != 'package' && uri.scheme != null) {
+      // We only resolve package: and relative uris.
+      return null;
+    }
     final packageOnlyUri =
         uri.replace(path: uri.path.substring(0, uri.path.indexOf('/') + 1));
     final filePath = _analysisSession.uriConverter.uriToPath(packageOnlyUri);
