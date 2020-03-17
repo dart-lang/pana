@@ -332,10 +332,12 @@ class PackageAnalyzer {
         analyzerItems = <CodeProblem>[];
       }
 
-      final tagger = Tagger(pkgDir);
-      tags.addAll(tagger.sdkTags());
-      tags.addAll(tagger.flutterPlatformTags());
-      tags.addAll(tagger.runtimeTags());
+      if (!analyzerItems.any((item) => item.isError)) {
+        final tagger = Tagger(pkgDir);
+        tags.addAll(tagger.sdkTags());
+        tags.addAll(tagger.flutterPlatformTags());
+        tags.addAll(tagger.runtimeTags());
+      }
     }
     final pkgPlatformBlockerSuggestion =
         suggestions.firstWhere((s) => s.isError, orElse: () => null);

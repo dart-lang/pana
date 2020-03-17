@@ -99,6 +99,13 @@
     "isPreReleaseVersion": false,
     "suggestions": [
       {
+        "code": "sdk.missing",
+        "level": "error",
+        "title": "No valid SDK.",
+        "description": "The analysis could not detect a valid SDK that can use this package.",
+        "score": 20.0
+      },
+      {
         "code": "changelog.missing",
         "level": "warning",
         "title": "Provide a file named `CHANGELOG.md`.",
@@ -11728,8 +11735,5 @@
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
   },
-  "tags": [
-    "sdk:dart",
-    "runtime:native-jit"
-  ]
+  "tags": []
 }

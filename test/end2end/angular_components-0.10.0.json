@@ -445,7 +445,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.26.2"
+        "resolved": "1.26.3"
       },
       {
         "package": "sass_builder",
