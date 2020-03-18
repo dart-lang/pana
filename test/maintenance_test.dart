@@ -163,7 +163,7 @@ void main() {
   });
 
   group('Old Flutter plugin format', () {
-    test("old flutter plugin format gets suggestion", () async {
+    test('old flutter plugin format gets suggestion', () async {
       final maintenance = await detectMaintenance(
         InspectOptions(),
         UrlChecker(),
@@ -179,7 +179,7 @@ void main() {
           }
         }),
         null,
-        pkgPlatform: DartPlatform.conflict('conflict description'),
+        tags: [],
         dartdocSuccessful: false,
         pkgResolution: PkgResolution([]),
       );
@@ -189,7 +189,7 @@ void main() {
               suggestion.code ==
               SuggestionCode.pubspecUsesOldFlutterPluginFormat)));
     });
-    test("new flutter plugin format gets no suggestion", () async {
+    test('new flutter plugin format gets no suggestion', () async {
       final maintenance = await detectMaintenance(
         InspectOptions(),
         UrlChecker(),
@@ -207,7 +207,7 @@ void main() {
           }
         }),
         null,
-        pkgPlatform: DartPlatform.conflict('conflict description'),
+        tags: [],
         dartdocSuccessful: false,
         pkgResolution: PkgResolution([]),
       );
