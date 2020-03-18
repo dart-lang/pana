@@ -148,13 +148,13 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "1.5.3"
+        "resolved": "1.6.0"
       },
       {
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.4.0"
+        "resolved": "2.4.1"
       },
       {
         "package": "charcode",
@@ -225,7 +225,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.6.0"
+        "resolved": "1.7.0"
       },
       {
         "package": "string_scanner",

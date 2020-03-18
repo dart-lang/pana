@@ -182,14 +182,14 @@
         "package": "args",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.3"
+        "resolved": "1.6.0"
       },
       {
         "package": "async",
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.8",
-        "resolved": "2.4.0"
+        "resolved": "2.4.1"
       },
       {
         "package": "build",
@@ -425,7 +425,7 @@
         "package": "pub_semver",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.4.3"
+        "resolved": "1.4.4"
       },
       {
         "package": "pubspec_parse",
@@ -471,7 +471,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.6.0"
+        "resolved": "1.7.0"
       },
       {
         "package": "stack_trace",

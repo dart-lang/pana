@@ -103,7 +103,7 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.4.0"
+        "resolved": "2.4.1"
       },
       {
         "package": "charcode",
@@ -169,7 +169,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.1.0",
-        "resolved": "1.4.3"
+        "resolved": "1.4.4"
       },
       {
         "package": "shelf",
@@ -182,7 +182,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.6.0"
+        "resolved": "1.7.0"
       },
       {
         "package": "stack_trace",
