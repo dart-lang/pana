@@ -14,7 +14,6 @@ void main() {
 
     var output = await process.stdoutStream().join('\n');
     expect(output, startsWith('No package was provided.'));
-    expect(output, endsWith(_helpOutput));
 
     await process.shouldExit(ExitCode.usage.code);
   });
@@ -45,14 +44,11 @@ Options:
   -j, --json            Output log items as JSON.
   -s, --source          The source where the package is located (hosted on https://pub.dev, or local directory path).
                         [hosted (default), path]
-  
       --hosted-url      The server that hosts <package>.
                         (defaults to "https://pub.dev")
-  
   -l, --line-length     The line length to use with dartfmt.
       --verbosity       Configure the details in the output.
                         [compact, normal (default), verbose]
-  
       --[no-]scores     Include scores in the output JSON.
       --[no-]warning    Shows the warning message before potentially destructive operation.
                         (defaults to on)''';

@@ -35,14 +35,13 @@ const _pluginDocsUrl =
 
 @deprecated
 final List<String> exampleReadmeFileNames = <String>[
-  ...textFileNameCandidates('example/readme'),
   ...textFileNameCandidates('example/example'),
+  ...textFileNameCandidates('example/readme'),
 ];
 
 /// Returns the candidates in priority order to display under the 'Example' tab.
 List<String> exampleFileCandidates(String package) {
   return <String>[
-    ...textFileNameCandidates('example/readme'),
     ...textFileNameCandidates('example/example'),
     'example/lib/main.dart',
     'example/main.dart',
@@ -52,6 +51,7 @@ List<String> exampleFileCandidates(String package) {
     'example/${package}_example.dart',
     'example/lib/example.dart',
     'example/example.dart',
+    ...textFileNameCandidates('example/readme'),
   ];
 }
 
@@ -157,7 +157,7 @@ Future<Maintenance> detectMaintenance(
   // TODO: remove at next major version upgrade, use [pkgResolution] instead
   List<PkgDependency> unconstrainedDeps, {
   @required PkgResolution pkgResolution,
-  @required DartPlatform pkgPlatform,
+  @required List<String> tags,
   bool dartdocSuccessful,
 }) async {
   final pkgName = pubspec.name;
@@ -354,11 +354,13 @@ Future<Maintenance> detectMaintenance(
     maintenanceSuggestions.add(getDartdocRunFailedSuggestion());
   }
 
-  if (pkgPlatform.hasConflict) {
+  if (tags == null ||
+      tags.isEmpty ||
+      tags.every((tag) => !tag.startsWith('sdk:'))) {
     maintenanceSuggestions.add(Suggestion.error(
-        SuggestionCode.platformConflictInPkg,
-        'Fix platform conflicts.',
-        pkgPlatform.reason,
+        SuggestionCode.sdkMissing,
+        'No valid SDK.',
+        'The analysis could not detect a valid SDK that can use this package.',
         score: 20.0));
   }
 

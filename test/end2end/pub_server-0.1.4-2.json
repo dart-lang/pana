@@ -54,16 +54,16 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 39,
+    "analyzerHintCount": 44,
     "platformConflictCount": 0,
     "suggestions": [
       {
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/shelf_pubserver.dart`.",
-        "description": "Analysis of `lib/shelf_pubserver.dart` reported 31 hints, including:\n\nline 19 col 24: Unnecessary new keyword.\n\nline 131 col 40: Unnecessary new keyword.\n\nline 134 col 7: Unnecessary new keyword.\n\nline 137 col 7: Unnecessary new keyword.\n\nline 140 col 7: Unnecessary new keyword.",
+        "description": "Analysis of `lib/shelf_pubserver.dart` reported 36 hints, including:\n\nline 19 col 24: Unnecessary new keyword.\n\nline 131 col 40: Unnecessary new keyword.\n\nline 134 col 7: Unnecessary new keyword.\n\nline 137 col 7: Unnecessary new keyword.\n\nline 140 col 7: Unnecessary new keyword.",
         "file": "lib/shelf_pubserver.dart",
-        "score": 14.39
+        "score": 16.51
       },
       {
         "code": "dartanalyzer.warning",
@@ -103,13 +103,13 @@
         "package": "async",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.4.0"
+        "resolved": "2.4.1"
       },
       {
         "package": "charcode",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.1.2"
+        "resolved": "1.1.3"
       },
       {
         "package": "collection",
@@ -142,7 +142,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.9.3 <1.0.0",
-        "resolved": "0.11.3+2"
+        "resolved": "0.11.4"
       },
       {
         "package": "meta",
@@ -169,7 +169,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^1.1.0",
-        "resolved": "1.4.2"
+        "resolved": "1.4.4"
       },
       {
         "package": "shelf",
@@ -182,7 +182,7 @@
         "package": "source_span",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.5.5"
+        "resolved": "1.7.0"
       },
       {
         "package": "stack_trace",
@@ -415,6 +415,15 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "omit_local_variable_types",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 151,
+          "col": 5,
+          "description": "Omit type annotations for local variables."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/shelf_pubserver.dart",
           "line": 177,
@@ -451,11 +460,38 @@
         {
           "severity": "INFO",
           "errorType": "LINT",
+          "errorCode": "omit_local_variable_types",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 213,
+          "col": 11,
+          "description": "Omit type annotations for local variables."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
           "errorCode": "unnecessary_new",
           "file": "lib/shelf_pubserver.dart",
           "line": 221,
           "col": 16,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "omit_local_variable_types",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 226,
+          "col": 9,
+          "description": "Omit type annotations for local variables."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "omit_local_variable_types",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 227,
+          "col": 9,
+          "description": "Omit type annotations for local variables."
         },
         {
           "severity": "INFO",
@@ -483,6 +519,15 @@
           "line": 246,
           "col": 14,
           "description": "Unnecessary new keyword."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "LINT",
+          "errorCode": "omit_local_variable_types",
+          "file": "lib/shelf_pubserver.dart",
+          "line": 262,
+          "col": 10,
+          "description": "Omit type annotations for local variables."
         },
         {
           "severity": "INFO",
@@ -730,6 +775,9 @@
         "package:http_parser/src/scan.dart",
         "package:http_parser/src/utils.dart",
         "package:logging/logging.dart",
+        "package:logging/src/level.dart",
+        "package:logging/src/log_record.dart",
+        "package:logging/src/logger.dart",
         "package:meta/meta.dart",
         "package:mime/mime.dart",
         "package:mime/src/bound_multipart_stream.dart",
@@ -852,5 +900,18 @@
     "formatProcessElapsed": 567,
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
-  }
+  },
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "platform:web",
+    "runtime:native-aot",
+    "runtime:native-jit",
+    "runtime:web"
+  ]
 }

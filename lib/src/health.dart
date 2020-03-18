@@ -27,26 +27,6 @@ Health calcHealth({
   final suggestions = <Suggestion>[];
 
   for (final s in dartFileSummaries) {
-    if (s.platform != null && s.platform.hasConflict) {
-      platformConflictCount++;
-      final components = s.platform.components?.map((s) => '`$s`')?.join(', ');
-      var description =
-          'Make sure that the imported libraries are not in conflict.';
-      if (components != null) {
-        description += ' Detected components: $components.';
-      }
-      if (s.platform.reason != null && s.platform.reason.isNotEmpty) {
-        description += ' ${s.platform.reason}';
-      }
-      suggestions.add(Suggestion.error(
-        SuggestionCode.platformConflictInFile,
-        'Fix platform conflict in `${s.path}`.',
-        description,
-        file: s.path,
-        score: 25.0,
-      ));
-    }
-
     if (s.isFormatted == false) {
       suggestions.add(Suggestion.hint(
         SuggestionCode.dartfmtWarning,

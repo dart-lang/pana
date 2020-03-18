@@ -8,12 +8,14 @@ import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_options.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
+import 'package_analyzer.dart' show InspectOptions;
 import 'pubspec.dart';
 import 'utils.dart';
 import 'version.dart';
@@ -135,14 +137,19 @@ class ToolEnvironment {
   }
 
   Future<String> runAnalyzer(
-      String packageDir, List<String> dirs, bool usesFlutter) async {
+    String packageDir,
+    List<String> dirs,
+    bool usesFlutter, {
+    @required InspectOptions inspectOptions,
+  }) async {
     final originalOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
     String originalOptions;
     if (await originalOptionsFile.exists()) {
       originalOptions = await originalOptionsFile.readAsString();
     }
-    final pedanticContent = await getPedanticContent();
+    final pedanticContent =
+        await getPedanticContent(inspectOptions: inspectOptions);
     final pedanticFileName =
         'pedantic_analyis_options_${DateTime.now().microsecondsSinceEpoch}.g.yaml';
     final pedanticOptionsFile = File(p.join(packageDir, pedanticFileName));
@@ -152,8 +159,13 @@ class ToolEnvironment {
     final customOptionsFile = File(p.join(packageDir, customFileName));
     await customOptionsFile.writeAsString(customizeAnalysisOptions(
         originalOptions, usesFlutter, pedanticFileName));
-    final params = ['--options', customOptionsFile.path, '--format', 'machine']
-      ..addAll(dirs);
+    final params = [
+      '--options',
+      customOptionsFile.path,
+      '--format',
+      'machine',
+      ...dirs,
+    ];
     // TODO: run flutter analyze after it gets machine-readable output support:
     // https://github.com/flutter/flutter/issues/23664
     try {
@@ -341,7 +353,7 @@ class ToolEnvironment {
     if (_useGlobalDartdoc) {
       pr = await runProc(
         _pubCmd,
-        ['global', 'run', 'dartdoc']..addAll(args),
+        ['global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment: _globalDartdocEnv(),
         timeout: timeout,

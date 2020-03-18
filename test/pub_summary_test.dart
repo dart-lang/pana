@@ -27,10 +27,17 @@ void main() {
           summary.dependencies.firstWhere((pd) => pd.package == 'analyzer');
       expect(analyzer.resolved, Version.parse('0.29.8'));
       expect(analyzer.available, Version.parse('0.30.0-alpha.1'));
-      expect(analyzer.isOutdated, isTrue);
+      expect(analyzer.isOutdated, isFalse);
 
-      expect(summary.outdated, hasLength(7));
-      expect(summary.outdated, contains(analyzer));
+      final buildTest =
+          summary.dependencies.firstWhere((pd) => pd.package == 'build_test');
+      expect(buildTest.resolved, Version.parse('0.2.0+1'));
+      expect(buildTest.available, Version.parse('0.4.1'));
+      expect(buildTest.isOutdated, isTrue);
+
+      expect(summary.outdated, hasLength(5));
+      expect(summary.outdated, isNot(contains(analyzer)));
+      expect(summary.outdated, contains(buildTest));
     });
 
     test('upgrade', () {

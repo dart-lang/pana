@@ -1,6 +1,59 @@
-## 0.12.22
+## 0.13.6
+
+* Fix: detect Dart files on Windows
+* Fix: unescape double-backslash from files reported by `dartanalyzer` on Windows. 
+
+## 0.13.5
+
+* Fix: when there are no libraries matching `lib/*.dart`, other libraries
+  outside of `lib/src/` will be recognized as top-level libraries.
+* Use `repository` from `pubspec.yaml` to resolve license URLs.
+* Example detection: `README.md` is de-prioritized, Dart files take precedence.
+
+## 0.13.4
+
+* `InspectOptions.analysisOptionsUri` to optionally control which `pedantic`
+  version (or other package's) ruleset is used for analysis lints.
+
+## 0.13.3
+
+* Updated tag detection for packages without a primary library.
+* Upgraded analyzer to `^0.39.0`.
+* More `dart:*` libraries in tag detection: `cli`, `nativewrappers`, `html_common`.
+* Limit overall style lint penalties on health score: 25%.
+
+## 0.13.2
+
+* Don't penalize packages on legacy platform detection results.
+
+## 0.13.1+4
+
+* Fix the version number of pana
+
+## 0.13.1+3
+
+* Allow import of platform:flutter on platform web when calculating tags.
+* Fix the finding of primary library.
+
+## 0.13.1+2
+
+* More handling of degenerate cases when computing sdk, platform and runtime
+  tags.
+
+## 0.13.1+1
+
+* Handle degenerate cases when computing sdk, platform and runtime tags.
+
+## 0.13.1
+
+* Compute sdk, platform and runtime tags.
+
+## 0.13.0
 
 * `UrlChecker` follows redirects (max. 10 redirects).
+* Fix: pre-release versions are not considered when detecting outdated dependencies.
+
+* Detect and report sdk tags ('sdk:flutter', 'sdk:dart').
 
 ## 0.12.21
 
@@ -163,7 +216,7 @@
 
 **Breaking changes:**
 
-* Named parameters in the following constructors: `Summary`, `DartFileSummary`, `PkgDependency`, `CodeProblem`. 
+* Named parameters in the following constructors: `Summary`, `DartFileSummary`, `PkgDependency`, `CodeProblem`.
 
 * Removed per-file and overall `Fitness`, using a top-level `Health` report instead.
   Follows the proposed changes that allow us to clearly communicate the scoring mechanism.
@@ -327,7 +380,7 @@ Updates:
 * Removed `DartPlatform.description` and `DartPlatform.descriptionAndReason`
   because we don't use them elsewhere and complicates the `PlatformNames`
   with `everywhere` and `undefined`.
-    
+
 * Removed `PlatformNames.everywhere` and `PlatformNames.undefined`, because
   we don't print these anywhere except in tests.
 
@@ -379,19 +432,19 @@ Updates:
 
 ## 0.8.0
 
-* `PackageAnalyzer.inspectPackage` added a named argument 
+* `PackageAnalyzer.inspectPackage` added a named argument
   `deleteTemporaryDirectory`. Setting this to `false` retains the
   directory and prints its location to the log. Useful for debugging.
 
 * `Maintenance`
-  * **BREAKING** `getMaintenanceScore` now takes an optional `age` parameter 
+  * **BREAKING** `getMaintenanceScore` now takes an optional `age` parameter
     replacing the previously required `publishDate` parameter.
 
   * Changed the meaning of version fields:
     * `isExperimentalVersion` now means pre-V1.
     * `isPreReleaseVersion` now means there is a pre-release flag
       like `-beta`, `-alpha`, etc.
-  
+
   * **BREAKING** maintenance-related `Suggestion` entries as moved to `Maintenance.suggestions`
 
 * **BREAKING** `Suggestion.file` is now `String` instead of `dynamic`.
@@ -434,7 +487,7 @@ Updates:
 * **Breaking changes**
 
   * `Summary.sdkVersion` is now a `Version` instead of `String`.
-  
+
   * `new PackageAnalyzer(...)` now takes a `DartSdk` instance instead of
     a `String`.
 
@@ -448,7 +501,7 @@ Updates:
 
 ## 0.6.1
 
-* Don't count the absence of an `analysis_options.yaml` file against a package. 
+* Don't count the absence of an `analysis_options.yaml` file against a package.
 
 ## 0.6.0
 
@@ -525,7 +578,7 @@ Updates:
   * `worksInStandalone` renamed to `worksOnServer`.
   * Other `.worksIn*` renamed to `worksOn*`.
   * Added `String get description` which returns a simple `String` description
-    of the supported platforms. Examples: `everywhere`, `flutter`, 
+    of the supported platforms. Examples: `everywhere`, `flutter`,
     `server, web`, `conflict`.
   * Removed `angular` as a value in `uses`.
 

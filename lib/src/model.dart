@@ -57,6 +57,9 @@ class Summary {
   @JsonKey(includeIfNull: false)
   final Stats stats;
 
+  @JsonKey(includeIfNull: false)
+  final List<String> tags;
+
   Summary({
     @required this.runtimeInfo,
     @required this.packageName,
@@ -70,6 +73,7 @@ class Summary {
     @required this.maintenance,
     @required List<Suggestion> suggestions,
     @required this.stats,
+    @required this.tags,
   }) : suggestions =
             suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
@@ -90,6 +94,7 @@ class Summary {
     Maintenance maintenance,
     List<Suggestion> suggestions,
     Stats stats,
+    List<String> tags,
   }) {
     return Summary(
       runtimeInfo: runtimeInfo ?? this.runtimeInfo,
@@ -104,6 +109,7 @@ class Summary {
       maintenance: maintenance ?? this.maintenance,
       suggestions: suggestions ?? this.suggestions,
       stats: stats ?? this.stats,
+      tags: tags ?? this.tags,
     );
   }
 }
@@ -370,6 +376,7 @@ abstract class SuggestionCode {
 
   static const String platformConflictInFile = 'platform.conflict.inFile';
   static const String platformConflictInPkg = 'platform.conflict.inPkg';
+  static const String sdkMissing = 'sdk.missing';
 
   static const String packageVersionObsolete = 'packageVersion.obsolete';
   static const String packageVersionOld = 'packageVersion.old';
@@ -624,7 +631,8 @@ class PkgDependency implements Comparable<PkgDependency> {
 
   bool get isLatest => available == null;
 
-  bool get isOutdated => !isLatest;
+  // TODO: investigate if `pub upgrade` reports the latest stable or the latest uploaded
+  bool get isOutdated => available != null && !available.isPreRelease;
 
   bool get isHosted =>
       constraintType != ConstraintTypes.sdk &&
@@ -749,7 +757,7 @@ double calculateBaseHealth(
     int analyzerErrorCount, int analyzerWarningCount, int analyzerHintCount) {
   final score = math.pow(healthErrorMultiplier, analyzerErrorCount) *
       math.pow(healthWarningMultiplier, analyzerWarningCount) *
-      math.pow(healthHintMultiplier, analyzerHintCount);
+      math.max(0.75, math.pow(healthHintMultiplier, analyzerHintCount));
   return score.toDouble();
 }
 

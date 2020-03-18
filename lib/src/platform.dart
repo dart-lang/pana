@@ -161,6 +161,7 @@ class PlatformDef {
   ];
 
   static Map<String, PlatformUse> detectUses(List<ComponentDef> components) {
+    // ignore: prefer_for_elements_to_map_fromIterable
     return Map<String, PlatformUse>.fromIterable(
       values,
       key: (p) => (p as PlatformDef).name,

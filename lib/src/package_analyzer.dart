@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as path;
 
 import 'code_problem.dart';
 import 'download_utils.dart';
@@ -22,6 +23,7 @@ import 'pkg_resolution.dart';
 import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
+import 'tag_detection.dart';
 import 'utils.dart';
 
 enum Verbosity {
@@ -39,6 +41,7 @@ class InspectOptions {
   final Duration dartdocTimeout;
   final bool isInternal;
   final int lineLength;
+  final String analysisOptionsUri;
 
   InspectOptions({
     this.verbosity = Verbosity.normal,
@@ -49,6 +52,7 @@ class InspectOptions {
     this.dartdocTimeout,
     this.isInternal = false,
     this.lineLength,
+    this.analysisOptionsUri,
   });
 }
 
@@ -112,10 +116,14 @@ class PackageAnalyzer {
     final formatProcessStopwatch = Stopwatch();
     final suggestions = <Suggestion>[];
 
-    var dartFiles =
-        await listFiles(pkgDir, endsWith: '.dart', deleteBadExtracted: true)
-            .where((file) => file.startsWith('bin/') || file.startsWith('lib/'))
-            .toList();
+    var dartFiles = await listFiles(
+      pkgDir,
+      endsWith: '.dart',
+      deleteBadExtracted: true,
+    )
+        .where(
+            (file) => path.isWithin('bin', file) || path.isWithin('lib', file))
+        .toList();
 
     log.info('Parsing pubspec.yaml...');
     Pubspec pubspec;
@@ -137,6 +145,7 @@ class PackageAnalyzer {
         maintenance: null,
         suggestions: suggestions,
         stats: null,
+        tags: null,
       );
     }
     if (pubspec.hasUnknownSdks) {
@@ -259,6 +268,7 @@ class PackageAnalyzer {
       }
     }
 
+    final tags = <String>[];
     if (pkgResolution != null) {
       try {
         var overrides = [
@@ -268,8 +278,8 @@ class PackageAnalyzer {
               'package:package_resolver/package_resolver.dart'),
         ];
 
-        libraryScanner =
-            LibraryScanner(_toolEnv.dartSdkDir, pkgDir, overrides: overrides);
+        libraryScanner = LibraryScanner(_toolEnv.dartSdkDir, package, pkgDir,
+            overrides: overrides);
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
         log.severe('Could not create LibraryScanner', e, stack);
@@ -306,7 +316,7 @@ class PackageAnalyzer {
       if (dartFiles.isNotEmpty) {
         analyzeProcessStopwatch.start();
         try {
-          analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter);
+          analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter, options);
         } on ArgumentError catch (e) {
           if (e.toString().contains('No dart files found at: .')) {
             log.warning('`dartanalyzer` found no files to analyze.');
@@ -320,6 +330,13 @@ class PackageAnalyzer {
         analyzeProcessStopwatch.stop();
       } else {
         analyzerItems = <CodeProblem>[];
+      }
+
+      if (!analyzerItems.any((item) => item.isError)) {
+        final tagger = Tagger(pkgDir);
+        tags.addAll(tagger.sdkTags());
+        tags.addAll(tagger.flutterPlatformTags());
+        tags.addAll(tagger.runtimeTags());
       }
     }
     final pkgPlatformBlockerSuggestion =
@@ -377,6 +394,16 @@ class PackageAnalyzer {
       dartFileSummaries: files.values,
     );
 
+    if (analyzerItems != null) {
+      final reportedFiles = analyzerItems.map((i) => i.file).toSet();
+      final knownFiles = files.values.map((f) => f.path).toSet();
+      final unattributedFiles = <String>{...reportedFiles}
+        ..removeAll(knownFiles);
+      if (unattributedFiles.isNotEmpty) {
+        log.warning('Unattributed files from dartanalyzer: $unattributedFiles');
+      }
+    }
+
     DartPlatform platform;
     if (pkgPlatformConflict != null) {
       platform = DartPlatform.conflict(
@@ -389,7 +416,8 @@ class PackageAnalyzer {
     }
 
     var licenses = await detectLicensesInDir(pkgDir);
-    licenses = await updateLicenseUrls(_urlChecker, pubspec.homepage, licenses);
+    licenses = await updateLicenseUrls(
+        _urlChecker, pubspec.repository ?? pubspec.homepage, licenses);
 
     final maintenance = await detectMaintenance(
       options,
@@ -397,9 +425,9 @@ class PackageAnalyzer {
       pkgDir,
       pubspec,
       null, // unconstrainedDeps no longer used directly
-      pkgPlatform: platform,
       dartdocSuccessful: dartdocSuccessful,
       pkgResolution: pkgResolution,
+      tags: tags,
     );
     suggestions.sort();
 
@@ -425,17 +453,19 @@ class PackageAnalyzer {
       maintenance: maintenance,
       suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
+      tags: tags,
     );
   }
 
   Future<List<CodeProblem>> _pkgAnalyze(
-      String pkgPath, bool usesFlutter) async {
+      String pkgPath, bool usesFlutter, InspectOptions inspectOptions) async {
     log.info('Analyzing package...');
     final dirs = await listFocusDirs(pkgPath);
     if (dirs.isEmpty) {
       return null;
     }
-    final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter);
+    final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter,
+        inspectOptions: inspectOptions);
     final list = LineSplitter.split(output)
         .map((s) => parseCodeProblem(s, projectDir: pkgPath))
         .where((e) => e != null)

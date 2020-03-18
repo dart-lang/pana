@@ -32,14 +32,11 @@ Options:
   -j, --json            Output log items as JSON.
   -s, --source          The source where the package is located (hosted on https://pub.dev, or local directory path).
                         [hosted (default), path]
-  
       --hosted-url      The server that hosts <package>.
                         (defaults to "https://pub.dev")
-  
   -l, --line-length     The line length to use with dartfmt.
       --verbosity       Configure the details in the output.
                         [compact, normal (default), verbose]
-  
       --[no-]scores     Include scores in the output JSON.
       --[no-]warning    Shows the warning message before potentially destructive operation.
                         (defaults to on)
@@ -55,10 +52,10 @@ A package gets `0.0` if any major analyzer process fails (e.g. `pub upgrade`,
 Otherwise the score starts with `1.0`, and
 - analyzer errors reduce it by 25%
 - analyzer warnings reduce it by 5%
-- analyzer hints reduce it by 0.5%
+- analyzer hints reduce it by 0.5% (maximum penalty: 25%)
 - platform conflicts reduce it by 0.25 points (absolute reduction)
 
-`health = 0.75^errors * 0.95^warnings * 0.995^hints - 0.25*conflicts`
+`health = 0.75^errors * 0.95^warnings * max(0.75, 0.995^hints) - 0.25*conflicts`
 
 [Pub site](https://pub.dev/) transforms this score into the [0 - 100] range.
 
@@ -72,7 +69,7 @@ A package starts with `100` points, and the following detected issues have point
 - unable to parse markdown content (-50 points)
 - `readme.md` missing (-30 points)
 - `changelog.md` missing (-20 points)
-- has platform conflicts (-20 points)
+- unable to detect valid SDKs (-20 points)
 - has unconstrained dependencies (-20 points)
 - does not allow latest stable SDK (-20 points)
 - `description` is too short (<60 characters) (-20 points)
