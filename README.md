@@ -19,6 +19,8 @@ Used by the [Dart Package site](https://pub.dev/).
 > pub global activate pana
 ```
 
+NOTE: You may need to restart your IDE for pana commands to be recognized.
+
 ### Usage
 
 You can specify either a package (+ version) or a local directory to analyze:
