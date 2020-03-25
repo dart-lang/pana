@@ -492,8 +492,9 @@ class DartdocResult {
 }
 
 class DartSdkInfo {
-  static final _sdkRegexp =
-      RegExp('Dart VM version:\\s([^\\s]+)\\s\\(([^\\)]+)\\) on "(\\w+)"');
+  static final _sdkRegexp = RegExp(
+    r'Dart VM version:\s([^\s]+)\s\(([^\)]+)\)(\s\(([^\)]+)\))? on "(\w+)"',
+  );
 
   // TODO: parse an actual `DateTime` here. Likely requires using pkg/intl
   final String dateString;
