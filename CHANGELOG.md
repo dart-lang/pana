@@ -1,3 +1,7 @@
+## 0.13.7
+
+* Fix: handle new `--version` output from latest Dart SDK.
+
 ## 0.13.6
 
 * Fix: detect Dart files on Windows
