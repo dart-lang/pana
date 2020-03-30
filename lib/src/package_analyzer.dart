@@ -332,7 +332,7 @@ class PackageAnalyzer {
         analyzerItems = <CodeProblem>[];
       }
 
-      if (!analyzerItems.any((item) => item.isError)) {
+      if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
         final tagger = Tagger(pkgDir);
         tags.addAll(tagger.sdkTags());
         tags.addAll(tagger.flutterPlatformTags());
