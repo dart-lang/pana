@@ -1,3 +1,7 @@
+## 0.14.8
+
+* Fix: NPE after `dartanalyzer` exits with a failure.
+
 ## 0.13.7
 
 * Fix: handle new `--version` output from latest Dart SDK.
