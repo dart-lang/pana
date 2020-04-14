@@ -82,6 +82,7 @@ import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
+import 'package:pub_semver/pub_semver.dart';
 
 import 'logging.dart';
 
@@ -129,6 +130,30 @@ class _PathFinder<T> {
   }
 }
 
+/// Returns a parsed (not resolved) compilation unit of [uri] created by
+/// [analysisSession].
+///
+/// Returns `null` in case of any errors.
+///
+/// Returns `null` if [uri] points to a part file.
+CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
+  final path = analysisSession.uriConverter.uriToPath(uri);
+  if (path == null) {
+    // Could not resolve uri.
+    // Probably a missing/broken dependency.
+    // TODO(sigurdm): Figure out the right thing to do here.
+    return null;
+  }
+  final unitResult = analysisSession.getParsedUnit(path);
+  if (unitResult.errors.isNotEmpty) return null;
+  if (unitResult.isPart) {
+    // Part files cannot contain import/export directives or language
+    // directives.
+    return null;
+  }
+  return unitResult.unit;
+}
+
 /// A graph of import/export dependencies for libraries under some configuration
 /// of declared variables.
 @visibleForTesting
@@ -168,19 +193,13 @@ class LibraryGraph implements _DirectedGraph<Uri> {
         // TODO(sigurdm): Figure out the right thing to do here.
         return <Uri>{};
       }
-      final unitResult = _analysisSession.getParsedUnit(path);
-      if (unitResult.isPart) {
+      final unit = _parsedUnitFromUri(_analysisSession, uri);
+      if (unit == null) {
         // Part files cannot contain import/export directives.
         return <Uri>{};
       }
-      if (unitResult.unit == null) {
-        // Could not parse file.
-        // Probably broken code.
-        // TODO(sigurdm): Figure out the right thing to do here.
-        return <Uri>{};
-      }
       final dependencies = <Uri>{};
-      for (final node in unitResult.unit.sortedDirectivesAndDeclarations) {
+      for (final node in unit.sortedDirectivesAndDeclarations) {
         if (node is! ImportDirective && node is! ExportDirective) {
           continue;
         }
@@ -272,6 +291,25 @@ class _PubspecCache {
       return Pubspec.parseFromDir(packageDir);
     });
   }
+}
+
+/// Paths to all files matching `$packageDir/lib/**/*.dart`.
+///
+/// Paths are returned relative to `lib/`.
+List<String> dartFilesFromLib(String packageDir) {
+  final libDir = Directory(path.join(packageDir, 'lib'));
+  final libDirExists = libDir.existsSync();
+  final dartFiles = libDirExists
+      ? libDir
+          .listSync(recursive: true)
+          .where((e) => e is File && e.path.endsWith('.dart'))
+          .map((f) => path.relative(f.path, from: libDir.path))
+          .toList()
+      : <String>[];
+
+  // Sort to make the order of files and the reported events deterministic.
+  dartFiles.sort();
+  return dartFiles;
 }
 
 /// Represents a dart runtime and the `dart:` libraries available on that
@@ -495,6 +533,54 @@ class Sdk {
   static List<Sdk> knownSdks = [dart, flutter];
 }
 
+/// A package is said to null-safety compliant if:
+///
+/// The package has opted-in by specifying a lower dart sdk bound >= 2.10
+/// No libraries in the package opts out of the null-safety enabled language
+/// version.
+/// All (non-dev) dependencies in the latest version resolvable by pub are
+/// fully null-safety-compliant by this definition.
+
+class NullSafety {
+  final _PathFinder<String> _languageVersionViolationFinder;
+  final _PathFinder<String> _noOptoutViolationFinder;
+
+  NullSafety(_PackageGraph packageGraph, _PubspecCache pubspecCache,
+      AnalysisSession analysisSession)
+      : _languageVersionViolationFinder =
+            _PathFinder(packageGraph, (String packageDir) {
+          final pubspec = pubspecCache.pubspecOfPackage(packageDir);
+          return !pubspec.sdkConstraintStatus.hasOptedIntoNullSafety;
+        }),
+        _noOptoutViolationFinder =
+            _PathFinder(packageGraph, (String packageDir) {
+          final pubspec = pubspecCache.pubspecOfPackage(packageDir);
+          for (final file in dartFilesFromLib(packageDir)) {
+            final unit = _parsedUnitFromUri(
+                analysisSession, Uri.parse('package:${pubspec.name}/$file'));
+            if (unit == null) continue;
+            final languageVersionToken = unit.languageVersionToken;
+            if (languageVersionToken == null) continue;
+            final version = Version.parse(
+              '${languageVersionToken.major}.${languageVersionToken.minor}.0',
+            );
+            if (version < _firstVersionWithNullSafety) {
+              return true;
+            }
+          }
+          return false;
+        });
+
+  PathResult findNullSafetyViolation(String rootPackageDir) {
+    final languageVersionResult =
+        _languageVersionViolationFinder.findPath(rootPackageDir);
+    if (languageVersionResult.hasPath) return languageVersionResult;
+    return _noOptoutViolationFinder.findPath(rootPackageDir);
+  }
+
+  static final _firstVersionWithNullSafety = Version.parse('2.10.0');
+}
+
 /// Calculates the tags for the package residing in a given directory.
 class Tagger {
   String packageDir;
@@ -521,29 +607,8 @@ class Tagger {
     final pubspecCache = _PubspecCache(session);
     final pubspec = pubspecCache.pubspecOfPackage(packageDir);
 
-    final libDir = Directory(path.join(packageDir, 'lib'));
-    final libDirExists = libDir.existsSync();
-    final libDartFiles = libDirExists
-        ? libDir
-            .listSync(recursive: false)
-            .where((e) => e is File && e.path.endsWith('.dart'))
-            .map((f) => path.basename(f.path))
-            .toList()
-        : <String>[];
-    // Sort to make the order of files and the reported events deterministic.
-    libDartFiles.sort();
-
-    // Fallback in case the lib/*.dart is empty.
-    final nonSrcDartFiles = libDirExists
-        ? libDir
-            .listSync(recursive: true)
-            .where((e) => e is File && e.path.endsWith('.dart'))
-            .map((f) => path.relative(f.path, from: libDir.path))
-            .where((p) => !p.startsWith('src/'))
-            .toList()
-        : <String>[];
-    // Sort to make the order of files and the reported events deterministic.
-    nonSrcDartFiles.sort();
+    final libDartFiles = dartFilesFromLib(packageDir);
+    final nonSrcDartFiles = libDartFiles.where((p) => !p.startsWith('src/'));
 
     Uri primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
@@ -556,12 +621,8 @@ class Tagger {
     List<Uri> topLibraries;
     if (primaryLibrary != null) {
       topLibraries = <Uri>[primaryLibrary];
-    } else if (libDartFiles.isNotEmpty) {
-      topLibraries = libDartFiles
-          .map((name) => Uri.parse('package:${pubspec.name}/$name'))
-          .toList();
     } else {
-      topLibraries = nonSrcDartFiles
+      topLibraries = (nonSrcDartFiles.isEmpty ? libDartFiles : nonSrcDartFiles)
           .map((name) => Uri.parse('package:${pubspec.name}/$name'))
           .toList();
     }
@@ -700,5 +761,16 @@ class Tagger {
       }
     }
     return result;
+  }
+
+  List<String> nullSafetyTags() {
+    final nullSafety = NullSafety(_packageGraph, _pubspecCache, _session);
+    final nullSafetyResult = nullSafety.findNullSafetyViolation(packageDir);
+    if (nullSafetyResult.hasPath) {
+      log.info(
+          '$packageDir is not null-safety compliant because of ${nullSafetyResult.path}');
+      return [];
+    }
+    return ['is:null-safety'];
   }
 }

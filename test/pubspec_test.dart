@@ -58,6 +58,12 @@ void main() {
   test('unknown sdk', () {
     expect(unknownSdkPubspec.dependentSdks.toList(), ['unknown']);
   });
+
+  test('null-safety', () {
+    expect(dart2Pubspec.sdkConstraintStatus.hasOptedIntoNullSafety, false);
+    expect(nullSafetyPubspec.sdkConstraintStatus.hasOptedIntoNullSafety, true);
+    expect(nullSafetyPubspec2.sdkConstraintStatus.hasOptedIntoNullSafety, true);
+  });
 }
 
 final Pubspec emptyPubspec = Pubspec({
@@ -109,6 +115,20 @@ final Pubspec dart2Pubspec = Pubspec({
   'name': 'sample',
   'environment': {
     'sdk': '^2.0.0',
+  },
+});
+
+final Pubspec nullSafetyPubspec = Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '^2.10.0',
+  },
+});
+
+final Pubspec nullSafetyPubspec2 = Pubspec({
+  'name': 'sample',
+  'environment': {
+    'sdk': '>=2.11.0<2.13.0',
   },
 });
 

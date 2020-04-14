@@ -43,3 +43,16 @@ dev_dependencies:
 
 executables:
   pana:
+
+dependency_overrides:
+  # Use a never version of these packages while waiting for a release.
+  analyzer:
+    git:
+      url: https://github.com/dart-lang/sdk.git
+      ref: 3095a082cd1d747e090581e244d0a731544c3a0c
+      path: pkg/analyzer
+  _fe_analyzer_shared:
+    git:
+      url: https://github.com/dart-lang/sdk.git
+      ref: 3095a082cd1d747e090581e244d0a731544c3a0c
+      path: pkg/_fe_analyzer_shared
