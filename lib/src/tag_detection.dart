@@ -774,6 +774,6 @@ class Tagger {
           'dependency path ${nullSafetyResult.path}');
       return [];
     }
-    return ['is:null-safety'];
+    return ['is:null-safe'];
   }
 }

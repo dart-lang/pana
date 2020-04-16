@@ -343,7 +343,7 @@ name: my_package
     });
   });
 
-  group('null-safety', () {
+  group('null-safe', () {
     test('compliant package depending on compliant package gets the tag',
         () async {
       final decriptor = d.dir('cache', [
@@ -362,7 +362,7 @@ name: my_package
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), ['is:null-safety']);
+      expect(tagger.nullSafetyTags(), ['is:null-safe']);
     });
     test('opting a library out (even one not reacahble from primary) fails',
         () async {
@@ -396,7 +396,7 @@ name: my_package
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), ['is:null-safety']);
+      expect(tagger.nullSafetyTags(), ['is:null-safe']);
     });
 
     test('depending on a not-null-safe package gets fails', () async {
@@ -458,7 +458,7 @@ void main() {
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), ['is:null-safety']);
+      expect(tagger.nullSafetyTags(), ['is:null-safe']);
     });
   });
 }
