@@ -533,13 +533,15 @@ class Sdk {
   static List<Sdk> knownSdks = [dart, flutter];
 }
 
+/// Decides if a package is null-safe.
+///
 /// A package is said to null-safety compliant if:
 ///
-/// The package has opted-in by specifying a lower dart sdk bound >= 2.10
-/// No libraries in the package opts out of the null-safety enabled language
-/// version.
-/// All (non-dev) dependencies in the latest version resolvable by pub are
-/// fully null-safety-compliant by this definition.
+/// - The package has opted-in by specifying a lower dart sdk bound >= 2.10
+/// - No libraries in the package opts out of the null-safety enabled language
+///   version.
+/// - All (non-dev) dependencies in the latest version resolvable by pub are
+///   fully null-safety-compliant by this definition.
 
 class NullSafety {
   final _PathFinder<String> _languageVersionViolationFinder;
