@@ -770,7 +770,8 @@ class Tagger {
     final nullSafetyResult = nullSafety.findNullSafetyViolation(packageDir);
     if (nullSafetyResult.hasPath) {
       log.info(
-          '$packageDir is not null-safety compliant because of ${nullSafetyResult.path}');
+          '$packageDir is not null-safety compliant because of the package\n'
+          'dependency path ${nullSafetyResult.path}');
       return [];
     }
     return ['is:null-safety'];
