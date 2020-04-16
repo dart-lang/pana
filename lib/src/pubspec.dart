@@ -117,6 +117,7 @@ class Pubspec {
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
 final _range2Latest = VersionConstraint.parse('>=2.9999.0 <3.0.0');
 final _futureRange = VersionConstraint.parse('>=3.0.0');
+final _firstNullSafetyVersion = Version.parse('2.10.0');
 
 /// Detailed support coverage for the SDK constraint.
 class SdkConstraintStatus {
@@ -129,10 +130,13 @@ class SdkConstraintStatus {
   /// Whether it is compatible with Dart 2 SDKs.
   final bool isDart2Compatible;
 
+  final bool hasOptedIntoNullSafety;
+
   SdkConstraintStatus._({
     this.hasConstraint,
     this.enablesDart2Latest,
     this.isDart2Compatible,
+    this.hasOptedIntoNullSafety,
   });
 
   factory SdkConstraintStatus.fromSdkVersion(VersionConstraint constraint) {
@@ -141,11 +145,16 @@ class SdkConstraintStatus {
     final enablesDart2 = hasConstraint && constraint.allowsAny(_range2);
     final enablesFutureVersions =
         hasConstraint && constraint.allowsAny(_futureRange);
+    final hasOptedIntoNullSafety = hasConstraint &&
+        constraint is VersionRange &&
+        constraint.min != null &&
+        constraint.min >= _firstNullSafetyVersion;
     return SdkConstraintStatus._(
       hasConstraint: hasConstraint,
       enablesDart2Latest: hasConstraint && constraint.allowsAny(_range2Latest),
       isDart2Compatible:
           hasConstraint && enablesDart2 && !enablesFutureVersions,
+      hasOptedIntoNullSafety: hasOptedIntoNullSafety,
     );
   }
 }

@@ -337,6 +337,7 @@ class PackageAnalyzer {
         tags.addAll(tagger.sdkTags());
         tags.addAll(tagger.flutterPlatformTags());
         tags.addAll(tagger.runtimeTags());
+        tags.addAll(tagger.nullSafetyTags());
       }
     }
     final pkgPlatformBlockerSuggestion =
