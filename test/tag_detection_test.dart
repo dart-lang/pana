@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:pana/src/model.dart';
 import 'package:pana/src/tag_detection.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
@@ -47,6 +48,17 @@ d.DirectoryDescriptor package(String name,
   ]);
 }
 
+void expectTagging(void Function(List<String>, List<Suggestion>) f,
+    {dynamic tags, dynamic suggestions}) {
+  final actualTags = <String>[];
+  final actualSuggestions = <Suggestion>[];
+  f(actualTags, actualSuggestions);
+  expect(actualTags, tags);
+  if (suggestions != null) {
+    expect(actualSuggestions, suggestions);
+  }
+}
+
 void main() {
   group('path finding', () {
     final graph = FakeLibraryGraph();
@@ -63,36 +75,37 @@ void main() {
 
     test('succeeds on ok graph', () async {
       expect(
-          RuntimeViolationFinder(graph, Runtime.nativeAot)
-              .findRuntimeViolation(Uri.parse('native_main.dart'))
+          runtimeViolationFinder(graph, Runtime.nativeAot, (p) => null)
+              .findPath(Uri.parse('native_main.dart'))
               .hasPath,
           false);
     });
     test('fails with counter-example', () {
       expect(
-          RuntimeViolationFinder(graph, Runtime.web)
-              .findRuntimeViolation(Uri.parse('native_main.dart')),
-          PathResult<Uri>.path([
-            'native_main.dart',
-            'native_helper.dart',
-            'dart:io'
-          ].map(Uri.parse).toList()));
+          runtimeViolationFinder(graph, Runtime.web, (p) => null)
+              .findPath(Uri.parse('native_main.dart'))
+              .path,
+          ['native_main.dart', 'native_helper.dart', 'dart:io']
+              .map(Uri.parse)
+              .toList());
     });
     test('handles cycles', () {
       expect(
-          RuntimeViolationFinder(graph, Runtime.web)
-              .findRuntimeViolation(Uri.parse('cyclic_main.dart')),
-          PathResult<Uri>.noPath());
+          runtimeViolationFinder(graph, Runtime.web, (p) => null)
+              .findPath(Uri.parse('cyclic_main.dart'))
+              .hasPath,
+          false);
       expect(
-          RuntimeViolationFinder(graph, Runtime.nativeAot)
-              .findRuntimeViolation(Uri.parse('cyclic_main.dart')),
-          PathResult<Uri>.path([
+          runtimeViolationFinder(graph, Runtime.nativeAot, (p) => null)
+              .findPath(Uri.parse('cyclic_main.dart'))
+              .path,
+          [
             'cyclic_main.dart',
             'cyclic1.dart',
             'cyclic2.dart',
             'web_helper.dart',
             'dart:html',
-          ].map(Uri.parse).toList()));
+          ].map(Uri.parse).toList());
     });
   });
 
@@ -104,20 +117,25 @@ void main() {
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-      expect(tagger.flutterPlatformTags(), {
-        'platform:ios',
-        'platform:android',
-        'platform:web',
-        'platform:linux',
-        'platform:windows',
-        'platform:macos'
-      });
-      expect(tagger.runtimeTags(), {
-        'runtime:native-jit',
-        'runtime:native-aot',
-        'runtime:web',
-      });
+      expectTagging(tagger.sdkTags,
+          tags: {'sdk:dart', 'sdk:flutter'}, suggestions: isEmpty);
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {
+            'platform:ios',
+            'platform:android',
+            'platform:web',
+            'platform:linux',
+            'platform:windows',
+            'platform:macos'
+          },
+          suggestions: isEmpty);
+      expectTagging(tagger.runtimeTags,
+          tags: {
+            'runtime:native-jit',
+            'runtime:native-aot',
+            'runtime:web',
+          },
+          suggestions: isEmpty);
     });
     test('analyzes the primary libray', () async {
       final decriptor = d.dir('cache', [
@@ -138,11 +156,11 @@ int fourtyTwo() => 42;
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-      expect(tagger.flutterPlatformTags(), {
+      expectTagging(tagger.sdkTags, tags: {'sdk:dart', 'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags, tags: {
         'platform:web',
       });
-      expect(tagger.runtimeTags(), {
+      expectTagging(tagger.runtimeTags, tags: {
         'runtime:web',
       });
     });
@@ -157,9 +175,9 @@ int fourtyTwo() => 42;
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:dart'});
-      expect(tagger.flutterPlatformTags(), isEmpty);
-      expect(tagger.runtimeTags(), {'runtime:native-jit'});
+      expectTagging(tagger.sdkTags, tags: {'sdk:dart'});
+      expectTagging(tagger.flutterPlatformTags, tags: isEmpty);
+      expectTagging(tagger.runtimeTags, tags: {'runtime:native-jit'});
     });
 
     test('using dart:mirrors disqualifies Flutter and aot', () async {
@@ -173,9 +191,9 @@ int fourtyTwo() => 42;
       ]);
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:dart'});
-      expect(tagger.flutterPlatformTags(), isEmpty);
-      expect(tagger.runtimeTags(), {
+      expectTagging(tagger.sdkTags, tags: {'sdk:dart'});
+      expectTagging(tagger.flutterPlatformTags, tags: isEmpty);
+      expectTagging(tagger.runtimeTags, tags: {
         'runtime:native-jit',
       });
     });
@@ -203,9 +221,9 @@ int fourtyTwo() => fourtyThree() - 1;
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:flutter'});
-      expect(tagger.flutterPlatformTags(), {'platform:ios'});
-      expect(tagger.runtimeTags(), isEmpty);
+      expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags, tags: {'platform:ios'});
+      expectTagging(tagger.runtimeTags, tags: isEmpty);
     });
     test('using flutter plugin2', () async {
       final decriptor = d.dir('cache', [
@@ -231,9 +249,9 @@ int fourtyTwo() => fourtyThree() - 1;
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:flutter'});
-      expect(tagger.flutterPlatformTags(), {'platform:web'});
-      expect(tagger.runtimeTags(), isEmpty);
+      expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags, tags: {'platform:web'});
+      expectTagging(tagger.runtimeTags, tags: isEmpty);
     });
     test('Using mirrors', () async {
       final decriptor = d.dir('cache', [
@@ -261,9 +279,36 @@ int fourtyThree() => 43;
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:dart'});
-      expect(tagger.flutterPlatformTags(), isEmpty);
-      expect(tagger.runtimeTags(), {'runtime:native-jit'});
+      expectTagging(tagger.sdkTags, tags: {
+        'sdk:dart'
+      }, suggestions: [
+        hint(
+            title: 'Package not compatible with SDK flutter',
+            description:
+                'Because it is not compatible with any of the supported '
+                'runtimes: flutter-native, flutter-web')
+      ]);
+      expectTagging(tagger.flutterPlatformTags,
+          tags: isEmpty,
+          suggestions: contains(
+            hint(
+                title:
+                    'Package not compatible with runtime flutter-native of android'),
+          ));
+      expectTagging(tagger.runtimeTags, tags: {
+        'runtime:native-jit'
+      }, suggestions: {
+        hint(
+            title: 'Package not compatible with runtime native-aot',
+            description:
+                'Because of the import of dart:mirrors via the import chain '
+                'package:my_package/my_package.dart->package:my_dependency/my_dependency.dart->dart:mirrors'),
+        hint(
+            title: 'Package not compatible with runtime web',
+            description:
+                'Because of the import of dart:io via the import chain '
+                'package:my_package/my_package.dart->dart:io')
+      });
     });
 
     test('Configurable import', () async {
@@ -291,17 +336,21 @@ int fourtyThree() => 43;
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-      expect(tagger.flutterPlatformTags(), {
-        'platform:android',
-        'platform:ios',
-        'platform:windows',
-        'platform:linux',
-        'platform:macos',
-        'platform:web'
-      });
-      expect(tagger.runtimeTags(),
-          {'runtime:native-aot', 'runtime:native-jit', 'runtime:web'});
+      expectTagging(tagger.sdkTags,
+          tags: {'sdk:dart', 'sdk:flutter'}, suggestions: isEmpty);
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {
+            'platform:android',
+            'platform:ios',
+            'platform:windows',
+            'platform:linux',
+            'platform:macos',
+            'platform:web'
+          },
+          suggestions: isEmpty);
+      expectTagging(tagger.runtimeTags,
+          tags: {'runtime:native-aot', 'runtime:native-jit', 'runtime:web'},
+          suggestions: isEmpty);
     });
 
     test('file: imports are ignored', () async {
@@ -326,20 +375,26 @@ name: my_package
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.sdkTags(), {'sdk:dart', 'sdk:flutter'});
-      expect(tagger.flutterPlatformTags(), {
-        'platform:ios',
-        'platform:android',
-        'platform:web',
-        'platform:linux',
-        'platform:windows',
-        'platform:macos'
-      });
-      expect(tagger.runtimeTags(), {
-        'runtime:native-jit',
-        'runtime:native-aot',
-        'runtime:web',
-      });
+      expectTagging(tagger.sdkTags,
+          tags: {'sdk:dart', 'sdk:flutter'}, suggestions: isEmpty);
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {
+            'platform:ios',
+            'platform:android',
+            'platform:web',
+            'platform:linux',
+            'platform:windows',
+            'platform:macos'
+          },
+          suggestions: isEmpty);
+
+      expectTagging(tagger.runtimeTags,
+          tags: {
+            'runtime:native-jit',
+            'runtime:native-aot',
+            'runtime:web',
+          },
+          suggestions: isEmpty);
     });
   });
 
@@ -362,7 +417,8 @@ name: my_package
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), ['is:null-safe']);
+      expectTagging(tagger.nullSafetyTags,
+          tags: ['is:null-safe'], suggestions: isEmpty);
     });
     test('opting a library out (even one not reacahble from primary) fails',
         () async {
@@ -381,7 +437,12 @@ name: my_package
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), []);
+      expectTagging(tagger.nullSafetyTags, tags: isEmpty, suggestions: [
+        hint(
+            title: 'Package is not null safe',
+            description:
+                'Because src/stray_file.dart is opting out in package package:my_package'),
+      ]);
     });
 
     test('opting a library to older version still allowing null-safety is ok',
@@ -396,7 +457,8 @@ name: my_package
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), ['is:null-safe']);
+      expectTagging(tagger.nullSafetyTags,
+          tags: ['is:null-safe'], suggestions: isEmpty);
     });
 
     test('depending on a not-null-safe package gets fails', () async {
@@ -416,7 +478,16 @@ name: my_package
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), []);
+      expectTagging(tagger.nullSafetyTags, tags: isEmpty, suggestions: [
+        hint(
+          title: 'Package is not null safe',
+          description: allOf(
+              contains(
+                  'Because of the language version from the sdk constraint in pubspec.yaml'),
+              contains(
+                  'package:my_dependency via dependency path: package:my_package->package:my_dependency')),
+        )
+      ]);
     });
 
     test('An opt-out library in a dependency fails', () async {
@@ -436,7 +507,14 @@ name: my_package
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), []);
+      expectTagging(tagger.nullSafetyTags, tags: isEmpty, suggestions: [
+        hint(
+            title: 'Package is not null safe',
+            description:
+                contains('Because my_dependency.dart is opting out in package '
+                    'package:my_dependency via dependency path: '
+                    'package:my_package->package:my_dependency'))
+      ]);
     });
 
     test('An opt-out test still gets tag', () async {
@@ -458,7 +536,30 @@ void main() {
       ]);
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
-      expect(tagger.nullSafetyTags(), ['is:null-safe']);
+      expectTagging(tagger.nullSafetyTags,
+          tags: ['is:null-safe'], suggestions: isEmpty);
     });
   });
+}
+
+Matcher hint({title = anything, description = anything}) {
+  return allOf(
+    predicate((f) => f.isHint as bool, 'is a hint'),
+    HasTitle(title),
+    HasDescription(description),
+  );
+}
+
+class HasDescription extends CustomMatcher {
+  HasDescription(matcher) : super('Suggestion with a', 'description', matcher);
+
+  @override
+  String featureValueOf(actual) => (actual as Suggestion).description;
+}
+
+class HasTitle extends CustomMatcher {
+  HasTitle(matcher) : super('Suggestion with a', 'title', matcher);
+
+  @override
+  String featureValueOf(actual) => (actual as Suggestion).title;
 }

@@ -78,27 +78,38 @@ import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
-import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 
-import 'logging.dart';
-
 abstract class _DirectedGraph<T> {
   Set<T> directSuccessors(T t);
 }
 
+/// Creates a suggestion indicating an issue, using [path] to give the location
+/// of the issue.
+typedef Explainer<N> = Suggestion Function(List<N> path);
+
+/// Returns an [Explainer] if node fullfills the predicate (if it violates some
+/// property) and `null` otherwise.
+///
+/// Explainer should give an explanation of the problem.
+typedef Predicate<T> = Explainer<T> Function(T node);
+
 class _PathFinder<T> {
   final _DirectedGraph<T> graph;
-  final bool Function(T) predicate;
+  final Predicate<T> predicate;
   final Map<T, PathResult<T>> _cache = <T, PathResult<T>>{};
 
   _PathFinder(this.graph, this.predicate);
 
+  /// Searches [graph] for nodes reachable from [root] to a node full-filling
+  /// [predicate].
+  ///
+  /// Uses depth-first search.
   PathResult<T> findPath(T root) {
-    final libraryStack = <T>[];
+    final pathToCurrent = <T>[];
     final todo = <List<T>>[
       [root]
     ];
@@ -108,26 +119,33 @@ class _PathFinder<T> {
       final x = todo.last;
       if (x.isEmpty) {
         todo.removeLast();
-        if (todo.isNotEmpty) libraryStack.removeLast();
+        if (todo.isNotEmpty) pathToCurrent.removeLast();
         continue;
       }
       final current = x.removeLast();
 
-      if (visited.contains(current)) continue;
-      visited.add(current);
+      if (!visited.add(current)) continue;
 
       if (_cache.containsKey(current)) {
-        return _cache[root] = _cache[current].prefix(libraryStack);
+        return _cache[root] = _cache[current].prefix(pathToCurrent);
       }
 
-      libraryStack.add(current);
-      if (predicate(current)) {
-        return PathResult<T>.path(libraryStack);
+      pathToCurrent.add(current);
+      final explainer = predicate(current);
+      if (explainer == null) {
+        todo.add(graph.directSuccessors(current).toList());
+      } else {
+        return PathResult<T>.path(pathToCurrent, explainer);
       }
-      todo.add(graph.directSuccessors(current).toList());
     }
     return PathResult<T>.noPath();
   }
+
+  /// Finds a path from [root] to a node violating of [predicate] and returns a
+  /// suggestion indicating the issue.
+  ///
+  /// Returns `null` if no issue was found
+  Suggestion findViolation(T root) => findPath(root).explain();
 }
 
 /// Returns a parsed (not resolved) compilation unit of [uri] created by
@@ -171,6 +189,9 @@ class LibraryGraph implements _DirectedGraph<Uri> {
   ///
   /// For the purposes of our analysis `dart:` and `dart-ext:` libraries have no
   /// successors.
+  ///
+  /// For the purposes of our analysis any library in package:flutter has
+  /// `dart:ui` as their only successor.
   @override
   Set<Uri> directSuccessors(Uri uri) {
     return _cache.putIfAbsent(uri, () {
@@ -237,9 +258,17 @@ class LibraryGraph implements _DirectedGraph<Uri> {
       return dependencies;
     });
   }
+
+  static String formatPath(List<Uri> path) {
+    assert(path.isNotEmpty);
+    if (path.length == 1) return 'the import of ${path.single}';
+    return 'the import of ${path.last} via the import chain ${path.join('->')}';
+  }
 }
 
 /// The dependency graph of a package.
+///
+/// A node is a package name as a String.
 ///
 /// Only considers non-dev-dependencies.
 class _PackageGraph implements _DirectedGraph<String> {
@@ -248,14 +277,24 @@ class _PackageGraph implements _DirectedGraph<String> {
   _PackageGraph(this._pubspecCache);
 
   @override
-  Set<String> directSuccessors(String packageDir) {
-    final pubspec = _pubspecCache.pubspecOfPackage(packageDir);
-    return pubspec.dependencies.keys
-        .map((name) => _pubspecCache._packageDir(Uri.parse('package:$name/')))
-        // Probably a missing/broken dependency
-        // TODO(sigurdm): figure out the right thing to do here.
-        .where((x) => x != null)
-        .toSet();
+  Set<String> directSuccessors(String packageName) {
+    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
+    if (pubspec == null) {
+      // Probably a missing/broken dependency
+      // TODO(sigurdm): figure out the right thing to do here.
+      return <String>{};
+    }
+    return pubspec.dependencies.keys.toSet();
+  }
+
+  static String formatPath(List<String> path) {
+    assert(path.isNotEmpty);
+    String prefix(String dep) => 'package:$dep';
+    if (path.length == 1) {
+      return prefix(path.single);
+    } else {
+      return '${prefix(path.last)} via dependency path: ${path.map(prefix).join('->')}';
+    }
   }
 }
 
@@ -265,30 +304,35 @@ class _PackageGraph implements _DirectedGraph<String> {
 class _PubspecCache {
   final AnalysisSession _analysisSession;
   _PubspecCache(this._analysisSession);
-  String _packageDir(Uri uri) {
-    if (uri.scheme != 'package' && uri.scheme != null) {
-      // We only resolve package: and relative uris.
-      return null;
-    }
-    final packageOnlyUri =
-        uri.replace(path: uri.path.substring(0, uri.path.indexOf('/') + 1));
-    final filePath = _analysisSession.uriConverter.uriToPath(packageOnlyUri);
+  String _packageDir(String packageName) {
+    final packageUri = Uri.parse('package:$packageName/');
+    final filePath = _analysisSession.uriConverter.uriToPath(packageUri);
     // Could not resolve uri.
     // Probably a missing/broken dependency.
     // TODO(sigurdm): Figure out the right thing to do here.
-    if (filePath == null) return null;
+    if (filePath == null) {
+      throw ArgumentError('Could not find package dir of $packageName');
+    }
     return path.dirname(filePath);
+  }
+
+  String packageName(Uri uri) {
+    if (uri.scheme != 'package') {
+      // We only resolve package: uris.
+      throw ArgumentError('Trying to get the package name of $uri');
+    }
+    return uri.path.substring(0, uri.path.indexOf('/'));
   }
 
   final Map<String, Pubspec> _pubspecCache = <String, Pubspec>{};
 
   Pubspec pubspecOfLibrary(Uri uri) {
-    return pubspecOfPackage(_packageDir(uri));
+    return pubspecOfPackage(packageName(uri));
   }
 
-  Pubspec pubspecOfPackage(String packageDir) {
-    return _pubspecCache.putIfAbsent(packageDir, () {
-      return Pubspec.parseFromDir(packageDir);
+  Pubspec pubspecOfPackage(String packageName) {
+    return _pubspecCache.putIfAbsent(packageName, () {
+      return Pubspec.parseFromDir(_packageDir(packageName));
     });
   }
 }
@@ -394,49 +438,37 @@ class Runtime {
 /// path including the starting node and the final node.
 @visibleForTesting
 class PathResult<T> {
-  final bool hasPath;
+  bool get hasPath => path != null;
   final List<T> path;
+  final Explainer<T> explainer;
   PathResult.noPath()
-      : hasPath = false,
-        path = null;
-  PathResult.path(this.path) : hasPath = true;
+      : path = null,
+        explainer = null;
+  PathResult.path(this.path, this.explainer)
+      : assert(path != null),
+        assert(explainer != null);
 
   PathResult<T> prefix(List<T> prefix) {
     return hasPath
-        ? PathResult.path([prefix, path].expand((x) => x).toList())
+        ? PathResult.path([prefix, path].expand((x) => x).toList(), explainer)
         : PathResult<T>.noPath();
   }
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is PathResult<T> &&
-          other.hasPath == hasPath &&
-          const ListEquality().equals(path, other.path);
-
-  @override
-  int get hashCode => hasPath.hashCode + const ListEquality().hash(path);
-
-  @override
-  String toString() =>
-      hasPath ? 'RuntimeResult.path([$path])' : 'RuntimeResult.noPath()';
+  Suggestion explain() => hasPath ? explainer(path) : null;
 }
 
 /// Detects forbidden imports given a runtime.
 @visibleForTesting
-class RuntimeViolationFinder {
-  final _PathFinder<Uri> finder;
-
-  RuntimeViolationFinder(LibraryGraph libraryGraph, Runtime runtime)
-      : finder = _PathFinder<Uri>(libraryGraph, (uri) {
-          final uriString = uri.toString();
-          return (uriString.startsWith('dart:') &&
-              !runtime.enabledLibs.contains(uriString.substring(5)));
-        });
-
-  PathResult findRuntimeViolation(Uri root) {
-    return finder.findPath(root);
-  }
+_PathFinder<Uri> runtimeViolationFinder(
+    LibraryGraph libraryGraph, Runtime runtime, Explainer<Uri> explainer) {
+  return _PathFinder<Uri>(libraryGraph, (Uri uri) {
+    final uriString = uri.toString();
+    if (uriString.startsWith('dart:') &&
+        !runtime.enabledLibs.contains(uriString.substring(5))) {
+      return explainer;
+    }
+    return null;
+  });
 }
 
 /// A platform where Flutter can be deployed.
@@ -465,10 +497,10 @@ class _DeclaredFlutterPlatformDetector {
 
   _DeclaredFlutterPlatformDetector(this._pubspecCache);
 
-  Set<FlutterPlatform> _declaredFlutterPlatforms(String packageDir) {
-    return _declaredPlatformCache.putIfAbsent(packageDir, () {
+  Set<FlutterPlatform> _declaredFlutterPlatforms(String packageName) {
+    return _declaredPlatformCache.putIfAbsent(packageName, () {
       final result = <FlutterPlatform>{};
-      final fields = _pubspecCache.pubspecOfPackage(packageDir).toJson();
+      final fields = _pubspecCache.pubspecOfPackage(packageName).toJson();
       if (fields['flutter'] is! Map ||
           fields['flutter']['plugin'] is! Map ||
           fields['flutter']['plugin']['platforms'] is! Map) {
@@ -487,33 +519,89 @@ class _DeclaredFlutterPlatformDetector {
 
 class _PlatformViolationFinder {
   final _PathFinder<Uri> declaredPlatformFinder;
-  final RuntimeViolationFinder _runtimeSupport;
+  final _PathFinder<Uri> _runtimeSupport;
   final _DeclaredFlutterPlatformDetector platformDetector;
 
   _PlatformViolationFinder(
     FlutterPlatform platform,
     LibraryGraph libraryGraph,
     this.platformDetector,
-    _PubspecCache libraryPackage,
+    _PubspecCache pubspecCache,
     this._runtimeSupport,
   ) : declaredPlatformFinder = _PathFinder(libraryGraph, (uri) {
-          final path = libraryPackage._packageDir(uri);
-          // Could not resolve uri.
-          // Probably a missing/broken dependency.
-          // TODO(sigurdm): Figure out the right thing to do here.
-          if (path == null) return false;
-          return !(uri.scheme == 'dart') &&
+          if (uri.scheme == 'package' &&
               !platformDetector
-                  ._declaredFlutterPlatforms(path)
-                  .contains(platform);
+                  ._declaredFlutterPlatforms(pubspecCache.packageName(uri))
+                  .contains(platform)) {
+            return (path) => Suggestion.hint(
+                SuggestionCode.notCompatible,
+                'Package does not support Flutter platform ${platform.name}',
+                'Because of import path $path');
+          }
+          return null;
         });
 
-  PathResult _findPlatformViolation(Uri root) {
-    final declaredPlatformResult = declaredPlatformFinder.findPath(root);
-    if (declaredPlatformResult.hasPath) {
-      return declaredPlatformResult;
+  Suggestion _findPlatformViolation(Uri root) {
+    final declaredPlatformResult = declaredPlatformFinder.findViolation(root);
+    return declaredPlatformResult ?? _runtimeSupport.findViolation(root);
+  }
+}
+
+class SdkViolationFinder {
+  final _PathFinder<String> _declaredSdkViolationFinder;
+  final List<_PathFinder<Uri>> _allowedRuntimeViolationFinders;
+  final Sdk sdk;
+
+  SdkViolationFinder(_PackageGraph packageGraph, this.sdk,
+      _PubspecCache pubspecCache, AnalysisSession session)
+      : _declaredSdkViolationFinder = _PathFinder(
+          packageGraph,
+          (String packageDir) {
+            final declaredSdks = {
+              ...pubspecCache.pubspecOfPackage(packageDir).dependentSdks,
+              'dart'
+            };
+            return declaredSdks.every(sdk.allowedSdks.contains)
+                ? null
+                : (path) => Suggestion.hint(
+                    SuggestionCode.notCompatible,
+                    'Package not compatible with SDK ${sdk.name}',
+                    'because of import path $path');
+          },
+        ),
+        _allowedRuntimeViolationFinders = sdk.allowedRuntimes
+            .map((runtime) => runtimeViolationFinder(
+                LibraryGraph(session, runtime.declaredVariables),
+                runtime,
+                (path) => Suggestion.hint(
+                    SuggestionCode.notCompatible,
+                    'Package not compatible with sdk ${sdk.name} using runtime ${runtime.name}',
+                    'Because of import path ${LibraryGraph.formatPath(path)}')))
+            .toList();
+
+  Suggestion findSdkViolation(String packageName, List<Uri> topLibraries) {
+    final declaredSdkResult =
+        _declaredSdkViolationFinder.findViolation(packageName);
+    if (declaredSdkResult != null) return declaredSdkResult;
+
+    for (final finder in _allowedRuntimeViolationFinders) {
+      // check if all of the top libraries are supported
+      var supports = true;
+      for (final lib in topLibraries) {
+        final runtimeResult = finder.findViolation(lib);
+        if (runtimeResult != null) {
+          supports = false;
+          break;
+        }
+      }
+      if (supports) return null;
     }
-    return _runtimeSupport.findRuntimeViolation(root);
+    return Suggestion.hint(
+      SuggestionCode.notCompatible,
+      'Package not compatible with SDK ${sdk.name}',
+      'Because it is not compatible with any of the supported runtimes: '
+          '${sdk.allowedRuntimes.map((r) => r.name).join(', ')}',
+    );
   }
 }
 
@@ -543,41 +631,55 @@ class Sdk {
 /// - All (non-dev) dependencies in the latest version resolvable by pub are
 ///   fully null-safety-compliant by this definition.
 
-class NullSafety {
+class NullSafetyViolationFinder {
   final _PathFinder<String> _languageVersionViolationFinder;
   final _PathFinder<String> _noOptoutViolationFinder;
 
-  NullSafety(_PackageGraph packageGraph, _PubspecCache pubspecCache,
-      AnalysisSession analysisSession)
-      : _languageVersionViolationFinder =
-            _PathFinder(packageGraph, (String packageDir) {
+  NullSafetyViolationFinder(_PackageGraph packageGraph,
+      _PubspecCache pubspecCache, AnalysisSession analysisSession)
+      : _languageVersionViolationFinder = _PathFinder<String>(packageGraph, (
+          String packageDir,
+        ) {
           final pubspec = pubspecCache.pubspecOfPackage(packageDir);
-          return !pubspec.sdkConstraintStatus.hasOptedIntoNullSafety;
-        }),
-        _noOptoutViolationFinder =
-            _PathFinder(packageGraph, (String packageDir) {
-          final pubspec = pubspecCache.pubspecOfPackage(packageDir);
-          for (final file in dartFilesFromLib(packageDir)) {
-            final unit = _parsedUnitFromUri(
-                analysisSession, Uri.parse('package:${pubspec.name}/$file'));
-            if (unit == null) continue;
-            final languageVersionToken = unit.languageVersionToken;
-            if (languageVersionToken == null) continue;
-            final version = Version.parse(
-              '${languageVersionToken.major}.${languageVersionToken.minor}.0',
-            );
-            if (version < _firstVersionWithNullSafety) {
-              return true;
-            }
-          }
-          return false;
-        });
 
-  PathResult findNullSafetyViolation(String rootPackageDir) {
-    final languageVersionResult =
-        _languageVersionViolationFinder.findPath(rootPackageDir);
-    if (languageVersionResult.hasPath) return languageVersionResult;
-    return _noOptoutViolationFinder.findPath(rootPackageDir);
+          return pubspec.sdkConstraintStatus.hasOptedIntoNullSafety
+              ? null
+              : (path) => Suggestion.hint(
+                    SuggestionCode.notCompatible,
+                    'Package is not null safe',
+                    'Because of the language version from the sdk constraint '
+                        'in pubspec.yaml of package '
+                        '${_PackageGraph.formatPath(path)}',
+                  );
+        }),
+        _noOptoutViolationFinder = _PathFinder(
+          packageGraph,
+          (packageName) {
+            for (final file
+                in dartFilesFromLib(pubspecCache._packageDir(packageName))) {
+              final unit = _parsedUnitFromUri(
+                  analysisSession, Uri.parse('package:$packageName/$file'));
+              if (unit == null) continue;
+              final languageVersionToken = unit.languageVersionToken;
+              if (languageVersionToken == null) continue;
+              final version = Version.parse(
+                '${languageVersionToken.major}.${languageVersionToken.minor}.0',
+              );
+              if (version < _firstVersionWithNullSafety) {
+                return (path) => Suggestion.hint(
+                      SuggestionCode.notCompatible,
+                      'Package is not null safe',
+                      'Because $file is opting out in package ${_PackageGraph.formatPath(path)}',
+                    );
+              }
+            }
+            return null;
+          },
+        );
+
+  Suggestion findNullSafetyViolation(String rootPackageName) {
+    return _languageVersionViolationFinder.findViolation(rootPackageName) ??
+        _noOptoutViolationFinder.findViolation(rootPackageName);
   }
 
   static final _firstVersionWithNullSafety = Version.parse('2.10.0');
@@ -585,14 +687,14 @@ class NullSafety {
 
 /// Calculates the tags for the package residing in a given directory.
 class Tagger {
-  String packageDir;
+  final String packageName;
   final AnalysisSession _session;
   final _PubspecCache _pubspecCache;
   final bool _isBinaryOnly;
   final List<Uri> _topLibraries;
   final _PackageGraph _packageGraph;
 
-  Tagger._(this.packageDir, this._session, _PubspecCache pubspecCache,
+  Tagger._(this.packageName, this._session, _PubspecCache pubspecCache,
       this._isBinaryOnly, this._topLibraries)
       : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
@@ -607,7 +709,7 @@ class Tagger {
         )
         .currentSession;
     final pubspecCache = _PubspecCache(session);
-    final pubspec = pubspecCache.pubspecOfPackage(packageDir);
+    final pubspec = Pubspec.parseFromDir(packageDir);
 
     final libDartFiles = dartFilesFromLib(packageDir);
     final nonSrcDartFiles = libDartFiles.where((p) => !p.startsWith('src/'));
@@ -640,140 +742,132 @@ class Tagger {
     final isBinaryOnly = nonSrcDartFiles.isEmpty && allBinFiles.isNotEmpty;
 
     return Tagger._(
-        packageDir, session, pubspecCache, isBinaryOnly, topLibraries);
+        pubspec.name, session, pubspecCache, isBinaryOnly, topLibraries);
   }
 
-  Set<String> declaredSdks(String packageDir) {
-    return {
-      ..._pubspecCache.pubspecOfPackage(packageDir).dependentSdks,
-      'dart'
-    };
-  }
-
-  /// Returns `true` iff the package at [packageDir] supports [sdk].
-  bool _supportsSdk(Sdk sdk) {
+  void sdkTags(List<String> tags, List<Suggestion> suggestions) {
     if (_isBinaryOnly) {
-      return sdk.name == 'dart';
-    }
-    if (_topLibraries.isEmpty) {
-      return false;
-    }
-    // Will find a path in the package graph where a package declares an sdk
-    // not supported by [sdk].
-    final declaredSdkViolationFinder =
-        _PathFinder(_packageGraph, (String packageDir) {
-      return !declaredSdks(packageDir).every(sdk.allowedSdks.contains);
-    });
-
-    final pathResult = declaredSdkViolationFinder.findPath(packageDir);
-    if (pathResult.hasPath) {
-      log.info(
-          '$packageDir does not support ${sdk.name} because of the package: ${pathResult.path}');
-      return false;
+      tags.add('sdk:dart');
+    } else if (_topLibraries.isEmpty) {
+      suggestions.add(
+        Suggestion.hint(
+            SuggestionCode.noToplevelLibraries,
+            'No top-level libraries found',
+            'Cannot assign sadk tags, because no .dart files where found in lib/'),
+      );
     } else {
-      for (final runtime in sdk.allowedRuntimes) {
-        final finder = RuntimeViolationFinder(
-            LibraryGraph(_session, runtime.declaredVariables), runtime);
-        // check if all of the top libraries are supported
+      for (final sdk in Sdk.knownSdks) {
+        // Will find a path in the package graph where a package declares an sdk
+        // not supported by [sdk].
+        final violationResult =
+            SdkViolationFinder(_packageGraph, sdk, _pubspecCache, _session)
+                .findSdkViolation(packageName, _topLibraries);
+        if (violationResult != null) {
+          suggestions.add(violationResult);
+        } else {
+          tags.add(sdk.tag);
+        }
+      }
+    }
+  }
+
+  /// Adds tags for the Flutter platforms that this package supports to [tags].
+  ///
+  /// Adds [Suggestion]s to [suggestions] for platforms not supported.
+  void flutterPlatformTags(List<String> tags, List<Suggestion> suggestions) {
+    if (_isBinaryOnly) {
+    } else if (_topLibraries.isEmpty) {
+      Suggestion.hint(
+          SuggestionCode.noToplevelLibraries,
+          'No top-level libraries found',
+          'Cannot assign flutter platform tags, because no .dart files were found in lib/');
+    } else {
+      for (final flutterPlatform in FlutterPlatform.recognizedPlatforms) {
+        final libraryGraph =
+            LibraryGraph(_session, flutterPlatform.runtime.declaredVariables);
+        final violationFinder = _PlatformViolationFinder(
+            flutterPlatform,
+            libraryGraph,
+            _DeclaredFlutterPlatformDetector(_pubspecCache),
+            _pubspecCache,
+            runtimeViolationFinder(
+                libraryGraph,
+                flutterPlatform.runtime,
+                (List<Uri> path) => Suggestion.hint(
+                    SuggestionCode.notCompatible,
+                    'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
+                    'Because of ${LibraryGraph.formatPath(path)}')));
         var supports = true;
         for (final lib in _topLibraries) {
-          final runtimePathResult = finder.findRuntimeViolation(lib);
-          if (runtimePathResult.hasPath) {
-            log.info(
-                '$packageDir does not support ${sdk.name} with runtime: ${runtime.name} '
-                'because of import violation at: ${runtimePathResult.path}');
+          final violationResult = violationFinder._findPlatformViolation(lib);
+          if (violationResult != null) {
+            suggestions.add(violationResult);
             supports = false;
             break;
           }
         }
-        if (supports) return true;
-      }
-      return false;
-    }
-  }
-
-  List<String> sdkTags() {
-    return Sdk.knownSdks.where(_supportsSdk).map((sdk) => sdk.tag).toList();
-  }
-
-  /// The Flutter platforms that this package works in.
-  List<String> flutterPlatformTags() {
-    if (_isBinaryOnly) {
-      return <String>[];
-    }
-    if (_topLibraries.isEmpty) {
-      return <String>[];
-    }
-    final result = <String>[];
-
-    for (final flutterPlatform in FlutterPlatform.recognizedPlatforms) {
-      final libraryGraph =
-          LibraryGraph(_session, flutterPlatform.runtime.declaredVariables);
-      final violationFinder = _PlatformViolationFinder(
-          flutterPlatform,
-          libraryGraph,
-          _DeclaredFlutterPlatformDetector(_pubspecCache),
-          _pubspecCache,
-          RuntimeViolationFinder(libraryGraph, flutterPlatform.runtime));
-      var supports = true;
-      for (final lib in _topLibraries) {
-        final pathResult = violationFinder._findPlatformViolation(lib);
-        if (pathResult.hasPath) {
-          log.info(
-              '$packageDir does not support platform ${flutterPlatform.name} '
-              'because of the import path ${pathResult.path}');
-          supports = false;
-          break;
+        if (supports) {
+          tags.add(flutterPlatform.tag);
         }
       }
-      if (supports) {
-        result.add(flutterPlatform.tag);
-      }
     }
-    return result;
   }
 
-  /// The Dart runtimes that this package supports.
+  /// Adds tags for the Dart runtimes that this package supports to [tags].
   ///
-  /// Returns the empty list if this package does not support the dart sdk.
-  List<String> runtimeTags() {
+  /// Adds [Suggestion]s to [suggestions] for runtimes not supported.
+  void runtimeTags(List<String> tags, List<Suggestion> suggestions) {
     if (_isBinaryOnly) {
-      return <String>[Runtime.nativeAot.name, Runtime.nativeJit.name];
-    }
-    if (_topLibraries.isEmpty) {
-      return <String>[];
-    }
-    if (!_supportsSdk(Sdk.dart)) return <String>[];
-    final result = <String>[];
-    for (final runtime in [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]) {
-      final finder = RuntimeViolationFinder(
-          LibraryGraph(_session, runtime.declaredVariables), runtime);
-      var supports = true;
-      for (final lib in _topLibraries) {
-        final pathResult = finder.findRuntimeViolation(lib);
-        if (pathResult.hasPath) {
-          log.info('$packageDir does not support runtime ${runtime.name} '
-              'because of the import path: ${pathResult.path}');
-          supports = false;
-          break;
+      tags.addAll(<String>[Runtime.nativeAot.name, Runtime.nativeJit.name]);
+    } else if (_topLibraries.isEmpty) {
+      Suggestion.hint(
+          SuggestionCode.noToplevelLibraries,
+          'No top-level libraries found',
+          'Cannot assign runtime tags, because no .dart files where found in lib/');
+    } else {
+      final dartSdkViolationFinder =
+          SdkViolationFinder(_packageGraph, Sdk.dart, _pubspecCache, _session);
+      if (dartSdkViolationFinder.findSdkViolation(packageName, _topLibraries) !=
+          null) {
+        // This is reported elsewhere
+      } else {
+        for (final runtime in [
+          Runtime.nativeAot,
+          Runtime.nativeJit,
+          Runtime.web
+        ]) {
+          final finder = runtimeViolationFinder(
+              LibraryGraph(_session, runtime.declaredVariables),
+              runtime,
+              (List<Uri> path) => Suggestion.hint(
+                  SuggestionCode.notCompatible,
+                  'Package not compatible with runtime ${runtime.name}',
+                  'Because of ${LibraryGraph.formatPath(path)}'));
+          var supports = true;
+          for (final lib in _topLibraries) {
+            final violationResult = finder.findViolation(lib);
+            if (violationResult != null) {
+              suggestions.add(violationResult);
+              supports = false;
+              break;
+            }
+          }
+          if (supports) {
+            tags.add(runtime.tag);
+          }
         }
       }
-      if (supports) {
-        result.add(runtime.tag);
-      }
     }
-    return result;
   }
 
-  List<String> nullSafetyTags() {
-    final nullSafety = NullSafety(_packageGraph, _pubspecCache, _session);
-    final nullSafetyResult = nullSafety.findNullSafetyViolation(packageDir);
-    if (nullSafetyResult.hasPath) {
-      log.info(
-          '$packageDir is not null-safety compliant because of the package\n'
-          'dependency path ${nullSafetyResult.path}');
-      return [];
+  void nullSafetyTags(List<String> tags, List<Suggestion> suggestions) {
+    final nullSafety =
+        NullSafetyViolationFinder(_packageGraph, _pubspecCache, _session);
+    final nullSafetyResult = nullSafety.findNullSafetyViolation(packageName);
+    if (nullSafetyResult != null) {
+      suggestions.add(nullSafetyResult);
+    } else {
+      return tags.add('is:null-safe');
     }
-    return ['is:null-safe'];
   }
 }

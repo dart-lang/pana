@@ -334,10 +334,10 @@ class PackageAnalyzer {
 
       if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
         final tagger = Tagger(pkgDir);
-        tags.addAll(tagger.sdkTags());
-        tags.addAll(tagger.flutterPlatformTags());
-        tags.addAll(tagger.runtimeTags());
-        tags.addAll(tagger.nullSafetyTags());
+        tagger.sdkTags(tags, suggestions);
+        tagger.flutterPlatformTags(tags, suggestions);
+        tagger.runtimeTags(tags, suggestions);
+        tagger.nullSafetyTags(tags, suggestions);
       }
     }
     final pkgPlatformBlockerSuggestion =

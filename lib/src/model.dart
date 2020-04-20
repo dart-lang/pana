@@ -303,7 +303,7 @@ class Suggestion implements Comparable<Suggestion> {
   }
 
   @override
-  String toString() => 'Sugestion: $level - $description';
+  String toString() => 'Sugestion: $level - $title - $description';
 }
 
 abstract class SuggestionCode {
@@ -388,6 +388,10 @@ abstract class SuggestionCode {
 
   static const String markdownParseFailed = 'markdown.parseFailed';
   static const String markdownContent = 'markdown.content';
+
+  static const String noToplevelLibraries = 'tagging.noToplevelLibraries';
+  static const String notCompatible = 'tagging.notCompatible';
+  static const String notNullSafetyCompliant = 'tagging.notNullSafe';
 }
 
 abstract class SuggestionLevel {

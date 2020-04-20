@@ -85,6 +85,14 @@
     "isExperimentalVersion": false,
     "isPreReleaseVersion": false
   },
+  "suggestions": [
+    {
+      "code": "tagging.notCompatible",
+      "level": "hint",
+      "title": "Package is not null safe",
+      "description": "Because of the language version from the sdk constraint in pubspec.yaml of package package:pub_server"
+    }
+  ],
   "pkgResolution": {
     "dependencies": [
       {
@@ -135,7 +143,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^3.0.0",
-        "resolved": "3.1.3"
+        "resolved": "3.1.4"
       },
       {
         "package": "logging",
@@ -162,7 +170,7 @@
         "dependencyType": "dev",
         "constraintType": "normal",
         "constraint": "^1.5.1",
-        "resolved": "1.6.4"
+        "resolved": "1.7.0"
       },
       {
         "package": "pub_semver",
