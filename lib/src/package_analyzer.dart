@@ -338,8 +338,7 @@ class PackageAnalyzer {
         tagger.sdkTags(tags, suggestions);
         tagger.flutterPlatformTags(tags, suggestions);
         tagger.runtimeTags(tags, suggestions);
-        // Only do null-safety analysis if the current sdk supports null-safety.
-        if (Version.parse(Platform.version) >= Version.parse('2.10.0')) {
+        if (_sdkSupportsNullSafety) {
           tagger.nullSafetyTags(tags, suggestions);
         }
       }
@@ -494,3 +493,6 @@ class PackageAnalyzer {
     return reached.intersection(allTransitiveLibs.keys.toSet());
   }
 }
+
+final _sdkVersion = Version.parse(Platform.version.split(' ').first);
+final _sdkSupportsNullSafety = _sdkVersion >= Version.parse('2.10.0');

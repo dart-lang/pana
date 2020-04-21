@@ -148,12 +148,6 @@
     {
       "code": "tagging.notCompatible",
       "level": "hint",
-      "title": "Package is not null safe",
-      "description": "Because of the language version from the sdk constraint in pubspec.yaml of package package:dartdoc"
-    },
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
       "title": "Package not compatible with SDK flutter",
       "description": "Because it is not compatible with any of the supported runtimes: flutter-native, flutter-web"
     },

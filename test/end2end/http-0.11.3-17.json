@@ -120,12 +120,6 @@
     {
       "code": "tagging.notCompatible",
       "level": "hint",
-      "title": "Package is not null safe",
-      "description": "Because of the language version from the sdk constraint in pubspec.yaml of package package:http"
-    },
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
       "title": "Package not compatible with runtime flutter-web of web",
       "description": "Because of the import of dart:io via the import chain package:http/http.dart->package:http/src/streamed_response.dart->package:http/src/base_request.dart->package:http/src/client.dart->package:http/src/io_client.dart->dart:io"
     },

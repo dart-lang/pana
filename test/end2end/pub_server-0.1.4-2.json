@@ -85,14 +85,6 @@
     "isExperimentalVersion": false,
     "isPreReleaseVersion": false
   },
-  "suggestions": [
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
-      "title": "Package is not null safe",
-      "description": "Because of the language version from the sdk constraint in pubspec.yaml of package package:pub_server"
-    }
-  ],
   "pkgResolution": {
     "dependencies": [
       {
