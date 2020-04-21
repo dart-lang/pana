@@ -162,6 +162,62 @@ void main() {
     });
   });
 
+  group('Old Flutter plugin format', () {
+    test('old flutter plugin format gets suggestion', () async {
+      final maintenance = await detectMaintenance(
+        InspectOptions(),
+        UrlChecker(),
+        d.sandbox,
+        Pubspec.fromJson({
+          'name': 'example',
+          'description': 'A description of example that contains '
+              ' just exactly a bit more than 60 characters.',
+          'version': '1.0.0',
+          'environment': {'sdk': '>=2.3.0 <3.0.0'},
+          'flutter': {
+            'plugin': {'androidPackage': 'pkg'}
+          }
+        }),
+        null,
+        tags: [],
+        dartdocSuccessful: false,
+        pkgResolution: PkgResolution([]),
+      );
+      expect(
+          maintenance.suggestions,
+          contains(predicate((Suggestion suggestion) =>
+              suggestion.code ==
+              SuggestionCode.pubspecUsesOldFlutterPluginFormat)));
+    });
+    test('new flutter plugin format gets no suggestion', () async {
+      final maintenance = await detectMaintenance(
+        InspectOptions(),
+        UrlChecker(),
+        d.sandbox,
+        Pubspec.fromJson({
+          'name': 'example',
+          'description': 'A description of example that contains '
+              ' just exactly a bit more than 60 characters.',
+          'version': '1.0.0',
+          'environment': {'sdk': '>=2.3.0 <3.0.0'},
+          'flutter': {
+            'plugin': {
+              'platforms': {'ios': {}}
+            }
+          }
+        }),
+        null,
+        tags: [],
+        dartdocSuccessful: false,
+        pkgResolution: PkgResolution([]),
+      );
+      expect(
+          maintenance.suggestions.where((s) =>
+              s.code == SuggestionCode.pubspecUsesOldFlutterPluginFormat),
+          isEmpty);
+    });
+  });
+
   group('getMaintenanceScore', () {
     test('with issues', () {
       expect(calculateMaintenanceScore(_withIssues), 0.0);

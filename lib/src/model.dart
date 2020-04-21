@@ -362,6 +362,8 @@ abstract class SuggestionCode {
   static const String pubspecSdkConstraintDevOnly = 'pubspec.sdk.devOnly';
   static const String pubspecHasGitDependency = 'pubspec.dependency.git';
   static const String pubspecTooLarge = 'pubspec.tooLarge';
+  static const String pubspecUsesOldFlutterPluginFormat =
+      'pubspec.oldFlutterPluginFormat';
 
   static const String changelogMissing = 'changelog.missing';
   static const String changelogTooLarge = 'changelog.tooLarge';
