@@ -390,6 +390,7 @@ abstract class SuggestionCode {
   static const String markdownContent = 'markdown.content';
 
   static const String noToplevelLibraries = 'tagging.noToplevelLibraries';
+  static const String binaryOnly = 'tagging.binaryOnly';
   static const String notCompatible = 'tagging.notCompatible';
   static const String notNullSafetyCompliant = 'tagging.notNullSafe';
 }

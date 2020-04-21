@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
+import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
 import 'download_utils.dart';
@@ -337,7 +338,10 @@ class PackageAnalyzer {
         tagger.sdkTags(tags, suggestions);
         tagger.flutterPlatformTags(tags, suggestions);
         tagger.runtimeTags(tags, suggestions);
-        tagger.nullSafetyTags(tags, suggestions);
+        // Only do null-safety analysis if the current sdk supports null-safety.
+        if (Version.parse(Platform.version) >= Version.parse('2.10.0')) {
+          tagger.nullSafetyTags(tags, suggestions);
+        }
       }
     }
     final pkgPlatformBlockerSuggestion =

@@ -748,12 +748,14 @@ class Tagger {
   void sdkTags(List<String> tags, List<Suggestion> suggestions) {
     if (_isBinaryOnly) {
       tags.add('sdk:dart');
+      Suggestion.hint(SuggestionCode.binaryOnly, 'Binary only',
+          'Cannot assign flutter SDK tag because it is binary only');
     } else if (_topLibraries.isEmpty) {
       suggestions.add(
         Suggestion.hint(
             SuggestionCode.noToplevelLibraries,
             'No top-level libraries found',
-            'Cannot assign sadk tags, because no .dart files where found in lib/'),
+            'Cannot assign sdk tags, because no .dart files where found in lib/'),
       );
     } else {
       for (final sdk in Sdk.knownSdks) {
@@ -776,11 +778,13 @@ class Tagger {
   /// Adds [Suggestion]s to [suggestions] for platforms not supported.
   void flutterPlatformTags(List<String> tags, List<Suggestion> suggestions) {
     if (_isBinaryOnly) {
+      Suggestion.hint(SuggestionCode.binaryOnly, 'Binary only',
+          'Cannot assign flutter platform tags, it is a binary only package');
     } else if (_topLibraries.isEmpty) {
       Suggestion.hint(
           SuggestionCode.noToplevelLibraries,
           'No top-level libraries found',
-          'Cannot assign flutter platform tags, because no .dart files were found in lib/');
+          'Cannot assign Flutter platform tags, because no .dart files were found in lib/');
     } else {
       for (final flutterPlatform in FlutterPlatform.recognizedPlatforms) {
         final libraryGraph =
