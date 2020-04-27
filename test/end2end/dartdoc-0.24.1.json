@@ -498,7 +498,7 @@
         "package": "watcher",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.9.7+14"
+        "resolved": "0.9.7+15"
       },
       {
         "package": "yaml",
