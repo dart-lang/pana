@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
+import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
 import 'download_utils.dart';
@@ -334,10 +335,12 @@ class PackageAnalyzer {
 
       if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
         final tagger = Tagger(pkgDir);
-        tags.addAll(tagger.sdkTags());
-        tags.addAll(tagger.flutterPlatformTags());
-        tags.addAll(tagger.runtimeTags());
-        tags.addAll(tagger.nullSafetyTags());
+        tagger.sdkTags(tags, suggestions);
+        tagger.flutterPlatformTags(tags, suggestions);
+        tagger.runtimeTags(tags, suggestions);
+        if (_sdkSupportsNullSafety) {
+          tagger.nullSafetyTags(tags, suggestions);
+        }
       }
     }
     final pkgPlatformBlockerSuggestion =
@@ -490,3 +493,6 @@ class PackageAnalyzer {
     return reached.intersection(allTransitiveLibs.keys.toSet());
   }
 }
+
+final _sdkVersion = Version.parse(Platform.version.split(' ').first);
+final _sdkSupportsNullSafety = _sdkVersion >= Version.parse('2.10.0');
