@@ -89,17 +89,17 @@ abstract class _DirectedGraph<T> {
 
 /// Creates a suggestion indicating an issue, using [path] to give the location
 /// of the issue.
-typedef Explainer<N> = Suggestion Function(List<N> path);
+typedef _Explainer<N> = Suggestion Function(List<N> path);
 
-/// Returns an [Explainer] if node fullfills the predicate (if it violates some
+/// Returns an [_Explainer] if node fullfills the predicate (if it violates some
 /// property) and `null` otherwise.
 ///
 /// Explainer should give an explanation of the problem.
-typedef Predicate<T> = Explainer<T> Function(T node);
+typedef _Predicate<T> = _Explainer<T> Function(T node);
 
 class _PathFinder<T> {
   final _DirectedGraph<T> graph;
-  final Predicate<T> predicate;
+  final _Predicate<T> predicate;
   final Map<T, PathResult<T>> _cache = <T, PathResult<T>>{};
 
   _PathFinder(this.graph, this.predicate);
@@ -321,7 +321,7 @@ class _PubspecCache {
       // We only resolve package: uris.
       throw ArgumentError('Trying to get the package name of $uri');
     }
-    return uri.path.substring(0, uri.path.indexOf('/'));
+    return uri.pathSegments.first;
   }
 
   final Map<String, Pubspec> _pubspecCache = <String, Pubspec>{};
@@ -340,7 +340,7 @@ class _PubspecCache {
 /// Paths to all files matching `$packageDir/lib/**/*.dart`.
 ///
 /// Paths are returned relative to `lib/`.
-List<String> dartFilesFromLib(String packageDir) {
+List<String> _dartFilesFromLib(String packageDir) {
   final libDir = Directory(path.join(packageDir, 'lib'));
   final libDirExists = libDir.existsSync();
   final dartFiles = libDirExists
@@ -440,7 +440,7 @@ class Runtime {
 class PathResult<T> {
   bool get hasPath => path != null;
   final List<T> path;
-  final Explainer<T> explainer;
+  final _Explainer<T> explainer;
   PathResult.noPath()
       : path = null,
         explainer = null;
@@ -460,7 +460,7 @@ class PathResult<T> {
 /// Detects forbidden imports given a runtime.
 @visibleForTesting
 _PathFinder<Uri> runtimeViolationFinder(
-    LibraryGraph libraryGraph, Runtime runtime, Explainer<Uri> explainer) {
+    LibraryGraph libraryGraph, Runtime runtime, _Explainer<Uri> explainer) {
   return _PathFinder<Uri>(libraryGraph, (Uri uri) {
     final uriString = uri.toString();
     if (uriString.startsWith('dart:') &&
@@ -472,17 +472,17 @@ _PathFinder<Uri> runtimeViolationFinder(
 }
 
 /// A platform where Flutter can be deployed.
-class FlutterPlatform {
+class _FlutterPlatform {
   final String name;
   final Runtime runtime;
-  FlutterPlatform(this.name, this.runtime);
-  static final List<FlutterPlatform> recognizedPlatforms = [
-    FlutterPlatform('android', Runtime.flutterNative),
-    FlutterPlatform('ios', Runtime.flutterNative),
-    FlutterPlatform('windows', Runtime.flutterNative),
-    FlutterPlatform('linux', Runtime.flutterNative),
-    FlutterPlatform('macos', Runtime.flutterNative),
-    FlutterPlatform('web', Runtime.flutterWeb)
+  _FlutterPlatform(this.name, this.runtime);
+  static final List<_FlutterPlatform> recognizedPlatforms = [
+    _FlutterPlatform('android', Runtime.flutterNative),
+    _FlutterPlatform('ios', Runtime.flutterNative),
+    _FlutterPlatform('windows', Runtime.flutterNative),
+    _FlutterPlatform('linux', Runtime.flutterNative),
+    _FlutterPlatform('macos', Runtime.flutterNative),
+    _FlutterPlatform('web', Runtime.flutterWeb)
   ];
   @override
   String toString() => 'FlutterPlatform($name)';
@@ -492,22 +492,22 @@ class FlutterPlatform {
 
 class _DeclaredFlutterPlatformDetector {
   final _PubspecCache _pubspecCache;
-  final Map<String, Set<FlutterPlatform>> _declaredPlatformCache =
-      <String, Set<FlutterPlatform>>{};
+  final Map<String, Set<_FlutterPlatform>> _declaredPlatformCache =
+      <String, Set<_FlutterPlatform>>{};
 
   _DeclaredFlutterPlatformDetector(this._pubspecCache);
 
-  Set<FlutterPlatform> _declaredFlutterPlatforms(String packageName) {
+  Set<_FlutterPlatform> _declaredFlutterPlatforms(String packageName) {
     return _declaredPlatformCache.putIfAbsent(packageName, () {
-      final result = <FlutterPlatform>{};
+      final result = <_FlutterPlatform>{};
       final fields = _pubspecCache.pubspecOfPackage(packageName).toJson();
       if (fields['flutter'] is! Map ||
           fields['flutter']['plugin'] is! Map ||
           fields['flutter']['plugin']['platforms'] is! Map) {
-        return FlutterPlatform.recognizedPlatforms.toSet();
+        return _FlutterPlatform.recognizedPlatforms.toSet();
       }
       final declaredPlatforms = fields['flutter']['plugin']['platforms'] as Map;
-      for (final platform in FlutterPlatform.recognizedPlatforms) {
+      for (final platform in _FlutterPlatform.recognizedPlatforms) {
         if (declaredPlatforms.containsKey(platform.name)) {
           result.add(platform);
         }
@@ -523,7 +523,7 @@ class _PlatformViolationFinder {
   final _DeclaredFlutterPlatformDetector platformDetector;
 
   _PlatformViolationFinder(
-    FlutterPlatform platform,
+    _FlutterPlatform platform,
     LibraryGraph libraryGraph,
     this.platformDetector,
     _PubspecCache pubspecCache,
@@ -547,12 +547,12 @@ class _PlatformViolationFinder {
   }
 }
 
-class SdkViolationFinder {
+class _SdkViolationFinder {
   final _PathFinder<String> _declaredSdkViolationFinder;
   final List<_PathFinder<Uri>> _allowedRuntimeViolationFinders;
-  final Sdk sdk;
+  final _Sdk sdk;
 
-  SdkViolationFinder(_PackageGraph packageGraph, this.sdk,
+  _SdkViolationFinder(_PackageGraph packageGraph, this.sdk,
       _PubspecCache pubspecCache, AnalysisSession session)
       : _declaredSdkViolationFinder = _PathFinder(
           packageGraph,
@@ -605,20 +605,20 @@ class SdkViolationFinder {
   }
 }
 
-class Sdk {
+class _Sdk {
   final String name;
   final List<String> allowedSdks;
   final List<Runtime> allowedRuntimes;
-  Sdk(this.name, this.allowedSdks, this.allowedRuntimes);
+  _Sdk(this.name, this.allowedSdks, this.allowedRuntimes);
 
   String get tag => 'sdk:$name';
 
-  static Sdk dart = Sdk(
+  static _Sdk dart = _Sdk(
       'dart', ['dart'], [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]);
-  static Sdk flutter = Sdk('flutter', ['dart', 'flutter'],
+  static _Sdk flutter = _Sdk('flutter', ['dart', 'flutter'],
       [Runtime.flutterNative, Runtime.flutterWeb]);
 
-  static List<Sdk> knownSdks = [dart, flutter];
+  static List<_Sdk> knownSdks = [dart, flutter];
 }
 
 /// Decides if a package is null-safe.
@@ -631,11 +631,11 @@ class Sdk {
 /// - All (non-dev) dependencies in the latest version resolvable by pub are
 ///   fully null-safety-compliant by this definition.
 
-class NullSafetyViolationFinder {
+class _NullSafetyViolationFinder {
   final _PathFinder<String> _languageVersionViolationFinder;
   final _PathFinder<String> _noOptoutViolationFinder;
 
-  NullSafetyViolationFinder(_PackageGraph packageGraph,
+  _NullSafetyViolationFinder(_PackageGraph packageGraph,
       _PubspecCache pubspecCache, AnalysisSession analysisSession)
       : _languageVersionViolationFinder = _PathFinder<String>(packageGraph, (
           String packageDir,
@@ -656,7 +656,7 @@ class NullSafetyViolationFinder {
           packageGraph,
           (packageName) {
             for (final file
-                in dartFilesFromLib(pubspecCache._packageDir(packageName))) {
+                in _dartFilesFromLib(pubspecCache._packageDir(packageName))) {
               final unit = _parsedUnitFromUri(
                   analysisSession, Uri.parse('package:$packageName/$file'));
               if (unit == null) continue;
@@ -711,7 +711,7 @@ class Tagger {
     final pubspecCache = _PubspecCache(session);
     final pubspec = Pubspec.parseFromDir(packageDir);
 
-    final libDartFiles = dartFilesFromLib(packageDir);
+    final libDartFiles = _dartFilesFromLib(packageDir);
     final nonSrcDartFiles = libDartFiles.where((p) => !p.startsWith('src/'));
 
     Uri primaryLibrary;
@@ -758,11 +758,11 @@ class Tagger {
             'Cannot assign sdk tags, because no .dart files where found in lib/'),
       );
     } else {
-      for (final sdk in Sdk.knownSdks) {
+      for (final sdk in _Sdk.knownSdks) {
         // Will find a path in the package graph where a package declares an sdk
         // not supported by [sdk].
         final violationResult =
-            SdkViolationFinder(_packageGraph, sdk, _pubspecCache, _session)
+            _SdkViolationFinder(_packageGraph, sdk, _pubspecCache, _session)
                 .findSdkViolation(packageName, _topLibraries);
         if (violationResult != null) {
           suggestions.add(violationResult);
@@ -786,7 +786,7 @@ class Tagger {
           'No top-level libraries found',
           'Cannot assign Flutter platform tags, because no .dart files were found in lib/');
     } else {
-      for (final flutterPlatform in FlutterPlatform.recognizedPlatforms) {
+      for (final flutterPlatform in _FlutterPlatform.recognizedPlatforms) {
         final libraryGraph =
             LibraryGraph(_session, flutterPlatform.runtime.declaredVariables);
         final violationFinder = _PlatformViolationFinder(
@@ -830,7 +830,7 @@ class Tagger {
           'Cannot assign runtime tags, because no .dart files where found in lib/');
     } else {
       final dartSdkViolationFinder =
-          SdkViolationFinder(_packageGraph, Sdk.dart, _pubspecCache, _session);
+          _SdkViolationFinder(_packageGraph, _Sdk.dart, _pubspecCache, _session);
       if (dartSdkViolationFinder.findSdkViolation(packageName, _topLibraries) !=
           null) {
         // This is reported elsewhere
@@ -866,7 +866,7 @@ class Tagger {
 
   void nullSafetyTags(List<String> tags, List<Suggestion> suggestions) {
     final nullSafety =
-        NullSafetyViolationFinder(_packageGraph, _pubspecCache, _session);
+        _NullSafetyViolationFinder(_packageGraph, _pubspecCache, _session);
     final nullSafetyResult = nullSafety.findNullSafetyViolation(packageName);
     if (nullSafetyResult != null) {
       suggestions.add(nullSafetyResult);
