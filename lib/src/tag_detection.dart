@@ -829,8 +829,8 @@ class Tagger {
           'No top-level libraries found',
           'Cannot assign runtime tags, because no .dart files where found in lib/');
     } else {
-      final dartSdkViolationFinder =
-          _SdkViolationFinder(_packageGraph, _Sdk.dart, _pubspecCache, _session);
+      final dartSdkViolationFinder = _SdkViolationFinder(
+          _packageGraph, _Sdk.dart, _pubspecCache, _session);
       if (dartSdkViolationFinder.findSdkViolation(packageName, _topLibraries) !=
           null) {
         // This is reported elsewhere
