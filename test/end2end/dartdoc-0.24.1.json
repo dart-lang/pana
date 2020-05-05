@@ -208,7 +208,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.39.7"
+        "available": "0.39.8"
       },
       {
         "package": "args",
@@ -505,7 +505,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.1.0",
-        "resolved": "2.2.0"
+        "resolved": "2.2.1"
       }
     ]
   },

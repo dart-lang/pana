@@ -225,7 +225,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.1.2",
-        "resolved": "2.2.0"
+        "resolved": "2.2.1"
       }
     ]
   },

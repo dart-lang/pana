@@ -190,7 +190,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.35.4",
-        "available": "0.39.7"
+        "available": "0.39.8"
       },
       {
         "package": "angular",
@@ -356,7 +356,7 @@
         "package": "http",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.12.0+4"
+        "resolved": "0.12.1"
       },
       {
         "package": "http_parser",
@@ -569,7 +569,7 @@
         "package": "yaml",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.2.0"
+        "resolved": "2.2.1"
       }
     ]
   },
