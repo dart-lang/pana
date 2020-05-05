@@ -151,12 +151,6 @@
         "resolved": "1.6.0"
       },
       {
-        "package": "async",
-        "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "2.4.1"
-      },
-      {
         "package": "charcode",
         "dependencyType": "direct",
         "constraintType": "normal",
@@ -174,7 +168,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "any",
-        "resolved": "0.12.0+4"
+        "resolved": "0.12.1"
       },
       {
         "package": "http_parser",
