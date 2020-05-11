@@ -28,7 +28,7 @@ final _parser = ArgParser()
       help:
           'The source where the package is located (hosted on $defaultHostedUrl, or local directory path).',
       allowed: ['hosted', 'path'],
-      defaultsTo: 'hosted')
+      defaultsTo: 'path')
   ..addOption('hosted-url',
       help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
   ..addOption('line-length',
@@ -73,12 +73,8 @@ Future main(List<String> args) async {
   final source = result['source'];
   final verbosity = Verbosity.values
       .firstWhere((v) => v.toString().split('.').last == result['verbosity']);
-  String firstArg(String error) {
-    if (result.rest.isEmpty) {
-      _printHelp(errorMessage: error);
-      exit(ExitCode.usage.code);
-    }
-    return result.rest.first;
+  String firstArg() {
+    return result.rest.isEmpty ? null : result.rest.first;
   }
 
   log.Logger.root.level = log.Level.ALL;
@@ -140,7 +136,10 @@ Future main(List<String> args) async {
     try {
       Summary summary;
       if (source == 'hosted') {
-        final package = firstArg('No package was provided.');
+        final package = firstArg();
+        if (package == null) {
+          _printHelp(errorMessage: 'No package was provided.');
+        }
         String version;
         if (result.rest.length > 1) {
           version = result.rest[1];
@@ -154,7 +153,7 @@ Future main(List<String> args) async {
         summary = await analyzer.inspectPackage(package,
             version: version, options: options);
       } else if (source == 'path') {
-        final path = firstArg('No path was provided.');
+        final path = firstArg() ?? '.';
         final absolutePath = await Directory(path).resolveSymbolicLinks();
         if (showWarning) {
           log.Logger.root
