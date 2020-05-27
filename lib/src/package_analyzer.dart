@@ -44,6 +44,10 @@ class InspectOptions {
   final int lineLength;
   final String analysisOptionsUri;
 
+  /// Package names that are locked by an external framework (e.g. Flutter).
+  /// The version constraint penalty won't get applied to these packages.
+  final List<String> lockedPackages;
+
   InspectOptions({
     this.verbosity = Verbosity.normal,
     this.deleteTemporaryDirectory = true,
@@ -54,6 +58,7 @@ class InspectOptions {
     this.isInternal = false,
     this.lineLength,
     this.analysisOptionsUri,
+    this.lockedPackages,
   });
 }
 

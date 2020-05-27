@@ -1,3 +1,8 @@
+## 0.13.9
+
+* `InspectOptions.lockedVersions` to exempt specific dependencies
+  from the version constraint penalty.
+
 ## 0.13.8
 
 * Fix: NPE after `dartanalyzer` exits with a failure.

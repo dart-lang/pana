@@ -557,13 +557,19 @@ Future<Maintenance> detectMaintenance(
           ?.where((pd) => !pd.constraint.allows(pd.available))
           ?.map((p) => p.package)
           ?.toList() ??
-      <PkgDependency>[];
+      <String>[];
   if (outdatedPackages.isNotEmpty) {
     final count = outdatedPackages.length;
     final pluralized = count == 1 ? '1 dependency' : '$count dependencies';
-    final penalty = count * 10.0;
+    final nonLockedCount = outdatedPackages
+        .where((p) =>
+            options.lockedPackages == null ||
+            !options.lockedPackages.contains(p))
+        .length;
+    final penalty = nonLockedCount * 10.0;
     final extraDescr = ' (${outdatedPackages.map((s) => '`$s`').join(', ')})';
-    maintenanceSuggestions.add(Suggestion.warning(
+    maintenanceSuggestions.add(Suggestion(
+        penalty > 0 ? SuggestionLevel.warning : SuggestionLevel.hint,
         SuggestionCode.pubspecDependenciesOutdated,
         'Support latest dependencies.',
         'The version constraint in `pubspec.yaml` does not support the latest '
