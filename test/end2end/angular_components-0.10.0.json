@@ -117,6 +117,13 @@
         "score": 20.0
       },
       {
+        "code": "pubspec.dependencies.outdated",
+        "level": "warning",
+        "title": "Support latest dependencies.",
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 4 dependencies (`build_config`, `intl`, `protobuf`, `quiver`).",
+        "score": 40.0
+      },
+      {
         "code": "pubspec.documentation.isNotHelpful",
         "level": "warning",
         "title": "Documentation URL isn't helpful.",
@@ -129,13 +136,6 @@
         "title": "Homepage URL isn't helpful.",
         "description": "Update the `homepage` field from `pubspec.yaml`: link to a website about the package or use the source repository URL.",
         "score": 10.0
-      },
-      {
-        "code": "warning",
-        "level": "pubspec.dependencies.outdated",
-        "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 4 dependencies (`build_config`, `intl`, `protobuf`, `quiver`).",
-        "score": 40.0
       },
       {
         "code": "example.missing",
