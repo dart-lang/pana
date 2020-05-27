@@ -555,19 +555,20 @@ Future<Maintenance> detectMaintenance(
   final outdatedPackages = pkgResolution?.outdated
           ?.where((pd) => pd.isDirect)
           ?.where((pd) => !pd.constraint.allows(pd.available))
-          ?.map((p) => p.package)
           ?.toList() ??
-      <String>[];
+      <PkgDependency>[];
   if (outdatedPackages.isNotEmpty) {
     final count = outdatedPackages.length;
     final pluralized = count == 1 ? '1 dependency' : '$count dependencies';
     final nonLockedCount = outdatedPackages
         .where((p) =>
-            options.lockedPackages == null ||
-            !options.lockedPackages.contains(p))
+            options.lockedVersions == null ||
+            !options.lockedVersions.containsKey(p) ||
+            !p.constraint.allows(options.lockedVersions[p]))
         .length;
     final penalty = nonLockedCount * 10.0;
-    final extraDescr = ' (${outdatedPackages.map((s) => '`$s`').join(', ')})';
+    final extraDescr =
+        ' (${outdatedPackages.map((s) => '`${s.package}`').join(', ')})';
     maintenanceSuggestions.add(Suggestion(
         penalty > 0 ? SuggestionLevel.warning : SuggestionLevel.hint,
         SuggestionCode.pubspecDependenciesOutdated,
