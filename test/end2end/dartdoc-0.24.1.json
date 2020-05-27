@@ -98,7 +98,7 @@
         "code": "dartanalyzer.warning",
         "level": "hint",
         "title": "Fix `lib/src/markdown_processor.dart`.",
-        "description": "Analysis of `lib/src/markdown_processor.dart` reported 196 hints, including:\n\nline 20 col 23: Avoid const keyword.\n\nline 21 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 22 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 23 col 3: Prefer single quotes where they won't require escape sequences.\n\nline 24 col 3: Prefer single quotes where they won't require escape sequences.",
+        "description": "Analysis of `lib/src/markdown_processor.dart` reported 196 hints, including:\n\nline 20 col 23: Avoid const keyword.\n\nline 21 col 3: Only use double quotes for strings containing single quotes.\n\nline 22 col 3: Only use double quotes for strings containing single quotes.\n\nline 23 col 3: Only use double quotes for strings containing single quotes.\n\nline 24 col 3: Only use double quotes for strings containing single quotes.",
         "file": "lib/src/markdown_processor.dart",
         "score": 25.0
       },
@@ -122,17 +122,17 @@
     "isPreReleaseVersion": false,
     "suggestions": [
       {
-        "code": "pubspec.dependencies.outdated",
-        "level": "warning",
-        "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 2 dependencies (`analyzer`, `html`).",
-        "score": 20.0
-      },
-      {
         "code": "pubspec.description.tooShort",
         "level": "hint",
         "title": "The package description is too short.",
         "description": "Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.",
+        "score": 20.0
+      },
+      {
+        "code": "warning",
+        "level": "pubspec.dependencies.outdated",
+        "title": "Support latest dependencies.",
+        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 2 dependencies (`analyzer`, `html`).",
         "score": 20.0
       },
       {
@@ -265,7 +265,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.6",
-        "resolved": "2.1.4"
+        "resolved": "2.1.5"
       },
       {
         "package": "csslib",
@@ -383,13 +383,13 @@
         "package": "node_interop",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.3"
+        "resolved": "1.1.1"
       },
       {
         "package": "node_io",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.1+2"
+        "resolved": "1.1.1"
       },
       {
         "package": "package_config",
@@ -428,7 +428,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^3.0.5",
-        "resolved": "3.0.12"
+        "resolved": "3.0.13"
       },
       {
         "package": "pub_semver",
@@ -585,7 +585,7 @@
           "file": "bin/dartdoc.dart",
           "line": 69,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -835,7 +835,7 @@
           "file": "lib/dartdoc.dart",
           "line": 145,
           "col": 9,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -862,7 +862,7 @@
           "file": "lib/dartdoc.dart",
           "line": 162,
           "col": 15,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -871,7 +871,7 @@
           "file": "lib/dartdoc.dart",
           "line": 171,
           "col": 9,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -907,7 +907,7 @@
           "file": "lib/dartdoc.dart",
           "line": 180,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -925,7 +925,7 @@
           "file": "lib/dartdoc.dart",
           "line": 184,
           "col": 32,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -1060,7 +1060,7 @@
           "file": "lib/dartdoc.dart",
           "line": 280,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -1150,7 +1150,7 @@
           "file": "lib/dartdoc.dart",
           "line": 303,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -2181,7 +2181,7 @@
           "file": "lib/src/dartdoc_options.dart",
           "line": 381,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -2190,7 +2190,7 @@
           "file": "lib/src/dartdoc_options.dart",
           "line": 382,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -3340,7 +3340,7 @@
           "file": "lib/src/element_type.dart",
           "line": 82,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -4515,7 +4515,7 @@
           "file": "lib/src/html/template_data.dart",
           "line": 277,
           "col": 40,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -4524,7 +4524,7 @@
           "file": "lib/src/html/template_data.dart",
           "line": 283,
           "col": 44,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -4934,7 +4934,7 @@
           "file": "lib/src/io_utils.dart",
           "line": 169,
           "col": 18,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -4952,7 +4952,7 @@
           "file": "lib/src/io_utils.dart",
           "line": 180,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5024,7 +5024,7 @@
           "file": "lib/src/io_utils.dart",
           "line": 215,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ]
     },
@@ -5040,7 +5040,7 @@
           "file": "lib/src/line_number_cache.dart",
           "line": 13,
           "col": 25,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5049,7 +5049,7 @@
           "file": "lib/src/line_number_cache.dart",
           "line": 14,
           "col": 12,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5058,7 +5058,7 @@
           "file": "lib/src/line_number_cache.dart",
           "line": 15,
           "col": 32,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5067,7 +5067,7 @@
           "file": "lib/src/line_number_cache.dart",
           "line": 16,
           "col": 12,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5076,7 +5076,7 @@
           "file": "lib/src/line_number_cache.dart",
           "line": 18,
           "col": 12,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5207,7 +5207,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 21,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5216,7 +5216,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 22,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5225,7 +5225,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 23,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5234,7 +5234,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 24,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5243,7 +5243,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 25,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5252,7 +5252,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 26,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5261,7 +5261,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 27,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5270,7 +5270,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 28,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5279,7 +5279,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 29,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5288,7 +5288,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 30,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5297,7 +5297,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 31,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5306,7 +5306,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 32,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5315,7 +5315,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 33,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5324,7 +5324,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 34,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5333,7 +5333,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 35,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5342,7 +5342,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 36,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5351,7 +5351,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 37,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5360,7 +5360,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 38,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5369,7 +5369,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 39,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5378,7 +5378,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 40,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5387,7 +5387,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 41,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5396,7 +5396,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 42,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5405,7 +5405,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 43,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5414,7 +5414,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 44,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5423,7 +5423,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 45,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5432,7 +5432,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 46,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5441,7 +5441,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 47,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5450,7 +5450,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 48,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5459,7 +5459,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 49,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5468,7 +5468,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 50,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5477,7 +5477,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 51,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5486,7 +5486,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 52,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5495,7 +5495,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 53,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5504,7 +5504,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 54,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5513,7 +5513,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 55,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5522,7 +5522,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 56,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5531,7 +5531,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 57,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5540,7 +5540,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 58,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5549,7 +5549,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 59,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5558,7 +5558,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 60,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5567,7 +5567,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 61,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5576,7 +5576,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 62,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5585,7 +5585,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 63,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5594,7 +5594,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 64,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5603,7 +5603,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 65,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5612,7 +5612,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 66,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5621,7 +5621,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 67,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5630,7 +5630,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 68,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5639,7 +5639,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 69,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5648,7 +5648,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 70,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5657,7 +5657,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 71,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5666,7 +5666,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 72,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5675,7 +5675,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 73,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5684,7 +5684,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 74,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5693,7 +5693,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 75,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5702,7 +5702,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 76,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5711,7 +5711,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 77,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5720,7 +5720,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 78,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5729,7 +5729,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 79,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5738,7 +5738,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 80,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5747,7 +5747,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 81,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5756,7 +5756,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 82,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5765,7 +5765,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 83,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5774,7 +5774,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 84,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5783,7 +5783,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 85,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5792,7 +5792,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 86,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5801,7 +5801,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 87,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5810,7 +5810,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 88,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5819,7 +5819,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 89,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5828,7 +5828,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 90,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5837,7 +5837,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 91,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5846,7 +5846,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 92,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5855,7 +5855,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 93,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5864,7 +5864,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 94,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5873,7 +5873,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 95,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5882,7 +5882,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 96,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5891,7 +5891,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 97,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5900,7 +5900,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 98,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5909,7 +5909,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 99,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5918,7 +5918,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 100,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5927,7 +5927,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 101,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5936,7 +5936,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 102,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5945,7 +5945,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 103,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5954,7 +5954,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 104,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5963,7 +5963,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 105,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5972,7 +5972,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 106,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5981,7 +5981,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 107,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5990,7 +5990,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 108,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -5999,7 +5999,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 109,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6008,7 +6008,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 110,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6017,7 +6017,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 111,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6026,7 +6026,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 112,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6035,7 +6035,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 113,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6044,7 +6044,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 114,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6053,7 +6053,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 115,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6062,7 +6062,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 116,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6071,7 +6071,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 117,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6080,7 +6080,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 118,
           "col": 3,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6404,7 +6404,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 358,
           "col": 63,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6413,7 +6413,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 366,
           "col": 65,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6512,7 +6512,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 522,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6530,7 +6530,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 523,
           "col": 23,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6647,7 +6647,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 691,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6665,7 +6665,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 693,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6683,7 +6683,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 696,
           "col": 29,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6728,7 +6728,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 708,
           "col": 48,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -6746,7 +6746,7 @@
           "file": "lib/src/markdown_processor.dart",
           "line": 709,
           "col": 49,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -7266,7 +7266,7 @@
           "file": "lib/src/model.dart",
           "line": 542,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -7545,7 +7545,7 @@
           "file": "lib/src/model.dart",
           "line": 752,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -8436,7 +8436,7 @@
           "file": "lib/src/model.dart",
           "line": 1848,
           "col": 51,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -8445,7 +8445,7 @@
           "file": "lib/src/model.dart",
           "line": 1850,
           "col": 32,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -8454,7 +8454,7 @@
           "file": "lib/src/model.dart",
           "line": 1851,
           "col": 9,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -9876,7 +9876,7 @@
           "file": "lib/src/model.dart",
           "line": 2994,
           "col": 40,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -10254,7 +10254,7 @@
           "file": "lib/src/model.dart",
           "line": 3326,
           "col": 17,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -10290,7 +10290,7 @@
           "file": "lib/src/model.dart",
           "line": 3393,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -10299,7 +10299,7 @@
           "file": "lib/src/model.dart",
           "line": 3395,
           "col": 12,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -10308,7 +10308,7 @@
           "file": "lib/src/model.dart",
           "line": 3407,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -10326,7 +10326,7 @@
           "file": "lib/src/model.dart",
           "line": 3421,
           "col": 43,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -10461,7 +10461,7 @@
           "file": "lib/src/model.dart",
           "line": 3611,
           "col": 28,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -10704,7 +10704,7 @@
           "file": "lib/src/model.dart",
           "line": 3806,
           "col": 64,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -10974,7 +10974,7 @@
           "file": "lib/src/model.dart",
           "line": 4239,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11172,7 +11172,7 @@
           "file": "lib/src/model.dart",
           "line": 4495,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11181,7 +11181,7 @@
           "file": "lib/src/model.dart",
           "line": 4495,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11190,7 +11190,7 @@
           "file": "lib/src/model.dart",
           "line": 4496,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11199,7 +11199,7 @@
           "file": "lib/src/model.dart",
           "line": 4496,
           "col": 12,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11208,7 +11208,7 @@
           "file": "lib/src/model.dart",
           "line": 4497,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11217,7 +11217,7 @@
           "file": "lib/src/model.dart",
           "line": 4497,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11226,7 +11226,7 @@
           "file": "lib/src/model.dart",
           "line": 4498,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11235,7 +11235,7 @@
           "file": "lib/src/model.dart",
           "line": 4498,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11244,7 +11244,7 @@
           "file": "lib/src/model.dart",
           "line": 4499,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11253,7 +11253,7 @@
           "file": "lib/src/model.dart",
           "line": 4499,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11262,7 +11262,7 @@
           "file": "lib/src/model.dart",
           "line": 4500,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11271,7 +11271,7 @@
           "file": "lib/src/model.dart",
           "line": 4500,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11280,7 +11280,7 @@
           "file": "lib/src/model.dart",
           "line": 4501,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11289,7 +11289,7 @@
           "file": "lib/src/model.dart",
           "line": 4501,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11298,7 +11298,7 @@
           "file": "lib/src/model.dart",
           "line": 4502,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11307,7 +11307,7 @@
           "file": "lib/src/model.dart",
           "line": 4502,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11316,7 +11316,7 @@
           "file": "lib/src/model.dart",
           "line": 4503,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11325,7 +11325,7 @@
           "file": "lib/src/model.dart",
           "line": 4503,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11334,7 +11334,7 @@
           "file": "lib/src/model.dart",
           "line": 4504,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11343,7 +11343,7 @@
           "file": "lib/src/model.dart",
           "line": 4504,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11352,7 +11352,7 @@
           "file": "lib/src/model.dart",
           "line": 4505,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11361,7 +11361,7 @@
           "file": "lib/src/model.dart",
           "line": 4505,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11370,7 +11370,7 @@
           "file": "lib/src/model.dart",
           "line": 4506,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11379,7 +11379,7 @@
           "file": "lib/src/model.dart",
           "line": 4506,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11388,7 +11388,7 @@
           "file": "lib/src/model.dart",
           "line": 4507,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11397,7 +11397,7 @@
           "file": "lib/src/model.dart",
           "line": 4507,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11406,7 +11406,7 @@
           "file": "lib/src/model.dart",
           "line": 4508,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11415,7 +11415,7 @@
           "file": "lib/src/model.dart",
           "line": 4508,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11424,7 +11424,7 @@
           "file": "lib/src/model.dart",
           "line": 4509,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11433,7 +11433,7 @@
           "file": "lib/src/model.dart",
           "line": 4509,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11442,7 +11442,7 @@
           "file": "lib/src/model.dart",
           "line": 4510,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11451,7 +11451,7 @@
           "file": "lib/src/model.dart",
           "line": 4510,
           "col": 15,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11460,7 +11460,7 @@
           "file": "lib/src/model.dart",
           "line": 4511,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11469,7 +11469,7 @@
           "file": "lib/src/model.dart",
           "line": 4511,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11478,7 +11478,7 @@
           "file": "lib/src/model.dart",
           "line": 4512,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11487,7 +11487,7 @@
           "file": "lib/src/model.dart",
           "line": 4512,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11496,7 +11496,7 @@
           "file": "lib/src/model.dart",
           "line": 4513,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11505,7 +11505,7 @@
           "file": "lib/src/model.dart",
           "line": 4513,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11514,7 +11514,7 @@
           "file": "lib/src/model.dart",
           "line": 4514,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11523,7 +11523,7 @@
           "file": "lib/src/model.dart",
           "line": 4514,
           "col": 10,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11532,7 +11532,7 @@
           "file": "lib/src/model.dart",
           "line": 4531,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11892,7 +11892,7 @@
           "file": "lib/src/model.dart",
           "line": 4834,
           "col": 13,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11901,7 +11901,7 @@
           "file": "lib/src/model.dart",
           "line": 4841,
           "col": 13,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11910,7 +11910,7 @@
           "file": "lib/src/model.dart",
           "line": 4845,
           "col": 13,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11919,7 +11919,7 @@
           "file": "lib/src/model.dart",
           "line": 4848,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11928,7 +11928,7 @@
           "file": "lib/src/model.dart",
           "line": 4860,
           "col": 13,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11937,7 +11937,7 @@
           "file": "lib/src/model.dart",
           "line": 4863,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11955,7 +11955,7 @@
           "file": "lib/src/model.dart",
           "line": 4870,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11964,7 +11964,7 @@
           "file": "lib/src/model.dart",
           "line": 4873,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -11991,7 +11991,7 @@
           "file": "lib/src/model.dart",
           "line": 4925,
           "col": 52,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -12621,7 +12621,7 @@
           "file": "lib/src/model.dart",
           "line": 5574,
           "col": 32,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -12657,7 +12657,7 @@
           "file": "lib/src/model.dart",
           "line": 5640,
           "col": 30,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -12918,7 +12918,7 @@
           "file": "lib/src/model.dart",
           "line": 6032,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14176,7 +14176,7 @@
           "file": "lib/src/model_utils.dart",
           "line": 155,
           "col": 28,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14185,7 +14185,7 @@
           "file": "lib/src/model_utils.dart",
           "line": 156,
           "col": 27,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14194,7 +14194,7 @@
           "file": "lib/src/model_utils.dart",
           "line": 156,
           "col": 51,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14212,7 +14212,7 @@
           "file": "lib/src/model_utils.dart",
           "line": 162,
           "col": 60,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14221,7 +14221,7 @@
           "file": "lib/src/model_utils.dart",
           "line": 166,
           "col": 37,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14230,7 +14230,7 @@
           "file": "lib/src/model_utils.dart",
           "line": 166,
           "col": 61,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14239,7 +14239,7 @@
           "file": "lib/src/model_utils.dart",
           "line": 167,
           "col": 30,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14248,7 +14248,7 @@
           "file": "lib/src/model_utils.dart",
           "line": 168,
           "col": 31,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14642,7 +14642,7 @@
           "file": "lib/src/package_meta.dart",
           "line": 107,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -15097,7 +15097,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
           "line": 14,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -15106,7 +15106,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
           "line": 14,
           "col": 13,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -15115,7 +15115,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
           "line": 15,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -15124,7 +15124,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
           "line": 16,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -15133,7 +15133,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart",
           "line": 17,
           "col": 5,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -15694,7 +15694,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart",
           "line": 52,
           "col": 38,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -15960,7 +15960,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
           "line": 9,
           "col": 33,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16122,7 +16122,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
           "line": 106,
           "col": 12,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16203,7 +16203,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
           "line": 165,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16239,7 +16239,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
           "line": 182,
           "col": 41,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16248,7 +16248,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
           "line": 188,
           "col": 17,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16257,7 +16257,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
           "line": 190,
           "col": 15,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16329,7 +16329,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
           "line": 231,
           "col": 17,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16356,7 +16356,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart",
           "line": 248,
           "col": 28,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16480,7 +16480,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 39,
           "col": 27,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16588,7 +16588,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 96,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16615,7 +16615,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 113,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16633,7 +16633,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 124,
           "col": 12,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16786,7 +16786,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 184,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16948,7 +16948,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 240,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -16993,7 +16993,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 250,
           "col": 11,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17002,7 +17002,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 254,
           "col": 21,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17011,7 +17011,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 254,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17020,7 +17020,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 255,
           "col": 21,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17029,7 +17029,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 255,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17038,7 +17038,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 256,
           "col": 21,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17047,7 +17047,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 256,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17056,7 +17056,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 257,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17065,7 +17065,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 258,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17083,7 +17083,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 261,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17200,7 +17200,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 317,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17245,7 +17245,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 326,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17308,7 +17308,7 @@
           "file": "lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart",
           "line": 347,
           "col": 24,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ]
     },
@@ -17481,7 +17481,7 @@
           "file": "lib/src/utils.dart",
           "line": 79,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ]
     },
@@ -17521,7 +17521,7 @@
           "file": "lib/src/warnings.dart",
           "line": 26,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17530,7 +17530,7 @@
           "file": "lib/src/warnings.dart",
           "line": 27,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17548,7 +17548,7 @@
           "file": "lib/src/warnings.dart",
           "line": 30,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17557,7 +17557,7 @@
           "file": "lib/src/warnings.dart",
           "line": 31,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17575,7 +17575,7 @@
           "file": "lib/src/warnings.dart",
           "line": 35,
           "col": 9,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17584,7 +17584,7 @@
           "file": "lib/src/warnings.dart",
           "line": 36,
           "col": 9,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17593,7 +17593,7 @@
           "file": "lib/src/warnings.dart",
           "line": 37,
           "col": 9,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17602,7 +17602,7 @@
           "file": "lib/src/warnings.dart",
           "line": 38,
           "col": 9,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17611,7 +17611,7 @@
           "file": "lib/src/warnings.dart",
           "line": 39,
           "col": 9,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17629,7 +17629,7 @@
           "file": "lib/src/warnings.dart",
           "line": 43,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17638,7 +17638,7 @@
           "file": "lib/src/warnings.dart",
           "line": 44,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17656,7 +17656,7 @@
           "file": "lib/src/warnings.dart",
           "line": 47,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17665,7 +17665,7 @@
           "file": "lib/src/warnings.dart",
           "line": 48,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17683,7 +17683,7 @@
           "file": "lib/src/warnings.dart",
           "line": 51,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17692,7 +17692,7 @@
           "file": "lib/src/warnings.dart",
           "line": 52,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17710,7 +17710,7 @@
           "file": "lib/src/warnings.dart",
           "line": 55,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17719,7 +17719,7 @@
           "file": "lib/src/warnings.dart",
           "line": 56,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17737,7 +17737,7 @@
           "file": "lib/src/warnings.dart",
           "line": 59,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17746,7 +17746,7 @@
           "file": "lib/src/warnings.dart",
           "line": 60,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17764,7 +17764,7 @@
           "file": "lib/src/warnings.dart",
           "line": 63,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17773,7 +17773,7 @@
           "file": "lib/src/warnings.dart",
           "line": 64,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17791,7 +17791,7 @@
           "file": "lib/src/warnings.dart",
           "line": 67,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17800,7 +17800,7 @@
           "file": "lib/src/warnings.dart",
           "line": 68,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17818,7 +17818,7 @@
           "file": "lib/src/warnings.dart",
           "line": 71,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17827,7 +17827,7 @@
           "file": "lib/src/warnings.dart",
           "line": 72,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17845,7 +17845,7 @@
           "file": "lib/src/warnings.dart",
           "line": 75,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17854,7 +17854,7 @@
           "file": "lib/src/warnings.dart",
           "line": 76,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17872,7 +17872,7 @@
           "file": "lib/src/warnings.dart",
           "line": 79,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17881,7 +17881,7 @@
           "file": "lib/src/warnings.dart",
           "line": 80,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17899,7 +17899,7 @@
           "file": "lib/src/warnings.dart",
           "line": 83,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17908,7 +17908,7 @@
           "file": "lib/src/warnings.dart",
           "line": 84,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17926,7 +17926,7 @@
           "file": "lib/src/warnings.dart",
           "line": 87,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17935,7 +17935,7 @@
           "file": "lib/src/warnings.dart",
           "line": 88,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17953,7 +17953,7 @@
           "file": "lib/src/warnings.dart",
           "line": 91,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17962,7 +17962,7 @@
           "file": "lib/src/warnings.dart",
           "line": 92,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17980,7 +17980,7 @@
           "file": "lib/src/warnings.dart",
           "line": 95,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -17989,7 +17989,7 @@
           "file": "lib/src/warnings.dart",
           "line": 96,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18007,7 +18007,7 @@
           "file": "lib/src/warnings.dart",
           "line": 99,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18016,7 +18016,7 @@
           "file": "lib/src/warnings.dart",
           "line": 100,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18034,7 +18034,7 @@
           "file": "lib/src/warnings.dart",
           "line": 103,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18043,7 +18043,7 @@
           "file": "lib/src/warnings.dart",
           "line": 104,
           "col": 7,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18160,7 +18160,7 @@
           "file": "lib/src/warnings.dart",
           "line": 238,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18169,7 +18169,7 @@
           "file": "lib/src/warnings.dart",
           "line": 240,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18178,7 +18178,7 @@
           "file": "lib/src/warnings.dart",
           "line": 243,
           "col": 19,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
