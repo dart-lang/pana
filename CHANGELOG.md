@@ -1,4 +1,4 @@
-## 0.14.8
+## 0.13.8
 
 * Fix: NPE after `dartanalyzer` exits with a failure.
 
