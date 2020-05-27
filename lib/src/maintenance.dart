@@ -570,8 +570,8 @@ Future<Maintenance> detectMaintenance(
     final extraDescr =
         ' (${outdatedPackages.map((s) => '`${s.package}`').join(', ')})';
     maintenanceSuggestions.add(Suggestion(
-        penalty > 0 ? SuggestionLevel.warning : SuggestionLevel.hint,
         SuggestionCode.pubspecDependenciesOutdated,
+        penalty > 0 ? SuggestionLevel.warning : SuggestionLevel.hint,
         'Support latest dependencies.',
         'The version constraint in `pubspec.yaml` does not support the latest '
             'published versions for $pluralized'
