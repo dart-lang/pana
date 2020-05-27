@@ -61,11 +61,19 @@
     "analyzeProcessFailed": false,
     "formatProcessFailed": false,
     "resolveProcessFailed": false,
-    "analyzerErrorCount": 0,
+    "analyzerErrorCount": 1,
     "analyzerWarningCount": 2,
-    "analyzerHintCount": 896,
+    "analyzerHintCount": 897,
     "platformConflictCount": 0,
     "suggestions": [
+      {
+        "code": "dartanalyzer.warning",
+        "level": "error",
+        "title": "Fix `lib/model/collection/list_tracker.dart`.",
+        "description": "Analysis of `lib/model/collection/list_tracker.dart` failed with 1 error, 31 hints, including:\n\nline 123 col 9: The method 'dispose' isn't defined for the type 'Object'.\n\nline 17 col 22: Private field could be final.\n\nline 18 col 22: Private field could be final.\n\nline 19 col 12: Private field could be final.\n\nline 20 col 12: Private field could be final.",
+        "file": "lib/model/collection/list_tracker.dart",
+        "score": 35.79
+      },
       {
         "code": "dartanalyzer.warning",
         "level": "warning",
@@ -83,19 +91,11 @@
         "score": 25.0
       },
       {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/reorder_list/reorder_list.dart`.",
-        "description": "Analysis of `lib/reorder_list/reorder_list.dart` reported 39 hints, including:\n\nline 107 col 13: Private field could be final.\n\nline 116 col 22: Use collection literals when possible.\n\nline 117 col 26: Use collection literals when possible.\n\nline 122 col 14: Prefer for elements when building maps from iterables.\n\nline 129 col 5: Omit type annotations for local variables.",
-        "file": "lib/reorder_list/reorder_list.dart",
-        "score": 17.76
-      },
-      {
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 173 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/utils/angular/scroll_host/sticky_controller_impl.dart` (39 hints)\n- `lib/model/collection/list_tracker.dart` (31 hints)\n- `lib/material_datepicker/material_calendar_picker.dart` (25 hints)\n- `lib/src/utils/async/simple_stream.dart` (23 hints)\n- `lib/model/collection/list_differ.dart` (19 hints)\n- `lib/utils/browser/dom_service/dom_service.dart` (19 hints)\n- `lib/src/utils/angular/scroll_host/gestures.dart` (17 hints)\n- `lib/utils/showhide/showhide.dart` (16 hints)\n- `lib/material_datepicker/proto/date_range.pb.dart` (14 hints)\n- `lib/material_select/material_select_item.dart` (12 hints)\n- `lib/model/observable/observable.dart` (11 hints)\n- `lib/src/model/selection/multi_selection_model_impl.dart` (11 hints)\n- `lib/material_input/material_auto_suggest_input.dart` (10 hints)\n- `lib/model/ui/highlighted_text_model.dart` (10 hints)\n- `lib/src/utils/async/lazy_stream_controller.dart` (10 hints)\n- `lib/src/utils/async/zoned_async.dart` (10 hints)\n- `lib/material_input/base_material_input.dart` (9 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (9 hints)\n- `lib/material_menu/menu_item_groups.dart` (8 hints)\n- `lib/material_select/material_dropdown_select.dart` (8 hints)\n- `lib/material_stepper/material_stepper.dart` (8 hints)\n- `lib/model/selection/tree_selection_mixin.dart` (8 hints)\n- `lib/utils/rate_limit_utils/rate_limit_utils.dart` (8 hints)\n- `lib/material_checkbox/material_checkbox.dart` (7 hints)\n- `lib/material_datepicker/material_date_range_picker.dart` (7 hints)\n- `lib/material_datepicker/proto/date.pb.dart` (7 hints)\n- `lib/material_input/material_input.dart` (7 hints)\n- `lib/material_popup/material_popup.dart` (7 hints)\n- `lib/src/material_datepicker/date_range_editor_model.dart` (7 hints)\n- `lib/src/material_tree/material_tree_node.dart` (7 hints)\n- `lib/src/model/selection/delegating_selection_model.dart` (7 hints)\n- `lib/src/utils/angular/scroll_host/position_sticky_controller.dart` (7 hints)\n- `lib/material_datepicker/comparison.dart` (6 hints)\n- `lib/material_datepicker/comparison_option.dart` (6 hints)\n- `lib/material_datepicker/date_range_editor.dart` (6 hints)\n- `lib/material_input/material_input_multiline.dart` (6 hints)\n- `lib/material_select/material_select.dart` (6 hints)\n- `lib/scorecard/scoreboard.dart` (6 hints)\n- `lib/utils/disposer/disposer.dart` (6 hints)\n- `lib/material_datepicker/material_datepicker.dart` (5 hints)\n- `lib/material_datepicker/material_month_picker.dart` (5 hints)\n- `lib/material_datepicker/material_time_picker.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/mixins/material_dropdown_base.dart` (5 hints)\n- `lib/model/menu/menu.dart` (5 hints)\n- `lib/model/selection/string_selection_options.dart` (5 hints)\n- `lib/model/ui/has_renderer.dart` (5 hints)\n- `lib/src/utils/angular/scroll_host/scroll_host_base.dart` (5 hints)\n- `lib/src/utils/async/disposable_future.dart` (5 hints)\n- `lib/src/utils/async/priority_stream_iterator.dart` (5 hints)\n- `lib/laminate/portal/portal.dart` (4 hints)\n- `lib/material_datepicker/date_range_input.dart` (4 hints)\n- `lib/material_datepicker/material_date_time_picker.dart` (4 hints)\n- `lib/model/collection/combined_list.dart` (4 hints)\n- `lib/scorecard/scorecard.dart` (4 hints)\n- `lib/src/laminate/popup/popup_size_provider.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/src/utils/async/async_where.dart` (4 hints)\n- `lib/utils/angular/scroll_host/angular_2.dart` (4 hints)\n- `lib/utils/browser/events/events.dart` (4 hints)\n- `lib/utils/disposer/disposable_callback.dart` (4 hints)\n- `lib/button_decorator/button_decorator.dart` (3 hints)\n- `lib/framework_stabilizers/framework_stabilizers.dart` (3 hints)\n- `lib/laminate/enums/alignment.dart` (3 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/material_datepicker/material_date_grid_base.dart` (3 hints)\n- `lib/material_menu/dropdown_menu.dart` (3 hints)\n- `lib/material_menu/menu_item_affix_list.dart` (3 hints)\n- `lib/material_yes_no_buttons/material_yes_no_buttons.dart` (3 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (3 hints)\n- `lib/model/selection/locked_limit_selection_options.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/model/selection/selection_model.dart` (3 hints)\n- `lib/model/selection/tree_propagation_selection_model.dart` (3 hints)\n- `lib/src/laminate/overlay/overlay_ref.dart` (3 hints)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (3 hints)\n- `lib/src/material_datepicker/calendar/highlight.dart` (3 hints)\n- `lib/src/material_tree/material_tree_impl.dart` (3 hints)\n- `lib/src/model/action/async_action_controller.dart` (3 hints)\n- `lib/src/utils/angular/scroll_host/pan_controller_impl.dart` (3 hints)\n- `lib/src/utils/angular/scroll_host/scroll_observer.dart` (3 hints)\n- `lib/utils/browser/dom_iterator/dom_iterator.dart` (3 hints)\n- `lib/app_layout/material_stackable_drawer.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (2 hints)\n- `lib/focus/focus.dart` (2 hints)\n- `lib/glyph/glyph.dart` (2 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/material_button/material_button.dart` (2 hints)\n- `lib/material_datepicker/preset.dart` (2 hints)\n- `lib/material_expansionpanel/material_expansionpanel.dart` (2 hints)\n- `lib/material_menu/menu_root.dart` (2 hints)\n- `lib/material_radio/material_radio.dart` (2 hints)\n- `lib/material_select/material_select_dropdown_item.dart` (2 hints)\n- `lib/material_toggle/material_toggle.dart` (2 hints)\n- `lib/model/menu/selectable_menu.dart` (2 hints)\n- `lib/model/selection/select.dart` (2 hints)\n- `lib/model/selection/selection_options.dart` (2 hints)\n- `lib/model/ui/highlight_assistant.dart` (2 hints)\n- `lib/model/ui/item_sorter.dart` (2 hints)\n- `lib/src/laminate/overlay/overlay_service.dart` (2 hints)\n- `lib/src/laminate/overlay/render/overlay_style_config.dart` (2 hints)\n- `lib/src/laminate/popup/dom_popup_source.dart` (2 hints)\n- `lib/src/material_datepicker/calendar/month.dart` (2 hints)\n- `lib/src/material_tree/group/material_tree_group_flat.dart` (2 hints)\n- `lib/src/utils/async/async_update_scheduler.dart` (2 hints)\n- `lib/utils/angular/managed_zone/angular_2.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/browser/feature_detector/feature_detector.dart` (2 hints)\n- `lib/app_layout/material_drawer_base.dart` (1 hint)\n- `lib/auto_dismiss/auto_dismiss.dart` (1 hint)\n- `lib/focus/focus_item.dart` (1 hint)\n- `lib/focus/focus_list.dart` (1 hint)\n- `lib/focus/focus_trap.dart` (1 hint)\n- `lib/focus/keyboard_only_focus_indicator.dart` (1 hint)\n- `lib/forms/error_renderer.dart` (1 hint)\n- `lib/framework_stabilizers/testability.dart` (1 hint)\n- `lib/laminate/components/modal/modal.dart` (1 hint)\n- `lib/laminate/overlay/zindexer.dart` (1 hint)\n- `lib/material_chips/material_chip.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_dialog/material_dialog.dart` (1 hint)\n- `lib/material_expansionpanel/material_expansionpanel_auto_dismiss.dart` (1 hint)\n- `lib/material_input/deferred_validator.dart` (1 hint)\n- `lib/material_input/input_wrapper.dart` (1 hint)\n- `lib/material_input/material_number_validators.dart` (1 hint)\n- `lib/material_input/material_percent_directive.dart` (1 hint)\n- `lib/material_list/material_list.dart` (1 hint)\n- `lib/material_menu/material_menu.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_progress/material_progress.dart` (1 hint)\n- `lib/material_ripple/material_ripple.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_dropdown_select_accessor.dart` (1 hint)\n- `lib/material_select/material_select_base.dart` (1 hint)\n- `lib/material_select/material_select_searchbox.dart` (1 hint)\n- `lib/material_select/shift_click_selection.dart` (1 hint)\n- `lib/material_slider/material_slider.dart` (1 hint)\n- `lib/material_spinner/material_spinner.dart` (1 hint)\n- `lib/material_tab/tab_button.dart` (1 hint)\n- `lib/mixins/button_wrapper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/mixins/selection_input_adapter.dart` (1 hint)\n- `lib/mixins/track_layout_changes.dart` (1 hint)\n- `lib/model/action/delayed_action.dart` (1 hint)\n- `lib/model/collection/labeled_list.dart` (1 hint)\n- `lib/model/date/date_formatter.dart` (1 hint)\n- `lib/model/menu/menu_item_affix.dart` (1 hint)\n- `lib/model/ui/has_factory.dart` (1 hint)\n- `lib/src/laminate/components/modal/modal_controller_directive.dart` (1 hint)\n- `lib/src/laminate/enums/base.dart` (1 hint)\n- `lib/src/laminate/popup/popup_size_provider_directive.dart` (1 hint)\n- `lib/src/laminate/popup/popup_source_directive.dart` (1 hint)\n- `lib/src/laminate/ruler/ruler_interface.dart` (1 hint)\n- `lib/src/material_datepicker/calendar/model.dart` (1 hint)\n- `lib/src/material_datepicker/calendar/year.dart` (1 hint)\n- `lib/src/material_datepicker/comparison_range_editor.dart` (1 hint)\n- `lib/src/material_tooltip/tooltip.dart` (1 hint)\n- `lib/src/material_tooltip/tooltip_source.dart` (1 hint)\n- `lib/src/material_tree/group/material_tree_group.dart` (1 hint)\n- `lib/src/material_tree/material_tree_dropdown.dart` (1 hint)\n- `lib/src/material_tree/material_tree_expand_state.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/src/model/selection/delegating_selection_options.dart` (1 hint)\n- `lib/src/model/selection/interfaces/selectable.dart` (1 hint)\n- `lib/src/model/selection/radio_group_single_selection_model.dart` (1 hint)\n- `lib/src/model/selection/selection_change_notifier.dart` (1 hint)\n- `lib/src/utils/async/rate_limit.dart` (1 hint)\n- `lib/utils/angular/imperative_view/imperative_view.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/id_generator/id_generator.dart` (1 hint)\n- `lib/utils/strings/string_utils.dart` (1 hint)\n- `lib/utils/angular/properties/properties.dart` (Run `dartfmt` to format `lib/utils/angular/properties/properties.dart`.)\n",
-        "score": 350.46000000000015
+        "description": "Additional issues in the following files:\n\n- `lib/reorder_list/reorder_list.dart` (39 hints)\n- `lib/src/utils/angular/scroll_host/sticky_controller_impl.dart` (39 hints)\n- `lib/material_datepicker/material_calendar_picker.dart` (25 hints)\n- `lib/src/utils/async/simple_stream.dart` (23 hints)\n- `lib/model/collection/list_differ.dart` (19 hints)\n- `lib/utils/browser/dom_service/dom_service.dart` (19 hints)\n- `lib/src/utils/angular/scroll_host/gestures.dart` (17 hints)\n- `lib/utils/showhide/showhide.dart` (16 hints)\n- `lib/material_datepicker/proto/date_range.pb.dart` (14 hints)\n- `lib/material_select/material_select_item.dart` (12 hints)\n- `lib/model/observable/observable.dart` (11 hints)\n- `lib/src/model/selection/multi_selection_model_impl.dart` (11 hints)\n- `lib/material_input/material_auto_suggest_input.dart` (10 hints)\n- `lib/model/ui/highlighted_text_model.dart` (10 hints)\n- `lib/src/utils/async/lazy_stream_controller.dart` (10 hints)\n- `lib/src/utils/async/zoned_async.dart` (10 hints)\n- `lib/material_input/base_material_input.dart` (9 hints)\n- `lib/src/utils/angular/managed_zone/managed_zone.dart` (9 hints)\n- `lib/material_menu/menu_item_groups.dart` (8 hints)\n- `lib/material_select/material_dropdown_select.dart` (8 hints)\n- `lib/material_stepper/material_stepper.dart` (8 hints)\n- `lib/model/selection/tree_selection_mixin.dart` (8 hints)\n- `lib/utils/rate_limit_utils/rate_limit_utils.dart` (8 hints)\n- `lib/material_checkbox/material_checkbox.dart` (7 hints)\n- `lib/material_datepicker/material_date_range_picker.dart` (7 hints)\n- `lib/material_datepicker/proto/date.pb.dart` (7 hints)\n- `lib/material_input/material_input.dart` (7 hints)\n- `lib/material_popup/material_popup.dart` (7 hints)\n- `lib/src/material_datepicker/date_range_editor_model.dart` (7 hints)\n- `lib/src/material_tree/material_tree_node.dart` (7 hints)\n- `lib/src/model/selection/delegating_selection_model.dart` (7 hints)\n- `lib/src/utils/angular/scroll_host/position_sticky_controller.dart` (7 hints)\n- `lib/material_datepicker/comparison.dart` (6 hints)\n- `lib/material_datepicker/comparison_option.dart` (6 hints)\n- `lib/material_datepicker/date_range_editor.dart` (6 hints)\n- `lib/material_input/material_input_multiline.dart` (6 hints)\n- `lib/material_select/material_select.dart` (6 hints)\n- `lib/scorecard/scoreboard.dart` (6 hints)\n- `lib/utils/disposer/disposer.dart` (6 hints)\n- `lib/material_datepicker/material_datepicker.dart` (5 hints)\n- `lib/material_datepicker/material_month_picker.dart` (5 hints)\n- `lib/material_datepicker/material_time_picker.dart` (5 hints)\n- `lib/material_stepper/material_step.dart` (5 hints)\n- `lib/mixins/material_dropdown_base.dart` (5 hints)\n- `lib/model/menu/menu.dart` (5 hints)\n- `lib/model/selection/string_selection_options.dart` (5 hints)\n- `lib/model/ui/has_renderer.dart` (5 hints)\n- `lib/src/utils/angular/scroll_host/scroll_host_base.dart` (5 hints)\n- `lib/src/utils/async/disposable_future.dart` (5 hints)\n- `lib/src/utils/async/priority_stream_iterator.dart` (5 hints)\n- `lib/laminate/enums/alignment.dart` (4 hints)\n- `lib/laminate/portal/portal.dart` (4 hints)\n- `lib/material_datepicker/date_range_input.dart` (4 hints)\n- `lib/material_datepicker/material_date_time_picker.dart` (4 hints)\n- `lib/model/collection/combined_list.dart` (4 hints)\n- `lib/scorecard/scorecard.dart` (4 hints)\n- `lib/src/laminate/popup/popup_size_provider.dart` (4 hints)\n- `lib/src/model/selection/single_selection_model_impl.dart` (4 hints)\n- `lib/src/utils/async/async_where.dart` (4 hints)\n- `lib/utils/angular/scroll_host/angular_2.dart` (4 hints)\n- `lib/utils/browser/events/events.dart` (4 hints)\n- `lib/utils/disposer/disposable_callback.dart` (4 hints)\n- `lib/button_decorator/button_decorator.dart` (3 hints)\n- `lib/framework_stabilizers/framework_stabilizers.dart` (3 hints)\n- `lib/laminate/ruler/module.dart` (3 hints)\n- `lib/material_datepicker/material_date_grid_base.dart` (3 hints)\n- `lib/material_menu/dropdown_menu.dart` (3 hints)\n- `lib/material_menu/menu_item_affix_list.dart` (3 hints)\n- `lib/material_yes_no_buttons/material_yes_no_buttons.dart` (3 hints)\n- `lib/model/date/time_zone_aware_clock.dart` (3 hints)\n- `lib/model/selection/locked_limit_selection_options.dart` (3 hints)\n- `lib/model/selection/selection_container.dart` (3 hints)\n- `lib/model/selection/selection_model.dart` (3 hints)\n- `lib/model/selection/tree_propagation_selection_model.dart` (3 hints)\n- `lib/src/laminate/overlay/overlay_ref.dart` (3 hints)\n- `lib/src/laminate/popup/popup_hierarchy.dart` (3 hints)\n- `lib/src/material_datepicker/calendar/highlight.dart` (3 hints)\n- `lib/src/material_tree/material_tree_impl.dart` (3 hints)\n- `lib/src/model/action/async_action_controller.dart` (3 hints)\n- `lib/src/utils/angular/scroll_host/pan_controller_impl.dart` (3 hints)\n- `lib/src/utils/angular/scroll_host/scroll_observer.dart` (3 hints)\n- `lib/utils/browser/dom_iterator/dom_iterator.dart` (3 hints)\n- `lib/app_layout/material_stackable_drawer.dart` (2 hints)\n- `lib/dynamic_component/dynamic_component.dart` (2 hints)\n- `lib/focus/focus.dart` (2 hints)\n- `lib/glyph/glyph.dart` (2 hints)\n- `lib/laminate/overlay/module.dart` (2 hints)\n- `lib/material_button/material_button.dart` (2 hints)\n- `lib/material_datepicker/preset.dart` (2 hints)\n- `lib/material_expansionpanel/material_expansionpanel.dart` (2 hints)\n- `lib/material_menu/menu_root.dart` (2 hints)\n- `lib/material_radio/material_radio.dart` (2 hints)\n- `lib/material_select/material_select_dropdown_item.dart` (2 hints)\n- `lib/material_toggle/material_toggle.dart` (2 hints)\n- `lib/model/menu/selectable_menu.dart` (2 hints)\n- `lib/model/selection/select.dart` (2 hints)\n- `lib/model/selection/selection_options.dart` (2 hints)\n- `lib/model/ui/highlight_assistant.dart` (2 hints)\n- `lib/model/ui/item_sorter.dart` (2 hints)\n- `lib/src/laminate/overlay/overlay_service.dart` (2 hints)\n- `lib/src/laminate/overlay/render/overlay_style_config.dart` (2 hints)\n- `lib/src/laminate/popup/dom_popup_source.dart` (2 hints)\n- `lib/src/material_datepicker/calendar/month.dart` (2 hints)\n- `lib/src/material_tree/group/material_tree_group_flat.dart` (2 hints)\n- `lib/src/utils/async/async_update_scheduler.dart` (2 hints)\n- `lib/utils/angular/managed_zone/angular_2.dart` (2 hints)\n- `lib/utils/angular/reference/reference.dart` (2 hints)\n- `lib/utils/browser/feature_detector/feature_detector.dart` (2 hints)\n- `lib/app_layout/material_drawer_base.dart` (1 hint)\n- `lib/auto_dismiss/auto_dismiss.dart` (1 hint)\n- `lib/focus/focus_item.dart` (1 hint)\n- `lib/focus/focus_list.dart` (1 hint)\n- `lib/focus/focus_trap.dart` (1 hint)\n- `lib/focus/keyboard_only_focus_indicator.dart` (1 hint)\n- `lib/forms/error_renderer.dart` (1 hint)\n- `lib/framework_stabilizers/testability.dart` (1 hint)\n- `lib/laminate/components/modal/modal.dart` (1 hint)\n- `lib/laminate/overlay/zindexer.dart` (1 hint)\n- `lib/material_chips/material_chip.dart` (1 hint)\n- `lib/material_datepicker/date_input.dart` (1 hint)\n- `lib/material_datepicker/module.dart` (1 hint)\n- `lib/material_dialog/material_dialog.dart` (1 hint)\n- `lib/material_expansionpanel/material_expansionpanel_auto_dismiss.dart` (1 hint)\n- `lib/material_input/deferred_validator.dart` (1 hint)\n- `lib/material_input/input_wrapper.dart` (1 hint)\n- `lib/material_input/material_number_validators.dart` (1 hint)\n- `lib/material_input/material_percent_directive.dart` (1 hint)\n- `lib/material_list/material_list.dart` (1 hint)\n- `lib/material_menu/material_menu.dart` (1 hint)\n- `lib/material_menu/menu_popup_wrapper.dart` (1 hint)\n- `lib/material_progress/material_progress.dart` (1 hint)\n- `lib/material_ripple/material_ripple.dart` (1 hint)\n- `lib/material_select/dropdown_button.dart` (1 hint)\n- `lib/material_select/material_dropdown_select_accessor.dart` (1 hint)\n- `lib/material_select/material_select_base.dart` (1 hint)\n- `lib/material_select/material_select_searchbox.dart` (1 hint)\n- `lib/material_select/shift_click_selection.dart` (1 hint)\n- `lib/material_slider/material_slider.dart` (1 hint)\n- `lib/material_spinner/material_spinner.dart` (1 hint)\n- `lib/material_tab/tab_button.dart` (1 hint)\n- `lib/mixins/button_wrapper.dart` (1 hint)\n- `lib/mixins/highlight_assistant_mixin.dart` (1 hint)\n- `lib/mixins/selection_input_adapter.dart` (1 hint)\n- `lib/mixins/track_layout_changes.dart` (1 hint)\n- `lib/model/action/delayed_action.dart` (1 hint)\n- `lib/model/collection/labeled_list.dart` (1 hint)\n- `lib/model/date/date_formatter.dart` (1 hint)\n- `lib/model/menu/menu_item_affix.dart` (1 hint)\n- `lib/model/ui/has_factory.dart` (1 hint)\n- `lib/src/laminate/components/modal/modal_controller_directive.dart` (1 hint)\n- `lib/src/laminate/enums/base.dart` (1 hint)\n- `lib/src/laminate/popup/popup_size_provider_directive.dart` (1 hint)\n- `lib/src/laminate/popup/popup_source_directive.dart` (1 hint)\n- `lib/src/laminate/ruler/ruler_interface.dart` (1 hint)\n- `lib/src/material_datepicker/calendar/model.dart` (1 hint)\n- `lib/src/material_datepicker/calendar/year.dart` (1 hint)\n- `lib/src/material_datepicker/comparison_range_editor.dart` (1 hint)\n- `lib/src/material_tooltip/tooltip.dart` (1 hint)\n- `lib/src/material_tooltip/tooltip_source.dart` (1 hint)\n- `lib/src/material_tree/group/material_tree_group.dart` (1 hint)\n- `lib/src/material_tree/material_tree_dropdown.dart` (1 hint)\n- `lib/src/material_tree/material_tree_expand_state.dart` (1 hint)\n- `lib/src/material_tree/material_tree_root.dart` (1 hint)\n- `lib/src/model/selection/delegating_selection_options.dart` (1 hint)\n- `lib/src/model/selection/interfaces/selectable.dart` (1 hint)\n- `lib/src/model/selection/radio_group_single_selection_model.dart` (1 hint)\n- `lib/src/model/selection/selection_change_notifier.dart` (1 hint)\n- `lib/src/utils/async/rate_limit.dart` (1 hint)\n- `lib/utils/angular/imperative_view/imperative_view.dart` (1 hint)\n- `lib/utils/angular/managed_zone/interface.dart` (1 hint)\n- `lib/utils/id_generator/id_generator.dart` (1 hint)\n- `lib/utils/strings/string_utils.dart` (1 hint)\n- `lib/utils/angular/properties/properties.dart` (Run `dartfmt` to format `lib/utils/angular/properties/properties.dart`.)\n",
+        "score": 354.33000000000015
       }
     ]
   },
@@ -109,6 +109,13 @@
     "isExperimentalVersion": false,
     "isPreReleaseVersion": false,
     "suggestions": [
+      {
+        "code": "sdk.missing",
+        "level": "error",
+        "title": "No valid SDK.",
+        "description": "The analysis could not detect a valid SDK that can use this package.",
+        "score": 20.0
+      },
       {
         "code": "pubspec.dependencies.outdated",
         "level": "warning",
@@ -139,50 +146,6 @@
       }
     ]
   },
-  "suggestions": [
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
-      "title": "Package not compatible with runtime flutter-native of android",
-      "description": "Because of the import of dart:html via the import chain package:angular_components/angular_components.dart->package:angular_components/theme/module.dart->package:angular/angular.dart->package:angular/src/platform/browser/tools/tools.dart->package:angular/src/platform/browser/tools/common_tools.dart->package:angular/src/core/linker/component_factory.dart->package:angular/src/core/linker/view_ref.dart->dart:html"
-    },
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
-      "title": "Package not compatible with runtime flutter-native of ios",
-      "description": "Because of the import of dart:html via the import chain package:angular_components/angular_components.dart->package:angular_components/theme/module.dart->package:angular/angular.dart->package:angular/src/platform/browser/tools/tools.dart->package:angular/src/platform/browser/tools/common_tools.dart->package:angular/src/core/linker/component_factory.dart->package:angular/src/core/linker/view_ref.dart->dart:html"
-    },
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
-      "title": "Package not compatible with runtime flutter-native of linux",
-      "description": "Because of the import of dart:html via the import chain package:angular_components/angular_components.dart->package:angular_components/theme/module.dart->package:angular/angular.dart->package:angular/src/platform/browser/tools/tools.dart->package:angular/src/platform/browser/tools/common_tools.dart->package:angular/src/core/linker/component_factory.dart->package:angular/src/core/linker/view_ref.dart->dart:html"
-    },
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
-      "title": "Package not compatible with runtime flutter-native of macos",
-      "description": "Because of the import of dart:html via the import chain package:angular_components/angular_components.dart->package:angular_components/theme/module.dart->package:angular/angular.dart->package:angular/src/platform/browser/tools/tools.dart->package:angular/src/platform/browser/tools/common_tools.dart->package:angular/src/core/linker/component_factory.dart->package:angular/src/core/linker/view_ref.dart->dart:html"
-    },
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
-      "title": "Package not compatible with runtime flutter-native of windows",
-      "description": "Because of the import of dart:html via the import chain package:angular_components/angular_components.dart->package:angular_components/theme/module.dart->package:angular/angular.dart->package:angular/src/platform/browser/tools/tools.dart->package:angular/src/platform/browser/tools/common_tools.dart->package:angular/src/core/linker/component_factory.dart->package:angular/src/core/linker/view_ref.dart->dart:html"
-    },
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
-      "title": "Package not compatible with runtime native-aot",
-      "description": "Because of the import of dart:html via the import chain package:angular_components/angular_components.dart->package:angular_components/theme/module.dart->package:angular/angular.dart->package:angular/src/platform/browser/tools/tools.dart->package:angular/src/platform/browser/tools/common_tools.dart->package:angular/src/core/linker/component_factory.dart->package:angular/src/core/linker/view_ref.dart->dart:html"
-    },
-    {
-      "code": "tagging.notCompatible",
-      "level": "hint",
-      "title": "Package not compatible with runtime native-jit",
-      "description": "Because of the import of dart:html via the import chain package:angular_components/angular_components.dart->package:angular_components/theme/module.dart->package:angular/angular.dart->package:angular/src/platform/browser/tools/tools.dart->package:angular/src/platform/browser/tools/common_tools.dart->package:angular/src/core/linker/component_factory.dart->package:angular/src/core/linker/view_ref.dart->dart:html"
-    }
-  ],
   "pkgResolution": {
     "dependencies": [
       {
@@ -240,7 +203,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": ">=0.11.1 <2.0.0",
-        "resolved": "1.2.2"
+        "resolved": "1.3.0"
       },
       {
         "package": "build_config",
@@ -285,7 +248,7 @@
         "package": "code_builder",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "3.2.1"
+        "resolved": "3.3.0"
       },
       {
         "package": "collection",
@@ -304,7 +267,7 @@
         "package": "crypto",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "2.1.4"
+        "resolved": "2.1.5"
       },
       {
         "package": "csslib",
@@ -417,13 +380,13 @@
         "package": "node_interop",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.3"
+        "resolved": "1.1.1"
       },
       {
         "package": "node_io",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.0.1+2"
+        "resolved": "1.1.1"
       },
       {
         "package": "observable",
@@ -5228,7 +5191,7 @@
           "file": "lib/focus/keyboard_only_focus_indicator.dart",
           "line": 14,
           "col": 13,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -6402,6 +6365,15 @@
           "line": 443,
           "col": 41,
           "description": "Don't access members with `this` unless avoiding shadowing."
+        },
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "UNUSED_FIELD",
+          "file": "lib/laminate/enums/alignment.dart",
+          "line": 474,
+          "col": 16,
+          "description": "The value of the field 'OUTWARD' isn't used."
         }
       ],
       "directLibs": [
@@ -8516,7 +8488,7 @@
           "file": "lib/material_button/material_button.dart",
           "line": 106,
           "col": 41,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -8525,7 +8497,7 @@
           "file": "lib/material_button/material_button.dart",
           "line": 110,
           "col": 37,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -9340,7 +9312,7 @@
           "file": "lib/material_checkbox/material_checkbox.dart",
           "line": 133,
           "col": 37,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -12610,7 +12582,7 @@
           "file": "lib/material_datepicker/material_date_range_picker.dart",
           "line": 206,
           "col": 38,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -13560,7 +13532,7 @@
           "file": "lib/material_datepicker/material_datepicker.dart",
           "line": 111,
           "col": 38,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14289,7 +14261,7 @@
           "file": "lib/material_datepicker/material_time_picker.dart",
           "line": 86,
           "col": 36,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -14316,7 +14288,7 @@
           "file": "lib/material_datepicker/material_time_picker.dart",
           "line": 188,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18418,7 +18390,7 @@
           "file": "lib/material_input/base_material_input.dart",
           "line": 372,
           "col": 13,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -18427,7 +18399,7 @@
           "file": "lib/material_input/base_material_input.dart",
           "line": 376,
           "col": 13,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -19704,7 +19676,7 @@
           "file": "lib/material_input/material_input.dart",
           "line": 251,
           "col": 31,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -25129,7 +25101,7 @@
           "file": "lib/material_progress/material_progress.dart",
           "line": 12,
           "col": 35,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -29110,7 +29082,7 @@
           "file": "lib/material_select/shift_click_selection.dart",
           "line": 36,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -31039,7 +31011,7 @@
           "file": "lib/material_tab/tab_button.dart",
           "line": 43,
           "col": 41,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -35428,6 +35400,15 @@
           "description": "Omit type annotations for local variables."
         },
         {
+          "severity": "ERROR",
+          "errorType": "STATIC_TYPE_WARNING",
+          "errorCode": "UNDEFINED_METHOD",
+          "file": "lib/model/collection/list_tracker.dart",
+          "line": 123,
+          "col": 9,
+          "description": "The method 'dispose' isn't defined for the type 'Object'."
+        },
+        {
           "severity": "INFO",
           "errorType": "LINT",
           "errorCode": "prefer_collection_literals",
@@ -35711,7 +35692,7 @@
           "file": "lib/model/date/time_zone_aware_clock.dart",
           "line": 13,
           "col": 12,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -36329,7 +36310,7 @@
           "file": "lib/model/observable/observable.dart",
           "line": 391,
           "col": 15,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -37669,7 +37650,7 @@
           "file": "lib/model/ui/has_renderer.dart",
           "line": 65,
           "col": 22,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [],
@@ -37782,7 +37763,7 @@
           "file": "lib/model/ui/highlighted_text_model.dart",
           "line": 32,
           "col": 40,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -37827,7 +37808,7 @@
           "file": "lib/model/ui/highlighted_text_model.dart",
           "line": 86,
           "col": 35,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -37836,7 +37817,7 @@
           "file": "lib/model/ui/highlighted_text_model.dart",
           "line": 87,
           "col": 35,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -37845,7 +37826,7 @@
           "file": "lib/model/ui/highlighted_text_model.dart",
           "line": 88,
           "col": 35,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -38277,7 +38258,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 219,
           "col": 20,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -38286,7 +38267,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 220,
           "col": 19,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -38295,7 +38276,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 221,
           "col": 17,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -38304,7 +38285,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 231,
           "col": 20,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -38313,7 +38294,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 232,
           "col": 19,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -38322,7 +38303,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 233,
           "col": 17,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -38331,7 +38312,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 234,
           "col": 18,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -38340,7 +38321,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 281,
           "col": 30,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -38349,7 +38330,7 @@
           "file": "lib/reorder_list/reorder_list.dart",
           "line": 282,
           "col": 38,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -39040,7 +39021,7 @@
           "file": "lib/scorecard/scorecard.dart",
           "line": 127,
           "col": 31,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -39049,7 +39030,7 @@
           "file": "lib/scorecard/scorecard.dart",
           "line": 127,
           "col": 48,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -39058,7 +39039,7 @@
           "file": "lib/scorecard/scorecard.dart",
           "line": 154,
           "col": 39,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -39605,7 +39586,7 @@
           "file": "lib/src/laminate/overlay/render/overlay_style_config.dart",
           "line": 15,
           "col": 27,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -40158,7 +40139,7 @@
           "file": "lib/src/material_tree/material_tree_impl.dart",
           "line": 155,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -40167,7 +40148,7 @@
           "file": "lib/src/material_tree/material_tree_impl.dart",
           "line": 157,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -40176,7 +40157,7 @@
           "file": "lib/src/material_tree/material_tree_impl.dart",
           "line": 159,
           "col": 14,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ]
     },
@@ -44152,7 +44133,7 @@
           "file": "lib/utils/browser/dom_service/dom_service.dart",
           "line": 427,
           "col": 15,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -44477,7 +44458,7 @@
           "file": "lib/utils/browser/events/events.dart",
           "line": 188,
           "col": 39,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -44675,7 +44656,7 @@
           "file": "lib/utils/browser/feature_detector/feature_detector.dart",
           "line": 17,
           "col": 26,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -44684,7 +44665,7 @@
           "file": "lib/utils/browser/feature_detector/feature_detector.dart",
           "line": 18,
           "col": 45,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -45242,7 +45223,7 @@
           "file": "lib/utils/disposer/disposer.dart",
           "line": 90,
           "col": 15,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -45310,7 +45291,7 @@
           "file": "lib/utils/id_generator/id_generator.dart",
           "line": 38,
           "col": 22,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -45760,7 +45741,7 @@
           "file": "lib/utils/showhide/showhide.dart",
           "line": 167,
           "col": 28,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -45787,7 +45768,7 @@
           "file": "lib/utils/showhide/showhide.dart",
           "line": 172,
           "col": 17,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         },
         {
           "severity": "INFO",
@@ -45796,7 +45777,7 @@
           "file": "lib/utils/showhide/showhide.dart",
           "line": 173,
           "col": 17,
-          "description": "Prefer single quotes where they won't require escape sequences."
+          "description": "Only use double quotes for strings containing single quotes."
         }
       ],
       "directLibs": [
@@ -46075,10 +46056,5 @@
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
   },
-  "tags": [
-    "sdk:dart",
-    "sdk:flutter",
-    "platform:web",
-    "runtime:web"
-  ]
+  "tags": []
 }
