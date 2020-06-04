@@ -39,10 +39,10 @@ final _parser = ArgParser()
       defaultsTo: 'normal')
   ..addFlag('scores', help: 'Include scores in the output JSON.')
   ..addFlag('warning',
-      help:
-          'Shows the warning message before potentially destructive operation.',
+      help: 'Obsolete flag -- has no effect',
       negatable: true,
-      defaultsTo: true);
+      defaultsTo: true,
+      hide: true);
 
 void _printHelp({String errorMessage}) {
   if (errorMessage != null) {
@@ -67,7 +67,6 @@ Future main(List<String> args) async {
   }
 
   final isJson = result['json'] as bool;
-  final showWarning = result['warning'] as bool;
   final showScores = result['scores'] as bool;
 
   final source = result['source'];
@@ -155,13 +154,6 @@ Future main(List<String> args) async {
       } else if (source == 'path') {
         final path = firstArg() ?? '.';
         final absolutePath = await Directory(path).resolveSymbolicLinks();
-        if (showWarning) {
-          log.Logger.root
-              .warning('pana might update or modify files in `$path`.\n'
-                  'Analysis will begin in 15 seconds, hit CTRL+C to abort it.\n'
-                  'To remove this message, use `--no-warning`.');
-          await Future.delayed(const Duration(seconds: 15));
-        }
         summary = await analyzer.inspectDir(absolutePath, options: options);
       }
       final map = summary.toJson();

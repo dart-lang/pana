@@ -28,18 +28,16 @@ Usage: pana [<options>] <published package name> [<version>]
        pana [<options>] --source path <local directory>
 
 Options:
-      --flutter-sdk     The directory of the Flutter SDK.
-  -j, --json            Output log items as JSON.
-  -s, --source          The source where the package is located (hosted on https://pub.dev, or local directory path).
-                        [hosted, path (default)]
-      --hosted-url      The server that hosts <package>.
-                        (defaults to "https://pub.dev")
-  -l, --line-length     The line length to use with dartfmt.
-      --verbosity       Configure the details in the output.
-                        [compact, normal (default), verbose]
-      --[no-]scores     Include scores in the output JSON.
-      --[no-]warning    Shows the warning message before potentially destructive operation.
-                        (defaults to on)
+      --flutter-sdk    The directory of the Flutter SDK.
+  -j, --json           Output log items as JSON.
+  -s, --source         The source where the package is located (hosted on https://pub.dev, or local directory path).
+                       [hosted, path (default)]
+      --hosted-url     The server that hosts <package>.
+                       (defaults to "https://pub.dev")
+  -l, --line-length    The line length to use with dartfmt.
+      --verbosity      Configure the details in the output.
+                       [compact, normal (default), verbose]
+      --[no-]scores    Include scores in the output JSON.
 ```
 
 ## Scoring

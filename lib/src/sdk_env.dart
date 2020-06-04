@@ -276,15 +276,33 @@ class ToolEnvironment {
     return false;
   }
 
-  Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,
-      {int retryCount = 3}) async {
-    final backup = await _stripPubspecYaml(packageDir);
+  FutureOr<T> _withTempDir<T>(FutureOr<T> Function(Directory) fn) async {
+    var tempDir = Directory.systemTemp.createTempSync('pana_');
     try {
+      return await fn(tempDir);
+    } finally {
+      if (tempDir.existsSync()) {
+        tempDir.deleteSync(recursive: true);
+      }
+    }
+  }
+
+  /// Runs `pub upgrade` on a stripped copy of [pubspec].
+  Future<ProcessResult> runUpgrade(
+      String dir, Pubspec pubspec, bool usesFlutter,
+      {int retryCount = 3}) async {
+    return _withTempDir((tempDir) async {
+      File(p.join(tempDir.path, 'pubspec.yaml'))
+          .writeAsStringSync(json.encode(_stripPubspecYaml(pubspec)));
+      final lockFile = File(p.join(dir, 'pubspec.lock'));
+      if (lockFile.existsSync()) {
+        lockFile.copySync(tempDir.path);
+      }
       return await retryProc(() async {
         if (usesFlutter) {
-          return await _execFlutterUpgrade(packageDir, _environment);
+          return await _execFlutterUpgrade(tempDir.path, _environment);
         } else {
-          return await _execPubUpgrade(packageDir, _environment);
+          return await _execPubUpgrade(tempDir.path, _environment);
         }
       }, shouldRetry: (result) {
         if (result.exitCode == 0) return false;
@@ -298,9 +316,7 @@ class ToolEnvironment {
         }
         return true;
       });
-    } finally {
-      await _restorePubspecYaml(packageDir, backup);
-    }
+    });
   }
 
   Map<String, String> _globalDartdocEnv() {
@@ -445,23 +461,13 @@ class ToolEnvironment {
     }
   }
 
-  /// Removes the dev_dependencies from the pubspec.yaml
-  /// Returns the backup file with the original content.
-  Future<File> _stripPubspecYaml(String packageDir) async {
-    final now = DateTime.now();
-    final backup = File(
-        p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'));
-
-    final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
-    final original = await pubspec.readAsString();
-    final parsed = yamlToJson(original);
-    parsed.remove('dev_dependencies');
-    parsed.remove('dependency_overrides');
-
-    await pubspec.rename(backup.path);
-    await pubspec.writeAsString(json.encode(parsed));
-
-    return backup;
+  /// Returns a (shallow) copy of the underlying JSON map from [pubspec] with
+  /// dev_dependencies and dependency_overrides removed.
+  Map<dynamic, dynamic> _stripPubspecYaml(Pubspec pubspec) {
+    final json = Map.from(pubspec.toJson());
+    json.remove('dev_dependencies');
+    json.remove('dependency_overrides');
+    return json;
   }
 
   Future _restorePubspecYaml(String packageDir, File backup) async {

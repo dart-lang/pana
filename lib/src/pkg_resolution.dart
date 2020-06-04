@@ -137,8 +137,6 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
           'Package $package has version $resolved but $constraint does not allow it!');
     }
 
-    errors.forEach(logWeird);
-
     deps.add(PkgDependency(
       package: package,
       dependencyType: dependencyType,
