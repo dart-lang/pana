@@ -59,7 +59,7 @@ class InspectOptions {
     this.isInternal = false,
     this.lineLength,
     this.analysisOptionsUri,
-    this.lockedVersions,
+    this.lockedVersions = const <String, Version>{},
   });
 }
 

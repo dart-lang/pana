@@ -562,7 +562,6 @@ Future<Maintenance> detectMaintenance(
     final pluralized = count == 1 ? '1 dependency' : '$count dependencies';
     final nonLockedCount = outdatedPackages
         .where((p) =>
-            options.lockedVersions == null ||
             !options.lockedVersions.containsKey(p) ||
             !p.constraint.allows(options.lockedVersions[p]))
         .length;
