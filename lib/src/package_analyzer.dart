@@ -188,7 +188,8 @@ class PackageAnalyzer {
     formatProcessStopwatch.stop();
 
     resolveProcessStopwatch.start();
-    final upgrade = await _toolEnv.runUpgrade(pkgDir, pubspec, usesFlutter);
+    final upgrade =
+        await _toolEnv.pubUpgradeOutput(pkgDir, pubspec, usesFlutter);
     resolveProcessStopwatch.stop();
 
     PkgResolution pkgResolution;

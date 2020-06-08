@@ -287,8 +287,9 @@ class ToolEnvironment {
     }
   }
 
-  /// Runs `pub upgrade` on a stripped copy of [pubspec].
-  Future<ProcessResult> runUpgrade(
+  /// Runs `pub upgrade` on a stripped copy of [pubspec], returns the
+  /// [ProcessResult].
+  Future<ProcessResult> pubUpgradeOutput(
       String dir, Pubspec pubspec, bool usesFlutter,
       {int retryCount = 3}) async {
     return _withTempDir((tempDir) async {
@@ -317,6 +318,62 @@ class ToolEnvironment {
         return true;
       });
     });
+  }
+
+  /// This is maintained because it is used from
+  /// https://github.com/dart-lang/pub-dev/blob/master/app/lib/dartdoc/dartdoc_runner.dart
+  ///
+  /// TODO(sigurdm): dartdoc-runner should probably have its own logic for
+  /// running upgrade.
+  Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,
+      {int retryCount = 3}) async {
+    /// Removes the dev_dependencies from the pubspec.yaml
+    /// Returns the backup file with the original content.
+    Future<File> stripPubspecYaml(String packageDir) async {
+      final now = DateTime.now();
+      final backup = File(p.join(
+          packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'));
+
+      final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
+      final original = await pubspec.readAsString();
+      final parsed = yamlToJson(original);
+      parsed.remove('dev_dependencies');
+      parsed.remove('dependency_overrides');
+
+      await pubspec.rename(backup.path);
+      await pubspec.writeAsString(json.encode(parsed));
+
+      return backup;
+    }
+
+    Future restorePubspecYaml(String packageDir, File backup) async {
+      final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
+      await backup.rename(pubspec.path);
+    }
+
+    final backup = await stripPubspecYaml(packageDir);
+    try {
+      return await retryProc(() async {
+        if (usesFlutter) {
+          return await _execFlutterUpgrade(packageDir, _environment);
+        } else {
+          return await _execPubUpgrade(packageDir, _environment);
+        }
+      }, shouldRetry: (result) {
+        if (result.exitCode == 0) return false;
+        var errOutput = result.stderr as String;
+        // find cases where retrying is not going to help – and short-circuit
+        if (errOutput.contains('Could not get versions for flutter from sdk')) {
+          return false;
+        }
+        if (errOutput.contains('FINE: Exception type: NoVersionException')) {
+          return false;
+        }
+        return true;
+      });
+    } finally {
+      await restorePubspecYaml(packageDir, backup);
+    }
   }
 
   Map<String, String> _globalDartdocEnv() {
@@ -468,11 +525,6 @@ class ToolEnvironment {
     json.remove('dev_dependencies');
     json.remove('dependency_overrides');
     return json;
-  }
-
-  Future _restorePubspecYaml(String packageDir, File backup) async {
-    final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
-    await backup.rename(pubspec.path);
   }
 }
 
