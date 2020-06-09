@@ -913,5 +913,8 @@
     "runtime:native-aot",
     "runtime:native-jit",
     "runtime:web"
-  ]
+  ],
+  "report": {
+    "sections": []
+  }
 }

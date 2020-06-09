@@ -60,6 +60,9 @@ class Summary {
   @JsonKey(includeIfNull: false)
   final List<String> tags;
 
+  @JsonKey(includeIfNull: false)
+  final Report report;
+
   Summary({
     @required this.runtimeInfo,
     @required this.packageName,
@@ -74,6 +77,7 @@ class Summary {
     @required List<Suggestion> suggestions,
     @required this.stats,
     @required this.tags,
+    @required this.report,
   }) : suggestions =
             suggestions != null && suggestions.isNotEmpty ? suggestions : null;
 
@@ -110,6 +114,7 @@ class Summary {
       suggestions: suggestions ?? this.suggestions,
       stats: stats ?? this.stats,
       tags: tags ?? this.tags,
+      report: report,
     );
   }
 }
@@ -1018,4 +1023,45 @@ class Stats {
   factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
 
   Map<String, dynamic> toJson() => _$StatsToJson(this);
+}
+
+/// Models the 'new-style' pana report.
+@JsonSerializable()
+class Report {
+  /// The scoring sections.
+  final List<ReportSection> sections;
+
+  Report({@required this.sections});
+
+  static Report fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
+  Map<String, dynamic> toJson() => _$ReportToJson(this);
+}
+
+@JsonSerializable()
+class ReportSection {
+  final String title;
+
+  /// How many points did this section score
+  final int grantedPoints;
+
+  /// How many points could this section have scored.
+  final int maxPoints;
+
+  /// Should describe the overall goals in a few lines, followed by
+  /// descriptions of each issue that resulted in [grantedPoints] being less
+  /// than  [maxPoints] (if any).
+  ///
+  /// Markdown formatted.
+  final String summary;
+
+  ReportSection({
+    @required this.title,
+    @required this.grantedPoints,
+    @required this.maxPoints,
+    @required this.summary,
+  });
+
+  static ReportSection fromJson(Map<String, dynamic> json) =>
+      _$ReportSectionFromJson(json);
+  Map<String, dynamic> toJson() => _$ReportSectionToJson(this);
 }

@@ -208,7 +208,7 @@
         "constraintType": "normal",
         "constraint": "^0.33.0",
         "resolved": "0.33.6+1",
-        "available": "0.39.8"
+        "available": "0.39.10"
       },
       {
         "package": "args",
@@ -343,7 +343,7 @@
         "package": "js",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "0.6.1+1"
+        "resolved": "0.6.2"
       },
       {
         "package": "kernel",
@@ -364,7 +364,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^2.0.0",
-        "resolved": "2.1.3"
+        "resolved": "2.1.4"
       },
       {
         "package": "matcher",
@@ -18300,5 +18300,8 @@
   "tags": [
     "sdk:dart",
     "runtime:native-jit"
-  ]
+  ],
+  "report": {
+    "sections": []
+  }
 }

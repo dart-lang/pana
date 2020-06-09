@@ -116,5 +116,8 @@
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
   },
-  "tags": []
+  "tags": [],
+  "report": {
+    "sections": []
+  }
 }
