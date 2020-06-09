@@ -341,6 +341,13 @@
   },
   "tags": [],
   "report": {
-    "sections": []
+    "sections": [
+      {
+        "title": "Package supports Dart 2",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "Package gets 20 points if their dart sdk constraint allows Dart 2\n\nThe current sdk constraint does not allow any Dart 2 versions\n</private/var/folders/zf/dv4m6qs906n6t1zhjt9jfdw4006vgn/T/pana-testRMIrIt/pub-cache/hosted/pub.dartlang.org/fs_shim-0.7.1/pubspec.yaml>:8:8\n\n```  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵```\n"
+      }
+    ]
   }
 }
