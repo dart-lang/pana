@@ -1,3 +1,11 @@
+## 0.13.9
+
+* Adds a tag for null safety.
+* Adds suggestions for why tags don't apply.
+* Command line uses `--source=path` by default.
+* Support platform tagging of old-style flutter plugin declarations.
+* Give penality for old-style flutter plugin declarations.
+
 ## 0.13.8
 
 * Fix: NPE after `dartanalyzer` exits with a failure.
