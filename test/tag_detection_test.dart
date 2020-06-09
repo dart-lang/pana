@@ -180,6 +180,56 @@ int fourtyTwo() => 42;
       expectTagging(tagger.runtimeTags, tags: {'runtime:native-jit'});
     });
 
+    test('flutter old style plugins', () async {
+      final decriptor = d.dir('cache', [
+        package('my_package', lib: [
+          d.file('a.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+        ], pubspecExtras: {
+          'environment': {'flutter': '>=1.2.0<=2.0.0'},
+          'flutter': {
+            'plugin': {
+              'iosPrefix': 'my_package',
+              'androidPackage': 'my,.android.package',
+            }
+          }
+        }),
+      ]);
+
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {'platform:ios', 'platform:android'});
+      expectTagging(tagger.runtimeTags, tags: isEmpty);
+    });
+
+    test('flutter old style plugins2', () async {
+      final decriptor = d.dir('cache', [
+        package('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+        ], pubspecExtras: {
+          'environment': {'flutter': '>=1.2.0<=2.0.0'},
+          'flutter': {
+            'plugin': {
+              'iosPrefix': 'my_package',
+            }
+          }
+        })
+      ]);
+
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags, tags: {'platform:ios'});
+      expectTagging(tagger.runtimeTags, tags: isEmpty);
+    });
+
     test('using dart:mirrors disqualifies Flutter and aot', () async {
       final descriptor = d.dir('cache', [
         package('my_package', lib: [

@@ -477,13 +477,18 @@ class _FlutterPlatform {
   final Runtime runtime;
   _FlutterPlatform(this.name, this.runtime);
   static final List<_FlutterPlatform> recognizedPlatforms = [
-    _FlutterPlatform('android', Runtime.flutterNative),
-    _FlutterPlatform('ios', Runtime.flutterNative),
+    android,
+    ios,
     _FlutterPlatform('windows', Runtime.flutterNative),
     _FlutterPlatform('linux', Runtime.flutterNative),
     _FlutterPlatform('macos', Runtime.flutterNative),
     _FlutterPlatform('web', Runtime.flutterWeb)
   ];
+
+  static final _FlutterPlatform ios =
+      _FlutterPlatform('ios', Runtime.flutterNative);
+  static final _FlutterPlatform android =
+      _FlutterPlatform('android', Runtime.flutterNative);
   @override
   String toString() => 'FlutterPlatform($name)';
 
@@ -501,16 +506,27 @@ class _DeclaredFlutterPlatformDetector {
     return _declaredPlatformCache.putIfAbsent(packageName, () {
       final result = <_FlutterPlatform>{};
       final fields = _pubspecCache.pubspecOfPackage(packageName).toJson();
-      if (fields['flutter'] is! Map ||
-          fields['flutter']['plugin'] is! Map ||
-          fields['flutter']['plugin']['platforms'] is! Map) {
+      if (fields['flutter'] is! Map || fields['flutter']['plugin'] is! Map) {
+        // If a package doesn't declare support for any platforms, it is
+        // not a plugin, and can work on any platforms compatible with
+        // imported constraints.
         return _FlutterPlatform.recognizedPlatforms.toSet();
       }
-      final declaredPlatforms = fields['flutter']['plugin']['platforms'] as Map;
-      for (final platform in _FlutterPlatform.recognizedPlatforms) {
-        if (declaredPlatforms.containsKey(platform.name)) {
-          result.add(platform);
+      final pluginMap = fields['flutter']['plugin'] as Map;
+
+      if (pluginMap['platforms'] is Map) {
+        final declaredPlatforms =
+            fields['flutter']['plugin']['platforms'] as Map;
+        for (final platform in _FlutterPlatform.recognizedPlatforms) {
+          if (declaredPlatforms.containsKey(platform.name)) {
+            result.add(platform);
+          }
         }
+      } else {
+        // Legacy style plugin:
+        if (pluginMap['androidPackage'] is String)
+          result.add(_FlutterPlatform.android);
+        if (pluginMap['iosPrefix'] is String) result.add(_FlutterPlatform.ios);
       }
       return result;
     });
