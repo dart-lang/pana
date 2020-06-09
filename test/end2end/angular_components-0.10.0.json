@@ -153,7 +153,7 @@
         "dependencyType": "transitive",
         "constraintType": "inherited",
         "resolved": "0.35.4",
-        "available": "0.39.8"
+        "available": "0.39.10"
       },
       {
         "package": "angular",
@@ -340,7 +340,7 @@
         "dependencyType": "direct",
         "constraintType": "normal",
         "constraint": "^0.6.1",
-        "resolved": "0.6.1+1"
+        "resolved": "0.6.2"
       },
       {
         "package": "json_annotation",
@@ -452,7 +452,7 @@
         "package": "sass",
         "dependencyType": "transitive",
         "constraintType": "inherited",
-        "resolved": "1.26.5"
+        "resolved": "1.26.8"
       },
       {
         "package": "sass_builder",
@@ -46056,5 +46056,8 @@
     "resolveProcessElapsed": 899,
     "totalElapsed": 4567
   },
-  "tags": []
+  "tags": [],
+  "report": {
+    "sections": []
+  }
 }

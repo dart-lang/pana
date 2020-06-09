@@ -2480,5 +2480,8 @@
     "platform:macos",
     "runtime:native-aot",
     "runtime:native-jit"
-  ]
+  ],
+  "report": {
+    "sections": []
+  }
 }
