@@ -47,6 +47,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
         ? null
         : Stats.fromJson(json['stats'] as Map<String, dynamic>),
     tags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
+    report: json['report'] == null
+        ? null
+        : Report.fromJson(json['report'] as Map<String, dynamic>),
   );
 }
 
@@ -74,6 +77,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('dartFiles', instance.dartFiles);
   writeNotNull('stats', instance.stats);
   writeNotNull('tags', instance.tags);
+  writeNotNull('report', instance.report);
   return val;
 }
 
@@ -425,4 +429,35 @@ Map<String, dynamic> _$StatsToJson(Stats instance) => <String, dynamic>{
       'formatProcessElapsed': instance.formatProcessElapsed,
       'resolveProcessElapsed': instance.resolveProcessElapsed,
       'totalElapsed': instance.totalElapsed,
+    };
+
+Report _$ReportFromJson(Map<String, dynamic> json) {
+  return Report(
+    sections: (json['sections'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ReportSection.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
+}
+
+Map<String, dynamic> _$ReportToJson(Report instance) => <String, dynamic>{
+      'sections': instance.sections,
+    };
+
+ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) {
+  return ReportSection(
+    title: json['title'] as String,
+    grantedPoints: json['grantedPoints'] as int,
+    maxPoints: json['maxPoints'] as int,
+    summary: json['summary'] as String,
+  );
+}
+
+Map<String, dynamic> _$ReportSectionToJson(ReportSection instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'grantedPoints': instance.grantedPoints,
+      'maxPoints': instance.maxPoints,
+      'summary': instance.summary,
     };

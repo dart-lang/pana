@@ -147,6 +147,7 @@ class PackageAnalyzer {
         suggestions: suggestions,
         stats: null,
         tags: null,
+        report: null,
       );
     }
     if (pubspec.hasUnknownSdks) {
@@ -458,6 +459,7 @@ class PackageAnalyzer {
       suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
       tags: tags,
+      report: Report(sections: []),
     );
   }
 
