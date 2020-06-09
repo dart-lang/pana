@@ -226,7 +226,8 @@ int fourtyTwo() => 42;
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
       expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
-      expectTagging(tagger.flutterPlatformTags, tags: {'platform:ios'});
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {'platform:ios', 'platform:android'});
       expectTagging(tagger.runtimeTags, tags: isEmpty);
     });
 

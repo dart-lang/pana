@@ -513,10 +513,8 @@ class _DeclaredFlutterPlatformDetector {
         return _FlutterPlatform.recognizedPlatforms.toSet();
       }
       final pluginMap = fields['flutter']['plugin'] as Map;
-
-      if (pluginMap['platforms'] is Map) {
-        final declaredPlatforms =
-            fields['flutter']['plugin']['platforms'] as Map;
+      final declaredPlatforms = pluginMap['platforms'];
+      if (declaredPlatforms is Map) {
         for (final platform in _FlutterPlatform.recognizedPlatforms) {
           if (declaredPlatforms.containsKey(platform.name)) {
             result.add(platform);
@@ -524,10 +522,10 @@ class _DeclaredFlutterPlatformDetector {
         }
       } else {
         // Legacy style plugin:
-        if (pluginMap['androidPackage'] is String) {
+        if (pluginMap['pluginClass'] is String ||
+            pluginMap['androidPackage'] is String ||
+            pluginMap['iosPrefix'] is String) {
           result.add(_FlutterPlatform.android);
-        }
-        if (pluginMap['iosPrefix'] is String) {
           result.add(_FlutterPlatform.ios);
         }
       }
