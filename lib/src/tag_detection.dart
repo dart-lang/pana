@@ -524,9 +524,12 @@ class _DeclaredFlutterPlatformDetector {
         }
       } else {
         // Legacy style plugin:
-        if (pluginMap['androidPackage'] is String)
+        if (pluginMap['androidPackage'] is String) {
           result.add(_FlutterPlatform.android);
-        if (pluginMap['iosPrefix'] is String) result.add(_FlutterPlatform.ios);
+        }
+        if (pluginMap['iosPrefix'] is String) {
+          result.add(_FlutterPlatform.ios);
+        }
       }
       return result;
     });
