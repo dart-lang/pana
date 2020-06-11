@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
@@ -20,12 +21,12 @@ Future<Report> createReport(
   }
 
   return Report(sections: [
-    _supportsDart2(pubspec),
+    _supportsDart2(packageDir, pubspec),
     // TODO(sigurdm):Implement rest of sections.
   ]);
 }
 
-ReportSection _supportsDart2(Pubspec pubspec) {
+ReportSection _supportsDart2(String packageDir, Pubspec pubspec) {
   final supportsDart2 = pubspec.sdkConstraintStatus.isDart2Compatible;
   final issues = <_Issue>[];
 
@@ -66,7 +67,8 @@ environment:
       grantedPoints: supportsDart2 ? 20 : 0,
       summary: _makeSummary(
           'Package gets 20 points if its Dart sdk constraint allows Dart 2.',
-          issues));
+          issues,
+          basePath: packageDir));
 }
 
 /// A single issue found by the analysis.
@@ -89,37 +91,41 @@ class _Issue {
 
   _Issue(this.description, {this.span, this.suggestion});
 
-  @override
-  String toString() {
+  String markdown({@required String basePath}) {
     return [
       description,
-      if (span != null) span.markdown,
+      if (span != null) span.markdown(basePath: basePath),
       if (suggestion != null) suggestion
     ].join('\n');
   }
 }
 
 extension on SourceSpan {
-  /// An attempt to render [SourceSpan]s in a markdown-friendly way
-  String get markdown {
+  /// An attempt to render [SourceSpan]s in a markdown-friendly way.
+  ///
+  /// The file path will be relative to [basePath].
+  String markdown({@required String basePath}) {
     assert(sourceUrl != null);
-    return '`${p.prettyUri(sourceUrl)}:${start.line + 1}:${start.column + 1}`\n\n'
+    final path = p.relative(sourceUrl.path, from: basePath);
+    return '`$path:${start.line + 1}:${start.column + 1}`\n\n'
         '```\n${highlight()}\n```\n';
   }
 }
 
 /// Given an introduction and a list of issues, formats the summary of a
 /// section.
-String _makeSummary(String introduction, List<_Issue> issues) {
+String _makeSummary(String introduction, List<_Issue> issues,
+    {@required String basePath}) {
+  final issuesMarkdown = issues.map((e) => e.markdown(basePath: basePath));
   return [
     introduction,
     if (issues.isNotEmpty) ...[
       '',
       if (issues.length <= 2)
-        ...issues
+        ...issuesMarkdown
       else ...[
         'Found ${issues.length} issues. Showing the first two:',
-        ...issues.take(2),
+        ...issuesMarkdown.take(2),
       ],
     ],
   ].join('\n');
