@@ -26,7 +26,7 @@ Future<Report> createReport(
 }
 
 ReportSection _supportsDart2(Pubspec pubspec) {
-  final supportsDart2 = pubspec.supportsDart2;
+  final supportsDart2 = pubspec.sdkConstraintStatus.isDart2Compatible;
   final issues = <_Issue>[];
 
   if (!supportsDart2) {

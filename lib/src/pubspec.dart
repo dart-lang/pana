@@ -7,8 +7,6 @@ import 'package:pubspec_parse/pubspec_parse.dart' as pubspek show Pubspec;
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 import 'package:yaml/yaml.dart' as yaml;
 
-import 'utils.dart';
-
 class Pubspec {
   final pubspek.Pubspec _inner;
   final Map _content;
@@ -130,16 +128,6 @@ class Pubspec {
         'iosPrefix',
         'pluginClass',
       }.any((_inner.flutter['plugin'] as Map<String, Object>).containsKey);
-
-  /// 'true' if any dart2 versions of the sdk are supported.
-  bool get supportsDart2 {
-    final environment = _inner.environment;
-    final sdkConstraint =
-        environment['sdk'] ?? VersionConstraint.parse('<2.0.0');
-    return !sdkConstraint
-        .intersect(VersionConstraint.parse('>=2.0.0 <3.0.0'))
-        .isEmpty;
-  }
 }
 
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
