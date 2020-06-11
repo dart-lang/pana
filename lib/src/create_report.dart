@@ -30,7 +30,7 @@ ReportSection _supportsDart2(Pubspec pubspec) {
   final issues = <_Issue>[];
 
   if (!supportsDart2) {
-    final environment = pubspec.toJson()['environment'] as Map;
+    final environment = pubspec.environment;
     SourceSpan span;
     if (environment is YamlMap) {
       final sdk = environment.nodes['sdk'];
@@ -39,11 +39,24 @@ ReportSection _supportsDart2(Pubspec pubspec) {
       }
     }
 
+    final sdk = environment == null ? false : environment['sdk'];
+
     issues.add(
-      _Issue(
-        'The current sdk constraint does not allow any Dart 2 versions',
-        span: span,
-      ),
+      sdk is String
+          ? _Issue(
+              'The current sdk constraint $sdk does not allow any Dart 2 versions.',
+              span: span,
+            )
+          : _Issue(
+              '`pubspec.yaml` has no sdk constraint. '
+              'Dart 2 support requires an sdk-constraint.',
+              suggestion: '''
+Add an sdk-constraint to `pubspec.yaml`. For example:
+```
+environment:
+  sdk: '>=2.8.0 <3.0.0'
+```
+'''),
     );
   }
 
@@ -52,7 +65,7 @@ ReportSection _supportsDart2(Pubspec pubspec) {
       maxPoints: 20,
       grantedPoints: supportsDart2 ? 20 : 0,
       summary: _makeSummary(
-          'Package gets 20 points if their dart sdk constraint allows Dart 2',
+          'Package gets 20 points if its Dart sdk constraint allows Dart 2.',
           issues));
 }
 
@@ -90,8 +103,8 @@ extension on SourceSpan {
   /// An attempt to render [SourceSpan]s in a markdown-friendly way
   String get markdown {
     assert(sourceUrl != null);
-    return '<${p.prettyUri(sourceUrl)}>:${start.line + 1}:${start.column + 1}\n\n'
-        '```${highlight()}```\n';
+    return '`${p.prettyUri(sourceUrl)}:${start.line + 1}:${start.column + 1}`\n\n'
+        '```\n${highlight()}\n```\n';
   }
 }
 
@@ -106,7 +119,7 @@ String _makeSummary(String introduction, List<_Issue> issues) {
         ...issues
       else ...[
         'Found ${issues.length} issues. Showing the first two:',
-        ...issues.take(2).map((x) => x.toString()),
+        ...issues.take(2),
       ],
     ],
   ].join('\n');
