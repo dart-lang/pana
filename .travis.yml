@@ -3,6 +3,11 @@ language: dart
 dart:
   - 2.8.3
 
+os:
+  - linux
+  - osx
+  - windows
+
 dart_task:
   # Run the tests -- include the default-skipped presubmit tests
   # Run with concurrency = 1 – the build-test command edits files, which might
