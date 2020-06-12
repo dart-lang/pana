@@ -10,10 +10,11 @@ import 'package:test/test.dart';
 
 import 'package:pana/pana.dart';
 import 'package:pana/src/version.dart';
+import 'package:path/path.dart' as p;
 
-const String goldenDir = 'test/end2end';
+import 'golden_file.dart';
 
-final _regenerateGoldens = false;
+String goldenDir = p.join('test', 'golden', 'end2end');
 
 void main() {
   Directory tempDir;
@@ -86,13 +87,6 @@ void main() {
       });
 
       test('matches known good', () {
-        final file = File('$goldenDir/$fileName');
-        if (_regenerateGoldens) {
-          final content = const JsonEncoder.withIndent('  ').convert(actualMap);
-          file.writeAsStringSync(content);
-          fail('Set `_regenerateGoldens` to `false` to run tests.');
-        }
-
         void removeDependencyDetails(Map map) {
           if (map.containsKey('pkgResolution') &&
               (map['pkgResolution'] as Map).containsKey('dependencies')) {
@@ -105,14 +99,13 @@ void main() {
           }
         }
 
-        final content = json.decode(file.readAsStringSync()) as Map;
-
         // Reduce the time-invariability of the tests: resolved and available
         // versions may change over time or because of SDK version changes.
         removeDependencyDetails(actualMap);
-        removeDependencyDetails(content);
 
-        expect(actualMap, content);
+        expectMatchesGoldenFile(
+            const JsonEncoder.withIndent('  ').convert(actualMap),
+            p.join(goldenDir, fileName));
       });
 
       test('Summary can round-trip', () {
