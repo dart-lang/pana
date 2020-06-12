@@ -460,9 +460,6 @@ class DartSdkInfo {
   }
 }
 
-final _versionDownloadRegexp =
-    RegExp(r'^MSG : (?:Downloading |Already cached )([\w-]+) (.+)$');
-
 const _pubCacheKey = 'PUB_CACHE';
 const _pubEnvironmentKey = 'PUB_ENVIRONMENT';
 

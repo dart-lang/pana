@@ -15,7 +15,7 @@ import 'utils.dart';
 
 final imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
-/// Downloads [package] and unpacks it into [destinationDir]
+/// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
   String package,
   String version, {
@@ -177,7 +177,7 @@ String _findTarPath() {
   return 'tar';
 }
 
-/// Extracts a `.tar.gz` file from [stream] to [destination].
+/// Extracts a `.tar.gz` file from [tarball] to [destination].
 Future extractTarGz(List<int> tarball, String destination) async {
   log.fine('Extracting .tar.gz stream to $destination.');
   final decompressed = GZipCodec().decode(tarball);
