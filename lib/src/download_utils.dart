@@ -154,7 +154,7 @@ class UrlChecker {
 
 final String _pathTo7zip = (() {
   return p.join(p.dirname(p.dirname(Platform.resolvedExecutable)), 'lib',
-      '_internal', 'pub', 'asset' '7zip', '7za.exe');
+      '_internal', 'pub', 'asset', '7zip', '7za.exe');
 })();
 
 String _tarPath = _findTarPath();
