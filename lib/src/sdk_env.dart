@@ -372,59 +372,6 @@ class ToolEnvironment {
     return DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
   }
 
-  Future<PackageLocation> getLocation(String package, {String version}) async {
-    var args = ['cache', 'add', '--verbose'];
-    if (version != null) {
-      args.addAll(['--version', version]);
-    }
-    args.add(package);
-
-    var result = handleProcessErrors(
-      await retryProc(
-        () => runProc(
-          _pubCmd,
-          args,
-          environment: _environment,
-        ),
-      ),
-    );
-
-    var match = _versionDownloadRegexp
-        .allMatches((result.stdout as String).trim())
-        .single;
-    var pkgMatch = match[1];
-    assert(pkgMatch == package);
-
-    var versionString = match[2];
-    assert(versionString.endsWith('.'));
-    while (versionString.endsWith('.')) {
-      versionString = versionString.substring(0, versionString.length - 1);
-    }
-
-    if (version != null) {
-      assert(versionString == version);
-    }
-
-    // now get all installed packages
-    result = handleProcessErrors(
-      await retryProc(
-        () => runProc(_pubCmd, ['cache', 'list'], environment: _environment),
-        sleep: const Duration(seconds: 5),
-      ),
-    );
-
-    var map = json.decode(result.stdout as String) as Map;
-
-    var location =
-        map['packages'][package][versionString]['location'] as String;
-
-    if (location == null) {
-      throw Exception('Huh? This should be cached!');
-    }
-
-    return PackageLocation(package, versionString, location);
-  }
-
   ProcessResult listPackageDirsSync(String packageDir, bool usesFlutter) {
     if (usesFlutter) {
       // flutter env

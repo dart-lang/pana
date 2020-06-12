@@ -35,7 +35,6 @@ enum Verbosity {
 
 class InspectOptions {
   final Verbosity verbosity;
-  final bool deleteTemporaryDirectory;
   final String pubHostedUrl;
   final String dartdocOutputDir;
   final int dartdocRetry;
@@ -46,7 +45,6 @@ class InspectOptions {
 
   InspectOptions({
     this.verbosity = Verbosity.normal,
-    this.deleteTemporaryDirectory = true,
     this.pubHostedUrl,
     this.dartdocOutputDir,
     this.dartdocRetry = 0,
@@ -81,27 +79,11 @@ class PackageAnalyzer {
     options ??= InspectOptions();
     return withLogger(() async {
       log.info('Downloading package $package ${version ?? 'latest'}');
-      String packageDir;
-      Directory tempDir;
-      if (version != null) {
-        tempDir = await downloadPackage(package, version,
-            pubHostedUrl: options.pubHostedUrl);
-        packageDir = tempDir?.path;
-      }
-      if (packageDir == null) {
-        var pkgInfo = await _toolEnv.getLocation(package, version: version);
-        packageDir = pkgInfo.location;
-      }
-      try {
-        return await _inspect(packageDir, options);
-      } finally {
-        if (options.deleteTemporaryDirectory) {
-          await tempDir?.delete(recursive: true);
-        } else {
-          log.warning(
-              'Temporary directory was not deleted: `${tempDir.path}`.');
-        }
-      }
+      return withTempDir((tempDir) async {
+        await downloadPackage(package, version,
+            destination: tempDir, pubHostedUrl: options.pubHostedUrl);
+        return await _inspect(tempDir, options);
+      });
     }, logger: logger);
   }
 

@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:safe_url_check/safe_url_check.dart';
 
@@ -14,12 +15,11 @@ import 'utils.dart';
 
 final imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
-/// Returns a non-null Directory instance only if it is able to download and
-/// extract the direct package dependency. On any failure it clears the temp
-/// directory, otherwise it is the caller's responsibility to delete it.
-Future<Directory> downloadPackage(
+/// Downloads [package] and unpacks it into [destinationDir]
+Future<void> downloadPackage(
   String package,
   String version, {
+  @required String destination,
   String pubHostedUrl,
 }) async {
   // Find URI for the package tar-ball
@@ -27,63 +27,27 @@ Future<Directory> downloadPackage(
   final packageUri = pubHostedUri.replace(
     path: '/packages/$package/versions/$version.tar.gz',
   );
+  await extractTarGz(await http.readBytes(packageUri), destination);
 
-  // Create a temporary directory for the tar-ball
-  final tmpTarDir = await Directory.systemTemp.createTemp('pana-');
-  var tmpPkgDir = await Directory.systemTemp.createTemp('pana-');
-  tmpPkgDir = Directory(await tmpPkgDir.resolveSymbolicLinks());
-  try {
-    // Download package
-    final tarballFile = p.join(tmpTarDir.uri.toFilePath(), 'pkg.tar.gz');
-    // TODO: Wrap this in retry-loop using package:retry
-    await File(tarballFile).writeAsBytes(await http.readBytes(packageUri));
+  // Delete all symlinks in the extracted folder
+  await Future.wait(
+    await Directory(destination)
+        .list(recursive: true, followLinks: false)
+        .where((e) => e is Link)
+        .map((e) => e.delete())
+        .toList(),
+  );
 
-    // Extract downloaded package
-    final tar = await runProc('/bin/tar', [
-      '-xzf',
-      tarballFile,
-      '-C',
-      tmpPkgDir.path,
-    ]);
-    if (tar.exitCode != 0) {
-      log.warning(
-          'Tar extraction failed with exitcode=${tar.exitCode}: ${tar.stdout}');
-      return null;
-    }
-
-    // Delete all symlinks in the extracted folder
-    await Future.wait(
-      await tmpPkgDir
-          .list(recursive: true, followLinks: false)
-          .where((e) => e is Link)
-          .map((e) => e.delete())
-          .toList(),
-    );
-
-    // Removed all executable permissions from extracted files
-    final chmod = await runProc('/bin/chmod', [
-      '-R',
-      '-x+X',
-      tmpPkgDir.path,
-    ]);
-    if (chmod.exitCode != 0) {
-      log.severe('chmod of extract data failed');
-      return null;
-    }
-
-    // Return the tmpPkgDir
-    final retval = tmpPkgDir;
-    tmpPkgDir = null; // ensure this is null, so it's not deleted in final
-    return retval;
-  } catch (e, st) {
-    log.warning('Unable to download the archive of $package $version.', e, st);
-  } finally {
-    await Future.wait([
-      tmpTarDir.delete(recursive: true),
-      if (tmpPkgDir != null) tmpPkgDir.delete(recursive: true),
-    ]);
+  // Removed all executable permissions from extracted files
+  final chmod = await runProc('/bin/chmod', [
+    '-R',
+    '-x+X',
+    destination,
+  ]);
+  if (chmod.exitCode != 0) {
+    log.severe('chmod of extract data failed');
+    return null;
   }
-  return null;
 }
 
 /// Returns an URL that is likely the downloadable URL of the given path.
@@ -185,5 +149,85 @@ class UrlChecker {
     }
     final exists = await safeUrlCheck(uri);
     return exists ? UrlStatus.exists : UrlStatus.missing;
+  }
+}
+
+final String _pathTo7zip = (() {
+  return p.join(p.dirname(p.dirname(Platform.resolvedExecutable)), 'lib',
+      '_internal', 'pub', 'asset' '7zip', '7za.exe');
+})();
+
+String _tarPath = _findTarPath();
+
+/// Find a tar. Prefering system installed tar.
+///
+/// On linux tar should always be /bin/tar [See FHS 2.3][1]
+/// On MacOS it seems to always be /usr/bin/tar.
+///
+/// [1]: https://refspecs.linuxfoundation.org/FHS_2.3/fhs-2.3.pdf
+String _findTarPath() {
+  for (final file in ['/bin/tar', '/usr/bin/tar']) {
+    if (File(file).existsSync()) {
+      return file;
+    }
+  }
+  log.warning(
+      'Could not find a system `tar` installed in /bin/tar or /usr/bin/tar, '
+      'attempting to use tar from PATH');
+  return 'tar';
+}
+
+/// Extracts a `.tar.gz` file from [stream] to [destination].
+Future extractTarGz(List<int> tarball, String destination) async {
+  log.fine('Extracting .tar.gz stream to $destination.');
+  final decompressed = GZipCodec().decode(tarball);
+
+  // We used to stream directly to `tar`,  but that was fragile in certain
+  // settings.
+  final processResult = await withTempDir((tempDir) async {
+    final tarFile = p.join(tempDir, 'archive.tar');
+    try {
+      File(tarFile).writeAsBytesSync(decompressed);
+    } catch (e) {
+      // We don't know the error type here: https://dartbug.com/41270
+      throw FileSystemException('Could not decompress gz stream $e');
+    }
+    return (Platform.isWindows)
+        ? Process.runSync(_pathTo7zip, ['x', tarFile],
+            workingDirectory: destination)
+        : Process.runSync(_tarPath, [
+            '--extract',
+            '--no-same-owner',
+            '--no-same-permissions',
+            '--directory',
+            destination,
+            '--file',
+            tarFile,
+          ]);
+  });
+  if (processResult.exitCode != 0) {
+    throw FileSystemException(
+        'Could not un-tar (exit code ${processResult.exitCode}). Error:\n'
+        '${processResult.stdout.join("\n")}\n'
+        '${processResult.stderr.join("\n")}');
+  }
+  log.fine('Extracted .tar.gz to $destination. Exit code $exitCode.');
+}
+
+/// Creates a temporary directory and passes its path to [fn].
+///
+/// Once the [Future] returned by [fn] completes, the temporary directory and
+/// all its contents are deleted. [fn] can also return `null`, in which case
+/// the temporary directory is deleted immediately afterwards.
+///
+/// Returns a future that completes to the value that the future returned from
+/// [fn] completes to.
+Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
+  Directory tempDir;
+  try {
+    tempDir = await Directory.systemTemp.createTemp('pana_');
+    return await fn(tempDir.resolveSymbolicLinksSync());
+  } finally {
+    tempDir?.deleteSync(recursive: true);
   }
 }
