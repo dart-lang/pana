@@ -75,11 +75,11 @@ String getRepositoryUrl(String repository, String relativePath) {
       if (segments.length < 2) {
         return null;
       } else if (segments.length == 2) {
-        return p.join(repository, typeSegment, 'master', relativePath);
+        return p.url.join(repository, typeSegment, 'master', relativePath);
       } else if (segments[2] == 'tree' || segments[2] == 'blob') {
         segments[2] = typeSegment;
         final newUrl = uri.replace(pathSegments: segments).toString();
-        return p.join(newUrl, relativePath);
+        return p.url.join(newUrl, relativePath);
       } else {
         return null;
       }
