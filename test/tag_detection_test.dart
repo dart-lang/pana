@@ -472,7 +472,7 @@ name: my_package
       expectTagging(tagger.nullSafetyTags,
           tags: ['is:null-safe'], suggestions: isEmpty);
     });
-    test('opting a library out (even one not reacahble from primary) fails',
+    test('opting a library out (even one not reachahble from primary) fails',
         () async {
       final descriptor = d.dir('cache', [
         package('my_package', sdkConstraint: '>=2.11.0 <3.0.0', lib: [
@@ -491,9 +491,10 @@ name: my_package
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, suggestions: [
         hint(
-            title: 'Package is not null safe',
-            description:
-                'Because src/stray_file.dart is opting out in package package:my_package'),
+          title: 'Package is not null safe',
+          description:
+              'Because src/stray_file.dart is opting out in package package:my_package',
+        ),
       ]);
     });
 
