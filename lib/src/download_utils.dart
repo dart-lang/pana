@@ -38,15 +38,16 @@ Future<void> downloadPackage(
         .toList(),
   );
 
-  // Removed all executable permissions from extracted files
-  final chmod = await runProc('/bin/chmod', [
-    '-R',
-    '-x+X',
-    destination,
-  ]);
-  if (chmod.exitCode != 0) {
-    log.severe('chmod of extract data failed');
-    return null;
+  if (!Platform.isWindows) {
+    // Remove all executable permissions from extracted files
+    final chmod = await runProc('/bin/chmod', [
+      '-R',
+      '-x+X',
+      destination,
+    ]);
+    if (chmod.exitCode != 0) {
+      throw const FileSystemException('chmod of extract data failed');
+    }
   }
 }
 
