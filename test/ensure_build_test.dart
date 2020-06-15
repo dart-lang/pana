@@ -5,8 +5,11 @@ import 'package:build_verify/build_verify.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('ensure_build', expectBuildClean,
-      skip:
-          // TODO(sigurdm): investigate why we need this.
-          Platform.isWindows ? 'Build does not look clean in windows' : false);
+  test('ensure_build', () {
+    // TODO(sigurdm): investigate why the build doesn't come clean on
+    // Windows.
+    if (!Platform.isWindows) {
+      expectBuildClean();
+    }
+  });
 }
