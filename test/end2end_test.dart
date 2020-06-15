@@ -28,7 +28,7 @@ void main() {
       if (!Directory(tempDir).existsSync()) {
         throw "Failed creating library";
       }
-      final pubCacheDir = p.join('$tempDir', 'pub-cache');
+      final pubCacheDir = p.join(tempDir, 'pub-cache');
       await Directory(pubCacheDir).create();
       analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
     });
