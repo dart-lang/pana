@@ -33,7 +33,7 @@ void main() {
     await process.shouldExit(ExitCode.usage.code);
 
     var readme = File('README.md');
-    expect(readme.readAsStringSync(),
+    expect(readme.readAsStringSync().replaceAll('\r\n', '\n'),
         contains('```\n${File(helpGoldenPath).readAsStringSync()}\n```'));
   });
 }
