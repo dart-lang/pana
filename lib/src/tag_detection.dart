@@ -679,11 +679,11 @@ class _NullSafetyViolationFinder {
               print('$file $unit');
               if (unit == null) continue;
               final languageVersionToken = unit.languageVersionToken;
+              print('languageversion: $languageVersionToken');
               if (languageVersionToken == null) continue;
               final version = Version.parse(
                 '${languageVersionToken.major}.${languageVersionToken.minor}.0',
               );
-              print('languageversion: $languageVersionToken');
               if (version < _firstVersionWithNullSafety) {
                 return (path) => Suggestion.hint(
                       SuggestionCode.notCompatible,
