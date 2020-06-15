@@ -674,10 +674,8 @@ class _NullSafetyViolationFinder {
           (packageName) {
             for (final file
                 in _dartFilesFromLib(pubspecCache._packageDir(packageName))) {
-              final unit = _parsedUnitFromUri(
-                  analysisSession,
-                  Uri.parse(
-                      'package:$packageName/${path.url.normalize(file)}'));
+              final unit = _parsedUnitFromUri(analysisSession,
+                  Uri.parse('package:$packageName/${path.toUri(file).path}'));
               if (unit == null) continue;
               final languageVersionToken = unit.languageVersionToken;
               if (languageVersionToken == null) continue;
