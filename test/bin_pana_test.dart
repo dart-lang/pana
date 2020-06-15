@@ -19,7 +19,8 @@ void main() {
   test('run with bad option shows help text. Help text is included in readme ',
       () async {
     var process = await TestProcess.start(
-        p.join(p.dirname(Platform.resolvedExecutable), 'pub'),
+        p.join(p.dirname(Platform.resolvedExecutable),
+            Platform.isWindows ? 'pub.exe' : 'pub'),
         ['run', 'pana', '--monkey']);
 
     var output = await process.stdoutStream().join('\n');
