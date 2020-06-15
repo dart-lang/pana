@@ -672,17 +672,18 @@ class _NullSafetyViolationFinder {
         _noOptoutViolationFinder = _PathFinder(
           packageGraph,
           (packageName) {
-            print(_dartFilesFromLib(pubspecCache._packageDir(packageName)));
             for (final file
                 in _dartFilesFromLib(pubspecCache._packageDir(packageName))) {
               final unit = _parsedUnitFromUri(
                   analysisSession, Uri.parse('package:$packageName/$file'));
+              print('$file $unit');
               if (unit == null) continue;
               final languageVersionToken = unit.languageVersionToken;
               if (languageVersionToken == null) continue;
               final version = Version.parse(
                 '${languageVersionToken.major}.${languageVersionToken.minor}.0',
               );
+              print('languageversion: $languageVersionToken');
               if (version < _firstVersionWithNullSafety) {
                 return (path) => Suggestion.hint(
                       SuggestionCode.notCompatible,
