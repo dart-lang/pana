@@ -20,117 +20,119 @@ void main() {
   String tempDir;
   PackageAnalyzer analyzer;
 
-  setUpAll(() async {
-    tempDir = Directory.systemTemp
-        .createTempSync('pana-test')
-        .resolveSymbolicLinksSync();
-    if (!Directory(tempDir).existsSync()) {
-      throw "Failed creating library";
-    }
-    final pubCacheDir = p.join('$tempDir', 'pub-cache');
-    await Directory(pubCacheDir).create();
-    analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
-  });
+  group('group', () {
+    setUpAll(() async {
+      tempDir = Directory.systemTemp
+          .createTempSync('pana-test')
+          .resolveSymbolicLinksSync();
+      if (!Directory(tempDir).existsSync()) {
+        throw "Failed creating library";
+      }
+      final pubCacheDir = p.join('$tempDir', 'pub-cache');
+      await Directory(pubCacheDir).create();
+      analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
+    });
 
-  tearDownAll(() async {
-    await Directory(tempDir).delete(recursive: true);
-  });
+    tearDownAll(() async {
+      await Directory(tempDir).delete(recursive: true);
+    });
 
-  void _verifyPackage(String fileName, String package, String version,
-      {bool hasStats = true}) {
-    group('end2end: $package $version', () {
-      Map<String, dynamic> actualMap;
+    void _verifyPackage(String fileName, String package, String version,
+        {bool hasStats = true}) {
+      group('end2end: $package $version', () {
+        Map<String, dynamic> actualMap;
 
-      setUpAll(() async {
-        var summary = await analyzer.inspectPackage(
-          package,
-          version: version,
-          options: InspectOptions(
-            verbosity: Verbosity.verbose,
-          ),
-        );
-
-        // Fixed version strings to reduce changes on each upgrades.
-        assert(summary.runtimeInfo.panaVersion == packageVersion);
-        final sdkVersion = summary.runtimeInfo.sdkVersion;
-        assert(sdkVersion != null);
-        summary = summary.change(
-            runtimeInfo: PanaRuntimeInfo(
-          panaVersion: '{{pana-version}}',
-          sdkVersion: '{{sdk-version}}',
-          flutterVersions: {},
-        ));
-
-        // Fixed stats to reduce changes on each modification.
-        if (hasStats) {
-          assert(summary.stats != null);
-          assert(summary.stats.analyzeProcessElapsed != null);
-          assert(summary.stats.formatProcessElapsed != null);
-          assert(summary.stats.resolveProcessElapsed != null);
-          assert(summary.stats.totalElapsed != null);
-          summary = summary.change(
-            stats: Stats(
-              analyzeProcessElapsed: 1234,
-              formatProcessElapsed: 567,
-              resolveProcessElapsed: 899,
-              totalElapsed: 4567,
+        setUpAll(() async {
+          var summary = await analyzer.inspectPackage(
+            package,
+            version: version,
+            options: InspectOptions(
+              verbosity: Verbosity.verbose,
             ),
           );
-        }
 
-        // summary.toJson contains types which are not directly JSON-able
-        // throwing it through `JSON.encode` does the trick
-        final encoded = json.encode(summary);
-        final updated = encoded
-            .replaceAll(
-                '"sdkVersion":"$sdkVersion"', '"sdkVersion":"{{sdk-version}}"')
-            .replaceAll('The current Dart SDK version is $sdkVersion.',
-                'The current Dart SDK version is {{sdk-version}}.');
-        actualMap = json.decode(updated) as Map<String, dynamic>;
-      });
+          // Fixed version strings to reduce changes on each upgrades.
+          assert(summary.runtimeInfo.panaVersion == packageVersion);
+          final sdkVersion = summary.runtimeInfo.sdkVersion;
+          assert(sdkVersion != null);
+          summary = summary.change(
+              runtimeInfo: PanaRuntimeInfo(
+            panaVersion: '{{pana-version}}',
+            sdkVersion: '{{sdk-version}}',
+            flutterVersions: {},
+          ));
 
-      test('matches known good', () {
-        void removeDependencyDetails(Map map) {
-          if (map.containsKey('pkgResolution') &&
-              (map['pkgResolution'] as Map).containsKey('dependencies')) {
-            final deps = (map['pkgResolution']['dependencies'] as List)
-                .cast<Map<dynamic, dynamic>>();
-            deps?.forEach((Map m) {
-              m.remove('resolved');
-              m.remove('available');
-            });
+          // Fixed stats to reduce changes on each modification.
+          if (hasStats) {
+            assert(summary.stats != null);
+            assert(summary.stats.analyzeProcessElapsed != null);
+            assert(summary.stats.formatProcessElapsed != null);
+            assert(summary.stats.resolveProcessElapsed != null);
+            assert(summary.stats.totalElapsed != null);
+            summary = summary.change(
+              stats: Stats(
+                analyzeProcessElapsed: 1234,
+                formatProcessElapsed: 567,
+                resolveProcessElapsed: 899,
+                totalElapsed: 4567,
+              ),
+            );
           }
-        }
 
-        // Reduce the time-invariability of the tests: resolved and available
-        // versions may change over time or because of SDK version changes.
-        removeDependencyDetails(actualMap);
+          // summary.toJson contains types which are not directly JSON-able
+          // throwing it through `JSON.encode` does the trick
+          final encoded = json.encode(summary);
+          final updated = encoded
+              .replaceAll('"sdkVersion":"$sdkVersion"',
+                  '"sdkVersion":"{{sdk-version}}"')
+              .replaceAll('The current Dart SDK version is $sdkVersion.',
+                  'The current Dart SDK version is {{sdk-version}}.');
+          actualMap = json.decode(updated) as Map<String, dynamic>;
+        });
 
-        expectMatchesGoldenFile(
-            const JsonEncoder.withIndent('  ').convert(actualMap),
-            p.join(goldenDir, fileName));
-      });
+        test('matches known good', () {
+          void removeDependencyDetails(Map map) {
+            if (map.containsKey('pkgResolution') &&
+                (map['pkgResolution'] as Map).containsKey('dependencies')) {
+              final deps = (map['pkgResolution']['dependencies'] as List)
+                  .cast<Map<dynamic, dynamic>>();
+              deps?.forEach((Map m) {
+                m.remove('resolved');
+                m.remove('available');
+              });
+            }
+          }
 
-      test('Summary can round-trip', () {
-        var summary = Summary.fromJson(actualMap);
+          // Reduce the time-invariability of the tests: resolved and available
+          // versions may change over time or because of SDK version changes.
+          removeDependencyDetails(actualMap);
 
-        var roundTrip = json.decode(json.encode(summary));
-        expect(roundTrip, actualMap);
-      });
-    }, timeout: const Timeout.factor(2));
-  }
+          expectMatchesGoldenFile(
+              const JsonEncoder.withIndent('  ').convert(actualMap),
+              p.join(goldenDir, fileName));
+        });
 
-  _verifyPackage(
-      'angular_components-0.10.0.json', 'angular_components', '0.10.0');
-  _verifyPackage('dartdoc-0.24.1.json', 'dartdoc', '0.24.1');
-  _verifyPackage('http-0.11.3-17.json', 'http', '0.11.3+17');
-  _verifyPackage('pub_server-0.1.4-2.json', 'pub_server', '0.1.4+2');
-  _verifyPackage('skiplist-0.1.0.json', 'skiplist', '0.1.0');
-  _verifyPackage('stream-2.0.1.json', 'stream', '2.0.1');
-  _verifyPackage('fs_shim-0.7.1.json', 'fs_shim', '0.7.1');
+        test('Summary can round-trip', () {
+          var summary = Summary.fromJson(actualMap);
 
-  // packages with bad content
-  _verifyPackage('syntax-0.2.0.json', 'syntax', '0.2.0', hasStats: false);
+          var roundTrip = json.decode(json.encode(summary));
+          expect(roundTrip, actualMap);
+        });
+      }, timeout: const Timeout.factor(2));
+    }
+
+    _verifyPackage(
+        'angular_components-0.10.0.json', 'angular_components', '0.10.0');
+    _verifyPackage('dartdoc-0.24.1.json', 'dartdoc', '0.24.1');
+    _verifyPackage('http-0.11.3-17.json', 'http', '0.11.3+17');
+    _verifyPackage('pub_server-0.1.4-2.json', 'pub_server', '0.1.4+2');
+    _verifyPackage('skiplist-0.1.0.json', 'skiplist', '0.1.0');
+    _verifyPackage('stream-2.0.1.json', 'stream', '2.0.1');
+    _verifyPackage('fs_shim-0.7.1.json', 'fs_shim', '0.7.1');
+
+    // packages with bad content
+    _verifyPackage('syntax-0.2.0.json', 'syntax', '0.2.0', hasStats: false);
+  });
 }
 
 Matcher isSemVer = predicate<String>((String versionString) {
