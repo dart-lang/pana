@@ -672,6 +672,7 @@ class _NullSafetyViolationFinder {
         _noOptoutViolationFinder = _PathFinder(
           packageGraph,
           (packageName) {
+            print(_dartFilesFromLib(pubspecCache._packageDir(packageName)));
             for (final file
                 in _dartFilesFromLib(pubspecCache._packageDir(packageName))) {
               final unit = _parsedUnitFromUri(
