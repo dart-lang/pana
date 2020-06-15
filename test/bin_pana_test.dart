@@ -20,7 +20,7 @@ void main() {
       () async {
     var process = await TestProcess.start(
         p.join(p.dirname(Platform.resolvedExecutable),
-            Platform.isWindows ? 'pub.exe' : 'pub'),
+            Platform.isWindows ? 'pub.bat' : 'pub'),
         ['run', 'pana', '--monkey']);
 
     var output = await process.stdoutStream().join('\n');
