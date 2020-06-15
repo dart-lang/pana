@@ -721,7 +721,7 @@ class Tagger {
     final session = ContextBuilder()
         .createContext(
           contextRoot: ContextLocator().locateRoots(
-            includedPaths: [packageDir],
+            includedPaths: [path.normalize(packageDir)],
           ).first,
         )
         .currentSession;
