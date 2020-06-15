@@ -5,41 +5,32 @@
 import 'dart:io';
 
 import 'package:io/io.dart';
+import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:test_process/test_process.dart';
 
+import 'golden_file.dart';
+
+final helpGoldenPath = p.join('goldens', 'help.txt');
+
 void main() {
-  test('run with bad option', () async {
+  // This is really two tests in one, because the second one depends on the
+  // golden file from the first.
+  test('run with bad option shows help text. Help text is included in readme ',
+      () async {
     var process = await TestProcess.start('pub', ['run', 'pana', '--monkey']);
 
     var output = await process.stdoutStream().join('\n');
-    expect(output, startsWith('Could not find an option named "monkey".'));
-    expect(output, endsWith(_helpOutput));
+
+    const prefix = 'Could not find an option named "monkey".\n\n';
+
+    expect(output, startsWith(prefix));
+    expectMatchesGoldenFile(output.substring(prefix.length), helpGoldenPath);
 
     await process.shouldExit(ExitCode.usage.code);
-  });
 
-  test('readme contains latest task output', () {
     var readme = File('README.md');
-
-    expect(readme.readAsStringSync(), contains('```\n$_helpOutput\n```'));
+    expect(readme.readAsStringSync(),
+        contains('```\n${File(helpGoldenPath).readAsStringSync()}\n```'));
   });
 }
-
-final _helpOutput =
-    '''Usage: pana [<options>] <published package name> [<version>]
-       pana [<options>] --source path <local directory>
-
-Options:
-      --flutter-sdk     The directory of the Flutter SDK.
-  -j, --json            Output log items as JSON.
-  -s, --source          The source where the package is located (hosted on https://pub.dev, or local directory path).
-                        [hosted, path (default)]
-      --hosted-url      The server that hosts <package>.
-                        (defaults to "https://pub.dev")
-  -l, --line-length     The line length to use with dartfmt.
-      --verbosity       Configure the details in the output.
-                        [compact, normal (default), verbose]
-      --[no-]scores     Include scores in the output JSON.
-      --[no-]warning    Shows the warning message before potentially destructive operation.
-                        (defaults to on)''';
