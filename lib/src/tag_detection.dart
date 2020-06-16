@@ -73,6 +73,7 @@
 /// A package has the same platform tags as the primary library.
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
@@ -165,7 +166,7 @@ CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
   }
   final unitResult = analysisSession.getParsedUnit(path);
   print(
-      'UnitResult $uri: $unitResult ${unitResult.errors} ${unitResult.isPart} ${unitResult.unit}');
+      'UnitResult $uri: $unitResult ${unitResult.errors} ${unitResult.isPart} ${unitResult.unit.toString().substring(0, min(5, unitResult.unit.toString().length))}');
   if (unitResult.errors.isNotEmpty) return null;
   if (unitResult.isPart) {
     // Part files cannot contain import/export directives or language
