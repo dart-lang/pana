@@ -156,6 +156,7 @@ class _PathFinder<T> {
 /// Returns `null` if [uri] points to a part file.
 CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
   final path = analysisSession.uriConverter.uriToPath(uri);
+  print('Resolved $uri to $path');
   if (path == null) {
     // Could not resolve uri.
     // Probably a missing/broken dependency.
@@ -163,6 +164,7 @@ CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
     return null;
   }
   final unitResult = analysisSession.getParsedUnit(path);
+  print('UnitResult $uri: $unitResult');
   if (unitResult.errors.isNotEmpty) return null;
   if (unitResult.isPart) {
     // Part files cannot contain import/export directives or language
