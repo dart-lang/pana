@@ -157,7 +157,6 @@ class _PathFinder<T> {
 /// Returns `null` if [uri] points to a part file.
 CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
   final path = analysisSession.uriConverter.uriToPath(uri);
-  print('Resolved $uri to $path');
   if (path == null) {
     // Could not resolve uri.
     // Probably a missing/broken dependency.
@@ -166,7 +165,7 @@ CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
   }
   final unitResult = analysisSession.getParsedUnit(path);
   print(
-      'UnitResult $uri: $unitResult ${unitResult.errors} ${unitResult.isPart} ${unitResult.unit == null}');
+      'UnitResult $uri: $unitResult ${unitResult.errors} ${unitResult.isPart}');
   if (unitResult.errors.isNotEmpty) return null;
   if (unitResult.isPart) {
     // Part files cannot contain import/export directives or language
@@ -676,15 +675,11 @@ class _NullSafetyViolationFinder {
         _noOptoutViolationFinder = _PathFinder(
           packageGraph,
           (packageName) {
-            print(
-                'files: ${_dartFilesFromLib(pubspecCache._packageDir(packageName))}');
             for (final file
                 in _dartFilesFromLib(pubspecCache._packageDir(packageName))) {
               final uri =
                   Uri.parse('package:$packageName/${path.toUri(file).path}');
               final unit = _parsedUnitFromUri(analysisSession, uri);
-              print('$uri: $unit');
-
               if (unit == null) continue;
               final languageVersionToken = unit.languageVersionToken;
               if (languageVersionToken == null) continue;

@@ -481,9 +481,7 @@ name: my_package
             d.file(
               'stray_file.dart',
               '''
-// @dart = 2.3
-void helper() => 50;
-''',
+// @dart = 2.3''',
             ),
           ]),
         ])
