@@ -482,7 +482,7 @@ name: my_package
               'stray_file.dart',
               '''
 // @dart = 2.3
-void helper();
+void helper() => 50;
 ''',
             ),
           ]),
