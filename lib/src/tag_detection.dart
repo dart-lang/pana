@@ -166,7 +166,7 @@ CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
   }
   final unitResult = analysisSession.getParsedUnit(path);
   print(
-      'UnitResult $uri: $unitResult ${unitResult.errors} ${unitResult.isPart} ${unitResult.unit.toString().substring(0, min(5, unitResult.unit.toString().length))}');
+      'UnitResult $uri: $unitResult ${unitResult.errors} ${unitResult.isPart} ${unitResult.unit == null}');
   if (unitResult.errors.isNotEmpty) return null;
   if (unitResult.isPart) {
     // Part files cannot contain import/export directives or language
