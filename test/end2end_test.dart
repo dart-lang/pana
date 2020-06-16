@@ -19,6 +19,15 @@ String goldenDir = p.join('test', 'golden', 'end2end');
 void main() {
   String tempDir;
   PackageAnalyzer analyzer;
+  test("Just trying something out", () async {
+    final t = Directory.systemTemp
+        .createTempSync('pana-test')
+        .resolveSymbolicLinksSync();
+    print('tempdir created: $t ${Directory(t).existsSync()}');
+    final pubCacheDir = p.join(t, 'pub-cache');
+    Directory(pubCacheDir).createSync();
+    Directory(t).deleteSync(recursive: true);
+  });
 
   group('group', () {
     setUpAll(() async {
@@ -27,7 +36,7 @@ void main() {
           .resolveSymbolicLinksSync();
       print('tempdir created: $tempDir ${Directory(tempDir).existsSync()}');
       final pubCacheDir = p.join(tempDir, 'pub-cache');
-      await Directory(pubCacheDir).create();
+      Directory(pubCacheDir).createSync();
       analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
     });
 
