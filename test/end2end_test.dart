@@ -25,16 +25,16 @@ void main() {
       tempDir = Directory.systemTemp
           .createTempSync('pana-test')
           .resolveSymbolicLinksSync();
-      if (!Directory(tempDir).existsSync()) {
-        throw "Failed creating library";
-      }
+      print('tempdir created: $tempDir ${Directory(tempDir).existsSync()}');
       final pubCacheDir = p.join(tempDir, 'pub-cache');
       await Directory(pubCacheDir).create();
       analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
     });
 
     tearDownAll(() async {
-      await Directory(tempDir).delete(recursive: true);
+      print(
+          'tempdir to be deleted: $tempDir ${Directory(tempDir).existsSync()}');
+      Directory(tempDir).deleteSync(recursive: true);
     });
 
     void _verifyPackage(String fileName, String package, String version,
