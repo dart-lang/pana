@@ -1,0 +1,124 @@
+{
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "path_provider",
+  "packageVersion": "1.6.11",
+  "pubspec": {
+    "name": "path_provider",
+    "description": "Flutter plugin for getting commonly used locations on the Android & iOS file systems, such as the temp and app data directories.",
+    "homepage": "https://github.com/flutter/plugins/tree/master/packages/path_provider/path_provider",
+    "version": "1.6.11",
+    "flutter": {
+      "plugin": {
+        "platforms": {
+          "android": {
+            "package": "io.flutter.plugins.pathprovider",
+            "pluginClass": "PathProviderPlugin"
+          },
+          "ios": {
+            "pluginClass": "FLTPathProviderPlugin"
+          },
+          "macos": {
+            "default_package": "path_provider_macos"
+          },
+          "linux": {
+            "default_package": "path_provider_linux"
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "flutter": {
+        "sdk": "flutter"
+      },
+      "path_provider_platform_interface": "^1.0.1",
+      "path_provider_macos": "^0.0.4",
+      "path_provider_linux": "^0.0.1"
+    },
+    "dev_dependencies": {
+      "e2e": "^0.2.1",
+      "flutter_test": {
+        "sdk": "flutter"
+      },
+      "flutter_driver": {
+        "sdk": "flutter"
+      },
+      "test": "any",
+      "uuid": "^1.0.0",
+      "pedantic": "^1.8.0",
+      "mockito": "^4.1.1",
+      "plugin_platform_interface": "^1.0.0"
+    },
+    "environment": {
+      "sdk": ">=2.1.0 <3.0.0",
+      "flutter": ">=1.12.13+hotfix.5 <2.0.0"
+    }
+  },
+  "platform": {
+    "reason": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`."
+  },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "name": "BSD",
+      "url": "https://github.com/flutter/plugins/blob/master/packages/path_provider/path_provider/LICENSE"
+    }
+  ],
+  "health": {
+    "analyzeProcessFailed": true,
+    "formatProcessFailed": false,
+    "resolveProcessFailed": true,
+    "analyzerErrorCount": 0,
+    "analyzerWarningCount": 0,
+    "analyzerHintCount": 0,
+    "platformConflictCount": 0
+  },
+  "maintenance": {
+    "missingChangelog": false,
+    "missingExample": false,
+    "missingReadme": false,
+    "missingAnalysisOptions": true,
+    "oldAnalysisOptions": false,
+    "strongModeEnabled": true,
+    "isExperimentalVersion": false,
+    "isPreReleaseVersion": false,
+    "suggestions": [
+      {
+        "code": "sdk.missing",
+        "level": "error",
+        "title": "No valid SDK.",
+        "description": "The analysis could not detect a valid SDK that can use this package.",
+        "score": 20.0
+      }
+    ]
+  },
+  "suggestions": [
+    {
+      "code": "pubspec.dependencies.failedToResolve",
+      "level": "error",
+      "title": "Fix dependencies in `pubspec.yaml`.",
+      "description": "Running `flutter pub upgrade` failed with the following output:\n\n```\nERR: Cannot open file, path = '/private/var/folders/zf/dv4m6qs906n6t1zhjt9jfdw4006vgn/T/pana-testR3Q1mD/pub-cache/global_packages/path_provider/pubspec.lock' (OS Error: No such file or directory, errno = 2)\n```\n"
+    }
+  ],
+  "dartFiles": {
+    "lib/path_provider.dart": {
+      "uri": "package:path_provider/path_provider.dart",
+      "size": 7158,
+      "isFormatted": true,
+      "codeProblems": null
+    }
+  },
+  "stats": {
+    "analyzeProcessElapsed": 1234,
+    "formatProcessElapsed": 567,
+    "resolveProcessElapsed": 899,
+    "totalElapsed": 4567
+  },
+  "tags": [],
+  "report": {
+    "sections": []
+  }
+}
