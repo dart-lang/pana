@@ -816,7 +816,7 @@ class Tagger {
                 flutterPlatform.runtime,
                 (List<Uri> path) => Suggestion.hint(
                     SuggestionCode.notCompatible,
-                    'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
+                    'Package not compatible with runtime ${flutterPlatform.runtime.name} on ${flutterPlatform.name}',
                     'Because of ${LibraryGraph.formatPath(path)}')));
         var supports = true;
         for (final lib in _topLibraries) {
