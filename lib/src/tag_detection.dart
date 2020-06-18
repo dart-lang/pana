@@ -864,26 +864,19 @@ class Tagger {
                     SuggestionCode.notCompatible,
                     'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
                     'Because of ${LibraryGraph.formatPath(path)}')));
-
-        var supports = true;
-        var hasFoundNonPrunedViolation = false;
-
-        for (final lib in _topLibraries) {
-          if (!hasFoundNonPrunedViolation) {
-            final violationResult = violationFinder._findPlatformViolation(lib);
-            if (violationResult != null) {
-              suggestions.add(violationResult);
-              hasFoundNonPrunedViolation = true;
-            }
-          }
-          final prunedViolationResult =
-              prunedViolationFinder._findPlatformViolation(lib);
-
-          if (prunedViolationResult != null) {
-            supports = false;
-            break;
-          }
+        // Report only the first non-pruned violation as suggestion
+        final firstNonPrunedViolation = _topLibraries
+            .map(violationFinder._findPlatformViolation)
+            .firstWhere((e) => e != null, orElse: () => null);
+        if (firstNonPrunedViolation != null) {
+          suggestions.add(firstNonPrunedViolation);
         }
+
+        // Tag is supported, if there is no pruned violations
+        final supports = _topLibraries
+            .map(prunedViolationFinder._findPlatformViolation)
+            .every((e) => e == null);
+
         if (supports) {
           tags.add(flutterPlatform.tag);
         }
