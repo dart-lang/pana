@@ -125,7 +125,6 @@ void main() {
   _verifyPackage('skiplist-0.1.0.json', 'skiplist', '0.1.0');
   _verifyPackage('stream-2.0.1.json', 'stream', '2.0.1');
   _verifyPackage('fs_shim-0.7.1.json', 'fs_shim', '0.7.1');
-  _verifyPackage('path_provider-1.6.11.json', 'path_provider', '1.6.11');
 
   // packages with bad content
   _verifyPackage('syntax-0.2.0.json', 'syntax', '0.2.0', hasStats: false);
