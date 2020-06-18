@@ -14,7 +14,7 @@ import 'package:path/path.dart' as p;
 
 import 'golden_file.dart';
 
-String goldenDir = p.join('test', 'golden', 'end2end');
+String goldenDir = p.join('test', 'goldens', 'end2end');
 
 void main() {
   Directory tempDir;
