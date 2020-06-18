@@ -309,6 +309,7 @@ int fourtyTwo() => fourtyThree() - 1;
         package('my_package', lib: [
           d.file('my_package.dart', '''
 import 'dart:io';
+import 'package:my_package_linux';
 int fourtyTwo() => 42;
 '''),
         ], pubspecExtras: {
@@ -339,7 +340,8 @@ int fourtyTwo() => 42;
       await decriptor.create();
       final tagger = Tagger('${decriptor.io.path}/my_package');
       expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
-      expectTagging(tagger.flutterPlatformTags, tags: {'platform:ios'});
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {'platform:ios', 'platform:web'});
       expectTagging(tagger.runtimeTags, tags: isEmpty);
     });
 

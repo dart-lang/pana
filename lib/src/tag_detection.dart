@@ -858,7 +858,7 @@ class Tagger {
             declaredPlatformDetector,
             _pubspecCache,
             runtimeViolationFinder(
-                libraryGraph,
+                prunedLibraryGraph,
                 flutterPlatform.runtime,
                 (List<Uri> path) => Suggestion.hint(
                     SuggestionCode.notCompatible,
