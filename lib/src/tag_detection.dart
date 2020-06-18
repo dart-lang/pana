@@ -179,8 +179,13 @@ class LibraryGraph implements _DirectedGraph<Uri> {
   final AnalysisSession _analysisSession;
   final Map<String, String> _declaredVariables;
   final Map<Uri, Set<Uri>> _cache = <Uri, Set<Uri>>{};
+  final bool Function(Uri) _isLeaf;
 
-  LibraryGraph(this._analysisSession, this._declaredVariables);
+  LibraryGraph(
+    this._analysisSession,
+    this._declaredVariables, {
+    bool Function(Uri) isLeaf = _constantFalse,
+  }) : _isLeaf = isLeaf;
 
   /// The direct successors of the library [uri] are the libraries imported or
   /// exported by that library.
@@ -196,7 +201,9 @@ class LibraryGraph implements _DirectedGraph<Uri> {
   Set<Uri> directSuccessors(Uri uri) {
     return _cache.putIfAbsent(uri, () {
       final uriString = uri.toString();
-      if (uriString.startsWith('dart:') || uriString.startsWith('dart-ext:')) {
+      if (uriString.startsWith('dart:') ||
+          uriString.startsWith('dart-ext:') ||
+          _isLeaf(uri)) {
         return <Uri>{};
       }
       // HACK: package:flutter comes from the SDK, we do not want to look at its
@@ -207,6 +214,7 @@ class LibraryGraph implements _DirectedGraph<Uri> {
       if (uriString.startsWith('package:flutter/')) {
         return <Uri>{Uri.parse('dart:ui')};
       }
+
       final path = _analysisSession.uriConverter.uriToPath(uri);
       if (path == null) {
         // Could not resolve uri.
@@ -264,6 +272,8 @@ class LibraryGraph implements _DirectedGraph<Uri> {
     if (path.length == 1) return 'the import of ${path.single}';
     return 'the import of ${path.last} via the import chain ${path.join('->')}';
   }
+
+  static bool _constantFalse(Uri _) => false;
 }
 
 /// The dependency graph of a package.
@@ -502,6 +512,12 @@ class _DeclaredFlutterPlatformDetector {
 
   _DeclaredFlutterPlatformDetector(this._pubspecCache);
 
+  bool _isFlutterPlugin(Uri uri) =>
+      uri.scheme != 'package' ||
+      _declaredFlutterPlatforms(_pubspecCache.packageName(uri)) != null;
+
+  /// Returns the declared Flutter platforms if [packageName] is a plugin, and
+  /// `null` otherwise.
   Set<_FlutterPlatform> _declaredFlutterPlatforms(String packageName) {
     return _declaredPlatformCache.putIfAbsent(packageName, () {
       final result = <_FlutterPlatform>{};
@@ -510,7 +526,7 @@ class _DeclaredFlutterPlatformDetector {
         // If a package doesn't declare support for any platforms, it is
         // not a plugin, and can work on any platforms compatible with
         // imported constraints.
-        return _FlutterPlatform.recognizedPlatforms.toSet();
+        return null;
       }
       final pluginMap = fields['flutter']['plugin'] as Map;
       final declaredPlatforms = pluginMap['platforms'];
@@ -546,14 +562,18 @@ class _PlatformViolationFinder {
     _PubspecCache pubspecCache,
     this._runtimeSupport,
   ) : declaredPlatformFinder = _PathFinder(libraryGraph, (uri) {
-          if (uri.scheme == 'package' &&
-              !platformDetector
-                  ._declaredFlutterPlatforms(pubspecCache.packageName(uri))
-                  .contains(platform)) {
-            return (path) => Suggestion.hint(
-                SuggestionCode.notCompatible,
-                'Package does not support Flutter platform ${platform.name}',
-                'Because of import path $path');
+          if (uri.scheme == 'package') {
+            final detectedPlatforms = platformDetector
+                ._declaredFlutterPlatforms(pubspecCache.packageName(uri));
+            if (detectedPlatforms != null &&
+                !detectedPlatforms.contains(platform)) {
+              return (path) => Suggestion.hint(
+                    SuggestionCode.notCompatible,
+                    'Package does not support Flutter platform ${platform.name}',
+                    'Because of import path $path that declares support for '
+                        'platforms: ${detectedPlatforms.map((e) => e.name).join(', ')}',
+                  );
+            }
           }
           return null;
         });
@@ -806,10 +826,12 @@ class Tagger {
       for (final flutterPlatform in _FlutterPlatform.recognizedPlatforms) {
         final libraryGraph =
             LibraryGraph(_session, flutterPlatform.runtime.declaredVariables);
+        final declaredPlatformDetector =
+            _DeclaredFlutterPlatformDetector(_pubspecCache);
         final violationFinder = _PlatformViolationFinder(
             flutterPlatform,
             libraryGraph,
-            _DeclaredFlutterPlatformDetector(_pubspecCache),
+            declaredPlatformDetector,
             _pubspecCache,
             runtimeViolationFinder(
                 libraryGraph,
@@ -818,11 +840,46 @@ class Tagger {
                     SuggestionCode.notCompatible,
                     'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
                     'Because of ${LibraryGraph.formatPath(path)}')));
+
+        // Wanting to trust the plugins annotations when assigning tags we make
+        // a library graph that treats all libraries in plugins as leaf-nodes.
+        //
+        // In this way the plugin restrictions of its dependencies are not
+        // restricting the result.
+        //
+        // We still keep the unpruned detection for providing suggestions.
+        final prunedLibraryGraph = LibraryGraph(
+            _session, flutterPlatform.runtime.declaredVariables,
+            isLeaf: declaredPlatformDetector._isFlutterPlugin);
+
+        final prunedViolationFinder = _PlatformViolationFinder(
+            flutterPlatform,
+            prunedLibraryGraph,
+            declaredPlatformDetector,
+            _pubspecCache,
+            runtimeViolationFinder(
+                libraryGraph,
+                flutterPlatform.runtime,
+                (List<Uri> path) => Suggestion.hint(
+                    SuggestionCode.notCompatible,
+                    'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
+                    'Because of ${LibraryGraph.formatPath(path)}')));
+
         var supports = true;
+        var hasFoundNonPrunedViolation = false;
+
         for (final lib in _topLibraries) {
-          final violationResult = violationFinder._findPlatformViolation(lib);
-          if (violationResult != null) {
-            suggestions.add(violationResult);
+          if (!hasFoundNonPrunedViolation) {
+            final violationResult = violationFinder._findPlatformViolation(lib);
+            if (violationResult != null) {
+              suggestions.add(violationResult);
+              hasFoundNonPrunedViolation = true;
+            }
+          }
+          final prunedViolationResult =
+              prunedViolationFinder._findPlatformViolation(lib);
+
+          if (prunedViolationResult != null) {
             supports = false;
             break;
           }
