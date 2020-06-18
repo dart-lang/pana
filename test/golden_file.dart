@@ -20,5 +20,6 @@ void expectMatchesGoldenFile(String actual, String goldenFilePath) {
     goldenFile
       ..createSync(recursive: true)
       ..writeAsStringSync(actual);
+    fail('Golden file $goldenFilePath was recreated!');
   }
 }

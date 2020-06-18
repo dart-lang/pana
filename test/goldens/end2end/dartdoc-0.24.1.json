@@ -206,22 +206,18 @@
         "package": "analyzer",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^0.33.0",
-        "resolved": "0.33.6+1",
-        "available": "0.39.10"
+        "constraint": "^0.33.0"
       },
       {
         "package": "args",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": ">=1.4.1 <2.0.0",
-        "resolved": "1.6.0"
+        "constraint": ">=1.4.1 <2.0.0"
       },
       {
         "package": "async",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "2.4.1"
+        "constraintType": "inherited"
       },
       {
         "package": "build",
@@ -244,35 +240,29 @@
       {
         "package": "charcode",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.3"
+        "constraintType": "inherited"
       },
       {
         "package": "collection",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^1.2.0",
-        "resolved": "1.14.12"
+        "constraint": "^1.2.0"
       },
       {
         "package": "convert",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "2.1.1"
+        "constraintType": "inherited"
       },
       {
         "package": "crypto",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^2.0.6",
-        "resolved": "2.1.5"
+        "constraint": "^2.0.6"
       },
       {
         "package": "csslib",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.15.0",
-        "available": "0.16.1"
+        "constraintType": "inherited"
       },
       {
         "package": "dhttpd",
@@ -283,22 +273,18 @@
       {
         "package": "file",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "5.1.0"
+        "constraintType": "inherited"
       },
       {
         "package": "front_end",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.1.6+9",
-        "available": "0.1.29"
+        "constraintType": "inherited"
       },
       {
         "package": "glob",
         "dependencyType": "dev",
         "constraintType": "normal",
-        "constraint": "^1.1.5",
-        "resolved": "1.2.0"
+        "constraint": "^1.1.5"
       },
       {
         "package": "grinder",
@@ -310,9 +296,7 @@
         "package": "html",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": ">=0.12.1 <0.14.0",
-        "resolved": "0.13.4+2",
-        "available": "0.14.0+3"
+        "constraint": ">=0.12.1 <0.14.0"
       },
       {
         "package": "http",
@@ -324,14 +308,12 @@
         "package": "http_parser",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": ">=3.0.3 <4.0.0",
-        "resolved": "3.1.4"
+        "constraint": ">=3.0.3 <4.0.0"
       },
       {
         "package": "intl",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.16.1"
+        "constraintType": "inherited"
       },
       {
         "package": "io",
@@ -342,139 +324,117 @@
       {
         "package": "js",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.6.2"
+        "constraintType": "inherited"
       },
       {
         "package": "kernel",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.3.6+9",
-        "available": "0.3.29"
+        "constraintType": "inherited"
       },
       {
         "package": "logging",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^0.11.3+1",
-        "resolved": "0.11.4"
+        "constraint": "^0.11.3+1"
       },
       {
         "package": "markdown",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^2.0.0",
-        "resolved": "2.1.4"
+        "constraint": "^2.0.0"
       },
       {
         "package": "matcher",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.12.6"
+        "constraintType": "inherited"
       },
       {
         "package": "meta",
         "dependencyType": "dev",
         "constraintType": "normal",
-        "constraint": "^1.0.0",
-        "resolved": "1.1.8"
+        "constraint": "^1.0.0"
       },
       {
         "package": "node_interop",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.1"
+        "constraintType": "inherited"
       },
       {
         "package": "node_io",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.1"
+        "constraintType": "inherited"
       },
       {
         "package": "package_config",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": ">=0.1.5 <2.0.0",
-        "resolved": "1.9.3"
+        "constraint": ">=0.1.5 <2.0.0"
       },
       {
         "package": "path",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^1.3.0",
-        "resolved": "1.7.0"
+        "constraint": "^1.3.0"
       },
       {
         "package": "pedantic",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.9.0"
+        "constraintType": "inherited"
       },
       {
         "package": "platform",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "2.2.1"
+        "constraintType": "inherited"
       },
       {
         "package": "plugin",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.2.0+3"
+        "constraintType": "inherited"
       },
       {
         "package": "process",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^3.0.5",
-        "resolved": "3.0.13"
+        "constraint": "^3.0.5"
       },
       {
         "package": "pub_semver",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^1.3.7",
-        "resolved": "1.4.4"
+        "constraint": "^1.3.7"
       },
       {
         "package": "quiver",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^2.0.0",
-        "resolved": "2.1.3"
+        "constraint": "^2.0.0"
       },
       {
         "package": "resource",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^2.1.2",
-        "resolved": "2.1.6"
+        "constraint": "^2.1.2"
       },
       {
         "package": "source_span",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.7.0"
+        "constraintType": "inherited"
       },
       {
         "package": "stack_trace",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^1.4.2",
-        "resolved": "1.9.3"
+        "constraint": "^1.4.2"
       },
       {
         "package": "string_scanner",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.0.5"
+        "constraintType": "inherited"
       },
       {
         "package": "term_glyph",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.0"
+        "constraintType": "inherited"
       },
       {
         "package": "test",
@@ -485,27 +445,23 @@
       {
         "package": "typed_data",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.6"
+        "constraintType": "inherited"
       },
       {
         "package": "utf",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.9.0+5"
+        "constraintType": "inherited"
       },
       {
         "package": "watcher",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "0.9.7+15"
+        "constraintType": "inherited"
       },
       {
         "package": "yaml",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^2.1.0",
-        "resolved": "2.2.1"
+        "constraint": "^2.1.0"
       }
     ]
   },
