@@ -1,3 +1,7 @@
+## 0.13.10
+
+* Trust plugins platform declaration when assigning tags.
+
 ## 0.13.9+1
 
 * Fixed NPE in old Flutter plugin format detection.
