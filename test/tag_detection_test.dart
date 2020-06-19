@@ -344,7 +344,7 @@ int fourtyThree() => 43;
           suggestions: contains(
             hint(
                 title:
-                    'Package not compatible with runtime flutter-native of android'),
+                    'Package not compatible with runtime flutter-native on android'),
           ));
       expectTagging(tagger.runtimeTags, tags: {
         'runtime:native-jit'
