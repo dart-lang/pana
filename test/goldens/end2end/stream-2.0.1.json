@@ -11743,6 +11743,13 @@
   },
   "tags": [],
   "report": {
-    "sections": []
+    "sections": [
+      {
+        "title": "Package supports Dart 2",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2."
+      }
+    ]
   }
 }

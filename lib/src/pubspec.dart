@@ -1,11 +1,11 @@
 import 'dart:collection';
+import 'dart:io';
 
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' as pubspek show Pubspec;
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 import 'package:yaml/yaml.dart' as yaml;
-
-import 'utils.dart';
 
 class Pubspec {
   final pubspek.Pubspec _inner;
@@ -18,15 +18,20 @@ class Pubspec {
         _content = content;
 
   factory Pubspec.parseFromDir(String packageDir) {
-    var content = getPubspecContent(packageDir);
-    if (content == null) {
-      throw Exception("Couldn't find a pubspec.yaml in $packageDir.");
+    final path = p.join(packageDir, 'pubspec.yaml');
+    final file = File(path);
+    String content;
+    try {
+      content = file.readAsStringSync();
+    } on IOException catch (e) {
+      throw Exception('Couldn\'t read pubspec.yaml in $packageDir. $e');
     }
-    return Pubspec.parseYaml(content);
+    return Pubspec.parseYaml(content, sourceUrl: path);
   }
 
-  factory Pubspec.parseYaml(String content) =>
-      Pubspec(Map<String, dynamic>.from(yaml.loadYaml(content) as Map));
+  factory Pubspec.parseYaml(String content, {dynamic sourceUrl}) =>
+      Pubspec(Map<String, dynamic>.from(
+          yaml.loadYaml(content, sourceUrl: sourceUrl) as Map));
 
   factory Pubspec.fromJson(Map<String, dynamic> json) => Pubspec(json);
 
@@ -42,6 +47,8 @@ class Pubspec {
   Map<String, Dependency> get dependencies => _inner.dependencies;
 
   Map<String, Dependency> get devDependencies => _inner.devDependencies;
+
+  Map get environment => (_content['environment'] as Map) ?? {};
 
   bool dependsOnPackage(String package) =>
       (dependencies?.containsKey(package) ?? false) ||

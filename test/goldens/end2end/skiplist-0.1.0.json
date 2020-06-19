@@ -118,6 +118,13 @@
   },
   "tags": [],
   "report": {
-    "sections": []
+    "sections": [
+      {
+        "title": "Package supports Dart 2",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2.\n\n`pubspec.yaml` has no sdk constraint. Dart 2 support requires an sdk-constraint.\nAdd an sdk-constraint to `pubspec.yaml`. For example:\n```\nenvironment:\n  sdk: '>=2.8.0 <3.0.0'\n```\n"
+      }
+    ]
   }
 }
