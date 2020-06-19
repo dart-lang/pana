@@ -121,7 +121,7 @@ class Pubspec {
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
 
   bool get usesOldFlutterPluginFormat =>
-      usesFlutter &&
+      hasFlutterPluginKey &&
       _inner.flutter['plugin'] is Map<String, Object> &&
       const {
         'androidPackage',

@@ -304,6 +304,47 @@ int fourtyTwo() => fourtyThree() - 1;
       expectTagging(tagger.flutterPlatformTags, tags: {'platform:web'});
       expectTagging(tagger.runtimeTags, tags: isEmpty);
     });
+    test('Flutter plugins declarations are ', () async {
+      final decriptor = d.dir('cache', [
+        package('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:io';
+import 'package:my_package_linux';
+int fourtyTwo() => 42;
+'''),
+        ], pubspecExtras: {
+          'environment': {'flutter': '>=1.2.0<=2.0.0'},
+          'flutter': {
+            'plugin': {
+              'platforms': {'web': {}, 'ios': {}}
+            }
+          }
+        }, dependencies: [
+          'my_package_linux'
+        ]),
+        package('my_package_linux', lib: [
+          d.file('my_package_linux.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+        ], pubspecExtras: {
+          'environment': {'flutter': '>=1.2.0<=2.0.0'},
+          'flutter': {
+            'plugin': {
+              'platforms': {'web': {}, 'linux': {}}
+            }
+          }
+        })
+      ]);
+
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {'platform:ios', 'platform:web'});
+      expectTagging(tagger.runtimeTags, tags: isEmpty);
+    });
+
     test('Using mirrors', () async {
       final decriptor = d.dir('cache', [
         package(
