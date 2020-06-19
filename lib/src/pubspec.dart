@@ -48,7 +48,7 @@ class Pubspec {
 
   Map<String, Dependency> get devDependencies => _inner.devDependencies;
 
-  Map get environment => _content['environment'] as Map;
+  Map get environment => (_content['environment'] as Map) ?? {};
 
   bool dependsOnPackage(String package) =>
       (dependencies?.containsKey(package) ?? false) ||
