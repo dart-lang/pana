@@ -13,7 +13,6 @@ void main() {
     final file = File('test/markdown_content/example.md');
     final content = await scanMarkdownFileContent(file);
     expect(content.toJson(), {
-      'parseError': null,
       'images': ['https://example.com/path.jpg', 'img/path.jpg'],
       'links': [],
     });
@@ -25,7 +24,6 @@ void main() {
     final file = File('test/markdown_content/bad_images.md');
     final content = await scanMarkdownFileContent(file);
     expect(content.toJson(), {
-      'parseError': null,
       'images': ['https::::img', 'http://example.com/logo.png'],
       'links': [],
     });
