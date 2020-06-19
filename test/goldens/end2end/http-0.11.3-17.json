@@ -120,7 +120,7 @@
     {
       "code": "tagging.notCompatible",
       "level": "hint",
-      "title": "Package not compatible with runtime flutter-web of web",
+      "title": "Package not compatible with runtime flutter-web on web",
       "description": "Because of the import of dart:io via the import chain package:http/http.dart->package:http/src/streamed_response.dart->package:http/src/base_request.dart->package:http/src/client.dart->package:http/src/io_client.dart->dart:io"
     },
     {
