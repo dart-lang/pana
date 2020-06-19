@@ -794,6 +794,7 @@
         "package:shelf/src/body.dart",
         "package:shelf/src/cascade.dart",
         "package:shelf/src/handler.dart",
+        "package:shelf/src/headers.dart",
         "package:shelf/src/hijack_exception.dart",
         "package:shelf/src/message.dart",
         "package:shelf/src/middleware.dart",

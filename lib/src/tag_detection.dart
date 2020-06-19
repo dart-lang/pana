@@ -838,7 +838,7 @@ class Tagger {
                 flutterPlatform.runtime,
                 (List<Uri> path) => Suggestion.hint(
                     SuggestionCode.notCompatible,
-                    'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
+                    'Package not compatible with runtime ${flutterPlatform.runtime.name} on ${flutterPlatform.name}',
                     'Because of ${LibraryGraph.formatPath(path)}')));
 
         // Wanting to trust the plugins annotations when assigning tags we make
