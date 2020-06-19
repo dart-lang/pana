@@ -124,9 +124,9 @@ Future<_AnalysisResult> _analyzePackage(
     final startOffset =
         sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
     return _Issue(
-      codeProblem.description,
-      suggestion: 'To reproduce run `dartanalyzer ${codeProblem.file}`',
-      /*XXX Pass correct options*/
+      '${codeProblem.severity}: ${codeProblem.description}',
+      // TODO(sigurdm) We need to inject pedantic somehow...
+      suggestion: 'To reproduce run `dart analyze ${codeProblem.file}`',
       span: sourceFile.span(startOffset, startOffset + codeProblem.length),
     );
   }
@@ -240,6 +240,7 @@ String _makeSummary(String introduction, List<_Issue> issues,
         ...issuesMarkdown
       else ...[
         'Found ${issues.length} issues. Showing the first two:',
+        '',
         ...issuesMarkdown.take(2),
       ],
     ],
