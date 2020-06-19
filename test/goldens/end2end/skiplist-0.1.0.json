@@ -124,6 +124,12 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2.\n\n`pubspec.yaml` has no sdk constraint. Dart 2 support requires an sdk-constraint.\nAdd an sdk-constraint to `pubspec.yaml`. For example:\n```\nenvironment:\n  sdk: '>=2.8.0 <3.0.0'\n```\n"
+      },
+      {
+        "title": "Code follows recommended code style",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "10 points: code has no errors and warnings.\n20 points: code has no errors, warnings or lints, and is formatted according to dartfmt\n\nFound 59 issues. Showing the first two:\nTarget of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n`../../usr/local/google/home/sigurdm/projects/pana/lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dartanalyzer lib/skiplist.dart`\n'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Function(Object)').\n`../../usr/local/google/home/sigurdm/projects/pana/lib/skiplist.dart:77:14`\n\n```\n   ╷\n77 │   V operator [](K key) {\n   │              ^^\n   ╵\n```\n\nTo reproduce run `dartanalyzer lib/skiplist.dart`"
       }
     ]
   }

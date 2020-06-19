@@ -347,6 +347,12 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2.\n\nThe current sdk constraint >=1.24.0 <2.0.0 does not allow any Dart 2 versions.\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n"
+      },
+      {
+        "title": "Code follows recommended code style",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "10 points: code has no errors and warnings.\n20 points: code has no errors, warnings or lints, and is formatted according to dartfmt\n\nFound 621 issues. Showing the first two:\nTarget of URI doesn't exist: 'package:path/path.dart'.\n`../../usr/local/google/home/sigurdm/projects/pana/lib/fs.dart:12:8`\n\n```\n   ╷\n12 │ import 'package:path/path.dart';\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dartanalyzer lib/fs.dart`\nThe default value of an optional parameter must be constant.\n`../../usr/local/google/home/sigurdm/projects/pana/lib/fs.dart:179:58`\n\n```\n    ╷\n179 │       {FileMode mode: FileMode.WRITE, Encoding encoding: UTF8});\n    │                                                          ^^^^\n    ╵\n```\n\nTo reproduce run `dartanalyzer lib/fs.dart`"
       }
     ]
   }

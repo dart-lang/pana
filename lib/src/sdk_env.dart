@@ -142,6 +142,9 @@ class ToolEnvironment {
     bool usesFlutter, {
     @required InspectOptions inspectOptions,
   }) async {
+    if (dirs.isEmpty) {
+      return '';
+    }
     final originalOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
     String originalOptions;

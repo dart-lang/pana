@@ -18264,6 +18264,12 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2."
+      },
+      {
+        "title": "Code follows recommended code style",
+        "grantedPoints": 10,
+        "maxPoints": 20,
+        "summary": "10 points: code has no errors and warnings.\n20 points: code has no errors, warnings or lints, and is formatted according to dartfmt\n\nFound 1886 issues. Showing the first two:\nUnnecessary new keyword.\n`../../usr/local/google/home/sigurdm/projects/pana/bin/dartdoc.dart:27:5`\n\n```\n   ╷\n27 │ ┌     new DartdocOptionArgOnly<bool>('help', false,\n28 │ │         abbr: 'h', help: 'Show command help.', negatable: false),\n   │ └────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dartanalyzer bin/dartdoc.dart`\nUnnecessary new keyword.\n`../../usr/local/google/home/sigurdm/projects/pana/bin/dartdoc.dart:29:5`\n\n```\n   ╷\n29 │ ┌     new DartdocOptionArgOnly<bool>('version', false,\n30 │ │         help: 'Display the version for $name.', negatable: false),\n   │ └─────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dartanalyzer bin/dartdoc.dart`"
       }
     ]
   }

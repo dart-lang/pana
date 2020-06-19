@@ -41,6 +41,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
         file: filePath,
         line: 0,
         col: 0,
+        length: 0,
       );
     }
 
@@ -61,7 +62,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
   var filePath = match[4];
   var line = match[5];
   var column = match[6];
-  // length = 7
+  var length = match[7];
   var description = match[8];
 
   // dartanalyzer --format=machine returns backslashes escaped with double backslash
@@ -80,5 +81,6 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
     file: filePath,
     line: int.parse(line),
     col: int.parse(column),
+    length: int.parse(length),
   );
 }

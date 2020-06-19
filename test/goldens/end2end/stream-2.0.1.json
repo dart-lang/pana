@@ -11749,6 +11749,12 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2."
+      },
+      {
+        "title": "Code follows recommended code style",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "10 points: code has no errors and warnings.\n20 points: code has no errors, warnings or lints, and is formatted according to dartfmt\n\nFound 1229 issues. Showing the first two:\n'_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeaders.add' ('void Function(String, Object, {bool preserveHeaderCase})').\n`../../usr/local/google/home/sigurdm/projects/pana/lib/src/connect_impl.dart:281:8`\n\n```\n    ╷\n281 │   void add(String name, Object value) {\n    │        ^^^\n    ╵\n```\n\nTo reproduce run `dartanalyzer lib/src/connect_impl.dart`\n'_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.add' ('void Function(String, Object, {bool preserveHeaderCase})').\n`../../usr/local/google/home/sigurdm/projects/pana/lib/src/connect_impl.dart:281:8`\n\n```\n    ╷\n281 │   void add(String name, Object value) {\n    │        ^^^\n    ╵\n```\n\nTo reproduce run `dartanalyzer lib/src/connect_impl.dart`"
       }
     ]
   }
