@@ -42,9 +42,7 @@ ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
           .map((e) => Link(e.attributes['href'], e.sourceSpan))));
 }
 
-List<T> _unique<T>(Iterable<T> l) => [
-      ...{...l}
-    ];
+List<T> unique<T>(Iterable<T> l) => l.toSet().toList();
 
 /// Scans a markdown file and extracts its content.
 Future<ExctractedMarkdownContent> scanMarkdownFileContent(File file) async {
