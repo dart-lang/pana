@@ -2674,7 +2674,7 @@
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 202 issues. Showing the first two:\n\nINFO: Use collection literals when possible.\n`../../usr/local/google/home/sigurdm/projects/pana/lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\nINFO: Unnecessary new keyword.\n`../../usr/local/google/home/sigurdm/projects/pana/lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`"
+        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 202 issues. Showing the first two:\n\nINFO: Use collection literals when possible.\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\nINFO: Unnecessary new keyword.\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`"
       }
     ]
   }

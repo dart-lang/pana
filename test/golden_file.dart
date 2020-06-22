@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
-import 'dart:math';
 
 import 'package:test/test.dart';
 
@@ -13,15 +12,6 @@ import 'package:test/test.dart';
 void expectMatchesGoldenFile(String actual, String goldenFilePath) {
   var goldenFile = File(goldenFilePath);
   if (goldenFile.existsSync()) {
-    final expected = goldenFile.readAsStringSync().replaceAll('\r\n', '\n');
-    if (actual != expected) {
-      var i = 0;
-      for (; i < min(actual.length, expected.length); i++) {
-        if (actual[i] != expected[i]) break;
-      }
-      print('diff at offset $i');
-      print(actual.substring(i));
-    }
     expect(
         actual, equals(goldenFile.readAsStringSync().replaceAll('\r\n', '\n')),
         reason: 'goldenFilePath: "$goldenFilePath". '
