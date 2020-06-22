@@ -107,8 +107,7 @@ Future<ReportSection> _staticAnalysis(
 *10 points:* code has no errors and warnings.
 
 *20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.
-''',
-        [...errors, ...warnings, ...lints, ...formattingIssues],
+''', [...errors, ...warnings, ...lints, ...formattingIssues],
         basePath: packageDir),
   );
 }
