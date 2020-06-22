@@ -20,7 +20,7 @@ void main() {
           report.sections.firstWhere((s) => s.title == 'Packaging conventions');
       expect(section.grantedPoints, 10);
       expect(section.summary, contains('No README.md found'));
-      expect(section.summary, contains('No CHANGELOG found'));
+      expect(section.summary, contains('No CHANGELOG.md found'));
     });
 
     test('Detects insecure links', () async {
@@ -31,7 +31,7 @@ Check it out on [github](http://github.com/example/my_package).
 ![alt text](http://example.com/icon1.png "Icon1")
 ![alt text](http://example.com/icon1.png "Icon2")
 '''),
-        d.file('CHANGELOG', '''
+        d.file('CHANGELOG.md', '''
 ## 1.0.0 First release!
 '''),
       ]);
@@ -42,7 +42,7 @@ Check it out on [github](http://github.com/example/my_package).
           report.sections.firstWhere((s) => s.title == 'Packaging conventions');
       expect(section.grantedPoints, 15);
       expect(section.summary, isNot(contains('No README.md found')));
-      expect(section.summary, isNot(contains('No CHANGELOG found')));
+      expect(section.summary, isNot(contains('No CHANGELOG.md found')));
       expect(section.summary, contains('1 link is insecure'));
       expect(section.summary, contains('2 image links are insecure'));
     });
