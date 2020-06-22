@@ -9,49 +9,45 @@ import 'package:markdown/markdown.dart';
 import 'package:meta/meta.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:path/path.dart' as p;
+import 'package:source_span/source_span.dart';
 
 import 'model.dart';
 
 /// The extracted content of a markdown file.
-class ScannedMarkdownContent {
-  String parseError;
-  List<String> images;
-  List<String> links;
+class ExctractedMarkdownContent {
+  final List<Link> images;
+  final List<Link> links;
+
+  ExctractedMarkdownContent({this.images, this.links});
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'parseError': parseError,
-        'images': images,
-        'links': links,
+        'images': images.map((l) => l.url).toList(),
+        'links': links.map((l) => l.url).toList(),
       };
 }
 
 /// Scans a markdown text and extracts its content.
-ScannedMarkdownContent scanMarkdownText(String text) {
-  try {
-    final htmlText = markdownToHtml(text);
-    final html = html_parser.parseFragment(htmlText);
-    final images = html
-        .querySelectorAll('img')
-        .where((e) => e.attributes.containsKey('src'))
-        .map((e) => e.attributes['src'])
-        .toList();
-    final links = html
-        .querySelectorAll('a')
-        .where((e) => e.attributes.containsKey('href'))
-        .map((e) => e.attributes['href'])
-        .toList();
-    return ScannedMarkdownContent()
-      ..images = Set<String>.from(images).toList()
-      ..links = Set<String>.from(links).toList();
-  } catch (e) {
-    return ScannedMarkdownContent()..parseError = e.toString();
-  }
+ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
+  final htmlText = markdownToHtml(text);
+  final html = html_parser.parseFragment(htmlText,
+      sourceUrl: sourceUrl.toString(), generateSpans: true);
+  return ExctractedMarkdownContent(
+      images: _unique(html
+          .querySelectorAll('img')
+          .where((e) => e.attributes.containsKey('src'))
+          .map((e) => Link(e.attributes['src'], e.sourceSpan))),
+      links: _unique(html
+          .querySelectorAll('a')
+          .where((e) => e.attributes.containsKey('href'))
+          .map((e) => Link(e.attributes['href'], e.sourceSpan))));
 }
 
+List<T> _unique<T>(Iterable<T> l) => l.toSet().toList();
+
 /// Scans a markdown file and extracts its content.
-Future<ScannedMarkdownContent> scanMarkdownFileContent(File file) async {
+Future<ExctractedMarkdownContent> scanMarkdownFileContent(File file) async {
   final text = await file.readAsString();
-  return scanMarkdownText(text);
+  return scanMarkdownText(text, file.uri);
 }
 
 /// Analyze a markdown file and return a composite suggestion.
@@ -59,17 +55,8 @@ Future<Suggestion> analyzeMarkdownFile(File file, {String pkgDir}) async {
   final fileName = p.basename(file.path);
   final relativePath = p.relative(file.path, from: pkgDir);
   final analysis = await scanMarkdownFileContent(file);
-  if (analysis.parseError != null) {
-    return Suggestion.warning(
-      SuggestionCode.markdownParseFailed,
-      'Fix `$fileName`.',
-      'Parsing `$fileName` failed with the following error: `${analysis.parseError}`.',
-      score: 50.0,
-      file: relativePath,
-    );
-  }
 
-  final checked = await _checkLinks(analysis.images);
+  final checked = await checkLinks(analysis.images);
   // TODO: warn about relative image URLs
   // TODO: warn about insecure links
   // TODO: warn about relative links
@@ -79,14 +66,14 @@ Future<Suggestion> analyzeMarkdownFile(File file, {String pkgDir}) async {
   var score = 0.0;
   if (checked.unparsed.isNotEmpty) {
     final count = checked.unparsed.length;
-    final first = checked.unparsed.first;
+    final first = checked.unparsed.first.url;
     score += count;
     final pluralize = count == 1 ? 'link' : 'links';
     issues.add('Unable to parse $count image $pluralize (e.g. `$first`).');
   }
   if (checked.insecure.isNotEmpty) {
     final count = checked.insecure.length;
-    final first = checked.insecure.first;
+    final first = checked.insecure.first.url;
     score += count * 2;
     final pluralize = count == 1 ? 'link is' : 'links are';
     issues.add(
@@ -105,13 +92,13 @@ Future<Suggestion> analyzeMarkdownFile(File file, {String pkgDir}) async {
   return null;
 }
 
-Future<_Links> _checkLinks(List<String> links) async {
-  final unparsed = <String>[];
-  final parsed = <String>[];
-  final insecure = <String>[];
+Future<Links> checkLinks(List<Link> links) async {
+  final unparsed = <Link>[];
+  final parsed = <Link>[];
+  final insecure = <Link>[];
 
   for (var link in links) {
-    final uri = Uri.tryParse(link);
+    final uri = Uri.tryParse(link.url);
     if (uri == null) {
       unparsed.add(link);
       continue;
@@ -121,15 +108,21 @@ Future<_Links> _checkLinks(List<String> links) async {
       insecure.add(link);
     }
   }
-  return _Links(unparsed: unparsed, parsed: parsed, insecure: insecure);
+  return Links(unparsed: unparsed, parsed: parsed, insecure: insecure);
 }
 
-class _Links {
-  final List<String> unparsed;
-  final List<String> parsed;
-  final List<String> insecure;
+class Link {
+  final String url;
+  final SourceSpan span;
+  Link(this.url, this.span);
+}
 
-  _Links({
+class Links {
+  final List<Link> unparsed;
+  final List<Link> parsed;
+  final List<Link> insecure;
+
+  Links({
     @required this.unparsed,
     @required this.parsed,
     @required this.insecure,

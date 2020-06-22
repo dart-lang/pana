@@ -20152,6 +20152,12 @@
         "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2."
       },
       {
+        "title": "Packaging conventions",
+        "grantedPoints": 15,
+        "maxPoints": 20,
+        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md.\n\nLinks in README.md should be secure. 1 link is insecure.\n`README.md:319:55`\n\n```\n    ╷\n319 │ <li>With <code>github.css</code> (c) Vasily Polovnyov <a href=\"mailto:vast@whiteants.net\">vast@whiteants.net</a></li>\n    │                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nUse `https` URLs instead."
+      },
+      {
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,

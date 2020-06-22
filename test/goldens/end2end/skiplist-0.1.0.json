@@ -126,6 +126,12 @@
         "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2.\n\n`pubspec.yaml` has no sdk constraint. Dart 2 support requires an sdk-constraint.\nAdd an sdk-constraint to `pubspec.yaml`. For example:\n```\nenvironment:\n  sdk: '>=2.8.0 <3.0.0'\n```\n"
       },
       {
+        "title": "Packaging conventions",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
+      },
+      {
         "title": "Code follows recommended code style",
         "grantedPoints": 0,
         "maxPoints": 20,
