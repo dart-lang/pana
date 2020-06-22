@@ -104,8 +104,10 @@ Future<ReportSection> _staticAnalysis(
         ? (formattingIssues.isEmpty && lints.isEmpty ? 20 : 10)
         : 0,
     summary: _makeSummary('''
-10 points: code has no errors and warnings.
-20 points: code has no errors, warnings or lints, and is formatted according to dartfmt''',
+*10 points:* code has no errors and warnings.
+
+*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.
+''',
         [...errors, ...warnings, ...lints, ...formattingIssues],
         basePath: packageDir),
   );
