@@ -126,7 +126,6 @@ Future<_AnalysisResult> _analyzePackage(
     // SourceSpans are 0-based, so we subtract 1 from line and column.
     final startOffset =
         sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
-    final relativePath = p.relative(codeProblem.file, from: packagePath);
     return _Issue(
       '${codeProblem.severity}: ${codeProblem.description}',
       // TODO(sigurdm) We need to inject pedantic somehow...
