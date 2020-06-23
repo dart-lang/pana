@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:meta/meta.dart';
@@ -26,6 +27,11 @@ Future<Report> createReport(
   return Report(sections: [
     _supportsDart2(packageDir, pubspec),
     await _followsTemplate(packageDir, pubspec),
+    await _staticAnalysis(
+      packageDir,
+      toolEnvironment,
+      usesFlutter: pubspec.usesFlutter,
+    ),
     // TODO(sigurdm):Implement rest of sections.
   ]);
 }
@@ -73,6 +79,114 @@ environment:
           'Package gets 20 points if its Dart sdk constraint allows Dart 2.',
           issues,
           basePath: packageDir));
+}
+
+Future<ReportSection> _staticAnalysis(
+  String packageDir,
+  ToolEnvironment toolEnvironment, {
+  @required bool usesFlutter,
+}) async {
+  final analysisResult = await _analyzePackage(packageDir, toolEnvironment,
+      usesFlutter: usesFlutter);
+
+  final errors = analysisResult.errors;
+  final warnings = analysisResult.warnings;
+  final lints = analysisResult.lints;
+
+  // Only try to run dartfmt if there where no errors.
+  final formattingIssues = errors.isEmpty
+      ? await _formatPackage(packageDir, toolEnvironment,
+          usesFlutter: usesFlutter)
+      : <_Issue>[];
+
+  return ReportSection(
+    title: 'Code follows recommended code style',
+    maxPoints: 20,
+    grantedPoints: (errors.isEmpty && warnings.isEmpty)
+        ? (formattingIssues.isEmpty && lints.isEmpty ? 20 : 10)
+        : 0,
+    summary: _makeSummary('''
+*10 points:* code has no errors and warnings.
+
+*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.
+''', [...errors, ...warnings, ...lints, ...formattingIssues],
+        basePath: packageDir),
+  );
+}
+
+Future<_AnalysisResult> _analyzePackage(
+  String packagePath,
+  ToolEnvironment toolEnvironment, {
+  @required bool usesFlutter,
+}) async {
+  _Issue issueFromCodeProblem(CodeProblem codeProblem) {
+    final sourceFile = SourceFile.fromString(
+        File(p.join(packagePath, codeProblem.file)).readAsStringSync(),
+        url: p.join(packagePath, codeProblem.file));
+    // SourceSpans are 0-based, so we subtract 1 from line and column.
+    final startOffset =
+        sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
+    return _Issue(
+      '${codeProblem.severity}: ${codeProblem.description}',
+      // TODO(sigurdm) We need to inject pedantic somehow...
+      suggestion: 'To reproduce run `dart analyze ${codeProblem.file}`',
+      span: sourceFile.span(startOffset, startOffset + codeProblem.length),
+    );
+  }
+
+  final dirs = await listFocusDirs(packagePath);
+
+  final output = await toolEnvironment.runAnalyzer(
+    packagePath,
+    dirs,
+    usesFlutter,
+    inspectOptions: InspectOptions(),
+  );
+  final list = LineSplitter.split(output)
+      .map((s) => parseCodeProblem(s, projectDir: packagePath))
+      .where((e) => e != null)
+      .toSet()
+      .toList();
+  list.sort();
+
+  return _AnalysisResult(
+      list
+          .where((element) => element.isError)
+          .map(issueFromCodeProblem)
+          .toList(),
+      list
+          .where((element) => element.isWarning)
+          .map(issueFromCodeProblem)
+          .toList(),
+      list
+          .where((element) => element.isInfo)
+          .map(issueFromCodeProblem)
+          .toList(),
+      'dartanalyzer ${dirs.join(' ')}');
+}
+
+class _AnalysisResult {
+  final List<_Issue> errors;
+  final List<_Issue> warnings;
+  final List<_Issue> lints;
+  final String reproductionCommand;
+  _AnalysisResult(
+      this.errors, this.warnings, this.lints, this.reproductionCommand);
+}
+
+Future<List<_Issue>> _formatPackage(
+  String packageDir,
+  ToolEnvironment toolEnvironment, {
+  @required bool usesFlutter,
+}) async {
+  final unformattedFiles = await toolEnvironment.filesNeedingFormat(
+    packageDir,
+    usesFlutter,
+  );
+  return unformattedFiles
+      .map((f) => _Issue('$f is not formatted according to dartfmt',
+          suggestion: 'To format your files run: `dartfmt -w .`'))
+      .toList();
 }
 
 Future<ReportSection> _followsTemplate(
@@ -228,6 +342,7 @@ String _makeSummary(String introduction, List<_Issue> issues,
         ...issuesMarkdown
       else ...[
         'Found ${issues.length} issues. Showing the first two:',
+        '',
         ...issuesMarkdown.take(2),
       ],
     ],

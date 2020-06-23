@@ -401,6 +401,7 @@ CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) {
     file: json['file'] as String,
     line: json['line'] as int,
     col: json['col'] as int,
+    length: json['length'] as int,
   );
 }
 
@@ -412,6 +413,7 @@ Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>
       'file': instance.file,
       'line': instance.line,
       'col': instance.col,
+      'length': instance.length,
       'description': instance.description,
     };
 

@@ -920,6 +920,7 @@ class CodeProblem implements Comparable<CodeProblem> {
   final String file;
   final int line;
   final int col;
+  final int length;
   final String description;
 
   CodeProblem({
@@ -930,6 +931,7 @@ class CodeProblem implements Comparable<CodeProblem> {
     @required this.file,
     @required this.line,
     @required this.col,
+    @required this.length,
   });
 
   factory CodeProblem.fromJson(Map<String, dynamic> json) =>
