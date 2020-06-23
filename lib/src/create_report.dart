@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
+import 'package:pana/src/tag_detection.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
@@ -27,6 +28,7 @@ Future<Report> createReport(
   return Report(sections: [
     _supportsDart2(packageDir, pubspec),
     await _followsTemplate(packageDir, pubspec),
+    await _multiPlatform(packageDir, pubspec),
     await _staticAnalysis(
       packageDir,
       toolEnvironment,
@@ -288,6 +290,75 @@ Future<ReportSection> _followsTemplate(
           basePath: packageDir));
 }
 
+Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
+  List<_Issue> issues;
+  int grantedPoints;
+  if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
+      .existsSync()) {
+    final tags = <String>[];
+    final explanations = <Explanation>[];
+    final tagger = Tagger(packageDir);
+    final sdkTags = <String>[];
+    final sdkExplanations = <Explanation>[];
+    tagger.sdkTags(sdkTags, sdkExplanations);
+
+    final flutterPackage = pubspec.hasFlutterKey;
+
+    if (flutterPackage) {
+      tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
+      tags.retainWhere(
+          ['platform:android', 'platform:ios', 'platform:web'].contains);
+      if (tags.length <= 1) {
+        grantedPoints = 0;
+      } else if (tags.length == 2) {
+        grantedPoints = 10;
+      } else {
+        grantedPoints = 20;
+      }
+    } else {
+      tagger.runtimeTags(tags, explanations);
+      if (tags.isEmpty) {
+        grantedPoints = 0;
+      } else if (tags.length == 1) {
+        grantedPoints = 10;
+      } else {
+        grantedPoints = 20;
+      }
+    }
+    issues = [
+      _Issue(
+        flutterPackage
+            ? 'Package is a Flutter package'
+            : 'Package is a Dart package',
+      ),
+      ...explanations.map((e) => _Issue('${e.finding}\n\n${e.explanation}')),
+    ];
+  } else {
+    issues = [
+      _Issue('Package resolution failed. Could not determine platforms.',
+          suggestion: 'Run `pub get` for more information.')
+    ];
+    grantedPoints = 0;
+  }
+
+  return ReportSection(
+    title: 'Package is multi-platform',
+    maxPoints: 20,
+    grantedPoints: grantedPoints,
+    summary: _makeSummary(
+      '''
+Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)
+
+Flutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)
+''',
+      issues,
+      basePath: null,
+      maxIssues:
+          null, // Tagging produces a bounded number of issues. Better display them all.
+    ),
+  );
+}
+
 /// A single issue found by the analysis.
 ///
 /// This is not part of the external data-model, but used for gathering
@@ -332,18 +403,17 @@ extension on SourceSpan {
 /// Given an introduction and a list of issues, formats the summary of a
 /// section.
 String _makeSummary(String introduction, List<_Issue> issues,
-    {@required String basePath}) {
+    {@required String basePath, int maxIssues = 2}) {
   final issuesMarkdown = issues.map((e) => e.markdown(basePath: basePath));
   return [
     introduction,
     if (issues.isNotEmpty) ...[
       '',
-      if (issues.length <= 2)
+      if (maxIssues == null || issues.length <= maxIssues)
         ...issuesMarkdown
       else ...[
-        'Found ${issues.length} issues. Showing the first two:',
-        '',
-        ...issuesMarkdown.take(2),
+        'Found ${issues.length} issues. Showing the first $maxIssues:',
+        ...issuesMarkdown.take(maxIssues),
       ],
     ],
   ].join('\n');

@@ -895,6 +895,8 @@
         "package:term_glyph/src/generated/top_level.dart",
         "package:term_glyph/src/generated/unicode_glyph_set.dart",
         "package:term_glyph/term_glyph.dart",
+        "package:typed_data/src/typed_buffer.dart",
+        "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart",
         "package:yaml/src/equality.dart",
@@ -956,10 +958,16 @@
         "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
       },
       {
+        "title": "Package is multi-platform",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage is a Dart package"
+      },
+      {
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 44 issues. Showing the first two:\n\nINFO: Unnecessary new keyword.\n`lib/repository.dart:27:15`\n\n```\n   ╷\n27 │     _cached = new Version.parse(versionString);\n   │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\nINFO: Unnecessary new keyword.\n`lib/repository.dart:109:7`\n\n```\n    ╷\n109 │       new GenericProcessingException('ValidationError: $message');\n    │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`"
+        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 44 issues. Showing the first 2:\nINFO: Unnecessary new keyword.\n`lib/repository.dart:27:15`\n\n```\n   ╷\n27 │     _cached = new Version.parse(versionString);\n   │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\nINFO: Unnecessary new keyword.\n`lib/repository.dart:109:7`\n\n```\n    ╷\n109 │       new GenericProcessingException('ValidationError: $message');\n    │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`"
       }
     ]
   }

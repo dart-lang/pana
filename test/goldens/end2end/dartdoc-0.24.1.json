@@ -1926,6 +1926,8 @@
         "package:term_glyph/src/generated/top_level.dart",
         "package:term_glyph/src/generated/unicode_glyph_set.dart",
         "package:term_glyph/term_glyph.dart",
+        "package:typed_data/src/typed_buffer.dart",
+        "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart",
         "package:utf/src/constants.dart",
@@ -20158,10 +20160,16 @@
         "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md.\n\nLinks in README.md should be secure. 1 link is insecure.\n`README.md:319:55`\n\n```\n    ╷\n319 │ <li>With <code>github.css</code> (c) Vasily Polovnyov <a href=\"mailto:vast@whiteants.net\">vast@whiteants.net</a></li>\n    │                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nUse `https` URLs instead."
       },
       {
+        "title": "Package is multi-platform",
+        "grantedPoints": 10,
+        "maxPoints": 20,
+        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage is a Dart package\nPackage not compatible with runtime native-aot\n\nBecause of the import of dart:mirrors via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/html/html_generator.dart->package:dartdoc/src/html/templates.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart->dart:mirrors\nPackage not compatible with runtime web\n\nBecause of the import of dart:io via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/element_type.dart->package:dartdoc/src/model.dart->package:package_config/discovery.dart->package:package_config/src/packages_io_impl.dart->package:package_config/src/util_io.dart->dart:io"
+      },
+      {
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 1886 issues. Showing the first two:\n\nINFO: Unnecessary new keyword.\n`bin/dartdoc.dart:27:5`\n\n```\n   ╷\n27 │ ┌     new DartdocOptionArgOnly<bool>('help', false,\n28 │ │         abbr: 'h', help: 'Show command help.', negatable: false),\n   │ └────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dart analyze bin/dartdoc.dart`\nINFO: Unnecessary new keyword.\n`bin/dartdoc.dart:29:5`\n\n```\n   ╷\n29 │ ┌     new DartdocOptionArgOnly<bool>('version', false,\n30 │ │         help: 'Display the version for $name.', negatable: false),\n   │ └─────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dart analyze bin/dartdoc.dart`"
+        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 1886 issues. Showing the first 2:\nINFO: Unnecessary new keyword.\n`bin/dartdoc.dart:27:5`\n\n```\n   ╷\n27 │ ┌     new DartdocOptionArgOnly<bool>('help', false,\n28 │ │         abbr: 'h', help: 'Show command help.', negatable: false),\n   │ └────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dart analyze bin/dartdoc.dart`\nINFO: Unnecessary new keyword.\n`bin/dartdoc.dart:29:5`\n\n```\n   ╷\n29 │ ┌     new DartdocOptionArgOnly<bool>('version', false,\n30 │ │         help: 'Display the version for $name.', negatable: false),\n   │ └─────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dart analyze bin/dartdoc.dart`"
       }
     ]
   }

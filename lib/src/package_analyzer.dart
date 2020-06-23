@@ -337,12 +337,15 @@ class PackageAnalyzer {
 
       if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
         final tagger = Tagger(pkgDir);
-        tagger.sdkTags(tags, suggestions);
-        tagger.flutterPlatformTags(tags, suggestions);
-        tagger.runtimeTags(tags, suggestions);
+        final explanations = <Explanation>[];
+        tagger.sdkTags(tags, explanations);
+        tagger.flutterPlatformTags(tags, explanations);
+        tagger.runtimeTags(tags, explanations);
         if (_sdkSupportsNullSafety) {
-          tagger.nullSafetyTags(tags, suggestions);
+          tagger.nullSafetyTags(tags, explanations);
         }
+        suggestions.addAll(explanations.map((e) => Suggestion.hint(
+            SuggestionCode.notCompatible, e.finding, e.explanation)));
       }
     }
     final pkgPlatformBlockerSuggestion =

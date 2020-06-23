@@ -355,10 +355,16 @@
         "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
       },
       {
+        "title": "Package is multi-platform",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage resolution failed. Could not determine platforms.\nRun `pub get` for more information."
+      },
+      {
         "title": "Code follows recommended code style",
         "grantedPoints": 0,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 621 issues. Showing the first two:\n\nERROR: Target of URI doesn't exist: 'package:path/path.dart'.\n`lib/fs.dart:12:8`\n\n```\n   ╷\n12 │ import 'package:path/path.dart';\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`\nERROR: The default value of an optional parameter must be constant.\n`lib/fs.dart:179:58`\n\n```\n    ╷\n179 │       {FileMode mode: FileMode.WRITE, Encoding encoding: UTF8});\n    │                                                          ^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`"
+        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 621 issues. Showing the first 2:\nERROR: Target of URI doesn't exist: 'package:path/path.dart'.\n`lib/fs.dart:12:8`\n\n```\n   ╷\n12 │ import 'package:path/path.dart';\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`\nERROR: The default value of an optional parameter must be constant.\n`lib/fs.dart:179:58`\n\n```\n    ╷\n179 │       {FileMode mode: FileMode.WRITE, Encoding encoding: UTF8});\n    │                                                          ^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`"
       }
     ]
   }
