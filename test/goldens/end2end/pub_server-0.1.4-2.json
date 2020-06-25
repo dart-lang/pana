@@ -895,6 +895,8 @@
         "package:term_glyph/src/generated/top_level.dart",
         "package:term_glyph/src/generated/unicode_glyph_set.dart",
         "package:term_glyph/term_glyph.dart",
+        "package:typed_data/src/typed_buffer.dart",
+        "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart",
         "package:yaml/src/equality.dart",

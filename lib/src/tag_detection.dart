@@ -694,8 +694,9 @@ class _NullSafetyViolationFinder {
           (packageName) {
             for (final file
                 in _dartFilesFromLib(pubspecCache._packageDir(packageName))) {
-              final unit = _parsedUnitFromUri(
-                  analysisSession, Uri.parse('package:$packageName/$file'));
+              final uri =
+                  Uri.parse('package:$packageName/${path.toUri(file).path}');
+              final unit = _parsedUnitFromUri(analysisSession, uri);
               if (unit == null) continue;
               final languageVersionToken = unit.languageVersionToken;
               if (languageVersionToken == null) continue;
@@ -741,7 +742,7 @@ class Tagger {
     final session = ContextBuilder()
         .createContext(
           contextRoot: ContextLocator().locateRoots(
-            includedPaths: [packageDir],
+            includedPaths: [path.normalize(packageDir)],
           ).first,
         )
         .currentSession;

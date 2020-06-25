@@ -17,20 +17,20 @@ import 'golden_file.dart';
 String goldenDir = p.join('test', 'goldens', 'end2end');
 
 void main() {
-  Directory tempDir;
-  String rootPath;
+  String tempDir;
   PackageAnalyzer analyzer;
 
   setUpAll(() async {
-    tempDir = await Directory.systemTemp.createTemp('pana-test');
-    rootPath = await tempDir.resolveSymbolicLinks();
-    final pubCacheDir = '$rootPath/pub-cache';
-    await Directory(pubCacheDir).create();
+    tempDir = Directory.systemTemp
+        .createTempSync('pana-test')
+        .resolveSymbolicLinksSync();
+    final pubCacheDir = p.join(tempDir, 'pub-cache');
+    Directory(pubCacheDir).createSync();
     analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
   });
 
   tearDownAll(() async {
-    await tempDir.delete(recursive: true);
+    Directory(tempDir).deleteSync(recursive: true);
   });
 
   void _verifyPackage(String fileName, String package, String version,
