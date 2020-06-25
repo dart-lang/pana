@@ -135,7 +135,7 @@
         "title": "Package has documentation",
         "grantedPoints": 0,
         "maxPoints": 10,
-        "summary": "No example found."
+        "summary": "*10 points*: The package has an example.\n\nNo example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example."
       },
       {
         "title": "Code follows recommended code style",

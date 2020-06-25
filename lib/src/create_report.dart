@@ -92,13 +92,15 @@ Future<ReportSection> _hasDocumentation(
       (c) => File(p.join(packageDir, c)).existsSync(),
       orElse: () => null);
   final examplePoints = examplePath == null ? 0 : 10;
-  final exampleSummary =
-      examplePath == null ? 'No example found.' : 'Found `$examplePath`.';
+  final conclusion = examplePath != null
+      ? 'Found `$examplePath`.'
+      : 'No example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) '
+          'guidelines on how to add an example.';
   return ReportSection(
     title: documentationSectionTitle,
     grantedPoints: examplePoints,
     maxPoints: 10,
-    summary: exampleSummary,
+    summary: '*10 points*: The package has an example.\n\n$conclusion',
   );
 }
 

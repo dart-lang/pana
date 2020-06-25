@@ -961,7 +961,7 @@
         "title": "Package has documentation",
         "grantedPoints": 10,
         "maxPoints": 10,
-        "summary": "Found `example/example.dart`."
+        "summary": "*10 points*: The package has an example.\n\nFound `example/example.dart`."
       },
       {
         "title": "Code follows recommended code style",
