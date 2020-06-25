@@ -18,7 +18,10 @@ void main() {
   // golden file from the first.
   test('run with bad option shows help text. Help text is included in readme ',
       () async {
-    var process = await TestProcess.start('pub', ['run', 'pana', '--monkey']);
+    var process = await TestProcess.start(
+        p.join(p.dirname(Platform.resolvedExecutable),
+            Platform.isWindows ? 'pub.bat' : 'pub'),
+        ['run', 'pana', '--monkey']);
 
     var output = await process.stdoutStream().join('\n');
 
@@ -30,7 +33,7 @@ void main() {
     await process.shouldExit(ExitCode.usage.code);
 
     var readme = File('README.md');
-    expect(readme.readAsStringSync(),
+    expect(readme.readAsStringSync().replaceAll('\r\n', '\n'),
         contains('```\n${File(helpGoldenPath).readAsStringSync()}\n```'));
   });
 }

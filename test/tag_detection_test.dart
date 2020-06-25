@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/src/tag_detection.dart';
+import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
@@ -80,12 +81,12 @@ void main() {
 
   group('end2end tests', () {
     test('minimal', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package',
             lib: [d.file('my_package.dart', 'int fourtyTwo() => 42;')])
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.sdkTags,
           tags: {'sdk:dart', 'sdk:flutter'}, explanations: isEmpty);
       expectTagging(tagger.flutterPlatformTags,
@@ -107,7 +108,7 @@ void main() {
           explanations: isEmpty);
     });
     test('analyzes the primary libray', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', lib: [
           d.file('a.dart', '''
 import 'dart:io';
@@ -123,8 +124,8 @@ int fourtyTwo() => 42;
 '''),
         ]),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.sdkTags, tags: {'sdk:dart', 'sdk:flutter'});
       expectTagging(tagger.flutterPlatformTags, tags: {
         'platform:web',
@@ -134,7 +135,7 @@ int fourtyTwo() => 42;
       });
     });
     test('no library named after package', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', lib: [
           d.file('other.dart', '''
 import 'dart:mirrors';
@@ -142,15 +143,15 @@ int fourtyTwo() => 42;
 '''),
         ])
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.sdkTags, tags: {'sdk:dart'});
       expectTagging(tagger.flutterPlatformTags, tags: isEmpty);
       expectTagging(tagger.runtimeTags, tags: {'runtime:native-jit'});
     });
 
     test('flutter old style plugins', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', lib: [
           d.file('a.dart', '''
 import 'dart:io';
@@ -167,8 +168,8 @@ int fourtyTwo() => 42;
         }),
       ]);
 
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
       expectTagging(tagger.flutterPlatformTags,
           tags: {'platform:ios', 'platform:android'});
@@ -176,7 +177,7 @@ int fourtyTwo() => 42;
     });
 
     test('flutter old style plugins2', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', lib: [
           d.file('my_package.dart', '''
 import 'dart:io';
@@ -192,8 +193,8 @@ int fourtyTwo() => 42;
         })
       ]);
 
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
       expectTagging(tagger.flutterPlatformTags,
           tags: {'platform:ios', 'platform:android'});
@@ -210,7 +211,7 @@ int fourtyTwo() => 42;
         ])
       ]);
       await descriptor.create();
-      final tagger = Tagger('${descriptor.io.path}/my_package');
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.sdkTags, tags: {'sdk:dart'});
       expectTagging(tagger.flutterPlatformTags, tags: isEmpty);
       expectTagging(tagger.runtimeTags, tags: {
@@ -218,7 +219,7 @@ int fourtyTwo() => 42;
       });
     });
     test('using flutter plugin', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', dependencies: [
           'my_dependency'
         ], lib: [
@@ -239,14 +240,14 @@ int fourtyTwo() => fourtyThree() - 1;
           }
         }),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
       expectTagging(tagger.flutterPlatformTags, tags: {'platform:ios'});
       expectTagging(tagger.runtimeTags, tags: isEmpty);
     });
     test('using flutter plugin2', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', dependencies: [
           'my_dependency'
         ], lib: [
@@ -267,8 +268,8 @@ int fourtyTwo() => fourtyThree() - 1;
           }
         }),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
       expectTagging(tagger.flutterPlatformTags, tags: {'platform:web'});
       expectTagging(tagger.runtimeTags, tags: isEmpty);
@@ -315,7 +316,7 @@ int fourtyTwo() => 42;
     });
 
     test('Using mirrors', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package(
           'my_package',
           lib: [
@@ -338,8 +339,8 @@ int fourtyThree() => 43;
 '''),
         ]),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.sdkTags, tags: {
         'sdk:dart'
       }, explanations: [
@@ -373,7 +374,7 @@ int fourtyThree() => 43;
     });
 
     test('Configurable import', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package(
           'my_package',
           lib: [
@@ -395,8 +396,8 @@ int fourtyThree() => 43;
 '''),
         ]),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.sdkTags,
           tags: {'sdk:dart', 'sdk:flutter'}, explanations: isEmpty);
       expectTagging(tagger.flutterPlatformTags,
@@ -415,7 +416,7 @@ int fourtyThree() => 43;
     });
 
     test('file: imports are ignored', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         d.dir('my_package', [
           d.dir('lib', [
             d.file('my_package.dart', '''
@@ -434,8 +435,8 @@ name: my_package
           )
         ])
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.sdkTags,
           tags: {'sdk:dart', 'sdk:flutter'}, explanations: isEmpty);
       expectTagging(tagger.flutterPlatformTags,
@@ -462,7 +463,7 @@ name: my_package
   group('null-safe', () {
     test('compliant package depending on compliant package gets the tag',
         () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package',
             dependencies: ['my_dependency'],
             sdkConstraint: '>=2.10.0 <3.0.0',
@@ -476,28 +477,28 @@ name: my_package
           ),
         ]),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.nullSafetyTags,
           tags: ['is:null-safe'], explanations: isEmpty);
     });
-    test('opting a library out (even one not reacahble from primary) fails',
+    test('opting a library out (even one not reachahble from primary) fails',
         () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', sdkConstraint: '>=2.11.0 <3.0.0', lib: [
           d.file('my_package.dart', 'int fourtyTwo() => 42;'),
           d.dir('src', [
             d.file(
               'stray_file.dart',
               '''
-// @dart = 2.3
-''',
+// @dart = 2.3''',
             ),
           ]),
         ])
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
         explanation(
             finding: 'Package is not null safe',
@@ -508,7 +509,7 @@ name: my_package
 
     test('opting a library to older version still allowing null-safety is ok',
         () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', sdkConstraint: '>=2.11.0 <3.0.0', lib: [
           d.file('my_package.dart', 'int fourtyTwo() => 42;'),
           d.dir('src', [
@@ -516,14 +517,14 @@ name: my_package
           ]),
         ])
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.nullSafetyTags,
           tags: ['is:null-safe'], explanations: isEmpty);
     });
 
     test('depending on a not-null-safe package gets fails', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package',
             dependencies: ['my_dependency'],
             sdkConstraint: '>=2.10.0 <3.0.0',
@@ -537,8 +538,8 @@ name: my_package
           ),
         ]),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
         explanation(
           finding: 'Package is not null safe',
@@ -552,7 +553,7 @@ name: my_package
     });
 
     test('An opt-out library in a dependency fails', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package',
             dependencies: ['my_dependency'],
             sdkConstraint: '>=2.10.0 <3.0.0',
@@ -566,8 +567,8 @@ name: my_package
           ),
         ]),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
         explanation(
             finding: 'Package is not null safe',
@@ -579,7 +580,7 @@ name: my_package
     });
 
     test('An opt-out test still gets tag', () async {
-      final decriptor = d.dir('cache', [
+      final descriptor = d.dir('cache', [
         package('my_package', sdkConstraint: '>=2.10.0 <3.0.0', lib: [
           d.file('my_package.dart', 'int fourtyTwo() => 42;'),
         ], extraFiles: [
@@ -595,8 +596,8 @@ void main() {
           ])
         ]),
       ]);
-      await decriptor.create();
-      final tagger = Tagger('${decriptor.io.path}/my_package');
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.nullSafetyTags,
           tags: ['is:null-safe'], explanations: isEmpty);
     });

@@ -4,6 +4,7 @@
 
 import 'dart:io';
 
+import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 import 'package:pana/src/markdown_content.dart';
@@ -34,7 +35,7 @@ void main() {
       'title': 'Update `bad_images.md`.',
       'description':
           '1 image link is insecure (e.g. `http://example.com/logo.png`), use `https` URLs instead.',
-      'file': 'test/markdown_content/bad_images.md',
+      'file': p.normalize('test/markdown_content/bad_images.md'),
       'score': 2.0,
     });
   });
