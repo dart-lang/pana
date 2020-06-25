@@ -6,7 +6,9 @@ dart:
 os:
   - linux
   - osx
-  - windows
+# TODO(sigurdm): our end2end test creates longer filenames than we can
+# handle on windows. See https://github.com/dart-lang/sdk/issues/42416
+#  - windows
 
 dart_task:
   # Run the tests -- include the default-skipped presubmit tests
