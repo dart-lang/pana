@@ -152,6 +152,9 @@ class Explanation {
   final String finding;
   final String explanation;
   Explanation(this.finding, this.explanation);
+
+  @override
+  String toString() => 'Explanation($finding, $explanation)';
 }
 
 /// Returns a parsed (not resolved) compilation unit of [uri] created by
@@ -275,8 +278,9 @@ class LibraryGraph implements _DirectedGraph<Uri> {
 
   static String formatPath(List<Uri> path) {
     assert(path.isNotEmpty);
-    if (path.length == 1) return 'the import of ${path.single}';
-    return 'the import of ${path.last} via the import chain ${path.join('->')}';
+    final pathString = path.map((p) => '`$p`').join(' → ');
+    if (path.length == 1) return 'the import of $pathString';
+    return 'the import of ${path.last} via the import chain $pathString';
   }
 
   static bool _constantFalse(Uri _) => false;

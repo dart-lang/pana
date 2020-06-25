@@ -12991,7 +12991,7 @@
         "title": "Package is multi-platform",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage is a Dart package\nPackage not compatible with runtime native-aot\n\nBecause of the import of dart:mirrors via the import chain package:stream/stream.dart->package:stream/plugin.dart->package:rikulo_commons/mirrors.dart->dart:mirrors\nPackage not compatible with runtime web\n\nBecause of the import of dart:io via the import chain package:stream/stream.dart->package:stream/plugin.dart->package:rikulo_commons/io.dart->dart:io"
+        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage is a Dart package\nPackage not compatible with runtime native-aot\n\nBecause of the import of dart:mirrors via the import chain `package:stream/stream.dart` → `package:stream/plugin.dart` → `package:rikulo_commons/mirrors.dart` → `dart:mirrors`\nPackage not compatible with runtime web\n\nBecause of the import of dart:io via the import chain `package:stream/stream.dart` → `package:stream/plugin.dart` → `package:rikulo_commons/io.dart` → `dart:io`"
       },
       {
         "title": "Code follows recommended code style",

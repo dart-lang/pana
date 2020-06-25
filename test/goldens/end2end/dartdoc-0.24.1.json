@@ -155,49 +155,49 @@
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime flutter-native on android",
-      "description": "Because of the import of dart:mirrors via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/html/html_generator.dart->package:dartdoc/src/html/templates.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart->dart:mirrors"
+      "description": "Because of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`"
     },
     {
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime flutter-native on ios",
-      "description": "Because of the import of dart:mirrors via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/html/html_generator.dart->package:dartdoc/src/html/templates.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart->dart:mirrors"
+      "description": "Because of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`"
     },
     {
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime flutter-native on linux",
-      "description": "Because of the import of dart:mirrors via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/html/html_generator.dart->package:dartdoc/src/html/templates.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart->dart:mirrors"
+      "description": "Because of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`"
     },
     {
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime flutter-native on macos",
-      "description": "Because of the import of dart:mirrors via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/html/html_generator.dart->package:dartdoc/src/html/templates.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart->dart:mirrors"
+      "description": "Because of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`"
     },
     {
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime flutter-native on windows",
-      "description": "Because of the import of dart:mirrors via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/html/html_generator.dart->package:dartdoc/src/html/templates.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart->dart:mirrors"
+      "description": "Because of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`"
     },
     {
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime flutter-web on web",
-      "description": "Because of the import of dart:io via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/element_type.dart->package:dartdoc/src/model.dart->package:package_config/discovery.dart->package:package_config/src/packages_io_impl.dart->package:package_config/src/util_io.dart->dart:io"
+      "description": "Because of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`"
     },
     {
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime native-aot",
-      "description": "Because of the import of dart:mirrors via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/html/html_generator.dart->package:dartdoc/src/html/templates.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart->dart:mirrors"
+      "description": "Because of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`"
     },
     {
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime web",
-      "description": "Because of the import of dart:io via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/element_type.dart->package:dartdoc/src/model.dart->package:package_config/discovery.dart->package:package_config/src/packages_io_impl.dart->package:package_config/src/util_io.dart->dart:io"
+      "description": "Because of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`"
     }
   ],
   "pkgResolution": {
@@ -20163,7 +20163,7 @@
         "title": "Package is multi-platform",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage is a Dart package\nPackage not compatible with runtime native-aot\n\nBecause of the import of dart:mirrors via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/html/html_generator.dart->package:dartdoc/src/html/templates.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart->package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart->dart:mirrors\nPackage not compatible with runtime web\n\nBecause of the import of dart:io via the import chain package:dartdoc/dartdoc.dart->package:dartdoc/src/element_type.dart->package:dartdoc/src/model.dart->package:package_config/discovery.dart->package:package_config/src/packages_io_impl.dart->package:package_config/src/util_io.dart->dart:io"
+        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage is a Dart package\nPackage not compatible with runtime native-aot\n\nBecause of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`\nPackage not compatible with runtime web\n\nBecause of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`"
       },
       {
         "title": "Code follows recommended code style",
