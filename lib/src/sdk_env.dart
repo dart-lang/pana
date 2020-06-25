@@ -306,6 +306,18 @@ class ToolEnvironment {
     }
   }
 
+  Future<Map<String, Object>> runPubOutdated(String packageDir,
+      {List<String> args = const []}) async {
+    final result = await runProc(_pubCmd, ['outdated', ...args],
+        environment: _environment);
+    if (result.exitCode != 0) {
+      throw Exception(
+          '`pub outdated` exited ${result.exitCode}. StdErr: ${result.stderr}');
+    } else {
+      return json.decode(result.stdout as String) as Map<String, Object>;
+    }
+  }
+
   Map<String, String> _globalDartdocEnv() {
     final env = Map<String, String>.from(_environment);
     if (pubCacheDir != null) {

@@ -501,6 +501,8 @@
         "package:term_glyph/src/generated/top_level.dart",
         "package:term_glyph/src/generated/unicode_glyph_set.dart",
         "package:term_glyph/term_glyph.dart",
+        "package:typed_data/src/typed_buffer.dart",
+        "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart"
       ],
@@ -692,6 +694,8 @@
         "package:term_glyph/src/generated/top_level.dart",
         "package:term_glyph/src/generated/unicode_glyph_set.dart",
         "package:term_glyph/term_glyph.dart",
+        "package:typed_data/src/typed_buffer.dart",
+        "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart"
       ],
@@ -2624,6 +2628,8 @@
         "package:term_glyph/src/generated/top_level.dart",
         "package:term_glyph/src/generated/unicode_glyph_set.dart",
         "package:term_glyph/term_glyph.dart",
+        "package:typed_data/src/typed_buffer.dart",
+        "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart"
       ],
@@ -2675,6 +2681,12 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 202 issues. Showing the first two:\n\nINFO: Use collection literals when possible.\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\nINFO: Unnecessary new keyword.\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`"
+      },
+      {
+        "title": "Package is a good, trustworthy dependency",
+        "grantedPoints": 30,
+        "maxPoints": 30,
+        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n"
       }
     ]
   }
