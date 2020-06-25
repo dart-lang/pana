@@ -39,20 +39,26 @@ ReportSection documentationCoverageSection({
   @required int documented,
   @required int total,
 }) {
-  final percent = total <= 0 ? 1.0 : documented / total;
-  final accepted = percent >= 0.2;
-  final granted = accepted ? 10 : 0;
-  final undocumented = total - documented;
+  final maxPoints = 10;
+  final ratio = total <= 0 ? 1.0 : documented / total;
+  final accepted = ratio >= 0.2;
+  final percent = ratio.toStringAsFixed(1);
+  final summary = StringBuffer();
+  summary.write('$documented out of $total ($percent %) '
+      'API elements have documentation comments.');
+
+  if (!accepted) {
+    summary.write('\n\n'
+        'Providing good documentation for libraries, classes, functions, and other API '
+        'elements improves code readability and helps developers find and use your API. '
+        'Document at least 20% of the public API elements.');
+  }
+
   return ReportSection(
     title: documentationSectionTitle,
-    grantedPoints: granted,
-    maxPoints: 10,
-    summary: accepted
-        ? 'At least 20% of the public API has documentation comments.'
-        : '$undocumented out of $total API elements have no dartdoc comment. '
-            'Providing good documentation for libraries, classes, functions, and other API '
-            'elements improves code readability and helps developers find and use your API. '
-            'Document at least 20% of the public API elements.',
+    grantedPoints: accepted ? maxPoints : 0,
+    maxPoints: maxPoints,
+    summary: summary.toString(),
   );
 }
 
