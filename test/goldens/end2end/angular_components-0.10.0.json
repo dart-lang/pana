@@ -46901,6 +46901,12 @@
         "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md.\n\nLinks in README.md should be secure. 1 link is insecure.\n`README.md:51:22`\n\n```\n   ╷\n51 │ component's provided <a href=\"http://sass-lang.com/guide#topic-6\">Sass mixins</a>.</p>\n   │                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nUse `https` URLs instead."
       },
       {
+        "title": "Package has documentation",
+        "grantedPoints": 0,
+        "maxPoints": 10,
+        "summary": "No example found."
+      },
+      {
         "title": "Code follows recommended code style",
         "grantedPoints": 0,
         "maxPoints": 20,
