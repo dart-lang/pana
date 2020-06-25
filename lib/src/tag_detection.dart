@@ -818,7 +818,7 @@ class Tagger {
 
   /// Adds tags for the Flutter platforms that this package supports to [tags].
   ///
-  /// Adds [Explanation]s to [Explanations] for platforms not supported.
+  /// Adds [Explanation]s to [explanations] for platforms not supported.
   void flutterPlatformTags(
     List<String> tags,
     List<Explanation> explanations, {
