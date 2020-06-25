@@ -102,27 +102,23 @@
       {
         "package": "async",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "2.4.1"
+        "constraintType": "inherited"
       },
       {
         "package": "charcode",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.3"
+        "constraintType": "inherited"
       },
       {
         "package": "collection",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.14.12"
+        "constraintType": "inherited"
       },
       {
         "package": "dart2_constant",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^1.0.1",
-        "resolved": "1.0.2+dart2"
+        "constraint": "^1.0.1"
       },
       {
         "package": "http",
@@ -134,79 +130,67 @@
         "package": "http_parser",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^3.0.0",
-        "resolved": "3.1.4"
+        "constraint": "^3.0.0"
       },
       {
         "package": "logging",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": ">=0.9.3 <1.0.0",
-        "resolved": "0.11.4"
+        "constraint": ">=0.9.3 <1.0.0"
       },
       {
         "package": "meta",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.8"
+        "constraintType": "inherited"
       },
       {
         "package": "mime",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": ">=0.9.3 <0.10.0",
-        "resolved": "0.9.6+3"
+        "constraint": ">=0.9.3 <0.10.0"
       },
       {
         "package": "path",
         "dependencyType": "dev",
         "constraintType": "normal",
-        "constraint": "^1.5.1",
-        "resolved": "1.7.0"
+        "constraint": "^1.5.1"
       },
       {
         "package": "pub_semver",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^1.1.0",
-        "resolved": "1.4.4"
+        "constraint": "^1.1.0"
       },
       {
         "package": "shelf",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": ">=0.5.6 <0.8.0",
-        "resolved": "0.7.5"
+        "constraint": ">=0.5.6 <0.8.0"
       },
       {
         "package": "source_span",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.7.0"
+        "constraintType": "inherited"
       },
       {
         "package": "stack_trace",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.9.3"
+        "constraintType": "inherited"
       },
       {
         "package": "stream_channel",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "2.0.0"
+        "constraintType": "inherited"
       },
       {
         "package": "string_scanner",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.0.5"
+        "constraintType": "inherited"
       },
       {
         "package": "term_glyph",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.0"
+        "constraintType": "inherited"
       },
       {
         "package": "test",
@@ -217,15 +201,13 @@
       {
         "package": "typed_data",
         "dependencyType": "transitive",
-        "constraintType": "inherited",
-        "resolved": "1.1.6"
+        "constraintType": "inherited"
       },
       {
         "package": "yaml",
         "dependencyType": "direct",
         "constraintType": "normal",
-        "constraint": "^2.1.2",
-        "resolved": "2.2.1"
+        "constraint": "^2.1.2"
       }
     ]
   },
@@ -242,6 +224,7 @@
           "file": "lib/repository.dart",
           "line": 27,
           "col": 15,
+          "length": 32,
           "description": "Unnecessary new keyword."
         },
         {
@@ -251,6 +234,7 @@
           "file": "lib/repository.dart",
           "line": 109,
           "col": 7,
+          "length": 59,
           "description": "Unnecessary new keyword."
         },
         {
@@ -260,6 +244,7 @@
           "file": "lib/repository.dart",
           "line": 130,
           "col": 13,
+          "length": 42,
           "description": "Unnecessary new keyword."
         },
         {
@@ -269,6 +254,7 @@
           "file": "lib/repository.dart",
           "line": 144,
           "col": 13,
+          "length": 48,
           "description": "Unnecessary new keyword."
         },
         {
@@ -278,6 +264,7 @@
           "file": "lib/repository.dart",
           "line": 148,
           "col": 13,
+          "length": 48,
           "description": "Unnecessary new keyword."
         },
         {
@@ -287,6 +274,7 @@
           "file": "lib/repository.dart",
           "line": 158,
           "col": 13,
+          "length": 49,
           "description": "Unnecessary new keyword."
         },
         {
@@ -296,6 +284,7 @@
           "file": "lib/repository.dart",
           "line": 165,
           "col": 13,
+          "length": 44,
           "description": "Unnecessary new keyword."
         },
         {
@@ -305,6 +294,7 @@
           "file": "lib/repository.dart",
           "line": 169,
           "col": 13,
+          "length": 44,
           "description": "Unnecessary new keyword."
         }
       ],
@@ -365,6 +355,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 19,
           "col": 24,
+          "length": 39,
           "description": "Unnecessary new keyword."
         },
         {
@@ -374,6 +365,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 131,
           "col": 40,
+          "length": 38,
           "description": "Unnecessary new keyword."
         },
         {
@@ -383,6 +375,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 134,
           "col": 7,
+          "length": 55,
           "description": "Unnecessary new keyword."
         },
         {
@@ -392,6 +385,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 137,
           "col": 7,
+          "length": 48,
           "description": "Unnecessary new keyword."
         },
         {
@@ -401,6 +395,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 140,
           "col": 7,
+          "length": 56,
           "description": "Unnecessary new keyword."
         },
         {
@@ -410,6 +405,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 143,
           "col": 7,
+          "length": 60,
           "description": "Unnecessary new keyword."
         },
         {
@@ -419,6 +415,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 151,
           "col": 5,
+          "length": 39,
           "description": "Omit type annotations for local variables."
         },
         {
@@ -428,6 +425,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 177,
           "col": 18,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -437,6 +435,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 189,
           "col": 18,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -446,6 +445,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 201,
           "col": 18,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -455,6 +455,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 208,
           "col": 18,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -464,6 +465,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 213,
           "col": 11,
+          "length": 63,
           "description": "Omit type annotations for local variables."
         },
         {
@@ -473,6 +475,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 221,
           "col": 16,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -482,6 +485,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 226,
           "col": 9,
+          "length": 66,
           "description": "Omit type annotations for local variables."
         },
         {
@@ -491,6 +495,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 227,
           "col": 9,
+          "length": 63,
           "description": "Omit type annotations for local variables."
         },
         {
@@ -500,6 +505,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 231,
           "col": 12,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -509,6 +515,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 245,
           "col": 9,
+          "length": 27,
           "description": "Use isEmpty instead of length"
         },
         {
@@ -518,6 +525,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 246,
           "col": 14,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -527,6 +535,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 262,
           "col": 10,
+          "length": 34,
           "description": "Omit type annotations for local variables."
         },
         {
@@ -536,6 +545,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 286,
           "col": 14,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -545,6 +555,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 304,
           "col": 14,
+          "length": 32,
           "description": "Unnecessary new keyword."
         },
         {
@@ -554,6 +565,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 308,
           "col": 12,
+          "length": 29,
           "description": "Unnecessary new keyword."
         },
         {
@@ -563,6 +575,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 372,
           "col": 29,
+          "length": 38,
           "description": "Unnecessary new keyword."
         },
         {
@@ -572,6 +585,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 390,
           "col": 14,
+          "length": 53,
           "description": "Unnecessary new keyword."
         },
         {
@@ -581,6 +595,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 394,
           "col": 14,
+          "length": 89,
           "description": "Unnecessary new keyword."
         },
         {
@@ -590,6 +605,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 414,
           "col": 53,
+          "length": 19,
           "description": "Use isNotEmpty instead of length"
         },
         {
@@ -599,6 +615,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 451,
           "col": 12,
+          "length": 168,
           "description": "Unnecessary new keyword."
         },
         {
@@ -608,6 +625,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 458,
           "col": 44,
+          "length": 174,
           "description": "Unnecessary new keyword."
         },
         {
@@ -617,6 +635,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 464,
           "col": 49,
+          "length": 158,
           "description": "Unnecessary new keyword."
         },
         {
@@ -626,6 +645,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 470,
           "col": 62,
+          "length": 1,
           "description": "Use `=` to separate a named parameter from its default value."
         },
         {
@@ -635,6 +655,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 471,
           "col": 7,
+          "length": 129,
           "description": "Unnecessary new keyword."
         },
         {
@@ -644,6 +665,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 472,
           "col": 17,
+          "length": 28,
           "description": "Unnecessary new keyword."
         },
         {
@@ -653,6 +675,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 475,
           "col": 53,
+          "length": 1,
           "description": "Use `=` to separate a named parameter from its default value."
         },
         {
@@ -662,6 +685,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 476,
           "col": 7,
+          "length": 126,
           "description": "Unnecessary new keyword."
         },
         {
@@ -671,6 +695,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 505,
           "col": 7,
+          "length": 33,
           "description": "Unnecessary new keyword."
         },
         {
@@ -680,6 +705,7 @@
           "file": "lib/shelf_pubserver.dart",
           "line": 523,
           "col": 19,
+          "length": 32,
           "description": "Unnecessary new keyword."
         }
       ],
@@ -812,6 +838,7 @@
         "package:shelf/src/body.dart",
         "package:shelf/src/cascade.dart",
         "package:shelf/src/handler.dart",
+        "package:shelf/src/headers.dart",
         "package:shelf/src/hijack_exception.dart",
         "package:shelf/src/message.dart",
         "package:shelf/src/middleware.dart",
@@ -915,6 +942,25 @@
     "runtime:web"
   ],
   "report": {
-    "sections": []
+    "sections": [
+      {
+        "title": "Package supports Dart 2",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2."
+      },
+      {
+        "title": "Packaging conventions",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
+      },
+      {
+        "title": "Code follows recommended code style",
+        "grantedPoints": 10,
+        "maxPoints": 20,
+        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 44 issues. Showing the first two:\n\nINFO: Unnecessary new keyword.\n`lib/repository.dart:27:15`\n\n```\n   ╷\n27 │     _cached = new Version.parse(versionString);\n   │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\nINFO: Unnecessary new keyword.\n`lib/repository.dart:109:7`\n\n```\n    ╷\n109 │       new GenericProcessingException('ValidationError: $message');\n    │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`"
+      }
+    ]
   }
 }

@@ -14,7 +14,7 @@ import 'package:path/path.dart' as p;
 
 import 'golden_file.dart';
 
-String goldenDir = p.join('test', 'golden', 'end2end');
+String goldenDir = p.join('test', 'goldens', 'end2end');
 
 void main() {
   String tempDir;
@@ -103,9 +103,14 @@ void main() {
         // versions may change over time or because of SDK version changes.
         removeDependencyDetails(actualMap);
 
-        expectMatchesGoldenFile(
-            const JsonEncoder.withIndent('  ').convert(actualMap),
-            p.join(goldenDir, fileName));
+        final json = const JsonEncoder.withIndent('  ').convert(actualMap);
+
+        // The tempdir creeps in to an error message.
+        final jsonNoTempDir = json.replaceAll(
+            RegExp(r'Error on line 5, column 1 of .*pubspec.yaml'),
+            r'Error on line 5, column 1 of $TEMPDIR/pubspec.yaml');
+
+        expectMatchesGoldenFile(jsonNoTempDir, p.join(goldenDir, fileName));
       });
 
       test('Summary can round-trip', () {

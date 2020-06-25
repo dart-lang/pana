@@ -118,6 +118,25 @@
   },
   "tags": [],
   "report": {
-    "sections": []
+    "sections": [
+      {
+        "title": "Package supports Dart 2",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2.\n\n`pubspec.yaml` has no sdk constraint. Dart 2 support requires an sdk-constraint.\nAdd an sdk-constraint to `pubspec.yaml`. For example:\n```\nenvironment:\n  sdk: '>=2.8.0 <3.0.0'\n```\n"
+      },
+      {
+        "title": "Packaging conventions",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
+      },
+      {
+        "title": "Code follows recommended code style",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 59 issues. Showing the first two:\n\nERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n`lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/skiplist.dart`\nERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Function(Object)').\n`lib/skiplist.dart:77:14`\n\n```\n   ╷\n77 │   V operator [](K key) {\n   │              ^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/skiplist.dart`"
+      }
+    ]
   }
 }

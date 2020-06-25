@@ -2,13 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
-
 import 'package:pana/src/model.dart';
 import 'package:pana/src/tag_detection.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
+
+import 'package_descriptor.dart';
 
 class FakeLibraryGraph implements LibraryGraph {
   final Map<String, Set<String>> successors = {};
@@ -17,36 +17,6 @@ class FakeLibraryGraph implements LibraryGraph {
   Set<Uri> directSuccessors(Uri uri) {
     return successors[uri.toString()].map(Uri.parse).toSet();
   }
-}
-
-/// Convenience for creating a descriptor of a package.
-d.DirectoryDescriptor package(String name,
-    {String sdkConstraint,
-    List<String> dependencies = const [],
-    List<d.Descriptor> lib = const [],
-    Map pubspecExtras = const {},
-    List<d.Descriptor> extraFiles = const []}) {
-  final pubspec = json.encode(
-    {
-      'name': name,
-      if (sdkConstraint != null) 'environment': {'sdk': sdkConstraint},
-      'dependencies': {
-        for (final dep in dependencies) dep: {'path': '../$dep'}
-      },
-      ...pubspecExtras,
-    },
-  );
-  final packages = [
-        '$name:lib/',
-        for (final dep in dependencies) '$dep:../$dep/lib/'
-      ].join('\n') +
-      '\n';
-  return d.dir(name, [
-    d.file('.packages', packages),
-    d.file('pubspec.yaml', pubspec),
-    d.dir('lib', lib),
-    ...extraFiles,
-  ]);
 }
 
 void expectTagging(void Function(List<String>, List<Suggestion>) f,
@@ -305,6 +275,47 @@ int fourtyTwo() => fourtyThree() - 1;
       expectTagging(tagger.flutterPlatformTags, tags: {'platform:web'});
       expectTagging(tagger.runtimeTags, tags: isEmpty);
     });
+    test('Flutter plugins declarations are ', () async {
+      final decriptor = d.dir('cache', [
+        package('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:io';
+import 'package:my_package_linux';
+int fourtyTwo() => 42;
+'''),
+        ], pubspecExtras: {
+          'environment': {'flutter': '>=1.2.0<=2.0.0'},
+          'flutter': {
+            'plugin': {
+              'platforms': {'web': {}, 'ios': {}}
+            }
+          }
+        }, dependencies: [
+          'my_package_linux'
+        ]),
+        package('my_package_linux', lib: [
+          d.file('my_package_linux.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+        ], pubspecExtras: {
+          'environment': {'flutter': '>=1.2.0<=2.0.0'},
+          'flutter': {
+            'plugin': {
+              'platforms': {'web': {}, 'linux': {}}
+            }
+          }
+        })
+      ]);
+
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {'platform:ios', 'platform:web'});
+      expectTagging(tagger.runtimeTags, tags: isEmpty);
+    });
+
     test('Using mirrors', () async {
       final descriptor = d.dir('cache', [
         package(
@@ -345,7 +356,7 @@ int fourtyThree() => 43;
           suggestions: contains(
             hint(
                 title:
-                    'Package not compatible with runtime flutter-native of android'),
+                    'Package not compatible with runtime flutter-native on android'),
           ));
       expectTagging(tagger.runtimeTags, tags: {
         'runtime:native-jit'

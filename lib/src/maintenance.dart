@@ -140,7 +140,7 @@ Suggestion pubspecParseError(error) {
   return Suggestion.error(
     SuggestionCode.pubspecParseError,
     'Error while parsing `pubspec.yaml`.',
-    'Parsing throw an exception:\n\n```\n$message\n```.',
+    'Parsing throws an exception:\n\n```\n$message\n```.',
     score: 100.0,
   );
 }

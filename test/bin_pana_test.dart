@@ -11,7 +11,7 @@ import 'package:test_process/test_process.dart';
 
 import 'golden_file.dart';
 
-final helpGoldenPath = p.join('goldens', 'help.txt');
+final helpGoldenPath = p.join('test', 'goldens', 'help.txt');
 
 void main() {
   // This is really two tests in one, because the second one depends on the

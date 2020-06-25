@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:pana/src/create_report.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -441,7 +442,7 @@ class PackageAnalyzer {
       suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
       tags: tags,
-      report: Report(sections: []),
+      report: await createReport(pkgDir, _toolEnv),
     );
   }
 
