@@ -52,7 +52,7 @@ Check it out on [github](http://github.com/example/my_package).
     test('finds example', () async {
       final descriptor = package('my_package', extraFiles: [
         d.dir('example', [
-          d.file('EXAMPLE.md', '''
+          d.file('example.md', '''
 # Dev setup
 
 Use the following additional dependencies..
