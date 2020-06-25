@@ -2,8 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:meta/meta.dart';
+
 import 'model.dart';
 import 'sdk_env.dart';
+
+const documentationSectionTitle = 'Package has documentation';
 
 List<Suggestion> getDartdocSuggestions(DartdocResult result) {
   if (result == null) {
@@ -26,5 +30,46 @@ Suggestion getDartdocRunFailedSuggestion([DartdocResult result]) {
     "Make sure `dartdoc` successfully runs on your package's source files.",
     'Running `dartdoc` failed with the following output:\n\n```\n$errorMessage\n```\n',
     score: 10.0,
+  );
+}
+
+/// Creates a report section about documentation coverage.
+/// 20% coverage grants the maximum number of points.
+ReportSection documentationCoverageSection({
+  @required int documented,
+  @required int total,
+}) {
+  final maxPoints = 10;
+  final ratio = total <= 0 ? 1.0 : documented / total;
+  final accepted = ratio >= 0.2;
+  final percent = ratio.toStringAsFixed(1);
+  final summary = StringBuffer();
+
+  summary.write('*10 points*: 20% or more of the public api has dartdoc.\n\n'
+      '$documented out of $total ($percent %) API elements have documentation comments.');
+
+  if (!accepted) {
+    summary.write('\n\n'
+        'Providing good documentation for libraries, classes, functions, and other API '
+        'elements improves code readability and helps developers find and use your API. '
+        'Document at least 20% of the public API elements.');
+  }
+
+  return ReportSection(
+    title: documentationSectionTitle,
+    grantedPoints: accepted ? maxPoints : 0,
+    maxPoints: maxPoints,
+    summary: summary.toString(),
+  );
+}
+
+/// Creates a report section when running dartdoc failed to produce content.
+ReportSection dartdocFailedSection(DartdocResult result) {
+  final suggestion = getDartdocRunFailedSuggestion(result);
+  return ReportSection(
+    title: documentationSectionTitle,
+    grantedPoints: 0,
+    maxPoints: 10,
+    summary: suggestion.description,
   );
 }

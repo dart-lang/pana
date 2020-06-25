@@ -958,6 +958,12 @@
         "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
       },
       {
+        "title": "Package has documentation",
+        "grantedPoints": 10,
+        "maxPoints": 10,
+        "summary": "*10 points*: The package has an example.\n\nFound `example/example.dart`."
+      },
+      {
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,

@@ -1028,7 +1028,7 @@ class Stats {
 }
 
 /// Models the 'new-style' pana report.
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Report {
   /// The scoring sections.
   final List<ReportSection> sections;
@@ -1037,6 +1037,37 @@ class Report {
 
   static Report fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
   Map<String, dynamic> toJson() => _$ReportToJson(this);
+
+  /// Creates a new [Report] instance with [section] extending and already
+  /// existing [ReportSection]. The sections are matched via the `title`.
+  ///
+  /// The granted and max points will be added to the existing section.
+  /// The summary will be appended to the end of the existing summary.
+  ///
+  /// If there is no section matched, the section will be added to the end of
+  /// the sections list.
+  Report joinSection(ReportSection section) {
+    final matched = sections.firstWhere((s) => s.title == section.title,
+        orElse: () => null);
+    if (matched == null) {
+      return Report(sections: [...sections, section]);
+    } else {
+      return Report(
+          sections: sections.map(
+        (s) {
+          if (s != matched) {
+            return s;
+          }
+          return ReportSection(
+            title: s.title,
+            maxPoints: s.maxPoints + section.maxPoints,
+            grantedPoints: s.grantedPoints + section.grantedPoints,
+            summary: [s.summary.trim(), section.summary.trim()].join('\n\n'),
+          );
+        },
+      ).toList());
+    }
+  }
 }
 
 @JsonSerializable()

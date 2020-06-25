@@ -27,6 +27,7 @@ Future<Report> createReport(
   return Report(sections: [
     _supportsDart2(packageDir, pubspec),
     await _followsTemplate(packageDir, pubspec),
+    await _hasDocumentation(packageDir, pubspec),
     await _staticAnalysis(
       packageDir,
       toolEnvironment,
@@ -79,6 +80,28 @@ environment:
           'Package gets 20 points if its Dart sdk constraint allows Dart 2.',
           issues,
           basePath: packageDir));
+}
+
+Future<ReportSection> _hasDocumentation(
+    String packageDir, Pubspec pubspec) async {
+  // TODO: run dartdoc for coverage
+
+  // checking example
+  final candidates = exampleFileCandidates(pubspec.name, caseSensitive: true);
+  final examplePath = candidates.firstWhere(
+      (c) => File(p.join(packageDir, c)).existsSync(),
+      orElse: () => null);
+  final examplePoints = examplePath == null ? 0 : 10;
+  final conclusion = examplePath != null
+      ? 'Found `$examplePath`.'
+      : 'No example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) '
+          'guidelines on how to add an example.';
+  return ReportSection(
+    title: documentationSectionTitle,
+    grantedPoints: examplePoints,
+    maxPoints: 10,
+    summary: '*10 points*: The package has an example.\n\n$conclusion',
+  );
 }
 
 Future<ReportSection> _staticAnalysis(

@@ -40,8 +40,12 @@ final List<String> exampleReadmeFileNames = <String>[
 ];
 
 /// Returns the candidates in priority order to display under the 'Example' tab.
-List<String> exampleFileCandidates(String package) {
+List<String> exampleFileCandidates(
+  String package, {
+  bool caseSensitive = false,
+}) {
   return <String>[
+    if (caseSensitive) ...textFileNameCandidates('example/EXAMPLE'),
     ...textFileNameCandidates('example/example'),
     'example/lib/main.dart',
     'example/main.dart',
@@ -51,6 +55,7 @@ List<String> exampleFileCandidates(String package) {
     'example/${package}_example.dart',
     'example/lib/example.dart',
     'example/example.dart',
+    if (caseSensitive) ...textFileNameCandidates('example/README'),
     ...textFileNameCandidates('example/readme'),
   ];
 }
