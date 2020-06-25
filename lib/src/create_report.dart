@@ -352,9 +352,9 @@ Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)
 Flutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)
 ''',
       issues,
-      basePath: null,
+      basePath: packageDir,
       maxIssues:
-          null, // Tagging produces a bounded number of issues. Better display them all.
+          100, // Tagging produces a bounded number of issues. Better display them all.
     ),
   );
 }
@@ -409,7 +409,7 @@ String _makeSummary(String introduction, List<_Issue> issues,
     introduction,
     if (issues.isNotEmpty) ...[
       '',
-      if (maxIssues == null || issues.length <= maxIssues)
+      if (issues.length <= maxIssues)
         ...issuesMarkdown
       else ...[
         'Found ${issues.length} issues. Showing the first $maxIssues:',
