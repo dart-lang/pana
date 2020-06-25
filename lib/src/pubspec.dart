@@ -120,6 +120,9 @@ class Pubspec {
   SdkConstraintStatus get sdkConstraintStatus =>
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
 
+  VersionConstraint get dartSdkConstraint => _inner.environment['sdk'];
+  VersionConstraint get flutterSdkConstraint => _inner.environment['flutter'];
+
   bool get usesOldFlutterPluginFormat =>
       hasFlutterPluginKey &&
       _inner.flutter['plugin'] is Map<String, Object> &&

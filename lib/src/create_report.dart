@@ -335,8 +335,7 @@ Future<ReportSection> _trustworthDependency(
   }
 
   final currentSdkVersion = Version.parse(Platform.version.split(' ').first);
-  final sdkConstraint =
-      VersionConstraint.parse(pubspec.environment['sdk'] as String);
+  final sdkConstraint = pubspec.dartSdkConstraint;
   final allowsCurrentSdk = sdkConstraint.allows(currentSdkVersion);
   if (!allowsCurrentSdk) {
     _Issue(
@@ -352,7 +351,7 @@ Future<ReportSection> _trustworthDependency(
         'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
     allowsCurrentFlutter = false;
   } else {
-    final usesFlutter = await toolEnvironment.detectFlutterUse(packageDir);
+    final usesFlutter = pubspec.usesFlutter;
     final flutterDartVersion = Version.parse(
         (flutterVersions['dartSdkVersion'] as String).split(' ').first);
     final allowsCurrentFlutterDart = sdkConstraint.allows(flutterDartVersion);
@@ -371,8 +370,7 @@ Future<ReportSection> _trustworthDependency(
         // not be latest). Perhaps we should query somewhere for the latest version.
         final currentFlutterVersion =
             Version.parse(flutterVersions['frameworkVersion'] as String);
-        final flutterConstraint =
-            VersionConstraint.parse(pubspec.environment['flutter'] as String);
+        final flutterConstraint = pubspec.flutterSdkConstraint;
         if (!flutterConstraint.allows(currentFlutterVersion)) {
           issues.add(
             _Issue(
@@ -386,7 +384,8 @@ Future<ReportSection> _trustworthDependency(
     }
   }
   final publisher = json.decode(await read(
-      'https://pub.dev/api/packages/${pubspec.name}/publisher'))['publisherId'];
+          'https://pub.dev/api/packages/${Uri.encodeComponent(pubspec.name)}/publisher'))[
+      'publisherId'];
 
   if (publisher == null) {
     issues.add(_Issue('Package is not published under a verified publisher.',
