@@ -87,9 +87,9 @@ abstract class _DirectedGraph<T> {
   Set<T> directSuccessors(T t);
 }
 
-/// Creates a suggestion indicating an issue, using [path] to give the location
+/// Creates a Explanation indicating an issue, using [path] to give the location
 /// of the issue.
-typedef _Explainer<N> = Suggestion Function(List<N> path);
+typedef _Explainer<N> = Explanation Function(List<N> path);
 
 /// Returns an [_Explainer] if node fullfills the predicate (if it violates some
 /// property) and `null` otherwise.
@@ -142,10 +142,19 @@ class _PathFinder<T> {
   }
 
   /// Finds a path from [root] to a node violating of [predicate] and returns a
-  /// suggestion indicating the issue.
+  /// Explanation indicating the issue.
   ///
   /// Returns `null` if no issue was found
-  Suggestion findViolation(T root) => findPath(root).explain();
+  Explanation findViolation(T root) => findPath(root).explain();
+}
+
+class Explanation {
+  final String finding;
+  final String explanation;
+  Explanation(this.finding, this.explanation);
+
+  @override
+  String toString() => 'Explanation($finding, $explanation)';
 }
 
 /// Returns a parsed (not resolved) compilation unit of [uri] created by
@@ -269,8 +278,9 @@ class LibraryGraph implements _DirectedGraph<Uri> {
 
   static String formatPath(List<Uri> path) {
     assert(path.isNotEmpty);
-    if (path.length == 1) return 'the import of ${path.single}';
-    return 'the import of ${path.last} via the import chain ${path.join('->')}';
+    final pathString = path.map((p) => '`$p`').join(' → ');
+    if (path.length == 1) return 'the import of $pathString';
+    return 'the import of ${path.last} via the import chain $pathString';
   }
 
   static bool _constantFalse(Uri _) => false;
@@ -464,7 +474,7 @@ class PathResult<T> {
         : PathResult<T>.noPath();
   }
 
-  Suggestion explain() => hasPath ? explainer(path) : null;
+  Explanation explain() => hasPath ? explainer(path) : null;
 }
 
 /// Detects forbidden imports given a runtime.
@@ -567,8 +577,7 @@ class _PlatformViolationFinder {
                 ._declaredFlutterPlatforms(pubspecCache.packageName(uri));
             if (detectedPlatforms != null &&
                 !detectedPlatforms.contains(platform)) {
-              return (path) => Suggestion.hint(
-                    SuggestionCode.notCompatible,
+              return (path) => Explanation(
                     'Package does not support Flutter platform ${platform.name}',
                     'Because of import path $path that declares support for '
                         'platforms: ${detectedPlatforms.map((e) => e.name).join(', ')}',
@@ -578,7 +587,7 @@ class _PlatformViolationFinder {
           return null;
         });
 
-  Suggestion _findPlatformViolation(Uri root) {
+  Explanation _findPlatformViolation(Uri root) {
     final declaredPlatformResult = declaredPlatformFinder.findViolation(root);
     return declaredPlatformResult ?? _runtimeSupport.findViolation(root);
   }
@@ -598,25 +607,26 @@ class _SdkViolationFinder {
               ...pubspecCache.pubspecOfPackage(packageDir).dependentSdks,
               'dart'
             };
-            return declaredSdks.every(sdk.allowedSdks.contains)
+            final nonAllowedSdks =
+                declaredSdks.difference(sdk.allowedSdks.toSet());
+            return nonAllowedSdks.isEmpty
                 ? null
-                : (path) => Suggestion.hint(
-                    SuggestionCode.notCompatible,
+                : (path) => Explanation(
                     'Package not compatible with SDK ${sdk.name}',
-                    'because of import path $path');
+                    'because of import path $path that is in a package requiring'
+                        ' ${nonAllowedSdks.map((e) => null).join(', ')}.');
           },
         ),
         _allowedRuntimeViolationFinders = sdk.allowedRuntimes
             .map((runtime) => runtimeViolationFinder(
                 LibraryGraph(session, runtime.declaredVariables),
                 runtime,
-                (path) => Suggestion.hint(
-                    SuggestionCode.notCompatible,
+                (path) => Explanation(
                     'Package not compatible with sdk ${sdk.name} using runtime ${runtime.name}',
                     'Because of import path ${LibraryGraph.formatPath(path)}')))
             .toList();
 
-  Suggestion findSdkViolation(String packageName, List<Uri> topLibraries) {
+  Explanation findSdkViolation(String packageName, List<Uri> topLibraries) {
     final declaredSdkResult =
         _declaredSdkViolationFinder.findViolation(packageName);
     if (declaredSdkResult != null) return declaredSdkResult;
@@ -633,8 +643,7 @@ class _SdkViolationFinder {
       }
       if (supports) return null;
     }
-    return Suggestion.hint(
-      SuggestionCode.notCompatible,
+    return Explanation(
       'Package not compatible with SDK ${sdk.name}',
       'Because it is not compatible with any of the supported runtimes: '
           '${sdk.allowedRuntimes.map((r) => r.name).join(', ')}',
@@ -681,8 +690,7 @@ class _NullSafetyViolationFinder {
 
           return pubspec.sdkConstraintStatus.hasOptedIntoNullSafety
               ? null
-              : (path) => Suggestion.hint(
-                    SuggestionCode.notCompatible,
+              : (path) => Explanation(
                     'Package is not null safe',
                     'Because of the language version from the sdk constraint '
                         'in pubspec.yaml of package '
@@ -704,8 +712,7 @@ class _NullSafetyViolationFinder {
                 '${languageVersionToken.major}.${languageVersionToken.minor}.0',
               );
               if (version < _firstVersionWithNullSafety) {
-                return (path) => Suggestion.hint(
-                      SuggestionCode.notCompatible,
+                return (path) => Explanation(
                       'Package is not null safe',
                       'Because $file is opting out in package ${_PackageGraph.formatPath(path)}',
                     );
@@ -715,7 +722,7 @@ class _NullSafetyViolationFinder {
           },
         );
 
-  Suggestion findNullSafetyViolation(String rootPackageName) {
+  Explanation findNullSafetyViolation(String rootPackageName) {
     return _languageVersionViolationFinder.findViolation(rootPackageName) ??
         _noOptoutViolationFinder.findViolation(rootPackageName);
   }
@@ -783,16 +790,14 @@ class Tagger {
         pubspec.name, session, pubspecCache, isBinaryOnly, topLibraries);
   }
 
-  void sdkTags(List<String> tags, List<Suggestion> suggestions) {
+  void sdkTags(List<String> tags, List<Explanation> explanations) {
     if (_isBinaryOnly) {
       tags.add('sdk:dart');
-      Suggestion.hint(SuggestionCode.binaryOnly, 'Binary only',
+      Explanation('Binary only',
           'Cannot assign flutter SDK tag because it is binary only');
     } else if (_topLibraries.isEmpty) {
-      suggestions.add(
-        Suggestion.hint(
-            SuggestionCode.noToplevelLibraries,
-            'No top-level libraries found',
+      explanations.add(
+        Explanation('No top-level libraries found',
             'Cannot assign sdk tags, because no .dart files where found in lib/'),
       );
     } else {
@@ -803,7 +808,7 @@ class Tagger {
             _SdkViolationFinder(_packageGraph, sdk, _pubspecCache, _session)
                 .findSdkViolation(packageName, _topLibraries);
         if (violationResult != null) {
-          suggestions.add(violationResult);
+          explanations.add(violationResult);
         } else {
           tags.add(sdk.tag);
         }
@@ -813,15 +818,17 @@ class Tagger {
 
   /// Adds tags for the Flutter platforms that this package supports to [tags].
   ///
-  /// Adds [Suggestion]s to [suggestions] for platforms not supported.
-  void flutterPlatformTags(List<String> tags, List<Suggestion> suggestions) {
+  /// Adds [Explanation]s to [explanations] for platforms not supported.
+  void flutterPlatformTags(
+    List<String> tags,
+    List<Explanation> explanations, {
+    bool trustDeclarations = true,
+  }) {
     if (_isBinaryOnly) {
-      Suggestion.hint(SuggestionCode.binaryOnly, 'Binary only',
+      Explanation('Binary only',
           'Cannot assign flutter platform tags, it is a binary only package');
     } else if (_topLibraries.isEmpty) {
-      Suggestion.hint(
-          SuggestionCode.noToplevelLibraries,
-          'No top-level libraries found',
+      Explanation('No top-level libraries found',
           'Cannot assign Flutter platform tags, because no .dart files were found in lib/');
     } else {
       for (final flutterPlatform in _FlutterPlatform.recognizedPlatforms) {
@@ -837,8 +844,7 @@ class Tagger {
             runtimeViolationFinder(
                 libraryGraph,
                 flutterPlatform.runtime,
-                (List<Uri> path) => Suggestion.hint(
-                    SuggestionCode.notCompatible,
+                (List<Uri> path) => Explanation(
                     'Package not compatible with runtime ${flutterPlatform.runtime.name} on ${flutterPlatform.name}',
                     'Because of ${LibraryGraph.formatPath(path)}')));
 
@@ -848,10 +854,11 @@ class Tagger {
         // In this way the plugin restrictions of its dependencies are not
         // restricting the result.
         //
-        // We still keep the unpruned detection for providing suggestions.
-        final prunedLibraryGraph = LibraryGraph(
-            _session, flutterPlatform.runtime.declaredVariables,
-            isLeaf: declaredPlatformDetector._isFlutterPlugin);
+        // We still keep the unpruned detection for providing Explanations.
+        final prunedLibraryGraph = trustDeclarations
+            ? LibraryGraph(_session, flutterPlatform.runtime.declaredVariables,
+                isLeaf: declaredPlatformDetector._isFlutterPlugin)
+            : libraryGraph;
 
         final prunedViolationFinder = _PlatformViolationFinder(
             flutterPlatform,
@@ -861,16 +868,15 @@ class Tagger {
             runtimeViolationFinder(
                 prunedLibraryGraph,
                 flutterPlatform.runtime,
-                (List<Uri> path) => Suggestion.hint(
-                    SuggestionCode.notCompatible,
+                (List<Uri> path) => Explanation(
                     'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
                     'Because of ${LibraryGraph.formatPath(path)}')));
-        // Report only the first non-pruned violation as suggestion
+        // Report only the first non-pruned violation as Explanation
         final firstNonPrunedViolation = _topLibraries
             .map(violationFinder._findPlatformViolation)
             .firstWhere((e) => e != null, orElse: () => null);
         if (firstNonPrunedViolation != null) {
-          suggestions.add(firstNonPrunedViolation);
+          explanations.add(firstNonPrunedViolation);
         }
 
         // Tag is supported, if there is no pruned violations
@@ -887,14 +893,12 @@ class Tagger {
 
   /// Adds tags for the Dart runtimes that this package supports to [tags].
   ///
-  /// Adds [Suggestion]s to [suggestions] for runtimes not supported.
-  void runtimeTags(List<String> tags, List<Suggestion> suggestions) {
+  /// Adds [Explanation]s to [explanations] for runtimes not supported.
+  void runtimeTags(List<String> tags, List<Explanation> explanations) {
     if (_isBinaryOnly) {
       tags.addAll(<String>[Runtime.nativeAot.name, Runtime.nativeJit.name]);
     } else if (_topLibraries.isEmpty) {
-      Suggestion.hint(
-          SuggestionCode.noToplevelLibraries,
-          'No top-level libraries found',
+      Explanation('No top-level libraries found',
           'Cannot assign runtime tags, because no .dart files where found in lib/');
     } else {
       final dartSdkViolationFinder = _SdkViolationFinder(
@@ -911,15 +915,14 @@ class Tagger {
           final finder = runtimeViolationFinder(
               LibraryGraph(_session, runtime.declaredVariables),
               runtime,
-              (List<Uri> path) => Suggestion.hint(
-                  SuggestionCode.notCompatible,
+              (List<Uri> path) => Explanation(
                   'Package not compatible with runtime ${runtime.name}',
                   'Because of ${LibraryGraph.formatPath(path)}'));
           var supports = true;
           for (final lib in _topLibraries) {
             final violationResult = finder.findViolation(lib);
             if (violationResult != null) {
-              suggestions.add(violationResult);
+              explanations.add(violationResult);
               supports = false;
               break;
             }
@@ -932,12 +935,12 @@ class Tagger {
     }
   }
 
-  void nullSafetyTags(List<String> tags, List<Suggestion> suggestions) {
+  void nullSafetyTags(List<String> tags, List<Explanation> explanations) {
     final nullSafety =
         _NullSafetyViolationFinder(_packageGraph, _pubspecCache, _session);
     final nullSafetyResult = nullSafety.findNullSafetyViolation(packageName);
     if (nullSafetyResult != null) {
-      suggestions.add(nullSafetyResult);
+      explanations.add(nullSafetyResult);
     } else {
       return tags.add('is:null-safe');
     }
