@@ -577,5 +577,5 @@ String _makeSummary(String introduction, List<_Issue> issues,
         ...issuesMarkdown.take(maxIssues),
       ],
     ],
-  ].join('\n');
+  ].join('\n\n');
 }
