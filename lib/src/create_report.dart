@@ -46,7 +46,6 @@ Future<Report> createReport(
       usesFlutter: pubspec.usesFlutter,
     ),
     await _trustworthDependency(packageDir, pubspec, toolEnvironment),
-    // TODO(sigurdm):Implement rest of sections.
   ]);
 }
 
