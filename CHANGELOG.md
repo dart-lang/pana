@@ -1,7 +1,7 @@
 ## 0.13.11
 
 * Implemented new scoring report.
-* Improved handling of tar-files
+* Improved unpacking of package archives.
 * Better path handling on windows.
 
 ## 0.13.10
