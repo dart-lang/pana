@@ -2,7 +2,7 @@
 
 * Implemented new scoring report.
 * Improved unpacking of package archives.
-* Better path handling on windows.
+* Better path handling on Windows.
 
 ## 0.13.10
 
