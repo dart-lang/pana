@@ -1,3 +1,7 @@
+## 0.13.11+1
+
+* Fixed string processing in untar error path.
+
 ## 0.13.11
 
 * Implemented new scoring report.
