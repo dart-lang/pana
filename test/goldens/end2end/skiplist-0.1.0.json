@@ -148,6 +148,12 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 59 issues. Showing the first 2:\nERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n`lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/skiplist.dart`\nERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Function(Object)').\n`lib/skiplist.dart:77:14`\n\n```\n   ╷\n77 │   V operator [](K key) {\n   │              ^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/skiplist.dart`"
+      },
+      {
+        "title": "Package is a good, trustworthy dependency",
+        "grantedPoints": 10,
+        "maxPoints": 30,
+        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version.\nPackage is not published under a verified publisher.\nSee https://dart.dev/tools/pub/verified-publishers for more information."
       }
     ]
   }

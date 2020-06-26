@@ -371,6 +371,12 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 621 issues. Showing the first 2:\nERROR: Target of URI doesn't exist: 'package:path/path.dart'.\n`lib/fs.dart:12:8`\n\n```\n   ╷\n12 │ import 'package:path/path.dart';\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`\nERROR: The default value of an optional parameter must be constant.\n`lib/fs.dart:179:58`\n\n```\n    ╷\n179 │       {FileMode mode: FileMode.WRITE, Encoding encoding: UTF8});\n    │                                                          ^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`"
+      },
+      {
+        "title": "Package is a good, trustworthy dependency",
+        "grantedPoints": 20,
+        "maxPoints": 30,
+        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version."
       }
     ]
   }

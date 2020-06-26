@@ -5,16 +5,26 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:pana/src/tag_detection.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
+import 'package:pubspec_parse/pubspec_parse.dart' show HostedDependency;
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
 
 import '../models.dart';
 import 'markdown_content.dart';
 import 'pubspec.dart';
+
+const _publisherDoc = 'https://dart.dev/tools/pub/verified-publishers';
+
+/// We currently don't have flutter installed on travis. So we emulate having
+/// no Flutter installed when generating golden files.
+// TODO(sigurdm): try to get Flutter on travis.
+var isRunningEnd2EndTest = false;
 
 Future<Report> createReport(
     String packageDir, ToolEnvironment toolEnvironment) async {
@@ -35,7 +45,7 @@ Future<Report> createReport(
       toolEnvironment,
       usesFlutter: pubspec.usesFlutter,
     ),
-    // TODO(sigurdm):Implement rest of sections.
+    await _trustworthDependency(packageDir, pubspec, toolEnvironment),
   ]);
 }
 
@@ -311,6 +321,134 @@ Future<ReportSection> _followsTemplate(
           'Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md.',
           [...readmeIssues, ...changelogIssues],
           basePath: packageDir));
+}
+
+SourceSpan _tryGetSpanFromYamlMap(Map map, String key) {
+  if (map is YamlMap) {
+    return map.nodes[key]?.span;
+  }
+  return null;
+}
+
+Future<ReportSection> _trustworthDependency(
+  String packageDir,
+  Pubspec pubspec,
+  ToolEnvironment toolEnvironment,
+) async {
+  final issues = <_Issue>[];
+
+  var dependenciesUpToDate = true;
+  try {
+    final outdated = await toolEnvironment
+        .runPubOutdated(packageDir, args: ['--json', '--no-dev-dependencies']);
+    for (final package in outdated['packages'] as List) {
+      if (package is Map) {
+        final name = package['package'];
+        final latest = package['latest'];
+        if (name is String && latest is String) {
+          final latestVersion = Version.parse(latest);
+          final dependency = pubspec.dependencies[name];
+          if (dependency is HostedDependency &&
+              !dependency.version.allows(latestVersion)) {
+            issues.add(_Issue(
+                'The constraint ${dependency.version} on $name does not support the latest published version $latestVersion',
+                span: _tryGetSpanFromYamlMap(pubspec.dependencies, 'name')));
+            dependenciesUpToDate = false;
+          }
+        }
+      }
+    }
+  } on Exception catch (e) {
+    issues.add(_Issue('Could not run pub outdated: $e'));
+    dependenciesUpToDate = false;
+  }
+
+  final currentSdkVersion = Version.parse(Platform.version.split(' ').first);
+  final sdkConstraint = pubspec.dartSdkConstraint;
+  final allowsCurrentSdk = sdkConstraint?.allows(currentSdkVersion) ?? false;
+  if (sdkConstraint == null) {
+    _Issue('Pubspec.yaml does not have an sdk version constraint.',
+        suggestion: 'Try adding an sdk constraint to your pubspec.yaml');
+  } else if (!allowsCurrentSdk) {
+    _Issue(
+        'The current sdk constraint does not allow the latest Dart ($currentSdkVersion)',
+        span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk'),
+        suggestion: 'Try widening the upper boundary of the constraint.');
+  }
+
+  var allowsCurrentFlutter = true;
+  final flutterVersions = toolEnvironment.runtimeInfo.flutterVersions;
+  if (isRunningEnd2EndTest || flutterVersions == null) {
+    issues.add(_Issue(
+        'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
+    allowsCurrentFlutter = false;
+  } else {
+    final usesFlutter = pubspec.usesFlutter;
+    final flutterDartVersion = Version.parse(
+        (flutterVersions['dartSdkVersion'] as String).split(' ').first);
+    final allowsCurrentFlutterDart =
+        sdkConstraint?.allows(flutterDartVersion) ?? false;
+
+    if (!allowsCurrentFlutterDart) {
+      allowsCurrentFlutter = false;
+      issues.add(
+        _Issue(
+          'The current sdk constraint does not allow the dart version latest of Flutter ($flutterDartVersion)',
+          span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk'),
+        ),
+      );
+    } else {
+      if (usesFlutter) {
+        // TODO(sigurdm): this will not work well locally (installed version will
+        // not be latest). Perhaps we should query somewhere for the latest version.
+        final currentFlutterVersion =
+            Version.parse(flutterVersions['frameworkVersion'] as String);
+        final flutterConstraint = pubspec.flutterSdkConstraint;
+        if (!flutterConstraint.allows(currentFlutterVersion)) {
+          issues.add(
+            _Issue(
+              'The current flutter constraint does not allow the latest Flutter ($currentFlutterVersion)',
+              span: _tryGetSpanFromYamlMap(pubspec.environment, 'flutter'),
+            ),
+          );
+          allowsCurrentFlutter = false;
+        }
+      }
+    }
+  }
+
+  String publisher;
+
+  try {
+    publisher = json.decode(await read(
+            'https://pub.dev/api/packages/${Uri.encodeComponent(pubspec.name)}/publisher'))[
+        'publisherId'] as String;
+  } on ClientException catch (e) {
+    issues.add(_Issue(
+      'Could not retrieve publisher information. Has this package been published before? ($e)',
+    ));
+  }
+
+  if (publisher == null) {
+    issues.add(_Issue('Package is not published under a verified publisher.',
+        suggestion: 'See $_publisherDoc for more information.'));
+  }
+
+  return ReportSection(
+      title: 'Package is a good, trustworthy dependency',
+      grantedPoints: (publisher == null ? 0 : 10) +
+          (allowsCurrentSdk && allowsCurrentFlutter ? 10 : 0) +
+          (dependenciesUpToDate ? 10 : 0),
+      maxPoints: 30,
+      summary: _makeSummary('''
+*10 points*: All of the package dependencies are supported in the latest version.
+
+*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.
+
+*10 points*: Published under a trusted publisher.
+
+
+''', issues, basePath: packageDir));
 }
 
 Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {

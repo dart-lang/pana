@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:pana/src/create_report.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
@@ -21,6 +22,7 @@ void main() {
   PackageAnalyzer analyzer;
 
   setUpAll(() async {
+    isRunningEnd2EndTest = true;
     tempDir = Directory.systemTemp
         .createTempSync('pana-test')
         .resolveSymbolicLinksSync();
