@@ -121,13 +121,13 @@
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime flutter-web on web",
-      "description": "Because of the import of dart:io via the import chain package:http/http.dart->package:http/src/streamed_response.dart->package:http/src/base_request.dart->package:http/src/client.dart->package:http/src/io_client.dart->dart:io"
+      "description": "Because of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`"
     },
     {
       "code": "tagging.notCompatible",
       "level": "hint",
       "title": "Package not compatible with runtime web",
-      "description": "Because of the import of dart:io via the import chain package:http/http.dart->package:http/src/streamed_response.dart->package:http/src/base_request.dart->package:http/src/client.dart->package:http/src/io_client.dart->dart:io"
+      "description": "Because of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`"
     }
   ],
   "pkgResolution": {
@@ -2677,10 +2677,22 @@
         "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
       },
       {
+        "title": "Package has documentation",
+        "grantedPoints": 0,
+        "maxPoints": 10,
+        "summary": "*10 points*: The package has an example.\n\nNo example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example."
+      },
+      {
+        "title": "Package is multi-platform",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage is a Dart package\nPackage not compatible with runtime web\n\nBecause of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`"
+      },
+      {
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 202 issues. Showing the first two:\n\nINFO: Use collection literals when possible.\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\nINFO: Unnecessary new keyword.\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`"
+        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 202 issues. Showing the first 2:\nINFO: Use collection literals when possible.\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\nINFO: Unnecessary new keyword.\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`"
       },
       {
         "title": "Package is a good, trustworthy dependency",

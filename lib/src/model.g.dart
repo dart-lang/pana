@@ -444,7 +444,7 @@ Report _$ReportFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ReportToJson(Report instance) => <String, dynamic>{
-      'sections': instance.sections,
+      'sections': instance.sections?.map((e) => e?.toJson())?.toList(),
     };
 
 ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) {
