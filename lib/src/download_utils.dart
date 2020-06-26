@@ -209,8 +209,8 @@ Future extractTarGz(List<int> tarball, String destination) async {
   if (processResult.exitCode != 0) {
     throw FileSystemException(
         'Could not un-tar (exit code ${processResult.exitCode}). Error:\n'
-        '${processResult.stdout.join("\n")}\n'
-        '${processResult.stderr.join("\n")}');
+        '${processResult.stdout}\n'
+        '${processResult.stderr}');
   }
   log.fine('Extracted .tar.gz to $destination. Exit code $exitCode.');
 }
