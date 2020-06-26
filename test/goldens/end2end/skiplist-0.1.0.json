@@ -1,0 +1,160 @@
+{
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "skiplist",
+  "packageVersion": "0.1.0",
+  "pubspec": {
+    "name": "skiplist",
+    "description": "A skiplist implementation in Dart.",
+    "version": "0.1.0",
+    "author": "Steven Roose <stevenroose@gmail.com>",
+    "homepage": "https://github.com/stevenroose/dart-skiplist",
+    "dependencies": {
+      "quiver_iterables": ">=1.0.0 <2.0.0"
+    },
+    "dev_dependencies": {
+      "test": ">=0.12.7 <0.13.0"
+    }
+  },
+  "platform": {
+    "reason": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`."
+  },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "name": "MIT",
+      "url": "https://github.com/stevenroose/dart-skiplist/blob/master/LICENSE"
+    }
+  ],
+  "health": {
+    "analyzeProcessFailed": true,
+    "formatProcessFailed": false,
+    "resolveProcessFailed": true,
+    "analyzerErrorCount": 0,
+    "analyzerWarningCount": 0,
+    "analyzerHintCount": 0,
+    "platformConflictCount": 0,
+    "suggestions": [
+      {
+        "code": "dartfmt.warning",
+        "level": "hint",
+        "title": "Format `lib/skiplist.dart`.",
+        "description": "Run `dartfmt` to format `lib/skiplist.dart`.",
+        "file": "lib/skiplist.dart"
+      }
+    ]
+  },
+  "maintenance": {
+    "missingChangelog": false,
+    "missingExample": true,
+    "missingReadme": false,
+    "missingAnalysisOptions": true,
+    "oldAnalysisOptions": false,
+    "strongModeEnabled": true,
+    "isExperimentalVersion": false,
+    "isPreReleaseVersion": false,
+    "suggestions": [
+      {
+        "code": "pubspec.sdk.missing",
+        "level": "error",
+        "title": "Add an `sdk` field to `pubspec.yaml`.",
+        "description": "For information about setting the SDK constraint, see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).",
+        "score": 50.0
+      },
+      {
+        "code": "pubspec.sdk.devOnly",
+        "level": "error",
+        "title": "Support future stable Dart 2 SDKs in `pubspec.yaml`.",
+        "description": "The SDK constraint in `pubspec.yaml` doesn't allow future stable Dart 2.x SDK releases.",
+        "score": 20.0
+      },
+      {
+        "code": "sdk.missing",
+        "level": "error",
+        "title": "No valid SDK.",
+        "description": "The analysis could not detect a valid SDK that can use this package.",
+        "score": 20.0
+      },
+      {
+        "code": "pubspec.description.tooShort",
+        "level": "hint",
+        "title": "The package description is too short.",
+        "description": "Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.",
+        "score": 20.0
+      },
+      {
+        "code": "example.missing",
+        "level": "hint",
+        "title": "Maintain an example.",
+        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `skiplist.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
+        "score": 10.0
+      }
+    ]
+  },
+  "suggestions": [
+    {
+      "code": "pubspec.dependencies.failedToResolve",
+      "level": "error",
+      "title": "Fix dependencies in `pubspec.yaml`.",
+      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```\n"
+    }
+  ],
+  "dartFiles": {
+    "lib/skiplist.dart": {
+      "uri": "package:skiplist/skiplist.dart",
+      "size": 8066,
+      "isFormatted": false,
+      "codeProblems": null
+    }
+  },
+  "stats": {
+    "analyzeProcessElapsed": 1234,
+    "formatProcessElapsed": 567,
+    "resolveProcessElapsed": 899,
+    "totalElapsed": 4567
+  },
+  "tags": [],
+  "report": {
+    "sections": [
+      {
+        "title": "Package supports Dart 2",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2.\n\n`pubspec.yaml` has no sdk constraint. Dart 2 support requires an sdk-constraint.\nAdd an sdk-constraint to `pubspec.yaml`. For example:\n```\nenvironment:\n  sdk: '>=2.8.0 <3.0.0'\n```\n"
+      },
+      {
+        "title": "Packaging conventions",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
+      },
+      {
+        "title": "Package has documentation",
+        "grantedPoints": 0,
+        "maxPoints": 10,
+        "summary": "*10 points*: The package has an example.\n\nNo example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example."
+      },
+      {
+        "title": "Package is multi-platform",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\nPackage resolution failed. Could not determine platforms.\nRun `pub get` for more information."
+      },
+      {
+        "title": "Code follows recommended code style",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\nFound 59 issues. Showing the first 2:\nERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n`lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/skiplist.dart`\nERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Function(Object)').\n`lib/skiplist.dart:77:14`\n\n```\n   ╷\n77 │   V operator [](K key) {\n   │              ^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/skiplist.dart`"
+      },
+      {
+        "title": "Package is a good, trustworthy dependency",
+        "grantedPoints": 10,
+        "maxPoints": 30,
+        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version.\nPackage is not published under a verified publisher.\nSee https://dart.dev/tools/pub/verified-publishers for more information."
+      }
+    ]
+  }
+}
