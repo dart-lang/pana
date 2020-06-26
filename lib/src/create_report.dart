@@ -21,6 +21,11 @@ import 'pubspec.dart';
 
 const _publisherDoc = 'https://dart.dev/tools/pub/verified-publishers';
 
+/// We currently don't have flutter installed on travis. So we emulate having
+/// no Flutter installed when generating golden files.
+// TODO(sigurdm): try to get Flutter on travis.
+var isRunningEnd2EndTest = false;
+
 Future<Report> createReport(
     String packageDir, ToolEnvironment toolEnvironment) async {
   Pubspec pubspec;
@@ -374,7 +379,7 @@ Future<ReportSection> _trustworthDependency(
 
   var allowsCurrentFlutter = true;
   final flutterVersions = toolEnvironment.runtimeInfo.flutterVersions;
-  if (flutterVersions == null) {
+  if (isRunningEnd2EndTest || flutterVersions == null) {
     issues.add(_Issue(
         'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
     allowsCurrentFlutter = false;

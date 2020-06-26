@@ -12,13 +12,7 @@ import 'package:test/test.dart';
 /// If the file doesn't exist, the file is instead created containing [actual].
 void expectMatchesGoldenFile(String actual, String goldenFilePath) {
   var goldenFile = File(goldenFilePath);
-  final expected = goldenFile.readAsStringSync().replaceAll('\r\n', '\n');
   if (goldenFile.existsSync()) {
-    for (var i = 0; i < min(expected.length, actual.length); i++) {
-      if (actual[i] != expected[i]) {
-        fail('Difference at $i : ${actual.substring(i)}');
-      }
-    }
     expect(
         actual, equals(goldenFile.readAsStringSync().replaceAll('\r\n', '\n')),
         reason: 'goldenFilePath: "$goldenFilePath". '

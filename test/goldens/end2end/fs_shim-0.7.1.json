@@ -376,7 +376,7 @@
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 20,
         "maxPoints": 30,
-        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\nThe current sdk constraint does not allow the dart version latest of Flutter (2.9.0)\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n"
+        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version."
       }
     ]
   }
