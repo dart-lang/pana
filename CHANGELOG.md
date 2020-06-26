@@ -1,3 +1,9 @@
+## 0.13.11
+
+* Implemented new scoring report.
+* Improved unpacking of package archives.
+* Better path handling on Windows.
+
 ## 0.13.10
 
 * Trust plugins platform declaration when assigning tags.
@@ -25,7 +31,7 @@
 ## 0.13.6
 
 * Fix: detect Dart files on Windows
-* Fix: unescape double-backslash from files reported by `dartanalyzer` on Windows. 
+* Fix: unescape double-backslash from files reported by `dartanalyzer` on Windows.
 * Fix: avoid crashing on "file://" imports.
 
 ## 0.13.5
