@@ -974,6 +974,12 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\n\n\nFound 44 issues. Showing the first 2:\n\nINFO: Unnecessary new keyword.\n`lib/repository.dart:27:15`\n\n```\n   ╷\n27 │     _cached = new Version.parse(versionString);\n   │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\n\nINFO: Unnecessary new keyword.\n`lib/repository.dart:109:7`\n\n```\n    ╷\n109 │       new GenericProcessingException('ValidationError: $message');\n    │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`"
+      },
+      {
+        "title": "Package is a good, trustworthy dependency",
+        "grantedPoints": 10,
+        "maxPoints": 30,
+        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n\nPackage is not published under a verified publisher.\nSee https://dart.dev/tools/pub/verified-publishers for more information."
       }
     ]
   }
