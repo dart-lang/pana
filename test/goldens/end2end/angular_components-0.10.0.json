@@ -46901,6 +46901,12 @@
         "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md.\n\nLinks in README.md should be secure. 1 link is insecure.\n`README.md:51:22`\n\n```\n   ╷\n51 │ component's provided <a href=\"http://sass-lang.com/guide#topic-6\">Sass mixins</a>.</p>\n   │                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nUse `https` URLs instead."
       },
       {
+        "title": "Package has documentation",
+        "grantedPoints": 0,
+        "maxPoints": 10,
+        "summary": "*10 points*: The package has an example.\n\nNo example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example."
+      },
+      {
         "title": "Package is multi-platform",
         "grantedPoints": 10,
         "maxPoints": 20,

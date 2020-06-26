@@ -47,4 +47,42 @@ Check it out on [github](http://github.com/example/my_package).
       expect(section.summary, contains('2 image links are insecure'));
     });
   });
+
+  group('Package has documentation', () {
+    test('finds example', () async {
+      final descriptor = package('my_package', extraFiles: [
+        d.dir('example', [
+          d.file('EXAMPLE.md', '''
+# Dev setup
+
+Use the following additional dependencies..
+
+# Library use
+
+Call this method..
+'''),
+        ]),
+      ]);
+
+      await descriptor.create();
+      final report = await createReport(
+          descriptor.io.path, await ToolEnvironment.create());
+      final section = report.sections
+          .firstWhere((s) => s.title == 'Package has documentation');
+      expect(section.grantedPoints, 10);
+      expect(section.summary, isNot(contains('No example found.')));
+    });
+
+    test('missing example', () async {
+      final descriptor = package('my_package');
+
+      await descriptor.create();
+      final report = await createReport(
+          descriptor.io.path, await ToolEnvironment.create());
+      final section = report.sections
+          .firstWhere((s) => s.title == 'Package has documentation');
+      expect(section.grantedPoints, 0);
+      expect(section.summary, contains('No example found.'));
+    });
+  });
 }
