@@ -343,16 +343,10 @@
   "report": {
     "sections": [
       {
-        "title": "Package supports Dart 2",
-        "grantedPoints": 0,
-        "maxPoints": 20,
-        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2.\n\n\n\nThe current sdk constraint >=1.24.0 <2.0.0 does not allow any Dart 2 versions.\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n"
-      },
-      {
         "title": "Packaging conventions",
         "grantedPoints": 20,
         "maxPoints": 20,
-        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
+        "summary": "### [*] **5 points**: Provide a valid README.md\n\n### [*] **5 points**: Provide a valid CHANGELOG.md"
       },
       {
         "title": "Package has documentation",
@@ -364,19 +358,19 @@
         "title": "Package is multi-platform",
         "grantedPoints": 0,
         "maxPoints": 20,
-        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\n\n\nPackage resolution failed. Could not determine platforms.\nRun `pub get` for more information."
+        "summary": "### [x] **0 points**: Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n*\n<details>\n<summary>\nPackage resolution failed. Could not determine platforms.\n</summary>\nRun `pub get` for more information.\n</details>"
       },
       {
         "title": "Code follows recommended code style",
         "grantedPoints": 0,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\n\n\nFound 621 issues. Showing the first 2:\n\nERROR: Target of URI doesn't exist: 'package:path/path.dart'.\n`lib/fs.dart:12:8`\n\n```\n   ╷\n12 │ import 'package:path/path.dart';\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`\n\nERROR: The default value of an optional parameter must be constant.\n`lib/fs.dart:179:58`\n\n```\n    ╷\n179 │       {FileMode mode: FileMode.WRITE, Encoding encoding: UTF8});\n    │                                                          ^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`"
+        "summary": "### [x] **0 points**: code has no errors, warnings, lints or formatting issues\n\nFound 621 issues. Showing the first 2:\n\n*\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:path/path.dart'.\n</summary>\n`lib/fs.dart:12:8`\n\n```\n   ╷\n12 │ import 'package:path/path.dart';\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`\n</details>\n\n*\n<details>\n<summary>\nERROR: The default value of an optional parameter must be constant.\n</summary>\n`lib/fs.dart:179:58`\n\n```\n    ╷\n179 │       {FileMode mode: FileMode.WRITE, Encoding encoding: UTF8});\n    │                                                          ^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/fs.dart`\n</details>"
       },
       {
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 20,
         "maxPoints": 30,
-        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version."
+        "summary": "### [*] **10 points**: All of the package dependencies are supported in the latest version\n\n### [x] **0 points**: Package supports latest minor version of the Dart and Flutter sdks\n\n*\n<details>\n<summary>\nThe current sdk constraint does not allow the latest Dart (2.8.3)\n</summary>\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTry widening the upper boundary of the constraint.\n</details>\n\n*\n<details>\n<summary>\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n</summary>\n</details>\n\n### [*] **10 points**: Package supports latest minor version of the Dart and Flutter sdks"
       }
     ]
   }

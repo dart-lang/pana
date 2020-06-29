@@ -946,16 +946,10 @@
   "report": {
     "sections": [
       {
-        "title": "Package supports Dart 2",
-        "grantedPoints": 20,
-        "maxPoints": 20,
-        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2."
-      },
-      {
         "title": "Packaging conventions",
         "grantedPoints": 20,
         "maxPoints": 20,
-        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md."
+        "summary": "### [*] **5 points**: Provide a valid README.md\n\n### [*] **5 points**: Provide a valid CHANGELOG.md"
       },
       {
         "title": "Package has documentation",
@@ -967,19 +961,19 @@
         "title": "Package is multi-platform",
         "grantedPoints": 20,
         "maxPoints": 20,
-        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\n\n\nPackage is a Dart package"
+        "summary": "### [*] **20 points**: Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n*\n<details>\n<summary>\nPackage is a Dart package\n</summary>\n</details>"
       },
       {
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\n\n\nFound 44 issues. Showing the first 2:\n\nINFO: Unnecessary new keyword.\n`lib/repository.dart:27:15`\n\n```\n   ╷\n27 │     _cached = new Version.parse(versionString);\n   │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\n\nINFO: Unnecessary new keyword.\n`lib/repository.dart:109:7`\n\n```\n    ╷\n109 │       new GenericProcessingException('ValidationError: $message');\n    │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`"
+        "summary": "### [~] **10 points**: code has no errors, warnings, lints or formatting issues\n\nFound 44 issues. Showing the first 2:\n\n*\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`lib/repository.dart:27:15`\n\n```\n   ╷\n27 │     _cached = new Version.parse(versionString);\n   │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\n</details>\n\n*\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`lib/repository.dart:109:7`\n\n```\n    ╷\n109 │       new GenericProcessingException('ValidationError: $message');\n    │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\n</details>"
       },
       {
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 10,
         "maxPoints": 30,
-        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n\nPackage is not published under a verified publisher.\nSee https://dart.dev/tools/pub/verified-publishers for more information."
+        "summary": "### [*] **10 points**: All of the package dependencies are supported in the latest version\n\n### [x] **0 points**: Package supports latest minor version of the Dart and Flutter sdks\n\n*\n<details>\n<summary>\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n</summary>\n</details>\n\n### [x] **0 points**: Package supports latest minor version of the Dart and Flutter sdks\n\n*\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
       }
     ]
   }

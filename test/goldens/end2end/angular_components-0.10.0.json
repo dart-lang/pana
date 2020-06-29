@@ -46889,16 +46889,10 @@
   "report": {
     "sections": [
       {
-        "title": "Package supports Dart 2",
-        "grantedPoints": 20,
-        "maxPoints": 20,
-        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2."
-      },
-      {
         "title": "Packaging conventions",
         "grantedPoints": 15,
         "maxPoints": 20,
-        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md.\n\n\n\nLinks in README.md should be secure. 1 link is insecure.\n`README.md:51:22`\n\n```\n   ╷\n51 │ component's provided <a href=\"http://sass-lang.com/guide#topic-6\">Sass mixins</a>.</p>\n   │                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nUse `https` URLs instead."
+        "summary": "### [x] **0 points**: Provide a valid README.md\n\n*\n<details>\n<summary>\nLinks in README.md should be secure. 1 link is insecure.\n</summary>\n`README.md:51:22`\n\n```\n   ╷\n51 │ component's provided <a href=\"http://sass-lang.com/guide#topic-6\">Sass mixins</a>.</p>\n   │                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nUse `https` URLs instead.\n</details>\n\n### [*] **5 points**: Provide a valid CHANGELOG.md"
       },
       {
         "title": "Package has documentation",
@@ -46910,19 +46904,19 @@
         "title": "Package is multi-platform",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\n\n\nPackage is a Dart package\n\nPackage not compatible with runtime native-aot\n\nBecause of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`\n\nPackage not compatible with runtime native-jit\n\nBecause of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`"
+        "summary": "### [~] **10 points**: Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n*\n<details>\n<summary>\nPackage is a Dart package\n</summary>\n</details>\n\n*\n<details>\n<summary>\nPackage not compatible with runtime native-aot\n\nBecause of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`\n</summary>\n</details>\n\n*\n<details>\n<summary>\nPackage not compatible with runtime native-jit\n\nBecause of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`\n</summary>\n</details>"
       },
       {
         "title": "Code follows recommended code style",
         "grantedPoints": 0,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\n\n\nFound 900 issues. Showing the first 2:\n\nERROR: The method 'dispose' isn't defined for the type 'Object'.\n`lib/model/collection/list_tracker.dart:123:9`\n\n```\n    ╷\n123 │       d.dispose();\n    │         ^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/model/collection/list_tracker.dart`\n\nWARNING: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.\n`lib/src/model/selection/noop_selection_model_impl.dart:20:31`\n\n```\n   ╷\n20 │   void notifySelectionChange({added, removed}) {}\n   │                               ^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/src/model/selection/noop_selection_model_impl.dart`"
+        "summary": "### [x] **0 points**: code has no errors, warnings, lints or formatting issues\n\nFound 900 issues. Showing the first 2:\n\n*\n<details>\n<summary>\nERROR: The method 'dispose' isn't defined for the type 'Object'.\n</summary>\n`lib/model/collection/list_tracker.dart:123:9`\n\n```\n    ╷\n123 │       d.dispose();\n    │         ^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/model/collection/list_tracker.dart`\n</details>\n\n*\n<details>\n<summary>\nWARNING: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.\n</summary>\n`lib/src/model/selection/noop_selection_model_impl.dart:20:31`\n\n```\n   ╷\n20 │   void notifySelectionChange({added, removed}) {}\n   │                               ^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/src/model/selection/noop_selection_model_impl.dart`\n</details>"
       },
       {
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 10,
         "maxPoints": 30,
-        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n\nPackage is not published under a verified publisher.\nSee https://dart.dev/tools/pub/verified-publishers for more information."
+        "summary": "### [*] **10 points**: All of the package dependencies are supported in the latest version\n\n### [x] **0 points**: Package supports latest minor version of the Dart and Flutter sdks\n\n*\n<details>\n<summary>\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n</summary>\n</details>\n\n### [x] **0 points**: Package supports latest minor version of the Dart and Flutter sdks\n\n*\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
       }
     ]
   }
