@@ -42,11 +42,11 @@ ReportSection documentationCoverageSection({
   final maxPoints = 10;
   final ratio = total <= 0 ? 1.0 : documented / total;
   final accepted = ratio >= 0.2;
-  final percent = ratio.toStringAsFixed(1);
+  final percent = (100.0 * ratio).toStringAsFixed(1);
   final summary = StringBuffer();
 
   summary.write('*10 points*: 20% or more of the public api has dartdoc.\n\n'
-      '$documented out of $total ($percent %) API elements have documentation comments.');
+      '$documented out of $total API elements ($percent %) have documentation comments.');
 
   if (!accepted) {
     summary.write('\n\n'
