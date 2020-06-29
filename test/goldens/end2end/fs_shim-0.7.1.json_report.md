@@ -94,7 +94,7 @@ To reproduce run `dart analyze lib/fs.dart`
 
 <details>
 <summary>
-The current sdk constraint does not allow the latest stable Dart (2.8.3)
+The current sdk constraint does not allow the latest stable Dart (2.8.1)
 </summary>
 `pubspec.yaml:8:8`
 
