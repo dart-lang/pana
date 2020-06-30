@@ -1,6 +1,7 @@
 ## 10/20 Packaging conventions
 
 ### [x] 0/10 points: Provide a valid pubspec.yaml
+
 <details>
 <summary>
 `pubspec.yaml` doesn't have a `repository` entry.
@@ -37,6 +38,7 @@ Found `example/example.dart`.
 ## 10/20 Code follows recommended code style
 
 ### [~] 10/20 points: code has no errors, warnings, lints, or formatting issues
+
 Found 44 issues. Showing the first 2:
 
 <details>
@@ -76,6 +78,7 @@ To reproduce run `dart analyze lib/repository.dart`
 
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
+
 <details>
 <summary>
 Found no Flutter in your PATH. Could not determine the current Flutter version.
@@ -83,6 +86,7 @@ Found no Flutter in your PATH. Could not determine the current Flutter version.
 </details>
 
 ### [x] 0/10 points: Package is published using a verified publisher
+
 <details>
 <summary>
 Package is not published under a verified publisher.

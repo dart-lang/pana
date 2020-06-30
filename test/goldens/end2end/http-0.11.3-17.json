@@ -2668,7 +2668,7 @@
         "title": "Packaging conventions",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `repository` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `documentation` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `issue_tracker` entry.\n</summary>\n</details>\n<details>\n<summary>\nThe package description is too short.\n</summary>\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
+        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `repository` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `documentation` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `issue_tracker` entry.\n</summary>\n</details>\n<details>\n<summary>\nThe package description is too short.\n</summary>\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
       },
       {
         "title": "Package has documentation",
@@ -2686,13 +2686,13 @@
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [~] 10/20 points: code has no errors, warnings, lints, or formatting issues\nFound 202 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Use collection literals when possible.\n</summary>\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\n</details>\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\n</details>"
+        "summary": "### [~] 10/20 points: code has no errors, warnings, lints, or formatting issues\n\nFound 202 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Use collection literals when possible.\n</summary>\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\n</details>\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/browser_client.dart`\n</details>"
       },
       {
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 20,
         "maxPoints": 30,
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n<details>\n<summary>\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n</summary>\n</details>\n\n### [*] 10/10 points: Package is published using a verified publisher\n"
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n</summary>\n</details>\n\n### [*] 10/10 points: Package is published using a verified publisher\n"
       }
     ]
   }

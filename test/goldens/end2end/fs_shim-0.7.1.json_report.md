@@ -1,6 +1,7 @@
 ## 10/20 Packaging conventions
 
 ### [x] 0/10 points: Provide a valid pubspec.yaml
+
 <details>
 <summary>
 `pubspec.yaml` doesn't have a `repository` entry.
@@ -46,6 +47,7 @@ No example found. See [package layout](https://dart.dev/tools/pub/package-layout
 ## 0/20 Package is multi-platform
 
 ### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)
+
 <details>
 <summary>
 Package resolution failed. Could not determine platforms.
@@ -56,6 +58,7 @@ Run `pub get` for more information.
 ## 0/20 Code follows recommended code style
 
 ### [x] 0/20 points: code has no errors, warnings, lints, or formatting issues
+
 Found 621 issues. Showing the first 2:
 
 <details>
@@ -95,6 +98,7 @@ To reproduce run `dart analyze lib/fs.dart`
 
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
+
 <details>
 <summary>
 The current sdk constraint does not allow the latest stable Dart (2.8.3)

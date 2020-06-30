@@ -949,7 +949,7 @@
         "title": "Packaging conventions",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `repository` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `documentation` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `issue_tracker` entry.\n</summary>\n</details>\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
+        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `repository` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `documentation` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `issue_tracker` entry.\n</summary>\n</details>\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
       },
       {
         "title": "Package has documentation",
@@ -967,13 +967,13 @@
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [~] 10/20 points: code has no errors, warnings, lints, or formatting issues\nFound 44 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`lib/repository.dart:27:15`\n\n```\n   ╷\n27 │     _cached = new Version.parse(versionString);\n   │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\n</details>\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`lib/repository.dart:109:7`\n\n```\n    ╷\n109 │       new GenericProcessingException('ValidationError: $message');\n    │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\n</details>"
+        "summary": "### [~] 10/20 points: code has no errors, warnings, lints, or formatting issues\n\nFound 44 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`lib/repository.dart:27:15`\n\n```\n   ╷\n27 │     _cached = new Version.parse(versionString);\n   │               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\n</details>\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`lib/repository.dart:109:7`\n\n```\n    ╷\n109 │       new GenericProcessingException('ValidationError: $message');\n    │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce run `dart analyze lib/repository.dart`\n</details>"
       },
       {
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 10,
         "maxPoints": 30,
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n<details>\n<summary>\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n</summary>\n</details>\n\n### [x] 0/10 points: Package is published using a verified publisher\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n</summary>\n</details>\n\n### [x] 0/10 points: Package is published using a verified publisher\n\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
       }
     ]
   }

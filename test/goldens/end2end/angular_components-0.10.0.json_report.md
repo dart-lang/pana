@@ -1,6 +1,7 @@
 ## 5/20 Packaging conventions
 
 ### [x] 0/10 points: Provide a valid pubspec.yaml
+
 <details>
 <summary>
 Homepage URL isn't helpful.
@@ -23,6 +24,7 @@ Documentation URL isn't helpful.
 </details>
 
 ### [x] 0/5 points: Provide a valid README.md
+
 <details>
 <summary>
 Links in README.md should be secure. 1 link is insecure.
@@ -56,6 +58,7 @@ No example found. See [package layout](https://dart.dev/tools/pub/package-layout
 ## 0/20 Code follows recommended code style
 
 ### [x] 0/20 points: code has no errors, warnings, lints, or formatting issues
+
 Found 900 issues. Showing the first 2:
 
 <details>
@@ -95,6 +98,7 @@ To reproduce run `dart analyze lib/src/model/selection/noop_selection_model_impl
 
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
+
 <details>
 <summary>
 Found no Flutter in your PATH. Could not determine the current Flutter version.
@@ -102,6 +106,7 @@ Found no Flutter in your PATH. Could not determine the current Flutter version.
 </details>
 
 ### [x] 0/10 points: Package is published using a verified publisher
+
 <details>
 <summary>
 Package is not published under a verified publisher.

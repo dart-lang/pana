@@ -767,10 +767,11 @@ String _makeSummary(List<_Subsection> subsections,
           subsection.issues.map((e) => e.markdown(basePath: basePath));
       final statusMarker = _statusMarker(subsection.status);
       return [
-        '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}',
-        if (subsection.issues.length <= maxIssues)
-          issuesMarkdown.join('\n')
-        else ...[
+        '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
+        if (subsection.issues.isNotEmpty &&
+            subsection.issues.length <= maxIssues)
+          issuesMarkdown.join('\n'),
+        if (subsection.issues.length > maxIssues) ...[
           'Found ${subsection.issues.length} issues. Showing the first $maxIssues:\n',
           issuesMarkdown.take(maxIssues).join('\n'),
         ],
