@@ -116,9 +116,9 @@ void main() {
       });
 
       test('Report matches known good', () {
-        final report =
-            Report.fromJson(actualMap['report'] as Map<String, dynamic>);
-        if (report != null) {
+        final jsonReport = actualMap['report'] as Map<String, dynamic>;
+        if (jsonReport != null) {
+          final report = Report.fromJson(jsonReport);
           final renderedSections = report.sections
               .map(
                 (s) =>
