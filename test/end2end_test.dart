@@ -115,6 +115,22 @@ void main() {
         expectMatchesGoldenFile(jsonNoTempDir, p.join(goldenDir, fileName));
       });
 
+      test('Report matches known good', () {
+        final report =
+            Report.fromJson(actualMap['report'] as Map<String, dynamic>);
+        if (report != null) {
+          final renderedSections = report.sections
+              .map(
+                (s) =>
+                    '## ${s.grantedPoints}/${s.maxPoints} ${s.title}\n\n${s.summary}',
+              )
+              .join('\n\n');
+          // For readability we output the report in its own file.
+          expectMatchesGoldenFile(
+              renderedSections, p.join(goldenDir, '${fileName}_report.md'));
+        }
+      });
+
       test('Summary can round-trip', () {
         var summary = Summary.fromJson(actualMap);
 

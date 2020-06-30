@@ -11,7 +11,8 @@ import 'package:pana/pana.dart';
 import 'package:pana/src/tag_detection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart' show HostedDependency;
+import 'package:pubspec_parse/pubspec_parse.dart'
+    show GitDependency, HostedDependency;
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
 
@@ -20,6 +21,9 @@ import 'markdown_content.dart';
 import 'pubspec.dart';
 
 const _publisherDoc = 'https://dart.dev/tools/pub/verified-publishers';
+
+const _pluginDocsUrl =
+    'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
 
 /// We currently don't have flutter installed on travis. So we emulate having
 /// no Flutter installed when generating golden files.
@@ -32,7 +36,13 @@ Future<Report> createReport(
   try {
     pubspec = Pubspec.parseFromDir(packageDir);
   } on Exception catch (e) {
-    throw Exception('Cannot not create report without a pubspec.yaml: $e');
+    return Report(sections: [
+      ReportSection(
+          grantedPoints: 0,
+          maxPoints: 100,
+          title: 'Failed to parse the pubspec',
+          summary: e.toString())
+    ]);
   }
 
   return Report(sections: [
@@ -44,7 +54,7 @@ Future<Report> createReport(
       toolEnvironment,
       usesFlutter: pubspec.usesFlutter,
     ),
-    await _trustworthDependency(packageDir, pubspec, toolEnvironment),
+    await _trustworthyDependency(packageDir, pubspec, toolEnvironment),
   ]);
 }
 
@@ -104,9 +114,10 @@ Future<ReportSection> _staticAnalysis(
     summary: _makeSummary(
       [
         _Subsection(
-          'code has no errors, warnings, lints or formatting issues',
+          'code has no errors, warnings, lints, or formatting issues',
           [...errors, ...warnings, ...lints, ...formattingIssues],
           grantedPoints,
+          20,
           status,
         )
       ],
@@ -192,6 +203,71 @@ Future<List<_Issue>> _formatPackage(
 
 Future<ReportSection> _followsTemplate(
     String packageDir, Pubspec pubspec) async {
+  final urlChecker = UrlChecker();
+
+  Future<List<_Issue>> findUrlIssues(
+    String key,
+    String name,
+  ) async {
+    final url = pubspec.originalYaml[key] as String;
+    final status = await urlChecker.checkStatus(
+      url,
+      isInternalPackage: false, // TODO(sigurdm): is this correct?
+    );
+    final issues = <_Issue>[];
+    if (url == null || url.isEmpty) {
+      issues.add(
+        _Issue(
+          "`pubspec.yaml` doesn't have a `$key` entry.",
+        ),
+      );
+    } else {
+      if (status == UrlStatus.invalid || status == UrlStatus.internal) {
+        print('$url $status $name $key');
+        issues.add(
+          _Issue(
+            "$name isn't helpful.",
+            span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
+          ),
+        );
+      } else if (status == UrlStatus.missing) {
+        issues.add(
+          _Issue(
+            "$name doesn't exist.",
+            span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
+            suggestion: 'At the time of the analysis `$url` was unreachable.',
+          ),
+        );
+      } else if (status == UrlStatus.exists && !url.startsWith('https://')) {
+        issues.add(
+          _Issue(
+            '$name is insecure.',
+            span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
+            suggestion:
+                'Update the `$key` field and use a secure (`https`) URL.',
+          ),
+        );
+      }
+    }
+    return issues;
+  }
+
+  List<_Issue> findFileSizeIssues(File file,
+      {int limitInKB = 128, String missingSuggestion}) {
+    final length = file.lengthSync();
+    final lengthInKB = length / 1024.0;
+    return [
+      if (length == 0)
+        _Issue('${p.relative(file.path, from: packageDir)} is empty.',
+            suggestion: missingSuggestion),
+      if (lengthInKB > limitInKB)
+        _Issue(
+          '${p.relative(file.path, from: packageDir)} too large.',
+          suggestion: 'Try to keep the file size under ${limitInKB}k.',
+        )
+    ];
+  }
+
   /// Analyze a markdown file and return suggestions.
   Future<List<_Issue>> findMarkdownIssues(File file) async {
     final issues = <_Issue>[];
@@ -229,27 +305,102 @@ Future<ReportSection> _followsTemplate(
     return issues;
   }
 
-  // TODO(sigurdm): What do we want to check here?
-  final pubspecSection = _Subsection(
-      ' 10 points: provide a valid pubspec.yaml', [], 10, _Status.good);
+  Future<_Subsection> checkPubspec() async {
+    final issues = <_Issue>[];
+    if (pubspec.hasUnknownSdks) {
+      issues.add(_Issue('Unknown SDKs in `pubspec.yaml`.',
+          span: _tryGetSpanFromYamlMap(
+              pubspec.environment, pubspec.unknownSdks.first),
+          suggestion: 'The following unknown SDKs are in `pubspec.yaml`:\n'
+              '`${pubspec.unknownSdks}`.\n\n'
+              '`pana` doesn’t recognize them; please remove the `sdk` entry.'));
+    }
+    issues.addAll(await findUrlIssues('homepage', 'Homepage URL'));
+    issues.addAll(await findUrlIssues('repository', 'Repository URL'));
+    issues.addAll(await findUrlIssues('documentation', 'Documentation URL'));
+    issues.addAll(await findUrlIssues('issue_tracker', 'Issue tracker URL'));
+    final gitDependencies =
+        pubspec.dependencies.entries.where((e) => e.value is GitDependency);
+    if (gitDependencies.isNotEmpty) {
+      issues.add(_Issue(
+        'The package has a git dependency.',
+        span: _tryGetSpanFromYamlMap(
+            pubspec.originalYaml['dependencies'] as Map,
+            gitDependencies.first.key),
+        suggestion: "The pub site doesn't allow git dependencies.",
+      ));
+    }
+
+    if (pubspec.usesOldFlutterPluginFormat) {
+      issues.add(
+        _Issue(
+          'Flutter plugin descriptor uses old format.',
+          span: _tryGetSpanFromYamlMap(
+              pubspec.originalYaml['flutter'] as Map, 'plugin'),
+          suggestion:
+              'The flutter.plugin.{androidPackage,iosPrefix,pluginClass} keys are '
+              'deprecated. Consider using the flutter.plugin.platforms key '
+              'introduced in Flutter 1.10.0\n\n See $_pluginDocsUrl',
+        ),
+      );
+    }
+
+    if (pubspec.shouldWarnDart2Constraint) {
+      issues.add(
+        _Issue(
+          "Sdk-constraint doesn't allow future stable dart 2.x releases",
+          span: _tryGetSpanFromYamlMap(
+            pubspec.environment,
+            'sdk',
+          ),
+        ),
+      );
+    }
+
+    // Checking the length of description.
+    final description = pubspec.description?.trim();
+    final span = _tryGetSpanFromYamlMap(pubspec.originalYaml, 'description');
+    if (description == null || description.isEmpty) {
+      issues.add(
+        _Issue(
+          'Add `description` in `pubspec.yaml`.',
+          span: span,
+          suggestion:
+              'The description gives users information about the features of your '
+              'package and why it is relevant to their query. We recommend a '
+              'description length of 60 to 180 characters.',
+        ),
+      );
+    } else if (description.length < 60) {
+      issues.add(
+        _Issue('The package description is too short.',
+            span: span,
+            suggestion:
+                'Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 '
+                'characters to describe the package, what it does, and its target use case.'),
+      );
+    } else if (description.length > 180) {
+      issues.add(
+        _Issue('The package description is too long.',
+            span: span,
+            suggestion:
+                'Search engines display only the first part of the description. '
+                "Try to keep the value of the `description` field in your package's "
+                '`pubspec.yaml` file between 60 and 180 characters.'),
+      );
+    }
+
+    issues.addAll(findFileSizeIssues(File(p.join(packageDir, 'pubspec.yaml')),
+        limitInKB: 32));
+
+    final status = issues.isEmpty ? _Status.good : _Status.bad;
+    final points = issues.isEmpty ? 10 : 0;
+    return _Subsection(
+        'Provide a valid pubspec.yaml', issues, points, 10, status);
+  }
 
   Future<_Subsection> checkAsset(
       String filename, String missingSuggestion) async {
-    List<_Issue> findFileSizeIssues(File file, {int limitInKB = 128}) {
-      final length = file.lengthSync();
-      final lengthInKB = length / 1024.0;
-      return [
-        if (length == 0)
-          _Issue('${p.relative(file.path, from: packageDir)} is empty.',
-              suggestion: missingSuggestion),
-        if (lengthInKB > limitInKB)
-          _Issue(
-            '${p.relative(file.path, from: packageDir)} too large.',
-            suggestion: 'Try to keep the file size under ${limitInKB}k.',
-          )
-      ];
-    }
-
     final fullPath = p.join(packageDir, filename);
     final file = File(fullPath);
     final issues = <_Issue>[];
@@ -259,14 +410,13 @@ Future<ReportSection> _followsTemplate(
         _Issue('No $filename found.', suggestion: missingSuggestion),
       );
     } else {
-      issues.addAll(findFileSizeIssues(file));
-      issues.addAll(await findMarkdownIssues(
-        file,
-      ));
+      issues.addAll(
+          findFileSizeIssues(file, missingSuggestion: missingSuggestion));
+      issues.addAll(await findMarkdownIssues(file));
     }
     final status = issues.isEmpty ? _Status.good : _Status.bad;
     final points = issues.isEmpty ? 5 : 0;
-    return _Subsection('Provide a valid $filename', issues, points, status);
+    return _Subsection('Provide a valid $filename', issues, points, 5, status);
   }
 
   final readmeSubsection = await checkAsset(
@@ -279,15 +429,17 @@ Future<ReportSection> _followsTemplate(
     'Changelog entries help developers follow the progress of your package. '
         'See the [example](https://raw.githubusercontent.com/dart-lang/stagehand/master/templates/package-simple/CHANGELOG.md) generated by `stagehand`.',
   );
+  final pubspecSection = await checkPubspec();
 
   return ReportSection(
       title: 'Packaging conventions',
       maxPoints: 20,
-      grantedPoints: pubspecSection.points +
-          readmeSubsection.points +
-          changelogSubsection.points,
-      summary: _makeSummary([readmeSubsection, changelogSubsection],
-          basePath: packageDir));
+      grantedPoints: pubspecSection.grantedPoints +
+          readmeSubsection.grantedPoints +
+          changelogSubsection.grantedPoints,
+      summary: _makeSummary(
+          [pubspecSection, readmeSubsection, changelogSubsection],
+          basePath: packageDir, maxIssues: 10));
 }
 
 SourceSpan _tryGetSpanFromYamlMap(Map map, String key) {
@@ -297,7 +449,7 @@ SourceSpan _tryGetSpanFromYamlMap(Map map, String key) {
   return null;
 }
 
-Future<ReportSection> _trustworthDependency(
+Future<ReportSection> _trustworthyDependency(
   String packageDir,
   Pubspec pubspec,
   ToolEnvironment toolEnvironment,
@@ -333,6 +485,7 @@ Future<ReportSection> _trustworthDependency(
       'All of the package dependencies are supported in the latest version',
       issues,
       points,
+      10,
       status,
     );
   }
@@ -347,17 +500,19 @@ Future<ReportSection> _trustworthDependency(
           suggestion: 'Try adding an sdk constraint to your pubspec.yaml'));
     } else if (!allowsCurrentSdk) {
       issues.add(_Issue(
-          'The current sdk constraint does not allow the latest Dart ($currentSdkVersion)',
+          'The current sdk constraint does not allow the latest stable Dart ($currentSdkVersion)',
           span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk'),
           suggestion: 'Try widening the upper boundary of the constraint.'));
     }
 
     final flutterVersions = toolEnvironment.runtimeInfo.flutterVersions;
+
     if (isRunningEnd2EndTest || flutterVersions == null) {
       issues.add(_Issue(
           'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
     } else {
       final usesFlutter = pubspec.usesFlutter;
+
       final flutterDartVersion = Version.parse(
           (flutterVersions['dartSdkVersion'] as String).split(' ').first);
       final allowsCurrentFlutterDart =
@@ -366,7 +521,7 @@ Future<ReportSection> _trustworthDependency(
       if (!allowsCurrentFlutterDart) {
         issues.add(
           _Issue(
-            'The current sdk constraint does not allow the dart version latest of Flutter ($flutterDartVersion)',
+            'The current SDK constraint does not allow the Dart version used by the latest stable Flutter ($flutterDartVersion)',
             span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk'),
           ),
         );
@@ -391,9 +546,10 @@ Future<ReportSection> _trustworthDependency(
     final status = issues.isEmpty ? _Status.good : _Status.bad;
     final points = issues.isEmpty ? 10 : 0;
     return _Subsection(
-      'Package supports latest minor version of the Dart and Flutter sdks',
+      'Package supports latest stable Dart and Flutter SDKs',
       issues,
       points,
+      10,
       status,
     );
   }
@@ -419,9 +575,10 @@ Future<ReportSection> _trustworthDependency(
     final status = issues.isEmpty ? _Status.good : _Status.bad;
     final points = issues.isEmpty ? 10 : 0;
     return _Subsection(
-      'Package supports latest minor version of the Dart and Flutter sdks',
+      'Package is published using a verified publisher',
       issues,
       points,
+      10,
       status,
     );
   }
@@ -432,9 +589,9 @@ Future<ReportSection> _trustworthDependency(
 
   return ReportSection(
       title: 'Package is a good, trustworthy dependency',
-      grantedPoints: dependencySection.points +
-          sdkSection.points +
-          publisherSection.points,
+      grantedPoints: dependencySection.grantedPoints +
+          sdkSection.grantedPoints +
+          publisherSection.grantedPoints,
       maxPoints: 30,
       summary: _makeSummary([dependencySection, sdkSection, publisherSection],
           basePath: packageDir));
@@ -442,7 +599,8 @@ Future<ReportSection> _trustworthDependency(
 
 Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
   List<_Issue> issues;
-  int grantedPoints;
+
+  _Subsection subsection;
   if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
       .existsSync()) {
     final tags = <String>[];
@@ -454,59 +612,81 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
 
     final flutterPackage = pubspec.hasFlutterKey;
 
+    issues = explanations
+        .map((e) => _Issue('${e.finding}\n\n${e.explanation}'))
+        .toList();
+
     if (flutterPackage) {
       tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
       tags.retainWhere(
           ['platform:android', 'platform:ios', 'platform:web'].contains);
       if (tags.length <= 1) {
-        grantedPoints = 0;
+        subsection = _Subsection(
+            'Supports 0 of 3 possible platforms (iOS, Android, Web)',
+            issues,
+            0,
+            20,
+            _Status.bad);
       } else if (tags.length == 2) {
-        grantedPoints = 10;
+        subsection = _Subsection(
+            'Supports 2 of 3 possible platforms (iOS, Android, Web)',
+            issues,
+            10,
+            20,
+            _Status.soso);
       } else {
-        grantedPoints = 20;
+        subsection = _Subsection(
+            'Supports 3 of 3 possible platforms (iOS, Android, Web)',
+            issues,
+            20,
+            20,
+            _Status.good);
       }
     } else {
       tagger.runtimeTags(tags, explanations);
       if (tags.isEmpty) {
-        grantedPoints = 0;
+        subsection = _Subsection(
+            'Supports 0 of 2 possible platforms (native, js)',
+            issues,
+            0,
+            20,
+            _Status.bad);
       } else if (tags.length == 1) {
-        grantedPoints = 10;
+        subsection = _Subsection(
+            'Supports 1 of 2 possible platforms (native, js)',
+            issues,
+            10,
+            20,
+            _Status.soso);
       } else {
-        grantedPoints = 20;
+        subsection = _Subsection(
+            'Supports 2 of 2 possible platforms (native, js)',
+            issues,
+            20,
+            20,
+            _Status.good);
       }
     }
-    issues = [
-      _Issue(
-        flutterPackage
-            ? 'Package is a Flutter package'
-            : 'Package is a Dart package',
-      ),
-      ...explanations.map((e) => _Issue('${e.finding}\n\n${e.explanation}')),
-    ];
   } else {
     issues = [
       _Issue('Package resolution failed. Could not determine platforms.',
           suggestion: 'Run `pub get` for more information.')
     ];
-    grantedPoints = 0;
+    subsection = _Subsection(
+      'Supports 0 of 2 possible platforms (native, js)',
+      issues,
+      0,
+      20,
+      _Status.bad,
+    );
   }
 
   return ReportSection(
     title: 'Package is multi-platform',
     maxPoints: 20,
-    grantedPoints: grantedPoints,
+    grantedPoints: subsection.grantedPoints,
     summary: _makeSummary(
-      [
-        _Subsection(
-            '''Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)
-
-Flutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)''',
-            issues,
-            grantedPoints,
-            grantedPoints == 20
-                ? _Status.good
-                : (grantedPoints == 0 ? _Status.bad : _Status.soso)),
-      ],
+      [subsection],
       basePath: packageDir,
       maxIssues:
           100, // Tagging produces a bounded number of issues. Better display them all.
@@ -536,7 +716,6 @@ class _Issue {
 
   String markdown({@required String basePath}) {
     return [
-      '*',
       '<details>',
       '<summary>',
       description,
@@ -563,14 +742,16 @@ extension on SourceSpan {
 class _Subsection {
   final List<_Issue> issues;
   final String description;
-  final int points;
+  final int grantedPoints;
+  final int maxPoints;
 
   final _Status status;
 
   _Subsection(
     this.description,
     this.issues,
-    this.points,
+    this.grantedPoints,
+    this.maxPoints,
     this.status,
   );
 }
@@ -581,19 +762,19 @@ String _makeSummary(List<_Subsection> subsections,
     {String introduction, @required String basePath, int maxIssues = 2}) {
   return [
     if (introduction != null) introduction,
-    ...subsections.expand((subsection) {
+    ...subsections.map((subsection) {
       final issuesMarkdown =
           subsection.issues.map((e) => e.markdown(basePath: basePath));
       final statusMarker = _statusMarker(subsection.status);
       return [
-        '### $statusMarker **${subsection.points} points**: ${subsection.description}',
+        '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}',
         if (subsection.issues.length <= maxIssues)
-          ...issuesMarkdown
+          issuesMarkdown.join('\n')
         else ...[
-          'Found ${subsection.issues.length} issues. Showing the first $maxIssues:',
-          ...issuesMarkdown.take(maxIssues),
+          'Found ${subsection.issues.length} issues. Showing the first $maxIssues:\n',
+          issuesMarkdown.take(maxIssues).join('\n'),
         ],
-      ];
+      ].join('\n');
     }),
   ].join('\n\n');
 }
