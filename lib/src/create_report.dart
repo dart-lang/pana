@@ -233,7 +233,6 @@ Future<ReportSection> _followsTemplate(
       );
     } else {
       if (status == UrlStatus.invalid || status == UrlStatus.internal) {
-        print('$url $status $name $key');
         issues.add(
           _Issue(
             "$name isn't helpful.",
