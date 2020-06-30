@@ -2,26 +2,10 @@
 
 ### [x] 0/10 points: Provide a valid pubspec.yaml
 
-<details>
-<summary>
-`pubspec.yaml` doesn't have a `repository` entry.
-</summary>
-</details>
-<details>
-<summary>
-`pubspec.yaml` doesn't have a `documentation` entry.
-</summary>
-</details>
-<details>
-<summary>
-`pubspec.yaml` doesn't have a `issue_tracker` entry.
-</summary>
-</details>
-<details>
-<summary>
-Sdk-constraint doesn't allow future stable dart 2.x releases
-</summary>
-</details>
+* `pubspec.yaml` doesn't have a `repository` entry.
+* `pubspec.yaml` doesn't have a `documentation` entry.
+* `pubspec.yaml` doesn't have a `issue_tracker` entry.
+* Sdk-constraint doesn't allow future stable dart 2.x releases
 <details>
 <summary>
 The package description is too short.
@@ -37,9 +21,14 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 
 ## 0/10 Package has documentation
 
-*10 points*: The package has an example.
+### [x] 0/10 points: Package has an example
 
-No example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
+<details>
+<summary>
+No example found.
+</summary>
+See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
+</details>
 
 ## 0/20 Package is multi-platform
 
@@ -102,11 +91,7 @@ Pubspec.yaml does not have an sdk version constraint.
 </summary>
 Try adding an sdk constraint to your pubspec.yaml
 </details>
-<details>
-<summary>
-Found no Flutter in your PATH. Could not determine the current Flutter version.
-</summary>
-</details>
+* Found no Flutter in your PATH. Could not determine the current Flutter version.
 
 ### [x] 0/10 points: Package is published using a verified publisher
 

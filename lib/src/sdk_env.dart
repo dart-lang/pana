@@ -310,6 +310,8 @@ class ToolEnvironment {
       {List<String> args = const []}) async {
     final result = await runProc(_pubCmd, ['outdated', ...args],
         environment: _environment);
+    final result = await runProc(_pubCmd, ['outdated', ...args],
+        environment: _environment);
     if (result.exitCode != 0) {
       throw Exception(
           '`pub outdated` exited ${result.exitCode}. StdErr: ${result.stderr}');

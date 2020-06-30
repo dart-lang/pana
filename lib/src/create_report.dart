@@ -62,21 +62,31 @@ Future<ReportSection> _hasDocumentation(
     String packageDir, Pubspec pubspec) async {
   // TODO: run dartdoc for coverage
 
-  // checking example
   final candidates = exampleFileCandidates(pubspec.name, caseSensitive: true);
   final examplePath = candidates.firstWhere(
       (c) => File(p.join(packageDir, c)).existsSync(),
       orElse: () => null);
-  final examplePoints = examplePath == null ? 0 : 10;
-  final conclusion = examplePath != null
-      ? 'Found `$examplePath`.'
-      : 'No example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) '
-          'guidelines on how to add an example.';
+  final issues = <_Issue>[
+    if (examplePath == null)
+      _Issue(
+        'No example found.',
+        suggestion:
+            'See [package layout](https://dart.dev/tools/pub/package-layout#examples) '
+            'guidelines on how to add an example.',
+      )
+    else
+      _Issue('Found example at: $examplePath')
+  ];
+
+  final points = examplePath == null ? 0 : 10;
+  final status = examplePath == null ? _Status.bad : _Status.good;
   return ReportSection(
     title: documentationSectionTitle,
-    grantedPoints: examplePoints,
+    grantedPoints: points,
     maxPoints: 10,
-    summary: '*10 points*: The package has an example.\n\n$conclusion',
+    summary: _makeSummary(
+        [_Subsection('Package has an example', issues, points, 10, status)],
+        basePath: null),
   );
 }
 
@@ -715,6 +725,9 @@ class _Issue {
   _Issue(this.description, {this.span, this.suggestion});
 
   String markdown({@required String basePath}) {
+    if (suggestion == null && span == null) {
+      return '* $description';
+    }
     return [
       '<details>',
       '<summary>',

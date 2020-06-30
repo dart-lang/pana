@@ -949,13 +949,13 @@
         "title": "Packaging conventions",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `repository` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `documentation` entry.\n</summary>\n</details>\n<details>\n<summary>\n`pubspec.yaml` doesn't have a `issue_tracker` entry.\n</summary>\n</details>\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
+        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n\n* `pubspec.yaml` doesn't have a `repository` entry.\n* `pubspec.yaml` doesn't have a `documentation` entry.\n* `pubspec.yaml` doesn't have a `issue_tracker` entry.\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
       },
       {
         "title": "Package has documentation",
         "grantedPoints": 10,
         "maxPoints": 10,
-        "summary": "*10 points*: The package has an example.\n\nFound `example/example.dart`."
+        "summary": "### [*] 10/10 points: Package has an example\n\n* Found example at: example/example.dart"
       },
       {
         "title": "Package is multi-platform",
@@ -973,7 +973,7 @@
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 10,
         "maxPoints": 30,
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n</summary>\n</details>\n\n### [x] 0/10 points: Package is published using a verified publisher\n\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version.\n\n### [x] 0/10 points: Package is published using a verified publisher\n\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
       }
     ]
   }

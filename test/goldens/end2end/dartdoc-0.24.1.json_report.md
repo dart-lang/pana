@@ -2,21 +2,9 @@
 
 ### [x] 0/10 points: Provide a valid pubspec.yaml
 
-<details>
-<summary>
-`pubspec.yaml` doesn't have a `repository` entry.
-</summary>
-</details>
-<details>
-<summary>
-`pubspec.yaml` doesn't have a `documentation` entry.
-</summary>
-</details>
-<details>
-<summary>
-`pubspec.yaml` doesn't have a `issue_tracker` entry.
-</summary>
-</details>
+* `pubspec.yaml` doesn't have a `repository` entry.
+* `pubspec.yaml` doesn't have a `documentation` entry.
+* `pubspec.yaml` doesn't have a `issue_tracker` entry.
 <details>
 <summary>
 The package description is too short.
@@ -47,9 +35,14 @@ Use `https` URLs instead.
 
 ## 0/10 Package has documentation
 
-*10 points*: The package has an example.
+### [x] 0/10 points: Package has an example
 
-No example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
+<details>
+<summary>
+No example found.
+</summary>
+See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
+</details>
 
 ## 10/20 Package is multi-platform
 
@@ -102,11 +95,7 @@ To reproduce run `dart analyze bin/dartdoc.dart`
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
-<details>
-<summary>
-Found no Flutter in your PATH. Could not determine the current Flutter version.
-</summary>
-</details>
+* Found no Flutter in your PATH. Could not determine the current Flutter version.
 
 ### [x] 0/10 points: Package is published using a verified publisher
 
