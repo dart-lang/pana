@@ -62,7 +62,7 @@ ReportSection documentationCoverageSection({
     grantedPoints: grantedPoints,
     maxPoints: maxPoints,
     summary: renderSimpleSectionSummary(
-      title: '20% or more of the public api has dartdoc.',
+      title: '20% or more of the public API has dartdoc comments',
       description: summary.toString(),
       grantedPoints: grantedPoints,
       maxPoints: 10,
