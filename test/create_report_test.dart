@@ -50,12 +50,25 @@ Check it out on [github](http://github.com/example/my_package).
 
   group('Package has documentation', () {
     test('documentation percent', () {
+      expect(documentationCoverageSection(documented: 1, total: 21).summary,
+          contains('(4.8 %)'));
       expect(documentationCoverageSection(documented: 0, total: 0).summary,
           contains('(100.0 %)'));
       expect(documentationCoverageSection(documented: 5, total: 7).summary,
           contains('(71.4 %)'));
       expect(documentationCoverageSection(documented: 7, total: 7).summary,
           contains('(100.0 %)'));
+    });
+
+    test('documentation title', () {
+      expect(documentationCoverageSection(documented: 1, total: 21).summary,
+          contains('### [x] 0/10 points'));
+      expect(documentationCoverageSection(documented: 0, total: 0).summary,
+          contains('### [*] 10/10 points'));
+      expect(documentationCoverageSection(documented: 5, total: 7).summary,
+          contains('### [*] 10/10 points'));
+      expect(documentationCoverageSection(documented: 7, total: 7).summary,
+          contains('### [*] 10/10 points'));
     });
 
     test('finds example', () async {

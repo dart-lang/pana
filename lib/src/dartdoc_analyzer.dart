@@ -4,6 +4,7 @@
 
 import 'package:meta/meta.dart';
 
+import 'create_report.dart' show renderSimpleSectionSummary;
 import 'model.dart';
 import 'sdk_env.dart';
 
@@ -44,8 +45,9 @@ ReportSection documentationCoverageSection({
   final accepted = ratio >= 0.2;
   final percent = (100.0 * ratio).toStringAsFixed(1);
   final summary = StringBuffer();
+  final grantedPoints = accepted ? maxPoints : 0;
 
-  summary.write('*10 points*: 20% or more of the public api has dartdoc.\n\n'
+  summary.write(
       '$documented out of $total API elements ($percent %) have documentation comments.');
 
   if (!accepted) {
@@ -57,19 +59,31 @@ ReportSection documentationCoverageSection({
 
   return ReportSection(
     title: documentationSectionTitle,
-    grantedPoints: accepted ? maxPoints : 0,
+    grantedPoints: grantedPoints,
     maxPoints: maxPoints,
-    summary: summary.toString(),
+    summary: renderSimpleSectionSummary(
+      title: '20% or more of the public api has dartdoc.',
+      description: summary.toString(),
+      grantedPoints: grantedPoints,
+      maxPoints: 10,
+    ),
   );
 }
 
 /// Creates a report section when running dartdoc failed to produce content.
-ReportSection dartdocFailedSection(DartdocResult result) {
-  final suggestion = getDartdocRunFailedSuggestion(result);
+ReportSection dartdocFailedSection([DartdocResult result]) {
+  final errorMessage = result?.processResult?.stderr?.toString() ?? '';
+
   return ReportSection(
     title: documentationSectionTitle,
     grantedPoints: 0,
     maxPoints: 10,
-    summary: suggestion.description,
+    summary: renderSimpleSectionSummary(
+      title: 'Failed to run dartdoc',
+      description:
+          'Running `dartdoc` failed with the following output:\n\n```\n$errorMessage\n```\n',
+      grantedPoints: 0,
+      maxPoints: 10,
+    ),
   );
 }
