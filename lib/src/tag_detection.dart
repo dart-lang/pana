@@ -911,8 +911,8 @@ class Tagger {
       if (_isBinaryOnly) {
         tags.addAll(<String>[Runtime.nativeAot.name, Runtime.nativeJit.name]);
       } else if (_topLibraries.isEmpty) {
-        Explanation('No top-level libraries found',
-            'Cannot assign runtime tags, because no .dart files where found in lib/');
+        explanations.add(Explanation('No top-level libraries found',
+            'Cannot assign runtime tags, because no .dart files where found in lib/'));
       } else {
         final dartSdkViolationFinder = _SdkViolationFinder(
             _packageGraph, _Sdk.dart, _pubspecCache, _session);
