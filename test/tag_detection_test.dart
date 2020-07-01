@@ -19,7 +19,7 @@ class FakeLibraryGraph implements LibraryGraph {
 }
 
 void expectTagging(void Function(List<String>, List<Explanation>) f,
-    {dynamic tags, dynamic explanations}) {
+    {dynamic tags = anything, dynamic explanations = anything}) {
   final actualTags = <String>[];
   final actualExplanations = <Explanation>[];
   f(actualTags, actualExplanations);
@@ -274,12 +274,12 @@ int fourtyTwo() => fourtyThree() - 1;
       expectTagging(tagger.flutterPlatformTags, tags: {'platform:web'});
       expectTagging(tagger.runtimeTags, tags: isEmpty);
     });
-    test('Flutter plugins declarations are ', () async {
+    test('Flutter plugins declarations are respected', () async {
       final decriptor = d.dir('cache', [
         package('my_package', lib: [
           d.file('my_package.dart', '''
 import 'dart:io';
-import 'package:my_package_linux';
+import 'package:my_package_linux/my_package_linux.dart';
 int fourtyTwo() => 42;
 '''),
         ], pubspecExtras: {
@@ -291,6 +291,11 @@ int fourtyTwo() => 42;
           }
         }, dependencies: [
           'my_package_linux'
+        ], extraFiles: [
+          d.file('.packages', '''
+my_package:lib/
+my_package_linux:../my_package_linux/lib/
+'''),
         ]),
         package('my_package_linux', lib: [
           d.file('my_package_linux.dart', '''
@@ -600,6 +605,40 @@ void main() {
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       expectTagging(tagger.nullSafetyTags,
           tags: ['is:null-safe'], explanations: isEmpty);
+    });
+
+    test('Broken imports gets reported', () async {
+      final descriptor = d.dir('cache', [
+        package('my_package', sdkConstraint: '>=2.10.0 <3.0.0', lib: [
+          d.file('my_package.dart', 'import "package:missing/missing.dart";'),
+        ], dependencies: [
+          'missing'
+        ]),
+      ]);
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
+      final tagDetectionFailed = contains(
+        explanation(
+          finding: 'Tag detection failed.',
+        ),
+      );
+
+      expectTagging(
+        tagger.nullSafetyTags,
+        explanations: tagDetectionFailed,
+      );
+      expectTagging(
+        tagger.flutterPlatformTags,
+        explanations: tagDetectionFailed,
+      );
+      expectTagging(
+        tagger.sdkTags,
+        explanations: tagDetectionFailed,
+      );
+      expectTagging(
+        tagger.runtimeTags,
+        explanations: tagDetectionFailed,
+      );
     });
   });
 }
