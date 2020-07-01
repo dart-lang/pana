@@ -37,6 +37,8 @@ class Pubspec {
 
   Map toJson() => _content;
 
+  Map get originalYaml => _content;
+
   String get name => _inner.name;
   String get description => _inner.description;
 

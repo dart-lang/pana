@@ -75,7 +75,7 @@
     "resolveProcessFailed": false,
     "analyzerErrorCount": 0,
     "analyzerWarningCount": 0,
-    "analyzerHintCount": 1886,
+    "analyzerHintCount": 1887,
     "platformConflictCount": 0,
     "suggestions": [
       {
@@ -106,8 +106,8 @@
         "code": "bulk",
         "level": "hint",
         "title": "Fix additional 25 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/model.dart` (786 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` (100 hints)\n- `lib/src/warnings.dart` (88 hints)\n- `lib/src/package_meta.dart` (56 hints)\n- `lib/src/html/template_data.dart` (54 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` (51 hints)\n- `lib/src/model_utils.dart` (47 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (46 hints)\n- `lib/src/io_utils.dart` (34 hints)\n- `lib/src/html/html_generator_instance.dart` (31 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (30 hints)\n- `lib/src/element_type.dart` (29 hints)\n- `lib/src/html/html_generator.dart` (25 hints)\n- `lib/src/html/templates.dart` (16 hints)\n- `bin/dartdoc.dart` (13 hints)\n- `lib/src/utils.dart` (13 hints)\n- `lib/src/line_number_cache.dart` (10 hints)\n- `lib/src/special_elements.dart` (10 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (8 hints)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (7 hints)\n- `lib/src/logging.dart` (6 hints)\n- `lib/src/tool_runner.dart` (4 hints)\n- `lib/src/html/resource_loader.dart` (2 hints)\n- `lib/src/html/resources.g.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` (1 hint)\n",
-        "score": 301.0899999999999
+        "description": "Additional issues in the following files:\n\n- `lib/src/model.dart` (786 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tokens.dart` (100 hints)\n- `lib/src/warnings.dart` (88 hints)\n- `lib/src/package_meta.dart` (56 hints)\n- `lib/src/html/template_data.dart` (54 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/tmpl.dart` (51 hints)\n- `lib/src/model_utils.dart` (47 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` (46 hints)\n- `lib/src/io_utils.dart` (34 hints)\n- `lib/src/html/html_generator_instance.dart` (31 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` (30 hints)\n- `lib/src/element_type.dart` (29 hints)\n- `lib/src/html/html_generator.dart` (25 hints)\n- `lib/src/html/templates.dart` (16 hints)\n- `bin/dartdoc.dart` (13 hints)\n- `lib/src/utils.dart` (13 hints)\n- `lib/src/line_number_cache.dart` (10 hints)\n- `lib/src/special_elements.dart` (10 hints)\n- `lib/src/third_party/pkg/mustache4dart/lib/src/mustache.dart` (8 hints)\n- `lib/src/third_party/pkg/mustache4dart/example/simpleusage.dart` (7 hints)\n- `lib/src/logging.dart` (6 hints)\n- `lib/src/tool_runner.dart` (4 hints)\n- `lib/src/html/resource_loader.dart` (3 hints)\n- `lib/src/html/resources.g.dart` (1 hint)\n- `lib/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` (1 hint)\n",
+        "score": 301.5799999999999
       }
     ]
   },
@@ -4313,6 +4313,16 @@
       "size": 1060,
       "isFormatted": true,
       "codeProblems": [
+        {
+          "severity": "INFO",
+          "errorType": "HINT",
+          "errorCode": "DEPRECATED_MEMBER_USE",
+          "file": "lib/src/html/resource_loader.dart",
+          "line": 16,
+          "col": 1,
+          "length": 40,
+          "description": "'package:resource/resource.dart' is deprecated and shouldn't be used. This package has been discontinued. See library documentation of README.md for more infomration."
+        },
         {
           "severity": "INFO",
           "errorType": "LINT",
@@ -20148,40 +20158,34 @@
   "report": {
     "sections": [
       {
-        "title": "Package supports Dart 2",
-        "grantedPoints": 20,
-        "maxPoints": 20,
-        "summary": "Package gets 20 points if its Dart sdk constraint allows Dart 2."
-      },
-      {
         "title": "Packaging conventions",
-        "grantedPoints": 15,
+        "grantedPoints": 5,
         "maxPoints": 20,
-        "summary": "Package gets 10 points for a valid pubspec.yaml and 5 points for each of README.md and CHANGELOG.md.\n\n\n\nLinks in README.md should be secure. 1 link is insecure.\n`README.md:319:55`\n\n```\n    ╷\n319 │ <li>With <code>github.css</code> (c) Vasily Polovnyov <a href=\"mailto:vast@whiteants.net\">vast@whiteants.net</a></li>\n    │                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nUse `https` URLs instead."
+        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n\n* `pubspec.yaml` doesn't have a `repository` entry.\n* `pubspec.yaml` doesn't have a `documentation` entry.\n* `pubspec.yaml` doesn't have a `issue_tracker` entry.\n<details>\n<summary>\nThe package description is too short.\n</summary>\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [x] 0/5 points: Provide a valid README.md\n\n<details>\n<summary>\nLinks in README.md should be secure. 1 link is insecure.\n</summary>\n`README.md:319:55`\n\n```\n    ╷\n319 │ <li>With <code>github.css</code> (c) Vasily Polovnyov <a href=\"mailto:vast@whiteants.net\">vast@whiteants.net</a></li>\n    │                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nUse `https` URLs instead.\n</details>\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
       },
       {
         "title": "Package has documentation",
         "grantedPoints": 0,
         "maxPoints": 10,
-        "summary": "*10 points*: The package has an example.\n\nNo example found. See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example."
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
       },
       {
         "title": "Package is multi-platform",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "Dart packages: *20/10/0 points:* Supports 2 / 1 / 0 platforms (of Native & JS)\n\nFlutter packages: *20/10/0 points:* Supports 3 / 2 / <1 platforms (of iOS, Android, Web)\n\n\n\n\nPackage is a Dart package\n\nPackage not compatible with runtime native-aot\n\nBecause of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`\n\nPackage not compatible with runtime web\n\nBecause of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`"
+        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (native, js)\n"
       },
       {
         "title": "Code follows recommended code style",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "*10 points:* code has no errors and warnings.\n\n*20 points:* code has no errors, warnings or lints, and is formatted according to dartfmt.\n\n\n\n\nFound 1886 issues. Showing the first 2:\n\nINFO: Unnecessary new keyword.\n`bin/dartdoc.dart:27:5`\n\n```\n   ╷\n27 │ ┌     new DartdocOptionArgOnly<bool>('help', false,\n28 │ │         abbr: 'h', help: 'Show command help.', negatable: false),\n   │ └────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dart analyze bin/dartdoc.dart`\n\nINFO: Unnecessary new keyword.\n`bin/dartdoc.dart:29:5`\n\n```\n   ╷\n29 │ ┌     new DartdocOptionArgOnly<bool>('version', false,\n30 │ │         help: 'Display the version for $name.', negatable: false),\n   │ └─────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dart analyze bin/dartdoc.dart`"
+        "summary": "### [~] 10/20 points: code has no errors, warnings, lints, or formatting issues\n\nFound 1887 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`bin/dartdoc.dart:27:5`\n\n```\n   ╷\n27 │ ┌     new DartdocOptionArgOnly<bool>('help', false,\n28 │ │         abbr: 'h', help: 'Show command help.', negatable: false),\n   │ └────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dart analyze bin/dartdoc.dart`\n</details>\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n`bin/dartdoc.dart:29:5`\n\n```\n   ╷\n29 │ ┌     new DartdocOptionArgOnly<bool>('version', false,\n30 │ │         help: 'Display the version for $name.', negatable: false),\n   │ └─────────────────────────────────────────────────────────────────^\n   ╵\n```\n\nTo reproduce run `dart analyze bin/dartdoc.dart`\n</details>"
       },
       {
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 10,
         "maxPoints": 30,
-        "summary": "*10 points*: All of the package dependencies are supported in the latest version.\n\n*10 points*: Package supports the latest stable minor version of the Dart/Flutter SDK.\n\n*10 points*: Published under a trusted publisher.\n\n\n\n\n\n\nFound no Flutter in your PATH. Could not determine the current Flutter version.\n\nPackage is not published under a verified publisher.\nSee https://dart.dev/tools/pub/verified-publishers for more information."
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version.\n\n### [x] 0/10 points: Package is published using a verified publisher\n\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
       }
     ]
   }

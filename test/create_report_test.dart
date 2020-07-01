@@ -18,7 +18,7 @@ void main() {
           descriptor.io.path, await ToolEnvironment.create());
       final section =
           report.sections.firstWhere((s) => s.title == 'Packaging conventions');
-      expect(section.grantedPoints, 10);
+      expect(section.grantedPoints, 0);
       expect(section.summary, contains('No README.md found'));
       expect(section.summary, contains('No CHANGELOG.md found'));
     });
@@ -40,7 +40,7 @@ Check it out on [github](http://github.com/example/my_package).
           descriptor.io.path, await ToolEnvironment.create());
       final section =
           report.sections.firstWhere((s) => s.title == 'Packaging conventions');
-      expect(section.grantedPoints, 15);
+      expect(section.grantedPoints, 5);
       expect(section.summary, isNot(contains('No README.md found')));
       expect(section.summary, isNot(contains('No CHANGELOG.md found')));
       expect(section.summary, contains('1 link is insecure'));

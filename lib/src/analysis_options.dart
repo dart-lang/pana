@@ -5,6 +5,8 @@
 import 'dart:convert';
 
 import 'package:meta/meta.dart';
+// TODO(sigurdm): investigate.
+// ignore: deprecated_member_use
 import 'package:resource/resource.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
