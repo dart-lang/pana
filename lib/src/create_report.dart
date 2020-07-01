@@ -803,3 +803,23 @@ enum _Status {
   bad,
   soso,
 }
+
+/// Renders a summary block for sections that can have only a single issue.
+String renderSimpleSectionSummary({
+  @required String title,
+  @required String description,
+  @required int grantedPoints,
+  @required int maxPoints,
+}) {
+  return _makeSummary([
+    _Subsection(
+      title,
+      [if (description != null) _Issue(description)],
+      grantedPoints,
+      maxPoints,
+      maxPoints == grantedPoints
+          ? _Status.good
+          : grantedPoints == 0 ? _Status.bad : _Status.soso,
+    )
+  ], basePath: null);
+}
