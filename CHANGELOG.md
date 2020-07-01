@@ -1,5 +1,6 @@
 ## 0.13.12
 
+* Updated the rendering templates of `Section.summary`.
 * Fixed percent calculation in documentation report.
 
 ## 0.13.11+1
