@@ -1,3 +1,7 @@
+## 0.13.13
+
+* Deferred source span loading (fixes out of memory issue).
+
 ## 0.13.12
 
 * Updated the rendering templates of `Section.summary`.
