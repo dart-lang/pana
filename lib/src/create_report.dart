@@ -174,14 +174,17 @@ Future<_AnalysisResult> _analyzePackage(
   return _AnalysisResult(
       list
           .where((element) => element.isError)
+          .take(25) // never take more than 25 issues
           .map(issueFromCodeProblem)
           .toList(),
       list
           .where((element) => element.isWarning)
+          .take(25) // never take more than 25 issues
           .map(issueFromCodeProblem)
           .toList(),
       list
           .where((element) => element.isInfo)
+          .take(25) // never take more than 25 issues
           .map(issueFromCodeProblem)
           .toList(),
       'dartanalyzer ${dirs.join(' ')}');
