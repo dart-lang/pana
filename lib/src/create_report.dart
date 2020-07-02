@@ -142,17 +142,19 @@ Future<_AnalysisResult> _analyzePackage(
   @required bool usesFlutter,
 }) async {
   _Issue issueFromCodeProblem(CodeProblem codeProblem) {
-    final sourceFile = SourceFile.fromString(
-        File(p.join(packagePath, codeProblem.file)).readAsStringSync(),
-        url: p.join(packagePath, codeProblem.file));
-    // SourceSpans are 0-based, so we subtract 1 from line and column.
-    final startOffset =
-        sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
     return _Issue(
       '${codeProblem.severity}: ${codeProblem.description}',
       // TODO(sigurdm) We need to inject pedantic somehow...
       suggestion: 'To reproduce run `dart analyze ${codeProblem.file}`',
-      span: sourceFile.span(startOffset, startOffset + codeProblem.length),
+      spanFn: () {
+        final sourceFile = SourceFile.fromString(
+            File(p.join(packagePath, codeProblem.file)).readAsStringSync(),
+            url: p.join(packagePath, codeProblem.file));
+        // SourceSpans are 0-based, so we subtract 1 from line and column.
+        final startOffset =
+            sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
+        return sourceFile.span(startOffset, startOffset + codeProblem.length);
+      },
     );
   }
 
@@ -709,6 +711,9 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
   );
 }
 
+/// Loads [SourceSpan] on-demand.
+typedef SourceSpanFn = SourceSpan Function();
+
 /// A single issue found by the analysis.
 ///
 /// This is not part of the external data-model, but used for gathering
@@ -723,13 +728,17 @@ class _Issue {
   /// line numbers), that file path should be included in [description].
   final SourceSpan span;
 
+  /// Similar to [span], but with deferred loading from the filesystem.
+  final SourceSpanFn spanFn;
+
   /// Can be used for giving a potential solution of the issue, and
   /// also for a command to reproduce locally.
   final String suggestion;
 
-  _Issue(this.description, {this.span, this.suggestion});
+  _Issue(this.description, {this.span, this.spanFn, this.suggestion});
 
   String markdown({@required String basePath}) {
+    final span = this.span ?? (spanFn == null ? null : spanFn());
     if (suggestion == null && span == null) {
       return '* $description';
     }
