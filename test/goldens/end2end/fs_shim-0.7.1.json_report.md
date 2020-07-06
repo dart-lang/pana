@@ -91,9 +91,21 @@ To reproduce run `dart analyze lib/fs.dart`
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Could not run pub outdated: Exception: `pub get` exited 1. StdErr: The current Dart SDK version is {{sdk-version}}.
+<details>
+<summary>
+Sdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.
+</summary>
 
-Because fs_shim requires SDK version >=1.24.0 <2.0.0, version solving failed.
+`pubspec.yaml:8:8`
+
+```
+  ╷
+8 │   sdk: '>=1.24.0 <2.0.0'
+  │        ^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+</details>
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 

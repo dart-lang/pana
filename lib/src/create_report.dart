@@ -25,6 +25,8 @@ const _publisherDoc = 'https://dart.dev/tools/pub/verified-publishers';
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
 
+final currentSdkVersion = Version.parse(Platform.version.split(' ').first);
+
 /// We currently don't have flutter installed on travis. So we emulate having
 /// no Flutter installed when generating golden files.
 // TODO(sigurdm): try to get Flutter on travis.
@@ -474,27 +476,36 @@ Future<ReportSection> _trustworthyDependency(
 ) async {
   Future<_Subsection> dependencies() async {
     final issues = <_Issue>[];
-    try {
-      final outdated = await toolEnvironment.runPubOutdated(packageDir,
-          args: ['--json', '--no-dev-dependencies']);
-      for (final package in outdated['packages'] as List) {
-        if (package is Map) {
-          final name = package['package'];
-          final latest = package['latest'];
-          if (name is String && latest is String) {
-            final latestVersion = Version.parse(latest);
-            final dependency = pubspec.dependencies[name];
-            if (dependency is HostedDependency &&
-                !dependency.version.allows(latestVersion)) {
-              issues.add(_Issue(
-                  'The constraint ${dependency.version} on $name does not support the latest published version $latestVersion',
-                  span: _tryGetSpanFromYamlMap(pubspec.dependencies, 'name')));
+    if (pubspec.dartSdkConstraint != null &&
+        pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
+      try {
+        final outdated = await toolEnvironment.runPubOutdated(packageDir,
+            args: ['--json', '--no-dev-dependencies']);
+        for (final package in outdated['packages'] as List) {
+          if (package is Map) {
+            final name = package['package'];
+            final latest = package['latest'];
+            if (name is String && latest is String) {
+              final latestVersion = Version.parse(latest);
+              final dependency = pubspec.dependencies[name];
+              if (dependency is HostedDependency &&
+                  !dependency.version.allows(latestVersion)) {
+                issues.add(_Issue(
+                    'The constraint ${dependency.version} on $name does not support the latest published version $latestVersion',
+                    span:
+                        _tryGetSpanFromYamlMap(pubspec.dependencies, 'name')));
+              }
             }
           }
         }
+      } on ToolException catch (e) {
+        issues.add(_Issue('Could not run pub outdated: ${e.message}'));
       }
-    } on Exception catch (e) {
-      issues.add(_Issue('Could not run pub outdated: $e'));
+    } else {
+      issues.add(_Issue(
+          "Sdk constraint doesn't support current Dart version $currentSdkVersion."
+          ' Cannot run `pub outdated`.',
+          span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk')));
     }
     final status = issues.isEmpty ? _Status.good : _Status.bad;
     final points = issues.isEmpty ? 10 : 0;
@@ -510,7 +521,6 @@ Future<ReportSection> _trustworthyDependency(
 
   Future<_Subsection> sdkSupport() async {
     final issues = <_Issue>[];
-    final currentSdkVersion = Version.parse(Platform.version.split(' ').first);
     final sdkConstraint = pubspec.dartSdkConstraint;
     final allowsCurrentSdk = sdkConstraint?.allows(currentSdkVersion) ?? false;
     if (sdkConstraint == null) {
