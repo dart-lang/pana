@@ -371,7 +371,7 @@ int fourtyThree() => 43;
                 'Because of the import of dart:mirrors via the import chain '
                 '`package:my_package/my_package.dart` → `package:my_dependency/my_dependency.dart` → `dart:mirrors`'),
         explanation(
-            finding: 'Package not compatible with runtime web',
+            finding: 'Package not compatible with runtime js',
             explanation:
                 'Because of the import of dart:io via the import chain '
                 '`package:my_package/my_package.dart` → `dart:io`')

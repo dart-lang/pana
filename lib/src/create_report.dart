@@ -627,8 +627,6 @@ Future<ReportSection> _trustworthyDependency(
 }
 
 Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
-  List<_Issue> issues;
-
   _Subsection subsection;
   if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
       .existsSync()) {
@@ -641,31 +639,47 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
 
     final flutterPackage = pubspec.hasFlutterKey;
 
-    issues = explanations
-        .map((e) => _Issue('${e.finding}\n\n${e.explanation}'))
-        .toList();
+    _Issue explanationToIssue(Explanation explanation) =>
+        _Issue(explanation.finding, suggestion: explanation.explanation);
+
+    String platformList(List<String> tags, Map<String, String> tagNames) {
+      return tagNames.entries.map((entry) {
+        if (tags.contains(entry.key)) {
+          return '**${entry.value}**';
+        } else {
+          return entry.value;
+        }
+      }).join(', ');
+    }
 
     if (flutterPackage) {
       tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
-      tags.retainWhere(
-          ['platform:android', 'platform:ios', 'platform:web'].contains);
-      if (tags.length <= 1) {
+      final issues = explanations.map(explanationToIssue).toList();
+      final tagNames = const {
+        'platform:ios': 'iOs',
+        'platform:android': 'Android',
+        'platform:web': 'Web',
+      };
+
+      final officialTags = tags.where(tagNames.containsKey).toList();
+      final platforms = platformList(tags, tagNames);
+      if (officialTags.length <= 1) {
         subsection = _Subsection(
-            'Supports 0 of 3 possible platforms (iOS, Android, Web)',
+            'Supports 0 of 3 possible platforms ($platforms)',
             issues,
             0,
             20,
             _Status.bad);
-      } else if (tags.length == 2) {
+      } else if (officialTags.length == 2) {
         subsection = _Subsection(
-            'Supports 2 of 3 possible platforms (iOS, Android, Web)',
+            'Supports 2 of 3 possible platforms ($platforms)',
             issues,
             10,
             20,
             _Status.soso);
       } else {
         subsection = _Subsection(
-            'Supports 3 of 3 possible platforms (iOS, Android, Web)',
+            'Supports 3 of 3 possible platforms ($platforms)',
             issues,
             20,
             20,
@@ -673,23 +687,32 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       }
     } else {
       tagger.runtimeTags(tags, explanations);
-      if (tags.isEmpty) {
+      final issues = explanations.map(explanationToIssue).toList();
+
+      final tagNames = const {
+        'runtime:native-aot': 'native',
+        'runtime:web': 'js',
+      };
+      final officialTags = tags.where(tagNames.containsKey).toList();
+
+      final platforms = platformList(tags, tagNames);
+      if (officialTags.isEmpty) {
         subsection = _Subsection(
-            'Supports 0 of 2 possible platforms (native, js)',
+            'Supports 0 of 2 possible platforms ($platforms)',
             issues,
             0,
             20,
             _Status.bad);
-      } else if (tags.length == 1) {
+      } else if (officialTags.length == 1) {
         subsection = _Subsection(
-            'Supports 1 of 2 possible platforms (native, js)',
+            'Supports 1 of 2 possible platforms ($platforms)',
             issues,
             10,
             20,
             _Status.soso);
       } else {
         subsection = _Subsection(
-            'Supports 2 of 2 possible platforms (native, js)',
+            'Supports 2 of 2 possible platforms ($platforms)',
             issues,
             20,
             20,
@@ -697,13 +720,12 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       }
     }
   } else {
-    issues = [
-      _Issue('Package resolution failed. Could not determine platforms.',
-          suggestion: 'Run `pub get` for more information.')
-    ];
     subsection = _Subsection(
       'Supports 0 of 2 possible platforms (native, js)',
-      issues,
+      [
+        _Issue('Package resolution failed. Could not determine platforms.',
+            suggestion: 'Run `pub get` for more information.')
+      ],
       0,
       20,
       _Status.bad,
