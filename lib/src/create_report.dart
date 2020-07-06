@@ -15,6 +15,7 @@ import 'package:pubspec_parse/pubspec_parse.dart'
     show GitDependency, HostedDependency;
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
+import 'package:logging/logging.dart';
 
 import '../models.dart';
 import 'markdown_content.dart';
@@ -26,6 +27,7 @@ const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
 
 final currentSdkVersion = Version.parse(Platform.version.split(' ').first);
+final _log = Logger('pana.create_report');
 
 /// We currently don't have flutter installed on travis. So we emulate having
 /// no Flutter installed when generating golden files.
@@ -208,14 +210,25 @@ Future<List<_Issue>> _formatPackage(
   ToolEnvironment toolEnvironment, {
   @required bool usesFlutter,
 }) async {
-  final unformattedFiles = await toolEnvironment.filesNeedingFormat(
-    packageDir,
-    usesFlutter,
-  );
-  return unformattedFiles
-      .map((f) => _Issue('$f is not formatted according to dartfmt',
-          suggestion: 'To format your files run: `dartfmt -w .`'))
-      .toList();
+  try {
+    final unformattedFiles = await toolEnvironment.filesNeedingFormat(
+      packageDir,
+      usesFlutter,
+    );
+    return unformattedFiles
+        .map((f) => _Issue('$f is not formatted according to dartfmt',
+            suggestion: 'To format your files run: `dartfmt -w .`'))
+        .toList();
+  } on ToolException catch (e) {
+    return [
+      _Issue('Running `dartfmt` failed:\n```\n${e.message}```'),
+    ];
+  } catch (e, stack) {
+    _log.severe('`dartfmt` failed.\n$e', e, stack);
+    return [
+      _Issue('Running `dartfmt` failed.'),
+    ];
+  }
 }
 
 Future<ReportSection> _followsTemplate(
