@@ -315,8 +315,7 @@ class ToolEnvironment {
       workingDirectory: packageDir,
     );
     if (getResult.exitCode != 0) {
-      throw Exception(
-          '`pub get` exited ${getResult.exitCode}. StdErr: ${getResult.stderr}');
+      throw Exception('`pub get` failed: ${getResult.stderr}');
     }
     final result = await runProc(
       _pubCmd,
@@ -325,8 +324,7 @@ class ToolEnvironment {
       workingDirectory: packageDir,
     );
     if (result.exitCode != 0) {
-      throw Exception(
-          '`pub outdated` exited ${result.exitCode}. StdErr: ${result.stderr}');
+      throw Exception('`pub outdated` failed: ${result.stderr}');
     } else {
       return json.decode(result.stdout as String) as Map<String, Object>;
     }
