@@ -663,9 +663,6 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       }
     } else {
       tagger.runtimeTags(tags, explanations);
-      final issues = explanations
-          .map((e) => _Issue('${e.finding}\n\n${e.explanation}'))
-          .toList();
       if (tags.isEmpty) {
         subsection = _Subsection(
             'Supports 0 of 2 possible platforms (native, js)',
