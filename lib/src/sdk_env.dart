@@ -238,8 +238,16 @@ class ToolEnvironment {
       }
 
       final output = result.stderr.toString().replaceAll('$packageDir/', '');
-      throw ToolException(
-          'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
+      final errorMsg = LineSplitter.split(output).take(10).join('\n');
+      final isUserProblem = output.contains(
+              'Could not format because the source could not be parsed') ||
+          output.contains('The formatter produced unexpected output.');
+      if (!isUserProblem) {
+        throw Exception(
+          'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output',
+        );
+      }
+      throw ToolException(errorMsg);
     }
     return files.toList()..sort();
   }
