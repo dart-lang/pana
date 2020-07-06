@@ -763,8 +763,11 @@ class _Issue {
       '<summary>',
       description,
       '</summary>',
-      if (span != null) span.markdown(basePath: basePath),
-      if (suggestion != null) suggestion,
+      '', // This empty line will make the span render its markdown.
+      if (span != null)
+        span.markdown(basePath: basePath),
+      if (suggestion != null)
+        suggestion,
       '</details>',
     ].join('\n');
   }

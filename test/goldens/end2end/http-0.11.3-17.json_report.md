@@ -6,6 +6,7 @@
 <summary>
 The package description is too short.
 </summary>
+
 Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
 </details>
 
@@ -23,6 +24,7 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 <summary>
 No example found.
 </summary>
+
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
@@ -41,6 +43,7 @@ Found 202 issues. Showing the first 2:
 <summary>
 INFO: Use collection literals when possible.
 </summary>
+
 `lib/browser_client.dart:30:17`
 
 ```
@@ -56,6 +59,7 @@ To reproduce run `dart analyze lib/browser_client.dart`
 <summary>
 INFO: Unnecessary new keyword.
 </summary>
+
 `lib/browser_client.dart:30:17`
 
 ```
@@ -72,9 +76,13 @@ To reproduce run `dart analyze lib/browser_client.dart`
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Could not run pub outdated: `pub get` failed: The current Dart SDK version is {{sdk-version}}.
+* Could not run pub outdated: `pub get` failed: 
+
+ ```
+The current Dart SDK version is {{sdk-version}}.
 
 Because http depends on unittest >=0.2.8+2 which requires SDK version <2.0.0, version solving failed.
+```
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
