@@ -53,7 +53,7 @@ Because of the import of dart:mirrors via the import chain `package:dartdoc/dart
 </details>
 <details>
 <summary>
-Package not compatible with runtime web
+Package not compatible with runtime js
 </summary>
 Because of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`
 </details>

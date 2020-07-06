@@ -383,8 +383,9 @@ List<String> _dartFilesFromLib(String packageDir) {
 class Runtime {
   final String name;
   final Set<String> enabledLibs;
+  final String _tag;
 
-  Runtime(this.name, this.enabledLibs);
+  Runtime(this.name, this.enabledLibs, {String tag}) : _tag = tag;
 
   Map<String, String> get declaredVariables =>
       {for (final lib in enabledLibs) 'dart.library.$lib': 'true'};
@@ -392,7 +393,7 @@ class Runtime {
   @override
   String toString() => 'Runtime($name)';
 
-  String get tag => 'runtime:$name';
+  String get tag => _tag ?? 'runtime:$name';
 
   static final _onAllPlatforms = {
     'async',
@@ -427,18 +428,21 @@ class Runtime {
     'nativewrappers',
   });
 
-static final nativeAot = Runtime('native-aot', {
+  static final nativeAot = Runtime('native-aot', {
     ..._onAllPlatforms,
     ..._onAllNative,
     'cli',
     'nativewrappers',
   });
 
-  static final web = Runtime('web', {
-    ..._onAllPlatforms,
-    ..._onAllWeb,
-    'html_common',
-  });
+  static final web = Runtime(
+      'js',
+      {
+        ..._onAllPlatforms,
+        ..._onAllWeb,
+        'html_common',
+      },
+      tag: 'runtime:web');
 
   static final flutterNative = Runtime('flutter-native', {
     ..._onAllPlatforms,
