@@ -315,7 +315,8 @@ class ToolEnvironment {
       workingDirectory: packageDir,
     );
     if (getResult.exitCode != 0) {
-      throw ToolException('`pub get` failed: ${getResult.stderr}');
+      throw ToolException(
+          '`pub get` failed: \n\n ```\n${getResult.stderr}\n```');
     }
     final result = await runProc(
       _pubCmd,
