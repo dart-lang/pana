@@ -1,6 +1,7 @@
 ## 0.13.14
 
 * Fixed required URL checks in pubspec validation.
+* Fixed `pub outdated` execution - using specified package dir.
 
 ## 0.13.13
 

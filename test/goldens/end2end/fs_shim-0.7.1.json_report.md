@@ -82,10 +82,13 @@ ERROR: The default value of an optional parameter must be constant.
 To reproduce run `dart analyze lib/fs.dart`
 </details>
 
-## 20/30 Package is a good, trustworthy dependency
+## 10/30 Package is a good, trustworthy dependency
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
+* Could not run pub outdated: Exception: `pub get` exited 1. StdErr: The current Dart SDK version is {{sdk-version}}.
+
+Because fs_shim requires SDK version >=1.24.0 <2.0.0, version solving failed.
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
