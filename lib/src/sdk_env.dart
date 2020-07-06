@@ -182,11 +182,14 @@ class ToolEnvironment {
       );
       final output = proc.stderr as String;
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
-        log.severe('Bad input?');
-        log.severe(output);
+        if (output.contains('No dart files found at: .')) {
+          log.warning('`dartanalyzer` found no files to analyze.');
+        } else {
+          log.severe('Bad input?: $output');
+        }
         var errorMessage =
             '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
-        throw ArgumentError('dartanalyzer exception: $errorMessage');
+        throw ToolException('dartanalyzer exception: $errorMessage');
       }
       return output;
     } finally {

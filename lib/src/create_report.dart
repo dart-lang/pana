@@ -165,33 +165,44 @@ Future<_AnalysisResult> _analyzePackage(
 
   final dirs = await listFocusDirs(packagePath);
 
-  final output = await toolEnvironment.runAnalyzer(
-    packagePath,
-    dirs,
-    usesFlutter,
-    inspectOptions: InspectOptions(),
-  );
-  final list = LineSplitter.split(output)
-      .map((s) => parseCodeProblem(s, projectDir: packagePath))
-      .where((e) => e != null)
-      .toSet()
-      .toList();
-  list.sort();
+  try {
+    final output = await toolEnvironment.runAnalyzer(
+      packagePath,
+      dirs,
+      usesFlutter,
+      inspectOptions: InspectOptions(),
+    );
+    final list = LineSplitter.split(output)
+        .map((s) => parseCodeProblem(s, projectDir: packagePath))
+        .where((e) => e != null)
+        .toSet()
+        .toList();
+    list.sort();
 
-  return _AnalysisResult(
-      list
-          .where((element) => element.isError)
-          .map(issueFromCodeProblem)
-          .toList(),
-      list
-          .where((element) => element.isWarning)
-          .map(issueFromCodeProblem)
-          .toList(),
-      list
-          .where((element) => element.isInfo)
-          .map(issueFromCodeProblem)
-          .toList(),
-      'dartanalyzer ${dirs.join(' ')}');
+    return _AnalysisResult(
+        list
+            .where((element) => element.isError)
+            .map(issueFromCodeProblem)
+            .toList(),
+        list
+            .where((element) => element.isWarning)
+            .map(issueFromCodeProblem)
+            .toList(),
+        list
+            .where((element) => element.isInfo)
+            .map(issueFromCodeProblem)
+            .toList(),
+        'dartanalyzer ${dirs.join(' ')}');
+  } on ToolException catch (e) {
+    return _AnalysisResult(
+      [
+        _Issue('Failed to run `dartanalyzer`:\n```\n${e.message}\n```\n'),
+      ],
+      [],
+      [],
+      'dartanalyzer ${dirs.join(' ')}',
+    );
+  }
 }
 
 class _AnalysisResult {

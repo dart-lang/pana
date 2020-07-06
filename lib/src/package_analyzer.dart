@@ -302,15 +302,11 @@ class PackageAnalyzer {
         analyzeProcessStopwatch.start();
         try {
           analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter, options);
-        } on ArgumentError catch (e) {
-          if (e.toString().contains('No dart files found at: .')) {
-            log.warning('`dartanalyzer` found no files to analyze.');
-          } else {
-            suggestions.add(Suggestion.error(
-                SuggestionCode.dartanalyzerAborted,
-                messages.makeSureDartanalyzerRuns(usesFlutter),
-                messages.runningDartanalyzerFailed(usesFlutter, e)));
-          }
+        } on ToolException catch (e) {
+          suggestions.add(Suggestion.error(
+              SuggestionCode.dartanalyzerAborted,
+              messages.makeSureDartanalyzerRuns(usesFlutter),
+              messages.runningDartanalyzerFailed(usesFlutter, e.message)));
         }
         analyzeProcessStopwatch.stop();
       } else {
