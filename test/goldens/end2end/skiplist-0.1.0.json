@@ -145,9 +145,9 @@
       },
       {
         "title": "Package is a good, trustworthy dependency",
-        "grantedPoints": 10,
+        "grantedPoints": 0,
         "maxPoints": 30,
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your pubspec.yaml\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version.\n\n### [x] 0/10 points: Package is published using a verified publisher\n\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\n\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run pub outdated: Exception: `pub get` exited 1. StdErr: The current Dart SDK version is {{sdk-version}}.\n\nBecause skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your pubspec.yaml\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version.\n\n### [x] 0/10 points: Package is published using a verified publisher\n\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\n\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
       }
     ]
   }

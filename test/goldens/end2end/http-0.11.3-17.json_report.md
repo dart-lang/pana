@@ -32,9 +32,6 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [*] 20/20 points: Supports 2 of 2 possible platforms (native, js)
 
-* Package not compatible with runtime web
-
-Because of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`
 
 ## 10/20 Code follows recommended code style
 
@@ -75,10 +72,13 @@ INFO: Unnecessary new keyword.
 To reproduce run `dart analyze lib/browser_client.dart`
 </details>
 
-## 20/30 Package is a good, trustworthy dependency
+## 10/30 Package is a good, trustworthy dependency
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
+* Could not run pub outdated: Exception: `pub get` exited 1. StdErr: The current Dart SDK version is {{sdk-version}}.
+
+Because http depends on unittest >=0.2.8+2 which requires SDK version <2.0.0, version solving failed.
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 

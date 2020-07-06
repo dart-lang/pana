@@ -308,13 +308,22 @@ class ToolEnvironment {
 
   Future<Map<String, Object>> runPubOutdated(String packageDir,
       {List<String> args = const []}) async {
-    final getResult = await runProc(_pubCmd, ['get']);
+    final getResult = await runProc(
+      _pubCmd,
+      ['get'],
+      environment: _environment,
+      workingDirectory: packageDir,
+    );
     if (getResult.exitCode != 0) {
       throw Exception(
           '`pub get` exited ${getResult.exitCode}. StdErr: ${getResult.stderr}');
     }
-    final result = await runProc(_pubCmd, ['outdated', ...args],
-        environment: _environment);
+    final result = await runProc(
+      _pubCmd,
+      ['outdated', ...args],
+      environment: _environment,
+      workingDirectory: packageDir,
+    );
     if (result.exitCode != 0) {
       throw Exception(
           '`pub outdated` exited ${result.exitCode}. StdErr: ${result.stderr}');

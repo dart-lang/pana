@@ -80,10 +80,13 @@ ERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Fu
 To reproduce run `dart analyze lib/skiplist.dart`
 </details>
 
-## 10/30 Package is a good, trustworthy dependency
+## 0/30 Package is a good, trustworthy dependency
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
+* Could not run pub outdated: Exception: `pub get` exited 1. StdErr: The current Dart SDK version is {{sdk-version}}.
+
+Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
