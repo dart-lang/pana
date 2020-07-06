@@ -550,13 +550,8 @@ Future<ReportSection> _trustworthyDependency(
           final currentFlutterVersion =
               Version.parse(flutterVersions['frameworkVersion'] as String);
           final flutterConstraint = pubspec.flutterSdkConstraint;
-          if (flutterConstraint == null) {
-            issues.add(
-              _Issue(
-                'Package depends on Flutter, but has no flutter sdk constraint.',
-              ),
-            );
-          } else if (!flutterConstraint.allows(currentFlutterVersion)) {
+          if (flutterConstraint != null &&
+              !flutterConstraint.allows(currentFlutterVersion)) {
             issues.add(
               _Issue(
                 'The current flutter constraint does not allow the latest Flutter ($currentFlutterVersion)',
@@ -668,6 +663,9 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       }
     } else {
       tagger.runtimeTags(tags, explanations);
+      final issues = explanations
+          .map((e) => _Issue('${e.finding}\n\n${e.explanation}'))
+          .toList();
       if (tags.isEmpty) {
         subsection = _Subsection(
             'Supports 0 of 2 possible platforms (native, js)',
