@@ -622,8 +622,6 @@ Future<ReportSection> _trustworthyDependency(
 }
 
 Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
-  List<_Issue> issues;
-
   _Subsection subsection;
   if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
       .existsSync()) {
@@ -636,12 +634,12 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
 
     final flutterPackage = pubspec.hasFlutterKey;
 
-    issues = explanations
-        .map((e) => _Issue('${e.finding}\n\n${e.explanation}'))
-        .toList();
+    _Issue explanationToIssue(Explanation explanation) =>
+        _Issue(explanation.finding, suggestion: explanation.explanation);
 
     if (flutterPackage) {
       tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
+      final issues = explanations.map(explanationToIssue).toList();
       tags.retainWhere(
           ['platform:android', 'platform:ios', 'platform:web'].contains);
       if (tags.length <= 1) {
@@ -668,6 +666,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       }
     } else {
       tagger.runtimeTags(tags, explanations);
+      final issues = explanations.map(explanationToIssue).toList();
       if (tags.isEmpty) {
         subsection = _Subsection(
             'Supports 0 of 2 possible platforms (native, js)',
@@ -692,13 +691,12 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       }
     }
   } else {
-    issues = [
-      _Issue('Package resolution failed. Could not determine platforms.',
-          suggestion: 'Run `pub get` for more information.')
-    ];
     subsection = _Subsection(
       'Supports 0 of 2 possible platforms (native, js)',
-      issues,
+      [
+        _Issue('Package resolution failed. Could not determine platforms.',
+            suggestion: 'Run `pub get` for more information.')
+      ],
       0,
       20,
       _Status.bad,
