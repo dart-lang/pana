@@ -653,7 +653,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final tagNames = const {
         'platform:ios': 'iOs',
         'platform:android': 'Android',
-        'platform:Web': 'Web',
+        'platform:web': 'Web',
       };
 
       final officialTags = tags.where(tagNames.containsKey).toList();
