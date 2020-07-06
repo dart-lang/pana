@@ -47,12 +47,14 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 <summary>
 Package not compatible with runtime native-aot
 </summary>
+
 Because of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`
 </details>
 <details>
 <summary>
 Package not compatible with runtime native-jit
 </summary>
+
 Because of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`
 </details>
 

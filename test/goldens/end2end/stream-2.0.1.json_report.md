@@ -66,12 +66,14 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 <summary>
 Package not compatible with runtime native-aot
 </summary>
+
 Because of the import of dart:mirrors via the import chain `package:stream/stream.dart` → `package:stream/plugin.dart` → `package:rikulo_commons/mirrors.dart` → `dart:mirrors`
 </details>
 <details>
 <summary>
 Package not compatible with runtime js
 </summary>
+
 Because of the import of dart:io via the import chain `package:stream/stream.dart` → `package:stream/plugin.dart` → `package:rikulo_commons/io.dart` → `dart:io`
 </details>
 

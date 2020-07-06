@@ -36349,7 +36349,7 @@
           "line": 164,
           "col": 4,
           "length": 7,
-          "description": "'virtual' is deprecated and shouldn't be used."
+          "description": "'virtual' is deprecated and shouldn't be used. No longer has meaning."
         },
         {
           "severity": "INFO",
@@ -36493,6 +36493,7 @@
         "package:meta/meta.dart"
       ],
       "transitiveLibs": [
+        "dart:async",
         "package:angular_components/model/ui/icon.dart",
         "package:meta/meta.dart"
       ],
@@ -38158,6 +38159,7 @@
         "package:angular_components/model/ui/highlighted_text_model.dart"
       ],
       "transitiveLibs": [
+        "dart:async",
         "dart:collection",
         "dart:math",
         "package:angular_components/model/ui/has_renderer.dart",
@@ -38183,6 +38185,7 @@
         "package:angular_components/model/ui/highlighted_text_model.dart"
       ],
       "transitiveLibs": [
+        "dart:async",
         "dart:collection",
         "dart:math",
         "package:angular_components/model/ui/highlighted_text_model.dart",
@@ -38310,6 +38313,7 @@
         "package:quiver/core.dart"
       ],
       "transitiveLibs": [
+        "dart:async",
         "dart:collection",
         "dart:math",
         "package:meta/meta.dart",
@@ -46904,7 +46908,7 @@
         "title": "Package is multi-platform",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)\n\n<details>\n<summary>\nPackage not compatible with runtime native-aot\n</summary>\nBecause of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`\n</details>\n<details>\n<summary>\nPackage not compatible with runtime native-jit\n</summary>\nBecause of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`\n</details>"
+        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)\n\n<details>\n<summary>\nPackage not compatible with runtime native-aot\n</summary>\n\nBecause of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`\n</details>\n<details>\n<summary>\nPackage not compatible with runtime native-jit\n</summary>\n\nBecause of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`\n</details>"
       },
       {
         "title": "Code follows recommended code style",
