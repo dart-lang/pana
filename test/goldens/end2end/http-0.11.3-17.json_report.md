@@ -30,6 +30,9 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [*] 20/20 points: Supports 2 of 2 possible platforms (native, js)
 
+* Package not compatible with runtime web
+
+Because of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`
 
 ## 10/20 Code follows recommended code style
 

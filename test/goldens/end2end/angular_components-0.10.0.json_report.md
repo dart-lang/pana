@@ -41,6 +41,12 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [~] 10/20 points: Supports 1 of 2 possible platforms (native, js)
 
+* Package not compatible with runtime native-aot
+
+Because of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`
+* Package not compatible with runtime native-jit
+
+Because of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`
 
 ## 0/20 Code follows recommended code style
 
