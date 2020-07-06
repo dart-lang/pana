@@ -58,20 +58,22 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 0/20 Package is multi-platform
+## 10/20 Package is multi-platform
 
-### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)
+### [~] 10/20 points: Supports 1 of 2 possible platforms (**native**, js)
 
 <details>
 <summary>
 Package not compatible with runtime native-aot
 </summary>
+
 Because of the import of dart:mirrors via the import chain `package:stream/stream.dart` → `package:stream/plugin.dart` → `package:rikulo_commons/mirrors.dart` → `dart:mirrors`
 </details>
 <details>
 <summary>
 Package not compatible with runtime js
 </summary>
+
 Because of the import of dart:io via the import chain `package:stream/stream.dart` → `package:stream/plugin.dart` → `package:rikulo_commons/io.dart` → `dart:io`
 </details>
 

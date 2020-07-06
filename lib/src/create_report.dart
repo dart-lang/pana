@@ -690,7 +690,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final issues = explanations.map(explanationToIssue).toList();
 
       final tagNames = const {
-        'runtime:native-aot': 'native',
+        'runtime:native-jit': 'native',
         'runtime:web': 'js',
       };
       final officialTags = tags.where(tagNames.containsKey).toList();
