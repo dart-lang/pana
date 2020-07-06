@@ -3,9 +3,7 @@
 ### [x] 0/10 points: Provide a valid pubspec.yaml
 
 * Homepage URL isn't helpful.
-* `pubspec.yaml` doesn't have a `repository` entry.
 * Documentation URL isn't helpful.
-* `pubspec.yaml` doesn't have a `issue_tracker` entry.
 
 ### [x] 0/5 points: Provide a valid README.md
 

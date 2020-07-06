@@ -1,3 +1,7 @@
+## 0.13.14
+
+* Fixed required URL checks in pubspec validation.
+
 ## 0.13.13
 
 * Deferred source span loading (fixes out of memory issue).

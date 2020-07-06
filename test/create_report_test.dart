@@ -15,7 +15,7 @@ void main() {
       final descriptor = package('my_package', extraFiles: []);
       await descriptor.create();
       final report = await createReport(
-          descriptor.io.path, await ToolEnvironment.create());
+          InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
       final section =
           report.sections.firstWhere((s) => s.title == 'Packaging conventions');
       expect(section.grantedPoints, 0);
@@ -37,7 +37,7 @@ Check it out on [github](http://github.com/example/my_package).
       ]);
       await descriptor.create();
       final report = await createReport(
-          descriptor.io.path, await ToolEnvironment.create());
+          InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
       final section =
           report.sections.firstWhere((s) => s.title == 'Packaging conventions');
       expect(section.grantedPoints, 5);
@@ -88,7 +88,7 @@ Call this method..
 
       await descriptor.create();
       final report = await createReport(
-          descriptor.io.path, await ToolEnvironment.create());
+          InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
       final section = report.sections
           .firstWhere((s) => s.title == 'Package has documentation');
       expect(section.grantedPoints, 10);
@@ -100,7 +100,7 @@ Call this method..
 
       await descriptor.create();
       final report = await createReport(
-          descriptor.io.path, await ToolEnvironment.create());
+          InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
       final section = report.sections
           .firstWhere((s) => s.title == 'Package has documentation');
       expect(section.grantedPoints, 0);

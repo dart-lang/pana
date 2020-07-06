@@ -8,14 +8,12 @@ Homepage URL is insecure.
 </summary>
 Update the `homepage` field and use a secure (`https`) URL.
 </details>
-* `pubspec.yaml` doesn't have a `repository` entry.
 <details>
 <summary>
 Documentation URL is insecure.
 </summary>
 Update the `documentation` field and use a secure (`https`) URL.
 </details>
-* `pubspec.yaml` doesn't have a `issue_tracker` entry.
 
 ### [x] 0/5 points: Provide a valid README.md
 
