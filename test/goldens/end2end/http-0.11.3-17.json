@@ -2678,9 +2678,9 @@
       },
       {
         "title": "Package is multi-platform",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [*] 20/20 points: Supports 2 of 2 possible platforms (native, js)\n\n<details>\n<summary>\nPackage not compatible with runtime web\n</summary>\nBecause of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`\n</details>"
+        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (**native**, js)\n\n<details>\n<summary>\nPackage not compatible with runtime web\n</summary>\nBecause of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`\n</details>"
       },
       {
         "title": "Code follows recommended code style",

@@ -20171,9 +20171,9 @@
       },
       {
         "title": "Package is multi-platform",
-        "grantedPoints": 10,
+        "grantedPoints": 0,
         "maxPoints": 20,
-        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (native, js)\n\n<details>\n<summary>\nPackage not compatible with runtime native-aot\n</summary>\nBecause of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`\n</details>\n<details>\n<summary>\nPackage not compatible with runtime web\n</summary>\nBecause of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`\n</details>"
+        "summary": "### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)\n\n<details>\n<summary>\nPackage not compatible with runtime native-aot\n</summary>\nBecause of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`\n</details>\n<details>\n<summary>\nPackage not compatible with runtime web\n</summary>\nBecause of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`\n</details>"
       },
       {
         "title": "Code follows recommended code style",

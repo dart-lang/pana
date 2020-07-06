@@ -39,7 +39,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ## 10/20 Package is multi-platform
 
-### [~] 10/20 points: Supports 1 of 2 possible platforms (native, js)
+### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)
 
 <details>
 <summary>

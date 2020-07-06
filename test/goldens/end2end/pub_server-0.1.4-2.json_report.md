@@ -17,7 +17,7 @@
 
 ## 20/20 Package is multi-platform
 
-### [*] 20/20 points: Supports 2 of 2 possible platforms (native, js)
+### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)
 
 
 ## 10/20 Code follows recommended code style

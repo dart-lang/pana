@@ -637,28 +637,44 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
     _Issue explanationToIssue(Explanation explanation) =>
         _Issue(explanation.finding, suggestion: explanation.explanation);
 
+    String platformList(List<String> tags, Map<String, String> tagNames) {
+      return tagNames.entries.map((entry) {
+        if (tags.contains(entry.key)) {
+          return '**${entry.value}**';
+        } else {
+          return entry.value;
+        }
+      }).join(', ');
+    }
+
     if (flutterPackage) {
       tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
       final issues = explanations.map(explanationToIssue).toList();
-      tags.retainWhere(
-          ['platform:android', 'platform:ios', 'platform:web'].contains);
-      if (tags.length <= 1) {
+      final tagNames = const {
+        'platform:ios': 'iOs',
+        'platform:android': 'Android',
+        'platform:Web': 'Web',
+      };
+
+      final officialTags = tags.where(tagNames.containsKey).toList();
+      final platforms = platformList(tags, tagNames);
+      if (officialTags.length <= 1) {
         subsection = _Subsection(
-            'Supports 0 of 3 possible platforms (iOS, Android, Web)',
+            'Supports 0 of 3 possible platforms ($platforms)',
             issues,
             0,
             20,
             _Status.bad);
-      } else if (tags.length == 2) {
+      } else if (officialTags.length == 2) {
         subsection = _Subsection(
-            'Supports 2 of 3 possible platforms (iOS, Android, Web)',
+            'Supports 2 of 3 possible platforms ($platforms)',
             issues,
             10,
             20,
             _Status.soso);
       } else {
         subsection = _Subsection(
-            'Supports 3 of 3 possible platforms (iOS, Android, Web)',
+            'Supports 3 of 3 possible platforms ($platforms)',
             issues,
             20,
             20,
@@ -667,23 +683,31 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
     } else {
       tagger.runtimeTags(tags, explanations);
       final issues = explanations.map(explanationToIssue).toList();
-      if (tags.isEmpty) {
+
+      final tagNames = const {
+        'runtime:native-aot': 'native',
+        'runtime:web': 'js',
+      };
+      final officialTags = tags.where(tagNames.containsKey).toList();
+
+      final platforms = platformList(tags, tagNames);
+      if (officialTags.isEmpty) {
         subsection = _Subsection(
-            'Supports 0 of 2 possible platforms (native, js)',
+            'Supports 0 of 2 possible platforms ($platforms)',
             issues,
             0,
             20,
             _Status.bad);
-      } else if (tags.length == 1) {
+      } else if (officialTags.length == 1) {
         subsection = _Subsection(
-            'Supports 1 of 2 possible platforms (native, js)',
+            'Supports 1 of 2 possible platforms ($platforms)',
             issues,
             10,
             20,
             _Status.soso);
       } else {
         subsection = _Subsection(
-            'Supports 2 of 2 possible platforms (native, js)',
+            'Supports 2 of 2 possible platforms ($platforms)',
             issues,
             20,
             20,

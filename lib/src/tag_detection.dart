@@ -427,7 +427,7 @@ class Runtime {
     'nativewrappers',
   });
 
-  static final nativeAot = Runtime('native-aot', {
+static final nativeAot = Runtime('native-aot', {
     ..._onAllPlatforms,
     ..._onAllNative,
     'cli',
