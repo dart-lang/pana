@@ -238,7 +238,7 @@ class ToolEnvironment {
       }
 
       final output = result.stderr.toString().replaceAll('$packageDir/', '');
-      throw Exception(
+      throw ToolException(
           'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
     }
     return files.toList()..sort();
@@ -315,7 +315,7 @@ class ToolEnvironment {
       workingDirectory: packageDir,
     );
     if (getResult.exitCode != 0) {
-      throw Exception('`pub get` failed: ${getResult.stderr}');
+      throw ToolException('`pub get` failed: ${getResult.stderr}');
     }
     final result = await runProc(
       _pubCmd,
@@ -324,7 +324,7 @@ class ToolEnvironment {
       workingDirectory: packageDir,
     );
     if (result.exitCode != 0) {
-      throw Exception('`pub outdated` failed: ${result.stderr}');
+      throw ToolException('`pub outdated` failed: ${result.stderr}');
     } else {
       return json.decode(result.stdout as String) as Map<String, Object>;
     }
@@ -497,4 +497,14 @@ String _join(String path, String binDir, String executable) {
     cmd = '$cmd.$ext';
   }
   return cmd;
+}
+
+class ToolException implements Exception {
+  final String message;
+  ToolException(this.message);
+
+  @override
+  String toString() {
+    return 'Exception: $message';
+  }
 }
