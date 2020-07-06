@@ -11,6 +11,7 @@
 <summary>
 Links in README.md should be secure. 1 link is insecure.
 </summary>
+
 `README.md:51:22`
 
 ```
@@ -34,6 +35,7 @@ Use `https` URLs instead.
 <summary>
 No example found.
 </summary>
+
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
@@ -52,6 +54,7 @@ Found 900 issues. Showing the first 2:
 <summary>
 ERROR: The method 'dispose' isn't defined for the type 'Object'.
 </summary>
+
 `lib/model/collection/list_tracker.dart:123:9`
 
 ```
@@ -67,6 +70,7 @@ To reproduce run `dart analyze lib/model/collection/list_tracker.dart`
 <summary>
 WARNING: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.
 </summary>
+
 `lib/src/model/selection/noop_selection_model_impl.dart:20:31`
 
 ```
@@ -94,5 +98,6 @@ To reproduce run `dart analyze lib/src/model/selection/noop_selection_model_impl
 <summary>
 Package is not published under a verified publisher.
 </summary>
+
 See https://dart.dev/tools/pub/verified-publishers for more information.
 </details>

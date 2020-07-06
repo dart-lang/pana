@@ -6,6 +6,7 @@
 <summary>
 Sdk-constraint doesn't allow future stable dart 2.x releases
 </summary>
+
 `pubspec.yaml:8:8`
 
 ```
@@ -31,6 +32,7 @@ Sdk-constraint doesn't allow future stable dart 2.x releases
 <summary>
 No example found.
 </summary>
+
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
@@ -42,6 +44,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 <summary>
 Package resolution failed. Could not determine platforms.
 </summary>
+
 Run `pub get` for more information.
 </details>
 
@@ -55,6 +58,7 @@ Found 621 issues. Showing the first 2:
 <summary>
 ERROR: Target of URI doesn't exist: 'package:path/path.dart'.
 </summary>
+
 `lib/fs.dart:12:8`
 
 ```
@@ -70,6 +74,7 @@ To reproduce run `dart analyze lib/fs.dart`
 <summary>
 ERROR: The default value of an optional parameter must be constant.
 </summary>
+
 `lib/fs.dart:179:58`
 
 ```
@@ -96,6 +101,7 @@ Because fs_shim requires SDK version >=1.24.0 <2.0.0, version solving failed.
 <summary>
 The current sdk constraint does not allow the latest stable Dart (2.8.3)
 </summary>
+
 `pubspec.yaml:8:8`
 
 ```
