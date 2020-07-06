@@ -31,7 +31,10 @@ const _pluginDocsUrl =
 var isRunningEnd2EndTest = false;
 
 Future<Report> createReport(
-    String packageDir, ToolEnvironment toolEnvironment) async {
+  InspectOptions options,
+  String packageDir,
+  ToolEnvironment toolEnvironment,
+) async {
   Pubspec pubspec;
   try {
     pubspec = Pubspec.parseFromDir(packageDir);
@@ -46,7 +49,7 @@ Future<Report> createReport(
   }
 
   return Report(sections: [
-    await _followsTemplate(packageDir, pubspec),
+    await _followsTemplate(options, packageDir, pubspec),
     await _hasDocumentation(packageDir, pubspec),
     await _multiPlatform(packageDir, pubspec),
     await _staticAnalysis(
@@ -214,51 +217,53 @@ Future<List<_Issue>> _formatPackage(
 }
 
 Future<ReportSection> _followsTemplate(
-    String packageDir, Pubspec pubspec) async {
+    InspectOptions options, String packageDir, Pubspec pubspec) async {
   final urlChecker = UrlChecker();
 
   Future<List<_Issue>> findUrlIssues(
     String key,
-    String name,
-  ) async {
+    String name, {
+    bool isRequired = false,
+  }) async {
     final url = pubspec.originalYaml[key] as String;
-    final status = await urlChecker.checkStatus(
-      url,
-      isInternalPackage: false, // TODO(sigurdm): is this correct?
-    );
     final issues = <_Issue>[];
+
     if (url == null || url.isEmpty) {
-      issues.add(
-        _Issue(
-          "`pubspec.yaml` doesn't have a `$key` entry.",
-        ),
-      );
-    } else {
-      if (status == UrlStatus.invalid || status == UrlStatus.internal) {
+      if (isRequired) {
         issues.add(
-          _Issue(
-            "$name isn't helpful.",
-            span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
-          ),
-        );
-      } else if (status == UrlStatus.missing) {
-        issues.add(
-          _Issue(
-            "$name doesn't exist.",
-            span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
-            suggestion: 'At the time of the analysis `$url` was unreachable.',
-          ),
-        );
-      } else if (status == UrlStatus.exists && !url.startsWith('https://')) {
-        issues.add(
-          _Issue(
-            '$name is insecure.',
-            span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
-            suggestion:
-                'Update the `$key` field and use a secure (`https`) URL.',
-          ),
+          _Issue("`pubspec.yaml` doesn't have a `$key` entry."),
         );
       }
+      return issues;
+    }
+
+    final status = await urlChecker.checkStatus(
+      url,
+      isInternalPackage: options.isInternal,
+    );
+    if (status == UrlStatus.invalid || status == UrlStatus.internal) {
+      issues.add(
+        _Issue(
+          "$name isn't helpful.",
+          span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
+        ),
+      );
+    } else if (status == UrlStatus.missing) {
+      issues.add(
+        _Issue(
+          "$name doesn't exist.",
+          span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
+          suggestion: 'At the time of the analysis `$url` was unreachable.',
+        ),
+      );
+    } else if (status == UrlStatus.exists && !url.startsWith('https://')) {
+      issues.add(
+        _Issue(
+          '$name is insecure.',
+          span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key),
+          suggestion: 'Update the `$key` field and use a secure (`https`) URL.',
+        ),
+      );
     }
     return issues;
   }
@@ -326,8 +331,10 @@ Future<ReportSection> _followsTemplate(
               '`${pubspec.unknownSdks}`.\n\n'
               '`pana` doesn’t recognize them; please remove the `sdk` entry.'));
     }
-    issues.addAll(await findUrlIssues('homepage', 'Homepage URL'));
-    issues.addAll(await findUrlIssues('repository', 'Repository URL'));
+    issues.addAll(await findUrlIssues('homepage', 'Homepage URL',
+        isRequired: pubspec.repository == null));
+    issues.addAll(await findUrlIssues('repository', 'Repository URL',
+        isRequired: pubspec.homepage == null));
     issues.addAll(await findUrlIssues('documentation', 'Documentation URL'));
     issues.addAll(await findUrlIssues('issue_tracker', 'Issue tracker URL'));
     final gitDependencies =

@@ -2668,7 +2668,7 @@
         "title": "Packaging conventions",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n\n* `pubspec.yaml` doesn't have a `repository` entry.\n* `pubspec.yaml` doesn't have a `documentation` entry.\n* `pubspec.yaml` doesn't have a `issue_tracker` entry.\n<details>\n<summary>\nThe package description is too short.\n</summary>\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
+        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n\n<details>\n<summary>\nThe package description is too short.\n</summary>\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
       },
       {
         "title": "Package has documentation",

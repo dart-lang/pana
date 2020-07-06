@@ -445,7 +445,7 @@ class PackageAnalyzer {
       suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
       tags: tags,
-      report: await createReport(pkgDir, _toolEnv),
+      report: await createReport(options, pkgDir, _toolEnv),
     );
   }
 

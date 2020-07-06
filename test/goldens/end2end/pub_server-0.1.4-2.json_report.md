@@ -1,10 +1,7 @@
-## 10/20 Packaging conventions
+## 20/20 Packaging conventions
 
-### [x] 0/10 points: Provide a valid pubspec.yaml
+### [*] 10/10 points: Provide a valid pubspec.yaml
 
-* `pubspec.yaml` doesn't have a `repository` entry.
-* `pubspec.yaml` doesn't have a `documentation` entry.
-* `pubspec.yaml` doesn't have a `issue_tracker` entry.
 
 ### [*] 5/5 points: Provide a valid README.md
 

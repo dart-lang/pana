@@ -2,9 +2,6 @@
 
 ### [x] 0/10 points: Provide a valid pubspec.yaml
 
-* `pubspec.yaml` doesn't have a `repository` entry.
-* `pubspec.yaml` doesn't have a `documentation` entry.
-* `pubspec.yaml` doesn't have a `issue_tracker` entry.
 <details>
 <summary>
 The package description is too short.
