@@ -30,6 +30,7 @@ Found 44 issues. Showing the first 2:
 <summary>
 INFO: Unnecessary new keyword.
 </summary>
+
 `lib/repository.dart:27:15`
 
 ```
@@ -45,6 +46,7 @@ To reproduce run `dart analyze lib/repository.dart`
 <summary>
 INFO: Unnecessary new keyword.
 </summary>
+
 `lib/repository.dart:109:7`
 
 ```
@@ -72,5 +74,6 @@ To reproduce run `dart analyze lib/repository.dart`
 <summary>
 Package is not published under a verified publisher.
 </summary>
+
 See https://dart.dev/tools/pub/verified-publishers for more information.
 </details>

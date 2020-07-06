@@ -7,6 +7,7 @@
 <summary>
 The package description is too short.
 </summary>
+
 Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
 </details>
 
@@ -24,6 +25,7 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 <summary>
 No example found.
 </summary>
+
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
@@ -35,6 +37,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 <summary>
 Package resolution failed. Could not determine platforms.
 </summary>
+
 Run `pub get` for more information.
 </details>
 
@@ -48,6 +51,7 @@ Found 59 issues. Showing the first 2:
 <summary>
 ERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.
 </summary>
+
 `lib/skiplist.dart:12:8`
 
 ```
@@ -63,6 +67,7 @@ To reproduce run `dart analyze lib/skiplist.dart`
 <summary>
 ERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Function(Object)').
 </summary>
+
 `lib/skiplist.dart:77:14`
 
 ```
@@ -86,6 +91,7 @@ To reproduce run `dart analyze lib/skiplist.dart`
 <summary>
 Pubspec.yaml does not have an sdk version constraint.
 </summary>
+
 Try adding an sdk constraint to your pubspec.yaml
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
@@ -96,5 +102,6 @@ Try adding an sdk constraint to your pubspec.yaml
 <summary>
 Package is not published under a verified publisher.
 </summary>
+
 See https://dart.dev/tools/pub/verified-publishers for more information.
 </details>

@@ -6,6 +6,7 @@
 <summary>
 The package description is too short.
 </summary>
+
 Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
 </details>
 
@@ -15,6 +16,7 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 <summary>
 Links in README.md should be secure. 1 link is insecure.
 </summary>
+
 `README.md:319:55`
 
 ```
@@ -38,6 +40,7 @@ Use `https` URLs instead.
 <summary>
 No example found.
 </summary>
+
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
@@ -45,6 +48,12 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [~] 10/20 points: Supports 1 of 2 possible platforms (native, js)
 
+* Package not compatible with runtime native-aot
+
+Because of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`
+* Package not compatible with runtime web
+
+Because of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`
 
 ## 10/20 Code follows recommended code style
 
@@ -56,6 +65,7 @@ Found 1887 issues. Showing the first 2:
 <summary>
 INFO: Unnecessary new keyword.
 </summary>
+
 `bin/dartdoc.dart:27:5`
 
 ```
@@ -72,6 +82,7 @@ To reproduce run `dart analyze bin/dartdoc.dart`
 <summary>
 INFO: Unnecessary new keyword.
 </summary>
+
 `bin/dartdoc.dart:29:5`
 
 ```
@@ -100,5 +111,6 @@ To reproduce run `dart analyze bin/dartdoc.dart`
 <summary>
 Package is not published under a verified publisher.
 </summary>
+
 See https://dart.dev/tools/pub/verified-publishers for more information.
 </details>

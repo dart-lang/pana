@@ -6,6 +6,7 @@
 <summary>
 The package description is too short.
 </summary>
+
 Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
 </details>
 
@@ -23,6 +24,7 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 <summary>
 No example found.
 </summary>
+
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
@@ -30,6 +32,9 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [*] 20/20 points: Supports 2 of 2 possible platforms (native, js)
 
+* Package not compatible with runtime web
+
+Because of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`
 
 ## 10/20 Code follows recommended code style
 
@@ -41,6 +46,7 @@ Found 202 issues. Showing the first 2:
 <summary>
 INFO: Use collection literals when possible.
 </summary>
+
 `lib/browser_client.dart:30:17`
 
 ```
@@ -56,6 +62,7 @@ To reproduce run `dart analyze lib/browser_client.dart`
 <summary>
 INFO: Unnecessary new keyword.
 </summary>
+
 `lib/browser_client.dart:30:17`
 
 ```
