@@ -476,7 +476,8 @@ Future<ReportSection> _trustworthyDependency(
 ) async {
   Future<_Subsection> dependencies() async {
     final issues = <_Issue>[];
-    if (pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
+    if (pubspec.dartSdkConstraint != null &&
+        pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
       try {
         final outdated = await toolEnvironment.runPubOutdated(packageDir,
             args: ['--json', '--no-dev-dependencies']);
