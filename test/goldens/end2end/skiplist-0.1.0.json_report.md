@@ -1,6 +1,6 @@
 ## 10/20 Packaging conventions
 
-### [x] 0/10 points: Provide a valid pubspec.yaml
+### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
 * Sdk-constraint doesn't allow future stable dart 2.x releases
 <details>
@@ -11,10 +11,10 @@ The package description is too short.
 Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
 </details>
 
-### [*] 5/5 points: Provide a valid README.md
+### [*] 5/5 points: Provide a valid `README.md`
 
 
-### [*] 5/5 points: Provide a valid CHANGELOG.md
+### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
 ## 0/10 Package has documentation

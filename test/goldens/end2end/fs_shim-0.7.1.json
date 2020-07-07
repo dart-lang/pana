@@ -346,7 +346,7 @@
         "title": "Packaging conventions",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [x] 0/10 points: Provide a valid pubspec.yaml\n\n<details>\n<summary>\nSdk-constraint doesn't allow future stable dart 2.x releases\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\n</details>\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nSdk-constraint doesn't allow future stable dart 2.x releases\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
       },
       {
         "title": "Package has documentation",
