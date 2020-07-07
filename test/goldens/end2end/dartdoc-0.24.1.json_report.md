@@ -98,7 +98,7 @@ INFO: Unnecessary new keyword.
    ╵
 ```
 
-To reproduce run `dart analyze bin/dartdoc.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer bin/dartdoc.dart`
 </details>
 <details>
 <summary>
@@ -115,7 +115,7 @@ INFO: Unnecessary new keyword.
    ╵
 ```
 
-To reproduce run `dart analyze bin/dartdoc.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer bin/dartdoc.dart`
 </details>
 
 ## 10/30 Package is a good, trustworthy dependency

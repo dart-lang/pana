@@ -23,6 +23,7 @@ import 'package:yaml/yaml.dart';
 import 'package:logging/logging.dart';
 
 import '../models.dart';
+import '../pana.dart';
 import 'markdown_content.dart';
 import 'pubspec.dart';
 
@@ -156,8 +157,10 @@ Future<_AnalysisResult> _analyzePackage(
   _Issue issueFromCodeProblem(CodeProblem codeProblem) {
     return _Issue(
       '${codeProblem.severity}: ${codeProblem.description}',
-      // TODO(sigurdm) We need to inject pedantic somehow...
-      suggestion: 'To reproduce run `dart analyze ${codeProblem.file}`',
+      // TODO(sigurdm) update this to `dart analyze` after 2.9.
+      suggestion:
+          'To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and '
+          'run `${usesFlutter ? 'flutter analyze' : 'dartanalyzer'} ${codeProblem.file}`',
       spanFn: () {
         final sourceFile = SourceFile.fromString(
             File(p.join(packagePath, codeProblem.file)).readAsStringSync(),

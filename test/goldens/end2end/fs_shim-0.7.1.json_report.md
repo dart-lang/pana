@@ -68,7 +68,7 @@ ERROR: Target of URI doesn't exist: 'package:path/path.dart'.
    ╵
 ```
 
-To reproduce run `dart analyze lib/fs.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/fs.dart`
 </details>
 <details>
 <summary>
@@ -84,7 +84,7 @@ ERROR: The default value of an optional parameter must be constant.
     ╵
 ```
 
-To reproduce run `dart analyze lib/fs.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/fs.dart`
 </details>
 
 ## 10/30 Package is a good, trustworthy dependency
