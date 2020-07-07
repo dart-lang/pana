@@ -369,14 +369,12 @@ int fourtyThree() => 43;
             finding: 'Package not compatible with runtime native-aot',
             explanation: '''
 Because:
-
 * `package:my_package/my_package.dart` that imports:
 * `package:my_dependency/my_dependency.dart` that imports:
 * `dart:mirrors`'''),
         explanation(
             finding: 'Package not compatible with runtime js', explanation: '''
 Because:
-
 * `package:my_package/my_package.dart` that imports:
 * `dart:io`''')
       });
@@ -511,7 +509,6 @@ name: my_package
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
         explanation(finding: 'Package is not null safe', explanation: '''
 Because:
-
 * `my_package` where src/stray_file.dart is opting out from null-safety.'''),
       ]);
     });
@@ -552,7 +549,6 @@ Because:
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
         explanation(finding: 'Package is not null safe', explanation: '''
 Because:
-
 * `my_package` that depends on:
 * `my_dependency` that doesn't opt in to null safety''')
       ]);
@@ -578,7 +574,6 @@ Because:
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
         explanation(finding: 'Package is not null safe', explanation: '''
 Because:
-
 * `my_package` that depends on:
 * `my_dependency` where my_dependency.dart is opting out from null-safety.''')
       ]);

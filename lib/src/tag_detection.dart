@@ -580,7 +580,7 @@ class _PlatformViolationFinder {
                 !detectedPlatforms.contains(platform)) {
               return (path) => Explanation(
                     'Package does not support Flutter platform ${platform.name}',
-                    'Because of import path $path that declares support for '
+                    '\n${LibraryGraph.formatPath(path)} that declares support for '
                         'platforms: ${detectedPlatforms.map((e) => e.name).join(', ')}',
                   );
             }
@@ -614,7 +614,7 @@ class _SdkViolationFinder {
                 ? null
                 : (path) => Explanation(
                     'Package not compatible with SDK ${sdk.name}',
-                    'because of import path $path that is in a package requiring'
+                    'Because:\n${_PackageGraph.formatPath(path)} that is a package requiring'
                         ' ${nonAllowedSdks.map((e) => null).join(', ')}.');
           },
         ),
@@ -624,7 +624,7 @@ class _SdkViolationFinder {
                 runtime,
                 (path) => Explanation(
                     'Package not compatible with sdk ${sdk.name} using runtime ${runtime.name}',
-                    'Because:\n\n${LibraryGraph.formatPath(path)}')))
+                    'Because:\n${LibraryGraph.formatPath(path)}')))
             .toList();
 
   Explanation findSdkViolation(String packageName, List<Uri> topLibraries) {
@@ -693,7 +693,7 @@ class _NullSafetyViolationFinder {
               ? null
               : (path) => Explanation(
                     'Package is not null safe',
-                    'Because:\n\n${_PackageGraph.formatPath(path)} '
+                    'Because:\n${_PackageGraph.formatPath(path)} '
                         'that doesn\'t opt in to null safety',
                   );
         }),
@@ -714,7 +714,7 @@ class _NullSafetyViolationFinder {
               if (version < _firstVersionWithNullSafety) {
                 return (path) => Explanation(
                       'Package is not null safe',
-                      'Because:\n\n${_PackageGraph.formatPath(path)} where $file is opting out from null-safety.',
+                      'Because:\n${_PackageGraph.formatPath(path)} where $file is opting out from null-safety.',
                     );
               }
             }
@@ -852,7 +852,7 @@ class Tagger {
                   flutterPlatform.runtime,
                   (List<Uri> path) => Explanation(
                       'Package not compatible with runtime ${flutterPlatform.runtime.name} on ${flutterPlatform.name}',
-                      'Because:\n\n${LibraryGraph.formatPath(path)}')));
+                      'Because:\n${LibraryGraph.formatPath(path)}')));
 
           // Wanting to trust the plugins annotations when assigning tags we make
           // a library graph that treats all libraries in plugins as leaf-nodes.
@@ -877,7 +877,7 @@ class Tagger {
                   flutterPlatform.runtime,
                   (List<Uri> path) => Explanation(
                       'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
-                      'Because:\n\n${LibraryGraph.formatPath(path)}')));
+                      'Because:\n${LibraryGraph.formatPath(path)}')));
           // Report only the first non-pruned violation as Explanation
           final firstNonPrunedViolation = _topLibraries
               .map(violationFinder._findPlatformViolation)
@@ -930,7 +930,7 @@ class Tagger {
                 runtime,
                 (List<Uri> path) => Explanation(
                     'Package not compatible with runtime ${runtime.name}',
-                    'Because:\n\n${LibraryGraph.formatPath(path)}'));
+                    'Because:\n${LibraryGraph.formatPath(path)}'));
             var supports = true;
             for (final lib in _topLibraries) {
               final violationResult = finder.findViolation(lib);

@@ -49,7 +49,6 @@ Package not compatible with runtime native-aot
 </summary>
 
 Because:
-
 * `package:angular_components/angular_components.dart` that imports:
 * `package:angular_components/theme/module.dart` that imports:
 * `package:angular/angular.dart` that imports:
@@ -65,7 +64,6 @@ Package not compatible with runtime native
 </summary>
 
 Because:
-
 * `package:angular_components/angular_components.dart` that imports:
 * `package:angular_components/theme/module.dart` that imports:
 * `package:angular/angular.dart` that imports:

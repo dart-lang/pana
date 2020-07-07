@@ -54,7 +54,6 @@ Package not compatible with runtime native-aot
 </summary>
 
 Because:
-
 * `package:dartdoc/dartdoc.dart` that imports:
 * `package:dartdoc/src/html/html_generator.dart` that imports:
 * `package:dartdoc/src/html/templates.dart` that imports:
@@ -69,7 +68,6 @@ Package not compatible with runtime js
 </summary>
 
 Because:
-
 * `package:dartdoc/dartdoc.dart` that imports:
 * `package:dartdoc/src/element_type.dart` that imports:
 * `package:dartdoc/src/model.dart` that imports:

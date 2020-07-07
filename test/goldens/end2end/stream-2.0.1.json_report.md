@@ -68,7 +68,6 @@ Package not compatible with runtime native-aot
 </summary>
 
 Because:
-
 * `package:stream/stream.dart` that imports:
 * `package:stream/plugin.dart` that imports:
 * `package:rikulo_commons/mirrors.dart` that imports:
@@ -80,7 +79,6 @@ Package not compatible with runtime js
 </summary>
 
 Because:
-
 * `package:stream/stream.dart` that imports:
 * `package:stream/plugin.dart` that imports:
 * `package:rikulo_commons/io.dart` that imports:

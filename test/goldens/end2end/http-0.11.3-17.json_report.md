@@ -38,7 +38,6 @@ Package not compatible with runtime js
 </summary>
 
 Because:
-
 * `package:http/http.dart` that imports:
 * `package:http/src/streamed_response.dart` that imports:
 * `package:http/src/base_request.dart` that imports:
