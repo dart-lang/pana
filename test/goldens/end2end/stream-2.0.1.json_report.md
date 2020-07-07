@@ -124,9 +124,9 @@ ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid ov
 To reproduce run `dart analyze lib/src/connect_impl.dart`
 </details>
 
-## 0/30 Package is a good, trustworthy dependency
+## 10/30 Package is a good, trustworthy dependency
 
-### [x] 0/10 points: All of the package dependencies are supported in the latest version
+### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
 <details>
 <summary>

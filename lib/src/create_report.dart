@@ -518,6 +518,7 @@ Future<ReportSection> _trustworthyDependency(
 ) async {
   Future<_Subsection> dependencies() async {
     final issues = <_Issue>[];
+    var hasProblems = false;
     if (pubspec.dartSdkConstraint != null &&
         pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
       try {
@@ -585,21 +586,24 @@ $links
                     'The constraint ${dependency.version} on $name does not support the latest published version $latestVersion',
                     span:
                         _tryGetSpanFromYamlMap(pubspec.dependencies, 'name')));
+                hasProblems = true;
               }
             }
           }
         }
       } on ToolException catch (e) {
         issues.add(_Issue('Could not run pub outdated: ${e.message}'));
+        hasProblems = true;
       }
     } else {
       issues.add(_Issue(
           "Sdk constraint doesn't support current Dart version $currentSdkVersion."
           ' Cannot run `pub outdated`.',
           span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk')));
+      hasProblems = true;
     }
-    final status = issues.isEmpty ? _Status.good : _Status.bad;
-    final points = issues.isEmpty ? 10 : 0;
+    final status = hasProblems ? _Status.bad : _Status.good;
+    final points = hasProblems ? 0 : 10;
 
     return _Subsection(
       'All of the package dependencies are supported in the latest version',
