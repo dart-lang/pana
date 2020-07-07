@@ -15,6 +15,7 @@ import 'package:pubspec_parse/pubspec_parse.dart'
     show GitDependency, HostedDependency;
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
+import 'package:logging/logging.dart';
 
 import '../models.dart';
 import 'markdown_content.dart';
@@ -26,6 +27,7 @@ const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
 
 final currentSdkVersion = Version.parse(Platform.version.split(' ').first);
+final _log = Logger('pana.create_report');
 
 /// We currently don't have flutter installed on travis. So we emulate having
 /// no Flutter installed when generating golden files.
@@ -165,33 +167,44 @@ Future<_AnalysisResult> _analyzePackage(
 
   final dirs = await listFocusDirs(packagePath);
 
-  final output = await toolEnvironment.runAnalyzer(
-    packagePath,
-    dirs,
-    usesFlutter,
-    inspectOptions: InspectOptions(),
-  );
-  final list = LineSplitter.split(output)
-      .map((s) => parseCodeProblem(s, projectDir: packagePath))
-      .where((e) => e != null)
-      .toSet()
-      .toList();
-  list.sort();
+  try {
+    final output = await toolEnvironment.runAnalyzer(
+      packagePath,
+      dirs,
+      usesFlutter,
+      inspectOptions: InspectOptions(),
+    );
+    final list = LineSplitter.split(output)
+        .map((s) => parseCodeProblem(s, projectDir: packagePath))
+        .where((e) => e != null)
+        .toSet()
+        .toList();
+    list.sort();
 
-  return _AnalysisResult(
-      list
-          .where((element) => element.isError)
-          .map(issueFromCodeProblem)
-          .toList(),
-      list
-          .where((element) => element.isWarning)
-          .map(issueFromCodeProblem)
-          .toList(),
-      list
-          .where((element) => element.isInfo)
-          .map(issueFromCodeProblem)
-          .toList(),
-      'dartanalyzer ${dirs.join(' ')}');
+    return _AnalysisResult(
+        list
+            .where((element) => element.isError)
+            .map(issueFromCodeProblem)
+            .toList(),
+        list
+            .where((element) => element.isWarning)
+            .map(issueFromCodeProblem)
+            .toList(),
+        list
+            .where((element) => element.isInfo)
+            .map(issueFromCodeProblem)
+            .toList(),
+        'dartanalyzer ${dirs.join(' ')}');
+  } on ToolException catch (e) {
+    return _AnalysisResult(
+      [
+        _Issue('Failed to run `dartanalyzer`:\n```\n${e.message}\n```\n'),
+      ],
+      [],
+      [],
+      'dartanalyzer ${dirs.join(' ')}',
+    );
+  }
 }
 
 class _AnalysisResult {
@@ -208,14 +221,25 @@ Future<List<_Issue>> _formatPackage(
   ToolEnvironment toolEnvironment, {
   @required bool usesFlutter,
 }) async {
-  final unformattedFiles = await toolEnvironment.filesNeedingFormat(
-    packageDir,
-    usesFlutter,
-  );
-  return unformattedFiles
-      .map((f) => _Issue('$f is not formatted according to dartfmt',
-          suggestion: 'To format your files run: `dartfmt -w .`'))
-      .toList();
+  try {
+    final unformattedFiles = await toolEnvironment.filesNeedingFormat(
+      packageDir,
+      usesFlutter,
+    );
+    return unformattedFiles
+        .map((f) => _Issue('$f is not formatted according to dartfmt',
+            suggestion: 'To format your files run: `dartfmt -w .`'))
+        .toList();
+  } on ToolException catch (e) {
+    return [
+      _Issue('Running `dartfmt` failed:\n```\n${e.message}```'),
+    ];
+  } catch (e, stack) {
+    _log.severe('`dartfmt` failed.\n$e', e, stack);
+    return [
+      _Issue('Running `dartfmt` failed.'),
+    ];
+  }
 }
 
 Future<ReportSection> _followsTemplate(
@@ -690,7 +714,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final issues = explanations.map(explanationToIssue).toList();
 
       final tagNames = const {
-        'runtime:native-aot': 'native',
+        'runtime:native-jit': 'native',
         'runtime:web': 'js',
       };
       final officialTags = tags.where(tagNames.containsKey).toList();

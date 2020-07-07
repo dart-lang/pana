@@ -182,11 +182,14 @@ class ToolEnvironment {
       );
       final output = proc.stderr as String;
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
-        log.severe('Bad input?');
-        log.severe(output);
+        if (output.contains('No dart files found at: .')) {
+          log.warning('`dartanalyzer` found no files to analyze.');
+        } else {
+          log.severe('Bad input?: $output');
+        }
         var errorMessage =
             '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
-        throw ArgumentError('dartanalyzer exception: $errorMessage');
+        throw ToolException('dartanalyzer exception: $errorMessage');
       }
       return output;
     } finally {
@@ -238,8 +241,16 @@ class ToolEnvironment {
       }
 
       final output = result.stderr.toString().replaceAll('$packageDir/', '');
-      throw ToolException(
-          'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output');
+      final errorMsg = LineSplitter.split(output).take(10).join('\n');
+      final isUserProblem = output.contains(
+              'Could not format because the source could not be parsed') ||
+          output.contains('The formatter produced unexpected output.');
+      if (!isUserProblem) {
+        throw Exception(
+          'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output',
+        );
+      }
+      throw ToolException(errorMsg);
     }
     return files.toList()..sort();
   }

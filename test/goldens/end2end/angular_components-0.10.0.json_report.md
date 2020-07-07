@@ -61,7 +61,7 @@ Because:
 </details>
 <details>
 <summary>
-Package not compatible with runtime native-jit
+Package not compatible with runtime native
 </summary>
 
 Because:

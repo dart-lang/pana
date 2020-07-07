@@ -155,19 +155,17 @@ class PackageAnalyzer {
 
       assert(unformattedFiles.every((f) => dartFiles.contains(f)),
           'dartfmt should only return Dart files');
-    } catch (e, stack) {
-      final errorMsg = LineSplitter.split(e.toString()).take(10).join('\n');
-      final isUserProblem = errorMsg.contains(
-              'Could not format because the source could not be parsed') ||
-          errorMsg.contains('The formatter produced unexpected output.');
-      if (!isUserProblem) {
-        log.severe('`dartfmt` failed.\n$errorMsg', e, stack);
-      }
-
+    } on ToolException catch (e) {
       suggestions.add(Suggestion.error(
           SuggestionCode.dartfmtAborted,
           messages.makeSureDartfmtRuns(usesFlutter),
-          messages.runningDartfmtFailed(usesFlutter, errorMsg)));
+          messages.runningDartfmtFailed(usesFlutter, e.message)));
+    } catch (e, stack) {
+      log.severe('`dartfmt` failed.\n$e', e, stack);
+      suggestions.add(Suggestion.error(
+          SuggestionCode.dartfmtAborted,
+          messages.makeSureDartfmtRuns(usesFlutter),
+          messages.runningDartfmtFailed(usesFlutter, e.toString())));
     }
     formatProcessStopwatch.stop();
 
@@ -302,15 +300,11 @@ class PackageAnalyzer {
         analyzeProcessStopwatch.start();
         try {
           analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter, options);
-        } on ArgumentError catch (e) {
-          if (e.toString().contains('No dart files found at: .')) {
-            log.warning('`dartanalyzer` found no files to analyze.');
-          } else {
-            suggestions.add(Suggestion.error(
-                SuggestionCode.dartanalyzerAborted,
-                messages.makeSureDartanalyzerRuns(usesFlutter),
-                messages.runningDartanalyzerFailed(usesFlutter, e)));
-          }
+        } on ToolException catch (e) {
+          suggestions.add(Suggestion.error(
+              SuggestionCode.dartanalyzerAborted,
+              messages.makeSureDartanalyzerRuns(usesFlutter),
+              messages.runningDartanalyzerFailed(usesFlutter, e.message)));
         }
         analyzeProcessStopwatch.stop();
       } else {
