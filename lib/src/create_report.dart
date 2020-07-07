@@ -546,13 +546,22 @@ Future<ReportSection> _trustworthyDependency(
           }
         }
 
+        final links = <String>[];
+        String linkToPackage(String pkg) {
+          final link = '[`$pkg`]: https://pub.dev/packages/$pkg';
+          if (!links.contains(link)) {
+            links.add(link);
+          }
+          return '[`$pkg`]';
+        }
+
         final table = [
           ['Package', 'Constraint', 'Compatible', 'Latest'],
           [':-', ':-', ':-', ':-'],
           for (final package in outdated.packages)
             if (pubspec.dependencies.containsKey(package.package))
               [
-                '[${package.package}]',
+                linkToPackage(package.package),
                 constraint(pubspec.dependencies[package.package]),
                 package.upgradable?.version ?? '-',
                 package.latest?.version ?? '-',
@@ -562,22 +571,19 @@ Future<ReportSection> _trustworthyDependency(
             if (!pubspec.dependencies.containsKey(package.package) &&
                 package.upgradable != null)
               [
-                '[${package.package}]',
+                linkToPackage(package.package),
                 '-',
                 package.upgradable?.version ?? '-',
                 package.latest?.version ?? '-',
               ],
         ].map((r) => '|${r.join('|')}|').join('\n');
 
-        final links = (outdated.packages)
-            .map((p) => '[${p.package}]: https://pub.dev/packages/${p.package}')
-            .join('\n');
         issues.add(_Issue('Dependencies', suggestion: '''
 $table
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
 
-$links
+${links.join('\n')}
 '''));
         for (final package in outdated.packages) {
           if (package is Map) {
