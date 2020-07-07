@@ -568,6 +568,7 @@ Future<ReportSection> _trustworthyDependency(
               ],
           ['**Transitive dependencies**'],
           for (final package in outdated.packages)
+            // See: https://github.com/dart-lang/pub/issues/2552
             if (!pubspec.dependencies.containsKey(package.package) &&
                 package.upgradable != null)
               [
