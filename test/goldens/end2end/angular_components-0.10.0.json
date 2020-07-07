@@ -36349,7 +36349,7 @@
           "line": 164,
           "col": 4,
           "length": 7,
-          "description": "'virtual' is deprecated and shouldn't be used."
+          "description": "'virtual' is deprecated and shouldn't be used. No longer has meaning."
         },
         {
           "severity": "INFO",
@@ -36493,6 +36493,7 @@
         "package:meta/meta.dart"
       ],
       "transitiveLibs": [
+        "dart:async",
         "package:angular_components/model/ui/icon.dart",
         "package:meta/meta.dart"
       ],
@@ -38158,6 +38159,7 @@
         "package:angular_components/model/ui/highlighted_text_model.dart"
       ],
       "transitiveLibs": [
+        "dart:async",
         "dart:collection",
         "dart:math",
         "package:angular_components/model/ui/has_renderer.dart",
@@ -38183,6 +38185,7 @@
         "package:angular_components/model/ui/highlighted_text_model.dart"
       ],
       "transitiveLibs": [
+        "dart:async",
         "dart:collection",
         "dart:math",
         "package:angular_components/model/ui/highlighted_text_model.dart",
@@ -38310,6 +38313,7 @@
         "package:quiver/core.dart"
       ],
       "transitiveLibs": [
+        "dart:async",
         "dart:collection",
         "dart:math",
         "package:meta/meta.dart",
