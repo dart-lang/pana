@@ -558,20 +558,30 @@ Future<ReportSection> _trustworthyDependency(
           return '[`$pkg`]';
         }
 
+        final direct = outdated.packages
+            .where(
+                (package) => pubspec.dependencies.containsKey(package.package))
+            .toList();
+        final transitive = outdated.packages
+            .where((package) =>
+                !pubspec.dependencies.containsKey(package.package) &&
+                // See: https://github.com/dart-lang/pub/issues/2552
+                package.upgradable != null)
+            .toList();
+
         final table = [
           ['Package', 'Constraint', 'Compatible', 'Latest'],
           [':-', ':-', ':-', ':-'],
-          for (final package in outdated.packages)
-            if (pubspec.dependencies.containsKey(package.package))
-              [
-                linkToPackage(package.package),
-                constraint(pubspec.dependencies[package.package]),
-                package.upgradable?.version ?? '-',
-                package.latest?.version ?? '-',
-              ],
-          ['**Transitive dependencies**'],
-          for (final package in outdated.packages)
-            // See: https://github.com/dart-lang/pub/issues/2552
+          if (direct.isEmpty) ['*No Direct dependencies*'],
+          for (final package in direct)
+            [
+              linkToPackage(package.package),
+              constraint(pubspec.dependencies[package.package]),
+              package.upgradable?.version ?? '-',
+              package.latest?.version ?? '-',
+            ],
+          if (transitive.isNotEmpty) ['**Transitive dependencies**'],
+          for (final package in transitive)
             if (!pubspec.dependencies.containsKey(package.package) &&
                 package.upgradable != null)
               [
@@ -582,7 +592,11 @@ Future<ReportSection> _trustworthyDependency(
               ],
         ].map((r) => '|${r.join('|')}|').join('\n');
 
-        issues.add(_Issue('Dependencies', suggestion: '''
+        issues.add(_Issue('Dependencies',
+            suggestion: (direct.isEmpty && transitive.isEmpty)
+                ? '''
+Package has no dependencies.'''
+                : '''
 $table
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
