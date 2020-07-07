@@ -1,6 +1,6 @@
 ## 5/20 Packaging conventions
 
-### [x] 0/10 points: Provide a valid pubspec.yaml
+### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
 <details>
 <summary>
@@ -10,11 +10,11 @@ The package description is too short.
 Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
 </details>
 
-### [x] 0/5 points: Provide a valid README.md
+### [x] 0/5 points: Provide a valid `README.md`
 
 <details>
 <summary>
-Links in README.md should be secure. 1 link is insecure.
+Links in `README.md` should be secure. 1 link is insecure.
 </summary>
 
 `README.md:319:55`
@@ -29,7 +29,7 @@ Links in README.md should be secure. 1 link is insecure.
 Use `https` URLs instead.
 </details>
 
-### [*] 5/5 points: Provide a valid CHANGELOG.md
+### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
 ## 0/10 Package has documentation

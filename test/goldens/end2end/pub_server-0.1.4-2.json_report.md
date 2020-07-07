@@ -1,12 +1,12 @@
 ## 20/20 Packaging conventions
 
-### [*] 10/10 points: Provide a valid pubspec.yaml
+### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
 
-### [*] 5/5 points: Provide a valid README.md
+### [*] 5/5 points: Provide a valid `README.md`
 
 
-### [*] 5/5 points: Provide a valid CHANGELOG.md
+### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
 ## 10/10 Package has documentation

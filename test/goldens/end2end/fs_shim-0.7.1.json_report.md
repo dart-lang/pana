@@ -1,6 +1,6 @@
 ## 10/20 Packaging conventions
 
-### [x] 0/10 points: Provide a valid pubspec.yaml
+### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
 <details>
 <summary>
@@ -18,10 +18,10 @@ Sdk-constraint doesn't allow future stable dart 2.x releases
 
 </details>
 
-### [*] 5/5 points: Provide a valid README.md
+### [*] 5/5 points: Provide a valid `README.md`
 
 
-### [*] 5/5 points: Provide a valid CHANGELOG.md
+### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
 ## 0/10 Package has documentation

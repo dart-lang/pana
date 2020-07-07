@@ -949,7 +949,7 @@
         "title": "Packaging conventions",
         "grantedPoints": 20,
         "maxPoints": 20,
-        "summary": "### [*] 10/10 points: Provide a valid pubspec.yaml\n\n\n### [*] 5/5 points: Provide a valid README.md\n\n\n### [*] 5/5 points: Provide a valid CHANGELOG.md\n"
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
       },
       {
         "title": "Package has documentation",

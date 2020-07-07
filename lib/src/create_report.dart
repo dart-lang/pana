@@ -331,7 +331,7 @@ Future<ReportSection> _followsTemplate(
         final first = checked.unparsed.first;
         final s = count == 1 ? '' : 's';
         issues.add(_Issue(
-            'Links in $filename should be well formed '
+            'Links in `$filename` should be well formed '
             'Unable to parse $count image links$s.',
             span: first.span));
       }
@@ -340,7 +340,7 @@ Future<ReportSection> _followsTemplate(
         final first = checked.insecure.first;
         final sAre = count == 1 ? ' is' : 's are';
         issues.add(_Issue(
-            'Links in $filename should be secure. $count $linkType$sAre insecure.',
+            'Links in `$filename` should be secure. $count $linkType$sAre insecure.',
             suggestion: 'Use `https` URLs instead.',
             span: first.span));
       }
@@ -445,18 +445,25 @@ Future<ReportSection> _followsTemplate(
     final status = issues.isEmpty ? _Status.good : _Status.bad;
     final points = issues.isEmpty ? 10 : 0;
     return _Subsection(
-        'Provide a valid pubspec.yaml', issues, points, 10, status);
+      'Provide a valid `pubspec.yaml`',
+      issues,
+      points,
+      10,
+      status,
+    );
   }
 
   Future<_Subsection> checkAsset(
-      String filename, String missingSuggestion) async {
+    String filename,
+    String missingSuggestion,
+  ) async {
     final fullPath = p.join(packageDir, filename);
     final file = File(fullPath);
     final issues = <_Issue>[];
 
     if (!file.existsSync()) {
       issues.add(
-        _Issue('No $filename found.', suggestion: missingSuggestion),
+        _Issue('No `$filename` found.', suggestion: missingSuggestion),
       );
     } else {
       issues.addAll(
@@ -465,7 +472,13 @@ Future<ReportSection> _followsTemplate(
     }
     final status = issues.isEmpty ? _Status.good : _Status.bad;
     final points = issues.isEmpty ? 5 : 0;
-    return _Subsection('Provide a valid $filename', issues, points, 5, status);
+    return _Subsection(
+      'Provide a valid `$filename`',
+      issues,
+      points,
+      5,
+      status,
+    );
   }
 
   final readmeSubsection = await checkAsset(

@@ -1,15 +1,15 @@
 ## 5/20 Packaging conventions
 
-### [x] 0/10 points: Provide a valid pubspec.yaml
+### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
 * Homepage URL isn't helpful.
 * Documentation URL isn't helpful.
 
-### [x] 0/5 points: Provide a valid README.md
+### [x] 0/5 points: Provide a valid `README.md`
 
 <details>
 <summary>
-Links in README.md should be secure. 1 link is insecure.
+Links in `README.md` should be secure. 1 link is insecure.
 </summary>
 
 `README.md:51:22`
@@ -24,7 +24,7 @@ Links in README.md should be secure. 1 link is insecure.
 Use `https` URLs instead.
 </details>
 
-### [*] 5/5 points: Provide a valid CHANGELOG.md
+### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
 ## 0/10 Package has documentation
