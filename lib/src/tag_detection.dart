@@ -580,7 +580,7 @@ class _PlatformViolationFinder {
                 !detectedPlatforms.contains(platform)) {
               return (path) => Explanation(
                     'Package does not support Flutter platform ${platform.name}',
-                    '\n${LibraryGraph.formatPath(path)} that declares support for '
+                    'Because:\n${LibraryGraph.formatPath(path)} that declares support for '
                         'platforms: ${detectedPlatforms.map((e) => e.name).join(', ')}',
                   );
             }
