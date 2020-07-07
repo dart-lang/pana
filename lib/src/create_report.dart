@@ -732,7 +732,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
     final sdkExplanations = <Explanation>[];
     tagger.sdkTags(sdkTags, sdkExplanations);
 
-    final flutterPackage = pubspec.hasFlutterKey;
+    final flutterPackage = pubspec.usesFlutter;
 
     _Issue explanationToIssue(Explanation explanation) =>
         _Issue(explanation.finding, suggestion: explanation.explanation);
