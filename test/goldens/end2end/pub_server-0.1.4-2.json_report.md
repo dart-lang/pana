@@ -59,9 +59,9 @@ INFO: Unnecessary new keyword.
 To reproduce run `dart analyze lib/repository.dart`
 </details>
 
-## 0/30 Package is a good, trustworthy dependency
+## 10/30 Package is a good, trustworthy dependency
 
-### [x] 0/10 points: All of the package dependencies are supported in the latest version
+### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
 <details>
 <summary>
