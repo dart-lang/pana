@@ -141,9 +141,9 @@ Dependencies
 |[quiver]|>=0.24.0 <0.30.0|0.29.0+2|2.1.3|
 |[sass_builder]|^2.0.2|2.1.3|2.1.3|
 |**Transitive dependencies**|
-|[analyzer]|-|0.39.12|0.39.12|
-|[angular_ast]|-|0.5.11|0.5.11|
-|[angular_compiler]|-|0.4.5|0.4.5|
+|[analyzer]|-|0.35.4|0.39.12|
+|[angular_ast]|-|0.5.9|0.5.11|
+|[angular_compiler]|-|0.4.3|0.4.5|
 |[args]|-|1.6.0|1.6.0|
 |[built_value]|-|7.1.0|7.1.0|
 |[charcode]|-|1.1.3|1.1.3|
@@ -152,17 +152,16 @@ Dependencies
 |[code_builder]|-|3.3.0|3.3.0|
 |[convert]|-|2.1.1|2.1.1|
 |[crypto]|-|2.1.5|2.1.5|
-|[csslib]|-|0.16.1|0.16.1|
+|[csslib]|-|0.14.6+1|0.16.1|
 |[dart2_constant]|-|1.0.2+dart2|1.0.2+dart2|
 |[dart_internal]|-|0.1.9|0.1.9|
-|[dart_style]|-|1.3.6|1.3.6|
-|[front_end]|-|0.1.29|0.1.29|
+|[dart_style]|-|1.2.4|1.3.6|
+|[front_end]|-|0.1.14|0.1.29|
 |[glob]|-|1.2.0|1.2.0|
-|[html]|-|0.14.0+3|0.14.0+3|
 |[http]|-|0.12.1|0.12.1|
 |[http_parser]|-|3.1.4|3.1.4|
-|[json_annotation]|-|3.0.1|3.0.1|
-|[kernel]|-|0.3.29|0.3.29|
+|[json_annotation]|-|2.4.0|3.0.1|
+|[kernel]|-|0.3.14|0.3.29|
 |[matcher]|-|0.12.8|0.12.8|
 |[node_interop]|-|1.1.1|1.1.1|
 |[node_io]|-|1.1.1|1.1.1|
@@ -172,7 +171,7 @@ Dependencies
 |[pub_semver]|-|1.4.4|1.4.4|
 |[pubspec_parse]|-|0.1.5|0.1.5|
 |[sass]|-|1.26.10|1.26.10|
-|[source_gen]|-|0.9.5|0.9.5|
+|[source_gen]|-|0.9.4+4|0.9.5|
 |[source_maps]|-|0.10.9|0.10.9|
 |[source_span]|-|1.7.0|1.7.0|
 |[stack_trace]|-|1.9.5|1.9.5|
@@ -183,24 +182,6 @@ Dependencies
 |[typed_data]|-|1.2.0|1.2.0|
 |[watcher]|-|0.9.7+15|0.9.7+15|
 |[yaml]|-|2.2.1|2.2.1|
-|[boolean_selector]|-|2.0.0|2.0.0|
-|[http_multi_server]|-|2.2.0|2.2.0|
-|[io]|-|0.3.4|0.3.4|
-|[json_rpc_2]|-|2.2.1|2.2.1|
-|[mime]|-|0.9.6+3|0.9.6+3|
-|[multi_server_socket]|-|1.0.2|1.0.2|
-|[node_preamble]|-|1.4.12|1.4.12|
-|[pool]|-|1.4.0|1.4.0|
-|[shelf]|-|0.7.7|0.7.7|
-|[shelf_packages_handler]|-|2.0.0|2.0.0|
-|[shelf_static]|-|0.2.8|0.2.8|
-|[shelf_web_socket]|-|0.2.3|0.2.3|
-|[source_map_stack_trace]|-|2.0.0|2.0.0|
-|[stream_channel]|-|2.0.0|2.0.0|
-|[test_api]|-|0.2.17|0.2.17|
-|[test_core]|-|0.3.10|0.3.10|
-|[vm_service_client]|-|0.2.6+3|0.2.6+3|
-|[web_socket_channel]|-|1.1.0|1.1.0|
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
 
