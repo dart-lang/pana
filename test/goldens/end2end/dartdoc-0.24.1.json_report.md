@@ -168,7 +168,7 @@ Dependencies
 |[`utf`]|-|0.9.0+5|0.9.0+5|
 |[`watcher`]|-|0.9.7+15|0.9.7+15|
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
+To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 [`analyzer`]: https://pub.dev/packages/analyzer
 [`args`]: https://pub.dev/packages/args

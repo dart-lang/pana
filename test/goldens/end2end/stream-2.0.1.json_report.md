@@ -152,7 +152,7 @@ Dependencies
 |[`term_glyph`]|-|1.1.0|1.1.0|
 |[`typed_data`]|-|1.2.0|1.2.0|
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
+To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 [`args`]: https://pub.dev/packages/args
 [`charcode`]: https://pub.dev/packages/charcode

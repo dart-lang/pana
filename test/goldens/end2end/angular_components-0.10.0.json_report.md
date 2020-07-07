@@ -183,7 +183,7 @@ Dependencies
 |[`watcher`]|-|0.9.7+15|0.9.7+15|
 |[`yaml`]|-|2.2.1|2.2.1|
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
+To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 [`angular`]: https://pub.dev/packages/angular
 [`angular_forms`]: https://pub.dev/packages/angular_forms
