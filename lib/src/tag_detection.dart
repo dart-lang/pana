@@ -419,14 +419,17 @@ class Runtime {
     'web_sql',
   };
 
-  static final nativeJit = Runtime('native-jit', {
-    ..._onAllPlatforms,
-    ..._onAllNative,
-    'cli',
-    'developer',
-    'mirrors',
-    'nativewrappers',
-  });
+  static final nativeJit = Runtime(
+      'native',
+      {
+        ..._onAllPlatforms,
+        ..._onAllNative,
+        'cli',
+        'developer',
+        'mirrors',
+        'nativewrappers',
+      },
+      tag: 'runtime:native-jit');
 
   static final nativeAot = Runtime('native-aot', {
     ..._onAllPlatforms,
