@@ -53,14 +53,28 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 Package not compatible with runtime native-aot
 </summary>
 
-Because of the import of dart:mirrors via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/html/html_generator.dart` → `package:dartdoc/src/html/templates.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` → `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` → `dart:mirrors`
+Because:
+* `package:dartdoc/dartdoc.dart` that imports:
+* `package:dartdoc/src/html/html_generator.dart` that imports:
+* `package:dartdoc/src/html/templates.dart` that imports:
+* `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` that imports:
+* `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` that imports:
+* `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` that imports:
+* `dart:mirrors`
 </details>
 <details>
 <summary>
 Package not compatible with runtime js
 </summary>
 
-Because of the import of dart:io via the import chain `package:dartdoc/dartdoc.dart` → `package:dartdoc/src/element_type.dart` → `package:dartdoc/src/model.dart` → `package:package_config/discovery.dart` → `package:package_config/src/packages_io_impl.dart` → `package:package_config/src/util_io.dart` → `dart:io`
+Because:
+* `package:dartdoc/dartdoc.dart` that imports:
+* `package:dartdoc/src/element_type.dart` that imports:
+* `package:dartdoc/src/model.dart` that imports:
+* `package:package_config/discovery.dart` that imports:
+* `package:package_config/src/packages_io_impl.dart` that imports:
+* `package:package_config/src/util_io.dart` that imports:
+* `dart:io`
 </details>
 
 ## 10/20 Code follows recommended code style

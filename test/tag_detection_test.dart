@@ -367,14 +367,16 @@ int fourtyThree() => 43;
       }, explanations: {
         explanation(
             finding: 'Package not compatible with runtime native-aot',
-            explanation:
-                'Because of the import of dart:mirrors via the import chain '
-                '`package:my_package/my_package.dart` → `package:my_dependency/my_dependency.dart` → `dart:mirrors`'),
+            explanation: '''
+Because:
+* `package:my_package/my_package.dart` that imports:
+* `package:my_dependency/my_dependency.dart` that imports:
+* `dart:mirrors`'''),
         explanation(
-            finding: 'Package not compatible with runtime js',
-            explanation:
-                'Because of the import of dart:io via the import chain '
-                '`package:my_package/my_package.dart` → `dart:io`')
+            finding: 'Package not compatible with runtime js', explanation: '''
+Because:
+* `package:my_package/my_package.dart` that imports:
+* `dart:io`''')
       });
     });
 
@@ -505,10 +507,9 @@ name: my_package
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
-        explanation(
-            finding: 'Package is not null safe',
-            explanation:
-                'Because src/stray_file.dart is opting out in package package:my_package'),
+        explanation(finding: 'Package is not null safe', explanation: '''
+Because:
+* `my_package` where src/stray_file.dart is opting out from null-safety.'''),
       ]);
     });
 
@@ -546,14 +547,10 @@ name: my_package
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
-        explanation(
-          finding: 'Package is not null safe',
-          explanation: allOf(
-              contains(
-                  'Because of the language version from the sdk constraint in pubspec.yaml'),
-              contains(
-                  'package:my_dependency via dependency path: package:my_package->package:my_dependency')),
-        )
+        explanation(finding: 'Package is not null safe', explanation: '''
+Because:
+* `my_package` that depends on:
+* `my_dependency` that doesn't opt in to null safety''')
       ]);
     });
 
@@ -575,12 +572,10 @@ name: my_package
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
-        explanation(
-            finding: 'Package is not null safe',
-            explanation:
-                contains('Because my_dependency.dart is opting out in package '
-                    'package:my_dependency via dependency path: '
-                    'package:my_package->package:my_dependency'))
+        explanation(finding: 'Package is not null safe', explanation: '''
+Because:
+* `my_package` that depends on:
+* `my_dependency` where my_dependency.dart is opting out from null-safety.''')
       ]);
     });
 

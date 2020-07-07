@@ -37,7 +37,13 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 Package not compatible with runtime js
 </summary>
 
-Because of the import of dart:io via the import chain `package:http/http.dart` → `package:http/src/streamed_response.dart` → `package:http/src/base_request.dart` → `package:http/src/client.dart` → `package:http/src/io_client.dart` → `dart:io`
+Because:
+* `package:http/http.dart` that imports:
+* `package:http/src/streamed_response.dart` that imports:
+* `package:http/src/base_request.dart` that imports:
+* `package:http/src/client.dart` that imports:
+* `package:http/src/io_client.dart` that imports:
+* `dart:io`
 </details>
 
 ## 10/20 Code follows recommended code style

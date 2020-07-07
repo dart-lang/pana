@@ -48,14 +48,30 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 Package not compatible with runtime native-aot
 </summary>
 
-Because of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`
+Because:
+* `package:angular_components/angular_components.dart` that imports:
+* `package:angular_components/theme/module.dart` that imports:
+* `package:angular/angular.dart` that imports:
+* `package:angular/src/platform/browser/tools/tools.dart` that imports:
+* `package:angular/src/platform/browser/tools/common_tools.dart` that imports:
+* `package:angular/src/core/linker/component_factory.dart` that imports:
+* `package:angular/src/core/linker/view_ref.dart` that imports:
+* `dart:html`
 </details>
 <details>
 <summary>
 Package not compatible with runtime native
 </summary>
 
-Because of the import of dart:html via the import chain `package:angular_components/angular_components.dart` → `package:angular_components/theme/module.dart` → `package:angular/angular.dart` → `package:angular/src/platform/browser/tools/tools.dart` → `package:angular/src/platform/browser/tools/common_tools.dart` → `package:angular/src/core/linker/component_factory.dart` → `package:angular/src/core/linker/view_ref.dart` → `dart:html`
+Because:
+* `package:angular_components/angular_components.dart` that imports:
+* `package:angular_components/theme/module.dart` that imports:
+* `package:angular/angular.dart` that imports:
+* `package:angular/src/platform/browser/tools/tools.dart` that imports:
+* `package:angular/src/platform/browser/tools/common_tools.dart` that imports:
+* `package:angular/src/core/linker/component_factory.dart` that imports:
+* `package:angular/src/core/linker/view_ref.dart` that imports:
+* `dart:html`
 </details>
 
 ## 0/20 Code follows recommended code style
