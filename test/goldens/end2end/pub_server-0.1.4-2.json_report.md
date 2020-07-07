@@ -89,7 +89,7 @@ Dependencies
 |[`term_glyph`]|-|1.1.0|1.1.0|
 |[`typed_data`]|-|1.2.0|1.2.0|
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
+To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 [`dart2_constant`]: https://pub.dev/packages/dart2_constant
 [`http_parser`]: https://pub.dev/packages/http_parser

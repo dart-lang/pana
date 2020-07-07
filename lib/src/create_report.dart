@@ -585,7 +585,7 @@ Future<ReportSection> _trustworthyDependency(
         issues.add(_Issue('Dependencies', suggestion: '''
 $table
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
+To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 ${links.join('\n')}
 '''));
