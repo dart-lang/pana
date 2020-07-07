@@ -1098,3 +1098,40 @@ class ReportSection {
       _$ReportSectionFromJson(json);
   Map<String, dynamic> toJson() => _$ReportSectionToJson(this);
 }
+
+/// The json output from `pub outdated --json`.
+@JsonSerializable()
+class Outdated {
+  final List<OutdatedPackage> packages;
+  Outdated(this.packages);
+
+  static Outdated fromJson(Map<String, dynamic> json) =>
+      _$OutdatedFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OutdatedToJson(this);
+}
+
+@JsonSerializable()
+class OutdatedPackage {
+  final String package;
+  final VersionDescriptor upgradable;
+  final VersionDescriptor latest;
+
+  OutdatedPackage(this.package, this.upgradable, this.latest);
+
+  static OutdatedPackage fromJson(Map<String, dynamic> json) =>
+      _$OutdatedPackageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OutdatedPackageToJson(this);
+}
+
+@JsonSerializable()
+class VersionDescriptor {
+  final String version;
+  VersionDescriptor(this.version);
+
+  static VersionDescriptor fromJson(Map<String, dynamic> json) =>
+      _$VersionDescriptorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VersionDescriptorToJson(this);
+}
