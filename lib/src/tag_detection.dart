@@ -276,9 +276,7 @@ class LibraryGraph implements _DirectedGraph<Uri> {
 
   static String formatPath(List<Uri> path) {
     assert(path.isNotEmpty);
-    final pathString = path.map((p) => '`$p`').join(' → ');
-    if (path.length == 1) return 'the import of $pathString';
-    return 'the import of ${path.last} via the import chain $pathString';
+    return path.map((p) => '* `$p`').join(' that imports:\n');
   }
 
   static bool _constantFalse(Uri _) => false;
@@ -307,12 +305,7 @@ class _PackageGraph implements _DirectedGraph<String> {
 
   static String formatPath(List<String> path) {
     assert(path.isNotEmpty);
-    String prefix(String dep) => 'package:$dep';
-    if (path.length == 1) {
-      return prefix(path.single);
-    } else {
-      return '${prefix(path.last)} via dependency path: ${path.map(prefix).join('->')}';
-    }
+    return path.map((p) => '* `$p`').join(' that depends on:\n');
   }
 }
 
@@ -628,7 +621,7 @@ class _SdkViolationFinder {
                 runtime,
                 (path) => Explanation(
                     'Package not compatible with sdk ${sdk.name} using runtime ${runtime.name}',
-                    'Because of import path ${LibraryGraph.formatPath(path)}')))
+                    'Because:\n\n${LibraryGraph.formatPath(path)}')))
             .toList();
 
   Explanation findSdkViolation(String packageName, List<Uri> topLibraries) {
@@ -697,9 +690,8 @@ class _NullSafetyViolationFinder {
               ? null
               : (path) => Explanation(
                     'Package is not null safe',
-                    'Because of the language version from the sdk constraint '
-                        'in pubspec.yaml of package '
-                        '${_PackageGraph.formatPath(path)}',
+                    'Because:\n\n${_PackageGraph.formatPath(path)} '
+                        'that doesn\'t opt in to null safety',
                   );
         }),
         _noOptoutViolationFinder = _PathFinder(
@@ -719,7 +711,7 @@ class _NullSafetyViolationFinder {
               if (version < _firstVersionWithNullSafety) {
                 return (path) => Explanation(
                       'Package is not null safe',
-                      'Because $file is opting out in package ${_PackageGraph.formatPath(path)}',
+                      'Because:\n\n${_PackageGraph.formatPath(path)} where $file is opting out from null-safety.',
                     );
               }
             }
@@ -857,7 +849,7 @@ class Tagger {
                   flutterPlatform.runtime,
                   (List<Uri> path) => Explanation(
                       'Package not compatible with runtime ${flutterPlatform.runtime.name} on ${flutterPlatform.name}',
-                      'Because of ${LibraryGraph.formatPath(path)}')));
+                      'Because:\n\n${LibraryGraph.formatPath(path)}')));
 
           // Wanting to trust the plugins annotations when assigning tags we make
           // a library graph that treats all libraries in plugins as leaf-nodes.
@@ -882,7 +874,7 @@ class Tagger {
                   flutterPlatform.runtime,
                   (List<Uri> path) => Explanation(
                       'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
-                      'Because of ${LibraryGraph.formatPath(path)}')));
+                      'Because:\n\n${LibraryGraph.formatPath(path)}')));
           // Report only the first non-pruned violation as Explanation
           final firstNonPrunedViolation = _topLibraries
               .map(violationFinder._findPlatformViolation)
@@ -935,7 +927,7 @@ class Tagger {
                 runtime,
                 (List<Uri> path) => Explanation(
                     'Package not compatible with runtime ${runtime.name}',
-                    'Because of ${LibraryGraph.formatPath(path)}'));
+                    'Because:\n\n${LibraryGraph.formatPath(path)}'));
             var supports = true;
             for (final lib in _topLibraries) {
               final violationResult = finder.findViolation(lib);
