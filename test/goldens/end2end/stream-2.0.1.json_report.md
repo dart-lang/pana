@@ -133,24 +133,24 @@ To reproduce run `dart analyze lib/src/connect_impl.dart`
 Dependencies
 </summary>
 
-Package|Constraint|Compatible|Latest
-:-|:-|:-|:-
-[args]|any|1.6.0|1.6.0
-[charcode]|any|1.1.3|1.1.3
-[http]|any|0.12.1|0.12.1
-[logging]|any|0.11.4|0.11.4
-[path]|any|1.7.0|1.7.0
-[rikulo_commons]|any|4.1.3|4.1.3
-| **Transitive dependencies** |
-[collection]|-|1.14.13|1.14.13
-[http_parser]|-|3.1.4|3.1.4
-[meta]|-|1.2.1|1.2.1
-[mime]|-|0.9.6+3|0.9.6+3
-[pedantic]|-|1.9.1|1.9.1
-[source_span]|-|1.7.0|1.7.0
-[string_scanner]|-|1.0.5|1.0.5
-[term_glyph]|-|1.1.0|1.1.0
-[typed_data]|-|1.2.0|1.2.0
+|Package|Constraint|Compatible|Latest|
+|:-|:-|:-|:-|
+|[args]|any|1.6.0|1.6.0|
+|[charcode]|any|1.1.3|1.1.3|
+|[http]|any|0.12.1|0.12.1|
+|[logging]|any|0.11.4|0.11.4|
+|[path]|any|1.7.0|1.7.0|
+|[rikulo_commons]|any|4.1.3|4.1.3|
+|**Transitive dependencies**|
+|[collection]|-|1.14.13|1.14.13|
+|[http_parser]|-|3.1.4|3.1.4|
+|[meta]|-|1.2.1|1.2.1|
+|[mime]|-|0.9.6+3|0.9.6+3|
+|[pedantic]|-|1.9.1|1.9.1|
+|[source_span]|-|1.7.0|1.7.0|
+|[string_scanner]|-|1.0.5|1.0.5|
+|[term_glyph]|-|1.1.0|1.1.0|
+|[typed_data]|-|1.2.0|1.2.0|
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
 

@@ -537,7 +537,7 @@ Future<ReportSection> _trustworthyDependency(
                 package.upgradable?.version ?? '-',
                 package.latest?.version ?? '-',
               ],
-          ['| **Transitive dependencies** |'],
+          ['**Transitive dependencies**'],
           for (final package in outdated.packages)
             if (!pubspec.dependencies.containsKey(package.package))
               [
@@ -546,7 +546,7 @@ Future<ReportSection> _trustworthyDependency(
                 package.latest?.version ?? '-',
                 package.latest?.version ?? '-',
               ],
-        ].map((r) => r.join('|')).join('\n');
+        ].map((r) => '|${r.join('|')}|').join('\n');
 
         final links = (outdated.packages)
             .map((p) => '[${p.package}]: https://pub.dev/packages/${p.package}')

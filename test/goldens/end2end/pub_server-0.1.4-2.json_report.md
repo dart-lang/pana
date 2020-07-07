@@ -68,57 +68,57 @@ To reproduce run `dart analyze lib/repository.dart`
 Dependencies
 </summary>
 
-Package|Constraint|Compatible|Latest
-:-|:-|:-|:-
-[dart2_constant]|^1.0.1|1.0.2+dart2|1.0.2+dart2
-[http_parser]|^3.0.0|3.1.4|3.1.4
-[logging]|>=0.9.3 <1.0.0|0.11.4|0.11.4
-[mime]|>=0.9.3 <0.10.0|0.9.6+3|0.9.6+3
-[pub_semver]|^1.1.0|1.4.4|1.4.4
-[shelf]|>=0.5.6 <0.8.0|0.7.7|0.7.7
-[yaml]|^2.1.2|2.2.1|2.2.1
-| **Transitive dependencies** |
-[async]|-|2.4.2|2.4.2
-[charcode]|-|1.1.3|1.1.3
-[collection]|-|1.14.13|1.14.13
-[meta]|-|1.2.1|1.2.1
-[source_span]|-|1.7.0|1.7.0
-[stack_trace]|-|1.9.5|1.9.5
-[stream_channel]|-|2.0.0|2.0.0
-[string_scanner]|-|1.0.5|1.0.5
-[term_glyph]|-|1.1.0|1.1.0
-[typed_data]|-|1.2.0|1.2.0
-[_fe_analyzer_shared]|-|5.0.0|5.0.0
-[analyzer]|-|0.39.12|0.39.12
-[boolean_selector]|-|2.0.0|2.0.0
-[convert]|-|2.1.1|2.1.1
-[coverage]|-|0.14.0|0.14.0
-[crypto]|-|2.1.5|2.1.5
-[csslib]|-|0.16.1|0.16.1
-[glob]|-|1.2.0|1.2.0
-[html]|-|0.14.0+3|0.14.0+3
-[http_multi_server]|-|2.2.0|2.2.0
-[io]|-|0.3.4|0.3.4
-[js]|-|0.6.2|0.6.2
-[matcher]|-|0.12.8|0.12.8
-[multi_server_socket]|-|1.0.2|1.0.2
-[node_interop]|-|1.1.1|1.1.1
-[node_io]|-|1.1.1|1.1.1
-[node_preamble]|-|1.4.12|1.4.12
-[package_config]|-|1.9.3|1.9.3
-[package_resolver]|-|1.0.10|1.0.10
-[pedantic]|-|1.9.1|1.9.1
-[pool]|-|1.4.0|1.4.0
-[shelf_packages_handler]|-|2.0.0|2.0.0
-[shelf_static]|-|0.2.8|0.2.8
-[shelf_web_socket]|-|0.2.3|0.2.3
-[source_map_stack_trace]|-|2.0.0|2.0.0
-[source_maps]|-|0.10.9|0.10.9
-[test_api]|-|0.2.17|0.2.17
-[test_core]|-|0.3.10|0.3.10
-[vm_service]|-|4.1.0|4.1.0
-[watcher]|-|0.9.7+15|0.9.7+15
-[web_socket_channel]|-|1.1.0|1.1.0
+|Package|Constraint|Compatible|Latest|
+|:-|:-|:-|:-|
+|[dart2_constant]|^1.0.1|1.0.2+dart2|1.0.2+dart2|
+|[http_parser]|^3.0.0|3.1.4|3.1.4|
+|[logging]|>=0.9.3 <1.0.0|0.11.4|0.11.4|
+|[mime]|>=0.9.3 <0.10.0|0.9.6+3|0.9.6+3|
+|[pub_semver]|^1.1.0|1.4.4|1.4.4|
+|[shelf]|>=0.5.6 <0.8.0|0.7.7|0.7.7|
+|[yaml]|^2.1.2|2.2.1|2.2.1|
+|**Transitive dependencies**|
+|[async]|-|2.4.2|2.4.2|
+|[charcode]|-|1.1.3|1.1.3|
+|[collection]|-|1.14.13|1.14.13|
+|[meta]|-|1.2.1|1.2.1|
+|[source_span]|-|1.7.0|1.7.0|
+|[stack_trace]|-|1.9.5|1.9.5|
+|[stream_channel]|-|2.0.0|2.0.0|
+|[string_scanner]|-|1.0.5|1.0.5|
+|[term_glyph]|-|1.1.0|1.1.0|
+|[typed_data]|-|1.2.0|1.2.0|
+|[_fe_analyzer_shared]|-|5.0.0|5.0.0|
+|[analyzer]|-|0.39.12|0.39.12|
+|[boolean_selector]|-|2.0.0|2.0.0|
+|[convert]|-|2.1.1|2.1.1|
+|[coverage]|-|0.14.0|0.14.0|
+|[crypto]|-|2.1.5|2.1.5|
+|[csslib]|-|0.16.1|0.16.1|
+|[glob]|-|1.2.0|1.2.0|
+|[html]|-|0.14.0+3|0.14.0+3|
+|[http_multi_server]|-|2.2.0|2.2.0|
+|[io]|-|0.3.4|0.3.4|
+|[js]|-|0.6.2|0.6.2|
+|[matcher]|-|0.12.8|0.12.8|
+|[multi_server_socket]|-|1.0.2|1.0.2|
+|[node_interop]|-|1.1.1|1.1.1|
+|[node_io]|-|1.1.1|1.1.1|
+|[node_preamble]|-|1.4.12|1.4.12|
+|[package_config]|-|1.9.3|1.9.3|
+|[package_resolver]|-|1.0.10|1.0.10|
+|[pedantic]|-|1.9.1|1.9.1|
+|[pool]|-|1.4.0|1.4.0|
+|[shelf_packages_handler]|-|2.0.0|2.0.0|
+|[shelf_static]|-|0.2.8|0.2.8|
+|[shelf_web_socket]|-|0.2.3|0.2.3|
+|[source_map_stack_trace]|-|2.0.0|2.0.0|
+|[source_maps]|-|0.10.9|0.10.9|
+|[test_api]|-|0.2.17|0.2.17|
+|[test_core]|-|0.3.10|0.3.10|
+|[vm_service]|-|4.1.0|4.1.0|
+|[watcher]|-|0.9.7+15|0.9.7+15|
+|[web_socket_channel]|-|1.1.0|1.1.0|
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
 
