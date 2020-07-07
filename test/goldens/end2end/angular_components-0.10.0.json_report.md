@@ -94,7 +94,7 @@ ERROR: The method 'dispose' isn't defined for the type 'Object'.
     ╵
 ```
 
-To reproduce run `dart analyze lib/model/collection/list_tracker.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/model/collection/list_tracker.dart`
 </details>
 <details>
 <summary>
@@ -110,7 +110,7 @@ WARNING: Parameters can't override default values, this method overrides 'Select
    ╵
 ```
 
-To reproduce run `dart analyze lib/src/model/selection/noop_selection_model_impl.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/model/selection/noop_selection_model_impl.dart`
 </details>
 
 ## 0/30 Package is a good, trustworthy dependency

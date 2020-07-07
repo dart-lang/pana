@@ -105,7 +105,7 @@ ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid ov
     ╵
 ```
 
-To reproduce run `dart analyze lib/src/connect_impl.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/connect_impl.dart`
 </details>
 <details>
 <summary>
@@ -121,7 +121,7 @@ ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid ov
     ╵
 ```
 
-To reproduce run `dart analyze lib/src/connect_impl.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/connect_impl.dart`
 </details>
 
 ## 0/30 Package is a good, trustworthy dependency

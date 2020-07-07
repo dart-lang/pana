@@ -66,7 +66,7 @@ INFO: Use collection literals when possible.
    ╵
 ```
 
-To reproduce run `dart analyze lib/browser_client.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/browser_client.dart`
 </details>
 <details>
 <summary>
@@ -82,7 +82,7 @@ INFO: Unnecessary new keyword.
    ╵
 ```
 
-To reproduce run `dart analyze lib/browser_client.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/browser_client.dart`
 </details>
 
 ## 10/30 Package is a good, trustworthy dependency

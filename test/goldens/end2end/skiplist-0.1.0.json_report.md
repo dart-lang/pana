@@ -61,7 +61,7 @@ ERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.
    ╵
 ```
 
-To reproduce run `dart analyze lib/skiplist.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`
 </details>
 <details>
 <summary>
@@ -77,7 +77,7 @@ ERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Fu
    ╵
 ```
 
-To reproduce run `dart analyze lib/skiplist.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`
 </details>
 
 ## 0/30 Package is a good, trustworthy dependency
