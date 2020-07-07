@@ -3,6 +3,8 @@
 * Fixed required URL checks in pubspec validation.
 * Fixed `pub outdated` execution - using specified package dir.
 * Various nit fixes to the generated report.
+* Fix for deciding the latest version when no version is given for a hosted
+  package.
 
 ## 0.13.13
 
