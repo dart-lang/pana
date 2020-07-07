@@ -88,7 +88,7 @@ Future<ReportSection> _hasDocumentation(
             'guidelines on how to add an example.',
       )
     else
-      _Issue('Found example at: $examplePath')
+      _Issue('Found example at: `$examplePath`')
   ];
 
   final points = examplePath == null ? 0 : 10;

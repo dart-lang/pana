@@ -13,7 +13,7 @@
 
 ### [*] 10/10 points: Package has an example
 
-* Found example at: example/example.dart
+* Found example at: `example/example.dart`
 
 ## 20/20 Package is multi-platform
 
