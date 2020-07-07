@@ -526,8 +526,14 @@ Future<ReportSection> _trustworthyDependency(
         pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
       try {
         final outdated = Outdated.fromJson(await toolEnvironment.runPubOutdated(
-            packageDir,
-            args: ['--json', '--up-to-date', '--no-dev-dependencies']));
+          packageDir,
+          args: [
+            '--json',
+            '--up-to-date',
+            '--no-dev-dependencies',
+            '--no-dependency-overrides',
+          ],
+        ));
 
         String constraint(Dependency dependency) {
           if (dependency is HostedDependency) {
@@ -543,37 +549,45 @@ Future<ReportSection> _trustworthyDependency(
           }
         }
 
+        final links = <String>[];
+        String linkToPackage(String pkg) {
+          final link = '[`$pkg`]: https://pub.dev/packages/$pkg';
+          if (!links.contains(link)) {
+            links.add(link);
+          }
+          return '[`$pkg`]';
+        }
+
         final table = [
           ['Package', 'Constraint', 'Compatible', 'Latest'],
           [':-', ':-', ':-', ':-'],
           for (final package in outdated.packages)
             if (pubspec.dependencies.containsKey(package.package))
               [
-                '[${package.package}]',
+                linkToPackage(package.package),
                 constraint(pubspec.dependencies[package.package]),
                 package.upgradable?.version ?? '-',
                 package.latest?.version ?? '-',
               ],
           ['**Transitive dependencies**'],
           for (final package in outdated.packages)
-            if (!pubspec.dependencies.containsKey(package.package))
+            // See: https://github.com/dart-lang/pub/issues/2552
+            if (!pubspec.dependencies.containsKey(package.package) &&
+                package.upgradable != null)
               [
-                '[${package.package}]',
+                linkToPackage(package.package),
                 '-',
-                package.latest?.version ?? '-',
+                package.upgradable?.version ?? '-',
                 package.latest?.version ?? '-',
               ],
         ].map((r) => '|${r.join('|')}|').join('\n');
 
-        final links = (outdated.packages)
-            .map((p) => '[${p.package}]: https://pub.dev/packages/${p.package}')
-            .join('\n');
         issues.add(_Issue('Dependencies', suggestion: '''
 $table
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
 
-$links
+${links.join('\n')}
 '''));
         for (final package in outdated.packages) {
           if (package is Map) {
