@@ -124,10 +124,53 @@ ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid ov
 To reproduce run `dart analyze lib/src/connect_impl.dart`
 </details>
 
-## 10/30 Package is a good, trustworthy dependency
+## 0/30 Package is a good, trustworthy dependency
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
+<details>
+<summary>
+Dependencies
+</summary>
+
+|Package|Constraint|Compatible|Latest|
+|:-|:-|:-|:-|
+|[args]|any|1.6.0|1.6.0|
+|[charcode]|any|1.1.3|1.1.3|
+|[http]|any|0.12.1|0.12.1|
+|[logging]|any|0.11.4|0.11.4|
+|[path]|any|1.7.0|1.7.0|
+|[rikulo_commons]|any|4.1.3|4.1.3|
+|**Transitive dependencies**|
+|[collection]|-|1.14.13|1.14.13|
+|[http_parser]|-|3.1.4|3.1.4|
+|[meta]|-|1.2.1|1.2.1|
+|[mime]|-|0.9.6+3|0.9.6+3|
+|[pedantic]|-|1.9.1|1.9.1|
+|[source_span]|-|1.7.0|1.7.0|
+|[string_scanner]|-|1.0.5|1.0.5|
+|[term_glyph]|-|1.1.0|1.1.0|
+|[typed_data]|-|1.2.0|1.2.0|
+
+To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
+
+[args]: https://pub.dev/packages/args
+[charcode]: https://pub.dev/packages/charcode
+[http]: https://pub.dev/packages/http
+[logging]: https://pub.dev/packages/logging
+[path]: https://pub.dev/packages/path
+[rikulo_commons]: https://pub.dev/packages/rikulo_commons
+[collection]: https://pub.dev/packages/collection
+[http_parser]: https://pub.dev/packages/http_parser
+[meta]: https://pub.dev/packages/meta
+[mime]: https://pub.dev/packages/mime
+[pedantic]: https://pub.dev/packages/pedantic
+[source_span]: https://pub.dev/packages/source_span
+[string_scanner]: https://pub.dev/packages/string_scanner
+[term_glyph]: https://pub.dev/packages/term_glyph
+[typed_data]: https://pub.dev/packages/typed_data
+
+</details>
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 

@@ -12,7 +12,12 @@ import 'package:pana/src/tag_detection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart'
-    show GitDependency, HostedDependency;
+    show
+        Dependency,
+        GitDependency,
+        HostedDependency,
+        PathDependency,
+        SdkDependency;
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
 import 'package:logging/logging.dart';
@@ -503,13 +508,62 @@ Future<ReportSection> _trustworthyDependency(
     if (pubspec.dartSdkConstraint != null &&
         pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
       try {
-        final outdated = await toolEnvironment.runPubOutdated(packageDir,
-            args: ['--json', '--no-dev-dependencies']);
-        for (final package in outdated['packages'] as List) {
+        final outdated = Outdated.fromJson(await toolEnvironment.runPubOutdated(
+            packageDir,
+            args: ['--json', '--up-to-date', '--no-dev-dependencies']));
+
+        String constraint(Dependency dependency) {
+          if (dependency is HostedDependency) {
+            return dependency.version.toString();
+          } else if (dependency is SdkDependency) {
+            return dependency.sdk;
+          } else if (dependency is GitDependency) {
+            return dependency.ref;
+          } else if (dependency is PathDependency) {
+            return dependency.path;
+          } else {
+            return '-';
+          }
+        }
+
+        final table = [
+          ['Package', 'Constraint', 'Compatible', 'Latest'],
+          [':-', ':-', ':-', ':-'],
+          for (final package in outdated.packages)
+            if (pubspec.dependencies.containsKey(package.package))
+              [
+                '[${package.package}]',
+                constraint(pubspec.dependencies[package.package]),
+                package.upgradable?.version ?? '-',
+                package.latest?.version ?? '-',
+              ],
+          ['**Transitive dependencies**'],
+          for (final package in outdated.packages)
+            if (!pubspec.dependencies.containsKey(package.package))
+              [
+                '[${package.package}]',
+                '-',
+                package.latest?.version ?? '-',
+                package.latest?.version ?? '-',
+              ],
+        ].map((r) => '|${r.join('|')}|').join('\n');
+
+        final links = (outdated.packages)
+            .map((p) => '[${p.package}]: https://pub.dev/packages/${p.package}')
+            .join('\n');
+        issues.add(_Issue('Dependencies', suggestion: '''
+$table
+
+To reproduce run `pub outdated --no-dev-dependencies --up-to-date`.
+
+$links
+'''));
+        for (final package in outdated.packages) {
           if (package is Map) {
-            final name = package['package'];
-            final latest = package['latest'];
-            if (name is String && latest is String) {
+            final name = package.package;
+            final latest = package.latest.version;
+
+            if (pubspec.dependencies.containsKey(name)) {
               final latestVersion = Version.parse(latest);
               final dependency = pubspec.dependencies[name];
               if (dependency is HostedDependency &&
