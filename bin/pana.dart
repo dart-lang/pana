@@ -38,6 +38,7 @@ final _parser = ArgParser()
       allowed: ['compact', 'normal', 'verbose'],
       defaultsTo: 'normal')
   ..addFlag('scores', help: 'Include scores in the output JSON.')
+  ..addFlag('report', help: 'Print markdown report instead of JSON.')
   ..addFlag('warning',
       help:
           'Shows the warning message before potentially destructive operation.',
@@ -69,6 +70,7 @@ Future main(List<String> args) async {
   final isJson = result['json'] as bool;
   final showWarning = result['warning'] as bool;
   final showScores = result['scores'] as bool;
+  final showReport = result['report'] as bool;
 
   final source = result['source'];
   final verbosity = Verbosity.values
@@ -171,7 +173,15 @@ Future main(List<String> args) async {
           'maintenance': _calculateScore(summary.maintenance?.suggestions),
         };
       }
-      print(prettyJson(map));
+      if (showReport) {
+        for (final s in summary.report.sections) {
+          final mark = s.grantedPoints == s.maxPoints ? '\u2713' : '\u2717';
+          print('\n## $mark ${s.title} (${s.grantedPoints} / ${s.maxPoints})');
+          print(s.summary);
+        }
+      } else {
+        print(prettyJson(map));
+      }
     } catch (e, stack) {
       final message = "Problem analyzing ${result.rest.join(' ')}";
       final errorStr = e.toString();
