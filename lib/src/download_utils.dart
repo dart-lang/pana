@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -24,6 +25,13 @@ Future<void> downloadPackage(
 }) async {
   // Find URI for the package tar-ball
   final pubHostedUri = Uri.parse(pubHostedUrl ?? 'https://pub.dartlang.org');
+  if (version == null) {
+    final versionsUri = pubHostedUri.replace(path: '/api/packages/$package');
+    final versionsJson = json.decode(await http.read(versionsUri));
+    version = versionsJson['latest']['version'] as String;
+    log.fine('Latest version is: $version');
+  }
+
   final packageUri = pubHostedUri.replace(
     path: '/packages/$package/versions/$version.tar.gz',
   );
