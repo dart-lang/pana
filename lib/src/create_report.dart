@@ -523,8 +523,14 @@ Future<ReportSection> _trustworthyDependency(
         pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
       try {
         final outdated = Outdated.fromJson(await toolEnvironment.runPubOutdated(
-            packageDir,
-            args: ['--json', '--up-to-date', '--no-dev-dependencies']));
+          packageDir,
+          args: [
+            '--json',
+            '--up-to-date',
+            '--no-dev-dependencies',
+            '--no-dependency-overrides',
+          ],
+        ));
 
         String constraint(Dependency dependency) {
           if (dependency is HostedDependency) {
@@ -553,11 +559,12 @@ Future<ReportSection> _trustworthyDependency(
               ],
           ['**Transitive dependencies**'],
           for (final package in outdated.packages)
-            if (!pubspec.dependencies.containsKey(package.package))
+            if (!pubspec.dependencies.containsKey(package.package) &&
+                package.upgradable != null)
               [
                 '[${package.package}]',
                 '-',
-                package.latest?.version ?? '-',
+                package.upgradable?.version ?? '-',
                 package.latest?.version ?? '-',
               ],
         ].map((r) => '|${r.join('|')}|').join('\n');
