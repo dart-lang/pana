@@ -1,4 +1,4 @@
-## 5/20 Packaging conventions
+## 5/20 Follow Dart file conventions
 
 ### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
@@ -27,7 +27,7 @@ Use `https` URLs instead.
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
-## 0/10 Package has documentation
+## 0/10 Provide documentation
 
 ### [x] 0/10 points: Package has an example
 
@@ -39,7 +39,7 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 10/20 Package is multi-platform
+## 10/20 Support multiple platforms
 
 ### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)
 
@@ -74,9 +74,9 @@ Because:
 * `dart:html`
 </details>
 
-## 0/20 Code follows recommended code style
+## 0/30 Pass static analysis
 
-### [x] 0/20 points: code has no errors, warnings, lints, or formatting issues
+### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
 Found 900 issues. Showing the first 2:
 
@@ -113,7 +113,7 @@ WARNING: Parameters can't override default values, this method overrides 'Select
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/model/selection/noop_selection_model_impl.dart`
 </details>
 
-## 10/20 Package is a good, trustworthy dependency
+## 10/20 Support up-to-date dependencies
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
