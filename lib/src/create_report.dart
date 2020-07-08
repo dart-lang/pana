@@ -91,7 +91,7 @@ Future<ReportSection> _hasDocumentation(
   final points = examplePath == null ? 0 : 10;
   final status = examplePath == null ? _Status.bad : _Status.good;
   return ReportSection(
-    title: documentationSectionTitle,
+    title: 'Provide documentation',
     grantedPoints: points,
     maxPoints: 10,
     summary: _makeSummary(
@@ -123,21 +123,34 @@ Future<ReportSection> _staticAnalysis(
           ? _Status.good
           : _Status.soso)
       : _Status.bad;
-  final grantedPoints = (errors.isEmpty && warnings.isEmpty)
-      ? (formattingIssues.isEmpty && lints.isEmpty ? 20 : 10)
-      : 0;
+
+  // 10 points: static analysis has 0 errors
+  // 20 points: static analysis has 0 errors, warnings
+  // 30 points: static analysis has 0 errors, warnings, lints
+  var grantedPoints = 0;
+  if (errors.isEmpty) {
+    if (warnings.isNotEmpty) {
+      grantedPoints = 10;
+    } else {
+      if (lints.isNotEmpty || formattingIssues.isNotEmpty) {
+        grantedPoints = 20;
+      } else {
+        grantedPoints = 30;
+      }
+    }
+  }
 
   return ReportSection(
-    title: 'Code follows recommended code style',
+    title: 'Pass static analysis',
     grantedPoints: grantedPoints,
-    maxPoints: 20,
+    maxPoints: 30,
     summary: _makeSummary(
       [
         _Subsection(
           'code has no errors, warnings, lints, or formatting issues',
           [...errors, ...warnings, ...lints, ...formattingIssues],
           grantedPoints,
-          20,
+          30,
           status,
         )
       ],
@@ -494,7 +507,7 @@ Future<ReportSection> _followsTemplate(
   final pubspecSection = await checkPubspec();
 
   return ReportSection(
-      title: 'Packaging conventions',
+      title: 'Follow Dart file conventions',
       maxPoints: 20,
       grantedPoints: pubspecSection.grantedPoints +
           readmeSubsection.grantedPoints +
@@ -696,7 +709,7 @@ ${links.join('\n')}
   final sdkSection = await sdkSupport();
 
   return ReportSection(
-      title: 'Package is a good, trustworthy dependency',
+      title: 'Support up-to-date dependencies',
       grantedPoints: dependencySection.grantedPoints + sdkSection.grantedPoints,
       maxPoints: 20,
       summary:
@@ -810,7 +823,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
   }
 
   return ReportSection(
-    title: 'Package is multi-platform',
+    title: 'Support multiple platforms',
     maxPoints: 20,
     grantedPoints: subsection.grantedPoints,
     summary: _makeSummary(
