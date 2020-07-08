@@ -5,7 +5,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:pana/src/tag_detection.dart';
@@ -26,8 +25,6 @@ import '../models.dart';
 import '../pana.dart';
 import 'markdown_content.dart';
 import 'pubspec.dart';
-
-const _publisherDoc = 'https://dart.dev/tools/pub/verified-publishers';
 
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
@@ -695,47 +692,15 @@ ${links.join('\n')}
     );
   }
 
-  Future<_Subsection> publisher() async {
-    final issues = <_Issue>[];
-    String publisher;
-
-    try {
-      publisher = json.decode(await read(
-              'https://pub.dev/api/packages/${Uri.encodeComponent(pubspec.name)}/publisher'))[
-          'publisherId'] as String;
-    } on ClientException catch (e) {
-      issues.add(_Issue(
-        'Could not retrieve publisher information. Has this package been published before? ($e)',
-      ));
-    }
-
-    if (publisher == null) {
-      issues.add(_Issue('Package is not published under a verified publisher.',
-          suggestion: 'See $_publisherDoc for more information.'));
-    }
-    final status = issues.isEmpty ? _Status.good : _Status.bad;
-    final points = issues.isEmpty ? 10 : 0;
-    return _Subsection(
-      'Package is published using a verified publisher',
-      issues,
-      points,
-      10,
-      status,
-    );
-  }
-
   final dependencySection = await dependencies();
   final sdkSection = await sdkSupport();
-  final publisherSection = await publisher();
 
   return ReportSection(
       title: 'Package is a good, trustworthy dependency',
-      grantedPoints: dependencySection.grantedPoints +
-          sdkSection.grantedPoints +
-          publisherSection.grantedPoints,
-      maxPoints: 30,
-      summary: _makeSummary([dependencySection, sdkSection, publisherSection],
-          basePath: packageDir));
+      grantedPoints: dependencySection.grantedPoints + sdkSection.grantedPoints,
+      maxPoints: 20,
+      summary:
+          _makeSummary([dependencySection, sdkSection], basePath: packageDir));
 }
 
 Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {

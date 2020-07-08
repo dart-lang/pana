@@ -146,8 +146,8 @@
       {
         "title": "Package is a good, trustworthy dependency",
         "grantedPoints": 0,
-        "maxPoints": 30,
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your pubspec.yaml\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version.\n\n### [x] 0/10 points: Package is published using a verified publisher\n\n<details>\n<summary>\nPackage is not published under a verified publisher.\n</summary>\n\nSee https://dart.dev/tools/pub/verified-publishers for more information.\n</details>"
+        "maxPoints": 20,
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your pubspec.yaml\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
       }
     ]
   }

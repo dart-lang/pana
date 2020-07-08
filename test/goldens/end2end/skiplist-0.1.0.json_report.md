@@ -80,7 +80,7 @@ ERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Fu
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`
 </details>
 
-## 0/30 Package is a good, trustworthy dependency
+## 0/20 Package is a good, trustworthy dependency
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
@@ -96,13 +96,3 @@ Pubspec.yaml does not have an sdk version constraint.
 Try adding an sdk constraint to your pubspec.yaml
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
-
-### [x] 0/10 points: Package is published using a verified publisher
-
-<details>
-<summary>
-Package is not published under a verified publisher.
-</summary>
-
-See https://dart.dev/tools/pub/verified-publishers for more information.
-</details>

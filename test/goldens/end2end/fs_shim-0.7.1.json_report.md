@@ -87,7 +87,7 @@ ERROR: The default value of an optional parameter must be constant.
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/fs.dart`
 </details>
 
-## 10/30 Package is a good, trustworthy dependency
+## 0/20 Package is a good, trustworthy dependency
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
@@ -126,5 +126,3 @@ The current sdk constraint does not allow the latest stable Dart (2.8.3)
 Try widening the upper boundary of the constraint.
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
-
-### [*] 10/10 points: Package is published using a verified publisher

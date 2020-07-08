@@ -85,7 +85,7 @@ INFO: Unnecessary new keyword.
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/browser_client.dart`
 </details>
 
-## 10/30 Package is a good, trustworthy dependency
+## 0/20 Package is a good, trustworthy dependency
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
@@ -100,5 +100,3 @@ Because http depends on unittest >=0.2.8+2 which requires SDK version <2.0.0, ve
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
-
-### [*] 10/10 points: Package is published using a verified publisher

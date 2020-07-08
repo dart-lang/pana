@@ -124,7 +124,7 @@ ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid ov
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/connect_impl.dart`
 </details>
 
-## 10/30 Package is a good, trustworthy dependency
+## 10/20 Package is a good, trustworthy dependency
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
@@ -175,13 +175,3 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
-
-### [x] 0/10 points: Package is published using a verified publisher
-
-<details>
-<summary>
-Package is not published under a verified publisher.
-</summary>
-
-See https://dart.dev/tools/pub/verified-publishers for more information.
-</details>
