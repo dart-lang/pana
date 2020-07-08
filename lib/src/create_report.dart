@@ -165,9 +165,16 @@ Future<_AnalysisResult> _analyzePackage(
         final sourceFile = SourceFile.fromString(
             File(p.join(packagePath, codeProblem.file)).readAsStringSync(),
             url: p.join(packagePath, codeProblem.file));
-        // SourceSpans are 0-based, so we subtract 1 from line and column.
-        final startOffset =
-            sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
+        int startOffset;
+        try {
+          // SourceSpans are 0-based, so we subtract 1 from line and column.
+          startOffset =
+              sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
+        } on RangeError {
+          // Note: This happens if the file contains CR as line terminators.
+          // If the range is invalid, then we just return null.
+          return null;
+        }
         return sourceFile.span(startOffset, startOffset + codeProblem.length);
       },
     );
@@ -875,6 +882,8 @@ class _Issue {
   final SourceSpan span;
 
   /// Similar to [span], but with deferred loading from the filesystem.
+  ///
+  /// [SourceSpanFn] may return `null`, if when loaded the offset is invalid.
   final SourceSpanFn spanFn;
 
   /// Can be used for giving a potential solution of the issue, and
