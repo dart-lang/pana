@@ -10,14 +10,14 @@ import 'package:test_descriptor/test_descriptor.dart' as d;
 import 'package_descriptor.dart';
 
 void main() {
-  group('Packaging conventions', () {
+  group('Follow Dart file conventions', () {
     test('finds missing README and CHANGELOG', () async {
       final descriptor = package('my_package', extraFiles: []);
       await descriptor.create();
       final report = await createReport(
           InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
-      final section =
-          report.sections.firstWhere((s) => s.title == 'Packaging conventions');
+      final section = report.sections
+          .firstWhere((s) => s.title == 'Follow Dart file conventions');
       expect(section.grantedPoints, 0);
       expect(section.summary, contains('No `README.md` found'));
       expect(section.summary, contains('No `CHANGELOG.md` found'));
@@ -38,8 +38,8 @@ Check it out on [github](http://github.com/example/my_package).
       await descriptor.create();
       final report = await createReport(
           InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
-      final section =
-          report.sections.firstWhere((s) => s.title == 'Packaging conventions');
+      final section = report.sections
+          .firstWhere((s) => s.title == 'Follow Dart file conventions');
       expect(section.grantedPoints, 5);
       expect(section.summary, isNot(contains('No `README.md` found')));
       expect(section.summary, isNot(contains('No `CHANGELOG.md` found')));
@@ -48,7 +48,7 @@ Check it out on [github](http://github.com/example/my_package).
     });
   });
 
-  group('Package has documentation', () {
+  group('Provide documentation', () {
     test('documentation percent', () {
       expect(documentationCoverageSection(documented: 1, total: 21).summary,
           contains('(4.8 %)'));
@@ -89,8 +89,8 @@ Call this method..
       await descriptor.create();
       final report = await createReport(
           InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
-      final section = report.sections
-          .firstWhere((s) => s.title == 'Package has documentation');
+      final section =
+          report.sections.firstWhere((s) => s.title == 'Provide documentation');
       expect(section.grantedPoints, 10);
       expect(section.summary, isNot(contains('No example found.')));
     });
@@ -101,8 +101,8 @@ Call this method..
       await descriptor.create();
       final report = await createReport(
           InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
-      final section = report.sections
-          .firstWhere((s) => s.title == 'Package has documentation');
+      final section =
+          report.sections.firstWhere((s) => s.title == 'Provide documentation');
       expect(section.grantedPoints, 0);
       expect(section.summary, contains('No example found.'));
     });

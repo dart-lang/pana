@@ -343,34 +343,34 @@
   "report": {
     "sections": [
       {
-        "title": "Packaging conventions",
+        "title": "Follow Dart file conventions",
         "grantedPoints": 10,
         "maxPoints": 20,
         "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nSdk-constraint doesn't allow future stable dart 2.x releases\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
       },
       {
-        "title": "Package has documentation",
+        "title": "Provide documentation",
         "grantedPoints": 0,
         "maxPoints": 10,
         "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
       },
       {
-        "title": "Package is multi-platform",
+        "title": "Support multiple platforms",
         "grantedPoints": 0,
         "maxPoints": 20,
         "summary": "### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)\n\n<details>\n<summary>\nPackage resolution failed. Could not determine platforms.\n</summary>\n\nRun `pub get` for more information.\n</details>"
       },
       {
-        "title": "Code follows recommended code style",
+        "title": "Pass static analysis",
         "grantedPoints": 0,
-        "maxPoints": 20,
-        "summary": "### [x] 0/20 points: code has no errors, warnings, lints, or formatting issues\n\nFound 621 issues. Showing the first 2:\n\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:path/path.dart'.\n</summary>\n\n`lib/fs.dart:12:8`\n\n```\n   ╷\n12 │ import 'package:path/path.dart';\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/fs.dart`\n</details>\n<details>\n<summary>\nERROR: The default value of an optional parameter must be constant.\n</summary>\n\n`lib/fs.dart:179:58`\n\n```\n    ╷\n179 │       {FileMode mode: FileMode.WRITE, Encoding encoding: UTF8});\n    │                                                          ^^^^\n    ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/fs.dart`\n</details>"
+        "maxPoints": 30,
+        "summary": "### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 621 issues. Showing the first 2:\n\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:path/path.dart'.\n</summary>\n\n`lib/fs.dart:12:8`\n\n```\n   ╷\n12 │ import 'package:path/path.dart';\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/fs.dart`\n</details>\n<details>\n<summary>\nERROR: The default value of an optional parameter must be constant.\n</summary>\n\n`lib/fs.dart:179:58`\n\n```\n    ╷\n179 │       {FileMode mode: FileMode.WRITE, Encoding encoding: UTF8});\n    │                                                          ^^^^\n    ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/fs.dart`\n</details>"
       },
       {
-        "title": "Package is a good, trustworthy dependency",
-        "grantedPoints": 10,
-        "maxPoints": 30,
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\n</details>\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nThe current sdk constraint does not allow the latest stable Dart (2.8.3)\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTry widening the upper boundary of the constraint.\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version.\n\n### [*] 10/10 points: Package is published using a verified publisher\n"
+        "title": "Support up-to-date dependencies",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\n</details>\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nThe current sdk constraint does not allow the latest stable Dart (2.8.3)\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTry widening the upper boundary of the constraint.\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
       }
     ]
   }

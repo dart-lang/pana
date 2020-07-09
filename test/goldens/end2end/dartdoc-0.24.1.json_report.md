@@ -1,4 +1,4 @@
-## 5/20 Packaging conventions
+## 5/20 Follow Dart file conventions
 
 ### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
@@ -32,7 +32,7 @@ Use `https` URLs instead.
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
-## 0/10 Package has documentation
+## 0/10 Provide documentation
 
 ### [x] 0/10 points: Package has an example
 
@@ -44,7 +44,7 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 10/20 Package is multi-platform
+## 10/20 Support multiple platforms
 
 ### [~] 10/20 points: Supports 1 of 2 possible platforms (**native**, js)
 
@@ -77,9 +77,9 @@ Because:
 * `dart:io`
 </details>
 
-## 10/20 Code follows recommended code style
+## 20/30 Pass static analysis
 
-### [~] 10/20 points: code has no errors, warnings, lints, or formatting issues
+### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
 Found 1887 issues. Showing the first 2:
 
@@ -118,7 +118,7 @@ INFO: Unnecessary new keyword.
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer bin/dartdoc.dart`
 </details>
 
-## 10/30 Package is a good, trustworthy dependency
+## 10/20 Support up-to-date dependencies
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
@@ -213,13 +213,3 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
-
-### [x] 0/10 points: Package is published using a verified publisher
-
-<details>
-<summary>
-Package is not published under a verified publisher.
-</summary>
-
-See https://dart.dev/tools/pub/verified-publishers for more information.
-</details>

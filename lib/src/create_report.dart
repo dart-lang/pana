@@ -5,7 +5,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:pana/src/tag_detection.dart';
@@ -26,8 +25,6 @@ import '../models.dart';
 import '../pana.dart';
 import 'markdown_content.dart';
 import 'pubspec.dart';
-
-const _publisherDoc = 'https://dart.dev/tools/pub/verified-publishers';
 
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
@@ -126,21 +123,32 @@ Future<ReportSection> _staticAnalysis(
           ? _Status.good
           : _Status.soso)
       : _Status.bad;
-  final grantedPoints = (errors.isEmpty && warnings.isEmpty)
-      ? (formattingIssues.isEmpty && lints.isEmpty ? 20 : 10)
-      : 0;
+
+  // 10 points: static analysis has 0 errors
+  // 20 points: static analysis has 0 errors, warnings
+  // 30 points: static analysis has 0 errors, warnings, lints
+  var grantedPoints = 0;
+  if (errors.isEmpty) {
+    grantedPoints = 10;
+    if (warnings.isEmpty) {
+      grantedPoints = 20;
+      if (lints.isEmpty && formattingIssues.isEmpty) {
+        grantedPoints = 30;
+      }
+    }
+  }
 
   return ReportSection(
-    title: 'Code follows recommended code style',
+    title: 'Pass static analysis',
     grantedPoints: grantedPoints,
-    maxPoints: 20,
+    maxPoints: 30,
     summary: _makeSummary(
       [
         _Subsection(
           'code has no errors, warnings, lints, or formatting issues',
           [...errors, ...warnings, ...lints, ...formattingIssues],
           grantedPoints,
-          20,
+          30,
           status,
         )
       ],
@@ -504,7 +512,7 @@ Future<ReportSection> _followsTemplate(
   final pubspecSection = await checkPubspec();
 
   return ReportSection(
-      title: 'Packaging conventions',
+      title: 'Follow Dart file conventions',
       maxPoints: 20,
       grantedPoints: pubspecSection.grantedPoints +
           readmeSubsection.grantedPoints +
@@ -702,47 +710,15 @@ ${links.join('\n')}
     );
   }
 
-  Future<_Subsection> publisher() async {
-    final issues = <_Issue>[];
-    String publisher;
-
-    try {
-      publisher = json.decode(await read(
-              'https://pub.dev/api/packages/${Uri.encodeComponent(pubspec.name)}/publisher'))[
-          'publisherId'] as String;
-    } on ClientException catch (e) {
-      issues.add(_Issue(
-        'Could not retrieve publisher information. Has this package been published before? ($e)',
-      ));
-    }
-
-    if (publisher == null) {
-      issues.add(_Issue('Package is not published under a verified publisher.',
-          suggestion: 'See $_publisherDoc for more information.'));
-    }
-    final status = issues.isEmpty ? _Status.good : _Status.bad;
-    final points = issues.isEmpty ? 10 : 0;
-    return _Subsection(
-      'Package is published using a verified publisher',
-      issues,
-      points,
-      10,
-      status,
-    );
-  }
-
   final dependencySection = await dependencies();
   final sdkSection = await sdkSupport();
-  final publisherSection = await publisher();
 
   return ReportSection(
-      title: 'Package is a good, trustworthy dependency',
-      grantedPoints: dependencySection.grantedPoints +
-          sdkSection.grantedPoints +
-          publisherSection.grantedPoints,
-      maxPoints: 30,
-      summary: _makeSummary([dependencySection, sdkSection, publisherSection],
-          basePath: packageDir));
+      title: 'Support up-to-date dependencies',
+      grantedPoints: dependencySection.grantedPoints + sdkSection.grantedPoints,
+      maxPoints: 20,
+      summary:
+          _makeSummary([dependencySection, sdkSection], basePath: packageDir));
 }
 
 Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
@@ -852,7 +828,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
   }
 
   return ReportSection(
-    title: 'Package is multi-platform',
+    title: 'Support multiple platforms',
     maxPoints: 20,
     grantedPoints: subsection.grantedPoints,
     summary: _makeSummary(

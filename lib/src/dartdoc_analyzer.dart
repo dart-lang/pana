@@ -8,7 +8,7 @@ import 'create_report.dart' show renderSimpleSectionSummary;
 import 'model.dart';
 import 'sdk_env.dart';
 
-const documentationSectionTitle = 'Package has documentation';
+const documentationSectionTitle = 'Provide documentation';
 
 List<Suggestion> getDartdocSuggestions(DartdocResult result) {
   if (result == null) {
