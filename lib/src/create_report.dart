@@ -578,6 +578,14 @@ Future<ReportSection> _trustworthyDependency(
           }
         }
 
+        String makeTable(List<List<String>> rows) {
+          return [
+            ['Package', 'Constraint', 'Compatible', 'Latest'],
+            [':-', ':-', ':-', ':-'],
+            ...rows,
+          ].map((r) => '|${r.join('|')}|').join('\n');
+        }
+
         final links = <String>[];
         String linkToPackage(String pkg) {
           final link = '[`$pkg`]: https://pub.dev/packages/$pkg';
@@ -587,49 +595,55 @@ Future<ReportSection> _trustworthyDependency(
           return '[`$pkg`]';
         }
 
-        final depsTable = [
-          ['Package', 'Constraint', 'Compatible', 'Latest'],
-          [':-', ':-', ':-', ':-'],
-          for (final package in outdated.packages)
-            if (pubspec.dependencies.containsKey(package.package))
-              [
-                linkToPackage(package.package),
-                constraint(pubspec.dependencies[package.package]),
-                package.upgradable?.version ?? '-',
-                if (isOutdated(package))
-                  '**${package.latest?.version ?? '-'}**'
-                else
-                  package.latest?.version ?? '-',
-              ],
-        ].map((r) => '|${r.join('|')}|').join('\n');
+        final depsTable = outdated.packages
+            .where((p) => pubspec.dependencies.containsKey(p.package))
+            .map((p) => [
+                  linkToPackage(p.package),
+                  constraint(pubspec.dependencies[p.package]),
+                  p.upgradable?.version ?? '-',
+                  if (isOutdated(p))
+                    '**${p.latest?.version ?? '-'}**'
+                  else
+                    p.latest?.version ?? '-',
+                ])
+            .toList();
 
-        final transitiveTable = [
-          ['Package', 'Constraint', 'Compatible', 'Latest'],
-          [':-', ':-', ':-', ':-'],
-          for (final package in outdated.packages)
+        final transitiveTable = outdated.packages
+            .where((p) => !pubspec.dependencies.containsKey(p.package))
             // See: https://github.com/dart-lang/pub/issues/2552
-            if (!pubspec.dependencies.containsKey(package.package) &&
-                package.upgradable != null)
-              [
-                linkToPackage(package.package),
-                '-',
-                package.upgradable?.version ?? '-',
-                package.latest?.version ?? '-',
-              ],
-        ].map((r) => '|${r.join('|')}|').join('\n');
+            .where((p) => p.upgradable != null)
+            .map((p) => [
+                  linkToPackage(p.package),
+                  '-',
+                  p.upgradable?.version ?? '-',
+                  p.latest?.version ?? '-',
+                ])
+            .toList();
 
-        bodyPrefix = '''
-$depsTable
-
-<details><summary>Transitive dependencies</summary>
-
-$transitiveTable
-</details>
-
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
-
-${links.join('\n')}
-''';
+        bodyPrefix = [
+          // If we have deps show table
+          if (depsTable.isNotEmpty) ...[
+            makeTable(depsTable),
+            '',
+          ] else ...[
+            'No dependencies.',
+            '',
+          ],
+          // If we have transitive deps too
+          if (transitiveTable.isNotEmpty) ...[
+            '<details><summary>Transitive dependencies</summary>',
+            '',
+            makeTable(transitiveTable),
+            '</details>',
+            '',
+          ],
+          'To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.',
+          '',
+          if (links.isNotEmpty) ...[
+            ...links,
+            '',
+          ],
+        ].join('\n');
 
         issues.addAll(outdated.packages.where(isOutdated).map((p) {
           // If outdated it's always a HostedDependency in pubspec.yaml
