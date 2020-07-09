@@ -522,7 +522,7 @@ Future<ReportSection> _followsTemplate(
           basePath: packageDir, maxIssues: 10));
 }
 
-SourceSpan _tryGetSpanFromYamlMap(Map map, String key) {
+SourceSpan _tryGetSpanFromYamlMap(Object map, String key) {
   if (map is YamlMap) {
     return map.nodes[key]?.span;
   }
@@ -536,7 +536,7 @@ Future<ReportSection> _trustworthyDependency(
 ) async {
   Future<_Subsection> dependencies() async {
     final issues = <_Issue>[];
-    var hasProblems = false;
+    var bodyPrefix = '';
     if (pubspec.dartSdkConstraint != null &&
         pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
       try {
@@ -587,7 +587,7 @@ Future<ReportSection> _trustworthyDependency(
           return '[`$pkg`]';
         }
 
-        final table = [
+        final depsTable = [
           ['Package', 'Constraint', 'Compatible', 'Latest'],
           [':-', ':-', ':-', ':-'],
           for (final package in outdated.packages)
@@ -601,7 +601,11 @@ Future<ReportSection> _trustworthyDependency(
                 else
                   package.latest?.version ?? '-',
               ],
-          ['**Transitive dependencies**'],
+        ].map((r) => '|${r.join('|')}|').join('\n');
+
+        final transitiveTable = [
+          ['Package', 'Constraint', 'Compatible', 'Latest'],
+          [':-', ':-', ':-', ':-'],
           for (final package in outdated.packages)
             // See: https://github.com/dart-lang/pub/issues/2552
             if (!pubspec.dependencies.containsKey(package.package) &&
@@ -614,37 +618,40 @@ Future<ReportSection> _trustworthyDependency(
               ],
         ].map((r) => '|${r.join('|')}|').join('\n');
 
-        issues.add(_Issue('Dependencies', suggestion: '''
-$table
+        bodyPrefix = '''
+$depsTable
+
+<details><summary>Transitive dependencies</summary>
+
+$transitiveTable
+</details>
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 ${links.join('\n')}
-'''));
+''';
 
         issues.addAll(outdated.packages.where(isOutdated).map((p) {
           // If outdated it's always a HostedDependency in pubspec.yaml
           final dep = pubspec.dependencies[p.package] as HostedDependency;
-          hasProblems = true;
           return _Issue(
             'The constraint `${dep.version}` on ${p.package} does not support '
             'the latest published version `${p?.latest?.version}`',
-            span: _tryGetSpanFromYamlMap(pubspec.dependencies, 'name'),
+            span: _tryGetSpanFromYamlMap(
+                pubspec.originalYaml['dependencies'], p.package),
           );
         }));
       } on ToolException catch (e) {
         issues.add(_Issue('Could not run pub outdated: ${e.message}'));
-        hasProblems = true;
       }
     } else {
       issues.add(_Issue(
           "Sdk constraint doesn't support current Dart version $currentSdkVersion."
           ' Cannot run `pub outdated`.',
           span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk')));
-      hasProblems = true;
     }
-    final status = hasProblems ? _Status.bad : _Status.good;
-    final points = hasProblems ? 0 : 10;
+    final status = issues.isNotEmpty ? _Status.bad : _Status.good;
+    final points = issues.isNotEmpty ? 0 : 10;
 
     return _Subsection(
       'All of the package dependencies are supported in the latest version',
@@ -652,6 +659,7 @@ ${links.join('\n')}
       points,
       10,
       status,
+      bodyPrefix: bodyPrefix,
     );
   }
 
@@ -914,6 +922,7 @@ class _Subsection {
   final String description;
   final int grantedPoints;
   final int maxPoints;
+  final String bodyPrefix;
 
   final _Status status;
 
@@ -922,8 +931,9 @@ class _Subsection {
     this.issues,
     this.grantedPoints,
     this.maxPoints,
-    this.status,
-  );
+    this.status, {
+    this.bodyPrefix = '',
+  });
 }
 
 /// Given an introduction and a list of issues, formats the summary of a
@@ -938,6 +948,8 @@ String _makeSummary(List<_Subsection> subsections,
       final statusMarker = _statusMarker(subsection.status);
       return [
         '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
+        if (subsection.bodyPrefix != null && subsection.bodyPrefix.isNotEmpty)
+          '${subsection.bodyPrefix}',
         if (subsection.issues.isNotEmpty &&
             subsection.issues.length <= maxIssues)
           issuesMarkdown.join('\n'),
