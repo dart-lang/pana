@@ -113,34 +113,33 @@ WARNING: Parameters can't override default values, this method overrides 'Select
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/model/selection/noop_selection_model_impl.dart`
 </details>
 
-## 10/20 Support up-to-date dependencies
+## 0/20 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
-
-<details>
-<summary>
-Dependencies
-</summary>
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`angular`]|^5.1.0|5.3.1|5.3.1|
-|[`angular_forms`]|^2.1.0|2.1.2|2.1.4|
-|[`async`]|^2.0.8|2.4.2|2.4.2|
-|[`build`]|>=0.11.1 <2.0.0|1.3.0|1.3.0|
-|[`build_config`]|>=0.2.6 <0.4.0|0.3.2|0.4.2|
-|[`built_collection`]|^4.0.0|4.3.2|4.3.2|
-|[`collection`]|^1.14.10|1.14.13|1.14.13|
-|[`fixnum`]|^0.10.7|0.10.11|0.10.11|
-|[`intl`]|>=0.14.0 <0.16.0|0.15.8|0.16.1|
-|[`js`]|^0.6.1|0.6.2|0.6.2|
-|[`logging`]|^0.11.2|0.11.4|0.11.4|
-|[`meta`]|^1.0.4|1.2.1|1.2.1|
-|[`observable`]|^0.22.1+3|0.22.2|0.22.2|
-|[`protobuf`]|^0.10.2|0.10.8|1.0.1|
-|[`quiver`]|>=0.24.0 <0.30.0|0.29.0+2|2.1.3|
-|[`sass_builder`]|^2.0.2|2.1.3|2.1.3|
-|**Transitive dependencies**|
+|[`angular`]|`^5.1.0`|5.3.1|5.3.1|
+|[`angular_forms`]|`^2.1.0`|2.1.2|2.1.4|
+|[`async`]|`^2.0.8`|2.4.2|2.4.2|
+|[`build`]|`>=0.11.1 <2.0.0`|1.3.0|1.3.0|
+|[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.2**|
+|[`built_collection`]|`^4.0.0`|4.3.2|4.3.2|
+|[`collection`]|`^1.14.10`|1.14.13|1.14.13|
+|[`fixnum`]|`^0.10.7`|0.10.11|0.10.11|
+|[`intl`]|`>=0.14.0 <0.16.0`|0.15.8|**0.16.1**|
+|[`js`]|`^0.6.1`|0.6.2|0.6.2|
+|[`logging`]|`^0.11.2`|0.11.4|0.11.4|
+|[`meta`]|`^1.0.4`|1.2.1|1.2.1|
+|[`observable`]|`^0.22.1+3`|0.22.2|0.22.2|
+|[`protobuf`]|`^0.10.2`|0.10.8|**1.0.1**|
+|[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.3**|
+|[`sass_builder`]|`^2.0.2`|2.1.3|2.1.3|
+
+<details><summary>Transitive dependencies</summary>
+
+|Package|Constraint|Compatible|Latest|
+|:-|:-|:-|:-|
 |[`analyzer`]|-|0.35.4|0.39.12|
 |[`angular_ast`]|-|0.5.9|0.5.11|
 |[`angular_compiler`]|-|0.4.3|0.4.5|
@@ -182,6 +181,7 @@ Dependencies
 |[`typed_data`]|-|1.2.0|1.2.0|
 |[`watcher`]|-|0.9.7+15|0.9.7+15|
 |[`yaml`]|-|2.2.1|2.2.1|
+</details>
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
@@ -242,6 +242,37 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 [`typed_data`]: https://pub.dev/packages/typed_data
 [`watcher`]: https://pub.dev/packages/watcher
 [`yaml`]: https://pub.dev/packages/yaml
+
+Found 4 issues. Showing the first 2:
+
+<details>
+<summary>
+The constraint `>=0.2.6 <0.4.0` on build_config does not support the latest published version `0.4.2`
+</summary>
+
+`pubspec.yaml:16:17`
+
+```
+   ╷
+16 │   build_config: '>=0.2.6 <0.4.0'
+   │                 ^^^^^^^^^^^^^^^^
+   ╵
+```
+
+</details>
+<details>
+<summary>
+The constraint `>=0.14.0 <0.16.0` on intl does not support the latest published version `0.16.1`
+</summary>
+
+`pubspec.yaml:20:9`
+
+```
+   ╷
+20 │   intl: '>=0.14.0 <0.16.0'
+   │         ^^^^^^^^^^^^^^^^^^
+   ╵
+```
 
 </details>
 

@@ -118,34 +118,33 @@ INFO: Unnecessary new keyword.
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer bin/dartdoc.dart`
 </details>
 
-## 10/20 Support up-to-date dependencies
+## 0/20 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
-
-<details>
-<summary>
-Dependencies
-</summary>
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|^0.33.0|0.33.6+1|0.39.12|
-|[`args`]|>=1.4.1 <2.0.0|1.6.0|1.6.0|
-|[`collection`]|^1.2.0|1.14.13|1.14.13|
-|[`crypto`]|^2.0.6|2.1.5|2.1.5|
-|[`html`]|>=0.12.1 <0.14.0|0.13.4+2|0.14.0+3|
-|[`http_parser`]|>=3.0.3 <4.0.0|3.1.4|3.1.4|
-|[`logging`]|^0.11.3+1|0.11.4|0.11.4|
-|[`markdown`]|^2.0.0|2.1.5|2.1.5|
-|[`package_config`]|>=0.1.5 <2.0.0|1.9.3|1.9.3|
-|[`path`]|^1.3.0|1.7.0|1.7.0|
-|[`process`]|^3.0.5|3.0.13|3.0.13|
-|[`pub_semver`]|^1.3.7|1.4.4|1.4.4|
-|[`quiver`]|^2.0.0|2.1.3|2.1.3|
-|[`resource`]|^2.1.2|2.1.7|2.1.7|
-|[`stack_trace`]|^1.4.2|1.9.5|1.9.5|
-|[`yaml`]|^2.1.0|2.2.1|2.2.1|
-|**Transitive dependencies**|
+|[`analyzer`]|`^0.33.0`|0.33.6+1|**0.39.12**|
+|[`args`]|`>=1.4.1 <2.0.0`|1.6.0|1.6.0|
+|[`collection`]|`^1.2.0`|1.14.13|1.14.13|
+|[`crypto`]|`^2.0.6`|2.1.5|2.1.5|
+|[`html`]|`>=0.12.1 <0.14.0`|0.13.4+2|**0.14.0+3**|
+|[`http_parser`]|`>=3.0.3 <4.0.0`|3.1.4|3.1.4|
+|[`logging`]|`^0.11.3+1`|0.11.4|0.11.4|
+|[`markdown`]|`^2.0.0`|2.1.5|2.1.5|
+|[`package_config`]|`>=0.1.5 <2.0.0`|1.9.3|1.9.3|
+|[`path`]|`^1.3.0`|1.7.0|1.7.0|
+|[`process`]|`^3.0.5`|3.0.13|3.0.13|
+|[`pub_semver`]|`^1.3.7`|1.4.4|1.4.4|
+|[`quiver`]|`^2.0.0`|2.1.3|2.1.3|
+|[`resource`]|`^2.1.2`|2.1.7|2.1.7|
+|[`stack_trace`]|`^1.4.2`|1.9.5|1.9.5|
+|[`yaml`]|`^2.1.0`|2.2.1|2.2.1|
+
+<details><summary>Transitive dependencies</summary>
+
+|Package|Constraint|Compatible|Latest|
+|:-|:-|:-|:-|
 |[`async`]|-|2.4.2|2.4.2|
 |[`charcode`]|-|1.1.3|1.1.3|
 |[`convert`]|-|2.1.1|2.1.1|
@@ -167,6 +166,7 @@ Dependencies
 |[`typed_data`]|-|1.2.0|1.2.0|
 |[`utf`]|-|0.9.0+5|0.9.0+5|
 |[`watcher`]|-|0.9.7+15|0.9.7+15|
+</details>
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
@@ -207,6 +207,35 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 [`typed_data`]: https://pub.dev/packages/typed_data
 [`utf`]: https://pub.dev/packages/utf
 [`watcher`]: https://pub.dev/packages/watcher
+
+<details>
+<summary>
+The constraint `^0.33.0` on analyzer does not support the latest published version `0.39.12`
+</summary>
+
+`pubspec.yaml:11:13`
+
+```
+   ╷
+11 │   analyzer: ^0.33.0
+   │             ^^^^^^^
+   ╵
+```
+
+</details>
+<details>
+<summary>
+The constraint `>=0.12.1 <0.14.0` on html does not support the latest published version `0.14.0+3`
+</summary>
+
+`pubspec.yaml:15:9`
+
+```
+   ╷
+15 │   html: '>=0.12.1 <0.14.0'
+   │         ^^^^^^^^^^^^^^^^^^
+   ╵
+```
 
 </details>
 

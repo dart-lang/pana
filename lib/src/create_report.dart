@@ -522,7 +522,7 @@ Future<ReportSection> _followsTemplate(
           basePath: packageDir, maxIssues: 10));
 }
 
-SourceSpan _tryGetSpanFromYamlMap(Map map, String key) {
+SourceSpan _tryGetSpanFromYamlMap(Object map, String key) {
   if (map is YamlMap) {
     return map.nodes[key]?.span;
   }
@@ -536,7 +536,7 @@ Future<ReportSection> _trustworthyDependency(
 ) async {
   Future<_Subsection> dependencies() async {
     final issues = <_Issue>[];
-    var hasProblems = false;
+    var bodyPrefix = '';
     if (pubspec.dartSdkConstraint != null &&
         pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
       try {
@@ -550,18 +550,40 @@ Future<ReportSection> _trustworthyDependency(
           ],
         ));
 
+        bool isOutdated(OutdatedPackage package) {
+          final name = package.package;
+          final latest = package?.latest?.version;
+          if (pubspec.dependencies.containsKey(name) && latest != null) {
+            final latestVersion = Version.parse(latest);
+            final dependency = pubspec.dependencies[name];
+            if (dependency is HostedDependency &&
+                !dependency.version.allows(latestVersion)) {
+              return true;
+            }
+          }
+          return false;
+        }
+
         String constraint(Dependency dependency) {
           if (dependency is HostedDependency) {
-            return dependency.version.toString();
+            return '`${dependency.version}`';
           } else if (dependency is SdkDependency) {
-            return dependency.sdk;
+            return '`${dependency.sdk}`';
           } else if (dependency is GitDependency) {
-            return dependency.ref;
+            return '`${dependency.ref}`';
           } else if (dependency is PathDependency) {
-            return dependency.path;
+            return '`${dependency.path}`';
           } else {
             return '-';
           }
+        }
+
+        String makeTable(List<List<String>> rows) {
+          return [
+            ['Package', 'Constraint', 'Compatible', 'Latest'],
+            [':-', ':-', ':-', ':-'],
+            ...rows,
+          ].map((r) => '|${r.join('|')}|').join('\n');
         }
 
         final links = <String>[];
@@ -573,69 +595,77 @@ Future<ReportSection> _trustworthyDependency(
           return '[`$pkg`]';
         }
 
-        final table = [
-          ['Package', 'Constraint', 'Compatible', 'Latest'],
-          [':-', ':-', ':-', ':-'],
-          for (final package in outdated.packages)
-            if (pubspec.dependencies.containsKey(package.package))
-              [
-                linkToPackage(package.package),
-                constraint(pubspec.dependencies[package.package]),
-                package.upgradable?.version ?? '-',
-                package.latest?.version ?? '-',
-              ],
-          ['**Transitive dependencies**'],
-          for (final package in outdated.packages)
+        final depsTable = outdated.packages
+            .where((p) => pubspec.dependencies.containsKey(p.package))
+            .map((p) => [
+                  linkToPackage(p.package),
+                  constraint(pubspec.dependencies[p.package]),
+                  p.upgradable?.version ?? '-',
+                  if (isOutdated(p))
+                    '**${p.latest?.version ?? '-'}**'
+                  else
+                    p.latest?.version ?? '-',
+                ])
+            .toList();
+
+        final transitiveTable = outdated.packages
+            .where((p) => !pubspec.dependencies.containsKey(p.package))
             // See: https://github.com/dart-lang/pub/issues/2552
-            if (!pubspec.dependencies.containsKey(package.package) &&
-                package.upgradable != null)
-              [
-                linkToPackage(package.package),
-                '-',
-                package.upgradable?.version ?? '-',
-                package.latest?.version ?? '-',
-              ],
-        ].map((r) => '|${r.join('|')}|').join('\n');
+            .where((p) => p.upgradable != null)
+            .map((p) => [
+                  linkToPackage(p.package),
+                  '-',
+                  p.upgradable?.version ?? '-',
+                  p.latest?.version ?? '-',
+                ])
+            .toList();
 
-        issues.add(_Issue('Dependencies', suggestion: '''
-$table
+        bodyPrefix = [
+          // If we have deps show table
+          if (depsTable.isNotEmpty) ...[
+            makeTable(depsTable),
+            '',
+          ] else ...[
+            'No dependencies.',
+            '',
+          ],
+          // If we have transitive deps too
+          if (transitiveTable.isNotEmpty) ...[
+            '<details><summary>Transitive dependencies</summary>',
+            '',
+            makeTable(transitiveTable),
+            '</details>',
+            '',
+          ],
+          'To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.',
+          '',
+          if (links.isNotEmpty) ...[
+            ...links,
+            '',
+          ],
+        ].join('\n');
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
-
-${links.join('\n')}
-'''));
-        for (final package in outdated.packages) {
-          if (package is Map) {
-            final name = package.package;
-            final latest = package.latest.version;
-
-            if (pubspec.dependencies.containsKey(name)) {
-              final latestVersion = Version.parse(latest);
-              final dependency = pubspec.dependencies[name];
-              if (dependency is HostedDependency &&
-                  !dependency.version.allows(latestVersion)) {
-                issues.add(_Issue(
-                    'The constraint ${dependency.version} on $name does not support the latest published version $latestVersion',
-                    span:
-                        _tryGetSpanFromYamlMap(pubspec.dependencies, 'name')));
-                hasProblems = true;
-              }
-            }
-          }
-        }
+        issues.addAll(outdated.packages.where(isOutdated).map((p) {
+          // If outdated it's always a HostedDependency in pubspec.yaml
+          final dep = pubspec.dependencies[p.package] as HostedDependency;
+          return _Issue(
+            'The constraint `${dep.version}` on ${p.package} does not support '
+            'the latest published version `${p?.latest?.version}`',
+            span: _tryGetSpanFromYamlMap(
+                pubspec.originalYaml['dependencies'], p.package),
+          );
+        }));
       } on ToolException catch (e) {
         issues.add(_Issue('Could not run pub outdated: ${e.message}'));
-        hasProblems = true;
       }
     } else {
       issues.add(_Issue(
           "Sdk constraint doesn't support current Dart version $currentSdkVersion."
           ' Cannot run `pub outdated`.',
           span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk')));
-      hasProblems = true;
     }
-    final status = hasProblems ? _Status.bad : _Status.good;
-    final points = hasProblems ? 0 : 10;
+    final status = issues.isNotEmpty ? _Status.bad : _Status.good;
+    final points = issues.isNotEmpty ? 0 : 10;
 
     return _Subsection(
       'All of the package dependencies are supported in the latest version',
@@ -643,6 +673,7 @@ ${links.join('\n')}
       points,
       10,
       status,
+      bodyPrefix: bodyPrefix,
     );
   }
 
@@ -905,6 +936,7 @@ class _Subsection {
   final String description;
   final int grantedPoints;
   final int maxPoints;
+  final String bodyPrefix;
 
   final _Status status;
 
@@ -913,8 +945,9 @@ class _Subsection {
     this.issues,
     this.grantedPoints,
     this.maxPoints,
-    this.status,
-  );
+    this.status, {
+    this.bodyPrefix = '',
+  });
 }
 
 /// Given an introduction and a list of issues, formats the summary of a
@@ -929,6 +962,8 @@ String _makeSummary(List<_Subsection> subsections,
       final statusMarker = _statusMarker(subsection.status);
       return [
         '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
+        if (subsection.bodyPrefix != null && subsection.bodyPrefix.isNotEmpty)
+          '${subsection.bodyPrefix}',
         if (subsection.issues.isNotEmpty &&
             subsection.issues.length <= maxIssues)
           issuesMarkdown.join('\n'),
