@@ -91,7 +91,7 @@ Future<ReportSection> _hasDocumentation(
   final points = examplePath == null ? 0 : 10;
   final status = examplePath == null ? _Status.bad : _Status.good;
   return ReportSection(
-    title: 'Provide documentation',
+    title: documentationSectionTitle,
     grantedPoints: points,
     maxPoints: 10,
     summary: _makeSummary(
@@ -129,12 +129,10 @@ Future<ReportSection> _staticAnalysis(
   // 30 points: static analysis has 0 errors, warnings, lints
   var grantedPoints = 0;
   if (errors.isEmpty) {
-    if (warnings.isNotEmpty) {
-      grantedPoints = 10;
-    } else {
-      if (lints.isNotEmpty || formattingIssues.isNotEmpty) {
-        grantedPoints = 20;
-      } else {
+    grantedPoints = 10;
+    if (warnings.isEmpty) {
+      grantedPoints = 20;
+      if (lints.isEmpty && formattingIssues.isEmpty) {
         grantedPoints = 30;
       }
     }
