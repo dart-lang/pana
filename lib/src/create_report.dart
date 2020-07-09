@@ -550,15 +550,29 @@ Future<ReportSection> _trustworthyDependency(
           ],
         ));
 
+        bool isOutdated(OutdatedPackage package) {
+          final name = package.package;
+          final latest = package?.latest?.version;
+          if (pubspec.dependencies.containsKey(name) && latest != null) {
+            final latestVersion = Version.parse(latest);
+            final dependency = pubspec.dependencies[name];
+            if (dependency is HostedDependency &&
+                !dependency.version.allows(latestVersion)) {
+              return true;
+            }
+          }
+          return false;
+        }
+
         String constraint(Dependency dependency) {
           if (dependency is HostedDependency) {
-            return dependency.version.toString();
+            return '`${dependency.version}`';
           } else if (dependency is SdkDependency) {
-            return dependency.sdk;
+            return '`${dependency.sdk}`';
           } else if (dependency is GitDependency) {
-            return dependency.ref;
+            return '`${dependency.ref}`';
           } else if (dependency is PathDependency) {
-            return dependency.path;
+            return '`${dependency.path}`';
           } else {
             return '-';
           }
@@ -582,7 +596,10 @@ Future<ReportSection> _trustworthyDependency(
                 linkToPackage(package.package),
                 constraint(pubspec.dependencies[package.package]),
                 package.upgradable?.version ?? '-',
-                package.latest?.version ?? '-',
+                if (isOutdated(package))
+                  '**${package.latest?.version ?? '-'}**'
+                else
+                  package.latest?.version ?? '-',
               ],
           ['**Transitive dependencies**'],
           for (final package in outdated.packages)
@@ -604,25 +621,17 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 ${links.join('\n')}
 '''));
-        for (final package in outdated.packages) {
-          if (package is Map) {
-            final name = package.package;
-            final latest = package.latest.version;
 
-            if (pubspec.dependencies.containsKey(name)) {
-              final latestVersion = Version.parse(latest);
-              final dependency = pubspec.dependencies[name];
-              if (dependency is HostedDependency &&
-                  !dependency.version.allows(latestVersion)) {
-                issues.add(_Issue(
-                    'The constraint ${dependency.version} on $name does not support the latest published version $latestVersion',
-                    span:
-                        _tryGetSpanFromYamlMap(pubspec.dependencies, 'name')));
-                hasProblems = true;
-              }
-            }
-          }
-        }
+        issues.addAll(outdated.packages.where(isOutdated).map((p) {
+          // If outdated it's always a HostedDependency in pubspec.yaml
+          final dep = pubspec.dependencies[p.package] as HostedDependency;
+          hasProblems = true;
+          return _Issue(
+            'The constraint `${dep.version}` on ${p.package} does not support '
+            'the latest published version `${p?.latest?.version}`',
+            span: _tryGetSpanFromYamlMap(pubspec.dependencies, 'name'),
+          );
+        }));
       } on ToolException catch (e) {
         issues.add(_Issue('Could not run pub outdated: ${e.message}'));
         hasProblems = true;
