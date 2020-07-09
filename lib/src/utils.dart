@@ -82,7 +82,6 @@ Future<ProcessResult> runProc(
       if (deduplicate && stderrLines.contains(errLine)) {
         return;
       }
-      stderrLines.add(errLine);
       // Uncomment to debug long execution
       // stderr.writeln(errLine);
       if (stderrLines.length > _maxLines) {
