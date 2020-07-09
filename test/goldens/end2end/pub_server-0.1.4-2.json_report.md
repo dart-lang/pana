@@ -63,21 +63,20 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
-<details>
-<summary>
-Dependencies
-</summary>
+|Package|Constraint|Compatible|Latest|
+|:-|:-|:-|:-|
+|[`dart2_constant`]|`^1.0.1`|1.0.2+dart2|1.0.2+dart2|
+|[`http_parser`]|`^3.0.0`|3.1.4|3.1.4|
+|[`logging`]|`>=0.9.3 <1.0.0`|0.11.4|0.11.4|
+|[`mime`]|`>=0.9.3 <0.10.0`|0.9.6+3|0.9.6+3|
+|[`pub_semver`]|`^1.1.0`|1.4.4|1.4.4|
+|[`shelf`]|`>=0.5.6 <0.8.0`|0.7.7|0.7.7|
+|[`yaml`]|`^2.1.2`|2.2.1|2.2.1|
+
+<details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`dart2_constant`]|^1.0.1|1.0.2+dart2|1.0.2+dart2|
-|[`http_parser`]|^3.0.0|3.1.4|3.1.4|
-|[`logging`]|>=0.9.3 <1.0.0|0.11.4|0.11.4|
-|[`mime`]|>=0.9.3 <0.10.0|0.9.6+3|0.9.6+3|
-|[`pub_semver`]|^1.1.0|1.4.4|1.4.4|
-|[`shelf`]|>=0.5.6 <0.8.0|0.7.7|0.7.7|
-|[`yaml`]|^2.1.2|2.2.1|2.2.1|
-|**Transitive dependencies**|
 |[`async`]|-|2.4.2|2.4.2|
 |[`charcode`]|-|1.1.3|1.1.3|
 |[`collection`]|-|1.14.13|1.14.13|
@@ -88,6 +87,7 @@ Dependencies
 |[`string_scanner`]|-|1.0.5|1.0.5|
 |[`term_glyph`]|-|1.1.0|1.1.0|
 |[`typed_data`]|-|1.2.0|1.2.0|
+</details>
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
@@ -109,7 +109,6 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 [`term_glyph`]: https://pub.dev/packages/term_glyph
 [`typed_data`]: https://pub.dev/packages/typed_data
 
-</details>
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
