@@ -51,8 +51,7 @@ Future<ProcessResult> runProc(
   void killProc(String message) {
     if (killed != true) {
       killMessage = message;
-      stderr.writeln('Killing $process');
-      stderr.writeln('  $message');
+      log.severe('Killing `$executable ${arguments.join(' ')}` $killMessage');
       killed = process.kill();
       stderr.writeln('  killed? - $killed');
     }
@@ -82,6 +81,7 @@ Future<ProcessResult> runProc(
       if (deduplicate && stderrLines.contains(errLine)) {
         return;
       }
+      stderrLines.add(errLine);
       // Uncomment to debug long execution
       // stderr.writeln(errLine);
       if (stderrLines.length > _maxLines) {
@@ -95,9 +95,6 @@ Future<ProcessResult> runProc(
   final exitCode = items[0] as int;
   if (killed == true) {
     assert(exitCode < 0);
-
-    stdoutLines.insert(0, killMessage);
-    stderrLines.insert(0, killMessage);
 
     return ProcessResult(process.pid, exitCode,
         stdoutLines.take(1000).join('\n'), stderrLines.take(1000).join('\n'));
