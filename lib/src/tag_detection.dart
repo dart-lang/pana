@@ -503,25 +503,28 @@ _PathFinder<Uri> runtimeViolationFinder(
 class _FlutterPlatform {
   final String name;
   final Runtime runtime;
+  final String tag;
 
-  _FlutterPlatform(this.name, this.runtime);
+  _FlutterPlatform(this.name, this.runtime, {@required this.tag});
   static final List<_FlutterPlatform> recognizedPlatforms = [
     android,
     ios,
-    _FlutterPlatform('Windows', Runtime.flutterNative),
-    _FlutterPlatform('Linux', Runtime.flutterNative),
-    _FlutterPlatform('macOS', Runtime.flutterNative),
-    _FlutterPlatform('Web', Runtime.flutterWeb)
+    _FlutterPlatform('Windows', Runtime.flutterNative, tag: 'platform:windows'),
+    _FlutterPlatform('Linux', Runtime.flutterNative, tag: 'platform:linux'),
+    _FlutterPlatform('macOS', Runtime.flutterNative, tag: 'platform:macos'),
+    _FlutterPlatform('Web', Runtime.flutterWeb, tag: 'platform:web')
   ];
 
   static final _FlutterPlatform ios =
-      _FlutterPlatform('iOS', Runtime.flutterNative);
-  static final _FlutterPlatform android =
-      _FlutterPlatform('Android', Runtime.flutterNative);
+      _FlutterPlatform('iOS', Runtime.flutterNative, tag: 'platform:ios');
+  static final _FlutterPlatform android = _FlutterPlatform(
+    'Android',
+    Runtime.flutterNative,
+    tag: 'platform:android',
+  );
+
   @override
   String toString() => 'FlutterPlatform($name)';
-
-  String get tag => 'platform:${name.toLowerCase()}';
 }
 
 class _DeclaredFlutterPlatformDetector {
@@ -551,7 +554,7 @@ class _DeclaredFlutterPlatformDetector {
       final declaredPlatforms = pluginMap['platforms'];
       if (declaredPlatforms is Map) {
         for (final platform in _FlutterPlatform.recognizedPlatforms) {
-          if (declaredPlatforms.containsKey(platform.name)) {
+          if (declaredPlatforms.containsKey(platform.name.toLowerCase())) {
             result.add(platform);
           }
         }
