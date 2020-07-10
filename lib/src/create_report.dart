@@ -789,27 +789,14 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
 
       final officialTags = tags.where(tagNames.containsKey).toList();
       final platforms = platformList(tags, tagNames);
+      final description = 'Supports ${officialTags.length} of '
+          '${tagNames.length} possible platforms ($platforms)';
       if (officialTags.length <= 1) {
-        subsection = _Subsection(
-            'Supports 0 of 3 possible platforms ($platforms)',
-            issues,
-            0,
-            20,
-            _Status.bad);
+        subsection = _Subsection(description, issues, 0, 20, _Status.bad);
       } else if (officialTags.length == 2) {
-        subsection = _Subsection(
-            'Supports 2 of 3 possible platforms ($platforms)',
-            issues,
-            10,
-            20,
-            _Status.soso);
+        subsection = _Subsection(description, issues, 10, 20, _Status.soso);
       } else {
-        subsection = _Subsection(
-            'Supports 3 of 3 possible platforms ($platforms)',
-            issues,
-            20,
-            20,
-            _Status.good);
+        subsection = _Subsection(description, issues, 20, 20, _Status.good);
       }
     } else {
       tagger.runtimeTags(tags, explanations);
@@ -822,27 +809,14 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final officialTags = tags.where(tagNames.containsKey).toList();
 
       final platforms = platformList(tags, tagNames);
+      final description = 'Supports ${officialTags.length} of '
+          '${tagNames.length} possible platforms ($platforms)';
       if (officialTags.isEmpty) {
-        subsection = _Subsection(
-            'Supports 0 of 2 possible platforms ($platforms)',
-            issues,
-            0,
-            20,
-            _Status.bad);
+        subsection = _Subsection(description, issues, 0, 20, _Status.bad);
       } else if (officialTags.length == 1) {
-        subsection = _Subsection(
-            'Supports 1 of 2 possible platforms ($platforms)',
-            issues,
-            10,
-            20,
-            _Status.soso);
+        subsection = _Subsection(description, issues, 10, 20, _Status.soso);
       } else {
-        subsection = _Subsection(
-            'Supports 2 of 2 possible platforms ($platforms)',
-            issues,
-            20,
-            20,
-            _Status.good);
+        subsection = _Subsection(description, issues, 20, 20, _Status.good);
       }
     }
   } else {

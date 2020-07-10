@@ -130,7 +130,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`intl`]|`>=0.14.0 <0.16.0`|0.15.8|**0.16.1**|
 |[`js`]|`^0.6.1`|0.6.2|0.6.2|
 |[`logging`]|`^0.11.2`|0.11.4|0.11.4|
-|[`meta`]|`^1.0.4`|1.2.1|1.2.1|
+|[`meta`]|`^1.0.4`|1.2.2|1.2.2|
 |[`observable`]|`^0.22.1+3`|0.22.2|0.22.2|
 |[`protobuf`]|`^0.10.2`|0.10.8|**1.0.1**|
 |[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.3**|
@@ -166,7 +166,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`node_io`]|-|1.1.1|1.1.1|
 |[`package_config`]|-|1.9.3|1.9.3|
 |[`package_resolver`]|-|1.0.10|1.0.10|
-|[`pedantic`]|-|1.9.1|1.9.1|
+|[`pedantic`]|-|1.9.2|1.9.2|
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.5|0.1.5|
 |[`sass`]|-|1.26.10|1.26.10|

@@ -80,7 +80,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`async`]|-|2.4.2|2.4.2|
 |[`charcode`]|-|1.1.3|1.1.3|
 |[`collection`]|-|1.14.13|1.14.13|
-|[`meta`]|-|1.2.1|1.2.1|
+|[`meta`]|-|1.2.2|1.2.2|
 |[`source_span`]|-|1.7.0|1.7.0|
 |[`stack_trace`]|-|1.9.5|1.9.5|
 |[`stream_channel`]|-|2.0.0|2.0.0|
