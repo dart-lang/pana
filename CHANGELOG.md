@@ -1,3 +1,8 @@
+## 0.13.15
+
+* Fix: handle new `--version` output from latest Dart SDK.
+* Various nit fixes to the generated report.
+
 ## 0.13.14
 
 * Fixed required URL checks in pubspec validation.
