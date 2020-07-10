@@ -783,10 +783,13 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
         _Status Function(int) statusFromCount,
         List<String> tags,
         List<Explanation> explanations) {
-      final unofficialExplanations = explanations
-          .where((e) => e.tag != null && !tagNames.containsKey(e.tag));
-      final officialExplanations = explanations
-          .where((e) => e.tag == null || tagNames.containsKey(e.tag));
+      final unofficialExplanations = explanations.where((e) =>
+          !tags.contains(e.tag) &&
+          (e.tag != null && !tagNames.containsKey(e.tag)));
+      final officialExplanations = explanations.where((e) =>
+          !tags.contains(e.tag) &&
+          (e.tag == null || tagNames.containsKey(e.tag)));
+      final trustExplanations = explanations.where((e) => tags.contains(e.tag));
       final paragraphs = [
         if (officialExplanations.isNotEmpty)
           _RawParagraph(
@@ -795,6 +798,10 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
         if (unofficialExplanations.isNotEmpty)
           _RawParagraph('\nConsider supporting these prerelease platforms:\n'),
         ...unofficialExplanations.map(explanationToIssue),
+        if (trustExplanations.isNotEmpty)
+          _RawParagraph(
+              '\nThese issues are present but no points were deducted because they may not originate in your package:\n'),
+        ...trustExplanations.map(explanationToIssue),
       ];
 
       final officialTags = tags.where(tagNames.containsKey).toList();
@@ -809,7 +816,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
     }
 
     if (flutterPackage) {
-      tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
+      tagger.flutterPlatformTags(tags, explanations, trustDeclarations: true);
       final tagNames = const {
         'platform:ios': 'iOS',
         'platform:android': 'Android',
