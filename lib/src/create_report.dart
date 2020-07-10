@@ -809,7 +809,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
     }
 
     if (flutterPackage) {
-      tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
+      tagger.flutterPlatformTags(tags, explanations, trustDeclarations: true);
       final tagNames = const {
         'platform:ios': 'iOS',
         'platform:android': 'Android',
