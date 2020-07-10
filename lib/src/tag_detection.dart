@@ -503,6 +503,7 @@ _PathFinder<Uri> runtimeViolationFinder(
 class _FlutterPlatform {
   final String name;
   final Runtime runtime;
+
   _FlutterPlatform(this.name, this.runtime);
   static final List<_FlutterPlatform> recognizedPlatforms = [
     android,
@@ -520,7 +521,7 @@ class _FlutterPlatform {
   @override
   String toString() => 'FlutterPlatform($name)';
 
-  String get tag => 'platform:$name';
+  String get tag => 'platform:${name.toLowerCase()}';
 }
 
 class _DeclaredFlutterPlatformDetector {
