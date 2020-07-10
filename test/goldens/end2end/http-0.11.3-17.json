@@ -2654,11 +2654,11 @@
   "tags": [
     "sdk:dart",
     "sdk:flutter",
-    "platform:Android",
-    "platform:iOS",
-    "platform:Windows",
-    "platform:Linux",
-    "platform:macOS",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
     "runtime:native-aot",
     "runtime:native-jit"
   ],

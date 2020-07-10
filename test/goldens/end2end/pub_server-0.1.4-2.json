@@ -933,12 +933,12 @@
   "tags": [
     "sdk:dart",
     "sdk:flutter",
-    "platform:Android",
-    "platform:iOS",
-    "platform:Windows",
-    "platform:Linux",
-    "platform:macOS",
-    "platform:Web",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "platform:web",
     "runtime:native-aot",
     "runtime:native-jit",
     "runtime:web"
