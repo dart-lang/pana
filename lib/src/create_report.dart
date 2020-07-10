@@ -800,7 +800,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
         ...unofficialExplanations.map(explanationToIssue),
         if (trustExplanations.isNotEmpty)
           _RawParagraph(
-              '\nThese issues are present but no points were deducted because they do not originate in your package:\n'),
+              '\nThese issues are present but no points were deducted because they may not originate in your package:\n'),
         ...trustExplanations.map(explanationToIssue),
       ];
 
