@@ -157,7 +157,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`matcher`]|-|0.12.8|0.12.8|
 |[`node_interop`]|-|1.1.1|1.1.1|
 |[`node_io`]|-|1.1.1|1.1.1|
-|[`pedantic`]|-|1.9.1|1.9.1|
+|[`pedantic`]|-|1.9.2|1.9.2|
 |[`platform`]|-|2.2.1|2.2.1|
 |[`plugin`]|-|0.2.0+3|0.2.0+3|
 |[`source_span`]|-|1.7.0|1.7.0|
