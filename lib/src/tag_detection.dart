@@ -507,16 +507,16 @@ class _FlutterPlatform {
   static final List<_FlutterPlatform> recognizedPlatforms = [
     android,
     ios,
-    _FlutterPlatform('windows', Runtime.flutterNative),
-    _FlutterPlatform('linux', Runtime.flutterNative),
-    _FlutterPlatform('macos', Runtime.flutterNative),
-    _FlutterPlatform('web', Runtime.flutterWeb)
+    _FlutterPlatform('Windows', Runtime.flutterNative),
+    _FlutterPlatform('Linux', Runtime.flutterNative),
+    _FlutterPlatform('macOS', Runtime.flutterNative),
+    _FlutterPlatform('Web', Runtime.flutterWeb)
   ];
 
   static final _FlutterPlatform ios =
-      _FlutterPlatform('ios', Runtime.flutterNative);
+      _FlutterPlatform('iOS', Runtime.flutterNative);
   static final _FlutterPlatform android =
-      _FlutterPlatform('android', Runtime.flutterNative);
+      _FlutterPlatform('Android', Runtime.flutterNative);
   @override
   String toString() => 'FlutterPlatform($name)';
 

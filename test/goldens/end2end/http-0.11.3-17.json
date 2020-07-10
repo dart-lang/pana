@@ -120,7 +120,7 @@
     {
       "code": "tagging.notCompatible",
       "level": "hint",
-      "title": "Package not compatible with runtime flutter-web on web",
+      "title": "Package not compatible with runtime flutter-web on Web",
       "description": "Because:\n* `package:http/http.dart` that imports:\n* `package:http/src/streamed_response.dart` that imports:\n* `package:http/src/base_request.dart` that imports:\n* `package:http/src/client.dart` that imports:\n* `package:http/src/io_client.dart` that imports:\n* `dart:io`"
     },
     {
@@ -2654,11 +2654,11 @@
   "tags": [
     "sdk:dart",
     "sdk:flutter",
-    "platform:android",
-    "platform:ios",
-    "platform:windows",
-    "platform:linux",
-    "platform:macos",
+    "platform:Android",
+    "platform:iOS",
+    "platform:Windows",
+    "platform:Linux",
+    "platform:macOS",
     "runtime:native-aot",
     "runtime:native-jit"
   ],
