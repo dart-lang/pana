@@ -790,7 +790,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final paragraphs = [
         if (officialExplanations.isNotEmpty)
           _RawParagraph(
-              'Consider supporting multiple platforms. Points were deducted due to the following issues:\n'),
+              'Consider supporting multiple platforms. Points were deducted due to the following:\n'),
         ...officialExplanations.map(explanationToIssue),
         if (unofficialExplanations.isNotEmpty)
           _RawParagraph('\nConsider supporting these prerelease platforms:\n'),
