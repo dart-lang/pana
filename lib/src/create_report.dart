@@ -778,46 +778,67 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       }).join(', ');
     }
 
-    if (flutterPackage) {
-      tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
-      final issues = explanations.map(explanationToIssue).toList();
-      final tagNames = const {
-        'platform:ios': 'iOs',
-        'platform:android': 'Android',
-        'platform:web': 'Web',
-      };
+    _Subsection scorePlatforms(
+        Map<String, String> tagNames,
+        _Status Function(int) statusFromCount,
+        List<String> tags,
+        List<Explanation> explanations) {
+      final unofficialExplanations = explanations
+          .where((e) => e.tag != null && !tagNames.containsKey(e.tag));
+      final officialExplanations = explanations
+          .where((e) => e.tag == null || tagNames.containsKey(e.tag));
+      final paragraphs = [
+        if (officialExplanations.isNotEmpty)
+          _RawParagraph(
+              'Consider supporting multiple platforms. Points were deducted due to the following issues:\n'),
+        ...officialExplanations.map(explanationToIssue),
+        if (unofficialExplanations.isNotEmpty)
+          _RawParagraph('\nConsider supporting these prerelease platforms:\n'),
+        ...unofficialExplanations.map(explanationToIssue),
+      ];
 
       final officialTags = tags.where(tagNames.containsKey).toList();
+      final status = statusFromCount(officialTags.length);
+      final score =
+          {_Status.bad: 0, _Status.soso: 10, _Status.good: 20}[status];
+
       final platforms = platformList(tags, tagNames);
       final description = 'Supports ${officialTags.length} of '
           '${tagNames.length} possible platforms ($platforms)';
-      if (officialTags.length <= 1) {
-        subsection = _Subsection(description, issues, 0, 20, _Status.bad);
-      } else if (officialTags.length == 2) {
-        subsection = _Subsection(description, issues, 10, 20, _Status.soso);
-      } else {
-        subsection = _Subsection(description, issues, 20, 20, _Status.good);
-      }
+      return _Subsection(description, paragraphs, score, 20, status);
+    }
+
+    if (flutterPackage) {
+      tagger.flutterPlatformTags(tags, explanations, trustDeclarations: false);
+      final tagNames = const {
+        'platform:ios': 'iOS',
+        'platform:android': 'Android',
+        'platform:web': 'Web',
+      };
+      subsection = scorePlatforms(
+        tagNames,
+        (count) => count <= 1
+            ? _Status.bad
+            : (count == 2 ? _Status.soso : _Status.good),
+        tags,
+        explanations,
+      );
     } else {
       tagger.runtimeTags(tags, explanations);
-      final issues = explanations.map(explanationToIssue).toList();
 
       final tagNames = const {
         'runtime:native-jit': 'native',
         'runtime:web': 'js',
       };
-      final officialTags = tags.where(tagNames.containsKey).toList();
 
-      final platforms = platformList(tags, tagNames);
-      final description = 'Supports ${officialTags.length} of '
-          '${tagNames.length} possible platforms ($platforms)';
-      if (officialTags.isEmpty) {
-        subsection = _Subsection(description, issues, 0, 20, _Status.bad);
-      } else if (officialTags.length == 1) {
-        subsection = _Subsection(description, issues, 10, 20, _Status.soso);
-      } else {
-        subsection = _Subsection(description, issues, 20, 20, _Status.good);
-      }
+      subsection = scorePlatforms(
+        tagNames,
+        (count) => count == 0
+            ? _Status.bad
+            : (count == 1 ? _Status.soso : _Status.good),
+        tags,
+        explanations,
+      );
     }
   } else {
     subsection = _Subsection(
@@ -848,11 +869,24 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
 /// Loads [SourceSpan] on-demand.
 typedef SourceSpanFn = SourceSpan Function();
 
+abstract class _Paragraph {
+  String markdown({@required String basePath});
+}
+
+class _RawParagraph implements _Paragraph {
+  final String _markdown;
+
+  _RawParagraph(this._markdown);
+
+  @override
+  String markdown({@required basePath}) => _markdown;
+}
+
 /// A single issue found by the analysis.
 ///
 /// This is not part of the external data-model, but used for gathering
 /// sub-problems for making a [ReportSection] summary.
-class _Issue {
+class _Issue implements _Paragraph {
   /// Markdown description of the issue.
   final String description;
 
@@ -873,6 +907,7 @@ class _Issue {
 
   _Issue(this.description, {this.span, this.spanFn, this.suggestion});
 
+  @override
   String markdown({@required String basePath}) {
     final span = this.span ?? (spanFn == null ? null : spanFn());
     if (suggestion == null && span == null) {
@@ -906,7 +941,7 @@ extension on SourceSpan {
 }
 
 class _Subsection {
-  final List<_Issue> issues;
+  final List<_Paragraph> issues;
   final String description;
   final int grantedPoints;
   final int maxPoints;

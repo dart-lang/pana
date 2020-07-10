@@ -151,7 +151,14 @@ class _PathFinder<T> {
 class Explanation {
   final String finding;
   final String explanation;
-  Explanation(this.finding, this.explanation);
+
+  /// The tag that this explanation explains why the package didn't get.
+  ///
+  /// Should be `null` if this is a more general error message not connected to
+  /// any certain tag.
+  final String tag;
+
+  Explanation(this.finding, this.explanation, {@required this.tag});
 
   @override
   String toString() => 'Explanation($finding, $explanation)';
@@ -582,6 +589,7 @@ class _PlatformViolationFinder {
                     'Package does not support Flutter platform ${platform.name}',
                     'Because:\n${LibraryGraph.formatPath(path)} that declares support for '
                         'platforms: ${detectedPlatforms.map((e) => e.name).join(', ')}',
+                    tag: platform.tag,
                   );
             }
           }
@@ -613,9 +621,11 @@ class _SdkViolationFinder {
             return nonAllowedSdks.isEmpty
                 ? null
                 : (path) => Explanation(
-                    'Package not compatible with SDK ${sdk.name}',
-                    'Because:\n${_PackageGraph.formatPath(path)} that is a package requiring'
-                        ' ${nonAllowedSdks.map((e) => null).join(', ')}.');
+                      'Package not compatible with SDK ${sdk.name}',
+                      'Because:\n${_PackageGraph.formatPath(path)} that is a package requiring'
+                          ' ${nonAllowedSdks.map((e) => null).join(', ')}.',
+                      tag: sdk.tag,
+                    );
           },
         ),
         _allowedRuntimeViolationFinders = sdk.allowedRuntimes
@@ -623,8 +633,10 @@ class _SdkViolationFinder {
                 LibraryGraph(session, runtime.declaredVariables),
                 runtime,
                 (path) => Explanation(
-                    'Package not compatible with sdk ${sdk.name} using runtime ${runtime.name}',
-                    'Because:\n${LibraryGraph.formatPath(path)}')))
+                      'Package not compatible with sdk ${sdk.name} using runtime ${runtime.name}',
+                      'Because:\n${LibraryGraph.formatPath(path)}',
+                      tag: sdk.tag,
+                    )))
             .toList();
 
   Explanation findSdkViolation(String packageName, List<Uri> topLibraries) {
@@ -648,6 +660,7 @@ class _SdkViolationFinder {
       'Package not compatible with SDK ${sdk.name}',
       'Because it is not compatible with any of the supported runtimes: '
           '${sdk.allowedRuntimes.map((r) => r.name).join(', ')}',
+      tag: sdk.tag,
     );
   }
 }
@@ -695,6 +708,7 @@ class _NullSafetyViolationFinder {
                     'Package is not null safe',
                     'Because:\n${_PackageGraph.formatPath(path)} '
                         'that doesn\'t opt in to null safety',
+                    tag: nullSafeTag,
                   );
         }),
         _noOptoutViolationFinder = _PathFinder(
@@ -715,6 +729,7 @@ class _NullSafetyViolationFinder {
                 return (path) => Explanation(
                       'Package is not null safe',
                       'Because:\n${_PackageGraph.formatPath(path)} where $file is opting out from null-safety.',
+                      tag: nullSafeTag,
                     );
               }
             }
@@ -728,6 +743,7 @@ class _NullSafetyViolationFinder {
   }
 
   static final _firstVersionWithNullSafety = Version.parse('2.10.0');
+  static const nullSafeTag = 'is:null-safe';
 }
 
 /// Calculates the tags for the package residing in a given directory.
@@ -795,11 +811,13 @@ class Tagger {
       if (_isBinaryOnly) {
         tags.add('sdk:dart');
         explanations.add(Explanation('Binary only',
-            'Cannot assign flutter SDK tag because it is binary only'));
+            'Cannot assign flutter SDK tag because it is binary only',
+            tag: null));
       } else if (_topLibraries.isEmpty) {
         explanations.add(
           Explanation('No top-level libraries found',
-              'Cannot assign sdk tags, because no .dart files where found in lib/'),
+              'Cannot assign sdk tags, because no .dart files where found in lib/',
+              tag: null),
         );
       } else {
         for (final sdk in _Sdk.knownSdks) {
@@ -816,7 +834,11 @@ class Tagger {
         }
       }
     } on _TagException catch (e) {
-      explanations.add(Explanation('Tag detection failed.', e.message));
+      explanations.add(Explanation(
+        'Tag detection failed.',
+        e.message,
+        tag: null,
+      ));
       return;
     }
   }
@@ -832,10 +854,12 @@ class Tagger {
     try {
       if (_isBinaryOnly) {
         explanations.add(Explanation('Binary only',
-            'Cannot assign flutter platform tags, it is a binary only package'));
+            'Cannot assign flutter platform tags, it is a binary only package',
+            tag: null));
       } else if (_topLibraries.isEmpty) {
         explanations.add(Explanation('No top-level libraries found',
-            'Cannot assign Flutter platform tags, because no .dart files were found in lib/'));
+            'Cannot assign Flutter platform tags, because no .dart files were found in lib/',
+            tag: null));
       } else {
         for (final flutterPlatform in _FlutterPlatform.recognizedPlatforms) {
           final libraryGraph =
@@ -843,16 +867,20 @@ class Tagger {
           final declaredPlatformDetector =
               _DeclaredFlutterPlatformDetector(_pubspecCache);
           final violationFinder = _PlatformViolationFinder(
-              flutterPlatform,
+            flutterPlatform,
+            libraryGraph,
+            declaredPlatformDetector,
+            _pubspecCache,
+            runtimeViolationFinder(
               libraryGraph,
-              declaredPlatformDetector,
-              _pubspecCache,
-              runtimeViolationFinder(
-                  libraryGraph,
-                  flutterPlatform.runtime,
-                  (List<Uri> path) => Explanation(
-                      'Package not compatible with runtime ${flutterPlatform.runtime.name} on ${flutterPlatform.name}',
-                      'Because:\n${LibraryGraph.formatPath(path)}')));
+              flutterPlatform.runtime,
+              (List<Uri> path) => Explanation(
+                'Package not compatible with runtime ${flutterPlatform.runtime.name} on ${flutterPlatform.name}',
+                'Because:\n${LibraryGraph.formatPath(path)}',
+                tag: flutterPlatform.tag,
+              ),
+            ),
+          );
 
           // Wanting to trust the plugins annotations when assigning tags we make
           // a library graph that treats all libraries in plugins as leaf-nodes.
@@ -877,7 +905,8 @@ class Tagger {
                   flutterPlatform.runtime,
                   (List<Uri> path) => Explanation(
                       'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
-                      'Because:\n${LibraryGraph.formatPath(path)}')));
+                      'Because:\n${LibraryGraph.formatPath(path)}',
+                      tag: flutterPlatform.tag)));
           // Report only the first non-pruned violation as Explanation
           final firstNonPrunedViolation = _topLibraries
               .map(violationFinder._findPlatformViolation)
@@ -897,7 +926,8 @@ class Tagger {
         }
       }
     } on _TagException catch (e) {
-      explanations.add(Explanation('Tag detection failed.', e.message));
+      explanations
+          .add(Explanation('Tag detection failed.', e.message, tag: null));
       return;
     }
   }
@@ -911,7 +941,8 @@ class Tagger {
         tags.addAll(<String>[Runtime.nativeAot.name, Runtime.nativeJit.name]);
       } else if (_topLibraries.isEmpty) {
         explanations.add(Explanation('No top-level libraries found',
-            'Cannot assign runtime tags, because no .dart files where found in lib/'));
+            'Cannot assign runtime tags, because no .dart files where found in lib/',
+            tag: null));
       } else {
         final dartSdkViolationFinder = _SdkViolationFinder(
             _packageGraph, _Sdk.dart, _pubspecCache, _session);
@@ -930,7 +961,8 @@ class Tagger {
                 runtime,
                 (List<Uri> path) => Explanation(
                     'Package not compatible with runtime ${runtime.name}',
-                    'Because:\n${LibraryGraph.formatPath(path)}'));
+                    'Because:\n${LibraryGraph.formatPath(path)}',
+                    tag: null));
             var supports = true;
             for (final lib in _topLibraries) {
               final violationResult = finder.findViolation(lib);
@@ -947,7 +979,8 @@ class Tagger {
         }
       }
     } on _TagException catch (e) {
-      explanations.add(Explanation('Tag detection failed.', e.message));
+      explanations
+          .add(Explanation('Tag detection failed.', e.message, tag: null));
       return;
     }
   }
@@ -960,10 +993,14 @@ class Tagger {
       if (nullSafetyResult != null) {
         explanations.add(nullSafetyResult);
       } else {
-        return tags.add('is:null-safe');
+        return tags.add(_NullSafetyViolationFinder.nullSafeTag);
       }
     } on _TagException catch (e) {
-      explanations.add(Explanation('Tag detection failed.', e.message));
+      explanations.add(Explanation(
+        'Tag detection failed.',
+        e.message,
+        tag: _NullSafetyViolationFinder.nullSafeTag,
+      ));
       return;
     }
   }
