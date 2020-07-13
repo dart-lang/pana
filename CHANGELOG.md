@@ -1,3 +1,7 @@
+## 0.13.16
+
+* Clarified and fixed report summaries.
+
 ## 0.13.15
 
 * Fix: handle new `--version` output from latest Dart SDK.

@@ -792,15 +792,14 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final trustExplanations = explanations.where((e) => tags.contains(e.tag));
       final paragraphs = [
         if (officialExplanations.isNotEmpty)
-          _RawParagraph(
-              'Consider supporting multiple platforms. Points were deducted due to the following:\n'),
+          _RawParagraph('Consider supporting multiple platforms:\n'),
         ...officialExplanations.map(explanationToIssue),
         if (unofficialExplanations.isNotEmpty)
           _RawParagraph('\nConsider supporting these prerelease platforms:\n'),
         ...unofficialExplanations.map(explanationToIssue),
         if (trustExplanations.isNotEmpty)
           _RawParagraph(
-              '\nThese issues are present but no points were deducted because they may not originate in your package:\n'),
+              '\nThese issues are present but do not affect the score, because they may not originate in your package:\n'),
         ...trustExplanations.map(explanationToIssue),
       ];
 

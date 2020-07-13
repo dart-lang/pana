@@ -43,7 +43,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)
 
-Consider supporting multiple platforms. Points were deducted due to the following:
+Consider supporting multiple platforms:
 
 <details>
 <summary>
@@ -172,7 +172,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.5|0.1.5|
 |[`sass`]|-|1.26.10|1.26.10|
-|[`source_gen`]|-|0.9.4+4|0.9.5|
+|[`source_gen`]|-|0.9.4+4|0.9.6|
 |[`source_maps`]|-|0.10.9|0.10.9|
 |[`source_span`]|-|1.7.0|1.7.0|
 |[`stack_trace`]|-|1.9.5|1.9.5|
