@@ -85,7 +85,7 @@ void main() {
     );
   });
 
-  test('not whitelisted analyzer error', () {
+  test('not allowed analyzer error', () {
     final original = '''
 analyzer:
   errors:
@@ -103,7 +103,7 @@ analyzer:
     );
   });
 
-  test('whitelisted analyzer error', () {
+  test('allowed analyzer error', () {
     final original = '''
 analyzer:
   errors:
