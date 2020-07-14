@@ -48,7 +48,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [~] 10/20 points: Supports 1 of 2 possible platforms (**native**, js)
 
-Consider supporting multiple platforms. Points were deducted due to the following:
+Consider supporting multiple platforms:
 
 <details>
 <summary>
@@ -126,7 +126,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|`^0.33.0`|0.33.6+1|**0.39.12**|
+|[`analyzer`]|`^0.33.0`|0.33.6+1|**0.39.13**|
 |[`args`]|`>=1.4.1 <2.0.0`|1.6.0|1.6.0|
 |[`collection`]|`^1.2.0`|1.14.13|1.14.13|
 |[`crypto`]|`^2.0.6`|2.1.5|2.1.5|
@@ -156,7 +156,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`intl`]|-|0.16.1|0.16.1|
 |[`js`]|-|0.6.2|0.6.2|
 |[`kernel`]|-|0.3.6+9|0.3.29|
-|[`matcher`]|-|0.12.8|0.12.8|
+|[`matcher`]|-|0.12.9|0.12.9|
 |[`node_interop`]|-|1.1.1|1.1.1|
 |[`node_io`]|-|1.1.1|1.1.1|
 |[`pedantic`]|-|1.9.2|1.9.2|
@@ -212,7 +212,7 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 <details>
 <summary>
-The constraint `^0.33.0` on analyzer does not support the latest published version `0.39.12`
+The constraint `^0.33.0` on analyzer does not support the latest published version `0.39.13`
 </summary>
 
 `pubspec.yaml:11:13`

@@ -43,7 +43,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)
 
-Consider supporting multiple platforms. Points were deducted due to the following:
+Consider supporting multiple platforms:
 
 <details>
 <summary>
@@ -142,7 +142,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.39.12|
+|[`analyzer`]|-|0.35.4|0.39.13|
 |[`angular_ast`]|-|0.5.9|0.5.11|
 |[`angular_compiler`]|-|0.4.3|0.4.5|
 |[`args`]|-|1.6.0|1.6.0|
@@ -163,7 +163,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`http_parser`]|-|3.1.4|3.1.4|
 |[`json_annotation`]|-|2.4.0|3.0.1|
 |[`kernel`]|-|0.3.14|0.3.29|
-|[`matcher`]|-|0.12.8|0.12.8|
+|[`matcher`]|-|0.12.9|0.12.9|
 |[`node_interop`]|-|1.1.1|1.1.1|
 |[`node_io`]|-|1.1.1|1.1.1|
 |[`package_config`]|-|1.9.3|1.9.3|
@@ -172,7 +172,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.5|0.1.5|
 |[`sass`]|-|1.26.10|1.26.10|
-|[`source_gen`]|-|0.9.4+4|0.9.5|
+|[`source_gen`]|-|0.9.4+4|0.9.6|
 |[`source_maps`]|-|0.10.9|0.10.9|
 |[`source_span`]|-|1.7.0|1.7.0|
 |[`stack_trace`]|-|1.9.5|1.9.5|
