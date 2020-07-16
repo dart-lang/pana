@@ -1,6 +1,7 @@
 ## 0.13.16
 
 * Clarified and fixed report summaries.
+* Fix: `mailto` links are no longer classified as unsecure.
 
 ## 0.13.15
 
