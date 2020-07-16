@@ -15,7 +15,7 @@ void main() {
     final content = await scanMarkdownFileContent(file);
     expect(content.toJson(), {
       'images': ['https://example.com/path.jpg', 'img/path.jpg'],
-      'links': [],
+      'links': ['mailto:hello@example.com'],
     });
     final suggestion = await analyzeMarkdownFile(file);
     expect(suggestion, isNull);
@@ -25,7 +25,11 @@ void main() {
     final file = File('test/markdown_content/bad_images.md');
     final content = await scanMarkdownFileContent(file);
     expect(content.toJson(), {
-      'images': ['https::::img', 'http://example.com/logo.png'],
+      'images': [
+        'https::::img',
+        'http://example.com/logo.png',
+        'gopher://example.com/logo.png',
+      ],
       'links': [],
     });
     final suggestion = await analyzeMarkdownFile(file);
@@ -34,9 +38,9 @@ void main() {
       'level': 'hint',
       'title': 'Update `bad_images.md`.',
       'description':
-          '1 image link is insecure (e.g. `http://example.com/logo.png`), use `https` URLs instead.',
+          '2 image links are insecure (e.g. `http://example.com/logo.png`), use `https` URLs instead.',
       'file': p.normalize('test/markdown_content/bad_images.md'),
-      'score': 2.0,
+      'score': 4.0,
     });
   });
 }

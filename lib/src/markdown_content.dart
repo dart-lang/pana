@@ -104,7 +104,10 @@ Future<Links> checkLinks(List<Link> links) async {
       continue;
     }
     parsed.add(link);
-    if (uri.scheme != null && uri.scheme.isNotEmpty && uri.scheme != 'https') {
+    if (uri.scheme != null &&
+        uri.scheme.isNotEmpty &&
+        uri.scheme != 'https' &&
+        uri.scheme != 'mailto') {
       insecure.add(link);
     }
   }
