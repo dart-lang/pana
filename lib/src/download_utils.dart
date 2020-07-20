@@ -76,6 +76,12 @@ String getRepositoryUrl(String repository, String relativePath) {
 
     if (repository.startsWith('https://github.com/') ||
         repository.startsWith('https://gitlab.com/')) {
+      if (segments.length >= 2 &&
+          segments[1].endsWith('.git') &&
+          segments[1].length > 4) {
+        segments[1] = segments[1].substring(0, segments[1].length - 4);
+      }
+
       final extension = p.extension(relativePath).toLowerCase();
       final isRaw = imageExtensions.contains(extension);
       final typeSegment = isRaw ? 'raw' : 'blob';
@@ -83,7 +89,8 @@ String getRepositoryUrl(String repository, String relativePath) {
       if (segments.length < 2) {
         return null;
       } else if (segments.length == 2) {
-        return p.url.join(repository, typeSegment, 'master', relativePath);
+        final newUrl = uri.replace(pathSegments: segments).toString();
+        return p.url.join(newUrl, typeSegment, 'master', relativePath);
       } else if (segments[2] == 'tree' || segments[2] == 'blob') {
         segments[2] = typeSegment;
         final newUrl = uri.replace(pathSegments: segments).toString();

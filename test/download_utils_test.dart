@@ -66,5 +66,19 @@ void main() {
           getRepositoryUrl('https://www.github.com/user/project/', 'README.md'),
           'https://github.com/user/project/blob/master/README.md');
     });
+
+    test('.git URL', () {
+      expect(
+          getRepositoryUrl(
+              'https://github.com/daniel-maxhari/dynamic_text_highlighting.git',
+              'LICENSE'),
+          'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/LICENSE');
+
+      expect(
+          getRepositoryUrl(
+              'https://github.com/daniel-maxhari/dynamic_text_highlighting.git/blob/master/subdir',
+              'LICENSE'),
+          'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/subdir/LICENSE');
+    });
   });
 }
