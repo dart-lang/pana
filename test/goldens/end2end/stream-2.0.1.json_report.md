@@ -134,7 +134,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |:-|:-|:-|:-|
 |[`args`]|`any`|1.6.0|1.6.0|
 |[`charcode`]|`any`|1.1.3|1.1.3|
-|[`http`]|`any`|0.12.1|0.12.1|
+|[`http`]|`any`|0.12.2|0.12.2|
 |[`logging`]|`any`|0.11.4|0.11.4|
 |[`path`]|`any`|1.7.0|1.7.0|
 |[`rikulo_commons`]|`any`|4.1.3|4.1.3|
