@@ -159,7 +159,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`dart_style`]|-|1.2.4|1.3.6|
 |[`front_end`]|-|0.1.14|0.1.29|
 |[`glob`]|-|1.2.0|1.2.0|
-|[`http`]|-|0.12.1|0.12.1|
+|[`http`]|-|0.12.2|0.12.2|
 |[`http_parser`]|-|3.1.4|3.1.4|
 |[`json_annotation`]|-|2.4.0|3.0.1|
 |[`kernel`]|-|0.3.14|0.3.29|

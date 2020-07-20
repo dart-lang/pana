@@ -275,9 +275,10 @@ Future<ReportSection> _followsTemplate(
     bool isRequired = false,
   }) async {
     final content = pubspec.originalYaml[key];
-    if (content is! String) {
+    if (content != null && content is! String) {
       return [
-        _Issue('The `$key` entry, if present, should be a string containing a url',
+        _Issue(
+            'The `$key` entry, if present, should be a string containing a url',
             span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key))
       ];
     }
