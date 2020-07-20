@@ -2,6 +2,7 @@
 
 * Clarified and fixed report summaries.
 * Fix: `mailto` links are no longer classified as unsecure.
+* Download URLs recognize `.git` when linking to a file.
 
 ## 0.13.15
 
