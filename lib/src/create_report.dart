@@ -274,7 +274,14 @@ Future<ReportSection> _followsTemplate(
     String name, {
     bool isRequired = false,
   }) async {
-    final url = pubspec.originalYaml[key] as String;
+    final content = pubspec.originalYaml[key];
+    if (content is! String) {
+      return [
+        _Issue('The `$key` entry should be a string containing a url',
+            span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key))
+      ];
+    }
+    final url = content as String;
     final issues = <_Issue>[];
 
     if (url == null || url.isEmpty) {
