@@ -66,17 +66,6 @@ Consider supporting multiple platforms:
 
 <details>
 <summary>
-Package not compatible with runtime native-aot
-</summary>
-
-Because:
-* `package:stream/stream.dart` that imports:
-* `package:stream/plugin.dart` that imports:
-* `package:rikulo_commons/mirrors.dart` that imports:
-* `dart:mirrors`
-</details>
-<details>
-<summary>
 Package not compatible with runtime js
 </summary>
 
