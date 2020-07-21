@@ -845,6 +845,10 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
         'runtime:web': 'js',
       };
 
+      // We don't want the native-aut runtime to be explained here.
+      explanations.removeWhere(
+          (explanation) => explanation.tag == 'runtime:native-aot');
+
       subsection = scorePlatforms(
         tagNames,
         (count) => count == 0

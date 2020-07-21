@@ -966,7 +966,7 @@ class Tagger {
                 (List<Uri> path) => Explanation(
                     'Package not compatible with runtime ${runtime.name}',
                     'Because:\n${LibraryGraph.formatPath(path)}',
-                    tag: null));
+                    tag: runtime.tag));
             var supports = true;
             for (final lib in _topLibraries) {
               final violationResult = finder.findViolation(lib);
