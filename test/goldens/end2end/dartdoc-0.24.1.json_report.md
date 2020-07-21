@@ -36,20 +36,6 @@ Consider supporting multiple platforms:
 
 <details>
 <summary>
-Package not compatible with runtime native-aot
-</summary>
-
-Because:
-* `package:dartdoc/dartdoc.dart` that imports:
-* `package:dartdoc/src/html/html_generator.dart` that imports:
-* `package:dartdoc/src/html/templates.dart` that imports:
-* `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache4dart.dart` that imports:
-* `package:dartdoc/src/third_party/pkg/mustache4dart/lib/mustache_context.dart` that imports:
-* `package:dartdoc/src/third_party/pkg/mustache4dart/lib/src/mirrors.dart` that imports:
-* `dart:mirrors`
-</details>
-<details>
-<summary>
 Package not compatible with runtime js
 </summary>
 
@@ -110,7 +96,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|`^0.33.0`|0.33.6+1|**0.39.13**|
+|[`analyzer`]|`^0.33.0`|0.33.6+1|**0.39.14**|
 |[`args`]|`>=1.4.1 <2.0.0`|1.6.0|1.6.0|
 |[`collection`]|`^1.2.0`|1.14.13|1.14.13|
 |[`crypto`]|`^2.0.6`|2.1.5|2.1.5|
@@ -196,7 +182,7 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 <details>
 <summary>
-The constraint `^0.33.0` on analyzer does not support the latest published version `0.39.13`
+The constraint `^0.33.0` on analyzer does not support the latest published version `0.39.14`
 </summary>
 
 `pubspec.yaml:11:13`

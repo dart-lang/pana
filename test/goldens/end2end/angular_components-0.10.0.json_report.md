@@ -47,21 +47,6 @@ Consider supporting multiple platforms:
 
 <details>
 <summary>
-Package not compatible with runtime native-aot
-</summary>
-
-Because:
-* `package:angular_components/angular_components.dart` that imports:
-* `package:angular_components/theme/module.dart` that imports:
-* `package:angular/angular.dart` that imports:
-* `package:angular/src/platform/browser/tools/tools.dart` that imports:
-* `package:angular/src/platform/browser/tools/common_tools.dart` that imports:
-* `package:angular/src/core/linker/component_factory.dart` that imports:
-* `package:angular/src/core/linker/view_ref.dart` that imports:
-* `dart:html`
-</details>
-<details>
-<summary>
 Package not compatible with runtime native
 </summary>
 
@@ -142,7 +127,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.39.13|
+|[`analyzer`]|-|0.35.4|0.39.14|
 |[`angular_ast`]|-|0.5.9|0.5.11|
 |[`angular_compiler`]|-|0.4.3|0.4.5|
 |[`args`]|-|1.6.0|1.6.0|

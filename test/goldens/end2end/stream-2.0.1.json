@@ -12991,7 +12991,7 @@
         "title": "Support multiple platforms",
         "grantedPoints": 10,
         "maxPoints": 20,
-        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (**native**, js)\n\nConsider supporting multiple platforms:\n\n<details>\n<summary>\nPackage not compatible with runtime native-aot\n</summary>\n\nBecause:\n* `package:stream/stream.dart` that imports:\n* `package:stream/plugin.dart` that imports:\n* `package:rikulo_commons/mirrors.dart` that imports:\n* `dart:mirrors`\n</details>\n<details>\n<summary>\nPackage not compatible with runtime js\n</summary>\n\nBecause:\n* `package:stream/stream.dart` that imports:\n* `package:stream/plugin.dart` that imports:\n* `package:rikulo_commons/io.dart` that imports:\n* `dart:io`\n</details>"
+        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (**native**, js)\n\nConsider supporting multiple platforms:\n\n<details>\n<summary>\nPackage not compatible with runtime js\n</summary>\n\nBecause:\n* `package:stream/stream.dart` that imports:\n* `package:stream/plugin.dart` that imports:\n* `package:rikulo_commons/io.dart` that imports:\n* `dart:io`\n</details>"
       },
       {
         "title": "Pass static analysis",

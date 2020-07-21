@@ -379,7 +379,6 @@ List<String> _dartFilesFromLib(String packageDir) {
 
 /// Represents a dart runtime and the `dart:` libraries available on that
 /// platform.
-@visibleForTesting
 class Runtime {
   final String name;
   final Set<String> enabledLibs;
@@ -966,7 +965,7 @@ class Tagger {
                 (List<Uri> path) => Explanation(
                     'Package not compatible with runtime ${runtime.name}',
                     'Because:\n${LibraryGraph.formatPath(path)}',
-                    tag: null));
+                    tag: runtime.tag));
             var supports = true;
             for (final lib in _topLibraries) {
               final violationResult = finder.findViolation(lib);
