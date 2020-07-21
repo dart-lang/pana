@@ -379,7 +379,6 @@ List<String> _dartFilesFromLib(String packageDir) {
 
 /// Represents a dart runtime and the `dart:` libraries available on that
 /// platform.
-@visibleForTesting
 class Runtime {
   final String name;
   final Set<String> enabledLibs;
