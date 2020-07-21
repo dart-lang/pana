@@ -358,7 +358,7 @@ Future<ReportSection> _followsTemplate(
         final s = count == 1 ? '' : 's';
         issues.add(_Issue(
             'Links in `$filename` should be well formed '
-            'Unable to parse $count image links$s.',
+            'Unable to parse $count image link$s.',
             span: first.span));
       }
       if (checked.insecure.isNotEmpty) {
