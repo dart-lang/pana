@@ -30,20 +30,10 @@ String runDartfmtToFormatFile(bool usesFlutter, String dartFile) {
   return 'Run `${dict.dartfmtShortName}` to format `$dartFile`.';
 }
 
-String makeSureDartfmtRuns(bool usesFlutter) {
-  final dict = usesFlutter ? _MsgDict.flutterDict : _MsgDict.defaultDict;
-  return "Make sure `${dict.dartfmtShortName}` successfully runs on your package's source files.";
-}
-
 String runningDartfmtFailed(bool usesFlutter, errorMsg) {
   final dict = usesFlutter ? _MsgDict.flutterDict : _MsgDict.defaultDict;
   return 'Running `${dict.dartfmtShortCmd}` failed with the following output:\n\n'
       '```\n$errorMsg\n```\n';
-}
-
-String makeSureDartanalyzerRuns(bool usesFlutter) {
-  final dict = usesFlutter ? _MsgDict.flutterDict : _MsgDict.defaultDict;
-  return "Make sure `${dict.dartanalyzerShortName}` successfully runs on your package's source files.";
 }
 
 String runningDartanalyzerFailed(bool usesFlutter, errorMsg) {

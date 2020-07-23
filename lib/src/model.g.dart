@@ -39,10 +39,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
     maintenance: json['maintenance'] == null
         ? null
         : Maintenance.fromJson(json['maintenance'] as Map<String, dynamic>),
-    suggestions: (json['suggestions'] as List)
-        ?.map((e) =>
-            e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     stats: json['stats'] == null
         ? null
         : Stats.fromJson(json['stats'] as Map<String, dynamic>),
@@ -50,6 +46,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
     report: json['report'] == null
         ? null
         : Report.fromJson(json['report'] as Map<String, dynamic>),
+    errorMessage: json['errorMessage'] as String,
   );
 }
 
@@ -72,12 +69,12 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   val['licenses'] = instance.licenses;
   writeNotNull('health', instance.health);
   writeNotNull('maintenance', instance.maintenance);
-  writeNotNull('suggestions', instance.suggestions);
   writeNotNull('pkgResolution', instance.pkgResolution);
   writeNotNull('dartFiles', instance.dartFiles);
   writeNotNull('stats', instance.stats);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);
+  writeNotNull('errorMessage', instance.errorMessage);
   return val;
 }
 

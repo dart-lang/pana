@@ -98,7 +98,7 @@ class PackageAnalyzer {
     final resolveProcessStopwatch = Stopwatch();
     final analyzeProcessStopwatch = Stopwatch();
     final formatProcessStopwatch = Stopwatch();
-    final suggestions = <Suggestion>[];
+    final errors = <String>[];
 
     var dartFiles = await listFiles(
       pkgDir,
@@ -115,7 +115,6 @@ class PackageAnalyzer {
       pubspec = Pubspec.parseFromDir(pkgDir);
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
-      suggestions.add(pubspecParseError(e));
       return Summary(
         runtimeInfo: _toolEnv.runtimeInfo,
         packageName: null,
@@ -127,20 +126,17 @@ class PackageAnalyzer {
         licenses: null,
         health: null,
         maintenance: null,
-        suggestions: suggestions,
         stats: null,
         tags: null,
         report: null,
+        errorMessage: pubspecParseError(e),
       );
     }
     if (pubspec.hasUnknownSdks) {
-      suggestions.add(Suggestion.error(
-          SuggestionCode.pubspecSdkUnknown,
-          'Check SDKs in `pubspec.yaml`.',
-          'The following unknown SDKs are in `pubspec.yaml`:\n'
-              '  `${pubspec.unknownSdks}`.\n\n'
-              '`pana` doesn’t recognize them; please remove the `sdk` entry or '
-              '[report the issue](https://github.com/dart-lang/pana/issues).'));
+      errors.add('The following unknown SDKs are in `pubspec.yaml`:\n'
+          '  `${pubspec.unknownSdks}`.\n\n'
+          '`pana` doesn’t recognize them; please remove the `sdk` entry or '
+          '[report the issue](https://github.com/dart-lang/pana/issues).');
     }
 
     final package = pubspec.name;
@@ -156,16 +152,10 @@ class PackageAnalyzer {
       assert(unformattedFiles.every((f) => dartFiles.contains(f)),
           'dartfmt should only return Dart files');
     } on ToolException catch (e) {
-      suggestions.add(Suggestion.error(
-          SuggestionCode.dartfmtAborted,
-          messages.makeSureDartfmtRuns(usesFlutter),
-          messages.runningDartfmtFailed(usesFlutter, e.message)));
+      errors.add(messages.runningDartfmtFailed(usesFlutter, e.message));
     } catch (e, stack) {
       log.severe('`dartfmt` failed.\n$e', e, stack);
-      suggestions.add(Suggestion.error(
-          SuggestionCode.dartfmtAborted,
-          messages.makeSureDartfmtRuns(usesFlutter),
-          messages.runningDartfmtFailed(usesFlutter, e.toString())));
+      errors.add(messages.runningDartfmtFailed(usesFlutter, e.toString()));
     }
     formatProcessStopwatch.stop();
 
@@ -185,11 +175,8 @@ class PackageAnalyzer {
 
         // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
         final cmd = usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
-        suggestions.add(Suggestion.error(
-            SuggestionCode.pubspecDependenciesFailedToResolve,
-            'Fix dependencies in `pubspec.yaml`.',
-            'Running `$cmd` failed with the following output:\n\n'
-                '```\n$e\n```\n'));
+        errors.add('Running `$cmd` failed with the following output:\n\n'
+            '```\n$e\n```\n');
       }
     } else {
       String message;
@@ -214,13 +201,10 @@ class PackageAnalyzer {
 
       // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
       final cmd = usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
-      suggestions.add(Suggestion.error(
-          SuggestionCode.pubspecDependenciesFailedToResolve,
-          'Fix dependencies in `pubspec.yaml`.',
-          message.isEmpty
-              ? 'Running `$cmd` failed.'
-              : 'Running `$cmd` failed with the following output:\n\n'
-                  '```\n$message\n```\n'));
+      errors.add(message.isEmpty
+          ? 'Running `$cmd` failed.'
+          : 'Running `$cmd` failed with the following output:\n\n'
+              '```\n$message\n```\n');
     }
 
     Map<String, List<String>> allDirectLibs;
@@ -266,8 +250,7 @@ class PackageAnalyzer {
         assert(libraryScanner.packageName == package);
       } catch (e, stack) {
         log.severe('Could not create LibraryScanner', e, stack);
-        suggestions.add(Suggestion.bug(SuggestionCode.exceptionInLibraryScanner,
-            'LibraryScanner creation failed.', e, stack));
+        errors.add('LibraryScanner creation failed: `$e`.');
       }
 
       if (libraryScanner != null) {
@@ -276,11 +259,7 @@ class PackageAnalyzer {
           allDirectLibs = await libraryScanner.scanDirectLibs();
         } catch (e, st) {
           log.severe('Error scanning direct libraries', e, st);
-          suggestions.add(Suggestion.bug(
-              SuggestionCode.exceptionInLibraryScanner,
-              'Error scanning direct libraries.',
-              e,
-              st));
+          errors.add('Error scanning direct libraries: `$e`.');
         }
         try {
           log.info('Scanning transitive dependencies...');
@@ -288,11 +267,7 @@ class PackageAnalyzer {
           reachableLibs = _reachableLibs(allTransitiveLibs);
         } catch (e, st) {
           log.severe('Error scanning transitive libraries', e, st);
-          suggestions.add(Suggestion.bug(
-              SuggestionCode.exceptionInLibraryScanner,
-              'Error scanning transitive libraries.',
-              e,
-              st));
+          errors.add('Error scanning transitive libraries: `$e`.');
         }
       }
 
@@ -301,10 +276,8 @@ class PackageAnalyzer {
         try {
           analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter, options);
         } on ToolException catch (e) {
-          suggestions.add(Suggestion.error(
-              SuggestionCode.dartanalyzerAborted,
-              messages.makeSureDartanalyzerRuns(usesFlutter),
-              messages.runningDartanalyzerFailed(usesFlutter, e.message)));
+          errors
+              .add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
         }
         analyzeProcessStopwatch.stop();
       } else {
@@ -320,13 +293,9 @@ class PackageAnalyzer {
         if (_sdkSupportsNullSafety) {
           tagger.nullSafetyTags(tags, explanations);
         }
-        suggestions.addAll(explanations.map((e) => Suggestion.hint(
-            SuggestionCode.notCompatible, e.finding, e.explanation)));
       }
     }
-    final pkgPlatformBlockerSuggestion =
-        suggestions.firstWhere((s) => s.isError, orElse: () => null);
-    var pkgPlatformConflict = pkgPlatformBlockerSuggestion?.title;
+    String pkgPlatformConflict;
 
     final files = SplayTreeMap<String, DartFileSummary>();
     for (var dartFile in dartFiles) {
@@ -414,7 +383,6 @@ class PackageAnalyzer {
       pkgResolution: pkgResolution,
       tags: tags,
     );
-    suggestions.sort();
 
     totalStopwatch.stop();
     final stats = Stats(
@@ -424,6 +392,8 @@ class PackageAnalyzer {
       totalElapsed: totalStopwatch.elapsedMilliseconds,
     );
 
+    final errorMessage =
+        errors.isEmpty ? null : errors.map((e) => e.trim()).join('\n\n');
     return Summary(
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
@@ -436,10 +406,10 @@ class PackageAnalyzer {
       licenses: licenses,
       health: health,
       maintenance: maintenance,
-      suggestions: suggestions.isEmpty ? null : suggestions,
       stats: stats,
       tags: tags,
       report: await createReport(options, pkgDir, _toolEnv),
+      errorMessage: errorMessage,
     );
   }
 

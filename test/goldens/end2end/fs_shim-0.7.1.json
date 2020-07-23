@@ -47,7 +47,7 @@
     }
   },
   "platform": {
-    "reason": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`."
+    "reason": "Failed to scan transitive libraries."
   },
   "licenses": [
     {
@@ -113,14 +113,6 @@
       }
     ]
   },
-  "suggestions": [
-    {
-      "code": "pubspec.dependencies.failedToResolve",
-      "level": "error",
-      "title": "Fix dependencies in `pubspec.yaml`.",
-      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because fs_shim requires SDK version >=1.24.0 <2.0.0, version solving failed.\n```\n"
-    }
-  ],
   "dartFiles": {
     "lib/fs.dart": {
       "uri": "package:fs_shim/fs.dart",
@@ -373,5 +365,6 @@
         "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\n</details>\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nThe current sdk constraint does not allow the latest stable Dart (2.8.3)\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.24.0 <2.0.0'\n  │        ^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTry widening the upper boundary of the constraint.\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
       }
     ]
-  }
+  },
+  "errorMessage": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because fs_shim requires SDK version >=1.24.0 <2.0.0, version solving failed.\n```"
 }
