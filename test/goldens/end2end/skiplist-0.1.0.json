@@ -20,7 +20,7 @@
     }
   },
   "platform": {
-    "reason": "Error(s) prevent platform classification:\n\nFix dependencies in `pubspec.yaml`."
+    "reason": "Failed to scan transitive libraries."
   },
   "licenses": [
     {
@@ -94,14 +94,6 @@
       }
     ]
   },
-  "suggestions": [
-    {
-      "code": "pubspec.dependencies.failedToResolve",
-      "level": "error",
-      "title": "Fix dependencies in `pubspec.yaml`.",
-      "description": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```\n"
-    }
-  ],
   "dartFiles": {
     "lib/skiplist.dart": {
       "uri": "package:skiplist/skiplist.dart",
@@ -150,5 +142,6 @@
         "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your pubspec.yaml\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
       }
     ]
-  }
+  },
+  "errorMessage": "Running `pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```"
 }

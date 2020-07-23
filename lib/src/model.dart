@@ -46,9 +46,6 @@ class Summary {
   final Maintenance maintenance;
 
   @JsonKey(includeIfNull: false)
-  final List<Suggestion> suggestions;
-
-  @JsonKey(includeIfNull: false)
   final PkgResolution pkgResolution;
 
   @JsonKey(includeIfNull: false)
@@ -63,6 +60,10 @@ class Summary {
   @JsonKey(includeIfNull: false)
   final Report report;
 
+  /// Markdown-formatted text with errors encountered by `pana`.
+  @JsonKey(includeIfNull: false)
+  final String errorMessage;
+
   Summary({
     @required this.runtimeInfo,
     @required this.packageName,
@@ -74,12 +75,11 @@ class Summary {
     @required this.licenses,
     @required this.health,
     @required this.maintenance,
-    @required List<Suggestion> suggestions,
     @required this.stats,
     @required this.tags,
     @required this.report,
-  }) : suggestions =
-            suggestions != null && suggestions.isNotEmpty ? suggestions : null;
+    @required this.errorMessage,
+  });
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
       _$SummaryFromJson(json);
@@ -96,7 +96,6 @@ class Summary {
     Health health,
     DartPlatform platform,
     Maintenance maintenance,
-    List<Suggestion> suggestions,
     Stats stats,
     List<String> tags,
   }) {
@@ -111,10 +110,10 @@ class Summary {
       licenses: licenses,
       health: health ?? this.health,
       maintenance: maintenance ?? this.maintenance,
-      suggestions: suggestions ?? this.suggestions,
       stats: stats ?? this.stats,
       tags: tags ?? this.tags,
       report: report,
+      errorMessage: errorMessage,
     );
   }
 }

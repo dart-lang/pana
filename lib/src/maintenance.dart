@@ -10,7 +10,6 @@ import 'dart:math';
 
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
-import 'package:pubspec_parse/pubspec_parse.dart' as pubspek;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
@@ -133,8 +132,8 @@ Suggestion getAgeSuggestion(Duration age) {
   return null;
 }
 
-/// Returns a suggestion for pubspec.yaml parse error.
-Suggestion pubspecParseError(error) {
+/// Returns a markdown-formatted error message for pubspec.yaml parse error.
+String pubspecParseError(error) {
   // TODO: remove this after json_annotation is updated with CheckedFromJsonException.toString()
   var message = error?.toString();
   if (error is CheckedFromJsonException) {
@@ -142,12 +141,8 @@ Suggestion pubspecParseError(error) {
         error.message ?? 'Error with `${error.key}`: ${error.innerError}';
     message = 'CheckedFromJsonException: $msg';
   }
-  return Suggestion.error(
-    SuggestionCode.pubspecParseError,
-    'Error while parsing `pubspec.yaml`.',
-    'Parsing throws an exception:\n\n```\n$message\n```.',
-    score: 100.0,
-  );
+  return 'Error while parsing `pubspec.yaml`.\n\n'
+      'Parsing throws an exception:\n\n```\n$message\n```';
 }
 
 /// Creates [Maintenance] with suggestions.
@@ -575,12 +570,6 @@ Future<Maintenance> detectMaintenance(
             'published versions for $pluralized'
             '$extraDescr.',
         score: penalty));
-  }
-
-  try {
-    pubspek.Pubspec.fromJson(pubspec.toJson(), lenient: false);
-  } catch (e) {
-    maintenanceSuggestions.add(pubspecParseError(e));
   }
 
   maintenanceSuggestions.sort();

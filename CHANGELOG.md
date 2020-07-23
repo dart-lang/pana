@@ -1,3 +1,9 @@
+## 0.14.0
+
+**BREAKING CHANGES:**
+
+* Removed `Summary.suggestions`.
+
 ## 0.13.16
 
 * Clarified and fixed report summaries.
