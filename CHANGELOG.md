@@ -3,7 +3,7 @@
 **BREAKING CHANGES:**
 
 * Removed `Summary.suggestions`.
-* Removed `bulk.dart` and `mini_sum.dart`.
+* Removed `bin/bulk.dart`.
 
 ## 0.13.16
 
