@@ -9,7 +9,6 @@ import 'package:quiver/core.dart' show hashObjects;
 
 import 'json_converters.dart';
 import 'pubspec.dart';
-import 'utils.dart' show toRelativePath;
 
 part 'model.g.dart';
 
@@ -33,9 +32,6 @@ class Summary {
   final PkgResolution pkgResolution;
 
   @JsonKey(includeIfNull: false)
-  final Map<String, DartFileSummary> dartFiles;
-
-  @JsonKey(includeIfNull: false)
   final List<String> tags;
 
   @JsonKey(includeIfNull: false)
@@ -51,7 +47,6 @@ class Summary {
     @required this.packageVersion,
     @required this.pubspec,
     @required this.pkgResolution,
-    @required this.dartFiles,
     @required this.licenses,
     @required this.tags,
     @required this.report,
@@ -63,11 +58,6 @@ class Summary {
 
   Map<String, dynamic> toJson() => _$SummaryToJson(this);
 
-  Iterable<CodeProblem> get codeProblems => dartFiles.values
-      .map((dfs) => dfs.codeProblems)
-      .where((l) => l != null)
-      .expand((list) => list);
-
   Summary change({
     PanaRuntimeInfo runtimeInfo,
     List<String> tags,
@@ -78,7 +68,6 @@ class Summary {
       packageVersion: packageVersion,
       pubspec: pubspec,
       pkgResolution: pkgResolution,
-      dartFiles: dartFiles,
       licenses: licenses,
       tags: tags ?? this.tags,
       report: report,
@@ -104,63 +93,6 @@ class PanaRuntimeInfo {
       _$PanaRuntimeInfoFromJson(json);
 
   Map<String, dynamic> toJson() => _$PanaRuntimeInfoToJson(this);
-}
-
-@JsonSerializable()
-class DartFileSummary {
-  final String uri;
-  final int size;
-
-  /// If this file is formatted with `dartfmt`.
-  ///
-  /// `true` if it is.
-  /// `false` if it is not.
-  /// `null` if `dartfmt` failed while running.
-  final bool isFormatted;
-  final List<CodeProblem> codeProblems;
-
-  @JsonKey(includeIfNull: false)
-  final List<String> directLibs;
-  @JsonKey(includeIfNull: false)
-  final List<String> transitiveLibs;
-
-  DartFileSummary({
-    @required this.uri,
-    @required this.size,
-    @required this.isFormatted,
-    @required this.codeProblems,
-    @required this.directLibs,
-    @required this.transitiveLibs,
-  });
-
-  factory DartFileSummary.fromJson(Map<String, dynamic> json) =>
-      _$DartFileSummaryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DartFileSummaryToJson(this);
-
-  /// The relative path in the package archive.
-  String get path => toRelativePath(uri);
-
-  bool get isInBin => path.startsWith('bin/');
-
-  bool get isInLib => path.startsWith('lib/');
-
-  bool get isInLibSrc => path.startsWith('lib/src/');
-
-  /// Whether the file provides a public API for the package users.
-  bool get isPublicApi => isInLib && !isInLibSrc;
-
-  /// Whether the file has any local import that point outside of the lib/
-  bool get hasOutsideLibDependency =>
-      directLibs != null &&
-      directLibs.any((String lib) => lib.startsWith('asset:'));
-
-  bool get hasCodeError =>
-      (codeProblems?.any((cp) => cp.isError) ?? false) ||
-      hasOutsideLibDependency;
-
-  CodeProblem get firstCodeError =>
-      codeProblems?.firstWhere((cp) => cp.isError, orElse: () => null);
 }
 
 @JsonSerializable()

@@ -5,6 +5,7 @@
 * Removed:
   * `bin/bulk.dart`
   * `ComponentNames`
+  * `DartFileSummary`
   * `DartPlatform`
   * `Health`
   * `Maintenance`
@@ -12,6 +13,7 @@
   * `PlatformUse`
   * `Stats`
   * `Suggestion`
+  * `Summary.dartFiles`
   * `Summary.health`
   * `Summary.maintenance`
   * `Summary.platform`

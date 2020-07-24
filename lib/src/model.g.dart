@@ -19,13 +19,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
     pkgResolution: json['pkgResolution'] == null
         ? null
         : PkgResolution.fromJson(json['pkgResolution'] as Map<String, dynamic>),
-    dartFiles: (json['dartFiles'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(
-          k,
-          e == null
-              ? null
-              : DartFileSummary.fromJson(e as Map<String, dynamic>)),
-    ),
     licenses: (json['licenses'] as List)
         ?.map((e) =>
             e == null ? null : LicenseFile.fromJson(e as Map<String, dynamic>))
@@ -55,7 +48,6 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('pubspec', instance.pubspec);
   val['licenses'] = instance.licenses;
   writeNotNull('pkgResolution', instance.pkgResolution);
-  writeNotNull('dartFiles', instance.dartFiles);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);
   writeNotNull('errorMessage', instance.errorMessage);
@@ -83,40 +75,6 @@ Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) {
   }
 
   writeNotNull('flutterVersions', instance.flutterVersions);
-  return val;
-}
-
-DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) {
-  return DartFileSummary(
-    uri: json['uri'] as String,
-    size: json['size'] as int,
-    isFormatted: json['isFormatted'] as bool,
-    codeProblems: (json['codeProblems'] as List)
-        ?.map((e) =>
-            e == null ? null : CodeProblem.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    directLibs: (json['directLibs'] as List)?.map((e) => e as String)?.toList(),
-    transitiveLibs:
-        (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
-  );
-}
-
-Map<String, dynamic> _$DartFileSummaryToJson(DartFileSummary instance) {
-  final val = <String, dynamic>{
-    'uri': instance.uri,
-    'size': instance.size,
-    'isFormatted': instance.isFormatted,
-    'codeProblems': instance.codeProblems,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('directLibs', instance.directLibs);
-  writeNotNull('transitiveLibs', instance.transitiveLibs);
   return val;
 }
 
