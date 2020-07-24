@@ -4,7 +4,9 @@
 
 * Removed:
   * `bin/bulk.dart`
+  * `Health`
   * `Maintenance`
+  * `Summary.health`
   * `Summary.maintenance`
   * `Summary.suggestions`
 

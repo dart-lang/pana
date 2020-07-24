@@ -28,7 +28,16 @@
     }
   },
   "platform": {
-    "reason": "Low code quality prevents platform classification."
+    "components": [
+      "io",
+      "mirrors"
+    ],
+    "uses": {
+      "flutter": "forbidden",
+      "web": "forbidden",
+      "other": "used"
+    },
+    "reason": "Primary library: `package:stream/stream.dart` with components: `io`, `mirrors`."
   },
   "licenses": [
     {
@@ -37,48 +46,6 @@
       "version": "2.0"
     }
   ],
-  "health": {
-    "analyzeProcessFailed": false,
-    "formatProcessFailed": false,
-    "resolveProcessFailed": false,
-    "analyzerErrorCount": 5,
-    "analyzerWarningCount": 0,
-    "analyzerHintCount": 1224,
-    "platformConflictCount": 0,
-    "suggestions": [
-      {
-        "code": "dartanalyzer.warning",
-        "level": "error",
-        "title": "Fix `lib/src/connect_impl.dart`.",
-        "description": "Analysis of `lib/src/connect_impl.dart` failed with 4 errors, 66 hints, including:\n\nline 281 col 8: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeaders.add' ('void Function(String, Object, {bool preserveHeaderCase})').\n\nline 281 col 8: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.add' ('void Function(String, Object, {bool preserveHeaderCase})').\n\nline 284 col 8: '_ReadOnlyHeaders.set' ('void Function(String, Object)') isn't a valid override of 'HttpHeaders.set' ('void Function(String, Object, {bool preserveHeaderCase})').\n\nline 284 col 8: '_ReadOnlyHeaders.set' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.set' ('void Function(String, Object, {bool preserveHeaderCase})').\n\nline 18 col 38: Unnecessary new keyword.",
-        "file": "lib/src/connect_impl.dart",
-        "score": 76.27
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "error",
-        "title": "Fix `lib/src/rsp_util.dart`.",
-        "description": "Analysis of `lib/src/rsp_util.dart` failed with 1 error, 48 hints, including:\n\nline 170 col 47: The getter 'dart' isn't defined for the type 'Browser'.\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 12 col 3: Prefer using /// for doc comments.\n\nline 23 col 7: Omit type annotations for local variables.\n\nline 24 col 7: Omit type annotations for local variables.",
-        "file": "lib/src/rsp_util.dart",
-        "score": 41.04
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/plugin/loader.dart`.",
-        "description": "Analysis of `lib/src/plugin/loader.dart` reported 64 hints, including:\n\nline 6 col 1: Prefer using /// for doc comments.\n\nline 20 col 6: Unnecessary new keyword.\n\nline 22 col 3: Prefer using /// for doc comments.\n\nline 26 col 3: Prefer using /// for doc comments.\n\nline 31 col 1: Prefer using /// for doc comments.",
-        "file": "lib/src/plugin/loader.dart",
-        "score": 25.0
-      },
-      {
-        "code": "bulk",
-        "level": "hint",
-        "title": "Fix additional 14 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/plugin/loader_impl.dart` (88 hints)\n- `lib/src/plugin/router.dart` (107 hints)\n- `lib/src/rspc/build.dart` (72 hints)\n- `lib/src/rspc/compiler.dart` (269 hints)\n- `lib/src/rspc/tag.dart` (146 hints)\n- `lib/src/rspc/tag_util.dart` (59 hints)\n- `lib/src/server_impl.dart` (98 hints)\n- `lib/src/connect.dart` (57 hints)\n- `lib/src/server.dart` (51 hints)\n- `lib/src/rspc/main.dart` (37 hints)\n- `lib/rspc.dart` (17 hints)\n- `lib/stream.dart` (17 hints)\n- `lib/plugin.dart` (14 hints)\n- `lib/proxy.dart` (14 hints)\n",
-        "score": 269.23999999999995
-      }
-    ]
-  },
   "pkgResolution": {
     "dependencies": [
       {

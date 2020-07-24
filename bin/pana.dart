@@ -6,7 +6,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:args/args.dart';
 import 'package:io/ansi.dart';
@@ -169,7 +168,8 @@ Future main(List<String> args) async {
       final map = summary.toJson();
       if (showScores) {
         map['scores'] = {
-          'health': _calculateScore(summary.health?.suggestions),
+          'grantedPoints': summary.report?.grantedPoints,
+          'maxPoints': summary.report?.maxPoints,
         };
       }
       if (showReport) {
@@ -216,13 +216,4 @@ void _logWriter(log.LogRecord record) {
   overrideAnsiOutput(stderr.supportsAnsiEscapes, () {
     stderr.writeln(darkGray.wrap(msg));
   });
-}
-
-double _calculateScore(List<Suggestion> suggestions) {
-  if (suggestions == null || suggestions.isEmpty) {
-    return 100.0;
-  }
-  final score = max(0.0,
-      suggestions?.fold<double>(100.0, (d, s) => d - (s.score ?? 0)) ?? 0.0);
-  return (score * 100.0).round() / 100.0;
 }

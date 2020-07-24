@@ -33,9 +33,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : LicenseFile.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    health: json['health'] == null
-        ? null
-        : Health.fromJson(json['health'] as Map<String, dynamic>),
     stats: json['stats'] == null
         ? null
         : Stats.fromJson(json['stats'] as Map<String, dynamic>),
@@ -64,7 +61,6 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('pubspec', instance.pubspec);
   val['platform'] = instance.platform;
   val['licenses'] = instance.licenses;
-  writeNotNull('health', instance.health);
   writeNotNull('pkgResolution', instance.pkgResolution);
   writeNotNull('dartFiles', instance.dartFiles);
   writeNotNull('stats', instance.stats);
@@ -278,43 +274,6 @@ Map<String, dynamic> _$PkgDependencyToJson(PkgDependency instance) {
   writeNotNull(
       'available', const VersionConverter().toJson(instance.available));
   writeNotNull('errors', instance.errors);
-  return val;
-}
-
-Health _$HealthFromJson(Map<String, dynamic> json) {
-  return Health(
-    analyzeProcessFailed: json['analyzeProcessFailed'] as bool,
-    formatProcessFailed: json['formatProcessFailed'] as bool,
-    resolveProcessFailed: json['resolveProcessFailed'] as bool,
-    analyzerErrorCount: json['analyzerErrorCount'] as int,
-    analyzerWarningCount: json['analyzerWarningCount'] as int,
-    analyzerHintCount: json['analyzerHintCount'] as int,
-    platformConflictCount: json['platformConflictCount'] as int,
-    suggestions: (json['suggestions'] as List)
-        ?.map((e) =>
-            e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
-
-Map<String, dynamic> _$HealthToJson(Health instance) {
-  final val = <String, dynamic>{
-    'analyzeProcessFailed': instance.analyzeProcessFailed,
-    'formatProcessFailed': instance.formatProcessFailed,
-    'resolveProcessFailed': instance.resolveProcessFailed,
-    'analyzerErrorCount': instance.analyzerErrorCount,
-    'analyzerWarningCount': instance.analyzerWarningCount,
-    'analyzerHintCount': instance.analyzerHintCount,
-    'platformConflictCount': instance.platformConflictCount,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('suggestions', instance.suggestions);
   return val;
 }
 

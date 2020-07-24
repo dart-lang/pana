@@ -41,48 +41,6 @@
       "url": "https://github.com/dart-lang/http/blob/master/LICENSE"
     }
   ],
-  "health": {
-    "analyzeProcessFailed": false,
-    "formatProcessFailed": false,
-    "resolveProcessFailed": false,
-    "analyzerErrorCount": 0,
-    "analyzerWarningCount": 0,
-    "analyzerHintCount": 185,
-    "platformConflictCount": 0,
-    "suggestions": [
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/multipart_request.dart`.",
-        "description": "Analysis of `lib/src/multipart_request.dart` reported 28 hints, including:\n\nline 15 col 24: Unnecessary new keyword.\n\nline 15 col 35: Only use double quotes for strings containing single quotes.\n\nline 40 col 33: Unnecessary new keyword.\n\nline 59 col 11: Annotate overridden members.\n\nline 63 col 17: Only use double quotes for strings containing single quotes.",
-        "file": "lib/src/multipart_request.dart",
-        "score": 13.09
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/base_client.dart`.",
-        "description": "Analysis of `lib/src/base_client.dart` reported 24 hints, including:\n\nline 26 col 20: Annotate overridden members.\n\nline 27 col 21: Only use double quotes for strings containing single quotes.\n\nline 33 col 20: Annotate overridden members.\n\nline 34 col 21: Only use double quotes for strings containing single quotes.\n\nline 54 col 20: Annotate overridden members.",
-        "file": "lib/src/base_client.dart",
-        "score": 11.33
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/src/request.dart`.",
-        "description": "Analysis of `lib/src/request.dart` reported 21 hints, including:\n\nline 21 col 11: Annotate overridden members.\n\nline 23 col 7: Annotate overridden members.\n\nline 24 col 11: Unnecessary new keyword.\n\nline 24 col 32: Only use double quotes for strings containing single quotes.\n\nline 25 col 9: Only use double quotes for strings containing single quotes.",
-        "file": "lib/src/request.dart",
-        "score": 9.99
-      },
-      {
-        "code": "bulk",
-        "level": "hint",
-        "title": "Fix additional 15 files with analysis or formatting issues.",
-        "description": "Additional issues in the following files:\n\n- `lib/src/multipart_file.dart` (19 hints)\n- `lib/browser_client.dart` (16 hints)\n- `lib/src/utils.dart` (16 hints)\n- `lib/src/response.dart` (11 hints)\n- `lib/src/base_request.dart` (10 hints)\n- `lib/src/io_client.dart` (9 hints)\n- `lib/src/base_response.dart` (7 hints)\n- `lib/src/mock_client.dart` (7 hints)\n- `lib/src/byte_stream.dart` (5 hints)\n- `lib/src/streamed_response.dart` (4 hints)\n- `lib/src/streamed_request.dart` (3 hints)\n- `lib/http.dart` (2 hints)\n- `lib/src/boundary_characters.dart` (1 hint)\n- `lib/src/client.dart` (1 hint)\n- `lib/src/exception.dart` (1 hint)\n",
-        "score": 54.52
-      }
-    ]
-  },
   "pkgResolution": {
     "dependencies": [
       {

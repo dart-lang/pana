@@ -29,24 +29,6 @@
       "url": "https://github.com/stevenroose/dart-skiplist/blob/master/LICENSE"
     }
   ],
-  "health": {
-    "analyzeProcessFailed": true,
-    "formatProcessFailed": false,
-    "resolveProcessFailed": true,
-    "analyzerErrorCount": 0,
-    "analyzerWarningCount": 0,
-    "analyzerHintCount": 0,
-    "platformConflictCount": 0,
-    "suggestions": [
-      {
-        "code": "dartfmt.warning",
-        "level": "hint",
-        "title": "Format `lib/skiplist.dart`.",
-        "description": "Run `dartfmt` to format `lib/skiplist.dart`.",
-        "file": "lib/skiplist.dart"
-      }
-    ]
-  },
   "dartFiles": {
     "lib/skiplist.dart": {
       "uri": "package:skiplist/skiplist.dart",

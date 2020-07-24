@@ -14,7 +14,6 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
 import 'download_utils.dart';
-import 'health.dart';
 import 'library_scanner.dart';
 import 'license.dart';
 import 'logging.dart';
@@ -124,7 +123,6 @@ class PackageAnalyzer {
         dartFiles: null,
         platform: null,
         licenses: null,
-        health: null,
         stats: null,
         tags: null,
         report: null,
@@ -336,15 +334,6 @@ class PackageAnalyzer {
       );
     }
 
-    final health = calcHealth(
-      pubspec: pubspec,
-      analyzeProcessFailed: pkgResolution == null || analyzerItems == null,
-      formatProcessFailed: unformattedFiles == null,
-      resolveProcessFailed: pkgResolution == null,
-      analyzerItems: analyzerItems,
-      dartFileSummaries: files.values,
-    );
-
     if (analyzerItems != null) {
       final reportedFiles = analyzerItems.map((i) => i.file).toSet();
       final knownFiles = files.values.map((f) => f.path).toSet();
@@ -361,9 +350,9 @@ class PackageAnalyzer {
           'Error(s) prevent platform classification:\n\n$pkgPlatformConflict');
     }
     platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
-    if (!platform.hasConflict && health.hasPlatformBlockingIssues) {
-      platform = DartPlatform.conflict(
-          'Low code quality prevents platform classification.');
+    if (!platform.hasConflict && errors.isNotEmpty) {
+      platform =
+          DartPlatform.conflict('Error(s) prevents platform classification.');
     }
 
     var licenses = await detectLicensesInDir(pkgDir);
@@ -390,7 +379,6 @@ class PackageAnalyzer {
       dartFiles: options.verbosity == Verbosity.compact ? null : files,
       platform: platform,
       licenses: licenses,
-      health: health,
       stats: stats,
       tags: tags,
       report: await createReport(options, pkgDir, _toolEnv),
