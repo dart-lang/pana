@@ -6,6 +6,7 @@
   * `bin/bulk.dart`
   * `Health`
   * `Maintenance`
+  * `Suggestion`
   * `Summary.health`
   * `Summary.maintenance`
   * `Summary.suggestions`
