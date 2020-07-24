@@ -46,9 +46,6 @@
       "compiler": null
     }
   },
-  "platform": {
-    "reason": "Failed to scan transitive libraries."
-  },
   "licenses": [
     {
       "path": "LICENSE",

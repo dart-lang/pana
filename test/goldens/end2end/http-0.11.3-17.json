@@ -25,15 +25,6 @@
       "sdk": ">=2.0.0-dev.61.0 <3.0.0"
     }
   },
-  "platform": {
-    "components": [],
-    "uses": {
-      "flutter": "allowed",
-      "web": "allowed",
-      "other": "allowed"
-    },
-    "reason": "No platform restriction found in primary library `package:http/http.dart`."
-  },
   "licenses": [
     {
       "path": "LICENSE",
@@ -416,17 +407,7 @@
         "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart"
-      ],
-      "platform": {
-        "components": [
-          "html"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "forbidden"
-        }
-      }
+      ]
     },
     "lib/http.dart": {
       "uri": "package:http/http.dart",
@@ -609,15 +590,7 @@
         "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/src/base_client.dart": {
       "uri": "package:http/src/base_client.dart",
@@ -2543,17 +2516,7 @@
         "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart"
-      ],
-      "platform": {
-        "components": [
-          "io"
-        ],
-        "uses": {
-          "flutter": "allowed",
-          "web": "forbidden",
-          "other": "used"
-        }
-      }
+      ]
     }
   },
   "stats": {

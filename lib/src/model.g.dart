@@ -26,9 +26,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
               ? null
               : DartFileSummary.fromJson(e as Map<String, dynamic>)),
     ),
-    platform: json['platform'] == null
-        ? null
-        : DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
     licenses: (json['licenses'] as List)
         ?.map((e) =>
             e == null ? null : LicenseFile.fromJson(e as Map<String, dynamic>))
@@ -59,7 +56,6 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('packageVersion',
       const VersionConverter().toJson(instance.packageVersion));
   writeNotNull('pubspec', instance.pubspec);
-  val['platform'] = instance.platform;
   val['licenses'] = instance.licenses;
   writeNotNull('pkgResolution', instance.pkgResolution);
   writeNotNull('dartFiles', instance.dartFiles);
@@ -106,9 +102,6 @@ DartFileSummary _$DartFileSummaryFromJson(Map<String, dynamic> json) {
     directLibs: (json['directLibs'] as List)?.map((e) => e as String)?.toList(),
     transitiveLibs:
         (json['transitiveLibs'] as List)?.map((e) => e as String)?.toList(),
-    platform: json['platform'] == null
-        ? null
-        : DartPlatform.fromJson(json['platform'] as Map<String, dynamic>),
   );
 }
 
@@ -128,74 +121,8 @@ Map<String, dynamic> _$DartFileSummaryToJson(DartFileSummary instance) {
 
   writeNotNull('directLibs', instance.directLibs);
   writeNotNull('transitiveLibs', instance.transitiveLibs);
-  writeNotNull('platform', instance.platform);
   return val;
 }
-
-DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) {
-  return DartPlatform(
-    (json['components'] as List)?.map((e) => e as String)?.toList(),
-    (json['uses'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(k, _$enumDecodeNullable(_$PlatformUseEnumMap, e)),
-    ),
-    reason: json['reason'] as String,
-  );
-}
-
-Map<String, dynamic> _$DartPlatformToJson(DartPlatform instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('components', instance.components);
-  writeNotNull('uses',
-      instance.uses?.map((k, e) => MapEntry(k, _$PlatformUseEnumMap[e])));
-  writeNotNull('reason', instance.reason);
-  return val;
-}
-
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
-}
-
-const _$PlatformUseEnumMap = {
-  PlatformUse.allowed: 'allowed',
-  PlatformUse.used: 'used',
-  PlatformUse.conflict: 'conflict',
-  PlatformUse.forbidden: 'forbidden',
-};
 
 PkgResolution _$PkgResolutionFromJson(Map<String, dynamic> json) {
   return PkgResolution(
