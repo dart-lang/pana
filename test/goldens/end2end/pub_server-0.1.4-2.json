@@ -862,12 +862,6 @@
       ]
     }
   },
-  "stats": {
-    "analyzeProcessElapsed": 1234,
-    "formatProcessElapsed": 567,
-    "resolveProcessElapsed": 899,
-    "totalElapsed": 4567
-  },
   "tags": [
     "sdk:dart",
     "sdk:flutter",

@@ -36,9 +36,6 @@ class Summary {
   final Map<String, DartFileSummary> dartFiles;
 
   @JsonKey(includeIfNull: false)
-  final Stats stats;
-
-  @JsonKey(includeIfNull: false)
   final List<String> tags;
 
   @JsonKey(includeIfNull: false)
@@ -56,7 +53,6 @@ class Summary {
     @required this.pkgResolution,
     @required this.dartFiles,
     @required this.licenses,
-    @required this.stats,
     @required this.tags,
     @required this.report,
     @required this.errorMessage,
@@ -74,7 +70,6 @@ class Summary {
 
   Summary change({
     PanaRuntimeInfo runtimeInfo,
-    Stats stats,
     List<String> tags,
   }) {
     return Summary(
@@ -85,7 +80,6 @@ class Summary {
       pkgResolution: pkgResolution,
       dartFiles: dartFiles,
       licenses: licenses,
-      stats: stats ?? this.stats,
       tags: tags ?? this.tags,
       report: report,
       errorMessage: errorMessage,
@@ -492,32 +486,6 @@ class CodeProblem implements Comparable<CodeProblem> {
 
   List<Object> get _values =>
       [file, line, col, severity, errorType, errorCode, description];
-}
-
-@JsonSerializable()
-class Stats {
-  /// The elapsed time in milliseconds for running `dartanalyzer`.
-  final int analyzeProcessElapsed;
-
-  /// The elapsed time in milliseconds for running `dartfmt`.
-  final int formatProcessElapsed;
-
-  /// The elapsed time in milliseconds for running `pub upgrade`.
-  final int resolveProcessElapsed;
-
-  /// The total time the analysis was running, in milliseconds.
-  final int totalElapsed;
-
-  Stats({
-    @required this.analyzeProcessElapsed,
-    @required this.formatProcessElapsed,
-    @required this.resolveProcessElapsed,
-    @required this.totalElapsed,
-  });
-
-  factory Stats.fromJson(Map<String, dynamic> json) => _$StatsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$StatsToJson(this);
 }
 
 /// Models the 'new-style' pana report.

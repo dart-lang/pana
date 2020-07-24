@@ -30,9 +30,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : LicenseFile.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    stats: json['stats'] == null
-        ? null
-        : Stats.fromJson(json['stats'] as Map<String, dynamic>),
     tags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
     report: json['report'] == null
         ? null
@@ -59,7 +56,6 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   val['licenses'] = instance.licenses;
   writeNotNull('pkgResolution', instance.pkgResolution);
   writeNotNull('dartFiles', instance.dartFiles);
-  writeNotNull('stats', instance.stats);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);
   writeNotNull('errorMessage', instance.errorMessage);
@@ -223,22 +219,6 @@ Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>
       'col': instance.col,
       'length': instance.length,
       'description': instance.description,
-    };
-
-Stats _$StatsFromJson(Map<String, dynamic> json) {
-  return Stats(
-    analyzeProcessElapsed: json['analyzeProcessElapsed'] as int,
-    formatProcessElapsed: json['formatProcessElapsed'] as int,
-    resolveProcessElapsed: json['resolveProcessElapsed'] as int,
-    totalElapsed: json['totalElapsed'] as int,
-  );
-}
-
-Map<String, dynamic> _$StatsToJson(Stats instance) => <String, dynamic>{
-      'analyzeProcessElapsed': instance.analyzeProcessElapsed,
-      'formatProcessElapsed': instance.formatProcessElapsed,
-      'resolveProcessElapsed': instance.resolveProcessElapsed,
-      'totalElapsed': instance.totalElapsed,
     };
 
 Report _$ReportFromJson(Map<String, dynamic> json) {
