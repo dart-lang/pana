@@ -132,36 +132,6 @@ Map<String, dynamic> _$DartFileSummaryToJson(DartFileSummary instance) {
   return val;
 }
 
-Suggestion _$SuggestionFromJson(Map<String, dynamic> json) {
-  return Suggestion(
-    json['code'] as String,
-    json['level'] as String,
-    json['title'] as String,
-    json['description'] as String,
-    file: json['file'] as String,
-    score: (json['score'] as num)?.toDouble(),
-  );
-}
-
-Map<String, dynamic> _$SuggestionToJson(Suggestion instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-    'level': instance.level,
-    'title': instance.title,
-    'description': instance.description,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('file', instance.file);
-  writeNotNull('score', instance.score);
-  return val;
-}
-
 DartPlatform _$DartPlatformFromJson(Map<String, dynamic> json) {
   return DartPlatform(
     (json['components'] as List)?.map((e) => e as String)?.toList(),

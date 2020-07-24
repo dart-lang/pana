@@ -4,15 +4,9 @@
 
 library pana.maintenance;
 
-import 'dart:math';
-
 import 'package:json_annotation/json_annotation.dart';
 
-import 'model.dart';
 import 'utils.dart';
-
-final Duration _year = const Duration(days: 365);
-final Duration _twoYears = _year * 2;
 
 final List<String> changelogFileNames = textFileNameCandidates('changelog');
 
@@ -62,32 +56,6 @@ String firstFileFromNames(List<String> files, List<String> names,
       }
     }
   }
-  return null;
-}
-
-Suggestion getAgeSuggestion(Duration age) {
-  age ??= Duration.zero;
-
-  if (age > _twoYears) {
-    return Suggestion.warning(
-        SuggestionCode.packageVersionObsolete,
-        'Package is too old.',
-        'The package was last published more than two years ago.',
-        score: 100.0);
-  }
-
-  // adjust score to the age
-  if (age > _year) {
-    final ageInWeeks = age.inDays ~/ 7;
-    final daysOverAYear = age.inDays - _year.inDays;
-    final score = max(0.0, min(100.0, daysOverAYear * 100.0 / 365));
-    return Suggestion.hint(
-        SuggestionCode.packageVersionOld,
-        'Package is getting outdated.',
-        'The package was last published $ageInWeeks weeks ago.',
-        score: score);
-  }
-
   return null;
 }
 
