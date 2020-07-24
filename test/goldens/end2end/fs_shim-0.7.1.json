@@ -56,31 +56,6 @@
       "url": "https://github.com/tekartik/fs_shim.dart/blob/master/LICENSE"
     }
   ],
-  "health": {
-    "analyzeProcessFailed": true,
-    "formatProcessFailed": false,
-    "resolveProcessFailed": true,
-    "analyzerErrorCount": 0,
-    "analyzerWarningCount": 0,
-    "analyzerHintCount": 0,
-    "platformConflictCount": 0,
-    "suggestions": [
-      {
-        "code": "dartfmt.warning",
-        "level": "hint",
-        "title": "Format `lib/utils/copy.dart`.",
-        "description": "Run `dartfmt` to format `lib/utils/copy.dart`.",
-        "file": "lib/utils/copy.dart"
-      },
-      {
-        "code": "dartfmt.warning",
-        "level": "hint",
-        "title": "Format `lib/utils/src/utils_impl.dart`.",
-        "description": "Run `dartfmt` to format `lib/utils/src/utils_impl.dart`.",
-        "file": "lib/utils/src/utils_impl.dart"
-      }
-    ]
-  },
   "dartFiles": {
     "lib/fs.dart": {
       "uri": "package:fs_shim/fs.dart",

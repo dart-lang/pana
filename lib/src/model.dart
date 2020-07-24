@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
-import 'dart:math' as math;
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
@@ -16,11 +15,6 @@ import 'pubspec.dart';
 import 'utils.dart' show toRelativePath;
 
 part 'model.g.dart';
-
-/// NOTE: In case these change, update README.md
-const healthErrorMultiplier = 0.75;
-const healthWarningMultiplier = 0.95;
-const healthHintMultiplier = 0.995;
 
 @JsonSerializable()
 @VersionConverter()
@@ -38,9 +32,6 @@ class Summary {
 
   final DartPlatform platform;
   final List<LicenseFile> licenses;
-
-  @JsonKey(includeIfNull: false)
-  final Health health;
 
   @JsonKey(includeIfNull: false)
   final PkgResolution pkgResolution;
@@ -70,7 +61,6 @@ class Summary {
     @required this.dartFiles,
     @required this.platform,
     @required this.licenses,
-    @required this.health,
     @required this.stats,
     @required this.tags,
     @required this.report,
@@ -89,7 +79,6 @@ class Summary {
 
   Summary change({
     PanaRuntimeInfo runtimeInfo,
-    Health health,
     DartPlatform platform,
     Stats stats,
     List<String> tags,
@@ -103,7 +92,6 @@ class Summary {
       dartFiles: dartFiles,
       platform: platform ?? this.platform,
       licenses: licenses,
-      health: health ?? this.health,
       stats: stats ?? this.stats,
       tags: tags ?? this.tags,
       report: report,
@@ -682,89 +670,6 @@ class PkgDependency implements Comparable<PkgDependency> {
 }
 
 @JsonSerializable()
-class Health {
-  /// Whether running `dartanalyzer` was successful.
-  final bool analyzeProcessFailed;
-
-  /// Whether running `dartfmt` was successful.
-  final bool formatProcessFailed;
-
-  /// Whether running `pub upgrade` was successful.
-  final bool resolveProcessFailed;
-
-  /// The number of errors from `dartanalyzer`.
-  final int analyzerErrorCount;
-
-  /// The number of warnings from `dartanalyzer`.
-  final int analyzerWarningCount;
-
-  /// The number of hints/info messages from `dartanalyzer`.
-  final int analyzerHintCount;
-
-  /// The number of files having platform conflicts.
-  final int platformConflictCount;
-
-  /// The suggestions about the issues affecting the health score.
-  @JsonKey(includeIfNull: false)
-  final List<Suggestion> suggestions;
-
-  Health({
-    @required this.analyzeProcessFailed,
-    @required this.formatProcessFailed,
-    @required this.resolveProcessFailed,
-    @required this.analyzerErrorCount,
-    @required this.analyzerWarningCount,
-    @required this.analyzerHintCount,
-    @required this.platformConflictCount,
-    @required List<Suggestion> suggestions,
-  }) : suggestions =
-            suggestions == null || suggestions.isEmpty ? null : suggestions;
-
-  factory Health.fromJson(Map<String, dynamic> json) => _$HealthFromJson(json);
-
-  Map<String, dynamic> toJson() => _$HealthToJson(this);
-
-  bool get anyProcessFailed =>
-      analyzeProcessFailed || formatProcessFailed || resolveProcessFailed;
-
-  /// Returns a health score between 0.0 and 1.0 (1.0 being the top score it can get).
-  ///
-  /// NOTE: In case these change, update README.md
-  double get healthScore {
-    if (anyProcessFailed) {
-      // can't reliably determine the score if we can't parse and analyze the sources
-      return 0.0;
-    }
-    var score = calculateBaseHealth(
-        analyzerErrorCount, analyzerWarningCount, analyzerHintCount);
-    score -= 0.25 * platformConflictCount;
-    return math.max(0.0, score);
-  }
-
-  bool get hasPlatformBlockingIssues {
-    // should not classify platform if any of the processes fail
-    if (anyProcessFailed) {
-      return true;
-    }
-    // calculate base score without (pedantic) hints
-    var score =
-        calculateBaseHealth(analyzerErrorCount, analyzerWarningCount, 0);
-    return score < 0.33;
-  }
-}
-
-/// Returns the part of the health score that is calculated from the number of
-/// `dartanalyzer` items. Other penalties will be deduced from this base score
-/// (e.g. platform conflict, dartdoc coverage).
-double calculateBaseHealth(
-    int analyzerErrorCount, int analyzerWarningCount, int analyzerHintCount) {
-  final score = math.pow(healthErrorMultiplier, analyzerErrorCount) *
-      math.pow(healthWarningMultiplier, analyzerWarningCount) *
-      math.max(0.75, math.pow(healthHintMultiplier, analyzerHintCount));
-  return score.toDouble();
-}
-
-@JsonSerializable()
 class LicenseFile {
   final String path;
   final String name;
@@ -957,6 +862,12 @@ class Report {
 
   static Report fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
   Map<String, dynamic> toJson() => _$ReportToJson(this);
+
+  int get grantedPoints =>
+      sections.fold<int>(0, (sum, section) => sum + section.grantedPoints);
+
+  int get maxPoints =>
+      sections.fold<int>(0, (sum, section) => sum + section.maxPoints);
 
   /// Creates a new [Report] instance with [section] extending and already
   /// existing [ReportSection]. The sections are matched via the `title`.

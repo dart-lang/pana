@@ -48,33 +48,6 @@
       "url": "https://github.com/dart-lang/pub_server/blob/master/LICENSE"
     }
   ],
-  "health": {
-    "analyzeProcessFailed": false,
-    "formatProcessFailed": false,
-    "resolveProcessFailed": false,
-    "analyzerErrorCount": 0,
-    "analyzerWarningCount": 0,
-    "analyzerHintCount": 44,
-    "platformConflictCount": 0,
-    "suggestions": [
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/shelf_pubserver.dart`.",
-        "description": "Analysis of `lib/shelf_pubserver.dart` reported 36 hints, including:\n\nline 19 col 24: Unnecessary new keyword.\n\nline 131 col 40: Unnecessary new keyword.\n\nline 134 col 7: Unnecessary new keyword.\n\nline 137 col 7: Unnecessary new keyword.\n\nline 140 col 7: Unnecessary new keyword.",
-        "file": "lib/shelf_pubserver.dart",
-        "score": 16.51
-      },
-      {
-        "code": "dartanalyzer.warning",
-        "level": "hint",
-        "title": "Fix `lib/repository.dart`.",
-        "description": "Analysis of `lib/repository.dart` reported 8 hints, including:\n\nline 27 col 15: Unnecessary new keyword.\n\nline 109 col 7: Unnecessary new keyword.\n\nline 130 col 13: Unnecessary new keyword.\n\nline 144 col 13: Unnecessary new keyword.\n\nline 148 col 13: Unnecessary new keyword.",
-        "file": "lib/repository.dart",
-        "score": 3.93
-      }
-    ]
-  },
   "pkgResolution": {
     "dependencies": [
       {
