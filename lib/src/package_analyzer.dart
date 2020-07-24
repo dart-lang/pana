@@ -125,7 +125,6 @@ class PackageAnalyzer {
         platform: null,
         licenses: null,
         health: null,
-        maintenance: null,
         stats: null,
         tags: null,
         report: null,
@@ -215,7 +214,6 @@ class PackageAnalyzer {
 
     List<CodeProblem> analyzerItems;
 
-    bool dartdocSuccessful;
     if (pkgResolution != null && options.dartdocOutputDir != null) {
       for (var i = 0; i <= options.dartdocRetry; i++) {
         try {
@@ -225,7 +223,6 @@ class PackageAnalyzer {
             validateLinks: i == 0,
             timeout: options.dartdocTimeout,
           );
-          dartdocSuccessful = r.wasSuccessful;
           if (!r.wasTimeout) {
             break;
           }
@@ -373,17 +370,6 @@ class PackageAnalyzer {
     licenses = await updateLicenseUrls(
         _urlChecker, pubspec.repository ?? pubspec.homepage, licenses);
 
-    final maintenance = await detectMaintenance(
-      options,
-      _urlChecker,
-      pkgDir,
-      pubspec,
-      null, // unconstrainedDeps no longer used directly
-      dartdocSuccessful: dartdocSuccessful,
-      pkgResolution: pkgResolution,
-      tags: tags,
-    );
-
     totalStopwatch.stop();
     final stats = Stats(
       analyzeProcessElapsed: analyzeProcessStopwatch.elapsedMilliseconds,
@@ -405,7 +391,6 @@ class PackageAnalyzer {
       platform: platform,
       licenses: licenses,
       health: health,
-      maintenance: maintenance,
       stats: stats,
       tags: tags,
       report: await createReport(options, pkgDir, _toolEnv),

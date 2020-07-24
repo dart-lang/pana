@@ -99,53 +99,6 @@
       }
     ]
   },
-  "maintenance": {
-    "missingChangelog": false,
-    "missingExample": true,
-    "missingReadme": false,
-    "missingAnalysisOptions": false,
-    "oldAnalysisOptions": false,
-    "strongModeEnabled": true,
-    "isExperimentalVersion": false,
-    "isPreReleaseVersion": false,
-    "suggestions": [
-      {
-        "code": "sdk.missing",
-        "level": "error",
-        "title": "No valid SDK.",
-        "description": "The analysis could not detect a valid SDK that can use this package.",
-        "score": 20.0
-      },
-      {
-        "code": "pubspec.dependencies.outdated",
-        "level": "warning",
-        "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 4 dependencies (`build_config`, `intl`, `protobuf`, `quiver`).",
-        "score": 40.0
-      },
-      {
-        "code": "pubspec.documentation.isNotHelpful",
-        "level": "warning",
-        "title": "Documentation URL isn't helpful.",
-        "description": "Either remove the `documentation` field from `pubspec.yaml`, or update it to link to a website about the package.",
-        "score": 10.0
-      },
-      {
-        "code": "pubspec.homepage.isNotHelpful",
-        "level": "warning",
-        "title": "Homepage URL isn't helpful.",
-        "description": "Update the `homepage` field from `pubspec.yaml`: link to a website about the package or use the source repository URL.",
-        "score": 10.0
-      },
-      {
-        "code": "example.missing",
-        "level": "hint",
-        "title": "Maintain an example.",
-        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `angular_components.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
-        "score": 10.0
-      }
-    ]
-  },
   "pkgResolution": {
     "dependencies": [
       {

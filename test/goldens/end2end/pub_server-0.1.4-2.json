@@ -75,16 +75,6 @@
       }
     ]
   },
-  "maintenance": {
-    "missingChangelog": false,
-    "missingExample": false,
-    "missingReadme": false,
-    "missingAnalysisOptions": false,
-    "oldAnalysisOptions": false,
-    "strongModeEnabled": true,
-    "isExperimentalVersion": false,
-    "isPreReleaseVersion": false
-  },
   "pkgResolution": {
     "dependencies": [
       {

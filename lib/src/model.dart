@@ -43,9 +43,6 @@ class Summary {
   final Health health;
 
   @JsonKey(includeIfNull: false)
-  final Maintenance maintenance;
-
-  @JsonKey(includeIfNull: false)
   final PkgResolution pkgResolution;
 
   @JsonKey(includeIfNull: false)
@@ -74,7 +71,6 @@ class Summary {
     @required this.platform,
     @required this.licenses,
     @required this.health,
-    @required this.maintenance,
     @required this.stats,
     @required this.tags,
     @required this.report,
@@ -95,7 +91,6 @@ class Summary {
     PanaRuntimeInfo runtimeInfo,
     Health health,
     DartPlatform platform,
-    Maintenance maintenance,
     Stats stats,
     List<String> tags,
   }) {
@@ -109,7 +104,6 @@ class Summary {
       platform: platform ?? this.platform,
       licenses: licenses,
       health: health ?? this.health,
-      maintenance: maintenance ?? this.maintenance,
       stats: stats ?? this.stats,
       tags: tags ?? this.tags,
       report: report,
@@ -768,79 +762,6 @@ double calculateBaseHealth(
       math.pow(healthWarningMultiplier, analyzerWarningCount) *
       math.max(0.75, math.pow(healthHintMultiplier, analyzerHintCount));
   return score.toDouble();
-}
-
-/// Describes the maintenance status of the package.
-@JsonSerializable()
-class Maintenance {
-  /// whether the package has no or too small changelog
-  final bool missingChangelog;
-
-  /// whether the package has no example
-  final bool missingExample;
-
-  /// whether the package has no or too small readme
-  final bool missingReadme;
-
-  /// whether the package has no analysis_options.yaml file
-  final bool missingAnalysisOptions;
-
-  /// whether the package has only an old .analysis-options file
-  final bool oldAnalysisOptions;
-
-  /// whether the analysis_options.yaml file has strong mode enabled
-  final bool strongModeEnabled;
-
-  /// whether version is `0.*`
-  final bool isExperimentalVersion;
-
-  /// whether version is flagged `-beta`, `-alpha`, etc.
-  final bool isPreReleaseVersion;
-
-  /// whether running dartdoc was successful (null if it hasn't run yet)
-  @JsonKey(includeIfNull: false)
-  final bool dartdocSuccessful;
-
-  /// The suggestions that affect the maintenance score.
-  @JsonKey(includeIfNull: false)
-  final List<Suggestion> suggestions;
-
-  Maintenance({
-    @required this.missingChangelog,
-    @required this.missingExample,
-    @required this.missingReadme,
-    @required this.missingAnalysisOptions,
-    @required this.oldAnalysisOptions,
-    @required this.strongModeEnabled,
-    @required this.isExperimentalVersion,
-    @required this.isPreReleaseVersion,
-    @required this.dartdocSuccessful,
-    List<Suggestion> suggestions,
-  }) : suggestions =
-            suggestions != null && suggestions.isNotEmpty ? suggestions : null;
-
-  factory Maintenance.fromJson(Map<String, dynamic> json) =>
-      _$MaintenanceFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MaintenanceToJson(this);
-
-  Maintenance change({
-    bool dartdocSuccessful,
-    List<Suggestion> suggestions,
-  }) {
-    return Maintenance(
-      missingChangelog: missingChangelog,
-      missingExample: missingExample,
-      missingReadme: missingReadme,
-      missingAnalysisOptions: missingAnalysisOptions,
-      oldAnalysisOptions: oldAnalysisOptions,
-      strongModeEnabled: strongModeEnabled,
-      isExperimentalVersion: isExperimentalVersion,
-      isPreReleaseVersion: isPreReleaseVersion,
-      dartdocSuccessful: dartdocSuccessful ?? this.dartdocSuccessful,
-      suggestions: suggestions ?? this.suggestions,
-    );
-  }
 }
 
 @JsonSerializable()

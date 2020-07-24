@@ -47,53 +47,6 @@
       }
     ]
   },
-  "maintenance": {
-    "missingChangelog": false,
-    "missingExample": true,
-    "missingReadme": false,
-    "missingAnalysisOptions": true,
-    "oldAnalysisOptions": false,
-    "strongModeEnabled": true,
-    "isExperimentalVersion": false,
-    "isPreReleaseVersion": false,
-    "suggestions": [
-      {
-        "code": "pubspec.sdk.missing",
-        "level": "error",
-        "title": "Add an `sdk` field to `pubspec.yaml`.",
-        "description": "For information about setting the SDK constraint, see [https://www.dartlang.org/tools/pub/pubspec#sdk-constraints](https://www.dartlang.org/tools/pub/pubspec#sdk-constraints).",
-        "score": 50.0
-      },
-      {
-        "code": "pubspec.sdk.devOnly",
-        "level": "error",
-        "title": "Support future stable Dart 2 SDKs in `pubspec.yaml`.",
-        "description": "The SDK constraint in `pubspec.yaml` doesn't allow future stable Dart 2.x SDK releases.",
-        "score": 20.0
-      },
-      {
-        "code": "sdk.missing",
-        "level": "error",
-        "title": "No valid SDK.",
-        "description": "The analysis could not detect a valid SDK that can use this package.",
-        "score": 20.0
-      },
-      {
-        "code": "pubspec.description.tooShort",
-        "level": "hint",
-        "title": "The package description is too short.",
-        "description": "Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.",
-        "score": 20.0
-      },
-      {
-        "code": "example.missing",
-        "level": "hint",
-        "title": "Maintain an example.",
-        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `skiplist.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
-        "score": 10.0
-      }
-    ]
-  },
   "dartFiles": {
     "lib/skiplist.dart": {
       "uri": "package:skiplist/skiplist.dart",

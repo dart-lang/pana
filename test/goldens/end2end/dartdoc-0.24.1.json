@@ -111,39 +111,6 @@
       }
     ]
   },
-  "maintenance": {
-    "missingChangelog": false,
-    "missingExample": true,
-    "missingReadme": false,
-    "missingAnalysisOptions": false,
-    "oldAnalysisOptions": false,
-    "strongModeEnabled": true,
-    "isExperimentalVersion": false,
-    "isPreReleaseVersion": false,
-    "suggestions": [
-      {
-        "code": "pubspec.dependencies.outdated",
-        "level": "warning",
-        "title": "Support latest dependencies.",
-        "description": "The version constraint in `pubspec.yaml` does not support the latest published versions for 2 dependencies (`analyzer`, `html`).",
-        "score": 20.0
-      },
-      {
-        "code": "pubspec.description.tooShort",
-        "level": "hint",
-        "title": "The package description is too short.",
-        "description": "Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.",
-        "score": 20.0
-      },
-      {
-        "code": "example.missing",
-        "level": "hint",
-        "title": "Maintain an example.",
-        "description": "Create a short demo in the `example/` directory to show how to use this package.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `dartdoc.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples).",
-        "score": 10.0
-      }
-    ]
-  },
   "pkgResolution": {
     "dependencies": [
       {

@@ -10,30 +10,6 @@ import 'sdk_env.dart';
 
 const documentationSectionTitle = 'Provide documentation';
 
-List<Suggestion> getDartdocSuggestions(DartdocResult result) {
-  if (result == null) {
-    return null;
-  }
-
-  final suggestions = <Suggestion>[];
-
-  if (!result.wasSuccessful) {
-    suggestions.add(getDartdocRunFailedSuggestion(result));
-  }
-
-  return suggestions.isEmpty ? null : suggestions;
-}
-
-Suggestion getDartdocRunFailedSuggestion([DartdocResult result]) {
-  final errorMessage = result?.processResult?.stderr?.toString() ?? '';
-  return Suggestion.error(
-    SuggestionCode.dartdocAborted,
-    "Make sure `dartdoc` successfully runs on your package's source files.",
-    'Running `dartdoc` failed with the following output:\n\n```\n$errorMessage\n```\n',
-    score: 10.0,
-  );
-}
-
 /// Creates a report section about documentation coverage.
 /// 20% coverage grants the maximum number of points.
 ReportSection documentationCoverageSection({

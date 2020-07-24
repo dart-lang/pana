@@ -36,9 +36,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
     health: json['health'] == null
         ? null
         : Health.fromJson(json['health'] as Map<String, dynamic>),
-    maintenance: json['maintenance'] == null
-        ? null
-        : Maintenance.fromJson(json['maintenance'] as Map<String, dynamic>),
     stats: json['stats'] == null
         ? null
         : Stats.fromJson(json['stats'] as Map<String, dynamic>),
@@ -68,7 +65,6 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   val['platform'] = instance.platform;
   val['licenses'] = instance.licenses;
   writeNotNull('health', instance.health);
-  writeNotNull('maintenance', instance.maintenance);
   writeNotNull('pkgResolution', instance.pkgResolution);
   writeNotNull('dartFiles', instance.dartFiles);
   writeNotNull('stats', instance.stats);
@@ -318,47 +314,6 @@ Map<String, dynamic> _$HealthToJson(Health instance) {
     }
   }
 
-  writeNotNull('suggestions', instance.suggestions);
-  return val;
-}
-
-Maintenance _$MaintenanceFromJson(Map<String, dynamic> json) {
-  return Maintenance(
-    missingChangelog: json['missingChangelog'] as bool,
-    missingExample: json['missingExample'] as bool,
-    missingReadme: json['missingReadme'] as bool,
-    missingAnalysisOptions: json['missingAnalysisOptions'] as bool,
-    oldAnalysisOptions: json['oldAnalysisOptions'] as bool,
-    strongModeEnabled: json['strongModeEnabled'] as bool,
-    isExperimentalVersion: json['isExperimentalVersion'] as bool,
-    isPreReleaseVersion: json['isPreReleaseVersion'] as bool,
-    dartdocSuccessful: json['dartdocSuccessful'] as bool,
-    suggestions: (json['suggestions'] as List)
-        ?.map((e) =>
-            e == null ? null : Suggestion.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
-
-Map<String, dynamic> _$MaintenanceToJson(Maintenance instance) {
-  final val = <String, dynamic>{
-    'missingChangelog': instance.missingChangelog,
-    'missingExample': instance.missingExample,
-    'missingReadme': instance.missingReadme,
-    'missingAnalysisOptions': instance.missingAnalysisOptions,
-    'oldAnalysisOptions': instance.oldAnalysisOptions,
-    'strongModeEnabled': instance.strongModeEnabled,
-    'isExperimentalVersion': instance.isExperimentalVersion,
-    'isPreReleaseVersion': instance.isPreReleaseVersion,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('dartdocSuccessful', instance.dartdocSuccessful);
   writeNotNull('suggestions', instance.suggestions);
   return val;
 }
