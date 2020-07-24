@@ -21,7 +21,6 @@ import 'maintenance.dart';
 import 'messages.dart' as messages;
 import 'model.dart';
 import 'pkg_resolution.dart';
-import 'platform.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
 import 'tag_detection.dart';
@@ -121,7 +120,6 @@ class PackageAnalyzer {
         pubspec: options.verbosity == Verbosity.compact ? null : pubspec,
         pkgResolution: null,
         dartFiles: null,
-        platform: null,
         licenses: null,
         stats: null,
         tags: null,
@@ -313,14 +311,9 @@ class PackageAnalyzer {
       var directLibs = allDirectLibs == null ? null : allDirectLibs[uri];
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
-      DartPlatform platform;
       if (libPlatformBlocked) {
-        platform = DartPlatform.conflict(
-            'Error(s) in $dartFile: ${platformBlockers.first.description}');
-        pkgPlatformConflict ??= platform.reason;
-      }
-      if (transitiveLibs != null) {
-        platform ??= classifyLibPlatform(transitiveLibs);
+        pkgPlatformConflict ??=
+            'Error(s) in $dartFile: ${platformBlockers.first.description}';
       }
       files[dartFile] = DartFileSummary(
         uri: uri,
@@ -330,7 +323,6 @@ class PackageAnalyzer {
         directLibs: directLibs,
         transitiveLibs:
             options.verbosity == Verbosity.verbose ? transitiveLibs : null,
-        platform: platform,
       );
     }
 
@@ -342,17 +334,6 @@ class PackageAnalyzer {
       if (unattributedFiles.isNotEmpty) {
         log.warning('Unattributed files from dartanalyzer: $unattributedFiles');
       }
-    }
-
-    DartPlatform platform;
-    if (pkgPlatformConflict != null) {
-      platform = DartPlatform.conflict(
-          'Error(s) prevent platform classification:\n\n$pkgPlatformConflict');
-    }
-    platform ??= classifyPkgPlatform(pubspec, allTransitiveLibs);
-    if (!platform.hasConflict && errors.isNotEmpty) {
-      platform =
-          DartPlatform.conflict('Error(s) prevents platform classification.');
     }
 
     var licenses = await detectLicensesInDir(pkgDir);
@@ -377,7 +358,6 @@ class PackageAnalyzer {
       pkgResolution:
           options.verbosity == Verbosity.compact ? null : pkgResolution,
       dartFiles: options.verbosity == Verbosity.compact ? null : files,
-      platform: platform,
       licenses: licenses,
       stats: stats,
       tags: tags,

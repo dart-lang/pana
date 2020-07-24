@@ -27,18 +27,6 @@
       "sdk": ">=2.0.0-dev <3.0.0"
     }
   },
-  "platform": {
-    "components": [
-      "io",
-      "mirrors"
-    ],
-    "uses": {
-      "flutter": "forbidden",
-      "web": "forbidden",
-      "other": "used"
-    },
-    "reason": "Primary library: `package:stream/stream.dart` with components: `io`, `mirrors`."
-  },
   "licenses": [
     {
       "path": "LICENSE",
@@ -332,18 +320,7 @@
         "package:rikulo_commons/mirrors.dart",
         "package:rikulo_commons/util.dart",
         "package:stream/stream.dart"
-      ],
-      "platform": {
-        "components": [
-          "io",
-          "mirrors"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "forbidden",
-          "other": "used"
-        }
-      }
+      ]
     },
     "lib/proxy.dart": {
       "uri": "package:stream/proxy.dart",
@@ -619,18 +596,7 @@
         "package:typed_data/src/typed_queue.dart",
         "package:typed_data/typed_buffers.dart",
         "package:typed_data/typed_data.dart"
-      ],
-      "platform": {
-        "components": [
-          "io",
-          "mirrors"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "forbidden",
-          "other": "used"
-        }
-      }
+      ]
     },
     "lib/rspc.dart": {
       "uri": "package:stream/rspc.dart",
@@ -862,17 +828,7 @@
         "package:rikulo_commons/convert.dart",
         "package:rikulo_commons/io.dart",
         "package:rikulo_commons/util.dart"
-      ],
-      "platform": {
-        "components": [
-          "io"
-        ],
-        "uses": {
-          "flutter": "allowed",
-          "web": "forbidden",
-          "other": "used"
-        }
-      }
+      ]
     },
     "lib/src/connect.dart": {
       "uri": "package:stream/src/connect.dart",
@@ -12866,18 +12822,7 @@
         "package:rikulo_commons/mirrors.dart",
         "package:rikulo_commons/util.dart",
         "package:stream/plugin.dart"
-      ],
-      "platform": {
-        "components": [
-          "io",
-          "mirrors"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "forbidden",
-          "other": "used"
-        }
-      }
+      ]
     }
   },
   "stats": {

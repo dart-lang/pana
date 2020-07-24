@@ -4,11 +4,16 @@
 
 * Removed:
   * `bin/bulk.dart`
+  * `ComponentNames`
+  * `DartPlatform`
   * `Health`
   * `Maintenance`
+  * `PlatformNames`
+  * `PlatformUse`
   * `Suggestion`
   * `Summary.health`
   * `Summary.maintenance`
+  * `Summary.platform`
   * `Summary.suggestions`
 
 ## 0.13.16

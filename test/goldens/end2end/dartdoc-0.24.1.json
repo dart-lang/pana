@@ -49,19 +49,6 @@
       "dartdoc": null
     }
   },
-  "platform": {
-    "components": [
-      "io",
-      "isolate",
-      "mirrors"
-    ],
-    "uses": {
-      "flutter": "forbidden",
-      "web": "forbidden",
-      "other": "used"
-    },
-    "reason": "Primary library: `package:dartdoc/dartdoc.dart` with components: `io`, `isolate`, `mirrors`."
-  },
   "licenses": [
     {
       "path": "LICENSE",
@@ -480,15 +467,7 @@
         "package:dartdoc/src/logging.dart",
         "package:stack_trace/stack_trace.dart"
       ],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/dartdoc.dart": {
       "uri": "package:dartdoc/dartdoc.dart",
@@ -1839,19 +1818,7 @@
         "package:yaml/src/yaml_node.dart",
         "package:yaml/src/yaml_node_wrapper.dart",
         "package:yaml/yaml.dart"
-      ],
-      "platform": {
-        "components": [
-          "io",
-          "isolate",
-          "mirrors"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "forbidden",
-          "other": "used"
-        }
-      }
+      ]
     },
     "lib/src/dartdoc_options.dart": {
       "uri": "package:dartdoc/src/dartdoc_options.dart",

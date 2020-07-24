@@ -32,15 +32,6 @@
       "test": "^1.3.0"
     }
   },
-  "platform": {
-    "components": [],
-    "uses": {
-      "flutter": "allowed",
-      "web": "allowed",
-      "other": "allowed"
-    },
-    "reason": "No platform restriction found in libraries."
-  },
   "licenses": [
     {
       "path": "LICENSE",
@@ -296,15 +287,7 @@
         "package:pub_semver/src/version_constraint.dart",
         "package:pub_semver/src/version_range.dart",
         "package:pub_semver/src/version_union.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/shelf_pubserver.dart": {
       "uri": "package:pub_server/shelf_pubserver.dart",
@@ -876,15 +859,7 @@
         "package:yaml/src/yaml_node.dart",
         "package:yaml/src/yaml_node_wrapper.dart",
         "package:yaml/yaml.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     }
   },
   "stats": {

@@ -5,7 +5,6 @@
     "flutterVersions": {}
   },
   "packageName": null,
-  "platform": null,
   "licenses": null,
   "errorMessage": "Error while parsing `pubspec.yaml`.\n\nParsing throws an exception:\n\n```\nError on line 5, column 1 of $TEMPDIR/pubspec.yaml: Duplicate mapping key.\n  ╷\n5 │ description:  Syntax library includes lexer and parser.\n  │ ^^^^^^^^^^^\n  ╵\n```"
 }

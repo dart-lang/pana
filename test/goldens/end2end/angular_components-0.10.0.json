@@ -39,18 +39,6 @@
       "test": "^1.0.0"
     }
   },
-  "platform": {
-    "components": [
-      "html",
-      "js"
-    ],
-    "uses": {
-      "flutter": "forbidden",
-      "web": "used",
-      "other": "conflict"
-    },
-    "reason": "Primary library: `package:angular_components/angular_components.dart` with components: `html`, `js`."
-  },
   "licenses": [
     {
       "path": "LICENSE",
@@ -1032,18 +1020,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/annotations/rtl_annotation.dart": {
       "uri": "package:angular_components/annotations/rtl_annotation.dart",
@@ -1215,18 +1192,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/app_layout/material_drawer_base.dart": {
       "uri": "package:angular_components/app_layout/material_drawer_base.dart",
@@ -1411,18 +1377,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/app_layout/material_persistent_drawer.dart": {
       "uri": "package:angular_components/app_layout/material_persistent_drawer.dart",
@@ -1597,18 +1552,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/app_layout/material_stackable_drawer.dart": {
       "uri": "package:angular_components/app_layout/material_stackable_drawer.dart",
@@ -1805,18 +1749,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/app_layout/material_temporary_drawer.dart": {
       "uri": "package:angular_components/app_layout/material_temporary_drawer.dart",
@@ -1991,18 +1924,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/auto_dismiss/auto_dismiss.dart": {
       "uri": "package:angular_components/auto_dismiss/auto_dismiss.dart",
@@ -2189,18 +2111,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/builder.dart": {
       "uri": "package:angular_components/builder.dart",
@@ -2979,18 +2890,7 @@
         "package:yaml/src/yaml_node.dart",
         "package:yaml/src/yaml_node_wrapper.dart",
         "package:yaml/yaml.dart"
-      ],
-      "platform": {
-        "components": [
-          "io",
-          "build"
-        ],
-        "uses": {
-          "flutter": "allowed",
-          "web": "forbidden",
-          "other": "used"
-        }
-      }
+      ]
     },
     "lib/button_decorator/button_decorator.dart": {
       "uri": "package:angular_components/button_decorator/button_decorator.dart",
@@ -3269,18 +3169,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/content/deferred_content.dart": {
       "uri": "package:angular_components/content/deferred_content.dart",
@@ -3456,18 +3345,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/content/deferred_content_aware.dart": {
       "uri": "package:angular_components/content/deferred_content_aware.dart",
@@ -3479,15 +3357,7 @@
       ],
       "transitiveLibs": [
         "dart:async"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/dynamic_component/dynamic_component.dart": {
       "uri": "package:angular_components/dynamic_component/dynamic_component.dart",
@@ -3682,18 +3552,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/focus/focus.dart": {
       "uri": "package:angular_components/focus/focus.dart",
@@ -3959,18 +3818,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/focus/focus_activable_item.dart": {
       "uri": "package:angular_components/focus/focus_activable_item.dart",
@@ -4211,18 +4059,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/focus/focus_interface.dart": {
       "uri": "package:angular_components/focus/focus_interface.dart",
@@ -4230,15 +4067,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/focus/focus_item.dart": {
       "uri": "package:angular_components/focus/focus_item.dart",
@@ -4491,18 +4320,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/focus/focus_list.dart": {
       "uri": "package:angular_components/focus/focus_list.dart",
@@ -4754,18 +4572,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/focus/focus_trap.dart": {
       "uri": "package:angular_components/focus/focus_trap.dart",
@@ -5020,18 +4827,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/focus/keyboard_only_focus_indicator.dart": {
       "uri": "package:angular_components/focus/keyboard_only_focus_indicator.dart",
@@ -5230,18 +5026,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/forms/error_renderer.dart": {
       "uri": "package:angular_components/forms/error_renderer.dart",
@@ -5260,15 +5045,7 @@
         }
       ],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/framework_stabilizers/framework_stabilizers.dart": {
       "uri": "package:angular_components/framework_stabilizers/framework_stabilizers.dart",
@@ -5313,17 +5090,7 @@
       "transitiveLibs": [
         "dart:js",
         "package:js/js.dart"
-      ],
-      "platform": {
-        "components": [
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "used"
-        }
-      }
+      ]
     },
     "lib/framework_stabilizers/testability.dart": {
       "uri": "package:angular_components/framework_stabilizers/testability.dart",
@@ -5351,17 +5118,7 @@
         "dart:js",
         "package:angular_components/framework_stabilizers/framework_stabilizers.dart",
         "package:js/js.dart"
-      ],
-      "platform": {
-        "components": [
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "used"
-        }
-      }
+      ]
     },
     "lib/glyph/glyph.dart": {
       "uri": "package:angular_components/glyph/glyph.dart",
@@ -5556,18 +5313,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/highlighted_text/highlighted_text.dart": {
       "uri": "package:angular_components/highlighted_text/highlighted_text.dart",
@@ -5741,18 +5487,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/highlighted_text/highlighted_value.dart": {
       "uri": "package:angular_components/highlighted_text/highlighted_value.dart",
@@ -5932,18 +5667,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/interfaces/has_disabled.dart": {
       "uri": "package:angular_components/interfaces/has_disabled.dart",
@@ -5951,15 +5675,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/laminate/components/modal/modal.dart": {
       "uri": "package:angular_components/laminate/components/modal/modal.dart",
@@ -6184,18 +5900,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/enums/alignment.dart": {
       "uri": "package:angular_components/laminate/enums/alignment.dart",
@@ -6250,15 +5955,7 @@
       "transitiveLibs": [
         "dart:math",
         "package:angular_components/src/laminate/enums/base.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/laminate/enums/position.dart": {
       "uri": "package:angular_components/laminate/enums/position.dart",
@@ -6270,15 +5967,7 @@
       ],
       "transitiveLibs": [
         "package:angular_components/src/laminate/enums/base.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/laminate/enums/visibility.dart": {
       "uri": "package:angular_components/laminate/enums/visibility.dart",
@@ -6290,15 +5979,7 @@
       ],
       "transitiveLibs": [
         "package:angular_components/src/laminate/enums/base.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/laminate/overlay/constants.dart": {
       "uri": "package:angular_components/laminate/overlay/constants.dart",
@@ -6306,15 +5987,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/laminate/overlay/module.dart": {
       "uri": "package:angular_components/laminate/overlay/module.dart",
@@ -6556,18 +6229,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/overlay/overlay.dart": {
       "uri": "package:angular_components/laminate/overlay/overlay.dart",
@@ -6770,18 +6432,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/overlay/zindexer.dart": {
       "uri": "package:angular_components/laminate/overlay/zindexer.dart",
@@ -6964,18 +6615,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/popup/module.dart": {
       "uri": "package:angular_components/laminate/popup/module.dart",
@@ -7194,18 +6834,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/popup/popup.dart": {
       "uri": "package:angular_components/laminate/popup/popup.dart",
@@ -7435,18 +7064,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/portal/portal.dart": {
       "uri": "package:angular_components/laminate/portal/portal.dart",
@@ -7678,18 +7296,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/ruler/dom_ruler.dart": {
       "uri": "package:angular_components/laminate/ruler/dom_ruler.dart",
@@ -7884,18 +7491,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/ruler/module.dart": {
       "uri": "package:angular_components/laminate/ruler/module.dart",
@@ -8132,18 +7728,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/laminate/ruler/ng_ruler.dart": {
       "uri": "package:angular_components/laminate/ruler/ng_ruler.dart",
@@ -8340,18 +7925,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_button/material_button.dart": {
       "uri": "package:angular_components/material_button/material_button.dart",
@@ -8630,18 +8204,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_button/material_button_base.dart": {
       "uri": "package:angular_components/material_button/material_button_base.dart",
@@ -8887,18 +8450,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_button/material_fab.dart": {
       "uri": "package:angular_components/material_button/material_fab.dart",
@@ -9148,18 +8700,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_checkbox/material_checkbox.dart": {
       "uri": "package:angular_components/material_checkbox/material_checkbox.dart",
@@ -9512,18 +9053,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_chips/material_chip.dart": {
       "uri": "package:angular_components/material_chips/material_chip.dart",
@@ -9790,18 +9320,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_chips/material_chips.dart": {
       "uri": "package:angular_components/material_chips/material_chips.dart",
@@ -10054,18 +9573,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/calendar.dart": {
       "uri": "package:angular_components/material_datepicker/calendar.dart",
@@ -10118,15 +9626,7 @@
         "package:meta/meta.dart",
         "package:quiver/core.dart",
         "package:quiver/time.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/comparison.dart": {
       "uri": "package:angular_components/material_datepicker/comparison.dart",
@@ -10305,15 +9805,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/comparison_option.dart": {
       "uri": "package:angular_components/material_datepicker/comparison_option.dart",
@@ -10490,15 +9982,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/config.dart": {
       "uri": "package:angular_components/material_datepicker/config.dart",
@@ -10506,15 +9990,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/material_datepicker/date_input.dart": {
       "uri": "package:angular_components/material_datepicker/date_input.dart",
@@ -10839,18 +10315,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/date_range_editor.dart": {
       "uri": "package:angular_components/material_datepicker/date_range_editor.dart",
@@ -11369,18 +10834,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/date_range_input.dart": {
       "uri": "package:angular_components/material_datepicker/date_range_input.dart",
@@ -11735,18 +11189,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/material_calendar_picker.dart": {
       "uri": "package:angular_components/material_datepicker/material_calendar_picker.dart",
@@ -12246,18 +11689,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/material_date_grid_base.dart": {
       "uri": "package:angular_components/material_datepicker/material_date_grid_base.dart",
@@ -12495,18 +11927,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/material_date_range_picker.dart": {
       "uri": "package:angular_components/material_datepicker/material_date_range_picker.dart",
@@ -13035,18 +12456,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/material_date_time_picker.dart": {
       "uri": "package:angular_components/material_datepicker/material_date_time_picker.dart",
@@ -13456,18 +12866,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/material_datepicker.dart": {
       "uri": "package:angular_components/material_datepicker/material_datepicker.dart",
@@ -13887,18 +13286,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/material_month_picker.dart": {
       "uri": "package:angular_components/material_datepicker/material_month_picker.dart",
@@ -14195,18 +13583,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/material_time_picker.dart": {
       "uri": "package:angular_components/material_datepicker/material_time_picker.dart",
@@ -14620,18 +13997,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/model.dart": {
       "uri": "package:angular_components/material_datepicker/model.dart",
@@ -14751,15 +14117,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/module.dart": {
       "uri": "package:angular_components/material_datepicker/module.dart",
@@ -15007,18 +14365,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/next_prev_buttons.dart": {
       "uri": "package:angular_components/material_datepicker/next_prev_buttons.dart",
@@ -15199,18 +14546,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/preset.dart": {
       "uri": "package:angular_components/material_datepicker/preset.dart",
@@ -15348,15 +14684,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/proto/date.pb.dart": {
       "uri": "package:angular_components/material_datepicker/proto/date.pb.dart",
@@ -15445,15 +14773,7 @@
         "dart:typed_data",
         "package:fixnum/fixnum.dart",
         "package:protobuf/protobuf.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/proto/date_range.pb.dart": {
       "uri": "package:angular_components/material_datepicker/proto/date_range.pb.dart",
@@ -15614,15 +14934,7 @@
         "package:angular_components/material_datepicker/proto/date.pb.dart",
         "package:fixnum/fixnum.dart",
         "package:protobuf/protobuf.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/material_datepicker/range.dart": {
       "uri": "package:angular_components/material_datepicker/range.dart",
@@ -17122,15 +16434,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/material_dialog/material_dialog.dart": {
       "uri": "package:angular_components/material_dialog/material_dialog.dart",
@@ -17388,18 +16692,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_expansionpanel/material_expansionpanel.dart": {
       "uri": "package:angular_components/material_expansionpanel/material_expansionpanel.dart",
@@ -17690,18 +16983,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_expansionpanel/material_expansionpanel_auto_dismiss.dart": {
       "uri": "package:angular_components/material_expansionpanel/material_expansionpanel_auto_dismiss.dart",
@@ -17984,18 +17266,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_expansionpanel/material_expansionpanel_set.dart": {
       "uri": "package:angular_components/material_expansionpanel/material_expansionpanel_set.dart",
@@ -18256,18 +17527,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_icon/material_icon.dart": {
       "uri": "package:angular_components/material_icon/material_icon.dart",
@@ -18441,18 +17701,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/base_material_input.dart": {
       "uri": "package:angular_components/material_input/base_material_input.dart",
@@ -18825,18 +18074,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/deferred_validator.dart": {
       "uri": "package:angular_components/material_input/deferred_validator.dart",
@@ -19046,18 +18284,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/input_wrapper.dart": {
       "uri": "package:angular_components/material_input/input_wrapper.dart",
@@ -19241,18 +18468,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/material_auto_suggest_input.dart": {
       "uri": "package:angular_components/material_input/material_auto_suggest_input.dart",
@@ -19748,18 +18964,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/material_input.dart": {
       "uri": "package:angular_components/material_input/material_input.dart",
@@ -20125,18 +19330,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/material_input_default_value_accessor.dart": {
       "uri": "package:angular_components/material_input/material_input_default_value_accessor.dart",
@@ -20412,18 +19606,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/material_input_error_keys.dart": {
       "uri": "package:angular_components/material_input/material_input_error_keys.dart",
@@ -20431,15 +19614,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/material_input/material_input_multiline.dart": {
       "uri": "package:angular_components/material_input/material_input_multiline.dart",
@@ -20787,18 +19962,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/material_number_accessor.dart": {
       "uri": "package:angular_components/material_input/material_number_accessor.dart",
@@ -21094,18 +20258,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/material_number_validators.dart": {
       "uri": "package:angular_components/material_input/material_number_validators.dart",
@@ -21318,18 +20471,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_input/material_percent_directive.dart": {
       "uri": "package:angular_components/material_input/material_percent_directive.dart",
@@ -21632,18 +20774,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_list/material_list.dart": {
       "uri": "package:angular_components/material_list/material_list.dart",
@@ -21831,18 +20962,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_list/material_list_item.dart": {
       "uri": "package:angular_components/material_list/material_list_item.dart",
@@ -22091,18 +21211,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_list/material_list_size.dart": {
       "uri": "package:angular_components/material_list/material_list_size.dart",
@@ -22110,15 +21219,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/material_menu/dropdown_menu.dart": {
       "uri": "package:angular_components/material_menu/dropdown_menu.dart",
@@ -22522,18 +21623,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_menu/material_fab_menu.dart": {
       "uri": "package:angular_components/material_menu/material_fab_menu.dart",
@@ -22914,18 +22004,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_menu/material_menu.dart": {
       "uri": "package:angular_components/material_menu/material_menu.dart",
@@ -23312,18 +22391,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_menu/menu_item_affix_list.dart": {
       "uri": "package:angular_components/material_menu/menu_item_affix_list.dart",
@@ -23611,18 +22679,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_menu/menu_item_groups.dart": {
       "uri": "package:angular_components/material_menu/menu_item_groups.dart",
@@ -24094,18 +23151,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_menu/menu_popup.dart": {
       "uri": "package:angular_components/material_menu/menu_popup.dart",
@@ -24477,18 +23523,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_menu/menu_popup_wrapper.dart": {
       "uri": "package:angular_components/material_menu/menu_popup_wrapper.dart",
@@ -24714,18 +23749,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_menu/menu_root.dart": {
       "uri": "package:angular_components/material_menu/menu_root.dart",
@@ -24922,18 +23946,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_popup/material_popup.dart": {
       "uri": "package:angular_components/material_popup/material_popup.dart",
@@ -25268,18 +24281,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_progress/material_progress.dart": {
       "uri": "package:angular_components/material_progress/material_progress.dart",
@@ -25465,18 +24467,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_radio/material_radio.dart": {
       "uri": "package:angular_components/material_radio/material_radio.dart",
@@ -25788,18 +24779,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_radio/material_radio_group.dart": {
       "uri": "package:angular_components/material_radio/material_radio_group.dart",
@@ -26083,18 +25063,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_ripple/material_ripple.dart": {
       "uri": "package:angular_components/material_ripple/material_ripple.dart",
@@ -26286,18 +25255,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/activation_handler.dart": {
       "uri": "package:angular_components/material_select/activation_handler.dart",
@@ -26309,17 +25267,7 @@
       ],
       "transitiveLibs": [
         "dart:html"
-      ],
-      "platform": {
-        "components": [
-          "html"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "forbidden"
-        }
-      }
+      ]
     },
     "lib/material_select/display_name.dart": {
       "uri": "package:angular_components/material_select/display_name.dart",
@@ -26496,18 +25444,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/dropdown_button.dart": {
       "uri": "package:angular_components/material_select/dropdown_button.dart",
@@ -26777,18 +25714,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/material_dropdown_select.dart": {
       "uri": "package:angular_components/material_select/material_dropdown_select.dart",
@@ -27230,18 +26156,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/material_dropdown_select_accessor.dart": {
       "uri": "package:angular_components/material_select/material_dropdown_select_accessor.dart",
@@ -27586,18 +26501,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/material_select.dart": {
       "uri": "package:angular_components/material_select/material_select.dart",
@@ -27971,18 +26875,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/material_select_base.dart": {
       "uri": "package:angular_components/material_select/material_select_base.dart",
@@ -28195,18 +27088,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/material_select_dropdown_item.dart": {
       "uri": "package:angular_components/material_select/material_select_dropdown_item.dart",
@@ -28531,18 +27413,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/material_select_item.dart": {
       "uri": "package:angular_components/material_select/material_select_item.dart",
@@ -28969,18 +27840,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/material_select_searchbox.dart": {
       "uri": "package:angular_components/material_select/material_select_searchbox.dart",
@@ -29285,18 +28145,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_select/shift_click_selection.dart": {
       "uri": "package:angular_components/material_select/shift_click_selection.dart",
@@ -29370,17 +28219,7 @@
         "package:observable/src/records.dart",
         "package:observable/src/to_observable.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [
-          "html"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "forbidden"
-        }
-      }
+      ]
     },
     "lib/material_slider/material_slider.dart": {
       "uri": "package:angular_components/material_slider/material_slider.dart",
@@ -29586,18 +28425,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_spinner/material_spinner.dart": {
       "uri": "package:angular_components/material_spinner/material_spinner.dart",
@@ -29779,18 +28607,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_stepper/common.dart": {
       "uri": "package:angular_components/material_stepper/common.dart",
@@ -29798,15 +28615,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/material_stepper/material_step.dart": {
       "uri": "package:angular_components/material_stepper/material_step.dart",
@@ -30054,18 +28863,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_stepper/material_stepper.dart": {
       "uri": "package:angular_components/material_stepper/material_stepper.dart",
@@ -30435,18 +29233,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_tab/fixed_material_tab_strip.dart": {
       "uri": "package:angular_components/material_tab/fixed_material_tab_strip.dart",
@@ -30704,18 +29491,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_tab/material_tab.dart": {
       "uri": "package:angular_components/material_tab/material_tab.dart",
@@ -30960,18 +29736,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_tab/material_tab_panel.dart": {
       "uri": "package:angular_components/material_tab/material_tab_panel.dart",
@@ -31230,18 +29995,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_tab/tab_button.dart": {
       "uri": "package:angular_components/material_tab/tab_button.dart",
@@ -31504,18 +30258,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_tab/tab_change_event.dart": {
       "uri": "package:angular_components/material_tab/tab_change_event.dart",
@@ -31523,15 +30266,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/material_tab/tab_mixin.dart": {
       "uri": "package:angular_components/material_tab/tab_mixin.dart",
@@ -31703,18 +30438,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_toggle/material_toggle.dart": {
       "uri": "package:angular_components/material_toggle/material_toggle.dart",
@@ -31942,18 +30666,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_tooltip/material_tooltip.dart": {
       "uri": "package:angular_components/material_tooltip/material_tooltip.dart",
@@ -32223,18 +30936,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_tooltip/module.dart": {
       "uri": "package:angular_components/material_tooltip/module.dart",
@@ -32409,18 +31111,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_tree/material_tree.dart": {
       "uri": "package:angular_components/material_tree/material_tree.dart",
@@ -32752,18 +31443,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/material_yes_no_buttons/material_yes_no_buttons.dart": {
       "uri": "package:angular_components/material_yes_no_buttons/material_yes_no_buttons.dart",
@@ -33053,18 +31733,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/mixins/button_wrapper.dart": {
       "uri": "package:angular_components/mixins/button_wrapper.dart",
@@ -33250,18 +31919,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/mixins/focusable_mixin.dart": {
       "uri": "package:angular_components/mixins/focusable_mixin.dart",
@@ -33503,18 +32161,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/mixins/has_tab_index.dart": {
       "uri": "package:angular_components/mixins/has_tab_index.dart",
@@ -33689,18 +32336,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/mixins/highlight_assistant_mixin.dart": {
       "uri": "package:angular_components/mixins/highlight_assistant_mixin.dart",
@@ -33935,18 +32571,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/mixins/material_dropdown_base.dart": {
       "uri": "package:angular_components/mixins/material_dropdown_base.dart",
@@ -34174,18 +32799,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/mixins/selection_input_adapter.dart": {
       "uri": "package:angular_components/mixins/selection_input_adapter.dart",
@@ -34413,18 +33027,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/mixins/track_layout_changes.dart": {
       "uri": "package:angular_components/mixins/track_layout_changes.dart",
@@ -34606,18 +33209,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/model/a11y/active_item.dart": {
       "uri": "package:angular_components/model/a11y/active_item.dart",
@@ -34655,15 +33247,7 @@
         "package:collection/src/unmodifiable_wrappers.dart",
         "package:collection/src/utils.dart",
         "package:collection/src/wrappers.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/a11y/active_item_directive.dart": {
       "uri": "package:angular_components/model/a11y/active_item_directive.dart",
@@ -34907,18 +33491,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/model/a11y/keyboard_handler_mixin.dart": {
       "uri": "package:angular_components/model/a11y/keyboard_handler_mixin.dart",
@@ -35092,18 +33665,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/model/action/async_action.dart": {
       "uri": "package:angular_components/model/action/async_action.dart",
@@ -35120,15 +33682,7 @@
         "package:angular_components/src/model/action/async_action.dart",
         "package:angular_components/src/model/action/async_action_controller.dart",
         "package:angular_components/src/model/action/delegating_async_action.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/action/delayed_action.dart": {
       "uri": "package:angular_components/model/action/delayed_action.dart",
@@ -35151,15 +33705,7 @@
       ],
       "transitiveLibs": [
         "dart:async"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/collection/combined_list.dart": {
       "uri": "package:angular_components/model/collection/combined_list.dart",
@@ -35212,15 +33758,7 @@
       ],
       "transitiveLibs": [
         "dart:collection"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/collection/labeled_list.dart": {
       "uri": "package:angular_components/model/collection/labeled_list.dart",
@@ -35268,15 +33806,7 @@
         "package:collection/src/utils.dart",
         "package:collection/src/wrappers.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/collection/list_differ.dart": {
       "uri": "package:angular_components/model/collection/list_differ.dart",
@@ -35515,15 +34045,7 @@
         "package:observable/src/records.dart",
         "package:observable/src/to_observable.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/collection/list_tracker.dart": {
       "uri": "package:angular_components/model/collection/list_tracker.dart",
@@ -35895,15 +34417,7 @@
         "package:observable/src/records.dart",
         "package:observable/src/to_observable.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/date/date.dart": {
       "uri": "package:angular_components/model/date/date.dart",
@@ -35937,15 +34451,7 @@
         "package:meta/meta.dart",
         "package:quiver/core.dart",
         "package:quiver/time.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/date/date_formatter.dart": {
       "uri": "package:angular_components/model/date/date_formatter.dart",
@@ -35987,15 +34493,7 @@
         "package:meta/meta.dart",
         "package:quiver/core.dart",
         "package:quiver/time.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/date/time_zone_aware_clock.dart": {
       "uri": "package:angular_components/model/date/time_zone_aware_clock.dart",
@@ -36126,15 +34624,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/formatters/formatter.dart": {
       "uri": "package:angular_components/model/formatters/formatter.dart",
@@ -36142,15 +34632,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/model/menu/delegating_menu_item.dart": {
       "uri": "package:angular_components/model/menu/delegating_menu_item.dart",
@@ -36227,15 +34709,7 @@
         "package:quiver/core.dart",
         "package:quiver/iterables.dart",
         "package:quiver/strings.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/menu/menu.dart": {
       "uri": "package:angular_components/model/menu/menu.dart",
@@ -36373,15 +34847,7 @@
         "package:quiver/core.dart",
         "package:quiver/iterables.dart",
         "package:quiver/strings.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/menu/menu_item_affix.dart": {
       "uri": "package:angular_components/model/menu/menu_item_affix.dart",
@@ -36406,15 +34872,7 @@
       "transitiveLibs": [
         "package:angular_components/model/ui/icon.dart",
         "package:meta/meta.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/menu/selectable_menu.dart": {
       "uri": "package:angular_components/model/menu/selectable_menu.dart",
@@ -36535,15 +34993,7 @@
         "package:quiver/core.dart",
         "package:quiver/iterables.dart",
         "package:quiver/strings.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/observable/observable.dart": {
       "uri": "package:angular_components/model/observable/observable.dart",
@@ -36669,15 +35119,7 @@
         "dart:async",
         "package:angular_components/utils/disposer/disposer.dart",
         "package:meta/meta.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/selection/locked_limit_selection_options.dart": {
       "uri": "package:angular_components/model/selection/locked_limit_selection_options.dart",
@@ -36768,15 +35210,7 @@
         "package:collection/src/wrappers.dart",
         "package:meta/meta.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/selection/select.dart": {
       "uri": "package:angular_components/model/selection/select.dart",
@@ -36847,15 +35281,7 @@
         "package:collection/src/utils.dart",
         "package:collection/src/wrappers.dart",
         "package:meta/meta.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/selection/selection_container.dart": {
       "uri": "package:angular_components/model/selection/selection_container.dart",
@@ -37083,18 +35509,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/model/selection/selection_model.dart": {
       "uri": "package:angular_components/model/selection/selection_model.dart",
@@ -37178,15 +35593,7 @@
         "package:observable/src/records.dart",
         "package:observable/src/to_observable.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/selection/selection_options.dart": {
       "uri": "package:angular_components/model/selection/selection_options.dart",
@@ -37253,15 +35660,7 @@
         "package:collection/src/wrappers.dart",
         "package:meta/meta.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/selection/string_selection_options.dart": {
       "uri": "package:angular_components/model/selection/string_selection_options.dart",
@@ -37374,15 +35773,7 @@
         "package:collection/src/wrappers.dart",
         "package:meta/meta.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/selection/tree_propagation_selection_model.dart": {
       "uri": "package:angular_components/model/selection/tree_propagation_selection_model.dart",
@@ -37488,15 +35879,7 @@
         "package:observable/src/records.dart",
         "package:observable/src/to_observable.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/selection/tree_selection_mixin.dart": {
       "uri": "package:angular_components/model/selection/tree_selection_mixin.dart",
@@ -37637,15 +36020,7 @@
         "package:collection/src/wrappers.dart",
         "package:meta/meta.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/selection/tree_selection_options.dart": {
       "uri": "package:angular_components/model/selection/tree_selection_options.dart",
@@ -37707,15 +36082,7 @@
         "package:collection/src/wrappers.dart",
         "package:meta/meta.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/ui/accepts_width.dart": {
       "uri": "package:angular_components/model/ui/accepts_width.dart",
@@ -37723,15 +36090,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/model/ui/async_display_name.dart": {
       "uri": "package:angular_components/model/ui/async_display_name.dart",
@@ -37743,15 +36102,7 @@
       ],
       "transitiveLibs": [
         "dart:async"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/ui/display_name.dart": {
       "uri": "package:angular_components/model/ui/display_name.dart",
@@ -37766,15 +36117,7 @@
         "dart:collection",
         "package:angular_components/model/formatters/formatter.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/ui/has_factory.dart": {
       "uri": "package:angular_components/model/ui/has_factory.dart",
@@ -37958,18 +36301,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/model/ui/has_renderer.dart": {
       "uri": "package:angular_components/model/ui/has_renderer.dart",
@@ -38028,15 +36360,7 @@
         }
       ],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/model/ui/highlight_assistant.dart": {
       "uri": "package:angular_components/model/ui/highlight_assistant.dart",
@@ -38075,15 +36399,7 @@
         "package:angular_components/model/ui/highlighted_text_model.dart",
         "package:meta/meta.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/ui/highlight_provider.dart": {
       "uri": "package:angular_components/model/ui/highlight_provider.dart",
@@ -38099,15 +36415,7 @@
         "package:angular_components/model/ui/highlighted_text_model.dart",
         "package:meta/meta.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/ui/highlighted_text_model.dart": {
       "uri": "package:angular_components/model/ui/highlighted_text_model.dart",
@@ -38225,15 +36533,7 @@
         "dart:math",
         "package:meta/meta.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/ui/icon.dart": {
       "uri": "package:angular_components/model/ui/icon.dart",
@@ -38241,15 +36541,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/model/ui/item_sorter.dart": {
       "uri": "package:angular_components/model/ui/item_sorter.dart",
@@ -38284,15 +36576,7 @@
       "transitiveLibs": [
         "dart:collection",
         "package:angular_components/model/ui/has_renderer.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/model/ui/template_support.dart": {
       "uri": "package:angular_components/model/ui/template_support.dart",
@@ -38463,18 +36747,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/model/ui/toggle.dart": {
       "uri": "package:angular_components/model/ui/toggle.dart",
@@ -38482,15 +36755,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/reorder_list/reorder_events.dart": {
       "uri": "package:angular_components/reorder_list/reorder_events.dart",
@@ -38498,15 +36763,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/reorder_list/reorder_list.dart": {
       "uri": "package:angular_components/reorder_list/reorder_list.dart",
@@ -39079,18 +37336,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/scorecard/scoreboard.dart": {
       "uri": "package:angular_components/scorecard/scoreboard.dart",
@@ -39429,18 +37675,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/scorecard/scorecard.dart": {
       "uri": "package:angular_components/scorecard/scorecard.dart",
@@ -39686,18 +37921,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/scorecard/scorecard_bar.dart": {
       "uri": "package:angular_components/scorecard/scorecard_bar.dart",
@@ -39895,18 +38119,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/src/laminate/components/modal/modal_controller_directive.dart": {
       "uri": "package:angular_components/src/laminate/components/modal/modal_controller_directive.dart",
@@ -42896,18 +41109,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/theme/dark_theme.dart": {
       "uri": "package:angular_components/theme/dark_theme.dart",
@@ -43081,18 +41283,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/theme/module.dart": {
       "uri": "package:angular_components/theme/module.dart",
@@ -43263,18 +41454,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/angular/css/css.dart": {
       "uri": "package:angular_components/utils/angular/css/css.dart",
@@ -43286,17 +41466,7 @@
       ],
       "transitiveLibs": [
         "dart:html"
-      ],
-      "platform": {
-        "components": [
-          "html"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "forbidden"
-        }
-      }
+      ]
     },
     "lib/utils/angular/imperative_view/imperative_view.dart": {
       "uri": "package:angular_components/utils/angular/imperative_view/imperative_view.dart",
@@ -43497,18 +41667,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/angular/managed_zone/angular_2.dart": {
       "uri": "package:angular_components/utils/angular/managed_zone/angular_2.dart",
@@ -43627,15 +41786,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/angular/managed_zone/interface.dart": {
       "uri": "package:angular_components/utils/angular/managed_zone/interface.dart",
@@ -43661,15 +41812,7 @@
         "package:angular_components/src/utils/angular/managed_zone/managed_zone.dart",
         "package:angular_components/utils/disposer/disposer.dart",
         "package:meta/meta.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/angular/properties/properties.dart": {
       "uri": "package:angular_components/utils/angular/properties/properties.dart",
@@ -43677,15 +41820,7 @@
       "isFormatted": false,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/utils/angular/reference/reference.dart": {
       "uri": "package:angular_components/utils/angular/reference/reference.dart",
@@ -43877,18 +42012,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/angular/scroll_host/angular_2.dart": {
       "uri": "package:angular_components/utils/angular/scroll_host/angular_2.dart",
@@ -44145,18 +42269,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/angular/scroll_host/interface.dart": {
       "uri": "package:angular_components/utils/angular/scroll_host/interface.dart",
@@ -44336,18 +42449,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/async/async.dart": {
       "uri": "package:angular_components/utils/async/async.dart",
@@ -44402,15 +42504,7 @@
         "package:collection/src/utils.dart",
         "package:collection/src/wrappers.dart",
         "package:meta/meta.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/browser/dom_iterator/dom_iterator.dart": {
       "uri": "package:angular_components/utils/browser/dom_iterator/dom_iterator.dart",
@@ -44455,17 +42549,7 @@
       "transitiveLibs": [
         "dart:collection",
         "dart:html"
-      ],
-      "platform": {
-        "components": [
-          "html"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "forbidden"
-        }
-      }
+      ]
     },
     "lib/utils/browser/dom_service/angular_2.dart": {
       "uri": "package:angular_components/utils/browser/dom_service/angular_2.dart",
@@ -44661,18 +42745,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/browser/dom_service/dom_service.dart": {
       "uri": "package:angular_components/utils/browser/dom_service/dom_service.dart",
@@ -44979,17 +43052,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "forbidden"
-        }
-      }
+      ]
     },
     "lib/utils/browser/dom_service/dom_service_webdriver_testability.dart": {
       "uri": "package:angular_components/utils/browser/dom_service/dom_service_webdriver_testability.dart",
@@ -45104,18 +43167,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/browser/events/events.dart": {
       "uri": "package:angular_components/utils/browser/events/events.dart",
@@ -45333,18 +43385,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/browser/feature_detector/feature_detector.dart": {
       "uri": "package:angular_components/utils/browser/feature_detector/feature_detector.dart",
@@ -45382,18 +43423,7 @@
         "dart:js",
         "dart:js_util",
         "package:js/js_util.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/browser/window/module.dart": {
       "uri": "package:angular_components/utils/browser/window/module.dart",
@@ -45565,18 +43595,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/browser/window/new_window_opener.dart": {
       "uri": "package:angular_components/utils/browser/window/new_window_opener.dart",
@@ -45748,18 +43767,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/color/color.dart": {
       "uri": "package:angular_components/utils/color/color.dart",
@@ -45774,15 +43782,7 @@
         "dart:collection",
         "dart:math",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/color/material.dart": {
       "uri": "package:angular_components/utils/color/material.dart",
@@ -45797,15 +43797,7 @@
         "dart:math",
         "package:angular_components/utils/color/color.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/color/palette.dart": {
       "uri": "package:angular_components/utils/color/palette.dart",
@@ -45821,15 +43813,7 @@
         "package:angular_components/utils/color/color.dart",
         "package:angular_components/utils/color/material.dart",
         "package:quiver/core.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/comparators/comparators.dart": {
       "uri": "package:angular_components/utils/comparators/comparators.dart",
@@ -45837,15 +43821,7 @@
       "isFormatted": true,
       "codeProblems": [],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     },
     "lib/utils/disposer/disposable_callback.dart": {
       "uri": "package:angular_components/utils/disposer/disposable_callback.dart",
@@ -45900,15 +43876,7 @@
         "dart:async",
         "package:angular_components/utils/disposer/disposer.dart",
         "package:meta/meta.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/disposer/disposer.dart": {
       "uri": "package:angular_components/utils/disposer/disposer.dart",
@@ -45983,15 +43951,7 @@
       "transitiveLibs": [
         "dart:async",
         "package:meta/meta.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/id_generator/id_generator.dart": {
       "uri": "package:angular_components/utils/id_generator/id_generator.dart",
@@ -46014,15 +43974,7 @@
       ],
       "transitiveLibs": [
         "dart:math"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/keyboard/global_escape_directive.dart": {
       "uri": "package:angular_components/utils/keyboard/global_escape_directive.dart",
@@ -46195,18 +44147,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/keyboard/keyboard.dart": {
       "uri": "package:angular_components/utils/keyboard/keyboard.dart",
@@ -46218,17 +44159,7 @@
       ],
       "transitiveLibs": [
         "dart:html"
-      ],
-      "platform": {
-        "components": [
-          "html"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "forbidden"
-        }
-      }
+      ]
     },
     "lib/utils/numbers/denomination.dart": {
       "uri": "package:angular_components/utils/numbers/denomination.dart",
@@ -46240,15 +44171,7 @@
       ],
       "transitiveLibs": [
         "package:fixnum/fixnum.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/rate_limit_utils/rate_limit_utils.dart": {
       "uri": "package:angular_components/utils/rate_limit_utils/rate_limit_utils.dart",
@@ -46343,15 +44266,7 @@
       "transitiveLibs": [
         "dart:async",
         "package:meta/meta.dart"
-      ],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      ]
     },
     "lib/utils/showhide/showhide.dart": {
       "uri": "package:angular_components/utils/showhide/showhide.dart",
@@ -46749,18 +44664,7 @@
         "package:stack_trace/src/utils.dart",
         "package:stack_trace/src/vm_trace.dart",
         "package:stack_trace/stack_trace.dart"
-      ],
-      "platform": {
-        "components": [
-          "html",
-          "js"
-        ],
-        "uses": {
-          "flutter": "forbidden",
-          "web": "used",
-          "other": "conflict"
-        }
-      }
+      ]
     },
     "lib/utils/strings/string_utils.dart": {
       "uri": "package:angular_components/utils/strings/string_utils.dart",
@@ -46779,15 +44683,7 @@
         }
       ],
       "directLibs": [],
-      "transitiveLibs": [],
-      "platform": {
-        "components": [],
-        "uses": {
-          "flutter": "allowed",
-          "web": "allowed",
-          "other": "allowed"
-        }
-      }
+      "transitiveLibs": []
     }
   },
   "stats": {
