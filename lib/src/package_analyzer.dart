@@ -312,7 +312,8 @@ class PackageAnalyzer {
       var transitiveLibs =
           allTransitiveLibs == null ? null : allTransitiveLibs[uri];
       if (libPlatformBlocked) {
-        pkgPlatformConflict ??= 'Error(s) in $dartFile: ${platformBlockers.first.description}';
+        pkgPlatformConflict ??=
+            'Error(s) in $dartFile: ${platformBlockers.first.description}';
       }
       files[dartFile] = DartFileSummary(
         uri: uri,
