@@ -2,8 +2,11 @@
 
 **BREAKING CHANGES:**
 
-* Removed `Summary.suggestions`.
-* Removed `bin/bulk.dart`.
+* Removed:
+  * `bin/bulk.dart`
+  * `Maintenance`
+  * `Summary.maintenance`
+  * `Summary.suggestions`
 
 ## 0.13.16
 

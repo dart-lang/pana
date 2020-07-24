@@ -170,7 +170,6 @@ Future main(List<String> args) async {
       if (showScores) {
         map['scores'] = {
           'health': _calculateScore(summary.health?.suggestions),
-          'maintenance': _calculateScore(summary.maintenance?.suggestions),
         };
       }
       if (showReport) {

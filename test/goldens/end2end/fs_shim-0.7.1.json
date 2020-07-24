@@ -81,38 +81,6 @@
       }
     ]
   },
-  "maintenance": {
-    "missingChangelog": false,
-    "missingExample": true,
-    "missingReadme": false,
-    "missingAnalysisOptions": false,
-    "oldAnalysisOptions": false,
-    "strongModeEnabled": true,
-    "isExperimentalVersion": false,
-    "isPreReleaseVersion": false,
-    "suggestions": [
-      {
-        "code": "pubspec.sdk.devOnly",
-        "level": "error",
-        "title": "Support future stable Dart 2 SDKs in `pubspec.yaml`.",
-        "description": "The SDK constraint in `pubspec.yaml` doesn't allow future stable Dart 2.x SDK releases.",
-        "score": 20.0
-      },
-      {
-        "code": "sdk.missing",
-        "level": "error",
-        "title": "No valid SDK.",
-        "description": "The analysis could not detect a valid SDK that can use this package.",
-        "score": 20.0
-      },
-      {
-        "code": "example.missing",
-        "level": "hint",
-        "title": "Maintain an example.",
-        "description": "None of the files in the package's `example/` directory matches known example patterns.\n\nCommon filename patterns include `main.dart`, `example.dart`, and `fs_shim.dart`. Packages with multiple examples should provide `example/README.md`.\n\nFor more information see the [pub package layout conventions](https://www.dartlang.org/tools/pub/package-layout#examples)."
-      }
-    ]
-  },
   "dartFiles": {
     "lib/fs.dart": {
       "uri": "package:fs_shim/fs.dart",
