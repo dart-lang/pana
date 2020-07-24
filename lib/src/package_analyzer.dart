@@ -92,10 +92,6 @@ class PackageAnalyzer {
   }
 
   Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
-    final totalStopwatch = Stopwatch()..start();
-    final resolveProcessStopwatch = Stopwatch();
-    final analyzeProcessStopwatch = Stopwatch();
-    final formatProcessStopwatch = Stopwatch();
     final errors = <String>[];
 
     var dartFiles = await listFiles(
@@ -121,7 +117,6 @@ class PackageAnalyzer {
         pkgResolution: null,
         dartFiles: null,
         licenses: null,
-        stats: null,
         tags: null,
         report: null,
         errorMessage: pubspecParseError(e),
@@ -137,7 +132,6 @@ class PackageAnalyzer {
     final package = pubspec.name;
     final usesFlutter = pubspec.usesFlutter;
 
-    formatProcessStopwatch.start();
     Set<String> unformattedFiles;
     try {
       unformattedFiles = SplayTreeSet<String>.from(
@@ -152,11 +146,8 @@ class PackageAnalyzer {
       log.severe('`dartfmt` failed.\n$e', e, stack);
       errors.add(messages.runningDartfmtFailed(usesFlutter, e.toString()));
     }
-    formatProcessStopwatch.stop();
 
-    resolveProcessStopwatch.start();
     final upgrade = await _toolEnv.runUpgrade(pkgDir, usesFlutter);
-    resolveProcessStopwatch.stop();
 
     PkgResolution pkgResolution;
     if (upgrade.exitCode == 0) {
@@ -265,14 +256,12 @@ class PackageAnalyzer {
       }
 
       if (dartFiles.isNotEmpty) {
-        analyzeProcessStopwatch.start();
         try {
           analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter, options);
         } on ToolException catch (e) {
           errors
               .add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
         }
-        analyzeProcessStopwatch.stop();
       } else {
         analyzerItems = <CodeProblem>[];
       }
@@ -340,14 +329,6 @@ class PackageAnalyzer {
     licenses = await updateLicenseUrls(
         _urlChecker, pubspec.repository ?? pubspec.homepage, licenses);
 
-    totalStopwatch.stop();
-    final stats = Stats(
-      analyzeProcessElapsed: analyzeProcessStopwatch.elapsedMilliseconds,
-      formatProcessElapsed: formatProcessStopwatch.elapsedMilliseconds,
-      resolveProcessElapsed: resolveProcessStopwatch.elapsedMilliseconds,
-      totalElapsed: totalStopwatch.elapsedMilliseconds,
-    );
-
     final errorMessage =
         errors.isEmpty ? null : errors.map((e) => e.trim()).join('\n\n');
     return Summary(
@@ -359,7 +340,6 @@ class PackageAnalyzer {
           options.verbosity == Verbosity.compact ? null : pkgResolution,
       dartFiles: options.verbosity == Verbosity.compact ? null : files,
       licenses: licenses,
-      stats: stats,
       tags: tags,
       report: await createReport(options, pkgDir, _toolEnv),
       errorMessage: errorMessage,

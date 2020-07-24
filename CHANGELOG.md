@@ -10,10 +10,12 @@
   * `Maintenance`
   * `PlatformNames`
   * `PlatformUse`
+  * `Stats`
   * `Suggestion`
   * `Summary.health`
   * `Summary.maintenance`
   * `Summary.platform`
+  * `Summary.stats`
   * `Summary.suggestions`
 
 ## 0.13.16
