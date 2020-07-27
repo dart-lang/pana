@@ -127,7 +127,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.39.14|
+|[`analyzer`]|-|0.35.4|0.39.15|
 |[`angular_ast`]|-|0.5.9|0.5.11|
 |[`angular_compiler`]|-|0.4.3|0.4.5|
 |[`args`]|-|1.6.0|1.6.0|
