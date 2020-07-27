@@ -26,14 +26,6 @@
       "url": "https://github.com/stevenroose/dart-skiplist/blob/master/LICENSE"
     }
   ],
-  "dartFiles": {
-    "lib/skiplist.dart": {
-      "uri": "package:skiplist/skiplist.dart",
-      "size": 8066,
-      "isFormatted": false,
-      "codeProblems": null
-    }
-  },
   "tags": [],
   "report": {
     "sections": [
