@@ -1,5 +1,7 @@
 ## 0.14.0
 
+* Fix: SDK constraint check should use the tool-environment's SDK version.
+
 **BREAKING CHANGES:**
 
 * Removed:
