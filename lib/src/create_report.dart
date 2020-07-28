@@ -29,7 +29,6 @@ import 'pubspec.dart';
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
 
-final currentSdkVersion = Version.parse(Platform.version.split(' ').first);
 final _log = Logger('pana.create_report');
 
 /// We currently don't have flutter installed on travis. So we emulate having
@@ -545,6 +544,8 @@ Future<ReportSection> _trustworthyDependency(
   Future<_Subsection> dependencies() async {
     final issues = <_Issue>[];
     var bodyPrefix = '';
+    final currentSdkVersion =
+        Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
     if (pubspec.dartSdkConstraint != null &&
         pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
       try {
@@ -688,6 +689,8 @@ Future<ReportSection> _trustworthyDependency(
   Future<_Subsection> sdkSupport() async {
     final issues = <_Issue>[];
     final sdkConstraint = pubspec.dartSdkConstraint;
+    final currentSdkVersion =
+        Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
     final allowsCurrentSdk = sdkConstraint?.allows(currentSdkVersion) ?? false;
     if (sdkConstraint == null) {
       issues.add(_Issue('Pubspec.yaml does not have an sdk version constraint.',
