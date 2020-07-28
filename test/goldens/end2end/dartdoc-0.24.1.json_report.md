@@ -120,7 +120,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`async`]|-|2.4.2|2.4.2|
 |[`charcode`]|-|1.1.3|1.1.3|
 |[`convert`]|-|2.1.1|2.1.1|
-|[`csslib`]|-|0.15.0|0.16.1|
+|[`csslib`]|-|0.15.0|0.16.2|
 |[`file`]|-|5.2.1|5.2.1|
 |[`front_end`]|-|0.1.6+9|0.1.29|
 |[`intl`]|-|0.16.1|0.16.1|
