@@ -9,8 +9,6 @@ Options:
       --hosted-url      The server that hosts <package>.
                         (defaults to "https://pub.dev")
   -l, --line-length     The line length to use with dartfmt.
-      --verbosity       Configure the details in the output.
-                        [compact, normal (default), verbose]
       --[no-]hosted     Shortcut to `--source hosted`.
       --[no-]verbose    Print the full JSON output instead of the markdown report.
       --[no-]warning    Shows the warning message before potentially destructive operation.

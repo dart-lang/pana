@@ -32,10 +32,6 @@ final _parser = ArgParser()
       help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
   ..addOption('line-length',
       abbr: 'l', help: 'The line length to use with dartfmt.')
-  ..addOption('verbosity',
-      help: 'Configure the details in the output.',
-      allowed: ['compact', 'normal', 'verbose'],
-      defaultsTo: 'normal')
   ..addFlag('hosted', help: 'Shortcut to `--source hosted`.')
   ..addFlag('verbose',
       help: 'Print the full JSON output instead of the markdown report.')
@@ -76,8 +72,6 @@ Future main(List<String> args) async {
     source = 'hosted';
   }
 
-  final verbosity = Verbosity.values
-      .firstWhere((v) => v.toString().split('.').last == result['verbosity']);
   String firstArg() {
     return result.rest.isEmpty ? null : result.rest.first;
   }
@@ -134,7 +128,6 @@ Future main(List<String> args) async {
       flutterDir: result['flutter-sdk'] as String,
     );
     final options = InspectOptions(
-      verbosity: verbosity,
       pubHostedUrl: pubHostedUrl,
       lineLength: int.tryParse(result['line-length'] as String ?? ''),
     );

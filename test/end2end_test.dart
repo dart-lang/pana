@@ -43,9 +43,6 @@ void main() {
         var summary = await analyzer.inspectPackage(
           package,
           version: version,
-          options: InspectOptions(
-            verbosity: Verbosity.verbose,
-          ),
         );
 
         // Fixed version strings to reduce changes on each upgrades.
