@@ -19,7 +19,7 @@ final _parser = ArgParser()
   ..addOption('flutter-sdk', help: 'The directory of the Flutter SDK.')
   ..addFlag('json',
       abbr: 'j',
-      help: 'Output log items as JSON.',
+      help: 'Output log records and full report as JSON.',
       defaultsTo: false,
       negatable: false)
   ..addOption('source',
@@ -27,14 +27,15 @@ final _parser = ArgParser()
       help:
           'The source where the package is located (hosted on $defaultHostedUrl, or local directory path).',
       allowed: ['hosted', 'path'],
-      defaultsTo: 'path')
+      defaultsTo: 'path',
+      hide: true)
   ..addOption('hosted-url',
       help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
   ..addOption('line-length',
       abbr: 'l', help: 'The line length to use with dartfmt.')
-  ..addFlag('hosted', help: 'Shortcut to `--source hosted`.')
-  ..addFlag('verbose',
-      help: 'Print the full JSON output instead of the markdown report.')
+  ..addFlag('hosted',
+      help: 'Download and analyze a hosted package (from $defaultHostedUrl).',
+      negatable: false)
   ..addFlag('warning',
       help:
           'Shows the warning message before potentially destructive operation.',
@@ -46,8 +47,8 @@ void _printHelp({String errorMessage}) {
     print(red.wrap(errorMessage));
     print('');
   }
-  print('''Usage: pana [<options>] <published package name> [<version>]
-       pana [<options>] --source path <local directory>
+  print('''Usage: pana [<options>] --hosted <published package name> [<version>]
+       pana [<options>] <local directory>
 
 Options:
 ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
@@ -65,7 +66,6 @@ Future main(List<String> args) async {
 
   final isJson = result['json'] as bool;
   final showWarning = result['warning'] as bool;
-  final showVerbose = result['verbose'] as bool;
 
   var source = result['source'] as String;
   if (result['hosted'] == true) {
@@ -162,7 +162,7 @@ Future main(List<String> args) async {
         }
         summary = await analyzer.inspectDir(absolutePath, options: options);
       }
-      if (showVerbose) {
+      if (isJson) {
         final map = summary.toJson();
         map['scores'] = {
           'grantedPoints': summary.report?.grantedPoints,
