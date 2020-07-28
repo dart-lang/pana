@@ -24,14 +24,7 @@ import 'sdk_env.dart';
 import 'tag_detection.dart';
 import 'utils.dart';
 
-enum Verbosity {
-  compact,
-  normal,
-  verbose,
-}
-
 class InspectOptions {
-  final Verbosity verbosity;
   final String pubHostedUrl;
   final String dartdocOutputDir;
   final int dartdocRetry;
@@ -41,7 +34,6 @@ class InspectOptions {
   final String analysisOptionsUri;
 
   InspectOptions({
-    this.verbosity = Verbosity.normal,
     this.pubHostedUrl,
     this.dartdocOutputDir,
     this.dartdocRetry = 0,
@@ -111,7 +103,7 @@ class PackageAnalyzer {
         runtimeInfo: _toolEnv.runtimeInfo,
         packageName: null,
         packageVersion: null,
-        pubspec: options.verbosity == Verbosity.compact ? null : pubspec,
+        pubspec: pubspec,
         pkgResolution: null,
         licenses: null,
         tags: null,
@@ -228,9 +220,8 @@ class PackageAnalyzer {
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
       packageVersion: pubspec.version,
-      pubspec: options.verbosity == Verbosity.compact ? null : pubspec,
-      pkgResolution:
-          options.verbosity == Verbosity.compact ? null : pkgResolution,
+      pubspec: pubspec,
+      pkgResolution: pkgResolution,
       licenses: licenses,
       tags: tags,
       report: await createReport(options, pkgDir, _toolEnv),

@@ -4,6 +4,11 @@
 
 **BREAKING CHANGES:**
 
+* `bin/pana.dart` CLI changes:
+  * removed `--report` flag (it is always the default),
+    added `--verbose` flag to display full JSON data
+  * removed `--scores` flag (it is always-on by default)
+  * removed `--verbosity` option (the output data is always the same)
 * Removed:
   * `bin/bulk.dart`
   * `ComponentNames`
@@ -21,6 +26,7 @@
   * `Summary.platform`
   * `Summary.stats`
   * `Summary.suggestions`
+  * `Verbosity`
 
 ## 0.13.16
 

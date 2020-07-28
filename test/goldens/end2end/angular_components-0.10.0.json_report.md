@@ -138,7 +138,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`code_builder`]|-|3.4.0|3.4.0|
 |[`convert`]|-|2.1.1|2.1.1|
 |[`crypto`]|-|2.1.5|2.1.5|
-|[`csslib`]|-|0.14.6+1|0.16.1|
+|[`csslib`]|-|0.14.6+1|0.16.2|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
 |[`dart_internal`]|-|0.1.9|0.1.9|
 |[`dart_style`]|-|1.2.4|1.3.6|

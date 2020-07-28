@@ -19,7 +19,7 @@ final _parser = ArgParser()
   ..addOption('flutter-sdk', help: 'The directory of the Flutter SDK.')
   ..addFlag('json',
       abbr: 'j',
-      help: 'Output log items as JSON.',
+      help: 'Output log records and full report as JSON.',
       defaultsTo: false,
       negatable: false)
   ..addOption('source',
@@ -27,17 +27,15 @@ final _parser = ArgParser()
       help:
           'The source where the package is located (hosted on $defaultHostedUrl, or local directory path).',
       allowed: ['hosted', 'path'],
-      defaultsTo: 'path')
+      defaultsTo: 'path',
+      hide: true)
   ..addOption('hosted-url',
       help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
   ..addOption('line-length',
       abbr: 'l', help: 'The line length to use with dartfmt.')
-  ..addOption('verbosity',
-      help: 'Configure the details in the output.',
-      allowed: ['compact', 'normal', 'verbose'],
-      defaultsTo: 'normal')
-  ..addFlag('scores', help: 'Include scores in the output JSON.')
-  ..addFlag('report', help: 'Print markdown report instead of JSON.')
+  ..addFlag('hosted',
+      help: 'Download and analyze a hosted package (from $defaultHostedUrl).',
+      negatable: false)
   ..addFlag('warning',
       help:
           'Shows the warning message before potentially destructive operation.',
@@ -49,8 +47,8 @@ void _printHelp({String errorMessage}) {
     print(red.wrap(errorMessage));
     print('');
   }
-  print('''Usage: pana [<options>] <published package name> [<version>]
-       pana [<options>] --source path <local directory>
+  print('''Usage: pana [<options>] --hosted <published package name> [<version>]
+       pana [<options>] <local directory>
 
 Options:
 ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
@@ -68,12 +66,12 @@ Future main(List<String> args) async {
 
   final isJson = result['json'] as bool;
   final showWarning = result['warning'] as bool;
-  final showScores = result['scores'] as bool;
-  final showReport = result['report'] as bool;
 
-  final source = result['source'];
-  final verbosity = Verbosity.values
-      .firstWhere((v) => v.toString().split('.').last == result['verbosity']);
+  var source = result['source'] as String;
+  if (result['hosted'] == true) {
+    source = 'hosted';
+  }
+
   String firstArg() {
     return result.rest.isEmpty ? null : result.rest.first;
   }
@@ -130,7 +128,6 @@ Future main(List<String> args) async {
       flutterDir: result['flutter-sdk'] as String,
     );
     final options = InspectOptions(
-      verbosity: verbosity,
       pubHostedUrl: pubHostedUrl,
       lineLength: int.tryParse(result['line-length'] as String ?? ''),
     );
@@ -165,21 +162,21 @@ Future main(List<String> args) async {
         }
         summary = await analyzer.inspectDir(absolutePath, options: options);
       }
-      final map = summary.toJson();
-      if (showScores) {
+      if (isJson) {
+        final map = summary.toJson();
         map['scores'] = {
           'grantedPoints': summary.report?.grantedPoints,
           'maxPoints': summary.report?.maxPoints,
         };
-      }
-      if (showReport) {
-        for (final s in summary.report.sections) {
+        print(prettyJson(map));
+      } else {
+        final report = summary.report;
+        for (final s in report.sections) {
           final mark = s.grantedPoints == s.maxPoints ? '\u2713' : '\u2717';
           print('\n## $mark ${s.title} (${s.grantedPoints} / ${s.maxPoints})');
           print(s.summary);
         }
-      } else {
-        print(prettyJson(map));
+        print('\nPoints: ${report.grantedPoints}/${report.maxPoints}.');
       }
     } catch (e, stack) {
       final message = "Problem analyzing ${result.rest.join(' ')}";
