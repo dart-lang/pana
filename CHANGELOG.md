@@ -4,6 +4,10 @@
 
 **BREAKING CHANGES:**
 
+* `bin/pana.dart` CLI changes:
+  * removed `--report` flag (it is always the default),
+    added `--verbose` flag to display full JSON data
+  * removed `--scores` flag (it is always-on by default)
 * Removed:
   * `bin/bulk.dart`
   * `ComponentNames`

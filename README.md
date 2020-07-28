@@ -39,8 +39,8 @@ Options:
   -l, --line-length     The line length to use with dartfmt.
       --verbosity       Configure the details in the output.
                         [compact, normal (default), verbose]
-      --[no-]scores     Include scores in the output JSON.
-      --[no-]report     Print markdown report instead of JSON.
+      --[no-]hosted     Shortcut to `--source hosted`.
+      --[no-]verbose    Print the full JSON output instead of the markdown report.
       --[no-]warning    Shows the warning message before potentially destructive operation.
                         (defaults to on)
 ```

@@ -36,8 +36,9 @@ final _parser = ArgParser()
       help: 'Configure the details in the output.',
       allowed: ['compact', 'normal', 'verbose'],
       defaultsTo: 'normal')
-  ..addFlag('scores', help: 'Include scores in the output JSON.')
-  ..addFlag('report', help: 'Print markdown report instead of JSON.')
+  ..addFlag('hosted', help: 'Shortcut to `--source hosted`.')
+  ..addFlag('verbose',
+      help: 'Print the full JSON output instead of the markdown report.')
   ..addFlag('warning',
       help:
           'Shows the warning message before potentially destructive operation.',
@@ -68,10 +69,13 @@ Future main(List<String> args) async {
 
   final isJson = result['json'] as bool;
   final showWarning = result['warning'] as bool;
-  final showScores = result['scores'] as bool;
-  final showReport = result['report'] as bool;
+  final showVerbose = result['verbose'] as bool;
 
-  final source = result['source'];
+  var source = result['source'] as String;
+  if (result['hosted'] == true) {
+    source = 'hosted';
+  }
+
   final verbosity = Verbosity.values
       .firstWhere((v) => v.toString().split('.').last == result['verbosity']);
   String firstArg() {
@@ -165,21 +169,21 @@ Future main(List<String> args) async {
         }
         summary = await analyzer.inspectDir(absolutePath, options: options);
       }
-      final map = summary.toJson();
-      if (showScores) {
+      if (showVerbose) {
+        final map = summary.toJson();
         map['scores'] = {
           'grantedPoints': summary.report?.grantedPoints,
           'maxPoints': summary.report?.maxPoints,
         };
-      }
-      if (showReport) {
-        for (final s in summary.report.sections) {
+        print(prettyJson(map));
+      } else {
+        final report = summary.report;
+        for (final s in report.sections) {
           final mark = s.grantedPoints == s.maxPoints ? '\u2713' : '\u2717';
           print('\n## $mark ${s.title} (${s.grantedPoints} / ${s.maxPoints})');
           print(s.summary);
         }
-      } else {
-        print(prettyJson(map));
+        print('\nPoints: ${report.grantedPoints}/${report.maxPoints}.');
       }
     } catch (e, stack) {
       final message = "Problem analyzing ${result.rest.join(' ')}";
