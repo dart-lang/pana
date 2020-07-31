@@ -106,7 +106,7 @@ class PackageAnalyzer {
         packageVersion: null,
         pubspec: pubspec,
         pkgResolution: null,
-        licenses: null,
+        licenseFile: null,
         tags: null,
         report: null,
         errorMessage: pubspecParseError(e),
@@ -211,9 +211,9 @@ class PackageAnalyzer {
       }
     }
 
-    var licenses = await detectLicensesInDir(pkgDir);
-    licenses = await updateLicenseUrls(
-        _urlChecker, pubspec.repository ?? pubspec.homepage, licenses);
+    final licenseFile = await detectLicensesInDir(pkgDir);
+    final licenseUrl = await getLicenseUrl(
+        _urlChecker, pubspec.repository ?? pubspec.homepage, licenseFile);
 
     final errorMessage =
         errors.isEmpty ? null : errors.map((e) => e.trim()).join('\n\n');
@@ -223,7 +223,7 @@ class PackageAnalyzer {
       packageVersion: pubspec.version,
       pubspec: pubspec,
       pkgResolution: pkgResolution,
-      licenses: licenses,
+      licenseFile: licenseFile.change(url: licenseUrl),
       tags: tags,
       report: await createReport(options, pkgDir, _toolEnv),
       errorMessage: errorMessage,

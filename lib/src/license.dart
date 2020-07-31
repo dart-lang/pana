@@ -13,14 +13,14 @@ import 'package:path/path.dart' as p;
 import 'download_utils.dart';
 import 'model.dart';
 
-Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
+Future<LicenseFile> detectLicensesInDir(String baseDir) async {
   final rootFiles = await Directory(baseDir).list().toList();
   final licenseCandidates = rootFiles
       .whereType<File>()
       .where(_isLicenseFile)
       .take(5) // only the first 5 files are considered
       .toList();
-  if (licenseCandidates.isEmpty) return [];
+  if (licenseCandidates.isEmpty) return null;
 
   final licenses = await Future.wait(licenseCandidates.map(
     (File file) {
@@ -30,36 +30,30 @@ Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
   ));
 
   licenses.sort((l1, l2) => Comparable.compare(l1.path, l2.path));
-  return licenses;
+  return licenses.firstWhere(
+    (l) => l.name != LicenseNames.unknown,
+    orElse: () => licenses.first,
+  );
 }
 
-Future<List<LicenseFile>> updateLicenseUrls(
-    UrlChecker urlChecker, String baseUrl, List<LicenseFile> licenses) async {
+Future<String> getLicenseUrl(
+    UrlChecker urlChecker, String baseUrl, LicenseFile license) async {
   if (baseUrl == null || baseUrl.isEmpty) {
-    return licenses;
+    return null;
   }
-
-  Future<LicenseFile> update(LicenseFile license) async {
-    if (license.path == null || license.path.isEmpty) {
-      return license;
-    }
-    final url = getRepositoryUrl(baseUrl, license.path);
-    if (url == null) {
-      return license;
-    }
-    final status = await urlChecker.checkStatus(url);
-    if (status == UrlStatus.exists) {
-      return license.change(url: url);
-    } else {
-      return license;
-    }
+  if (license.path == null || license.path.isEmpty) {
+    return null;
   }
-
-  final results = <LicenseFile>[];
-  for (var license in licenses) {
-    results.add(await update(license));
+  final url = getRepositoryUrl(baseUrl, license.path);
+  if (url == null) {
+    return null;
   }
-  return results;
+  final status = await urlChecker.checkStatus(url);
+  if (status == UrlStatus.exists) {
+    return url;
+  } else {
+    return null;
+  }
 }
 
 Future<LicenseFile> detectLicenseInFile(File file,
