@@ -10,12 +10,19 @@ import 'package:meta/meta.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:source_span/source_span.dart';
 
+import 'utils.dart';
+
 /// The extracted content of a markdown file.
 class ExctractedMarkdownContent {
   final List<Link> images;
   final List<Link> links;
+  final double nonAsciiRatio;
 
-  ExctractedMarkdownContent({this.images, this.links});
+  ExctractedMarkdownContent({
+    this.images,
+    this.links,
+    this.nonAsciiRatio,
+  });
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'images': images.map((l) => l.url).toList(),
@@ -29,14 +36,16 @@ ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
   final html = html_parser.parseFragment(htmlText,
       sourceUrl: sourceUrl.toString(), generateSpans: true);
   return ExctractedMarkdownContent(
-      images: _unique(html
-          .querySelectorAll('img')
-          .where((e) => e.attributes.containsKey('src'))
-          .map((e) => Link(e.attributes['src'], e.sourceSpan))),
-      links: _unique(html
-          .querySelectorAll('a')
-          .where((e) => e.attributes.containsKey('href'))
-          .map((e) => Link(e.attributes['href'], e.sourceSpan))));
+    images: _unique(html
+        .querySelectorAll('img')
+        .where((e) => e.attributes.containsKey('src'))
+        .map((e) => Link(e.attributes['src'], e.sourceSpan))),
+    links: _unique(html
+        .querySelectorAll('a')
+        .where((e) => e.attributes.containsKey('href'))
+        .map((e) => Link(e.attributes['href'], e.sourceSpan))),
+    nonAsciiRatio: nonAsciiRuneRatio(text),
+  );
 }
 
 List<T> _unique<T>(Iterable<T> l) => l.toSet().toList();

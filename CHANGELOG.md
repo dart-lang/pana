@@ -1,6 +1,7 @@
 ## 0.14.0
 
 * Fix: SDK constraint check should use the tool-environment's SDK version.
+* Re-added non-ASCII character checks.
 
 **BREAKING CHANGES:**
 

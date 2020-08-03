@@ -373,6 +373,14 @@ Future<ReportSection> _followsTemplate(
 
     await findLinkIssues(analysis.links, 'link');
     await findLinkIssues(analysis.images, 'image link');
+    if (analysis.nonAsciiRatio > 0.2) {
+      issues.add(_Issue(
+        '`$filename` contains too many non-ASCII characters.',
+        suggestion:
+            'The site uses English as its primary language. The content of '
+            '`$filename` in your package should primarily contain characters used in English.',
+      ));
+    }
 
     return issues;
   }
@@ -462,6 +470,18 @@ Future<ReportSection> _followsTemplate(
                 "Try to keep the value of the `description` field in your package's "
                 '`pubspec.yaml` file between 60 and 180 characters.'),
       );
+    }
+
+    // characters in description
+    if (nonAsciiRuneRatio(description) > 0.1) {
+      issues.add(_Issue(
+        'The package description contains too many non-ASCII characters.',
+        span: span,
+        suggestion:
+            'The site uses English as its primary language. The content of the '
+            "`description` field in your package's `pubspec.yaml` should "
+            'primarily contain characters used in English.',
+      ));
     }
 
     issues.addAll(findFileSizeIssues(File(p.join(packageDir, 'pubspec.yaml')),
