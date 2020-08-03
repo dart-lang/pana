@@ -235,6 +235,7 @@ class _AnalysisResult {
   final List<_Issue> warnings;
   final List<_Issue> lints;
   final String reproductionCommand;
+
   _AnalysisResult(
       this.errors, this.warnings, this.lints, this.reproductionCommand);
 }
