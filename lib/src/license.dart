@@ -11,29 +11,16 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import 'download_utils.dart';
+import 'maintenance.dart';
 import 'model.dart';
 
 Future<LicenseFile> detectLicensesInDir(String baseDir) async {
-  final rootFiles = await Directory(baseDir).list().toList();
-  final licenseCandidates = rootFiles
-      .whereType<File>()
-      .where(_isLicenseFile)
-      .take(5) // only the first 5 files are considered
-      .toList();
-  if (licenseCandidates.isEmpty) return null;
-
-  final licenses = await Future.wait(licenseCandidates.map(
-    (File file) {
-      final relativePath = p.relative(file.path, from: baseDir);
-      return detectLicenseInFile(file, relativePath: relativePath);
-    },
-  ));
-
-  licenses.sort((l1, l2) => Comparable.compare(l1.path, l2.path));
-  return licenses.firstWhere(
-    (l) => l.name != LicenseNames.unknown,
-    orElse: () => licenses.first,
-  );
+  for (final candidate in licenseFileNames) {
+    final file = File(p.join(baseDir, candidate));
+    if (!file.existsSync()) continue;
+    return detectLicenseInFile(file, relativePath: candidate);
+  }
+  return null;
 }
 
 Future<String> getLicenseUrl(
@@ -158,20 +145,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.''');
-
-final _licenseFileNames = <String>[
-  'COPYING',
-  'LICENSE',
-  'UNLICENSE',
-];
-
-bool _isLicenseFile(FileSystemEntity fse) {
-  if (fse is File) {
-    final name = p.relative(fse.path, from: fse.parent.path);
-    return _licenseFileNames.any((n) => n == name || name.startsWith('$n.'));
-  }
-  return false;
-}
 
 String _longTextPrepare(String text) =>
     text.replaceAll(_extraCharacters, ' ').replaceAll(_whitespace, ' ').trim();

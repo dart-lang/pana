@@ -39,6 +39,12 @@ List<String> exampleFileCandidates(
   ];
 }
 
+final licenseFileNames = <String>[
+  ...textFileNameCandidates('LICENSE'),
+  ...textFileNameCandidates('COPYING'),
+  ...textFileNameCandidates('UNLICENSE'),
+];
+
 const String currentAnalysisOptionsFileName = 'analysis_options.yaml';
 final List<String> analysisOptionsFiles = const [
   currentAnalysisOptionsFileName,
