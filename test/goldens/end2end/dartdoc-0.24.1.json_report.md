@@ -103,7 +103,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`html`]|`>=0.12.1 <0.14.0`|0.13.4+2|**0.14.0+3**|
 |[`http_parser`]|`>=3.0.3 <4.0.0`|3.1.4|3.1.4|
 |[`logging`]|`^0.11.3+1`|0.11.4|0.11.4|
-|[`markdown`]|`^2.0.0`|2.1.5|2.1.5|
+|[`markdown`]|`^2.0.0`|2.1.7|2.1.7|
 |[`package_config`]|`>=0.1.5 <2.0.0`|1.9.3|1.9.3|
 |[`path`]|`^1.3.0`|1.7.0|1.7.0|
 |[`process`]|`^3.0.5`|3.0.13|3.0.13|
