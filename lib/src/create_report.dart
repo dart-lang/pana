@@ -962,8 +962,10 @@ class _Issue implements _Paragraph {
       description,
       '</summary>',
       '', // This empty line will make the span render its markdown.
-      if (span != null) span.markdown(basePath: basePath),
-      if (suggestion != null) suggestion,
+      if (span != null)
+        span.markdown(basePath: basePath),
+      if (suggestion != null)
+        suggestion,
       '</details>',
     ].join('\n');
   }
