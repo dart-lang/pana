@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:pana/src/tag_detection.dart';
@@ -19,12 +20,12 @@ import 'package:pubspec_parse/pubspec_parse.dart'
         SdkDependency;
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
-import 'package:logging/logging.dart';
 
 import '../models.dart';
 import '../pana.dart';
 import 'markdown_content.dart';
 import 'pubspec.dart';
+import 'pubspec_io.dart';
 
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
@@ -43,7 +44,7 @@ Future<Report> createReport(
 ) async {
   Pubspec pubspec;
   try {
-    pubspec = Pubspec.parseFromDir(packageDir);
+    pubspec = pubspecFromDir(packageDir);
   } on Exception catch (e) {
     return Report(sections: [
       ReportSection(
@@ -234,6 +235,7 @@ class _AnalysisResult {
   final List<_Issue> warnings;
   final List<_Issue> lints;
   final String reproductionCommand;
+
   _AnalysisResult(
       this.errors, this.warnings, this.lints, this.reproductionCommand);
 }

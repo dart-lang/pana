@@ -20,6 +20,7 @@ import 'messages.dart' as messages;
 import 'model.dart';
 import 'pkg_resolution.dart';
 import 'pubspec.dart';
+import 'pubspec_io.dart';
 import 'sdk_env.dart';
 import 'tag_detection.dart';
 import 'utils.dart';
@@ -96,7 +97,7 @@ class PackageAnalyzer {
     log.info('Parsing pubspec.yaml...');
     Pubspec pubspec;
     try {
-      pubspec = Pubspec.parseFromDir(pkgDir);
+      pubspec = pubspecFromDir(pkgDir);
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
       return Summary(

@@ -16,7 +16,7 @@ import 'analysis_options.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
-import 'pubspec.dart';
+import 'pubspec_io.dart';
 import 'utils.dart';
 import 'version.dart';
 
@@ -282,7 +282,7 @@ class ToolEnvironment {
 
   Future<bool> detectFlutterUse(String packageDir) async {
     try {
-      final pubspec = Pubspec.parseFromDir(packageDir);
+      final pubspec = pubspecFromDir(packageDir);
       return pubspec.usesFlutter;
     } catch (e, st) {
       _logger.info('Unable to read pubspec.yaml', e, st);

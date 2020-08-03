@@ -74,14 +74,16 @@
 
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/session.dart';
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
+import 'package:analyzer/dart/analysis/session.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
+
+import 'pubspec_io.dart';
 
 abstract class _DirectedGraph<T> {
   Set<T> directSuccessors(T t);
@@ -350,7 +352,7 @@ class _PubspecCache {
   Pubspec pubspecOfPackage(String packageName) {
     return _pubspecCache.putIfAbsent(packageName, () {
       try {
-        return Pubspec.parseFromDir(_packageDir(packageName));
+        return pubspecFromDir(_packageDir(packageName));
       } on Exception catch (e) {
         throw _TagException(e.toString());
       }
@@ -773,7 +775,7 @@ class Tagger {
         )
         .currentSession;
     final pubspecCache = _PubspecCache(session);
-    final pubspec = Pubspec.parseFromDir(packageDir);
+    final pubspec = pubspecFromDir(packageDir);
 
     final libDartFiles = _dartFilesFromLib(packageDir);
     final nonSrcDartFiles = libDartFiles.where((p) => !p.startsWith('src/'));
