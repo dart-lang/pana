@@ -25,32 +25,10 @@ class _MsgDict {
   );
 }
 
-String runDartfmtToFormatFile(bool usesFlutter, String dartFile) {
-  final dict = usesFlutter ? _MsgDict.flutterDict : _MsgDict.defaultDict;
-  return 'Run `${dict.dartfmtShortName}` to format `$dartFile`.';
-}
-
-String runningDartfmtFailed(bool usesFlutter, errorMsg) {
-  final dict = usesFlutter ? _MsgDict.flutterDict : _MsgDict.defaultDict;
-  return 'Running `${dict.dartfmtShortCmd}` failed with the following output:\n\n'
-      '```\n$errorMsg\n```\n';
-}
-
 String runningDartanalyzerFailed(bool usesFlutter, errorMsg) {
   final dict = usesFlutter ? _MsgDict.flutterDict : _MsgDict.defaultDict;
   return 'Running `${dict.dartanalyzerShortCmd}` failed with the following output:\n\n'
       '```\n$errorMsg\n```\n';
-}
-
-/// Build a list like "A, B and 3 more".
-String buildSample(Iterable<String> items) {
-  final total = items.length;
-  final fullCount = total <= 3 ? total : 2;
-  var sample = items.take(fullCount).join(', ');
-  if (total > fullCount) {
-    sample = '$sample and ${total - fullCount} more.';
-  }
-  return sample;
 }
 
 String pluralizeCount(int count, String name) {
@@ -61,14 +39,4 @@ String pluralizeCount(int count, String name) {
   } else {
     return '$count ${name}s';
   }
-}
-
-String formatIssueCounts(int errorCount, int warningCount, int hintCount) {
-  final reportParts = <String>[
-    pluralizeCount(errorCount, 'error'),
-    pluralizeCount(warningCount, 'warning'),
-    pluralizeCount(hintCount, 'hint'),
-  ];
-  reportParts.removeWhere((s) => s == null);
-  return reportParts.join(', ');
 }

@@ -13,7 +13,7 @@ import 'package:yaml/yaml.dart';
 
 import 'logging.dart';
 
-Stream<String> byteStreamSplit(Stream<List<int>> stream) =>
+Stream<String> _byteStreamSplit(Stream<List<int>> stream) =>
     stream.transform(systemEncoding.decoder).transform(const LineSplitter());
 
 final _timeout = const Duration(minutes: 2);
@@ -64,7 +64,7 @@ Future<ProcessResult> runProc(
 
   var items = await Future.wait(<Future<Object>>[
     process.exitCode,
-    byteStreamSplit(process.stdout).forEach((outLine) {
+    _byteStreamSplit(process.stdout).forEach((outLine) {
       // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
       if (deduplicate && stdoutLines.contains(outLine)) {
         return;
@@ -76,7 +76,7 @@ Future<ProcessResult> runProc(
         killProc('STDOUT exceeded $_maxLines lines.');
       }
     }),
-    byteStreamSplit(process.stderr).forEach((errLine) {
+    _byteStreamSplit(process.stderr).forEach((errLine) {
       // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
       if (deduplicate && stderrLines.contains(errLine)) {
         return;
@@ -174,16 +174,6 @@ Stream<String> listFiles(String directory,
       .map((path) => p.relative(path, from: directory));
 }
 
-int fileSize(String packageDir, String relativePath) {
-  final file = File(p.join(packageDir, relativePath));
-
-  if (!file.existsSync()) {
-    return null;
-  }
-
-  return file.lengthSync();
-}
-
 String prettyJson(obj) {
   try {
     return const JsonEncoder.withIndent(' ').convert(obj);
@@ -202,15 +192,6 @@ String prettyJson(obj) {
     }
     rethrow;
   }
-}
-
-/// If no `pubspec.yaml` file exists, `null` is returned.
-String getPubspecContent(String packagePath) {
-  var theFile = File(p.join(packagePath, 'pubspec.yaml'));
-  if (theFile.existsSync()) {
-    return theFile.readAsStringSync();
-  }
-  return null;
 }
 
 Object sortedJson(obj) {
@@ -238,19 +219,6 @@ Map<String, Object> yamlToJson(String yamlContent) {
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
   return sortedJson(json.decode(json.encode(yamlMap))) as Map<String, Object>;
-}
-
-String toPackageUri(String package, String relativePath) {
-  if (relativePath.startsWith('lib/')) {
-    return 'package:$package/${relativePath.substring(4)}';
-  } else {
-    return 'asset:$package/$relativePath';
-  }
-}
-
-String toRelativePath(String packageUri) {
-  final uriPath = packageUri.substring(packageUri.indexOf('/') + 1);
-  return packageUri.startsWith('package:') ? 'lib/$uriPath' : uriPath;
 }
 
 /// Returns the list of directories to focus on (e.g. bin, lib) - if they exist.
