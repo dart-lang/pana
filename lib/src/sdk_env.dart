@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
-import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
@@ -19,8 +18,6 @@ import 'package_analyzer.dart' show InspectOptions;
 import 'pubspec_io.dart';
 import 'utils.dart';
 import 'version.dart';
-
-final _logger = Logger('pana.env');
 
 const _dartfmtTimeout = Duration(minutes: 5);
 
@@ -65,7 +62,7 @@ class ToolEnvironment {
     try {
       flutterVersions = await getFlutterVersion();
     } catch (e) {
-      _logger.warning('Unable to detect Flutter version.', e);
+      log.warning('Unable to detect Flutter version.', e);
     }
     _runtimeInfo = PanaRuntimeInfo(
       panaVersion: packageVersion,
@@ -114,7 +111,7 @@ class ToolEnvironment {
         ? resolvedDartSdk
         : p.join(resolvedFlutterSdk, 'bin', 'cache', 'dart-sdk');
     if (flutterDartSdkDir == null) {
-      _logger.warning(
+      log.warning(
           'Flutter SDK path was not specified, pana will use the default '
           'Dart SDK to run `dartanalyzer` on Flutter packages.');
     }
@@ -285,7 +282,7 @@ class ToolEnvironment {
       final pubspec = pubspecFromDir(packageDir);
       return pubspec.usesFlutter;
     } catch (e, st) {
-      _logger.info('Unable to read pubspec.yaml', e, st);
+      log.info('Unable to read pubspec.yaml', e, st);
     }
     return false;
   }
