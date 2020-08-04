@@ -123,11 +123,11 @@ void main() {
 
   group('Directory scans', () {
     test('detect pana LICENSE', () async {
-      expect(await detectLicensesInDir('.'), LicenseFile('LICENSE', 'BSD'));
+      expect(await detectLicenseInDir('.'), LicenseFile('LICENSE', 'BSD'));
     });
 
     test('no license files', () async {
-      expect(await detectLicensesInDir('lib/src/'), null);
+      expect(await detectLicenseInDir('lib/src/'), null);
     });
   });
 }

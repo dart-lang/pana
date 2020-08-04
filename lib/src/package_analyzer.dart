@@ -211,7 +211,7 @@ class PackageAnalyzer {
       }
     }
 
-    final licenseFile = await detectLicensesInDir(pkgDir);
+    final licenseFile = await detectLicenseInDir(pkgDir);
     final licenseUrl = await getLicenseUrl(
         _urlChecker, pubspec.repository ?? pubspec.homepage, licenseFile);
 

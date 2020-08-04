@@ -14,7 +14,7 @@ import 'download_utils.dart';
 import 'maintenance.dart';
 import 'model.dart';
 
-Future<LicenseFile> detectLicensesInDir(String baseDir) async {
+Future<LicenseFile> detectLicenseInDir(String baseDir) async {
   for (final candidate in licenseFileNames) {
     final file = File(p.join(baseDir, candidate));
     if (!file.existsSync()) continue;
