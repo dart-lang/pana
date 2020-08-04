@@ -5,7 +5,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:pana/src/tag_detection.dart';
@@ -23,14 +22,13 @@ import 'package:yaml/yaml.dart';
 
 import '../models.dart';
 import '../pana.dart';
+import 'logging.dart';
 import 'markdown_content.dart';
 import 'pubspec.dart';
 import 'pubspec_io.dart';
 
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
-
-final _log = Logger('pana.create_report');
 
 /// We currently don't have flutter installed on travis. So we emulate having
 /// no Flutter installed when generating golden files.
@@ -259,7 +257,7 @@ Future<List<_Issue>> _formatPackage(
       _Issue('Running `dartfmt` failed:\n```\n${e.message}```'),
     ];
   } catch (e, stack) {
-    _log.severe('`dartfmt` failed.\n$e', e, stack);
+    log.severe('`dartfmt` failed.\n$e', e, stack);
     return [
       _Issue('Running `dartfmt` failed.'),
     ];
