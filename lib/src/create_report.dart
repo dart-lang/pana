@@ -373,6 +373,13 @@ Future<ReportSection> _followsTemplate(
 
     await findLinkIssues(analysis.links, 'link');
     await findLinkIssues(analysis.images, 'image link');
+    if (analysis.isMalformedUtf8) {
+      issues.add(_Issue(
+        '`$filename` is not a valid UTF-8 file.',
+        suggestion:
+            'The content of `$filename` in your package should contain valid UTF-8 characters.',
+      ));
+    }
     if (analysis.nonAsciiRatio > 0.2) {
       issues.add(_Issue(
         '`$filename` contains too many non-ASCII characters.',

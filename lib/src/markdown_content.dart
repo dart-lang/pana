@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:markdown/markdown.dart';
@@ -16,22 +17,27 @@ import 'utils.dart';
 class ExctractedMarkdownContent {
   final List<Link> images;
   final List<Link> links;
+  final bool isMalformedUtf8;
   final double nonAsciiRatio;
 
   ExctractedMarkdownContent({
     this.images,
     this.links,
+    this.isMalformedUtf8,
     this.nonAsciiRatio,
   });
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'images': images.map((l) => l.url).toList(),
         'links': links.map((l) => l.url).toList(),
+        'isMalformedUtf8': isMalformedUtf8,
+        'nonAsciiRatio': nonAsciiRatio,
       };
 }
 
 /// Scans a markdown text and extracts its content.
-ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
+ExctractedMarkdownContent _scanMarkdownText(
+    String text, Uri sourceUrl, bool isMalformedUtf8) {
   final htmlText = markdownToHtml(text);
   final html = html_parser.parseFragment(htmlText,
       sourceUrl: sourceUrl.toString(), generateSpans: true);
@@ -44,6 +50,7 @@ ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
         .querySelectorAll('a')
         .where((e) => e.attributes.containsKey('href'))
         .map((e) => Link(e.attributes['href'], e.sourceSpan))),
+    isMalformedUtf8: isMalformedUtf8,
     nonAsciiRatio: nonAsciiRuneRatio(text),
   );
 }
@@ -52,8 +59,16 @@ List<T> _unique<T>(Iterable<T> l) => l.toSet().toList();
 
 /// Scans a markdown file and extracts its content.
 Future<ExctractedMarkdownContent> scanMarkdownFileContent(File file) async {
-  final text = await file.readAsString();
-  return scanMarkdownText(text, file.uri);
+  final bytes = await file.readAsBytes();
+  String text;
+  var isMalformedUtf8 = false;
+  try {
+    text = utf8.decode(bytes, allowMalformed: false);
+  } on FormatException {
+    text = utf8.decode(bytes, allowMalformed: true);
+    isMalformedUtf8 = true;
+  }
+  return _scanMarkdownText(text, file.uri, isMalformedUtf8);
 }
 
 Future<Links> checkLinks(List<Link> links) async {
