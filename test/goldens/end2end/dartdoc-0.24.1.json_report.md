@@ -96,7 +96,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|`^0.33.0`|0.33.6+1|**0.39.15**|
+|[`analyzer`]|`^0.33.0`|0.33.6+1|**0.39.16**|
 |[`args`]|`>=1.4.1 <2.0.0`|1.6.0|1.6.0|
 |[`collection`]|`^1.2.0`|1.14.13|1.14.13|
 |[`crypto`]|`^2.0.6`|2.1.5|2.1.5|
@@ -182,7 +182,7 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 <details>
 <summary>
-The constraint `^0.33.0` on analyzer does not support the latest published version `0.39.15`
+The constraint `^0.33.0` on analyzer does not support the latest published version `0.39.16`
 </summary>
 
 `pubspec.yaml:11:13`
