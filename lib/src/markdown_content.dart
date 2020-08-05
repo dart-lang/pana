@@ -35,10 +35,9 @@ class ExctractedMarkdownContent {
       };
 }
 
-final _replacementUtf8Char = '\uFFFD';
-
 /// Scans a markdown text and extracts its content.
-ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
+ExctractedMarkdownContent _scanMarkdownText(
+    String text, Uri sourceUrl, bool isMalformedUtf8) {
   final htmlText = markdownToHtml(text);
   final html = html_parser.parseFragment(htmlText,
       sourceUrl: sourceUrl.toString(), generateSpans: true);
@@ -51,7 +50,7 @@ ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
         .querySelectorAll('a')
         .where((e) => e.attributes.containsKey('href'))
         .map((e) => Link(e.attributes['href'], e.sourceSpan))),
-    isMalformedUtf8: text.contains(_replacementUtf8Char),
+    isMalformedUtf8: isMalformedUtf8,
     nonAsciiRatio: nonAsciiRuneRatio(text),
   );
 }
@@ -61,8 +60,15 @@ List<T> _unique<T>(Iterable<T> l) => l.toSet().toList();
 /// Scans a markdown file and extracts its content.
 Future<ExctractedMarkdownContent> scanMarkdownFileContent(File file) async {
   final bytes = await file.readAsBytes();
-  final text = utf8.decode(bytes, allowMalformed: true);
-  return scanMarkdownText(text, file.uri);
+  String text;
+  var isMalformedUtf8 = false;
+  try {
+    text = utf8.decode(bytes, allowMalformed: false);
+  } on FormatException {
+    text = utf8.decode(bytes, allowMalformed: true);
+    isMalformedUtf8 = true;
+  }
+  return _scanMarkdownText(text, file.uri, isMalformedUtf8);
 }
 
 Future<Links> checkLinks(List<Link> links) async {
