@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:markdown/markdown.dart';
@@ -16,19 +17,25 @@ import 'utils.dart';
 class ExctractedMarkdownContent {
   final List<Link> images;
   final List<Link> links;
+  final bool isMalformedUtf8;
   final double nonAsciiRatio;
 
   ExctractedMarkdownContent({
     this.images,
     this.links,
+    this.isMalformedUtf8,
     this.nonAsciiRatio,
   });
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'images': images.map((l) => l.url).toList(),
         'links': links.map((l) => l.url).toList(),
+        'isMalformedUtf8': isMalformedUtf8,
+        'nonAsciiRatio': nonAsciiRatio,
       };
 }
+
+final _replacementUtf8Char = '\uFFFD';
 
 /// Scans a markdown text and extracts its content.
 ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
@@ -44,6 +51,7 @@ ExctractedMarkdownContent scanMarkdownText(String text, Uri sourceUrl) {
         .querySelectorAll('a')
         .where((e) => e.attributes.containsKey('href'))
         .map((e) => Link(e.attributes['href'], e.sourceSpan))),
+    isMalformedUtf8: text.contains(_replacementUtf8Char),
     nonAsciiRatio: nonAsciiRuneRatio(text),
   );
 }
@@ -52,7 +60,8 @@ List<T> _unique<T>(Iterable<T> l) => l.toSet().toList();
 
 /// Scans a markdown file and extracts its content.
 Future<ExctractedMarkdownContent> scanMarkdownFileContent(File file) async {
-  final text = await file.readAsString();
+  final bytes = await file.readAsBytes();
+  final text = utf8.decode(bytes, allowMalformed: true);
   return scanMarkdownText(text, file.uri);
 }
 
