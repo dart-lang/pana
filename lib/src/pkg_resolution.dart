@@ -11,6 +11,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 
+import 'logging.dart';
 import 'model.dart';
 import 'pubspec.dart';
 import 'utils.dart';
@@ -82,17 +83,6 @@ void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
 
 List<PkgDependency> _buildDeps(Pubspec pubspec,
     Map<String, Version> pkgVersions, Map<String, Version> availVersions) {
-  var loggedWeird = false;
-  void logWeird(String input) {
-    if (!loggedWeird) {
-      // only write the header if there is "weirdness" in processing
-      stderr.writeln('Package: ${pubspec.name}');
-      loggedWeird = true;
-    }
-    // write every line of the input indented 2 spaces
-    stderr.writeAll(LineSplitter.split(input).map((line) => '  $line\n'));
-  }
-
   var deps = <PkgDependency>[];
 
   void addDetail(String package, Dependency dependency, String dependencyType) {
@@ -120,7 +110,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
         constraint = dependency.version;
       } else {
         constraintType = ConstraintTypes.unknown;
-        errors.add('Unknown constraint for package $package:\n$dependency');
+        errors.add('Unknown constraint for package $package: $dependency');
       }
     }
 
@@ -137,7 +127,7 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
           'Package $package has version $resolved but $constraint does not allow it!');
     }
 
-    errors.forEach(logWeird);
+    errors.forEach((error) => log.info('Weird: $error'));
 
     deps.add(PkgDependency(
       package: package,
@@ -213,7 +203,7 @@ class PubEntry {
 
         if (match == null) {
           // Likely due to Flutter silly
-          // stderr.writeln("Could not parse pub line `$line`.");
+          // log.severe("Could not parse pub line `$line`.");
           continue;
         }
 

@@ -53,7 +53,7 @@ Future<ProcessResult> runProc(
       killMessage = message;
       log.severe('Killing `$executable ${arguments.join(' ')}` $killMessage');
       killed = process.kill();
-      stderr.writeln('  killed? - $killed');
+      log.info('killed `$executable ${arguments.join(' ')}` - $killed');
     }
   }
 
@@ -71,7 +71,7 @@ Future<ProcessResult> runProc(
       }
       stdoutLines.add(outLine);
       // Uncomment to debug long execution
-      // stderr.writeln(outLine);
+      // log.severe(outLine);
       if (stdoutLines.length > _maxLines) {
         killProc('STDOUT exceeded $_maxLines lines.');
       }
@@ -83,7 +83,7 @@ Future<ProcessResult> runProc(
       }
       stderrLines.add(errLine);
       // Uncomment to debug long execution
-      // stderr.writeln(errLine);
+      // log.severe(errLine);
       if (stderrLines.length > _maxLines) {
         killProc('STDERR exceeded $_maxLines lines.');
       }
@@ -181,12 +181,13 @@ String prettyJson(obj) {
     dynamic error = e;
 
     while (error is JsonUnsupportedObjectError) {
-      stderr.writeln([
+      final jsError = error as JsonUnsupportedObjectError;
+      log.severe(
+        '${jsError.unsupportedObject} - (${jsError.unsupportedObject.runtimeType}).'
+        ' Nested cause: ${jsError.cause}',
         error,
-        '${error.unsupportedObject} - (${error.unsupportedObject.runtimeType})',
-        error.cause == null ? null : 'Nested cause: ${error.cause}',
-        error.stackTrace
-      ].where((i) => i != null).join('\n'));
+        jsError.stackTrace,
+      );
 
       error = error.cause;
     }
