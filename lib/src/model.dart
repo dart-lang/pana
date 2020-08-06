@@ -26,7 +26,7 @@ class Summary {
   @JsonKey(includeIfNull: false)
   final Pubspec pubspec;
 
-  final List<LicenseFile> licenses;
+  final LicenseFile licenseFile;
 
   @JsonKey(includeIfNull: false)
   final PkgResolution pkgResolution;
@@ -47,7 +47,7 @@ class Summary {
     @required this.packageVersion,
     @required this.pubspec,
     @required this.pkgResolution,
-    @required this.licenses,
+    @required this.licenseFile,
     @required this.tags,
     @required this.report,
     @required this.errorMessage,
@@ -68,7 +68,7 @@ class Summary {
       packageVersion: packageVersion,
       pubspec: pubspec,
       pkgResolution: pkgResolution,
-      licenses: licenses,
+      licenseFile: licenseFile,
       tags: tags ?? this.tags,
       report: report,
       errorMessage: errorMessage,

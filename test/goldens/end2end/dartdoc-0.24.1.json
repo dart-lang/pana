@@ -49,13 +49,11 @@
       "dartdoc": null
     }
   },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "name": "BSD",
-      "url": "https://github.com/dart-lang/dartdoc/blob/master/LICENSE"
-    }
-  ],
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "BSD",
+    "url": "https://github.com/dart-lang/dartdoc/blob/master/LICENSE"
+  },
   "pkgResolution": {
     "dependencies": [
       {

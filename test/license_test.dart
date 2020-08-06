@@ -123,18 +123,11 @@ void main() {
 
   group('Directory scans', () {
     test('detect pana LICENSE', () async {
-      expect(await detectLicensesInDir('.'), [LicenseFile('LICENSE', 'BSD')]);
+      expect(await detectLicenseInDir('.'), LicenseFile('LICENSE', 'BSD'));
     });
 
     test('no license files', () async {
-      expect(await detectLicensesInDir('lib/src/'), []);
-    });
-
-    test('multiple license files', () async {
-      expect(await detectLicensesInDir('test/licenses/multiple'), [
-        LicenseFile('LICENSE.core.txt', 'GPL', version: '3.0'),
-        LicenseFile('LICENSE.libs.txt', 'LGPL', version: '3.0'),
-      ]);
+      expect(await detectLicenseInDir('lib/src/'), null);
     });
   });
 }

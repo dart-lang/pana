@@ -24,6 +24,7 @@
   * `Suggestion`
   * `Summary.dartFiles`
   * `Summary.health`
+  * `Summary.licenses` (using only a single `Summary.licenseFile`)
   * `Summary.maintenance`
   * `Summary.platform`
   * `Summary.stats`

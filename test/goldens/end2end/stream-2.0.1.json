@@ -27,13 +27,11 @@
       "sdk": ">=2.0.0-dev <3.0.0"
     }
   },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "name": "Apache",
-      "version": "2.0"
-    }
-  ],
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "Apache",
+    "version": "2.0"
+  },
   "pkgResolution": {
     "dependencies": [
       {

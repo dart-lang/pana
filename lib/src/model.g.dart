@@ -19,10 +19,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
     pkgResolution: json['pkgResolution'] == null
         ? null
         : PkgResolution.fromJson(json['pkgResolution'] as Map<String, dynamic>),
-    licenses: (json['licenses'] as List)
-        ?.map((e) =>
-            e == null ? null : LicenseFile.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    licenseFile: json['licenseFile'] == null
+        ? null
+        : LicenseFile.fromJson(json['licenseFile'] as Map<String, dynamic>),
     tags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
     report: json['report'] == null
         ? null
@@ -46,7 +45,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('packageVersion',
       const VersionConverter().toJson(instance.packageVersion));
   writeNotNull('pubspec', instance.pubspec);
-  val['licenses'] = instance.licenses;
+  val['licenseFile'] = instance.licenseFile;
   writeNotNull('pkgResolution', instance.pkgResolution);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);

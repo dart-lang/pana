@@ -11,55 +11,36 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import 'download_utils.dart';
+import 'maintenance.dart';
 import 'model.dart';
 
-Future<List<LicenseFile>> detectLicensesInDir(String baseDir) async {
-  final rootFiles = await Directory(baseDir).list().toList();
-  final licenseCandidates = rootFiles
-      .whereType<File>()
-      .where(_isLicenseFile)
-      .take(5) // only the first 5 files are considered
-      .toList();
-  if (licenseCandidates.isEmpty) return [];
-
-  final licenses = await Future.wait(licenseCandidates.map(
-    (File file) {
-      final relativePath = p.relative(file.path, from: baseDir);
-      return detectLicenseInFile(file, relativePath: relativePath);
-    },
-  ));
-
-  licenses.sort((l1, l2) => Comparable.compare(l1.path, l2.path));
-  return licenses;
+Future<LicenseFile> detectLicenseInDir(String baseDir) async {
+  for (final candidate in licenseFileNames) {
+    final file = File(p.join(baseDir, candidate));
+    if (!file.existsSync()) continue;
+    return detectLicenseInFile(file, relativePath: candidate);
+  }
+  return null;
 }
 
-Future<List<LicenseFile>> updateLicenseUrls(
-    UrlChecker urlChecker, String baseUrl, List<LicenseFile> licenses) async {
+Future<String> getLicenseUrl(
+    UrlChecker urlChecker, String baseUrl, LicenseFile license) async {
   if (baseUrl == null || baseUrl.isEmpty) {
-    return licenses;
+    return null;
   }
-
-  Future<LicenseFile> update(LicenseFile license) async {
-    if (license.path == null || license.path.isEmpty) {
-      return license;
-    }
-    final url = getRepositoryUrl(baseUrl, license.path);
-    if (url == null) {
-      return license;
-    }
-    final status = await urlChecker.checkStatus(url);
-    if (status == UrlStatus.exists) {
-      return license.change(url: url);
-    } else {
-      return license;
-    }
+  if (license.path == null || license.path.isEmpty) {
+    return null;
   }
-
-  final results = <LicenseFile>[];
-  for (var license in licenses) {
-    results.add(await update(license));
+  final url = getRepositoryUrl(baseUrl, license.path);
+  if (url == null) {
+    return null;
   }
-  return results;
+  final status = await urlChecker.checkStatus(url);
+  if (status == UrlStatus.exists) {
+    return url;
+  } else {
+    return null;
+  }
 }
 
 Future<LicenseFile> detectLicenseInFile(File file,
@@ -164,20 +145,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.''');
-
-final _licenseFileNames = <String>[
-  'COPYING',
-  'LICENSE',
-  'UNLICENSE',
-];
-
-bool _isLicenseFile(FileSystemEntity fse) {
-  if (fse is File) {
-    final name = p.relative(fse.path, from: fse.parent.path);
-    return _licenseFileNames.any((n) => n == name || name.startsWith('$n.'));
-  }
-  return false;
-}
 
 String _longTextPrepare(String text) =>
     text.replaceAll(_extraCharacters, ' ').replaceAll(_whitespace, ' ').trim();

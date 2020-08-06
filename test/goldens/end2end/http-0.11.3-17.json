@@ -25,13 +25,11 @@
       "sdk": ">=2.0.0-dev.61.0 <3.0.0"
     }
   },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "name": "BSD",
-      "url": "https://github.com/dart-lang/http/blob/master/LICENSE"
-    }
-  ],
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "BSD",
+    "url": "https://github.com/dart-lang/http/blob/master/LICENSE"
+  },
   "pkgResolution": {
     "dependencies": [
       {

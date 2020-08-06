@@ -46,13 +46,11 @@
       "compiler": null
     }
   },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "name": "BSD",
-      "url": "https://github.com/tekartik/fs_shim.dart/blob/master/LICENSE"
-    }
-  ],
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "BSD",
+    "url": "https://github.com/tekartik/fs_shim.dart/blob/master/LICENSE"
+  },
   "tags": [],
   "report": {
     "sections": [
