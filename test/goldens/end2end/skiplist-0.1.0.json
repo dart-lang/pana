@@ -57,7 +57,7 @@
         "title": "Support up-to-date dependencies",
         "grantedPoints": 0,
         "maxPoints": 20,
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your pubspec.yaml\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version 2.9.0. Cannot run `pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your pubspec.yaml\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
       }
     ]
   },
