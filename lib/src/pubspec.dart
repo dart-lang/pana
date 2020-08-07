@@ -54,9 +54,6 @@ class Pubspec {
   bool get usesFlutter =>
       dependsOnFlutterSdk || dependsOnFlutterPackage || hasFlutterKey;
 
-  @deprecated
-  bool get isFlutter => usesFlutter;
-
   Set<String> get dependentSdks {
     if (_dependentSdks == null) {
       _dependentSdks = SplayTreeSet();
