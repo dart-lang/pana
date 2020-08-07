@@ -12,12 +12,6 @@ final List<String> changelogFileNames = textFileNameCandidates('changelog');
 
 final List<String> readmeFileNames = textFileNameCandidates('readme');
 
-@deprecated
-final List<String> exampleReadmeFileNames = <String>[
-  ...textFileNameCandidates('example/example'),
-  ...textFileNameCandidates('example/readme'),
-];
-
 /// Returns the candidates in priority order to display under the 'Example' tab.
 List<String> exampleFileCandidates(
   String package, {
