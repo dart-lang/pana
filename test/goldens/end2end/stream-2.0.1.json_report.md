@@ -80,11 +80,11 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 1229 issues. Showing the first 2:
+Found 1227 issues. Showing the first 2:
 
 <details>
 <summary>
-ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeaders.add' ('void Function(String, Object, {bool preserveHeaderCase})').
+ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.add' ('void Function(String, Object, {bool preserveHeaderCase})').
 </summary>
 
 `lib/src/connect_impl.dart:281:8`
@@ -100,14 +100,14 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 </details>
 <details>
 <summary>
-ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.add' ('void Function(String, Object, {bool preserveHeaderCase})').
+ERROR: '_ReadOnlyHeaders.set' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.set' ('void Function(String, Object, {bool preserveHeaderCase})').
 </summary>
 
-`lib/src/connect_impl.dart:281:8`
+`lib/src/connect_impl.dart:284:8`
 
 ```
     ╷
-281 │   void add(String name, Object value) {
+284 │   void set(String name, Object value) {
     │        ^^^
     ╵
 ```
