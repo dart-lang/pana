@@ -3,6 +3,7 @@
 * Fix: SDK constraint check should use the tool-environment's SDK version.
 * Re-added non-ASCII character checks.
 * Fix: Malformed UTF-8 files caused markdown checks to fail.
+* Fix: Apply InspectOptions.analysisOptionsUri on new scoring.
 
 **BREAKING CHANGES:**
 
