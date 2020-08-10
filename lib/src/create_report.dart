@@ -58,6 +58,7 @@ Future<Report> createReport(
     await _hasDocumentation(packageDir, pubspec),
     await _multiPlatform(packageDir, pubspec),
     await _staticAnalysis(
+      options,
       packageDir,
       toolEnvironment,
       usesFlutter: pubspec.usesFlutter,
@@ -99,11 +100,13 @@ Future<ReportSection> _hasDocumentation(
 }
 
 Future<ReportSection> _staticAnalysis(
+  InspectOptions options,
   String packageDir,
   ToolEnvironment toolEnvironment, {
   @required bool usesFlutter,
 }) async {
-  final analysisResult = await _analyzePackage(packageDir, toolEnvironment,
+  final analysisResult = await _analyzePackage(
+      options, packageDir, toolEnvironment,
       usesFlutter: usesFlutter);
 
   final errors = analysisResult.errors;
@@ -156,6 +159,7 @@ Future<ReportSection> _staticAnalysis(
 }
 
 Future<_AnalysisResult> _analyzePackage(
+  InspectOptions options,
   String packagePath,
   ToolEnvironment toolEnvironment, {
   @required bool usesFlutter,
@@ -193,7 +197,7 @@ Future<_AnalysisResult> _analyzePackage(
       packagePath,
       dirs,
       usesFlutter,
-      inspectOptions: InspectOptions(),
+      inspectOptions: options,
     );
     final list = LineSplitter.split(output)
         .map((s) => parseCodeProblem(s, projectDir: packagePath))
