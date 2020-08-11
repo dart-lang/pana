@@ -52,7 +52,7 @@ Run `pub get` for more information.
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 618 issues. Showing the first 2:
+Found 621 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -93,7 +93,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 <details>
 <summary>
-Sdk constraint doesn't support current Dart version 2.9.0. Cannot run `pub outdated`.
+Sdk constraint doesn't support current Dart version 2.8.3. Cannot run `pub outdated`.
 </summary>
 
 `pubspec.yaml:8:8`
@@ -111,7 +111,7 @@ Sdk constraint doesn't support current Dart version 2.9.0. Cannot run `pub outda
 
 <details>
 <summary>
-The current sdk constraint does not allow the latest stable Dart (2.9.0)
+The current sdk constraint does not allow the latest stable Dart (2.8.3)
 </summary>
 
 `pubspec.yaml:8:8`

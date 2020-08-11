@@ -80,11 +80,11 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 1227 issues. Showing the first 2:
+Found 1229 issues. Showing the first 2:
 
 <details>
 <summary>
-ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.add' ('void Function(String, Object, {bool preserveHeaderCase})').
+ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeaders.add' ('void Function(String, Object, {bool preserveHeaderCase})').
 </summary>
 
 `lib/src/connect_impl.dart:281:8`
@@ -100,14 +100,14 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 </details>
 <details>
 <summary>
-ERROR: '_ReadOnlyHeaders.set' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.set' ('void Function(String, Object, {bool preserveHeaderCase})').
+ERROR: '_ReadOnlyHeaders.add' ('void Function(String, Object)') isn't a valid override of 'HttpHeadersWrapper.add' ('void Function(String, Object, {bool preserveHeaderCase})').
 </summary>
 
-`lib/src/connect_impl.dart:284:8`
+`lib/src/connect_impl.dart:281:8`
 
 ```
     ╷
-284 │   void set(String name, Object value) {
+281 │   void add(String name, Object value) {
     │        ^^^
     ╵
 ```
@@ -135,7 +135,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`collection`]|-|1.14.13|1.14.13|
 |[`http_parser`]|-|3.1.4|3.1.4|
 |[`meta`]|-|1.2.2|1.2.2|
-|[`mime`]|-|0.9.6+3|0.9.6+3|
+|[`mime`]|-|0.9.7|0.9.7|
 |[`pedantic`]|-|1.9.2|1.9.2|
 |[`source_span`]|-|1.7.0|1.7.0|
 |[`string_scanner`]|-|1.0.5|1.0.5|

@@ -65,39 +65,39 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 902 issues. Showing the first 2:
+Found 900 issues. Showing the first 2:
 
 <details>
 <summary>
-ERROR: Evaluation of this constant expression throws an exception.
+ERROR: The method 'dispose' isn't defined for the type 'Object'.
 </summary>
 
-`lib/laminate/ruler/dom_ruler.dart:49:38`
+`lib/model/collection/list_tracker.dart:123:9`
 
 ```
-   ╷
-49 │       return Future<Rectangle>.value(const Rectangle(0, 0, 0, 0));
-   │                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╵
+    ╷
+123 │       d.dispose();
+    │         ^^^^^^^
+    ╵
 ```
 
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/laminate/ruler/dom_ruler.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/model/collection/list_tracker.dart`
 </details>
 <details>
 <summary>
-ERROR: Evaluation of this constant expression throws an exception.
+WARNING: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.
 </summary>
 
-`lib/laminate/ruler/dom_ruler.dart:69:52`
+`lib/src/model/selection/noop_selection_model_impl.dart:20:31`
 
 ```
    ╷
-69 │       return Stream<Rectangle>.fromIterable(const [Rectangle(0, 0, 0, 0)]);
-   │                                                    ^^^^^^^^^^^^^^^^^^^^^
+20 │   void notifySelectionChange({added, removed}) {}
+   │                               ^^^^^
    ╵
 ```
 
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/laminate/ruler/dom_ruler.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/model/selection/noop_selection_model_impl.dart`
 </details>
 
 ## 0/20 Support up-to-date dependencies
