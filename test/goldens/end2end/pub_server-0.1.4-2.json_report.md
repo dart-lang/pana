@@ -68,7 +68,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`dart2_constant`]|`^1.0.1`|1.0.2+dart2|1.0.2+dart2|
 |[`http_parser`]|`^3.0.0`|3.1.4|3.1.4|
 |[`logging`]|`>=0.9.3 <1.0.0`|0.11.4|0.11.4|
-|[`mime`]|`>=0.9.3 <0.10.0`|0.9.6+3|0.9.6+3|
+|[`mime`]|`>=0.9.3 <0.10.0`|0.9.7|0.9.7|
 |[`pub_semver`]|`^1.1.0`|1.4.4|1.4.4|
 |[`shelf`]|`>=0.5.6 <0.8.0`|0.7.7|0.7.7|
 |[`yaml`]|`^2.1.2`|2.2.1|2.2.1|
