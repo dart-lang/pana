@@ -1,6 +1,6 @@
 ## 0.14.1
 
-* Fix: NPE in license URL check.
+* Fix: NPE in license URL checks.
 
 ## 0.14.0
 
