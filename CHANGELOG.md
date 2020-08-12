@@ -1,3 +1,7 @@
+## 0.14.1
+
+* Fix: NPE in license URL checks.
+
 ## 0.14.0
 
 * Fix: SDK constraint check should use the tool-environment's SDK version.

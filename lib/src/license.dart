@@ -28,7 +28,7 @@ Future<String> getLicenseUrl(
   if (baseUrl == null || baseUrl.isEmpty) {
     return null;
   }
-  if (license.path == null || license.path.isEmpty) {
+  if (license == null || license.path == null || license.path.isEmpty) {
     return null;
   }
   final url = getRepositoryUrl(baseUrl, license.path);
