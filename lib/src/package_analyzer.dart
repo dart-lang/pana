@@ -3,24 +3,20 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
 import 'package:pana/src/create_report.dart';
+import 'package:pana/src/package_context.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 
-import 'code_problem.dart';
 import 'download_utils.dart';
 import 'license.dart';
 import 'logging.dart';
 import 'maintenance.dart';
-import 'messages.dart' as messages;
 import 'model.dart';
-import 'pkg_resolution.dart';
 import 'pubspec.dart';
-import 'pubspec_io.dart';
 import 'sdk_env.dart';
 import 'tag_detection.dart';
 import 'utils.dart';
@@ -83,7 +79,11 @@ class PackageAnalyzer {
   }
 
   Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
-    final errors = <String>[];
+    final context = PackageContext(
+      toolEnvironment: _toolEnv,
+      packageDir: pkgDir,
+      options: options,
+    );
 
     var dartFiles = await listFiles(
       pkgDir,
@@ -94,10 +94,9 @@ class PackageAnalyzer {
             (file) => path.isWithin('bin', file) || path.isWithin('lib', file))
         .toList();
 
-    log.info('Parsing pubspec.yaml...');
     Pubspec pubspec;
     try {
-      pubspec = pubspecFromDir(pkgDir);
+      pubspec = context.pubspec;
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
       return Summary(
@@ -113,60 +112,13 @@ class PackageAnalyzer {
       );
     }
     if (pubspec.hasUnknownSdks) {
-      errors.add('The following unknown SDKs are in `pubspec.yaml`:\n'
+      context.errors.add('The following unknown SDKs are in `pubspec.yaml`:\n'
           '  `${pubspec.unknownSdks}`.\n\n'
           '`pana` doesn’t recognize them; please remove the `sdk` entry or '
           '[report the issue](https://github.com/dart-lang/pana/issues).');
     }
 
-    final usesFlutter = pubspec.usesFlutter;
-    final upgrade = await _toolEnv.runUpgrade(pkgDir, usesFlutter);
-
-    PkgResolution pkgResolution;
-    if (upgrade.exitCode == 0) {
-      try {
-        pkgResolution = createPkgResolution(pubspec, upgrade.stdout as String,
-            path: pkgDir);
-      } catch (e, stack) {
-        log.severe('Problem with pub upgrade', e, stack);
-        //(TODO)kevmoo - should add a helper that handles logging exceptions
-        //  and writing to issues in one go.
-
-        // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
-        final cmd = usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
-        errors.add('Running `$cmd` failed with the following output:\n\n'
-            '```\n$e\n```\n');
-      }
-    } else {
-      String message;
-      if (upgrade.exitCode > 0) {
-        message = PubEntry.parse(upgrade.stderr as String)
-            .where((e) => e.header == 'ERR')
-            .join('\n');
-      } else {
-        message = LineSplitter.split(upgrade.stderr as String).first;
-      }
-
-      // 1: Version constraint issue with direct or transitive dependencies.
-      //
-      // 2: Code in a git repository could change or disappear.
-      final isUserProblem = message.contains('version solving failed') || // 1
-          pubspec.hasGitDependency || // 2
-          message.contains('Git error.'); // 2
-
-      if (!isUserProblem) {
-        log.severe('`pub upgrade` failed.\n$message'.trim());
-      }
-
-      // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
-      final cmd = usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
-      errors.add(message.isEmpty
-          ? 'Running `$cmd` failed.'
-          : 'Running `$cmd` failed with the following output:\n\n'
-              '```\n$message\n```\n');
-    }
-
-    List<CodeProblem> analyzerItems;
+    final pkgResolution = await context.resolveDependencies();
 
     if (pkgResolution != null && options.dartdocOutputDir != null) {
       for (var i = 0; i <= options.dartdocRetry; i++) {
@@ -188,13 +140,9 @@ class PackageAnalyzer {
 
     final tags = <String>[];
     if (pkgResolution != null) {
+      List<CodeProblem> analyzerItems;
       if (dartFiles.isNotEmpty) {
-        try {
-          analyzerItems = await _pkgAnalyze(pkgDir, usesFlutter, options);
-        } on ToolException catch (e) {
-          errors
-              .add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
-        }
+        analyzerItems = await context.staticAnalysis();
       } else {
         analyzerItems = <CodeProblem>[];
       }
@@ -215,8 +163,9 @@ class PackageAnalyzer {
     final licenseUrl = await getLicenseUrl(
         _urlChecker, pubspec.repository ?? pubspec.homepage, licenseFile);
 
-    final errorMessage =
-        errors.isEmpty ? null : errors.map((e) => e.trim()).join('\n\n');
+    final errorMessage = context.errors.isEmpty
+        ? null
+        : context.errors.map((e) => e.trim()).join('\n\n');
     return Summary(
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
@@ -225,27 +174,9 @@ class PackageAnalyzer {
       pkgResolution: pkgResolution,
       licenseFile: licenseFile?.change(url: licenseUrl),
       tags: tags,
-      report: await createReport(options, pkgDir, _toolEnv),
+      report: await createReport(context),
       errorMessage: errorMessage,
     );
-  }
-
-  Future<List<CodeProblem>> _pkgAnalyze(
-      String pkgPath, bool usesFlutter, InspectOptions inspectOptions) async {
-    log.info('Analyzing package...');
-    final dirs = await listFocusDirs(pkgPath);
-    if (dirs.isEmpty) {
-      return null;
-    }
-    final output = await _toolEnv.runAnalyzer(pkgPath, dirs, usesFlutter,
-        inspectOptions: inspectOptions);
-    final list = LineSplitter.split(output)
-        .map((s) => parseCodeProblem(s, projectDir: pkgPath))
-        .where((e) => e != null)
-        .toSet()
-        .toList();
-    list.sort();
-    return list;
   }
 }
 

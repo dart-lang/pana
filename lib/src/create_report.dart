@@ -2,12 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:meta/meta.dart';
-import 'package:pana/pana.dart';
-import 'package:pana/src/tag_detection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart'
@@ -24,8 +21,9 @@ import '../models.dart';
 import '../pana.dart';
 import 'logging.dart';
 import 'markdown_content.dart';
+import 'package_context.dart';
 import 'pubspec.dart';
-import 'pubspec_io.dart';
+import 'tag_detection.dart';
 
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
@@ -35,14 +33,10 @@ const _pluginDocsUrl =
 // TODO(sigurdm): try to get Flutter on travis.
 var isRunningEnd2EndTest = false;
 
-Future<Report> createReport(
-  InspectOptions options,
-  String packageDir,
-  ToolEnvironment toolEnvironment,
-) async {
+Future<Report> createReport(PackageContext context) async {
   Pubspec pubspec;
   try {
-    pubspec = pubspecFromDir(packageDir);
+    pubspec = context.pubspec;
   } on Exception catch (e) {
     return Report(sections: [
       ReportSection(
@@ -54,16 +48,12 @@ Future<Report> createReport(
   }
 
   return Report(sections: [
-    await _followsTemplate(options, packageDir, pubspec),
-    await _hasDocumentation(packageDir, pubspec),
-    await _multiPlatform(packageDir, pubspec),
-    await _staticAnalysis(
-      options,
-      packageDir,
-      toolEnvironment,
-      usesFlutter: pubspec.usesFlutter,
-    ),
-    await _trustworthyDependency(packageDir, pubspec, toolEnvironment),
+    await _followsTemplate(context.options, context.packageDir, pubspec),
+    await _hasDocumentation(context.packageDir, pubspec),
+    await _multiPlatform(context.packageDir, pubspec),
+    await _staticAnalysis(context),
+    await _trustworthyDependency(
+        context.packageDir, pubspec, context.toolEnvironment),
   ]);
 }
 
@@ -99,15 +89,9 @@ Future<ReportSection> _hasDocumentation(
   );
 }
 
-Future<ReportSection> _staticAnalysis(
-  InspectOptions options,
-  String packageDir,
-  ToolEnvironment toolEnvironment, {
-  @required bool usesFlutter,
-}) async {
-  final analysisResult = await _analyzePackage(
-      options, packageDir, toolEnvironment,
-      usesFlutter: usesFlutter);
+Future<ReportSection> _staticAnalysis(PackageContext context) async {
+  final packageDir = context.packageDir;
+  final analysisResult = await _analyzePackage(context);
 
   final errors = analysisResult.errors;
   final warnings = analysisResult.warnings;
@@ -115,8 +99,8 @@ Future<ReportSection> _staticAnalysis(
 
   // Only try to run dartfmt if there where no errors.
   final formattingIssues = errors.isEmpty
-      ? await _formatPackage(packageDir, toolEnvironment,
-          usesFlutter: usesFlutter)
+      ? await _formatPackage(packageDir, context.toolEnvironment,
+          usesFlutter: context.usesFlutter)
       : <_Issue>[];
 
   final status = (errors.isEmpty && warnings.isEmpty)
@@ -158,23 +142,19 @@ Future<ReportSection> _staticAnalysis(
   );
 }
 
-Future<_AnalysisResult> _analyzePackage(
-  InspectOptions options,
-  String packagePath,
-  ToolEnvironment toolEnvironment, {
-  @required bool usesFlutter,
-}) async {
+Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
   _Issue issueFromCodeProblem(CodeProblem codeProblem) {
     return _Issue(
       '${codeProblem.severity}: ${codeProblem.description}',
       // TODO(sigurdm) update this to `dart analyze` after 2.9.
       suggestion:
           'To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and '
-          'run `${usesFlutter ? 'flutter analyze' : 'dartanalyzer'} ${codeProblem.file}`',
+          'run `${context.usesFlutter ? 'flutter analyze' : 'dartanalyzer'} ${codeProblem.file}`',
       spanFn: () {
         final sourceFile = SourceFile.fromString(
-            File(p.join(packagePath, codeProblem.file)).readAsStringSync(),
-            url: p.join(packagePath, codeProblem.file));
+            File(p.join(context.packageDir, codeProblem.file))
+                .readAsStringSync(),
+            url: p.join(context.packageDir, codeProblem.file));
         int startOffset;
         try {
           // SourceSpans are 0-based, so we subtract 1 from line and column.
@@ -190,21 +170,10 @@ Future<_AnalysisResult> _analyzePackage(
     );
   }
 
-  final dirs = await listFocusDirs(packagePath);
+  final dirs = await listFocusDirs(context.packageDir);
 
   try {
-    final output = await toolEnvironment.runAnalyzer(
-      packagePath,
-      dirs,
-      usesFlutter,
-      inspectOptions: options,
-    );
-    final list = LineSplitter.split(output)
-        .map((s) => parseCodeProblem(s, projectDir: packagePath))
-        .where((e) => e != null)
-        .toSet()
-        .toList();
-    list.sort();
+    final list = await context.staticAnalysis();
 
     return _AnalysisResult(
         list
@@ -971,8 +940,10 @@ class _Issue implements _Paragraph {
       description,
       '</summary>',
       '', // This empty line will make the span render its markdown.
-      if (span != null) span.markdown(basePath: basePath),
-      if (suggestion != null) suggestion,
+      if (span != null)
+        span.markdown(basePath: basePath),
+      if (suggestion != null)
+        suggestion,
       '</details>',
     ].join('\n');
   }

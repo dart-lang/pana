@@ -1,6 +1,7 @@
 ## 0.14.2
 
 * Fix: NPE when LICENSE file is not recognized.
+* Runs `dartanalyzer` only once.
 
 ## 0.14.1
 
