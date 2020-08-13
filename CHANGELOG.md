@@ -1,3 +1,7 @@
+## 0.14.2
+
+* Fix: NPE when LICENSE file is not recognized.
+
 ## 0.14.1
 
 * Fix: NPE in license URL checks.

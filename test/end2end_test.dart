@@ -121,12 +121,13 @@ void main() {
 
   _verifyPackage(
       'angular_components-0.10.0.json', 'angular_components', '0.10.0');
-  _verifyPackage('dartdoc-0.24.1.json', 'dartdoc', '0.24.1');
   _verifyPackage('http-0.11.3-17.json', 'http', '0.11.3+17');
   _verifyPackage('pub_server-0.1.4-2.json', 'pub_server', '0.1.4+2');
   _verifyPackage('skiplist-0.1.0.json', 'skiplist', '0.1.0');
   _verifyPackage('stream-2.0.1.json', 'stream', '2.0.1');
   _verifyPackage('fs_shim-0.7.1.json', 'fs_shim', '0.7.1');
+  // mime_type 0.3.2 has no recognized LICENSE file
+  _verifyPackage('mime_type-0.3.2.json', 'mime_type', '0.3.2');
 
   // packages with bad content
   _verifyPackage('syntax-0.2.0.json', 'syntax', '0.2.0');

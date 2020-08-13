@@ -1,0 +1,74 @@
+{
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "mime_type",
+  "packageVersion": "0.3.2",
+  "pubspec": {
+    "name": "mime_type",
+    "version": "0.3.2",
+    "authors": [
+      "Terry Mitsuoka <TerryMitsuoka@gmail.com>",
+      "Robert Beyer <4sternrb@googlemail.com>",
+      "Leo rignaneseleo <dev.rignaneseleo@gmail.com>"
+    ],
+    "description": "MIME type library for Dart HTTP server applications.",
+    "homepage": "https://github.com/mitsuoka/mime_type",
+    "environment": {
+      "sdk": ">=0.8.10 <3.0.0"
+    }
+  },
+  "licenseFile": null,
+  "pkgResolution": {
+    "dependencies": []
+  },
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "platform:web",
+    "runtime:native-aot",
+    "runtime:native-jit",
+    "runtime:web"
+  ],
+  "report": {
+    "sections": [
+      {
+        "title": "Follow Dart file conventions",
+        "grantedPoints": 5,
+        "maxPoints": 20,
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nThe package description is too short.\n</summary>\n\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [x] 0/5 points: Provide a valid `README.md`\n\n<details>\n<summary>\nLinks in `README.md` should be secure. 1 link is insecure.\n</summary>\n\n`README.md:42:35`\n\n```\n   ╷\n42 │ <p>This library is licensed under <a href=\"http://www.opensource.org/licenses/mit-license.php\">MIT License</a>.</p>\n   │                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nUse `https` URLs instead.\n</details>\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
+      },
+      {
+        "title": "Provide documentation",
+        "grantedPoints": 0,
+        "maxPoints": 10,
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+      },
+      {
+        "title": "Support multiple platforms",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)\n"
+      },
+      {
+        "title": "Pass static analysis",
+        "grantedPoints": 20,
+        "maxPoints": 30,
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: Omit type annotations for local variables.\n</summary>\n\n`lib/mime_type.dart:11:3`\n\n```\n   ╷\n11 │   final int lastDot = fileName.lastIndexOf('.', fileName.length - 1);\n   │   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/mime_type.dart`\n</details>\n<details>\n<summary>\nINFO: Omit type annotations for local variables.\n</summary>\n\n`lib/mime_type.dart:13:5`\n\n```\n   ╷\n13 │     final String extension = fileName.substring(lastDot + 1);\n   │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/mime_type.dart`\n</details>"
+      },
+      {
+        "title": "Support up-to-date dependencies",
+        "grantedPoints": 10,
+        "maxPoints": 20,
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
+      }
+    ]
+  }
+}
