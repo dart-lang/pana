@@ -223,7 +223,7 @@ class PackageAnalyzer {
       packageVersion: pubspec.version,
       pubspec: pubspec,
       pkgResolution: pkgResolution,
-      licenseFile: licenseFile.change(url: licenseUrl),
+      licenseFile: licenseFile?.change(url: licenseUrl),
       tags: tags,
       report: await createReport(options, pkgDir, _toolEnv),
       errorMessage: errorMessage,
