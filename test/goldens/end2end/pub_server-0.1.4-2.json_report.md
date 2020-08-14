@@ -70,7 +70,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`logging`]|`>=0.9.3 <1.0.0`|0.11.4|0.11.4|
 |[`mime`]|`>=0.9.3 <0.10.0`|0.9.7|0.9.7|
 |[`pub_semver`]|`^1.1.0`|1.4.4|1.4.4|
-|[`shelf`]|`>=0.5.6 <0.8.0`|0.7.8|0.7.8|
+|[`shelf`]|`>=0.5.6 <0.8.0`|0.7.9|0.7.9|
 |[`yaml`]|`^2.1.2`|2.2.1|2.2.1|
 
 <details><summary>Transitive dependencies</summary>

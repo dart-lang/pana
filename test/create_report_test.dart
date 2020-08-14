@@ -4,6 +4,7 @@
 
 import 'package:pana/pana.dart';
 import 'package:pana/src/create_report.dart';
+import 'package:pana/src/package_context.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
@@ -14,8 +15,11 @@ void main() {
     test('finds missing README and CHANGELOG', () async {
       final descriptor = package('my_package', extraFiles: []);
       await descriptor.create();
-      final report = await createReport(
-          InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
+      final report = await createReport(PackageContext(
+        toolEnvironment: await ToolEnvironment.create(),
+        packageDir: descriptor.io.path,
+        options: InspectOptions(),
+      ));
       final section = report.sections
           .firstWhere((s) => s.title == 'Follow Dart file conventions');
       expect(section.grantedPoints, 0);
@@ -36,8 +40,11 @@ Check it out on [github](http://github.com/example/my_package).
 '''),
       ]);
       await descriptor.create();
-      final report = await createReport(
-          InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
+      final report = await createReport(PackageContext(
+        toolEnvironment: await ToolEnvironment.create(),
+        packageDir: descriptor.io.path,
+        options: InspectOptions(),
+      ));
       final section = report.sections
           .firstWhere((s) => s.title == 'Follow Dart file conventions');
       expect(section.grantedPoints, 5);
@@ -87,8 +94,11 @@ Call this method..
       ]);
 
       await descriptor.create();
-      final report = await createReport(
-          InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
+      final report = await createReport(PackageContext(
+        toolEnvironment: await ToolEnvironment.create(),
+        packageDir: descriptor.io.path,
+        options: InspectOptions(),
+      ));
       final section =
           report.sections.firstWhere((s) => s.title == 'Provide documentation');
       expect(section.grantedPoints, 10);
@@ -99,8 +109,11 @@ Call this method..
       final descriptor = package('my_package');
 
       await descriptor.create();
-      final report = await createReport(
-          InspectOptions(), descriptor.io.path, await ToolEnvironment.create());
+      final report = await createReport(PackageContext(
+        toolEnvironment: await ToolEnvironment.create(),
+        packageDir: descriptor.io.path,
+        options: InspectOptions(),
+      ));
       final section =
           report.sections.firstWhere((s) => s.title == 'Provide documentation');
       expect(section.grantedPoints, 0);
