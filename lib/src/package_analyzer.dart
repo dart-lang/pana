@@ -83,6 +83,7 @@ class PackageAnalyzer {
       toolEnvironment: _toolEnv,
       packageDir: pkgDir,
       options: options,
+      urlChecker: _urlChecker,
     );
 
     var dartFiles = await listFiles(

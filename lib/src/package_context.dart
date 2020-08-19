@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 
 import 'code_problem.dart';
+import 'download_utils.dart';
 import 'logging.dart';
 import 'messages.dart' as messages;
 import 'model.dart';
@@ -23,6 +24,7 @@ class PackageContext {
   final ToolEnvironment toolEnvironment;
   final String packageDir;
   final InspectOptions options;
+  final UrlChecker urlChecker;
   final errors = <String>[];
 
   Pubspec _pubspec;
@@ -34,7 +36,8 @@ class PackageContext {
     @required this.toolEnvironment,
     @required this.packageDir,
     @required this.options,
-  });
+    UrlChecker urlChecker,
+  }) : urlChecker = urlChecker ?? UrlChecker();
 
   Pubspec get pubspec {
     if (_pubspec != null) return _pubspec;

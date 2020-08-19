@@ -48,7 +48,7 @@ Future<Report> createReport(PackageContext context) async {
   }
 
   return Report(sections: [
-    await _followsTemplate(context.options, context.packageDir, pubspec),
+    await _followsTemplate(context),
     await _hasDocumentation(context.packageDir, pubspec),
     await _multiPlatform(context.packageDir, pubspec),
     await _staticAnalysis(context),
@@ -237,9 +237,10 @@ Future<List<_Issue>> _formatPackage(
   }
 }
 
-Future<ReportSection> _followsTemplate(
-    InspectOptions options, String packageDir, Pubspec pubspec) async {
-  final urlChecker = UrlChecker();
+Future<ReportSection> _followsTemplate(PackageContext context) async {
+  final options = context.options;
+  final packageDir = context.packageDir;
+  final pubspec = context.pubspec;
 
   Future<List<_Issue>> findUrlIssues(
     String key,
@@ -266,7 +267,7 @@ Future<ReportSection> _followsTemplate(
       return issues;
     }
 
-    final status = await urlChecker.checkStatus(
+    final status = await context.urlChecker.checkStatus(
       url,
       isInternalPackage: options.isInternal,
     );
