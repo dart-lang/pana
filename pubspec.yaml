@@ -39,6 +39,7 @@ dev_dependencies:
   test: ^1.5.2
   test_descriptor: ^1.1.1
   test_process: ^1.0.4
+  build_resolvers: any # HACK: allow publishing while we still need to override
 
 executables:
   pana:
