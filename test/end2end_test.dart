@@ -128,6 +128,8 @@ void main() {
   _verifyPackage('fs_shim-0.7.1.json', 'fs_shim', '0.7.1');
   // mime_type 0.3.2 has no recognized LICENSE file
   _verifyPackage('mime_type-0.3.2.json', 'mime_type', '0.3.2');
+  // bulma_min 0.7.4 has no dart files, only assets
+  _verifyPackage('bulma_min-0.7.4.json', 'bulma_min', '0.7.4');
 
   // packages with bad content
   _verifyPackage('syntax-0.2.0.json', 'syntax', '0.2.0');
