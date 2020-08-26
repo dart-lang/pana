@@ -1,3 +1,7 @@
+## 0.14.3
+
+* Classify asset-only packages as multi-platform. 
+
 ## 0.14.2
 
 * Fix: NPE when LICENSE file is not recognized.

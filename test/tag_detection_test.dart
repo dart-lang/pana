@@ -465,6 +465,33 @@ name: my_package
           },
           explanations: isEmpty);
     });
+
+    test('no dart files', () async {
+      final descriptor = d.dir('cache', [
+        package('my_package', lib: [d.file('asset.json', '{"status": "ok"}')])
+      ]);
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
+      expectTagging(tagger.sdkTags,
+          tags: {'sdk:dart', 'sdk:flutter'}, explanations: isEmpty);
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {
+            'platform:ios',
+            'platform:android',
+            'platform:web',
+            'platform:linux',
+            'platform:windows',
+            'platform:macos'
+          },
+          explanations: isEmpty);
+      expectTagging(tagger.runtimeTags,
+          tags: {
+            'runtime:native-jit',
+            'runtime:native-aot',
+            'runtime:web',
+          },
+          explanations: isEmpty);
+    });
   });
 
   group('null-safe', () {

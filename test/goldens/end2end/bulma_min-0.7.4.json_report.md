@@ -21,19 +21,10 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 0/20 Support multiple platforms
+## 20/20 Support multiple platforms
 
-### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)
+### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)
 
-Consider supporting multiple platforms:
-
-<details>
-<summary>
-No top-level libraries found
-</summary>
-
-Cannot assign runtime tags, because no .dart files where found in lib/
-</details>
 
 ## 30/30 Pass static analysis
 

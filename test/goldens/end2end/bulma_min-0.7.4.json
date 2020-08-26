@@ -24,7 +24,19 @@
   "pkgResolution": {
     "dependencies": []
   },
-  "tags": [],
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "platform:web",
+    "runtime:native-aot",
+    "runtime:native-jit",
+    "runtime:web"
+  ],
   "report": {
     "sections": [
       {
@@ -41,9 +53,9 @@
       },
       {
         "title": "Support multiple platforms",
-        "grantedPoints": 0,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "summary": "### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)\n\nConsider supporting multiple platforms:\n\n<details>\n<summary>\nNo top-level libraries found\n</summary>\n\nCannot assign runtime tags, because no .dart files where found in lib/\n</details>"
+        "summary": "### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)\n"
       },
       {
         "title": "Pass static analysis",

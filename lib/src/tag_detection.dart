@@ -432,6 +432,12 @@ class Runtime {
       },
       tag: 'runtime:native-jit');
 
+  static final _recognizedRuntimes = [
+    nativeAot,
+    nativeJit,
+    web,
+  ];
+
   static final nativeAot = Runtime('native-aot', {
     ..._onAllPlatforms,
     ..._onAllNative,
@@ -756,12 +762,13 @@ class Tagger {
   final String packageName;
   final AnalysisSession _session;
   final _PubspecCache _pubspecCache;
+  final bool _isAssetOnly;
   final bool _isBinaryOnly;
   final List<Uri> _topLibraries;
   final _PackageGraph _packageGraph;
 
   Tagger._(this.packageName, this._session, _PubspecCache pubspecCache,
-      this._isBinaryOnly, this._topLibraries)
+      this._isAssetOnly, this._isBinaryOnly, this._topLibraries)
       : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
 
@@ -806,15 +813,24 @@ class Tagger {
             .toList()
         : <String>[];
     final isBinaryOnly = nonSrcDartFiles.isEmpty && allBinFiles.isNotEmpty;
+    final isAssetOnly = libDartFiles.isEmpty && allBinFiles.isEmpty;
 
     return Tagger._(
-        pubspec.name, session, pubspecCache, isBinaryOnly, topLibraries);
+      pubspec.name,
+      session,
+      pubspecCache,
+      isAssetOnly,
+      isBinaryOnly,
+      topLibraries,
+    );
   }
 
   void sdkTags(List<String> tags, List<Explanation> explanations) {
     try {
-      if (_isBinaryOnly) {
-        tags.add('sdk:dart');
+      if (_isAssetOnly) {
+        tags.addAll(_Sdk.knownSdks.map((s) => s.tag));
+      } else if (_isBinaryOnly) {
+        tags.add(_Sdk.dart.tag);
         explanations.add(Explanation('Binary only',
             'Cannot assign flutter SDK tag because it is binary only',
             tag: null));
@@ -857,7 +873,9 @@ class Tagger {
     bool trustDeclarations = true,
   }) {
     try {
-      if (_isBinaryOnly) {
+      if (_isAssetOnly) {
+        tags.addAll(_FlutterPlatform.recognizedPlatforms.map((p) => p.tag));
+      } else if (_isBinaryOnly) {
         explanations.add(Explanation('Binary only',
             'Cannot assign flutter platform tags, it is a binary only package',
             tag: null));
@@ -942,7 +960,9 @@ class Tagger {
   /// Adds [Explanation]s to [explanations] for runtimes not supported.
   void runtimeTags(List<String> tags, List<Explanation> explanations) {
     try {
-      if (_isBinaryOnly) {
+      if (_isAssetOnly) {
+        tags.addAll(Runtime._recognizedRuntimes.map((r) => r.tag));
+      } else if (_isBinaryOnly) {
         tags.addAll(<String>[Runtime.nativeAot.name, Runtime.nativeJit.name]);
       } else if (_topLibraries.isEmpty) {
         explanations.add(Explanation('No top-level libraries found',
@@ -956,11 +976,7 @@ class Tagger {
             null) {
           // This is reported elsewhere
         } else {
-          for (final runtime in [
-            Runtime.nativeAot,
-            Runtime.nativeJit,
-            Runtime.web
-          ]) {
+          for (final runtime in Runtime._recognizedRuntimes) {
             final finder = runtimeViolationFinder(
                 LibraryGraph(_session, runtime.declaredVariables),
                 runtime,
