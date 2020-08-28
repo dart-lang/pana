@@ -492,6 +492,35 @@ name: my_package
           },
           explanations: isEmpty);
     });
+    test('no dart files with Flutter plugins declarations', () async {
+      final decriptor = d.dir('cache', [
+        package(
+          'my_package',
+          lib: [d.file('asset.json', '{"status": "ok"}')],
+          pubspecExtras: {
+            'environment': {'flutter': '>=1.2.0<=2.0.0'},
+            'flutter': {
+              'plugin': {
+                'platforms': {'web': {}, 'ios': {}}
+              }
+            }
+          },
+        ),
+      ]);
+
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags, tags: {
+        'platform:ios',
+        'platform:android',
+        'platform:web',
+        'platform:linux',
+        'platform:windows',
+        'platform:macos',
+      });
+      expectTagging(tagger.runtimeTags, tags: isEmpty);
+    });
   });
 
   group('null-safe', () {

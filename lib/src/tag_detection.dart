@@ -762,13 +762,12 @@ class Tagger {
   final String packageName;
   final AnalysisSession _session;
   final _PubspecCache _pubspecCache;
-  final bool _isAssetOnly;
   final bool _isBinaryOnly;
   final List<Uri> _topLibraries;
   final _PackageGraph _packageGraph;
 
   Tagger._(this.packageName, this._session, _PubspecCache pubspecCache,
-      this._isAssetOnly, this._isBinaryOnly, this._topLibraries)
+      this._isBinaryOnly, this._topLibraries)
       : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
 
@@ -813,13 +812,11 @@ class Tagger {
             .toList()
         : <String>[];
     final isBinaryOnly = nonSrcDartFiles.isEmpty && allBinFiles.isNotEmpty;
-    final isAssetOnly = libDartFiles.isEmpty && allBinFiles.isEmpty;
 
     return Tagger._(
       pubspec.name,
       session,
       pubspecCache,
-      isAssetOnly,
       isBinaryOnly,
       topLibraries,
     );
@@ -827,19 +824,11 @@ class Tagger {
 
   void sdkTags(List<String> tags, List<Explanation> explanations) {
     try {
-      if (_isAssetOnly) {
-        tags.addAll(_Sdk.knownSdks.map((s) => s.tag));
-      } else if (_isBinaryOnly) {
+      if (_isBinaryOnly) {
         tags.add(_Sdk.dart.tag);
         explanations.add(Explanation('Binary only',
             'Cannot assign flutter SDK tag because it is binary only',
             tag: null));
-      } else if (_topLibraries.isEmpty) {
-        explanations.add(
-          Explanation('No top-level libraries found',
-              'Cannot assign sdk tags, because no .dart files where found in lib/',
-              tag: null),
-        );
       } else {
         for (final sdk in _Sdk.knownSdks) {
           // Will find a path in the package graph where a package declares an sdk
@@ -873,15 +862,9 @@ class Tagger {
     bool trustDeclarations = true,
   }) {
     try {
-      if (_isAssetOnly) {
-        tags.addAll(_FlutterPlatform.recognizedPlatforms.map((p) => p.tag));
-      } else if (_isBinaryOnly) {
+      if (_isBinaryOnly) {
         explanations.add(Explanation('Binary only',
             'Cannot assign flutter platform tags, it is a binary only package',
-            tag: null));
-      } else if (_topLibraries.isEmpty) {
-        explanations.add(Explanation('No top-level libraries found',
-            'Cannot assign Flutter platform tags, because no .dart files were found in lib/',
             tag: null));
       } else {
         for (final flutterPlatform in _FlutterPlatform.recognizedPlatforms) {
@@ -960,14 +943,8 @@ class Tagger {
   /// Adds [Explanation]s to [explanations] for runtimes not supported.
   void runtimeTags(List<String> tags, List<Explanation> explanations) {
     try {
-      if (_isAssetOnly) {
-        tags.addAll(Runtime._recognizedRuntimes.map((r) => r.tag));
-      } else if (_isBinaryOnly) {
+      if (_isBinaryOnly) {
         tags.addAll(<String>[Runtime.nativeAot.name, Runtime.nativeJit.name]);
-      } else if (_topLibraries.isEmpty) {
-        explanations.add(Explanation('No top-level libraries found',
-            'Cannot assign runtime tags, because no .dart files where found in lib/',
-            tag: null));
       } else {
         final dartSdkViolationFinder = _SdkViolationFinder(
             _packageGraph, _Sdk.dart, _pubspecCache, _session);
