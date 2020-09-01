@@ -1,0 +1,74 @@
+{
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "bulma_min",
+  "packageVersion": "0.7.4",
+  "pubspec": {
+    "name": "bulma_min",
+    "description": "Bulma is a CSS Framework. This package contains its minified assets to include in your project.",
+    "version": "0.7.4",
+    "homepage": "https://github.com/agilord/bulma_min",
+    "author": "team@agilord.com",
+    "environment": {
+      "sdk": ">=1.0.0 <3.0.0"
+    }
+  },
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "MIT",
+    "url": "https://github.com/agilord/bulma_min/blob/master/LICENSE"
+  },
+  "pkgResolution": {
+    "dependencies": []
+  },
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "platform:web",
+    "runtime:native-aot",
+    "runtime:native-jit",
+    "runtime:web"
+  ],
+  "report": {
+    "sections": [
+      {
+        "title": "Follow Dart file conventions",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
+      },
+      {
+        "title": "Provide documentation",
+        "grantedPoints": 0,
+        "maxPoints": 10,
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+      },
+      {
+        "title": "Support multiple platforms",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "summary": "### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)\n"
+      },
+      {
+        "title": "Pass static analysis",
+        "grantedPoints": 30,
+        "maxPoints": 30,
+        "summary": "### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues\n"
+      },
+      {
+        "title": "Support up-to-date dependencies",
+        "grantedPoints": 10,
+        "maxPoints": 20,
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
+      }
+    ]
+  }
+}

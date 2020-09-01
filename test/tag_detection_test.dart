@@ -465,6 +465,62 @@ name: my_package
           },
           explanations: isEmpty);
     });
+
+    test('no dart files', () async {
+      final descriptor = d.dir('cache', [
+        package('my_package', lib: [d.file('asset.json', '{"status": "ok"}')])
+      ]);
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
+      expectTagging(tagger.sdkTags,
+          tags: {'sdk:dart', 'sdk:flutter'}, explanations: isEmpty);
+      expectTagging(tagger.flutterPlatformTags,
+          tags: {
+            'platform:ios',
+            'platform:android',
+            'platform:web',
+            'platform:linux',
+            'platform:windows',
+            'platform:macos'
+          },
+          explanations: isEmpty);
+      expectTagging(tagger.runtimeTags,
+          tags: {
+            'runtime:native-jit',
+            'runtime:native-aot',
+            'runtime:web',
+          },
+          explanations: isEmpty);
+    });
+    test('no dart files with Flutter plugins declarations', () async {
+      final decriptor = d.dir('cache', [
+        package(
+          'my_package',
+          lib: [d.file('asset.json', '{"status": "ok"}')],
+          pubspecExtras: {
+            'environment': {'flutter': '>=1.2.0<=2.0.0'},
+            'flutter': {
+              'plugin': {
+                'platforms': {'web': {}, 'ios': {}}
+              }
+            }
+          },
+        ),
+      ]);
+
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      expectTagging(tagger.flutterPlatformTags, tags: {
+        'platform:ios',
+        'platform:android',
+        'platform:web',
+        'platform:linux',
+        'platform:windows',
+        'platform:macos',
+      });
+      expectTagging(tagger.runtimeTags, tags: isEmpty);
+    });
   });
 
   group('null-safe', () {
