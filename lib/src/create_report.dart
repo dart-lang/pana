@@ -155,17 +155,16 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
             File(p.join(context.packageDir, codeProblem.file))
                 .readAsStringSync(),
             url: p.join(context.packageDir, codeProblem.file));
-        int startOffset;
         try {
           // SourceSpans are 0-based, so we subtract 1 from line and column.
-          startOffset =
+          final startOffset =
               sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
+          return sourceFile.span(startOffset, startOffset + codeProblem.length);
         } on RangeError {
           // Note: This happens if the file contains CR as line terminators.
           // If the range is invalid, then we just return null.
           return null;
         }
-        return sourceFile.span(startOffset, startOffset + codeProblem.length);
       },
     );
   }

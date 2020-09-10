@@ -1,3 +1,7 @@
+## 0.14.4
+
+* Fix: RangeError in certain reported issues.
+
 ## 0.14.3
 
 * Classify asset-only packages as multi-platform. 
