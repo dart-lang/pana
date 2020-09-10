@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:meta/meta.dart';
+import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
 import 'download_utils.dart';
@@ -27,6 +28,7 @@ class PackageContext {
   final UrlChecker urlChecker;
   final errors = <String>[];
 
+  Version _currentSdkVersion;
   Pubspec _pubspec;
   bool _usesFlutter;
   PkgResolution _pkgResolution;
@@ -38,6 +40,9 @@ class PackageContext {
     @required this.options,
     UrlChecker urlChecker,
   }) : urlChecker = urlChecker ?? UrlChecker();
+
+  Version get currentSdkVersion => _currentSdkVersion ??=
+      Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
 
   Pubspec get pubspec {
     if (_pubspec != null) return _pubspec;
@@ -124,4 +129,8 @@ class PackageContext {
     }
     return _codeProblems;
   }
+
+  bool get pubspecAllowsCurrentSdk =>
+      pubspec.dartSdkConstraint != null &&
+      pubspec.dartSdkConstraint.allows(currentSdkVersion);
 }
