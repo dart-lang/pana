@@ -109,7 +109,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`angular`]|`^5.1.0`|5.3.1|5.3.1|
 |[`angular_forms`]|`^2.1.0`|2.1.2|2.1.4|
 |[`async`]|`^2.0.8`|2.4.2|2.4.2|
-|[`build`]|`>=0.11.1 <2.0.0`|1.3.0|1.3.0|
+|[`build`]|`>=0.11.1 <2.0.0`|1.4.0|1.4.0|
 |[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.2**|
 |[`built_collection`]|`^4.0.0`|4.3.2|4.3.2|
 |[`collection`]|`^1.14.10`|1.14.13|1.14.13|
@@ -117,7 +117,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`intl`]|`>=0.14.0 <0.16.0`|0.15.8|**0.16.1**|
 |[`js`]|`^0.6.1`|0.6.2|0.6.2|
 |[`logging`]|`^0.11.2`|0.11.4|0.11.4|
-|[`meta`]|`^1.0.4`|1.2.2|1.2.2|
+|[`meta`]|`^1.0.4`|1.2.3|1.2.3|
 |[`observable`]|`^0.22.1+3`|0.22.2|0.22.2|
 |[`protobuf`]|`^0.10.2`|0.10.8|**1.0.1**|
 |[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.3**|
@@ -127,7 +127,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.40.0|
+|[`analyzer`]|-|0.35.4|0.40.2|
 |[`angular_ast`]|-|0.5.9|0.5.11|
 |[`angular_compiler`]|-|0.4.3|0.4.5|
 |[`args`]|-|1.6.0|1.6.0|
