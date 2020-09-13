@@ -93,6 +93,6 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 Pubspec.yaml does not have an sdk version constraint.
 </summary>
 
-Try adding an sdk constraint to your pubspec.yaml
+Try adding an sdk constraint to your `pubspec.yaml`
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
