@@ -111,7 +111,7 @@ Sdk constraint doesn't support current Dart version 2.9.0. Cannot run `pub outda
 
 <details>
 <summary>
-The current sdk constraint does not allow the latest stable Dart (2.9.0)
+Sdk constraint doesn't support current Dart version 2.9.0.
 </summary>
 
 `pubspec.yaml:8:8`

@@ -52,8 +52,7 @@ Future<Report> createReport(PackageContext context) async {
     await _hasDocumentation(context.packageDir, pubspec),
     await _multiPlatform(context.packageDir, pubspec),
     await _staticAnalysis(context),
-    await _trustworthyDependency(
-        context.packageDir, pubspec, context.toolEnvironment),
+    await _trustworthyDependency(context),
   ]);
 }
 
@@ -536,18 +535,14 @@ SourceSpan _tryGetSpanFromYamlMap(Object map, String key) {
   return null;
 }
 
-Future<ReportSection> _trustworthyDependency(
-  String packageDir,
-  Pubspec pubspec,
-  ToolEnvironment toolEnvironment,
-) async {
+Future<ReportSection> _trustworthyDependency(PackageContext context) async {
+  final pubspec = context.pubspec;
+  final packageDir = context.packageDir;
+  final toolEnvironment = context.toolEnvironment;
   Future<_Subsection> dependencies() async {
     final issues = <_Issue>[];
     var bodyPrefix = '';
-    final currentSdkVersion =
-        Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
-    if (pubspec.dartSdkConstraint != null &&
-        pubspec.dartSdkConstraint.allows(currentSdkVersion)) {
+    if (context.pubspecAllowsCurrentSdk) {
       try {
         final outdated = Outdated.fromJson(await toolEnvironment.runPubOutdated(
           packageDir,
@@ -668,10 +663,7 @@ Future<ReportSection> _trustworthyDependency(
         issues.add(_Issue('Could not run pub outdated: ${e.message}'));
       }
     } else {
-      issues.add(_Issue(
-          "Sdk constraint doesn't support current Dart version $currentSdkVersion."
-          ' Cannot run `pub outdated`.',
-          span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk')));
+      issues.add(_unsupportedDartSdk(context, command: 'pub outdated'));
     }
     final status = issues.isNotEmpty ? _Status.bad : _Status.good;
     final points = issues.isNotEmpty ? 0 : 10;
@@ -689,16 +681,11 @@ Future<ReportSection> _trustworthyDependency(
   Future<_Subsection> sdkSupport() async {
     final issues = <_Issue>[];
     final sdkConstraint = pubspec.dartSdkConstraint;
-    final currentSdkVersion =
-        Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
-    final allowsCurrentSdk = sdkConstraint?.allows(currentSdkVersion) ?? false;
     if (sdkConstraint == null) {
       issues.add(_Issue('Pubspec.yaml does not have an sdk version constraint.',
-          suggestion: 'Try adding an sdk constraint to your pubspec.yaml'));
-    } else if (!allowsCurrentSdk) {
-      issues.add(_Issue(
-          'The current sdk constraint does not allow the latest stable Dart ($currentSdkVersion)',
-          span: _tryGetSpanFromYamlMap(pubspec.environment, 'sdk'),
+          suggestion: 'Try adding an sdk constraint to your `pubspec.yaml`'));
+    } else if (!context.pubspecAllowsCurrentSdk) {
+      issues.add(_unsupportedDartSdk(context,
           suggestion: 'Try widening the upper boundary of the constraint.'));
     }
 
@@ -901,6 +888,20 @@ class _RawParagraph implements _Paragraph {
 
   @override
   String markdown({@required basePath}) => _markdown;
+}
+
+_Issue _unsupportedDartSdk(PackageContext context,
+    {String command, String suggestion}) {
+  final msg = StringBuffer(
+      "Sdk constraint doesn't support current Dart version ${context.currentSdkVersion}.");
+  if (command != null) {
+    msg.write(' Cannot run `$command`.');
+  }
+  return _Issue(
+    msg.toString(),
+    span: _tryGetSpanFromYamlMap(context.pubspec.environment, 'sdk'),
+    suggestion: suggestion,
+  );
 }
 
 /// A single issue found by the analysis.
