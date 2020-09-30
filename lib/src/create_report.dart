@@ -40,6 +40,7 @@ Future<Report> createReport(PackageContext context) async {
   } on Exception catch (e) {
     return Report(sections: [
       ReportSection(
+          id: ReportSectionId.convention,
           grantedPoints: 0,
           maxPoints: 100,
           title: 'Failed to parse the pubspec',
@@ -79,6 +80,7 @@ Future<ReportSection> _hasDocumentation(
   final points = examplePath == null ? 0 : 10;
   final status = examplePath == null ? _Status.bad : _Status.good;
   return ReportSection(
+    id: ReportSectionId.documentation,
     title: documentationSectionTitle,
     grantedPoints: points,
     maxPoints: 10,
@@ -123,6 +125,7 @@ Future<ReportSection> _staticAnalysis(PackageContext context) async {
   }
 
   return ReportSection(
+    id: ReportSectionId.analysis,
     title: 'Pass static analysis',
     grantedPoints: grantedPoints,
     maxPoints: 30,
@@ -518,6 +521,7 @@ Future<ReportSection> _followsTemplate(PackageContext context) async {
   final pubspecSection = await checkPubspec();
 
   return ReportSection(
+      id: ReportSectionId.convention,
       title: 'Follow Dart file conventions',
       maxPoints: 20,
       grantedPoints: pubspecSection.grantedPoints +
@@ -743,6 +747,7 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
   final sdkSection = await sdkSupport();
 
   return ReportSection(
+      id: ReportSectionId.dependency,
       title: 'Support up-to-date dependencies',
       grantedPoints: dependencySection.grantedPoints + sdkSection.grantedPoints,
       maxPoints: 20,
@@ -862,6 +867,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
   }
 
   return ReportSection(
+    id: ReportSectionId.platform,
     title: 'Support multiple platforms',
     maxPoints: 20,
     grantedPoints: subsection.grantedPoints,

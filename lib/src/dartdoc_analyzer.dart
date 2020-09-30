@@ -34,6 +34,7 @@ ReportSection documentationCoverageSection({
   }
 
   return ReportSection(
+    id: ReportSectionId.documentation,
     title: documentationSectionTitle,
     grantedPoints: grantedPoints,
     maxPoints: maxPoints,
@@ -51,6 +52,7 @@ ReportSection dartdocFailedSection([DartdocResult result]) {
   final errorMessage = result?.processResult?.stderr?.toString() ?? '';
 
   return ReportSection(
+    id: ReportSectionId.documentation,
     title: documentationSectionTitle,
     grantedPoints: 0,
     maxPoints: 10,

@@ -11,6 +11,7 @@ void main() {
     test('join section with no match', () {
       final report = Report(sections: [
         ReportSection(
+          id: 'a',
           title: 'a',
           grantedPoints: 5,
           maxPoints: 5,
@@ -19,6 +20,7 @@ void main() {
       ]);
 
       final nr = report.joinSection(ReportSection(
+        id: 'b',
         title: 'b',
         grantedPoints: 10,
         maxPoints: 10,
@@ -28,12 +30,14 @@ void main() {
       expect(nr.toJson(), {
         'sections': [
           {
+            'id': 'a',
             'title': 'a',
             'grantedPoints': 5,
             'maxPoints': 5,
             'summary': 'something',
           },
           {
+            'id': 'b',
             'title': 'b',
             'grantedPoints': 10,
             'maxPoints': 10,
@@ -46,12 +50,14 @@ void main() {
     test('join with match', () {
       final report = Report(sections: [
         ReportSection(
+          id: 'a',
           title: 'a',
           grantedPoints: 5,
           maxPoints: 5,
           summary: 'something\n',
         ),
         ReportSection(
+          id: 'b',
           title: 'b',
           grantedPoints: 6,
           maxPoints: 10,
@@ -60,6 +66,7 @@ void main() {
       ]);
 
       final nr = report.joinSection(ReportSection(
+        id: 'a',
         title: 'a',
         grantedPoints: 3,
         maxPoints: 7,
@@ -71,12 +78,14 @@ void main() {
         {
           'sections': [
             {
+              'id': 'a',
               'title': 'a',
               'grantedPoints': 8,
               'maxPoints': 12,
               'summary': 'something\n\nanother thing',
             },
             {
+              'id': 'b',
               'title': 'b',
               'grantedPoints': 6,
               'maxPoints': 10,

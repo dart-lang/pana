@@ -109,7 +109,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`angular`]|`^5.1.0`|5.3.1|5.3.1|
 |[`angular_forms`]|`^2.1.0`|2.1.2|2.1.4|
 |[`async`]|`^2.0.8`|2.4.2|2.4.2|
-|[`build`]|`>=0.11.1 <2.0.0`|1.4.0|1.4.0|
+|[`build`]|`>=0.11.1 <2.0.0`|1.5.0|1.5.0|
 |[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.2**|
 |[`built_collection`]|`^4.0.0`|4.3.2|4.3.2|
 |[`collection`]|`^1.14.10`|1.14.13|1.14.13|
@@ -127,7 +127,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.40.2|
+|[`analyzer`]|-|0.35.4|0.40.4|
 |[`angular_ast`]|-|0.5.9|0.5.11|
 |[`angular_compiler`]|-|0.4.3|0.4.5|
 |[`args`]|-|1.6.0|1.6.0|
@@ -146,7 +146,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`glob`]|-|1.2.0|1.2.0|
 |[`http`]|-|0.12.2|0.12.2|
 |[`http_parser`]|-|3.1.4|3.1.4|
-|[`json_annotation`]|-|2.4.0|3.0.1|
+|[`json_annotation`]|-|2.4.0|3.1.0|
 |[`kernel`]|-|0.3.14|0.3.29|
 |[`matcher`]|-|0.12.9|0.12.9|
 |[`node_interop`]|-|1.1.1|1.1.1|
@@ -156,8 +156,8 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`pedantic`]|-|1.9.2|1.9.2|
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.5|0.1.5|
-|[`sass`]|-|1.26.10|1.26.10|
-|[`source_gen`]|-|0.9.4+4|0.9.6|
+|[`sass`]|-|1.26.11|1.26.11|
+|[`source_gen`]|-|0.9.4+4|0.9.7+1|
 |[`source_maps`]|-|0.10.9|0.10.9|
 |[`source_span`]|-|1.7.0|1.7.0|
 |[`stack_trace`]|-|1.9.5|1.9.5|

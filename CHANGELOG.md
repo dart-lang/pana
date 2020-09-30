@@ -1,6 +1,7 @@
 ## 0.14.4
 
 * Fix: RangeError in certain reported issues.
+* New field: `ReportSection.id`.
 
 ## 0.14.3
 

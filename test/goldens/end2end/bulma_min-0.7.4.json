@@ -40,30 +40,35 @@
   "report": {
     "sections": [
       {
+        "id": "convention",
         "title": "Follow Dart file conventions",
         "grantedPoints": 20,
         "maxPoints": 20,
         "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
       },
       {
+        "id": "documentation",
         "title": "Provide documentation",
         "grantedPoints": 0,
         "maxPoints": 10,
         "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
       },
       {
+        "id": "platform",
         "title": "Support multiple platforms",
         "grantedPoints": 20,
         "maxPoints": 20,
         "summary": "### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)\n"
       },
       {
+        "id": "analysis",
         "title": "Pass static analysis",
         "grantedPoints": 30,
         "maxPoints": 30,
         "summary": "### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues\n"
       },
       {
+        "id": "dependency",
         "title": "Support up-to-date dependencies",
         "grantedPoints": 10,
         "maxPoints": 20,

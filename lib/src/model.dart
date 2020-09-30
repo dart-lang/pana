@@ -446,7 +446,8 @@ class Report {
   /// If there is no section matched, the section will be added to the end of
   /// the sections list.
   Report joinSection(ReportSection section) {
-    final matched = sections.firstWhere((s) => s.title == section.title,
+    final matched = sections.firstWhere(
+        (s) => (s.id != null && s.id == section.id) || s.title == section.title,
         orElse: () => null);
     if (matched == null) {
       return Report(sections: [...sections, section]);
@@ -458,6 +459,7 @@ class Report {
             return s;
           }
           return ReportSection(
+            id: s.id,
             title: s.title,
             maxPoints: s.maxPoints + section.maxPoints,
             grantedPoints: s.grantedPoints + section.grantedPoints,
@@ -469,8 +471,17 @@ class Report {
   }
 }
 
+abstract class ReportSectionId {
+  static const analysis = 'analysis';
+  static const convention = 'convention';
+  static const dependency = 'dependency';
+  static const documentation = 'documentation';
+  static const platform = 'platform';
+}
+
 @JsonSerializable()
 class ReportSection {
+  final String id;
   final String title;
 
   /// How many points did this section score
@@ -487,6 +498,7 @@ class ReportSection {
   final String summary;
 
   ReportSection({
+    @required this.id,
     @required this.title,
     @required this.grantedPoints,
     @required this.maxPoints,
