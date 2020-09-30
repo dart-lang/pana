@@ -194,6 +194,7 @@ Map<String, dynamic> _$ReportToJson(Report instance) => <String, dynamic>{
 
 ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) {
   return ReportSection(
+    id: json['id'] as String,
     title: json['title'] as String,
     grantedPoints: json['grantedPoints'] as int,
     maxPoints: json['maxPoints'] as int,
@@ -203,6 +204,7 @@ ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ReportSectionToJson(ReportSection instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'grantedPoints': instance.grantedPoints,
       'maxPoints': instance.maxPoints,
