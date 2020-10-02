@@ -1,3 +1,8 @@
+## 0.14.5
+
+* Upgraded `package:analyzer`.
+* Removed overrides in `pubspec.yaml`.
+
 ## 0.14.4
 
 * Fix: RangeError in certain reported issues.
