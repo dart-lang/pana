@@ -1038,7 +1038,9 @@ String renderSimpleSectionSummary({
       maxPoints,
       maxPoints == grantedPoints
           ? _Status.good
-          : grantedPoints == 0 ? _Status.bad : _Status.soso,
+          : grantedPoints == 0
+              ? _Status.bad
+              : _Status.soso,
     )
   ], basePath: null);
 }
