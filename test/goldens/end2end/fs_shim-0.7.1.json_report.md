@@ -93,7 +93,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 <details>
 <summary>
-Sdk constraint doesn't support current Dart version 2.9.0. Cannot run `pub outdated`.
+Sdk constraint doesn't support current Dart version 2.10.0. Cannot run `pub outdated`.
 </summary>
 
 `pubspec.yaml:8:8`
@@ -111,7 +111,7 @@ Sdk constraint doesn't support current Dart version 2.9.0. Cannot run `pub outda
 
 <details>
 <summary>
-Sdk constraint doesn't support current Dart version 2.9.0.
+Sdk constraint doesn't support current Dart version 2.10.0.
 </summary>
 
 `pubspec.yaml:8:8`
