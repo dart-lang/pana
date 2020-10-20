@@ -696,7 +696,7 @@ class _Sdk {
 ///
 /// A package is said to null-safety compliant if:
 ///
-/// - The package has opted-in by specifying a lower dart sdk bound >= 2.10
+/// - The package has opted-in by specifying a lower dart sdk bound >= 2.12
 /// - No libraries in the package opts out of the null-safety enabled language
 ///   version.
 /// - All (non-dev) dependencies in the latest version resolvable by pub are
@@ -753,7 +753,7 @@ class _NullSafetyViolationFinder {
         _noOptoutViolationFinder.findViolation(rootPackageName);
   }
 
-  static final _firstVersionWithNullSafety = Version.parse('2.10.0');
+  static final _firstVersionWithNullSafety = Version.parse('2.12.0');
   static const nullSafeTag = 'is:null-safe';
 }
 
