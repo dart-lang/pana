@@ -5,17 +5,16 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:pana/pana.dart';
 import 'package:pana/src/create_report.dart';
+import 'package:pana/src/version.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
-import 'package:pana/pana.dart';
-import 'package:pana/src/version.dart';
-import 'package:path/path.dart' as p;
-
 import 'golden_file.dart';
 
-String goldenDir = p.join('test', 'goldens', 'end2end');
+final _goldenDir = p.join('test', 'goldens', 'end2end');
 
 void main() {
   String tempDir;
@@ -91,7 +90,7 @@ void main() {
             RegExp(r'Error on line 5, column 1 of .*pubspec.yaml'),
             r'Error on line 5, column 1 of $TEMPDIR/pubspec.yaml');
 
-        expectMatchesGoldenFile(jsonNoTempDir, p.join(goldenDir, fileName));
+        expectMatchesGoldenFile(jsonNoTempDir, p.join(_goldenDir, fileName));
       });
 
       test('Report matches known good', () {
@@ -106,7 +105,7 @@ void main() {
               .join('\n\n');
           // For readability we output the report in its own file.
           expectMatchesGoldenFile(
-              renderedSections, p.join(goldenDir, '${fileName}_report.md'));
+              renderedSections, p.join(_goldenDir, '${fileName}_report.md'));
         }
       });
 
