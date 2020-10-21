@@ -1,6 +1,6 @@
 ## 0.14.5
 
-* Upgraded `package:analyzer`.
+* Upgraded `package:analyzer` and `package:markdown`.
 * Removed overrides in `pubspec.yaml`.
 
 ## 0.14.4
