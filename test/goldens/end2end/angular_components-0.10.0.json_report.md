@@ -106,8 +106,8 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`angular`]|`^5.1.0`|5.3.1|5.3.1|
-|[`angular_forms`]|`^2.1.0`|2.1.2|2.1.4|
+|[`angular`]|`^5.1.0`|5.3.1|**6.0.1**|
+|[`angular_forms`]|`^2.1.0`|2.1.2|**3.0.0**|
 |[`async`]|`^2.0.8`|2.4.2|2.4.2|
 |[`build`]|`>=0.11.1 <2.0.0`|1.5.0|1.5.0|
 |[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.2**|
@@ -128,20 +128,20 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`analyzer`]|-|0.35.4|0.40.4|
-|[`angular_ast`]|-|0.5.9|0.5.11|
-|[`angular_compiler`]|-|0.4.3|0.4.5|
+|[`angular_ast`]|-|0.5.9|1.0.1|
+|[`angular_compiler`]|-|0.4.3|1.0.1|
 |[`args`]|-|1.6.0|1.6.0|
 |[`built_value`]|-|7.1.0|7.1.0|
 |[`charcode`]|-|1.1.3|1.1.3|
 |[`checked_yaml`]|-|1.0.2|1.0.2|
 |[`cli_repl`]|-|0.2.0+1|0.2.0+1|
-|[`code_builder`]|-|3.4.1|3.4.1|
+|[`code_builder`]|-|3.5.0|3.5.0|
 |[`convert`]|-|2.1.1|2.1.1|
 |[`crypto`]|-|2.1.5|2.1.5|
 |[`csslib`]|-|0.14.6+1|0.16.2|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
 |[`dart_internal`]|-|0.1.12-nullsafety|0.1.12-nullsafety|
-|[`dart_style`]|-|1.2.4|1.3.7|
+|[`dart_style`]|-|1.2.4|1.3.8|
 |[`front_end`]|-|0.1.14|0.1.29|
 |[`glob`]|-|1.2.0|1.2.0|
 |[`http`]|-|0.12.2|0.12.2|
@@ -156,7 +156,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`pedantic`]|-|1.9.2|1.9.2|
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.5|0.1.5|
-|[`sass`]|-|1.26.11|1.26.11|
+|[`sass`]|-|1.27.0|1.27.0|
 |[`source_gen`]|-|0.9.4+4|0.9.7+1|
 |[`source_maps`]|-|0.10.9|0.10.9|
 |[`source_span`]|-|1.7.0|1.7.0|
@@ -230,34 +230,34 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 [`watcher`]: https://pub.dev/packages/watcher
 [`yaml`]: https://pub.dev/packages/yaml
 
-Found 4 issues. Showing the first 2:
+Found 6 issues. Showing the first 2:
 
 <details>
 <summary>
-The constraint `>=0.2.6 <0.4.0` on build_config does not support the latest published version `0.4.2`
+The constraint `^5.1.0` on angular does not support the latest published version `6.0.1`
 </summary>
 
-`pubspec.yaml:16:17`
+`pubspec.yaml:12:12`
 
 ```
    ╷
-16 │   build_config: '>=0.2.6 <0.4.0'
-   │                 ^^^^^^^^^^^^^^^^
+12 │   angular: ^5.1.0
+   │            ^^^^^^
    ╵
 ```
 
 </details>
 <details>
 <summary>
-The constraint `>=0.14.0 <0.16.0` on intl does not support the latest published version `0.16.1`
+The constraint `^2.1.0` on angular_forms does not support the latest published version `3.0.0`
 </summary>
 
-`pubspec.yaml:20:9`
+`pubspec.yaml:13:18`
 
 ```
    ╷
-20 │   intl: '>=0.14.0 <0.16.0'
-   │         ^^^^^^^^^^^^^^^^^^
+13 │   angular_forms: ^2.1.0
+   │                  ^^^^^^
    ╵
 ```
 
