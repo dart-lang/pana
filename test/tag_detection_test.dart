@@ -529,11 +529,11 @@ name: my_package
       final descriptor = d.dir('cache', [
         package('my_package',
             dependencies: ['my_dependency'],
-            sdkConstraint: '>=2.10.0 <3.0.0',
+            sdkConstraint: '>=2.12.0 <3.0.0',
             lib: [
               d.file('my_package.dart', 'int fourtyTwo() => 42;'),
             ]),
-        package('my_dependency', sdkConstraint: '>=2.11.0 <3.0.0', lib: [
+        package('my_dependency', sdkConstraint: '>=2.13.0 <3.0.0', lib: [
           d.file(
             'my_dependency.dart',
             "import 'dart:io'; int fourtyThree() => 43;",
@@ -545,10 +545,22 @@ name: my_package
       expectTagging(tagger.nullSafetyTags,
           tags: ['is:null-safe'], explanations: isEmpty);
     });
+
+    test('Depending on the 2.12 beta sdk gets the tag', () async {
+      final descriptor = d.dir('cache', [
+        package('my_package', sdkConstraint: '>=2.12.0-beta1 <3.0.0', lib: [
+          d.file('my_package.dart', 'int fourtyTwo() => 42;'),
+        ]),
+      ]);
+      await descriptor.create();
+      final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
+      expectTagging(tagger.nullSafetyTags,
+          tags: ['is:null-safe'], explanations: isEmpty);
+    });
     test('opting a library out (even one not reachahble from primary) fails',
         () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.11.0 <3.0.0', lib: [
+        package('my_package', sdkConstraint: '>=2.13.0 <3.0.0', lib: [
           d.file('my_package.dart', 'int fourtyTwo() => 42;'),
           d.dir('src', [
             d.file(
@@ -572,10 +584,10 @@ Because:
     test('opting a library to older version still allowing null-safety is ok',
         () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.11.0 <3.0.0', lib: [
+        package('my_package', sdkConstraint: '>=2.13.0 <3.0.0', lib: [
           d.file('my_package.dart', 'int fourtyTwo() => 42;'),
           d.dir('src', [
-            d.file('stray_file.dart', '// @dart = 2.10\n'),
+            d.file('stray_file.dart', '// @dart = 2.12\n'),
           ]),
         ])
       ]);
@@ -589,7 +601,7 @@ Because:
       final descriptor = d.dir('cache', [
         package('my_package',
             dependencies: ['my_dependency'],
-            sdkConstraint: '>=2.10.0 <3.0.0',
+            sdkConstraint: '>=2.12.0 <3.0.0',
             lib: [
               d.file('my_package.dart', 'int fourtyTwo() => 42;'),
             ]),
@@ -614,11 +626,11 @@ Because:
       final descriptor = d.dir('cache', [
         package('my_package',
             dependencies: ['my_dependency'],
-            sdkConstraint: '>=2.10.0 <3.0.0',
+            sdkConstraint: '>=2.12.0 <3.0.0',
             lib: [
               d.file('my_package.dart', 'int fourtyTwo() => 42;'),
             ]),
-        package('my_dependency', sdkConstraint: '>=2.10.0 <3.0.0', lib: [
+        package('my_dependency', sdkConstraint: '>=2.12.0 <3.0.0', lib: [
           d.file(
             'my_dependency.dart',
             '// @dart = 2.9',
@@ -637,7 +649,7 @@ Because:
 
     test('An opt-out test still gets tag', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.10.0 <3.0.0', lib: [
+        package('my_package', sdkConstraint: '>=2.12.0 <3.0.0', lib: [
           d.file('my_package.dart', 'int fourtyTwo() => 42;'),
         ], extraFiles: [
           d.dir('test', [
@@ -660,7 +672,7 @@ void main() {
 
     test('Broken imports gets reported', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.10.0 <3.0.0', lib: [
+        package('my_package', sdkConstraint: '>=2.12.0 <3.0.0', lib: [
           d.file('my_package.dart', 'import "package:missing/missing.dart";'),
         ], dependencies: [
           'missing'
