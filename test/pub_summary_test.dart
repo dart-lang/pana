@@ -213,7 +213,7 @@ FINE: package:pub/src/entrypoint.dart 194                                       
     | package:pub/src/utils.dart 114                                                captureErrors
     | package:pub/src/command_runner.dart 168                                       PubCommandRunner.runCommand
     | package:pub/src/command_runner.dart 117                                       PubCommandRunner.run
-    | /b/build/slave/dart-sdk-mac-dev/build/sdk/third_party/pkg/pub/bin/pub.dart 8  main
+    | /b/build/secon/dart-sdk-mac-dev/build/sdk/third_party/pkg/pub/bin/pub.dart 8  main
     | ===== asynchronous gap ===========================
     | dart:async                                                                    _Completer.completeError
     | package:pub/src/entrypoint.dart 242                                           Entrypoint.acquireDependencies

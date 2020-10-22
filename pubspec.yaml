@@ -16,7 +16,7 @@ dependencies:
   io: ^0.3.4
   json_annotation: '>=2.0.0 <4.0.0'
   logging: ^0.11.3+1
-  markdown: ^2.0.2
+  markdown: ^3.0.0
   meta: ^1.1.7
   path: ^1.6.2
   pedantic: ^1.4.0
