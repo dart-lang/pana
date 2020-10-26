@@ -2,6 +2,7 @@
 
 * Upgraded `package:analyzer` and `package:markdown`.
 * Removed overrides in `pubspec.yaml`.
+* Fixed first version for null safety (#791).
 
 ## 0.14.4
 
