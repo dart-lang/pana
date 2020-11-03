@@ -121,14 +121,14 @@ final Pubspec dart2Pubspec = Pubspec({
 final Pubspec nullSafetyPubspec = Pubspec({
   'name': 'sample',
   'environment': {
-    'sdk': '^2.10.0',
+    'sdk': '^2.12.0',
   },
 });
 
 final Pubspec nullSafetyPubspec2 = Pubspec({
   'name': 'sample',
   'environment': {
-    'sdk': '>=2.11.0<2.13.0',
+    'sdk': '>=2.13.0<2.14.0',
   },
 });
 
