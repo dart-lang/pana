@@ -127,7 +127,7 @@ Try widening the upper boundary of the constraint.
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/20 Package supports null-safety
+## 0/0 Package supports null-safety
 
 ### [x] 0/0 points: Supports 0 of 2 possible platforms (native, js)
 

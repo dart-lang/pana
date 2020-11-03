@@ -66,7 +66,7 @@
         "id": "nullSafety",
         "title": "Package supports null-safety",
         "grantedPoints": 0,
-        "maxPoints": 20,
+        "maxPoints": 0,
         "summary": "### [x] 0/0 points: Supports 0 of 2 possible platforms (native, js)\n\n<details>\n<summary>\nPackage resolution failed. Could not determine null-safety.\n</summary>\n\nRun `pub get` for more information.\n</details>"
       }
     ]

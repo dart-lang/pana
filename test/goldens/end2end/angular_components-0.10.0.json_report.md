@@ -267,7 +267,7 @@ The constraint `^2.1.0` on angular_forms does not support the latest published v
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/20 Package supports null-safety
+## 0/0 Package supports null-safety
 
 ### [~] 0/0 points: Package does not opt in to  null-safety
 

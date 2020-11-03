@@ -821,7 +821,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
   }
   return ReportSection(
     title: 'Package supports null-safety',
-    maxPoints: 20,
+    maxPoints: maxPoints,
     grantedPoints: subsection.grantedPoints,
     id: ReportSectionId.nullSafety,
     summary: _makeSummary(

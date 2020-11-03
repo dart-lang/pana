@@ -103,7 +103,7 @@ Because http depends on unittest >=0.2.8+2 which requires SDK version <2.0.0, ve
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/20 Package supports null-safety
+## 0/0 Package supports null-safety
 
 ### [~] 0/0 points: Package does not opt in to  null-safety
 

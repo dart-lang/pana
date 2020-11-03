@@ -78,7 +78,7 @@
         "id": "nullSafety",
         "title": "Package supports null-safety",
         "grantedPoints": 0,
-        "maxPoints": 20,
+        "maxPoints": 0,
         "summary": "### [*] 0/0 points: Package and dependencies are fully migrated to null-safety\n"
       }
     ]
