@@ -477,6 +477,7 @@ abstract class ReportSectionId {
   static const dependency = 'dependency';
   static const documentation = 'documentation';
   static const platform = 'platform';
+  static const nullSafety = 'nullSafety';
 }
 
 @JsonSerializable()

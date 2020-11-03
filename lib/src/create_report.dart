@@ -54,6 +54,7 @@ Future<Report> createReport(PackageContext context) async {
     await _multiPlatform(context.packageDir, pubspec),
     await _staticAnalysis(context),
     await _trustworthyDependency(context),
+    await _nullSafety(context.packageDir, pubspec)
   ]);
 }
 
@@ -755,6 +756,83 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
           _makeSummary([dependencySection, sdkSection], basePath: packageDir));
 }
 
+_Issue _explanationToIssue(Explanation explanation) =>
+    _Issue(explanation.finding, suggestion: explanation.explanation);
+
+Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
+  // TODO(sigurdm): Currently we don't give any points for null-safety.
+  // Raise this after null-safety beta.
+  const maxPoints = 0;
+
+  _Subsection subsection;
+  if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
+      .existsSync()) {
+    final tagger = Tagger(packageDir);
+
+    final nullSafetyTags = <String>[];
+    final explanations = <Explanation>[];
+    tagger.nullSafetyTags(nullSafetyTags, explanations);
+    if (pubspec.sdkConstraintStatus.hasOptedIntoNullSafety) {
+      if (nullSafetyTags.contains('is:null-safe')) {
+        subsection = _Subsection(
+            'Package and dependencies are fully migrated to null-safety',
+            explanations.map(_explanationToIssue).toList(),
+            maxPoints,
+            maxPoints,
+            _Status.good);
+      } else {
+        subsection = _Subsection(
+            'Package declares support for null-safety, but there are issues',
+            [
+              ...explanations.map(_explanationToIssue).toList(),
+              _Issue('For more information',
+                  suggestion: 'Try running `pub outdated --mode=null-safety`.\n'
+                      'Be sure to read the [migration guide](https://dart.dev/null-safety/migration-guide).')
+            ],
+            0,
+            maxPoints,
+            _Status.bad);
+      }
+    } else {
+      subsection = _Subsection(
+          'Package does not opt in to  null-safety',
+          [
+            _Issue(
+              'Package version constraint lower bound is below 2.12.0.',
+              suggestion:
+                  'Consider [migrating](https://dart.dev/null-safety/migration-guide).',
+            )
+          ],
+          0,
+          maxPoints,
+          _Status.soso);
+    }
+  } else {
+    subsection = _Subsection(
+      'Supports 0 of 2 possible platforms (native, js)',
+      [
+        _Issue('Package resolution failed. Could not determine null-safety.',
+            suggestion: 'Run `pub get` for more information.')
+      ],
+      0,
+      maxPoints,
+      _Status.bad,
+    );
+  }
+  return ReportSection(
+    title: 'Package supports null-safety',
+    maxPoints: 20,
+    grantedPoints: subsection.grantedPoints,
+    id: ReportSectionId.nullSafety,
+    summary: _makeSummary(
+      [subsection],
+      basePath: packageDir,
+      maxIssues:
+          100, // Tagging produces a bounded number of issues. Better display them all.
+    ),
+  );
+}
+
 Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
   _Subsection subsection;
   if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
@@ -767,9 +845,6 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
     tagger.sdkTags(sdkTags, sdkExplanations);
 
     final flutterPackage = pubspec.usesFlutter;
-
-    _Issue explanationToIssue(Explanation explanation) =>
-        _Issue(explanation.finding, suggestion: explanation.explanation);
 
     String platformList(List<String> tags, Map<String, String> tagNames) {
       return tagNames.entries.map((entry) {
@@ -796,14 +871,14 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final paragraphs = [
         if (officialExplanations.isNotEmpty)
           _RawParagraph('Consider supporting multiple platforms:\n'),
-        ...officialExplanations.map(explanationToIssue),
+        ...officialExplanations.map(_explanationToIssue),
         if (unofficialExplanations.isNotEmpty)
           _RawParagraph('\nConsider supporting these prerelease platforms:\n'),
-        ...unofficialExplanations.map(explanationToIssue),
+        ...unofficialExplanations.map(_explanationToIssue),
         if (trustExplanations.isNotEmpty)
           _RawParagraph(
               '\nThese issues are present but do not affect the score, because they may not originate in your package:\n'),
-        ...trustExplanations.map(explanationToIssue),
+        ...trustExplanations.map(_explanationToIssue),
       ];
 
       final officialTags = tags.where(tagNames.containsKey).toList();

@@ -113,3 +113,15 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
+
+## 0/20 Package supports null-safety
+
+### [~] 0/0 points: Package does not opt in to  null-safety
+
+<details>
+<summary>
+Package version constraint lower bound is below 2.12.0.
+</summary>
+
+Consider [migrating](https://dart.dev/null-safety/migration-guide).
+</details>

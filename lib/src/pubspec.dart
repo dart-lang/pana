@@ -121,7 +121,7 @@ class Pubspec {
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
 final _range2Latest = VersionConstraint.parse('>=2.9999.0 <3.0.0');
 final _futureRange = VersionConstraint.parse('>=3.0.0');
-final _firstNullSafetyVersion = Version.parse('2.10.0');
+final _firstNullSafetyVersion = Version.parse('2.12.0');
 
 /// Detailed support coverage for the SDK constraint.
 class SdkConstraintStatus {
@@ -152,7 +152,8 @@ class SdkConstraintStatus {
     final hasOptedIntoNullSafety = hasConstraint &&
         constraint is VersionRange &&
         constraint.min != null &&
-        constraint.min >= _firstNullSafetyVersion;
+        Version(constraint.min.major, constraint.min.minor, 0) >=
+            _firstNullSafetyVersion;
     return SdkConstraintStatus._(
       hasConstraint: hasConstraint,
       enablesDart2Latest: hasConstraint && constraint.allowsAny(_range2Latest),

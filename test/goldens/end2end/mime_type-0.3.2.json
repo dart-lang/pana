@@ -73,6 +73,13 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
+      },
+      {
+        "id": "nullSafety",
+        "title": "Package supports null-safety",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "summary": "### [~] 0/0 points: Package does not opt in to  null-safety\n\n<details>\n<summary>\nPackage version constraint lower bound is below 2.12.0.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
       }
     ]
   }
