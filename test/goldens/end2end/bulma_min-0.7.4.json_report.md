@@ -46,11 +46,11 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 ## 0/0 Package supports null-safety
 
-### [~] 0/0 points: Package does not opt in to  null-safety
+### [~] 0/0 points: Package does not opt in to null-safety
 
 <details>
 <summary>
-Package version constraint lower bound is below 2.12.0.
+Package language version (indicated by the sdk constraint) is less than 2.12
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).

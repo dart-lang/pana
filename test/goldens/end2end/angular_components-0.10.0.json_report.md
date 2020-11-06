@@ -120,7 +120,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`meta`]|`^1.0.4`|1.2.3|1.2.3|
 |[`observable`]|`^0.22.1+3`|0.22.2|0.22.2|
 |[`protobuf`]|`^0.10.2`|0.10.8|**1.1.0**|
-|[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.4+1**|
+|[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.5**|
 |[`sass_builder`]|`^2.0.2`|2.1.3|2.1.3|
 
 <details><summary>Transitive dependencies</summary>
@@ -156,11 +156,11 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`pedantic`]|-|1.9.2|1.9.2|
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.5|0.1.5|
-|[`sass`]|-|1.28.0|1.28.0|
+|[`sass`]|-|1.29.0|1.29.0|
 |[`source_gen`]|-|0.9.4+4|0.9.8|
 |[`source_maps`]|-|0.10.9|0.10.9|
 |[`source_span`]|-|1.7.0|1.7.0|
-|[`stack_trace`]|-|1.9.5|1.9.5|
+|[`stack_trace`]|-|1.9.6|1.9.6|
 |[`stream_transform`]|-|1.2.0|1.2.0|
 |[`string_scanner`]|-|1.0.5|1.0.5|
 |[`term_glyph`]|-|1.1.0|1.1.0|
@@ -269,11 +269,11 @@ The constraint `^2.1.0` on angular_forms does not support the latest published v
 
 ## 0/0 Package supports null-safety
 
-### [~] 0/0 points: Package does not opt in to  null-safety
+### [~] 0/0 points: Package does not opt in to null-safety
 
 <details>
 <summary>
-Package version constraint lower bound is below 2.12.0.
+Package language version (indicated by the sdk constraint) is less than 2.12
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).

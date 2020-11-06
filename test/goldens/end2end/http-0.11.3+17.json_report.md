@@ -105,11 +105,11 @@ Because http depends on unittest >=0.2.8+2 which requires SDK version <2.0.0, ve
 
 ## 0/0 Package supports null-safety
 
-### [~] 0/0 points: Package does not opt in to  null-safety
+### [~] 0/0 points: Package does not opt in to null-safety
 
 <details>
 <summary>
-Package version constraint lower bound is below 2.12.0.
+Package language version (indicated by the sdk constraint) is less than 2.12
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).

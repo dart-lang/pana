@@ -82,7 +82,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`collection`]|-|1.14.13|1.14.13|
 |[`meta`]|-|1.2.3|1.2.3|
 |[`source_span`]|-|1.7.0|1.7.0|
-|[`stack_trace`]|-|1.9.5|1.9.5|
+|[`stack_trace`]|-|1.9.6|1.9.6|
 |[`stream_channel`]|-|2.0.0|2.0.0|
 |[`string_scanner`]|-|1.0.5|1.0.5|
 |[`term_glyph`]|-|1.1.0|1.1.0|
@@ -116,11 +116,11 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 ## 0/0 Package supports null-safety
 
-### [~] 0/0 points: Package does not opt in to  null-safety
+### [~] 0/0 points: Package does not opt in to null-safety
 
 <details>
 <summary>
-Package version constraint lower bound is below 2.12.0.
+Package language version (indicated by the sdk constraint) is less than 2.12
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).

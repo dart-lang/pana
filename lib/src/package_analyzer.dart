@@ -29,6 +29,7 @@ class InspectOptions {
   final bool isInternal;
   final int lineLength;
   final String analysisOptionsUri;
+  final bool nullSafetySectionEnabledBeforeOptin;
 
   InspectOptions({
     this.pubHostedUrl,
@@ -38,6 +39,7 @@ class InspectOptions {
     this.isInternal = false,
     this.lineLength,
     this.analysisOptionsUri,
+    this.nullSafetySectionEnabledBeforeOptin = true,
   });
 }
 
@@ -182,4 +184,5 @@ class PackageAnalyzer {
 }
 
 final _sdkVersion = Version.parse(Platform.version.split(' ').first);
-final _sdkSupportsNullSafety = _sdkVersion >= Version.parse('2.10.0');
+final _sdkSupportsNullSafety =
+    Version(_sdkVersion.major, _sdkVersion.minor, 0) >= Version.parse('2.12.0');

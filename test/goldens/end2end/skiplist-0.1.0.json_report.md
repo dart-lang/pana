@@ -99,7 +99,7 @@ Try adding an sdk constraint to your `pubspec.yaml`
 
 ## 0/0 Package supports null-safety
 
-### [x] 0/0 points: Supports 0 of 2 possible platforms (native, js)
+### [x] 0/0 points: Unable to detect null safety
 
 <details>
 <summary>

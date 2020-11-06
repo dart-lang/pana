@@ -16,6 +16,7 @@ void main() {
           grantedPoints: 5,
           maxPoints: 5,
           summary: 'something',
+          status: ReportStatus.soso,
         ),
       ]);
 
@@ -25,6 +26,7 @@ void main() {
         grantedPoints: 10,
         maxPoints: 10,
         summary: 'other',
+        status: ReportStatus.good,
       ));
 
       expect(nr.toJson(), {
@@ -35,6 +37,7 @@ void main() {
             'grantedPoints': 5,
             'maxPoints': 5,
             'summary': 'something',
+            'status': 'soso'
           },
           {
             'id': 'b',
@@ -42,6 +45,7 @@ void main() {
             'grantedPoints': 10,
             'maxPoints': 10,
             'summary': 'other',
+            'status': 'good',
           },
         ]
       });
@@ -55,6 +59,7 @@ void main() {
           grantedPoints: 5,
           maxPoints: 5,
           summary: 'something\n',
+          status: ReportStatus.soso,
         ),
         ReportSection(
           id: 'b',
@@ -62,6 +67,7 @@ void main() {
           grantedPoints: 6,
           maxPoints: 10,
           summary: 'other',
+          status: ReportStatus.good,
         ),
       ]);
 
@@ -71,6 +77,7 @@ void main() {
         grantedPoints: 3,
         maxPoints: 7,
         summary: '\nanother thing\n',
+        status: ReportStatus.bad,
       ));
 
       expect(
@@ -83,6 +90,7 @@ void main() {
               'grantedPoints': 8,
               'maxPoints': 12,
               'summary': 'something\n\nanother thing',
+              'status': 'bad'
             },
             {
               'id': 'b',
@@ -90,6 +98,7 @@ void main() {
               'grantedPoints': 6,
               'maxPoints': 10,
               'summary': 'other',
+              'status': 'good',
             },
           ]
         },
