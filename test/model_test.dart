@@ -16,7 +16,7 @@ void main() {
           grantedPoints: 5,
           maxPoints: 5,
           summary: 'something',
-          status: ReportStatus.soso,
+          status: ReportStatus.partial,
         ),
       ]);
 
@@ -26,7 +26,7 @@ void main() {
         grantedPoints: 10,
         maxPoints: 10,
         summary: 'other',
-        status: ReportStatus.good,
+        status: ReportStatus.passed,
       ));
 
       expect(nr.toJson(), {
@@ -37,7 +37,7 @@ void main() {
             'grantedPoints': 5,
             'maxPoints': 5,
             'summary': 'something',
-            'status': 'soso'
+            'status': 'partial'
           },
           {
             'id': 'b',
@@ -45,7 +45,7 @@ void main() {
             'grantedPoints': 10,
             'maxPoints': 10,
             'summary': 'other',
-            'status': 'good',
+            'status': 'passed',
           },
         ]
       });
@@ -59,7 +59,7 @@ void main() {
           grantedPoints: 5,
           maxPoints: 5,
           summary: 'something\n',
-          status: ReportStatus.soso,
+          status: ReportStatus.partial,
         ),
         ReportSection(
           id: 'b',
@@ -67,7 +67,7 @@ void main() {
           grantedPoints: 6,
           maxPoints: 10,
           summary: 'other',
-          status: ReportStatus.good,
+          status: ReportStatus.passed,
         ),
       ]);
 
@@ -77,7 +77,7 @@ void main() {
         grantedPoints: 3,
         maxPoints: 7,
         summary: '\nanother thing\n',
-        status: ReportStatus.bad,
+        status: ReportStatus.failed,
       ));
 
       expect(
@@ -90,7 +90,7 @@ void main() {
               'grantedPoints': 8,
               'maxPoints': 12,
               'summary': 'something\n\nanother thing',
-              'status': 'bad'
+              'status': 'failed'
             },
             {
               'id': 'b',
@@ -98,7 +98,7 @@ void main() {
               'grantedPoints': 6,
               'maxPoints': 10,
               'summary': 'other',
-              'status': 'good',
+              'status': 'passed',
             },
           ]
         },

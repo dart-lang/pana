@@ -486,16 +486,16 @@ abstract class ReportSectionId {
 }
 
 enum ReportStatus {
-  @JsonValue('bad')
-  bad,
-  @JsonValue('soso')
-  soso,
-  @JsonValue('good')
-  good,
+  @JsonValue('failed')
+  failed,
+  @JsonValue('partial')
+  partial,
+  @JsonValue('passed')
+  passed,
 }
 
 ReportStatus summarizeStatuses(Iterable<ReportStatus> ss) {
-  return ss.fold(ReportStatus.good, minStatus);
+  return ss.fold(ReportStatus.passed, minStatus);
 }
 
 ReportStatus minStatus(ReportStatus a, ReportStatus b) {
@@ -514,7 +514,7 @@ class ReportSection {
   final int maxPoints;
 
   /// Is this section considered passing.
-  @JsonKey(unknownEnumValue: ReportStatus.good)
+  @JsonKey(unknownEnumValue: ReportStatus.passed)
   final ReportStatus status;
 
   /// Should describe the overall goals in a few lines, followed by

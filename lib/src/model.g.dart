@@ -200,7 +200,7 @@ ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) {
     maxPoints: json['maxPoints'] as int,
     summary: json['summary'] as String,
     status: _$enumDecodeNullable(_$ReportStatusEnumMap, json['status'],
-        unknownValue: ReportStatus.good),
+        unknownValue: ReportStatus.passed),
   );
 }
 
@@ -247,9 +247,9 @@ T _$enumDecodeNullable<T>(
 }
 
 const _$ReportStatusEnumMap = {
-  ReportStatus.bad: 'bad',
-  ReportStatus.soso: 'soso',
-  ReportStatus.good: 'good',
+  ReportStatus.failed: 'failed',
+  ReportStatus.partial: 'partial',
+  ReportStatus.passed: 'passed',
 };
 
 Outdated _$OutdatedFromJson(Map<String, dynamic> json) {

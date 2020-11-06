@@ -47,7 +47,7 @@ Future<Report> createReport(PackageContext context) async {
           maxPoints: 100,
           title: 'Failed to parse the pubspec',
           summary: e.toString(),
-          status: ReportStatus.bad,
+          status: ReportStatus.failed,
         )
       ],
     );
@@ -86,7 +86,8 @@ Future<ReportSection> _hasDocumentation(
   ];
 
   final points = examplePath == null ? 0 : 10;
-  final status = examplePath == null ? ReportStatus.bad : ReportStatus.good;
+  final status =
+      examplePath == null ? ReportStatus.failed : ReportStatus.passed;
   return _makeSection(
     id: ReportSectionId.documentation,
     title: documentationSectionTitle,
@@ -114,9 +115,9 @@ Future<ReportSection> _staticAnalysis(PackageContext context) async {
 
   final status = (errors.isEmpty && warnings.isEmpty)
       ? (formattingIssues.isEmpty && lints.isEmpty
-          ? ReportStatus.good
-          : ReportStatus.soso)
-      : ReportStatus.bad;
+          ? ReportStatus.passed
+          : ReportStatus.partial)
+      : ReportStatus.failed;
 
   // 10 points: static analysis has 0 errors
   // 20 points: static analysis has 0 errors, warnings
@@ -473,7 +474,7 @@ Future<ReportSection> _followsTemplate(PackageContext context) async {
     issues.addAll(findFileSizeIssues(File(p.join(packageDir, 'pubspec.yaml')),
         limitInKB: 32));
 
-    final status = issues.isEmpty ? ReportStatus.good : ReportStatus.bad;
+    final status = issues.isEmpty ? ReportStatus.passed : ReportStatus.failed;
     final points = issues.isEmpty ? 10 : 0;
     return _Subsection(
       'Provide a valid `pubspec.yaml`',
@@ -501,7 +502,7 @@ Future<ReportSection> _followsTemplate(PackageContext context) async {
           findFileSizeIssues(file, missingSuggestion: missingSuggestion));
       issues.addAll(await findMarkdownIssues(file));
     }
-    final status = issues.isEmpty ? ReportStatus.good : ReportStatus.bad;
+    final status = issues.isEmpty ? ReportStatus.passed : ReportStatus.failed;
     final points = issues.isEmpty ? 5 : 0;
     return _Subsection(
       'Provide a valid `$filename`',
@@ -671,7 +672,8 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
     } else {
       issues.add(_unsupportedDartSdk(context, command: 'pub outdated'));
     }
-    final status = issues.isNotEmpty ? ReportStatus.bad : ReportStatus.good;
+    final status =
+        issues.isNotEmpty ? ReportStatus.failed : ReportStatus.passed;
     final points = issues.isNotEmpty ? 0 : 10;
 
     return _Subsection(
@@ -734,7 +736,7 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
         }
       }
     }
-    final status = issues.isEmpty ? ReportStatus.good : ReportStatus.bad;
+    final status = issues.isEmpty ? ReportStatus.passed : ReportStatus.failed;
     final points = issues.isEmpty ? 10 : 0;
     return _Subsection(
       'Package supports latest stable Dart and Flutter SDKs',
@@ -780,7 +782,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
             explanations.map(_explanationToIssue).toList(),
             maxPoints,
             maxPoints,
-            ReportStatus.good);
+            ReportStatus.passed);
       } else {
         subsection = _Subsection(
             'Package declares support for null-safety, but there are issues',
@@ -792,7 +794,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
             ],
             0,
             maxPoints,
-            ReportStatus.bad);
+            ReportStatus.failed);
       }
     } else {
       subsection = _Subsection(
@@ -806,7 +808,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
           ],
           0,
           maxPoints,
-          ReportStatus.soso);
+          ReportStatus.partial);
     }
   } else {
     subsection = _Subsection(
@@ -817,7 +819,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
       ],
       0,
       maxPoints,
-      ReportStatus.bad,
+      ReportStatus.failed,
     );
   }
   return _makeSection(
@@ -882,9 +884,9 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final officialTags = tags.where(tagNames.containsKey).toList();
       final status = statusFromCount(officialTags.length);
       final score = {
-        ReportStatus.bad: 0,
-        ReportStatus.soso: 10,
-        ReportStatus.good: 20
+        ReportStatus.failed: 0,
+        ReportStatus.partial: 10,
+        ReportStatus.passed: 20
       }[status];
 
       final platforms = platformList(tags, tagNames);
@@ -903,8 +905,8 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       subsection = scorePlatforms(
         tagNames,
         (count) => count <= 1
-            ? ReportStatus.bad
-            : (count == 2 ? ReportStatus.soso : ReportStatus.good),
+            ? ReportStatus.failed
+            : (count == 2 ? ReportStatus.partial : ReportStatus.passed),
         tags,
         explanations,
       );
@@ -923,8 +925,8 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       subsection = scorePlatforms(
         tagNames,
         (count) => count == 0
-            ? ReportStatus.bad
-            : (count == 1 ? ReportStatus.soso : ReportStatus.good),
+            ? ReportStatus.failed
+            : (count == 1 ? ReportStatus.partial : ReportStatus.passed),
         tags,
         explanations,
       );
@@ -938,7 +940,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       ],
       0,
       20,
-      ReportStatus.bad,
+      ReportStatus.failed,
     );
   }
 
@@ -1100,9 +1102,9 @@ String _makeSummary(List<_Subsection> subsections,
 }
 
 String reportStatusMarker(ReportStatus status) => const {
-      ReportStatus.good: '[*]',
-      ReportStatus.bad: '[x]',
-      ReportStatus.soso: '[~]'
+      ReportStatus.passed: '[*]',
+      ReportStatus.failed: '[x]',
+      ReportStatus.partial: '[~]'
     }[status];
 
 /// Renders a summary block for sections that can have only a single issue.
@@ -1119,10 +1121,10 @@ String renderSimpleSectionSummary({
       grantedPoints,
       maxPoints,
       maxPoints == grantedPoints
-          ? ReportStatus.good
+          ? ReportStatus.passed
           : grantedPoints == 0
-              ? ReportStatus.bad
-              : ReportStatus.soso,
+              ? ReportStatus.failed
+              : ReportStatus.partial,
     )
   ], basePath: null);
 }

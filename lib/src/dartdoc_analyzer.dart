@@ -44,7 +44,7 @@ ReportSection documentationCoverageSection({
       grantedPoints: grantedPoints,
       maxPoints: 10,
     ),
-    status: accepted ? ReportStatus.good : ReportStatus.bad,
+    status: accepted ? ReportStatus.passed : ReportStatus.failed,
   );
 }
 
@@ -64,6 +64,6 @@ ReportSection dartdocFailedSection([DartdocResult result]) {
       grantedPoints: 0,
       maxPoints: 10,
     ),
-    status: ReportStatus.bad,
+    status: ReportStatus.failed,
   );
 }
