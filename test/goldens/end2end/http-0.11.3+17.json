@@ -112,6 +112,7 @@
         "title": "Follow Dart file conventions",
         "grantedPoints": 10,
         "maxPoints": 20,
+        "status": "failed",
         "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nThe package description is too short.\n</summary>\n\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
       },
       {
@@ -119,6 +120,7 @@
         "title": "Provide documentation",
         "grantedPoints": 0,
         "maxPoints": 10,
+        "status": "failed",
         "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
       },
       {
@@ -126,6 +128,7 @@
         "title": "Support multiple platforms",
         "grantedPoints": 10,
         "maxPoints": 20,
+        "status": "partial",
         "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (**native**, js)\n\nConsider supporting multiple platforms:\n\n<details>\n<summary>\nPackage not compatible with runtime js\n</summary>\n\nBecause:\n* `package:http/http.dart` that imports:\n* `package:http/src/streamed_response.dart` that imports:\n* `package:http/src/base_request.dart` that imports:\n* `package:http/src/client.dart` that imports:\n* `package:http/src/io_client.dart` that imports:\n* `dart:io`\n</details>"
       },
       {
@@ -133,6 +136,7 @@
         "title": "Pass static analysis",
         "grantedPoints": 20,
         "maxPoints": 30,
+        "status": "partial",
         "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 202 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Use collection literals when possible.\n</summary>\n\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/browser_client.dart`\n</details>\n<details>\n<summary>\nINFO: Unnecessary new keyword.\n</summary>\n\n`lib/browser_client.dart:30:17`\n\n```\n   ╷\n30 │   final _xhrs = new Set<HttpRequest>();\n   │                 ^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/browser_client.dart`\n</details>"
       },
       {
@@ -140,7 +144,16 @@
         "title": "Support up-to-date dependencies",
         "grantedPoints": 0,
         "maxPoints": 20,
+        "status": "failed",
         "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run pub outdated: `pub get` failed: \n\n ```\nThe current Dart SDK version is {{sdk-version}}.\n\nBecause http depends on unittest >=0.2.8+2 which requires SDK version <2.0.0, version solving failed.\n```\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
+      },
+      {
+        "id": "null-safety",
+        "title": "Package supports null-safety",
+        "grantedPoints": 0,
+        "maxPoints": 0,
+        "status": "partial",
+        "summary": "### [~] 0/0 points: Package does not opt in to null-safety\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint) is less than 2.12\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
       }
     ]
   }

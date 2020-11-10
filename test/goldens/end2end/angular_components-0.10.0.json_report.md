@@ -65,39 +65,39 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 902 issues. Showing the first 2:
+Found 901 issues. Showing the first 2:
 
 <details>
 <summary>
-ERROR: Evaluation of this constant expression throws an exception.
+ERROR: The method 'dispose' isn't defined for the type '<unknown>'.
 </summary>
 
-`lib/laminate/ruler/dom_ruler.dart:49:38`
+`lib/model/collection/list_tracker.dart:123:9`
 
 ```
-   ╷
-49 │       return Future<Rectangle>.value(const Rectangle(0, 0, 0, 0));
-   │                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╵
+    ╷
+123 │       d.dispose();
+    │         ^^^^^^^
+    ╵
 ```
 
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/laminate/ruler/dom_ruler.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/model/collection/list_tracker.dart`
 </details>
 <details>
 <summary>
-ERROR: Evaluation of this constant expression throws an exception.
+WARNING: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.
 </summary>
 
-`lib/laminate/ruler/dom_ruler.dart:69:52`
+`lib/src/model/selection/noop_selection_model_impl.dart:20:31`
 
 ```
    ╷
-69 │       return Stream<Rectangle>.fromIterable(const [Rectangle(0, 0, 0, 0)]);
-   │                                                    ^^^^^^^^^^^^^^^^^^^^^
+20 │   void notifySelectionChange({added, removed}) {}
+   │                               ^^^^^
    ╵
 ```
 
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/laminate/ruler/dom_ruler.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/model/selection/noop_selection_model_impl.dart`
 </details>
 
 ## 0/20 Support up-to-date dependencies
@@ -119,15 +119,15 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`logging`]|`^0.11.2`|0.11.4|0.11.4|
 |[`meta`]|`^1.0.4`|1.2.3|1.2.3|
 |[`observable`]|`^0.22.1+3`|0.22.2|0.22.2|
-|[`protobuf`]|`^0.10.2`|0.10.8|**1.0.1**|
-|[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.3**|
+|[`protobuf`]|`^0.10.2`|0.10.8|**1.1.0**|
+|[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.5**|
 |[`sass_builder`]|`^2.0.2`|2.1.3|2.1.3|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.40.4|
+|[`analyzer`]|-|0.35.4|0.40.6|
 |[`angular_ast`]|-|0.5.9|1.0.1|
 |[`angular_compiler`]|-|0.4.3|1.0.1|
 |[`args`]|-|1.6.0|1.6.0|
@@ -140,8 +140,8 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`crypto`]|-|2.1.5|2.1.5|
 |[`csslib`]|-|0.14.6+1|0.16.2|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
-|[`dart_internal`]|-|0.1.12-nullsafety|0.1.12-nullsafety|
-|[`dart_style`]|-|1.2.4|1.3.8|
+|[`dart_internal`]|-|0.1.12-nullsafety.1|0.1.12-nullsafety.1|
+|[`dart_style`]|-|1.2.4|1.3.9|
 |[`front_end`]|-|0.1.14|0.1.29|
 |[`glob`]|-|1.2.0|1.2.0|
 |[`http`]|-|0.12.2|0.12.2|
@@ -149,18 +149,18 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`json_annotation`]|-|2.4.0|3.1.0|
 |[`kernel`]|-|0.3.14|0.3.29|
 |[`matcher`]|-|0.12.9|0.12.9|
-|[`node_interop`]|-|1.1.1|1.1.1|
+|[`node_interop`]|-|1.2.0|1.2.0|
 |[`node_io`]|-|1.1.1|1.1.1|
 |[`package_config`]|-|1.9.3|1.9.3|
 |[`package_resolver`]|-|1.0.10|1.0.10|
 |[`pedantic`]|-|1.9.2|1.9.2|
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.5|0.1.5|
-|[`sass`]|-|1.27.0|1.27.0|
-|[`source_gen`]|-|0.9.4+4|0.9.7+1|
+|[`sass`]|-|1.29.0|1.29.0|
+|[`source_gen`]|-|0.9.4+4|0.9.8|
 |[`source_maps`]|-|0.10.9|0.10.9|
 |[`source_span`]|-|1.7.0|1.7.0|
-|[`stack_trace`]|-|1.9.5|1.9.5|
+|[`stack_trace`]|-|1.9.6|1.9.6|
 |[`stream_transform`]|-|1.2.0|1.2.0|
 |[`string_scanner`]|-|1.0.5|1.0.5|
 |[`term_glyph`]|-|1.1.0|1.1.0|
@@ -266,3 +266,15 @@ The constraint `^2.1.0` on angular_forms does not support the latest published v
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
+
+## 0/0 Package supports null-safety
+
+### [~] 0/0 points: Package does not opt in to null-safety
+
+<details>
+<summary>
+Package language version (indicated by the sdk constraint) is less than 2.12
+</summary>
+
+Consider [migrating](https://dart.dev/null-safety/migration-guide).
+</details>

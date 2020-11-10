@@ -45,7 +45,7 @@ Run `pub get` for more information.
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 59 issues. Showing the first 2:
+Found 84 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -65,15 +65,15 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 </details>
 <details>
 <summary>
-ERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Function(Object)').
+ERROR: Non-nullable instance field '_header' must be initialized.
 </summary>
 
-`lib/skiplist.dart:77:14`
+`lib/skiplist.dart:48:3`
 
 ```
    ╷
-77 │   V operator [](K key) {
-   │              ^^
+48 │   SkipList({double this.p: 1 / 4, int this.maxLevel: 8}) {
+   │   ^^^^^^^^
    ╵
 ```
 
@@ -84,7 +84,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Sdk constraint doesn't support current Dart version 2.10.2. Cannot run `pub outdated`.
+* Sdk constraint doesn't support current Dart version 2.12.0-0.0.dev. Cannot run `pub outdated`.
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
@@ -96,3 +96,15 @@ Pubspec.yaml does not have an sdk version constraint.
 Try adding an sdk constraint to your `pubspec.yaml`
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
+
+## 0/0 Package supports null-safety
+
+### [x] 0/0 points: Unable to detect null safety
+
+<details>
+<summary>
+Package resolution failed. Could not determine null-safety.
+</summary>
+
+Run `pub get` for more information.
+</details>

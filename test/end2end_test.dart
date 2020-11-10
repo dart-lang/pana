@@ -34,15 +34,15 @@ void main() {
     Directory(tempDir).deleteSync(recursive: true);
   });
 
-  void _verifyPackage(String fileName, String package, String version) {
+  void _verifyPackage(String package, String version) {
+    final filename = '$package-$version.json';
     group('end2end: $package $version', () {
       Map<String, dynamic> actualMap;
 
       setUpAll(() async {
-        var summary = await analyzer.inspectPackage(
-          package,
-          version: version,
-        );
+        var summary = await analyzer.inspectPackage(package,
+            version: version,
+            options: InspectOptions(nullSafetySectionEnabledBeforeOptin: true));
 
         // Fixed version strings to reduce changes on each upgrades.
         assert(summary.runtimeInfo.panaVersion == packageVersion);
@@ -90,7 +90,7 @@ void main() {
             RegExp(r'Error on line 5, column 1 of .*pubspec.yaml'),
             r'Error on line 5, column 1 of $TEMPDIR/pubspec.yaml');
 
-        expectMatchesGoldenFile(jsonNoTempDir, p.join(_goldenDir, fileName));
+        expectMatchesGoldenFile(jsonNoTempDir, p.join(_goldenDir, filename));
       });
 
       test('Report matches known good', () {
@@ -105,7 +105,7 @@ void main() {
               .join('\n\n');
           // For readability we output the report in its own file.
           expectMatchesGoldenFile(
-              renderedSections, p.join(_goldenDir, '${fileName}_report.md'));
+              renderedSections, p.join(_goldenDir, '${filename}_report.md'));
         }
       });
 
@@ -118,20 +118,21 @@ void main() {
     }, timeout: const Timeout.factor(2));
   }
 
-  _verifyPackage(
-      'angular_components-0.10.0.json', 'angular_components', '0.10.0');
-  _verifyPackage('http-0.11.3-17.json', 'http', '0.11.3+17');
-  _verifyPackage('pub_server-0.1.4-2.json', 'pub_server', '0.1.4+2');
-  _verifyPackage('skiplist-0.1.0.json', 'skiplist', '0.1.0');
-  _verifyPackage('stream-2.0.1.json', 'stream', '2.0.1');
-  _verifyPackage('fs_shim-0.7.1.json', 'fs_shim', '0.7.1');
+  _verifyPackage('angular_components', '0.10.0');
+  _verifyPackage('http', '0.11.3+17');
+  _verifyPackage('pub_server', '0.1.4+2');
+  _verifyPackage('skiplist', '0.1.0');
+  _verifyPackage('stream', '2.0.1');
+  _verifyPackage('fs_shim', '0.7.1');
   // mime_type 0.3.2 has no recognized LICENSE file
-  _verifyPackage('mime_type-0.3.2.json', 'mime_type', '0.3.2');
+  _verifyPackage('mime_type', '0.3.2');
   // bulma_min 0.7.4 has no dart files, only assets
-  _verifyPackage('bulma_min-0.7.4.json', 'bulma_min', '0.7.4');
+  _verifyPackage('bulma_min', '0.7.4');
 
   // packages with bad content
-  _verifyPackage('syntax-0.2.0.json', 'syntax', '0.2.0');
+  _verifyPackage('syntax', '0.2.0');
+  _verifyPackage('_dummy_pkg', '1.0.0-null-safety.0');
+  _verifyPackage('_dummy_pkg', '1.0.0-null-safety.1');
 }
 
 Matcher isSemVer = predicate<String>((String versionString) {

@@ -52,7 +52,7 @@ Run `pub get` for more information.
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 618 issues. Showing the first 2:
+Found 838 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -93,7 +93,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 <details>
 <summary>
-Sdk constraint doesn't support current Dart version 2.10.2. Cannot run `pub outdated`.
+Sdk constraint doesn't support current Dart version 2.12.0-0.0.dev. Cannot run `pub outdated`.
 </summary>
 
 `pubspec.yaml:8:8`
@@ -111,7 +111,7 @@ Sdk constraint doesn't support current Dart version 2.10.2. Cannot run `pub outd
 
 <details>
 <summary>
-Sdk constraint doesn't support current Dart version 2.10.2.
+Sdk constraint doesn't support current Dart version 2.12.0-0.0.dev.
 </summary>
 
 `pubspec.yaml:8:8`
@@ -126,3 +126,15 @@ Sdk constraint doesn't support current Dart version 2.10.2.
 Try widening the upper boundary of the constraint.
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
+
+## 0/0 Package supports null-safety
+
+### [x] 0/0 points: Unable to detect null safety
+
+<details>
+<summary>
+Package resolution failed. Could not determine null-safety.
+</summary>
+
+Run `pub get` for more information.
+</details>
