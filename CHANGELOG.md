@@ -1,3 +1,7 @@
+## 0.14.6
+
+* Added a report section about null safety.
+
 ## 0.14.5
 
 * Upgraded `package:analyzer` and `package:markdown`.
