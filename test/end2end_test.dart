@@ -40,10 +40,9 @@ void main() {
       Map<String, dynamic> actualMap;
 
       setUpAll(() async {
-        var summary = await analyzer.inspectPackage(
-          package,
-          version: version,
-        );
+        var summary = await analyzer.inspectPackage(package,
+            version: version,
+            options: InspectOptions(nullSafetySectionEnabledBeforeOptin: true));
 
         // Fixed version strings to reduce changes on each upgrades.
         assert(summary.runtimeInfo.panaVersion == packageVersion);

@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:pana/src/create_report.dart';
 import 'package:pana/src/package_context.dart';
 import 'package:path/path.dart' as path;
@@ -39,7 +40,7 @@ class InspectOptions {
     this.isInternal = false,
     this.lineLength,
     this.analysisOptionsUri,
-    this.nullSafetySectionEnabledBeforeOptin = true,
+    this.nullSafetySectionEnabledBeforeOptin = false,
   });
 }
 

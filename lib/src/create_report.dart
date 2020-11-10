@@ -788,6 +788,9 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
             'Package declares support for null-safety, but there are issues',
             [
               ...explanations.map(_explanationToIssue).toList(),
+              // TODO(sigurdm): This is no longer enough, because `pub outdated`
+              // got a more simplistic analysis. We need a better explanation
+              // here.
               _Issue('For more information',
                   suggestion: 'Try running `pub outdated --mode=null-safety`.\n'
                       'Be sure to read the [migration guide](https://dart.dev/null-safety/migration-guide).')

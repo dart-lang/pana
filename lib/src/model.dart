@@ -494,10 +494,14 @@ enum ReportStatus {
   passed,
 }
 
-ReportStatus summarizeStatuses(Iterable<ReportStatus> ss) {
-  return ss.fold(ReportStatus.passed, minStatus);
+/// Returns the lowest of [statuses] to represent them.
+ReportStatus summarizeStatuses(Iterable<ReportStatus> statuses) {
+  return statuses.fold(ReportStatus.passed, minStatus);
 }
 
+/// Returns the lowest status of [a] and [b] ranked in the order of the enum.
+///
+/// Example: `minStatus(ReportStatus.failed, ReportStatus.partial) == ReportStatus.partial`.
 ReportStatus minStatus(ReportStatus a, ReportStatus b) {
   return ReportStatus.values[min(a.index, b.index)];
 }
