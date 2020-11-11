@@ -502,7 +502,10 @@ ReportStatus summarizeStatuses(Iterable<ReportStatus> statuses) {
 /// Returns the lowest status of [a] and [b] ranked in the order of the enum.
 ///
 /// Example: `minStatus(ReportStatus.failed, ReportStatus.partial) == ReportStatus.partial`.
+///
+/// Returns `null` when any of them is `null` (may be the case with old data).
 ReportStatus minStatus(ReportStatus a, ReportStatus b) {
+  if (a == null || b == null) return null;
   return ReportStatus.values[min(a.index, b.index)];
 }
 
@@ -518,7 +521,6 @@ class ReportSection {
   final int maxPoints;
 
   /// Is this section considered passing.
-  @JsonKey(unknownEnumValue: ReportStatus.passed)
   final ReportStatus status;
 
   /// Should describe the overall goals in a few lines, followed by

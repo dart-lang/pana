@@ -199,8 +199,7 @@ ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) {
     grantedPoints: json['grantedPoints'] as int,
     maxPoints: json['maxPoints'] as int,
     summary: json['summary'] as String,
-    status: _$enumDecodeNullable(_$ReportStatusEnumMap, json['status'],
-        unknownValue: ReportStatus.passed),
+    status: _$enumDecodeNullable(_$ReportStatusEnumMap, json['status']),
   );
 }
 
