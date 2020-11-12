@@ -267,13 +267,15 @@ The constraint `^2.1.0` on angular_forms does not support the latest published v
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Package supports null-safety
+## 0/0 Support sound null-safety
 
-### [~] 0/0 points: Package does not opt in to null-safety
+### [~] 0/0 points: Package does not opt in to null-safety.
+
+Packages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.
 
 <details>
 <summary>
-Package language version (indicated by the sdk constraint) is less than 2.12
+Package language version (indicated by the sdk constraint `>=2.1.0-dev.5.0 <3.0.0`) is less than 2.12.
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).

@@ -103,13 +103,15 @@ Because http depends on unittest >=0.2.8+2 which requires SDK version <2.0.0, ve
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Package supports null-safety
+## 0/0 Support sound null-safety
 
-### [~] 0/0 points: Package does not opt in to null-safety
+### [~] 0/0 points: Package does not opt in to null-safety.
+
+Packages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.
 
 <details>
 <summary>
-Package language version (indicated by the sdk constraint) is less than 2.12
+Package language version (indicated by the sdk constraint `>=2.0.0-dev.61.0 <3.0.0`) is less than 2.12.
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).
