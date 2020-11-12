@@ -92,9 +92,11 @@ The constraint `^2.0.0` on retry does not support the latest published version `
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Package supports null-safety
+## 0/0 Support sound null-safety
 
-### [x] 0/0 points: Package declares support for null-safety, but there are issues
+### [x] 0/0 points: Package declares support for null-safety, but there are issues.
+
+Packages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.
 
 <details>
 <summary>

@@ -127,7 +127,7 @@ Try widening the upper boundary of the constraint.
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Package supports null-safety
+## 0/0 Support sound null-safety
 
 ### [x] 0/0 points: Unable to detect null safety
 

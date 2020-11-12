@@ -69,7 +69,7 @@
       },
       {
         "id": "null-safety",
-        "title": "Package supports null-safety",
+        "title": "Support sound null-safety",
         "grantedPoints": 0,
         "maxPoints": 0,
         "status": "failed",

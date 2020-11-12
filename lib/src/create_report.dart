@@ -778,14 +778,18 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
     if (pubspec.sdkConstraintStatus.hasOptedIntoNullSafety) {
       if (nullSafetyTags.contains('is:null-safe')) {
         subsection = _Subsection(
-            'Package and dependencies are fully migrated to null-safety',
+            'Package and dependencies are fully migrated to null-safety, '
+            'and will be awarded additional points in a planned future revision '
+            'of the pub.dev points model.',
             explanations.map(_explanationToIssue).toList(),
             maxPoints,
             maxPoints,
             ReportStatus.passed);
       } else {
         subsection = _Subsection(
-            'Package declares support for null-safety, but there are issues',
+            'Package declares support for null-safety, but there are issues.\n\n'
+            'Packages with full null-safety support will be awarded additional '
+            'points in a planned future revision of the pub.dev points model.',
             [
               ...explanations.map(_explanationToIssue).toList(),
               // TODO(sigurdm): This is no longer enough, because `pub outdated`
@@ -801,10 +805,13 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
       }
     } else {
       subsection = _Subsection(
-          'Package does not opt in to null-safety',
+          'Package does not opt in to null-safety.\n\n'
+          'Packages with full null-safety support will be awarded additional '
+          'points in a planned future revision of the pub.dev points model.',
           [
             _Issue(
-              'Package language version (indicated by the sdk constraint) is less than 2.12',
+              'Package language version (indicated by the sdk constraint '
+              '`${pubspec.dartSdkConstraint}`) is less than 2.12.',
               suggestion:
                   'Consider [migrating](https://dart.dev/null-safety/migration-guide).',
             )
@@ -826,7 +833,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
     );
   }
   return _makeSection(
-    title: 'Package supports null-safety',
+    title: 'Support sound null-safety',
     maxPoints: maxPoints,
     id: ReportSectionId.nullSafety,
     subsections: [subsection],

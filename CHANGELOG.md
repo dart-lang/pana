@@ -1,3 +1,7 @@
+## 0.14.7
+
+* Improvements to null safety section.
+
 ## 0.14.6+1
 
 * Fixed NPE on missing `ReportStatus` and do not backfill automatically.
