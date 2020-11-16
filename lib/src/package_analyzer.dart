@@ -3,13 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:logging/logging.dart';
 import 'package:pana/src/create_report.dart';
 import 'package:pana/src/package_context.dart';
 import 'package:path/path.dart' as path;
-import 'package:pub_semver/pub_semver.dart';
 
 import 'download_utils.dart';
 import 'license.dart';
@@ -156,9 +154,7 @@ class PackageAnalyzer {
         tagger.sdkTags(tags, explanations);
         tagger.flutterPlatformTags(tags, explanations);
         tagger.runtimeTags(tags, explanations);
-        if (_sdkSupportsNullSafety) {
-          tagger.nullSafetyTags(tags, explanations);
-        }
+        tagger.nullSafetyTags(tags, explanations);
       }
     }
 
@@ -182,7 +178,3 @@ class PackageAnalyzer {
     );
   }
 }
-
-final _sdkVersion = Version.parse(Platform.version.split(' ').first);
-final _sdkSupportsNullSafety =
-    Version(_sdkVersion.major, _sdkVersion.minor, 0) >= Version.parse('2.12.0');

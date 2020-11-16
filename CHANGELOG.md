@@ -1,3 +1,7 @@
+## 0.14.8
+
+* Tag packages with `is:null-safe` regardless whether the current SDK support.
+
 ## 0.14.7
 
 * Improvements to null safety section.
