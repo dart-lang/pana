@@ -965,7 +965,7 @@ class Tagger {
               if (languageVersionToken == null) return null;
               // dart:ui has no package name. So we cannot trivially look it up in
               // the allowed experiments. We just assume it is opted in.
-              if (library == Uri.parse('dart:ui')) return null;
+              if (!library.isScheme('package')) return null;
               if (!isNullSafety(
                   Version(languageVersionToken.major,
                       languageVersionToken.minor, 0),
