@@ -134,7 +134,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |:-|:-|:-|:-|
 |[`collection`]|-|1.14.13|1.14.13|
 |[`http_parser`]|-|3.1.4|3.1.4|
-|[`meta`]|-|1.2.3|1.2.3|
+|[`meta`]|-|1.2.4|1.2.4|
 |[`mime`]|-|0.9.7|0.9.7|
 |[`pedantic`]|-|1.9.2|1.9.2|
 |[`source_span`]|-|1.7.0|1.7.0|

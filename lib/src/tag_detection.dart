@@ -80,6 +80,7 @@ import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
+import 'package:pana/src/null_safety.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -733,10 +734,10 @@ class _NullSafetyViolationFinder {
               if (unit == null) continue;
               final languageVersionToken = unit.languageVersionToken;
               if (languageVersionToken == null) continue;
-              final version = Version.parse(
-                '${languageVersionToken.major}.${languageVersionToken.minor}.0',
-              );
-              if (version < _firstVersionWithNullSafety) {
+              if (!isNullSafety(
+                  Version(languageVersionToken.major,
+                      languageVersionToken.minor, 0),
+                  packageName)) {
                 return (path) => Explanation(
                       'Package is not null safe',
                       'Because:\n${_PackageGraph.formatPath(path)} where $file is opting out from null-safety.',
@@ -753,7 +754,6 @@ class _NullSafetyViolationFinder {
         _noOptoutViolationFinder.findViolation(rootPackageName);
   }
 
-  static final _firstVersionWithNullSafety = Version.parse('2.12.0');
   static const nullSafeTag = 'is:null-safe';
 }
 
