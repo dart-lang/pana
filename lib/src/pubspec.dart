@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:pana/src/null_safety.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' as pubspek show Pubspec;
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
@@ -103,7 +104,7 @@ class Pubspec {
       .any((d) => d is GitDependency && (d.ref == null || d.ref.length < 40));
 
   SdkConstraintStatus get sdkConstraintStatus =>
-      SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
+      SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk'], name);
 
   VersionConstraint get dartSdkConstraint => _inner.environment['sdk'];
   VersionConstraint get flutterSdkConstraint => _inner.environment['flutter'];
@@ -121,7 +122,6 @@ class Pubspec {
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
 final _range2Latest = VersionConstraint.parse('>=2.9999.0 <3.0.0');
 final _futureRange = VersionConstraint.parse('>=3.0.0');
-final _firstNullSafetyVersion = Version.parse('2.12.0');
 
 /// Detailed support coverage for the SDK constraint.
 class SdkConstraintStatus {
@@ -143,7 +143,8 @@ class SdkConstraintStatus {
     this.hasOptedIntoNullSafety,
   });
 
-  factory SdkConstraintStatus.fromSdkVersion(VersionConstraint constraint) {
+  factory SdkConstraintStatus.fromSdkVersion(
+      VersionConstraint constraint, String packageName) {
     final hasConstraint =
         constraint != null && !constraint.isAny && !constraint.isEmpty;
     final enablesDart2 = hasConstraint && constraint.allowsAny(_range2);
@@ -152,8 +153,7 @@ class SdkConstraintStatus {
     final hasOptedIntoNullSafety = hasConstraint &&
         constraint is VersionRange &&
         constraint.min != null &&
-        Version(constraint.min.major, constraint.min.minor, 0) >=
-            _firstNullSafetyVersion;
+        isNullSafety(constraint.min, packageName);
     return SdkConstraintStatus._(
       hasConstraint: hasConstraint,
       enablesDart2Latest: hasConstraint && constraint.allowsAny(_range2Latest),
