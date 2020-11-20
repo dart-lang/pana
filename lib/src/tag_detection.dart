@@ -699,12 +699,34 @@ class Tagger {
   final AnalysisSession _session;
   final _PubspecCache _pubspecCache;
   final bool _isBinaryOnly;
+
+  /// The `lib/<packageName>.dart` library, or `null` if not present.
+  final Uri _primaryLibrary;
+
+  /// All libraries in `lib/` except those in `lib/src/`.
+  final List<Uri> _publicLibraries;
+
+  /// This is:
+  ///  * _primaryLibrary, if one exists,
+  ///  * _publicLibraries, if no _primaryLibrary exists,
+  ///  * all libraries, if no _publicLibraries exists.
+  ///
+  /// TODO(jonasfj): We should be using [_primaryLibrary] (with fallback to
+  ///     [_publicLibraries]) most places instead, and remove this property.
+  ///     If a package has no public libraries, then we should perhaps avoid
+  ///     assigning any tags or assign all tags.
   final List<Uri> _topLibraries;
   final _PackageGraph _packageGraph;
 
-  Tagger._(this.packageName, this._session, _PubspecCache pubspecCache,
-      this._isBinaryOnly, this._topLibraries)
-      : _pubspecCache = pubspecCache,
+  Tagger._(
+    this.packageName,
+    this._session,
+    _PubspecCache pubspecCache,
+    this._isBinaryOnly,
+    this._primaryLibrary,
+    this._topLibraries,
+    this._publicLibraries,
+  )   : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
 
   /// Assumes that `pub get` has been run.
@@ -754,7 +776,11 @@ class Tagger {
       session,
       pubspecCache,
       isBinaryOnly,
+      primaryLibrary,
       topLibraries,
+      nonSrcDartFiles
+          .map((name) => Uri.parse('package:${pubspec.name}/$name'))
+          .toList(),
     );
   }
 
@@ -926,7 +952,7 @@ class Tagger {
   /// - The package and all its transitive dependencies have opted-in by
   ///   specifying a lower dart sdk bound >= 2.12.
   ///
-  /// - No libraries in the import closure of _topLibraries opt out of
+  /// - No libraries in the import closure of [_publicLibraries] opt out of
   ///   null-safety. (For each runtime in [Runtime._recognizedRuntimes]).
   void nullSafetyTags(List<String> tags, List<Explanation> explanations) {
     const _nullSafeTag = 'is:null-safe';
@@ -983,13 +1009,19 @@ class Tagger {
             },
           );
 
-          for (final topLibrary in _topLibraries) {
+          for (final library in _publicLibraries) {
             final nullSafetyResult =
-                optOutViolationFinder.findViolation(topLibrary);
+                optOutViolationFinder.findViolation(library);
             if (nullSafetyResult != null) {
               explanations.add(nullSafetyResult);
               foundIssues = true;
             }
+          }
+          // If we have a problem one runtime, there is no need to explore the
+          // other runtimes... Also if we do, we are likely to just duplicate
+          // explanations.
+          if (foundIssues) {
+            break;
           }
         }
       }
