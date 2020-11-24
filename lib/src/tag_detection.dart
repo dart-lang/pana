@@ -700,19 +700,16 @@ class Tagger {
   final _PubspecCache _pubspecCache;
   final bool _isBinaryOnly;
 
-  /// The `lib/<packageName>.dart` library, or `null` if not present.
-  final Uri _primaryLibrary;
-
   /// All libraries in `lib/` except those in `lib/src/`.
   final List<Uri> _publicLibraries;
 
   /// This is:
-  ///  * _primaryLibrary, if one exists,
+  ///  * `lib/<packageName>.dart`, if it exists,
   ///  * _publicLibraries, if no _primaryLibrary exists,
   ///  * all libraries, if no _publicLibraries exists.
   ///
-  /// TODO(jonasfj): We should be using [_primaryLibrary] (with fallback to
-  ///     [_publicLibraries]) most places instead, and remove this property.
+  /// TODO(jonasfj): We should be using `lib/<packageName>.dart` (with fallback
+  ///     to [_publicLibraries]) most places instead, and remove this property.
   ///     If a package has no public libraries, then we should perhaps avoid
   ///     assigning any tags or assign all tags.
   final List<Uri> _topLibraries;
@@ -723,7 +720,6 @@ class Tagger {
     this._session,
     _PubspecCache pubspecCache,
     this._isBinaryOnly,
-    this._primaryLibrary,
     this._topLibraries,
     this._publicLibraries,
   )   : _pubspecCache = pubspecCache,
@@ -780,7 +776,6 @@ class Tagger {
       session,
       pubspecCache,
       isBinaryOnly,
-      primaryLibrary,
       topLibraries,
       publicLibraries,
     );
