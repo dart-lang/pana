@@ -742,7 +742,8 @@ class Tagger {
     final pubspec = pubspecFromDir(packageDir);
 
     final libDartFiles = _dartFilesFromLib(packageDir);
-    final nonSrcDartFiles = libDartFiles.where((p) => !p.startsWith('src/'));
+    final nonSrcDartFiles =
+        libDartFiles.where((p) => !p.startsWith('src/')).toList();
 
     Uri primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
@@ -771,6 +772,9 @@ class Tagger {
         : <String>[];
     final isBinaryOnly = nonSrcDartFiles.isEmpty && allBinFiles.isNotEmpty;
 
+    final publicLibraries = nonSrcDartFiles
+        .map((s) => Uri.parse('package:${pubspec.name}/$s'))
+        .toList();
     return Tagger._(
       pubspec.name,
       session,
@@ -778,9 +782,7 @@ class Tagger {
       isBinaryOnly,
       primaryLibrary,
       topLibraries,
-      nonSrcDartFiles
-          .map((name) => Uri.parse('package:${pubspec.name}/$name'))
-          .toList(),
+      publicLibraries,
     );
   }
 
