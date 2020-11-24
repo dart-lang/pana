@@ -693,82 +693,36 @@ class _Sdk {
   static List<_Sdk> knownSdks = [dart, flutter];
 }
 
-/// Decides if a package is null-safe.
-///
-/// A package is said to null-safety compliant if:
-///
-/// - The package has opted-in by specifying a lower dart sdk bound >= 2.12
-/// - No libraries in the package opts out of the null-safety enabled language
-///   version.
-/// - All (non-dev) dependencies in the latest version resolvable by pub are
-///   fully null-safety-compliant by this definition.
-
-class _NullSafetyViolationFinder {
-  final _PathFinder<String> _languageVersionViolationFinder;
-  final _PathFinder<String> _noOptoutViolationFinder;
-
-  _NullSafetyViolationFinder(_PackageGraph packageGraph,
-      _PubspecCache pubspecCache, AnalysisSession analysisSession)
-      : _languageVersionViolationFinder = _PathFinder<String>(packageGraph, (
-          String packageDir,
-        ) {
-          final pubspec = pubspecCache.pubspecOfPackage(packageDir);
-
-          return pubspec.sdkConstraintStatus.hasOptedIntoNullSafety
-              ? null
-              : (path) => Explanation(
-                    'Package is not null safe',
-                    'Because:\n${_PackageGraph.formatPath(path)} '
-                        'that doesn\'t opt in to null safety',
-                    tag: nullSafeTag,
-                  );
-        }),
-        _noOptoutViolationFinder = _PathFinder(
-          packageGraph,
-          (packageName) {
-            for (final file
-                in _dartFilesFromLib(pubspecCache._packageDir(packageName))) {
-              final uri =
-                  Uri.parse('package:$packageName/${path.toUri(file).path}');
-              final unit = _parsedUnitFromUri(analysisSession, uri);
-              if (unit == null) continue;
-              final languageVersionToken = unit.languageVersionToken;
-              if (languageVersionToken == null) continue;
-              if (!isNullSafety(
-                  Version(languageVersionToken.major,
-                      languageVersionToken.minor, 0),
-                  packageName)) {
-                return (path) => Explanation(
-                      'Package is not null safe',
-                      'Because:\n${_PackageGraph.formatPath(path)} where $file is opting out from null-safety.',
-                      tag: nullSafeTag,
-                    );
-              }
-            }
-            return null;
-          },
-        );
-
-  Explanation findNullSafetyViolation(String rootPackageName) {
-    return _languageVersionViolationFinder.findViolation(rootPackageName) ??
-        _noOptoutViolationFinder.findViolation(rootPackageName);
-  }
-
-  static const nullSafeTag = 'is:null-safe';
-}
-
 /// Calculates the tags for the package residing in a given directory.
 class Tagger {
   final String packageName;
   final AnalysisSession _session;
   final _PubspecCache _pubspecCache;
   final bool _isBinaryOnly;
+
+  /// All libraries in `lib/` except those in `lib/src/`.
+  final List<Uri> _publicLibraries;
+
+  /// This is:
+  ///  * `lib/<packageName>.dart`, if it exists,
+  ///  * _publicLibraries, if no _primaryLibrary exists,
+  ///  * all libraries, if no _publicLibraries exists.
+  ///
+  /// TODO(jonasfj): We should be using `lib/<packageName>.dart` (with fallback
+  ///     to [_publicLibraries]) most places instead, and remove this property.
+  ///     If a package has no public libraries, then we should perhaps avoid
+  ///     assigning any tags or assign all tags.
   final List<Uri> _topLibraries;
   final _PackageGraph _packageGraph;
 
-  Tagger._(this.packageName, this._session, _PubspecCache pubspecCache,
-      this._isBinaryOnly, this._topLibraries)
-      : _pubspecCache = pubspecCache,
+  Tagger._(
+    this.packageName,
+    this._session,
+    _PubspecCache pubspecCache,
+    this._isBinaryOnly,
+    this._topLibraries,
+    this._publicLibraries,
+  )   : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
 
   /// Assumes that `pub get` has been run.
@@ -784,7 +738,8 @@ class Tagger {
     final pubspec = pubspecFromDir(packageDir);
 
     final libDartFiles = _dartFilesFromLib(packageDir);
-    final nonSrcDartFiles = libDartFiles.where((p) => !p.startsWith('src/'));
+    final nonSrcDartFiles =
+        libDartFiles.where((p) => !p.startsWith('src/')).toList();
 
     Uri primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
@@ -813,12 +768,16 @@ class Tagger {
         : <String>[];
     final isBinaryOnly = nonSrcDartFiles.isEmpty && allBinFiles.isNotEmpty;
 
+    final publicLibraries = nonSrcDartFiles
+        .map((s) => Uri.parse('package:${pubspec.name}/$s'))
+        .toList();
     return Tagger._(
       pubspec.name,
       session,
       pubspecCache,
       isBinaryOnly,
       topLibraries,
+      publicLibraries,
     );
   }
 
@@ -983,23 +942,96 @@ class Tagger {
     }
   }
 
+  /// Decides if a package is null-safe.
+  ///
+  /// A package is marked null-safety compliant if:
+  ///
+  /// - The package and all its transitive dependencies have opted-in by
+  ///   specifying a lower dart sdk bound >= 2.12.
+  ///
+  /// - No libraries in the import closure of [_publicLibraries] opt out of
+  ///   null-safety. (For each runtime in [Runtime._recognizedRuntimes]).
   void nullSafetyTags(List<String> tags, List<Explanation> explanations) {
+    const _nullSafeTag = 'is:null-safe';
+
     try {
-      final nullSafety =
-          _NullSafetyViolationFinder(_packageGraph, _pubspecCache, _session);
-      final nullSafetyResult = nullSafety.findNullSafetyViolation(packageName);
-      if (nullSafetyResult != null) {
-        explanations.add(nullSafetyResult);
+      var foundIssues = false;
+
+      final sdkConstraintFinder = _PathFinder<String>(_packageGraph, (
+        String packageDir,
+      ) {
+        final pubspec = _pubspecCache.pubspecOfPackage(packageDir);
+
+        return pubspec.sdkConstraintStatus.hasOptedIntoNullSafety
+            ? null
+            : (path) => Explanation(
+                  'Package is not null safe',
+                  'Because:\n${_PackageGraph.formatPath(path)} '
+                      'that doesn\'t opt in to null safety',
+                  tag: _nullSafeTag,
+                );
+      });
+
+      final sdkConstraintResult =
+          sdkConstraintFinder.findViolation(packageName);
+      if (sdkConstraintResult != null) {
+        explanations.add(sdkConstraintResult);
+        foundIssues = true;
       } else {
-        return tags.add(_NullSafetyViolationFinder.nullSafeTag);
+        for (final runtime in Runtime._recognizedRuntimes) {
+          final optOutViolationFinder = _PathFinder<Uri>(
+            LibraryGraph(_session, runtime.declaredVariables),
+            (library) {
+              final unit = _parsedUnitFromUri(_session, library);
+              if (unit == null) return null;
+              final languageVersionToken = unit.languageVersionToken;
+              if (languageVersionToken == null) return null;
+              // dart:ui has no package name. So we cannot trivially look it up in
+              // the allowed experiments. We just assume it is opted in.
+              if (!library.isScheme('package')) return null;
+              if (!isNullSafety(
+                  Version(languageVersionToken.major,
+                      languageVersionToken.minor, 0),
+                  library.isScheme('package')
+                      ? _pubspecCache.packageName(library)
+                      : null)) {
+                return (path) => Explanation(
+                      'Package is not null safe',
+                      'Because:\n${LibraryGraph.formatPath(path)} where $library '
+                          'is opting out from null-safety.',
+                      tag: _nullSafeTag,
+                    );
+              }
+              return null;
+            },
+          );
+
+          for (final library in _publicLibraries) {
+            final nullSafetyResult =
+                optOutViolationFinder.findViolation(library);
+            if (nullSafetyResult != null) {
+              explanations.add(nullSafetyResult);
+              foundIssues = true;
+            }
+          }
+          // If we have a problem one runtime, there is no need to explore the
+          // other runtimes... Also if we do, we are likely to just duplicate
+          // explanations.
+          if (foundIssues) {
+            break;
+          }
+        }
+      }
+
+      if (!foundIssues) {
+        tags.add(_nullSafeTag);
       }
     } on _TagException catch (e) {
       explanations.add(Explanation(
         'Tag detection failed.',
         e.message,
-        tag: _NullSafetyViolationFinder.nullSafeTag,
+        tag: _nullSafeTag,
       ));
-      return;
     }
   }
 }

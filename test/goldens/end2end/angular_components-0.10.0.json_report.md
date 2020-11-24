@@ -141,16 +141,17 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`csslib`]|-|0.14.6+1|0.16.2|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
 |[`dart_internal`]|-|0.1.12-nullsafety.1|0.1.12-nullsafety.1|
-|[`dart_style`]|-|1.2.4|1.3.9|
+|[`dart_style`]|-|1.2.4|1.3.10|
+|[`file`]|-|5.2.1|5.2.1|
 |[`front_end`]|-|0.1.14|0.1.29|
 |[`glob`]|-|1.2.0|1.2.0|
 |[`http`]|-|0.12.2|0.12.2|
 |[`http_parser`]|-|3.1.4|3.1.4|
-|[`json_annotation`]|-|2.4.0|3.1.0|
+|[`json_annotation`]|-|2.4.0|3.1.1|
 |[`kernel`]|-|0.3.14|0.3.29|
 |[`matcher`]|-|0.12.9|0.12.9|
-|[`node_interop`]|-|1.2.0|1.2.0|
-|[`node_io`]|-|1.1.1|1.1.1|
+|[`node_interop`]|-|1.2.1|1.2.1|
+|[`node_io`]|-|1.2.0|1.2.0|
 |[`package_config`]|-|1.9.3|1.9.3|
 |[`package_resolver`]|-|1.0.10|1.0.10|
 |[`pedantic`]|-|1.9.2|1.9.2|
@@ -203,6 +204,7 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 [`dart2_constant`]: https://pub.dev/packages/dart2_constant
 [`dart_internal`]: https://pub.dev/packages/dart_internal
 [`dart_style`]: https://pub.dev/packages/dart_style
+[`file`]: https://pub.dev/packages/file
 [`front_end`]: https://pub.dev/packages/front_end
 [`glob`]: https://pub.dev/packages/glob
 [`http`]: https://pub.dev/packages/http

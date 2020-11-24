@@ -6,7 +6,7 @@ import 'package:pub_semver/pub_semver.dart';
 
 bool isNullSafety(Version version, String packageName) =>
     Version(version.major, version.minor, 0) >=
-    (_allowedExperimentPackages.contains(packageName)
+    (packageName == null || _allowedExperimentPackages.contains(packageName)
         ? _firstVersionWithNullSafetyAllowedExperiment
         : _firstVersionWithNullSafety);
 

@@ -130,7 +130,6 @@ void main() {
   _verifyPackage('bulma_min', '0.7.4');
 
   // packages with bad content
-  _verifyPackage('syntax', '0.2.0');
   _verifyPackage('_dummy_pkg', '1.0.0-null-safety.0');
   _verifyPackage('_dummy_pkg', '1.0.0-null-safety.1');
 }

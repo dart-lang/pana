@@ -557,7 +557,7 @@ name: my_package
       expectTagging(tagger.nullSafetyTags,
           tags: ['is:null-safe'], explanations: isEmpty);
     });
-    test('opting a library out (even one not reachahble from primary) fails',
+    test('opting a library not reachable from public out still gets tag',
         () async {
       final descriptor = d.dir('cache', [
         package('my_package', sdkConstraint: '>=2.13.0 <3.0.0', lib: [
@@ -569,16 +569,13 @@ name: my_package
 // @dart = 2.3''',
             ),
           ]),
-        ])
+        ]),
       ]);
 
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
-      expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
-        explanation(finding: 'Package is not null safe', explanation: '''
-Because:
-* `my_package` where src/stray_file.dart is opting out from null-safety.'''),
-      ]);
+      expectTagging(tagger.nullSafetyTags,
+          tags: ['is:null-safe'], explanations: isEmpty);
     });
 
     test('opting a library to older version still allowing null-safety is ok',
@@ -622,7 +619,7 @@ Because:
       ]);
     });
 
-    test('An opt-out library in a dependency fails', () async {
+    test('allow non-imported opt-outed library in dependency', () async {
       final descriptor = d.dir('cache', [
         package('my_package',
             dependencies: ['my_dependency'],
@@ -639,11 +636,36 @@ Because:
       ]);
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
+      expectTagging(tagger.nullSafetyTags,
+          tags: ['is:null-safe'], explanations: isEmpty);
+    });
+
+    test('disallow imported opt-outed library in dependency', () async {
+      final descriptor = d.dir('cache', [
+        package('my_package',
+            dependencies: ['my_dependency'],
+            sdkConstraint: '>=2.12.0 <3.0.0',
+            lib: [
+              d.file('my_package.dart', '''
+                import 'package:my_dependency/my_dependency.dart';
+
+                int fourtyTwo() => 42;
+              '''),
+            ]),
+        package('my_dependency', sdkConstraint: '>=2.12.0 <3.0.0', lib: [
+          d.file(
+            'my_dependency.dart',
+            '// @dart = 2.9',
+          ),
+        ]),
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
       expectTagging(tagger.nullSafetyTags, tags: isEmpty, explanations: [
         explanation(finding: 'Package is not null safe', explanation: '''
 Because:
-* `my_package` that depends on:
-* `my_dependency` where my_dependency.dart is opting out from null-safety.''')
+* `package:my_package/my_package.dart` that imports:
+* `package:my_dependency/my_dependency.dart` where package:my_dependency/my_dependency.dart is opting out from null-safety.''')
       ]);
     });
 
