@@ -94,6 +94,19 @@
       }
     ]
   },
+  "allDependencies": [
+    "async",
+    "charcode",
+    "collection",
+    "http_parser",
+    "meta",
+    "path",
+    "source_span",
+    "string_scanner",
+    "term_glyph",
+    "typed_data",
+    "unittest"
+  ],
   "tags": [
     "sdk:dart",
     "sdk:flutter",

@@ -163,6 +163,30 @@
       }
     ]
   },
+  "allDependencies": [
+    "archive",
+    "args",
+    "async",
+    "charcode",
+    "collection",
+    "dart2_constant",
+    "http",
+    "http_parser",
+    "logging",
+    "meta",
+    "mime",
+    "path",
+    "pub_semver",
+    "shelf",
+    "source_span",
+    "stack_trace",
+    "stream_channel",
+    "string_scanner",
+    "term_glyph",
+    "test",
+    "typed_data",
+    "yaml"
+  ],
   "tags": [
     "sdk:dart",
     "sdk:flutter",

@@ -106,6 +106,7 @@ class PackageAnalyzer {
         packageVersion: null,
         pubspec: pubspec,
         pkgResolution: null,
+        allDependencies: null,
         licenseFile: null,
         tags: null,
         report: null,
@@ -171,6 +172,8 @@ class PackageAnalyzer {
       packageVersion: pubspec.version,
       pubspec: pubspec,
       pkgResolution: pkgResolution,
+      allDependencies:
+          pkgResolution?.dependencies?.map((d) => d.package)?.toList(),
       licenseFile: licenseFile?.change(url: licenseUrl),
       tags: tags,
       report: await createReport(context),

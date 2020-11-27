@@ -19,6 +19,8 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
     pkgResolution: json['pkgResolution'] == null
         ? null
         : PkgResolution.fromJson(json['pkgResolution'] as Map<String, dynamic>),
+    allDependencies:
+        (json['allDependencies'] as List)?.map((e) => e as String)?.toList(),
     licenseFile: json['licenseFile'] == null
         ? null
         : LicenseFile.fromJson(json['licenseFile'] as Map<String, dynamic>),
@@ -47,6 +49,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('pubspec', instance.pubspec);
   val['licenseFile'] = instance.licenseFile;
   writeNotNull('pkgResolution', instance.pkgResolution);
+  writeNotNull('allDependencies', instance.allDependencies);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);
   writeNotNull('errorMessage', instance.errorMessage);

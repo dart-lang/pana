@@ -1,3 +1,7 @@
+## 0.14.10
+
+* `Summary.allDependencies` to store the name of direct-, dev- or transient dependencies.
+
 ## 0.14.9
 
 * Use library import graph to determine null-safety.

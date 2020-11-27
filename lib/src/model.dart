@@ -30,8 +30,13 @@ class Summary {
 
   final LicenseFile licenseFile;
 
+  /// WARNING: this field will be removed, use allDependencies instead.
   @JsonKey(includeIfNull: false)
   final PkgResolution pkgResolution;
+
+  /// The packages that are either direct-, dev- or transient dependencies.
+  @JsonKey(includeIfNull: false)
+  final List<String> allDependencies;
 
   @JsonKey(includeIfNull: false)
   final List<String> tags;
@@ -49,6 +54,7 @@ class Summary {
     @required this.packageVersion,
     @required this.pubspec,
     @required this.pkgResolution,
+    @required this.allDependencies,
     @required this.licenseFile,
     @required this.tags,
     @required this.report,
@@ -70,6 +76,7 @@ class Summary {
       packageVersion: packageVersion,
       pubspec: pubspec,
       pkgResolution: pkgResolution,
+      allDependencies: allDependencies,
       licenseFile: licenseFile,
       tags: tags ?? this.tags,
       report: report,
