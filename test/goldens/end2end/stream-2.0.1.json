@@ -117,6 +117,23 @@
       }
     ]
   },
+  "allDependencies": [
+    "args",
+    "charcode",
+    "collection",
+    "http",
+    "http_parser",
+    "logging",
+    "meta",
+    "mime",
+    "path",
+    "pedantic",
+    "rikulo_commons",
+    "source_span",
+    "string_scanner",
+    "term_glyph",
+    "typed_data"
+  ],
   "tags": [],
   "report": {
     "sections": [

@@ -33,6 +33,9 @@
       }
     ]
   },
+  "allDependencies": [
+    "retry"
+  ],
   "tags": [
     "sdk:dart",
     "sdk:flutter",
