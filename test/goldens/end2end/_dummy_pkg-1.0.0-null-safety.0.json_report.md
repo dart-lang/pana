@@ -50,39 +50,70 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 20/20 Support multiple platforms
+## 0/20 Support multiple platforms
 
-### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)
+### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)
 
+<details>
+<summary>
+Package resolution failed. Could not determine platforms.
+</summary>
 
-## 30/30 Pass static analysis
+Run `pub get` for more information.
+</details>
 
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
+## 0/30 Pass static analysis
 
+### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
+
+<details>
+<summary>
+ERROR: Target of URI doesn't exist: 'package:retry/retry.dart'.
+</summary>
+
+`lib/_dummy_pkg.dart:1:8`
+
+```
+  ╷
+1 │ import 'package:retry/retry.dart';
+  │        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/_dummy_pkg.dart`
+</details>
+<details>
+<summary>
+ERROR: The function 'retry' isn't defined.
+</summary>
+
+`lib/_dummy_pkg.dart:5:3`
+
+```
+  ╷
+5 │   retry(() {
+  │   ^^^^^
+  ╵
+```
+
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/_dummy_pkg.dart`
+</details>
 
 ## 0/20 Support up-to-date dependencies
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`retry`]|`^2.0.0`|2.0.0|**3.0.1**|
-
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
-
-[`retry`]: https://pub.dev/packages/retry
-
 <details>
 <summary>
-The constraint `^2.0.0` on retry does not support the latest published version `3.0.1`
+Sdk constraint doesn't support current Dart version 2.10.4. Cannot run `pub outdated`.
 </summary>
 
-`pubspec.yaml:6:10`
+`pubspec.yaml:8:8`
 
 ```
   ╷
-6 │   retry: ^2.0.0
-  │          ^^^^^^
+8 │   sdk: ">=2.12.0-0 <2.12.0"
+  │        ^^^^^^^^^^^^^^^^^^^^
   ╵
 ```
 
@@ -90,28 +121,32 @@ The constraint `^2.0.0` on retry does not support the latest published version `
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
+<details>
+<summary>
+Sdk constraint doesn't support current Dart version 2.10.4.
+</summary>
+
+`pubspec.yaml:8:8`
+
+```
+  ╷
+8 │   sdk: ">=2.12.0-0 <2.12.0"
+  │        ^^^^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+Try widening the upper boundary of the constraint.
+</details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
 ## 0/0 Support sound null-safety
 
-### [x] 0/0 points: Package declares support for null-safety, but there are issues.
-
-Packages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.
+### [x] 0/0 points: Unable to detect null safety
 
 <details>
 <summary>
-Package is not null safe
+Package resolution failed. Could not determine null-safety.
 </summary>
 
-Because:
-* `_dummy_pkg` that depends on:
-* `retry` that doesn't opt in to null safety
-</details>
-<details>
-<summary>
-For more information
-</summary>
-
-Try running `pub outdated --mode=null-safety`.
-Be sure to read the [migration guide](https://dart.dev/null-safety/migration-guide).
+Run `pub get` for more information.
 </details>

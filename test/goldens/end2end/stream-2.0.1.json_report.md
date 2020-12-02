@@ -80,7 +80,7 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 1228 issues. Showing the first 2:
+Found 1227 issues. Showing the first 2:
 
 <details>
 <summary>

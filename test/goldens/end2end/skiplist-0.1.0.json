@@ -57,7 +57,7 @@
         "grantedPoints": 0,
         "maxPoints": 30,
         "status": "failed",
-        "summary": "### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 84 issues. Showing the first 2:\n\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n</summary>\n\n`lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`\n</details>\n<details>\n<summary>\nERROR: Non-nullable instance field '_header' must be initialized.\n</summary>\n\n`lib/skiplist.dart:48:3`\n\n```\n   ╷\n48 │   SkipList({double this.p: 1 / 4, int this.maxLevel: 8}) {\n   │   ^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`\n</details>"
+        "summary": "### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 59 issues. Showing the first 2:\n\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n</summary>\n\n`lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`\n</details>\n<details>\n<summary>\nERROR: 'SkipList.[]' ('V Function(K)') isn't a valid override of 'Map.[]' ('V Function(Object)').\n</summary>\n\n`lib/skiplist.dart:77:14`\n\n```\n   ╷\n77 │   V operator [](K key) {\n   │              ^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`\n</details>"
       },
       {
         "id": "dependency",
@@ -65,7 +65,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version 2.12.0-0.0.dev. Cannot run `pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your `pubspec.yaml`\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version 2.10.4. Cannot run `pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your `pubspec.yaml`\n</details>\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
       },
       {
         "id": "null-safety",

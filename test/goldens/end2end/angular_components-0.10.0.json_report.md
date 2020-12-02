@@ -65,39 +65,39 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 901 issues. Showing the first 2:
+Found 902 issues. Showing the first 2:
 
 <details>
 <summary>
-ERROR: The method 'dispose' isn't defined for the type '<unknown>'.
+ERROR: Evaluation of this constant expression throws an exception.
 </summary>
 
-`lib/model/collection/list_tracker.dart:123:9`
-
-```
-    ╷
-123 │       d.dispose();
-    │         ^^^^^^^
-    ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/model/collection/list_tracker.dart`
-</details>
-<details>
-<summary>
-WARNING: Parameters can't override default values, this method overrides 'SelectionObservable.notifySelectionChange' where 'added' has a different value.
-</summary>
-
-`lib/src/model/selection/noop_selection_model_impl.dart:20:31`
+`lib/laminate/ruler/dom_ruler.dart:49:38`
 
 ```
    ╷
-20 │   void notifySelectionChange({added, removed}) {}
-   │                               ^^^^^
+49 │       return Future<Rectangle>.value(const Rectangle(0, 0, 0, 0));
+   │                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
    ╵
 ```
 
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/model/selection/noop_selection_model_impl.dart`
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/laminate/ruler/dom_ruler.dart`
+</details>
+<details>
+<summary>
+ERROR: Evaluation of this constant expression throws an exception.
+</summary>
+
+`lib/laminate/ruler/dom_ruler.dart:69:52`
+
+```
+   ╷
+69 │       return Stream<Rectangle>.fromIterable(const [Rectangle(0, 0, 0, 0)]);
+   │                                                    ^^^^^^^^^^^^^^^^^^^^^
+   ╵
+```
+
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/laminate/ruler/dom_ruler.dart`
 </details>
 
 ## 0/20 Support up-to-date dependencies
@@ -109,7 +109,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`angular`]|`^5.1.0`|5.3.1|**6.0.1**|
 |[`angular_forms`]|`^2.1.0`|2.1.2|**3.0.0**|
 |[`async`]|`^2.0.8`|2.4.2|2.4.2|
-|[`build`]|`>=0.11.1 <2.0.0`|1.5.1|1.5.1|
+|[`build`]|`>=0.11.1 <2.0.0`|1.5.2|1.5.2|
 |[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.3**|
 |[`built_collection`]|`^4.0.0`|4.3.2|4.3.2|
 |[`collection`]|`^1.14.10`|1.14.13|1.14.13|
@@ -127,7 +127,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.41.0|
+|[`analyzer`]|-|0.35.4|0.41.1|
 |[`angular_ast`]|-|0.5.9|1.0.1|
 |[`angular_compiler`]|-|0.4.3|1.0.1|
 |[`args`]|-|1.6.0|1.6.0|
@@ -158,7 +158,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.5|0.1.5|
 |[`sass`]|-|1.29.0|1.29.0|
-|[`source_gen`]|-|0.9.4+4|0.9.8|
+|[`source_gen`]|-|0.9.4+4|0.9.9|
 |[`source_maps`]|-|0.10.9|0.10.9|
 |[`source_span`]|-|1.7.0|1.7.0|
 |[`stack_trace`]|-|1.9.6|1.9.6|

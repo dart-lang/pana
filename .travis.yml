@@ -2,6 +2,7 @@ language: dart
 
 dart:
   - 2.12.0-0.0.dev
+
 os:
   - linux
   - osx
@@ -15,7 +16,7 @@ dart_task:
   #   crash other tests run in parallel
   - test: --run-skipped -j 1
   - dartfmt
-  - dartanalyzer: --fatal-infos --fatal-warnings .
+  - dartanalyzer: --fatal-infos .
 
 # Only building master means that we don't run two builds for each pull request.
 branches:
