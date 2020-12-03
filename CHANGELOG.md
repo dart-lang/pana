@@ -1,6 +1,7 @@
 ## 0.14.10
 
 * `Summary.allDependencies` to store the name of direct-, dev- or transient dependencies.
+* Upgraded `package:analyzer` to `0.41.0`.
 
 ## 0.14.9
 
