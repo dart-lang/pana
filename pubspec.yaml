@@ -4,7 +4,7 @@ version: 0.14.10-dev
 homepage: https://github.com/dart-lang/pana
 
 environment:
-  sdk: '>=2.10.4 <3.0.0'
+  sdk: '>=2.10.0 <3.0.0'
 
 dependencies:
   analyzer: ^0.41.0
