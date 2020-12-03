@@ -110,7 +110,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`angular_forms`]|`^2.1.0`|2.1.2|**3.0.0**|
 |[`async`]|`^2.0.8`|2.4.2|2.4.2|
 |[`build`]|`>=0.11.1 <2.0.0`|1.5.2|1.5.2|
-|[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.3**|
+|[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.4**|
 |[`built_collection`]|`^4.0.0`|4.3.2|4.3.2|
 |[`collection`]|`^1.14.10`|1.14.13|1.14.13|
 |[`fixnum`]|`^0.10.7`|0.10.11|0.10.11|
