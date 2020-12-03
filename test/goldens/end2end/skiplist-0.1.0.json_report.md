@@ -84,7 +84,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Sdk constraint doesn't support current Dart version 2.10.4. Cannot run `pub outdated`.
+* Sdk constraint doesn't support current Dart version 2.10.0. Cannot run `pub outdated`.
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
