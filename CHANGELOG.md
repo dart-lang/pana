@@ -1,7 +1,9 @@
 ## 0.14.10
 
 * `Summary.allDependencies` to store the name of direct-, dev- or transient dependencies.
+  `Summary.pkgResolution` will be removed in a future release.
 * Upgraded `package:analyzer` to `0.41.0`.
+* Deprecated methods in `ToolEnvironment`
 
 ## 0.14.9
 
