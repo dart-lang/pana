@@ -30,13 +30,3 @@ String runningDartanalyzerFailed(bool usesFlutter, errorMsg) {
   return 'Running `${dict.dartanalyzerShortCmd}` failed with the following output:\n\n'
       '```\n$errorMsg\n```\n';
 }
-
-String pluralizeCount(int count, String name) {
-  if (count <= 0) {
-    return null;
-  } else if (count == 1) {
-    return '$count $name';
-  } else {
-    return '$count ${name}s';
-  }
-}
