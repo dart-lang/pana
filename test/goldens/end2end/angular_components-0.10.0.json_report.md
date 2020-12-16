@@ -109,7 +109,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`angular`]|`^5.1.0`|5.3.1|**6.0.1**|
 |[`angular_forms`]|`^2.1.0`|2.1.2|**3.0.0**|
 |[`async`]|`^2.0.8`|2.4.2|2.4.2|
-|[`build`]|`>=0.11.1 <2.0.0`|1.5.2|1.5.2|
+|[`build`]|`>=0.11.1 <2.0.0`|1.6.0|1.6.0|
 |[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.5**|
 |[`built_collection`]|`^4.0.0`|4.3.2|4.3.2|
 |[`collection`]|`^1.14.10`|1.14.13|1.14.13|
