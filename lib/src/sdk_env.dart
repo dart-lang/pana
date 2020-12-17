@@ -347,6 +347,7 @@ class ToolEnvironment {
     return env;
   }
 
+  @deprecated
   Future activateGlobalDartdoc(String version) async {
     handleProcessErrors(await runProc(
       _pubCmd,
@@ -408,6 +409,7 @@ class ToolEnvironment {
     return DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
   }
 
+  @deprecated
   ProcessResult listPackageDirsSync(String packageDir, bool usesFlutter) {
     if (usesFlutter) {
       // flutter env
