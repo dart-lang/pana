@@ -21,9 +21,6 @@
     "name": "MIT",
     "url": "https://github.com/agilord/bulma_min/blob/master/LICENSE"
   },
-  "pkgResolution": {
-    "dependencies": []
-  },
   "allDependencies": [],
   "tags": [
     "sdk:dart",

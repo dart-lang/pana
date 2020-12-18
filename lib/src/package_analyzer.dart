@@ -105,7 +105,6 @@ class PackageAnalyzer {
         packageName: null,
         packageVersion: null,
         pubspec: pubspec,
-        pkgResolution: null,
         allDependencies: null,
         licenseFile: null,
         tags: null,
@@ -171,7 +170,6 @@ class PackageAnalyzer {
       packageName: pubspec.name,
       packageVersion: pubspec.version,
       pubspec: pubspec,
-      pkgResolution: pkgResolution,
       allDependencies:
           pkgResolution?.dependencies?.map((d) => d.package)?.toList(),
       licenseFile: licenseFile?.change(url: licenseUrl),

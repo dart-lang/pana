@@ -21,9 +21,6 @@
     }
   },
   "licenseFile": null,
-  "pkgResolution": {
-    "dependencies": []
-  },
   "allDependencies": [],
   "tags": [
     "sdk:dart",

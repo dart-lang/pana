@@ -1,3 +1,16 @@
+## 0.15.0
+
+**BREAKING CHANGES:**
+
+* Removed:
+  * `createPkgResolution`
+  * `Summary.pkgResolution`
+  * `PkgResolution`
+  * `PkgDependency`
+  * `ConstraintTypes`
+  * `DependencyTypes`
+  * `VersionResolutionType`
+
 ## 0.14.10
 
 * `Summary.allDependencies` to store the name of direct-, dev- or transient dependencies.
