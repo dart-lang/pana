@@ -94,10 +94,14 @@ Future<ProcessResult> runProc(
 
   final exitCode = items[0] as int;
   if (killed == true) {
-    assert(exitCode < 0);
-
-    return ProcessResult(process.pid, exitCode,
-        stdoutLines.take(1000).join('\n'), stderrLines.take(1000).join('\n'));
+    return ProcessResult(
+        process.pid,
+        exitCode,
+        stdoutLines.take(1000).join('\n'),
+        [
+          if (killMessage != null) killMessage,
+          ...stderrLines.take(1000),
+        ].join('\n'));
   }
 
   return ProcessResult(
