@@ -9,7 +9,6 @@ export 'src/license.dart';
 export 'src/maintenance.dart';
 export 'src/model.dart';
 export 'src/package_analyzer.dart';
-export 'src/pkg_resolution.dart';
 export 'src/pubspec.dart';
 export 'src/sdk_env.dart';
 export 'src/utils.dart';

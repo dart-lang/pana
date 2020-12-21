@@ -23,16 +23,6 @@
     "name": "BSD",
     "url": "https://github.com/dart-lang/pub-dev/blob/master/LICENSE"
   },
-  "pkgResolution": {
-    "dependencies": [
-      {
-        "package": "retry",
-        "dependencyType": "direct",
-        "constraintType": "normal",
-        "constraint": "^2.0.0"
-      }
-    ]
-  },
   "allDependencies": [
     "retry"
   ],

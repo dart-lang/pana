@@ -20,9 +20,6 @@
     "name": "BSD",
     "url": "https://github.com/dart-lang/pub-dev/blob/master/LICENSE"
   },
-  "pkgResolution": {
-    "dependencies": []
-  },
   "allDependencies": [],
   "tags": [
     "sdk:dart",
