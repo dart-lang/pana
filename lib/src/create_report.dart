@@ -760,20 +760,18 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
 }
 
 Iterable<_Issue> _explanationsToIssues(Iterable<Explanation> explanations,
-    {String prefix}) {
-  return [
-    if (explanations.isNotEmpty)
-      _explanationToIssue(
-        explanations.first,
-        prefix: prefix,
-      ),
-    ...explanations.skip(1).map(_explanationToIssue),
-  ];
-}
+        {String prefix}) =>
+    [
+      if (explanations.isNotEmpty)
+        _explanationToIssue(explanations.first, prefix: prefix),
+      ...explanations.skip(1).map(_explanationToIssue),
+    ];
 
-_Issue _explanationToIssue(Explanation explanation, {String prefix}) =>
-    _Issue(explanation.finding,
-        prefix: prefix, suggestion: explanation.explanation);
+_Issue _explanationToIssue(Explanation explanation, {String prefix}) => _Issue(
+      explanation.finding,
+      prefix: prefix,
+      suggestion: explanation.explanation,
+    );
 
 Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
   // TODO(sigurdm): Currently we don't give any points for null-safety.
