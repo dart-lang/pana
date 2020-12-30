@@ -759,8 +759,19 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
   );
 }
 
-_Issue _explanationToIssue(Explanation explanation) =>
-    _Issue(explanation.finding, suggestion: explanation.explanation);
+Iterable<_Issue> _explanationsToIssues(Iterable<Explanation> explanations, {String prefix}) {
+  return [
+    if (explanations.isNotEmpty)
+      _explanationToIssue(
+        explanations.first,
+        prefix: prefix,
+      ),
+    ...explanations.skip(1).map(_explanationToIssue),
+  ];
+}
+
+_Issue _explanationToIssue(Explanation explanation, {String prefix}) =>
+    _Issue(explanation.finding, prefix: prefix, suggestion: explanation.explanation);
 
 Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
   // TODO(sigurdm): Currently we don't give any points for null-safety.
@@ -879,16 +890,18 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
           (e.tag == null || tagNames.containsKey(e.tag)));
       final trustExplanations = explanations.where((e) => tags.contains(e.tag));
       final paragraphs = [
-        if (officialExplanations.isNotEmpty)
-          _RawParagraph('Consider supporting multiple platforms:\n'),
-        ...officialExplanations.map(_explanationToIssue),
-        if (unofficialExplanations.isNotEmpty)
-          _RawParagraph('\nConsider supporting these prerelease platforms:\n'),
-        ...unofficialExplanations.map(_explanationToIssue),
-        if (trustExplanations.isNotEmpty)
-          _RawParagraph(
-              '\nThese issues are present but do not affect the score, because they may not originate in your package:\n'),
-        ...trustExplanations.map(_explanationToIssue),
+        ..._explanationsToIssues(
+          officialExplanations,
+          prefix: 'Consider supporting multiple platforms:\n',
+        ),
+        ..._explanationsToIssues(
+          unofficialExplanations,
+          prefix: 'Consider supporting these prerelease platforms:\n',
+        ),
+        ..._explanationsToIssues(
+          trustExplanations,
+          prefix: 'These issues are present but do not affect the score, because they may not originate in your package:\n',
+        ),
       ];
 
       final officialTags = tags.where(tagNames.containsKey).toList();
@@ -987,15 +1000,6 @@ abstract class _Paragraph {
   String markdown({@required String basePath});
 }
 
-class _RawParagraph implements _Paragraph {
-  final String _markdown;
-
-  _RawParagraph(this._markdown);
-
-  @override
-  String markdown({@required basePath}) => _markdown;
-}
-
 _Issue _unsupportedDartSdk(PackageContext context,
     {String command, String suggestion}) {
   final msg = StringBuffer(
@@ -1018,6 +1022,10 @@ class _Issue implements _Paragraph {
   /// Markdown description of the issue.
   final String description;
 
+  /// Markdown prefix for the issue. Can be used to prefix the first of a group of
+  /// related issues with additional context.
+  final String prefix;
+
   /// Source location of the problem in [span].
   ///
   /// If we know nothing more than the file the problem occurs in (no specific
@@ -1033,7 +1041,7 @@ class _Issue implements _Paragraph {
   /// also for a command to reproduce locally.
   final String suggestion;
 
-  _Issue(this.description, {this.span, this.spanFn, this.suggestion});
+  _Issue(this.description, {this.prefix, this.span, this.spanFn, this.suggestion});
 
   @override
   String markdown({@required String basePath}) {
@@ -1042,6 +1050,7 @@ class _Issue implements _Paragraph {
       return '* $description';
     }
     return [
+      if (prefix != null) prefix,
       '<details>',
       '<summary>',
       description,
