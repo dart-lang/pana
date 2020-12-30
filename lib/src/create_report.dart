@@ -759,7 +759,8 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
   );
 }
 
-Iterable<_Issue> _explanationsToIssues(Iterable<Explanation> explanations, {String prefix}) {
+Iterable<_Issue> _explanationsToIssues(Iterable<Explanation> explanations,
+    {String prefix}) {
   return [
     if (explanations.isNotEmpty)
       _explanationToIssue(
@@ -771,7 +772,8 @@ Iterable<_Issue> _explanationsToIssues(Iterable<Explanation> explanations, {Stri
 }
 
 _Issue _explanationToIssue(Explanation explanation, {String prefix}) =>
-    _Issue(explanation.finding, prefix: prefix, suggestion: explanation.explanation);
+    _Issue(explanation.finding,
+        prefix: prefix, suggestion: explanation.explanation);
 
 Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
   // TODO(sigurdm): Currently we don't give any points for null-safety.
@@ -900,7 +902,8 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
         ),
         ..._explanationsToIssues(
           trustExplanations,
-          prefix: 'These issues are present but do not affect the score, because they may not originate in your package:\n',
+          prefix:
+              'These issues are present but do not affect the score, because they may not originate in your package:\n',
         ),
       ];
 
@@ -1041,7 +1044,8 @@ class _Issue implements _Paragraph {
   /// also for a command to reproduce locally.
   final String suggestion;
 
-  _Issue(this.description, {this.prefix, this.span, this.spanFn, this.suggestion});
+  _Issue(this.description,
+      {this.prefix, this.span, this.spanFn, this.suggestion});
 
   @override
   String markdown({@required String basePath}) {
