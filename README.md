@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dart-lang/pana.svg?branch=master)](https://travis-ci.org/dart-lang/pana)
+[![Build Status](https://github.com/dart-lang/pana/workflows/Dart%20CI/badge.svg)](https://github.com/dart-lang/pana/actions?query=workflow%3A"Dart+CI"+branch%3Amaster)
 
 A library for analyzing Dart packages. It invokes executables from the Dart SDK
 (or from the Flutter SDK if the package uses Flutter).
