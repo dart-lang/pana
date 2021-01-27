@@ -45,7 +45,7 @@ Run `pub get` for more information.
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 84 issues. Showing the first 2:
+Found 85 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -84,7 +84,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Sdk constraint doesn't support current Dart version 2.12.0-0.0.dev. Cannot run `pub outdated`.
+* Sdk constraint doesn't support current Dart version 2.12.0-259.0.dev. Cannot run `pub outdated`.
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 

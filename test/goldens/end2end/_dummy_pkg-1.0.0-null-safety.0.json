@@ -68,10 +68,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 30,
+        "grantedPoints": 20,
         "maxPoints": 30,
-        "status": "passed",
-        "summary": "### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues\n"
+        "status": "partial",
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: The library 'package:retry/retry.dart' is legacy, and should not be imported into a null safe library.\n</summary>\n\n`lib/_dummy_pkg.dart:1:8`\n\n```\n  ╷\n1 │ import 'package:retry/retry.dart';\n  │        ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/_dummy_pkg.dart`\n</details>"
       },
       {
         "id": "dependency",
