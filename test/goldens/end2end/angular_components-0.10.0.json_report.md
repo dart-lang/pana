@@ -65,7 +65,7 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 901 issues. Showing the first 2:
+Found 906 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -109,7 +109,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`angular`]|`^5.1.0`|5.3.1|**6.0.1**|
 |[`angular_forms`]|`^2.1.0`|2.1.2|**3.0.0**|
 |[`async`]|`^2.0.8`|2.4.2|2.4.2|
-|[`build`]|`>=0.11.1 <2.0.0`|1.6.0|1.6.0|
+|[`build`]|`>=0.11.1 <2.0.0`|1.6.1|1.6.1|
 |[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.5**|
 |[`built_collection`]|`^4.0.0`|4.3.2|4.3.2|
 |[`collection`]|`^1.14.10`|1.14.13|1.14.13|
@@ -127,7 +127,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.41.1|
+|[`analyzer`]|-|0.35.4|0.41.2|
 |[`angular_ast`]|-|0.5.9|1.0.1|
 |[`angular_compiler`]|-|0.4.3|1.0.1|
 |[`args`]|-|1.6.0|1.6.0|
@@ -135,13 +135,13 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`charcode`]|-|1.1.3|1.1.3|
 |[`checked_yaml`]|-|1.0.4|1.0.4|
 |[`cli_repl`]|-|0.2.0+1|0.2.0+1|
-|[`code_builder`]|-|3.5.0|3.5.0|
+|[`code_builder`]|-|3.6.0|3.6.0|
 |[`convert`]|-|2.1.1|2.1.1|
 |[`crypto`]|-|2.1.5|2.1.5|
 |[`csslib`]|-|0.14.6+1|0.16.2|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
 |[`dart_internal`]|-|0.1.12-nullsafety.1|0.1.12-nullsafety.1|
-|[`dart_style`]|-|1.2.4|1.3.10|
+|[`dart_style`]|-|1.2.4|1.3.11|
 |[`file`]|-|5.2.1|5.2.1|
 |[`front_end`]|-|0.1.14|0.1.29|
 |[`glob`]|-|1.2.0|1.2.0|
@@ -157,7 +157,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`pedantic`]|-|1.9.2|1.9.2|
 |[`pub_semver`]|-|1.4.4|1.4.4|
 |[`pubspec_parse`]|-|0.1.7|0.1.7|
-|[`sass`]|-|1.30.0|1.30.0|
+|[`sass`]|-|1.32.5|1.32.5|
 |[`source_gen`]|-|0.9.4+4|0.9.10+1|
 |[`source_maps`]|-|0.10.9|0.10.9|
 |[`source_span`]|-|1.7.0|1.7.0|

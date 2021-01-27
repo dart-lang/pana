@@ -80,7 +80,7 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 1228 issues. Showing the first 2:
+Found 1230 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -126,7 +126,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`http`]|`any`|0.12.2|0.12.2|
 |[`logging`]|`any`|0.11.4|0.11.4|
 |[`path`]|`any`|1.7.0|1.7.0|
-|[`rikulo_commons`]|`any`|4.2.1|4.2.1|
+|[`rikulo_commons`]|`any`|4.3.0|4.3.0|
 
 <details><summary>Transitive dependencies</summary>
 

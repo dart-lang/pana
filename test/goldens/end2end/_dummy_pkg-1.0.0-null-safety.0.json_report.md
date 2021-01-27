@@ -55,10 +55,26 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 ### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)
 
 
-## 30/30 Pass static analysis
+## 20/30 Pass static analysis
 
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
+### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
+<details>
+<summary>
+INFO: The library 'package:retry/retry.dart' is legacy, and should not be imported into a null safe library.
+</summary>
+
+`lib/_dummy_pkg.dart:1:8`
+
+```
+  ╷
+1 │ import 'package:retry/retry.dart';
+  │        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/_dummy_pkg.dart`
+</details>
 
 ## 0/20 Support up-to-date dependencies
 
