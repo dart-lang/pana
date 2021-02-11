@@ -51,6 +51,7 @@ ReportSection documentationCoverageSection({
 /// Creates a report section when running dartdoc failed to produce content.
 ReportSection dartdocFailedSection([DartdocResult result]) {
   final errorMessage = result?.processResult?.stderr?.toString() ?? '';
+  final failure = (result?.wasTimeout ?? false) ? 'timed out' : 'failed';
 
   return ReportSection(
     id: ReportSectionId.documentation,
@@ -60,7 +61,7 @@ ReportSection dartdocFailedSection([DartdocResult result]) {
     summary: renderSimpleSectionSummary(
       title: 'Failed to run dartdoc',
       description:
-          'Running `dartdoc` failed with the following output:\n\n```\n$errorMessage\n```\n',
+          'Running `dartdoc` $failure with the following output:\n\n```\n$errorMessage\n```\n',
       grantedPoints: 0,
       maxPoints: 10,
     ),
