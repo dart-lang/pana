@@ -90,18 +90,10 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 <details>
 <summary>
-The constraint `^2.0.0` on retry does not support the latest published version `3.0.1`
+The constraint `^2.0.0` on retry does not support the stable version `3.0.0`.
 </summary>
 
-`pubspec.yaml:6:10`
-
-```
-  ╷
-6 │   retry: ^2.0.0
-  │          ^^^^^^
-  ╵
-```
-
+Try running `dart pub upgrade --major-versions retry` to update the constraint.
 </details>
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs

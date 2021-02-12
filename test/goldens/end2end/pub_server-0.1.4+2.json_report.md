@@ -66,27 +66,26 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`dart2_constant`]|`^1.0.1`|1.0.2+dart2|1.0.2+dart2|
-|[`http_parser`]|`^3.0.0`|3.1.4|3.1.4|
-|[`logging`]|`>=0.9.3 <1.0.0`|0.11.4|0.11.4|
-|[`mime`]|`>=0.9.3 <0.10.0`|0.9.7|0.9.7|
-|[`pub_semver`]|`^1.1.0`|1.4.4|1.4.4|
-|[`shelf`]|`>=0.5.6 <0.8.0`|0.7.9|0.7.9|
-|[`yaml`]|`^2.1.2`|2.2.1|2.2.1|
+|[`http_parser`]|`^3.0.0`|3.1.4|**4.0.0**|
+|[`logging`]|`>=0.9.3 <1.0.0`|0.11.4|**1.0.0**|
+|[`mime`]|`>=0.9.3 <0.10.0`|0.9.7|**1.0.0**|
+|[`pub_semver`]|`^1.1.0`|1.4.4|**2.0.0**|
+|[`shelf`]|`>=0.5.6 <0.8.0`|0.7.9|**1.0.0**|
+|[`yaml`]|`^2.1.2`|2.2.1|**3.0.0**|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`async`]|-|2.4.2|2.4.2|
-|[`charcode`]|-|1.1.3|1.1.3|
-|[`collection`]|-|1.14.13|1.14.13|
-|[`meta`]|-|1.2.4|1.2.4|
-|[`source_span`]|-|1.7.0|1.7.0|
-|[`stack_trace`]|-|1.9.6|1.9.6|
-|[`stream_channel`]|-|2.0.0|2.0.0|
-|[`string_scanner`]|-|1.0.5|1.0.5|
-|[`term_glyph`]|-|1.1.0|1.1.0|
-|[`typed_data`]|-|1.2.0|1.2.0|
+|[`async`]|-|2.5.0|2.5.0|
+|[`charcode`]|-|1.2.0|1.2.0|
+|[`collection`]|-|1.15.0|1.15.0|
+|[`source_span`]|-|1.8.1|1.8.1|
+|[`stack_trace`]|-|1.10.0|1.10.0|
+|[`stream_channel`]|-|2.1.0|2.1.0|
+|[`string_scanner`]|-|1.1.0|1.1.0|
+|[`term_glyph`]|-|1.2.0|1.2.0|
+|[`typed_data`]|-|1.3.0|1.3.0|
 </details>
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -101,7 +100,6 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 [`async`]: https://pub.dev/packages/async
 [`charcode`]: https://pub.dev/packages/charcode
 [`collection`]: https://pub.dev/packages/collection
-[`meta`]: https://pub.dev/packages/meta
 [`source_span`]: https://pub.dev/packages/source_span
 [`stack_trace`]: https://pub.dev/packages/stack_trace
 [`stream_channel`]: https://pub.dev/packages/stream_channel
@@ -109,6 +107,26 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 [`term_glyph`]: https://pub.dev/packages/term_glyph
 [`typed_data`]: https://pub.dev/packages/typed_data
 
+Found 6 issues. Showing the first 2:
+
+<details>
+<summary>
+The constraint `^3.0.0` on http_parser does not support the stable version `4.0.0`, that was published 6 days ago. 
+
+ When http_parser is 30 days old, this package will no longer be awarded points in this category.
+</summary>
+
+Try running `dart pub upgrade --major-versions http_parser` to update the constraint.
+</details>
+<details>
+<summary>
+The constraint `>=0.9.3 <1.0.0` on logging does not support the stable version `1.0.0`, that was published 6 days ago. 
+
+ When logging is 30 days old, this package will no longer be awarded points in this category.
+</summary>
+
+Try running `dart pub upgrade --major-versions logging` to update the constraint.
+</details>
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 

@@ -82,7 +82,7 @@ void main() {
   group('end2end tests', () {
     test('minimal', () async {
       final descriptor = d.dir('cache', [
-        package('my_package',
+        packageWithPathDeps('my_package',
             lib: [d.file('my_package.dart', 'int fourtyTwo() => 42;')])
       ]);
       await descriptor.create();
@@ -109,7 +109,7 @@ void main() {
     });
     test('analyzes the primary libray', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', lib: [
+        packageWithPathDeps('my_package', lib: [
           d.file('a.dart', '''
 import 'dart:io';
 int fourtyTwo() => 42;
@@ -136,7 +136,7 @@ int fourtyTwo() => 42;
     });
     test('no library named after package', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', lib: [
+        packageWithPathDeps('my_package', lib: [
           d.file('other.dart', '''
 import 'dart:mirrors';
 int fourtyTwo() => 42;
@@ -152,7 +152,7 @@ int fourtyTwo() => 42;
 
     test('flutter old style plugins', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', lib: [
+        packageWithPathDeps('my_package', lib: [
           d.file('a.dart', '''
 import 'dart:io';
 int fourtyTwo() => 42;
@@ -178,7 +178,7 @@ int fourtyTwo() => 42;
 
     test('flutter old style plugins2', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', lib: [
+        packageWithPathDeps('my_package', lib: [
           d.file('my_package.dart', '''
 import 'dart:io';
 int fourtyTwo() => 42;
@@ -203,7 +203,7 @@ int fourtyTwo() => 42;
 
     test('using dart:mirrors disqualifies Flutter and aot', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', lib: [
+        packageWithPathDeps('my_package', lib: [
           d.file('my_package.dart', '''
 import 'dart:mirrors';
 int fourtyTwo() => 42;
@@ -220,7 +220,7 @@ int fourtyTwo() => 42;
     });
     test('using flutter plugin', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', dependencies: [
+        packageWithPathDeps('my_package', dependencies: [
           'my_dependency'
         ], lib: [
           d.file('my_package.dart', '''
@@ -229,7 +229,7 @@ import "dart:io";
 int fourtyTwo() => fourtyThree() - 1;
 ''')
         ]),
-        package('my_dependency', lib: [
+        packageWithPathDeps('my_dependency', lib: [
           d.file('my_dependency.dart', 'int fourtyThree() => 43;')
         ], pubspecExtras: {
           'environment': {'flutter': '>=1.2.0<=2.0.0'},
@@ -248,7 +248,7 @@ int fourtyTwo() => fourtyThree() - 1;
     });
     test('using flutter plugin2', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', dependencies: [
+        packageWithPathDeps('my_package', dependencies: [
           'my_dependency'
         ], lib: [
           d.file('my_package.dart', '''
@@ -257,7 +257,7 @@ import "dart:html";
 int fourtyTwo() => fourtyThree() - 1;
 ''')
         ]),
-        package('my_dependency', lib: [
+        packageWithPathDeps('my_dependency', lib: [
           d.file('my_dependency.dart', 'int fourtyThree() => 43;')
         ], pubspecExtras: {
           'environment': {'flutter': '>=1.2.0<=2.0.0'},
@@ -276,7 +276,7 @@ int fourtyTwo() => fourtyThree() - 1;
     });
     test('Flutter plugins declarations are respected', () async {
       final decriptor = d.dir('cache', [
-        package('my_package', lib: [
+        packageWithPathDeps('my_package', lib: [
           d.file('my_package.dart', '''
 import 'dart:io';
 import 'package:my_package_linux/my_package_linux.dart';
@@ -297,7 +297,7 @@ my_package:lib/
 my_package_linux:../my_package_linux/lib/
 '''),
         ]),
-        package('my_package_linux', lib: [
+        packageWithPathDeps('my_package_linux', lib: [
           d.file('my_package_linux.dart', '''
 import 'dart:io';
 int fourtyTwo() => 42;
@@ -322,7 +322,7 @@ int fourtyTwo() => 42;
 
     test('Using mirrors', () async {
       final descriptor = d.dir('cache', [
-        package(
+        packageWithPathDeps(
           'my_package',
           lib: [
             d.file('my_package.dart', '''
@@ -333,7 +333,7 @@ int fourtyTwo() => fourtyThree() - 1;
           ],
           dependencies: ['my_dependency'],
         ),
-        package('my_dependency', lib: [
+        packageWithPathDeps('my_dependency', lib: [
           d.file('my_dependency.dart', '''
 import 'dart:mirrors';
 int fourtyThree() => 43;
@@ -382,7 +382,7 @@ Because:
 
     test('Configurable import', () async {
       final descriptor = d.dir('cache', [
-        package(
+        packageWithPathDeps(
           'my_package',
           lib: [
             d.file('my_package.dart', '''
@@ -392,7 +392,7 @@ int fourtyTwo() => fourtyThree() - 1;
           ],
           dependencies: ['my_dependency'],
         ),
-        package('my_dependency', lib: [
+        packageWithPathDeps('my_dependency', lib: [
           d.file('my_dependency.dart', '''
 import 'dart:io';
 int fourtyThree() => 43;
@@ -468,7 +468,8 @@ name: my_package
 
     test('no dart files', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', lib: [d.file('asset.json', '{"status": "ok"}')])
+        packageWithPathDeps('my_package',
+            lib: [d.file('asset.json', '{"status": "ok"}')])
       ]);
       await descriptor.create();
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
@@ -494,7 +495,7 @@ name: my_package
     });
     test('no dart files with Flutter plugins declarations', () async {
       final decriptor = d.dir('cache', [
-        package(
+        packageWithPathDeps(
           'my_package',
           lib: [d.file('asset.json', '{"status": "ok"}')],
           pubspecExtras: {
@@ -527,18 +528,20 @@ name: my_package
     test('compliant package depending on compliant package gets the tag',
         () async {
       final descriptor = d.dir('cache', [
-        package('my_package',
+        packageWithPathDeps('my_package',
             dependencies: ['my_dependency'],
             sdkConstraint: '>=2.12.0 <3.0.0',
             lib: [
               d.file('my_package.dart', 'int fourtyTwo() => 42;'),
             ]),
-        package('my_dependency', sdkConstraint: '>=2.13.0 <3.0.0', lib: [
-          d.file(
-            'my_dependency.dart',
-            "import 'dart:io'; int fourtyThree() => 43;",
-          ),
-        ]),
+        packageWithPathDeps('my_dependency',
+            sdkConstraint: '>=2.13.0 <3.0.0',
+            lib: [
+              d.file(
+                'my_dependency.dart',
+                "import 'dart:io'; int fourtyThree() => 43;",
+              ),
+            ]),
       ]);
       await descriptor.create();
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
@@ -548,9 +551,11 @@ name: my_package
 
     test('Depending on the 2.12 beta sdk gets the tag', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.12.0-beta1 <3.0.0', lib: [
-          d.file('my_package.dart', 'int fourtyTwo() => 42;'),
-        ]),
+        packageWithPathDeps('my_package',
+            sdkConstraint: '>=2.12.0-beta1 <3.0.0',
+            lib: [
+              d.file('my_package.dart', 'int fourtyTwo() => 42;'),
+            ]),
       ]);
       await descriptor.create();
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
@@ -560,16 +565,18 @@ name: my_package
     test('opting a library not reachable from public out still gets tag',
         () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.13.0 <3.0.0', lib: [
-          d.file('my_package.dart', 'int fourtyTwo() => 42;'),
-          d.dir('src', [
-            d.file(
-              'stray_file.dart',
-              '''
+        packageWithPathDeps('my_package',
+            sdkConstraint: '>=2.13.0 <3.0.0',
+            lib: [
+              d.file('my_package.dart', 'int fourtyTwo() => 42;'),
+              d.dir('src', [
+                d.file(
+                  'stray_file.dart',
+                  '''
 // @dart = 2.3''',
-            ),
-          ]),
-        ]),
+                ),
+              ]),
+            ]),
       ]);
 
       await descriptor.create();
@@ -581,12 +588,14 @@ name: my_package
     test('opting a library to older version still allowing null-safety is ok',
         () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.13.0 <3.0.0', lib: [
-          d.file('my_package.dart', 'int fourtyTwo() => 42;'),
-          d.dir('src', [
-            d.file('stray_file.dart', '// @dart = 2.12\n'),
-          ]),
-        ])
+        packageWithPathDeps('my_package',
+            sdkConstraint: '>=2.13.0 <3.0.0',
+            lib: [
+              d.file('my_package.dart', 'int fourtyTwo() => 42;'),
+              d.dir('src', [
+                d.file('stray_file.dart', '// @dart = 2.12\n'),
+              ]),
+            ])
       ]);
       await descriptor.create();
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
@@ -596,18 +605,20 @@ name: my_package
 
     test('depending on a not-null-safe package gets fails', () async {
       final descriptor = d.dir('cache', [
-        package('my_package',
+        packageWithPathDeps('my_package',
             dependencies: ['my_dependency'],
             sdkConstraint: '>=2.12.0 <3.0.0',
             lib: [
               d.file('my_package.dart', 'int fourtyTwo() => 42;'),
             ]),
-        package('my_dependency', sdkConstraint: '>=2.9.0 <3.0.0', lib: [
-          d.file(
-            'my_dependency.dart',
-            "import 'dart:io'; int fourtyThree() => 43;",
-          ),
-        ]),
+        packageWithPathDeps('my_dependency',
+            sdkConstraint: '>=2.9.0 <3.0.0',
+            lib: [
+              d.file(
+                'my_dependency.dart',
+                "import 'dart:io'; int fourtyThree() => 43;",
+              ),
+            ]),
       ]);
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
@@ -621,18 +632,20 @@ Because:
 
     test('allow non-imported opt-outed library in dependency', () async {
       final descriptor = d.dir('cache', [
-        package('my_package',
+        packageWithPathDeps('my_package',
             dependencies: ['my_dependency'],
             sdkConstraint: '>=2.12.0 <3.0.0',
             lib: [
               d.file('my_package.dart', 'int fourtyTwo() => 42;'),
             ]),
-        package('my_dependency', sdkConstraint: '>=2.12.0 <3.0.0', lib: [
-          d.file(
-            'my_dependency.dart',
-            '// @dart = 2.9',
-          ),
-        ]),
+        packageWithPathDeps('my_dependency',
+            sdkConstraint: '>=2.12.0 <3.0.0',
+            lib: [
+              d.file(
+                'my_dependency.dart',
+                '// @dart = 2.9',
+              ),
+            ]),
       ]);
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
@@ -642,7 +655,7 @@ Because:
 
     test('disallow imported opt-outed library in dependency', () async {
       final descriptor = d.dir('cache', [
-        package('my_package',
+        packageWithPathDeps('my_package',
             dependencies: ['my_dependency'],
             sdkConstraint: '>=2.12.0 <3.0.0',
             lib: [
@@ -652,12 +665,14 @@ Because:
                 int fourtyTwo() => 42;
               '''),
             ]),
-        package('my_dependency', sdkConstraint: '>=2.12.0 <3.0.0', lib: [
-          d.file(
-            'my_dependency.dart',
-            '// @dart = 2.9',
-          ),
-        ]),
+        packageWithPathDeps('my_dependency',
+            sdkConstraint: '>=2.12.0 <3.0.0',
+            lib: [
+              d.file(
+                'my_dependency.dart',
+                '// @dart = 2.9',
+              ),
+            ]),
       ]);
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
@@ -671,11 +686,14 @@ Because:
 
     test('An opt-out test still gets tag', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.12.0 <3.0.0', lib: [
-          d.file('my_package.dart', 'int fourtyTwo() => 42;'),
-        ], extraFiles: [
-          d.dir('test', [
-            d.file('main_test.dart', '''
+        packageWithPathDeps('my_package',
+            sdkConstraint: '>=2.12.0 <3.0.0',
+            lib: [
+              d.file('my_package.dart', 'int fourtyTwo() => 42;'),
+            ],
+            extraFiles: [
+              d.dir('test', [
+                d.file('main_test.dart', '''
 // @dart = 2.9
 import 'package:my_package/my_package.dart';
 
@@ -683,8 +701,8 @@ void main() {
   if (!fourtyTwo() == 42) throw 'failed';
 }
 ''')
-          ])
-        ]),
+              ])
+            ]),
       ]);
       await descriptor.create();
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
@@ -694,11 +712,15 @@ void main() {
 
     test('Broken imports gets reported', () async {
       final descriptor = d.dir('cache', [
-        package('my_package', sdkConstraint: '>=2.12.0 <3.0.0', lib: [
-          d.file('my_package.dart', 'import "package:missing/missing.dart";'),
-        ], dependencies: [
-          'missing'
-        ]),
+        packageWithPathDeps('my_package',
+            sdkConstraint: '>=2.12.0 <3.0.0',
+            lib: [
+              d.file(
+                  'my_package.dart', 'import "package:missing/missing.dart";'),
+            ],
+            dependencies: [
+              'missing'
+            ]),
       ]);
       await descriptor.create();
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));

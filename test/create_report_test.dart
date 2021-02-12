@@ -5,10 +5,12 @@
 import 'package:pana/pana.dart';
 import 'package:pana/src/create_report.dart';
 import 'package:pana/src/package_context.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
 import 'package_descriptor.dart';
+import 'package_server.dart';
 
 void main() {
   group('Follow Dart file conventions', () {
@@ -118,6 +120,96 @@ Call this method..
           report.sections.firstWhere((s) => s.title == 'Provide documentation');
       expect(section.grantedPoints, 0);
       expect(section.summary, contains('No example found.'));
+    });
+  });
+
+  group('trustworthy dependency', () {
+    test('Gives points despite outdated package', () async {
+      await servePackages((b) => b
+        ..serve('foo', '1.2.3',
+            published: DateTime.now().subtract(const Duration(days: 2))));
+      final descriptor = package('my_package',
+          sdkConstraint: '>=2.10.0 <3.0.0',
+          dependencies: {
+            'foo': {
+              'hosted': {'name': 'foo', 'url': globalPackageServer.url},
+              'version': '^1.1.0'
+            }
+          });
+      await descriptor.create();
+
+      final context = PackageContext(
+        toolEnvironment: await ToolEnvironment.create(),
+        packageDir: descriptor.io.path,
+        options: InspectOptions(),
+      );
+
+      {
+        final section = await trustworthyDependency(context);
+
+        expect(section.grantedPoints, 20);
+      }
+      DateTime daysAgo(int days) =>
+          DateTime.now().subtract(Duration(days: days));
+      {
+        globalPackageServer.add(
+          (b) => b.serve('foo', '4.0.0',
+              pubspec: {
+                'environment': {
+                  'sdk': VersionConstraint.compatibleWith(
+                          context.currentSdkVersion.nextBreaking)
+                      .toString()
+                }
+              },
+              published: daysAgo(200)),
+        );
+
+        final section = await trustworthyDependency(context);
+        expect(
+            section.summary,
+            contains(
+                '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
+                'but that version doesn\'t support the current Dart SDK version ${context.currentSdkVersion}'));
+
+        expect(section.grantedPoints, 20);
+      }
+      {
+        globalPackageServer
+            .add((b) => b.serve('foo', '3.0.0', published: daysAgo(3)));
+
+        final section = await trustworthyDependency(context);
+        expect(
+          section.summary,
+          contains(
+              'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.'),
+        );
+
+        expect(section.grantedPoints, 20);
+      }
+      {
+        globalPackageServer.add(
+          (b) => b.serve(
+            'foo',
+            '2.0.0',
+            pubspec: {
+              'environment': {
+                'sdk':
+                    VersionConstraint.compatibleWith(context.currentSdkVersion)
+                        .toString()
+              }
+            },
+            published: daysAgo(200),
+          ),
+        );
+
+        final section = await trustworthyDependency(context);
+        expect(
+          section.summary,
+          contains(
+              'The constraint `^1.1.0` on foo does not support the stable version `2.0.0`.'),
+        );
+        expect(section.grantedPoints, 10);
+      }
     });
   });
 }

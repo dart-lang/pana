@@ -64,7 +64,6 @@ class PackageAnalyzer {
   }) async {
     options ??= InspectOptions();
     return withLogger(() async {
-      log.info('Downloading package $package ${version ?? 'latest'}');
       return withTempDir((tempDir) async {
         await downloadPackage(package, version,
             destination: tempDir, pubHostedUrl: options.pubHostedUrl);

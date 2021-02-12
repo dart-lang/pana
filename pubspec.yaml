@@ -27,6 +27,7 @@ dependencies:
   source_span: ^1.7.0
   yaml: ^2.1.15
   safe_url_check: ^1.0.0
+  tar: ^0.3.0-nullsafety.0
 
 dev_dependencies:
   build: ^1.1.0

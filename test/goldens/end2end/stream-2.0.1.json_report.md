@@ -121,26 +121,26 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`args`]|`any`|1.6.0|1.6.0|
-|[`charcode`]|`any`|1.1.3|1.1.3|
-|[`http`]|`any`|0.12.2|0.12.2|
-|[`logging`]|`any`|0.11.4|0.11.4|
-|[`path`]|`any`|1.7.0|1.7.0|
+|[`args`]|`any`|2.0.0|2.0.0|
+|[`charcode`]|`any`|1.2.0|1.2.0|
+|[`http`]|`any`|0.13.0|0.13.0|
+|[`logging`]|`any`|1.0.0|1.0.0|
+|[`path`]|`any`|1.8.0|1.8.0|
 |[`rikulo_commons`]|`any`|4.3.0|4.3.0|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.14.13|1.14.13|
-|[`http_parser`]|-|3.1.4|3.1.4|
-|[`meta`]|-|1.2.4|1.2.4|
-|[`mime`]|-|0.9.7|0.9.7|
-|[`pedantic`]|-|1.9.2|1.9.2|
-|[`source_span`]|-|1.7.0|1.7.0|
-|[`string_scanner`]|-|1.0.5|1.0.5|
-|[`term_glyph`]|-|1.1.0|1.1.0|
-|[`typed_data`]|-|1.2.0|1.2.0|
+|[`collection`]|-|1.15.0|1.15.0|
+|[`http_parser`]|-|4.0.0|4.0.0|
+|[`meta`]|-|1.3.0|1.3.0|
+|[`mime`]|-|1.0.0|1.0.0|
+|[`pedantic`]|-|1.10.0|1.10.0|
+|[`source_span`]|-|1.8.1|1.8.1|
+|[`string_scanner`]|-|1.1.0|1.1.0|
+|[`term_glyph`]|-|1.2.0|1.2.0|
+|[`typed_data`]|-|1.3.0|1.3.0|
 </details>
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
