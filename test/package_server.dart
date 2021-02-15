@@ -48,7 +48,7 @@ class PackageServer {
   /// The list of paths that have been requested from this server.
   final requestedPaths = <String>[];
 
-  /// The base directory descriptor of the directories served by [this].
+  /// The base directory descriptor of the directories served by `this`.
   final d.DirectoryDescriptor _baseDir;
 
   /// The descriptors served by this server.
@@ -64,7 +64,7 @@ class PackageServer {
   /// Creates an HTTP server to serve [contents] as static files.
   ///
   /// This server exists only for the duration of the pub run. Subsequent calls
-  /// to [serve] replace the previous server.
+  /// to [serve()] replace the previous server.
   static Future<PackageServer> start(
       void Function(PackageServerBuilder) callback) async {
     final result =
@@ -165,8 +165,6 @@ class PackageServer {
 
 /// Returns a Map in the format used by the pub.dartlang.org API to represent a
 /// package version.
-///
-/// [pubspec] is the parsed pubspec of the package version.
 Map _packageVersionApiMap(String hostedUrl, _ServedPackageVersion package) {
   final pubspec = package.pubspec;
   final name = pubspec['name'];
