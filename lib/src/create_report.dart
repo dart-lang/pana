@@ -677,6 +677,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
     final issues = <_Issue>[];
     var bodyPrefix = '';
     var points = 10;
+    var status = ReportStatus.passed;
     if (context.pubspecAllowsCurrentSdk) {
       try {
         final outdated = Outdated.fromJson(await toolEnvironment.runPubOutdated(
@@ -781,18 +782,23 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
             issues.add(worst.issue);
             if (worst.status == OutdatedStatus.outdated) {
               points = 0;
+              status = ReportStatus.failed;
+            } else if (worst.status == OutdatedStatus.outdatedByPreview ||
+                worst.status == OutdatedStatus.outdatedByRecent) {
+              status = ReportStatus.partial;
             }
           }
         }
       } on ToolException catch (e) {
         issues.add(_Issue('Could not run pub outdated: ${e.message}'));
         points = 0;
+        status = ReportStatus.failed;
       }
     } else {
       issues.add(_unsupportedDartSdk(context, command: 'pub outdated'));
       points = 0;
+      status = ReportStatus.failed;
     }
-    final status = points == 0 ? ReportStatus.failed : ReportStatus.passed;
 
     return _Subsection(
       'All of the package dependencies are supported in the latest version',
