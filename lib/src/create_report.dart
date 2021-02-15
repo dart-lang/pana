@@ -545,14 +545,14 @@ SourceSpan _tryGetSpanFromYamlMap(Object map, String key) {
 
 enum OutdatedStatus { outdated, outdatedByRecent, outdatedByPreview }
 
-/// Returns a list of stable unsupported
+/// Returns a list of stable unsupported versions newer than "upgradable", along
+/// with "how badly" it is outdated.
 Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
     PackageContext context, OutdatedPackage package) async {
   const acceptableUpdateDelay = Duration(days: 30);
   T tryGetFromJson<T>(Map<String, Object> json, String key) {
     final element = json[key];
-    if (element is T) return element;
-    throw FormatException('$key was not a $T but a ${element.runtimeType}');
+    return element is T ? element : null;
   }
 
   final name = package.package;
@@ -579,16 +579,27 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
   try {
     final versions =
         tryGetFromJson<List>(versionListing as Map<String, Object>, 'versions');
+    if (versions == null) {
+      // Bad response from pub host.
+      return [];
+    }
     for (final version in versions) {
       if (version is Map<String, Object>) {
         final versionString = tryGetFromJson<String>(version, 'version');
+        if (versionString == null) {
+          // Bad response from pub host.
+          return [];
+        }
         final parsedVersion = Version.parse(versionString);
         if (parsedVersion.isPreRelease ||
             parsedVersion <= Version.parse(package.upgradable.version)) {
           continue;
         }
-        final publishingDateString =
-            tryGetFromJson<String>(version, 'published');
+        final publishingDateString = tryGetFromJson<String>(
+                version, 'published') ??
+            // If the pub host doesn't provide a `published` time, we pretend it
+            // was published loong ago.
+            DateTime.fromMillisecondsSinceEpoch(0).toIso8601String();
         final publishingDate = DateTime.parse(publishingDateString);
         final timeAgo = DateTime.now().difference(publishingDate);
         if (timeAgo < acceptableUpdateDelay) {
@@ -604,6 +615,10 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
         } else {
           final pubspec = Pubspec.fromJson(
               tryGetFromJson<Map<String, Object>>(version, 'pubspec'));
+          if (pubspec == null) {
+            // Bad response from pub host.
+            continue;
+          }
           if (pubspec.hasDartSdkConstraint &&
               !pubspec.dartSdkConstraint.allows(context.currentSdkVersion)) {
             result.add(OutdatedVersionDescription(
