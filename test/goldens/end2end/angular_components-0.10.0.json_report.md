@@ -141,7 +141,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`csslib`]|-|0.14.6+1|0.17.0|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
 |[`dart_internal`]|-|0.1.12-nullsafety.1|0.1.12-nullsafety.1|
-|[`dart_style`]|-|1.2.4|1.3.12|
+|[`dart_style`]|-|1.2.4|1.3.13|
 |[`file`]|-|5.2.1|6.0.0|
 |[`front_end`]|-|0.1.14|0.1.29|
 |[`glob`]|-|1.2.0|2.0.0|
