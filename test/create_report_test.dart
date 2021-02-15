@@ -139,15 +139,16 @@ Call this method..
       await descriptor.create();
 
       final context = PackageContext(
-        toolEnvironment: await ToolEnvironment.create(),
+        toolEnvironment: await ToolEnvironment.create(
+            // Enforce no Flutter for consistent testing.
+            flutterSdkDir: null),
         packageDir: descriptor.io.path,
         options: InspectOptions(),
       );
 
       {
         final section = await trustworthyDependency(context);
-
-        expect(section.grantedPoints, 20);
+        expect(section.grantedPoints, 10);
       }
       DateTime daysAgo(int days) =>
           DateTime.now().subtract(Duration(days: days));
@@ -171,7 +172,7 @@ Call this method..
                 '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
                 'but that version doesn\'t support the current Dart SDK version ${context.currentSdkVersion}'));
 
-        expect(section.grantedPoints, 20);
+        expect(section.grantedPoints, 10);
       }
       {
         globalPackageServer
@@ -184,7 +185,7 @@ Call this method..
               'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.'),
         );
 
-        expect(section.grantedPoints, 20);
+        expect(section.grantedPoints, 10);
       }
       {
         globalPackageServer.add(
@@ -208,7 +209,7 @@ Call this method..
           contains(
               'The constraint `^1.1.0` on foo does not support the stable version `2.0.0`.'),
         );
-        expect(section.grantedPoints, 10);
+        expect(section.grantedPoints, 0);
       }
     });
   });
