@@ -79,7 +79,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`retry`]|`^2.0.0`|2.0.0|**3.0.1**|\n\nTo reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`retry`]: https://pub.dev/packages/retry\n\n<details>\n<summary>\nThe constraint `^2.0.0` on retry does not support the latest published version `3.0.1`\n</summary>\n\n`pubspec.yaml:6:10`\n\n```\n  ╷\n6 │   retry: ^2.0.0\n  │          ^^^^^^\n  ╵\n```\n\n</details>\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`retry`]|`^2.0.0`|2.0.0|**3.0.1**|\n\nTo reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`retry`]: https://pub.dev/packages/retry\n\n<details>\n<summary>\nThe constraint `^2.0.0` on retry does not support the stable version `3.0.0`.\n</summary>\n\nTry running `dart pub upgrade --major-versions retry` to update the constraint.\n</details>\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
       },
       {
         "id": "null-safety",

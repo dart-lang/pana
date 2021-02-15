@@ -108,18 +108,18 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |:-|:-|:-|:-|
 |[`angular`]|`^5.1.0`|5.3.1|**6.0.1**|
 |[`angular_forms`]|`^2.1.0`|2.1.2|**3.0.0**|
-|[`async`]|`^2.0.8`|2.4.2|2.4.2|
-|[`build`]|`>=0.11.1 <2.0.0`|1.6.1|1.6.1|
+|[`async`]|`^2.0.8`|2.5.0|2.5.0|
+|[`build`]|`>=0.11.1 <2.0.0`|1.6.2|1.6.2|
 |[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.5**|
-|[`built_collection`]|`^4.0.0`|4.3.2|4.3.2|
-|[`collection`]|`^1.14.10`|1.14.13|1.14.13|
-|[`fixnum`]|`^0.10.7`|0.10.11|0.10.11|
-|[`intl`]|`>=0.14.0 <0.16.0`|0.15.8|**0.16.1**|
-|[`js`]|`^0.6.1`|0.6.2|0.6.2|
-|[`logging`]|`^0.11.2`|0.11.4|0.11.4|
-|[`meta`]|`^1.0.4`|1.2.4|1.2.4|
+|[`built_collection`]|`^4.0.0`|4.3.2|**5.0.0**|
+|[`collection`]|`^1.14.10`|1.15.0|1.15.0|
+|[`fixnum`]|`^0.10.7`|0.10.11|**1.0.0**|
+|[`intl`]|`>=0.14.0 <0.16.0`|0.15.8|**0.17.0**|
+|[`js`]|`^0.6.1`|0.6.3|0.6.3|
+|[`logging`]|`^0.11.2`|0.11.4|**1.0.0**|
+|[`meta`]|`^1.0.4`|1.3.0|1.3.0|
 |[`observable`]|`^0.22.1+3`|0.22.2|0.22.2|
-|[`protobuf`]|`^0.10.2`|0.10.8|**1.1.0**|
+|[`protobuf`]|`^0.10.2`|0.10.8|**2.0.0**|
 |[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.5**|
 |[`sass_builder`]|`^2.0.2`|2.1.3|2.1.3|
 
@@ -127,48 +127,48 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|0.41.2|
+|[`analyzer`]|-|0.35.4|1.0.0|
 |[`angular_ast`]|-|0.5.9|1.0.1|
 |[`angular_compiler`]|-|0.4.3|1.0.1|
-|[`args`]|-|1.6.0|1.6.0|
-|[`built_value`]|-|7.1.0|7.1.0|
-|[`charcode`]|-|1.1.3|1.1.3|
+|[`args`]|-|1.6.0|2.0.0|
+|[`built_value`]|-|7.1.0|8.0.0|
+|[`charcode`]|-|1.2.0|1.2.0|
 |[`checked_yaml`]|-|1.0.4|1.0.4|
 |[`cli_repl`]|-|0.2.0+1|0.2.0+1|
 |[`code_builder`]|-|3.6.0|3.6.0|
-|[`convert`]|-|2.1.1|2.1.1|
-|[`crypto`]|-|2.1.5|2.1.5|
-|[`csslib`]|-|0.14.6+1|0.16.2|
+|[`convert`]|-|2.1.1|3.0.0|
+|[`crypto`]|-|2.1.5|3.0.0|
+|[`csslib`]|-|0.14.6+1|0.17.0|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
 |[`dart_internal`]|-|0.1.12-nullsafety.1|0.1.12-nullsafety.1|
-|[`dart_style`]|-|1.2.4|1.3.11|
-|[`file`]|-|5.2.1|5.2.1|
+|[`dart_style`]|-|1.2.4|1.3.13|
+|[`file`]|-|5.2.1|6.0.0|
 |[`front_end`]|-|0.1.14|0.1.29|
-|[`glob`]|-|1.2.0|1.2.0|
-|[`http`]|-|0.12.2|0.12.2|
-|[`http_parser`]|-|3.1.4|3.1.4|
-|[`json_annotation`]|-|2.4.0|3.1.1|
+|[`glob`]|-|1.2.0|2.0.0|
+|[`http`]|-|0.12.2|0.13.0|
+|[`http_parser`]|-|3.1.4|4.0.0|
+|[`json_annotation`]|-|2.4.0|4.0.0|
 |[`kernel`]|-|0.3.14|0.3.29|
-|[`matcher`]|-|0.12.9|0.12.9|
+|[`matcher`]|-|0.12.10|0.12.10|
 |[`node_interop`]|-|1.2.1|1.2.1|
 |[`node_io`]|-|1.2.0|1.2.0|
-|[`package_config`]|-|1.9.3|1.9.3|
+|[`package_config`]|-|1.9.3|2.0.0|
 |[`package_resolver`]|-|1.0.10|1.0.10|
-|[`pedantic`]|-|1.9.2|1.9.2|
-|[`pub_semver`]|-|1.4.4|1.4.4|
-|[`pubspec_parse`]|-|0.1.7|0.1.7|
-|[`sass`]|-|1.32.5|1.32.5|
-|[`source_gen`]|-|0.9.4+4|0.9.10+1|
-|[`source_maps`]|-|0.10.9|0.10.9|
-|[`source_span`]|-|1.7.0|1.7.0|
-|[`stack_trace`]|-|1.9.6|1.9.6|
-|[`stream_transform`]|-|1.2.0|1.2.0|
-|[`string_scanner`]|-|1.0.5|1.0.5|
-|[`term_glyph`]|-|1.1.0|1.1.0|
+|[`pedantic`]|-|1.10.0|1.10.0|
+|[`pub_semver`]|-|1.4.4|2.0.0|
+|[`pubspec_parse`]|-|0.1.8|0.1.8|
+|[`sass`]|-|1.32.7|1.32.7|
+|[`source_gen`]|-|0.9.4+4|0.9.10+2|
+|[`source_maps`]|-|0.10.10|0.10.10|
+|[`source_span`]|-|1.8.1|1.8.1|
+|[`stack_trace`]|-|1.10.0|1.10.0|
+|[`stream_transform`]|-|2.0.0|2.0.0|
+|[`string_scanner`]|-|1.1.0|1.1.0|
+|[`term_glyph`]|-|1.2.0|1.2.0|
 |[`tuple`]|-|1.0.3|1.0.3|
-|[`typed_data`]|-|1.2.0|1.2.0|
-|[`watcher`]|-|0.9.7+15|0.9.7+15|
-|[`yaml`]|-|2.2.1|2.2.1|
+|[`typed_data`]|-|1.3.0|1.3.0|
+|[`watcher`]|-|0.9.7+15|1.0.0|
+|[`yaml`]|-|2.2.1|3.0.0|
 </details>
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -232,37 +232,21 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 [`watcher`]: https://pub.dev/packages/watcher
 [`yaml`]: https://pub.dev/packages/yaml
 
-Found 6 issues. Showing the first 2:
+Found 9 issues. Showing the first 2:
 
 <details>
 <summary>
-The constraint `^5.1.0` on angular does not support the latest published version `6.0.1`
+The constraint `^5.1.0` on angular does not support the stable version `6.0.0`.
 </summary>
 
-`pubspec.yaml:12:12`
-
-```
-   ╷
-12 │   angular: ^5.1.0
-   │            ^^^^^^
-   ╵
-```
-
+Try running `dart pub upgrade --major-versions angular` to update the constraint.
 </details>
 <details>
 <summary>
-The constraint `^2.1.0` on angular_forms does not support the latest published version `3.0.0`
+The constraint `^2.1.0` on angular_forms does not support the stable version `2.1.3`.
 </summary>
 
-`pubspec.yaml:13:18`
-
-```
-   ╷
-13 │   angular_forms: ^2.1.0
-   │                  ^^^^^^
-   ╵
-```
-
+Try running `dart pub upgrade --major-versions angular_forms` to update the constraint.
 </details>
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs

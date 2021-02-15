@@ -35,7 +35,6 @@
     "charcode",
     "collection",
     "http_parser",
-    "meta",
     "path",
     "source_span",
     "string_scanner",

@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -58,7 +59,7 @@ Future<Report> createReport(PackageContext context) async {
     await _hasDocumentation(context.packageDir, pubspec),
     await _multiPlatform(context.packageDir, pubspec),
     await _staticAnalysis(context),
-    await _trustworthyDependency(context),
+    await trustworthyDependency(context),
     if (context.options.nullSafetySectionEnabledBeforeOptin ||
         pubspec.sdkConstraintStatus.hasOptedIntoNullSafety)
       await _nullSafety(context.packageDir, pubspec),
@@ -542,13 +543,141 @@ SourceSpan _tryGetSpanFromYamlMap(Object map, String key) {
   return null;
 }
 
-Future<ReportSection> _trustworthyDependency(PackageContext context) async {
+enum OutdatedStatus { outdated, outdatedByRecent, outdatedByPreview }
+
+/// Returns a list of stable unsupported versions newer than "upgradable", along
+/// with "how badly" it is outdated.
+Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
+    PackageContext context, OutdatedPackage package) async {
+  const acceptableUpdateDelay = Duration(days: 30);
+  T tryGetFromJson<T>(Map<String, Object> json, String key) {
+    final element = json[key];
+    return element is T ? element : null;
+  }
+
+  final name = package.package;
+  final latest = package?.latest?.version;
+  if (!context.pubspec.dependencies.containsKey(name) || latest == null) {
+    return [];
+  }
+  final latestVersion = Version.parse(latest);
+  final dependency = context.pubspec.dependencies[name];
+  if (dependency is! HostedDependency) {
+    return [];
+  }
+  final hostedDependency = dependency as HostedDependency;
+  if (hostedDependency.version.allows(latestVersion)) {
+    return [];
+  }
+  final result = <OutdatedVersionDescription>[];
+
+  final versionListing = jsonDecode(await getVersionListing(
+    name,
+    pubHostedUrl: hostedDependency.hosted?.url,
+  ));
+
+  try {
+    final versions =
+        tryGetFromJson<List>(versionListing as Map<String, Object>, 'versions');
+    if (versions == null) {
+      // Bad response from pub host.
+      return [];
+    }
+    for (final version in versions) {
+      if (version is Map<String, Object>) {
+        final versionString = tryGetFromJson<String>(version, 'version');
+        if (versionString == null) {
+          // Bad response from pub host.
+          return [];
+        }
+        final parsedVersion = Version.parse(versionString);
+        if (parsedVersion.isPreRelease ||
+            parsedVersion <= Version.parse(package.upgradable.version)) {
+          continue;
+        }
+        final publishingDateString = tryGetFromJson<String>(
+                version, 'published') ??
+            // If the pub host doesn't provide a `published` time, we pretend it
+            // was published loong ago.
+            DateTime.fromMillisecondsSinceEpoch(0).toIso8601String();
+        final publishingDate = DateTime.parse(publishingDateString);
+        final timeAgo = DateTime.now().difference(publishingDate);
+        if (timeAgo < acceptableUpdateDelay) {
+          result.add(OutdatedVersionDescription(
+              _Issue(
+                'The constraint `${hostedDependency.version}` on $name does not support the stable version `$versionString`, '
+                'that was published ${timeAgo.inDays} days ago. '
+                '\n\n When $name is ${acceptableUpdateDelay.inDays} days old, this package will no longer be awarded points in this category.',
+                suggestion:
+                    'Try running `dart pub upgrade --major-versions $name` to update the constraint.',
+              ),
+              OutdatedStatus.outdatedByRecent));
+        } else {
+          final pubspec = Pubspec.fromJson(
+              tryGetFromJson<Map<String, Object>>(version, 'pubspec'));
+          if (pubspec == null) {
+            // Bad response from pub host.
+            continue;
+          }
+          if (pubspec.hasDartSdkConstraint &&
+              !pubspec.dartSdkConstraint.allows(context.currentSdkVersion)) {
+            result.add(OutdatedVersionDescription(
+                _Issue(
+                    'The constraint `${hostedDependency.version}` on $name does not support the stable version `$versionString`, '
+                    'but that version doesn\'t support the current Dart SDK version ${context.currentSdkVersion}.'
+                    '\n\nWhen a supporting stable sdk is pubslished, this package will no longer be awarded points in this category.'),
+                OutdatedStatus.outdatedByPreview));
+          } else {
+            result.add(OutdatedVersionDescription(
+                _Issue(
+                  'The constraint `${hostedDependency.version}` on $name does not support '
+                  'the stable version `$versionString`.',
+                  suggestion:
+                      'Try running `dart pub upgrade --major-versions $name` to update the constraint.',
+                ),
+                OutdatedStatus.outdated));
+          }
+        }
+      }
+    }
+  } on FormatException catch (e) {
+    log.warning(
+        'Failure when trying to calculate outdated status of $name. $e');
+    // Just go with whatever we found at this point - pub servers are not all
+    // expected to provide a well-formatted `published` entry.
+    return result;
+  }
+  return result;
+}
+
+class OutdatedVersionDescription {
+  final _Issue issue;
+  final OutdatedStatus status;
+  OutdatedVersionDescription(this.issue, this.status);
+}
+
+T maxBy<T>(Iterable<T> e, int Function(T, T) compare) {
+  assert(e.isNotEmpty);
+  var currentBest = e.first;
+  for (final next in e.skip(1)) {
+    if (compare(currentBest, next) > 0) {
+      currentBest = next;
+    }
+  }
+  return currentBest;
+}
+
+@visibleForTesting
+Future<ReportSection> trustworthyDependency(PackageContext context) async {
   final pubspec = context.pubspec;
   final packageDir = context.packageDir;
   final toolEnvironment = context.toolEnvironment;
+
   Future<_Subsection> dependencies() async {
     final issues = <_Issue>[];
     var bodyPrefix = '';
+    var points = 10;
+    var status = ReportStatus.passed;
     if (context.pubspecAllowsCurrentSdk) {
       try {
         final outdated = Outdated.fromJson(await toolEnvironment.runPubOutdated(
@@ -560,21 +689,11 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
             '--no-dependency-overrides',
           ],
         ));
-
-        bool isOutdated(OutdatedPackage package) {
-          final name = package.package;
-          final latest = package?.latest?.version;
-          if (pubspec.dependencies.containsKey(name) && latest != null) {
-            final latestVersion = Version.parse(latest);
-            final dependency = pubspec.dependencies[name];
-            if (dependency is HostedDependency &&
-                !dependency.version.allows(latestVersion)) {
-              return true;
-            }
-          }
-          return false;
+        final outdatedVersions = <String, List<OutdatedVersionDescription>>{};
+        for (final p in outdated.packages) {
+          outdatedVersions[p.package] =
+              await computeOutdatedVersions(context, p);
         }
-
         String constraint(Dependency dependency) {
           if (dependency is HostedDependency) {
             return '`${dependency.version}`';
@@ -612,7 +731,8 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
                   linkToPackage(p.package),
                   constraint(pubspec.dependencies[p.package]),
                   p.upgradable?.version ?? '-',
-                  if (isOutdated(p))
+                  if (outdatedVersions.containsKey(p.package) &&
+                      outdatedVersions[p.package].isNotEmpty)
                     '**${p.latest?.version ?? '-'}**'
                   else
                     p.latest?.version ?? '-',
@@ -655,26 +775,30 @@ Future<ReportSection> _trustworthyDependency(PackageContext context) async {
             '',
           ],
         ].join('\n');
-
-        issues.addAll(outdated.packages.where(isOutdated).map((p) {
-          // If outdated it's always a HostedDependency in pubspec.yaml
-          final dep = pubspec.dependencies[p.package] as HostedDependency;
-          return _Issue(
-            'The constraint `${dep.version}` on ${p.package} does not support '
-            'the latest published version `${p?.latest?.version}`',
-            span: _tryGetSpanFromYamlMap(
-                pubspec.originalYaml['dependencies'], p.package),
-          );
-        }));
+        for (final l in outdatedVersions.values) {
+          if (l.isNotEmpty) {
+            final worst = maxBy<OutdatedVersionDescription>(
+                l, (a, b) => a.status.index - b.status.index);
+            issues.add(worst.issue);
+            if (worst.status == OutdatedStatus.outdated) {
+              points = 0;
+              status = ReportStatus.failed;
+            } else if (worst.status == OutdatedStatus.outdatedByPreview ||
+                worst.status == OutdatedStatus.outdatedByRecent) {
+              status = ReportStatus.partial;
+            }
+          }
+        }
       } on ToolException catch (e) {
         issues.add(_Issue('Could not run pub outdated: ${e.message}'));
+        points = 0;
+        status = ReportStatus.failed;
       }
     } else {
       issues.add(_unsupportedDartSdk(context, command: 'pub outdated'));
+      points = 0;
+      status = ReportStatus.failed;
     }
-    final status =
-        issues.isNotEmpty ? ReportStatus.failed : ReportStatus.passed;
-    final points = issues.isNotEmpty ? 0 : 10;
 
     return _Subsection(
       'All of the package dependencies are supported in the latest version',

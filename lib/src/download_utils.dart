@@ -9,12 +9,22 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:retry/retry.dart';
 import 'package:safe_url_check/safe_url_check.dart';
 
 import 'logging.dart';
 import 'utils.dart';
 
 final imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
+
+Future<String> getVersionListing(String package, {Uri pubHostedUrl}) async {
+  final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
+      .resolve('/api/packages/$package');
+  log.fine('Downloading: $url');
+
+  return await retry(() => http.read(url),
+      retryIf: (e) => e is SocketException || e is TimeoutException);
+}
 
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
@@ -35,6 +45,9 @@ Future<void> downloadPackage(
   final packageUri = pubHostedUri.replace(
     path: '/packages/$package/versions/$version.tar.gz',
   );
+  log.info(
+      'Downloading package $package ${version ?? 'latest'} from $packageUri');
+
   await extractTarGz(await http.readBytes(packageUri), destination);
 
   // Delete all symlinks in the extracted folder
