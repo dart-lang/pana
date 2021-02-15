@@ -61,7 +61,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ## 10/20 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [~] 10/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
