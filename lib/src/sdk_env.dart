@@ -411,25 +411,6 @@ class ToolEnvironment {
     return DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
   }
 
-  @deprecated
-  ProcessResult listPackageDirsSync(String packageDir, bool usesFlutter) {
-    if (usesFlutter) {
-      // flutter env
-      return runProcSync(
-        [..._flutterCmd, 'packages', 'pub', 'list-package-dirs'],
-        workingDirectory: packageDir,
-        environment: _environment,
-      );
-    } else {
-      // normal pub
-      return runProcSync(
-        [..._pubCmd, 'list-package-dirs'],
-        workingDirectory: packageDir,
-        environment: _environment,
-      );
-    }
-  }
-
   /// Removes the dev_dependencies from the pubspec.yaml
   /// Returns the backup file with the original content.
   Future<File> _stripPubspecYaml(String packageDir) async {

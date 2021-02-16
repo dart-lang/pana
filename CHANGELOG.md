@@ -1,8 +1,6 @@
 ## 0.15.0
 
-**BREAKING CHANGES:**
-
-* Removed:
+* **BREAKING** Removed:
   * `createPkgResolution`
   * `Summary.pkgResolution`
   * `PkgResolution`
@@ -10,6 +8,14 @@
   * `ConstraintTypes`
   * `DependencyTypes`
   * `VersionResolutionType`
+  * `ToolEnvironment.listPackageDirsSync`
+* **BREAKING** `ToolEnvironment.runProc` and `ToolEnvironment.runProcSync` now 
+  take the executable as the first element of the argument list instead of as a 
+  separate argument.
+* If unsupported versions of dependencies are newer than 30 days or depend on a 
+  unreleased sdk the package will still be awarded points in the report.
+* Better timeout message for dartdoc section
+* Adjust `runProc` timeout/kill handler.
 
 ## 0.14.10
 
