@@ -1,6 +1,6 @@
 name: pana
 description: Evaluate the health and quality of a Dart package
-version: 0.15.0
+version: 0.15.0+1
 homepage: https://github.com/dart-lang/pana
 
 environment:
@@ -27,7 +27,6 @@ dependencies:
   source_span: ^1.7.0
   yaml: ^2.1.15
   safe_url_check: ^1.0.0
-  tar: ^0.3.0-nullsafety.0
   retry: ^3.0.1
 
 dev_dependencies:
@@ -42,6 +41,7 @@ dev_dependencies:
   test: ^1.5.2
   test_descriptor: ^1.1.1
   test_process: ^1.0.4
+  tar: ^0.3.0-nullsafety.0
 
 executables:
   pana:

@@ -1,3 +1,6 @@
+## 0.15.0+1
+
+* Does not depend on package:tar.
 ## 0.15.0
 
 * **BREAKING** Removed:
