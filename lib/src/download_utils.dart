@@ -61,7 +61,8 @@ Future<void> downloadPackage(
 
   if (!Platform.isWindows) {
     // Remove all executable permissions from extracted files
-    final chmod = await runProc('/bin/chmod', [
+    final chmod = await runProc([
+      '/bin/chmod',
       '-R',
       '-x+X',
       destination,

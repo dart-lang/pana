@@ -24,15 +24,15 @@ const _dartfmtTimeout = Duration(minutes: 5);
 class ToolEnvironment {
   final String dartSdkDir;
   final String pubCacheDir;
-  final String _dartCmd;
-  final String _pubCmd;
-  final String _dartAnalyzerCmd;
-  final String _dartfmtCmd;
-  final String _dartdocCmd;
-  final String _flutterCmd;
+  final List<String> _dartCmd;
+  final List<String> _pubCmd;
+  final List<String> _dartAnalyzerCmd;
+  final List<String> _dartfmtCmd;
+  final List<String> _dartdocCmd;
+  final List<String> _flutterCmd;
   // TODO: remove this after flutter analyze gets machine-readable output.
   // https://github.com/flutter/flutter/issues/23664
-  final String _flutterDartAnalyzerCmd;
+  final List<String> _flutterDartAnalyzerCmd;
   final Map<String, String> _environment;
   PanaRuntimeInfo _runtimeInfo;
   bool _useGlobalDartdoc;
@@ -55,7 +55,7 @@ class ToolEnvironment {
 
   Future _init() async {
     final dartVersionResult = handleProcessErrors(
-        await runProc(_dartCmd, ['--version'], environment: _environment));
+        await runProc([..._dartCmd, '--version'], environment: _environment));
     final dartVersionString = dartVersionResult.stderr.toString().trim();
     final dartSdkInfo = DartSdkInfo.parse(dartVersionString);
     Map<String, dynamic> flutterVersions;
@@ -119,13 +119,13 @@ class ToolEnvironment {
     final toolEnv = ToolEnvironment._(
       resolvedDartSdk,
       resolvedPubCache,
-      _join(resolvedDartSdk, 'bin', 'dart'),
-      _join(resolvedDartSdk, 'bin', 'pub'),
-      _join(resolvedDartSdk, 'bin', 'dartanalyzer'),
-      _join(resolvedDartSdk, 'bin', 'dartfmt'),
-      _join(resolvedDartSdk, 'bin', 'dartdoc'),
-      _join(resolvedFlutterSdk, 'bin', 'flutter'),
-      _join(flutterDartSdkDir, 'bin', 'dartanalyzer'),
+      [_join(resolvedDartSdk, 'bin', 'dart')],
+      [_join(resolvedDartSdk, 'bin', 'pub')],
+      [_join(resolvedDartSdk, 'bin', 'dartanalyzer')],
+      [_join(resolvedDartSdk, 'bin', 'dartfmt')],
+      [_join(resolvedDartSdk, 'bin', 'dartdoc')],
+      [_join(resolvedFlutterSdk, 'bin', 'flutter'), '--no-version-check'],
+      [_join(flutterDartSdkDir, 'bin', 'dartanalyzer')],
       env,
       useGlobalDartdoc,
     );
@@ -170,8 +170,10 @@ class ToolEnvironment {
     // https://github.com/flutter/flutter/issues/23664
     try {
       final proc = await runProc(
-        usesFlutter ? _flutterDartAnalyzerCmd : _dartAnalyzerCmd,
-        params,
+        [
+          ...usesFlutter ? _flutterDartAnalyzerCmd : _dartAnalyzerCmd,
+          ...params
+        ],
         environment: _environment,
         workingDirectory: packageDir,
         deduplicate: true,
@@ -217,8 +219,7 @@ class ToolEnvironment {
       params.add(fullPath);
 
       final result = await runProc(
-        usesFlutter ? _flutterCmd : _dartfmtCmd,
-        params,
+        [...usesFlutter ? _flutterCmd : _dartfmtCmd, ...params],
         environment: _environment,
         timeout: _dartfmtTimeout,
       );
@@ -255,8 +256,7 @@ class ToolEnvironment {
   Future<ProcessResult> _execPubUpgrade(
       String packageDir, Map<String, String> environment) {
     return runProc(
-      _pubCmd,
-      ['upgrade', '--verbosity', 'io', '--no-precompile'],
+      [..._pubCmd, 'upgrade', '--verbosity', 'io', '--no-precompile'],
       workingDirectory: packageDir,
       environment: environment,
     );
@@ -265,15 +265,22 @@ class ToolEnvironment {
   Future<ProcessResult> _execFlutterUpgrade(
           String packageDir, Map<String, String> environment) =>
       runProc(
-        _flutterCmd,
-        ['packages', 'pub', 'upgrade', '--verbosity', 'io', '--no-precompile'],
+        [
+          ..._flutterCmd,
+          'packages',
+          'pub',
+          'upgrade',
+          '--verbosity',
+          'io',
+          '--no-precompile',
+        ],
         workingDirectory: packageDir,
         environment: environment,
       );
 
   Future<Map<String, Object>> getFlutterVersion() async {
     var result = handleProcessErrors(
-        await runProc(_flutterCmd, ['--version', '--machine']));
+        await runProc([..._flutterCmd, '--version', '--machine']));
     return json.decode(result.stdout as String) as Map<String, Object>;
   }
 
@@ -317,8 +324,7 @@ class ToolEnvironment {
   Future<Map<String, Object>> runPubOutdated(String packageDir,
       {List<String> args = const []}) async {
     final getResult = await runProc(
-      _pubCmd,
-      ['get'],
+      [..._pubCmd, 'get'],
       environment: _environment,
       workingDirectory: packageDir,
     );
@@ -327,8 +333,7 @@ class ToolEnvironment {
           '`pub get` failed: \n\n ```\n${getResult.stderr}\n```');
     }
     final result = await runProc(
-      _pubCmd,
-      ['outdated', ...args],
+      [..._pubCmd, 'outdated', ...args],
       environment: _environment,
       workingDirectory: packageDir,
     );
@@ -350,8 +355,7 @@ class ToolEnvironment {
   @deprecated
   Future activateGlobalDartdoc(String version) async {
     handleProcessErrors(await runProc(
-      _pubCmd,
-      ['global', 'activate', 'dartdoc', version],
+      [..._pubCmd, 'global', 'activate', 'dartdoc', version],
       environment: _globalDartdocEnv(),
     ));
     _useGlobalDartdoc = true;
@@ -389,16 +393,14 @@ class ToolEnvironment {
     }
     if (_useGlobalDartdoc) {
       pr = await runProc(
-        _pubCmd,
-        ['global', 'run', 'dartdoc', ...args],
+        [..._pubCmd, 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment: _globalDartdocEnv(),
         timeout: timeout,
       );
     } else {
       pr = await runProc(
-        _dartdocCmd,
-        args,
+        [..._dartdocCmd, ...args],
         workingDirectory: packageDir,
         environment: _environment,
         timeout: timeout,
@@ -414,16 +416,14 @@ class ToolEnvironment {
     if (usesFlutter) {
       // flutter env
       return runProcSync(
-        _flutterCmd,
-        ['packages', 'pub', 'list-package-dirs'],
+        [..._flutterCmd, 'packages', 'pub', 'list-package-dirs'],
         workingDirectory: packageDir,
         environment: _environment,
       );
     } else {
       // normal pub
       return runProcSync(
-        _pubCmd,
-        ['list-package-dirs'],
+        [..._pubCmd, 'list-package-dirs'],
         workingDirectory: packageDir,
         environment: _environment,
       );
