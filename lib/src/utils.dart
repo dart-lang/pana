@@ -19,27 +19,26 @@ Stream<String> _byteStreamSplit(Stream<List<int>> stream) =>
 final _timeout = const Duration(minutes: 2);
 final _maxLines = 100000;
 
-ProcessResult runProcSync(String executable, List<String> arguments,
+ProcessResult runProcSync(List<String> arguments,
     {String workingDirectory, Map<String, String> environment}) {
-  log.fine('Running `${[executable, ...arguments].join(' ')}`...');
+  log.fine('Running `${[...arguments].join(' ')}`...');
   return Process.runSync(
-    executable,
-    arguments,
+    arguments.first,
+    arguments.skip(1).toList(),
     workingDirectory: workingDirectory,
     environment: environment,
   );
 }
 
 Future<ProcessResult> runProc(
-  String executable,
   List<String> arguments, {
   String workingDirectory,
   Map<String, String> environment,
   Duration timeout,
   bool deduplicate = false,
 }) async {
-  log.info('Running `${[executable, ...arguments].join(' ')}`...');
-  var process = await Process.start(executable, arguments,
+  log.info('Running `${[...arguments].join(' ')}`...');
+  var process = await Process.start(arguments.first, arguments.skip(1).toList(),
       workingDirectory: workingDirectory, environment: environment);
 
   var stdoutLines = <String>[];
@@ -51,9 +50,9 @@ Future<ProcessResult> runProc(
   void killProc(String message) {
     if (killed != true) {
       killMessage = message;
-      log.severe('Killing `$executable ${arguments.join(' ')}` $killMessage');
+      log.severe('Killing `${arguments.join(' ')}` $killMessage');
       killed = process.kill();
-      log.info('killed `$executable ${arguments.join(' ')}` - $killed');
+      log.info('killed `${arguments.join(' ')}` - $killed');
     }
   }
 

@@ -111,7 +111,7 @@ Found 6 issues. Showing the first 2:
 
 <details>
 <summary>
-The constraint `^3.0.0` on http_parser does not support the stable version `4.0.0`, that was published 9 days ago. 
+The constraint `^3.0.0` on http_parser does not support the stable version `4.0.0`, that was published 10 days ago. 
 
  When http_parser is 30 days old, this package will no longer be awarded points in this category.
 </summary>
@@ -120,7 +120,7 @@ Try running `dart pub upgrade --major-versions http_parser` to update the constr
 </details>
 <details>
 <summary>
-The constraint `>=0.9.3 <1.0.0` on logging does not support the stable version `1.0.0`, that was published 9 days ago. 
+The constraint `>=0.9.3 <1.0.0` on logging does not support the stable version `1.0.0`, that was published 10 days ago. 
 
  When logging is 30 days old, this package will no longer be awarded points in this category.
 </summary>
