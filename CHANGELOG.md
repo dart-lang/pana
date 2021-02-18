@@ -1,3 +1,6 @@
+## 0.15.1
+
+* Fix of platform detection for executable-only packages.
 ## 0.15.0+1
 
 * Does not depend on package:tar.
