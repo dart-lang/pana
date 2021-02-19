@@ -142,11 +142,10 @@ class PackageAnalyzer {
     if (pkgResolution != null) {
       List<CodeProblem> analyzerItems;
       if (dartFiles.isNotEmpty) {
-        analyzerItems = await context.staticAnalysis();
-      } else {
-        analyzerItems = <CodeProblem>[];
+        try {
+          analyzerItems = await context.staticAnalysis();
+        } on ToolException {}
       }
-
       if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
         final tagger = Tagger(pkgDir);
         final explanations = <Explanation>[];
