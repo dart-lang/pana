@@ -109,8 +109,8 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`angular`]|`^5.1.0`|5.3.1|**6.0.1**|
 |[`angular_forms`]|`^2.1.0`|2.1.2|**3.0.0**|
 |[`async`]|`^2.0.8`|2.5.0|2.5.0|
-|[`build`]|`>=0.11.1 <2.0.0`|1.6.2|1.6.2|
-|[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.5**|
+|[`build`]|`>=0.11.1 <2.0.0`|1.6.2|1.6.3|
+|[`build_config`]|`>=0.2.6 <0.4.0`|0.3.2|**0.4.6**|
 |[`built_collection`]|`^4.0.0`|4.3.2|**5.0.0**|
 |[`collection`]|`^1.14.10`|1.15.0|1.15.0|
 |[`fixnum`]|`^0.10.7`|0.10.11|**1.0.0**|
@@ -120,7 +120,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`meta`]|`^1.0.4`|1.3.0|1.3.0|
 |[`observable`]|`^0.22.1+3`|0.22.2|0.22.2|
 |[`protobuf`]|`^0.10.2`|0.10.8|**2.0.0**|
-|[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**2.1.5**|
+|[`quiver`]|`>=0.24.0 <0.30.0`|0.29.0+2|**3.0.0**|
 |[`sass_builder`]|`^2.0.2`|2.1.3|2.1.3|
 
 <details><summary>Transitive dependencies</summary>
@@ -142,7 +142,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
 |[`dart_internal`]|-|0.1.12-nullsafety.1|0.1.12-nullsafety.1|
 |[`dart_style`]|-|1.2.4|1.3.13|
-|[`file`]|-|5.2.1|6.0.0|
+|[`file`]|-|5.2.1|6.1.0|
 |[`front_end`]|-|0.1.14|0.1.29|
 |[`glob`]|-|1.2.0|2.0.0|
 |[`http`]|-|0.12.2|0.13.0|

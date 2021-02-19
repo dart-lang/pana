@@ -903,7 +903,7 @@ class Tagger {
   void runtimeTags(List<String> tags, List<Explanation> explanations) {
     try {
       if (_isBinaryOnly) {
-        tags.addAll(<String>[Runtime.nativeAot.name, Runtime.nativeJit.name]);
+        tags.addAll(<String>[Runtime.nativeAot.tag, Runtime.nativeJit.tag]);
       } else {
         final dartSdkViolationFinder = _SdkViolationFinder(
             _packageGraph, _Sdk.dart, _pubspecCache, _session);
