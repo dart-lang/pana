@@ -140,7 +140,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`crypto`]|-|2.1.5|3.0.0|
 |[`csslib`]|-|0.14.6+1|0.17.0|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
-|[`dart_internal`]|-|0.1.12-nullsafety.1|0.1.12-nullsafety.1|
+|[`dart_internal`]|-|0.1.12-nullsafety.1|0.2.0|
 |[`dart_style`]|-|1.2.4|1.3.13|
 |[`file`]|-|5.2.1|6.1.0|
 |[`front_end`]|-|0.1.14|0.1.29|
@@ -157,8 +157,8 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`pedantic`]|-|1.10.0|1.10.0|
 |[`pub_semver`]|-|1.4.4|2.0.0|
 |[`pubspec_parse`]|-|0.1.8|0.1.8|
-|[`sass`]|-|1.32.7|1.32.7|
-|[`source_gen`]|-|0.9.4+4|0.9.10+2|
+|[`sass`]|-|1.32.8|1.32.8|
+|[`source_gen`]|-|0.9.4+4|0.9.10+3|
 |[`source_maps`]|-|0.10.10|0.10.10|
 |[`source_span`]|-|1.8.1|1.8.1|
 |[`stack_trace`]|-|1.10.0|1.10.0|
@@ -243,7 +243,7 @@ Try running `dart pub upgrade --major-versions angular` to update the constraint
 </details>
 <details>
 <summary>
-The constraint `^2.1.0` on angular_forms does not support the stable version `2.1.3`.
+The constraint `^2.1.0` on angular_forms does not support the stable version `3.0.0`.
 </summary>
 
 Try running `dart pub upgrade --major-versions angular_forms` to update the constraint.
