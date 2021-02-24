@@ -595,6 +595,13 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
             parsedVersion <= Version.parse(package.upgradable.version)) {
           continue;
         }
+        // It's not outdated, just mutually incompatible if allowed by the
+        // constraint, but still reported as outdated by `dart pub outdated`.
+        if (hostedDependency.version == null ||
+            hostedDependency.version.allows(parsedVersion)) {
+          continue;
+        }
+
         final publishingDateString = tryGetFromJson<String>(
                 version, 'published') ??
             // If the pub host doesn't provide a `published` time, we pretend it
