@@ -1,9 +1,14 @@
 ## 0.15.1
 
 * Fix of platform detection for executable-only packages.
+* Fix outdated dependencies check, to ignore outdated packages from
+  `pub outdated` if they are allowed by the constraint, and hence, just mutually
+  incompatible.
+
 ## 0.15.0+1
 
 * Does not depend on package:tar.
+
 ## 0.15.0
 
 * **BREAKING** Removed:
