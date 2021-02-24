@@ -1,3 +1,6 @@
+## 0.15.1+1
+* Update version constant.
+
 ## 0.15.1
 
 * Fix of platform detection for executable-only packages.
