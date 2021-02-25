@@ -144,6 +144,7 @@ class PackageAnalyzer {
       if (dartFiles.isNotEmpty) {
         try {
           analyzerItems = await context.staticAnalysis();
+          // ignore: empty_catches
         } on ToolException {}
       }
       if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
