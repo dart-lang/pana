@@ -62,7 +62,9 @@ void main() {
             .replaceAll(
                 '"sdkVersion":"$sdkVersion"', '"sdkVersion":"{{sdk-version}}"')
             .replaceAll('The current Dart SDK version is $sdkVersion.',
-                'The current Dart SDK version is {{sdk-version}}.');
+                'The current Dart SDK version is {{sdk-version}}.')
+            .replaceAll(RegExp('that was published [0-9]+ days ago'),
+                'that was published N days ago');
         actualMap = json.decode(updated) as Map<String, dynamic>;
       });
 
