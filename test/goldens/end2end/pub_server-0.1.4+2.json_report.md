@@ -61,7 +61,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ## 10/20 Support up-to-date dependencies
 
-### [~] 10/10 points: All of the package dependencies are supported in the latest version
+### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
@@ -71,7 +71,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`mime`]|`>=0.9.3 <0.10.0`|0.9.7|**1.0.0**|
 |[`pub_semver`]|`^1.1.0`|1.4.4|**2.0.0**|
 |[`shelf`]|`>=0.5.6 <0.8.0`|0.7.9|**1.0.0**|
-|[`yaml`]|`^2.1.2`|2.2.1|**3.0.0**|
+|[`yaml`]|`^2.1.2`|2.2.1|**3.1.0**|
 
 <details><summary>Transitive dependencies</summary>
 

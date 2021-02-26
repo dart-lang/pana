@@ -792,7 +792,9 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
               status = ReportStatus.failed;
             } else if (worst.status == OutdatedStatus.outdatedByPreview ||
                 worst.status == OutdatedStatus.outdatedByRecent) {
-              status = ReportStatus.partial;
+              // TODO(sigurdm): Could we find some way of indicating that
+              // points will be lost soon?
+              status = ReportStatus.passed;
             }
           }
         }
