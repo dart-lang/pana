@@ -127,7 +127,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`analyzer`]|-|0.35.4|1.0.0|
+|[`analyzer`]|-|0.35.4|1.1.0|
 |[`angular_ast`]|-|0.5.9|1.0.1|
 |[`angular_compiler`]|-|0.4.3|1.0.1|
 |[`args`]|-|1.6.0|2.0.0|
@@ -141,7 +141,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`csslib`]|-|0.14.6+1|0.17.0|
 |[`dart2_constant`]|-|1.0.2+dart2|1.0.2+dart2|
 |[`dart_internal`]|-|0.1.12-nullsafety.1|0.2.0|
-|[`dart_style`]|-|1.2.4|1.3.13|
+|[`dart_style`]|-|1.2.4|1.3.14|
 |[`file`]|-|5.2.1|6.1.0|
 |[`front_end`]|-|0.1.14|0.1.29|
 |[`glob`]|-|1.2.0|2.0.0|
@@ -168,7 +168,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`tuple`]|-|1.0.3|1.0.3|
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`watcher`]|-|0.9.7+15|1.0.0|
-|[`yaml`]|-|2.2.1|3.0.0|
+|[`yaml`]|-|2.2.1|3.1.0|
 </details>
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

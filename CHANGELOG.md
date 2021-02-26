@@ -1,3 +1,8 @@
+## 0.15.2
+* If unsupported versions of dependencies are newer than 30 days or depend on a 
+  unreleased sdk the dependencies section will be marked as passing instead of
+  partial.
+  
 ## 0.15.1+1
 * Update version constant.
 
