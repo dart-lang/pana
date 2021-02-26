@@ -13,6 +13,7 @@ import 'download_utils.dart';
 import 'license.dart';
 import 'logging.dart';
 import 'maintenance.dart';
+import 'messages.dart';
 import 'model.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
@@ -144,8 +145,10 @@ class PackageAnalyzer {
       if (dartFiles.isNotEmpty) {
         try {
           analyzerItems = await context.staticAnalysis();
-          // ignore: empty_catches
-        } on ToolException {}
+        } on ToolException catch (e) {
+          context.errors
+              .add(runningDartanalyzerFailed(context.usesFlutter, e.message));
+        }
       }
       if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
         final tagger = Tagger(pkgDir);
