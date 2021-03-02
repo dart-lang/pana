@@ -82,7 +82,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`retry`]|`^2.0.0`|2.0.0|**3.0.1**|
+|[`retry`]|`^2.0.0`|2.0.0|**3.1.0**|
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 

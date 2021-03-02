@@ -246,6 +246,7 @@ Call this method..
         options: InspectOptions(),
       );
       final section = await trustworthyDependency(context);
+      print(section.summary);
       expect(section.grantedPoints, 20);
     });
     test('complains abpout Flutter constraint upper bound', () async {
