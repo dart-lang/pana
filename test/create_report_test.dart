@@ -8,7 +8,6 @@ import 'package:pana/pana.dart';
 
 import 'package:pana/src/create_report.dart';
 import 'package:pana/src/package_context.dart';
-import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
@@ -16,24 +15,31 @@ import 'package:test_descriptor/test_descriptor.dart' as d;
 import 'package_descriptor.dart';
 import 'package_server.dart';
 
-final testToolEnvironment = ToolEnvironment.fake(
-  dartCmd: [Platform.resolvedExecutable],
-  pubCmd: [Platform.resolvedExecutable, 'pub'],
-  runtimeInfo: PanaRuntimeInfo(
-    panaVersion: '1.2.3',
-    sdkVersion: '2.12.0',
-    flutterVersions: {
-      'frameworkVersion': '2.0.0',
-      'channel': 'stable',
-      'repositoryUrl': 'https://github.com/flutter/flutter',
-      'frameworkRevision': '13c6ad50e980cad1844457869c2b4c5dc3311d03',
-      'frameworkCommitDate': '2021-02-19 10:03:46 +0100',
-      'engineRevision': 'b04955656c87de0d80d259792e3a0e4a23b7c260',
-      'dartSdkVersion': '2.12.0 (build 2.12.0)',
-      'flutterRoot': '${p.join(d.sandbox, 'fake_flutter_root')}'
-    },
-  ),
-);
+Future<ToolEnvironment> testToolEnvironment() async {
+  final fakeFlutterRoot =
+      d.dir('fake_flutter_root', [d.file('version', '2.12.0')]);
+  await fakeFlutterRoot.create();
+  return ToolEnvironment.fake(
+    dartCmd: [Platform.resolvedExecutable],
+    pubCmd: [Platform.resolvedExecutable, 'pub'],
+    environment: {'FLUTTER_ROOT': fakeFlutterRoot.io.path},
+    runtimeInfo: PanaRuntimeInfo(
+      panaVersion: '1.2.3',
+      sdkVersion: '2.12.0',
+      flutterVersions: {
+        'frameworkVersion': '2.0.0',
+        'channel': 'stable',
+        'repositoryUrl': 'https://github.com/flutter/flutter',
+        'frameworkRevision': '13c6ad50e980cad1844457869c2b4c5dc3311d03',
+        'frameworkCommitDate': '2021-02-19 10:03:46 +0100',
+        'engineRevision': 'b04955656c87de0d80d259792e3a0e4a23b7c260',
+        'dartSdkVersion': '2.12.0 (build 2.12.0)',
+        'flutterRoot': '${fakeFlutterRoot.io.path}'
+      },
+    ),
+  );
+}
+
 void main() {
   group('Follow Dart file conventions', () {
     test('finds missing README and CHANGELOG', () async {
@@ -161,7 +167,7 @@ Call this method..
       await descriptor.create();
 
       final context = PackageContext(
-        toolEnvironment: testToolEnvironment,
+        toolEnvironment: await testToolEnvironment(),
         packageDir: descriptor.io.path,
         options: InspectOptions(),
       );
@@ -241,12 +247,11 @@ Call this method..
       });
       await descriptor.create();
       final context = PackageContext(
-        toolEnvironment: testToolEnvironment,
+        toolEnvironment: await testToolEnvironment(),
         packageDir: descriptor.io.path,
         options: InspectOptions(),
       );
       final section = await trustworthyDependency(context);
-      print(section.summary);
       expect(section.grantedPoints, 20);
     });
     test('complains abpout Flutter constraint upper bound', () async {
@@ -258,7 +263,7 @@ Call this method..
       });
       await descriptor.create();
       final context = PackageContext(
-        toolEnvironment: testToolEnvironment,
+        toolEnvironment: await testToolEnvironment(),
         packageDir: descriptor.io.path,
         options: InspectOptions(),
       );
