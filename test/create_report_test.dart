@@ -17,7 +17,7 @@ import 'package_server.dart';
 
 Future<ToolEnvironment> testToolEnvironment() async {
   final fakeFlutterRoot =
-      d.dir('fake_flutter_root', [d.file('version', '2.12.0')]);
+      d.dir('fake_flutter_root', [d.file('version', '2.0.0')]);
   await fakeFlutterRoot.create();
   return ToolEnvironment.fake(
     dartCmd: [Platform.resolvedExecutable],
