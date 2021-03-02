@@ -2,7 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:pana/pana.dart';
+
 import 'package:pana/src/create_report.dart';
 import 'package:pana/src/package_context.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -11,6 +14,31 @@ import 'package:test_descriptor/test_descriptor.dart' as d;
 
 import 'package_descriptor.dart';
 import 'package_server.dart';
+
+Future<ToolEnvironment> testToolEnvironment() async {
+  final fakeFlutterRoot =
+      d.dir('fake_flutter_root', [d.file('version', '2.0.0')]);
+  await fakeFlutterRoot.create();
+  return ToolEnvironment.fake(
+    dartCmd: [Platform.resolvedExecutable],
+    pubCmd: [Platform.resolvedExecutable, 'pub'],
+    environment: {'FLUTTER_ROOT': fakeFlutterRoot.io.path},
+    runtimeInfo: PanaRuntimeInfo(
+      panaVersion: '1.2.3',
+      sdkVersion: '2.12.0',
+      flutterVersions: {
+        'frameworkVersion': '2.0.0',
+        'channel': 'stable',
+        'repositoryUrl': 'https://github.com/flutter/flutter',
+        'frameworkRevision': '13c6ad50e980cad1844457869c2b4c5dc3311d03',
+        'frameworkCommitDate': '2021-02-19 10:03:46 +0100',
+        'engineRevision': 'b04955656c87de0d80d259792e3a0e4a23b7c260',
+        'dartSdkVersion': '2.12.0 (build 2.12.0)',
+        'flutterRoot': '${fakeFlutterRoot.io.path}'
+      },
+    ),
+  );
+}
 
 void main() {
   group('Follow Dart file conventions', () {
@@ -139,16 +167,14 @@ Call this method..
       await descriptor.create();
 
       final context = PackageContext(
-        toolEnvironment: await ToolEnvironment.create(
-            // Enforce no Flutter for consistent testing.
-            flutterSdkDir: null),
+        toolEnvironment: await testToolEnvironment(),
         packageDir: descriptor.io.path,
         options: InspectOptions(),
       );
 
       {
         final section = await trustworthyDependency(context);
-        expect(section.grantedPoints, 10);
+        expect(section.grantedPoints, 20);
       }
       DateTime daysAgo(int days) =>
           DateTime.now().subtract(Duration(days: days));
@@ -172,7 +198,7 @@ Call this method..
                 '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
                 'but that version doesn\'t support the current Dart SDK version ${context.currentSdkVersion}'));
 
-        expect(section.grantedPoints, 10);
+        expect(section.grantedPoints, 20);
       }
       {
         globalPackageServer
@@ -185,7 +211,7 @@ Call this method..
               'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.'),
         );
 
-        expect(section.grantedPoints, 10);
+        expect(section.grantedPoints, 20);
       }
       {
         globalPackageServer.add(
@@ -209,8 +235,44 @@ Call this method..
           contains(
               'The constraint `^1.1.0` on foo does not support the stable version `2.0.0`.'),
         );
-        expect(section.grantedPoints, 0);
+        expect(section.grantedPoints, 10);
       }
+    });
+    test('ignores Flutter constraint upper bound', () async {
+      final descriptor = package('my_package', pubspecExtras: {
+        'environment': {
+          'sdk': '>=2.10.0 <3.0.0',
+          'flutter': '>=1.6.0 <2.0.0',
+        }
+      });
+      await descriptor.create();
+      final context = PackageContext(
+        toolEnvironment: await testToolEnvironment(),
+        packageDir: descriptor.io.path,
+        options: InspectOptions(),
+      );
+      final section = await trustworthyDependency(context);
+      expect(section.grantedPoints, 20);
+    });
+    test('complains abpout Flutter constraint upper bound', () async {
+      final descriptor = package('my_package', pubspecExtras: {
+        'environment': {
+          'sdk': '>=2.10.0 <3.0.0',
+          'flutter': '>=3.0.0 <4.0.0',
+        }
+      });
+      await descriptor.create();
+      final context = PackageContext(
+        toolEnvironment: await testToolEnvironment(),
+        packageDir: descriptor.io.path,
+        options: InspectOptions(),
+      );
+      final section = await trustworthyDependency(context);
+      expect(
+          section.summary,
+          contains(
+              'The current flutter constraint does not allow the latest Flutter (2.0.0)'));
+      expect(section.grantedPoints, 0);
     });
   });
 }

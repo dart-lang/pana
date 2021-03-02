@@ -1,3 +1,6 @@
+## 0.15.3
+* Ignore Flutter version constraint upper bounds
+.
 ## 0.15.2
 * If unsupported versions of dependencies are newer than 30 days or depend on a 
   unreleased sdk the dependencies section will be marked as passing instead of

@@ -107,7 +107,18 @@ class Pubspec {
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk'], name);
 
   VersionConstraint get dartSdkConstraint => _inner.environment['sdk'];
-  VersionConstraint get flutterSdkConstraint => _inner.environment['flutter'];
+  VersionConstraint get flutterSdkConstraint =>
+      // Flutter constraints get special treatment, as Flutter won't be
+      // using semantic versioning to mark breaking releases.
+      _removeUpperBound(_inner.environment['flutter']);
+
+  VersionConstraint _removeUpperBound(VersionConstraint constraint) {
+    if (constraint is VersionRange) {
+      return VersionRange(
+          min: constraint.min, includeMin: constraint.includeMin);
+    }
+    return constraint;
+  }
 
   bool get usesOldFlutterPluginFormat =>
       hasFlutterPluginKey &&

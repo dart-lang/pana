@@ -133,7 +133,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`args`]|-|1.6.0|2.0.0|
 |[`built_value`]|-|7.1.0|8.0.0|
 |[`charcode`]|-|1.2.0|1.2.0|
-|[`checked_yaml`]|-|1.0.4|1.0.4|
+|[`checked_yaml`]|-|1.0.4|2.0.0|
 |[`cli_repl`]|-|0.2.0+1|0.2.0+1|
 |[`code_builder`]|-|3.6.0|3.6.0|
 |[`convert`]|-|2.1.1|3.0.0|
