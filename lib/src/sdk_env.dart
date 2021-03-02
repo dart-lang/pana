@@ -51,6 +51,30 @@ class ToolEnvironment {
     this._useGlobalDartdoc,
   );
 
+  ToolEnvironment.fake({
+    this.dartSdkDir,
+    this.pubCacheDir,
+    List<String> dartCmd,
+    List<String> pubCmd,
+    List<String> dartAnalyzerCmd,
+    List<String> dartfmtCmd,
+    List<String> dartdocCmd,
+    List<String> flutterCmd,
+    List<String> flutterDartAnalyzerCmd,
+    Map<String, String> environment,
+    bool useGlobalDartdoc,
+    PanaRuntimeInfo runtimeInfo,
+  })  : _dartCmd = dartCmd,
+        _pubCmd = pubCmd,
+        _dartAnalyzerCmd = dartAnalyzerCmd,
+        _dartfmtCmd = dartfmtCmd,
+        _dartdocCmd = dartdocCmd,
+        _flutterCmd = flutterCmd,
+        _flutterDartAnalyzerCmd = flutterDartAnalyzerCmd,
+        _environment = environment,
+        _useGlobalDartdoc = useGlobalDartdoc,
+        _runtimeInfo = runtimeInfo;
+
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo;
 
   Future _init() async {
