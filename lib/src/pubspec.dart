@@ -16,9 +16,9 @@ class Pubspec {
       : _inner = pubspek.Pubspec.fromJson(content, lenient: true),
         _content = content;
 
-  factory Pubspec.parseYaml(String content, {dynamic sourceUrl}) =>
-      Pubspec(Map<String, dynamic>.from(
-          yaml.loadYaml(content, sourceUrl: sourceUrl) as Map));
+  factory Pubspec.parseYaml(String content, {String sourceUrl}) =>
+      Pubspec(Map<String, dynamic>.from(yaml.loadYaml(content,
+          sourceUrl: sourceUrl == null ? null : Uri.parse(sourceUrl)) as Map));
 
   factory Pubspec.fromJson(Map<String, dynamic> json) => Pubspec(json);
 

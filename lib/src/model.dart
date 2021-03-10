@@ -17,7 +17,7 @@ part 'model.g.dart';
 @JsonSerializable()
 @VersionConverter()
 class Summary {
-  @JsonKey(nullable: false)
+  @JsonKey()
   final PanaRuntimeInfo runtimeInfo;
 
   final String packageName;

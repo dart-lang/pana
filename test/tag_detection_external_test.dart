@@ -26,8 +26,8 @@ void main() {
 
     setUpAll(() async {
       // Download and parse https://github.com/dart-lang/sdk/blob/master/sdk/lib/libraries.json
-      final librariesContent = await get(
-          'https://raw.githubusercontent.com/dart-lang/sdk/master/sdk/lib/libraries.json');
+      final librariesContent = await get(Uri.parse(
+          'https://raw.githubusercontent.com/dart-lang/sdk/master/sdk/lib/libraries.json'));
       libraries = json.decode(librariesContent.body) as Map<String, dynamic>;
       allVmLibs = extractLibraries(
           libraries['vm']['libraries'] as Map<String, dynamic>);

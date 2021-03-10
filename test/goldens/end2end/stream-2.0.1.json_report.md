@@ -80,7 +80,7 @@ Because:
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 1230 issues. Showing the first 2:
+Found 1238 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -136,7 +136,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`http_parser`]|-|4.0.0|4.0.0|
 |[`meta`]|-|1.3.0|1.3.0|
 |[`mime`]|-|1.0.0|1.0.0|
-|[`pedantic`]|-|1.10.0|1.10.0|
+|[`pedantic`]|-|1.11.0|1.11.0|
 |[`source_span`]|-|1.8.1|1.8.1|
 |[`string_scanner`]|-|1.1.0|1.1.0|
 |[`term_glyph`]|-|1.2.0|1.2.0|
