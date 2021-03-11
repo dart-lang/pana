@@ -99,9 +99,9 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/20 Support sound null-safety
+## 0/20 Support sound null safety
 
-### [~] 0/20 points: Package does not opt in to null-safety.
+### [~] 0/20 points: Package does not opt in to null safety.
 
 <details>
 <summary>

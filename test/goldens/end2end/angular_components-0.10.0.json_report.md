@@ -107,13 +107,13 @@ So, because dart_internal ^0.1.1 requires SDK version >=2.0.0-dev.12.0 <2.12.0 a
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/20 Support sound null-safety
+## 0/20 Support sound null safety
 
 ### [x] 0/20 points: Unable to detect null safety
 
 <details>
 <summary>
-Package resolution failed. Could not determine null-safety.
+Package resolution failed. Could not determine null safety.
 </summary>
 
 Run `pub get` for more information.

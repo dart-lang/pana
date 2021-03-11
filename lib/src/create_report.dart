@@ -949,7 +949,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
     subsection = _Subsection(
       'Unable to detect null safety',
       [
-        _Issue('Package resolution failed. Could not determine null-safety.',
+        _Issue('Package resolution failed. Could not determine null safety.',
             suggestion: 'Run `pub get` for more information.')
       ],
       0,
