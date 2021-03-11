@@ -1,3 +1,8 @@
+## 0.15.4
+
+* Upgraded CI to use `2.12.0` SDK.
+* Enabled dependency constraints to include null-safe versions.
+
 ## 0.15.3
 * Ignore Flutter version constraint upper bounds
 .
