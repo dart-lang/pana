@@ -916,7 +916,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
             ReportStatus.passed);
       } else {
         subsection = _Subsection(
-            'Package declares support for null safety, but there are issues.',
+            'Null safety support has one or more issues.',
             [
               ...explanations.map(_explanationToIssue).toList(),
               // TODO(sigurdm): This is no longer enough, because `pub outdated`
