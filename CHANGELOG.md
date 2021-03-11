@@ -1,5 +1,6 @@
 ## 0.15.4
 
+* Award points for fully null safety enabled packages.
 * Upgraded CI to use `2.12.0` SDK.
 * Enabled dependency constraints to include null-safe versions.
 
@@ -53,7 +54,7 @@
 
 ## 0.14.9
 
-* Use library import graph to determine null-safety.
+* Use library import graph to determine nullsafety.
 
 ## 0.14.8
 
