@@ -54,7 +54,7 @@
 
 ## 0.14.9
 
-* Use library import graph to determine nullsafety.
+* Use library import graph to determine null safety.
 
 ## 0.14.8
 
