@@ -896,8 +896,6 @@ _Issue _explanationToIssue(Explanation explanation) =>
     _Issue(explanation.finding, suggestion: explanation.explanation);
 
 Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
-  // TODO(sigurdm): Currently we don't give any points for null-safety.
-  // Raise this after null-safety beta.
   const maxPoints = 20;
 
   _Subsection subsection;
