@@ -136,7 +136,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`http_parser`]|-|4.0.0|4.0.0|
 |[`meta`]|-|1.3.0|1.3.0|
 |[`mime`]|-|1.0.0|1.0.0|
-|[`pedantic`]|-|1.10.0|1.10.0|
+|[`pedantic`]|-|1.11.0|1.11.0|
 |[`source_span`]|-|1.8.1|1.8.1|
 |[`string_scanner`]|-|1.1.0|1.1.0|
 |[`term_glyph`]|-|1.2.0|1.2.0|
@@ -166,11 +166,9 @@ To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependenc
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Support sound null-safety
+## 0/20 Support sound null-safety
 
-### [~] 0/0 points: Package does not opt in to null-safety.
-
-Packages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.
+### [~] 0/20 points: Package does not opt in to null-safety.
 
 <details>
 <summary>

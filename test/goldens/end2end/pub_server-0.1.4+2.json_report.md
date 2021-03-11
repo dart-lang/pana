@@ -59,9 +59,9 @@ INFO: Unnecessary new keyword.
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/repository.dart`
 </details>
 
-## 10/20 Support up-to-date dependencies
+## 0/20 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
@@ -111,18 +111,14 @@ Found 6 issues. Showing the first 2:
 
 <details>
 <summary>
-The constraint `^3.0.0` on http_parser does not support the stable version `4.0.0`, that was published N days ago. 
-
- When http_parser is 30 days old, this package will no longer be awarded points in this category.
+The constraint `^3.0.0` on http_parser does not support the stable version `4.0.0`.
 </summary>
 
 Try running `dart pub upgrade --major-versions http_parser` to update the constraint.
 </details>
 <details>
 <summary>
-The constraint `>=0.9.3 <1.0.0` on logging does not support the stable version `1.0.0`, that was published N days ago. 
-
- When logging is 30 days old, this package will no longer be awarded points in this category.
+The constraint `>=0.9.3 <1.0.0` on logging does not support the stable version `1.0.0`.
 </summary>
 
 Try running `dart pub upgrade --major-versions logging` to update the constraint.
@@ -132,11 +128,9 @@ Try running `dart pub upgrade --major-versions logging` to update the constraint
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Support sound null-safety
+## 0/20 Support sound null-safety
 
-### [~] 0/0 points: Package does not opt in to null-safety.
-
-Packages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.
+### [~] 0/20 points: Package does not opt in to null-safety.
 
 <details>
 <summary>

@@ -85,9 +85,9 @@
         "id": "null-safety",
         "title": "Support sound null-safety",
         "grantedPoints": 0,
-        "maxPoints": 0,
+        "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/0 points: Package declares support for null-safety, but there are issues.\n\nPackages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.\n\n<details>\n<summary>\nPackage is not null safe\n</summary>\n\nBecause:\n* `_dummy_pkg` that depends on:\n* `retry` that doesn't opt in to null safety\n</details>\n<details>\n<summary>\nFor more information\n</summary>\n\nTry running `pub outdated --mode=null-safety`.\nBe sure to read the [migration guide](https://dart.dev/null-safety/migration-guide).\n</details>"
+        "summary": "### [x] 0/20 points: Package declares support for null-safety, but there are issues.\n\n<details>\n<summary>\nPackage is not null safe\n</summary>\n\nBecause:\n* `_dummy_pkg` that depends on:\n* `retry` that doesn't opt in to null safety\n</details>\n<details>\n<summary>\nFor more information\n</summary>\n\nTry running `pub outdated --mode=null-safety`.\nBe sure to read the [migration guide](https://dart.dev/null-safety/migration-guide).\n</details>"
       }
     ]
   }

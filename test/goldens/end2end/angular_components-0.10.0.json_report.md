@@ -131,11 +131,11 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`angular_ast`]|-|0.5.9|1.0.1|
 |[`angular_compiler`]|-|0.4.3|1.0.1|
 |[`args`]|-|1.6.0|2.0.0|
-|[`built_value`]|-|7.1.0|8.0.0|
+|[`built_value`]|-|7.1.0|8.0.2|
 |[`charcode`]|-|1.2.0|1.2.0|
-|[`checked_yaml`]|-|1.0.4|2.0.0|
+|[`checked_yaml`]|-|1.0.4|2.0.1|
 |[`cli_repl`]|-|0.2.0+1|0.2.0+1|
-|[`code_builder`]|-|3.6.0|3.6.0|
+|[`code_builder`]|-|3.7.0|3.7.0|
 |[`convert`]|-|2.1.1|3.0.0|
 |[`crypto`]|-|2.1.5|3.0.0|
 |[`csslib`]|-|0.14.6+1|0.17.0|
@@ -154,9 +154,9 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`node_io`]|-|1.2.0|1.2.0|
 |[`package_config`]|-|1.9.3|2.0.0|
 |[`package_resolver`]|-|1.0.10|1.0.10|
-|[`pedantic`]|-|1.10.0|1.10.0|
+|[`pedantic`]|-|1.11.0|1.11.0|
 |[`pub_semver`]|-|1.4.4|2.0.0|
-|[`pubspec_parse`]|-|0.1.8|0.1.8|
+|[`pubspec_parse`]|-|0.1.8|1.0.0|
 |[`sass`]|-|1.32.8|1.32.8|
 |[`source_gen`]|-|0.9.4+4|0.9.10+3|
 |[`source_maps`]|-|0.10.10|0.10.10|
@@ -253,11 +253,9 @@ Try running `dart pub upgrade --major-versions angular_forms` to update the cons
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Support sound null-safety
+## 0/20 Support sound null-safety
 
-### [~] 0/0 points: Package does not opt in to null-safety.
-
-Packages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.
+### [~] 0/20 points: Package does not opt in to null-safety.
 
 <details>
 <summary>

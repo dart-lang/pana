@@ -97,9 +97,9 @@ Try adding an sdk constraint to your `pubspec.yaml`
 </details>
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Support sound null-safety
+## 0/20 Support sound null-safety
 
-### [x] 0/0 points: Unable to detect null safety
+### [x] 0/20 points: Unable to detect null safety
 
 <details>
 <summary>
