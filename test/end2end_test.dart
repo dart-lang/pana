@@ -120,19 +120,28 @@ void main() {
     }, timeout: const Timeout.factor(2));
   }
 
-  _verifyPackage('angular_components', '0.10.0');
-  _verifyPackage('http', '0.11.3+17');
-  _verifyPackage('pub_server', '0.1.4+2');
-  _verifyPackage('skiplist', '0.1.0');
-  _verifyPackage('stream', '2.0.1');
-  _verifyPackage('fs_shim', '0.7.1');
+  // generic, cross-platform package
+  _verifyPackage('async', '2.5.0');
+
+  // cross-platform package with platform-specific code
+  _verifyPackage('http', '0.13.0');
+
+  // js-only package
+  _verifyPackage('dnd', '2.0.0');
+
+  // small issues in the package
+  _verifyPackage('stream', '2.6.0');
+
   // mime_type 0.3.2 has no recognized LICENSE file
   _verifyPackage('mime_type', '0.3.2');
+
   // bulma_min 0.7.4 has no dart files, only assets
   _verifyPackage('bulma_min', '0.7.4');
 
+  // really old package
+  _verifyPackage('skiplist', '0.1.0');
+
   // packages with bad content
-  _verifyPackage('_dummy_pkg', '1.0.0-null-safety.0');
   _verifyPackage('_dummy_pkg', '1.0.0-null-safety.1');
 }
 
