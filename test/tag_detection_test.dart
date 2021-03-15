@@ -585,7 +585,7 @@ name: my_package
           tags: ['is:null-safe'], explanations: isEmpty);
     });
 
-    test('opting a library to older version still allowing null-safety is ok',
+    test('opting a library to older version still allowing null safety is ok',
         () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps('my_package',
@@ -680,7 +680,7 @@ Because:
         explanation(finding: 'Package is not null safe', explanation: '''
 Because:
 * `package:my_package/my_package.dart` that imports:
-* `package:my_dependency/my_dependency.dart` where package:my_dependency/my_dependency.dart is opting out from null-safety.''')
+* `package:my_dependency/my_dependency.dart` where package:my_dependency/my_dependency.dart is opting out from null safety.''')
       ]);
     });
 
