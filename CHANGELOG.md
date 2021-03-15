@@ -3,6 +3,7 @@
 * Award points for fully null safety enabled packages.
 * Upgraded CI to use `2.12.0` SDK.
 * Enabled dependency constraints to include null-safe versions.
+* More graceful behavior when the analyzer crashes.
 
 ## 0.15.3
 * Ignore Flutter version constraint upper bounds
