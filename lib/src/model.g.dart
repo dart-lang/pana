@@ -8,8 +8,9 @@ part of 'model.dart';
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) {
   return Summary(
-    runtimeInfo:
-        PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
+    runtimeInfo: json['runtimeInfo'] == null
+        ? null
+        : PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
     packageName: json['packageName'] as String,
     packageVersion:
         const VersionConverter().fromJson(json['packageVersion'] as String),

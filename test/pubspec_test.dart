@@ -59,7 +59,7 @@ void main() {
     expect(unknownSdkPubspec.dependentSdks.toList(), ['unknown']);
   });
 
-  test('null-safety', () {
+  test('null safety', () {
     expect(dart2Pubspec.sdkConstraintStatus.hasOptedIntoNullSafety, false);
     expect(nullSafetyPubspec.sdkConstraintStatus.hasOptedIntoNullSafety, true);
     expect(nullSafetyPubspec2.sdkConstraintStatus.hasOptedIntoNullSafety, true);

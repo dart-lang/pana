@@ -16,9 +16,9 @@ class Pubspec {
       : _inner = pubspek.Pubspec.fromJson(content, lenient: true),
         _content = content;
 
-  factory Pubspec.parseYaml(String content, {dynamic sourceUrl}) =>
-      Pubspec(Map<String, dynamic>.from(
-          yaml.loadYaml(content, sourceUrl: sourceUrl) as Map));
+  factory Pubspec.parseYaml(String content, {String sourceUrl}) =>
+      Pubspec(Map<String, dynamic>.from(yaml.loadYaml(content,
+          sourceUrl: sourceUrl == null ? null : Uri.parse(sourceUrl)) as Map));
 
   factory Pubspec.fromJson(Map<String, dynamic> json) => Pubspec(json);
 
@@ -107,7 +107,18 @@ class Pubspec {
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk'], name);
 
   VersionConstraint get dartSdkConstraint => _inner.environment['sdk'];
-  VersionConstraint get flutterSdkConstraint => _inner.environment['flutter'];
+  VersionConstraint get flutterSdkConstraint =>
+      // Flutter constraints get special treatment, as Flutter won't be
+      // using semantic versioning to mark breaking releases.
+      _removeUpperBound(_inner.environment['flutter']);
+
+  VersionConstraint _removeUpperBound(VersionConstraint constraint) {
+    if (constraint is VersionRange) {
+      return VersionRange(
+          min: constraint.min, includeMin: constraint.includeMin);
+    }
+    return constraint;
+  }
 
   bool get usesOldFlutterPluginFormat =>
       hasFlutterPluginKey &&

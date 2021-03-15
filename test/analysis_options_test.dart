@@ -14,7 +14,8 @@ void main() {
     final content = await getPedanticContent(inspectOptions: InspectOptions());
     expect(content, contains('linter:'));
     expect(content, contains('rules:'));
-    expect(content, contains('avoid_empty_else'));
+    expect(content, isNot(contains('avoid_empty_else'))); // removed recently
+    expect(content, contains('avoid_init_to_null'));
     expect(content, contains('prefer_is_empty'));
     expect(content, contains('prefer_single_quotes')); // in 1.9.0
   });

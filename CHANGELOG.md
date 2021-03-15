@@ -1,9 +1,31 @@
+## 0.15.4
+
+* Award points for fully null safety enabled packages.
+* Upgraded CI to use `2.12.0` SDK.
+* Enabled dependency constraints to include null-safe versions.
+
+## 0.15.3
+* Ignore Flutter version constraint upper bounds
+.
+## 0.15.2
+* If unsupported versions of dependencies are newer than 30 days or depend on a 
+  unreleased sdk the dependencies section will be marked as passing instead of
+  partial.
+  
+## 0.15.1+1
+* Update version constant.
+
 ## 0.15.1
 
 * Fix of platform detection for executable-only packages.
+* Fix outdated dependencies check, to ignore outdated packages from
+  `pub outdated` if they are allowed by the constraint, and hence, just mutually
+  incompatible.
+
 ## 0.15.0+1
 
 * Does not depend on package:tar.
+
 ## 0.15.0
 
 * **BREAKING** Removed:
@@ -32,7 +54,7 @@
 
 ## 0.14.9
 
-* Use library import graph to determine null-safety.
+* Use library import graph to determine null safety.
 
 ## 0.14.8
 

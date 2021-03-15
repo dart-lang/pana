@@ -4,24 +4,38 @@
     "sdkVersion": "{{sdk-version}}",
     "flutterVersions": {}
   },
-  "packageName": "bulma_min",
-  "packageVersion": "0.7.4",
+  "packageName": "async",
+  "packageVersion": "2.5.0",
   "pubspec": {
-    "name": "bulma_min",
-    "description": "Bulma is a CSS Framework. This package contains its minified assets to include in your project.",
-    "version": "0.7.4",
-    "homepage": "https://github.com/agilord/bulma_min",
-    "author": "team@agilord.com",
+    "name": "async",
+    "version": "2.5.0",
+    "description": "Utility functions and classes related to the 'dart:async' library.",
+    "homepage": "https://www.github.com/dart-lang/async",
     "environment": {
-      "sdk": ">=1.0.0 <3.0.0"
+      "sdk": ">=2.12.0-0 <3.0.0"
+    },
+    "dependencies": {
+      "collection": "^1.15.0"
+    },
+    "dev_dependencies": {
+      "fake_async": "^1.2.0-nullsafety",
+      "stack_trace": "^1.10.0-nullsafety",
+      "test": "^1.16.0-nullsafety",
+      "pedantic": "^1.10.0-nullsafety"
     }
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "MIT",
-    "url": "https://github.com/agilord/bulma_min/blob/master/LICENSE"
+    "name": "BSD",
+    "url": "https://github.com/dart-lang/async/blob/master/LICENSE"
   },
-  "allDependencies": [],
+  "allDependencies": [
+    "collection",
+    "fake_async",
+    "pedantic",
+    "stack_trace",
+    "test"
+  ],
   "tags": [
     "sdk:dart",
     "sdk:flutter",
@@ -33,7 +47,8 @@
     "platform:web",
     "runtime:native-aot",
     "runtime:native-jit",
-    "runtime:web"
+    "runtime:web",
+    "is:null-safe"
   ],
   "report": {
     "sections": [
@@ -75,15 +90,15 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|`^1.15.0`|1.15.0|1.15.0|\n\nTo reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`collection`]: https://pub.dev/packages/collection\n\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n* Found no Flutter in your PATH. Could not determine the current Flutter version."
       },
       {
         "id": "null-safety",
         "title": "Support sound null safety",
-        "grantedPoints": 0,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "partial",
-        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `>=1.0.0 <3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Package and dependencies are fully migrated to null safety!\n"
       }
     ]
   }

@@ -35,23 +35,19 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
-No dependencies.
+|Package|Constraint|Compatible|Latest|
+|:-|:-|:-|:-|
+|[`collection`]|`^1.15.0`|1.15.0|1.15.0|
 
 To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
+
+[`collection`]: https://pub.dev/packages/collection
 
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/20 Support sound null safety
+## 20/20 Support sound null safety
 
-### [~] 0/20 points: Package does not opt in to null safety.
-
-<details>
-<summary>
-Package language version (indicated by the sdk constraint `>=1.0.0 <3.0.0`) is less than 2.12.
-</summary>
-
-Consider [migrating](https://dart.dev/null-safety/migration-guide).
-</details>
+### [*] 20/20 points: Package and dependencies are fully migrated to null safety!
