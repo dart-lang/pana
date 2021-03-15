@@ -22,19 +22,7 @@
     "url": "https://github.com/agilord/bulma_min/blob/master/LICENSE"
   },
   "allDependencies": [],
-  "tags": [
-    "sdk:dart",
-    "sdk:flutter",
-    "platform:android",
-    "platform:ios",
-    "platform:windows",
-    "platform:linux",
-    "platform:macos",
-    "platform:web",
-    "runtime:native-aot",
-    "runtime:native-jit",
-    "runtime:web"
-  ],
+  "tags": [],
   "report": {
     "sections": [
       {

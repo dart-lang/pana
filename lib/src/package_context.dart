@@ -126,6 +126,7 @@ class PackageContext {
       _codeProblems = list;
     } on ToolException catch (e) {
       errors.add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
+      rethrow;
     }
     return _codeProblems;
   }
