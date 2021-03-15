@@ -73,7 +73,7 @@ Because:
 
 ### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 1183 issues. Showing the first 2:
+Found 1191 issues. Showing the first 2:
 
 <details>
 <summary>
