@@ -65,11 +65,11 @@
       },
       {
         "id": "null-safety",
-        "title": "Support sound null-safety",
+        "title": "Support sound null safety",
         "grantedPoints": 0,
-        "maxPoints": 0,
+        "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/0 points: Unable to detect null safety\n\n<details>\n<summary>\nPackage resolution failed. Could not determine null-safety.\n</summary>\n\nRun `pub get` for more information.\n</details>"
+        "summary": "### [x] 0/20 points: Unable to detect null safety\n\n<details>\n<summary>\nPackage resolution failed. Could not determine null safety.\n</summary>\n\nRun `pub get` for more information.\n</details>"
       }
     ]
   },

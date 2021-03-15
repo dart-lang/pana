@@ -166,11 +166,9 @@ Try running `dart pub upgrade --major-versions args` to update the constraint.
 
 * Found no Flutter in your PATH. Could not determine the current Flutter version.
 
-## 0/0 Support sound null-safety
+## 0/20 Support sound null safety
 
-### [~] 0/0 points: Package does not opt in to null-safety.
-
-Packages with full null-safety support will be awarded additional points in a planned future revision of the pub.dev points model.
+### [~] 0/20 points: Package does not opt in to null safety.
 
 <details>
 <summary>

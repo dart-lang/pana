@@ -896,9 +896,7 @@ _Issue _explanationToIssue(Explanation explanation) =>
     _Issue(explanation.finding, suggestion: explanation.explanation);
 
 Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
-  // TODO(sigurdm): Currently we don't give any points for null-safety.
-  // Raise this after null-safety beta.
-  const maxPoints = 0;
+  const maxPoints = 20;
 
   _Subsection subsection;
   if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
@@ -911,18 +909,14 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
     if (pubspec.sdkConstraintStatus.hasOptedIntoNullSafety) {
       if (nullSafetyTags.contains('is:null-safe')) {
         subsection = _Subsection(
-            'Package and dependencies are fully migrated to null-safety, '
-            'and will be awarded additional points in a planned future revision '
-            'of the pub.dev points model.',
+            'Package and dependencies are fully migrated to null safety!',
             explanations.map(_explanationToIssue).toList(),
             maxPoints,
             maxPoints,
             ReportStatus.passed);
       } else {
         subsection = _Subsection(
-            'Package declares support for null-safety, but there are issues.\n\n'
-            'Packages with full null-safety support will be awarded additional '
-            'points in a planned future revision of the pub.dev points model.',
+            'Null safety support has one or more issues.',
             [
               ...explanations.map(_explanationToIssue).toList(),
               // TODO(sigurdm): This is no longer enough, because `pub outdated`
@@ -938,9 +932,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
       }
     } else {
       subsection = _Subsection(
-          'Package does not opt in to null-safety.\n\n'
-          'Packages with full null-safety support will be awarded additional '
-          'points in a planned future revision of the pub.dev points model.',
+          'Package does not opt in to null safety.',
           [
             _Issue(
               'Package language version (indicated by the sdk constraint '
@@ -957,7 +949,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
     subsection = _Subsection(
       'Unable to detect null safety',
       [
-        _Issue('Package resolution failed. Could not determine null-safety.',
+        _Issue('Package resolution failed. Could not determine null safety.',
             suggestion: 'Run `pub get` for more information.')
       ],
       0,
@@ -966,7 +958,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
     );
   }
   return _makeSection(
-    title: 'Support sound null-safety',
+    title: 'Support sound null safety',
     maxPoints: maxPoints,
     id: ReportSectionId.nullSafety,
     subsections: [subsection],

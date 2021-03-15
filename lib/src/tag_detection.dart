@@ -944,7 +944,7 @@ class Tagger {
 
   /// Decides if a package is null-safe.
   ///
-  /// A package is marked null-safety compliant if:
+  /// A package is marked null safety compliant if:
   ///
   /// - The package and all its transitive dependencies have opted-in by
   ///   specifying a lower dart sdk bound >= 2.12.
@@ -998,7 +998,7 @@ class Tagger {
                 return (path) => Explanation(
                       'Package is not null safe',
                       'Because:\n${LibraryGraph.formatPath(path)} where $library '
-                          'is opting out from null-safety.',
+                          'is opting out from null safety.',
                       tag: _nullSafeTag,
                     );
               }

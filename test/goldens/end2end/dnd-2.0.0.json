@@ -81,11 +81,11 @@
       },
       {
         "id": "null-safety",
-        "title": "Support sound null-safety",
-        "grantedPoints": 0,
-        "maxPoints": 0,
+        "title": "Support sound null safety",
+        "grantedPoints": 20,
+        "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 0/0 points: Package and dependencies are fully migrated to null-safety, and will be awarded additional points in a planned future revision of the pub.dev points model.\n"
+        "summary": "### [*] 20/20 points: Package and dependencies are fully migrated to null safety!\n"
       }
     ]
   }
