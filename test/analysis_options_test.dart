@@ -4,7 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
+import 'package:yaml/yaml.dart' as yaml;
 
 import 'package:pana/src/analysis_options.dart';
 import 'package:pana/src/package_analyzer.dart' show InspectOptions;
@@ -42,47 +44,15 @@ void main() {
     );
   });
 
-  test('flutter without original', () {
+  test('flutter without original', () async {
+    // Resulting options file should match the default Flutter analysis_options.yaml
+    final rs = await http.get(Uri.parse(
+        'https://raw.githubusercontent.com/flutter/flutter/master/packages/flutter/lib/analysis_options_user.yaml'));
+    final body = json.decode(json.encode(yaml.loadYaml(rs.body)));
     expect(
       json.decode(customizeAnalysisOptions(
           null, true, '/path/to/pedantic/analysis_options.yaml')),
-      {
-        'analyzer': {
-          'errors': {'missing_required_param': 'warning'},
-        },
-        'linter': {
-          'rules': [
-            'avoid_empty_else',
-            'avoid_init_to_null',
-            'avoid_return_types_on_setters',
-            'await_only_futures',
-            'camel_case_types',
-            'cancel_subscriptions',
-            'close_sinks',
-            'control_flow_in_finally',
-            'empty_constructor_bodies',
-            'empty_statements',
-            'hash_and_equals',
-            'implementation_imports',
-            'library_names',
-            'non_constant_identifier_names',
-            'package_api_docs',
-            'package_names',
-            'package_prefixed_library_names',
-            'prefer_is_not_empty',
-            'slash_for_doc_comments',
-            'super_goes_last',
-            'test_types_in_equals',
-            'throw_in_finally',
-            'type_init_formals',
-            'unnecessary_brace_in_string_interps',
-            'unnecessary_getters_setters',
-            'unnecessary_statements',
-            'unrelated_type_equality_checks',
-            'valid_regexps'
-          ]
-        },
-      },
+      body,
     );
   });
 

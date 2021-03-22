@@ -45,6 +45,7 @@ linter:
     - avoid_empty_else
     - avoid_init_to_null
     - avoid_return_types_on_setters
+    - avoid_web_libraries_in_flutter
     - await_only_futures
     - camel_case_types
     - cancel_subscriptions
@@ -61,7 +62,6 @@ linter:
     - package_prefixed_library_names
     - prefer_is_not_empty
     - slash_for_doc_comments
-    - super_goes_last
     - test_types_in_equals
     - throw_in_finally
     - type_init_formals

@@ -1,6 +1,8 @@
 ## 0.15.5
 
 * Use `dart pub` instead of `pub`.
+* Updated `analysis_options.yaml` for Flutter packages.
+
 ## 0.15.4
 
 * Award points for fully null safety enabled packages.
