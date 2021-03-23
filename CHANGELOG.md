@@ -1,3 +1,6 @@
+## 0.15.5
+
+* Use `dart pub` instead of `pub`.
 ## 0.15.4
 
 * Award points for fully null safety enabled packages.
