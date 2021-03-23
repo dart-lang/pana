@@ -48,7 +48,7 @@
 |[`typed_data`]|-|1.3.0|1.3.0|
 </details>
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
+To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 [`http_parser`]: https://pub.dev/packages/http_parser
 [`meta`]: https://pub.dev/packages/meta

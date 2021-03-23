@@ -38,7 +38,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 Package resolution failed. Could not determine platforms.
 </summary>
 
-Run `pub get` for more information.
+Run `dart pub get` for more information.
 </details>
 
 ## 0/30 Pass static analysis
@@ -84,7 +84,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Sdk constraint doesn't support current Dart version 2.12.0. Cannot run `pub outdated`.
+* Sdk constraint doesn't support current Dart version 2.12.0. Cannot run `dart pub outdated`.
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
@@ -106,5 +106,5 @@ Try adding an sdk constraint to your `pubspec.yaml`
 Package resolution failed. Could not determine null safety.
 </summary>
 
-Run `pub get` for more information.
+Run `dart pub get` for more information.
 </details>

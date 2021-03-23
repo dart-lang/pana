@@ -775,7 +775,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
             '</details>',
             '',
           ],
-          'To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.',
+          'To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.',
           '',
           if (links.isNotEmpty) ...[
             ...links,
@@ -799,12 +799,12 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
           }
         }
       } on ToolException catch (e) {
-        issues.add(_Issue('Could not run pub outdated: ${e.message}'));
+        issues.add(_Issue('Could not run `dart pub outdated`: ${e.message}'));
         points = 0;
         status = ReportStatus.failed;
       }
     } else {
-      issues.add(_unsupportedDartSdk(context, command: 'pub outdated'));
+      issues.add(_unsupportedDartSdk(context, command: 'dart pub outdated'));
       points = 0;
       status = ReportStatus.failed;
     }
@@ -919,12 +919,15 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
             'Null safety support has one or more issues.',
             [
               ...explanations.map(_explanationToIssue).toList(),
-              // TODO(sigurdm): This is no longer enough, because `pub outdated`
+              // TODO(sigurdm): This is no longer enough, because `dart pub outdated`
               // got a more simplistic analysis. We need a better explanation
               // here.
-              _Issue('For more information',
-                  suggestion: 'Try running `pub outdated --mode=null-safety`.\n'
-                      'Be sure to read the [migration guide](https://dart.dev/null-safety/migration-guide).')
+              _Issue(
+                'For more information',
+                suggestion:
+                    'Try running `dart pub outdated --mode=null-safety`.\n'
+                    'Be sure to read the [migration guide](https://dart.dev/null-safety/migration-guide).',
+              )
             ],
             0,
             maxPoints,
@@ -950,7 +953,7 @@ Future<ReportSection> _nullSafety(String packageDir, Pubspec pubspec) async {
       'Unable to detect null safety',
       [
         _Issue('Package resolution failed. Could not determine null safety.',
-            suggestion: 'Run `pub get` for more information.')
+            suggestion: 'Run `dart pub get` for more information.')
       ],
       0,
       maxPoints,
@@ -1071,7 +1074,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       'Supports 0 of 2 possible platforms (native, js)',
       [
         _Issue('Package resolution failed. Could not determine platforms.',
-            suggestion: 'Run `pub get` for more information.')
+            suggestion: 'Run `dart pub get` for more information.')
       ],
       0,
       20,

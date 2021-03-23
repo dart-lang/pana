@@ -37,7 +37,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 No dependencies.
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
+To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs

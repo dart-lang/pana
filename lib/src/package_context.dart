@@ -66,12 +66,12 @@ class PackageContext {
         _pkgResolution = createPkgResolution(pubspec, upgrade.stdout as String,
             path: packageDir);
       } catch (e, stack) {
-        log.severe('Problem with pub upgrade', e, stack);
+        log.severe('Problem with `dart pub upgrade`', e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
         //  and writing to issues in one go.
 
         // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
-        final cmd = usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
+        final cmd = usesFlutter ? 'flutter pub upgrade' : 'dart pub upgrade';
         errors.add('Running `$cmd` failed with the following output:\n\n'
             '```\n$e\n```\n');
       }
@@ -93,11 +93,11 @@ class PackageContext {
           message.contains('Git error.'); // 2
 
       if (!isUserProblem) {
-        log.severe('`pub upgrade` failed.\n$message'.trim());
+        log.severe('`dart pub upgrade` failed.\n$message'.trim());
       }
 
       // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
-      final cmd = usesFlutter ? 'flutter pub upgrade' : 'pub upgrade';
+      final cmd = usesFlutter ? 'flutter pub upgrade' : 'dart pub upgrade';
       errors.add(message.isEmpty
           ? 'Running `$cmd` failed.'
           : 'Running `$cmd` failed with the following output:\n\n'

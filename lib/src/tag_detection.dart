@@ -725,7 +725,7 @@ class Tagger {
   )   : _pubspecCache = pubspecCache,
         _packageGraph = _PackageGraph(pubspecCache);
 
-  /// Assumes that `pub get` has been run.
+  /// Assumes that `dart pub get` has been run.
   factory Tagger(String packageDir) {
     final session = ContextBuilder()
         .createContext(

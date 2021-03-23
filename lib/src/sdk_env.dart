@@ -144,7 +144,7 @@ class ToolEnvironment {
       resolvedDartSdk,
       resolvedPubCache,
       [_join(resolvedDartSdk, 'bin', 'dart')],
-      [_join(resolvedDartSdk, 'bin', 'pub')],
+      [_join(resolvedDartSdk, 'bin', 'dart'), 'pub'],
       [_join(resolvedDartSdk, 'bin', 'dartanalyzer')],
       [_join(resolvedDartSdk, 'bin', 'dartfmt')],
       [_join(resolvedDartSdk, 'bin', 'dartdoc')],
@@ -280,7 +280,7 @@ class ToolEnvironment {
   Future<ProcessResult> _execPubUpgrade(
       String packageDir, Map<String, String> environment) {
     return runProc(
-      [..._pubCmd, 'upgrade', '--verbosity', 'io', '--no-precompile'],
+      [..._pubCmd, 'upgrade', '--verbose'],
       workingDirectory: packageDir,
       environment: environment,
     );
@@ -294,9 +294,7 @@ class ToolEnvironment {
           'packages',
           'pub',
           'upgrade',
-          '--verbosity',
-          'io',
-          '--no-precompile',
+          '--verbose',
         ],
         workingDirectory: packageDir,
         environment: environment,
@@ -354,7 +352,7 @@ class ToolEnvironment {
     );
     if (getResult.exitCode != 0) {
       throw ToolException(
-          '`pub get` failed: \n\n ```\n${getResult.stderr}\n```');
+          '`dart pub get` failed: \n\n ```\n${getResult.stderr}\n```');
     }
     final result = await runProc(
       [..._pubCmd, 'outdated', ...args],
@@ -362,7 +360,7 @@ class ToolEnvironment {
       workingDirectory: packageDir,
     );
     if (result.exitCode != 0) {
-      throw ToolException('`pub outdated` failed: ${result.stderr}');
+      throw ToolException('`dart pub outdated` failed: ${result.stderr}');
     } else {
       return json.decode(result.stdout as String) as Map<String, Object>;
     }
