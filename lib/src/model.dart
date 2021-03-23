@@ -377,7 +377,7 @@ class ReportSection {
   Map<String, dynamic> toJson() => _$ReportSectionToJson(this);
 }
 
-/// The json output from `pub outdated --json`.
+/// The json output from `dart pub outdated --json`.
 @JsonSerializable()
 class Outdated {
   final List<OutdatedPackage> packages;

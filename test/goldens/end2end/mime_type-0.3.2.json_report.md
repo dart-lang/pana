@@ -92,7 +92,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 No dependencies.
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
+To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs

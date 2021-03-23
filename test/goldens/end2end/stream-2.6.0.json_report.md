@@ -116,7 +116,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |:-|:-|:-|:-|
 |[`args`]|`>=0.13.0 <2.0.0`|1.6.0|**2.0.0**|
 |[`charcode`]|`>=1.1.0 <2.0.0`|1.2.0|1.2.0|
-|[`http`]|`>=0.11.0 <2.0.0`|0.13.0|0.13.0|
+|[`http`]|`>=0.11.0 <2.0.0`|0.13.1|0.13.1|
 |[`logging`]|`>=0.11.0 <2.0.0`|1.0.0|1.0.0|
 |[`path`]|`>=1.3.0 <2.0.0`|1.8.0|1.8.0|
 |[`rikulo_commons`]|`>=4.1.0 <5.0.0`|4.3.0|4.3.0|
@@ -136,7 +136,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`typed_data`]|-|1.3.0|1.3.0|
 </details>
 
-To reproduce run `pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
+To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 [`args`]: https://pub.dev/packages/args
 [`charcode`]: https://pub.dev/packages/charcode
