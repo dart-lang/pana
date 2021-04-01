@@ -64,5 +64,5 @@ jobs:
         # Run the tests -- include the default-skipped presubmit tests
         # Run with concurrency = 1 – the build-test command edits files, which might
         #   crash other tests run in parallel
-        run: dart test --platform vm --run-skipped -j 1
+        run: FLUTTER_ROOT=$FLUTTER_HOME dart test --platform vm --run-skipped -j 1
         if: always() && steps.install.outcome == 'success'
