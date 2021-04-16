@@ -3,79 +3,102 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:http/http.dart' as http;
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-// TODO(sigurdm): investigate.
-// ignore: deprecated_member_use
-import 'package:resource/resource.dart';
+import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
-import 'package_analyzer.dart' show InspectOptions;
+final _logger = Logger('analysis_options');
 
-String _analysisOptions(String pedanticConfigPath) => '''
-# Defines a default set of lint rules enforced for
-# projects at Google. For details and rationale,
-# see https://github.com/dart-lang/pedantic#enabled-lints.
-include: $pedanticConfigPath
+String _cachedFlutterOptionsOnGithub;
+String _cachedPedanticOptionsOnGithub;
 
-# For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
-# Uncomment to specify additional rules.
-# linter:
-#   rules:
-#     - camel_case_types
+/// Returns the default analysis options (in yaml format).
+Future<String> getDefaultAnalysisOptionsYaml({
+  @required bool usesFlutter,
+  @required String flutterSdkDir,
+}) async {
+  if (usesFlutter) {
+    return await _getFlutterAnalysisOptions(flutterSdkDir);
+  } else {
+    return await _getPedanticAnalysisOptions();
+  }
+}
 
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
-''';
+Future<String> _getFlutterAnalysisOptions(String flutterSdkDir) async {
+  // try to load local file
+  flutterSdkDir ??= Platform.environment['FLUTTER_ROOT'];
+  if (flutterSdkDir != null &&
+      flutterSdkDir.isNotEmpty &&
+      await Directory(flutterSdkDir).exists()) {
+    final file = File(p.join(flutterSdkDir, 'packages', 'flutter', 'lib',
+        'analysis_options_user.yaml'));
+    if (await file.exists()) {
+      return await file.readAsString();
+    }
+  }
 
-// Keep it updated with
-// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/analysis_options_user.yaml
-const String _flutterAnalysisOptions = '''
-analyzer:
-  errors:
-    # treat missing required parameters as a warning (not a hint)
-    missing_required_param: warning
+  // try to load latest from github
+  if (_cachedFlutterOptionsOnGithub != null) {
+    return _cachedFlutterOptionsOnGithub;
+  }
+  try {
+    final rs = await http.get(Uri.parse(
+        'https://raw.githubusercontent.com/flutter/flutter/master/packages/flutter/lib/analysis_options_user.yaml'));
+    if (rs.statusCode == 200) {
+      _cachedFlutterOptionsOnGithub = rs.body;
+      return _cachedFlutterOptionsOnGithub;
+    }
+  } catch (_) {
+    // no-op
+  }
 
-# Source of linter options:
-# https://dart-lang.github.io/linter/lints/options/options.html
+  // fallback empty options
+  _logger.warning('Unable to load default Flutter analysis options.');
+  return '';
+}
 
-linter:
-  rules:
-    - avoid_empty_else
-    - avoid_init_to_null
-    - avoid_return_types_on_setters
-    - await_only_futures
-    - camel_case_types
-    - cancel_subscriptions
-    - close_sinks
-    - control_flow_in_finally
-    - empty_constructor_bodies
-    - empty_statements
-    - hash_and_equals
-    - implementation_imports
-    - library_names
-    - non_constant_identifier_names
-    - package_api_docs
-    - package_names
-    - package_prefixed_library_names
-    - prefer_is_not_empty
-    - slash_for_doc_comments
-    - super_goes_last
-    - test_types_in_equals
-    - throw_in_finally
-    - type_init_formals
-    - unnecessary_brace_in_string_interps
-    - unnecessary_getters_setters
-    - unnecessary_statements
-    - unrelated_type_equality_checks
-    - valid_regexps
-''';
+Future<String> _getPedanticAnalysisOptions() async {
+  // try to load latest from github
+  if (_cachedPedanticOptionsOnGithub != null) {
+    return _cachedPedanticOptionsOnGithub;
+  }
+  try {
+    final index = await http.get(Uri.parse(
+        'https://raw.githubusercontent.com/google/pedantic/master/lib/analysis_options.yaml'));
+    if (index.statusCode == 200) {
+      final parsed = yaml.loadYaml(index.body) as Map;
+      if (parsed.containsKey('include')) {
+        final includeUri = parsed['include'] as String;
+        if (includeUri.startsWith('package:pedantic/')) {
+          final url = includeUri.replaceFirst('package:pedantic/',
+              'https://raw.githubusercontent.com/google/pedantic/master/lib/');
+          final rs = await http.get(Uri.parse(url));
+          if (rs.statusCode == 200) {
+            _cachedPedanticOptionsOnGithub = rs.body;
+            return _cachedPedanticOptionsOnGithub;
+          }
+        }
+      }
+    }
+  } catch (_) {
+    // no-op
+  }
+
+  // fallback empty options
+  _logger.warning('Unable to load default pedantic analysis options.');
+  return '';
+}
 
 const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 
-String customizeAnalysisOptions(
-    String original, bool usesFlutter, String pedanticConfigPath) {
+String updatePassthroughOptions({
+  @required String original,
+  @required String custom,
+}) {
   Map origMap;
   if (original != null) {
     try {
@@ -84,9 +107,8 @@ String customizeAnalysisOptions(
   }
   origMap ??= {};
 
-  final customMap = json.decode(json.encode(yaml.loadYaml(usesFlutter
-      ? _flutterAnalysisOptions
-      : _analysisOptions(pedanticConfigPath))));
+  final customMap =
+      json.decode(json.encode(yaml.loadYaml(custom))) ?? <String, dynamic>{};
 
   final origAnalyzer = origMap['analyzer'];
   if (origAnalyzer is Map) {
@@ -105,31 +127,4 @@ String customizeAnalysisOptions(
   }
 
   return json.encode(customMap);
-}
-
-final _pedanticVersionRegExp =
-    RegExp(r'package:pedantic/analysis_options\.(.*?)\.yaml');
-
-/// Returns the content of the file with the linter ruleset content, which will
-/// be linked from our custom `analysis_options.yaml`.
-///
-/// - Returns the content of [InspectOptions.analysisOptionsUri] when specified
-///   in [inspectOptions].
-/// - Returns `pedantic/analysis_options.yaml` (if nothing is linked in it)
-/// - Returns the latest linked `pedantic/analysis_options.<version>.yaml`.
-Future<String> getPedanticContent({
-  @required InspectOptions inspectOptions,
-}) async {
-  final rootUri = inspectOptions?.analysisOptionsUri ??
-      'package:pedantic/analysis_options.yaml';
-  final rootContent = await Resource(rootUri).readAsString();
-  final match = _pedanticVersionRegExp.firstMatch(rootContent);
-
-  // When there is not match, the root content does not have URI reference,
-  // the file is probably a ruleset itself.
-  if (match == null) {
-    return rootContent;
-  }
-  final versionedContent = await Resource(match.group(0)).readAsString();
-  return versionedContent;
 }

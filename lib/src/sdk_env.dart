@@ -23,6 +23,7 @@ const _dartfmtTimeout = Duration(minutes: 5);
 
 class ToolEnvironment {
   final String dartSdkDir;
+  final String flutterSdkDir;
   final String pubCacheDir;
   final List<String> _dartCmd;
   final List<String> _pubCmd;
@@ -39,6 +40,7 @@ class ToolEnvironment {
 
   ToolEnvironment._(
     this.dartSdkDir,
+    this.flutterSdkDir,
     this.pubCacheDir,
     this._dartCmd,
     this._pubCmd,
@@ -53,6 +55,7 @@ class ToolEnvironment {
 
   ToolEnvironment.fake({
     this.dartSdkDir,
+    this.flutterSdkDir,
     this.pubCacheDir,
     List<String> dartCmd,
     List<String> pubCmd,
@@ -142,6 +145,7 @@ class ToolEnvironment {
 
     final toolEnv = ToolEnvironment._(
       resolvedDartSdk,
+      resolvedFlutterSdk,
       resolvedPubCache,
       [_join(resolvedDartSdk, 'bin', 'dart')],
       [_join(resolvedDartSdk, 'bin', 'dart'), 'pub'],
@@ -172,17 +176,17 @@ class ToolEnvironment {
     if (await originalOptionsFile.exists()) {
       originalOptions = await originalOptionsFile.readAsString();
     }
-    final pedanticContent =
-        await getPedanticContent(inspectOptions: inspectOptions);
-    final pedanticFileName =
-        'pedantic_analyis_options_${DateTime.now().microsecondsSinceEpoch}.g.yaml';
-    final pedanticOptionsFile = File(p.join(packageDir, pedanticFileName));
-    await pedanticOptionsFile.writeAsString(pedanticContent);
-    final customFileName =
+    final rawOptionsContent = inspectOptions.analysisOptionsYaml ??
+        await getDefaultAnalysisOptionsYaml(
+          usesFlutter: usesFlutter,
+          flutterSdkDir: flutterSdkDir,
+        );
+    final customOptionsFileName =
         'pana_analysis_options_${DateTime.now().microsecondsSinceEpoch}.g.yaml';
-    final customOptionsFile = File(p.join(packageDir, customFileName));
-    await customOptionsFile.writeAsString(customizeAnalysisOptions(
-        originalOptions, usesFlutter, pedanticFileName));
+    final customOptionsFile = File(p.join(packageDir, customOptionsFileName));
+    final customOptionsContent = updatePassthroughOptions(
+        original: originalOptions, custom: rawOptionsContent);
+    await customOptionsFile.writeAsString(customOptionsContent);
     final params = [
       '--options',
       customOptionsFile.path,
@@ -218,7 +222,6 @@ class ToolEnvironment {
     } finally {
       // TODO: create a withTempFile utility method that deletes these
       await customOptionsFile.delete();
-      await pedanticOptionsFile.delete();
     }
   }
 
