@@ -73,7 +73,7 @@ Run `dart pub get` for more information.
 
 <details>
 <summary>
-Sdk constraint doesn't support current Dart version 2.12.0. Cannot run `dart pub outdated`.
+Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.
 </summary>
 
 `pubspec.yaml:6:8`
@@ -91,7 +91,7 @@ Sdk constraint doesn't support current Dart version 2.12.0. Cannot run `dart pub
 
 <details>
 <summary>
-Sdk constraint doesn't support current Dart version 2.12.0.
+Sdk constraint doesn't support current Dart version {{sdk-version}}.
 </summary>
 
 `pubspec.yaml:6:8`
@@ -105,7 +105,21 @@ Sdk constraint doesn't support current Dart version 2.12.0.
 
 Try widening the upper boundary of the constraint.
 </details>
-* Found no Flutter in your PATH. Could not determine the current Flutter version.
+<details>
+<summary>
+The current SDK constraint does not allow the Dart version used by the latest stable Flutter ({{flutter-dart-version}})
+</summary>
+
+`pubspec.yaml:6:8`
+
+```
+  ╷
+6 │   sdk: ">=2.12.0-0 <2.12.0"
+  │        ^^^^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+</details>
 
 ## 0/20 Support sound null safety
 

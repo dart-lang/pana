@@ -84,7 +84,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Sdk constraint doesn't support current Dart version 2.12.0. Cannot run `dart pub outdated`.
+* Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.
 
 ### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
 
@@ -95,7 +95,7 @@ Pubspec.yaml does not have an sdk version constraint.
 
 Try adding an sdk constraint to your `pubspec.yaml`
 </details>
-* Found no Flutter in your PATH. Could not determine the current Flutter version.
+* The current SDK constraint does not allow the Dart version used by the latest stable Flutter ({{flutter-dart-version}})
 
 ## 0/20 Support sound null safety
 

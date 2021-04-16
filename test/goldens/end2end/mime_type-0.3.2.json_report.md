@@ -86,7 +86,7 @@ INFO: Omit type annotations for local variables.
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/mime_type.dart`
 </details>
 
-## 10/20 Support up-to-date dependencies
+## 20/20 Support up-to-date dependencies
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
@@ -95,9 +95,8 @@ No dependencies.
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 
-### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
+### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 
-* Found no Flutter in your PATH. Could not determine the current Flutter version.
 
 ## 0/20 Support sound null safety
 

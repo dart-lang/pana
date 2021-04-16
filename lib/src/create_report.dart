@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
@@ -29,11 +28,6 @@ import 'tag_detection.dart';
 
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
-
-/// We currently don't have flutter installed on travis. So we emulate having
-/// no Flutter installed when generating golden files.
-// TODO(sigurdm): try to get Flutter on travis.
-var isRunningEnd2EndTest = false;
 
 Future<Report> createReport(PackageContext context) async {
   Pubspec pubspec;
@@ -832,7 +826,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
 
     final flutterVersions = toolEnvironment.runtimeInfo.flutterVersions;
 
-    if (isRunningEnd2EndTest || flutterVersions == null) {
+    if (flutterVersions == null) {
       issues.add(_Issue(
           'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
     } else {

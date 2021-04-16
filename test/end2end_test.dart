@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:pana/pana.dart';
-import 'package:pana/src/create_report.dart';
 import 'package:pana/src/version.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
@@ -21,7 +20,6 @@ void main() {
   PackageAnalyzer analyzer;
 
   setUpAll(() async {
-    isRunningEnd2EndTest = true;
     tempDir = Directory.systemTemp
         .createTempSync('pana-test')
         .resolveSymbolicLinksSync();
@@ -47,6 +45,10 @@ void main() {
         // Fixed version strings to reduce changes on each upgrades.
         assert(summary.runtimeInfo.panaVersion == packageVersion);
         final sdkVersion = summary.runtimeInfo.sdkVersion;
+        final flutterDartVersion =
+            (summary.runtimeInfo.flutterVersions['dartSdkVersion'] as String)
+                .split(' ')
+                .first;
         assert(sdkVersion != null);
         summary = summary.change(
             runtimeInfo: PanaRuntimeInfo(
@@ -63,6 +65,11 @@ void main() {
                 '"sdkVersion":"$sdkVersion"', '"sdkVersion":"{{sdk-version}}"')
             .replaceAll('The current Dart SDK version is $sdkVersion.',
                 'The current Dart SDK version is {{sdk-version}}.')
+            .replaceAll(' support current Dart version $sdkVersion.',
+                ' support current Dart version {{sdk-version}}.')
+            .replaceAll(
+                'the Dart version used by the latest stable Flutter ($flutterDartVersion)',
+                'the Dart version used by the latest stable Flutter ({{flutter-dart-version}})')
             .replaceAll(RegExp('that was published [0-9]+ days ago'),
                 'that was published N days ago');
         actualMap = json.decode(updated) as Map<String, dynamic>;
@@ -128,6 +135,9 @@ void main() {
 
   // js-only package
   _verifyPackage('dnd', '2.0.0');
+
+  // flutter-only package
+  _verifyPackage('url_launcher', '6.0.3');
 
   // small issues in the package
   _verifyPackage('stream', '2.6.0');

@@ -1,6 +1,8 @@
 ## 0.15.5
 
 * Use `dart pub` instead of `pub`.
+* Flutter SDK on CI + Flutter package in end2end test.
+
 ## 0.15.4
 
 * Award points for fully null safety enabled packages.

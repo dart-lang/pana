@@ -108,18 +108,18 @@ INFO: Only use double quotes for strings containing single quotes.
 To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/plugin.dart`
 </details>
 
-## 0/20 Support up-to-date dependencies
+## 10/20 Support up-to-date dependencies
 
-### [x] 0/10 points: All of the package dependencies are supported in the latest version
+### [*] 0/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`args`]|`>=0.13.0 <2.0.0`|1.6.0|**2.0.0**|
 |[`charcode`]|`>=1.1.0 <2.0.0`|1.2.0|1.2.0|
 |[`http`]|`>=0.11.0 <2.0.0`|0.13.1|0.13.1|
-|[`logging`]|`>=0.11.0 <2.0.0`|1.0.0|1.0.0|
+|[`logging`]|`>=0.11.0 <2.0.0`|1.0.1|1.0.1|
 |[`path`]|`>=1.3.0 <2.0.0`|1.8.0|1.8.0|
-|[`rikulo_commons`]|`>=4.1.0 <5.0.0`|4.3.0|4.3.0|
+|[`rikulo_commons`]|`>=4.1.0 <5.0.0`|4.3.0|**5.0.1**|
 
 <details><summary>Transitive dependencies</summary>
 
@@ -161,10 +161,18 @@ The constraint `>=0.13.0 <2.0.0` on args does not support the stable version `2.
 
 Try running `dart pub upgrade --major-versions args` to update the constraint.
 </details>
+<details>
+<summary>
+The constraint `>=4.1.0 <5.0.0` on rikulo_commons does not support the stable version `5.0.0`, that was published N days ago. 
 
-### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
+ When rikulo_commons is 30 days old, this package will no longer be awarded points in this category.
+</summary>
 
-* Found no Flutter in your PATH. Could not determine the current Flutter version.
+Try running `dart pub upgrade --major-versions rikulo_commons` to update the constraint.
+</details>
+
+### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
+
 
 ## 0/20 Support sound null safety
 

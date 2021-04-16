@@ -25,7 +25,7 @@
 ### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
 
 
-## 10/20 Support up-to-date dependencies
+## 20/20 Support up-to-date dependencies
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
@@ -62,9 +62,8 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`typed_data`]: https://pub.dev/packages/typed_data
 
 
-### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
+### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 
-* Found no Flutter in your PATH. Could not determine the current Flutter version.
 
 ## 20/20 Support sound null safety
 
