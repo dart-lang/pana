@@ -6,6 +6,7 @@
 * **BREAKING CHANGES**
   * Removed `InspectOptions.analysisOptionsUri`. Use `analysisOptionsYaml` instead.
     When `analysisOptionsYaml` is not specified, `pana` will load defaults from GitHub.
+  * Removed `InspectOptions.nullSafetySectionEnabledBeforeOptin`.
 
 ## 0.15.4
 

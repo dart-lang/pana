@@ -39,8 +39,7 @@ void main() {
 
       setUpAll(() async {
         var summary = await analyzer.inspectPackage(package,
-            version: version,
-            options: InspectOptions(nullSafetySectionEnabledBeforeOptin: true));
+            version: version, options: InspectOptions());
 
         // Fixed version strings to reduce changes on each upgrades.
         assert(summary.runtimeInfo.panaVersion == packageVersion);

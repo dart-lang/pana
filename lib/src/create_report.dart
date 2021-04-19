@@ -54,9 +54,7 @@ Future<Report> createReport(PackageContext context) async {
     await _multiPlatform(context.packageDir, pubspec),
     await _staticAnalysis(context),
     await trustworthyDependency(context),
-    if (context.options.nullSafetySectionEnabledBeforeOptin ||
-        pubspec.sdkConstraintStatus.hasOptedIntoNullSafety)
-      await _nullSafety(context.packageDir, pubspec),
+    await _nullSafety(context.packageDir, pubspec),
   ]);
 }
 

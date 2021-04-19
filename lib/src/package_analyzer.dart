@@ -30,7 +30,6 @@ class InspectOptions {
 
   /// The analysis options (in yaml format) to use for the analysis.
   final String analysisOptionsYaml;
-  final bool nullSafetySectionEnabledBeforeOptin;
 
   InspectOptions({
     this.pubHostedUrl,
@@ -40,7 +39,6 @@ class InspectOptions {
     this.isInternal = false,
     this.lineLength,
     this.analysisOptionsYaml,
-    this.nullSafetySectionEnabledBeforeOptin = false,
   });
 }
 
