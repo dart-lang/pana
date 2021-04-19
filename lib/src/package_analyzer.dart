@@ -27,7 +27,9 @@ class InspectOptions {
   final Duration dartdocTimeout;
   final bool isInternal;
   final int lineLength;
-  final String analysisOptionsUri;
+
+  /// The analysis options (in yaml format) to use for the analysis.
+  final String analysisOptionsYaml;
   final bool nullSafetySectionEnabledBeforeOptin;
 
   InspectOptions({
@@ -37,7 +39,7 @@ class InspectOptions {
     this.dartdocTimeout,
     this.isInternal = false,
     this.lineLength,
-    this.analysisOptionsUri,
+    this.analysisOptionsYaml,
     this.nullSafetySectionEnabledBeforeOptin = false,
   });
 }

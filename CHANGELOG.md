@@ -1,7 +1,10 @@
-## 0.15.5
+## 0.16.0
 
 * Use `dart pub` instead of `pub`.
 * Flutter SDK on CI + Flutter package in end2end test.
+* **BREAKING CHANGES**
+  * Removed `InspectOptions.analysisOptionsUri`. Use `analysisOptionsYaml` instead.
+    When `analysisOptionsYaml` is not specified, `pana` will load defaults from GitHub.
 
 ## 0.15.4
 

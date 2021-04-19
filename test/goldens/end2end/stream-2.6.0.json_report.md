@@ -119,7 +119,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 |[`http`]|`>=0.11.0 <2.0.0`|0.13.1|0.13.1|
 |[`logging`]|`>=0.11.0 <2.0.0`|1.0.1|1.0.1|
 |[`path`]|`>=1.3.0 <2.0.0`|1.8.0|1.8.0|
-|[`rikulo_commons`]|`>=4.1.0 <5.0.0`|4.3.0|**5.0.1**|
+|[`rikulo_commons`]|`>=4.1.0 <5.0.0`|4.3.2|**5.0.3**|
 
 <details><summary>Transitive dependencies</summary>
 
