@@ -104,8 +104,12 @@ Future<ReportSection> _staticAnalysis(PackageContext context) async {
 
   // Only try to run dartfmt if there where no errors.
   final formattingIssues = errors.isEmpty
-      ? await _formatPackage(packageDir, context.toolEnvironment,
-          usesFlutter: context.usesFlutter)
+      ? await _formatPackage(
+          packageDir,
+          context.toolEnvironment,
+          usesFlutter: context.usesFlutter,
+          lineLength: context.options.lineLength,
+        )
       : <_Issue>[];
 
   final status = (errors.isEmpty && warnings.isEmpty)
@@ -216,11 +220,13 @@ Future<List<_Issue>> _formatPackage(
   String packageDir,
   ToolEnvironment toolEnvironment, {
   @required bool usesFlutter,
+  int lineLength,
 }) async {
   try {
     final unformattedFiles = await toolEnvironment.filesNeedingFormat(
       packageDir,
       usesFlutter,
+      lineLength: lineLength,
     );
     return unformattedFiles
         .map((f) => _Issue('$f is not formatted according to dartfmt',

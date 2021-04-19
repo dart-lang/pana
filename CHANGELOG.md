@@ -2,6 +2,7 @@
 
 * Use `dart pub` instead of `pub`.
 * Flutter SDK on CI + Flutter package in end2end test.
+* Fix: use `line-length` option in report.
 * **BREAKING CHANGES**
   * Removed `InspectOptions.analysisOptionsUri`. Use `analysisOptionsYaml` instead.
     When `analysisOptionsYaml` is not specified, `pana` will load defaults from GitHub.
