@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:retry/retry.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
 final _logger = Logger('analysis_options');
@@ -46,7 +47,7 @@ Future<String> _getFlutterAnalysisOptions(String flutterSdkDir) async {
     return _cachedFlutterOptionsOnGithub;
   }
   try {
-    final rs = await http.get(Uri.parse(
+    final rs = await _httpGetWithRetry(Uri.parse(
         'https://raw.githubusercontent.com/flutter/flutter/master/packages/flutter/lib/analysis_options_user.yaml'));
     if (rs.statusCode == 200) {
       _cachedFlutterOptionsOnGithub = rs.body;
@@ -67,7 +68,7 @@ Future<String> _getPedanticAnalysisOptions() async {
     return _cachedPedanticOptionsOnGithub;
   }
   try {
-    final index = await http.get(Uri.parse(
+    final index = await _httpGetWithRetry(Uri.parse(
         'https://raw.githubusercontent.com/google/pedantic/master/lib/analysis_options.yaml'));
     if (index.statusCode == 200) {
       final parsed = yaml.loadYaml(index.body) as Map;
@@ -76,7 +77,7 @@ Future<String> _getPedanticAnalysisOptions() async {
         if (includeUri.startsWith('package:pedantic/')) {
           final url = includeUri.replaceFirst('package:pedantic/',
               'https://raw.githubusercontent.com/google/pedantic/master/lib/');
-          final rs = await http.get(Uri.parse(url));
+          final rs = await _httpGetWithRetry(Uri.parse(url));
           if (rs.statusCode == 200) {
             _cachedPedanticOptionsOnGithub = rs.body;
             return _cachedPedanticOptionsOnGithub;
@@ -91,6 +92,22 @@ Future<String> _getPedanticAnalysisOptions() async {
   // fallback empty options
   _logger.warning('Unable to load default pedantic analysis options.');
   return '';
+}
+
+Future<http.Response> _httpGetWithRetry(Uri uri) async {
+  return retry(
+    () async {
+      final rs = await http.get(uri);
+      if (rs.statusCode >= 500 && rs.statusCode < 600) {
+        throw http.ClientException(
+            'Server returned status code: ${rs.statusCode}');
+      }
+      return rs;
+    },
+    retryIf: (e) => e is SocketException || e is http.ClientException,
+    maxAttempts: 3,
+    delayFactor: const Duration(seconds: 2),
+  );
 }
 
 const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
