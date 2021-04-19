@@ -6,7 +6,6 @@ import 'package:meta/meta.dart';
 
 import 'create_report.dart' show renderSimpleSectionSummary;
 import 'model.dart';
-import 'sdk_env.dart';
 
 const documentationSectionTitle = 'Provide documentation';
 
@@ -49,10 +48,7 @@ ReportSection documentationCoverageSection({
 }
 
 /// Creates a report section when running dartdoc failed to produce content.
-ReportSection dartdocFailedSection([DartdocResult result]) {
-  final errorMessage = result?.processResult?.stderr?.toString() ?? '';
-  final failure = (result?.wasTimeout ?? false) ? 'timed out' : 'failed';
-
+ReportSection dartdocFailedSection(String abortMessage) {
   return ReportSection(
     id: ReportSectionId.documentation,
     title: documentationSectionTitle,
@@ -60,8 +56,7 @@ ReportSection dartdocFailedSection([DartdocResult result]) {
     maxPoints: 10,
     summary: renderSimpleSectionSummary(
       title: 'Failed to run dartdoc',
-      description:
-          'Running `dartdoc` $failure with the following output:\n\n```\n$errorMessage\n```\n',
+      description: abortMessage,
       grantedPoints: 0,
       maxPoints: 10,
     ),

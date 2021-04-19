@@ -4,6 +4,7 @@
 * Flutter SDK on CI + Flutter package in end2end test.
 * Fix: use `line-length` option in report.
 * **BREAKING CHANGES**
+  * Internal to `pub.dev`: `dartdocFailedSection` signature changed to match recent update.
   * Removed `InspectOptions.analysisOptionsUri`. Use `analysisOptionsYaml` instead.
     When `analysisOptionsYaml` is not specified, `pana` will load defaults from GitHub.
   * Removed `InspectOptions.nullSafetySectionEnabledBeforeOptin`.
