@@ -3,6 +3,7 @@
 * Use `dart pub` instead of `pub`.
 * Flutter SDK on CI + Flutter package in end2end test.
 * **BREAKING CHANGES**
+  * Internal to `pub.dev`: `dartdocFailedSection` signature changed to match recent update.
   * Removed `InspectOptions.analysisOptionsUri`. Use `analysisOptionsYaml` instead.
     When `analysisOptionsYaml` is not specified, `pana` will load defaults from GitHub.
 
