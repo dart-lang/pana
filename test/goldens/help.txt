@@ -2,11 +2,13 @@ Usage: pana [<options>] --hosted <published package name> [<version>]
        pana [<options>] <local directory>
 
 Options:
-      --flutter-sdk     The directory of the Flutter SDK.
-  -j, --json            Output log records and full report as JSON.
-      --hosted-url      The server that hosts <package>.
-                        (defaults to "https://pub.dev")
-  -l, --line-length     The line length to use with dartfmt.
-      --hosted          Download and analyze a hosted package (from https://pub.dev).
-      --[no-]warning    Shows the warning message before potentially destructive operation.
-                        (defaults to on)
+      --dart-sdk               The directory of the Dart SDK.
+      --flutter-sdk            The directory of the Flutter SDK.
+      --exit-code-threshold    The exit code will indicate if (max - granted points) <= threshold.
+  -j, --json                   Output log records and full report as JSON.
+      --hosted-url             The server that hosts <package>.
+                               (defaults to "https://pub.dev")
+  -l, --line-length            The line length to use with dartfmt.
+      --hosted                 Download and analyze a hosted package (from https://pub.dev).
+      --[no-]warning           Shows the warning message before potentially destructive operation.
+                               (defaults to on)

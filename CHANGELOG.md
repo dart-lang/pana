@@ -3,6 +3,7 @@
 * Use `dart pub` instead of `pub`.
 * Flutter SDK on CI + Flutter package in end2end test.
 * Fix: use `line-length` option in report.
+* New options for CI: `dart-sdk`, `exit-code-threshold`.
 * **BREAKING CHANGES**
   * Internal to `pub.dev`: `dartdocFailedSection` signature changed to match recent update.
   * Removed `InspectOptions.analysisOptionsUri`. Use `analysisOptionsYaml` instead.

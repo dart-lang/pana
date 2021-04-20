@@ -16,7 +16,11 @@ import 'package:pana/pana.dart';
 const defaultHostedUrl = 'https://pub.dev';
 
 final _parser = ArgParser()
+  ..addOption('dart-sdk', help: 'The directory of the Dart SDK.')
   ..addOption('flutter-sdk', help: 'The directory of the Flutter SDK.')
+  ..addOption('exit-code-threshold',
+      help:
+          'The exit code will indicate if (max - granted points) <= threshold.')
   ..addFlag('json',
       abbr: 'j',
       help: 'Output log records and full report as JSON.',
@@ -66,6 +70,9 @@ Future main(List<String> args) async {
 
   final isJson = result['json'] as bool;
   final showWarning = result['warning'] as bool;
+  final exitCodeThresholdArg = result['exit-code-threshold'] as String;
+  final exitCodeThreshold =
+      exitCodeThresholdArg == null ? null : int.parse(exitCodeThresholdArg);
 
   var source = result['source'] as String;
   if (result['hosted'] == true) {
@@ -125,6 +132,7 @@ Future main(List<String> args) async {
     final pubHostedUrl = result['hosted-url'] as String;
     final analyzer = await PackageAnalyzer.create(
       pubCacheDir: tempPath,
+      sdkDir: result['dart-sdk'] as String,
       flutterDir: result['flutter-sdk'] as String,
     );
     final options = InspectOptions(
@@ -177,6 +185,12 @@ Future main(List<String> args) async {
           print(s.summary);
         }
         print('\nPoints: ${report.grantedPoints}/${report.maxPoints}.');
+      }
+      if (exitCodeThreshold != null &&
+          exitCodeThreshold > 0 &&
+          exitCodeThreshold + summary.report.grantedPoints <
+              summary.report.maxPoints) {
+        exitCode = -1;
       }
     } catch (e, stack) {
       final message = "Problem analyzing ${result.rest.join(' ')}";
