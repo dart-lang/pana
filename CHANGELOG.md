@@ -2,6 +2,7 @@
 
 * Use `dart pub` instead of `pub`.
 * Flutter SDK on CI + Flutter package in end2end test.
+* Fix: fill minimum Dart SDK range if missing.
 * Fix: use `line-length` option in report.
 * **BREAKING CHANGES**
   * Internal to `pub.dev`: `dartdocFailedSection` signature changed to match recent update.

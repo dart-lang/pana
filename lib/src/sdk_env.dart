@@ -321,7 +321,7 @@ class ToolEnvironment {
 
   Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,
       {int retryCount = 3}) async {
-    final backup = await _stripPubspecYaml(packageDir);
+    final backup = await _stripAndAugmentPubspecYaml(packageDir);
     try {
       return await retryProc(() async {
         if (usesFlutter) {
@@ -437,8 +437,9 @@ class ToolEnvironment {
   }
 
   /// Removes the dev_dependencies from the pubspec.yaml
+  /// Adds lower-bound minimal SDK constraint - if missing.
   /// Returns the backup file with the original content.
-  Future<File> _stripPubspecYaml(String packageDir) async {
+  Future<File> _stripAndAugmentPubspecYaml(String packageDir) async {
     final now = DateTime.now();
     final backup = File(
         p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'));
@@ -448,6 +449,32 @@ class ToolEnvironment {
     final parsed = yamlToJson(original);
     parsed.remove('dev_dependencies');
     parsed.remove('dependency_overrides');
+
+    // `pub` client checks if pubspec.yaml has no lower-bound SDK constraint,
+    // and throws an exception if it is missing. While we no longer accept
+    // new packages without such constraint, the old versions are still valid
+    // and should be analyzed.
+    final environment = parsed.putIfAbsent('environment', () => {});
+    if (environment is Map) {
+      VersionConstraint vc;
+      if (environment['sdk'] is String) {
+        try {
+          vc = VersionConstraint.parse(environment['sdk'] as String);
+        } catch (_) {}
+      }
+      final range = vc is VersionRange ? vc : null;
+      if (range != null &&
+          range.min != null &&
+          !range.min.isAny &&
+          !range.min.isEmpty) {
+        // looks good
+      } else {
+        final maxValue = range?.max == null
+            ? '<=${_runtimeInfo.sdkVersion}'
+            : '${range.includeMax ? '<=' : '<'}${range.max}';
+        environment['sdk'] = '>=1.0.0 $maxValue';
+      }
+    }
 
     await pubspec.rename(backup.path);
     await pubspec.writeAsString(json.encode(parsed));

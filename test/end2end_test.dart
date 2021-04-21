@@ -147,6 +147,9 @@ void main() {
   // bulma_min 0.7.4 has no dart files, only assets
   _verifyPackage('bulma_min', '0.7.4');
 
+  // slightly old package
+  _verifyPackage('sdp_transform', '0.2.0');
+
   // really old package
   _verifyPackage('skiplist', '0.1.0');
 
