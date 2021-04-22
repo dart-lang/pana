@@ -213,4 +213,25 @@ MSG : Changed 20 dependencies!''';
           '0.34.1');
     });
   });
+
+  test('replaced by <pkg>', () {
+    final pubspec = Pubspec.parseYaml('''name: x
+version: 0.0.1
+environment:
+  sdk: ">=2.0.0 <3.0.0"
+
+dependencies:
+  http_server: any
+''');
+
+    final pr = createPkgResolution(pubspec, '''
+MSG : Resolving dependencies...
+MSG :   http_server 1.0.0 (discontinued replaced by shelf)
+    |   mime 1.0.0
+    |   path 1.8.0
+MSG : No dependencies changed.
+''');
+    expect(pr.dependencies.map((d) => d.package).toSet(),
+        {'http_server', 'mime', 'path'});
+  });
 }
