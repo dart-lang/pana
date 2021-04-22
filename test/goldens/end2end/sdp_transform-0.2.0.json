@@ -1,0 +1,99 @@
+{
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "sdp_transform",
+  "packageVersion": "0.2.0",
+  "pubspec": {
+    "name": "sdp_transform",
+    "version": "0.2.0",
+    "authors": [
+      "cloudwebrtc <duanweiwei1982@gmail.com>",
+      "rlsutton1 <rlustton1@optusnet.com.au>",
+      "https://github.com/clux/sdp-transform"
+    ],
+    "description": "Dart implementation of sdp-transform",
+    "homepage": "https://github.com/cloudwebrtc/dart-sdp-transform",
+    "environment": {
+      "sdk": "<3.0.0"
+    },
+    "dev_dependencies": {
+      "test": "^1.9.3"
+    }
+  },
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "MIT",
+    "url": "https://github.com/cloudwebrtc/dart-sdp-transform/blob/master/LICENSE"
+  },
+  "allDependencies": [
+    "test"
+  ],
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "platform:web",
+    "runtime:native-aot",
+    "runtime:native-jit",
+    "runtime:web"
+  ],
+  "report": {
+    "sections": [
+      {
+        "id": "convention",
+        "title": "Follow Dart file conventions",
+        "grantedPoints": 10,
+        "maxPoints": 20,
+        "status": "failed",
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nThe package description is too short.\n</summary>\n\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
+      },
+      {
+        "id": "documentation",
+        "title": "Provide documentation",
+        "grantedPoints": 0,
+        "maxPoints": 10,
+        "status": "failed",
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+      },
+      {
+        "id": "platform",
+        "title": "Support multiple platforms",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)\n"
+      },
+      {
+        "id": "analysis",
+        "title": "Pass static analysis",
+        "grantedPoints": 20,
+        "maxPoints": 30,
+        "status": "partial",
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 49 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: The type of the function literal can't be inferred because the literal has a block as its body.\n</summary>\n\n`lib/src/grammar.dart:90:17`\n\n```\n   ╷\n90 │         'format': (o) {\n   │ ┌─────────────────^\n91 │ │         return (o['encoding'] != null)\n92 │ │             ? 'rtpmap:%d %s/%s/%s'\n93 │ │             : (o['rate'] != null) ? 'rtpmap:%d %s/%s' : 'rtpmap:%d %s';\n94 │ └       }\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/grammar.dart`\n</details>\n<details>\n<summary>\nINFO: The type of the function literal can't be inferred because the literal has a block as its body.\n</summary>\n\n`lib/src/grammar.dart:115:17`\n\n```\n    ╷\n115 │         'format': (o) {\n    │ ┌─────────────────^\n116 │ │         return (o['address'] != null) ? 'rtcp:%d %s IP%d %s' : 'rtcp:%d';\n117 │ └       }\n    ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/grammar.dart`\n</details>"
+      },
+      {
+        "id": "dependency",
+        "title": "Support up-to-date dependencies",
+        "grantedPoints": 10,
+        "maxPoints": 20,
+        "status": "failed",
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `dart pub outdated`: `dart pub get` failed: \n\n ```\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+      },
+      {
+        "id": "null-safety",
+        "title": "Support sound null safety",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "status": "partial",
+        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `<3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
+      }
+    ]
+  }
+}
