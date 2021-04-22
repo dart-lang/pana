@@ -45,9 +45,7 @@ void main() {
         assert(summary.runtimeInfo.panaVersion == packageVersion);
         final sdkVersion = summary.runtimeInfo.sdkVersion;
         final flutterDartVersion =
-            (summary.runtimeInfo.flutterVersions['dartSdkVersion'] as String)
-                .split(' ')
-                .first;
+            summary.runtimeInfo.flutterInternalDartSdkVersion;
         assert(sdkVersion != null);
         summary = summary.change(
             runtimeInfo: PanaRuntimeInfo(
