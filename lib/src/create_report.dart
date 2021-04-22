@@ -828,16 +828,16 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
           suggestion: 'Try widening the upper boundary of the constraint.'));
     }
 
-    final flutterVersions = toolEnvironment.runtimeInfo.flutterVersions;
+    final runtimeInfo = toolEnvironment.runtimeInfo;
 
-    if (flutterVersions == null) {
+    if (!runtimeInfo.hasFlutter) {
       issues.add(_Issue(
           'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
     } else {
       final usesFlutter = pubspec.usesFlutter;
 
-      final flutterDartVersion = Version.parse(
-          (flutterVersions['dartSdkVersion'] as String).split(' ').first);
+      final flutterDartVersion =
+          Version.parse(runtimeInfo.flutterInternalDartSdkVersion);
       final allowsCurrentFlutterDart =
           sdkConstraint?.allows(flutterDartVersion) ?? false;
 
@@ -853,7 +853,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
           // TODO(sigurdm): this will not work well locally (installed version will
           // not be latest). Perhaps we should query somewhere for the latest version.
           final currentFlutterVersion =
-              Version.parse(flutterVersions['frameworkVersion'] as String);
+              Version.parse(runtimeInfo.flutterVersion);
           final flutterConstraint = pubspec.flutterSdkConstraint;
           if (flutterConstraint != null &&
               !flutterConstraint.allows(currentFlutterVersion)) {

@@ -96,6 +96,31 @@ class PanaRuntimeInfo {
       _$PanaRuntimeInfoFromJson(json);
 
   Map<String, dynamic> toJson() => _$PanaRuntimeInfoToJson(this);
+
+  bool get hasFlutter => flutterVersions != null;
+
+  /// The Flutter SDK version.
+  String get flutterVersion => flutterVersions == null
+      ? null
+      : flutterVersions['frameworkVersion'] as String;
+
+  /// The Dart SDK used by Flutter internally.
+  String get flutterInternalDartSdkVersion {
+    if (flutterVersions == null) return null;
+    final value = flutterVersions['dartSdkVersion'] as String;
+    if (value == null) return null;
+    final parts = value.split(' ');
+    if (parts.length > 2 && parts[1] == '(build' && parts[2].endsWith(')')) {
+      final buildValue = parts[2].split(')').first;
+      try {
+        Version.parse(buildValue);
+        return buildValue;
+      } catch (_) {
+        // ignore
+      }
+    }
+    return parts.first;
+  }
 }
 
 @JsonSerializable()
