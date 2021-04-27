@@ -5,10 +5,10 @@
     "flutterVersions": {}
   },
   "packageName": "sdp_transform",
-  "packageVersion": "0.2.0",
+  "packageVersion": "{{version}}",
   "pubspec": {
     "name": "sdp_transform",
-    "version": "0.2.0",
+    "version": "{{version}}",
     "authors": [
       "cloudwebrtc <duanweiwei1982@gmail.com>",
       "rlsutton1 <rlustton1@optusnet.com.au>",
@@ -17,10 +17,10 @@
     "description": "Dart implementation of sdp-transform",
     "homepage": "https://github.com/cloudwebrtc/dart-sdp-transform",
     "environment": {
-      "sdk": "<3.0.0"
+      "sdk": "<{{version}}"
     },
     "dev_dependencies": {
-      "test": "^1.9.3"
+      "test": "^{{version}}"
     }
   },
   "licenseFile": {
@@ -84,7 +84,7 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `dart pub outdated`: `dart pub get` failed: \n\n ```\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `dart pub outdated`: `dart pub get` failed: \n\n ```\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>={{version}} <{{version}}'\n\nSee https://dart.dev/go/sdk-constraint\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
         "id": "null-safety",
@@ -92,7 +92,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "partial",
-        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `<3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
+        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `<{{version}}`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
       }
     ]
   }

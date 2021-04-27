@@ -104,7 +104,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 <details>
 <summary>
-Package language version (indicated by the sdk constraint `>=0.8.10 <3.0.0`) is less than 2.12.
+Package language version (indicated by the sdk constraint `>={{version}} <{{version}}`) is less than 2.12.
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).

@@ -5,23 +5,23 @@
     "flutterVersions": {}
   },
   "packageName": "async",
-  "packageVersion": "2.5.0",
+  "packageVersion": "{{version}}",
   "pubspec": {
     "name": "async",
-    "version": "2.5.0",
+    "version": "{{version}}",
     "description": "Utility functions and classes related to the 'dart:async' library.",
     "homepage": "https://www.github.com/dart-lang/async",
     "environment": {
-      "sdk": ">=2.12.0-0 <3.0.0"
+      "sdk": ">={{version}} <{{version}}"
     },
     "dependencies": {
-      "collection": "^1.15.0"
+      "collection": "^{{version}}"
     },
     "dev_dependencies": {
-      "fake_async": "^1.2.0-nullsafety",
-      "stack_trace": "^1.10.0-nullsafety",
-      "test": "^1.16.0-nullsafety",
-      "pedantic": "^1.10.0-nullsafety"
+      "fake_async": "^{{version}}",
+      "stack_trace": "^{{version}}",
+      "test": "^{{version}}",
+      "pedantic": "^{{version}}"
     }
   },
   "licenseFile": {
@@ -90,7 +90,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|`^1.15.0`|1.15.0|1.15.0|\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`collection`]: https://pub.dev/packages/collection\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|`^{{version}}`|{{version}}|{{version}}|\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`collection`]: https://pub.dev/packages/collection\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
         "id": "null-safety",

@@ -14,6 +14,8 @@ import 'package:test/test.dart';
 import 'golden_file.dart';
 
 final _goldenDir = p.join('test', 'goldens', 'end2end');
+final _versionRegExp =
+    RegExp(r'\d+\.\d+\.\d+(-[0-9a-zA-Z-.]+)?(\+[0-9a-zA-Z-.]+)?');
 
 void main() {
   String tempDir;
@@ -56,7 +58,7 @@ void main() {
 
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
-        final encoded = json.encode(summary);
+        final encoded = json.encode(summary.toJson());
         final updated = encoded
             .replaceAll(
                 '"sdkVersion":"$sdkVersion"', '"sdkVersion":"{{sdk-version}}"')
@@ -68,7 +70,8 @@ void main() {
                 'the Dart version used by the latest stable Flutter ($flutterDartVersion)',
                 'the Dart version used by the latest stable Flutter ({{flutter-dart-version}})')
             .replaceAll(RegExp('that was published [0-9]+ days ago'),
-                'that was published N days ago');
+                'that was published N days ago')
+            .replaceAll(_versionRegExp, '{{version}}');
         actualMap = json.decode(updated) as Map<String, dynamic>;
       });
 

@@ -89,7 +89,7 @@ pubspec.yaml has no lower-bound SDK constraint.
 You should edit pubspec.yaml to contain an SDK constraint:
 
 environment:
-  sdk: '>=2.10.0 <3.0.0'
+  sdk: '>={{version}} <{{version}}'
 
 See https://dart.dev/go/sdk-constraint
 ```
@@ -103,7 +103,7 @@ See https://dart.dev/go/sdk-constraint
 
 <details>
 <summary>
-Package language version (indicated by the sdk constraint `<3.0.0`) is less than 2.12.
+Package language version (indicated by the sdk constraint `<{{version}}`) is less than 2.12.
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).

@@ -31,25 +31,25 @@
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`url_launcher_linux`]|`^2.0.0`|2.0.0|2.0.0|
-|[`url_launcher_macos`]|`^2.0.0`|2.0.0|2.0.0|
-|[`url_launcher_platform_interface`]|`^2.0.0`|2.0.2|2.0.2|
-|[`url_launcher_web`]|`^2.0.0`|2.0.0|2.0.0|
-|[`url_launcher_windows`]|`^2.0.0`|2.0.0|2.0.0|
+|[`flutter`]|`flutter`|{{version}}|{{version}}|
+|[`url_launcher_linux`]|`^{{version}}`|{{version}}|{{version}}|
+|[`url_launcher_macos`]|`^{{version}}`|{{version}}|{{version}}|
+|[`url_launcher_platform_interface`]|`^{{version}}`|{{version}}|{{version}}|
+|[`url_launcher_web`]|`^{{version}}`|{{version}}|{{version}}|
+|[`url_launcher_windows`]|`^{{version}}`|{{version}}|{{version}}|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`characters`]|-|1.1.0|1.1.0|
-|[`collection`]|-|1.15.0|1.15.0|
-|[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`js`]|-|0.6.3|0.6.3|
-|[`meta`]|-|1.3.0|1.3.0|
-|[`sky_engine`]|-|0.0.99|0.0.99|
-|[`typed_data`]|-|1.3.0|1.3.0|
-|[`vector_math`]|-|2.1.0|2.1.0|
+|[`characters`]|-|{{version}}|{{version}}|
+|[`collection`]|-|{{version}}|{{version}}|
+|[`flutter_web_plugins`]|-|{{version}}|{{version}}|
+|[`js`]|-|{{version}}|{{version}}|
+|[`meta`]|-|{{version}}|{{version}}|
+|[`sky_engine`]|-|{{version}}|{{version}}|
+|[`typed_data`]|-|{{version}}|{{version}}|
+|[`vector_math`]|-|{{version}}|{{version}}|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

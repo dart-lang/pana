@@ -11,7 +11,7 @@ Sdk-constraint doesn't allow future stable dart 2.x releases
 
 ```
   ╷
-6 │   sdk: ">=2.12.0-0 <2.12.0"
+6 │   sdk: ">={{version}} <{{version}}"
   │        ^^^^^^^^^^^^^^^^^^^^
   ╵
 ```
@@ -80,7 +80,7 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run 
 
 ```
   ╷
-6 │   sdk: ">=2.12.0-0 <2.12.0"
+6 │   sdk: ">={{version}} <{{version}}"
   │        ^^^^^^^^^^^^^^^^^^^^
   ╵
 ```
@@ -98,7 +98,7 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}.
 
 ```
   ╷
-6 │   sdk: ">=2.12.0-0 <2.12.0"
+6 │   sdk: ">={{version}} <{{version}}"
   │        ^^^^^^^^^^^^^^^^^^^^
   ╵
 ```
@@ -114,7 +114,7 @@ The current SDK constraint does not allow the Dart version used by the latest st
 
 ```
   ╷
-6 │   sdk: ">=2.12.0-0 <2.12.0"
+6 │   sdk: ">={{version}} <{{version}}"
   │        ^^^^^^^^^^^^^^^^^^^^
   ╵
 ```

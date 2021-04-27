@@ -37,7 +37,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|`^1.15.0`|1.15.0|1.15.0|
+|[`collection`]|`^{{version}}`|{{version}}|{{version}}|
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 

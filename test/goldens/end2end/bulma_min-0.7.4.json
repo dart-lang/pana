@@ -5,15 +5,15 @@
     "flutterVersions": {}
   },
   "packageName": "bulma_min",
-  "packageVersion": "0.7.4",
+  "packageVersion": "{{version}}",
   "pubspec": {
     "name": "bulma_min",
     "description": "Bulma is a CSS Framework. This package contains its minified assets to include in your project.",
-    "version": "0.7.4",
+    "version": "{{version}}",
     "homepage": "https://github.com/agilord/bulma_min",
     "author": "team@agilord.com",
     "environment": {
-      "sdk": ">=1.0.0 <3.0.0"
+      "sdk": ">={{version}} <{{version}}"
     }
   },
   "licenseFile": {
@@ -71,7 +71,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "partial",
-        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `>=1.0.0 <3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
+        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `>={{version}} <{{version}}`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
       }
     ]
   }

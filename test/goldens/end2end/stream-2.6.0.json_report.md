@@ -114,26 +114,26 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`args`]|`>=0.13.0 <2.0.0`|1.6.0|**2.0.0**|
-|[`charcode`]|`>=1.1.0 <2.0.0`|1.2.0|1.2.0|
-|[`http`]|`>=0.11.0 <2.0.0`|0.13.1|0.13.1|
-|[`logging`]|`>=0.11.0 <2.0.0`|1.0.1|1.0.1|
-|[`path`]|`>=1.3.0 <2.0.0`|1.8.0|1.8.0|
-|[`rikulo_commons`]|`>=4.1.0 <5.0.0`|4.3.2|**5.0.3**|
+|[`args`]|`>={{version}} <{{version}}`|{{version}}|**{{version}}**|
+|[`charcode`]|`>={{version}} <{{version}}`|{{version}}|{{version}}|
+|[`http`]|`>={{version}} <{{version}}`|{{version}}|{{version}}|
+|[`logging`]|`>={{version}} <{{version}}`|{{version}}|{{version}}|
+|[`path`]|`>={{version}} <{{version}}`|{{version}}|{{version}}|
+|[`rikulo_commons`]|`>={{version}} <{{version}}`|{{version}}|**{{version}}**|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.15.0|1.15.0|
-|[`http_parser`]|-|4.0.0|4.0.0|
-|[`meta`]|-|1.3.0|1.3.0|
-|[`mime`]|-|1.0.0|1.0.0|
-|[`pedantic`]|-|1.11.0|1.11.0|
-|[`source_span`]|-|1.8.1|1.8.1|
-|[`string_scanner`]|-|1.1.0|1.1.0|
-|[`term_glyph`]|-|1.2.0|1.2.0|
-|[`typed_data`]|-|1.3.0|1.3.0|
+|[`collection`]|-|{{version}}|{{version}}|
+|[`http_parser`]|-|{{version}}|{{version}}|
+|[`meta`]|-|{{version}}|{{version}}|
+|[`mime`]|-|{{version}}|{{version}}|
+|[`pedantic`]|-|{{version}}|{{version}}|
+|[`source_span`]|-|{{version}}|{{version}}|
+|[`string_scanner`]|-|{{version}}|{{version}}|
+|[`term_glyph`]|-|{{version}}|{{version}}|
+|[`typed_data`]|-|{{version}}|{{version}}|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -156,14 +156,14 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 <details>
 <summary>
-The constraint `>=0.13.0 <2.0.0` on args does not support the stable version `2.0.0`.
+The constraint `>={{version}} <{{version}}` on args does not support the stable version `{{version}}`.
 </summary>
 
 Try running `dart pub upgrade --major-versions args` to update the constraint.
 </details>
 <details>
 <summary>
-The constraint `>=4.1.0 <5.0.0` on rikulo_commons does not support the stable version `5.0.0`, that was published N days ago. 
+The constraint `>={{version}} <{{version}}` on rikulo_commons does not support the stable version `{{version}}`, that was published N days ago. 
 
  When rikulo_commons is 30 days old, this package will no longer be awarded points in this category.
 </summary>
@@ -180,7 +180,7 @@ Try running `dart pub upgrade --major-versions rikulo_commons` to update the con
 
 <details>
 <summary>
-Package language version (indicated by the sdk constraint `>=2.8.0 <3.0.0`) is less than 2.12.
+Package language version (indicated by the sdk constraint `>={{version}} <{{version}}`) is less than 2.12.
 </summary>
 
 Consider [migrating](https://dart.dev/null-safety/migration-guide).

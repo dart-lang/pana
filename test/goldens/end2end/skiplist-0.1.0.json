@@ -5,18 +5,18 @@
     "flutterVersions": {}
   },
   "packageName": "skiplist",
-  "packageVersion": "0.1.0",
+  "packageVersion": "{{version}}",
   "pubspec": {
     "name": "skiplist",
     "description": "A skiplist implementation in Dart.",
-    "version": "0.1.0",
+    "version": "{{version}}",
     "author": "Steven Roose <stevenroose@gmail.com>",
     "homepage": "https://github.com/stevenroose/dart-skiplist",
     "dependencies": {
-      "quiver_iterables": ">=1.0.0 <2.0.0"
+      "quiver_iterables": ">={{version}} <{{version}}"
     },
     "dev_dependencies": {
-      "test": ">=0.12.7 <0.13.0"
+      "test": ">={{version}} <{{version}}"
     }
   },
   "licenseFile": {
@@ -77,5 +77,5 @@
       }
     ]
   },
-  "errorMessage": "Running `dart pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```"
+  "errorMessage": "Running `dart pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >={{version}} which requires SDK version >={{version}} <{{version}}, version solving failed.\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >={{version}} which requires SDK version >={{version}} <{{version}}, version solving failed.\n```"
 }

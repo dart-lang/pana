@@ -31,21 +31,21 @@
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`http_parser`]|`^4.0.0`|4.0.0|4.0.0|
-|[`meta`]|`^1.3.0`|1.3.0|1.3.0|
-|[`path`]|`^1.8.0`|1.8.0|1.8.0|
-|[`pedantic`]|`^1.10.0`|1.11.0|1.11.0|
+|[`http_parser`]|`^{{version}}`|{{version}}|{{version}}|
+|[`meta`]|`^{{version}}`|{{version}}|{{version}}|
+|[`path`]|`^{{version}}`|{{version}}|{{version}}|
+|[`pedantic`]|`^{{version}}`|{{version}}|{{version}}|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`charcode`]|-|1.2.0|1.2.0|
-|[`collection`]|-|1.15.0|1.15.0|
-|[`source_span`]|-|1.8.1|1.8.1|
-|[`string_scanner`]|-|1.1.0|1.1.0|
-|[`term_glyph`]|-|1.2.0|1.2.0|
-|[`typed_data`]|-|1.3.0|1.3.0|
+|[`charcode`]|-|{{version}}|{{version}}|
+|[`collection`]|-|{{version}}|{{version}}|
+|[`source_span`]|-|{{version}}|{{version}}|
+|[`string_scanner`]|-|{{version}}|{{version}}|
+|[`term_glyph`]|-|{{version}}|{{version}}|
+|[`typed_data`]|-|{{version}}|{{version}}|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
