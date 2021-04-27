@@ -70,28 +70,19 @@ void main() {
                 'the Dart version used by the latest stable Flutter ($flutterDartVersion)',
                 'the Dart version used by the latest stable Flutter ({{flutter-dart-version}})')
             .replaceAll(RegExp('that was published [0-9]+ days ago'),
-                'that was published N days ago')
-            .replaceAll(_versionRegExp, '{{version}}');
+                'that was published N days ago');
         actualMap = json.decode(updated) as Map<String, dynamic>;
-      });
-
-      test('matches known good', () {
-        void removeDependencyDetails(Map map) {
-          if (map.containsKey('pkgResolution') &&
-              (map['pkgResolution'] as Map).containsKey('dependencies')) {
-            final deps = (map['pkgResolution']['dependencies'] as List)
-                .cast<Map<dynamic, dynamic>>();
-            deps?.forEach((Map m) {
-              m.remove('resolved');
-              m.remove('available');
-            });
-          }
-        }
 
         // Reduce the time-invariability of the tests: resolved and available
         // versions may change over time or because of SDK version changes.
-        removeDependencyDetails(actualMap);
+        final reportMap = actualMap['report'] as Map<String, dynamic>;
+        final reportUpdated =
+            json.encode(reportMap).replaceAll(_versionRegExp, '{{version}}');
+        actualMap['report'] =
+            json.decode(reportUpdated) as Map<String, dynamic>;
+      });
 
+      test('matches known good', () {
         final json = const JsonEncoder.withIndent('  ').convert(actualMap);
 
         // The tempdir creeps in to an error message.

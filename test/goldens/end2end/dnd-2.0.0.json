@@ -5,20 +5,20 @@
     "flutterVersions": {}
   },
   "packageName": "dnd",
-  "packageVersion": "{{version}}",
+  "packageVersion": "2.0.0",
   "pubspec": {
     "name": "dnd",
-    "version": "{{version}}",
+    "version": "2.0.0",
     "author": "Marco Jakob <majakob@gmx.ch>",
     "description": "Drag and Drop for Dart web apps with mouse and touch support.",
     "repository": "https://github.com/marcojakob/dart-dnd",
     "homepage": "https://code.makery.ch/library/dart-drag-and-drop/",
     "environment": {
-      "sdk": ">={{version}} <{{version}}"
+      "sdk": ">=2.12.0 <3.0.0"
     },
     "dev_dependencies": {
-      "build_runner": "^{{version}}",
-      "build_web_compilers": "^{{version}}"
+      "build_runner": "^1.2.5",
+      "build_web_compilers": "^2.16.4"
     }
   },
   "licenseFile": {

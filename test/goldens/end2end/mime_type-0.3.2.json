@@ -5,10 +5,10 @@
     "flutterVersions": {}
   },
   "packageName": "mime_type",
-  "packageVersion": "{{version}}",
+  "packageVersion": "0.3.2",
   "pubspec": {
     "name": "mime_type",
-    "version": "{{version}}",
+    "version": "0.3.2",
     "authors": [
       "Terry Mitsuoka <TerryMitsuoka@gmail.com>",
       "Robert Beyer <4sternrb@googlemail.com>",
@@ -17,7 +17,7 @@
     "description": "MIME type library for Dart HTTP server applications.",
     "homepage": "https://github.com/mitsuoka/mime_type",
     "environment": {
-      "sdk": ">={{version}} <{{version}}"
+      "sdk": ">=0.8.10 <3.0.0"
     }
   },
   "licenseFile": null,

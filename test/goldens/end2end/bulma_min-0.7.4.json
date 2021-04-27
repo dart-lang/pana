@@ -5,15 +5,15 @@
     "flutterVersions": {}
   },
   "packageName": "bulma_min",
-  "packageVersion": "{{version}}",
+  "packageVersion": "0.7.4",
   "pubspec": {
     "name": "bulma_min",
     "description": "Bulma is a CSS Framework. This package contains its minified assets to include in your project.",
-    "version": "{{version}}",
+    "version": "0.7.4",
     "homepage": "https://github.com/agilord/bulma_min",
     "author": "team@agilord.com",
     "environment": {
-      "sdk": ">={{version}} <{{version}}"
+      "sdk": ">=1.0.0 <3.0.0"
     }
   },
   "licenseFile": {

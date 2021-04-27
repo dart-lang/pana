@@ -5,10 +5,10 @@
     "flutterVersions": {}
   },
   "packageName": "sdp_transform",
-  "packageVersion": "{{version}}",
+  "packageVersion": "0.2.0",
   "pubspec": {
     "name": "sdp_transform",
-    "version": "{{version}}",
+    "version": "0.2.0",
     "authors": [
       "cloudwebrtc <duanweiwei1982@gmail.com>",
       "rlsutton1 <rlustton1@optusnet.com.au>",
@@ -17,10 +17,10 @@
     "description": "Dart implementation of sdp-transform",
     "homepage": "https://github.com/cloudwebrtc/dart-sdp-transform",
     "environment": {
-      "sdk": "<{{version}}"
+      "sdk": "<3.0.0"
     },
     "dev_dependencies": {
-      "test": "^{{version}}"
+      "test": "^1.9.3"
     }
   },
   "licenseFile": {

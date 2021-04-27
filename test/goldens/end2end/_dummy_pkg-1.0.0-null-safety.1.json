@@ -5,14 +5,14 @@
     "flutterVersions": {}
   },
   "packageName": "_dummy_pkg",
-  "packageVersion": "{{version}}",
+  "packageVersion": "1.0.0-null-safety.1",
   "pubspec": {
     "name": "_dummy_pkg",
     "homepage": "https://github.com/dart-lang/pub-dev",
     "description": "Dummy packages published from pub integration tests.",
-    "version": "{{version}}",
+    "version": "1.0.0-null-safety.1",
     "environment": {
-      "sdk": ">={{version}} <{{version}}"
+      "sdk": ">=2.12.0-0 <2.12.0"
     }
   },
   "licenseFile": {
@@ -73,5 +73,5 @@
       }
     ]
   },
-  "errorMessage": "Running `dart pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because _dummy_pkg requires SDK version >={{version}} <{{version}}, version solving failed.\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because _dummy_pkg requires SDK version >={{version}} <{{version}}, version solving failed.\n```"
+  "errorMessage": "Running `dart pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.\n```"
 }

@@ -5,23 +5,23 @@
     "flutterVersions": {}
   },
   "packageName": "async",
-  "packageVersion": "{{version}}",
+  "packageVersion": "2.5.0",
   "pubspec": {
     "name": "async",
-    "version": "{{version}}",
+    "version": "2.5.0",
     "description": "Utility functions and classes related to the 'dart:async' library.",
     "homepage": "https://www.github.com/dart-lang/async",
     "environment": {
-      "sdk": ">={{version}} <{{version}}"
+      "sdk": ">=2.12.0-0 <3.0.0"
     },
     "dependencies": {
-      "collection": "^{{version}}"
+      "collection": "^1.15.0"
     },
     "dev_dependencies": {
-      "fake_async": "^{{version}}",
-      "stack_trace": "^{{version}}",
-      "test": "^{{version}}",
-      "pedantic": "^{{version}}"
+      "fake_async": "^1.2.0-nullsafety",
+      "stack_trace": "^1.10.0-nullsafety",
+      "test": "^1.16.0-nullsafety",
+      "pedantic": "^1.10.0-nullsafety"
     }
   },
   "licenseFile": {

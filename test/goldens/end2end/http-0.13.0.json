@@ -5,24 +5,24 @@
     "flutterVersions": {}
   },
   "packageName": "http",
-  "packageVersion": "{{version}}",
+  "packageVersion": "0.13.0",
   "pubspec": {
     "name": "http",
-    "version": "{{version}}",
+    "version": "0.13.0",
     "homepage": "https://github.com/dart-lang/http",
     "description": "A composable, multi-platform, Future-based API for HTTP requests.",
     "environment": {
-      "sdk": ">={{version}} <{{version}}"
+      "sdk": ">=2.12.0-0 <3.0.0"
     },
     "dependencies": {
-      "http_parser": "^{{version}}",
-      "meta": "^{{version}}",
-      "path": "^{{version}}",
-      "pedantic": "^{{version}}"
+      "http_parser": "^4.0.0",
+      "meta": "^1.3.0",
+      "path": "^1.8.0",
+      "pedantic": "^1.10.0"
     },
     "dev_dependencies": {
-      "shelf": "^{{version}}",
-      "test": "^{{version}}"
+      "shelf": "^1.0.0-nullsafety.0",
+      "test": "^1.16.0-nullsafety.4"
     }
   },
   "licenseFile": {
