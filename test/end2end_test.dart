@@ -5,30 +5,46 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:pana/src/version.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub_semver/pub_semver.dart';
+import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf/shelf_io.dart';
 import 'package:test/test.dart';
 
 import 'golden_file.dart';
 
 final _goldenDir = p.join('test', 'goldens', 'end2end');
+final _pubDevUri = Uri.parse('https://pub.dartlang.org/');
 
 void main() {
   String tempDir;
   PackageAnalyzer analyzer;
+  http.Client httpClient;
+  HttpServer httpServer;
 
   setUpAll(() async {
     tempDir = Directory.systemTemp
         .createTempSync('pana-test')
         .resolveSymbolicLinksSync();
     final pubCacheDir = p.join(tempDir, 'pub-cache');
+    final goldenDirLastModified = await _detectGoldenLastModified();
     Directory(pubCacheDir).createSync();
-    analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
+    httpClient = http.Client();
+    httpServer = await _startLocalProxy(
+      httpClient: httpClient,
+      blockPublishAfter: goldenDirLastModified,
+    );
+    analyzer = await PackageAnalyzer.create(
+        pubCacheDir: pubCacheDir,
+        pubHostedUrl: 'http://127.0.0.1:${httpServer.port}');
   });
 
   tearDownAll(() async {
+    await httpServer.close(force: true);
+    httpClient.close();
     Directory(tempDir).deleteSync(recursive: true);
   });
 
@@ -38,8 +54,13 @@ void main() {
       Map<String, dynamic> actualMap;
 
       setUpAll(() async {
-        var summary = await analyzer.inspectPackage(package,
-            version: version, options: InspectOptions());
+        var summary = await analyzer.inspectPackage(
+          package,
+          version: version,
+          options: InspectOptions(
+            pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
+          ),
+        );
 
         // Fixed version strings to reduce changes on each upgrades.
         assert(summary.runtimeInfo.panaVersion == packageVersion);
@@ -155,11 +176,51 @@ void main() {
   _verifyPackage('_dummy_pkg', '1.0.0-null-safety.1');
 }
 
-Matcher isSemVer = predicate<String>((String versionString) {
-  try {
-    Version.parse(versionString);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}, 'can be parsed as a version');
+Future<DateTime> _detectGoldenLastModified() async {
+  final dir = Directory(_goldenDir);
+  if (!dir.existsSync()) return null;
+  final timestamps = dir
+      .listSync(recursive: true)
+      .whereType<File>()
+      .map((e) => e.lastModifiedSync())
+      .toList();
+  if (timestamps.isEmpty) return null;
+  return timestamps
+      .reduce((value, element) => value.isAfter(element) ? value : element);
+}
+
+Future<HttpServer> _startLocalProxy({
+  @required http.Client httpClient,
+  @required DateTime blockPublishAfter,
+}) {
+  return serve(
+    (shelf.Request rq) async {
+      final pubDevUri = _pubDevUri.replace(path: rq.requestedUri.path);
+      final rs = await httpClient.get(pubDevUri);
+      final segments = rq.requestedUri.pathSegments;
+      if (rs.statusCode == 200 &&
+          blockPublishAfter != null &&
+          segments.length == 3 &&
+          segments[0] == 'api' &&
+          segments[1] == 'packages') {
+        final content = json.decode(rs.body) as Map<String, dynamic>;
+        final versions =
+            (content['versions'] as List).cast<Map<String, dynamic>>();
+        versions.removeWhere((item) {
+          final published = DateTime.parse(item['published'] as String);
+          return published.isAfter(blockPublishAfter);
+        });
+        return shelf.Response.ok(json.encode(content));
+      }
+      return shelf.Response(
+        rs.statusCode,
+        body: gzip.encode(rs.bodyBytes),
+        headers: {
+          'content-encoding': 'gzip',
+        },
+      );
+    },
+    '127.0.0.1',
+    0,
+  );
+}

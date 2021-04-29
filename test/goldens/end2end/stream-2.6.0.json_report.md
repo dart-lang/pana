@@ -110,13 +110,13 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 ## 10/20 Support up-to-date dependencies
 
-### [*] 0/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`args`]|`>=0.13.0 <2.0.0`|1.6.0|**2.0.0**|
+|[`args`]|`>=0.13.0 <2.0.0`|1.6.0|**2.1.0**|
 |[`charcode`]|`>=1.1.0 <2.0.0`|1.2.0|1.2.0|
-|[`http`]|`>=0.11.0 <2.0.0`|0.13.1|0.13.1|
+|[`http`]|`>=0.11.0 <2.0.0`|0.13.2|0.13.2|
 |[`logging`]|`>=0.11.0 <2.0.0`|1.0.1|1.0.1|
 |[`path`]|`>=1.3.0 <2.0.0`|1.8.0|1.8.0|
 |[`rikulo_commons`]|`>=4.1.0 <5.0.0`|4.3.2|**5.0.3**|
@@ -125,6 +125,7 @@ To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedanti
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
+|[`async`]|-|2.6.0|2.6.0|
 |[`collection`]|-|1.15.0|1.15.0|
 |[`http_parser`]|-|4.0.0|4.0.0|
 |[`meta`]|-|1.3.0|1.3.0|
@@ -144,6 +145,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`logging`]: https://pub.dev/packages/logging
 [`path`]: https://pub.dev/packages/path
 [`rikulo_commons`]: https://pub.dev/packages/rikulo_commons
+[`async`]: https://pub.dev/packages/async
 [`collection`]: https://pub.dev/packages/collection
 [`http_parser`]: https://pub.dev/packages/http_parser
 [`meta`]: https://pub.dev/packages/meta
@@ -163,9 +165,7 @@ Try running `dart pub upgrade --major-versions args` to update the constraint.
 </details>
 <details>
 <summary>
-The constraint `>=4.1.0 <5.0.0` on rikulo_commons does not support the stable version `5.0.0`, that was published N days ago. 
-
- When rikulo_commons is 30 days old, this package will no longer be awarded points in this category.
+The constraint `>=4.1.0 <5.0.0` on rikulo_commons does not support the stable version `5.0.0`.
 </summary>
 
 Try running `dart pub upgrade --major-versions rikulo_commons` to update the constraint.

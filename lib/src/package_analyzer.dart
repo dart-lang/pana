@@ -49,12 +49,19 @@ class PackageAnalyzer {
   PackageAnalyzer(this._toolEnv, {UrlChecker urlChecker})
       : _urlChecker = urlChecker ?? UrlChecker();
 
-  static Future<PackageAnalyzer> create(
-      {String sdkDir, String flutterDir, String pubCacheDir}) async {
+  static Future<PackageAnalyzer> create({
+    String sdkDir,
+    String flutterDir,
+    String pubCacheDir,
+    String pubHostedUrl,
+  }) async {
     return PackageAnalyzer(await ToolEnvironment.create(
         dartSdkDir: sdkDir,
         flutterSdkDir: flutterDir,
-        pubCacheDir: pubCacheDir));
+        pubCacheDir: pubCacheDir,
+        environment: <String, String>{
+          if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
+        }));
   }
 
   Future<Summary> inspectPackage(
