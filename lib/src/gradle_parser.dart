@@ -1,7 +1,7 @@
 import 'package:petitparser/petitparser.dart';
 
 /// Grammar for Gradle
-class GradleGrammerDefinition extends GrammarDefinition {
+class _GradleGrammerDefinition extends GrammarDefinition {
   @override
   Parser start() => ref0(value).end();
 
@@ -54,7 +54,7 @@ class GradleGrammerDefinition extends GrammarDefinition {
 }
 
 /// Parser for Gradle
-class GradleParserDefinition extends GradleGrammerDefinition {
+class _GradleParserDefinition extends _GradleGrammerDefinition {
   @override
   Parser block() => super.block().map((block) => block[1] ?? {});
 
@@ -86,7 +86,7 @@ class GradleParserDefinition extends GradleGrammerDefinition {
 
 /// Test fucntion
 void parseGradle() {
-  final gradle = GradleParserDefinition();
+  final gradle = _GradleParserDefinition();
   final result = gradle.build();
   final parsed = result.parse('''
   android {
