@@ -1,5 +1,6 @@
 ## 0.16.1
 
+* Fix tagging of asset-only packages.
 * Use `package:tar` instead of `tar` process.
 
 ## 0.16.0

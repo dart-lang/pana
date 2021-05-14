@@ -163,8 +163,11 @@ void main() {
   // mime_type 0.3.2 has no recognized LICENSE file
   _verifyPackage('mime_type', '0.3.2');
 
-  // bulma_min 0.7.4 has no dart files, only assets
+  // no dart files, only assets (pre-2.12)
   _verifyPackage('bulma_min', '0.7.4');
+
+  // no dart files, only assets (post-2.12)
+  _verifyPackage('lints', '1.0.0');
 
   // slightly old package
   _verifyPackage('sdp_transform', '0.2.0');
