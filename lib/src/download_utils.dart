@@ -194,13 +194,13 @@ Future extractTarGz(List<int> tarball, String destination) async {
     if (!p.isWithin(destination, path)) {
       throw ArgumentError('"${entry.name}" is outside of the archive.');
     }
-    await File(path).parent.create(recursive: true);
+    final dir = File(path).parent;
+    await dir.create(recursive: true);
     if (entry.header.linkName != null) {
-      final target = p.relative(entry.header.linkName, from: path);
+      final target = p.normalize(p.join(dir.path, entry.header.linkName));
       if (p.isWithin(destination, target)) {
         await Link(path).create(target);
-      }
-      if (!p.isWithin(destination, target)) {
+      } else {
         throw ArgumentError('"$target" is outside of the archive.');
       }
     } else {
