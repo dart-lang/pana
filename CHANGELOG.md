@@ -2,6 +2,7 @@
 
 * Fix tagging of asset-only packages.
 * Use `package:tar` instead of `tar` process.
+* Run `dartanalyzer` separately for each directory.
 
 ## 0.16.0
 
