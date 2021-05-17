@@ -66,10 +66,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 20,
+        "grantedPoints": 30,
         "maxPoints": 30,
-        "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 24 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Prefer using `??=` over testing for null.\n</summary>\n\n`lib/src/draggable.dart:82:5`\n\n```\n   ╷\n82 │ ┌     if (_onDragStart == null) {\n83 │ │       _onDragStart = StreamController<DraggableEvent>.broadcast(\n84 │ │           sync: true, onCancel: () => _onDragStart = null);\n85 │ └     }\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/draggable.dart`\n</details>\n<details>\n<summary>\nINFO: Prefer using `??=` over testing for null.\n</summary>\n\n`lib/src/draggable.dart:91:5`\n\n```\n   ╷\n91 │ ┌     if (_onDrag == null) {\n92 │ │       _onDrag = StreamController<DraggableEvent>.broadcast(\n93 │ │           sync: true, onCancel: () => _onDrag = null);\n94 │ └     }\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/draggable.dart`\n</details>"
+        "status": "passed",
+        "summary": "### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues\n"
       },
       {
         "id": "dependency",

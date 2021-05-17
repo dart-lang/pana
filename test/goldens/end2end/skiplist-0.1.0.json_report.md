@@ -41,43 +41,16 @@ Package resolution failed. Could not determine platforms.
 Run `dart pub get` for more information.
 </details>
 
-## 0/30 Pass static analysis
+## 20/30 Pass static analysis
 
-### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
-
-Found 85 issues. Showing the first 2:
+### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
 <details>
 <summary>
-ERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.
+lib/skiplist.dart is not formatted according to dartfmt
 </summary>
 
-`lib/skiplist.dart:12:8`
-
-```
-   ╷
-12 │ import "package:quiver_iterables/iterables.dart" as iterables;
-   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`
-</details>
-<details>
-<summary>
-ERROR: Non-nullable instance field '_header' must be initialized.
-</summary>
-
-`lib/skiplist.dart:48:3`
-
-```
-   ╷
-48 │   SkipList({double this.p: 1 / 4, int this.maxLevel: 8}) {
-   │   ^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`
+To format your files run: `dartfmt -w .`
 </details>
 
 ## 0/20 Support up-to-date dependencies

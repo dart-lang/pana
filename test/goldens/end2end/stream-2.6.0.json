@@ -96,7 +96,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 1191 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Only use double quotes for strings containing single quotes.\n</summary>\n\n`bin/rspc.dart:10:8`\n\n```\n   ╷\n10 │ import \"package:stream/rspc.dart\" as rspc;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer bin/rspc.dart`\n</details>\n<details>\n<summary>\nINFO: Only use double quotes for strings containing single quotes.\n</summary>\n\n`lib/plugin.dart:6:8`\n\n```\n  ╷\n6 │ import \"dart:async\";\n  │        ^^^^^^^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/plugin.dart`\n</details>"
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 14 issues. Showing the first 2:\n\n<details>\n<summary>\nlib/proxy.dart is not formatted according to dartfmt\n</summary>\n\nTo format your files run: `dartfmt -w .`\n</details>\n<details>\n<summary>\nlib/src/connect.dart is not formatted according to dartfmt\n</summary>\n\nTo format your files run: `dartfmt -w .`\n</details>"
       },
       {
         "id": "dependency",
