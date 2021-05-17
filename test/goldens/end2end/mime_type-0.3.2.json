@@ -64,10 +64,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 20,
+        "grantedPoints": 30,
         "maxPoints": 30,
-        "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: Omit type annotations for local variables.\n</summary>\n\n`lib/mime_type.dart:11:3`\n\n```\n   ╷\n11 │   final int lastDot = fileName.lastIndexOf('.', fileName.length - 1);\n   │   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/mime_type.dart`\n</details>\n<details>\n<summary>\nINFO: Omit type annotations for local variables.\n</summary>\n\n`lib/mime_type.dart:13:5`\n\n```\n   ╷\n13 │     final String extension = fileName.substring(lastDot + 1);\n   │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/mime_type.dart`\n</details>"
+        "status": "passed",
+        "summary": "### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues\n"
       },
       {
         "id": "dependency",

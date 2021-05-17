@@ -49,42 +49,10 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 ### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)
 
 
-## 20/30 Pass static analysis
+## 30/30 Pass static analysis
 
-### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
+### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
 
-<details>
-<summary>
-INFO: Omit type annotations for local variables.
-</summary>
-
-`lib/mime_type.dart:11:3`
-
-```
-   ╷
-11 │   final int lastDot = fileName.lastIndexOf('.', fileName.length - 1);
-   │   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/mime_type.dart`
-</details>
-<details>
-<summary>
-INFO: Omit type annotations for local variables.
-</summary>
-
-`lib/mime_type.dart:13:5`
-
-```
-   ╷
-13 │     final String extension = fileName.substring(lastDot + 1);
-   │     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/mime_type.dart`
-</details>
 
 ## 20/20 Support up-to-date dependencies
 

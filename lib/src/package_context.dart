@@ -111,24 +111,24 @@ class PackageContext {
     log.info('Analyzing package...');
     try {
       final dirs = await listFocusDirs(packageDir);
-      if (dirs.isEmpty) {
-        _codeProblems = <CodeProblem>[];
-        return _codeProblems;
+      final problems = <CodeProblem>[];
+      for (final dir in dirs) {
+        final output = await toolEnvironment.runAnalyzer(
+            packageDir, [dir], usesFlutter,
+            inspectOptions: options);
+        final list = LineSplitter.split(output)
+            .map((s) => parseCodeProblem(s, projectDir: packageDir))
+            .where((e) => e != null)
+            .toSet()
+            .toList();
+        list.sort();
       }
-      final output = await toolEnvironment
-          .runAnalyzer(packageDir, dirs, usesFlutter, inspectOptions: options);
-      final list = LineSplitter.split(output)
-          .map((s) => parseCodeProblem(s, projectDir: packageDir))
-          .where((e) => e != null)
-          .toSet()
-          .toList();
-      list.sort();
-      _codeProblems = list;
+      _codeProblems = problems;
+      return _codeProblems;
     } on ToolException catch (e) {
       errors.add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
       rethrow;
     }
-    return _codeProblems;
   }
 
   bool get pubspecAllowsCurrentSdk =>

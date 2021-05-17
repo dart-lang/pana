@@ -37,45 +37,19 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 49 issues. Showing the first 2:
-
 <details>
 <summary>
-INFO: The type of the function literal can't be inferred because the literal has a block as its body.
+lib/src/grammar.dart is not formatted according to dartfmt
 </summary>
 
-`lib/src/grammar.dart:90:17`
-
-```
-   ╷
-90 │         'format': (o) {
-   │ ┌─────────────────^
-91 │ │         return (o['encoding'] != null)
-92 │ │             ? 'rtpmap:%d %s/%s/%s'
-93 │ │             : (o['rate'] != null) ? 'rtpmap:%d %s/%s' : 'rtpmap:%d %s';
-94 │ └       }
-   ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/grammar.dart`
+To format your files run: `dartfmt -w .`
 </details>
 <details>
 <summary>
-INFO: The type of the function literal can't be inferred because the literal has a block as its body.
+lib/src/parser.dart is not formatted according to dartfmt
 </summary>
 
-`lib/src/grammar.dart:115:17`
-
-```
-    ╷
-115 │         'format': (o) {
-    │ ┌─────────────────^
-116 │ │         return (o['address'] != null) ? 'rtcp:%d %s IP%d %s' : 'rtcp:%d';
-117 │ └       }
-    ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/grammar.dart`
+To format your files run: `dartfmt -w .`
 </details>
 
 ## 10/20 Support up-to-date dependencies

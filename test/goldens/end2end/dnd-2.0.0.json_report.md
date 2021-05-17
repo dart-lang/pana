@@ -31,48 +31,10 @@ Because:
 * `dart:js`
 </details>
 
-## 20/30 Pass static analysis
+## 30/30 Pass static analysis
 
-### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
+### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 24 issues. Showing the first 2:
-
-<details>
-<summary>
-INFO: Prefer using `??=` over testing for null.
-</summary>
-
-`lib/src/draggable.dart:82:5`
-
-```
-   ╷
-82 │ ┌     if (_onDragStart == null) {
-83 │ │       _onDragStart = StreamController<DraggableEvent>.broadcast(
-84 │ │           sync: true, onCancel: () => _onDragStart = null);
-85 │ └     }
-   ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/draggable.dart`
-</details>
-<details>
-<summary>
-INFO: Prefer using `??=` over testing for null.
-</summary>
-
-`lib/src/draggable.dart:91:5`
-
-```
-   ╷
-91 │ ┌     if (_onDrag == null) {
-92 │ │       _onDrag = StreamController<DraggableEvent>.broadcast(
-93 │ │           sync: true, onCancel: () => _onDrag = null);
-94 │ └     }
-   ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/src/draggable.dart`
-</details>
 
 ## 20/20 Support up-to-date dependencies
 

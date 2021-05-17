@@ -54,10 +54,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 0,
+        "grantedPoints": 20,
         "maxPoints": 30,
-        "status": "failed",
-        "summary": "### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 85 issues. Showing the first 2:\n\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n</summary>\n\n`lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`\n</details>\n<details>\n<summary>\nERROR: Non-nullable instance field '_header' must be initialized.\n</summary>\n\n`lib/skiplist.dart:48:3`\n\n```\n   ╷\n48 │   SkipList({double this.p: 1 / 4, int this.maxLevel: 8}) {\n   │   ^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/skiplist.dart`\n</details>"
+        "status": "partial",
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nlib/skiplist.dart is not formatted according to dartfmt\n</summary>\n\nTo format your files run: `dartfmt -w .`\n</details>"
       },
       {
         "id": "dependency",

@@ -73,39 +73,21 @@ Because:
 
 ### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 1191 issues. Showing the first 2:
+Found 14 issues. Showing the first 2:
 
 <details>
 <summary>
-INFO: Only use double quotes for strings containing single quotes.
+lib/proxy.dart is not formatted according to dartfmt
 </summary>
 
-`bin/rspc.dart:10:8`
-
-```
-   ╷
-10 │ import "package:stream/rspc.dart" as rspc;
-   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer bin/rspc.dart`
+To format your files run: `dartfmt -w .`
 </details>
 <details>
 <summary>
-INFO: Only use double quotes for strings containing single quotes.
+lib/src/connect.dart is not formatted according to dartfmt
 </summary>
 
-`lib/plugin.dart:6:8`
-
-```
-  ╷
-6 │ import "dart:async";
-  │        ^^^^^^^^^^^^
-  ╵
-```
-
-To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and run `dartanalyzer lib/plugin.dart`
+To format your files run: `dartfmt -w .`
 </details>
 
 ## 10/20 Support up-to-date dependencies
