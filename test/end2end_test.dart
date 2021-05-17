@@ -157,6 +157,9 @@ void main() {
   // flutter-only package
   _verifyPackage('url_launcher', '6.0.3');
 
+  // multi-level symlink
+  _verifyPackage('audio_service', '0.17.0');
+
   // small issues in the package
   _verifyPackage('stream', '2.6.0');
 

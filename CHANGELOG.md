@@ -1,3 +1,7 @@
+## 0.16.2
+
+* Fix symlink calculation
+
 ## 0.16.1
 
 * Fix tagging of asset-only packages.
