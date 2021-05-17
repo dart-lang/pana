@@ -4,22 +4,19 @@
     "sdkVersion": "{{sdk-version}}",
     "flutterVersions": {}
   },
-  "packageName": "bulma_min",
-  "packageVersion": "0.7.4",
+  "packageName": "lints",
+  "packageVersion": "1.0.0",
   "pubspec": {
-    "name": "bulma_min",
-    "description": "Bulma is a CSS Framework. This package contains its minified assets to include in your project.",
-    "version": "0.7.4",
-    "homepage": "https://github.com/agilord/bulma_min",
-    "author": "team@agilord.com",
+    "name": "lints",
+    "description": "Official Dart lint rules. Defines the 'core' and 'recommended' set of lints suggested by the Dart team.",
+    "version": "1.0.0",
     "environment": {
-      "sdk": ">=1.0.0 <3.0.0"
+      "sdk": ">=2.12.0 <3.0.0"
     }
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "MIT",
-    "url": "https://github.com/agilord/bulma_min/blob/master/LICENSE"
+    "name": "BSD"
   },
   "allDependencies": [],
   "tags": [
@@ -33,17 +30,18 @@
     "platform:web",
     "runtime:native-aot",
     "runtime:native-jit",
-    "runtime:web"
+    "runtime:web",
+    "is:null-safe"
   ],
   "report": {
     "sections": [
       {
         "id": "convention",
         "title": "Follow Dart file conventions",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
+        "status": "failed",
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n* `pubspec.yaml` doesn't have a `homepage` entry.\n* `pubspec.yaml` doesn't have a `repository` entry.\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
       },
       {
         "id": "documentation",
@@ -80,10 +78,10 @@
       {
         "id": "null-safety",
         "title": "Support sound null safety",
-        "grantedPoints": 0,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "partial",
-        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `>=1.0.0 <3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Package and dependencies are fully migrated to null safety!\n"
       }
     ]
   }
