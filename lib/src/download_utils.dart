@@ -11,6 +11,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 import 'package:safe_url_check/safe_url_check.dart';
+import 'package:tar/tar.dart';
 
 import 'logging.dart';
 import 'utils.dart';
@@ -182,66 +183,30 @@ class UrlChecker {
   }
 }
 
-final String _pathTo7zip = (() {
-  return p.join(p.dirname(p.dirname(Platform.resolvedExecutable)), 'lib',
-      '_internal', 'pub', 'asset', '7zip', '7za.exe');
-})();
-
-String _tarPath = _findTarPath();
-
-/// Find a tar. Prefering system installed tar.
-///
-/// On linux tar should always be /bin/tar [See FHS 2.3][1]
-/// On MacOS it seems to always be /usr/bin/tar.
-///
-/// [1]: https://refspecs.linuxfoundation.org/FHS_2.3/fhs-2.3.pdf
-String _findTarPath() {
-  for (final file in ['/bin/tar', '/usr/bin/tar']) {
-    if (File(file).existsSync()) {
-      return file;
-    }
-  }
-  log.warning(
-      'Could not find a system `tar` installed in /bin/tar or /usr/bin/tar, '
-      'attempting to use tar from PATH');
-  return 'tar';
-}
-
 /// Extracts a `.tar.gz` file from [tarball] to [destination].
 Future extractTarGz(List<int> tarball, String destination) async {
   log.fine('Extracting .tar.gz stream to $destination.');
   final decompressed = GZipCodec().decode(tarball);
-
-  // We used to stream directly to `tar`,  but that was fragile in certain
-  // settings.
-  final processResult = await withTempDir((tempDir) async {
-    final tarFile = p.join(tempDir, 'archive.tar');
-    try {
-      File(tarFile).writeAsBytesSync(decompressed);
-    } catch (e) {
-      // We don't know the error type here: https://dartbug.com/41270
-      throw FileSystemException('Could not decompress gz stream $e');
+  final reader = TarReader(Stream.fromIterable([decompressed]));
+  while (await reader.moveNext()) {
+    final entry = reader.current;
+    final path = p.join(destination, entry.name);
+    if (!p.isWithin(destination, path)) {
+      throw ArgumentError('"${entry.name}" is outside of the archive.');
     }
-    return (Platform.isWindows)
-        ? Process.runSync(_pathTo7zip, ['x', tarFile],
-            workingDirectory: destination)
-        : Process.runSync(_tarPath, [
-            '--extract',
-            '--no-same-owner',
-            '--no-same-permissions',
-            '--directory',
-            destination,
-            '--file',
-            tarFile,
-          ]);
-  });
-  if (processResult.exitCode != 0) {
-    throw FileSystemException(
-        'Could not un-tar (exit code ${processResult.exitCode}). Error:\n'
-        '${processResult.stdout}\n'
-        '${processResult.stderr}');
+    await File(path).parent.create(recursive: true);
+    if (entry.header.linkName != null) {
+      final target = p.relative(entry.header.linkName, from: path);
+      if (p.isWithin(destination, target)) {
+        await Link(path).create(target);
+      }
+      if (!p.isWithin(destination, target)) {
+        throw ArgumentError('"$target" is outside of the archive.');
+      }
+    } else {
+      await entry.contents.pipe(File(path).openWrite());
+    }
   }
-  log.fine('Extracted .tar.gz to $destination. Exit code $exitCode.');
 }
 
 /// Creates a temporary directory and passes its path to [fn].

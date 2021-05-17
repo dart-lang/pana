@@ -1,3 +1,7 @@
+## 0.16.1
+
+* Use `package:tar` instead of `tar` process.
+
 ## 0.16.0
 
 * Use `dart pub` instead of `pub`.
