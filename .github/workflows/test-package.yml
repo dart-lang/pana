@@ -60,6 +60,8 @@ jobs:
       - id: install
         name: Install dependencies
         run: dart pub get
+      - name: Check Flutter
+        run: flutter --version --machine
       - name: Run VM tests
         # Run the tests -- include the default-skipped presubmit tests
         # Run with concurrency = 1 – the build-test command edits files, which might
