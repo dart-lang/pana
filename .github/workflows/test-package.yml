@@ -63,7 +63,7 @@ jobs:
       - name: Check Flutter
         run: flutter --version --machine
       - name: Check Flutter II.
-        run: flutter --version --machine
+        run: flutter --version --machine && echo $FLUTTER_ROOT && echo $FLUTTER_HOME
       - name: Run VM tests
         # Run the tests -- include the default-skipped presubmit tests
         # Run with concurrency = 1 – the build-test command edits files, which might
