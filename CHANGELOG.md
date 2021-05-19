@@ -1,3 +1,7 @@
+## 0.16.3
+
+* Relax symlink handling
+
 ## 0.16.2
 
 * Fix symlink calculation
