@@ -51,15 +51,6 @@ Future<void> downloadPackage(
 
   await extractTarGz(await http.readBytes(packageUri), destination);
 
-  // Delete all symlinks in the extracted folder
-  await Future.wait(
-    await Directory(destination)
-        .list(recursive: true, followLinks: false)
-        .where((e) => e is Link)
-        .map((e) => e.delete())
-        .toList(),
-  );
-
   if (!Platform.isWindows) {
     // Remove all executable permissions from extracted files
     final chmod = await runProc([
@@ -201,7 +192,8 @@ Future extractTarGz(List<int> tarball, String destination) async {
       if (p.isWithin(destination, target)) {
         await Link(path).create(target);
       } else {
-        throw ArgumentError('"$target" is outside of the archive.');
+        log.info('Link from "$path" points outside of the archive: "$target".');
+        // Note to self: do not create links going outside the package, this is not safe!
       }
     } else {
       await entry.contents.pipe(File(path).openWrite());
