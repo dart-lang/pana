@@ -113,9 +113,8 @@ class PackageContext {
       final dirs = await listFocusDirs(packageDir);
       final problems = <CodeProblem>[];
       for (final dir in dirs) {
-        final output = await toolEnvironment.runAnalyzer(
-            packageDir, [dir], usesFlutter,
-            inspectOptions: options);
+        final output = await toolEnvironment
+            .runAnalyzer(packageDir, dir, usesFlutter, inspectOptions: options);
         final list = LineSplitter.split(output)
             .map((s) => parseCodeProblem(s, projectDir: packageDir))
             .where((e) => e != null)

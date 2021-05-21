@@ -1,6 +1,8 @@
-## 0.16.3
+## 0.17.0
 
 * Relax symlink handling
+* **BREAKING CHANGES**
+  * `ToolEnvironment.runAnalyzer` accepts only a single directory parameter.
 
 ## 0.16.2
 
