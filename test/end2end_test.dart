@@ -187,7 +187,7 @@ Future<DateTime> _detectGoldenLastModified() async {
   await timestampFile.parent.create(recursive: true);
   if (timestampFile.existsSync()) {
     final content = await timestampFile.readAsString();
-    return DateTime.parse(content);
+    return DateTime.parse(content.trim());
   } else {
     final now = DateTime.now().toUtc();
     await timestampFile.writeAsString('${now.toIso8601String()}\n');
