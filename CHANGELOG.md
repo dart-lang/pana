@@ -1,7 +1,9 @@
 ## 0.17.0
 
 * Relax symlink handling
+* Use streaming download and extraction.
 * **BREAKING CHANGES**
+  * Removed `extractTarGz` method.
   * `ToolEnvironment.runAnalyzer` accepts only a single directory parameter.
 
 ## 0.16.2
