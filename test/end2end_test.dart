@@ -183,16 +183,16 @@ void main() {
 }
 
 Future<DateTime> _detectGoldenLastModified() async {
-  final dir = Directory(_goldenDir);
-  if (!dir.existsSync()) return null;
-  final timestamps = dir
-      .listSync(recursive: true)
-      .whereType<File>()
-      .map((e) => e.lastModifiedSync())
-      .toList();
-  if (timestamps.isEmpty) return null;
-  return timestamps
-      .reduce((value, element) => value.isAfter(element) ? value : element);
+  final timestampFile = File(p.join(_goldenDir, '__timestamp.txt'));
+  await timestampFile.parent.create(recursive: true);
+  if (timestampFile.existsSync()) {
+    final content = await timestampFile.readAsString();
+    return DateTime.parse(content);
+  } else {
+    final now = DateTime.now().toUtc();
+    await timestampFile.writeAsString('${now.toIso8601String()}\n');
+    return now;
+  }
 }
 
 Future<HttpServer> _startLocalProxy({
