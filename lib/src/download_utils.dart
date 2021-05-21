@@ -153,6 +153,10 @@ class UrlChecker {
     return _internalHosts.every((p) => p.allMatches(uri.host).isEmpty);
   }
 
+  Future<bool> exists(Uri uri) async {
+    return await safeUrlCheck(uri);
+  }
+
   Future<UrlStatus> checkStatus(String url,
       {bool isInternalPackage = false}) async {
     if (url == null) {
@@ -169,8 +173,7 @@ class UrlChecker {
     if (!isExternal && !isInternalPackage) {
       return UrlStatus.internal;
     }
-    final exists = await safeUrlCheck(uri);
-    return exists ? UrlStatus.exists : UrlStatus.missing;
+    return await exists(uri) ? UrlStatus.exists : UrlStatus.missing;
   }
 }
 
