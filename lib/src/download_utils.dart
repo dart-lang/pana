@@ -48,14 +48,22 @@ Future<void> downloadPackage(
   log.info(
       'Downloading package $package ${version ?? 'latest'} from $packageUri');
 
-  final c = HttpClient();
-  try {
-    final req = await c.getUrl(packageUri);
-    final res = await req.close();
-    await _extractTarGz(res, destination);
-  } finally {
-    c.close(force: true);
-  }
+  await retry(
+    () async {
+      final c = HttpClient();
+      try {
+        final req = await c.getUrl(packageUri);
+        final res = await req.close();
+        if (res.statusCode != 200) {
+          throw AssertionError('Unable to access URL: "$packageUri".');
+        }
+        await _extractTarGz(res, destination);
+      } finally {
+        c.close(force: true);
+      }
+    },
+    maxAttempts: 3,
+  );
 }
 
 /// Returns an URL that is likely the downloadable URL of the given path.
@@ -219,7 +227,10 @@ Future _extractTarGz(Stream<List<int>> tarball, String destination) async {
     if (entry.header.linkName != null) {
       final target = p.normalize(p.join(dir.path, entry.header.linkName));
       if (p.isWithin(destination, target)) {
-        await Link(path).create(target);
+        final link = Link(path);
+        if (!link.existsSync()) {
+          await link.create(target);
+        }
       } else {
         log.info('Link from "$path" points outside of the archive: "$target".');
         // Note to self: do not create links going outside the package, this is not safe!
