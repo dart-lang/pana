@@ -132,7 +132,7 @@ class UrlChecker {
 
   UrlChecker({
     int maxCacheSize,
-  }) : _maxCacheSize = maxCacheSize ?? 100 {
+  }) : _maxCacheSize = maxCacheSize ?? 10000 {
     addInternalHosts([
       'dart.dev',
       RegExp(r'.*\.dart\.dev'),
