@@ -34,7 +34,7 @@
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
 |[`url_launcher_linux`]|`^2.0.0`|2.0.0|2.0.0|
 |[`url_launcher_macos`]|`^2.0.0`|2.0.0|2.0.0|
-|[`url_launcher_platform_interface`]|`^2.0.0`|2.0.2|2.0.2|
+|[`url_launcher_platform_interface`]|`^2.0.0`|2.0.3|2.0.3|
 |[`url_launcher_web`]|`^2.0.0`|2.0.0|2.0.0|
 |[`url_launcher_windows`]|`^2.0.0`|2.0.0|2.0.0|
 

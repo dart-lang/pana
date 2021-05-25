@@ -57,7 +57,7 @@ Because:
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`archive`]|-|3.1.2|3.1.2|
-|[`async`]|-|2.6.1|2.6.1|
+|[`async`]|-|2.7.0|2.7.0|
 |[`characters`]|-|1.1.0|1.1.0|
 |[`charcode`]|-|1.2.0|1.2.0|
 |[`clock`]|-|1.1.0|1.1.0|
@@ -90,9 +90,9 @@ Because:
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`uuid`]|-|3.0.4|3.0.4|
 |[`vector_math`]|-|2.1.0|2.1.0|
-|[`win32`]|-|2.0.5|2.1.0|
+|[`win32`]|-|2.0.5|2.1.1|
 |[`xdg_directories`]|-|0.2.0|0.2.0|
-|[`xml`]|-|5.1.0|5.1.0|
+|[`xml`]|-|5.1.1|5.1.1|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

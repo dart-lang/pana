@@ -107,7 +107,7 @@ To format your files run: `dartfmt -w .`
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`async`]|-|2.6.1|2.6.1|
+|[`async`]|-|2.7.0|2.7.0|
 |[`collection`]|-|1.15.0|1.15.0|
 |[`http_parser`]|-|4.0.0|4.0.0|
 |[`meta`]|-|1.3.0|1.3.0|
