@@ -14,7 +14,6 @@ import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
 import 'logging.dart';
-import 'utils.dart';
 
 final imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
@@ -49,19 +48,13 @@ Future<void> downloadPackage(
   log.info(
       'Downloading package $package ${version ?? 'latest'} from $packageUri');
 
-  await extractTarGz(await http.readBytes(packageUri), destination);
-
-  if (!Platform.isWindows) {
-    // Remove all executable permissions from extracted files
-    final chmod = await runProc([
-      '/bin/chmod',
-      '-R',
-      '-x+X',
-      destination,
-    ]);
-    if (chmod.exitCode != 0) {
-      throw const FileSystemException('chmod of extract data failed');
-    }
+  final c = HttpClient();
+  try {
+    final req = await c.getUrl(packageUri);
+    final res = await req.close();
+    await _extractTarGz(res, destination);
+  } finally {
+    c.close(force: true);
   }
 }
 
@@ -175,10 +168,9 @@ class UrlChecker {
 }
 
 /// Extracts a `.tar.gz` file from [tarball] to [destination].
-Future extractTarGz(List<int> tarball, String destination) async {
+Future _extractTarGz(Stream<List<int>> tarball, String destination) async {
   log.fine('Extracting .tar.gz stream to $destination.');
-  final decompressed = GZipCodec().decode(tarball);
-  final reader = TarReader(Stream.fromIterable([decompressed]));
+  final reader = TarReader(tarball.transform(gzip.decoder));
   while (await reader.moveNext()) {
     final entry = reader.current;
     final path = p.join(destination, entry.name);
