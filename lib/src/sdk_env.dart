@@ -163,13 +163,10 @@ class ToolEnvironment {
 
   Future<String> runAnalyzer(
     String packageDir,
-    List<String> dirs,
+    String dir,
     bool usesFlutter, {
     @required InspectOptions inspectOptions,
   }) async {
-    if (dirs.isEmpty) {
-      return '';
-    }
     final originalOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
     String originalOptions;
@@ -192,7 +189,7 @@ class ToolEnvironment {
       customOptionsFile.path,
       '--format',
       'machine',
-      ...dirs,
+      dir,
     ];
     // TODO: run flutter analyze after it gets machine-readable output support:
     // https://github.com/flutter/flutter/issues/23664

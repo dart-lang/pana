@@ -160,9 +160,6 @@ void main() {
   // multi-level symlink
   _verifyPackage('audio_service', '0.17.0');
 
-  // small issues in the package
-  _verifyPackage('stream', '2.6.0');
-
   // mime_type 0.3.2 has no recognized LICENSE file
   _verifyPackage('mime_type', '0.3.2');
 
