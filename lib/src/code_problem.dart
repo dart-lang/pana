@@ -18,7 +18,7 @@ final _regexp = RegExp('^' + // beginning of line
 
 CodeProblem parseCodeProblem(String content, {String projectDir}) {
   if (content.isEmpty) {
-    throw ArgumentError('Provided content is empty.');
+    return null;
   }
   var matches = _regexp.allMatches(content).toList();
 
@@ -34,8 +34,8 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
       }
 
       return CodeProblem(
-        severity: 'WEIRD',
-        errorType: 'UNKNOWN',
+        severity: 'ERROR',
+        errorType: 'ANALYSIS',
         errorCode: 'UNKNOWN',
         description: content,
         file: filePath,
@@ -47,6 +47,19 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
 
     if (content == 'Please pass in a library that contains this part.') {
       return null;
+    }
+
+    if (content.startsWith('STDERR exceeded') && content.endsWith(' lines.')) {
+      return CodeProblem(
+        severity: 'ERROR',
+        errorType: 'ANALYSIS',
+        errorCode: 'TOO_MANY_LINES',
+        description: 'Analysis returned too many issues.',
+        file: 'pubspec.yaml',
+        line: 0,
+        col: 0,
+        length: 0,
+      );
     }
 
     throw ArgumentError(

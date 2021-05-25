@@ -2,6 +2,7 @@
 
 * Relax symlink handling
 * Use streaming download and extraction.
+* Do not block analysis on too many lines from `dartanalyzer`.
 * **BREAKING CHANGES**
   * Removed `extractTarGz` method.
   * `ToolEnvironment.runAnalyzer` accepts only a single directory parameter.
