@@ -13,4 +13,9 @@ void main() {
     expect(cp.file,
         r'D:\Documents\youtube_explode_dart\lib\src\extensions\helpers_extension.dart');
   });
+
+  test('too many lines', () {
+    final cp = parseCodeProblem('STDERR exceeded 100000 lines.');
+    expect(cp.description, 'Analysis returned too many issues.');
+  });
 }
