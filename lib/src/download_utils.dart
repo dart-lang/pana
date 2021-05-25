@@ -124,10 +124,15 @@ enum UrlStatus {
   exists,
 }
 
+/// Checks if an URL is valid and accessible.
 class UrlChecker {
   final _internalHosts = <Pattern>{};
+  final _validUrlCache = <String>{};
+  final int _maxCacheSize;
 
-  UrlChecker() {
+  UrlChecker({
+    int maxCacheSize,
+  }) : _maxCacheSize = maxCacheSize ?? 100 {
     addInternalHosts([
       'dart.dev',
       RegExp(r'.*\.dart\.dev'),
@@ -141,6 +146,8 @@ class UrlChecker {
     ]);
   }
 
+  /// Specify hosts internal to Dart. Non-internal packages
+  /// should not reference internal hosts.
   void addInternalHosts(Iterable<Pattern> hosts) {
     _internalHosts.addAll(hosts);
   }
@@ -153,10 +160,8 @@ class UrlChecker {
     return _internalHosts.every((p) => p.allMatches(uri.host).isEmpty);
   }
 
-  Future<bool> exists(Uri uri) async {
-    return await safeUrlCheck(uri);
-  }
-
+  /// Check the status of the URL, using validity checks, cache and
+  /// safe URL checks with limited number of redirects.
   Future<UrlStatus> checkStatus(String url,
       {bool isInternalPackage = false}) async {
     if (url == null) {
@@ -173,7 +178,36 @@ class UrlChecker {
     if (!isExternal && !isInternalPackage) {
       return UrlStatus.internal;
     }
-    return await exists(uri) ? UrlStatus.exists : UrlStatus.missing;
+
+    // check in cache
+    if (await existsInCache(uri)) {
+      return UrlStatus.exists;
+    }
+
+    final exists = await safeUrlCheck(uri);
+    if (exists) {
+      await markExistsInCache(uri);
+      return UrlStatus.exists;
+    } else {
+      return UrlStatus.missing;
+    }
+  }
+
+  /// Checks if the [uri] exists in cache. The cache contains only
+  /// the valid URLs, failures (which may be short-lived, transient)
+  /// are not stored, rather retried.
+  ///
+  /// Returns true if [uri] has been valid in the cache, false otherwise.
+  Future<bool> existsInCache(Uri uri) async {
+    return _validUrlCache.contains(uri.toString());
+  }
+
+  /// Marks the [uri] as valid in the cache.
+  Future<void> markExistsInCache(Uri uri) async {
+    while (_validUrlCache.length > _maxCacheSize) {
+      _validUrlCache.remove(_validUrlCache.first);
+    }
+    _validUrlCache.add(uri.toString());
   }
 }
 
