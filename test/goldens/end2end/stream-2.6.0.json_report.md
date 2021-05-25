@@ -11,10 +11,10 @@ Update the `homepage` field and use a secure (`https`) URL.
 </details>
 <details>
 <summary>
-Documentation URL is insecure.
+Documentation URL doesn't exist.
 </summary>
 
-Update the `documentation` field and use a secure (`https`) URL.
+At the time of the analysis `http://docs.rikulo.org/stream` was unreachable.
 </details>
 
 ### [x] 0/5 points: Provide a valid `README.md`
