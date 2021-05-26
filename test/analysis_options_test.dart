@@ -4,10 +4,9 @@
 
 import 'dart:convert';
 
-import 'package:yaml/yaml.dart' as yaml;
-import 'package:test/test.dart';
-
 import 'package:pana/src/analysis_options.dart';
+import 'package:test/test.dart';
+import 'package:yaml/yaml.dart' as yaml;
 
 void main() {
   test('default pedantic options', () async {

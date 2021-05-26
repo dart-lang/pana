@@ -2,10 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:pana/src/sdk_env.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
-
-import 'package:pana/src/sdk_env.dart';
 
 void main() {
   test('parsing SDK version', () {

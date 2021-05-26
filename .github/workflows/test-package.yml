@@ -19,15 +19,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [2.12.4]
+        sdk: [2.13.1]
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.3
+      - uses: dart-lang/setup-dart@v1.0
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
         name: Install dependencies
-        run: dart pub get
+        run: dart pub upgrade
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
@@ -47,11 +47,11 @@ jobs:
         # TODO(sigurdm): our end2end test creates longer filenames than we can
         # handle on windows. See https://github.com/dart-lang/sdk/issues/42416
         os: [ubuntu-latest, macos-latest]
-        sdk: [2.12.4]
+        sdk: [2.13.1]
         flutter: [2.0.6]
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.3
+      - uses: dart-lang/setup-dart@v1.0
         with:
           sdk: ${{ matrix.sdk }}
       - uses: subosito/flutter-action@v1.5.0
@@ -59,7 +59,7 @@ jobs:
           flutter-version: ${{ matrix.flutter }}
       - id: install
         name: Install dependencies
-        run: dart pub get
+        run: dart pub upgrade
       - name: Check Flutter
         run: flutter --version --machine
       - name: Run VM tests

@@ -31,8 +31,6 @@ class Pubspec {
 
   Version get version => _inner.version;
 
-  List<String> get authors => _inner.authors;
-
   Map<String, Dependency> get dependencies => _inner.dependencies;
 
   Map<String, Dependency> get devDependencies => _inner.devDependencies;

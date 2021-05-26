@@ -5,10 +5,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:pana/src/markdown_content.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
-
-import 'package:pana/src/markdown_content.dart';
 
 void main() {
   test('example.md', () async {
