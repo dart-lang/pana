@@ -10,10 +10,8 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as shelf_io;
-
-import 'package:test/test.dart';
 import 'package:tar/tar.dart';
-
+import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
 /// The current global [PackageServer].
