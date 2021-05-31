@@ -1,3 +1,8 @@
+## 0.17.1
+
+* Use `dart analyze` instead of `dartanalyzer`.
+* `bin/pana` copies package content to a separate directory.
+
 ## 0.17.0
 
 * Relax symlink handling
