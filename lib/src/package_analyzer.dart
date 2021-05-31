@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:logging/logging.dart';
 import 'package:pana/src/create_report.dart';
@@ -82,7 +83,10 @@ class PackageAnalyzer {
 
   Future<Summary> inspectDir(String packageDir, {InspectOptions options}) {
     options ??= InspectOptions();
-    return _inspect(packageDir, options);
+    return withTempDir((tempDir) async {
+      await _copy(packageDir, tempDir);
+      return await _inspect(tempDir, options);
+    });
   }
 
   Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
@@ -194,5 +198,21 @@ class PackageAnalyzer {
       report: await createReport(context),
       errorMessage: errorMessage,
     );
+  }
+}
+
+Future<void> _copy(String from, String to) async {
+  await for (final fse in Directory(from).list(recursive: true)) {
+    if (fse is File) {
+      final relativePath = path.relative(fse.path, from: from);
+      final newFile = File(path.join(to, relativePath));
+      await newFile.parent.create(recursive: true);
+      await fse.copy(newFile.path);
+    } else if (fse is Link) {
+      final relativePath = path.relative(fse.path, from: from);
+      final linkTarget = await fse.target();
+      final newLink = Link(path.join(to, relativePath));
+      await newLink.create(linkTarget);
+    }
   }
 }

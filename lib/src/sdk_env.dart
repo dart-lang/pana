@@ -149,11 +149,11 @@ class ToolEnvironment {
       resolvedPubCache,
       [_join(resolvedDartSdk, 'bin', 'dart')],
       [_join(resolvedDartSdk, 'bin', 'dart'), 'pub'],
-      [_join(resolvedDartSdk, 'bin', 'dartanalyzer')],
+      [_join(resolvedDartSdk, 'bin', 'dart'), 'analyze'],
       [_join(resolvedDartSdk, 'bin', 'dartfmt')],
       [_join(resolvedDartSdk, 'bin', 'dartdoc')],
       [_join(resolvedFlutterSdk, 'bin', 'flutter'), '--no-version-check'],
-      [_join(flutterDartSdkDir, 'bin', 'dartanalyzer')],
+      [_join(flutterDartSdkDir, 'bin', 'dart'), 'analyze'],
       env,
       useGlobalDartdoc,
     );
@@ -167,37 +167,27 @@ class ToolEnvironment {
     bool usesFlutter, {
     @required InspectOptions inspectOptions,
   }) async {
-    final originalOptionsFile =
+    final analysisOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
     String originalOptions;
-    if (await originalOptionsFile.exists()) {
-      originalOptions = await originalOptionsFile.readAsString();
+    if (await analysisOptionsFile.exists()) {
+      originalOptions = await analysisOptionsFile.readAsString();
     }
     final rawOptionsContent = inspectOptions.analysisOptionsYaml ??
         await getDefaultAnalysisOptionsYaml(
           usesFlutter: usesFlutter,
           flutterSdkDir: flutterSdkDir,
         );
-    final customOptionsFileName =
-        'pana_analysis_options_${DateTime.now().microsecondsSinceEpoch}.g.yaml';
-    final customOptionsFile = File(p.join(packageDir, customOptionsFileName));
     final customOptionsContent = updatePassthroughOptions(
         original: originalOptions, custom: rawOptionsContent);
-    await customOptionsFile.writeAsString(customOptionsContent);
-    final params = [
-      '--options',
-      customOptionsFile.path,
-      '--format',
-      'machine',
-      dir,
-    ];
-    // TODO: run flutter analyze after it gets machine-readable output support:
-    // https://github.com/flutter/flutter/issues/23664
     try {
+      await analysisOptionsFile.writeAsString(customOptionsContent);
       final proc = await runProc(
         [
           ...usesFlutter ? _flutterDartAnalyzerCmd : _dartAnalyzerCmd,
-          ...params
+          '--format',
+          'machine',
+          dir,
         ],
         environment: _environment,
         workingDirectory: packageDir,
@@ -217,8 +207,11 @@ class ToolEnvironment {
       }
       return output;
     } finally {
-      // TODO: create a withTempFile utility method that deletes these
-      await customOptionsFile.delete();
+      if (originalOptions == null) {
+        await analysisOptionsFile.delete();
+      } else {
+        await analysisOptionsFile.writeAsString(originalOptions);
+      }
     }
   }
 
