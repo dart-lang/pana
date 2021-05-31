@@ -212,6 +212,7 @@ Future<void> _copy(String from, String to) async {
       final relativePath = path.relative(fse.path, from: from);
       final linkTarget = await fse.target();
       final newLink = Link(path.join(to, relativePath));
+      await newLink.parent.create(recursive: true);
       await newLink.create(linkTarget);
     }
   }
