@@ -1,3 +1,9 @@
+## 0.17.2-dev
+
+* Update dependencies to latest.
+* Partial migration to null-safety.
+* Require Dart 2.12.0
+
 ## 0.17.1
 
 * Use `dart analyze` instead of `dartanalyzer`.

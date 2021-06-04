@@ -44,13 +44,13 @@ Because:
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`audio_session`]|`^0.1.0`|0.1.0|0.1.0|
+|[`audio_session`]|`^0.1.0`|0.1.2|0.1.2|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`flutter_cache_manager`]|`^3.0.0`|3.0.2|3.0.2|
+|[`flutter_cache_manager`]|`^3.0.0`|3.1.1|3.1.1|
 |[`flutter_isolate`]|`^2.0.0`|2.0.0|2.0.0|
 |[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0|
 |[`js`]|`^0.6.3`|0.6.3|0.6.3|
-|[`rxdart`]|`^0.26.0`|0.26.0|**0.27.0**|
+|[`rxdart`]|`^0.26.0`|0.26.0|**0.27.1**|
 
 <details><summary>Transitive dependencies</summary>
 
@@ -63,14 +63,14 @@ Because:
 |[`clock`]|-|1.1.0|1.1.0|
 |[`collection`]|-|1.15.0|1.15.0|
 |[`crypto`]|-|3.0.1|3.0.1|
-|[`ffi`]|-|1.0.0|1.0.0|
+|[`ffi`]|-|1.1.2|1.1.2|
 |[`file`]|-|6.1.1|6.1.1|
 |[`http`]|-|0.13.3|0.13.3|
 |[`http_parser`]|-|4.0.0|4.0.0|
 |[`image`]|-|3.0.2|3.0.2|
-|[`meta`]|-|1.3.0|1.3.0|
+|[`meta`]|-|1.3.0|1.4.0|
 |[`path`]|-|1.8.0|1.8.0|
-|[`path_provider`]|-|2.0.1|2.0.1|
+|[`path_provider`]|-|2.0.2|2.0.2|
 |[`path_provider_linux`]|-|2.0.0|2.0.0|
 |[`path_provider_macos`]|-|2.0.0|2.0.0|
 |[`path_provider_platform_interface`]|-|2.0.1|2.0.1|
@@ -90,7 +90,7 @@ Because:
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`uuid`]|-|3.0.4|3.0.4|
 |[`vector_math`]|-|2.1.0|2.1.0|
-|[`win32`]|-|2.0.5|2.1.1|
+|[`win32`]|-|2.0.5|2.1.3|
 |[`xdg_directories`]|-|0.2.0|0.2.0|
 |[`xml`]|-|5.1.1|5.1.1|
 </details>

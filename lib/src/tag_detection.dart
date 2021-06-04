@@ -76,6 +76,7 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/context_builder.dart';
 import 'package:analyzer/dart/analysis/context_locator.dart';
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
@@ -180,7 +181,7 @@ CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
     // Probably a missing/broken dependency.
     throw _TagException('Broken import $uri');
   }
-  final unitResult = analysisSession.getParsedUnit(path);
+  final unitResult = analysisSession.getParsedUnit2(path) as ParsedUnitResult;
   if (unitResult.errors.isNotEmpty) return null;
   if (unitResult.isPart) {
     // Part files cannot contain import/export directives or language

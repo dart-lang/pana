@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// @dart=2.12
 
 part of 'batch_model.dart';
 
@@ -8,12 +9,12 @@ part of 'batch_model.dart';
 
 BatchConfig _$BatchConfigFromJson(Map<String, dynamic> json) {
   return BatchConfig(
-    dartSdk: json['dartSdk'] as String,
-    flutterSdk: json['flutterSdk'] as String,
-    environment: (json['environment'] as Map<String, dynamic>)?.map(
+    dartSdk: json['dartSdk'] as String?,
+    flutterSdk: json['flutterSdk'] as String?,
+    environment: (json['environment'] as Map<String, dynamic>?)?.map(
       (k, e) => MapEntry(k, e as String),
     ),
-    analysisOptions: json['analysisOptions'] as String,
+    analysisOptions: json['analysisOptions'] as String?,
   );
 }
 
@@ -28,12 +29,8 @@ Map<String, dynamic> _$BatchConfigToJson(BatchConfig instance) =>
 BatchResult _$BatchResultFromJson(Map<String, dynamic> json) {
   return BatchResult(
     unchangedCount: json['unchangedCount'] as int,
-    increased: json['increased'] == null
-        ? null
-        : BatchChanged.fromJson(json['increased'] as Map<String, dynamic>),
-    decreased: json['decreased'] == null
-        ? null
-        : BatchChanged.fromJson(json['decreased'] as Map<String, dynamic>),
+    increased: BatchChanged.fromJson(json['increased'] as Map<String, dynamic>),
+    decreased: BatchChanged.fromJson(json['decreased'] as Map<String, dynamic>),
   );
 }
 
@@ -47,9 +44,7 @@ Map<String, dynamic> _$BatchResultToJson(BatchResult instance) =>
 BatchChanged _$BatchChangedFromJson(Map<String, dynamic> json) {
   return BatchChanged(
     count: json['count'] as int,
-    packages: (json['packages'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(k, e as int),
-    ),
+    packages: Map<String, int>.from(json['packages'] as Map),
   );
 }
 
