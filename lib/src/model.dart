@@ -2,10 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// @dart=2.12
+
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:quiver/core.dart' show hashObjects;
 
@@ -14,46 +16,33 @@ import 'pubspec.dart';
 
 part 'model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 @VersionConverter()
 class Summary {
-  @JsonKey()
   final PanaRuntimeInfo runtimeInfo;
-
-  final String packageName;
-
-  @JsonKey(includeIfNull: false)
-  final Version packageVersion;
-
-  @JsonKey(includeIfNull: false)
-  final Pubspec pubspec;
-
-  final LicenseFile licenseFile;
+  final String? packageName;
+  final Version? packageVersion;
+  final Pubspec? pubspec;
+  final LicenseFile? licenseFile;
 
   /// The packages that are either direct-, dev- or transient dependencies.
-  @JsonKey(includeIfNull: false)
-  final List<String> allDependencies;
-
-  @JsonKey(includeIfNull: false)
-  final List<String> tags;
-
-  @JsonKey(includeIfNull: false)
-  final Report report;
+  final List<String>? allDependencies;
+  final List<String>? tags;
+  final Report? report;
 
   /// Markdown-formatted text with errors encountered by `pana`.
-  @JsonKey(includeIfNull: false)
-  final String errorMessage;
+  final String? errorMessage;
 
   Summary({
-    @required this.runtimeInfo,
-    @required this.packageName,
-    @required this.packageVersion,
-    @required this.pubspec,
-    @required this.allDependencies,
-    @required this.licenseFile,
-    @required this.tags,
-    @required this.report,
-    @required this.errorMessage,
+    required this.runtimeInfo,
+    this.packageName,
+    this.packageVersion,
+    this.pubspec,
+    this.allDependencies,
+    this.licenseFile,
+    this.tags,
+    this.report,
+    this.errorMessage,
   });
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
@@ -62,8 +51,8 @@ class Summary {
   Map<String, dynamic> toJson() => _$SummaryToJson(this);
 
   Summary change({
-    PanaRuntimeInfo runtimeInfo,
-    List<String> tags,
+    PanaRuntimeInfo? runtimeInfo,
+    List<String>? tags,
   }) {
     return Summary(
       runtimeInfo: runtimeInfo ?? this.runtimeInfo,
@@ -84,11 +73,11 @@ class PanaRuntimeInfo {
   final String panaVersion;
   final String sdkVersion;
   @JsonKey(includeIfNull: false)
-  final Map<String, dynamic> flutterVersions;
+  final Map<String, dynamic>? flutterVersions;
 
   PanaRuntimeInfo({
-    this.panaVersion,
-    this.sdkVersion,
+    required this.panaVersion,
+    required this.sdkVersion,
     this.flutterVersions,
   });
 
@@ -100,14 +89,14 @@ class PanaRuntimeInfo {
   bool get hasFlutter => flutterVersions != null;
 
   /// The Flutter SDK version.
-  String get flutterVersion => flutterVersions == null
+  String? get flutterVersion => flutterVersions == null
       ? null
-      : flutterVersions['frameworkVersion'] as String;
+      : flutterVersions!['frameworkVersion'] as String?;
 
   /// The Dart SDK used by Flutter internally.
-  String get flutterInternalDartSdkVersion {
+  String? get flutterInternalDartSdkVersion {
     if (flutterVersions == null) return null;
-    final value = flutterVersions['dartSdkVersion'] as String;
+    final value = flutterVersions!['dartSdkVersion'] as String?;
     if (value == null) return null;
     final parts = value.split(' ');
     if (parts.length > 2 && parts[1] == '(build' && parts[2].endsWith(')')) {
@@ -123,16 +112,12 @@ class PanaRuntimeInfo {
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class LicenseFile {
   final String path;
   final String name;
-
-  @JsonKey(includeIfNull: false)
-  final String version;
-
-  @JsonKey(includeIfNull: false)
-  final String url;
+  final String? version;
+  final String? url;
 
   LicenseFile(this.path, this.name, {this.version, this.url});
 
@@ -141,7 +126,7 @@ class LicenseFile {
 
   Map<String, dynamic> toJson() => _$LicenseFileToJson(this);
 
-  LicenseFile change({String url}) =>
+  LicenseFile change({String? url}) =>
       LicenseFile(path, name, version: version, url: url ?? this.url);
 
   String get shortFormatted => version == null ? name : '$name $version';
@@ -203,14 +188,14 @@ class CodeProblem implements Comparable<CodeProblem> {
   final String description;
 
   CodeProblem({
-    @required this.severity,
-    @required this.errorType,
-    @required this.errorCode,
-    @required this.description,
-    @required this.file,
-    @required this.line,
-    @required this.col,
-    @required this.length,
+    required this.severity,
+    required this.errorType,
+    required this.errorCode,
+    required this.description,
+    required this.file,
+    required this.line,
+    required this.col,
+    required this.length,
   });
 
   factory CodeProblem.fromJson(Map<String, dynamic> json) =>
@@ -218,11 +203,11 @@ class CodeProblem implements Comparable<CodeProblem> {
 
   Map<String, dynamic> toJson() => _$CodeProblemToJson(this);
 
-  bool get isError => severity?.toUpperCase() == 'ERROR';
+  bool get isError => severity.toUpperCase() == 'ERROR';
 
-  bool get isWarning => severity?.toUpperCase() == 'WARNING';
+  bool get isWarning => severity.toUpperCase() == 'WARNING';
 
-  bool get isInfo => severity?.toUpperCase() == 'INFO';
+  bool get isInfo => severity.toUpperCase() == 'INFO';
 
   /// `true` iff [isError] is `true` and [errorType] is not safe to ignore for
   /// platform classification.
@@ -286,9 +271,10 @@ class Report {
   /// The scoring sections.
   final List<ReportSection> sections;
 
-  Report({@required this.sections});
+  Report({required this.sections});
 
   static Report fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
+
   Map<String, dynamic> toJson() => _$ReportToJson(this);
 
   int get grantedPoints =>
@@ -309,9 +295,8 @@ class Report {
   /// If there is no section matched, the section will be added to the end of
   /// the sections list.
   Report joinSection(ReportSection section) {
-    final matched = sections.firstWhere(
-        (s) => (s.id != null && s.id == section.id) || s.title == section.title,
-        orElse: () => null);
+    final matched = sections.firstWhereOrNull(
+        (s) => (s.id == section.id) || s.title == section.title);
     if (matched == null) {
       return Report(sections: [...sections, section]);
     } else {
@@ -327,7 +312,7 @@ class Report {
               maxPoints: s.maxPoints + section.maxPoints,
               grantedPoints: s.grantedPoints + section.grantedPoints,
               summary: [s.summary.trim(), section.summary.trim()].join('\n\n'),
-              status: minStatus(s.status, section.status));
+              status: minStatus(s.status, section.status)!);
         },
       ).toList());
     }
@@ -354,7 +339,7 @@ enum ReportStatus {
 
 /// Returns the lowest of [statuses] to represent them.
 ReportStatus summarizeStatuses(Iterable<ReportStatus> statuses) {
-  return statuses.fold(ReportStatus.passed, minStatus);
+  return statuses.fold(ReportStatus.passed, (a, b) => minStatus(a, b)!);
 }
 
 /// Returns the lowest status of [a] and [b] ranked in the order of the enum.
@@ -362,7 +347,7 @@ ReportStatus summarizeStatuses(Iterable<ReportStatus> statuses) {
 /// Example: `minStatus(ReportStatus.failed, ReportStatus.partial) == ReportStatus.partial`.
 ///
 /// Returns `null` when any of them is `null` (may be the case with old data).
-ReportStatus minStatus(ReportStatus a, ReportStatus b) {
+ReportStatus? minStatus(ReportStatus? a, ReportStatus? b) {
   if (a == null || b == null) return null;
   return ReportStatus.values[min(a.index, b.index)];
 }
@@ -389,16 +374,17 @@ class ReportSection {
   final String summary;
 
   ReportSection({
-    @required this.id,
-    @required this.title,
-    @required this.grantedPoints,
-    @required this.maxPoints,
-    @required this.summary,
-    @required this.status,
+    required this.id,
+    required this.title,
+    required this.grantedPoints,
+    required this.maxPoints,
+    required this.summary,
+    required this.status,
   });
 
   static ReportSection fromJson(Map<String, dynamic> json) =>
       _$ReportSectionFromJson(json);
+
   Map<String, dynamic> toJson() => _$ReportSectionToJson(this);
 }
 
@@ -406,6 +392,7 @@ class ReportSection {
 @JsonSerializable()
 class Outdated {
   final List<OutdatedPackage> packages;
+
   Outdated(this.packages);
 
   static Outdated fromJson(Map<String, dynamic> json) =>
@@ -431,6 +418,7 @@ class OutdatedPackage {
 @JsonSerializable()
 class VersionDescriptor {
   final String version;
+
   VersionDescriptor(this.version);
 
   static VersionDescriptor fromJson(Map<String, dynamic> json) =>

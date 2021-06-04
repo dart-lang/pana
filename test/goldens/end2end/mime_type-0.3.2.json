@@ -20,7 +20,6 @@
       "sdk": ">=0.8.10 <3.0.0"
     }
   },
-  "licenseFile": null,
   "allDependencies": [],
   "tags": [
     "sdk:dart",

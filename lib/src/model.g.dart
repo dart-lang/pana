@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// @dart=2.12
 
 part of 'model.dart';
 
@@ -8,32 +9,31 @@ part of 'model.dart';
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) {
   return Summary(
-    runtimeInfo: json['runtimeInfo'] == null
-        ? null
-        : PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
-    packageName: json['packageName'] as String,
+    runtimeInfo:
+        PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
+    packageName: json['packageName'] as String?,
     packageVersion:
-        const VersionConverter().fromJson(json['packageVersion'] as String),
+        const VersionConverter().fromJson(json['packageVersion'] as String?),
     pubspec: json['pubspec'] == null
         ? null
         : Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
-    allDependencies:
-        (json['allDependencies'] as List)?.map((e) => e as String)?.toList(),
+    allDependencies: (json['allDependencies'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList(),
     licenseFile: json['licenseFile'] == null
         ? null
         : LicenseFile.fromJson(json['licenseFile'] as Map<String, dynamic>),
-    tags: (json['tags'] as List)?.map((e) => e as String)?.toList(),
+    tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
     report: json['report'] == null
         ? null
         : Report.fromJson(json['report'] as Map<String, dynamic>),
-    errorMessage: json['errorMessage'] as String,
+    errorMessage: json['errorMessage'] as String?,
   );
 }
 
 Map<String, dynamic> _$SummaryToJson(Summary instance) {
   final val = <String, dynamic>{
     'runtimeInfo': instance.runtimeInfo,
-    'packageName': instance.packageName,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -42,10 +42,11 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
     }
   }
 
+  writeNotNull('packageName', instance.packageName);
   writeNotNull('packageVersion',
       const VersionConverter().toJson(instance.packageVersion));
   writeNotNull('pubspec', instance.pubspec);
-  val['licenseFile'] = instance.licenseFile;
+  writeNotNull('licenseFile', instance.licenseFile);
   writeNotNull('allDependencies', instance.allDependencies);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);
@@ -57,7 +58,7 @@ PanaRuntimeInfo _$PanaRuntimeInfoFromJson(Map<String, dynamic> json) {
   return PanaRuntimeInfo(
     panaVersion: json['panaVersion'] as String,
     sdkVersion: json['sdkVersion'] as String,
-    flutterVersions: json['flutterVersions'] as Map<String, dynamic>,
+    flutterVersions: json['flutterVersions'] as Map<String, dynamic>?,
   );
 }
 
@@ -81,8 +82,8 @@ LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) {
   return LicenseFile(
     json['path'] as String,
     json['name'] as String,
-    version: json['version'] as String,
-    url: json['url'] as String,
+    version: json['version'] as String?,
+    url: json['url'] as String?,
   );
 }
 
@@ -130,16 +131,14 @@ Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>
 
 Report _$ReportFromJson(Map<String, dynamic> json) {
   return Report(
-    sections: (json['sections'] as List)
-        ?.map((e) => e == null
-            ? null
-            : ReportSection.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    sections: (json['sections'] as List<dynamic>)
+        .map((e) => ReportSection.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
 Map<String, dynamic> _$ReportToJson(Report instance) => <String, dynamic>{
-      'sections': instance.sections?.map((e) => e?.toJson())?.toList(),
+      'sections': instance.sections.map((e) => e.toJson()).toList(),
     };
 
 ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) {
@@ -149,7 +148,7 @@ ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) {
     grantedPoints: json['grantedPoints'] as int,
     maxPoints: json['maxPoints'] as int,
     summary: json['summary'] as String,
-    status: _$enumDecodeNullable(_$ReportStatusEnumMap, json['status']),
+    status: _$enumDecode(_$ReportStatusEnumMap, json['status']),
   );
 }
 
@@ -163,36 +162,30 @@ Map<String, dynamic> _$ReportSectionToJson(ReportSection instance) =>
       'summary': instance.summary,
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
 const _$ReportStatusEnumMap = {
@@ -203,11 +196,9 @@ const _$ReportStatusEnumMap = {
 
 Outdated _$OutdatedFromJson(Map<String, dynamic> json) {
   return Outdated(
-    (json['packages'] as List)
-        ?.map((e) => e == null
-            ? null
-            : OutdatedPackage.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    (json['packages'] as List<dynamic>)
+        .map((e) => OutdatedPackage.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -218,13 +209,8 @@ Map<String, dynamic> _$OutdatedToJson(Outdated instance) => <String, dynamic>{
 OutdatedPackage _$OutdatedPackageFromJson(Map<String, dynamic> json) {
   return OutdatedPackage(
     json['package'] as String,
-    json['upgradable'] == null
-        ? null
-        : VersionDescriptor.fromJson(
-            json['upgradable'] as Map<String, dynamic>),
-    json['latest'] == null
-        ? null
-        : VersionDescriptor.fromJson(json['latest'] as Map<String, dynamic>),
+    VersionDescriptor.fromJson(json['upgradable'] as Map<String, dynamic>),
+    VersionDescriptor.fromJson(json['latest'] as Map<String, dynamic>),
   );
 }
 
