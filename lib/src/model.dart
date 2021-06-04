@@ -16,46 +16,33 @@ import 'pubspec.dart';
 
 part 'model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 @VersionConverter()
 class Summary {
-  @JsonKey()
   final PanaRuntimeInfo runtimeInfo;
-
-  final String packageName;
-
-  @JsonKey(includeIfNull: false)
-  final Version packageVersion;
-
-  @JsonKey(includeIfNull: false)
-  final Pubspec pubspec;
-
-  final LicenseFile licenseFile;
+  final String? packageName;
+  final Version? packageVersion;
+  final Pubspec? pubspec;
+  final LicenseFile? licenseFile;
 
   /// The packages that are either direct-, dev- or transient dependencies.
-  @JsonKey(includeIfNull: false)
-  final List<String> allDependencies;
-
-  @JsonKey(includeIfNull: false)
-  final List<String> tags;
-
-  @JsonKey(includeIfNull: false)
-  final Report report;
+  final List<String>? allDependencies;
+  final List<String>? tags;
+  final Report? report;
 
   /// Markdown-formatted text with errors encountered by `pana`.
-  @JsonKey(includeIfNull: false)
   final String? errorMessage;
 
   Summary({
     required this.runtimeInfo,
-    required this.packageName,
-    required this.packageVersion,
-    required this.pubspec,
-    required this.allDependencies,
-    required this.licenseFile,
-    required this.tags,
-    required this.report,
-    required this.errorMessage,
+    this.packageName,
+    this.packageVersion,
+    this.pubspec,
+    this.allDependencies,
+    this.licenseFile,
+    this.tags,
+    this.report,
+    this.errorMessage,
   });
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
@@ -125,15 +112,11 @@ class PanaRuntimeInfo {
   }
 }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class LicenseFile {
   final String path;
   final String name;
-
-  @JsonKey(includeIfNull: false)
   final String? version;
-
-  @JsonKey(includeIfNull: false)
   final String? url;
 
   LicenseFile(this.path, this.name, {this.version, this.url});

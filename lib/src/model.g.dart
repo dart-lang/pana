@@ -11,17 +11,22 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
   return Summary(
     runtimeInfo:
         PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
-    packageName: json['packageName'] as String,
+    packageName: json['packageName'] as String?,
     packageVersion:
-        const VersionConverter().fromJson(json['packageVersion'] as String),
-    pubspec: Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
-    allDependencies: (json['allDependencies'] as List<dynamic>)
-        .map((e) => e as String)
+        const VersionConverter().fromJson(json['packageVersion'] as String?),
+    pubspec: json['pubspec'] == null
+        ? null
+        : Pubspec.fromJson(json['pubspec'] as Map<String, dynamic>),
+    allDependencies: (json['allDependencies'] as List<dynamic>?)
+        ?.map((e) => e as String)
         .toList(),
-    licenseFile:
-        LicenseFile.fromJson(json['licenseFile'] as Map<String, dynamic>),
-    tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
-    report: Report.fromJson(json['report'] as Map<String, dynamic>),
+    licenseFile: json['licenseFile'] == null
+        ? null
+        : LicenseFile.fromJson(json['licenseFile'] as Map<String, dynamic>),
+    tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    report: json['report'] == null
+        ? null
+        : Report.fromJson(json['report'] as Map<String, dynamic>),
     errorMessage: json['errorMessage'] as String?,
   );
 }
@@ -29,7 +34,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$SummaryToJson(Summary instance) {
   final val = <String, dynamic>{
     'runtimeInfo': instance.runtimeInfo,
-    'packageName': instance.packageName,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -38,13 +42,14 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
     }
   }
 
+  writeNotNull('packageName', instance.packageName);
   writeNotNull('packageVersion',
       const VersionConverter().toJson(instance.packageVersion));
-  val['pubspec'] = instance.pubspec;
-  val['licenseFile'] = instance.licenseFile;
-  val['allDependencies'] = instance.allDependencies;
-  val['tags'] = instance.tags;
-  val['report'] = instance.report;
+  writeNotNull('pubspec', instance.pubspec);
+  writeNotNull('licenseFile', instance.licenseFile);
+  writeNotNull('allDependencies', instance.allDependencies);
+  writeNotNull('tags', instance.tags);
+  writeNotNull('report', instance.report);
   writeNotNull('errorMessage', instance.errorMessage);
   return val;
 }
