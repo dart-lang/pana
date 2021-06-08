@@ -1,5 +1,6 @@
 ## 0.17.2-dev
 
+* Removed package list of 2.10 null-safety experiments.
 * Update dependencies to latest.
 * Partial migration to null-safety.
 * Require Dart 2.12.0
