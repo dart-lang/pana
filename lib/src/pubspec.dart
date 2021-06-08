@@ -148,7 +148,7 @@ class SdkConstraintStatus {
   final bool enablesDart2Latest;
 
   /// Whether it is compatible with Dart 2 SDKs.
-  /// 
+  ///
   /// The following conditions must be true:
   /// - it has an SDK constraint,
   /// - supports some of the >=2.0.0 <3.0.0 range,
