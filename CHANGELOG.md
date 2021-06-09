@@ -1,5 +1,6 @@
 ## 0.17.2-dev
 
+* Limit the length of the source spans in the report.
 * Removed package list of 2.10 null-safety experiments.
 * Update dependencies to latest.
 * Partial migration to null-safety.
