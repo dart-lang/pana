@@ -108,7 +108,7 @@ class Pubspec {
       .any((d) => d is GitDependency && (d.ref == null || d.ref!.length < 40));
 
   SdkConstraintStatus get sdkConstraintStatus =>
-      SdkConstraintStatus.fromSdkVersion(_inner.environment!['sdk'], name);
+      SdkConstraintStatus.fromSdkVersion(_inner.environment!['sdk']);
 
   VersionConstraint? get dartSdkConstraint => _inner.environment!['sdk'];
 
@@ -148,6 +148,11 @@ class SdkConstraintStatus {
   final bool enablesDart2Latest;
 
   /// Whether it is compatible with Dart 2 SDKs.
+  ///
+  /// The following conditions must be true:
+  /// - it has an SDK constraint,
+  /// - supports some of the >=2.0.0 <3.0.0 range,
+  /// - does not support any of the >=3.0.0 range,
   final bool isDart2Compatible;
 
   final bool hasOptedIntoNullSafety;
@@ -159,8 +164,12 @@ class SdkConstraintStatus {
     required this.hasOptedIntoNullSafety,
   });
 
+  // TODO: remove [packageName] in a future breaking release.
   factory SdkConstraintStatus.fromSdkVersion(
-      VersionConstraint? constraint, String packageName) {
+    VersionConstraint? constraint, [
+    // ignore: avoid_unused_constructor_parameters
+    String? packageName,
+  ]) {
     final hasConstraint =
         constraint != null && !constraint.isAny && !constraint.isEmpty;
     final enablesDart2 = hasConstraint && constraint!.allowsAny(_range2);
@@ -169,7 +178,7 @@ class SdkConstraintStatus {
     final hasOptedIntoNullSafety = hasConstraint &&
         constraint is VersionRange &&
         constraint.min != null &&
-        isNullSafety(constraint.min!, packageName);
+        isNullSafety(constraint.min!);
     return SdkConstraintStatus._(
       hasConstraint: hasConstraint,
       enablesDart2Latest: hasConstraint && constraint!.allowsAny(_range2Latest),

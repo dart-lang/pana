@@ -38,9 +38,9 @@ Because:
 ### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
 
 
-## 20/20 Support up-to-date dependencies
+## 10/20 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
@@ -76,7 +76,7 @@ Because:
 |[`path_provider_platform_interface`]|-|2.0.1|2.0.1|
 |[`path_provider_windows`]|-|2.0.1|2.0.1|
 |[`pedantic`]|-|1.11.0|1.11.0|
-|[`petitparser`]|-|4.1.0|4.1.0|
+|[`petitparser`]|-|4.1.0|4.2.0|
 |[`platform`]|-|3.0.0|3.0.0|
 |[`plugin_platform_interface`]|-|2.0.0|2.0.0|
 |[`process`]|-|4.2.1|4.2.1|
@@ -90,9 +90,9 @@ Because:
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`uuid`]|-|3.0.4|3.0.4|
 |[`vector_math`]|-|2.1.0|2.1.0|
-|[`win32`]|-|2.0.5|2.1.3|
+|[`win32`]|-|2.0.5|2.1.4|
 |[`xdg_directories`]|-|0.2.0|0.2.0|
-|[`xml`]|-|5.1.1|5.1.1|
+|[`xml`]|-|5.1.2|5.1.2|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -144,9 +144,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 <details>
 <summary>
-The constraint `^0.26.0` on rxdart does not support the stable version `0.27.0`, that was published N days ago. 
-
- When rxdart is 30 days old, this package will no longer be awarded points in this category.
+The constraint `^0.26.0` on rxdart does not support the stable version `0.27.0`.
 </summary>
 
 Try running `dart pub upgrade --major-versions rxdart` to update the constraint.
