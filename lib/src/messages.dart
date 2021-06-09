@@ -9,8 +9,8 @@ class _MsgDict {
   final String dartfmtShortCmd;
 
   _MsgDict._({
-    this.dartanalyzerShortName = 'dartanalyzer',
-    this.dartanalyzerShortCmd = 'dartanalyzer .',
+    this.dartanalyzerShortName = 'dart analyze',
+    this.dartanalyzerShortCmd = 'dart analyze .',
     this.dartfmtShortName = 'dartfmt',
     this.dartfmtShortCmd = 'dartfmt -n .',
   });

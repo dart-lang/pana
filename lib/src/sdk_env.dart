@@ -140,7 +140,7 @@ class ToolEnvironment {
     if (flutterDartSdkDir == null) {
       log.warning(
           'Flutter SDK path was not specified, pana will use the default '
-          'Dart SDK to run `dartanalyzer` on Flutter packages.');
+          'Dart SDK to run `dart analyze` on Flutter packages.');
     }
 
     final toolEnv = ToolEnvironment._(
@@ -197,13 +197,13 @@ class ToolEnvironment {
       final output = proc.stderr as String;
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
         if (output.contains('No dart files found at: .')) {
-          log.warning('`dartanalyzer` found no files to analyze.');
+          log.warning('`dart analyze` found no files to analyze.');
         } else {
           log.severe('Bad input?: $output');
         }
         var errorMessage =
             '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
-        throw ToolException('dartanalyzer exception: $errorMessage');
+        throw ToolException('dart analyze exception: $errorMessage');
       }
       return output;
     } finally {
