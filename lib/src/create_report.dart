@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
@@ -28,6 +29,7 @@ import 'tag_detection.dart';
 
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
+const _maxSourceSpanLength = 512;
 
 Future<Report> createReport(PackageContext context) async {
   Pubspec pubspec;
@@ -162,7 +164,9 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
           // SourceSpans are 0-based, so we subtract 1 from line and column.
           final startOffset =
               sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
-          return sourceFile.span(startOffset, startOffset + codeProblem.length);
+          // Limit the maximum length of the source span.
+          final length = math.min(codeProblem.length, _maxSourceSpanLength);
+          return sourceFile.span(startOffset, startOffset + length);
         } on RangeError {
           // Note: This happens if the file contains CR as line terminators.
           // If the range is invalid, then we just return null.
@@ -535,7 +539,16 @@ Future<ReportSection> _followsTemplate(PackageContext context) async {
 
 SourceSpan _tryGetSpanFromYamlMap(Object map, String key) {
   if (map is YamlMap) {
-    return map.nodes[key]?.span;
+    final span = map.nodes[key]?.span;
+    if (span != null && span.length > _maxSourceSpanLength) {
+      return SourceSpan(
+        span.start,
+        SourceLocation(span.start.offset + _maxSourceSpanLength),
+        span.text.substring(0, _maxSourceSpanLength),
+      );
+    } else {
+      return span;
+    }
   }
   return null;
 }
