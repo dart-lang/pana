@@ -195,6 +195,9 @@ class ToolEnvironment {
         timeout: const Duration(minutes: 5),
       );
       final output = proc.stderr as String;
+      if (output.startsWith('Exceeded timeout of ')) {
+        throw ToolException('Running `dart analyze` timed out.');
+      }
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
         if (output.contains('No dart files found at: .')) {
           log.warning('`dartanalyzer` found no files to analyze.');
