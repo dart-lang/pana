@@ -150,10 +150,9 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
   _Issue issueFromCodeProblem(CodeProblem codeProblem) {
     return _Issue(
       '${codeProblem.severity}: ${codeProblem.description}',
-      // TODO(sigurdm) update this to `dart analyze` after 2.9.
       suggestion:
           'To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and '
-          'run `${context.usesFlutter ? 'flutter analyze' : 'dartanalyzer'} ${codeProblem.file}`',
+          'run `${context.usesFlutter ? 'flutter analyze' : 'dart analyze'} ${codeProblem.file}`',
       spanFn: () {
         final sourceFile = SourceFile.fromString(
             File(p.join(context.packageDir, codeProblem.file))
@@ -191,15 +190,15 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
             .where((element) => element.isInfo)
             .map(issueFromCodeProblem)
             .toList(),
-        'dartanalyzer ${dirs.join(' ')}');
+        'dart analyze ${dirs.join(' ')}');
   } on ToolException catch (e) {
     return _AnalysisResult(
       [
-        _Issue('Failed to run `dartanalyzer`:\n```\n${e.message}\n```\n'),
+        _Issue('Failed to run `dart analyze`:\n```\n${e.message}\n```\n'),
       ],
       [],
       [],
-      'dartanalyzer ${dirs.join(' ')}',
+      'dart analyze ${dirs.join(' ')}',
     );
   }
 }

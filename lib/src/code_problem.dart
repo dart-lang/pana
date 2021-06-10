@@ -78,7 +78,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
   var length = match[7];
   var description = match[8];
 
-  // dartanalyzer --format=machine returns backslashes escaped with double backslash
+  // `dart analyze --format=machine` returns backslashes escaped with double backslash
   filePath = filePath.replaceAll(r'\\', r'\');
 
   if (projectDir != null) {
