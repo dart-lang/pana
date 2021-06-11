@@ -374,7 +374,7 @@ class ToolEnvironment {
     return env;
   }
 
-  @deprecated
+  @Deprecated('Will be removed in a future release.')
   Future activateGlobalDartdoc(String version) async {
     handleProcessErrors(await runProc(
       [..._pubCmd, 'global', 'activate', 'dartdoc', version],

@@ -97,10 +97,10 @@ void main() {
               (map['pkgResolution'] as Map).containsKey('dependencies')) {
             final deps = (map['pkgResolution']['dependencies'] as List)
                 .cast<Map<dynamic, dynamic>>();
-            deps.forEach((Map m) {
+            for (final m in deps) {
               m.remove('resolved');
               m.remove('available');
-            });
+            }
           }
         }
 

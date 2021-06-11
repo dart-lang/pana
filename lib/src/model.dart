@@ -148,15 +148,47 @@ class LicenseFile {
 }
 
 abstract class LicenseNames {
-  static const String AGPL = 'AGPL';
-  static const String Apache = 'Apache';
-  static const String BSD = 'BSD';
-  static const String GPL = 'GPL';
-  static const String LGPL = 'LGPL';
-  static const String MIT = 'MIT';
-  static const String MPL = 'MPL';
-  static const String Unlicense = 'Unlicense';
+  static const String agpl = 'AGPL';
+  static const String apache = 'Apache';
+  static const String bsd = 'BSD';
+  static const String gpl = 'GPL';
+  static const String lgpl = 'LGPL';
+  static const String mit = 'MIT';
+  static const String mpl = 'MPL';
+  static const String unlicense = 'Unlicense';
   static const String unknown = 'unknown';
+
+  @Deprecated('Use LicenseNames.agpl instead.')
+  // ignore: constant_identifier_names
+  static const String AGPL = agpl;
+
+  @Deprecated('Use LicenseNames.apache instead.')
+  // ignore: constant_identifier_names
+  static const String Apache = apache;
+
+  @Deprecated('Use LicenseNames.bsd instead.')
+  // ignore: constant_identifier_names
+  static const String BSD = bsd;
+
+  @Deprecated('Use LicenseNames.gpl instead.')
+  // ignore: constant_identifier_names
+  static const String GPL = gpl;
+
+  @Deprecated('Use LicenseNames.lgpl instead.')
+  // ignore: constant_identifier_names
+  static const String LGPL = lgpl;
+
+  @Deprecated('Use LicenseNames.mit instead.')
+  // ignore: constant_identifier_names
+  static const String MIT = mit;
+
+  @Deprecated('Use LicenseNames.mpl instead.')
+  // ignore: constant_identifier_names
+  static const String MPL = mpl;
+
+  @Deprecated('Use LicenseNames.unlicense instead.')
+  // ignore: constant_identifier_names
+  static const String Unlicense = unlicense;
 }
 
 @JsonSerializable()

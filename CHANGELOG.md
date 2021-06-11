@@ -4,6 +4,7 @@
 * Removed package list of 2.10 null-safety experiments.
 * Update dependencies to latest.
 * Migration to null-safety.
+* Deprecate `SCREAMING_CAPS` versions of `LicenseNames` constants.
 
 ## 0.17.1
 
