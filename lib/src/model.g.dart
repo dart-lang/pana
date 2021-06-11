@@ -1,5 +1,4 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// @dart=2.12
 
 part of 'model.dart';
 
@@ -209,8 +208,13 @@ Map<String, dynamic> _$OutdatedToJson(Outdated instance) => <String, dynamic>{
 OutdatedPackage _$OutdatedPackageFromJson(Map<String, dynamic> json) {
   return OutdatedPackage(
     json['package'] as String,
-    VersionDescriptor.fromJson(json['upgradable'] as Map<String, dynamic>),
-    VersionDescriptor.fromJson(json['latest'] as Map<String, dynamic>),
+    json['upgradable'] == null
+        ? null
+        : VersionDescriptor.fromJson(
+            json['upgradable'] as Map<String, dynamic>),
+    json['latest'] == null
+        ? null
+        : VersionDescriptor.fromJson(json['latest'] as Map<String, dynamic>),
   );
 }
 

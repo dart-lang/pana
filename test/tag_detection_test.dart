@@ -14,7 +14,7 @@ class FakeLibraryGraph implements LibraryGraph {
   FakeLibraryGraph();
   @override
   Set<Uri> directSuccessors(Uri uri) {
-    return successors[uri.toString()].map(Uri.parse).toSet();
+    return successors[uri.toString()]!.map(Uri.parse).toSet();
   }
 }
 
@@ -761,7 +761,7 @@ class HasDescription extends CustomMatcher {
   HasDescription(matcher) : super('Explanation with a', 'explanation', matcher);
 
   @override
-  String featureValueOf(actual) => (actual as Explanation).explanation;
+  String? featureValueOf(actual) => (actual as Explanation).explanation;
 }
 
 class HasFinding extends CustomMatcher {

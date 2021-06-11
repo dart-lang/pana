@@ -46,11 +46,11 @@ class BatchCompareCommand extends Command {
 
   @override
   Future<void> run() async {
-    final packages = await _parsePackages(argResults['packages'] as String);
+    final packages = await _parsePackages(argResults!['packages'] as String);
     final experimentConfig =
-        await _parseConfig(argResults['experiment'] as String);
-    final controlConfig = await _parseConfig(argResults['control'] as String);
-    final output = argResults['output'] as String;
+        await _parseConfig(argResults!['experiment'] as String);
+    final controlConfig = await _parseConfig(argResults!['control'] as String);
+    final output = argResults!['output'] as String?;
 
     await withTempDir((tempDir) async {
       final experimentEnv = await _initToolEnv(experimentConfig, tempDir);
@@ -69,8 +69,8 @@ class BatchCompareCommand extends Command {
         final controlSummary = await PackageAnalyzer(controlEnv)
             .inspectPackage(package, options: controlOptions);
 
-        final diff = expSummary.report.grantedPoints -
-            controlSummary.report.grantedPoints;
+        final diff = (expSummary.report?.grantedPoints ?? 0) -
+            (controlSummary.report?.grantedPoints ?? 0);
         print('$package: $diff');
 
         if (diff == 0) {
@@ -106,7 +106,7 @@ class BatchCompareCommand extends Command {
     return arg.split(',').map((e) => e.trim()).toList();
   }
 
-  Future<BatchConfig> _parseConfig(String arg) async {
+  Future<BatchConfig> _parseConfig(String? arg) async {
     if (arg == null) {
       return BatchConfig();
     }
@@ -132,17 +132,17 @@ class BatchCompareCommand extends Command {
   }
 
   Future<InspectOptions> _parseOptions(BatchConfig config) async {
-    String analysisOptionsYaml;
+    String? analysisOptionsYaml;
     if (config.analysisOptions != null) {
-      if (config.analysisOptions.startsWith('https://')) {
-        final rs = await http.get(Uri.parse(config.analysisOptions));
+      if (config.analysisOptions!.startsWith('https://')) {
+        final rs = await http.get(Uri.parse(config.analysisOptions!));
         if (rs.statusCode != 200) {
           throw ArgumentError('Unable to access `${config.analysisOptions}`.');
         }
         analysisOptionsYaml = rs.body;
       } else {
         // local file
-        final file = File(config.analysisOptions);
+        final file = File(config.analysisOptions!);
         if (file.existsSync()) {
           analysisOptionsYaml = await file.readAsString();
         } else {

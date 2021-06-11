@@ -7,20 +7,19 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
-import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
 final _logger = Logger('analysis_options');
 
-String _cachedFlutterOptionsOnGithub;
-String _cachedPedanticOptionsOnGithub;
+String? _cachedFlutterOptionsOnGithub;
+String? _cachedPedanticOptionsOnGithub;
 
 /// Returns the default analysis options (in yaml format).
 Future<String> getDefaultAnalysisOptionsYaml({
-  @required bool usesFlutter,
-  @required String flutterSdkDir,
+  required bool usesFlutter,
+  required String? flutterSdkDir,
 }) async {
   if (usesFlutter) {
     return await _getFlutterAnalysisOptions(flutterSdkDir);
@@ -29,7 +28,7 @@ Future<String> getDefaultAnalysisOptionsYaml({
   }
 }
 
-Future<String> _getFlutterAnalysisOptions(String flutterSdkDir) async {
+Future<String> _getFlutterAnalysisOptions(String? flutterSdkDir) async {
   // try to load local file
   flutterSdkDir ??= Platform.environment['FLUTTER_ROOT'];
   if (flutterSdkDir != null &&
@@ -44,14 +43,14 @@ Future<String> _getFlutterAnalysisOptions(String flutterSdkDir) async {
 
   // try to load latest from github
   if (_cachedFlutterOptionsOnGithub != null) {
-    return _cachedFlutterOptionsOnGithub;
+    return _cachedFlutterOptionsOnGithub!;
   }
   try {
     final rs = await _httpGetWithRetry(Uri.parse(
         'https://raw.githubusercontent.com/flutter/flutter/master/packages/flutter/lib/analysis_options_user.yaml'));
     if (rs.statusCode == 200) {
       _cachedFlutterOptionsOnGithub = rs.body;
-      return _cachedFlutterOptionsOnGithub;
+      return _cachedFlutterOptionsOnGithub!;
     }
   } catch (_) {
     // no-op
@@ -65,7 +64,7 @@ Future<String> _getFlutterAnalysisOptions(String flutterSdkDir) async {
 Future<String> _getPedanticAnalysisOptions() async {
   // try to load latest from github
   if (_cachedPedanticOptionsOnGithub != null) {
-    return _cachedPedanticOptionsOnGithub;
+    return _cachedPedanticOptionsOnGithub!;
   }
   try {
     final index = await _httpGetWithRetry(Uri.parse(
@@ -80,7 +79,7 @@ Future<String> _getPedanticAnalysisOptions() async {
           final rs = await _httpGetWithRetry(Uri.parse(url));
           if (rs.statusCode == 200) {
             _cachedPedanticOptionsOnGithub = rs.body;
-            return _cachedPedanticOptionsOnGithub;
+            return _cachedPedanticOptionsOnGithub!;
           }
         }
       }
@@ -113,10 +112,10 @@ Future<http.Response> _httpGetWithRetry(Uri uri) async {
 const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 
 String updatePassthroughOptions({
-  @required String original,
-  @required String custom,
+  required String? original,
+  required String custom,
 }) {
-  Map origMap;
+  Map? origMap;
   if (original != null) {
     try {
       origMap = yaml.loadYaml(original) as Map;

@@ -1,4 +1,6 @@
-// @dart=2.12
+// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 
 import 'dart:collection';
 
@@ -127,12 +129,12 @@ class Pubspec {
 
   bool get usesOldFlutterPluginFormat =>
       hasFlutterPluginKey &&
-      _inner.flutter!['plugin'] is Map<String, Object> &&
+      _inner.flutter!['plugin'] is Map<String, dynamic> &&
       const {
         'androidPackage',
         'iosPrefix',
         'pluginClass',
-      }.any((_inner.flutter!['plugin'] as Map<String, Object>).containsKey);
+      }.any((_inner.flutter!['plugin'] as Map<String, dynamic>).containsKey);
 }
 
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');

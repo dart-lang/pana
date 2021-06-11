@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// @dart=2.12
-
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -404,8 +402,8 @@ class Outdated {
 @JsonSerializable()
 class OutdatedPackage {
   final String package;
-  final VersionDescriptor upgradable;
-  final VersionDescriptor latest;
+  final VersionDescriptor? upgradable;
+  final VersionDescriptor? latest;
 
   OutdatedPackage(this.package, this.upgradable, this.latest);
 

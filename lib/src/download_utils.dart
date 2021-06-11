@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 import 'package:safe_url_check/safe_url_check.dart';
@@ -17,7 +16,7 @@ import 'logging.dart';
 
 final imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
-Future<String> getVersionListing(String package, {Uri pubHostedUrl}) async {
+Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
   final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
       .resolve('/api/packages/$package');
   log.fine('Downloading: $url');
@@ -29,9 +28,9 @@ Future<String> getVersionListing(String package, {Uri pubHostedUrl}) async {
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
   String package,
-  String version, {
-  @required String destination,
-  String pubHostedUrl,
+  String? version, {
+  required String destination,
+  String? pubHostedUrl,
 }) async {
   // Find URI for the package tar-ball
   final pubHostedUri = Uri.parse(pubHostedUrl ?? 'https://pub.dartlang.org');
@@ -45,8 +44,7 @@ Future<void> downloadPackage(
   final packageUri = pubHostedUri.replace(
     path: '/packages/$package/versions/$version.tar.gz',
   );
-  log.info(
-      'Downloading package $package ${version ?? 'latest'} from $packageUri');
+  log.info('Downloading package $package $version from $packageUri');
 
   await retry(
     () async {
@@ -67,15 +65,15 @@ Future<void> downloadPackage(
 }
 
 /// Returns an URL that is likely the downloadable URL of the given path.
-String getRepositoryUrl(String repository, String relativePath) {
+String? getRepositoryUrl(String? repository, String relativePath) {
   if (repository == null || repository.isEmpty) return null;
   for (var key in _repoReplacePrefixes.keys) {
-    if (repository.startsWith(key)) {
-      repository = repository.replaceFirst(key, _repoReplacePrefixes[key]);
+    if (repository!.startsWith(key)) {
+      repository = repository.replaceFirst(key, _repoReplacePrefixes[key]!);
     }
   }
   try {
-    final uri = Uri.parse(repository);
+    final uri = Uri.parse(repository!);
     final segments = List<String>.from(uri.pathSegments);
     while (segments.isNotEmpty && segments.last.isEmpty) {
       segments.removeLast();
@@ -132,7 +130,7 @@ class UrlChecker {
   final int _maxCacheSize;
 
   UrlChecker({
-    int maxCacheSize,
+    int? maxCacheSize,
   }) : _maxCacheSize = maxCacheSize ?? 10000 {
     addInternalHosts([
       'dart.dev',
@@ -155,9 +153,6 @@ class UrlChecker {
 
   /// Check the hostname against known patterns.
   Future<bool> hasExternalHostname(Uri uri) async {
-    if (uri == null) {
-      return false;
-    }
     return _internalHosts.every((p) => p.allMatches(uri.host).isEmpty);
   }
 
@@ -165,9 +160,6 @@ class UrlChecker {
   /// safe URL checks with limited number of redirects.
   Future<UrlStatus> checkStatus(String url,
       {bool isInternalPackage = false}) async {
-    if (url == null) {
-      return UrlStatus.invalid;
-    }
     final uri = Uri.tryParse(url);
     if (uri == null) {
       return UrlStatus.invalid;
@@ -250,7 +242,7 @@ Future _extractTarGz(Stream<List<int>> tarball, String destination) async {
 /// Returns a future that completes to the value that the future returned from
 /// [fn] completes to.
 Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
-  Directory tempDir;
+  Directory? tempDir;
   try {
     tempDir = await Directory.systemTemp.createTemp('pana_');
     return await fn(tempDir.resolveSymbolicLinksSync());

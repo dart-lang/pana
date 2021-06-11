@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:pana/src/version.dart';
 import 'package:path/path.dart' as p;
@@ -20,10 +19,10 @@ final _goldenDir = p.join('test', 'goldens', 'end2end');
 final _pubDevUri = Uri.parse('https://pub.dartlang.org/');
 
 void main() {
-  String tempDir;
-  PackageAnalyzer analyzer;
-  http.Client httpClient;
-  HttpServer httpServer;
+  late String tempDir;
+  late PackageAnalyzer analyzer;
+  http.Client? httpClient;
+  late HttpServer httpServer;
 
   setUpAll(() async {
     tempDir = Directory.systemTemp
@@ -44,14 +43,14 @@ void main() {
 
   tearDownAll(() async {
     await httpServer.close(force: true);
-    httpClient.close();
+    httpClient!.close();
     Directory(tempDir).deleteSync(recursive: true);
   });
 
   void _verifyPackage(String package, String version) {
     final filename = '$package-$version.json';
     group('end2end: $package $version', () {
-      Map<String, dynamic> actualMap;
+      Map<String, dynamic>? actualMap;
 
       setUpAll(() async {
         var summary = await analyzer.inspectPackage(
@@ -67,7 +66,6 @@ void main() {
         final sdkVersion = summary.runtimeInfo.sdkVersion;
         final flutterDartVersion =
             summary.runtimeInfo.flutterInternalDartSdkVersion;
-        assert(sdkVersion != null);
         summary = summary.change(
             runtimeInfo: PanaRuntimeInfo(
           panaVersion: '{{pana-version}}',
@@ -90,7 +88,7 @@ void main() {
                 'the Dart version used by the latest stable Flutter ({{flutter-dart-version}})')
             .replaceAll(RegExp('that was published [0-9]+ days ago'),
                 'that was published N days ago');
-        actualMap = json.decode(updated) as Map<String, dynamic>;
+        actualMap = json.decode(updated) as Map<String, dynamic>?;
       });
 
       test('matches known good', () {
@@ -99,7 +97,7 @@ void main() {
               (map['pkgResolution'] as Map).containsKey('dependencies')) {
             final deps = (map['pkgResolution']['dependencies'] as List)
                 .cast<Map<dynamic, dynamic>>();
-            deps?.forEach((Map m) {
+            deps.forEach((Map m) {
               m.remove('resolved');
               m.remove('available');
             });
@@ -108,7 +106,7 @@ void main() {
 
         // Reduce the time-invariability of the tests: resolved and available
         // versions may change over time or because of SDK version changes.
-        removeDependencyDetails(actualMap);
+        removeDependencyDetails(actualMap!);
 
         final json = const JsonEncoder.withIndent('  ').convert(actualMap);
 
@@ -121,7 +119,7 @@ void main() {
       });
 
       test('Report matches known good', () {
-        final jsonReport = actualMap['report'] as Map<String, dynamic>;
+        final jsonReport = actualMap!['report'] as Map<String, dynamic>?;
         if (jsonReport != null) {
           final report = Report.fromJson(jsonReport);
           final renderedSections = report.sections
@@ -137,7 +135,7 @@ void main() {
       });
 
       test('Summary can round-trip', () {
-        var summary = Summary.fromJson(actualMap);
+        var summary = Summary.fromJson(actualMap!);
 
         var roundTrip = json.decode(json.encode(summary));
         expect(roundTrip, actualMap);
@@ -193,16 +191,15 @@ Future<DateTime> _detectGoldenLastModified() async {
 }
 
 Future<HttpServer> _startLocalProxy({
-  @required http.Client httpClient,
-  @required DateTime blockPublishAfter,
+  required http.Client? httpClient,
+  required DateTime blockPublishAfter,
 }) {
   return serve(
     (shelf.Request rq) async {
       final pubDevUri = _pubDevUri.replace(path: rq.requestedUri.path);
-      final rs = await httpClient.get(pubDevUri);
+      final rs = await httpClient!.get(pubDevUri);
       final segments = rq.requestedUri.pathSegments;
       if (rs.statusCode == 200 &&
-          blockPublishAfter != null &&
           segments.length == 3 &&
           segments[0] == 'api' &&
           segments[1] == 'packages') {

@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-
 import 'create_report.dart' show renderSimpleSectionSummary;
 import 'model.dart';
 
@@ -12,8 +10,8 @@ const documentationSectionTitle = 'Provide documentation';
 /// Creates a report section about documentation coverage.
 /// 20% coverage grants the maximum number of points.
 ReportSection documentationCoverageSection({
-  @required int documented,
-  @required int total,
+  required int documented,
+  required int total,
 }) {
   final maxPoints = 10;
   final ratio = total <= 0 ? 1.0 : documented / total;

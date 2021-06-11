@@ -8,7 +8,6 @@ import 'dart:io';
 
 import 'package:html/parser.dart' as html_parser;
 import 'package:markdown/markdown.dart';
-import 'package:meta/meta.dart';
 import 'package:source_span/source_span.dart';
 
 import 'utils.dart';
@@ -21,10 +20,10 @@ class ExctractedMarkdownContent {
   final double nonAsciiRatio;
 
   ExctractedMarkdownContent({
-    this.images,
-    this.links,
-    this.isMalformedUtf8,
-    this.nonAsciiRatio,
+    required this.images,
+    required this.links,
+    required this.isMalformedUtf8,
+    required this.nonAsciiRatio,
   });
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -45,11 +44,11 @@ ExctractedMarkdownContent _scanMarkdownText(
     images: _unique(html
         .querySelectorAll('img')
         .where((e) => e.attributes.containsKey('src'))
-        .map((e) => Link(e.attributes['src'], e.sourceSpan))),
+        .map((e) => Link(e.attributes['src']!, e.sourceSpan!))),
     links: _unique(html
         .querySelectorAll('a')
         .where((e) => e.attributes.containsKey('href'))
-        .map((e) => Link(e.attributes['href'], e.sourceSpan))),
+        .map((e) => Link(e.attributes['href']!, e.sourceSpan!))),
     isMalformedUtf8: isMalformedUtf8,
     nonAsciiRatio: nonAsciiRuneRatio(text),
   );
@@ -83,8 +82,7 @@ Future<Links> checkLinks(List<Link> links) async {
       continue;
     }
     parsed.add(link);
-    if (uri.scheme != null &&
-        uri.scheme.isNotEmpty &&
+    if (uri.scheme.isNotEmpty &&
         uri.scheme != 'https' &&
         uri.scheme != 'mailto') {
       insecure.add(link);
@@ -105,8 +103,8 @@ class Links {
   final List<Link> insecure;
 
   Links({
-    @required this.unparsed,
-    @required this.parsed,
-    @required this.insecure,
+    required this.unparsed,
+    required this.parsed,
+    required this.insecure,
   });
 }

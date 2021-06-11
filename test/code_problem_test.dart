@@ -8,13 +8,13 @@ import 'package:test/test.dart';
 void main() {
   test('windows double escape', () {
     final cp = parseCodeProblem(
-        r"INFO|HINT|UNUSED_FIELD|D:\\Documents\\youtube_explode_dart\\lib\\src\\extensions\\helpers_extension.dart|16|16|4|The value of the field '_exp' isn't used.");
+        r"INFO|HINT|UNUSED_FIELD|D:\\Documents\\youtube_explode_dart\\lib\\src\\extensions\\helpers_extension.dart|16|16|4|The value of the field '_exp' isn't used.")!;
     expect(cp.file,
         r'D:\Documents\youtube_explode_dart\lib\src\extensions\helpers_extension.dart');
   });
 
   test('too many lines', () {
-    final cp = parseCodeProblem('STDERR exceeded 100000 lines.');
+    final cp = parseCodeProblem('STDERR exceeded 100000 lines.')!;
     expect(cp.description, 'Analysis returned too many issues.');
   });
 }

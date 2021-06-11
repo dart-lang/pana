@@ -50,11 +50,11 @@ class BatchQueryCommand extends Command {
 
   @override
   Future<void> run() async {
-    final limit = int.parse(argResults['limit'] as String);
-    final maxAgeDays = int.parse(argResults['max-age-days'] as String);
-    final sort = argResults['sort'] as String;
-    final output = argResults['output'];
-    final query = argResults.rest.join(' ');
+    final limit = int.parse(argResults!['limit'] as String);
+    final maxAgeDays = int.parse(argResults!['max-age-days'] as String);
+    final sort = argResults!['sort'] as String;
+    final output = argResults!['output'];
+    final query = argResults!.rest.join(' ');
 
     final selected = <String>{};
     var page = 1;
@@ -84,7 +84,8 @@ class BatchQueryCommand extends Command {
     }
   }
 
-  Future<List<String>> _getPackages(String query, String sort, int page) async {
+  Future<List<String>> _getPackages(
+      String? query, String sort, int page) async {
     final rs = await _client
         .get(Uri.parse('https://pub.dev/api/search').replace(queryParameters: {
       if (query != null && query.isNotEmpty) 'q': query,

@@ -46,7 +46,7 @@ final _parser = ArgParser()
       negatable: true,
       defaultsTo: true);
 
-void _printHelp({String errorMessage}) {
+void _printHelp({String? errorMessage}) {
   if (errorMessage != null) {
     print(red.wrap(errorMessage));
     print('');
@@ -69,17 +69,17 @@ Future main(List<String> args) async {
   }
 
   final isJson = result['json'] as bool;
-  final showWarning = result['warning'] as bool;
-  final exitCodeThresholdArg = result['exit-code-threshold'] as String;
+  final showWarning = result['warning'] as bool?;
+  final exitCodeThresholdArg = result['exit-code-threshold'] as String?;
   final exitCodeThreshold =
       exitCodeThresholdArg == null ? null : int.parse(exitCodeThresholdArg);
 
-  var source = result['source'] as String;
+  var source = result['source'] as String?;
   if (result['hosted'] == true) {
     source = 'hosted';
   }
 
-  String firstArg() {
+  String? firstArg() {
     return result.rest.isEmpty ? null : result.rest.first;
   }
 
@@ -129,24 +129,24 @@ Future main(List<String> args) async {
   var tempPath = await tempDir.resolveSymbolicLinks();
 
   try {
-    final pubHostedUrl = result['hosted-url'] as String;
+    final pubHostedUrl = result['hosted-url'] as String?;
     final analyzer = await PackageAnalyzer.create(
       pubCacheDir: tempPath,
-      sdkDir: result['dart-sdk'] as String,
-      flutterDir: result['flutter-sdk'] as String,
+      sdkDir: result['dart-sdk'] as String?,
+      flutterDir: result['flutter-sdk'] as String?,
     );
     final options = InspectOptions(
       pubHostedUrl: pubHostedUrl,
-      lineLength: int.tryParse(result['line-length'] as String ?? ''),
+      lineLength: int.tryParse(result['line-length'] as String? ?? ''),
     );
     try {
-      Summary summary;
+      late Summary summary;
       if (source == 'hosted') {
         final package = firstArg();
         if (package == null) {
           _printHelp(errorMessage: 'No package was provided.');
         }
-        String version;
+        String? version;
         if (result.rest.length > 1) {
           version = result.rest[1];
         }
@@ -156,12 +156,12 @@ Future main(List<String> args) async {
                   'Version must be specified when using --hosted-url option.');
           return;
         }
-        summary = await analyzer.inspectPackage(package,
+        summary = await analyzer.inspectPackage(package!,
             version: version, options: options);
       } else if (source == 'path') {
         final path = firstArg() ?? '.';
         final absolutePath = await Directory(path).resolveSymbolicLinks();
-        if (showWarning) {
+        if (showWarning!) {
           log.Logger.root
               .warning('pana might update or modify files in `$path`.\n'
                   'Analysis will begin in 15 seconds, hit CTRL+C to abort it.\n'
@@ -178,7 +178,7 @@ Future main(List<String> args) async {
         };
         print(prettyJson(map));
       } else {
-        final report = summary.report;
+        final report = summary.report!;
         for (final s in report.sections) {
           final mark = s.grantedPoints == s.maxPoints ? '\u2713' : '\u2717';
           print('\n## $mark ${s.title} (${s.grantedPoints} / ${s.maxPoints})');
@@ -188,8 +188,8 @@ Future main(List<String> args) async {
       }
       if (exitCodeThreshold != null &&
           exitCodeThreshold > 0 &&
-          exitCodeThreshold + summary.report.grantedPoints <
-              summary.report.maxPoints) {
+          exitCodeThreshold + summary.report!.grantedPoints <
+              summary.report!.maxPoints) {
         exitCode = -1;
       }
     } catch (e, stack) {

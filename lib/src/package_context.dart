@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
@@ -28,36 +27,36 @@ class PackageContext {
   final UrlChecker urlChecker;
   final errors = <String>[];
 
-  Version _currentSdkVersion;
-  Pubspec _pubspec;
-  bool _usesFlutter;
-  PkgResolution _pkgResolution;
-  List<CodeProblem> _codeProblems;
+  Version? _currentSdkVersion;
+  Pubspec? _pubspec;
+  bool? _usesFlutter;
+  PkgResolution? _pkgResolution;
+  List<CodeProblem>? _codeProblems;
 
   PackageContext({
-    @required this.toolEnvironment,
-    @required this.packageDir,
-    @required this.options,
-    UrlChecker urlChecker,
+    required this.toolEnvironment,
+    required this.packageDir,
+    required this.options,
+    UrlChecker? urlChecker,
   }) : urlChecker = urlChecker ?? UrlChecker();
 
   Version get currentSdkVersion => _currentSdkVersion ??=
       Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
 
   Pubspec get pubspec {
-    if (_pubspec != null) return _pubspec;
+    if (_pubspec != null) return _pubspec!;
     try {
       _pubspec = pubspecFromDir(packageDir);
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
       rethrow;
     }
-    return _pubspec;
+    return _pubspec!;
   }
 
   bool get usesFlutter => _usesFlutter ??= pubspec.usesFlutter;
 
-  Future<PkgResolution> resolveDependencies() async {
+  Future<PkgResolution?> resolveDependencies() async {
     if (_pkgResolution != null) return _pkgResolution;
     final upgrade = await toolEnvironment.runUpgrade(packageDir, usesFlutter);
 
@@ -107,7 +106,7 @@ class PackageContext {
   }
 
   Future<List<CodeProblem>> staticAnalysis() async {
-    if (_codeProblems != null) return _codeProblems;
+    if (_codeProblems != null) return _codeProblems!;
     log.info('Analyzing package...');
     try {
       final dirs = await listFocusDirs(packageDir);
@@ -123,7 +122,7 @@ class PackageContext {
         list.sort();
       }
       _codeProblems = problems;
-      return _codeProblems;
+      return _codeProblems!;
     } on ToolException catch (e) {
       errors.add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
       rethrow;
@@ -132,5 +131,5 @@ class PackageContext {
 
   bool get pubspecAllowsCurrentSdk =>
       pubspec.dartSdkConstraint != null &&
-      pubspec.dartSdkConstraint.allows(currentSdkVersion);
+      pubspec.dartSdkConstraint!.allows(currentSdkVersion);
 }

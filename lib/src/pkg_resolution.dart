@@ -7,7 +7,6 @@ library pana.pkg_resolution;
 import 'dart:convert';
 import 'dart:io' hide exitCode;
 
-import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
@@ -31,8 +30,8 @@ class PkgResolution {
     // counts: direct, dev, transitive
     // outdated count, by constraint: direct, dev
     // outdated count, other: all
-    var directDeps = pubspec.dependencies?.length ?? 0;
-    var devDeps = pubspec.devDependencies?.length ?? 0;
+    var directDeps = pubspec.dependencies.length;
+    var devDeps = pubspec.devDependencies.length;
 
     var transitiveDeps = dependencies.where((pd) => pd.isTransitive).length;
 
@@ -55,7 +54,7 @@ class PkgResolution {
         .where((pd) => includeSdk || pd.constraintType != ConstraintTypes.sdk)
         .where((pd) =>
             pd.constraint == null ||
-            pd.constraint.isAny ||
+            pd.constraint!.isAny ||
             (pd.constraint is VersionRange &&
                 (pd.constraint as VersionRange).max == null))
         .toList();
@@ -96,22 +95,22 @@ class PkgDependency implements Comparable<PkgDependency> {
 
   final String constraintType;
 
-  final VersionConstraint constraint;
+  final VersionConstraint? constraint;
 
-  final Version resolved;
+  final Version? resolved;
 
-  final Version available;
+  final Version? available;
 
-  final List<String> errors;
+  final List<String>? errors;
 
   PkgDependency({
-    @required this.package,
-    @required this.dependencyType,
-    @required this.constraintType,
-    @required this.constraint,
-    @required this.resolved,
-    @required this.available,
-    @required this.errors,
+    required this.package,
+    required this.dependencyType,
+    required this.constraintType,
+    required this.constraint,
+    required this.resolved,
+    required this.available,
+    required this.errors,
   });
 
   bool get isDirect => dependencyType == DependencyTypes.direct;
@@ -122,7 +121,7 @@ class PkgDependency implements Comparable<PkgDependency> {
 
   bool get isLatest => available == null;
 
-  bool get isOutdated => available != null && !available.isPreRelease;
+  bool get isOutdated => available != null && !available!.isPreRelease;
 
   bool get isHosted =>
       constraintType != ConstraintTypes.sdk &&
@@ -133,11 +132,11 @@ class PkgDependency implements Comparable<PkgDependency> {
   VersionResolutionType get resolutionType {
     if (isLatest) return VersionResolutionType.latest;
 
-    if (constraint != null && constraint.allows(available)) {
+    if (constraint != null && constraint!.allows(available!)) {
       return VersionResolutionType.constrained;
     }
 
-    if (available.isPreRelease) {
+    if (available!.isPreRelease) {
       // If the pre-release isn't allowed by the constraint, then ignore it
       // ... call it a match
       return VersionResolutionType.latest;
@@ -162,14 +161,14 @@ class PkgDependency implements Comparable<PkgDependency> {
     items.add(resolutionType.toString().split('.').last);
 
     if (resolutionType != VersionResolutionType.latest) {
-      items.add(available);
+      items.add(available!);
     }
     return items.join(' ');
   }
 }
 
 PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
-    {String path}) {
+    {String? path}) {
   var pkgVersions = <String, Version>{};
   var availVersions = <String, Version>{};
 
@@ -186,8 +185,8 @@ PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
     for (var match in entries.single.content
         .takeWhile(_solvePkgLine.hasMatch)
         .map(_solvePkgLine.firstMatch)) {
-      var pkg = match.group(1);
-      pkgVersions[pkg] = Version.parse(match.group(2));
+      var pkg = match!.group(1)!;
+      pkgVersions[pkg] = Version.parse(match.group(2)!);
       var availVerStr = match.group(3);
       if (availVerStr != null) {
         availVersions[pkg] = Version.parse(availVerStr);
@@ -211,21 +210,19 @@ PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
 void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
   var theFile = File(p.join(path, 'pubspec.lock'));
   if (theFile.existsSync()) {
-    var lockFileContent = theFile.readAsStringSync();
+    final lockFileContent = theFile.readAsStringSync();
     if (lockFileContent.isNotEmpty) {
-      Map lockMap = yamlToJson(lockFileContent);
-      var pkgs = lockMap['packages'] as Map<String, Object>;
-      if (pkgs != null) {
-        pkgs.forEach((String key, Object v) {
-          var m = v as Map;
-          var lockedVersion = Version.parse(m['version'] as String);
-          if (pkgVersions[key] != lockedVersion) {
-            throw StateError(
-                'For $key, the parsed version ${pkgVersions[key]} did not '
-                'match the locked version $lockedVersion.');
-          }
-        });
-      }
+      Map lockMap = yamlToJson(lockFileContent)!;
+      final pkgs = lockMap['packages'] as Map<String, dynamic>;
+      pkgs.forEach((String key, dynamic v) {
+        var m = v as Map;
+        var lockedVersion = Version.parse(m['version'] as String);
+        if (pkgVersions[key] != lockedVersion) {
+          throw StateError(
+              'For $key, the parsed version ${pkgVersions[key]} did not '
+              'match the locked version $lockedVersion.');
+        }
+      });
     }
   }
 }
@@ -234,10 +231,11 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
     Map<String, Version> pkgVersions, Map<String, Version> availVersions) {
   var deps = <PkgDependency>[];
 
-  void addDetail(String package, Dependency dependency, String dependencyType) {
+  void addDetail(
+      String package, Dependency? dependency, String dependencyType) {
     String constraintType;
     final errors = <String>[];
-    VersionConstraint constraint;
+    VersionConstraint? constraint;
     if (dependencyType == DependencyTypes.transitive) {
       constraintType = ConstraintTypes.inherited;
     } else {
@@ -291,13 +289,13 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
 
   final packageNames = <String>{};
 
-  pubspec.dependencies?.forEach((k, v) {
+  pubspec.dependencies.forEach((k, v) {
     if (packageNames.add(k)) {
       addDetail(k, v, DependencyTypes.direct);
     }
   });
 
-  pubspec.devDependencies?.forEach((k, v) {
+  pubspec.devDependencies.forEach((k, v) {
     if (packageNames.add(k)) {
       addDetail(k, v, DependencyTypes.dev);
     }
@@ -329,8 +327,8 @@ class PubEntry {
   PubEntry(this.header, this.content);
 
   static Iterable<PubEntry> parse(String input) sync* {
-    String header;
-    List<String> entryLines;
+    String? header;
+    List<String>? entryLines;
 
     for (var line in LineSplitter.split(input)) {
       if (line.trim().isEmpty) {
@@ -340,13 +338,13 @@ class PubEntry {
 
       if (match != null) {
         if (header != null || entryLines != null) {
-          assert(entryLines.isNotEmpty);
-          yield PubEntry(header, entryLines);
+          assert(entryLines!.isNotEmpty);
+          yield PubEntry(header!, entryLines!);
           header = null;
           entryLines = null;
         }
         header = match[1];
-        entryLines = <String>[match[2]];
+        entryLines = <String>[match[2]!];
       } else {
         match = _lineMatch.firstMatch(line);
 
@@ -357,13 +355,13 @@ class PubEntry {
         }
 
         assert(entryLines != null);
-        entryLines.add(match[1]);
+        entryLines!.add(match[1]!);
       }
     }
 
     if (header != null || entryLines != null) {
-      assert(entryLines.isNotEmpty);
-      yield PubEntry(header, entryLines);
+      assert(entryLines!.isNotEmpty);
+      yield PubEntry(header!, entryLines!);
       header = null;
       entryLines = null;
     }

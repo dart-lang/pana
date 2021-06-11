@@ -80,11 +80,11 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
-import 'package:pana/pana.dart';
 import 'package:pana/src/null_safety.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 
+import 'pubspec.dart';
 import 'pubspec_io.dart';
 
 abstract class _DirectedGraph<T> {
@@ -93,13 +93,13 @@ abstract class _DirectedGraph<T> {
 
 /// Creates a Explanation indicating an issue, using [path] to give the location
 /// of the issue.
-typedef _Explainer<N> = Explanation Function(List<N> path);
+typedef _Explainer<N> = Explanation? Function(List<N> path);
 
 /// Returns an [_Explainer] if node fullfills the predicate (if it violates some
 /// property) and `null` otherwise.
 ///
 /// Explainer should give an explanation of the problem.
-typedef _Predicate<T> = _Explainer<T> Function(T node);
+typedef _Predicate<T> = _Explainer<T>? Function(T node);
 
 class _PathFinder<T> {
   final _DirectedGraph<T> graph;
@@ -131,7 +131,7 @@ class _PathFinder<T> {
       if (!visited.add(current)) continue;
 
       if (_cache.containsKey(current)) {
-        return _cache[root] = _cache[current].prefix(pathToCurrent);
+        return _cache[root] = _cache[current]!.prefix(pathToCurrent);
       }
 
       pathToCurrent.add(current);
@@ -149,20 +149,20 @@ class _PathFinder<T> {
   /// Explanation indicating the issue.
   ///
   /// Returns `null` if no issue was found
-  Explanation findViolation(T root) => findPath(root).explain();
+  Explanation? findViolation(T root) => findPath(root).explain();
 }
 
 class Explanation {
   final String finding;
-  final String explanation;
+  final String? explanation;
 
   /// The tag that this explanation explains why the package didn't get.
   ///
   /// Should be `null` if this is a more general error message not connected to
   /// any certain tag.
-  final String tag;
+  final String? tag;
 
-  Explanation(this.finding, this.explanation, {@required this.tag});
+  Explanation(this.finding, this.explanation, {required this.tag});
 
   @override
   String toString() => 'Explanation($finding, $explanation)';
@@ -174,7 +174,7 @@ class Explanation {
 /// Returns `null` in case of any errors.
 ///
 /// Returns `null` if [uri] points to a part file.
-CompilationUnit _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
+CompilationUnit? _parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
   final path = analysisSession.uriConverter.uriToPath(uri);
   if (path == null) {
     // Could not resolve uri.
@@ -264,7 +264,7 @@ class LibraryGraph implements _DirectedGraph<Uri> {
         // library `uri`. Unless there is a `configuration` for which the `test`
         // evaluates to true.
         final directive = node as NamespaceDirective;
-        var dependency = uri.resolve(directive.uri.stringValue);
+        var dependency = uri.resolve(directive.uri.stringValue!);
 
         for (final configuration in directive.configurations) {
           final dottedName =
@@ -274,7 +274,7 @@ class LibraryGraph implements _DirectedGraph<Uri> {
           final actualValue = _declaredVariables[dottedName] ?? '';
 
           if (actualValue == testValue) {
-            dependency = uri.resolve(configuration.uri.stringValue);
+            dependency = uri.resolve(configuration.uri.stringValue!);
             break; // Aways pick the first satisfied configuration.
           }
         }
@@ -306,11 +306,6 @@ class _PackageGraph implements _DirectedGraph<String> {
   @override
   Set<String> directSuccessors(String packageName) {
     final pubspec = _pubspecCache.pubspecOfPackage(packageName);
-    if (pubspec == null) {
-      // Probably a missing/broken dependency
-      // TODO(sigurdm): figure out the right thing to do here.
-      return <String>{};
-    }
     return pubspec.dependencies.keys.toSet();
   }
 
@@ -386,9 +381,9 @@ List<String> _dartFilesFromLib(String packageDir) {
 class Runtime {
   final String name;
   final Set<String> enabledLibs;
-  final String _tag;
+  final String? _tag;
 
-  Runtime(this.name, this.enabledLibs, {String tag}) : _tag = tag;
+  Runtime(this.name, this.enabledLibs, {String? tag}) : _tag = tag;
 
   Map<String, String> get declaredVariables =>
       {for (final lib in enabledLibs) 'dart.library.$lib': 'true'};
@@ -476,8 +471,8 @@ class Runtime {
 @visibleForTesting
 class PathResult<T> {
   bool get hasPath => path != null;
-  final List<T> path;
-  final _Explainer<T> explainer;
+  final List<T>? path;
+  final _Explainer<T>? explainer;
   PathResult.noPath()
       : path = null,
         explainer = null;
@@ -487,11 +482,11 @@ class PathResult<T> {
 
   PathResult<T> prefix(List<T> prefix) {
     return hasPath
-        ? PathResult.path([prefix, path].expand((x) => x).toList(), explainer)
+        ? PathResult.path([...prefix, ...path!], explainer)
         : PathResult<T>.noPath();
   }
 
-  Explanation explain() => hasPath ? explainer(path) : null;
+  Explanation? explain() => hasPath ? explainer!(path!) : null;
 }
 
 /// Detects forbidden imports given a runtime.
@@ -514,7 +509,7 @@ class _FlutterPlatform {
   final Runtime runtime;
   final String tag;
 
-  _FlutterPlatform(this.name, this.runtime, {@required this.tag});
+  _FlutterPlatform(this.name, this.runtime, {required this.tag});
   static final List<_FlutterPlatform> recognizedPlatforms = [
     android,
     ios,
@@ -538,8 +533,7 @@ class _FlutterPlatform {
 
 class _DeclaredFlutterPlatformDetector {
   final _PubspecCache _pubspecCache;
-  final Map<String, Set<_FlutterPlatform>> _declaredPlatformCache =
-      <String, Set<_FlutterPlatform>>{};
+  final _declaredPlatformCache = <String, Set<_FlutterPlatform>?>{};
 
   _DeclaredFlutterPlatformDetector(this._pubspecCache);
 
@@ -549,7 +543,7 @@ class _DeclaredFlutterPlatformDetector {
 
   /// Returns the declared Flutter platforms if [packageName] is a plugin, and
   /// `null` otherwise.
-  Set<_FlutterPlatform> _declaredFlutterPlatforms(String packageName) {
+  Set<_FlutterPlatform>? _declaredFlutterPlatforms(String packageName) {
     return _declaredPlatformCache.putIfAbsent(packageName, () {
       final result = <_FlutterPlatform>{};
       final fields = _pubspecCache.pubspecOfPackage(packageName).toJson();
@@ -609,7 +603,7 @@ class _PlatformViolationFinder {
           return null;
         });
 
-  Explanation _findPlatformViolation(Uri root) {
+  Explanation? _findPlatformViolation(Uri root) {
     final declaredPlatformResult = declaredPlatformFinder.findViolation(root);
     return declaredPlatformResult ?? _runtimeSupport.findViolation(root);
   }
@@ -652,7 +646,7 @@ class _SdkViolationFinder {
                     )))
             .toList();
 
-  Explanation findSdkViolation(String packageName, List<Uri> topLibraries) {
+  Explanation? findSdkViolation(String packageName, List<Uri> topLibraries) {
     final declaredSdkResult =
         _declaredSdkViolationFinder.findViolation(packageName);
     if (declaredSdkResult != null) return declaredSdkResult;
@@ -742,7 +736,7 @@ class Tagger {
     final nonSrcDartFiles =
         libDartFiles.where((p) => !p.startsWith('src/')).toList();
 
-    Uri primaryLibrary;
+    Uri? primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
       primaryLibrary =
           Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
@@ -1038,7 +1032,7 @@ class Tagger {
 }
 
 class _TagException implements Exception {
-  final String message;
+  final String? message;
 
   _TagException([this.message]);
 

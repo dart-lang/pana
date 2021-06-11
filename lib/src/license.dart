@@ -14,7 +14,7 @@ import 'download_utils.dart';
 import 'maintenance.dart';
 import 'model.dart';
 
-Future<LicenseFile> detectLicenseInDir(String baseDir) async {
+Future<LicenseFile?> detectLicenseInDir(String baseDir) async {
   for (final candidate in licenseFileNames) {
     final file = File(p.join(baseDir, candidate));
     if (!file.existsSync()) continue;
@@ -23,12 +23,12 @@ Future<LicenseFile> detectLicenseInDir(String baseDir) async {
   return null;
 }
 
-Future<String> getLicenseUrl(
-    UrlChecker urlChecker, String baseUrl, LicenseFile license) async {
+Future<String?> getLicenseUrl(
+    UrlChecker urlChecker, String? baseUrl, LicenseFile? license) async {
   if (baseUrl == null || baseUrl.isEmpty) {
     return null;
   }
-  if (license == null || license.path == null || license.path.isEmpty) {
+  if (license == null || license.path.isEmpty) {
     return null;
   }
   final url = getRepositoryUrl(baseUrl, license.path);
@@ -44,14 +44,14 @@ Future<String> getLicenseUrl(
 }
 
 Future<LicenseFile> detectLicenseInFile(File file,
-    {String relativePath}) async {
+    {required String relativePath}) async {
   final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);
   var license = detectLicenseInContent(content, relativePath: relativePath);
   return license ?? LicenseFile(relativePath, LicenseNames.unknown);
 }
 
-LicenseFile detectLicenseInContent(String originalContent,
-    {String relativePath}) {
+LicenseFile? detectLicenseInContent(String originalContent,
+    {required String relativePath}) {
   var content = originalContent;
   if (content.startsWith('// ')) {
     content = content.split('\n').map((s) {
@@ -60,11 +60,11 @@ LicenseFile detectLicenseInContent(String originalContent,
   }
   var stripped = _longTextPrepare(content);
 
-  String version;
+  String? version;
   var versionMatch = _version.firstMatch(stripped);
   if (versionMatch != null) {
     version = versionMatch.group(1);
-    if (version.isNotEmpty && !version.contains('.')) {
+    if (version!.isNotEmpty && !version.contains('.')) {
       version += '.0';
     }
   }

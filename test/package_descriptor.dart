@@ -8,7 +8,7 @@ import 'package:test_descriptor/test_descriptor.dart' as d;
 
 /// Convenience for creating a descriptor of a package.
 d.DirectoryDescriptor packageWithPathDeps(String name,
-    {String sdkConstraint,
+    {String? sdkConstraint,
     List<String> dependencies = const [],
     List<d.Descriptor> lib = const [],
     Map pubspecExtras = const {},
@@ -39,7 +39,7 @@ d.DirectoryDescriptor packageWithPathDeps(String name,
 
 /// Convenience for creating a descriptor of a package.
 d.DirectoryDescriptor package(String name,
-    {String sdkConstraint,
+    {String? sdkConstraint,
     Map<String, Object> dependencies = const {},
     List<d.Descriptor> lib = const [],
     Map pubspecExtras = const {},
