@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
@@ -19,13 +20,17 @@ import 'package:pubspec_parse/pubspec_parse.dart'
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
 
-import '../models.dart';
-import '../pana.dart';
+import 'dartdoc_analyzer.dart';
+import 'download_utils.dart';
 import 'logging.dart';
+import 'maintenance.dart';
 import 'markdown_content.dart';
+import 'model.dart';
 import 'package_context.dart';
 import 'pubspec.dart';
+import 'sdk_env.dart';
 import 'tag_detection.dart';
+import 'utils.dart';
 
 const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
@@ -65,9 +70,8 @@ Future<ReportSection> _hasDocumentation(
   // TODO: run dartdoc for coverage
 
   final candidates = exampleFileCandidates(pubspec.name, caseSensitive: true);
-  final examplePath = candidates.firstWhere(
-      (c) => File(p.join(packageDir, c)).existsSync(),
-      orElse: () => null);
+  final examplePath = candidates
+      .firstWhereOrNull((c) => File(p.join(packageDir, c)).existsSync());
   final issues = <_Issue>[
     if (examplePath == null)
       _Issue(
@@ -220,8 +224,8 @@ class _AnalysisResult {
 Future<List<_Issue>> _formatPackage(
   String packageDir,
   ToolEnvironment toolEnvironment, {
-  @required bool usesFlutter,
-  int lineLength,
+  required bool usesFlutter,
+  int? lineLength,
 }) async {
   try {
     final unformattedFiles = await toolEnvironment.filesNeedingFormat(
@@ -263,7 +267,7 @@ Future<ReportSection> _followsTemplate(PackageContext context) async {
             span: _tryGetSpanFromYamlMap(pubspec.originalYaml, key))
       ];
     }
-    final url = content as String;
+    final url = content as String?;
     final issues = <_Issue>[];
 
     if (url == null || url.isEmpty) {
@@ -307,7 +311,7 @@ Future<ReportSection> _followsTemplate(PackageContext context) async {
   }
 
   List<_Issue> findFileSizeIssues(File file,
-      {int limitInKB = 128, String missingSuggestion}) {
+      {int limitInKB = 128, String? missingSuggestion}) {
     final length = file.lengthSync();
     final lengthInKB = length / 1024.0;
     return [
@@ -537,7 +541,7 @@ Future<ReportSection> _followsTemplate(PackageContext context) async {
   );
 }
 
-SourceSpan _tryGetSpanFromYamlMap(Object map, String key) {
+SourceSpan? _tryGetSpanFromYamlMap(Object map, String key) {
   if (map is YamlMap) {
     final span = map.nodes[key]?.span;
     if (span != null && span.length > _maxSourceSpanLength) {
@@ -560,13 +564,13 @@ enum OutdatedStatus { outdated, outdatedByRecent, outdatedByPreview }
 Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
     PackageContext context, OutdatedPackage package) async {
   const acceptableUpdateDelay = Duration(days: 30);
-  T tryGetFromJson<T>(Map<String, Object> json, String key) {
+  T? tryGetFromJson<T>(Map<String, dynamic> json, String key) {
     final element = json[key];
     return element is T ? element : null;
   }
 
   final name = package.package;
-  final latest = package?.latest?.version;
+  final latest = package.latest?.version;
   if (!context.pubspec.dependencies.containsKey(name) || latest == null) {
     return [];
   }
@@ -575,7 +579,7 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
   if (dependency is! HostedDependency) {
     return [];
   }
-  final hostedDependency = dependency as HostedDependency;
+  final hostedDependency = dependency;
   if (hostedDependency.version.allows(latestVersion)) {
     return [];
   }
@@ -587,14 +591,14 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
   ));
 
   try {
-    final versions =
-        tryGetFromJson<List>(versionListing as Map<String, Object>, 'versions');
+    final versions = tryGetFromJson<List>(
+        versionListing as Map<String, dynamic>, 'versions');
     if (versions == null) {
       // Bad response from pub host.
       return [];
     }
     for (final version in versions) {
-      if (version is Map<String, Object>) {
+      if (version is Map<String, dynamic>) {
         final versionString = tryGetFromJson<String>(version, 'version');
         if (versionString == null) {
           // Bad response from pub host.
@@ -602,13 +606,12 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
         }
         final parsedVersion = Version.parse(versionString);
         if (parsedVersion.isPreRelease ||
-            parsedVersion <= Version.parse(package.upgradable.version)) {
+            parsedVersion <= Version.parse(package.upgradable!.version)) {
           continue;
         }
         // It's not outdated, just mutually incompatible if allowed by the
         // constraint, but still reported as outdated by `dart pub outdated`.
-        if (hostedDependency.version == null ||
-            hostedDependency.version.allows(parsedVersion)) {
+        if (hostedDependency.version.allows(parsedVersion)) {
           continue;
         }
 
@@ -631,13 +634,9 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
               OutdatedStatus.outdatedByRecent));
         } else {
           final pubspec = Pubspec.fromJson(
-              tryGetFromJson<Map<String, Object>>(version, 'pubspec'));
-          if (pubspec == null) {
-            // Bad response from pub host.
-            continue;
-          }
+              tryGetFromJson<Map<String, dynamic>>(version, 'pubspec')!);
           if (pubspec.hasDartSdkConstraint &&
-              !pubspec.dartSdkConstraint.allows(context.currentSdkVersion)) {
+              !pubspec.dartSdkConstraint!.allows(context.currentSdkVersion)) {
             result.add(OutdatedVersionDescription(
                 _Issue(
                     'The constraint `${hostedDependency.version}` on $name does not support the stable version `$versionString`, '
@@ -746,10 +745,10 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
             .where((p) => pubspec.dependencies.containsKey(p.package))
             .map((p) => [
                   linkToPackage(p.package),
-                  constraint(pubspec.dependencies[p.package]),
+                  constraint(pubspec.dependencies[p.package]!),
                   p.upgradable?.version ?? '-',
                   if (outdatedVersions.containsKey(p.package) &&
-                      outdatedVersions[p.package].isNotEmpty)
+                      outdatedVersions[p.package]!.isNotEmpty)
                     '**${p.latest?.version ?? '-'}**'
                   else
                     p.latest?.version ?? '-',
@@ -849,7 +848,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
       final usesFlutter = pubspec.usesFlutter;
 
       final flutterDartVersion =
-          Version.parse(runtimeInfo.flutterInternalDartSdkVersion);
+          Version.parse(runtimeInfo.flutterInternalDartSdkVersion!);
       final allowsCurrentFlutterDart =
           sdkConstraint?.allows(flutterDartVersion) ?? false;
 
@@ -865,10 +864,9 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
           // TODO(sigurdm): this will not work well locally (installed version will
           // not be latest). Perhaps we should query somewhere for the latest version.
           final currentFlutterVersion =
-              Version.parse(runtimeInfo.flutterVersion);
+              Version.parse(runtimeInfo.flutterVersion!);
           final flutterConstraint = pubspec.flutterSdkConstraint;
-          if (flutterConstraint != null &&
-              !flutterConstraint.allows(currentFlutterVersion)) {
+          if (!flutterConstraint.allows(currentFlutterVersion)) {
             issues.add(
               _Issue(
                 'The current flutter constraint does not allow the latest Flutter ($currentFlutterVersion)',
@@ -1040,7 +1038,7 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
       final platforms = platformList(tags, tagNames);
       final description = 'Supports ${officialTags.length} of '
           '${tagNames.length} possible platforms ($platforms)';
-      return _Subsection(description, paragraphs, score, 20, status);
+      return _Subsection(description, paragraphs, score!, 20, status);
     }
 
     if (flutterPackage) {
@@ -1101,11 +1099,11 @@ Future<ReportSection> _multiPlatform(String packageDir, Pubspec pubspec) async {
 }
 
 ReportSection _makeSection(
-    {@required String id,
-    @required String title,
-    @required int maxPoints,
-    @required List<_Subsection> subsections,
-    @required String basePath,
+    {required String id,
+    required String title,
+    required int maxPoints,
+    required List<_Subsection> subsections,
+    required String? basePath,
     int maxIssues = 2}) {
   return ReportSection(
       id: id,
@@ -1119,10 +1117,10 @@ ReportSection _makeSection(
 }
 
 /// Loads [SourceSpan] on-demand.
-typedef SourceSpanFn = SourceSpan Function();
+typedef SourceSpanFn = SourceSpan? Function();
 
 abstract class _Paragraph {
-  String markdown({@required String basePath});
+  String markdown({String? basePath});
 }
 
 class _RawParagraph implements _Paragraph {
@@ -1131,11 +1129,11 @@ class _RawParagraph implements _Paragraph {
   _RawParagraph(this._markdown);
 
   @override
-  String markdown({@required basePath}) => _markdown;
+  String markdown({String? basePath}) => _markdown;
 }
 
 _Issue _unsupportedDartSdk(PackageContext context,
-    {String command, String suggestion}) {
+    {String? command, String? suggestion}) {
   final msg = StringBuffer(
       "Sdk constraint doesn't support current Dart version ${context.currentSdkVersion}.");
   if (command != null) {
@@ -1160,22 +1158,22 @@ class _Issue implements _Paragraph {
   ///
   /// If we know nothing more than the file the problem occurs in (no specific
   /// line numbers), that file path should be included in [description].
-  final SourceSpan span;
+  final SourceSpan? span;
 
   /// Similar to [span], but with deferred loading from the filesystem.
   ///
   /// [SourceSpanFn] may return `null`, if when loaded the offset is invalid.
-  final SourceSpanFn spanFn;
+  final SourceSpanFn? spanFn;
 
   /// Can be used for giving a potential solution of the issue, and
   /// also for a command to reproduce locally.
-  final String suggestion;
+  final String? suggestion;
 
   _Issue(this.description, {this.span, this.spanFn, this.suggestion});
 
   @override
-  String markdown({@required String basePath}) {
-    final span = this.span ?? (spanFn == null ? null : spanFn());
+  String markdown({String? basePath}) {
+    final span = this.span ?? (spanFn == null ? null : spanFn!());
     if (suggestion == null && span == null) {
       return '* $description';
     }
@@ -1196,9 +1194,9 @@ extension on SourceSpan {
   /// An attempt to render [SourceSpan]s in a markdown-friendly way.
   ///
   /// The file path will be relative to [basePath].
-  String markdown({@required String basePath}) {
+  String markdown({String? basePath}) {
     assert(sourceUrl != null);
-    final path = p.relative(sourceUrl.path, from: basePath);
+    final path = p.relative(sourceUrl!.path, from: basePath);
     return '`$path:${start.line + 1}:${start.column + 1}`\n\n'
         '```\n${highlight()}\n```\n';
   }
@@ -1226,7 +1224,7 @@ class _Subsection {
 /// Given an introduction and a list of issues, formats the summary of a
 /// section.
 String _makeSummary(List<_Subsection> subsections,
-    {String introduction, @required String basePath, int maxIssues = 2}) {
+    {String? introduction, String? basePath, int maxIssues = 2}) {
   return [
     if (introduction != null) introduction,
     ...subsections.map((subsection) {
@@ -1235,8 +1233,7 @@ String _makeSummary(List<_Subsection> subsections,
       final statusMarker = reportStatusMarker(subsection.status);
       return [
         '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
-        if (subsection.bodyPrefix != null && subsection.bodyPrefix.isNotEmpty)
-          '${subsection.bodyPrefix}',
+        if (subsection.bodyPrefix.isNotEmpty) '${subsection.bodyPrefix}',
         if (subsection.issues.isNotEmpty &&
             subsection.issues.length <= maxIssues)
           issuesMarkdown.join('\n'),
@@ -1249,7 +1246,7 @@ String _makeSummary(List<_Subsection> subsections,
   ].join('\n\n');
 }
 
-String reportStatusMarker(ReportStatus status) => const {
+String? reportStatusMarker(ReportStatus status) => const {
       ReportStatus.passed: '[*]',
       ReportStatus.failed: '[x]',
       ReportStatus.partial: '[~]'
@@ -1257,10 +1254,10 @@ String reportStatusMarker(ReportStatus status) => const {
 
 /// Renders a summary block for sections that can have only a single issue.
 String renderSimpleSectionSummary({
-  @required String title,
-  @required String description,
-  @required int grantedPoints,
-  @required int maxPoints,
+  required String title,
+  required String? description,
+  required int grantedPoints,
+  required int maxPoints,
 }) {
   return _makeSummary([
     _Subsection(

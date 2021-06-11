@@ -16,7 +16,7 @@ final _regexp = RegExp('^' + // beginning of line
         '\$' // end of line
     );
 
-CodeProblem parseCodeProblem(String content, {String projectDir}) {
+CodeProblem? parseCodeProblem(String content, {String? projectDir}) {
   if (content.isEmpty) {
     return null;
   }
@@ -79,7 +79,7 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
   var description = match[8];
 
   // `dart analyze --format=machine` returns backslashes escaped with double backslash
-  filePath = filePath.replaceAll(r'\\', r'\');
+  filePath = filePath!.replaceAll(r'\\', r'\');
 
   if (projectDir != null) {
     assert(p.isWithin(projectDir, filePath));
@@ -87,13 +87,13 @@ CodeProblem parseCodeProblem(String content, {String projectDir}) {
   }
 
   return CodeProblem(
-    severity: severity,
-    errorType: errorType,
-    errorCode: errorCode,
-    description: description,
+    severity: severity!,
+    errorType: errorType!,
+    errorCode: errorCode!,
+    description: description!,
     file: filePath,
-    line: int.parse(line),
-    col: int.parse(column),
-    length: int.parse(length),
+    line: int.parse(line!),
+    col: int.parse(column!),
+    length: int.parse(length!),
   );
 }

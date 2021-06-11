@@ -10,11 +10,11 @@ import 'package:test/test.dart';
 
 void main() {
   group('Dart SDK library definitions', () {
-    Map<String, dynamic> libraries;
+    Map<String, dynamic>? libraries;
     Set<String> allVmLibs;
-    Set<String> publicVmLibs;
+    late Set<String> publicVmLibs;
     Set<String> allDart2jsLibs;
-    Set<String> publicDart2jsLibs;
+    late Set<String> publicDart2jsLibs;
 
     Set<String> extractLibraries(Map<String, dynamic> map) {
       return map.entries
@@ -28,12 +28,12 @@ void main() {
       // Download and parse https://github.com/dart-lang/sdk/blob/master/sdk/lib/libraries.json
       final librariesContent = await get(Uri.parse(
           'https://raw.githubusercontent.com/dart-lang/sdk/master/sdk/lib/libraries.json'));
-      libraries = json.decode(librariesContent.body) as Map<String, dynamic>;
+      libraries = json.decode(librariesContent.body) as Map<String, dynamic>?;
       allVmLibs = extractLibraries(
-          libraries['vm']['libraries'] as Map<String, dynamic>);
+          libraries!['vm']['libraries'] as Map<String, dynamic>);
       publicVmLibs = allVmLibs.where((s) => !s.startsWith('_')).toSet();
       allDart2jsLibs = extractLibraries(
-          libraries['dart2js']['libraries'] as Map<String, dynamic>);
+          libraries!['dart2js']['libraries'] as Map<String, dynamic>);
       publicDart2jsLibs =
           allDart2jsLibs.where((s) => !s.startsWith('_')).toSet();
     });

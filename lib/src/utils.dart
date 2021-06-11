@@ -20,7 +20,7 @@ final _timeout = const Duration(minutes: 2);
 final _maxLines = 100000;
 
 ProcessResult runProcSync(List<String> arguments,
-    {String workingDirectory, Map<String, String> environment}) {
+    {String? workingDirectory, Map<String, String>? environment}) {
   log.fine('Running `${[...arguments].join(' ')}`...');
   return Process.runSync(
     arguments.first,
@@ -32,9 +32,9 @@ ProcessResult runProcSync(List<String> arguments,
 
 Future<ProcessResult> runProc(
   List<String> arguments, {
-  String workingDirectory,
-  Map<String, String> environment,
-  Duration timeout,
+  String? workingDirectory,
+  Map<String, String>? environment,
+  Duration? timeout,
   bool deduplicate = false,
 }) async {
   log.info('Running `${[...arguments].join(' ')}`...');
@@ -44,11 +44,11 @@ Future<ProcessResult> runProc(
   var stdoutLines = <String>[];
   var stderrLines = <String>[];
 
-  bool killed;
-  String killMessage;
+  var killed = false;
+  String? killMessage;
 
   void killProc(String message) {
-    if (killed != true) {
+    if (!killed) {
       killMessage = message;
       log.severe('Killing `${arguments.join(' ')}` $killMessage');
       killed = process.kill();
@@ -61,7 +61,7 @@ Future<ProcessResult> runProc(
     killProc('Exceeded timeout of $timeout');
   });
 
-  var items = await Future.wait(<Future<Object>>[
+  var items = await Future.wait(<Future>[
     process.exitCode,
     _byteStreamSplit(process.stdout).forEach((outLine) {
       // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
@@ -134,7 +134,7 @@ Future<ProcessResult> retryProc(
   int maxAttempt = 3,
   Duration sleep = const Duration(seconds: 1),
 }) async {
-  ProcessResult result;
+  ProcessResult? result;
   for (var i = 1; i <= maxAttempt; i++) {
     try {
       result = await body();
@@ -150,13 +150,13 @@ Future<ProcessResult> retryProc(
       rethrow;
     }
   }
-  return result;
+  return result!;
 }
 
 bool _defaultShouldRetry(ProcessResult pr) => pr.exitCode != 0;
 
 Stream<String> listFiles(String directory,
-    {String endsWith, bool deleteBadExtracted = false}) {
+    {String? endsWith, bool deleteBadExtracted = false}) {
   var dir = Directory(directory);
   return dir
       .list(recursive: true)
@@ -184,7 +184,7 @@ String prettyJson(obj) {
     dynamic error = e;
 
     while (error is JsonUnsupportedObjectError) {
-      final jsError = error as JsonUnsupportedObjectError;
+      final jsError = error;
       log.severe(
         '${jsError.unsupportedObject} - (${jsError.unsupportedObject.runtimeType}).'
         ' Nested cause: ${jsError.cause}',
@@ -198,14 +198,14 @@ String prettyJson(obj) {
   }
 }
 
-Object sortedJson(obj) {
+dynamic sortedJson(obj) {
   var fullJson = json.decode(json.encode(obj));
   return _toSortedMap(fullJson);
 }
 
-dynamic _toSortedMap(Object item) {
+dynamic _toSortedMap(dynamic item) {
   if (item is Map) {
-    return SplayTreeMap<String, Object>.fromIterable(item.keys,
+    return SplayTreeMap<String, dynamic>.fromIterable(item.keys,
         value: (k) => _toSortedMap(item[k]));
   } else if (item is List) {
     return item.map(_toSortedMap).toList();
@@ -214,7 +214,7 @@ dynamic _toSortedMap(Object item) {
   }
 }
 
-Map<String, Object> yamlToJson(String yamlContent) {
+Map<String, dynamic>? yamlToJson(String? yamlContent) {
   if (yamlContent == null) {
     return null;
   }
@@ -222,7 +222,7 @@ Map<String, Object> yamlToJson(String yamlContent) {
 
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
-  return sortedJson(json.decode(json.encode(yamlMap))) as Map<String, Object>;
+  return sortedJson(json.decode(json.encode(yamlMap))) as Map<String, dynamic>;
 }
 
 /// Returns the list of directories to focus on (e.g. bin, lib) - if they exist.
@@ -256,7 +256,7 @@ Stream<ProcessSignal> getSignals() => Platform.isWindows
 /// (number of runes that are non-ASCII) / (total number of character runes).
 ///
 /// The return value is between [0.0 - 1.0].
-double nonAsciiRuneRatio(String text) {
+double nonAsciiRuneRatio(String? text) {
   if (text == null || text.isEmpty) {
     return 0.0;
   }

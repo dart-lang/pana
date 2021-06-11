@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
-import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -17,14 +16,15 @@ import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
 import 'pubspec_io.dart';
 import 'utils.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'version.dart';
 
 const _dartfmtTimeout = Duration(minutes: 5);
 
 class ToolEnvironment {
-  final String dartSdkDir;
-  final String flutterSdkDir;
-  final String pubCacheDir;
+  final String? dartSdkDir;
+  final String? flutterSdkDir;
+  final String? pubCacheDir;
   final List<String> _dartCmd;
   final List<String> _pubCmd;
   final List<String> _dartAnalyzerCmd;
@@ -35,7 +35,7 @@ class ToolEnvironment {
   // https://github.com/flutter/flutter/issues/23664
   final List<String> _flutterDartAnalyzerCmd;
   final Map<String, String> _environment;
-  PanaRuntimeInfo _runtimeInfo;
+  PanaRuntimeInfo? _runtimeInfo;
   bool _useGlobalDartdoc;
 
   ToolEnvironment._(
@@ -57,17 +57,17 @@ class ToolEnvironment {
     this.dartSdkDir,
     this.flutterSdkDir,
     this.pubCacheDir,
-    List<String> dartCmd,
-    List<String> pubCmd,
-    List<String> dartAnalyzerCmd,
-    List<String> dartfmtCmd,
-    List<String> dartdocCmd,
-    List<String> flutterCmd,
-    List<String> flutterDartAnalyzerCmd,
-    Map<String, String> environment,
-    bool useGlobalDartdoc,
-    PanaRuntimeInfo runtimeInfo,
-  })  : _dartCmd = dartCmd,
+    List<String> dartCmd = const <String>[],
+    List<String> pubCmd = const <String>[],
+    List<String> dartAnalyzerCmd = const <String>[],
+    List<String> dartfmtCmd = const <String>[],
+    List<String> dartdocCmd = const <String>[],
+    List<String> flutterCmd = const <String>[],
+    List<String> flutterDartAnalyzerCmd = const <String>[],
+    Map<String, String> environment = const <String, String>{},
+    bool useGlobalDartdoc = false,
+    required PanaRuntimeInfo runtimeInfo,
+  })   : _dartCmd = dartCmd,
         _pubCmd = pubCmd,
         _dartAnalyzerCmd = dartAnalyzerCmd,
         _dartfmtCmd = dartfmtCmd,
@@ -78,14 +78,14 @@ class ToolEnvironment {
         _useGlobalDartdoc = useGlobalDartdoc,
         _runtimeInfo = runtimeInfo;
 
-  PanaRuntimeInfo get runtimeInfo => _runtimeInfo;
+  PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
   Future _init() async {
     final dartVersionResult = handleProcessErrors(
         await runProc([..._dartCmd, '--version'], environment: _environment));
     final dartVersionString = dartVersionResult.stderr.toString().trim();
     final dartSdkInfo = DartSdkInfo.parse(dartVersionString);
-    Map<String, dynamic> flutterVersions;
+    Map<String, dynamic>? flutterVersions;
     try {
       flutterVersions = await getFlutterVersion();
     } catch (e) {
@@ -94,18 +94,18 @@ class ToolEnvironment {
     _runtimeInfo = PanaRuntimeInfo(
       panaVersion: packageVersion,
       sdkVersion: dartSdkInfo.version.toString(),
-      flutterVersions: flutterVersions,
+      flutterVersions: flutterVersions ?? <String, String>{},
     );
   }
 
   static Future<ToolEnvironment> create({
-    String dartSdkDir,
-    String flutterSdkDir,
-    String pubCacheDir,
-    Map<String, String> environment,
+    String? dartSdkDir,
+    String? flutterSdkDir,
+    String? pubCacheDir,
+    Map<String, String>? environment,
     bool useGlobalDartdoc = false,
   }) async {
-    Future<String> resolve(String dir) async {
+    Future<String?> resolve(String? dir) async {
       if (dir == null) return null;
       return Directory(dir).resolveSymbolicLinks();
     }
@@ -165,11 +165,11 @@ class ToolEnvironment {
     String packageDir,
     String dir,
     bool usesFlutter, {
-    @required InspectOptions inspectOptions,
+    required InspectOptions inspectOptions,
   }) async {
     final analysisOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
-    String originalOptions;
+    String? originalOptions;
     if (await analysisOptionsFile.exists()) {
       originalOptions = await analysisOptionsFile.readAsString();
     }
@@ -219,7 +219,7 @@ class ToolEnvironment {
   }
 
   Future<List<String>> filesNeedingFormat(String packageDir, bool usesFlutter,
-      {int lineLength}) async {
+      {int? lineLength}) async {
     final dirs = await listFocusDirs(packageDir);
     if (dirs.isEmpty) {
       return const [];
@@ -296,10 +296,14 @@ class ToolEnvironment {
         environment: environment,
       );
 
-  Future<Map<String, Object>> getFlutterVersion() async {
-    var result = handleProcessErrors(
+  Future<Map<String, dynamic>> getFlutterVersion() async {
+    final result = handleProcessErrors(
         await runProc([..._flutterCmd, '--version', '--machine']));
-    return json.decode(result.stdout as String) as Map<String, Object>;
+    var content = result.stdout as String;
+    if (content.startsWith('Waiting for another flutter')) {
+      content = content.split('\n').skip(1).join('\n');
+    }
+    return json.decode(content) as Map<String, dynamic>;
   }
 
   Future<bool> detectFlutterUse(String packageDir) async {
@@ -339,7 +343,7 @@ class ToolEnvironment {
     }
   }
 
-  Future<Map<String, Object>> runPubOutdated(String packageDir,
+  Future<Map<String, dynamic>> runPubOutdated(String packageDir,
       {List<String> args = const []}) async {
     final getResult = await runProc(
       [..._pubCmd, 'get'],
@@ -358,7 +362,7 @@ class ToolEnvironment {
     if (result.exitCode != 0) {
       throw ToolException('`dart pub outdated` failed: ${result.stderr}');
     } else {
-      return json.decode(result.stdout as String) as Map<String, Object>;
+      return json.decode(result.stdout as String) as Map<String, dynamic>;
     }
   }
 
@@ -382,12 +386,12 @@ class ToolEnvironment {
   Future<DartdocResult> dartdoc(
     String packageDir,
     String outputDir, {
-    String hostedUrl,
-    String canonicalPrefix,
+    String? hostedUrl,
+    String? canonicalPrefix,
     bool validateLinks = true,
     bool linkToRemote = false,
-    Duration timeout,
-    List<String> excludedLibs,
+    Duration? timeout,
+    List<String>? excludedLibs,
   }) async {
     ProcessResult pr;
     final args = [
@@ -439,7 +443,7 @@ class ToolEnvironment {
 
     final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
     final original = await pubspec.readAsString();
-    final parsed = yamlToJson(original);
+    final parsed = yamlToJson(original) ?? <String, dynamic>{};
     parsed.remove('dev_dependencies');
     parsed.remove('dependency_overrides');
 
@@ -449,7 +453,7 @@ class ToolEnvironment {
     // and should be analyzed.
     final environment = parsed.putIfAbsent('environment', () => {});
     if (environment is Map) {
-      VersionConstraint vc;
+      VersionConstraint? vc;
       if (environment['sdk'] is String) {
         try {
           vc = VersionConstraint.parse(environment['sdk'] as String);
@@ -458,13 +462,13 @@ class ToolEnvironment {
       final range = vc is VersionRange ? vc : null;
       if (range != null &&
           range.min != null &&
-          !range.min.isAny &&
-          !range.min.isEmpty) {
+          !range.min!.isAny &&
+          !range.min!.isEmpty) {
         // looks good
       } else {
         final maxValue = range?.max == null
-            ? '<=${_runtimeInfo.sdkVersion}'
-            : '${range.includeMax ? '<=' : '<'}${range.max}';
+            ? '<=${_runtimeInfo!.sdkVersion}'
+            : '${range!.includeMax ? '<=' : '<'}${range.max}';
         environment['sdk'] = '>=1.0.0 $maxValue';
       }
     }
@@ -508,15 +512,15 @@ class DartSdkInfo {
   );
 
   // TODO: parse an actual `DateTime` here. Likely requires using pkg/intl
-  final String dateString;
-  final String platform;
+  final String? dateString;
+  final String? platform;
   final Version version;
 
   DartSdkInfo._(this.version, this.dateString, this.platform);
 
   factory DartSdkInfo.parse(String versionOutput) {
     var match = _sdkRegexp.firstMatch(versionOutput);
-    var version = Version.parse(match[1]);
+    var version = Version.parse(match![1]!);
     var dateString = match[2];
     var platform = match[3];
 
@@ -527,7 +531,7 @@ class DartSdkInfo {
 const _pubCacheKey = 'PUB_CACHE';
 const _pubEnvironmentKey = 'PUB_ENVIRONMENT';
 
-String _join(String path, String binDir, String executable) {
+String _join(String? path, String binDir, String executable) {
   var cmd = path == null ? executable : p.join(path, binDir, executable);
   if (Platform.isWindows) {
     final ext = executable == 'dart' ? 'exe' : 'bat';

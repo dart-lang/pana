@@ -10,9 +10,9 @@ final Logger _log = Logger('pana');
 
 final _key = Object();
 
-Future<R> withLogger<R>(Future<R> Function() fn, {Logger logger}) => runZoned(
+Future<R> withLogger<R>(Future<R> Function() fn, {Logger? logger}) => runZoned(
       fn,
       zoneValues: {_key: logger},
     );
 
-Logger get log => Zone.current[_key] as Logger ?? _log;
+Logger get log => (Zone.current[_key] as Logger?) ?? _log;

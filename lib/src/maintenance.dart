@@ -45,7 +45,7 @@ final List<String> analysisOptionsFiles = const [
   '.analysis_options',
 ];
 
-String firstFileFromNames(List<String> files, List<String> names,
+String? firstFileFromNames(List<String> files, List<String> names,
     {bool caseSensitive = false}) {
   for (var name in names) {
     for (var file in files) {

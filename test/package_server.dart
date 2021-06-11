@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:shelf/shelf.dart' as shelf;
@@ -15,14 +16,14 @@ import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
 /// The current global [PackageServer].
-PackageServer get globalPackageServer => _globalPackageServer;
-PackageServer _globalPackageServer;
+PackageServer? get globalPackageServer => _globalPackageServer;
+PackageServer? _globalPackageServer;
 
 /// Creates an HTTP server that replicates the structure of pub.dartlang.org.
 ///
 /// Calls [callback] with a [PackageServerBuilder] that's used to specify
 /// which packages to serve.
-Future servePackages([void Function(PackageServerBuilder) callback]) async {
+Future servePackages([void Function(PackageServerBuilder?)? callback]) async {
   _globalPackageServer = await PackageServer.start(callback ?? (_) {});
 
   addTearDown(() {
@@ -64,7 +65,7 @@ class PackageServer {
   /// This server exists only for the duration of the pub run. Subsequent calls
   /// to [serve()] replace the previous server.
   static Future<PackageServer> start(
-      void Function(PackageServerBuilder) callback) async {
+      void Function(PackageServerBuilder?) callback) async {
     final result =
         PackageServer._(await shelf_io.IOServer.bind('localhost', 0));
     result.add(callback);
@@ -86,11 +87,11 @@ class PackageServer {
     contents..add(d.dir('api', [_servedApiPackageDir]))..add(_servedPackageDir);
     _server.mount((request) async {
       final pathWithInitialSlash = '/${request.url.path}';
-      final key = extraHandlers.keys.firstWhere((pattern) {
+      final key = extraHandlers.keys.firstWhereOrNull((pattern) {
         final match = pattern.matchAsPrefix(pathWithInitialSlash);
         return match != null && match.end == pathWithInitialSlash.length;
-      }, orElse: () => null);
-      if (key != null) return extraHandlers[key](request);
+      });
+      if (key != null) return extraHandlers[key]!(request);
 
       var path = p.posix.fromUri(request.url.path);
       requestedPaths.add(path);
@@ -126,16 +127,16 @@ class PackageServer {
   /// package to serve.
   ///
   /// This is preserved so that additional packages can be added.
-  PackageServerBuilder _builder;
+  PackageServerBuilder? _builder;
 
   /// Add to the current set of packages that are being served.
-  void add(void Function(PackageServerBuilder) callback) {
+  void add(void Function(PackageServerBuilder?) callback) {
     callback(_builder);
 
     _servedApiPackageDir.contents.clear();
     _servedPackageDir.contents.clear();
 
-    _builder._packages.forEach((name, package) {
+    _builder!._packages.forEach((name, package) {
       _servedApiPackageDir.contents.addAll([
         d.file(
             name,
@@ -198,11 +199,11 @@ class PackageServerBuilder {
   /// If [contents] is passed, it's used as the contents of the package. By
   /// default, a package just contains a dummy lib directory.
   void serve(String name, String version,
-      {Map<String, dynamic> deps,
-      Map<String, dynamic> pubspec,
-      Map<String, String> versionData,
-      Iterable<d.Descriptor> contents,
-      DateTime published}) {
+      {Map<String, dynamic>? deps,
+      Map<String, dynamic>? pubspec,
+      Map<String, String>? versionData,
+      Iterable<d.Descriptor>? contents,
+      DateTime? published}) {
     var pubspecFields = <String, dynamic>{
       'name': name,
       'version': version,
@@ -232,7 +233,7 @@ class PackageServerBuilder {
 
 /// Describes a directory named `lib` containing a single dart file named
 /// `<name>.dart` that contains a line of Dart code.
-d.Descriptor libDir(String name, [String code]) {
+d.Descriptor libDir(String name, [String? code]) {
   // Default to printing the name if no other code was given.
   code ??= name;
   return d.dir('lib', [d.file('$name.dart', 'main() => "$code";')]);
@@ -241,14 +242,14 @@ d.Descriptor libDir(String name, [String code]) {
 class _ServedPackage {
   List<_ServedPackageVersion> versions = [];
   bool isDiscontinued = false;
-  String discontinuedReplacementText;
+  String? discontinuedReplacementText;
 }
 
 /// A package that's intended to be served.
 class _ServedPackageVersion {
   final Map pubspec;
   final List<d.Descriptor> contents;
-  final DateTime published;
+  final DateTime? published;
 
   Version get version => Version.parse(pubspec['version'] as String);
 

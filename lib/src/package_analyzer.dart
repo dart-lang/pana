@@ -22,15 +22,15 @@ import 'tag_detection.dart';
 import 'utils.dart';
 
 class InspectOptions {
-  final String pubHostedUrl;
-  final String dartdocOutputDir;
+  final String? pubHostedUrl;
+  final String? dartdocOutputDir;
   final int dartdocRetry;
-  final Duration dartdocTimeout;
+  final Duration? dartdocTimeout;
   final bool isInternal;
-  final int lineLength;
+  final int? lineLength;
 
   /// The analysis options (in yaml format) to use for the analysis.
-  final String analysisOptionsYaml;
+  final String? analysisOptionsYaml;
 
   InspectOptions({
     this.pubHostedUrl,
@@ -47,14 +47,14 @@ class PackageAnalyzer {
   final ToolEnvironment _toolEnv;
   final UrlChecker _urlChecker;
 
-  PackageAnalyzer(this._toolEnv, {UrlChecker urlChecker})
+  PackageAnalyzer(this._toolEnv, {UrlChecker? urlChecker})
       : _urlChecker = urlChecker ?? UrlChecker();
 
   static Future<PackageAnalyzer> create({
-    String sdkDir,
-    String flutterDir,
-    String pubCacheDir,
-    String pubHostedUrl,
+    String? sdkDir,
+    String? flutterDir,
+    String? pubCacheDir,
+    String? pubHostedUrl,
   }) async {
     return PackageAnalyzer(await ToolEnvironment.create(
         dartSdkDir: sdkDir,
@@ -67,25 +67,25 @@ class PackageAnalyzer {
 
   Future<Summary> inspectPackage(
     String package, {
-    String version,
-    InspectOptions options,
-    Logger logger,
+    String? version,
+    InspectOptions? options,
+    Logger? logger,
   }) async {
     options ??= InspectOptions();
     return withLogger(() async {
       return withTempDir((tempDir) async {
         await downloadPackage(package, version,
-            destination: tempDir, pubHostedUrl: options.pubHostedUrl);
+            destination: tempDir, pubHostedUrl: options!.pubHostedUrl);
         return await _inspect(tempDir, options);
       });
     }, logger: logger);
   }
 
-  Future<Summary> inspectDir(String packageDir, {InspectOptions options}) {
+  Future<Summary> inspectDir(String packageDir, {InspectOptions? options}) {
     options ??= InspectOptions();
     return withTempDir((tempDir) async {
       await _copy(packageDir, tempDir);
-      return await _inspect(tempDir, options);
+      return await _inspect(tempDir, options!);
     });
   }
 
@@ -112,7 +112,7 @@ class PackageAnalyzer {
       }
     }
 
-    Pubspec pubspec;
+    Pubspec? pubspec;
     try {
       pubspec = context.pubspec;
     } catch (e, st) {
@@ -143,7 +143,7 @@ class PackageAnalyzer {
         try {
           final r = await _toolEnv.dartdoc(
             pkgDir,
-            options.dartdocOutputDir,
+            options.dartdocOutputDir!,
             validateLinks: i == 0,
             timeout: options.dartdocTimeout,
           );
@@ -158,7 +158,7 @@ class PackageAnalyzer {
 
     final tags = <String>[];
     if (pkgResolution != null) {
-      List<CodeProblem> analyzerItems;
+      List<CodeProblem>? analyzerItems;
       if (dartFiles.isNotEmpty) {
         try {
           analyzerItems = await context.staticAnalysis();
@@ -192,7 +192,7 @@ class PackageAnalyzer {
       packageVersion: pubspec.version,
       pubspec: pubspec,
       allDependencies:
-          pkgResolution?.dependencies?.map((d) => d.package)?.toList(),
+          pkgResolution?.dependencies.map((d) => d.package).toList(),
       licenseFile: licenseFile?.change(url: licenseUrl),
       tags: tags,
       report: await createReport(context),

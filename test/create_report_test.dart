@@ -153,14 +153,14 @@ Call this method..
 
   group('trustworthy dependency', () {
     test('Gives points despite outdated package', () async {
-      await servePackages((b) => b
+      await servePackages((b) => b!
         ..serve('foo', '1.2.3',
             published: DateTime.now().subtract(const Duration(days: 2))));
       final descriptor = package('my_package',
           sdkConstraint: '>=2.10.0 <3.0.0',
           dependencies: {
             'foo': {
-              'hosted': {'name': 'foo', 'url': globalPackageServer.url},
+              'hosted': {'name': 'foo', 'url': globalPackageServer!.url},
               'version': '^1.1.0'
             }
           });
@@ -179,8 +179,8 @@ Call this method..
       DateTime daysAgo(int days) =>
           DateTime.now().subtract(Duration(days: days));
       {
-        globalPackageServer.add(
-          (b) => b.serve('foo', '4.0.0',
+        globalPackageServer!.add(
+          (b) => b!.serve('foo', '4.0.0',
               pubspec: {
                 'environment': {
                   'sdk': VersionConstraint.compatibleWith(
@@ -201,8 +201,8 @@ Call this method..
         expect(section.grantedPoints, 20);
       }
       {
-        globalPackageServer
-            .add((b) => b.serve('foo', '3.0.0', published: daysAgo(3)));
+        globalPackageServer!
+            .add((b) => b!.serve('foo', '3.0.0', published: daysAgo(3)));
 
         final section = await trustworthyDependency(context);
         expect(
@@ -214,8 +214,8 @@ Call this method..
         expect(section.grantedPoints, 20);
       }
       {
-        globalPackageServer.add(
-          (b) => b.serve(
+        globalPackageServer!.add(
+          (b) => b!.serve(
             'foo',
             '2.0.0',
             pubspec: {
