@@ -374,7 +374,8 @@ class ToolEnvironment {
     return env;
   }
 
-  @Deprecated('Instead specify useGlobalDartdoc as true with ToolEnvironment.create.')
+  @Deprecated(
+      'Instead specify useGlobalDartdoc as true with ToolEnvironment.create.')
   Future activateGlobalDartdoc(String version) async {
     handleProcessErrors(await runProc(
       [..._pubCmd, 'global', 'activate', 'dartdoc', version],
