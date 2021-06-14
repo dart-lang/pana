@@ -2,6 +2,7 @@
 
 * Limit the length of the source spans in the report.
 * Removed package list of 2.10 null-safety experiments.
+* Detect `git` monorepo root and copy everything from that root for local analysis.
 * Update dependencies to latest.
 * Migration to null-safety.
 
