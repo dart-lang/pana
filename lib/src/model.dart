@@ -157,38 +157,6 @@ abstract class LicenseNames {
   static const String mpl = 'MPL';
   static const String unlicense = 'Unlicense';
   static const String unknown = 'unknown';
-
-  @Deprecated('Use LicenseNames.agpl instead.')
-  // ignore: constant_identifier_names
-  static const String AGPL = agpl;
-
-  @Deprecated('Use LicenseNames.apache instead.')
-  // ignore: constant_identifier_names
-  static const String Apache = apache;
-
-  @Deprecated('Use LicenseNames.bsd instead.')
-  // ignore: constant_identifier_names
-  static const String BSD = bsd;
-
-  @Deprecated('Use LicenseNames.gpl instead.')
-  // ignore: constant_identifier_names
-  static const String GPL = gpl;
-
-  @Deprecated('Use LicenseNames.lgpl instead.')
-  // ignore: constant_identifier_names
-  static const String LGPL = lgpl;
-
-  @Deprecated('Use LicenseNames.mit instead.')
-  // ignore: constant_identifier_names
-  static const String MIT = mit;
-
-  @Deprecated('Use LicenseNames.mpl instead.')
-  // ignore: constant_identifier_names
-  static const String MPL = mpl;
-
-  @Deprecated('Use LicenseNames.unlicense instead.')
-  // ignore: constant_identifier_names
-  static const String Unlicense = unlicense;
 }
 
 @JsonSerializable()
@@ -416,43 +384,4 @@ class ReportSection {
       _$ReportSectionFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReportSectionToJson(this);
-}
-
-/// The json output from `dart pub outdated --json`.
-@JsonSerializable()
-class Outdated {
-  final List<OutdatedPackage> packages;
-
-  Outdated(this.packages);
-
-  static Outdated fromJson(Map<String, dynamic> json) =>
-      _$OutdatedFromJson(json);
-
-  Map<String, dynamic> toJson() => _$OutdatedToJson(this);
-}
-
-@JsonSerializable()
-class OutdatedPackage {
-  final String package;
-  final VersionDescriptor? upgradable;
-  final VersionDescriptor? latest;
-
-  OutdatedPackage(this.package, this.upgradable, this.latest);
-
-  static OutdatedPackage fromJson(Map<String, dynamic> json) =>
-      _$OutdatedPackageFromJson(json);
-
-  Map<String, dynamic> toJson() => _$OutdatedPackageToJson(this);
-}
-
-@JsonSerializable()
-class VersionDescriptor {
-  final String version;
-
-  VersionDescriptor(this.version);
-
-  static VersionDescriptor fromJson(Map<String, dynamic> json) =>
-      _$VersionDescriptorFromJson(json);
-
-  Map<String, dynamic> toJson() => _$VersionDescriptorToJson(this);
 }
