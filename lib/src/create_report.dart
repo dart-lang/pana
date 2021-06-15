@@ -605,7 +605,8 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
           return [];
         }
         final parsedVersion = Version.parse(versionString);
-        if (parsedVersion.isPreRelease ||
+        if (parsedVersion.isPreRelease) continue;
+        if (package.upgradable != null &&
             parsedVersion <= Version.parse(package.upgradable!.version)) {
           continue;
         }
