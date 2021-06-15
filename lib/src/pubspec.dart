@@ -64,16 +64,16 @@ class Pubspec {
   Set<String> get dependentSdks {
     if (_dependentSdks == null) {
       _dependentSdks = SplayTreeSet();
-      dependencies.values.forEach((value) {
+      for (final value in dependencies.values) {
         if (value is SdkDependency) {
           _dependentSdks!.add(value.sdk);
         }
-      });
-      devDependencies.values.forEach((value) {
+      }
+      for (final value in devDependencies.values) {
         if (value is SdkDependency) {
           _dependentSdks!.add(value.sdk);
         }
-      });
+      }
       if (_inner.environment != null) {
         final keys = _inner.environment!.keys.toList();
         keys.remove('sdk');

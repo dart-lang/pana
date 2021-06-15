@@ -1233,7 +1233,7 @@ String _makeSummary(List<_Subsection> subsections,
       final statusMarker = reportStatusMarker(subsection.status);
       return [
         '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
-        if (subsection.bodyPrefix.isNotEmpty) '${subsection.bodyPrefix}',
+        if (subsection.bodyPrefix.isNotEmpty) subsection.bodyPrefix,
         if (subsection.issues.isNotEmpty &&
             subsection.issues.length <= maxIssues)
           issuesMarkdown.join('\n'),

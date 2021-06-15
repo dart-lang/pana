@@ -34,7 +34,7 @@ Future<ToolEnvironment> testToolEnvironment() async {
         'frameworkCommitDate': '2021-02-19 10:03:46 +0100',
         'engineRevision': 'b04955656c87de0d80d259792e3a0e4a23b7c260',
         'dartSdkVersion': '2.12.0 (build 2.12.0)',
-        'flutterRoot': '${fakeFlutterRoot.io.path}'
+        'flutterRoot': fakeFlutterRoot.io.path
       },
     ),
   );

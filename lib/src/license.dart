@@ -70,32 +70,32 @@ LicenseFile? detectLicenseInContent(String originalContent,
   }
 
   if (_mpl.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.MPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.mpl, version: version);
   }
   if (_agpl.hasMatch(stripped) && !_useWithAgpl.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.AGPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.agpl, version: version);
   }
   if (_apache.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.Apache, version: version);
+    return LicenseFile(relativePath, LicenseNames.apache, version: version);
   }
   if (_lgpl.hasMatch(stripped) && !_useLgplInstead.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.LGPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.lgpl, version: version);
   }
   if (_gplLong.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.GPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.gpl, version: version);
   }
   if (_gplShort.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.GPL, version: version);
+    return LicenseFile(relativePath, LicenseNames.gpl, version: version);
   }
   if (_mit.hasMatch(stripped) || _mitEmphasis.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.MIT, version: version);
+    return LicenseFile(relativePath, LicenseNames.mit, version: version);
   }
   if (_unlicense.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.Unlicense, version: version);
+    return LicenseFile(relativePath, LicenseNames.unlicense, version: version);
   }
 
   if (_bsdPreamble.hasMatch(stripped) && _bsdEmphasis.hasMatch(stripped)) {
-    return LicenseFile(relativePath, LicenseNames.BSD);
+    return LicenseFile(relativePath, LicenseNames.bsd);
   }
 
   return null;
