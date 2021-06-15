@@ -84,8 +84,10 @@ class PackageAnalyzer {
   Future<Summary> inspectDir(String packageDir, {InspectOptions? options}) {
     options ??= InspectOptions();
     return withTempDir((tempDir) async {
-      await _copy(packageDir, tempDir);
-      return await _inspect(tempDir, options!);
+      final rootDir = await _detectGitRoot(packageDir) ?? packageDir;
+      await _copy(rootDir, tempDir);
+      final relativeDir = path.relative(packageDir, from: rootDir);
+      return await _inspect(path.join(tempDir, relativeDir), options!);
     });
   }
 
@@ -199,6 +201,17 @@ class PackageAnalyzer {
       errorMessage: errorMessage,
     );
   }
+}
+
+Future<String?> _detectGitRoot(String packageDir) async {
+  final pr = await runProc(
+    ['git', 'rev-parse', '--show-toplevel'],
+    workingDirectory: packageDir,
+  );
+  if (pr.exitCode == 0) {
+    return pr.stdout.toString();
+  }
+  return null;
 }
 
 Future<void> _copy(String from, String to) async {
