@@ -1,4 +1,4 @@
-## 0.17.2-dev
+## 0.18.0
 
 * Limit the length of the source spans in the report.
 * Removed package list of 2.10 null-safety experiments.
@@ -8,6 +8,7 @@
 * **BREAKING CHANGES**
   * Deprecate the `SCREAMING_CAPS` versions of the `LicenseNames` constants. 
     Use the newly introduced `lowerCamelCase` versions instead.
+  * Removed internal models from public API (`Outdated`, `OutdatedPackage`, `VersionDescriptor`).
 
 ## 0.17.1
 

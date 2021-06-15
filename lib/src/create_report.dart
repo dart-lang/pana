@@ -22,6 +22,7 @@ import 'package:yaml/yaml.dart';
 
 import 'dartdoc_analyzer.dart';
 import 'download_utils.dart';
+import 'internal_model.dart';
 import 'logging.dart';
 import 'maintenance.dart';
 import 'markdown_content.dart';
