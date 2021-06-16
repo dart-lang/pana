@@ -1,3 +1,7 @@
+## 0.18.2
+
+* Fix the detection of Flutter SDK.
+
 ## 0.18.1
 
 * Fix null safety operator bug.

@@ -94,7 +94,7 @@ class ToolEnvironment {
     _runtimeInfo = PanaRuntimeInfo(
       panaVersion: packageVersion,
       sdkVersion: dartSdkInfo.version.toString(),
-      flutterVersions: flutterVersions ?? <String, String>{},
+      flutterVersions: flutterVersions,
     );
   }
 
