@@ -865,10 +865,12 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
         if (usesFlutter) {
           // TODO(sigurdm): this will not work well locally (installed version will
           // not be latest). Perhaps we should query somewhere for the latest version.
-          final currentFlutterVersion =
-              Version.parse(runtimeInfo.flutterVersion!);
+          final currentFlutterVersion = runtimeInfo.flutterVersion == null
+              ? null
+              : Version.parse(runtimeInfo.flutterVersion!);
           final flutterConstraint = pubspec.flutterSdkConstraint;
           if (flutterConstraint != null &&
+              currentFlutterVersion != null &&
               !flutterConstraint.allows(currentFlutterVersion)) {
             issues.add(
               _Issue(
