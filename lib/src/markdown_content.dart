@@ -44,11 +44,11 @@ ExctractedMarkdownContent _scanMarkdownText(
     images: _unique(html
         .querySelectorAll('img')
         .where((e) => e.attributes.containsKey('src'))
-        .map((e) => Link(e.attributes['src']!, e.sourceSpan!))),
+        .map((e) => Link(e.attributes['src']!, e.sourceSpan))),
     links: _unique(html
         .querySelectorAll('a')
         .where((e) => e.attributes.containsKey('href'))
-        .map((e) => Link(e.attributes['href']!, e.sourceSpan!))),
+        .map((e) => Link(e.attributes['href']!, e.sourceSpan))),
     isMalformedUtf8: isMalformedUtf8,
     nonAsciiRatio: nonAsciiRuneRatio(text),
   );
@@ -93,7 +93,7 @@ Future<Links> checkLinks(List<Link> links) async {
 
 class Link {
   final String url;
-  final SourceSpan span;
+  final SourceSpan? span;
   Link(this.url, this.span);
 }
 

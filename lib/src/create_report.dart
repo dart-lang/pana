@@ -868,7 +868,8 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
           final currentFlutterVersion =
               Version.parse(runtimeInfo.flutterVersion!);
           final flutterConstraint = pubspec.flutterSdkConstraint;
-          if (!flutterConstraint.allows(currentFlutterVersion)) {
+          if (flutterConstraint != null &&
+              !flutterConstraint.allows(currentFlutterVersion)) {
             issues.add(
               _Issue(
                 'The current flutter constraint does not allow the latest Flutter ($currentFlutterVersion)',
