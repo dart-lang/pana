@@ -84,10 +84,10 @@ class PanaRuntimeInfo {
 
   Map<String, dynamic> toJson() => _$PanaRuntimeInfoToJson(this);
 
-  bool get hasFlutter => flutterVersions != null;
+  bool get hasFlutter => flutterVersions?.isNotEmpty ?? false;
 
   /// The Flutter SDK version.
-  String? get flutterVersion => flutterVersions == null
+  String? get flutterVersion => hasFlutter
       ? null
       : flutterVersions!['frameworkVersion'] as String?;
 
