@@ -87,13 +87,11 @@ class PanaRuntimeInfo {
   bool get hasFlutter => flutterVersions?.isNotEmpty ?? false;
 
   /// The Flutter SDK version.
-  String? get flutterVersion =>
-      hasFlutter ? null : flutterVersions!['frameworkVersion'] as String?;
+  String? get flutterVersion => flutterVersions?['frameworkVersion'] as String?;
 
   /// The Dart SDK used by Flutter internally.
   String? get flutterInternalDartSdkVersion {
-    if (flutterVersions == null) return null;
-    final value = flutterVersions!['dartSdkVersion'] as String?;
+    final value = flutterVersions?['dartSdkVersion'] as String?;
     if (value == null) return null;
     final parts = value.split(' ');
     if (parts.length > 2 && parts[1] == '(build' && parts[2].endsWith(')')) {
