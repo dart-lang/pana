@@ -1,3 +1,7 @@
+## 0.18.1
+
+* Fix null safety operator bug.
+
 ## 0.18.0
 
 * Limit the length of the source spans in the report.
