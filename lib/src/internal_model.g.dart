@@ -48,3 +48,28 @@ Map<String, dynamic> _$VersionDescriptorToJson(VersionDescriptor instance) =>
     <String, dynamic>{
       'version': instance.version,
     };
+
+CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) {
+  return CodeProblem(
+    severity: json['severity'] as String,
+    errorType: json['errorType'] as String,
+    errorCode: json['errorCode'] as String,
+    description: json['description'] as String,
+    file: json['file'] as String,
+    line: json['line'] as int,
+    col: json['col'] as int,
+    length: json['length'] as int,
+  );
+}
+
+Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>
+    <String, dynamic>{
+      'severity': instance.severity,
+      'errorType': instance.errorType,
+      'errorCode': instance.errorCode,
+      'file': instance.file,
+      'line': instance.line,
+      'col': instance.col,
+      'length': instance.length,
+      'description': instance.description,
+    };

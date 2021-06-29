@@ -6,7 +6,7 @@ library pana.code_problem;
 
 import 'package:path/path.dart' as p;
 
-import 'model.dart';
+import 'internal_model.dart';
 
 final _regexp = RegExp('^' + // beginning of line
         '([\\w_\\.]+)\\|' * 3 + // first three error notes

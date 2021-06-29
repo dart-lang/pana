@@ -36,7 +36,7 @@ class ToolEnvironment {
   final List<String> _flutterDartAnalyzerCmd;
   final Map<String, String> _environment;
   PanaRuntimeInfo? _runtimeInfo;
-  bool _useGlobalDartdoc;
+  final bool _useGlobalDartdoc;
 
   ToolEnvironment._(
     this.dartSdkDir,
@@ -81,7 +81,7 @@ class ToolEnvironment {
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
   Future _init() async {
-    final dartVersionResult = handleProcessErrors(
+    final dartVersionResult = _handleProcessErrors(
         await runProc([..._dartCmd, '--version'], environment: _environment));
     final dartVersionString = dartVersionResult.stderr.toString().trim();
     final dartSdkInfo = DartSdkInfo.parse(dartVersionString);
@@ -297,7 +297,7 @@ class ToolEnvironment {
       );
 
   Future<Map<String, dynamic>> getFlutterVersion() async {
-    final result = handleProcessErrors(
+    final result = _handleProcessErrors(
         await runProc([..._flutterCmd, '--version', '--machine']));
     var content = result.stdout as String;
     if (content.startsWith('Waiting for another flutter')) {
@@ -320,7 +320,7 @@ class ToolEnvironment {
       {int retryCount = 3}) async {
     final backup = await _stripAndAugmentPubspecYaml(packageDir);
     try {
-      return await retryProc(() async {
+      return await _retryProc(() async {
         if (usesFlutter) {
           return await _execFlutterUpgrade(packageDir, _environment);
         } else {
@@ -372,16 +372,6 @@ class ToolEnvironment {
       env.remove(_pubCacheKey);
     }
     return env;
-  }
-
-  @Deprecated(
-      'Instead specify useGlobalDartdoc as true with ToolEnvironment.create.')
-  Future activateGlobalDartdoc(String version) async {
-    handleProcessErrors(await runProc(
-      [..._pubCmd, 'global', 'activate', 'dartdoc', version],
-      environment: _globalDartdocEnv(),
-    ));
-    _useGlobalDartdoc = true;
   }
 
   Future<DartdocResult> dartdoc(
@@ -486,14 +476,6 @@ class ToolEnvironment {
   }
 }
 
-class PackageLocation {
-  final String package;
-  final String version;
-  final String location;
-
-  PackageLocation(this.package, this.version, this.location);
-}
-
 class DartdocResult {
   final ProcessResult processResult;
   final bool wasTimeout;
@@ -549,4 +531,50 @@ class ToolException implements Exception {
   String toString() {
     return 'Exception: $message';
   }
+}
+
+ProcessResult _handleProcessErrors(ProcessResult result) {
+  if (result.exitCode != 0) {
+    if (result.exitCode == 69) {
+      // could be a pub error. Let's try to parse!
+      var lines = LineSplitter.split(result.stderr as String)
+          .where((l) => l.startsWith('ERR '))
+          .join('\n');
+      if (lines.isNotEmpty) {
+        throw Exception(lines);
+      }
+    }
+
+    throw Exception('Problem running proc: exit code - ' +
+        [result.exitCode, result.stdout, result.stderr]
+            .map((e) => e.toString().trim())
+            .join('<***>'));
+  }
+  return result;
+}
+
+/// Executes [body] and returns with the first clean or the last failure result.
+Future<ProcessResult> _retryProc(
+  Future<ProcessResult> Function() body, {
+  required bool Function(ProcessResult pr) shouldRetry,
+  int maxAttempt = 3,
+  Duration sleep = const Duration(seconds: 1),
+}) async {
+  ProcessResult? result;
+  for (var i = 1; i <= maxAttempt; i++) {
+    try {
+      result = await body();
+      if (!shouldRetry(result)) {
+        break;
+      }
+    } catch (e, st) {
+      if (i < maxAttempt) {
+        log.info('Async operation failed (attempt: $i of $maxAttempt).', e, st);
+        await Future.delayed(sleep);
+        continue;
+      }
+      rethrow;
+    }
+  }
+  return result!;
 }
