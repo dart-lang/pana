@@ -984,12 +984,8 @@ class Tagger {
               // dart:ui has no package name. So we cannot trivially look it up in
               // the allowed experiments. We just assume it is opted in.
               if (!library.isScheme('package')) return null;
-              if (!isNullSafety(
-                  Version(languageVersionToken.major,
-                      languageVersionToken.minor, 0),
-                  library.isScheme('package')
-                      ? _pubspecCache.packageName(library)
-                      : null)) {
+              if (!isNullSafety(Version(
+                  languageVersionToken.major, languageVersionToken.minor, 0))) {
                 return (path) => Explanation(
                       'Package is not null safe',
                       'Because:\n${LibraryGraph.formatPath(path)} where $library '

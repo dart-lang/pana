@@ -11,6 +11,7 @@ import 'package:pana/src/package_context.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
+import 'internal_model.dart';
 import 'license.dart';
 import 'logging.dart';
 import 'maintenance.dart';

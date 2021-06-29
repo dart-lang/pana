@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:async/async.dart' show StreamGroup;
 import 'package:io/ansi.dart';
 import 'package:io/io.dart';
 import 'package:logging/logging.dart' as log;
@@ -117,7 +118,7 @@ Future main(List<String> args) async {
   //   * It is received as SIGINT
   //   * It won't terminate the Dart process either – *BUT* we can listen for it
   // So this is how we do "clean" shutdown when running in Docker.
-  var subscription = getSignals().listen((sig) async {
+  var subscription = _getSignals().listen((sig) async {
     log.Logger.root.severe('Received signal `$sig` – terminating.');
     exit(130);
   });
@@ -176,7 +177,7 @@ Future main(List<String> args) async {
           'grantedPoints': summary.report?.grantedPoints,
           'maxPoints': summary.report?.maxPoints,
         };
-        print(prettyJson(map));
+        print(const JsonEncoder.withIndent(' ').convert(map));
       } else {
         final report = summary.report!;
         for (final s in report.sections) {
@@ -228,3 +229,14 @@ void _logWriter(log.LogRecord record) {
     stderr.writeln(darkGray.wrap(msg));
   });
 }
+
+/// A merged stream of all signals that tell the test runner to shut down
+/// gracefully.
+///
+/// Signals will only be captured as long as this has an active subscription.
+/// Otherwise, they'll be handled by Dart's default signal handler, which
+/// terminates the program immediately.
+Stream<ProcessSignal> _getSignals() => Platform.isWindows
+    ? ProcessSignal.sigint.watch()
+    : StreamGroup.merge(
+        [ProcessSignal.sigterm.watch(), ProcessSignal.sigint.watch()]);

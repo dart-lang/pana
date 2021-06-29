@@ -7,7 +7,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:async/async.dart' show StreamGroup;
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
@@ -18,17 +18,6 @@ Stream<String> _byteStreamSplit(Stream<List<int>> stream) =>
 
 final _timeout = const Duration(minutes: 2);
 final _maxLines = 100000;
-
-ProcessResult runProcSync(List<String> arguments,
-    {String? workingDirectory, Map<String, String>? environment}) {
-  log.fine('Running `${[...arguments].join(' ')}`...');
-  return Process.runSync(
-    arguments.first,
-    arguments.skip(1).toList(),
-    workingDirectory: workingDirectory,
-    environment: environment,
-  );
-}
 
 Future<ProcessResult> runProc(
   List<String> arguments, {
@@ -107,54 +96,6 @@ Future<ProcessResult> runProc(
       process.pid, exitCode, stdoutLines.join('\n'), stderrLines.join('\n'));
 }
 
-ProcessResult handleProcessErrors(ProcessResult result) {
-  if (result.exitCode != 0) {
-    if (result.exitCode == 69) {
-      // could be a pub error. Let's try to parse!
-      var lines = LineSplitter.split(result.stderr as String)
-          .where((l) => l.startsWith('ERR '))
-          .join('\n');
-      if (lines.isNotEmpty) {
-        throw Exception(lines);
-      }
-    }
-
-    throw Exception('Problem running proc: exit code - ' +
-        [result.exitCode, result.stdout, result.stderr]
-            .map((e) => e.toString().trim())
-            .join('<***>'));
-  }
-  return result;
-}
-
-/// Executes [body] and returns with the first clean or the last failure result.
-Future<ProcessResult> retryProc(
-  Future<ProcessResult> Function() body, {
-  bool Function(ProcessResult pr) shouldRetry = _defaultShouldRetry,
-  int maxAttempt = 3,
-  Duration sleep = const Duration(seconds: 1),
-}) async {
-  ProcessResult? result;
-  for (var i = 1; i <= maxAttempt; i++) {
-    try {
-      result = await body();
-      if (!shouldRetry(result)) {
-        break;
-      }
-    } catch (e, st) {
-      if (i < maxAttempt) {
-        log.info('Async operation failed (attempt: $i of $maxAttempt).', e, st);
-        await Future.delayed(sleep);
-        continue;
-      }
-      rethrow;
-    }
-  }
-  return result!;
-}
-
-bool _defaultShouldRetry(ProcessResult pr) => pr.exitCode != 0;
-
 Stream<String> listFiles(String directory,
     {String? endsWith, bool deleteBadExtracted = false}) {
   var dir = Directory(directory);
@@ -177,27 +118,7 @@ Stream<String> listFiles(String directory,
       .map((path) => p.relative(path, from: directory));
 }
 
-String prettyJson(obj) {
-  try {
-    return const JsonEncoder.withIndent(' ').convert(obj);
-  } on JsonUnsupportedObjectError catch (e) {
-    dynamic error = e;
-
-    while (error is JsonUnsupportedObjectError) {
-      final jsError = error;
-      log.severe(
-        '${jsError.unsupportedObject} - (${jsError.unsupportedObject.runtimeType}).'
-        ' Nested cause: ${jsError.cause}',
-        error,
-        jsError.stackTrace,
-      );
-
-      error = error.cause;
-    }
-    rethrow;
-  }
-}
-
+@visibleForTesting
 dynamic sortedJson(obj) {
   var fullJson = json.decode(json.encode(obj));
   return _toSortedMap(fullJson);
@@ -241,17 +162,6 @@ Future<List<String>> listFocusDirs(String packageDir) async {
   return dirs;
 }
 
-/// A merged stream of all signals that tell the test runner to shut down
-/// gracefully.
-///
-/// Signals will only be captured as long as this has an active subscription.
-/// Otherwise, they'll be handled by Dart's default signal handler, which
-/// terminates the program immediately.
-Stream<ProcessSignal> getSignals() => Platform.isWindows
-    ? ProcessSignal.sigint.watch()
-    : StreamGroup.merge(
-        [ProcessSignal.sigterm.watch(), ProcessSignal.sigint.watch()]);
-
 /// Returns the ratio of non-ASCII runes (Unicode characters) in a given text:
 /// (number of runes that are non-ASCII) / (total number of character runes).
 ///
@@ -266,15 +176,4 @@ double nonAsciiRuneRatio(String? text) {
   }
   final nonAscii = text.runes.where((r) => r >= 128).length;
   return nonAscii / totalPrintable;
-}
-
-/// Returns common file name candidates for [base] (specified without any extension).
-List<String> textFileNameCandidates(String base) {
-  return <String>[
-    base,
-    '$base.md',
-    '$base.markdown',
-    '$base.mkdown',
-    '$base.txt',
-  ];
 }

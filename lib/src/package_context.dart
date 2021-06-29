@@ -8,9 +8,9 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
 import 'download_utils.dart';
+import 'internal_model.dart';
 import 'logging.dart';
 import 'messages.dart' as messages;
-import 'model.dart';
 import 'package_analyzer.dart' show InspectOptions;
 import 'pkg_resolution.dart';
 import 'pubspec.dart';

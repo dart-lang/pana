@@ -14,7 +14,7 @@ import 'package:tar/tar.dart';
 
 import 'logging.dart';
 
-final imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
+final _imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
 Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
   final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
@@ -88,7 +88,7 @@ String? getRepositoryUrl(String? repository, String relativePath) {
       }
 
       final extension = p.extension(relativePath).toLowerCase();
-      final isRaw = imageExtensions.contains(extension);
+      final isRaw = _imageExtensions.contains(extension);
       final typeSegment = isRaw ? 'raw' : 'blob';
 
       if (segments.length < 2) {

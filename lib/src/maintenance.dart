@@ -6,8 +6,6 @@ library pana.maintenance;
 
 import 'package:json_annotation/json_annotation.dart';
 
-import 'utils.dart';
-
 final List<String> changelogFileNames = textFileNameCandidates('changelog');
 
 final List<String> readmeFileNames = textFileNameCandidates('readme');
@@ -70,4 +68,15 @@ String pubspecParseError(error) {
   }
   return 'Error while parsing `pubspec.yaml`.\n\n'
       'Parsing throws an exception:\n\n```\n$message\n```';
+}
+
+/// Returns common file name candidates for [base] (specified without any extension).
+List<String> textFileNameCandidates(String base) {
+  return <String>[
+    base,
+    '$base.md',
+    '$base.markdown',
+    '$base.mkdown',
+    '$base.txt',
+  ];
 }
