@@ -16,15 +16,6 @@ import 'logging.dart';
 
 final _imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
-Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
-  final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
-      .resolve('/api/packages/$package');
-  log.fine('Downloading: $url');
-
-  return await retry(() => http.read(url),
-      retryIf: (e) => e is SocketException || e is TimeoutException);
-}
-
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
   String package,
@@ -230,23 +221,5 @@ Future _extractTarGz(Stream<List<int>> tarball, String destination) async {
     } else {
       await entry.contents.pipe(File(path).openWrite());
     }
-  }
-}
-
-/// Creates a temporary directory and passes its path to [fn].
-///
-/// Once the [Future] returned by [fn] completes, the temporary directory and
-/// all its contents are deleted. [fn] can also return `null`, in which case
-/// the temporary directory is deleted immediately afterwards.
-///
-/// Returns a future that completes to the value that the future returned from
-/// [fn] completes to.
-Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
-  Directory? tempDir;
-  try {
-    tempDir = await Directory.systemTemp.createTemp('pana_');
-    return await fn(tempDir.resolveSymbolicLinksSync());
-  } finally {
-    tempDir?.deleteSync(recursive: true);
   }
 }
