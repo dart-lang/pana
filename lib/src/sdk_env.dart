@@ -67,7 +67,7 @@ class ToolEnvironment {
     Map<String, String> environment = const <String, String>{},
     bool useGlobalDartdoc = false,
     required PanaRuntimeInfo runtimeInfo,
-  })  : _dartCmd = dartCmd,
+  })   : _dartCmd = dartCmd,
         _pubCmd = pubCmd,
         _dartAnalyzerCmd = dartAnalyzerCmd,
         _dartfmtCmd = dartfmtCmd,
