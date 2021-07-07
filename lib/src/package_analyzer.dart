@@ -19,7 +19,7 @@ import 'messages.dart';
 import 'model.dart';
 import 'pubspec.dart';
 import 'sdk_env.dart';
-import 'tag_detection.dart';
+import 'tag/tagger.dart';
 import 'utils.dart';
 
 class InspectOptions {
