@@ -118,6 +118,25 @@ Stream<String> listFiles(String directory,
       .map((path) => p.relative(path, from: directory));
 }
 
+/// Paths to all files matching `$packageDir/lib/**/*.dart`.
+///
+/// Paths are returned relative to `lib/`.
+List<String> dartFilesFromLib(String packageDir) {
+  final libDir = Directory(p.join(packageDir, 'lib'));
+  final libDirExists = libDir.existsSync();
+  final dartFiles = libDirExists
+      ? libDir
+          .listSync(recursive: true)
+          .where((e) => e is File && e.path.endsWith('.dart'))
+          .map((f) => p.relative(f.path, from: libDir.path))
+          .toList()
+      : <String>[];
+
+  // Sort to make the order of files and the reported events deterministic.
+  dartFiles.sort();
+  return dartFiles;
+}
+
 @visibleForTesting
 dynamic sortedJson(obj) {
   var fullJson = json.decode(json.encode(obj));
