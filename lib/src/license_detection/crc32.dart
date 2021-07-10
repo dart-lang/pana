@@ -2,8 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// Specification of [CRC-32][1] is same as used in IEEE 802.3 Ethernet (Normal).
+/// Computes CRC-32 checksum od [bytes].
 ///
+/// This follows the [CRC-32][1] specification used in IEEE 802.3 Ethernet (Normal).
 /// ```
 /// Width  : 32
 /// Poly   : 0x04c11db7
@@ -24,10 +25,9 @@ int crc32(List<int> bytes) {
   return (~crc).toUnsigned(32);
 }
 
-/// This table was generated using [Rosetta][1] C implementation code.
-///
-/// [1]: https://rosettacode.org/wiki/CRC-32#Implementation_2
-final _crc32Table = [
+// This table was generated using Rosetta C implementation code,
+// See: https://rosettacode.org/wiki/CRC-32#Implementation_2
+const _crc32Table = [
   0,
   0x77073096,
   0xee0e612c,

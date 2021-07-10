@@ -84,7 +84,7 @@ Permission to use/copy, modify    granted.''';
     for (var i = 0; i < actual.length; i++) {
       expect(actual[i].value, expected[i].value);
       expect(actual[i].index, expected[i].index);
-      expect(actual[i].line, expected[i].line);
+      expect(actual[i].span.start.line, expected[i].span.start.line);
       expect(actual[i].span.text, expected[i].span.text);
       expect(actual[i].span.start.offset, expected[i].span.start.offset);
       expect(actual[i].span.end.offset, expected[i].span.end.offset);

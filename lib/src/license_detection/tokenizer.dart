@@ -18,35 +18,31 @@ class Token {
 
   /// Zero based position of token in a list of [Token]s obtained by tokenizing license text.
   ///
-  /// License when tokenized through [tokenize] method
-  /// yields a list of [Token]. [index] denotes the offset of the token
-  /// in this list.
+  /// License when tokenized through [tokenize] method yields a list of [Token].
+  /// The [index] denotes the offset (or index) of the token in this list.
   final int index;
-
-  /// Zero based line number of token.
-  int get line => span.start.line;
 
   /// Location details of the token in original text.
   final SourceSpan span;
 
+  @visibleForTesting
   Token(this.value, this.index, this.span);
 
-  Token.fromSpan(this.span, this.index)
+  Token._fromSpan(this.span, this.index)
       : value = _normalizeWord(span.text.toLowerCase());
 }
 
 /// Tokenizes license text and returns a list of [Token]s.
 ///
 /// The tokens are scanned and normalized according to this procedure.
-/// 1. Tokens are words separated by spaces or new line. Ex - `hello new\nworld` -->[`hello`,`new`,`world`].
-/// 2. Any pure puntcuations texts are ignored. Ex - `// % ^&^&*^ hello` --> [`hello`]
-/// 3. Leading punctuations are ignored. Ex - `!hello $world&` --> [`hello`,`world&`]
-/// 4. New line tokens are stored to stored initially to identify list items,
-///    but later removed while cleaning tokens.
+/// 1. Tokens are words separated by spaces or new line. Ex - `hello new\nworld` -->[`hello`, `new`, `world`,].
+/// 2. Any standalone puntcuations texts are ignored. Ex - `// % ^&^&*^ hello` --> [`hello`,]
+/// 3. Leading punctuations are ignored. Ex - `!hello $world&` --> [`hello`, `world&`,]
+/// 4. Tokens resembling list items are ignored.
 /// 5. Any tokens starting with alphabet are further cleaned to remove any
-///    non-alphabet characters. Ex - `(hello wo$r1ld` --> [`hello`, `world`]
-/// 6. If a token starts with digit any characters other than `.`, `-` will be ignored.
-///    Dot at the end of the token will also be ignored. `1!@#$.1.1 1-1hj.23.` --> [`1.1.1`, `1-1.23`].
+///    non-alphabet characters. Ex - `(hello wo$r1ld` --> [`hello`, `world`,]
+/// 6. If a token starts with digit, any characters except `.`, `-` in the token value will be ignored.
+///    Dot at the end of the token will also be ignored. `1!@#$.1.1 1-1hj.23.` --> [`1.1.1`, `1-1.23`,].
 List<Token> tokenize(String text) {
   final _scanner = SpanScanner(text);
 
@@ -55,9 +51,11 @@ List<Token> tokenize(String text) {
 
   Token? nextToken() {
     if (_scanner.scan(_wordRegex)) {
-      return Token.fromSpan(_scanner.lastSpan!, tokenID++);
+      return Token._fromSpan(_scanner.lastSpan!, tokenID++);
     }
 
+    // Store new line tokens to identify and ignore tokens
+    // resembling list items while cleaning tokens.
     if (_scanner.scan(_newLineRegex)) {
       return Token('\n', tokenID++, _scanner.lastSpan!);
     }
@@ -73,7 +71,7 @@ List<Token> tokenize(String text) {
     // }
 
     // If none of the above conditions match, this implies
-    // the scanner is at single punctuation mark or leading
+    // the scanner is at standalone punctuation mark or leading
     // punctuation in a word. Ignore them and move the scanner forward.
     _scanner.readChar();
     return null;
