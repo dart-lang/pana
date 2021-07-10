@@ -13,14 +13,14 @@ void main() {
         text: '// hello! ^& world %^& 1.1',
         expected: ['hello', 'world', '1.1']);
 
-    testTokenizer('Ignore puntuations at start of word',
+    testTokenizer('Ignore punctuations at start of word',
         text: '// !hello @#world -1.1.1',
         expected: ['hello', 'world', '1.1.1']);
 
-    testTokenizer('Ignore puntuation in between a textual world',
+    testTokenizer('Ignore punctuations in between a textual world',
         text: '// hell@o wo\$%^rld', expected: ['hello', 'world']);
 
-    testTokenizer('Allow only hiphens and dots if token starts with digit',
+    testTokenizer('Allow only hyphens and dots if token starts with digit',
         text: 'H.E.L.L.O W.O.R.L.D 1!.2#-3',
         expected: ['hello', 'world', '1.2-3']);
 

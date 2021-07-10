@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// Computes CRC-32 checksum od [bytes].
+/// Computes CRC-32 checksum of [bytes].
 ///
 /// This follows the [CRC-32][1] specification used in IEEE 802.3 Ethernet (Normal).
 /// ```

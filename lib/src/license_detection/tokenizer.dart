@@ -36,9 +36,9 @@ class Token {
 ///
 /// The tokens are scanned and normalized according to this procedure.
 /// 1. Tokens are words separated by spaces or new line. Ex - `hello new\nworld` -->[`hello`, `new`, `world`,].
-/// 2. Any standalone puntcuations texts are ignored. Ex - `// % ^&^&*^ hello` --> [`hello`,]
+/// 2. Any standalone punctuations texts are ignored. Ex - `// % ^&^&*^ hello` --> [`hello`,]
 /// 3. Leading punctuations are ignored. Ex - `!hello $world&` --> [`hello`, `world&`,]
-/// 4. Tokens resembling list items are ignored.
+/// 4. Tokens resembling list items are ignored. Ex - `1.`, `ix.`, `a)` .
 /// 5. Any tokens starting with alphabet are further cleaned to remove any
 ///    non-alphabet characters. Ex - `(hello wo$r1ld` --> [`hello`, `world`,]
 /// 6. If a token starts with digit, any characters except `.`, `-` in the token value will be ignored.
@@ -65,7 +65,7 @@ List<Token> tokenize(String text) {
       return null;
     }
 
-    // Read only © and ignore other leading and standalone puntuation
+    // Read only © and ignore other leading and standalone punctuation.
     // if(_scanner.scan(RegExp(r'©'))){
     //   return NewToken.fromSpan(_scanner.lastSpan!, tokenID++);
     // }
@@ -89,11 +89,11 @@ List<Token> tokenize(String text) {
     }
   }
 
-  /// Removes unncesary tokens and cleans token value.
+  /// Removes unnecessary tokens and cleans token value.
   ///
   /// Some tokens such as newLine and list items are removed
   /// according to [SPDX Guidelines][1] and the values of
-  /// remaning token values are cleaned using [google licenseClassifier][] approach.
+  /// remaining token values are cleaned using [google licenseClassifier][] approach.
   ///
   /// [1]: https://github.com/spdx/spdx-spec/blob/v2.2/chapters/appendix-II-license-matching-guidelines-and-templates.md
   /// [google licenseClassifier]: https://github.com/google/licenseclassifier/blob/bb04aff29e72e636ba260ec61150c6e15f111d7e/v2/tokenizer.go#L34
@@ -110,7 +110,7 @@ List<Token> _cleanNewTokens(List<Token> tokens) {
   for (var token in tokens) {
     // Ignore new line tokens for now.
     // If accuracy of detection is low apply
-    // Guideline 2.1.4: Text that can be omited from license.
+    // Guideline 2.1.4: Text that can be omitted from license.
     if (_newLineRegex.hasMatch(token.value)) {
       firstInLine = true;
       continue;

@@ -4,3 +4,4 @@
 .pub/
 pubspec.lock
 test/license_test_assets
+.vscode

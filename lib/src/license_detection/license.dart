@@ -19,7 +19,7 @@ class License {
   /// Normalized [Token]s created from the original text.
   final List<Token> tokens;
 
-  /// Map from [Token.value] to their number of occurences in this license.
+  /// Map from [Token.value] to their number of occurrences in this license.
   final Map<String, int> occurrences;
 
   License._(this.content, this.tokens, this.occurrences, this.identifier);
@@ -31,7 +31,7 @@ class License {
   }
 }
 
-/// Contains deatils regarding the results of corpus license match with unknwown text.
+/// Contains details regarding the results of corpus license match with unknown text.
 @sealed
 class LicenseMatch {
   /// Sequence of tokens from input text that were considered a match for the detected [License].
@@ -48,7 +48,7 @@ class LicenseMatch {
 
 /// Generates a frequency table for the given list of [tokens].
 ///
-/// [Token.value] is mapped to the number of occurences in the license text.
+/// [Token.value] is mapped to the number of occurrences in the license text.
 @visibleForTesting
 Map<String, int> generateFrequencyTable(List<Token> tokens) {
   var table = <String, int>{};
@@ -87,7 +87,7 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
 
 /// Returns a list of [License] from the given license file.
 ///
-/// Returns an empty list incase of bad file encoding.
+/// Returns an empty list in case of bad file encoding.
 /// If license text contains the phrase `END OF TERMS AND CONDITIONS`
 /// which indicates the presence of optional text, two instances
 /// of [License] are returned.
