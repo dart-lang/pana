@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:meta/meta.dart';
@@ -9,7 +10,7 @@ import 'package:pana/src/license_detection/tokenizer.dart';
 
 @sealed
 class License {
-  /// Name of the license, is empty in case of unknown license.
+  /// SPDX identifier of the license, is empty in case of unknown license.
   final String identifier;
 
   /// Original text from the license file.
@@ -18,10 +19,10 @@ class License {
   /// Normalized [Token]s created from the original text.
   final List<Token> tokens;
 
-  /// A map of tokens and their count.
-  final Map<String, int> occurences;
+  /// Map from [Token.value] to their number of occurences in this license.
+  final Map<String, int> occurrences;
 
-  License._(this.content, this.tokens, this.occurences, this.identifier);
+  License._(this.content, this.tokens, this.occurrences, this.identifier);
 
   factory License.parse(String identifier, String content) {
     final tokens = tokenize(content);
@@ -33,20 +34,21 @@ class License {
 /// Contains deatils regarding the results of corpus license match with unknwown text.
 @sealed
 class LicenseMatch {
-  /// Sequence of tokens that were found in the unknown
-  ///  text that matched to tokens in any of the corpus license.
+  /// Sequence of tokens from input text that were considered a match for the detected [License].
   final List<Token> tokens;
 
   /// Confidence score of the detected license.
   final double confidence;
 
-  /// SPDX license which matched with input.
+  /// Detected license the input have been found to match with given [confidence].
   final License license;
 
   LicenseMatch(this.tokens, this.confidence, this.license);
 }
 
-/// Genearates a frequency table for the give list of tokens.
+/// Generates a frequency table for the given list of [tokens].
+///
+/// [Token.value] is mapped to the number of occurences in the license text.
 @visibleForTesting
 Map<String, int> generateFrequencyTable(List<Token> tokens) {
   var table = <String, int>{};
@@ -58,39 +60,57 @@ Map<String, int> generateFrequencyTable(List<Token> tokens) {
   return table;
 }
 
-/// Creates [License] instances for all the corpus licenses.
-List<License> loadLicensesFromDirectories(List<String> directories) {
+/// Load a list of [License] from the license files found in [directories].
+///
+/// The files in [directories] should be plain `.txt` and `utf-8` encoded.
+/// In case it is not `utf-8` encoded the file will be skipped.
+/// Name of the license file is expected to be in the form of `spdx-identifier.txt`.
+/// The [directories] are not searched recursively.
+/// Throws [FormatException] if any of the directories contains a file that is not a valid license file.
+List<License> loadLicensesFromDirectories(Iterable<String> directories) {
   var licenses = <License>[];
-  final length = directories.length;
 
-  for (var i = 0; i < length; i++) {
-    final dir = Directory(directories[i]);
-
-    dir.listSync(recursive: false).forEach((element) {
-      final license = licenseFromFile(element.path);
-      licenses.addAll(license);
+  for (var dir in directories) {
+    Directory(dir).listSync(recursive: false).forEach((file) {
+      if (file.path.endsWith('.txt')) {
+        final license = licensesFromFile(file.path);
+        licenses.addAll(license);
+      } else {
+        throw FormatException(
+            'Invalid file type:\nExpected: "spdx-identifier" Actual: ${file.uri.pathSegments.last}');
+      }
     });
   }
 
   return List.unmodifiable(licenses);
 }
 
-/// Returns [License] instance for the given license file.
+/// Returns a list of [License] from the given license file.
+///
+/// Returns an empty list incase of bad file encoding.
+/// If license text contains the phrase `END OF TERMS AND CONDITIONS`
+/// which indicates the presence of optional text, two instances
+/// of [License] are returned.
 @visibleForTesting
-List<License> licenseFromFile(String path) {
+List<License> licensesFromFile(String path) {
   var licenses = <License>[];
   final file = File(path);
 
-  final fileName = file.uri.toString();
-  if (!fileName.endsWith('.txt')) {
-    return <License>[];
+  final rawContent = file.readAsBytesSync();
+
+  var content = '';
+
+  try {
+    content = utf8.decode(rawContent);
+  } on FormatException catch (_, e) {
+    print('Format Exception: ${file.uri} \n${e.toString()} ');
+    return [];
   }
 
   final identifier = file.uri.pathSegments.last.split('.txt').first;
-  final content = file.readAsStringSync();
   licenses.add(License.parse(identifier, content));
 
-  // If a license contains a optional part create and additional license
+  // If a license contains a optional part create an additional license
   // instance with the optional part of text removed to have
   // better chances of matching.
   if (content.contains(_endOfTerms)) {
@@ -101,4 +121,4 @@ List<License> licenseFromFile(String path) {
 }
 
 /// Regex to match the all the text starting from `END OF TERMS AND CONDTIONS`.
-final _endOfTerms = 'END OF TERMS AND CONDITIONS';
+const _endOfTerms = 'END OF TERMS AND CONDITIONS';

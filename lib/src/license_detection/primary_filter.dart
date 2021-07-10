@@ -16,7 +16,7 @@ List<License> filter(
   List<License> knownLicenses,
 ) =>
     List.unmodifiable(knownLicenses.where(
-        (license) => tokenSimilarity(occurrences, license.occurences) >= 0.5));
+        (license) => tokenSimilarity(occurrences, license.occurrences) >= 0.5));
 
 /// Returns a measure for token similarity, between [input] and [knownLicense].
 ///

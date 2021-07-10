@@ -26,7 +26,8 @@ void main() {
   });
 
   test('Load licenses from directory', () {
-    final licenses = loadLicensesFromDirectories(['test/license_test_assets']);
+    final licenses =
+        loadLicensesFromDirectories(['test/license_test_assets/licenses']);
     const licenseNames = [
       'agpl_v3',
       'agpl_v3',
@@ -42,6 +43,9 @@ void main() {
     for (var i = 0; i < 7; i++) {
       expect(licenses[i].identifier, licenseNames[i]);
     }
+
+    expect(() => loadLicensesFromDirectories(['test/license_test_assets/']),
+        throwsFormatException);
   });
 
   // test('Test checksum generation', () {
