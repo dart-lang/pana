@@ -13,13 +13,13 @@ import 'package:pubspec_parse/pubspec_parse.dart'
         PathDependency,
         SdkDependency;
 
-import '../download_utils.dart';
 import '../internal_model.dart';
 import '../logging.dart';
 import '../model.dart';
 import '../package_context.dart';
 import '../pubspec.dart';
 import '../sdk_env.dart';
+import '../utils.dart';
 
 import '_common.dart';
 
