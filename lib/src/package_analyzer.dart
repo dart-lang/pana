@@ -6,8 +6,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
-import 'package:pana/src/create_report.dart';
-import 'package:pana/src/package_context.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
@@ -17,7 +15,9 @@ import 'logging.dart';
 import 'maintenance.dart';
 import 'messages.dart';
 import 'model.dart';
+import 'package_context.dart';
 import 'pubspec.dart';
+import 'report/create_report.dart';
 import 'sdk_env.dart';
 import 'tag/tagger.dart';
 import 'utils.dart';
