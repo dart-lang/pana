@@ -5,7 +5,6 @@
 export 'src/create_report.dart' show renderSimpleSectionSummary;
 export 'src/dartdoc_analyzer.dart';
 export 'src/download_utils.dart';
-export 'src/license.dart';
 export 'src/maintenance.dart';
 export 'src/model.dart';
 export 'src/package_analyzer.dart';

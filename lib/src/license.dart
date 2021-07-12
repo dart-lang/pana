@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import 'download_utils.dart';
@@ -43,6 +44,7 @@ Future<String?> getLicenseUrl(
   }
 }
 
+@visibleForTesting
 Future<LicenseFile> detectLicenseInFile(File file,
     {required String relativePath}) async {
   final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);

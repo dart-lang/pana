@@ -10,8 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:pana/src/package_analyzer.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
-import '../download_utils.dart' show withTempDir;
 import '../sdk_env.dart' show ToolEnvironment;
+import '../utils.dart' show withTempDir;
 
 import 'batch_model.dart';
 

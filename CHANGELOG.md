@@ -1,11 +1,12 @@
 ## 0.19.0
 
 * **BREAKING CHANGES**
-  * Removed methods from public API: `getSignals`,
-    `handleProcessErrors`, `imageExtensions`, `listFiles`,
-    `listFocusDirs`, `nonAsciiRuneRatio`, `parseCodeProblem`,
-    `prettyJson`, `retryProc`, `runProcSync` (deleted),
-    `sortedJson`, `CodeProblem`, `PackageLocation` (deleted),
+  * Removed methods from public API: 
+    `detectLicenseInContent`, `detectLicenseInDir`, `detectLicenseInFile`,
+    `getLicenseUrl`, `getSignals`, `getVersionListing`, `handleProcessErrors`,
+    `imageExtensions`, `listFiles`, `listFocusDirs`, `nonAsciiRuneRatio`,
+    `parseCodeProblem`, `prettyJson`, `retryProc`, `runProcSync` (deleted),
+    `sortedJson`, `withTempDir`, `CodeProblem`, `PackageLocation` (deleted),
     `ToolEnvironment.activateGlobalDartdoc` (deleted).
 
 ## 0.18.2

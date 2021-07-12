@@ -7,8 +7,10 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:retry/retry.dart';
 import 'package:yaml/yaml.dart';
 
 import 'logging.dart';
@@ -195,4 +197,31 @@ double nonAsciiRuneRatio(String? text) {
   }
   final nonAscii = text.runes.where((r) => r >= 128).length;
   return nonAscii / totalPrintable;
+}
+
+/// Creates a temporary directory and passes its path to [fn].
+///
+/// Once the [Future] returned by [fn] completes, the temporary directory and
+/// all its contents are deleted. [fn] can also return `null`, in which case
+/// the temporary directory is deleted immediately afterwards.
+///
+/// Returns a future that completes to the value that the future returned from
+/// [fn] completes to.
+Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
+  Directory? tempDir;
+  try {
+    tempDir = await Directory.systemTemp.createTemp('pana_');
+    return await fn(tempDir.resolveSymbolicLinksSync());
+  } finally {
+    tempDir?.deleteSync(recursive: true);
+  }
+}
+
+Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
+  final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
+      .resolve('/api/packages/$package');
+  log.fine('Downloading: $url');
+
+  return await retry(() => http.read(url),
+      retryIf: (e) => e is SocketException || e is TimeoutException);
 }
