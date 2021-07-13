@@ -26,7 +26,7 @@ List<License> filter(
 
 // Checks if the unknown text contains enough occurrences
 // of tokens in a known license to qualify it as a possible match.
-// It there are less number of a particular token in input as compared to known license
+// If there are less number of a particular token in input as compared to known license
 // there is a low probability that it might match and hence we do not count it, on the other
 // hand if there are more or equal number we count that token
 // and finally return the result (number of qualified unique tokens)/(total number of unique tokens in known license).

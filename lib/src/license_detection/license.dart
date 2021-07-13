@@ -67,12 +67,20 @@ Map<String, int> generateFrequencyTable(List<Token> tokens) {
 /// Name of the license file is expected to be in the form of `spdx-identifier.txt`.
 /// The [directories] are not searched recursively.
 /// Throws [FormatException] if any of the directories contains a file that is not a valid license file.
+/// Throws [ArgumentError] in case of a invalid [SPDX identifier][1].
+///
+/// [1]: https://spdx.dev/ids/
 List<License> loadLicensesFromDirectories(Iterable<String> directories) {
   var licenses = <License>[];
 
   for (var dir in directories) {
     Directory(dir).listSync(recursive: false).forEach((file) {
       if (file.path.endsWith('.txt')) {
+        if (_invalidIdentifier
+            .hasMatch(file.uri.pathSegments.last.split('.txt').first)) {
+          throw ArgumentError(
+              'Invalid SPDX identifier: ${file.uri.pathSegments.last}');
+        }
         final license = licensesFromFile(file.path);
         licenses.addAll(license);
       } else {
@@ -122,3 +130,9 @@ List<License> licensesFromFile(String path) {
 
 /// Regex to match the all the text starting from `END OF TERMS AND CONDTIONS`.
 const _endOfTerms = 'END OF TERMS AND CONDITIONS';
+
+/// Identifier not following the norms of  [SPDX short identifier][1]
+/// is a invalid identifier.
+///
+/// [1]: https://github.com/spdx/license-list-XML/blob/master/DOCS/license-fields.md#explanation-of-spdx-license-list-fields
+final _invalidIdentifier = RegExp(r'[^a-zA-Z\d\.\-]');
