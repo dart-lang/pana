@@ -380,7 +380,8 @@ class Tagger {
           final optOutViolationFinder = PathFinder<Uri>(
             LibraryGraph(_session, runtime.declaredVariables),
             (library) {
-              final unit = parsedUnitFromUri(_session, library);
+              final unit =
+                  parsedUnitFromUri(_session, library, ignoreDartExt: true);
               if (unit == null) return null;
               final languageVersionToken = unit.languageVersionToken;
               if (languageVersionToken == null) return null;

@@ -4,6 +4,7 @@
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/session.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 
 /// Creates a [Explanation] indicating an issue, using [path] to give the location
@@ -52,8 +53,16 @@ class TagException implements Exception {
 /// Returns `null` in case of any errors.
 ///
 /// Returns `null` if [uri] points to a part file.
-CompilationUnit? parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
+CompilationUnit? parsedUnitFromUri(
+  AnalysisSession analysisSession,
+  Uri uri, {
+  bool ignoreDartExt = false,
+}) {
   final path = analysisSession.uriConverter.uriToPath(uri);
+  if (ignoreDartExt && uri.scheme == 'dart-ext') {
+    // return an empty dart file as a result of the parse
+    return parseString(content: '').unit;
+  }
   if (path == null) {
     // Could not resolve uri.
     // Probably a missing/broken dependency.
