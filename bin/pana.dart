@@ -188,7 +188,7 @@ Future main(List<String> args) async {
         print('\nPoints: ${report.grantedPoints}/${report.maxPoints}.');
       }
       if (exitCodeThreshold != null &&
-          exitCodeThreshold > 0 &&
+          exitCodeThreshold >= 0 &&
           exitCodeThreshold + summary.report!.grantedPoints <
               summary.report!.maxPoints) {
         exitCode = -1;
