@@ -179,27 +179,27 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
     }
 
     final runtimeInfo = toolEnvironment.runtimeInfo;
+    final usesFlutter = pubspec.usesFlutter;
 
-    if (!runtimeInfo.hasFlutter) {
-      issues.add(Issue(
-          'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
-    } else {
-      final usesFlutter = pubspec.usesFlutter;
-
-      final flutterDartVersion =
-          Version.parse(runtimeInfo.flutterInternalDartSdkVersion!);
-      final allowsCurrentFlutterDart =
-          sdkConstraint?.allows(flutterDartVersion) ?? false;
-
-      if (!allowsCurrentFlutterDart) {
-        issues.add(
-          Issue(
-            'The current SDK constraint does not allow the Dart version used by the latest stable Flutter ($flutterDartVersion)',
-            span: tryGetSpanFromYamlMap(pubspec.environment, 'sdk'),
-          ),
-        );
+    if (usesFlutter) {
+      if (!runtimeInfo.hasFlutter) {
+        issues.add(Issue(
+            'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
       } else {
-        if (usesFlutter) {
+
+        final flutterDartVersion =
+            Version.parse(runtimeInfo.flutterInternalDartSdkVersion!);
+        final allowsCurrentFlutterDart =
+            sdkConstraint?.allows(flutterDartVersion) ?? false;
+
+        if (!allowsCurrentFlutterDart) {
+          issues.add(
+            Issue(
+              'The current SDK constraint does not allow the Dart version used by the latest stable Flutter ($flutterDartVersion)',
+              span: tryGetSpanFromYamlMap(pubspec.environment, 'sdk'),
+            ),
+          );
+        } else {
           // TODO(sigurdm): this will not work well locally (installed version will
           // not be latest). Perhaps we should query somewhere for the latest version.
           final currentFlutterVersion = runtimeInfo.flutterVersion == null
