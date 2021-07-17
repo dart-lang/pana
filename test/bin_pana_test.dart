@@ -34,6 +34,6 @@ void main() {
 
     var readme = File('README.md');
     expect(readme.readAsStringSync().replaceAll('\r\n', '\n'),
-        contains('```\n${File(helpGoldenPath).readAsStringSync()}\n```'));
+        contains('```\n${File(helpGoldenPath).readAsStringSync().replaceAll('\r\n', '\n')}\n```'));
   });
 }
