@@ -186,7 +186,6 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
         issues.add(Issue(
             'Found no Flutter in your PATH. Could not determine the current Flutter version.'));
       } else {
-
         final flutterDartVersion =
             Version.parse(runtimeInfo.flutterInternalDartSdkVersion!);
         final allowsCurrentFlutterDart =
