@@ -24,7 +24,7 @@ LicenseMatch? confidenceMatch(
 
   final range =
       diffRange(tokensNormalizedValue(knownLicense.license.tokens), diffs);
-  final distance = scoreDiffs(diffs.skip(range.start).take(range.end));
+  final distance = scoreDiffs(diffs.skip(range.start).take(range.end - range.start));
 
   // If distance is negative it implies an we have an unaccepatable diff,
   // therefore we return null.
