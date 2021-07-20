@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Basic Tokenizer tests', () {
-    testTokenizer('Ignore pure punctuations',
+    testTokenizer('Ignore standalone punctuations',
         text: '// hello! ^& world %^& 1.1',
         expected: [
           'hello',

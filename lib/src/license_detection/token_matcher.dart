@@ -1,14 +1,19 @@
+// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'package:meta/meta.dart';
+import 'package:pana/src/license_detection/confidence.dart';
 import 'package:pana/src/license_detection/license.dart';
 
 /// Range of tokens in input text that matched to a range of tokens in known license.
 @sealed
 class MatchRange {
   /// Range of tokens that were found to be a match in input text.
-  TokenRange input;
+  Range input;
 
   /// Range of tokens that were found to be a match in known license.
-  TokenRange source;
+  Range source;
 
   /// Number of tokens that were matched in this range.
   int tokensClaimed;
@@ -20,38 +25,38 @@ class MatchRange {
   );
 }
 
-/// Indicates the start and end index for a range of tokens.
+/// Indicates the start and end index for a range of tokens or diffs.
 @sealed
-class TokenRange {
+class Range {
   /// Start index of the token in this range.
   int start;
 
   /// End index(exclusive) of the token in this range.
   int end;
 
-  TokenRange._(this.start, this.end);
+  Range(this.start, this.end);
 }
 
-/// Returns a list of [MatchRange] for [input] that might be the best possible match for [source].
+/// Returns a list of [MatchRange] for [unknownLicense] that might be the best possible match for [knownLicense].
 List<MatchRange> findPotentialMatches(
-  PossibleLicense input,
-  PossibleLicense source,
+  PossibleLicense unknownLicense,
+  PossibleLicense knownLicense,
   double confidence,
   int granularity,
 ) {
   final matchedRanges = getMatchRanges(
-    input,
-    source,
+    unknownLicense,
+    knownLicense,
     confidence,
     granularity,
   );
 
   // Minimum number of tokens that range must have to be considered a possible match.
-  final threshold = (confidence * source.license.tokens.length).toInt();
+  final threshold = (confidence * knownLicense.license.tokens.length).toInt();
 
   for (var i = 0; i < matchedRanges.length; i++) {
     if (matchedRanges[i].tokensClaimed < threshold) {
-      return List.unmodifiable(matchedRanges.sublist(0, i));
+      return List.unmodifiable(matchedRanges.take(i));
     }
   }
 
@@ -96,7 +101,7 @@ List<MatchRange> getTargetMatchedRanges(
   var matches = <MatchRange>[];
 
   for (var tgtChecksum in input.nGrams) {
-    var srcChecksums = source.checksumMap[tgtChecksum.crc32];
+    var srcChecksums = source.checksumMap[tgtChecksum.checksum];
 
     // Check if source contains the checksum.
     if (srcChecksums == null) {
@@ -118,8 +123,8 @@ List<MatchRange> getTargetMatchedRanges(
       // Add new instance of matchRange if doesn't extend the last
       // match of the same offset.
       offsetMap.putIfAbsent(offset, () => []).add(
-            MatchRange._(TokenRange._(tgtChecksum.start, tgtChecksum.end),
-                TokenRange._(srcChecksum.start, srcChecksum.end), granularity),
+            MatchRange._(Range(tgtChecksum.start, tgtChecksum.end),
+                Range(srcChecksum.start, srcChecksum.end), granularity),
           );
     }
   }
@@ -138,13 +143,13 @@ List<MatchRange> getTargetMatchedRanges(
   return List.unmodifiable(matches);
 }
 
-/// Returns list of [MatchRange] for all the clusters of ordered [Ngram] in [input] that might be a potential match to the [source].
+/// Returns list of [MatchRange] for all the clusters of ordered [NGram] in [input] that might be a potential match to the [source].
 ///
 /// For a sequence of N tokens to be considered a potential match,
 /// it should have at least (N * [confidenceThreshold]) number of tokens
-/// that appear in at least in one matching [Ngram].
+/// that appear in at least in one matching [NGram].
 @visibleForTesting
-List<TokenRange> detectRuns(
+List<Range> detectRuns(
   List<MatchRange> matches,
   PossibleLicense input,
   PossibleLicense source,
@@ -210,8 +215,8 @@ List<TokenRange> detectRuns(
     return [];
   }
 
-  var finalOut = <TokenRange>[
-    TokenRange._(
+  var finalOut = <Range>[
+    Range(
       out[0],
       out[0] + granularity,
     )
@@ -221,7 +226,7 @@ List<TokenRange> detectRuns(
   // were considered to be a potential match.
   for (var i = 1; i < out.length; i++) {
     if (out[i] != 1 + out[i - 1]) {
-      finalOut.add(TokenRange._(out[i], out[i] + granularity));
+      finalOut.add(Range(out[i], out[i] + granularity));
     } else {
       finalOut.last.end = out[i] + granularity;
     }
@@ -242,7 +247,7 @@ List<MatchRange> fuseMatchedRanges(
   List<MatchRange> matches,
   double confidence,
   int size,
-  List<TokenRange> runs,
+  List<Range> runs,
   int targetSize,
 ) {
   var claimed = <MatchRange>[];
@@ -335,9 +340,99 @@ List<MatchRange> fuseMatchedRanges(
   return claimed;
 }
 
-/// [Comparator] to sort list of [MatchRange] in descending order of their token count.
+/// [Comparator] to sort list of [MatchRange] in descending order of the number of
+/// token claimed in range.
 int _sortOnTokenCount(
   MatchRange matchA,
   MatchRange matchB,
 ) =>
     (matchA.tokensClaimed > matchB.tokensClaimed ? -1 : 1);
+
+void main() {
+  // var target = 'a b c k d e f';
+  // var source = 'a b c d e f';
+  final a = License.parse('a', source);
+  final b = License.parse('b', target);
+
+  final src = PossibleLicense.parse(a);
+  final tgt = PossibleLicense.parse(b);
+
+  // final matches = getTargetMatchedRanges(src, tgt, 3);
+  // matches.forEach((element) {
+  //   print(
+  //       'start: ${element.input.start} end: ${element.input.end} src_start: ${element.source.start} src_end: ${element.source.end} claimed:${element.tokensClaimed}');
+  // });
+  // var runs = detectRuns(matches, tgt, src, 0.75, 3);
+  // print('Runs');
+  // runs.forEach((element) {
+  //   print(
+  //       'start: ${element.start} end: ${element.end}');
+  // });
+
+  var fuse = findPotentialMatches(tgt, src, 0.75, 3);
+  print(fuse[0].tokensClaimed);
+
+  final diffs = getDiffs(tgt.license.tokens, src.license.tokens, fuse[0]);
+  print('Found ${diffs.length} diffs');
+
+  for (var diff in diffs) {
+    print('Operation: ${diff.operation} Text: ${diff.text}');
+  }
+}
+
+var target = '''
+*  Copyright (C) 2011 Intel Corporation
+ *  Authors:	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ *              Vinod Koul <vinod.koul@linux.intel.com>
+ *
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; version 2 of the License.
+ *
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ * The definitions in this file are derived from the OpenMAX AL version 1.1
+ * and OpenMAX IL v 1.1.2 header files which contain the copyright notice below.
+ *
+ * Copyright (c) 2007-2010 The Khronos Group Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and/or associated documentation files (the
+ * "Materials "), to deal in the Materials without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Materials, and to
+ * permit persons to whom the Materials are furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Materials.
+ *
+ * THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
+ *
+ */''';
+
+var source = '''
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.`
+''';

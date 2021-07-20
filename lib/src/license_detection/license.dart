@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:meta/meta.dart';
+import 'package:pana/src/license_detection/diff.dart';
+import 'package:pana/src/license_detection/token_matcher.dart';
 import 'package:pana/src/license_detection/tokenizer.dart';
 
 import 'crc32.dart';
@@ -33,15 +35,26 @@ class License {
   }
 }
 
+String tokensNormalizedValue(Iterable<Token> tokens) {
+  var buffer = StringBuffer();
+
+  for (var token in tokens) {
+    buffer.write(token.value);
+    buffer.write(' ');
+  }
+
+  return buffer.toString().trimRight();
+}
+
 @sealed
-class Ngram {
+class NGram {
   /// Text for which the hash value was generated.
   final String text;
 
-  /// [Crc-32][1] checksum value generated for text.
+  /// [CRC-32][1] checksum value generated for text.
   ///
   /// [1]: https://en.wikipedia.org/wiki/Cyclic_redundancy_check
-  final int crc32;
+  final int checksum;
 
   /// Index of the first token in the checksum.
   final int start;
@@ -51,18 +64,18 @@ class Ngram {
 
   int get granularity => text.split(' ').length;
 
-  Ngram(this.text, this.crc32, this.start, this.end);
+  NGram(this.text, this.checksum, this.start, this.end);
 }
 
-/// A [License] instance with generated [nGrams]. 
+/// A [License] instance with generated [nGrams].
 // TODO: Change class name to something more meaningful.
 @sealed
 class PossibleLicense {
   final License license;
 
-  final List<Ngram> nGrams;
+  final List<NGram> nGrams;
 
-  final Map<int, List<Ngram>> checksumMap;
+  final Map<int, List<NGram>> checksumMap;
 
   PossibleLicense._(this.license, this.nGrams, this.checksumMap);
 
@@ -79,13 +92,28 @@ class LicenseMatch {
   /// Sequence of tokens from input text that were considered a match for the detected [License].
   final List<Token> tokens;
 
+  /// [Diff]s calculated between target tokens and [license] tokens.
+  final List<Diff> diffs;
+
+  /// Range of [diffs] which represents the diffs between known license and unknown license.
+  ///
+  /// Diffs lying outside of [diffRange] represent the text in unknown license
+  /// that is not a part of the [license](source) text.
+  final Range diffRange;
+
   /// Confidence score of the detected license.
   final double confidence;
 
   /// Detected license the input have been found to match with given [confidence].
   final License license;
 
-  LicenseMatch(this.tokens, this.confidence, this.license);
+  LicenseMatch(
+    this.tokens,
+    this.confidence,
+    this.license,
+    this.diffs,
+    this.diffRange,
+  );
 }
 
 /// Generates a frequency table for the given list of [tokens].
@@ -108,7 +136,8 @@ Map<String, int> generateFrequencyTable(List<Token> tokens) {
 /// proper `utf-8` encoding. Name of the license file is expected
 /// to be in the form of [`<spdx-identifier>.txt`][1].
 /// The [directories] are not searched recursively.
-/// Throws if any of the [directories] contains a file not meeting the following criteria's.
+///
+/// Throws if any of the [directories] contains a file not meeting the above criteria's.
 ///
 /// [1]: https://spdx.dev/ids/
 List<License> loadLicensesFromDirectories(Iterable<String> directories) {
@@ -155,7 +184,7 @@ List<License> licensesFromFile(String path) {
 
   try {
     content = utf8.decode(rawContent);
-  } on FormatException catch (_, e) {
+  } on FormatException {
     throw ArgumentError('Invalid utf-8 encoding: $path');
   }
 
@@ -176,31 +205,36 @@ const _endOfTerms = 'END OF TERMS AND CONDITIONS';
 
 /// Generates crc-32 checksum for the given list of tokens
 /// by taking [granularity] token values at a time.
-List<Ngram> generateChecksums(List<Token> tokens, int granularity) {
+List<NGram> generateChecksums(List<Token> tokens, int granularity) {
   if (tokens.length < granularity) {
     final text = tokens.join(' ');
-    return [Ngram(text, crc32(utf8.encode(text)), 0, tokens.length - 1)];
+    return [NGram(text, crc32(utf8.encode(text)), 0, tokens.length - 1)];
   }
 
-  var nGrams = <Ngram>[];
+  var nGrams = <NGram>[];
 
   for (var i = 0; i + granularity <= tokens.length; i++) {
     var text = '';
-    tokens.sublist(i, i + granularity).forEach((token) {
+    tokens.skip(i).take(granularity).forEach((token) {
       text += token.value + ' ';
     });
+
     final crcValue = crc32(utf8.encode(text));
 
-    nGrams.add(Ngram(text, crcValue, i, i + granularity));
+    nGrams.add(NGram(text, crcValue, i, i + granularity));
   }
 
   return nGrams;
 }
 
-Map<int, List<Ngram>> generateChecksumMap(List<Ngram> nGrams) {
-  var table = <int, List<Ngram>>{};
+/// Generates a frequency table for the given list of [nGrams].
+///
+/// [NGram.checksum] is mapped to a list of NGrams having the same
+/// checksum value.
+Map<int, List<NGram>> generateChecksumMap(List<NGram> nGrams) {
+  var table = <int, List<NGram>>{};
   for (var checksum in nGrams) {
-    table.putIfAbsent(checksum.crc32, () => []).add(checksum);
+    table.putIfAbsent(checksum.checksum, () => []).add(checksum);
   }
 
   return table;
@@ -210,4 +244,4 @@ Map<int, List<Ngram>> generateChecksumMap(List<Ngram> nGrams) {
 /// is a invalid identifier.
 ///
 /// [1]: https://github.com/spdx/license-list-XML/blob/master/DOCS/license-fields.md#explanation-of-spdx-license-list-fields
-final _invalidIdentifier = RegExp(r'[^a-zA-Z\d\.\-]');
+final _invalidIdentifier = RegExp(r'[^a-zA-Z\d\.\-_+]');

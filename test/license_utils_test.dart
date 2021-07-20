@@ -48,15 +48,15 @@ void main() {
         throwsFormatException);
   });
 
-  // test('Test checksum generation', () {
-  //   final text = 'generate some checksums for these tokens';
-  //   final expected = [202247124, 3226558818, 1391268045, 1050691930];
-  //   final actual = generateChecksums(tokenize(text));
+  test('Test checksum generation', () {
+    final text = 'generate some checksums for these tokens';
+    final expected = [202247124, 3226558818, 1391268045, 1050691930];
+    final actual = generateChecksums(tokenize(text), 3);
 
-  //   expect(actual.length, expected.length);
+    expect(actual.length, expected.length);
 
-  //   for (var i = 0; i < actual.length; i++) {
-  //     expect(actual[i].crc32, expected[i]);
-  //   }
-  // });
+    for (var i = 0; i < actual.length; i++) {
+      expect(actual[i].checksum, expected[i]);
+    }
+  });
 }
