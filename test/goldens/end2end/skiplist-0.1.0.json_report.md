@@ -68,7 +68,6 @@ Pubspec.yaml does not have an sdk version constraint.
 
 Try adding an sdk constraint to your `pubspec.yaml`
 </details>
-* The current SDK constraint does not allow the Dart version used by the latest stable Flutter ({{flutter-dart-version}})
 
 ## 0/20 Support sound null safety
 
