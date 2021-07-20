@@ -25,8 +25,9 @@ int crc32(List<int> bytes) {
   return (~crc).toUnsigned(32);
 }
 
-// This table was generated using Rosetta C implementation code,
-// See: https://rosettacode.org/wiki/CRC-32#Implementation_2
+/// CRC-32 table generated using [Rosetta][1] C implementation code.
+///
+/// [1]: https://rosettacode.org/wiki/CRC-32#Implementation_2
 const _crc32Table = [
   0,
   0x77073096,

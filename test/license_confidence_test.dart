@@ -14,10 +14,12 @@ void testScoreDiff() {
 
     diffs = [
       Diff(Operation.equal, 'version'),
-      Diff(Operation.delete, '1.0'),
-      Diff(Operation.insert, '2.0')
+      Diff(Operation.delete, '1'),
+      Diff(Operation.insert, '2'),
+      Diff(Operation.equal, '.0'),
     ];
 
+    DiffMatchPatch().diffCleanupSemantic(diffs);
     _testScoreDiff('Version change', diffs, versionChange);
 
     diffs = [

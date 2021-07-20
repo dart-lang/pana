@@ -8,7 +8,6 @@ import 'package:pana/src/license_detection/confidence.dart';
 import 'package:pana/src/license_detection/license.dart';
 import 'package:pana/src/license_detection/primary_filter.dart';
 import 'package:pana/src/license_detection/token_matcher.dart';
-import 'package:pana/src/license_detection/tokenizer.dart';
 
 // Load corpus licenses.
 final _licenses = loadLicensesFromDirectories(_directories);
@@ -54,9 +53,11 @@ int computeGranularity(double threshold) {
 const _directories = ['third_party/spdx/licenses'];
 
 void main() {
-  print(tokensNormalizedValue(tokenize('''// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.''')));
+ final matches = detectLicense(_test, 0.8);
+
+ for(var match in matches){
+   print('License: ${match.license.identifier} Confidence: ${match.confidence}');
+ }
 }
 
 const _test = '''
