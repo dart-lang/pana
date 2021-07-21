@@ -1,5 +1,5 @@
 import 'package:pana/src/license_detection/confidence.dart';
-import 'package:pana/src/license_detection/diff.dart';
+import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 import 'package:pana/src/license_detection/token_matcher.dart';
 import 'package:test/test.dart';
 
@@ -86,8 +86,6 @@ void testDiffRange() {
     expected = Range(0, 3);
 
     _testDiffRange('No exact match', diffs, known, expected);
-
-    
   });
 }
 

@@ -1,9 +1,9 @@
-// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2021, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:meta/meta.dart';
-import 'package:pana/src/license_detection/diff.dart';
+import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 import 'package:pana/src/license_detection/license.dart';
 import 'package:pana/src/license_detection/token_matcher.dart';
 import 'package:pana/src/license_detection/tokenizer.dart';
@@ -24,7 +24,8 @@ LicenseMatch? confidenceMatch(
 
   final range =
       diffRange(tokensNormalizedValue(knownLicense.license.tokens), diffs);
-  final distance = scoreDiffs(diffs.skip(range.start).take(range.end - range.start));
+  final distance =
+      scoreDiffs(diffs.skip(range.start).take(range.end - range.start));
 
   // If distance is negative it implies an we have an unaccepatable diff,
   // therefore we return null.

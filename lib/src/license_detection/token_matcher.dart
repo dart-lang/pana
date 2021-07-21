@@ -1,9 +1,8 @@
-// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2021, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:meta/meta.dart';
-import 'package:pana/src/license_detection/confidence.dart';
 import 'package:pana/src/license_detection/license.dart';
 
 /// Range of tokens in input text that matched to a range of tokens in known license.
@@ -18,7 +17,8 @@ class MatchRange {
   /// Number of tokens that were matched in this range.
   int tokensClaimed;
 
-  MatchRange._(
+  @visibleForTesting
+  MatchRange(
     this.input,
     this.source,
     this.tokensClaimed,
@@ -80,7 +80,13 @@ List<MatchRange> getMatchRanges(
   }
 
   // Analyse all the matches that were found and figure out which
-  final runs = detectRuns(matches, input, source, confidence, granularity);
+  final runs = detectRuns(
+    matches,
+    confidence,
+    input.license.tokens.length,
+    source.license.tokens.length,
+    granularity,
+  );
 
   if (runs.isEmpty) {
     return [];
@@ -90,18 +96,18 @@ List<MatchRange> getMatchRanges(
       runs, input.license.tokens.length);
 }
 
-/// Returns a list of [MatchRange] for all the continuous range of [Ngram](s) matched in [input] and [source].
+/// Returns a list of [MatchRange] for all the continuous range of [Ngram](s) matched in [unknownLicense] and [knownLicense].
 @visibleForTesting
 List<MatchRange> getTargetMatchedRanges(
-  PossibleLicense source,
-  PossibleLicense input,
+  PossibleLicense knownLicense,
+  PossibleLicense unknownLicense,
   int granularity,
 ) {
   var offsetMap = <int, List<MatchRange>>{};
   var matches = <MatchRange>[];
 
-  for (var tgtChecksum in input.nGrams) {
-    var srcChecksums = source.checksumMap[tgtChecksum.checksum];
+  for (var tgtChecksum in unknownLicense.nGrams) {
+    var srcChecksums = knownLicense.checksumMap[tgtChecksum.checksum];
 
     // Check if source contains the checksum.
     if (srcChecksums == null) {
@@ -123,7 +129,7 @@ List<MatchRange> getTargetMatchedRanges(
       // Add new instance of matchRange if doesn't extend the last
       // match of the same offset.
       offsetMap.putIfAbsent(offset, () => []).add(
-            MatchRange._(Range(tgtChecksum.start, tgtChecksum.end),
+            MatchRange(Range(tgtChecksum.start, tgtChecksum.end),
                 Range(srcChecksum.start, srcChecksum.end), granularity),
           );
     }
@@ -143,7 +149,7 @@ List<MatchRange> getTargetMatchedRanges(
   return List.unmodifiable(matches);
 }
 
-/// Returns list of [MatchRange] for all the clusters of ordered [NGram] in [input] that might be a potential match to the [source].
+/// Returns list of [MatchRange] for all the clusters of ordered [NGram] in unknownLicense that might be a potential match to the knownLicense.
 ///
 /// For a sequence of N tokens to be considered a potential match,
 /// it should have at least (N * [confidenceThreshold]) number of tokens
@@ -151,13 +157,11 @@ List<MatchRange> getTargetMatchedRanges(
 @visibleForTesting
 List<Range> detectRuns(
   List<MatchRange> matches,
-  PossibleLicense input,
-  PossibleLicense source,
   double confidenceThreshold,
+  final int inputTokensCount,
+  final int licenseTokenCount,
   int granularity,
 ) {
-  final inputTokensCount = input.license.tokens.length;
-  final licenseTokenCount = source.license.tokens.length;
 
   // Set the subset length to smaller of the number of input tokens
   // or number of source tokens.
@@ -347,92 +351,3 @@ int _sortOnTokenCount(
   MatchRange matchB,
 ) =>
     (matchA.tokensClaimed > matchB.tokensClaimed ? -1 : 1);
-
-void main() {
-  // var target = 'a b c k d e f';
-  // var source = 'a b c d e f';
-  final a = License.parse('a', source);
-  final b = License.parse('b', target);
-
-  final src = PossibleLicense.parse(a);
-  final tgt = PossibleLicense.parse(b);
-
-  // final matches = getTargetMatchedRanges(src, tgt, 3);
-  // matches.forEach((element) {
-  //   print(
-  //       'start: ${element.input.start} end: ${element.input.end} src_start: ${element.source.start} src_end: ${element.source.end} claimed:${element.tokensClaimed}');
-  // });
-  // var runs = detectRuns(matches, tgt, src, 0.75, 3);
-  // print('Runs');
-  // runs.forEach((element) {
-  //   print(
-  //       'start: ${element.start} end: ${element.end}');
-  // });
-
-  var fuse = findPotentialMatches(tgt, src, 0.75, 3);
-  print(fuse[0].tokensClaimed);
-
-  final diffs = getDiffs(tgt.license.tokens, src.license.tokens, fuse[0]);
-  print('Found ${diffs.length} diffs');
-
-  for (var diff in diffs) {
-    print('Operation: ${diff.operation} Text: ${diff.text}');
-  }
-}
-
-var target = '''
-*  Copyright (C) 2011 Intel Corporation
- *  Authors:	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
- *              Vinod Koul <vinod.koul@linux.intel.com>
- *
- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; version 2 of the License.
- *
- *  This program is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *
- * The definitions in this file are derived from the OpenMAX AL version 1.1
- * and OpenMAX IL v 1.1.2 header files which contain the copyright notice below.
- *
- * Copyright (c) 2007-2010 The Khronos Group Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and/or associated documentation files (the
- * "Materials "), to deal in the Materials without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Materials, and to
- * permit persons to whom the Materials are furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Materials.
- *
- * THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
- *
- */''';
-
-var source = '''
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.`
-''';

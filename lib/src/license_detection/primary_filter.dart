@@ -1,4 +1,4 @@
-// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2021, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -14,6 +14,7 @@ import 'package:pana/src/license_detection/license.dart';
 List<PossibleLicense> filter(
   Map<String, int> occurrences,
   List<License> knownLicenses,
+  int granularity,
 ) {
   var possibleLicenses = <PossibleLicense>[];
   knownLicenses
@@ -24,7 +25,7 @@ List<PossibleLicense> filter(
           ) >=
           0.5)
       .forEach((license) {
-    possibleLicenses.add(PossibleLicense.parse(license));
+    possibleLicenses.add(PossibleLicense.parse(license, granularity));
   });
 
   return List.unmodifiable(possibleLicenses);

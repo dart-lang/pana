@@ -1,4 +1,4 @@
-// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2021, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -18,27 +18,34 @@ void main() {
       var tokens2 = tokenize(text2);
 
       expect(
-          tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
-          1);
+        tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
+        1,
+      );
 
       tokens2 = tokenize('some tokens are different');
       expect(
-          tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
-          0.5);
+        tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
+        0.5,
+      );
 
       tokens2 = tokenize('one tokens match');
       expect(
-          tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
-          1 / 3);
+        tokenSimilarity(
+          license.occurrences,
+          generateFrequencyTable(tokens2),
+        ),
+        1 / 3,
+      );
 
       tokens2 = tokenize('');
       expect(
-          tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
-          0);
+        tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
+        0,
+      );
     });
 
     test('Known licenses primary filtering', () {
-      final input = '''BSD 2-Clause License
+      const input = '''BSD 2-Clause License
 
 Copyright (c) [year], [fullname]
 All rights reserved.
@@ -68,7 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''';
           loadLicensesFromDirectories(['test/license_test_assets']);
 
       final possibleLicenses =
-          filter(unknownLicense.occurrences, knownLicenses);
+          filter(unknownLicense.occurrences, knownLicenses, 3);
       const possibleLicenseNames = [
         'bsd_2_clause',
         'bsd_2_clause_in_comments',

@@ -1,4 +1,4 @@
-// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2021, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:meta/meta.dart';
-import 'package:pana/src/license_detection/diff.dart';
+import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 import 'package:pana/src/license_detection/token_matcher.dart';
 import 'package:pana/src/license_detection/tokenizer.dart';
 
@@ -79,8 +79,8 @@ class PossibleLicense {
 
   PossibleLicense._(this.license, this.nGrams, this.checksumMap);
 
-  factory PossibleLicense.parse(License license) {
-    final nGrams = generateChecksums(license.tokens, 3);
+  factory PossibleLicense.parse(License license, int granularity) {
+    final nGrams = generateChecksums(license.tokens, granularity);
     final table = generateChecksumMap(nGrams);
     return PossibleLicense._(license, nGrams, table);
   }

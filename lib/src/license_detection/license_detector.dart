@@ -15,10 +15,11 @@ final _licenses = loadLicensesFromDirectories(_directories);
 // WIP: Returns a list of detected licenses whose
 // confidence score is above a certain threshold.
 List<LicenseMatch> detectLicense(String text, double threshold) {
-  final unknownLicense = PossibleLicense.parse((License.parse('', text)));
-  final possibleLicenses =
-      filter(unknownLicense.license.occurrences, _licenses);
   final granularity = computeGranularity(threshold);
+  final unknownLicense =
+      PossibleLicense.parse(License.parse('', text), granularity);
+  final possibleLicenses =
+      filter(unknownLicense.license.occurrences, _licenses, granularity);
   var result = <LicenseMatch>[];
 
   for (var license in possibleLicenses) {
@@ -53,11 +54,12 @@ int computeGranularity(double threshold) {
 const _directories = ['third_party/spdx/licenses'];
 
 void main() {
- final matches = detectLicense(_test, 0.8);
+  final matches = detectLicense(_test, 0.8);
 
- for(var match in matches){
-   print('License: ${match.license.identifier} Confidence: ${match.confidence}');
- }
+  for (var match in matches) {
+    print(
+        'License: ${match.license.identifier} Confidence: ${match.confidence}');
+  }
 }
 
 const _test = '''
