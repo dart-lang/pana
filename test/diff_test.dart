@@ -1,7 +1,7 @@
 import 'package:test/expect.dart';
 import 'package:test/test.dart';
 
-import 'package:pana/src/license_detection/diff.dart';
+import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 
 final dmp = DiffMatchPatch();
 
@@ -234,12 +234,12 @@ void testDiffMain() {
   b = 'abcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n';
 
   test('diff_main: Overlap mode', () {
-    final textsLineMode = dmp.diffRebuildtexts(dmp.diffMain(
+    final textsLineMode = diffRebuildtexts(dmp.diffMain(
       a,
       b,
       checklines: true,
     ));
-    final textsTextMode = dmp.diffRebuildtexts(dmp.diffMain(
+    final textsTextMode = diffRebuildtexts(dmp.diffMain(
       a,
       b,
     ));
@@ -551,7 +551,7 @@ void testDiffCharsToLines() {
     }
 
     chars = lineList.join();
-    final results = dmp.diffLinesToChars(chars, '');
+    final results = diffLinesToChars(chars, '');
     diffs = [Diff(Operation.insert, results['chars1'] as String)];
     dmp.diffCharsToLines(diffs, results['lineArray'] as List<String>);
     test('More than 65536.', () => expect(chars, diffs[0].text));
@@ -1072,7 +1072,7 @@ void _testCommonPrefix(
   test(
       name,
       () => expect(
-            dmp.diffCommonPrefix(text1, text2),
+            diffCommonPrefix(text1, text2),
             expected,
           ));
 }
@@ -1086,7 +1086,7 @@ void _testCommonSuffix(
   test(
       name,
       () => expect(
-            dmp.diffCommonSuffix(text1, text2),
+            diffCommonSuffix(text1, text2),
             expected,
           ));
 }
@@ -1100,7 +1100,7 @@ void _testCommonOverlap(
   test(
       name,
       () => expect(
-            dmp.diffCommonOverlap(text1, text2),
+            diffCommonOverlap(text1, text2),
             expected,
           ));
 }
@@ -1133,7 +1133,7 @@ void _testDiffLineToChars(
   Map<String, dynamic> expected,
 ) {
   test(name, () {
-    final actual = dmp.diffLinesToChars(text1, text2);
+    final actual = diffLinesToChars(text1, text2);
     expect(
       actual['chars1'],
       expected['chars1'],
