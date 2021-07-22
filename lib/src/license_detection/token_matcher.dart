@@ -23,27 +23,48 @@ class MatchRange {
     this.source,
     this.tokensClaimed,
   );
+
+  set inputStart(int start) {
+    input = Range(start, input.end);
+  }
+
+  set inputEnd(int end) {
+    input = Range(input.start, end);
+  }
+
+  set sourceStart(int start) {
+    source = Range(start, source.start);
+  }
+
+  set sourceEnd(int end) {
+    source = Range(source.start, end);
+  }
 }
 
 /// Indicates the start and end index for a range of tokens or diffs.
 @sealed
 class Range {
   /// Start index of the token in this range.
-  int start;
+  final int start;
 
   /// End index(exclusive) of the token in this range.
-  int end;
+  final int end;
 
   Range(this.start, this.end);
 }
 
 /// Returns a list of [MatchRange] for [unknownLicense] that might be the best possible match for [knownLicense].
 List<MatchRange> findPotentialMatches(
-  PossibleLicense unknownLicense,
-  PossibleLicense knownLicense,
+  LicenseWithNGrams unknownLicense,
+  LicenseWithNGrams knownLicense,
   double confidence,
   int granularity,
 ) {
+  if (knownLicense.n != unknownLicense.n) {
+    throw ArgumentError(
+        'n-gram size for knownLicense and unknownLicense must be the same!');
+  }
+
   final matchedRanges = getMatchRanges(
     unknownLicense,
     knownLicense,
@@ -52,7 +73,7 @@ List<MatchRange> findPotentialMatches(
   );
 
   // Minimum number of tokens that range must have to be considered a possible match.
-  final threshold = (confidence * knownLicense.license.tokens.length).toInt();
+  final threshold = (confidence * knownLicense.tokens.length).toInt();
 
   for (var i = 0; i < matchedRanges.length; i++) {
     if (matchedRanges[i].tokensClaimed < threshold) {
@@ -66,8 +87,8 @@ List<MatchRange> findPotentialMatches(
 /// Returns a list of [MatchRange] for tokens in [input] that were found to be a match for [source].
 @visibleForTesting
 List<MatchRange> getMatchRanges(
-  PossibleLicense input,
-  PossibleLicense source,
+  LicenseWithNGrams input,
+  LicenseWithNGrams source,
   double confidence,
   int granularity,
 ) {
@@ -83,8 +104,8 @@ List<MatchRange> getMatchRanges(
   final runs = detectRuns(
     matches,
     confidence,
-    input.license.tokens.length,
-    source.license.tokens.length,
+    input.tokens.length,
+    source.tokens.length,
     granularity,
   );
 
@@ -92,15 +113,15 @@ List<MatchRange> getMatchRanges(
     return [];
   }
 
-  return fuseMatchedRanges(matches, confidence, source.license.tokens.length,
-      runs, input.license.tokens.length);
+  return fuseMatchedRanges(
+      matches, confidence, source.tokens.length, runs, input.tokens.length);
 }
 
 /// Returns a list of [MatchRange] for all the continuous range of [Ngram](s) matched in [unknownLicense] and [knownLicense].
 @visibleForTesting
 List<MatchRange> getTargetMatchedRanges(
-  PossibleLicense knownLicense,
-  PossibleLicense unknownLicense,
+  LicenseWithNGrams knownLicense,
+  LicenseWithNGrams unknownLicense,
   int granularity,
 ) {
   var offsetMap = <int, List<MatchRange>>{};
@@ -121,8 +142,8 @@ List<MatchRange> getTargetMatchedRanges(
       // and update the last match for this offset accordingly.
       if (offsetMap.containsKey(offset) &&
           (offsetMap[offset]!.last.input.end == tgtChecksum.end - 1)) {
-        offsetMap[offset]!.last.source.end = srcChecksum.end;
-        offsetMap[offset]!.last.input.end = tgtChecksum.end;
+        offsetMap[offset]!.last.sourceEnd = srcChecksum.end;
+        offsetMap[offset]!.last.inputEnd = tgtChecksum.end;
         continue;
       }
 
@@ -162,7 +183,6 @@ List<Range> detectRuns(
   final int licenseTokenCount,
   int granularity,
 ) {
-
   // Set the subset length to smaller of the number of input tokens
   // or number of source tokens.
   //
@@ -206,6 +226,8 @@ List<Range> detectRuns(
 
     final end = i + subsetLength - 1;
 
+    // Similarly check if the last value of the updated window is a hit
+    // and update the total count accordingly.
     if (end < inputTokensCount && hits[end]) {
       totalMatches++;
     }
@@ -232,7 +254,7 @@ List<Range> detectRuns(
     if (out[i] != 1 + out[i - 1]) {
       finalOut.add(Range(out[i], out[i] + granularity));
     } else {
-      finalOut.last.end = out[i] + granularity;
+      finalOut.last = Range(finalOut.last.start, out[i] + granularity);
     }
   }
 
@@ -306,8 +328,8 @@ List<MatchRange> fuseMatchedRanges(
           // source start offsets of claim.
           if (match.input.start < claim.input.start &&
               match.source.start < claim.source.start) {
-            claim.input.start = match.input.start;
-            claim.source.start = match.source.start;
+            claim.inputStart = match.input.start;
+            claim.sourceStart = match.source.start;
             claim.tokensClaimed += match.tokensClaimed;
             unclaimed = false;
           }
@@ -316,8 +338,8 @@ List<MatchRange> fuseMatchedRanges(
           // end offsets of claim.
           else if (match.input.end > claim.input.end &&
               match.source.end > claim.source.end) {
-            claim.input.end = match.input.end;
-            claim.source.end = match.source.end;
+            claim.inputEnd = match.input.end;
+            claim.sourceEnd = match.source.end;
             claim.tokensClaimed += match.tokensClaimed;
             unclaimed = false;
           }

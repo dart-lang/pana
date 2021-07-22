@@ -11,12 +11,12 @@ import 'package:pana/src/license_detection/license.dart';
 /// This function filters from the known licenses by weighing the
 /// number of similar tokens through [tokenSimilarity] method and
 /// returns a list of [License] which have a score above certain threshold.
-List<PossibleLicense> filter(
+List<LicenseWithNGrams> filter(
   Map<String, int> occurrences,
   List<License> knownLicenses,
   int granularity,
 ) {
-  var possibleLicenses = <PossibleLicense>[];
+  var possibleLicenses = <LicenseWithNGrams>[];
   knownLicenses
       .where((license) =>
           tokenSimilarity(
@@ -25,7 +25,7 @@ List<PossibleLicense> filter(
           ) >=
           0.5)
       .forEach((license) {
-    possibleLicenses.add(PossibleLicense.parse(license, granularity));
+    possibleLicenses.add(LicenseWithNGrams.parse(license, granularity));
   });
 
   return List.unmodifiable(possibleLicenses);

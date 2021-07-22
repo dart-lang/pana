@@ -11,19 +11,18 @@ import 'package:pana/src/license_detection/tokenizer.dart';
 /// Computes the confidence of [knownLicense] matching with [unknownLicense] and
 /// returns an instance of [LicenseMatch] or null based on it.
 LicenseMatch? confidenceMatch(
-  PossibleLicense unknownLicense,
-  PossibleLicense knownLicense,
+  LicenseWithNGrams unknownLicense,
+  LicenseWithNGrams knownLicense,
   MatchRange matchRange,
   double threshold,
 ) {
   final diffs = getDiffs(
-    unknownLicense.license.tokens,
-    knownLicense.license.tokens,
+    unknownLicense.tokens,
+    knownLicense.tokens,
     matchRange,
   );
 
-  final range =
-      diffRange(tokensNormalizedValue(knownLicense.license.tokens), diffs);
+  final range = diffRange(tokensNormalizedValue(knownLicense.tokens), diffs);
   final distance =
       scoreDiffs(diffs.skip(range.start).take(range.end - range.start));
 
@@ -33,19 +32,18 @@ LicenseMatch? confidenceMatch(
     return null;
   }
 
-  final confidence =
-      confidencePercentage(knownLicense.license.tokens.length, distance);
+  final confidence = confidencePercentage(knownLicense.tokens.length, distance);
 
   if (confidence >= threshold) {
     return LicenseMatch(
-      unknownLicense.license.tokens
+      unknownLicense.tokens
           .skip(matchRange.input.start)
           .take(
             matchRange.input.end - matchRange.input.start,
           )
           .toList(),
       confidence,
-      knownLicense.license,
+      knownLicense,
       diffs,
       Range(range.start, range.end),
     );
@@ -91,6 +89,12 @@ List<Diff> getDiffs(
 }
 
 /// Returns the range in [diffs] that best resembles the known license text.
+///
+/// The range provides diffs from which the unknown text could be trimmed down to
+/// produce best resemble known text. Essentialy it tries to remove part's of
+/// text in unknown license which are not a part of known license without affecting the
+/// confidence negatively i.e any false-negatives are not discarded while some of the
+/// true-negatives are discarded.
 @visibleForTesting
 Range diffRange(String known, List<Diff> diffs) {
   var foundStart = false;
@@ -117,7 +121,7 @@ Range diffRange(String known, List<Diff> diffs) {
   return Range(start, end);
 }
 
-/// Returns a score indicating to how much extent the [diffs] are acceptable.
+/// Returns a score indicating to what extent the [diffs] are acceptable.
 ///
 /// If a negative integer is returned it implies that the changes are not
 /// accepatable and hence we discard the known license against which the diffs
@@ -130,6 +134,18 @@ Range diffRange(String known, List<Diff> diffs) {
 int scoreDiffs(Iterable<Diff> diffs) {
   var prevText = '';
   var prevDelete = '';
+
+  /// Check if there was a version change and return true accordingly.
+  bool verifyVersionChange(String number) {
+    if (_isVersionNumber(number) && prevText.endsWith('version')) {
+      if (!prevText.endsWith('the standard version') &&
+          !prevText.endsWith('the contributor version')) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   // Make an initial check on the diffs to see if their are any
   // unacceptable substitutions made.
@@ -151,12 +167,8 @@ int scoreDiffs(Iterable<Diff> diffs) {
           number = number.substring(0, index);
         }
 
-        // Check if there was a version change and return -1.
-        if (_isVersionNumber(number) && prevText.endsWith('version')) {
-          if (!prevText.endsWith('the standard version') &&
-              !prevText.endsWith('the contributor version')) {
-            return versionChange;
-          }
+        if (verifyVersionChange(number)) {
+          return versionChange;
         }
 
         // Ignores substitution of "library" with "lesser" in gnu license,

@@ -17,9 +17,9 @@ final _licenses = loadLicensesFromDirectories(_directories);
 List<LicenseMatch> detectLicense(String text, double threshold) {
   final granularity = computeGranularity(threshold);
   final unknownLicense =
-      PossibleLicense.parse(License.parse('', text), granularity);
+      LicenseWithNGrams.parse(License.parse('', text), granularity);
   final possibleLicenses =
-      filter(unknownLicense.license.occurrences, _licenses, granularity);
+      filter(unknownLicense.occurrences, _licenses, granularity);
   var result = <LicenseMatch>[];
 
   for (var license in possibleLicenses) {

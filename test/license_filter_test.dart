@@ -72,7 +72,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''';
       final unknownLicense = License.parse('', input);
       final knownLicenses =
-          loadLicensesFromDirectories(['test/license_test_assets']);
+          loadLicensesFromDirectories(['test/license_test_assets/licenses']);
 
       final possibleLicenses =
           filter(unknownLicense.occurrences, knownLicenses, 3);
@@ -84,7 +84,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''';
       expect(possibleLicenses.length, 3);
 
       for (var i = 0; i < 3; i++) {
-        expect(possibleLicenses[i].license.identifier, possibleLicenseNames[i]);
+        expect(possibleLicenses[i].identifier, possibleLicenseNames[i]);
       }
     });
   });

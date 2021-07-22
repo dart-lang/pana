@@ -36,14 +36,7 @@ class License {
 }
 
 String tokensNormalizedValue(Iterable<Token> tokens) {
-  var buffer = StringBuffer();
-
-  for (var token in tokens) {
-    buffer.write(token.value);
-    buffer.write(' ');
-  }
-
-  return buffer.toString().trimRight();
+  return tokens.map((token) => token.value).join(' ');
 }
 
 @sealed
@@ -70,19 +63,40 @@ class NGram {
 /// A [License] instance with generated [nGrams].
 // TODO: Change class name to something more meaningful.
 @sealed
-class PossibleLicense {
-  final License license;
-
+class LicenseWithNGrams extends License {
   final List<NGram> nGrams;
 
   final Map<int, List<NGram>> checksumMap;
 
-  PossibleLicense._(this.license, this.nGrams, this.checksumMap);
+  final int n;
 
-  factory PossibleLicense.parse(License license, int granularity) {
-    final nGrams = generateChecksums(license.tokens, granularity);
+  LicenseWithNGrams._(
+    this.nGrams,
+    this.checksumMap,
+    this.n,
+    String identifier,
+    String content,
+    List<Token> tokens,
+    Map<String, int> table,
+  ) : super._(
+          content,
+          tokens,
+          table,
+          identifier,
+        );
+
+  factory LicenseWithNGrams.parse(License license, int n) {
+    final nGrams = generateChecksums(license.tokens, n);
     final table = generateChecksumMap(nGrams);
-    return PossibleLicense._(license, nGrams, table);
+    return LicenseWithNGrams._(
+      nGrams,
+      table,
+      license.tokens.length < n ? license.tokens.length : n,
+      license.identifier,
+      license.content,
+      license.tokens,
+      license.occurrences,
+    );
   }
 }
 
@@ -105,7 +119,7 @@ class LicenseMatch {
   final double confidence;
 
   /// Detected license the input have been found to match with given [confidence].
-  final License license;
+  final LicenseWithNGrams license;
 
   LicenseMatch(
     this.tokens,
@@ -244,4 +258,4 @@ Map<int, List<NGram>> generateChecksumMap(List<NGram> nGrams) {
 /// is a invalid identifier.
 ///
 /// [1]: https://github.com/spdx/license-list-XML/blob/master/DOCS/license-fields.md#explanation-of-spdx-license-list-fields
-final _invalidIdentifier = RegExp(r'[^a-zA-Z\d\.\-_+]');
+final _invalidIdentifier = RegExp(r'[^a-zA-Z\d\.\-\_+]');
