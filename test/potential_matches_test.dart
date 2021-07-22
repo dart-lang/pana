@@ -118,10 +118,6 @@ void testTargetMatchRanges() {
   });
 }
 
-void main() {
-  testTargetMatchRanges();
-}
-
 void _testTargetMatchRanges({
   required String testDescription,
   required String unknownText,
@@ -139,6 +135,227 @@ void _testTargetMatchRanges({
   });
 }
 
+void testDetectRuns() {
+  group('detectRuns test:', () {
+    var matches = <MatchRange>[];
+    var n = 3;
+    var expected = <Range>[];
+
+    _testDetectRuns(
+      'Zero match case',
+      matches,
+      n,
+      expected,
+    );
+
+    matches = [MatchRange(Range(0, 100), Range(0, 100), 100)];
+    expected = [Range(0, 23)];
+
+    _testDetectRuns(
+      'Perfect match case',
+      matches,
+      n,
+      expected,
+    );
+
+    matches = [
+      MatchRange(Range(0, 40), Range(0, 40), 40),
+      MatchRange(Range(60, 100), Range(60, 100), 40),
+    ];
+    expected = [Range(0, 3)];
+
+    _testDetectRuns(
+      'Minimum number of hits required in window to qualify as match',
+      matches,
+      n,
+      expected,
+    );
+
+    expected = [];
+
+    _testDetectRuns(
+      'Increasing threshold from 0.8 to 0.9 disqualifies previous match',
+      matches,
+      n,
+      expected,
+      confidenceThreshold: 0.9,
+    );
+
+    matches = [
+      MatchRange(Range(0, 10), Range(0, 10), 10),
+      MatchRange(Range(20, 30), Range(20, 30), 10),
+      MatchRange(Range(40, 60), Range(40, 60), 20),
+      MatchRange(Range(65, 80), Range(65, 80), 15),
+      MatchRange(Range(81, 89), Range(11, 19), 8),
+      MatchRange(Range(92, 100), Range(32, 40), 8),
+    ];
+    expected = [];
+
+    // Set number of license count = 80.
+    // If confidence threshold = 0.8, minimum number of hits required in
+    // a window of 80 lenght equals 80 * 0.8 = 64.
+    // Though the total number hits in matches equal to 71 (> nor of target tokens)
+    // no window has hits >= 64 and hence should return an empty list.
+    _testDetectRuns(
+      'No window has hits greater than or equal to target count',
+      matches,
+      n,
+      expected,
+      licenseTokenCount: 80,
+    );
+
+    // Detect multiple fragmented runs.
+    // Changing license token count to 50 (subset length becomes 50).
+    // Setting source range to (0, 0) will not effect the result as it is not considerd in detectRuns routine.
+    matches = [
+      MatchRange(Range(10, 35), Range(0, 0), 25),
+      MatchRange(Range(75, 100), Range(0, 0), 25),
+      MatchRange(Range(45, 60), Range(0, 0), 15),
+      MatchRange(Range(64, 69), Range(0, 0), 5)
+    ];
+
+    expected = [Range(10, 13), Range(45, 53)];
+
+    _testDetectRuns(
+      'Multiple runs',
+      matches,
+      n,
+      expected,
+      licenseTokenCount: 50,
+    );
+  });
+}
+
+void _testDetectRuns(
+  String name,
+  List<MatchRange> matches,
+  int n,
+  List<Range> expected, {
+  double confidenceThreshold = 0.8,
+  int inputTokensCount = 100,
+  int licenseTokenCount = 100,
+}) {
+  test(name, () {
+    final actual = detectRuns(
+      matches,
+      confidenceThreshold,
+      inputTokensCount,
+      licenseTokenCount,
+      n,
+    );
+
+    expect(actual.length, expected.length);
+
+    for (var i = 0; i < actual.length; i++) {
+      expect(actual[i].start, expected[i].start);
+      expect(actual[i].end, expected[i].end);
+    }
+  });
+}
+
+void testFuseRanges() {
+  group('test fuseRanges:', () {
+    var matches = [
+      MatchRange(Range(0, 100), Range(0, 100), 100),
+    ];
+    var runs = [Range(0, 23)];
+    var expected = [
+      MatchRange(Range(0, 100), Range(0, 100), 100),
+    ];
+
+    _testFuseRanges(
+      'Perfect match',
+      expected,
+      matches,
+      runs,
+    );
+
+    matches = [
+      MatchRange(Range(0, 45), Range(0, 45), 45),
+      MatchRange(Range(55, 90), Range(65, 100), 35),
+    ];
+
+    expected = [MatchRange(Range(0, 90), Range(0, 100), 80)];
+
+    matches = [
+      MatchRange(Range(0, 40), Range(10, 50), 40),
+      MatchRange(Range(65, 68), Range(50, 83), 3),
+    ];
+    expected = [
+      MatchRange(Range(0, 40), Range(10, 50), 40),
+    ];
+
+    _testFuseRanges(
+      'Discard matchRange with very less number of tokens claimed',
+      expected,
+      matches,
+      runs,
+    );
+
+    // Merge the ranges if offset differences are within the error margin.
+    // errorMargin = size * (1 - threshold) = 100 * (1 - 0.8) = 20
+    _testFuseRanges(
+      'Merge range if within error margin',
+      expected,
+      matches,
+      runs,
+    );
+
+    matches = [
+      MatchRange(Range(0, 45), Range(0, 45), 45),
+      MatchRange(Range(55, 78), Range(77, 100), 23),
+    ];
+    runs = [Range(0, 20)];
+    expected = [
+      MatchRange(Range(0, 45), Range(0, 45), 45),
+    ];
+
+    // Discard range if offset differences of input and known license not within error margin.
+    _testFuseRanges(
+      'Discard range if start offset difference not within error margin',
+      expected,
+      matches,
+      runs,
+    );
+
+    // Do not fuse ranges if absolute difference of the differences of their
+    // input and known start indexes is not within the error range.
+    matches = [
+      MatchRange(Range(0, 40), Range(10, 50), 40),
+      MatchRange(Range(65, 100), Range(50, 85), 35),
+    ];
+
+    _testFuseRanges(
+      'Does not fuse matchRanges',
+      matches,
+      matches,
+      runs,
+    );
+  });
+}
+
+void _testFuseRanges(
+  String name,
+  List<MatchRange> expected,
+  List<MatchRange> matches,
+  List<Range> runs, {
+  double confidence = 0.8,
+  int targetSize = 100,
+  int size = 100,
+}) {
+  test(name, () {
+    final actual = fuseMatchedRanges(
+      matches,
+      confidence,
+      size,
+      runs,
+      targetSize,
+    );
+
+    testOutput(actual, expected);
+  });
+}
+
 void testOutput(List<MatchRange> actual, List<MatchRange> expected) {
   expect(actual.length, expected.length);
 
@@ -151,6 +368,33 @@ void testOutput(List<MatchRange> actual, List<MatchRange> expected) {
   }
 }
 
-PossibleLicense _getLicense(String content, int granularity) {
-  return PossibleLicense.parse(License.parse('', content), granularity);
+LicenseWithNGrams _getLicense(String content, int granularity) {
+  return LicenseWithNGrams.parse(License.parse('', content), granularity);
+}
+
+void main() {
+  testTargetMatchRanges();
+  testDetectRuns();
+  testFuseRanges();
+}
+
+void mafin() {
+  var matches = [
+    MatchRange(Range(0, 40), Range(10, 50), 40),
+    MatchRange(Range(55, 90), Range(65, 100), 35),
+  ];
+  var confidenceThreshold = 0.8;
+  // var n = 3;
+  var runs = [Range(0, 20)];
+  final actual = fuseMatchedRanges(
+    matches,
+    confidenceThreshold,
+    100,
+    runs,
+    100,
+  );
+
+  for (var i = 0; i < actual.length; i++) {
+    print('${actual[i].input.start}, ${actual[i].input.end}');
+  }
 }
