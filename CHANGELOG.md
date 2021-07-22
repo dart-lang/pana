@@ -1,3 +1,7 @@
+## 0.19.1
+
+* Upgraded dependencies: `analyzer` and `json_serializable`.
+
 ## 0.19.0
 
 * Fix null-safety classification issue with `dart-ext:` imports.
