@@ -356,6 +356,118 @@ void _testFuseRanges(
   });
 }
 
+void testPotentialMatches() {
+  const perfect100 = '''
+  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 ''';
+
+  const missingInitial20 = '''
+  21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 ''';
+
+  const missingLast20 = '''
+  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80''';
+
+  const xAt10Interval = '''
+  1 2 3 4 5 6 7 8 9 x 11 12 13 14 15 16 17 18 19 x 21 22 23 24 25 26 27 28 29 x 31 32 33 34 35 36 37 38 39 x 41 42 43 44 45 46 47 48 49 x 51 52 53 54 55 56 57 58 59 x 61 62 63 64 65 66 67 68 69 x 71 72 73 74 75 76 77 78 79 x 81 82 83 84 85 86 87 88 89 x 91 92 93 94 95 96 97 98 99 x''';
+
+  const thirtyIntervalGap = '''
+  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 x x x x x x x x x x 91 92 93 94 95 96 97 98 99 100 x x x x x x x x x x x x x x x x x x x x''';
+
+  group('Test potentialMatches:', () {
+    var expected = [
+      MatchRange(Range(0, 100), Range(0, 100), 100),
+    ];
+
+    _testPotentialMatches(
+      'Perfect Match',
+      perfect100,
+      perfect100,
+      expected,
+    );
+
+    expected = [
+      MatchRange(Range(0, 80), Range(20, 100), 80),
+    ];
+
+    // Finds a match as the number of tokens claimed is >= threshold number of tokens.
+    // i.e threshold count = confidenceThreshold * corpus size
+    //                     = 0.8 * 100
+    //                     = 80
+    _testPotentialMatches(
+      'Missing initial 20 tokens',
+      missingInitial20,
+      perfect100,
+      expected,
+    );
+
+    expected = [
+      MatchRange(Range(0, 80), Range(0, 80), 80),
+    ];
+
+    _testPotentialMatches(
+      'Missing last 20 tokens',
+      missingLast20,
+      perfect100,
+      expected,
+    );
+
+    expected = [];
+
+    // Changing confidenceThresold to 0.9 should not produce
+    // a hit as we would need minimum of 90 tokens to be matched.
+    _testPotentialMatches(
+      'No hits',
+      missingLast20,
+      perfect100,
+      expected,
+      confidence: 0.9,
+    );
+
+    expected = [
+      MatchRange(Range(0, 99), Range(0, 99), 90),
+    ];
+
+    _testPotentialMatches(
+      'Expect a match',
+      xAt10Interval,
+      perfect100,
+      expected,
+      confidence: 0.9,
+    );
+
+    expected = [];
+    // Should expect any hits.
+    // Though the offset difference(unknownStart - knownStart) is 19 abs(72 - 91)
+    // is less tham error margin(100 * (1 - 0.8)), it's contribution i.e 10
+    // is still lesser than than the error it introduces.
+
+    _testPotentialMatches(
+      'No hits, error introduced greather than contribution',
+      thirtyIntervalGap,
+      perfect100,
+      expected,
+    );
+  });
+}
+
+void _testPotentialMatches(
+  String name,
+  String unknownText,
+  String knownText,
+  List<MatchRange> expected, {
+  double confidence = 0.8,
+  int n = 3,
+}) {
+  test(name, () {
+    final unknownLicense = _getLicense(unknownText, n);
+    final knownLicense = _getLicense(knownText, n);
+
+    final actual =
+        findPotentialMatches(unknownLicense, knownLicense, confidence, n);
+
+    testOutput(actual, expected);
+  });
+}
+
 void testOutput(List<MatchRange> actual, List<MatchRange> expected) {
   expect(actual.length, expected.length);
 
@@ -368,33 +480,13 @@ void testOutput(List<MatchRange> actual, List<MatchRange> expected) {
   }
 }
 
-LicenseWithNGrams _getLicense(String content, int granularity) {
-  return LicenseWithNGrams.parse(License.parse('', content), granularity);
+LicenseWithNGrams _getLicense(String content, int n) {
+  return LicenseWithNGrams.parse(License.parse('', content), n);
 }
 
 void main() {
   testTargetMatchRanges();
   testDetectRuns();
   testFuseRanges();
-}
-
-void mafin() {
-  var matches = [
-    MatchRange(Range(0, 40), Range(10, 50), 40),
-    MatchRange(Range(55, 90), Range(65, 100), 35),
-  ];
-  var confidenceThreshold = 0.8;
-  // var n = 3;
-  var runs = [Range(0, 20)];
-  final actual = fuseMatchedRanges(
-    matches,
-    confidenceThreshold,
-    100,
-    runs,
-    100,
-  );
-
-  for (var i = 0; i < actual.length; i++) {
-    print('${actual[i].input.start}, ${actual[i].input.end}');
-  }
+  testPotentialMatches();
 }

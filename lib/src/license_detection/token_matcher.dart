@@ -33,7 +33,7 @@ class MatchRange {
   }
 
   set sourceStart(int start) {
-    source = Range(start, source.start);
+    source = Range(start, source.end);
   }
 
   set sourceEnd(int end) {
@@ -58,7 +58,7 @@ List<MatchRange> findPotentialMatches(
   LicenseWithNGrams unknownLicense,
   LicenseWithNGrams knownLicense,
   double confidence,
-  int granularity,
+  int n,
 ) {
   if (knownLicense.n != unknownLicense.n) {
     throw ArgumentError(
@@ -69,7 +69,7 @@ List<MatchRange> findPotentialMatches(
     unknownLicense,
     knownLicense,
     confidence,
-    granularity,
+    n,
   );
 
   // Minimum number of tokens that range must have to be considered a possible match.
@@ -90,11 +90,11 @@ List<MatchRange> getMatchRanges(
   LicenseWithNGrams input,
   LicenseWithNGrams source,
   double confidence,
-  int granularity,
+  int n,
 ) {
   // Collect all the matches irrespective of the number of tokens claimed
   // in the range (Can be less then the threshold number of tokens).
-  final matches = getTargetMatchedRanges(source, input, granularity);
+  final matches = getTargetMatchedRanges(source, input, n);
 
   if (matches.isEmpty) {
     return [];
@@ -106,7 +106,7 @@ List<MatchRange> getMatchRanges(
     confidence,
     input.tokens.length,
     source.tokens.length,
-    granularity,
+    n,
   );
 
   if (runs.isEmpty) {
@@ -122,7 +122,7 @@ List<MatchRange> getMatchRanges(
 List<MatchRange> getTargetMatchedRanges(
   LicenseWithNGrams knownLicense,
   LicenseWithNGrams unknownLicense,
-  int granularity,
+  int n,
 ) {
   var offsetMap = <int, List<MatchRange>>{};
   var matches = <MatchRange>[];
@@ -151,7 +151,7 @@ List<MatchRange> getTargetMatchedRanges(
       // match of the same offset.
       offsetMap.putIfAbsent(offset, () => []).add(
             MatchRange(Range(tgtChecksum.start, tgtChecksum.end),
-                Range(srcChecksum.start, srcChecksum.end), granularity),
+                Range(srcChecksum.start, srcChecksum.end), n),
           );
     }
   }
@@ -181,7 +181,7 @@ List<Range> detectRuns(
   double confidenceThreshold,
   final int inputTokensCount,
   final int licenseTokenCount,
-  int granularity,
+  int n,
 ) {
   // Set the subset length to smaller of the number of input tokens
   // or number of source tokens.
@@ -244,7 +244,7 @@ List<Range> detectRuns(
   var finalOut = <Range>[
     Range(
       out[0],
-      out[0] + granularity,
+      out[0] + n,
     )
   ];
 
@@ -252,9 +252,9 @@ List<Range> detectRuns(
   // were considered to be a potential match.
   for (var i = 1; i < out.length; i++) {
     if (out[i] != 1 + out[i - 1]) {
-      finalOut.add(Range(out[i], out[i] + granularity));
+      finalOut.add(Range(out[i], out[i] + n));
     } else {
-      finalOut.last = Range(finalOut.last.start, out[i] + granularity);
+      finalOut.last = Range(finalOut.last.start, out[i] + n);
     }
   }
 

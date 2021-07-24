@@ -59,6 +59,16 @@ void testScoreDiff() {
   });
 }
 
+void _testScoreDiff(
+  String name,
+  List<Diff> diffs,
+  int expected,
+) {
+  test(name, () {
+    expect(scoreDiffs(diffs), expected);
+  });
+}
+
 void testDiffRange() {
   group('diffRange test:', () {
     var known = 'exact match';
@@ -89,15 +99,6 @@ void testDiffRange() {
   });
 }
 
-void _testScoreDiff(
-  String name,
-  List<Diff> diffs,
-  int expected,
-) {
-  test(name, () {
-    expect(scoreDiffs(diffs), expected);
-  });
-}
 
 void _testDiffRange(
     String name, List<Diff> diffs, String known, Range expected) {
@@ -109,7 +110,20 @@ void _testDiffRange(
   });
 }
 
+void testCofidencePercentage(){
+  group('Test confidencePercentage', (){
+    test('avoid divide by zero',(){
+      expect(confidencePercentage(0,5), 1);
+    });
+
+    test('90% match', (){
+      expect(confidencePercentage(100, 10), 0.9);
+    });
+  });
+}
+
 void main() {
   testScoreDiff();
   testDiffRange();
+  testCofidencePercentage();
 }
