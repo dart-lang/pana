@@ -1,6 +1,6 @@
 # Diff-Match-Patch
 
-This is code was obtained from google's [diff-match-patch](https://github.com/google/diff-match-patch) library.
+This is code was forked from google's [diff-match-patch](https://github.com/google/diff-match-patch) library.
 
 ## Modifications made in code
 

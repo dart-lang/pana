@@ -1228,4 +1228,3 @@ void _testWordDiffLevenshtein(int expected, List<Diff> input, String name) {
     expect(diffLevenshteinWord(input), expected);
   });
 }
-

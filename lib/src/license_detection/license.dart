@@ -110,8 +110,8 @@ class LicenseMatch {
 
   /// Range of [diffs] which represents the diffs between known license and unknown license.
   ///
-  /// Diffs lying outside of [diffRange] represent the text in unknown license
-  /// that is not a part of the [license](source) text.
+  /// Diffs lying outside of [diffRange] represent additional text in unknown license
+  /// comes before or after the detected [license](source) text.
   @visibleForTesting
   final Range diffRange;
 
@@ -124,10 +124,12 @@ class LicenseMatch {
 
   String get identifier => license.identifier;
 
-  /// Start offset in the input license text.
+  /// Offset in the input license text considered to be possible starting point
+  /// of known license subtring.
   int get start => tokens.first.span.start.offset;
 
-  /// End offset in the input license text.
+  /// Offset in the input license text considered to be possible starting point
+  /// of known license subtring.
   int get end => tokens.last.span.start.offset;
 
   LicenseMatch(

@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 part of 'license_detector.dart';
+
 /// Range of tokens in input text that matched to a range of tokens in known license.
 @sealed
 @visibleForTesting

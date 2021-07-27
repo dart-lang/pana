@@ -55,6 +55,17 @@ List<LicenseMatch> detectLicense(String text, double threshold) {
   return List.unmodifiable(result);
 }
 
+/// Returns the minimum number of token runs that must match accordinf to
+/// [threshold] to be able to consider it as match.
+///
+/// In a worst case scenario where the error is evenly
+/// distributed (breaking the token runs most times), if we
+/// consider 100 tokens and threshold 0.8, we'll have
+/// 4 continuos matching tokens and a mismatch.
+///
+/// So this function returns the minimum number of tokens
+/// or 1 (which is greater) to consider them as part
+/// of known license text.
 int computeGranularity(double threshold) {
   if (threshold == 1.0) {
     return 10; // avoid divide by 0
