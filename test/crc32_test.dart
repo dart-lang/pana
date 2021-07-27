@@ -5,7 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:pana/src/license_detection/crc32.dart';
+import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:test/test.dart';
 
 void main() {

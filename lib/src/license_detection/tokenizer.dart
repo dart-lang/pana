@@ -2,15 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:collection';
-
-import 'package:meta/meta.dart';
-import 'package:source_span/source_span.dart';
-import 'package:string_scanner/string_scanner.dart';
+part of 'license_detector.dart';
 
 /// A token in this context is a sequence of characters
 /// scanned from the original text separated by a space
 /// or new line.
+@visibleForTesting
 @sealed
 class Token {
   /// Normalized form of the text in [span].
@@ -43,6 +40,7 @@ class Token {
 ///    non-alphabet characters. Ex - `(hello wo$r1ld` --> [`hello`, `world`,]
 /// 6. If a token starts with digit, any characters except `.`, `-` in the token value will be ignored.
 ///    Dot at the end of the token will also be ignored. `1!@#$.1.1 1-1hj.23.` --> [`1.1.1`, `1-1.23`,].
+@visibleForTesting
 List<Token> tokenize(String text) {
   final _scanner = SpanScanner(text);
 

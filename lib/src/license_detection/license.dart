@@ -2,15 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:meta/meta.dart';
-import 'package:pana/src/third_party/diff_match_patch/diff.dart';
-import 'package:pana/src/license_detection/token_matcher.dart';
-import 'package:pana/src/license_detection/tokenizer.dart';
-
-import 'crc32.dart';
+part of 'license_detector.dart';
 
 @sealed
 class License {
@@ -39,6 +31,10 @@ String tokensNormalizedValue(Iterable<Token> tokens) {
   return tokens.map((token) => token.value).join(' ');
 }
 
+/// Representation of n-gram consistent of `n` tokens.
+///
+/// The number of tokens `n` in the n-grams is determined by  confidence threshold for the match.
+///  See: [computeGranularity].
 @sealed
 class NGram {
   /// Text for which the hash value was generated.
@@ -62,6 +58,7 @@ class NGram {
 
 /// A [License] instance with generated [nGrams].
 // TODO: Change class name to something more meaningful.
+@visibleForTesting
 @sealed
 class LicenseWithNGrams extends License {
   final List<NGram> nGrams;
@@ -104,22 +101,34 @@ class LicenseWithNGrams extends License {
 @sealed
 class LicenseMatch {
   /// Sequence of tokens from input text that were considered a match for the detected [License].
+  @visibleForTesting
   final List<Token> tokens;
 
   /// [Diff]s calculated between target tokens and [license] tokens.
+  @visibleForTesting
   final List<Diff> diffs;
 
   /// Range of [diffs] which represents the diffs between known license and unknown license.
   ///
   /// Diffs lying outside of [diffRange] represent the text in unknown license
   /// that is not a part of the [license](source) text.
+  @visibleForTesting
   final Range diffRange;
+
+  /// Detected license the input have been found to match with given [confidence].
+  @visibleForTesting
+  final LicenseWithNGrams license;
 
   /// Confidence score of the detected license.
   final double confidence;
 
-  /// Detected license the input have been found to match with given [confidence].
-  final LicenseWithNGrams license;
+  String get identifier => license.identifier;
+
+  /// Start offset in the input license text.
+  int get start => tokens.first.span.start.offset;
+
+  /// End offset in the input license text.
+  int get end => tokens.last.span.start.offset;
 
   LicenseMatch(
     this.tokens,
@@ -219,6 +228,7 @@ const _endOfTerms = 'END OF TERMS AND CONDITIONS';
 
 /// Generates crc-32 checksum for the given list of tokens
 /// by taking [granularity] token values at a time.
+@visibleForTesting
 List<NGram> generateChecksums(List<Token> tokens, int granularity) {
   if (tokens.length < granularity) {
     final text = tokens.join(' ');
@@ -245,6 +255,7 @@ List<NGram> generateChecksums(List<Token> tokens, int granularity) {
 ///
 /// [NGram.checksum] is mapped to a list of NGrams having the same
 /// checksum value.
+@visibleForTesting
 Map<int, List<NGram>> generateChecksumMap(List<NGram> nGrams) {
   var table = <int, List<NGram>>{};
   for (var checksum in nGrams) {

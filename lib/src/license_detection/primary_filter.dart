@@ -2,8 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-import 'package:pana/src/license_detection/license.dart';
+part of 'license_detector.dart';
 
 /// Filters [knownLicenses] and returns a list of licenses that could likely be a possible match for input.
 ///
@@ -11,25 +10,15 @@ import 'package:pana/src/license_detection/license.dart';
 /// This function filters from the known licenses by weighing the
 /// number of similar tokens through [tokenSimilarity] method and
 /// returns a list of [License] which have a score above certain threshold.
-List<LicenseWithNGrams> filter(
+@visibleForTesting
+List<License> filter(
   Map<String, int> occurrences,
   List<License> knownLicenses,
-  int granularity,
-) {
-  var possibleLicenses = <LicenseWithNGrams>[];
-  knownLicenses
-      .where((license) =>
-          tokenSimilarity(
-            occurrences,
-            license.occurrences,
-          ) >=
-          0.5)
-      .forEach((license) {
-    possibleLicenses.add(LicenseWithNGrams.parse(license, granularity));
-  });
-
-  return List.unmodifiable(possibleLicenses);
-}
+) =>
+    knownLicenses
+        .where((license) =>
+            tokenSimilarity(occurrences, license.occurrences) >= 0.5)
+        .toList();
 
 /// Returns a measure for token similarity, between [input] and [knownLicense].
 ///

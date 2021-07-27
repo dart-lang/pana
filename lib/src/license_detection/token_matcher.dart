@@ -2,11 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-import 'package:pana/src/license_detection/license.dart';
-
+part of 'license_detector.dart';
 /// Range of tokens in input text that matched to a range of tokens in known license.
 @sealed
+@visibleForTesting
 class MatchRange {
   /// Range of tokens that were found to be a match in input text.
   Range input;
@@ -43,6 +42,7 @@ class MatchRange {
 
 /// Indicates the start and end index for a range of tokens or diffs.
 @sealed
+@visibleForTesting
 class Range {
   /// Start index of the token in this range.
   final int start;
@@ -54,6 +54,7 @@ class Range {
 }
 
 /// Returns a list of [MatchRange] for [unknownLicense] that might be the best possible match for [knownLicense].
+@visibleForTesting
 List<MatchRange> findPotentialMatches(
   LicenseWithNGrams unknownLicense,
   LicenseWithNGrams knownLicense,

@@ -2,11 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pana/src/license_detection/license.dart';
-import 'package:pana/src/license_detection/tokenizer.dart';
 import 'package:test/test.dart';
-
-import 'package:pana/src/license_detection/primary_filter.dart';
+import 'package:pana/src/license_detection/license_detector.dart';
 
 void main() {
   group('License Filter Tests:', () {
@@ -75,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''';
           loadLicensesFromDirectories(['test/license_test_assets/licenses']);
 
       final possibleLicenses =
-          filter(unknownLicense.occurrences, knownLicenses, 3);
+          filter(unknownLicense.occurrences, knownLicenses);
       const possibleLicenseNames = [
         'bsd_2_clause',
         'bsd_2_clause_in_comments',

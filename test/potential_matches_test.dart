@@ -2,118 +2,91 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pana/src/license_detection/license.dart';
-import 'package:pana/src/license_detection/token_matcher.dart';
+import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:test/test.dart';
 
 void testTargetMatchRanges() {
   group('targetMatchRanges test:', () {
-    var unknownText = '';
-    var knownText = 'a b c';
-    var expected = <MatchRange>[];
-    var granularity = 3;
-
     _testTargetMatchRanges(
       testDescription: 'Empty unknown text',
-      unknownText: unknownText,
-      knownText: knownText,
-      expected: expected,
-      granularity: granularity,
+      unknownText: '',
+      knownText: 'a b c',
+      expected: [],
+      n: 3,
     );
 
     _testTargetMatchRanges(
       testDescription: 'Empty known text',
-      unknownText: unknownText,
-      knownText: knownText,
-      expected: expected,
-      granularity: granularity,
+      unknownText: 'a b c',
+      knownText: '',
+      expected: [],
+      n: 3,
     );
-
-    unknownText = '3 words match only';
-    knownText = 'next 3 words match';
-    expected = [MatchRange(Range(0, 3), Range(1, 4), 3)];
 
     _testTargetMatchRanges(
       testDescription: 'Basic match',
-      unknownText: unknownText,
-      knownText: knownText,
-      expected: expected,
-      granularity: granularity,
+      unknownText: '3 words match only',
+      knownText: 'next 3 words match',
+      n: 3,
+      expected: [MatchRange(Range(0, 3), Range(1, 4), 3)],
     );
-
-    granularity = 4;
-    expected = [];
 
     _testTargetMatchRanges(
       testDescription: 'Changing granularity prevents previous match',
-      unknownText: unknownText,
-      knownText: knownText,
-      expected: expected,
-      granularity: granularity,
+      unknownText: '3 words match only',
+      knownText: 'next 3 words match',
+      expected: [],
+      n: 4,
     );
-
-    unknownText = 'a b c d e f g h A B p q r P Q u v w x y';
-    knownText = 'a b c d e f g h p q r A B u v w x y z';
-    expected = [
-      MatchRange(Range(0, 8), Range(0, 8), 8),
-      MatchRange(Range(15, 20), Range(13, 18), 5),
-      MatchRange(Range(10, 13), Range(8, 11), 3),
-    ];
-    granularity = 3;
 
     _testTargetMatchRanges(
       testDescription:
           'Detects all trigram matches and extend range on continuous matches',
-      unknownText: unknownText,
-      knownText: knownText,
-      expected: expected,
-      granularity: granularity,
+      unknownText: 'a b c d e f g h A B p q r P Q u v w x y',
+      knownText: 'a b c d e f g h p q r A B u v w x y z',
+      n: 3,
+      expected: [
+        MatchRange(Range(0, 8), Range(0, 8), 8),
+        MatchRange(Range(15, 20), Range(13, 18), 5),
+        MatchRange(Range(10, 13), Range(8, 11), 3),
+      ],
     );
-
-    granularity = 4;
-    expected = [
-      MatchRange(Range(0, 8), Range(0, 8), 8),
-      MatchRange(Range(15, 20), Range(13, 18), 5),
-    ];
 
     _testTargetMatchRanges(
       testDescription: 'Match with only 3 tokens claimed discarded',
-      unknownText: unknownText,
-      knownText: knownText,
-      expected: expected,
-      granularity: granularity,
+      unknownText: 'a b c d e f g h A B p q r P Q u v w x y',
+      knownText: 'a b c d e f g h p q r A B u v w x y z',
+      n: 4,
+      expected: [
+        MatchRange(Range(0, 8), Range(0, 8), 8),
+        MatchRange(Range(15, 20), Range(13, 18), 5),
+      ],
     );
-
-    unknownText =
-        'a b c 1 a b c d e f 2 a b c d e f g h i j k l m 3 a b c d e f g h i j k l m n o p q r s t u v w x y z';
-    knownText = 'a b c d e f g h i j k l m n o p q r s t u v w x y z a b c';
-    expected = [
-      MatchRange(Range(25, 51), Range(0, 26), 26),
-      MatchRange(Range(11, 24), Range(0, 13), 13),
-      MatchRange(Range(4, 10), Range(0, 6), 6)
-    ];
 
     _testTargetMatchRanges(
       testDescription: 'Match and extend repetitive and fragmented text',
-      unknownText: unknownText,
-      knownText: knownText,
-      expected: expected,
-      granularity: granularity,
+      unknownText:
+          'a b c 1 a b c d e f 2 a b c d e f g h i j k l m 3 a b c d e f g h i j k l m n o p q r s t u v w x y z',
+      knownText: 'a b c d e f g h i j k l m n o p q r s t u v w x y z a b c',
+      n: 4,
+      expected: [
+        MatchRange(Range(25, 51), Range(0, 26), 26),
+        MatchRange(Range(11, 24), Range(0, 13), 13),
+        MatchRange(Range(4, 10), Range(0, 6), 6)
+      ],
     );
-
-    granularity = 7;
-    expected = [
-      MatchRange(Range(25, 51), Range(0, 26), 26),
-      MatchRange(Range(11, 24), Range(0, 13), 13),
-    ];
 
     _testTargetMatchRanges(
       testDescription:
           'Minimum 7 tokens required in a sequence to be qualify as a match',
-      unknownText: unknownText,
-      knownText: knownText,
-      expected: expected,
-      granularity: granularity,
+      unknownText:
+          'a b c 1 a b c d e f 2 a b c d e f g h i j k l m 3 a b c d e f g h i j k l m n o p q r s t u v w x y z',
+      knownText: 'a b c d e f g h i j k l m n o p q r s t u v w x y z a b c',
+      n: 7,
+      expected: [
+        MatchRange(Range(25, 51), Range(0, 26), 26),
+        MatchRange(Range(11, 24), Range(0, 13), 13),
+      ],
     );
   });
 }
@@ -123,13 +96,12 @@ void _testTargetMatchRanges({
   required String unknownText,
   required String knownText,
   required List<MatchRange> expected,
-  required int granularity,
+  required int n,
 }) {
   test(testDescription, () {
-    final unknownLicense = _getLicense(unknownText, granularity);
-    final knownLicense = _getLicense(knownText, granularity);
-    final actual =
-        getTargetMatchedRanges(knownLicense, unknownLicense, granularity);
+    final unknownLicense = _getLicense(unknownText, n);
+    final knownLicense = _getLicense(knownText, n);
+    final actual = getTargetMatchedRanges(knownLicense, unknownLicense, n);
 
     testOutput(actual, expected);
   });
@@ -137,59 +109,36 @@ void _testTargetMatchRanges({
 
 void testDetectRuns() {
   group('detectRuns test:', () {
-    var matches = <MatchRange>[];
-    var n = 3;
-    var expected = <Range>[];
-
     _testDetectRuns(
-      'Zero match case',
-      matches,
-      n,
-      expected,
+      name: 'Zero match case',
+      matches: [],
+      expected: [],
     );
 
-    matches = [MatchRange(Range(0, 100), Range(0, 100), 100)];
-    expected = [Range(0, 23)];
-
     _testDetectRuns(
-      'Perfect match case',
-      matches,
-      n,
-      expected,
+      name: 'Perfect match case',
+      expected: [Range(0, 23)],
+      matches: [MatchRange(Range(0, 100), Range(0, 100), 100)],
     );
 
-    matches = [
-      MatchRange(Range(0, 40), Range(0, 40), 40),
-      MatchRange(Range(60, 100), Range(60, 100), 40),
-    ];
-    expected = [Range(0, 3)];
-
     _testDetectRuns(
-      'Minimum number of hits required in window to qualify as match',
-      matches,
-      n,
-      expected,
+      name: 'Minimum number of hits required in window to qualify as match',
+      expected: [Range(0, 3)],
+      matches: [
+        MatchRange(Range(0, 40), Range(0, 40), 40),
+        MatchRange(Range(60, 100), Range(60, 100), 40),
+      ],
     );
 
-    expected = [];
-
     _testDetectRuns(
-      'Increasing threshold from 0.8 to 0.9 disqualifies previous match',
-      matches,
-      n,
-      expected,
+      name: 'Increasing threshold from 0.8 to 0.9 disqualifies previous match',
+      expected: [],
       confidenceThreshold: 0.9,
+      matches: [
+        MatchRange(Range(0, 40), Range(0, 40), 40),
+        MatchRange(Range(60, 100), Range(60, 100), 40),
+      ],
     );
-
-    matches = [
-      MatchRange(Range(0, 10), Range(0, 10), 10),
-      MatchRange(Range(20, 30), Range(20, 30), 10),
-      MatchRange(Range(40, 60), Range(40, 60), 20),
-      MatchRange(Range(65, 80), Range(65, 80), 15),
-      MatchRange(Range(81, 89), Range(11, 19), 8),
-      MatchRange(Range(92, 100), Range(32, 40), 8),
-    ];
-    expected = [];
 
     // Set number of license count = 80.
     // If confidence threshold = 0.8, minimum number of hits required in
@@ -197,40 +146,41 @@ void testDetectRuns() {
     // Though the total number hits in matches equal to 71 (> nor of target tokens)
     // no window has hits >= 64 and hence should return an empty list.
     _testDetectRuns(
-      'No window has hits greater than or equal to target count',
-      matches,
-      n,
-      expected,
+      name: 'No window has hits greater than or equal to target count',
+      expected: [],
       licenseTokenCount: 80,
+      matches: [
+        MatchRange(Range(0, 10), Range(0, 10), 10),
+        MatchRange(Range(20, 30), Range(20, 30), 10),
+        MatchRange(Range(40, 60), Range(40, 60), 20),
+        MatchRange(Range(65, 80), Range(65, 80), 15),
+        MatchRange(Range(81, 89), Range(11, 19), 8),
+        MatchRange(Range(92, 100), Range(32, 40), 8),
+      ],
     );
 
     // Detect multiple fragmented runs.
     // Changing license token count to 50 (subset length becomes 50).
     // Setting source range to (0, 0) will not effect the result as it is not considerd in detectRuns routine.
-    matches = [
-      MatchRange(Range(10, 35), Range(0, 0), 25),
-      MatchRange(Range(75, 100), Range(0, 0), 25),
-      MatchRange(Range(45, 60), Range(0, 0), 15),
-      MatchRange(Range(64, 69), Range(0, 0), 5)
-    ];
-
-    expected = [Range(10, 13), Range(45, 53)];
-
     _testDetectRuns(
-      'Multiple runs',
-      matches,
-      n,
-      expected,
+      name: 'Multiple runs',
       licenseTokenCount: 50,
+      expected: [Range(10, 13), Range(45, 53)],
+      matches: [
+        MatchRange(Range(10, 35), Range(0, 0), 25),
+        MatchRange(Range(75, 100), Range(0, 0), 25),
+        MatchRange(Range(45, 60), Range(0, 0), 15),
+        MatchRange(Range(64, 69), Range(0, 0), 5)
+      ],
     );
   });
 }
 
-void _testDetectRuns(
-  String name,
-  List<MatchRange> matches,
-  int n,
-  List<Range> expected, {
+void _testDetectRuns({
+  required String name,
+  required List<MatchRange> matches,
+  int n = 3,
+  required List<Range> expected,
   double confidenceThreshold = 0.8,
   int inputTokensCount = 100,
   int licenseTokenCount = 100,
@@ -255,90 +205,56 @@ void _testDetectRuns(
 
 void testFuseRanges() {
   group('test fuseRanges:', () {
-    var matches = [
-      MatchRange(Range(0, 100), Range(0, 100), 100),
-    ];
-    var runs = [Range(0, 23)];
-    var expected = [
-      MatchRange(Range(0, 100), Range(0, 100), 100),
-    ];
-
     _testFuseRanges(
-      'Perfect match',
-      expected,
-      matches,
-      runs,
+      name: 'Perfect match',
+      expected: [MatchRange(Range(0, 100), Range(0, 100), 100)],
+      matches: [MatchRange(Range(0, 100), Range(0, 100), 100)],
+      runs: [Range(0, 23)],
     );
 
-    matches = [
-      MatchRange(Range(0, 45), Range(0, 45), 45),
-      MatchRange(Range(55, 90), Range(65, 100), 35),
-    ];
-
-    expected = [MatchRange(Range(0, 90), Range(0, 100), 80)];
-
-    matches = [
-      MatchRange(Range(0, 40), Range(10, 50), 40),
-      MatchRange(Range(65, 68), Range(50, 83), 3),
-    ];
-    expected = [
-      MatchRange(Range(0, 40), Range(10, 50), 40),
-    ];
-
     _testFuseRanges(
-      'Discard matchRange with very less number of tokens claimed',
-      expected,
-      matches,
-      runs,
+      name: 'Discard matchRange with very less number of tokens claimed',
+      expected: [MatchRange(Range(0, 90), Range(0, 100), 80)],
+      matches: [
+        MatchRange(Range(0, 45), Range(0, 45), 45),
+        MatchRange(Range(55, 90), Range(65, 100), 35),
+      ],
+      runs: [Range(0, 23)],
     );
-
-    // Merge the ranges if offset differences are within the error margin.
-    // errorMargin = size * (1 - threshold) = 100 * (1 - 0.8) = 20
-    _testFuseRanges(
-      'Merge range if within error margin',
-      expected,
-      matches,
-      runs,
-    );
-
-    matches = [
-      MatchRange(Range(0, 45), Range(0, 45), 45),
-      MatchRange(Range(55, 78), Range(77, 100), 23),
-    ];
-    runs = [Range(0, 20)];
-    expected = [
-      MatchRange(Range(0, 45), Range(0, 45), 45),
-    ];
 
     // Discard range if offset differences of input and known license not within error margin.
     _testFuseRanges(
-      'Discard range if start offset difference not within error margin',
-      expected,
-      matches,
-      runs,
+      name: 'Discard range if start offset difference not within error margin',
+      expected: [MatchRange(Range(0, 45), Range(0, 45), 45)],
+      runs: [Range(0, 20)],
+      matches: [
+        MatchRange(Range(0, 45), Range(0, 45), 45),
+        MatchRange(Range(55, 78), Range(77, 100), 23),
+      ],
     );
 
     // Do not fuse ranges if absolute difference of the differences of their
     // input and known start indexes is not within the error range.
-    matches = [
-      MatchRange(Range(0, 40), Range(10, 50), 40),
-      MatchRange(Range(65, 100), Range(50, 85), 35),
-    ];
-
     _testFuseRanges(
-      'Does not fuse matchRanges',
-      matches,
-      matches,
-      runs,
+      name: 'Does not fuse matchRanges',
+      runs: [Range(0, 20)],
+      expected: [
+        MatchRange(Range(0, 40), Range(10, 50), 40),
+        MatchRange(Range(65, 100), Range(50, 85), 35),
+      ],
+      matches: [
+        MatchRange(Range(0, 40), Range(10, 50), 40),
+        MatchRange(Range(65, 100), Range(50, 85), 35),
+      ],
     );
   });
 }
 
-void _testFuseRanges(
-  String name,
-  List<MatchRange> expected,
-  List<MatchRange> matches,
-  List<Range> runs, {
+void _testFuseRanges({
+  required String name,
+  required List<MatchRange> expected,
+  required List<MatchRange> matches,
+  required List<Range> runs,
   double confidence = 0.8,
   int targetSize = 100,
   int size = 100,
@@ -373,87 +289,68 @@ void testPotentialMatches() {
   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 x x x x x x x x x x 91 92 93 94 95 96 97 98 99 100 x x x x x x x x x x x x x x x x x x x x''';
 
   group('Test potentialMatches:', () {
-    var expected = [
-      MatchRange(Range(0, 100), Range(0, 100), 100),
-    ];
-
     _testPotentialMatches(
-      'Perfect Match',
-      perfect100,
-      perfect100,
-      expected,
+      name: 'Perfect Match',
+      unknownText: perfect100,
+      knownText: perfect100,
+      expected: [
+        MatchRange(Range(0, 100), Range(0, 100), 100),
+      ],
     );
-
-    expected = [
-      MatchRange(Range(0, 80), Range(20, 100), 80),
-    ];
 
     // Finds a match as the number of tokens claimed is >= threshold number of tokens.
     // i.e threshold count = confidenceThreshold * corpus size
     //                     = 0.8 * 100
     //                     = 80
     _testPotentialMatches(
-      'Missing initial 20 tokens',
-      missingInitial20,
-      perfect100,
-      expected,
+      name: 'Missing initial 20 tokens',
+      unknownText: missingInitial20,
+      knownText: perfect100,
+      expected: [MatchRange(Range(0, 80), Range(20, 100), 80)],
     );
-
-    expected = [
-      MatchRange(Range(0, 80), Range(0, 80), 80),
-    ];
 
     _testPotentialMatches(
-      'Missing last 20 tokens',
-      missingLast20,
-      perfect100,
-      expected,
+      name: 'Missing last 20 tokens',
+      unknownText: missingLast20,
+      knownText: perfect100,
+      expected: [MatchRange(Range(0, 80), Range(0, 80), 80)],
     );
-
-    expected = [];
-
     // Changing confidenceThresold to 0.9 should not produce
     // a hit as we would need minimum of 90 tokens to be matched.
     _testPotentialMatches(
-      'No hits',
-      missingLast20,
-      perfect100,
-      expected,
+      name: 'No hits',
+      unknownText: missingLast20,
+      knownText: perfect100,
+      expected: [],
       confidence: 0.9,
     );
-
-    expected = [
-      MatchRange(Range(0, 99), Range(0, 99), 90),
-    ];
 
     _testPotentialMatches(
-      'Expect a match',
-      xAt10Interval,
-      perfect100,
-      expected,
+      name: 'Expect a match',
+      unknownText: xAt10Interval,
+      knownText: perfect100,
       confidence: 0.9,
+      expected: [MatchRange(Range(0, 99), Range(0, 99), 90)],
     );
 
-    expected = [];
     // Should expect any hits.
     // Though the offset difference(unknownStart - knownStart) is 19 abs(72 - 91)
     // is less tham error margin(100 * (1 - 0.8)), it's contribution i.e 10
     // is still lesser than than the error it introduces.
-
     _testPotentialMatches(
-      'No hits, error introduced greather than contribution',
-      thirtyIntervalGap,
-      perfect100,
-      expected,
+      name: 'No hits, error introduced greather than contribution',
+      unknownText: thirtyIntervalGap,
+      knownText: perfect100,
+      expected: [],
     );
   });
 }
 
-void _testPotentialMatches(
-  String name,
-  String unknownText,
-  String knownText,
-  List<MatchRange> expected, {
+void _testPotentialMatches({
+  required String name,
+  required String unknownText,
+  required String knownText,
+  required List<MatchRange> expected,
   double confidence = 0.8,
   int n = 3,
 }) {

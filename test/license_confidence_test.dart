@@ -1,73 +1,6 @@
-import 'package:pana/src/license_detection/confidence.dart';
+import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:pana/src/third_party/diff_match_patch/diff.dart';
-import 'package:pana/src/license_detection/token_matcher.dart';
 import 'package:test/test.dart';
-
-void testScoreDiff() {
-  group('scoreDiffs:', () {
-    var diffs = [
-      Diff(Operation.equal, 'version'),
-      Diff(Operation.insert, '1.1')
-    ];
-
-    _testScoreDiff('Version change', diffs, versionChange);
-
-    diffs = [
-      Diff(Operation.equal, 'version'),
-      Diff(Operation.delete, '1'),
-      Diff(Operation.insert, '2'),
-      Diff(Operation.equal, '.0'),
-    ];
-
-    DiffMatchPatch().diffCleanupSemantic(diffs);
-    _testScoreDiff('Version change', diffs, versionChange);
-
-    diffs = [
-      Diff(Operation.equal, 'the standard version'),
-      Diff(Operation.insert, '1.2')
-    ];
-
-    _testScoreDiff('Not a version change', diffs, 1);
-
-    diffs = [Diff(Operation.equal, 'version'), Diff(Operation.insert, '1.0-2')];
-
-    _testScoreDiff(
-      'Not a version number',
-      diffs,
-      1,
-    );
-
-    diffs = [Diff(Operation.equal, 'gnu'), Diff(Operation.insert, 'lesser')];
-
-    _testScoreDiff(
-      'License name change by insertion',
-      diffs,
-      lesserGplChange,
-    );
-
-    diffs = [
-      Diff(Operation.delete, 'library'),
-      Diff(Operation.insert, 'lesser'),
-      Diff(Operation.equal, 'gnu')
-    ];
-
-    _testScoreDiff(
-      'Ignore "library" substitution by "lesser" in gnu context',
-      diffs,
-      1,
-    );
-  });
-}
-
-void _testScoreDiff(
-  String name,
-  List<Diff> diffs,
-  int expected,
-) {
-  test(name, () {
-    expect(scoreDiffs(diffs), expected);
-  });
-}
 
 void testDiffRange() {
   group('diffRange test:', () {
@@ -99,7 +32,6 @@ void testDiffRange() {
   });
 }
 
-
 void _testDiffRange(
     String name, List<Diff> diffs, String known, Range expected) {
   test(name, () {
@@ -110,20 +42,110 @@ void _testDiffRange(
   });
 }
 
-void testCofidencePercentage(){
-  group('Test confidencePercentage', (){
-    test('avoid divide by zero',(){
-      expect(confidencePercentage(0,5), 1);
+void testCofidencePercentage() {
+  group('Test confidencePercentage:', () {
+    test('avoid divide by zero', () {
+      expect(confidencePercentage(0, 5), 1);
     });
 
-    test('90% match', (){
+    test('90% match', () {
       expect(confidencePercentage(100, 10), 0.9);
     });
   });
 }
 
+void testVerifyNoVersionChange() {
+  group('test verifyNoVersionChange:', () {
+    _testVerifyNoVersionChange(
+      name: 'Version change',
+      diffs: [
+        Diff(Operation.equal, 'version'),
+        Diff(Operation.insert, '1.1'),
+      ],
+    );
+
+    var diffs = [
+      Diff(Operation.equal, 'version'),
+      Diff(Operation.delete, '1'),
+      Diff(Operation.insert, '2'),
+      Diff(Operation.equal, '.0'),
+    ];
+
+    _testVerifyNoVersionChange(
+      name: 'Version change',
+      diffs: diffs,
+    );
+
+    _testVerifyNoVersionChange(
+      name: 'Not a version change',
+      expectException: false,
+      diffs: [
+        Diff(Operation.equal, 'the standard version'),
+        Diff(Operation.insert, '1.2')
+      ],
+    );
+
+    _testVerifyNoVersionChange(
+      name: 'Not a version number',
+      expectException: false,
+      diffs: [
+        Diff(Operation.equal, 'version'),
+        Diff(Operation.insert, '1.0-2')
+      ],
+    );
+  });
+}
+
+void _testVerifyNoVersionChange(
+    {required String name,
+    required Iterable<Diff> diffs,
+    bool expectException = true}) {
+  test(name, () {
+    if (expectException) {
+      expect(() => verifyNoVersionChange(diffs, ''),
+          throwsA(isA<LicensesMismatchException>()));
+    } else {
+      expect(() => verifyNoVersionChange(diffs, ''), returnsNormally);
+    }
+  });
+}
+
+void testVerifyNoGplChange() {
+  group('test verifyNoGplChange:', () {
+    _testVerifyNoGplChange(
+      name: 'License name change by insertion',
+      diffs: [Diff(Operation.equal, 'gnu'), Diff(Operation.insert, 'lesser')],
+    );
+
+    _testVerifyNoGplChange(
+      name: 'Ignore "library" substitution by "lesser" in gnu context',
+      diffs: [
+        Diff(Operation.delete, 'library'),
+        Diff(Operation.insert, 'lesser'),
+        Diff(Operation.equal, 'gnu')
+      ],
+      expectException: false,
+    );
+  });
+}
+
+void _testVerifyNoGplChange(
+    {required String name,
+    required Iterable<Diff> diffs,
+    bool expectException = true}) {
+  test(name, () {
+    if (expectException) {
+      expect(() => verifyNoGplChange(diffs, ''),
+          throwsA(isA<LicensesMismatchException>()));
+    } else {
+      expect(() => verifyNoGplChange(diffs, ''), returnsNormally);
+    }
+  });
+}
+
 void main() {
-  testScoreDiff();
   testDiffRange();
   testCofidencePercentage();
+  testVerifyNoVersionChange();
+  testVerifyNoGplChange();
 }

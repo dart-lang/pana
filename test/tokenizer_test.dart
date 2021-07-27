@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pana/src/license_detection/tokenizer.dart';
+import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/test.dart';

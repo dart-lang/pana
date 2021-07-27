@@ -2,9 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pana/src/license_detection/license.dart';
-import 'package:pana/src/license_detection/tokenizer.dart';
-
+import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:test/scaffolding.dart';
 import 'package:test/test.dart';
 
@@ -50,7 +48,7 @@ void main() {
 
   test('Test checksum generation', () {
     final text = 'generate some checksums for these tokens';
-    final expected = [202247124, 3226558818, 1391268045, 1050691930];
+    final expected = [3898316725, 3188174184, 1984569744, 820879958];
     final actual = generateChecksums(tokenize(text), 3);
 
     expect(actual.length, expected.length);
