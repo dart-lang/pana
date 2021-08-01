@@ -39,23 +39,24 @@ List<LicenseMatch> detectLicense(String text, double threshold) {
       unknownLicense,
       license,
       threshold,
-      granularity,
     );
 
     for (var match in matches) {
       try {
         final hit = licenseMatch(unknownLicense, license, match, threshold);
         result.add(hit);
-      } on LicensesMismatchException catch (e) {
-        print(e.toString());
+      } on LicenseMismatchException catch (_) {
+        // print(e.toString());
       }
     }
   }
 
+  result = removeDuplicates(result);
+  result.sort(_sortOnConfidence);
   return List.unmodifiable(result);
 }
 
-/// Returns the minimum number of token runs that must match accordinf to
+/// Returns the minimum number of token runs that must match according to
 /// [threshold] to be able to consider it as match.
 ///
 /// In a worst case scenario where the error is evenly
@@ -66,6 +67,7 @@ List<LicenseMatch> detectLicense(String text, double threshold) {
 /// So this function returns the minimum number of tokens
 /// or 1 (which is greater) to consider them as part
 /// of known license text.
+@visibleForTesting
 int computeGranularity(double threshold) {
   if (threshold == 1.0) {
     return 10; // avoid divide by 0
@@ -73,5 +75,30 @@ int computeGranularity(double threshold) {
 
   return max(1, threshold ~/ (1 - threshold));
 }
+
+/// For [LicenseMatch] in [matches] having the same `spdx-identifier` the one with highest confidence
+/// is considered and rest are discared.
+@visibleForTesting
+List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
+  var identifierToLicense = <String, LicenseMatch>{};
+
+  for (var match in matches) {
+    if (identifierToLicense.containsKey(match.identifier)) {
+      var prevMatch = identifierToLicense[match.identifier];
+      final tokensClaimed = max(prevMatch!.tokensClaimed, match.tokensClaimed);
+      prevMatch = prevMatch.confidence > match.confidence ? prevMatch : match;
+      prevMatch.tokensClaimed = tokensClaimed;
+      identifierToLicense[match.identifier] = prevMatch;
+      continue;
+    }
+
+    identifierToLicense[match.identifier] = match;
+  }
+
+  return identifierToLicense.values.toList();
+}
+
+int _sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) =>
+    (matchA.confidence > matchB.confidence) ? -1 : 1;
 
 const _directories = ['third_party/spdx/licenses'];

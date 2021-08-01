@@ -4,31 +4,25 @@
 
 part of 'license_detector.dart';
 
-class LicensesMismatchException implements Exception {
-  final int code;
-  final String identifier;
+/// An instance indicating a mismatch between unknown text and a known license.
+@sealed
+@visibleForTesting
+class LicenseMismatchException implements Exception {
+  final String message;
 
-  LicensesMismatchException(this.code, this.identifier);
-
-  String _change() {
-    switch (code) {
-      case -1:
-        return 'version change';
-      case -2:
-        return 'lesser GPL change';
-    }
-
-    return 'confidence lesser than threshold';
-  }
+  LicenseMismatchException(this.message);
 
   @override
   String toString() {
-    return 'License mismatched with $identifier due to $_change';
+    return message;
   }
 }
 
 /// Computes the confidence of [knownLicense] matching with [unknownLicense] and
-/// returns an instance of [LicenseMatch] or null based on it.
+/// returns an instance of [LicenseMatch].
+///
+/// Throws if an unaccepatable change was made or the calculated confidence is
+/// lesser than the set threshold.
 @visibleForTesting
 LicenseMatch licenseMatch(
   LicenseWithNGrams unknownLicense,
@@ -36,6 +30,10 @@ LicenseMatch licenseMatch(
   MatchRange matchRange,
   double threshold,
 ) {
+  if (unknownLicense.n != knownLicense.n) {
+    throw LicenseMismatchException(
+        "Can't comapare the licenses due to different granularity");
+  }
   final diffs = getDiffs(
     unknownLicense.tokens,
     knownLicense.tokens,
@@ -47,23 +45,21 @@ LicenseMatch licenseMatch(
 
   // Make an initial check on the diffs to see if their are any
   // unacceptable substitutions made.
-  //
-  // As delete diffs are ordered before insert diffs, we store the
-  // previously deleted diff and then compare with insert diff to
-  // check if this substitution is valid or not. If we come across
-  // an invalid substitution return a negative score indicating a
-  // mismatch.
   verifyNoVersionChange(valuationDiffs, knownLicense.identifier);
   verifyNoGplChange(valuationDiffs, knownLicense.identifier);
 
-  final distance = scoreDiffs(diffs);
-  final confidence = confidencePercentage(knownLicense.tokens.length, distance);
+  final distance = scoreDiffs(valuationDiffs);
+  final confidence = confidencePercentage(
+    knownLicense.tokens.length,
+    distance,
+  );
 
   if (confidence < threshold) {
-    throw LicensesMismatchException(0, knownLicense.identifier);
+    throw LicenseMismatchException(
+        'Confidence $confidence is lesser than threshold $threshold');
   }
 
-  final match = LicenseMatch(
+  return LicenseMatch(
     unknownLicense.tokens
         .skip(matchRange.input.start)
         .take(matchRange.input.end - matchRange.input.start)
@@ -73,8 +69,6 @@ LicenseMatch licenseMatch(
     diffs,
     Range(range.start, range.end),
   );
-
-  return match;
 }
 
 /// Calculates the confidence percentage as 1 subtracted by the ratio of
@@ -145,7 +139,13 @@ Range diffRange(String known, List<Diff> diffs) {
   return Range(start, end);
 }
 
-/// Throws if there was a change with the unknown license.
+/// Ths function checks if a version change was made.
+///
+/// As delete diffs are ordered before insert diffs, we store the
+/// previously deleted diff and then compare with insert diff to
+/// check if this substitution introduced a version change.
+///
+/// Throws [LicenseMismatchException] if a version change was made.
 void verifyNoVersionChange(Iterable<Diff> diffs, String identifier) {
   var prevText = '';
 
@@ -163,7 +163,8 @@ void verifyNoVersionChange(Iterable<Diff> diffs, String identifier) {
       if (_isVersionNumber(number) && prevText.endsWith('version')) {
         if (!prevText.endsWith('the standard version') &&
             !prevText.endsWith('the contributor version')) {
-          throw LicensesMismatchException(-1, identifier);
+          throw LicenseMismatchException(
+              'License does not match due to version change');
         }
       }
     } else if (diff.operation == Operation.equal) {
@@ -172,7 +173,9 @@ void verifyNoVersionChange(Iterable<Diff> diffs, String identifier) {
   }
 }
 
+/// Checks if minor changes are introducing a mismatch between GPL and LGPL.
 ///
+/// Throws [LicenseMismatchException] if there is a mismatch.
 void verifyNoGplChange(Iterable<Diff> diffs, String identifier) {
   var prevText = '';
   var prevDelete = '';
@@ -190,7 +193,8 @@ void verifyNoGplChange(Iterable<Diff> diffs, String identifier) {
             prevText.endsWith('gnu') &&
             prevDelete != 'library') {
           if (!prevText.contains('warranty')) {
-            throw LicensesMismatchException(lesserGplChange, identifier);
+            throw LicenseMismatchException(
+                'License does not match with $identifier due to lesser GPL change');
           }
         }
         break;
@@ -198,7 +202,8 @@ void verifyNoGplChange(Iterable<Diff> diffs, String identifier) {
       case Operation.delete:
         if (text == 'lesser' && prevText.endsWith('gnu')) {
           if (!prevText.contains('warranty')) {
-            throw LicensesMismatchException(lesserGplChange, identifier);
+            throw LicenseMismatchException(
+                'License does not match with $identifier due to lesser GPL change');
           }
         }
 
@@ -225,9 +230,8 @@ int scoreDiffs(Iterable<Diff> diffs) {
 
 final _notVersionNumber = RegExp(r'[^0-9\.]');
 
-bool _isVersionNumber(String text) {
-  return !_notVersionNumber.hasMatch(text);
-}
+/// Checks if [text] contains anything other than 0-9 and `.`.
+bool _isVersionNumber(String text) => !_notVersionNumber.hasMatch(text);
 
 @visibleForTesting
 const versionChange = -1;

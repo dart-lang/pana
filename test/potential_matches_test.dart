@@ -213,11 +213,12 @@ void testFuseRanges() {
     );
 
     _testFuseRanges(
-      name: 'Discard matchRange with very less number of tokens claimed',
+      name: 'Discard matchRange with less number of tokens claimed',
       expected: [MatchRange(Range(0, 90), Range(0, 100), 80)],
       matches: [
         MatchRange(Range(0, 45), Range(0, 45), 45),
         MatchRange(Range(55, 90), Range(65, 100), 35),
+        MatchRange(Range(46, 50), Range(56, 60), 4)
       ],
       runs: [Range(0, 23)],
     );
@@ -359,7 +360,7 @@ void _testPotentialMatches({
     final knownLicense = _getLicense(knownText, n);
 
     final actual =
-        findPotentialMatches(unknownLicense, knownLicense, confidence, n);
+        findPotentialMatches(unknownLicense, knownLicense, confidence);
 
     testOutput(actual, expected);
   });

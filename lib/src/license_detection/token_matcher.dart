@@ -9,13 +9,13 @@ part of 'license_detector.dart';
 @visibleForTesting
 class MatchRange {
   /// Range of tokens that were found to be a match in input text.
-  Range input;
+  final Range input;
 
   /// Range of tokens that were found to be a match in known license.
-  Range source;
+  final Range source;
 
   /// Number of tokens that were matched in this range.
-  int tokensClaimed;
+  final int tokensClaimed;
 
   @visibleForTesting
   MatchRange(
@@ -24,24 +24,19 @@ class MatchRange {
     this.tokensClaimed,
   );
 
-  set inputStart(int start) {
-    input = Range(start, input.end);
-  }
-
-  set inputEnd(int end) {
-    input = Range(input.start, end);
-  }
-
-  set sourceStart(int start) {
-    source = Range(start, source.end);
-  }
-
-  set sourceEnd(int end) {
-    source = Range(source.start, end);
+  MatchRange update(
+      {int? inputStart,
+      int? inputEnd,
+      int? srcStart,
+      int? srcEnd,
+      int? newClaim}) {
+    final newInput = Range(inputStart ?? input.start, inputEnd ?? input.end);
+    final newSource = Range(srcStart ?? source.start, srcEnd ?? source.end);
+    return MatchRange(newInput, newSource, newClaim ?? tokensClaimed);
   }
 }
 
-/// Indicates the start and end index for a range of tokens or diffs.
+/// Indicates the start and end index for a range.
 @sealed
 @visibleForTesting
 class Range {
@@ -60,13 +55,13 @@ List<MatchRange> findPotentialMatches(
   LicenseWithNGrams unknownLicense,
   LicenseWithNGrams knownLicense,
   double confidence,
-  int n,
 ) {
   if (knownLicense.n != unknownLicense.n) {
     throw ArgumentError(
         'n-gram size for knownLicense and unknownLicense must be the same!');
   }
 
+  final n = knownLicense.n;
   final matchedRanges = getMatchRanges(
     unknownLicense,
     knownLicense,
@@ -142,10 +137,12 @@ List<MatchRange> getTargetMatchedRanges(
 
       // Check if this source checksum extend the last match
       // and update the last match for this offset accordingly.
-      if (offsetMap.containsKey(offset) &&
-          (offsetMap[offset]!.last.input.end == tgtChecksum.end - 1)) {
-        offsetMap[offset]!.last.sourceEnd = srcChecksum.end;
-        offsetMap[offset]!.last.inputEnd = tgtChecksum.end;
+      final matches = offsetMap[offset];
+      if (matches != null && (matches.last.input.end == tgtChecksum.end - 1)) {
+        matches.last = matches.last.update(
+          inputEnd: tgtChecksum.end,
+          srcEnd: srcChecksum.end,
+        );
         continue;
       }
 
@@ -161,9 +158,11 @@ List<MatchRange> getTargetMatchedRanges(
   for (var list in offsetMap.values) {
     // Update the token count of match range.
     for (var match in list) {
-      match.tokensClaimed = match.input.end - match.input.start;
+      final start = match.input.start;
+      final end = match.input.end;
+      match = match.update(newClaim: end - start);
+      matches.add(match);
     }
-    matches.addAll(list);
   }
 
   // Sort the matches based on the number of tokens covered in match
@@ -309,7 +308,8 @@ List<MatchRange> fuseMatchedRanges(
     var unclaimed = true;
 
     final matchOffset = match.input.start - match.source.start;
-    for (var claim in claimed) {
+    for (var i = 0; i < claimed.length; i++) {
+      var claim = claimed[i];
       var claimOffset = claim.input.start - claim.source.start;
 
       var sampleError = (matchOffset - claimOffset).abs();
@@ -320,7 +320,8 @@ List<MatchRange> fuseMatchedRanges(
         // of token count.
         if (match.input.start >= claim.input.start &&
             match.input.end <= claim.input.end) {
-          claim.tokensClaimed += match.tokensClaimed;
+          claim =
+              claim.update(newClaim: claim.tokensClaimed + match.tokensClaimed);
           unclaimed = false;
         }
         // Check if the claim and match can be merged.
@@ -330,9 +331,12 @@ List<MatchRange> fuseMatchedRanges(
           // source start offsets of claim.
           if (match.input.start < claim.input.start &&
               match.source.start < claim.source.start) {
-            claim.inputStart = match.input.start;
-            claim.sourceStart = match.source.start;
-            claim.tokensClaimed += match.tokensClaimed;
+            claim = claim.update(
+              inputStart: match.input.start,
+              srcStart: match.source.start,
+              newClaim: claim.tokensClaimed + match.tokensClaimed,
+            );
+
             unclaimed = false;
           }
           // Match is within error margin and match is likely to
@@ -340,9 +344,11 @@ List<MatchRange> fuseMatchedRanges(
           // end offsets of claim.
           else if (match.input.end > claim.input.end &&
               match.source.end > claim.source.end) {
-            claim.inputEnd = match.input.end;
-            claim.sourceEnd = match.source.end;
-            claim.tokensClaimed += match.tokensClaimed;
+            claim = claim.update(
+              inputEnd: match.input.end,
+              srcEnd: match.source.end,
+              newClaim: claim.tokensClaimed + match.tokensClaimed,
+            );
             unclaimed = false;
           }
         }
@@ -351,6 +357,7 @@ List<MatchRange> fuseMatchedRanges(
         // can be added as a new claim.
       }
 
+      claimed[i] = claim;
       if (!unclaimed) {
         break;
       }
