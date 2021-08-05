@@ -140,7 +140,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 3 of 3 possible platforms (**iOS**, **Android**, **Web**)\n\nFound 8 issues. Showing the first 2:\n\n\nConsider supporting these prerelease platforms:\n\n<details>\n<summary>\nPackage does not support Flutter platform Windows\n</summary>\n\nBecause:\n* `package:audio_service/audio_service.dart` that declares support for platforms: Android, iOS, macOS, Web\n</details>"
+        "summary": "### [*] 20/20 points: Supports 3 of 3 possible platforms (**iOS**, **Android**, **Web**)\n\nFound 8 issues. Showing the first 2:\n\n\nConsider supporting these prerelease platforms:\n\n<details>\n<summary>\nPackage does not support Flutter platform `Windows`.\n</summary>\n\nBecause:\n* `package:audio_service/audio_service.dart` that declares support for platforms: `Android`, `iOS`, `macOS`, `Web`.\n</details>"
       },
       {
         "id": "analysis",

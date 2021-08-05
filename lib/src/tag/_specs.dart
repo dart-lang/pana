@@ -122,16 +122,17 @@ class FlutterPlatform {
 
 class Sdk {
   final String name;
+  final String formattedName;
   final List<String> allowedSdks;
   final List<Runtime> allowedRuntimes;
-  Sdk(this.name, this.allowedSdks, this.allowedRuntimes);
+  Sdk(this.name, this.formattedName, this.allowedSdks, this.allowedRuntimes);
 
   String get tag => 'sdk:$name';
 
-  static Sdk dart = Sdk(
-      'dart', ['dart'], [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]);
+  static Sdk dart = Sdk('dart', 'Dart', ['dart'],
+      [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]);
 
-  static Sdk flutter = Sdk('flutter', ['dart', 'flutter'],
+  static Sdk flutter = Sdk('flutter', 'Flutter', ['dart', 'flutter'],
       [Runtime.flutterNative, Runtime.flutterWeb]);
 
   static List<Sdk> knownSdks = [dart, flutter];

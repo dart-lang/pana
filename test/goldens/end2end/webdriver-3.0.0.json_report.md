@@ -30,10 +30,25 @@ Consider supporting these prerelease platforms:
 
 <details>
 <summary>
-Package not compatible with SDK dart
+Package not compatible with Dart SDK.
 </summary>
 
-Because it is not compatible with any of the supported runtimes: native-aot, native, js
+Because it is not compatible with any of the supported runtimes: `native-aot`, `native`, `js`.
+
+Package is not compatible with Dart SDK using runtime `native-aot`. Because:
+* `package:webdriver/async_html.dart` that imports:
+* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
+* `dart:html`
+
+Package is not compatible with Dart SDK using runtime `native`. Because:
+* `package:webdriver/async_html.dart` that imports:
+* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
+* `dart:html`
+
+Package is not compatible with Dart SDK using runtime `js`. Because:
+* `package:webdriver/async_io.dart` that imports:
+* `package:webdriver/src/request/async_io_request_client.dart` that imports:
+* `dart:io`
 </details>
 
 ## 30/30 Pass static analysis

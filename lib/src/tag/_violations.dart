@@ -83,9 +83,9 @@ class PlatformViolationFinder {
             if (detectedPlatforms != null &&
                 !detectedPlatforms.contains(platform)) {
               return (path) => Explanation(
-                    'Package does not support Flutter platform ${platform.name}',
+                    'Package does not support Flutter platform `${platform.name}`.',
                     'Because:\n${LibraryGraph.formatPath(path)} that declares support for '
-                        'platforms: ${detectedPlatforms.map((e) => e.name).join(', ')}',
+                        'platforms: ${detectedPlatforms.map((e) => '`${e.name}`').join(', ')}.',
                     tag: platform.tag,
                   );
             }
@@ -101,11 +101,11 @@ class PlatformViolationFinder {
 
 class SdkViolationFinder {
   final PathFinder<String> _declaredSdkViolationFinder;
-  final List<PathFinder<Uri>> _allowedRuntimeViolationFinders;
   final Sdk sdk;
+  final AnalysisSession _session;
 
   SdkViolationFinder(PackageGraph packageGraph, this.sdk,
-      PubspecCache pubspecCache, AnalysisSession session)
+      PubspecCache pubspecCache, this._session)
       : _declaredSdkViolationFinder = PathFinder(
           packageGraph,
           (String packageDir) {
@@ -118,35 +118,36 @@ class SdkViolationFinder {
             return nonAllowedSdks.isEmpty
                 ? null
                 : (path) => Explanation(
-                      'Package not compatible with SDK ${sdk.name}',
+                      'Package is not compatible with ${sdk.formattedName} SDK.',
                       'Because:\n${PackageGraph.formatPath(path)} that is a package requiring'
                           ' ${nonAllowedSdks.map((e) => null).join(', ')}.',
                       tag: sdk.tag,
                     );
           },
-        ),
-        _allowedRuntimeViolationFinders = sdk.allowedRuntimes
-            .map((runtime) => runtimeViolationFinder(
-                LibraryGraph(session, runtime.declaredVariables),
-                runtime,
-                (path) => Explanation(
-                      'Package not compatible with sdk ${sdk.name} using runtime ${runtime.name}',
-                      'Because:\n${LibraryGraph.formatPath(path)}',
-                      tag: sdk.tag,
-                    )))
-            .toList();
+        );
 
   Explanation? findSdkViolation(String packageName, List<Uri> topLibraries) {
     final declaredSdkResult =
         _declaredSdkViolationFinder.findViolation(packageName);
     if (declaredSdkResult != null) return declaredSdkResult;
 
-    for (final finder in _allowedRuntimeViolationFinders) {
+    final explanations = <Explanation>[];
+    for (final runtime in sdk.allowedRuntimes) {
+      final violationFinder = runtimeViolationFinder(
+          LibraryGraph(_session, runtime.declaredVariables),
+          runtime,
+          (path) => Explanation(
+                'Package is not compatible with ${sdk.formattedName} SDK using runtime `${runtime.name}`.',
+                'Because:\n${LibraryGraph.formatPath(path)}',
+                tag: sdk.tag,
+              ));
+
       // check if all of the top libraries are supported
       var supports = true;
       for (final lib in topLibraries) {
-        final runtimeResult = finder.findViolation(lib);
+        final runtimeResult = violationFinder.findViolation(lib);
         if (runtimeResult != null) {
+          explanations.add(runtimeResult);
           supports = false;
           break;
         }
@@ -154,9 +155,10 @@ class SdkViolationFinder {
       if (supports) return null;
     }
     return Explanation(
-      'Package not compatible with SDK ${sdk.name}',
+      'Package not compatible with ${sdk.formattedName} SDK.',
       'Because it is not compatible with any of the supported runtimes: '
-          '${sdk.allowedRuntimes.map((r) => r.name).join(', ')}',
+          '${sdk.allowedRuntimes.map((r) => '`${r.name}`').join(', ')}.'
+          '${explanations.map((e) => '\n\n${e.finding} ${e.explanation}').join()}',
       tag: sdk.tag,
     );
   }
