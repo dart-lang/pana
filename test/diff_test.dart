@@ -14,4 +14,5 @@ void main() {
   testDiffBisect();
   testDiffLevenshtein();
   testWordDiffLevenshtein();
+  testCleanupEfficiency();
 }

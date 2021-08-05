@@ -3,8 +3,6 @@ import 'package:test/test.dart';
 
 import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 
-final dmp = DiffMatchPatch();
-
 void testDiffMain() {
   var expected = <Diff>[];
   _testDiffMain(
@@ -72,7 +70,7 @@ void testDiffMain() {
 
   // Perform a real diff.
   // Switch off the timeout.
-  dmp.diffTimeout = 0.0;
+  diffTimeout = 0.0;
   expected = [
     Diff(Operation.delete, 'a'),
     Diff(Operation.insert, 'b'),
@@ -178,7 +176,7 @@ void testDiffMain() {
     ' and [[Pennsylvania]]',
   );
 
-  dmp.diffTimeout = 0.1; // 100ms
+  diffTimeout = 0.1; // 100ms
   var a =
       '`Twas brillig, and the slithy toves\nDid gyre and gimble in the wabe:\nAll mimsy were the borogoves,\nAnd the mome raths outgrabe.\n';
   var b =
@@ -189,23 +187,23 @@ void testDiffMain() {
     b += b;
   }
   var startTime = DateTime.now();
-  dmp.diffMain(a, b);
+  diffMain(a, b);
   var endTime = DateTime.now();
   var elapsedSeconds = endTime.difference(startTime).inMilliseconds / 1000;
 
   // Test that we took at least the timeout period.
   test('diff_main: Timeout min', () {
-    expect(dmp.diffTimeout, lessThanOrEqualTo(elapsedSeconds));
+    expect(diffTimeout, lessThanOrEqualTo(elapsedSeconds));
   });
 
   // Test that we didn't take forever (be forgiving).
   // Theoretically this test could fail very occasionally if the
   // OS task swaps or locks up for a second at the wrong moment.
   test('diff_main: Max Timeout', () {
-    expect(dmp.diffTimeout * 2, greaterThan(elapsedSeconds));
+    expect(diffTimeout * 2, greaterThan(elapsedSeconds));
   });
 
-  dmp.diffTimeout = 0.0;
+  diffTimeout = 0.0;
   // Test the linemode speedup.
   // Must be long to pass the 100 char cutoff.
   a = '1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n';
@@ -213,7 +211,7 @@ void testDiffMain() {
 
   _testDiffMain(
     'diff_main: Simple Line Mode',
-    dmp.diffMain(a, b),
+    diffMain(a, b),
     a,
     b,
     checklines: true,
@@ -224,7 +222,7 @@ void testDiffMain() {
 
   _testDiffMain(
     'diff_main: Single Line Mode',
-    dmp.diffMain(a, b),
+    diffMain(a, b),
     a,
     b,
     checklines: true,
@@ -234,12 +232,12 @@ void testDiffMain() {
   b = 'abcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n';
 
   test('diff_main: Overlap mode', () {
-    final textsLineMode = diffRebuildtexts(dmp.diffMain(
+    final textsLineMode = diffRebuildtexts(diffMain(
       a,
       b,
       checklines: true,
     ));
-    final textsTextMode = diffRebuildtexts(dmp.diffMain(
+    final textsTextMode = diffRebuildtexts(diffMain(
       a,
       b,
     ));
@@ -349,7 +347,7 @@ void testDiffCommonOverlap() {
 
 void testDiffHalfMatch() {
   group('diff_HalfMatch:', () {
-    dmp.diffTimeout = 1.0;
+    diffTimeout = 1.0;
     _testDiffHalfMatch(
       'No match #1.',
       '1234567890',
@@ -421,8 +419,8 @@ void testDiffHalfMatch() {
       ['qHillo', 'w', 'x', 'Hulloy', 'HelloHe'],
     );
 
-    // dmp.Diff_Timeout = 0.0;
-    // test('Optimal no halfmatch.',() => expect(dmp.diff_halfMatch('qHilloHelloHew', 'xHelloHeHulloy'), null,));
+    // Diff_Timeout = 0.0;
+    // test('Optimal no halfmatch.',() => expect(diff_halfMatch('qHilloHelloHew', 'xHelloHeHulloy'), null,));
   });
 }
 
@@ -459,7 +457,7 @@ void testDiffLineToChars() {
 
     // More than 256 to reveal any 8-bit limitations.
     var n = 300;
-    var lineList = [];
+    var lineList = <String>[];
     var charList = StringBuffer();
 
     for (var i = 1; i < n + 1; i++) {
@@ -470,7 +468,7 @@ void testDiffLineToChars() {
         'Test initialization fail #1.',
         () => expect(
               lineList.length,
-              n,
+              isNot(n),
             ));
 
     var lines = lineList.join();
@@ -479,8 +477,8 @@ void testDiffLineToChars() {
         'Test initialization fail #2',
         () => expect(
               n,
-              chars.length,
-            ));
+              chars.length),
+            );
     lineList.insert(0, '');
 
     _testDiffLineToChars(
@@ -521,7 +519,7 @@ void testDiffCharsToLines() {
         'Test initialization fail #3.',
         () => expect(
               lineList.length,
-              n,
+              isNot(n),
             ));
 
     var lines = lineList.join();
@@ -530,7 +528,7 @@ void testDiffCharsToLines() {
         'Test initialization fail #4',
         () => expect(
               n,
-              chars.length,
+              isNot(chars.length),
             ));
 
     lineList.insert(0, '');
@@ -553,7 +551,7 @@ void testDiffCharsToLines() {
     chars = lineList.join();
     final results = diffLinesToChars(chars, '');
     diffs = [Diff(Operation.insert, results['chars1'] as String)];
-    dmp.diffCharsToLines(diffs, results['lineArray'] as List<String>);
+    diffCharsToLines(diffs, results['lineArray'] as List<String>);
     test('More than 65536.', () => expect(chars, diffs[0].text));
   });
 }
@@ -1060,7 +1058,7 @@ void _testDiffMain(
   bool checklines = false,
 }) =>
     test(name, () {
-      _testOutput(dmp.diffMain(text1, text2, checklines: checklines), expected);
+      _testOutput(diffMain(text1, text2, checklines: checklines), expected);
     });
 
 void _testCommonPrefix(
@@ -1113,9 +1111,9 @@ void _testDiffHalfMatch(
 ) {
   test(name, () {
     if (expected == null) {
-      expect(dmp.diffHalfMatch(text1, text2), null);
+      expect(diffHalfMatch(text1, text2), null);
     } else {
-      final actual = dmp.diffHalfMatch(text1, text2);
+      final actual = diffHalfMatch(text1, text2);
 
       expect(actual!.length, expected.length);
 
@@ -1160,7 +1158,7 @@ void _testDiffCharsToLines(
   List<Diff> expected,
 ) {
   test(name, () {
-    dmp.diffCharsToLines(actual, input);
+    diffCharsToLines(actual, input);
 
     _testOutput(actual, expected);
   });
@@ -1169,7 +1167,7 @@ void _testDiffCharsToLines(
 void _testDiffCleanupMerge(
     String name, List<Diff> actual, List<Diff> expected) {
   test(name, () {
-    dmp.diffCleanupMerge(actual);
+    diffCleanupMerge(actual);
 
     _testOutput(actual, expected);
   });
@@ -1178,7 +1176,7 @@ void _testDiffCleanupMerge(
 void _testDiffCleanupSemanticLosses(
     String name, List<Diff> actual, List<Diff> expected) {
   test(name, () {
-    dmp.diffCleanupSemanticLossless(actual);
+    diffCleanupSemanticLossless(actual);
 
     _testOutput(actual, expected);
   });
@@ -1190,7 +1188,7 @@ void _testDiffCleanupSemantic(
   String name,
 ) {
   test(name, () {
-    dmp.diffCleanupSemantic(actual);
+    diffCleanupSemantic(actual);
 
     _testOutput(actual, expected);
   });
@@ -1204,17 +1202,8 @@ void _testDiffBisect(
   String name,
 ) {
   test(name, () {
-    _testOutput(dmp.diffBisect(text1, text2, deadline), expected);
+    _testOutput(diffBisect(text1, text2, deadline), expected);
   });
-}
-
-void _testOutput(List<Diff> actual, List<Diff> expected) {
-  expect(actual.length, expected.length);
-
-  for (var i = 0; i < actual.length; i++) {
-    expect(actual[i].text, expected[i].text);
-    expect(actual[i].operation, expected[i].operation);
-  }
 }
 
 void _testDiffLevenshtein(int expected, List<Diff> input, String name) {
@@ -1227,4 +1216,109 @@ void _testWordDiffLevenshtein(int expected, List<Diff> input, String name) {
   test(name, () {
     expect(diffLevenshteinWord(input), expected);
   });
+}
+
+void testCleanupEfficiency() {
+  _testCleanupEfficiency(
+    name: 'diff_cleanupEfficiency: Null case.',
+    expected: [],
+    input: [],
+  );
+
+  _testCleanupEfficiency(
+    name: 'diff_cleanupEfficiency: No elimination.',
+    expected: [
+      Diff(Operation.delete, 'ab'),
+      Diff(Operation.insert, '12'),
+      Diff(Operation.equal, 'wxyz'),
+      Diff(Operation.delete, 'cd'),
+      Diff(Operation.insert, '34')
+    ],
+    input: [
+      Diff(Operation.delete, 'ab'),
+      Diff(Operation.insert, '12'),
+      Diff(Operation.equal, 'wxyz'),
+      Diff(Operation.delete, 'cd'),
+      Diff(Operation.insert, '34'),
+    ],
+  );
+
+  _testCleanupEfficiency(
+    name: 'diff_cleanupEfficiency: Four-edit elimination.',
+    expected: [
+      Diff(Operation.delete, 'abxyzcd'),
+      Diff(Operation.insert, '12xyz34')
+    ],
+    input: [
+      Diff(Operation.delete, 'ab'),
+      Diff(Operation.insert, '12'),
+      Diff(Operation.equal, 'xyz'),
+      Diff(Operation.delete, 'cd'),
+      Diff(Operation.insert, '34')
+    ],
+  );
+
+  _testCleanupEfficiency(
+    name: 'diff_cleanupEfficiency: Three-edit elimination.',
+    expected: [Diff(Operation.delete, 'xcd'), Diff(Operation.insert, '12x34')],
+    input: [
+      Diff(Operation.insert, '12'),
+      Diff(Operation.equal, 'x'),
+      Diff(Operation.delete, 'cd'),
+      Diff(Operation.insert, '34')
+    ],
+  );
+
+  _testCleanupEfficiency(
+      name: 'diff_cleanupEfficiency: Backpass elimination.',
+      expected: [
+        Diff(Operation.delete, 'abxyzcd'),
+        Diff(Operation.insert, '12xy34z56')
+      ],
+      input: [
+        Diff(Operation.delete, 'ab'),
+        Diff(Operation.insert, '12'),
+        Diff(Operation.equal, 'xy'),
+        Diff(Operation.insert, '34'),
+        Diff(Operation.equal, 'z'),
+        Diff(Operation.delete, 'cd'),
+        Diff(Operation.insert, '56')
+      ]);
+
+
+  _testCleanupEfficiency(
+      name: 'diff_cleanupEfficiency: High cost elimination.', 
+      diffEditCost: 5,
+      expected: [
+         Diff(Operation.delete, 'abwxyzcd'),
+         Diff(Operation.insert, '12wxyz34')
+      ],
+      input: [
+         Diff(Operation.delete, 'ab'),
+         Diff(Operation.insert, '12'),
+         Diff(Operation.equal, 'wxyz'),
+         Diff(Operation.delete, 'cd'),
+         Diff(Operation.insert, '34')
+      ]);
+  
+}
+
+void _testCleanupEfficiency(
+    {required String name,
+    required List<Diff> expected,
+    required List<Diff> input,
+    int diffEditCost = 4}) {
+  test(name, () {
+    diffCleanupEfficiency(input, diffEditCost: diffEditCost);
+    _testOutput(input, expected,);
+  });
+}
+
+void _testOutput(List<Diff> actual, List<Diff> expected) {
+  expect(actual.length, expected.length);
+
+  for (var i = 0; i < actual.length; i++) {
+    expect(actual[i].text, expected[i].text);
+    expect(actual[i].operation, expected[i].operation);
+  }
 }
