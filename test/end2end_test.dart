@@ -167,6 +167,10 @@ void main() {
   // no dart files, only assets (post-2.12)
   _verifyPackage('lints', '1.0.0');
 
+  // debugging why platforms are not recognized
+  // https://github.com/dart-lang/pana/issues/824
+  _verifyPackage('webdriver', '3.0.0');
+
   // slightly old package
   _verifyPackage('sdp_transform', '0.2.0');
 

@@ -1,6 +1,7 @@
 ## 0.19.1
 
 * Upgraded dependencies: `analyzer` and `json_serializable`.
+* Report slightly more when no platform is detected.
 
 ## 0.19.0
 

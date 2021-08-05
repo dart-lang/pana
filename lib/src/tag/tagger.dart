@@ -305,10 +305,10 @@ class Tagger {
       } else {
         final dartSdkViolationFinder = SdkViolationFinder(
             _packageGraph, Sdk.dart, _pubspecCache, _session);
-        if (dartSdkViolationFinder.findSdkViolation(
-                packageName, _topLibraries) !=
-            null) {
-          // This is reported elsewhere
+        final sdkViolation =
+            dartSdkViolationFinder.findSdkViolation(packageName, _topLibraries);
+        if (sdkViolation != null) {
+          explanations.add(sdkViolation);
         } else {
           for (final runtime in Runtime.recognizedRuntimes) {
             final finder = runtimeViolationFinder(
