@@ -30,7 +30,7 @@ LicenseMatch licenseMatch(
   MatchRange matchRange,
   double threshold,
 ) {
-  if (unknownLicense.n != knownLicense.n) {
+  if (unknownLicense.granularity != knownLicense.granularity) {
     throw LicenseMismatchException(
         "Can't comapare the licenses due to different granularity");
   }
@@ -56,7 +56,7 @@ LicenseMatch licenseMatch(
 
   if (confidence < threshold) {
     throw LicenseMismatchException(
-        'Confidence $confidence is lesser than threshold $threshold');
+        'Confidence $confidence is less than threshold $threshold');
   }
 
   return LicenseMatch(
@@ -78,6 +78,7 @@ double confidencePercentage(int knownLength, int distance) {
   if (knownLength == 0) {
     return 1.0;
   }
+  assert(distance <= knownLength);
   final confidence = 1.0 - (distance / knownLength);
 
   return confidence;
@@ -89,7 +90,7 @@ List<Diff> getDiffs(
   List<Token> knownTokens,
   MatchRange matchRange,
 ) {
-  final dmp = DiffMatchPatch();
+  
 
   final unknownText = tokensNormalizedValue(inputTokens
       .skip(matchRange.input.start)
@@ -99,9 +100,9 @@ List<Diff> getDiffs(
     knownTokens.take(matchRange.source.end),
   );
 
-  final diffs = dmp.diffMain(unknownText, knownText);
+  final diffs = diffMain(unknownText, knownText);
 
-  dmp.diffCleanupSemantic(diffs);
+  diffCleanupEfficiency(diffs);
 
   return List.unmodifiable(diffs);
 }
@@ -119,9 +120,15 @@ Range diffRange(String known, List<Diff> diffs) {
   var seen = '';
   var end = 0;
   var start = 0;
+  final diffLength = diffs.length;
 
-  for (end = 0; end < diffs.length; end++) {
-    if (seen.length > 1 && seen.trimRight() == known) {
+  for (end = 0; end < diffLength; end++) {
+    if(seen == known){
+      break;
+    }
+
+    if (seen.length > 1 && !known.startsWith(seen)) {
+      end = diffLength;
       break;
     }
 

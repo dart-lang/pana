@@ -14,17 +14,17 @@ void testDiffRange() {
 
     _testDiffRange('No changes', diffs, known, expected);
 
-    known = 'equal part of text';
+    known = 'equal part of text ';
     diffs = [
       Diff(Operation.delete, 'previous deleted text '),
       Diff(Operation.equal, 'equal part of text'),
-      Diff(Operation.insert, 'extra deleted text')
+      Diff(Operation.insert, 'extra text not belonging to known text')
     ];
     expected = Range(1, 2);
 
     _testDiffRange('Known matches exactly with a diff', diffs, known, expected);
 
-    known = 'insert this text equal part of text';
+    known = 'insert this text equal part of text ';
     diffs = [
       Diff(Operation.insert, 'insert this text '),
       Diff(Operation.equal, 'equal part of text'),
@@ -37,7 +37,11 @@ void testDiffRange() {
 }
 
 void _testDiffRange(
-    String name, List<Diff> diffs, String known, Range expected) {
+  String name,
+  List<Diff> diffs,
+  String known,
+  Range expected,
+) {
   test(name, () {
     final actual = diffRange(known, diffs);
 
@@ -107,7 +111,7 @@ void _testVerifyNoVersionChange(
   test(name, () {
     if (expectException) {
       expect(() => verifyNoVersionChange(diffs, ''),
-          throwsA(isA<LicensesMismatchException>()));
+          throwsA(isA<LicenseMismatchException>()));
     } else {
       expect(() => verifyNoVersionChange(diffs, ''), returnsNormally);
     }
@@ -140,7 +144,7 @@ void _testVerifyNoGplChange(
   test(name, () {
     if (expectException) {
       expect(() => verifyNoGplChange(diffs, ''),
-          throwsA(isA<LicensesMismatchException>()));
+          throwsA(isA<LicenseMismatchException>()));
     } else {
       expect(() => verifyNoGplChange(diffs, ''), returnsNormally);
     }

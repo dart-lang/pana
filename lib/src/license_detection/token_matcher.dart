@@ -56,12 +56,12 @@ List<MatchRange> findPotentialMatches(
   LicenseWithNGrams knownLicense,
   double confidence,
 ) {
-  if (knownLicense.n != unknownLicense.n) {
+  if (knownLicense.granularity != unknownLicense.granularity) {
     throw ArgumentError(
         'n-gram size for knownLicense and unknownLicense must be the same!');
   }
 
-  final n = knownLicense.n;
+  final n = knownLicense.granularity;
   final matchedRanges = getMatchRanges(
     unknownLicense,
     knownLicense,
@@ -132,17 +132,19 @@ List<MatchRange> getTargetMatchedRanges(
       continue;
     }
     // Iterate over all the trigrams in source having the same checksums.
-    for (var srcChecksum in srcChecksums) {
+    for (var i=0; i<srcChecksums.length; i++) {
+      var srcChecksum = srcChecksums[i];
       final offset = tgtChecksum.start - srcChecksum.start;
 
       // Check if this source checksum extend the last match
       // and update the last match for this offset accordingly.
-      final matches = offsetMap[offset];
+      var matches = offsetMap[offset];
       if (matches != null && (matches.last.input.end == tgtChecksum.end - 1)) {
         matches.last = matches.last.update(
           inputEnd: tgtChecksum.end,
           srcEnd: srcChecksum.end,
         );
+        offsetMap[offset] = matches;
         continue;
       }
 
@@ -167,7 +169,7 @@ List<MatchRange> getTargetMatchedRanges(
 
   // Sort the matches based on the number of tokens covered in match
   // range in descending order.
-  matches.sort(_sortOnTokenCount);
+  matches.sort(_compareTokenCount);
   return List.unmodifiable(matches);
 }
 
@@ -370,15 +372,14 @@ List<MatchRange> fuseMatchedRanges(
     }
   }
 
-  claimed.sort(_sortOnTokenCount);
+  claimed.sort(_compareTokenCount);
 
   return claimed;
 }
 
 /// [Comparator] to sort list of [MatchRange] in descending order of the number of
 /// token claimed in range.
-int _sortOnTokenCount(
-  MatchRange matchA,
-  MatchRange matchB,
-) =>
-    (matchA.tokensClaimed > matchB.tokensClaimed ? -1 : 1);
+int _compareTokenCount(
+  MatchRange a,
+  MatchRange b,
+) => b.tokensClaimed - a.tokensClaimed ;

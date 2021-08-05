@@ -33,7 +33,7 @@ void main() {
       'apache_v2',
       'bsd_2_clause',
       'bsd_2_clause_in_comments',
-      'bsd_3_clause'
+      'bsd_3_clause',
     ];
 
     expect(licenses.length, 7);
@@ -49,12 +49,15 @@ void main() {
   test('Test checksum generation', () {
     final text = 'generate some checksums for these tokens';
     final expected = [3898316725, 3188174184, 1984569744, 820879958];
+    final ranges = [Range(0, 3),Range(1, 4),Range(2, 5), Range(3,6)];
     final actual = generateChecksums(tokenize(text), 3);
 
     expect(actual.length, expected.length);
 
     for (var i = 0; i < actual.length; i++) {
       expect(actual[i].checksum, expected[i]);
+      expect(actual[i].start, ranges[i].start);
+      expect(actual[i].end, ranges[i].end);
     }
   });
 }
