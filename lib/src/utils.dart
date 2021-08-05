@@ -27,7 +27,7 @@ Future<ProcessResult> runProc(
   Map<String, String>? environment,
   Duration? timeout,
   @Deprecated('The parameter has no effect and will be removed.')
-  bool deduplicate = false,
+      bool deduplicate = false,
 }) async {
   if (deduplicate) {
     log.severe('The `deduplicate` parameter in `runProc` is no longer used.');
