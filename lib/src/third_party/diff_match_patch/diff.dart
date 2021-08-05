@@ -697,7 +697,6 @@ void diffCharsToLines(List<Diff> diffs, List<String>? lineArray) {
   }
 }
 
-
 /// Given the location of the 'middle snake', split the diff in two parts
 /// and recurse.
 ///

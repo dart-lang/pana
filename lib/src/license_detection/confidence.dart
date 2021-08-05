@@ -90,8 +90,6 @@ List<Diff> getDiffs(
   List<Token> knownTokens,
   MatchRange matchRange,
 ) {
-  
-
   final unknownText = tokensNormalizedValue(inputTokens
       .skip(matchRange.input.start)
       .take(matchRange.input.end - matchRange.input.start));
@@ -123,7 +121,7 @@ Range diffRange(String known, List<Diff> diffs) {
   final diffLength = diffs.length;
 
   for (end = 0; end < diffLength; end++) {
-    if(seen == known){
+    if (seen == known) {
       break;
     }
 

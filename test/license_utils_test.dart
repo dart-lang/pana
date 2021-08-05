@@ -49,7 +49,7 @@ void main() {
   test('Test checksum generation', () {
     final text = 'generate some checksums for these tokens';
     final expected = [3898316725, 3188174184, 1984569744, 820879958];
-    final ranges = [Range(0, 3),Range(1, 4),Range(2, 5), Range(3,6)];
+    final ranges = [Range(0, 3), Range(1, 4), Range(2, 5), Range(3, 6)];
     final actual = generateChecksums(tokenize(text), 3);
 
     expect(actual.length, expected.length);

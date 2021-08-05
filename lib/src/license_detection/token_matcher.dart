@@ -132,7 +132,7 @@ List<MatchRange> getTargetMatchedRanges(
       continue;
     }
     // Iterate over all the trigrams in source having the same checksums.
-    for (var i=0; i<srcChecksums.length; i++) {
+    for (var i = 0; i < srcChecksums.length; i++) {
       var srcChecksum = srcChecksums[i];
       final offset = tgtChecksum.start - srcChecksum.start;
 
@@ -382,4 +382,5 @@ List<MatchRange> fuseMatchedRanges(
 int _compareTokenCount(
   MatchRange a,
   MatchRange b,
-) => b.tokensClaimed - a.tokensClaimed ;
+) =>
+    b.tokensClaimed - a.tokensClaimed;

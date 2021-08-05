@@ -474,11 +474,9 @@ void testDiffLineToChars() {
     var lines = lineList.join();
     var chars = charList.toString();
     test(
-        'Test initialization fail #2',
-        () => expect(
-              n,
-              chars.length),
-            );
+      'Test initialization fail #2',
+      () => expect(n, chars.length),
+    );
     lineList.insert(0, '');
 
     _testDiffLineToChars(
@@ -1285,22 +1283,20 @@ void testCleanupEfficiency() {
         Diff(Operation.insert, '56')
       ]);
 
-
   _testCleanupEfficiency(
-      name: 'diff_cleanupEfficiency: High cost elimination.', 
+      name: 'diff_cleanupEfficiency: High cost elimination.',
       diffEditCost: 5,
       expected: [
-         Diff(Operation.delete, 'abwxyzcd'),
-         Diff(Operation.insert, '12wxyz34')
+        Diff(Operation.delete, 'abwxyzcd'),
+        Diff(Operation.insert, '12wxyz34')
       ],
       input: [
-         Diff(Operation.delete, 'ab'),
-         Diff(Operation.insert, '12'),
-         Diff(Operation.equal, 'wxyz'),
-         Diff(Operation.delete, 'cd'),
-         Diff(Operation.insert, '34')
+        Diff(Operation.delete, 'ab'),
+        Diff(Operation.insert, '12'),
+        Diff(Operation.equal, 'wxyz'),
+        Diff(Operation.delete, 'cd'),
+        Diff(Operation.insert, '34')
       ]);
-  
 }
 
 void _testCleanupEfficiency(
@@ -1310,7 +1306,10 @@ void _testCleanupEfficiency(
     int diffEditCost = 4}) {
   test(name, () {
     diffCleanupEfficiency(input, diffEditCost: diffEditCost);
-    _testOutput(input, expected,);
+    _testOutput(
+      input,
+      expected,
+    );
   });
 }
 
