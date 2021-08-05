@@ -26,8 +26,13 @@ Future<ProcessResult> runProc(
   String? workingDirectory,
   Map<String, String>? environment,
   Duration? timeout,
+  @Deprecated('The parameter has no effect and will be removed.')
   bool deduplicate = false,
 }) async {
+  if (deduplicate) {
+    log.severe('The `deduplicate` parameter in `runProc` is no longer used.');
+  }
+
   log.info('Running `${[...arguments].join(' ')}`...');
   var process = await Process.start(arguments.first, arguments.skip(1).toList(),
       workingDirectory: workingDirectory, environment: environment);
@@ -55,10 +60,6 @@ Future<ProcessResult> runProc(
   var items = await Future.wait(<Future>[
     process.exitCode,
     _byteStreamSplit(process.stdout).forEach((outLine) {
-      // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
-      if (deduplicate && stdoutLines.contains(outLine)) {
-        return;
-      }
       stdoutLines.add(outLine);
       // Uncomment to debug long execution
       // log.severe(outLine);
@@ -67,10 +68,6 @@ Future<ProcessResult> runProc(
       }
     }),
     _byteStreamSplit(process.stderr).forEach((errLine) {
-      // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
-      if (deduplicate && stderrLines.contains(errLine)) {
-        return;
-      }
       stderrLines.add(errLine);
       // Uncomment to debug long execution
       // log.severe(errLine);

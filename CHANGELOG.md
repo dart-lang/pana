@@ -3,6 +3,7 @@
 * Upgraded dependencies: `analyzer` and `json_serializable`.
 * Report a reason when no platform is detected - still lacking more details.
 * Terminate the timeouted processes with `sigkill`.
+* The `deduplicate` parameter in `runProc` is no longer used and will be ignored.
 
 ## 0.19.0
 

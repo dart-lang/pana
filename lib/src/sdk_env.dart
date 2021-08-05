@@ -191,7 +191,6 @@ class ToolEnvironment {
         ],
         environment: _environment,
         workingDirectory: packageDir,
-        deduplicate: true,
         timeout: const Duration(minutes: 5),
       );
       final output = proc.stderr as String;
