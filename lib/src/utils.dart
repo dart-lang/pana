@@ -42,7 +42,7 @@ Future<ProcessResult> runProc(
     if (!killed) {
       killMessage = message;
       log.severe('Killing `${arguments.join(' ')}` $killMessage');
-      killed = process.kill();
+      killed = process.kill(ProcessSignal.sigkill);
       log.info('killed `${arguments.join(' ')}` - $killed');
     }
   }
