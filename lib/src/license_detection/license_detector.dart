@@ -19,11 +19,12 @@ part 'primary_filter.dart';
 part 'token_matcher.dart';
 part 'tokenizer.dart';
 
+
 // Load corpus licenses.
 final _licenses = loadLicensesFromDirectories(_directories);
 
-// WIP: Returns a list of detected licenses whose
-// confidence score is above a certain threshold.
+/// Returns a list of [LicenseMatch] for every license in the corpus detected 
+/// in the unknown text with a confidence greater than [threshold].
 List<LicenseMatch> detectLicense(String text, double threshold) {
   final granularity = computeGranularity(threshold);
 
@@ -98,7 +99,26 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
   return identifierToLicense.values.toList();
 }
 
-int _sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) =>
-    (matchA.confidence > matchB.confidence) ? -1 : 1;
+/// Custom comparator to the sort the licenses based on decreasing order of confidence.
+/// 
+/// Incase the confidence detected is same for the matches, ratio of tokens claimed
+/// in the unkown text to the number of tokens present in the known license text 
+/// is considered.
+int _sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) {
+  if (matchA.confidence > matchB.confidence) {
+    return -1;
+  }
+
+  if (matchA.confidence < matchB.confidence) {
+    return 1;
+  }
+
+  final matchATokensPercent =
+      matchA.tokensClaimed / matchA.license.tokens.length;
+  final matchBTokensPercent =
+      matchB.tokensClaimed / matchB.license.tokens.length;
+
+  return (matchATokensPercent > matchBTokensPercent) ? -1 : 1;
+}
 
 const _directories = ['third_party/spdx/licenses'];
