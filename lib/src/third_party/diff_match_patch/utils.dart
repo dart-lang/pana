@@ -20,7 +20,7 @@ int diffCommonPrefix(String text1, String text2) {
 }
 
 /// Returns the number of characters common to the end of each string.
-/// 
+///
 /// Determine the common suffix of two strings.
 /// [text1] is the first string. [text2] is the second string.
 @visibleForTesting

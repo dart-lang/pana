@@ -379,7 +379,8 @@ void testOutput(List<MatchRange> actual, List<MatchRange> expected) {
 }
 
 LicenseWithNGrams _getLicense(String content, int n) {
-  return LicenseWithNGrams.parse(License.parse(identifier:'',content: content), n);
+  return LicenseWithNGrams.parse(
+      License.parse(identifier: '', content: content), n);
 }
 
 void main() {

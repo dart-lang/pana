@@ -1001,7 +1001,6 @@ void testDiffBisect() {
   });
 }
 
-
 void testWordDiffLevenshtein() {
   var diffs = [
     Diff(Operation.delete, 'delete three words'),
@@ -1181,7 +1180,6 @@ void _testDiffBisect(
     _testOutput(diffBisect(text1, text2, deadline), expected);
   });
 }
-
 
 void _testWordDiffLevenshtein(int expected, List<Diff> input, String name) {
   test(name, () {
