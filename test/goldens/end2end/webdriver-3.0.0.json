@@ -71,7 +71,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)\n\n\nConsider supporting these prerelease platforms:\n\n<details>\n<summary>\nPackage not compatible with SDK dart\n</summary>\n\nBecause it is not compatible with any of the supported runtimes: native-aot, native, js\n</details>"
+        "summary": "### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)\n\n\nConsider supporting these prerelease platforms:\n\n<details>\n<summary>\nPackage is not compatible with the Dart SDK.\n</summary>\n\nBecause it is not compatible with any of the supported runtimes: `native-aot`, `native`, `js`.\n\nPackage is not compatible with Dart SDK using runtime `native-aot`. Because:\n* `package:webdriver/async_html.dart` that imports:\n* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:\n* `dart:html`\n\nPackage is not compatible with Dart SDK using runtime `native`. Because:\n* `package:webdriver/async_html.dart` that imports:\n* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:\n* `dart:html`\n\nPackage is not compatible with Dart SDK using runtime `js`. Because:\n* `package:webdriver/async_io.dart` that imports:\n* `package:webdriver/src/request/async_io_request_client.dart` that imports:\n* `dart:io`\n</details>"
       },
       {
         "id": "analysis",

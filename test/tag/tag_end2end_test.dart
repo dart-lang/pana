@@ -293,10 +293,11 @@ int fourtyThree() => 43;
         'sdk:dart'
       }, explanations: [
         _explanation(
-            finding: 'Package not compatible with SDK flutter',
-            explanation:
+            finding: 'Package is not compatible with the Flutter SDK.',
+            explanation: startsWith(
                 'Because it is not compatible with any of the supported '
-                'runtimes: flutter-native, flutter-web')
+                'runtimes: `flutter-native`, `flutter-web`.\n\n'
+                'Package is not compatible with Flutter SDK using runtime `flutter-native`. Because:')),
       ]);
       _expectTagging(tagger.flutterPlatformTags,
           tags: isEmpty,
