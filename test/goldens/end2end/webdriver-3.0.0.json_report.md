@@ -30,7 +30,7 @@ Consider supporting these prerelease platforms:
 
 <details>
 <summary>
-Package not compatible with Dart SDK.
+Package is not compatible with the Dart SDK.
 </summary>
 
 Because it is not compatible with any of the supported runtimes: `native-aot`, `native`, `js`.

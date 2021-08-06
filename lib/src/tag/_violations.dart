@@ -155,7 +155,7 @@ class SdkViolationFinder {
       if (supports) return null;
     }
     return Explanation(
-      'Package not compatible with ${sdk.formattedName} SDK.',
+      'Package is not compatible with the ${sdk.formattedName} SDK.',
       'Because it is not compatible with any of the supported runtimes: '
           '${sdk.allowedRuntimes.map((r) => '`${r.name}`').join(', ')}.'
           '${explanations.map((e) => '\n\n${e.finding} ${e.explanation}').join()}',
