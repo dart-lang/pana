@@ -48,30 +48,27 @@ List<Token> tokenize(String text) {
   var tokenID = 0;
 
   Token? nextToken() {
-    if (_scanner.scan(_wordRegex)) {
-      return Token._fromSpan(_scanner.lastSpan!, tokenID++);
+    while (!_scanner.isDone) {
+      if (_scanner.scan(_wordRegex)) {
+        return Token._fromSpan(_scanner.lastSpan!, tokenID++);
+      }
+
+      // Store new line tokens to identify and ignore tokens
+      // resembling list items while cleaning tokens.
+      if (_scanner.scan(_newLineRegex)) {
+        return Token('\n', tokenID++, _scanner.lastSpan!);
+      }
+
+      // Ignore whitespace
+      if (_scanner.scan(_horizontalWhiteSpaceRegex)) {
+        continue;
+      }
+
+      // If none of the above conditions match, this implies
+      // the scanner is at standalone punctuation mark or leading
+      // punctuation in a word. Ignore them and move the scanner forward.
+      _scanner.readChar();
     }
-
-    // Store new line tokens to identify and ignore tokens
-    // resembling list items while cleaning tokens.
-    if (_scanner.scan(_newLineRegex)) {
-      return Token('\n', tokenID++, _scanner.lastSpan!);
-    }
-
-    // Ignore whitespace
-    if (_scanner.scan(_horizontalWhiteSpaceRegex)) {
-      return null;
-    }
-
-    // Read only © and ignore other leading and standalone punctuation.
-    // if(_scanner.scan(RegExp(r'©'))){
-    //   return NewToken.fromSpan(_scanner.lastSpan!, tokenID++);
-    // }
-
-    // If none of the above conditions match, this implies
-    // the scanner is at standalone punctuation mark or leading
-    // punctuation in a word. Ignore them and move the scanner forward.
-    _scanner.readChar();
     return null;
   }
 
@@ -150,7 +147,7 @@ String _cleanToken(String tok) {
 
   // If this is a varietal word normalize it according to
   // Guideline 8.1.1: Legally equal words must be treated same.
-  text = _varietalWords[text] ?? text;
+  text = _equivalentWords[text] ?? text;
   return text;
 }
 
@@ -203,7 +200,7 @@ final _newLineRegex = RegExp(r'(?:\n|\r\n|\r|\u0085)');
 /// Words considered legally equivalent according [SPDX corpus][1].
 ///
 /// [1]: https://github.com/spdx/license-list-XML/blob/master/equivalentwords.txt
-final _varietalWords = {
+final _equivalentWords = {
   // TODO : Manage words that are left out from the original list.
   'acknowledgment': 'acknowledgement',
   'analogue': 'analog',

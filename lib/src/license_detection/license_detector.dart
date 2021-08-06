@@ -27,8 +27,8 @@ final _licenses = loadLicensesFromDirectories(_directories);
 List<LicenseMatch> detectLicense(String text, double threshold) {
   final granularity = computeGranularity(threshold);
 
-  final unknownLicense =
-      LicenseWithNGrams.parse(License.parse('', text), granularity);
+  final unknownLicense = LicenseWithNGrams.parse(
+      License.parse(identifier: '', content: text), granularity);
 
   final possibleLicenses = filter(unknownLicense.occurrences, _licenses)
       .map((e) => LicenseWithNGrams.parse(e, granularity));
@@ -53,6 +53,7 @@ List<LicenseMatch> detectLicense(String text, double threshold) {
 
   result = removeDuplicates(result);
   result.sort(_sortOnConfidence);
+  result = removeOverLappingMatches(result);
   return List.unmodifiable(result);
 }
 
@@ -118,6 +119,71 @@ int _sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) {
       matchB.tokensClaimed / matchB.license.tokens.length;
 
   return (matchATokensPercent > matchBTokensPercent) ? -1 : 1;
+}
+
+/// Fliters out licenses having overlapping ranges giving preferences to a match with higher token density.
+///
+/// Token density is the product of number of tokens claimed in the range and
+/// confidence score of the match. Incase of exact match we retain both
+/// the matches so that the user can resolve them.
+@visibleForTesting
+List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
+  var retain = List.filled(matches.length, false);
+  var retainedmatches = <LicenseMatch>[];
+
+  // We consider token density to retain matches of larger licenses
+  // having lesser confidence when compared to a smaller license
+  // haing a  perfect match.
+  for (var i = 0; i < matches.length; i++) {
+    var keep = true;
+    final matchA = matches[i];
+    final rangeA = Range(matchA.start, matchA.end);
+
+    var proposals = <int, bool>{};
+    for (var j = 0; j < matches.length; j++) {
+      
+      if (j == i) {
+        break;
+      }
+      final matchB = matches[j];
+      final rangeB = Range(matchB.start, matchB.end);
+
+      // Check if matchA is larger license containing an insatnce of
+      // smaller license within it and decide to whether retain it 
+      // or not by comapring their token densities. Example NPL 
+      // contains MPL.
+      if (rangeA.conatins(rangeB) && retain[j]) {
+        final aConf = matchA.tokensClaimed * matchA.confidence;
+        final bConf = matchB.tokensClaimed * matchB.confidence;
+
+
+        // Retain both the licenses incase of a exact match,
+        // so that it can be resolved by the user.
+        if (aConf > bConf) {
+          proposals[j] = true;
+        } else if (bConf > aConf) {
+          keep = false;
+        }
+      } else if (rangeA.overlapsWith(rangeB)) {
+        keep = false;
+      }
+    }
+
+    if (keep) {
+      retain[i] = true;
+      proposals.forEach((key, value) {
+        retain[key] = value;
+      });
+    }
+  }
+
+  for (var i = 0; i < matches.length; i++) {
+    if (retain[i]) {
+      retainedmatches.add(matches[i]);
+    }
+  }
+
+  return retainedmatches;
 }
 
 const _directories = ['third_party/spdx/licenses'];

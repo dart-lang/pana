@@ -40,13 +40,22 @@ class MatchRange {
 @sealed
 @visibleForTesting
 class Range {
+  Range(this.start, this.end);
+
   /// Start index of the token in this range.
   final int start;
 
   /// End index(exclusive) of the token in this range.
   final int end;
 
-  Range(this.start, this.end);
+  bool conatins(Range other) {
+    return other.start >= start && other.end <= end;
+  }
+
+  bool overlapsWith(Range other) {
+    return (start >= other.start && start <= other.end) ||
+        (end >= other.start && end <= other.end);
+  }
 }
 
 /// Returns a list of [MatchRange] for [unknownLicense] that might be the best possible match for [knownLicense].
@@ -61,12 +70,11 @@ List<MatchRange> findPotentialMatches(
         'n-gram size for knownLicense and unknownLicense must be the same!');
   }
 
-  final n = knownLicense.granularity;
   final matchedRanges = getMatchRanges(
     unknownLicense,
     knownLicense,
     confidence,
-    n,
+    knownLicense.granularity,
   );
 
   // Minimum number of tokens that range must have to be considered a possible match.
