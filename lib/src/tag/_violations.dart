@@ -118,7 +118,7 @@ class SdkViolationFinder {
             return nonAllowedSdks.isEmpty
                 ? null
                 : (path) => Explanation(
-                      'Package is not compatible with ${sdk.formattedName} SDK.',
+                      'Package is not compatible with the ${sdk.formattedName} SDK.',
                       'Because:\n${PackageGraph.formatPath(path)} that is a package requiring'
                           ' ${nonAllowedSdks.map((e) => null).join(', ')}.',
                       tag: sdk.tag,
