@@ -20,7 +20,7 @@ class License {
 
   License._(this.content, this.tokens, this.occurrences, this.identifier);
 
-  factory License.parse(String identifier, String content) {
+  factory License.parse({required String identifier, required String content}) {
     final tokens = tokenize(content);
     final table = generateFrequencyTable(tokens);
     return License._(content, tokens, table, identifier);
@@ -31,13 +31,14 @@ String tokensNormalizedValue(Iterable<Token> tokens) {
   return tokens.map((token) => token.value).join(' ');
 }
 
-/// Representation of n-gram consistent of `n` tokens.
+/// Representation of a n-gram consisting of `n` tokens.
 ///
-/// The number of tokens `n` in the n-grams is determined by  confidence threshold for the match.
+/// The number of tokens `n` in the n-grams is determined by the confidence threshold for the match.
 /// See: [computeGranularity].
 @sealed
 class NGram {
   /// Text for which the hash value was generated.
+  @visibleForTesting
   final String text;
 
   /// [CRC-32][1] checksum value generated for text.
@@ -220,14 +221,15 @@ List<License> licensesFromFile(String path) {
     throw ArgumentError('Invalid utf-8 encoding: $path');
   }
 
-  licenses.add(License.parse(identifier, content));
+  licenses.add(License.parse(identifier: identifier, content: content));
 
   // If a license contains a optional part create an additional license
   // instance with the optional part of text removed to have
   // better chances of matching.
   if (content.contains(_endOfTerms)) {
     final modifiedContent = content.split(_endOfTerms).first + _endOfTerms;
-    licenses.add(License.parse(identifier, modifiedContent));
+    licenses
+        .add(License.parse(identifier: identifier, content: modifiedContent));
   }
   return licenses;
 }

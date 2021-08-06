@@ -11,7 +11,7 @@ void main() {
       var text1 = 'Some tokens to test';
       var text2 = 'some tokens to test';
 
-      final license = License.parse('', text1);
+      final license = License.parse( identifier: '',content: text1);
       var tokens2 = tokenize(text2);
 
       expect(
@@ -67,7 +67,7 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''';
-      final unknownLicense = License.parse('', input);
+      final unknownLicense = License.parse(identifier:'',content: input);
       final knownLicenses =
           loadLicensesFromDirectories(['test/license_test_assets/licenses']);
 
