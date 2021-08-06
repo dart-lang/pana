@@ -1001,28 +1001,6 @@ void testDiffBisect() {
   });
 }
 
-void testDiffLevenshtein() {
-  var diffs = [
-    Diff(Operation.delete, 'abc'),
-    Diff(Operation.insert, '1234'),
-    Diff(Operation.equal, 'xyz')
-  ];
-  _testDiffLevenshtein(4, diffs, 'Levenshtein with trailing equality.');
-
-  diffs = [
-    Diff(Operation.equal, 'xyz'),
-    Diff(Operation.delete, 'abc'),
-    Diff(Operation.insert, '1234')
-  ];
-  _testDiffLevenshtein(4, diffs, 'Levenshtein with leading equality.');
-
-  diffs = [
-    Diff(Operation.delete, 'abc'),
-    Diff(Operation.equal, 'xyz'),
-    Diff(Operation.insert, '1234')
-  ];
-  _testDiffLevenshtein(7, diffs, 'Levenshtein with middle equality.');
-}
 
 void testWordDiffLevenshtein() {
   var diffs = [
@@ -1204,11 +1182,6 @@ void _testDiffBisect(
   });
 }
 
-void _testDiffLevenshtein(int expected, List<Diff> input, String name) {
-  test(name, () {
-    expect(diffLevenshtein(input), expected);
-  });
-}
 
 void _testWordDiffLevenshtein(int expected, List<Diff> input, String name) {
   test(name, () {

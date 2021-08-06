@@ -1,9 +1,9 @@
 part of 'diff.dart';
 
-/// Determine the common prefix of two strings.
-///
-/// [text1] is the first string. [text2] is the second string.
 /// Returns the number of characters common to the start of each string.
+///
+/// Determine the common prefix of two strings.
+/// [text1] is the first string. [text2] is the second string.
 @visibleForTesting
 int diffCommonPrefix(String text1, String text2) {
   // TODO: Once Dart's performance stabilizes, determine if linear or binary
@@ -19,10 +19,10 @@ int diffCommonPrefix(String text1, String text2) {
   return n;
 }
 
-/// Determine the common suffix of two strings.
-///
-/// [text1] is the first string. [text2] is the second string.
 /// Returns the number of characters common to the end of each string.
+/// 
+/// Determine the common suffix of two strings.
+/// [text1] is the first string. [text2] is the second string.
 @visibleForTesting
 int diffCommonSuffix(String text1, String text2) {
   // TODO: Once Dart's performance stabilizes, determine if linear or binary
@@ -114,36 +114,6 @@ Map<String, dynamic> diffLinesToChars(String text1, String text2) {
   final chars2 = _diffLinesToCharsMunge(text2, lineArray, lineHash, 65535);
 
   return {'chars1': chars1, 'chars2': chars2, 'lineArray': lineArray};
-}
-
-/// Compute the Levenshtein distance; the number of inserted, deleted or
-/// substituted characters.
-/// [diffs] is a List of Diff objects.
-/// Returns the number of changes.
-int diffLevenshtein(List<Diff> diffs) {
-  var levenshtein = 0;
-  var insertions = 0;
-  var deletions = 0;
-
-  for (var aDiff in diffs) {
-    switch (aDiff.operation) {
-      case Operation.insert:
-        insertions += aDiff.text.length;
-        break;
-      case Operation.delete:
-        deletions += aDiff.text.length;
-        break;
-      case Operation.equal:
-        // A deletion and an insertion is one substitution.
-        levenshtein += max(insertions, deletions);
-        insertions = 0;
-        deletions = 0;
-        break;
-    }
-  }
-
-  levenshtein += max(insertions, deletions);
-  return levenshtein;
 }
 
 int diffLevenshteinWord(Iterable<Diff> diffs) {
@@ -326,35 +296,6 @@ void diffCleanupEfficiency(List<Diff> diffs, {int diffEditCost = 4}) {
   if (changes) {
     diffCleanupMerge(diffs);
   }
-}
-
-String diffPrettyHtml(List<Diff> diffs) {
-  final html = StringBuffer();
-  for (var aDiff in diffs) {
-    var text = aDiff.text
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('\n', '&para;<br>');
-    switch (aDiff.operation) {
-      case Operation.insert:
-        html.write('<ins style="background:#e6ffe6;">');
-        html.write(text);
-        html.write('</ins>');
-        break;
-      case Operation.delete:
-        html.write('<del style="background:#ffe6e6;">');
-        html.write(text);
-        html.write('</del>');
-        break;
-      case Operation.equal:
-        html.write('<span>');
-        html.write(text);
-        html.write('</span>');
-        break;
-    }
-  }
-  return html.toString();
 }
 
 /// Reduce the number of edits by eliminating semantically trivial equalities.

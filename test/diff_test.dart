@@ -12,7 +12,6 @@ void main() {
   testDiffCleanupSemanticLosses();
   testDiffCleanupSemantic();
   testDiffBisect();
-  testDiffLevenshtein();
   testWordDiffLevenshtein();
   testCleanupEfficiency();
 }
