@@ -70,7 +70,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
           suggestion: 'At the time of the analysis `$url` was unreachable.',
         ),
       );
-    } else if (status.exists && !status.isSecure) {
+    } else if (!status.isSecure) {
       issues.add(
         Issue(
           '$name is insecure.',
