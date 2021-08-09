@@ -3,7 +3,7 @@
 * **BREAKING CHANGES**
   * `UrlStatus` is converted to a class with fields.
   * `UrlChecker` internal cache is removed (incl. `maxCacheSize`, `existsInCache`, `markExistsInCache`).
-    Caching implementation should wrap the `UrlChecker.checkUrlExists` method.
+    Caching implementations should wrap the `UrlChecker.checkUrlExists` method.
 
 ## 0.19.1
 
