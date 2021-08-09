@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart' show GitDependency;
 
-import '../download_utils.dart';
 import '../markdown_content.dart';
 import '../model.dart';
 import '../package_context.dart';
@@ -48,18 +47,22 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
       return issues;
     }
 
-    final status = await context.urlChecker.checkStatus(
-      url,
-      isInternalPackage: options.isInternal,
-    );
-    if (status == UrlStatus.invalid || status == UrlStatus.internal) {
+    final status = await context.urlChecker.checkStatus(url);
+    if (status.isInvalid) {
+      issues.add(
+        Issue(
+          "$name isn't valid.",
+          span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
+        ),
+      );
+    } else if (status.isInternal && !options.isInternal) {
       issues.add(
         Issue(
           "$name isn't helpful.",
           span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
         ),
       );
-    } else if (status == UrlStatus.missing) {
+    } else if (!status.exists) {
       issues.add(
         Issue(
           "$name doesn't exist.",
@@ -67,7 +70,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
           suggestion: 'At the time of the analysis `$url` was unreachable.',
         ),
       );
-    } else if (status == UrlStatus.exists && !url.startsWith('https://')) {
+    } else if (status.exists && !status.isSecure) {
       issues.add(
         Issue(
           '$name is insecure.',

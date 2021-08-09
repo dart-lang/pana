@@ -1,9 +1,17 @@
+## 0.20.0
+
+* **BREAKING CHANGES**
+  * `UrlStatus` is converted to a class with fields.
+  * `UrlChecker` internal cache is removed (incl. `maxCacheSize`, `existsInCache`, `markExistsInCache`).
+    Caching implementation should wrap the `UrlChecker.checkUrlExists` method.
+
 ## 0.19.1
 
 * Upgraded dependencies: `analyzer` and `json_serializable`.
 * Report a reason when no platform is detected - still lacking more details.
 * Terminate the timeouted processes with `sigkill`.
 * The `deduplicate` parameter in `runProc` is no longer used and will be ignored.
+* Updated cache handlers for `UrlChecker`.
 
 ## 0.19.0
 

@@ -107,25 +107,44 @@ const _repoReplacePrefixes = {
   'https://www.gitlab.com': 'https://gitlab.com',
 };
 
-enum UrlStatus {
-  invalid,
-  internal,
-  missing,
-  exists,
+/// The URL's parsed and queried status.
+class UrlStatus {
+  /// Whether the URL can be parsed and is valid.
+  final bool isInvalid;
+
+  /// Whether the URL points to an internal domain.
+  final bool isInternal;
+
+  /// Whether the URL uses HTTPS.
+  final bool isSecure;
+
+  /// Whether the URL exists and responds with an OK status code.
+  final bool exists;
+
+  UrlStatus({
+    required this.isInvalid,
+    required this.isInternal,
+    required this.isSecure,
+    required this.exists,
+  });
+
+  UrlStatus.invalid()
+      : isInvalid = true,
+        isInternal = false,
+        isSecure = false,
+        exists = false;
 }
 
 /// Checks if an URL is valid and accessible.
 class UrlChecker {
   final _internalHosts = <Pattern>{};
-  final _validUrlCache = <String>{};
-  final int _maxCacheSize;
 
-  UrlChecker({
-    int? maxCacheSize,
-  }) : _maxCacheSize = maxCacheSize ?? 10000 {
+  UrlChecker() {
     addInternalHosts([
       'dart.dev',
       RegExp(r'.*\.dart\.dev'),
+      'flutter.dev',
+      RegExp(r'.*\.flutter\.dev'),
       'pub.dev',
       RegExp(r'.*\.pub\.dev'),
       'dartlang.org',
@@ -147,51 +166,34 @@ class UrlChecker {
     return _internalHosts.every((p) => p.allMatches(uri.host).isEmpty);
   }
 
+  /// Returns `true` if the [uri] exists,
+  /// `false` if getting the page encountered problems.
+  ///
+  /// A cached [UrlChecker] implementation should override this method,
+  /// wrap it in a cached callback, still invoking it via `super.checkUrlExists()`.
+  Future<bool> checkUrlExists(Uri uri) async {
+    return await safeUrlCheck(uri);
+  }
+
   /// Check the status of the URL, using validity checks, cache and
   /// safe URL checks with limited number of redirects.
-  Future<UrlStatus> checkStatus(String url,
-      {bool isInternalPackage = false}) async {
+  Future<UrlStatus> checkStatus(String url) async {
     final uri = Uri.tryParse(url);
     if (uri == null) {
-      return UrlStatus.invalid;
+      return UrlStatus.invalid();
     }
     if (uri.scheme != 'http' && uri.scheme != 'https') {
-      return UrlStatus.invalid;
+      return UrlStatus.invalid();
     }
+    final isSecure = uri.scheme == 'https';
     final isExternal = await hasExternalHostname(uri);
-    if (!isExternal && !isInternalPackage) {
-      return UrlStatus.internal;
-    }
-
-    // check in cache
-    if (await existsInCache(uri)) {
-      return UrlStatus.exists;
-    }
-
-    final exists = await safeUrlCheck(uri);
-    if (exists) {
-      await markExistsInCache(uri);
-      return UrlStatus.exists;
-    } else {
-      return UrlStatus.missing;
-    }
-  }
-
-  /// Checks if the [uri] exists in cache. The cache contains only
-  /// the valid URLs, failures (which may be short-lived, transient)
-  /// are not stored, rather retried.
-  ///
-  /// Returns true if [uri] has been valid in the cache, false otherwise.
-  Future<bool> existsInCache(Uri uri) async {
-    return _validUrlCache.contains(uri.toString());
-  }
-
-  /// Marks the [uri] as valid in the cache.
-  Future<void> markExistsInCache(Uri uri) async {
-    while (_validUrlCache.length > _maxCacheSize) {
-      _validUrlCache.remove(_validUrlCache.first);
-    }
-    _validUrlCache.add(uri.toString());
+    final exists = await checkUrlExists(uri);
+    return UrlStatus(
+      isInvalid: false,
+      isInternal: !isExternal,
+      isSecure: isSecure,
+      exists: exists,
+    );
   }
 }
 
