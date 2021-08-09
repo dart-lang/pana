@@ -40,16 +40,24 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
         ReportStatus Function(int) statusFromCount,
         List<String> tags,
         List<Explanation> explanations) {
-      final unofficialExplanations = explanations.where((e) =>
+      final sdkExplanations =
+          explanations.where((e) => e.tag != null && e.tag!.startsWith('sdk:'));
+      final platformExplanations = explanations
+          .where((e) => e.tag == null || !e.tag!.startsWith('sdk:'));
+      final unofficialExplanations = platformExplanations.where((e) =>
           !tags.contains(e.tag) &&
-          (e.tag != null && !tagNames.containsKey(e.tag)));
-      final officialExplanations = explanations.where((e) =>
+          (e.tag != null &&
+              !e.tag!.startsWith('sdk:') &&
+              !tagNames.containsKey(e.tag)));
+      final officialExplanations = platformExplanations.where((e) =>
           !tags.contains(e.tag) &&
           (e.tag == null || tagNames.containsKey(e.tag)));
       final trustExplanations = explanations.where((e) => tags.contains(e.tag));
       final paragraphs = [
+        if (sdkExplanations.isNotEmpty) RawParagraph('SDK issues found:'),
+        ...sdkExplanations.map(explanationToIssue),
         if (officialExplanations.isNotEmpty)
-          RawParagraph('Consider supporting multiple platforms:\n'),
+          RawParagraph('\nConsider supporting multiple platforms:\n'),
         ...officialExplanations.map(explanationToIssue),
         if (unofficialExplanations.isNotEmpty)
           RawParagraph('\nConsider supporting these prerelease platforms:\n'),

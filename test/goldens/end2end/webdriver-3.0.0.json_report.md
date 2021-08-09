@@ -25,9 +25,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)
 
-
-Consider supporting these prerelease platforms:
-
+SDK issues found:
 <details>
 <summary>
 Package is not compatible with the Dart SDK.
