@@ -37,11 +37,7 @@ Future<String?> getLicenseUrl(
     return null;
   }
   final status = await urlChecker.checkStatus(url);
-  if (status == UrlStatus.exists) {
-    return url;
-  } else {
-    return null;
-  }
+  return status.exists ? url : null;
 }
 
 @visibleForTesting
