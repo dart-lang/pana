@@ -57,7 +57,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nlib/skiplist.dart is not formatted according to dartfmt\n</summary>\n\nTo format your files run: `dartfmt -w .`\n</details>"
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nlib/skiplist.dart doesn't match the Dart formatter.\n</summary>\n\nTo format your files run: `dart format .`\n</details>"
       },
       {
         "id": "dependency",

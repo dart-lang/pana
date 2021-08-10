@@ -38,6 +38,9 @@ new tests, use the existing tests as a guideline for what they should look like.
 Before you send your pull request, make sure all the tests pass! Just run 
 `dart test`.
 
+When updating UI messages, the golden test files in `test/goldens` -- which
+contain the expected UI output -- need to be updated. To do that, simply delete the outdated golden test file, and it will be regenerated when `dart test` is run.
+
 ### File headers
 
 All files in the project must start with the following header.
