@@ -14,7 +14,6 @@ import '../model.dart';
 import '../package_context.dart';
 import '../sdk_env.dart';
 import '../utils.dart';
-
 import '_common.dart';
 
 Future<ReportSection> staticAnalysis(PackageContext context) async {
@@ -153,8 +152,12 @@ Future<List<Issue>> _formatPackage(
       lineLength: lineLength,
     );
     return unformattedFiles
-        .map((f) => Issue('$f is not formatted according to dartfmt',
-            suggestion: 'To format your files run: `dartfmt -w .`'))
+        .map((f) => Issue(
+              '$f doesn\'t match the Dart formatter.',
+              suggestion: usesFlutter
+                  ? 'To format your files run: `flutter format .`'
+                  : 'To format your files run: `dart format .`',
+            ))
         .toList();
   } on ToolException catch (e) {
     return [

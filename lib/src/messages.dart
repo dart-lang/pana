@@ -11,8 +11,8 @@ class _MsgDict {
   _MsgDict._({
     this.dartanalyzerShortName = 'dart analyze',
     this.dartanalyzerShortCmd = 'dart analyze .',
-    this.dartfmtShortName = 'dartfmt',
-    this.dartfmtShortCmd = 'dartfmt -n .',
+    this.dartfmtShortName = 'dart format',
+    this.dartfmtShortCmd = 'dart format .',
   });
 
   static _MsgDict defaultDict = _MsgDict._();
