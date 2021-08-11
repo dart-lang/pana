@@ -199,6 +199,10 @@ class PackageAnalyzer {
       licenseFile: licenseFile?.change(url: licenseUrl),
       tags: tags,
       report: await createReport(context),
+      urlProblems: context.urlProblems.entries
+          .map((e) => UrlProblem(url: e.key, problem: e.value))
+          .toList()
+            ..sort((a, b) => a.url.compareTo(b.url)),
       errorMessage: errorMessage,
     );
   }

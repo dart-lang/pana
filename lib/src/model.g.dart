@@ -25,6 +25,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
       report: json['report'] == null
           ? null
           : Report.fromJson(json['report'] as Map<String, dynamic>),
+      urlProblems: (json['urlProblems'] as List<dynamic>?)
+          ?.map((e) => UrlProblem.fromJson(e as Map<String, dynamic>))
+          .toList(),
       errorMessage: json['errorMessage'] as String?,
     );
 
@@ -47,6 +50,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('allDependencies', instance.allDependencies);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);
+  writeNotNull('urlProblems', instance.urlProblems);
   writeNotNull('errorMessage', instance.errorMessage);
   return val;
 }
@@ -159,3 +163,14 @@ const _$ReportStatusEnumMap = {
   ReportStatus.partial: 'partial',
   ReportStatus.passed: 'passed',
 };
+
+UrlProblem _$UrlProblemFromJson(Map<String, dynamic> json) => UrlProblem(
+      url: json['url'] as String,
+      problem: json['problem'] as String,
+    );
+
+Map<String, dynamic> _$UrlProblemToJson(UrlProblem instance) =>
+    <String, dynamic>{
+      'url': instance.url,
+      'problem': instance.problem,
+    };

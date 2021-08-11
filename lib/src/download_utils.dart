@@ -133,6 +133,18 @@ class UrlStatus {
         isInternal = false,
         isSecure = false,
         exists = false;
+
+  /// Returns a brief problem code that can be displayed when linking to it.
+  /// Returns `null` when URL has no problem.
+  String? getProblemCode({
+    required bool packageIsKnownInternal,
+  }) {
+    if (isInvalid) return 'invalid';
+    if (isInternal && !packageIsKnownInternal) return 'internal';
+    if (!isSecure) return 'insecure';
+    if (!exists) return 'missing';
+    return null;
+  }
 }
 
 /// Checks if an URL is valid and accessible.
