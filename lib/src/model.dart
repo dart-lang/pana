@@ -286,6 +286,8 @@ class ReportSection {
 @JsonSerializable()
 class UrlProblem {
   final String url;
+
+  /// One of [UrlProblemCodes].
   final String problem;
 
   UrlProblem({
@@ -297,4 +299,12 @@ class UrlProblem {
       _$UrlProblemFromJson(json);
 
   Map<String, dynamic> toJson() => _$UrlProblemToJson(this);
+}
+
+/// Possible values for [UrlProblem.problem].
+abstract class UrlProblemCodes {
+  static const invalid = 'invalid';
+  static const internal = 'internal';
+  static const insecure = 'insecure';
+  static const missing = 'missing';
 }

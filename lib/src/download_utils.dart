@@ -13,6 +13,7 @@ import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
 import 'logging.dart';
+import 'model.dart';
 
 final _imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
@@ -139,10 +140,12 @@ class UrlStatus {
   String? getProblemCode({
     required bool packageIsKnownInternal,
   }) {
-    if (isInvalid) return 'invalid';
-    if (isInternal && !packageIsKnownInternal) return 'internal';
-    if (!isSecure) return 'insecure';
-    if (!exists) return 'missing';
+    if (isInvalid) return UrlProblemCodes.invalid;
+    if (isInternal && !packageIsKnownInternal) {
+      return UrlProblemCodes.internal;
+    }
+    if (!isSecure) return UrlProblemCodes.insecure;
+    if (!exists) return UrlProblemCodes.missing;
     return null;
   }
 }
