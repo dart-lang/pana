@@ -49,7 +49,8 @@ Future<void> downloadPackage(
         }
         if (res.statusCode != 200) {
           // throwing error stops retrying (e.g. on 404)
-          throw AssertionError('Unable to access URL: "$packageUri".');
+          throw AssertionError(
+              'Unable to access URL: "$packageUri" (status code: ${res.statusCode}).');
         }
         await _extractTarGz(res, destination);
       } finally {
