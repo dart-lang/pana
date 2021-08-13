@@ -43,7 +43,12 @@ Future<void> downloadPackage(
       try {
         final req = await c.getUrl(packageUri);
         final res = await req.close();
+        if (res.statusCode >= 500) {
+          // may be a temporary failure, let's retry...
+          throw Exception('Unable to access URL: "$packageUri".');
+        }
         if (res.statusCode != 200) {
+          // throwing error stops retrying (e.g. on 404)
           throw AssertionError('Unable to access URL: "$packageUri".');
         }
         await _extractTarGz(res, destination);
