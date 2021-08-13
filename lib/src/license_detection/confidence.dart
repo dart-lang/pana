@@ -121,7 +121,7 @@ Range diffRange(String known, List<Diff> diffs) {
   final diffLength = diffs.length;
 
   for (end = 0; end < diffLength; end++) {
-    if (seen == known) {
+    if (seen.trimRight() == known) {
       break;
     }
 

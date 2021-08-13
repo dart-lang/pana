@@ -14,7 +14,7 @@ void testDiffRange() {
 
     _testDiffRange('No changes', diffs, known, expected);
 
-    known = 'equal part of text ';
+    known = 'equal part of text';
     diffs = [
       Diff(Operation.delete, 'previous deleted text '),
       Diff(Operation.equal, 'equal part of text'),

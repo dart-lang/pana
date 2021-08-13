@@ -22,9 +22,21 @@ part 'tokenizer.dart';
 // Load corpus licenses.
 final _licenses = loadLicensesFromDirectories(_directories);
 
-/// Returns a list of [LicenseMatch] for every license in the corpus detected
+class Result {
+  /// Licenses detected in the input text.
+  /// 
+  /// The list is empty if no licenses are detected.
+  final List<LicenseMatch> matches;
+
+  /// Percentage of tokens in the unknown license that were not claimed in any of the license matches.
+  final double unclaimedTokenPercentage;
+
+  Result(this.matches, this.unclaimedTokenPercentage);
+}
+
+/// Returns an instance of [Result] for every license in the corpus detected
 /// in the unknown text with a confidence greater than [threshold].
-List<LicenseMatch> detectLicense(String text, double threshold) {
+Result detectLicense(String text, double threshold) {
   final granularity = computeGranularity(threshold);
 
   final unknownLicense = LicenseWithNGrams.parse(
@@ -54,7 +66,9 @@ List<LicenseMatch> detectLicense(String text, double threshold) {
   result = removeDuplicates(result);
   result.sort(_sortOnConfidence);
   result = removeOverLappingMatches(result);
-  return List.unmodifiable(result);
+  final unclaimedPercentage =
+      unclaimedTokenPercentage(result, unknownLicense.tokens.length);
+  return Result(List.unmodifiable(result), unclaimedPercentage);
 }
 
 /// Returns the minimum number of token runs that must match according to
@@ -70,7 +84,7 @@ List<LicenseMatch> detectLicense(String text, double threshold) {
 /// of known license text.
 @visibleForTesting
 int computeGranularity(double threshold) {
-  if (threshold == 1.0) {
+  if (threshold > 0.9) {
     return 10; // avoid divide by 0
   }
 
@@ -87,6 +101,7 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
     if (identifierToLicense.containsKey(match.identifier)) {
       var prevMatch = identifierToLicense[match.identifier];
       final tokensClaimed = max(prevMatch!.tokensClaimed, match.tokensClaimed);
+      
       prevMatch = prevMatch.confidence > match.confidence ? prevMatch : match;
       prevMatch.tokensClaimed = tokensClaimed;
       identifierToLicense[match.identifier] = prevMatch;
@@ -182,6 +197,17 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
   }
 
   return retainedmatches;
+}
+
+double unclaimedTokenPercentage(
+    List<LicenseMatch> matches, int unknownTokensCount) {
+  var claimedTokenCount = 0;
+
+  for (var match in matches) {
+    claimedTokenCount += match.tokensClaimed;
+  }
+
+  return claimedTokenCount / unknownTokensCount;
 }
 
 const _directories = ['third_party/spdx/licenses'];
