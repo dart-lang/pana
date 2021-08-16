@@ -501,10 +501,13 @@ class DartSdkInfo {
   DartSdkInfo._(this.version, this.dateString, this.platform);
 
   factory DartSdkInfo.parse(String versionOutput) {
-    var match = _sdkRegexp.firstMatch(versionOutput);
-    var version = Version.parse(match![1]!);
-    var dateString = match[2];
-    var platform = match[3];
+    final match = _sdkRegexp.firstMatch(versionOutput);
+    if (match == null) {
+      throw FormatException('Couldn\'t parse Dart SDK version: $versionOutput');
+    }
+    final version = Version.parse(match[1]!);
+    final dateString = match[2];
+    final platform = match[3];
 
     return DartSdkInfo._(version, dateString, platform);
   }
