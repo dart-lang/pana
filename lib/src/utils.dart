@@ -222,3 +222,14 @@ Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
   return await retry(() => http.read(url),
       retryIf: (e) => e is SocketException || e is TimeoutException);
 }
+
+extension ProcessResultExt on ProcessResult {
+  /// Returns the line-concatened output of `stdout` and `stderr`
+  /// (both converted to [String]), and the final output trimmed.
+  String get asJoinedOutput {
+    return [
+      this.stdout.toString().trim(),
+      this.stderr.toString().trim(),
+    ].join('\n').trim();
+  }
+}
