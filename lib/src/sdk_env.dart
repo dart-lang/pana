@@ -16,7 +16,6 @@ import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
 import 'pubspec_io.dart';
 import 'utils.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'version.dart';
 
 const _dartfmtTimeout = Duration(minutes: 5);
@@ -83,8 +82,7 @@ class ToolEnvironment {
   Future _init() async {
     final dartVersionResult = _handleProcessErrors(
         await runProc([..._dartCmd, '--version'], environment: _environment));
-    final dartVersionString = dartVersionResult.stderr.toString().trim();
-    final dartSdkInfo = DartSdkInfo.parse(dartVersionString);
+    final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
     Map<String, dynamic>? flutterVersions;
     try {
       flutterVersions = await getFlutterVersion();
