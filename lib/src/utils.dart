@@ -224,12 +224,12 @@ Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
 }
 
 extension ProcessResultExt on ProcessResult {
-  /// Returns the line-concatened output of [stdout] and [stderr]
+  /// Returns the line-concatened output of `stdout` and `stderr`
   /// (both converted to [String]), and the final output trimmed.
   String get asJoinedOutput {
     return [
-      stdout.toString().trim(),
-      stderr.toString().trim(),
+      this.stdout.toString().trim(),
+      this.stderr.toString().trim(),
     ].join('\n').trim();
   }
 }
