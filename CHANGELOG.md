@@ -1,5 +1,6 @@
 ## 0.20.0
 
+* Fix SDK version parsing issue (also reading `stdout` for newer SDKs).
 * **BREAKING CHANGES**
   * `UrlStatus` is converted to a class with fields.
   * `UrlChecker` internal cache is removed (incl. `maxCacheSize`, `existsInCache`, `markExistsInCache`).
