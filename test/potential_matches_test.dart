@@ -103,7 +103,7 @@ void _testTargetMatchRanges({
     final knownLicense = _getLicense(knownText, n);
     final actual = getTargetMatchedRanges(knownLicense, unknownLicense, n);
 
-    testOutput(actual, expected);
+    _testOutput(actual, expected);
   });
 }
 
@@ -269,7 +269,7 @@ void _testFuseRanges({
       targetSize,
     );
 
-    testOutput(actual, expected);
+    _testOutput(actual, expected);
   });
 }
 
@@ -362,11 +362,11 @@ void _testPotentialMatches({
     final actual =
         findPotentialMatches(unknownLicense, knownLicense, confidence);
 
-    testOutput(actual, expected);
+    _testOutput(actual, expected);
   });
 }
 
-void testOutput(List<MatchRange> actual, List<MatchRange> expected) {
+void _testOutput(List<MatchRange> actual, List<MatchRange> expected) {
   expect(actual.length, expected.length);
 
   for (var i = 0; i < actual.length; i++) {

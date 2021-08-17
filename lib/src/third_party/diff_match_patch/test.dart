@@ -1,7 +1,6 @@
+import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 import 'package:test/expect.dart';
 import 'package:test/test.dart';
-
-import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 
 void testDiffMain() {
   var expected = <Diff>[];

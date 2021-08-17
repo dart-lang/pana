@@ -201,7 +201,6 @@ final _newLineRegex = RegExp(r'(?:\n|\r\n|\r|\u0085)');
 ///
 /// [1]: https://github.com/spdx/license-list-XML/blob/master/equivalentwords.txt
 final _equivalentWords = {
-  // TODO : Manage words that are left out from the original list.
   'acknowledgment': 'acknowledgement',
   'analogue': 'analog',
   'analyse': 'analyze',

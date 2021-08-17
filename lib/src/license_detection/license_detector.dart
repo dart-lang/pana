@@ -24,7 +24,7 @@ final _licenses = loadLicensesFromDirectories(_directories);
 
 class Result {
   /// Licenses detected in the input text.
-  /// 
+  ///
   /// The list is empty if no licenses are detected.
   final List<LicenseMatch> matches;
 
@@ -101,7 +101,7 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
     if (identifierToLicense.containsKey(match.identifier)) {
       var prevMatch = identifierToLicense[match.identifier];
       final tokensClaimed = max(prevMatch!.tokensClaimed, match.tokensClaimed);
-      
+
       prevMatch = prevMatch.confidence > match.confidence ? prevMatch : match;
       prevMatch.tokensClaimed = tokensClaimed;
       identifierToLicense[match.identifier] = prevMatch;

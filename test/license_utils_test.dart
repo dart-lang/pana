@@ -83,7 +83,7 @@ void main() {
 
     expect(actual.length, expected.length);
 
-    actual.forEach((key, value) { 
+    actual.forEach((key, value) {
       expect(value.length, expected[key]!);
       expect(key, value[0].checksum);
     });

@@ -66,12 +66,15 @@ void main() {
     _testOveLappingMatches(
       name: 'discard a match that contains other with in less token density',
       input: [
-        _dummyLicenseMatchInstance(1.0, 'matchA', start: 10, end: 70, tokensClaimed: 60),
-        _dummyLicenseMatchInstance(0.7, 'matchB', start: 0, end: 100, tokensClaimed: 80),
+        _dummyLicenseMatchInstance(1.0, 'matchA',
+            start: 10, end: 70, tokensClaimed: 60),
+        _dummyLicenseMatchInstance(0.7, 'matchB',
+            start: 0, end: 100, tokensClaimed: 80),
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
       expected: [
-        _dummyLicenseMatchInstance(1.0, 'matchA', start: 10, end: 70, tokensClaimed: 60),
+        _dummyLicenseMatchInstance(1.0, 'matchA',
+            start: 10, end: 70, tokensClaimed: 60),
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
     );
@@ -79,13 +82,17 @@ void main() {
     _testOveLappingMatches(
       name: 'Does not discard match contained in other with less token density',
       input: [
-        _dummyLicenseMatchInstance(1, 'matchB', start: 5, end: 95, tokensClaimed: 75),
-        _dummyLicenseMatchInstance(0.9, 'matchA', start: 0, end: 100, tokensClaimed: 90),
+        _dummyLicenseMatchInstance(1, 'matchB',
+            start: 5, end: 95, tokensClaimed: 75),
+        _dummyLicenseMatchInstance(0.9, 'matchA',
+            start: 0, end: 100, tokensClaimed: 90),
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
       expected: [
-   _dummyLicenseMatchInstance(1, 'matchB', start: 5, end: 95, tokensClaimed: 75),
-        _dummyLicenseMatchInstance(0.9, 'matchA', start: 0, end: 100, tokensClaimed: 90),
+        _dummyLicenseMatchInstance(1, 'matchB',
+            start: 5, end: 95, tokensClaimed: 75),
+        _dummyLicenseMatchInstance(0.9, 'matchA',
+            start: 0, end: 100, tokensClaimed: 90),
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
     );
@@ -115,7 +122,7 @@ void _testOutput(List<LicenseMatch> actual, List<LicenseMatch> expected) {
 LicenseMatch _dummyLicenseMatchInstance(
   double confidence,
   String identifier, {
-  Range dummyDiffRange = dummyDiffRange,
+  Range? diffRange,
   int tokensClaimed = 5,
   int start = 0,
   int end = 0,
@@ -124,7 +131,7 @@ LicenseMatch _dummyLicenseMatchInstance(
       [],
       tokensClaimed,
       confidence,
-      dummyDiffRange,
+      diffRange ?? dummyDiffRange,
       [],
       LicenseWithNGrams.parse(
           License.parse(identifier: identifier, content: 'take some text'), 3),
@@ -132,16 +139,18 @@ LicenseMatch _dummyLicenseMatchInstance(
       end);
 }
 
-const dummyDiffRange = Range(2, 20);
+final dummyDiffRange = Range(2, 20);
 
-void madin(){
-var m = removeOverLappingMatches([
-        _dummyLicenseMatchInstance(1.0, 'matchA', start: 10, end: 70, tokensClaimed: 60),
-        _dummyLicenseMatchInstance(0.7, 'matchB', start: 0, end: 100, tokensClaimed: 80),
-        _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
-      ]);
+void madin() {
+  var m = removeOverLappingMatches([
+    _dummyLicenseMatchInstance(1.0, 'matchA',
+        start: 10, end: 70, tokensClaimed: 60),
+    _dummyLicenseMatchInstance(0.7, 'matchB',
+        start: 0, end: 100, tokensClaimed: 80),
+    _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
+  ]);
 
-      m.forEach((element) { 
-        print(element.identifier);
-      });
+  m.forEach((element) {
+    print(element.identifier);
+  });
 }
