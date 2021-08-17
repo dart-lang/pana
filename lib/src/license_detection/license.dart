@@ -134,11 +134,11 @@ class LicenseMatch {
 
   /// Offset in the input license text considered to be possible starting point
   /// of known license subtring.
-  int get start => tokens.first.span.start.offset;
+  final int start;
 
   /// Offset in the input license text considered to be possible starting point
   /// of known license subtring.
-  int get end => tokens.last.span.start.offset;
+  final int end;
 
   LicenseMatch(
     this.tokens,
@@ -146,7 +146,21 @@ class LicenseMatch {
     this.license,
     this.diffs,
     this.diffRange,
-  ) : tokensClaimed = tokens.length;
+  )   : tokensClaimed = tokens.length,
+        start = tokens.first.span.start.offset,
+        end = tokens.last.span.end.offset;
+
+  @visibleForTesting
+  LicenseMatch.dummyInstance(
+    this.tokens,
+    this.tokensClaimed,
+    this.confidence,
+    this.diffRange,
+    this.diffs,
+    this.license,
+    this.start,
+    this.end,
+  );
 }
 
 /// Generates a frequency table for the given list of [tokens].

@@ -161,7 +161,6 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
       }
       final matchB = matches[j];
       final rangeB = Range(matchB.start, matchB.end);
-
       // Check if matchA is larger license containing an insatnce of
       // smaller license within it and decide to whether retain it
       // or not by comapring their token densities. Example NPL
@@ -169,7 +168,6 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
       if (rangeA.conatins(rangeB) && retain[j]) {
         final aConf = matchA.tokensClaimed * matchA.confidence;
         final bConf = matchB.tokensClaimed * matchB.confidence;
-
         // Retain both the licenses incase of a exact match,
         // so that it can be resolved by the user.
         if (aConf > bConf) {
