@@ -1,3 +1,7 @@
+## 0.20.1
+
+* Fix issue with git root directory detection.
+
 ## 0.20.0
 
 * Fix SDK version parsing issue (also reading `stdout` for newer SDKs).

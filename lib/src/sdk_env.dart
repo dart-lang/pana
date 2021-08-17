@@ -191,7 +191,7 @@ class ToolEnvironment {
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
       );
-      final output = proc.stderr as String;
+      final output = proc.asJoinedOutput;
       if (output.startsWith('Exceeded timeout of ')) {
         throw ToolException('Running `dart analyze` timed out.');
       }
@@ -244,7 +244,7 @@ class ToolEnvironment {
         continue;
       }
 
-      final lines = LineSplitter.split(result.stdout as String)
+      final lines = LineSplitter.split(result.asJoinedOutput)
           .map((file) => p.join(dir, file))
           .toList();
 
@@ -255,7 +255,7 @@ class ToolEnvironment {
         continue;
       }
 
-      final output = result.stderr.toString().replaceAll('$packageDir/', '');
+      final output = result.asJoinedOutput.replaceAll('$packageDir/', '');
       final errorMsg = LineSplitter.split(output).take(10).join('\n');
       final isUserProblem = output.contains(
               'Could not format because the source could not be parsed') ||
@@ -296,9 +296,13 @@ class ToolEnvironment {
   Future<Map<String, dynamic>> getFlutterVersion() async {
     final result = _handleProcessErrors(
         await runProc([..._flutterCmd, '--version', '--machine']));
-    var content = result.stdout as String;
-    if (content.startsWith('Waiting for another flutter')) {
-      content = content.split('\n').skip(1).join('\n');
+    var content = result.asJoinedOutput;
+    final waitingForString = 'Waiting for another flutter';
+    if (content.contains(waitingForString)) {
+      content = content
+          .split('\n')
+          .where((e) => !e.contains(waitingForString))
+          .join('\n');
     }
     return json.decode(content) as Map<String, dynamic>;
   }
@@ -359,7 +363,7 @@ class ToolEnvironment {
     if (result.exitCode != 0) {
       throw ToolException('`dart pub outdated` failed: ${result.stderr}');
     } else {
-      return json.decode(result.stdout as String) as Map<String, dynamic>;
+      return json.decode(result.asJoinedOutput) as Map<String, dynamic>;
     }
   }
 
