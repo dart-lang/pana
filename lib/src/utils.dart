@@ -16,7 +16,8 @@ import 'package:yaml/yaml.dart';
 import 'logging.dart';
 
 final _timeout = const Duration(minutes: 2);
-final _maxOutputBytes = 10 * 1024 * 1024; // 10 MiB
+const _maxOutputBytes = 10 * 1024 * 1024; // 10 MiB
+const _maxOutputLinesWhenKilled = 1000;
 
 /// Runs the [arguments] as a program|script + its argument list.
 ///
@@ -86,14 +87,14 @@ Future<ProcessResult> runProc(
       stdoutLines
           .map(systemEncoding.decode)
           .map(const LineSplitter().convert)
-          .take(1000)
+          .take(_maxOutputLinesWhenKilled)
           .join('\n'),
       [
         if (killMessage != null) killMessage,
         ...stderrLines
             .map(systemEncoding.decode)
             .map(const LineSplitter().convert)
-            .take(1000),
+            .take(_maxOutputLinesWhenKilled),
       ].join('\n'),
     );
   }
