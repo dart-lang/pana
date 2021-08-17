@@ -7,8 +7,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart' as http_retry;
 import 'package:path/path.dart' as p;
-import 'package:retry/retry.dart';
 import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
@@ -38,22 +38,20 @@ Future<void> downloadPackage(
   );
   log.info('Downloading package $package $version from $packageUri');
 
-  await retry(
-    () async {
-      final c = HttpClient();
-      try {
-        final req = await c.getUrl(packageUri);
-        final res = await req.close();
-        if (res.statusCode != 200) {
-          throw AssertionError('Unable to access URL: "$packageUri".');
-        }
-        await _extractTarGz(res, destination);
-      } finally {
-        c.close(force: true);
-      }
-    },
-    maxAttempts: 3,
+  final c = http_retry.RetryClient(
+    http.Client(),
+    when: (rs) => rs.statusCode >= 500,
   );
+  try {
+    final rs = await c.get(packageUri);
+    if (rs.statusCode != 200) {
+      throw Exception(
+          'Unable to access URL: "$packageUri" (status code: ${rs.statusCode}).');
+    }
+    await _extractTarGz(Stream.value(rs.bodyBytes), destination);
+  } finally {
+    c.close();
+  }
 }
 
 /// Returns an URL that is likely the downloadable URL of the given path.
