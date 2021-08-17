@@ -26,6 +26,7 @@ class PackageContext {
   final InspectOptions options;
   final UrlChecker urlChecker;
   final errors = <String>[];
+  final urlProblems = <String, String>{};
 
   Version? _currentSdkVersion;
   Pubspec? _pubspec;

@@ -85,5 +85,6 @@
         "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `>=0.8.10 <3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
       }
     ]
-  }
+  },
+  "urlProblems": []
 }

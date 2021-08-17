@@ -79,6 +79,11 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
         ),
       );
     }
+    final problemCode =
+        status.getProblemCode(packageIsKnownInternal: options.isInternal);
+    if (problemCode != null) {
+      context.urlProblems[url] = problemCode;
+    }
     return issues;
   }
 

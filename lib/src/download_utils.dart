@@ -13,6 +13,7 @@ import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
 import 'logging.dart';
+import 'model.dart';
 
 final _imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
@@ -133,6 +134,20 @@ class UrlStatus {
         isInternal = false,
         isSecure = false,
         exists = false;
+
+  /// Returns a brief problem code that can be displayed when linking to it.
+  /// Returns `null` when URL has no problem.
+  String? getProblemCode({
+    required bool packageIsKnownInternal,
+  }) {
+    if (isInvalid) return UrlProblemCodes.invalid;
+    if (isInternal && !packageIsKnownInternal) {
+      return UrlProblemCodes.internal;
+    }
+    if (!isSecure) return UrlProblemCodes.insecure;
+    if (!exists) return UrlProblemCodes.missing;
+    return null;
+  }
 }
 
 /// Checks if an URL is valid and accessible.

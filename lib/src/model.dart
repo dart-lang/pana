@@ -27,6 +27,9 @@ class Summary {
   final List<String>? tags;
   final Report? report;
 
+  /// URLs that are invalid, unsafe or missing.
+  final List<UrlProblem>? urlProblems;
+
   /// Markdown-formatted text with errors encountered by `pana`.
   final String? errorMessage;
 
@@ -39,6 +42,7 @@ class Summary {
     this.licenseFile,
     this.tags,
     this.report,
+    this.urlProblems,
     this.errorMessage,
   });
 
@@ -60,6 +64,7 @@ class Summary {
       licenseFile: licenseFile,
       tags: tags ?? this.tags,
       report: report,
+      urlProblems: urlProblems,
       errorMessage: errorMessage,
     );
   }
@@ -276,4 +281,30 @@ class ReportSection {
       _$ReportSectionFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReportSectionToJson(this);
+}
+
+@JsonSerializable()
+class UrlProblem {
+  final String url;
+
+  /// One of [UrlProblemCodes].
+  final String problem;
+
+  UrlProblem({
+    required this.url,
+    required this.problem,
+  });
+
+  factory UrlProblem.fromJson(Map<String, dynamic> json) =>
+      _$UrlProblemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UrlProblemToJson(this);
+}
+
+/// Possible values for [UrlProblem.problem].
+abstract class UrlProblemCodes {
+  static const invalid = 'invalid';
+  static const internal = 'internal';
+  static const insecure = 'insecure';
+  static const missing = 'missing';
 }
