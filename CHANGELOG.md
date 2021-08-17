@@ -6,6 +6,8 @@
   * `UrlStatus` is converted to a class with fields.
   * `UrlChecker` internal cache is removed (incl. `maxCacheSize`, `existsInCache`, `markExistsInCache`).
     Caching implementations should wrap the `UrlChecker.checkUrlExists` method.
+  * Removed `deduplicate` parameter from `runProc` function.
+  * `runProc` process is killed if the output is above 10 MiB (regardless of line count).
 
 ## 0.19.1
 

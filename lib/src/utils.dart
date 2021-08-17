@@ -15,30 +15,33 @@ import 'package:yaml/yaml.dart';
 
 import 'logging.dart';
 
-Stream<String> _byteStreamSplit(Stream<List<int>> stream) =>
-    stream.transform(systemEncoding.decoder).transform(const LineSplitter());
-
 final _timeout = const Duration(minutes: 2);
-final _maxLines = 100000;
+const _maxOutputBytes = 10 * 1024 * 1024; // 10 MiB
+const _maxOutputLinesWhenKilled = 1000;
 
+/// Runs the [arguments] as a program|script + its argument list.
+///
+/// Kills the process after [timeout] (2 minutes if not specified).
+/// Kills the process if its output is more than [maxOutputBytes] (10 MiB if not specified).
+///
+/// If the process is killed, it returns only the first 1000 lines of both `stdout` and `stderr`.
 Future<ProcessResult> runProc(
   List<String> arguments, {
   String? workingDirectory,
   Map<String, String>? environment,
   Duration? timeout,
-  @Deprecated('The parameter has no effect and will be removed.')
-      bool deduplicate = false,
+  int? maxOutputBytes,
 }) async {
-  if (deduplicate) {
-    log.severe('The `deduplicate` parameter in `runProc` is no longer used.');
-  }
+  timeout ??= _timeout;
+  maxOutputBytes ??= _maxOutputBytes;
 
   log.info('Running `${[...arguments].join(' ')}`...');
   var process = await Process.start(arguments.first, arguments.skip(1).toList(),
       workingDirectory: workingDirectory, environment: environment);
 
-  var stdoutLines = <String>[];
-  var stderrLines = <String>[];
+  var stdoutLines = <List<int>>[];
+  var stderrLines = <List<int>>[];
+  var remainingBytes = maxOutputBytes;
 
   var killed = false;
   String? killMessage;
@@ -52,27 +55,24 @@ Future<ProcessResult> runProc(
     }
   }
 
-  timeout ??= _timeout;
   var timer = Timer(timeout, () {
     killProc('Exceeded timeout of $timeout');
   });
 
   var items = await Future.wait(<Future>[
     process.exitCode,
-    _byteStreamSplit(process.stdout).forEach((outLine) {
+    process.stdout.forEach((outLine) {
       stdoutLines.add(outLine);
-      // Uncomment to debug long execution
-      // log.severe(outLine);
-      if (stdoutLines.length > _maxLines) {
-        killProc('STDOUT exceeded $_maxLines lines.');
+      remainingBytes -= outLine.length;
+      if (remainingBytes < 0) {
+        killProc('Output exceeded $maxOutputBytes bytes.');
       }
     }),
-    _byteStreamSplit(process.stderr).forEach((errLine) {
+    process.stderr.forEach((errLine) {
       stderrLines.add(errLine);
-      // Uncomment to debug long execution
-      // log.severe(errLine);
-      if (stderrLines.length > _maxLines) {
-        killProc('STDERR exceeded $_maxLines lines.');
+      remainingBytes -= errLine.length;
+      if (remainingBytes < 0) {
+        killProc('Output exceeded $maxOutputBytes bytes.');
       }
     })
   ]);
@@ -80,19 +80,31 @@ Future<ProcessResult> runProc(
   timer.cancel();
 
   final exitCode = items[0] as int;
-  if (killed == true) {
+  if (killed) {
     return ProcessResult(
-        process.pid,
-        exitCode,
-        stdoutLines.take(1000).join('\n'),
-        [
-          if (killMessage != null) killMessage,
-          ...stderrLines.take(1000),
-        ].join('\n'));
+      process.pid,
+      exitCode,
+      stdoutLines
+          .map(systemEncoding.decode)
+          .map(const LineSplitter().convert)
+          .take(_maxOutputLinesWhenKilled)
+          .join('\n'),
+      [
+        if (killMessage != null) killMessage,
+        ...stderrLines
+            .map(systemEncoding.decode)
+            .map(const LineSplitter().convert)
+            .take(_maxOutputLinesWhenKilled),
+      ].join('\n'),
+    );
   }
 
   return ProcessResult(
-      process.pid, exitCode, stdoutLines.join('\n'), stderrLines.join('\n'));
+    process.pid,
+    exitCode,
+    stdoutLines.map(systemEncoding.decode).join(),
+    stderrLines.map(systemEncoding.decode).join(),
+  );
 }
 
 Stream<String> listFiles(String directory,
