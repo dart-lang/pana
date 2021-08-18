@@ -64,7 +64,7 @@ Result detectLicense(String text, double threshold) {
   }
 
   result = removeDuplicates(result);
-  result.sort(_sortOnConfidence);
+  result.sort(sortOnConfidence);
   result = removeOverLappingMatches(result);
   final unclaimedPercentage =
       unclaimedTokenPercentage(result, unknownLicense.tokens.length);
@@ -118,8 +118,9 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
 ///
 /// Incase the confidence detected is same for the matches, ratio of tokens claimed
 /// in the unkown text to the number of tokens present in the known license text
-/// is considered.
-int _sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) {
+/// is considered
+@visibleForTesting
+int sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) {
   if (matchA.confidence > matchB.confidence) {
     return -1;
   }

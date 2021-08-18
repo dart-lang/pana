@@ -13,6 +13,30 @@ void main() {
     });
   });
 
+  group('sortOnConfidence Tests', (){
+    test('Expect -1 for confidence of A greater than B',(){
+      final matchA = _dummyLicenseMatchInstance(0.9, 'matchA');
+      final matchB = _dummyLicenseMatchInstance(0.8, 'matchB');
+
+      expect(sortOnConfidence(matchA, matchB), -1);
+    });
+
+    test('Expect 1 for confidence of matchA lesser than matchB',(){
+      final matchA = _dummyLicenseMatchInstance(0.5, 'matchA');
+      final matchB = _dummyLicenseMatchInstance(1, 'matchB');
+
+      expect(sortOnConfidence(matchA, matchB), 1);
+    });
+
+    test('Check token density when both have same matches',(){
+      final matchA = _dummyLicenseMatchInstance(0.9, 'matchA', tokensClaimed: 2);
+      final matchB = _dummyLicenseMatchInstance(0.9, 'matchB', tokensClaimed: 1);
+
+      // Expect -1 as matchA has more number of tokens claimed and both the matches
+      // have same instance of license detected.
+      expect(sortOnConfidence(matchA, matchB), -1);
+    });
+  });
   group('removeDuplicateMatches tests: ', () {
     test('No duplicates present', () {
       final matches = [
@@ -49,7 +73,7 @@ void main() {
   });
 
   group('removeoverLappingMatches tests:', () {
-    _testOveLappingMatches(
+    _testOverLappingMatches(
       name: 'No overlaps',
       input: [
         _dummyLicenseMatchInstance(1.0, 'matchA', start: 50, end: 100),
@@ -63,7 +87,7 @@ void main() {
       ],
     );
 
-    _testOveLappingMatches(
+    _testOverLappingMatches(
       name: 'discard a match that contains other with in less token density',
       input: [
         _dummyLicenseMatchInstance(1.0, 'matchA',
@@ -79,7 +103,7 @@ void main() {
       ],
     );
 
-    _testOveLappingMatches(
+    _testOverLappingMatches(
       name: 'Does not discard match contained in other with less token density',
       input: [
         _dummyLicenseMatchInstance(1, 'matchB',
@@ -96,10 +120,27 @@ void main() {
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
     );
+
+    _testOverLappingMatches(
+      name: 'Removes a overlapping match',
+      input: [
+        _dummyLicenseMatchInstance(1, 'matchA',
+            start: 0, end: 100, tokensClaimed: 75,),
+        _dummyLicenseMatchInstance(0.9, 'matchB',
+            start: 200, end: 300, tokensClaimed: 90,),
+        _dummyLicenseMatchInstance(0.8, 'matchC', start: 90, end: 180,), 
+      ],
+      expected: [
+        _dummyLicenseMatchInstance(1, 'matchA',
+            start: 0, end: 100, tokensClaimed: 75,),
+        _dummyLicenseMatchInstance(0.9, 'matchB',
+            start: 200, end: 300, tokensClaimed: 90,),
+      ]
+    );
   });
 }
 
-void _testOveLappingMatches({
+void _testOverLappingMatches({
   required String name,
   required List<LicenseMatch> input,
   required List<LicenseMatch> expected,
@@ -140,17 +181,3 @@ LicenseMatch _dummyLicenseMatchInstance(
 }
 
 final dummyDiffRange = Range(2, 20);
-
-void madin() {
-  var m = removeOverLappingMatches([
-    _dummyLicenseMatchInstance(1.0, 'matchA',
-        start: 10, end: 70, tokensClaimed: 60),
-    _dummyLicenseMatchInstance(0.7, 'matchB',
-        start: 0, end: 100, tokensClaimed: 80),
-    _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
-  ]);
-
-  m.forEach((element) {
-    print(element.identifier);
-  });
-}
