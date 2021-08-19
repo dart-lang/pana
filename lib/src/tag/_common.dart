@@ -59,7 +59,7 @@ CompilationUnit? parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
     // Probably a missing/broken dependency.
     throw TagException('Broken import $uri');
   }
-  final unitResult = analysisSession.getParsedUnit2(path) as ParsedUnitResult;
+  final unitResult = analysisSession.getParsedUnit(path) as ParsedUnitResult;
   if (unitResult.errors.isNotEmpty) return null;
   if (unitResult.isPart) {
     // Part files cannot contain import/export directives or language

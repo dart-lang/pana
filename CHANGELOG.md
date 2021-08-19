@@ -1,3 +1,7 @@
+## 0.20.2
+
+* Upgraded `package:analyzer` to `^2.1.0` and updated deprecated code use.
+
 ## 0.20.1
 
 * Fix issue with git root directory detection.
