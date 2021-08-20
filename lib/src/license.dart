@@ -58,10 +58,11 @@ Future<LicenseFile> detectLicenseInFile(File file,
 LicenseFile? detectLicenseInContent(String originalContent,
     {required String relativePath}) {
   var content = originalContent;
-  final licenseResult = detectLicense(content, 0.85);
+  final licenseResult = detectLicense(content, 0.95);
 
   if (licenseResult.matches.isNotEmpty &&
-      licenseResult.unclaimedTokenPercentage <= 0.5) {
+      licenseResult.unclaimedTokenPercentage <= 0.5 &&
+      licenseResult.longestUnclaimedTokenCount < 50) {
     return LicenseFile(
       relativePath,
       licenseResult.matches.first.identifier,
