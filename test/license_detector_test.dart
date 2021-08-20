@@ -13,24 +13,26 @@ void main() {
     });
   });
 
-  group('sortOnConfidence Tests', (){
-    test('Expect -1 for confidence of A greater than B',(){
+  group('sortOnConfidence Tests', () {
+    test('Expect -1 for confidence of A greater than B', () {
       final matchA = _dummyLicenseMatchInstance(0.9, 'matchA');
       final matchB = _dummyLicenseMatchInstance(0.8, 'matchB');
 
       expect(sortOnConfidence(matchA, matchB), -1);
     });
 
-    test('Expect 1 for confidence of matchA lesser than matchB',(){
+    test('Expect 1 for confidence of matchA lesser than matchB', () {
       final matchA = _dummyLicenseMatchInstance(0.5, 'matchA');
       final matchB = _dummyLicenseMatchInstance(1, 'matchB');
 
       expect(sortOnConfidence(matchA, matchB), 1);
     });
 
-    test('Check token density when both have same matches',(){
-      final matchA = _dummyLicenseMatchInstance(0.9, 'matchA', tokensClaimed: 2);
-      final matchB = _dummyLicenseMatchInstance(0.9, 'matchB', tokensClaimed: 1);
+    test('Check token density when both have same matches', () {
+      final matchA =
+          _dummyLicenseMatchInstance(0.9, 'matchA', tokensClaimed: 2);
+      final matchB =
+          _dummyLicenseMatchInstance(0.9, 'matchB', tokensClaimed: 1);
 
       // Expect -1 as matchA has more number of tokens claimed and both the matches
       // have same instance of license detected.
@@ -121,22 +123,43 @@ void main() {
       ],
     );
 
-    _testOverLappingMatches(
-      name: 'Removes a overlapping match',
-      input: [
-        _dummyLicenseMatchInstance(1, 'matchA',
-            start: 0, end: 100, tokensClaimed: 75,),
-        _dummyLicenseMatchInstance(0.9, 'matchB',
-            start: 200, end: 300, tokensClaimed: 90,),
-        _dummyLicenseMatchInstance(0.8, 'matchC', start: 90, end: 180,), 
-      ],
-      expected: [
-        _dummyLicenseMatchInstance(1, 'matchA',
-            start: 0, end: 100, tokensClaimed: 75,),
-        _dummyLicenseMatchInstance(0.9, 'matchB',
-            start: 200, end: 300, tokensClaimed: 90,),
-      ]
-    );
+    _testOverLappingMatches(name: 'Removes a overlapping match', input: [
+      _dummyLicenseMatchInstance(
+        1,
+        'matchA',
+        start: 0,
+        end: 100,
+        tokensClaimed: 75,
+      ),
+      _dummyLicenseMatchInstance(
+        0.9,
+        'matchB',
+        start: 200,
+        end: 300,
+        tokensClaimed: 90,
+      ),
+      _dummyLicenseMatchInstance(
+        0.8,
+        'matchC',
+        start: 90,
+        end: 180,
+      ),
+    ], expected: [
+      _dummyLicenseMatchInstance(
+        1,
+        'matchA',
+        start: 0,
+        end: 100,
+        tokensClaimed: 75,
+      ),
+      _dummyLicenseMatchInstance(
+        0.9,
+        'matchB',
+        start: 200,
+        end: 300,
+        tokensClaimed: 90,
+      ),
+    ]);
   });
 }
 
