@@ -31,7 +31,12 @@ class Result {
   /// Percentage of tokens in the unknown license that were not claimed in any of the license matches.
   final double unclaimedTokenPercentage;
 
-  Result(this.matches, this.unclaimedTokenPercentage);
+  /// The count of the longest sequence of token in the input
+  /// text that was not a part of any detected license.
+  final int longestUnclaimedTokenCount;
+
+  Result(this.matches, this.unclaimedTokenPercentage,
+      this.longestUnclaimedTokenCount);
 }
 
 /// Returns an instance of [Result] for every license in the corpus detected
@@ -58,7 +63,7 @@ Result detectLicense(String text, double threshold) {
         final hit = licenseMatch(unknownLicense, license, match, threshold);
         result.add(hit);
       } on LicenseMismatchException catch (_) {
-        // print(e.toString());
+        print(e.toString());
       }
     }
   }
@@ -68,7 +73,9 @@ Result detectLicense(String text, double threshold) {
   result = removeOverLappingMatches(result);
   final unclaimedPercentage =
       unclaimedTokenPercentage(result, unknownLicense.tokens.length);
-  return Result(List.unmodifiable(result), unclaimedPercentage);
+  final longestUnclaimedTokenCount = findLongestUnclaimedTokenRange(result);
+  return Result(List.unmodifiable(result), unclaimedPercentage,
+      longestUnclaimedTokenCount);
 }
 
 /// Returns the minimum number of token runs that must match according to
@@ -100,6 +107,7 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
   for (var match in matches) {
     if (identifierToLicense.containsKey(match.identifier)) {
       var prevMatch = identifierToLicense[match.identifier];
+      // As both the licenses are same consider tha max of tokens claimed among these two.
       final tokensClaimed = max(prevMatch!.tokensClaimed, match.tokensClaimed);
 
       prevMatch = prevMatch.confidence > match.confidence ? prevMatch : match;
@@ -210,3 +218,23 @@ double unclaimedTokenPercentage(
 }
 
 const _directories = ['third_party/spdx/licenses'];
+
+int findLongestUnclaimedTokenRange(List<LicenseMatch> matches) {
+  var ranges = <Range>[];
+
+  for (var match in matches) {
+    ranges.add(Range(match.tokens.first.index, match.tokens.last.index));
+  }
+
+  ranges.sort(sortRangeOnStartValue);
+  var maxTokenSequence = 0;
+
+  for (var i = 1; i < ranges.length; i++) {
+    maxTokenSequence =
+        max(ranges[i].start - ranges[i - 1].end, maxTokenSequence);
+  }
+
+  return maxTokenSequence;
+}
+
+int sortRangeOnStartValue(Range a, Range b) => a.start - b.start;

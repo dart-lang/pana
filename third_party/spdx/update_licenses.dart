@@ -55,6 +55,11 @@ Future<void> removeUnnecessaryFiles() async {
   for (var entity in textDirectory.listSync()) {
     final file = File(entity.path);
     final name = entity.uri.pathSegments.last;
+
+    /// Ignore the deprecated licenses as the [SPDX guidelines][1]
+    /// suggests that they should not be used.
+    ///
+    /// [1]: https://github.com/spdx/license-list-data/blob/master/accessingLicenses.md#deprecated-licenses
     if (name.startsWith('deprecated_')) continue;
     await file.copy('third_party/spdx/licenses/$name');
   }
