@@ -191,7 +191,7 @@ LicenseMatch _dummyLicenseMatchInstance(
   int start = 0,
   int end = 0,
 }) {
-  return LicenseMatch.dummyInstance(
+  return LicenseMatch.createInstance(
       [],
       tokensClaimed,
       confidence,
@@ -200,7 +200,8 @@ LicenseMatch _dummyLicenseMatchInstance(
       LicenseWithNGrams.parse(
           License.parse(identifier: identifier, content: 'take some text'), 3),
       start,
-      end);
+      end,
+      Range(0, 3));
 }
 
 final dummyDiffRange = Range(2, 20);

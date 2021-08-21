@@ -17,7 +17,7 @@ List<License> filter(
 ) =>
     knownLicenses
         .where((license) =>
-            tokenSimilarity(occurrences, license.occurrences) >= 0.8)
+            tokenSimilarity(occurrences, license.occurrences) >= 0.5)
         .toList();
 
 /// Returns a measure for token similarity, between [input] and [knownLicense].

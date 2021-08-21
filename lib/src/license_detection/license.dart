@@ -140,6 +140,8 @@ class LicenseMatch {
   /// of known license subtring.
   final int end;
 
+  /// Range of tokens in the unknown text claimed by this match.
+  final Range tokenRange;
   LicenseMatch(
     this.tokens,
     this.confidence,
@@ -148,19 +150,34 @@ class LicenseMatch {
     this.diffRange,
   )   : tokensClaimed = tokens.length,
         start = tokens.first.span.start.offset,
-        end = tokens.last.span.end.offset;
+        end = tokens.last.span.end.offset,
+        tokenRange = Range(tokens.first.index, tokens.last.index);
 
   @visibleForTesting
-  LicenseMatch.dummyInstance(
-    this.tokens,
-    this.tokensClaimed,
-    this.confidence,
-    this.diffRange,
-    this.diffs,
-    this.license,
-    this.start,
-    this.end,
-  );
+  LicenseMatch.createInstance(
+      this.tokens,
+      this.tokensClaimed,
+      this.confidence,
+      this.diffRange,
+      this.diffs,
+      this.license,
+      this.start,
+      this.end,
+      this.tokenRange);
+
+  LicenseMatch updateTokenIndex(int startIndex, int endIndex) {
+    return LicenseMatch.createInstance(
+      tokens,
+      tokensClaimed,
+      confidence,
+      diffRange,
+      diffs,
+      license,
+      start,
+      end,
+      Range(startIndex, endIndex),
+    );
+  }
 }
 
 /// Generates a frequency table for the given list of [tokens].

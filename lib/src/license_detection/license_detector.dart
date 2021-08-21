@@ -112,6 +112,11 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
 
       prevMatch = prevMatch.confidence > match.confidence ? prevMatch : match;
       prevMatch.tokensClaimed = tokensClaimed;
+      prevMatch = prevMatch.updateTokenIndex(
+        min(prevMatch.tokenRange.start, match.tokenRange.start),
+        max(prevMatch.tokenRange.end, match.tokenRange.end),
+      );
+
       identifierToLicense[match.identifier] = prevMatch;
       continue;
     }
@@ -223,7 +228,7 @@ int findLongestUnclaimedTokenRange(List<LicenseMatch> matches) {
   var ranges = <Range>[];
 
   for (var match in matches) {
-    ranges.add(Range(match.tokens.first.index, match.tokens.last.index));
+    ranges.add(Range(match.tokenRange.start, match.tokenRange.end));
   }
 
   ranges.sort(sortRangeOnStartValue);
