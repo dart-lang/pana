@@ -40,7 +40,7 @@ LicenseMatch licenseMatch(
     matchRange,
   );
 
-  final range = diffRange(tokensNormalizedValue(knownLicense.tokens), diffs);
+  final range = diffRange(normalizedContent(knownLicense.tokens), diffs);
   final valuationDiffs = diffs.skip(range.start).take(range.end - range.start);
 
   // Make an initial check on the diffs to see if their are any
@@ -90,11 +90,11 @@ List<Diff> getDiffs(
   List<Token> knownTokens,
   MatchRange matchRange,
 ) {
-  final unknownText = tokensNormalizedValue(inputTokens
+  final unknownText = normalizedContent(inputTokens
       .skip(matchRange.input.start)
       .take(matchRange.input.end - matchRange.input.start));
 
-  final knownText = tokensNormalizedValue(
+  final knownText = normalizedContent(
     knownTokens.take(matchRange.source.end),
   );
 

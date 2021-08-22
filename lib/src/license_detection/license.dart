@@ -27,7 +27,7 @@ class License {
   }
 }
 
-String tokensNormalizedValue(Iterable<Token> tokens) {
+String normalizedContent(Iterable<Token> tokens) {
   return tokens.map((token) => token.value).join(' ');
 }
 

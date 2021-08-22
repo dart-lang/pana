@@ -66,7 +66,7 @@ void main() {
 
     final tokens = tokenize(str);
 
-    expect(tokensNormalizedValue(tokens),
+    expect(normalizedContent(tokens),
         'here is some text for testing purposes');
   });
 
