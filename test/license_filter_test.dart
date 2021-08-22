@@ -76,11 +76,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''';
       const possibleLicenseNames = [
         'bsd_2_clause',
         'bsd_2_clause_in_comments',
-        'bsd_3_clause'
       ];
-      expect(possibleLicenses.length, 3);
+      expect(possibleLicenses.length, 2);
 
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < 2; i++) {
         expect(possibleLicenses[i].identifier, possibleLicenseNames[i]);
       }
     });
