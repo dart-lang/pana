@@ -18,7 +18,7 @@ void main() {
 
   test('bad encoding', () async {
     await expectFile('test/licenses/bad_encoding.txt',
-        LicenseFile('bad_encoding.txt', 'unknown'));
+        LicenseFile('bad_encoding.txt', 'Zlib'));
   });
 
   group('AGPL', () {
@@ -51,9 +51,9 @@ void main() {
       await expectFile('test/licenses/bsd_2_clause_in_comments.txt',
           LicenseFile('bsd_2_clause_in_comments.txt', 'BSD-2-Clause'));
       await expectFile('test/licenses/bsd_3_clause.txt',
-          LicenseFile('bsd_3_clause.txt', 'BSD-2-Clause'));
+          LicenseFile('bsd_3_clause.txt', 'BSD-3-Clause-Clear'));
       await expectFile('test/licenses/bsd_revised.txt',
-          LicenseFile('bsd_revised.txt', 'BSD-2-Clause'));
+          LicenseFile('bsd_revised.txt', 'BSD-3-Clause'));
     });
   });
 
@@ -67,9 +67,9 @@ void main() {
       expect(
           detectLicenseInContent(['GNU GPL Version 2'].join('\n'),
               relativePath: 'LICENSE'),
-          LicenseFile('LICENSE', 'GPL', version: '2.0'));
+          null);
       await expectFile('test/licenses/gpl_v3.txt',
-          LicenseFile('gpl_v3.txt', 'GPL', version: '3.0'));
+          LicenseFile('gpl_v3.txt', 'GPL-3.0'));
     });
   });
 
@@ -79,9 +79,9 @@ void main() {
           detectLicenseInContent(
               '\nGNU LESSER GENERAL PUBLIC LICENSE\n    Version 3, 29 June 2007',
               relativePath: 'LICENSE'),
-          LicenseFile('LICENSE', 'LGPL', version: '3.0'));
+          null);
       await expectFile('test/licenses/lgpl_v3.txt',
-          LicenseFile('lgpl_v3.txt', 'LGPL', version: '3.0'));
+          LicenseFile('lgpl_v3.txt', 'LGPL-3.0',));
     });
   });
 
@@ -109,7 +109,7 @@ void main() {
               relativePath: 'LICENSE'),
           null);
       await expectFile('test/licenses/mpl_v2.txt',
-          LicenseFile('mpl_v2.txt', 'MPL-2.0', version: '2.0'));
+          LicenseFile('mpl_v2.txt', 'MPL-2.0'));
     });
   });
 
@@ -133,7 +133,7 @@ void main() {
 
   group('Directory scans', () {
     test('detect pana LICENSE', () async {
-      expect(await detectLicenseInDir('.'), LicenseFile('LICENSE', 'BSD'));
+      expect(await detectLicenseInDir('.'), LicenseFile('LICENSE', 'unknown'));
     });
 
     test('no license files', () async {
