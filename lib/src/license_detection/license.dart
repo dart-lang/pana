@@ -120,13 +120,6 @@ class LicenseMatch {
   @visibleForTesting
   final LicenseWithNGrams license;
 
-  /// Number of tokens claimed in this match.
-  ///
-  /// This will be updated if we come accross a match with similar
-  /// identifier to the max of number of tokens claimed of the two matches.
-  @visibleForTesting
-  int tokensClaimed;
-
   /// Confidence score of the detected license.
   final double confidence;
 
@@ -141,23 +134,29 @@ class LicenseMatch {
   final int end;
 
   /// Range of tokens in the unknown text claimed by this match.
+  @visibleForTesting
   final Range tokenRange;
+
+  @visibleForTesting
+  final int tokensClaimed;
+  
+  @visibleForTesting
   LicenseMatch(
     this.tokens,
     this.confidence,
     this.license,
     this.diffs,
     this.diffRange,
-  )   : tokensClaimed = tokens.length,
-        start = tokens.first.span.start.offset,
+  )   : start = tokens.first.span.start.offset,
         end = tokens.last.span.end.offset,
+        tokensClaimed = tokens.length,
         tokenRange = Range(tokens.first.index, tokens.last.index);
 
   @visibleForTesting
   LicenseMatch.createInstance(
       this.tokens,
-      this.tokensClaimed,
       this.confidence,
+      this.tokensClaimed,
       this.diffRange,
       this.diffs,
       this.license,
@@ -168,8 +167,8 @@ class LicenseMatch {
   LicenseMatch updateTokenIndex(int startIndex, int endIndex) {
     return LicenseMatch.createInstance(
       tokens,
-      tokensClaimed,
       confidence,
+      endIndex - startIndex,
       diffRange,
       diffs,
       license,

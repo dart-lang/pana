@@ -63,7 +63,7 @@ Result detectLicense(String text, double threshold) {
         final hit = licenseMatch(unknownLicense, license, match, threshold);
         result.add(hit);
       } on LicenseMismatchException catch (_) {
-        print(e.toString());
+        // print(e.toString());
       }
     }
   }
@@ -108,10 +108,8 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
     if (identifierToLicense.containsKey(match.identifier)) {
       var prevMatch = identifierToLicense[match.identifier];
       // As both the licenses are same consider tha max of tokens claimed among these two.
-      final tokensClaimed = max(prevMatch!.tokensClaimed, match.tokensClaimed);
 
-      prevMatch = prevMatch.confidence > match.confidence ? prevMatch : match;
-      prevMatch.tokensClaimed = tokensClaimed;
+      prevMatch = prevMatch!.confidence > match.confidence ? prevMatch : match;
       prevMatch = prevMatch.updateTokenIndex(
         min(prevMatch.tokenRange.start, match.tokenRange.start),
         max(prevMatch.tokenRange.end, match.tokenRange.end),
@@ -179,9 +177,10 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
       // smaller license within it and decide to whether retain it
       // or not by comapring their token densities. Example NPL
       // contains MPL.
-      if (rangeA.conatins(rangeB) && retain[j]) {
+      if (rangeA.contains(rangeB) && retain[j]) {
         final aConf = matchA.tokensClaimed * matchA.confidence;
         final bConf = matchB.tokensClaimed * matchB.confidence;
+        
         // Retain both the licenses incase of a exact match,
         // so that it can be resolved by the user.
         if (aConf > bConf) {
@@ -216,10 +215,10 @@ double unclaimedTokenPercentage(
   var claimedTokenCount = 0;
 
   for (var match in matches) {
-    claimedTokenCount += match.tokensClaimed;
+    claimedTokenCount += match.tokenRange.end - match.tokenRange.start;
   }
 
-  return claimedTokenCount / unknownTokensCount;
+  return max(0, (unknownTokensCount - claimedTokenCount) / unknownTokensCount);
 }
 
 const _directories = ['third_party/spdx/licenses'];

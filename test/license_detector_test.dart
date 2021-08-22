@@ -30,13 +30,13 @@ void main() {
 
     test('Check token density when both have same matches', () {
       final matchA =
-          _dummyLicenseMatchInstance(0.9, 'matchA', tokensClaimed: 2);
+          _dummyLicenseMatchInstance(0.9, 'matchA', tokensClaimed: 1);
       final matchB =
-          _dummyLicenseMatchInstance(0.9, 'matchB', tokensClaimed: 1);
+          _dummyLicenseMatchInstance(0.9, 'matchB', tokensClaimed: 2);
 
       // Expect -1 as matchA has more number of tokens claimed and both the matches
       // have same instance of license detected.
-      expect(sortOnConfidence(matchA, matchB), -1);
+      expect(sortOnConfidence(matchA, matchB), 1);
     });
   });
   group('removeDuplicateMatches tests: ', () {
@@ -193,8 +193,8 @@ LicenseMatch _dummyLicenseMatchInstance(
 }) {
   return LicenseMatch.createInstance(
       [],
-      tokensClaimed,
       confidence,
+      tokensClaimed,
       diffRange ?? dummyDiffRange,
       [],
       LicenseWithNGrams.parse(

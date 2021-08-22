@@ -48,7 +48,7 @@ class Range {
   /// End index(exclusive) of the token in this range.
   final int end;
 
-  bool conatins(Range other) {
+  bool contains(Range other) {
     return other.start >= start && other.end <= end;
   }
 
