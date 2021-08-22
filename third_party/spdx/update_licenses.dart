@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -47,100 +48,77 @@ Future<void> writeFiles(Archive archive) async {
 }
 
 Future<void> removeUnnecessaryFiles() async {
-  var licenseMap = <String, String>{};
 
-  final textDirectory =
-      Directory('third_party/spdx/licenses/license-list-data-master/text');
+  final jsonDirectory =
+      Directory('third_party/spdx/licenses/license-list-data-master/json/details/');
   final spdxDirectory =
       Directory('third_party/spdx/licenses/license-list-data-master');
+  final entities = jsonDirectory.listSync();
 
-  for (var entity in textDirectory.listSync()) {
+  var contentList = <String>[];
+  var namesList = <String>[];
+  var retain = <bool>[];
+  for (var entity in entities) {
     final file = File(entity.path);
-    final name = entity.uri.pathSegments.last.split('.txt').first;
-    final content = file.readAsStringSync();
+    final jsonData = json.decode(file.readAsStringSync());
+    final content = jsonData['licenseText'] as String;
+    final name = jsonData['licenseId'] as String;
 
     /// Ignore the deprecated licenses as the [SPDX guidelines][1]
     /// suggests that they should not be used.
     ///
     /// [1]: https://github.com/spdx/license-list-data/blob/master/accessingLicenses.md#deprecated-licenses
-    if (name.startsWith('deprecated_')) {
+    if (jsonData['isDeprecatedLicenseId'] as bool) {
       continue;
     }
 
-    // Check for licenses having same text.
-    if (checkDuplicatePresent(name, licenseMap, content)) {
-      continue;
-    } else {
-      licenseMap[name] = content;
-    }
+    contentList.add(content);
+    namesList.add(name);
+    retain.add(true);
   }
 
+  removeDuplicates(contentList, namesList, retain);
   await spdxDirectory.delete(recursive: true);
   final basePath = 'third_party/spdx/licenses/';
 
-  licenseMap.forEach((key, value) async {
-    final path = basePath + key + '.txt';
+  for(var i=0; i<contentList.length; i++){
+    if(retain[i]){
+      final path = basePath + namesList[i] + '.txt';
     final file = File(path);
     await file.create();
-    file.writeAsStringSync(value);
-  });
+    file.writeAsStringSync(contentList[i]);
+    }
+  }
 }
 
-/// This routine tries to find exactly licenses having same text and stores them in a normalized license file.
+/// This routine tries to find licenses having same text and retains only file among the duplicates with normalized name.
 ///
 /// For example as `AGPL-1.0-only` and `AGPL-1.0-or-later` have same text
 /// we store a single license called `AGPL-1.0` instead of two similar license
 /// text.
-bool checkDuplicatePresent(
-    String name, Map<String, String> map, String content) {
-  name = name.replaceAll(similarReg, '');
+void removeDuplicates(
+    List<String> contentList, List<String> namesList, List<bool> retain) {
+  var len = contentList.length;
+  for (var i = 0; i < len; i++) {
+    if (retain[i]) {
+      var isDuplicatePresent = false;
 
-  if (map.containsKey(name)) {
-    if (content == map[name]) {
-      return true;
+      for (var j = i + 1; j < len; j++) {
+        if (retain[j]) {
+          if (contentList[i] == contentList[j]) {
+            retain[j] = false;
+            isDuplicatePresent = true;
+          }
+        }
+      }
+
+      if (isDuplicatePresent) {
+        namesList[i] = namesList[i].replaceAll(similarReg, '');
+      }
     }
-    return false;
-  }
-
-  if (map.containsKey(name + '-only')) {
-    checkIfSameContent(map, content, name + '-only');
-    return true;
-  }
-
-  if (map.containsKey(name + '-or-later')) {
-    checkIfSameContent(map, content, name + '-or-later');
-    return true;
-  }
-
-  if (map.containsKey(name + '-rfn')) {
-    checkIfSameContent(map, content, name + '-rfn');
-    return true;
-  }
-
-  if (map.containsKey(name + '-no-rfn')) {
-    checkIfSameContent(map, content, name + '-no-rfn');
-    return true;
-  }
-
-  if (map.containsKey(name + '-no-invariants-only')) {
-    checkIfSameContent(map, content, name + '-no-invariants-only');
-    return true;
-  }
-
-  if (map.containsKey(name + '-no-invariants-or-later')) {
-    checkIfSameContent(map, content, name + '-no-invariants-or-later');
-    return true;
-  }
-  return false;
-}
-
-void checkIfSameContent(Map<String, String> map, String content, String name) {
-  if (map[name] == content) {
-    map.remove(name);
-    map[name.replaceAll(similarReg, '')] = content;
   }
 }
 
 final similarReg = RegExp(
-    r'(-only|-or-later|-rfn|-no-rfn|-no-invariants-only|-no-invariants-or-later)',
+    r'(-only|-or-later|-rfn|-no-rfn|-no-invariants-only|-no-invariants-or-later|-no-copyleft-exception)',
     caseSensitive: false);
