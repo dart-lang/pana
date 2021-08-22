@@ -92,17 +92,18 @@ List<Token> tokenize(String text) {
   ///
   /// [1]: https://github.com/spdx/spdx-spec/blob/v2.2/chapters/appendix-II-license-matching-guidelines-and-templates.md
   /// [google licenseClassifier]: https://github.com/google/licenseclassifier/blob/bb04aff29e72e636ba260ec61150c6e15f111d7e/v2/tokenizer.go#L34
-  tokens = _cleanNewTokens(tokens);
+  tokens = _cleanTokens(tokens);
 
   return tokens;
 }
 
-List<Token> _cleanNewTokens(List<Token> tokens) {
+List<Token> _cleanTokens(List<Token> tokens) {
   var output = <Token>[];
   var tokenID = 0;
   var firstInLine = true;
-
-  for (var token in tokens) {
+  final len = tokens.length;
+  for (var i = 0; i < len; i++) {
+    var token = tokens[i];
     // Ignore new line tokens for now.
     // If accuracy of detection is low apply
     // Guideline 2.1.4: Text that can be omitted from license.
@@ -118,7 +119,19 @@ List<Token> _cleanNewTokens(List<Token> tokens) {
 
     firstInLine = false;
 
-    final text = _cleanToken(token.value);
+    var text = _cleanToken(token.value);
+
+    final textMap = _remainingEquivalentWords[text];
+
+    if (textMap != null) {
+      final nextToken = tokens[i + 1];
+      if (i + 1 < len) {
+        if (textMap[0] == _cleanToken(nextToken.value)) {
+          text = textMap[1];
+          i++;
+        }
+      }
+    }
 
     output.add(Token(text, tokenID++, token.span));
   }
@@ -242,9 +255,9 @@ final _equivalentWords = {
   'http:': 'https:',
 };
 
-// Remaining varietal words
-// final _varietalWords = {
-//   'copyright holder': 'copyright owner',
-//   'per cent': 'percent',
-//   'sub license': 'sublicense',
-// };
+final _remainingEquivalentWords = {
+  'copyright': ['holder', 'copyrightowner'],
+  'per': ['cent', 'percent'],
+  'sub': ['license', 'sublicense']
+};
+

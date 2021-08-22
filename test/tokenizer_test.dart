@@ -16,6 +16,14 @@ void main() {
           'world',
           '1.1',
         ]);
+        
+    testTokenizer('Normalize equivalent words',
+        text: 'analogue  favorite per cent',
+        expected: [
+          'analog',
+          'favourite',
+          'percent',
+        ]);
 
     testTokenizer('Ignore punctuations at start of word',
         text: '// !hello @#world -1.1.1',
