@@ -68,8 +68,8 @@ void main() {
           detectLicenseInContent(['GNU GPL Version 2'].join('\n'),
               relativePath: 'LICENSE'),
           null);
-      await expectFile('test/licenses/gpl_v3.txt',
-          LicenseFile('gpl_v3.txt', 'GPL-3.0'));
+      await expectFile(
+          'test/licenses/gpl_v3.txt', LicenseFile('gpl_v3.txt', 'GPL-3.0'));
     });
   });
 
@@ -80,8 +80,12 @@ void main() {
               '\nGNU LESSER GENERAL PUBLIC LICENSE\n    Version 3, 29 June 2007',
               relativePath: 'LICENSE'),
           null);
-      await expectFile('test/licenses/lgpl_v3.txt',
-          LicenseFile('lgpl_v3.txt', 'LGPL-3.0',));
+      await expectFile(
+          'test/licenses/lgpl_v3.txt',
+          LicenseFile(
+            'lgpl_v3.txt',
+            'LGPL-3.0',
+          ));
     });
   });
 
@@ -108,8 +112,8 @@ void main() {
               '\n\n   Mozilla Public License Version 2.0\n\n blah...',
               relativePath: 'LICENSE'),
           null);
-      await expectFile('test/licenses/mpl_v2.txt',
-          LicenseFile('mpl_v2.txt', 'MPL-2.0'));
+      await expectFile(
+          'test/licenses/mpl_v2.txt', LicenseFile('mpl_v2.txt', 'MPL-2.0'));
     });
   });
 

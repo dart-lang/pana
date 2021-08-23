@@ -16,7 +16,7 @@ void main() {
           'world',
           '1.1',
         ]);
-        
+
     testTokenizer('Normalize equivalent words',
         text: 'analogue  favorite per cent copyright holder copyright-holder ',
         expected: [
@@ -24,7 +24,7 @@ void main() {
           'favourite',
           'percent',
           'copyright',
-          'owner', 
+          'owner',
           'copyrightowner'
         ]);
 

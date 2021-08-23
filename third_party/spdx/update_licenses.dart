@@ -48,9 +48,8 @@ Future<void> writeFiles(Archive archive) async {
 }
 
 Future<void> removeUnnecessaryFiles() async {
-
-  final jsonDirectory =
-      Directory('third_party/spdx/licenses/license-list-data-master/json/details/');
+  final jsonDirectory = Directory(
+      'third_party/spdx/licenses/license-list-data-master/json/details/');
   final spdxDirectory =
       Directory('third_party/spdx/licenses/license-list-data-master');
   final entities = jsonDirectory.listSync();
@@ -81,12 +80,12 @@ Future<void> removeUnnecessaryFiles() async {
   await spdxDirectory.delete(recursive: true);
   final basePath = 'third_party/spdx/licenses/';
 
-  for(var i=0; i<contentList.length; i++){
-    if(retain[i]){
+  for (var i = 0; i < contentList.length; i++) {
+    if (retain[i]) {
       final path = basePath + namesList[i] + '.txt';
-    final file = File(path);
-    await file.create();
-    file.writeAsStringSync(contentList[i]);
+      final file = File(path);
+      await file.create();
+      file.writeAsStringSync(contentList[i]);
     }
   }
 }

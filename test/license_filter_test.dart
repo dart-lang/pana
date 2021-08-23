@@ -15,13 +15,15 @@ void main() {
       var tokens2 = tokenize(text2);
 
       expect(
-        tokenSimilarity(license.tokenFrequency, generateFrequencyTable(tokens2)),
+        tokenSimilarity(
+            license.tokenFrequency, generateFrequencyTable(tokens2)),
         1,
       );
 
       tokens2 = tokenize('some tokens are different');
       expect(
-        tokenSimilarity(license.tokenFrequency, generateFrequencyTable(tokens2)),
+        tokenSimilarity(
+            license.tokenFrequency, generateFrequencyTable(tokens2)),
         0.5,
       );
 
@@ -36,7 +38,8 @@ void main() {
 
       tokens2 = tokenize('');
       expect(
-        tokenSimilarity(license.tokenFrequency, generateFrequencyTable(tokens2)),
+        tokenSimilarity(
+            license.tokenFrequency, generateFrequencyTable(tokens2)),
         0,
       );
     });

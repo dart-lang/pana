@@ -66,8 +66,7 @@ void main() {
 
     final tokens = tokenize(str);
 
-    expect(normalizedContent(tokens),
-        'here is some text for testing purposes');
+    expect(normalizedContent(tokens), 'here is some text for testing purposes');
   });
 
   test('generateChecksumMap test', () {

@@ -139,7 +139,7 @@ class LicenseMatch {
 
   @visibleForTesting
   final int tokensClaimed;
-  
+
   @visibleForTesting
   LicenseMatch(
     this.tokens,
