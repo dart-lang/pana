@@ -16,9 +16,9 @@ class License {
   final List<Token> tokens;
 
   /// Map from [Token.value] to their number of occurrences in this license.
-  final Map<String, int> occurrences;
+  final Map<String, int> tokenFrequency;
 
-  License._(this.content, this.tokens, this.occurrences, this.identifier);
+  License._(this.content, this.tokens, this.tokenFrequency, this.identifier);
 
   factory License.parse({required String identifier, required String content}) {
     final tokens = tokenize(content);
@@ -93,7 +93,7 @@ class LicenseWithNGrams extends License {
       license.identifier,
       license.content,
       license.tokens,
-      license.occurrences,
+      license.tokenFrequency,
     );
   }
 }

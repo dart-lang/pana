@@ -18,11 +18,14 @@ void main() {
         ]);
         
     testTokenizer('Normalize equivalent words',
-        text: 'analogue  favorite per cent',
+        text: 'analogue  favorite per cent copyright holder copyright-holder ',
         expected: [
           'analog',
           'favourite',
           'percent',
+          'copyright',
+          'owner', 
+          'copyrightowner'
         ]);
 
     testTokenizer('Ignore punctuations at start of word',

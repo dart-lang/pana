@@ -15,20 +15,20 @@ void main() {
       var tokens2 = tokenize(text2);
 
       expect(
-        tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
+        tokenSimilarity(license.tokenFrequency, generateFrequencyTable(tokens2)),
         1,
       );
 
       tokens2 = tokenize('some tokens are different');
       expect(
-        tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
+        tokenSimilarity(license.tokenFrequency, generateFrequencyTable(tokens2)),
         0.5,
       );
 
       tokens2 = tokenize('one tokens match');
       expect(
         tokenSimilarity(
-          license.occurrences,
+          license.tokenFrequency,
           generateFrequencyTable(tokens2),
         ),
         1 / 3,
@@ -36,7 +36,7 @@ void main() {
 
       tokens2 = tokenize('');
       expect(
-        tokenSimilarity(license.occurrences, generateFrequencyTable(tokens2)),
+        tokenSimilarity(license.tokenFrequency, generateFrequencyTable(tokens2)),
         0,
       );
     });
@@ -72,7 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''';
           loadLicensesFromDirectories(['test/license_test_assets/licenses']);
 
       final possibleLicenses =
-          filter(unknownLicense.occurrences, knownLicenses);
+          filter(unknownLicense.tokenFrequency, knownLicenses);
       const possibleLicenseNames = [
         'bsd_2_clause',
         'bsd_2_clause_in_comments',

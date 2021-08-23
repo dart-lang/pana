@@ -21,7 +21,7 @@ class LicenseMismatchException implements Exception {
 /// Computes the confidence of [knownLicense] matching with [unknownLicense] and
 /// returns an instance of [LicenseMatch].
 ///
-/// Throws if an unaccepatable change was made or the calculated confidence is
+/// Throws [LicenseMismatchException] if an unaccepatable change was made or the calculated confidence is
 /// lesser than the set threshold.
 @visibleForTesting
 LicenseMatch licenseMatch(
@@ -47,6 +47,7 @@ LicenseMatch licenseMatch(
   // unacceptable substitutions made.
   verifyNoVersionChange(valuationDiffs, knownLicense.identifier);
   verifyNoGplChange(valuationDiffs, knownLicense.identifier);
+  verifyInducedPhraseChange(knownLicense.identifier, valuationDiffs);
 
   final distance = scoreDiffs(valuationDiffs);
   final confidence = confidencePercentage(
@@ -178,6 +179,40 @@ void verifyNoVersionChange(Iterable<Diff> diffs, String identifier) {
   }
 }
 
+/// There are certain phrases that can't be introduced to make a license hit.
+/// 
+/// Throws a [LicenseMismatchException] if such a phrase was induced.
+void verifyInducedPhraseChange(String licenseId, Iterable<Diff> diffs){
+  var presentInList = false;
+  var inducedPhraseList = <String>[];
+
+  for(var key in _inducedPhrases.keys){
+    if(licenseId.startsWith(key)){
+      presentInList = true;
+      inducedPhraseList = _inducedPhrases[key]!;
+      break;
+    }
+  }
+
+  if(!presentInList){
+    return;
+  } 
+
+  for(var diff in diffs){
+
+    final text = diff.text;
+
+    if(diff.operation == Operation.insert){
+      for(var phrase in inducedPhraseList){
+        if(text.contains(phrase)){
+          throw LicenseMismatchException('Induced phrase change');
+        }
+      }
+    }
+  }
+
+}
+
 /// Checks if minor changes are introducing a mismatch between GPL and LGPL.
 ///
 /// Throws [LicenseMismatchException] if there is a mismatch.
@@ -244,22 +279,22 @@ const versionChange = -1;
 @visibleForTesting
 const lesserGplChange = -2;
 
-// final _inducedPhrases = {
-// 				'AGPL':                             ['affero'],
-// 				'Atmel':                            ['atmel'],
-// 				'Apache':                           ['apache'],
-// 				'BSD':                              ['bsd'],
-// 				'BSD-3-Clause-Attribution':         ['acknowledgment'],
-// 				'bzip2':                            ['seward'],
-// 				'GPL-2.0-with-GCC-exception':       ['gcc linking exception'],
-// 				'GPL-2.0-with-autoconf-exception':  ['autoconf exception'],
-// 				'GPL-2.0-with-bison-exception':     ['bison exception'],
-// 				'GPL-2.0-with-classpath-exception': ['class path exception'],
-// 				'GPL-2.0-with-font-exception':      ['font exception]',
-// 				'LGPL-2.0':                         ['library'],
-// 				'ImageMagick':                      ['imagemagick'],
-// 				'PHP':                              ['php'],
-// 				'SISSL':                            ['sun standards'],
-// 				'SGI-B':                            ['silicon graphics'],
-// 				'X11':                              ['x consortium'],
-// };
+final _inducedPhrases = {
+				'AGPL':                             ['affero'],
+				'Atmel':                            ['atmel'],
+				'Apache':                           ['apache'],
+				'BSD':                              ['bsd'],
+				'BSD-3-Clause-Attribution':         ['acknowledgment'],
+				'bzip2':                            ['seward'],
+				'GPL-2.0-with-GCC-exception':       ['gcc linking exception'],
+				'GPL-2.0-with-autoconf-exception':  ['autoconf exception'],
+				'GPL-2.0-with-bison-exception':     ['bison exception'],
+				'GPL-2.0-with-classpath-exception': ['class path exception'],
+				'GPL-2.0-with-font-exception':      ['font exception'],
+				'LGPL-2.0' :                        ['library'],
+				'ImageMagick':                      ['imagemagick'],
+				'PHP':                              ['php'],
+				'SISSL':                            ['sun standards'],
+				'SGI-B':                            ['silicon graphics'],
+				'X11':                              ['x consortium'],
+};

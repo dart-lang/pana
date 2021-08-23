@@ -151,9 +151,34 @@ void _testVerifyNoGplChange(
   });
 }
 
+void testInducedPhraseChange() {
+
+  group('Induced phrase change:', () {
+    test('Throws exception', () {
+    expect(
+        () => verifyInducedPhraseChange('Apache', [
+          Diff(Operation.equal, 'some equal text'),
+          Diff(Operation.insert, 'apache')
+        ]),
+        throwsA(isA<LicenseMismatchException>()));
+  });
+
+  test('Returns normally', () {
+    expect(
+        () => verifyInducedPhraseChange('Apache', [
+          Diff(Operation.equal, 'some equal text'),
+          Diff(Operation.insert, 'some inserted text')
+        ]),
+        returnsNormally);
+  });
+  });
+  
+}
+
 void main() {
   testDiffRange();
   testCofidencePercentage();
   testVerifyNoVersionChange();
   testVerifyNoGplChange();
+  testInducedPhraseChange();
 }

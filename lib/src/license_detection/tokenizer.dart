@@ -127,6 +127,10 @@ List<Token> _cleanTokens(List<Token> tokens) {
       final nextToken = tokens[i + 1];
       if (i + 1 < len) {
         if (textMap[0] == _cleanToken(nextToken.value)) {
+          if (text == 'copyright') {
+            output.add(Token(text, tokenID++, token.span));
+            token = tokens[i + 1];
+          }
           text = textMap[1];
           i++;
         }
@@ -226,6 +230,7 @@ final _equivalentWords = {
   'catalogue': 'catalog',
   'categorise': 'categorize',
   'centre': 'center',
+  'copyrightholder' : 'copyrightowner',
   'emphasised': 'emphasized',
   'favor': 'favour',
   'favorite': 'favourite',
@@ -256,8 +261,7 @@ final _equivalentWords = {
 };
 
 final _remainingEquivalentWords = {
-  'copyright': ['holder', 'copyrightowner'],
+  'copyright': ['holder', 'owner'],
   'per': ['cent', 'percent'],
   'sub': ['license', 'sublicense']
 };
-
