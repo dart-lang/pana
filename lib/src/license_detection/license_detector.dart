@@ -210,12 +210,13 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
   return retainedmatches;
 }
 
+
 double unclaimedTokenPercentage(
     List<LicenseMatch> matches, int unknownTokensCount) {
   var claimedTokenCount = 0;
 
   for (var match in matches) {
-    claimedTokenCount += match.tokenRange.end - match.tokenRange.start;
+    claimedTokenCount += match.tokensClaimed;
   }
 
   return max(0, (unknownTokensCount - claimedTokenCount) / unknownTokensCount);

@@ -51,7 +51,7 @@ void main() {
       await expectFile('test/licenses/bsd_2_clause_in_comments.txt',
           LicenseFile('bsd_2_clause_in_comments.txt', 'BSD-2-Clause'));
       await expectFile('test/licenses/bsd_3_clause.txt',
-          LicenseFile('bsd_3_clause.txt', 'BSD-3-Clause-Clear'));
+          LicenseFile('bsd_3_clause.txt', 'unknown'));
       await expectFile('test/licenses/bsd_revised.txt',
           LicenseFile('bsd_revised.txt', 'BSD-3-Clause'));
     });
@@ -137,7 +137,7 @@ void main() {
 
   group('Directory scans', () {
     test('detect pana LICENSE', () async {
-      expect(await detectLicenseInDir('.'), LicenseFile('LICENSE', 'unknown'));
+      expect(await detectLicenseInDir('.'), LicenseFile('LICENSE', 'BSD-3-Clause'));
     });
 
     test('no license files', () async {
