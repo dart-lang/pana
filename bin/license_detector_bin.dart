@@ -29,14 +29,15 @@ void main(List<String> arguments) async {
     print('No license found in the given file');
   } else {
     var i = 1;
-    print('unclaimedTokenPercentage:  ${detectionResult.unclaimedTokenPercentage}');
-    print('longestUnclaimedTokenCount:  ${detectionResult.longestUnclaimedTokenCount}');
+    print(
+        'unclaimedTokenPercentage:  ${detectionResult.unclaimedTokenPercentage}');
+    print(
+        'longestUnclaimedTokenCount:  ${detectionResult.longestUnclaimedTokenCount}');
     for (var match in detectionResult.matches) {
       print('\nDetection result $i: ');
       print('Spdx identifier: ${match.identifier}');
       print('Confidence: ${match.confidence}');
       print('Start Offset: ${match.start} End offset: ${match.end}');
-      
     }
   }
 }

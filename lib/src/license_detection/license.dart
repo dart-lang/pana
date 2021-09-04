@@ -127,18 +127,34 @@ class LicenseMatch {
 
   /// Offset in the input license text considered to be possible starting point
   /// of known license subtring.
-  final int start;
+  int get start => tokens.first.span.start.offset;
 
   /// Offset in the input license text considered to be possible starting point
   /// of known license subtring.
-  final int end;
+  int get end => tokens.last.span.end.offset;
 
-  /// Range of tokens in the unknown text claimed by this match.
-  @visibleForTesting
-  final Range tokenRange;
-
+  /// Count of the tokens claimed in this match.
+  ///
+  /// It is intialized to the number of tokens claimed by this match.
+  /// Incase of match with the same spdx-identifier we create a new
+  /// instance with tokenClaimed assigned to the maximum of both
+  /// the identical matches.
+  ///
+  /// For example in license such as `AGPL-3.0` which contains optional
+  /// text after the `END OF TERMS AND CONDITION` statement there are two
+  /// instances of known licenses with the same identifier. The license match
+  /// will have more tokens claimed if the unknown license text contains the
+  /// optional text and hence we update tokens claimed always to the
+  /// maximum of the same identifier.
   @visibleForTesting
   final int tokensClaimed;
+
+  /// Range of tokens in the unknown text claimed by this match.
+  ///
+  /// Range is initilalized from start index of first
+  /// token claimed in the match
+  @visibleForTesting
+  final Range tokenRange;
 
   @visibleForTesting
   LicenseMatch(
@@ -147,22 +163,19 @@ class LicenseMatch {
     this.license,
     this.diffs,
     this.diffRange,
-  )   : start = tokens.first.span.start.offset,
-        end = tokens.last.span.end.offset,
-        tokensClaimed = tokens.length,
+  )   : tokensClaimed = tokens.length,
         tokenRange = Range(tokens.first.index, tokens.last.index);
 
   @visibleForTesting
   LicenseMatch.createInstance(
-      this.tokens,
-      this.confidence,
-      this.tokensClaimed,
-      this.diffRange,
-      this.diffs,
-      this.license,
-      this.start,
-      this.end,
-      this.tokenRange);
+    this.tokens,
+    this.confidence,
+    this.tokensClaimed,
+    this.diffRange,
+    this.diffs,
+    this.license,
+    this.tokenRange,
+  );
 
   LicenseMatch updateTokenIndex(int startIndex, int endIndex) {
     return LicenseMatch.createInstance(
@@ -172,8 +185,6 @@ class LicenseMatch {
       diffRange,
       diffs,
       license,
-      start,
-      end,
       Range(startIndex, endIndex),
     );
   }

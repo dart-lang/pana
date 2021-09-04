@@ -137,7 +137,8 @@ void main() {
 
   group('Directory scans', () {
     test('detect pana LICENSE', () async {
-      expect(await detectLicenseInDir('.'), LicenseFile('LICENSE', 'BSD-3-Clause'));
+      expect(await detectLicenseInDir('.'),
+          LicenseFile('LICENSE', 'BSD-3-Clause'));
     });
 
     test('no license files', () async {

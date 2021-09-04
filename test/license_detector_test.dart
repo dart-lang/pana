@@ -161,6 +161,96 @@ void main() {
       ),
     ]);
   });
+
+  group(('longestUnclaimedPercentage tests:'), () {
+    _testUnclaimedPercentage(
+      'Expect 1.0 for no matches found',
+      [],
+      1,
+      100,
+    );
+
+    _testUnclaimedPercentage(
+      'Expect 0.5',
+      [_dummyLicenseMatchInstance(0.95, '', tokensClaimed: 50)],
+      0.5,
+      100,
+    );
+
+    _testUnclaimedPercentage(
+      'Expect 1,0',
+      [
+        _dummyLicenseMatchInstance(0.95, '', tokensClaimed: 50),
+        _dummyLicenseMatchInstance(0.9, '', tokensClaimed: 50),
+      ],
+      0,
+      100,
+    );
+  });
+
+  group('findLongestUnlaimedTokenRange', () {
+    _testLongestUncliamedTokenRange(
+      'Expect the unknown license length for no match found',
+      [],
+      100,
+      100,
+    );
+
+    _testLongestUncliamedTokenRange(
+      'Longest unclaimed tokens at start of license',
+      [
+        _dummyLicenseMatchInstance(0.9, '', start: 30, end: 60),
+        _dummyLicenseMatchInstance(0.9, '', start: 70, end: 100),
+      ],
+      30,
+      100,
+    );
+
+    _testLongestUncliamedTokenRange(
+      'Longest unclaimed tokens at end of license',
+      [
+        _dummyLicenseMatchInstance(0.9, '', start: 0, end: 80),
+      ],
+      20,
+      100,
+    );
+
+    _testLongestUncliamedTokenRange(
+        'Longest unclaimed range in between',
+        [
+          _dummyLicenseMatchInstance(0.9, '', start: 30, end: 250),
+          _dummyLicenseMatchInstance(0.89, '', start: 300, end: 550),
+          _dummyLicenseMatchInstance(0.87, '', start: 710, end: 940),
+        ],
+        160,
+        1000);
+  });
+}
+
+void _testUnclaimedPercentage(
+  String name,
+  List<LicenseMatch> result,
+  double expected,
+  int unknownTokensCount,
+) {
+  test(name, () {
+    final actual =
+        claculateUnclaimedTokenPercentage(result, unknownTokensCount);
+
+    expect(actual, expected);
+  });
+}
+
+void _testLongestUncliamedTokenRange(
+  String name,
+  List<LicenseMatch> matches,
+  int expected,
+  int unknownTokens,
+) {
+  test(name, () {
+    final actual = findLongestUnclaimedTokenRange(matches, unknownTokens);
+    expect(actual, expected);
+  });
 }
 
 void _testOverLappingMatches({
@@ -189,7 +279,7 @@ LicenseMatch _dummyLicenseMatchInstance(
   Range? diffRange,
   int tokensClaimed = 5,
   int start = 0,
-  int end = 0,
+  int end = 3,
 }) {
   return LicenseMatch.createInstance(
       [],
@@ -199,9 +289,7 @@ LicenseMatch _dummyLicenseMatchInstance(
       [],
       LicenseWithNGrams.parse(
           License.parse(identifier: identifier, content: 'take some text'), 3),
-      start,
-      end,
-      Range(0, 3));
+      Range(start, end));
 }
 
 final dummyDiffRange = Range(2, 20);
