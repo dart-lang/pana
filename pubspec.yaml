@@ -42,6 +42,7 @@ dev_dependencies:
   test: ^1.5.2
   test_descriptor: ^2.0.0
   test_process: ^2.0.0
+  archive: ^3.1.2
 
 executables:
   pana:
