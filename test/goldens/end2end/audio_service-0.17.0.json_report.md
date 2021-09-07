@@ -26,11 +26,11 @@ Consider supporting these prerelease platforms:
 
 <details>
 <summary>
-Package does not support Flutter platform Windows
+Package does not support Flutter platform `Windows`.
 </summary>
 
 Because:
-* `package:audio_service/audio_service.dart` that declares support for platforms: Android, iOS, macOS, Web
+* `package:audio_service/audio_service.dart` that declares support for platforms: `Android`, `iOS`, `macOS`, `Web`.
 </details>
 
 ## 30/30 Pass static analysis
@@ -90,7 +90,7 @@ Because:
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`uuid`]|-|3.0.4|3.0.4|
 |[`vector_math`]|-|2.1.0|2.1.0|
-|[`win32`]|-|2.0.5|2.1.4|
+|[`win32`]|-|2.1.4|2.1.4|
 |[`xdg_directories`]|-|0.2.0|0.2.0|
 |[`xml`]|-|5.1.2|5.1.2|
 </details>

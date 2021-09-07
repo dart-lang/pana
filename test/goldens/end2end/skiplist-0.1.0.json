@@ -57,7 +57,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nlib/skiplist.dart is not formatted according to dartfmt\n</summary>\n\nTo format your files run: `dartfmt -w .`\n</details>"
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nlib/skiplist.dart doesn't match the Dart formatter.\n</summary>\n\nTo format your files run: `dart format .`\n</details>"
       },
       {
         "id": "dependency",
@@ -65,7 +65,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your `pubspec.yaml`\n</details>\n* The current SDK constraint does not allow the Dart version used by the latest stable Flutter ({{flutter-dart-version}})"
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your `pubspec.yaml`\n</details>"
       },
       {
         "id": "null-safety",
@@ -77,5 +77,6 @@
       }
     ]
   },
+  "urlProblems": [],
   "errorMessage": "Running `dart pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```"
 }

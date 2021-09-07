@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [2.13.1]
+        sdk: [2.13.4]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.0
@@ -47,8 +47,8 @@ jobs:
         # TODO(sigurdm): our end2end test creates longer filenames than we can
         # handle on windows. See https://github.com/dart-lang/sdk/issues/42416
         os: [ubuntu-latest, macos-latest]
-        sdk: [2.13.1]
-        flutter: [2.0.6]
+        sdk: [2.13.4]
+        flutter: [2.2.0]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.0

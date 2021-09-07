@@ -16,7 +16,6 @@ import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
 import 'pubspec_io.dart';
 import 'utils.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'version.dart';
 
 const _dartfmtTimeout = Duration(minutes: 5);
@@ -83,8 +82,7 @@ class ToolEnvironment {
   Future _init() async {
     final dartVersionResult = _handleProcessErrors(
         await runProc([..._dartCmd, '--version'], environment: _environment));
-    final dartVersionString = dartVersionResult.stderr.toString().trim();
-    final dartSdkInfo = DartSdkInfo.parse(dartVersionString);
+    final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
     Map<String, dynamic>? flutterVersions;
     try {
       flutterVersions = await getFlutterVersion();
@@ -191,10 +189,9 @@ class ToolEnvironment {
         ],
         environment: _environment,
         workingDirectory: packageDir,
-        deduplicate: true,
         timeout: const Duration(minutes: 5),
       );
-      final output = proc.stderr as String;
+      final output = proc.asJoinedOutput;
       if (output.startsWith('Exceeded timeout of ')) {
         throw ToolException('Running `dart analyze` timed out.');
       }
@@ -247,7 +244,7 @@ class ToolEnvironment {
         continue;
       }
 
-      final lines = LineSplitter.split(result.stdout as String)
+      final lines = LineSplitter.split(result.asJoinedOutput)
           .map((file) => p.join(dir, file))
           .toList();
 
@@ -258,7 +255,7 @@ class ToolEnvironment {
         continue;
       }
 
-      final output = result.stderr.toString().replaceAll('$packageDir/', '');
+      final output = result.asJoinedOutput.replaceAll('$packageDir/', '');
       final errorMsg = LineSplitter.split(output).take(10).join('\n');
       final isUserProblem = output.contains(
               'Could not format because the source could not be parsed') ||
@@ -299,9 +296,13 @@ class ToolEnvironment {
   Future<Map<String, dynamic>> getFlutterVersion() async {
     final result = _handleProcessErrors(
         await runProc([..._flutterCmd, '--version', '--machine']));
-    var content = result.stdout as String;
-    if (content.startsWith('Waiting for another flutter')) {
-      content = content.split('\n').skip(1).join('\n');
+    var content = result.asJoinedOutput;
+    final waitingForString = 'Waiting for another flutter';
+    if (content.contains(waitingForString)) {
+      content = content
+          .split('\n')
+          .where((e) => !e.contains(waitingForString))
+          .join('\n');
     }
     return json.decode(content) as Map<String, dynamic>;
   }
@@ -362,7 +363,7 @@ class ToolEnvironment {
     if (result.exitCode != 0) {
       throw ToolException('`dart pub outdated` failed: ${result.stderr}');
     } else {
-      return json.decode(result.stdout as String) as Map<String, dynamic>;
+      return json.decode(result.asJoinedOutput) as Map<String, dynamic>;
     }
   }
 
@@ -502,10 +503,13 @@ class DartSdkInfo {
   DartSdkInfo._(this.version, this.dateString, this.platform);
 
   factory DartSdkInfo.parse(String versionOutput) {
-    var match = _sdkRegexp.firstMatch(versionOutput);
-    var version = Version.parse(match![1]!);
-    var dateString = match[2];
-    var platform = match[3];
+    final match = _sdkRegexp.firstMatch(versionOutput);
+    if (match == null) {
+      throw FormatException('Couldn\'t parse Dart SDK version: $versionOutput');
+    }
+    final version = Version.parse(match[1]!);
+    final dateString = match[2];
+    final platform = match[3];
 
     return DartSdkInfo._(version, dateString, platform);
   }

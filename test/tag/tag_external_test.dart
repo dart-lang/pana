@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:pana/src/tag_detection.dart';
+import 'package:pana/src/tag/_specs.dart';
 import 'package:test/test.dart';
 
 void main() {

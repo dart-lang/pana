@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:pana/src/license_detection/license_detector.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
 import 'download_utils.dart';
@@ -37,13 +38,10 @@ Future<String?> getLicenseUrl(
     return null;
   }
   final status = await urlChecker.checkStatus(url);
-  if (status == UrlStatus.exists) {
-    return url;
-  } else {
-    return null;
-  }
+  return status.exists ? url : null;
 }
 
+@visibleForTesting
 Future<LicenseFile> detectLicenseInFile(File file,
     {required String relativePath}) async {
   final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);

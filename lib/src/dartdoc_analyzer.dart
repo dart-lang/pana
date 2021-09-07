@@ -2,8 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'create_report.dart' show renderSimpleSectionSummary;
 import 'model.dart';
+import 'report/create_report.dart' show renderSimpleSectionSummary;
 
 const documentationSectionTitle = 'Provide documentation';
 

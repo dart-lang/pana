@@ -16,7 +16,7 @@ import 'pkg_resolution.dart';
 import 'pubspec.dart';
 import 'pubspec_io.dart';
 import 'sdk_env.dart';
-import 'utils.dart' show listFocusDirs;
+import 'utils.dart' show listFocusDirs, ProcessResultExt;
 
 /// Calculates and stores the intermediate analysis and processing results that
 /// are required for the final report.
@@ -26,6 +26,7 @@ class PackageContext {
   final InspectOptions options;
   final UrlChecker urlChecker;
   final errors = <String>[];
+  final urlProblems = <String, String>{};
 
   Version? _currentSdkVersion;
   Pubspec? _pubspec;
@@ -62,7 +63,7 @@ class PackageContext {
 
     if (upgrade.exitCode == 0) {
       try {
-        _pkgResolution = createPkgResolution(pubspec, upgrade.stdout as String,
+        _pkgResolution = createPkgResolution(pubspec, upgrade.asJoinedOutput,
             path: packageDir);
       } catch (e, stack) {
         log.severe('Problem with `dart pub upgrade`', e, stack);

@@ -105,21 +105,6 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}.
 
 Try widening the upper boundary of the constraint.
 </details>
-<details>
-<summary>
-The current SDK constraint does not allow the Dart version used by the latest stable Flutter ({{flutter-dart-version}})
-</summary>
-
-`pubspec.yaml:6:8`
-
-```
-  ╷
-6 │   sdk: ">=2.12.0-0 <2.12.0"
-  │        ^^^^^^^^^^^^^^^^^^^^
-  ╵
-```
-
-</details>
 
 ## 0/20 Support sound null safety
 

@@ -7,23 +7,15 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart' as http_retry;
 import 'package:path/path.dart' as p;
-import 'package:retry/retry.dart';
 import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
 import 'logging.dart';
+import 'model.dart';
 
 final _imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
-
-Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
-  final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
-      .resolve('/api/packages/$package');
-  log.fine('Downloading: $url');
-
-  return await retry(() => http.read(url),
-      retryIf: (e) => e is SocketException || e is TimeoutException);
-}
 
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
@@ -46,22 +38,20 @@ Future<void> downloadPackage(
   );
   log.info('Downloading package $package $version from $packageUri');
 
-  await retry(
-    () async {
-      final c = HttpClient();
-      try {
-        final req = await c.getUrl(packageUri);
-        final res = await req.close();
-        if (res.statusCode != 200) {
-          throw AssertionError('Unable to access URL: "$packageUri".');
-        }
-        await _extractTarGz(res, destination);
-      } finally {
-        c.close(force: true);
-      }
-    },
-    maxAttempts: 3,
+  final c = http_retry.RetryClient(
+    http.Client(),
+    when: (rs) => rs.statusCode >= 500,
   );
+  try {
+    final rs = await c.get(packageUri);
+    if (rs.statusCode != 200) {
+      throw Exception(
+          'Unable to access URL: "$packageUri" (status code: ${rs.statusCode}).');
+    }
+    await _extractTarGz(Stream.value(rs.bodyBytes), destination);
+  } finally {
+    c.close();
+  }
 }
 
 /// Returns an URL that is likely the downloadable URL of the given path.
@@ -116,25 +106,58 @@ const _repoReplacePrefixes = {
   'https://www.gitlab.com': 'https://gitlab.com',
 };
 
-enum UrlStatus {
-  invalid,
-  internal,
-  missing,
-  exists,
+/// The URL's parsed and queried status.
+class UrlStatus {
+  /// Whether the URL can be parsed and is valid.
+  final bool isInvalid;
+
+  /// Whether the URL points to an internal domain.
+  final bool isInternal;
+
+  /// Whether the URL uses HTTPS.
+  final bool isSecure;
+
+  /// Whether the URL exists and responds with an OK status code.
+  final bool exists;
+
+  UrlStatus({
+    required this.isInvalid,
+    required this.isInternal,
+    required this.isSecure,
+    required this.exists,
+  });
+
+  UrlStatus.invalid()
+      : isInvalid = true,
+        isInternal = false,
+        isSecure = false,
+        exists = false;
+
+  /// Returns a brief problem code that can be displayed when linking to it.
+  /// Returns `null` when URL has no problem.
+  String? getProblemCode({
+    required bool packageIsKnownInternal,
+  }) {
+    if (isInvalid) return UrlProblemCodes.invalid;
+    if (isInternal && !packageIsKnownInternal) {
+      return UrlProblemCodes.internal;
+    }
+    if (!isSecure) return UrlProblemCodes.insecure;
+    if (!exists) return UrlProblemCodes.missing;
+    return null;
+  }
 }
 
 /// Checks if an URL is valid and accessible.
 class UrlChecker {
   final _internalHosts = <Pattern>{};
-  final _validUrlCache = <String>{};
-  final int _maxCacheSize;
 
-  UrlChecker({
-    int? maxCacheSize,
-  }) : _maxCacheSize = maxCacheSize ?? 10000 {
+  UrlChecker() {
     addInternalHosts([
       'dart.dev',
       RegExp(r'.*\.dart\.dev'),
+      'flutter.dev',
+      RegExp(r'.*\.flutter\.dev'),
       'pub.dev',
       RegExp(r'.*\.pub\.dev'),
       'dartlang.org',
@@ -156,51 +179,34 @@ class UrlChecker {
     return _internalHosts.every((p) => p.allMatches(uri.host).isEmpty);
   }
 
+  /// Returns `true` if the [uri] exists,
+  /// `false` if getting the page encountered problems.
+  ///
+  /// A cached [UrlChecker] implementation should override this method,
+  /// wrap it in a cached callback, still invoking it via `super.checkUrlExists()`.
+  Future<bool> checkUrlExists(Uri uri) async {
+    return await safeUrlCheck(uri);
+  }
+
   /// Check the status of the URL, using validity checks, cache and
   /// safe URL checks with limited number of redirects.
-  Future<UrlStatus> checkStatus(String url,
-      {bool isInternalPackage = false}) async {
+  Future<UrlStatus> checkStatus(String url) async {
     final uri = Uri.tryParse(url);
     if (uri == null) {
-      return UrlStatus.invalid;
+      return UrlStatus.invalid();
     }
     if (uri.scheme != 'http' && uri.scheme != 'https') {
-      return UrlStatus.invalid;
+      return UrlStatus.invalid();
     }
+    final isSecure = uri.scheme == 'https';
     final isExternal = await hasExternalHostname(uri);
-    if (!isExternal && !isInternalPackage) {
-      return UrlStatus.internal;
-    }
-
-    // check in cache
-    if (await existsInCache(uri)) {
-      return UrlStatus.exists;
-    }
-
-    final exists = await safeUrlCheck(uri);
-    if (exists) {
-      await markExistsInCache(uri);
-      return UrlStatus.exists;
-    } else {
-      return UrlStatus.missing;
-    }
-  }
-
-  /// Checks if the [uri] exists in cache. The cache contains only
-  /// the valid URLs, failures (which may be short-lived, transient)
-  /// are not stored, rather retried.
-  ///
-  /// Returns true if [uri] has been valid in the cache, false otherwise.
-  Future<bool> existsInCache(Uri uri) async {
-    return _validUrlCache.contains(uri.toString());
-  }
-
-  /// Marks the [uri] as valid in the cache.
-  Future<void> markExistsInCache(Uri uri) async {
-    while (_validUrlCache.length > _maxCacheSize) {
-      _validUrlCache.remove(_validUrlCache.first);
-    }
-    _validUrlCache.add(uri.toString());
+    final exists = await checkUrlExists(uri);
+    return UrlStatus(
+      isInvalid: false,
+      isInternal: !isExternal,
+      isSecure: isSecure,
+      exists: exists,
+    );
   }
 }
 
@@ -230,23 +236,5 @@ Future _extractTarGz(Stream<List<int>> tarball, String destination) async {
     } else {
       await entry.contents.pipe(File(path).openWrite());
     }
-  }
-}
-
-/// Creates a temporary directory and passes its path to [fn].
-///
-/// Once the [Future] returned by [fn] completes, the temporary directory and
-/// all its contents are deleted. [fn] can also return `null`, in which case
-/// the temporary directory is deleted immediately afterwards.
-///
-/// Returns a future that completes to the value that the future returned from
-/// [fn] completes to.
-Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
-  Directory? tempDir;
-  try {
-    tempDir = await Directory.systemTemp.createTemp('pana_');
-    return await fn(tempDir.resolveSymbolicLinksSync());
-  } finally {
-    tempDir?.deleteSync(recursive: true);
   }
 }

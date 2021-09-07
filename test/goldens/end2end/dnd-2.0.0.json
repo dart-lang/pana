@@ -61,7 +61,7 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "status": "partial",
-        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)\n\nConsider supporting multiple platforms:\n\n<details>\n<summary>\nPackage not compatible with runtime native\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>"
+        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)\n\n\nConsider supporting multiple platforms:\n\n<details>\n<summary>\nPackage not compatible with runtime native\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>"
       },
       {
         "id": "analysis",
@@ -88,5 +88,6 @@
         "summary": "### [*] 20/20 points: Package and dependencies are fully migrated to null safety!\n"
       }
     ]
-  }
+  },
+  "urlProblems": []
 }

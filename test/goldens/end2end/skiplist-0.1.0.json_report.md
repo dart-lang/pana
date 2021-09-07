@@ -47,10 +47,10 @@ Run `dart pub get` for more information.
 
 <details>
 <summary>
-lib/skiplist.dart is not formatted according to dartfmt
+lib/skiplist.dart doesn't match the Dart formatter.
 </summary>
 
-To format your files run: `dartfmt -w .`
+To format your files run: `dart format .`
 </details>
 
 ## 0/20 Support up-to-date dependencies
@@ -68,7 +68,6 @@ Pubspec.yaml does not have an sdk version constraint.
 
 Try adding an sdk constraint to your `pubspec.yaml`
 </details>
-* The current SDK constraint does not allow the Dart version used by the latest stable Flutter ({{flutter-dart-version}})
 
 ## 0/20 Support sound null safety
 

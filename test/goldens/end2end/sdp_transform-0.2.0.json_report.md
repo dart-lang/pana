@@ -39,17 +39,17 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 <details>
 <summary>
-lib/src/grammar.dart is not formatted according to dartfmt
+lib/src/grammar.dart doesn't match the Dart formatter.
 </summary>
 
-To format your files run: `dartfmt -w .`
+To format your files run: `dart format .`
 </details>
 <details>
 <summary>
-lib/src/parser.dart is not formatted according to dartfmt
+lib/src/parser.dart doesn't match the Dart formatter.
 </summary>
 
-To format your files run: `dartfmt -w .`
+To format your files run: `dart format .`
 </details>
 
 ## 10/20 Support up-to-date dependencies
@@ -66,6 +66,7 @@ environment:
   sdk: '>=2.10.0 <3.0.0'
 
 See https://dart.dev/go/sdk-constraint
+
 ```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs

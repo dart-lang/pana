@@ -1,11 +1,40 @@
+## 0.20.2
+
+* Upgraded `package:analyzer` to `^2.1.0` and updated deprecated code use.
+
+## 0.20.1
+
+* Fix issue with git root directory detection.
+
+## 0.20.0
+
+* Fix SDK version parsing issue (also reading `stdout` for newer SDKs).
+* `Summary.urlProblems` lists the URLs that should be displayed differently on `pub.dev`.
+* **BREAKING CHANGES**
+  * `UrlStatus` is converted to a class with fields.
+  * `UrlChecker` internal cache is removed (incl. `maxCacheSize`, `existsInCache`, `markExistsInCache`).
+    Caching implementations should wrap the `UrlChecker.checkUrlExists` method.
+  * Removed `deduplicate` parameter from `runProc` function.
+  * `runProc` process is killed if the output is above 10 MiB (regardless of line count).
+
+## 0.19.1
+
+* Upgraded dependencies: `analyzer` and `json_serializable`.
+* Report a reason when no platform is detected - still lacking more details.
+* Terminate the timeouted processes with `sigkill`.
+* The `deduplicate` parameter in `runProc` is no longer used and will be ignored.
+* Updated cache handlers for `UrlChecker`.
+
 ## 0.19.0
 
+* Fix null-safety classification issue with `dart-ext:` imports.
 * **BREAKING CHANGES**
-  * Removed methods from public API: `getSignals`,
-    `handleProcessErrors`, `imageExtensions`, `listFiles`,
-    `listFocusDirs`, `nonAsciiRuneRatio`, `parseCodeProblem`,
-    `prettyJson`, `retryProc`, `runProcSync` (deleted),
-    `sortedJson`, `CodeProblem`, `PackageLocation` (deleted),
+  * Removed methods from public API: 
+    `detectLicenseInContent`, `detectLicenseInDir`, `detectLicenseInFile`,
+    `getLicenseUrl`, `getSignals`, `getVersionListing`, `handleProcessErrors`,
+    `imageExtensions`, `listFiles`, `listFocusDirs`, `nonAsciiRuneRatio`,
+    `parseCodeProblem`, `prettyJson`, `retryProc`, `runProcSync` (deleted),
+    `sortedJson`, `withTempDir`, `CodeProblem`, `PackageLocation` (deleted),
     `ToolEnvironment.activateGlobalDartdoc` (deleted).
 
 ## 0.18.2

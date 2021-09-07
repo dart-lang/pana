@@ -7,31 +7,41 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:retry/retry.dart';
 import 'package:yaml/yaml.dart';
 
 import 'logging.dart';
 
-Stream<String> _byteStreamSplit(Stream<List<int>> stream) =>
-    stream.transform(systemEncoding.decoder).transform(const LineSplitter());
-
 final _timeout = const Duration(minutes: 2);
-final _maxLines = 100000;
+const _maxOutputBytes = 10 * 1024 * 1024; // 10 MiB
+const _maxOutputLinesWhenKilled = 1000;
 
+/// Runs the [arguments] as a program|script + its argument list.
+///
+/// Kills the process after [timeout] (2 minutes if not specified).
+/// Kills the process if its output is more than [maxOutputBytes] (10 MiB if not specified).
+///
+/// If the process is killed, it returns only the first 1000 lines of both `stdout` and `stderr`.
 Future<ProcessResult> runProc(
   List<String> arguments, {
   String? workingDirectory,
   Map<String, String>? environment,
   Duration? timeout,
-  bool deduplicate = false,
+  int? maxOutputBytes,
 }) async {
+  timeout ??= _timeout;
+  maxOutputBytes ??= _maxOutputBytes;
+
   log.info('Running `${[...arguments].join(' ')}`...');
   var process = await Process.start(arguments.first, arguments.skip(1).toList(),
       workingDirectory: workingDirectory, environment: environment);
 
-  var stdoutLines = <String>[];
-  var stderrLines = <String>[];
+  var stdoutLines = <List<int>>[];
+  var stderrLines = <List<int>>[];
+  var remainingBytes = maxOutputBytes;
 
   var killed = false;
   String? killMessage;
@@ -40,40 +50,29 @@ Future<ProcessResult> runProc(
     if (!killed) {
       killMessage = message;
       log.severe('Killing `${arguments.join(' ')}` $killMessage');
-      killed = process.kill();
+      killed = process.kill(ProcessSignal.sigkill);
       log.info('killed `${arguments.join(' ')}` - $killed');
     }
   }
 
-  timeout ??= _timeout;
   var timer = Timer(timeout, () {
     killProc('Exceeded timeout of $timeout');
   });
 
   var items = await Future.wait(<Future>[
     process.exitCode,
-    _byteStreamSplit(process.stdout).forEach((outLine) {
-      // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
-      if (deduplicate && stdoutLines.contains(outLine)) {
-        return;
-      }
+    process.stdout.forEach((outLine) {
       stdoutLines.add(outLine);
-      // Uncomment to debug long execution
-      // log.severe(outLine);
-      if (stdoutLines.length > _maxLines) {
-        killProc('STDOUT exceeded $_maxLines lines.');
+      remainingBytes -= outLine.length;
+      if (remainingBytes < 0) {
+        killProc('Output exceeded $maxOutputBytes bytes.');
       }
     }),
-    _byteStreamSplit(process.stderr).forEach((errLine) {
-      // TODO: Remove deduplication when https://github.com/dart-lang/sdk/issues/36062 gets fixed
-      if (deduplicate && stderrLines.contains(errLine)) {
-        return;
-      }
+    process.stderr.forEach((errLine) {
       stderrLines.add(errLine);
-      // Uncomment to debug long execution
-      // log.severe(errLine);
-      if (stderrLines.length > _maxLines) {
-        killProc('STDERR exceeded $_maxLines lines.');
+      remainingBytes -= errLine.length;
+      if (remainingBytes < 0) {
+        killProc('Output exceeded $maxOutputBytes bytes.');
       }
     })
   ]);
@@ -81,19 +80,31 @@ Future<ProcessResult> runProc(
   timer.cancel();
 
   final exitCode = items[0] as int;
-  if (killed == true) {
+  if (killed) {
     return ProcessResult(
-        process.pid,
-        exitCode,
-        stdoutLines.take(1000).join('\n'),
-        [
-          if (killMessage != null) killMessage,
-          ...stderrLines.take(1000),
-        ].join('\n'));
+      process.pid,
+      exitCode,
+      stdoutLines
+          .map(systemEncoding.decode)
+          .map(const LineSplitter().convert)
+          .take(_maxOutputLinesWhenKilled)
+          .join('\n'),
+      [
+        if (killMessage != null) killMessage,
+        ...stderrLines
+            .map(systemEncoding.decode)
+            .map(const LineSplitter().convert)
+            .take(_maxOutputLinesWhenKilled),
+      ].join('\n'),
+    );
   }
 
   return ProcessResult(
-      process.pid, exitCode, stdoutLines.join('\n'), stderrLines.join('\n'));
+    process.pid,
+    exitCode,
+    stdoutLines.map(systemEncoding.decode).join(),
+    stderrLines.map(systemEncoding.decode).join(),
+  );
 }
 
 Stream<String> listFiles(String directory,
@@ -116,6 +127,25 @@ Stream<String> listFiles(String directory,
       .map((fse) => fse.path)
       .where((path) => endsWith == null || path.endsWith(endsWith))
       .map((path) => p.relative(path, from: directory));
+}
+
+/// Paths to all files matching `$packageDir/lib/**/*.dart`.
+///
+/// Paths are returned relative to `lib/`.
+List<String> dartFilesFromLib(String packageDir) {
+  final libDir = Directory(p.join(packageDir, 'lib'));
+  final libDirExists = libDir.existsSync();
+  final dartFiles = libDirExists
+      ? libDir
+          .listSync(recursive: true)
+          .where((e) => e is File && e.path.endsWith('.dart'))
+          .map((f) => p.relative(f.path, from: libDir.path))
+          .toList()
+      : <String>[];
+
+  // Sort to make the order of files and the reported events deterministic.
+  dartFiles.sort();
+  return dartFiles;
 }
 
 @visibleForTesting
@@ -176,4 +206,42 @@ double nonAsciiRuneRatio(String? text) {
   }
   final nonAscii = text.runes.where((r) => r >= 128).length;
   return nonAscii / totalPrintable;
+}
+
+/// Creates a temporary directory and passes its path to [fn].
+///
+/// Once the [Future] returned by [fn] completes, the temporary directory and
+/// all its contents are deleted. [fn] can also return `null`, in which case
+/// the temporary directory is deleted immediately afterwards.
+///
+/// Returns a future that completes to the value that the future returned from
+/// [fn] completes to.
+Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
+  Directory? tempDir;
+  try {
+    tempDir = await Directory.systemTemp.createTemp('pana_');
+    return await fn(tempDir.resolveSymbolicLinksSync());
+  } finally {
+    tempDir?.deleteSync(recursive: true);
+  }
+}
+
+Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
+  final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
+      .resolve('/api/packages/$package');
+  log.fine('Downloading: $url');
+
+  return await retry(() => http.read(url),
+      retryIf: (e) => e is SocketException || e is TimeoutException);
+}
+
+extension ProcessResultExt on ProcessResult {
+  /// Returns the line-concatened output of `stdout` and `stderr`
+  /// (both converted to [String]), and the final output trimmed.
+  String get asJoinedOutput {
+    return [
+      this.stdout.toString().trim(),
+      this.stderr.toString().trim(),
+    ].join('\n').trim();
+  }
 }

@@ -76,7 +76,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nlib/src/grammar.dart is not formatted according to dartfmt\n</summary>\n\nTo format your files run: `dartfmt -w .`\n</details>\n<details>\n<summary>\nlib/src/parser.dart is not formatted according to dartfmt\n</summary>\n\nTo format your files run: `dartfmt -w .`\n</details>"
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nlib/src/grammar.dart doesn't match the Dart formatter.\n</summary>\n\nTo format your files run: `dart format .`\n</details>\n<details>\n<summary>\nlib/src/parser.dart doesn't match the Dart formatter.\n</summary>\n\nTo format your files run: `dart format .`\n</details>"
       },
       {
         "id": "dependency",
@@ -84,7 +84,7 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `dart pub outdated`: `dart pub get` failed: \n\n ```\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `dart pub outdated`: `dart pub get` failed: \n\n ```\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
         "id": "null-safety",
@@ -95,5 +95,6 @@
         "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `<3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
       }
     ]
-  }
+  },
+  "urlProblems": []
 }
