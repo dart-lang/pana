@@ -3,12 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/pana.dart';
-
-import 'package:pub_semver/pub_semver.dart';
-import 'package:test/test.dart';
-
 import 'package:pana/src/package_context.dart';
 import 'package:pana/src/report/dependencies.dart';
+import 'package:pub_semver/pub_semver.dart';
+import 'package:test/test.dart';
 
 import '../package_descriptor.dart';
 import '../package_server.dart';

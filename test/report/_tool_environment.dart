@@ -4,9 +4,8 @@
 
 import 'dart:io';
 
-import 'package:test_descriptor/test_descriptor.dart' as d;
-
 import 'package:pana/pana.dart';
+import 'package:test_descriptor/test_descriptor.dart' as d;
 
 Future<ToolEnvironment> testToolEnvironment() async {
   final fakeFlutterRoot =

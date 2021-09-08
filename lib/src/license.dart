@@ -8,8 +8,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:meta/meta.dart';
+import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:path/path.dart' as p;
 
 import 'download_utils.dart';
