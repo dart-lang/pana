@@ -1,5 +1,5 @@
 # SPDX CORPUS LICENSES
-The `licenses/` directory contains the open source licenses used
+The `lib/src/third_party/spdx/licenses/` directory contains the open source licenses used
 in `lib/src/license_detection/` for detecting SPDX license identifier given `LICENSE` file.
 
 All the licenses were obtained from -
