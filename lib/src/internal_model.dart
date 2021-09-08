@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:quiver/core.dart';
 
 part 'internal_model.g.dart';
 
@@ -129,7 +128,7 @@ class CodeProblem implements Comparable<CodeProblem> {
   }
 
   @override
-  int get hashCode => hashObjects(_values);
+  int get hashCode => Object.hashAll(_values);
 
   @override
   bool operator ==(Object other) {
