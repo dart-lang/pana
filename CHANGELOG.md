@@ -1,5 +1,7 @@
-## 0.20.2
+## 0.21.0
 
+* New license detection.
+* Use `package:lints/core.yaml` as default `analysis_options.yaml` override.
 * Upgraded `package:analyzer` to `^2.1.0` and updated deprecated code use.
 
 ## 0.20.1
