@@ -5,11 +5,13 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:http/http.dart' as http;
 
+const _targetPath = 'lib/src/third_party/spdx/licenses';
+
 void main() async {
   const downloadUrl =
       'https://github.com/spdx/license-list-data/archive/refs/heads/master.zip';
   final client = http.Client();
-  final licenseDirectory = Directory('third_party/spdx/licenses');
+  final licenseDirectory = Directory(_targetPath);
   final response = await client.get(Uri.parse(downloadUrl));
   final decoder = ZipDecoder();
 
@@ -25,33 +27,29 @@ void main() async {
 }
 
 Future<void> _emptyDirectory(Directory dir) async {
-  final files = dir.listSync();
-
-  for (var f in files) {
-    final file = File(f.path);
-    await file.delete();
+  if (await dir.exists()) {
+    await dir.delete(recursive: true);
   }
+  await dir.create(recursive: true);
 }
 
 Future<void> writeFiles(Archive archive) async {
   for (var f in archive.files) {
     if (f.isFile) {
       final name = f.name;
-      final file = File('third_party/spdx/licenses/$name');
+      final file = File('$_targetPath/$name');
       await file.create();
       await file.writeAsBytes(f.content as Uint8List);
     } else {
-      await Directory('third_party/spdx/licenses/${f.name}')
-          .create(recursive: true);
+      await Directory('$_targetPath/${f.name}').create(recursive: true);
     }
   }
 }
 
 Future<void> removeUnnecessaryFiles() async {
-  final jsonDirectory = Directory(
-      'third_party/spdx/licenses/license-list-data-master/json/details/');
-  final spdxDirectory =
-      Directory('third_party/spdx/licenses/license-list-data-master');
+  final jsonDirectory =
+      Directory('$_targetPath/license-list-data-master/json/details/');
+  final spdxDirectory = Directory('$_targetPath/license-list-data-master');
   final entities = jsonDirectory.listSync();
 
   var contentList = <String>[];
@@ -78,7 +76,7 @@ Future<void> removeUnnecessaryFiles() async {
 
   removeDuplicates(contentList, namesList, retain);
   await spdxDirectory.delete(recursive: true);
-  final basePath = 'third_party/spdx/licenses/';
+  final basePath = '$_targetPath/';
 
   for (var i = 0; i < contentList.length; i++) {
     if (retain[i]) {

@@ -19,8 +19,10 @@ part 'primary_filter.dart';
 part 'token_matcher.dart';
 part 'tokenizer.dart';
 
+const _defaultSpdxLicenseDir = 'lib/src/third_party/spdx/licenses';
+
 // Load corpus licenses.
-final _licenses = loadLicensesFromDirectories(_directories);
+final _licenses = loadLicensesFromDirectories([_defaultSpdxLicenseDir]);
 
 class Result {
   /// Licenses detected in the input text.
@@ -232,8 +234,6 @@ double claculateUnclaimedTokenPercentage(
 
   return max(0, (unknownTokensCount - claimedTokenCount) / unknownTokensCount);
 }
-
-const _directories = ['third_party/spdx/licenses'];
 
 /// Returns the number of tokens in the longest unclaimed token
 /// sequence.
