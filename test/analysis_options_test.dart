@@ -9,15 +9,13 @@ import 'package:test/test.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
 void main() {
-  test('default pedantic options', () async {
+  test('default options', () async {
     final content = await getDefaultAnalysisOptionsYaml(
         usesFlutter: false, flutterSdkDir: null);
     expect(content, contains('linter:'));
     expect(content, contains('rules:'));
-    expect(content, isNot(contains('avoid_empty_else'))); // removed recently
-    expect(content, contains('avoid_init_to_null'));
-    expect(content, contains('prefer_is_empty'));
-    expect(content, contains('prefer_single_quotes')); // in 1.9.0
+    expect(content, contains('avoid_empty_else'));
+    expect(content, isNot(contains('avoid_init_to_null')));
     expect(json.decode(json.encode(yaml.loadYaml(content))), {
       'linter': {
         'rules': hasLength(greaterThan(10)),

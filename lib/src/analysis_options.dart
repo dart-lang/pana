@@ -14,7 +14,7 @@ import 'package:yaml/yaml.dart' as yaml;
 final _logger = Logger('analysis_options');
 
 String? _cachedFlutterOptionsOnGithub;
-String? _cachedPedanticOptionsOnGithub;
+String? _cachedLintsCoreOptionsOnGithub;
 
 /// Returns the default analysis options (in yaml format).
 Future<String> getDefaultAnalysisOptionsYaml({
@@ -24,7 +24,7 @@ Future<String> getDefaultAnalysisOptionsYaml({
   if (usesFlutter) {
     return await _getFlutterAnalysisOptions(flutterSdkDir);
   } else {
-    return await _getPedanticAnalysisOptions();
+    return await _getLintsCoreAnalysisOptions();
   }
 }
 
@@ -61,35 +61,24 @@ Future<String> _getFlutterAnalysisOptions(String? flutterSdkDir) async {
   return '';
 }
 
-Future<String> _getPedanticAnalysisOptions() async {
+Future<String> _getLintsCoreAnalysisOptions() async {
   // try to load latest from github
-  if (_cachedPedanticOptionsOnGithub != null) {
-    return _cachedPedanticOptionsOnGithub!;
+  if (_cachedLintsCoreOptionsOnGithub != null) {
+    return _cachedLintsCoreOptionsOnGithub!;
   }
   try {
-    final index = await _httpGetWithRetry(Uri.parse(
-        'https://raw.githubusercontent.com/google/pedantic/master/lib/analysis_options.yaml'));
-    if (index.statusCode == 200) {
-      final parsed = yaml.loadYaml(index.body) as Map;
-      if (parsed.containsKey('include')) {
-        final includeUri = parsed['include'] as String;
-        if (includeUri.startsWith('package:pedantic/')) {
-          final url = includeUri.replaceFirst('package:pedantic/',
-              'https://raw.githubusercontent.com/google/pedantic/master/lib/');
-          final rs = await _httpGetWithRetry(Uri.parse(url));
-          if (rs.statusCode == 200) {
-            _cachedPedanticOptionsOnGithub = rs.body;
-            return _cachedPedanticOptionsOnGithub!;
-          }
-        }
-      }
+    final rs = await _httpGetWithRetry(Uri.parse(
+        'https://raw.githubusercontent.com/dart-lang/lints/main/lib/core.yaml'));
+    if (rs.statusCode == 200 && rs.body.contains('rules:')) {
+      _cachedLintsCoreOptionsOnGithub = rs.body;
+      return _cachedLintsCoreOptionsOnGithub!;
     }
-  } catch (_) {
+  } on Exception catch (_) {
     // no-op
   }
 
   // fallback empty options
-  _logger.warning('Unable to load default pedantic analysis options.');
+  _logger.warning('Unable to load default analysis options.');
   return '';
 }
 
