@@ -73,7 +73,7 @@ Future<String> _getLintsCoreAnalysisOptions() async {
       _cachedLintsCoreOptionsOnGithub = rs.body;
       return _cachedLintsCoreOptionsOnGithub!;
     }
-  } catch (_) {
+  } on Exception catch (_) {
     // no-op
   }
 
