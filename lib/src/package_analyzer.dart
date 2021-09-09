@@ -202,7 +202,7 @@ class PackageAnalyzer {
       urlProblems: context.urlProblems.entries
           .map((e) => UrlProblem(url: e.key, problem: e.value))
           .toList()
-            ..sort((a, b) => a.url.compareTo(b.url)),
+        ..sort((a, b) => a.url.compareTo(b.url)),
       errorMessage: errorMessage,
     );
   }

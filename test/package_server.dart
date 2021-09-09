@@ -84,7 +84,9 @@ class PackageServer {
     _builder = PackageServerBuilder._(this);
 
     /// Creates an HTTP server
-    contents..add(d.dir('api', [_servedApiPackageDir]))..add(_servedPackageDir);
+    contents
+      ..add(d.dir('api', [_servedApiPackageDir]))
+      ..add(_servedPackageDir);
     _server.mount((request) async {
       final pathWithInitialSlash = '/${request.url.path}';
       final key = extraHandlers.keys.firstWhereOrNull((pattern) {

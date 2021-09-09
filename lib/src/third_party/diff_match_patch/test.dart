@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 import 'package:test/expect.dart';
 import 'package:test/test.dart';

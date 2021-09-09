@@ -3,12 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/pana.dart';
-
-import 'package:test/test.dart';
-import 'package:test_descriptor/test_descriptor.dart' as d;
-
 import 'package:pana/src/package_context.dart';
 import 'package:pana/src/report/create_report.dart';
+import 'package:test/test.dart';
+import 'package:test_descriptor/test_descriptor.dart' as d;
 
 import '../package_descriptor.dart';
 
