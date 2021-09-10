@@ -23,7 +23,7 @@ void main(List<String> arguments) async {
   final file = File(path as String);
   var content = await file.readAsString();
 
-  final detectionResult = detectLicense(content, threshold as double);
+  final detectionResult = await detectLicense(content, threshold as double);
 
   if (detectionResult.matches.isEmpty) {
     print('No license found in the given file');

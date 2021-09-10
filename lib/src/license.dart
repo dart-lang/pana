@@ -45,7 +45,8 @@ Future<String?> getLicenseUrl(
 Future<LicenseFile> detectLicenseInFile(File file,
     {required String relativePath}) async {
   final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);
-  var license = detectLicenseInContent(content, relativePath: relativePath);
+  var license =
+      await detectLicenseInContent(content, relativePath: relativePath);
   return license ?? LicenseFile(relativePath, LicenseNames.unknown);
 }
 
@@ -53,10 +54,12 @@ Future<LicenseFile> detectLicenseInFile(File file,
 /// present in the [SPDX-corpus][1].
 ///
 /// [1]: https://spdx.org/licenses/
-LicenseFile? detectLicenseInContent(String originalContent,
-    {required String relativePath}) {
+Future<LicenseFile?> detectLicenseInContent(
+  String originalContent, {
+  required String relativePath,
+}) async {
   var content = originalContent;
-  final licenseResult = detectLicense(content, 0.95);
+  final licenseResult = await detectLicense(content, 0.95);
 
   if (licenseResult.matches.isNotEmpty &&
       licenseResult.unclaimedTokenPercentage <= 0.5 &&
