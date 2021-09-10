@@ -66,7 +66,6 @@ environment:
   sdk: '>=2.10.0 <3.0.0'
 
 See https://dart.dev/go/sdk-constraint
-
 ```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs

@@ -27,7 +27,6 @@ class ToolEnvironment {
   final List<String> _dartCmd;
   final List<String> _pubCmd;
   final List<String> _dartAnalyzerCmd;
-  final List<String> _dartfmtCmd;
   final List<String> _dartdocCmd;
   final List<String> _flutterCmd;
   // TODO: remove this after flutter analyze gets machine-readable output.
@@ -44,7 +43,6 @@ class ToolEnvironment {
     this._dartCmd,
     this._pubCmd,
     this._dartAnalyzerCmd,
-    this._dartfmtCmd,
     this._dartdocCmd,
     this._flutterCmd,
     this._flutterDartAnalyzerCmd,
@@ -59,7 +57,6 @@ class ToolEnvironment {
     List<String> dartCmd = const <String>[],
     List<String> pubCmd = const <String>[],
     List<String> dartAnalyzerCmd = const <String>[],
-    List<String> dartfmtCmd = const <String>[],
     List<String> dartdocCmd = const <String>[],
     List<String> flutterCmd = const <String>[],
     List<String> flutterDartAnalyzerCmd = const <String>[],
@@ -69,7 +66,6 @@ class ToolEnvironment {
   })  : _dartCmd = dartCmd,
         _pubCmd = pubCmd,
         _dartAnalyzerCmd = dartAnalyzerCmd,
-        _dartfmtCmd = dartfmtCmd,
         _dartdocCmd = dartdocCmd,
         _flutterCmd = flutterCmd,
         _flutterDartAnalyzerCmd = flutterDartAnalyzerCmd,
@@ -148,7 +144,6 @@ class ToolEnvironment {
       [_join(resolvedDartSdk, 'bin', 'dart')],
       [_join(resolvedDartSdk, 'bin', 'dart'), 'pub'],
       [_join(resolvedDartSdk, 'bin', 'dart'), 'analyze'],
-      [_join(resolvedDartSdk, 'bin', 'dartfmt')],
       [_join(resolvedDartSdk, 'bin', 'dartdoc')],
       [_join(resolvedFlutterSdk, 'bin', 'flutter'), '--no-version-check'],
       [_join(flutterDartSdkDir, 'bin', 'dart'), 'analyze'],
@@ -225,18 +220,18 @@ class ToolEnvironment {
     for (final dir in dirs) {
       final fullPath = p.join(packageDir, dir);
 
-      final params = <String>[];
-      if (usesFlutter) {
-        params.add('format');
-      }
-      params.addAll(['--dry-run', '--set-exit-if-changed']);
+      final params = <String>[
+        'format',
+        '--output=none',
+        '--set-exit-if-changed',
+      ];
       if (lineLength != null && lineLength > 0) {
         params.addAll(<String>['--line-length', lineLength.toString()]);
       }
       params.add(fullPath);
 
       final result = await runProc(
-        [...usesFlutter ? _flutterCmd : _dartfmtCmd, ...params],
+        [...usesFlutter ? _flutterCmd : _dartCmd, ...params],
         environment: _environment,
         timeout: _dartfmtTimeout,
       );
@@ -244,8 +239,11 @@ class ToolEnvironment {
         continue;
       }
 
+      final dirPrefix = packageDir.endsWith('/') ? packageDir : '$packageDir/';
+      final output = result.asJoinedOutput;
       final lines = LineSplitter.split(result.asJoinedOutput)
-          .map((file) => p.join(dir, file))
+          .where((l) => l.startsWith('Changed'))
+          .map((l) => l.substring(8).replaceAll(dirPrefix, '').trim())
           .toList();
 
       // `dartfmt` exits with code = 1, `flutter format` exits with code = 127
@@ -255,7 +253,6 @@ class ToolEnvironment {
         continue;
       }
 
-      final output = result.asJoinedOutput.replaceAll('$packageDir/', '');
       final errorMsg = LineSplitter.split(output).take(10).join('\n');
       final isUserProblem = output.contains(
               'Could not format because the source could not be parsed') ||
@@ -344,24 +341,40 @@ class ToolEnvironment {
     }
   }
 
-  Future<Map<String, dynamic>> runPubOutdated(String packageDir,
-      {List<String> args = const []}) async {
+  Future<Map<String, dynamic>> runPubOutdated(
+    String packageDir, {
+    List<String> args = const [],
+    required bool usesFlutter,
+  }) async {
     final getResult = await runProc(
-      [..._pubCmd, 'get'],
+      [
+        if (!usesFlutter) ..._dartCmd,
+        if (usesFlutter) ..._flutterCmd,
+        'pub',
+        'get',
+        '.',
+      ],
       environment: _environment,
       workingDirectory: packageDir,
     );
     if (getResult.exitCode != 0) {
       throw ToolException(
-          '`dart pub get` failed: \n\n ```\n${getResult.stderr}\n```');
+          '`${usesFlutter ? 'flutter' : 'dart'} pub get` failed: \n\n ```\n${getResult.asJoinedOutput}\n```');
     }
     final result = await runProc(
-      [..._pubCmd, 'outdated', ...args],
+      [
+        if (!usesFlutter) ..._dartCmd,
+        if (usesFlutter) ..._flutterCmd,
+        'pub',
+        'outdated',
+        ...args,
+      ],
       environment: _environment,
       workingDirectory: packageDir,
     );
     if (result.exitCode != 0) {
-      throw ToolException('`dart pub outdated` failed: ${result.stderr}');
+      throw ToolException(
+          '`${usesFlutter ? 'flutter' : 'dart'} pub outdated` failed: ${result.stderr}');
     } else {
       return json.decode(result.asJoinedOutput) as Map<String, dynamic>;
     }

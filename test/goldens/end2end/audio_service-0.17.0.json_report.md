@@ -33,10 +33,17 @@ Because:
 * `package:audio_service/audio_service.dart` that declares support for platforms: `Android`, `iOS`, `macOS`, `Web`.
 </details>
 
-## 30/30 Pass static analysis
+## 20/30 Pass static analysis
 
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
+### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
+<details>
+<summary>
+lib/audio_service.dart doesn't match the Dart formatter.
+</summary>
+
+To format your files run: `flutter format .`
+</details>
 
 ## 10/20 Support up-to-date dependencies
 
@@ -44,55 +51,51 @@ Because:
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`audio_session`]|`^0.1.0`|0.1.2|0.1.2|
+|[`audio_session`]|`^0.1.0`|0.1.6|0.1.6|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`flutter_cache_manager`]|`^3.0.0`|3.1.1|3.1.1|
+|[`flutter_cache_manager`]|`^3.0.0`|3.1.2|3.1.2|
 |[`flutter_isolate`]|`^2.0.0`|2.0.0|2.0.0|
 |[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0|
 |[`js`]|`^0.6.3`|0.6.3|0.6.3|
-|[`rxdart`]|`^0.26.0`|0.26.0|**0.27.1**|
+|[`rxdart`]|`^0.26.0`|0.26.0|**0.27.2**|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|-|3.1.2|3.1.2|
-|[`async`]|-|2.7.0|2.7.0|
+|[`async`]|-|2.8.2|2.8.2|
 |[`characters`]|-|1.1.0|1.1.0|
-|[`charcode`]|-|1.2.0|1.2.0|
+|[`charcode`]|-|1.3.1|1.3.1|
 |[`clock`]|-|1.1.0|1.1.0|
 |[`collection`]|-|1.15.0|1.15.0|
 |[`crypto`]|-|3.0.1|3.0.1|
 |[`ffi`]|-|1.1.2|1.1.2|
-|[`file`]|-|6.1.1|6.1.1|
+|[`file`]|-|6.1.2|6.1.2|
 |[`http`]|-|0.13.3|0.13.3|
 |[`http_parser`]|-|4.0.0|4.0.0|
-|[`image`]|-|3.0.2|3.0.2|
-|[`meta`]|-|1.3.0|1.4.0|
+|[`meta`]|-|1.7.0|1.7.0|
 |[`path`]|-|1.8.0|1.8.0|
-|[`path_provider`]|-|2.0.2|2.0.2|
-|[`path_provider_linux`]|-|2.0.0|2.0.0|
-|[`path_provider_macos`]|-|2.0.0|2.0.0|
+|[`path_provider`]|-|2.0.3|2.0.3|
+|[`path_provider_linux`]|-|2.0.2|2.0.2|
+|[`path_provider_macos`]|-|2.0.2|2.0.2|
 |[`path_provider_platform_interface`]|-|2.0.1|2.0.1|
-|[`path_provider_windows`]|-|2.0.1|2.0.1|
-|[`pedantic`]|-|1.11.0|1.11.0|
-|[`petitparser`]|-|4.1.0|4.2.0|
-|[`platform`]|-|3.0.0|3.0.0|
-|[`plugin_platform_interface`]|-|2.0.0|2.0.0|
-|[`process`]|-|4.2.1|4.2.1|
+|[`path_provider_windows`]|-|2.0.3|2.0.3|
+|[`pedantic`]|-|1.11.1|1.11.1|
+|[`platform`]|-|3.0.2|3.0.2|
+|[`plugin_platform_interface`]|-|2.0.1|2.0.1|
+|[`process`]|-|4.2.3|4.2.3|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`source_span`]|-|1.8.1|1.8.1|
-|[`sqflite`]|-|2.0.0+3|2.0.0+3|
-|[`sqflite_common`]|-|2.0.0+2|2.0.0+2|
+|[`sqflite`]|-|2.0.0+4|2.0.0+4|
+|[`sqflite_common`]|-|2.0.1+1|2.0.1+1|
 |[`string_scanner`]|-|1.1.0|1.1.0|
 |[`synchronized`]|-|3.0.0|3.0.0|
 |[`term_glyph`]|-|1.2.0|1.2.0|
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`uuid`]|-|3.0.4|3.0.4|
 |[`vector_math`]|-|2.1.0|2.1.0|
-|[`win32`]|-|2.1.4|2.1.4|
+|[`win32`]|-|2.2.9|2.2.9|
 |[`xdg_directories`]|-|0.2.0|0.2.0|
-|[`xml`]|-|5.1.2|5.1.2|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -104,7 +107,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`flutter_web_plugins`]: https://pub.dev/packages/flutter_web_plugins
 [`js`]: https://pub.dev/packages/js
 [`rxdart`]: https://pub.dev/packages/rxdart
-[`archive`]: https://pub.dev/packages/archive
 [`async`]: https://pub.dev/packages/async
 [`characters`]: https://pub.dev/packages/characters
 [`charcode`]: https://pub.dev/packages/charcode
@@ -115,7 +117,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`file`]: https://pub.dev/packages/file
 [`http`]: https://pub.dev/packages/http
 [`http_parser`]: https://pub.dev/packages/http_parser
-[`image`]: https://pub.dev/packages/image
 [`meta`]: https://pub.dev/packages/meta
 [`path`]: https://pub.dev/packages/path
 [`path_provider`]: https://pub.dev/packages/path_provider
@@ -124,7 +125,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`path_provider_platform_interface`]: https://pub.dev/packages/path_provider_platform_interface
 [`path_provider_windows`]: https://pub.dev/packages/path_provider_windows
 [`pedantic`]: https://pub.dev/packages/pedantic
-[`petitparser`]: https://pub.dev/packages/petitparser
 [`platform`]: https://pub.dev/packages/platform
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
 [`process`]: https://pub.dev/packages/process
@@ -140,7 +140,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`vector_math`]: https://pub.dev/packages/vector_math
 [`win32`]: https://pub.dev/packages/win32
 [`xdg_directories`]: https://pub.dev/packages/xdg_directories
-[`xml`]: https://pub.dev/packages/xml
 
 <details>
 <summary>

@@ -84,7 +84,7 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `dart pub outdated`: `dart pub get` failed: \n\n ```\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `dart pub outdated`: `dart pub get` failed: \n\n ```\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
         "id": "null-safety",

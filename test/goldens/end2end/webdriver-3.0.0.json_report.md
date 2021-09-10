@@ -49,10 +49,24 @@ Package is not compatible with Dart SDK using runtime `js`. Because:
 * `dart:io`
 </details>
 
-## 30/30 Pass static analysis
+## 20/30 Pass static analysis
 
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
+### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
+<details>
+<summary>
+lib/src/async/web_element.dart doesn't match the Dart formatter.
+</summary>
+
+To format your files run: `dart format .`
+</details>
+<details>
+<summary>
+lib/src/sync/web_element.dart doesn't match the Dart formatter.
+</summary>
+
+To format your files run: `dart format .`
+</details>
 
 ## 20/20 Support up-to-date dependencies
 
@@ -61,7 +75,7 @@ Package is not compatible with Dart SDK using runtime `js`. Because:
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`archive`]|`^3.0.0`|3.1.2|3.1.2|
-|[`matcher`]|`^0.12.10`|0.12.10|0.12.10|
+|[`matcher`]|`^0.12.10`|0.12.11|0.12.11|
 |[`path`]|`^1.8.0`|1.8.0|1.8.0|
 |[`stack_trace`]|`^1.10.0`|1.10.0|1.10.0|
 |[`sync_http`]|`^0.3.0`|0.3.0|0.3.0|

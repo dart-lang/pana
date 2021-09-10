@@ -43,6 +43,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
             '--no-dev-dependencies',
             '--no-dependency-overrides',
           ],
+          usesFlutter: context.usesFlutter,
         ));
         final outdatedVersions = <String, List<OutdatedVersionDescription>>{};
         for (final p in outdated.packages) {
@@ -147,12 +148,14 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
           }
         }
       } on ToolException catch (e) {
-        issues.add(Issue('Could not run `dart pub outdated`: ${e.message}'));
+        issues.add(Issue(
+            'Could not run `${context.usesFlutter ? 'flutter' : 'dart'} pub outdated`: ${e.message}'));
         points = 0;
         status = ReportStatus.failed;
       }
     } else {
-      issues.add(_unsupportedDartSdk(context, command: 'dart pub outdated'));
+      issues.add(_unsupportedDartSdk(context,
+          command: '${context.usesFlutter ? 'flutter' : 'dart'} pub outdated'));
       points = 0;
       status = ReportStatus.failed;
     }
