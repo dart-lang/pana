@@ -75,7 +75,7 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
     return Issue(
       '${codeProblem.severity}: ${codeProblem.description}',
       suggestion:
-          'To reproduce make sure you are using [pedantic](https://pub.dev/packages/pedantic#using-the-lints) and '
+          'To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and '
           'run `${context.usesFlutter ? 'flutter analyze' : 'dart analyze'} ${codeProblem.file}`',
       spanFn: () {
         final sourceFile = SourceFile.fromString(
