@@ -54,14 +54,17 @@ jobs:
       - uses: dart-lang/setup-dart@v1.0
         with:
           sdk: ${{ matrix.sdk }}
-      - uses: subosito/flutter-action@v1.5.0
-        with:
-          flutter-version: ${{ matrix.flutter }}
+      - name: Setup Flutter
+        run: |
+          cd $HOME
+          git clone https://github.com/flutter/flutter.git --depth 1 -b ${{ matrix.flutter }} _flutter
+          echo "$HOME/_flutter/bin" >> $GITHUB_PATH
+          cd $GITHUB_WORKSPACE
+      - name: Check Flutter
+        run: flutter --version --machine
       - id: install
         name: Install dependencies
         run: dart pub upgrade
-      - name: Check Flutter
-        run: flutter --version --machine
       - name: Run VM tests
         # Run the tests -- include the default-skipped presubmit tests
         # Run with concurrency = 1 – the build-test command edits files, which might
