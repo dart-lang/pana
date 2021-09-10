@@ -24,7 +24,7 @@ void main() {
   group('AGPL', () {
     test('explicit', () async {
       expect(
-          detectLicenseInContent('GNU AFFERO GENERAL PUBLIC LICENSE',
+          await detectLicenseInContent('GNU AFFERO GENERAL PUBLIC LICENSE',
               relativePath: 'LICENSE'),
           null);
       await expectFile(
@@ -35,7 +35,7 @@ void main() {
   group('Apache', () {
     test('explicit', () async {
       expect(
-          detectLicenseInContent(
+          await detectLicenseInContent(
               '   Apache License\n     Version 2.0, January 2004\n',
               relativePath: 'LICENSE'),
           null);
@@ -60,12 +60,12 @@ void main() {
   group('GPL', () {
     test('explicit', () async {
       expect(
-          detectLicenseInContent(
+          await detectLicenseInContent(
               ['GNU GENERAL PUBLIC LICENSE', 'Version 2, June 1991'].join('\n'),
               relativePath: 'LICENSE'),
           null);
       expect(
-          detectLicenseInContent(['GNU GPL Version 2'].join('\n'),
+          await detectLicenseInContent(['GNU GPL Version 2'].join('\n'),
               relativePath: 'LICENSE'),
           null);
       await expectFile(
@@ -76,7 +76,7 @@ void main() {
   group('LGPL', () {
     test('explicit', () async {
       expect(
-          detectLicenseInContent(
+          await detectLicenseInContent(
               '\nGNU LESSER GENERAL PUBLIC LICENSE\n    Version 3, 29 June 2007',
               relativePath: 'LICENSE'),
           null);
@@ -92,11 +92,11 @@ void main() {
   group('MIT', () {
     test('explicit', () async {
       expect(
-          detectLicenseInContent('\n\n   The MIT license\n\n blah...',
+          await detectLicenseInContent('\n\n   The MIT license\n\n blah...',
               relativePath: 'LICENSE'),
           null);
       expect(
-          detectLicenseInContent('MIT license\n\n blah...',
+          await detectLicenseInContent('MIT license\n\n blah...',
               relativePath: 'LICENSE'),
           null);
       await expectFile('test/licenses/mit.txt', LicenseFile('mit.txt', 'MIT'));
@@ -108,7 +108,7 @@ void main() {
   group('MPL', () {
     test('explicit', () async {
       expect(
-          detectLicenseInContent(
+          await detectLicenseInContent(
               '\n\n   Mozilla Public License Version 2.0\n\n blah...',
               relativePath: 'LICENSE'),
           null);
@@ -120,7 +120,7 @@ void main() {
   group('Unlicense', () {
     test('explicit', () async {
       expect(
-          detectLicenseInContent(
+          await detectLicenseInContent(
               '\n\n   This is free and unencumbered software released into the public domain.\n',
               relativePath: 'LICENSE'),
           null);
@@ -130,8 +130,8 @@ void main() {
   });
 
   group('unknown', () {
-    test('empty content', () {
-      expect(detectLicenseInContent('', relativePath: 'LICENSE'), isNull);
+    test('empty content', () async {
+      expect(await detectLicenseInContent('', relativePath: 'LICENSE'), isNull);
     });
   });
 
