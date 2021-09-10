@@ -192,11 +192,6 @@ void testDiffMain() {
   var endTime = DateTime.now();
   var elapsedSeconds = endTime.difference(startTime).inMilliseconds / 1000;
 
-  // Test that we took at least the timeout period.
-  test('diff_main: Timeout min', () {
-    expect(diffTimeout, lessThanOrEqualTo(elapsedSeconds));
-  });
-
   // Test that we didn't take forever (be forgiving).
   // Theoretically this test could fail very occasionally if the
   // OS task swaps or locks up for a second at the wrong moment.
