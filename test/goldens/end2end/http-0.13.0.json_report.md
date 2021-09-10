@@ -32,15 +32,15 @@
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`http_parser`]|`^4.0.0`|4.0.0|4.0.0|
-|[`meta`]|`^1.3.0`|1.4.0|1.4.0|
+|[`meta`]|`^1.3.0`|1.7.0|1.7.0|
 |[`path`]|`^1.8.0`|1.8.0|1.8.0|
-|[`pedantic`]|`^1.10.0`|1.11.0|1.11.0|
+|[`pedantic`]|`^1.10.0`|1.11.1|1.11.1|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`charcode`]|-|1.2.0|1.2.0|
+|[`charcode`]|-|1.3.1|1.3.1|
 |[`collection`]|-|1.15.0|1.15.0|
 |[`source_span`]|-|1.8.1|1.8.1|
 |[`string_scanner`]|-|1.1.0|1.1.0|

@@ -3,6 +3,8 @@
 * New license detection.
 * Use `package:lints/core.yaml` as default `analysis_options.yaml` override.
 * Upgraded `package:analyzer` to `^2.1.0` and updated deprecated code use.
+* Updated tool environemnt to use `[ dart | flutter ] format` instead of `dartfmt`.
+* Updated tool environment to use `flutter pub outdated` when package uses Flutter. 
 
 ## 0.20.1
 
