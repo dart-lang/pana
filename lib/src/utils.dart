@@ -244,4 +244,23 @@ extension ProcessResultExt on ProcessResult {
       this.stderr.toString().trim(),
     ].join('\n').trim();
   }
+
+  /// Return the line-concatenated output of `stdout` and `stderr`
+  /// (both converted to [String]), with limits on individual line
+  /// lengths and total lines. Total length should not be more than 4KiB.
+  String get asTrimmedOutput {
+    Iterable<String> firstFewLines(String type, String output) sync* {
+      if (output.isEmpty) return;
+      yield '$type:';
+      yield* const LineSplitter()
+          .convert(output)
+          .take(10)
+          .map((e) => e.length > 200 ? e.substring(0, 200) : e);
+    }
+
+    return [
+      ...firstFewLines('OUT', this.stdout.toString().trim()),
+      ...firstFewLines('ERR', this.stderr.toString().trim()),
+    ].join('.\n').trim();
+  }
 }

@@ -346,25 +346,21 @@ class ToolEnvironment {
     List<String> args = const [],
     required bool usesFlutter,
   }) async {
+    // NOTE: `flutter pub get` also runs `pub get` in the example directory.
+    //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
+    // TODO: use the out-out flag as soon it becomes available
     final getResult = await runProc(
-      [
-        if (!usesFlutter) ..._dartCmd,
-        if (usesFlutter) ..._flutterCmd,
-        'pub',
-        'get',
-        '.',
-      ],
+      [..._dartCmd, 'pub', 'get', '.'],
       environment: _environment,
       workingDirectory: packageDir,
     );
     if (getResult.exitCode != 0) {
       throw ToolException(
-          '`${usesFlutter ? 'flutter' : 'dart'} pub get` failed: \n\n ```\n${getResult.asJoinedOutput}\n```');
+          '`dart pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```');
     }
     final result = await runProc(
       [
-        if (!usesFlutter) ..._dartCmd,
-        if (usesFlutter) ..._flutterCmd,
+        ..._dartCmd,
         'pub',
         'outdated',
         ...args,
@@ -374,7 +370,7 @@ class ToolEnvironment {
     );
     if (result.exitCode != 0) {
       throw ToolException(
-          '`${usesFlutter ? 'flutter' : 'dart'} pub outdated` failed: ${result.stderr}');
+          '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```');
     } else {
       return json.decode(result.asJoinedOutput) as Map<String, dynamic>;
     }
