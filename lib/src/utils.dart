@@ -267,6 +267,6 @@ extension ProcessResultExt on ProcessResult {
     return [
       ...firstFewLines('OUT', this.stdout.toString().trim()),
       ...firstFewLines('ERR', this.stderr.toString().trim()),
-    ].join('.\n').trim();
+    ].join('\n').trim();
   }
 }
