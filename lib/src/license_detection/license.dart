@@ -215,7 +215,7 @@ Map<String, int> generateFrequencyTable(List<Token> tokens) {
 ///
 /// [1]: https://spdx.dev/ids/
 List<License> loadLicensesFromDirectories(Iterable<String> directories) {
-  var licenses = <License>[];
+  final licenses = <License>[];
 
   for (var dir in directories) {
     Directory(dir).listSync(recursive: false).forEach((file) {
@@ -228,7 +228,7 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
       }
     });
   }
-
+  licenses.sort((a, b) => a.identifier.compareTo(b.identifier));
   return List.unmodifiable(licenses);
 }
 
