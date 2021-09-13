@@ -1,3 +1,8 @@
+## 0.21.1
+
+* Use only `dart pub get` for outdated check.
+* Trim output of failed outdated process.
+
 ## 0.21.0
 
 * New license detection.

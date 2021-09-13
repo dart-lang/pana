@@ -57,8 +57,7 @@
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "MIT",
-    "url": "https://github.com/ryanheise/audio_service/blob/master/LICENSE"
+    "name": "MIT"
   },
   "allDependencies": [
     "async",
