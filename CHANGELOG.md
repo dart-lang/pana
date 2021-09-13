@@ -1,3 +1,7 @@
+## 0.21.1+1
+
+* Fix release.
+
 ## 0.21.1
 
 * Use only `dart pub get` for outdated check.
