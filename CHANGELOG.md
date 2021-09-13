@@ -1,3 +1,7 @@
+## 0.21.2
+
+- Consistent license evaluation order.
+
 ## 0.21.1+1
 
 * Fix release.
