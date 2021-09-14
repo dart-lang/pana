@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 void main() {
   test('running pana locally with relative path', () async {
     final pr = await runProc(
-      ['dart', 'bin/pana.dart', '.'],
+      ['dart', 'bin/pana.dart', '--no-warning', '.'],
       timeout: const Duration(minutes: 1),
     );
     expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
