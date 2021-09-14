@@ -7,8 +7,11 @@ import 'package:test/test.dart';
 
 void main() {
   test('running pana locally with relative path', () async {
-    final pr = await runProc(['dart', 'bin/pana.dart', '.']);
-    expect(pr.exitCode, 0);
+    final pr = await runProc(
+      ['dart', 'bin/pana.dart', '.'],
+      timeout: const Duration(minutes: 1),
+    );
+    expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
 
     final output = pr.stdout.toString();
     final snippets = [
