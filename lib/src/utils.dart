@@ -25,7 +25,7 @@ const _maxOutputLinesWhenKilled = 1000;
 /// Kills the process if its output is more than [maxOutputBytes] (10 MiB if not specified).
 ///
 /// If the process is killed, it returns only the first 1000 lines of both `stdout` and `stderr`.
-Future<ProcessResult> runProc(
+Future<PanaProcessResult> runProc(
   List<String> arguments, {
   String? workingDirectory,
   Map<String, String>? environment,
@@ -44,6 +44,8 @@ Future<ProcessResult> runProc(
   var remainingBytes = maxOutputBytes;
 
   var killed = false;
+  var wasTimeout = false;
+  var wasOutputExceeded = false;
   String? killMessage;
 
   void killProc(String message) {
@@ -56,6 +58,7 @@ Future<ProcessResult> runProc(
   }
 
   var timer = Timer(timeout, () {
+    wasTimeout = true;
     killProc('Exceeded timeout of $timeout');
   });
 
@@ -65,6 +68,7 @@ Future<ProcessResult> runProc(
       stdoutLines.add(outLine);
       remainingBytes -= outLine.length;
       if (remainingBytes < 0) {
+        wasOutputExceeded = true;
         killProc('Output exceeded $maxOutputBytes bytes.');
       }
     }),
@@ -72,6 +76,7 @@ Future<ProcessResult> runProc(
       stderrLines.add(errLine);
       remainingBytes -= errLine.length;
       if (remainingBytes < 0) {
+        wasOutputExceeded = true;
         killProc('Output exceeded $maxOutputBytes bytes.');
       }
     })
@@ -81,29 +86,33 @@ Future<ProcessResult> runProc(
 
   final exitCode = items[0] as int;
   if (killed) {
-    return ProcessResult(
+    return PanaProcessResult(
       process.pid,
       exitCode,
       stdoutLines
           .map(systemEncoding.decode)
-          .map(const LineSplitter().convert)
+          .expand(const LineSplitter().convert)
           .take(_maxOutputLinesWhenKilled)
           .join('\n'),
       [
         if (killMessage != null) killMessage,
         ...stderrLines
             .map(systemEncoding.decode)
-            .map(const LineSplitter().convert)
+            .expand(const LineSplitter().convert)
             .take(_maxOutputLinesWhenKilled),
       ].join('\n'),
+      wasTimeout: wasTimeout,
+      wasOutputExceeded: wasOutputExceeded,
     );
   }
 
-  return ProcessResult(
+  return PanaProcessResult(
     process.pid,
     exitCode,
     stdoutLines.map(systemEncoding.decode).join(),
     stderrLines.map(systemEncoding.decode).join(),
+    wasTimeout: wasTimeout,
+    wasOutputExceeded: wasOutputExceeded,
   );
 }
 
@@ -235,7 +244,19 @@ Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
       retryIf: (e) => e is SocketException || e is TimeoutException);
 }
 
-extension ProcessResultExt on ProcessResult {
+class PanaProcessResult extends ProcessResult {
+  final bool wasTimeout;
+  final bool wasOutputExceeded;
+
+  PanaProcessResult(
+    int pid,
+    int exitCode,
+    String stdout,
+    String stderr, {
+    this.wasTimeout = false,
+    this.wasOutputExceeded = false,
+  }) : super(pid, exitCode, stdout, stderr);
+
   /// Returns the line-concatened output of `stdout` and `stderr`
   /// (both converted to [String]), and the final output trimmed.
   String get asJoinedOutput {

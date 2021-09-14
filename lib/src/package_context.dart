@@ -16,7 +16,7 @@ import 'pkg_resolution.dart';
 import 'pubspec.dart';
 import 'pubspec_io.dart';
 import 'sdk_env.dart';
-import 'utils.dart' show listFocusDirs, ProcessResultExt;
+import 'utils.dart' show listFocusDirs;
 
 /// Calculates and stores the intermediate analysis and processing results that
 /// are required for the final report.
