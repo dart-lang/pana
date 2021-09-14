@@ -1,6 +1,7 @@
 ## 0.21.2
 
 - Consistent license evaluation order.
+- Better handling of timeout or output exceeded.
 
 ## 0.21.1+1
 
