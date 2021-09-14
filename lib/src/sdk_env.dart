@@ -186,6 +186,11 @@ class ToolEnvironment {
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
       );
+      final error = proc.stderr.toString().trim();
+      if (error.startsWith('Output exceeded ')) {
+        throw ToolException(
+            'Running `dart analyze` produced too large output.');
+      }
       final output = proc.asJoinedOutput;
       if (output.startsWith('Exceeded timeout of ')) {
         throw ToolException('Running `dart analyze` timed out.');

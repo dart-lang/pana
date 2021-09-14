@@ -86,14 +86,14 @@ Future<ProcessResult> runProc(
       exitCode,
       stdoutLines
           .map(systemEncoding.decode)
-          .map(const LineSplitter().convert)
+          .expand(const LineSplitter().convert)
           .take(_maxOutputLinesWhenKilled)
           .join('\n'),
       [
         if (killMessage != null) killMessage,
         ...stderrLines
             .map(systemEncoding.decode)
-            .map(const LineSplitter().convert)
+            .expand(const LineSplitter().convert)
             .take(_maxOutputLinesWhenKilled),
       ].join('\n'),
     );
