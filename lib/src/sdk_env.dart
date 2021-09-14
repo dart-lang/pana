@@ -186,13 +186,12 @@ class ToolEnvironment {
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
       );
-      final error = proc.stderr.toString().trim();
-      if (error.startsWith('Output exceeded ')) {
+      if (proc.wasOutputExceeded) {
         throw ToolException(
             'Running `dart analyze` produced too large output.');
       }
       final output = proc.asJoinedOutput;
-      if (output.startsWith('Exceeded timeout of ')) {
+      if (proc.wasTimeout) {
         throw ToolException('Running `dart analyze` timed out.');
       }
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
@@ -272,7 +271,7 @@ class ToolEnvironment {
     return files.toList()..sort();
   }
 
-  Future<ProcessResult> _execPubUpgrade(
+  Future<PanaProcessResult> _execPubUpgrade(
       String packageDir, Map<String, String> environment) {
     return runProc(
       [..._pubCmd, 'upgrade', '--verbose'],
@@ -281,7 +280,7 @@ class ToolEnvironment {
     );
   }
 
-  Future<ProcessResult> _execFlutterUpgrade(
+  Future<PanaProcessResult> _execFlutterUpgrade(
           String packageDir, Map<String, String> environment) =>
       runProc(
         [
@@ -319,7 +318,7 @@ class ToolEnvironment {
     return false;
   }
 
-  Future<ProcessResult> runUpgrade(String packageDir, bool usesFlutter,
+  Future<PanaProcessResult> runUpgrade(String packageDir, bool usesFlutter,
       {int retryCount = 3}) async {
     final backup = await _stripAndAugmentPubspecYaml(packageDir);
     try {
@@ -551,7 +550,7 @@ class ToolException implements Exception {
   }
 }
 
-ProcessResult _handleProcessErrors(ProcessResult result) {
+PanaProcessResult _handleProcessErrors(PanaProcessResult result) {
   if (result.exitCode != 0) {
     if (result.exitCode == 69) {
       // could be a pub error. Let's try to parse!
@@ -572,13 +571,13 @@ ProcessResult _handleProcessErrors(ProcessResult result) {
 }
 
 /// Executes [body] and returns with the first clean or the last failure result.
-Future<ProcessResult> _retryProc(
-  Future<ProcessResult> Function() body, {
+Future<PanaProcessResult> _retryProc(
+  Future<PanaProcessResult> Function() body, {
   required bool Function(ProcessResult pr) shouldRetry,
   int maxAttempt = 3,
   Duration sleep = const Duration(seconds: 1),
 }) async {
-  ProcessResult? result;
+  PanaProcessResult? result;
   for (var i = 1; i <= maxAttempt; i++) {
     try {
       result = await body();
