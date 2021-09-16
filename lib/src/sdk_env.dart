@@ -297,15 +297,17 @@ class ToolEnvironment {
   Future<Map<String, dynamic>> getFlutterVersion() async {
     final result = _handleProcessErrors(
         await runProc([..._flutterCmd, '--version', '--machine']));
-    var content = result.asJoinedOutput;
     final waitingForString = 'Waiting for another flutter';
-    if (content.contains(waitingForString)) {
-      content = content
-          .split('\n')
-          .where((e) => !e.contains(waitingForString))
-          .join('\n');
-    }
-    return json.decode(content) as Map<String, dynamic>;
+    return result.parseJson(transform: (content) {
+      if (content.contains(waitingForString)) {
+        return content
+            .split('\n')
+            .where((e) => !e.contains(waitingForString))
+            .join('\n');
+      } else {
+        return content;
+      }
+    });
   }
 
   Future<bool> detectFlutterUse(String packageDir) async {
@@ -376,7 +378,7 @@ class ToolEnvironment {
       throw ToolException(
           '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```');
     } else {
-      return json.decode(result.asJoinedOutput) as Map<String, dynamic>;
+      return result.parseJson();
     }
   }
 
