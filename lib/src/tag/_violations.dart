@@ -4,6 +4,7 @@
 
 import 'package:analyzer/dart/analysis/session.dart';
 
+import '../sdk_env.dart' show ToolException;
 import '_common.dart';
 import '_graphs.dart';
 import '_specs.dart';
@@ -66,12 +67,13 @@ class DeclaredFlutterPlatformDetector {
 }
 
 class PlatformViolationFinder {
+  final FlutterPlatform platform;
   final PathFinder<Uri> declaredPlatformFinder;
   final PathFinder<Uri> _runtimeSupport;
   final DeclaredFlutterPlatformDetector platformDetector;
 
   PlatformViolationFinder(
-    FlutterPlatform platform,
+    this.platform,
     LibraryGraph libraryGraph,
     this.platformDetector,
     PubspecCache pubspecCache,
@@ -94,8 +96,12 @@ class PlatformViolationFinder {
         });
 
   Explanation? findPlatformViolation(Uri root) {
-    final declaredPlatformResult = declaredPlatformFinder.findViolation(root);
-    return declaredPlatformResult ?? _runtimeSupport.findViolation(root);
+    try {
+      final declaredPlatformResult = declaredPlatformFinder.findViolation(root);
+      return declaredPlatformResult ?? _runtimeSupport.findViolation(root);
+    } on ToolException catch (e) {
+      return Explanation('Unable to verify', '$e', tag: platform.tag);
+    }
   }
 }
 
@@ -145,11 +151,15 @@ class SdkViolationFinder {
       // check if all of the top libraries are supported
       var supports = true;
       for (final lib in topLibraries) {
-        final runtimeResult = violationFinder.findViolation(lib);
-        if (runtimeResult != null) {
-          explanations.add(runtimeResult);
-          supports = false;
-          break;
+        try {
+          final runtimeResult = violationFinder.findViolation(lib);
+          if (runtimeResult != null) {
+            explanations.add(runtimeResult);
+            supports = false;
+            break;
+          }
+        } on ToolException catch (e) {
+          return Explanation('Unable to verify `$lib`.', '$e', tag: sdk.tag);
         }
       }
       if (supports) return null;

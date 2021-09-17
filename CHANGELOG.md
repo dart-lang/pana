@@ -2,6 +2,7 @@
 
 - Consistent license evaluation order.
 - Better handling of timeout or output exceeded.
+- Better handling of analyzer/code parsing errors.
 
 ## 0.21.1+1
 
