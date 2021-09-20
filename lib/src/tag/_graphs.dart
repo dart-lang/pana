@@ -4,11 +4,15 @@
 
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
 
 import '../pubspec.dart';
 import '../pubspec_io.dart' show pubspecFromDir;
+import '../sdk_env.dart' show ToolException;
 import '_common.dart';
+
+final _logger = Logger('pana.tag.graphs');
 
 abstract class DirectedGraph<T> {
   Set<T> directSuccessors(T t);
@@ -83,71 +87,77 @@ class LibraryGraph implements DirectedGraph<Uri> {
   /// `dart:ui` as their only successor.
   @override
   Set<Uri> directSuccessors(Uri uri) {
-    return _cache.putIfAbsent(uri, () {
-      final uriString = uri.toString();
-      if (uriString.startsWith('dart:') ||
-          uriString.startsWith('dart-ext:') ||
-          _isLeaf(uri)) {
-        return <Uri>{};
-      }
-      // HACK: package:flutter comes from the SDK, we do not want to look at its
-      // import graph.
-      //
-      // We need this because package:flutter imports dart:io, even though it is
-      // allowed on web.
-      if (uriString.startsWith('package:flutter/')) {
-        return <Uri>{Uri.parse('dart:ui')};
-      }
-
-      final path = _analysisSession.uriConverter.uriToPath(uri);
-      if (path == null) {
-        // Could not resolve uri.
-        // Probably a missing/broken dependency.
-        throw TagException('Could not resolve import: $uri');
-      }
-      final unit = parsedUnitFromUri(_analysisSession, uri);
-      if (unit == null) {
-        // Part files cannot contain import/export directives.
-        return <Uri>{};
-      }
-      final dependencies = <Uri>{};
-      for (final node in unit.sortedDirectivesAndDeclarations) {
-        if (node is! ImportDirective && node is! ExportDirective) {
-          continue;
+    try {
+      return _cache.putIfAbsent(uri, () {
+        final uriString = uri.toString();
+        if (uriString.startsWith('dart:') ||
+            uriString.startsWith('dart-ext:') ||
+            _isLeaf(uri)) {
+          return <Uri>{};
         }
-        // The syntax for an import:
+        // HACK: package:flutter comes from the SDK, we do not want to look at its
+        // import graph.
         //
-        //    directive ::=
-        //        'import' stringLiteral (configuration)*
-        //      | 'export' stringLiteral (configuration)*
-        //
-        //    configuration ::= 'if' '(' test ')' uri
-        //
-        //    test ::= dottedName ('==' stringLiteral)?
-        //
-        // We have dependency upon `directive.uri` resolved relative to this
-        // library `uri`. Unless there is a `configuration` for which the `test`
-        // evaluates to true.
-        final directive = node as NamespaceDirective;
-        var dependency = uri.resolve(directive.uri.stringValue!);
+        // We need this because package:flutter imports dart:io, even though it is
+        // allowed on web.
+        if (uriString.startsWith('package:flutter/')) {
+          return <Uri>{Uri.parse('dart:ui')};
+        }
 
-        for (final configuration in directive.configurations) {
-          final dottedName =
-              configuration.name.components.map((i) => i.name).join('.');
-
-          final testValue = configuration.value?.stringValue ?? 'true';
-          final actualValue = _declaredVariables[dottedName] ?? '';
-
-          if (actualValue == testValue) {
-            dependency = uri.resolve(configuration.uri.stringValue!);
-            break; // Aways pick the first satisfied configuration.
+        final path = _analysisSession.uriConverter.uriToPath(uri);
+        if (path == null) {
+          // Could not resolve uri.
+          // Probably a missing/broken dependency.
+          throw TagException('Could not resolve import: $uri');
+        }
+        final unit = parsedUnitFromUri(_analysisSession, uri);
+        if (unit == null) {
+          // Part files cannot contain import/export directives.
+          return <Uri>{};
+        }
+        final dependencies = <Uri>{};
+        for (final node in unit.sortedDirectivesAndDeclarations) {
+          if (node is! ImportDirective && node is! ExportDirective) {
+            continue;
           }
-        }
+          // The syntax for an import:
+          //
+          //    directive ::=
+          //        'import' stringLiteral (configuration)*
+          //      | 'export' stringLiteral (configuration)*
+          //
+          //    configuration ::= 'if' '(' test ')' uri
+          //
+          //    test ::= dottedName ('==' stringLiteral)?
+          //
+          // We have dependency upon `directive.uri` resolved relative to this
+          // library `uri`. Unless there is a `configuration` for which the `test`
+          // evaluates to true.
+          final directive = node as NamespaceDirective;
+          var dependency = uri.resolve(directive.uri.stringValue!);
 
-        dependencies.add(dependency);
-      }
-      return dependencies;
-    });
+          for (final configuration in directive.configurations) {
+            final dottedName =
+                configuration.name.components.map((i) => i.name).join('.');
+
+            final testValue = configuration.value?.stringValue ?? 'true';
+            final actualValue = _declaredVariables[dottedName] ?? '';
+
+            if (actualValue == testValue) {
+              dependency = uri.resolve(configuration.uri.stringValue!);
+              break; // Aways pick the first satisfied configuration.
+            }
+          }
+
+          dependencies.add(dependency);
+        }
+        return dependencies;
+      });
+    } catch (e, st) {
+      _logger.warning('Unable to parse "$uri".\n$e', st);
+      throw ToolException(
+          'Unable to parse uri: "$uri": `${e.toString().split('\n').first}`.');
+    }
   }
 
   static String formatPath(List<Uri> path) {
