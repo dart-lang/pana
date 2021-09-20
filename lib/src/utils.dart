@@ -14,6 +14,7 @@ import 'package:retry/retry.dart';
 import 'package:yaml/yaml.dart';
 
 import 'logging.dart';
+import 'sdk_env.dart' show ToolException;
 
 final _timeout = const Duration(minutes: 2);
 const _maxOutputBytes = 10 * 1024 * 1024; // 10 MiB
@@ -289,5 +290,19 @@ class PanaProcessResult extends ProcessResult {
       ...firstFewLines('OUT', this.stdout.toString().trim()),
       ...firstFewLines('ERR', this.stderr.toString().trim()),
     ].join('\n').trim();
+  }
+
+  /// Parses the output of the process as JSON.
+  Map<String, dynamic> parseJson({
+    String Function(String value)? transform,
+  }) {
+    final value =
+        transform == null ? asJoinedOutput : transform(asJoinedOutput);
+    try {
+      return json.decode(value) as Map<String, dynamic>;
+    } on FormatException catch (_) {
+      throw ToolException(
+          'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n');
+    }
   }
 }

@@ -3,6 +3,7 @@
 - Consistent license evaluation order.
 - Better handling of timeout or output exceeded.
 - Better handling of analyzer/code parsing errors.
+- Better handling of JSON parsing issues.
 
 ## 0.21.1+1
 
