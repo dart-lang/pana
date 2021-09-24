@@ -94,6 +94,7 @@
     "platform:linux",
     "platform:macos",
     "platform:web",
+    "is:plugin",
     "is:null-safe"
   ],
   "report": {

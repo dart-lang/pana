@@ -48,6 +48,7 @@ void main() {
             'runtime:web',
           },
           explanations: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
     test('analyzes the primary libray', () async {
       final descriptor = d.dir('cache', [
@@ -90,6 +91,7 @@ int fourtyTwo() => 42;
       _expectTagging(tagger.sdkTags, tags: {'sdk:dart'});
       _expectTagging(tagger.flutterPlatformTags, tags: isEmpty);
       _expectTagging(tagger.runtimeTags, tags: {'runtime:native-jit'});
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
 
     test('flutter old style plugins', () async {
@@ -116,6 +118,7 @@ int fourtyTwo() => 42;
       _expectTagging(tagger.flutterPlatformTags,
           tags: {'platform:ios', 'platform:android'});
       _expectTagging(tagger.runtimeTags, tags: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: {'is:plugin'});
     });
 
     test('flutter old style plugins2', () async {
@@ -141,6 +144,7 @@ int fourtyTwo() => 42;
       _expectTagging(tagger.flutterPlatformTags,
           tags: {'platform:ios', 'platform:android'});
       _expectTagging(tagger.runtimeTags, tags: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: {'is:plugin'});
     });
 
     test('using dart:mirrors disqualifies Flutter and aot', () async {
@@ -159,6 +163,7 @@ int fourtyTwo() => 42;
       _expectTagging(tagger.runtimeTags, tags: {
         'runtime:native-jit',
       });
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
     test('using flutter plugin', () async {
       final descriptor = d.dir('cache', [
@@ -187,6 +192,7 @@ int fourtyTwo() => fourtyThree() - 1;
       _expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
       _expectTagging(tagger.flutterPlatformTags, tags: {'platform:ios'});
       _expectTagging(tagger.runtimeTags, tags: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
     test('using flutter plugin2', () async {
       final descriptor = d.dir('cache', [
@@ -215,6 +221,7 @@ int fourtyTwo() => fourtyThree() - 1;
       _expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
       _expectTagging(tagger.flutterPlatformTags, tags: {'platform:web'});
       _expectTagging(tagger.runtimeTags, tags: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
     test('Flutter plugins declarations are respected', () async {
       final decriptor = d.dir('cache', [
@@ -260,6 +267,7 @@ int fourtyTwo() => 42;
       _expectTagging(tagger.flutterPlatformTags,
           tags: {'platform:ios', 'platform:web'});
       _expectTagging(tagger.runtimeTags, tags: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: {'is:plugin'});
     });
 
     test('Using mirrors', () async {
@@ -321,6 +329,7 @@ Because:
 * `package:my_package/my_package.dart` that imports:
 * `dart:io`''')
       });
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
 
     test('Configurable import', () async {
@@ -363,6 +372,7 @@ int fourtyThree() => 43;
       _expectTagging(tagger.runtimeTags,
           tags: {'runtime:native-aot', 'runtime:native-jit', 'runtime:web'},
           explanations: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
 
     test('file: imports are ignored', () async {
@@ -407,6 +417,7 @@ name: my_package
             'runtime:web',
           },
           explanations: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
 
     test('no dart files', () async {
@@ -435,6 +446,7 @@ name: my_package
             'runtime:web',
           },
           explanations: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
     test('no dart files with Flutter plugins declarations', () async {
       final decriptor = d.dir('cache', [
@@ -464,6 +476,7 @@ name: my_package
         'platform:macos',
       });
       _expectTagging(tagger.runtimeTags, tags: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: {'is:plugin'});
     });
   });
 }

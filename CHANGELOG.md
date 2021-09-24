@@ -1,3 +1,7 @@
+## 0.21.3
+
+- Tag Flutter plugins with `is:plugin`.
+
 ## 0.21.2
 
 - Consistent license evaluation order.
