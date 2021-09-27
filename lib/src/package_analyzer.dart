@@ -178,6 +178,7 @@ class PackageAnalyzer {
         tagger.sdkTags(tags, explanations);
         tagger.flutterPlatformTags(tags, explanations);
         tagger.runtimeTags(tags, explanations);
+        tagger.flutterPluginTags(tags, explanations);
         tagger.nullSafetyTags(tags, explanations);
       }
     }

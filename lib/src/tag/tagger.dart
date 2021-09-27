@@ -295,6 +295,15 @@ class Tagger {
     }
   }
 
+  /// Adds tags for Flutter plugins.
+  void flutterPluginTags(List<String> tags, List<Explanation> explanations) {
+    const _pluginTag = 'is:plugin';
+    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
+    if (pubspec.hasFlutterPluginKey) {
+      tags.add(_pluginTag);
+    }
+  }
+
   /// Adds tags for the Dart runtimes that this package supports to [tags].
   ///
   /// Adds [Explanation]s to [explanations] for runtimes not supported.
