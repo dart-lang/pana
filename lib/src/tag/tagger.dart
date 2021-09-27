@@ -81,7 +81,6 @@ import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 
 import '../null_safety.dart';
-import '../pubspec.dart';
 import '../pubspec_io.dart' show pubspecFromDir;
 import '../utils.dart' show dartFilesFromLib;
 import '_common.dart';
@@ -95,7 +94,6 @@ export '_specs.dart' show Runtime;
 /// Calculates the tags for the package residing in a given directory.
 class Tagger {
   final String packageName;
-  final Pubspec _pubspec;
   final AnalysisSession _session;
   final PubspecCache _pubspecCache;
   final bool _isBinaryOnly;
@@ -117,7 +115,6 @@ class Tagger {
 
   Tagger._(
     this.packageName,
-    this._pubspec,
     this._session,
     PubspecCache pubspecCache,
     this._isBinaryOnly,
@@ -174,7 +171,6 @@ class Tagger {
         .toList();
     return Tagger._(
       pubspec.name,
-      pubspec,
       session,
       pubspecCache,
       isBinaryOnly,
@@ -302,7 +298,8 @@ class Tagger {
   /// Adds tags for Flutter plugins.
   void flutterPluginTags(List<String> tags, List<Explanation> explanations) {
     const _pluginTag = 'is:plugin';
-    if (_pubspec.hasFlutterPluginKey) {
+    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
+    if (pubspec.hasFlutterPluginKey) {
       tags.add(_pluginTag);
     }
   }
