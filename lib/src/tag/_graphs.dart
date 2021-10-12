@@ -9,7 +9,6 @@ import 'package:path/path.dart' as path;
 
 import '../pubspec.dart';
 import '../pubspec_io.dart' show pubspecFromDir;
-import '../sdk_env.dart' show ToolException;
 import '_common.dart';
 
 final _logger = Logger('pana.tag.graphs');
@@ -155,7 +154,7 @@ class LibraryGraph implements DirectedGraph<Uri> {
       });
     } catch (e, st) {
       _logger.warning('Unable to parse "$uri".\n$e', st);
-      throw ToolException(
+      throw TagException(
           'Unable to parse uri: "$uri": `${e.toString().split('\n').first}`.');
     }
   }
