@@ -1,6 +1,7 @@
 ## 0.21.3
 
 - Tag Flutter plugins with `is:plugin`.
+- Fix thrown exception to use `TagException`.
 
 ## 0.21.2
 
