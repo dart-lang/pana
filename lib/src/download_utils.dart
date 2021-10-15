@@ -56,7 +56,11 @@ Future<void> downloadPackage(
 
 /// Returns an URL that is likely the downloadable URL of the given path.
 @Deprecated('The method will be removed in a future release.')
-String? getRepositoryUrl(String? repository, String relativePath) {
+String? getRepositoryUrl(
+  String? repository,
+  String relativePath, {
+  String branch = 'master',
+}) {
   if (repository == null || repository.isEmpty) return null;
   for (var key in _repoReplacePrefixes.keys) {
     if (repository!.startsWith(key)) {
@@ -86,7 +90,7 @@ String? getRepositoryUrl(String? repository, String relativePath) {
         return null;
       } else if (segments.length == 2) {
         final newUrl = uri.replace(pathSegments: segments).toString();
-        return p.url.join(newUrl, typeSegment, 'master', relativePath);
+        return p.url.join(newUrl, typeSegment, branch, relativePath);
       } else if (segments[2] == 'tree' || segments[2] == 'blob') {
         segments[2] = typeSegment;
         final newUrl = uri.replace(pathSegments: segments).toString();

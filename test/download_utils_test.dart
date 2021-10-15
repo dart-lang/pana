@@ -39,6 +39,17 @@ void main() {
           '$prefix/dart-lang/angular/raw/master/logo.png');
     });
 
+    test('image links in specific branch', () {
+      expect(
+        getRepositoryUrl(
+          '$prefix/dart-lang/angular',
+          'logo.png',
+          branch: 'main',
+        ),
+        '$prefix/dart-lang/angular/raw/main/logo.png',
+      );
+    });
+
     test('image links in project subdir', () {
       expect(
           getRepositoryUrl(
