@@ -18,8 +18,7 @@
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "MIT",
-    "url": "https://github.com/agilord/bulma_min/blob/master/LICENSE"
+    "name": "MIT"
   },
   "allDependencies": [],
   "tags": [

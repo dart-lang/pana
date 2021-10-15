@@ -1,3 +1,7 @@
+## 0.21.4
+
+- NOTE: `LicenseFile.url` and `getRepositoryUrl` is deprecated, will be removed in a future release.
+
 ## 0.21.3
 
 - Tag Flutter plugins with `is:plugin`.

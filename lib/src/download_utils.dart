@@ -55,6 +55,7 @@ Future<void> downloadPackage(
 }
 
 /// Returns an URL that is likely the downloadable URL of the given path.
+@Deprecated('The method will be removed in a future release.')
 String? getRepositoryUrl(String? repository, String relativePath) {
   if (repository == null || repository.isEmpty) return null;
   for (var key in _repoReplacePrefixes.keys) {

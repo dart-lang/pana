@@ -21,8 +21,7 @@
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "MIT",
-    "url": "https://github.com/stevenroose/dart-skiplist/blob/master/LICENSE"
+    "name": "MIT"
   },
   "tags": [],
   "report": {

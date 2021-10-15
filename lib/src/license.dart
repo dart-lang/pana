@@ -12,7 +12,6 @@ import 'package:meta/meta.dart';
 import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:path/path.dart' as p;
 
-import 'download_utils.dart';
 import 'maintenance.dart';
 import 'model.dart';
 
@@ -23,22 +22,6 @@ Future<LicenseFile?> detectLicenseInDir(String baseDir) async {
     return detectLicenseInFile(file, relativePath: candidate);
   }
   return null;
-}
-
-Future<String?> getLicenseUrl(
-    UrlChecker urlChecker, String? baseUrl, LicenseFile? license) async {
-  if (baseUrl == null || baseUrl.isEmpty) {
-    return null;
-  }
-  if (license == null || license.path.isEmpty) {
-    return null;
-  }
-  final url = getRepositoryUrl(baseUrl, license.path);
-  if (url == null) {
-    return null;
-  }
-  final status = await urlChecker.checkStatus(url);
-  return status.exists ? url : null;
 }
 
 @visibleForTesting
