@@ -28,8 +28,7 @@
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "Apache-2.0",
-    "url": "https://github.com/google/webdriver.dart/blob/master/LICENSE"
+    "name": "Apache-2.0"
   },
   "allDependencies": [
     "archive",

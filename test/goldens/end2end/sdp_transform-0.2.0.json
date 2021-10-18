@@ -25,8 +25,7 @@
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "MIT",
-    "url": "https://github.com/cloudwebrtc/dart-sdp-transform/blob/master/LICENSE"
+    "name": "MIT"
   },
   "allDependencies": [
     "test"

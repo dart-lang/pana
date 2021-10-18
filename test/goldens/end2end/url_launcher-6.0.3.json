@@ -62,8 +62,7 @@
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "BSD-3-Clause",
-    "url": "https://github.com/flutter/plugins/blob/master/packages/url_launcher/url_launcher/LICENSE"
+    "name": "BSD-3-Clause"
   },
   "allDependencies": [
     "characters",

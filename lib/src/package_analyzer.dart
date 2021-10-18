@@ -184,8 +184,6 @@ class PackageAnalyzer {
     }
 
     final licenseFile = await detectLicenseInDir(pkgDir);
-    final licenseUrl = await getLicenseUrl(
-        _urlChecker, pubspec.repository ?? pubspec.homepage, licenseFile);
 
     final errorMessage = context.errors.isEmpty
         ? null
@@ -197,7 +195,7 @@ class PackageAnalyzer {
       pubspec: pubspec,
       allDependencies:
           pkgResolution?.dependencies.map((d) => d.package).toList(),
-      licenseFile: licenseFile?.change(url: licenseUrl),
+      licenseFile: licenseFile,
       tags: tags,
       report: await createReport(context),
       urlProblems: context.urlProblems.entries

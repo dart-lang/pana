@@ -116,6 +116,7 @@ class LicenseFile {
   final String path;
   final String name;
   final String? version;
+  @Deprecated('`url` is deprecated and will be removed in a future release')
   final String? url;
 
   LicenseFile(this.path, this.name, {this.version, this.url});
@@ -125,6 +126,7 @@ class LicenseFile {
 
   Map<String, dynamic> toJson() => _$LicenseFileToJson(this);
 
+  @Deprecated('`url` is deprecated and will be removed in a future release')
   LicenseFile change({String? url}) =>
       LicenseFile(path, name, version: version, url: url ?? this.url);
 
@@ -141,10 +143,12 @@ class LicenseFile {
           path == other.path &&
           name == other.name &&
           version == other.version &&
+          // ignore: deprecated_member_use_from_same_package
           url == other.url;
 
   @override
   int get hashCode =>
+      // ignore: deprecated_member_use_from_same_package
       path.hashCode ^ name.hashCode ^ version.hashCode ^ url.hashCode;
 }
 

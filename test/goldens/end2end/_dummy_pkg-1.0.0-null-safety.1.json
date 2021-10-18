@@ -17,8 +17,7 @@
   },
   "licenseFile": {
     "path": "LICENSE",
-    "name": "BSD-3-Clause",
-    "url": "https://github.com/dart-lang/pub-dev/blob/master/LICENSE"
+    "name": "BSD-3-Clause"
   },
   "tags": [],
   "report": {
