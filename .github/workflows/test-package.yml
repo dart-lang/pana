@@ -71,3 +71,26 @@ jobs:
         #   crash other tests run in parallel
         run: dart test --platform vm --run-skipped -j 1
         if: always() && steps.install.outcome == 'success'
+
+  # Runs tests on beta SDKs.
+  beta_e2e_light:
+    needs: analyze
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.0
+        with:
+          sdk: 'beta'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+      - name: Check Flutter
+        run: flutter --version --machine
+      - id: install
+        name: Install dependencies
+        run: dart pub upgrade
+      - name: Run end2end light tests
+        run: dart test --platform vm -j 1 test/end2end_light_test.dart
+        if: always() && steps.install.outcome == 'success'
