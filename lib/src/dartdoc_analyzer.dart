@@ -12,6 +12,7 @@ const documentationSectionTitle = 'Provide documentation';
 ReportSection documentationCoverageSection({
   required int documented,
   required int total,
+  List<String>? symbolsMissingDocumentation,
 }) {
   final maxPoints = 10;
   final ratio = total <= 0 ? 1.0 : documented / total;
@@ -28,6 +29,13 @@ ReportSection documentationCoverageSection({
         'Providing good documentation for libraries, classes, functions, and other API '
         'elements improves code readability and helps developers find and use your API. '
         'Document at least 20% of the public API elements.');
+  }
+
+  if (symbolsMissingDocumentation != null &&
+      symbolsMissingDocumentation.isNotEmpty) {
+    summary.write('\n\n'
+        'Some symbols that are missing documentation: '
+        '${symbolsMissingDocumentation.take(5).map((e) => '`$e`').join(', ')}.');
   }
 
   return ReportSection(
