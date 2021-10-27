@@ -155,6 +155,9 @@ void main() {
   // flutter-only package
   _verifyPackage('url_launcher', '6.0.3');
 
+  // single-platform Flutter plugin without Dart files or assets
+  _verifyPackage('nsd_android', '1.0.2');
+
   // multi-level symlink
   _verifyPackage('audio_service', '0.17.0');
 

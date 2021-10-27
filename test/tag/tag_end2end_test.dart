@@ -469,11 +469,7 @@ name: my_package
       _expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
       _expectTagging(tagger.flutterPlatformTags, tags: {
         'platform:ios',
-        'platform:android',
         'platform:web',
-        'platform:linux',
-        'platform:windows',
-        'platform:macos',
       });
       _expectTagging(tagger.runtimeTags, tags: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: {'is:plugin'});

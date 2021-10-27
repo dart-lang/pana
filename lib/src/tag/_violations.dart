@@ -68,7 +68,8 @@ class DeclaredFlutterPlatformDetector {
 
 class PlatformViolationFinder {
   final FlutterPlatform platform;
-  final PathFinder<Uri> declaredPlatformFinder;
+  final PathFinder<String> _packageDeclaredFinder;
+  final PathFinder<Uri> _libraryDeclaredFinder;
   final PathFinder<Uri> _runtimeSupport;
   final DeclaredFlutterPlatformDetector platformDetector;
 
@@ -78,7 +79,22 @@ class PlatformViolationFinder {
     this.platformDetector,
     PubspecCache pubspecCache,
     this._runtimeSupport,
-  ) : declaredPlatformFinder = PathFinder(libraryGraph, (uri) {
+  )   : _packageDeclaredFinder =
+            PathFinder(PackageGraph(pubspecCache), (package) {
+          final detectedPlatforms =
+              platformDetector._declaredFlutterPlatforms(package);
+          if (detectedPlatforms != null &&
+              !detectedPlatforms.contains(platform)) {
+            return (path) => Explanation(
+                  'Package does not support Flutter platform `${platform.name}`.',
+                  'Because:\n${PackageGraph.formatPath(path)} that declares support for '
+                      'platforms: ${detectedPlatforms.map((e) => '`${e.name}`').join(', ')}.',
+                  tag: platform.tag,
+                );
+          }
+          return null;
+        }),
+        _libraryDeclaredFinder = PathFinder(libraryGraph, (uri) {
           if (uri.scheme == 'package') {
             final detectedPlatforms = platformDetector
                 ._declaredFlutterPlatforms(pubspecCache.packageName(uri));
@@ -95,9 +111,24 @@ class PlatformViolationFinder {
           return null;
         });
 
-  Explanation? findPlatformViolation(Uri root) {
+  /// Returns the first platform violation using the transitive dependencies of
+  /// [topLibraries] or, if no such library is present, using the declared
+  /// platforms from the [package]'s `pubspec.yaml`.
+  Explanation? firstViolation(String package, List<Uri> topLibraries) {
+    if (topLibraries.isEmpty) {
+      return _packageDeclaredFinder.findViolation(package);
+    } else {
+      for (final uri in topLibraries) {
+        final e = _findPlatformViolation(uri);
+        if (e != null) return e;
+      }
+    }
+    return null;
+  }
+
+  Explanation? _findPlatformViolation(Uri root) {
     try {
-      final declaredPlatformResult = declaredPlatformFinder.findViolation(root);
+      final declaredPlatformResult = _libraryDeclaredFinder.findViolation(root);
       return declaredPlatformResult ?? _runtimeSupport.findViolation(root);
     } on ToolException catch (e) {
       return Explanation('Unable to verify', '$e', tag: platform.tag);
