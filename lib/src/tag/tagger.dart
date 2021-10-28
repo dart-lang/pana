@@ -271,19 +271,16 @@ class Tagger {
                       'Because:\n${LibraryGraph.formatPath(path)}',
                       tag: flutterPlatform.tag)));
           // Report only the first non-pruned violation as Explanation
-          final firstNonPrunedViolation = _topLibraries
-              .map(violationFinder.findPlatformViolation)
-              .firstWhere((e) => e != null, orElse: () => null);
+          final firstNonPrunedViolation =
+              violationFinder.firstViolation(packageName, _topLibraries);
           if (firstNonPrunedViolation != null) {
             explanations.add(firstNonPrunedViolation);
           }
 
           // Tag is supported, if there is no pruned violations
-          final supports = _topLibraries
-              .map(prunedViolationFinder.findPlatformViolation)
-              .every((e) => e == null);
-
-          if (supports) {
+          final firstPrunedViolation =
+              prunedViolationFinder.firstViolation(packageName, _topLibraries);
+          if (firstPrunedViolation == null) {
             tags.add(flutterPlatform.tag);
           }
         }

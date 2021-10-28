@@ -101,7 +101,6 @@ class PackageAnalyzer {
     );
 
     final dartFiles = <String>[];
-    final libAssets = <String>[];
     final fileList = listFiles(pkgDir, deleteBadExtracted: true);
     await for (final file in fileList) {
       final isInBin = path.isWithin('bin', file);
@@ -109,9 +108,6 @@ class PackageAnalyzer {
       final isDart = file.endsWith('.dart');
       if (isDart && (isInLib || isInBin)) {
         dartFiles.add(file);
-      }
-      if (!isDart && isInLib) {
-        libAssets.add(file);
       }
     }
 
@@ -169,7 +165,7 @@ class PackageAnalyzer {
           context.errors
               .add(runningDartanalyzerFailed(context.usesFlutter, e.message));
         }
-      } else if (libAssets.isNotEmpty) {
+      } else {
         analyzerItems = <CodeProblem>[];
       }
       if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {

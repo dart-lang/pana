@@ -2,6 +2,7 @@
 
 - `getRepositoryUrl` with custom `branch` parameter (defaults to `master`).
 - NOTE: `LicenseFile.url` and `getRepositoryUrl` is deprecated, will be removed in a future release.
+- Fix platform classification for Flutter plugins without Dart or asset files.
 
 ## 0.21.3
 
