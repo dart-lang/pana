@@ -4,14 +4,12 @@
 
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
 
+import '../logging.dart';
 import '../pubspec.dart';
 import '../pubspec_io.dart' show pubspecFromDir;
 import '_common.dart';
-
-final _logger = Logger('pana.tag.graphs');
 
 abstract class DirectedGraph<T> {
   Set<T> directSuccessors(T t);
@@ -152,8 +150,8 @@ class LibraryGraph implements DirectedGraph<Uri> {
         }
         return dependencies;
       });
-    } catch (e, st) {
-      _logger.warning('Unable to parse "$uri".\n$e', st);
+    } catch (e) {
+      log.info('Unable to parse "$uri".\n$e');
       throw TagException(
           'Unable to parse uri: "$uri": `${e.toString().split('\n').first}`.');
     }
