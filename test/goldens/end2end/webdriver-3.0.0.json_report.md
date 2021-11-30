@@ -21,9 +21,9 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 0/20 Support multiple platforms
+## 0/20 Platform Support
 
-### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)
+### [x] 0/20 points: Supports 0 of 6 possible platforms (iOS, Android, Web, Windows, MacOS, Linux)
 
 SDK issues found:
 <details>
@@ -31,19 +31,82 @@ SDK issues found:
 Package is not compatible with the Dart SDK.
 </summary>
 
-Because it is not compatible with any of the supported runtimes: `native-aot`, `native`, `js`.
+Because it is not compatible with any of the supported runtimes: `native-aot`, `vm-native`, `js`.
 
 Package is not compatible with Dart SDK using runtime `native-aot`. Because:
 * `package:webdriver/async_html.dart` that imports:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 
-Package is not compatible with Dart SDK using runtime `native`. Because:
+Package is not compatible with Dart SDK using runtime `vm-native`. Because:
 * `package:webdriver/async_html.dart` that imports:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 
 Package is not compatible with Dart SDK using runtime `js`. Because:
+* `package:webdriver/async_io.dart` that imports:
+* `package:webdriver/src/request/async_io_request_client.dart` that imports:
+* `dart:io`
+</details>
+
+These platforms are not supported:
+
+<details>
+<summary>
+Package not compatible with runtime native on Android
+</summary>
+
+Because:
+* `package:webdriver/async_html.dart` that imports:
+* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
+* `dart:html`
+</details>
+<details>
+<summary>
+Package not compatible with runtime native on iOS
+</summary>
+
+Because:
+* `package:webdriver/async_html.dart` that imports:
+* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
+* `dart:html`
+</details>
+<details>
+<summary>
+Package not compatible with runtime native on Windows
+</summary>
+
+Because:
+* `package:webdriver/async_html.dart` that imports:
+* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
+* `dart:html`
+</details>
+<details>
+<summary>
+Package not compatible with runtime native on Linux
+</summary>
+
+Because:
+* `package:webdriver/async_html.dart` that imports:
+* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
+* `dart:html`
+</details>
+<details>
+<summary>
+Package not compatible with runtime native on macOS
+</summary>
+
+Because:
+* `package:webdriver/async_html.dart` that imports:
+* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
+* `dart:html`
+</details>
+<details>
+<summary>
+Package not compatible with runtime web on Web
+</summary>
+
+Because:
 * `package:webdriver/async_io.dart` that imports:
 * `package:webdriver/src/request/async_io_request_client.dart` that imports:
 * `dart:io`
@@ -74,7 +137,7 @@ To format your files run: `dart format .`
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|`^3.0.0`|3.1.2|3.1.2|
+|[`archive`]|`^3.0.0`|3.1.6|3.1.6|
 |[`matcher`]|`^0.12.10`|0.12.11|0.12.11|
 |[`path`]|`^1.8.0`|1.8.0|1.8.0|
 |[`stack_trace`]|`^1.10.0`|1.10.0|1.10.0|

@@ -15,10 +15,16 @@
 
 * Found example at: `example/main.dart`
 
-## 20/20 Support multiple platforms
+## 20/20 Platform Support
 
-### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)
+### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)
 
+* ✓ Android
+* ✓ iOS
+* ✓ Windows
+* ✓ Linux
+* ✓ MacOS
+* ✓ Web
 
 ## 30/30 Pass static analysis
 

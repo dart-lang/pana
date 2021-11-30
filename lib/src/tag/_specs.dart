@@ -44,7 +44,7 @@ class Runtime {
   };
 
   static final nativeJit = Runtime(
-      'native',
+      'vm-native',
       {
         ..._onAllPlatforms,
         ..._onAllNative,
@@ -88,33 +88,45 @@ class Runtime {
     ..._onAllWeb,
     'ui',
   });
+
+  /// For platform detection we allow dart:ui.
+  static final broadWeb = Runtime('web', {
+    ..._onAllPlatforms,
+    ..._onAllWeb,
+    'ui',
+  });
+
+  /// For platform detection we allow dart:ui.
+  static final broadNative = Runtime('native', {
+    ..._onAllPlatforms,
+    ..._onAllNative,
+    'ui',
+  });
 }
 
-/// A platform where Flutter can be deployed.
-class FlutterPlatform {
+/// A platform where Dart and Flutter can be deployed.
+class Platform {
   final String name;
   final Runtime runtime;
   final String tag;
 
-  FlutterPlatform(this.name, this.runtime, {required this.tag});
+  Platform(this.name, this.runtime, {required this.tag});
 
-  static final List<FlutterPlatform> recognizedPlatforms = [
+  static final List<Platform> recognizedPlatforms = [
     android,
     ios,
-    FlutterPlatform('Windows', Runtime.flutterNative, tag: 'platform:windows'),
-    FlutterPlatform('Linux', Runtime.flutterNative, tag: 'platform:linux'),
-    FlutterPlatform('macOS', Runtime.flutterNative, tag: 'platform:macos'),
-    FlutterPlatform('Web', Runtime.flutterWeb, tag: 'platform:web')
+    Platform('Windows', Runtime.broadNative, tag: 'platform:windows'),
+    Platform('Linux', Runtime.broadNative, tag: 'platform:linux'),
+    Platform('macOS', Runtime.broadNative, tag: 'platform:macos'),
+    Platform('Web', Runtime.broadWeb, tag: 'platform:web'),
   ];
 
-  static final FlutterPlatform ios =
-      FlutterPlatform('iOS', Runtime.flutterNative, tag: 'platform:ios');
-
-  static final FlutterPlatform android = FlutterPlatform(
+  static final android = Platform(
     'Android',
-    Runtime.flutterNative,
+    Runtime.broadNative,
     tag: 'platform:android',
   );
+  static final ios = Platform('iOS', Runtime.broadNative, tag: 'platform:ios');
 
   @override
   String toString() => 'FlutterPlatform($name)';

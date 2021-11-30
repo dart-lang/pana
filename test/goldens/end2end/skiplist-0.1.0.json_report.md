@@ -29,9 +29,9 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 0/20 Support multiple platforms
+## 0/20 Platform Support
 
-### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)
+### [x] 0/20 points: Doesn't support any platforms
 
 <details>
 <summary>

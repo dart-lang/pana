@@ -16,7 +16,7 @@ void main() {
     final output = pr.stdout.toString();
     final snippets = [
       'The package description is too short.',
-      'Support multiple platforms (10 / 20)',
+      '## ✓ Platform Support (20 / 20)\n',
       '[*] 10/10 points: All of the package dependencies are supported in the latest version',
       'Support sound null safety (20 / 20)',
     ];

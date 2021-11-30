@@ -15,16 +15,53 @@
 
 * Found example at: `example/example.dart`
 
-## 10/20 Support multiple platforms
+## 20/20 Platform Support
 
-### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)
+### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, MacOS, Linux)
 
+* ✓ Web
 
-Consider supporting multiple platforms:
+These platforms are not supported:
 
 <details>
 <summary>
-Package not compatible with runtime native
+Package not compatible with runtime native on Android
+</summary>
+
+Because:
+* `package:dnd/dnd.dart` that imports:
+* `dart:js`
+</details>
+<details>
+<summary>
+Package not compatible with runtime native on iOS
+</summary>
+
+Because:
+* `package:dnd/dnd.dart` that imports:
+* `dart:js`
+</details>
+<details>
+<summary>
+Package not compatible with runtime native on Windows
+</summary>
+
+Because:
+* `package:dnd/dnd.dart` that imports:
+* `dart:js`
+</details>
+<details>
+<summary>
+Package not compatible with runtime native on Linux
+</summary>
+
+Because:
+* `package:dnd/dnd.dart` that imports:
+* `dart:js`
+</details>
+<details>
+<summary>
+Package not compatible with runtime native on macOS
 </summary>
 
 Because:
