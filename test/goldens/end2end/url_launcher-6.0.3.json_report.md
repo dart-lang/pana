@@ -41,7 +41,7 @@
 |[`url_launcher_linux`]|`^2.0.0`|2.0.2|2.0.2|
 |[`url_launcher_macos`]|`^2.0.0`|2.0.2|2.0.2|
 |[`url_launcher_platform_interface`]|`^2.0.0`|2.0.4|2.0.4|
-|[`url_launcher_web`]|`^2.0.0`|2.0.4|2.0.4|
+|[`url_launcher_web`]|`^2.0.0`|2.0.5|2.0.5|
 |[`url_launcher_windows`]|`^2.0.0`|2.0.2|2.0.2|
 
 <details><summary>Transitive dependencies</summary>

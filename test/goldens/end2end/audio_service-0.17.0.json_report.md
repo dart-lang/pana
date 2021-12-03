@@ -19,8 +19,6 @@
 
 ### [*] 20/20 points: Supports 4 of 6 possible platforms (**iOS**, **Android**, **Web**, Windows, **MacOS**, Linux)
 
-Found 12 issues. Showing the first 10:
-
 * ✓ Android
 * ✓ iOS
 * ✓ MacOS
@@ -79,6 +77,24 @@ Because:
 * `package:path_provider/path_provider.dart` that imports:
 * `package:path_provider_windows/path_provider_windows.dart` that declares support for platforms: `Windows`.
 </details>
+<details>
+<summary>
+Package does not support platform `macOS`.
+</summary>
+
+Because:
+* `package:audio_service/audio_service.dart` that imports:
+* `package:flutter_isolate/flutter_isolate.dart` that declares support for platforms: `Android`, `iOS`.
+</details>
+<details>
+<summary>
+Package does not support platform `Web`.
+</summary>
+
+Because:
+* `package:audio_service/audio_service.dart` that imports:
+* `package:flutter_isolate/flutter_isolate.dart` that declares support for platforms: `Android`, `iOS`.
+</details>
 
 ## 20/30 Pass static analysis
 
@@ -130,7 +146,7 @@ To format your files run: `flutter format .`
 |[`path_provider_platform_interface`]|-|2.0.1|2.0.1|
 |[`path_provider_windows`]|-|2.0.4|2.0.4|
 |[`pedantic`]|-|1.11.1|1.11.1|
-|[`platform`]|-|3.0.2|3.0.2|
+|[`platform`]|-|3.1.0|3.1.0|
 |[`plugin_platform_interface`]|-|2.0.2|2.0.2|
 |[`process`]|-|4.2.4|4.2.4|
 |[`sky_engine`]|-|0.0.99|0.0.99|

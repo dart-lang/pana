@@ -119,5 +119,5 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
       maxPoints: 20,
       basePath: packageDir,
       subsections: [subsection],
-      maxIssues: 10);
+      maxIssues: 20);
 }
