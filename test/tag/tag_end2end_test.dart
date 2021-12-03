@@ -372,8 +372,7 @@ int fourtyThree() => 43;
           tags: isEmpty,
           explanations: contains(
             _explanation(
-                finding:
-                    'Package not compatible with runtime native on Android'),
+                finding: 'Package not compatible with platform Android'),
           ));
       _expectTagging(tagger.runtimeTags, tags: {
         'runtime:native-jit'

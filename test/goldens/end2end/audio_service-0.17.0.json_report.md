@@ -127,7 +127,7 @@ To format your files run: `flutter format .`
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`async`]|-|2.8.2|2.8.2|
-|[`characters`]|-|1.2.0|1.2.0|
+|[`characters`]|-|1.1.0|1.2.0|
 |[`charcode`]|-|1.3.1|1.3.1|
 |[`clock`]|-|1.1.0|1.1.0|
 |[`collection`]|-|1.15.0|1.15.0|
@@ -158,7 +158,7 @@ To format your files run: `flutter format .`
 |[`term_glyph`]|-|1.2.0|1.2.0|
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`uuid`]|-|3.0.5|3.0.5|
-|[`vector_math`]|-|2.1.1|2.1.1|
+|[`vector_math`]|-|2.1.0|2.1.1|
 |[`win32`]|-|2.3.1|2.3.1|
 |[`xdg_directories`]|-|0.2.0|0.2.0|
 </details>
