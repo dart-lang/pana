@@ -270,6 +270,68 @@ int fourtyTwo() => 42;
       _expectTagging(tagger.flutterPluginTags, tags: {'is:plugin'});
     });
 
+    test('Declaring top-level platforms', () async {
+      final decriptor = d.dir(
+        'cache',
+        [
+          packageWithPathDeps(
+            'my_package',
+            pubspecExtras: {
+              'platforms': {
+                'windows': null,
+                'android': null,
+              },
+            },
+          ),
+        ],
+      );
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      _expectTagging(tagger.sdkTags, tags: {'sdk:flutter', 'sdk:dart'});
+      _expectTagging(tagger.platformTags,
+          tags: {'platform:windows', 'platform:android'});
+      _expectTagging(tagger.runtimeTags,
+          tags: ['runtime:native-aot', 'runtime:native-jit', 'runtime:web']);
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
+    });
+
+    test('Top-level platforms in dependency', () async {
+      final decriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:io';
+import 'package:my_package_linux/my_package_linux.dart';
+int fourtyTwo() => 42;
+'''),
+        ], dependencies: [
+          'my_package_linux'
+        ], extraFiles: [
+          d.file('.packages', '''
+my_package:lib/
+my_package_linux:../my_package_linux/lib/
+'''),
+        ]),
+        packageWithPathDeps('my_package_linux', lib: [
+          d.file('my_package_linux.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+        ], pubspecExtras: {
+          'environment': {'flutter': '>=1.2.0<=2.0.0'},
+          'platforms': {
+            'linux': null,
+          }
+        })
+      ]);
+
+      await decriptor.create();
+      final tagger = Tagger('${decriptor.io.path}/my_package');
+      _expectTagging(tagger.sdkTags, tags: {'sdk:flutter'});
+      _expectTagging(tagger.platformTags, tags: {'platform:linux'});
+      _expectTagging(tagger.runtimeTags, tags: isEmpty);
+      _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
+    });
+
     test('Using mirrors', () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps(
