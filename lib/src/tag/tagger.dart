@@ -238,7 +238,7 @@ class Tagger {
               libraryGraph,
               platform.runtime,
               (List<Uri> path) => Explanation(
-                'Package not compatible with runtime ${platform.runtime.name} on ${platform.name}',
+                'Package not compatible with platform ${platform.name}',
                 'Because:\n${LibraryGraph.formatPath(path)}',
                 tag: platform.tag,
               ),
@@ -267,7 +267,7 @@ class Tagger {
                   prunedLibraryGraph,
                   platform.runtime,
                   (List<Uri> path) => Explanation(
-                      'Package not compatible with runtime ${platform.runtime.name} of ${platform.name}',
+                      'Package not compatible with platform ${platform.name}',
                       'Because:\n${LibraryGraph.formatPath(path)}',
                       tag: platform.tag)));
           // Report only the first non-pruned violation as Explanation

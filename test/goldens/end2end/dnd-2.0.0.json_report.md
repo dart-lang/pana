@@ -25,7 +25,7 @@ These platforms are not supported:
 
 <details>
 <summary>
-Package not compatible with runtime native on Android
+Package not compatible with platform Android
 </summary>
 
 Because:
@@ -34,7 +34,7 @@ Because:
 </details>
 <details>
 <summary>
-Package not compatible with runtime native on iOS
+Package not compatible with platform iOS
 </summary>
 
 Because:
@@ -43,7 +43,7 @@ Because:
 </details>
 <details>
 <summary>
-Package not compatible with runtime native on Windows
+Package not compatible with platform Windows
 </summary>
 
 Because:
@@ -52,7 +52,7 @@ Because:
 </details>
 <details>
 <summary>
-Package not compatible with runtime native on Linux
+Package not compatible with platform Linux
 </summary>
 
 Because:
@@ -61,7 +61,7 @@ Because:
 </details>
 <details>
 <summary>
-Package not compatible with runtime native on macOS
+Package not compatible with platform macOS
 </summary>
 
 Because:
