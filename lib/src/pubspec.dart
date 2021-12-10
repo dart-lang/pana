@@ -5,8 +5,8 @@
 import 'dart:collection';
 
 import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart' as pubspek show Pubspec;
-import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
+import 'package:pubspec_parse/pubspec_parse.dart' as pubspek;
+import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec, Screenshot;
 import 'package:yaml/yaml.dart' as yaml;
 
 import 'null_safety.dart';
@@ -42,6 +42,8 @@ class Pubspec {
   Map<String, Dependency> get devDependencies => _inner.devDependencies;
 
   Map get environment => (_content['environment'] as Map?) ?? {};
+
+  List<pubspek.Screenshot>? get screenshots => _inner.screenshots;
 
   bool dependsOnPackage(String package) =>
       (dependencies.containsKey(package)) ||

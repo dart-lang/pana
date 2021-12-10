@@ -5,6 +5,7 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:pana/src/screenshots.dart';
 import 'package:path/path.dart' as p;
 
 import '../dartdoc_analyzer.dart';
@@ -33,7 +34,14 @@ Future<ReportSection> hasDocumentation(
       Issue('Found example at: `$examplePath`')
   ];
 
-  final points = examplePath == null ? 0 : 10;
+  var points = examplePath == null ? 0 : 10;
+
+  if (pubspec.screenshots != null && pubspec.screenshots!.isNotEmpty) {
+    if (validateScreenshots(pubspec.screenshots!, packageDir).isNotEmpty) {
+      points = points == 0 ? 0 : points - 5;
+    }
+  }
+
   final status =
       examplePath == null ? ReportStatus.failed : ReportStatus.passed;
   return makeSection(

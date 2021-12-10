@@ -14,6 +14,22 @@ import 'pubspec.dart';
 part 'model.g.dart';
 
 @JsonSerializable(includeIfNull: false)
+
+/// A processed screenshot contains paths with processed images as stored in GCS.
+class ProcessedScreenshot {
+  final String originalImage; // full/<imagePath>
+  final String webpImage; // full/gen/<imagePath>.webp
+  final String webpThumbnail; // full/gen/100x100/<imagePath>.webp
+  final String pngThumbnail; // full/gen/100x100/<imagePath>.png
+  final String description;
+
+  ProcessedScreenshot(this.originalImage, this.description,
+      {required this.webpImage,
+      required this.webpThumbnail,
+      required this.pngThumbnail});
+}
+
+@JsonSerializable(includeIfNull: false)
 @VersionConverter()
 class Summary {
   final PanaRuntimeInfo runtimeInfo;
@@ -26,6 +42,7 @@ class Summary {
   final List<String>? allDependencies;
   final List<String>? tags;
   final Report? report;
+  final List<ProcessedScreenshot>? screenshots;
 
   /// URLs that are invalid, unsafe or missing.
   final List<UrlProblem>? urlProblems;
@@ -44,6 +61,7 @@ class Summary {
     this.report,
     this.urlProblems,
     this.errorMessage,
+    this.screenshots,
   });
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
@@ -66,6 +84,7 @@ class Summary {
       report: report,
       urlProblems: urlProblems,
       errorMessage: errorMessage,
+      screenshots: screenshots,
     );
   }
 }

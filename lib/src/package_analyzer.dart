@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:pana/src/screenshots.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
@@ -71,13 +72,14 @@ class PackageAnalyzer {
     String? version,
     InspectOptions? options,
     Logger? logger,
+    Future<void> Function(String filename, List<int> data)? storeResource,
   }) async {
     options ??= InspectOptions();
     return withLogger(() async {
       return withTempDir((tempDir) async {
         await downloadPackage(package, version,
             destination: tempDir, pubHostedUrl: options!.pubHostedUrl);
-        return await _inspect(tempDir, options);
+        return await _inspect(tempDir, options, storeResource: storeResource);
       });
     }, logger: logger);
   }
@@ -92,7 +94,9 @@ class PackageAnalyzer {
     });
   }
 
-  Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
+  Future<Summary> _inspect(String pkgDir, InspectOptions options,
+      {Future<void> Function(String filename, List<int> data)?
+          storeResource}) async {
     final context = PackageContext(
       toolEnvironment: _toolEnv,
       packageDir: pkgDir,
@@ -181,9 +185,32 @@ class PackageAnalyzer {
 
     final licenseFile = await detectLicenseInDir(pkgDir);
 
+    final declaredScreenshots = pubspec.screenshots;
+    List<ProcessedScreenshot>? processedScreenshots;
+    if (declaredScreenshots != null) {
+      final screenshotProblems =
+          validateScreenshots(declaredScreenshots, pkgDir);
+
+      if (screenshotProblems.isEmpty) {
+        processedScreenshots =
+            await generateScreenshots(context, declaredScreenshots);
+        if (storeResource != null) {
+          for (var screenshot in processedScreenshots) {
+            await storeResource(screenshot.webpImage,
+                File(screenshot.webpImage).readAsBytesSync());
+            await storeResource(screenshot.webpThumbnail,
+                File(screenshot.webpThumbnail).readAsBytesSync());
+            await storeResource(screenshot.pngThumbnail,
+                File(screenshot.pngThumbnail).readAsBytesSync());
+          }
+        }
+      }
+    }
+
     final errorMessage = context.errors.isEmpty
         ? null
         : context.errors.map((e) => e.trim()).join('\n\n');
+
     return Summary(
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
@@ -199,6 +226,7 @@ class PackageAnalyzer {
           .toList()
         ..sort((a, b) => a.url.compareTo(b.url)),
       errorMessage: errorMessage,
+      screenshots: processedScreenshots,
     );
   }
 }
