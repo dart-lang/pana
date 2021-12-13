@@ -44,11 +44,11 @@
       },
       {
         "id": "platform",
-        "title": "Support multiple platforms",
+        "title": "Platform Support",
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/20 points: Supports 0 of 2 possible platforms (native, js)\n\n<details>\n<summary>\nPackage resolution failed. Could not determine platforms.\n</summary>\n\nRun `dart pub get` for more information.\n</details>"
+        "summary": "### [x] 0/20 points: Doesn't support any platforms\n\n<details>\n<summary>\nPackage resolution failed. Could not determine platforms.\n</summary>\n\nRun `dart pub get` for more information.\n</details>"
       },
       {
         "id": "analysis",

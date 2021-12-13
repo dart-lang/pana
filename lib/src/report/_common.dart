@@ -84,7 +84,7 @@ class Issue implements Paragraph {
 }
 
 class Subsection {
-  final List<Paragraph> issues;
+  final List<Paragraph> paragraphs;
   final String description;
   final int grantedPoints;
   final int maxPoints;
@@ -92,9 +92,24 @@ class Subsection {
 
   final ReportStatus status;
 
+  int get issueCount => paragraphs.whereType<Issue>().length;
+
+  /// Returns all paragraphs up to and including the first [max] of those that
+  /// are [Issue]s.
+  Iterable<Paragraph> takeIssues(int? max) sync* {
+    var i = 0;
+    for (final paragraph in paragraphs) {
+      if (paragraph is Issue) {
+        i++;
+        if (max != null && i > max) return;
+      }
+      yield paragraph;
+    }
+  }
+
   Subsection(
     this.description,
-    this.issues,
+    this.paragraphs,
     this.grantedPoints,
     this.maxPoints,
     this.status, {
@@ -109,19 +124,16 @@ String _makeSummary(List<Subsection> subsections,
   return [
     if (introduction != null) introduction,
     ...subsections.map((subsection) {
-      final issuesMarkdown =
-          subsection.issues.map((e) => e.markdown(basePath: basePath));
+      final paragraphsMarkdown = subsection
+          .takeIssues(maxIssues)
+          .map((e) => e.markdown(basePath: basePath));
       final statusMarker = _reportStatusMarker(subsection.status);
       return [
         '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
         if (subsection.bodyPrefix.isNotEmpty) subsection.bodyPrefix,
-        if (subsection.issues.isNotEmpty &&
-            subsection.issues.length <= maxIssues)
-          issuesMarkdown.join('\n'),
-        if (subsection.issues.length > maxIssues) ...[
-          'Found ${subsection.issues.length} issues. Showing the first $maxIssues:\n',
-          issuesMarkdown.take(maxIssues).join('\n'),
-        ],
+        if (subsection.issueCount > maxIssues)
+          'Found ${subsection.issueCount} issues. Showing the first $maxIssues:\n',
+        ...paragraphsMarkdown,
       ].join('\n');
     }),
   ].join('\n\n');

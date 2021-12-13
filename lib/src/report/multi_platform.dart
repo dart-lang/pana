@@ -36,32 +36,31 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
     }
 
     Subsection scorePlatforms(
-        Map<String, String> tagNames,
-        ReportStatus Function(int) statusFromCount,
-        List<String> tags,
-        List<Explanation> explanations) {
+        List<String> tags, List<Explanation> explanations) {
+      final tagNames = const {
+        'platform:ios': 'iOS',
+        'platform:android': 'Android',
+        'platform:web': 'Web',
+        'platform:windows': 'Windows',
+        'platform:macos': 'MacOS',
+        'platform:linux': 'Linux',
+      };
       final sdkExplanations =
           explanations.where((e) => e.tag != null && e.tag!.startsWith('sdk:'));
       final platformExplanations = explanations
           .where((e) => e.tag == null || !e.tag!.startsWith('sdk:'));
-      final unofficialExplanations = platformExplanations.where((e) =>
-          !tags.contains(e.tag) &&
-          (e.tag != null &&
-              !e.tag!.startsWith('sdk:') &&
-              !tagNames.containsKey(e.tag)));
       final officialExplanations = platformExplanations.where((e) =>
           !tags.contains(e.tag) &&
           (e.tag == null || tagNames.containsKey(e.tag)));
       final trustExplanations = explanations.where((e) => tags.contains(e.tag));
-      final paragraphs = [
+      final paragraphs = <Paragraph>[
         if (sdkExplanations.isNotEmpty) RawParagraph('SDK issues found:'),
         ...sdkExplanations.map(explanationToIssue),
+        for (final tag in tags.where((e) => e.startsWith('platform')))
+          RawParagraph('* ✓ ${tagNames[tag]}'),
         if (officialExplanations.isNotEmpty)
-          RawParagraph('\nConsider supporting multiple platforms:\n'),
+          RawParagraph('\nThese platforms are not supported:\n'),
         ...officialExplanations.map(explanationToIssue),
-        if (unofficialExplanations.isNotEmpty)
-          RawParagraph('\nConsider supporting these prerelease platforms:\n'),
-        ...unofficialExplanations.map(explanationToIssue),
         if (trustExplanations.isNotEmpty)
           RawParagraph(
               '\nThese issues are present but do not affect the score, because they may not originate in your package:\n'),
@@ -69,7 +68,11 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
       ];
 
       final officialTags = tags.where(tagNames.containsKey).toList();
-      final status = statusFromCount(officialTags.length);
+
+      final status =
+          officialTags.where((tag) => tag.startsWith('platform:')).isEmpty
+              ? ReportStatus.failed
+              : ReportStatus.passed;
       final score = {
         ReportStatus.failed: 0,
         ReportStatus.partial: 10,
@@ -82,48 +85,27 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
       return Subsection(description, paragraphs, score!, 20, status);
     }
 
-    if (flutterPackage) {
-      tagger.flutterPlatformTags(tags, explanations, trustDeclarations: true);
-      final tagNames = const {
-        'platform:ios': 'iOS',
-        'platform:android': 'Android',
-        'platform:web': 'Web',
-      };
-      subsection = scorePlatforms(
-        tagNames,
-        (count) => count <= 1
-            ? ReportStatus.failed
-            : (count == 2 ? ReportStatus.partial : ReportStatus.passed),
-        tags,
-        explanations,
-      );
-    } else {
+    tagger.platformTags(tags, explanations, trustDeclarations: true);
+    if (!flutterPackage) {
       tagger.runtimeTags(tags, explanations);
-
-      final tagNames = const {
-        'runtime:native-jit': 'native',
-        'runtime:web': 'js',
-      };
-
-      // We don't want the native-aut runtime to be explained here.
+      // We don't want the native-aot runtime to be explained here.
       explanations.removeWhere(
-          (explanation) => explanation.tag == Runtime.nativeAot.tag);
-
-      subsection = scorePlatforms(
-        tagNames,
-        (count) => count == 0
-            ? ReportStatus.failed
-            : (count == 1 ? ReportStatus.partial : ReportStatus.passed),
-        tags,
-        explanations,
+        (explanation) => explanation.tag == Runtime.nativeAot.tag,
       );
     }
+
+    subsection = scorePlatforms(
+      tags,
+      explanations,
+    );
   } else {
     subsection = Subsection(
-      'Supports 0 of 2 possible platforms (native, js)',
+      'Doesn\'t support any platforms',
       [
-        Issue('Package resolution failed. Could not determine platforms.',
-            suggestion: 'Run `dart pub get` for more information.')
+        Issue(
+          'Package resolution failed. Could not determine platforms.',
+          suggestion: 'Run `dart pub get` for more information.',
+        )
       ],
       0,
       20,
@@ -133,8 +115,9 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
 
   return makeSection(
       id: ReportSectionId.platform,
-      title: 'Support multiple platforms',
+      title: 'Platform Support',
       maxPoints: 20,
       basePath: packageDir,
-      subsections: [subsection]);
+      subsections: [subsection],
+      maxIssues: 20);
 }

@@ -210,10 +210,10 @@ class Tagger {
     }
   }
 
-  /// Adds tags for the Flutter platforms that this package supports to [tags].
+  /// Adds tags for the Platforms that this package supports to [tags].
   ///
   /// Adds [Explanation]s to [explanations] for platforms not supported.
-  void flutterPlatformTags(
+  void platformTags(
     List<String> tags,
     List<Explanation> explanations, {
     bool trustDeclarations = true,
@@ -221,55 +221,55 @@ class Tagger {
     try {
       if (_isBinaryOnly) {
         explanations.add(Explanation('Binary only',
-            'Cannot assign flutter platform tags, it is a binary only package',
+            'Cannot assign platform tags, it is a binary only package',
             tag: null));
       } else {
-        for (final flutterPlatform in FlutterPlatform.recognizedPlatforms) {
+        for (final platform in Platform.recognizedPlatforms) {
           final libraryGraph =
-              LibraryGraph(_session, flutterPlatform.runtime.declaredVariables);
+              LibraryGraph(_session, platform.runtime.declaredVariables);
           final declaredPlatformDetector =
-              DeclaredFlutterPlatformDetector(_pubspecCache);
+              DeclaredPlatformDetector(_pubspecCache);
           final violationFinder = PlatformViolationFinder(
-            flutterPlatform,
+            platform,
             libraryGraph,
             declaredPlatformDetector,
             _pubspecCache,
             runtimeViolationFinder(
               libraryGraph,
-              flutterPlatform.runtime,
+              platform.runtime,
               (List<Uri> path) => Explanation(
-                'Package not compatible with runtime ${flutterPlatform.runtime.name} on ${flutterPlatform.name}',
+                'Package not compatible with platform ${platform.name}',
                 'Because:\n${LibraryGraph.formatPath(path)}',
-                tag: flutterPlatform.tag,
+                tag: platform.tag,
               ),
             ),
           );
 
-          // Wanting to trust the plugins annotations when assigning tags we make
-          // a library graph that treats all libraries in plugins as leaf-nodes.
+          // Wanting to trust the plugins annotations when assigning tags we
+          // make a library graph that treats all libraries in packages with
+          // declared platforms as leaf-nodes.
           //
-          // In this way the plugin restrictions of its dependencies are not
+          // In this way the restrictions of its dependencies are not
           // restricting the result.
           //
           // We still keep the unpruned detection for providing Explanations.
           final prunedLibraryGraph = trustDeclarations
-              ? LibraryGraph(
-                  _session, flutterPlatform.runtime.declaredVariables,
-                  isLeaf: declaredPlatformDetector.isFlutterPlugin)
+              ? LibraryGraph(_session, platform.runtime.declaredVariables,
+                  isLeaf: declaredPlatformDetector.hasDeclaredPlatforms)
               : libraryGraph;
 
           final prunedViolationFinder = PlatformViolationFinder(
-              flutterPlatform,
+              platform,
               prunedLibraryGraph,
               declaredPlatformDetector,
               _pubspecCache,
               runtimeViolationFinder(
                   prunedLibraryGraph,
-                  flutterPlatform.runtime,
+                  platform.runtime,
                   (List<Uri> path) => Explanation(
-                      'Package not compatible with runtime ${flutterPlatform.runtime.name} of ${flutterPlatform.name}',
+                      'Package not compatible with platform ${platform.name}',
                       'Because:\n${LibraryGraph.formatPath(path)}',
-                      tag: flutterPlatform.tag)));
+                      tag: platform.tag)));
           // Report only the first non-pruned violation as Explanation
           final firstNonPrunedViolation =
               violationFinder.firstViolation(packageName, _topLibraries);
@@ -281,7 +281,7 @@ class Tagger {
           final firstPrunedViolation =
               prunedViolationFinder.firstViolation(packageName, _topLibraries);
           if (firstPrunedViolation == null) {
-            tags.add(flutterPlatform.tag);
+            tags.add(platform.tag);
           }
         }
       }

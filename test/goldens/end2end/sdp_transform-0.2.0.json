@@ -63,11 +63,11 @@
       },
       {
         "id": "platform",
-        "title": "Support multiple platforms",
+        "title": "Platform Support",
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 2 of 2 possible platforms (**native**, **js**)\n"
+        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)\n\n* ✓ Android\n* ✓ iOS\n* ✓ Windows\n* ✓ Linux\n* ✓ MacOS\n* ✓ Web"
       },
       {
         "id": "analysis",

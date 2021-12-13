@@ -15,18 +15,49 @@
 
 * Found example at: `example/EXAMPLE.md`
 
-## 0/20 Support multiple platforms
+## 20/20 Platform Support
 
-### [x] 0/20 points: Supports 1 of 3 possible platforms (iOS, **Android**, Web)
+### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, **Android**, Web, Windows, MacOS, Linux)
 
-Found 7 issues. Showing the first 2:
+* ✓ Android
 
-
-Consider supporting multiple platforms:
+These platforms are not supported:
 
 <details>
 <summary>
-Package does not support Flutter platform `iOS`.
+Package does not support platform `iOS`.
+</summary>
+
+Because:
+* `nsd_android` that declares support for platforms: `Android`.
+</details>
+<details>
+<summary>
+Package does not support platform `Windows`.
+</summary>
+
+Because:
+* `nsd_android` that declares support for platforms: `Android`.
+</details>
+<details>
+<summary>
+Package does not support platform `Linux`.
+</summary>
+
+Because:
+* `nsd_android` that declares support for platforms: `Android`.
+</details>
+<details>
+<summary>
+Package does not support platform `macOS`.
+</summary>
+
+Because:
+* `nsd_android` that declares support for platforms: `Android`.
+</details>
+<details>
+<summary>
+Package does not support platform `Web`.
 </summary>
 
 Because:
@@ -50,12 +81,12 @@ Because:
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`characters`]|-|1.1.0|1.1.0|
+|[`characters`]|-|1.1.0|1.2.0|
 |[`collection`]|-|1.15.0|1.15.0|
 |[`meta`]|-|1.7.0|1.7.0|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`typed_data`]|-|1.3.0|1.3.0|
-|[`vector_math`]|-|2.1.0|2.1.0|
+|[`vector_math`]|-|2.1.0|2.1.1|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

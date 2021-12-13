@@ -172,7 +172,7 @@ class PackageAnalyzer {
         final tagger = Tagger(pkgDir);
         final explanations = <Explanation>[];
         tagger.sdkTags(tags, explanations);
-        tagger.flutterPlatformTags(tags, explanations);
+        tagger.platformTags(tags, explanations);
         tagger.runtimeTags(tags, explanations);
         tagger.flutterPluginTags(tags, explanations);
         tagger.nullSafetyTags(tags, explanations);

@@ -56,11 +56,11 @@
       },
       {
         "id": "platform",
-        "title": "Support multiple platforms",
-        "grantedPoints": 10,
+        "title": "Platform Support",
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "partial",
-        "summary": "### [~] 10/20 points: Supports 1 of 2 possible platforms (native, **js**)\n\n\nConsider supporting multiple platforms:\n\n<details>\n<summary>\nPackage not compatible with runtime native\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>"
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, MacOS, Linux)\n\n* ✓ Web\n\nThese platforms are not supported:\n\n<details>\n<summary>\nPackage not compatible with platform Android\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n<details>\n<summary>\nPackage not compatible with platform iOS\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n<details>\n<summary>\nPackage not compatible with platform Windows\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n<details>\n<summary>\nPackage not compatible with platform Linux\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n<details>\n<summary>\nPackage not compatible with platform macOS\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>"
       },
       {
         "id": "analysis",

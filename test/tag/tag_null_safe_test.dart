@@ -232,7 +232,7 @@ void main() {
         explanations: tagDetectionFailed,
       );
       expectTagging(
-        tagger.flutterPlatformTags,
+        tagger.platformTags,
         explanations: tagDetectionFailed,
       );
       expectTagging(

@@ -108,7 +108,8 @@ void main() {
         // versions may change over time or because of SDK version changes.
         removeDependencyDetails(actualMap!);
 
-        final json = const JsonEncoder.withIndent('  ').convert(actualMap);
+        final json =
+            const JsonEncoder.withIndent('  ').convert(actualMap) + '\n';
 
         // The tempdir creeps in to an error message.
         final jsonNoTempDir = json.replaceAll(
