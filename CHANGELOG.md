@@ -1,3 +1,7 @@
+## 0.21.5
+
+- Support for top-level platform tags in pubspec,yaml.
+
 ## 0.21.4
 
 - `getRepositoryUrl` with custom `branch` parameter (defaults to `master`).
