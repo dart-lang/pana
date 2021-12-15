@@ -7,7 +7,6 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:pana/pana.dart';
-import 'package:pana/src/version.dart';
 import 'package:path/path.dart' as p;
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart';
