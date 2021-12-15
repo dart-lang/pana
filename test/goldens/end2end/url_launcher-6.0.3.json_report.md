@@ -48,14 +48,14 @@
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`characters`]|-|1.1.0|1.2.0|
+|[`characters`]|-|1.2.0|1.2.0|
 |[`collection`]|-|1.15.0|1.15.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
 |[`js`]|-|0.6.3|0.6.3|
 |[`meta`]|-|1.7.0|1.7.0|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`typed_data`]|-|1.3.0|1.3.0|
-|[`vector_math`]|-|2.1.0|2.1.1|
+|[`vector_math`]|-|2.1.1|2.1.1|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
