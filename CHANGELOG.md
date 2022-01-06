@@ -1,6 +1,6 @@
 ## 0.21.5
 
-- Support for top-level platform tags in pubspec,yaml.
+- Support for top-level platform tags in `pubspec.yaml`.
 
 ## 0.21.4
 

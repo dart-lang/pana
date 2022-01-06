@@ -65,6 +65,8 @@ To format your files run: `dart format .`
 * Could not run `dart pub outdated`: `dart pub get` failed:
 
 ```
+OUT:
+Resolving dependencies...
 ERR:
 pubspec.yaml has no lower-bound SDK constraint.
 You should edit pubspec.yaml to contain an SDK constraint:
