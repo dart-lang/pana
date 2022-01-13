@@ -1,13 +1,13 @@
 name: pana
 description: Evaluate the health and quality of a Dart package
-version: 0.21.5
+version: 0.21.6-dev
 homepage: https://github.com/dart-lang/pana
 
 environment:
   sdk: '>=2.14.0 <3.0.0'
 
 dependencies:
-  analyzer: '^2.1.0'
+  analyzer: '^3.1.0'
   args: ^2.0.0
   async: ^2.0.0
   cli_util: ^0.3.0
@@ -15,7 +15,7 @@ dependencies:
   html: ^0.15.0
   http: ^0.13.0
   io: ^1.0.0
-  json_annotation: ^4.3.0
+  json_annotation: ^4.4.0
   logging: ^1.0.0
   markdown: ^4.0.0
   path: ^1.6.2

@@ -1,3 +1,7 @@
+## 0.21.6
+
+- `package:analyzer` dependency upgraded to `^3.1.0`.
+
 ## 0.21.5
 
 - Support for top-level platform tags in `pubspec.yaml`.
