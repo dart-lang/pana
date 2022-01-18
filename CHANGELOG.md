@@ -3,6 +3,7 @@
 - `package:analyzer` dependency upgraded to `^3.1.0`.
 - Fix dart analysis. Code problems are now propagatet to the pana report.
 - Fix retry on version listing HTTP requests during `getVersionListing`.
+- `RepositoryUrl` (private API) to detect repository patterns and resolve paths.
 
 ## 0.21.5
 
