@@ -105,15 +105,7 @@
     "win32",
     "xdg_directories"
   ],
-  "tags": [
-    "sdk:flutter",
-    "platform:android",
-    "platform:ios",
-    "platform:macos",
-    "platform:web",
-    "is:plugin",
-    "is:null-safe"
-  ],
+  "tags": [],
   "report": {
     "sections": [
       {
@@ -143,10 +135,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 20,
+        "grantedPoints": 0,
         "maxPoints": 30,
-        "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nlib/audio_service.dart doesn't match the Dart formatter.\n</summary>\n\nTo format your files run: `flutter format .`\n</details>"
+        "status": "failed",
+        "summary": "### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nERROR: The method 'setMockMethodCallHandler' isn't defined for the type 'MethodChannel'.\n</summary>\n\n`lib/audio_service.dart:674:16`\n\n```\n    ╷\n674 │               .setMockMethodCallHandler(handler);\n    │                ^^^^^^^^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`\n</details>\n<details>\n<summary>\nERROR: The method 'setMockMethodCallHandler' isn't defined for the type 'MethodChannel'.\n</summary>\n\n`lib/audio_service.dart:1266:12`\n\n```\n     ╷\n1266 │           .setMockMethodCallHandler(handler);\n     │            ^^^^^^^^^^^^^^^^^^^^^^^^\n     ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`\n</details>"
       },
       {
         "id": "dependency",

@@ -78,10 +78,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 30,
+        "grantedPoints": 20,
         "maxPoints": 30,
-        "status": "passed",
-        "summary": "### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues\n"
+        "status": "partial",
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: Provide a deprecation message, via @Deprecated(\"message\").\n</summary>\n\n`lib/src/stream_sink_transformer.dart:56:3`\n\n```\n   ╷\n56 │   @deprecated\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/stream_sink_transformer.dart`\n</details>"
       },
       {
         "id": "dependency",

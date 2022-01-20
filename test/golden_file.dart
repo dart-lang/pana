@@ -12,8 +12,8 @@ import 'package:test/test.dart';
 void expectMatchesGoldenFile(String actual, String goldenFilePath) {
   var goldenFile = File(goldenFilePath);
   if (goldenFile.existsSync()) {
-    expect(
-        actual, equals(goldenFile.readAsStringSync().replaceAll('\r\n', '\n')),
+    expect(actual.replaceAll('\r\n', '\n'),
+        equals(goldenFile.readAsStringSync().replaceAll('\r\n', '\n')),
         reason: 'goldenFilePath: "$goldenFilePath". '
             'To update the expectation delete this file and rerun the test.');
   } else {
