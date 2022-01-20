@@ -246,7 +246,7 @@ class SdkViolationFinder {
                 : (path) => Explanation(
                       'Package is not compatible with the ${sdk.formattedName} SDK.',
                       'Because:\n${PackageGraph.formatPath(path)} that is a package requiring'
-                          ' ${nonAllowedSdks.map((e) => null).join(', ')}.',
+                          ' ${nonAllowedSdks.join(', ')}.',
                       tag: sdk.tag,
                     );
           },

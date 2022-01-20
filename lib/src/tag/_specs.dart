@@ -43,17 +43,21 @@ class Runtime {
     'web_sql',
   };
 
-  static final nativeJit = Runtime(
-      'vm-native',
-      {
-        ..._onAllPlatforms,
-        ..._onAllNative,
-        'cli',
-        'developer',
-        'mirrors',
-        'nativewrappers',
-      },
-      tag: 'runtime:native-jit');
+  static final _onNativeAot = {
+    ..._onAllPlatforms,
+    ..._onAllNative,
+    'cli',
+    'developer',
+  };
+
+  static final _onNativeJit = {
+    ..._onNativeAot,
+    'mirrors',
+    'nativewrappers',
+  };
+
+  static final nativeJit =
+      Runtime('vm-native', _onNativeJit, tag: 'runtime:native-jit');
 
   static final recognizedRuntimes = [
     nativeAot,
@@ -102,6 +106,18 @@ class Runtime {
     ..._onAllNative,
     'ui',
   });
+
+  /// For sdk detection we allow everything except dart:ui.
+  static final broadDart = Runtime('dart', {
+    ..._onNativeJit,
+  });
+
+  /// For sdk detection we allow more or less everything.
+  static final broadFlutter = Runtime('flutter', {
+    ..._onNativeAot,
+    ..._onAllWeb,
+    'ui',
+  });
 }
 
 /// A platform where Dart and Flutter can be deployed.
@@ -141,11 +157,10 @@ class Sdk {
 
   String get tag => 'sdk:$name';
 
-  static Sdk dart = Sdk('dart', 'Dart', ['dart'],
-      [Runtime.nativeAot, Runtime.nativeJit, Runtime.web]);
+  static Sdk dart = Sdk('dart', 'Dart', ['dart'], [Runtime.broadDart]);
 
-  static Sdk flutter = Sdk('flutter', 'Flutter', ['dart', 'flutter'],
-      [Runtime.flutterNative, Runtime.flutterWeb]);
+  static Sdk flutter =
+      Sdk('flutter', 'Flutter', ['dart', 'flutter'], [Runtime.broadFlutter]);
 
   static List<Sdk> knownSdks = [dart, flutter];
 }
