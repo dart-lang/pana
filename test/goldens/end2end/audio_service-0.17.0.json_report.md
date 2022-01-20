@@ -47,38 +47,6 @@ These issues are present but do not affect the score, because they may not origi
 
 <details>
 <summary>
-Package does not support platform `Android`.
-</summary>
-
-Because:
-* `package:audio_service/audio_service.dart` that imports:
-* `package:flutter_cache_manager/flutter_cache_manager.dart` that imports:
-* `package:flutter_cache_manager/src/web/web_helper.dart` that imports:
-* `package:flutter_cache_manager/src/cache_store.dart` that imports:
-* `package:flutter_cache_manager/src/config/config.dart` that imports:
-* `package:flutter_cache_manager/src/config/_config_io.dart` that imports:
-* `package:flutter_cache_manager/src/storage/file_system/file_system_io.dart` that imports:
-* `package:path_provider/path_provider.dart` that imports:
-* `package:path_provider_windows/path_provider_windows.dart` that declares support for platforms: `Windows`.
-</details>
-<details>
-<summary>
-Package does not support platform `iOS`.
-</summary>
-
-Because:
-* `package:audio_service/audio_service.dart` that imports:
-* `package:flutter_cache_manager/flutter_cache_manager.dart` that imports:
-* `package:flutter_cache_manager/src/web/web_helper.dart` that imports:
-* `package:flutter_cache_manager/src/cache_store.dart` that imports:
-* `package:flutter_cache_manager/src/config/config.dart` that imports:
-* `package:flutter_cache_manager/src/config/_config_io.dart` that imports:
-* `package:flutter_cache_manager/src/storage/file_system/file_system_io.dart` that imports:
-* `package:path_provider/path_provider.dart` that imports:
-* `package:path_provider_windows/path_provider_windows.dart` that declares support for platforms: `Windows`.
-</details>
-<details>
-<summary>
 Package does not support platform `macOS`.
 </summary>
 
@@ -127,7 +95,7 @@ To format your files run: `flutter format .`
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`async`]|-|2.8.2|2.8.2|
-|[`characters`]|-|1.1.0|1.2.0|
+|[`characters`]|-|1.2.0|1.2.0|
 |[`charcode`]|-|1.3.1|1.3.1|
 |[`clock`]|-|1.1.0|1.1.0|
 |[`collection`]|-|1.15.0|1.15.0|
@@ -138,11 +106,11 @@ To format your files run: `flutter format .`
 |[`http_parser`]|-|4.0.0|4.0.0|
 |[`meta`]|-|1.7.0|1.7.0|
 |[`path`]|-|1.8.0|1.8.0|
-|[`path_provider`]|-|2.0.7|2.0.7|
+|[`path_provider`]|-|2.0.8|2.0.8|
 |[`path_provider_android`]|-|2.0.9|2.0.9|
 |[`path_provider_ios`]|-|2.0.7|2.0.7|
-|[`path_provider_linux`]|-|2.1.2|2.1.2|
-|[`path_provider_macos`]|-|2.0.3|2.0.3|
+|[`path_provider_linux`]|-|2.1.4|2.1.4|
+|[`path_provider_macos`]|-|2.0.4|2.0.4|
 |[`path_provider_platform_interface`]|-|2.0.1|2.0.1|
 |[`path_provider_windows`]|-|2.0.4|2.0.4|
 |[`pedantic`]|-|1.11.1|1.11.1|
@@ -151,14 +119,14 @@ To format your files run: `flutter format .`
 |[`process`]|-|4.2.4|4.2.4|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`source_span`]|-|1.8.1|1.8.1|
-|[`sqflite`]|-|2.0.0+4|2.0.0+4|
-|[`sqflite_common`]|-|2.0.1+1|2.0.1+1|
+|[`sqflite`]|-|2.0.1|2.0.1|
+|[`sqflite_common`]|-|2.1.0|2.1.0|
 |[`string_scanner`]|-|1.1.0|1.1.0|
 |[`synchronized`]|-|3.0.0|3.0.0|
 |[`term_glyph`]|-|1.2.0|1.2.0|
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`uuid`]|-|3.0.5|3.0.5|
-|[`vector_math`]|-|2.1.0|2.1.1|
+|[`vector_math`]|-|2.1.1|2.1.1|
 |[`win32`]|-|2.3.1|2.3.1|
 |[`xdg_directories`]|-|0.2.0|0.2.0|
 </details>
