@@ -17,10 +17,10 @@ part 'model.g.dart';
 
 /// A processed screenshot contains paths with processed images as stored in GCS.
 class ProcessedScreenshot {
-  final String originalImage; // full/<imagePath>
-  final String webpImage; // full/gen/<imagePath>.webp
-  final String webpThumbnail; // full/gen/100x100/<imagePath>.webp
-  final String pngThumbnail; // full/gen/100x100/<imagePath>.png
+  final String originalImage; // <imagePath>
+  final String webpImage; // gen/<imagePath>.webp
+  final String webpThumbnail; // gen/100x100/<imagePath>.webp
+  final String pngThumbnail; // gen/100x100/<imagePath>.png
   final String description;
 
   ProcessedScreenshot(this.originalImage, this.description,

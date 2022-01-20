@@ -40,7 +40,7 @@ Future<Report> createReport(PackageContext context) async {
 
   return Report(sections: [
     await followsTemplate(context),
-    await hasDocumentation(context.packageDir, pubspec),
+    await hasDocumentation(context, pubspec),
     await multiPlatform(context.packageDir, pubspec),
     await staticAnalysis(context),
     await trustworthyDependency(context),

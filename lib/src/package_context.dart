@@ -5,7 +5,9 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:pana/src/screenshots.dart';
 import 'package:pub_semver/pub_semver.dart';
+import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
 import 'code_problem.dart';
 import 'download_utils.dart';
@@ -34,6 +36,8 @@ class PackageContext {
   bool? _usesFlutter;
   PkgResolution? _pkgResolution;
   List<CodeProblem>? _codeProblems;
+
+  List<ScreenshotResult>? _screenshotResults;
 
   PackageContext({
     required this.toolEnvironment,
@@ -130,6 +134,14 @@ class PackageContext {
       errors.add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
       rethrow;
     }
+  }
+
+  Future<List<ScreenshotResult>> processScreenshots(
+      List<p.Screenshot> screenshots, String pkgDir) async {
+    if (pubspec.screenshots == null) return [];
+    if (_screenshotResults != null) return _screenshotResults!;
+    _screenshotResults = await processAllScreenshots(this, screenshots, pkgDir);
+    return _screenshotResults!;
   }
 
   bool get pubspecAllowsCurrentSdk =>

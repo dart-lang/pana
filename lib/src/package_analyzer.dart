@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
-import 'package:pana/src/screenshots.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
@@ -188,20 +187,21 @@ class PackageAnalyzer {
     final declaredScreenshots = pubspec.screenshots;
     List<ProcessedScreenshot>? processedScreenshots;
     if (declaredScreenshots != null) {
-      final screenshotProblems =
-          validateScreenshots(declaredScreenshots, pkgDir);
+      processedScreenshots = [];
+      final screenshotResults =
+          await context.processScreenshots(declaredScreenshots, pkgDir);
+      for (final r in screenshotResults) {
+        if (r.problems.isEmpty) {
+          final processedScreenshot = r.processedScreenshot!;
+          processedScreenshots.add(processedScreenshot);
 
-      if (screenshotProblems.isEmpty) {
-        processedScreenshots =
-            await generateScreenshots(context, declaredScreenshots);
-        if (storeResource != null) {
-          for (var screenshot in processedScreenshots) {
-            await storeResource(screenshot.webpImage,
-                File(screenshot.webpImage).readAsBytesSync());
-            await storeResource(screenshot.webpThumbnail,
-                File(screenshot.webpThumbnail).readAsBytesSync());
-            await storeResource(screenshot.pngThumbnail,
-                File(screenshot.pngThumbnail).readAsBytesSync());
+          if (storeResource != null) {
+            await storeResource(processedScreenshot.webpImage,
+                File(r.webpScreenshotPath).readAsBytesSync());
+            await storeResource(processedScreenshot.webpThumbnail,
+                File(r.webpThumbnailPath).readAsBytesSync());
+            await storeResource(processedScreenshot.pngThumbnail,
+                File(r.pngThumbnailPath).readAsBytesSync());
           }
         }
       }
@@ -210,7 +210,6 @@ class PackageAnalyzer {
     final errorMessage = context.errors.isEmpty
         ? null
         : context.errors.map((e) => e.trim()).join('\n\n');
-
     return Summary(
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
