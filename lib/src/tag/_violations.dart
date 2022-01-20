@@ -258,37 +258,34 @@ class SdkViolationFinder {
     if (declaredSdkResult != null) return declaredSdkResult;
 
     final explanations = <Explanation>[];
-    for (final runtime in sdk.allowedRuntimes) {
-      final violationFinder = runtimeViolationFinder(
-          LibraryGraph(_session, runtime.declaredVariables),
-          runtime,
-          (path) => Explanation(
-                'Package is not compatible with ${sdk.formattedName} SDK using runtime `${runtime.name}`.',
-                'Because:\n${LibraryGraph.formatPath(path)}',
-                tag: sdk.tag,
-              ));
+    final violationFinder = runtimeViolationFinder(
+      LibraryGraph(_session, sdk.allowedRuntime.declaredVariables),
+      sdk.allowedRuntime,
+      (path) => Explanation(
+        'Package is not compatible with the ${sdk.formattedName} SDK.',
+        'Because:\n${LibraryGraph.formatPath(path)}',
+        tag: sdk.tag,
+      ),
+    );
 
-      // check if all of the top libraries are supported
-      var supports = true;
-      for (final lib in topLibraries) {
-        try {
-          final runtimeResult = violationFinder.findViolation(lib);
-          if (runtimeResult != null) {
-            explanations.add(runtimeResult);
-            supports = false;
-            break;
-          }
-        } on ToolException catch (e) {
-          return Explanation('Unable to verify `$lib`.', '$e', tag: sdk.tag);
+    // check if all of the top libraries are supported
+    var supports = true;
+    for (final lib in topLibraries) {
+      try {
+        final runtimeResult = violationFinder.findViolation(lib);
+        if (runtimeResult != null) {
+          explanations.add(runtimeResult);
+          supports = false;
+          break;
         }
+      } on ToolException catch (e) {
+        return Explanation('Unable to verify `$lib`.', '$e', tag: sdk.tag);
       }
-      if (supports) return null;
     }
+    if (supports) return null;
     return Explanation(
       'Package is not compatible with the ${sdk.formattedName} SDK.',
-      'Because it is not compatible with any of the supported runtimes: '
-          '${sdk.allowedRuntimes.map((r) => '`${r.name}`').join(', ')}.'
-          '${explanations.map((e) => '\n\n${e.finding} ${e.explanation}').join()}',
+      explanations.map((e) => '${e.finding} ${e.explanation}').join('\n\n'),
       tag: sdk.tag,
     );
   }

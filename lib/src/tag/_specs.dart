@@ -108,9 +108,7 @@ class Runtime {
   });
 
   /// For sdk detection we allow everything except dart:ui.
-  static final broadDart = Runtime('dart', {
-    ..._onNativeJit,
-  });
+  static final broadDart = Runtime('dart', {..._onNativeJit, ..._onAllWeb});
 
   /// For sdk detection we allow more or less everything.
   static final broadFlutter = Runtime('flutter', {
@@ -152,15 +150,15 @@ class Sdk {
   final String name;
   final String formattedName;
   final List<String> allowedSdks;
-  final List<Runtime> allowedRuntimes;
-  Sdk(this.name, this.formattedName, this.allowedSdks, this.allowedRuntimes);
+  final Runtime allowedRuntime;
+  Sdk(this.name, this.formattedName, this.allowedSdks, this.allowedRuntime);
 
   String get tag => 'sdk:$name';
 
-  static Sdk dart = Sdk('dart', 'Dart', ['dart'], [Runtime.broadDart]);
+  static Sdk dart = Sdk('dart', 'Dart', ['dart'], Runtime.broadDart);
 
   static Sdk flutter =
-      Sdk('flutter', 'Flutter', ['dart', 'flutter'], [Runtime.broadFlutter]);
+      Sdk('flutter', 'Flutter', ['dart', 'flutter'], Runtime.broadFlutter);
 
   static List<Sdk> knownSdks = [dart, flutter];
 }
