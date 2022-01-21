@@ -1,10 +1,7 @@
-## 0.21.6+1
-
-- Fix dart analysis. Code problems are now propagatet to the pana report.
-
 ## 0.21.6
 
 - `package:analyzer` dependency upgraded to `^3.1.0`.
+- Fix dart analysis. Code problems are now propagatet to the pana report.
 
 ## 0.21.5
 
