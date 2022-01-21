@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
@@ -117,10 +118,11 @@ class PackageContext {
             .runAnalyzer(packageDir, dir, usesFlutter, inspectOptions: options);
         final list = LineSplitter.split(output)
             .map((s) => parseCodeProblem(s, projectDir: packageDir))
-            .where((e) => e != null)
+            .whereNotNull()
             .toSet()
             .toList();
         list.sort();
+        problems.addAll(list);
       }
       _codeProblems = problems;
       return _codeProblems!;

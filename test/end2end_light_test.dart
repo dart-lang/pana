@@ -32,7 +32,7 @@ void main() {
       expect(summary.allDependencies!, isNotEmpty);
       expect(summary.tags!, isNotEmpty);
       expect(summary.report!.grantedPoints,
-          greaterThanOrEqualTo(summary.report!.maxPoints - 10));
+          greaterThanOrEqualTo(summary.report!.maxPoints - 20));
     }, timeout: const Timeout.factor(2));
   }
 

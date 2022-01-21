@@ -43,19 +43,39 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
+Found 9 issues. Showing the first 2:
+
 <details>
 <summary>
-lib/src/grammar.dart doesn't match the Dart formatter.
+INFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.
 </summary>
 
-To format your files run: `dart format .`
+`lib/src/parser.dart:100:33`
+
+```
+    ╷
+100 │           location['invalid'] = List();
+    │                                 ^^^^
+    ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`
 </details>
 <details>
 <summary>
-lib/src/parser.dart doesn't match the Dart formatter.
+INFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.
 </summary>
 
-To format your files run: `dart format .`
+`lib/src/parser.dart:140:24`
+
+```
+    ╷
+140 │   List<String> parts = List();
+    │                        ^^^^
+    ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`
 </details>
 
 ## 10/20 Support up-to-date dependencies
