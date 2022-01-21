@@ -68,6 +68,7 @@ jobs:
         name: Install dependencies
         run: dart pub upgrade
       - name: Run VM tests
+        shell: bash
         # Run the tests -- include the default-skipped presubmit tests
         # Run with concurrency = 1 – the build-test command edits files, which might
         #   crash other tests run in parallel
