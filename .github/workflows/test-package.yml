@@ -61,8 +61,10 @@ jobs:
           echo "$HOME/_flutter/bin" >> $GITHUB_PATH
           cd $GITHUB_WORKSPACE
       - name: Check Flutter
+        shell: bash
         run: flutter --version --machine
       - id: install
+        shell: bash
         name: Install dependencies
         run: dart pub upgrade
       - name: Run VM tests
