@@ -54,6 +54,7 @@ jobs:
         with:
           sdk: ${{ matrix.sdk }}
       - name: Setup Flutter
+        shell: bash
         run: |
           cd $HOME
           git clone https://github.com/flutter/flutter.git --depth 1 -b ${{ matrix.flutter }} _flutter
