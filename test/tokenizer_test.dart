@@ -4,7 +4,6 @@
 
 import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:source_span/source_span.dart';
-import 'package:test/scaffolding.dart';
 import 'package:test/test.dart';
 
 void main() {
