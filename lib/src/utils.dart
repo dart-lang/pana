@@ -242,7 +242,7 @@ Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
   log.fine('Downloading: $url');
 
   return await retry(() => http.read(url),
-      retryIf: (e) => e is SocketException || e is TimeoutException);
+      retryIf: (e) => e is IOException);
 }
 
 class PanaProcessResult extends ProcessResult {
