@@ -241,8 +241,19 @@ Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
       .resolve('/api/packages/$package');
   log.fine('Downloading: $url');
 
-  return await retry(() => http.read(url),
-      retryIf: (e) => e is IOException || e is http.ClientException);
+  return await retry(() async {
+    final rs = await http.get(url).timeout(const Duration(seconds: 20));
+    if (rs.statusCode == 200) {
+      return rs.body;
+    }
+    final message = '"$url" returned with status code ${rs.statusCode}.';
+    if (rs.statusCode >= 400 && rs.statusCode < 500) {
+      // does not retry on errors
+      throw AssertionError(message);
+    } else {
+      throw Exception(message);
+    }
+  });
 }
 
 class PanaProcessResult extends ProcessResult {
