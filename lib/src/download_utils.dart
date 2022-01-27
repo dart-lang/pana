@@ -8,14 +8,13 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart' as http_retry;
+import 'package:pana/src/repository_url.dart';
 import 'package:path/path.dart' as p;
 import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
 import 'logging.dart';
 import 'model.dart';
-
-final _imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
@@ -61,55 +60,10 @@ String? getRepositoryUrl(
   String relativePath, {
   String branch = 'master',
 }) {
-  if (repository == null || repository.isEmpty) return null;
-  for (var key in _repoReplacePrefixes.keys) {
-    if (repository!.startsWith(key)) {
-      repository = repository.replaceFirst(key, _repoReplacePrefixes[key]!);
-    }
-  }
-  try {
-    final uri = Uri.parse(repository!);
-    final segments = List<String>.from(uri.pathSegments);
-    while (segments.isNotEmpty && segments.last.isEmpty) {
-      segments.removeLast();
-    }
-
-    if (repository.startsWith('https://github.com/') ||
-        repository.startsWith('https://gitlab.com/')) {
-      if (segments.length >= 2 &&
-          segments[1].endsWith('.git') &&
-          segments[1].length > 4) {
-        segments[1] = segments[1].substring(0, segments[1].length - 4);
-      }
-
-      final extension = p.extension(relativePath).toLowerCase();
-      final isRaw = _imageExtensions.contains(extension);
-      final typeSegment = isRaw ? 'raw' : 'blob';
-
-      if (segments.length < 2) {
-        return null;
-      } else if (segments.length == 2) {
-        final newUrl = uri.replace(pathSegments: segments).toString();
-        return p.url.join(newUrl, typeSegment, branch, relativePath);
-      } else if (segments[2] == 'tree' || segments[2] == 'blob') {
-        segments[2] = typeSegment;
-        final newUrl = uri.replace(pathSegments: segments).toString();
-        return p.url.join(newUrl, relativePath);
-      } else {
-        return null;
-      }
-    }
-  } catch (_) {
-    return null;
-  }
-  return null;
+  if (repository == null) return null;
+  final url = RepositoryUrl.tryParse(repository);
+  return url?.resolve(relativePath, branch: branch).toUrl();
 }
-
-const _repoReplacePrefixes = {
-  'http://github.com': 'https://github.com',
-  'https://www.github.com': 'https://github.com',
-  'https://www.gitlab.com': 'https://gitlab.com',
-};
 
 /// The URL's parsed and queried status.
 class UrlStatus {
