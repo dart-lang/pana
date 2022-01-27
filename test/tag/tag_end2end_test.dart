@@ -364,9 +364,7 @@ int fourtyThree() => 43;
         _explanation(
             finding: 'Package is not compatible with the Flutter SDK.',
             explanation: startsWith(
-                'Because it is not compatible with any of the supported '
-                'runtimes: `flutter-native`, `flutter-web`.\n\n'
-                'Package is not compatible with Flutter SDK using runtime `flutter-native`. Because:')),
+                'Package is not compatible with the Flutter SDK. Because:')),
       ]);
       _expectTagging(tagger.platformTags,
           tags: isEmpty,
