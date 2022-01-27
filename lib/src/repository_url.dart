@@ -126,17 +126,16 @@ RepositoryUrl? _tryParseRepositoryUrl(String input) {
   if (repoSegmentIndex < 0) return null;
 
   String? separator;
-  final extraSegments = segments.skip(repoSegmentIndex + 1).toList();
-  if (extraSegments.isNotEmpty &&
-      _githubSegmentSeparators.contains(extraSegments.first)) {
-    separator = extraSegments.removeAt(0);
-  }
-
   String? branch;
-  if (RepositoryProvider.isGitHubCompatible(provider) &&
-      separator != null &&
-      extraSegments.isNotEmpty) {
-    branch = extraSegments.removeAt(0);
+  final extraSegments = segments.skip(repoSegmentIndex + 1).toList();
+  if (RepositoryProvider.isGitHubCompatible(provider)) {
+    if (extraSegments.isNotEmpty &&
+        _githubSegmentSeparators.contains(extraSegments.first)) {
+      separator = extraSegments.removeAt(0);
+    }
+    if (separator != null && extraSegments.isNotEmpty) {
+      branch = extraSegments.removeAt(0);
+    }
   }
 
   return RepositoryUrl(
