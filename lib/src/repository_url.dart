@@ -94,10 +94,13 @@ abstract class RepositoryProvider {
       provider == github || provider == gitlab;
 }
 
-const _repoReplacePrefixes = {
-  'http://github.com': 'https://github.com',
-  'https://www.github.com': 'https://github.com',
-  'https://www.gitlab.com': 'https://gitlab.com',
+const _replaceSchemes = {
+  'http': 'https',
+};
+
+const _replaceHosts = {
+  'www.github.com': 'github.com',
+  'www.gitlab.com': 'gitlab.com',
 };
 
 const _githubSegmentSeparators = ['tree', 'blob', 'raw'];
@@ -105,16 +108,17 @@ const _githubSegmentSeparators = ['tree', 'blob', 'raw'];
 final _imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
 
 RepositoryUrl? _tryParseRepositoryUrl(String input) {
-  var url = input;
+  var uri = Uri.tryParse(input);
+  if (uri == null) return null;
 
   // apply known prefix replace patterns
-  for (final key in _repoReplacePrefixes.keys) {
-    if (url.startsWith(key)) {
-      url = url.replaceFirst(key, _repoReplacePrefixes[key]!);
-    }
+  if (_replaceSchemes.containsKey(uri.scheme)) {
+    uri = uri.replace(scheme: _replaceSchemes[uri.scheme]!);
+  }
+  if (_replaceHosts.containsKey(uri.host)) {
+    uri = uri.replace(host: _replaceHosts[uri.host]!);
   }
 
-  final uri = Uri.parse(url);
   final provider = _detectProvider(uri);
 
   // detect repo vs path segments
