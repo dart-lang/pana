@@ -1,3 +1,7 @@
+## 0.21.7
+
+- Fix build verify test and generated version.
+
 ## 0.21.6
 
 - `package:analyzer` dependency upgraded to `^3.1.0`.
