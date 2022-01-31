@@ -14,6 +14,8 @@ import '_common.dart';
 
 Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
   Subsection subsection;
+  final flutterPackage = pubspec.usesFlutter;
+
   if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
       .existsSync()) {
     final tags = <String>[];
@@ -23,7 +25,6 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
     final sdkExplanations = <Explanation>[];
     tagger.sdkTags(sdkTags, sdkExplanations);
 
-    final flutterPackage = pubspec.usesFlutter;
 
     String platformList(List<String> tags, Map<String, String> tagNames) {
       return tagNames.entries.map((entry) {
@@ -100,11 +101,11 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
     );
   } else {
     subsection = Subsection(
-      'Doesn\'t support any platforms',
+      'Platform support detection failed',
       [
         Issue(
-          'Package resolution failed. Could not determine platforms.',
-          suggestion: 'Run `dart pub get` for more information.',
+          'Could not determine supported platforms as package resolution failed.',
+          suggestion: 'Run `${flutterPackage ? 'flutter' : 'dart'} pub get` for more information.',
         )
       ],
       0,
@@ -115,7 +116,7 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
 
   return makeSection(
       id: ReportSectionId.platform,
-      title: 'Platform Support',
+      title: 'Platform support',
       maxPoints: 20,
       basePath: packageDir,
       subsections: [subsection],
