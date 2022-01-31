@@ -9,7 +9,6 @@ import 'package:path/path.dart' as p;
 import '../model.dart';
 import '../pubspec.dart';
 import '../tag/tagger.dart';
-
 import '_common.dart';
 
 Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
@@ -24,7 +23,6 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
     final sdkTags = <String>[];
     final sdkExplanations = <Explanation>[];
     tagger.sdkTags(sdkTags, sdkExplanations);
-
 
     String platformList(List<String> tags, Map<String, String> tagNames) {
       return tagNames.entries.map((entry) {
@@ -105,7 +103,8 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
       [
         Issue(
           'Could not determine supported platforms as package resolution failed.',
-          suggestion: 'Run `${flutterPackage ? 'flutter' : 'dart'} pub get` for more information.',
+          suggestion:
+              'Run `${flutterPackage ? 'flutter' : 'dart'} pub get` for more information.',
         )
       ],
       0,
