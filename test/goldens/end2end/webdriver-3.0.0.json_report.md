@@ -21,7 +21,7 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 0/20 Platform Support
+## 0/20 Platform support
 
 ### [x] 0/20 points: Supports 0 of 6 possible platforms (iOS, Android, Web, Windows, MacOS, Linux)
 
@@ -134,7 +134,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|`^3.0.0`|3.1.9|3.1.9|
+|[`archive`]|`^3.0.0`|3.1.11|3.1.11|
 |[`matcher`]|`^0.12.10`|0.12.11|0.12.11|
 |[`path`]|`^1.8.0`|1.8.1|1.8.1|
 |[`stack_trace`]|`^1.10.0`|1.10.0|1.10.0|

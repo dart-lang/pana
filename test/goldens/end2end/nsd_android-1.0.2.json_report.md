@@ -15,7 +15,7 @@
 
 * Found example at: `example/EXAMPLE.md`
 
-## 20/20 Platform Support
+## 20/20 Platform support
 
 ### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, **Android**, Web, Windows, MacOS, Linux)
 
@@ -69,36 +69,20 @@ Because:
 ### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
 
 
-## 20/20 Support up-to-date dependencies
+## 10/20 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`flutter`]|`flutter`|0.0.0|0.0.0|
+* Could not run `flutter pub outdated`: `dart pub get` failed:
 
-<details><summary>Transitive dependencies</summary>
+```
+OUT:
+Resolving dependencies...
+ERR:
+Because nsd_android requires the Flutter SDK, version solving failed.
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`characters`]|-|1.2.0|1.2.0|
-|[`collection`]|-|1.15.0|1.15.0|
-|[`meta`]|-|1.7.0|1.7.0|
-|[`sky_engine`]|-|0.0.99|0.0.99|
-|[`typed_data`]|-|1.3.0|1.3.0|
-|[`vector_math`]|-|2.1.1|2.1.1|
-</details>
-
-To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
-
-[`flutter`]: https://pub.dev/packages/flutter
-[`characters`]: https://pub.dev/packages/characters
-[`collection`]: https://pub.dev/packages/collection
-[`meta`]: https://pub.dev/packages/meta
-[`sky_engine`]: https://pub.dev/packages/sky_engine
-[`typed_data`]: https://pub.dev/packages/typed_data
-[`vector_math`]: https://pub.dev/packages/vector_math
-
+Flutter users should run `flutter pub get` instead of `dart pub get`.
+```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 

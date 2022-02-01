@@ -40,11 +40,11 @@
       },
       {
         "id": "platform",
-        "title": "Platform Support",
+        "title": "Platform support",
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/20 points: Doesn't support any platforms\n\n<details>\n<summary>\nPackage resolution failed. Could not determine platforms.\n</summary>\n\nRun `dart pub get` for more information.\n</details>"
+        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `dart pub get` for more information.\n</details>"
       },
       {
         "id": "analysis",
