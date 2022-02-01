@@ -5,12 +5,12 @@
 import 'dart:io';
 
 import 'package:pana/pana.dart';
-import 'package:pana/src/package_context.dart';
 import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
 final maxFileSizeInBytes = 2097152; // 2MB
+final maxFileSizeInMegaBytes = maxFileSizeInBytes / (1024 * 1024);
 final maxNumberOfScreenshots = 5;
 
 /// [ScreenshotResult] holds either a [ProcessedScreenshot] or a list of
@@ -49,17 +49,17 @@ class ScreenshotResult {
       path.join(_outDir!, processedScreenshot!.webpImage);
 }
 
-Future<List<ScreenshotResult>> processAllScreenshots(PackageContext context,
+Future<List<ScreenshotResult>> processAllScreenshots(
     List<p.Screenshot> screenshots, String pkgDir) async {
   final results = <ScreenshotResult>[];
   final tempDir = Directory.systemTemp.createTempSync().path;
-  final problems = <String>[];
   var processedScreenshots = 0;
   for (final screenshot in screenshots) {
+    final problems = <String>[];
     if (processedScreenshots == maxNumberOfScreenshots) {
       results.add(ScreenshotResult.failed(
         [
-          '${screenshot.path}: Not processed since number of screenshots exceeds maximum number $maxNumberOfScreenshots'
+          '${screenshot.path}: Not processed. pub.dev shows at most $maxNumberOfScreenshots screenshots.'
         ],
       ));
       continue;
@@ -71,7 +71,7 @@ Future<List<ScreenshotResult>> processAllScreenshots(PackageContext context,
       continue;
     }
 
-    final result = await _processScreenshot(screenshot, tempDir);
+    final result = await _processScreenshot(pkgDir, screenshot, tempDir);
     if (result.problems.isEmpty) {
       processedScreenshots++;
     }
@@ -83,25 +83,36 @@ Future<List<ScreenshotResult>> processAllScreenshots(PackageContext context,
 List<String> _validateScreenshot(p.Screenshot screenshot, String pkgDir) {
   final problems = <String>[];
   if (screenshot.description.isEmpty) {
-    problems.add('${screenshot.path}: Description missing.');
+    problems.add(
+        '${screenshot.path}: Screenshot `description` property is missing.');
   } else if (screenshot.description.length > 160) {
     problems.add(
-        '${screenshot.path}: Description too long. Description length must be less '
+        '${screenshot.path}: Screenshot `description` is too long. Description length must be less '
         'than 160 characters.');
   }
+  if (screenshot.path.isEmpty) {
+    problems.add('${screenshot.path}: Screenshot `path` property is missing.');
+  }
 
-  final origImage = File(path.join(pkgDir, screenshot.path));
+  final fullPath = path.join(pkgDir, screenshot.path);
+  if (!path.normalize(fullPath).startsWith(pkgDir)) {
+    problems.add(
+        '${screenshot.path}: Screenshot file path should be within the package.');
+  }
+
+  final origImage = File(fullPath);
   if (!origImage.existsSync()) {
     problems.add(
-        '${screenshot.path}: No file found at speficifed path ${screenshot.path}');
+        '${screenshot.path}: No file found at specified screenshot `path` ${screenshot.path}');
   } else if (origImage.lengthSync() > maxFileSizeInBytes) {
-    problems.add('${screenshot.path}: File size exceeds limit of 2 MB');
+    problems.add(
+        '${screenshot.path}: Screenshot file size exceeds limit of $maxFileSizeInMegaBytes MB');
   }
   return problems;
 }
 
 Future<ScreenshotResult> _processScreenshot(
-    p.Screenshot e, String tmpDir) async {
+    String pkgDir, p.Screenshot e, String tempDir) async {
   final basename = path.basenameWithoutExtension(e.path);
   final webpName = '$basename.webp';
   final genDir = 'gen';
@@ -110,20 +121,21 @@ Future<ScreenshotResult> _processScreenshot(
   final webpThumbnailPath = path.join(thumbnailDir, webpName);
   final pngName = '$basename.png';
   final pngThumbnailPath = path.join(thumbnailDir, pngName);
+  final originalPath = path.join(pkgDir, e.path);
 
-  Directory(thumbnailDir).createSync(recursive: true);
+  Directory(path.join(tempDir, thumbnailDir)).createSync(recursive: true);
 
   final webpScreenshotProblems =
-      await _generateWebpScreenshot(e.path, path.join(tmpDir, webpPath));
+      await _generateWebpScreenshot(originalPath, path.join(tempDir, webpPath));
   if (webpScreenshotProblems.isNotEmpty) {
     return ScreenshotResult.failed(webpScreenshotProblems);
   }
 
   final thumbnailProblems = await _generateThumbnails(
-      e.path,
-      path.join(tmpDir, webpPath),
-      path.join(tmpDir, webpThumbnailPath),
-      path.join(tmpDir, pngThumbnailPath));
+      originalPath,
+      path.join(tempDir, webpPath),
+      path.join(tempDir, webpThumbnailPath),
+      path.join(tempDir, pngThumbnailPath));
   if (thumbnailProblems.isNotEmpty) {
     return ScreenshotResult.failed(thumbnailProblems);
   }
@@ -133,15 +145,7 @@ Future<ScreenshotResult> _processScreenshot(
           webpImage: webpPath,
           webpThumbnail: webpThumbnailPath,
           pngThumbnail: pngThumbnailPath),
-      tmpDir);
-}
-
-Future<PanaProcessResult> _checkedRunProc(List<String> cmdAndArgs) async {
-  final result = await runProc(cmdAndArgs);
-  if (result.exitCode == 127) {
-    stderr.write("'${cmdAndArgs[0]}' tool not found.");
-  }
-  return result;
+      tempDir);
 }
 
 /// Generates a WebP screenshot given the original image at [originalPath] and
@@ -185,7 +189,7 @@ Future<List<String>> _generateWebpScreenshot(
   }
   problems.addAll(gif2webpProblems);
   problems.add(
-      'generating webp image for $originalPath failed due to invalid input');
+      'Generating webp image for $originalPath failed due to invalid input');
   return problems;
 }
 
@@ -197,7 +201,7 @@ Future<List<String>> _copyIfAlreadyWebp(
     return [];
   }
   return [
-    '$originalPath: Running webpinfo failed. Exitcode ${infoResult.exitCode}'
+    '$originalPath: Tried interpreting screenshot as WebP. Failed with exitcode ${infoResult.exitCode}.'
   ];
 }
 
@@ -209,7 +213,7 @@ Future<List<String>> _convertWithCWebp(
     return [];
   }
   return [
-    '$originalPath: Running webpinfo failed. Exitcode ${cwebpResult.exitCode}'
+    '$originalPath: Converting screenshot with `cwebp` failed with exitcode ${cwebpResult.exitCode}.'
   ];
 }
 
@@ -222,7 +226,7 @@ Future<List<String>> _convertGifToWebp(
     return [];
   }
   return [
-    '$originalPath: Running gif2webp failed. Exitcode ${gif2webpResult.exitCode}'
+    '$originalPath: Tried interpreting screenshot as GIF. Failed with exitcode ${gif2webpResult.exitCode}.'
   ];
 }
 
@@ -247,7 +251,9 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
   late String staticWebpPath;
   final infoResult = await runProc(['webpinfo', webpPath]);
   if (infoResult.exitCode != 0) {
-    return ['$originalPath: webpinfo on $webpPath failed.'];
+    return [
+      "$originalPath: Running 'webpinfo' on $webpPath failed with exitcode ${infoResult.exitCode}."
+    ];
   }
 
   if ((infoResult.stdout as String).contains('Animation: 1')) {
@@ -255,21 +261,18 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
         '${path.basenameWithoutExtension(webpPath)}_static.webp');
     // input file is animated, extract the first frame.
     final webpmuxResult = await _checkedRunProc(
-        ['webpmux', '-get frame 0', webpPath, '-o', staticWebpPath]);
+        ['webpmux', '-get', 'frame', '1', webpPath, '-o', staticWebpPath]);
 
     if (webpmuxResult.exitCode != 0) {
-      return ['$originalPath: webpmux on $webpPath failed.'];
+      return [
+        "$originalPath: Extracting frame from $webpPath with 'webpmux' failed with exitcode ${webpmuxResult.exitCode}"
+      ];
     }
   } else {
     staticWebpPath = webpPath;
   }
 
-  final infoResult2 = await runProc(['webpinfo', staticWebpPath]);
-  if (infoResult2.exitCode != 0) {
-    return ['$originalPath: webpinfo on $staticWebpPath failed.'];
-  }
-
-  final stdout = infoResult2.stdout as String;
+  final stdout = infoResult.stdout as String;
   final lines = stdout.split('\n');
   final widthString =
       lines.firstWhere((String line) => line.contains('Width:'));
@@ -297,13 +300,25 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
     webpThumbnailPath
   ]);
   if (resizeResult.exitCode != 0) {
-    return ['$originalPath: Failed to resize to webp thumbnail.'];
+    return [
+      "$originalPath: Resizing to WebP thumbnail with 'cwebp -resize' failed with exitcode ${resizeResult.exitCode}"
+    ];
   }
 
   final pngResult = await _checkedRunProc(
       ['dwebp', webpThumbnailPath, '-o', pngThumbnailPath]);
   if (pngResult.exitCode != 0) {
-    return ['$originalPath: Failed to generate png thumbnail.'];
+    return [
+      "$originalPath: Generating PNG thumbnail with 'webp' failed with exitcode ${pngResult.exitCode}"
+    ];
   }
   return [];
+}
+
+Future<PanaProcessResult> _checkedRunProc(List<String> cmdAndArgs) async {
+  final result = await runProc(cmdAndArgs);
+  if (result.exitCode == 127) {
+    stderr.write("'${cmdAndArgs[0]}' tool not found.");
+  }
+  return result;
 }

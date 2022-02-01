@@ -67,7 +67,7 @@
         "grantedPoints": 10,
         "maxPoints": 10,
         "status": "passed",
-        "summary": "### [*] 10/10 points: Package has an example\n\n* Found example at: `example/EXAMPLE.md`"
+        "summary": "### [*] 10/10 points: Package has an example\n"
       },
       {
         "id": "platform",

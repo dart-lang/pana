@@ -23,7 +23,7 @@ Future<ReportSection> hasDocumentation(
   final candidates = exampleFileCandidates(pubspec.name, caseSensitive: true);
   final examplePath = candidates
       .firstWhereOrNull((c) => File(p.join(packageDir, c)).existsSync());
-  final issues = <Issue>[
+  var issues = <Issue>[
     if (examplePath == null)
       Issue(
         'No example found.',
@@ -31,34 +31,33 @@ Future<ReportSection> hasDocumentation(
             'See [package layout](https://dart.dev/tools/pub/package-layout#examples) '
             'guidelines on how to add an example.',
       )
-    else
-      Issue('Found example at: `$examplePath`')
   ];
-
-  var points = examplePath == null ? 0 : 10;
 
   final screenshotIssues = <Issue>[];
   final declaredScreenshots = pubspec.screenshots;
+
+  final headline = declaredScreenshots != null && declaredScreenshots.isNotEmpty
+      ? 'Package has an example and has no issues with screenshots'
+      : 'Package has an example';
   if (declaredScreenshots != null) {
     final screenshotResults =
         await context.processScreenshots(declaredScreenshots, packageDir);
     for (var result in screenshotResults) {
       screenshotIssues.addAll(result.problems.map((problem) => Issue(problem)));
     }
-
-    points = screenshotIssues.isNotEmpty ? 0 : points;
   }
-  final status =
-      examplePath == null ? ReportStatus.failed : ReportStatus.passed;
+  issues.addAll(screenshotIssues);
+
+  final status = screenshotIssues.isEmpty && examplePath != null
+      ? ReportStatus.passed
+      : ReportStatus.failed;
+  final points = status == ReportStatus.passed ? 10 : 0;
   return makeSection(
     id: ReportSectionId.documentation,
     title: documentationSectionTitle,
     maxPoints: 10,
     subsections: [
-      Subsection('Package has an example', issues, points, 10, status),
-      if (screenshotIssues.isNotEmpty)
-        Subsection('Issues with declared screenshots', screenshotIssues, 0, 0,
-            ReportStatus.failed)
+      Subsection(headline, issues, points, 10, status),
     ],
     basePath: null,
   );

@@ -138,9 +138,8 @@ class PackageContext {
 
   Future<List<ScreenshotResult>> processScreenshots(
       List<p.Screenshot> screenshots, String pkgDir) async {
-    if (pubspec.screenshots == null) return [];
     if (_screenshotResults != null) return _screenshotResults!;
-    _screenshotResults = await processAllScreenshots(this, screenshots, pkgDir);
+    _screenshotResults = await processAllScreenshots(screenshots, pkgDir);
     return _screenshotResults!;
   }
 

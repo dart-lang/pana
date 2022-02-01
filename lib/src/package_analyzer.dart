@@ -185,9 +185,8 @@ class PackageAnalyzer {
     final licenseFile = await detectLicenseInDir(pkgDir);
 
     final declaredScreenshots = pubspec.screenshots;
-    List<ProcessedScreenshot>? processedScreenshots;
+    List<ProcessedScreenshot>? processedScreenshots = [];
     if (declaredScreenshots != null) {
-      processedScreenshots = [];
       final screenshotResults =
           await context.processScreenshots(declaredScreenshots, pkgDir);
       for (final r in screenshotResults) {
