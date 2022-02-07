@@ -15,7 +15,7 @@
 
 * Found example at: `example/lib/main.dart`
 
-## 20/20 Platform Support
+## 20/20 Platform support
 
 ### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)
 
@@ -39,7 +39,7 @@
 |:-|:-|:-|:-|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
 |[`url_launcher_linux`]|`^2.0.0`|2.0.3|2.0.3|
-|[`url_launcher_macos`]|`^2.0.0`|2.0.2|2.0.2|
+|[`url_launcher_macos`]|`^2.0.0`|2.0.3|2.0.3|
 |[`url_launcher_platform_interface`]|`^2.0.0`|2.0.5|2.0.5|
 |[`url_launcher_web`]|`^2.0.0`|2.0.6|2.0.6|
 |[`url_launcher_windows`]|`^2.0.0`|2.0.2|2.0.2|

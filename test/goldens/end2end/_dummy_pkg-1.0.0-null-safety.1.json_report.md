@@ -50,13 +50,13 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 0/20 Platform Support
+## 0/20 Platform support
 
-### [x] 0/20 points: Doesn't support any platforms
+### [x] 0/20 points: Platform support detection failed
 
 <details>
 <summary>
-Package resolution failed. Could not determine platforms.
+Could not determine supported platforms as package resolution failed.
 </summary>
 
 Run `dart pub get` for more information.

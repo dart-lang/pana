@@ -56,7 +56,7 @@
       },
       {
         "id": "platform",
-        "title": "Platform Support",
+        "title": "Platform support",
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",

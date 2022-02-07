@@ -15,7 +15,7 @@
 
 * Found example at: `example/EXAMPLE.md`
 
-## 20/20 Platform Support
+## 20/20 Platform support
 
 ### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, **Android**, Web, Windows, MacOS, Linux)
 

@@ -15,7 +15,7 @@
 
 * Found example at: `example/lib/main.dart`
 
-## 20/20 Platform Support
+## 20/20 Platform support
 
 ### [*] 20/20 points: Supports 4 of 6 possible platforms (**iOS**, **Android**, **Web**, Windows, **MacOS**, Linux)
 
@@ -152,7 +152,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`typed_data`]|-|1.3.0|1.3.0|
 |[`uuid`]|-|3.0.5|3.0.5|
 |[`vector_math`]|-|2.1.1|2.1.1|
-|[`win32`]|-|2.3.6|2.3.6|
+|[`win32`]|-|2.3.10|2.3.10|
 |[`xdg_directories`]|-|0.2.0|0.2.0|
 </details>
 
