@@ -151,7 +151,7 @@ void main() {
       expect(result[i].processedScreenshot, isNotNull);
       expect(result[i].problems, isEmpty);
     }
-  }, skip: hasWebpTools);
+  }, skip: !hasWebpTools);
 
   test('Failure: not an image', () async {
     if (!hasWebpTools) return;

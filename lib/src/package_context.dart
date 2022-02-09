@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:pana/src/screenshots.dart';
 import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
 import 'code_problem.dart';
 import 'download_utils.dart';
@@ -136,10 +135,12 @@ class PackageContext {
     }
   }
 
-  Future<List<ScreenshotResult>> processScreenshots(
-      List<p.Screenshot> screenshots, String pkgDir) async {
+  Future<List<ScreenshotResult>> processScreenshots() async {
     if (_screenshotResults != null) return _screenshotResults!;
-    _screenshotResults = await processAllScreenshots(screenshots, pkgDir);
+    if (pubspec.screenshots != null) {
+      _screenshotResults =
+          await processAllScreenshots(pubspec.screenshots!, packageDir);
+    }
     return _screenshotResults!;
   }
 

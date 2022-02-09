@@ -184,24 +184,20 @@ class PackageAnalyzer {
 
     final licenseFile = await detectLicenseInDir(pkgDir);
 
-    final declaredScreenshots = pubspec.screenshots;
     List<ProcessedScreenshot>? processedScreenshots = [];
-    if (declaredScreenshots != null) {
-      final screenshotResults =
-          await context.processScreenshots(declaredScreenshots, pkgDir);
-      for (final r in screenshotResults) {
-        if (r.problems.isEmpty) {
-          final processedScreenshot = r.processedScreenshot!;
-          processedScreenshots.add(processedScreenshot);
+    final screenshotResults = await context.processScreenshots();
+    for (final r in screenshotResults) {
+      if (r.problems.isEmpty) {
+        final processedScreenshot = r.processedScreenshot!;
+        processedScreenshots.add(processedScreenshot);
 
-          if (storeResource != null) {
-            await storeResource(processedScreenshot.webpImage,
-                File(r.webpScreenshotPath).readAsBytesSync());
-            await storeResource(processedScreenshot.webpThumbnail,
-                File(r.webpThumbnailPath).readAsBytesSync());
-            await storeResource(processedScreenshot.pngThumbnail,
-                File(r.pngThumbnailPath).readAsBytesSync());
-          }
+        if (storeResource != null) {
+          await storeResource(processedScreenshot.webpImage,
+              File(r.webpScreenshotPath).readAsBytesSync());
+          await storeResource(processedScreenshot.webpThumbnail,
+              File(r.webpThumbnailPath).readAsBytesSync());
+          await storeResource(processedScreenshot.pngThumbnail,
+              File(r.pngThumbnailPath).readAsBytesSync());
         }
       }
     }

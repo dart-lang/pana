@@ -39,13 +39,11 @@ Future<ReportSection> hasDocumentation(
   final headline = declaredScreenshots != null && declaredScreenshots.isNotEmpty
       ? 'Package has an example and has no issues with screenshots'
       : 'Package has an example';
-  if (declaredScreenshots != null) {
-    final screenshotResults =
-        await context.processScreenshots(declaredScreenshots, packageDir);
-    for (var result in screenshotResults) {
-      screenshotIssues.addAll(result.problems.map((problem) => Issue(problem)));
-    }
+  final screenshotResults = await context.processScreenshots();
+  for (var result in screenshotResults) {
+    screenshotIssues.addAll(result.problems.map((problem) => Issue(problem)));
   }
+
   issues.addAll(screenshotIssues);
 
   final status = screenshotIssues.isEmpty && examplePath != null
