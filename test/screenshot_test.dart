@@ -18,6 +18,21 @@ import 'package_descriptor.dart';
 
 final _testImagesDir = p.join('test', 'testImages');
 
+bool tryWebpTool() {
+  try {
+    Process.runSync('cwebp', []);
+    Process.runSync('dwebp', []);
+    Process.runSync('webpinfo', []);
+    Process.runSync('gif2webp', []);
+    Process.runSync('webpmux', []);
+  } on ProcessException catch (_) {
+    return false;
+  }
+  return true;
+}
+
+final hasWebpTools = tryWebpTool();
+
 void main() {
   test('validates empty description', () async {
     final pkgDir = 'my_pkg';
@@ -96,11 +111,7 @@ void main() {
   });
 
   test('success - process WebP, PNG and GIFs', () async {
-    if ((await runProc(['cwebp'])).exitCode != 0) {
-      // Skip test if webp tools not installed.
-      return;
-    }
-
+    if (!hasWebpTools) return;
     final pkgDir = _testImagesDir;
     final s = Screenshot('description', 'static.webp');
     final s1 = Screenshot('description', 'animated.webp');
@@ -113,17 +124,13 @@ void main() {
 
     expect(result.length, 5);
     for (final sr in result) {
-      expect(sr.processedScreenshot, isNotNull);
       expect(sr.problems, isEmpty);
+      expect(sr.processedScreenshot, isNotNull);
     }
-  });
+  }, skip: !hasWebpTools);
 
   test('No more than 5 screenshots', () async {
-    if ((await runProc(['cwebp'])).exitCode != 0) {
-      // Skip test if webp tools not installed.
-      return;
-    }
-
+    if (!hasWebpTools) return;
     final pkgDir = _testImagesDir;
     final s = Screenshot('description', 'static.webp');
     final s1 = Screenshot('description', 'animated.webp');
@@ -136,22 +143,18 @@ void main() {
     final result = await processAllScreenshots(declared, pkgDir);
 
     expect(result.length, 6);
+    expect(result[5].problems, isNotEmpty);
+    expect(result[5].processedScreenshot, isNull);
+    expect(result[5].problems.first,
+        contains('Not processed. pub.dev shows at most 5 screenshots'));
     for (var i = 0; i < 5; i++) {
       expect(result[i].processedScreenshot, isNotNull);
       expect(result[i].problems, isEmpty);
     }
-    expect(result[5].processedScreenshot, isNull);
-    expect(result[5].problems, isNotEmpty);
-    expect(result[5].problems.first,
-        contains('Not processed. pub.dev shows at most 5 screenshots'));
-  });
+  }, skip: hasWebpTools);
 
   test('Failure: not an image', () async {
-    if ((await runProc(['cwebp'])).exitCode != 0) {
-      // Skip test if webp tools not installed.
-      return;
-    }
-
+    if (!hasWebpTools) return;
     final pkgDir = _testImagesDir;
     final s = Screenshot('description', 'notAnImage.txt');
     final declared = <Screenshot>[s];
@@ -170,7 +173,7 @@ void main() {
         r.first.problems[3],
         contains(
             "Generating webp image for ${p.join(pkgDir, 'notAnImage.txt')} failed"));
-  });
+  }, skip: !hasWebpTools);
 
   test('Report shows screenshot problems', () async {
     Map pubspecExtras = <String, List>{
@@ -206,11 +209,7 @@ void main() {
   });
 
   test('Successful report', () async {
-    if ((await runProc(['cwebp'])).exitCode != 0) {
-      // Skip test if webp tools not installed.
-      return;
-    }
-
+    if (!hasWebpTools) return;
     Map pubspecExtras = <String, List>{
       'screenshots': [
         {'description': 'description', 'path': 'static.webp'}
@@ -237,5 +236,5 @@ void main() {
     expect(section.grantedPoints, 10);
     expect(
         section.summary, isNot(contains('Issues with declared screenshots')));
-  });
+  }, skip: !hasWebpTools);
 }

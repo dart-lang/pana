@@ -316,9 +316,12 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
 }
 
 Future<PanaProcessResult> _checkedRunProc(List<String> cmdAndArgs) async {
-  final result = await runProc(cmdAndArgs);
-  if (result.exitCode == 127) {
+  PanaProcessResult result;
+  try {
+    result = await runProc(cmdAndArgs);
+  } on ProcessException catch (e) {
     stderr.write("'${cmdAndArgs[0]}' tool not found.");
+    return PanaProcessResult(-1, e.errorCode, e.message, e.message);
   }
   return result;
 }
