@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
@@ -71,7 +72,7 @@ class PackageAnalyzer {
     String? version,
     InspectOptions? options,
     Logger? logger,
-    Future<void> Function(String filename, List<int> data)? storeResource,
+    Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
     options ??= InspectOptions();
     return withLogger(() async {
@@ -93,9 +94,11 @@ class PackageAnalyzer {
     });
   }
 
-  Future<Summary> _inspect(String pkgDir, InspectOptions options,
-      {Future<void> Function(String filename, List<int> data)?
-          storeResource}) async {
+  Future<Summary> _inspect(
+    String pkgDir,
+    InspectOptions options, {
+    Future<void> Function(String filename, Uint8List data)? storeResource,
+  }) async {
     final context = PackageContext(
       toolEnvironment: _toolEnv,
       packageDir: pkgDir,
@@ -192,12 +195,11 @@ class PackageAnalyzer {
         processedScreenshots.add(processedScreenshot);
 
         if (storeResource != null) {
-          await storeResource(processedScreenshot.webpImage,
-              File(r.webpScreenshotPath).readAsBytesSync());
-          await storeResource(processedScreenshot.webpThumbnail,
-              File(r.webpThumbnailPath).readAsBytesSync());
-          await storeResource(processedScreenshot.pngThumbnail,
-              File(r.pngThumbnailPath).readAsBytesSync());
+          await storeResource(processedScreenshot.webpImage, r.webpImageBytes!);
+          await storeResource(
+              processedScreenshot.webpThumbnail, r.webpThumbnailBytes!);
+          await storeResource(
+              processedScreenshot.pngThumbnail, r.pngThumbnailBytes!);
         }
       }
     }

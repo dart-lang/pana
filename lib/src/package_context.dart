@@ -136,12 +136,8 @@ class PackageContext {
   }
 
   Future<List<ScreenshotResult>> processScreenshots() async {
-    if (_screenshotResults != null) return _screenshotResults!;
-    if (pubspec.screenshots != null) {
-      _screenshotResults =
-          await processAllScreenshots(pubspec.screenshots!, packageDir);
-    }
-    return _screenshotResults!;
+    return _screenshotResults ??=
+        await processAllScreenshots(pubspec.screenshots, packageDir);
   }
 
   bool get pubspecAllowsCurrentSdk =>

@@ -36,7 +36,7 @@ Future<ReportSection> hasDocumentation(
   final screenshotIssues = <Issue>[];
   final declaredScreenshots = pubspec.screenshots;
 
-  final headline = declaredScreenshots != null && declaredScreenshots.isNotEmpty
+  final headline = declaredScreenshots.isNotEmpty
       ? 'Package has an example and has no issues with screenshots'
       : 'Package has an example';
   final screenshotResults = await context.processScreenshots();

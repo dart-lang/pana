@@ -15,7 +15,8 @@ part 'model.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 
-/// A processed screenshot contains paths with processed images as stored in GCS.
+/// A processed screenshot contains paths with processed images as stored using
+///  `storeResource` as passed to `PackageAnalyzer.inspectPackage`.
 class ProcessedScreenshot {
   final String originalImage; // <imagePath>
   final String webpImage; // gen/<imagePath>.webp

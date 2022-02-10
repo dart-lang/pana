@@ -43,7 +43,7 @@ class Pubspec {
 
   Map get environment => (_content['environment'] as Map?) ?? {};
 
-  List<pubspek.Screenshot>? get screenshots => _inner.screenshots;
+  List<pubspek.Screenshot> get screenshots => _inner.screenshots ?? [];
 
   bool dependsOnPackage(String package) =>
       (dependencies.containsKey(package)) ||

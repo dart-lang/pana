@@ -163,12 +163,11 @@ void main() {
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
     expect(r.first.problems.length, 4);
-    expect(r.first.problems[0],
-        contains('Tried interpreting screenshot as WebP. Failed'));
-    expect(r.first.problems[1],
-        contains('Converting screenshot with `cwebp` failed'));
-    expect(r.first.problems[2],
-        contains('Tried interpreting screenshot as GIF. Failed'));
+    expect(
+        r.first.problems[0], contains('Tried interpreting screenshot as WebP'));
+    expect(r.first.problems[1], contains('Converting screenshot with `cwebp '));
+    expect(
+        r.first.problems[2], contains('Tried interpreting screenshot as GIF'));
     expect(
         r.first.problems[3],
         contains(

@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:pana/pana.dart';
 import 'package:pana/src/utils.dart';
@@ -17,67 +18,68 @@ final maxNumberOfScreenshots = 5;
 /// problems describing what went wrong when trying to generate thumbnails and
 /// screenshot.
 class ScreenshotResult {
-  // The temporary directory where the processed screenshots are stored.
-  final String? _outDir;
   ProcessedScreenshot? processedScreenshot;
+  Uint8List? webpImageBytes;
+  Uint8List? webpThumbnailBytes;
+  Uint8List? pngThumbnailBytes;
   List<String> problems;
 
-  ScreenshotResult._(this.processedScreenshot, this.problems, this._outDir);
+  ScreenshotResult._(
+    this.processedScreenshot,
+    this.webpImageBytes,
+    this.webpThumbnailBytes,
+    this.pngThumbnailBytes,
+    this.problems,
+  );
 
   factory ScreenshotResult.success(
-      ProcessedScreenshot processedScreenshot, String outDir) {
-    return ScreenshotResult._(processedScreenshot, [], outDir);
+    ProcessedScreenshot processedScreenshot,
+    Uint8List webpImageBytes,
+    Uint8List webpThumbnailBytes,
+    Uint8List pngThumbnailBytes,
+  ) {
+    return ScreenshotResult._(processedScreenshot, webpImageBytes,
+        webpThumbnailBytes, pngThumbnailBytes, []);
   }
 
   factory ScreenshotResult.failed(List<String> problems) {
-    return ScreenshotResult._(null, problems, null);
+    return ScreenshotResult._(null, null, null, null, problems);
   }
-
-  /// The path to where the generated WebP thumbnail is temporarily stored.
-  /// Should only be used if [processedScreenshot] is not null.
-  String get webpThumbnailPath =>
-      path.join(_outDir!, processedScreenshot!.webpThumbnail);
-
-  /// The path to where the generated PNG thumbnail is temporarily stored.
-  /// Should only be used if [processedScreenshot] is not null.
-  String get pngThumbnailPath =>
-      path.join(_outDir!, processedScreenshot!.pngThumbnail);
-
-  /// The path to where the generated WebP screenshot is temporarily stored.
-  /// Should only be used if [processedScreenshot] is not null.
-  String get webpScreenshotPath =>
-      path.join(_outDir!, processedScreenshot!.webpImage);
 }
 
 Future<List<ScreenshotResult>> processAllScreenshots(
     List<p.Screenshot> screenshots, String pkgDir) async {
-  final results = <ScreenshotResult>[];
-  final tempDir = Directory.systemTemp.createTempSync().path;
-  var processedScreenshots = 0;
-  for (final screenshot in screenshots) {
-    final problems = <String>[];
-    if (processedScreenshots == maxNumberOfScreenshots) {
-      results.add(ScreenshotResult.failed(
-        [
-          '${screenshot.path}: Not processed. pub.dev shows at most $maxNumberOfScreenshots screenshots.'
-        ],
-      ));
-      continue;
-    }
+  final tempDir = Directory.systemTemp.createTempSync();
+  try {
+    final results = <ScreenshotResult>[];
+    var processedScreenshots = 0;
+    for (final screenshot in screenshots) {
+      final problems = <String>[];
+      if (processedScreenshots == maxNumberOfScreenshots) {
+        results.add(ScreenshotResult.failed(
+          [
+            '${screenshot.path}: Not processed. pub.dev shows at most $maxNumberOfScreenshots screenshots.'
+          ],
+        ));
+        continue;
+      }
 
-    problems.addAll(_validateScreenshot(screenshot, pkgDir));
-    if (problems.isNotEmpty) {
-      results.add(ScreenshotResult.failed(problems));
-      continue;
-    }
+      problems.addAll(_validateScreenshot(screenshot, pkgDir));
+      if (problems.isNotEmpty) {
+        results.add(ScreenshotResult.failed(problems));
+        continue;
+      }
 
-    final result = await _processScreenshot(pkgDir, screenshot, tempDir);
-    if (result.problems.isEmpty) {
-      processedScreenshots++;
+      final result = await _processScreenshot(pkgDir, screenshot, tempDir.path);
+      if (result.problems.isEmpty) {
+        processedScreenshots++;
+      }
+      results.add(result);
     }
-    results.add(result);
+    return results;
+  } finally {
+    tempDir.deleteSync(recursive: true);
   }
-  return results;
 }
 
 List<String> _validateScreenshot(p.Screenshot screenshot, String pkgDir) {
@@ -132,24 +134,29 @@ Future<ScreenshotResult> _processScreenshot(
   }
 
   final thumbnailProblems = await _generateThumbnails(
-      originalPath,
-      path.join(tempDir, webpPath),
-      path.join(tempDir, webpThumbnailPath),
-      path.join(tempDir, pngThumbnailPath));
+    originalPath,
+    path.join(tempDir, webpPath),
+    path.join(tempDir, webpThumbnailPath),
+    path.join(tempDir, pngThumbnailPath),
+    tempDir,
+  );
   if (thumbnailProblems.isNotEmpty) {
     return ScreenshotResult.failed(thumbnailProblems);
   }
 
   return ScreenshotResult.success(
-      ProcessedScreenshot(e.path, e.description,
-          webpImage: webpPath,
-          webpThumbnail: webpThumbnailPath,
-          pngThumbnail: pngThumbnailPath),
-      tempDir);
+    ProcessedScreenshot(e.path, e.description,
+        webpImage: webpPath,
+        webpThumbnail: webpThumbnailPath,
+        pngThumbnail: pngThumbnailPath),
+    File(path.join(tempDir, webpPath)).readAsBytesSync(),
+    File(path.join(tempDir, webpThumbnailPath)).readAsBytesSync(),
+    File(path.join(tempDir, pngThumbnailPath)).readAsBytesSync(),
+  );
 }
 
 /// Generates a WebP screenshot given the original image at [originalPath] and
-/// writes it to [webpPath].
+/// writes it to [targetWebpPath].
 ///
 /// Returns a list of problems if generating the screenshot did not succeed.
 /// On success, an empty list is returned.
@@ -167,23 +174,25 @@ Future<ScreenshotResult> _processScreenshot(
 /// an error message will be written to stderr.
 Future<List<String>> _generateWebpScreenshot(
   String originalPath,
-  String webpPath,
+  String targetWebpPath,
 ) async {
   final problems = <String>[];
-  final copyIfWebpProblems = await _copyIfAlreadyWebp(originalPath, webpPath);
+  final copyIfWebpProblems =
+      await _copyIfAlreadyWebp(originalPath, targetWebpPath);
   if (copyIfWebpProblems.isEmpty) {
     return [];
   }
   problems.addAll(copyIfWebpProblems);
 
   final convertWithCwebpProblems =
-      await _convertWithCWebp(originalPath, webpPath);
+      await _convertWithCWebp(originalPath, targetWebpPath);
   if (convertWithCwebpProblems.isEmpty) {
     return [];
   }
   problems.addAll(convertWithCwebpProblems);
 
-  final gif2webpProblems = await _convertGifToWebp(originalPath, webpPath);
+  final gif2webpProblems =
+      await _convertGifToWebp(originalPath, targetWebpPath);
   if (gif2webpProblems.isEmpty) {
     return [];
   }
@@ -201,7 +210,7 @@ Future<List<String>> _copyIfAlreadyWebp(
     return [];
   }
   return [
-    '$originalPath: Tried interpreting screenshot as WebP. Failed with exitcode ${infoResult.exitCode}.'
+    '`$originalPath`: Tried interpreting screenshot as WebP with `webpinfo "$originalPath"` failed with _exit code_ `${infoResult.exitCode}`.'
   ];
 }
 
@@ -213,7 +222,7 @@ Future<List<String>> _convertWithCWebp(
     return [];
   }
   return [
-    '$originalPath: Converting screenshot with `cwebp` failed with exitcode ${cwebpResult.exitCode}.'
+    '`$originalPath`: Converting screenshot with `cwebp "$originalPath" -o "$webpPath"` failed with _exit code_ `${cwebpResult.exitCode}`.'
   ];
 }
 
@@ -226,7 +235,7 @@ Future<List<String>> _convertGifToWebp(
     return [];
   }
   return [
-    '$originalPath: Tried interpreting screenshot as GIF. Failed with exitcode ${gif2webpResult.exitCode}.'
+    '`$originalPath`: Tried interpreting screenshot as GIF with `gif2webp "$originalPath" -o "$webpPath"` failed with _exit code_ `${gif2webpResult.exitCode}`.'
   ];
 }
 
@@ -247,25 +256,27 @@ Future<List<String>> _convertGifToWebp(
 /// Thumbnail generation will fail if any of the mentioned tools are not
 /// available on the command line and an error message will be written to stderr.
 Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
-    String webpThumbnailPath, String pngThumbnailPath) async {
+    String webpThumbnailPath, String pngThumbnailPath, String tempDir) async {
   late String staticWebpPath;
   final infoResult = await runProc(['webpinfo', webpPath]);
   if (infoResult.exitCode != 0) {
     return [
-      "$originalPath: Running 'webpinfo' on $webpPath failed with exitcode ${infoResult.exitCode}."
+      '`$originalPath`: Running `webpinfo "$webpPath"` failed with _exit code_ ${infoResult.exitCode}.'
     ];
   }
 
   if ((infoResult.stdout as String).contains('Animation: 1')) {
-    staticWebpPath = path.join(Directory.systemTemp.path,
-        '${path.basenameWithoutExtension(webpPath)}_static.webp');
+    staticWebpPath = path.join(
+      tempDir,
+      '${path.basenameWithoutExtension(webpPath)}_static.webp',
+    );
     // input file is animated, extract the first frame.
     final webpmuxResult = await _checkedRunProc(
         ['webpmux', '-get', 'frame', '1', webpPath, '-o', staticWebpPath]);
 
     if (webpmuxResult.exitCode != 0) {
       return [
-        "$originalPath: Extracting frame from $webpPath with 'webpmux' failed with exitcode ${webpmuxResult.exitCode}"
+        '`$originalPath`: Extracting frame from $webpPath with `webpmux -get frame 1 "$webpPath" -o "$staticWebpPath"` failed with _exit code_ `${webpmuxResult.exitCode}`.'
       ];
     }
   } else {
@@ -301,7 +312,7 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
   ]);
   if (resizeResult.exitCode != 0) {
     return [
-      "$originalPath: Resizing to WebP thumbnail with 'cwebp -resize' failed with exitcode ${resizeResult.exitCode}"
+      '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$webpThumbnailPath"` failed with exitcode ${resizeResult.exitCode}'
     ];
   }
 
@@ -309,7 +320,7 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
       ['dwebp', webpThumbnailPath, '-o', pngThumbnailPath]);
   if (pngResult.exitCode != 0) {
     return [
-      "$originalPath: Generating PNG thumbnail with 'webp' failed with exitcode ${pngResult.exitCode}"
+      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webpThumbnailPath" -o "$pngThumbnailPath"` failed with _exit code_ `${pngResult.exitCode}`.'
     ];
   }
   return [];
