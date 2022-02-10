@@ -28,6 +28,11 @@ class ProcessedScreenshot {
       {required this.webpImage,
       required this.webpThumbnail,
       required this.pngThumbnail});
+
+  factory ProcessedScreenshot.fromJson(Map<String, dynamic> json) =>
+      _$ProcessedScreenshotFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProcessedScreenshotToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false)
