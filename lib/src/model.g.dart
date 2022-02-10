@@ -6,6 +6,25 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+ProcessedScreenshot _$ProcessedScreenshotFromJson(Map<String, dynamic> json) =>
+    ProcessedScreenshot(
+      json['originalImage'] as String,
+      json['description'] as String,
+      webpImage: json['webpImage'] as String,
+      webpThumbnail: json['webpThumbnail'] as String,
+      pngThumbnail: json['pngThumbnail'] as String,
+    );
+
+Map<String, dynamic> _$ProcessedScreenshotToJson(
+        ProcessedScreenshot instance) =>
+    <String, dynamic>{
+      'originalImage': instance.originalImage,
+      'webpImage': instance.webpImage,
+      'webpThumbnail': instance.webpThumbnail,
+      'pngThumbnail': instance.pngThumbnail,
+      'description': instance.description,
+    };
+
 Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
       runtimeInfo:
           PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
@@ -29,6 +48,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
           ?.map((e) => UrlProblem.fromJson(e as Map<String, dynamic>))
           .toList(),
       errorMessage: json['errorMessage'] as String?,
+      screenshots: (json['screenshots'] as List<dynamic>?)
+          ?.map((e) => ProcessedScreenshot.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$SummaryToJson(Summary instance) {
@@ -50,6 +72,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('allDependencies', instance.allDependencies);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);
+  writeNotNull('screenshots', instance.screenshots);
   writeNotNull('urlProblems', instance.urlProblems);
   writeNotNull('errorMessage', instance.errorMessage);
   return val;
