@@ -5,6 +5,7 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:pana/src/package_context.dart';
 import 'package:path/path.dart' as p;
 
 import '../dartdoc_analyzer.dart';
@@ -15,7 +16,8 @@ import '../pubspec.dart';
 import '_common.dart';
 
 Future<ReportSection> hasDocumentation(
-    String packageDir, Pubspec pubspec) async {
+    PackageContext context, Pubspec pubspec) async {
+  final packageDir = context.packageDir;
   // TODO: run dartdoc for coverage
 
   final candidates = exampleFileCandidates(pubspec.name, caseSensitive: true);
@@ -29,19 +31,31 @@ Future<ReportSection> hasDocumentation(
             'See [package layout](https://dart.dev/tools/pub/package-layout#examples) '
             'guidelines on how to add an example.',
       )
-    else
-      Issue('Found example at: `$examplePath`')
   ];
 
-  final points = examplePath == null ? 0 : 10;
-  final status =
-      examplePath == null ? ReportStatus.failed : ReportStatus.passed;
+  final screenshotIssues = <Issue>[];
+  final declaredScreenshots = pubspec.screenshots;
+
+  final headline = declaredScreenshots.isNotEmpty
+      ? 'Package has an example and has no issues with screenshots'
+      : 'Package has an example';
+  final screenshotResults = await context.processScreenshots();
+  for (var result in screenshotResults) {
+    screenshotIssues.addAll(result.problems.map((problem) => Issue(problem)));
+  }
+
+  issues.addAll(screenshotIssues);
+
+  final status = screenshotIssues.isEmpty && examplePath != null
+      ? ReportStatus.passed
+      : ReportStatus.failed;
+  final points = status == ReportStatus.passed ? 10 : 0;
   return makeSection(
     id: ReportSectionId.documentation,
     title: documentationSectionTitle,
     maxPoints: 10,
     subsections: [
-      Subsection('Package has an example', issues, points, 10, status)
+      Subsection(headline, issues, points, 10, status),
     ],
     basePath: null,
   );

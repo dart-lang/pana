@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
@@ -71,13 +72,14 @@ class PackageAnalyzer {
     String? version,
     InspectOptions? options,
     Logger? logger,
+    Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
     options ??= InspectOptions();
     return withLogger(() async {
       return withTempDir((tempDir) async {
         await downloadPackage(package, version,
             destination: tempDir, pubHostedUrl: options!.pubHostedUrl);
-        return await _inspect(tempDir, options);
+        return await _inspect(tempDir, options, storeResource: storeResource);
       });
     }, logger: logger);
   }
@@ -92,7 +94,11 @@ class PackageAnalyzer {
     });
   }
 
-  Future<Summary> _inspect(String pkgDir, InspectOptions options) async {
+  Future<Summary> _inspect(
+    String pkgDir,
+    InspectOptions options, {
+    Future<void> Function(String filename, Uint8List data)? storeResource,
+  }) async {
     final context = PackageContext(
       toolEnvironment: _toolEnv,
       packageDir: pkgDir,
@@ -181,6 +187,23 @@ class PackageAnalyzer {
 
     final licenseFile = await detectLicenseInDir(pkgDir);
 
+    List<ProcessedScreenshot>? processedScreenshots = [];
+    final screenshotResults = await context.processScreenshots();
+    for (final r in screenshotResults) {
+      if (r.problems.isEmpty) {
+        final processedScreenshot = r.processedScreenshot!;
+        processedScreenshots.add(processedScreenshot);
+
+        if (storeResource != null) {
+          await storeResource(processedScreenshot.webpImage, r.webpImageBytes!);
+          await storeResource(
+              processedScreenshot.webpThumbnail, r.webpThumbnailBytes!);
+          await storeResource(
+              processedScreenshot.pngThumbnail, r.pngThumbnailBytes!);
+        }
+      }
+    }
+
     final errorMessage = context.errors.isEmpty
         ? null
         : context.errors.map((e) => e.trim()).join('\n\n');
@@ -199,6 +222,7 @@ class PackageAnalyzer {
           .toList()
         ..sort((a, b) => a.url.compareTo(b.url)),
       errorMessage: errorMessage,
+      screenshots: processedScreenshots,
     );
   }
 }

@@ -14,6 +14,28 @@ import 'pubspec.dart';
 part 'model.g.dart';
 
 @JsonSerializable(includeIfNull: false)
+
+/// A processed screenshot contains paths with processed images as stored using
+///  `storeResource` as passed to `PackageAnalyzer.inspectPackage`.
+class ProcessedScreenshot {
+  final String originalImage; // <imagePath>
+  final String webpImage; // gen/<imagePath>.webp
+  final String webpThumbnail; // gen/100x100/<imagePath>.webp
+  final String pngThumbnail; // gen/100x100/<imagePath>.png
+  final String description;
+
+  ProcessedScreenshot(this.originalImage, this.description,
+      {required this.webpImage,
+      required this.webpThumbnail,
+      required this.pngThumbnail});
+
+  factory ProcessedScreenshot.fromJson(Map<String, dynamic> json) =>
+      _$ProcessedScreenshotFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProcessedScreenshotToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false)
 @VersionConverter()
 class Summary {
   final PanaRuntimeInfo runtimeInfo;
@@ -26,6 +48,7 @@ class Summary {
   final List<String>? allDependencies;
   final List<String>? tags;
   final Report? report;
+  final List<ProcessedScreenshot>? screenshots;
 
   /// URLs that are invalid, unsafe or missing.
   final List<UrlProblem>? urlProblems;
@@ -44,6 +67,7 @@ class Summary {
     this.report,
     this.urlProblems,
     this.errorMessage,
+    this.screenshots,
   });
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
@@ -66,6 +90,7 @@ class Summary {
       report: report,
       urlProblems: urlProblems,
       errorMessage: errorMessage,
+      screenshots: screenshots,
     );
   }
 }

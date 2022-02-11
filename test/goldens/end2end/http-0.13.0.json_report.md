@@ -13,7 +13,6 @@
 
 ### [*] 10/10 points: Package has an example
 
-* Found example at: `example/main.dart`
 
 ## 20/20 Platform support
 
