@@ -97,7 +97,7 @@ List<String> _validateScreenshot(p.Screenshot screenshot, String pkgDir) {
   }
 
   final fullPath = path.join(pkgDir, screenshot.path);
-  if (!path.normalize(fullPath).startsWith(pkgDir)) {
+  if (!path.isWithin(pkgDir, fullPath)) {
     problems.add(
         '${screenshot.path}: Screenshot file path should be within the package.');
   }

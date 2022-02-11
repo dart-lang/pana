@@ -23,7 +23,7 @@ Future<ReportSection> hasDocumentation(
   final candidates = exampleFileCandidates(pubspec.name, caseSensitive: true);
   final examplePath = candidates
       .firstWhereOrNull((c) => File(p.join(packageDir, c)).existsSync());
-  var issues = <Issue>[
+  final issues = <Issue>[
     if (examplePath == null)
       Issue(
         'No example found.',
