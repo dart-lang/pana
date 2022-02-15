@@ -82,6 +82,7 @@ Because:
 |:-|:-|:-|:-|
 |[`characters`]|-|1.2.0|1.2.0|
 |[`collection`]|-|1.15.0|1.15.0|
+|[`material_color_utilities`]|-|0.1.3|0.1.4|
 |[`meta`]|-|1.7.0|1.7.0|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`typed_data`]|-|1.3.0|1.3.0|
@@ -93,6 +94,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`flutter`]: https://pub.dev/packages/flutter
 [`characters`]: https://pub.dev/packages/characters
 [`collection`]: https://pub.dev/packages/collection
+[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`typed_data`]: https://pub.dev/packages/typed_data

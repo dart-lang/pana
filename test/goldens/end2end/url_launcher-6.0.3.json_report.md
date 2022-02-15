@@ -51,6 +51,7 @@
 |[`collection`]|-|1.15.0|1.15.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
 |[`js`]|-|0.6.3|0.6.4|
+|[`material_color_utilities`]|-|0.1.3|0.1.4|
 |[`meta`]|-|1.7.0|1.7.0|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`typed_data`]|-|1.3.0|1.3.0|
@@ -69,6 +70,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`collection`]: https://pub.dev/packages/collection
 [`flutter_web_plugins`]: https://pub.dev/packages/flutter_web_plugins
 [`js`]: https://pub.dev/packages/js
+[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`typed_data`]: https://pub.dev/packages/typed_data
