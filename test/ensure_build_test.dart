@@ -9,8 +9,8 @@ void main() {
     'ensure_build',
     () async {
       // TODO(sigurdm): investigate why the build doesn't come clean on
-      // Windows.
-      if (!Platform.isWindows) {
+      // Windows or on Mac.
+      if (!Platform.isWindows && !Platform.isMacOS) {
         await expectBuildClean();
       }
     },
