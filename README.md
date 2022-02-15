@@ -18,7 +18,7 @@ Used by the [Dart Package site](https://pub.dev/).
 ### Installation
 
 ```console
-> pub global activate pana
+dart pub global activate pana
 ```
 
 ### Usage
