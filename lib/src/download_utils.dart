@@ -8,13 +8,13 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart' as http_retry;
-import 'package:pana/src/repository_url.dart';
 import 'package:path/path.dart' as p;
 import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
 import 'logging.dart';
 import 'model.dart';
+import 'repository/repository_url.dart';
 
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
