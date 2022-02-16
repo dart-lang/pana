@@ -128,6 +128,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`file`]|-|6.1.2|6.1.2|
 |[`http`]|-|0.13.4|0.13.4|
 |[`http_parser`]|-|4.0.0|4.0.0|
+|[`material_color_utilities`]|-|0.1.3|0.1.4|
 |[`meta`]|-|1.7.0|1.7.0|
 |[`path`]|-|1.8.1|1.8.1|
 |[`path_provider`]|-|2.0.8|2.0.8|
@@ -174,6 +175,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`file`]: https://pub.dev/packages/file
 [`http`]: https://pub.dev/packages/http
 [`http_parser`]: https://pub.dev/packages/http_parser
+[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
 [`path`]: https://pub.dev/packages/path
 [`path_provider`]: https://pub.dev/packages/path_provider
