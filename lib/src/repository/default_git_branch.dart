@@ -29,6 +29,7 @@ Future<String?> tryDetectDefaultGitBranch(String baseUrl) async {
     if (remoteAddPr.exitCode != 0) {
       log.warning(
           'Failed to run `git remote add`.\n${remoteAddPr.asJoinedOutput}');
+      return null;
     }
     final remoteShowPr = await runProc(
       ['git', 'remote', 'show', 'origin'],
