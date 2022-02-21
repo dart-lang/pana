@@ -2,6 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
+import 'package:retry/retry.dart';
+
 import '../logging.dart';
 import '../utils.dart' show runProc, withTempDir;
 
@@ -31,15 +35,28 @@ Future<String?> tryDetectDefaultGitBranch(String baseUrl) async {
           'Failed to run `git remote add`.\n${remoteAddPr.asJoinedOutput}');
       return null;
     }
-    final remoteShowPr = await runProc(
-      ['git', 'remote', 'show', 'origin'],
-      workingDirectory: dir,
-    );
-    if (remoteShowPr.exitCode != 0) {
-      log.warning(
-          'Failed to run `git remote show`.\n${remoteShowPr.asJoinedOutput}');
+    ProcessResult? remoteShowPr;
+    try {
+      remoteShowPr = await retry(
+        () async {
+          final pr = await runProc(
+            ['git', 'remote', 'show', 'origin'],
+            workingDirectory: dir,
+          );
+          if (pr.exitCode != 0) {
+            log.warning(
+                'Failed to run `git remote show`.\n${pr.asJoinedOutput}');
+            throw _RetryGitException();
+          }
+          return pr;
+        },
+        retryIf: (e) => e is _RetryGitException,
+        maxAttempts: 3,
+      );
+    } on _RetryGitException catch (_) {
+      return null;
     }
-    final lines = remoteShowPr.stdout.toString().split('\n');
+    final lines = remoteShowPr!.stdout.toString().split('\n');
     for (final line in lines) {
       final parts = line.trim().split(':');
       if (parts.length == 2 && parts[0].trim() == 'HEAD branch') {
@@ -54,3 +71,5 @@ Future<String?> tryDetectDefaultGitBranch(String baseUrl) async {
     return null;
   });
 }
+
+class _RetryGitException implements Exception {}
