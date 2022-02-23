@@ -78,16 +78,32 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
           'To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and '
           'run `${context.usesFlutter ? 'flutter analyze' : 'dart analyze'} ${codeProblem.file}`',
       spanFn: () {
-        final sourceFile = SourceFile.fromString(
-            File(p.join(context.packageDir, codeProblem.file))
-                .readAsStringSync(),
+        final sourceText = File(p.join(context.packageDir, codeProblem.file))
+            .readAsStringSync();
+        final sourceFile = SourceFile.fromString(sourceText,
             url: p.join(context.packageDir, codeProblem.file));
         try {
           // SourceSpans are 0-based, so we subtract 1 from line and column.
-          final startOffset =
+          var startOffset =
               sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
+
+          // making sure that we don't start on CR line terminator
+          while (startOffset < sourceText.length &&
+              sourceText.codeUnitAt(startOffset) == 13) {
+            startOffset++;
+          }
           // Limit the maximum length of the source span.
-          final length = math.min(codeProblem.length, maxSourceSpanLength);
+          var length = math.min(codeProblem.length, maxSourceSpanLength);
+          length = math.min(length, sourceText.length - startOffset);
+          // making sure that we don't end on CR line terminator
+          while (length > 0 &&
+              sourceText.codeUnitAt(startOffset + length - 1) == 13) {
+            length--;
+          }
+          if (length <= 0) {
+            // Note: this may happen if the span is entirely CR line terminators.
+            return null;
+          }
           return sourceFile.span(startOffset, startOffset + length);
         } on RangeError {
           // Note: This happens if the file contains CR as line terminators.
