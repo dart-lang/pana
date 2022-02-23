@@ -188,6 +188,8 @@ class PackageAnalyzer {
     final licenseFile = await detectLicenseInDir(pkgDir);
     if (licenseFile != null) {
       tags.add('license:${licenseFile.name.toLowerCase()}');
+    } else {
+      tags.add('license:unknown');
     }
 
     List<ProcessedScreenshot>? processedScreenshots = [];
