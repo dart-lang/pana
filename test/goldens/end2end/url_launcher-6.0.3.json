@@ -95,7 +95,8 @@
     "platform:macos",
     "platform:web",
     "is:plugin",
-    "is:null-safe"
+    "is:null-safe",
+    "license:bsd-3-clause"
   ],
   "report": {
     "sections": [

@@ -186,6 +186,9 @@ class PackageAnalyzer {
     }
 
     final licenseFile = await detectLicenseInDir(pkgDir);
+    if (licenseFile != null) {
+      tags.add('license:${licenseFile.name.toLowerCase()}');
+    }
 
     List<ProcessedScreenshot>? processedScreenshots = [];
     final screenshotResults = await context.processScreenshots();

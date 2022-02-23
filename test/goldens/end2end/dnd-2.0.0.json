@@ -34,7 +34,8 @@
     "sdk:flutter",
     "platform:web",
     "runtime:web",
-    "is:null-safe"
+    "is:null-safe",
+    "license:mit"
   ],
   "report": {
     "sections": [

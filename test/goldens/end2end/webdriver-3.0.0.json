@@ -45,7 +45,8 @@
   "tags": [
     "sdk:dart",
     "sdk:flutter",
-    "is:null-safe"
+    "is:null-safe",
+    "license:apache-2.0"
   ],
   "report": {
     "sections": [

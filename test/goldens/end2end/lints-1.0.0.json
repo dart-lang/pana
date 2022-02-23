@@ -31,7 +31,8 @@
     "runtime:native-aot",
     "runtime:native-jit",
     "runtime:web",
-    "is:null-safe"
+    "is:null-safe",
+    "license:bsd-3-clause"
   ],
   "report": {
     "sections": [

@@ -23,7 +23,9 @@
     "path": "LICENSE",
     "name": "MIT"
   },
-  "tags": [],
+  "tags": [
+    "license:mit"
+  ],
   "report": {
     "sections": [
       {
