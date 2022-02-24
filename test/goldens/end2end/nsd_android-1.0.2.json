@@ -50,7 +50,8 @@
     "sdk:flutter",
     "platform:android",
     "is:plugin",
-    "is:null-safe"
+    "is:null-safe",
+    "license:mit"
   ],
   "report": {
     "sections": [

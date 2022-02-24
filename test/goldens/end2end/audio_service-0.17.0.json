@@ -106,7 +106,9 @@
     "win32",
     "xdg_directories"
   ],
-  "tags": [],
+  "tags": [
+    "license:mit"
+  ],
   "report": {
     "sections": [
       {

@@ -41,7 +41,8 @@
     "platform:web",
     "runtime:native-aot",
     "runtime:native-jit",
-    "runtime:web"
+    "runtime:web",
+    "license:mit"
   ],
   "report": {
     "sections": [

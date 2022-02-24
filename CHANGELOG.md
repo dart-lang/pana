@@ -1,3 +1,7 @@
+## 0.21.8
+
+- Start emitting `license:<license>` tags.
+
 ## 0.21.7
 
 - Fix build verify test and generated version.
