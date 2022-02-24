@@ -97,5 +97,9 @@
     ]
   },
   "screenshots": [],
+  "repository": {
+    "baseUrl": "https://github.com/cloudwebrtc/dart-sdp-transform",
+    "branch": "master"
+  },
   "urlProblems": []
 }

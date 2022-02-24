@@ -1,6 +1,7 @@
 ## 0.21.8
 
 - Start emitting `license:<license>` tags.
+- Start populating `Summary.repository`, optionally with `git` remote branch check.
 
 ## 0.21.7
 
