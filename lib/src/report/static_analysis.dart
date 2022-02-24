@@ -5,6 +5,7 @@
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
@@ -77,42 +78,12 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
       suggestion:
           'To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and '
           'run `${context.usesFlutter ? 'flutter analyze' : 'dart analyze'} ${codeProblem.file}`',
-      spanFn: () {
-        final sourceText = File(p.join(context.packageDir, codeProblem.file))
-            .readAsStringSync();
-        final sourceFile = SourceFile.fromString(sourceText,
-            url: p.join(context.packageDir, codeProblem.file));
-        try {
-          // SourceSpans are 0-based, so we subtract 1 from line and column.
-          var startOffset =
-              sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
-
-          // making sure that we don't start on CR line terminator
-          // TODO: Remove this after https://github.com/dart-lang/source_span/issues/79 gets fixed.
-          while (startOffset < sourceText.length &&
-              sourceText.codeUnitAt(startOffset) == 13) {
-            startOffset++;
-          }
-          // Limit the maximum length of the source span.
-          var length = math.min(codeProblem.length, maxSourceSpanLength);
-          length = math.min(length, sourceText.length - startOffset);
-          // making sure that we don't end on CR line terminator
-          // TODO: Remove this after https://github.com/dart-lang/source_span/issues/79 gets fixed.
-          while (length > 0 &&
-              sourceText.codeUnitAt(startOffset + length - 1) == 13) {
-            length--;
-          }
-          if (length <= 0) {
-            // Note: this may happen if the span is entirely CR line terminators.
-            return null;
-          }
-          return sourceFile.span(startOffset, startOffset + length);
-        } on RangeError {
-          // Note: This happens if the file contains CR as line terminators.
-          // If the range is invalid, then we just return null.
-          return null;
-        }
-      },
+      spanFn: () => sourceSpanFromFile(
+        path: p.join(context.packageDir, codeProblem.file),
+        line: codeProblem.line,
+        col: codeProblem.col,
+        length: codeProblem.length,
+      ),
     );
   }
 
@@ -144,6 +115,46 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
       [],
       'dart analyze ${dirs.join(' ')}',
     );
+  }
+}
+
+@visibleForTesting
+FileSpan? sourceSpanFromFile({
+  required String path,
+  required int line,
+  required int col,
+  required int length,
+}) {
+  final sourceText = File(path).readAsStringSync();
+  final sourceFile = SourceFile.fromString(sourceText, url: path);
+  try {
+    // SourceSpans are 0-based, so we subtract 1 from line and column.
+    var startOffset = sourceFile.getOffset(line - 1, col - 1);
+
+    // making sure that we don't start on CR line terminator
+    // TODO: Remove this after https://github.com/dart-lang/source_span/issues/79 gets fixed.
+    while (startOffset < sourceText.length &&
+        sourceText.codeUnitAt(startOffset) == 13) {
+      startOffset++;
+    }
+    // Limit the maximum length of the source span.
+    var newLength = math.min(length, maxSourceSpanLength);
+    newLength = math.min(newLength, sourceText.length - startOffset);
+    // making sure that we don't end on CR line terminator
+    // TODO: Remove this after https://github.com/dart-lang/source_span/issues/79 gets fixed.
+    while (newLength > 0 &&
+        sourceText.codeUnitAt(startOffset + newLength - 1) == 13) {
+      newLength--;
+    }
+    if (newLength <= 0) {
+      // Note: this may happen if the span is entirely CR line terminators.
+      return null;
+    }
+    return sourceFile.span(startOffset, startOffset + newLength);
+  } on RangeError {
+    // Note: This happens if the file contains CR as line terminators.
+    // If the range is invalid, then we just return null.
+    return null;
   }
 }
 
