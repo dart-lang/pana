@@ -88,6 +88,7 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
               sourceFile.getOffset(codeProblem.line - 1, codeProblem.col - 1);
 
           // making sure that we don't start on CR line terminator
+          // TODO: Remove this after https://github.com/dart-lang/source_span/issues/79 gets fixed.
           while (startOffset < sourceText.length &&
               sourceText.codeUnitAt(startOffset) == 13) {
             startOffset++;
@@ -96,6 +97,7 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
           var length = math.min(codeProblem.length, maxSourceSpanLength);
           length = math.min(length, sourceText.length - startOffset);
           // making sure that we don't end on CR line terminator
+          // TODO: Remove this after https://github.com/dart-lang/source_span/issues/79 gets fixed.
           while (length > 0 &&
               sourceText.codeUnitAt(startOffset + length - 1) == 13) {
             length--;
