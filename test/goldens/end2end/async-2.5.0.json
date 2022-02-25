@@ -103,5 +103,9 @@
     ]
   },
   "screenshots": [],
+  "repository": {
+    "baseUrl": "https://github.com/dart-lang/async",
+    "branch": "master"
+  },
   "urlProblems": []
 }

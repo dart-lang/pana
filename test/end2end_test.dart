@@ -57,6 +57,7 @@ void main() {
           version: version,
           options: InspectOptions(
             pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
+            checkRemoteRepository: true,
           ),
         );
 

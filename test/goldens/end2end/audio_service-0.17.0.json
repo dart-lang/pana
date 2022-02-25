@@ -162,5 +162,9 @@
     ]
   },
   "screenshots": [],
+  "repository": {
+    "baseUrl": "https://github.com/ryanheise/audio_service",
+    "branch": "minor"
+  },
   "urlProblems": []
 }

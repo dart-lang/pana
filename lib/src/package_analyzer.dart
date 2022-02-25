@@ -19,6 +19,7 @@ import 'model.dart';
 import 'package_context.dart';
 import 'pubspec.dart';
 import 'report/create_report.dart';
+import 'repository/check_repository.dart';
 import 'sdk_env.dart';
 import 'tag/tagger.dart';
 import 'utils.dart';
@@ -34,6 +35,9 @@ class InspectOptions {
   /// The analysis options (in yaml format) to use for the analysis.
   final String? analysisOptionsYaml;
 
+  /// Whether pana should also access the remote repository specified in pubspec.yaml.
+  final bool checkRemoteRepository;
+
   InspectOptions({
     this.pubHostedUrl,
     this.dartdocOutputDir,
@@ -42,6 +46,7 @@ class InspectOptions {
     this.isInternal = false,
     this.lineLength,
     this.analysisOptionsYaml,
+    this.checkRemoteRepository = false,
   });
 }
 
@@ -222,6 +227,7 @@ class PackageAnalyzer {
       licenseFile: licenseFile,
       tags: tags,
       report: await createReport(context),
+      repository: await checkRepository(context),
       urlProblems: context.urlProblems.entries
           .map((e) => UrlProblem(url: e.key, problem: e.value))
           .toList()

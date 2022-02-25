@@ -44,6 +44,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
       report: json['report'] == null
           ? null
           : Report.fromJson(json['report'] as Map<String, dynamic>),
+      repository: json['repository'] == null
+          ? null
+          : Repository.fromJson(json['repository'] as Map<String, dynamic>),
       urlProblems: (json['urlProblems'] as List<dynamic>?)
           ?.map((e) => UrlProblem.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -73,6 +76,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report);
   writeNotNull('screenshots', instance.screenshots);
+  writeNotNull('repository', instance.repository);
   writeNotNull('urlProblems', instance.urlProblems);
   writeNotNull('errorMessage', instance.errorMessage);
   return val;
@@ -160,6 +164,28 @@ const _$ReportStatusEnumMap = {
   ReportStatus.partial: 'partial',
   ReportStatus.passed: 'passed',
 };
+
+Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
+      baseUrl: json['baseUrl'] as String,
+      branch: json['branch'] as String?,
+      packagePath: json['packagePath'] as String?,
+    );
+
+Map<String, dynamic> _$RepositoryToJson(Repository instance) {
+  final val = <String, dynamic>{
+    'baseUrl': instance.baseUrl,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('branch', instance.branch);
+  writeNotNull('packagePath', instance.packagePath);
+  return val;
+}
 
 UrlProblem _$UrlProblemFromJson(Map<String, dynamic> json) => UrlProblem(
       url: json['url'] as String,

@@ -49,6 +49,7 @@ class Summary {
   final List<String>? tags;
   final Report? report;
   final List<ProcessedScreenshot>? screenshots;
+  final Repository? repository;
 
   /// URLs that are invalid, unsafe or missing.
   final List<UrlProblem>? urlProblems;
@@ -65,6 +66,7 @@ class Summary {
     this.licenseFile,
     this.tags,
     this.report,
+    this.repository,
     this.urlProblems,
     this.errorMessage,
     this.screenshots,
@@ -88,6 +90,7 @@ class Summary {
       licenseFile: licenseFile,
       tags: tags ?? this.tags,
       report: report,
+      repository: repository,
       urlProblems: urlProblems,
       errorMessage: errorMessage,
       screenshots: screenshots,
@@ -310,6 +313,25 @@ class ReportSection {
       _$ReportSectionFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReportSectionToJson(this);
+}
+
+/// NOTE: the content of the class is experimental, clients should not rely on it yet.
+@JsonSerializable(includeIfNull: false)
+class Repository {
+  final String baseUrl;
+  final String? branch;
+  final String? packagePath;
+
+  Repository({
+    required this.baseUrl,
+    this.branch,
+    this.packagePath,
+  });
+
+  factory Repository.fromJson(Map<String, dynamic> json) =>
+      _$RepositoryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RepositoryToJson(this);
 }
 
 @JsonSerializable()
