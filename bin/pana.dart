@@ -191,7 +191,7 @@ Future main(List<String> args) async {
           exitCodeThreshold >= 0 &&
           exitCodeThreshold + summary.report!.grantedPoints <
               summary.report!.maxPoints) {
-        exitCode = -1;
+        exitCode = 127;
       }
     } catch (e, stack) {
       final message = "Problem analyzing ${result.rest.join(' ')}";
