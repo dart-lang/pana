@@ -90,7 +90,8 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/agilord/bulma_min",
-    "branch": "master"
+    "branch": "master",
+    "isVerified": true
   },
   "urlProblems": []
 }

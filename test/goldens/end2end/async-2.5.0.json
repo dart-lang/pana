@@ -105,7 +105,9 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/dart-lang/async",
-    "branch": "master"
+    "branch": "master",
+    "isVerified": false,
+    "verificationFailure": "Repository `pubspec.yaml` URL missmatch: `https://github.com/dart-lang/async` != `https://www.github.com/dart-lang/async`."
   },
   "urlProblems": []
 }

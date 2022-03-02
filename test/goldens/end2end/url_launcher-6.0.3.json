@@ -153,8 +153,10 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/flutter/plugins",
-    "branch": "main",
-    "packagePath": "packages/url_launcher/url_launcher"
+    "branch": "master",
+    "packagePath": "packages/url_launcher/url_launcher",
+    "isVerified": false,
+    "verificationFailure": "Repository `pubspec.yaml` URL missmatch: `https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher` != `https://github.com/flutter/plugins/tree/master/packages/url_launcher/url_launcher`."
   },
   "urlProblems": []
 }

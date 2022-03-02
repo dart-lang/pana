@@ -319,11 +319,15 @@ class Repository {
   final String baseUrl;
   final String? branch;
   final String? packagePath;
+  final bool? isVerified;
+  final String? verificationFailure;
 
   Repository({
     required this.baseUrl,
     this.branch,
     this.packagePath,
+    this.isVerified,
+    this.verificationFailure,
   });
 
   factory Repository.fromJson(Map<String, dynamic> json) =>
