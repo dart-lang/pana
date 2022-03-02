@@ -1,5 +1,6 @@
 ## 0.21.8
 
+- `pana` binary changed exit code from -1 to 127 when score is not within threshold.
 - Start emitting `license:<license>` tags.
 - Start populating `Summary.repository`, optionally with `git` remote branch check.
 
