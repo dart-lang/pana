@@ -2,10 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:pana/src/repository/git_local_repository.dart';
-import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
@@ -42,7 +39,7 @@ void main() {
 
     test('bad branch', () async {
       await expectLater(
-        () => repo.checkoutFiles('branch-does-not-exists', ['pubspec.yaml']),
+        () => repo.showStringContent('branch-does-not-exists', 'pubspec.yaml'),
         throwsA(isA<GitToolException>()),
       );
     });
@@ -50,16 +47,15 @@ void main() {
     test('bad file', () async {
       final branch = await repo.detectDefaultBranch();
       await expectLater(
-        () => repo.checkoutFiles(branch, ['no-such-pubspec.yaml']),
+        () => repo.showStringContent(branch, 'no-such-pubspec.yaml'),
         throwsA(isA<GitToolException>()),
       );
     });
 
     test('checkout files from default branch', () async {
       final branch = await repo.detectDefaultBranch();
-      await repo.checkoutFiles(branch, ['README.md', 'pubspec.yaml']);
-      final file = File(p.join(repo.localPath, 'pubspec.yaml'));
-      expect(file.readAsStringSync(), contains('name: pana'));
+      final content = await repo.showStringContent(branch, 'pubspec.yaml');
+      expect(content, contains('name: pana'));
     });
   });
 }

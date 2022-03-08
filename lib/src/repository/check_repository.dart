@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:pana/src/pubspec.dart';
 import 'package:path/path.dart' as p;
 
@@ -41,34 +39,28 @@ Future<Repository?> checkRepository(PackageContext context) async {
 
       // checkout the pubspec.yaml at the assumed location
       final relativePath = p.join(url.path, 'pubspec.yaml');
-      await repo.checkoutFiles(branch, [relativePath]);
-      final file = File(p.join(repo.localPath, relativePath));
-      if (await file.exists()) {
-        try {
-          final content = await file.readAsString();
-          final gitPubspec = Pubspec.parseYaml(content);
+      final content = await repo.showStringContent(branch, relativePath);
+      final gitPubspec = Pubspec.parseYaml(content);
 
-          // verification steps
-          if (gitPubspec.name != context.pubspec.name) {
-            failVerification('Repository `pubspec.yaml` name missmatch: '
-                '`${gitPubspec.name}` != `${context.pubspec.name}`.');
-          } else if (gitPubspec.repositoryOrHomepage !=
-              context.pubspec.repositoryOrHomepage) {
-            failVerification('Repository `pubspec.yaml` URL missmatch: '
-                '`${gitPubspec.repositoryOrHomepage}` != `${context.pubspec.repositoryOrHomepage}`.');
-          } else if (gitPubspec.version == null) {
-            failVerification('Repository `pubspec.yaml` has no version.');
-          } else if (gitPubspec.toJson().containsKey('publish_to ')) {
-            failVerification('Repository `pubspec.yaml` has `publish_to`.');
-          }
-        } on FormatException catch (e, st) {
-          failVerification(
-              'Unable to parse `pubspec.yaml` from git repository.', e, st);
-        } on ArgumentError catch (e, st) {
-          failVerification(
-              'Unable to parse `pubspec.yaml` from git repository.', e, st);
-        }
+      // verification steps
+      if (gitPubspec.name != context.pubspec.name) {
+        failVerification('Repository `pubspec.yaml` name missmatch: '
+            '`${gitPubspec.name}` != `${context.pubspec.name}`.');
+      } else if (gitPubspec.repositoryOrHomepage !=
+          context.pubspec.repositoryOrHomepage) {
+        failVerification('Repository `pubspec.yaml` URL missmatch: '
+            '`${gitPubspec.repositoryOrHomepage}` != `${context.pubspec.repositoryOrHomepage}`.');
+      } else if (gitPubspec.version == null) {
+        failVerification('Repository `pubspec.yaml` has no version.');
+      } else if (gitPubspec.toJson().containsKey('publish_to ')) {
+        failVerification('Repository `pubspec.yaml` has `publish_to`.');
       }
+    } on FormatException catch (e, st) {
+      failVerification(
+          'Unable to parse `pubspec.yaml` from git repository.', e, st);
+    } on ArgumentError catch (e, st) {
+      failVerification(
+          'Unable to parse `pubspec.yaml` from git repository.', e, st);
     } on GitToolException catch (e, st) {
       failVerification('Unable to access git repository: ${e.message}', e, st);
     } finally {

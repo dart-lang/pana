@@ -116,24 +116,16 @@ class GitLocalRepository {
     throw GitToolException('Could not find HEAD branch.', output);
   }
 
-  /// Checkout [branch] into the local working directory.
+  /// Return the String content of the file in [branch] and [path].
   ///
   /// Throws [GitToolException] if the git command fails.
-  Future<void> checkoutFiles(String branch, Iterable<String> files) async {
-    final fileList = files.toList();
-    if (fileList.isEmpty) return;
+  Future<String> showStringContent(String branch, String path) async {
     await _fetch(branch, 1);
-    await _runGitWithRetry([
-      'checkout',
-      'origin/$branch',
-      '--',
-      ...fileList,
-    ], createException: (pr) {
-      final andMore =
-          fileList.length == 1 ? '' : ' and ${fileList.length - 1} more';
-      return GitToolException(
-          'Could not checkout `${fileList.first}`$andMore.');
-    });
+    final pr = await _runGitWithRetry([
+      'show',
+      'origin/$branch:$path',
+    ], createException: (_) => GitToolException('Could not read `$path`.'));
+    return pr.stdout.toString();
   }
 
   /// Deletes the local directory.
