@@ -58,7 +58,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
 
 Map<String, dynamic> _$SummaryToJson(Summary instance) {
   final val = <String, dynamic>{
-    'runtimeInfo': instance.runtimeInfo,
+    'runtimeInfo': instance.runtimeInfo.toJson(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -70,14 +70,16 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('packageName', instance.packageName);
   writeNotNull('packageVersion',
       const VersionConverter().toJson(instance.packageVersion));
-  writeNotNull('pubspec', instance.pubspec);
-  writeNotNull('licenseFile', instance.licenseFile);
+  writeNotNull('pubspec', instance.pubspec?.toJson());
+  writeNotNull('licenseFile', instance.licenseFile?.toJson());
   writeNotNull('allDependencies', instance.allDependencies);
   writeNotNull('tags', instance.tags);
-  writeNotNull('report', instance.report);
-  writeNotNull('screenshots', instance.screenshots);
-  writeNotNull('repository', instance.repository);
-  writeNotNull('urlProblems', instance.urlProblems);
+  writeNotNull('report', instance.report?.toJson());
+  writeNotNull(
+      'screenshots', instance.screenshots?.map((e) => e.toJson()).toList());
+  writeNotNull('repository', instance.repository?.toJson());
+  writeNotNull(
+      'urlProblems', instance.urlProblems?.map((e) => e.toJson()).toList());
   writeNotNull('errorMessage', instance.errorMessage);
   return val;
 }

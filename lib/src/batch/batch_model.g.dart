@@ -15,13 +15,21 @@ BatchConfig _$BatchConfigFromJson(Map<String, dynamic> json) => BatchConfig(
       analysisOptions: json['analysisOptions'] as String?,
     );
 
-Map<String, dynamic> _$BatchConfigToJson(BatchConfig instance) =>
-    <String, dynamic>{
-      'dartSdk': instance.dartSdk,
-      'flutterSdk': instance.flutterSdk,
-      'environment': instance.environment,
-      'analysisOptions': instance.analysisOptions,
-    };
+Map<String, dynamic> _$BatchConfigToJson(BatchConfig instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('dartSdk', instance.dartSdk);
+  writeNotNull('flutterSdk', instance.flutterSdk);
+  writeNotNull('environment', instance.environment);
+  writeNotNull('analysisOptions', instance.analysisOptions);
+  return val;
+}
 
 BatchResult _$BatchResultFromJson(Map<String, dynamic> json) => BatchResult(
       unchangedCount: json['unchangedCount'] as int,
@@ -34,8 +42,8 @@ BatchResult _$BatchResultFromJson(Map<String, dynamic> json) => BatchResult(
 Map<String, dynamic> _$BatchResultToJson(BatchResult instance) =>
     <String, dynamic>{
       'unchangedCount': instance.unchangedCount,
-      'increased': instance.increased,
-      'decreased': instance.decreased,
+      'increased': instance.increased.toJson(),
+      'decreased': instance.decreased.toJson(),
     };
 
 BatchChanged _$BatchChangedFromJson(Map<String, dynamic> json) => BatchChanged(
