@@ -324,6 +324,14 @@ class Repository {
   /// a matching `pubspec.yaml` file, and the value is the success status of
   /// the verification.
   ///
+  /// To get successful verification (`true` value) here, the remote repository:
+  ///   - must be a valid remote repository with public access,
+  ///   - must contain a `pubspec.yaml` in the location specified by the repository URL,
+  ///   - must have the same package name and repository URL in the `pubspec.yaml` that
+  ///     was used to analyze the package,
+  ///   - must have a valid version,
+  ///   - must not have a `publish_to` key.
+  ///
   /// When `false`, [verificationFailure] should contain the message that describes
   /// the nature of the verification failure.
   final bool? isVerified;
