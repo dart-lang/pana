@@ -96,8 +96,8 @@ class GitLocalRepository {
     await _runGit(['remote', 'add', 'origin', origin]);
   }
 
-  /// Detects the default branch name by querying the origin and
-  /// matching `HEAD branch` in the output.
+  /// Detects the default branch name (typically `master` or `main`)
+  /// by querying the origin and matching `HEAD branch` in the output.
   ///
   /// Throws [GitToolException] if the git command fails, if the
   /// branch name is missing, or if the default branch name has
