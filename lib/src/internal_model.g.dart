@@ -13,7 +13,7 @@ Outdated _$OutdatedFromJson(Map<String, dynamic> json) => Outdated(
     );
 
 Map<String, dynamic> _$OutdatedToJson(Outdated instance) => <String, dynamic>{
-      'packages': instance.packages,
+      'packages': instance.packages.map((e) => e.toJson()).toList(),
     };
 
 OutdatedPackage _$OutdatedPackageFromJson(Map<String, dynamic> json) =>
@@ -28,12 +28,21 @@ OutdatedPackage _$OutdatedPackageFromJson(Map<String, dynamic> json) =>
           : VersionDescriptor.fromJson(json['latest'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$OutdatedPackageToJson(OutdatedPackage instance) =>
-    <String, dynamic>{
-      'package': instance.package,
-      'upgradable': instance.upgradable,
-      'latest': instance.latest,
-    };
+Map<String, dynamic> _$OutdatedPackageToJson(OutdatedPackage instance) {
+  final val = <String, dynamic>{
+    'package': instance.package,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('upgradable', instance.upgradable?.toJson());
+  writeNotNull('latest', instance.latest?.toJson());
+  return val;
+}
 
 VersionDescriptor _$VersionDescriptorFromJson(Map<String, dynamic> json) =>
     VersionDescriptor(

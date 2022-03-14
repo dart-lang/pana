@@ -13,10 +13,9 @@ import 'pubspec.dart';
 
 part 'model.g.dart';
 
-@JsonSerializable(includeIfNull: false)
-
 /// A processed screenshot contains paths with processed images as stored using
 ///  `storeResource` as passed to `PackageAnalyzer.inspectPackage`.
+@JsonSerializable()
 class ProcessedScreenshot {
   final String originalImage; // <imagePath>
   final String webpImage; // gen/<imagePath>.webp
@@ -35,7 +34,7 @@ class ProcessedScreenshot {
   Map<String, dynamic> toJson() => _$ProcessedScreenshotToJson(this);
 }
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable()
 @VersionConverter()
 class Summary {
   final PanaRuntimeInfo runtimeInfo;
@@ -102,7 +101,6 @@ class Summary {
 class PanaRuntimeInfo {
   final String panaVersion;
   final String sdkVersion;
-  @JsonKey(includeIfNull: false)
   final Map<String, dynamic>? flutterVersions;
 
   PanaRuntimeInfo({
@@ -139,7 +137,7 @@ class PanaRuntimeInfo {
   }
 }
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable()
 class LicenseFile {
   final String path;
   final String name;
@@ -193,7 +191,7 @@ abstract class LicenseNames {
 }
 
 /// Models the 'new-style' pana report.
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class Report {
   /// The scoring sections.
   final List<ReportSection> sections;
@@ -316,7 +314,7 @@ class ReportSection {
 }
 
 /// NOTE: the content of the class is experimental, clients should not rely on it yet.
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable()
 class Repository {
   final String baseUrl;
   final String? branch;

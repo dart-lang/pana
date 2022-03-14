@@ -1,3 +1,7 @@
+## 0.21.9
+
+- New defaults for JSON: do not include `null` values, explicit `toJson()`.
+
 ## 0.21.8
 
 - `pana` binary changed exit code from -1 to 127 when score is not within threshold.
