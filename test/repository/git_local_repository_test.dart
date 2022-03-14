@@ -37,10 +37,17 @@ void main() {
       await repo.delete();
     });
 
-    test('bad branch', () async {
+    test('no such branch', () async {
       await expectLater(
-        () => repo.showStringContent('branch-does-not-exists', 'pubspec.yaml'),
+        () => repo.showStringContent('branchdoesnotexists', 'pubspec.yaml'),
         throwsA(isA<GitToolException>()),
+      );
+    });
+
+    test('not expected branch format', () async {
+      await expectLater(
+        () => repo.showStringContent('branch-is-not-accepted', 'pubspec.yaml'),
+        throwsA(isA<ArgumentError>()),
       );
     });
 

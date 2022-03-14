@@ -4,12 +4,14 @@
 
 import 'dart:io';
 
+import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
 import '../logging.dart';
 import '../utils.dart' show runProc, withTempDir, PanaProcessResult;
 
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
+final _acceptedPathSegmentsRegExp = RegExp(r'^[a-z0-9\-\.]+$');
 
 /// Detects the name of the default git branch on the given [baseUrl],
 /// using the metadata returned by `git remote show`.
@@ -132,6 +134,8 @@ class GitLocalRepository {
   ///
   /// Throws [GitToolException] if the git command fails.
   Future<String> showStringContent(String branch, String path) async {
+    _assertBranchFormat(branch);
+    _assertPathFormat(path);
     await _fetch(branch, 1);
     final pr = await _runGitWithRetry([
       'show',
@@ -146,6 +150,7 @@ class GitLocalRepository {
   }
 
   Future<void> _fetch(String branch, int depth) async {
+    _assertBranchFormat(branch);
     // TODO: cache if the branch has been already fetched to the requested level
     await _runGitWithRetry([
       'fetch',
@@ -154,6 +159,22 @@ class GitLocalRepository {
       'origin',
       branch,
     ]);
+  }
+
+  void _assertBranchFormat(String branch) {
+    if (_acceptedBranchNameRegExp.matchAsPrefix(branch) == null) {
+      throw ArgumentError('Branch name "$branch" is not accepted.');
+    }
+  }
+
+  void _assertPathFormat(String path) {
+    if (p.normalize(path) != path) {
+      throw ArgumentError('Path "$path" is not normalized.');
+    }
+    if (p.split(path).any((segment) =>
+        _acceptedPathSegmentsRegExp.matchAsPrefix(segment) == null)) {
+      throw ArgumentError('Path "$path" is not accepted.');
+    }
   }
 }
 
