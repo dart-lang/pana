@@ -20,6 +20,8 @@ Future<String?> tryDetectDefaultGitBranch(String baseUrl) async {
   return await withTempDir((dir) async {
     GitLocalRepository? repo;
     try {
+      // Creating local repository inside the try-catch to also catch
+      // git tool problems like `git init`.
       repo = await GitLocalRepository.createLocalRepository(baseUrl);
       return await repo.detectDefaultBranch();
     } on GitToolException catch (e, st) {
@@ -36,7 +38,10 @@ Future<String?> tryDetectDefaultGitBranch(String baseUrl) async {
 /// This objects uses a local temporary folder for interfacing with remote repository.
 /// Hence, it is important to call [delete] or temporary files will be leaked.
 class GitLocalRepository {
+  /// The local filesystem path to store the git repository.
   final String localPath;
+
+  /// The remote origin URL of the git repository.
   final String origin;
 
   GitLocalRepository({
@@ -44,6 +49,9 @@ class GitLocalRepository {
     required this.origin,
   });
 
+  /// Creates a new local git repository by accessing the [origin] URL.
+  ///
+  /// Throws [GitToolException] if there was a failure to create the repository.
   static Future<GitLocalRepository> createLocalRepository(String origin) async {
     final tempDir = await Directory.systemTemp.createTemp('git-repo');
     final repo = GitLocalRepository(

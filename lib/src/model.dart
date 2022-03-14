@@ -319,7 +319,16 @@ class Repository {
   final String baseUrl;
   final String? branch;
   final String? packagePath;
+
+  /// When present, there was an attempt to verify the remote repository for
+  /// a matching `pubspec.yaml` file, and the value is the success status of
+  /// the verification.
+  ///
+  /// When `false`, [verificationFailure] should contain the message that describes
+  /// the nature of the verification failure.
   final bool? isVerified;
+
+  /// When present, the remote repository verification failed with this message.
   final String? verificationFailure;
 
   Repository({
