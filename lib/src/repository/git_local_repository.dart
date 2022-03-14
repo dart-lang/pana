@@ -31,6 +31,10 @@ Future<String?> tryDetectDefaultGitBranch(String baseUrl) async {
   });
 }
 
+/// Interface for reading a remote git repository.
+///
+/// This objects uses a local temporary folder for interfacing with remote repository.
+/// Hence, it is important to call [delete] or temporary files will be leaked.
 class GitLocalRepository {
   final String localPath;
   final String origin;
