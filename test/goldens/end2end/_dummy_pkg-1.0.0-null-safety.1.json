@@ -19,6 +19,15 @@
     "path": "LICENSE",
     "name": "BSD-3-Clause"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdx": "BSD-3-Clause",
+      "confidence": 0.9681818181818181,
+      "start": 42,
+      "end": 1523
+    }
+  ],
   "tags": [
     "license:bsd-3-clause"
   ],

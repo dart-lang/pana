@@ -25,6 +25,15 @@
     "path": "LICENSE",
     "name": "MIT"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdx": "MIT",
+      "confidence": 0.9585798816568047,
+      "start": 59,
+      "end": 1097
+    }
+  ],
   "allDependencies": [
     "build_runner",
     "build_web_compilers"

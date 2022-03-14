@@ -36,6 +36,15 @@
     "path": "LICENSE",
     "name": "MIT"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdx": "MIT",
+      "confidence": 0.9585798816568047,
+      "start": 49,
+      "end": 1071
+    }
+  ],
   "allDependencies": [
     "characters",
     "collection",

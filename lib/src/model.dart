@@ -42,6 +42,7 @@ class Summary {
   final Version? packageVersion;
   final Pubspec? pubspec;
   final LicenseFile? licenseFile;
+  final List<License>? licenses;
 
   /// The packages that are either direct-, dev- or transient dependencies.
   final List<String>? allDependencies;
@@ -63,6 +64,7 @@ class Summary {
     this.pubspec,
     this.allDependencies,
     this.licenseFile,
+    this.licenses,
     this.tags,
     this.report,
     this.repository,
@@ -87,6 +89,7 @@ class Summary {
       pubspec: pubspec,
       allDependencies: allDependencies,
       licenseFile: licenseFile,
+      licenses: licenses,
       tags: tags ?? this.tags,
       report: report,
       repository: repository,
@@ -135,6 +138,39 @@ class PanaRuntimeInfo {
     }
     return parts.first;
   }
+}
+
+/// Describes the details of the license detection results.
+/// NOTE: the content of the class is experimental, clients should not rely on it yet.
+@JsonSerializable()
+class License {
+  /// The file path that was recognized as a license.
+  final String path;
+
+  /// The SPDX identifier of the license.
+  final String spdx;
+
+  /// The classification's confidence that the license text matches the SPDX license.
+  final double confidence;
+
+  /// The start offset of the lincese inside the file.
+  final int start;
+
+  /// The end offset of the lincese inside the file.
+  final int end;
+
+  License({
+    required this.path,
+    required this.spdx,
+    required this.confidence,
+    required this.start,
+    required this.end,
+  });
+
+  factory License.fromJson(Map<String, dynamic> json) =>
+      _$LicenseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LicenseToJson(this);
 }
 
 @JsonSerializable()

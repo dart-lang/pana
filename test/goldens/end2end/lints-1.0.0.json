@@ -18,6 +18,15 @@
     "path": "LICENSE",
     "name": "BSD-3-Clause"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdx": "BSD-3-Clause",
+      "confidence": 0.9545454545454546,
+      "start": 43,
+      "end": 1502
+    }
+  ],
   "allDependencies": [],
   "tags": [
     "sdk:dart",

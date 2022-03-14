@@ -40,6 +40,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
       licenseFile: json['licenseFile'] == null
           ? null
           : LicenseFile.fromJson(json['licenseFile'] as Map<String, dynamic>),
+      licenses: (json['licenses'] as List<dynamic>?)
+          ?.map((e) => License.fromJson(e as Map<String, dynamic>))
+          .toList(),
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       report: json['report'] == null
           ? null
@@ -72,6 +75,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
       const VersionConverter().toJson(instance.packageVersion));
   writeNotNull('pubspec', instance.pubspec?.toJson());
   writeNotNull('licenseFile', instance.licenseFile?.toJson());
+  writeNotNull('licenses', instance.licenses?.map((e) => e.toJson()).toList());
   writeNotNull('allDependencies', instance.allDependencies);
   writeNotNull('tags', instance.tags);
   writeNotNull('report', instance.report?.toJson());
@@ -106,6 +110,22 @@ Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) {
   writeNotNull('flutterVersions', instance.flutterVersions);
   return val;
 }
+
+License _$LicenseFromJson(Map<String, dynamic> json) => License(
+      path: json['path'] as String,
+      spdx: json['spdx'] as String,
+      confidence: (json['confidence'] as num).toDouble(),
+      start: json['start'] as int,
+      end: json['end'] as int,
+    );
+
+Map<String, dynamic> _$LicenseToJson(License instance) => <String, dynamic>{
+      'path': instance.path,
+      'spdx': instance.spdx,
+      'confidence': instance.confidence,
+      'start': instance.start,
+      'end': instance.end,
+    };
 
 LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) => LicenseFile(
       json['path'] as String,

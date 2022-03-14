@@ -2,6 +2,7 @@
 
 - New defaults for JSON: do not include `null` values, explicit `toJson()`.
 - Experimental `git` repository verification.
+- Multiple license detection exposed in `Summary.licenses`.
 
 ## 0.21.8
 

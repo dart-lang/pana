@@ -59,6 +59,15 @@
     "path": "LICENSE",
     "name": "MIT"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdx": "MIT",
+      "confidence": 0.9585798816568047,
+      "start": 79,
+      "end": 1101
+    }
+  ],
   "allDependencies": [
     "async",
     "audio_session",

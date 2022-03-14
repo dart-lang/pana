@@ -30,6 +30,15 @@
     "path": "LICENSE",
     "name": "Apache-2.0"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdx": "Apache-2.0",
+      "confidence": 1.0,
+      "start": 33,
+      "end": 10172
+    }
+  ],
   "allDependencies": [
     "archive",
     "collection",
