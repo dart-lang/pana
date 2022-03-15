@@ -7,21 +7,30 @@ import 'package:test/test.dart';
 
 void main() {
   group('git branch', () {
-    Future<void> expectGitBranch(String url, branch) async {
-      final r = await tryDetectDefaultGitBranch(url);
-      expect(r, branch);
+    Future<String?> getDefaultBranch(String url) async {
+      GitLocalRepository? repo;
+      try {
+        repo = await GitLocalRepository.createLocalRepository(url);
+        return await repo.detectDefaultBranch();
+      } on GitToolException catch (_) {
+        return null;
+      } finally {
+        await repo?.delete();
+      }
     }
 
     test('master', () async {
-      await expectGitBranch('https://github.com/dart-lang/pana.git', 'master');
+      expect(await getDefaultBranch('https://github.com/dart-lang/pana.git'),
+          'master');
     });
 
     test('main', () async {
-      await expectGitBranch('https://github.com/dart-lang/lints', 'main');
+      expect(
+          await getDefaultBranch('https://github.com/dart-lang/lints'), 'main');
     });
 
     test('bad url', () async {
-      await expectGitBranch('https://example.com/org/repo', null);
+      expect(await getDefaultBranch('https://example.com/org/repo'), null);
     });
   });
 

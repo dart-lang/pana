@@ -7,33 +7,10 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
-import '../logging.dart';
-import '../utils.dart' show runProc, withTempDir, PanaProcessResult;
+import '../utils.dart' show runProc, PanaProcessResult;
 
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
 final _acceptedPathSegmentsRegExp = RegExp(r'^[a-z0-9\-\.]+$');
-
-/// Detects the name of the default git branch on the given [baseUrl],
-/// using the metadata returned by `git remote show`.
-///
-/// Returns `null` when no branch name can be detected, or the implied
-/// branch name does not conform of the allowed patterns.
-Future<String?> tryDetectDefaultGitBranch(String baseUrl) async {
-  return await withTempDir((dir) async {
-    GitLocalRepository? repo;
-    try {
-      // Creating local repository inside the try-catch to also catch
-      // git tool problems like `git init`.
-      repo = await GitLocalRepository.createLocalRepository(baseUrl);
-      return await repo.detectDefaultBranch();
-    } on GitToolException catch (e, st) {
-      log.warning(e.toString(), st);
-      return null;
-    } finally {
-      await repo?.delete();
-    }
-  });
-}
 
 /// Interface for reading a remote git repository.
 ///
