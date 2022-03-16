@@ -183,8 +183,7 @@ void main() {
     final r = await processAllScreenshots(declared, pkgDir);
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
-    expect(r.first.problems.length, 1);
-    expect(r.first.problems[0], contains('Resizing to WebP thumbnail'));
+    expect(r.first.problems.length, greaterThan(0));
   }, skip: hasWebpTools);
 
   test('Report shows screenshot problems', () async {
