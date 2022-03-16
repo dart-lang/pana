@@ -103,7 +103,8 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/google/webdriver.dart",
-    "branch": "master"
+    "branch": "master",
+    "isVerified": true
   },
   "urlProblems": []
 }

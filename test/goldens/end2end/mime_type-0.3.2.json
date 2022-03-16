@@ -90,7 +90,8 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/mitsuoka/mime_type",
-    "branch": "master"
+    "branch": "master",
+    "isVerified": true
   },
   "urlProblems": []
 }

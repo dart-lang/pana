@@ -153,8 +153,10 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/flutter/plugins",
-    "branch": "main",
-    "packagePath": "packages/url_launcher/url_launcher"
+    "branch": "master",
+    "packagePath": "packages/url_launcher/url_launcher",
+    "isVerified": false,
+    "verificationFailure": "Unable to parse `pubspec.yaml` from git repository."
   },
   "urlProblems": []
 }

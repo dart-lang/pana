@@ -164,7 +164,9 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/ryanheise/audio_service",
-    "branch": "minor"
+    "branch": "minor",
+    "isVerified": false,
+    "verificationFailure": "Unable to access git repository: Could not read `pubspec.yaml`."
   },
   "urlProblems": []
 }

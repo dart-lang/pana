@@ -1,6 +1,7 @@
 ## 0.21.9
 
 - New defaults for JSON: do not include `null` values, explicit `toJson()`.
+- Experimental `git` repository verification.
 
 ## 0.21.8
 

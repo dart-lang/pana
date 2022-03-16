@@ -92,7 +92,8 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/marcojakob/dart-dnd",
-    "branch": "master"
+    "branch": "master",
+    "isVerified": true
   },
   "urlProblems": []
 }

@@ -113,7 +113,8 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/dart-lang/http",
-    "branch": "master"
+    "branch": "master",
+    "isVerified": true
   },
   "urlProblems": []
 }
