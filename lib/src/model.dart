@@ -148,7 +148,7 @@ class License {
   final String path;
 
   /// The SPDX identifier of the license.
-  final String spdx;
+  final String spdxIdentifier;
 
   License({
     required this.path,
