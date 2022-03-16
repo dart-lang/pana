@@ -20,6 +20,12 @@
     "path": "LICENSE",
     "name": "MIT"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "MIT"
+    }
+  ],
   "allDependencies": [],
   "tags": [
     "sdk:dart",

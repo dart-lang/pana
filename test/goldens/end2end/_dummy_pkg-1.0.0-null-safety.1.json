@@ -19,6 +19,12 @@
     "path": "LICENSE",
     "name": "BSD-3-Clause"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "BSD-3-Clause"
+    }
+  ],
   "tags": [
     "license:bsd-3-clause"
   ],

@@ -9,49 +9,51 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:meta/meta.dart';
-import 'package:pana/src/license_detection/license_detector.dart';
+import 'package:pana/src/license_detection/license_detector.dart' hide License;
 import 'package:path/path.dart' as p;
 
 import 'maintenance.dart';
 import 'model.dart';
 
-Future<LicenseFile?> detectLicenseInDir(String baseDir) async {
+Future<List<License>> detectLicenseInDir(String baseDir) async {
+  final licenses = <License>[];
   for (final candidate in licenseFileNames) {
     final file = File(p.join(baseDir, candidate));
     if (!file.existsSync()) continue;
-    return detectLicenseInFile(file, relativePath: candidate);
+    licenses.addAll(await detectLicenseInFile(file, relativePath: candidate));
   }
-  return null;
+  // TODO: sort by confidence (the current order is per-file confidence).
+  return licenses;
 }
 
 @visibleForTesting
-Future<LicenseFile> detectLicenseInFile(File file,
+Future<List<License>> detectLicenseInFile(File file,
     {required String relativePath}) async {
   final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);
-  var license =
+  final licenses =
       await detectLicenseInContent(content, relativePath: relativePath);
-  return license ?? LicenseFile(relativePath, LicenseNames.unknown);
+  if (licenses.isEmpty) {
+    return [License(path: relativePath, spdxIdentifier: LicenseNames.unknown)];
+  }
+  return licenses;
 }
 
-/// Returns an instance of [LicenseFile] if [originalContent] has contains a license(s)
-/// present in the [SPDX-corpus][1].
+/// Returns the license(s) detected from the [SPDX-corpus][1].
 ///
 /// [1]: https://spdx.org/licenses/
-Future<LicenseFile?> detectLicenseInContent(
+Future<List<License>> detectLicenseInContent(
   String originalContent, {
   required String relativePath,
 }) async {
   var content = originalContent;
   final licenseResult = await detectLicense(content, 0.95);
 
-  if (licenseResult.matches.isNotEmpty &&
-      licenseResult.unclaimedTokenPercentage <= 0.5 &&
-      licenseResult.longestUnclaimedTokenCount < 50) {
-    return LicenseFile(
-      relativePath,
-      licenseResult.matches.first.identifier,
-    );
+  if (licenseResult.unclaimedTokenPercentage > 0.5 ||
+      licenseResult.longestUnclaimedTokenCount >= 50) {
+    return <License>[];
   }
 
-  return null;
+  return licenseResult.matches
+      .map((e) => License(path: relativePath, spdxIdentifier: e.identifier))
+      .toList();
 }

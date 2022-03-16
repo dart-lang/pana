@@ -59,6 +59,12 @@
     "path": "LICENSE",
     "name": "MIT"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "MIT"
+    }
+  ],
   "allDependencies": [
     "async",
     "audio_session",

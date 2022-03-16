@@ -27,6 +27,12 @@
     "path": "LICENSE",
     "name": "MIT"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "MIT"
+    }
+  ],
   "allDependencies": [
     "test"
   ],

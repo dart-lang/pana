@@ -190,9 +190,9 @@ class PackageAnalyzer {
       }
     }
 
-    final licenseFile = await detectLicenseInDir(pkgDir);
-    if (licenseFile != null) {
-      tags.add('license:${licenseFile.name.toLowerCase()}');
+    final licenses = await detectLicenseInDir(pkgDir);
+    if (licenses.isNotEmpty) {
+      tags.add('license:${licenses.first.spdxIdentifier.toLowerCase()}');
     } else {
       tags.add('license:unknown');
     }
@@ -224,7 +224,10 @@ class PackageAnalyzer {
       pubspec: pubspec,
       allDependencies:
           pkgResolution?.dependencies.map((d) => d.package).toList(),
-      licenseFile: licenseFile,
+      licenseFile: licenses.isEmpty
+          ? null
+          : LicenseFile(licenses.first.path, licenses.first.spdxIdentifier),
+      licenses: licenses,
       tags: tags,
       report: await createReport(context),
       repository: await checkRepository(context),

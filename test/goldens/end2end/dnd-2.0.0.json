@@ -25,6 +25,12 @@
     "path": "LICENSE",
     "name": "MIT"
   },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "MIT"
+    }
+  ],
   "allDependencies": [
     "build_runner",
     "build_web_compilers"
