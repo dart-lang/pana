@@ -22,7 +22,7 @@ Future<List<License>> detectLicenseInDir(String baseDir) async {
     if (!file.existsSync()) continue;
     licenses.addAll(await detectLicenseInFile(file, relativePath: candidate));
   }
-  licenses.sort((a, b) => -a.confidence.compareTo(b.confidence));
+  // TODO: sort by confidence (the current order is per-file confidence).
   return licenses;
 }
 
@@ -33,15 +33,7 @@ Future<List<License>> detectLicenseInFile(File file,
   final licenses =
       await detectLicenseInContent(content, relativePath: relativePath);
   if (licenses.isEmpty) {
-    return [
-      License(
-        path: relativePath,
-        spdx: LicenseNames.unknown,
-        confidence: 0.0,
-        start: 0,
-        end: content.length,
-      )
-    ];
+    return [License(path: relativePath, spdx: LicenseNames.unknown)];
   }
   return licenses;
 }
@@ -62,12 +54,6 @@ Future<List<License>> detectLicenseInContent(
   }
 
   return licenseResult.matches
-      .map((e) => License(
-            path: relativePath,
-            spdx: e.identifier,
-            confidence: e.confidence,
-            start: e.start,
-            end: e.end,
-          ))
+      .map((e) => License(path: relativePath, spdx: e.identifier))
       .toList();
 }

@@ -62,10 +62,7 @@
   "licenses": [
     {
       "path": "LICENSE",
-      "spdx": "MIT",
-      "confidence": 0.9585798816568047,
-      "start": 79,
-      "end": 1101
+      "spdx": "MIT"
     }
   ],
   "allDependencies": [

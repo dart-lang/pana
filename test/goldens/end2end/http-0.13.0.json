@@ -32,10 +32,7 @@
   "licenses": [
     {
       "path": "LICENSE",
-      "spdx": "BSD-3-Clause",
-      "confidence": 0.9681818181818181,
-      "start": 42,
-      "end": 1523
+      "spdx": "BSD-3-Clause"
     }
   ],
   "allDependencies": [

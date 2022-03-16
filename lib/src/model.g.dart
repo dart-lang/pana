@@ -114,17 +114,11 @@ Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) {
 License _$LicenseFromJson(Map<String, dynamic> json) => License(
       path: json['path'] as String,
       spdx: json['spdx'] as String,
-      confidence: (json['confidence'] as num).toDouble(),
-      start: json['start'] as int,
-      end: json['end'] as int,
     );
 
 Map<String, dynamic> _$LicenseToJson(License instance) => <String, dynamic>{
       'path': instance.path,
       'spdx': instance.spdx,
-      'confidence': instance.confidence,
-      'start': instance.start,
-      'end': instance.end,
     };
 
 LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) => LicenseFile(

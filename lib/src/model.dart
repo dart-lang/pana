@@ -150,21 +150,9 @@ class License {
   /// The SPDX identifier of the license.
   final String spdx;
 
-  /// The classification's confidence that the license text matches the SPDX license.
-  final double confidence;
-
-  /// The start offset of the lincese inside the file.
-  final int start;
-
-  /// The end offset of the lincese inside the file.
-  final int end;
-
   License({
     required this.path,
     required this.spdx,
-    required this.confidence,
-    required this.start,
-    required this.end,
   });
 
   factory License.fromJson(Map<String, dynamic> json) =>
