@@ -192,7 +192,7 @@ class PackageAnalyzer {
 
     final licenses = await detectLicenseInDir(pkgDir);
     if (licenses.isNotEmpty) {
-      tags.add('license:${licenses.first.spdx.toLowerCase()}');
+      tags.add('license:${licenses.first.spdxIdentifier.toLowerCase()}');
     } else {
       tags.add('license:unknown');
     }
@@ -226,7 +226,7 @@ class PackageAnalyzer {
           pkgResolution?.dependencies.map((d) => d.package).toList(),
       licenseFile: licenses.isEmpty
           ? null
-          : LicenseFile(licenses.first.path, licenses.first.spdx),
+          : LicenseFile(licenses.first.path, licenses.first.spdxIdentifier),
       licenses: licenses,
       tags: tags,
       report: await createReport(context),

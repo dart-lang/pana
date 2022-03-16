@@ -33,7 +33,7 @@ Future<List<License>> detectLicenseInFile(File file,
   final licenses =
       await detectLicenseInContent(content, relativePath: relativePath);
   if (licenses.isEmpty) {
-    return [License(path: relativePath, spdx: LicenseNames.unknown)];
+    return [License(path: relativePath, spdxIdentifier: LicenseNames.unknown)];
   }
   return licenses;
 }
@@ -54,6 +54,6 @@ Future<List<License>> detectLicenseInContent(
   }
 
   return licenseResult.matches
-      .map((e) => License(path: relativePath, spdx: e.identifier))
+      .map((e) => License(path: relativePath, spdxIdentifier: e.identifier))
       .toList();
 }

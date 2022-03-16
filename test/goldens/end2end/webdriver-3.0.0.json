@@ -33,7 +33,7 @@
   "licenses": [
     {
       "path": "LICENSE",
-      "spdx": "Apache-2.0"
+      "spdxIdentifier": "Apache-2.0"
     }
   ],
   "allDependencies": [

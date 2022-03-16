@@ -31,7 +31,7 @@
   "licenses": [
     {
       "path": "LICENSE",
-      "spdx": "BSD-3-Clause"
+      "spdxIdentifier": "BSD-3-Clause"
     }
   ],
   "allDependencies": [

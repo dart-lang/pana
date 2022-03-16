@@ -26,7 +26,7 @@
   "licenses": [
     {
       "path": "LICENSE",
-      "spdx": "MIT"
+      "spdxIdentifier": "MIT"
     }
   ],
   "tags": [

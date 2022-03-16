@@ -13,7 +13,7 @@ void main() {
     final relativePath = path.substring('test/licenses/'.length);
     final licenses =
         await detectLicenseInFile(File(path), relativePath: relativePath);
-    expect(licenses.map((e) => e.spdx).toList(), expected);
+    expect(licenses.map((e) => e.spdxIdentifier).toList(), expected);
   }
 
   test('bad encoding', () async {
@@ -127,7 +127,7 @@ void main() {
       expect(licenses.map((e) => e.toJson()).toList(), [
         {
           'path': 'LICENSE',
-          'spdx': 'BSD-3-Clause',
+          'spdxIdentifier': 'BSD-3-Clause',
         }
       ]);
     });

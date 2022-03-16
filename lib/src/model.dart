@@ -152,7 +152,7 @@ class License {
 
   License({
     required this.path,
-    required this.spdx,
+    required this.spdxIdentifier,
   });
 
   factory License.fromJson(Map<String, dynamic> json) =>
