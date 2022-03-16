@@ -73,6 +73,8 @@ class ToolEnvironment {
         _useGlobalDartdoc = useGlobalDartdoc,
         _runtimeInfo = runtimeInfo;
 
+  Map<String, String> get environment => _environment;
+
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
   Future _init() async {
