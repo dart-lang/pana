@@ -258,7 +258,7 @@ Future<List<String>> _convertGifToWebp(
 Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
     String webpThumbnailPath, String pngThumbnailPath, String tempDir) async {
   late String staticWebpPath;
-  final infoResult = await runProc(['webpinfo', webpPath]);
+  final infoResult = await _checkedRunProc(['webpinfo', webpPath]);
   if (infoResult.exitCode != 0) {
     return [
       '`$originalPath`: Running `webpinfo "$webpPath"` failed with _exit code_ ${infoResult.exitCode}.'
@@ -301,7 +301,7 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
     widthArgument = 0;
     heightArgument = 100;
   }
-  final resizeResult = await runProc([
+  final resizeResult = await _checkedRunProc([
     'cwebp',
     '-resize',
     '$widthArgument',
