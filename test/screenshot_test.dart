@@ -174,6 +174,18 @@ void main() {
             "Generating webp image for ${p.join(pkgDir, 'notAnImage.txt')} failed"));
   }, skip: !hasWebpTools);
 
+  test('Failure: when webp tools are not installed', () async {
+    if (hasWebpTools) return;
+    final pkgDir = _testImagesDir;
+    final s = Screenshot('description', 'static.webp');
+    final declared = <Screenshot>[s];
+
+    final r = await processAllScreenshots(declared, pkgDir);
+    expect(r.length, 1);
+    expect(r.first.processedScreenshot, isNull);
+    expect(r.first.problems.length, greaterThan(0));
+  }, skip: hasWebpTools);
+
   test('Report shows screenshot problems', () async {
     Map pubspecExtras = <String, List>{
       'screenshots': [
