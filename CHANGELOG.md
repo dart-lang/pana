@@ -3,6 +3,9 @@
 - Cache the currently fetched depth in `GitLocalRepository`.
 - List files and detect the presence of `pubspec.yaml` during repository verification.
 - Typed `stdout` and `stderr` in `PanaProcessResult`.
+- Updated SPDX linceses.
+- Emit `license:<license>` tag on all the detected licenses.
+- Emit `license:osi-approved` and `license:fsf-libre`.
 
 ## 0.21.10
 

@@ -48,7 +48,9 @@
     "runtime:native-aot",
     "runtime:native-jit",
     "runtime:web",
-    "license:mit"
+    "license:mit",
+    "license:fsf-libre",
+    "license:osi-approved"
   ],
   "report": {
     "sections": [

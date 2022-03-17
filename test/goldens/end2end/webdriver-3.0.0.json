@@ -52,7 +52,9 @@
     "sdk:dart",
     "sdk:flutter",
     "is:null-safe",
-    "license:apache-2.0"
+    "license:apache-2.0",
+    "license:fsf-libre",
+    "license:osi-approved"
   ],
   "report": {
     "sections": [

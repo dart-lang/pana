@@ -22,6 +22,7 @@ import 'report/create_report.dart';
 import 'repository/check_repository.dart';
 import 'sdk_env.dart';
 import 'tag/tagger.dart';
+import 'third_party/spdx/licenses.dart';
 import 'utils.dart';
 
 class InspectOptions {
@@ -192,7 +193,18 @@ class PackageAnalyzer {
 
     final licenses = await detectLicenseInDir(pkgDir);
     if (licenses.isNotEmpty) {
-      tags.add('license:${licenses.first.spdxIdentifier.toLowerCase()}');
+      tags.addAll(
+        licenses
+            .map((l) => l.spdxIdentifier)
+            .expand(
+              (id) => [
+                'license:${id.toLowerCase()}',
+                if (fsfLibreLicenses.contains(id)) 'license:fsf-libre',
+                if (osiApprovedLicenses.contains(id)) 'license:osi-approved',
+              ],
+            )
+            .toSet(),
+      );
     } else {
       tags.add('license:unknown');
     }

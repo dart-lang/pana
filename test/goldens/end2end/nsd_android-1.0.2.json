@@ -57,7 +57,9 @@
     "platform:android",
     "is:plugin",
     "is:null-safe",
-    "license:mit"
+    "license:mit",
+    "license:fsf-libre",
+    "license:osi-approved"
   ],
   "report": {
     "sections": [

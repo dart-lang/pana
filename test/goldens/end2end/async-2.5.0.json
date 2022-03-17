@@ -54,7 +54,9 @@
     "runtime:native-jit",
     "runtime:web",
     "is:null-safe",
-    "license:bsd-3-clause"
+    "license:bsd-3-clause",
+    "license:fsf-libre",
+    "license:osi-approved"
   ],
   "report": {
     "sections": [
