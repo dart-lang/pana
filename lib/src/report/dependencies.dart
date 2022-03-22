@@ -293,8 +293,9 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
   final result = <OutdatedVersionDescription>[];
 
   final hostUrlString = context.toolEnvironment.environment['PUB_HOSTED_URL'];
-  final environmentUri =
-      hostUrlString != null ? Uri.tryParse(hostUrlString) : null;
+  final environmentUri = (hostUrlString != null && hostUrlString.isNotEmpty)
+      ? Uri.tryParse(hostUrlString)
+      : null;
   final versionListing = jsonDecode(await getVersionListing(name,
       pubHostedUrl: hostedDependency.hosted?.url ?? environmentUri));
 
