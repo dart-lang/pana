@@ -1,6 +1,11 @@
+## 0.21.11
+
+- Cache the currently fetched depth in `GitLocalRepository`.
+
 ## 0.21.10
 
 - Fix issue in the computation of `pubHostedUrl` in `computeOutdatedVersions`.
+
 ## 0.21.9
 
 - New defaults for JSON: do not include `null` values, explicit `toJson()`.

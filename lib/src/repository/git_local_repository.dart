@@ -12,6 +12,9 @@ import '../utils.dart' show runProc, PanaProcessResult;
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
 final _acceptedPathSegmentsRegExp = RegExp(r'^[a-z0-9\-\.]+$');
 
+/// The value to indicate we are fetching the branch without depth restriction.
+const unlimitedFetchDepth = 0;
+
 /// Interface for reading a remote git repository.
 ///
 /// This objects uses a local temporary folder for interfacing with remote repository.
@@ -22,6 +25,10 @@ class GitLocalRepository {
 
   /// The remote origin URL of the git repository.
   final String origin;
+
+  /// Stores the currently fetched depth level for each branch.
+  /// When the depth was unlimited (== `0`), this stores `0`.
+  final _fetchedDepthsPerBranch = <String, int>{};
 
   GitLocalRepository({
     required this.localPath,
@@ -127,15 +134,20 @@ class GitLocalRepository {
   }
 
   Future<void> _fetch(String branch, int depth) async {
+    final currentDepth = _fetchedDepthsPerBranch[branch];
+    if (currentDepth != null &&
+        (currentDepth >= depth || currentDepth == unlimitedFetchDepth)) {
+      return;
+    }
     _assertBranchFormat(branch);
-    // TODO: cache if the branch has been already fetched to the requested level
     await _runGitWithRetry([
       'fetch',
-      '--depth',
-      '$depth',
+      if (depth != unlimitedFetchDepth) ...['--depth', '$depth'],
+      '--no-recurse-submodules',
       'origin',
       branch,
     ]);
+    _fetchedDepthsPerBranch[branch] = depth;
   }
 
   void _assertBranchFormat(String branch) {
