@@ -1,6 +1,7 @@
 ## 0.21.11
 
 - Cache the currently fetched depth in `GitLocalRepository`.
+- Typed `stdout` and `stderr` in `PanaProcessResult`.
 
 ## 0.21.10
 

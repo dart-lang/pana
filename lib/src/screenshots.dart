@@ -265,7 +265,7 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
     ];
   }
 
-  if ((infoResult.stdout as String).contains('Animation: 1')) {
+  if ((infoResult.stdout.asString).contains('Animation: 1')) {
     staticWebpPath = path.join(
       tempDir,
       '${path.basenameWithoutExtension(webpPath)}_static.webp',
@@ -283,7 +283,7 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
     staticWebpPath = webpPath;
   }
 
-  final stdout = infoResult.stdout as String;
+  final stdout = infoResult.stdout.asString;
   final lines = stdout.split('\n');
   final widthString =
       lines.firstWhere((String line) => line.contains('Width:'));
@@ -332,7 +332,8 @@ Future<PanaProcessResult> _checkedRunProc(List<String> cmdAndArgs) async {
     result = await runProc(cmdAndArgs);
   } on ProcessException catch (e) {
     stderr.write("'${cmdAndArgs[0]}' tool not found.");
-    return PanaProcessResult(-1, e.errorCode, e.message, e.message);
+    return PanaProcessResult(-1, e.errorCode, e.message, e.message,
+        wasError: true);
   }
   return result;
 }

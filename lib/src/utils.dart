@@ -87,31 +87,33 @@ Future<PanaProcessResult> runProc(
 
   final exitCode = items[0] as int;
   if (killed) {
+    final encoding = systemEncoding;
     return PanaProcessResult(
       process.pid,
       exitCode,
       stdoutLines
-          .map(systemEncoding.decode)
+          .map(encoding.decode)
           .expand(const LineSplitter().convert)
           .take(_maxOutputLinesWhenKilled)
           .join('\n'),
       [
         if (killMessage != null) killMessage,
         ...stderrLines
-            .map(systemEncoding.decode)
+            .map(encoding.decode)
             .expand(const LineSplitter().convert)
             .take(_maxOutputLinesWhenKilled),
       ].join('\n'),
       wasTimeout: wasTimeout,
       wasOutputExceeded: wasOutputExceeded,
+      wasError: true,
     );
   }
 
   return PanaProcessResult(
     process.pid,
     exitCode,
-    stdoutLines.map(systemEncoding.decode).join(),
-    stderrLines.map(systemEncoding.decode).join(),
+    stdoutLines,
+    stderrLines,
     wasTimeout: wasTimeout,
     wasOutputExceeded: wasOutputExceeded,
   );
@@ -268,25 +270,92 @@ class _RetryExpception implements Exception {
   String toString() => _message;
 }
 
-class PanaProcessResult extends ProcessResult {
+/// The output of a process as String or byte stream.
+abstract class ProcessOutput {
+  factory ProcessOutput.from(Object value, {Encoding? encoding}) {
+    encoding ??= systemEncoding;
+    if (value is List<List<int>>) {
+      return _ChunksProcessOutput(value, encoding);
+    }
+    if (value is String) {
+      return _StringProcessOutput(value, encoding);
+    }
+    throw ArgumentError('Invalid ProcessOutput argument: ${value.runtimeType}');
+  }
+
+  String get asString;
+  List<int> get asBytes;
+
+  @override
+  String toString();
+}
+
+class _StringProcessOutput implements ProcessOutput {
+  @override
+  final String asString;
+  final Encoding _encoding;
+  _StringProcessOutput(this.asString, this._encoding);
+
+  @override
+  late final asBytes = _encoding.encode(asString);
+
+  @override
+  String toString() => asString;
+}
+
+class _ChunksProcessOutput implements ProcessOutput {
+  final List<List<int>> _chunks;
+  final Encoding _encoding;
+  _ChunksProcessOutput(this._chunks, this._encoding);
+
+  @override
+  late final asString = _chunks.map(_encoding.decode).join();
+
+  @override
+  late final List<int> asBytes = _chunks
+      .fold<BytesBuilder>(BytesBuilder(), (bb, chunk) => bb..add(chunk))
+      .toBytes();
+
+  @override
+  String toString() => asString;
+}
+
+class PanaProcessResult implements ProcessResult {
+  @override
+  final int pid;
+  @override
+  final int exitCode;
+  @override
+  final ProcessOutput stdout;
+  @override
+  final ProcessOutput stderr;
   final bool wasTimeout;
   final bool wasOutputExceeded;
+  final bool _wasError;
 
   PanaProcessResult(
-    int pid,
-    int exitCode,
-    String stdout,
-    String stderr, {
+    this.pid,
+    this.exitCode,
+    Object stdout,
+    Object stderr, {
     this.wasTimeout = false,
     this.wasOutputExceeded = false,
-  }) : super(pid, exitCode, stdout, stderr);
+    bool wasError = false,
+    Encoding? encoding,
+  })  : _wasError = wasError,
+        stdout = ProcessOutput.from(stdout, encoding: encoding),
+        stderr = ProcessOutput.from(stderr, encoding: encoding);
+
+  /// True if the process completed with some error, false if successful.
+  late final wasError =
+      _wasError || exitCode != 0 || wasTimeout || wasOutputExceeded;
 
   /// Returns the line-concatened output of `stdout` and `stderr`
   /// (both converted to [String]), and the final output trimmed.
   String get asJoinedOutput {
     return [
-      this.stdout.toString().trim(),
-      this.stderr.toString().trim(),
+      stdout.asString.trim(),
+      stderr.asString.trim(),
     ].join('\n').trim();
   }
 
@@ -310,8 +379,8 @@ class PanaProcessResult extends ProcessResult {
     }
 
     return [
-      ...firstFewLines('OUT', this.stdout.toString().trim()),
-      ...firstFewLines('ERR', this.stderr.toString().trim()),
+      ...firstFewLines('OUT', stdout.asString.trim()),
+      ...firstFewLines('ERR', stderr.asString.trim()),
     ].join('\n').trim();
   }
 

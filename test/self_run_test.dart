@@ -13,7 +13,7 @@ void main() {
     );
     expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
 
-    final output = pr.stdout.toString();
+    final output = pr.stdout.asString;
     final snippets = [
       'The package description is too short.',
       '## ✓ Platform support (20 / 20)\n',

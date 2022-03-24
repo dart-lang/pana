@@ -247,7 +247,7 @@ Future<String?> _detectGitRoot(String packageDir) async {
     workingDirectory: packageDir,
   );
   if (pr.exitCode == 0) {
-    return pr.stdout.toString().trim();
+    return pr.stdout.asString.trim();
   }
   return null;
 }
