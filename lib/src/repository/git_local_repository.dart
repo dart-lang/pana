@@ -55,13 +55,15 @@ class GitLocalRepository {
 
   Future<PanaProcessResult> _runGit(
     List<String> args, {
+    int? maxOutputBytes,
     GitToolException Function(PanaProcessResult pr)? createException,
   }) async {
     final pr = await runProc(
       ['git', ...args],
       workingDirectory: localPath,
+      maxOutputBytes: maxOutputBytes,
     );
-    if (pr.exitCode != 0) {
+    if (pr.wasError) {
       final ex = createException == null
           ? GitToolException.failedToRun(args.join(' '), pr)
           : createException(pr);
@@ -74,10 +76,12 @@ class GitLocalRepository {
     List<String> args, {
     int maxAttempts = 3,
     GitToolException Function(PanaProcessResult pr)? createException,
+    int? maxOutputBytes,
   }) async {
     return await retry(
       () => _runGit(
         args,
+        maxOutputBytes: maxOutputBytes,
         createException: createException,
       ),
       maxAttempts: maxAttempts,
@@ -98,7 +102,7 @@ class GitLocalRepository {
   /// unexpected pattern.
   Future<String> detectDefaultBranch() async {
     final pr = await _runGitWithRetry(['remote', 'show', 'origin']);
-    final output = pr.stdout.toString();
+    final output = pr.stdout.asString;
     final lines = output.split('\n');
     for (final line in lines) {
       final parts = line.trim().split(':');
@@ -117,15 +121,22 @@ class GitLocalRepository {
   /// Return the String content of the file in [branch] and [path].
   ///
   /// Throws [GitToolException] if the git command fails.
-  Future<String> showStringContent(String branch, String path) async {
+  Future<String> showStringContent(
+    String branch,
+    String path, {
+    int? maxOutputBytes,
+  }) async {
     _assertBranchFormat(branch);
     _assertPathFormat(path);
     await _fetch(branch, 1);
-    final pr = await _runGitWithRetry([
-      'show',
-      'origin/$branch:$path',
-    ], createException: (_) => GitToolException('Could not read `$path`.'));
-    return pr.stdout.toString();
+    final pr = await _runGitWithRetry(
+      [
+        'show',
+        'origin/$branch:$path',
+      ],
+      createException: (_) => GitToolException('Could not read `$path`.'),
+    );
+    return pr.stdout.asString;
   }
 
   /// Deletes the local directory.

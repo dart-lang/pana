@@ -82,11 +82,11 @@ class PackageContext {
     } else {
       String message;
       if (upgrade.exitCode > 0) {
-        message = PubEntry.parse(upgrade.stderr as String)
+        message = PubEntry.parse(upgrade.stderr.asString)
             .where((e) => e.header == 'ERR')
             .join('\n');
       } else {
-        message = LineSplitter.split(upgrade.stderr as String).first;
+        message = LineSplitter.split(upgrade.stderr.asString).first;
       }
 
       // 1: Version constraint issue with direct or transitive dependencies.

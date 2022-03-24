@@ -334,7 +334,7 @@ class ToolEnvironment {
         }
       }, shouldRetry: (result) {
         if (result.exitCode == 0) return false;
-        var errOutput = result.stderr as String;
+        final errOutput = result.stderr.asString;
         // find cases where retrying is not going to help – and short-circuit
         if (errOutput.contains('Could not get versions for flutter from sdk')) {
           return false;
@@ -558,7 +558,7 @@ PanaProcessResult _handleProcessErrors(PanaProcessResult result) {
   if (result.exitCode != 0) {
     if (result.exitCode == 69) {
       // could be a pub error. Let's try to parse!
-      var lines = LineSplitter.split(result.stderr as String)
+      var lines = LineSplitter.split(result.stderr.asString)
           .where((l) => l.startsWith('ERR '))
           .join('\n');
       if (lines.isNotEmpty) {
@@ -567,9 +567,11 @@ PanaProcessResult _handleProcessErrors(PanaProcessResult result) {
     }
 
     throw Exception('Problem running proc: exit code - ' +
-        [result.exitCode, result.stdout, result.stderr]
-            .map((e) => e.toString().trim())
-            .join('<***>'));
+        [
+          result.exitCode.toString(),
+          result.stdout.asString,
+          result.stderr.asString,
+        ].map((e) => e.trim()).join('<***>'));
   }
   return result;
 }
@@ -577,7 +579,7 @@ PanaProcessResult _handleProcessErrors(PanaProcessResult result) {
 /// Executes [body] and returns with the first clean or the last failure result.
 Future<PanaProcessResult> _retryProc(
   Future<PanaProcessResult> Function() body, {
-  required bool Function(ProcessResult pr) shouldRetry,
+  required bool Function(PanaProcessResult pr) shouldRetry,
   int maxAttempt = 3,
   Duration sleep = const Duration(seconds: 1),
 }) async {

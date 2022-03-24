@@ -12,6 +12,8 @@ import '../package_context.dart';
 import 'git_local_repository.dart';
 import 'repository_url.dart';
 
+const _maxPubspecBytes = 256 * 1024;
+
 /// Returns the repository information for the current package.
 Future<Repository?> checkRepository(PackageContext context) async {
   final sourceUrl = context.pubspec.repositoryOrHomepage;
@@ -38,8 +40,11 @@ Future<Repository?> checkRepository(PackageContext context) async {
       branch ??= await repo.detectDefaultBranch();
 
       // checkout the pubspec.yaml at the assumed location
-      final relativePath = p.join(url.path, 'pubspec.yaml');
-      final content = await repo.showStringContent(branch, relativePath);
+      final content = await repo.showStringContent(
+        branch,
+        p.join(url.path, 'pubspec.yaml'),
+        maxOutputBytes: _maxPubspecBytes,
+      );
       final gitPubspec = Pubspec.parseYaml(content);
 
       // verification steps
