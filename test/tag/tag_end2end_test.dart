@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:pana/src/tag/tagger.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
@@ -443,9 +445,22 @@ import 'file:/abc/def.dart';
 int fourtyTwo() => 42;
 '''),
           ]),
-          d.file('.packages', '''
-my_package:lib/
-'''),
+          d.dir('.dart_tool', [
+            d.file(
+              'package_config.json',
+              json.encode({
+                'configVersion': 2,
+                'packages': [
+                  {
+                    'name': 'my_package',
+                    'rootUri': '..',
+                    'packageUri': 'lib/',
+                    'languageVersion': '2.12',
+                  },
+                ],
+              }),
+            ),
+          ]),
           d.file(
             'pubspec.yaml',
             '''

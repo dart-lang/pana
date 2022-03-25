@@ -23,14 +23,29 @@ d.DirectoryDescriptor packageWithPathDeps(String name,
       ...pubspecExtras,
     },
   );
-  // TODO(sigurdm): write a package_config.json or use `dart pub get`.da
-  final packages = [
-        '$name:lib/',
-        for (final dep in dependencies) '$dep:../$dep/lib/'
-      ].join('\n') +
-      '\n';
+  final packageConfig = json.encode({
+    'configVersion': 2,
+    'packages': [
+      {
+        'name': name,
+        'rootUri': '..',
+        'packageUri': 'lib/',
+        'languageVersion': '2.12',
+      },
+      for (final dep in dependencies)
+        {
+          'name': dep,
+          'rootUri': '../../$dep',
+          'packageUri': 'lib/',
+          // TODO(sigurdm) somehow communicate the real language-version
+          // Our analysis uses the bound in pubspec.yaml, so this doesn't cause
+          // problems yet.
+          'languageVersion': '2.12',
+        },
+    ],
+  });
   return d.dir(name, [
-    d.file('.packages', packages),
+    d.dir('.dart_tool', [d.file('package_config.json', packageConfig)]),
     d.file('pubspec.yaml', pubspec),
     d.dir('lib', lib),
     ...extraFiles,
