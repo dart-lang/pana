@@ -134,7 +134,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|`^3.0.0`|3.2.2|3.2.2|
+|[`archive`]|`^3.0.0`|3.1.11|3.1.11|
 |[`matcher`]|`^0.12.10`|0.12.11|0.12.11|
 |[`path`]|`^1.8.0`|1.8.1|1.8.1|
 |[`stack_trace`]|`^1.10.0`|1.10.0|1.10.0|
@@ -144,7 +144,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.16.0|1.16.0|
+|[`collection`]|-|1.15.0|1.15.0|
 |[`crypto`]|-|3.0.1|3.0.1|
 |[`typed_data`]|-|1.3.0|1.3.0|
 </details>

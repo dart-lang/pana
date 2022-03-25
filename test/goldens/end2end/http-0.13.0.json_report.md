@@ -46,7 +46,7 @@
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`charcode`]|-|1.3.1|1.3.1|
-|[`collection`]|-|1.16.0|1.16.0|
+|[`collection`]|-|1.15.0|1.15.0|
 |[`source_span`]|-|1.8.2|1.8.2|
 |[`string_scanner`]|-|1.1.0|1.1.0|
 |[`term_glyph`]|-|1.2.0|1.2.0|
