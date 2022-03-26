@@ -15,8 +15,8 @@ import 'logging.dart';
 import 'pubspec.dart';
 import 'utils.dart';
 
-final _solvePkgLine =
-    RegExp(r'(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?');
+final _solvePkgLine = RegExp(
+    r'(?:[><\+\!* ]) (\w+) (\S+)(?: \(was \S+\))?(?: \((\S+) available\))?');
 
 class PkgResolution {
   final List<PkgDependency> dependencies;
