@@ -22,7 +22,7 @@ dependencies:
   pub_semver: ^2.0.0
   pubspec_parse: ^1.0.0
   source_span: ^1.7.0
-  tar: 0.5.4
+  tar: ^0.5.4
   yaml: ^3.0.0
   safe_url_check: ^1.0.0
   retry: ^3.0.1
