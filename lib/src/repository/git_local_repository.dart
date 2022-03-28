@@ -139,6 +139,31 @@ class GitLocalRepository {
     return pr.stdout.asString;
   }
 
+  /// List file names of [branch].
+  ///
+  /// Throws [GitToolException] if the git command fails.
+  Future<List<String>> listFiles(String branch) async {
+    _assertBranchFormat(branch);
+    await _fetch(branch, 1);
+    final pr = await _runGitWithRetry(
+      [
+        'ls-tree',
+        '-r',
+        '--name-only',
+        '--full-tree',
+        'origin/$branch',
+      ],
+      createException: (pr) =>
+          GitToolException('Could not list `$branch`.', pr.asTrimmedOutput),
+    );
+    return pr.stdout
+        .toString()
+        .split('\n')
+        .map((e) => e.trim())
+        .where((e) => e.isNotEmpty)
+        .toList();
+  }
+
   /// Deletes the local directory.
   Future<void> delete() async {
     await Directory(localPath).delete(recursive: true);

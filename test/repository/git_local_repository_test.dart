@@ -34,7 +34,7 @@ void main() {
     });
   });
 
-  group('checkout files', () {
+  group('local files', () {
     late GitLocalRepository repo;
 
     setUpAll(() async {
@@ -46,32 +46,50 @@ void main() {
       await repo.delete();
     });
 
-    test('no such branch', () async {
-      await expectLater(
-        () => repo.showStringContent('branchdoesnotexists', 'pubspec.yaml'),
-        throwsA(isA<GitToolException>()),
-      );
+    void setupBranchFailures(Future Function(String branch) fn) {
+      test('no such branch', () async {
+        await expectLater(
+            () => fn('branchdoesnotexists'), throwsA(isA<GitToolException>()));
+      });
+
+      test('not expected branch format', () async {
+        await expectLater(
+            () => fn('not//accepted'), throwsA(isA<ArgumentError>()));
+      });
+    }
+
+    group('show string content', () {
+      setupBranchFailures(
+          (branch) => repo.showStringContent(branch, 'pubspec.yaml'));
+
+      test('bad file', () async {
+        final branch = await repo.detectDefaultBranch();
+        await expectLater(
+          () => repo.showStringContent(branch, 'no-such-pubspec.yaml'),
+          throwsA(isA<GitToolException>()),
+        );
+      });
+
+      test('checkout files from default branch', () async {
+        final branch = await repo.detectDefaultBranch();
+        final content = await repo.showStringContent(branch, 'pubspec.yaml');
+        expect(content, contains('name: pana'));
+      });
     });
 
-    test('not expected branch format', () async {
-      await expectLater(
-        () => repo.showStringContent('branch-is-not-accepted', 'pubspec.yaml'),
-        throwsA(isA<ArgumentError>()),
-      );
-    });
+    group('list files', () {
+      setupBranchFailures((branch) => repo.listFiles(branch));
 
-    test('bad file', () async {
-      final branch = await repo.detectDefaultBranch();
-      await expectLater(
-        () => repo.showStringContent(branch, 'no-such-pubspec.yaml'),
-        throwsA(isA<GitToolException>()),
-      );
-    });
-
-    test('checkout files from default branch', () async {
-      final branch = await repo.detectDefaultBranch();
-      final content = await repo.showStringContent(branch, 'pubspec.yaml');
-      expect(content, contains('name: pana'));
+      test('list files in root', () async {
+        final branch = await repo.detectDefaultBranch();
+        final files = await repo.listFiles(branch);
+        expect(
+            files,
+            containsAll([
+              'lib/pana.dart',
+              'pubspec.yaml',
+            ]));
+      });
     });
   });
 }

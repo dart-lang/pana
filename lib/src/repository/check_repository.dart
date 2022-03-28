@@ -28,16 +28,43 @@ Future<Repository?> checkRepository(PackageContext context) async {
   bool? isVerified;
   String? verificationFailure;
 
+  Repository result() => Repository(
+        baseUrl: url.baseUrl,
+        branch: branch,
+        packagePath: url.path.isEmpty ? null : url.path,
+        isVerified: isVerified,
+        verificationFailure: verificationFailure,
+      );
+
   void failVerification(String message, [error, StackTrace? st]) {
     verificationFailure = message;
     log.info(message, error, st);
   }
 
   if (context.options.checkRemoteRepository) {
+    isVerified = false;
     GitLocalRepository? repo;
     try {
       repo = await GitLocalRepository.createLocalRepository(url.baseUrl);
       branch ??= await repo.detectDefaultBranch();
+
+      // list all pubspec.yaml files
+      final files = await repo.listFiles(branch);
+      // TODO: verify file name patterns
+
+      final pubspecFiles =
+          files.where((path) => p.basename(path) == 'pubspec.yaml').toList();
+      if (pubspecFiles.isEmpty) {
+        failVerification('Repository has no `pubspec.yaml`.');
+        return result();
+      }
+      final pubspecPath = p.join(url.path, 'pubspec.yaml');
+      if (!pubspecFiles.contains(pubspecPath)) {
+        // TODO: detect if any of them is matching
+        failVerification(
+            'Repository has no `pubspec.yaml` in location: `${url.path}/`.');
+        return result();
+      }
 
       // checkout the pubspec.yaml at the assumed location
       final content = await repo.showStringContent(
@@ -73,11 +100,5 @@ Future<Repository?> checkRepository(PackageContext context) async {
     }
     isVerified = verificationFailure == null;
   }
-  return Repository(
-    baseUrl: url.baseUrl,
-    branch: branch,
-    packagePath: url.path.isEmpty ? null : url.path,
-    isVerified: isVerified,
-    verificationFailure: verificationFailure,
-  );
+  return result();
 }
