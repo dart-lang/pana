@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
+import 'package:pana/src/internal_model.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -349,7 +350,7 @@ class ToolEnvironment {
     }
   }
 
-  Future<Map<String, dynamic>> runPubOutdated(
+  Future<Outdated> runPubOutdated(
     String packageDir, {
     List<String> args = const [],
     required bool usesFlutter,
@@ -380,7 +381,7 @@ class ToolEnvironment {
       throw ToolException(
           '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```');
     } else {
-      return result.parseJson();
+      return Outdated.fromJson(result.parseJson());
     }
   }
 

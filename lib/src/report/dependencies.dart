@@ -35,16 +35,9 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
     var status = ReportStatus.passed;
     if (context.pubspecAllowsCurrentSdk) {
       try {
-        final outdated = Outdated.fromJson(await toolEnvironment.runPubOutdated(
-          packageDir,
-          args: [
-            '--json',
-            '--up-to-date',
-            '--no-dev-dependencies',
-            '--no-dependency-overrides',
-          ],
-          usesFlutter: context.usesFlutter,
-        ));
+        // We don't need try catch here, because outdatedOutput already is
+        // resolved once in `resolveDependencies`.
+        final outdated = await context.outdatedOutput;
         final outdatedVersions = <String, List<OutdatedVersionDescription>>{};
         for (final p in outdated.packages) {
           outdatedVersions[p.package] =
@@ -351,7 +344,7 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
                 Issue(
                     'The constraint `${hostedDependency.version}` on $name does not support the stable version `$versionString`, '
                     'but that version doesn\'t support the current Dart SDK version ${context.currentSdkVersion}.'
-                    '\n\nWhen a supporting stable sdk is pubslished, this package will no longer be awarded points in this category.'),
+                    '\n\nWhen a supporting stable sdk is published, this package will no longer be awarded points in this category.'),
                 OutdatedStatus.outdatedByPreview));
           } else {
             result.add(OutdatedVersionDescription(

@@ -4,19 +4,12 @@
 
 library pana.pkg_resolution;
 
-import 'dart:convert';
-import 'dart:io' hide exitCode;
-
-import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 
+import 'internal_model.dart';
 import 'logging.dart';
 import 'pubspec.dart';
-import 'utils.dart';
-
-final _solvePkgLine =
-    RegExp(r'(?:[><\+\! ]) (\w+) (\S+)(?: \((\S+) available\))?(?: from .+)?');
 
 class PkgResolution {
   final List<PkgDependency> dependencies;
@@ -167,64 +160,27 @@ class PkgDependency implements Comparable<PkgDependency> {
   }
 }
 
-PkgResolution createPkgResolution(Pubspec pubspec, String procStdout,
-    {String? path}) {
+PkgResolution createPkgResolution(
+  Pubspec pubspec,
+  Outdated outdated, {
+  String? path,
+}) {
   var pkgVersions = <String, Version>{};
   var availVersions = <String, Version>{};
 
-  // first select the which match the following pattern:
-  // MSG :   pkg1 [version]
-  //     |   pkg2 [version] ([version] available)
-  final entries = PubEntry.parse(procStdout)
-      .where((entry) => entry.header == 'MSG')
-      .where((entry) => entry.content.any(_solvePkgLine.hasMatch))
-      .toList();
-
-  if (entries.length == 1) {
-    // normally there should be only one such content block:
-    for (var match in entries.single.content
-        .takeWhile(_solvePkgLine.hasMatch)
-        .map(_solvePkgLine.firstMatch)) {
-      var pkg = match!.group(1)!;
-      pkgVersions[pkg] = Version.parse(match.group(2)!);
-      var availVerStr = match.group(3);
-      if (availVerStr != null) {
-        availVersions[pkg] = Version.parse(availVerStr);
-      }
+  for (final package in outdated.packages) {
+    final resolvedVersionString = package.latest?.version;
+    if (resolvedVersionString != null) {
+      pkgVersions[package.package] = Version.parse(resolvedVersionString);
     }
-  } else if (entries.length > 1) {
-    throw Exception(
-        'Seems that we have two sections of packages solves - weird!');
-  } else {
-    // it's empty – which is fine for a package with no dependencies
-  }
-
-  if (path != null) {
-    _validateLockedVersions(path, pkgVersions);
+    final latestVersionString = package.latest?.version;
+    if (latestVersionString != null) {
+      availVersions[package.package] = Version.parse(latestVersionString);
+    }
   }
 
   final deps = _buildDeps(pubspec, pkgVersions, availVersions);
   return PkgResolution(deps);
-}
-
-void _validateLockedVersions(String path, Map<String, Version> pkgVersions) {
-  var theFile = File(p.join(path, 'pubspec.lock'));
-  if (theFile.existsSync()) {
-    final lockFileContent = theFile.readAsStringSync();
-    if (lockFileContent.isNotEmpty) {
-      Map lockMap = yamlToJson(lockFileContent)!;
-      final pkgs = lockMap['packages'] as Map<String, dynamic>;
-      pkgs.forEach((String key, dynamic v) {
-        var m = v as Map;
-        var lockedVersion = Version.parse(m['version'] as String);
-        if (pkgVersions[key] != lockedVersion) {
-          throw StateError(
-              'For $key, the parsed version ${pkgVersions[key]} did not '
-              'match the locked version $lockedVersion.');
-        }
-      });
-    }
-  }
 }
 
 List<PkgDependency> _buildDeps(Pubspec pubspec,
@@ -317,58 +273,4 @@ List<PkgDependency> _buildDeps(Pubspec pubspec,
 
   deps.sort((a, b) => a.package.compareTo(b.package));
   return deps;
-}
-
-class PubEntry {
-  static final _headerMatch = RegExp(r'^([A-Z]{2,4})[ ]{0,2}: (.*)');
-  static final _lineMatch = RegExp(r'^    \|(.*)');
-
-  final String header;
-  final List<String> content;
-
-  PubEntry(this.header, this.content);
-
-  static Iterable<PubEntry> parse(String input) sync* {
-    String? header;
-    List<String>? entryLines;
-
-    for (var line in LineSplitter.split(input)) {
-      if (line.trim().isEmpty) {
-        continue;
-      }
-      var match = _headerMatch.firstMatch(line);
-
-      if (match != null) {
-        if (header != null || entryLines != null) {
-          assert(entryLines!.isNotEmpty);
-          yield PubEntry(header!, entryLines!);
-          header = null;
-          entryLines = null;
-        }
-        header = match[1];
-        entryLines = <String>[match[2]!];
-      } else {
-        match = _lineMatch.firstMatch(line);
-
-        if (match == null) {
-          // Likely due to Flutter silly
-          // log.severe("Could not parse pub line `$line`.");
-          continue;
-        }
-
-        assert(entryLines != null);
-        entryLines!.add(match[1]!);
-      }
-    }
-
-    if (header != null || entryLines != null) {
-      assert(entryLines!.isNotEmpty);
-      yield PubEntry(header!, entryLines!);
-      header = null;
-      entryLines = null;
-    }
-  }
-
-  @override
-  String toString() => '$header: ${content.join('\n')}';
 }

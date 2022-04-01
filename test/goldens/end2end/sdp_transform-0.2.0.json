@@ -33,21 +33,7 @@
       "spdxIdentifier": "MIT"
     }
   ],
-  "allDependencies": [
-    "test"
-  ],
   "tags": [
-    "sdk:dart",
-    "sdk:flutter",
-    "platform:android",
-    "platform:ios",
-    "platform:windows",
-    "platform:linux",
-    "platform:macos",
-    "platform:web",
-    "runtime:native-aot",
-    "runtime:native-jit",
-    "runtime:web",
     "license:mit"
   ],
   "report": {
@@ -108,5 +94,6 @@
     "branch": "master",
     "isVerified": true
   },
-  "urlProblems": []
+  "urlProblems": [],
+  "errorMessage": "`dart pub get` failed:\n\n```\nOUT:\nResolving dependencies...\nERR:\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n```"
 }

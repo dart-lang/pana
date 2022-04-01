@@ -118,11 +118,11 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`async`]|-|2.8.2|2.8.2|
+|[`async`]|-|2.9.0|2.9.0|
 |[`characters`]|-|1.2.0|1.2.0|
 |[`charcode`]|-|1.3.1|1.3.1|
 |[`clock`]|-|1.1.0|1.1.0|
-|[`collection`]|-|1.15.0|1.15.0|
+|[`collection`]|-|1.15.0|1.16.0|
 |[`crypto`]|-|3.0.1|3.0.1|
 |[`ffi`]|-|1.1.2|1.1.2|
 |[`file`]|-|6.1.2|6.1.2|
@@ -131,9 +131,9 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`material_color_utilities`]|-|0.1.3|0.1.4|
 |[`meta`]|-|1.7.0|1.7.0|
 |[`path`]|-|1.8.1|1.8.1|
-|[`path_provider`]|-|2.0.8|2.0.8|
-|[`path_provider_android`]|-|2.0.11|2.0.11|
-|[`path_provider_ios`]|-|2.0.7|2.0.7|
+|[`path_provider`]|-|2.0.9|2.0.9|
+|[`path_provider_android`]|-|2.0.12|2.0.12|
+|[`path_provider_ios`]|-|2.0.8|2.0.8|
 |[`path_provider_linux`]|-|2.1.5|2.1.5|
 |[`path_provider_macos`]|-|2.0.5|2.0.5|
 |[`path_provider_platform_interface`]|-|2.0.3|2.0.3|
@@ -145,15 +145,15 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`source_span`]|-|1.8.2|1.8.2|
 |[`sqflite`]|-|2.0.2|2.0.2|
-|[`sqflite_common`]|-|2.2.0|2.2.0|
+|[`sqflite_common`]|-|2.2.1|2.2.1|
 |[`string_scanner`]|-|1.1.0|1.1.0|
-|[`synchronized`]|-|3.0.0|3.0.0|
+|[`synchronized`]|-|3.0.0+2|3.0.0+2|
 |[`term_glyph`]|-|1.2.0|1.2.0|
 |[`typed_data`]|-|1.3.0|1.3.0|
-|[`uuid`]|-|3.0.5|3.0.5|
-|[`vector_math`]|-|2.1.1|2.1.1|
-|[`win32`]|-|2.3.10|2.3.10|
-|[`xdg_directories`]|-|0.2.0|0.2.0|
+|[`uuid`]|-|3.0.6|3.0.6|
+|[`vector_math`]|-|2.1.1|2.1.2|
+|[`win32`]|-|2.5.1|2.5.1|
+|[`xdg_directories`]|-|0.2.0+1|0.2.0+1|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

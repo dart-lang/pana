@@ -91,5 +91,5 @@
     "isVerified": true
   },
   "urlProblems": [],
-  "errorMessage": "Running `dart pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```"
+  "errorMessage": "`dart pub get` failed:\n\n```\nOUT:\nResolving dependencies...\nERR:\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n```"
 }

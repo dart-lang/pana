@@ -59,7 +59,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|`^1.15.0`|1.15.0|1.15.0|
+|[`collection`]|`^1.15.0`|1.16.0|1.16.0|
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 

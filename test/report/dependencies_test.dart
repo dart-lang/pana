@@ -27,71 +27,74 @@ void main() {
             }
           });
       await descriptor.create();
-
-      final context = PackageContext(
-        toolEnvironment: await testToolEnvironment(),
-        packageDir: descriptor.io.path,
-        options: InspectOptions(),
-      );
+      final toolEnvironment = await testToolEnvironment();
+      final currentSdk = Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
+      // We recreate a new context after each change to avoid seeing the cached
+      // `outdated` output.
+      PackageContext context() => PackageContext(
+            toolEnvironment: toolEnvironment,
+            packageDir: descriptor.io.path,
+            options: InspectOptions(),
+          );
 
       {
-        final section = await trustworthyDependency(context);
+        final section = await trustworthyDependency(context());
         expect(section.grantedPoints, 20);
       }
       DateTime daysAgo(int days) =>
           DateTime.now().subtract(Duration(days: days));
       {
         globalPackageServer!.add(
-          (b) => b!.serve('foo', '4.0.0',
+          (b) => b.serve('foo', '4.0.0',
               pubspec: {
                 'environment': {
-                  'sdk': VersionConstraint.compatibleWith(
-                          context.currentSdkVersion.nextBreaking)
-                      .toString()
+                  'sdk':
+                      VersionConstraint.compatibleWith(currentSdk.nextBreaking)
+                          .toString()
                 }
               },
               published: daysAgo(200)),
         );
 
-        final section = await trustworthyDependency(context);
+        final section = await trustworthyDependency(context());
         expect(
-            section.summary,
-            contains(
-                '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
-                'but that version doesn\'t support the current Dart SDK version ${context.currentSdkVersion}'));
+          section.summary,
+          contains(
+              '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
+              'but that version doesn\'t support the current Dart SDK version $currentSdk'),
+        );
 
         expect(section.grantedPoints, 20);
       }
       {
         globalPackageServer!
-            .add((b) => b!.serve('foo', '3.0.0', published: daysAgo(3)));
+            .add((b) => b.serve('foo', '3.0.0', published: daysAgo(3)));
 
-        final section = await trustworthyDependency(context);
+        final section = await trustworthyDependency(context());
         expect(
           section.summary,
           contains(
-              'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.'),
+            'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.',
+          ),
         );
 
         expect(section.grantedPoints, 20);
       }
       {
         globalPackageServer!.add(
-          (b) => b!.serve(
+          (b) => b.serve(
             'foo',
             '2.0.0',
             pubspec: {
               'environment': {
-                'sdk':
-                    VersionConstraint.compatibleWith(context.currentSdkVersion)
-                        .toString()
+                'sdk': VersionConstraint.compatibleWith(currentSdk).toString()
               }
             },
             published: daysAgo(200),
           ),
         );
 
-        final section = await trustworthyDependency(context);
+        final section = await trustworthyDependency(context());
         expect(
           section.summary,
           contains(

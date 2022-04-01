@@ -129,16 +129,16 @@ class PackageServer {
   /// package to serve.
   ///
   /// This is preserved so that additional packages can be added.
-  PackageServerBuilder? _builder;
+  late PackageServerBuilder _builder;
 
   /// Add to the current set of packages that are being served.
-  void add(void Function(PackageServerBuilder?) callback) {
+  void add(void Function(PackageServerBuilder) callback) {
     callback(_builder);
 
     _servedApiPackageDir.contents.clear();
     _servedPackageDir.contents.clear();
 
-    _builder!._packages.forEach((name, package) {
+    _builder._packages.forEach((name, package) {
       _servedApiPackageDir.contents.addAll([
         d.file(
             name,

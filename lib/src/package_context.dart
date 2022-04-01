@@ -61,52 +61,32 @@ class PackageContext {
 
   bool get usesFlutter => _usesFlutter ??= pubspec.usesFlutter;
 
-  Future<PkgResolution?> resolveDependencies() async {
+  late final Future<Outdated> outdatedOutput = toolEnvironment.runPubOutdated(
+    packageDir,
+    args: [
+      '--json',
+      '--show-all',
+      '--no-dev-dependencies',
+      '--no-dependency-overrides',
+    ],
+    usesFlutter: usesFlutter,
+  );
+
+Future<PkgResolution?> resolveDependencies() async {
     if (_pkgResolution != null) return _pkgResolution;
-    final upgrade = await toolEnvironment.runUpgrade(packageDir, usesFlutter);
-
-    if (upgrade.exitCode == 0) {
-      try {
-        _pkgResolution = createPkgResolution(pubspec, upgrade.asJoinedOutput,
-            path: packageDir);
-      } catch (e, stack) {
-        log.severe('Problem with `dart pub upgrade`', e, stack);
-        //(TODO)kevmoo - should add a helper that handles logging exceptions
-        //  and writing to issues in one go.
-
-        // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
-        final cmd = usesFlutter ? 'flutter pub upgrade' : 'dart pub upgrade';
-        errors.add('Running `$cmd` failed with the following output:\n\n'
-            '```\n$e\n```\n');
-      }
-    } else {
-      String message;
-      if (upgrade.exitCode > 0) {
-        message = PubEntry.parse(upgrade.stderr.asString)
-            .where((e) => e.header == 'ERR')
-            .join('\n');
-      } else {
-        message = LineSplitter.split(upgrade.stderr.asString).first;
-      }
-
-      // 1: Version constraint issue with direct or transitive dependencies.
-      //
-      // 2: Code in a git repository could change or disappear.
-      final isUserProblem = message.contains('version solving failed') || // 1
-          pubspec.hasGitDependency || // 2
-          message.contains('Git error.'); // 2
-
-      if (!isUserProblem) {
-        log.severe('`dart pub upgrade` failed.\n$message'.trim());
-      }
-
-      // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
-      final cmd = usesFlutter ? 'flutter pub upgrade' : 'dart pub upgrade';
-      errors.add(message.isEmpty
-          ? 'Running `$cmd` failed.'
-          : 'Running `$cmd` failed with the following output:\n\n'
-              '```\n$message\n```\n');
+    final Outdated outdated;
+    try {
+      outdated = await outdatedOutput;
+    } on ToolException catch (e) {
+      errors.add(e.message);
+      return null;
     }
+    _pkgResolution = createPkgResolution(
+      pubspec,
+      outdated,
+      path: packageDir,
+    );
+
     return _pkgResolution;
   }
 
