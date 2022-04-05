@@ -172,7 +172,7 @@
     "baseUrl": "https://github.com/ryanheise/audio_service",
     "branch": "minor",
     "isVerified": false,
-    "verificationFailure": "Unable to access git repository: Could not read `pubspec.yaml`."
+    "verificationFailure": "Repository has no `pubspec.yaml` in location: `/`."
   },
   "urlProblems": []
 }
