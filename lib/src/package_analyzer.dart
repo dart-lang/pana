@@ -193,14 +193,16 @@ class PackageAnalyzer {
 
     final licenses = await detectLicenseInDir(pkgDir);
     if (licenses.isNotEmpty) {
-      tags.addAll(licenses.map((l) => 'license:${l.spdxIdentifier.toLowerCase()}').toSet());
-      if (licenses.all((l) => fsfLibreLicenses.contains(l.spdxIdentifier))) {
+      tags.addAll(licenses
+          .map((l) => 'license:${l.spdxIdentifier.toLowerCase()}')
+          .toSet());
+      if (licenses.every((l) => fsfLibreLicenses.contains(l.spdxIdentifier))) {
         tags.add('license:fsf-libre');
       }
-      if (licenses.all((l) => osiApprovedLicenses.contains(l.spdxIdentifier))) {
+      if (licenses
+          .every((l) => osiApprovedLicenses.contains(l.spdxIdentifier))) {
         tags.add('license:osi-approved');
       }
-      );
     } else {
       tags.add('license:unknown');
     }
