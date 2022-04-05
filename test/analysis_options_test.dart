@@ -40,7 +40,13 @@ void main() {
 
   test('passthrough for empty options', () {
     final content = updatePassthroughOptions(original: '', custom: '');
-    expect(json.decode(content), {});
+    expect(json.decode(content), {
+      'analyzer': {
+        'errors': {
+          'deprecated_member_use_from_same_package': 'ignore',
+        },
+      },
+    });
   });
 
   test('passthrough for some options', () {
@@ -53,6 +59,7 @@ analyzer:
     expect(json.decode(content), {
       'analyzer': {
         'errors': {
+          'deprecated_member_use_from_same_package': 'ignore',
           'uri_has_not_been_generated': 'ignore',
         },
       },

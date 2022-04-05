@@ -1,3 +1,7 @@
+## 0.21.13
+
+- `deprecated_member_use_from_same_package: ignore` set to default analysis options
+
 ## 0.21.12
 
 - Expose repository verification failures in the report (and score).

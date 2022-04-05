@@ -114,15 +114,17 @@ String updatePassthroughOptions({
 
   final customMap =
       json.decode(json.encode(yaml.loadYaml(custom))) ?? <String, dynamic>{};
+  final customAnalyzer = customMap.putIfAbsent('analyzer', () => {}) as Map;
+  final customErrors = customAnalyzer.putIfAbsent('errors', () => {}) as Map;
+
+  // explicitly allow deprecated member use in the same package
+  customErrors.putIfAbsent(
+      'deprecated_member_use_from_same_package', () => 'ignore');
 
   final origAnalyzer = origMap['analyzer'];
   if (origAnalyzer is Map) {
     final origErrors = origAnalyzer['errors'];
     if (origErrors is Map) {
-      final customAnalyzer = customMap.putIfAbsent('analyzer', () => {}) as Map;
-      final customErrors =
-          customAnalyzer.putIfAbsent('errors', () => {}) as Map;
-
       for (var key in _analyzerErrorKeys) {
         if (origErrors.containsKey(key)) {
           customErrors[key] = origErrors[key];
