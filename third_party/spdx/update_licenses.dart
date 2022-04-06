@@ -5,7 +5,8 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:http/http.dart' as http;
 
-const _targetPath = 'lib/src/third_party/spdx/licenses';
+const _spdxPath = 'lib/src/third_party/spdx';
+const _targetPath = '$_spdxPath/licenses';
 
 void main() async {
   const downloadUrl =
@@ -52,14 +53,13 @@ Future<void> removeUnnecessaryFiles() async {
   final spdxDirectory = Directory('$_targetPath/license-list-data-master');
   final entities = jsonDirectory.listSync();
 
-  var contentList = <String>[];
-  var namesList = <String>[];
-  var retain = <bool>[];
+  final licenses = <_LicenseData>[];
   for (var entity in entities) {
     final file = File(entity.path);
-    final jsonData = json.decode(file.readAsStringSync());
-    final content = jsonData['licenseText'] as String;
-    final name = jsonData['licenseId'] as String;
+    final jsonData =
+        json.decode(file.readAsStringSync()) as Map<String, dynamic>;
+    final text = jsonData['licenseText'] as String;
+    final identifier = jsonData['licenseId'] as String;
 
     /// Ignore the deprecated licenses as the [SPDX guidelines][1]
     /// suggests that they should not be used.
@@ -68,24 +68,53 @@ Future<void> removeUnnecessaryFiles() async {
     if (jsonData['isDeprecatedLicenseId'] as bool) {
       continue;
     }
-
-    contentList.add(content);
-    namesList.add(name);
-    retain.add(true);
+    final isOsiApproved = (jsonData['isOsiApproved'] as bool?) ?? false;
+    final isFsfLibre = (jsonData['isFsfLibre'] as bool?) ?? false;
+    licenses.add(_LicenseData(
+      identifier,
+      text,
+      isFsfLibre: isFsfLibre,
+      isOsiApproved: isOsiApproved,
+    ));
   }
 
-  removeDuplicates(contentList, namesList, retain);
+  removeDuplicates(licenses);
   await spdxDirectory.delete(recursive: true);
   final basePath = '$_targetPath/';
 
-  for (var i = 0; i < contentList.length; i++) {
-    if (retain[i]) {
-      final path = basePath + namesList[i] + '.txt';
+  final fsfLibre = <String>{};
+  final osiApproved = <String>{};
+  for (final license in licenses) {
+    if (license.retain) {
+      final path = basePath + license.identifier + '.txt';
       final file = File(path);
       await file.create();
-      file.writeAsStringSync(contentList[i]);
+      file.writeAsStringSync(license.text);
+      if (license.isFsfLibre) {
+        fsfLibre.add(license.identifier);
+      }
+      if (license.isOsiApproved) {
+        osiApproved.add(license.identifier);
+      }
     }
   }
+
+  await File('$_spdxPath/licenses.dart').writeAsString([
+    '// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file',
+    '// for details. All rights reserved. Use of this source code is governed by a',
+    '// BSD-style license that can be found in the LICENSE file.',
+    '',
+    '/// FSF Free/Libre',
+    'const fsfLibreLicenses = <String>{',
+    ...(fsfLibre.toList()..sort()).map((id) => '  \'$id\','),
+    '};',
+    '',
+    '/// OSI Approved',
+    'const osiApprovedLicenses = <String>{',
+    ...(osiApproved.toList()..sort()).map((id) => '  \'$id\','),
+    '};',
+    '',
+  ].join('\n'));
 }
 
 /// This routine tries to find licenses having same text and retains only file among the duplicates with normalized name.
@@ -93,29 +122,43 @@ Future<void> removeUnnecessaryFiles() async {
 /// For example as `AGPL-1.0-only` and `AGPL-1.0-or-later` have same text
 /// we store a single license called `AGPL-1.0` instead of two similar license
 /// text.
-void removeDuplicates(
-    List<String> contentList, List<String> namesList, List<bool> retain) {
-  var len = contentList.length;
-  for (var i = 0; i < len; i++) {
-    if (retain[i]) {
+void removeDuplicates(List<_LicenseData> licenses) {
+  for (var i = 0; i < licenses.length; i++) {
+    if (licenses[i].retain) {
       var isDuplicatePresent = false;
 
-      for (var j = i + 1; j < len; j++) {
-        if (retain[j]) {
-          if (contentList[i] == contentList[j]) {
-            retain[j] = false;
+      for (var j = i + 1; j < licenses.length; j++) {
+        if (licenses[j].retain) {
+          if (licenses[i].text == licenses[j].text) {
+            licenses[j].retain = false;
             isDuplicatePresent = true;
           }
         }
       }
 
       if (isDuplicatePresent) {
-        namesList[i] = namesList[i].replaceAll(similarReg, '');
+        licenses[i].identifier =
+            licenses[i].identifier.replaceAll(_similarReg, '');
       }
     }
   }
 }
 
-final similarReg = RegExp(
+final _similarReg = RegExp(
     r'(-only|-or-later|-rfn|-no-rfn|-no-invariants-only|-no-invariants-or-later|-no-copyleft-exception)',
     caseSensitive: false);
+
+class _LicenseData {
+  String identifier;
+  final String text;
+  final bool isFsfLibre;
+  final bool isOsiApproved;
+  bool retain = true;
+
+  _LicenseData(
+    this.identifier,
+    this.text, {
+    required this.isFsfLibre,
+    required this.isOsiApproved,
+  });
+}
