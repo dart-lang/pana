@@ -161,7 +161,7 @@
   "screenshots": [],
   "repository": {
     "baseUrl": "https://github.com/flutter/plugins",
-    "branch": "master",
+    "branch": "main",
     "packagePath": "packages/url_launcher/url_launcher",
     "isVerified": true
   },

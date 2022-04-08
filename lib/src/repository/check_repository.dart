@@ -52,16 +52,17 @@ Future<Repository?> checkRepository(PackageContext context) async {
     late GitLocalRepository repo;
     try {
       repo = await GitLocalRepository.createLocalRepository(url.baseUrl);
-      branch ??= await repo.detectDefaultBranch();
+      branch = await repo.detectDefaultBranch();
 
       // list all pubspec.yaml files
       final files = await repo.listFiles(branch);
-      // TODO: verify file name patterns
+      // TODO: verify all file name patterns
 
       final pubspecFiles =
           files.where((path) => p.basename(path) == 'pubspec.yaml').toList();
       if (pubspecFiles.isEmpty) {
-        failVerification('Could not find any `pubspec.yaml` in the repository.');
+        failVerification(
+            'Could not find any `pubspec.yaml` in the repository.');
         return result();
       }
 
@@ -72,32 +73,31 @@ Future<Repository?> checkRepository(PackageContext context) async {
           path,
           maxOutputBytes: _maxPubspecBytes,
         );
+        // TODO: consider to catch FormatException here, to allow an unrelated, but badly formatted pubspec.yaml in the repository.
         final gitPubspec = Pubspec.parseYaml(content);
+
         // verification steps
         if (gitPubspec.name != context.pubspec.name) {
-          return _PubspecMatch(
-              path,
-              false,
-              'Repository `$path` name missmatch: '
-              '`${gitPubspec.name}` != `${context.pubspec.name}`.');
+          return _PubspecMatch(path, false,
+              '`$path` from the repository name missmatch: expected `${context.pubspec.name}` but got `${gitPubspec.name}`.');
         }
         final gitRepoOrHomepage = gitPubspec.repositoryOrHomepage;
         if (gitRepoOrHomepage == null) {
           return _PubspecMatch(path, true,
-              'Repository `$path` has no `repository` or `homepage` URL.');
+              '`$path` from the repository has no `repository` or `homepage` URL.');
         }
         final gitRepoUrl = RepositoryUrl.tryParse(gitRepoOrHomepage);
         if (gitRepoUrl?.baseUrl != url.baseUrl) {
           return _PubspecMatch(path, true,
-              'Repository `$path` URL missmatch: expected `${url.baseUrl}` but got `${gitRepoUrl?.baseUrl}`.');
+              '`$path` from the repository URL missmatch: expected `${url.baseUrl}` but got `${gitRepoUrl?.baseUrl}`.');
         }
         if (gitPubspec.version == null) {
           return _PubspecMatch(
-              path, true, 'Repository `$path` has no version.');
+              path, true, '`$path` from the repository has no `version`.');
         }
         if (gitPubspec.toJson().containsKey('publish_to')) {
-          return _PubspecMatch(
-              path, true, '`$path/pubspec.yaml` from the repository defines `publish_to`, thus, we are unable to verify the package is published from here.');
+          return _PubspecMatch(path, true,
+              '`$path` from the repository defines `publish_to`, thus, we are unable to verify the package is published from here.');
         }
 
         // found no issue
