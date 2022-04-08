@@ -86,8 +86,9 @@
   "repository": {
     "baseUrl": "https://github.com/dart-lang/pub-dev",
     "branch": "master",
+    "packagePath": "pkg/pub_integration/test_data/_dummy_pkg",
     "isVerified": false,
-    "verificationFailure": "Repository has no `pubspec.yaml` in location: `/`."
+    "verificationFailure": "`pkg/pub_integration/test_data/_dummy_pkg/pubspec.yaml` from the repository has no `version`."
   },
   "urlProblems": [],
   "errorMessage": "Running `dart pub upgrade` failed with the following output:\n\n```\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.\nERR: The current Dart SDK version is {{sdk-version}}.\n \n Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.\n```"

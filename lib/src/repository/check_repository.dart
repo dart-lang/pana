@@ -27,14 +27,20 @@ Future<Repository?> checkRepository(PackageContext context) async {
   var branch = url.branch;
   bool? isVerified;
   String? verificationFailure;
+  var packagePath = url.path.isEmpty ? null : url.path;
 
-  Repository result() => Repository(
-        baseUrl: url.baseUrl,
-        branch: branch,
-        packagePath: url.path.isEmpty ? null : url.path,
-        isVerified: isVerified,
-        verificationFailure: verificationFailure,
-      );
+  Repository result() {
+    if (packagePath == '.') {
+      packagePath = null;
+    }
+    return Repository(
+      baseUrl: url.baseUrl,
+      branch: branch,
+      packagePath: packagePath,
+      isVerified: isVerified,
+      verificationFailure: verificationFailure,
+    );
+  }
 
   void failVerification(String message, [error, StackTrace? st]) {
     verificationFailure = message;
@@ -43,62 +49,101 @@ Future<Repository?> checkRepository(PackageContext context) async {
 
   if (context.options.checkRemoteRepository) {
     isVerified = false;
-    GitLocalRepository? repo;
+    late GitLocalRepository repo;
     try {
       repo = await GitLocalRepository.createLocalRepository(url.baseUrl);
-      branch ??= await repo.detectDefaultBranch();
+      branch = await repo.detectDefaultBranch();
 
       // list all pubspec.yaml files
       final files = await repo.listFiles(branch);
-      // TODO: verify file name patterns
+      // TODO: verify all file name patterns
 
       final pubspecFiles =
           files.where((path) => p.basename(path) == 'pubspec.yaml').toList();
       if (pubspecFiles.isEmpty) {
-        failVerification('Repository has no `pubspec.yaml`.');
-        return result();
-      }
-      final pubspecPath = p.join(url.path, 'pubspec.yaml');
-      if (!pubspecFiles.contains(pubspecPath)) {
-        // TODO: detect if any of them is matching
         failVerification(
-            'Repository has no `pubspec.yaml` in location: `${url.path}/`.');
+            'Could not find any `pubspec.yaml` in the repository.');
         return result();
       }
 
-      // checkout the pubspec.yaml at the assumed location
-      final content = await repo.showStringContent(
-        branch,
-        p.join(url.path, 'pubspec.yaml'),
-        maxOutputBytes: _maxPubspecBytes,
-      );
-      final gitPubspec = Pubspec.parseYaml(content);
+      Future<_PubspecMatch> matchRepoPubspecYaml(String path) async {
+        // checkout the pubspec.yaml at the assumed location
+        final content = await repo.showStringContent(
+          branch!,
+          path,
+          maxOutputBytes: _maxPubspecBytes,
+        );
+        // TODO: consider to catch FormatException here, to allow an unrelated, but badly formatted pubspec.yaml in the repository.
+        final gitPubspec = Pubspec.parseYaml(content);
 
-      // verification steps
-      if (gitPubspec.name != context.pubspec.name) {
-        failVerification('Repository `pubspec.yaml` name missmatch: '
-            '`${gitPubspec.name}` != `${context.pubspec.name}`.');
-      } else if (gitPubspec.repositoryOrHomepage !=
-          context.pubspec.repositoryOrHomepage) {
-        failVerification('Repository `pubspec.yaml` URL missmatch: '
-            '`${gitPubspec.repositoryOrHomepage}` != `${context.pubspec.repositoryOrHomepage}`.');
-      } else if (gitPubspec.version == null) {
-        failVerification('Repository `pubspec.yaml` has no version.');
-      } else if (gitPubspec.toJson().containsKey('publish_to ')) {
-        failVerification('Repository `pubspec.yaml` has `publish_to`.');
+        // verification steps
+        if (gitPubspec.name != context.pubspec.name) {
+          return _PubspecMatch(path, false,
+              '`$path` from the repository name missmatch: expected `${context.pubspec.name}` but got `${gitPubspec.name}`.');
+        }
+        final gitRepoOrHomepage = gitPubspec.repositoryOrHomepage;
+        if (gitRepoOrHomepage == null) {
+          return _PubspecMatch(path, true,
+              '`$path` from the repository has no `repository` or `homepage` URL.');
+        }
+        final gitRepoUrl = RepositoryUrl.tryParse(gitRepoOrHomepage);
+        if (gitRepoUrl?.baseUrl != url.baseUrl) {
+          return _PubspecMatch(path, true,
+              '`$path` from the repository URL missmatch: expected `${url.baseUrl}` but got `${gitRepoUrl?.baseUrl}`.');
+        }
+        if (gitPubspec.version == null) {
+          return _PubspecMatch(
+              path, true, '`$path` from the repository has no `version`.');
+        }
+        if (gitPubspec.toJson().containsKey('publish_to')) {
+          return _PubspecMatch(path, true,
+              '`$path` from the repository defines `publish_to`, thus, we are unable to verify the package is published from here.');
+        }
+
+        // found no issue
+        return _PubspecMatch(path, true);
+      }
+
+      final results = <_PubspecMatch>[];
+      for (final path in pubspecFiles) {
+        results.add(await matchRepoPubspecYaml(path));
+      }
+
+      final nameMatches = results.where((e) => e.hasMatchingName).toList();
+      if (nameMatches.isEmpty) {
+        failVerification(
+            'Repository has no matching `pubspec.yaml` with `name: ${context.pubspec.name}`.');
+      } else if (nameMatches.length > 1) {
+        failVerification(
+            'Repository has multiple matching `pubspec.yaml` with `name: ${context.pubspec.name}`.');
+      } else {
+        // confirmed name match, storing path
+        packagePath = p.dirname(nameMatches.single.path);
+
+        if (nameMatches.single.verificationIssue != null) {
+          failVerification(nameMatches.single.verificationIssue!);
+        }
       }
     } on FormatException catch (e, st) {
       failVerification(
-          'Unable to parse `pubspec.yaml` from git repository.', e, st);
+          'Unable to parse `pubspec.yaml` from git repository. $e', e, st);
     } on ArgumentError catch (e, st) {
       failVerification(
-          'Unable to parse `pubspec.yaml` from git repository.', e, st);
+          'Unable to parse `pubspec.yaml` from git repository. $e', e, st);
     } on GitToolException catch (e, st) {
       failVerification('Unable to access git repository: ${e.message}', e, st);
     } finally {
-      await repo?.delete();
+      await repo.delete();
     }
     isVerified = verificationFailure == null;
   }
   return result();
+}
+
+class _PubspecMatch {
+  final String path;
+  final bool hasMatchingName;
+  final String? verificationIssue;
+
+  _PubspecMatch(this.path, this.hasMatchingName, [this.verificationIssue]);
 }
