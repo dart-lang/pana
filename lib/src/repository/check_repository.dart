@@ -61,7 +61,7 @@ Future<Repository?> checkRepository(PackageContext context) async {
       final pubspecFiles =
           files.where((path) => p.basename(path) == 'pubspec.yaml').toList();
       if (pubspecFiles.isEmpty) {
-        failVerification('Repository has no `pubspec.yaml`.');
+        failVerification('Could not find any `pubspec.yaml` in the repository.');
         return result();
       }
 
@@ -95,9 +95,9 @@ Future<Repository?> checkRepository(PackageContext context) async {
           return _PubspecMatch(
               path, true, 'Repository `$path` has no version.');
         }
-        if (gitPubspec.toJson().containsKey('publish_to ')) {
+        if (gitPubspec.toJson().containsKey('publish_to')) {
           return _PubspecMatch(
-              path, true, 'Repository `$path` has `publish_to`.');
+              path, true, '`$path/pubspec.yaml` from the repository defines `publish_to`, thus, we are unable to verify the package is published from here.');
         }
 
         // found no issue
