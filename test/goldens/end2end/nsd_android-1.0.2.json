@@ -118,8 +118,7 @@
     "baseUrl": "https://github.com/sebastianhaberey/nsd",
     "branch": "main",
     "packagePath": "nsd_android",
-    "isVerified": false,
-    "verificationFailure": "Unable to parse `pubspec.yaml` from git repository."
+    "isVerified": true
   },
   "urlProblems": []
 }

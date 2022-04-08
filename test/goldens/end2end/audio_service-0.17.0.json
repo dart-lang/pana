@@ -173,8 +173,9 @@
   "repository": {
     "baseUrl": "https://github.com/ryanheise/audio_service",
     "branch": "minor",
+    "packagePath": "audio_service",
     "isVerified": false,
-    "verificationFailure": "Repository has no `pubspec.yaml` in location: `/`."
+    "verificationFailure": "Repository `audio_service/pubspec.yaml` URL missmatch: `https://github.com/ryanheise/audio_service/tree/master/audio_service` != `https://github.com/ryanheise/audio_service`."
   },
   "urlProblems": []
 }
