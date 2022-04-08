@@ -80,17 +80,22 @@ Future<Repository?> checkRepository(PackageContext context) async {
               false,
               'Repository `$path` name missmatch: '
               '`${gitPubspec.name}` != `${context.pubspec.name}`.');
-        } else if (gitPubspec.repositoryOrHomepage !=
-            context.pubspec.repositoryOrHomepage) {
-          return _PubspecMatch(
-              path,
-              true,
-              'Repository `$path` URL missmatch: '
-              '`${gitPubspec.repositoryOrHomepage}` != `${context.pubspec.repositoryOrHomepage}`.');
-        } else if (gitPubspec.version == null) {
+        }
+        final gitRepoOrHomepage = gitPubspec.repositoryOrHomepage;
+        if (gitRepoOrHomepage == null) {
+          return _PubspecMatch(path, true,
+              'Repository `$path` has no `repository` or `homepage` URL.');
+        }
+        final gitRepoUrl = RepositoryUrl.tryParse(gitRepoOrHomepage);
+        if (gitRepoUrl?.baseUrl != url.baseUrl) {
+          return _PubspecMatch(path, true,
+              'Repository `$path` URL missmatch: expected `${url.baseUrl}` but got `${gitRepoUrl?.baseUrl}`.');
+        }
+        if (gitPubspec.version == null) {
           return _PubspecMatch(
               path, true, 'Repository `$path` has no version.');
-        } else if (gitPubspec.toJson().containsKey('publish_to ')) {
+        }
+        if (gitPubspec.toJson().containsKey('publish_to ')) {
           return _PubspecMatch(
               path, true, 'Repository `$path` has `publish_to`.');
         }
