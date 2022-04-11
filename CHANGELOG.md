@@ -1,3 +1,7 @@
+## 0.21.12
+
+- Expose repository verification failures in the report (and score).
+
 ## 0.21.11
 
 - Cache the currently fetched depth in `GitLocalRepository`.

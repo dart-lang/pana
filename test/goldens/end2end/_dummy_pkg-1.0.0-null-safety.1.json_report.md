@@ -4,6 +4,15 @@
 
 <details>
 <summary>
+Failed to verify repository URL.
+</summary>
+
+Please provide a valid repository URL.
+
+`pkg/pub_integration/test_data/_dummy_pkg/pubspec.yaml` from the repository has no `version`.
+</details>
+<details>
+<summary>
 Sdk-constraint doesn't allow future stable dart 2.x releases
 </summary>
 

@@ -19,7 +19,6 @@ import 'model.dart';
 import 'package_context.dart';
 import 'pubspec.dart';
 import 'report/create_report.dart';
-import 'repository/check_repository.dart';
 import 'sdk_env.dart';
 import 'tag/tagger.dart';
 import 'third_party/spdx/licenses.dart';
@@ -240,7 +239,7 @@ class PackageAnalyzer {
       licenses: licenses,
       tags: tags,
       report: await createReport(context),
-      repository: await checkRepository(context),
+      repository: await context.repository,
       urlProblems: context.urlProblems.entries
           .map((e) => UrlProblem(url: e.key, problem: e.value))
           .toList()

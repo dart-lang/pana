@@ -171,6 +171,14 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
         isRequired: pubspec.homepage == null));
     issues.addAll(await findUrlIssues('documentation', 'Documentation URL'));
     issues.addAll(await findUrlIssues('issue_tracker', 'Issue tracker URL'));
+
+    final repository = await context.repository;
+    if (repository?.verificationFailure != null) {
+      issues.add(Issue('Failed to verify repository URL.',
+          suggestion:
+              'Please provide a valid repository URL.\n\n${repository!.verificationFailure}'));
+    }
+
     final gitDependencies =
         pubspec.dependencies.entries.where((e) => e.value is GitDependency);
     if (gitDependencies.isNotEmpty) {

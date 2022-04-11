@@ -5,7 +5,6 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:pana/src/screenshots.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
@@ -13,10 +12,13 @@ import 'download_utils.dart';
 import 'internal_model.dart';
 import 'logging.dart';
 import 'messages.dart' as messages;
+import 'model.dart';
 import 'package_analyzer.dart' show InspectOptions;
 import 'pkg_resolution.dart';
 import 'pubspec.dart';
 import 'pubspec_io.dart';
+import 'repository/check_repository.dart';
+import 'screenshots.dart';
 import 'sdk_env.dart';
 import 'utils.dart' show listFocusDirs;
 
@@ -143,4 +145,6 @@ class PackageContext {
   bool get pubspecAllowsCurrentSdk =>
       pubspec.dartSdkConstraint != null &&
       pubspec.dartSdkConstraint!.allows(currentSdkVersion);
+
+  late final Future<Repository?> repository = checkRepository(this);
 }
