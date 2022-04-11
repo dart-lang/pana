@@ -32,13 +32,9 @@ class PackageContext {
   final errors = <String>[];
   final urlProblems = <String, String>{};
 
-  Version? _currentSdkVersion;
   Pubspec? _pubspec;
-  bool? _usesFlutter;
   PkgResolution? _pkgResolution;
   List<CodeProblem>? _codeProblems;
-
-  List<ScreenshotResult>? _screenshotResults;
 
   PackageContext({
     required this.toolEnvironment,
@@ -47,7 +43,7 @@ class PackageContext {
     UrlChecker? urlChecker,
   }) : urlChecker = urlChecker ?? UrlChecker();
 
-  Version get currentSdkVersion => _currentSdkVersion ??=
+  late final Version currentSdkVersion =
       Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
 
   Pubspec get pubspec {
@@ -61,7 +57,7 @@ class PackageContext {
     return _pubspec!;
   }
 
-  bool get usesFlutter => _usesFlutter ??= pubspec.usesFlutter;
+  late final bool usesFlutter = pubspec.usesFlutter;
 
   Future<PkgResolution?> resolveDependencies() async {
     if (_pkgResolution != null) return _pkgResolution;
@@ -137,13 +133,10 @@ class PackageContext {
     }
   }
 
-  Future<List<ScreenshotResult>> processScreenshots() async {
-    return _screenshotResults ??=
-        await processAllScreenshots(pubspec.screenshots, packageDir);
-  }
+  late final Future<List<ScreenshotResult>> screenshots =
+      processAllScreenshots(pubspec.screenshots, packageDir);
 
-  bool get pubspecAllowsCurrentSdk =>
-      pubspec.dartSdkConstraint != null &&
+  late final pubspecAllowsCurrentSdk = pubspec.dartSdkConstraint != null &&
       pubspec.dartSdkConstraint!.allows(currentSdkVersion);
 
   late final Future<Repository?> repository = checkRepository(this);

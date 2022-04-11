@@ -207,7 +207,7 @@ class PackageAnalyzer {
     }
 
     List<ProcessedScreenshot>? processedScreenshots = [];
-    final screenshotResults = await context.processScreenshots();
+    final screenshotResults = await context.screenshots;
     for (final r in screenshotResults) {
       if (r.problems.isEmpty) {
         final processedScreenshot = r.processedScreenshot!;
