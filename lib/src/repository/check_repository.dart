@@ -4,6 +4,7 @@
 
 import 'package:pana/src/pubspec.dart';
 import 'package:path/path.dart' as p;
+import 'package:yaml/yaml.dart' as yaml;
 
 import '../logging.dart';
 import '../model.dart';
@@ -73,8 +74,34 @@ Future<Repository?> checkRepository(PackageContext context) async {
           path,
           maxOutputBytes: _maxPubspecBytes,
         );
-        // TODO: consider to catch FormatException here, to allow an unrelated, but badly formatted pubspec.yaml in the repository.
-        final gitPubspec = Pubspec.parseYaml(content);
+        if (content.trim().isEmpty) {
+          return _PubspecMatch(
+              path, false, '`$path` from the repository is empty.');
+        }
+        // TODO: consider to allow the exceptions to pass here, to allow an
+        //       unrelated, but badly formatted pubspec.yaml in the repository.
+        // ignore: prefer_typing_uninitialized_variables
+        var yamlDoc;
+        try {
+          yamlDoc = yaml.loadYaml(content);
+        } on yaml.YamlException catch (e, st) {
+          log.info('Invalid yaml file: $path', e, st);
+        } on ArgumentError catch (e, st) {
+          log.info('Invalid yaml file: $path', e, st);
+        }
+        if (yamlDoc == null) {
+          return _PubspecMatch(path, false,
+              '`$path` from the repository is not a valid YAML document.');
+        }
+
+        late final Pubspec gitPubspec;
+        try {
+          gitPubspec = Pubspec.parseYaml(content);
+        } catch (e, st) {
+          log.info('Invalid pubspec content: $path', e, st);
+          return _PubspecMatch(path, false,
+              '`$path` from the repository is not a valid pubspec.');
+        }
 
         // verification steps
         if (gitPubspec.name != context.pubspec.name) {
