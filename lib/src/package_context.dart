@@ -5,7 +5,6 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:pana/src/screenshots.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
@@ -13,10 +12,13 @@ import 'download_utils.dart';
 import 'internal_model.dart';
 import 'logging.dart';
 import 'messages.dart' as messages;
+import 'model.dart';
 import 'package_analyzer.dart' show InspectOptions;
 import 'pkg_resolution.dart';
 import 'pubspec.dart';
 import 'pubspec_io.dart';
+import 'repository/check_repository.dart';
+import 'screenshots.dart';
 import 'sdk_env.dart';
 import 'utils.dart' show listFocusDirs;
 
@@ -30,13 +32,9 @@ class PackageContext {
   final errors = <String>[];
   final urlProblems = <String, String>{};
 
-  Version? _currentSdkVersion;
   Pubspec? _pubspec;
-  bool? _usesFlutter;
   PkgResolution? _pkgResolution;
   List<CodeProblem>? _codeProblems;
-
-  List<ScreenshotResult>? _screenshotResults;
 
   PackageContext({
     required this.toolEnvironment,
@@ -45,7 +43,7 @@ class PackageContext {
     UrlChecker? urlChecker,
   }) : urlChecker = urlChecker ?? UrlChecker();
 
-  Version get currentSdkVersion => _currentSdkVersion ??=
+  late final Version currentSdkVersion =
       Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
 
   Pubspec get pubspec {
@@ -59,7 +57,7 @@ class PackageContext {
     return _pubspec!;
   }
 
-  bool get usesFlutter => _usesFlutter ??= pubspec.usesFlutter;
+  late final bool usesFlutter = pubspec.usesFlutter;
 
   Future<PkgResolution?> resolveDependencies() async {
     if (_pkgResolution != null) return _pkgResolution;
@@ -135,12 +133,11 @@ class PackageContext {
     }
   }
 
-  Future<List<ScreenshotResult>> processScreenshots() async {
-    return _screenshotResults ??=
-        await processAllScreenshots(pubspec.screenshots, packageDir);
-  }
+  late final Future<List<ScreenshotResult>> screenshots =
+      processAllScreenshots(pubspec.screenshots, packageDir);
 
-  bool get pubspecAllowsCurrentSdk =>
-      pubspec.dartSdkConstraint != null &&
+  late final pubspecAllowsCurrentSdk = pubspec.dartSdkConstraint != null &&
       pubspec.dartSdkConstraint!.allows(currentSdkVersion);
+
+  late final Future<Repository?> repository = checkRepository(this);
 }
