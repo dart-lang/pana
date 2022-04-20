@@ -4,15 +4,6 @@
 
 <details>
 <summary>
-Failed to verify repository URL.
-</summary>
-
-Please provide a valid repository URL.
-
-`pkg/pub_integration/test_data/_dummy_pkg/pubspec.yaml` from the repository has no `version`.
-</details>
-<details>
-<summary>
 Sdk-constraint doesn't allow future stable dart 2.x releases
 </summary>
 
@@ -32,6 +23,21 @@ The package description is too short.
 </summary>
 
 Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
+</details>
+<details>
+<summary>
+Failed to verify repository URL.
+</summary>
+
+Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:
+
+ * `repository` can be cloned,
+ * a clone of the repository contains a `pubspec.yaml`, which:,
+    * contains `name: _dummy_pkg`,
+    * contains a `version` property, and,
+    * does not contain a `publish_to` property.
+
+`pkg/pub_integration/test_data/_dummy_pkg/pubspec.yaml` from the repository has no `version`.
 </details>
 
 ### [*] 5/5 points: Provide a valid `README.md`

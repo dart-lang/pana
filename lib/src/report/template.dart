@@ -165,19 +165,6 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
               '`${pubspec.unknownSdks}`.\n\n'
               '`pana` doesn’t recognize them; please remove the `sdk` entry.'));
     }
-    issues.addAll(await findUrlIssues('homepage', 'Homepage URL',
-        isRequired: pubspec.repository == null));
-    issues.addAll(await findUrlIssues('repository', 'Repository URL',
-        isRequired: pubspec.homepage == null));
-    issues.addAll(await findUrlIssues('documentation', 'Documentation URL'));
-    issues.addAll(await findUrlIssues('issue_tracker', 'Issue tracker URL'));
-
-    final repository = await context.repository;
-    if (repository?.verificationFailure != null) {
-      issues.add(Issue('Failed to verify repository URL.',
-          suggestion:
-              'Please provide a valid repository URL.\n\n${repository!.verificationFailure}'));
-    }
 
     final gitDependencies =
         pubspec.dependencies.entries.where((e) => e.value is GitDependency);
@@ -259,6 +246,26 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
             "`description` field in your package's `pubspec.yaml` should "
             'primarily contain characters used in English.',
       ));
+    }
+
+    issues.addAll(await findUrlIssues('homepage', 'Homepage URL',
+        isRequired: pubspec.repository == null));
+    issues.addAll(await findUrlIssues('repository', 'Repository URL',
+        isRequired: pubspec.homepage == null));
+    issues.addAll(await findUrlIssues('documentation', 'Documentation URL'));
+    issues.addAll(await findUrlIssues('issue_tracker', 'Issue tracker URL'));
+
+    final repository = await context.repository;
+    if (repository?.verificationFailure != null) {
+      issues.add(Issue('Failed to verify repository URL.',
+          suggestion:
+              'Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:\n\n'
+              ' * `repository` can be cloned,\n'
+              ' * a clone of the repository contains a `pubspec.yaml`, which:,\n'
+              '    * contains `name: ${pubspec.name}`,\n'
+              '    * contains a `version` property, and,\n'
+              '    * does not contain a `publish_to` property.\n\n'
+              '${repository!.verificationFailure}'));
     }
 
     issues.addAll(findFileSizeIssues(File(p.join(packageDir, 'pubspec.yaml')),
