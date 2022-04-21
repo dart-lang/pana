@@ -1,6 +1,7 @@
 ## 0.21.12
 
 - Expose repository verification failures in the report (and score).
+- Fixed repository verification exceptions.
 
 ## 0.21.11
 
