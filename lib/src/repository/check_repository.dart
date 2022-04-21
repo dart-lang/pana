@@ -84,7 +84,7 @@ Future<Repository?> checkRepository(PackageContext context) async {
         var yamlDoc;
         try {
           yamlDoc = yaml.loadYaml(content);
-        } on yaml.YamlException catch (e, st) {
+        } on FormatException catch (e, st) {
           log.info('Invalid yaml file: $path', e, st);
         } on ArgumentError catch (e, st) {
           log.info('Invalid yaml file: $path', e, st);
@@ -97,7 +97,7 @@ Future<Repository?> checkRepository(PackageContext context) async {
         late final Pubspec gitPubspec;
         try {
           gitPubspec = Pubspec.parseYaml(content);
-        } catch (e, st) {
+        } on FormatException catch (e, st) {
           log.info('Invalid pubspec content: $path', e, st);
           return _PubspecMatch(path, false,
               '`$path` from the repository is not a valid pubspec.');
