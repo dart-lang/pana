@@ -1,3 +1,7 @@
+## 0.21.13-dev
+
+- Populate the pubspec's `repository` field.
+
 ## 0.21.12
 
 - Expose repository verification failures in the report (and score).
