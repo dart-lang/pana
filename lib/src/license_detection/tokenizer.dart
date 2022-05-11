@@ -42,32 +42,32 @@ class Token {
 ///    Dot at the end of the token will also be ignored. `1!@#$.1.1 1-1hj.23.` --> [`1.1.1`, `1-1.23`,].
 @visibleForTesting
 List<Token> tokenize(String text) {
-  final _scanner = SpanScanner(text);
+  final scanner = SpanScanner(text);
 
   var tokens = <Token>[];
   var tokenID = 0;
 
   Token? nextToken() {
-    while (!_scanner.isDone) {
-      if (_scanner.scan(_wordRegex)) {
-        return Token._fromSpan(_scanner.lastSpan!, tokenID++);
+    while (!scanner.isDone) {
+      if (scanner.scan(_wordRegex)) {
+        return Token._fromSpan(scanner.lastSpan!, tokenID++);
       }
 
       // Store new line tokens to identify and ignore tokens
       // resembling list items while cleaning tokens.
-      if (_scanner.scan(_newLineRegex)) {
-        return Token('\n', tokenID++, _scanner.lastSpan!);
+      if (scanner.scan(_newLineRegex)) {
+        return Token('\n', tokenID++, scanner.lastSpan!);
       }
 
       // Ignore whitespace
-      if (_scanner.scan(_horizontalWhiteSpaceRegex)) {
+      if (scanner.scan(_horizontalWhiteSpaceRegex)) {
         continue;
       }
 
       // If none of the above conditions match, this implies
       // the scanner is at standalone punctuation mark or leading
       // punctuation in a word. Ignore them and move the scanner forward.
-      _scanner.readChar();
+      scanner.readChar();
     }
     return null;
   }
@@ -76,7 +76,7 @@ List<Token> tokenize(String text) {
   ///
   /// Whitespace, leading or pure punctuation texts are ignored as they are not significant.
   /// But newLine token is stored to deal with list Items.
-  while (!_scanner.isDone) {
+  while (!scanner.isDone) {
     final token = nextToken();
 
     if (token != null) {

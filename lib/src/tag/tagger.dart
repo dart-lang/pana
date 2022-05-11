@@ -294,10 +294,10 @@ class Tagger {
 
   /// Adds tags for Flutter plugins.
   void flutterPluginTags(List<String> tags, List<Explanation> explanations) {
-    const _pluginTag = 'is:plugin';
+    const pluginTag = 'is:plugin';
     final pubspec = _pubspecCache.pubspecOfPackage(packageName);
     if (pubspec.hasFlutterPluginKey) {
-      tags.add(_pluginTag);
+      tags.add(pluginTag);
     }
   }
 
@@ -356,7 +356,7 @@ class Tagger {
   /// - No libraries in the import closure of [_publicLibraries] opt out of
   ///   null-safety. (For each runtime in [Runtime.recognizedRuntimes]).
   void nullSafetyTags(List<String> tags, List<Explanation> explanations) {
-    const _nullSafeTag = 'is:null-safe';
+    const nullSafeTag = 'is:null-safe';
 
     try {
       var foundIssues = false;
@@ -372,7 +372,7 @@ class Tagger {
                   'Package is not null safe',
                   'Because:\n${PackageGraph.formatPath(path)} '
                       'that doesn\'t opt in to null safety',
-                  tag: _nullSafeTag,
+                  tag: nullSafeTag,
                 );
       });
 
@@ -392,7 +392,7 @@ class Tagger {
                 return (path) => Explanation(
                       'Unable to access import.',
                       'Because:\n${LibraryGraph.formatPath(path)} where $library is inaccessible.',
-                      tag: _nullSafeTag,
+                      tag: nullSafeTag,
                     );
               }
               final unit = parsedUnitFromUri(_session, library);
@@ -408,7 +408,7 @@ class Tagger {
                       'Package is not null safe',
                       'Because:\n${LibraryGraph.formatPath(path)} where $library '
                           'is opting out from null safety.',
-                      tag: _nullSafeTag,
+                      tag: nullSafeTag,
                     );
               }
               return null;
@@ -433,13 +433,13 @@ class Tagger {
       }
 
       if (!foundIssues) {
-        tags.add(_nullSafeTag);
+        tags.add(nullSafeTag);
       }
     } on TagException catch (e) {
       explanations.add(Explanation(
         'Tag detection failed.',
         e.message,
-        tag: _nullSafeTag,
+        tag: nullSafeTag,
       ));
     }
   }

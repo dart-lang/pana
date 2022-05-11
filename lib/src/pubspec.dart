@@ -177,16 +177,16 @@ class SdkConstraintStatus {
   ]) {
     final hasConstraint =
         constraint != null && !constraint.isAny && !constraint.isEmpty;
-    final enablesDart2 = hasConstraint && constraint!.allowsAny(_range2);
+    final enablesDart2 = hasConstraint && constraint.allowsAny(_range2);
     final enablesFutureVersions =
-        hasConstraint && constraint!.allowsAny(_futureRange);
+        hasConstraint && constraint.allowsAny(_futureRange);
     final hasOptedIntoNullSafety = hasConstraint &&
         constraint is VersionRange &&
         constraint.min != null &&
         isNullSafety(constraint.min!);
     return SdkConstraintStatus._(
       hasConstraint: hasConstraint,
-      enablesDart2Latest: hasConstraint && constraint!.allowsAny(_range2Latest),
+      enablesDart2Latest: hasConstraint && constraint.allowsAny(_range2Latest),
       isDart2Compatible:
           hasConstraint && enablesDart2 && !enablesFutureVersions,
       hasOptedIntoNullSafety: hasOptedIntoNullSafety,

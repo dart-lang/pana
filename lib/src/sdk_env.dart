@@ -566,12 +566,12 @@ PanaProcessResult _handleProcessErrors(PanaProcessResult result) {
       }
     }
 
-    throw Exception('Problem running proc: exit code - ' +
-        [
-          result.exitCode.toString(),
-          result.stdout.asString,
-          result.stderr.asString,
-        ].map((e) => e.trim()).join('<***>'));
+    final fullOutput = [
+      result.exitCode.toString(),
+      result.stdout.asString,
+      result.stderr.asString,
+    ].map((e) => e.trim()).join('<***>');
+    throw Exception('Problem running proc: exit code - $fullOutput');
   }
   return result;
 }

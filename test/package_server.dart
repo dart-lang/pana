@@ -216,7 +216,7 @@ class PackageServerBuilder {
 
     contents ??= [libDir(name, '$name $version')];
 
-    var package = _packages.putIfAbsent(name, () => _ServedPackage());
+    var package = _packages.putIfAbsent(name, _ServedPackage.new);
     package.versions.add(
       _ServedPackageVersion(
         pubspecFields,

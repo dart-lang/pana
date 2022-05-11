@@ -41,7 +41,7 @@ Future<ReportSection> hasDocumentation(
       : 'Package has an example';
   final screenshotResults = await context.screenshots;
   for (var result in screenshotResults) {
-    screenshotIssues.addAll(result.problems.map((problem) => Issue(problem)));
+    screenshotIssues.addAll(result.problems.map(Issue.new));
   }
 
   issues.addAll(screenshotIssues);

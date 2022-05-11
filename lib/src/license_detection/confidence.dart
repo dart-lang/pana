@@ -138,7 +138,7 @@ Range diffRange(String known, List<Diff> diffs) {
         foundStart = true;
       }
 
-      seen += diffs[end].text + ' ';
+      seen = '$seen${diffs[end].text} ';
     }
   }
 
