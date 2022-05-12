@@ -48,7 +48,7 @@ jobs:
         # handle on windows. See https://github.com/dart-lang/sdk/issues/42416
         os: [ubuntu-latest, macos-latest]
         sdk: [2.17.0]
-        flutter: [2.10.1]
+        flutter: [3.0.0]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.0
