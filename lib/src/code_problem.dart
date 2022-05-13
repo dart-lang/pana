@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 
 import 'internal_model.dart';
 
+// ignore: prefer_interpolation_to_compose_strings
 final _regexp = RegExp('^' + // beginning of line
         '([\\w_\\.]+)\\|' * 3 + // first three error notes
         '([^\\|]+)\\|' + // file path

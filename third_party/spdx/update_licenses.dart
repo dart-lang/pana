@@ -78,7 +78,7 @@ Future<void> removeUnnecessaryFiles() async {
     ));
   }
 
-  removeDuplicates(licenses);
+  _removeDuplicates(licenses);
   await spdxDirectory.delete(recursive: true);
   final basePath = '$_targetPath/';
 
@@ -86,7 +86,7 @@ Future<void> removeUnnecessaryFiles() async {
   final osiApproved = <String>{};
   for (final license in licenses) {
     if (license.retain) {
-      final path = basePath + license.identifier + '.txt';
+      final path = '$basePath${license.identifier}.txt';
       final file = File(path);
       await file.create();
       file.writeAsStringSync(license.text);
@@ -122,7 +122,7 @@ Future<void> removeUnnecessaryFiles() async {
 /// For example as `AGPL-1.0-only` and `AGPL-1.0-or-later` have same text
 /// we store a single license called `AGPL-1.0` instead of two similar license
 /// text.
-void removeDuplicates(List<_LicenseData> licenses) {
+void _removeDuplicates(List<_LicenseData> licenses) {
   for (var i = 0; i < licenses.length; i++) {
     if (licenses[i].retain) {
       var isDuplicatePresent = false;

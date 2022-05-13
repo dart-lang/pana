@@ -292,7 +292,7 @@ List<NGram> generateChecksums(List<Token> tokens, int granularity) {
   for (var i = 0; i + granularity <= tokens.length; i++) {
     var text = '';
     tokens.skip(i).take(granularity).forEach((token) {
-      text += token.value + ' ';
+      text = '$text${token.value} ';
     });
 
     final crcValue = crc32(utf8.encode(text));

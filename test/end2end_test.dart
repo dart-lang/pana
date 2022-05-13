@@ -109,7 +109,7 @@ void main() {
         removeDependencyDetails(actualMap!);
 
         final json =
-            const JsonEncoder.withIndent('  ').convert(actualMap) + '\n';
+            '${const JsonEncoder.withIndent('  ').convert(actualMap)}\n';
 
         // The tempdir creeps in to an error message.
         final jsonNoTempDir = json.replaceAll(
@@ -154,13 +154,13 @@ void main() {
   _verifyPackage('dnd', '2.0.0');
 
   // flutter-only package
-  _verifyPackage('url_launcher', '6.0.3');
+  _verifyPackage('url_launcher', '6.1.2');
 
   // single-platform Flutter plugin without Dart files or assets
-  _verifyPackage('nsd_android', '1.0.2');
+  _verifyPackage('nsd_android', '1.2.0');
 
   // multi-level symlink
-  _verifyPackage('audio_service', '0.17.0');
+  _verifyPackage('audio_service', '0.18.4');
 
   // mime_type 0.3.2 has no recognized LICENSE file
   _verifyPackage('mime_type', '0.3.2');

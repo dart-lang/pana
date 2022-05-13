@@ -1,0 +1,140 @@
+{
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "url_launcher",
+  "packageVersion": "6.1.2",
+  "pubspec": {
+    "name": "url_launcher",
+    "description": "Flutter plugin for launching a URL. Supports web, phone, SMS, and email schemes.",
+    "repository": "https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher",
+    "issue_tracker": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22",
+    "version": "6.1.2",
+    "environment": {
+      "sdk": ">=2.14.0 <3.0.0",
+      "flutter": ">=2.5.0"
+    },
+    "flutter": {
+      "plugin": {
+        "platforms": {
+          "android": {
+            "default_package": "url_launcher_android"
+          },
+          "ios": {
+            "default_package": "url_launcher_ios"
+          },
+          "linux": {
+            "default_package": "url_launcher_linux"
+          },
+          "macos": {
+            "default_package": "url_launcher_macos"
+          },
+          "web": {
+            "default_package": "url_launcher_web"
+          },
+          "windows": {
+            "default_package": "url_launcher_windows"
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "flutter": {
+        "sdk": "flutter"
+      },
+      "url_launcher_android": "^6.0.13",
+      "url_launcher_ios": "^6.0.13",
+      "url_launcher_linux": ">=2.0.0 <4.0.0",
+      "url_launcher_macos": ">=2.0.0 <4.0.0",
+      "url_launcher_platform_interface": "^2.0.3",
+      "url_launcher_web": "^2.0.0",
+      "url_launcher_windows": ">=2.0.0 <4.0.0"
+    },
+    "dev_dependencies": {
+      "flutter_test": {
+        "sdk": "flutter"
+      },
+      "mockito": "^5.0.0",
+      "plugin_platform_interface": "^2.0.0",
+      "test": "^1.16.3"
+    }
+  },
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "BSD-3-Clause"
+  },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "BSD-3-Clause"
+    }
+  ],
+  "tags": [
+    "license:bsd-3-clause",
+    "license:fsf-libre",
+    "license:osi-approved"
+  ],
+  "report": {
+    "sections": [
+      {
+        "id": "convention",
+        "title": "Follow Dart file conventions",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
+      },
+      {
+        "id": "documentation",
+        "title": "Provide documentation",
+        "grantedPoints": 10,
+        "maxPoints": 10,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: Package has an example\n"
+      },
+      {
+        "id": "platform",
+        "title": "Platform support",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "status": "failed",
+        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `flutter pub get` for more information.\n</details>"
+      },
+      {
+        "id": "analysis",
+        "title": "Pass static analysis",
+        "grantedPoints": 0,
+        "maxPoints": 30,
+        "status": "failed",
+        "summary": "### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 78 issues. Showing the first 2:\n\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:url_launcher_platform_interface/link.dart'.\n</summary>\n\n`lib/link.dart:5:8`\n\n```\n  ╷\n5 │ export 'package:url_launcher_platform_interface/link.dart'\n  │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/link.dart`\n</details>\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:flutter/foundation.dart'.\n</summary>\n\n`lib/src/legacy_api.dart:7:8`\n\n```\n  ╷\n7 │ import 'package:flutter/foundation.dart';\n  │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/src/legacy_api.dart`\n</details>"
+      },
+      {
+        "id": "dependency",
+        "title": "Support up-to-date dependencies",
+        "grantedPoints": 10,
+        "maxPoints": 20,
+        "status": "failed",
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `flutter pub outdated`: `dart pub get` failed:\n\n```\nOUT:\nResolving dependencies...\nERR:\nBecause every version of flutter_test from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter_test from sdk is forbidden.\nSo, because url_launcher depends on flutter_test from sdk, version solving failed.\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+      },
+      {
+        "id": "null-safety",
+        "title": "Support sound null safety",
+        "grantedPoints": 0,
+        "maxPoints": 20,
+        "status": "failed",
+        "summary": "### [x] 0/20 points: Unable to detect null safety\n\n<details>\n<summary>\nPackage resolution failed. Could not determine null safety.\n</summary>\n\nRun `dart pub get` for more information.\n</details>"
+      }
+    ]
+  },
+  "screenshots": [],
+  "repository": {
+    "baseUrl": "https://github.com/flutter/plugins",
+    "branch": "main",
+    "packagePath": "packages/url_launcher/url_launcher",
+    "isVerified": true
+  },
+  "urlProblems": [],
+  "errorMessage": "Running `flutter pub upgrade` failed with the following output:\n\n```\nERR: Because every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\n So, because url_launcher depends on flutter from sdk, version solving failed.\n```"
+}
