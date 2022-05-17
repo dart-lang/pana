@@ -4,6 +4,7 @@
 - Fix: Use the stripped/augmented `pubspec.yaml` for `pub outdated`.
 - (Experimental) `Summary.result` (`AnalysisResult`) field for normalized and verified references and derived values.
 - Moved `Summary.repository` under `AnalysisResult`.
+- Additional formatting checks in repository URL parsing.
 
 ## 0.21.12
 

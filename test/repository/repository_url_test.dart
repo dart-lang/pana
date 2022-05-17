@@ -115,4 +115,16 @@ void main() {
           'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/subdir/LICENSE');
     });
   });
+
+  group('parse failures', () {
+    test('double colon', () {
+      expect(
+          RepositoryUrl.tryParse('https::github.com/dart-lang/pana'), isNull);
+    });
+
+    test('spaces in host', () {
+      expect(RepositoryUrl.tryParse('https:/ /github .com/dart-lang/pana'),
+          isNull);
+    });
+  });
 }
