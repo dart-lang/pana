@@ -89,6 +89,9 @@
     ]
   },
   "screenshots": [],
+  "references": {
+    "homepageUrl": "https://github.com/mitsuoka/mime_type"
+  },
   "repository": {
     "baseUrl": "https://github.com/mitsuoka/mime_type",
     "branch": "master",

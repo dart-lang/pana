@@ -98,6 +98,10 @@
     ]
   },
   "screenshots": [],
+  "references": {
+    "homepageUrl": "https://code.makery.ch/library/dart-drag-and-drop/",
+    "repositoryUrl": "https://github.com/marcojakob/dart-dnd"
+  },
   "repository": {
     "baseUrl": "https://github.com/marcojakob/dart-dnd",
     "branch": "master",

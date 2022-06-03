@@ -83,6 +83,9 @@
     ]
   },
   "screenshots": [],
+  "references": {
+    "homepageUrl": "https://github.com/dart-lang/pub-dev"
+  },
   "repository": {
     "baseUrl": "https://github.com/dart-lang/pub-dev",
     "branch": "master",

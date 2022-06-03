@@ -18,74 +18,8 @@ const _pluginDocsUrl =
     'https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin';
 
 Future<ReportSection> followsTemplate(PackageContext context) async {
-  final options = context.options;
   final packageDir = context.packageDir;
   final pubspec = context.pubspec;
-
-  Future<List<Issue>> findUrlIssues(
-    String key,
-    String name, {
-    bool isRequired = false,
-  }) async {
-    final content = pubspec.originalYaml[key];
-    if (content != null && content is! String) {
-      return [
-        Issue(
-            'The `$key` entry, if present, should be a string containing a url',
-            span: tryGetSpanFromYamlMap(pubspec.originalYaml, key))
-      ];
-    }
-    final url = content as String?;
-    final issues = <Issue>[];
-
-    if (url == null || url.isEmpty) {
-      if (isRequired) {
-        issues.add(
-          Issue("`pubspec.yaml` doesn't have a `$key` entry."),
-        );
-      }
-      return issues;
-    }
-
-    final status = await context.urlChecker.checkStatus(url);
-    if (status.isInvalid) {
-      issues.add(
-        Issue(
-          "$name isn't valid.",
-          span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
-        ),
-      );
-    } else if (status.isInternal && !options.isInternal) {
-      issues.add(
-        Issue(
-          "$name isn't helpful.",
-          span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
-        ),
-      );
-    } else if (!status.exists) {
-      issues.add(
-        Issue(
-          "$name doesn't exist.",
-          span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
-          suggestion: 'At the time of the analysis `$url` was unreachable.',
-        ),
-      );
-    } else if (!status.isSecure) {
-      issues.add(
-        Issue(
-          '$name is insecure.',
-          span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
-          suggestion: 'Update the `$key` field and use a secure (`https`) URL.',
-        ),
-      );
-    }
-    final problemCode =
-        status.getProblemCode(packageIsKnownInternal: options.isInternal);
-    if (problemCode != null) {
-      context.urlProblems[url] = problemCode;
-    }
-    return issues;
-  }
 
   List<Issue> findFileSizeIssues(File file,
       {int limitInKB = 128, String? missingSuggestion}) {
@@ -248,12 +182,8 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
       ));
     }
 
-    issues.addAll(await findUrlIssues('homepage', 'Homepage URL',
-        isRequired: pubspec.repository == null));
-    issues.addAll(await findUrlIssues('repository', 'Repository URL',
-        isRequired: pubspec.homepage == null));
-    issues.addAll(await findUrlIssues('documentation', 'Documentation URL'));
-    issues.addAll(await findUrlIssues('issue_tracker', 'Issue tracker URL'));
+    final pubspecUrls = await context.pubspecUrlsWithIssues;
+    issues.addAll(pubspecUrls.issues);
 
     final repository = await context.repository;
     if (repository?.verificationFailure != null) {

@@ -126,6 +126,9 @@
     ]
   },
   "screenshots": [],
+  "references": {
+    "homepageUrl": "https://github.com/ryanheise/audio_service/tree/master/audio_service"
+  },
   "repository": {
     "baseUrl": "https://github.com/ryanheise/audio_service",
     "branch": "minor",

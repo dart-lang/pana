@@ -7,6 +7,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
+import 'package:pana/src/references/references.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
@@ -239,6 +240,7 @@ class PackageAnalyzer {
       licenses: licenses,
       tags: tags,
       report: await createReport(context),
+      references: await createReferences(context),
       repository: await context.repository,
       urlProblems: context.urlProblems.entries
           .map((e) => UrlProblem(url: e.key, problem: e.value))

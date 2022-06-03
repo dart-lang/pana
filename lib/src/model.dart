@@ -49,6 +49,7 @@ class Summary {
   final List<String>? tags;
   final Report? report;
   final List<ProcessedScreenshot>? screenshots;
+  final References? references;
   final Repository? repository;
 
   /// URLs that are invalid, unsafe or missing.
@@ -67,6 +68,7 @@ class Summary {
     this.licenses,
     this.tags,
     this.report,
+    this.references,
     this.repository,
     this.urlProblems,
     this.errorMessage,
@@ -92,6 +94,7 @@ class Summary {
       licenses: licenses,
       tags: tags ?? this.tags,
       report: report,
+      references: references,
       repository: repository,
       urlProblems: urlProblems,
       errorMessage: errorMessage,
@@ -335,6 +338,32 @@ class ReportSection {
       _$ReportSectionFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReportSectionToJson(this);
+}
+
+/// NOTE: the content of the class is experimental, clients should not rely on it yet.
+/// Contains the verified and normalized outside references:
+/// - when a value is present, it has been tried and verified to be working,
+/// - when a value is absent, it was either absent or its verification failed.
+///
+/// Failed verification reasons are presented in the [Report].
+@JsonSerializable()
+class References {
+  final String? homepageUrl;
+  final String? repositoryUrl;
+  final String? issueTrackerUrl;
+  final String? documentationUrl;
+
+  References({
+    required this.homepageUrl,
+    required this.repositoryUrl,
+    required this.issueTrackerUrl,
+    required this.documentationUrl,
+  });
+
+  factory References.fromJson(Map<String, dynamic> json) =>
+      _$ReferencesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReferencesToJson(this);
 }
 
 /// NOTE: the content of the class is experimental, clients should not rely on it yet.

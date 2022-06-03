@@ -17,6 +17,7 @@ import 'package_analyzer.dart' show InspectOptions;
 import 'pkg_resolution.dart';
 import 'pubspec.dart';
 import 'pubspec_io.dart';
+import 'references/pubspec_urls.dart';
 import 'repository/check_repository.dart';
 import 'screenshots.dart';
 import 'sdk_env.dart';
@@ -138,6 +139,8 @@ class PackageContext {
 
   late final pubspecAllowsCurrentSdk = pubspec.dartSdkConstraint != null &&
       pubspec.dartSdkConstraint!.allows(currentSdkVersion);
+
+  late final pubspecUrlsWithIssues = checkPubspecUrls(this);
 
   late final Future<Repository?> repository = checkRepository(this);
 }
