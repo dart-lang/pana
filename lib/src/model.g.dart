@@ -47,9 +47,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
       report: json['report'] == null
           ? null
           : Report.fromJson(json['report'] as Map<String, dynamic>),
-      references: json['references'] == null
+      result: json['result'] == null
           ? null
-          : References.fromJson(json['references'] as Map<String, dynamic>),
+          : AnalysisResult.fromJson(json['result'] as Map<String, dynamic>),
       repository: json['repository'] == null
           ? null
           : Repository.fromJson(json['repository'] as Map<String, dynamic>),
@@ -84,7 +84,7 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull('report', instance.report?.toJson());
   writeNotNull(
       'screenshots', instance.screenshots?.map((e) => e.toJson()).toList());
-  writeNotNull('references', instance.references?.toJson());
+  writeNotNull('result', instance.result?.toJson());
   writeNotNull('repository', instance.repository?.toJson());
   writeNotNull(
       'urlProblems', instance.urlProblems?.map((e) => e.toJson()).toList());
@@ -185,14 +185,15 @@ const _$ReportStatusEnumMap = {
   ReportStatus.passed: 'passed',
 };
 
-References _$ReferencesFromJson(Map<String, dynamic> json) => References(
+AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
+    AnalysisResult(
       homepageUrl: json['homepageUrl'] as String?,
       repositoryUrl: json['repositoryUrl'] as String?,
       issueTrackerUrl: json['issueTrackerUrl'] as String?,
       documentationUrl: json['documentationUrl'] as String?,
     );
 
-Map<String, dynamic> _$ReferencesToJson(References instance) {
+Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

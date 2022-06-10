@@ -7,7 +7,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
-import 'package:pana/src/references/references.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
@@ -240,7 +239,7 @@ class PackageAnalyzer {
       licenses: licenses,
       tags: tags,
       report: await createReport(context),
-      references: await createReferences(context),
+      result: await _createAnalysisResult(context),
       repository: await context.repository,
       urlProblems: context.urlProblems.entries
           .map((e) => UrlProblem(url: e.key, problem: e.value))
@@ -278,4 +277,14 @@ Future<void> _copy(String from, String to) async {
       await newLink.create(linkTarget);
     }
   }
+}
+
+Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
+  final pubspecUrls = await context.pubspecUrlsWithIssues;
+  return AnalysisResult(
+    homepageUrl: pubspecUrls.homepage.verifiedUrl,
+    repositoryUrl: pubspecUrls.repository.verifiedUrl,
+    issueTrackerUrl: pubspecUrls.issueTracker.verifiedUrl,
+    documentationUrl: pubspecUrls.documentation.verifiedUrl,
+  );
 }
