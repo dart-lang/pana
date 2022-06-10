@@ -341,7 +341,7 @@ class ReportSection {
 }
 
 /// NOTE: the content of the class is experimental, clients should not rely on it yet.
-/// Contains the verified and normalized outside references:
+/// Contains the verified and normalized external references:
 /// - when a value is present, it has been tried and verified to be working,
 /// - when a value is absent, it was either absent or its verification failed.
 ///
