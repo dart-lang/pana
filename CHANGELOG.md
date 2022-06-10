@@ -2,6 +2,8 @@
 
 - Populate the pubspec's `repository` field.
 - Fix: Use the stripped/augmented `pubspec.yaml` for `pub outdated`.
+- (Experimental) `Summary.result` (`AnalysisResult`) field for normalized and verified references and derived values.
+- Moved `Summary.repository` under `AnalysisResult`.
 
 ## 0.21.12
 

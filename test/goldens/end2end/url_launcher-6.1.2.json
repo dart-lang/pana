@@ -131,13 +131,13 @@
   "screenshots": [],
   "result": {
     "repositoryUrl": "https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher",
-    "issueTrackerUrl": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22"
-  },
-  "repository": {
-    "baseUrl": "https://github.com/flutter/plugins",
-    "branch": "main",
-    "packagePath": "packages/url_launcher/url_launcher",
-    "isVerified": true
+    "issueTrackerUrl": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22",
+    "repository": {
+      "baseUrl": "https://github.com/flutter/plugins",
+      "branch": "main",
+      "packagePath": "packages/url_launcher/url_launcher",
+      "isVerified": true
+    }
   },
   "urlProblems": [],
   "errorMessage": "Running `flutter pub upgrade` failed with the following output:\n\n```\nERR: Because every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\n So, because url_launcher depends on flutter from sdk, version solving failed.\n```"

@@ -240,7 +240,6 @@ class PackageAnalyzer {
       tags: tags,
       report: await createReport(context),
       result: await _createAnalysisResult(context),
-      repository: await context.repository,
       urlProblems: context.urlProblems.entries
           .map((e) => UrlProblem(url: e.key, problem: e.value))
           .toList()
@@ -286,5 +285,6 @@ Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
     repositoryUrl: pubspecUrls.repository.verifiedUrl,
     issueTrackerUrl: pubspecUrls.issueTracker.verifiedUrl,
     documentationUrl: pubspecUrls.documentation.verifiedUrl,
+    repository: await context.repository,
   );
 }

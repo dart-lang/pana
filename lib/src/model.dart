@@ -50,7 +50,6 @@ class Summary {
   final Report? report;
   final List<ProcessedScreenshot>? screenshots;
   final AnalysisResult? result;
-  final Repository? repository;
 
   /// URLs that are invalid, unsafe or missing.
   final List<UrlProblem>? urlProblems;
@@ -69,7 +68,6 @@ class Summary {
     this.tags,
     this.report,
     this.result,
-    this.repository,
     this.urlProblems,
     this.errorMessage,
     this.screenshots,
@@ -95,7 +93,6 @@ class Summary {
       tags: tags ?? this.tags,
       report: report,
       result: result,
-      repository: repository,
       urlProblems: urlProblems,
       errorMessage: errorMessage,
       screenshots: screenshots,
@@ -354,12 +351,14 @@ class AnalysisResult {
   final String? repositoryUrl;
   final String? issueTrackerUrl;
   final String? documentationUrl;
+  final Repository? repository;
 
   AnalysisResult({
-    required this.homepageUrl,
-    required this.repositoryUrl,
-    required this.issueTrackerUrl,
-    required this.documentationUrl,
+    this.homepageUrl,
+    this.repositoryUrl,
+    this.issueTrackerUrl,
+    this.documentationUrl,
+    this.repository,
   });
 
   factory AnalysisResult.fromJson(Map<String, dynamic> json) =>
