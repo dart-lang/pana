@@ -17,12 +17,10 @@ const _maxPubspecBytes = 256 * 1024;
 
 class VerifiedRepository {
   final Repository? repository;
-  final bool? isVerified;
   final String? verificationFailure;
 
   VerifiedRepository({
     this.repository,
-    this.isVerified,
     this.verificationFailure,
   });
 }
@@ -38,7 +36,7 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
     return null;
   }
   var branch = url.branch;
-  bool? isVerified;
+  var isVerified = false;
   String? verificationFailure;
   var packagePath = url.path.isEmpty ? null : url.path;
 
@@ -46,18 +44,16 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
     if (packagePath == '.') {
       packagePath = null;
     }
-    if (isVerified ?? false) {
+    if (isVerified && verificationFailure == null) {
       return VerifiedRepository(
         repository: Repository(
           baseUrl: url.baseUrl,
           branch: branch,
           packagePath: packagePath,
         ),
-        isVerified: true,
       );
     } else {
       return VerifiedRepository(
-        isVerified: isVerified,
         verificationFailure: verificationFailure,
       );
     }
