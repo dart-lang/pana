@@ -280,12 +280,12 @@ Future<void> _copy(String from, String to) async {
 
 Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
   final pubspecUrls = await context.pubspecUrlsWithIssues;
-  final repository = await context.repository;
+  final repository = (await context.repository)?.repository;
   return AnalysisResult(
     homepageUrl: pubspecUrls.homepage.verifiedUrl,
     repositoryUrl: pubspecUrls.repository.verifiedUrl,
     issueTrackerUrl: pubspecUrls.issueTracker.verifiedUrl,
     documentationUrl: pubspecUrls.documentation.verifiedUrl,
-    repository: (repository?.isVerified ?? false) ? repository : null,
+    repository: repository,
   );
 }

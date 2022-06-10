@@ -113,8 +113,7 @@
     "homepageUrl": "https://github.com/google/webdriver.dart",
     "repository": {
       "baseUrl": "https://github.com/google/webdriver.dart",
-      "branch": "master",
-      "isVerified": true
+      "branch": "master"
     }
   },
   "urlProblems": []

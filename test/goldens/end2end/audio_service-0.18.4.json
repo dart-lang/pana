@@ -131,8 +131,7 @@
     "repository": {
       "baseUrl": "https://github.com/ryanheise/audio_service",
       "branch": "minor",
-      "packagePath": "audio_service",
-      "isVerified": true
+      "packagePath": "audio_service"
     }
   },
   "urlProblems": [],

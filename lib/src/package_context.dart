@@ -12,7 +12,6 @@ import 'download_utils.dart';
 import 'internal_model.dart';
 import 'logging.dart';
 import 'messages.dart' as messages;
-import 'model.dart';
 import 'package_analyzer.dart' show InspectOptions;
 import 'pkg_resolution.dart';
 import 'pubspec.dart';
@@ -142,5 +141,5 @@ class PackageContext {
 
   late final pubspecUrlsWithIssues = checkPubspecUrls(this);
 
-  late final Future<Repository?> repository = checkRepository(this);
+  late final repository = checkRepository(this);
 }

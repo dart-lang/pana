@@ -135,8 +135,7 @@
     "repository": {
       "baseUrl": "https://github.com/flutter/plugins",
       "branch": "main",
-      "packagePath": "packages/url_launcher/url_launcher",
-      "isVerified": true
+      "packagePath": "packages/url_launcher/url_launcher"
     }
   },
   "urlProblems": [],

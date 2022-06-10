@@ -124,8 +124,7 @@
     "repository": {
       "baseUrl": "https://github.com/dart-lang/http",
       "branch": "master",
-      "packagePath": "pkgs/http",
-      "isVerified": true
+      "packagePath": "pkgs/http"
     }
   },
   "urlProblems": []

@@ -109,8 +109,7 @@
     "homepageUrl": "https://github.com/cloudwebrtc/dart-sdp-transform",
     "repository": {
       "baseUrl": "https://github.com/cloudwebrtc/dart-sdp-transform",
-      "branch": "master",
-      "isVerified": true
+      "branch": "master"
     }
   },
   "urlProblems": []

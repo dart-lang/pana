@@ -106,8 +106,7 @@
     "repository": {
       "baseUrl": "https://github.com/sebastianhaberey/nsd",
       "branch": "main",
-      "packagePath": "nsd_android",
-      "isVerified": true
+      "packagePath": "nsd_android"
     }
   },
   "urlProblems": [],
