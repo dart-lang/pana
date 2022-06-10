@@ -239,6 +239,7 @@ class PackageAnalyzer {
       licenses: licenses,
       tags: tags,
       report: await createReport(context),
+      result: await _createAnalysisResult(context),
       repository: await context.repository,
       urlProblems: context.urlProblems.entries
           .map((e) => UrlProblem(url: e.key, problem: e.value))
@@ -276,4 +277,14 @@ Future<void> _copy(String from, String to) async {
       await newLink.create(linkTarget);
     }
   }
+}
+
+Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
+  final pubspecUrls = await context.pubspecUrlsWithIssues;
+  return AnalysisResult(
+    homepageUrl: pubspecUrls.homepage.verifiedUrl,
+    repositoryUrl: pubspecUrls.repository.verifiedUrl,
+    issueTrackerUrl: pubspecUrls.issueTracker.verifiedUrl,
+    documentationUrl: pubspecUrls.documentation.verifiedUrl,
+  );
 }

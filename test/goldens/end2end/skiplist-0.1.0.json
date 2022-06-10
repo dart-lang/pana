@@ -87,6 +87,9 @@
     ]
   },
   "screenshots": [],
+  "result": {
+    "homepageUrl": "https://github.com/stevenroose/dart-skiplist"
+  },
   "repository": {
     "baseUrl": "https://github.com/stevenroose/dart-skiplist",
     "branch": "master",
