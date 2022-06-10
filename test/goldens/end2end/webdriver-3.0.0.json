@@ -110,7 +110,8 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://github.com/google/webdriver.dart",
+    "repositoryUrl": "https://github.com/google/webdriver.dart",
+    "issueTrackerUrl": "https://github.com/google/webdriver.dart/issues",
     "repository": {
       "baseUrl": "https://github.com/google/webdriver.dart",
       "branch": "master"

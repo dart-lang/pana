@@ -97,7 +97,8 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://github.com/agilord/bulma_min",
+    "repositoryUrl": "https://github.com/agilord/bulma_min",
+    "issueTrackerUrl": "https://github.com/agilord/bulma_min/issues",
     "repository": {
       "baseUrl": "https://github.com/agilord/bulma_min",
       "branch": "master"
