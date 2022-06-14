@@ -1,0 +1,11 @@
+---
+
+# TODO: add assertion about what the API summary would look like
+
+package:
+  - lib/aaa.dart: |
+      part 'bbb.dart';
+      void f() {}
+  - lib/bbb.dart: |
+      part of 'aaa.dart';
+      void g() {}
