@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:args/command_runner.dart';
 
 import './package_analysis/common.dart';
@@ -23,10 +26,24 @@ class SummaryCommand extends Command {
     final paths = argResults!.rest;
 
     if (paths.length != 1) {
-      exitFatal('Please specify exactly one directory for analysis.', 1);
+      throw const PackageAnalysisError(
+          'Only specify exactly one directory for analysis.');
     }
 
     final packageLocation = paths.first;
     await generateSummary(packageLocation);
   }
+}
+
+class _PackageAnalysisContext extends PackageAnalysisContext {
+  @override
+  void error(String message) {
+    stderr.writeln(message);
+    exit(2);
+  }
+
+  @override
+  // TODO: implement analysisContextCollection
+  AnalysisContextCollection get analysisContextCollection =>
+      throw UnimplementedError();
 }

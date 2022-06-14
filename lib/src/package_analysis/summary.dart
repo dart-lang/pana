@@ -10,7 +10,7 @@ import './common.dart';
 
 Future<void> generateSummary(String packageLocation) async {
   if (!await Directory(packageLocation).exists()) {
-    exitFatal('Please specify a directory for analysis.', 1);
+    throw const PackageAnalysisError('Specify a directory for analysis.');
   }
 
   // initialise analyser
@@ -40,7 +40,7 @@ Future<void> generateSummary(String packageLocation) async {
 
     // ensure that resolving has been successful
     if (someResolvedLibrary is! ResolvedLibraryResult) {
-      stderr.writeln('$filePath is not a library');
+      stderr.writeln('analysis of $filePath as a library failed');
       continue;
     }
 
