@@ -17,5 +17,5 @@ abstract class PackageAnalysisContext {
       analysisContextCollection.contextFor(path);
 
   /// Log [message] as warning that something unexpected happened.
-  void error(String message);
+  void warning(String message);
 }

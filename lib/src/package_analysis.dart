@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:args/command_runner.dart';
 
+import 'package:path/path.dart' as path;
+
 import './package_analysis/common.dart';
 import './package_analysis/summary.dart';
 
@@ -26,24 +28,32 @@ class SummaryCommand extends Command {
     final paths = argResults!.rest;
 
     if (paths.length != 1) {
-      throw const PackageAnalysisError(
-          'Only specify exactly one directory for analysis.');
+      throw ArgumentError('Only specify exactly one directory for analysis.');
     }
 
-    final packageLocation = paths.first;
-    await generateSummary(packageLocation);
+    final packageLocation = path.canonicalize(paths.first);
+
+    if (!await Directory(packageLocation).exists()) {
+      throw ArgumentError('Specify a directory for analysis.');
+    }
+
+    var collection =
+        AnalysisContextCollection(includedPaths: [packageLocation]);
+    await generateSummary(_PackageAnalysisContext(collection), packageLocation);
   }
 }
 
 class _PackageAnalysisContext extends PackageAnalysisContext {
   @override
-  void error(String message) {
-    stderr.writeln(message);
-    exit(2);
+  late final AnalysisContextCollection analysisContextCollection;
+
+  _PackageAnalysisContext(AnalysisContextCollection contextCollection) {
+    analysisContextCollection = contextCollection;
   }
 
   @override
-  // TODO: implement analysisContextCollection
-  AnalysisContextCollection get analysisContextCollection =>
-      throw UnimplementedError();
+  void warning(String message) {
+    stderr.writeln(message);
+    exit(2);
+  }
 }
