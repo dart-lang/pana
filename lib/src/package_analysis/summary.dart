@@ -9,7 +9,7 @@ import 'package:path/path.dart' as path;
 import './common.dart';
 
 Future<void> generateSummary(String packageLocation) async {
-  if (!await FileSystemEntity.isDirectory(packageLocation)) {
+  if (!await Directory(packageLocation).exists()) {
     exitFatal('Please specify a directory for analysis.', 1);
   }
 
@@ -30,6 +30,11 @@ Future<void> generateSummary(String packageLocation) async {
     if (!(path.isWithin(path.join(packageLocation, 'lib'), filePath) &&
         !path.isWithin(path.join(packageLocation, 'lib', 'src'), filePath) &&
         path.extension(filePath) == '.dart')) {
+      continue;
+    }
+
+    // this file is just part of another library
+    if (someResolvedLibrary is NotLibraryButPartResult) {
       continue;
     }
 
