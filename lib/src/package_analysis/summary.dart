@@ -56,7 +56,10 @@ LibraryShape summarizeLibraryElement(
 }
 
 ClassShape summarizeClassElement(ClassElement classElement) {
-  var methods = classElement.methods.map(summarizeMethodElement).toList();
+  var methods = classElement.methods
+      .where((element) => element.isPublic)
+      .map(summarizeMethodElement)
+      .toList();
   return ClassShape(classElement.name, methods);
 }
 
