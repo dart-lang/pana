@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:pana/src/package_analysis/shape.dart';
@@ -35,7 +33,8 @@ Future<void> summarizePackage(
 
       // ensure that resolving has been successful
       if (library is! ResolvedLibraryResult) {
-        stderr.writeln('analysis of $filePath as a library failed');
+        packageAnalysisContext
+            .warning('analysis of $filePath as a library failed');
         continue;
       }
 

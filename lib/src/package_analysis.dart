@@ -54,6 +54,5 @@ class _PackageAnalysisContext extends PackageAnalysisContext {
   @override
   void warning(String message) {
     stderr.writeln(message);
-    exit(2);
   }
 }
