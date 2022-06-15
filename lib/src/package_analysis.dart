@@ -39,7 +39,7 @@ class SummaryCommand extends Command {
 
     var collection =
         AnalysisContextCollection(includedPaths: [packageLocation]);
-    await generateSummary(_PackageAnalysisContext(collection), packageLocation);
+    await summarizePackage(_PackageAnalysisContext(collection), packageLocation);
   }
 }
 

@@ -2,15 +2,18 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:pana/src/package_analysis/shape.dart';
 import 'package:path/path.dart' as path;
 
 import 'common.dart';
 
-Future<void> generateSummary(
+Future<void> summarizePackage(
   PackageAnalysisContext packageAnalysisContext,
   String packageLocation,
 ) async {
   var collection = packageAnalysisContext.analysisContextCollection;
+
+  var libraryShapes = <LibraryShape>[];
 
   for (var context in collection.contexts) {
     for (var filePath in context.contextRoot.analyzedFiles()) {
@@ -36,12 +39,28 @@ Future<void> generateSummary(
         continue;
       }
 
-      _traverseLibrary(library.element);
+      libraryShapes.add(summarizeLibraryElement(
+          library.element, path.relative(filePath, from: packageLocation)));
     }
   }
+
+  var packageShape = PackageShape(libraryShapes);
 }
 
-void _traverseLibrary(LibraryElement libraryElement) {
-  print(libraryElement.identifier);
-  // TODO
+LibraryShape summarizeLibraryElement(
+    LibraryElement libraryElement, String libraryPath) {
+  var classes = libraryElement.topLevelElements
+      .where((element) => (element.isPublic && element is ClassElement))
+      .map((element) => summarizeClassElement(element as ClassElement))
+      .toList();
+  return LibraryShape(libraryPath, classes);
+}
+
+ClassShape summarizeClassElement(ClassElement classElement) {
+  var methods = classElement.methods.map(summarizeMethodElement).toList();
+  return ClassShape(classElement.name, methods);
+}
+
+MethodShape summarizeMethodElement(MethodElement methodElement) {
+  return MethodShape(methodElement.name);
 }
