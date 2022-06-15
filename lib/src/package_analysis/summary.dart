@@ -5,7 +5,7 @@ import 'package:path/path.dart' as path;
 
 import 'common.dart';
 
-Future<void> summarizePackage(
+Future<PackageShape> summarizePackage(
   PackageAnalysisContext packageAnalysisContext,
   String packageLocation,
 ) async {
@@ -43,7 +43,7 @@ Future<void> summarizePackage(
     }
   }
 
-  var packageShape = PackageShape(libraryShapes);
+  return PackageShape(libraryShapes);
 }
 
 LibraryShape summarizeLibraryElement(

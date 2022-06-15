@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
@@ -39,7 +40,12 @@ class SummaryCommand extends Command {
 
     var collection =
         AnalysisContextCollection(includedPaths: [packageLocation]);
-    await summarizePackage(_PackageAnalysisContext(collection), packageLocation);
+
+    var packageJson = (await summarizePackage(
+            _PackageAnalysisContext(collection), packageLocation))
+        .toJson();
+    var indentedEncoder = const JsonEncoder.withIndent('  ');
+    print(indentedEncoder.convert(packageJson));
   }
 }
 
