@@ -1,6 +1,6 @@
 ---
 
-name: Libraries can be split into multiple files with part
+name: Libraries can export each other in a cycle
 summary: |-
   {
     "libraries": [
@@ -9,6 +9,13 @@ summary: |-
         "exported-classes": [
           1,
           2
+        ]
+      },
+      {
+        "identifier": "package:test_package/b.dart",
+        "exported-classes": [
+          2,
+          1
         ]
       }
     ],
@@ -28,11 +35,11 @@ summary: |-
 package:
   - path: lib/a.dart
     content: |
-      part 'b.dart';
+      export 'b.dart';
       class C {}
   - path: lib/b.dart
     content: |
-      part of 'a.dart';
+      export 'a.dart';
       class D {}
 
 ...

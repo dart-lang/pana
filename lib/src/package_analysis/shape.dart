@@ -5,8 +5,9 @@ part 'shape.g.dart';
 @JsonSerializable()
 class PackageShape {
   final List<LibraryShape> libraries;
+  final List<ClassShape> classes;
 
-  PackageShape(this.libraries);
+  PackageShape(this.libraries, this.classes);
 
   factory PackageShape.fromJson(Map<String, dynamic> json) =>
       _$PackageShapeFromJson(json);
@@ -16,11 +17,11 @@ class PackageShape {
 
 @JsonSerializable()
 class LibraryShape {
-  @JsonKey(name: 'file-path')
-  final String filePath;
-  final List<ClassShape> classes;
+  final String identifier;
+  @JsonKey(name: 'exported-classes')
+  final Set<int> exportedClasses;
 
-  LibraryShape(this.filePath, this.classes);
+  LibraryShape(this.identifier, this.exportedClasses);
 
   factory LibraryShape.fromJson(Map<String, dynamic> json) =>
       _$LibraryShapeFromJson(json);
@@ -30,15 +31,11 @@ class LibraryShape {
 
 @JsonSerializable()
 class ClassShape {
-  // TODO: to be used later for classes which reference other classes
-  // final int id;
-  // final List<String> exportedFrom;
+  final int id;
   final String name;
   final List<MethodShape> methods;
 
-  //Map<String, MethodShape> get methods => {for (var method in _methods) method.name: method};
-
-  ClassShape(this.name, this.methods);
+  ClassShape(this.id, this.name, this.methods);
 
   factory ClassShape.fromJson(Map<String, dynamic> json) =>
       _$ClassShapeFromJson(json);

@@ -1,15 +1,6 @@
 import 'package:analyzer/dart/analysis/analysis_context.dart';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 
-class PackageAnalysisError implements Exception {
-  final String message;
-
-  const PackageAnalysisError(this.message);
-
-  @override
-  String toString() => 'PackageAnalysisError: $message';
-}
-
 abstract class PackageAnalysisContext {
   AnalysisContextCollection get analysisContextCollection;
 

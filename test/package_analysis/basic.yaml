@@ -1,0 +1,37 @@
+---
+
+name: The summary should contain the names of classes and their corresponding methods
+summary: |-
+  {
+    "libraries": [
+      {
+        "identifier": "package:test_package/a.dart",
+        "exported-classes": [
+          1
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": 1,
+        "name": "C",
+        "methods": [
+          {
+            "name": "f"
+          },
+          {
+            "name": "g"
+          }
+        ]
+      }
+    ]
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      class C {
+        void f() {}
+        void g() {}
+      }
+
+...
