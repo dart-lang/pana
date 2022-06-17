@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/shape.dart';
 import 'package:path/path.dart' as path;
 
@@ -25,7 +26,7 @@ class Summarizer {
     var collection = packageAnalysisContext.analysisContextCollection;
 
     for (var context in collection.contexts) {
-      for (var filePath in context.contextRoot.analyzedFiles()) {
+      for (var filePath in context.contextRoot.analyzedFiles().sorted()) {
         final session = context.currentSession;
         final library = await session.getResolvedLibrary(filePath);
 
