@@ -5,8 +5,8 @@ summary: |-
   {
     "libraries": [
       {
-        "identifier": "package:test_package/a.dart",
-        "exported-classes": [
+        "uri": "package:test_package/a.dart",
+        "exportedClasses": [
           1
         ]
       }

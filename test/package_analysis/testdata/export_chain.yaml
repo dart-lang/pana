@@ -5,26 +5,26 @@ summary: |-
   {
     "libraries": [
       {
-        "identifier": "package:test_package/a.dart",
-        "exported-classes": [
+        "uri": "package:test_package/a.dart",
+        "exportedClasses": [
           1
         ]
       },
       {
-        "identifier": "package:test_package/b.dart",
-        "exported-classes": [
+        "uri": "package:test_package/b.dart",
+        "exportedClasses": [
           1
         ]
       },
       {
-        "identifier": "package:test_package/c.dart",
-        "exported-classes": [
+        "uri": "package:test_package/c.dart",
+        "exportedClasses": [
           1
         ]
       },
       {
-        "identifier": "package:test_package/d.dart",
-        "exported-classes": [
+        "uri": "package:test_package/d.dart",
+        "exportedClasses": [
           1
         ]
       }

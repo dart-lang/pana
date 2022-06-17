@@ -11,23 +11,23 @@ import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
 Future<void> main() async {
-  final yamlDir =
-      Directory(path.join(path.current, 'test', 'package_analysis'));
-  final configTemplate = '''{
-  "configVersion": 2,
-  "packages": [
-    {
-      "name": "test_package",
-      "rootUri": "../",
-      "packageUri": "lib/",
-      "languageVersion": "2.10"
-    }
-  ],
-  "generated": "2022-01-01T00:00:00.000000Z",
-  "generator": "pub",
-  "generatorVersion": "2.17.3"
-}
-''';
+  final yamlDir = Directory(
+      path.join(path.current, 'test', 'package_analysis', 'testdata'));
+  final indentedEncoder = const JsonEncoder.withIndent('  ');
+  final configTemplate = json.encode({
+    'configVersion': 2,
+    'packages': [
+      {
+        'name': 'test_package',
+        'rootUri': '../',
+        'packageUri': 'lib/',
+        'languageVersion': '2.12'
+      }
+    ],
+    'generated': '2022-01-01T00:00:00.000000Z',
+    'generator': 'pub',
+    'generatorVersion': '2.17.3'
+  });
 
   for (final file in await yamlDir.list().toList()) {
     final doc = loadYaml(await (file as File).readAsString());
@@ -60,7 +60,6 @@ Future<void> main() async {
           .toJson();
 
       // compare the summary to what was expected in the yaml doc
-      final indentedEncoder = const JsonEncoder.withIndent('  ');
       expect(indentedEncoder.convert(packageJson), equals(doc['summary']));
     });
   }
