@@ -8,7 +8,8 @@ import 'common.dart';
 
 class Summarizer {
   var _classCounter = 0;
-  final _package = PackageShape(<LibraryShape>[], <ClassShape>[]);
+  final _package =
+      PackageShape(libraries: <LibraryShape>[], classes: <ClassShape>[]);
 
   /// Ids of classes defined in a given library
   final _classDefinitions = <String, Set<int>>{};
@@ -87,7 +88,7 @@ class Summarizer {
 
     // fill in `_package` with information from _classExports
     for (var library in _package.libraries) {
-      library.exportedClasses.addAll(_classExports[library.identifier]!);
+      library.exportedClasses.addAll(_classExports[library.uri]!);
     }
 
     return _package;
@@ -105,7 +106,8 @@ class Summarizer {
     var classIds = classes.map((thisClass) => thisClass.id).toSet();
 
     _package.classes.addAll(classes);
-    _package.libraries.add(LibraryShape(identifier, <int>{}));
+    _package.libraries
+        .add(LibraryShape(uri: identifier, exportedClasses: <int>{}));
 
     _classDefinitions[identifier] = classIds;
     _libraryExports[identifier] = libraryElement.exportedLibraries
@@ -119,10 +121,11 @@ class Summarizer {
         .map(summarizeMethodElement)
         .toList();
     _classCounter += 1;
-    return ClassShape(_classCounter, classElement.name, methods);
+    return ClassShape(
+        id: _classCounter, name: classElement.name, methods: methods);
   }
 
   MethodShape summarizeMethodElement(MethodElement methodElement) {
-    return MethodShape(methodElement.name);
+    return MethodShape(name: methodElement.name);
   }
 }

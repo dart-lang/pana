@@ -7,10 +7,10 @@ part of 'shape.dart';
 // **************************************************************************
 
 PackageShape _$PackageShapeFromJson(Map<String, dynamic> json) => PackageShape(
-      (json['libraries'] as List<dynamic>)
+      libraries: (json['libraries'] as List<dynamic>)
           .map((e) => LibraryShape.fromJson(e as Map<String, dynamic>))
           .toList(),
-      (json['classes'] as List<dynamic>)
+      classes: (json['classes'] as List<dynamic>)
           .map((e) => ClassShape.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -22,20 +22,22 @@ Map<String, dynamic> _$PackageShapeToJson(PackageShape instance) =>
     };
 
 LibraryShape _$LibraryShapeFromJson(Map<String, dynamic> json) => LibraryShape(
-      json['identifier'] as String,
-      (json['exported-classes'] as List<dynamic>).map((e) => e as int).toSet(),
+      uri: json['uri'] as String,
+      exportedClasses: (json['exportedClasses'] as List<dynamic>)
+          .map((e) => e as int)
+          .toSet(),
     );
 
 Map<String, dynamic> _$LibraryShapeToJson(LibraryShape instance) =>
     <String, dynamic>{
-      'identifier': instance.identifier,
-      'exported-classes': instance.exportedClasses.toList(),
+      'uri': instance.uri,
+      'exportedClasses': instance.exportedClasses.toList(),
     };
 
 ClassShape _$ClassShapeFromJson(Map<String, dynamic> json) => ClassShape(
-  json['id'] as int,
-      json['name'] as String,
-      (json['methods'] as List<dynamic>)
+      id: json['id'] as int,
+      name: json['name'] as String,
+      methods: (json['methods'] as List<dynamic>)
           .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -48,7 +50,7 @@ Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
     };
 
 MethodShape _$MethodShapeFromJson(Map<String, dynamic> json) => MethodShape(
-      json['name'] as String,
+      name: json['name'] as String,
     );
 
 Map<String, dynamic> _$MethodShapeToJson(MethodShape instance) =>
