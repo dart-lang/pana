@@ -6,8 +6,8 @@ import 'package:args/command_runner.dart';
 
 import 'package:path/path.dart' as path;
 
-import './package_analysis/common.dart';
-import './package_analysis/summary.dart';
+import 'common.dart';
+import 'summary.dart';
 
 Future<void> main(List<String> arguments) async {
   var runner = CommandRunner('package_analysis',
