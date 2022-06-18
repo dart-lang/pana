@@ -55,7 +55,7 @@ Future<void> main() async {
       // produce json summary
       final collection = AnalysisContextCollection(
           includedPaths: [packageLocation], resourceProvider: provider);
-      final packageJson = (await Summarizer().summarizePackage(
+      final packageJson = (await summarizePackage(
               _PackageAnalysisContext(collection), packageLocation))
           .toJson();
 
