@@ -1,0 +1,11 @@
+---
+
+name: The analyser should be able to handle an empty pacakge
+summary: |-
+  {
+    "libraries": [],
+    "classes": []
+  }
+package: []
+
+...

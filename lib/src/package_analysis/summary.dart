@@ -23,34 +23,83 @@ Future<PackageShape> summarizePackage(
   /// Ids of classes exported in a given library
   final classExports = <String, Set<int>>{};
 
-  MethodShape summarizeMethodElement(MethodElement methodElement) {
-    return MethodShape(name: methodElement.name);
+  MethodShape summarizeExecutableElement(ExecutableElement executableElement) {
+    // ExecutableElement is a superclass of both MethodShape and FunctionShape
+    return MethodShape(name: executableElement.name);
+  }
+
+  PropertyShape summarizeProperty(PropertyAccessorElement property) {
+    return PropertyShape(name: property.variable.name);
   }
 
   ClassShape summarizeClassElement(ClassElement classElement) {
-    var methods = classElement.methods
-        .where((element) => element.isPublic)
-        .map(summarizeMethodElement)
-        .toList();
     classCounter += 1;
+
+    final methods = classElement.methods
+        .where((element) => element.isPublic)
+        .map(summarizeExecutableElement)
+        .toList();
+
+    // an accessor is a getter or a setter
+    final accessors = classElement.accessors;
+
+    final getters = accessors
+        .where((element) => element.isGetter)
+        .map(summarizeProperty)
+        .toList();
+
+    final setters = accessors
+        .where((element) => element.isSetter)
+        .map(summarizeProperty)
+        .toList();
+
     return ClassShape(
-        id: classCounter, name: classElement.name, methods: methods);
+        id: classCounter,
+        name: classElement.name,
+        methods: methods,
+        getters: getters,
+        setters: setters);
   }
 
   void summarizeLibraryElement(
       LibraryElement libraryElement, String libraryPath) {
-    var identifier = libraryElement.identifier;
+    final identifier = libraryElement.identifier;
+
+    final publicTopLevelElements = libraryElement.topLevelElements
+        .where((element) => element.isPublic)
+        .toList();
 
     // classes defined in this library
-    var classes = libraryElement.topLevelElements
-        .where((element) => (element.isPublic && element is ClassElement))
-        .map((element) => summarizeClassElement(element as ClassElement))
+    final classes = publicTopLevelElements
+        .whereType<ClassElement>()
+        .map(summarizeClassElement)
         .toList();
-    var classIds = classes.map((thisClass) => thisClass.id).toSet();
+    final classIds = classes.map((thisClass) => thisClass.id).toSet();
+
+    final getters = publicTopLevelElements
+        .whereType<PropertyAccessorElement>()
+        .where((element) => element.isGetter)
+        .map(summarizeProperty)
+        .toList();
+
+    final setters = publicTopLevelElements
+        .whereType<PropertyAccessorElement>()
+        .where((element) => element.isSetter)
+        .map(summarizeProperty)
+        .toList();
+
+    final functions = publicTopLevelElements
+        .whereType<FunctionElement>()
+        .map(summarizeExecutableElement)
+        .toList();
 
     package.classes.addAll(classes);
-    package.libraries
-        .add(LibraryShape(uri: identifier, exportedClasses: <int>{}));
+    package.libraries.add(LibraryShape(
+        uri: identifier,
+        exportedClasses: <int>{},
+        getters: getters,
+        setters: setters,
+        functions: functions));
 
     classDefinitions[identifier] = classIds;
     libraryExports[identifier] = libraryElement.exportedLibraries

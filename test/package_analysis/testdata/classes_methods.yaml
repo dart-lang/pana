@@ -1,11 +1,14 @@
 ---
 
-name: The summary should contain the names of classes and their corresponding methods
+name: The summary should include classes and their methods
 summary: |-
   {
     "libraries": [
       {
         "uri": "package:test_package/a.dart",
+        "getters": [],
+        "setters": [],
+        "functions": [],
         "exportedClasses": [
           1
         ]
@@ -15,6 +18,8 @@ summary: |-
       {
         "id": 1,
         "name": "C",
+        "getters": [],
+        "setters": [],
         "methods": [
           {
             "name": "f"
