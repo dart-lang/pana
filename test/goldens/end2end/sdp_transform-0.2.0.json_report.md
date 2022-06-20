@@ -78,24 +78,14 @@ INFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], o
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`
 </details>
 
-## 10/20 Support up-to-date dependencies
+## 20/20 Support up-to-date dependencies
 
-### [x] 0/10 points: All of the package dependencies are supported in the latest version
+### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
-* Could not run `dart pub outdated`: `dart pub get` failed:
+No dependencies.
 
-```
-OUT:
-Resolving dependencies...
-ERR:
-pubspec.yaml has no lower-bound SDK constraint.
-You should edit pubspec.yaml to contain an SDK constraint:
+To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
-environment:
-  sdk: '>=2.10.0 <3.0.0'
-
-See https://dart.dev/go/sdk-constraint
-```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 

@@ -89,10 +89,10 @@
       {
         "id": "dependency",
         "title": "Support up-to-date dependencies",
-        "grantedPoints": 10,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `dart pub outdated`: `dart pub get` failed:\n\n```\nOUT:\nResolving dependencies...\nERR:\npubspec.yaml has no lower-bound SDK constraint.\nYou should edit pubspec.yaml to contain an SDK constraint:\n\nenvironment:\n  sdk: '>=2.10.0 <3.0.0'\n\nSee https://dart.dev/go/sdk-constraint\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "status": "passed",
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
         "id": "null-safety",

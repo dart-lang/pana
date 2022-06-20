@@ -324,8 +324,7 @@ class ToolEnvironment {
 
   Future<PanaProcessResult> runUpgrade(String packageDir, bool usesFlutter,
       {int retryCount = 3}) async {
-    final backup = await _stripAndAugmentPubspecYaml(packageDir);
-    try {
+    return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _retryProc(() async {
         if (usesFlutter) {
           return await _execFlutterUpgrade(packageDir, _environment);
@@ -344,9 +343,7 @@ class ToolEnvironment {
         }
         return true;
       });
-    } finally {
-      await _restorePubspecYaml(packageDir, backup);
-    }
+    });
   }
 
   Future<Map<String, dynamic>> runPubOutdated(
@@ -354,34 +351,36 @@ class ToolEnvironment {
     List<String> args = const [],
     required bool usesFlutter,
   }) async {
-    // NOTE: `flutter pub get` also runs `pub get` in the example directory.
-    //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
-    // TODO: use the out-out flag as soon it becomes available
-    final getResult = await runProc(
-      [..._dartCmd, 'pub', 'get', '.'],
-      environment: _environment,
-      workingDirectory: packageDir,
-    );
-    if (getResult.exitCode != 0) {
-      throw ToolException(
-          '`dart pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```');
-    }
-    final result = await runProc(
-      [
-        ..._dartCmd,
-        'pub',
-        'outdated',
-        ...args,
-      ],
-      environment: _environment,
-      workingDirectory: packageDir,
-    );
-    if (result.exitCode != 0) {
-      throw ToolException(
-          '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```');
-    } else {
-      return result.parseJson();
-    }
+    return await _withStripAndAugmentPubspecYaml(packageDir, () async {
+      // NOTE: `flutter pub get` also runs `pub get` in the example directory.
+      //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
+      // TODO: use the out-out flag as soon it becomes available
+      final getResult = await runProc(
+        [..._dartCmd, 'pub', 'get', '.'],
+        environment: _environment,
+        workingDirectory: packageDir,
+      );
+      if (getResult.exitCode != 0) {
+        throw ToolException(
+            '`dart pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```');
+      }
+      final result = await runProc(
+        [
+          ..._dartCmd,
+          'pub',
+          'outdated',
+          ...args,
+        ],
+        environment: _environment,
+        workingDirectory: packageDir,
+      );
+      if (result.exitCode != 0) {
+        throw ToolException(
+            '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```');
+      } else {
+        return result.parseJson();
+      }
+    });
   }
 
   Map<String, String> _globalDartdocEnv() {
@@ -440,6 +439,21 @@ class ToolEnvironment {
     final hasIndexHtml = await File(p.join(outputDir, 'index.html')).exists();
     final hasIndexJson = await File(p.join(outputDir, 'index.json')).exists();
     return DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
+  }
+
+  /// Removes the dev_dependencies from the pubspec.yaml
+  /// Adds lower-bound minimal SDK constraint - if missing.
+  /// Returns the backup file with the original content.
+  Future<R> _withStripAndAugmentPubspecYaml<R>(
+    String packageDir,
+    FutureOr<R> Function() fn,
+  ) async {
+    final backup = await _stripAndAugmentPubspecYaml(packageDir);
+    try {
+      return await fn();
+    } finally {
+      await _restorePubspecYaml(packageDir, backup);
+    }
   }
 
   /// Removes the dev_dependencies from the pubspec.yaml
