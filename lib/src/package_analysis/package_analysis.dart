@@ -38,6 +38,13 @@ class SummaryCommand extends Command {
       throw ArgumentError('Specify a directory for analysis.');
     }
 
+    if (!await File(
+            path.join(packageLocation, '.dart_tool', 'package_config.json'))
+        .exists()) {
+      throw StateError(
+          'Run `dart pub get` to fetch dependencies before analysing this package.');
+    }
+
     var collection =
         AnalysisContextCollection(includedPaths: [packageLocation]);
 
