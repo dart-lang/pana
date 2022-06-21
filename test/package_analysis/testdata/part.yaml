@@ -10,21 +10,21 @@ summary: |-
         "setters": [],
         "functions": [],
         "exportedClasses": [
-          1,
-          2
+          0,
+          1
         ]
       }
     ],
     "classes": [
       {
-        "id": 1,
+        "id": 0,
         "name": "C",
         "getters": [],
         "setters": [],
         "methods": []
       },
       {
-        "id": 2,
+        "id": 1,
         "name": "D",
         "getters": [],
         "setters": [],

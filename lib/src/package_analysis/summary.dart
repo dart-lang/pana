@@ -10,7 +10,6 @@ Future<PackageShape> summarizePackage(
   PackageAnalysisContext packageAnalysisContext,
   String packageLocation,
 ) async {
-  var classCounter = 0;
   final package =
       PackageShape(libraries: <LibraryShape>[], classes: <ClassShape>[]);
 
@@ -33,8 +32,6 @@ Future<PackageShape> summarizePackage(
   }
 
   ClassShape summarizeClassElement(ClassElement classElement) {
-    classCounter += 1;
-
     final methods = classElement.methods
         .where((element) => element.isPublic)
         .map(summarizeExecutableElement)
@@ -54,7 +51,7 @@ Future<PackageShape> summarizePackage(
         .toList();
 
     return ClassShape(
-        id: classCounter,
+        id: classElement.id,
         name: classElement.name,
         methods: methods,
         getters: getters,
@@ -105,6 +102,45 @@ Future<PackageShape> summarizePackage(
     libraryExports[identifier] = libraryElement.exportedLibraries
         .map((library) => library.identifier)
         .toList();
+  }
+
+  /// Given that the package has been analysed, sort the classes
+  /// deterministically (within a given input) and re-assign their ids based on
+  /// this order.
+  void canonicalizeClasses() {
+    // reverse map of classDefinitions
+    // for looking up the uri of the library where a class is defined
+    var classDefinitionsInverse = <int, String>{};
+
+    // construct inverse map defined above
+    for (final library in classDefinitions.entries) {
+      for (final thisClass in library.value) {
+        classDefinitionsInverse[thisClass] = library.key;
+      }
+    }
+
+    // sort classes first by name, then by the name of the defining library
+    package.classes.sortBy(
+        (thisClass) => thisClass.name + classDefinitionsInverse[thisClass.id]!);
+
+    // maps old ids to new ids
+    var newIdMapping = <int, int>{};
+    var newIdCounter = 0;
+
+    // create mapping and reassign ids in [package.classes]
+    for (final thisClass in package.classes) {
+      newIdMapping[thisClass.id] = newIdCounter;
+      thisClass.id = newIdCounter;
+      newIdCounter += 1;
+    }
+
+    // reassign ids in [package.libraries]
+    for (final library in package.libraries) {
+      library.exportedClasses = library.exportedClasses
+          .map((classId) => newIdMapping[classId]!)
+          .sorted(Comparable.compare)
+          .toSet();
+    }
   }
 
   var collection = packageAnalysisContext.analysisContextCollection;
@@ -172,6 +208,8 @@ Future<PackageShape> summarizePackage(
   for (var library in package.libraries) {
     library.exportedClasses.addAll(classExports[library.uri]!);
   }
+
+  canonicalizeClasses();
 
   return package;
 }

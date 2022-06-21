@@ -43,7 +43,7 @@ class LibraryShape {
 
   /// `Set` of [ClassShape.id] elements, where each one corresponds to a class
   /// exported in this library.
-  final Set<int> exportedClasses;
+  Set<int> exportedClasses;
 
   LibraryShape(
       {required this.uri,
@@ -66,7 +66,7 @@ class ClassShape {
   ///
   /// Classes will be referenced using their [id] in other shapes, such as
   /// [LibraryShape].
-  final int id;
+  int id;
   final String name;
   final List<PropertyShape> getters;
   final List<PropertyShape> setters;

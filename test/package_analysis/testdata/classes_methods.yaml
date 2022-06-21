@@ -10,13 +10,13 @@ summary: |-
         "setters": [],
         "functions": [],
         "exportedClasses": [
-          1
+          0
         ]
       }
     ],
     "classes": [
       {
-        "id": 1,
+        "id": 0,
         "name": "C",
         "getters": [],
         "setters": [],

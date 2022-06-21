@@ -1,0 +1,131 @@
+---
+
+name: Classes must be sorted and re-indexed in this order
+summary: |-
+  {
+    "libraries": [
+      {
+        "uri": "package:test_package/a.dart",
+        "getters": [],
+        "setters": [],
+        "functions": [],
+        "exportedClasses": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "uri": "package:test_package/b.dart",
+        "getters": [],
+        "setters": [],
+        "functions": [],
+        "exportedClasses": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "uri": "package:test_package/c.dart",
+        "getters": [],
+        "setters": [],
+        "functions": [],
+        "exportedClasses": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": 0,
+        "name": "C",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      },
+      {
+        "id": 1,
+        "name": "D",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      },
+      {
+        "id": 2,
+        "name": "E",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      },
+      {
+        "id": 3,
+        "name": "X",
+        "getters": [
+          {
+            "name": "libraryA"
+          }
+        ],
+        "setters": [],
+        "methods": []
+      },
+      {
+        "id": 4,
+        "name": "X",
+        "getters": [
+          {
+            "name": "libraryB"
+          }
+        ],
+        "setters": [],
+        "methods": []
+      },
+      {
+        "id": 5,
+        "name": "X",
+        "getters": [
+          {
+            "name": "libraryC"
+          }
+        ],
+        "setters": [],
+        "methods": []
+      }
+    ]
+  }
+package:
+  - path: lib/b.dart
+    content: |
+      export 'a.dart';
+      class C {}
+      class X {
+        final int libraryB;
+      }
+  - path: lib/c.dart
+    content: |
+      export 'a.dart';
+      class D {}
+      class X {
+        final int libraryC;
+      }
+  - path: lib/a.dart
+    content: |
+      export 'b.dart';
+      export 'c.dart';
+      class E {}
+      class X {
+        final int libraryA;
+      }
+
+...
