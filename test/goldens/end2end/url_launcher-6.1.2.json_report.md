@@ -75,8 +75,8 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 OUT:
 Resolving dependencies...
 ERR:
-Because every version of flutter_test from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter_test from sdk is forbidden.
-So, because url_launcher depends on flutter_test from sdk, version solving failed.
+Because every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.
+So, because url_launcher depends on flutter from sdk, version solving failed.
 ```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
