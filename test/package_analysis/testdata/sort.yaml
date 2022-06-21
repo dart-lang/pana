@@ -110,14 +110,14 @@ package:
       export 'a.dart';
       class C {}
       class X {
-        final int libraryB;
+        final int libraryB = 1;
       }
   - path: lib/c.dart
     content: |
       export 'a.dart';
       class D {}
       class X {
-        final int libraryC;
+        final int libraryC = 1;
       }
   - path: lib/a.dart
     content: |
@@ -125,7 +125,7 @@ package:
       export 'c.dart';
       class E {}
       class X {
-        final int libraryA;
+        final int libraryA = 1;
       }
 
 ...
