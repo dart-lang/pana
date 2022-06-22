@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
-part 'shape.g.dart';
+part 'shapes.g.dart';
 
 /// A Shape for describing a package.
 @sealed
@@ -20,8 +20,7 @@ class PackageShape {
   Map<String, dynamic> toJson() => _$PackageShapeToJson(this);
 }
 
-/// A Shape for describing a library, which may not be contained in a single
-/// file.
+/// A Shape for describing a library, which may consist of multiple parts.
 @sealed
 @JsonSerializable()
 class LibraryShape {
@@ -45,12 +44,13 @@ class LibraryShape {
   /// exported in this library.
   final Set<int> exportedClasses;
 
-  LibraryShape(
-      {required this.uri,
-      required this.getters,
-      required this.setters,
-      required this.functions,
-      required this.exportedClasses});
+  LibraryShape({
+    required this.uri,
+    required this.getters,
+    required this.setters,
+    required this.functions,
+    required this.exportedClasses,
+  });
 
   factory LibraryShape.fromJson(Map<String, dynamic> json) =>
       _$LibraryShapeFromJson(json);
@@ -72,12 +72,13 @@ class ClassShape {
   final List<PropertyShape> setters;
   final List<MethodShape> methods;
 
-  ClassShape(
-      {required this.id,
-      required this.name,
-      required this.getters,
-      required this.setters,
-      required this.methods});
+  ClassShape({
+    required this.id,
+    required this.name,
+    required this.getters,
+    required this.setters,
+    required this.methods,
+  });
 
   @override
   bool operator ==(other) => other is ClassShape && id == other.id;

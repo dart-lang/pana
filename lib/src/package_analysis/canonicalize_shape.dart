@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 
-import 'shape.dart';
+import 'shapes.dart';
 
 /// Given that the package has been analysed, sort the classes
 /// deterministically (within a given input) and re-assign their ids based on

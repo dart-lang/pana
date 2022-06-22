@@ -49,7 +49,9 @@ class SummaryCommand extends Command {
         AnalysisContextCollection(includedPaths: [packageLocation]);
 
     var packageJson = (await summarizePackage(
-            _PackageAnalysisContext(collection), packageLocation))
+      _PackageAnalysisContext(collection),
+      packageLocation,
+    ))
         .toJson();
     var indentedEncoder = const JsonEncoder.withIndent('  ');
     print(indentedEncoder.convert(packageJson));

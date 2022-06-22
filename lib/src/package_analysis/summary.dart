@@ -5,14 +5,16 @@ import 'package:path/path.dart' as path;
 
 import 'canonicalize_shape.dart';
 import 'common.dart';
-import 'shape.dart';
+import 'shapes.dart';
 
 Future<PackageShape> summarizePackage(
   PackageAnalysisContext packageAnalysisContext,
   String packageLocation,
 ) async {
-  final package =
-      PackageShape(libraries: <LibraryShape>[], classes: <ClassShape>{});
+  final package = PackageShape(
+    libraries: <LibraryShape>[],
+    classes: <ClassShape>{},
+  );
 
   MethodShape summarizeExecutableElement(ExecutableElement executableElement) {
     // ExecutableElement is a superclass of both MethodShape and FunctionShape
@@ -43,11 +45,12 @@ Future<PackageShape> summarizePackage(
         .toList();
 
     return ClassShape(
-        id: classElement.id,
-        name: classElement.name,
-        methods: methods,
-        getters: getters,
-        setters: setters);
+      id: classElement.id,
+      name: classElement.name,
+      methods: methods,
+      getters: getters,
+      setters: setters,
+    );
   }
 
   void summarizeLibraryElement(
@@ -82,11 +85,12 @@ Future<PackageShape> summarizePackage(
 
     package.classes.addAll(classes);
     package.libraries.add(LibraryShape(
-        uri: identifier,
-        exportedClasses: classIds,
-        getters: getters,
-        setters: setters,
-        functions: functions));
+      uri: identifier,
+      exportedClasses: classIds,
+      getters: getters,
+      setters: setters,
+      functions: functions,
+    ));
   }
 
   var collection = packageAnalysisContext.analysisContextCollection;
