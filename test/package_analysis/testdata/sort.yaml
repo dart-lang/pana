@@ -1,6 +1,6 @@
 ---
 
-name: Classes must be sorted and re-indexed in this order
+name: Classes must be sorted and re-indexed in alphabetical order
 summary: |-
   {
     "libraries": [
@@ -12,10 +12,7 @@ summary: |-
         "exportedClasses": [
           0,
           1,
-          2,
-          3,
-          4,
-          5
+          2
         ]
       },
       {
@@ -26,10 +23,7 @@ summary: |-
         "exportedClasses": [
           0,
           1,
-          2,
-          3,
-          4,
-          5
+          2
         ]
       },
       {
@@ -40,10 +34,7 @@ summary: |-
         "exportedClasses": [
           0,
           1,
-          2,
-          3,
-          4,
-          5
+          2
         ]
       }
     ],
@@ -68,39 +59,6 @@ summary: |-
         "getters": [],
         "setters": [],
         "methods": []
-      },
-      {
-        "id": 3,
-        "name": "X",
-        "getters": [
-          {
-            "name": "libraryA"
-          }
-        ],
-        "setters": [],
-        "methods": []
-      },
-      {
-        "id": 4,
-        "name": "X",
-        "getters": [
-          {
-            "name": "libraryB"
-          }
-        ],
-        "setters": [],
-        "methods": []
-      },
-      {
-        "id": 5,
-        "name": "X",
-        "getters": [
-          {
-            "name": "libraryC"
-          }
-        ],
-        "setters": [],
-        "methods": []
       }
     ]
   }
@@ -109,23 +67,14 @@ package:
     content: |
       export 'a.dart';
       class C {}
-      class X {
-        final int libraryB = 1;
-      }
   - path: lib/c.dart
     content: |
       export 'a.dart';
       class D {}
-      class X {
-        final int libraryC = 1;
-      }
   - path: lib/a.dart
     content: |
       export 'b.dart';
       export 'c.dart';
       class E {}
-      class X {
-        final int libraryA = 1;
-      }
 
 ...

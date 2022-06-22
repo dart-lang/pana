@@ -10,7 +10,7 @@ class PackageShape {
   final List<LibraryShape> libraries;
 
   /// All the classes defined in the libraries of this package.
-  final List<ClassShape> classes;
+  final Set<ClassShape> classes;
 
   PackageShape({required this.libraries, required this.classes});
 
@@ -43,7 +43,7 @@ class LibraryShape {
 
   /// `Set` of [ClassShape.id] elements, where each one corresponds to a class
   /// exported in this library.
-  Set<int> exportedClasses;
+  final Set<int> exportedClasses;
 
   LibraryShape(
       {required this.uri,
@@ -66,7 +66,7 @@ class ClassShape {
   ///
   /// Classes will be referenced using their [id] in other shapes, such as
   /// [LibraryShape].
-  int id;
+  final int id;
   final String name;
   final List<PropertyShape> getters;
   final List<PropertyShape> setters;
@@ -78,6 +78,12 @@ class ClassShape {
       required this.getters,
       required this.setters,
       required this.methods});
+
+  @override
+  bool operator ==(other) => other is ClassShape && id == other.id;
+
+  @override
+  int get hashCode => id;
 
   factory ClassShape.fromJson(Map<String, dynamic> json) =>
       _$ClassShapeFromJson(json);

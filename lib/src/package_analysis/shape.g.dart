@@ -12,7 +12,7 @@ PackageShape _$PackageShapeFromJson(Map<String, dynamic> json) => PackageShape(
           .toList(),
       classes: (json['classes'] as List<dynamic>)
           .map((e) => ClassShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
+          .toSet(),
     );
 
 Map<String, dynamic> _$PackageShapeToJson(PackageShape instance) =>
