@@ -2,9 +2,17 @@ import 'package:collection/collection.dart';
 
 import 'shapes.dart';
 
-/// Given that the package has been analysed, sort the classes
-/// deterministically (within a given input) and re-assign their ids based on
-/// this order.
+/// Given a [PackageShape] create a new [PackageShape] structure where the
+/// elements of [PackageShape.classes] are sorted canonically: first by
+/// [ClassShape.name], then (if two classes share the same name) by a `String`
+/// representation of the list of [LibraryShape.uri] objects corresponding to
+/// the libraries from which the given class was exported. Their [ClassShape.id]
+/// fields are re-assigned starting from 0, based on this ordering.
+///
+/// Because no two identically-named classes can be exported from the same
+/// `List` of libraries (in fact, they can't both be exported from any one
+/// library), this creates a deterministic mapping of ids to classes, for a
+/// given input [PackageShape].
 PackageShape normalizePackageShape(PackageShape package) {
   // map from a class id to a list of library uris where that class is exported
   final librariesWhereClassExported = <int, List<String>>{};
