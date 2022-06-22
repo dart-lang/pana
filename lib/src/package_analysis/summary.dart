@@ -3,8 +3,8 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:collection/collection.dart';
 import 'package:path/path.dart' as path;
 
-import 'canonicalize_shape.dart';
 import 'common.dart';
+import 'normalize_shape.dart';
 import 'shapes.dart';
 
 Future<PackageShape> summarizePackage(
