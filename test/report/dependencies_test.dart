@@ -28,14 +28,16 @@ void main() {
           });
       await descriptor.create();
 
-      final context = PackageContext(
-        toolEnvironment: await testToolEnvironment(),
-        packageDir: descriptor.io.path,
-        options: InspectOptions(),
-      );
+      Future<PackageContext> newContext() async => PackageContext(
+            toolEnvironment: await testToolEnvironment(),
+            packageDir: descriptor.io.path,
+            options: InspectOptions(),
+          );
+      final currentSdkVersion =
+          Version.parse((await testToolEnvironment()).runtimeInfo.sdkVersion);
 
       {
-        final section = await trustworthyDependency(context);
+        final section = await trustworthyDependency(await newContext());
         expect(section.grantedPoints, 20);
       }
       DateTime daysAgo(int days) =>
@@ -46,19 +48,19 @@ void main() {
               pubspec: {
                 'environment': {
                   'sdk': VersionConstraint.compatibleWith(
-                          context.currentSdkVersion.nextBreaking)
+                          currentSdkVersion.nextBreaking)
                       .toString()
                 }
               },
               published: daysAgo(200)),
         );
 
-        final section = await trustworthyDependency(context);
+        final section = await trustworthyDependency(await newContext());
         expect(
             section.summary,
             contains(
                 '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
-                'but that version doesn\'t support the current Dart SDK version ${context.currentSdkVersion}'));
+                'but that version doesn\'t support the current Dart SDK version $currentSdkVersion'));
 
         expect(section.grantedPoints, 20);
       }
@@ -66,7 +68,7 @@ void main() {
         globalPackageServer!
             .add((b) => b!.serve('foo', '3.0.0', published: daysAgo(3)));
 
-        final section = await trustworthyDependency(context);
+        final section = await trustworthyDependency(await newContext());
         expect(
           section.summary,
           contains(
@@ -82,16 +84,15 @@ void main() {
             '2.0.0',
             pubspec: {
               'environment': {
-                'sdk':
-                    VersionConstraint.compatibleWith(context.currentSdkVersion)
-                        .toString()
+                'sdk': VersionConstraint.compatibleWith(currentSdkVersion)
+                    .toString()
               }
             },
             published: daysAgo(200),
           ),
         );
 
-        final section = await trustworthyDependency(context);
+        final section = await trustworthyDependency(await newContext());
         expect(
           section.summary,
           contains(

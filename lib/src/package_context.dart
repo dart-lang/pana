@@ -34,7 +34,7 @@ class PackageContext {
   final urlProblems = <String, String>{};
 
   Pubspec? _pubspec;
-  PkgResolution? _pkgResolution;
+  bool? _dependenciesResolved;
   List<CodeProblem>? _codeProblems;
 
   PackageContext({
@@ -60,14 +60,13 @@ class PackageContext {
 
   late final bool usesFlutter = pubspec.usesFlutter;
 
-  Future<PkgResolution?> resolveDependencies() async {
-    if (_pkgResolution != null) return _pkgResolution;
+  Future<bool> resolveDependencies() async {
+    if (_dependenciesResolved != null) return _dependenciesResolved!;
     final upgrade = await toolEnvironment.runUpgrade(packageDir, usesFlutter);
 
     if (upgrade.exitCode == 0) {
       try {
-        _pkgResolution = createPkgResolution(pubspec, upgrade.asJoinedOutput,
-            path: packageDir);
+        _dependenciesResolved = true;
       } catch (e, stack) {
         log.severe('Problem with `dart pub upgrade`', e, stack);
         //(TODO)kevmoo - should add a helper that handles logging exceptions
@@ -79,6 +78,7 @@ class PackageContext {
             '```\n$e\n```\n');
       }
     } else {
+      _dependenciesResolved = false;
       String message;
       if (upgrade.exitCode > 0) {
         message = PubEntry.parse(upgrade.stderr.asString)
@@ -106,7 +106,7 @@ class PackageContext {
           : 'Running `$cmd` failed with the following output:\n\n'
               '```\n$message\n```\n');
     }
-    return _pkgResolution;
+    return _dependenciesResolved!;
   }
 
   Future<List<CodeProblem>> staticAnalysis() async {
@@ -133,6 +133,17 @@ class PackageContext {
       rethrow;
     }
   }
+
+  late final Future<Outdated> outdated = toolEnvironment.runPubOutdated(
+    packageDir,
+    args: [
+      '--json',
+      '--up-to-date',
+      '--no-dev-dependencies',
+      '--no-dependency-overrides',
+    ],
+    usesFlutter: usesFlutter,
+  );
 
   late final Future<List<ScreenshotResult>> screenshots =
       processAllScreenshots(pubspec.screenshots, packageDir);

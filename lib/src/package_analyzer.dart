@@ -146,9 +146,9 @@ class PackageAnalyzer {
           '[report the issue](https://github.com/dart-lang/pana/issues).');
     }
 
-    final pkgResolution = await context.resolveDependencies();
+    final dependenciesResolved = await context.resolveDependencies();
 
-    if (pkgResolution != null && options.dartdocOutputDir != null) {
+    if (dependenciesResolved && options.dartdocOutputDir != null) {
       for (var i = 0; i <= options.dartdocRetry; i++) {
         try {
           final r = await _toolEnv.dartdoc(
@@ -167,7 +167,7 @@ class PackageAnalyzer {
     }
 
     final tags = <String>[];
-    if (pkgResolution != null) {
+    if (dependenciesResolved) {
       List<CodeProblem>? analyzerItems;
       if (dartFiles.isNotEmpty) {
         try {
@@ -222,6 +222,17 @@ class PackageAnalyzer {
         }
       }
     }
+    final allDependencies = <String>{
+      ...pubspec.dependencies.keys,
+      ...pubspec.devDependencies.keys,
+    };
+    // add transient dependencies
+    try {
+      final outdated = await context.outdated;
+      allDependencies.addAll(outdated.packages.map((e) => e.package));
+    } catch (_) {
+      // do not update allDependencies.
+    }
 
     final errorMessage = context.errors.isEmpty
         ? null
@@ -231,8 +242,7 @@ class PackageAnalyzer {
       packageName: pubspec.name,
       packageVersion: pubspec.version,
       pubspec: pubspec,
-      allDependencies:
-          pkgResolution?.dependencies.map((d) => d.package).toList(),
+      allDependencies: allDependencies.toList()..sort(),
       licenseFile: licenses.isEmpty
           ? null
           : LicenseFile(licenses.first.path, licenses.first.spdxIdentifier),

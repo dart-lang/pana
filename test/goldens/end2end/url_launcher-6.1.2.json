@@ -71,6 +71,20 @@
       "spdxIdentifier": "BSD-3-Clause"
     }
   ],
+  "allDependencies": [
+    "flutter",
+    "flutter_test",
+    "mockito",
+    "plugin_platform_interface",
+    "test",
+    "url_launcher_android",
+    "url_launcher_ios",
+    "url_launcher_linux",
+    "url_launcher_macos",
+    "url_launcher_platform_interface",
+    "url_launcher_web",
+    "url_launcher_windows"
+  ],
   "tags": [
     "license:bsd-3-clause",
     "license:fsf-libre",

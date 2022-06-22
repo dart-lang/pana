@@ -29,6 +29,10 @@
       "spdxIdentifier": "MIT"
     }
   ],
+  "allDependencies": [
+    "quiver_iterables",
+    "test"
+  ],
   "tags": [
     "license:mit",
     "license:fsf-libre",
