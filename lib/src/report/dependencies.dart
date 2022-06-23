@@ -35,16 +35,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
     var status = ReportStatus.passed;
     if (context.pubspecAllowsCurrentSdk) {
       try {
-        final outdated = Outdated.fromJson(await toolEnvironment.runPubOutdated(
-          packageDir,
-          args: [
-            '--json',
-            '--up-to-date',
-            '--no-dev-dependencies',
-            '--no-dependency-overrides',
-          ],
-          usesFlutter: context.usesFlutter,
-        ));
+        final outdated = await context.outdated;
         final outdatedVersions = <String, List<OutdatedVersionDescription>>{};
         for (final p in outdated.packages) {
           outdatedVersions[p.package] =

@@ -11,6 +11,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_options.dart';
+import 'internal_model.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
@@ -346,7 +347,7 @@ class ToolEnvironment {
     });
   }
 
-  Future<Map<String, dynamic>> runPubOutdated(
+  Future<Outdated> runPubOutdated(
     String packageDir, {
     List<String> args = const [],
     required bool usesFlutter,
@@ -378,7 +379,7 @@ class ToolEnvironment {
         throw ToolException(
             '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```');
       } else {
-        return result.parseJson();
+        return Outdated.fromJson(result.parseJson());
       }
     });
   }

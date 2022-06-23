@@ -42,6 +42,9 @@
       "spdxIdentifier": "MIT"
     }
   ],
+  "allDependencies": [
+    "flutter"
+  ],
   "tags": [
     "license:mit",
     "license:fsf-libre",

@@ -68,6 +68,21 @@
       "spdxIdentifier": "MIT"
     }
   ],
+  "allDependencies": [
+    "audio_service_platform_interface",
+    "audio_service_web",
+    "audio_session",
+    "clock",
+    "fake_async",
+    "flutter",
+    "flutter_cache_manager",
+    "flutter_lints",
+    "flutter_test",
+    "flutter_web_plugins",
+    "js",
+    "mockito",
+    "rxdart"
+  ],
   "tags": [
     "license:mit",
     "license:fsf-libre",
