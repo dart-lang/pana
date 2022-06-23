@@ -33,25 +33,66 @@ class UrlWithIssue {
   UrlWithIssue(this.url, this.issue);
 
   late final isOK = url != null && issue == null;
+  late final isNotOK = !isOK;
   late final verifiedUrl = isOK ? url : null;
 }
 
 /// Verifies the URLs in pubspec and builds the [PubspecUrlsWithIssues] object.
 Future<PubspecUrlsWithIssues> checkPubspecUrls(PackageContext context) async {
   final pubspec = context.pubspec;
+  var homepage = await _checkUrlInPubspec(context, 'homepage', 'Homepage URL',
+      isRequired: pubspec.repository == null);
+  var repository = await _checkUrlInPubspec(
+      context, 'repository', 'Repository URL',
+      isRequired: pubspec.homepage == null);
+  var issueTracker =
+      await _checkUrlInPubspec(context, 'issue_tracker', 'Issue tracker URL');
+
+  // Switch homepage and repository if only homepage is given,
+  // and it can be verified as a valid repository.
+  final verifiedRepository = await context.repository;
+  final isVerifiedRepository = verifiedRepository?.repository != null;
+  if (pubspec.homepage != null &&
+      pubspec.repository == null &&
+      isVerifiedRepository) {
+    var r = repository;
+    repository = homepage;
+    homepage = r;
+  }
+
+  // Set known issue tracker link in cases where it was not provided.
+  if (pubspec.issueTracker == null && isVerifiedRepository) {
+    final baseUri = Uri.tryParse(verifiedRepository!.repository!.baseUrl);
+    if (baseUri != null &&
+        baseUri.scheme == 'https' &&
+        (baseUri.host == 'github.com' || baseUri.host == 'gitlab.com') &&
+        baseUri.pathSegments.length == 2) {
+      final inferredUri = Uri(
+        scheme: 'https',
+        host: baseUri.host,
+        pathSegments: [
+          ...baseUri.pathSegments,
+          'issues',
+        ],
+      );
+      final inferredResult = await _checkUrl(context, 'issue_tracker',
+          'Issue tracker URL', inferredUri.toString());
+      if (inferredResult.isOK) {
+        issueTracker = inferredResult;
+      }
+    }
+  }
+
   return PubspecUrlsWithIssues(
-    homepage: await _checkUrl(context, 'homepage', 'Homepage URL',
-        isRequired: pubspec.repository == null),
-    repository: await _checkUrl(context, 'repository', 'Repository URL',
-        isRequired: pubspec.homepage == null),
-    issueTracker:
-        await _checkUrl(context, 'issue_tracker', 'Issue tracker URL'),
+    homepage: homepage,
+    repository: repository,
+    issueTracker: issueTracker,
     documentation:
-        await _checkUrl(context, 'documentation', 'Documentation URL'),
+        await _checkUrlInPubspec(context, 'documentation', 'Documentation URL'),
   );
 }
 
-Future<UrlWithIssue> _checkUrl(
+Future<UrlWithIssue> _checkUrlInPubspec(
   PackageContext context,
   String key,
   String name, {
@@ -75,7 +116,16 @@ Future<UrlWithIssue> _checkUrl(
     }
     return UrlWithIssue(null, null);
   }
+  return await _checkUrl(context, key, name, url);
+}
 
+Future<UrlWithIssue> _checkUrl(
+  PackageContext context,
+  String key,
+  String name,
+  String url,
+) async {
+  final pubspec = context.pubspec;
   final status = await context.urlChecker.checkStatus(url);
   if (status.isInvalid) {
     return UrlWithIssue(

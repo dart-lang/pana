@@ -106,7 +106,8 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://github.com/cloudwebrtc/dart-sdp-transform",
+    "repositoryUrl": "https://github.com/cloudwebrtc/dart-sdp-transform",
+    "issueTrackerUrl": "https://github.com/cloudwebrtc/dart-sdp-transform/issues",
     "repository": {
       "baseUrl": "https://github.com/cloudwebrtc/dart-sdp-transform",
       "branch": "master"
