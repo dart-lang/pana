@@ -38,7 +38,7 @@ class LibraryShape {
   final List<PropertyShape> setters;
 
   /// The top-level functions exported in this library.
-  final List<MethodShape> functions;
+  final List<ExecutableShape> functions;
 
   /// `Set` of [ClassShape.id] elements, where each one corresponds to a class
   /// exported in this library.
@@ -70,7 +70,7 @@ class ClassShape {
   final String name;
   final List<PropertyShape> getters;
   final List<PropertyShape> setters;
-  final List<MethodShape> methods;
+  final List<ExecutableShape> methods;
 
   ClassShape({
     required this.id,
@@ -95,15 +95,15 @@ class ClassShape {
 /// A Shape for describing a class method or a top-level function.
 @sealed
 @JsonSerializable()
-class MethodShape {
+class ExecutableShape {
   final String name;
 
-  MethodShape({required this.name});
+  ExecutableShape({required this.name});
 
-  factory MethodShape.fromJson(Map<String, dynamic> json) =>
-      _$MethodShapeFromJson(json);
+  factory ExecutableShape.fromJson(Map<String, dynamic> json) =>
+      _$ExecutableShapeFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MethodShapeToJson(this);
+  Map<String, dynamic> toJson() => _$ExecutableShapeToJson(this);
 }
 
 /// A Shape for describing a getter/setter of a class property or a top-level

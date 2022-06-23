@@ -7,7 +7,7 @@ extension ClassShapeExt on ClassShape {
     String? name,
     List<PropertyShape>? getters,
     List<PropertyShape>? setters,
-    List<MethodShape>? methods,
+    List<ExecutableShape>? methods,
   }) =>
       ClassShape(
         id: id ?? this.id,
@@ -24,7 +24,7 @@ extension LibraryShapeExt on LibraryShape {
     String? uri,
     List<PropertyShape>? getters,
     List<PropertyShape>? setters,
-    List<MethodShape>? functions,
+    List<ExecutableShape>? functions,
     Set<int>? exportedClasses,
   }) =>
       LibraryShape(

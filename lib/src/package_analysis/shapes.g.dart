@@ -30,7 +30,7 @@ LibraryShape _$LibraryShapeFromJson(Map<String, dynamic> json) => LibraryShape(
           .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
           .toList(),
       functions: (json['functions'] as List<dynamic>)
-          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+          .map((e) => ExecutableShape.fromJson(e as Map<String, dynamic>))
           .toList(),
       exportedClasses: (json['exportedClasses'] as List<dynamic>)
           .map((e) => e as int)
@@ -56,7 +56,7 @@ ClassShape _$ClassShapeFromJson(Map<String, dynamic> json) => ClassShape(
           .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
           .toList(),
       methods: (json['methods'] as List<dynamic>)
-          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+          .map((e) => ExecutableShape.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -69,11 +69,12 @@ Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
       'methods': instance.methods.map((e) => e.toJson()).toList(),
     };
 
-MethodShape _$MethodShapeFromJson(Map<String, dynamic> json) => MethodShape(
+ExecutableShape _$ExecutableShapeFromJson(Map<String, dynamic> json) =>
+    ExecutableShape(
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$MethodShapeToJson(MethodShape instance) =>
+Map<String, dynamic> _$ExecutableShapeToJson(ExecutableShape instance) =>
     <String, dynamic>{
       'name': instance.name,
     };

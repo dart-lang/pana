@@ -16,9 +16,9 @@ Future<PackageShape> summarizePackage(
     classes: <ClassShape>{},
   );
 
-  MethodShape summarizeExecutableElement(ExecutableElement executableElement) {
+  ExecutableShape summarizeExecutableElement(ExecutableElement executableElement) {
     // ExecutableElement is a superclass of both MethodShape and FunctionShape
-    return MethodShape(name: executableElement.name);
+    return ExecutableShape(name: executableElement.name);
   }
 
   PropertyShape summarizeProperty(PropertyAccessorElement property) {
