@@ -25,7 +25,7 @@ extension LibraryShapeExt on LibraryShape {
     List<PropertyShape>? getters,
     List<PropertyShape>? setters,
     List<ExecutableShape>? functions,
-    Set<int>? exportedClasses,
+    List<int>? exportedClasses,
   }) =>
       LibraryShape(
         uri: uri ?? this.uri,

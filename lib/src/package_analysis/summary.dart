@@ -13,7 +13,7 @@ Future<PackageShape> summarizePackage(
 ) async {
   final package = PackageShape(
     libraries: <LibraryShape>[],
-    classes: <ClassShape>{},
+    classes: <ClassShape>[],
   );
 
   ExecutableShape summarizeExecutableElement(ExecutableElement executableElement) {
@@ -64,7 +64,7 @@ Future<PackageShape> summarizePackage(
         .whereType<ClassElement>()
         .map(summarizeClassElement)
         .toList();
-    final classIds = classes.map((thisClass) => thisClass.id).toSet();
+    final classIds = classes.map((thisClass) => thisClass.id).toList();
 
     final getters = publicSymbols.values
         .whereType<PropertyAccessorElement>()
@@ -83,7 +83,7 @@ Future<PackageShape> summarizePackage(
         .map(summarizeExecutableElement)
         .toList();
 
-    package.classes.addAll(classes);
+    package.classes.addAll(classes.where((thisClass) => !package.classes.contains(thisClass)));
     package.libraries.add(LibraryShape(
       uri: identifier,
       exportedClasses: classIds,

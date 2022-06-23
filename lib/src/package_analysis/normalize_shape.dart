@@ -51,15 +51,14 @@ PackageShape normalizePackageShape(PackageShape package) {
   }).map((thisClass) {
     oldIdToNewId[thisClass.id] = newIdCounter;
     return thisClass.replace(id: newIdCounter++);
-  }).toSet();
+  }).toList();
 
   // reassign ids in [package.libraries]
   final newLibraries = package.libraries
       .map((library) => library.replace(
             exportedClasses: library.exportedClasses
                 .map((classId) => oldIdToNewId[classId]!)
-                .sorted(Comparable.compare)
-                .toSet(),
+                .sorted(Comparable.compare),
           ))
       .toList();
 

@@ -10,7 +10,7 @@ class PackageShape {
   final List<LibraryShape> libraries;
 
   /// All the classes defined in the libraries of this package.
-  final Set<ClassShape> classes;
+  final List<ClassShape> classes;
 
   PackageShape({required this.libraries, required this.classes});
 
@@ -40,9 +40,9 @@ class LibraryShape {
   /// The top-level functions exported in this library.
   final List<ExecutableShape> functions;
 
-  /// `Set` of [ClassShape.id] elements, where each one corresponds to a class
+  /// `List` of [ClassShape.id] elements, where each one corresponds to a class
   /// exported in this library.
-  final Set<int> exportedClasses;
+  final List<int> exportedClasses;
 
   LibraryShape({
     required this.uri,

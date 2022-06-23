@@ -12,7 +12,7 @@ PackageShape _$PackageShapeFromJson(Map<String, dynamic> json) => PackageShape(
           .toList(),
       classes: (json['classes'] as List<dynamic>)
           .map((e) => ClassShape.fromJson(e as Map<String, dynamic>))
-          .toSet(),
+          .toList(),
     );
 
 Map<String, dynamic> _$PackageShapeToJson(PackageShape instance) =>
@@ -34,7 +34,7 @@ LibraryShape _$LibraryShapeFromJson(Map<String, dynamic> json) => LibraryShape(
           .toList(),
       exportedClasses: (json['exportedClasses'] as List<dynamic>)
           .map((e) => e as int)
-          .toSet(),
+          .toList(),
     );
 
 Map<String, dynamic> _$LibraryShapeToJson(LibraryShape instance) =>
@@ -43,7 +43,7 @@ Map<String, dynamic> _$LibraryShapeToJson(LibraryShape instance) =>
       'getters': instance.getters.map((e) => e.toJson()).toList(),
       'setters': instance.setters.map((e) => e.toJson()).toList(),
       'functions': instance.functions.map((e) => e.toJson()).toList(),
-      'exportedClasses': instance.exportedClasses.toList(),
+      'exportedClasses': instance.exportedClasses,
     };
 
 ClassShape _$ClassShapeFromJson(Map<String, dynamic> json) => ClassShape(
