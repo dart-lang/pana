@@ -1,4 +1,4 @@
-## 0.21.13-dev
+## 0.21.13
 
 - Populate the pubspec's `repository` field.
 - Fix: Use the stripped/augmented `pubspec.yaml` for `pub outdated`.
