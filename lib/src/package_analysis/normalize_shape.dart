@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 
 import 'shapes.dart';
+import 'shapes_ext.dart';
 
 /// Given a [PackageShape] create a new [PackageShape] structure where the
 /// elements of [PackageShape.classes] are sorted canonically: first by
@@ -34,51 +35,33 @@ PackageShape normalizePackageShape(PackageShape package) {
   final sortMapping = librariesWhereClassExported.map(
       (classId, libraryUris) => MapEntry(classId, libraryUris.sorted().join()));
 
+  final oldIdToNewId = <int, int>{};
+  var newIdCounter = 0;
+
   // sort the existing classes first by their id,
   // then (if the ids are equal) using [sortMapping]
-  final classes = package.classes.sorted((a, b) {
+  // finally create mapping and reassign ids in [classes] according to the sorted order
+  final newClasses = package.classes.sorted((a, b) {
     final compareIds = a.name.compareTo(b.name);
     if (compareIds != 0) {
       return compareIds;
     } else {
       return sortMapping[a.id]!.compareTo(sortMapping[b.id]!);
     }
-  });
-
-  // maps old ids to new ids
-  final newIdMapping = <int, int>{};
-  var newIdCounter = 0;
-
-  // create new objects for the normalized PackageShape to be returned
-  final newClasses = <ClassShape>{};
-  final newLibraries = <LibraryShape>[];
-
-  // create mapping and reassign ids in [classes] according to the sorted order
-  for (final thisClass in classes) {
-    newClasses.add(ClassShape(
-      id: newIdCounter,
-      name: thisClass.name,
-      getters: thisClass.getters,
-      setters: thisClass.setters,
-      methods: thisClass.methods,
-    ));
-    newIdMapping[thisClass.id] = newIdCounter;
-    newIdCounter += 1;
-  }
+  }).map((thisClass) {
+    oldIdToNewId[thisClass.id] = newIdCounter;
+    return thisClass.replace(id: newIdCounter++);
+  }).toSet();
 
   // reassign ids in [package.libraries]
-  for (final library in package.libraries) {
-    newLibraries.add(LibraryShape(
-      uri: library.uri,
-      getters: library.getters,
-      setters: library.setters,
-      functions: library.functions,
-      exportedClasses: library.exportedClasses
-          .map((classId) => newIdMapping[classId]!)
-          .sorted(Comparable.compare)
-          .toSet(),
-    ));
-  }
+  final newLibraries = package.libraries
+      .map((library) => library.replace(
+            exportedClasses: library.exportedClasses
+                .map((classId) => oldIdToNewId[classId]!)
+                .sorted(Comparable.compare)
+                .toSet(),
+          ))
+      .toList();
 
   return PackageShape(libraries: newLibraries, classes: newClasses);
 }
