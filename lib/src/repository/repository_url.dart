@@ -38,7 +38,7 @@ class RepositoryUrl {
   static RepositoryUrl parse(String input) {
     final v = tryParse(input);
     if (v == null) {
-      throw FormatException('Unable to parse repository url: `$input`.');
+      throw FormatException('Invalid repository url: `$input`.');
     } else {
       return v;
     }
@@ -121,11 +121,18 @@ RepositoryUrl? _tryParseRepositoryUrl(String input) {
 
   final provider = _detectProvider(uri);
 
+  // Normalizing the URL path and rejecting URLs that may differ more than
+  // a trailing slash.
+  final normalizedUri = Uri.tryParse(p.normalize(uri.path));
+  if (normalizedUri == null) {
+    return null;
+  }
+  if (uri.path != normalizedUri.path && uri.path != '${normalizedUri.path}/') {
+    return null;
+  }
   // detect repo vs path segments
-  final segments = Uri.parse(p.normalize(uri.path))
-      .pathSegments
-      .where((s) => s.isNotEmpty)
-      .toList();
+  final segments =
+      normalizedUri.pathSegments.where((s) => s.isNotEmpty).toList();
   final repoSegmentIndex = _repoSegmentIndex(provider, segments);
   if (repoSegmentIndex < 0) return null;
 
