@@ -112,12 +112,11 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://www.github.com/dart-lang/async"
-  },
-  "repository": {
-    "baseUrl": "https://github.com/dart-lang/async",
-    "branch": "master",
-    "isVerified": true
+    "homepageUrl": "https://www.github.com/dart-lang/async",
+    "repository": {
+      "baseUrl": "https://github.com/dart-lang/async",
+      "branch": "master"
+    }
   },
   "urlProblems": []
 }

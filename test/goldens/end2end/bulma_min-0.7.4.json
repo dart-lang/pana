@@ -97,12 +97,11 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://github.com/agilord/bulma_min"
-  },
-  "repository": {
-    "baseUrl": "https://github.com/agilord/bulma_min",
-    "branch": "master",
-    "isVerified": true
+    "homepageUrl": "https://github.com/agilord/bulma_min",
+    "repository": {
+      "baseUrl": "https://github.com/agilord/bulma_min",
+      "branch": "master"
+    }
   },
   "urlProblems": []
 }

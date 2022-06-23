@@ -90,12 +90,11 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://github.com/mitsuoka/mime_type"
-  },
-  "repository": {
-    "baseUrl": "https://github.com/mitsuoka/mime_type",
-    "branch": "master",
-    "isVerified": true
+    "homepageUrl": "https://github.com/mitsuoka/mime_type",
+    "repository": {
+      "baseUrl": "https://github.com/mitsuoka/mime_type",
+      "branch": "master"
+    }
   },
   "urlProblems": []
 }

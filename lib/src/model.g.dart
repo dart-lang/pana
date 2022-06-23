@@ -50,9 +50,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
       result: json['result'] == null
           ? null
           : AnalysisResult.fromJson(json['result'] as Map<String, dynamic>),
-      repository: json['repository'] == null
-          ? null
-          : Repository.fromJson(json['repository'] as Map<String, dynamic>),
       urlProblems: (json['urlProblems'] as List<dynamic>?)
           ?.map((e) => UrlProblem.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -85,7 +82,6 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
   writeNotNull(
       'screenshots', instance.screenshots?.map((e) => e.toJson()).toList());
   writeNotNull('result', instance.result?.toJson());
-  writeNotNull('repository', instance.repository?.toJson());
   writeNotNull(
       'urlProblems', instance.urlProblems?.map((e) => e.toJson()).toList());
   writeNotNull('errorMessage', instance.errorMessage);
@@ -191,6 +187,9 @@ AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
       repositoryUrl: json['repositoryUrl'] as String?,
       issueTrackerUrl: json['issueTrackerUrl'] as String?,
       documentationUrl: json['documentationUrl'] as String?,
+      repository: json['repository'] == null
+          ? null
+          : Repository.fromJson(json['repository'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
@@ -206,6 +205,7 @@ Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
   writeNotNull('repositoryUrl', instance.repositoryUrl);
   writeNotNull('issueTrackerUrl', instance.issueTrackerUrl);
   writeNotNull('documentationUrl', instance.documentationUrl);
+  writeNotNull('repository', instance.repository?.toJson());
   return val;
 }
 
@@ -213,8 +213,6 @@ Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
       baseUrl: json['baseUrl'] as String,
       branch: json['branch'] as String?,
       packagePath: json['packagePath'] as String?,
-      isVerified: json['isVerified'] as bool?,
-      verificationFailure: json['verificationFailure'] as String?,
     );
 
 Map<String, dynamic> _$RepositoryToJson(Repository instance) {
@@ -230,8 +228,6 @@ Map<String, dynamic> _$RepositoryToJson(Repository instance) {
 
   writeNotNull('branch', instance.branch);
   writeNotNull('packagePath', instance.packagePath);
-  writeNotNull('isVerified', instance.isVerified);
-  writeNotNull('verificationFailure', instance.verificationFailure);
   return val;
 }
 

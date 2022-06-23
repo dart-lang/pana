@@ -105,13 +105,12 @@
   "screenshots": [],
   "result": {
     "repositoryUrl": "https://github.com/sebastianhaberey/nsd/tree/main/nsd_android",
-    "issueTrackerUrl": "https://github.com/sebastianhaberey/nsd/issues"
-  },
-  "repository": {
-    "baseUrl": "https://github.com/sebastianhaberey/nsd",
-    "branch": "main",
-    "packagePath": "nsd_android",
-    "isVerified": true
+    "issueTrackerUrl": "https://github.com/sebastianhaberey/nsd/issues",
+    "repository": {
+      "baseUrl": "https://github.com/sebastianhaberey/nsd",
+      "branch": "main",
+      "packagePath": "nsd_android"
+    }
   },
   "urlProblems": [],
   "errorMessage": "Running `flutter pub upgrade` failed with the following output:\n\n```\nERR: Because every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\n So, because nsd_android depends on flutter from sdk, version solving failed.\n```"

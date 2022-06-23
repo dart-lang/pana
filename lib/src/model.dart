@@ -50,7 +50,6 @@ class Summary {
   final Report? report;
   final List<ProcessedScreenshot>? screenshots;
   final AnalysisResult? result;
-  final Repository? repository;
 
   /// URLs that are invalid, unsafe or missing.
   final List<UrlProblem>? urlProblems;
@@ -69,7 +68,6 @@ class Summary {
     this.tags,
     this.report,
     this.result,
-    this.repository,
     this.urlProblems,
     this.errorMessage,
     this.screenshots,
@@ -95,7 +93,6 @@ class Summary {
       tags: tags ?? this.tags,
       report: report,
       result: result,
-      repository: repository,
       urlProblems: urlProblems,
       errorMessage: errorMessage,
       screenshots: screenshots,
@@ -354,12 +351,14 @@ class AnalysisResult {
   final String? repositoryUrl;
   final String? issueTrackerUrl;
   final String? documentationUrl;
+  final Repository? repository;
 
   AnalysisResult({
-    required this.homepageUrl,
-    required this.repositoryUrl,
-    required this.issueTrackerUrl,
-    required this.documentationUrl,
+    this.homepageUrl,
+    this.repositoryUrl,
+    this.issueTrackerUrl,
+    this.documentationUrl,
+    this.repository,
   });
 
   factory AnalysisResult.fromJson(Map<String, dynamic> json) =>
@@ -369,37 +368,23 @@ class AnalysisResult {
 }
 
 /// NOTE: the content of the class is experimental, clients should not rely on it yet.
+/// To get successful verification, the remote repository:
+///   - must be a valid remote repository with public access,
+///   - must contain a `pubspec.yaml` in the location specified by the repository URL,
+///   - must have the same package name and repository URL in the `pubspec.yaml` that
+///     was used to analyze the package,
+///   - must have a valid version,
+///   - must not have a `publish_to` key.
 @JsonSerializable()
 class Repository {
   final String baseUrl;
   final String? branch;
   final String? packagePath;
 
-  /// When present, there was an attempt to verify the remote repository for
-  /// a matching `pubspec.yaml` file, and the value is the success status of
-  /// the verification.
-  ///
-  /// To get successful verification (`true` value) here, the remote repository:
-  ///   - must be a valid remote repository with public access,
-  ///   - must contain a `pubspec.yaml` in the location specified by the repository URL,
-  ///   - must have the same package name and repository URL in the `pubspec.yaml` that
-  ///     was used to analyze the package,
-  ///   - must have a valid version,
-  ///   - must not have a `publish_to` key.
-  ///
-  /// When `false`, [verificationFailure] should contain the message that describes
-  /// the nature of the verification failure.
-  final bool? isVerified;
-
-  /// When present, the remote repository verification failed with this message.
-  final String? verificationFailure;
-
   Repository({
     required this.baseUrl,
     this.branch,
     this.packagePath,
-    this.isVerified,
-    this.verificationFailure,
   });
 
   factory Repository.fromJson(Map<String, dynamic> json) =>

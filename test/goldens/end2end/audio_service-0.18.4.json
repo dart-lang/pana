@@ -142,13 +142,12 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://github.com/ryanheise/audio_service/tree/master/audio_service"
-  },
-  "repository": {
-    "baseUrl": "https://github.com/ryanheise/audio_service",
-    "branch": "minor",
-    "packagePath": "audio_service",
-    "isVerified": true
+    "homepageUrl": "https://github.com/ryanheise/audio_service/tree/master/audio_service",
+    "repository": {
+      "baseUrl": "https://github.com/ryanheise/audio_service",
+      "branch": "minor",
+      "packagePath": "audio_service"
+    }
   },
   "urlProblems": [],
   "errorMessage": "Running `flutter pub upgrade` failed with the following output:\n\n```\nERR: Because every version of flutter_web_plugins from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter_web_plugins from sdk is forbidden.\n So, because audio_service depends on flutter_web_plugins from sdk, version solving failed.\n```"

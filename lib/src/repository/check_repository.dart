@@ -15,8 +15,18 @@ import 'repository_url.dart';
 
 const _maxPubspecBytes = 256 * 1024;
 
+class VerifiedRepository {
+  final Repository? repository;
+  final String? verificationFailure;
+
+  VerifiedRepository({
+    this.repository,
+    this.verificationFailure,
+  });
+}
+
 /// Returns the repository information for the current package.
-Future<Repository?> checkRepository(PackageContext context) async {
+Future<VerifiedRepository?> checkRepository(PackageContext context) async {
   final sourceUrl = context.pubspec.repositoryOrHomepage;
   if (sourceUrl == null) {
     return null;
@@ -26,21 +36,27 @@ Future<Repository?> checkRepository(PackageContext context) async {
     return null;
   }
   var branch = url.branch;
-  bool? isVerified;
+  var isVerified = false;
   String? verificationFailure;
   var packagePath = url.path.isEmpty ? null : url.path;
 
-  Repository result() {
+  VerifiedRepository result() {
     if (packagePath == '.') {
       packagePath = null;
     }
-    return Repository(
-      baseUrl: url.baseUrl,
-      branch: branch,
-      packagePath: packagePath,
-      isVerified: isVerified,
-      verificationFailure: verificationFailure,
-    );
+    if (isVerified && verificationFailure == null) {
+      return VerifiedRepository(
+        repository: Repository(
+          baseUrl: url.baseUrl,
+          branch: branch,
+          packagePath: packagePath,
+        ),
+      );
+    } else {
+      return VerifiedRepository(
+        verificationFailure: verificationFailure,
+      );
+    }
   }
 
   void failVerification(String message, [error, StackTrace? st]) {
