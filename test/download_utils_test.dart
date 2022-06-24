@@ -115,6 +115,12 @@ void main() {
       expect(status.getProblemCode(packageIsKnownInternal: true), isNull);
     });
 
+    test('false positive: internal', () async {
+      final status = await UrlChecker()
+          .hasExternalHostname(Uri.parse('https://onepub.dev/'));
+      expect(status, isTrue);
+    });
+
     test('problem: insecure', () async {
       final status = await UrlChecker().checkStatus('http://pub.dev/');
       expect(status.isInvalid, false);
