@@ -129,21 +129,56 @@ class Platform {
   static final List<Platform> recognizedPlatforms = [
     android,
     ios,
-    Platform('Windows', Runtime.broadNative, tag: 'platform:windows'),
-    Platform('Linux', Runtime.broadNative, tag: 'platform:linux'),
-    Platform('macOS', Runtime.broadNative, tag: 'platform:macos'),
-    Platform('Web', Runtime.broadWeb, tag: 'platform:web'),
+    windows,
+    linux,
+    macos,
+    web,
   ];
+
+  /// Platforms that binary-only packages will be assigned to.
+  static final binaryOnlyAssignedPlatforms = [
+    linux,
+    macos,
+    windows,
+  ];
+  // Platforms that binary-only packages will NOT be assigned to.
+  static final binaryOnlyNotAssignedPlatforms = recognizedPlatforms
+      .where((e) => !binaryOnlyAssignedPlatforms.contains(e))
+      .toList();
 
   static final android = Platform(
     'Android',
     Runtime.broadNative,
     tag: 'platform:android',
   );
-  static final ios = Platform('iOS', Runtime.broadNative, tag: 'platform:ios');
+  static final ios = Platform(
+    'iOS',
+    Runtime.broadNative,
+    tag: 'platform:ios',
+  );
+  static final linux = Platform(
+    'Linux',
+    Runtime.broadNative,
+    tag: 'platform:linux',
+  );
+  static final macos = Platform(
+    'macOS',
+    Runtime.broadNative,
+    tag: 'platform:macos',
+  );
+  static final web = Platform(
+    'Web',
+    Runtime.broadWeb,
+    tag: 'platform:web',
+  );
+  static final windows = Platform(
+    'Windows',
+    Runtime.broadNative,
+    tag: 'platform:windows',
+  );
 
   @override
-  String toString() => 'FlutterPlatform($name)';
+  String toString() => 'Platform($name)';
 }
 
 class Sdk {

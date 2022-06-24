@@ -164,7 +164,9 @@ class Tagger {
             .map((f) => path.relative(f.path, from: binDir.path))
             .toList()
         : <String>[];
-    final isBinaryOnly = nonSrcDartFiles.isEmpty && allBinFiles.isNotEmpty;
+    final isBinaryOnly = !pubspec.usesFlutter &&
+        nonSrcDartFiles.isEmpty &&
+        allBinFiles.isNotEmpty;
 
     final publicLibraries = nonSrcDartFiles
         .map((s) => Uri.parse('package:${pubspec.name}/$s'))
@@ -184,8 +186,8 @@ class Tagger {
       if (_isBinaryOnly) {
         tags.add(Sdk.dart.tag);
         explanations.add(Explanation('Binary only',
-            'Cannot assign flutter SDK tag because it is binary only',
-            tag: null));
+            'Cannot assign Flutter SDK tag because it is binary only.',
+            tag: Sdk.flutter.tag));
       } else {
         for (final sdk in Sdk.knownSdks) {
           // Will find a path in the package graph where a package declares an sdk
@@ -220,9 +222,12 @@ class Tagger {
   }) {
     try {
       if (_isBinaryOnly) {
-        explanations.add(Explanation('Binary only',
-            'Cannot assign platform tags, it is a binary only package',
-            tag: null));
+        // TODO: consider checking `platforms:` is present in `pubspec.yaml`
+        tags.addAll(Platform.binaryOnlyAssignedPlatforms.map((p) => p.tag));
+        explanations.addAll(Platform.binaryOnlyNotAssignedPlatforms.map((p) =>
+            Explanation(p.name,
+                'Cannot assign ${p.name} automatically to a binary only package.',
+                tag: p.tag)));
       } else {
         for (final platform in Platform.recognizedPlatforms) {
           final libraryGraph =

@@ -1,3 +1,7 @@
+## 0.21.14
+
+- Predefined platform assignments for binary-only packages.
+
 ## 0.21.13
 
 - Populate the pubspec's `repository` field.

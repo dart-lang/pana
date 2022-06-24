@@ -36,19 +36,36 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 0/20 Platform support
+## 20/20 Platform support
 
-### [x] 0/20 points: Supports 0 of 6 possible platforms (iOS, Android, Web, Windows, MacOS, Linux)
+### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **MacOS**, **Linux**)
 
+* ✓ Linux
+* ✓ MacOS
+* ✓ Windows
 
 These platforms are not supported:
 
 <details>
 <summary>
-Binary only
+Android
 </summary>
 
-Cannot assign platform tags, it is a binary only package
+Cannot assign Android automatically to a binary only package.
+</details>
+<details>
+<summary>
+iOS
+</summary>
+
+Cannot assign iOS automatically to a binary only package.
+</details>
+<details>
+<summary>
+Web
+</summary>
+
+Cannot assign Web automatically to a binary only package.
 </details>
 
 ## 30/30 Pass static analysis
