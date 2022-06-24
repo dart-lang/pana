@@ -6,29 +6,41 @@ summary: |-
     "libraries": [
       {
         "uri": "package:test_package/a.dart",
-        "getters": [
-          {
-            "name": "srcVar"
-          }
+        "exportedGetters": [
+          0
         ],
-        "setters": [
-          {
-            "name": "srcVar"
-          }
+        "exportedSetters": [
+          1
         ],
-        "functions": [
-          {
-            "name": "srcFunc"
-          }
+        "exportedFunctions": [
+          2
         ],
         "exportedClasses": [
-          0
+          3
         ]
+      }
+    ],
+    "getters": [
+      {
+        "id": 0,
+        "name": "srcVar"
+      }
+    ],
+    "setters": [
+      {
+        "id": 1,
+        "name": "srcVar"
+      }
+    ],
+    "functions": [
+      {
+        "id": 2,
+        "name": "srcFunc"
       }
     ],
     "classes": [
       {
-        "id": 0,
+        "id": 3,
         "name": "SrcClass",
         "getters": [],
         "setters": [],

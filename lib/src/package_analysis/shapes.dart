@@ -9,10 +9,25 @@ part 'shapes.g.dart';
 class PackageShape {
   final List<LibraryShape> libraries;
 
-  /// All the classes defined in the libraries of this package.
+  /// All top-level getters exported somewhere in this package.
+  final List<GlobalPropertyShape> getters;
+
+  /// All top-level setters exported somewhere in this package.
+  final List<GlobalPropertyShape> setters;
+
+  /// All top-level functions exported somewhere in this package.
+  final List<FunctionShape> functions;
+
+  /// All classes exported somewhere in this package.
   final List<ClassShape> classes;
 
-  PackageShape({required this.libraries, required this.classes});
+  PackageShape({
+    required this.libraries,
+    required this.getters,
+    required this.setters,
+    required this.functions,
+    required this.classes,
+  });
 
   factory PackageShape.fromJson(Map<String, dynamic> json) =>
       _$PackageShapeFromJson(json);
@@ -34,11 +49,17 @@ class LibraryShape {
   /// ```
   final String uri;
 
-  final List<PropertyShape> getters;
-  final List<PropertyShape> setters;
+  /// `List` of [PropertyShape.id] elements, where each one corresponds to a
+  /// top-level getter exported in this library.
+  final List<int> exportedGetters;
 
-  /// The top-level functions exported in this library.
-  final List<ExecutableShape> functions;
+  /// `List` of [PropertyShape.id] elements, where each one corresponds to a
+  /// top-level setter exported in this library.
+  final List<int> exportedSetters;
+
+  /// `List` of [MethodShape.id] elements, where each one corresponds to a
+  /// top-level function exported in this library.
+  final List<int> exportedFunctions;
 
   /// `List` of [ClassShape.id] elements, where each one corresponds to a class
   /// exported in this library.
@@ -46,9 +67,9 @@ class LibraryShape {
 
   LibraryShape({
     required this.uri,
-    required this.getters,
-    required this.setters,
-    required this.functions,
+    required this.exportedGetters,
+    required this.exportedSetters,
+    required this.exportedFunctions,
     required this.exportedClasses,
   });
 
@@ -61,30 +82,18 @@ class LibraryShape {
 /// A Shape for describing a class.
 @sealed
 @JsonSerializable()
-class ClassShape {
-  /// Unique identifier for this [ClassShape] within the given [PackageShape].
-  ///
-  /// Classes will be referenced using their [id] in other shapes, such as
-  /// [LibraryShape].
-  final int id;
-  final String name;
+class ClassShape extends BasicShape {
   final List<PropertyShape> getters;
   final List<PropertyShape> setters;
-  final List<ExecutableShape> methods;
+  final List<MethodShape> methods;
 
   ClassShape({
-    required this.id,
-    required this.name,
+    required super.id,
+    required super.name,
     required this.getters,
     required this.setters,
     required this.methods,
   });
-
-  @override
-  bool operator ==(other) => other is ClassShape && id == other.id;
-
-  @override
-  int get hashCode => id;
 
   factory ClassShape.fromJson(Map<String, dynamic> json) =>
       _$ClassShapeFromJson(json);
@@ -92,22 +101,33 @@ class ClassShape {
   Map<String, dynamic> toJson() => _$ClassShapeToJson(this);
 }
 
-/// A Shape for describing a class method or a top-level function.
+/// A Shape for describing a class method
 @sealed
 @JsonSerializable()
-class ExecutableShape {
+class MethodShape {
   final String name;
 
-  ExecutableShape({required this.name});
+  MethodShape({required this.name});
 
-  factory ExecutableShape.fromJson(Map<String, dynamic> json) =>
-      _$ExecutableShapeFromJson(json);
+  factory MethodShape.fromJson(Map<String, dynamic> json) =>
+      _$MethodShapeFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ExecutableShapeToJson(this);
+  Map<String, dynamic> toJson() => _$MethodShapeToJson(this);
 }
 
-/// A Shape for describing a getter/setter of a class property or a top-level
-/// variable.
+/// A Shape for describing a top-level function
+@sealed
+@JsonSerializable()
+class FunctionShape extends BasicShape {
+  FunctionShape({required super.id, required super.name});
+
+  factory FunctionShape.fromJson(Map<String, dynamic> json) =>
+      _$FunctionShapeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FunctionShapeToJson(this);
+}
+
+/// A Shape for describing a getter/setter of a class property
 @sealed
 @JsonSerializable()
 class PropertyShape {
@@ -119,4 +139,30 @@ class PropertyShape {
       _$PropertyShapeFromJson(json);
 
   Map<String, dynamic> toJson() => _$PropertyShapeToJson(this);
+}
+
+/// A Shape for describing a getter/setter of a top-level variable
+@sealed
+@JsonSerializable()
+class GlobalPropertyShape extends BasicShape {
+  GlobalPropertyShape({required super.id, required super.name});
+
+  factory GlobalPropertyShape.fromJson(Map<String, dynamic> json) =>
+      _$GlobalPropertyShapeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GlobalPropertyShapeToJson(this);
+}
+
+@internal
+abstract class BasicShape {
+  final int id;
+  final String name;
+
+  BasicShape({required this.id, required this.name});
+
+  @override
+  bool operator ==(other) => other is BasicShape && id == other.id;
+
+  @override
+  int get hashCode => id;
 }

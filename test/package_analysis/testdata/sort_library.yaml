@@ -6,32 +6,35 @@ summary: |-
     "libraries": [
       {
         "uri": "package:test_package/a.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [],
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
         "exportedClasses": [
           0
         ]
       },
       {
         "uri": "package:test_package/b.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [],
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
         "exportedClasses": [
           1
         ]
       },
       {
         "uri": "package:test_package/c.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [],
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
         "exportedClasses": [
           2
         ]
       }
     ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
     "classes": [
       {
         "id": 0,

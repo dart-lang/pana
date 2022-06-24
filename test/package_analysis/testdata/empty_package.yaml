@@ -4,6 +4,9 @@ name: The analyser should be able to handle an empty pacakge
 summary: |-
   {
     "libraries": [],
+    "getters": [],
+    "setters": [],
+    "functions": [],
     "classes": []
   }
 package: []

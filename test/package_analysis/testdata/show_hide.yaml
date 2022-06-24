@@ -6,64 +6,72 @@ summary: |-
     "libraries": [
       {
         "uri": "package:test_package/a.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [
-          {
-            "name": "a"
-          }
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [
+          0
         ],
         "exportedClasses": [
-          1,
-          2
+          4,
+          5
         ]
       },
       {
         "uri": "package:test_package/b.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [],
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
         "exportedClasses": [
-          0,
-          1,
-          2
+          3,
+          4,
+          5
         ]
       },
       {
         "uri": "package:test_package/c.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [
-          {
-            "name": "a"
-          },
-          {
-            "name": "b"
-          },
-          {
-            "name": "c"
-          }
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [
+          0,
+          1,
+          2
         ],
         "exportedClasses": []
       }
     ],
-    "classes": [
+    "getters": [],
+    "setters": [],
+    "functions": [
       {
         "id": 0,
+        "name": "a"
+      },
+      {
+        "id": 1,
+        "name": "b"
+      },
+      {
+        "id": 2,
+        "name": "c"
+      }
+    ],
+    "classes": [
+      {
+        "id": 3,
         "name": "A",
         "getters": [],
         "setters": [],
         "methods": []
       },
       {
-        "id": 1,
+        "id": 4,
         "name": "B",
         "getters": [],
         "setters": [],
         "methods": []
       },
       {
-        "id": 2,
+        "id": 5,
         "name": "C",
         "getters": [],
         "setters": [],

@@ -6,14 +6,17 @@ summary: |-
     "libraries": [
       {
         "uri": "package:test_package/a.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [],
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
         "exportedClasses": [
           0
         ]
       }
     ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
     "classes": [
       {
         "id": 0,

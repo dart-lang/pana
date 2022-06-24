@@ -13,22 +13,39 @@ Future<PackageShape> summarizePackage(
 ) async {
   final package = PackageShape(
     libraries: <LibraryShape>[],
+    getters: <GlobalPropertyShape>[],
+    setters: <GlobalPropertyShape>[],
+    functions: <FunctionShape>[],
     classes: <ClassShape>[],
   );
 
-  ExecutableShape summarizeExecutableElement(ExecutableElement executableElement) {
-    // ExecutableElement is a superclass of both MethodShape and FunctionShape
-    return ExecutableShape(name: executableElement.name);
+  MethodShape summarizeMethod(
+      ExecutableElement executableElement) {
+    return MethodShape(
+      name: executableElement.name,
+    );
+  }
+
+  FunctionShape summarizeFunction(
+      ExecutableElement executableElement) {
+    return FunctionShape(
+      id: executableElement.id,
+      name: executableElement.name,
+    );
   }
 
   PropertyShape summarizeProperty(PropertyAccessorElement property) {
     return PropertyShape(name: property.variable.name);
   }
 
+  GlobalPropertyShape summarizeGlobalProperty(PropertyAccessorElement property) {
+    return GlobalPropertyShape(id: property.id, name: property.variable.name);
+  }
+
   ClassShape summarizeClassElement(ClassElement classElement) {
     final methods = classElement.methods
         .where((element) => element.isPublic)
-        .map(summarizeExecutableElement)
+        .map(summarizeMethod)
         .toList();
 
     // an accessor is a getter or a setter
@@ -58,38 +75,40 @@ Future<PackageShape> summarizePackage(
     final identifier = libraryElement.identifier;
 
     // public top-level elements which are exported by this library
-    final publicSymbols = libraryElement.exportNamespace.definedNames;
+    final publicSymbols = libraryElement.exportNamespace.definedNames.values;
 
-    final classes = publicSymbols.values
+    final classes = publicSymbols
         .whereType<ClassElement>()
-        .map(summarizeClassElement)
-        .toList();
-    final classIds = classes.map((thisClass) => thisClass.id).toList();
+        .map(summarizeClassElement);
 
-    final getters = publicSymbols.values
+    final getters = publicSymbols
         .whereType<PropertyAccessorElement>()
         .where((element) => element.isGetter)
-        .map(summarizeProperty)
-        .toList();
+        .map(summarizeGlobalProperty);
 
-    final setters = publicSymbols.values
+    final setters = publicSymbols
         .whereType<PropertyAccessorElement>()
         .where((element) => element.isSetter)
-        .map(summarizeProperty)
-        .toList();
+        .map(summarizeGlobalProperty);
 
-    final functions = publicSymbols.values
+    final functions = publicSymbols
         .whereType<FunctionElement>()
-        .map(summarizeExecutableElement)
-        .toList();
+        .map(summarizeFunction);
 
-    package.classes.addAll(classes.where((thisClass) => !package.classes.contains(thisClass)));
+    package.getters
+        .addAll(getters.where((getter) => !package.getters.contains(getter)));
+    package.setters
+        .addAll(setters.where((setter) => !package.setters.contains(setter)));
+    package.functions.addAll(
+        functions.where((function) => !package.functions.contains(function)));
+    package.classes.addAll(
+        classes.where((thisClass) => !package.classes.contains(thisClass)));
     package.libraries.add(LibraryShape(
       uri: identifier,
-      exportedClasses: classIds,
-      getters: getters,
-      setters: setters,
-      functions: functions,
+      exportedClasses: classes.map((thisClass) => thisClass.id).toList(),
+      exportedGetters: getters.map((getter) => getter.id).toList(),
+      exportedSetters: setters.map((setter) => setter.id).toList(),
+      exportedFunctions: functions.map((function) => function.id).toList(),
     ));
   }
 

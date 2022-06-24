@@ -6,9 +6,9 @@ summary: |-
     "libraries": [
       {
         "uri": "package:test_package/a.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [],
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
         "exportedClasses": [
           0,
           1,
@@ -17,9 +17,9 @@ summary: |-
       },
       {
         "uri": "package:test_package/b.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [],
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
         "exportedClasses": [
           0,
           1,
@@ -28,9 +28,9 @@ summary: |-
       },
       {
         "uri": "package:test_package/c.dart",
-        "getters": [],
-        "setters": [],
-        "functions": [],
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
         "exportedClasses": [
           0,
           1,
@@ -38,6 +38,9 @@ summary: |-
         ]
       }
     ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
     "classes": [
       {
         "id": 0,

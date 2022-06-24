@@ -6,64 +6,104 @@ summary: |-
     "libraries": [
       {
         "uri": "package:test_package/a.dart",
-        "getters": [
-          {
-            "name": "variable"
-          },
-          {
-            "name": "nullableVariable"
-          },
-          {
-            "name": "initializedVariable"
-          },
-          {
-            "name": "typedInitializedVariable"
-          },
-          {
-            "name": "finalVariable"
-          },
-          {
-            "name": "constVariable"
-          },
-          {
-            "name": "lateVariable"
-          },
-          {
-            "name": "lateFinalVariable"
-          },
-          {
-            "name": "myGetter"
-          }
+        "exportedGetters": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
         ],
-        "setters": [
-          {
-            "name": "variable"
-          },
-          {
-            "name": "nullableVariable"
-          },
-          {
-            "name": "initializedVariable"
-          },
-          {
-            "name": "typedInitializedVariable"
-          },
-          {
-            "name": "lateVariable"
-          },
-          {
-            "name": "lateFinalVariable"
-          },
-          {
-            "name": "mySetter"
-          }
+        "exportedSetters": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
         ],
-        "functions": [
-          {
-            "name": "myFunction"
-          }
+        "exportedFunctions": [
+          16
         ],
         "exportedClasses": []
+      }
+    ],
+    "getters": [
+      {
+        "id": 0,
+        "name": "constVariable"
+      },
+      {
+        "id": 1,
+        "name": "finalVariable"
+      },
+      {
+        "id": 2,
+        "name": "initializedVariable"
+      },
+      {
+        "id": 3,
+        "name": "lateFinalVariable"
+      },
+      {
+        "id": 4,
+        "name": "lateVariable"
+      },
+      {
+        "id": 5,
+        "name": "myGetter"
+      },
+      {
+        "id": 6,
+        "name": "nullableVariable"
+      },
+      {
+        "id": 7,
+        "name": "typedInitializedVariable"
+      },
+      {
+        "id": 8,
+        "name": "variable"
+      }
+    ],
+    "setters": [
+      {
+        "id": 9,
+        "name": "initializedVariable"
+      },
+      {
+        "id": 10,
+        "name": "lateFinalVariable"
+      },
+      {
+        "id": 11,
+        "name": "lateVariable"
+      },
+      {
+        "id": 12,
+        "name": "mySetter"
+      },
+      {
+        "id": 13,
+        "name": "nullableVariable"
+      },
+      {
+        "id": 14,
+        "name": "typedInitializedVariable"
+      },
+      {
+        "id": 15,
+        "name": "variable"
+      }
+    ],
+    "functions": [
+      {
+        "id": 16,
+        "name": "myFunction"
       }
     ],
     "classes": []
