@@ -64,28 +64,15 @@ class PackageContext {
     final upgrade = await toolEnvironment.runUpgrade(packageDir, usesFlutter);
 
     if (upgrade.exitCode == 0) {
-      try {
-        _dependenciesResolved = true;
-      } catch (e, stack) {
-        log.severe('Problem with `dart pub upgrade`', e, stack);
-        //(TODO)kevmoo - should add a helper that handles logging exceptions
-        //  and writing to issues in one go.
-
-        // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
-        final cmd = usesFlutter ? 'flutter pub upgrade' : 'dart pub upgrade';
-        errors.add('Running `$cmd` failed with the following output:\n\n'
-            '```\n$e\n```\n');
-      }
+      _dependenciesResolved = true;
     } else {
       _dependenciesResolved = false;
-      String message;
-      if (upgrade.exitCode > 0) {
-        message = PubEntry.parse(upgrade.stderr.asString)
-            .where((e) => e.header == 'ERR')
-            .join('\n');
-      } else {
-        message = LineSplitter.split(upgrade.stderr.asString).first;
-      }
+      final errEntries = PubEntry.parse(upgrade.stderr.asString)
+          .where((e) => e.header == 'ERR')
+          .join('\n');
+      final message = errEntries.isNotEmpty
+          ? errEntries
+          : upgrade.stderr.asString.split('\n').first;
 
       // 1: Version constraint issue with direct or transitive dependencies.
       //
