@@ -132,9 +132,10 @@ class UrlChecker {
   void addInternalHosts(Iterable<Pattern> hosts) {
     _internalHosts.addAll(hosts.expand((host) {
       if (host is String) {
+        final escaped = RegExp.escape(host);
         return [
-          RegExp('^$host\$'),
-          RegExp('^.+\\.$host\$'),
+          RegExp('^$escaped\$'),
+          RegExp('^.+\\.$escaped\$'),
         ];
       } else {
         return [host];

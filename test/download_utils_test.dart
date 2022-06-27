@@ -115,7 +115,13 @@ void main() {
       expect(status.getProblemCode(packageIsKnownInternal: true), isNull);
     });
 
-    test('false positive: internal', () async {
+    test('false positive: internal #1', () async {
+      final status =
+          await UrlChecker().hasExternalHostname(Uri.parse('https://pubxdev/'));
+      expect(status, isTrue);
+    });
+
+    test('false positive: internal #2', () async {
       final status = await UrlChecker()
           .hasExternalHostname(Uri.parse('https://onepub.dev/'));
       expect(status, isTrue);
