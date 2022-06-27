@@ -82,7 +82,7 @@ class LibraryShape {
 /// A Shape for describing a class.
 @sealed
 @JsonSerializable()
-class ClassShape extends BasicShape {
+class ClassShape extends GlobalShapeBase {
   final List<PropertyShape> getters;
   final List<PropertyShape> setters;
   final List<MethodShape> methods;
@@ -118,7 +118,7 @@ class MethodShape {
 /// A Shape for describing a top-level function
 @sealed
 @JsonSerializable()
-class FunctionShape extends BasicShape {
+class FunctionShape extends GlobalShapeBase {
   FunctionShape({required super.id, required super.name});
 
   factory FunctionShape.fromJson(Map<String, dynamic> json) =>
@@ -144,7 +144,7 @@ class PropertyShape {
 /// A Shape for describing a getter/setter of a top-level variable
 @sealed
 @JsonSerializable()
-class GlobalPropertyShape extends BasicShape {
+class GlobalPropertyShape extends GlobalShapeBase {
   GlobalPropertyShape({required super.id, required super.name});
 
   factory GlobalPropertyShape.fromJson(Map<String, dynamic> json) =>
@@ -154,14 +154,14 @@ class GlobalPropertyShape extends BasicShape {
 }
 
 @internal
-abstract class BasicShape {
+abstract class GlobalShapeBase {
   final int id;
   final String name;
 
-  BasicShape({required this.id, required this.name});
+  GlobalShapeBase({required this.id, required this.name});
 
   @override
-  bool operator ==(other) => other is BasicShape && id == other.id;
+  bool operator ==(other) => other is GlobalShapeBase && id == other.id;
 
   @override
   int get hashCode => id;

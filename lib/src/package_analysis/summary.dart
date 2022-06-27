@@ -19,18 +19,16 @@ Future<PackageShape> summarizePackage(
     classes: <ClassShape>[],
   );
 
-  MethodShape summarizeMethod(
-      ExecutableElement executableElement) {
+  MethodShape summarizeMethod(MethodElement methodElement) {
     return MethodShape(
-      name: executableElement.name,
+      name: methodElement.name,
     );
   }
 
-  FunctionShape summarizeFunction(
-      ExecutableElement executableElement) {
+  FunctionShape summarizeFunction(FunctionElement functionElement) {
     return FunctionShape(
-      id: executableElement.id,
-      name: executableElement.name,
+      id: functionElement.id,
+      name: functionElement.name,
     );
   }
 
@@ -38,7 +36,8 @@ Future<PackageShape> summarizePackage(
     return PropertyShape(name: property.variable.name);
   }
 
-  GlobalPropertyShape summarizeGlobalProperty(PropertyAccessorElement property) {
+  GlobalPropertyShape summarizeGlobalProperty(
+      PropertyAccessorElement property) {
     return GlobalPropertyShape(id: property.id, name: property.variable.name);
   }
 

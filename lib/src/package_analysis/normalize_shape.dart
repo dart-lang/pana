@@ -52,7 +52,7 @@ PackageShape normalizePackageShape(PackageShape package) {
 
   // compares Shapes first using their name,
   // then (if the names are equal) using [sortMapping]
-  int compareShape(BasicShape a, BasicShape b) {
+  int compareShape(GlobalShapeBase a, GlobalShapeBase b) {
     final compareIds = a.name.compareTo(b.name);
     if (compareIds != 0) {
       return compareIds;
