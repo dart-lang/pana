@@ -89,6 +89,7 @@
   ],
   "tags": [
     "sdk:dart",
+    "sdk:flutter",
     "platform:linux",
     "platform:macos",
     "platform:windows",

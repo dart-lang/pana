@@ -185,9 +185,7 @@ class Tagger {
     try {
       if (_isBinaryOnly) {
         tags.add(Sdk.dart.tag);
-        explanations.add(Explanation('Binary only',
-            'Cannot assign Flutter SDK tag because it is binary only.',
-            tag: Sdk.flutter.tag));
+        tags.add(Sdk.flutter.tag);
       } else {
         for (final sdk in Sdk.knownSdks) {
           // Will find a path in the package graph where a package declares an sdk
