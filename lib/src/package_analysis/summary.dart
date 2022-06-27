@@ -71,43 +71,63 @@ Future<PackageShape> summarizePackage(
 
   void summarizeLibraryElement(
       LibraryElement libraryElement, String libraryPath) {
-    final identifier = libraryElement.identifier;
+    final uri = libraryElement.identifier;
+    final exportedClasses = <int>[];
+    final exportedGetters = <int>[];
+    final exportedSetters = <int>[];
+    final exportedFunctions = <int>[];
 
     // public top-level elements which are exported by this library
     final publicSymbols = libraryElement.exportNamespace.definedNames.values;
 
     final classes = publicSymbols
         .whereType<ClassElement>()
+        .where((classElement) {
+          exportedClasses.add(classElement.id);
+          return !package.classes
+              .any((thisClass) => classElement.id == thisClass.id);
+        })
         .map(summarizeClassElement);
 
     final getters = publicSymbols
         .whereType<PropertyAccessorElement>()
         .where((element) => element.isGetter)
+        .where((accessorElement) {
+          exportedGetters.add(accessorElement.id);
+          return !package.getters
+              .any((getter) => accessorElement.id == getter.id);
+        })
         .map(summarizeGlobalProperty);
 
     final setters = publicSymbols
         .whereType<PropertyAccessorElement>()
         .where((element) => element.isSetter)
+        .where((accessorElement) {
+          exportedSetters.add(accessorElement.id);
+          return !package.setters
+              .any((setter) => accessorElement.id == setter.id);
+        })
         .map(summarizeGlobalProperty);
 
     final functions = publicSymbols
         .whereType<FunctionElement>()
+        .where((functionElement) {
+          exportedFunctions.add(functionElement.id);
+          return !package.functions
+              .any((function) => functionElement.id == function.id);
+        })
         .map(summarizeFunction);
 
-    package.getters
-        .addAll(getters.where((getter) => !package.getters.contains(getter)));
-    package.setters
-        .addAll(setters.where((setter) => !package.setters.contains(setter)));
-    package.functions.addAll(
-        functions.where((function) => !package.functions.contains(function)));
-    package.classes.addAll(
-        classes.where((thisClass) => !package.classes.contains(thisClass)));
+    package.getters.addAll(getters);
+    package.setters.addAll(setters);
+    package.functions.addAll(functions);
+    package.classes.addAll(classes);
     package.libraries.add(LibraryShape(
-      uri: identifier,
-      exportedClasses: classes.map((thisClass) => thisClass.id).toList(),
-      exportedGetters: getters.map((getter) => getter.id).toList(),
-      exportedSetters: setters.map((setter) => setter.id).toList(),
-      exportedFunctions: functions.map((function) => function.id).toList(),
+      uri: uri,
+      exportedClasses: exportedClasses,
+      exportedGetters: exportedGetters,
+      exportedSetters: exportedSetters,
+      exportedFunctions: exportedFunctions,
     ));
   }
 
