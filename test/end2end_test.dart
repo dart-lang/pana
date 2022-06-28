@@ -159,6 +159,9 @@ void main() {
   // single-platform Flutter plugin without Dart files or assets
   _verifyPackage('nsd_android', '1.2.0');
 
+  // binary-only package (without `platforms:` in pubspec)
+  _verifyPackage('onepub', '1.1.0');
+
   // multi-level symlink
   _verifyPackage('audio_service', '0.18.4');
 
