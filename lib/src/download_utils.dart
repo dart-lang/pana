@@ -114,28 +114,38 @@ class UrlChecker {
   UrlChecker() {
     addInternalHosts([
       'dart.dev',
-      RegExp(r'.*\.dart\.dev'),
       'flutter.dev',
-      RegExp(r'.*\.flutter\.dev'),
+      'flutter.io',
       'pub.dev',
-      RegExp(r'.*\.pub\.dev'),
       'dartlang.org',
-      RegExp(r'.*\.dartlang\.org'),
       'example.com',
-      RegExp(r'.*\.example.com'),
       'localhost',
     ]);
   }
 
   /// Specify hosts internal to Dart. Non-internal packages
   /// should not reference internal hosts.
+  ///
+  /// When a host is [String], we will expand the rule to include:
+  /// - exact hostname match (`^$host$`), and
+  /// - subdomain hostname match (`^.+\.$host$`).
   void addInternalHosts(Iterable<Pattern> hosts) {
-    _internalHosts.addAll(hosts);
+    _internalHosts.addAll(hosts.expand((host) {
+      if (host is String) {
+        final escaped = RegExp.escape(host);
+        return [
+          RegExp('^$escaped\$'),
+          RegExp('^.+\\.$escaped\$'),
+        ];
+      } else {
+        return [host];
+      }
+    }));
   }
 
   /// Check the hostname against known patterns.
   Future<bool> hasExternalHostname(Uri uri) async {
-    return _internalHosts.every((p) => p.allMatches(uri.host).isEmpty);
+    return _internalHosts.every((p) => p.matchAsPrefix(uri.host) == null);
   }
 
   /// Returns `true` if the [uri] exists,

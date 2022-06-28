@@ -1,6 +1,7 @@
 ## 0.21.14
 
 - Predefined platform assignments for binary-only packages.
+- Fix: internal hostname check uses full-length match.
 
 ## 0.21.13
 

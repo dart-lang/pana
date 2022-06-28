@@ -139,7 +139,7 @@ Future<UrlWithIssue> _checkUrl(
     return UrlWithIssue(
       url,
       Issue(
-        "$name isn't helpful.",
+        '$name is pointing to a domain reserved for internal packages only.',
         span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
       ),
     );
