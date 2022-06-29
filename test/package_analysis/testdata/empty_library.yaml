@@ -1,0 +1,24 @@
+---
+
+name: The analyser should be able to handle an empty library
+summary: |-
+  {
+    "libraries": [
+      {
+        "uri": "package:test_package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": []
+  }
+package:
+  - path: lib/a.dart
+    content: ""
+
+...

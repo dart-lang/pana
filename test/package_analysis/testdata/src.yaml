@@ -1,0 +1,61 @@
+---
+
+name: Libraries should be able to export symbols from ./src
+summary: |-
+  {
+    "libraries": [
+      {
+        "uri": "package:test_package/a.dart",
+        "exportedGetters": [
+          0
+        ],
+        "exportedSetters": [
+          1
+        ],
+        "exportedFunctions": [
+          2
+        ],
+        "exportedClasses": [
+          3
+        ]
+      }
+    ],
+    "getters": [
+      {
+        "id": 0,
+        "name": "srcVar"
+      }
+    ],
+    "setters": [
+      {
+        "id": 1,
+        "name": "srcVar"
+      }
+    ],
+    "functions": [
+      {
+        "id": 2,
+        "name": "srcFunc"
+      }
+    ],
+    "classes": [
+      {
+        "id": 3,
+        "name": "SrcClass",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      }
+    ]
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      export 'src/src.dart';
+  - path: lib/src/src.dart
+    content: |
+      var srcVar;
+      void srcFunc() {}
+      class SrcClass {}
+
+...

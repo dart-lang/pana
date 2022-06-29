@@ -1,0 +1,130 @@
+---
+
+name: The summary should include top-level elements such as variables, getters, setters and functions
+summary: |-
+  {
+    "libraries": [
+      {
+        "uri": "package:test_package/a.dart",
+        "exportedGetters": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "exportedSetters": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "exportedFunctions": [
+          16
+        ],
+        "exportedClasses": []
+      }
+    ],
+    "getters": [
+      {
+        "id": 0,
+        "name": "constVariable"
+      },
+      {
+        "id": 1,
+        "name": "finalVariable"
+      },
+      {
+        "id": 2,
+        "name": "initializedVariable"
+      },
+      {
+        "id": 3,
+        "name": "lateFinalVariable"
+      },
+      {
+        "id": 4,
+        "name": "lateVariable"
+      },
+      {
+        "id": 5,
+        "name": "myGetter"
+      },
+      {
+        "id": 6,
+        "name": "nullableVariable"
+      },
+      {
+        "id": 7,
+        "name": "typedInitializedVariable"
+      },
+      {
+        "id": 8,
+        "name": "variable"
+      }
+    ],
+    "setters": [
+      {
+        "id": 9,
+        "name": "initializedVariable"
+      },
+      {
+        "id": 10,
+        "name": "lateFinalVariable"
+      },
+      {
+        "id": 11,
+        "name": "lateVariable"
+      },
+      {
+        "id": 12,
+        "name": "mySetter"
+      },
+      {
+        "id": 13,
+        "name": "nullableVariable"
+      },
+      {
+        "id": 14,
+        "name": "typedInitializedVariable"
+      },
+      {
+        "id": 15,
+        "name": "variable"
+      }
+    ],
+    "functions": [
+      {
+        "id": 16,
+        "name": "myFunction"
+      }
+    ],
+    "classes": []
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      var variable;
+      int? nullableVariable;
+      var initializedVariable = 1;
+      int typedInitializedVariable = 1;
+
+      final finalVariable = 1;
+      const constVariable = 1;
+
+      late int lateVariable;
+      late final int lateFinalVariable;
+
+      int get myGetter => 1;
+      set mySetter(int something) {}
+
+      void myFunction() {}
+
+...

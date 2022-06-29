@@ -1,0 +1,105 @@
+---
+
+name: The summary should include class members such as properties, getters, setters and methods
+summary: |-
+  {
+    "libraries": [
+      {
+        "uri": "package:test_package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ]
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "C",
+        "getters": [
+          {
+            "name": "variable"
+          },
+          {
+            "name": "nullableVariable"
+          },
+          {
+            "name": "initializedVariable"
+          },
+          {
+            "name": "typedInitializedVariable"
+          },
+          {
+            "name": "finalVariable"
+          },
+          {
+            "name": "staticConstVariable"
+          },
+          {
+            "name": "lateVariable"
+          },
+          {
+            "name": "lateFinalVariable"
+          },
+          {
+            "name": "myGetter"
+          }
+        ],
+        "setters": [
+          {
+            "name": "variable"
+          },
+          {
+            "name": "nullableVariable"
+          },
+          {
+            "name": "initializedVariable"
+          },
+          {
+            "name": "typedInitializedVariable"
+          },
+          {
+            "name": "lateVariable"
+          },
+          {
+            "name": "lateFinalVariable"
+          },
+          {
+            "name": "mySetter"
+          }
+        ],
+        "methods": [
+          {
+            "name": "myMethod"
+          }
+        ]
+      }
+    ]
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      class C {
+        var variable;
+        int? nullableVariable;
+        var initializedVariable = 1;
+        int typedInitializedVariable = 1;
+
+        final finalVariable = 1;
+        static const staticConstVariable = 1;
+
+        late int lateVariable;
+        late final int lateFinalVariable;
+
+        int get myGetter => 1;
+        set mySetter(int something) {}
+
+        void myMethod() {}
+      }
+
+...

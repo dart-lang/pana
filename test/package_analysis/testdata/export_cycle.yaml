@@ -1,0 +1,58 @@
+---
+
+name: Libraries can export each other in a cycle
+summary: |-
+  {
+    "libraries": [
+      {
+        "uri": "package:test_package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0,
+          1
+        ]
+      },
+      {
+        "uri": "package:test_package/b.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0,
+          1
+        ]
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "C",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      },
+      {
+        "id": 1,
+        "name": "D",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      }
+    ]
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      export 'b.dart';
+      class C {}
+  - path: lib/b.dart
+    content: |
+      export 'a.dart';
+      class D {}
+
+...

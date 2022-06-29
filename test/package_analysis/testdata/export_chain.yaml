@@ -1,0 +1,71 @@
+---
+
+name: Libraries can export each other in a long chain
+summary: |-
+  {
+    "libraries": [
+      {
+        "uri": "package:test_package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ]
+      },
+      {
+        "uri": "package:test_package/b.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ]
+      },
+      {
+        "uri": "package:test_package/c.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ]
+      },
+      {
+        "uri": "package:test_package/d.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ]
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "C",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      }
+    ]
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      export 'b.dart';
+  - path: lib/b.dart
+    content: |
+      export 'c.dart';
+  - path: lib/c.dart
+    content: |
+      export 'd.dart';
+  - path: lib/d.dart
+    content: |
+      class C {}
+
+...

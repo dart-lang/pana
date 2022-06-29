@@ -1,0 +1,83 @@
+---
+
+name: Classes must be sorted and re-indexed in alphabetical order
+summary: |-
+  {
+    "libraries": [
+      {
+        "uri": "package:test_package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "uri": "package:test_package/b.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "uri": "package:test_package/c.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0,
+          1,
+          2
+        ]
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "C",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      },
+      {
+        "id": 1,
+        "name": "D",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      },
+      {
+        "id": 2,
+        "name": "E",
+        "getters": [],
+        "setters": [],
+        "methods": []
+      }
+    ]
+  }
+package:
+  - path: lib/b.dart
+    content: |
+      export 'a.dart';
+      class C {}
+  - path: lib/c.dart
+    content: |
+      export 'a.dart';
+      class D {}
+  - path: lib/a.dart
+    content: |
+      export 'b.dart';
+      export 'c.dart';
+      class E {}
+
+...
