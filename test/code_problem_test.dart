@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/src/code_problem.dart';
+import 'package:pana/src/sdk_env.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -16,5 +17,10 @@ void main() {
   test('too many lines', () {
     final cp = parseCodeProblem('STDERR exceeded 100000 lines.')!;
     expect(cp.description, 'Analysis returned too many issues.');
+  });
+
+  test('analysis server failure', () {
+    expect(() => parseCodeProblem('Please report this at dartbug.com.'),
+        throwsA(isA<ToolException>()));
   });
 }
