@@ -135,9 +135,6 @@ Future<PackageShape> summarizePackage(
 
   for (var context in collection.contexts) {
     for (var filePath in context.contextRoot.analyzedFiles().sorted()) {
-      final session = context.currentSession;
-      final library = await session.getResolvedLibrary(filePath);
-
       // match [packageLocation]/lib/*.dart
       // but exclude [packageLocation]/lib/src/*.dart
       if (!(path.isWithin(path.join(packageLocation, 'lib'), filePath) &&
@@ -145,6 +142,9 @@ Future<PackageShape> summarizePackage(
           path.extension(filePath) == '.dart')) {
         continue;
       }
+
+      final session = context.currentSession;
+      final library = await session.getResolvedLibrary(filePath);
 
       // this file is just part of another library
       if (library is NotLibraryButPartResult) {
