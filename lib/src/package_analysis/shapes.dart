@@ -166,3 +166,12 @@ abstract class GlobalShapeBase {
   @override
   int get hashCode => id;
 }
+
+/// An object representing the symbols a package is using from a dependency.
+@internal
+class RequiredSymbols {
+  final Map<String, Set<String>> functions;
+  final Map<String, Set<String>> methods;
+
+  RequiredSymbols({required this.functions, required this.methods});
+}

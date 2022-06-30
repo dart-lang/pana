@@ -60,3 +60,19 @@ extension LibraryShapeExt on LibraryShape {
         exportedClasses: exportedClasses ?? this.exportedClasses,
       );
 }
+
+extension PackageShapeExt on PackageShape {
+  /// Returns a list of the names of all the top-level functions which are defined in this package.
+  List<String> get getFunctions {
+    return functions.map((function) => function.name).toList();
+  }
+
+  /// Returns a list of the names of all the class methods which are defined in this package.
+  List<String> get getMethods {
+    final methods = <String>[];
+    for (final thisClass in classes) {
+      methods.addAll(thisClass.methods.map((method) => method.name));
+    }
+    return methods;
+  }
+}
