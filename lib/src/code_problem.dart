@@ -7,6 +7,7 @@ library pana.code_problem;
 import 'package:path/path.dart' as p;
 
 import 'internal_model.dart';
+import 'sdk_env.dart' show ToolException;
 
 // ignore: prefer_interpolation_to_compose_strings
 final _regexp = RegExp('^' + // beginning of line
@@ -63,8 +64,7 @@ CodeProblem? parseCodeProblem(String content, {String? projectDir}) {
       );
     }
 
-    throw ArgumentError(
-        'Provided content does not align with expectations.\n`$content`');
+    throw ToolException('Analysis failed with unexpected output.\n`$content`');
   }
 
   var match = matches.single;
