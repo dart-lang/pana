@@ -3,19 +3,17 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:args/command_runner.dart';
-import 'package:pana/src/package_analysis/report_external_usages.dart';
-import 'package:pana/src/package_analysis/shapes_ext.dart';
-
 import 'package:path/path.dart' as path;
 
 import 'common.dart';
+import 'shapes_ext.dart';
 import 'summary.dart';
+import 'usages.dart';
 
 Future<void> main(List<String> arguments) async {
   var runner = CommandRunner('package_analysis',
       'A tool for analysing the public API of a dart package.')
     ..addCommand(SummaryCommand())
-    ..addCommand(UsagesCommand())
     ..addCommand(LowerBoundAnalysisCommand());
   await runner.run(arguments);
 }
@@ -43,32 +41,6 @@ class SummaryCommand extends Command {
         .toJson();
     var indentedEncoder = const JsonEncoder.withIndent('  ');
     print(indentedEncoder.convert(packageJson));
-  }
-}
-
-class UsagesCommand extends Command {
-  @override
-  final name = 'usages';
-  @override
-  final description =
-      'Displays a summary of usages of symbols defined in an imported package.';
-
-  UsagesCommand();
-
-  @override
-  Future<void> run() async {
-    final packageLocation = await checkArgs(argResults!.rest);
-
-    final collection =
-        AnalysisContextCollection(includedPaths: [packageLocation]);
-
-    final usages = await reportUsages(
-      _PackageAnalysisContext(collection),
-      packageLocation,
-      null,
-    );
-
-    print(usages.toString());
   }
 }
 

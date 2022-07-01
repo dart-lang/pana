@@ -2,10 +2,10 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
 
 import 'common.dart';
-import 'shapes.dart';
 
 /// Returns the package name from a library identifier/uri, or null if
 /// [libraryUri] isn't of the form `package:*/*`.
@@ -109,4 +109,13 @@ Future<RequiredSymbols> reportUsages(
     functions: astVisitor.requiredFunctions,
     methods: astVisitor.requiredMethods,
   );
+}
+
+/// An object representing the symbols a package is using from a dependency.
+@internal
+class RequiredSymbols {
+  final Map<String, Set<String>> functions;
+  final Map<String, Set<String>> methods;
+
+  RequiredSymbols({required this.functions, required this.methods});
 }
