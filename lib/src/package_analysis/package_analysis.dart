@@ -30,16 +30,15 @@ class SummaryCommand extends Command {
   Future<void> run() async {
     final packageLocation = await checkArgs(argResults!.rest);
 
-    // TODO: maybe make these final
-    var collection =
+    final collection =
         AnalysisContextCollection(includedPaths: [packageLocation]);
 
-    var packageJson = (await summarizePackage(
+    final packageJson = (await summarizePackage(
       _PackageAnalysisContext(collection),
       packageLocation,
     ))
         .toJson();
-    var indentedEncoder = const JsonEncoder.withIndent('  ');
+    const indentedEncoder = JsonEncoder.withIndent('  ');
     print(indentedEncoder.convert(packageJson));
   }
 }
