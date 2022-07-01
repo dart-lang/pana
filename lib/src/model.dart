@@ -377,20 +377,38 @@ class AnalysisResult {
 ///   - must not have a `publish_to` key.
 @JsonSerializable()
 class Repository {
+  final RepositoryProvider provider;
   final String baseUrl;
   final String? branch;
   final String? packagePath;
 
   Repository({
+    RepositoryProvider? provider,
     required this.baseUrl,
     this.branch,
     this.packagePath,
-  });
+  }) : provider = provider ?? RepositoryProvider.unknown;
 
   factory Repository.fromJson(Map<String, dynamic> json) =>
       _$RepositoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$RepositoryToJson(this);
+}
+
+/// The identifier of repository provider, which could influence how relative URLs are resolved.
+enum RepositoryProvider {
+  /// GitHub
+  github,
+
+  /// GitLab (cloud or self-hosted)
+  gitlab,
+
+  /// Unable to identify.
+  unknown;
+
+  /// Whether the provider follows the GitHub URL conventions.
+  static bool isGitHubCompatible(RepositoryProvider? provider) =>
+      provider == github || provider == gitlab;
 }
 
 @JsonSerializable()

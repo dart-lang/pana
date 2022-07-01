@@ -2,6 +2,7 @@
 
 - Predefined platform assignments for binary-only packages.
 - Fix: internal hostname check uses full-length match.
+- Expose `RepositoryProvider` in the analysis result (`Repository.provider`).
 
 ## 0.21.13
 

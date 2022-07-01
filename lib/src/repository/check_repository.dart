@@ -47,6 +47,7 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
     if (isVerified && verificationFailure == null) {
       return VerifiedRepository(
         repository: Repository(
+          provider: url.provider,
           baseUrl: url.baseUrl,
           branch: branch,
           packagePath: packagePath,

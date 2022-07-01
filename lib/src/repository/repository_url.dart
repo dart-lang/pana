@@ -4,10 +4,12 @@
 
 import 'package:path/path.dart' as p;
 
+import '../model.dart' show RepositoryProvider;
+
 /// Describes the url + folder or file path of a repository URL.
 class RepositoryUrl {
   /// One of the values from [RepositoryProvider].
-  final String provider;
+  final RepositoryProvider? provider;
 
   /// The base URL up to the repository itself.
   final String baseUrl;
@@ -85,15 +87,6 @@ class RepositoryUrl {
       p.joinAll([baseUrl, separator, branch, path].whereType<String>());
 }
 
-abstract class RepositoryProvider {
-  static const github = 'github';
-  static const gitlab = 'gitlab';
-  static const unknown = 'unknown';
-
-  static bool isGitHubCompatible(String provider) =>
-      provider == github || provider == gitlab;
-}
-
 const _replaceSchemes = {
   'http': 'https',
 };
@@ -163,13 +156,13 @@ RepositoryUrl? _tryParseRepositoryUrl(String input) {
   );
 }
 
-String _detectProvider(Uri uri) {
+RepositoryProvider _detectProvider(Uri uri) {
   if (uri.host == 'github.com') return RepositoryProvider.github;
   if (uri.host == 'gitlab.com') return RepositoryProvider.gitlab;
   return RepositoryProvider.unknown;
 }
 
-int _repoSegmentIndex(String provider, List<String> segments) {
+int _repoSegmentIndex(RepositoryProvider provider, List<String> segments) {
   // first segment with .git postfix
   final gitPostfixIndex = segments.indexWhere((s) => s.endsWith('.git'));
   if (gitPostfixIndex >= 0) return gitPostfixIndex;

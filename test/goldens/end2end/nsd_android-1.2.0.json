@@ -107,6 +107,7 @@
     "repositoryUrl": "https://github.com/sebastianhaberey/nsd/tree/main/nsd_android",
     "issueTrackerUrl": "https://github.com/sebastianhaberey/nsd/issues",
     "repository": {
+      "provider": "github",
       "baseUrl": "https://github.com/sebastianhaberey/nsd",
       "branch": "main",
       "packagePath": "nsd_android"
