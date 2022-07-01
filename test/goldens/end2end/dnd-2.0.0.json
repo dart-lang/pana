@@ -103,6 +103,7 @@
     "repositoryUrl": "https://github.com/marcojakob/dart-dnd",
     "issueTrackerUrl": "https://github.com/marcojakob/dart-dnd/issues",
     "repository": {
+      "provider": "github",
       "baseUrl": "https://github.com/marcojakob/dart-dnd",
       "branch": "master"
     }

@@ -123,6 +123,7 @@
     "repositoryUrl": "https://github.com/dart-lang/http",
     "issueTrackerUrl": "https://github.com/dart-lang/http/issues",
     "repository": {
+      "provider": "github",
       "baseUrl": "https://github.com/dart-lang/http",
       "branch": "master",
       "packagePath": "pkgs/http"

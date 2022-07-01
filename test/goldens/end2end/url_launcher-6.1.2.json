@@ -147,6 +147,7 @@
     "repositoryUrl": "https://github.com/flutter/plugins/tree/main/packages/url_launcher/url_launcher",
     "issueTrackerUrl": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22",
     "repository": {
+      "provider": "github",
       "baseUrl": "https://github.com/flutter/plugins",
       "branch": "main",
       "packagePath": "packages/url_launcher/url_launcher"

@@ -210,6 +210,7 @@ Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
 }
 
 Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
+      provider: json['provider'] as String?,
       baseUrl: json['baseUrl'] as String,
       branch: json['branch'] as String?,
       packagePath: json['packagePath'] as String?,
@@ -217,6 +218,7 @@ Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
 
 Map<String, dynamic> _$RepositoryToJson(Repository instance) {
   final val = <String, dynamic>{
+    'provider': instance.provider,
     'baseUrl': instance.baseUrl,
   };
 

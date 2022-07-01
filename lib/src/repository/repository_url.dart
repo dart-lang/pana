@@ -4,10 +4,12 @@
 
 import 'package:path/path.dart' as p;
 
+import '../model.dart' show RepositoryProvider;
+
 /// Describes the url + folder or file path of a repository URL.
 class RepositoryUrl {
   /// One of the values from [RepositoryProvider].
-  final String provider;
+  final String? provider;
 
   /// The base URL up to the repository itself.
   final String baseUrl;
@@ -83,15 +85,6 @@ class RepositoryUrl {
   /// Creates a String representation of the URL.
   String toUrl() =>
       p.joinAll([baseUrl, separator, branch, path].whereType<String>());
-}
-
-abstract class RepositoryProvider {
-  static const github = 'github';
-  static const gitlab = 'gitlab';
-  static const unknown = 'unknown';
-
-  static bool isGitHubCompatible(String provider) =>
-      provider == github || provider == gitlab;
 }
 
 const _replaceSchemes = {

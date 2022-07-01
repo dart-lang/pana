@@ -145,6 +145,7 @@
     "repositoryUrl": "https://github.com/ryanheise/audio_service/tree/master/audio_service",
     "issueTrackerUrl": "https://github.com/ryanheise/audio_service/issues",
     "repository": {
+      "provider": "github",
       "baseUrl": "https://github.com/ryanheise/audio_service",
       "branch": "minor",
       "packagePath": "audio_service"
