@@ -210,7 +210,8 @@ Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
 }
 
 Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
-      provider: json['provider'] as String?,
+      provider:
+          $enumDecodeNullable(_$RepositoryProviderEnumMap, json['provider']),
       baseUrl: json['baseUrl'] as String,
       branch: json['branch'] as String?,
       packagePath: json['packagePath'] as String?,
@@ -218,7 +219,7 @@ Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
 
 Map<String, dynamic> _$RepositoryToJson(Repository instance) {
   final val = <String, dynamic>{
-    'provider': instance.provider,
+    'provider': _$RepositoryProviderEnumMap[instance.provider],
     'baseUrl': instance.baseUrl,
   };
 
@@ -232,6 +233,12 @@ Map<String, dynamic> _$RepositoryToJson(Repository instance) {
   writeNotNull('packagePath', instance.packagePath);
   return val;
 }
+
+const _$RepositoryProviderEnumMap = {
+  RepositoryProvider.github: 'github',
+  RepositoryProvider.gitlab: 'gitlab',
+  RepositoryProvider.unknown: 'unknown',
+};
 
 UrlProblem _$UrlProblemFromJson(Map<String, dynamic> json) => UrlProblem(
       url: json['url'] as String,
