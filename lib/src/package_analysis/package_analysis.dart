@@ -3,18 +3,21 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:args/command_runner.dart';
+import 'package:pana/pana.dart';
+import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
+import 'package:pub_semver/pub_semver.dart';
+import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 
 import 'common.dart';
-import 'shapes_ext.dart';
+import 'lower_bound_constraint_analysis.dart';
 import 'summary.dart';
-import 'usages.dart';
 
 Future<void> main(List<String> arguments) async {
   var runner = CommandRunner('package_analysis',
       'A tool for analysing the public API of a dart package.')
     ..addCommand(SummaryCommand())
-    ..addCommand(LowerBoundAnalysisCommand());
+    ..addCommand(LowerBoundConstraintAnalysisCommand());
   await runner.run(arguments);
 }
 
@@ -43,13 +46,13 @@ class SummaryCommand extends Command {
   }
 }
 
-class LowerBoundAnalysisCommand extends Command {
+class LowerBoundConstraintAnalysisCommand extends Command {
   @override
-  final name = 'lbanalysis';
+  final name = 'lbcanalysis';
   @override
   final description = 'Performs lower bound analysis.';
 
-  LowerBoundAnalysisCommand();
+  LowerBoundConstraintAnalysisCommand();
 
   @override
   Future<void> run() async {
@@ -68,13 +71,6 @@ class LowerBoundAnalysisCommand extends Command {
         packageIndex++) {
       final packageDoc = doc['packages'][packageIndex];
       final packageName = packageDoc['name'] as String;
-      final dependencies = packageDoc['latest']['pubspec']['dependencies']
-          as Map<String, dynamic>?;
-
-      // if there are no dependencies, there is nothing to analyse
-      if (dependencies == null || dependencies.isEmpty) {
-        return;
-      }
 
       print('Reviewing package $packageName...');
 
@@ -90,71 +86,64 @@ class LowerBoundAnalysisCommand extends Command {
         wipeTarget: true,
       );
 
-      // TODO: maybe there are other strings we want to ignore, other than 'flutter'?
-      final dependencyNames =
-          dependencies.keys.where((name) => name != 'flutter');
+      final allDependencies = Pubspec.parseYaml(
+              await File(path.join(targetFolder, 'pubspec.yaml'))
+                  .readAsString())
+          .dependencies;
+
+      // ensure that this dependency can be found on pub.dev and has version constraints
+      // TODO: is there a better way to do this?
+      allDependencies.removeWhere((key, value) => value is! HostedDependency);
+      final dependencies = Map<String, HostedDependency>.from(allDependencies );
+
+      // if there are no dependencies, there is nothing to analyze
+      if (dependencies.isEmpty) {
+        continue;
+      }
 
       // TODO: could we just use baseFolder instead of computing the target/dependency paths individually?
       final collection = AnalysisContextCollection(includedPaths: [
         targetFolder,
-        ...dependencyNames.map((name) => path.join(dependencyFolder, name))
+        ...dependencies.keys.map((name) => path.join(dependencyFolder, name))
       ]);
       final analysisContext = _PackageAnalysisContext(collection);
 
-      final dependencyUsages = await reportUsages(
-        analysisContext,
-        targetFolder,
-        packageName,
-      );
+      final dependencySummaries = <String, PackageShape>{};
 
-      for (final dependencyName in [
-        ...dependencyUsages.methods.keys,
-        ...dependencyUsages.functions.keys,
-      ]) {
-        if (dependencies[dependencyName] == null ||
-            dependencyName == 'flutter') {
-          continue;
-        }
-
-        final dependencyVersionConstraint =
-            dependencies[dependencyName] as String;
+      // iterate over each one of this package's dependencies and generate a summary
+      for (final dependencyEntry in dependencies.entries) {
+        final dependencyName = dependencyEntry.key;
+        final dependencyVersionConstraint = dependencyEntry.value.version;
         final dependencyDestination =
             path.join(dependencyFolder, dependencyName);
 
-        // only deal with caret syntax (for now)
-        // TODO: deal with other kinds of syntax, use package:pub_semver to help
-        if (!dependencyVersionConstraint.startsWith('^')) {
+        // only deal with version ranges where the minimum is allowed
+        // TODO: deal with other kinds of constraints
+        if (!(dependencyVersionConstraint is VersionRange &&
+            dependencyVersionConstraint.includeMin)) {
           continue;
         }
 
         await fetchPackageAndDependencies(
           name: dependencyName,
-          version: dependencyVersionConstraint.substring(1),
+          version: dependencyVersionConstraint.min!.toString(),
           destination: dependencyDestination,
           wipeTarget: true,
         );
 
-        final package = await summarizePackage(
+        dependencySummaries[dependencyName] = await summarizePackage(
           analysisContext,
           dependencyDestination,
         );
-
-        final missingFunctions = dependencyUsages.functions[dependencyName]
-                ?.difference(package.getFunctions.toSet()) ??
-            <String>{};
-        if (missingFunctions.isNotEmpty) {
-          print(
-              '$dependencyName ${dependencyVersionConstraint.substring(1)} is missing top-level functions $missingFunctions');
-        }
-
-        final missingMethods = dependencyUsages.methods[dependencyName]
-                ?.difference(package.getMethods.toSet()) ??
-            <String>{};
-        if (missingMethods.isNotEmpty) {
-          print(
-              '$dependencyName ${dependencyVersionConstraint.substring(1)} is missing class methods $missingMethods');
-        }
       }
+
+      await reportIssues(
+        packageAnalysisContext: analysisContext,
+        packageLocation: targetFolder,
+        rootPackageName: packageName,
+        dependencySummaries: dependencySummaries,
+        dependencies: dependencies,
+      );
     }
   }
 }

@@ -10,7 +10,7 @@ abstract class PackageAnalysisContext {
   AnalysisContext contextFor(String path) =>
       analysisContextCollection.contextFor(path);
 
-  /// Log [message] as warning that something unexpected happened.
+  /// Log [message] as a warning that something unexpected happened.
   void warning(String message);
 }
 
