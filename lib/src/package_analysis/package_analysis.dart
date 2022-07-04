@@ -117,16 +117,35 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final dependencyDestination =
             path.join(dependencyFolder, dependencyName);
 
-        // only deal with version ranges where the minimum is allowed
-        // TODO: deal with other kinds of constraints
-        if (!(dependencyVersionConstraint is VersionRange &&
-            dependencyVersionConstraint.includeMin)) {
-          continue;
+        String? minAllowedVersion;
+        if (dependencyVersionConstraint is VersionRange &&
+            dependencyVersionConstraint.includeMin) {
+          // this first case is very common
+          minAllowedVersion = dependencyVersionConstraint.min!.toString();
+        } else {
+          final dependencyDoc = (doc['packages'] as List<dynamic>)
+              .firstWhere((package) => package['name'] == dependencyName);
+          final allVersions = (dependencyDoc['versions'] as List<dynamic>)
+              .map((version) => version['version'] as String);
+
+          // allVersions is already sorted by order of increasing version
+          for (final version in allVersions) {
+            if (dependencyVersionConstraint.allows(Version.parse(version))) {
+              minAllowedVersion = version;
+              break;
+            }
+          }
+
+          if (minAllowedVersion == null) {
+            analysisContext.warning(
+                'Could not determine minimum allowed version for dependency $dependencyName, skipping it.');
+            continue;
+          }
         }
 
         await fetchPackageAndDependencies(
           name: dependencyName,
-          version: dependencyVersionConstraint.min!.toString(),
+          version: minAllowedVersion,
           destination: dependencyDestination,
           wipeTarget: true,
         );
