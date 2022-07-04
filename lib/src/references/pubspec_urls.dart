@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:path/path.dart' as p;
+
+import '../model.dart';
 import '../package_context.dart';
 import '../report/_common.dart';
 
@@ -62,21 +65,17 @@ Future<PubspecUrlsWithIssues> checkPubspecUrls(PackageContext context) async {
 
   // Set known issue tracker link in cases where it was not provided.
   if (pubspec.issueTracker == null && isVerifiedRepository) {
-    final baseUri = Uri.tryParse(verifiedRepository!.repository!.baseUrl);
-    if (baseUri != null &&
-        baseUri.scheme == 'https' &&
-        (baseUri.host == 'github.com' || baseUri.host == 'gitlab.com') &&
-        baseUri.pathSegments.length == 2) {
-      final inferredUri = Uri(
+    final vr = verifiedRepository!.repository!;
+    final repoSegments = vr.repository;
+    if (RepositoryProvider.isGitHubCompatible(vr.provider) &&
+        repoSegments != null) {
+      final inferredUrl = Uri(
         scheme: 'https',
-        host: baseUri.host,
-        pathSegments: [
-          ...baseUri.pathSegments,
-          'issues',
-        ],
-      );
-      final inferredResult = await _checkUrl(context, 'issue_tracker',
-          'Issue tracker URL', inferredUri.toString());
+        host: vr.host,
+        path: p.join(repoSegments, 'issues'),
+      ).toString();
+      final inferredResult = await _checkUrl(
+          context, 'issue_tracker', 'Issue tracker URL', inferredUrl);
       if (inferredResult.isOK) {
         issueTracker = inferredResult;
       }

@@ -94,7 +94,8 @@
     "issueTrackerUrl": "https://github.com/mitsuoka/mime_type/issues",
     "repository": {
       "provider": "github",
-      "baseUrl": "https://github.com/mitsuoka/mime_type",
+      "host": "github.com",
+      "repository": "mitsuoka/mime_type",
       "branch": "master"
     }
   },

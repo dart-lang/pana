@@ -11,7 +11,6 @@ import '../model.dart';
 import '../package_context.dart';
 
 import 'git_local_repository.dart';
-import 'repository_url.dart';
 
 const _maxPubspecBytes = 256 * 1024;
 
@@ -31,26 +30,27 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
   if (sourceUrl == null) {
     return null;
   }
-  final url = RepositoryUrl.tryParse(sourceUrl);
+  final url = Repository.tryParseUrl(sourceUrl);
   if (url == null) {
     return null;
   }
   var branch = url.branch;
   var isVerified = false;
   String? verificationFailure;
-  var packagePath = url.path.isEmpty ? null : url.path;
+  var localPath = url.path;
 
   VerifiedRepository result() {
-    if (packagePath == '.') {
-      packagePath = null;
+    if (localPath == '.') {
+      localPath = null;
     }
     if (isVerified && verificationFailure == null) {
       return VerifiedRepository(
         repository: Repository(
           provider: url.provider,
-          baseUrl: url.baseUrl,
+          host: url.host,
+          repository: url.repository,
           branch: branch,
-          packagePath: packagePath,
+          path: localPath,
         ),
       );
     } else {
@@ -69,7 +69,7 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
     isVerified = false;
     late GitLocalRepository repo;
     try {
-      repo = await GitLocalRepository.createLocalRepository(url.baseUrl);
+      repo = await GitLocalRepository.createLocalRepository(url.cloneUrl);
       branch = await repo.detectDefaultBranch();
 
       // list all pubspec.yaml files
@@ -130,10 +130,10 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
           return _PubspecMatch(path, true,
               '`$path` from the repository has no `repository` or `homepage` URL.');
         }
-        final gitRepoUrl = RepositoryUrl.tryParse(gitRepoOrHomepage);
-        if (gitRepoUrl?.baseUrl != url.baseUrl) {
+        final gitRepoUrl = Repository.tryParseUrl(gitRepoOrHomepage);
+        if (gitRepoUrl?.cloneUrl != url.cloneUrl) {
           return _PubspecMatch(path, true,
-              '`$path` from the repository URL missmatch: expected `${url.baseUrl}` but got `${gitRepoUrl?.baseUrl}`.');
+              '`$path` from the repository URL missmatch: expected `${url.cloneUrl}` but got `${gitRepoUrl?.cloneUrl}`.');
         }
         if (gitPubspec.version == null) {
           return _PubspecMatch(
@@ -162,7 +162,7 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
             'Repository has multiple matching `pubspec.yaml` with `name: ${context.pubspec.name}`.');
       } else {
         // confirmed name match, storing path
-        packagePath = p.dirname(nameMatches.single.path);
+        localPath = p.dirname(nameMatches.single.path);
 
         if (nameMatches.single.verificationIssue != null) {
           failVerification(nameMatches.single.verificationIssue!);
@@ -190,4 +190,9 @@ class _PubspecMatch {
   final String? verificationIssue;
 
   _PubspecMatch(this.path, this.hasMatchingName, [this.verificationIssue]);
+}
+
+extension on Repository {
+  String get cloneUrl =>
+      Uri(scheme: 'https', host: host, path: repository).toString();
 }

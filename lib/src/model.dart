@@ -10,6 +10,9 @@ import 'package:pub_semver/pub_semver.dart';
 
 import 'json_converters.dart';
 import 'pubspec.dart';
+import 'repository/repository_url_parser.dart';
+
+export 'repository/repository_url_resolver.dart';
 
 part 'model.g.dart';
 
@@ -377,20 +380,58 @@ class AnalysisResult {
 ///   - must not have a `publish_to` key.
 @JsonSerializable()
 class Repository {
+  /// The type of the software hosting the repository.
+  ///
+  /// Influences URL resolution methods - known providers will have better relative links.
   final RepositoryProvider provider;
-  final String baseUrl;
+
+  /// The host (domain name) of the repository.
+  final String host;
+
+  /// The relative path to the entry point of the repository.
+  ///
+  /// e.g. `<user-or-org>/<project>` on GitHub
+  final String? repository;
+
+  /// The name of the default branch.
   final String? branch;
-  final String? packagePath;
+
+  /// The local path in the repository to the package directory.
+  final String? path;
 
   Repository({
-    RepositoryProvider? provider,
-    required this.baseUrl,
-    this.branch,
-    this.packagePath,
+    required RepositoryProvider? provider,
+    required this.host,
+    required this.repository,
+    required this.branch,
+    required this.path,
   }) : provider = provider ?? RepositoryProvider.unknown;
 
-  factory Repository.fromJson(Map<String, dynamic> json) =>
-      _$RepositoryFromJson(json);
+  factory Repository.fromJson(Map<String, dynamic> json) {
+    final baseUrl = json['baseUrl'] as String?;
+    final host = baseUrl == null ? null : Uri.tryParse(baseUrl)?.host;
+    return _$RepositoryFromJson({
+      // TODO: remove these after pub-dev uses the new format
+      if (host != null) 'host': host,
+      if (json.containsKey('packagePath')) 'path': json['packagePath'],
+      ...json,
+    });
+  }
+
+  /// Parses [input] and return the parsed [Repository] if successful,
+  /// or returns `null` if it was unable to recognize the pattern.
+  static Repository? tryParseUrl(String input) => tryParseRepositoryUrl(input);
+
+  /// Parses [input] and return the parsed [Repository] if successful,
+  /// or throws [FormatException] if it was unable to recognize the pattern.
+  factory Repository.parseUrl(String input) {
+    final v = tryParseUrl(input);
+    if (v == null) {
+      throw FormatException('Invalid repository URL: `$input`.');
+    } else {
+      return v;
+    }
+  }
 
   Map<String, dynamic> toJson() => _$RepositoryToJson(this);
 }

@@ -2,78 +2,93 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pana/src/repository/repository_url.dart';
+import 'package:pana/src/model.dart';
 import 'package:test/test.dart';
 
 void main() {
   void testGitHubUrls(String prefix) {
     test('user root fails', () {
-      expect(RepositoryUrl.tryParse('$prefix/dart-lang'), isNull);
-      expect(RepositoryUrl.tryParse('$prefix/dart-lang/'), isNull);
+      expect(Repository.tryParseUrl('$prefix/dart-lang'), isNull);
+      expect(Repository.tryParseUrl('$prefix/dart-lang/'), isNull);
     });
 
-    test('project root', () {
+    test('project in root', () {
       expect(
-          RepositoryUrl.parse('$prefix/dart-lang/angular')
-              .resolve('README.md')
-              .toUrl(),
+          Repository.parseUrl('$prefix/dart-lang/angular')
+              .resolveUrl('README.md'),
           '$prefix/dart-lang/angular/blob/master/README.md');
       expect(
-          RepositoryUrl.parse('$prefix/dart-lang/angular/')
-              .resolve('README.md')
-              .toUrl(),
+          Repository.parseUrl('$prefix/dart-lang/angular/')
+              .resolveUrl('README.md'),
           '$prefix/dart-lang/angular/blob/master/README.md');
     });
 
-    test('project subdir', () {
+    test('project in subdir', () {
       expect(
-          RepositoryUrl.parse('$prefix/dart-lang/angular/tree/master/angular')
-              .resolve('README.md')
-              .toUrl(),
+          Repository.parseUrl('$prefix/dart-lang/angular/tree/master/angular')
+              .resolveUrl('README.md'),
           '$prefix/dart-lang/angular/blob/master/angular/README.md');
       expect(
-          RepositoryUrl.parse('$prefix/dart-lang/angular/tree/master/angular/')
-              .resolve('README.md')
-              .toUrl(),
+          Repository.parseUrl('$prefix/dart-lang/angular/tree/master/angular/')
+              .resolveUrl('README.md'),
           '$prefix/dart-lang/angular/blob/master/angular/README.md');
     });
 
-    test('image links in root', () {
+    test('image links from root', () {
       expect(
-          RepositoryUrl.parse('$prefix/dart-lang/angular')
-              .resolve('logo.png')
-              .toUrl(),
+          Repository.parseUrl('$prefix/dart-lang/angular')
+              .resolveUrl('logo.png'),
           '$prefix/dart-lang/angular/raw/master/logo.png');
       expect(
-          RepositoryUrl.parse('$prefix/dart-lang/angular/')
-              .resolve('logo.png')
-              .toUrl(),
+          Repository.parseUrl('$prefix/dart-lang/angular/')
+              .resolveUrl('logo.png'),
           '$prefix/dart-lang/angular/raw/master/logo.png');
-    });
-
-    test('image links in specific branch', () {
       expect(
-        RepositoryUrl.parse('$prefix/dart-lang/angular')
-            .resolve(
-              'logo.png',
-              branch: 'main',
-            )
-            .toUrl(),
-        '$prefix/dart-lang/angular/raw/main/logo.png',
-      );
+          Repository.parseUrl('$prefix/dart-lang/angular/')
+              .resolveUrl('dir/logo.png'),
+          '$prefix/dart-lang/angular/raw/master/dir/logo.png');
     });
 
     test('image links in project subdir', () {
       expect(
-          RepositoryUrl.parse('$prefix/dart-lang/angular/tree/master/angular')
-              .resolve('logo.png')
-              .toUrl(),
+          Repository.parseUrl('$prefix/dart-lang/angular/tree/master/angular')
+              .resolveUrl('logo.png'),
           '$prefix/dart-lang/angular/raw/master/angular/logo.png');
       expect(
-          RepositoryUrl.parse('$prefix/dart-lang/angular/tree/master/angular/')
-              .resolve('logo.png')
-              .toUrl(),
+          Repository.parseUrl('$prefix/dart-lang/angular/tree/master/angular/')
+              .resolveUrl('logo.png'),
           '$prefix/dart-lang/angular/raw/master/angular/logo.png');
+    });
+
+    test('file link with anchor', () {
+      expect(
+        Repository.parseUrl('$prefix/dart-lang/pub-dev')
+            .resolveUrl('README.md#title'),
+        '$prefix/dart-lang/pub-dev/blob/master/README.md#title',
+      );
+    });
+
+    test('local link with anchor', () {
+      expect(
+        Repository.parseUrl('$prefix/dart-lang/pub-dev').resolveUrl('#title'),
+        '#title',
+      );
+    });
+
+    test('bad reference URI', () {
+      expect(
+        Repository.parseUrl('$prefix/dart-lang/pub-dev')
+            .tryResolveUrl('http ://x'),
+        isNull,
+      );
+    });
+
+    test('absolute reference URI', () {
+      expect(
+        Repository.parseUrl('$prefix/dart-lang/pub-dev')
+            .resolveUrl('https://example.com/y'),
+        'https://example.com/y',
+      );
     });
   }
 
@@ -88,30 +103,26 @@ void main() {
   group('URL replacements', () {
     test('GitHub replacements', () {
       expect(
-          RepositoryUrl.parse('http://github.com/user/project/')
-              .resolve('README.md')
-              .toUrl(),
+          Repository.parseUrl('http://github.com/user/project/')
+              .resolveUrl('README.md'),
           'https://github.com/user/project/blob/master/README.md');
       expect(
-          RepositoryUrl.parse('https://www.github.com/user/project/')
-              .resolve('README.md')
-              .toUrl(),
+          Repository.parseUrl('https://www.github.com/user/project/')
+              .resolveUrl('README.md'),
           'https://github.com/user/project/blob/master/README.md');
     });
 
     test('.git URL', () {
       expect(
-          RepositoryUrl.parse(
+          Repository.parseUrl(
                   'https://github.com/daniel-maxhari/dynamic_text_highlighting.git')
-              .resolve('LICENSE')
-              .toUrl(),
+              .resolveUrl('LICENSE'),
           'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/LICENSE');
 
       expect(
-          RepositoryUrl.parse(
+          Repository.parseUrl(
                   'https://github.com/daniel-maxhari/dynamic_text_highlighting.git/blob/master/subdir')
-              .resolve('LICENSE')
-              .toUrl(),
+              .resolveUrl('LICENSE'),
           'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/subdir/LICENSE');
     });
   });
@@ -119,11 +130,11 @@ void main() {
   group('parse failures', () {
     test('double colon', () {
       expect(
-          RepositoryUrl.tryParse('https::github.com/dart-lang/pana'), isNull);
+          Repository.tryParseUrl('https::github.com/dart-lang/pana'), isNull);
     });
 
     test('spaces in host', () {
-      expect(RepositoryUrl.tryParse('https:/ /github .com/dart-lang/pana'),
+      expect(Repository.tryParseUrl('https:/ /github .com/dart-lang/pana'),
           isNull);
     });
   });
