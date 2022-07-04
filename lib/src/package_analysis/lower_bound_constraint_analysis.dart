@@ -78,102 +78,92 @@ class MyAstVisitor extends GeneralizingAstVisitor {
     required this.dependencies,
   });
 
+  // TODO: consider FunctionReference, PropertyAccess
+
   @override
-  void visitInvocationExpression(InvocationExpression node) {
-    if (node is FunctionExpressionInvocation) {
-      // an invocation of a callback ('a function resulting from evaluating an
-      // expression'), like this:
-      // void f(void Function() sayHello) {
-      //   sayHello();
-      // }
-      // TODO: figure out if we're interested in callbacks
-    } else if (node is MethodInvocation) {
-      // an invocation of a top-level function or a class method
+  void visitMethodInvocation(MethodInvocation node) {
+    // an invocation of a top-level function or a class method
+    super.visitMethodInvocation(node);
 
-      final element = node.methodName.staticElement;
-      // if the referenced element can be resolved,
-      if (element != null) {
-        final libraryUri = element.library!.identifier;
-        final symbolName = element.name!;
-        final packageName = packageFromLibraryUri(libraryUri);
+    final element = node.methodName.staticElement;
+    // if the referenced element can be resolved,
+    if (element != null) {
+      final libraryUri = element.library!.identifier;
+      final symbolName = element.name!;
+      final packageName = packageFromLibraryUri(libraryUri);
 
-        // if the name of the package can be resolved,
-        // and it isn't the same as the name of the target package,
-        // and we have a PackageShape summary corresponding to this package,
-        // and we don't already have a record of this element,
-        // then this symbol is worth analysing
-        // TODO: investigate cases where dependencies.keys.contains(packageName) == false
-        if (packageName != null &&
-            packageName != rootPackage &&
-            !issues.containsKey(element.id) &&
-            dependencySummaries.keys.contains(packageName)) {
-          final dependencyShape = dependencySummaries[packageName]!;
-          final enclosingElement = element.enclosingElement;
-          final dependency = dependencies[packageName]!;
-          final versionConstraint = dependency.version as VersionRange;
-          bool? constraintIssue;
+      // if the name of the package can be resolved,
+      // and it isn't the same as the name of the target package,
+      // and we have a PackageShape summary corresponding to this package,
+      // and we don't already have a record of this element,
+      // then this symbol is worth analysing
+      // TODO: investigate cases where dependencies.keys.contains(packageName) == false
+      if (packageName != null &&
+          packageName != rootPackage &&
+          !issues.containsKey(element.id) &&
+          dependencySummaries.keys.contains(packageName)) {
+        final dependencyShape = dependencySummaries[packageName]!;
+        final enclosingElement = element.enclosingElement;
+        final dependency = dependencies[packageName]!;
+        final versionConstraint = dependency.version as VersionRange;
+        bool? constraintIssue;
 
-          // differentiate between class methods and top-level functions
-          if (enclosingElement is ClassElement) {
-            // does this dependency's PackageShape have a class whose name matches that of enclosingElement,
-            // and does this class have a method with a matching name?
-            // TODO: look though multiple classes
-            final classShape = dependencyShape.classes.firstWhereOrNull(
-                (thisClass) => thisClass.name == enclosingElement.name);
-            if (classShape != null &&
-                classShape.methods.any((method) => method.name == symbolName)) {
-              constraintIssue = false;
-            } else {
-              constraintIssue = true;
-              print(
-                  'method $symbolName as part of ${enclosingElement.name} could not be found in $packageName');
-            }
-          } else if (enclosingElement is CompilationUnitElement) {
-            // does this top-level function exist in this the dependency's PackageShape?
-            if (dependencyShape.functions
-                .map((function) => function.name)
-                .contains(symbolName)) {
-              constraintIssue = false;
-            } else {
-              constraintIssue = true;
-              print('function $symbolName could not be found in $packageName');
-            }
+        // differentiate between class methods and top-level functions
+        if (enclosingElement is ClassElement) {
+          // does this dependency's PackageShape have a class whose name matches that of enclosingElement,
+          // and does this class have a method with a matching name?
+          // TODO: look though multiple classes
+          final classShape = dependencyShape.classes.firstWhereOrNull(
+                  (thisClass) => thisClass.name == enclosingElement.name);
+          if (classShape != null &&
+              classShape.methods.any((method) => method.name == symbolName)) {
+            constraintIssue = false;
           } else {
-            warning(
-                'Failed to resolve subclass of enclosingElement ${enclosingElement.toString()}.');
+            constraintIssue = true;
+            print(
+                'method $symbolName as part of ${enclosingElement.name} could not be found in $packageName');
           }
-
-          switch (constraintIssue) {
-            case true:
-              {
-                // TODO: remove debug prints above
-                // TODO: do not assume that .min and .max aren't null
-                issues[element.id] = LowerBoundConstraintIssue(
-                    dependencyPackageName: packageName,
-                    constraint: versionConstraint,
-                    currentVersion: versionConstraint.max!,
-                    lowestVersion: versionConstraint.min!,
-                    identifier: symbolName);
-              }
-              break;
-
-            case false:
-              {
-                issues[element.id] = null;
-              }
-              break;
-
-            default:
-              {}
-              break;
+        } else if (enclosingElement is CompilationUnitElement) {
+          // does this top-level function exist in this the dependency's PackageShape?
+          if (dependencyShape.functions
+              .map((function) => function.name)
+              .contains(symbolName)) {
+            constraintIssue = false;
+          } else {
+            constraintIssue = true;
+            print('function $symbolName could not be found in $packageName');
           }
+        } else {
+          warning(
+              'Failed to resolve subclass of enclosingElement ${enclosingElement.toString()}.');
+        }
+
+        switch (constraintIssue) {
+          case true:
+            {
+              // TODO: remove debug prints above
+              // TODO: do not assume that .min and .max aren't null
+              issues[element.id] = LowerBoundConstraintIssue(
+                  dependencyPackageName: packageName,
+                  constraint: versionConstraint,
+                  currentVersion: versionConstraint.max!,
+                  lowestVersion: versionConstraint.min!,
+                  identifier: symbolName);
+            }
+            break;
+
+          case false:
+            {
+              issues[element.id] = null;
+            }
+            break;
+
+          default:
+            {}
+            break;
         }
       }
-    } else {
-      warning('Failed to resolve subclass of node ${node.toString()}.');
     }
-
-    super.visitInvocationExpression(node);
   }
 }
 
