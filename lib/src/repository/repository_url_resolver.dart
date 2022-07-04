@@ -29,6 +29,13 @@ extension RepositoryUrlResolverExt on Repository {
     if (parsedReference == null) {
       return null;
     }
+    try {
+      // trigger exception if there is an issue
+      parsedReference.pathSegments;
+      parsedReference.queryParameters;
+    } on FormatException {
+      return null;
+    }
     if (parsedReference.isAbsolute || parsedReference.path.isEmpty) {
       return reference;
     }

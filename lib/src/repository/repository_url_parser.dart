@@ -20,6 +20,13 @@ const _githubSegmentSeparators = ['tree', 'blob', 'raw'];
 Repository? tryParseRepositoryUrl(String input) {
   var uri = Uri.tryParse(input);
   if (uri == null) return null;
+  try {
+    // trigger exception if there is an issue
+    uri.pathSegments;
+    uri.queryParameters;
+  } on FormatException {
+    return null;
+  }
 
   // apply known prefix replace patterns
   if (_replaceSchemes.containsKey(uri.scheme)) {
