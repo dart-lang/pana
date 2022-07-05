@@ -3,6 +3,8 @@
 name: Symbols can be hidden or shown when being exported
 summary: |-
   {
+    "name": "test_package",
+    "version": "1.0.0",
     "libraries": [
       {
         "uri": "package:test_package/a.dart",

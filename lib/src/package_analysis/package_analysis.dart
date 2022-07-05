@@ -167,6 +167,9 @@ class LowerBoundConstraintAnalysisCommand extends Command {
   }
 }
 
+/// Verify that there is only one argument, that it points to a directory, that
+/// this directory contains both a `.dart_tool/package_config.json` file and a
+/// `pubspec.yaml` file.
 Future<String> checkArgs(List<String> paths) async {
   if (paths.length != 1) {
     throw ArgumentError('Only specify exactly one directory for analysis.');
@@ -183,6 +186,10 @@ Future<String> checkArgs(List<String> paths) async {
       .exists()) {
     throw StateError(
         'Run `dart pub get` to fetch dependencies before analysing this package.');
+  }
+
+  if (!await File(path.join(packageLocation, 'pubspec.yaml')).exists()) {
+    throw StateError('The target directory must contain a package.');
   }
 
   return packageLocation;

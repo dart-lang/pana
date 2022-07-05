@@ -7,6 +7,13 @@ part 'shapes.g.dart';
 @sealed
 @JsonSerializable()
 class PackageShape {
+  /// The package name.
+  final String name;
+
+  /// The package version.
+  final String version;
+
+  /// All public libraries of this package.
   final List<LibraryShape> libraries;
 
   /// All top-level getters exported somewhere in this package.
@@ -22,6 +29,8 @@ class PackageShape {
   final List<ClassShape> classes;
 
   PackageShape({
+    required this.name,
+    required this.version,
     required this.libraries,
     required this.getters,
     required this.setters,

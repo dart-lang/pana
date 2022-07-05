@@ -28,6 +28,7 @@ Future<void> main() async {
     'generator': 'pub',
     'generatorVersion': '2.17.3'
   });
+  final pubspecTemplate = 'name: test_package\nversion: 1.0.0';
 
   for (final file in await yamlDir.list().toList()) {
     final doc = loadYaml(await (file as File).readAsString());
@@ -38,10 +39,15 @@ Future<void> main() async {
       // root package folder
       final packageLocation = path.canonicalize(path.join('test_package'));
 
-      // necessary for the analyzer to be able to provider proper library identifiers
+      // necessary for the analyzer to be able to set proper library identifiers
+      // and package metadata
       provider.setOverlay(
           path.join(packageLocation, '.dart_tool', 'package_config.json'),
           content: configTemplate,
+          modificationStamp: 0);
+      provider.setOverlay(
+          path.join(packageLocation, 'pubspec.yaml'),
+          content: pubspecTemplate,
           modificationStamp: 0);
 
       // place every file in memory at the right 'path'

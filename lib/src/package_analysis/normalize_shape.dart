@@ -96,6 +96,8 @@ PackageShape normalizePackageShape(PackageShape package) {
       .toList();
 
   return PackageShape(
+    name: package.name,
+    version: package.version,
     libraries: newLibraries,
     getters: newGetters,
     setters: newSetters,

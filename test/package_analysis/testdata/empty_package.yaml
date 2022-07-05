@@ -3,6 +3,8 @@
 name: The analyser should be able to handle an empty pacakge
 summary: |-
   {
+    "name": "test_package",
+    "version": "1.0.0",
     "libraries": [],
     "getters": [],
     "setters": [],

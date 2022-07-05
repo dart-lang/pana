@@ -7,6 +7,8 @@ part of 'shapes.dart';
 // **************************************************************************
 
 PackageShape _$PackageShapeFromJson(Map<String, dynamic> json) => PackageShape(
+      name: json['name'] as String,
+      version: json['version'] as String,
       libraries: (json['libraries'] as List<dynamic>)
           .map((e) => LibraryShape.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -26,6 +28,8 @@ PackageShape _$PackageShapeFromJson(Map<String, dynamic> json) => PackageShape(
 
 Map<String, dynamic> _$PackageShapeToJson(PackageShape instance) =>
     <String, dynamic>{
+      'name': instance.name,
+      'version': instance.version,
       'libraries': instance.libraries.map((e) => e.toJson()).toList(),
       'getters': instance.getters.map((e) => e.toJson()).toList(),
       'setters': instance.setters.map((e) => e.toJson()).toList(),

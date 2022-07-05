@@ -3,6 +3,8 @@
 name: Libraries can be split into multiple files with part
 summary: |-
   {
+    "name": "test_package",
+    "version": "1.0.0",
     "libraries": [
       {
         "uri": "package:test_package/a.dart",

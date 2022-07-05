@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:collection/collection.dart';
+import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 
 import 'common.dart';
@@ -11,7 +12,23 @@ Future<PackageShape> summarizePackage(
   PackageAnalysisContext packageAnalysisContext,
   String packageLocation,
 ) async {
+  final pubspecPath = path.join(packageLocation, 'pubspec.yaml');
+  final pubspecString = packageAnalysisContext.analysisContextCollection
+      .contextFor(pubspecPath)
+      .currentSession
+      .resourceProvider
+      .getFile(pubspecPath)
+      .readAsStringSync();
+  final pubspec = Pubspec.parseYaml(pubspecString);
+
+  if (pubspec.version == null) {
+    throw StateError(
+        'Specify a version number in `pubspec.yaml` before running analysis.');
+  }
+
   final package = PackageShape(
+    name: pubspec.name,
+    version: pubspec.version!.toString(),
     libraries: <LibraryShape>[],
     getters: <GlobalPropertyShape>[],
     setters: <GlobalPropertyShape>[],
@@ -80,43 +97,37 @@ Future<PackageShape> summarizePackage(
     // public top-level elements which are exported by this library
     final publicSymbols = libraryElement.exportNamespace.definedNames.values;
 
-    final classes = publicSymbols
-        .whereType<ClassElement>()
+    final classes =
+        publicSymbols.whereType<ClassElement>()
         .where((classElement) {
-          exportedClasses.add(classElement.id);
-          return !package.classes
-              .any((thisClass) => classElement.id == thisClass.id);
-        })
-        .map(summarizeClassElement);
+      exportedClasses.add(classElement.id);
+      return !package.classes
+          .any((thisClass) => classElement.id == thisClass.id);
+    }).map(summarizeClassElement);
 
     final getters = publicSymbols
         .whereType<PropertyAccessorElement>()
         .where((element) => element.isGetter)
         .where((accessorElement) {
-          exportedGetters.add(accessorElement.id);
-          return !package.getters
-              .any((getter) => accessorElement.id == getter.id);
-        })
-        .map(summarizeGlobalProperty);
+      exportedGetters.add(accessorElement.id);
+      return !package.getters.any((getter) => accessorElement.id == getter.id);
+    }).map(summarizeGlobalProperty);
 
     final setters = publicSymbols
         .whereType<PropertyAccessorElement>()
         .where((element) => element.isSetter)
         .where((accessorElement) {
-          exportedSetters.add(accessorElement.id);
-          return !package.setters
-              .any((setter) => accessorElement.id == setter.id);
-        })
-        .map(summarizeGlobalProperty);
+      exportedSetters.add(accessorElement.id);
+      return !package.setters.any((setter) => accessorElement.id == setter.id);
+    }).map(summarizeGlobalProperty);
 
     final functions = publicSymbols
         .whereType<FunctionElement>()
         .where((functionElement) {
-          exportedFunctions.add(functionElement.id);
-          return !package.functions
-              .any((function) => functionElement.id == function.id);
-        })
-        .map(summarizeFunction);
+      exportedFunctions.add(functionElement.id);
+      return !package.functions
+          .any((function) => functionElement.id == function.id);
+    }).map(summarizeFunction);
 
     package.getters.addAll(getters);
     package.setters.addAll(setters);
