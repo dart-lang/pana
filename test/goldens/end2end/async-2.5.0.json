@@ -116,7 +116,8 @@
     "issueTrackerUrl": "https://github.com/dart-lang/async/issues",
     "repository": {
       "provider": "github",
-      "baseUrl": "https://github.com/dart-lang/async",
+      "host": "github.com",
+      "repository": "dart-lang/async",
       "branch": "master"
     }
   },

@@ -14,7 +14,6 @@ import 'package:tar/tar.dart';
 
 import 'logging.dart';
 import 'model.dart';
-import 'repository/repository_url.dart';
 
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
@@ -58,11 +57,11 @@ Future<void> downloadPackage(
 String? getRepositoryUrl(
   String? repository,
   String relativePath, {
-  String branch = 'master',
+  String? branch,
 }) {
   if (repository == null) return null;
-  final url = RepositoryUrl.tryParse(repository);
-  return url?.resolve(relativePath, branch: branch).toUrl();
+  final url = Repository.tryParseUrl(repository);
+  return url?.resolveUrl(relativePath, branch: branch);
 }
 
 /// The URL's parsed and queried status.

@@ -101,7 +101,8 @@
     "issueTrackerUrl": "https://github.com/agilord/bulma_min/issues",
     "repository": {
       "provider": "github",
-      "baseUrl": "https://github.com/agilord/bulma_min",
+      "host": "github.com",
+      "repository": "agilord/bulma_min",
       "branch": "master"
     }
   },

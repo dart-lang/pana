@@ -146,9 +146,10 @@
     "issueTrackerUrl": "https://github.com/ryanheise/audio_service/issues",
     "repository": {
       "provider": "github",
-      "baseUrl": "https://github.com/ryanheise/audio_service",
+      "host": "github.com",
+      "repository": "ryanheise/audio_service",
       "branch": "minor",
-      "packagePath": "audio_service"
+      "path": "audio_service"
     }
   },
   "urlProblems": [],

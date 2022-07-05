@@ -2,7 +2,9 @@
 
 - Predefined platform assignments for binary-only packages.
 - Fix: internal hostname check uses full-length match.
-- Expose `RepositoryProvider` in the analysis result (`Repository.provider`).
+- (Experimental) Expose `RepositoryProvider` in the analysis result (`Repository.provider`).
+- (Experimental) Merged `RepositoryUrl` into `Repository` with extended URL resolver.
+- (Experimental) Refactored fields of `Repository`.
 
 ## 0.21.13
 

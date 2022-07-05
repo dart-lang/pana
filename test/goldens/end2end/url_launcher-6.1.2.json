@@ -148,9 +148,10 @@
     "issueTrackerUrl": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22",
     "repository": {
       "provider": "github",
-      "baseUrl": "https://github.com/flutter/plugins",
+      "host": "github.com",
+      "repository": "flutter/plugins",
       "branch": "main",
-      "packagePath": "packages/url_launcher/url_launcher"
+      "path": "packages/url_launcher/url_launcher"
     }
   },
   "urlProblems": [],
