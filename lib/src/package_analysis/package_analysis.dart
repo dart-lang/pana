@@ -94,7 +94,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       // ensure that this dependency can be found on pub.dev and has version constraints
       // TODO: is there a better way to do this?
       allDependencies.removeWhere((key, value) => value is! HostedDependency);
-      final dependencies = Map<String, HostedDependency>.from(allDependencies );
+      final dependencies = Map<String, HostedDependency>.from(allDependencies);
 
       // if there are no dependencies, there is nothing to analyze
       if (dependencies.isEmpty) {
@@ -109,6 +109,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       final analysisContext = _PackageAnalysisContext(collection);
 
       final dependencySummaries = <String, PackageShape>{};
+      final dependencyInstalledVersions = <String, Version>{};
 
       // iterate over each one of this package's dependencies and generate a summary
       for (final dependencyEntry in dependencies.entries) {
@@ -143,6 +144,28 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           }
         }
 
+        // find where this dependency was installed for the target package
+        final dependencyUri = Uri.parse('package:$dependencyName/');
+        final dependencyFilePath = analysisContext
+            .contextFor(targetFolder)
+            .currentSession
+            .uriConverter
+            .uriToPath(dependencyUri);
+        // could not resolve uri
+        if (dependencyFilePath == null) {
+          analysisContext.warning(
+              'Could not find package directory of dependency $dependencyName, skipping it.');
+          continue;
+        }
+
+        // fetch the installed version for this dependency
+        final dependencyPubspecLocation =
+            path.join(path.dirname(dependencyFilePath), 'pubspec.yaml');
+        final dependencyPubspec = Pubspec.parseYaml(
+            await File(dependencyPubspecLocation).readAsString());
+        dependencyInstalledVersions[dependencyName] =
+            dependencyPubspec.version!;
+
         await fetchPackageAndDependencies(
           name: dependencyName,
           version: minAllowedVersion,
@@ -161,7 +184,8 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         packageLocation: targetFolder,
         rootPackageName: packageName,
         dependencySummaries: dependencySummaries,
-        dependencies: dependencies,
+        targetDependencies: dependencies,
+        dependencyInstalledVersions: dependencyInstalledVersions,
       );
     }
   }

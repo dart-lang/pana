@@ -18,14 +18,16 @@ Future<List<LowerBoundConstraintIssue>> reportIssues({
   required String packageLocation,
   required String? rootPackageName,
   required Map<String, PackageShape> dependencySummaries,
-  required Map<String, HostedDependency> dependencies,
+  required Map<String, HostedDependency> targetDependencies,
+  required Map<String, Version> dependencyInstalledVersions,
 }) async {
   var collection = packageAnalysisContext.analysisContextCollection;
   var astVisitor = MyAstVisitor(
     rootPackage: rootPackageName,
     warning: packageAnalysisContext.warning,
     dependencySummaries: dependencySummaries,
-    dependencies: dependencies,
+    targetDependencies: targetDependencies,
+    dependencyInstalledVersions: dependencyInstalledVersions,
   );
 
   for (var context in collection.contexts) {
@@ -66,7 +68,10 @@ class MyAstVisitor extends GeneralizingAstVisitor {
   final Map<String, PackageShape> dependencySummaries;
 
   /// The dependencies of the target package, as parsed from its pubspec.
-  final Map<String, HostedDependency> dependencies;
+  final Map<String, HostedDependency> targetDependencies;
+
+  /// The versions of the dependencies of the target package, as installed.
+  final Map<String, Version> dependencyInstalledVersions;
 
   /// Log a warning that something unexpected happened.
   final void Function(String message) warning;
@@ -75,7 +80,8 @@ class MyAstVisitor extends GeneralizingAstVisitor {
     required this.rootPackage,
     required this.warning,
     required this.dependencySummaries,
-    required this.dependencies,
+    required this.targetDependencies,
+    required this.dependencyInstalledVersions,
   });
 
   // TODO: consider FunctionReference, PropertyAccess
@@ -125,8 +131,6 @@ class MyAstVisitor extends GeneralizingAstVisitor {
 
     final dependencyShape = dependencySummaries[packageName]!;
     final enclosingElement = element.enclosingElement;
-    final dependency = dependencies[packageName]!;
-    final versionConstraint = dependency.version as VersionRange;
     bool? constraintIssue;
 
     // differentiate between class methods and top-level functions
@@ -141,8 +145,6 @@ class MyAstVisitor extends GeneralizingAstVisitor {
         constraintIssue = false;
       } else {
         constraintIssue = true;
-        print(
-            'method $symbolName as part of ${enclosingElement.name} could not be found in $packageName');
       }
     } else if (enclosingElement is CompilationUnitElement) {
       // does this top-level function exist in this the dependency's PackageShape?
@@ -152,7 +154,6 @@ class MyAstVisitor extends GeneralizingAstVisitor {
         constraintIssue = false;
       } else {
         constraintIssue = true;
-        print('function $symbolName could not be found in $packageName');
       }
     } else {
       warning(
@@ -163,12 +164,11 @@ class MyAstVisitor extends GeneralizingAstVisitor {
       case true:
         {
           // TODO: remove debug prints above
-          // TODO: do not assume that .min and .max aren't null
           issues[elementId] = LowerBoundConstraintIssue(
               dependencyPackageName: packageName,
-              constraint: versionConstraint,
-              currentVersion: versionConstraint.max!,
-              lowestVersion: versionConstraint.min!,
+              constraint: targetDependencies[packageName]!.version,
+              currentVersion: dependencyInstalledVersions[packageName]!,
+              lowestVersion: Version.parse(dependencyShape.version),
               identifier: symbolName);
         }
         break;
