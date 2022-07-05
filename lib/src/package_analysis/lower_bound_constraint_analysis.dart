@@ -95,7 +95,7 @@ class MyAstVisitor extends GeneralizingAstVisitor {
 
     if (element == null) {
       warning(
-          'element associated with identifier ${node.methodName.name} could not be resolved');
+          'Element associated with identifier ${node.methodName.name} could not be resolved.');
       return;
     }
 

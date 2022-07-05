@@ -165,7 +165,7 @@ Future<PackageShape> summarizePackage(
       // ensure that resolving has been successful
       if (library is! ResolvedLibraryResult) {
         packageAnalysisContext
-            .warning('analysis of $filePath as a library failed');
+            .warning('Analysis of $filePath as a library failed.');
         continue;
       }
 

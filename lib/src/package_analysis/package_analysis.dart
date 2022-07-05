@@ -56,6 +56,31 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
   @override
   Future<void> run() async {
+    // Given the location of a package and one of its dependencies, return the
+    // dependency version which is installed.
+    Future<Version> getInstalledVersion(PackageAnalysisContext analysisContext,
+        String packageLocation, String dependencyName) async {
+      // find where this dependency was installed for the target package
+      final dependencyUri = Uri.parse('package:$dependencyName/');
+      final dependencyFilePath = analysisContext
+          .contextFor(packageLocation)
+          .currentSession
+          .uriConverter
+          .uriToPath(dependencyUri);
+      // could not resolve uri
+      if (dependencyFilePath == null) {
+        throw Exception(
+            'Could not find package directory of dependency $dependencyName.');
+      }
+
+      // fetch the installed version for this dependency
+      final dependencyPubspecLocation =
+          path.join(path.dirname(dependencyFilePath), 'pubspec.yaml');
+      final dependencyPubspec = Pubspec.parseYaml(
+          await File(dependencyPubspecLocation).readAsString());
+      return dependencyPubspec.version!;
+    }
+
     // TODO: perform input validation
     // required arguments:
     // package metadata json path;
@@ -144,27 +169,18 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           }
         }
 
-        // find where this dependency was installed for the target package
-        final dependencyUri = Uri.parse('package:$dependencyName/');
-        final dependencyFilePath = analysisContext
-            .contextFor(targetFolder)
-            .currentSession
-            .uriConverter
-            .uriToPath(dependencyUri);
-        // could not resolve uri
-        if (dependencyFilePath == null) {
-          analysisContext.warning(
-              'Could not find package directory of dependency $dependencyName, skipping it.');
+        // fetch the installed version of this dependency
+        try {
+          dependencyInstalledVersions[dependencyName] =
+              await getInstalledVersion(
+            analysisContext,
+            targetFolder,
+            dependencyName,
+          );
+        } on Exception catch (e) {
+          analysisContext.warning(e.toString());
           continue;
         }
-
-        // fetch the installed version for this dependency
-        final dependencyPubspecLocation =
-            path.join(path.dirname(dependencyFilePath), 'pubspec.yaml');
-        final dependencyPubspec = Pubspec.parseYaml(
-            await File(dependencyPubspecLocation).readAsString());
-        dependencyInstalledVersions[dependencyName] =
-            dependencyPubspec.version!;
 
         await fetchPackageAndDependencies(
           name: dependencyName,
