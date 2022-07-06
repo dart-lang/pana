@@ -16,12 +16,16 @@ extension RepositoryUrlResolverExt on Repository {
   ///
   /// If [branch] is specified, it will override the [Repository]'s default branch.
   ///
+  /// When present, [relativeFrom] specifies the file that is being rendered,
+  /// and relative [reference] will be resolved from that location.
+  ///
   /// When [reference] is used inside `<img>` or similar tag,
   /// [isEmbeddedObject] should be set to `true`. On compatible
   /// providers the resolved URL will use the raw reference to content.
   String? tryResolveUrl(
     String reference, {
     String? branch,
+    String? relativeFrom,
     bool? isEmbeddedObject,
   }) {
     isEmbeddedObject ??= false;
@@ -36,33 +40,75 @@ extension RepositoryUrlResolverExt on Repository {
     } on FormatException {
       return null;
     }
-    if (parsedReference.isAbsolute || parsedReference.path.isEmpty) {
+    if (parsedReference.hasScheme || parsedReference.path.isEmpty) {
       return reference;
     }
-    final newPath = p.joinAll([
-      if (path != null) path!,
-      parsedReference.path,
-    ]);
-    final normalizedNewPath = p.normalize(newPath);
-    String? separator;
+    var referenceIsAbsolute = false;
+    var referencePath = p.normalize(parsedReference.path);
+    while (referencePath.startsWith('/')) {
+      referencePath = referencePath.substring(1);
+      referenceIsAbsolute = true;
+    }
+    if (relativeFrom != null && !referenceIsAbsolute) {
+      referencePath = p.normalize(p.joinAll([
+        p.dirname(relativeFrom),
+        referencePath,
+      ]));
+      while (referencePath.startsWith('/')) {
+        referencePath = referencePath.substring(1);
+      }
+    }
 
+    late String finalPath;
+
+    // GitHub resolves references only inside the repository.
     if (RepositoryProvider.isGitHubCompatible(provider)) {
       final extension = p.extension(reference).toLowerCase();
       final needsRaw = isEmbeddedObject || _imageExtensions.contains(extension);
-      separator = (needsRaw ? 'raw' : null) ?? 'blob';
-    }
-    final newEnding = p.normalize(p.joinAll([
-      repository,
-      separator,
-      branch ?? this.branch ?? 'master',
-      normalizedNewPath
-    ].whereType<String>()));
+      final separator = (needsRaw ? 'raw' : null) ?? 'blob';
 
+      final normalizedPath = referenceIsAbsolute
+          ? referencePath
+          : p.normalize(p.joinAll([
+              if (path != null) path!,
+              referencePath,
+            ]));
+      final parts = p.split(normalizedPath);
+      final sanitizedPath = parts.contains('..')
+          ? p.joinAll(parts.sublist(parts.lastIndexOf('..') + 1))
+          : normalizedPath;
+
+      finalPath = p.normalize(p.joinAll([
+        repository,
+        separator,
+        branch ?? this.branch ?? 'master',
+        sanitizedPath
+      ].whereType<String>()));
+    } else {
+      // For unknown providers resolution follows normal URL rules.
+      finalPath = referenceIsAbsolute
+          ? referencePath
+          : p.normalize(p.joinAll([
+              repository,
+              if (path != null) path!,
+              referencePath,
+            ].whereType<String>()));
+    }
+
+    final queryParametersAll =
+        parsedReference.hasQuery && parsedReference.queryParameters.isNotEmpty
+            ? parsedReference.queryParametersAll
+            : null;
+    final fragment = parsedReference.hasFragment &&
+            parsedReference.fragment.trim().isNotEmpty
+        ? parsedReference.fragment.trim()
+        : null;
     return Uri(
       scheme: 'https',
       host: host,
-      path: newEnding,
-      fragment: parsedReference.hasFragment ? parsedReference.fragment : null,
+      path: finalPath,
+      queryParameters: queryParametersAll,
+      fragment: fragment,
     ).toString();
   }
 
@@ -75,17 +121,22 @@ extension RepositoryUrlResolverExt on Repository {
   ///
   /// If [branch] is specified, it will override the [Repository]'s default branch.
   ///
+  /// When present, [relativeFrom] specifies the file that is being rendered,
+  /// and relative [reference] will be resolved from that location.
+  ///
   /// When [reference] is used inside `<img>` or similar tag,
   /// [isEmbeddedObject] should be set to `true`. On compatible
   /// providers the resolved URL will use the raw reference to content.
   String resolveUrl(
     String reference, {
     String? branch,
+    String? relativeFrom,
     bool? isEmbeddedObject,
   }) {
     final v = tryResolveUrl(
       reference,
       branch: branch,
+      relativeFrom: relativeFrom,
       isEmbeddedObject: isEmbeddedObject,
     );
     if (v == null) {
