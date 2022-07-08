@@ -9,14 +9,11 @@ import 'normalize_shape.dart';
 import 'shapes.dart';
 
 Future<PackageShape> summarizePackage(
-  PackageAnalysisContext packageAnalysisContext,
+  PackageAnalysisSession packageAnalysisSession,
   String packageLocation,
 ) async {
   final pubspecPath = path.join(packageLocation, 'pubspec.yaml');
-  final pubspecString = packageAnalysisContext.analysisContextCollection
-      .contextFor(pubspecPath)
-      .currentSession
-      .resourceProvider
+  final pubspecString = packageAnalysisSession.analysisSession.resourceProvider
       .getFile(pubspecPath)
       .readAsStringSync();
   final pubspec = Pubspec.parseYaml(pubspecString);
@@ -142,36 +139,39 @@ Future<PackageShape> summarizePackage(
     ));
   }
 
-  var collection = packageAnalysisContext.analysisContextCollection;
+  final libPath = path.join(packageLocation, 'lib');
+  final libSrcPath = path.join(libPath, 'src');
+  final libFolder = packageAnalysisSession.analysisSession.resourceProvider
+      .getFolder(libPath);
 
-  for (var context in collection.contexts) {
-    for (var filePath in context.contextRoot.analyzedFiles().sorted()) {
-      // match [packageLocation]/lib/*.dart
-      // but exclude [packageLocation]/lib/src/*.dart
-      if (!(path.isWithin(path.join(packageLocation, 'lib'), filePath) &&
-          !path.isWithin(path.join(packageLocation, 'lib', 'src'), filePath) &&
-          path.extension(filePath) == '.dart')) {
-        continue;
-      }
+  // retrieve the paths of all the public dart files in this package via the
+  // resourceProvider (.dart files in ./lib but not in ./lib/src)
+  final nonSrcDartFiles = getAllFiles(libFolder)
+      .where((file) => !path.isWithin(libSrcPath, file.path))
+      .where((file) => path.extension(file.path) == '.dart')
+      .map((file) => file.path)
+      .sorted();
 
-      final session = context.currentSession;
-      final library = await session.getResolvedLibrary(filePath);
+  for (final filePath in nonSrcDartFiles) {
+    final library = await packageAnalysisSession.analysisSession
+        .getResolvedLibrary(filePath);
 
-      // this file is just part of another library
-      if (library is NotLibraryButPartResult) {
-        continue;
-      }
-
-      // ensure that resolving has been successful
-      if (library is! ResolvedLibraryResult) {
-        packageAnalysisContext
-            .warning('Analysis of $filePath as a library failed.');
-        continue;
-      }
-
-      summarizeLibraryElement(
-          library.element, path.relative(filePath, from: packageLocation));
+    // this file is just part of another library
+    if (library is NotLibraryButPartResult) {
+      continue;
     }
+
+    // ensure that resolving has been successful
+    if (library is! ResolvedLibraryResult) {
+      packageAnalysisSession
+          .warning('Analysis of $filePath as a library failed.');
+      continue;
+    }
+
+    summarizeLibraryElement(
+      library.element,
+      path.relative(filePath, from: packageLocation),
+    );
   }
 
   return normalizePackageShape(package);

@@ -14,39 +14,40 @@ import 'common.dart';
 /// analyze the target package and return a List of any found issues - where a
 /// symbol usage cannot be found in the relevant dependency's PackageShape
 Future<List<LowerBoundConstraintIssue>> reportIssues({
-  required PackageAnalysisContext packageAnalysisContext,
+  required PackageAnalysisSession packageAnalysisSession,
   required String packageLocation,
   required String? rootPackageName,
   required Map<String, PackageShape> dependencySummaries,
   required Map<String, HostedDependency> targetDependencies,
   required Map<String, Version> dependencyInstalledVersions,
 }) async {
-  var collection = packageAnalysisContext.analysisContextCollection;
   var astVisitor = MyAstVisitor(
     rootPackage: rootPackageName,
-    warning: packageAnalysisContext.warning,
+    warning: packageAnalysisSession.warning,
     dependencySummaries: dependencySummaries,
     targetDependencies: targetDependencies,
     dependencyInstalledVersions: dependencyInstalledVersions,
   );
 
-  for (var context in collection.contexts) {
-    final session = context.currentSession;
+  final libPath = path.join(packageLocation, 'lib');
+  final libFolder = packageAnalysisSession.analysisSession.resourceProvider
+      .getFolder(libPath);
 
-    for (var filePath in context.contextRoot.analyzedFiles()) {
-      // match [packageLocation]/lib/*.dart
-      if (!(path.isWithin(path.join(packageLocation, 'lib'), filePath) &&
-          path.extension(filePath) == '.dart')) {
-        continue;
-      }
+  // retrieve the paths of all the dart library files in this package via the
+  // resourceProvider (.dart files in ./lib)
+  final dartLibFiles = getAllFiles(libFolder)
+      .where((file) => path.extension(file.path) == '.dart')
+      .map((file) => file.path)
+      .sorted();
 
-      var result = await session.getResolvedUnit(filePath);
-      if (result is ResolvedUnitResult) {
-        astVisitor.visitCompilationUnit(result.unit);
-      } else {
-        packageAnalysisContext.warning(
-            'Attempting to get a resolved unit resulted in an invalid result.');
-      }
+  for (final filePath in dartLibFiles) {
+    final result =
+        await packageAnalysisSession.analysisSession.getResolvedUnit(filePath);
+    if (result is ResolvedUnitResult) {
+      astVisitor.visitCompilationUnit(result.unit);
+    } else {
+      packageAnalysisSession.warning(
+          'Attempting to get a resolved unit resulted in an invalid result.');
     }
   }
 

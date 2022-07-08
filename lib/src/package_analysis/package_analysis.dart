@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/analysis/session.dart';
 import 'package:args/command_runner.dart';
 import 'package:pana/pana.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
@@ -33,14 +34,17 @@ class SummaryCommand extends Command {
   Future<void> run() async {
     final packageLocation = await checkArgs(argResults!.rest);
 
-    final collection =
-        AnalysisContextCollection(includedPaths: [packageLocation]);
+    final session = AnalysisContextCollection(includedPaths: [packageLocation])
+        .contextFor(packageLocation)
+        .currentSession;
 
-    final packageJson = (await summarizePackage(
-      _PackageAnalysisContext(collection),
+    final packageShape = await summarizePackage(
+      _PackageAnalysisSession(session),
       packageLocation,
-    ))
-        .toJson();
+    );
+
+    final packageJson = packageShape.toJson();
+
     const indentedEncoder = JsonEncoder.withIndent('  ');
     print(indentedEncoder.convert(packageJson));
   }
@@ -58,14 +62,15 @@ class LowerBoundConstraintAnalysisCommand extends Command {
   Future<void> run() async {
     // Given the location of a package and one of its dependencies, return the
     // dependency version which is installed.
-    Future<Version> getInstalledVersion(PackageAnalysisContext analysisContext,
-        String packageLocation, String dependencyName) async {
+    Future<Version> getInstalledVersion({
+      required PackageAnalysisSession packageAnalysisSession,
+      required String packageLocation,
+      required String dependencyName,
+    }) async {
       // find where this dependency was installed for the target package
       final dependencyUri = Uri.parse('package:$dependencyName/');
-      final dependencyFilePath = analysisContext
-          .contextFor(packageLocation)
-          .currentSession
-          .uriConverter
+      final dependencyFilePath = packageAnalysisSession
+          .analysisSession.uriConverter
           .uriToPath(dependencyUri);
       // could not resolve uri
       if (dependencyFilePath == null) {
@@ -99,17 +104,27 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
       print('Reviewing package $packageName...');
 
+      // if (packageName == 'flutter_login_facebook' || packageName == 'amplify_flutter') {
+      //   continue;
+      // }
+
       final baseFolder = path.canonicalize(arguments[1]);
 
       final targetFolder = path.join(baseFolder, 'target');
       final dependencyFolder = path.join(baseFolder, 'dependencies');
 
-      await fetchPackageAndDependencies(
-        name: packageName,
-        version: packageDoc['latest']['version'] as String,
-        destination: targetFolder,
-        wipeTarget: true,
-      );
+      try {
+        await fetchPackageAndDependencies(
+          name: packageName,
+          version: packageDoc['latest']['version'] as String,
+          destination: targetFolder,
+          wipeTarget: true,
+        );
+      } on ProcessException catch (exception) {
+        // TODO: do not write to stderr here, instead figure out a way to use rootPackageAnalysisSession.warning here - see below (beginning 'can we create this session..')
+        stderr.writeln(
+            'Failed to download target package  $packageName with error code ${exception.errorCode}: ${exception.message}');
+      }
 
       final allDependencies = Pubspec.parseYaml(
               await File(path.join(targetFolder, 'pubspec.yaml'))
@@ -126,23 +141,31 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         continue;
       }
 
-      // TODO: could we just use baseFolder instead of computing the target/dependency paths individually?
+      // TODO: can we create this session before downloading the package? we already know the location of the target package.
+      // create session for analysing the package being searched for issues
+      // (the target package)
       final collection = AnalysisContextCollection(includedPaths: [
         targetFolder,
-        ...dependencies.keys.map((name) => path.join(dependencyFolder, name))
       ]);
-      final analysisContext = _PackageAnalysisContext(collection);
+      final rootPackageAnalysisSession = _PackageAnalysisSession(
+          collection.contextFor(targetFolder).currentSession);
 
       final dependencySummaries = <String, PackageShape>{};
       final dependencyInstalledVersions = <String, Version>{};
 
-      // iterate over each one of this package's dependencies and generate a summary
+      // iterate over each dependency of the target package and for each one:
+      // - determine minimum allowed version
+      // - determine installed (current/actual) version
+      // - download minimum allowed version
+      // - produce a summary of the minimum allowed version
       for (final dependencyEntry in dependencies.entries) {
         final dependencyName = dependencyEntry.key;
         final dependencyVersionConstraint = dependencyEntry.value.version;
         final dependencyDestination =
-            path.join(dependencyFolder, dependencyName);
+            path.join(dependencyFolder, '${dependencyName}_pointer');
 
+        // determine the minimum allowed version of this dependency as allowed
+        // by the constraints imposed by the target package
         String? minAllowedVersion;
         if (dependencyVersionConstraint is VersionRange &&
             dependencyVersionConstraint.includeMin) {
@@ -163,46 +186,71 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           }
 
           if (minAllowedVersion == null) {
-            analysisContext.warning(
+            rootPackageAnalysisSession.warning(
                 'Could not determine minimum allowed version for dependency $dependencyName, skipping it.');
             continue;
           }
         }
 
-        // fetch the installed version of this dependency
+        // find the installed version of this dependency
         try {
           dependencyInstalledVersions[dependencyName] =
               await getInstalledVersion(
-            analysisContext,
-            targetFolder,
-            dependencyName,
+            packageAnalysisSession: rootPackageAnalysisSession,
+            packageLocation: targetFolder,
+            dependencyName: dependencyName,
           );
         } on Exception catch (e) {
-          analysisContext.warning(e.toString());
+          rootPackageAnalysisSession.warning(e.toString());
           continue;
         }
 
-        await fetchPackageAndDependencies(
-          name: dependencyName,
-          version: minAllowedVersion,
-          destination: dependencyDestination,
-          wipeTarget: true,
+        // download minimum allowed version of dependency
+        try {
+          await fetchPackageWithPointer(
+            name: dependencyName,
+            version: minAllowedVersion,
+            destination: dependencyDestination,
+            wipeTarget: true,
+          );
+        } on ProcessException catch (exception) {
+          rootPackageAnalysisSession.warning(
+              'Failed to download dependency $dependencyName of target package $packageName with error code ${exception.errorCode}: ${exception.message}');
+        }
+
+        // TODO: can we create this session before downloading the package? we already know the location of the dummy package
+        // create session for producing a summary of this dependency
+        final collection = AnalysisContextCollection(includedPaths: [
+          targetFolder,
+        ]);
+        final dependencyPackageAnalysisSession = _PackageAnalysisSession(
+            collection.contextFor(targetFolder).currentSession);
+
+        final realDependencyLocation = await getDependencyDirectory(
+          dependencyPackageAnalysisSession,
+          dependencyDestination,
+          dependencyName,
         );
 
+        // produce a summary of the minimum version of this dependency and store it
         dependencySummaries[dependencyName] = await summarizePackage(
-          analysisContext,
-          dependencyDestination,
+          dependencyPackageAnalysisSession,
+          realDependencyLocation!,
         );
       }
 
-      await reportIssues(
-        packageAnalysisContext: analysisContext,
+      var test = await reportIssues(
+        packageAnalysisSession: rootPackageAnalysisSession,
         packageLocation: targetFolder,
         rootPackageName: packageName,
         dependencySummaries: dependencySummaries,
         targetDependencies: dependencies,
         dependencyInstalledVersions: dependencyInstalledVersions,
       );
+      for (final i in test) {
+        print(
+            'symbol ${i.identifier} could not be found in ${i.dependencyPackageName} version ${i.lowestVersion.toString()}');
+      }
     }
   }
 }
@@ -235,12 +283,12 @@ Future<String> checkArgs(List<String> paths) async {
   return packageLocation;
 }
 
-class _PackageAnalysisContext extends PackageAnalysisContext {
+class _PackageAnalysisSession extends PackageAnalysisSession {
   @override
-  late final AnalysisContextCollection analysisContextCollection;
+  late final AnalysisSession analysisSession;
 
-  _PackageAnalysisContext(AnalysisContextCollection contextCollection) {
-    analysisContextCollection = contextCollection;
+  _PackageAnalysisSession(AnalysisSession session) {
+    analysisSession = session;
   }
 
   @override
