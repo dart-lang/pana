@@ -29,7 +29,7 @@ Future<void> main() async {
     'generator': 'pub',
     'generatorVersion': '2.17.3'
   });
-  final pubspecTemplate = 'name: test_package\nversion: 1.0.0';
+  const pubspecTemplate = 'name: test_package\nversion: 1.0.0';
 
   for (final file in await yamlDir.list().toList()) {
     final doc = loadYaml(await (file as File).readAsString());

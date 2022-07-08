@@ -164,7 +164,6 @@ class MyAstVisitor extends GeneralizingAstVisitor {
     switch (constraintIssue) {
       case true:
         {
-          // TODO: remove debug prints above
           issues[elementId] = LowerBoundConstraintIssue(
               dependencyPackageName: packageName,
               constraint: targetDependencies[packageName]!.version,

@@ -239,7 +239,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         );
       }
 
-      var test = await reportIssues(
+      final foundIssues = await reportIssues(
         packageAnalysisSession: rootPackageAnalysisSession,
         packageLocation: targetFolder,
         rootPackageName: packageName,
@@ -247,8 +247,8 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         targetDependencies: dependencies,
         dependencyInstalledVersions: dependencyInstalledVersions,
       );
-      for (final i in test) {
-        print(
+      for (final i in foundIssues) {
+        rootPackageAnalysisSession.warning(
             'symbol ${i.identifier} could not be found in ${i.dependencyPackageName} version ${i.lowestVersion.toString()}');
       }
     }
