@@ -137,7 +137,7 @@ class Tagger {
 
     final libDartFiles = dartFilesFromLib(packageDir);
     final nonSrcDartFiles =
-        libDartFiles.where((p) => !p.startsWith('src/')).toList();
+        libDartFiles.where((p) => path.split(p).first != 'src').toList();
 
     Uri? primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
