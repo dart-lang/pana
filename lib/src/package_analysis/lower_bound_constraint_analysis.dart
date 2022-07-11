@@ -136,26 +136,23 @@ class MyAstVisitor extends GeneralizingAstVisitor {
 
     // differentiate between class methods and top-level functions
     if (enclosingElement is ClassElement) {
-      // does this dependency's PackageShape have a class whose name matches that of enclosingElement,
-      // and does this class have a method with a matching name?
-      // TODO: look though multiple classes
-      final classShape = dependencyShape.classes.firstWhereOrNull(
+      // does this dependency's PackageShape have a class whose name matches
+      // that of enclosingElement, and does this class have a method with a matching name?
+      // initially assume there is an issue and look for classes with the correct method
+      constraintIssue = true;
+      final classesMatchingName = dependencyShape.classes.where(
           (thisClass) => thisClass.name == enclosingElement.name);
-      if (classShape != null &&
-          classShape.methods.any((method) => method.name == symbolName)) {
-        constraintIssue = false;
-      } else {
-        constraintIssue = true;
+      for (final thisClass in classesMatchingName) {
+        if (thisClass.methods.any((method) => method.name == symbolName)) {
+          constraintIssue = false;
+          break;
+        }
       }
     } else if (enclosingElement is CompilationUnitElement) {
       // does this top-level function exist in this the dependency's PackageShape?
-      if (dependencyShape.functions
+      constraintIssue = !dependencyShape.functions
           .map((function) => function.name)
-          .contains(symbolName)) {
-        constraintIssue = false;
-      } else {
-        constraintIssue = true;
-      }
+          .contains(symbolName);
     } else {
       warning(
           'Failed to resolve subclass of enclosingElement ${enclosingElement.toString()}.');
