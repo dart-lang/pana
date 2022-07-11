@@ -68,7 +68,7 @@ dependencies:
 
     await fetchDependencies(packageLocation);
 
-    final rootSession = _PackageAnalysisSession(
+    final rootSession = _PackageAnalysisContext(
       AnalysisContextCollection(includedPaths: [packageLocation])
           .contextFor(packageLocation)
           .currentSession,
@@ -109,11 +109,11 @@ dependencies:
   });
 }
 
-class _PackageAnalysisSession extends PackageAnalysisSession {
+class _PackageAnalysisContext extends PackageAnalysisContext {
   @override
   late final AnalysisSession analysisSession;
 
-  _PackageAnalysisSession(AnalysisSession session) {
+  _PackageAnalysisContext(AnalysisSession session) {
     analysisSession = session;
   }
 

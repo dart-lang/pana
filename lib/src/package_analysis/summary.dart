@@ -9,7 +9,7 @@ import 'normalize_shape.dart';
 import 'shapes.dart';
 
 Future<PackageShape> summarizePackage(
-  PackageAnalysisSession packageAnalysisSession,
+  PackageAnalysisContext packageAnalysisSession,
   String packageLocation,
 ) async {
   final pubspecPath = path.join(packageLocation, 'pubspec.yaml');

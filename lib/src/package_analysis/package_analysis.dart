@@ -38,7 +38,7 @@ class SummaryCommand extends Command {
         .currentSession;
 
     final packageShape = await summarizePackage(
-      _PackageAnalysisSession(session),
+      _PackageAnalysisContext(session),
       packageLocation,
     );
 
@@ -61,7 +61,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
     // Given the location of a package and one of its dependencies, return the
     // dependency version which is installed.
     Future<Version> getInstalledVersion({
-      required PackageAnalysisSession packageAnalysisSession,
+      required PackageAnalysisContext packageAnalysisSession,
       required String packageLocation,
       required String dependencyName,
     }) async {
@@ -133,7 +133,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       final collection = AnalysisContextCollection(includedPaths: [
         targetFolder,
       ]);
-      final rootPackageAnalysisSession = _PackageAnalysisSession(
+      final rootPackageAnalysisSession = _PackageAnalysisContext(
           collection.contextFor(targetFolder).currentSession);
 
       final dependencySummaries = <String, PackageShape>{};
@@ -209,7 +209,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final collection = AnalysisContextCollection(includedPaths: [
           targetFolder,
         ]);
-        final dependencyPackageAnalysisSession = _PackageAnalysisSession(
+        final dependencyPackageAnalysisSession = _PackageAnalysisContext(
             collection.contextFor(targetFolder).currentSession);
 
         final realDependencyLocation = await getDependencyDirectory(
@@ -270,11 +270,11 @@ Future<String> checkArgs(List<String> paths) async {
 }
 
 // TODO: this class is used in 3 places now (here and twice in ./test), do something about it
-class _PackageAnalysisSession extends PackageAnalysisSession {
+class _PackageAnalysisContext extends PackageAnalysisContext {
   @override
   late final AnalysisSession analysisSession;
 
-  _PackageAnalysisSession(AnalysisSession session) {
+  _PackageAnalysisContext(AnalysisSession session) {
     analysisSession = session;
   }
 

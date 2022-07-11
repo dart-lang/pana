@@ -9,7 +9,7 @@ import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 
 const indentedEncoder = JsonEncoder.withIndent('  ');
 
-abstract class PackageAnalysisSession {
+abstract class PackageAnalysisContext {
   AnalysisSession get analysisSession;
 
   /// Log [message] as a warning that something unexpected happened.
@@ -101,7 +101,7 @@ Future<void> fetchDependencies(String destination) async {
 /// return the path of the dependency, or null if it cannot be resolved.
 /// Ensure that the dependencies of the target package are fetched.
 Future<String?> getDependencyDirectory(
-  PackageAnalysisSession packageAnalysisSession,
+  PackageAnalysisContext packageAnalysisSession,
   String packageLocation,
   String dependencyName,
 ) async {

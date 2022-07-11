@@ -68,7 +68,7 @@ Future<void> main() async {
       ).contextFor(packageLocation).currentSession;
 
       final packageShape = await summarizePackage(
-        _PackageAnalysisSession(session),
+        _PackageAnalysisContext(session),
         packageLocation,
       );
 
@@ -80,11 +80,11 @@ Future<void> main() async {
   }
 }
 
-class _PackageAnalysisSession extends PackageAnalysisSession {
+class _PackageAnalysisContext extends PackageAnalysisContext {
   @override
   late final AnalysisSession analysisSession;
 
-  _PackageAnalysisSession(AnalysisSession session) {
+  _PackageAnalysisContext(AnalysisSession session) {
     analysisSession = session;
   }
 

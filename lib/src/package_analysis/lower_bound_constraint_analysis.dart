@@ -14,14 +14,14 @@ import 'common.dart';
 /// analyze the target package and return a List of any found issues - where a
 /// symbol usage cannot be found in the relevant dependency's PackageShape
 Future<List<LowerBoundConstraintIssue>> reportIssues({
-  required PackageAnalysisSession packageAnalysisSession,
+  required PackageAnalysisContext packageAnalysisSession,
   required String packageLocation,
   required String? rootPackageName,
   required Map<String, PackageShape> dependencySummaries,
   required Map<String, HostedDependency> targetDependencies,
   required Map<String, Version> dependencyInstalledVersions,
 }) async {
-  var astVisitor = MyAstVisitor(
+  var astVisitor = _LowerBoundConstraintVisitor(
     rootPackage: rootPackageName,
     warning: packageAnalysisSession.warning,
     dependencySummaries: dependencySummaries,
@@ -54,7 +54,7 @@ Future<List<LowerBoundConstraintIssue>> reportIssues({
   return astVisitor.issues.values.whereNotNull().toList();
 }
 
-class MyAstVisitor extends GeneralizingAstVisitor {
+class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// Maps from [Element.id] to either [LowerBoundConstraintIssue] if the lower
   /// bound constraint on [LowerBoundConstraintIssue.dependencyPackageName] is
   /// too low, making [Element] when the lowest allowed version
@@ -77,7 +77,7 @@ class MyAstVisitor extends GeneralizingAstVisitor {
   /// Log a warning that something unexpected happened.
   final void Function(String message) warning;
 
-  MyAstVisitor({
+  _LowerBoundConstraintVisitor({
     required this.rootPackage,
     required this.warning,
     required this.dependencySummaries,
