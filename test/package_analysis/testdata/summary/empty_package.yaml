@@ -1,6 +1,6 @@
 ---
 
-name: The analyser should be able to handle an empty pacakge
+name: The analyzer should be able to handle an empty package
 summary: |-
   {
     "name": "test_package",

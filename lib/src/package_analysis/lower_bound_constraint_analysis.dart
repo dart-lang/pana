@@ -61,7 +61,7 @@ class MyAstVisitor extends GeneralizingAstVisitor {
   /// [LowerBoundConstraintIssue.lowestVersion] is used, or null otherwise.
   final Map<int, LowerBoundConstraintIssue?> issues = {};
 
-  /// The name of the package being analysed. Invocations corresponding to
+  /// The name of the package being analyzed. Invocations corresponding to
   /// definitions within this package will be ignored.
   final String? rootPackage;
 
@@ -118,7 +118,7 @@ class MyAstVisitor extends GeneralizingAstVisitor {
 
     // if the name of the package can't be resolved,
     // or it is the same as the name of the target package (or flutter)
-    // then this symbol cannot be analysed
+    // then this symbol cannot be analyzed
     if (packageName == null ||
         packageName == rootPackage ||
         packageName == 'flutter') {
@@ -149,7 +149,7 @@ class MyAstVisitor extends GeneralizingAstVisitor {
         }
       }
     } else if (enclosingElement is CompilationUnitElement) {
-      // does this top-level function exist in this the dependency's PackageShape?
+      // does this top-level function exist in this dependency's PackageShape?
       constraintIssue = !dependencyShape.functions
           .map((function) => function.name)
           .contains(symbolName);
