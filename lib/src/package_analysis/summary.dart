@@ -9,13 +9,11 @@ import 'normalize_shape.dart';
 import 'shapes.dart';
 
 Future<PackageShape> summarizePackage(
-  PackageAnalysisContext packageAnalysisSession,
+  PackageAnalysisContext packageAnalysisContext,
   String packageLocation,
 ) async {
   final pubspecPath = path.join(packageLocation, 'pubspec.yaml');
-  final pubspecString = packageAnalysisSession.analysisSession.resourceProvider
-      .getFile(pubspecPath)
-      .readAsStringSync();
+  final pubspecString = packageAnalysisContext.readFile(pubspecPath);
   final pubspec = Pubspec.parseYaml(pubspecString);
 
   if (pubspec.version == null) {
@@ -141,8 +139,7 @@ Future<PackageShape> summarizePackage(
 
   final libPath = path.join(packageLocation, 'lib');
   final libSrcPath = path.join(libPath, 'src');
-  final libFolder = packageAnalysisSession.analysisSession.resourceProvider
-      .getFolder(libPath);
+  final libFolder = packageAnalysisContext.getFolder(libPath);
 
   // retrieve the paths of all the public dart files in this package via the
   // resourceProvider (.dart files in ./lib but not in ./lib/src)
@@ -153,7 +150,7 @@ Future<PackageShape> summarizePackage(
       .sorted();
 
   for (final filePath in nonSrcDartFiles) {
-    final library = await packageAnalysisSession.analysisSession
+    final library = await packageAnalysisContext.analysisSession
         .getResolvedLibrary(filePath);
 
     // this file is just part of another library
@@ -163,7 +160,7 @@ Future<PackageShape> summarizePackage(
 
     // ensure that resolving has been successful
     if (library is! ResolvedLibraryResult) {
-      packageAnalysisSession
+      packageAnalysisContext
           .warning('Analysis of $filePath as a library failed.');
       continue;
     }

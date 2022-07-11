@@ -14,7 +14,7 @@ import 'common.dart';
 /// analyze the target package and return a List of any found issues - where a
 /// symbol usage cannot be found in the relevant dependency's PackageShape
 Future<List<LowerBoundConstraintIssue>> reportIssues({
-  required PackageAnalysisContext packageAnalysisSession,
+  required PackageAnalysisContext packageAnalysisContext,
   required String packageLocation,
   required String? rootPackageName,
   required Map<String, PackageShape> dependencySummaries,
@@ -23,15 +23,14 @@ Future<List<LowerBoundConstraintIssue>> reportIssues({
 }) async {
   var astVisitor = _LowerBoundConstraintVisitor(
     rootPackage: rootPackageName,
-    warning: packageAnalysisSession.warning,
+    warning: packageAnalysisContext.warning,
     dependencySummaries: dependencySummaries,
     targetDependencies: targetDependencies,
     dependencyInstalledVersions: dependencyInstalledVersions,
   );
 
   final libPath = path.join(packageLocation, 'lib');
-  final libFolder = packageAnalysisSession.analysisSession.resourceProvider
-      .getFolder(libPath);
+  final libFolder = packageAnalysisContext.getFolder(libPath);
 
   // retrieve the paths of all the dart library files in this package via the
   // resourceProvider (.dart files in ./lib)
@@ -42,11 +41,11 @@ Future<List<LowerBoundConstraintIssue>> reportIssues({
 
   for (final filePath in dartLibFiles) {
     final result =
-        await packageAnalysisSession.analysisSession.getResolvedUnit(filePath);
+        await packageAnalysisContext.analysisSession.getResolvedUnit(filePath);
     if (result is ResolvedUnitResult) {
       astVisitor.visitCompilationUnit(result.unit);
     } else {
-      packageAnalysisSession.warning(
+      packageAnalysisContext.warning(
           'Attempting to get a resolved unit resulted in an invalid result.');
     }
   }

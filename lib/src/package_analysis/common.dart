@@ -14,6 +14,19 @@ abstract class PackageAnalysisContext {
 
   /// Log [message] as a warning that something unexpected happened.
   void warning(String message);
+
+  /// Get the contents of the file at [path] using the `analysisSession.resourceProvider`
+  String readFile(String path) {
+    return analysisSession.resourceProvider.getFile(path).readAsStringSync();
+  }
+
+  resource.File getFile(String path) {
+    return analysisSession.resourceProvider.getFile(path);
+  }
+
+  resource.Folder getFolder(String path) {
+    return analysisSession.resourceProvider.getFolder(path);
+  }
 }
 
 /// Download version [version] of the package [name] to the directory
@@ -101,12 +114,12 @@ Future<void> fetchDependencies(String destination) async {
 /// return the path of the dependency, or null if it cannot be resolved.
 /// Ensure that the dependencies of the target package are fetched.
 Future<String?> getDependencyDirectory(
-  PackageAnalysisContext packageAnalysisSession,
+  PackageAnalysisContext packageAnalysisContext,
   String packageLocation,
   String dependencyName,
 ) async {
   final dependencyUri = Uri.parse('package:$dependencyName/');
-  final dependencyFilePath = packageAnalysisSession.analysisSession.uriConverter
+  final dependencyFilePath = packageAnalysisContext.analysisSession.uriConverter
       .uriToPath(dependencyUri);
   return dependencyFilePath == null ? null : path.dirname(dependencyFilePath);
 }

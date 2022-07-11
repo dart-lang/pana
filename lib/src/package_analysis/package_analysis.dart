@@ -61,13 +61,13 @@ class LowerBoundConstraintAnalysisCommand extends Command {
     // Given the location of a package and one of its dependencies, return the
     // dependency version which is installed.
     Future<Version> getInstalledVersion({
-      required PackageAnalysisContext packageAnalysisSession,
+      required PackageAnalysisContext packageAnalysisContext,
       required String packageLocation,
       required String dependencyName,
     }) async {
       // find where this dependency was installed for the target package
       final dependencyUri = Uri.parse('package:$dependencyName/');
-      final dependencyFilePath = packageAnalysisSession
+      final dependencyFilePath = packageAnalysisContext
           .analysisSession.uriConverter
           .uriToPath(dependencyUri);
       // could not resolve uri
@@ -115,7 +115,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           wipeTarget: true,
         );
       } on ProcessException catch (exception) {
-        // TODO: do not write to stderr here, instead figure out a way to use rootPackageAnalysisSession.warning here - see below (beginning 'can we create this session..')
+        // TODO: do not write to stderr here, instead figure out a way to use rootPackageAnalysisContext.warning here - see below (beginning 'can we create this session..')
         stderr.writeln(
             'Failed to download target package  $packageName with error code ${exception.errorCode}: ${exception.message}');
       }
@@ -133,7 +133,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       final collection = AnalysisContextCollection(includedPaths: [
         targetFolder,
       ]);
-      final rootPackageAnalysisSession = _PackageAnalysisContext(
+      final rootPackageAnalysisContext = _PackageAnalysisContext(
           collection.contextFor(targetFolder).currentSession);
 
       final dependencySummaries = <String, PackageShape>{};
@@ -172,7 +172,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           }
 
           if (minAllowedVersion == null) {
-            rootPackageAnalysisSession.warning(
+            rootPackageAnalysisContext.warning(
                 'Could not determine minimum allowed version for dependency $dependencyName, skipping it.');
             continue;
           }
@@ -182,12 +182,12 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         try {
           dependencyInstalledVersions[dependencyName] =
               await getInstalledVersion(
-            packageAnalysisSession: rootPackageAnalysisSession,
+            packageAnalysisContext: rootPackageAnalysisContext,
             packageLocation: targetFolder,
             dependencyName: dependencyName,
           );
         } on Exception catch (e) {
-          rootPackageAnalysisSession.warning(e.toString());
+          rootPackageAnalysisContext.warning(e.toString());
           continue;
         }
 
@@ -200,7 +200,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
             wipeTarget: true,
           );
         } on ProcessException catch (exception) {
-          rootPackageAnalysisSession.warning(
+          rootPackageAnalysisContext.warning(
               'Failed to download dependency $dependencyName of target package $packageName with error code ${exception.errorCode}: ${exception.message}');
         }
 
@@ -209,24 +209,24 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final collection = AnalysisContextCollection(includedPaths: [
           targetFolder,
         ]);
-        final dependencyPackageAnalysisSession = _PackageAnalysisContext(
+        final dependencyPackageAnalysisContext = _PackageAnalysisContext(
             collection.contextFor(targetFolder).currentSession);
 
         final realDependencyLocation = await getDependencyDirectory(
-          dependencyPackageAnalysisSession,
+          dependencyPackageAnalysisContext,
           dependencyDestination,
           dependencyName,
         );
 
         // produce a summary of the minimum version of this dependency and store it
         dependencySummaries[dependencyName] = await summarizePackage(
-          dependencyPackageAnalysisSession,
+          dependencyPackageAnalysisContext,
           realDependencyLocation!,
         );
       }
 
       final foundIssues = await reportIssues(
-        packageAnalysisSession: rootPackageAnalysisSession,
+        packageAnalysisContext: rootPackageAnalysisContext,
         packageLocation: targetFolder,
         rootPackageName: packageName,
         dependencySummaries: dependencySummaries,
@@ -234,7 +234,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         dependencyInstalledVersions: dependencyInstalledVersions,
       );
       for (final i in foundIssues) {
-        rootPackageAnalysisSession.warning(
+        rootPackageAnalysisContext.warning(
             'symbol ${i.identifier} could not be found in ${i.dependencyPackageName} version ${i.lowestVersion.toString()}');
       }
     }

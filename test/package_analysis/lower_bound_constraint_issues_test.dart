@@ -75,7 +75,7 @@ dependencies:
     );
 
     final issues = await reportIssues(
-      packageAnalysisSession: rootSession,
+      packageAnalysisContext: rootSession,
       packageLocation: packageLocation,
       rootPackageName: 'test_package',
       dependencySummaries: {
