@@ -8,7 +8,6 @@ import 'package:pana/pana.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 
 import 'common.dart';
 import 'lower_bound_constraint_analysis.dart';
@@ -45,7 +44,6 @@ class SummaryCommand extends Command {
 
     final packageJson = packageShape.toJson();
 
-    const indentedEncoder = JsonEncoder.withIndent('  ');
     print(indentedEncoder.convert(packageJson));
   }
 }
@@ -104,10 +102,6 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
       print('Reviewing package $packageName...');
 
-      // if (packageName == 'flutter_login_facebook' || packageName == 'amplify_flutter') {
-      //   continue;
-      // }
-
       final baseFolder = path.canonicalize(arguments[1]);
 
       final targetFolder = path.join(baseFolder, 'target');
@@ -126,15 +120,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
             'Failed to download target package  $packageName with error code ${exception.errorCode}: ${exception.message}');
       }
 
-      final allDependencies = Pubspec.parseYaml(
-              await File(path.join(targetFolder, 'pubspec.yaml'))
-                  .readAsString())
-          .dependencies;
-
-      // ensure that this dependency can be found on pub.dev and has version constraints
-      // TODO: is there a better way to do this?
-      allDependencies.removeWhere((key, value) => value is! HostedDependency);
-      final dependencies = Map<String, HostedDependency>.from(allDependencies);
+      final dependencies = await getHostedDependencies(targetFolder);
 
       // if there are no dependencies, there is nothing to analyze
       if (dependencies.isEmpty) {
@@ -283,6 +269,7 @@ Future<String> checkArgs(List<String> paths) async {
   return packageLocation;
 }
 
+// TODO: this class is used in 3 places now (here and twice in ./test), do something about it
 class _PackageAnalysisSession extends PackageAnalysisSession {
   @override
   late final AnalysisSession analysisSession;

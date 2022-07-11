@@ -12,9 +12,13 @@ import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
 Future<void> main() async {
-  final yamlDir = Directory(
-      path.join(path.current, 'test', 'package_analysis', 'testdata'));
-  final indentedEncoder = const JsonEncoder.withIndent('  ');
+  final yamlDir = Directory(path.join(
+    path.current,
+    'test',
+    'package_analysis',
+    'testdata',
+    'summary',
+  ));
   final configTemplate = json.encode({
     'configVersion': 2,
     'packages': [

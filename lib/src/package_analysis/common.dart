@@ -5,6 +5,9 @@ import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/file_system/file_system.dart' as resource;
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
+import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
+
+const indentedEncoder = JsonEncoder.withIndent('  ');
 
 abstract class PackageAnalysisSession {
   AnalysisSession get analysisSession;
@@ -123,4 +126,18 @@ List<resource.File> getAllFiles(resource.Folder folder) {
     }
   }
   return files;
+}
+
+/// Fetch all the hosted dependencies used by a package at a given location
+Future<Map<String, HostedDependency>> getHostedDependencies(
+    String targetPackageDir) async {
+  // fetch a Map of all dependencies from the target package folder
+  final allDependencies = Pubspec.parseYaml(
+          await File(path.join(targetPackageDir, 'pubspec.yaml'))
+              .readAsString())
+      .dependencies;
+
+  // ensure that these dependencies can be found on pub.dev and has version constraints
+  allDependencies.removeWhere((key, value) => value is! HostedDependency);
+  return Map<String, HostedDependency>.from(allDependencies);
 }

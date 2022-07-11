@@ -224,6 +224,15 @@ class LowerBoundConstraintIssue {
   // List of locations in the analyzed source code where [identifier] was referenced.
   // final List<SourceSpan> references;
 
+  @override
+  bool operator ==(other) =>
+      other is LowerBoundConstraintIssue &&
+      other.dependencyPackageName == dependencyPackageName &&
+      other.constraint == constraint &&
+      other.currentVersion == currentVersion &&
+      other.lowestVersion == lowestVersion &&
+      other.identifier == identifier;
+
   LowerBoundConstraintIssue({
     required this.dependencyPackageName,
     required this.constraint,
@@ -231,4 +240,13 @@ class LowerBoundConstraintIssue {
     required this.lowestVersion,
     required this.identifier,
   });
+
+  @override
+  int get hashCode => Object.hash(
+        dependencyPackageName,
+        constraint,
+        currentVersion,
+        lowestVersion,
+        identifier,
+      );
 }
