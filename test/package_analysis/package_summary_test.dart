@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:analyzer/dart/analysis/session.dart';
 import 'package:pana/src/package_analysis/common.dart';
+import 'package:pana/src/package_analysis/package_analysis.dart';
 import 'package:pana/src/package_analysis/summary.dart';
 import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
@@ -21,7 +21,7 @@ Future<void> main() async {
   await for (final file in yamlDir.list()) {
     final doc = loadYaml(await (file as File).readAsString());
     test(doc['name'], () async {
-      // TODO: can we rely on this path being empty and not overwriting anything?
+      // TODO: can we rely on this path being empty and our testing not conflicting with physical files on disk?
       final packagePath = path.canonicalize(path.join('test_package'));
 
       final provider = setupBasicPackage(
@@ -50,7 +50,7 @@ Future<void> main() async {
       ).contextFor(packagePath).currentSession;
 
       final packageShape = await summarizePackage(
-        _PackageAnalysisContext(session),
+        PackageAnalysisContextWithStderr(session),
         packagePath,
       );
 
@@ -59,19 +59,5 @@ Future<void> main() async {
       // compare the summary to what was expected in the yaml doc
       expect(indentedEncoder.convert(packageJson), equals(doc['summary']));
     });
-  }
-}
-
-class _PackageAnalysisContext extends PackageAnalysisContext {
-  @override
-  late final AnalysisSession analysisSession;
-
-  _PackageAnalysisContext(AnalysisSession session) {
-    analysisSession = session;
-  }
-
-  @override
-  void warning(String message) {
-    stderr.writeln(message);
   }
 }

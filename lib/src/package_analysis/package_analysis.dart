@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:args/command_runner.dart';
+import 'package:meta/meta.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
@@ -37,7 +38,7 @@ class SummaryCommand extends Command {
         .currentSession;
 
     final packageShape = await summarizePackage(
-      _PackageAnalysisContext(session),
+      PackageAnalysisContextWithStderr(session),
       packageLocation,
     );
 
@@ -104,7 +105,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       // create session for analysing the package being searched for issues
       // (the target package)
       final collection = AnalysisContextCollection(includedPaths: [targetPath]);
-      final rootPackageAnalysisContext = _PackageAnalysisContext(
+      final rootPackageAnalysisContext = PackageAnalysisContextWithStderr(
           collection.contextFor(targetPath).currentSession);
 
       final dependencySummaries = <String, PackageShape>{};
@@ -169,7 +170,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final collection = AnalysisContextCollection(includedPaths: [
           targetPath,
         ]);
-        final dependencyPackageAnalysisContext = _PackageAnalysisContext(
+        final dependencyPackageAnalysisContext = PackageAnalysisContextWithStderr(
             collection.contextFor(targetPath).currentSession);
 
         final realDependencyLocation = await getDependencyDirectory(
@@ -230,12 +231,13 @@ Future<String> checkArgs(List<String> paths) async {
   return packageLocation;
 }
 
-// TODO: this class is used in 3 places now (here and twice in ./test), do something about it
-class _PackageAnalysisContext extends PackageAnalysisContext {
+// TODO: better name for this class?
+@internal
+class PackageAnalysisContextWithStderr extends PackageAnalysisContext {
   @override
   late final AnalysisSession analysisSession;
 
-  _PackageAnalysisContext(AnalysisSession session) {
+  PackageAnalysisContextWithStderr(AnalysisSession session) {
     analysisSession = session;
   }
 

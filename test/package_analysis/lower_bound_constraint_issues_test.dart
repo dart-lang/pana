@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:analyzer/dart/analysis/session.dart';
 import 'package:pana/src/package_analysis/common.dart';
 import 'package:pana/src/package_analysis/lower_bound_constraint_analysis.dart';
+import 'package:pana/src/package_analysis/package_analysis.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:pana/src/package_analysis/summary.dart';
 import 'package:path/path.dart' as path;
@@ -36,7 +36,7 @@ dependencies:
     final doc = loadYaml(await (file as File).readAsString());
     final packages = doc['packages'] as List;
     test(doc['name'], () async {
-      // serve dependencies
+      // serve all versions of the provided dependencies
       for (final package in packages) {
         final files = package['package'] as List;
         await servePackages((b) => b!
@@ -62,7 +62,7 @@ dependencies:
           await Directory(Directory.systemTemp.path).createTemp('test_package');
       final targetPath = targetDir.path;
 
-      // load dependencies into the pubspec
+      // load dependencies into the pubspec of the target package
       var pubspecString = targetPubspecStart;
       for (final dependency in doc['target']['dependencies']) {
         pubspecString += '''
@@ -74,7 +74,7 @@ dependencies:
 ''';
       }
 
-      // write the contents of the test package to disk
+      // write the contents of the target package to disk
       await File(path.join(targetPath, 'pubspec.yaml'))
           .writeAsString(pubspecString);
       for (final file in doc['target']['package']) {
@@ -83,22 +83,21 @@ dependencies:
         final filePath =
             path.joinAll([targetPath, ...filePathRelative.split('/')]);
 
-        // ensure parent directory exists
+        // ensure parent directory exists and write file contents
         await Directory(path.dirname(filePath)).create(recursive: true);
-
-        // write file contents
         await File(filePath).writeAsString(file['content'] as String);
       }
 
+      // fetch the dependencies of the target package on disk
       await fetchDependencies(targetPath);
 
-      final rootPackageAnalysisContext = _PackageAnalysisContext(
+      final rootPackageAnalysisContext = PackageAnalysisContextWithStderr(
         AnalysisContextCollection(includedPaths: [targetPath])
             .contextFor(targetPath)
             .currentSession,
       );
 
-      // TODO: move this up, to the first dependencies loop?
+      // collect metadata about the target's dependencies
       final dependencySummaries = <String, PackageShape>{};
       final dependencyInstalledVersions = <String, Version>{};
       final targetDependencies = await getHostedDependencies(targetPath);
@@ -106,33 +105,34 @@ dependencies:
         final dependencyName = dependency['name'] as String;
         final dependencyPackages =
             packages.where((package) => package['name'] == dependencyName);
+
         // TODO: communicate somehow that it's necessary for the versions of any given package to be sorted in the yaml file
+        // find the minimum allowed version of this package
         final allVersionsString =
             dependencyPackages.map((package) => package['version'] as String);
         final minVersion = findMinAllowedVersion(
           constraint: targetDependencies[dependencyName]!.version,
           versions: allVersionsString.map(Version.parse).toList(),
         )!;
+        final dependencyMin = dependencyPackages.firstWhere(
+                (package) => package['version'] == minVersion.toString());
 
-        // get installed dependency version
+        // get the installed version of this dependency at the targetPath
         dependencyInstalledVersions[dependencyName] = await getInstalledVersion(
           packageAnalysisContext: rootPackageAnalysisContext,
           packageLocation: targetPath,
           dependencyName: dependencyName,
         );
 
-        // TODO: can we rely on this path being empty and not overwriting anything?
+        // TODO: can we rely on this path being empty and our testing not conflicting with physical files on disk?
         final packagePath = path.canonicalize(path.join(dependencyName));
 
-        final dependencyMin = dependencyPackages.firstWhere(
-            (package) => package['version'] == minVersion.toString());
-
+        // set up the minimum version of this dependency in memory
         final provider = setupBasicPackage(
           packagePath: packagePath,
           packageName: dependencyName,
           packageVersion: minVersion.toString(),
         );
-
         for (final node in dependencyMin['package']) {
           final filePath = path.canonicalize(path.join(
             dependencyName,
@@ -145,13 +145,13 @@ dependencies:
           );
         }
 
+        // produce a summary of the in-memory version of this dependency
         final session = AnalysisContextCollection(
           includedPaths: [packagePath],
           resourceProvider: provider,
         ).contextFor(packagePath).currentSession;
-
         dependencySummaries[dependencyName] = await summarizePackage(
-          _PackageAnalysisContext(session),
+          PackageAnalysisContextWithStderr(session),
           packagePath,
         );
       }
@@ -188,16 +188,3 @@ dependencies:
   }
 }
 
-class _PackageAnalysisContext extends PackageAnalysisContext {
-  @override
-  late final AnalysisSession analysisSession;
-
-  _PackageAnalysisContext(AnalysisSession session) {
-    analysisSession = session;
-  }
-
-  @override
-  void warning(String message) {
-    stderr.writeln(message);
-  }
-}
