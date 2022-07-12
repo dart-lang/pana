@@ -14,7 +14,7 @@ packages:
         content: |
           void f() {}
           class C {
-            g() {}
+            void g() {}
           }
 target:
   dependencies:
