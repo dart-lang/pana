@@ -13,6 +13,9 @@ packages:
       - path: lib/foo.dart
         content: |
           void f() {}
+          class C {
+            g() {}
+          }
 target:
   dependencies:
     - name: foo
@@ -21,8 +24,9 @@ target:
     - path: lib/main.dart
       content: |
         import 'package:foo/foo.dart';
-        void main() { f(); }
+        void main() { f(); C().g(); }
 issues:
   - 'identifier: f'
+  - 'identifier: g'
 
 ...

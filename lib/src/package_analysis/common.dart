@@ -124,7 +124,6 @@ Future<String?> getDependencyDirectory(
   return dependencyFilePath == null ? null : path.dirname(dependencyFilePath);
 }
 
-// TODO: test this feature by creating a summary of a package with a deeply nested library, one public, one private
 /// Recursively fetch all the files in the given folder
 List<resource.File> getAllFiles(resource.Folder folder) {
   final files = <resource.File>[];
