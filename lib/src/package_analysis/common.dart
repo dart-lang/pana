@@ -5,6 +5,7 @@ import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/file_system/file_system.dart' as resource;
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
+import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 
 const indentedEncoder = JsonEncoder.withIndent('  ');
@@ -16,17 +17,16 @@ abstract class PackageAnalysisContext {
   void warning(String message);
 
   /// Get the contents of the file at [path] using the `analysisSession.resourceProvider`
-  String readFile(String path) {
-    return analysisSession.resourceProvider.getFile(path).readAsStringSync();
-  }
+  String readFile(String path) =>
+      analysisSession.resourceProvider.getFile(path).readAsStringSync();
 
-  resource.File getFile(String path) {
-    return analysisSession.resourceProvider.getFile(path);
-  }
+  resource.File getFile(String path) =>
+      analysisSession.resourceProvider.getFile(path);
 
-  resource.Folder getFolder(String path) {
-    return analysisSession.resourceProvider.getFolder(path);
-  }
+  resource.Folder getFolder(String path) =>
+      analysisSession.resourceProvider.getFolder(path);
+
+  String? uriToPath(Uri uri) => analysisSession.uriConverter.uriToPath(uri);
 }
 
 /// Download version [version] of the package [name] to the directory
@@ -119,8 +119,8 @@ Future<String?> getDependencyDirectory(
   String dependencyName,
 ) async {
   final dependencyUri = Uri.parse('package:$dependencyName/');
-  final dependencyFilePath = packageAnalysisContext.analysisSession.uriConverter
-      .uriToPath(dependencyUri);
+  final dependencyFilePath = packageAnalysisContext.uriToPath(dependencyUri);
+  print('path for $dependencyName in $packageLocation is $dependencyFilePath');
   return dependencyFilePath == null ? null : path.dirname(dependencyFilePath);
 }
 
@@ -153,4 +153,53 @@ Future<Map<String, HostedDependency>> getHostedDependencies(
   // ensure that these dependencies can be found on pub.dev and has version constraints
   allDependencies.removeWhere((key, value) => value is! HostedDependency);
   return Map<String, HostedDependency>.from(allDependencies);
+}
+
+/// Given the location of a package and one of its dependencies, return the
+/// dependency version which is installed.
+Future<Version> getInstalledVersion({
+  required PackageAnalysisContext packageAnalysisContext,
+  required String packageLocation,
+  required String dependencyName,
+}) async {
+  // find where this dependency was installed for the target package
+  final dependencyUri = Uri.parse('package:$dependencyName/');
+  final dependencyFilePath = packageAnalysisContext.uriToPath(dependencyUri);
+  // could not resolve uri
+  if (dependencyFilePath == null) {
+    throw Exception(
+        'Could not find package directory of dependency $dependencyName.');
+  }
+
+  // fetch the installed version for this dependency
+  final dependencyPubspecLocation = path.join(
+    path.dirname(dependencyFilePath),
+    'pubspec.yaml',
+  );
+  final dependencyPubspec =
+      Pubspec.parseYaml(await File(dependencyPubspecLocation).readAsString());
+  return dependencyPubspec.version!;
+}
+
+/// Given a version constraint and a list of versions
+/// **from a sorted list of [Version]s in increasing order**, return the the
+/// minimum [Version] allowed by the constraint, or null if no version in the
+/// list is allowed by the constraint.
+Version? findMinAllowedVersion({
+  required VersionConstraint constraint,
+  required List<Version> versions,
+}) {
+  // this first case is common
+  if (constraint is VersionRange &&
+      constraint.includeMin &&
+      versions.contains(constraint.min!)) {
+    return constraint.min!;
+  }
+
+  for (final version in versions) {
+    if (constraint.allows(version)) {
+      return version;
+    }
+  }
+  return null;
 }

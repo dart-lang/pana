@@ -21,6 +21,6 @@ summary: |-
   }
 package:
   - path: lib/a.dart
-    content: ""
+    content: ''
 
 ...

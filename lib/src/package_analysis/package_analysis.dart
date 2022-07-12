@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:args/command_runner.dart';
-import 'package:pana/pana.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
@@ -58,32 +57,6 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
   @override
   Future<void> run() async {
-    // Given the location of a package and one of its dependencies, return the
-    // dependency version which is installed.
-    Future<Version> getInstalledVersion({
-      required PackageAnalysisContext packageAnalysisContext,
-      required String packageLocation,
-      required String dependencyName,
-    }) async {
-      // find where this dependency was installed for the target package
-      final dependencyUri = Uri.parse('package:$dependencyName/');
-      final dependencyFilePath = packageAnalysisContext
-          .analysisSession.uriConverter
-          .uriToPath(dependencyUri);
-      // could not resolve uri
-      if (dependencyFilePath == null) {
-        throw Exception(
-            'Could not find package directory of dependency $dependencyName.');
-      }
-
-      // fetch the installed version for this dependency
-      final dependencyPubspecLocation =
-          path.join(path.dirname(dependencyFilePath), 'pubspec.yaml');
-      final dependencyPubspec = Pubspec.parseYaml(
-          await File(dependencyPubspecLocation).readAsString());
-      return dependencyPubspec.version!;
-    }
-
     // TODO: perform input validation
     // required arguments:
     // package metadata json path;
@@ -104,14 +77,14 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
       final baseFolder = path.canonicalize(arguments[1]);
 
-      final targetFolder = path.join(baseFolder, 'target');
+      final targetPath = path.join(baseFolder, 'target');
       final dependencyFolder = path.join(baseFolder, 'dependencies');
 
       try {
         await fetchPackageAndDependencies(
           name: packageName,
           version: packageDoc['latest']['version'] as String,
-          destination: targetFolder,
+          destination: targetPath,
           wipeTarget: true,
         );
       } on ProcessException catch (exception) {
@@ -120,7 +93,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
             'Failed to download target package  $packageName with error code ${exception.errorCode}: ${exception.message}');
       }
 
-      final dependencies = await getHostedDependencies(targetFolder);
+      final dependencies = await getHostedDependencies(targetPath);
 
       // if there are no dependencies, there is nothing to analyze
       if (dependencies.isEmpty) {
@@ -130,11 +103,9 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       // TODO: can we create this session before downloading the package? we already know the location of the target package.
       // create session for analysing the package being searched for issues
       // (the target package)
-      final collection = AnalysisContextCollection(includedPaths: [
-        targetFolder,
-      ]);
+      final collection = AnalysisContextCollection(includedPaths: [targetPath]);
       final rootPackageAnalysisContext = _PackageAnalysisContext(
-          collection.contextFor(targetFolder).currentSession);
+          collection.contextFor(targetPath).currentSession);
 
       final dependencySummaries = <String, PackageShape>{};
       final dependencyInstalledVersions = <String, Version>{};
@@ -149,33 +120,22 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final dependencyVersionConstraint = dependencyEntry.value.version;
         final dependencyDestination =
             path.join(dependencyFolder, '${dependencyName}_pointer');
+        final dependencyDoc = (doc['packages'] as List)
+            .firstWhere((package) => package['name'] == dependencyName);
 
         // determine the minimum allowed version of this dependency as allowed
         // by the constraints imposed by the target package
-        String? minAllowedVersion;
-        if (dependencyVersionConstraint is VersionRange &&
-            dependencyVersionConstraint.includeMin) {
-          // this first case is very common
-          minAllowedVersion = dependencyVersionConstraint.min!.toString();
-        } else {
-          final dependencyDoc = (doc['packages'] as List<dynamic>)
-              .firstWhere((package) => package['name'] == dependencyName);
-          final allVersions = (dependencyDoc['versions'] as List<dynamic>)
-              .map((version) => version['version'] as String);
-
-          // allVersions is already sorted by order of increasing version
-          for (final version in allVersions) {
-            if (dependencyVersionConstraint.allows(Version.parse(version))) {
-              minAllowedVersion = version;
-              break;
-            }
-          }
-
-          if (minAllowedVersion == null) {
-            rootPackageAnalysisContext.warning(
-                'Could not determine minimum allowed version for dependency $dependencyName, skipping it.');
-            continue;
-          }
+        final allVersionsString = dependencyDoc['versions'] as List<String>;
+        final allVersions = allVersionsString.map(Version.parse).toList();
+        // allVersions is already sorted by order of increasing version
+        final minVersionIndex = findMinAllowedVersion(
+          constraint: dependencyVersionConstraint,
+          versions: allVersions,
+        );
+        if (minVersionIndex == null) {
+          rootPackageAnalysisContext.warning(
+              'Could not determine minimum allowed version for dependency $dependencyName, skipping it.');
+          continue;
         }
 
         // find the installed version of this dependency
@@ -183,7 +143,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           dependencyInstalledVersions[dependencyName] =
               await getInstalledVersion(
             packageAnalysisContext: rootPackageAnalysisContext,
-            packageLocation: targetFolder,
+            packageLocation: targetPath,
             dependencyName: dependencyName,
           );
         } on Exception catch (e) {
@@ -195,7 +155,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         try {
           await fetchPackageWithPointer(
             name: dependencyName,
-            version: minAllowedVersion,
+            version: minVersionIndex.toString(),
             destination: dependencyDestination,
             wipeTarget: true,
           );
@@ -207,10 +167,10 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         // TODO: can we create this session before downloading the package? we already know the location of the dummy package
         // create session for producing a summary of this dependency
         final collection = AnalysisContextCollection(includedPaths: [
-          targetFolder,
+          targetPath,
         ]);
         final dependencyPackageAnalysisContext = _PackageAnalysisContext(
-            collection.contextFor(targetFolder).currentSession);
+            collection.contextFor(targetPath).currentSession);
 
         final realDependencyLocation = await getDependencyDirectory(
           dependencyPackageAnalysisContext,
@@ -227,15 +187,16 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
       final foundIssues = await reportIssues(
         packageAnalysisContext: rootPackageAnalysisContext,
-        packageLocation: targetFolder,
+        packageLocation: targetPath,
         rootPackageName: packageName,
         dependencySummaries: dependencySummaries,
         targetDependencies: dependencies,
         dependencyInstalledVersions: dependencyInstalledVersions,
       );
-      for (final i in foundIssues) {
+
+      for (final issue in foundIssues) {
         rootPackageAnalysisContext.warning(
-            'symbol ${i.identifier} could not be found in ${i.dependencyPackageName} version ${i.lowestVersion.toString()}');
+            'symbol ${issue.identifier} could not be found in ${issue.dependencyPackageName} version ${issue.lowestVersion.toString()}');
       }
     }
   }

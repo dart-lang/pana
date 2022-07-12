@@ -139,19 +139,25 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       // that of enclosingElement, and does this class have a method with a matching name?
       // initially assume there is an issue and look for classes with the correct method
       constraintIssue = true;
-      final classesMatchingName = dependencyShape.classes.where(
-          (thisClass) => thisClass.name == enclosingElement.name);
+      final classesMatchingName = dependencyShape.classes
+          .where((thisClass) => thisClass.name == enclosingElement.name);
       for (final thisClass in classesMatchingName) {
         if (thisClass.methods.any((method) => method.name == symbolName)) {
           constraintIssue = false;
           break;
         }
       }
+      if (!constraintIssue!) {
+        print('method $symbolName');
+      }
     } else if (enclosingElement is CompilationUnitElement) {
       // does this top-level function exist in this dependency's PackageShape?
       constraintIssue = !dependencyShape.functions
           .map((function) => function.name)
           .contains(symbolName);
+      if (!constraintIssue) {
+        print('function $symbolName');
+      }
     } else {
       warning(
           'Failed to resolve subclass of enclosingElement ${enclosingElement.toString()}.');
@@ -221,13 +227,9 @@ class LowerBoundConstraintIssue {
   // final List<SourceSpan> references;
 
   @override
-  bool operator ==(other) =>
-      other is LowerBoundConstraintIssue &&
-      other.dependencyPackageName == dependencyPackageName &&
-      other.constraint == constraint &&
-      other.currentVersion == currentVersion &&
-      other.lowestVersion == lowestVersion &&
-      other.identifier == identifier;
+  String toString() {
+    return 'LowerBoundConstraintIssue{dependencyPackageName: $dependencyPackageName, constraint: $constraint, currentVersion: $currentVersion, lowestVersion: $lowestVersion, identifier: $identifier}';
+  }
 
   LowerBoundConstraintIssue({
     required this.dependencyPackageName,
@@ -236,13 +238,4 @@ class LowerBoundConstraintIssue {
     required this.lowestVersion,
     required this.identifier,
   });
-
-  @override
-  int get hashCode => Object.hash(
-        dependencyPackageName,
-        constraint,
-        currentVersion,
-        lowestVersion,
-        identifier,
-      );
 }
