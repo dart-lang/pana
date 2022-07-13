@@ -153,7 +153,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
         // download minimum allowed version of dependency
         try {
-          await fetchPackageWithPointer(
+          await fetchUsingDummyPackage(
             name: dependencyName,
             version: minVersionIndex.toString(),
             destination: dependencyDestination,

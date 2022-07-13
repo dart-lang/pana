@@ -30,7 +30,7 @@ Future<List<LowerBoundConstraintIssue>> reportIssues({
   );
 
   final libPath = path.join(packageLocation, 'lib');
-  final libFolder = packageAnalysisContext.getFolder(libPath);
+  final libFolder = packageAnalysisContext.folder(libPath);
 
   // retrieve the paths of all the dart library files in this package via the
   // resourceProvider (.dart files in ./lib)

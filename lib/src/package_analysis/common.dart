@@ -20,12 +20,23 @@ abstract class PackageAnalysisContext {
   String readFile(String path) =>
       analysisSession.resourceProvider.getFile(path).readAsStringSync();
 
-  resource.File getFile(String path) =>
+  /// Return a `File` that corresponds to the given absolute and normalized [path].
+  /// A file may or may not exist at this location.
+  resource.File file(String path) =>
       analysisSession.resourceProvider.getFile(path);
 
-  resource.Folder getFolder(String path) =>
+  /// Return a `Folder` that corresponds to the given absolute and normalized [path].
+  /// A folder may or may not exist at this location.
+  resource.Folder folder(String path) =>
       analysisSession.resourceProvider.getFolder(path);
 
+  /// Return the absolute path of the file to which the absolute [uri] resolves,
+  /// or `null` if the [uri] cannot be resolved in this context.
+  ///
+  /// Examples of acceptable [uri]s:
+  /// * 'package:my_library/'
+  /// * 'package:my_library/my_library.dart'
+  /// * [uri]s using the the file URI scheme, beginning with 'file:///'
   String? uriToPath(Uri uri) => analysisSession.uriConverter.uriToPath(uri);
 }
 
@@ -58,7 +69,7 @@ Future<void> fetchPackageAndDependencies({
 ///
 /// A pointer package will be created at [destination] with a single dependency,
 /// pinning the dependency [name] to version [version].
-Future<void> fetchPackageWithPointer({
+Future<void> fetchUsingDummyPackage({
   required String name,
   required String version,
   required String destination,
@@ -75,9 +86,10 @@ Future<void> fetchPackageWithPointer({
     'environment': {
       'sdk': '>=2.12.0 <3.0.0',
     },
-    'dependencies': {},
+    'dependencies': {
+      name: version,
+    },
   };
-  pointerPubspec['dependencies'][name] = version;
 
   // if pubspec.yaml exists, delete it and create an empty file
   final pubspecFile = File(path.join(destination, 'pubspec.yaml'));

@@ -166,7 +166,7 @@ Future<PackageShape> summarizePackage(
 
   final libPath = path.join(packageLocation, 'lib');
   final libSrcPath = path.join(libPath, 'src');
-  final libFolder = packageAnalysisContext.getFolder(libPath);
+  final libFolder = packageAnalysisContext.folder(libPath);
 
   // retrieve the paths of all the public dart files in this package via the
   // resourceProvider (.dart files in ./lib but not in ./lib/src)
