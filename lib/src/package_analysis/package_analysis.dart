@@ -144,7 +144,6 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           dependencyInstalledVersions[dependencyName] =
               await getInstalledVersion(
             packageAnalysisContext: rootPackageAnalysisContext,
-            packageLocation: targetPath,
             dependencyName: dependencyName,
           );
         } on Exception catch (e) {
@@ -175,7 +174,6 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
         final realDependencyLocation = await getDependencyDirectory(
           dependencyPackageAnalysisContext,
-          dependencyDestination,
           dependencyName,
         );
 

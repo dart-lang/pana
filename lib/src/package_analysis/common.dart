@@ -110,17 +110,17 @@ Future<void> fetchDependencies(String destination) async {
   }
 }
 
-/// Given the location of a package and the name of one of its dependencies,
+/// Given the context for a package and the name of one of its dependencies,
 /// return the path of the dependency, or null if it cannot be resolved.
 /// Ensure that the dependencies of the target package are fetched.
 Future<String?> getDependencyDirectory(
   PackageAnalysisContext packageAnalysisContext,
-  String packageLocation,
   String dependencyName,
 ) async {
   final dependencyUri = Uri.parse('package:$dependencyName/');
   final dependencyFilePath = packageAnalysisContext.uriToPath(dependencyUri);
-  print('path for $dependencyName in $packageLocation is $dependencyFilePath');
+  // if the path corresponding to this uri could be resolved,
+  // move up one directory to move out of lib/
   return dependencyFilePath == null ? null : path.dirname(dependencyFilePath);
 }
 
@@ -154,11 +154,10 @@ Future<Map<String, HostedDependency>> getHostedDependencies(
   return Map<String, HostedDependency>.from(allDependencies);
 }
 
-/// Given the location of a package and one of its dependencies, return the
-/// dependency version which is installed.
+/// Given the context for a package and the name of one of its dependencies,
+/// return the dependency version which is installed.
 Future<Version> getInstalledVersion({
   required PackageAnalysisContext packageAnalysisContext,
-  required String packageLocation,
   required String dependencyName,
 }) async {
   // find where this dependency was installed for the target package

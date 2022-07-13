@@ -120,7 +120,6 @@ dependencies:
         // get the installed version of this dependency at the targetPath
         dependencyInstalledVersions[dependencyName] = await getInstalledVersion(
           packageAnalysisContext: rootPackageAnalysisContext,
-          packageLocation: targetPath,
           dependencyName: dependencyName,
         );
 
