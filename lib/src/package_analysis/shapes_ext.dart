@@ -33,6 +33,9 @@ extension ClassShapeExt on ClassShape {
     List<PropertyShape>? getters,
     List<PropertyShape>? setters,
     List<MethodShape>? methods,
+    List<PropertyShape>? staticGetters,
+    List<PropertyShape>? staticSetters,
+    List<MethodShape>? staticMethods,
   }) =>
       ClassShape(
         id: id ?? this.id,
@@ -40,6 +43,9 @@ extension ClassShapeExt on ClassShape {
         getters: getters ?? this.getters,
         setters: setters ?? this.setters,
         methods: methods ?? this.methods,
+        staticGetters: getters ?? this.staticGetters,
+        staticSetters: setters ?? this.staticSetters,
+        staticMethods: methods ?? this.staticMethods,
       );
 }
 

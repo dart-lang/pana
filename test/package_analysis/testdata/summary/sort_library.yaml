@@ -47,7 +47,10 @@ summary: |-
           {
             "name": "a"
           }
-        ]
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": []
       },
       {
         "id": 1,
@@ -58,7 +61,10 @@ summary: |-
           {
             "name": "b"
           }
-        ]
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": []
       },
       {
         "id": 2,
@@ -69,7 +75,10 @@ summary: |-
           {
             "name": "c"
           }
-        ]
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": []
       }
     ]
   }

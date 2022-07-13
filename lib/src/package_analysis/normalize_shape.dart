@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'shapes.dart';
 import 'shapes_ext.dart';
 
+// TODO: sort the fields of [PackageShape.classes]?
 /// Given a [PackageShape] create a new [PackageShape] structure where the
 /// elements of [PackageShape.getters], [PackageShape.setters],
 /// [PackageShape.functions] and [PackageShape.classes] are sorted canonically:

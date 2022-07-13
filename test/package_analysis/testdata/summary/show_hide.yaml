@@ -63,21 +63,30 @@ summary: |-
         "name": "A",
         "getters": [],
         "setters": [],
-        "methods": []
+        "methods": [],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": []
       },
       {
         "id": 4,
         "name": "B",
         "getters": [],
         "setters": [],
-        "methods": []
+        "methods": [],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": []
       },
       {
         "id": 5,
         "name": "C",
         "getters": [],
         "setters": [],
-        "methods": []
+        "methods": [],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": []
       }
     ]
   }

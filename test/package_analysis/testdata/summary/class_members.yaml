@@ -40,9 +40,6 @@ summary: |-
             "name": "finalVariable"
           },
           {
-            "name": "staticConstVariable"
-          },
-          {
             "name": "lateVariable"
           },
           {
@@ -79,6 +76,63 @@ summary: |-
           {
             "name": "myMethod"
           }
+        ],
+        "staticGetters": [
+          {
+            "name": "staticVariable"
+          },
+          {
+            "name": "staticNullableVariable"
+          },
+          {
+            "name": "staticInitializedVariable"
+          },
+          {
+            "name": "staticTypedInitializedVariable"
+          },
+          {
+            "name": "staticFinalVariable"
+          },
+          {
+            "name": "staticLateVariable"
+          },
+          {
+            "name": "staticLateFinalVariable"
+          },
+          {
+            "name": "staticConstVariable"
+          },
+          {
+            "name": "myStaticGetter"
+          }
+        ],
+        "staticSetters": [
+          {
+            "name": "staticVariable"
+          },
+          {
+            "name": "staticNullableVariable"
+          },
+          {
+            "name": "staticInitializedVariable"
+          },
+          {
+            "name": "staticTypedInitializedVariable"
+          },
+          {
+            "name": "staticLateVariable"
+          },
+          {
+            "name": "staticLateFinalVariable"
+          },
+          {
+            "name": "myStaticSetter"
+          }
+        ],
+        "staticMethods": [
+          {
+            "name": "myStaticMethod"
+          }
         ]
       }
     ]
@@ -91,17 +145,26 @@ package:
         int? nullableVariable;
         var initializedVariable = 1;
         int typedInitializedVariable = 1;
-
         final finalVariable = 1;
-        static const staticConstVariable = 1;
-
         late int lateVariable;
         late final int lateFinalVariable;
 
+        static var staticVariable;
+        static int? staticNullableVariable;
+        static var staticInitializedVariable = 1;
+        static int staticTypedInitializedVariable = 1;
+        static final staticFinalVariable = 1;
+        static late int staticLateVariable;
+        static late final int staticLateFinalVariable;
+        static const staticConstVariable = 1;
+
         int get myGetter => 1;
         set mySetter(int something) {}
-
         void myMethod() {}
+
+        static int get myStaticGetter => 1;
+        static set myStaticSetter(int something) {}
+        static void myStaticMethod() {}
       }
 
 ...

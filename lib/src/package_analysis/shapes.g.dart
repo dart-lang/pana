@@ -74,6 +74,15 @@ ClassShape _$ClassShapeFromJson(Map<String, dynamic> json) => ClassShape(
       methods: (json['methods'] as List<dynamic>)
           .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
           .toList(),
+      staticGetters: (json['staticGetters'] as List<dynamic>)
+          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      staticSetters: (json['staticSetters'] as List<dynamic>)
+          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      staticMethods: (json['staticMethods'] as List<dynamic>)
+          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
@@ -83,6 +92,9 @@ Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
       'getters': instance.getters.map((e) => e.toJson()).toList(),
       'setters': instance.setters.map((e) => e.toJson()).toList(),
       'methods': instance.methods.map((e) => e.toJson()).toList(),
+      'staticGetters': instance.staticGetters.map((e) => e.toJson()).toList(),
+      'staticSetters': instance.staticSetters.map((e) => e.toJson()).toList(),
+      'staticMethods': instance.staticMethods.map((e) => e.toJson()).toList(),
     };
 
 MethodShape _$MethodShapeFromJson(Map<String, dynamic> json) => MethodShape(

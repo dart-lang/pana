@@ -52,7 +52,10 @@ summary: |-
         "name": "C",
         "getters": [],
         "setters": [],
-        "methods": []
+        "methods": [],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": []
       }
     ]
   }

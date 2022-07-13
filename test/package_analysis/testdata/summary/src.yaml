@@ -46,7 +46,10 @@ summary: |-
         "name": "SrcClass",
         "getters": [],
         "setters": [],
-        "methods": []
+        "methods": [],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": []
       }
     ]
   }

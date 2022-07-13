@@ -54,13 +54,24 @@ Future<PackageShape> summarizePackage(
   }
 
   ClassShape summarizeClassElement(ClassElement classElement) {
-    final methods = classElement.methods
-        .where((element) => element.isPublic)
+    // an accessor is a getter or a setter
+    final accessors = classElement.accessors.where((element) =>
+    !element.isStatic);
+    final staticAccessors = classElement.accessors.where((element) =>
+    element.isStatic);
+
+    final publicMethods = classElement.methods
+        .where((element) => element.isPublic);
+
+    final methods = publicMethods
+        .where((element) => !element.isStatic)
         .map(summarizeMethod)
         .toList();
 
-    // an accessor is a getter or a setter
-    final accessors = classElement.accessors;
+    final staticMethods = publicMethods
+        .where((element) => element.isStatic)
+        .map(summarizeMethod)
+        .toList();
 
     final getters = accessors
         .where((element) => element.isGetter)
@@ -72,12 +83,28 @@ Future<PackageShape> summarizePackage(
         .map(summarizeProperty)
         .toList();
 
+    final staticGetters = staticAccessors
+        .where((element) => element.isGetter)
+        .map(summarizeProperty)
+        .toList();
+
+    final staticSetters = staticAccessors
+        .where((element) => element.isSetter)
+        .map(summarizeProperty)
+        .toList();
+
     return ClassShape(
       id: classElement.id,
       name: classElement.name,
-      methods: methods,
       getters: getters,
       setters: setters,
+      methods: methods,
+      staticGetters
+      : staticGetters,
+      staticSetters
+      : staticSetters,
+      staticMethods
+      : staticMethods,
     );
   }
 

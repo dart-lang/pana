@@ -95,6 +95,9 @@ class ClassShape extends GlobalShapeBase {
   final List<PropertyShape> getters;
   final List<PropertyShape> setters;
   final List<MethodShape> methods;
+  final List<PropertyShape> staticGetters;
+  final List<PropertyShape> staticSetters;
+  final List<MethodShape> staticMethods;
 
   ClassShape({
     required super.id,
@@ -102,6 +105,9 @@ class ClassShape extends GlobalShapeBase {
     required this.getters,
     required this.setters,
     required this.methods,
+    required this.staticGetters,
+    required this.staticSetters,
+    required this.staticMethods,
   });
 
   factory ClassShape.fromJson(Map<String, dynamic> json) =>
