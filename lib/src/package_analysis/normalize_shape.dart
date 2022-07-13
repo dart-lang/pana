@@ -3,7 +3,6 @@ import 'package:collection/collection.dart';
 import 'shapes.dart';
 import 'shapes_ext.dart';
 
-// TODO: sort the fields of [PackageShape.classes]?
 /// Given a [PackageShape] create a new [PackageShape] structure where the
 /// elements of [PackageShape.getters], [PackageShape.setters],
 /// [PackageShape.functions] and [PackageShape.classes] are sorted canonically:
@@ -62,6 +61,14 @@ PackageShape normalizePackageShape(PackageShape package) {
     }
   }
 
+  // compares PropertyShapes by name
+  int comparePropertyShape(PropertyShape a, PropertyShape b) =>
+      a.name.compareTo(b.name);
+
+  // compares MethodShapes by name
+  int compareMethodShape(MethodShape a, MethodShape b) =>
+      a.name.compareTo(b.name);
+
   // create mapping for ids and reassign them according to the sorted order
   final newGetters = package.getters.sorted(compareShape).map((getter) {
     oldIdToNewId[getter.id] = newIdCounter;
@@ -95,6 +102,16 @@ PackageShape normalizePackageShape(PackageShape package) {
             exportedClasses: reassignIds(library.exportedClasses),
           ))
       .toList();
+
+  // sort all the fields of all the classes
+  for (final thisClass in newClasses) {
+    thisClass.getters.sort(comparePropertyShape);
+    thisClass.setters.sort(comparePropertyShape);
+    thisClass.methods.sort(compareMethodShape);
+    thisClass.staticGetters.sort(comparePropertyShape);
+    thisClass.staticSetters.sort(comparePropertyShape);
+    thisClass.staticMethods.sort(compareMethodShape);
+  }
 
   return PackageShape(
     name: package.name,

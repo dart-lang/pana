@@ -25,51 +25,51 @@ summary: |-
         "name": "C",
         "getters": [
           {
-            "name": "variable"
-          },
-          {
-            "name": "nullableVariable"
+            "name": "finalVariable"
           },
           {
             "name": "initializedVariable"
           },
           {
-            "name": "typedInitializedVariable"
-          },
-          {
-            "name": "finalVariable"
+            "name": "lateFinalVariable"
           },
           {
             "name": "lateVariable"
           },
           {
-            "name": "lateFinalVariable"
+            "name": "myGetter"
           },
           {
-            "name": "myGetter"
+            "name": "nullableVariable"
+          },
+          {
+            "name": "typedInitializedVariable"
+          },
+          {
+            "name": "variable"
           }
         ],
         "setters": [
           {
-            "name": "variable"
-          },
-          {
-            "name": "nullableVariable"
-          },
-          {
             "name": "initializedVariable"
-          },
-          {
-            "name": "typedInitializedVariable"
-          },
-          {
-            "name": "lateVariable"
           },
           {
             "name": "lateFinalVariable"
           },
           {
+            "name": "lateVariable"
+          },
+          {
             "name": "mySetter"
+          },
+          {
+            "name": "nullableVariable"
+          },
+          {
+            "name": "typedInitializedVariable"
+          },
+          {
+            "name": "variable"
           }
         ],
         "methods": [
@@ -79,54 +79,54 @@ summary: |-
         ],
         "staticGetters": [
           {
-            "name": "staticVariable"
-          },
-          {
-            "name": "staticNullableVariable"
-          },
-          {
-            "name": "staticInitializedVariable"
-          },
-          {
-            "name": "staticTypedInitializedVariable"
-          },
-          {
-            "name": "staticFinalVariable"
-          },
-          {
-            "name": "staticLateVariable"
-          },
-          {
-            "name": "staticLateFinalVariable"
+            "name": "myStaticGetter"
           },
           {
             "name": "staticConstVariable"
           },
           {
-            "name": "myStaticGetter"
-          }
-        ],
-        "staticSetters": [
-          {
-            "name": "staticVariable"
-          },
-          {
-            "name": "staticNullableVariable"
+            "name": "staticFinalVariable"
           },
           {
             "name": "staticInitializedVariable"
           },
           {
-            "name": "staticTypedInitializedVariable"
+            "name": "staticLateFinalVariable"
           },
           {
             "name": "staticLateVariable"
           },
           {
+            "name": "staticNullableVariable"
+          },
+          {
+            "name": "staticTypedInitializedVariable"
+          },
+          {
+            "name": "staticVariable"
+          }
+        ],
+        "staticSetters": [
+          {
+            "name": "myStaticSetter"
+          },
+          {
+            "name": "staticInitializedVariable"
+          },
+          {
             "name": "staticLateFinalVariable"
           },
           {
-            "name": "myStaticSetter"
+            "name": "staticLateVariable"
+          },
+          {
+            "name": "staticNullableVariable"
+          },
+          {
+            "name": "staticTypedInitializedVariable"
+          },
+          {
+            "name": "staticVariable"
           }
         ],
         "staticMethods": [
