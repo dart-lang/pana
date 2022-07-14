@@ -6,31 +6,23 @@ import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
 
 import 'common.dart';
 
 /// Given a target package and its dependencies (at their lower bound),
 /// analyze the target package and return a List of any found issues - where a
 /// symbol usage cannot be found in the relevant dependency's PackageShape
-Future<List<LowerBoundConstraintIssue>> reportIssues({
-  required PackageAnalysisContext packageAnalysisContext,
-  required String packageLocation,
-  required String? rootPackageName,
+Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
+  required PackageAnalysisContext context,
   required Map<String, PackageShape> dependencySummaries,
-  required Map<String, HostedDependency> targetDependencies,
-  required Map<String, Version> dependencyInstalledVersions,
 }) async {
   var astVisitor = _LowerBoundConstraintVisitor(
-    rootPackage: rootPackageName,
-    warning: packageAnalysisContext.warning,
+    context: context,
     dependencySummaries: dependencySummaries,
-    targetDependencies: targetDependencies,
-    dependencyInstalledVersions: dependencyInstalledVersions,
   );
 
-  final libPath = path.join(packageLocation, 'lib');
-  final libFolder = packageAnalysisContext.folder(libPath);
+  final libPath = path.join(context.packagePath, 'lib');
+  final libFolder = context.folder(libPath);
 
   // retrieve the paths of all the dart library files in this package via the
   // resourceProvider (.dart files in ./lib)
@@ -40,12 +32,11 @@ Future<List<LowerBoundConstraintIssue>> reportIssues({
       .sorted();
 
   for (final filePath in dartLibFiles) {
-    final result =
-        await packageAnalysisContext.analysisSession.getResolvedUnit(filePath);
+    final result = await context.analysisSession.getResolvedUnit(filePath);
     if (result is ResolvedUnitResult) {
       astVisitor.visitCompilationUnit(result.unit);
     } else {
-      packageAnalysisContext.warning(
+      context.warning(
           'Attempting to get a resolved unit resulted in an invalid result.');
     }
   }
@@ -54,34 +45,20 @@ Future<List<LowerBoundConstraintIssue>> reportIssues({
 }
 
 class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
+  final PackageAnalysisContext context;
+
   /// Maps from [Element.id] to either [LowerBoundConstraintIssue] if the lower
   /// bound constraint on [LowerBoundConstraintIssue.dependencyPackageName] is
   /// too low, making [Element] when the lowest allowed version
   /// [LowerBoundConstraintIssue.lowestVersion] is used, or null otherwise.
   final Map<int, LowerBoundConstraintIssue?> issues = {};
 
-  /// The name of the package being analyzed. Invocations corresponding to
-  /// definitions within this package will be ignored.
-  final String? rootPackage;
-
   /// The summaries of each of the dependencies of the target package.
   final Map<String, PackageShape> dependencySummaries;
 
-  /// The dependencies of the target package, as parsed from its pubspec.
-  final Map<String, HostedDependency> targetDependencies;
-
-  /// The versions of the dependencies of the target package, as installed.
-  final Map<String, Version> dependencyInstalledVersions;
-
-  /// Log a warning that something unexpected happened.
-  final void Function(String message) warning;
-
   _LowerBoundConstraintVisitor({
-    required this.rootPackage,
-    required this.warning,
+    required this.context,
     required this.dependencySummaries,
-    required this.targetDependencies,
-    required this.dependencyInstalledVersions,
   });
 
   // TODO: consider FunctionReference, PropertyAccess
@@ -94,8 +71,9 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     final element = node.methodName.staticElement;
 
     if (element == null) {
-      warning(
-          'Element associated with identifier ${node.methodName.name} could not be resolved.');
+      // We cannot statically resolve what is invoked when a method is called on
+      // a variable with dynamic type. In this case we just do nothing, since we
+      // can't know what is being called.
       return;
     }
 
@@ -115,23 +93,21 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       }
     }
 
-    // if the name of the package can't be resolved,
-    // or it is the same as the name of the target package (or flutter)
-    // then this symbol cannot be analyzed
+    // if the defining package isn't a HostedDependency of the target, then
+    // this symbol cannot be analyzed
     if (packageName == null ||
-        packageName == rootPackage ||
-        packageName == 'flutter') {
+        !context.dependencies.keys.contains(packageName)) {
       return;
     }
 
     if (!dependencySummaries.keys.contains(packageName)) {
-      warning('No summary for $packageName found.');
+      context.warning('No summary for $packageName found.');
       return;
     }
 
     final dependencyShape = dependencySummaries[packageName]!;
     final enclosingElement = element.enclosingElement;
-    bool? constraintIssue;
+    late bool constraintIssue;
 
     // differentiate between class methods and top-level functions
     if (enclosingElement is ClassElement) {
@@ -147,43 +123,29 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           break;
         }
       }
-      if (!constraintIssue!) {
-        print('method $symbolName');
-      }
     } else if (enclosingElement is CompilationUnitElement) {
       // does this top-level function exist in this dependency's PackageShape?
       constraintIssue = !dependencyShape.functions
           .map((function) => function.name)
           .contains(symbolName);
-      if (!constraintIssue) {
-        print('function $symbolName');
-      }
     } else {
-      warning(
+      context.warning(
           'Failed to resolve subclass of enclosingElement ${enclosingElement.toString()}.');
+      return;
     }
 
-    switch (constraintIssue) {
-      case true:
-        {
-          issues[elementId] = LowerBoundConstraintIssue(
-              dependencyPackageName: packageName,
-              constraint: targetDependencies[packageName]!.version,
-              currentVersion: dependencyInstalledVersions[packageName]!,
-              lowestVersion: Version.parse(dependencyShape.version),
-              identifier: symbolName);
-        }
-        break;
-
-      case false:
-        {
-          issues[elementId] = null;
-        }
-        break;
-
-      default:
-        break;
-    }
+    issues[elementId] = constraintIssue
+        ? LowerBoundConstraintIssue(
+            dependencyPackageName: packageName,
+            constraint: context.dependencies[packageName]!.version,
+            currentVersion: getInstalledVersion(
+              context: context,
+              dependencyName: packageName,
+            ),
+            lowestVersion: Version.parse(dependencyShape.version),
+            identifier: symbolName,
+          )
+        : null;
   }
 }
 

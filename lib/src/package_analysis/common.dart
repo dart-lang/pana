@@ -13,6 +13,25 @@ const indentedEncoder = JsonEncoder.withIndent('  ');
 abstract class PackageAnalysisContext {
   AnalysisSession get analysisSession;
 
+  /// The name of the package being analyzed.
+  late final String packageName = pubspec.name;
+
+  /// The absolute path of the package being analyzed.
+  final String packagePath;
+
+  /// The pubspec of the package being analyzed.
+  late final Pubspec pubspec =
+      Pubspec.parseYaml(readFile(path.join(packagePath, 'pubspec.yaml')));
+
+  /// A [Map] storing metadata about the hosted dependencies of the package
+  /// being analyzed.
+  late final Map<String, HostedDependency> dependencies = Map.fromEntries(
+      pubspec
+          .dependencies.entries
+          .where((dependency) => dependency.value is HostedDependency)
+          .map(
+              (entry) => MapEntry(entry.key, entry.value as HostedDependency)));
+
   /// Log [message] as a warning that something unexpected happened.
   void warning(String message);
 
@@ -29,6 +48,10 @@ abstract class PackageAnalysisContext {
   /// A folder may or may not exist at this location.
   resource.Folder folder(String path) =>
       analysisSession.resourceProvider.getFolder(path);
+
+  PackageAnalysisContext({
+    required this.packagePath,
+  });
 
   /// Return the absolute path of the file to which the absolute [uri] resolves,
   /// or `null` if the [uri] cannot be resolved in this context.
@@ -125,10 +148,10 @@ Future<void> fetchDependencies(String destination) async {
 /// Given the context for a package and the name of one of its dependencies,
 /// return the path of the dependency, or null if it cannot be resolved.
 /// Ensure that the dependencies of the target package are fetched.
-Future<String?> getDependencyDirectory(
+String? getDependencyDirectory(
   PackageAnalysisContext packageAnalysisContext,
   String dependencyName,
-) async {
+) {
   final dependencyUri = Uri.parse('package:$dependencyName/');
   final dependencyFilePath = packageAnalysisContext.uriToPath(dependencyUri);
   // if the path corresponding to this uri could be resolved,
@@ -154,7 +177,8 @@ List<resource.File> getAllFiles(resource.Folder folder) {
 
 /// Fetch all the hosted dependencies used by a package at a given location
 Future<Map<String, HostedDependency>> getHostedDependencies(
-    String targetPackageDir) async {
+  String targetPackageDir,
+) async {
   // fetch a Map of all dependencies from the target package folder
   final allDependencies = Pubspec.parseYaml(
           await File(path.join(targetPackageDir, 'pubspec.yaml'))
@@ -168,26 +192,17 @@ Future<Map<String, HostedDependency>> getHostedDependencies(
 
 /// Given the context for a package and the name of one of its dependencies,
 /// return the dependency version which is installed.
-Future<Version> getInstalledVersion({
-  required PackageAnalysisContext packageAnalysisContext,
+Version getInstalledVersion({
+  required PackageAnalysisContext context,
   required String dependencyName,
-}) async {
-  // find where this dependency was installed for the target package
-  final dependencyUri = Uri.parse('package:$dependencyName/');
-  final dependencyFilePath = packageAnalysisContext.uriToPath(dependencyUri);
-  // could not resolve uri
-  if (dependencyFilePath == null) {
-    throw Exception(
-        'Could not find package directory of dependency $dependencyName.');
-  }
-
+}) {
   // fetch the installed version for this dependency
   final dependencyPubspecLocation = path.join(
-    path.dirname(dependencyFilePath),
+    getDependencyDirectory(context, dependencyName)!,
     'pubspec.yaml',
   );
   final dependencyPubspec =
-      Pubspec.parseYaml(await File(dependencyPubspecLocation).readAsString());
+      Pubspec.parseYaml(context.readFile(dependencyPubspecLocation));
   return dependencyPubspec.version!;
 }
 

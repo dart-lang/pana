@@ -69,12 +69,12 @@ extension LibraryShapeExt on LibraryShape {
 
 extension PackageShapeExt on PackageShape {
   /// Returns a list of the names of all the top-level functions which are defined in this package.
-  List<String> get getFunctions {
+  List<String> get functionNames {
     return functions.map((function) => function.name).toList();
   }
 
   /// Returns a list of the names of all the class methods which are defined in this package.
-  List<String> get getMethods {
+  List<String> get methodNames {
     final methods = <String>[];
     for (final thisClass in classes) {
       methods.addAll(thisClass.methods.map((method) => method.name));

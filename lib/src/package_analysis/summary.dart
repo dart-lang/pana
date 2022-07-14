@@ -8,13 +8,28 @@ import 'common.dart';
 import 'normalize_shape.dart';
 import 'shapes.dart';
 
-Future<PackageShape> summarizePackage(
-  PackageAnalysisContext packageAnalysisContext,
-  String packageLocation,
-) async {
-  final pubspecPath = path.join(packageLocation, 'pubspec.yaml');
-  final pubspecString = packageAnalysisContext.readFile(pubspecPath);
-  final pubspec = Pubspec.parseYaml(pubspecString);
+Future<PackageShape> summarizePackage({
+  required PackageAnalysisContext context,
+  required String packageName,
+}) async {
+  late final Pubspec pubspec;
+  late final String packagePath;
+  if (context.packageName == packageName) {
+    // the context points to the target package
+    packagePath = context.packagePath;
+    pubspec = context.pubspec;
+  } else {
+    // the context points to a dummy package with a single dependency
+    packagePath = getDependencyDirectory(
+      context,
+      packageName,
+    )!;
+    final pubspecString = context.readFile(path.join(
+      packagePath,
+      'pubspec.yaml',
+    ));
+    pubspec = Pubspec.parseYaml(pubspecString);
+  }
 
   if (pubspec.version == null) {
     throw StateError(
@@ -164,9 +179,9 @@ Future<PackageShape> summarizePackage(
     ));
   }
 
-  final libPath = path.join(packageLocation, 'lib');
+  final libPath = path.join(packagePath, 'lib');
   final libSrcPath = path.join(libPath, 'src');
-  final libFolder = packageAnalysisContext.folder(libPath);
+  final libFolder = context.folder(libPath);
 
   // retrieve the paths of all the public dart files in this package via the
   // resourceProvider (.dart files in ./lib but not in ./lib/src)
@@ -177,8 +192,7 @@ Future<PackageShape> summarizePackage(
       .sorted();
 
   for (final filePath in nonSrcDartFiles) {
-    final library = await packageAnalysisContext.analysisSession
-        .getResolvedLibrary(filePath);
+    final library = await context.analysisSession.getResolvedLibrary(filePath);
 
     // this file is just part of another library
     if (library is NotLibraryButPartResult) {
@@ -187,14 +201,13 @@ Future<PackageShape> summarizePackage(
 
     // ensure that resolving has been successful
     if (library is! ResolvedLibraryResult) {
-      packageAnalysisContext
-          .warning('Analysis of $filePath as a library failed.');
+      context.warning('Analysis of $filePath as a library failed.');
       continue;
     }
 
     summarizeLibraryElement(
       library.element,
-      path.relative(filePath, from: packageLocation),
+      path.relative(filePath, from: packagePath),
     );
   }
 

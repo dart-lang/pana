@@ -92,14 +92,13 @@ dependencies:
       await fetchDependencies(targetPath);
 
       final rootPackageAnalysisContext = PackageAnalysisContextWithStderr(
-        AnalysisContextCollection(includedPaths: [targetPath])
-            .contextFor(targetPath)
-            .currentSession,
-      );
+          session: AnalysisContextCollection(includedPaths: [targetPath])
+              .contextFor(targetPath)
+              .currentSession,
+          packagePath: targetPath);
 
       // collect metadata about the target's dependencies
       final dependencySummaries = <String, PackageShape>{};
-      final dependencyInstalledVersions = <String, Version>{};
       final targetDependencies = await getHostedDependencies(targetPath);
       for (final dependency in doc['target']['dependencies']) {
         final dependencyName = dependency['name'] as String;
@@ -116,12 +115,6 @@ dependencies:
         )!;
         final dependencyMin = dependencyPackages.firstWhere(
                 (package) => package['version'] == minVersion.toString());
-
-        // get the installed version of this dependency at the targetPath
-        dependencyInstalledVersions[dependencyName] = await getInstalledVersion(
-          packageAnalysisContext: rootPackageAnalysisContext,
-          dependencyName: dependencyName,
-        );
 
         // TODO: can we rely on this path being empty and our testing not conflicting with physical files on disk?
         final packagePath = path.canonicalize(path.join(dependencyName));
@@ -150,19 +143,18 @@ dependencies:
           resourceProvider: provider,
         ).contextFor(packagePath).currentSession;
         dependencySummaries[dependencyName] = await summarizePackage(
-          PackageAnalysisContextWithStderr(session),
-          packagePath,
+          context: PackageAnalysisContextWithStderr(
+            session: session,
+            packagePath: packagePath,
+          ),
+          packageName: dependencyName,
         );
       }
 
       // discover issues that exist in the target package
-      final issues = await reportIssues(
-        packageAnalysisContext: rootPackageAnalysisContext,
-        packageLocation: targetPath,
-        rootPackageName: 'test_package',
+      final issues = await lowerBoundConstraintAnalysis(
+        context: rootPackageAnalysisContext,
         dependencySummaries: dependencySummaries,
-        targetDependencies: targetDependencies,
-        dependencyInstalledVersions: dependencyInstalledVersions,
       );
       final issuesString = issues.map((issue) => issue.toString()).toList();
 

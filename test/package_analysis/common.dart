@@ -4,7 +4,7 @@ import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:path/path.dart' as path;
 
-String getConfigTemplate({
+String _createPackageConfig({
   required String packageName,
   required String packageVersion,
 }) =>
@@ -23,11 +23,11 @@ String getConfigTemplate({
       'generatorVersion': '2.17.3'
     });
 
-String getPubspecTemplate({
+String _createPubspec({
   required String packageName,
   required String packageVersion,
 }) =>
-    'name: $packageName\nversion: $packageVersion';
+    'name: $packageName\nversion: $packageVersion\n';
 
 OverlayResourceProvider setupBasicPackage({
   required String packagePath,
@@ -39,13 +39,13 @@ OverlayResourceProvider setupBasicPackage({
 
   provider.setOverlay(
     path.join(packagePath, '.dart_tool', 'package_config.json'),
-    content: getConfigTemplate(
+    content: _createPackageConfig(
         packageName: packageName, packageVersion: packageVersion),
     modificationStamp: 0,
   );
   provider.setOverlay(
     path.join(packagePath, 'pubspec.yaml'),
-    content: getPubspecTemplate(
+    content: _createPubspec(
         packageName: packageName, packageVersion: packageVersion),
     modificationStamp: 0,
   );

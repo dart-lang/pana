@@ -48,10 +48,14 @@ Future<void> main() async {
         includedPaths: [packagePath],
         resourceProvider: provider,
       ).contextFor(packagePath).currentSession;
+      final packageAnalysisContext = PackageAnalysisContextWithStderr(
+        session: session,
+        packagePath: packagePath,
+      );
 
       final packageShape = await summarizePackage(
-        PackageAnalysisContextWithStderr(session),
-        packagePath,
+        context: packageAnalysisContext,
+        packageName: packageAnalysisContext.packageName,
       );
 
       final packageJson = packageShape.toJson();
