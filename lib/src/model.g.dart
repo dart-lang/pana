@@ -171,7 +171,7 @@ Map<String, dynamic> _$ReportSectionToJson(ReportSection instance) =>
       'title': instance.title,
       'grantedPoints': instance.grantedPoints,
       'maxPoints': instance.maxPoints,
-      'status': _$ReportStatusEnumMap[instance.status],
+      'status': _$ReportStatusEnumMap[instance.status]!,
       'summary': instance.summary,
     };
 
@@ -220,7 +220,7 @@ Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
 
 Map<String, dynamic> _$RepositoryToJson(Repository instance) {
   final val = <String, dynamic>{
-    'provider': _$RepositoryProviderEnumMap[instance.provider],
+    'provider': _$RepositoryProviderEnumMap[instance.provider]!,
     'host': instance.host,
   };
 
