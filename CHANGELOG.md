@@ -1,3 +1,7 @@
+## 0.21.15
+
+- Improved URL resolver.
+
 ## 0.21.14
 
 - Predefined platform assignments for binary-only packages.
