@@ -2,6 +2,7 @@
 
 - Improved URL resolver.
 - Always use English locale for git commands.
+- Fix: Remove `pubspec_overrides.yaml` when running `pub upgrade` or `pub outdated`.
 
 ## 0.21.14
 
