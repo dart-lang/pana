@@ -356,20 +356,32 @@ class ToolEnvironment {
     final cmd = usesFlutter ? _flutterCmd : _dartCmd;
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      // NOTE: `flutter pub get` also runs `pub get` in the example directory.
-      //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
-      // TODO: use the out-out flag as soon it becomes available
-      final getResult = await runProc(
-        [...cmd, 'pub', 'get', '.'],
-        environment: _environment,
-        workingDirectory: packageDir,
-      );
-      if (getResult.exitCode != 0) {
-        throw ToolException(
-          '`$cmdLabel pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```',
-          getResult.stderr,
+      Future<PanaProcessResult> runPubGet() async {
+        // NOTE: `flutter pub get` also runs `pub get` in the example directory.
+        //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
+        // TODO: use the out-out flag as soon it becomes available
+        final pr = await runProc(
+          [...cmd, 'pub', 'get', '.'],
+          environment: _environment,
+          workingDirectory: packageDir,
         );
+        return pr;
       }
+
+      final firstPubGet = await runPubGet();
+      if (firstPubGet.exitCode != 0) {
+        // Flutter on CI may download additional assets, which will change
+        // the output and won't match the expected on in the golden files.
+        // Running a second `pub get` will make sure that the output is consistent.
+        final secondPubGet = usesFlutter ? await runPubGet() : firstPubGet;
+        if (secondPubGet.exitCode != 0) {
+          throw ToolException(
+            '`$cmdLabel pub get` failed:\n\n```\n${secondPubGet.asTrimmedOutput}\n```',
+            secondPubGet.stderr,
+          );
+        }
+      }
+
       final result = await runProc(
         [
           ...cmd,
