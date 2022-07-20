@@ -369,17 +369,15 @@ class ToolEnvironment {
       }
 
       final firstPubGet = await runPubGet();
-      if (firstPubGet.exitCode != 0) {
-        // Flutter on CI may download additional assets, which will change
-        // the output and won't match the expected on in the golden files.
-        // Running a second `pub get` will make sure that the output is consistent.
-        final secondPubGet = usesFlutter ? await runPubGet() : firstPubGet;
-        if (secondPubGet.exitCode != 0) {
-          throw ToolException(
-            '`$cmdLabel pub get` failed:\n\n```\n${secondPubGet.asTrimmedOutput}\n```',
-            secondPubGet.stderr,
-          );
-        }
+      // Flutter on CI may download additional assets, which will change
+      // the output and won't match the expected on in the golden files.
+      // Running a second `pub get` will make sure that the output is consistent.
+      final secondPubGet = usesFlutter ? await runPubGet() : firstPubGet;
+      if (secondPubGet.exitCode != 0) {
+        throw ToolException(
+          '`$cmdLabel pub get` failed:\n\n```\n${secondPubGet.asTrimmedOutput}\n```',
+          secondPubGet.stderr,
+        );
       }
 
       final result = await runProc(
