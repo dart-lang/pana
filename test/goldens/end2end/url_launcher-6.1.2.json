@@ -130,7 +130,7 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `flutter pub outdated`: `dart pub get` failed:\n\n```\nOUT:\nResolving dependencies...\nERR:\nBecause every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because url_launcher depends on flutter from sdk, version solving failed.\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `flutter pub outdated`: `flutter pub get` failed:\n\n```\nOUT:\nRunning \"flutter pub get\" in ....\nERR:\nBecause every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because url_launcher depends on flutter from sdk, version solving failed.\npub get failed (1; So, because url_launcher depends on flutter from sdk, version solving failed.)\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
         "id": "null-safety",

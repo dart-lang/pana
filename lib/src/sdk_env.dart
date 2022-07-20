@@ -353,24 +353,26 @@ class ToolEnvironment {
     List<String> args = const [],
     required bool usesFlutter,
   }) async {
+    final cmd = usesFlutter ? _flutterCmd : _dartCmd;
+    final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       // NOTE: `flutter pub get` also runs `pub get` in the example directory.
       //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
       // TODO: use the out-out flag as soon it becomes available
       final getResult = await runProc(
-        [..._dartCmd, 'pub', 'get', '.'],
+        [...cmd, 'pub', 'get', '.'],
         environment: _environment,
         workingDirectory: packageDir,
       );
       if (getResult.exitCode != 0) {
         throw ToolException(
-          '`dart pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```',
+          '`$cmdLabel pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```',
           getResult.stderr,
         );
       }
       final result = await runProc(
         [
-          ..._dartCmd,
+          ...cmd,
           'pub',
           'outdated',
           ...args,
@@ -380,7 +382,7 @@ class ToolEnvironment {
       );
       if (result.exitCode != 0) {
         throw ToolException(
-          '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```',
+          '`$cmdLabel pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```',
           result.stderr,
         );
       } else {

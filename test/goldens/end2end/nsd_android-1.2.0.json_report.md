@@ -35,14 +35,15 @@ Run `flutter pub get` for more information.
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Could not run `flutter pub outdated`: `dart pub get` failed:
+* Could not run `flutter pub outdated`: `flutter pub get` failed:
 
 ```
 OUT:
-Resolving dependencies...
+Running "flutter pub get" in ....
 ERR:
 Because every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.
 So, because nsd_android depends on flutter from sdk, version solving failed.
+pub get failed (1; So, because nsd_android depends on flutter from sdk, version solving failed.)
 ```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
