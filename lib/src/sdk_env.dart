@@ -374,9 +374,13 @@ class ToolEnvironment {
       // Running a second `pub get` will make sure that the output is consistent.
       final secondPubGet = usesFlutter ? await runPubGet() : firstPubGet;
       if (secondPubGet.exitCode != 0) {
+        // Stripping extra verbose log lines which Flutter on CI may append.
+        final stderr = ProcessOutput.from(secondPubGet.stdout.asString
+            .split('---- Log transcript ----\n')
+            .first);
         throw ToolException(
           '`$cmdLabel pub get` failed:\n\n```\n${secondPubGet.asTrimmedOutput}\n```',
-          secondPubGet.stderr,
+          stderr,
         );
       }
 
