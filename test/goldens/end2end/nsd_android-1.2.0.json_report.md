@@ -43,7 +43,6 @@ Running "flutter pub get" in ....
 ERR:
 Because every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.
 So, because nsd_android depends on flutter from sdk, version solving failed.
-pub get failed (1; So, because nsd_android depends on flutter from sdk, version solving failed.)
 ```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs

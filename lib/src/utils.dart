@@ -343,8 +343,25 @@ class PanaProcessResult implements ProcessResult {
     bool wasError = false,
     Encoding? encoding,
   })  : _wasError = wasError,
-        stdout = ProcessOutput.from(stdout, encoding: encoding),
-        stderr = ProcessOutput.from(stderr, encoding: encoding);
+        stdout = stdout is ProcessOutput
+            ? stdout
+            : ProcessOutput.from(stdout, encoding: encoding),
+        stderr = stderr is ProcessOutput
+            ? stderr
+            : ProcessOutput.from(stderr, encoding: encoding);
+
+  PanaProcessResult change({
+    ProcessOutput? stderr,
+  }) =>
+      PanaProcessResult(
+        pid,
+        exitCode,
+        stdout,
+        stderr ?? this.stderr,
+        wasTimeout: wasTimeout,
+        wasOutputExceeded: wasOutputExceeded,
+        wasError: wasError,
+      );
 
   /// True if the process completed with some error, false if successful.
   late final wasError =

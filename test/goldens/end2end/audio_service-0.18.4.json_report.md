@@ -77,7 +77,6 @@ Running "flutter pub get" in ....
 ERR:
 Because every version of flutter_web_plugins from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter_web_plugins from sdk is forbidden.
 So, because audio_service depends on flutter_web_plugins from sdk, version solving failed.
-pub get failed (1; So, because audio_service depends on flutter_web_plugins from sdk, version solving failed.)
 ```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
