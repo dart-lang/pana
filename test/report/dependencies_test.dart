@@ -101,6 +101,7 @@ void main() {
         expect(section.grantedPoints, 10);
       }
     });
+
     test('ignores Flutter constraint upper bound', () async {
       final descriptor = package('my_package', pubspecExtras: {
         'environment': {
@@ -110,23 +111,28 @@ void main() {
       });
       await descriptor.create();
       final context = PackageContext(
-        toolEnvironment: await testToolEnvironment(),
+        toolEnvironment: await ToolEnvironment.create(),
         packageDir: descriptor.io.path,
         options: InspectOptions(),
       );
       final section = await trustworthyDependency(context);
       expect(section.grantedPoints, 20);
     });
-    test('complains abpout Flutter constraint upper bound', () async {
+
+    test('complains about Flutter constraint upper bound', () async {
+      final toolEnv = await ToolEnvironment.create();
+      final version = int.parse(
+          toolEnv.runtimeInfo.flutterVersion?.split('.').first ?? '4');
+      final nextVersion = version + 1;
       final descriptor = package('my_package', pubspecExtras: {
         'environment': {
           'sdk': '>=2.10.0 <3.0.0',
-          'flutter': '>=3.0.0 <4.0.0',
+          'flutter': '>=$nextVersion.0.0 <${nextVersion + 1}.0.0',
         }
       });
       await descriptor.create();
       final context = PackageContext(
-        toolEnvironment: await testToolEnvironment(),
+        toolEnvironment: toolEnv,
         packageDir: descriptor.io.path,
         options: InspectOptions(),
       );
@@ -134,7 +140,7 @@ void main() {
       expect(
           section.summary,
           contains(
-              'The current flutter constraint does not allow the latest Flutter (2.0.0)'));
+              'The current flutter constraint does not allow the latest Flutter'));
       expect(section.grantedPoints, 0);
     });
   });
