@@ -191,11 +191,11 @@ class ToolEnvironment {
       );
       if (proc.wasOutputExceeded) {
         throw ToolException(
-            'Running `dart analyze` produced too large output.');
+            'Running `dart analyze` produced too large output.', proc.stderr);
       }
       final output = proc.asJoinedOutput;
       if (proc.wasTimeout) {
-        throw ToolException('Running `dart analyze` timed out.');
+        throw ToolException('Running `dart analyze` timed out.', proc.stderr);
       }
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
         if (output.contains('No dart files found at: .')) {
@@ -205,7 +205,8 @@ class ToolEnvironment {
         }
         var errorMessage =
             '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
-        throw ToolException('dart analyze exception: $errorMessage');
+        throw ToolException(
+            'dart analyze exception: $errorMessage', proc.stderr);
       }
       return output;
     } finally {
@@ -269,7 +270,7 @@ class ToolEnvironment {
           'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output',
         );
       }
-      throw ToolException(errorMsg);
+      throw ToolException(errorMsg, result.stderr);
     }
     return files.toList()..sort();
   }
@@ -363,7 +364,9 @@ class ToolEnvironment {
       );
       if (getResult.exitCode != 0) {
         throw ToolException(
-            '`dart pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```');
+          '`dart pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```',
+          getResult.stderr,
+        );
       }
       final result = await runProc(
         [
@@ -377,7 +380,9 @@ class ToolEnvironment {
       );
       if (result.exitCode != 0) {
         throw ToolException(
-            '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```');
+          '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```',
+          result.stderr,
+        );
       } else {
         return Outdated.fromJson(result.parseJson());
       }
@@ -561,7 +566,8 @@ String _join(String? path, String binDir, String executable) {
 
 class ToolException implements Exception {
   final String message;
-  ToolException(this.message);
+  final ProcessOutput? stderr;
+  ToolException(this.message, [this.stderr]);
 
   @override
   String toString() {

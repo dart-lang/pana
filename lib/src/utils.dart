@@ -387,6 +387,7 @@ class PanaProcessResult implements ProcessResult {
   /// Parses the output of the process as JSON.
   Map<String, dynamic> parseJson({
     String Function(String value)? transform,
+    ProcessOutput? stderr,
   }) {
     final value =
         transform == null ? asJoinedOutput : transform(asJoinedOutput);
@@ -394,7 +395,8 @@ class PanaProcessResult implements ProcessResult {
       return json.decode(value) as Map<String, dynamic>;
     } on FormatException catch (_) {
       throw ToolException(
-          'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n');
+          'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n',
+          stderr);
     }
   }
 }

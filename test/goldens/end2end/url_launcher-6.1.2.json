@@ -155,5 +155,5 @@
     }
   },
   "urlProblems": [],
-  "errorMessage": "Running `flutter pub upgrade` failed with the following output:\n\n```\nERR: Because every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\n So, because url_launcher depends on flutter from sdk, version solving failed.\n```"
+  "errorMessage": "Running `flutter pub outdated` failed with the following output:\n\n```\nBecause every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because url_launcher depends on flutter from sdk, version solving failed.\n```"
 }

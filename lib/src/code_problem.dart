@@ -64,7 +64,8 @@ CodeProblem? parseCodeProblem(String content, {String? projectDir}) {
       );
     }
 
-    throw ToolException('Analysis failed with unexpected output.\n`$content`');
+    throw ToolException(
+        'Analysis failed with unexpected output.\n`$content`', null);
   }
 
   var match = matches.single;
