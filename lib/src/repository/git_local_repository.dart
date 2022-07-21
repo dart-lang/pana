@@ -102,12 +102,17 @@ class GitLocalRepository {
   /// branch name is missing, or if the default branch name has
   /// unexpected pattern.
   Future<String> detectDefaultBranch() async {
+    const headBranchLabels = <String>{
+      'HEAD branch',
+      'Rama HEAD',
+    };
+
     final pr = await _runGitWithRetry(['remote', 'show', 'origin']);
     final output = pr.stdout.asString;
     final lines = output.split('\n');
     for (final line in lines) {
       final parts = line.trim().split(':');
-      if (parts.length == 2 && parts[0].trim() == 'HEAD branch') {
+      if (parts.length == 2 && headBranchLabels.contains(parts[0].trim())) {
         final branch = parts[1].trim();
         if (_acceptedBranchNameRegExp.matchAsPrefix(branch) != null) {
           return branch;
