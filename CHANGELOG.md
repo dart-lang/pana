@@ -1,6 +1,7 @@
 ## 0.21.16
 
 - Explain `HEAD` request for URL checks.
+- Grant 10 points for using only OSI-approved licenses.
 
 ## 0.21.15
 

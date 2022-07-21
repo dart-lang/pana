@@ -1,4 +1,4 @@
-## 10/20 Follow Dart file conventions
+## 10/30 Follow Dart file conventions
 
 ### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
@@ -23,6 +23,16 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
 
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
+
+### [x] 0/10 points: Uses OSI-approved license
+
+<details>
+<summary>
+No license was recognized.
+</summary>
+
+Consider using an OSI-approved license in the `LICENSE` file to share with the community.
+</details>
 
 ## 0/10 Provide documentation
 

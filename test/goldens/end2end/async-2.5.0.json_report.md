@@ -1,4 +1,4 @@
-## 20/20 Follow Dart file conventions
+## 30/30 Follow Dart file conventions
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
@@ -8,6 +8,10 @@
 
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
+
+### [*] 10/10 points: Uses OSI-approved license
+
+Detected license: `BSD-3-Clause`.
 
 ## 0/10 Provide documentation
 

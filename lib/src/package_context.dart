@@ -5,11 +5,13 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:pana/src/tag/license_tags.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
 import 'download_utils.dart';
 import 'internal_model.dart';
+import 'license.dart';
 import 'logging.dart';
 import 'messages.dart' as messages;
 import 'package_analyzer.dart' show InspectOptions;
@@ -154,4 +156,9 @@ class PackageContext {
   late final pubspecUrlsWithIssues = checkPubspecUrls(this);
 
   late final repository = checkRepository(this);
+
+  late final licenses = detectLicenseInDir(packageDir);
+  late final licenceTags = () async {
+    return createLicenseTags(await licenses);
+  }();
 }
