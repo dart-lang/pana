@@ -343,8 +343,25 @@ class PanaProcessResult implements ProcessResult {
     bool wasError = false,
     Encoding? encoding,
   })  : _wasError = wasError,
-        stdout = ProcessOutput.from(stdout, encoding: encoding),
-        stderr = ProcessOutput.from(stderr, encoding: encoding);
+        stdout = stdout is ProcessOutput
+            ? stdout
+            : ProcessOutput.from(stdout, encoding: encoding),
+        stderr = stderr is ProcessOutput
+            ? stderr
+            : ProcessOutput.from(stderr, encoding: encoding);
+
+  PanaProcessResult change({
+    ProcessOutput? stderr,
+  }) =>
+      PanaProcessResult(
+        pid,
+        exitCode,
+        stdout,
+        stderr ?? this.stderr,
+        wasTimeout: wasTimeout,
+        wasOutputExceeded: wasOutputExceeded,
+        wasError: wasError,
+      );
 
   /// True if the process completed with some error, false if successful.
   late final wasError =
@@ -387,6 +404,7 @@ class PanaProcessResult implements ProcessResult {
   /// Parses the output of the process as JSON.
   Map<String, dynamic> parseJson({
     String Function(String value)? transform,
+    ProcessOutput? stderr,
   }) {
     final value =
         transform == null ? asJoinedOutput : transform(asJoinedOutput);
@@ -394,7 +412,8 @@ class PanaProcessResult implements ProcessResult {
       return json.decode(value) as Map<String, dynamic>;
     } on FormatException catch (_) {
       throw ToolException(
-          'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n');
+          'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n',
+          stderr);
     }
   }
 }

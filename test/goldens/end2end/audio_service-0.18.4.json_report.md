@@ -69,11 +69,11 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-* Could not run `flutter pub outdated`: `dart pub get` failed:
+* Could not run `flutter pub outdated`: `flutter pub get` failed:
 
 ```
 OUT:
-Resolving dependencies...
+Running "flutter pub get" in ....
 ERR:
 Because every version of flutter_web_plugins from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter_web_plugins from sdk is forbidden.
 So, because audio_service depends on flutter_web_plugins from sdk, version solving failed.

@@ -191,11 +191,11 @@ class ToolEnvironment {
       );
       if (proc.wasOutputExceeded) {
         throw ToolException(
-            'Running `dart analyze` produced too large output.');
+            'Running `dart analyze` produced too large output.', proc.stderr);
       }
       final output = proc.asJoinedOutput;
       if (proc.wasTimeout) {
-        throw ToolException('Running `dart analyze` timed out.');
+        throw ToolException('Running `dart analyze` timed out.', proc.stderr);
       }
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
         if (output.contains('No dart files found at: .')) {
@@ -205,7 +205,8 @@ class ToolEnvironment {
         }
         var errorMessage =
             '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
-        throw ToolException('dart analyze exception: $errorMessage');
+        throw ToolException(
+            'dart analyze exception: $errorMessage', proc.stderr);
       }
       return output;
     } finally {
@@ -269,7 +270,7 @@ class ToolEnvironment {
           'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output',
         );
       }
-      throw ToolException(errorMsg);
+      throw ToolException(errorMsg, result.stderr);
     }
     return files.toList()..sort();
   }
@@ -352,22 +353,45 @@ class ToolEnvironment {
     List<String> args = const [],
     required bool usesFlutter,
   }) async {
+    final cmd = usesFlutter ? _flutterCmd : _dartCmd;
+    final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      // NOTE: `flutter pub get` also runs `pub get` in the example directory.
-      //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
-      // TODO: use the out-out flag as soon it becomes available
-      final getResult = await runProc(
-        [..._dartCmd, 'pub', 'get', '.'],
-        environment: _environment,
-        workingDirectory: packageDir,
-      );
-      if (getResult.exitCode != 0) {
-        throw ToolException(
-            '`dart pub get` failed:\n\n```\n${getResult.asTrimmedOutput}\n```');
+      Future<PanaProcessResult> runPubGet() async {
+        // NOTE: `flutter pub get` also runs `pub get` in the example directory.
+        //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
+        // TODO: use the out-out flag as soon it becomes available
+        final pr = await runProc(
+          [...cmd, 'pub', 'get', '.'],
+          environment: _environment,
+          workingDirectory: packageDir,
+        );
+        return pr;
       }
+
+      final firstPubGet = await runPubGet();
+      // Flutter on CI may download additional assets, which will change
+      // the output and won't match the expected on in the golden files.
+      // Running a second `pub get` will make sure that the output is consistent.
+      final secondPubGet = usesFlutter ? await runPubGet() : firstPubGet;
+      if (secondPubGet.exitCode != 0) {
+        // Stripping extra verbose log lines which make Flutter differ on different environment.
+        final stderr = ProcessOutput.from(
+          secondPubGet.stderr.asString
+              .split('---- Log transcript ----\n')
+              .first
+              .split('pub get failed (1;')
+              .first,
+        );
+        final pr = secondPubGet.change(stderr: stderr);
+        throw ToolException(
+          '`$cmdLabel pub get` failed:\n\n```\n${pr.asTrimmedOutput}\n```',
+          stderr,
+        );
+      }
+
       final result = await runProc(
         [
-          ..._dartCmd,
+          ...cmd,
           'pub',
           'outdated',
           ...args,
@@ -377,7 +401,9 @@ class ToolEnvironment {
       );
       if (result.exitCode != 0) {
         throw ToolException(
-            '`dart pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```');
+          '`$cmdLabel pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```',
+          result.stderr,
+        );
       } else {
         return Outdated.fromJson(result.parseJson());
       }
@@ -561,7 +587,8 @@ String _join(String? path, String binDir, String executable) {
 
 class ToolException implements Exception {
   final String message;
-  ToolException(this.message);
+  final ProcessOutput? stderr;
+  ToolException(this.message, [this.stderr]);
 
   @override
   String toString() {

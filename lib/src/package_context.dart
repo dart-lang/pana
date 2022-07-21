@@ -60,38 +60,52 @@ class PackageContext {
   late final bool usesFlutter = pubspec.usesFlutter;
 
   Future<bool> resolveDependencies() async {
-    if (_dependenciesResolved != null) return _dependenciesResolved!;
-    final upgrade = await toolEnvironment.runUpgrade(packageDir, usesFlutter);
-
-    if (upgrade.exitCode == 0) {
-      _dependenciesResolved = true;
-    } else {
-      _dependenciesResolved = false;
-      final errEntries = PubEntry.parse(upgrade.stderr.asString)
-          .where((e) => e.header == 'ERR')
-          .join('\n');
-      final message = errEntries.isNotEmpty
-          ? errEntries
-          : upgrade.stderr.asString.split('\n').first;
-
-      // 1: Version constraint issue with direct or transitive dependencies.
-      //
-      // 2: Code in a git repository could change or disappear.
-      final isUserProblem = message.contains('version solving failed') || // 1
-          pubspec.hasGitDependency || // 2
-          message.contains('Git error.'); // 2
-
-      if (!isUserProblem) {
-        log.severe('`dart pub upgrade` failed.\n$message'.trim());
-      }
-
-      // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
-      final cmd = usesFlutter ? 'flutter pub upgrade' : 'dart pub upgrade';
-      errors.add(message.isEmpty
-          ? 'Running `$cmd` failed.'
-          : 'Running `$cmd` failed with the following output:\n\n'
-              '```\n$message\n```\n');
+    if (_dependenciesResolved != null) {
+      return _dependenciesResolved!;
     }
+
+    String? stderr;
+    try {
+      await outdated;
+      _dependenciesResolved = true;
+      return true;
+    } on ToolException catch (e) {
+      stderr = e.stderr?.asString ?? e.message;
+    } catch (e) {
+      stderr = e.toString();
+    }
+    _dependenciesResolved = false;
+
+    final errEntries =
+        PubEntry.parse(stderr).where((e) => e.header == 'ERR').join('\n');
+    final message = errEntries.isNotEmpty
+        ? errEntries
+        : stderr
+            .split('\n')
+            .map((e) => e.trim())
+            .where((l) => l.isNotEmpty)
+            .take(2)
+            .join('\n');
+
+    // 1: Version constraint issue with direct or transitive dependencies.
+    //
+    // 2: Code in a git repository could change or disappear.
+    final isUserProblem = message.contains('version solving failed') || // 1
+        pubspec.hasGitDependency || // 2
+        message.contains('Git error.'); // 2
+
+    if (!isUserProblem) {
+      log.severe('`dart pub outdated` failed.\n$message'.trim());
+    }
+
+    // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
+    // TODO: get the actual command from [ToolException].
+    final cmd = usesFlutter ? 'flutter pub outdated' : 'dart pub outdated';
+    errors.add(message.isEmpty
+        ? 'Running `$cmd` failed.'
+        : 'Running `$cmd` failed with the following output:\n\n'
+            '```\n$message\n```\n');
+
     return _dependenciesResolved!;
   }
 
