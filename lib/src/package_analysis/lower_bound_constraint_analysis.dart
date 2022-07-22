@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
+import 'package:source_span/source_span.dart';
 
 import 'common.dart';
 
@@ -47,6 +48,10 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
 class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   final PackageAnalysisContext context;
 
+  /// The package URI for the currently analyzed unit, typically on the form
+  /// `package:package_name/library_name.dart`.
+  late Uri currentUri;
+
   /// Maps from [Element.id] to either [LowerBoundConstraintIssue] if the lower
   /// bound constraint on [LowerBoundConstraintIssue.dependencyPackageName] is
   /// too low, making [Element] when the lowest allowed version
@@ -61,6 +66,14 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     required this.dependencySummaries,
   });
 
+  @override
+  void visitCompilationUnit(CompilationUnit node) {
+    // this must be able to handle cases of a library split into multiple files
+    // with the part keyword
+    currentUri = node.declaredElement!.source.uri;
+    super.visitCompilationUnit(node);
+  }
+
   // TODO: consider FunctionReference, PropertyAccess
 
   @override
@@ -71,26 +84,27 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     final element = node.methodName.staticElement;
 
     if (element == null) {
-      // We cannot statically resolve what is invoked when a method is called on
-      // a variable with dynamic type. In this case we just do nothing, since we
-      // can't know what is being called.
+      // we cannot statically resolve what is invoked when a method is called on
+      // a variable with dynamic type, in this case we just do nothing, since we
+      // can't know what is being called
       return;
     }
-
+    // TODO: test this feature, figure out if node.methodName is a good choice of node to store
+    final span = SourceFile.fromString(
+            context.readFile(context.uriToPath(currentUri)!),
+            url: currentUri)
+        .span(node.methodName.offset, node.methodName.end);
     final elementId = element.id;
     final libraryUri = element.library!.identifier;
     final symbolName = element.name!;
     final packageName = packageFromLibraryUri(libraryUri);
 
+    // if we have seen this symbol before, we need to do no further analysis
     if (issues.containsKey(elementId)) {
-      if (issues[elementId] == null) {
-        // if there is no problem with this element, return immediately
-        return;
-      } else {
-        // we have seen this symbol before
-        // TODO: handle this case by adding a reference to issues[elementId]
-        return;
-      }
+      // if we have seen this element before and there is an issue with it,
+      // add this usage to the list of references
+      issues[elementId]?.references.add(span);
+      return;
     }
 
     // if the defining package isn't a HostedDependency of the target, then
@@ -136,7 +150,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     issues[elementId] = constraintIssue
         ? LowerBoundConstraintIssue(
-            dependencyPackageName: packageName,
+      dependencyPackageName: packageName,
             constraint: context.dependencies[packageName]!.version,
             currentVersion: getInstalledVersion(
               context: context,
@@ -144,6 +158,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             ),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
+            references: [],
           )
         : null;
   }
@@ -184,9 +199,8 @@ class LowerBoundConstraintIssue {
   /// constraint [constraint].
   final String identifier;
 
-  // TODO: implement this
-  // List of locations in the analyzed source code where [identifier] was referenced.
-  // final List<SourceSpan> references;
+  /// List of locations in the analyzed source code where [identifier] was referenced.
+  final List<SourceSpan> references;
 
   @override
   String toString() {
@@ -199,5 +213,6 @@ class LowerBoundConstraintIssue {
     required this.currentVersion,
     required this.lowestVersion,
     required this.identifier,
+    required this.references,
   });
 }

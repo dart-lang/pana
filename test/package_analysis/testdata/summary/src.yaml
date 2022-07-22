@@ -44,12 +44,39 @@ summary: |-
       {
         "id": 3,
         "name": "SrcClass",
-        "getters": [],
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
         "setters": [],
-        "methods": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
         "staticGetters": [],
         "staticSetters": [],
-        "staticMethods": []
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ]
       }
     ]
   }

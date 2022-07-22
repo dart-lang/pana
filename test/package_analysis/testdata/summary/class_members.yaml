@@ -28,6 +28,9 @@ summary: |-
             "name": "finalVariable"
           },
           {
+            "name": "hashCode"
+          },
+          {
             "name": "initializedVariable"
           },
           {
@@ -41,6 +44,9 @@ summary: |-
           },
           {
             "name": "nullableVariable"
+          },
+          {
+            "name": "runtimeType"
           },
           {
             "name": "typedInitializedVariable"
@@ -74,7 +80,16 @@ summary: |-
         ],
         "methods": [
           {
+            "name": "=="
+          },
+          {
             "name": "myMethod"
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
           }
         ],
         "staticGetters": [
@@ -130,6 +145,15 @@ summary: |-
           }
         ],
         "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          },
           {
             "name": "myStaticMethod"
           }

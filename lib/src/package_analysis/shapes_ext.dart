@@ -47,6 +47,21 @@ extension ClassShapeExt on ClassShape {
         staticSetters: setters ?? this.staticSetters,
         staticMethods: methods ?? this.staticMethods,
       );
+
+  /// Modifies this [ClassShape] based on a list of others. The name and id of
+  /// the original [ClassShape] is retained, and the other fields of type
+  /// [List<T>] are expanded with the corresponding fields from the elements of
+  /// [others].
+  void add({required List<ClassShape> others}) {
+    for (final otherClass in others) {
+      getters.addAll(otherClass.getters);
+      setters.addAll(otherClass.setters);
+      methods.addAll(otherClass.methods);
+      staticGetters.addAll(otherClass.staticGetters);
+      staticSetters.addAll(otherClass.staticSetters);
+      staticMethods.addAll(otherClass.staticMethods);
+    }
+  }
 }
 
 extension LibraryShapeExt on LibraryShape {

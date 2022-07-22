@@ -63,6 +63,7 @@ abstract class PackageAnalysisContext {
   String? uriToPath(Uri uri) => analysisSession.uriConverter.uriToPath(uri);
 }
 
+// TODO: consider deleting unused function
 /// Download version [version] of the package [name] to the directory
 /// [destination] and fetch its dependencies, optionally deleting the contents
 /// of [destination] first if [wipeTarget] is set to true.

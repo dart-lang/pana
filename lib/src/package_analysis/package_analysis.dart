@@ -70,12 +70,12 @@ class LowerBoundConstraintAnalysisCommand extends Command {
     // end index
     final arguments = argResults!.rest;
 
-    final doc = json.decode(await File(arguments[0]).readAsString());
+    final doc = json.decode(await File(arguments[0]).readAsString())['packages'] as List;
 
     for (var packageIndex = int.parse(arguments[2]);
         packageIndex <= int.parse(arguments[3]);
         packageIndex++) {
-      final packageDoc = doc['packages'][packageIndex];
+      final packageDoc = doc[packageIndex]['metadata'];
       final packageName = packageDoc['name'] as String;
 
       print('Reviewing package $packageName...');
@@ -95,7 +95,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       } on ProcessException catch (exception) {
         // TODO: do not write to stderr here, instead figure out a way to use rootPackageAnalysisContext.warning here - see below (beginning 'can we create this session..')
         stderr.writeln(
-            'Failed to download target package  $packageName with error code ${exception.errorCode}: ${exception.message}');
+            'Failed to download target package $packageName with error code ${exception.errorCode}: ${exception.message}');
       }
 
       // TODO: can we create this session before downloading the package? we already know the location of the target package.
@@ -125,19 +125,19 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final dependencyVersionConstraint = dependencyEntry.value.version;
         final dependencyDestination =
             path.join(dependencyFolder, '${dependencyName}_pointer');
-        final dependencyDoc = (doc['packages'] as List)
-            .firstWhere((package) => package['name'] == dependencyName);
+        final dependencyDoc = doc.firstWhere((package) => package['metadata']['name'] as String == dependencyName)['metadata'];
 
         // determine the minimum allowed version of this dependency as allowed
         // by the constraints imposed by the target package
-        final allVersionsString = dependencyDoc['versions'] as List<String>;
+        final allVersionsString = (dependencyDoc['versions'] as List)
+            .map((element) => element['version'] as String).toList();
         final allVersions = allVersionsString.map(Version.parse).toList();
         // allVersions is already sorted by order of increasing version
-        final minVersionIndex = findMinAllowedVersion(
+        final minVersion = findMinAllowedVersion(
           constraint: dependencyVersionConstraint,
           versions: allVersions,
         );
-        if (minVersionIndex == null) {
+        if (minVersion == null) {
           rootPackageAnalysisContext.warning(
               'Could not determine minimum allowed version for dependency $dependencyName, skipping it.');
           continue;
@@ -147,7 +147,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         try {
           await fetchUsingDummyPackage(
             name: dependencyName,
-            version: minVersionIndex.toString(),
+            version: minVersion.toString(),
             destination: dependencyDestination,
             wipeTarget: true,
           );

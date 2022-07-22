@@ -2,6 +2,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:collection/collection.dart';
 import 'package:pana/pana.dart';
+import 'package:pana/src/package_analysis/shapes_ext.dart';
 import 'package:path/path.dart' as path;
 
 import 'common.dart';
@@ -20,10 +21,7 @@ Future<PackageShape> summarizePackage({
     pubspec = context.pubspec;
   } else {
     // the context points to a dummy package with a single dependency
-    packagePath = getDependencyDirectory(
-      context,
-      packageName,
-    )!;
+    packagePath = getDependencyDirectory(context, packageName)!;
     final pubspecString = context.readFile(path.join(
       packagePath,
       'pubspec.yaml',
@@ -114,13 +112,25 @@ Future<PackageShape> summarizePackage({
       getters: getters,
       setters: setters,
       methods: methods,
-      staticGetters
-      : staticGetters,
-      staticSetters
-      : staticSetters,
-      staticMethods
-      : staticMethods,
+      staticGetters: staticGetters,
+      staticSetters: staticSetters,
+      staticMethods: staticMethods,
     );
+  }
+
+  // TODO: write tests which use inheritance
+  ClassShape summarizeClassAndSuperclasses(ClassElement classElement) {
+    // produce summaries of the class itself and any superclasses
+    final classShape = summarizeClassElement(classElement);
+    final superTypeShapes = classElement.allSupertypes
+        .map((interfaceType) => interfaceType.element)
+        .map(summarizeClassElement)
+        .toList();
+
+    // add the fields together
+    classShape.add(others: superTypeShapes);
+
+    return classShape;
   }
 
   void summarizeLibraryElement(
@@ -135,12 +145,11 @@ Future<PackageShape> summarizePackage({
     final publicSymbols = libraryElement.exportNamespace.definedNames.values;
 
     final classes =
-        publicSymbols.whereType<ClassElement>()
-        .where((classElement) {
+        publicSymbols.whereType<ClassElement>().where((classElement) {
       exportedClasses.add(classElement.id);
       return !package.classes
           .any((thisClass) => classElement.id == thisClass.id);
-    }).map(summarizeClassElement);
+    }).map(summarizeClassAndSuperclasses);
 
     final getters = publicSymbols
         .whereType<PropertyAccessorElement>()
