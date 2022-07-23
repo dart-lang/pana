@@ -95,7 +95,8 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       } on ProcessException catch (exception) {
         // TODO: do not write to stderr here, instead figure out a way to use rootPackageAnalysisContext.warning here - see below (beginning 'can we create this session..')
         stderr.writeln(
-            'Failed to download target package $packageName with error code ${exception.errorCode}: ${exception.message}');
+            'Skipping target package $packageName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
+        continue;
       }
 
       // TODO: can we create this session before downloading the package? we already know the location of the target package.
@@ -139,7 +140,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         );
         if (minVersion == null) {
           rootPackageAnalysisContext.warning(
-              'Could not determine minimum allowed version for dependency $dependencyName, skipping it.');
+              'Skipping dependency $dependencyName, could not determine minimum allowed version.');
           continue;
         }
 
@@ -153,7 +154,8 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           );
         } on ProcessException catch (exception) {
           rootPackageAnalysisContext.warning(
-              'Failed to download dependency $dependencyName of target package $packageName with error code ${exception.errorCode}: ${exception.message}');
+              'Skipping dependency $dependencyName of target package $packageName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
+          continue;
         }
 
         // TODO: can we create this session before downloading the package? we already know the location of the dummy package
