@@ -161,12 +161,12 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         // TODO: can we create this session before downloading the package? we already know the location of the dummy package
         // create session for producing a summary of this dependency
         final collection = AnalysisContextCollection(includedPaths: [
-          targetPath,
+          dependencyDestination,
         ]);
         final dependencyPackageAnalysisContext =
             PackageAnalysisContextWithStderr(
-          session: collection.contextFor(targetPath).currentSession,
-          packagePath: targetPath,
+          session: collection.contextFor(dependencyDestination).currentSession,
+          packagePath: dependencyDestination,
         );
 
         // produce a summary of the minimum version of this dependency and store it
