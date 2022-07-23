@@ -125,6 +125,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     // differentiate between class methods and top-level functions
     if (enclosingElement is ClassElement) {
+      // ensure generics are ignored
+      if (enclosingElement.typeParameters.isNotEmpty) {
+        return;
+      }
       // does this dependency's PackageShape have a class whose name matches
       // that of enclosingElement, and does this class have a method with a matching name?
       // initially assume there is an issue and look for classes with the correct method
