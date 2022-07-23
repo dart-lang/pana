@@ -118,7 +118,6 @@ Future<PackageShape> summarizePackage({
     );
   }
 
-  // TODO: write tests which use inheritance
   ClassShape summarizeClassAndSuperclasses(ClassElement classElement) {
     // produce summaries of the class itself and any superclasses
     final classShape = summarizeClassElement(classElement);
