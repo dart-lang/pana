@@ -82,14 +82,14 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
       final baseFolder = path.canonicalize(arguments[1]);
 
-      final targetPath = path.join(baseFolder, 'target');
+      final dummyPath = path.join(baseFolder, 'target');
       final dependencyFolder = path.join(baseFolder, 'dependencies');
 
       try {
-        await fetchPackageAndDependencies(
+        await fetchUsingDummyPackage(
           name: packageName,
           version: packageDoc['latest']['version'] as String,
-          destination: targetPath,
+          destination: dummyPath,
           wipeTarget: true,
         );
       } on ProcessException catch (exception) {
@@ -102,14 +102,15 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       // TODO: can we create this session before downloading the package? we already know the location of the target package.
       // create session for analysing the package being searched for issues
       // (the target package)
-      final collection = AnalysisContextCollection(includedPaths: [targetPath]);
-      final rootPackageAnalysisContext = PackageAnalysisContextWithStderr(
-        session: collection.contextFor(targetPath).currentSession,
-        packagePath: targetPath,
+      final collection = AnalysisContextCollection(includedPaths: [dummyPath]);
+      final dummyPackageAnalysisContext = PackageAnalysisContextWithStderr(
+        session: collection.contextFor(dummyPath).currentSession,
+        packagePath: dummyPath,
+        targetPackageName: packageName,
       );
 
       // if there are no dependencies, there is nothing to analyze
-      if (rootPackageAnalysisContext.dependencies.isEmpty) {
+      if (dummyPackageAnalysisContext.targetDependencies.isEmpty) {
         continue;
       }
 
@@ -121,7 +122,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       // - download minimum allowed version
       // - produce a summary of the minimum allowed version
       for (final dependencyEntry
-          in rootPackageAnalysisContext.dependencies.entries) {
+          in dummyPackageAnalysisContext.targetDependencies.entries) {
         final dependencyName = dependencyEntry.key;
         final dependencyVersionConstraint = dependencyEntry.value.version;
         final dependencyDestination =
@@ -139,7 +140,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           versions: allVersions,
         );
         if (minVersion == null) {
-          rootPackageAnalysisContext.warning(
+          dummyPackageAnalysisContext.warning(
               'Skipping dependency $dependencyName, could not determine minimum allowed version.');
           continue;
         }
@@ -153,7 +154,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
             wipeTarget: true,
           );
         } on ProcessException catch (exception) {
-          rootPackageAnalysisContext.warning(
+          dummyPackageAnalysisContext.warning(
               'Skipping dependency $dependencyName of target package $packageName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
           continue;
         }
@@ -177,12 +178,12 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       }
 
       final foundIssues = await lowerBoundConstraintAnalysis(
-        context: rootPackageAnalysisContext,
+        context: dummyPackageAnalysisContext,
         dependencySummaries: dependencySummaries,
       );
 
       for (final issue in foundIssues) {
-        rootPackageAnalysisContext.warning(
+        dummyPackageAnalysisContext.warning(
             'symbol ${issue.identifier} could not be found in ${issue.dependencyPackageName} version ${issue.lowestVersion.toString()}');
       }
     }
@@ -226,6 +227,7 @@ class PackageAnalysisContextWithStderr extends PackageAnalysisContext {
   PackageAnalysisContextWithStderr({
     required super.packagePath,
     required AnalysisSession session,
+    super.targetPackageName,
   }) {
     analysisSession = session;
   }

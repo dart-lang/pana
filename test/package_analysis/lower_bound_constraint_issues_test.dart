@@ -9,7 +9,6 @@ import 'package:pana/src/package_analysis/summary.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
-import 'package:test_descriptor/test_descriptor.dart';
 import 'package:yaml/yaml.dart';
 
 import '../package_server.dart';
@@ -23,14 +22,6 @@ Future<void> main() async {
     'testdata',
     'lower_bound_constraint_issues',
   ));
-
-  const targetPubspecStart = '''
-name: test_package
-version: 1.0.0
-environment:
-  sdk: '>=2.12.0 <3.0.0'
-dependencies:
-''';
 
   await for (final file in yamlDir.list()) {
     final doc = loadYaml(await (file as File).readAsString());
@@ -46,60 +37,71 @@ dependencies:
             pubspec: {
               'environment': {'sdk': '>=2.12.0 <3.0.0'}
             },
-            contents: files.map((package) {
-              final packagePath = package['path'] as String;
-              final packageContent = package['content'] as String;
-              return FileDescriptor(
-                path.joinAll(packagePath.split('/')),
-                packageContent,
-              );
-            }),
+            contents: files.map(descriptorFromYamlNode),
           ));
       }
 
+      // serve the target package which the dummy will point to
+      final targetYamlDependencies = doc['target']['dependencies'] as List;
+      final targetYamlContent = doc['target']['package'] as List;
+      await servePackages((b) => b!
+        ..serve(
+          'test_package',
+          '1.0.0',
+          pubspec: {
+            'environment': {'sdk': '>=2.12.0 <3.0.0'},
+            'dependencies': Map.fromEntries(
+              targetYamlDependencies.map(
+                (dependency) => MapEntry(
+                  dependency['name'],
+                  {
+                    'hosted': {
+                      'name': dependency['name'],
+                      'url': globalPackageServer!.url,
+                    },
+                    'version': dependency['version']
+                  },
+                ),
+              ),
+            ),
+          },
+          contents: targetYamlContent.map(descriptorFromYamlNode),
+        ));
+
       // create a unique temporary directory in the system temp folder
-      final targetDir =
-          await Directory(Directory.systemTemp.path).createTemp('test_package');
-      final targetPath = targetDir.path;
+      final dummyDir = await Directory(Directory.systemTemp.path)
+          .createTemp('dummy_package');
+      final dummyPath = dummyDir.path;
 
-      // load dependencies into the pubspec of the target package
-      var pubspecString = targetPubspecStart;
-      for (final dependency in doc['target']['dependencies']) {
-        pubspecString += '''
-  ${dependency['name']}:
+      // write the dummy package pubspec to disk
+      await File(path.join(dummyPath, 'pubspec.yaml')).writeAsString('''
+name: dummy_package
+version: 1.0.0
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+dependencies:
+  test_package:
     hosted:
-      name: ${dependency['name']}
+      name: test_package
       url: ${globalPackageServer!.url}
-    version: ${dependency['version']}
-''';
-      }
+    version: 1.0.0
+''');
 
-      // write the contents of the target package to disk
-      await File(path.join(targetPath, 'pubspec.yaml'))
-          .writeAsString(pubspecString);
-      for (final file in doc['target']['package']) {
-        // derive absolute path of file
-        final filePathRelative = file['path'] as String;
-        final filePath =
-            path.joinAll([targetPath, ...filePathRelative.split('/')]);
+      // fetch the dependencies of the dummy package on disk (the target package
+      // and other transitive dependencies)
+      await fetchDependencies(dummyPath);
 
-        // ensure parent directory exists and write file contents
-        await Directory(path.dirname(filePath)).create(recursive: true);
-        await File(filePath).writeAsString(file['content'] as String);
-      }
+      final dummyPackageAnalysisContext = PackageAnalysisContextWithStderr(
+        session: AnalysisContextCollection(includedPaths: [dummyPath])
+            .contextFor(dummyPath)
+            .currentSession,
+        packagePath: dummyPath,
+        targetPackageName: 'test_package',
+      );
 
-      // fetch the dependencies of the target package on disk
-      await fetchDependencies(targetPath);
-
-      final rootPackageAnalysisContext = PackageAnalysisContextWithStderr(
-          session: AnalysisContextCollection(includedPaths: [targetPath])
-              .contextFor(targetPath)
-              .currentSession,
-          packagePath: targetPath);
-
-      // collect metadata about the target's dependencies
+      // collect metadata and summaries of the target's dependencies
       final dependencySummaries = <String, PackageShape>{};
-      final targetDependencies = await getHostedDependencies(targetPath);
+      final targetDependencies = dummyPackageAnalysisContext.targetDependencies;
       for (final dependency in doc['target']['dependencies']) {
         final dependencyName = dependency['name'] as String;
         final dependencyPackages =
@@ -153,7 +155,7 @@ dependencies:
 
       // discover issues that exist in the target package
       final issues = await lowerBoundConstraintAnalysis(
-        context: rootPackageAnalysisContext,
+        context: dummyPackageAnalysisContext,
         dependencySummaries: dependencySummaries,
       );
       final issuesString = issues.map((issue) => issue.toString()).toList();
@@ -165,16 +167,22 @@ dependencies:
       // for every expected issue, remove the first element of issuesString
       // which matches that expected issue
       for (final expectedIssue in expectedIssues) {
-        // TODO: does it make sense to assume that a given regex will only match one element of issuesString?
         final matchingIndex = issuesString.indexWhere(
             (issueString) => RegExp(expectedIssue).hasMatch(issueString));
+        print(issuesString[matchingIndex]);
         issuesString.removeAt(matchingIndex);
+        // we expect that this regex will only match one issue
+        expect(
+            issuesString.indexWhere(
+                (issueString) => RegExp(expectedIssue).hasMatch(issueString)),
+            equals(-1));
       }
+
       // we expect to have removed all the elements of this List
       expect(issuesString.isEmpty, equals(true));
 
-      // clean up by deleting the test package directory
-      await targetDir.delete(recursive: true);
+      // clean up by deleting the dummy package directory
+      await dummyDir.delete(recursive: true);
     });
   }
 }

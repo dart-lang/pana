@@ -16,8 +16,16 @@ abstract class PackageAnalysisContext {
   /// The name of the package being analyzed.
   late final String packageName = pubspec.name;
 
+  /// The name of the singular dependency of this target dummy package, or null
+  /// if the package being analysed does not use a dummy.
+  final String? targetPackageName;
+
   /// The absolute path of the package being analyzed.
   final String packagePath;
+
+  /// The absolute path of the target package, given that the package being
+  /// analysed uses a dummy.
+  late final String? targetPackagePath = getDependencyDirectory(this, targetPackageName!);
 
   /// The pubspec of the package being analyzed.
   late final Pubspec pubspec =
@@ -27,6 +35,17 @@ abstract class PackageAnalysisContext {
   /// being analyzed.
   late final Map<String, HostedDependency> dependencies = Map.fromEntries(
       pubspec
+          .dependencies.entries
+          .where((dependency) => dependency.value is HostedDependency)
+          .map(
+              (entry) => MapEntry(entry.key, entry.value as HostedDependency)));
+
+  /// A [Map] storing metadata about the hosted dependencies of the package
+  /// being analyzed, given that the package associated with this
+  /// [PackageAnalysisContext] is a dummy package with a single non-transitive
+  /// dependency.
+  late final Map<String, HostedDependency> targetDependencies = Map.fromEntries(
+      Pubspec.parseYaml(readFile(path.join(targetPackagePath!, 'pubspec.yaml')))
           .dependencies.entries
           .where((dependency) => dependency.value is HostedDependency)
           .map(
@@ -50,6 +69,7 @@ abstract class PackageAnalysisContext {
       analysisSession.resourceProvider.getFolder(path);
 
   PackageAnalysisContext({
+    this.targetPackageName,
     required this.packagePath,
   });
 
@@ -129,7 +149,7 @@ Future<void> fetchUsingDummyPackage({
   await fetchDependencies(destination);
 }
 
-/// Fetches dependencies in [destination].
+/// Fetches dependencies at the physical path [destination].
 Future<void> fetchDependencies(String destination) async {
   final result = await Process.run(
     Platform.resolvedExecutable,
@@ -174,21 +194,6 @@ List<resource.File> getAllFiles(resource.Folder folder) {
     }
   }
   return files;
-}
-
-/// Fetch all the hosted dependencies used by a package at a given location
-Future<Map<String, HostedDependency>> getHostedDependencies(
-  String targetPackageDir,
-) async {
-  // fetch a Map of all dependencies from the target package folder
-  final allDependencies = Pubspec.parseYaml(
-          await File(path.join(targetPackageDir, 'pubspec.yaml'))
-              .readAsString())
-      .dependencies;
-
-  // ensure that these dependencies can be found on pub.dev and has version constraints
-  allDependencies.removeWhere((key, value) => value is! HostedDependency);
-  return Map<String, HostedDependency>.from(allDependencies);
 }
 
 /// Given the context for a package and the name of one of its dependencies,

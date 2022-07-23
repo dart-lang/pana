@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:path/path.dart' as path;
+import 'package:test_descriptor/test_descriptor.dart';
 
 String _createPackageConfig({
   required String packageName,
@@ -51,4 +52,14 @@ OverlayResourceProvider setupBasicPackage({
   );
 
   return provider;
+}
+
+/// Create a [FileDescriptor] from a yaml node with `path` and `content` keys.
+FileDescriptor descriptorFromYamlNode(package) {
+  final packagePath = package['path'] as String;
+  final packageContent = package['content'] as String;
+  return FileDescriptor(
+    path.joinAll(packagePath.split('/')),
+    packageContent,
+  );
 }
