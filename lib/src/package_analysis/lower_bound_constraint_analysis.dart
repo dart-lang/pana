@@ -91,9 +91,9 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     }
     // TODO: test this feature, figure out if node.methodName is a good choice of node to store
     final span = SourceFile.fromString(
-            context.readFile(context.uriToPath(currentUri)!),
-            url: currentUri)
-        .span(node.methodName.offset, node.methodName.end);
+      context.readFile(context.uriToPath(currentUri)!),
+      url: currentUri,
+    ).span(node.methodName.offset, node.methodName.end);
     final elementId = element.id;
     final libraryUri = element.library!.identifier;
     final symbolName = element.name!;
@@ -158,7 +158,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             ),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
-            references: [],
+            references: [span],
           )
         : null;
   }

@@ -192,12 +192,11 @@ Future<Map<String, HostedDependency>> getHostedDependencies(
 }
 
 /// Given the context for a package and the name of one of its dependencies,
-/// return the dependency version which is installed.
+/// which may be transitive, return the dependency version which is installed.
 Version getInstalledVersion({
   required PackageAnalysisContext context,
   required String dependencyName,
 }) {
-  // fetch the installed version for this dependency
   final dependencyPubspecLocation = path.join(
     getDependencyDirectory(context, dependencyName)!,
     'pubspec.yaml',
