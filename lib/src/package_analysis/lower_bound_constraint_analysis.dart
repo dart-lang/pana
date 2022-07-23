@@ -132,7 +132,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       final classesMatchingName = dependencyShape.classes
           .where((thisClass) => thisClass.name == enclosingElement.name);
       for (final thisClass in classesMatchingName) {
-        if (thisClass.methods.any((method) => method.name == symbolName)) {
+        if ([...thisClass.methods, ...thisClass.staticMethods]
+            .any((method) => method.name == symbolName)) {
           constraintIssue = false;
           break;
         }
