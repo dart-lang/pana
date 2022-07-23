@@ -133,8 +133,7 @@ Future<PackageShape> summarizePackage({
     return classShape;
   }
 
-  void summarizeLibraryElement(
-      LibraryElement libraryElement, String libraryPath) {
+  void summarizeLibraryElement(LibraryElement libraryElement) {
     final uri = libraryElement.identifier;
     final exportedClasses = <int>[];
     final exportedGetters = <int>[];
@@ -214,10 +213,7 @@ Future<PackageShape> summarizePackage({
       continue;
     }
 
-    summarizeLibraryElement(
-      library.element,
-      path.relative(filePath, from: packagePath),
-    );
+    summarizeLibraryElement(library.element);
   }
 
   return normalizePackageShape(package);
