@@ -149,6 +149,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   }
 
   // TODO: we probably need visitPropertyAccess too
+  // Invocations of getters and setters are represented by either PrefixedIdentifier or PropertyAccess nodes.
   // PropertyAccess: The access of a property of an object. Note, however, that
   // accesses to properties of objects can also be represented as
   // PrefixedIdentifier nodes in cases where the target is also a simple identifier.
