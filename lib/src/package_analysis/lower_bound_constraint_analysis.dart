@@ -2,6 +2,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/exception/exception.dart';
 import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
@@ -47,7 +48,29 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
 }
 
 class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
+  /// The [PackageAnalysisContext] corresponding to the package being analyzed.
   final PackageAnalysisContext context;
+
+  /// The [Element] definition being analyzed.
+  late Element element;
+
+  /// The id of [element].
+  late int elementId;
+
+  // The name of the package which defines [element].
+  late String packageName;
+
+  // The summary of the package which defines [element].
+  late PackageShape dependencyShape;
+
+  /// The parent of [element].
+  late Element enclosingElement;
+
+  /// The [SourceSpan] corresponding to the invocation currently being analyzed.
+  late SourceSpan span;
+
+  /// The name of the symbol being analyzed.
+  late String symbolName;
 
   /// The package URI for the currently analyzed unit, typically on the form
   /// `package:package_name/library_name.dart`.
@@ -67,6 +90,56 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     required this.dependencySummaries,
   });
 
+  /// Populate the various properties of this visitor based on information from
+  /// this symbol, throwing an [AnalysisException] if the symbol does not need
+  /// to be/cannot be analyzed.
+  void processIdentifier(SimpleIdentifier identifier) {
+    span = SourceFile.fromString(
+      context.readFile(context.uriToPath(currentUri)!),
+      url: currentUri,
+    ).span(identifier.offset, identifier.end);
+
+    elementId = element.id;
+    // if the element is a getter or a setter, pull out just the variable name
+    symbolName = element is PropertyAccessorElement
+        ? (element as PropertyAccessorElement).variable.name
+        : element.name!;
+
+    // if we have seen this symbol before, we need to do no further analysis
+    if (issues.containsKey(elementId)) {
+      // if we have seen this element before and there is an issue with it,
+      // add this usage/invocation to its list of references
+      issues[elementId]?.references.add(span);
+      throw AnalysisException(
+          'The definition of this Element has already been visited.');
+    }
+
+    final tryPackageName = packageFromLibraryUri(element.library!.identifier);
+    // if the defining package isn't a HostedDependency of the target, then
+    // this symbol cannot be analyzed
+    if (tryPackageName == null ||
+        !context.targetDependencies.keys.contains(tryPackageName)) {
+      throw AnalysisException(
+          'The defining package is not a HostedDependency of the target package.');
+    }
+    packageName = tryPackageName;
+
+    if (!dependencySummaries.keys.contains(packageName)) {
+      context.warning('No summary for $packageName found.');
+      throw AnalysisException('No summary was found for the defining package.');
+    }
+    dependencyShape = dependencySummaries[packageName]!;
+
+    // assume that element is not a library, so enclosingElement will never be null
+    enclosingElement = element.enclosingElement!;
+
+    // ensure generics are ignored
+    if (enclosingElement is ClassElement &&
+        (enclosingElement as ClassElement).typeParameters.isNotEmpty) {
+      throw AnalysisException('The parent Element is a generic.');
+    }
+  }
+
   @override
   void visitCompilationUnit(CompilationUnit node) {
     // this must be able to handle cases of a library split into multiple files
@@ -75,61 +148,102 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     super.visitCompilationUnit(node);
   }
 
-  // TODO: consider FunctionReference, PropertyAccess
+  // TODO: we probably need visitPropertyAccess too
+  // PropertyAccess: The access of a property of an object. Note, however, that
+  // accesses to properties of objects can also be represented as
+  // PrefixedIdentifier nodes in cases where the target is also a simple identifier.
+  @override
+  void visitPrefixedIdentifier(PrefixedIdentifier node) {
+    // an access of an object property
+    super.visitPrefixedIdentifier(node);
+
+    final parentNode = node.parent;
+    if (node.staticElement != null) {
+      element = node.staticElement!;
+    } else if (parentNode is AssignmentExpression &&
+        parentNode.writeElement != null) {
+      // this special case is needed to retrieve the PropertyAccessorElement for a setter
+      element = parentNode.writeElement!;
+    } else {
+      // we cannot statically resolve what was invoked
+      return;
+    }
+
+    // a PrefixedIdentifier does not necessarily represent a property access
+    if (element is! PropertyAccessorElement) {
+      return;
+    }
+
+    try {
+      processIdentifier(node.identifier);
+    } on AnalysisException {
+      // do not continue if this invocation is unfit for analysis
+      return;
+    }
+
+    late bool constraintIssue;
+
+    if (enclosingElement is ClassElement) {
+      // does this dependency's PackageShape have a class whose name matches
+      // that of enclosingElement, and does this class have a property with a matching name?
+      // initially assume there is an issue and look for classes with the correct property
+      constraintIssue = true;
+      final classesMatchingName = dependencyShape.classes
+          .where((thisClass) => thisClass.name == enclosingElement.name);
+      for (final thisClass in classesMatchingName) {
+        if ([
+          ...thisClass.getters,
+          ...thisClass.setters,
+          ...thisClass.staticGetters,
+          ...thisClass.staticSetters,
+        ].any((property) => property.name == symbolName)) {
+          constraintIssue = false;
+          break;
+        }
+      }
+    } else {
+      // we may be looking at a top-level getter or setter, or that of an extension
+      // context.warning('Subclass ${enclosingElement.toString()} of enclosingElement (getter/setter) is not supported.');
+      return;
+    }
+
+    issues[elementId] = constraintIssue
+        ? LowerBoundConstraintIssue(
+            dependencyPackageName: packageName,
+            constraint: context.targetDependencies[packageName]!.version,
+            currentVersion: getInstalledVersion(
+              context: context,
+              dependencyName: packageName,
+            ),
+            lowestVersion: Version.parse(dependencyShape.version),
+            identifier: symbolName,
+            references: [span],
+          )
+        : null;
+  }
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
     // an invocation of a top-level function or a class method
     super.visitMethodInvocation(node);
 
-    final element = node.methodName.staticElement;
-
-    if (element == null) {
-      // we cannot statically resolve what is invoked when a method is called on
-      // a variable with dynamic type, in this case we just do nothing, since we
-      // can't know what is being called
+    if (node.methodName.staticElement == null) {
+      // we cannot statically resolve what was invoked
       return;
     }
-    // TODO: test this feature, figure out if node.methodName is a good choice of node to store
-    final span = SourceFile.fromString(
-      context.readFile(context.uriToPath(currentUri)!),
-      url: currentUri,
-    ).span(node.methodName.offset, node.methodName.end);
-    final elementId = element.id;
-    final libraryUri = element.library!.identifier;
-    final symbolName = element.name!;
-    final packageName = packageFromLibraryUri(libraryUri);
+    element = node.methodName.staticElement!;
 
-    // if we have seen this symbol before, we need to do no further analysis
-    if (issues.containsKey(elementId)) {
-      // if we have seen this element before and there is an issue with it,
-      // add this usage to the list of references
-      issues[elementId]?.references.add(span);
+    try {
+      processIdentifier(node.methodName);
+    } on AnalysisException {
+      // do not continue if this invocation is unfit for analysis
       return;
     }
 
-    // if the defining package isn't a HostedDependency of the target, then
-    // this symbol cannot be analyzed
-    if (packageName == null ||
-        !context.targetDependencies.keys.contains(packageName)) {
-      return;
-    }
-
-    if (!dependencySummaries.keys.contains(packageName)) {
-      context.warning('No summary for $packageName found.');
-      return;
-    }
-
-    final dependencyShape = dependencySummaries[packageName]!;
-    final enclosingElement = element.enclosingElement;
     late bool constraintIssue;
 
     // differentiate between class methods and top-level functions
     if (enclosingElement is ClassElement) {
-      // ensure generics are ignored
-      if (enclosingElement.typeParameters.isNotEmpty) {
-        return;
-      }
       // does this dependency's PackageShape have a class whose name matches
       // that of enclosingElement, and does this class have a method with a matching name?
       // initially assume there is an issue and look for classes with the correct method
@@ -149,8 +263,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           .map((function) => function.name)
           .contains(symbolName);
     } else {
-      context.warning(
-          'Subclass ${enclosingElement.toString()} of enclosingElement is not supported.');
+      // we may be looking at an extension method
+      // context.warning('Subclass ${enclosingElement.toString()} of enclosingElement (method/function) is not supported.');
       return;
     }
 

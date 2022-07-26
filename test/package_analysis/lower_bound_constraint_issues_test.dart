@@ -116,7 +116,7 @@ dependencies:
           versions: allVersionsString.map(Version.parse).toList(),
         )!;
         final dependencyMin = dependencyPackages.firstWhere(
-                (package) => package['version'] == minVersion.toString());
+            (package) => package['version'] == minVersion.toString());
 
         // TODO: can we rely on this path being empty and our testing not conflicting with physical files on disk?
         final packagePath = path.canonicalize(path.join(dependencyName));
@@ -169,7 +169,6 @@ dependencies:
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
             (issueString) => RegExp(expectedIssue).hasMatch(issueString));
-        print(issuesString[matchingIndex]);
         issuesString.removeAt(matchingIndex);
         // we expect that this regex will only match one issue
         expect(
@@ -186,4 +185,3 @@ dependencies:
     });
   }
 }
-

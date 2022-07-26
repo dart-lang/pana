@@ -14,6 +14,10 @@ packages:
         content: |
           void f() {}
           class C {
+            int get myGetter => 1;
+            static int get myGetterStatic => 1;
+            set mySetter(int something) {}
+            static set mySetterStatic(int something) {}
             void g() {}
           }
 target:
@@ -24,9 +28,13 @@ target:
     - path: lib/main.dart
       content: |
         import 'package:foo/foo.dart';
-        void main() { f(); C().g(); }
+        void main() { f(); final c = C(); c.g(); c.myGetter; C.myGetterStatic; c.mySetter = 1; C.mySetterStatic = 1; }
 issues:
   - 'identifier: f'
   - 'identifier: g'
+  - 'identifier: myGetterStatic'
+  - 'identifier: mySetterStatic'
+  - 'identifier: myGetter'
+  - 'identifier: mySetter'
 
 ...
