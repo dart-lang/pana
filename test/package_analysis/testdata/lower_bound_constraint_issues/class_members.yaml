@@ -6,19 +6,33 @@ packages:
     version: 1.0.0
     package:
       - path: lib/foo.dart
-        content: ''
+        content: |
+          void fGood() {}
+          class C {
+            int get goodGetter => 1;
+            static int get goodGetterStatic => 1;
+            set goodSetter(int something) {}
+            static set goodSetterStatic(int something) {}
+            void gGood() {}
+          }
   - name: foo
     version: 1.1.0
     package:
       - path: lib/foo.dart
         content: |
           void f() {}
+          void fGood() {}
           class C {
             int get myGetter => 1;
+            int get goodGetter => 1;
             static int get myGetterStatic => 1;
+            static int get goodGetterStatic => 1;
             set mySetter(int something) {}
+            set goodSetter(int something) {}
             static set mySetterStatic(int something) {}
+            static set goodSetterStatic(int something) {}
             void g() {}
+            void gGood() {}
           }
 target:
   dependencies:
@@ -28,7 +42,25 @@ target:
     - path: lib/main.dart
       content: |
         import 'package:foo/foo.dart';
-        void main() { f(); final c = C(); c.g(); c.myGetter; C.myGetterStatic; c.mySetter = 1; C.mySetterStatic = 1; }
+        void main() {
+          f();
+          fGood();
+
+          final c = C();
+
+          c.g();
+          c.gGood();
+
+          c.myGetter;
+          c.goodGetter;
+          C.myGetterStatic;
+          C.goodGetterStatic;
+
+          c.mySetter = 1;
+          c.goodSetter = 1;
+          C.mySetterStatic = 1;
+          C.goodSetterStatic = 1;
+        }
 issues:
   - 'identifier: f'
   - 'identifier: g'
