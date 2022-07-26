@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:args/command_runner.dart';
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
@@ -127,11 +128,16 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final dependencyVersionConstraint = dependencyEntry.value.version;
         final dependencyDestination =
             path.join(dependencyFolder, '${dependencyName}_pointer');
-        final dependencyDoc = doc.firstWhere((package) => package['metadata']['name'] as String == dependencyName)['metadata'];
+        final dependencyDoc = doc.firstWhereOrNull((package) => package['metadata']['name'] as String == dependencyName);
+
+        // if dependency could not be found in the doc, skip it
+        if (dependencyDoc == null) {
+          continue;
+        }
 
         // determine the minimum allowed version of this dependency as allowed
         // by the constraints imposed by the target package
-        final allVersionsString = (dependencyDoc['versions'] as List)
+        final allVersionsString = (dependencyDoc['metadata']['versions'] as List)
             .map((element) => element['version'] as String).toList();
         final allVersions = allVersionsString.map(Version.parse).toList();
         // allVersions is already sorted by order of increasing version
