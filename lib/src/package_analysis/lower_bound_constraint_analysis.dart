@@ -133,11 +133,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     // assume that element is not a library, so enclosingElement will never be null
     enclosingElement = element.enclosingElement!;
 
-    // ensure generics are ignored
-    if (enclosingElement is ClassElement &&
-        (enclosingElement as ClassElement).typeParameters.isNotEmpty) {
-      throw AnalysisException('The parent Element is a generic.');
-    }
   }
 
   @override
@@ -185,6 +180,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     late bool constraintIssue;
 
     if (enclosingElement is ClassElement) {
+      // ignore generics
+      if ((enclosingElement as ClassElement).typeParameters.isNotEmpty) {
+        return;
+      }
       // does this dependency's PackageShape have a class whose name matches
       // that of enclosingElement, and does this class have a property with a matching name?
       // initially assume there is an issue and look for classes with the correct property
@@ -245,6 +244,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     // differentiate between class methods and top-level functions
     if (enclosingElement is ClassElement) {
+      // ignore generics
+      if ((enclosingElement as ClassElement).typeParameters.isNotEmpty) {
+        return;
+      }
       // does this dependency's PackageShape have a class whose name matches
       // that of enclosingElement, and does this class have a method with a matching name?
       // initially assume there is an issue and look for classes with the correct method
