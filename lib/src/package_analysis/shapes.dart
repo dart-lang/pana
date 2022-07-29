@@ -119,10 +119,8 @@ class ClassShape extends GlobalShapeBase {
 /// A Shape for describing a class method
 @sealed
 @JsonSerializable()
-class MethodShape {
-  final String name;
-
-  MethodShape({required this.name});
+class MethodShape extends ClassMemberShapeBase {
+  MethodShape({required super.name});
 
   factory MethodShape.fromJson(Map<String, dynamic> json) =>
       _$MethodShapeFromJson(json);
@@ -145,10 +143,8 @@ class FunctionShape extends GlobalShapeBase {
 /// A Shape for describing a getter/setter of a class property
 @sealed
 @JsonSerializable()
-class PropertyShape {
-  final String name;
-
-  PropertyShape({required this.name});
+class PropertyShape extends ClassMemberShapeBase {
+  PropertyShape({required super.name});
 
   factory PropertyShape.fromJson(Map<String, dynamic> json) =>
       _$PropertyShapeFromJson(json);
@@ -180,4 +176,11 @@ abstract class GlobalShapeBase {
 
   @override
   int get hashCode => id;
+}
+
+@internal
+abstract class ClassMemberShapeBase {
+  final String name;
+
+  ClassMemberShapeBase({required this.name});
 }

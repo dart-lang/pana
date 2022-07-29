@@ -51,15 +51,25 @@ extension ClassShapeExt on ClassShape {
   /// Modifies this [ClassShape] based on a list of others. The name and id of
   /// the original [ClassShape] is retained, and the other fields of type
   /// [List<T>] are expanded with the corresponding fields from the elements of
-  /// [others].
+  /// [others], only where the addition of elements of the field [List]s does
+  /// not cause result in duplicate class members.
   void add({required List<ClassShape> others}) {
+    /// Adds elements of [other] to [list] without creating duplicates.
+    void addWithoutDuplicates(
+      List<ClassMemberShapeBase> list,
+      List<ClassMemberShapeBase> other,
+    ) {
+      list.addAll(other.where((otherMember) => !list
+          .any((existingMember) => existingMember.name == otherMember.name)));
+    }
+
     for (final otherClass in others) {
-      getters.addAll(otherClass.getters);
-      setters.addAll(otherClass.setters);
-      methods.addAll(otherClass.methods);
-      staticGetters.addAll(otherClass.staticGetters);
-      staticSetters.addAll(otherClass.staticSetters);
-      staticMethods.addAll(otherClass.staticMethods);
+      addWithoutDuplicates(getters, otherClass.getters);
+      addWithoutDuplicates(setters, otherClass.setters);
+      addWithoutDuplicates(methods, otherClass.methods);
+      addWithoutDuplicates(staticGetters, otherClass.staticGetters);
+      addWithoutDuplicates(staticSetters, otherClass.staticSetters);
+      addWithoutDuplicates(staticMethods, otherClass.staticMethods);
     }
   }
 }
