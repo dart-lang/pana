@@ -1,0 +1,38 @@
+---
+
+name: Private superclasses should not cause false positives
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          import './src/src.dart';
+          class Subclass extends Superclass {
+            void f() {}
+            final subConstant = 1;
+          }
+      - path: lib/src/src.dart
+        content: |
+          class Superclass {
+            void g() {}
+            final superConstant = 1;
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+        void main() {
+          final c = Subclass();
+          c.f();
+          c.g();
+          c.subConstant;
+          c.superConstant;
+        }
+issues: []
+
+...

@@ -40,7 +40,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       astVisitor.visitCompilationUnit(result.unit);
     } else {
       context.warning(
-          'Attempting to get a resolved unit resulted in an invalid result.');
+          'Attempting to get a resolved unit for file $filePath resulted in an invalid result.');
     }
   }
 
@@ -64,7 +64,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   late PackageShape dependencyShape;
 
   /// The parent of [element].
-  late Element enclosingElement;
+  late Element parentElement;
 
   /// The [SourceSpan] corresponding to the invocation currently being analyzed.
   late SourceSpan span;
@@ -90,10 +90,39 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     required this.dependencySummaries,
   });
 
+  /// Attempt to identify the name of the defining library of [element],
+  /// populating [packageName] and [dependencyShape].
+  void identifyDependencyName() {
+    if (parentElement.library == null) {
+      throw AnalysisException(
+          'Could not determine library of parentElement.');
+    }
+    final tryPackageName =
+        packageFromLibraryUri(parentElement.library!.identifier);
+    // if the defining package isn't a HostedDependency of the target, then
+    // this symbol cannot be analyzed
+    if (tryPackageName == null ||
+        !context.targetDependencies.keys.contains(tryPackageName)) {
+      throw AnalysisException(
+          'The defining package is not a HostedDependency of the target package.');
+    }
+    packageName = tryPackageName;
+
+    if (!dependencySummaries.keys.contains(packageName)) {
+      context.warning('No summary for $packageName found.');
+      throw AnalysisException('No summary was found for the defining package.');
+    }
+    dependencyShape = dependencySummaries[packageName]!;
+  }
+
   /// Populate the various properties of this visitor based on information from
   /// this symbol, throwing an [AnalysisException] if the symbol does not need
   /// to be/cannot be analyzed.
   void processIdentifier(SimpleIdentifier identifier) {
+    if (element.enclosingElement is ExtensionElement) {
+      throw AnalysisException('Extensions are not yet supported.');
+    }
+
     span = SourceFile.fromString(
       context.readFile(context.uriToPath(currentUri)!),
       url: currentUri,
@@ -113,26 +142,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       throw AnalysisException(
           'The definition of this Element has already been visited.');
     }
-
-    final tryPackageName = packageFromLibraryUri(element.library!.identifier);
-    // if the defining package isn't a HostedDependency of the target, then
-    // this symbol cannot be analyzed
-    if (tryPackageName == null ||
-        !context.targetDependencies.keys.contains(tryPackageName)) {
-      throw AnalysisException(
-          'The defining package is not a HostedDependency of the target package.');
-    }
-    packageName = tryPackageName;
-
-    if (!dependencySummaries.keys.contains(packageName)) {
-      context.warning('No summary for $packageName found.');
-      throw AnalysisException('No summary was found for the defining package.');
-    }
-    dependencyShape = dependencySummaries[packageName]!;
-
-    // assume that element is not a library, so enclosingElement will never be null
-    enclosingElement = element.enclosingElement!;
-
   }
 
   @override
@@ -140,6 +149,17 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     // this must be able to handle cases of a library split into multiple files
     // with the part keyword
     currentUri = node.declaredElement!.source.uri;
+    // ensure there are no implementation library imports in this file
+    // TODO: remove this temporary measure, instead ensure that at least one import path leading to this element does not go through an implementation import
+    for (final importDirective
+        in node.directives.whereType<ImportDirective>()) {
+      final segments = Uri.parse(importDirective.uriContent!).pathSegments;
+      if (segments.length >= 2 &&
+          segments[0] != context.targetPackageName &&
+          segments[1] == 'src') {
+        return;
+      }
+    }
     super.visitCompilationUnit(node);
   }
 
@@ -172,6 +192,9 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     try {
       processIdentifier(node.identifier);
+      parentElement =
+          node.prefix.staticType?.element! ?? node.prefix.staticElement!;
+      identifyDependencyName();
     } on AnalysisException {
       // do not continue if this invocation is unfit for analysis
       return;
@@ -179,17 +202,17 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     late bool constraintIssue;
 
-    if (enclosingElement is ClassElement) {
+    if (parentElement is ClassElement) {
       // ignore generics
-      if ((enclosingElement as ClassElement).typeParameters.isNotEmpty) {
+      if ((parentElement as ClassElement).typeParameters.isNotEmpty) {
         return;
       }
       // does this dependency's PackageShape have a class whose name matches
-      // that of enclosingElement, and does this class have a property with a matching name?
+      // that of parentElement, and does this class have a property with a matching name?
       // initially assume there is an issue and look for classes with the correct property
       constraintIssue = true;
       final classesMatchingName = dependencyShape.classes
-          .where((thisClass) => thisClass.name == enclosingElement.name);
+          .where((thisClass) => thisClass.name == parentElement.name);
       for (final thisClass in classesMatchingName) {
         if ([
           ...thisClass.getters,
@@ -203,7 +226,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       }
     } else {
       // we may be looking at a top-level getter or setter, or that of an extension
-      // context.warning('Subclass ${enclosingElement.toString()} of enclosingElement (getter/setter) is not supported.');
+      // context.warning('Subclass ${parentElement.toString()} of parentElement (getter/setter) is not supported.');
       return;
     }
 
@@ -232,9 +255,22 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       return;
     }
     element = node.methodName.staticElement!;
+    // TODO: does element.declaration help here?
 
     try {
       processIdentifier(node.methodName);
+      if (element is FunctionElement) {
+        parentElement = element.enclosingElement!;
+      } else if (node.parent is CascadeExpression) {
+        // TODO: handle cascade notation
+        return;
+      } else if (node.target == null) {
+        return;
+      } else {
+        parentElement = node.target!.staticType?.element! ??
+            (node.target! as Identifier).staticElement!;
+      }
+      identifyDependencyName();
     } on AnalysisException {
       // do not continue if this invocation is unfit for analysis
       return;
@@ -243,17 +279,17 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     late bool constraintIssue;
 
     // differentiate between class methods and top-level functions
-    if (enclosingElement is ClassElement) {
+    if (parentElement is ClassElement) {
       // ignore generics
-      if ((enclosingElement as ClassElement).typeParameters.isNotEmpty) {
+      if ((parentElement as ClassElement).typeParameters.isNotEmpty) {
         return;
       }
       // does this dependency's PackageShape have a class whose name matches
-      // that of enclosingElement, and does this class have a method with a matching name?
+      // that of parentElement, and does this class have a method with a matching name?
       // initially assume there is an issue and look for classes with the correct method
       constraintIssue = true;
       final classesMatchingName = dependencyShape.classes
-          .where((thisClass) => thisClass.name == enclosingElement.name);
+          .where((thisClass) => thisClass.name == parentElement.name);
       for (final thisClass in classesMatchingName) {
         if ([...thisClass.methods, ...thisClass.staticMethods]
             .any((method) => method.name == symbolName)) {
@@ -261,14 +297,14 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           break;
         }
       }
-    } else if (enclosingElement is CompilationUnitElement) {
+    } else if (parentElement is CompilationUnitElement) {
       // does this top-level function exist in this dependency's PackageShape?
       constraintIssue = !dependencyShape.functions
           .map((function) => function.name)
           .contains(symbolName);
     } else {
       // we may be looking at an extension method
-      // context.warning('Subclass ${enclosingElement.toString()} of enclosingElement (method/function) is not supported.');
+      // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');
       return;
     }
 
