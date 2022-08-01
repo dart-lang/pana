@@ -5,6 +5,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/exception/exception.dart';
 import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
+import 'package:pana/src/package_analysis/shapes_ext.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:source_span/source_span.dart';
@@ -207,23 +208,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if ((parentElement as ClassElement).typeParameters.isNotEmpty) {
         return;
       }
-      // does this dependency's PackageShape have a class whose name matches
-      // that of parentElement, and does this class have a property with a matching name?
-      // initially assume there is an issue and look for classes with the correct property
-      constraintIssue = true;
-      final classesMatchingName = dependencyShape.classes
-          .where((thisClass) => thisClass.name == parentElement.name);
-      for (final thisClass in classesMatchingName) {
-        if ([
-          ...thisClass.getters,
-          ...thisClass.setters,
-          ...thisClass.staticGetters,
-          ...thisClass.staticSetters,
-        ].any((property) => property.name == symbolName)) {
-          constraintIssue = false;
-          break;
-        }
-      }
+      constraintIssue = !dependencyShape.containsNamedProperty(
+          parentElement.name!, symbolName);
     } else {
       // we may be looking at a top-level getter or setter, or that of an extension
       // context.warning('Subclass ${parentElement.toString()} of parentElement (getter/setter) is not supported.');
@@ -284,24 +270,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if ((parentElement as ClassElement).typeParameters.isNotEmpty) {
         return;
       }
-      // does this dependency's PackageShape have a class whose name matches
-      // that of parentElement, and does this class have a method with a matching name?
-      // initially assume there is an issue and look for classes with the correct method
-      constraintIssue = true;
-      final classesMatchingName = dependencyShape.classes
-          .where((thisClass) => thisClass.name == parentElement.name);
-      for (final thisClass in classesMatchingName) {
-        if ([...thisClass.methods, ...thisClass.staticMethods]
-            .any((method) => method.name == symbolName)) {
-          constraintIssue = false;
-          break;
-        }
-      }
+      constraintIssue =
+          !dependencyShape.containsNamedMethod(parentElement.name!, symbolName);
     } else if (parentElement is CompilationUnitElement) {
-      // does this top-level function exist in this dependency's PackageShape?
-      constraintIssue = !dependencyShape.functions
-          .map((function) => function.name)
-          .contains(symbolName);
+      constraintIssue = !dependencyShape.containsNamedFunction(symbolName);
     } else {
       // we may be looking at an extension method
       // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');

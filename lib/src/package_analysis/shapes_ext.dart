@@ -106,4 +106,38 @@ extension PackageShapeExt on PackageShape {
     }
     return methods;
   }
+
+  /// Does this package have a function named [name]?
+  bool containsNamedFunction(String name) =>
+      functions.map((function) => function.name).contains(name);
+
+  /// Does this package have a class named [className] with a method (static or not) named [name]?
+  bool containsNamedMethod(String className, String name) {
+    final classesMatchingName =
+        classes.where((thisClass) => thisClass.name == className);
+    for (final thisClass in classesMatchingName) {
+      if ([...thisClass.methods, ...thisClass.staticMethods]
+          .any((method) => method.name == name)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Does this package have a class named [className] with a property (static or not, getter or setter) named [name]?
+  bool containsNamedProperty(String className, String name) {
+    final classesMatchingName =
+        classes.where((thisClass) => thisClass.name == className);
+    for (final thisClass in classesMatchingName) {
+      if ([
+        ...thisClass.getters,
+        ...thisClass.setters,
+        ...thisClass.staticGetters,
+        ...thisClass.staticSetters,
+      ].any((property) => property.name == name)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
