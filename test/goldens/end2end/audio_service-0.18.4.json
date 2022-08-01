@@ -148,7 +148,7 @@
       "provider": "github",
       "host": "github.com",
       "repository": "ryanheise/audio_service",
-      "branch": "minor",
+      "branch": "master",
       "path": "audio_service"
     }
   },

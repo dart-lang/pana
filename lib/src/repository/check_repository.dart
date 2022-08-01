@@ -70,7 +70,7 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
     late GitLocalRepository repo;
     try {
       repo = await GitLocalRepository.createLocalRepository(url.cloneUrl);
-      branch = await repo.detectDefaultBranch();
+      branch ??= await repo.detectDefaultBranch();
 
       // list all pubspec.yaml files
       final files = await repo.listFiles(branch);
