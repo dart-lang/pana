@@ -61,6 +61,10 @@ class GitLocalRepository {
   }) async {
     final pr = await runProc(
       ['git', ...args],
+      environment: {
+        'LANG': 'C', // default English locale that is always present
+        'LC_ALL': 'en_US',
+      },
       workingDirectory: localPath,
       maxOutputBytes: maxOutputBytes,
     );
