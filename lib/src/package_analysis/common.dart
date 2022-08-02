@@ -14,6 +14,8 @@ const indentedEncoder = JsonEncoder.withIndent('  ');
 abstract class PackageAnalysisContext {
   AnalysisSession get analysisSession;
 
+  // TODO: merge packageName and targetPackageName, packagePath and targetPackagePath, dependencies and targetDependencies
+  // TODO: afterwards, rename packagePath to targetPath, dependencyPath() to packagePath()
   /// The name of the package being analyzed.
   late final String packageName = pubspec.name;
 
@@ -26,7 +28,7 @@ abstract class PackageAnalysisContext {
 
   /// The absolute path of the target package, given that the package being
   /// analysed uses a dummy.
-  late final String? targetPackagePath = getDependencyDirectory(this, targetPackageName!);
+  late final String targetPackagePath = dependencyPath(targetPackageName!);
 
   /// The pubspec of the package being analyzed.
   late final Pubspec pubspec =
@@ -46,7 +48,7 @@ abstract class PackageAnalysisContext {
   /// [PackageAnalysisContext] is a dummy package with a single non-transitive
   /// dependency.
   late final Map<String, HostedDependency> targetDependencies = Map.fromEntries(
-      Pubspec.parseYaml(readFile(path.join(targetPackagePath!, 'pubspec.yaml')))
+      Pubspec.parseYaml(readFile(path.join(targetPackagePath, 'pubspec.yaml')))
           .dependencies.entries
           .where((dependency) => dependency.value is HostedDependency)
           .map(
@@ -68,6 +70,21 @@ abstract class PackageAnalysisContext {
   /// A folder may or may not exist at this location.
   resource.Folder folder(String path) =>
       analysisSession.resourceProvider.getFolder(path);
+
+  /// Given the name of a package within this context (commonly a direct or
+  /// transitive dependency of the target package), return the path of this
+  /// package - the path to which `'package:$packageName/'` resolves.
+  /// Ensure that the dependencies of the target package are fetched with `pub get`.
+  String dependencyPath(String packageName) {
+    final uri = Uri.parse('package:$packageName/');
+    final uriPath = uriToPath(uri);
+    if (uriPath == null) {
+      throw StateError('The path to $packageName could not be resolved in the current context.');
+    }
+    // if the path corresponding to this uri could be resolved,
+    // move up one directory to move out of lib/
+    return path.dirname(uriPath);
+  }
 
   PackageAnalysisContext({
     this.targetPackageName,
@@ -167,22 +184,6 @@ Future<void> fetchDependencies(String destination) async {
   }
 }
 
-// TODO: make this a method of PackageAnalysisContext
-/// Given the context for a package and the name of one of its dependencies,
-/// return the path of the dependency, or null if it cannot be resolved.
-/// The dependency in question does not have to be a direct dependency.
-/// Ensure that the dependencies of the target package are fetched.
-String? getDependencyDirectory(
-  PackageAnalysisContext packageAnalysisContext,
-  String dependencyName,
-) {
-  final dependencyUri = Uri.parse('package:$dependencyName/');
-  final dependencyFilePath = packageAnalysisContext.uriToPath(dependencyUri);
-  // if the path corresponding to this uri could be resolved,
-  // move up one directory to move out of lib/
-  return dependencyFilePath == null ? null : path.dirname(dependencyFilePath);
-}
-
 /// Recursively fetch all the files in the given folder
 List<resource.File> getAllFiles(resource.Folder folder) {
   final files = <resource.File>[];
@@ -206,7 +207,7 @@ Version getInstalledVersion({
   required String dependencyName,
 }) {
   final dependencyPubspecLocation = path.join(
-    getDependencyDirectory(context, dependencyName)!,
+    context.dependencyPath(dependencyName),
     'pubspec.yaml',
   );
   final dependencyPubspec =

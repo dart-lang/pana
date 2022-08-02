@@ -178,7 +178,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         // produce a summary of the minimum version of this dependency and store it
         dependencySummaries[dependencyName] = await summarizePackage(
           context: dependencyPackageAnalysisContext,
-          packagePath: getDependencyDirectory(dependencyPackageAnalysisContext, dependencyName,)!,
+          packagePath: dependencyPackageAnalysisContext.dependencyPath(dependencyName),
         );
       }
 

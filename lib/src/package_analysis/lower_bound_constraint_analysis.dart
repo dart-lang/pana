@@ -26,7 +26,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     dependencySummaries: dependencySummaries,
   );
 
-  final libPath = path.join(context.targetPackagePath!, 'lib');
+  final libPath = path.join(context.targetPackagePath, 'lib');
   final libFolder = context.folder(libPath);
 
   // retrieve the paths of all the dart library files in this package via the
@@ -59,10 +59,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       installedDependencySummaries[possibleIssue.dependencyPackageName] =
           await summarizePackage(
         context: context,
-        packagePath: getDependencyDirectory(
-          context,
-          possibleIssue.dependencyPackageName,
-        )!,
+        packagePath: context.dependencyPath(possibleIssue.dependencyPackageName),
       );
     }
     final installedDependency =
