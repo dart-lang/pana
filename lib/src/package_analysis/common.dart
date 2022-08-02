@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/file_system/file_system.dart' as resource;
+import 'package:collection/collection.dart';
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
@@ -213,25 +214,13 @@ Version getInstalledVersion({
   return dependencyPubspec.version!;
 }
 
-/// Given a version constraint and a list of versions
-/// **from a sorted list of [Version]s in increasing order**, return the the
+/// Given a version constraint and a list of [Version]s, return the the
 /// minimum [Version] allowed by the constraint, or null if no version in the
 /// list is allowed by the constraint.
 Version? findMinAllowedVersion({
   required VersionConstraint constraint,
   required List<Version> versions,
 }) {
-  // this first case is common
-  if (constraint is VersionRange &&
-      constraint.includeMin &&
-      versions.contains(constraint.min!)) {
-    return constraint.min!;
-  }
-
-  for (final version in versions) {
-    if (constraint.allows(version)) {
-      return version;
-    }
-  }
-  return null;
+  versions.sort((a, b) => a.compareTo(b));
+  return versions.firstWhereOrNull((version) => constraint.allows(version));
 }

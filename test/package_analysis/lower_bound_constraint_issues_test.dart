@@ -107,7 +107,6 @@ dependencies:
         final dependencyPackages =
             packages.where((package) => package['name'] == dependencyName);
 
-        // TODO: communicate somehow that it's necessary for the versions of any given package to be sorted in the yaml file
         // find the minimum allowed version of this package
         final allVersionsString =
             dependencyPackages.map((package) => package['version'] as String);

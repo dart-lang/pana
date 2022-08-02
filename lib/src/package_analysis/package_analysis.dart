@@ -140,7 +140,6 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final allVersionsString = (dependencyDoc['metadata']['versions'] as List)
             .map((element) => element['version'] as String).toList();
         final allVersions = allVersionsString.map(Version.parse).toList();
-        // allVersions is already sorted by order of increasing version
         final minVersion = findMinAllowedVersion(
           constraint: dependencyVersionConstraint,
           versions: allVersions,
