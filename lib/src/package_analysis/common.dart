@@ -57,31 +57,6 @@ abstract class PackageAnalysisContext {
   resource.Folder folder(String path) =>
       analysisSession.resourceProvider.getFolder(path);
 
-  /// Given the name of a package within this context (commonly a direct or
-  /// transitive dependency of the target package), return the path of this
-  /// package - the path to which `'package:$packageName/'` resolves.
-  /// Ensure that the dependencies of the target package are fetched with `pub get`.
-  String findPackagePath(String packageName) {
-    final uri = Uri.parse('package:$packageName/');
-    final uriPath = uriToPath(uri);
-    if (uriPath == null) {
-      throw StateError('The path to $packageName could not be resolved in the current context.');
-    }
-    // if the path corresponding to this uri could be resolved,
-    // move up one directory to move out of lib/
-    return path.dirname(uriPath);
-  }
-
-  PackageAnalysisContext({
-    required AnalysisSession session,
-    required String packagePath,
-      String? targetPackageName,
-  }) {
-    analysisSession = session;
-    _targetPackageName = targetPackageName;
-    this.packagePath = _dummy ? findPackagePath(targetPackageName!) : packagePath;
-  }
-
   /// Return the absolute path of the file to which the absolute [uri] resolves,
   /// or `null` if the [uri] cannot be resolved in this context.
   ///
@@ -90,6 +65,43 @@ abstract class PackageAnalysisContext {
   /// * 'package:my_library/my_library.dart'
   /// * [uri]s using the the file URI scheme, beginning with 'file:///'
   String? uriToPath(Uri uri) => analysisSession.uriConverter.uriToPath(uri);
+
+  /// Given the name of a package within this context (commonly a direct or
+  /// transitive dependency of the target package), return the path of this
+  /// package - the path to which `'package:$packageName/'` resolves.
+  /// Ensure that the dependencies of the target package are fetched with `pub get`.
+  String findPackagePath(String packageName) {
+    final uri = Uri.parse('package:$packageName/');
+    final uriPath = uriToPath(uri);
+    if (uriPath == null) {
+      throw StateError(
+          'The path to $packageName could not be resolved in the current context.');
+    }
+    // if the path corresponding to this uri could be resolved,
+    // move up one directory to move out of lib/
+    return path.dirname(uriPath);
+  }
+
+  /// Given the context for a package and the name of one of its dependencies,
+  /// which may be transitive, return the dependency version which is installed.
+  Version getInstalledVersion(String packageName) {
+    final packagePubspecPath = path.join(
+      findPackagePath(packageName),
+      'pubspec.yaml',
+    );
+    return Pubspec.parseYaml(readFile(packagePubspecPath)).version!;
+  }
+
+  PackageAnalysisContext({
+    required AnalysisSession session,
+    required String packagePath,
+    String? targetPackageName,
+  }) {
+    analysisSession = session;
+    _targetPackageName = targetPackageName;
+    this.packagePath =
+        _dummy ? findPackagePath(targetPackageName!) : packagePath;
+  }
 }
 
 // TODO: consider deleting unused function
@@ -189,22 +201,6 @@ List<resource.File> getAllFiles(resource.Folder folder) {
     }
   }
   return files;
-}
-
-// TODO: make this a method of PackageAnalysisContext
-/// Given the context for a package and the name of one of its dependencies,
-/// which may be transitive, return the dependency version which is installed.
-Version getInstalledVersion({
-  required PackageAnalysisContext context,
-  required String dependencyName,
-}) {
-  final dependencyPubspecLocation = path.join(
-    context.findPackagePath(dependencyName),
-    'pubspec.yaml',
-  );
-  final dependencyPubspec =
-      Pubspec.parseYaml(context.readFile(dependencyPubspecLocation));
-  return dependencyPubspec.version!;
 }
 
 /// Given a version constraint and a list of [Version]s, return the the

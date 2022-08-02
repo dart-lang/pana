@@ -280,10 +280,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         ? LowerBoundConstraintIssue(
       dependencyPackageName: packageName,
             constraint: context.dependencies[packageName]!.version,
-            currentVersion: getInstalledVersion(
-              context: context,
-              dependencyName: packageName,
-            ),
+            currentVersion: context.getInstalledVersion(packageName),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
             className: parentElement.name!,
@@ -346,10 +343,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         ? LowerBoundConstraintIssue(
       dependencyPackageName: packageName,
             constraint: context.dependencies[packageName]!.version,
-            currentVersion: getInstalledVersion(
-              context: context,
-              dependencyName: packageName,
-            ),
+            currentVersion: context.getInstalledVersion(packageName),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
             className: element.kind == ElementKind.FUNCTION
