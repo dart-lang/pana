@@ -168,7 +168,6 @@ dependencies:
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
             (issueString) => RegExp(expectedIssue).hasMatch(issueString));
-        print(issuesString[matchingIndex]);
         issuesString.removeAt(matchingIndex);
         // we expect that this regex will only match one issue
         expect(
