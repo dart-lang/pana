@@ -1,6 +1,7 @@
 ## 0.21.15
 
 - Improved URL resolver.
+- Always use English locale for git commands.
 
 ## 0.21.14
 
