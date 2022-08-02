@@ -13,10 +13,10 @@ import 'package:source_span/source_span.dart';
 
 import 'common.dart';
 
-/// Given a target *dummy* package and the summaries of the target's dependencies
-/// at their lower bound, analyze the target package and return a List of any
-/// found issues - where a symbol usage cannot be found in the relevant
-/// dependency's PackageShape
+/// Given a context associated with a target package and the summaries of the
+/// target's dependencies at their lower bound, analyze the target package and
+/// return a List of any found issues - where a symbol usage cannot be found in
+/// the relevant dependency's PackageShape.
 Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
   required PackageAnalysisContext context,
   required Map<String, PackageShape> dependencySummaries,
@@ -26,7 +26,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     dependencySummaries: dependencySummaries,
   );
 
-  final libPath = path.join(context.targetPackagePath, 'lib');
+  final libPath = path.join(context.packagePath, 'lib');
   final libFolder = context.folder(libPath);
 
   // retrieve the paths of all the dart library files in this package via the
@@ -59,7 +59,8 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       installedDependencySummaries[possibleIssue.dependencyPackageName] =
           await summarizePackage(
         context: context,
-        packagePath: context.dependencyPath(possibleIssue.dependencyPackageName),
+        packagePath:
+            context.findPackagePath(possibleIssue.dependencyPackageName),
       );
     }
     final installedDependency =
@@ -162,7 +163,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     // if the defining package isn't a HostedDependency of the target, then
     // this symbol cannot be analyzed
     if (tryPackageName == null ||
-        !context.targetDependencies.keys.contains(tryPackageName)) {
+        !context.dependencies.keys.contains(tryPackageName)) {
       throw AnalysisException(
           'The defining package is not a HostedDependency of the target package.');
     }
@@ -278,7 +279,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     issues[elementId] = constraintIssue
         ? LowerBoundConstraintIssue(
       dependencyPackageName: packageName,
-            constraint: context.targetDependencies[packageName]!.version,
+            constraint: context.dependencies[packageName]!.version,
             currentVersion: getInstalledVersion(
               context: context,
               dependencyName: packageName,
@@ -344,7 +345,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     issues[elementId] = constraintIssue
         ? LowerBoundConstraintIssue(
       dependencyPackageName: packageName,
-            constraint: context.targetDependencies[packageName]!.version,
+            constraint: context.dependencies[packageName]!.version,
             currentVersion: getInstalledVersion(
               context: context,
               dependencyName: packageName,

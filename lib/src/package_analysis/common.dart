@@ -12,23 +12,20 @@ import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 const indentedEncoder = JsonEncoder.withIndent('  ');
 
 abstract class PackageAnalysisContext {
-  AnalysisSession get analysisSession;
+  late final AnalysisSession analysisSession;
 
-  // TODO: merge packageName and targetPackageName, packagePath and targetPackagePath, dependencies and targetDependencies
-  // TODO: afterwards, rename packagePath to targetPath, dependencyPath() to packagePath()
-  /// The name of the package being analyzed.
-  late final String packageName = pubspec.name;
+  /// Shortcut for `_targetPackageName != null`.
+  late final bool _dummy = _targetPackageName != null;
 
   /// The name of the singular dependency of this target dummy package, or null
   /// if the package being analysed does not use a dummy.
-  final String? targetPackageName;
+  late final String? _targetPackageName;
+
+  /// The name of the package being analyzed.
+  late final String packageName = _dummy? _targetPackageName! : pubspec.name;
 
   /// The absolute path of the package being analyzed.
-  final String packagePath;
-
-  /// The absolute path of the target package, given that the package being
-  /// analysed uses a dummy.
-  late final String targetPackagePath = dependencyPath(targetPackageName!);
+  late final String packagePath;
 
   /// The pubspec of the package being analyzed.
   late final Pubspec pubspec =
@@ -38,17 +35,6 @@ abstract class PackageAnalysisContext {
   /// being analyzed.
   late final Map<String, HostedDependency> dependencies = Map.fromEntries(
       pubspec
-          .dependencies.entries
-          .where((dependency) => dependency.value is HostedDependency)
-          .map(
-              (entry) => MapEntry(entry.key, entry.value as HostedDependency)));
-
-  /// A [Map] storing metadata about the hosted dependencies of the package
-  /// being analyzed, given that the package associated with this
-  /// [PackageAnalysisContext] is a dummy package with a single non-transitive
-  /// dependency.
-  late final Map<String, HostedDependency> targetDependencies = Map.fromEntries(
-      Pubspec.parseYaml(readFile(path.join(targetPackagePath, 'pubspec.yaml')))
           .dependencies.entries
           .where((dependency) => dependency.value is HostedDependency)
           .map(
@@ -75,7 +61,7 @@ abstract class PackageAnalysisContext {
   /// transitive dependency of the target package), return the path of this
   /// package - the path to which `'package:$packageName/'` resolves.
   /// Ensure that the dependencies of the target package are fetched with `pub get`.
-  String dependencyPath(String packageName) {
+  String findPackagePath(String packageName) {
     final uri = Uri.parse('package:$packageName/');
     final uriPath = uriToPath(uri);
     if (uriPath == null) {
@@ -87,9 +73,14 @@ abstract class PackageAnalysisContext {
   }
 
   PackageAnalysisContext({
-    this.targetPackageName,
-    required this.packagePath,
-  });
+    required AnalysisSession session,
+    required String packagePath,
+      String? targetPackageName,
+  }) {
+    analysisSession = session;
+    _targetPackageName = targetPackageName;
+    this.packagePath = _dummy ? findPackagePath(targetPackageName!) : packagePath;
+  }
 
   /// Return the absolute path of the file to which the absolute [uri] resolves,
   /// or `null` if the [uri] cannot be resolved in this context.
@@ -200,6 +191,7 @@ List<resource.File> getAllFiles(resource.Folder folder) {
   return files;
 }
 
+// TODO: make this a method of PackageAnalysisContext
 /// Given the context for a package and the name of one of its dependencies,
 /// which may be transitive, return the dependency version which is installed.
 Version getInstalledVersion({
@@ -207,7 +199,7 @@ Version getInstalledVersion({
   required String dependencyName,
 }) {
   final dependencyPubspecLocation = path.join(
-    context.dependencyPath(dependencyName),
+    context.findPackagePath(dependencyName),
     'pubspec.yaml',
   );
   final dependencyPubspec =

@@ -101,7 +101,6 @@ dependencies:
 
       // collect metadata and summaries of the target's dependencies
       final dependencySummaries = <String, PackageShape>{};
-      final targetDependencies = dummyPackageAnalysisContext.targetDependencies;
       for (final dependency in doc['target']['dependencies']) {
         final dependencyName = dependency['name'] as String;
         final dependencyPackages =
@@ -111,7 +110,8 @@ dependencies:
         final allVersionsString =
             dependencyPackages.map((package) => package['version'] as String);
         final minVersion = findMinAllowedVersion(
-          constraint: targetDependencies[dependencyName]!.version,
+          constraint:
+              dummyPackageAnalysisContext.dependencies[dependencyName]!.version,
           versions: allVersionsString.map(Version.parse).toList(),
         )!;
         final dependencyMin = dependencyPackages.firstWhere(
@@ -168,6 +168,7 @@ dependencies:
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
             (issueString) => RegExp(expectedIssue).hasMatch(issueString));
+        print(issuesString[matchingIndex]);
         issuesString.removeAt(matchingIndex);
         // we expect that this regex will only match one issue
         expect(

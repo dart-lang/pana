@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:analyzer/dart/analysis/session.dart';
 import 'package:args/command_runner.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
@@ -111,7 +110,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       );
 
       // if there are no dependencies, there is nothing to analyze
-      if (dummyPackageAnalysisContext.targetDependencies.isEmpty) {
+      if (dummyPackageAnalysisContext.dependencies.isEmpty) {
         continue;
       }
 
@@ -123,7 +122,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       // - download minimum allowed version
       // - produce a summary of the minimum allowed version
       for (final dependencyEntry
-          in dummyPackageAnalysisContext.targetDependencies.entries) {
+          in dummyPackageAnalysisContext.dependencies.entries) {
         final dependencyName = dependencyEntry.key;
         final dependencyVersionConstraint = dependencyEntry.value.version;
         final dependencyDestination =
@@ -178,7 +177,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         // produce a summary of the minimum version of this dependency and store it
         dependencySummaries[dependencyName] = await summarizePackage(
           context: dependencyPackageAnalysisContext,
-          packagePath: dependencyPackageAnalysisContext.dependencyPath(dependencyName),
+          packagePath: dependencyPackageAnalysisContext.findPackagePath(dependencyName),
         );
       }
 
@@ -223,19 +222,13 @@ Future<String> checkArgs(List<String> paths) async {
   return packageLocation;
 }
 
-// TODO: better name for this class?
 @internal
 class PackageAnalysisContextWithStderr extends PackageAnalysisContext {
-  @override
-  late final AnalysisSession analysisSession;
-
   PackageAnalysisContextWithStderr({
+    required super.session,
     required super.packagePath,
-    required AnalysisSession session,
     super.targetPackageName,
-  }) {
-    analysisSession = session;
-  }
+  });
 
   @override
   void warning(String message) {
