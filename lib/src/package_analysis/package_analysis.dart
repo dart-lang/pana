@@ -78,7 +78,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       final packageDoc = doc[packageIndex]['metadata'];
       final packageName = packageDoc['name'] as String;
 
-      print('Reviewing package $packageName...');
+      print('${DateTime.now().toIso8601String()} Reviewing package $packageIndex $packageName...');
 
       final baseFolder = path.canonicalize(arguments[1]);
 
@@ -188,7 +188,10 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
       for (final issue in foundIssues) {
         dummyPackageAnalysisContext.warning(
-            'symbol ${issue.identifier} could not be found in ${issue.dependencyPackageName} version ${issue.lowestVersion.toString()}');
+            'Symbol ${issue.kind} ${issue.identifier} with parent ${issue.className} is used in $packageName but could not be found in dependency ${issue.dependencyPackageName} version ${issue.lowestVersion}, which is allowed by constraint ${issue.constraint}.');
+        for (final reference in issue.references) {
+          dummyPackageAnalysisContext.warning(reference.message(''));
+        }
       }
     }
   }

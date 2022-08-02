@@ -6,7 +6,7 @@ import 'package:pool/pool.dart';
 import 'package:retry/retry.dart';
 
 // all packages used by package:test transitively:
-List<String> smallSubset1 = [
+const smallSubset1 = [
   'test',
   'test_core',
   'test_api',
@@ -54,7 +54,7 @@ List<String> smallSubset1 = [
   'http_multi_server'
 ];
 // all packages published by dart.dev or tools.dart.dev, excluding the hidden packages _fe_analyzer_shared and http_retry
-List<String> smallSubset2 = [
+const smallSubset2 = [
   'mime',
   'yaml',
   'stream_transform',
