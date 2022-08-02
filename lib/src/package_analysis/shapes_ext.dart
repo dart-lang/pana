@@ -93,20 +93,6 @@ extension LibraryShapeExt on LibraryShape {
 }
 
 extension PackageShapeExt on PackageShape {
-  /// Returns a list of the names of all the top-level functions which are defined in this package.
-  List<String> get functionNames {
-    return functions.map((function) => function.name).toList();
-  }
-
-  /// Returns a list of the names of all the class methods which are defined in this package.
-  List<String> get methodNames {
-    final methods = <String>[];
-    for (final thisClass in classes) {
-      methods.addAll(thisClass.methods.map((method) => method.name));
-    }
-    return methods;
-  }
-
   /// Does this package have a function named [name]?
   bool containsFunctionWithName(String name) =>
       functions.map((function) => function.name).contains(name);
