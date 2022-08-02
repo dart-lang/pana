@@ -468,18 +468,36 @@ class ToolEnvironment {
     return DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
   }
 
-  /// Removes the dev_dependencies from the pubspec.yaml
+  /// Removes the `dev_dependencies` from the `pubspec.yaml`,
+  /// and also removes `pubspec_overrides.yaml`.
+  ///
   /// Adds lower-bound minimal SDK constraint - if missing.
-  /// Returns the backup file with the original content.
+  ///
+  /// Returns the result of the inner function, and restores the
+  /// original content upon return.
   Future<R> _withStripAndAugmentPubspecYaml<R>(
     String packageDir,
     FutureOr<R> Function() fn,
   ) async {
-    final backup = await _stripAndAugmentPubspecYaml(packageDir);
+    final now = DateTime.now();
+    final pubspecBackup = await _stripAndAugmentPubspecYaml(packageDir);
+
+    // backup of pubspec_overrides.yaml
+    final poyamlFile = File(p.join(packageDir, 'pubspec_overrides.yaml'));
+    File? poyamlBackup;
+    if (await poyamlFile.exists()) {
+      final path = p.join(
+        packageDir,
+        'pana-${now.millisecondsSinceEpoch}-pubspec_overrides.yaml',
+      );
+      poyamlBackup = await poyamlFile.rename(path);
+    }
+
     try {
       return await fn();
     } finally {
-      await _restorePubspecYaml(packageDir, backup);
+      await poyamlBackup?.rename(poyamlFile.path);
+      await pubspecBackup.rename(p.join(packageDir, 'pubspec.yaml'));
     }
   }
 
@@ -527,11 +545,6 @@ class ToolEnvironment {
     await pubspec.writeAsString(json.encode(parsed));
 
     return backup;
-  }
-
-  Future _restorePubspecYaml(String packageDir, File backup) async {
-    final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
-    await backup.rename(pubspec.path);
   }
 }
 
