@@ -55,7 +55,7 @@ Future<void> main() async {
 
       final packageShape = await summarizePackage(
         context: packageAnalysisContext,
-        packageName: packageAnalysisContext.packageName,
+        packagePath: packagePath,
       );
 
       final packageJson = packageShape.toJson();

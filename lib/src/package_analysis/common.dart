@@ -166,8 +166,10 @@ Future<void> fetchDependencies(String destination) async {
   }
 }
 
+// TODO: make this a method of PackageAnalysisContext
 /// Given the context for a package and the name of one of its dependencies,
 /// return the path of the dependency, or null if it cannot be resolved.
+/// The dependency in question does not have to be a direct dependency.
 /// Ensure that the dependencies of the target package are fetched.
 String? getDependencyDirectory(
   PackageAnalysisContext packageAnalysisContext,

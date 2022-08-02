@@ -44,7 +44,7 @@ class SummaryCommand extends Command {
 
     final packageShape = await summarizePackage(
       context: packageAnalysisContext,
-      packageName: packageAnalysisContext.packageName,
+      packagePath: packageLocation,
     );
 
     final packageJson = packageShape.toJson();
@@ -179,7 +179,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         // produce a summary of the minimum version of this dependency and store it
         dependencySummaries[dependencyName] = await summarizePackage(
           context: dependencyPackageAnalysisContext,
-          packageName: dependencyName,
+          packagePath: getDependencyDirectory(dependencyPackageAnalysisContext, dependencyName,)!,
         );
       }
 

@@ -149,7 +149,7 @@ dependencies:
             session: session,
             packagePath: packagePath,
           ),
-          packageName: dependencyName,
+          packagePath: packagePath,
         );
       }
 

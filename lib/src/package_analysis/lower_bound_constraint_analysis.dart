@@ -6,6 +6,7 @@ import 'package:analyzer/exception/exception.dart';
 import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:pana/src/package_analysis/shapes_ext.dart';
+import 'package:pana/src/package_analysis/summary.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:source_span/source_span.dart';
@@ -45,7 +46,68 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     }
   }
 
-  return astVisitor.issues.values.whereNotNull().toList();
+  final issues = <LowerBoundConstraintIssue>[];
+  final installedDependencySummaries = <String, PackageShape>{};
+
+  // eliminate false positives by checking whether the 'bad' identifier is
+  // present in the current/installed version of the dependency - if it isn't
+  // then we have not been able to detect a difference between the lower bound
+  // version and the current version and the issue is a false positive
+  for (final possibleIssue in astVisitor.issues.values.whereNotNull()) {
+    if (!installedDependencySummaries
+        .containsKey(possibleIssue.dependencyPackageName)) {
+      installedDependencySummaries[possibleIssue.dependencyPackageName] =
+          await summarizePackage(
+        context: context,
+        packagePath: getDependencyDirectory(
+          context,
+          possibleIssue.dependencyPackageName,
+        )!,
+      );
+    }
+    final installedDependency =
+        installedDependencySummaries[possibleIssue.dependencyPackageName]!;
+    switch (possibleIssue.kind) {
+      case ElementKind.FUNCTION:
+        if (installedDependency
+            .containsFunctionWithName(possibleIssue.identifier)) {
+          issues.add(possibleIssue);
+        }
+        break;
+
+      case ElementKind.METHOD:
+        if (installedDependency.containsMethodWithName(
+          possibleIssue.className!,
+          possibleIssue.identifier,
+        )) {
+          issues.add(possibleIssue);
+        }
+        break;
+
+      case ElementKind.GETTER:
+        if (installedDependency.containsGetterWithName(
+          possibleIssue.className!,
+          possibleIssue.identifier,
+        )) {
+          issues.add(possibleIssue);
+        }
+        break;
+
+      case ElementKind.SETTER:
+        if (installedDependency.containsSetterWithName(
+          possibleIssue.className!,
+          possibleIssue.identifier,
+        )) {
+          issues.add(possibleIssue);
+        }
+        break;
+
+      default:
+        throw StateError('Unexpected ElementKind ${possibleIssue.kind}.');
+    }
+  }
+
+  return issues;
 }
 
 class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
@@ -143,6 +205,17 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       throw AnalysisException(
           'The definition of this Element has already been visited.');
     }
+
+    const supportedKinds = [
+      ElementKind.FUNCTION,
+      ElementKind.METHOD,
+      ElementKind.GETTER,
+      ElementKind.SETTER,
+    ];
+    if (!supportedKinds.contains(element.kind)) {
+      // prior checks should have filtered out any invocations other than these
+      throw StateError('Unexpected ElementKind ${element.kind}.');
+    }
   }
 
   @override
@@ -150,17 +223,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     // this must be able to handle cases of a library split into multiple files
     // with the part keyword
     currentUri = node.declaredElement!.source.uri;
-    // ensure there are no implementation library imports in this file
-    // TODO: remove this temporary measure, instead ensure that at least one import path leading to this element does not go through an implementation import
-    for (final importDirective
-        in node.directives.whereType<ImportDirective>()) {
-      final segments = Uri.parse(importDirective.uriContent!).pathSegments;
-      if (segments.length >= 2 &&
-          segments[0] != context.targetPackageName &&
-          segments[1] == 'src') {
-        return;
-      }
-    }
     super.visitCompilationUnit(node);
   }
 
@@ -208,7 +270,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if ((parentElement as ClassElement).typeParameters.isNotEmpty) {
         return;
       }
-      constraintIssue = !dependencyShape.containsNamedProperty(
+      constraintIssue = !dependencyShape.containsPropertyWithName(
           parentElement.name!, symbolName);
     } else {
       // we may be looking at a top-level getter or setter, or that of an extension
@@ -218,7 +280,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     issues[elementId] = constraintIssue
         ? LowerBoundConstraintIssue(
-            dependencyPackageName: packageName,
+      dependencyPackageName: packageName,
             constraint: context.targetDependencies[packageName]!.version,
             currentVersion: getInstalledVersion(
               context: context,
@@ -226,6 +288,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             ),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
+            className: parentElement.name!,
+            kind: element.kind,
             references: [span],
           )
         : null;
@@ -241,7 +305,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       return;
     }
     element = node.methodName.staticElement!;
-    // TODO: does element.declaration help here?
+    // TODO: does `element.declaration` help here?
 
     try {
       processIdentifier(node.methodName);
@@ -290,6 +354,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             ),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
+            className: element.kind == ElementKind.FUNCTION
+                ? null
+                : parentElement.name!,
+            kind: element.kind,
             references: [span],
           )
         : null;
@@ -324,19 +392,27 @@ class LowerBoundConstraintIssue {
   /// This is the version which does not contain [identifier].
   final Version lowestVersion;
 
-  // TODO: should we record the kind of this identifier (class, method, function, etc)?
   /// The name of the identifier that is referenced in source code, and which is
   /// available in the latest version of [dependencyPackageName], but not in
   /// version [lowestVersion], which is allowed by the lower-bound dependency
   /// constraint [constraint].
   final String identifier;
 
+  /// The name of the enclosing class of the missing identifier, or null if
+  /// [identifier] is not a class member.
+  final String? className;
+
+  // TODO: make the type of [identifierKind] an enum with only the supported [ElementKind]s?
+  /// The kind of this identifier, one of [ElementKind.FUNCTION],
+  /// [ElementKind.METHOD], [ElementKind.GETTER], [ElementKind.SETTER]
+  final ElementKind kind;
+
   /// List of locations in the analyzed source code where [identifier] was referenced.
   final List<SourceSpan> references;
 
   @override
   String toString() {
-    return 'LowerBoundConstraintIssue{dependencyPackageName: $dependencyPackageName, constraint: $constraint, currentVersion: $currentVersion, lowestVersion: $lowestVersion, identifier: $identifier}';
+    return 'LowerBoundConstraintIssue{dependencyPackageName: $dependencyPackageName, constraint: $constraint, currentVersion: $currentVersion, lowestVersion: $lowestVersion, identifier: $identifier, kind: $kind}';
   }
 
   LowerBoundConstraintIssue({
@@ -345,6 +421,8 @@ class LowerBoundConstraintIssue {
     required this.currentVersion,
     required this.lowestVersion,
     required this.identifier,
+    required this.className,
+    required this.kind,
     required this.references,
   });
 }

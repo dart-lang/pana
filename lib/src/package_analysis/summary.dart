@@ -11,23 +11,13 @@ import 'shapes.dart';
 
 Future<PackageShape> summarizePackage({
   required PackageAnalysisContext context,
-  required String packageName,
+  required String packagePath,
 }) async {
-  late final Pubspec pubspec;
-  late final String packagePath;
-  if (context.packageName == packageName) {
-    // the context points to the target package
-    packagePath = context.packagePath;
-    pubspec = context.pubspec;
-  } else {
-    // the context points to a dummy package with a single dependency
-    packagePath = getDependencyDirectory(context, packageName)!;
-    final pubspecString = context.readFile(path.join(
-      packagePath,
-      'pubspec.yaml',
-    ));
-    pubspec = Pubspec.parseYaml(pubspecString);
-  }
+  final pubspecString = context.readFile(path.join(
+    packagePath,
+    'pubspec.yaml',
+  ));
+  final pubspec = Pubspec.parseYaml(pubspecString);
 
   if (pubspec.version == null) {
     throw StateError(
