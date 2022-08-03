@@ -158,23 +158,24 @@ const smallSubset2 = [
   'intl_translation'
 ];
 
-// ( https://pub.dev/api/package-names can also be used)
+// https://pub.dev/api/package-names
+const allPackages = [];
 
 Future<void> main() async {
   final c = http.Client();
 
-  var file = File('subset-metadata-sorted.json');
+  var file = File('package-metadata-sorted.json');
 
   var counter = 0;
 
-  final length = smallSubset2.length;
+  final length = allPackages.length;
 
   final result = <dynamic>[];
 
   try {
     final pool = Pool(16);
 
-    await Future.wait(smallSubset2.map((package) async {
+    await Future.wait(allPackages.map((package) async {
       await pool.withResource(() async {
         try {
           final scoreUrl =
