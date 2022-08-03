@@ -187,9 +187,13 @@ Future<void> fetchDependencies(String destination) async {
   }
 }
 
-/// Recursively fetch all the files in the given folder
+/// Recursively fetch all the files in the given folder, which may not exist.
 List<resource.File> getAllFiles(resource.Folder folder) {
   final files = <resource.File>[];
+  if (!folder.exists) {
+    // there are no files here
+    return files;
+  }
   for (final child in folder.getChildren()) {
     if (child is resource.File) {
       files.add(child);
