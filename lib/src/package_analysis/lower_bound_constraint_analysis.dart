@@ -2,6 +2,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/exception/exception.dart';
 import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
@@ -246,8 +247,12 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       return;
     }
 
-    // a PrefixedIdentifier does not necessarily represent a property access
     if (element is! PropertyAccessorElement) {
+      // a PrefixedIdentifier does not necessarily represent a property access
+      return;
+    } else if (node.prefix.staticType is FunctionType) {
+      // do not allow the parent to be a Function
+      // (this breaks the assertion node.prefix.staticType?.element != null )
       return;
     }
 
