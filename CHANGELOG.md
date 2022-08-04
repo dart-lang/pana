@@ -1,3 +1,7 @@
+## 0.21.16
+
+- Explain `HEAD` request for URL checks.
+
 ## 0.21.15
 
 - Improved URL resolver.
