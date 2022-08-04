@@ -269,7 +269,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
 }
 
 Subsection _licenseSection(LicenseTags tags) {
-  const title = 'Uses OSI-approved license';
+  const title = 'Use an OSI-approved license';
   late List<Paragraph> paragraphs;
   final maxPoints = 10;
   var grantedPoints = 0;
