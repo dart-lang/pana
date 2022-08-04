@@ -149,7 +149,7 @@ Future<UrlWithIssue> _checkUrl(
         "$name doesn't exist.",
         span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
         suggestion: 'At the time of the analysis `$url` was unreachable. '
-            'Make sure that the website is reachable via `HEAD` requests.',
+            'Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.',
       ),
     );
   } else if (!status.isSecure) {
