@@ -9,7 +9,7 @@
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
-### [*] 10/10 points: Uses OSI-approved license
+### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `Apache-2.0`.
 

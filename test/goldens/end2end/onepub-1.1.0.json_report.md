@@ -24,7 +24,7 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
-### [x] 0/10 points: Uses OSI-approved license
+### [x] 0/10 points: Use an OSI-approved license
 
 <details>
 <summary>

@@ -16,7 +16,7 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
 
-### [*] 10/10 points: Uses OSI-approved license
+### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `MIT`.
 
