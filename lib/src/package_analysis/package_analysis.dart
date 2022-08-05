@@ -131,6 +131,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         // TODO: do not write to stderr here, instead figure out a way to use rootPackageAnalysisContext.warning here - see below (beginning 'can we create this session..')
         stderr.writeln(
             'Skipping target package $targetName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
+        await tempDir.delete(recursive: true);
         continue;
       }
 
@@ -146,6 +147,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
       // if there are no dependencies, there is nothing to analyze
       if (dummyPackageAnalysisContext.dependencies.isEmpty) {
+        await tempDir.delete(recursive: true);
         continue;
       }
 
