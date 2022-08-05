@@ -31,7 +31,24 @@ class SummaryCommand extends Command {
 
   @override
   Future<void> run() async {
-    final packageLocation = await checkArgs(argResults!.rest);
+    final arguments = argResults!.rest;
+    if (arguments.length != 1) {
+      throw ArgumentError('Only specify exactly one directory for analysis.');
+    }
+
+    final packageLocation = path.canonicalize(arguments[0]);
+    if (!await Directory(packageLocation).exists()) {
+      throw ArgumentError('Specify a directory for analysis.');
+    }
+    if (!await File(path.join(packageLocation, 'pubspec.yaml')).exists()) {
+      throw StateError('The target directory must contain a package.');
+    }
+    if (!await File(
+            path.join(packageLocation, '.dart_tool', 'package_config.json'))
+        .exists()) {
+      throw StateError(
+          'Run `dart pub get` to fetch dependencies before analysing this package.');
+    }
 
     final session = AnalysisContextCollection(includedPaths: [packageLocation])
         .contextFor(packageLocation)
@@ -216,34 +233,6 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       await tempDir.delete(recursive: true);
     }
   }
-}
-
-/// Verify that there is only one argument, that it points to a directory, that
-/// this directory contains both a `.dart_tool/package_config.json` file and a
-/// `pubspec.yaml` file.
-Future<String> checkArgs(List<String> paths) async {
-  if (paths.length != 1) {
-    throw ArgumentError('Only specify exactly one directory for analysis.');
-  }
-
-  final packageLocation = path.canonicalize(paths.first);
-
-  if (!await Directory(packageLocation).exists()) {
-    throw ArgumentError('Specify a directory for analysis.');
-  }
-
-  if (!await File(
-          path.join(packageLocation, '.dart_tool', 'package_config.json'))
-      .exists()) {
-    throw StateError(
-        'Run `dart pub get` to fetch dependencies before analysing this package.');
-  }
-
-  if (!await File(path.join(packageLocation, 'pubspec.yaml')).exists()) {
-    throw StateError('The target directory must contain a package.');
-  }
-
-  return packageLocation;
 }
 
 @internal
