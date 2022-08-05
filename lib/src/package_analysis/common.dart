@@ -132,7 +132,7 @@ Future<void> fetchPackageAndDependencies({
 /// [destination] and fetch its dependencies, optionally deleting the contents
 /// of [destination] first if [wipeTarget] is set to true.
 ///
-/// A pointer package will be created at [destination] with a single dependency,
+/// A dummy package will be created at [destination] with a single dependency,
 /// pinning the dependency [name] to version [version].
 Future<void> fetchUsingDummyPackage({
   required String name,
@@ -145,8 +145,8 @@ Future<void> fetchUsingDummyPackage({
     await Directory(destination).delete(recursive: true);
   }
 
-  // construct pubspec for the pointer package
-  final pointerPubspec = <String, dynamic>{
+  // construct pubspec for the dummy package
+  final dummyPubspec = <String, dynamic>{
     'name': 'dummy_package',
     'environment': {
       'sdk': '>=2.12.0 <3.0.0',
@@ -164,7 +164,7 @@ Future<void> fetchUsingDummyPackage({
   await pubspecFile.create(recursive: true);
 
   // write pubspec to disk
-  await pubspecFile.writeAsString(json.encode(pointerPubspec));
+  await pubspecFile.writeAsString(json.encode(dummyPubspec));
 
   // fetch dependencies (the only non-transitive dependency is [name])
   await fetchDependencies(destination);

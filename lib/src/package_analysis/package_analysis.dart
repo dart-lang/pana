@@ -144,7 +144,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final dependencyName = dependencyEntry.key;
         final dependencyVersionConstraint = dependencyEntry.value.version;
         final dependencyDestination =
-            path.join(dependencyFolder, '${dependencyName}_pointer');
+            path.join(dependencyFolder, '${dependencyName}_dummy');
         final dependencyDoc = doc.firstWhereOrNull((package) => package['metadata']['name'] as String == dependencyName);
 
         // if dependency could not be found in the doc, skip it
