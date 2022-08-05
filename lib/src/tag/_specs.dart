@@ -104,6 +104,7 @@ class Runtime {
   static final broadNative = Runtime('native', {
     ..._onAllPlatforms,
     ..._onAllNative,
+    ..._onNativeJit,
     'ui',
   });
 

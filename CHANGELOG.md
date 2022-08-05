@@ -1,6 +1,7 @@
 ## 0.21.16
 
 - Explain `HEAD` request for URL checks.
+- Expand `broadNative` runtime with `nativeJit`.
 
 ## 0.21.15
 
