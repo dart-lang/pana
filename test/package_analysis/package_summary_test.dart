@@ -26,7 +26,7 @@ Future<void> main() async {
 
       final provider = setupBasicPackage(
         packagePath: packagePath,
-        packageName: 'test_package',
+        packageName: 'test.package',
         packageVersion: '1.0.0',
       );
 

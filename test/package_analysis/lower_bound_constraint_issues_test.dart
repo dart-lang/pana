@@ -46,7 +46,7 @@ Future<void> main() async {
       final targetYamlContent = doc['target']['package'] as List;
       await servePackages((b) => b!
         ..serve(
-          'test_package',
+          'test.package',
           '1.0.0',
           pubspec: {
             'environment': {'sdk': '>=2.12.0 <3.0.0'},
@@ -75,14 +75,14 @@ Future<void> main() async {
 
       // write the dummy package pubspec to disk
       await File(path.join(dummyPath, 'pubspec.yaml')).writeAsString('''
-name: dummy_package
+name: dummy.package
 version: 1.0.0
 environment:
   sdk: '>=2.12.0 <3.0.0'
 dependencies:
-  test_package:
+  test.package:
     hosted:
-      name: test_package
+      name: test.package
       url: ${globalPackageServer!.url}
     version: 1.0.0
 ''');
@@ -96,7 +96,7 @@ dependencies:
             .contextFor(dummyPath)
             .currentSession,
         packagePath: dummyPath,
-        targetPackageName: 'test_package',
+        targetPackageName: 'test.package',
       );
 
       // collect metadata and summaries of the target's dependencies

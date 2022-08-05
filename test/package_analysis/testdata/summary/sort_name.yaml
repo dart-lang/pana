@@ -3,11 +3,11 @@
 name: Classes must be sorted and re-indexed in alphabetical order
 summary: |-
   {
-    "name": "test_package",
+    "name": "test.package",
     "version": "1.0.0",
     "libraries": [
       {
-        "uri": "package:test_package/a.dart",
+        "uri": "package:test.package/a.dart",
         "exportedGetters": [],
         "exportedSetters": [],
         "exportedFunctions": [],
@@ -18,7 +18,7 @@ summary: |-
         ]
       },
       {
-        "uri": "package:test_package/b.dart",
+        "uri": "package:test.package/b.dart",
         "exportedGetters": [],
         "exportedSetters": [],
         "exportedFunctions": [],
@@ -29,7 +29,7 @@ summary: |-
         ]
       },
       {
-        "uri": "package:test_package/c.dart",
+        "uri": "package:test.package/c.dart",
         "exportedGetters": [],
         "exportedSetters": [],
         "exportedFunctions": [],

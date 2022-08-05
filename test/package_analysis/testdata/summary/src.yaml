@@ -3,11 +3,11 @@
 name: Libraries should be able to export symbols from ./src
 summary: |-
   {
-    "name": "test_package",
+    "name": "test.package",
     "version": "1.0.0",
     "libraries": [
       {
-        "uri": "package:test_package/a.dart",
+        "uri": "package:test.package/a.dart",
         "exportedGetters": [
           0
         ],

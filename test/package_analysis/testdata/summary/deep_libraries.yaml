@@ -3,11 +3,11 @@
 name: The analyzer should be able to handle a deeply nested folder structure
 summary: |-
   {
-    "name": "test_package",
+    "name": "test.package",
     "version": "1.0.0",
     "libraries": [
       {
-        "uri": "package:test_package/v/w/x/y/z/a.dart",
+        "uri": "package:test.package/v/w/x/y/z/a.dart",
         "exportedGetters": [],
         "exportedSetters": [],
         "exportedFunctions": [],

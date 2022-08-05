@@ -147,7 +147,7 @@ Future<void> fetchUsingDummyPackage({
 
   // construct pubspec for the dummy package
   final dummyPubspec = <String, dynamic>{
-    'name': 'dummy_package',
+    'name': 'dummy.package',
     'environment': {
       'sdk': '>=2.12.0 <3.0.0',
     },
