@@ -1,5 +1,6 @@
 ## 0.21.16
 
+- Preprocess license texts for better match.
 - Explain `HEAD` request for URL checks.
 
 ## 0.21.15
