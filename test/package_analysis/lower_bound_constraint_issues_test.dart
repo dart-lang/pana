@@ -68,7 +68,7 @@ Future<void> main() async {
           contents: targetYamlContent.map(descriptorFromYamlNode),
         ));
 
-      // create a unique temporary directory in the system temp folder
+      // create a unique temporary directory for the dummy package
       final dummyDir = await Directory(Directory.systemTemp.path)
           .createTemp('dummy_package');
       final dummyPath = dummyDir.path;

@@ -57,45 +57,63 @@ class LowerBoundConstraintAnalysisCommand extends Command {
   final name = 'lbcanalysis';
   @override
   final description = 'Performs lower bound analysis.';
+  @override
+  final usage = '''Required positional arguments:
+  1) path to a json file with package metadata
+  2) index of the first package to be analyzed
+  3) index of the last package to be analyzed''';
 
   LowerBoundConstraintAnalysisCommand();
 
   @override
   Future<void> run() async {
-    // TODO: perform input validation
-    // required arguments:
-    // package metadata json path;
-    // temp directory path for storing packages during analysis
-    // start index
-    // end index
     final arguments = argResults!.rest;
+    if (arguments.length != 3) {
+      throw ArgumentError(
+          'This command accepts exactly 3 positional arguments.');
+    }
 
-    final doc = json.decode(await File(arguments[0]).readAsString())['packages'] as List;
+    final packageMetadataPath = arguments[0];
+    final startIndex = int.tryParse(arguments[1]);
+    final endIndex = int.tryParse(arguments[2]);
+    if (!await File(packageMetadataPath).exists()) {
+      throw ArgumentError(
+          'The file containing package metadata could not be found.');
+    }
+    if (startIndex == null || endIndex == null) {
+      throw ArgumentError('The start/end index could not be parsed.');
+    }
 
-    for (var packageIndex = int.parse(arguments[2]);
-        packageIndex <= int.parse(arguments[3]);
-        packageIndex++) {
-      final packageDoc = doc[packageIndex]['metadata'];
-      final packageName = packageDoc['name'] as String;
+    final doc =
+        json.decode(await File(packageMetadataPath).readAsString())['packages']
+            as List;
 
-      print('${DateTime.now().toIso8601String()} Reviewing package $packageIndex $packageName...');
+    for (var targetIndex = startIndex; targetIndex <= endIndex; targetIndex++) {
+      final targetDoc = doc[targetIndex]['metadata'];
+      final targetName = targetDoc['name'] as String;
 
-      final baseFolder = path.canonicalize(arguments[1]);
+      print(
+          '${DateTime.now().toIso8601String()} Reviewing package $targetIndex $targetName...');
+
+      // create a unique temporary directory for the target and the dependencies
+      final tempDir = await Directory(Directory.systemTemp.path)
+          .createTemp('lbcanalysis_temp');
+      final baseFolder = path.canonicalize(tempDir.path);
 
       final dummyPath = path.join(baseFolder, 'target');
       final dependencyFolder = path.join(baseFolder, 'dependencies');
 
       try {
         await fetchUsingDummyPackage(
-          name: packageName,
-          version: packageDoc['latest']['version'] as String,
+          name: targetName,
+          version: targetDoc['latest']['version'] as String,
           destination: dummyPath,
           wipeTarget: true,
         );
       } on ProcessException catch (exception) {
         // TODO: do not write to stderr here, instead figure out a way to use rootPackageAnalysisContext.warning here - see below (beginning 'can we create this session..')
         stderr.writeln(
-            'Skipping target package $packageName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
+            'Skipping target package $targetName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
         continue;
       }
 
@@ -106,7 +124,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       final dummyPackageAnalysisContext = PackageAnalysisContextWithStderr(
         session: collection.contextFor(dummyPath).currentSession,
         packagePath: dummyPath,
-        targetPackageName: packageName,
+        targetPackageName: targetName,
       );
 
       // if there are no dependencies, there is nothing to analyze
@@ -159,7 +177,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
           );
         } on ProcessException catch (exception) {
           dummyPackageAnalysisContext.warning(
-              'Skipping dependency $dependencyName of target package $packageName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
+              'Skipping dependency $dependencyName of target package $targetName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
           continue;
         }
 
@@ -188,11 +206,14 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
       for (final issue in foundIssues) {
         dummyPackageAnalysisContext.warning(
-            'Symbol ${issue.kind} ${issue.identifier} with parent ${issue.className} is used in $packageName but could not be found in dependency ${issue.dependencyPackageName} version ${issue.lowestVersion}, which is allowed by constraint ${issue.constraint}.');
+            'Symbol ${issue.kind} ${issue.identifier} with parent ${issue.className} is used in $targetName but could not be found in dependency ${issue.dependencyPackageName} version ${issue.lowestVersion}, which is allowed by constraint ${issue.constraint}.');
         for (final reference in issue.references) {
           dummyPackageAnalysisContext.warning(reference.message(''));
         }
       }
+
+      // clean up by deleting the temp directory
+      await tempDir.delete(recursive: true);
     }
   }
 }
