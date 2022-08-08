@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pana/src/pubspec.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
@@ -115,6 +116,10 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
         try {
           gitPubspec = Pubspec.parseYaml(content);
         } on FormatException catch (e, st) {
+          log.info('Invalid pubspec content: $path', e, st);
+          return _PubspecMatch(path, false,
+              '`$path` from the repository is not a valid pubspec.');
+        } on CheckedFromJsonException catch (e, st) {
           log.info('Invalid pubspec content: $path', e, st);
           return _PubspecMatch(path, false,
               '`$path` from the repository is not a valid pubspec.');
