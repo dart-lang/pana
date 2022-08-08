@@ -61,14 +61,6 @@ PackageShape normalizePackageShape(PackageShape package) {
     }
   }
 
-  // compares PropertyShapes by name
-  int comparePropertyShape(PropertyShape a, PropertyShape b) =>
-      a.name.compareTo(b.name);
-
-  // compares MethodShapes by name
-  int compareMethodShape(MethodShape a, MethodShape b) =>
-      a.name.compareTo(b.name);
-
   // create mapping for ids and reassign them according to the sorted order
   final newGetters = package.getters.sorted(compareShape).map((getter) {
     oldIdToNewId[getter.id] = newIdCounter;
@@ -105,12 +97,17 @@ PackageShape normalizePackageShape(PackageShape package) {
 
   // sort all the fields of all the classes
   for (final thisClass in newClasses) {
-    thisClass.getters.sort(comparePropertyShape);
-    thisClass.setters.sort(comparePropertyShape);
-    thisClass.methods.sort(compareMethodShape);
-    thisClass.staticGetters.sort(comparePropertyShape);
-    thisClass.staticSetters.sort(comparePropertyShape);
-    thisClass.staticMethods.sort(compareMethodShape);
+    for (final classMemberList in [
+      thisClass.getters,
+      thisClass.setters,
+      thisClass.methods,
+      thisClass.staticGetters,
+      thisClass.staticSetters,
+      thisClass.staticMethods,
+    ]) {
+      classMemberList.sort((ClassMemberShapeBase a, ClassMemberShapeBase b) =>
+          a.name.compareTo(b.name));
+    }
   }
 
   return PackageShape(
