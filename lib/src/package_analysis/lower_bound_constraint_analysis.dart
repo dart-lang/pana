@@ -68,42 +68,44 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
         installedDependencySummaries[possibleIssue.dependencyPackageName]!;
     switch (possibleIssue.kind) {
       case ElementKind.FUNCTION:
-        if (installedDependency
+        if (!installedDependency
             .containsFunctionWithName(possibleIssue.identifier)) {
-          issues.add(possibleIssue);
+          continue;
         }
         break;
 
       case ElementKind.METHOD:
-        if (installedDependency.containsMethodWithName(
+        if (!installedDependency.containsMethodWithName(
           possibleIssue.className!,
           possibleIssue.identifier,
         )) {
-          issues.add(possibleIssue);
+          continue;
         }
         break;
 
       case ElementKind.GETTER:
-        if (installedDependency.containsGetterWithName(
+        if (!installedDependency.containsGetterWithName(
           possibleIssue.className!,
           possibleIssue.identifier,
         )) {
-          issues.add(possibleIssue);
+          continue;
         }
         break;
 
       case ElementKind.SETTER:
-        if (installedDependency.containsSetterWithName(
+        if (!installedDependency.containsSetterWithName(
           possibleIssue.className!,
           possibleIssue.identifier,
         )) {
-          issues.add(possibleIssue);
+          continue;
         }
         break;
 
       default:
         throw StateError('Unexpected ElementKind ${possibleIssue.kind}.');
     }
+
+    issues.add(possibleIssue);
   }
 
   return issues;
