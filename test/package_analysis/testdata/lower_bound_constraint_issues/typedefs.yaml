@@ -1,0 +1,58 @@
+---
+
+name: Analysis should understand typedefs
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          class C {
+            void f() {}
+          }
+
+          class NewD {
+            void g() {}
+          }
+          typedef D = NewD;
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          class NewC {
+            void f() {}
+          }
+          typedef C = NewC;
+
+          class D {
+            void g() {}
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+
+        C createC() => C();
+        D createD() => D();
+
+        // test method invocation on class instance variable, instance created by constructor and
+        // instance created by local function
+        void main() {
+          final c = C();
+          c.f();
+          C().f();
+          createC().f();
+
+          final d = D();
+          d.g();
+          D().g();
+          createD().g();
+        }
+issues: [ ]
+
+...

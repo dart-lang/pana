@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/session.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/exception/exception.dart';
 import 'package:analyzer/file_system/file_system.dart' as resource;
 import 'package:collection/collection.dart';
 import 'package:pana/pana.dart';
@@ -84,12 +87,53 @@ abstract class PackageAnalysisContext {
 
   /// Given the context for a package and the name of one of its dependencies,
   /// which may be transitive, return the dependency version which is installed.
-  Version getInstalledVersion(String packageName) {
+  Version findInstalledVersion(String packageName) {
     final packagePubspecPath = path.join(
       findPackagePath(packageName),
       'pubspec.yaml',
     );
     return Pubspec.parseYaml(readFile(packagePubspecPath)).version!;
+  }
+
+  /// Finds all the typedefs made available by the imports in the library at
+  /// [uri] *(as well as those defined in the library itself rather than imported)*
+  /// and returns a [Map] from the name of a target [Type] to the names of the
+  /// typedefs (the aliases) which point to this [Type], ignoring any function
+  /// types and other typedefs for which a target name cannot be resolved.
+  Future<Map<String, List<String>>> findTypedefs(Uri uri) async {
+    // attempting to get a resolved library result for a library split into
+    // parts will fail, so we get a resolved unit first
+    final unitResult = await analysisSession.getResolvedUnit(uriToPath(uri)!);
+    if (unitResult is! ResolvedUnitResult) {
+      throw AnalysisException(
+          'Attempting to get a resolved unit for uri $uri resulted in an invalid result.');
+    }
+    final library = unitResult.libraryElement;
+
+    final typedefs = <TypeAliasElement>[];
+    for (final importedLibrary in library.importedLibraries) {
+      // filter out typedefs where we cannot resolve the target name
+      typedefs.addAll(importedLibrary.exportNamespace.definedNames.values
+          .whereType<TypeAliasElement>()
+          .where(
+              (thisTypedef) => thisTypedef.aliasedType.element?.name != null));
+    }
+
+    // also consider typedefs defined in the the library itself
+    typedefs.addAll(library.exportNamespace.definedNames.values
+        .whereType<TypeAliasElement>()
+        .where((thisTypedef) => thisTypedef.aliasedType.element?.name != null));
+
+    final typedefMap = <String, List<String>>{};
+    for (final thisTypedef in typedefs) {
+      final targetName = thisTypedef.aliasedType.element!.name!;
+      if (!typedefMap.keys.contains(targetName)) {
+        typedefMap[targetName] = <String>[];
+      }
+      typedefMap[targetName]!.add(thisTypedef.name);
+    }
+
+    return typedefMap;
   }
 
   PackageAnalysisContext({
@@ -149,7 +193,7 @@ Future<void> fetchUsingDummyPackage({
   final dummyPubspec = <String, dynamic>{
     'name': 'dummy.package',
     'environment': {
-      'sdk': '>=2.12.0 <3.0.0',
+      'sdk': '>=2.13.0 <3.0.0',
     },
     'dependencies': {
       name: version,

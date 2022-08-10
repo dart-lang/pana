@@ -5,12 +5,12 @@ import 'shapes_ext.dart';
 
 /// Given a [PackageShape] create a new [PackageShape] structure where the
 /// elements of [PackageShape.getters], [PackageShape.setters],
-/// [PackageShape.functions] and [PackageShape.classes] are sorted canonically:
-/// first by their `name`, then (if two `Shape`s share the same name) by a
-/// `String` representation of the list of [LibraryShape.uri] objects
-/// corresponding to the libraries from which the given `Shape` was exported.
-/// The `id` fields of every `Shape` are re-assigned starting from 0, based on
-/// this ordering.
+/// [PackageShape.functions], [PackageShape.classes] and [PackageShape.typedefs]
+/// are sorted canonically: first by their `name`, then (if two `Shape`s share
+/// the same name) by a `String` representation of the list of
+/// [LibraryShape.uri] objects corresponding to the libraries from which the
+/// given `Shape` was exported. The `id` fields of every `Shape` are re-assigned
+/// starting from 0, based on this ordering.
 ///
 /// Because no two identically-named `Shape`s of the same kind can be exported
 /// from the same `List` of libraries (in fact, they can't both be exported from
@@ -26,6 +26,7 @@ PackageShape normalizePackageShape(PackageShape package) {
     ...package.setters,
     ...package.functions,
     ...package.classes,
+    ...package.typedefs,
   ]) {
     librariesWhereShapeExported[shape.id] = <String>[];
   }
@@ -37,6 +38,7 @@ PackageShape normalizePackageShape(PackageShape package) {
       ...library.exportedGetters,
       ...library.exportedFunctions,
       ...library.exportedClasses,
+      ...library.exportedTypedefs,
     ]) {
       librariesWhereShapeExported[shapeId]!.add(library.uri);
     }
@@ -64,19 +66,27 @@ PackageShape normalizePackageShape(PackageShape package) {
   // create mapping for ids and reassign them according to the sorted order
   final newGetters = package.getters.sorted(compareShape).map((getter) {
     oldIdToNewId[getter.id] = newIdCounter;
-    return getter.replace(id: newIdCounter++);
+    return getter.replaceWithNewId(newIdCounter++);
   }).toList();
   final newSetters = package.setters.sorted(compareShape).map((setter) {
     oldIdToNewId[setter.id] = newIdCounter;
-    return setter.replace(id: newIdCounter++);
+    return setter.replaceWithNewId(newIdCounter++);
   }).toList();
   final newFunctions = package.functions.sorted(compareShape).map((function) {
     oldIdToNewId[function.id] = newIdCounter;
-    return function.replace(id: newIdCounter++);
+    return function.replaceWithNewId(newIdCounter++);
   }).toList();
   final newClasses = package.classes.sorted(compareShape).map((thisClass) {
     oldIdToNewId[thisClass.id] = newIdCounter;
-    return thisClass.replace(id: newIdCounter++);
+    return thisClass.replaceWithNewId(newIdCounter++);
+  }).toList();
+  final newTypedefs = package.typedefs.sorted(compareShape).map((thisTypedef) {
+    oldIdToNewId[thisTypedef.id] = newIdCounter;
+    return thisTypedef.replaceWithNewIds(
+        newId: newIdCounter++,
+        newTargetId: thisTypedef.targetClassId == null
+            ? null
+            : oldIdToNewId[thisTypedef.targetClassId]);
   }).toList();
 
   List<int> reassignIds(List<int> oldIds) {
@@ -88,10 +98,11 @@ PackageShape normalizePackageShape(PackageShape package) {
   // reassign ids in [package.libraries]
   final newLibraries = package.libraries
       .map((library) => library.replace(
-            exportedGetters: reassignIds(library.exportedGetters),
+    exportedGetters: reassignIds(library.exportedGetters),
             exportedSetters: reassignIds(library.exportedSetters),
             exportedFunctions: reassignIds(library.exportedFunctions),
             exportedClasses: reassignIds(library.exportedClasses),
+            exportedTypedefs: reassignIds(library.exportedTypedefs),
           ))
       .toList();
 
@@ -118,5 +129,6 @@ PackageShape normalizePackageShape(PackageShape package) {
     setters: newSetters,
     functions: newFunctions,
     classes: newClasses,
+    typedefs: newTypedefs,
   );
 }

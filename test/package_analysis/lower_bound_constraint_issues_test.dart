@@ -22,6 +22,7 @@ Future<void> main() async {
     'testdata',
     'lower_bound_constraint_issues',
   ));
+  // TODO: look through the tests and remove things like 'content: |' where content is just one line
 
   await for (final file in yamlDir.list()) {
     final doc = loadYaml(await (file as File).readAsString());
@@ -35,7 +36,7 @@ Future<void> main() async {
             package['name'] as String,
             package['version'] as String,
             pubspec: {
-              'environment': {'sdk': '>=2.12.0 <3.0.0'}
+              'environment': {'sdk': '>=2.13.0 <3.0.0'}
             },
             contents: files.map(descriptorFromYamlNode),
           ));
@@ -49,7 +50,7 @@ Future<void> main() async {
           'test.package',
           '1.0.0',
           pubspec: {
-            'environment': {'sdk': '>=2.12.0 <3.0.0'},
+            'environment': {'sdk': '>=2.13.0 <3.0.0'},
             'dependencies': Map.fromEntries(
               targetYamlDependencies.map(
                 (dependency) => MapEntry(
@@ -78,7 +79,7 @@ Future<void> main() async {
 name: dummy.package
 version: 1.0.0
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.13.0 <3.0.0'
 dependencies:
   test.package:
     hosted:
@@ -168,6 +169,7 @@ dependencies:
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
             (issueString) => RegExp(expectedIssue).hasMatch(issueString));
+        print(issuesString[matchingIndex]);
         issuesString.removeAt(matchingIndex);
         // we expect that this regex will only match one issue
         expect(

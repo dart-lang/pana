@@ -1,0 +1,637 @@
+---
+
+name: The summary should include typedefs which can reference classes
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ],
+        "exportedTypedefs": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "C",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "List",
+        "getters": [
+          {
+            "name": "first"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "isEmpty"
+          },
+          {
+            "name": "isNotEmpty"
+          },
+          {
+            "name": "iterator"
+          },
+          {
+            "name": "last"
+          },
+          {
+            "name": "length"
+          },
+          {
+            "name": "reversed"
+          },
+          {
+            "name": "runtimeType"
+          },
+          {
+            "name": "single"
+          }
+        ],
+        "setters": [
+          {
+            "name": "first"
+          },
+          {
+            "name": "last"
+          },
+          {
+            "name": "length"
+          }
+        ],
+        "methods": [
+          {
+            "name": "+"
+          },
+          {
+            "name": "=="
+          },
+          {
+            "name": "[]"
+          },
+          {
+            "name": "[]="
+          },
+          {
+            "name": "add"
+          },
+          {
+            "name": "addAll"
+          },
+          {
+            "name": "any"
+          },
+          {
+            "name": "asMap"
+          },
+          {
+            "name": "cast"
+          },
+          {
+            "name": "clear"
+          },
+          {
+            "name": "contains"
+          },
+          {
+            "name": "elementAt"
+          },
+          {
+            "name": "every"
+          },
+          {
+            "name": "expand"
+          },
+          {
+            "name": "fillRange"
+          },
+          {
+            "name": "firstWhere"
+          },
+          {
+            "name": "fold"
+          },
+          {
+            "name": "followedBy"
+          },
+          {
+            "name": "forEach"
+          },
+          {
+            "name": "getRange"
+          },
+          {
+            "name": "indexOf"
+          },
+          {
+            "name": "indexWhere"
+          },
+          {
+            "name": "insert"
+          },
+          {
+            "name": "insertAll"
+          },
+          {
+            "name": "join"
+          },
+          {
+            "name": "lastIndexOf"
+          },
+          {
+            "name": "lastIndexWhere"
+          },
+          {
+            "name": "lastWhere"
+          },
+          {
+            "name": "map"
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "reduce"
+          },
+          {
+            "name": "remove"
+          },
+          {
+            "name": "removeAt"
+          },
+          {
+            "name": "removeLast"
+          },
+          {
+            "name": "removeRange"
+          },
+          {
+            "name": "removeWhere"
+          },
+          {
+            "name": "replaceRange"
+          },
+          {
+            "name": "retainWhere"
+          },
+          {
+            "name": "setAll"
+          },
+          {
+            "name": "setRange"
+          },
+          {
+            "name": "shuffle"
+          },
+          {
+            "name": "singleWhere"
+          },
+          {
+            "name": "skip"
+          },
+          {
+            "name": "skipWhile"
+          },
+          {
+            "name": "sort"
+          },
+          {
+            "name": "sublist"
+          },
+          {
+            "name": "take"
+          },
+          {
+            "name": "takeWhile"
+          },
+          {
+            "name": "toList"
+          },
+          {
+            "name": "toSet"
+          },
+          {
+            "name": "toString"
+          },
+          {
+            "name": "where"
+          },
+          {
+            "name": "whereType"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "castFrom"
+          },
+          {
+            "name": "copyRange"
+          },
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          },
+          {
+            "name": "writeIterable"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Map",
+        "getters": [
+          {
+            "name": "entries"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "isEmpty"
+          },
+          {
+            "name": "isNotEmpty"
+          },
+          {
+            "name": "keys"
+          },
+          {
+            "name": "length"
+          },
+          {
+            "name": "runtimeType"
+          },
+          {
+            "name": "values"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "[]"
+          },
+          {
+            "name": "[]="
+          },
+          {
+            "name": "addAll"
+          },
+          {
+            "name": "addEntries"
+          },
+          {
+            "name": "cast"
+          },
+          {
+            "name": "clear"
+          },
+          {
+            "name": "containsKey"
+          },
+          {
+            "name": "containsValue"
+          },
+          {
+            "name": "forEach"
+          },
+          {
+            "name": "map"
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "putIfAbsent"
+          },
+          {
+            "name": "remove"
+          },
+          {
+            "name": "removeWhere"
+          },
+          {
+            "name": "toString"
+          },
+          {
+            "name": "update"
+          },
+          {
+            "name": "updateAll"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "castFrom"
+          },
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "int",
+        "getters": [
+          {
+            "name": "bitLength"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "isEven"
+          },
+          {
+            "name": "isFinite"
+          },
+          {
+            "name": "isInfinite"
+          },
+          {
+            "name": "isNaN"
+          },
+          {
+            "name": "isNegative"
+          },
+          {
+            "name": "isOdd"
+          },
+          {
+            "name": "runtimeType"
+          },
+          {
+            "name": "sign"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "%"
+          },
+          {
+            "name": "&"
+          },
+          {
+            "name": "*"
+          },
+          {
+            "name": "+"
+          },
+          {
+            "name": "-"
+          },
+          {
+            "name": "/"
+          },
+          {
+            "name": "<"
+          },
+          {
+            "name": "<<"
+          },
+          {
+            "name": "<="
+          },
+          {
+            "name": "=="
+          },
+          {
+            "name": ">"
+          },
+          {
+            "name": ">="
+          },
+          {
+            "name": ">>"
+          },
+          {
+            "name": ">>>"
+          },
+          {
+            "name": "^"
+          },
+          {
+            "name": "abs"
+          },
+          {
+            "name": "ceil"
+          },
+          {
+            "name": "ceilToDouble"
+          },
+          {
+            "name": "clamp"
+          },
+          {
+            "name": "compareTo"
+          },
+          {
+            "name": "floor"
+          },
+          {
+            "name": "floorToDouble"
+          },
+          {
+            "name": "gcd"
+          },
+          {
+            "name": "modInverse"
+          },
+          {
+            "name": "modPow"
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "remainder"
+          },
+          {
+            "name": "round"
+          },
+          {
+            "name": "roundToDouble"
+          },
+          {
+            "name": "toDouble"
+          },
+          {
+            "name": "toInt"
+          },
+          {
+            "name": "toRadixString"
+          },
+          {
+            "name": "toSigned"
+          },
+          {
+            "name": "toString"
+          },
+          {
+            "name": "toStringAsExponential"
+          },
+          {
+            "name": "toStringAsFixed"
+          },
+          {
+            "name": "toStringAsPrecision"
+          },
+          {
+            "name": "toUnsigned"
+          },
+          {
+            "name": "truncate"
+          },
+          {
+            "name": "truncateToDouble"
+          },
+          {
+            "name": "unary-"
+          },
+          {
+            "name": "|"
+          },
+          {
+            "name": "~"
+          },
+          {
+            "name": "~/"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "compare"
+          },
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          },
+          {
+            "name": "parse"
+          },
+          {
+            "name": "tryParse"
+          }
+        ]
+      }
+    ],
+    "typedefs": [
+      {
+        "id": 4,
+        "name": "Compare"
+      },
+      {
+        "id": 5,
+        "name": "D",
+        "targetClassId": 0
+      },
+      {
+        "id": 6,
+        "name": "IntList",
+        "targetClassId": 1
+      },
+      {
+        "id": 7,
+        "name": "ListMapper",
+        "targetClassId": 2
+      },
+      {
+        "id": 8,
+        "name": "MyInt",
+        "targetClassId": 3
+      },
+      {
+        "id": 9,
+        "name": "MyVoid"
+      }
+    ]
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      class C {}
+      typedef D = C;
+      typedef MyInt = int;
+      typedef MyVoid = void;
+      typedef IntList = List<int>;
+      typedef ListMapper<X> = Map<X, List<X>>;
+      typedef Compare<T> = int Function(T a, T b);
+
+...

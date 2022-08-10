@@ -16,7 +16,7 @@ String _createPackageConfig({
           'name': packageName,
           'rootUri': '../',
           'packageUri': 'lib/',
-          'languageVersion': '2.12'
+          'languageVersion': '2.13'
         }
       ],
       'generated': '2022-01-01T00:00:00.000000Z',

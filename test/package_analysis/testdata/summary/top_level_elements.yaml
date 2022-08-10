@@ -31,7 +31,8 @@ summary: |-
         "exportedFunctions": [
           16
         ],
-        "exportedClasses": []
+        "exportedClasses": [],
+        "exportedTypedefs": []
       }
     ],
     "getters": [
@@ -108,7 +109,8 @@ summary: |-
         "name": "myFunction"
       }
     ],
-    "classes": []
+    "classes": [],
+    "typedefs": []
   }
 package:
   - path: lib/a.dart

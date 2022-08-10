@@ -32,12 +32,17 @@ Future<PackageShape> summarizePackage({
     setters: <GlobalPropertyShape>[],
     functions: <FunctionShape>[],
     classes: <ClassShape>[],
+    typedefs: <TypedefShape>[],
   );
 
   MethodShape summarizeMethod(MethodElement methodElement) {
     return MethodShape(
       name: methodElement.name,
     );
+  }
+
+  PropertyShape summarizeProperty(PropertyAccessorElement property) {
+    return PropertyShape(name: property.variable.name);
   }
 
   FunctionShape summarizeFunction(FunctionElement functionElement) {
@@ -47,24 +52,30 @@ Future<PackageShape> summarizePackage({
     );
   }
 
-  PropertyShape summarizeProperty(PropertyAccessorElement property) {
-    return PropertyShape(name: property.variable.name);
-  }
-
   GlobalPropertyShape summarizeGlobalProperty(
       PropertyAccessorElement property) {
     return GlobalPropertyShape(id: property.id, name: property.variable.name);
   }
 
+  TypedefShape summarizeTypedef(TypeAliasElement typedefElement) {
+    return TypedefShape(
+      id: typedefElement.id,
+      name: typedefElement.name,
+      targetClassId: typedefElement.aliasedType.element is ClassElement
+          ? typedefElement.aliasedType.element!.id
+          : null,
+    );
+  }
+
   ClassShape summarizeClassElement(ClassElement classElement) {
     // an accessor is a getter or a setter
-    final accessors = classElement.accessors.where((element) =>
-    !element.isStatic);
-    final staticAccessors = classElement.accessors.where((element) =>
-    element.isStatic);
+    final accessors =
+        classElement.accessors.where((element) => !element.isStatic);
+    final staticAccessors =
+        classElement.accessors.where((element) => element.isStatic);
 
-    final publicMethods = classElement.methods
-        .where((element) => element.isPublic);
+    final publicMethods =
+        classElement.methods.where((element) => element.isPublic);
 
     final methods = publicMethods
         .where((element) => !element.isStatic)
@@ -128,6 +139,7 @@ Future<PackageShape> summarizePackage({
     final exportedGetters = <int>[];
     final exportedSetters = <int>[];
     final exportedFunctions = <int>[];
+    final exportedTypedefs = <int>[];
 
     // public top-level elements which are exported by this library
     final publicSymbols = libraryElement.exportNamespace.definedNames.values;
@@ -138,6 +150,7 @@ Future<PackageShape> summarizePackage({
       return !package.classes
           .any((thisClass) => classElement.id == thisClass.id);
     }).map(summarizeClassAndSuperclasses);
+    package.classes.addAll(classes);
 
     final getters = publicSymbols
         .whereType<PropertyAccessorElement>()
@@ -146,6 +159,7 @@ Future<PackageShape> summarizePackage({
       exportedGetters.add(accessorElement.id);
       return !package.getters.any((getter) => accessorElement.id == getter.id);
     }).map(summarizeGlobalProperty);
+    package.getters.addAll(getters);
 
     final setters = publicSymbols
         .whereType<PropertyAccessorElement>()
@@ -154,25 +168,40 @@ Future<PackageShape> summarizePackage({
       exportedSetters.add(accessorElement.id);
       return !package.setters.any((setter) => accessorElement.id == setter.id);
     }).map(summarizeGlobalProperty);
+    package.setters.addAll(setters);
 
-    final functions = publicSymbols
-        .whereType<FunctionElement>()
-        .where((functionElement) {
+    final functions =
+        publicSymbols.whereType<FunctionElement>().where((functionElement) {
       exportedFunctions.add(functionElement.id);
       return !package.functions
           .any((function) => functionElement.id == function.id);
     }).map(summarizeFunction);
-
-    package.getters.addAll(getters);
-    package.setters.addAll(setters);
     package.functions.addAll(functions);
-    package.classes.addAll(classes);
+
+    final typedefs =
+        publicSymbols.whereType<TypeAliasElement>().where((typedefElement) {
+      exportedTypedefs.add(typedefElement.id);
+      return !package.typedefs
+          .any((thisTypedef) => typedefElement.id == thisTypedef.id);
+    }).map((typedefElement) {
+      final typedef = summarizeTypedef(typedefElement);
+      if (typedef.targetClassId != null &&
+          !package.classes
+              .any((thisClass) => thisClass.id == typedef.targetClassId)) {
+        package.classes.add(summarizeClassAndSuperclasses(
+            typedefElement.aliasedType.element! as ClassElement));
+      }
+      return typedef;
+    });
+    package.typedefs.addAll(typedefs);
+
     package.libraries.add(LibraryShape(
       uri: uri,
       exportedClasses: exportedClasses,
       exportedGetters: exportedGetters,
       exportedSetters: exportedSetters,
       exportedFunctions: exportedFunctions,
+      exportedTypedefs: exportedTypedefs,
     ));
   }
 

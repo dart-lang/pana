@@ -13,7 +13,8 @@ summary: |-
         "exportedFunctions": [],
         "exportedClasses": [
           0
-        ]
+        ],
+        "exportedTypedefs": []
       },
       {
         "uri": "package:test.package/b.dart",
@@ -22,7 +23,8 @@ summary: |-
         "exportedFunctions": [],
         "exportedClasses": [
           1
-        ]
+        ],
+        "exportedTypedefs": []
       },
       {
         "uri": "package:test.package/c.dart",
@@ -31,7 +33,8 @@ summary: |-
         "exportedFunctions": [],
         "exportedClasses": [
           2
-        ]
+        ],
+        "exportedTypedefs": []
       }
     ],
     "getters": [],
@@ -158,7 +161,8 @@ summary: |-
           }
         ]
       }
-    ]
+    ],
+    "typedefs": []
   }
 package:
   - path: lib/b.dart

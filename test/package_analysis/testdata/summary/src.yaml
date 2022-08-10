@@ -19,7 +19,8 @@ summary: |-
         ],
         "exportedClasses": [
           3
-        ]
+        ],
+        "exportedTypedefs": []
       }
     ],
     "getters": [
@@ -78,7 +79,8 @@ summary: |-
           }
         ]
       }
-    ]
+    ],
+    "typedefs": []
   }
 package:
   - path: lib/a.dart

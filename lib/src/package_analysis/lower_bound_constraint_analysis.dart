@@ -50,11 +50,13 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
   final issues = <LowerBoundConstraintIssue>[];
   final installedDependencySummaries = <String, PackageShape>{};
 
-  // eliminate false positives by checking whether the 'bad' identifier is
-  // present in the current/installed version of the dependency - if it isn't
-  // then we have not been able to detect a difference between the lower bound
-  // version and the current version and the issue is a false positive
   for (final possibleIssue in astVisitor.issues.values.whereNotNull()) {
+    // CHECK 1: eliminate false positives by checking whether the 'bad' identifier is
+    // present in the current/installed version of the dependency - if it isn't
+    // then we have not been able to detect a difference between the lower bound
+    // version and the current version and the issue is a false positive
+
+    // produce a summary of the currently-installed version of the defining dependency
     if (!installedDependencySummaries
         .containsKey(possibleIssue.dependencyPackageName)) {
       installedDependencySummaries[possibleIssue.dependencyPackageName] =
@@ -66,45 +68,56 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     }
     final installedDependency =
         installedDependencySummaries[possibleIssue.dependencyPackageName]!;
-    switch (possibleIssue.kind) {
-      case ElementKind.FUNCTION:
-        if (!installedDependency
-            .containsFunctionWithName(possibleIssue.identifier)) {
-          continue;
-        }
-        break;
 
-      case ElementKind.METHOD:
-        if (!installedDependency.containsMethodWithName(
-          possibleIssue.className!,
-          possibleIssue.identifier,
-        )) {
-          continue;
-        }
-        break;
-
-      case ElementKind.GETTER:
-        if (!installedDependency.containsGetterWithName(
-          possibleIssue.className!,
-          possibleIssue.identifier,
-        )) {
-          continue;
-        }
-        break;
-
-      case ElementKind.SETTER:
-        if (!installedDependency.containsSetterWithName(
-          possibleIssue.className!,
-          possibleIssue.identifier,
-        )) {
-          continue;
-        }
-        break;
-
-      default:
-        throw StateError('Unexpected ElementKind ${possibleIssue.kind}.');
+    // if this identifier exists in the current version of the defining dependency,
+    // this is not a false positive
+    if (!possibleIssue.identifierExistsInPackage(
+        package: installedDependency)) {
+      continue;
     }
 
+    // TODO: does this check need to come earlier? maybe we can run it elsewhere? think some more about this...
+    // CHECK 2: look at the typedefs that are in scope/imported at the reference
+    // sites to see if checking for an alias of possibleIssue.className may
+    // reveal a false positive
+
+    // ensure we are dealing with a class member and that issue.className != null
+    if (possibleIssue.kind == ElementKind.FUNCTION) {
+      // we cannot perform check 2 here
+      issues.add(possibleIssue);
+      continue;
+    }
+
+    // the names of the aliases which could have been used for each individual reference of the identifier
+    final possibleParentNames = <List<String>>[];
+
+    for (final reference in possibleIssue.references) {
+      final typedefsHere = await context.findTypedefs(reference.sourceUrl!);
+      if (typedefsHere[possibleIssue.className!] != null) {
+        possibleParentNames.add(typedefsHere[possibleIssue.className!]!);
+      }
+    }
+
+    // the names of the aliases which could have been used at all references of the identifier
+    final commonParentNames = possibleParentNames.fold<Set<String>>(
+        possibleParentNames.isEmpty
+            ? <String>{}
+            : possibleParentNames.first.toSet(),
+        (a, b) => a.intersection(b.toSet()));
+
+    // if replacing the parent class name with any one of the found aliases
+    // results in the identifier being found in the dependency summary,
+    // then we have a false positive because a typedef alias was used
+    if (commonParentNames
+        .any((classNameAlias) => possibleIssue.identifierExistsInPackage(
+              package:
+                  dependencySummaries[possibleIssue.dependencyPackageName]!,
+              classNameAlias: classNameAlias,
+            ))) {
+      continue;
+    }
+
+    // checks 1 and 2 did not reveal a false positive
     issues.add(possibleIssue);
   }
 
@@ -287,7 +300,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         ? LowerBoundConstraintIssue(
       dependencyPackageName: packageName,
             constraint: context.dependencies[packageName]!.version,
-            currentVersion: context.getInstalledVersion(packageName),
+            currentVersion: context.findInstalledVersion(packageName),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
             className: parentElement.name!,
@@ -350,7 +363,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         ? LowerBoundConstraintIssue(
       dependencyPackageName: packageName,
             constraint: context.dependencies[packageName]!.version,
-            currentVersion: context.getInstalledVersion(packageName),
+            currentVersion: context.findInstalledVersion(packageName),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
             className: element.kind == ElementKind.FUNCTION
@@ -377,6 +390,7 @@ String? packageFromLibraryUri(String libraryUri) {
   return null;
 }
 
+// TODO: rename this class? it is still useful to have this structure even if we are not sure whether this is a real issue or a false positive - consider LowerBoundConstraintIssueResult or similar
 class LowerBoundConstraintIssue {
   /// The name of the package that has an incorrect lower bound dependency constraint
   final String dependencyPackageName;
@@ -408,6 +422,37 @@ class LowerBoundConstraintIssue {
 
   /// List of locations in the analyzed source code where [identifier] was referenced.
   final List<SourceSpan> references;
+
+  /// Does [package] (some version of the defining dependency) contain [identifier]?
+  /// If [classNameAlias] is specified, it will be used instead of [className].
+  bool identifierExistsInPackage(
+      {required PackageShape package, String? classNameAlias}) {
+    switch (kind) {
+      case ElementKind.FUNCTION:
+        return package.containsFunctionWithName(identifier);
+
+      case ElementKind.METHOD:
+        return package.containsMethodWithName(
+          classNameAlias ?? className!,
+          identifier,
+        );
+
+      case ElementKind.GETTER:
+        return package.containsGetterWithName(
+          classNameAlias ?? className!,
+          identifier,
+        );
+
+      case ElementKind.SETTER:
+        return package.containsSetterWithName(
+          classNameAlias ?? className!,
+          identifier,
+        );
+
+      default:
+        throw StateError('Unexpected ElementKind $kind.');
+    }
+  }
 
   @override
   String toString() {

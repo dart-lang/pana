@@ -1,0 +1,81 @@
+---
+
+name: Analysis should understand typedef aliases exported in a chain, but normal issue detections should remain unaffected
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          export 'a.dart';
+          class C {
+            void f() {}
+          }
+          class NewD {
+            void g() {}
+          }
+      - path: lib/a.dart
+        content: |
+          export 'b.dart';
+      - path: lib/b.dart
+        content: |
+          export 'c.dart';
+      - path: lib/c.dart
+        content: |
+          export 'd.dart';
+      - path: lib/d.dart
+        content: |
+          export 'other.dart';
+      - path: lib/other.dart
+        content: |
+          import 'foo.dart';
+          typedef D = NewD;
+          class E {}
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          export 'a.dart';
+          class NewC {
+            void f() {}
+          }
+          class D {
+            void g() {}
+          }
+      - path: lib/a.dart
+        content: |
+          export 'b.dart';
+      - path: lib/b.dart
+        content: |
+          export 'c.dart';
+      - path: lib/c.dart
+        content: |
+          export 'd.dart';
+      - path: lib/d.dart
+        content: |
+          export 'other.dart';
+      - path: lib/other.dart
+        content: |
+          import 'foo.dart';
+          typedef C = NewC;
+          class E {
+            void newMethod() {}
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+        void main() {
+          C().f();
+          D().g();
+          E().newMethod();
+        }
+issues:
+  - 'identifier: newMethod'
+
+...

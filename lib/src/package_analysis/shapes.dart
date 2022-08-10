@@ -28,6 +28,9 @@ class PackageShape {
   /// All classes exported somewhere in this package.
   final List<ClassShape> classes;
 
+  /// All typedefs exported somewhere in this package.
+  final List<TypedefShape> typedefs;
+
   PackageShape({
     required this.name,
     required this.version,
@@ -36,6 +39,7 @@ class PackageShape {
     required this.setters,
     required this.functions,
     required this.classes,
+    required this.typedefs,
   });
 
   factory PackageShape.fromJson(Map<String, dynamic> json) =>
@@ -74,12 +78,17 @@ class LibraryShape {
   /// exported in this library.
   final List<int> exportedClasses;
 
+  /// `List` of [TypedefShape.id] elements, where each one corresponds to a
+  /// typedef exported in this library.
+  final List<int> exportedTypedefs;
+
   LibraryShape({
     required this.uri,
     required this.exportedGetters,
     required this.exportedSetters,
     required this.exportedFunctions,
     required this.exportedClasses,
+    required this.exportedTypedefs,
   });
 
   factory LibraryShape.fromJson(Map<String, dynamic> json) =>
@@ -89,6 +98,7 @@ class LibraryShape {
 }
 
 /// A Shape for describing a class.
+/// Any type parameters are ignored/omitted in the class name.
 @sealed
 @JsonSerializable()
 class ClassShape extends GlobalShapeBase {
@@ -128,18 +138,6 @@ class MethodShape extends ClassMemberShapeBase {
   Map<String, dynamic> toJson() => _$MethodShapeToJson(this);
 }
 
-/// A Shape for describing a top-level function
-@sealed
-@JsonSerializable()
-class FunctionShape extends GlobalShapeBase {
-  FunctionShape({required super.id, required super.name});
-
-  factory FunctionShape.fromJson(Map<String, dynamic> json) =>
-      _$FunctionShapeFromJson(json);
-
-  Map<String, dynamic> toJson() => _$FunctionShapeToJson(this);
-}
-
 /// A Shape for describing a getter/setter of a class property
 @sealed
 @JsonSerializable()
@@ -152,6 +150,18 @@ class PropertyShape extends ClassMemberShapeBase {
   Map<String, dynamic> toJson() => _$PropertyShapeToJson(this);
 }
 
+/// A Shape for describing a top-level function
+@sealed
+@JsonSerializable()
+class FunctionShape extends GlobalShapeBase {
+  FunctionShape({required super.id, required super.name});
+
+  factory FunctionShape.fromJson(Map<String, dynamic> json) =>
+      _$FunctionShapeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FunctionShapeToJson(this);
+}
+
 /// A Shape for describing a getter/setter of a top-level variable
 @sealed
 @JsonSerializable()
@@ -162,6 +172,23 @@ class GlobalPropertyShape extends GlobalShapeBase {
       _$GlobalPropertyShapeFromJson(json);
 
   Map<String, dynamic> toJson() => _$GlobalPropertyShapeToJson(this);
+}
+
+/// A Shape for describing a typedef.
+/// Any type parameters are ignored/omitted in the alias name.
+@sealed
+@JsonSerializable()
+class TypedefShape extends GlobalShapeBase {
+  /// The [ClassShape.id] that this typedef points to, or null if defined as function type
+  final int? targetClassId;
+
+  TypedefShape(
+      {required super.id, required super.name, required this.targetClassId});
+
+  factory TypedefShape.fromJson(Map<String, dynamic> json) =>
+      _$TypedefShapeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TypedefShapeToJson(this);
 }
 
 @internal

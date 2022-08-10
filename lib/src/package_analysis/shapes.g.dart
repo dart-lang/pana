@@ -24,6 +24,9 @@ PackageShape _$PackageShapeFromJson(Map<String, dynamic> json) => PackageShape(
       classes: (json['classes'] as List<dynamic>)
           .map((e) => ClassShape.fromJson(e as Map<String, dynamic>))
           .toList(),
+      typedefs: (json['typedefs'] as List<dynamic>)
+          .map((e) => TypedefShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PackageShapeToJson(PackageShape instance) =>
@@ -35,6 +38,7 @@ Map<String, dynamic> _$PackageShapeToJson(PackageShape instance) =>
       'setters': instance.setters.map((e) => e.toJson()).toList(),
       'functions': instance.functions.map((e) => e.toJson()).toList(),
       'classes': instance.classes.map((e) => e.toJson()).toList(),
+      'typedefs': instance.typedefs.map((e) => e.toJson()).toList(),
     };
 
 LibraryShape _$LibraryShapeFromJson(Map<String, dynamic> json) => LibraryShape(
@@ -51,6 +55,9 @@ LibraryShape _$LibraryShapeFromJson(Map<String, dynamic> json) => LibraryShape(
       exportedClasses: (json['exportedClasses'] as List<dynamic>)
           .map((e) => e as int)
           .toList(),
+      exportedTypedefs: (json['exportedTypedefs'] as List<dynamic>)
+          .map((e) => e as int)
+          .toList(),
     );
 
 Map<String, dynamic> _$LibraryShapeToJson(LibraryShape instance) =>
@@ -60,6 +67,7 @@ Map<String, dynamic> _$LibraryShapeToJson(LibraryShape instance) =>
       'exportedSetters': instance.exportedSetters,
       'exportedFunctions': instance.exportedFunctions,
       'exportedClasses': instance.exportedClasses,
+      'exportedTypedefs': instance.exportedTypedefs,
     };
 
 ClassShape _$ClassShapeFromJson(Map<String, dynamic> json) => ClassShape(
@@ -106,6 +114,16 @@ Map<String, dynamic> _$MethodShapeToJson(MethodShape instance) =>
       'name': instance.name,
     };
 
+PropertyShape _$PropertyShapeFromJson(Map<String, dynamic> json) =>
+    PropertyShape(
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$PropertyShapeToJson(PropertyShape instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
+
 FunctionShape _$FunctionShapeFromJson(Map<String, dynamic> json) =>
     FunctionShape(
       id: json['id'] as int,
@@ -115,16 +133,6 @@ FunctionShape _$FunctionShapeFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$FunctionShapeToJson(FunctionShape instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
-    };
-
-PropertyShape _$PropertyShapeFromJson(Map<String, dynamic> json) =>
-    PropertyShape(
-      name: json['name'] as String,
-    );
-
-Map<String, dynamic> _$PropertyShapeToJson(PropertyShape instance) =>
-    <String, dynamic>{
       'name': instance.name,
     };
 
@@ -140,3 +148,25 @@ Map<String, dynamic> _$GlobalPropertyShapeToJson(
       'id': instance.id,
       'name': instance.name,
     };
+
+TypedefShape _$TypedefShapeFromJson(Map<String, dynamic> json) => TypedefShape(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      targetClassId: json['targetClassId'] as int?,
+    );
+
+Map<String, dynamic> _$TypedefShapeToJson(TypedefShape instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('targetClassId', instance.targetClassId);
+  return val;
+}
