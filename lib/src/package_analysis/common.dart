@@ -148,30 +148,6 @@ abstract class PackageAnalysisContext {
   }
 }
 
-// TODO: consider deleting unused function
-/// Download version [version] of the package [name] to the directory
-/// [destination] and fetch its dependencies, optionally deleting the contents
-/// of [destination] first if [wipeTarget] is set to true.
-///
-/// The package will be downloaded using `downloadPackage` from
-/// `package:pana/src/download_utils.dart`.
-Future<void> fetchPackageAndDependencies({
-  required String name,
-  required String version,
-  required String destination,
-  required bool wipeTarget,
-}) async {
-  // delete the target directory, if it exists and wipe is enabled
-  if (wipeTarget && await Directory(destination).exists()) {
-    await Directory(destination).delete(recursive: true);
-  }
-
-  // download the package and fetch dependencies
-  await downloadPackage(name, version, destination: destination);
-  await fetchDependencies(destination);
-  return;
-}
-
 /// Download version [version] of the package [name] to the directory
 /// [destination] and fetch its dependencies, optionally deleting the contents
 /// of [destination] first if [wipeTarget] is set to true.
