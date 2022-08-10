@@ -22,7 +22,6 @@ Future<void> main() async {
     'testdata',
     'lower_bound_constraint_issues',
   ));
-  // TODO: look through the tests and remove things like 'content: |' where content is just one line
 
   await for (final file in yamlDir.list()) {
     final doc = loadYaml(await (file as File).readAsString());

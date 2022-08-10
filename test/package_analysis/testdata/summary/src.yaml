@@ -84,8 +84,7 @@ summary: |-
   }
 package:
   - path: lib/a.dart
-    content: |
-      export 'src/src.dart';
+    content: export 'src/src.dart';
   - path: lib/src/src.dart
     content: |
       var srcVar;

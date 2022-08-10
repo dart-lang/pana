@@ -93,16 +93,12 @@ summary: |-
   }
 package:
   - path: lib/a.dart
-    content: |
-      export 'b.dart';
+    content: export 'b.dart';
   - path: lib/b.dart
-    content: |
-      export 'c.dart';
+    content: export 'c.dart';
   - path: lib/c.dart
-    content: |
-      export 'd.dart';
+    content: export 'd.dart';
   - path: lib/d.dart
-    content: |
-      class C {}
+    content: class C {}
 
 ...

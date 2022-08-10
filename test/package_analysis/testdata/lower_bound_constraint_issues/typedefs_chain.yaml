@@ -15,17 +15,13 @@ packages:
             void g() {}
           }
       - path: lib/a.dart
-        content: |
-          export 'b.dart';
+        content: export 'b.dart';
       - path: lib/b.dart
-        content: |
-          export 'c.dart';
+        content: export 'c.dart';
       - path: lib/c.dart
-        content: |
-          export 'd.dart';
+        content: export 'd.dart';
       - path: lib/d.dart
-        content: |
-          export 'other.dart';
+        content: export 'other.dart';
       - path: lib/other.dart
         content: |
           import 'foo.dart';
@@ -44,17 +40,13 @@ packages:
             void g() {}
           }
       - path: lib/a.dart
-        content: |
-          export 'b.dart';
+        content: export 'b.dart';
       - path: lib/b.dart
-        content: |
-          export 'c.dart';
+        content: export 'c.dart';
       - path: lib/c.dart
-        content: |
-          export 'd.dart';
+        content: export 'd.dart';
       - path: lib/d.dart
-        content: |
-          export 'other.dart';
+        content: export 'other.dart';
       - path: lib/other.dart
         content: |
           import 'foo.dart';

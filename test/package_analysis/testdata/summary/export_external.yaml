@@ -72,7 +72,6 @@ summary: |-
   }
 package:
   - path: lib/a.dart
-    content: |
-      export 'dart:math' show Random;
+    content: export 'dart:math' show Random;
 
 ...
