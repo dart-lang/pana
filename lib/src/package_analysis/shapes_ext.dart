@@ -42,29 +42,6 @@ extension ClassShapeExt on ClassShape {
         staticMethods: staticMethods,
       );
 
-  // TODO: consider deleting unused method
-  /// Creates a new [ClassShape] based on this one, but with some parts replaced.
-  ClassShape replace({
-    int? id,
-    String? name,
-    List<PropertyShape>? getters,
-    List<PropertyShape>? setters,
-    List<MethodShape>? methods,
-    List<PropertyShape>? staticGetters,
-    List<PropertyShape>? staticSetters,
-    List<MethodShape>? staticMethods,
-  }) =>
-      ClassShape(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        getters: getters ?? this.getters,
-        setters: setters ?? this.setters,
-        methods: methods ?? this.methods,
-        staticGetters: getters ?? this.staticGetters,
-        staticSetters: setters ?? this.staticSetters,
-        staticMethods: methods ?? this.staticMethods,
-      );
-
   /// Modifies this [ClassShape] based on a list of others. The name and id of
   /// the original [ClassShape] is retained, and the other fields of type
   /// [List<T>] are expanded with the corresponding fields from the elements of
