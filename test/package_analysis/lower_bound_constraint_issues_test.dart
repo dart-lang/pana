@@ -92,6 +92,8 @@ dependencies:
       // and other transitive dependencies)
       await fetchDependencies(dummyPath);
 
+      // TODO: after roughly this point we are repeating the lbcanalysis command, instead we can just execute it and examine the results
+
       final dummyPackageAnalysisContext = PackageAnalysisContextWithStderr(
         session: AnalysisContextCollection(includedPaths: [dummyPath])
             .contextFor(dummyPath)

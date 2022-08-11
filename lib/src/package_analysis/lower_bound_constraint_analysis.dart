@@ -348,10 +348,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if ((parentElement as ClassElement).typeParameters.isNotEmpty) {
         return;
       }
-      constraintIssue =
-          !dependencyShape.containsNamedMethod(parentElement.name!, symbolName);
+      constraintIssue = !dependencyShape.containsMethodWithName(
+          parentElement.name!, symbolName);
     } else if (parentElement is CompilationUnitElement) {
-      constraintIssue = !dependencyShape.containsNamedFunction(symbolName);
+      constraintIssue = !dependencyShape.containsFunctionWithName(symbolName);
     } else {
       // we may be looking at an extension method
       // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');
