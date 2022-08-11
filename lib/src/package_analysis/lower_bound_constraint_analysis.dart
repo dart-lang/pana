@@ -171,8 +171,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// populating [packageName] and [dependencyShape].
   void identifyDependencyName() {
     if (parentElement.library == null) {
-      throw AnalysisException(
-          'Could not determine library of parentElement.');
+      throw AnalysisException('Could not determine library of parentElement.');
     }
     final tryPackageName =
         packageFromLibraryUri(parentElement.library!.identifier);

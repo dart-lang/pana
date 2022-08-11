@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/common.dart';
 import 'package:pana/src/package_analysis/lower_bound_constraint_analysis.dart';
 import 'package:pana/src/package_analysis/package_analysis.dart';
@@ -109,13 +110,14 @@ dependencies:
         // find the minimum allowed version of this package
         final allVersionsString =
             dependencyPackages.map((package) => package['version'] as String);
-        final minVersion = findMinAllowedVersion(
-          constraint:
-              dummyPackageAnalysisContext.dependencies[dependencyName]!.version,
-          versions: allVersionsString.map(Version.parse).toList(),
-        )!;
-        final dependencyMin = dependencyPackages.firstWhere(
-            (package) => package['version'] == minVersion.toString());
+        final minVersion = allVersionsString
+            .map(Version.parse)
+            .sorted((a, b) => a.compareTo(b))
+            .firstWhere(dummyPackageAnalysisContext
+                .dependencies[dependencyName]!.version.allows)
+            .toString();
+        final dependencyMin = dependencyPackages
+            .firstWhere((package) => package['version'] == minVersion);
 
         // TODO: can we rely on this path being empty and our testing not conflicting with physical files on disk?
         final packagePath = path.canonicalize(path.join(dependencyName));
@@ -124,7 +126,7 @@ dependencies:
         final provider = setupBasicPackage(
           packagePath: packagePath,
           packageName: dependencyName,
-          packageVersion: minVersion.toString(),
+          packageVersion: minVersion,
         );
         for (final node in dependencyMin['package']) {
           final filePath = path.canonicalize(path.join(

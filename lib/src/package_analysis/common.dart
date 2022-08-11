@@ -7,10 +7,12 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/exception/exception.dart';
 import 'package:analyzer/file_system/file_system.dart' as resource;
 import 'package:collection/collection.dart';
+import 'package:http/http.dart' as http;
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
+import 'package:retry/retry.dart';
 
 const indentedEncoder = JsonEncoder.withIndent('  ');
 
@@ -25,7 +27,7 @@ abstract class PackageAnalysisContext {
   late final String? _targetPackageName;
 
   /// The name of the package being analyzed.
-  late final String packageName = _dummy? _targetPackageName! : pubspec.name;
+  late final String packageName = _dummy ? _targetPackageName! : pubspec.name;
 
   /// The absolute path of the package being analyzed.
   late final String packagePath;
@@ -156,7 +158,7 @@ abstract class PackageAnalysisContext {
 /// pinning the dependency [name] to version [version].
 Future<void> fetchUsingDummyPackage({
   required String name,
-  required String version,
+  required Version version,
   required String destination,
   required bool wipeTarget,
 }) async {
@@ -172,7 +174,7 @@ Future<void> fetchUsingDummyPackage({
       'sdk': '>=2.13.0 <3.0.0',
     },
     'dependencies': {
-      name: version,
+      name: version.toString(),
     },
   };
 
@@ -227,13 +229,51 @@ List<resource.File> getAllFiles(resource.Folder folder) {
   return files;
 }
 
-/// Given a version constraint and a list of [Version]s, return the the
-/// minimum [Version] allowed by the constraint, or null if no version in the
-/// list is allowed by the constraint.
-Version? findMinAllowedVersion({
-  required VersionConstraint constraint,
-  required List<Version> versions,
-}) {
-  versions.sort((a, b) => a.compareTo(b));
-  return versions.firstWhereOrNull((version) => constraint.allows(version));
+/// Given the path to the directory containing cached available package version
+/// [List<String>]s, retrieve the [List<Version>] of available versions of the
+/// package [packageName] in ascending order of [Version], either by using the
+/// cache or by sending a request to `https://pub.dev/api/packages/$packageName`
+/// (in this case the response is also saved in the cache).
+Future<List<Version>> fetchSortedPackageVersionList({
+  required String packageName,
+  required String cachePath,
+}) async {
+  List<Version> metadataStringToSortedVersions(String metadata) {
+    final versionsMetadata = json.decode(metadata)['versions'] as List<dynamic>;
+    return versionsMetadata
+        .map((versionMetadata) => versionMetadata['version'] as String)
+        .map(Version.parse)
+        .sorted((a, b) => a.compareTo(b))
+        .toList();
+  }
+
+  final cachedVersionPath = path.join(cachePath, '$packageName.json');
+  final versionListFile = File(cachedVersionPath);
+
+  // if the version list is already cached, just read it from disk
+  if (await versionListFile.exists()) {
+    return metadataStringToSortedVersions(await versionListFile.readAsString());
+  }
+
+  // otherwise, we need to fetch it from pub
+  final c = http.Client();
+  late final http.Response metadataResponse;
+
+  try {
+    metadataResponse = await retry(
+      () => c.get(Uri.parse('https://pub.dev/api/packages/$packageName')),
+      retryIf: (e) => e is IOException,
+    );
+  } finally {
+    c.close();
+  }
+
+  if (metadataResponse.statusCode != HttpStatus.ok) {
+    throw HttpException(
+        'Failed to download metadata for package $packageName.');
+  }
+
+  // if the response is ok, save the metadata to the cache and return the version list
+  await versionListFile.writeAsString(metadataResponse.body);
+  return metadataStringToSortedVersions(metadataResponse.body);
 }
