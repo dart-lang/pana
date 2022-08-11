@@ -328,7 +328,7 @@ class BatchLBCAnalysisCommand extends Command {
             ],
           );
         } catch (e) {
-          stderr.write(
+          stderr.writeln(
               'Failed to start analysis process on package $targetPackageName with error $e.');
           return;
         }
@@ -356,11 +356,11 @@ class BatchLBCAnalysisCommand extends Command {
           }
 
           if (exitCode != 0) {
-            stderr.write(
+            stderr.writeln(
                 'Analysis of package $targetPackageName completed with a non-zero exit code.');
           }
         } catch (e) {
-          stderr.write(
+          stderr.writeln(
               'Failed to run analysis on package $targetPackageName with error $e.');
           process.kill();
         }
