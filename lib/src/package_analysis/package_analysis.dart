@@ -48,7 +48,7 @@ class SummaryCommand extends Command {
       throw StateError('The target directory must contain a package.');
     }
     if (!await File(
-        path.join(packageLocation, '.dart_tool', 'package_config.json'))
+            path.join(packageLocation, '.dart_tool', 'package_config.json'))
         .exists()) {
       throw StateError(
           'Run `dart pub get` to fetch dependencies before analysing this package.');
@@ -146,11 +146,11 @@ class LowerBoundConstraintAnalysisCommand extends Command {
     // - download minimum allowed version
     // - produce a summary of the minimum allowed version
     for (final dependencyEntry
-    in dummyPackageAnalysisContext.dependencies.entries) {
+        in dummyPackageAnalysisContext.dependencies.entries) {
       final dependencyName = dependencyEntry.key;
       final dependencyVersionConstraint = dependencyEntry.value.version;
       final dependencyDestination =
-      path.join(dependencyFolder, '${dependencyName}_dummy');
+          path.join(dependencyFolder, '${dependencyName}_dummy');
 
       // determine the minimum allowed version of this dependency as allowed
       // by the constraints imposed by the target package
@@ -159,7 +159,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         cachePath: cachePath,
       );
       final minVersion =
-      allVersions.firstWhereOrNull(dependencyVersionConstraint.allows);
+          allVersions.firstWhereOrNull(dependencyVersionConstraint.allows);
 
       if (minVersion == null) {
         dummyPackageAnalysisContext.warning(
@@ -194,7 +194,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       dependencySummaries[dependencyName] = await summarizePackage(
         context: dependencyPackageAnalysisContext,
         packagePath:
-        dependencyPackageAnalysisContext.findPackagePath(dependencyName),
+            dependencyPackageAnalysisContext.findPackagePath(dependencyName),
       );
     }
 
@@ -336,18 +336,24 @@ class BatchLBCAnalysisCommand extends Command {
         try {
           final logPathPrefix = path.join(logPath,
               '${formatIndexForLogfile(targetPackageIndex)} $targetPackageName');
-          final stdoutLog = File('$logPathPrefix stdout.txt').openWrite();
-          final stderrLog = File('$logPathPrefix stderr.txt').openWrite();
 
           // wait for the analysis to complete or time out after 10 minutes
           final exitCode =
               await process.exitCode.timeout(const Duration(minutes: 10));
 
-          // capture all output in log files
-          await Future.wait([
-            process.stdout.pipe(stdoutLog),
-            process.stderr.pipe(stderrLog),
-          ]);
+          // capture all output
+          final out = await process.stdout.toList();
+          final err = await process.stderr.toList();
+
+          // do not write empty log files
+          if (out.isNotEmpty) {
+            final stdoutLog = File('$logPathPrefix stdout.txt').openWrite();
+            out.forEach(stdoutLog.add);
+          }
+          if (err.isNotEmpty) {
+            final stderrLog = File('$logPathPrefix stderr.txt').openWrite();
+            err.forEach(stderrLog.add);
+          }
 
           if (exitCode != 0) {
             stderr.write(
