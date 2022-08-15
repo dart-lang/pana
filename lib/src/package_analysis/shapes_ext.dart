@@ -86,24 +86,24 @@ extension ClassShapeExt on ClassShape {
 }
 
 extension LibraryShapeExt on LibraryShape {
-  /// Creates a new [LibraryShape] based on this one, but with some parts replaced.
-  LibraryShape replace({
-    String? uri,
-    List<int>? exportedGetters,
-    List<int>? exportedSetters,
-    List<int>? exportedFunctions,
-    List<int>? exportedClasses,
-    List<int>? exportedExtensions,
-    List<int>? exportedTypedefs,
+  /// Creates a new [LibraryShape] based on this one, but with all the parts
+  /// (except the uri) replaced.
+  LibraryShape replaceAll({
+    required List<int> exportedGetters,
+    required List<int> exportedSetters,
+    required List<int> exportedFunctions,
+    required List<int> exportedClasses,
+    required List<int> exportedExtensions,
+    required List<int> exportedTypedefs,
   }) =>
       LibraryShape(
-        uri: uri ?? this.uri,
-        exportedGetters: exportedGetters ?? this.exportedGetters,
-        exportedSetters: exportedSetters ?? this.exportedSetters,
-        exportedFunctions: exportedFunctions ?? this.exportedFunctions,
-        exportedClasses: exportedClasses ?? this.exportedClasses,
-        exportedExtensions: exportedExtensions ?? this.exportedExtensions,
-        exportedTypedefs: exportedTypedefs ?? this.exportedTypedefs,
+        uri: uri,
+        exportedGetters: exportedGetters,
+        exportedSetters: exportedSetters,
+        exportedFunctions: exportedFunctions,
+        exportedClasses: exportedClasses,
+        exportedExtensions: exportedExtensions,
+        exportedTypedefs: exportedTypedefs,
       );
 }
 

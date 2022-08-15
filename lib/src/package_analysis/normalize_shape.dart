@@ -106,8 +106,8 @@ PackageShape normalizePackageShape(PackageShape package) {
 
   // reassign ids in [package.libraries]
   final newLibraries = package.libraries
-      .map((library) => library.replace(
-    exportedGetters: reassignIds(library.exportedGetters),
+      .map((library) => library.replaceAll(
+            exportedGetters: reassignIds(library.exportedGetters),
             exportedSetters: reassignIds(library.exportedSetters),
             exportedFunctions: reassignIds(library.exportedFunctions),
             exportedClasses: reassignIds(library.exportedClasses),
