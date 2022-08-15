@@ -195,7 +195,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// this symbol, throwing an [AnalysisException] if the symbol does not need
   /// to be/cannot be analyzed.
   void processIdentifier(SimpleIdentifier identifier) {
-    if (element.enclosingElement is ExtensionElement) {
+    if (element.enclosingElement3 is ExtensionElement) {
       throw AnalysisException('Extensions are not yet supported.');
     }
 
@@ -273,7 +273,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     try {
       processIdentifier(node.identifier);
       parentElement =
-          node.prefix.staticType?.element! ?? node.prefix.staticElement!;
+          node.prefix.staticType?.element2! ?? node.prefix.staticElement!;
       identifyDependencyName();
     } on AnalysisException {
       // do not continue if this invocation is unfit for analysis
@@ -324,14 +324,14 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     try {
       processIdentifier(node.methodName);
       if (element is FunctionElement) {
-        parentElement = element.enclosingElement!;
+        parentElement = element.enclosingElement3!;
       } else if (node.parent is CascadeExpression) {
         // TODO: handle cascade notation
         return;
       } else if (node.target == null) {
         return;
       } else {
-        parentElement = node.target!.staticType?.element! ??
+        parentElement = node.target!.staticType?.element2! ??
             (node.target! as Identifier).staticElement!;
       }
       identifyDependencyName();

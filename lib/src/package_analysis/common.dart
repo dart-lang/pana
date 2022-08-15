@@ -118,17 +118,18 @@ abstract class PackageAnalysisContext {
       typedefs.addAll(importedLibrary.exportNamespace.definedNames.values
           .whereType<TypeAliasElement>()
           .where(
-              (thisTypedef) => thisTypedef.aliasedType.element?.name != null));
+              (thisTypedef) => thisTypedef.aliasedType.element2?.name != null));
     }
 
     // also consider typedefs defined in the the library itself
     typedefs.addAll(library.exportNamespace.definedNames.values
         .whereType<TypeAliasElement>()
-        .where((thisTypedef) => thisTypedef.aliasedType.element?.name != null));
+        .where(
+            (thisTypedef) => thisTypedef.aliasedType.element2?.name != null));
 
     final typedefMap = <String, List<String>>{};
     for (final thisTypedef in typedefs) {
-      final targetName = thisTypedef.aliasedType.element!.name!;
+      final targetName = thisTypedef.aliasedType.element2!.name!;
       if (!typedefMap.keys.contains(targetName)) {
         typedefMap[targetName] = <String>[];
       }

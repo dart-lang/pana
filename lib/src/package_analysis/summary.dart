@@ -62,8 +62,8 @@ Future<PackageShape> summarizePackage({
     return TypedefShape(
       id: typedefElement.id,
       name: typedefElement.name,
-      targetClassId: typedefElement.aliasedType.element is ClassElement
-          ? typedefElement.aliasedType.element!.id
+      targetClassId: typedefElement.aliasedType.element2 is ClassElement
+          ? typedefElement.aliasedType.element2!.id
           : null,
     );
   }
@@ -177,7 +177,7 @@ Future<PackageShape> summarizePackage({
     // produce summaries of the class itself and any superclasses
     final classShape = summarizeClassElement(classElement);
     final superTypeShapes = classElement.allSupertypes
-        .map((interfaceType) => interfaceType.element)
+        .map((interfaceType) => interfaceType.element2 as ClassElement)
         .map(summarizeClassElement)
         .toList();
 
@@ -246,7 +246,7 @@ Future<PackageShape> summarizePackage({
           !package.classes
               .any((thisClass) => thisClass.id == typedef.targetClassId)) {
         package.classes.add(summarizeClassAndSuperclasses(
-            typedefElement.aliasedType.element! as ClassElement));
+            typedefElement.aliasedType.element2! as ClassElement));
       }
       return typedef;
     });
