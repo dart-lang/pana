@@ -17,7 +17,7 @@ dependencies:
   io: ^1.0.0
   json_annotation: ^4.5.0
   logging: ^1.0.0
-  markdown: ^5.0.0
+  markdown: ^6.0.0
   path: ^1.6.2
   pub_semver: ^2.0.0
   pubspec_parse: ^1.2.0
