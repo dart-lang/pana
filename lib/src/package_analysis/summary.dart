@@ -32,6 +32,7 @@ Future<PackageShape> summarizePackage({
     setters: <GlobalPropertyShape>[],
     functions: <FunctionShape>[],
     classes: <ClassShape>[],
+    extensions: <ExtensionShape>[],
     typedefs: <TypedefShape>[],
   );
 
@@ -64,6 +65,59 @@ Future<PackageShape> summarizePackage({
       targetClassId: typedefElement.aliasedType.element is ClassElement
           ? typedefElement.aliasedType.element!.id
           : null,
+    );
+  }
+
+  ExtensionShape summarizeExtension(ExtensionElement extensionElement) {
+    // an accessor is a getter or a setter
+    final accessors =
+        extensionElement.accessors.where((element) => !element.isStatic);
+    final staticAccessors =
+        extensionElement.accessors.where((element) => element.isStatic);
+
+    final publicMethods =
+        extensionElement.methods.where((element) => element.isPublic);
+
+    final methods = publicMethods
+        .where((element) => !element.isStatic)
+        .map(summarizeMethod)
+        .toList();
+
+    final staticMethods = publicMethods
+        .where((element) => element.isStatic)
+        .map(summarizeMethod)
+        .toList();
+
+    final getters = accessors
+        .where((element) => element.isGetter)
+        .map(summarizeProperty)
+        .toList();
+
+    final setters = accessors
+        .where((element) => element.isSetter)
+        .map(summarizeProperty)
+        .toList();
+
+    final staticGetters = staticAccessors
+        .where((element) => element.isGetter)
+        .map(summarizeProperty)
+        .toList();
+
+    final staticSetters = staticAccessors
+        .where((element) => element.isSetter)
+        .map(summarizeProperty)
+        .toList();
+
+    return ExtensionShape(
+      id: extensionElement.id,
+      name: extensionElement.name!,
+      extendedClassId: extensionElement.extendedType.element2!.id,
+      getters: getters,
+      setters: setters,
+      methods: methods,
+      staticGetters: staticGetters,
+      staticSetters: staticSetters,
+      staticMethods: staticMethods,
     );
   }
 
@@ -140,6 +194,7 @@ Future<PackageShape> summarizePackage({
     final exportedSetters = <int>[];
     final exportedFunctions = <int>[];
     final exportedTypedefs = <int>[];
+    final exportedExtensions = <int>[];
 
     // public top-level elements which are exported by this library
     final publicSymbols = libraryElement.exportNamespace.definedNames.values;
@@ -185,6 +240,8 @@ Future<PackageShape> summarizePackage({
           .any((thisTypedef) => typedefElement.id == thisTypedef.id);
     }).map((typedefElement) {
       final typedef = summarizeTypedef(typedefElement);
+      // if the aliased class is not already included in the summary,
+      // then summarize it
       if (typedef.targetClassId != null &&
           !package.classes
               .any((thisClass) => thisClass.id == typedef.targetClassId)) {
@@ -195,6 +252,24 @@ Future<PackageShape> summarizePackage({
     });
     package.typedefs.addAll(typedefs);
 
+    final extensions =
+        publicSymbols.whereType<ExtensionElement>().where((extensionElement) {
+      exportedExtensions.add(extensionElement.id);
+      return !package.extensions
+          .any((thisExtension) => extensionElement.id == thisExtension.id);
+    }).map((extensionElement) {
+      final extension = summarizeExtension(extensionElement);
+      // if the extended class is not already included in the summary,
+      // then summarize it
+      if (!package.classes
+          .any((thisClass) => thisClass.id == extension.extendedClassId)) {
+        package.classes.add(summarizeClassAndSuperclasses(
+            extensionElement.extendedType.element2! as ClassElement));
+      }
+      return extension;
+    });
+    package.extensions.addAll(extensions);
+
     package.libraries.add(LibraryShape(
       uri: uri,
       exportedClasses: exportedClasses,
@@ -202,6 +277,7 @@ Future<PackageShape> summarizePackage({
       exportedSetters: exportedSetters,
       exportedFunctions: exportedFunctions,
       exportedTypedefs: exportedTypedefs,
+      exportedExtensions: exportedExtensions,
     ));
   }
 

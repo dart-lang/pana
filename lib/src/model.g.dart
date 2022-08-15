@@ -171,7 +171,7 @@ Map<String, dynamic> _$ReportSectionToJson(ReportSection instance) =>
       'title': instance.title,
       'grantedPoints': instance.grantedPoints,
       'maxPoints': instance.maxPoints,
-      'status': _$ReportStatusEnumMap[instance.status],
+      'status': _$ReportStatusEnumMap[instance.status]!,
       'summary': instance.summary,
     };
 

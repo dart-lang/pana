@@ -15,6 +15,7 @@ summary: |-
           0,
           1
         ],
+        "exportedExtensions": [],
         "exportedTypedefs": []
       }
     ],
@@ -109,6 +110,7 @@ summary: |-
         ]
       }
     ],
+    "extensions": [],
     "typedefs": []
   }
 package:

@@ -24,6 +24,9 @@ PackageShape _$PackageShapeFromJson(Map<String, dynamic> json) => PackageShape(
       classes: (json['classes'] as List<dynamic>)
           .map((e) => ClassShape.fromJson(e as Map<String, dynamic>))
           .toList(),
+      extensions: (json['extensions'] as List<dynamic>)
+          .map((e) => ExtensionShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
       typedefs: (json['typedefs'] as List<dynamic>)
           .map((e) => TypedefShape.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -38,6 +41,7 @@ Map<String, dynamic> _$PackageShapeToJson(PackageShape instance) =>
       'setters': instance.setters.map((e) => e.toJson()).toList(),
       'functions': instance.functions.map((e) => e.toJson()).toList(),
       'classes': instance.classes.map((e) => e.toJson()).toList(),
+      'extensions': instance.extensions.map((e) => e.toJson()).toList(),
       'typedefs': instance.typedefs.map((e) => e.toJson()).toList(),
     };
 
@@ -55,6 +59,9 @@ LibraryShape _$LibraryShapeFromJson(Map<String, dynamic> json) => LibraryShape(
       exportedClasses: (json['exportedClasses'] as List<dynamic>)
           .map((e) => e as int)
           .toList(),
+      exportedExtensions: (json['exportedExtensions'] as List<dynamic>)
+          .map((e) => e as int)
+          .toList(),
       exportedTypedefs: (json['exportedTypedefs'] as List<dynamic>)
           .map((e) => e as int)
           .toList(),
@@ -67,6 +74,7 @@ Map<String, dynamic> _$LibraryShapeToJson(LibraryShape instance) =>
       'exportedSetters': instance.exportedSetters,
       'exportedFunctions': instance.exportedFunctions,
       'exportedClasses': instance.exportedClasses,
+      'exportedExtensions': instance.exportedExtensions,
       'exportedTypedefs': instance.exportedTypedefs,
     };
 
@@ -97,6 +105,44 @@ Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'getters': instance.getters.map((e) => e.toJson()).toList(),
+      'setters': instance.setters.map((e) => e.toJson()).toList(),
+      'methods': instance.methods.map((e) => e.toJson()).toList(),
+      'staticGetters': instance.staticGetters.map((e) => e.toJson()).toList(),
+      'staticSetters': instance.staticSetters.map((e) => e.toJson()).toList(),
+      'staticMethods': instance.staticMethods.map((e) => e.toJson()).toList(),
+    };
+
+ExtensionShape _$ExtensionShapeFromJson(Map<String, dynamic> json) =>
+    ExtensionShape(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      extendedClassId: json['extendedClassId'] as int,
+      getters: (json['getters'] as List<dynamic>)
+          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      setters: (json['setters'] as List<dynamic>)
+          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      methods: (json['methods'] as List<dynamic>)
+          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      staticGetters: (json['staticGetters'] as List<dynamic>)
+          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      staticSetters: (json['staticSetters'] as List<dynamic>)
+          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      staticMethods: (json['staticMethods'] as List<dynamic>)
+          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$ExtensionShapeToJson(ExtensionShape instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'extendedClassId': instance.extendedClassId,
       'getters': instance.getters.map((e) => e.toJson()).toList(),
       'setters': instance.setters.map((e) => e.toJson()).toList(),
       'methods': instance.methods.map((e) => e.toJson()).toList(),

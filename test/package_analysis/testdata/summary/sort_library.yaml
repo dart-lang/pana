@@ -14,6 +14,7 @@ summary: |-
         "exportedClasses": [
           0
         ],
+        "exportedExtensions": [],
         "exportedTypedefs": []
       },
       {
@@ -24,6 +25,7 @@ summary: |-
         "exportedClasses": [
           1
         ],
+        "exportedExtensions": [],
         "exportedTypedefs": []
       },
       {
@@ -34,6 +36,7 @@ summary: |-
         "exportedClasses": [
           2
         ],
+        "exportedExtensions": [],
         "exportedTypedefs": []
       }
     ],
@@ -162,6 +165,7 @@ summary: |-
         ]
       }
     ],
+    "extensions": [],
     "typedefs": []
   }
 package:

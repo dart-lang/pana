@@ -20,6 +20,7 @@ summary: |-
         "exportedClasses": [
           3
         ],
+        "exportedExtensions": [],
         "exportedTypedefs": []
       }
     ],
@@ -80,6 +81,7 @@ summary: |-
         ]
       }
     ],
+    "extensions": [],
     "typedefs": []
   }
 package:

@@ -83,10 +83,19 @@ PackageShape normalizePackageShape(PackageShape package) {
   final newTypedefs = package.typedefs.sorted(compareShape).map((thisTypedef) {
     oldIdToNewId[thisTypedef.id] = newIdCounter;
     return thisTypedef.replaceWithNewIds(
-        newId: newIdCounter++,
-        newTargetId: thisTypedef.targetClassId == null
-            ? null
-            : oldIdToNewId[thisTypedef.targetClassId]);
+      newId: newIdCounter++,
+      newTargetId: thisTypedef.targetClassId == null
+          ? null
+          : oldIdToNewId[thisTypedef.targetClassId]!,
+    );
+  }).toList();
+  final newExtensions =
+      package.extensions.sorted(compareShape).map((thisExtension) {
+    oldIdToNewId[thisExtension.id] = newIdCounter;
+    return thisExtension.replaceWithNewIds(
+      newId: newIdCounter++,
+      newExtendedClassId: oldIdToNewId[thisExtension.extendedClassId]!,
+    );
   }).toList();
 
   List<int> reassignIds(List<int> oldIds) {
@@ -103,10 +112,11 @@ PackageShape normalizePackageShape(PackageShape package) {
             exportedFunctions: reassignIds(library.exportedFunctions),
             exportedClasses: reassignIds(library.exportedClasses),
             exportedTypedefs: reassignIds(library.exportedTypedefs),
+            exportedExtensions: reassignIds(library.exportedExtensions),
           ))
       .toList();
 
-  // sort all the fields of all the classes
+  // sort all the fields of all the classes and extensions
   for (final thisClass in newClasses) {
     for (final classMemberList in [
       thisClass.getters,
@@ -120,6 +130,20 @@ PackageShape normalizePackageShape(PackageShape package) {
           a.name.compareTo(b.name));
     }
   }
+  for (final thisExtension in newExtensions) {
+    for (final extensionMemberList in [
+      thisExtension.getters,
+      thisExtension.setters,
+      thisExtension.methods,
+      thisExtension.staticGetters,
+      thisExtension.staticSetters,
+      thisExtension.staticMethods,
+    ]) {
+      extensionMemberList.sort(
+          (ClassMemberShapeBase a, ClassMemberShapeBase b) =>
+              a.name.compareTo(b.name));
+    }
+  }
 
   return PackageShape(
     name: package.name,
@@ -130,5 +154,6 @@ PackageShape normalizePackageShape(PackageShape package) {
     functions: newFunctions,
     classes: newClasses,
     typedefs: newTypedefs,
+    extensions: newExtensions,
   );
 }

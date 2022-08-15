@@ -28,6 +28,9 @@ class PackageShape {
   /// All classes exported somewhere in this package.
   final List<ClassShape> classes;
 
+  /// All extensions exported somewhere in this package.
+  final List<ExtensionShape> extensions;
+
   /// All typedefs exported somewhere in this package.
   final List<TypedefShape> typedefs;
 
@@ -39,6 +42,7 @@ class PackageShape {
     required this.setters,
     required this.functions,
     required this.classes,
+    required this.extensions,
     required this.typedefs,
   });
 
@@ -78,6 +82,10 @@ class LibraryShape {
   /// exported in this library.
   final List<int> exportedClasses;
 
+  /// `List` of [ExtensionShape.id] elements, where each one corresponds to an
+  /// extension exported in this library.
+  final List<int> exportedExtensions;
+
   /// `List` of [TypedefShape.id] elements, where each one corresponds to a
   /// typedef exported in this library.
   final List<int> exportedTypedefs;
@@ -88,6 +96,7 @@ class LibraryShape {
     required this.exportedSetters,
     required this.exportedFunctions,
     required this.exportedClasses,
+    required this.exportedExtensions,
     required this.exportedTypedefs,
   });
 
@@ -126,7 +135,38 @@ class ClassShape extends GlobalShapeBase {
   Map<String, dynamic> toJson() => _$ClassShapeToJson(this);
 }
 
-/// A Shape for describing a class method
+/// A Shape for describing an extension.
+/// Any type parameters are ignored/omitted in the extension name.
+@sealed
+@JsonSerializable()
+class ExtensionShape extends GlobalShapeBase {
+  final int extendedClassId;
+  final List<PropertyShape> getters;
+  final List<PropertyShape> setters;
+  final List<MethodShape> methods;
+  final List<PropertyShape> staticGetters;
+  final List<PropertyShape> staticSetters;
+  final List<MethodShape> staticMethods;
+
+  ExtensionShape({
+    required super.id,
+    required super.name,
+    required this.extendedClassId,
+    required this.getters,
+    required this.setters,
+    required this.methods,
+    required this.staticGetters,
+    required this.staticSetters,
+    required this.staticMethods,
+  });
+
+  factory ExtensionShape.fromJson(Map<String, dynamic> json) =>
+      _$ExtensionShapeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ExtensionShapeToJson(this);
+}
+
+/// A Shape for describing a class/extension method.
 @sealed
 @JsonSerializable()
 class MethodShape extends ClassMemberShapeBase {
@@ -138,7 +178,7 @@ class MethodShape extends ClassMemberShapeBase {
   Map<String, dynamic> toJson() => _$MethodShapeToJson(this);
 }
 
-/// A Shape for describing a getter/setter of a class property
+/// A Shape for describing a getter/setter of a class/extension property.
 @sealed
 @JsonSerializable()
 class PropertyShape extends ClassMemberShapeBase {

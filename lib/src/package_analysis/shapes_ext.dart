@@ -17,7 +17,7 @@ extension FunctionShapeExt on FunctionShape {
 }
 
 extension TypedefShapeExt on TypedefShape {
-  /// Creates a new [TypedefShape] based on this one, but with the id replaced.
+  /// Creates a new [TypedefShape] based on this one, but with the id and targetClassId replaced.
   TypedefShape replaceWithNewIds({
     required int newId,
     required int? newTargetId,
@@ -26,6 +26,25 @@ extension TypedefShapeExt on TypedefShape {
         id: newId,
         name: name,
         targetClassId: newTargetId,
+      );
+}
+
+extension ExtensionShapeExt on ExtensionShape {
+  /// Creates a new [ExtensionShape] based on this one, but with the id and extendedClassId replaced.
+  ExtensionShape replaceWithNewIds({
+    required int newId,
+    required int newExtendedClassId,
+  }) =>
+      ExtensionShape(
+        id: newId,
+        name: name,
+        extendedClassId: newExtendedClassId,
+        getters: getters,
+        setters: setters,
+        methods: methods,
+        staticGetters: staticGetters,
+        staticSetters: staticSetters,
+        staticMethods: staticMethods,
       );
 }
 
@@ -74,6 +93,7 @@ extension LibraryShapeExt on LibraryShape {
     List<int>? exportedSetters,
     List<int>? exportedFunctions,
     List<int>? exportedClasses,
+    List<int>? exportedExtensions,
     List<int>? exportedTypedefs,
   }) =>
       LibraryShape(
@@ -82,6 +102,7 @@ extension LibraryShapeExt on LibraryShape {
         exportedSetters: exportedSetters ?? this.exportedSetters,
         exportedFunctions: exportedFunctions ?? this.exportedFunctions,
         exportedClasses: exportedClasses ?? this.exportedClasses,
+        exportedExtensions: exportedExtensions ?? this.exportedExtensions,
         exportedTypedefs: exportedTypedefs ?? this.exportedTypedefs,
       );
 }

@@ -12,6 +12,7 @@ summary: |-
         "exportedSetters": [],
         "exportedFunctions": [],
         "exportedClasses": [],
+        "exportedExtensions": [],
         "exportedTypedefs": []
       }
     ],
@@ -19,6 +20,7 @@ summary: |-
     "setters": [],
     "functions": [],
     "classes": [],
+    "extensions": [],
     "typedefs": []
   }
 package:

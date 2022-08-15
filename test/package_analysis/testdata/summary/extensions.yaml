@@ -1,6 +1,6 @@
 ---
 
-name: The summary should include class members such as properties, getters, setters and methods
+name: The summary should include extensions
 summary: |-
   {
     "name": "test.package",
@@ -14,7 +14,9 @@ summary: |-
         "exportedClasses": [
           0
         ],
-        "exportedExtensions": [],
+        "exportedExtensions": [
+          1
+        ],
         "exportedTypedefs": []
       }
     ],
@@ -27,71 +29,57 @@ summary: |-
         "name": "C",
         "getters": [
           {
-            "name": "finalVariable"
-          },
-          {
             "name": "hashCode"
           },
           {
-            "name": "initializedVariable"
-          },
-          {
-            "name": "lateFinalVariable"
-          },
-          {
-            "name": "lateVariable"
-          },
-          {
-            "name": "myGetter"
-          },
-          {
-            "name": "nullableVariable"
-          },
-          {
             "name": "runtimeType"
-          },
-          {
-            "name": "typedInitializedVariable"
-          },
-          {
-            "name": "variable"
           }
         ],
-        "setters": [
-          {
-            "name": "initializedVariable"
-          },
-          {
-            "name": "lateFinalVariable"
-          },
-          {
-            "name": "lateVariable"
-          },
-          {
-            "name": "mySetter"
-          },
-          {
-            "name": "nullableVariable"
-          },
-          {
-            "name": "typedInitializedVariable"
-          },
-          {
-            "name": "variable"
-          }
-        ],
+        "setters": [],
         "methods": [
           {
             "name": "=="
-          },
-          {
-            "name": "myMethod"
           },
           {
             "name": "noSuchMethod"
           },
           {
             "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ]
+      }
+    ],
+    "extensions": [
+      {
+        "id": 1,
+        "name": "D",
+        "extendedClassId": 0,
+        "getters": [
+          {
+            "name": "myGetter"
+          }
+        ],
+        "setters": [
+          {
+            "name": "mySetter"
+          }
+        ],
+        "methods": [
+          {
+            "name": "myMethod"
           }
         ],
         "staticGetters": [
@@ -148,35 +136,18 @@ summary: |-
         ],
         "staticMethods": [
           {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          },
-          {
             "name": "myStaticMethod"
           }
         ]
       }
     ],
-    "extensions": [],
     "typedefs": []
   }
 package:
   - path: lib/a.dart
     content: |
-      class C {
-        var variable;
-        int? nullableVariable;
-        var initializedVariable = 1;
-        int typedInitializedVariable = 1;
-        final finalVariable = 1;
-        late int lateVariable;
-        late final int lateFinalVariable;
-
+      class C {}
+      extension D on C {
         static var staticVariable;
         static int? staticNullableVariable;
         static var staticInitializedVariable = 1;
