@@ -39,6 +39,6 @@ target:
         void main() {
         }
 issues:
-  - 'identifier: method'
+  - 'identifier: method,'
 
 ...

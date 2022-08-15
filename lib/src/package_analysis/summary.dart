@@ -252,8 +252,12 @@ Future<PackageShape> summarizePackage({
     });
     package.typedefs.addAll(typedefs);
 
-    final extensions =
-        publicSymbols.whereType<ExtensionElement>().where((extensionElement) {
+    final extensions = publicSymbols
+        .whereType<ExtensionElement>()
+        .where((extensionElement) =>
+            // ensure it is a class that is being extended
+            extensionElement.extendedType.element2 is ClassElement)
+        .where((extensionElement) {
       exportedExtensions.add(extensionElement.id);
       return !package.extensions
           .any((thisExtension) => extensionElement.id == thisExtension.id);

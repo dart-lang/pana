@@ -68,8 +68,10 @@ extension ClassShapeExt on ClassShape {
   /// not cause result in duplicate class members.
   void add({required List<ClassShape> others}) {
     /// Adds elements of [other] to [list] without creating duplicates.
-    void addWithoutDuplicates(List<ClassMemberShapeBase> list,
-        List<ClassMemberShapeBase> other,) {
+    void addWithoutDuplicates(
+      List<ClassMemberShapeBase> list,
+      List<ClassMemberShapeBase> other,
+    ) {
       list.addAll(other.where((otherMember) => !list
           .any((existingMember) => existingMember.name == otherMember.name)));
     }
@@ -118,8 +120,8 @@ extension PackageShapeExt on PackageShape {
   Iterable<ClassShape> classesMatchingName(String name) {
     return classes.where((thisClass) =>
         // either the name of the class has to match,
-        thisClass.name == name ||
         // or there must exist a typedef with a matching name and a target id which matches that of the class
+    thisClass.name == name ||
         typedefs.any((thisTypedef) =>
             thisTypedef.name == name &&
             thisClass.id == thisTypedef.targetClassId));
@@ -147,10 +149,8 @@ extension PackageShapeExt on PackageShape {
   /// [className] with a getter (static or not) named [name]?
   bool containsGetterWithName(String className, String name) {
     for (final thisClass in classesMatchingName(className)) {
-      if ([
-        ...thisClass.getters,
-        ...thisClass.staticGetters,
-      ].any((property) => property.name == name)) {
+      if ([...thisClass.getters, ...thisClass.staticGetters]
+          .any((property) => property.name == name)) {
         return true;
       }
     }
@@ -161,10 +161,55 @@ extension PackageShapeExt on PackageShape {
   /// [className] with a setter (static or not) named [name]?
   bool containsSetterWithName(String className, String name) {
     for (final thisClass in classesMatchingName(className)) {
-      if ([
-        ...thisClass.setters,
-        ...thisClass.staticSetters,
-      ].any((property) => property.name == name)) {
+      if ([...thisClass.setters, ...thisClass.staticSetters]
+          .any((property) => property.name == name)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Returns an [Iterable<ExtensionShape>] corresponding to the extensions
+  /// named [name].
+  Iterable<ExtensionShape> extensionsMatchingName(String name) =>
+      extensions.where((thisExtension) => thisExtension.name == name);
+
+  /// Does this package have an extension named [extensionName] with a method
+  /// (static or not) named [name]?
+  bool containsExtensionMethodWithName(String extensionName, String name) {
+    for (final thisExtension in extensionsMatchingName(extensionName)) {
+      if ([...thisExtension.methods, ...thisExtension.staticMethods]
+          .any((method) => method.name == name)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Does this package have an extension named [extensionName] with a property
+  /// (static or not, getter or setter) named [name]?
+  bool containsExtensionPropertyWithName(String extensionName, String name) =>
+      containsExtensionGetterWithName(extensionName, name) ||
+      containsExtensionSetterWithName(extensionName, name);
+
+  /// Does this package have an extension named [extensionName] with a getter
+  /// (static or not) named [name]?
+  bool containsExtensionGetterWithName(String extensionName, String name) {
+    for (final thisExtension in extensionsMatchingName(extensionName)) {
+      if ([...thisExtension.getters, ...thisExtension.staticGetters]
+          .any((property) => property.name == name)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Does this package have an extension named [extensionName] with a setter
+  /// (static or not) named [name]?
+  bool containsExtensionSetterWithName(String extensionName, String name) {
+    for (final thisExtension in extensionsMatchingName(extensionName)) {
+      if ([...thisExtension.setters, ...thisExtension.staticSetters]
+          .any((property) => property.name == name)) {
         return true;
       }
     }

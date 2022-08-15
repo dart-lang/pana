@@ -93,8 +93,8 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
 
     for (final reference in possibleIssue.references) {
       final typedefsHere = await context.findTypedefs(reference.sourceUrl!);
-      if (typedefsHere[possibleIssue.className!] != null) {
-        possibleParentNames.add(typedefsHere[possibleIssue.className!]!);
+      if (typedefsHere[possibleIssue.parentName!] != null) {
+        possibleParentNames.add(typedefsHere[possibleIssue.parentName!]!);
       }
     }
 
@@ -195,10 +195,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// this symbol, throwing an [AnalysisException] if the symbol does not need
   /// to be/cannot be analyzed.
   void processIdentifier(SimpleIdentifier identifier) {
-    if (element.enclosingElement3 is ExtensionElement) {
-      throw AnalysisException('Extensions are not yet supported.');
-    }
-
     span = SourceFile.fromString(
       context.readFile(context.uriToPath(currentUri)!),
       url: currentUri,
@@ -239,7 +235,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     super.visitCompilationUnit(node);
   }
 
-  // TODO: we probably need visitPropertyAccess too
+  // TODO: do we need visitPropertyAccess too?
   // Invocations of getters and setters are represented by either PrefixedIdentifier or PropertyAccess nodes.
   // PropertyAccess: The access of a property of an object. Note, however, that
   // accesses to properties of objects can also be represented as
@@ -272,8 +268,12 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     try {
       processIdentifier(node.identifier);
-      parentElement =
-          node.prefix.staticType?.element2! ?? node.prefix.staticElement!;
+      if (element.enclosingElement3 is ExtensionElement) {
+        parentElement = element.enclosingElement3!;
+      } else {
+        parentElement =
+            node.prefix.staticType?.element2! ?? node.prefix.staticElement!;
+      }
       identifyDependencyName();
     } on AnalysisException {
       // do not continue if this invocation is unfit for analysis
@@ -289,8 +289,11 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       }
       constraintIssue = !dependencyShape.containsPropertyWithName(
           parentElement.name!, symbolName);
+    } else if (parentElement is ExtensionElement) {
+      constraintIssue = !dependencyShape.containsExtensionPropertyWithName(
+          parentElement.name!, symbolName);
     } else {
-      // we may be looking at a top-level getter or setter, or that of an extension
+      // we may be looking at a top-level getter or setter
       // context.warning('Subclass ${parentElement.toString()} of parentElement (getter/setter) is not supported.');
       return;
     }
@@ -302,8 +305,9 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             currentVersion: context.findInstalledVersion(packageName),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
-            className: parentElement.name!,
+            parentName: parentElement.name!,
             kind: element.kind,
+            parentKind: parentElement.kind,
             references: [span],
           )
         : null;
@@ -323,7 +327,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     try {
       processIdentifier(node.methodName);
-      if (element is FunctionElement) {
+      if (element is FunctionElement ||
+          element.enclosingElement3 is ExtensionElement) {
         parentElement = element.enclosingElement3!;
       } else if (node.parent is CascadeExpression) {
         // TODO: handle cascade notation
@@ -331,6 +336,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       } else if (node.target == null) {
         return;
       } else {
+        // TODO: determining parentElement through node.target seems unreliable...
         parentElement = node.target!.staticType?.element2! ??
             (node.target! as Identifier).staticElement!;
       }
@@ -352,8 +358,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           parentElement.name!, symbolName);
     } else if (parentElement is CompilationUnitElement) {
       constraintIssue = !dependencyShape.containsFunctionWithName(symbolName);
+    } else if (parentElement is ExtensionElement) {
+      constraintIssue = !dependencyShape.containsExtensionMethodWithName(
+          parentElement.name!, symbolName);
     } else {
-      // we may be looking at an extension method
       // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');
       return;
     }
@@ -365,10 +373,13 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             currentVersion: context.findInstalledVersion(packageName),
             lowestVersion: Version.parse(dependencyShape.version),
             identifier: symbolName,
-            className: element.kind == ElementKind.FUNCTION
+            parentName: element.kind == ElementKind.FUNCTION
                 ? null
                 : parentElement.name!,
             kind: element.kind,
+            parentKind: element.kind == ElementKind.FUNCTION
+                ? null
+                : parentElement.kind,
             references: [span],
           )
         : null;
@@ -410,46 +421,83 @@ class LowerBoundConstraintIssue {
   /// constraint [constraint].
   final String identifier;
 
-  /// The name of the enclosing class of the missing identifier, or null if
-  /// [identifier] is not a class member.
-  final String? className;
+  /// The name of the enclosing class/extension of the missing [identifier], or
+  /// null if [identifier] is not a member of a class/extension.
+  final String? parentName;
 
-  // TODO: make the type of [identifierKind] an enum with only the supported [ElementKind]s?
-  /// The kind of this identifier, one of [ElementKind.FUNCTION],
-  /// [ElementKind.METHOD], [ElementKind.GETTER], [ElementKind.SETTER]
+  // TODO: Use enumeration somehow to assert that this member is one of several supported values
+  /// The [ElementKind] of the [Element] corresponding to the missing
+  /// [identifier], one of [ElementKind.FUNCTION], [ElementKind.METHOD],
+  /// [ElementKind.GETTER], [ElementKind.SETTER].
   final ElementKind kind;
+
+  // TODO: Use enumeration somehow to assert that this member is one of several supported values
+  /// The [ElementKind] of the parent [Element] of the missing [identifier],
+  /// [parentName], one of [ElementKind.CLASS], [ElementKind.EXTENSION], or null
+  /// if [identifier] is not a member of a class/extension.
+  final ElementKind? parentKind;
 
   /// List of locations in the analyzed source code where [identifier] was referenced.
   final List<SourceSpan> references;
 
+  // TODO: any way to make this cleaner?
   /// Does [package] (some version of the defining dependency) contain [identifier]?
-  /// If [classNameAlias] is specified, it will be used instead of [className].
-  bool identifierExistsInPackage(
-      {required PackageShape package, String? classNameAlias}) {
+  /// If [classNameAlias] is specified, it will be used instead of [parentName].
+  bool identifierExistsInPackage({
+    required PackageShape package,
+    String? classNameAlias,
+  }) {
     switch (kind) {
       case ElementKind.FUNCTION:
         return package.containsFunctionWithName(identifier);
 
       case ElementKind.METHOD:
-        return package.containsMethodWithName(
-          classNameAlias ?? className!,
-          identifier,
-        );
+        if (parentKind == ElementKind.CLASS) {
+          return package.containsMethodWithName(
+            classNameAlias ?? parentName!,
+            identifier,
+          );
+        } else if (parentKind == ElementKind.EXTENSION) {
+          return package.containsExtensionMethodWithName(
+            parentName!,
+            identifier,
+          );
+        } else {
+          throw StateError('Unexpected parent ElementKind $parentKind.');
+        }
 
       case ElementKind.GETTER:
-        return package.containsGetterWithName(
-          classNameAlias ?? className!,
-          identifier,
-        );
+        if (parentKind == ElementKind.CLASS) {
+          return package.containsGetterWithName(
+            classNameAlias ?? parentName!,
+            identifier,
+          );
+        } else if (parentKind == ElementKind.EXTENSION) {
+          return package.containsExtensionGetterWithName(
+            parentName!,
+            identifier,
+          );
+        } else {
+          throw StateError('Unexpected parent ElementKind $parentKind.');
+        }
 
       case ElementKind.SETTER:
-        return package.containsSetterWithName(
-          classNameAlias ?? className!,
-          identifier,
-        );
+        if (parentKind == ElementKind.CLASS) {
+          return package.containsSetterWithName(
+            classNameAlias ?? parentName!,
+            identifier,
+          );
+        } else if (parentKind == ElementKind.EXTENSION) {
+          return package.containsExtensionSetterWithName(
+            parentName!,
+            identifier,
+          );
+        } else {
+          throw StateError('Unexpected parent ElementKind $parentKind.');
+        }
 
       default:
-        throw StateError('Unexpected ElementKind $kind.');
+        throw StateError('Unexpected identifier ElementKind $kind.');
     }
   }
 
@@ -464,8 +512,9 @@ class LowerBoundConstraintIssue {
     required this.currentVersion,
     required this.lowestVersion,
     required this.identifier,
-    required this.className,
+    required this.parentName,
     required this.kind,
+    required this.parentKind,
     required this.references,
   });
 }

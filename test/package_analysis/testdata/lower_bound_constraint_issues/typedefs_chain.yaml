@@ -68,6 +68,6 @@ target:
           E().newMethod();
         }
 issues:
-  - 'identifier: newMethod'
+  - 'identifier: newMethod,'
 
 ...

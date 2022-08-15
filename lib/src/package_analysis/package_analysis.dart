@@ -205,7 +205,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
     for (final issue in foundIssues) {
       dummyPackageAnalysisContext.warning(
-          'Symbol ${issue.kind} ${issue.identifier} with parent ${issue.className} is used in $targetName but could not be found in dependency ${issue.dependencyPackageName} version ${issue.lowestVersion}, which is allowed by constraint ${issue.constraint}.');
+          'Symbol ${issue.kind} ${issue.identifier} with parent ${issue.parentName} is used in $targetName but could not be found in dependency ${issue.dependencyPackageName} version ${issue.lowestVersion}, which is allowed by constraint ${issue.constraint}.');
       for (final reference in issue.references) {
         dummyPackageAnalysisContext.warning(reference.message(''));
       }
