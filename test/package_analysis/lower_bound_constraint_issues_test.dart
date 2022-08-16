@@ -1,14 +1,7 @@
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:collection/collection.dart';
-import 'package:pana/src/package_analysis/common.dart';
 import 'package:pana/src/package_analysis/lower_bound_constraint_analysis.dart';
-import 'package:pana/src/package_analysis/package_analysis.dart';
-import 'package:pana/src/package_analysis/shapes.dart';
-import 'package:pana/src/package_analysis/summary.dart';
 import 'package:path/path.dart' as path;
-import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
@@ -28,10 +21,13 @@ Future<void> main() async {
     final doc = loadYaml(await (file as File).readAsString());
     final packages = doc['packages'] as List;
     test(doc['name'], () async {
+      // set up package server
+      await serveNoPackages();
+
       // serve all versions of the provided dependencies
       for (final package in packages) {
         final files = package['package'] as List;
-        await servePackages((b) => b!
+        globalPackageServer!.add((b) => b!
           ..serve(
             package['name'] as String,
             package['version'] as String,
@@ -45,7 +41,7 @@ Future<void> main() async {
       // serve the target package which the dummy will point to
       final targetYamlDependencies = doc['target']['dependencies'] as List;
       final targetYamlContent = doc['target']['package'] as List;
-      await servePackages((b) => b!
+      globalPackageServer!.add((b) => b!
         ..serve(
           'test.package',
           '1.0.0',
@@ -57,12 +53,12 @@ Future<void> main() async {
                   dependency['name'],
                   {
                     'hosted': {
-                      'name': dependency['name'],
-                      'url': globalPackageServer!.url,
-                    },
-                    'version': dependency['version']
-                  },
-                ),
+                          'name': dependency['name'],
+                          'url': globalPackageServer!.url,
+                        },
+                        'version': dependency['version']
+                      },
+                    ),
               ),
             ),
           },
@@ -74,92 +70,11 @@ Future<void> main() async {
           .createTemp('dummy_package');
       final dummyPath = dummyDir.path;
 
-      // write the dummy package pubspec to disk
-      await File(path.join(dummyPath, 'pubspec.yaml')).writeAsString('''
-name: dummy.package
-version: 1.0.0
-environment:
-  sdk: '>=2.13.0 <3.0.0'
-dependencies:
-  test.package:
-    hosted:
-      name: test.package
-      url: ${globalPackageServer!.url}
-    version: 1.0.0
-''');
-
-      // fetch the dependencies of the dummy package on disk (the target package
-      // and other transitive dependencies)
-      await fetchDependencies(dummyPath);
-
-      // TODO: after roughly this point we are repeating the lbcanalysis command, instead we can just execute it and examine the results
-
-      final dummyPackageAnalysisContext = PackageAnalysisContextWithStderr(
-        session: AnalysisContextCollection(includedPaths: [dummyPath])
-            .contextFor(dummyPath)
-            .currentSession,
-        packagePath: dummyPath,
-        targetPackageName: 'test.package',
-      );
-
-      // collect metadata and summaries of the target's dependencies
-      final dependencySummaries = <String, PackageShape>{};
-      for (final dependency in doc['target']['dependencies']) {
-        final dependencyName = dependency['name'] as String;
-        final dependencyPackages =
-            packages.where((package) => package['name'] == dependencyName);
-
-        // find the minimum allowed version of this package
-        final allVersionsString =
-            dependencyPackages.map((package) => package['version'] as String);
-        final minVersion = allVersionsString
-            .map(Version.parse)
-            .sorted((a, b) => a.compareTo(b))
-            .firstWhere(dummyPackageAnalysisContext
-                .dependencies[dependencyName]!.version.allows)
-            .toString();
-        final dependencyMin = dependencyPackages
-            .firstWhere((package) => package['version'] == minVersion);
-
-        // TODO: can we rely on this path being empty and our testing not conflicting with physical files on disk?
-        final packagePath = path.canonicalize(path.join(dependencyName));
-
-        // set up the minimum version of this dependency in memory
-        final provider = setupBasicPackage(
-          packagePath: packagePath,
-          packageName: dependencyName,
-          packageVersion: minVersion,
-        );
-        for (final node in dependencyMin['package']) {
-          final filePath = path.canonicalize(path.join(
-            dependencyName,
-            node['path'] as String,
-          ));
-          provider.setOverlay(
-            filePath,
-            content: node['content'] as String,
-            modificationStamp: 0,
-          );
-        }
-
-        // produce a summary of the in-memory version of this dependency
-        final session = AnalysisContextCollection(
-          includedPaths: [packagePath],
-          resourceProvider: provider,
-        ).contextFor(packagePath).currentSession;
-        dependencySummaries[dependencyName] = await summarizePackage(
-          context: PackageAnalysisContextWithStderr(
-            session: session,
-            packagePath: packagePath,
-          ),
-          packagePath: packagePath,
-        );
-      }
-
       // discover issues that exist in the target package
       final issues = await lowerBoundConstraintAnalysis(
-        context: dummyPackageAnalysisContext,
-        dependencySummaries: dependencySummaries,
+        targetName: 'test.package',
+        tempPath: dummyPath,
+        pubHostedUrl: globalPackageServer!.url,
       );
       final issuesString = issues.map((issue) => issue.toString()).toList();
 
@@ -171,12 +86,12 @@ dependencies:
       // which matches that expected issue
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
-            (issueString) => RegExp(expectedIssue).hasMatch(issueString));
+                (issueString) => RegExp(expectedIssue).hasMatch(issueString));
         issuesString.removeAt(matchingIndex);
         // we expect that this regex will only match one issue
         expect(
             issuesString.indexWhere(
-                (issueString) => RegExp(expectedIssue).hasMatch(issueString)),
+                    (issueString) => RegExp(expectedIssue).hasMatch(issueString)),
             equals(-1));
       }
 

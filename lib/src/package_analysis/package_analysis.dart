@@ -2,12 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:analyzer/exception/exception.dart';
 import 'package:args/command_runner.dart';
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
-import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:path/path.dart' as path;
 import 'package:pool/pool.dart';
 import 'package:retry/retry.dart';
@@ -102,120 +100,29 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       throw ArgumentError(
           'The directory containing package version list cache could not be found.');
     }
-    final targetVersions = await fetchSortedPackageVersionList(
-      packageName: targetName,
-      cachePath: cachePath,
-    );
 
     // create a unique temporary directory for the target and the dependencies
     final tempDir = await Directory(Directory.systemTemp.path)
         .createTemp('lbcanalysis_temp');
-    final baseFolder = path.canonicalize(tempDir.path);
-
-    final dummyPath = path.join(baseFolder, 'target');
-    final dependencyFolder = path.join(baseFolder, 'dependencies');
 
     try {
-      await fetchUsingDummyPackage(
-        name: targetName,
-        version: targetVersions.last,
-        destination: dummyPath,
-        wipeTarget: true,
-      );
-    } on ProcessException catch (exception) {
-      await tempDir.delete(recursive: true);
-      throw AnalysisException(
-          'Failed to download target package $targetName with error code ${exception.errorCode}: ${exception.message}');
-    }
-
-    // create session for analysing the package being searched for issues (the target package)
-    final collection = AnalysisContextCollection(includedPaths: [dummyPath]);
-    final dummyPackageAnalysisContext = PackageAnalysisContextWithStderr(
-      session: collection.contextFor(dummyPath).currentSession,
-      packagePath: dummyPath,
-      targetPackageName: targetName,
-    );
-
-    // if there are no dependencies, there is nothing to analyze
-    if (dummyPackageAnalysisContext.dependencies.isEmpty) {
-      return;
-    }
-
-    final dependencySummaries = <String, PackageShape>{};
-
-    // iterate over each dependency of the target package and for each one:
-    // - determine minimum allowed version
-    // - determine installed (current/actual) version
-    // - download minimum allowed version
-    // - produce a summary of the minimum allowed version
-    for (final dependencyEntry
-        in dummyPackageAnalysisContext.dependencies.entries) {
-      final dependencyName = dependencyEntry.key;
-      final dependencyVersionConstraint = dependencyEntry.value.version;
-      final dependencyDestination =
-          path.join(dependencyFolder, '${dependencyName}_dummy');
-
-      // determine the minimum allowed version of this dependency as allowed
-      // by the constraints imposed by the target package
-      final allVersions = await fetchSortedPackageVersionList(
-        packageName: dependencyName,
+      final foundIssues = await lowerBoundConstraintAnalysis(
+        targetName: targetName,
+        tempPath: path.canonicalize(tempDir.path),
         cachePath: cachePath,
       );
-      final minVersion =
-          allVersions.firstWhereOrNull(dependencyVersionConstraint.allows);
 
-      if (minVersion == null) {
-        dummyPackageAnalysisContext.warning(
-            'Skipping dependency $dependencyName, could not determine minimum allowed version.');
-        continue;
+      for (final issue in foundIssues) {
+        print(
+            'Symbol ${issue.kind} ${issue.identifier} with parent ${issue.parentName} is used in $targetName but could not be found in dependency ${issue.dependencyPackageName} version ${issue.lowestVersion}, which is allowed by constraint ${issue.constraint}.');
+        for (final reference in issue.references) {
+          print(reference.message(''));
+        }
       }
-
-      // download minimum allowed version of dependency
-      try {
-        await fetchUsingDummyPackage(
-          name: dependencyName,
-          version: minVersion,
-          destination: dependencyDestination,
-          wipeTarget: true,
-        );
-      } on ProcessException catch (exception) {
-        dummyPackageAnalysisContext.warning(
-            'Skipping dependency $dependencyName of target package $targetName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
-        continue;
-      }
-
-      // create session for producing a summary of this dependency
-      final collection = AnalysisContextCollection(includedPaths: [
-        dependencyDestination,
-      ]);
-      final dependencyPackageAnalysisContext = PackageAnalysisContextWithStderr(
-        session: collection.contextFor(dependencyDestination).currentSession,
-        packagePath: dependencyDestination,
-      );
-
-      // produce a summary of the minimum version of this dependency and store it
-      dependencySummaries[dependencyName] = await summarizePackage(
-        context: dependencyPackageAnalysisContext,
-        packagePath:
-            dependencyPackageAnalysisContext.findPackagePath(dependencyName),
-      );
+    } finally {
+      // clean up by deleting the temp directory
+      await tempDir.delete(recursive: true);
     }
-
-    final foundIssues = await lowerBoundConstraintAnalysis(
-      context: dummyPackageAnalysisContext,
-      dependencySummaries: dependencySummaries,
-    );
-
-    for (final issue in foundIssues) {
-      dummyPackageAnalysisContext.warning(
-          'Symbol ${issue.kind} ${issue.identifier} with parent ${issue.parentName} is used in $targetName but could not be found in dependency ${issue.dependencyPackageName} version ${issue.lowestVersion}, which is allowed by constraint ${issue.constraint}.');
-      for (final reference in issue.references) {
-        dummyPackageAnalysisContext.warning(reference.message(''));
-      }
-    }
-
-    // clean up by deleting the temp directory
-    await tempDir.delete(recursive: true);
   }
 }
 

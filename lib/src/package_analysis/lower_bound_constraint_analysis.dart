@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
@@ -5,6 +8,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/exception/exception.dart';
 import 'package:collection/collection.dart';
+import 'package:pana/src/package_analysis/package_analysis.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:pana/src/package_analysis/shapes_ext.dart';
 import 'package:pana/src/package_analysis/summary.dart';
@@ -14,14 +18,115 @@ import 'package:source_span/source_span.dart';
 
 import 'common.dart';
 
-/// Given a context associated with a target package and the summaries of the
-/// target's dependencies at their lower bound, analyze the target package and
-/// return a List of any found issues - where a symbol usage cannot be found in
-/// the relevant dependency's PackageShape.
+/// Analyze the target package [targetName], using the temporary directory
+/// [tempPath] to perform analysis, and return a [List] of any found issues -
+/// where a symbol usage cannot be found in the relevant dependency's
+/// [PackageShape].
+///
+/// If [cachePath] is provided, this folder is used to store cached package
+/// metadata. If [pubHostedUrl] is provided, it is used instead of `'pub.dev'`
+/// to retrieve package version information.
 Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
-  required PackageAnalysisContext context,
-  required Map<String, PackageShape> dependencySummaries,
+  required String targetName,
+  required String tempPath,
+  String? cachePath,
+  String? pubHostedUrl,
 }) async {
+  final dummyPath = path.join(tempPath, 'target');
+  final dependencyFolder = path.join(tempPath, 'dependencies');
+
+  try {
+    await fetchUsingDummyPackage(
+      name: targetName,
+      version: (await fetchSortedPackageVersionList(
+        packageName: targetName,
+        cachePath: cachePath,
+        pubHostedUrl: pubHostedUrl,
+      ))
+          .last,
+      destination: dummyPath,
+      wipeTarget: true,
+      pubHostedUrl: pubHostedUrl,
+    );
+  } on ProcessException catch (exception) {
+    throw AnalysisException(
+        'Failed to download target package $targetName with error code ${exception.errorCode}: ${exception.message}');
+  }
+
+  // create session for analysing the package being searched for issues (the target package)
+  final collection = AnalysisContextCollection(includedPaths: [dummyPath]);
+  final context = PackageAnalysisContextWithStderr(
+    session: collection.contextFor(dummyPath).currentSession,
+    packagePath: dummyPath,
+    targetPackageName: targetName,
+  );
+
+  // if there are no dependencies, there are no issues
+  if (context.dependencies.isEmpty) {
+    return [];
+  }
+
+  final dependencySummaries = <String, PackageShape>{};
+
+  // iterate over each dependency of the target package and for each one:
+  // - determine minimum allowed version
+  // - determine installed (current/actual) version
+  // - download minimum allowed version
+  // - produce a summary of the minimum allowed version
+  for (final dependencyEntry in context.dependencies.entries) {
+    final dependencyName = dependencyEntry.key;
+    final dependencyVersionConstraint = dependencyEntry.value.version;
+    final dependencyDestination =
+        path.join(dependencyFolder, '${dependencyName}_dummy');
+
+    // determine the minimum allowed version of this dependency as allowed
+    // by the constraints imposed by the target package
+    final allVersions = await fetchSortedPackageVersionList(
+      packageName: dependencyName,
+      cachePath: cachePath,
+      pubHostedUrl: pubHostedUrl,
+    );
+    final minVersion =
+        allVersions.firstWhereOrNull(dependencyVersionConstraint.allows);
+
+    if (minVersion == null) {
+      context.warning(
+          'Skipping dependency $dependencyName, could not determine minimum allowed version.');
+      continue;
+    }
+
+    // download minimum allowed version of dependency
+    try {
+      await fetchUsingDummyPackage(
+        name: dependencyName,
+        version: minVersion,
+        destination: dependencyDestination,
+        wipeTarget: true,
+        pubHostedUrl: pubHostedUrl,
+      );
+    } on ProcessException catch (exception) {
+      context.warning(
+          'Skipping dependency $dependencyName of target package $targetName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
+      continue;
+    }
+
+    // create session for producing a summary of this dependency
+    final collection = AnalysisContextCollection(includedPaths: [
+      dependencyDestination,
+    ]);
+    final dependencyPackageAnalysisContext = PackageAnalysisContextWithStderr(
+      session: collection.contextFor(dependencyDestination).currentSession,
+      packagePath: dependencyDestination,
+    );
+
+    // produce a summary of the minimum version of this dependency and store it
+    dependencySummaries[dependencyName] = await summarizePackage(
+      context: dependencyPackageAnalysisContext,
+      packagePath:
+          dependencyPackageAnalysisContext.findPackagePath(dependencyName),
+    );
+  }
+
   var astVisitor = _LowerBoundConstraintVisitor(
     context: context,
     dependencySummaries: dependencySummaries,
@@ -60,14 +165,14 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     if (!installedDependencySummaries
         .containsKey(possibleIssue.dependencyPackageName)) {
       installedDependencySummaries[possibleIssue.dependencyPackageName] =
-          await summarizePackage(
+      await summarizePackage(
         context: context,
         packagePath:
-            context.findPackagePath(possibleIssue.dependencyPackageName),
+        context.findPackagePath(possibleIssue.dependencyPackageName),
       );
     }
     final installedDependency =
-        installedDependencySummaries[possibleIssue.dependencyPackageName]!;
+    installedDependencySummaries[possibleIssue.dependencyPackageName]!;
 
     // if this identifier exists in the current version of the defining dependency,
     // this is not a false positive
@@ -103,17 +208,17 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
         possibleParentNames.isEmpty
             ? <String>{}
             : possibleParentNames.first.toSet(),
-        (a, b) => a.intersection(b.toSet()));
+            (a, b) => a.intersection(b.toSet()));
 
     // if replacing the parent class name with any one of the found aliases
     // results in the identifier being found in the dependency summary,
     // then we have a false positive because a typedef alias was used
     if (commonParentNames
         .any((classNameAlias) => possibleIssue.identifierExistsInPackage(
-              package:
-                  dependencySummaries[possibleIssue.dependencyPackageName]!,
-              classNameAlias: classNameAlias,
-            ))) {
+      package:
+      dependencySummaries[possibleIssue.dependencyPackageName]!,
+      classNameAlias: classNameAlias,
+    ))) {
       continue;
     }
 
@@ -174,7 +279,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       throw AnalysisException('Could not determine library of parentElement.');
     }
     final tryPackageName =
-        packageFromLibraryUri(parentElement.library!.identifier);
+    packageFromLibraryUri(parentElement.library!.identifier);
     // if the defining package isn't a HostedDependency of the target, then
     // this symbol cannot be analyzed
     if (tryPackageName == null ||
@@ -380,8 +485,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             parentKind: element.kind == ElementKind.FUNCTION
                 ? null
                 : parentElement.kind,
-            references: [span],
-          )
+      references: [span],
+    )
         : null;
   }
 }

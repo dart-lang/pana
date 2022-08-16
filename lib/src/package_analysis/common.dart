@@ -251,6 +251,7 @@ List<resource.File> getAllFiles(resource.Folder folder) {
 Future<List<Version>> fetchSortedPackageVersionList({
   required String packageName,
   String? cachePath,
+  String? pubHostedUrl,
 }) async {
   List<Version> metadataStringToSortedVersions(String metadata) {
     final versionsMetadata = json.decode(metadata)['versions'] as List<dynamic>;
@@ -279,7 +280,8 @@ Future<List<Version>> fetchSortedPackageVersionList({
 
   try {
     metadataResponse = await retry(
-      () => c.get(Uri.parse('https://pub.dev/api/packages/$packageName')),
+      () => c.get(Uri.parse(
+          '${pubHostedUrl ?? 'https://pub.dev'}/api/packages/$packageName')),
       retryIf: (e) => e is IOException,
     );
   } finally {
