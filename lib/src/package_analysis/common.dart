@@ -157,11 +157,15 @@ abstract class PackageAnalysisContext {
 ///
 /// A dummy package will be created at [destination] with a single dependency,
 /// pinning the dependency [name] to version [version].
+///
+/// If [pubHostedUrl] is provided, this url will be used in the pubspec of the
+/// dummy package to fetch package [name].
 Future<void> fetchUsingDummyPackage({
   required String name,
   required Version version,
   required String destination,
   required bool wipeTarget,
+  String? pubHostedUrl,
 }) async {
   // delete the target directory, if it exists and wipe is enabled
   if (wipeTarget && await Directory(destination).exists()) {
@@ -174,12 +178,23 @@ Future<void> fetchUsingDummyPackage({
     'environment': {
       'sdk': '>=2.13.0 <3.0.0',
     },
-    'dependencies': {
-      name: version.toString(),
-    },
+    'dependencies': pubHostedUrl == null
+        ? {
+            name: version.toString(),
+          }
+        : {
+            name: {
+              'hosted': {
+                'name': name,
+                'url': pubHostedUrl,
+              },
+              'version': version.toString(),
+            }
+          },
   };
 
   // if pubspec.yaml exists, delete it and create an empty file
+  // TODO: is this desirable behaviour?
   final pubspecFile = File(path.join(destination, 'pubspec.yaml'));
   if (await pubspecFile.exists()) {
     await pubspecFile.delete();
