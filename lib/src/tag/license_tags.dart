@@ -21,24 +21,24 @@ class LicenseTags {
       licenses.where((l) => l.isOsiApproved).toList();
   late final nonOsiApprovedLicenses =
       licenses.where((l) => !l.isOsiApproved).toList();
-}
 
-LicenseTags createLicenseTags(List<License> licenses) {
-  final tags = <String>[];
-  if (licenses.isNotEmpty) {
-    tags.addAll(licenses
-        .map((l) => 'license:${l.spdxIdentifier.toLowerCase()}')
-        .toSet());
-    if (licenses.every((l) => l.isFsfLibre)) {
-      tags.add(_licenseFsfLibreTag);
+  factory LicenseTags.fromLicenses(List<License> licenses) {
+    final tags = <String>[];
+    if (licenses.isNotEmpty) {
+      tags.addAll(licenses
+          .map((l) => 'license:${l.spdxIdentifier.toLowerCase()}')
+          .toSet());
+      if (licenses.every((l) => l.isFsfLibre)) {
+        tags.add(_licenseFsfLibreTag);
+      }
+      if (licenses.every((l) => l.isOsiApproved)) {
+        tags.add(_licenseOsiApprovedTag);
+      }
+    } else {
+      tags.add(_licenseUnknownTag);
     }
-    if (licenses.every((l) => l.isOsiApproved)) {
-      tags.add(_licenseOsiApprovedTag);
-    }
-  } else {
-    tags.add(_licenseUnknownTag);
+    return LicenseTags(licenses, tags);
   }
-  return LicenseTags(licenses, tags);
 }
 
 extension LicenseExt on License {

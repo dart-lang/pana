@@ -159,6 +159,6 @@ class PackageContext {
 
   late final licenses = detectLicenseInDir(packageDir);
   late final licenceTags = () async {
-    return createLicenseTags(await licenses);
+    return LicenseTags.fromLicenses(await licenses);
   }();
 }
