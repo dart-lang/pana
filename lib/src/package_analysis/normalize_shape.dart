@@ -26,6 +26,7 @@ PackageShape normalizePackageShape(PackageShape package) {
     ...package.setters,
     ...package.functions,
     ...package.classes,
+    ...package.extensions,
     ...package.typedefs,
   ]) {
     librariesWhereShapeExported[shape.id] = <String>[];
@@ -37,6 +38,7 @@ PackageShape normalizePackageShape(PackageShape package) {
       ...library.exportedSetters,
       ...library.exportedGetters,
       ...library.exportedFunctions,
+      ...library.exportedExtensions,
       ...library.exportedClasses,
       ...library.exportedTypedefs,
     ]) {
