@@ -230,14 +230,12 @@ List<resource.File> getAllFiles(resource.Folder folder) {
   return files;
 }
 
-/// Given the path to the directory containing cached available package version
-/// [List<String>]s, retrieve the [List<Version>] of available versions of the
-/// package [packageName] in ascending order of [Version], either by using the
-/// cache or by sending a request to `https://pub.dev/api/packages/$packageName`
-/// (in this case the response is also saved in the cache).
+/// Retrieve the [List<Version>] of available versions of the package named
+/// [packageName], in ascending order of [Version]. [cachePath] can be
+/// optionally provided to avoid repetitive requests to the pub api.
 Future<List<Version>> fetchSortedPackageVersionList({
   required String packageName,
-  required String cachePath,
+  String? cachePath,
 }) async {
   List<Version> metadataStringToSortedVersions(String metadata) {
     final versionsMetadata = json.decode(metadata)['versions'] as List<dynamic>;
@@ -248,12 +246,16 @@ Future<List<Version>> fetchSortedPackageVersionList({
         .toList();
   }
 
-  final cachedVersionPath = path.join(cachePath, '$packageName.json');
-  final versionListFile = File(cachedVersionPath);
+  late final File versionListFile;
+  if (cachePath != null) {
+    final cachedVersionPath = path.join(cachePath, '$packageName.json');
+    versionListFile = File(cachedVersionPath);
 
-  // if the version list is already cached, just read it from disk
-  if (await versionListFile.exists()) {
-    return metadataStringToSortedVersions(await versionListFile.readAsString());
+    // if the version list is already cached, just read it from disk
+    if (await versionListFile.exists()) {
+      return metadataStringToSortedVersions(
+          await versionListFile.readAsString());
+    }
   }
 
   // otherwise, we need to fetch it from pub
@@ -274,7 +276,9 @@ Future<List<Version>> fetchSortedPackageVersionList({
         'Failed to download metadata for package $packageName.');
   }
 
-  // if the response is ok, save the metadata to the cache and return the version list
-  await versionListFile.writeAsString(metadataResponse.body);
+  // if the response is ok, optionally save the metadata to the cache and return the version list
+  if (cachePath != null) {
+    await versionListFile.writeAsString(metadataResponse.body);
+  }
   return metadataStringToSortedVersions(metadataResponse.body);
 }

@@ -30,6 +30,9 @@ class SummaryCommand extends Command {
   final name = 'summary';
   @override
   final description = 'Displays a summary of the public API of a package.';
+  @override
+  final usage = '''Required positional arguments:
+  1) path to a directory containing the package to summarize''';
 
   SummaryCommand();
 
