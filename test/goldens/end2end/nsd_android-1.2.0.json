@@ -65,10 +65,10 @@
       {
         "id": "convention",
         "title": "Follow Dart file conventions",
-        "grantedPoints": 20,
-        "maxPoints": 20,
+        "grantedPoints": 30,
+        "maxPoints": 30,
         "status": "passed",
-        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `MIT`."
       },
       {
         "id": "documentation",

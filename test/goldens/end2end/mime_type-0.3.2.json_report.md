@@ -1,4 +1,4 @@
-## 5/20 Follow Dart file conventions
+## 5/30 Follow Dart file conventions
 
 ### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
@@ -31,6 +31,16 @@ Use `https` URLs instead.
 
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
+
+### [x] 0/10 points: Use an OSI-approved license
+
+<details>
+<summary>
+No license was recognized.
+</summary>
+
+Consider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to make it more accessible to the community.
+</details>
 
 ## 0/10 Provide documentation
 
