@@ -39,7 +39,7 @@ Use `https` URLs instead.
 No license was recognized.
 </summary>
 
-Consider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to share with the community.
+Consider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to make it more accessible to the community.
 </details>
 
 ## 0/10 Provide documentation
