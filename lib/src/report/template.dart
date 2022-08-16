@@ -292,7 +292,8 @@ Subsection _licenseSection(LicenseTags tags) {
       Issue(
         'The following ${licensePluralized(tags.nonOsiApprovedLicenses)} are not OSI-approved: ${licenseList(tags.nonOsiApprovedLicenses)}.',
         suggestion:
-            'Consider using an OSI-approved license in the `LICENSE` file to share with the community.',
+            'Consider using an [OSI-approved license](https://opensource.org/licenses)'
+            ' in the `LICENSE` file to share with the community.',
       ),
     ];
     grantedPoints = maxPoints ~/ 2;
@@ -302,7 +303,8 @@ Subsection _licenseSection(LicenseTags tags) {
       Issue(
         'No license was recognized.',
         suggestion:
-            'Consider using an OSI-approved license in the `LICENSE` file to share with the community.',
+            'Consider using an [OSI-approved license](https://opensource.org/licenses)'
+            ' in the `LICENSE` file to share with the community.',
       ),
     ];
   }
