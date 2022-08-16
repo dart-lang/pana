@@ -31,7 +31,7 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
 No license was recognized.
 </summary>
 
-Consider using an OSI-approved license in the `LICENSE` file to share with the community.
+Consider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to share with the community.
 </details>
 
 ## 0/10 Provide documentation
