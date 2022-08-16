@@ -353,15 +353,19 @@ class ToolEnvironment {
     List<String> args = const [],
     required bool usesFlutter,
   }) async {
-    final cmd = usesFlutter ? _flutterCmd : _dartCmd;
+    final pubCmd = usesFlutter
+        ?
+        // Use `flutter pub pub` to get the 'raw' pub command. This avoids
+        // issues with `flutter pub get` running in the example directory,
+        // argument parsing differing and other misalignments between `dart pub`
+        // and `flutter pub` (see https://github.com/dart-lang/pub/issues/2971).
+        [..._flutterCmd, 'pub', 'pub']
+        : [..._dartCmd, 'pub'];
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
-        // NOTE: `flutter pub get` also runs `pub get` in the example directory.
-        //       `dart pub get` will eventually do the same, but at that time we shall have a CLI flag to opt out.
-        // TODO: use the out-out flag as soon it becomes available
         final pr = await runProc(
-          [...cmd, 'pub', 'get', '.'],
+          [...pubCmd, 'get', '--no-example'],
           environment: _environment,
           workingDirectory: packageDir,
         );
@@ -391,8 +395,7 @@ class ToolEnvironment {
 
       final result = await runProc(
         [
-          ...cmd,
-          'pub',
+          ...pubCmd,
           'outdated',
           ...args,
         ],

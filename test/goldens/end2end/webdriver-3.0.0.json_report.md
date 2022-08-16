@@ -134,19 +134,19 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|`^3.0.0`|3.1.11|3.1.11|
-|[`matcher`]|`^0.12.10`|0.12.11|0.12.11|
-|[`path`]|`^1.8.0`|1.8.1|1.8.1|
+|[`archive`]|`^3.0.0`|3.3.1|3.3.1|
+|[`matcher`]|`^0.12.10`|0.12.12|0.12.12|
+|[`path`]|`^1.8.0`|1.8.2|1.8.2|
 |[`stack_trace`]|`^1.10.0`|1.10.0|1.10.0|
-|[`sync_http`]|`^0.3.0`|0.3.0|0.3.0|
+|[`sync_http`]|`^0.3.0`|0.3.1|0.3.1|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.15.0|1.15.0|
-|[`crypto`]|-|3.0.1|3.0.1|
-|[`typed_data`]|-|1.3.0|1.3.0|
+|[`collection`]|-|1.16.0|1.16.0|
+|[`crypto`]|-|3.0.2|3.0.2|
+|[`typed_data`]|-|1.3.1|1.3.1|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
