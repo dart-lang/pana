@@ -6,7 +6,7 @@ part of 'license_detector.dart';
 
 /// Regular expression to match the common pattern of `Copyright (c) yyyy[-yyyy] <name>.`
 final _copyrightRegExp =
-    RegExp(r'^copyright.+\d{4}.{0,100}$', caseSensitive: false);
+    RegExp(r'^copyright\s+(?:(c)|©)\s+\d{4}.{0,100}$', caseSensitive: false);
 
 @sealed
 class License {
