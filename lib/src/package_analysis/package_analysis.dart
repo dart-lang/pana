@@ -260,6 +260,7 @@ class BatchLBCAnalysisCommand extends Command {
     // (they will already be sorted in descending order of popularity)
     final c = http.Client();
     late final List<String> topPackages;
+    late final List<String> allPackages;
     try {
       final topPackagesResponse = await retry(
         () => c
@@ -269,14 +270,24 @@ class BatchLBCAnalysisCommand extends Command {
       topPackages = (json.decode(topPackagesResponse.body)['packages'] as List)
           .map((packageName) => packageName as String)
           .toList();
+
+      final allPackagesResponse = await retry(
+        () => c.get(Uri.parse('https://pub.dev/api/package-names')),
+        retryIf: (e) => e is IOException,
+      );
+      allPackages = (json.decode(allPackagesResponse.body)['packages'] as List)
+          .map((packageName) => packageName as String)
+          .toList();
     } finally {
       c.close();
     }
 
-    if (packageCountToAnalyze > topPackages.length) {
+    if (packageCountToAnalyze > allPackages.length) {
       throw ArgumentError(
-          'Number of packages to analyze is too high, the maximum supported value is ${topPackages.length}.');
+          'Number of packages to analyze is too high, the maximum supported value is ${allPackages.length}.');
     }
+    final packagesToAnalyse =
+        packageCountToAnalyze > topPackages.length ? allPackages : topPackages;
 
     // ensures that the indexes up to and including packageCountToAnalyze do not
     // lose their order when ordered lexicographically
@@ -287,7 +298,7 @@ class BatchLBCAnalysisCommand extends Command {
 
     final pool = Pool(resourceCount);
 
-    await Future.wait(topPackages
+    await Future.wait(packagesToAnalyse
         .getRange(0, packageCountToAnalyze)
         .mapIndexed((targetPackageIndex, targetPackageName) async {
       await pool.withResource(() async {
