@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:args/command_runner.dart';
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
@@ -113,8 +114,76 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       );
 
       for (final issue in foundIssues) {
-        print(
-            'Symbol ${issue.kind} ${issue.identifier} with parent ${issue.parentName} is used in $targetName but could not be found in dependency ${issue.dependencyPackageName} version ${issue.lowestVersion}, which is allowed by constraint ${issue.constraint}.');
+        final c = http.Client();
+        late final String targetHomepage;
+        late final String targetRepository;
+        late final String dependencyHomepage;
+        late final String dependencyRepository;
+        // TODO: not sure if nested try-finally here is OK
+        // I'm doing this because usually there are no found issues and no need to create an http client
+        try {
+          final targetResponse = await retry(
+            () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
+            retryIf: (e) => e is IOException,
+          );
+          final targetMetadata = json.decode(targetResponse.body)['latest']
+              ['pubspec'] as Map<String, dynamic>;
+          targetHomepage = targetMetadata.containsKey('homepage')
+              ? targetMetadata['homepage'] as String
+              : '';
+          targetRepository = targetMetadata.containsKey('repository')
+              ? targetMetadata['repository'] as String
+              : '';
+          final dependencyResponse = await retry(
+            () => c.get(Uri.parse(
+                'https://pub.dev/api/packages/${issue.dependencyPackageName}')),
+            retryIf: (e) => e is IOException,
+          );
+          final dependencyMetadata =
+              json.decode(dependencyResponse.body)['latest']['pubspec']
+                  as Map<String, dynamic>;
+          dependencyHomepage = dependencyMetadata.containsKey('homepage')
+              ? dependencyMetadata['homepage'] as String
+              : '';
+          dependencyRepository = dependencyMetadata.containsKey('repository')
+              ? dependencyMetadata['repository'] as String
+              : '';
+        } finally {
+          c.close();
+        }
+        print('target package:\n'
+            '  name: $targetName\n'
+            '  homepage: $targetHomepage\n'
+            '  repository: $targetRepository\n'
+            'dependency issue:\n'
+            '  ${issue.dependencyPackageName}: ${issue.constraint}\n'
+            '  homepage: $dependencyHomepage\n'
+            '  repository: $dependencyRepository\n'
+            '  documentation (lowest allowed version): https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.lowestVersion}/\n'
+            '  documentation (installed version): https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.currentVersion}/\n'
+            'suggested resolution:\n'
+            '  ${issue.dependencyPackageName}: ^${issue.currentVersion}');
+        switch (issue.parentKind) {
+          case null:
+            print(
+                'Identifier `${issue.identifier}` is a top-level ${issue.kind.toString().toLowerCase()}');
+            break;
+
+          case ElementKind.CLASS:
+            print(
+                'Identifier `${issue.identifier}` is a ${issue.kind.toString().toLowerCase()}, member of the class `${issue.parentName!}`');
+            break;
+
+          case ElementKind.EXTENSION:
+            print(
+                'Identifier `${issue.identifier}` is a ${issue.kind.toString().toLowerCase()}, member of the extension `${issue.parentName!}`');
+            break;
+
+          default:
+            throw StateError(
+                'Unexpected parent ElementKind ${issue.parentKind}.');
+        }
+        print('Usages of this identifier in target package:');
         for (final reference in issue.references) {
           print(reference.message(''));
         }
