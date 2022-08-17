@@ -105,8 +105,13 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
         pubHostedUrl: pubHostedUrl,
       );
     } on ProcessException catch (exception) {
-      context.warning(
-          'Skipping dependency $dependencyName of target package $targetName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
+      // it is expected that sometimes the SDK constraint on the lowest version of the dependency will be too low
+      if (!(exception.errorCode == 1 &&
+          exception.message.contains('which requires SDK version') &&
+          exception.message.endsWith('version solving failed.\n'))) {
+        context.warning(
+            'Skipping dependency $dependencyName of target package $targetName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
+      }
       continue;
     }
 
@@ -165,14 +170,14 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     if (!installedDependencySummaries
         .containsKey(possibleIssue.dependencyPackageName)) {
       installedDependencySummaries[possibleIssue.dependencyPackageName] =
-      await summarizePackage(
+          await summarizePackage(
         context: context,
         packagePath:
-        context.findPackagePath(possibleIssue.dependencyPackageName),
+            context.findPackagePath(possibleIssue.dependencyPackageName),
       );
     }
     final installedDependency =
-    installedDependencySummaries[possibleIssue.dependencyPackageName]!;
+        installedDependencySummaries[possibleIssue.dependencyPackageName]!;
 
     // if this identifier exists in the current version of the defining dependency,
     // this is not a false positive
@@ -208,17 +213,17 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
         possibleParentNames.isEmpty
             ? <String>{}
             : possibleParentNames.first.toSet(),
-            (a, b) => a.intersection(b.toSet()));
+        (a, b) => a.intersection(b.toSet()));
 
     // if replacing the parent class name with any one of the found aliases
     // results in the identifier being found in the dependency summary,
     // then we have a false positive because a typedef alias was used
     if (commonParentNames
         .any((classNameAlias) => possibleIssue.identifierExistsInPackage(
-      package:
-      dependencySummaries[possibleIssue.dependencyPackageName]!,
-      classNameAlias: classNameAlias,
-    ))) {
+              package:
+                  dependencySummaries[possibleIssue.dependencyPackageName]!,
+              classNameAlias: classNameAlias,
+            ))) {
       continue;
     }
 
@@ -279,7 +284,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       throw AnalysisException('Could not determine library of parentElement.');
     }
     final tryPackageName =
-    packageFromLibraryUri(parentElement.library!.identifier);
+        packageFromLibraryUri(parentElement.library!.identifier);
     // if the defining package isn't a HostedDependency of the target, then
     // this symbol cannot be analyzed
     if (tryPackageName == null ||
@@ -290,8 +295,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     packageName = tryPackageName;
 
     if (!dependencySummaries.keys.contains(packageName)) {
-      context.warning('No summary for $packageName found.');
-      throw AnalysisException('No summary was found for the defining package.');
+      throw AnalysisException(
+          'No summary was found for the defining package $packageName.');
     }
     dependencyShape = dependencySummaries[packageName]!;
   }
@@ -485,8 +490,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             parentKind: element.kind == ElementKind.FUNCTION
                 ? null
                 : parentElement.kind,
-      references: [span],
-    )
+            references: [span],
+          )
         : null;
   }
 }
