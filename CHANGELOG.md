@@ -2,6 +2,8 @@
 
 - Explain `HEAD` request for URL checks.
 - Grant 10 points for using only OSI-approved licenses.
+- Fix: don't resolve dependencies in example folder of flutter packages.
+- Fix: handle `CheckedFromJsonException` during repository verification.
 
 ## 0.21.15
 

@@ -1,6 +1,6 @@
 name: pana
 description: Evaluate the health and quality of a Dart package
-version: 0.21.16-dev
+version: 0.21.16
 repository: https://github.com/dart-lang/pana
 
 environment:
@@ -15,7 +15,7 @@ dependencies:
   html: ^0.15.0
   http: ^0.13.2
   io: ^1.0.0
-  json_annotation: ^4.5.0
+  json_annotation: ^4.6.0
   logging: ^1.0.0
   markdown: ^6.0.0
   path: ^1.6.2
