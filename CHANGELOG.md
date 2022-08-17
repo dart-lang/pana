@@ -1,5 +1,6 @@
 ## 0.21.16
 
+- Preprocess license texts for better match.
 - Explain `HEAD` request for URL checks.
 - Grant 10 points for using only OSI-approved licenses.
 - Fix: don't resolve dependencies in example folder of flutter packages.
