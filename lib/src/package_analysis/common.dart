@@ -202,7 +202,10 @@ Future<void> fetchUsingDummyPackage({
   await pubspecFile.create(recursive: true);
 
   // write pubspec to disk
-  await pubspecFile.writeAsString(json.encode(dummyPubspec));
+  await pubspecFile.writeAsString(
+    json.encode(dummyPubspec),
+    flush: true,
+  );
 
   // fetch dependencies (the only non-transitive dependency is [name])
   await fetchDependencies(destination);
@@ -295,7 +298,10 @@ Future<List<Version>> fetchSortedPackageVersionList({
 
   // if the response is ok, optionally save the metadata to the cache and return the version list
   if (cachePath != null) {
-    await versionListFile.writeAsString(metadataResponse.body);
+    await versionListFile.writeAsString(
+      metadataResponse.body,
+      flush: true,
+    );
   }
   return metadataStringToSortedVersions(metadataResponse.body);
 }

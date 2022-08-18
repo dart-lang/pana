@@ -339,10 +339,14 @@ class BatchLBCAnalysisCommand extends Command {
           if (out.isNotEmpty) {
             final stdoutLog = File('$logPathPrefix stdout.txt').openWrite();
             out.forEach(stdoutLog.add);
+            await stdoutLog.flush();
+            await stdoutLog.close();
           }
           if (err.isNotEmpty) {
             final stderrLog = File('$logPathPrefix stderr.txt').openWrite();
             err.forEach(stderrLog.add);
+            await stderrLog.flush();
+            await stderrLog.close();
           }
 
           if (exitCode != 0) {
