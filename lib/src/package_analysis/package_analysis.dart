@@ -219,7 +219,7 @@ class BatchLBCAnalysisCommand extends Command {
     }
 
     // extract positional arguments
-    final packageCountToAnalyze = int.tryParse(arguments[0]);
+    var packageCountToAnalyze = int.tryParse(arguments[0]);
     final resourceCount = int.tryParse(arguments[1]);
     final logPath = path.canonicalize(arguments[2]);
     final cachePath = path.canonicalize(arguments[3]);
@@ -287,6 +287,7 @@ class BatchLBCAnalysisCommand extends Command {
       stderr.writeln(
           'Provided package count to analyse is too high, analysing all ${allPackages.length} available packages instead.');
     }
+    packageCountToAnalyze = min(packageCountToAnalyze, allPackages.length);
     final packagesToAnalyse =
         packageCountToAnalyze > topPackages.length ? allPackages : topPackages;
 
@@ -300,7 +301,7 @@ class BatchLBCAnalysisCommand extends Command {
     final pool = Pool(resourceCount);
 
     await Future.wait(packagesToAnalyse
-        .getRange(0, min(packageCountToAnalyze, allPackages.length))
+        .getRange(0, packageCountToAnalyze)
         .mapIndexed((targetPackageIndex, targetPackageName) async {
       await pool.withResource(() async {
         print(
