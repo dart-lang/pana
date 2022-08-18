@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -283,8 +284,8 @@ class BatchLBCAnalysisCommand extends Command {
     }
 
     if (packageCountToAnalyze > allPackages.length) {
-      throw ArgumentError(
-          'Number of packages to analyze is too high, the maximum supported value is ${allPackages.length}.');
+      stderr.writeln(
+          'Provided package count to analyse is too high, analysing all ${allPackages.length} available packages instead.');
     }
     final packagesToAnalyse =
         packageCountToAnalyze > topPackages.length ? allPackages : topPackages;
@@ -299,7 +300,7 @@ class BatchLBCAnalysisCommand extends Command {
     final pool = Pool(resourceCount);
 
     await Future.wait(packagesToAnalyse
-        .getRange(0, packageCountToAnalyze)
+        .getRange(0, min(packageCountToAnalyze, allPackages.length))
         .mapIndexed((targetPackageIndex, targetPackageName) async {
       await pool.withResource(() async {
         print(
