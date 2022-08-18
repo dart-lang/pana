@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -286,8 +285,8 @@ class BatchLBCAnalysisCommand extends Command {
     if (packageCountToAnalyze > allPackages.length) {
       stderr.writeln(
           'Provided package count to analyse is too high, analysing all ${allPackages.length} available packages instead.');
+      packageCountToAnalyze = allPackages.length;
     }
-    packageCountToAnalyze = min(packageCountToAnalyze, allPackages.length);
     final packagesToAnalyse =
         packageCountToAnalyze > topPackages.length ? allPackages : topPackages;
 
