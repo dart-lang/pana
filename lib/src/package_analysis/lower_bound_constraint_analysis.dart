@@ -132,7 +132,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     );
   }
 
-  var astVisitor = _LowerBoundConstraintVisitor(
+  final astVisitor = _LowerBoundConstraintVisitor(
     context: context,
     dependencySummaries: dependencySummaries,
   );

@@ -27,22 +27,23 @@ Future<void> main() async {
       // serve all versions of the provided dependencies
       for (final package in packages) {
         final files = package['package'] as List;
-        globalPackageServer!.add((b) => b!
-          ..serve(
+        globalPackageServer!.add(
+          (b) => b!.serve(
             package['name'] as String,
             package['version'] as String,
             pubspec: {
               'environment': {'sdk': '>=2.13.0 <3.0.0'}
             },
             contents: files.map(descriptorFromYamlNode),
-          ));
+          ),
+        );
       }
 
       // serve the target package which the dummy will point to
       final targetYamlDependencies = doc['target']['dependencies'] as List;
       final targetYamlContent = doc['target']['package'] as List;
-      globalPackageServer!.add((b) => b!
-        ..serve(
+      globalPackageServer!.add(
+        (b) => b!.serve(
           'test.package',
           '1.0.0',
           pubspec: {
@@ -53,17 +54,18 @@ Future<void> main() async {
                   dependency['name'],
                   {
                     'hosted': {
-                          'name': dependency['name'],
-                          'url': globalPackageServer!.url,
-                        },
-                        'version': dependency['version']
-                      },
-                    ),
+                      'name': dependency['name'],
+                      'url': globalPackageServer!.url,
+                    },
+                    'version': dependency['version']
+                  },
+                ),
               ),
             ),
           },
           contents: targetYamlContent.map(descriptorFromYamlNode),
-        ));
+        ),
+      );
 
       // create a unique temporary directory for the dummy package
       final dummyDir = await Directory(Directory.systemTemp.path)
@@ -86,20 +88,21 @@ Future<void> main() async {
       // which matches that expected issue
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
-                (issueString) => RegExp(expectedIssue).hasMatch(issueString));
+            (issueString) => RegExp(expectedIssue).hasMatch(issueString));
         issuesString.removeAt(matchingIndex);
         // we expect that this regex will only match one issue
         expect(
             issuesString.indexWhere(
-                    (issueString) => RegExp(expectedIssue).hasMatch(issueString)),
+                (issueString) => RegExp(expectedIssue).hasMatch(issueString)),
             equals(-1));
       }
 
       // we expect to have removed all the elements of this List
       expect(issuesString.isEmpty, equals(true));
 
-      // clean up by deleting the dummy package directory
+      // clean up by deleting the dummy package directory and by closing the server
       await dummyDir.delete(recursive: true);
+      await globalPackageServer!.close();
     });
   }
 }
