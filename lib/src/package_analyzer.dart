@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
 
@@ -276,11 +277,14 @@ Future<void> _copy(String from, String to) async {
 Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
   final pubspecUrls = await context.pubspecUrlsWithIssues;
   final repository = (await context.repository)?.repository;
+  final fundingUrls =
+      pubspecUrls.funding.map((e) => e.verifiedUrl).whereNotNull().toList();
   return AnalysisResult(
     homepageUrl: pubspecUrls.homepage.verifiedUrl,
     repositoryUrl: pubspecUrls.repository.verifiedUrl,
     issueTrackerUrl: pubspecUrls.issueTracker.verifiedUrl,
     documentationUrl: pubspecUrls.documentation.verifiedUrl,
+    fundingUrls: fundingUrls.isEmpty ? null : fundingUrls,
     repository: repository,
   );
 }

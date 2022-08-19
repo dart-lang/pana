@@ -13,12 +13,14 @@ class PubspecUrlsWithIssues {
   final UrlWithIssue repository;
   final UrlWithIssue issueTracker;
   final UrlWithIssue documentation;
+  final List<UrlWithIssue> funding;
 
   PubspecUrlsWithIssues({
     required this.homepage,
     required this.repository,
     required this.issueTracker,
     required this.documentation,
+    required this.funding,
   });
 
   Iterable<Issue> get issues => [
@@ -26,6 +28,7 @@ class PubspecUrlsWithIssues {
         repository.issue,
         issueTracker.issue,
         documentation.issue,
+        ...funding.map((i) => i.issue),
       ].whereType<Issue>();
 }
 
@@ -81,6 +84,11 @@ Future<PubspecUrlsWithIssues> checkPubspecUrls(PackageContext context) async {
       }
     }
   }
+  final funding = <UrlWithIssue>[];
+  for (final url in pubspec.funding) {
+    funding.add(
+        await _checkUrl(context, 'funding', 'Funding URL', url.toString()));
+  }
 
   return PubspecUrlsWithIssues(
     homepage: homepage,
@@ -88,6 +96,7 @@ Future<PubspecUrlsWithIssues> checkPubspecUrls(PackageContext context) async {
     issueTracker: issueTracker,
     documentation:
         await _checkUrlInPubspec(context, 'documentation', 'Documentation URL'),
+    funding: funding,
   );
 }
 
