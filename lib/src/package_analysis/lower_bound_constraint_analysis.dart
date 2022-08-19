@@ -43,9 +43,9 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
         cachePath: cachePath,
         pubHostedUrl: pubHostedUrl,
       ))
-          .last,
+          .last
+          .toString(),
       destination: dummyPath,
-      wipeTarget: true,
       pubHostedUrl: pubHostedUrl,
     );
   } on ProcessException catch (exception) {
@@ -99,9 +99,8 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     try {
       await fetchUsingDummyPackage(
         name: dependencyName,
-        version: minVersion,
+        version: minVersion.toString(),
         destination: dependencyDestination,
-        wipeTarget: true,
         pubHostedUrl: pubHostedUrl,
       );
     } on ProcessException catch (exception) {

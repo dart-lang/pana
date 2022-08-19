@@ -152,8 +152,8 @@ abstract class PackageAnalysisContext {
 }
 
 /// Download version [version] of the package [name] to the directory
-/// [destination] and fetch its dependencies, optionally deleting the contents
-/// of [destination] first if [wipeTarget] is set to true.
+/// [destination] and fetch its dependencies, assuming that this directory does
+/// not exist.
 ///
 /// A dummy package will be created at [destination] with a single dependency,
 /// pinning the dependency [name] to version [version].
@@ -162,14 +162,13 @@ abstract class PackageAnalysisContext {
 /// dummy package to fetch package [name].
 Future<void> fetchUsingDummyPackage({
   required String name,
-  required Version version,
+  required String version,
   required String destination,
-  required bool wipeTarget,
   String? pubHostedUrl,
 }) async {
-  // delete the target directory, if it exists and wipe is enabled
-  if (wipeTarget && await Directory(destination).exists()) {
-    await Directory(destination).delete(recursive: true);
+  if (await Directory(destination).exists()) {
+    throw StateError(
+        'Directory at $destination exists, cannot create dummy package.');
   }
 
   // construct pubspec for the dummy package
@@ -180,7 +179,7 @@ Future<void> fetchUsingDummyPackage({
     },
     'dependencies': pubHostedUrl == null
         ? {
-            name: version.toString(),
+            name: version,
           }
         : {
             name: {
@@ -188,20 +187,13 @@ Future<void> fetchUsingDummyPackage({
                 'name': name,
                 'url': pubHostedUrl,
               },
-              'version': version.toString(),
+              'version': version,
             }
           },
   };
 
-  // if pubspec.yaml exists, delete it and create an empty file
-  // TODO: is this desirable behaviour?
-  final pubspecFile = File(path.join(destination, 'pubspec.yaml'));
-  if (await pubspecFile.exists()) {
-    await pubspecFile.delete();
-  }
-  await pubspecFile.create(recursive: true);
-
   // write pubspec to disk
+  final pubspecFile = File(path.join(destination, 'pubspec.yaml'));
   await pubspecFile.writeAsString(
     json.encode(dummyPubspec),
     flush: true,
