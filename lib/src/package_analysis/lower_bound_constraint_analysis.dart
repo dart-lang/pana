@@ -160,10 +160,11 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
   final installedDependencySummaries = <String, PackageShape>{};
 
   for (final possibleIssue in astVisitor.issues.values.whereNotNull()) {
-    // CHECK 1: eliminate false positives by checking whether the 'bad' identifier is
-    // present in the current/installed version of the dependency - if it isn't
-    // then we have not been able to detect a difference between the lower bound
-    // version and the current version and the issue is a false positive
+    // CURRENT DEPENDENCY VERSION CHECK: eliminate false positives by checking
+    // whether the 'missing' identifier is present in the current/installed
+    // version of the dependency - if it isn't then we have not been able to
+    // detect a difference between the lower bound version and the current
+    // version, and the issue is a false positive
 
     // produce a summary of the currently-installed version of the defining dependency
     if (!installedDependencySummaries
@@ -178,17 +179,16 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     final installedDependency =
         installedDependencySummaries[possibleIssue.dependencyPackageName]!;
 
-    // if this identifier exists in the current version of the defining dependency,
-    // this is not a false positive
+    // if this identifier does not exist in the current version of the defining
+    // dependency, this is a false positive
     if (!possibleIssue.identifierExistsInPackage(
         package: installedDependency)) {
       continue;
     }
 
-    // TODO: does this check need to come earlier? maybe we can run it elsewhere? think some more about this...
-    // CHECK 2: look at the typedefs that are in scope/imported at the reference
-    // sites to see if checking for an alias of possibleIssue.className may
-    // reveal a false positive
+    // TYPEDEF CHECK: look at the typedefs that are in scope/imported at the
+    // reference sites to see if checking for an alias of
+    // possibleIssue.className may reveal a false positive
 
     // ensure we are dealing with a class member and that issue.className != null
     if (possibleIssue.kind == ElementKind.FUNCTION) {
@@ -226,7 +226,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       continue;
     }
 
-    // checks 1 and 2 did not reveal a false positive
+    // neither the current dependency version check nor the typedef check could reveal a false positive
     issues.add(possibleIssue);
   }
 
