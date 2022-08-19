@@ -344,7 +344,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     super.visitCompilationUnit(node);
   }
 
-  // TODO: do we need visitPropertyAccess too?
   // Invocations of getters and setters are represented by either PrefixedIdentifier or PropertyAccess nodes.
   // PropertyAccess: The access of a property of an object. Note, however, that
   // accesses to properties of objects can also be represented as
@@ -432,7 +431,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       return;
     }
     element = node.methodName.staticElement!;
-    // TODO: does `element.declaration` help here?
 
     try {
       processIdentifier(node.methodName);
@@ -509,7 +507,6 @@ String? packageFromLibraryUri(String libraryUri) {
   return null;
 }
 
-// TODO: rename this class? it is still useful to have this structure even if we are not sure whether this is a real issue or a false positive - consider LowerBoundConstraintIssueResult or similar
 class LowerBoundConstraintIssue {
   /// The name of the package that has an incorrect lower bound dependency constraint
   final String dependencyPackageName;
@@ -534,13 +531,11 @@ class LowerBoundConstraintIssue {
   /// null if [identifier] is not a member of a class/extension.
   final String? parentName;
 
-  // TODO: Use enumeration somehow to assert that this member is one of several supported values
   /// The [ElementKind] of the [Element] corresponding to the missing
   /// [identifier], one of [ElementKind.FUNCTION], [ElementKind.METHOD],
   /// [ElementKind.GETTER], [ElementKind.SETTER].
   final ElementKind kind;
 
-  // TODO: Use enumeration somehow to assert that this member is one of several supported values
   /// The [ElementKind] of the parent [Element] of the missing [identifier],
   /// [parentName], one of [ElementKind.CLASS], [ElementKind.EXTENSION], or null
   /// if [identifier] is not a member of a class/extension.
@@ -549,7 +544,6 @@ class LowerBoundConstraintIssue {
   /// List of locations in the analyzed source code where [identifier] was referenced.
   final List<SourceSpan> references;
 
-  // TODO: any way to make this cleaner?
   /// Does [package] (some version of the defining dependency) contain [identifier]?
   /// If [classNameAlias] is specified, it will be used instead of [parentName].
   bool identifierExistsInPackage({

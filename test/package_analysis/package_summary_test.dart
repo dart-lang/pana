@@ -21,7 +21,6 @@ Future<void> main() async {
   await for (final file in yamlDir.list()) {
     final doc = loadYaml(await (file as File).readAsString());
     test(doc['name'], () async {
-      // TODO: can we rely on this path being empty and our testing not conflicting with physical files on disk?
       final packagePath = path.canonicalize(path.join('test_package'));
 
       final provider = setupBasicPackage(

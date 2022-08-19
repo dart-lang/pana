@@ -119,8 +119,6 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         late final String targetRepository;
         late final String dependencyHomepage;
         late final String dependencyRepository;
-        // TODO: not sure if nested try-finally here is OK
-        // I'm doing this because usually there are no found issues and no need to create an http client
         try {
           final targetResponse = await retry(
             () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
