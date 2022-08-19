@@ -193,7 +193,8 @@ Future<void> fetchUsingDummyPackage({
   };
 
   // write pubspec to disk
-  final pubspecFile = File(path.join(destination, 'pubspec.yaml'));
+  final pubspecFile = await File(path.join(destination, 'pubspec.yaml'))
+      .create(recursive: true);
   await pubspecFile.writeAsString(
     json.encode(dummyPubspec),
     flush: true,
