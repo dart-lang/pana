@@ -24,13 +24,19 @@ import 'common.dart';
 /// [PackageShape].
 ///
 /// If [cachePath] is provided, this folder is used to store cached package
-/// metadata. If [pubHostedUrl] is provided, it is used instead of `'pub.dev'`
-/// to retrieve package version information.
+/// metadata.
+///
+/// If [pubHostedUrl] is provided, it is used instead of `'pub.dev'` to retrieve
+/// package version information.
+///
+/// If [pubCachePath] is provided, its value is used as the pub cache path while
+/// fetching packages.
 Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
   required String targetName,
   required String tempPath,
   String? cachePath,
   String? pubHostedUrl,
+  String? pubCachePath,
 }) async {
   final dummyPath = path.join(tempPath, 'target');
   final dependencyFolder = path.join(tempPath, 'dependencies');
@@ -47,6 +53,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
           .toString(),
       destination: dummyPath,
       pubHostedUrl: pubHostedUrl,
+      pubCachePath: pubCachePath,
     );
   } on ProcessException catch (exception) {
     throw AnalysisException(
@@ -102,6 +109,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
         version: minVersion.toString(),
         destination: dependencyDestination,
         pubHostedUrl: pubHostedUrl,
+        pubCachePath: pubCachePath,
       );
     } on ProcessException catch (exception) {
       // it is expected that sometimes the SDK constraint on the lowest version of the dependency will be too low

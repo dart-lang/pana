@@ -21,6 +21,10 @@ Future<void> main() async {
     final doc = loadYaml(await (file as File).readAsString());
     final packages = doc['packages'] as List;
     test(doc['name'], () async {
+      // create a unique temporary directory to serve as the pub cache for this test
+      final tempPubCache = await Directory(Directory.systemTemp.path)
+          .createTemp('pub_cache_temp');
+
       // set up package server
       await serveNoPackages();
 
@@ -31,11 +35,11 @@ Future<void> main() async {
           (b) => b!.serve(
             package['name'] as String,
             package['version'] as String,
-            pubspec: {
-              'environment': {'sdk': '>=2.13.0 <3.0.0'}
-            },
-            contents: files.map(descriptorFromYamlNode),
-          ),
+                pubspec: {
+                  'environment': {'sdk': '>=2.13.0 <3.0.0'}
+                },
+                contents: files.map(descriptorFromYamlNode),
+              ),
         );
       }
 
@@ -43,14 +47,14 @@ Future<void> main() async {
       final targetYamlDependencies = doc['target']['dependencies'] as List;
       final targetYamlContent = doc['target']['package'] as List;
       globalPackageServer!.add(
-        (b) => b!.serve(
+            (b) => b!.serve(
           'test.package',
           '1.0.0',
           pubspec: {
             'environment': {'sdk': '>=2.13.0 <3.0.0'},
             'dependencies': Map.fromEntries(
               targetYamlDependencies.map(
-                (dependency) => MapEntry(
+                    (dependency) => MapEntry(
                   dependency['name'],
                   {
                     'hosted': {
@@ -77,6 +81,7 @@ Future<void> main() async {
         targetName: 'test.package',
         tempPath: dummyPath,
         pubHostedUrl: globalPackageServer!.url,
+        pubCachePath: tempPubCache.path,
       );
       final issuesString = issues.map((issue) => issue.toString()).toList();
 
@@ -88,7 +93,7 @@ Future<void> main() async {
       // which matches that expected issue
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
-            (issueString) => RegExp(expectedIssue).hasMatch(issueString));
+                (issueString) => RegExp(expectedIssue).hasMatch(issueString));
         issuesString.removeAt(matchingIndex);
         // we expect that this regex will only match one issue
         expect(
@@ -100,8 +105,10 @@ Future<void> main() async {
       // we expect to have removed all the elements of this List
       expect(issuesString.isEmpty, equals(true));
 
-      // clean up by deleting the dummy package directory and by closing the server
+      // clean up by deleting the temp pub cache and the dummy package directories,
+      // and closing the server
       await dummyDir.delete(recursive: true);
+      await tempPubCache.delete(recursive: true);
       await globalPackageServer!.close();
     });
   }

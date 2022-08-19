@@ -160,11 +160,15 @@ abstract class PackageAnalysisContext {
 ///
 /// If [pubHostedUrl] is provided, this url will be used in the pubspec of the
 /// dummy package to fetch package [name].
+///
+/// If [pubCachePath] is provided, the environment variable `PUB_CACHE` is set
+/// to its value while fetching dependencies.
 Future<void> fetchUsingDummyPackage({
   required String name,
   required String version,
   required String destination,
   String? pubHostedUrl,
+  String? pubCachePath,
 }) async {
   if (await Directory(destination).exists()) {
     throw StateError(
@@ -201,15 +205,21 @@ Future<void> fetchUsingDummyPackage({
   );
 
   // fetch dependencies (the only non-transitive dependency is [name])
-  await fetchDependencies(destination);
+  await fetchDependencies(destination, pubCachePath: pubCachePath);
 }
 
-/// Fetches dependencies at the physical path [destination].
-Future<void> fetchDependencies(String destination) async {
+/// Fetches dependencies at the physical path [destination] by running
+/// `pub get`. If [pubCachePath] is provided, the environment variable
+/// `PUB_CACHE` is set to its value.
+Future<void> fetchDependencies(
+  String destination, {
+  String? pubCachePath,
+}) async {
   final result = await Process.run(
     Platform.resolvedExecutable,
     ['pub', 'get'],
     workingDirectory: destination,
+    environment: pubCachePath == null ? null : {'PUB_CACHE': pubCachePath},
   );
   if (result.exitCode != 0) {
     throw ProcessException(
