@@ -31,7 +31,7 @@ import 'common.dart';
 ///
 /// If [pubCachePath] is provided, its value is used as the pub cache path while
 /// fetching packages.
-Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
+Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
   required String targetName,
   required String tempPath,
   String? cachePath,
@@ -164,7 +164,7 @@ Future<List<LowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     }
   }
 
-  final issues = <LowerBoundConstraintIssue>[];
+  final issues = <PotentialLowerBoundConstraintIssue>[];
   final installedDependencySummaries = <String, PackageShape>{};
 
   for (final possibleIssue in astVisitor.issues.values.whereNotNull()) {
@@ -249,11 +249,11 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// `package:package_name/library_name.dart`.
   late Uri currentUri;
 
-  /// Maps from [Element.id] to either [LowerBoundConstraintIssue] if the lower
-  /// bound constraint on [LowerBoundConstraintIssue.dependencyPackageName] is
+  /// Maps from [Element.id] to either [PotentialLowerBoundConstraintIssue] if the lower
+  /// bound constraint on [PotentialLowerBoundConstraintIssue.dependencyPackageName] is
   /// too low, making [Element] when the lowest allowed version
-  /// [LowerBoundConstraintIssue.lowestVersion] is used, or null otherwise.
-  final Map<int, LowerBoundConstraintIssue?> issues = {};
+  /// [PotentialLowerBoundConstraintIssue.lowestVersion] is used, or null otherwise.
+  final Map<int, PotentialLowerBoundConstraintIssue?> issues = {};
 
   /// The summaries of each of the dependencies of the target package.
   final Map<String, PackageShape> dependencySummaries;
@@ -407,7 +407,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     }
 
     issues[metadata.elementId] = constraintIssue
-        ? LowerBoundConstraintIssue(
+        ? PotentialLowerBoundConstraintIssue(
             dependencyPackageName: dependencyMetadata.packageName,
             constraint:
                 context.dependencies[dependencyMetadata.packageName]!.version,
@@ -485,7 +485,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     }
 
     issues[metadata.elementId] = constraintIssue
-        ? LowerBoundConstraintIssue(
+        ? PotentialLowerBoundConstraintIssue(
             dependencyPackageName: dependencyMetadata.packageName,
             constraint:
                 context.dependencies[dependencyMetadata.packageName]!.version,
@@ -543,7 +543,7 @@ String? packageFromLibraryUri(String libraryUri) {
   return null;
 }
 
-class LowerBoundConstraintIssue {
+class PotentialLowerBoundConstraintIssue {
   /// The name of the package that has an incorrect lower bound dependency constraint
   final String dependencyPackageName;
 
@@ -645,7 +645,7 @@ class LowerBoundConstraintIssue {
     return 'LowerBoundConstraintIssue{dependencyPackageName: $dependencyPackageName, constraint: $constraint, currentVersion: $currentVersion, lowestVersion: $lowestVersion, identifier: $identifier, kind: $kind}';
   }
 
-  LowerBoundConstraintIssue({
+  PotentialLowerBoundConstraintIssue({
     required this.dependencyPackageName,
     required this.constraint,
     required this.currentVersion,
