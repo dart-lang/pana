@@ -245,27 +245,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// The [PackageAnalysisContext] corresponding to the package being analyzed.
   final PackageAnalysisContext context;
 
-  /// The [Element] definition being analyzed.
-  late Element element;
-
-  /// The id of [element].
-  late int elementId;
-
-  // The name of the package which defines [element].
-  late String packageName;
-
-  // The summary of the package which defines [element].
-  late PackageShape dependencyShape;
-
-  /// The parent of [element].
-  late Element parentElement;
-
-  /// The [SourceSpan] corresponding to the invocation currently being analyzed.
-  late SourceSpan span;
-
-  /// The name of the symbol being analyzed.
-  late String symbolName;
-
   /// The package URI for the currently analyzed unit, typically on the form
   /// `package:package_name/library_name.dart`.
   late Uri currentUri;
@@ -284,14 +263,14 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     required this.dependencySummaries,
   });
 
-  /// Attempt to identify the name of the defining library of [element],
-  /// populating [packageName] and [dependencyShape].
-  void identifyDependencyName() {
-    if (parentElement.library == null) {
+  /// Attempt to identify the name of the defining library of [element].
+  IdentifierDependencyMetadata identifyDependencyName({
+    required Element element,
+  }) {
+    if (element.library == null) {
       throw AnalysisException('Could not determine library of parentElement.');
     }
-    final tryPackageName =
-        packageFromLibraryUri(parentElement.library!.identifier);
+    final tryPackageName = packageFromLibraryUri(element.library!.identifier);
     // if the defining package isn't a HostedDependency of the target, then
     // this symbol cannot be analyzed
     if (tryPackageName == null ||
@@ -299,35 +278,42 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       throw AnalysisException(
           'The defining package is not a HostedDependency of the target package.');
     }
-    packageName = tryPackageName;
 
-    if (!dependencySummaries.keys.contains(packageName)) {
+    if (!dependencySummaries.keys.contains(tryPackageName)) {
       throw AnalysisException(
-          'No summary was found for the defining package $packageName.');
+          'No summary was found for the defining package $tryPackageName.');
     }
-    dependencyShape = dependencySummaries[packageName]!;
+    return IdentifierDependencyMetadata(
+      packageName: tryPackageName,
+      packageShape: dependencySummaries[tryPackageName]!,
+    );
   }
 
-  /// Populate the various properties of this visitor based on information from
-  /// this symbol, throwing an [AnalysisException] if the symbol does not need
-  /// to be/cannot be analyzed.
-  void processIdentifier(SimpleIdentifier identifier) {
-    span = SourceFile.fromString(
-      context.readFile(context.uriToPath(currentUri)!),
-      url: currentUri,
-    ).span(identifier.offset, identifier.end);
-
-    elementId = element.id;
-    // if the element is a getter or a setter, pull out just the variable name
-    symbolName = element is PropertyAccessorElement
-        ? (element as PropertyAccessorElement).variable.name
-        : element.name!;
+  /// Collect metadata of this symbol, throwing an [AnalysisException] if the
+  /// symbol does not need to be/cannot be analyzed.
+  IdentifierMetadata processIdentifier(
+    SimpleIdentifier identifier, {
+    required Element element,
+  }) {
+    final identifierMetadata = IdentifierMetadata(
+      span: SourceFile.fromString(
+        context.readFile(context.uriToPath(currentUri)!),
+        url: currentUri,
+      ).span(identifier.offset, identifier.end),
+      elementId: element.id,
+      // if the element is a getter or a setter, pull out just the variable name
+      identifierName: element is PropertyAccessorElement
+          ? element.variable.name
+          : element.name!,
+    );
 
     // if we have seen this symbol before, we need to do no further analysis
-    if (issues.containsKey(elementId)) {
+    if (issues.containsKey(identifierMetadata.elementId)) {
       // if we have seen this element before and there is an issue with it,
       // add this usage/invocation to its list of references
-      issues[elementId]?.references.add(span);
+      issues[identifierMetadata.elementId]
+          ?.references
+          .add(identifierMetadata.span);
       throw AnalysisException(
           'The definition of this Element has already been visited.');
     }
@@ -342,6 +328,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       // prior checks should have filtered out any invocations other than these
       throw StateError('Unexpected ElementKind ${element.kind}.');
     }
+
+    return identifierMetadata;
   }
 
   @override
@@ -352,14 +340,14 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     super.visitCompilationUnit(node);
   }
 
-  // Invocations of getters and setters are represented by either PrefixedIdentifier or PropertyAccess nodes.
-  // PropertyAccess: The access of a property of an object. Note, however, that
-  // accesses to properties of objects can also be represented as
-  // PrefixedIdentifier nodes in cases where the target is also a simple identifier.
   @override
   void visitPrefixedIdentifier(PrefixedIdentifier node) {
     // an access of an object property
     super.visitPrefixedIdentifier(node);
+
+    // the definition of the symbol being analysed, and its parent (where applicable)
+    late final Element element;
+    late final Element parentElement;
 
     final parentNode = node.parent;
     if (node.staticElement != null) {
@@ -382,15 +370,17 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       return;
     }
 
+    late final IdentifierMetadata metadata;
+    late final IdentifierDependencyMetadata dependencyMetadata;
     try {
-      processIdentifier(node.identifier);
+      metadata = processIdentifier(node.identifier, element: element);
       if (element.enclosingElement3 is ExtensionElement) {
-        parentElement = element.enclosingElement3!;
+        parentElement = element.enclosingElement3;
       } else {
         parentElement =
             node.prefix.staticType?.element2! ?? node.prefix.staticElement!;
       }
-      identifyDependencyName();
+      dependencyMetadata = identifyDependencyName(element: parentElement);
     } on AnalysisException {
       // do not continue if this invocation is unfit for analysis
       return;
@@ -400,31 +390,36 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     if (parentElement is ClassElement) {
       // ignore generics
-      if ((parentElement as ClassElement).typeParameters.isNotEmpty) {
+      if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
-      constraintIssue = !dependencyShape.containsPropertyWithName(
-          parentElement.name!, symbolName);
+      constraintIssue = !dependencyMetadata.packageShape
+          .containsPropertyWithName(
+              parentElement.name, metadata.identifierName);
     } else if (parentElement is ExtensionElement) {
-      constraintIssue = !dependencyShape.containsExtensionPropertyWithName(
-          parentElement.name!, symbolName);
+      constraintIssue = !dependencyMetadata.packageShape
+          .containsExtensionPropertyWithName(
+              parentElement.name!, metadata.identifierName);
     } else {
       // we may be looking at a top-level getter or setter
       // context.warning('Subclass ${parentElement.toString()} of parentElement (getter/setter) is not supported.');
       return;
     }
 
-    issues[elementId] = constraintIssue
+    issues[metadata.elementId] = constraintIssue
         ? LowerBoundConstraintIssue(
-      dependencyPackageName: packageName,
-            constraint: context.dependencies[packageName]!.version,
-            currentVersion: context.findInstalledVersion(packageName),
-            lowestVersion: Version.parse(dependencyShape.version),
-            identifier: symbolName,
+            dependencyPackageName: dependencyMetadata.packageName,
+            constraint:
+                context.dependencies[dependencyMetadata.packageName]!.version,
+            currentVersion:
+                context.findInstalledVersion(dependencyMetadata.packageName),
+            lowestVersion:
+                Version.parse(dependencyMetadata.packageShape.version),
+            identifier: metadata.identifierName,
             parentName: parentElement.name!,
             kind: element.kind,
             parentKind: parentElement.kind,
-            references: [span],
+            references: [metadata.span],
           )
         : null;
   }
@@ -434,14 +429,20 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     // an invocation of a top-level function or a class method
     super.visitMethodInvocation(node);
 
+    // the definition of the symbol being analysed, and its parent (where applicable)
+    late final Element element;
+    late final Element parentElement;
+
     if (node.methodName.staticElement == null) {
       // we cannot statically resolve what was invoked
       return;
     }
     element = node.methodName.staticElement!;
 
+    late final IdentifierMetadata metadata;
+    late final IdentifierDependencyMetadata dependencyMetadata;
     try {
-      processIdentifier(node.methodName);
+      metadata = processIdentifier(node.methodName, element: element);
       if (element is FunctionElement ||
           element.enclosingElement3 is ExtensionElement) {
         parentElement = element.enclosingElement3!;
@@ -455,7 +456,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         parentElement = node.target!.staticType?.element2! ??
             (node.target! as Identifier).staticElement!;
       }
-      identifyDependencyName();
+      dependencyMetadata = identifyDependencyName(element: parentElement);
     } on AnalysisException {
       // do not continue if this invocation is unfit for analysis
       return;
@@ -466,28 +467,33 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     // differentiate between class methods and top-level functions
     if (parentElement is ClassElement) {
       // ignore generics
-      if ((parentElement as ClassElement).typeParameters.isNotEmpty) {
+      if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
-      constraintIssue = !dependencyShape.containsMethodWithName(
-          parentElement.name!, symbolName);
+      constraintIssue = !dependencyMetadata.packageShape
+          .containsMethodWithName(parentElement.name, metadata.identifierName);
     } else if (parentElement is CompilationUnitElement) {
-      constraintIssue = !dependencyShape.containsFunctionWithName(symbolName);
+      constraintIssue = !dependencyMetadata.packageShape
+          .containsFunctionWithName(metadata.identifierName);
     } else if (parentElement is ExtensionElement) {
-      constraintIssue = !dependencyShape.containsExtensionMethodWithName(
-          parentElement.name!, symbolName);
+      constraintIssue = !dependencyMetadata.packageShape
+          .containsExtensionMethodWithName(
+              parentElement.name!, metadata.identifierName);
     } else {
       // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');
       return;
     }
 
-    issues[elementId] = constraintIssue
+    issues[metadata.elementId] = constraintIssue
         ? LowerBoundConstraintIssue(
-      dependencyPackageName: packageName,
-            constraint: context.dependencies[packageName]!.version,
-            currentVersion: context.findInstalledVersion(packageName),
-            lowestVersion: Version.parse(dependencyShape.version),
-            identifier: symbolName,
+            dependencyPackageName: dependencyMetadata.packageName,
+            constraint:
+                context.dependencies[dependencyMetadata.packageName]!.version,
+            currentVersion:
+                context.findInstalledVersion(dependencyMetadata.packageName),
+            lowestVersion:
+                Version.parse(dependencyMetadata.packageShape.version),
+            identifier: metadata.identifierName,
             parentName: element.kind == ElementKind.FUNCTION
                 ? null
                 : parentElement.name!,
@@ -495,10 +501,32 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             parentKind: element.kind == ElementKind.FUNCTION
                 ? null
                 : parentElement.kind,
-            references: [span],
+            references: [metadata.span],
           )
         : null;
   }
+}
+
+class IdentifierDependencyMetadata {
+  final String packageName;
+  final PackageShape packageShape;
+
+  IdentifierDependencyMetadata({
+    required this.packageName,
+    required this.packageShape,
+  });
+}
+
+class IdentifierMetadata {
+  final SourceSpan span;
+  final int elementId;
+  final String identifierName;
+
+  IdentifierMetadata({
+    required this.span,
+    required this.elementId,
+    required this.identifierName,
+  });
 }
 
 /// Returns the package name from a library identifier/uri, or null if
