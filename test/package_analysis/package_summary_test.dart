@@ -21,7 +21,7 @@ Future<void> main() async {
   await for (final file in yamlDir.list()) {
     final doc = loadYaml(await (file as File).readAsString());
     test(doc['name'], () async {
-      final packagePath = path.canonicalize(path.join('test_package'));
+      final packagePath = path.canonicalize(path.join('__test_package'));
 
       final provider = setupBasicPackage(
         packagePath: packagePath,
@@ -31,10 +31,7 @@ Future<void> main() async {
 
       // place every file in memory at the right 'path'
       for (final node in doc['package']) {
-        final filePath = path.canonicalize(path.join(
-          'test_package',
-          node['path'] as String,
-        ));
+        final filePath = path.join(packagePath, node['path'] as String);
         provider.setOverlay(
           filePath,
           content: node['content'] as String,
