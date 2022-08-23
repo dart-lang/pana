@@ -102,6 +102,8 @@ class Pubspec {
 
   String? get issueTracker => _inner.issueTracker?.toString();
 
+  late final List<Uri> funding = _inner.funding ?? const <Uri>[];
+
   bool get hasDartSdkConstraint => sdkConstraintStatus.hasConstraint;
 
   bool get shouldWarnDart2Constraint => !sdkConstraintStatus.enablesDart2Latest;

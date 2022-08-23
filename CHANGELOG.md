@@ -1,3 +1,7 @@
+## 0.21.17
+
+- Verify `funding` URLs and store the working ones in `AnalysisResult.fundingUrls`.
+
 ## 0.21.16
 
 - Preprocess license texts for better match.
