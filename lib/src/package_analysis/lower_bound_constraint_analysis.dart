@@ -435,7 +435,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     if (node.propertyName.staticElement == null) {
       // we cannot statically resolve what was invoked
-      // TODO: WRITE A TEST FOR CASES LIKE THIS
       return;
     }
     element = node.propertyName.staticElement!;

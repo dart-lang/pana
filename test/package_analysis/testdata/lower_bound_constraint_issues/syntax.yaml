@@ -6,7 +6,8 @@ packages:
     version: 1.0.0
     package:
       - path: lib/foo.dart
-        content: ''
+        content: |
+          class C {}
   - name: foo
     version: 1.1.0
     package:
@@ -15,6 +16,8 @@ packages:
           class C {
             C.namedConstructor();
             void method() {}
+            void g() {}
+            C();
           }
 target:
   dependencies:
@@ -36,7 +39,10 @@ target:
           C().method();
         }
 
+        dynamic ff() => C();
         void main() {
+          // an issue exists, but we cannot detect it because of the return type of ff
+          ff().g();
         }
 issues:
   - 'identifier: method,'
