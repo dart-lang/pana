@@ -425,6 +425,80 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   }
 
   @override
+  void visitPropertyAccess(PropertyAccess node) {
+    // an access of an object property
+    super.visitPropertyAccess(node);
+
+    // the definition of the symbol being analysed, and its parent (where applicable)
+    late final Element element;
+    late final Element parentElement;
+
+    if (node.propertyName.staticElement == null) {
+      // we cannot statically resolve what was invoked
+      // TODO: WRITE A TEST FOR CASES LIKE THIS
+      return;
+    }
+    element = node.propertyName.staticElement!;
+
+    late final IdentifierMetadata metadata;
+    late final IdentifierDependencyMetadata dependencyMetadata;
+    try {
+      metadata = processIdentifier(node.propertyName, element: element);
+      if (element.enclosingElement3 is ExtensionElement) {
+        parentElement = element.enclosingElement3!;
+      } else {
+        parentElement = node.realTarget.staticType?.element2! ??
+            (node.realTarget as Identifier).staticElement!;
+      }
+      dependencyMetadata = identifyDependencyName(element: parentElement);
+    } on AnalysisException {
+      // do not continue if this invocation is unfit for analysis
+      return;
+    }
+
+    late bool constraintIssue;
+
+    // differentiate between class methods and top-level functions
+    if (parentElement is ClassElement) {
+      // ignore generics
+      if (parentElement.typeParameters.isNotEmpty) {
+        return;
+      }
+      constraintIssue = !dependencyMetadata.packageShape
+          .containsPropertyWithName(
+              parentElement.name, metadata.identifierName);
+    } else if (parentElement is ExtensionElement) {
+      // ignore generics
+      if (parentElement.typeParameters.isNotEmpty) {
+        return;
+      }
+      constraintIssue = !dependencyMetadata.packageShape
+          .containsExtensionPropertyWithName(
+              parentElement.name!, metadata.identifierName);
+    } else {
+      // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');
+      return;
+    }
+
+    issues[metadata.elementId] = constraintIssue
+        ? PotentialLowerBoundConstraintIssue(
+            dependencyPackageName: dependencyMetadata.packageName,
+            constraint:
+                context.dependencies[dependencyMetadata.packageName]!.version,
+            currentVersion:
+                context.findInstalledVersion(dependencyMetadata.packageName),
+            lowestVersion:
+                Version.parse(dependencyMetadata.packageShape.version),
+            identifier: metadata.identifierName,
+            parentName: parentElement.name!,
+            kind: element.kind,
+            parentKind: parentElement.kind,
+            references: [metadata.span],
+          )
+        : null;
+  }
+
+  @override
   void visitMethodInvocation(MethodInvocation node) {
     // an invocation of a top-level function or a class method
     super.visitMethodInvocation(node);
@@ -476,6 +550,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       constraintIssue = !dependencyMetadata.packageShape
           .containsFunctionWithName(metadata.identifierName);
     } else if (parentElement is ExtensionElement) {
+      // ignore generics
+      if (parentElement.typeParameters.isNotEmpty) {
+        return;
+      }
       constraintIssue = !dependencyMetadata.packageShape
           .containsExtensionMethodWithName(
               parentElement.name!, metadata.identifierName);

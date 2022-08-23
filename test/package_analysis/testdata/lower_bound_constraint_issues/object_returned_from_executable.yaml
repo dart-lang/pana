@@ -1,0 +1,118 @@
+---
+
+name: Missing class members should be detected if the invocation target is an object returned from a function or method
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          C ff() => C();
+          class DD {
+            C hh() => C();
+          }
+          class C {
+            int aGood = 1;
+            int aaGood = 1;
+            void gGood() {}
+            void ggGood() {}
+            int iGood = 1;
+            int iiGood = 1;
+            void jGood() {}
+            void jjGood() {}
+          }
+          extension Ext on C {
+            int extGGood() {}
+            int get extGetterGood => 1;
+          }
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          C ff() => C();
+          class DD {
+            C hh() => C();
+          }
+          class C {
+            int a = 1;
+            int aa = 1;
+            void g() {}
+            void gg() {}
+            int i = 1;
+            int ii = 1;
+            void j() {}
+            void jj() {}
+
+            int aGood = 1;
+            int aaGood = 1;
+            void gGood() {}
+            void ggGood() {}
+            int iGood = 1;
+            int iiGood = 1;
+            void jGood() {}
+            void jjGood() {}
+          }
+          extension Ext on C {
+            void extG() {}
+            int get extGetter => 1;
+            void extGGood() {}
+            int get extGetterGood => 1;
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+        C f() => C();
+        class D {
+          C h() => C();
+        }
+
+        void main() {
+          // f is a function defined in the target package
+          f().a;
+          f().g();
+          // ff is a function defined in the dependency
+          ff().aa;
+          ff().gg();
+
+          // h is a class method defined in the target package
+          D().h().i;
+          D().h().j();
+          // hh is a class method defined in the dependency
+          DD().hh().ii;
+          DD().hh().jj();
+
+          // no expected detections
+          f().aGood;
+          f().gGood();
+          ff().aaGood;
+          ff().ggGood();
+          D().h().iGood;
+          D().h().jGood();
+          DD().hh().iiGood;
+          DD().hh().jjGood();
+
+          // only testing extension methods and getters with f()
+          f().extG();
+          f().extGetter;
+          f().extGGood();
+          f().extGetterGood;
+        }
+issues:
+  - 'identifier: a,'
+  - 'identifier: aa,'
+  - 'identifier: g,'
+  - 'identifier: gg,'
+  - 'identifier: i,'
+  - 'identifier: ii,'
+  - 'identifier: j,'
+  - 'identifier: jj,'
+  - 'identifier: extG,'
+  - 'identifier: extGetter,'
+
+...
