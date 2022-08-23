@@ -15,6 +15,7 @@ packages:
             static set goodSetterStatic(int something) {}
             void gGood() {}
             void gStaticGood() {}
+            void someCallbackGood() {}
           }
           extension D on C {
             int get goodGetterExt => 1;
@@ -23,6 +24,7 @@ packages:
             static set goodSetterStaticExt(int something) {}
             void gGoodExt() {}
             static void gStaticGoodExt() {}
+            void someExtCallbackGood() {}
           }
   - name: foo
     version: 1.1.0
@@ -44,6 +46,8 @@ packages:
             void gGood() {}
             void gStatic() {}
             void gStaticGood() {}
+            void someCallback() {}
+            void someCallbackGood() {}
           }
           extension D on C {
             int get myGetterExt => 1;
@@ -58,6 +62,8 @@ packages:
             void gGoodExt() {}
             static void gStaticExt() {}
             static void gStaticGoodExt() {}
+            void someExtCallback() {}
+            void someExtCallbackGood() {}
           }
 target:
   dependencies:
@@ -104,6 +110,11 @@ target:
 
           D.gStaticExt();
           D.gStaticGoodExt();
+
+          c.someCallback;
+          c.someCallbackGood;
+          c.someExtCallback;
+          c.someExtCallbackGood;
         }
 issues:
   - 'identifier: f,'
@@ -119,5 +130,7 @@ issues:
   - 'identifier: mySetterStaticExt,'
   - 'identifier: myGetterExt,'
   - 'identifier: mySetterExt,'
+  - 'identifier: someExtCallback,'
+  - 'identifier: someCallback,'
 
 ...

@@ -356,12 +356,14 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         parentNode.writeElement != null) {
       // this special case is needed to retrieve the PropertyAccessorElement for a setter
       element = parentNode.writeElement!;
+    } else if (node.identifier.staticElement != null) {
+      element = node.identifier.staticElement!;
     } else {
       // we cannot statically resolve what was invoked
       return;
     }
 
-    if (element is! PropertyAccessorElement) {
+    if (element is! PropertyAccessorElement && element is! MethodElement) {
       // a PrefixedIdentifier does not necessarily represent a property access
       return;
     } else if (node.prefix.staticType is FunctionType) {
@@ -375,7 +377,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     try {
       metadata = processIdentifier(node.identifier, element: element);
       if (element.enclosingElement3 is ExtensionElement) {
-        parentElement = element.enclosingElement3;
+        parentElement = element.enclosingElement3!;
       } else {
         parentElement =
             node.prefix.staticType?.element2! ?? node.prefix.staticElement!;
@@ -393,12 +395,16 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
-      constraintIssue = !dependencyMetadata.packageShape
-          .containsPropertyWithName(
+      constraintIssue = element is MethodElement
+          ? !dependencyMetadata.packageShape.containsMethodWithName(
+              parentElement.name, metadata.identifierName)
+          : !dependencyMetadata.packageShape.containsPropertyWithName(
               parentElement.name, metadata.identifierName);
     } else if (parentElement is ExtensionElement) {
-      constraintIssue = !dependencyMetadata.packageShape
-          .containsExtensionPropertyWithName(
+      constraintIssue = element is MethodElement
+          ? !dependencyMetadata.packageShape.containsExtensionMethodWithName(
+              parentElement.name!, metadata.identifierName)
+          : !dependencyMetadata.packageShape.containsExtensionPropertyWithName(
               parentElement.name!, metadata.identifierName);
     } else {
       // we may be looking at a top-level getter or setter
@@ -463,16 +469,20 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
-      constraintIssue = !dependencyMetadata.packageShape
-          .containsPropertyWithName(
+      constraintIssue = element is MethodElement
+          ? !dependencyMetadata.packageShape.containsMethodWithName(
+              parentElement.name, metadata.identifierName)
+          : !dependencyMetadata.packageShape.containsPropertyWithName(
               parentElement.name, metadata.identifierName);
     } else if (parentElement is ExtensionElement) {
       // ignore generics
       if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
-      constraintIssue = !dependencyMetadata.packageShape
-          .containsExtensionPropertyWithName(
+      constraintIssue = element is MethodElement
+          ? !dependencyMetadata.packageShape.containsExtensionMethodWithName(
+              parentElement.name!, metadata.identifierName)
+          : !dependencyMetadata.packageShape.containsExtensionPropertyWithName(
               parentElement.name!, metadata.identifierName);
     } else {
       // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');

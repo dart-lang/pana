@@ -20,10 +20,12 @@ packages:
             int iiGood = 1;
             void jGood() {}
             void jjGood() {}
+            void someCallbackGood() {}
           }
           extension Ext on C {
             int extGGood() {}
             int get extGetterGood => 1;
+            void someExtCallbackGood() {}
           }
   - name: foo
     version: 1.1.0
@@ -52,12 +54,18 @@ packages:
             int iiGood = 1;
             void jGood() {}
             void jjGood() {}
+
+            void someCallback() {}
+            void someCallbackGood() {}
           }
           extension Ext on C {
             void extG() {}
             int get extGetter => 1;
             void extGGood() {}
             int get extGetterGood => 1;
+
+            void someExtCallback() {}
+            void someExtCallbackGood() {}
           }
 target:
   dependencies:
@@ -102,6 +110,12 @@ target:
           f().extGetter;
           f().extGGood();
           f().extGetterGood;
+
+          // tear-offs
+          f().someCallback;
+          f().someCallbackGood;
+          f().someExtCallback;
+          f().someExtCallbackGood;
         }
 issues:
   - 'identifier: a,'
@@ -114,5 +128,7 @@ issues:
   - 'identifier: jj,'
   - 'identifier: extG,'
   - 'identifier: extGetter,'
+  - 'identifier: someExtCallback,'
+  - 'identifier: someCallback,'
 
 ...
