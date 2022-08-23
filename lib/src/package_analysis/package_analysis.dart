@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
 import 'package:pool/pool.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:retry/retry.dart';
 
 import 'common.dart';
@@ -254,12 +255,12 @@ class BatchLBCAnalysisCommand extends Command {
           'Failed to find file "package_analysis.dart" which is needed for invoking the $lbcAnalysisCommandName command, ensure $packageAnalysisFilePath points to this file.');
     }
 
-    // fetch the list of top packages from the pub endpoint
-    // (they will already be sorted in descending order of popularity)
     final c = http.Client();
     late final List<String> topPackages;
     late final List<String> allPackages;
     try {
+      // fetch the list of top packages from the pub endpoint
+      // they will already be sorted in descending order of popularity
       final topPackagesResponse = await retry(
         () => c
             .get(Uri.parse('https://pub.dev/api/package-name-completion-data')),
@@ -269,6 +270,8 @@ class BatchLBCAnalysisCommand extends Command {
           .map((packageName) => packageName as String)
           .toList();
 
+      // fetch the list of all package names
+      // this is alphabetically sorted
       final allPackagesResponse = await retry(
         () => c.get(Uri.parse('https://pub.dev/api/package-names')),
         retryIf: (e) => e is IOException,
@@ -276,6 +279,42 @@ class BatchLBCAnalysisCommand extends Command {
       allPackages = (json.decode(allPackagesResponse.body)['packages'] as List)
           .map((packageName) => packageName as String)
           .toList();
+
+      // assuming topPackages is a subset of allPackages, iterate over allPackages,
+      // removing packages from both lists where either of the following is true:
+      // - lower bound sdk constraint is < 2.12.0
+      // - sdk constraint is not satisfied by current version of the sdk
+      final incompatiblePackages = <String>[];
+      final pool = Pool(16);
+      final currentSdkVersion =
+          Version.parse(Platform.version.split(' ').first);
+      await Future.wait(allPackages.map((packageName) async {
+        await pool.withResource(() async {
+          final packageMetadataResponse = await retry(
+            () => c.get(Uri.parse('https://pub.dev/api/packages/$packageName')),
+            retryIf: (e) => e is IOException,
+          );
+          final sdkConstraintStr =
+              json.decode(packageMetadataResponse.body)?['latest']?['pubspec']
+                  ?['environment']?['sdk'] as String?;
+
+          // could not determine sdk constraint
+          if (sdkConstraintStr == null) {
+            incompatiblePackages.add(packageName);
+            return;
+          }
+
+          final sdkConstraint =
+              VersionConstraint.parse(sdkConstraintStr) as VersionRange;
+          if (sdkConstraint.min == null ||
+              sdkConstraint.min! < Version(2, 12, 0) ||
+              !sdkConstraint.allows(currentSdkVersion)) {
+            incompatiblePackages.add(packageName);
+          }
+        });
+      }));
+      topPackages.removeWhere(incompatiblePackages.contains);
+      allPackages.removeWhere(incompatiblePackages.contains);
     } finally {
       c.close();
     }
