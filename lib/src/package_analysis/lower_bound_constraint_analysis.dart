@@ -320,17 +320,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           'The definition of this Element has already been visited.');
     }
 
-    const supportedKinds = [
-      ElementKind.FUNCTION,
-      ElementKind.METHOD,
-      ElementKind.GETTER,
-      ElementKind.SETTER,
-    ];
-    if (!supportedKinds.contains(element.kind)) {
-      // prior checks should have filtered out any invocations other than these
-      throw StateError('Unexpected ElementKind ${element.kind}.');
-    }
-
     return identifierMetadata;
   }
 
@@ -416,7 +405,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     issues[metadata.elementId] = constraintIssue
         ? PotentialLowerBoundConstraintIssue(
-      dependencyPackageName: dependencyMetadata.packageName,
+            dependencyPackageName: dependencyMetadata.packageName,
             constraint:
                 context.dependencies[dependencyMetadata.packageName]!.version,
             currentVersion:
