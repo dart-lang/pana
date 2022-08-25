@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -19,9 +20,7 @@ import 'summary.dart';
 Future<void> main(List<String> arguments) async {
   var runner = CommandRunner('package_analysis',
       'A tool for analysing the public API of a dart package.')
-    ..addCommand(SummaryCommand())
-    ..addCommand(LowerBoundConstraintAnalysisCommand())
-    ..addCommand(BatchLBCAnalysisCommand());
+    ..addCommand(SummaryCommand())..addCommand(LowerBoundConstraintAnalysisCommand())..addCommand(BatchLBCAnalysisCommand());
   await runner.run(arguments);
 }
 
@@ -51,7 +50,7 @@ class SummaryCommand extends Command {
       throw StateError('The target directory must contain a package.');
     }
     if (!await File(
-            path.join(packageLocation, '.dart_tool', 'package_config.json'))
+        path.join(packageLocation, '.dart_tool', 'package_config.json'))
         .exists()) {
       throw StateError(
           'Run `dart pub get` to fetch dependencies before analysing this package.');
@@ -122,11 +121,11 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         late final String dependencyRepository;
         try {
           final targetResponse = await retry(
-            () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
+                () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
             retryIf: (e) => e is IOException,
           );
           final targetMetadata = json.decode(targetResponse.body)['latest']
-              ['pubspec'] as Map<String, dynamic>;
+          ['pubspec'] as Map<String, dynamic>;
           targetHomepage = targetMetadata.containsKey('homepage')
               ? targetMetadata['homepage'] as String
               : '';
@@ -134,13 +133,13 @@ class LowerBoundConstraintAnalysisCommand extends Command {
               ? targetMetadata['repository'] as String
               : '';
           final dependencyResponse = await retry(
-            () => c.get(Uri.parse(
+                () => c.get(Uri.parse(
                 'https://pub.dev/api/packages/${issue.dependencyPackageName}')),
             retryIf: (e) => e is IOException,
           );
           final dependencyMetadata =
-              json.decode(dependencyResponse.body)['latest']['pubspec']
-                  as Map<String, dynamic>;
+          json.decode(dependencyResponse.body)['latest']['pubspec']
+          as Map<String, dynamic>;
           dependencyHomepage = dependencyMetadata.containsKey('homepage')
               ? dependencyMetadata['homepage'] as String
               : '';
@@ -263,7 +262,7 @@ class BatchLBCAnalysisCommand extends Command {
       // fetch the list of top packages from the pub endpoint
       // they will already be sorted in descending order of popularity
       final topPackagesResponse = await retry(
-        () => c
+            () => c
             .get(Uri.parse('https://pub.dev/api/package-name-completion-data')),
         retryIf: (e) => e is IOException,
       );
@@ -274,7 +273,7 @@ class BatchLBCAnalysisCommand extends Command {
       // fetch the list of all package names
       // this is alphabetically sorted
       final allPackagesResponse = await retry(
-        () => c.get(Uri.parse('https://pub.dev/api/package-names')),
+            () => c.get(Uri.parse('https://pub.dev/api/package-names')),
         retryIf: (e) => e is IOException,
       );
       allPackages = (json.decode(allPackagesResponse.body)['packages'] as List)
@@ -288,16 +287,16 @@ class BatchLBCAnalysisCommand extends Command {
       final incompatiblePackages = <String>[];
       final pool = Pool(16);
       final currentSdkVersion =
-          Version.parse(Platform.version.split(' ').first);
+      Version.parse(Platform.version.split(' ').first);
       await Future.wait(allPackages.map((packageName) async {
         await pool.withResource(() async {
           final packageMetadataResponse = await retry(
-            () => c.get(Uri.parse('https://pub.dev/api/packages/$packageName')),
+                () => c.get(Uri.parse('https://pub.dev/api/packages/$packageName')),
             retryIf: (e) => e is IOException,
           );
           final sdkConstraintStr =
-              json.decode(packageMetadataResponse.body)?['latest']?['pubspec']
-                  ?['environment']?['sdk'] as String?;
+          json.decode(packageMetadataResponse.body)?['latest']?['pubspec']
+          ?['environment']?['sdk'] as String?;
 
           // could not determine sdk constraint
           if (sdkConstraintStr == null) {
@@ -306,7 +305,7 @@ class BatchLBCAnalysisCommand extends Command {
           }
 
           final sdkConstraint =
-              VersionConstraint.parse(sdkConstraintStr) as VersionRange;
+          VersionConstraint.parse(sdkConstraintStr) as VersionRange;
           if (sdkConstraint.min == null ||
               sdkConstraint.min! < Version(2, 12, 0) ||
               !sdkConstraint.allows(currentSdkVersion)) {
@@ -326,7 +325,7 @@ class BatchLBCAnalysisCommand extends Command {
       packageCountToAnalyze = allPackages.length;
     }
     final packagesToAnalyse =
-        packageCountToAnalyze > topPackages.length ? allPackages : topPackages;
+    packageCountToAnalyze > topPackages.length ? allPackages : topPackages;
 
     // ensures that the indexes up to and including packageCountToAnalyze do not
     // lose their order when ordered lexicographically
@@ -368,7 +367,7 @@ class BatchLBCAnalysisCommand extends Command {
 
           // wait for the analysis to complete or time out after 10 minutes
           final exitCode =
-              await process.exitCode.timeout(const Duration(minutes: 10));
+          await process.exitCode.timeout(const Duration(minutes: 10));
 
           // capture all output
           final out = await process.stdout.toList();
@@ -392,9 +391,9 @@ class BatchLBCAnalysisCommand extends Command {
             stderr.writeln(
                 'Analysis of package $targetPackageName completed with a non-zero exit code.');
           }
-        } catch (e) {
+        } on TimeoutException {
           stderr.writeln(
-              'Failed to run analysis on package $targetPackageName with error $e.');
+              'Timed out while running analysis on package $targetPackageName.');
           process.kill();
         }
       });
