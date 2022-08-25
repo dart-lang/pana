@@ -31,7 +31,8 @@ Future<void> main() async {
 
       // place every file in memory at the right 'path'
       for (final node in doc['package']) {
-        final filePath = path.join(packagePath, node['path'] as String);
+        final filePath =
+            path.canonicalize(path.join(packagePath, node['path'] as String));
         provider.setOverlay(
           filePath,
           content: node['content'] as String,
