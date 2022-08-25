@@ -70,10 +70,12 @@ Future<PackageShape> summarizePackage({
 
   ExtensionShape summarizeExtension(ExtensionElement extensionElement) {
     // an accessor is a getter or a setter
-    final accessors =
-        extensionElement.accessors.where((element) => !element.isStatic);
-    final staticAccessors =
-        extensionElement.accessors.where((element) => element.isStatic);
+    final publicAccessors = extensionElement.accessors
+        .where((element) => !element.isStatic)
+        .where((element) => element.isPublic);
+    final publicStaticAccessors = extensionElement.accessors
+        .where((element) => element.isStatic)
+        .where((element) => element.isPublic);
 
     final publicMethods =
         extensionElement.methods.where((element) => element.isPublic);
@@ -88,22 +90,22 @@ Future<PackageShape> summarizePackage({
         .map(summarizeMethod)
         .toList();
 
-    final getters = accessors
+    final getters = publicAccessors
         .where((element) => element.isGetter)
         .map(summarizeProperty)
         .toList();
 
-    final setters = accessors
+    final setters = publicAccessors
         .where((element) => element.isSetter)
         .map(summarizeProperty)
         .toList();
 
-    final staticGetters = staticAccessors
+    final staticGetters = publicStaticAccessors
         .where((element) => element.isGetter)
         .map(summarizeProperty)
         .toList();
 
-    final staticSetters = staticAccessors
+    final staticSetters = publicStaticAccessors
         .where((element) => element.isSetter)
         .map(summarizeProperty)
         .toList();
@@ -123,10 +125,12 @@ Future<PackageShape> summarizePackage({
 
   ClassShape summarizeClassElement(ClassElement classElement) {
     // an accessor is a getter or a setter
-    final accessors =
-        classElement.accessors.where((element) => !element.isStatic);
-    final staticAccessors =
-        classElement.accessors.where((element) => element.isStatic);
+    final publicAccessors = classElement.accessors
+        .where((element) => !element.isStatic)
+        .where((element) => element.isPublic);
+    final publicStaticAccessors = classElement.accessors
+        .where((element) => element.isStatic)
+        .where((element) => element.isPublic);
 
     final publicMethods =
         classElement.methods.where((element) => element.isPublic);
@@ -141,22 +145,22 @@ Future<PackageShape> summarizePackage({
         .map(summarizeMethod)
         .toList();
 
-    final getters = accessors
+    final getters = publicAccessors
         .where((element) => element.isGetter)
         .map(summarizeProperty)
         .toList();
 
-    final setters = accessors
+    final setters = publicAccessors
         .where((element) => element.isSetter)
         .map(summarizeProperty)
         .toList();
 
-    final staticGetters = staticAccessors
+    final staticGetters = publicStaticAccessors
         .where((element) => element.isGetter)
         .map(summarizeProperty)
         .toList();
 
-    final staticSetters = staticAccessors
+    final staticSetters = publicStaticAccessors
         .where((element) => element.isSetter)
         .map(summarizeProperty)
         .toList();

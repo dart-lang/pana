@@ -193,6 +193,14 @@ package:
         static int get myStaticGetter => 1;
         static set myStaticSetter(int something) {}
         static void myStaticMethod() {}
+
+        // private members shouldn't be included in the summary
+        int get _myGetter => 1;
+        set _mySetter(int something) {}
+        void _myMethod() {}
+        static int get _myStaticGetter => 1;
+        static set _myStaticSetter(int something) {}
+        static void _myStaticMethod() {}
       }
 
 ...
