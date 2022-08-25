@@ -4,6 +4,8 @@ import 'package:pana/src/package_analysis/shapes_ext.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:source_span/source_span.dart';
 
+import 'kind.dart';
+
 class PotentialLowerBoundConstraintIssue {
   /// The name of the package that has an incorrect lower bound dependency constraint
   final String dependencyPackageName;
@@ -28,15 +30,12 @@ class PotentialLowerBoundConstraintIssue {
   /// null if [identifier] is not a member of a class/extension.
   final String? parentName;
 
-  /// The [ElementKind] of the [Element] corresponding to the missing
-  /// [identifier], one of [ElementKind.FUNCTION], [ElementKind.METHOD],
-  /// [ElementKind.GETTER], [ElementKind.SETTER].
-  final ElementKind kind;
+  /// The [Kind] of the [Element] corresponding to the missing [identifier].
+  final Kind kind;
 
-  /// The [ElementKind] of the parent [Element] of the missing [identifier],
-  /// [parentName], one of [ElementKind.CLASS], [ElementKind.EXTENSION], or null
-  /// if [identifier] is not a member of a class/extension.
-  final ElementKind? parentKind;
+  /// The [ParentKind] of the parent [Element] of the missing [identifier],
+  /// [parentName].
+  final ParentKind? parentKind;
 
   /// List of locations in the analyzed source code where [identifier] was referenced.
   final List<SourceSpan> references;
@@ -48,56 +47,62 @@ class PotentialLowerBoundConstraintIssue {
     String? classNameAlias,
   }) {
     switch (kind) {
-      case ElementKind.FUNCTION:
+      case Kind.function:
         return package.containsFunctionWithName(identifier);
 
-      case ElementKind.METHOD:
-        if (parentKind == ElementKind.CLASS) {
-          return package.containsMethodWithName(
-            classNameAlias ?? parentName!,
-            identifier,
-          );
-        } else if (parentKind == ElementKind.EXTENSION) {
-          return package.containsExtensionMethodWithName(
-            parentName!,
-            identifier,
-          );
-        } else {
-          throw StateError('Unexpected parent ElementKind $parentKind.');
+      case Kind.method:
+        switch (parentKind) {
+          case ParentKind.Enum:
+          case ParentKind.Class:
+            return package.containsMethodWithName(
+              classNameAlias ?? parentName!,
+              identifier,
+            );
+          case ParentKind.Extension:
+            return package.containsExtensionMethodWithName(
+              parentName!,
+              identifier,
+            );
+          case null:
+            throw StateError(
+                'Identifier is a method, parentKind is unexpectedly null.');
         }
 
-      case ElementKind.GETTER:
-        if (parentKind == ElementKind.CLASS) {
-          return package.containsGetterWithName(
-            classNameAlias ?? parentName!,
-            identifier,
-          );
-        } else if (parentKind == ElementKind.EXTENSION) {
-          return package.containsExtensionGetterWithName(
-            parentName!,
-            identifier,
-          );
-        } else {
-          throw StateError('Unexpected parent ElementKind $parentKind.');
+      case Kind.getter:
+        switch (parentKind) {
+          case ParentKind.Enum:
+          case ParentKind.Class:
+            return package.containsGetterWithName(
+              classNameAlias ?? parentName!,
+              identifier,
+            );
+          case ParentKind.Extension:
+            return package.containsExtensionGetterWithName(
+              parentName!,
+              identifier,
+            );
+          case null:
+            throw StateError(
+                'Identifier is a getter, parentKind is unexpectedly null.');
         }
 
-      case ElementKind.SETTER:
-        if (parentKind == ElementKind.CLASS) {
-          return package.containsSetterWithName(
-            classNameAlias ?? parentName!,
-            identifier,
-          );
-        } else if (parentKind == ElementKind.EXTENSION) {
-          return package.containsExtensionSetterWithName(
-            parentName!,
-            identifier,
-          );
-        } else {
-          throw StateError('Unexpected parent ElementKind $parentKind.');
+      case Kind.setter:
+        switch (parentKind) {
+          case ParentKind.Enum:
+          case ParentKind.Class:
+            return package.containsSetterWithName(
+              classNameAlias ?? parentName!,
+              identifier,
+            );
+          case ParentKind.Extension:
+            return package.containsExtensionSetterWithName(
+              parentName!,
+              identifier,
+            );
+          case null:
+            throw StateError(
+                'Identifier is a setter, parentKind is unexpectedly null.');
         }
-
-      default:
-        throw StateError('Unexpected identifier ElementKind $kind.');
     }
   }
 

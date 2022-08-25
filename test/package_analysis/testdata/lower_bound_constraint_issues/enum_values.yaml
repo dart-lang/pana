@@ -1,0 +1,34 @@
+---
+
+name: Analysis should be able to detect missing enum values
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          enum Color { green, blue }
+          enum ColorCode { r, g, b }
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          enum Color { red, green, blue }
+          enum ColorCode { r, g, b }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+        void f(Color color, ColorCode colorCode) {
+          final a = color == Color.red;
+          final b = colorCode == ColorCode.r;
+        }
+issues:
+  - 'identifier: red,'
+
+...

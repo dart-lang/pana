@@ -8,6 +8,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/exception/exception.dart';
 import 'package:collection/collection.dart';
+import 'package:pana/src/package_analysis/kind.dart';
 import 'package:pana/src/package_analysis/package_analysis.dart';
 import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:pana/src/package_analysis/shapes_ext.dart';
@@ -200,7 +201,7 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     // possibleIssue.className may reveal a false positive
 
     // ensure we are dealing with a class member and that issue.className != null
-    if (possibleIssue.kind == ElementKind.FUNCTION) {
+    if (possibleIssue.kind == Kind.function) {
       // we cannot perform check 2 here
       issues.add(possibleIssue);
       continue;
@@ -415,7 +416,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     issues[metadata.elementId] = constraintIssue
         ? PotentialLowerBoundConstraintIssue(
-            dependencyPackageName: dependencyMetadata.packageName,
+      dependencyPackageName: dependencyMetadata.packageName,
             constraint:
                 context.dependencies[dependencyMetadata.packageName]!.version,
             currentVersion:
@@ -424,8 +425,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
                 Version.parse(dependencyMetadata.packageShape.version),
             identifier: metadata.identifierName,
             parentName: parentElement.name!,
-            kind: element.kind,
-            parentKind: parentElement.kind,
+            kind: element.kind.toKind(),
+            parentKind: parentElement.kind.toParentKind(),
             references: [metadata.span],
           )
         : null;
@@ -492,7 +493,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     issues[metadata.elementId] = constraintIssue
         ? PotentialLowerBoundConstraintIssue(
-            dependencyPackageName: dependencyMetadata.packageName,
+      dependencyPackageName: dependencyMetadata.packageName,
             constraint:
                 context.dependencies[dependencyMetadata.packageName]!.version,
             currentVersion:
@@ -501,8 +502,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
                 Version.parse(dependencyMetadata.packageShape.version),
             identifier: metadata.identifierName,
             parentName: parentElement.name!,
-            kind: element.kind,
-            parentKind: parentElement.kind,
+            kind: element.kind.toKind(),
+            parentKind: parentElement.kind.toParentKind(),
             references: [metadata.span],
           )
         : null;
@@ -585,10 +586,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             parentName: element.kind == ElementKind.FUNCTION
                 ? null
                 : parentElement.name!,
-            kind: element.kind,
+            kind: element.kind.toKind(),
             parentKind: element.kind == ElementKind.FUNCTION
                 ? null
-                : parentElement.kind,
+                : parentElement.kind.toParentKind(),
             references: [metadata.span],
           )
         : null;

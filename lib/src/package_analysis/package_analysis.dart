@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:args/command_runner.dart';
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
+import 'package:pana/src/package_analysis/kind.dart';
 import 'package:path/path.dart' as path;
 import 'package:pool/pool.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -165,22 +165,23 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         switch (issue.parentKind) {
           case null:
             print(
-                'Identifier `${issue.identifier}` is a top-level ${issue.kind.toString().toLowerCase()}');
+                'Identifier `${issue.identifier}` is a top-level ${issue.kind.toString()}');
             break;
 
-          case ElementKind.CLASS:
+          case ParentKind.Class:
             print(
-                'Identifier `${issue.identifier}` is a ${issue.kind.toString().toLowerCase()}, member of the class `${issue.parentName!}`');
+                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the class `${issue.parentName!}`');
             break;
 
-          case ElementKind.EXTENSION:
+          case ParentKind.Extension:
             print(
-                'Identifier `${issue.identifier}` is a ${issue.kind.toString().toLowerCase()}, member of the extension `${issue.parentName!}`');
+                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the extension `${issue.parentName!}`');
             break;
 
-          default:
-            throw StateError(
-                'Unexpected parent ElementKind ${issue.parentKind}.');
+          case ParentKind.Enum:
+            print(
+                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the enum `${issue.parentName!}`');
+            break;
         }
         print('Usages of this identifier in target package:');
         for (final reference in issue.references) {
