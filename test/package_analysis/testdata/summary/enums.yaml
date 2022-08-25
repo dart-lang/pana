@@ -1,0 +1,92 @@
+---
+
+name: The summary should include enums, which should be represented as classes
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "Color",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "index"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [
+          {
+            "name": "blue"
+          },
+          {
+            "name": "green"
+          },
+          {
+            "name": "red"
+          },
+          {
+            "name": "values"
+          }
+        ],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "compareByIndex"
+          },
+          {
+            "name": "compareByName"
+          },
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ]
+      }
+    ],
+    "extensions": [],
+    "typedefs": []
+  }
+package:
+  - path: lib/a.dart
+    content: enum Color { red, green, blue }
+
+...
