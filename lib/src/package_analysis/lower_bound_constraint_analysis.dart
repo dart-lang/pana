@@ -430,11 +430,15 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     late final Element element;
     late final Element parentElement;
 
-    if (node.propertyName.staticElement == null) {
+    if (node.parent is CompoundAssignmentExpression) {
+      // we need to go up one level up in the AST if an assignment is happening in cascade notation
+      element = (node.parent as CompoundAssignmentExpression).writeElement!;
+    } else if (node.propertyName.staticElement != null) {
+      element = node.propertyName.staticElement!;
+    } else {
       // we cannot statically resolve what was invoked
       return;
     }
-    element = node.propertyName.staticElement!;
 
     late final IdentifierMetadata metadata;
     late final IdentifierDependencyMetadata dependencyMetadata;
@@ -486,7 +490,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     issues[metadata.elementId] = constraintIssue
         ? PotentialLowerBoundConstraintIssue(
-      dependencyPackageName: dependencyMetadata.packageName,
+            dependencyPackageName: dependencyMetadata.packageName,
             constraint:
                 context.dependencies[dependencyMetadata.packageName]!.version,
             currentVersion:
@@ -524,9 +528,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if (element is FunctionElement ||
           element.enclosingElement3 is ExtensionElement) {
         parentElement = element.enclosingElement3!;
-      } else if (node.parent is CascadeExpression) {
-        // TODO: handle cascade notation
-        return;
+      } else if (node.parent is CascadeExpression &&
+          (node.parent as CascadeExpression).target.staticType != null) {
+        parentElement =
+            (node.parent as CascadeExpression).target.staticType!.element2!;
       } else if (node.realTarget == null ||
           node.realTarget!.staticType is FunctionType) {
         // do not allow the parent to be a Function

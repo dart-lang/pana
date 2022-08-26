@@ -1,0 +1,71 @@
+---
+
+name: Analysis should be able to work with cascade notation
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          class CGood {
+            var a = 0;
+            var c = 0;
+            final e = 0;
+            void g() {}
+            void i() {}
+          }
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          class CGood {
+            var a = 0;
+            var c = 0;
+            final e = 0;
+            void g() {}
+            void i() {}
+          }
+          class C {
+            var b = 0;
+            var d = 0;
+            final f = 0;
+            void h() {}
+            void j() {}
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+        void main() {
+          CGood()
+            ..a = 1
+            ..g();
+          C()
+            ..b = 1
+            ..h();
+
+          CGood()..e;
+          C()..f;
+
+          final cGood = CGood();
+          cGood
+            ..c = 1
+            ..i();
+          final c = C();
+          c
+            ..d = 1
+            ..j();
+        }
+issues:
+  - 'identifier: b,'
+  - 'identifier: d,'
+  - 'identifier: h,'
+  - 'identifier: j,'
+  - 'identifier: f,'
+
+...
