@@ -357,10 +357,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     if (element is! PropertyAccessorElement && element is! MethodElement) {
       // a PrefixedIdentifier does not necessarily represent a property access
       return;
-    } else if (node.prefix.staticType is FunctionType) {
-      // do not allow the parent to be a Function
-      // this breaks the assertion node.prefix.staticType?.element2 != null
-      return;
     }
 
     late final IdentifierMetadata metadata;
@@ -369,6 +365,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       metadata = processIdentifier(node.identifier, element: element);
       if (element.enclosingElement3 is ExtensionElement) {
         parentElement = element.enclosingElement3!;
+      } else if (node.prefix.staticType is FunctionType) {
+        // do not allow the parent to be a Function
+        // this breaks the assertion node.prefix.staticType?.element2 != null
+        return;
       } else {
         parentElement =
             node.prefix.staticType?.element2! ?? node.prefix.staticElement!;
@@ -433,10 +433,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     if (node.propertyName.staticElement == null) {
       // we cannot statically resolve what was invoked
       return;
-    } else if (node.realTarget.staticType is FunctionType) {
-      // do not allow the parent to be a Function
-      // this breaks the assertion node.realTarget.staticType?.element2 != null
-      return;
     }
     element = node.propertyName.staticElement!;
 
@@ -446,6 +442,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       metadata = processIdentifier(node.propertyName, element: element);
       if (element.enclosingElement3 is ExtensionElement) {
         parentElement = element.enclosingElement3!;
+      } else if (node.realTarget.staticType is FunctionType) {
+        // do not allow the parent to be a Function
+        // this breaks the assertion node.realTarget.staticType?.element2 != null
+        return;
       } else {
         parentElement = node.realTarget.staticType?.element2! ??
             (node.realTarget as Identifier).staticElement!;
@@ -514,11 +514,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     if (node.methodName.staticElement == null) {
       // we cannot statically resolve what was invoked
       return;
-    } else if (node.realTarget == null ||
-        node.realTarget!.staticType is FunctionType) {
-      // do not allow the parent to be a Function
-      // this breaks the assertion node.realTarget!.staticType?.element2 != null
-      return;
     }
     element = node.methodName.staticElement!;
 
@@ -531,6 +526,11 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         parentElement = element.enclosingElement3!;
       } else if (node.parent is CascadeExpression) {
         // TODO: handle cascade notation
+        return;
+      } else if (node.realTarget == null ||
+          node.realTarget!.staticType is FunctionType) {
+        // do not allow the parent to be a Function
+        // this breaks the assertion node.realTarget!.staticType?.element2 != null
         return;
       } else {
         parentElement = node.realTarget!.staticType?.element2! ??
