@@ -359,7 +359,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       return;
     } else if (node.prefix.staticType is FunctionType) {
       // do not allow the parent to be a Function
-      // (this breaks the assertion node.prefix.staticType?.element2 != null )
+      // this breaks the assertion node.prefix.staticType?.element2 != null
       return;
     }
 
@@ -435,7 +435,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       return;
     } else if (node.realTarget.staticType is FunctionType) {
       // do not allow the parent to be a Function
-      // (this breaks the assertion node.realTarget.staticType?.element2 != null )
+      // this breaks the assertion node.realTarget.staticType?.element2 != null
       return;
     }
     element = node.propertyName.staticElement!;
@@ -514,6 +514,11 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     if (node.methodName.staticElement == null) {
       // we cannot statically resolve what was invoked
       return;
+    } else if (node.realTarget == null ||
+        node.realTarget!.staticType is FunctionType) {
+      // do not allow the parent to be a Function
+      // this breaks the assertion node.realTarget!.staticType?.element2 != null
+      return;
     }
     element = node.methodName.staticElement!;
 
@@ -527,12 +532,9 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       } else if (node.parent is CascadeExpression) {
         // TODO: handle cascade notation
         return;
-      } else if (node.target == null) {
-        return;
       } else {
-        // TODO: determining parentElement through node.target seems unreliable...
-        parentElement = node.target!.staticType?.element2! ??
-            (node.target! as Identifier).staticElement!;
+        parentElement = node.realTarget!.staticType?.element2! ??
+            (node.realTarget! as Identifier).staticElement!;
       }
       dependencyMetadata = identifyDependencyName(element: parentElement);
     } on AnalysisException {
