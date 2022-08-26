@@ -359,7 +359,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       return;
     } else if (node.prefix.staticType is FunctionType) {
       // do not allow the parent to be a Function
-      // (this breaks the assertion node.prefix.staticType?.element != null )
+      // (this breaks the assertion node.prefix.staticType?.element2 != null )
       return;
     }
 
@@ -432,6 +432,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     if (node.propertyName.staticElement == null) {
       // we cannot statically resolve what was invoked
+      return;
+    } else if (node.realTarget.staticType is FunctionType) {
+      // do not allow the parent to be a Function
+      // (this breaks the assertion node.realTarget.staticType?.element2 != null )
       return;
     }
     element = node.propertyName.staticElement!;
