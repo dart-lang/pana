@@ -70,7 +70,9 @@ summary: |-
           {
             "name": "hashAllUnordered"
           }
-        ]
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": []
       },
       {
         "id": 1,
@@ -107,7 +109,9 @@ summary: |-
           {
             "name": "hashAllUnordered"
           }
-        ]
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": []
       }
     ],
     "extensions": [],

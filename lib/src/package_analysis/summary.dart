@@ -46,6 +46,11 @@ Future<PackageShape> summarizePackage({
     return PropertyShape(name: property.variable.name);
   }
 
+  NamedConstructorShape summarizeNamedConstructor(
+      ConstructorElement constructor) {
+    return NamedConstructorShape(name: constructor.name);
+  }
+
   FunctionShape summarizeFunction(FunctionElement functionElement) {
     return FunctionShape(
       id: functionElement.id,
@@ -165,6 +170,14 @@ Future<PackageShape> summarizePackage({
         .map(summarizeProperty)
         .toList();
 
+    final unnamedConstructor =
+        classElement.constructors.any((constructor) => constructor.name == '');
+
+    final namedConstructors = classElement.constructors
+        .where((constructor) => constructor.name != '')
+        .map(summarizeNamedConstructor)
+        .toList();
+
     return ClassShape(
       id: classElement.id,
       name: classElement.name,
@@ -174,6 +187,8 @@ Future<PackageShape> summarizePackage({
       staticGetters: staticGetters,
       staticSetters: staticSetters,
       staticMethods: staticMethods,
+      unnamedConstructor: unnamedConstructor,
+      namedConstructors: namedConstructors,
     );
   }
 

@@ -64,7 +64,9 @@ summary: |-
           {
             "name": "hashAllUnordered"
           }
-        ]
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": []
       },
       {
         "id": 1,
@@ -294,6 +296,27 @@ summary: |-
           {
             "name": "writeIterable"
           }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [
+          {
+            "name": "empty"
+          },
+          {
+            "name": "filled"
+          },
+          {
+            "name": "from"
+          },
+          {
+            "name": "generate"
+          },
+          {
+            "name": "of"
+          },
+          {
+            "name": "unmodifiable"
+          }
         ]
       },
       {
@@ -396,6 +419,30 @@ summary: |-
           },
           {
             "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [
+          {
+            "name": "from"
+          },
+          {
+            "name": "fromEntries"
+          },
+          {
+            "name": "fromIterable"
+          },
+          {
+            "name": "fromIterables"
+          },
+          {
+            "name": "identity"
+          },
+          {
+            "name": "of"
+          },
+          {
+            "name": "unmodifiable"
           }
         ]
       },
@@ -589,6 +636,12 @@ summary: |-
           },
           {
             "name": "tryParse"
+          }
+        ],
+        "unnamedConstructor": false,
+        "namedConstructors": [
+          {
+            "name": "fromEnvironment"
           }
         ]
       }

@@ -79,7 +79,9 @@ summary: |-
           {
             "name": "hashAllUnordered"
           }
-        ]
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": []
       }
     ],
     "extensions": [],

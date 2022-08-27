@@ -99,6 +99,10 @@ ClassShape _$ClassShapeFromJson(Map<String, dynamic> json) => ClassShape(
       staticMethods: (json['staticMethods'] as List<dynamic>)
           .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
           .toList(),
+      unnamedConstructor: json['unnamedConstructor'] as bool,
+      namedConstructors: (json['namedConstructors'] as List<dynamic>)
+          .map((e) => NamedConstructorShape.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
@@ -111,6 +115,9 @@ Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
       'staticGetters': instance.staticGetters.map((e) => e.toJson()).toList(),
       'staticSetters': instance.staticSetters.map((e) => e.toJson()).toList(),
       'staticMethods': instance.staticMethods.map((e) => e.toJson()).toList(),
+      'unnamedConstructor': instance.unnamedConstructor,
+      'namedConstructors':
+          instance.namedConstructors.map((e) => e.toJson()).toList(),
     };
 
 ExtensionShape _$ExtensionShapeFromJson(Map<String, dynamic> json) =>
@@ -166,6 +173,18 @@ PropertyShape _$PropertyShapeFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$PropertyShapeToJson(PropertyShape instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+    };
+
+NamedConstructorShape _$NamedConstructorShapeFromJson(
+        Map<String, dynamic> json) =>
+    NamedConstructorShape(
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$NamedConstructorShapeToJson(
+        NamedConstructorShape instance) =>
     <String, dynamic>{
       'name': instance.name,
     };

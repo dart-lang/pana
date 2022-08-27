@@ -159,7 +159,9 @@ summary: |-
           {
             "name": "myStaticMethod"
           }
-        ]
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": []
       }
     ],
     "extensions": [],

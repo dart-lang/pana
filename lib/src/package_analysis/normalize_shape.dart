@@ -118,7 +118,7 @@ PackageShape normalizePackageShape(PackageShape package) {
           ))
       .toList();
 
-  // sort all the fields of all the classes and extensions
+  // sort all the properties of type List<T> in all the classes and extensions
   for (final thisClass in newClasses) {
     for (final classMemberList in [
       thisClass.getters,
@@ -127,6 +127,7 @@ PackageShape normalizePackageShape(PackageShape package) {
       thisClass.staticGetters,
       thisClass.staticSetters,
       thisClass.staticMethods,
+      thisClass.namedConstructors,
     ]) {
       classMemberList.sort((ClassMemberShapeBase a, ClassMemberShapeBase b) =>
           a.name.compareTo(b.name));

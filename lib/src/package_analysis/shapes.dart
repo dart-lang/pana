@@ -117,6 +117,8 @@ class ClassShape extends GlobalShapeBase {
   final List<PropertyShape> staticGetters;
   final List<PropertyShape> staticSetters;
   final List<MethodShape> staticMethods;
+  final bool unnamedConstructor;
+  final List<NamedConstructorShape> namedConstructors;
 
   ClassShape({
     required super.id,
@@ -127,6 +129,8 @@ class ClassShape extends GlobalShapeBase {
     required this.staticGetters,
     required this.staticSetters,
     required this.staticMethods,
+    required this.unnamedConstructor,
+    required this.namedConstructors,
   });
 
   factory ClassShape.fromJson(Map<String, dynamic> json) =>
@@ -188,6 +192,18 @@ class PropertyShape extends ClassMemberShapeBase {
       _$PropertyShapeFromJson(json);
 
   Map<String, dynamic> toJson() => _$PropertyShapeToJson(this);
+}
+
+/// A Shape for describing a named constructor of a class.
+@sealed
+@JsonSerializable()
+class NamedConstructorShape extends ClassMemberShapeBase {
+  NamedConstructorShape({required super.name});
+
+  factory NamedConstructorShape.fromJson(Map<String, dynamic> json) =>
+      _$NamedConstructorShapeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NamedConstructorShapeToJson(this);
 }
 
 /// A Shape for describing a top-level function

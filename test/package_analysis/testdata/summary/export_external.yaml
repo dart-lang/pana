@@ -66,6 +66,12 @@ summary: |-
           {
             "name": "hashAllUnordered"
           }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [
+          {
+            "name": "secure"
+          }
         ]
       }
     ],

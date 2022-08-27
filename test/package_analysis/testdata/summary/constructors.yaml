@@ -1,0 +1,364 @@
+---
+
+name: The summary should include informaton about the named and unnamed constructors of a class
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "DefaultConstructor",
+        "getters": [
+          {
+            "name": "a"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [
+          {
+            "name": "a"
+          }
+        ],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": []
+      },
+      {
+        "id": 1,
+        "name": "EmptyUnnamedConstructor",
+        "getters": [
+          {
+            "name": "a"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [
+          {
+            "name": "a"
+          }
+        ],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": []
+      },
+      {
+        "id": 2,
+        "name": "NamedAndUnnamedConstructors",
+        "getters": [
+          {
+            "name": "a"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [
+          {
+            "name": "a"
+          }
+        ],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [
+          {
+            "name": "constructorName"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "NamedConstructor",
+        "getters": [
+          {
+            "name": "a"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [
+          {
+            "name": "a"
+          }
+        ],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": false,
+        "namedConstructors": [
+          {
+            "name": "constructorName"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "NamedConstructors",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": false,
+        "namedConstructors": [
+          {
+            "name": "a"
+          },
+          {
+            "name": "b"
+          },
+          {
+            "name": "c"
+          },
+          {
+            "name": "d"
+          },
+          {
+            "name": "e"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "UnnamedConstructor",
+        "getters": [
+          {
+            "name": "a"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [
+          {
+            "name": "a"
+          }
+        ],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": []
+      }
+    ],
+    "extensions": [],
+    "typedefs": []
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      class DefaultConstructor {
+        int a = 1;
+      }
+
+      class EmptyUnnamedConstructor {
+        int a = 1;
+        EmptyUnnamedConstructor();
+      }
+
+      class UnnamedConstructor {
+        int a;
+        UnnamedConstructor(this.a);
+      }
+
+      class NamedConstructor {
+        int a;
+        NamedConstructor.constructorName(this.a);
+      }
+
+      class NamedAndUnnamedConstructors {
+        int a;
+        NamedAndUnnamedConstructors(this.a);
+        NamedAndUnnamedConstructors.constructorName(this.a);
+      }
+
+      // lots of named constructors which should be ordered in alphabetical order
+      class NamedConstructors {
+        NamedConstructors.e();
+        NamedConstructors.b();
+        NamedConstructors.a();
+        NamedConstructors.d();
+        NamedConstructors.c();
+      }
+
+...

@@ -59,13 +59,17 @@ extension ClassShapeExt on ClassShape {
         staticGetters: staticGetters,
         staticSetters: staticSetters,
         staticMethods: staticMethods,
+        unnamedConstructor: unnamedConstructor,
+        namedConstructors: namedConstructors,
       );
 
-  /// Modifies this [ClassShape] based on a list of others. The name and id of
-  /// the original [ClassShape] is retained, and the other fields of type
-  /// [List<T>] are expanded with the corresponding fields from the elements of
-  /// [others], only where the addition of elements of the field [List]s does
-  /// not cause result in duplicate class members.
+  /// Modifies this [ClassShape] based on a list of others. The `name`, `id`,
+  /// `unnamedConstructor` and `namedConstructors` of the original [ClassShape]
+  /// are retained (subclasses don’t inherit constructors from their
+  /// superclass), and the other fields of type [List<T>] are expanded with the
+  /// corresponding fields from the elements of [others], only where the
+  /// addition of elements of the field [List]s does not cause result in
+  /// duplicate class members.
   void add({required List<ClassShape> others}) {
     /// Adds elements of [other] to [list] without creating duplicates.
     void addWithoutDuplicates(
