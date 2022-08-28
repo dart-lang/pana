@@ -45,6 +45,7 @@ extension ExtensionShapeExt on ExtensionShape {
         staticGetters: staticGetters,
         staticSetters: staticSetters,
         staticMethods: staticMethods,
+        annotations: annotations,
       );
 }
 
@@ -61,15 +62,16 @@ extension ClassShapeExt on ClassShape {
         staticMethods: staticMethods,
         unnamedConstructor: unnamedConstructor,
         namedConstructors: namedConstructors,
+        annotations: annotations,
       );
 
   /// Modifies this [ClassShape] based on a list of others. The `name`, `id`,
-  /// `unnamedConstructor` and `namedConstructors` of the original [ClassShape]
-  /// are retained (subclasses don’t inherit constructors from their
-  /// superclass), and the other fields of type [List<T>] are expanded with the
-  /// corresponding fields from the elements of [others], only where the
-  /// addition of elements of the field [List]s does not cause result in
-  /// duplicate class members.
+  /// `unnamedConstructor`, `namedConstructors` and `annotations` of the
+  /// original [ClassShape] are retained (subclasses don’t inherit constructors
+  /// or annotations from their superclass), and the other fields of type
+  /// [List<T>] are expanded with the corresponding fields from the elements of
+  /// [others], only where the addition of elements of the field [List]s does
+  /// not cause result in duplicate class members.
   void add({required List<ClassShape> others}) {
     /// Adds elements of [other] to [list] without creating duplicates.
     void addWithoutDuplicates(
@@ -93,7 +95,7 @@ extension ClassShapeExt on ClassShape {
 
 extension LibraryShapeExt on LibraryShape {
   /// Creates a new [LibraryShape] based on this one, but with all the parts
-  /// (except the uri) replaced.
+  /// (except `uri`) replaced.
   LibraryShape replaceAll({
     required List<int> exportedGetters,
     required List<int> exportedSetters,
@@ -122,10 +124,10 @@ extension PackageShapeExt on PackageShape {
   /// be accessed by the name [name], whether that is their name, or the name of
   /// a typedef which points to the class.
   Iterable<ClassShape> classesMatchingName(String name) {
+    // either the name of the class has to match, or there must exist a typedef
+    // with a matching name and a target id which matches that of the class
     return classes.where((thisClass) =>
-        // either the name of the class has to match,
-        // or there must exist a typedef with a matching name and a target id which matches that of the class
-    thisClass.name == name ||
+        thisClass.name == name ||
         typedefs.any((thisTypedef) =>
             thisTypedef.name == name &&
             thisClass.id == thisTypedef.targetClassId));

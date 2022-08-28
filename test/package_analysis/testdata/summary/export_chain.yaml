@@ -92,7 +92,8 @@ summary: |-
           }
         ],
         "unnamedConstructor": true,
-        "namedConstructors": []
+        "namedConstructors": [],
+        "annotations": []
       }
     ],
     "extensions": [],

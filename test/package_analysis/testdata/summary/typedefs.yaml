@@ -66,7 +66,8 @@ summary: |-
           }
         ],
         "unnamedConstructor": true,
-        "namedConstructors": []
+        "namedConstructors": [],
+        "annotations": []
       },
       {
         "id": 1,
@@ -317,7 +318,8 @@ summary: |-
           {
             "name": "unmodifiable"
           }
-        ]
+        ],
+        "annotations": []
       },
       {
         "id": 2,
@@ -444,7 +446,8 @@ summary: |-
           {
             "name": "unmodifiable"
           }
-        ]
+        ],
+        "annotations": []
       },
       {
         "id": 3,
@@ -643,7 +646,8 @@ summary: |-
           {
             "name": "fromEnvironment"
           }
-        ]
+        ],
+        "annotations": []
       }
     ],
     "extensions": [],

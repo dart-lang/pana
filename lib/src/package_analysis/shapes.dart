@@ -119,6 +119,7 @@ class ClassShape extends GlobalShapeBase {
   final List<MethodShape> staticMethods;
   final bool unnamedConstructor;
   final List<NamedConstructorShape> namedConstructors;
+  final List<Annotation> annotations;
 
   ClassShape({
     required super.id,
@@ -131,6 +132,7 @@ class ClassShape extends GlobalShapeBase {
     required this.staticMethods,
     required this.unnamedConstructor,
     required this.namedConstructors,
+    required this.annotations,
   });
 
   factory ClassShape.fromJson(Map<String, dynamic> json) =>
@@ -151,6 +153,7 @@ class ExtensionShape extends GlobalShapeBase {
   final List<PropertyShape> staticGetters;
   final List<PropertyShape> staticSetters;
   final List<MethodShape> staticMethods;
+  final List<Annotation> annotations;
 
   ExtensionShape({
     required super.id,
@@ -162,6 +165,7 @@ class ExtensionShape extends GlobalShapeBase {
     required this.staticGetters,
     required this.staticSetters,
     required this.staticMethods,
+    required this.annotations,
   });
 
   factory ExtensionShape.fromJson(Map<String, dynamic> json) =>
@@ -245,6 +249,13 @@ class TypedefShape extends GlobalShapeBase {
       _$TypedefShapeFromJson(json);
 
   Map<String, dynamic> toJson() => _$TypedefShapeToJson(this);
+}
+
+enum Annotation {
+  deprecated,
+  sealed,
+  visibleForOverriding,
+  visibleForTesting,
 }
 
 @internal

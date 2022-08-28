@@ -61,7 +61,8 @@ summary: |-
           }
         ],
         "unnamedConstructor": true,
-        "namedConstructors": []
+        "namedConstructors": [],
+        "annotations": []
       }
     ],
     "extensions": [
@@ -140,7 +141,8 @@ summary: |-
           {
             "name": "myStaticMethod"
           }
-        ]
+        ],
+        "annotations": []
       }
     ],
     "typedefs": []

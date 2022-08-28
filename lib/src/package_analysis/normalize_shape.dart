@@ -118,7 +118,8 @@ PackageShape normalizePackageShape(PackageShape package) {
           ))
       .toList();
 
-  // sort all the properties of type List<T> in all the classes and extensions
+  // sort all the properties of type List<T> in all the classes and extensions,
+  // apart from annotations which already have a canonical order
   for (final thisClass in newClasses) {
     for (final classMemberList in [
       thisClass.getters,

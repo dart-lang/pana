@@ -72,7 +72,8 @@ summary: |-
           {
             "name": "secure"
           }
-        ]
+        ],
+        "annotations": []
       }
     ],
     "extensions": [],

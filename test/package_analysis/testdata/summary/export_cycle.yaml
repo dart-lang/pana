@@ -72,7 +72,8 @@ summary: |-
           }
         ],
         "unnamedConstructor": true,
-        "namedConstructors": []
+        "namedConstructors": [],
+        "annotations": []
       },
       {
         "id": 1,
@@ -111,7 +112,8 @@ summary: |-
           }
         ],
         "unnamedConstructor": true,
-        "namedConstructors": []
+        "namedConstructors": [],
+        "annotations": []
       }
     ],
     "extensions": [],

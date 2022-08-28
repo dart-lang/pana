@@ -1,6 +1,6 @@
 ---
 
-name: Classes must be sorted and re-indexed in alphabetical order
+name: The summary should include some basic annotations
 summary: |-
   {
     "name": "test.package",
@@ -13,36 +13,11 @@ summary: |-
         "exportedFunctions": [],
         "exportedClasses": [
           0,
-          1,
+          1
+        ],
+        "exportedExtensions": [
           2
         ],
-        "exportedExtensions": [],
-        "exportedTypedefs": []
-      },
-      {
-        "uri": "package:test.package/b.dart",
-        "exportedGetters": [],
-        "exportedSetters": [],
-        "exportedFunctions": [],
-        "exportedClasses": [
-          0,
-          1,
-          2
-        ],
-        "exportedExtensions": [],
-        "exportedTypedefs": []
-      },
-      {
-        "uri": "package:test.package/c.dart",
-        "exportedGetters": [],
-        "exportedSetters": [],
-        "exportedFunctions": [],
-        "exportedClasses": [
-          0,
-          1,
-          2
-        ],
-        "exportedExtensions": [],
         "exportedTypedefs": []
       }
     ],
@@ -128,65 +103,38 @@ summary: |-
         ],
         "unnamedConstructor": true,
         "namedConstructors": [],
-        "annotations": []
-      },
+        "annotations": [
+          "deprecated"
+        ]
+      }
+    ],
+    "extensions": [
       {
         "id": 2,
         "name": "E",
-        "getters": [
-          {
-            "name": "hashCode"
-          },
-          {
-            "name": "runtimeType"
-          }
-        ],
+        "extendedClassId": 1,
+        "getters": [],
         "setters": [],
-        "methods": [
-          {
-            "name": "=="
-          },
-          {
-            "name": "noSuchMethod"
-          },
-          {
-            "name": "toString"
-          }
-        ],
+        "methods": [],
         "staticGetters": [],
         "staticSetters": [],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          }
-        ],
-        "unnamedConstructor": true,
-        "namedConstructors": [],
-        "annotations": []
+        "staticMethods": [],
+        "annotations": [
+          "deprecated"
+        ]
       }
     ],
-    "extensions": [],
     "typedefs": []
   }
 package:
-  - path: lib/b.dart
-    content: |
-      export 'a.dart';
-      class C {}
-  - path: lib/c.dart
-    content: |
-      export 'a.dart';
-      class D {}
   - path: lib/a.dart
     content: |
-      export 'b.dart';
-      export 'c.dart';
-      class E {}
+      class C {}
+
+      @deprecated
+      class D {}
+
+      @Deprecated('Do not use!')
+      extension E on D {}
 
 ...

@@ -36,6 +36,13 @@ Future<PackageShape> summarizePackage({
     typedefs: <TypedefShape>[],
   );
 
+  List<Annotation> summarizeAnnotations(Element element) => [
+        if (element.hasDeprecated) Annotation.deprecated,
+        if (element.hasSealed) Annotation.sealed,
+        if (element.hasVisibleForOverriding) Annotation.visibleForOverriding,
+        if (element.hasVisibleForTesting) Annotation.visibleForTesting,
+      ];
+
   MethodShape summarizeMethod(MethodElement methodElement) {
     return MethodShape(
       name: methodElement.name,
@@ -125,6 +132,7 @@ Future<PackageShape> summarizePackage({
       staticGetters: staticGetters,
       staticSetters: staticSetters,
       staticMethods: staticMethods,
+      annotations: summarizeAnnotations(extensionElement),
     );
   }
 
@@ -189,6 +197,7 @@ Future<PackageShape> summarizePackage({
       staticMethods: staticMethods,
       unnamedConstructor: unnamedConstructor,
       namedConstructors: namedConstructors,
+      annotations: summarizeAnnotations(classElement),
     );
   }
 

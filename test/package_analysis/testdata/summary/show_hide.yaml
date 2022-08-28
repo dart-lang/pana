@@ -101,7 +101,8 @@ summary: |-
           }
         ],
         "unnamedConstructor": true,
-        "namedConstructors": []
+        "namedConstructors": [],
+        "annotations": []
       },
       {
         "id": 4,
@@ -140,7 +141,8 @@ summary: |-
           }
         ],
         "unnamedConstructor": true,
-        "namedConstructors": []
+        "namedConstructors": [],
+        "annotations": []
       },
       {
         "id": 5,
@@ -179,7 +181,8 @@ summary: |-
           }
         ],
         "unnamedConstructor": true,
-        "namedConstructors": []
+        "namedConstructors": [],
+        "annotations": []
       }
     ],
     "extensions": [],

@@ -103,6 +103,9 @@ ClassShape _$ClassShapeFromJson(Map<String, dynamic> json) => ClassShape(
       namedConstructors: (json['namedConstructors'] as List<dynamic>)
           .map((e) => NamedConstructorShape.fromJson(e as Map<String, dynamic>))
           .toList(),
+      annotations: (json['annotations'] as List<dynamic>)
+          .map((e) => $enumDecode(_$AnnotationEnumMap, e))
+          .toList(),
     );
 
 Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
@@ -118,7 +121,16 @@ Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
       'unnamedConstructor': instance.unnamedConstructor,
       'namedConstructors':
           instance.namedConstructors.map((e) => e.toJson()).toList(),
+      'annotations':
+          instance.annotations.map((e) => _$AnnotationEnumMap[e]).toList(),
     };
+
+const _$AnnotationEnumMap = {
+  Annotation.deprecated: 'deprecated',
+  Annotation.sealed: 'sealed',
+  Annotation.visibleForOverriding: 'visibleForOverriding',
+  Annotation.visibleForTesting: 'visibleForTesting',
+};
 
 ExtensionShape _$ExtensionShapeFromJson(Map<String, dynamic> json) =>
     ExtensionShape(
@@ -143,6 +155,9 @@ ExtensionShape _$ExtensionShapeFromJson(Map<String, dynamic> json) =>
       staticMethods: (json['staticMethods'] as List<dynamic>)
           .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
           .toList(),
+      annotations: (json['annotations'] as List<dynamic>)
+          .map((e) => $enumDecode(_$AnnotationEnumMap, e))
+          .toList(),
     );
 
 Map<String, dynamic> _$ExtensionShapeToJson(ExtensionShape instance) =>
@@ -156,6 +171,8 @@ Map<String, dynamic> _$ExtensionShapeToJson(ExtensionShape instance) =>
       'staticGetters': instance.staticGetters.map((e) => e.toJson()).toList(),
       'staticSetters': instance.staticSetters.map((e) => e.toJson()).toList(),
       'staticMethods': instance.staticMethods.map((e) => e.toJson()).toList(),
+      'annotations':
+          instance.annotations.map((e) => _$AnnotationEnumMap[e]).toList(),
     };
 
 MethodShape _$MethodShapeFromJson(Map<String, dynamic> json) => MethodShape(
