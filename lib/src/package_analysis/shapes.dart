@@ -66,15 +66,15 @@ class LibraryShape {
   /// ```
   final String uri;
 
-  /// `List` of [PropertyShape.id] elements, where each one corresponds to a
+  /// `List` of [GlobalPropertyShape.id] elements, where each one corresponds to a
   /// top-level getter exported in this library.
   final List<int> exportedGetters;
 
-  /// `List` of [PropertyShape.id] elements, where each one corresponds to a
+  /// `List` of [GlobalPropertyShape.id] elements, where each one corresponds to a
   /// top-level setter exported in this library.
   final List<int> exportedSetters;
 
-  /// `List` of [MethodShape.id] elements, where each one corresponds to a
+  /// `List` of [FunctionShape.id] elements, where each one corresponds to a
   /// top-level function exported in this library.
   final List<int> exportedFunctions;
 
