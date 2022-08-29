@@ -2,7 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 
 enum Kind { method, function, getter, setter }
 
-enum ParentKind { Class, Extension, Enum }
+enum ParentKind { classKind, extensionKind, enumKind }
 
 extension KindConverter on ElementKind {
   static const _kindMap = <ElementKind, Kind>{
@@ -12,9 +12,9 @@ extension KindConverter on ElementKind {
     ElementKind.SETTER: Kind.setter,
   };
   static const _parentKindMap = <ElementKind, ParentKind>{
-    ElementKind.CLASS: ParentKind.Class,
-    ElementKind.EXTENSION: ParentKind.Extension,
-    ElementKind.ENUM: ParentKind.Enum,
+    ElementKind.CLASS: ParentKind.classKind,
+    ElementKind.EXTENSION: ParentKind.extensionKind,
+    ElementKind.ENUM: ParentKind.enumKind,
   };
 
   Kind toKind() {

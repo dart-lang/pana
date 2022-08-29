@@ -52,13 +52,13 @@ class PotentialLowerBoundConstraintIssue {
 
       case Kind.method:
         switch (parentKind) {
-          case ParentKind.Enum:
-          case ParentKind.Class:
+          case ParentKind.enumKind:
+          case ParentKind.classKind:
             return package.containsMethodWithName(
               classNameAlias ?? parentName!,
               identifier,
             );
-          case ParentKind.Extension:
+          case ParentKind.extensionKind:
             return package.containsExtensionMethodWithName(
               parentName!,
               identifier,
@@ -70,13 +70,13 @@ class PotentialLowerBoundConstraintIssue {
 
       case Kind.getter:
         switch (parentKind) {
-          case ParentKind.Enum:
-          case ParentKind.Class:
+          case ParentKind.enumKind:
+          case ParentKind.classKind:
             return package.containsGetterWithName(
               classNameAlias ?? parentName!,
               identifier,
             );
-          case ParentKind.Extension:
+          case ParentKind.extensionKind:
             return package.containsExtensionGetterWithName(
               parentName!,
               identifier,
@@ -88,13 +88,13 @@ class PotentialLowerBoundConstraintIssue {
 
       case Kind.setter:
         switch (parentKind) {
-          case ParentKind.Enum:
-          case ParentKind.Class:
+          case ParentKind.enumKind:
+          case ParentKind.classKind:
             return package.containsSetterWithName(
               classNameAlias ?? parentName!,
               identifier,
             );
-          case ParentKind.Extension:
+          case ParentKind.extensionKind:
             return package.containsExtensionSetterWithName(
               parentName!,
               identifier,
