@@ -1,0 +1,99 @@
+---
+
+name: Libraries should be able to export symbols from ./src
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [
+          0
+        ],
+        "exportedSetters": [
+          1
+        ],
+        "exportedFunctions": [
+          2
+        ],
+        "exportedClasses": [
+          3
+        ],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [
+      {
+        "id": 0,
+        "name": "srcVar"
+      }
+    ],
+    "setters": [
+      {
+        "id": 1,
+        "name": "srcVar"
+      }
+    ],
+    "functions": [
+      {
+        "id": 2,
+        "name": "srcFunc"
+      }
+    ],
+    "classes": [
+      {
+        "id": 3,
+        "name": "SrcClass",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [],
+        "annotations": []
+      }
+    ],
+    "extensions": [],
+    "typedefs": []
+  }
+package:
+  - path: lib/a.dart
+    content: export 'src/src.dart';
+  - path: lib/src/src.dart
+    content: |
+      var srcVar;
+      void srcFunc() {}
+      class SrcClass {}
+
+...

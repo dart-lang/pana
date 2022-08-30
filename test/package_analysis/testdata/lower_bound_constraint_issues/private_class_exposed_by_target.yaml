@@ -1,0 +1,37 @@
+---
+
+name: Private classes exposed by the target package should not cause false positives
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/src/src.dart
+        content: |
+          class MysteryClass {
+            final a = 1;
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import './other.dart';
+        import 'package:fooa.dart';
+        import 'package:src/fooa.dart';
+
+        void main() {
+          final k = Known();
+          final mystery = k.mystery;
+          final a = mystery.a; // <- no class MysteryClass found in summary of package:foo
+        }
+    - path: lib/other.dart
+      content: |
+        import 'package:foo/src/src.dart';  // ignore: implementation_imports
+        class Known {
+          final mystery = MysteryClass();
+        }
+issues: []
+
+...

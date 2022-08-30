@@ -1,0 +1,173 @@
+---
+
+name: The summary should include extensions
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ],
+        "exportedExtensions": [
+          1
+        ],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "C",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [],
+        "annotations": []
+      }
+    ],
+    "extensions": [
+      {
+        "id": 1,
+        "name": "D",
+        "extendedClassId": 0,
+        "getters": [
+          {
+            "name": "myGetter"
+          }
+        ],
+        "setters": [
+          {
+            "name": "mySetter"
+          }
+        ],
+        "methods": [
+          {
+            "name": "myMethod"
+          }
+        ],
+        "staticGetters": [
+          {
+            "name": "myStaticGetter"
+          },
+          {
+            "name": "staticConstVariable"
+          },
+          {
+            "name": "staticFinalVariable"
+          },
+          {
+            "name": "staticInitializedVariable"
+          },
+          {
+            "name": "staticLateFinalVariable"
+          },
+          {
+            "name": "staticLateVariable"
+          },
+          {
+            "name": "staticNullableVariable"
+          },
+          {
+            "name": "staticTypedInitializedVariable"
+          },
+          {
+            "name": "staticVariable"
+          }
+        ],
+        "staticSetters": [
+          {
+            "name": "myStaticSetter"
+          },
+          {
+            "name": "staticInitializedVariable"
+          },
+          {
+            "name": "staticLateFinalVariable"
+          },
+          {
+            "name": "staticLateVariable"
+          },
+          {
+            "name": "staticNullableVariable"
+          },
+          {
+            "name": "staticTypedInitializedVariable"
+          },
+          {
+            "name": "staticVariable"
+          }
+        ],
+        "staticMethods": [
+          {
+            "name": "myStaticMethod"
+          }
+        ],
+        "annotations": []
+      }
+    ],
+    "typedefs": []
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      class C {}
+      extension D on C {
+        static var staticVariable;
+        static int? staticNullableVariable;
+        static var staticInitializedVariable = 1;
+        static int staticTypedInitializedVariable = 1;
+        static final staticFinalVariable = 1;
+        static late int staticLateVariable;
+        static late final int staticLateFinalVariable;
+        static const staticConstVariable = 1;
+
+        int get myGetter => 1;
+        set mySetter(int something) {}
+        void myMethod() {}
+
+        static int get myStaticGetter => 1;
+        static set myStaticSetter(int something) {}
+        static void myStaticMethod() {}
+      }
+
+...

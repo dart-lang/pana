@@ -1,0 +1,136 @@
+---
+
+name: Missing functions and class/extension methods should be detected
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          void fGood() {}
+          class C {
+            int get goodGetter => 1;
+            static int get goodGetterStatic => 1;
+            set goodSetter(int something) {}
+            static set goodSetterStatic(int something) {}
+            void gGood() {}
+            void gStaticGood() {}
+            void someCallbackGood() {}
+          }
+          extension D on C {
+            int get goodGetterExt => 1;
+            static int get goodGetterStaticExt => 1;
+            set goodSetterExt(int something) {}
+            static set goodSetterStaticExt(int something) {}
+            void gGoodExt() {}
+            static void gStaticGoodExt() {}
+            void someExtCallbackGood() {}
+          }
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          void f() {}
+          void fGood() {}
+          class C {
+            int get myGetter => 1;
+            int get goodGetter => 1;
+            static int get myGetterStatic => 1;
+            static int get goodGetterStatic => 1;
+            set mySetter(int something) {}
+            set goodSetter(int something) {}
+            static set mySetterStatic(int something) {}
+            static set goodSetterStatic(int something) {}
+            void g() {}
+            void gGood() {}
+            void gStatic() {}
+            void gStaticGood() {}
+            void someCallback() {}
+            void someCallbackGood() {}
+          }
+          extension D on C {
+            int get myGetterExt => 1;
+            int get goodGetterExt => 1;
+            static int get myGetterStaticExt => 1;
+            static int get goodGetterStaticExt => 1;
+            set mySetterExt(int something) {}
+            set goodSetterExt(int something) {}
+            static set mySetterStaticExt(int something) {}
+            static set goodSetterStaticExt(int something) {}
+            void gExt() {}
+            void gGoodExt() {}
+            static void gStaticExt() {}
+            static void gStaticGoodExt() {}
+            void someExtCallback() {}
+            void someExtCallbackGood() {}
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+        void main() {
+          f();
+          fGood();
+
+          final c = C();
+
+          c.g();
+          c.gGood();
+
+          c.gStatic();
+          c.gStaticGood();
+
+          c.myGetter;
+          c.goodGetter;
+          C.myGetterStatic;
+          C.goodGetterStatic;
+
+          c.mySetter = 1;
+          c.goodSetter = 1;
+          C.mySetterStatic = 1;
+          C.goodSetterStatic = 1;
+
+          c.gExt();
+          c.gGoodExt();
+
+          c.myGetterExt;
+          c.goodGetterExt;
+          D.myGetterStaticExt;
+          D.goodGetterStaticExt;
+
+          c.mySetterExt = 1;
+          c.goodSetterExt = 1;
+          D.mySetterStaticExt = 1;
+          D.goodSetterStaticExt = 1;
+
+          D.gStaticExt();
+          D.gStaticGoodExt();
+
+          c.someCallback;
+          c.someCallbackGood;
+          c.someExtCallback;
+          c.someExtCallbackGood;
+        }
+issues:
+  - 'identifier: f,'
+  - 'identifier: g,'
+  - 'identifier: gStatic,'
+  - 'identifier: myGetterStatic,'
+  - 'identifier: mySetterStatic,'
+  - 'identifier: myGetter,'
+  - 'identifier: mySetter,'
+  - 'identifier: gExt,'
+  - 'identifier: gStaticExt,'
+  - 'identifier: myGetterStaticExt,'
+  - 'identifier: mySetterStaticExt,'
+  - 'identifier: myGetterExt,'
+  - 'identifier: mySetterExt,'
+  - 'identifier: someExtCallback,'
+  - 'identifier: someCallback,'
+
+...

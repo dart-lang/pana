@@ -1,0 +1,143 @@
+---
+
+name: The summary should include classes which extend or implement abstract classes
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0,
+          1
+        ],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "ConcreteExtends",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "f"
+          },
+          {
+            "name": "g"
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [],
+        "annotations": []
+      },
+      {
+        "id": 1,
+        "name": "ConcreteImplements",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "f"
+          },
+          {
+            "name": "g"
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [],
+        "annotations": []
+      }
+    ],
+    "extensions": [],
+    "typedefs": []
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      import './src/b.dart';
+      class ConcreteExtends extends Abstract {
+        @override
+        void f() {}
+      }
+      class ConcreteImplements implements Abstract {
+        @override
+        void f() {}
+        @override
+        void g() {}
+      }
+  - path: lib/src/b.dart
+    content: |
+      abstract class Abstract {
+        void f();
+        void g() {}
+      }
+
+...

@@ -1,0 +1,35 @@
+---
+
+name: Private classes exposed by the dependency should not cause false positives
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          import './src/src.dart';
+          class Known {
+            final mystery = MysteryClass();
+          }
+      - path: lib/src/src.dart
+        content: |
+          class MysteryClass {
+            final a = 1;
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+
+        void main() {
+          final k = Known();
+          final mystery = k.mystery;
+          final a = mystery.a; // <- no class MysteryClass found in summary of package:foo
+        }
+issues: []
+
+...

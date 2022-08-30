@@ -1,0 +1,209 @@
+---
+
+name: The summary should include class members such as properties, getters, setters and methods
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          0
+        ],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [
+      {
+        "id": 0,
+        "name": "C",
+        "getters": [
+          {
+            "name": "finalVariable"
+          },
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "initializedVariable"
+          },
+          {
+            "name": "lateFinalVariable"
+          },
+          {
+            "name": "lateVariable"
+          },
+          {
+            "name": "myGetter"
+          },
+          {
+            "name": "nullableVariable"
+          },
+          {
+            "name": "runtimeType"
+          },
+          {
+            "name": "typedInitializedVariable"
+          },
+          {
+            "name": "variable"
+          }
+        ],
+        "setters": [
+          {
+            "name": "initializedVariable"
+          },
+          {
+            "name": "lateFinalVariable"
+          },
+          {
+            "name": "lateVariable"
+          },
+          {
+            "name": "mySetter"
+          },
+          {
+            "name": "nullableVariable"
+          },
+          {
+            "name": "typedInitializedVariable"
+          },
+          {
+            "name": "variable"
+          }
+        ],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "myMethod"
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [
+          {
+            "name": "myStaticGetter"
+          },
+          {
+            "name": "staticConstVariable"
+          },
+          {
+            "name": "staticFinalVariable"
+          },
+          {
+            "name": "staticInitializedVariable"
+          },
+          {
+            "name": "staticLateFinalVariable"
+          },
+          {
+            "name": "staticLateVariable"
+          },
+          {
+            "name": "staticNullableVariable"
+          },
+          {
+            "name": "staticTypedInitializedVariable"
+          },
+          {
+            "name": "staticVariable"
+          }
+        ],
+        "staticSetters": [
+          {
+            "name": "myStaticSetter"
+          },
+          {
+            "name": "staticInitializedVariable"
+          },
+          {
+            "name": "staticLateFinalVariable"
+          },
+          {
+            "name": "staticLateVariable"
+          },
+          {
+            "name": "staticNullableVariable"
+          },
+          {
+            "name": "staticTypedInitializedVariable"
+          },
+          {
+            "name": "staticVariable"
+          }
+        ],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          },
+          {
+            "name": "myStaticMethod"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [],
+        "annotations": []
+      }
+    ],
+    "extensions": [],
+    "typedefs": []
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      class C {
+        var variable;
+        int? nullableVariable;
+        var initializedVariable = 1;
+        int typedInitializedVariable = 1;
+        final finalVariable = 1;
+        late int lateVariable;
+        late final int lateFinalVariable;
+
+        static var staticVariable;
+        static int? staticNullableVariable;
+        static var staticInitializedVariable = 1;
+        static int staticTypedInitializedVariable = 1;
+        static final staticFinalVariable = 1;
+        static late int staticLateVariable;
+        static late final int staticLateFinalVariable;
+        static const staticConstVariable = 1;
+
+        int get myGetter => 1;
+        set mySetter(int something) {}
+        void myMethod() {}
+
+        static int get myStaticGetter => 1;
+        static set myStaticSetter(int something) {}
+        static void myStaticMethod() {}
+
+        // private members shouldn't be included in the summary
+        int get _myGetter => 1;
+        set _mySetter(int something) {}
+        void _myMethod() {}
+        static int get _myStaticGetter => 1;
+        static set _myStaticSetter(int something) {}
+        static void _myStaticMethod() {}
+      }
+
+...

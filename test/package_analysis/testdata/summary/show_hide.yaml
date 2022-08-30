@@ -1,0 +1,207 @@
+---
+
+name: Symbols can be hidden or shown when being exported
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [
+          0
+        ],
+        "exportedClasses": [
+          4,
+          5
+        ],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      },
+      {
+        "uri": "package:test.package/b.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [
+          3,
+          4,
+          5
+        ],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      },
+      {
+        "uri": "package:test.package/c.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [
+          0,
+          1,
+          2
+        ],
+        "exportedClasses": [],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [
+      {
+        "id": 0,
+        "name": "a"
+      },
+      {
+        "id": 1,
+        "name": "b"
+      },
+      {
+        "id": 2,
+        "name": "c"
+      }
+    ],
+    "classes": [
+      {
+        "id": 3,
+        "name": "A",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [],
+        "annotations": []
+      },
+      {
+        "id": 4,
+        "name": "B",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [],
+        "annotations": []
+      },
+      {
+        "id": 5,
+        "name": "C",
+        "getters": [
+          {
+            "name": "hashCode"
+          },
+          {
+            "name": "runtimeType"
+          }
+        ],
+        "setters": [],
+        "methods": [
+          {
+            "name": "=="
+          },
+          {
+            "name": "noSuchMethod"
+          },
+          {
+            "name": "toString"
+          }
+        ],
+        "staticGetters": [],
+        "staticSetters": [],
+        "staticMethods": [
+          {
+            "name": "hash"
+          },
+          {
+            "name": "hashAll"
+          },
+          {
+            "name": "hashAllUnordered"
+          }
+        ],
+        "unnamedConstructor": true,
+        "namedConstructors": [],
+        "annotations": []
+      }
+    ],
+    "extensions": [],
+    "typedefs": []
+  }
+package:
+  - path: lib/a.dart
+    content: |
+      export 'b.dart' hide A;
+      export 'c.dart' show a;
+  - path: lib/b.dart
+    content: |
+      class A {}
+      class B {}
+      class C {}
+  - path: lib/c.dart
+    content: |
+      void a() {}
+      void b() {}
+      void c() {}
+
+...

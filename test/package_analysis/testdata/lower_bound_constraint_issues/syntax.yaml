@@ -1,0 +1,50 @@
+---
+
+name: Analysis should be able to be performed on complex syntax
+packages:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          class C {}
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          class C {
+            C.namedConstructor();
+            void method() {}
+            void g() {}
+            C();
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+
+        void g(Function() f) {
+          // this should not be analyzed, because f is a Function
+          f.hashCode;
+
+          // this should not be analyzed, because constructors are not methods
+          C.namedConstructor();
+
+          // this method invocation should be analyzed
+          C().method();
+        }
+
+        dynamic ff() => C();
+        void main() {
+          // an issue exists, but we cannot detect it because of the return type of ff
+          ff().g();
+        }
+issues:
+  - 'identifier: method,'
+
+...

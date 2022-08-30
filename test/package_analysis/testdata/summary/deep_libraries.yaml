@@ -1,0 +1,32 @@
+---
+
+name: The analyzer should be able to handle a deeply nested folder structure
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/v/w/x/y/z/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [],
+        "exportedClasses": [],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [],
+    "classes": [],
+    "extensions": [],
+    "typedefs": []
+  }
+package:
+  - path: lib/v/w/x/y/z/a.dart
+    content: ''
+  - path: lib/src/w/x/y/z/a.dart
+    content: ''
+
+...
