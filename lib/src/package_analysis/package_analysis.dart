@@ -108,6 +108,8 @@ class LowerBoundConstraintAnalysisCommand extends Command {
     final tempDir = await Directory(Directory.systemTemp.path)
         .createTemp('lbcanalysis_temp');
 
+    final c = http.Client();
+
     try {
       final foundIssues = await lowerBoundConstraintAnalysis(
         targetName: targetName,
@@ -116,41 +118,36 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       );
 
       for (final issue in foundIssues) {
-        final c = http.Client();
         late final String targetHomepage;
         late final String targetRepository;
         late final String dependencyHomepage;
         late final String dependencyRepository;
-        try {
-          final targetResponse = await retry(
-            () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
-            retryIf: (e) => e is IOException,
-          );
-          final targetMetadata = json.decode(targetResponse.body)['latest']
-              ['pubspec'] as Map<String, dynamic>;
-          targetHomepage = targetMetadata.containsKey('homepage')
-              ? targetMetadata['homepage'] as String
-              : '';
-          targetRepository = targetMetadata.containsKey('repository')
-              ? targetMetadata['repository'] as String
-              : '';
-          final dependencyResponse = await retry(
-            () => c.get(Uri.parse(
-                'https://pub.dev/api/packages/${issue.dependencyPackageName}')),
-            retryIf: (e) => e is IOException,
-          );
-          final dependencyMetadata =
-              json.decode(dependencyResponse.body)['latest']['pubspec']
-                  as Map<String, dynamic>;
-          dependencyHomepage = dependencyMetadata.containsKey('homepage')
-              ? dependencyMetadata['homepage'] as String
-              : '';
-          dependencyRepository = dependencyMetadata.containsKey('repository')
-              ? dependencyMetadata['repository'] as String
-              : '';
-        } finally {
-          c.close();
-        }
+        final targetResponse = await retry(
+          () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
+          retryIf: (e) => e is IOException,
+        );
+        final targetMetadata = json.decode(targetResponse.body)['latest']
+            ['pubspec'] as Map<String, dynamic>;
+        targetHomepage = targetMetadata.containsKey('homepage')
+            ? targetMetadata['homepage'] as String
+            : '';
+        targetRepository = targetMetadata.containsKey('repository')
+            ? targetMetadata['repository'] as String
+            : '';
+        final dependencyResponse = await retry(
+          () => c.get(Uri.parse(
+              'https://pub.dev/api/packages/${issue.dependencyPackageName}')),
+          retryIf: (e) => e is IOException,
+        );
+        final dependencyMetadata =
+            json.decode(dependencyResponse.body)['latest']['pubspec']
+                as Map<String, dynamic>;
+        dependencyHomepage = dependencyMetadata.containsKey('homepage')
+            ? dependencyMetadata['homepage'] as String
+            : '';
+        dependencyRepository = dependencyMetadata.containsKey('repository')
+            ? dependencyMetadata['repository'] as String
+            : '';
         print('target package:\n'
             '  name: $targetName\n'
             '  homepage: $targetHomepage\n'
@@ -190,8 +187,9 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         }
       }
     } finally {
-      // clean up by deleting the temp directory
+      // clean up by deleting the temp directory and closing the http client
       await tempDir.delete(recursive: true);
+      c.close();
     }
   }
 }
