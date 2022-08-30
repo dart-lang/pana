@@ -35,11 +35,11 @@ Future<void> main() async {
           (b) => b!.serve(
             package['name'] as String,
             package['version'] as String,
-                pubspec: {
-                  'environment': {'sdk': '>=2.13.0 <3.0.0'}
-                },
-                contents: files.map(descriptorFromYamlNode),
-              ),
+            pubspec: {
+              'environment': {'sdk': '>=2.13.0 <3.0.0'}
+            },
+            contents: files.map(descriptorFromYamlNode),
+          ),
         );
       }
 
@@ -47,14 +47,14 @@ Future<void> main() async {
       final targetYamlDependencies = doc['target']['dependencies'] as List;
       final targetYamlContent = doc['target']['package'] as List;
       globalPackageServer!.add(
-            (b) => b!.serve(
+        (b) => b!.serve(
           'test.package',
           '1.0.0',
           pubspec: {
             'environment': {'sdk': '>=2.13.0 <3.0.0'},
             'dependencies': Map.fromEntries(
               targetYamlDependencies.map(
-                    (dependency) => MapEntry(
+                (dependency) => MapEntry(
                   dependency['name'],
                   {
                     'hosted': {
@@ -93,7 +93,7 @@ Future<void> main() async {
       // which matches that expected issue
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
-                (issueString) => RegExp(expectedIssue).hasMatch(issueString));
+            (issueString) => RegExp(expectedIssue).hasMatch(issueString));
         issuesString.removeAt(matchingIndex);
         // we expect that this regex will only match one issue
         expect(
