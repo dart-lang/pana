@@ -430,7 +430,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     late final Element element;
     late final Element parentElement;
 
-    if (node.parent is CompoundAssignmentExpression) {
+    if (node.parent is CompoundAssignmentExpression && node.parent?.parent is CascadeExpression) {
       // we need to go up one level up in the AST if an assignment is happening in cascade notation
       element = (node.parent as CompoundAssignmentExpression).writeElement!;
     } else if (node.propertyName.staticElement != null) {
