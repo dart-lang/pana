@@ -454,7 +454,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         return;
       } else {
         parentElement = node.realTarget.staticType?.element2! ??
-            (node.realTarget as Identifier).staticElement!;
+            (node.realTarget is ExtensionOverride
+                    ? (node.realTarget as ExtensionOverride).extensionName
+                    : node.realTarget as Identifier)
+                .staticElement!;
       }
       dependencyMetadata = identifyDependencyName(element: parentElement);
     } on AnalysisException {
