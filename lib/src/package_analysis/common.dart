@@ -261,11 +261,17 @@ Future<List<Version>> fetchSortedPackageVersionList({
 }) async {
   List<Version> metadataStringToSortedVersions(String metadata) {
     final versionsMetadata = json.decode(metadata)['versions'] as List<dynamic>;
-    return versionsMetadata
+    final versions = versionsMetadata
+        .where((versionMetadata) => versionMetadata['retracted'] != true)
         .map((versionMetadata) => versionMetadata['version'] as String)
         .map(Version.parse)
         .sorted((a, b) => a.compareTo(b))
         .toList();
+    if (versions.isEmpty) {
+      throw StateError(
+          'All available versions of package $packageName are retracted.');
+    }
+    return versions;
   }
 
   late final File versionListFile;
