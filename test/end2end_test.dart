@@ -46,7 +46,7 @@ void main() {
     Directory(tempDir).deleteSync(recursive: true);
   });
 
-  void _verifyPackage(String package, String version) {
+  void verifyPackage(String package, String version) {
     final filename = '$package-$version.json';
     group('end2end: $package $version', () {
       Map<String, dynamic>? actualMap;
@@ -145,47 +145,47 @@ void main() {
   }
 
   // generic, cross-platform package
-  _verifyPackage('async', '2.5.0');
+  verifyPackage('async', '2.5.0');
 
   // cross-platform package with platform-specific code
-  _verifyPackage('http', '0.13.0');
+  verifyPackage('http', '0.13.0');
 
   // js-only package
-  _verifyPackage('dnd', '2.0.0');
+  verifyPackage('dnd', '2.0.0');
 
   // flutter-only package
-  _verifyPackage('url_launcher', '6.1.2');
+  verifyPackage('url_launcher', '6.1.2');
 
   // single-platform Flutter plugin without Dart files or assets
-  _verifyPackage('nsd_android', '1.2.0');
+  verifyPackage('nsd_android', '1.2.0');
 
   // binary-only package (without `platforms:` in pubspec)
-  _verifyPackage('onepub', '1.1.0');
+  verifyPackage('onepub', '1.1.0');
 
   // multi-level symlink
-  _verifyPackage('audio_service', '0.18.4');
+  verifyPackage('audio_service', '0.18.4');
 
   // mime_type 0.3.2 has no recognized LICENSE file
-  _verifyPackage('mime_type', '0.3.2');
+  verifyPackage('mime_type', '0.3.2');
 
   // no dart files, only assets (pre-2.12)
-  _verifyPackage('bulma_min', '0.7.4');
+  verifyPackage('bulma_min', '0.7.4');
 
   // no dart files, only assets (post-2.12)
-  _verifyPackage('lints', '1.0.0');
+  verifyPackage('lints', '1.0.0');
 
   // debugging why platforms are not recognized
   // https://github.com/dart-lang/pana/issues/824
-  _verifyPackage('webdriver', '3.0.0');
+  verifyPackage('webdriver', '3.0.0');
 
   // slightly old package
-  _verifyPackage('sdp_transform', '0.2.0');
+  verifyPackage('sdp_transform', '0.2.0');
 
   // really old package
-  _verifyPackage('skiplist', '0.1.0');
+  verifyPackage('skiplist', '0.1.0');
 
   // packages with bad content
-  _verifyPackage('_dummy_pkg', '1.0.0-null-safety.1');
+  verifyPackage('_dummy_pkg', '1.0.0-null-safety.1');
 }
 
 Future<DateTime> _detectGoldenLastModified() async {

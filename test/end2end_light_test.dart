@@ -25,7 +25,7 @@ void main() {
     Directory(tempDir).deleteSync(recursive: true);
   });
 
-  void _verifyPackage(String package) {
+  void verifyPackage(String package) {
     test('end2end light: $package', () async {
       final summary = await analyzer.inspectPackage(package);
       expect(summary.report, isNotNull);
@@ -37,8 +37,8 @@ void main() {
   }
 
   // generic, cross-platform package
-  _verifyPackage('async');
+  verifyPackage('async');
 
   // flutter-only package
-  _verifyPackage('url_launcher');
+  verifyPackage('url_launcher');
 }
