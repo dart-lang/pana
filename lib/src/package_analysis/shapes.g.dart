@@ -81,49 +81,66 @@ Map<String, dynamic> _$LibraryShapeToJson(LibraryShape instance) =>
 ClassShape _$ClassShapeFromJson(Map<String, dynamic> json) => ClassShape(
       id: json['id'] as int,
       name: json['name'] as String,
-      getters: (json['getters'] as List<dynamic>)
-          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      setters: (json['setters'] as List<dynamic>)
-          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      methods: (json['methods'] as List<dynamic>)
-          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      staticGetters: (json['staticGetters'] as List<dynamic>)
-          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      staticSetters: (json['staticSetters'] as List<dynamic>)
-          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      staticMethods: (json['staticMethods'] as List<dynamic>)
-          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      getters: (json['getters'] as List<dynamic>?)
+              ?.map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      setters: (json['setters'] as List<dynamic>?)
+              ?.map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      methods: (json['methods'] as List<dynamic>?)
+              ?.map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      staticGetters: (json['staticGetters'] as List<dynamic>?)
+              ?.map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      staticSetters: (json['staticSetters'] as List<dynamic>?)
+              ?.map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      staticMethods: (json['staticMethods'] as List<dynamic>?)
+              ?.map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       unnamedConstructor: json['unnamedConstructor'] as bool,
-      namedConstructors: (json['namedConstructors'] as List<dynamic>)
-          .map((e) => NamedConstructorShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      annotations: (json['annotations'] as List<dynamic>)
-          .map((e) => $enumDecode(_$AnnotationEnumMap, e))
-          .toList(),
+      namedConstructors: (json['namedConstructors'] as List<dynamic>?)
+              ?.map((e) =>
+                  NamedConstructorShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      annotations: (json['annotations'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$AnnotationEnumMap, e))
+              .toList() ??
+          [],
     );
 
-Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'getters': instance.getters.map((e) => e.toJson()).toList(),
-      'setters': instance.setters.map((e) => e.toJson()).toList(),
-      'methods': instance.methods.map((e) => e.toJson()).toList(),
-      'staticGetters': instance.staticGetters.map((e) => e.toJson()).toList(),
-      'staticSetters': instance.staticSetters.map((e) => e.toJson()).toList(),
-      'staticMethods': instance.staticMethods.map((e) => e.toJson()).toList(),
-      'unnamedConstructor': instance.unnamedConstructor,
-      'namedConstructors':
-          instance.namedConstructors.map((e) => e.toJson()).toList(),
-      'annotations':
-          instance.annotations.map((e) => _$AnnotationEnumMap[e]).toList(),
-    };
+Map<String, dynamic> _$ClassShapeToJson(ClassShape instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('getters', _listContentsOrNull(instance.getters));
+  writeNotNull('setters', _listContentsOrNull(instance.setters));
+  writeNotNull('methods', _listContentsOrNull(instance.methods));
+  writeNotNull('staticGetters', _listContentsOrNull(instance.staticGetters));
+  writeNotNull('staticSetters', _listContentsOrNull(instance.staticSetters));
+  writeNotNull('staticMethods', _listContentsOrNull(instance.staticMethods));
+  val['unnamedConstructor'] = instance.unnamedConstructor;
+  writeNotNull(
+      'namedConstructors', _listContentsOrNull(instance.namedConstructors));
+  writeNotNull('annotations', _listAnnotationsOrNull(instance.annotations));
+  return val;
+}
 
 const _$AnnotationEnumMap = {
   Annotation.deprecated: 'deprecated',
@@ -137,43 +154,58 @@ ExtensionShape _$ExtensionShapeFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       name: json['name'] as String,
       extendedClassId: json['extendedClassId'] as int,
-      getters: (json['getters'] as List<dynamic>)
-          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      setters: (json['setters'] as List<dynamic>)
-          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      methods: (json['methods'] as List<dynamic>)
-          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      staticGetters: (json['staticGetters'] as List<dynamic>)
-          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      staticSetters: (json['staticSetters'] as List<dynamic>)
-          .map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      staticMethods: (json['staticMethods'] as List<dynamic>)
-          .map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      annotations: (json['annotations'] as List<dynamic>)
-          .map((e) => $enumDecode(_$AnnotationEnumMap, e))
-          .toList(),
+      getters: (json['getters'] as List<dynamic>?)
+              ?.map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      setters: (json['setters'] as List<dynamic>?)
+              ?.map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      methods: (json['methods'] as List<dynamic>?)
+              ?.map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      staticGetters: (json['staticGetters'] as List<dynamic>?)
+              ?.map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      staticSetters: (json['staticSetters'] as List<dynamic>?)
+              ?.map((e) => PropertyShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      staticMethods: (json['staticMethods'] as List<dynamic>?)
+              ?.map((e) => MethodShape.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      annotations: (json['annotations'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$AnnotationEnumMap, e))
+              .toList() ??
+          [],
     );
 
-Map<String, dynamic> _$ExtensionShapeToJson(ExtensionShape instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'extendedClassId': instance.extendedClassId,
-      'getters': instance.getters.map((e) => e.toJson()).toList(),
-      'setters': instance.setters.map((e) => e.toJson()).toList(),
-      'methods': instance.methods.map((e) => e.toJson()).toList(),
-      'staticGetters': instance.staticGetters.map((e) => e.toJson()).toList(),
-      'staticSetters': instance.staticSetters.map((e) => e.toJson()).toList(),
-      'staticMethods': instance.staticMethods.map((e) => e.toJson()).toList(),
-      'annotations':
-          instance.annotations.map((e) => _$AnnotationEnumMap[e]).toList(),
-    };
+Map<String, dynamic> _$ExtensionShapeToJson(ExtensionShape instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+    'extendedClassId': instance.extendedClassId,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('getters', _listContentsOrNull(instance.getters));
+  writeNotNull('setters', _listContentsOrNull(instance.setters));
+  writeNotNull('methods', _listContentsOrNull(instance.methods));
+  writeNotNull('staticGetters', _listContentsOrNull(instance.staticGetters));
+  writeNotNull('staticSetters', _listContentsOrNull(instance.staticSetters));
+  writeNotNull('staticMethods', _listContentsOrNull(instance.staticMethods));
+  writeNotNull('annotations', _listAnnotationsOrNull(instance.annotations));
+  return val;
+}
 
 MethodShape _$MethodShapeFromJson(Map<String, dynamic> json) => MethodShape(
       name: json['name'] as String,

@@ -36,7 +36,6 @@ summary: |-
             "name": "runtimeType"
           }
         ],
-        "setters": [],
         "methods": [
           {
             "name": "=="
@@ -62,7 +61,6 @@ summary: |-
             "name": "values"
           }
         ],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "compareByIndex"
@@ -80,9 +78,7 @@ summary: |-
             "name": "hashAllUnordered"
           }
         ],
-        "unnamedConstructor": true,
-        "namedConstructors": [],
-        "annotations": []
+        "unnamedConstructor": true
       }
     ],
     "extensions": [],

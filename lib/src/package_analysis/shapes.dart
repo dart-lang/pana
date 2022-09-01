@@ -111,14 +111,23 @@ class LibraryShape {
 @sealed
 @JsonSerializable()
 class ClassShape extends GlobalShapeBase {
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<PropertyShape> getters;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<PropertyShape> setters;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<MethodShape> methods;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<PropertyShape> staticGetters;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<PropertyShape> staticSetters;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<MethodShape> staticMethods;
   final bool unnamedConstructor;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<NamedConstructorShape> namedConstructors;
+  @JsonKey(
+      includeIfNull: false, toJson: _listAnnotationsOrNull, defaultValue: [])
   final List<Annotation> annotations;
 
   ClassShape({
@@ -147,12 +156,20 @@ class ClassShape extends GlobalShapeBase {
 @JsonSerializable()
 class ExtensionShape extends GlobalShapeBase {
   final int extendedClassId;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<PropertyShape> getters;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<PropertyShape> setters;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<MethodShape> methods;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<PropertyShape> staticGetters;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<PropertyShape> staticSetters;
+  @JsonKey(includeIfNull: false, toJson: _listContentsOrNull, defaultValue: [])
   final List<MethodShape> staticMethods;
+  @JsonKey(
+      includeIfNull: false, toJson: _listAnnotationsOrNull, defaultValue: [])
   final List<Annotation> annotations;
 
   ExtensionShape({
@@ -278,3 +295,8 @@ abstract class ClassMemberShapeBase {
 
   ClassMemberShapeBase({required this.name});
 }
+
+List? _listContentsOrNull(List a) => a.isEmpty ? null : a;
+
+List<String>? _listAnnotationsOrNull(List<Annotation> a) =>
+    a.isEmpty ? null : a.map((e) => e.name).toList();

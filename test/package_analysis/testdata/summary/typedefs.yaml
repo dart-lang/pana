@@ -40,7 +40,6 @@ summary: |-
             "name": "runtimeType"
           }
         ],
-        "setters": [],
         "methods": [
           {
             "name": "=="
@@ -52,8 +51,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticGetters": [],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "hash"
@@ -65,9 +62,7 @@ summary: |-
             "name": "hashAllUnordered"
           }
         ],
-        "unnamedConstructor": true,
-        "namedConstructors": [],
-        "annotations": []
+        "unnamedConstructor": true
       },
       {
         "id": 1,
@@ -276,8 +271,6 @@ summary: |-
             "name": "whereType"
           }
         ],
-        "staticGetters": [],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "castFrom"
@@ -318,8 +311,7 @@ summary: |-
           {
             "name": "unmodifiable"
           }
-        ],
-        "annotations": []
+        ]
       },
       {
         "id": 2,
@@ -350,7 +342,6 @@ summary: |-
             "name": "values"
           }
         ],
-        "setters": [],
         "methods": [
           {
             "name": "=="
@@ -407,8 +398,6 @@ summary: |-
             "name": "updateAll"
           }
         ],
-        "staticGetters": [],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "castFrom"
@@ -446,8 +435,7 @@ summary: |-
           {
             "name": "unmodifiable"
           }
-        ],
-        "annotations": []
+        ]
       },
       {
         "id": 3,
@@ -484,7 +472,6 @@ summary: |-
             "name": "sign"
           }
         ],
-        "setters": [],
         "methods": [
           {
             "name": "%"
@@ -619,8 +606,6 @@ summary: |-
             "name": "~/"
           }
         ],
-        "staticGetters": [],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "compare"
@@ -646,8 +631,7 @@ summary: |-
           {
             "name": "fromEnvironment"
           }
-        ],
-        "annotations": []
+        ]
       }
     ],
     "extensions": [],

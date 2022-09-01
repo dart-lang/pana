@@ -33,7 +33,6 @@ summary: |-
             "name": "runtimeType"
           }
         ],
-        "setters": [],
         "methods": [
           {
             "name": "=="
@@ -54,8 +53,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticGetters": [],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "hash"
@@ -72,8 +69,7 @@ summary: |-
           {
             "name": "secure"
           }
-        ],
-        "annotations": []
+        ]
       }
     ],
     "extensions": [],

@@ -55,7 +55,6 @@ summary: |-
             "name": "runtimeType"
           }
         ],
-        "setters": [],
         "methods": [
           {
             "name": "=="
@@ -70,8 +69,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticGetters": [],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "hash"
@@ -83,9 +80,7 @@ summary: |-
             "name": "hashAllUnordered"
           }
         ],
-        "unnamedConstructor": true,
-        "namedConstructors": [],
-        "annotations": []
+        "unnamedConstructor": true
       },
       {
         "id": 1,
@@ -98,7 +93,6 @@ summary: |-
             "name": "runtimeType"
           }
         ],
-        "setters": [],
         "methods": [
           {
             "name": "=="
@@ -113,8 +107,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticGetters": [],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "hash"
@@ -126,9 +118,7 @@ summary: |-
             "name": "hashAllUnordered"
           }
         ],
-        "unnamedConstructor": true,
-        "namedConstructors": [],
-        "annotations": []
+        "unnamedConstructor": true
       },
       {
         "id": 2,
@@ -141,7 +131,6 @@ summary: |-
             "name": "runtimeType"
           }
         ],
-        "setters": [],
         "methods": [
           {
             "name": "=="
@@ -156,8 +145,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticGetters": [],
-        "staticSetters": [],
         "staticMethods": [
           {
             "name": "hash"
@@ -169,9 +156,7 @@ summary: |-
             "name": "hashAllUnordered"
           }
         ],
-        "unnamedConstructor": true,
-        "namedConstructors": [],
-        "annotations": []
+        "unnamedConstructor": true
       }
     ],
     "extensions": [],
