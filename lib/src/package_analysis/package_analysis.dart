@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:args/command_runner.dart';
@@ -110,6 +111,22 @@ class LowerBoundConstraintAnalysisCommand extends Command {
 
     final c = http.Client();
 
+    Future<void> cleanUp() async {
+      // clean up the temp directory and the http client
+      await tempDir.delete(recursive: true);
+      c.close();
+    }
+
+    // sigterm is not supported on Windows
+    if (!Platform.isWindows) {
+      await Isolate.spawn((message) {
+        ProcessSignal.sigterm.watch().listen((event) async {
+          await cleanUp();
+          exit(0);
+        });
+      }, null);
+    }
+
     try {
       final foundIssues = await lowerBoundConstraintAnalysis(
         targetName: targetName,
@@ -187,9 +204,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         }
       }
     } finally {
-      // clean up by deleting the temp directory and closing the http client
-      await tempDir.delete(recursive: true);
-      c.close();
+      await cleanUp();
     }
   }
 }
