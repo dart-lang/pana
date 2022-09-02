@@ -11,20 +11,18 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:args/command_runner.dart';
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
-import 'package:pana/src/package_analysis/kind.dart';
+import 'package:pana/src/api_analysis/common.dart';
+import 'package:pana/src/api_analysis/kind.dart';
+import 'package:pana/src/api_analysis/lower_bound_constraint_analysis.dart';
+import 'package:pana/src/api_analysis/summary.dart';
 import 'package:path/path.dart' as path;
 import 'package:pool/pool.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:retry/retry.dart';
 
-import 'common.dart';
-import 'lower_bound_constraint_analysis.dart';
-import 'summary.dart';
-
 Future<void> main(List<String> arguments) async {
-  var runner = CommandRunner('package_analysis',
-      'A tool for analysing the public API of a dart package.')
+  var runner = CommandRunner(
+      'api_analysis', 'A tool for analysing the public API of a dart package.')
     ..addCommand(SummaryCommand())
     ..addCommand(LowerBoundConstraintAnalysisCommand())
     ..addCommand(BatchLBCAnalysisCommand());
@@ -260,18 +258,16 @@ class BatchLBCAnalysisCommand extends Command {
           'Cache path $cachePath points to a directory which does not exist.');
     }
 
-    // ensure that package_analysis.dart is at the expected location
+    // ensure that api_analysis.dart is at the expected location
     final packageAnalysisFilePath = path.join(
       Directory.current.path,
-      'lib',
-      'src',
-      'package_analysis',
-      'package_analysis.dart',
+      'bin',
+      'api_analysis.dart',
     );
     final lbcAnalysisCommandName = LowerBoundConstraintAnalysisCommand().name;
     if (!(await File(packageAnalysisFilePath).exists())) {
       throw ArgumentError(
-          'Failed to find file "package_analysis.dart" which is needed for invoking the $lbcAnalysisCommandName command, ensure $packageAnalysisFilePath points to this file.');
+          'Failed to find file "api_analysis.dart" which is needed for invoking the $lbcAnalysisCommandName command, ensure $packageAnalysisFilePath points to this file.');
     }
 
     final c = http.Client();
@@ -417,19 +413,5 @@ class BatchLBCAnalysisCommand extends Command {
         }
       });
     }));
-  }
-}
-
-@internal
-class PackageAnalysisContextWithStderr extends PackageAnalysisContext {
-  PackageAnalysisContextWithStderr({
-    required super.session,
-    required super.packagePath,
-    super.targetPackageName,
-  });
-
-  @override
-  void warning(String message) {
-    stderr.writeln(message);
   }
 }

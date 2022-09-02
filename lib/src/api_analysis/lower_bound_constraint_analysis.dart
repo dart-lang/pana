@@ -12,17 +12,16 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/exception/exception.dart';
 import 'package:collection/collection.dart';
-import 'package:pana/src/package_analysis/kind.dart';
-import 'package:pana/src/package_analysis/package_analysis.dart';
-import 'package:pana/src/package_analysis/shapes.dart';
-import 'package:pana/src/package_analysis/shapes_ext.dart';
-import 'package:pana/src/package_analysis/summary.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:source_span/source_span.dart';
 
 import 'common.dart';
 import 'issue.dart';
+import 'kind.dart';
+import 'shapes.dart';
+import 'shapes_ext.dart';
+import 'summary.dart';
 
 /// Analyze the target package [targetName], using the temporary directory
 /// [tempPath] to perform analysis, and return a [List] of any found issues -

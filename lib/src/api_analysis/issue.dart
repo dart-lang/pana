@@ -3,12 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/element/element.dart';
-import 'package:pana/src/package_analysis/shapes.dart';
-import 'package:pana/src/package_analysis/shapes_ext.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:source_span/source_span.dart';
 
 import 'kind.dart';
+import 'shapes.dart';
+import 'shapes_ext.dart';
 
 class PotentialLowerBoundConstraintIssue {
   /// The name of the package that has an incorrect lower bound dependency constraint

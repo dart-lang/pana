@@ -6,12 +6,12 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:collection/collection.dart';
 import 'package:pana/pana.dart';
-import 'package:pana/src/package_analysis/shapes_ext.dart';
 import 'package:path/path.dart' as path;
 
 import 'common.dart';
 import 'normalize_shape.dart';
 import 'shapes.dart';
+import 'shapes_ext.dart';
 
 Future<PackageShape> summarizePackage({
   required PackageAnalysisContext context,

@@ -4,7 +4,7 @@
 
 import 'dart:io';
 
-import 'package:pana/src/package_analysis/lower_bound_constraint_analysis.dart';
+import 'package:pana/src/api_analysis/lower_bound_constraint_analysis.dart';
 import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -16,7 +16,7 @@ Future<void> main() async {
   final yamlDir = Directory(path.join(
     path.current,
     'test',
-    'package_analysis',
+    'api_analysis',
     'testdata',
     'lower_bound_constraint_issues',
   ));

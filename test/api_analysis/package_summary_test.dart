@@ -6,10 +6,9 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:collection/collection.dart';
-import 'package:pana/src/package_analysis/common.dart';
-import 'package:pana/src/package_analysis/package_analysis.dart';
-import 'package:pana/src/package_analysis/shapes.dart';
-import 'package:pana/src/package_analysis/summary.dart';
+import 'package:pana/src/api_analysis/common.dart';
+import 'package:pana/src/api_analysis/shapes.dart';
+import 'package:pana/src/api_analysis/summary.dart';
 import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -20,7 +19,7 @@ Future<void> main() async {
   final yamlDir = Directory(path.join(
     path.current,
     'test',
-    'package_analysis',
+    'api_analysis',
     'testdata',
     'summary',
   ));
