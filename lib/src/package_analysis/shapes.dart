@@ -296,7 +296,8 @@ abstract class ClassMemberShapeBase {
   ClassMemberShapeBase({required this.name});
 }
 
-List? _listContentsOrNull(List a) => a.isEmpty ? null : a;
+List? _listContentsOrNull(List a) =>
+    a.isEmpty ? null : a.map((e) => e.toJson()).toList();
 
 List<String>? _listAnnotationsOrNull(List<Annotation> a) =>
     a.isEmpty ? null : a.map((e) => e.name).toList();

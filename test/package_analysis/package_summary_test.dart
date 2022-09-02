@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:collection/collection.dart';
 import 'package:pana/src/package_analysis/common.dart';
 import 'package:pana/src/package_analysis/package_analysis.dart';
+import 'package:pana/src/package_analysis/shapes.dart';
 import 'package:pana/src/package_analysis/summary.dart';
 import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
@@ -59,6 +61,15 @@ Future<void> main() async {
 
       // compare the summary to what was expected in the yaml doc
       expect(indentedEncoder.convert(packageJson), equals(doc['summary']));
+
+      // test the fromJson() method
+      expect(
+        const DeepCollectionEquality().equals(
+          PackageShape.fromJson(packageJson).toJson(),
+          packageJson,
+        ),
+        isTrue,
+      );
     });
   }
 }
