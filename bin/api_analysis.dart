@@ -72,6 +72,7 @@ class SummaryCommand extends Command {
     final packageShape = await summarizePackage(
       context: packageAnalysisContext,
       packagePath: packageLocation,
+      normalize: true,
     );
 
     final packageJson = packageShape.toJson();

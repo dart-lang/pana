@@ -141,6 +141,7 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       context: dependencyPackageAnalysisContext,
       packagePath:
           dependencyPackageAnalysisContext.findPackagePath(dependencyName),
+      normalize: false,
     );
   }
 
@@ -187,6 +188,7 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
         context: context,
         packagePath:
             context.findPackagePath(possibleIssue.dependencyPackageName),
+        normalize: false,
       );
     }
     final installedDependency =

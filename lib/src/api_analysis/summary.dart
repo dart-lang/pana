@@ -16,6 +16,7 @@ import 'shapes_ext.dart';
 Future<PackageShape> summarizePackage({
   required PackageAnalysisContext context,
   required String packagePath,
+  required bool normalize,
 }) async {
   final pubspecString = context.readFile(path.join(
     packagePath,
@@ -346,5 +347,5 @@ Future<PackageShape> summarizePackage({
     summarizeLibraryElement(library.element);
   }
 
-  return normalizePackageShape(package);
+  return normalize ? normalizePackageShape(package) : package;
 }
