@@ -70,27 +70,27 @@ class LibraryShape {
   /// ```
   final String uri;
 
-  /// `List` of [GlobalPropertyShape.id] elements, where each one corresponds to a
+  /// `List` of `GlobalPropertyShape.id` elements, where each one corresponds to a
   /// top-level getter exported in this library.
   final List<int> exportedGetters;
 
-  /// `List` of [GlobalPropertyShape.id] elements, where each one corresponds to a
+  /// `List` of `GlobalPropertyShape.id` elements, where each one corresponds to a
   /// top-level setter exported in this library.
   final List<int> exportedSetters;
 
-  /// `List` of [FunctionShape.id] elements, where each one corresponds to a
+  /// `List` of `FunctionShape.id` elements, where each one corresponds to a
   /// top-level function exported in this library.
   final List<int> exportedFunctions;
 
-  /// `List` of [ClassShape.id] elements, where each one corresponds to a class
+  /// `List` of `ClassShape.id` elements, where each one corresponds to a class
   /// exported in this library.
   final List<int> exportedClasses;
 
-  /// `List` of [ExtensionShape.id] elements, where each one corresponds to an
+  /// `List` of `ExtensionShape.id` elements, where each one corresponds to an
   /// extension exported in this library.
   final List<int> exportedExtensions;
 
-  /// `List` of [TypedefShape.id] elements, where each one corresponds to a
+  /// `List` of `TypedefShape.id` elements, where each one corresponds to a
   /// typedef exported in this library.
   final List<int> exportedTypedefs;
 
@@ -260,7 +260,7 @@ class GlobalPropertyShape extends GlobalShapeBase {
 @sealed
 @JsonSerializable()
 class TypedefShape extends GlobalShapeBase {
-  /// The [ClassShape.id] that this typedef points to, or null if defined as function type
+  /// The `ClassShape.id` that this typedef points to, or null if defined as function type
   final int? targetClassId;
 
   TypedefShape(
