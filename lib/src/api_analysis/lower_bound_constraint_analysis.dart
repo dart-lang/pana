@@ -403,8 +403,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           : !dependencyMetadata.packageShape.containsExtensionPropertyWithName(
               parentElement.name!, metadata.identifierName);
     } else {
-      // we may be looking at a top-level getter or setter
-      // context.warning('Subclass ${parentElement.toString()} of parentElement (getter/setter) is not supported.');
+      // this node may be an invocation of a top-level getter or setter
       return;
     }
 
@@ -494,7 +493,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           : !dependencyMetadata.packageShape.containsExtensionPropertyWithName(
               parentElement.name!, metadata.identifierName);
     } else {
-      // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');
       return;
     }
 
@@ -579,7 +577,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           .containsExtensionMethodWithName(
               parentElement.name!, metadata.identifierName);
     } else {
-      // context.warning('Subclass ${parentElement.toString()} of parentElement (method/function) is not supported.');
       return;
     }
 
