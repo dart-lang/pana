@@ -148,10 +148,12 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         );
         final targetMetadata = json.decode(targetResponse.body)['latest']
             ['pubspec'] as Map<String, dynamic>;
-        targetHomepage = targetMetadata.containsKey('homepage')
+        targetHomepage = targetMetadata.containsKey('homepage') &&
+                targetMetadata['homepage'] != null
             ? targetMetadata['homepage'] as String
             : '';
-        targetRepository = targetMetadata.containsKey('repository')
+        targetRepository = targetMetadata.containsKey('repository') &&
+                targetMetadata['repository'] != null
             ? targetMetadata['repository'] as String
             : '';
         final dependencyResponse = await retry(
