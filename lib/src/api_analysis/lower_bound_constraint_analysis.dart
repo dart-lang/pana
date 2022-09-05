@@ -87,6 +87,8 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
   // - produce a summary of the minimum allowed version
   for (final dependencyEntry in context.dependencies.entries) {
     final dependencyName = dependencyEntry.key;
+    final dependencyInstalledVersion =
+        context.findInstalledVersion(dependencyName);
     final dependencyVersionConstraint = dependencyEntry.value.version;
     final dependencyDestination =
         path.join(dependencyFolder, '${dependencyName}_dummy');
@@ -98,32 +100,39 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       cachePath: cachePath,
       pubHostedUrl: pubHostedUrl,
     );
-    final minVersion =
-        allVersions.firstWhereOrNull(dependencyVersionConstraint.allows);
 
-    if (minVersion == null) {
-      context.warning(
-          'Skipping dependency $dependencyName, could not determine minimum allowed version.');
-      continue;
+    // Determine the smallest version for which dependencies can be resolved,
+    // but which is not the installed version (issues will never be found in
+    // this way).
+    Version? minVersion;
+    for (final smallVersion in allVersions.where((version) =>
+        dependencyVersionConstraint.allows(version) &&
+            version != dependencyInstalledVersion)) {
+      // attempt to download minimum allowed version of dependency
+      try {
+        await fetchUsingDummyPackage(
+          name: dependencyName,
+          version: smallVersion.toString(),
+          destination: dependencyDestination,
+          pubHostedUrl: pubHostedUrl,
+          pubCachePath: pubCachePath,
+        );
+      } on ProcessException {
+        // If version resolution could not be performed with this version of the
+        // dependency, try again with a higher version.
+        await Directory(dependencyDestination).delete(recursive: true);
+        continue;
+      }
+
+      // This is the minimum working dependency version.
+      minVersion = smallVersion;
+      break;
     }
 
-    // download minimum allowed version of dependency
-    try {
-      await fetchUsingDummyPackage(
-        name: dependencyName,
-        version: minVersion.toString(),
-        destination: dependencyDestination,
-        pubHostedUrl: pubHostedUrl,
-        pubCachePath: pubCachePath,
-      );
-    } on ProcessException catch (exception) {
-      // it is expected that sometimes the SDK constraint on the lowest version of the dependency will be too low
-      if (!(exception.errorCode == 1 &&
-          exception.message.contains('which requires SDK version') &&
-          exception.message.endsWith('version solving failed.\n'))) {
-        context.warning(
-            'Skipping dependency $dependencyName of target package $targetName, failed to download it with error code ${exception.errorCode}: ${exception.message}');
-      }
+    if (minVersion == null) {
+      // Either all but the installed version of the dependency allowed by the
+      // constraint failed dependency version solving, or there is only one
+      // available release that satisfies the constraint imposed by the target.
       continue;
     }
 
