@@ -270,9 +270,10 @@ List<resource.File> getAllFiles(resource.Folder folder) {
   return files;
 }
 
-/// Retrieve the [List<Version>] of available versions of the package named
-/// [packageName], in ascending order of [Version]. [cachePath] can be
-/// optionally provided to avoid repetitive requests to the pub api.
+/// Retrieve the [List<Version>] of available (non-retracted) versions of the
+/// package named [packageName], in ascending order of [Version]. [cachePath]
+/// can be optionally provided to avoid repetitive requests to the pub api.
+/// The returned [List] may be empty.
 Future<List<Version>> fetchSortedPackageVersionList({
   required String packageName,
   String? cachePath,
@@ -280,17 +281,12 @@ Future<List<Version>> fetchSortedPackageVersionList({
 }) async {
   List<Version> metadataStringToSortedVersions(String metadata) {
     final versionsMetadata = json.decode(metadata)['versions'] as List<dynamic>;
-    final versions = versionsMetadata
+    return versionsMetadata
         .where((versionMetadata) => versionMetadata['retracted'] != true)
         .map((versionMetadata) => versionMetadata['version'] as String)
         .map(Version.parse)
         .sorted((a, b) => a.compareTo(b))
         .toList();
-    if (versions.isEmpty) {
-      throw StateError(
-          'All available versions of package $packageName are retracted.');
-    }
-    return versions;
   }
 
   late final File versionListFile;

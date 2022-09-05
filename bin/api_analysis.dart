@@ -326,6 +326,17 @@ class BatchLBCAnalysisCommand extends Command {
               sdkConstraint.min! < Version(2, 12, 0) ||
               !sdkConstraint.allows(currentSdkVersion)) {
             incompatiblePackages.add(packageName);
+            return;
+          }
+
+          // if there are no available versions of this package, do not analyse it
+          if ((await fetchSortedPackageVersionList(
+            packageName: packageName,
+            cachePath: cachePath,
+          ))
+              .isEmpty) {
+            incompatiblePackages.add(packageName);
+            return;
           }
         });
       }));
