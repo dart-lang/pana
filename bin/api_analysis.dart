@@ -77,7 +77,7 @@ class SummaryCommand extends Command {
 
     final packageJson = packageShape.toJson();
 
-    print(indentedEncoder.convert(packageJson));
+    stdout.writeln(indentedEncoder.convert(packageJson));
   }
 }
 
@@ -137,25 +137,38 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         cachePath: cachePath,
       );
 
+      final report = <String, dynamic>{
+        'target': {
+          'name': targetName,
+        },
+        'issues': [],
+      };
+
+      final targetResponse = await retry(
+        () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
+        retryIf: (e) => e is IOException,
+      );
+      final targetMetadata = json.decode(targetResponse.body)['latest']
+          ['pubspec'] as Map<String, dynamic>;
+      report['target']['homepage'] = targetMetadata.containsKey('homepage') &&
+              targetMetadata['homepage'] != null
+          ? targetMetadata['homepage'] as String
+          : '';
+      report['target']['repository'] =
+          targetMetadata.containsKey('repository') &&
+                  targetMetadata['repository'] != null
+              ? targetMetadata['repository'] as String
+              : '';
+
       for (final issue in foundIssues) {
-        late final String targetHomepage;
-        late final String targetRepository;
-        late final String dependencyHomepage;
-        late final String dependencyRepository;
-        final targetResponse = await retry(
-          () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
-          retryIf: (e) => e is IOException,
-        );
-        final targetMetadata = json.decode(targetResponse.body)['latest']
-            ['pubspec'] as Map<String, dynamic>;
-        targetHomepage = targetMetadata.containsKey('homepage') &&
-                targetMetadata['homepage'] != null
-            ? targetMetadata['homepage'] as String
-            : '';
-        targetRepository = targetMetadata.containsKey('repository') &&
-                targetMetadata['repository'] != null
-            ? targetMetadata['repository'] as String
-            : '';
+        final thisReport = <String, dynamic>{
+          'dependency': {
+            'name': issue.dependencyPackageName,
+            'constraint': issue.constraint.toString(),
+            'documentation': {},
+          },
+          'identifier': {},
+        };
         final dependencyResponse = await retry(
           () => c.get(Uri.parse(
               'https://pub.dev/api/packages/${issue.dependencyPackageName}')),
@@ -164,50 +177,48 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         final dependencyMetadata =
             json.decode(dependencyResponse.body)['latest']['pubspec']
                 as Map<String, dynamic>;
-        dependencyHomepage = dependencyMetadata.containsKey('homepage')
-            ? dependencyMetadata['homepage'] as String
-            : '';
-        dependencyRepository = dependencyMetadata.containsKey('repository')
-            ? dependencyMetadata['repository'] as String
-            : '';
-        print('target package:\n'
-            '  name: $targetName\n'
-            '  homepage: $targetHomepage\n'
-            '  repository: $targetRepository\n'
-            'dependency issue:\n'
-            '  ${issue.dependencyPackageName}: ${issue.constraint}\n'
-            '  homepage: $dependencyHomepage\n'
-            '  repository: $dependencyRepository\n'
-            '  documentation (lowest allowed version): https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.lowestVersion}/\n'
-            '  documentation (installed version): https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.currentVersion}/\n'
-            'suggested resolution:\n'
-            '  ${issue.dependencyPackageName}: ^${issue.currentVersion}');
+        thisReport['dependency']['homepage'] =
+            dependencyMetadata.containsKey('homepage')
+                ? dependencyMetadata['homepage'] as String
+                : '';
+        thisReport['dependency']['repository'] =
+            dependencyMetadata.containsKey('repository')
+                ? dependencyMetadata['repository'] as String
+                : '';
+        thisReport['dependency']['documentation']['lowestAllowedVersion'] =
+            'https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.lowestVersion}/';
+        thisReport['dependency']['documentation']['installedVersion'] =
+            'https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.currentVersion}/';
+
+        thisReport['identifier']['name'] = issue.identifier;
+
         switch (issue.parentKind) {
           case null:
-            print(
-                'Identifier `${issue.identifier}` is a top-level ${issue.kind.toString()}');
+            thisReport['identifier']['description'] =
+                'Identifier `${issue.identifier}` is a top-level ${issue.kind.toString()}';
             break;
 
           case ParentKind.classKind:
-            print(
-                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the class `${issue.parentName!}`');
+            thisReport['identifier']['description'] =
+                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the class `${issue.parentName!}`';
             break;
 
           case ParentKind.extensionKind:
-            print(
-                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the extension `${issue.parentName!}`');
+            thisReport['identifier']['description'] =
+                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the extension `${issue.parentName!}`';
             break;
 
           case ParentKind.enumKind:
-            print(
-                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the enum `${issue.parentName!}`');
+            thisReport['identifier']['description'] =
+                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the enum `${issue.parentName!}`';
             break;
         }
-        print('Usages of this identifier in target package:');
-        for (final reference in issue.references) {
-          print(reference.message(''));
-        }
+        thisReport['identifier']['references'] =
+            issue.references.map((reference) => reference.message('')).toList();
+        report['issues']!.add(thisReport);
       }
+
+      stdout.writeln(indentedEncoder.convert(report));
     } finally {
       await cleanUp();
     }
@@ -369,7 +380,7 @@ class BatchLBCAnalysisCommand extends Command {
         .getRange(0, packageCountToAnalyze)
         .mapIndexed((targetPackageIndex, targetPackageName) async {
       await pool.withResource(() async {
-        print(
+        stdout.writeln(
             '${DateTime.now().toIso8601String()} Analyzing package $targetPackageName (${targetPackageIndex + 1}/$packageCountToAnalyze)...');
 
         late final Process process;
