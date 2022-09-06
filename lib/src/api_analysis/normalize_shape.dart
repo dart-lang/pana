@@ -72,23 +72,23 @@ PackageShape normalizePackageShape(PackageShape package) {
   // create mapping for ids and reassign them according to the sorted order
   final newGetters = package.getters.sorted(compareShape).map((getter) {
     oldIdToNewId[getter.id] = newIdCounter;
-    return getter.replaceWithNewId(newIdCounter++);
+    return getter.withId(newIdCounter++);
   }).toList();
   final newSetters = package.setters.sorted(compareShape).map((setter) {
     oldIdToNewId[setter.id] = newIdCounter;
-    return setter.replaceWithNewId(newIdCounter++);
+    return setter.withId(newIdCounter++);
   }).toList();
   final newFunctions = package.functions.sorted(compareShape).map((function) {
     oldIdToNewId[function.id] = newIdCounter;
-    return function.replaceWithNewId(newIdCounter++);
+    return function.withId(newIdCounter++);
   }).toList();
   final newClasses = package.classes.sorted(compareShape).map((thisClass) {
     oldIdToNewId[thisClass.id] = newIdCounter;
-    return thisClass.replaceWithNewId(newIdCounter++);
+    return thisClass.withId(newIdCounter++);
   }).toList();
   final newTypedefs = package.typedefs.sorted(compareShape).map((thisTypedef) {
     oldIdToNewId[thisTypedef.id] = newIdCounter;
-    return thisTypedef.replaceWithNewIds(
+    return thisTypedef.withIds(
       newId: newIdCounter++,
       newTargetId: thisTypedef.targetClassId == null
           ? null
@@ -98,7 +98,7 @@ PackageShape normalizePackageShape(PackageShape package) {
   final newExtensions =
       package.extensions.sorted(compareShape).map((thisExtension) {
     oldIdToNewId[thisExtension.id] = newIdCounter;
-    return thisExtension.replaceWithNewIds(
+    return thisExtension.withIds(
       newId: newIdCounter++,
       newExtendedClassId: oldIdToNewId[thisExtension.extendedClassId]!,
     );

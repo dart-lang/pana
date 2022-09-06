@@ -6,7 +6,7 @@ import 'shapes.dart';
 
 extension GlobalPropertyShapeExt on GlobalPropertyShape {
   /// Creates a new [GlobalPropertyShape] based on this one, but with the id replaced.
-  GlobalPropertyShape replaceWithNewId(int newId) => GlobalPropertyShape(
+  GlobalPropertyShape withId(int newId) => GlobalPropertyShape(
         id: newId,
         name: name,
       );
@@ -14,7 +14,7 @@ extension GlobalPropertyShapeExt on GlobalPropertyShape {
 
 extension FunctionShapeExt on FunctionShape {
   /// Creates a new [FunctionShape] based on this one, but with the id replaced.
-  FunctionShape replaceWithNewId(int newId) => FunctionShape(
+  FunctionShape withId(int newId) => FunctionShape(
         id: newId,
         name: name,
       );
@@ -22,7 +22,7 @@ extension FunctionShapeExt on FunctionShape {
 
 extension TypedefShapeExt on TypedefShape {
   /// Creates a new [TypedefShape] based on this one, but with the id and targetClassId replaced.
-  TypedefShape replaceWithNewIds({
+  TypedefShape withIds({
     required int newId,
     required int? newTargetId,
   }) =>
@@ -35,7 +35,7 @@ extension TypedefShapeExt on TypedefShape {
 
 extension ExtensionShapeExt on ExtensionShape {
   /// Creates a new [ExtensionShape] based on this one, but with the id and extendedClassId replaced.
-  ExtensionShape replaceWithNewIds({
+  ExtensionShape withIds({
     required int newId,
     required int newExtendedClassId,
   }) =>
@@ -55,7 +55,7 @@ extension ExtensionShapeExt on ExtensionShape {
 
 extension ClassShapeExt on ClassShape {
   /// Creates a new [ClassShape] based on this one, but with the id replaced.
-  ClassShape replaceWithNewId(int newId) => ClassShape(
+  ClassShape withId(int newId) => ClassShape(
         id: newId,
         name: name,
         getters: getters,
