@@ -137,87 +137,88 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         cachePath: cachePath,
       );
 
-      final report = <String, dynamic>{'issues': []};
+      if (foundIssues.isNotEmpty) {
+        final report = <String, dynamic>{'issues': []};
 
-      final targetResponse = await retry(
-        () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
-        retryIf: (e) => e is IOException,
-      );
-      final targetMetadata = json.decode(targetResponse.body)['latest']
-          ['pubspec'] as Map<String, dynamic>;
-      final targetHomepage = targetMetadata.containsKey('homepage') &&
-              targetMetadata['homepage'] != null
-          ? targetMetadata['homepage'] as String
-          : '';
-      final targetRepository = targetMetadata.containsKey('repository') &&
-              targetMetadata['repository'] != null
-          ? targetMetadata['repository'] as String
-          : '';
-
-      for (final issue in foundIssues) {
-        final thisReport = <String, dynamic>{
-          'target': {
-            'name': targetName,
-            'homepage': targetHomepage,
-            'repository': targetRepository,
-          },
-          'dependency': {
-            'name': issue.dependencyPackageName,
-            'constraint': issue.constraint.toString(),
-            'documentation': {},
-          },
-          'identifier': {},
-        };
-        final dependencyResponse = await retry(
-          () => c.get(Uri.parse(
-              'https://pub.dev/api/packages/${issue.dependencyPackageName}')),
+        final targetResponse = await retry(
+          () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
           retryIf: (e) => e is IOException,
         );
-        final dependencyMetadata =
-            json.decode(dependencyResponse.body)['latest']['pubspec']
-                as Map<String, dynamic>;
-        thisReport['dependency']['homepage'] =
-            dependencyMetadata.containsKey('homepage')
-                ? dependencyMetadata['homepage'] as String
-                : '';
-        thisReport['dependency']['repository'] =
-            dependencyMetadata.containsKey('repository')
-                ? dependencyMetadata['repository'] as String
-                : '';
-        thisReport['dependency']['documentation']['lowestAllowedVersion'] =
-            'https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.lowestVersion}/';
-        thisReport['dependency']['documentation']['installedVersion'] =
-            'https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.currentVersion}/';
+        final targetMetadata = json.decode(targetResponse.body)['latest']
+            ['pubspec'] as Map<String, dynamic>;
+        final targetHomepage = targetMetadata.containsKey('homepage') &&
+                targetMetadata['homepage'] != null
+            ? targetMetadata['homepage'] as String
+            : '';
+        final targetRepository = targetMetadata.containsKey('repository') &&
+                targetMetadata['repository'] != null
+            ? targetMetadata['repository'] as String
+            : '';
 
-        thisReport['identifier']['name'] = issue.identifier;
+        for (final issue in foundIssues) {
+          final thisReport = <String, dynamic>{
+            'target': {
+              'name': targetName,
+              'homepage': targetHomepage,
+              'repository': targetRepository,
+            },
+            'dependency': {
+              'name': issue.dependencyPackageName,
+              'constraint': issue.constraint.toString(),
+              'documentation': {},
+            },
+            'identifier': {},
+          };
+          final dependencyResponse = await retry(
+            () => c.get(Uri.parse(
+                'https://pub.dev/api/packages/${issue.dependencyPackageName}')),
+            retryIf: (e) => e is IOException,
+          );
+          final dependencyMetadata =
+              json.decode(dependencyResponse.body)['latest']['pubspec']
+                  as Map<String, dynamic>;
+          thisReport['dependency']['homepage'] =
+              dependencyMetadata.containsKey('homepage')
+                  ? dependencyMetadata['homepage'] as String
+                  : '';
+          thisReport['dependency']['repository'] =
+              dependencyMetadata.containsKey('repository')
+                  ? dependencyMetadata['repository'] as String
+                  : '';
+          thisReport['dependency']['documentation']['lowestAllowedVersion'] =
+              'https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.lowestVersion}/';
+          thisReport['dependency']['documentation']['installedVersion'] =
+              'https://pub.dev/documentation/${issue.dependencyPackageName}/${issue.currentVersion}/';
 
-        switch (issue.parentKind) {
-          case null:
-            thisReport['identifier']['description'] =
-                'Identifier `${issue.identifier}` is a top-level ${issue.kind.toString()}';
-            break;
+          thisReport['identifier']['name'] = issue.identifier;
 
-          case ParentKind.classKind:
-            thisReport['identifier']['description'] =
-                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the class `${issue.parentName!}`';
-            break;
+          switch (issue.parentKind) {
+            case null:
+              thisReport['identifier']['description'] =
+                  'Identifier `${issue.identifier}` is a top-level ${issue.kind.toString()}';
+              break;
 
-          case ParentKind.extensionKind:
-            thisReport['identifier']['description'] =
-                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the extension `${issue.parentName!}`';
-            break;
+            case ParentKind.classKind:
+              thisReport['identifier']['description'] =
+                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the class `${issue.parentName!}`';
+              break;
 
-          case ParentKind.enumKind:
-            thisReport['identifier']['description'] =
-                'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the enum `${issue.parentName!}`';
-            break;
+            case ParentKind.extensionKind:
+              thisReport['identifier']['description'] =
+                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the extension `${issue.parentName!}`';
+              break;
+
+            case ParentKind.enumKind:
+              thisReport['identifier']['description'] =
+                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the enum `${issue.parentName!}`';
+              break;
+          }
+          thisReport['identifier']['references'] = issue.references
+              .map((reference) => reference.message(''))
+              .toList();
+          report['issues']!.add(thisReport);
         }
-        thisReport['identifier']['references'] =
-            issue.references.map((reference) => reference.message('')).toList();
-        report['issues']!.add(thisReport);
-      }
 
-      if (foundIssues.isNotEmpty) {
         stdout.writeln(indentedEncoder.convert(report));
       }
     } finally {
