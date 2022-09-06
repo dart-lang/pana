@@ -279,7 +279,6 @@ enum Annotation {
   visibleForTesting,
 }
 
-@internal
 abstract class GlobalShapeBase {
   final int id;
   final String name;
@@ -293,7 +292,6 @@ abstract class GlobalShapeBase {
   int get hashCode => id;
 }
 
-@internal
 abstract class ClassMemberShapeBase {
   final String name;
 

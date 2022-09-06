@@ -53,6 +53,6 @@ target:
           D().g();
           createD().g();
         }
-issues: [ ]
+issues: []
 
 ...

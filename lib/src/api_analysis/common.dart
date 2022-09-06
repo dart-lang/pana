@@ -12,7 +12,6 @@ import 'package:analyzer/exception/exception.dart';
 import 'package:analyzer/file_system/file_system.dart' as resource;
 import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
@@ -156,7 +155,6 @@ abstract class PackageAnalysisContext {
   }
 }
 
-@internal
 class PackageAnalysisContextWithStderr extends PackageAnalysisContext {
   PackageAnalysisContextWithStderr({
     required super.session,
