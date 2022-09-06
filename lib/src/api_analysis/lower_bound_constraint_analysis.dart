@@ -292,7 +292,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     if (tryPackageName == null ||
         !context.dependencies.keys.contains(tryPackageName)) {
       throw AnalysisException(
-          'The defining package is not a HostedDependency of the target package.');
+          'The defining package is not a hosted dependency of the target package.');
     }
 
     if (!dependencySummaries.keys.contains(tryPackageName)) {
