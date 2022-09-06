@@ -323,9 +323,16 @@ class BatchLBCAnalysisCommand extends Command {
             () => c.get(Uri.parse('https://pub.dev/api/packages/$packageName')),
             retryIf: (e) => e is IOException,
           );
-          final sdkConstraintStr =
-              json.decode(packageMetadataResponse.body)?['latest']?['pubspec']
-                  ?['environment']?['sdk'] as String?;
+          final packageMetadata = json.decode(packageMetadataResponse.body);
+
+          // do not analyse discontinued packages
+          if (packageMetadata['isDiscontinued'] == true) {
+            incompatiblePackages.add(packageName);
+            return;
+          }
+
+          final sdkConstraintStr = packageMetadata['latest']?['pubspec']
+              ?['environment']?['sdk'] as String?;
 
           // could not determine sdk constraint
           if (sdkConstraintStr == null) {
