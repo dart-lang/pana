@@ -137,12 +137,7 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         cachePath: cachePath,
       );
 
-      final report = <String, dynamic>{
-        'target': {
-          'name': targetName,
-        },
-        'issues': [],
-      };
+      final report = <String, dynamic>{'issues': []};
 
       final targetResponse = await retry(
         () => c.get(Uri.parse('https://pub.dev/api/packages/$targetName')),
@@ -150,18 +145,22 @@ class LowerBoundConstraintAnalysisCommand extends Command {
       );
       final targetMetadata = json.decode(targetResponse.body)['latest']
           ['pubspec'] as Map<String, dynamic>;
-      report['target']['homepage'] = targetMetadata.containsKey('homepage') &&
+      final targetHomepage = targetMetadata.containsKey('homepage') &&
               targetMetadata['homepage'] != null
           ? targetMetadata['homepage'] as String
           : '';
-      report['target']['repository'] =
-          targetMetadata.containsKey('repository') &&
-                  targetMetadata['repository'] != null
-              ? targetMetadata['repository'] as String
-              : '';
+      final targetRepository = targetMetadata.containsKey('repository') &&
+              targetMetadata['repository'] != null
+          ? targetMetadata['repository'] as String
+          : '';
 
       for (final issue in foundIssues) {
         final thisReport = <String, dynamic>{
+          'target': {
+            'name': targetName,
+            'homepage': targetHomepage,
+            'repository': targetRepository,
+          },
           'dependency': {
             'name': issue.dependencyPackageName,
             'constraint': issue.constraint.toString(),
