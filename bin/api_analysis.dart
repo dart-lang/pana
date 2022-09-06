@@ -218,7 +218,9 @@ class LowerBoundConstraintAnalysisCommand extends Command {
         report['issues']!.add(thisReport);
       }
 
-      stdout.writeln(indentedEncoder.convert(report));
+      if (foundIssues.isNotEmpty) {
+        stdout.writeln(indentedEncoder.convert(report));
+      }
     } finally {
       await cleanUp();
     }
