@@ -11,7 +11,7 @@ import 'shapes.dart';
 import 'shapes_ext.dart';
 
 class PotentialLowerBoundConstraintIssue {
-  /// The name of the package that has an incorrect lower bound dependency constraint
+  /// The name of the package on which the analyzed package has an incorrect lower bound dependency constraint.
   final String dependencyPackageName;
 
   /// The constraint on [dependencyPackageName] in the pubspec file
