@@ -76,7 +76,7 @@ extension ClassShapeExt on ClassShape {
   /// [List<T>] are expanded with the corresponding fields from the elements of
   /// [others], only where the addition of elements of the field [List]s does
   /// not cause result in duplicate class members.
-  void add({required List<ClassShape> others}) {
+  void extendWith({required List<ClassShape> others}) {
     /// Adds elements of [other] to [list] without creating duplicates.
     void addWithoutDuplicates(
       List<ClassMemberShapeBase> list,

@@ -215,7 +215,7 @@ Future<PackageShape> summarizePackage({
         .toList();
 
     // add the fields together
-    classShape.add(others: superTypeShapes);
+    classShape.extendWith(others: superTypeShapes);
 
     return classShape;
   }
