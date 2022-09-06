@@ -107,7 +107,7 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     Version? minVersion;
     for (final smallVersion in allVersions.where((version) =>
         dependencyVersionConstraint.allows(version) &&
-            version != dependencyInstalledVersion)) {
+        version != dependencyInstalledVersion)) {
       // attempt to download minimum allowed version of dependency
       try {
         await fetchUsingDummyPackage(
