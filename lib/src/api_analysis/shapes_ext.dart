@@ -141,9 +141,11 @@ extension PackageShapeExt on PackageShape {
   /// [className] with a method (static or not) named [name]?
   bool containsMethodWithName(String className, String name) {
     for (final thisClass in classesMatchingName(className)) {
-      if ([...thisClass.methods, ...thisClass.staticMethods]
-          .any((method) => method.name == name)) {
-        return true;
+      for (final method
+          in thisClass.methods.followedBy(thisClass.staticMethods)) {
+        if (method.name == name) {
+          return true;
+        }
       }
     }
     return false;
@@ -159,9 +161,11 @@ extension PackageShapeExt on PackageShape {
   /// [className] with a getter (static or not) named [name]?
   bool containsGetterWithName(String className, String name) {
     for (final thisClass in classesMatchingName(className)) {
-      if ([...thisClass.getters, ...thisClass.staticGetters]
-          .any((property) => property.name == name)) {
-        return true;
+      for (final property
+          in thisClass.getters.followedBy(thisClass.staticGetters)) {
+        if (property.name == name) {
+          return true;
+        }
       }
     }
     return false;
@@ -171,9 +175,11 @@ extension PackageShapeExt on PackageShape {
   /// [className] with a setter (static or not) named [name]?
   bool containsSetterWithName(String className, String name) {
     for (final thisClass in classesMatchingName(className)) {
-      if ([...thisClass.setters, ...thisClass.staticSetters]
-          .any((property) => property.name == name)) {
-        return true;
+      for (final property
+          in thisClass.setters.followedBy(thisClass.staticSetters)) {
+        if (property.name == name) {
+          return true;
+        }
       }
     }
     return false;
@@ -188,9 +194,11 @@ extension PackageShapeExt on PackageShape {
   /// (static or not) named [name]?
   bool containsExtensionMethodWithName(String extensionName, String name) {
     for (final thisExtension in extensionsMatchingName(extensionName)) {
-      if ([...thisExtension.methods, ...thisExtension.staticMethods]
-          .any((method) => method.name == name)) {
-        return true;
+      for (final method
+          in thisExtension.methods.followedBy(thisExtension.staticMethods)) {
+        if (method.name == name) {
+          return true;
+        }
       }
     }
     return false;
@@ -206,9 +214,11 @@ extension PackageShapeExt on PackageShape {
   /// (static or not) named [name]?
   bool containsExtensionGetterWithName(String extensionName, String name) {
     for (final thisExtension in extensionsMatchingName(extensionName)) {
-      if ([...thisExtension.getters, ...thisExtension.staticGetters]
-          .any((property) => property.name == name)) {
-        return true;
+      for (final property
+          in thisExtension.getters.followedBy(thisExtension.staticGetters)) {
+        if (property.name == name) {
+          return true;
+        }
       }
     }
     return false;
@@ -218,9 +228,11 @@ extension PackageShapeExt on PackageShape {
   /// (static or not) named [name]?
   bool containsExtensionSetterWithName(String extensionName, String name) {
     for (final thisExtension in extensionsMatchingName(extensionName)) {
-      if ([...thisExtension.setters, ...thisExtension.staticSetters]
-          .any((property) => property.name == name)) {
-        return true;
+      for (final property
+          in thisExtension.setters.followedBy(thisExtension.staticSetters)) {
+        if (property.name == name) {
+          return true;
+        }
       }
     }
     return false;
