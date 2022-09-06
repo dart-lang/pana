@@ -57,17 +57,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          }
-        ],
         "unnamedConstructor": true
       },
       {
@@ -100,17 +89,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          }
-        ],
         "unnamedConstructor": true
       },
       {
@@ -141,17 +119,6 @@ summary: |-
           },
           {
             "name": "toString"
-          }
-        ],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
           }
         ],
         "unnamedConstructor": true,
@@ -191,17 +158,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          }
-        ],
         "unnamedConstructor": false,
         "namedConstructors": [
           {
@@ -229,17 +185,6 @@ summary: |-
           },
           {
             "name": "toString"
-          }
-        ],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
           }
         ],
         "unnamedConstructor": false,
@@ -289,17 +234,6 @@ summary: |-
           },
           {
             "name": "toString"
-          }
-        ],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
           }
         ],
         "unnamedConstructor": true

@@ -148,15 +148,6 @@ summary: |-
         ],
         "staticMethods": [
           {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          },
-          {
             "name": "myStaticMethod"
           }
         ],

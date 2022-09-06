@@ -53,17 +53,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          }
-        ],
         "unnamedConstructor": true,
         "namedConstructors": [
           {

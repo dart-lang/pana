@@ -51,17 +51,6 @@ summary: |-
             "name": "toString"
           }
         ],
-        "staticMethods": [
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          }
-        ],
         "unnamedConstructor": true
       },
       {
@@ -279,15 +268,6 @@ summary: |-
             "name": "copyRange"
           },
           {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          },
-          {
             "name": "writeIterable"
           }
         ],
@@ -401,15 +381,6 @@ summary: |-
         "staticMethods": [
           {
             "name": "castFrom"
-          },
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
           }
         ],
         "unnamedConstructor": true,
@@ -607,18 +578,6 @@ summary: |-
           }
         ],
         "staticMethods": [
-          {
-            "name": "compare"
-          },
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          },
           {
             "name": "parse"
           },

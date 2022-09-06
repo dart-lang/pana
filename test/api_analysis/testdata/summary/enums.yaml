@@ -61,23 +61,6 @@ summary: |-
             "name": "values"
           }
         ],
-        "staticMethods": [
-          {
-            "name": "compareByIndex"
-          },
-          {
-            "name": "compareByName"
-          },
-          {
-            "name": "hash"
-          },
-          {
-            "name": "hashAll"
-          },
-          {
-            "name": "hashAllUnordered"
-          }
-        ],
         "unnamedConstructor": true
       }
     ],
