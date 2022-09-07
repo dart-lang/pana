@@ -1,5 +1,3 @@
----
-
 name: The analyzer should be able to handle an empty package
 summary: |-
   {
@@ -14,5 +12,3 @@ summary: |-
     "typedefs": []
   }
 package: []
-
-...

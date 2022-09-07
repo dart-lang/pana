@@ -1,5 +1,3 @@
----
-
 name: The summary should include informaton about the named and unnamed constructors of a class
 summary: |-
   {
@@ -278,5 +276,3 @@ package:
         NamedConstructors.d();
         NamedConstructors.c();
       }
-
-...

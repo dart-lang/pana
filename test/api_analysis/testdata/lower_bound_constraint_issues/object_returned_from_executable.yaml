@@ -1,5 +1,3 @@
----
-
 name: Missing class members should be detected if the invocation target is an object returned from a function or method
 packages:
   - name: foo
@@ -130,5 +128,3 @@ issues:
   - 'identifier: extGetter,'
   - 'identifier: someExtCallback,'
   - 'identifier: someCallback,'
-
-...

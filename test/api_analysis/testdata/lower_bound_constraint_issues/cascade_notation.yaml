@@ -1,5 +1,3 @@
----
-
 name: Analysis should be able to work with cascade notation
 packages:
   - name: foo
@@ -67,5 +65,3 @@ issues:
   - 'identifier: h,'
   - 'identifier: j,'
   - 'identifier: f,'
-
-...

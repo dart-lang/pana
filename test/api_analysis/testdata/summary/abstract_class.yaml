@@ -1,5 +1,3 @@
----
-
 name: The summary should include classes which extend or implement abstract classes
 summary: |-
   {
@@ -107,5 +105,3 @@ package:
         void f();
         void g() {}
       }
-
-...

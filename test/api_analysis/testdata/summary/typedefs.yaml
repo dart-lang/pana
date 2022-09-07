@@ -1,5 +1,3 @@
----
-
 name: The summary should include typedefs which can reference classes
 summary: |-
   {
@@ -635,5 +633,3 @@ package:
       typedef IntList = List<int>;
       typedef ListMapper<X> = Map<X, List<X>>;
       typedef Compare<T> = int Function(T a, T b);
-
-...

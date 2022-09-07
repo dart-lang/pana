@@ -1,5 +1,3 @@
----
-
 name: The summary should include some basic annotations
 summary: |-
   {
@@ -99,5 +97,3 @@ package:
 
       @Deprecated('Do not use!')
       extension E on D {}
-
-...

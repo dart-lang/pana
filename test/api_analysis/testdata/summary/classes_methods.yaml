@@ -1,5 +1,3 @@
----
-
 name: The summary should include classes and their methods
 summary: |-
   {
@@ -63,5 +61,3 @@ package:
         void f() {}
         void g() {}
       }
-
-...

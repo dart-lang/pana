@@ -1,5 +1,3 @@
----
-
 name: Libraries can export each other in a cycle
 summary: |-
   {
@@ -96,5 +94,3 @@ package:
     content: |
       export 'a.dart';
       class D {}
-
-...

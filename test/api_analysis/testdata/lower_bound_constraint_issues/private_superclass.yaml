@@ -1,5 +1,3 @@
----
-
 name: Private superclasses should not cause false positives
 packages:
   - name: foo
@@ -34,5 +32,3 @@ target:
           c.superConstant;
         }
 issues: []
-
-...

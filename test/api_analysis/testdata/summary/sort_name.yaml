@@ -1,5 +1,3 @@
----
-
 name: Classes must be sorted and re-indexed in alphabetical order
 summary: |-
   {
@@ -140,5 +138,3 @@ package:
       export 'b.dart';
       export 'c.dart';
       class E {}
-
-...

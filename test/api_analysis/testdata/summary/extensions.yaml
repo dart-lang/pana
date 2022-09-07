@@ -1,5 +1,3 @@
----
-
 name: The summary should include extensions
 summary: |-
   {
@@ -152,5 +150,3 @@ package:
         static set myStaticSetter(int something) {}
         static void myStaticMethod() {}
       }
-
-...

@@ -1,5 +1,3 @@
----
-
 name: Libraries can be split into multiple files with part
 summary: |-
   {
@@ -84,5 +82,3 @@ package:
     content: |
       part of 'a.dart';
       class D {}
-
-...

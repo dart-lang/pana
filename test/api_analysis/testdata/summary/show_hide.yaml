@@ -1,5 +1,3 @@
----
-
 name: Symbols can be hidden or shown when being exported
 summary: |-
   {
@@ -155,5 +153,3 @@ package:
       void a() {}
       void b() {}
       void c() {}
-
-...

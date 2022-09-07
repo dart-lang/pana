@@ -1,5 +1,3 @@
----
-
 name: One class can extend another
 summary: |-
   {
@@ -93,4 +91,3 @@ package:
       class D extends C {
         void g() {}
       }
-...

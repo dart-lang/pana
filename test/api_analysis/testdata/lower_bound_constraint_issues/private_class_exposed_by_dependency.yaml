@@ -1,5 +1,3 @@
----
-
 name: Private classes exposed by the dependency should not cause false positives
 packages:
   - name: foo
@@ -31,5 +29,3 @@ target:
           final a = mystery.a; // <- no class MysteryClass found in summary of package:foo
         }
 issues: []
-
-...

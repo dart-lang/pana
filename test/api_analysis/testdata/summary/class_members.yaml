@@ -1,5 +1,3 @@
----
-
 name: The summary should include class members such as properties, getters, setters and methods
 summary: |-
   {
@@ -194,5 +192,3 @@ package:
         static set _myStaticSetter(int something) {}
         static void _myStaticMethod() {}
       }
-
-...

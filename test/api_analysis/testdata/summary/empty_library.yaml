@@ -1,5 +1,3 @@
----
-
 name: The analyzer should be able to handle an empty library
 summary: |-
   {
@@ -26,5 +24,3 @@ summary: |-
 package:
   - path: lib/a.dart
     content: ''
-
-...

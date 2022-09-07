@@ -1,5 +1,3 @@
----
-
 name: Private classes exposed by the target package should not cause false positives
 packages:
   - name: foo
@@ -33,5 +31,3 @@ target:
           final mystery = MysteryClass();
         }
 issues: []
-
-...

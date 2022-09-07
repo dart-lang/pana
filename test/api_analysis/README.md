@@ -14,13 +14,79 @@ Summary tests are located in `testdata/summary` and are parsed and run by `packa
 
 ### Description
 
-A test package is created from the `.dart` files specified in `doc` (other mandatory files like `pubspec.yaml` and `.dart_tool/package_config.json` are created automatically and do not have to be specified explicitly in the YAML document). A *summary* is then generated based on the public API of this test package and any *id*s are re-assigned to bring the resulting PackageShape to normal form. Finally, the JSON representation of the resulting PackageShape is compared to the expected result to determine whether the test passes.
+A test package (with the name `test.package` and version `1.0.0`, which cannot be changed by tests) is created from the `.dart` files specified in `doc` (other mandatory files like `pubspec.yaml` and `.dart_tool/package_config.json` are generated automatically and do not have to be specified explicitly in the YAML document). A *summary* is then generated based on the public API of this test package and any *id*s are re-assigned to bring the resulting PackageShape to normal form. Finally, the JSON representation of the resulting PackageShape is compared to the expected result to determine whether the test passes.
 
-### YAML schema
+### Example YAML test
 
-`doc['package']` is an array storing all the files comprising the test package, omitting `pubspec.yaml` and `.dart_tool/package_config.json`.
-`doc['package'][i]['path']` is a string storing the path of the `i`th file, typically of the form `'lib/*.dart'`.
-`doc['package'][i]['content']` is a string storing the contents of the `i`th file.
+This is a passing test which demonstrates the syntax of a summary test. Note that this test does not demonstrate all the possible capabilities of a *package summary*.
+
+```yaml
+# The name of the test, as shown in Dart's test runner.
+name: The summary should include top-level functions.
+# The expected JSON form of the public API summary of the test package. This must be an exact match of the actual generated summary if the test is to pass.
+summary: |-
+  {
+    "name": "test.package",
+    "version": "1.0.0",
+    "libraries": [
+      {
+        "uri": "package:test.package/a.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [
+          0
+        ],
+        "exportedClasses": [],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      },
+      {
+        "uri": "package:test.package/b.dart",
+        "exportedGetters": [],
+        "exportedSetters": [],
+        "exportedFunctions": [
+          1
+        ],
+        "exportedClasses": [],
+        "exportedExtensions": [],
+        "exportedTypedefs": []
+      }
+    ],
+    "getters": [],
+    "setters": [],
+    "functions": [
+      {
+        "id": 0,
+        "name": "f"
+      },
+      {
+        "id": 1,
+        "name": "g"
+      }
+    ],
+    "classes": [],
+    "extensions": [],
+    "typedefs": []
+  }
+# The files comprising the test package, except `pubspec.yaml` and `.dart_tool/package_config.json` which are generated automatically.
+# An empty array is also allowed, representing a package with no .dart library files.
+# The values of the fields .package[].path must all be unique, and each one must be a relative path from the test package root.
+package:
+  - # The path of this .dart library.
+    path: lib/a.dart
+    # The content of this .dart library.
+    content: void f() {}
+  - path: lib/b.dart
+    # Multi-line content is allowed.
+    content: |
+      void g() {}
+      // This private top-level function should not be included in the summary.
+      void _privateFunction() {}
+  - path: lib/src/h.dart
+    content: |
+      // This top-level function is in a private library file, so it should not be included in the summary.
+      void h() {}
+```
 
 ## Lower bound constraint tests
 
@@ -32,18 +98,55 @@ A single target package is created from the `.dart` files specified in `doc` (ot
 
 Lower bound constraint analysis is executed on the target package, and the list of issues is verified against a list of regular expressions. The lists much have the same length and each regular expression should match an issue if the test is to pass.
 
-### YAML schema
+### Example YAML test
 
-`doc['target']['package']` is an array storing all the files comprising the target package, omitting `pubspec.yaml` and `.dart_tool/package_config.json`.
-`doc['target']['package'][i]['path']` is a string storing the path of the `i`th file of the target package, typically of the form `'lib/*.dart'`.
-`doc['target']['package'][i]['content']` is a string storing the contents of the `i`th file of the target package.
-`doc['target']['dependencies']` is an array storing the dependencies/version constraints of the target package.
-`doc['target']['dependencies'][j]['name']` is a string storing the name of the `j`th dependency of the target package.
-`doc['target']['dependencies'][j]['version']` is a string storing the version constraint associated with the `j`th dependency of the target package, in the notation that it would be specified in the pubspec.
-`doc['packages']` is an array storing all the dependency package releases that the target package can depend on.
-`doc['packages'][k]['name']` is a string storing the name of the `k`th package release.
-`doc['packages'][k]['version']` is a string storing the version of the `k`th package release.
-`doc['packages'][k]['package']` is an array storing all the files comprising the `k`th package release, omitting `pubspec.yaml` and `.dart_tool/package_config.json`
-`doc['packages'][k]['package'][l]['path']` is a string storing the path of the `l`th file of the `k`th package release, typically of the form `'lib/*.dart'`.
-`doc['packages'][k]['package'][l]['content']` is a string storing the contents of the `l`th file of the `k`th package release.
+This is a passing test which demonstrates the syntax of a lower bound constraint test. Note that this test does not demonstrate all the *issues* which can be identified by *lower bound constraint analysis*.
 
+```yaml
+# The name of the test, as shown in Dart's test runner.
+name: Missing top-level functions should be detected
+# The package releases available for the test package to depend on.
+# No two releases can have an identical name and version.
+packages:
+  - # The name of the package in this release.
+    name: foo
+    # The version of the package in this release.
+    version: 1.0.0
+    # The files comprising this release.
+    # This uses identical syntax as .package in the summary YAML test example.
+    package:
+      - path: lib/foo.dart
+        content: g() {}
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          // A new top-level function f is introduced, breaking the public API of the package foo.
+          void f() {}
+          void g() {}
+# The package to be tested for issues.
+target:
+  # The dependencies of the target package.
+  # This array uses a similar format as the pubspec to specify dependencies and constraints.
+  # The target package must only depend on package releases specified in .packages .
+  dependencies:
+    - name: foo
+      # The version constraint itself is not important, but it is typically chosen to match two available releases, one of which is installed as a dependency of the target, and the other is allowed but may have a different public API. 
+      version: ^1.0.0
+  # The files comprising the target package.
+  # This uses identical syntax as .package in the summary YAML test example.
+  package:
+    - path: lib/main.dart
+      content: |
+        import 'package:foo/foo.dart';
+        void main() {
+          f();
+          g();
+        }
+# Regular expressions corresponding to he issues that are expected to be found.
+# The number of expected issues must match the number of identified issues, and each regular expression corresponding to an expected issue must match exactly one string representation of an identified issue.
+# An empty array is also allowed, where no issues are expected to be found.
+issues:
+  - 'identifier: f,'
+```

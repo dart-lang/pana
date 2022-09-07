@@ -1,5 +1,3 @@
----
-
 name: Analysis should understand typedefs
 packages:
   - name: foo
@@ -54,5 +52,3 @@ target:
           createD().g();
         }
 issues: []
-
-...

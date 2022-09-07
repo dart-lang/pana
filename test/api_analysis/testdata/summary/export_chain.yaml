@@ -1,5 +1,3 @@
----
-
 name: Libraries can export each other in a long chain
 summary: |-
   {
@@ -92,5 +90,3 @@ package:
     content: export 'd.dart';
   - path: lib/d.dart
     content: class C {}
-
-...
