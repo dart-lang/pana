@@ -1,4 +1,13 @@
 name: Libraries can be split into multiple files with part
+package:
+  - path: lib/a.dart
+    content: |
+      part 'b.dart';
+      class C {}
+  - path: lib/b.dart
+    content: |
+      part of 'a.dart';
+      class D {}
 summary: |-
   {
     "name": "test.package",
@@ -73,12 +82,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      part 'b.dart';
-      class C {}
-  - path: lib/b.dart
-    content: |
-      part of 'a.dart';
-      class D {}

@@ -1,4 +1,12 @@
 name: Libraries should be able to export symbols from ./src
+package:
+  - path: lib/a.dart
+    content: export 'src/src.dart';
+  - path: lib/src/src.dart
+    content: |
+      var srcVar;
+      void srcFunc() {}
+      class SrcClass {}
 summary: |-
   {
     "name": "test.package",
@@ -69,11 +77,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: export 'src/src.dart';
-  - path: lib/src/src.dart
-    content: |
-      var srcVar;
-      void srcFunc() {}
-      class SrcClass {}

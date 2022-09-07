@@ -1,4 +1,7 @@
 name: The summary should include enums, which should be represented as classes
+package:
+  - path: lib/a.dart
+    content: enum Color { red, green, blue }
 summary: |-
   {
     "name": "test.package",
@@ -65,6 +68,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: enum Color { red, green, blue }

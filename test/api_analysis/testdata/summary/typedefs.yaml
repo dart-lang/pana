@@ -1,4 +1,14 @@
 name: The summary should include typedefs which can reference classes
+package:
+  - path: lib/a.dart
+    content: |
+      class C {}
+      typedef D = C;
+      typedef MyInt = int;
+      typedef MyVoid = void;
+      typedef IntList = List<int>;
+      typedef ListMapper<X> = Map<X, List<X>>;
+      typedef Compare<T> = int Function(T a, T b);
 summary: |-
   {
     "name": "test.package",
@@ -623,13 +633,3 @@ summary: |-
       }
     ]
   }
-package:
-  - path: lib/a.dart
-    content: |
-      class C {}
-      typedef D = C;
-      typedef MyInt = int;
-      typedef MyVoid = void;
-      typedef IntList = List<int>;
-      typedef ListMapper<X> = Map<X, List<X>>;
-      typedef Compare<T> = int Function(T a, T b);

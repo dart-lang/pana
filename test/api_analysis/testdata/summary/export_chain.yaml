@@ -1,4 +1,13 @@
 name: Libraries can export each other in a long chain
+package:
+  - path: lib/a.dart
+    content: export 'b.dart';
+  - path: lib/b.dart
+    content: export 'c.dart';
+  - path: lib/c.dart
+    content: export 'd.dart';
+  - path: lib/d.dart
+    content: class C {}
 summary: |-
   {
     "name": "test.package",
@@ -81,12 +90,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: export 'b.dart';
-  - path: lib/b.dart
-    content: export 'c.dart';
-  - path: lib/c.dart
-    content: export 'd.dart';
-  - path: lib/d.dart
-    content: class C {}

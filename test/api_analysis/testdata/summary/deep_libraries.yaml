@@ -1,4 +1,9 @@
 name: The analyzer should be able to handle a deeply nested folder structure
+package:
+  - path: lib/v/w/x/y/z/a.dart
+    content: ''
+  - path: lib/src/w/x/y/z/a.dart
+    content: ''
 summary: |-
   {
     "name": "test.package",
@@ -21,8 +26,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/v/w/x/y/z/a.dart
-    content: ''
-  - path: lib/src/w/x/y/z/a.dart
-    content: ''

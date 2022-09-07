@@ -1,4 +1,20 @@
 name: If class names are identical, classes must be sorted by their list of exporting libraries
+package:
+  - path: lib/b.dart
+    content: |
+      class C {
+        void b() {}
+      }
+  - path: lib/c.dart
+    content: |
+      class C {
+        void c() {}
+      }
+  - path: lib/a.dart
+    content: |
+      class C {
+        void a() {}
+      }
 summary: |-
   {
     "name": "test.package",
@@ -127,19 +143,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/b.dart
-    content: |
-      class C {
-        void b() {}
-      }
-  - path: lib/c.dart
-    content: |
-      class C {
-        void c() {}
-      }
-  - path: lib/a.dart
-    content: |
-      class C {
-        void a() {}
-      }

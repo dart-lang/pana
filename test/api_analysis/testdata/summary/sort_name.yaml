@@ -1,4 +1,18 @@
 name: Classes must be sorted and re-indexed in alphabetical order
+package:
+  - path: lib/b.dart
+    content: |
+      export 'a.dart';
+      class C {}
+  - path: lib/c.dart
+    content: |
+      export 'a.dart';
+      class D {}
+  - path: lib/a.dart
+    content: |
+      export 'b.dart';
+      export 'c.dart';
+      class E {}
 summary: |-
   {
     "name": "test.package",
@@ -124,17 +138,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/b.dart
-    content: |
-      export 'a.dart';
-      class C {}
-  - path: lib/c.dart
-    content: |
-      export 'a.dart';
-      class D {}
-  - path: lib/a.dart
-    content: |
-      export 'b.dart';
-      export 'c.dart';
-      class E {}

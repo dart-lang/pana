@@ -1,4 +1,22 @@
 name: The summary should include top-level elements such as variables, getters, setters and functions
+package:
+  - path: lib/a.dart
+    content: |
+      var variable;
+      int? nullableVariable;
+      var initializedVariable = 1;
+      int typedInitializedVariable = 1;
+
+      final finalVariable = 1;
+      const constVariable = 1;
+
+      late int lateVariable;
+      late final int lateFinalVariable;
+
+      int get myGetter => 1;
+      set mySetter(int something) {}
+
+      void myFunction() {}
 summary: |-
   {
     "name": "test.package",
@@ -112,21 +130,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      var variable;
-      int? nullableVariable;
-      var initializedVariable = 1;
-      int typedInitializedVariable = 1;
-
-      final finalVariable = 1;
-      const constVariable = 1;
-
-      late int lateVariable;
-      late final int lateFinalVariable;
-
-      int get myGetter => 1;
-      set mySetter(int something) {}
-
-      void myFunction() {}

@@ -1,4 +1,24 @@
 name: The summary should include classes which extend or implement abstract classes
+package:
+  - path: lib/a.dart
+    content: |
+      import './src/b.dart';
+      class ConcreteExtends extends Abstract {
+        @override
+        void f() {}
+      }
+      class ConcreteImplements implements Abstract {
+        @override
+        void f() {}
+        @override
+        void g() {}
+      }
+  - path: lib/src/b.dart
+    content: |
+      abstract class Abstract {
+        void f();
+        void g() {}
+      }
 summary: |-
   {
     "name": "test.package",
@@ -85,23 +105,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      import './src/b.dart';
-      class ConcreteExtends extends Abstract {
-        @override
-        void f() {}
-      }
-      class ConcreteImplements implements Abstract {
-        @override
-        void f() {}
-        @override
-        void g() {}
-      }
-  - path: lib/src/b.dart
-    content: |
-      abstract class Abstract {
-        void f();
-        void g() {}
-      }

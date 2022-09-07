@@ -1,4 +1,26 @@
 name: The summary should include extensions
+package:
+  - path: lib/a.dart
+    content: |
+      class C {}
+      extension D on C {
+        static var staticVariable;
+        static int? staticNullableVariable;
+        static var staticInitializedVariable = 1;
+        static int staticTypedInitializedVariable = 1;
+        static final staticFinalVariable = 1;
+        static late int staticLateVariable;
+        static late final int staticLateFinalVariable;
+        static const staticConstVariable = 1;
+
+        int get myGetter => 1;
+        set mySetter(int something) {}
+        void myMethod() {}
+
+        static int get myStaticGetter => 1;
+        static set myStaticSetter(int something) {}
+        static void myStaticMethod() {}
+      }
 summary: |-
   {
     "name": "test.package",
@@ -128,25 +150,3 @@ summary: |-
     ],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      class C {}
-      extension D on C {
-        static var staticVariable;
-        static int? staticNullableVariable;
-        static var staticInitializedVariable = 1;
-        static int staticTypedInitializedVariable = 1;
-        static final staticFinalVariable = 1;
-        static late int staticLateVariable;
-        static late final int staticLateFinalVariable;
-        static const staticConstVariable = 1;
-
-        int get myGetter => 1;
-        set mySetter(int something) {}
-        void myMethod() {}
-
-        static int get myStaticGetter => 1;
-        static set myStaticSetter(int something) {}
-        static void myStaticMethod() {}
-      }

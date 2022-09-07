@@ -1,4 +1,11 @@
 name: The summary should include classes and their methods
+package:
+  - path: lib/a.dart
+    content: |
+      class C {
+        void f() {}
+        void g() {}
+      }
 summary: |-
   {
     "name": "test.package",
@@ -54,10 +61,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      class C {
-        void f() {}
-        void g() {}
-      }

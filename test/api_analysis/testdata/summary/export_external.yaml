@@ -1,4 +1,7 @@
 name: The summary should be able to handle cases of external symbols being exported
+package:
+  - path: lib/a.dart
+    content: export 'dart:math' show Random;
 summary: |-
   {
     "name": "test.package",
@@ -62,6 +65,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: export 'dart:math' show Random;

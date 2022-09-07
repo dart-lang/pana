@@ -1,4 +1,13 @@
 name: One class can extend another
+package:
+  - path: lib/a.dart
+    content: |
+      class C {
+        void f() {}
+      }
+      class D extends C {
+        void g() {}
+      }
 summary: |-
   {
     "name": "test.package",
@@ -82,12 +91,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      class C {
-        void f() {}
-      }
-      class D extends C {
-        void g() {}
-      }

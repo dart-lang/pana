@@ -1,4 +1,7 @@
 name: The analyzer should be able to handle an empty library
+package:
+  - path: lib/a.dart
+    content: ''
 summary: |-
   {
     "name": "test.package",
@@ -21,6 +24,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: ''

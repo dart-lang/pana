@@ -1,4 +1,40 @@
 name: The summary should include informaton about the named and unnamed constructors of a class
+package:
+  - path: lib/a.dart
+    content: |
+      class DefaultConstructor {
+        int a = 1;
+      }
+
+      class EmptyUnnamedConstructor {
+        int a = 1;
+        EmptyUnnamedConstructor();
+      }
+
+      class UnnamedConstructor {
+        int a;
+        UnnamedConstructor(this.a);
+      }
+
+      class NamedConstructor {
+        int a;
+        NamedConstructor.constructorName(this.a);
+      }
+
+      class NamedAndUnnamedConstructors {
+        int a;
+        NamedAndUnnamedConstructors(this.a);
+        NamedAndUnnamedConstructors.constructorName(this.a);
+      }
+
+      // lots of named constructors which should be ordered in alphabetical order
+      class NamedConstructors {
+        NamedConstructors.e();
+        NamedConstructors.b();
+        NamedConstructors.a();
+        NamedConstructors.d();
+        NamedConstructors.c();
+      }
 summary: |-
   {
     "name": "test.package",
@@ -240,39 +276,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      class DefaultConstructor {
-        int a = 1;
-      }
-
-      class EmptyUnnamedConstructor {
-        int a = 1;
-        EmptyUnnamedConstructor();
-      }
-
-      class UnnamedConstructor {
-        int a;
-        UnnamedConstructor(this.a);
-      }
-
-      class NamedConstructor {
-        int a;
-        NamedConstructor.constructorName(this.a);
-      }
-
-      class NamedAndUnnamedConstructors {
-        int a;
-        NamedAndUnnamedConstructors(this.a);
-        NamedAndUnnamedConstructors.constructorName(this.a);
-      }
-
-      // lots of named constructors which should be ordered in alphabetical order
-      class NamedConstructors {
-        NamedConstructors.e();
-        NamedConstructors.b();
-        NamedConstructors.a();
-        NamedConstructors.d();
-        NamedConstructors.c();
-      }

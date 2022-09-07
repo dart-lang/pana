@@ -1,4 +1,19 @@
 name: Symbols can be hidden or shown when being exported
+package:
+  - path: lib/a.dart
+    content: |
+      export 'b.dart' hide A;
+      export 'c.dart' show a;
+  - path: lib/b.dart
+    content: |
+      class A {}
+      class B {}
+      class C {}
+  - path: lib/c.dart
+    content: |
+      void a() {}
+      void b() {}
+      void c() {}
 summary: |-
   {
     "name": "test.package",
@@ -138,18 +153,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      export 'b.dart' hide A;
-      export 'c.dart' show a;
-  - path: lib/b.dart
-    content: |
-      class A {}
-      class B {}
-      class C {}
-  - path: lib/c.dart
-    content: |
-      void a() {}
-      void b() {}
-      void c() {}

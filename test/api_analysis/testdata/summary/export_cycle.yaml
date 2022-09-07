@@ -1,4 +1,13 @@
 name: Libraries can export each other in a cycle
+package:
+  - path: lib/a.dart
+    content: |
+      export 'b.dart';
+      class C {}
+  - path: lib/b.dart
+    content: |
+      export 'a.dart';
+      class D {}
 summary: |-
   {
     "name": "test.package",
@@ -85,12 +94,3 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      export 'b.dart';
-      class C {}
-  - path: lib/b.dart
-    content: |
-      export 'a.dart';
-      class D {}

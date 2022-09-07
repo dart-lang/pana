@@ -1,4 +1,14 @@
 name: The summary should include some basic annotations
+package:
+  - path: lib/a.dart
+    content: |
+      class C {}
+
+      @deprecated
+      class D {}
+
+      @Deprecated('Do not use!')
+      extension E on D {}
 summary: |-
   {
     "name": "test.package",
@@ -87,13 +97,3 @@ summary: |-
     ],
     "typedefs": []
   }
-package:
-  - path: lib/a.dart
-    content: |
-      class C {}
-
-      @deprecated
-      class D {}
-
-      @Deprecated('Do not use!')
-      extension E on D {}

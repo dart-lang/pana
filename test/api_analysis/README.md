@@ -23,6 +23,24 @@ This is a passing test which demonstrates the syntax of a summary test. Note tha
 ```yaml
 # The name of the test, as shown in Dart's test runner.
 name: The summary should include top-level functions.
+# The files comprising the test package, except `pubspec.yaml` and `.dart_tool/package_config.json` which are generated automatically.
+# An empty array is also allowed, representing a package with no .dart library files.
+# The values of the fields .package[].path must all be unique, and each one must be a relative path from the test package root.
+package:
+  - # The path of this .dart library.
+    path: lib/a.dart
+    # The content of this .dart library.
+    content: void f() {}
+  - path: lib/b.dart
+    # Multi-line content is allowed.
+    content: |
+      void g() {}
+      // This private top-level function should not be included in the summary.
+      void _privateFunction() {}
+  - path: lib/src/h.dart
+    content: |
+      // This top-level function is in a private library file, so it should not be included in the summary.
+      void h() {}
 # The expected JSON form of the public API summary of the test package. This must be an exact match of the actual generated summary if the test is to pass.
 summary: |-
   {
@@ -68,24 +86,6 @@ summary: |-
     "extensions": [],
     "typedefs": []
   }
-# The files comprising the test package, except `pubspec.yaml` and `.dart_tool/package_config.json` which are generated automatically.
-# An empty array is also allowed, representing a package with no .dart library files.
-# The values of the fields .package[].path must all be unique, and each one must be a relative path from the test package root.
-package:
-  - # The path of this .dart library.
-    path: lib/a.dart
-    # The content of this .dart library.
-    content: void f() {}
-  - path: lib/b.dart
-    # Multi-line content is allowed.
-    content: |
-      void g() {}
-      // This private top-level function should not be included in the summary.
-      void _privateFunction() {}
-  - path: lib/src/h.dart
-    content: |
-      // This top-level function is in a private library file, so it should not be included in the summary.
-      void h() {}
 ```
 
 ## Lower bound constraint tests
