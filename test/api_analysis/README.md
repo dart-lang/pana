@@ -94,7 +94,7 @@ Lower bound constraint tests are located in `testdata/lower_bound_constraint_iss
 
 ### Description
 
-A single target package is created from the `.dart` files specified in `doc` (other mandatory files like `pubspec.yaml` and `.dart_tool/package_config.json` are created automatically and do not have to be specified explicitly in the YAML document). This target package can specify its dependencies (a name and version constraint is required for each dependency). Similarly, any number of dependency packages may be created in the same way (with `pubspec.yaml` and `.dart_tool/package_config.json` omitted). The name and version must be specified for each of the dependency packages. The target package must only depend of packages which are specified as dependency packages.
+A single target package is created from the `.dart` files specified in `doc` (other mandatory files like `pubspec.yaml` and `.dart_tool/package_config.json` are created automatically and do not have to be specified explicitly in the YAML document). This target package can specify its dependencies (a name and version constraint is required for each dependency). Similarly, any number of dependency package releases may be created in the same way (with `pubspec.yaml` and `.dart_tool/package_config.json` omitted). The name and version must be specified for each of the package releases. The target package must not depend on packages other than these package releases.
 
 Lower bound constraint analysis is executed on the target package, and the list of issues is verified against a list of regular expressions. The lists much have the same length and each regular expression should match an issue if the test is to pass.
 
@@ -107,7 +107,7 @@ This is a passing test which demonstrates the syntax of a lower bound constraint
 name: Missing top-level functions should be detected
 # The package releases available for the test package to depend on.
 # No two releases can have an identical name and version.
-packages:
+releases:
   - # The name of the package in this release.
     name: foo
     # The version of the package in this release.
@@ -129,7 +129,7 @@ packages:
 target:
   # The dependencies of the target package.
   # This array uses a similar format as the pubspec to specify dependencies and constraints.
-  # The target package must only depend on package releases specified in .packages .
+  # The target package must only depend on package releases specified in .releases .
   dependencies:
     - name: foo
       # The version constraint itself is not important, but it is typically chosen to match two available releases, one of which is installed as a dependency of the target, and the other is allowed but may have a different public API. 

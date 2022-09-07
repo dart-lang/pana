@@ -1,5 +1,5 @@
 name: Missing class members should be detected if the invocation target is an object returned from a function or method
-packages:
+releases:
   - name: foo
     version: 1.0.0
     package:

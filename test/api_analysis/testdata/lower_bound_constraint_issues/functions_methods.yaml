@@ -1,5 +1,5 @@
 name: Missing functions and class/extension methods should be detected
-packages:
+releases:
   - name: foo
     version: 1.0.0
     package:

@@ -1,5 +1,5 @@
 name: Private classes exposed by the target package should not cause false positives
-packages:
+releases:
   - name: foo
     version: 1.0.0
     package:

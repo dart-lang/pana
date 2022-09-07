@@ -1,5 +1,5 @@
 name: Analysis should be able to detect missing enum values
-packages:
+releases:
   - name: foo
     version: 1.0.0
     package:
