@@ -315,7 +315,7 @@ Future<List<Version>> fetchSortedPackageVersionList({
 
   if (metadataResponse.statusCode != HttpStatus.ok) {
     throw HttpException(
-        'Failed to download metadata for package $packageName.');
+        'Failed to download metadata for package $packageName, got http status code ${metadataResponse.statusCode}.');
   }
 
   // if the response is ok, optionally save the metadata to the cache and return the version list

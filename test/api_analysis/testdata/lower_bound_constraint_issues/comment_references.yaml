@@ -1,0 +1,52 @@
+name: Analysis should not be performed in docstring references
+releases:
+  - name: foo
+    version: 1.0.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          class MyClass {
+            int variable = 1;
+            void method() {}
+            MyClass.myConstructor();
+          }
+          extension MyExtension on MyClass {
+            void extensionMethod() {}
+          }
+  - name: foo
+    version: 1.1.0
+    package:
+      - path: lib/foo.dart
+        content: |
+          class MyClass {
+            int variable = 1;
+            void method() {}
+            MyClass.myConstructor();
+          }
+          extension MyExtension on MyClass {
+            void extensionMethod() {}
+          }
+target:
+  dependencies:
+    - name: foo
+      version: ^1.0.0
+  package:
+    - path: lib/a.dart
+      content: |
+        import 'package:foo/foo.dart' as foo;
+
+        /// [foo.MyClass.variable] is a variable
+        /// [foo.MyClass.method] is a method
+        /// [foo.MyClass.myConstructor] is a constructor
+        /// [foo.MyExtension.extensionMethod] is an extension method
+        void a() {}
+    - path: lib/b.dart
+      content: |
+        import 'package:foo/foo.dart';
+
+        /// [MyClass.variable] is a variable
+        /// [MyClass.method] is a method
+        /// [MyClass.myConstructor] is a constructor
+        /// [MyExtension.extensionMethod] is an extension method
+        void b() {}
+issues: []
