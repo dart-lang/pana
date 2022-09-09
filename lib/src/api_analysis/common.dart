@@ -192,7 +192,7 @@ Future<void> fetchUsingDummyPackage({
         'Directory at $destination exists, cannot create dummy package.');
   }
 
-  // construct pubspec for the dummy package
+  // Construct pubspec for the dummy package.
   final dummyPubspec = <String, dynamic>{
     'name': 'dummy.package',
     'environment': {
@@ -213,7 +213,7 @@ Future<void> fetchUsingDummyPackage({
           },
   };
 
-  // write pubspec to disk
+  // Write pubspec to disk.
   final pubspecFile = await File(path.join(destination, 'pubspec.yaml'))
       .create(recursive: true);
   await pubspecFile.writeAsString(
@@ -221,17 +221,7 @@ Future<void> fetchUsingDummyPackage({
     flush: true,
   );
 
-  // fetch dependencies (the only non-transitive dependency is [name])
-  await fetchDependencies(destination, pubCachePath: pubCachePath);
-}
-
-/// Fetches dependencies at the physical path [destination] by running
-/// `pub get`. If [pubCachePath] is provided, the environment variable
-/// `PUB_CACHE` is set to its value.
-Future<void> fetchDependencies(
-  String destination, {
-  String? pubCachePath,
-}) async {
+  // Fetch dependencies (the only non-transitive dependency is [name]).
   final result = await Process.run(
     Platform.resolvedExecutable,
     ['pub', 'get'],
