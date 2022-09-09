@@ -218,99 +218,88 @@ Future<PackageShape> summarizePackage({
 
   void summarizeLibraryElement(LibraryElement libraryElement) {
     final uri = libraryElement.identifier;
-    final exportedClasses = <int>[];
-    final exportedGetters = <int>[];
-    final exportedSetters = <int>[];
-    final exportedFunctions = <int>[];
-    final exportedTypedefs = <int>[];
-    final exportedExtensions = <int>[];
+    final exportedClasses = <int>{};
+    final exportedGetters = <int>{};
+    final exportedSetters = <int>{};
+    final exportedFunctions = <int>{};
+    final exportedTypedefs = <int>{};
+    final exportedExtensions = <int>{};
 
     // public top-level elements which are exported by this library
     final publicSymbols = libraryElement.exportNamespace.definedNames.values;
 
-    final classes =
-        publicSymbols.whereType<ClassElement>().where((classElement) {
+    for (final classElement in publicSymbols.whereType<ClassElement>()) {
       exportedClasses.add(classElement.id);
-      return !package.classes
-          .any((thisClass) => classElement.id == thisClass.id);
-    }).map(_summarizeClassAndSuperclasses);
-    package.classes.addAll(classes);
+      if (!package.classes.any((c) => classElement.id == c.id)) {
+        package.classes.add(_summarizeClassAndSuperclasses(classElement));
+      }
+    }
 
-    final getters = publicSymbols
+    for (final accessorElement in publicSymbols
         .whereType<PropertyAccessorElement>()
-        .where((element) => element.isGetter)
-        .where((accessorElement) {
+        .where((element) => element.isGetter)) {
       exportedGetters.add(accessorElement.id);
-      return !package.getters.any((getter) => accessorElement.id == getter.id);
-    }).map(_summarizeGlobalProperty);
-    package.getters.addAll(getters);
+      if (!package.getters.any((g) => accessorElement.id == g.id)) {
+        package.getters.add(_summarizeGlobalProperty(accessorElement));
+      }
+    }
 
-    final setters = publicSymbols
+    for (final accessorElement in publicSymbols
         .whereType<PropertyAccessorElement>()
-        .where((element) => element.isSetter)
-        .where((accessorElement) {
+        .where((element) => element.isSetter)) {
       exportedSetters.add(accessorElement.id);
-      return !package.setters.any((setter) => accessorElement.id == setter.id);
-    }).map(_summarizeGlobalProperty);
-    package.setters.addAll(setters);
+      if (!package.setters.any((s) => accessorElement.id == s.id)) {
+        package.setters.add(_summarizeGlobalProperty(accessorElement));
+      }
+    }
 
-    final functions =
-        publicSymbols.whereType<FunctionElement>().where((functionElement) {
+    for (final functionElement in publicSymbols.whereType<FunctionElement>()) {
       exportedFunctions.add(functionElement.id);
-      return !package.functions
-          .any((function) => functionElement.id == function.id);
-    }).map(_summarizeFunction);
-    package.functions.addAll(functions);
+      if (!package.functions.any((f) => functionElement.id == f.id)) {
+        package.functions.add(_summarizeFunction(functionElement));
+      }
+    }
 
-    final typedefs =
-        publicSymbols.whereType<TypeAliasElement>().where((typedefElement) {
+    for (final typedefElement in publicSymbols.whereType<TypeAliasElement>()) {
       exportedTypedefs.add(typedefElement.id);
-      return !package.typedefs
-          .any((thisTypedef) => typedefElement.id == thisTypedef.id);
-    }).map((typedefElement) {
-      final typedef = _summarizeTypedef(typedefElement);
-      // if the aliased class is not already included in the summary,
-      // then summarize it
-      if (typedef.targetClassId != null &&
-          !package.classes
-              .any((thisClass) => thisClass.id == typedef.targetClassId)) {
-        package.classes.add(_summarizeClassAndSuperclasses(
-            typedefElement.aliasedType.element2! as ClassElement));
+      if (!package.typedefs.any((t) => typedefElement.id == t.id)) {
+        final typedef = _summarizeTypedef(typedefElement);
+        // If the aliased class is not already included in the summary,
+        // then summarize it.
+        if (typedef.targetClassId != null &&
+            !package.classes.any((c) => c.id == typedef.targetClassId)) {
+          package.classes.add(_summarizeClassAndSuperclasses(
+              typedefElement.aliasedType.element2! as ClassElement));
+        }
+        package.typedefs.add(typedef);
       }
-      return typedef;
-    });
-    package.typedefs.addAll(typedefs);
+    }
 
-    final extensions = publicSymbols
+    // Ensure it is a class that is being extended.
+    for (final extensionElement in publicSymbols
         .whereType<ExtensionElement>()
-        .where((extensionElement) =>
-            // ensure it is a class that is being extended
-            extensionElement.extendedType.element2 is ClassElement)
-        .where((extensionElement) {
+        .where((e) => e.extendedType.element2 is ClassElement)) {
       exportedExtensions.add(extensionElement.id);
-      return !package.extensions
-          .any((thisExtension) => extensionElement.id == thisExtension.id);
-    }).map((extensionElement) {
-      final extension = _summarizeExtension(extensionElement);
-      // if the extended class is not already included in the summary,
-      // then summarize it
-      if (!package.classes
-          .any((thisClass) => thisClass.id == extension.extendedClassId)) {
-        package.classes.add(_summarizeClassAndSuperclasses(
-            extensionElement.extendedType.element2! as ClassElement));
+      if (!package.extensions.any((e) => extensionElement.id == e.id)) {
+        final extension = _summarizeExtension(extensionElement);
+        // If the extended class is not already included in the summary,
+        // then summarize it.
+        if (!package.classes.any((c) => c.id == extension.extendedClassId)) {
+          package.classes.add(_summarizeClassAndSuperclasses(
+              extensionElement.extendedType.element2! as ClassElement));
+        }
+        package.extensions.add(extension);
       }
-      return extension;
-    });
-    package.extensions.addAll(extensions);
+    }
 
     package.libraries.add(LibraryShape(
       uri: uri,
-      exportedClasses: exportedClasses,
-      exportedGetters: exportedGetters,
-      exportedSetters: exportedSetters,
-      exportedFunctions: exportedFunctions,
-      exportedTypedefs: exportedTypedefs,
-      exportedExtensions: exportedExtensions,
+      exportedClasses: exportedClasses.toList(),
+      exportedGetters: exportedGetters.toList(),
+      exportedSetters: exportedSetters.toList(),
+      exportedFunctions: exportedFunctions.toList(),
+      exportedTypedefs: exportedTypedefs.toList(),
+      exportedExtensions: exportedExtensions.toList(),
     ));
   }
 
