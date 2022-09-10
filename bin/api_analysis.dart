@@ -29,14 +29,35 @@ Future<void> main(List<String> arguments) async {
   await runner.run(arguments);
 }
 
-class SummaryCommand extends Command {
+abstract class ApiAnalysisCommand extends Command {
+  @override
+  String get usageFooter =>
+      'See https://github.com/dart-lang/pana/blob/master/lib/src/api_analysis/README.md for detailed documentation.';
+
+  // Implementation copied from Command with a small change to include argumentsDescription.
+  @override
+  String get invocation {
+    var parents = [name];
+    for (var command = parent; command != null; command = command.parent) {
+      parents.add(command.name);
+    }
+    parents.add(runner!.executableName);
+
+    return '${parents.reversed.join(' ')} $argumentsDescription';
+  }
+
+  /// A short description of how the arguments should be provided in [invocation].
+  String get argumentsDescription;
+}
+
+class SummaryCommand extends ApiAnalysisCommand {
   @override
   final name = 'summary';
   @override
   final description = 'Displays a summary of the public API of a package.';
+
   @override
-  final usage = '''Required positional arguments:
-  1) path to a directory containing the package to summarize''';
+  final argumentsDescription = 'package_path';
 
   SummaryCommand();
 
@@ -81,15 +102,14 @@ class SummaryCommand extends Command {
   }
 }
 
-class LowerBoundConstraintAnalysisCommand extends Command {
+class LowerBoundConstraintAnalysisCommand extends ApiAnalysisCommand {
   @override
   final name = 'lbcanalysis';
   @override
   final description = 'Performs lower bound analysis on a single package.';
+
   @override
-  final usage = '''Required positional arguments:
-  1) path to a directory containing package version list cache
-  2) name of the package to analyze''';
+  String get argumentsDescription => 'cache_path target_name';
 
   LowerBoundConstraintAnalysisCommand();
 
@@ -227,17 +247,15 @@ class LowerBoundConstraintAnalysisCommand extends Command {
   }
 }
 
-class BatchLBCAnalysisCommand extends Command {
+class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
   @override
   final name = 'batchlbca';
   @override
   final description = 'Runs lower bound constraint analysis on many packages.';
+
   @override
-  final usage = '''Required positional arguments:
-  1) number of packages to analyze
-  2) number of parallel analysis processes to run
-  3) path to the directory where log files will be saved
-  4) path to a directory containing package version list cache''';
+  final argumentsDescription =
+      'package_number process_number log_path cache_path';
 
   BatchLBCAnalysisCommand();
 
