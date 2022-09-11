@@ -280,10 +280,11 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// `package:package_name/library_name.dart`.
   late Uri currentUri;
 
-  /// Maps from [Element.id] to either [PotentialLowerBoundConstraintIssue] if
-  /// the lower bound constraint on [PotentialLowerBoundConstraintIssue.dependencyPackageName]
-  /// is too low, making [Element] when the lowest allowed version
-  /// [PotentialLowerBoundConstraintIssue.lowestVersion] is used, or null otherwise.
+  /// Maps from [Element.id] to one of:
+  /// - [PotentialLowerBoundConstraintIssue], if there is a lower bound
+  /// constraint issue associated to the [Element] with this [Element.id]
+  /// - `null`, if the [Element] with this [Element.id] was visited and no lower
+  /// bound constraint issue was discovered
   final Map<int, PotentialLowerBoundConstraintIssue?> issues = {};
 
   /// Maps from the [String] corresponding to the name of one of the direct
@@ -345,8 +346,10 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
     // If we have seen this symbol before, we need to do no further analysis.
     if (issues.containsKey(identifierMetadata.elementId)) {
-      // If we have seen this element before and there is an issue with it,
-      // add this usage/invocation to its list of references.
+      // If we have seen this symbol before and there is an issue with it
+      // (then `issues[identifierMetadata.elementId] != null`), add this
+      // usage/invocation to its list of references. Otherwise,
+      // `issues[identifierMetadata.elementId] == null` and we do nothing.
       issues[identifierMetadata.elementId]
           ?.references
           .add(identifierMetadata.span);
