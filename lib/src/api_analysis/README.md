@@ -1,31 +1,80 @@
 # API Analysis
 
-*API analysis* is a project undertaken in the summer of 2022 as part of the Google Summer of Code program.
+Refer to the [introductory blog post](https://arseny.uk/posts/gsoc2022/) before reading this document.
 
-It is often challenging to make backwards-compatible changes to an existing package, which is already depended on by other packages and applications. When developers make breaking changes to a package, they risk breaking other people's dependent code. But this problem can also apply in reverse: when a dependent package (the *target package*) updates their code, relying on a breaking change made by a dependency, it is easy to forget to update the version constraint associated with this dependency, allowing releases of the dependency before the breaking change.
+## Running API analysis
 
-This latter problem will be referred to as a *lower bound constraint issue* and *API analysis* aims to identify cases of these *issue* across the Dart ecosystem. Because it is difficult to identify what is and isn't a breaking change, the criterion for a breaking change for the purposes of *API analysis* is the removal/renaming of a public symbol. As the version solving algorithm used by pub favours more recent versions, *issues*  will likely not lead to unexpected behaviour when developing the *target package*, but any packages which themselves have a dependency on the *target* may introduce tighter dependency constraints, leading to the possibility that symbols required by the *target package* dependency are not found and the package fails to compile. The solution to resolve an *issue* is always to bump up the lower bound version constraint of a dependency of the *target* which provides the symbol in question. In this way, any packages depending on *target* and imposing tighter version constraints will fail version solving (instead of failing to compile), which is closer to the real cause of the problem - incompatible version constraints on a shared dependency (with *target* as one of the dependent packages).
+Three CLI subcommands are provided. Run `dart pub global activate --source git https://github.com/dart-lang/pana` to make them globally available and run them with `dart pub global run pana:api_analysis subcommand`.
 
-## Package summary, the *Shape model
+### `summary`
 
-Before *lower bound constraint analysis* can be performed, it is necessary to determine which symbols are available in the public API of a package.
+```
+Displays a summary of the public API of a package.
+Usage: api_analysis summary package_path
+```
 
-For the purposes of API analysis, the public API of a package is summarized as a `PackageShape` object, which itself contains various other `*Shape` objects descriving the members of the package, such as top-level getters/setters, functions, classes, extensions and typedefs. The members of each class and extension are also recorded. Note that in place of properties, the `*Shape` objects summarise getters and setters discretely.
+This command writes a JSON *summary* of the package at `package_path`, which must point to the root directory of a package, to standard output.
+
+This package does not have to be published to pub.dev , and `package_path` can point to a directory in the [pub cache](https://dart.dev/tools/pub/glossary#system-cache).
+
+### `lbcanalysis`
+
+```
+Performs lower bound analysis on a single package.
+Usage: api_analysis lbcanalysis cache_path target_name
+```
+
+This command performs *lower bound constraint analysis* on the latest version of the package named `target_name`, which must be the name of a package published to pub.dev . If at least one *issue* is discovered, a report is written to standard output. Any warnings are written to standard error.
+
+`cache_path` must point to a directory where http requests to `https://pub.dev/api/packages/PACKAGE_NAME` will be cached (where `PACKAGE_NAME` is the name of the *target* or that of one of its direct dependencies).
+
+### `batchlbca`
+
+```
+Runs lower bound constraint analysis on many packages.
+Usage: api_analysis batchlbca package_number process_number log_path cache_path
+```
+
+This command performs *lower bound constraint analysis* on a number of packages published to pub.dev .
+
+A package is considered eligible if it satisfies the following requirements:
+- The current version of the Dart SDK satisfies the SDK constraint of the package.
+- The SDK constraint lower bound of the package is 2.12 or later, meaning it is [null safe](https://dart.dev/null-safety).
+- The package is not marked as discontinued.
+- There is at least one non-retracted version of the package.
+
+`package_number` specifies the number of eligible packages to *analyse*.
+
+If the number of packages provided by https://pub.dev/api/package-name-completion-data is greater than or equal to `package_number`, the first `package_number` eligible packages from this list are *analysed*.
+
+Otherwise, the first `package_number` eligible packages from https://pub.dev/api/package-names are *analysed*. If `package_number` is strictly greater than the number of eligible packages from this list, all the eligible packages from the list are *analysed*.
+
+*Analysis* consists of `process_number` concurrent child processes of the `lbcanalysis` command running in parallel. The standard output and standard error streams produced by these processes are saved as text files in the `log_path` directory. If a package takes over 10 minutes to analyse, the `lbcanalysis` process is killed.
+
+`cache_path` must point to a directory where http requests to `https://pub.dev/api/packages/PACKAGE_NAME` will be cached, (where `PACKAGE_NAME` is the name of any eligible package). In an effort to make the results consistent (the parent `batchlbca` process can take several hours), this cache is populated before any child `lbcanalysis` processes are started.
+
+## Hacking on API analysis
+
+This directory (along with the CLI runner https://github.com/dart-lang/pana/blob/master/bin/api_analysis.dart ) contains the code for running API analysis.
+
+The directory https://github.com/dart-lang/pana/blob/master/test/api_analysis containing tests and related documentation gives a great overview of the capabilities of API analysis.
 
 ## Definitions
 
-### target (package)
-
 ### (lower bound constraint) issue
 
-The usage of a symbol defined in a dependency 
+The scenario of a package specifying a wider range of allowed versions of a particular dependency than the range of versions which define the symbols required by the package from this dependency.
+
+This typically requires the package to specify a dependency version constraint which spans a breaking change in the dependency's public API (allowing a package version before and after the breaking change took place). Specifying the wrong dependency constraint is a bug.
+
+### target (package)
+
+The package being analysed for *issues*.
 
 ### lower bound constraint analysis
 
+The process of statically analyzing one or many *target packages* to find *issues*. 
+
 ### (package) summary
 
-## Related
-
-https://github.com/dart-lang/dartdoc
-
-https://github.com/google/dart-shapeshift
+An overview of the public API of a package.
