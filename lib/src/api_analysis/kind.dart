@@ -3,9 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/element/element.dart';
+import 'package:pana/src/api_analysis/issue.dart';
 
+/// The supported [PotentialLowerBoundConstraintIssue.identifier] kinds, the
+/// absence of which can cause a lower bound constraint issue.
 enum Kind { method, function, getter, setter }
 
+/// The supported [PotentialLowerBoundConstraintIssue.parentIdentifier] kinds.
 enum ParentKind { classKind, extensionKind, enumKind }
 
 extension KindConverter on ElementKind {
@@ -21,6 +25,8 @@ extension KindConverter on ElementKind {
     ElementKind.ENUM: ParentKind.enumKind,
   };
 
+  /// Returns a [Kind] corresponding to this [ElementKind], throwing an error if
+  /// the given [ElementKind] is unsupported.
   Kind toKind() {
     if (_kindMap.containsKey(this)) {
       return _kindMap[this]!;
@@ -29,6 +35,8 @@ extension KindConverter on ElementKind {
     }
   }
 
+  /// Returns a [ParentKind] corresponding to this [ElementKind], throwing an
+  /// error if the given [ElementKind] is unsupported.
   ParentKind toParentKind() {
     if (_parentKindMap.containsKey(this)) {
       return _parentKindMap[this]!;

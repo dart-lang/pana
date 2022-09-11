@@ -21,10 +21,10 @@ import 'shapes_ext.dart';
 /// any one library), this creates a deterministic mapping of ids to `Shape`s,
 /// for a given input [PackageShape].
 PackageShape normalizePackageShape(PackageShape package) {
-  // map from a Shape id to a list of library uris where that Shape is exported
+  // Maps from a Shape id to a list of library uris where that Shape is exported.
   final librariesWhereShapeExported = <int, List<String>>{};
 
-  // add key-value pair for every Shape that exists in the package
+  // Add key-value pair for every top-level Shape that exists in the package.
   for (final shape in [
     ...package.getters,
     ...package.setters,
@@ -36,7 +36,7 @@ PackageShape normalizePackageShape(PackageShape package) {
     librariesWhereShapeExported[shape.id] = <String>[];
   }
 
-  // populate the above-created list with library uris
+  // Populate the above-created [List]s with library uris.
   for (final library in package.libraries) {
     for (final shapeId in [
       ...library.exportedSetters,
@@ -50,16 +50,16 @@ PackageShape normalizePackageShape(PackageShape package) {
     }
   }
 
-  // sort the above-populated lists and concatenate their entries, creating
-  // another mapping
+  // Sort the above-populated lists and concatenate their entries, creating
+  // another mapping.
   final sortMapping = librariesWhereShapeExported.map(
       (shapeId, libraryUris) => MapEntry(shapeId, libraryUris.sorted().join()));
 
   final oldIdToNewId = <int, int>{};
   var newIdCounter = 0;
 
-  // compares Shapes first using their name,
-  // then (if the names are equal) using [sortMapping]
+  // Compares Shapes first using their name, then (if the names are equal) using
+  // [sortMapping].
   int compareShape(GlobalShapeBase a, GlobalShapeBase b) {
     final compareIds = a.name.compareTo(b.name);
     if (compareIds != 0) {
@@ -69,7 +69,7 @@ PackageShape normalizePackageShape(PackageShape package) {
     }
   }
 
-  // create mapping for ids and reassign them according to the sorted order
+  // Create mapping for ids and reassign them according to the sorted order.
   final newGetters = package.getters.sorted(compareShape).map((getter) {
     oldIdToNewId[getter.id] = newIdCounter;
     return getter.withId(newIdCounter++);
@@ -110,7 +110,7 @@ PackageShape normalizePackageShape(PackageShape package) {
         .sorted(Comparable.compare);
   }
 
-  // reassign ids in [package.libraries]
+  // Reassign ids in [package.libraries].
   final newLibraries = package.libraries
       .map((library) => library.replaceAll(
             exportedGetters: reassignIds(library.exportedGetters),
@@ -122,8 +122,8 @@ PackageShape normalizePackageShape(PackageShape package) {
           ))
       .toList();
 
-  // sort all the properties of type List<T> in all the classes and extensions,
-  // apart from annotations which already have a canonical order
+  // Sort all the properties of type List<T> in all the classes and extensions,
+  // apart from annotations which already have a canonical order.
   for (final thisClass in newClasses) {
     for (final classMemberList in [
       thisClass.getters,

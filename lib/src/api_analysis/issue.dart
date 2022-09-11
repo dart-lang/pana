@@ -32,21 +32,21 @@ class PotentialLowerBoundConstraintIssue {
   final String identifier;
 
   /// The name of the enclosing class/extension of the missing [identifier], or
-  /// null if [identifier] is not a member of a class/extension.
-  final String? parentName;
+  /// `null` if [identifier] is not a member of a class/extension.
+  final String? parentIdentifier;
 
   /// The [Kind] of the [Element] corresponding to the missing [identifier].
   final Kind kind;
 
   /// The [ParentKind] of the parent [Element] of the missing [identifier],
-  /// [parentName].
+  /// [parentIdentifier].
   final ParentKind? parentKind;
 
   /// List of locations in the analyzed source code where [identifier] was referenced.
   final List<SourceSpan> references;
 
-  /// Does [package] (some version of the defining dependency) contain [identifier]?
-  /// If [classNameAlias] is specified, it will be used instead of [parentName].
+  /// Returns `true` if [package] (a public API summary) defines [identifier].
+  /// If [classNameAlias] is specified, it will be used instead of [parentIdentifier].
   bool identifierExistsInPackage({
     required PackageShape package,
     String? classNameAlias,
@@ -60,12 +60,12 @@ class PotentialLowerBoundConstraintIssue {
           case ParentKind.enumKind:
           case ParentKind.classKind:
             return package.containsMethodWithName(
-              classNameAlias ?? parentName!,
+              classNameAlias ?? parentIdentifier!,
               identifier,
             );
           case ParentKind.extensionKind:
             return package.containsExtensionMethodWithName(
-              parentName!,
+              parentIdentifier!,
               identifier,
             );
           case null:
@@ -78,12 +78,12 @@ class PotentialLowerBoundConstraintIssue {
           case ParentKind.enumKind:
           case ParentKind.classKind:
             return package.containsGetterWithName(
-              classNameAlias ?? parentName!,
+              classNameAlias ?? parentIdentifier!,
               identifier,
             );
           case ParentKind.extensionKind:
             return package.containsExtensionGetterWithName(
-              parentName!,
+              parentIdentifier!,
               identifier,
             );
           case null:
@@ -96,12 +96,12 @@ class PotentialLowerBoundConstraintIssue {
           case ParentKind.enumKind:
           case ParentKind.classKind:
             return package.containsSetterWithName(
-              classNameAlias ?? parentName!,
+              classNameAlias ?? parentIdentifier!,
               identifier,
             );
           case ParentKind.extensionKind:
             return package.containsExtensionSetterWithName(
-              parentName!,
+              parentIdentifier!,
               identifier,
             );
           case null:
@@ -122,7 +122,7 @@ class PotentialLowerBoundConstraintIssue {
     required this.currentVersion,
     required this.lowestVersion,
     required this.identifier,
-    required this.parentName,
+    required this.parentIdentifier,
     required this.kind,
     required this.parentKind,
     required this.references,

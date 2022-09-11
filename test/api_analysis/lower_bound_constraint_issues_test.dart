@@ -25,14 +25,14 @@ Future<void> main() async {
     final doc = loadYaml(await (file as File).readAsString());
     final releases = doc['releases'] as List;
     test(doc['name'], () async {
-      // create a unique temporary directory to serve as the pub cache for this test
+      // Create a unique temporary directory to serve as the pub cache for this test.
       final tempPubCache = await Directory(Directory.systemTemp.path)
           .createTemp('pub_cache_temp');
 
-      // set up package server
+      // Set up package server.
       await serveNoPackages();
 
-      // serve all versions of the provided dependencies (the releases).
+      // Serve all versions of the provided dependencies (the releases).
       for (final release in releases) {
         final files = release['package'] as List;
         globalPackageServer!.add(
@@ -47,7 +47,7 @@ Future<void> main() async {
         );
       }
 
-      // serve the target package to which the dummy will point
+      // Serve the target package to which the dummy will point.
       final targetYamlDependencies = doc['target']['dependencies'] as List;
       final targetYamlContent = doc['target']['package'] as List;
       globalPackageServer!.add(
@@ -75,12 +75,12 @@ Future<void> main() async {
         ),
       );
 
-      // create a unique temporary directory for the dummy package
+      // Create a unique temporary directory for the dummy package.
       final dummyDir = await Directory(Directory.systemTemp.path)
           .createTemp('dummy_package');
       final dummyPath = dummyDir.path;
 
-      // discover issues that exist in the target package
+      // Discover issues that exist in the target package.
       final issues = await lowerBoundConstraintAnalysis(
         targetName: 'test.package',
         tempPath: dummyPath,
@@ -89,28 +89,28 @@ Future<void> main() async {
       );
       final issuesString = issues.map((issue) => issue.toString()).toList();
 
-      // fetch the list of expected regular expressions
+      // Fetch the list of expected regular expressions.
       final expectedIssues = doc['issues'].cast<String>() as List<String>;
       expect(issuesString.length, equals(expectedIssues.length));
 
-      // for every expected issue, remove the first element of issuesString
-      // which matches that expected issue
+      // For every expected issue, remove the first element of [issuesString]
+      // which matches that expected issue.
       for (final expectedIssue in expectedIssues) {
         final matchingIndex = issuesString.indexWhere(
             (issueString) => RegExp(expectedIssue).hasMatch(issueString));
         issuesString.removeAt(matchingIndex);
-        // we expect that this regex will only match one issue
+        // Expect that this regex will only match one issue.
         expect(
             issuesString.indexWhere(
                 (issueString) => RegExp(expectedIssue).hasMatch(issueString)),
             equals(-1));
       }
 
-      // we expect to have removed all the elements of this List
+      // Expect to have removed all the elements of this [List].
       expect(issuesString.isEmpty, equals(true));
 
-      // clean up by deleting the temp pub cache and the dummy package directories,
-      // and closing the server
+      // Clean up by deleting the temp pub cache and the dummy package
+      // directories, and closing the server.
       await dummyDir.delete(recursive: true);
       await tempPubCache.delete(recursive: true);
       await globalPackageServer!.close();

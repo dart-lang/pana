@@ -54,7 +54,7 @@ TypedefShape _summarizeTypedef(TypeAliasElement typedefElement) => TypedefShape(
     );
 
 ExtensionShape _summarizeExtension(ExtensionElement extensionElement) {
-  // an accessor is a getter or a setter
+  // An accessor is a getter or a setter.
   final publicAccessors = extensionElement.accessors
       .where((element) => !element.isStatic)
       .where((element) => element.isPublic);
@@ -110,7 +110,7 @@ ExtensionShape _summarizeExtension(ExtensionElement extensionElement) {
 }
 
 ClassShape _summarizeClassElement(ClassElement classElement) {
-  // an accessor is a getter or a setter
+  // An accessor is a getter or a setter.
   final publicAccessors = classElement.accessors
       .where((element) => !element.isStatic)
       .where((element) => element.isPublic);
@@ -175,14 +175,14 @@ ClassShape _summarizeClassElement(ClassElement classElement) {
 }
 
 ClassShape _summarizeClassAndSuperclasses(ClassElement classElement) {
-  // produce summaries of the class itself and any superclasses
+  // Produce summaries of the class itself and any superclasses.
   final classShape = _summarizeClassElement(classElement);
   final superTypeShapes = classElement.allSupertypes
       .map((interfaceType) => interfaceType.element2 as ClassElement)
       .map(_summarizeClassElement)
       .toList();
 
-  // add the fields together
+  // Add the fields together of this class and its superclasses.
   classShape.extendWith(others: superTypeShapes);
 
   return classShape;
@@ -225,7 +225,7 @@ Future<PackageShape> summarizePackage({
     final exportedTypedefs = <int>{};
     final exportedExtensions = <int>{};
 
-    // public top-level elements which are exported by this library
+    // Public top-level elements which are exported by this library.
     final publicSymbols = libraryElement.exportNamespace.definedNames.values;
 
     for (final classElement in publicSymbols.whereType<ClassElement>()) {
@@ -307,9 +307,9 @@ Future<PackageShape> summarizePackage({
   final libSrcPath = path.join(libPath, 'src');
   final libFolder = context.folder(libPath);
 
-  // retrieve the paths of all the public dart files in this package via the
-  // resourceProvider (.dart files in ./lib but not in ./lib/src)
-  final nonSrcDartFiles = getAllFiles(libFolder)
+  // Retrieve the paths of all the public dart files in this package via the
+  // resourceProvider, namely `.dart` files in `./lib` but not in `./lib/src`.
+  final nonSrcDartFiles = allFilesInFolder(libFolder)
       .where((file) => !path.isWithin(libSrcPath, file.path))
       .where((file) => path.extension(file.path) == '.dart')
       .map((file) => file.path)
@@ -318,12 +318,12 @@ Future<PackageShape> summarizePackage({
   for (final filePath in nonSrcDartFiles) {
     final library = await context.analysisSession.getResolvedLibrary(filePath);
 
-    // this file is just part of another library
+    // This file is just part of another library.
     if (library is NotLibraryButPartResult) {
       continue;
     }
 
-    // ensure that resolving has been successful
+    // Ensure that resolving has been successful.
     if (library is! ResolvedLibraryResult) {
       context.warning('Analysis of $filePath as a library failed.');
       continue;

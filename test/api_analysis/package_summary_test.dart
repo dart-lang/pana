@@ -34,7 +34,7 @@ Future<void> main() async {
         packageVersion: '1.0.0',
       );
 
-      // place every file in memory at the right 'path'
+      // Place every file in memory at the right 'path'.
       for (final node in doc['package']) {
         final filePath =
             path.canonicalize(path.join(packagePath, node['path'] as String));
@@ -45,7 +45,7 @@ Future<void> main() async {
         );
       }
 
-      // produce json summary
+      // Produce JSON summary.
       final session = AnalysisContextCollection(
         includedPaths: [packagePath],
         resourceProvider: provider,
@@ -63,10 +63,10 @@ Future<void> main() async {
 
       final packageJson = packageShape.toJson();
 
-      // compare the summary to what was expected in the yaml doc
+      // Compare the summary to what was expected in the yaml doc.
       expect(indentedEncoder.convert(packageJson), equals(doc['summary']));
 
-      // test the fromJson() method
+      // Test the [PackageShape.fromJson] method.
       expect(
         const DeepCollectionEquality().equals(
           PackageShape.fromJson(packageJson).toJson(),

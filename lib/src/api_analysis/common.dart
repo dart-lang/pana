@@ -23,7 +23,7 @@ const indentedEncoder = JsonEncoder.withIndent('  ');
 abstract class PackageAnalysisContext {
   late final AnalysisSession analysisSession;
 
-  /// Shortcut for `_targetPackageName != null`.
+  /// Whether the package being analysed uses a dummy.
   late final bool _dummy = _targetPackageName != null;
 
   /// The name of the singular dependency of this target dummy package, or null
@@ -52,7 +52,7 @@ abstract class PackageAnalysisContext {
   /// Log [message] as a warning that something unexpected happened.
   void warning(String message);
 
-  /// Get the contents of the file at [path] using the `analysisSession.resourceProvider`
+  /// Get the contents of the file at [path] using the `analysisSession.resourceProvider`.
   String readFile(String path) =>
       analysisSession.resourceProvider.getFile(path).readAsStringSync();
 
@@ -86,8 +86,8 @@ abstract class PackageAnalysisContext {
       throw StateError(
           'The path to $packageName could not be resolved in the current context.');
     }
-    // if the path corresponding to this uri could be resolved,
-    // move up one directory to move out of lib/
+    // If the path corresponding to this uri could be resolved,
+    // move up one directory (out of `lib/`).
     return path.dirname(uriPath);
   }
 
@@ -107,8 +107,8 @@ abstract class PackageAnalysisContext {
   /// typedefs (the aliases) which point to this [Type], ignoring any function
   /// types and other typedefs for which a target name cannot be resolved.
   Future<Map<String, List<String>>> findTypedefs(Uri uri) async {
-    // attempting to get a resolved library result for a library split into
-    // parts will fail, so we get a resolved unit first
+    // Attempting to get a resolved library result for a library which is split
+    // into parts will fail, so we get a resolved unit first.
     final unitResult = await analysisSession.getResolvedUnit(uriToPath(uri)!);
     if (unitResult is! ResolvedUnitResult) {
       throw AnalysisException(
@@ -118,14 +118,14 @@ abstract class PackageAnalysisContext {
 
     final typedefs = <TypeAliasElement>[];
     for (final importedLibrary in library.importedLibraries) {
-      // filter out typedefs where we cannot resolve the target name
+      // Filter out typedefs where we cannot resolve the target name.
       typedefs.addAll(importedLibrary.exportNamespace.definedNames.values
           .whereType<TypeAliasElement>()
           .where(
               (thisTypedef) => thisTypedef.aliasedType.element2?.name != null));
     }
 
-    // also consider typedefs defined in the the library itself
+    // Also consider typedefs defined in the the library itself.
     typedefs.addAll(library.exportNamespace.definedNames.values
         .whereType<TypeAliasElement>()
         .where(
@@ -239,17 +239,17 @@ Future<void> fetchUsingDummyPackage({
 }
 
 /// Recursively fetch all the files in the given folder, which may not exist.
-List<resource.File> getAllFiles(resource.Folder folder) {
+List<resource.File> allFilesInFolder(resource.Folder folder) {
   final files = <resource.File>[];
   if (!folder.exists) {
-    // there are no files here
+    // There are no files in [folder].
     return files;
   }
   for (final child in folder.getChildren()) {
     if (child is resource.File) {
       files.add(child);
     } else if (child is resource.Folder) {
-      files.addAll(getAllFiles(child));
+      files.addAll(allFilesInFolder(child));
     } else {
       throw StateError(
           'Failed to determine subclass of Resource ${child.path}.');
@@ -282,14 +282,14 @@ Future<List<Version>> fetchSortedPackageVersionList({
     final cachedVersionPath = path.join(cachePath, '$packageName.json');
     versionListFile = File(cachedVersionPath);
 
-    // if the version list is already cached, just read it from disk
+    // If package metadata is already cached, just read it from disk.
     if (await versionListFile.exists()) {
       return metadataStringToSortedVersions(
           await versionListFile.readAsString());
     }
   }
 
-  // otherwise, we need to fetch it from pub
+  // Otherwise, we need to fetch it from pub.
   final c = http.Client();
   late final http.Response metadataResponse;
 
@@ -308,7 +308,7 @@ Future<List<Version>> fetchSortedPackageVersionList({
         'Failed to download metadata for package $packageName, got http status code ${metadataResponse.statusCode}.');
   }
 
-  // if the response is ok, optionally save the metadata to the cache and return the version list
+  // If the response is ok, optionally save the metadata to the cache and return the version list.
   if (cachePath != null) {
     await versionListFile.writeAsString(
       metadataResponse.body,

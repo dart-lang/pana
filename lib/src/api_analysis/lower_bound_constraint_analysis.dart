@@ -47,6 +47,10 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
   final dependencyFolder = path.join(tempPath, 'dependencies');
 
   try {
+    // Attempt to download the latest version of the target package (the package
+    // being searched for issues) using a dummy package (a locally-created
+    // package with only a single dependency on [targetName] and a constraint
+    // pinning it to an exact version).
     await fetchUsingDummyPackage(
       name: targetName,
       version: (await fetchSortedPackageVersionList(
@@ -61,11 +65,12 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       pubCachePath: pubCachePath,
     );
   } on ProcessException catch (exception) {
+    // It is probable that version solving failed.
     throw AnalysisException(
         'Failed to download target package $targetName with error code ${exception.errorCode}: ${exception.message}');
   }
 
-  // create session for analysing the package being searched for issues (the target package)
+  // Create analysis session for analysing the target package.
   final collection = AnalysisContextCollection(includedPaths: [dummyPath]);
   final context = PackageAnalysisContextWithStderr(
     session: collection.contextFor(dummyPath).currentSession,
@@ -73,18 +78,17 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     targetPackageName: targetName,
   );
 
-  // if there are no dependencies, there are no issues
+  // If there are no dependencies, there will be no issues.
   if (context.dependencies.isEmpty) {
     return [];
   }
 
   final dependencySummaries = <String, PackageShape>{};
 
-  // iterate over each dependency of the target package and for each one:
-  // - determine minimum allowed version
-  // - determine installed (current/actual) version
-  // - download minimum allowed version
-  // - produce a summary of the minimum allowed version
+  // Iterate over each dependency of the target package and for each one:
+  // - Determine the installed (current/actual) version of the dependency.
+  // - Download the minimum allowed version of the dependency in a different directory.
+  // - Produce a summary of the minimum allowed version of the dependency.
   for (final dependencyEntry in context.dependencies.entries) {
     final dependencyName = dependencyEntry.key;
     final dependencyInstalledVersion =
@@ -93,22 +97,22 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     final dependencyDestination =
         path.join(dependencyFolder, '${dependencyName}_dummy');
 
-    // determine the minimum allowed version of this dependency as allowed
-    // by the constraints imposed by the target package
+    // Find all available versions of this dependency.
     final allVersions = await fetchSortedPackageVersionList(
       packageName: dependencyName,
       cachePath: cachePath,
       pubHostedUrl: pubHostedUrl,
     );
 
-    // Determine the smallest version for which dependencies can be resolved,
-    // but which is not the installed version (issues will never be found in
-    // this way).
+    // Determine the smallest version of this dependency for which version
+    // solving passes, but which is not the installed version (issues will never
+    // be found in this way).
     Version? minVersion;
+    // Iterate over the allowed versions in ascending order.
     for (final smallVersion in allVersions.where((version) =>
         dependencyVersionConstraint.allows(version) &&
         version != dependencyInstalledVersion)) {
-      // attempt to download minimum allowed version of dependency
+      // Attempt to download this version of the dependency.
       try {
         await fetchUsingDummyPackage(
           name: dependencyName,
@@ -118,25 +122,24 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
           pubCachePath: pubCachePath,
         );
       } on ProcessException {
-        // If version resolution could not be performed with this version of the
-        // dependency, try again with a higher version.
+        // If version solving fails with this version of the dependency,
+        // try again with a higher version.
         await Directory(dependencyDestination).delete(recursive: true);
         continue;
       }
 
-      // This is the minimum working dependency version.
+      // Version solving passed, so this is the minimum working version of this dependency.
       minVersion = smallVersion;
       break;
     }
 
     if (minVersion == null) {
-      // Either all but the installed version of the dependency allowed by the
-      // constraint failed dependency version solving, or there is only one
-      // available release that satisfies the constraint imposed by the target.
+      // No version of this dependency (other than the installed version) passed
+      // version solving.
       continue;
     }
 
-    // create session for producing a summary of this dependency
+    // Create analysis session for producing a summary of this dependency.
     final collection = AnalysisContextCollection(includedPaths: [
       dependencyDestination,
     ]);
@@ -145,7 +148,7 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       packagePath: dependencyDestination,
     );
 
-    // produce a summary of the minimum version of this dependency and store it
+    // Produce a summary of the minimum allowed version of this dependency and store it.
     dependencySummaries[dependencyName] = await summarizePackage(
       context: dependencyPackageAnalysisContext,
       packagePath:
@@ -159,17 +162,22 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     dependencySummaries: dependencySummaries,
   );
 
+  // The location of the source code of the target package.
   final libPath = path.join(context.packagePath, 'lib');
   final libFolder = context.folder(libPath);
 
-  // retrieve the paths of all the dart library files in this package via the
-  // resourceProvider (.dart files in ./lib)
-  final dartLibFiles = getAllFiles(libFolder)
+  // Retrieve the paths of all the `.dart` library files comprising the target
+  // package via the resourceProvider , namely `.dart` files in `./lib`.
+  final dartLibFiles = allFilesInFolder(libFolder)
       .where((file) => path.extension(file.path) == '.dart')
       .map((file) => file.path)
       .sorted();
 
   for (final filePath in dartLibFiles) {
+    // For each `.dart` library file, produce a resolved [CompilationUnit]
+    // and visit the AST, looking for invocations of symbols which are defined
+    // in one of the direct dependencies of the target package, but which are
+    // not present in the corresponding PackageShape summary.
     final result = await context.analysisSession.getResolvedUnit(filePath);
     if (result is ResolvedUnitResult) {
       astVisitor.visitCompilationUnit(result.unit);
@@ -182,14 +190,17 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
   final issues = <PotentialLowerBoundConstraintIssue>[];
   final installedDependencySummaries = <String, PackageShape>{};
 
+  // Eliminate false positive issues.
   for (final possibleIssue in astVisitor.issues.values.whereNotNull()) {
-    // CURRENT DEPENDENCY VERSION CHECK: eliminate false positives by checking
-    // whether the 'missing' identifier is present in the current/installed
-    // version of the dependency - if it isn't then we have not been able to
-    // detect a difference between the lower bound version and the current
-    // version, and the issue is a false positive
+    // CURRENT DEPENDENCY VERSION CHECK:
+    // Eliminate false positives by checking whether the 'missing' identifier
+    // is present in the current/installed version of the dependency.
+    // If it isn't, then we have not been able to detect a difference between
+    // the lower bound version and the current version, and the issue might be a
+    // false positive.
 
-    // produce a summary of the currently-installed version of the defining dependency
+    // Produce a summary of the currently-installed version of the dependency
+    // defining the 'missing' identifier.
     if (!installedDependencySummaries
         .containsKey(possibleIssue.dependencyPackageName)) {
       installedDependencySummaries[possibleIssue.dependencyPackageName] =
@@ -200,47 +211,51 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
         normalize: false,
       );
     }
-    final installedDependency =
-        installedDependencySummaries[possibleIssue.dependencyPackageName]!;
 
-    // if this identifier does not exist in the current version of the defining
-    // dependency, this is a false positive
+    // If this identifier does not exist in the current version of the defining
+    // dependency, this might be a false positive.
     if (!possibleIssue.identifierExistsInPackage(
-        package: installedDependency)) {
+      package:
+          installedDependencySummaries[possibleIssue.dependencyPackageName]!,
+    )) {
       continue;
     }
 
-    // TYPEDEF CHECK: look at the typedefs that are in scope/imported at the
-    // reference sites to see if checking for an alias of
-    // possibleIssue.className may reveal a false positive
+    // TYPEDEF CHECK:
+    // Look at the typedefs that are in scope/imported at the reference sites to
+    // see if checking for an alias of [possibleIssue.className] may reveal a
+    // false positive.
+    // For example, if there are typedefs in scope at each reference site, which
+    // give an alias to a class, this class will have two aliases, between which
+    // the visitor cannot distinguish. We will need to ensure that the identifier
+    // still cannot be found, even after using the other available class alias.
 
-    // ensure we are dealing with a class member and that issue.className != null
+    // Ensure we are dealing with a class member and that issue.className != null.
     if (possibleIssue.kind == Kind.function) {
-      // we cannot perform check 2 here
+      // We cannot perform the typedef check on this issue.
       issues.add(possibleIssue);
       continue;
     }
 
-    // the names of the aliases which could have been used for each individual reference of the identifier
+    // The names of the aliases which could have been used, for each reference site.
     final possibleParentNames = <List<String>>[];
-
     for (final reference in possibleIssue.references) {
       final typedefsHere = await context.findTypedefs(reference.sourceUrl!);
-      if (typedefsHere[possibleIssue.parentName!] != null) {
-        possibleParentNames.add(typedefsHere[possibleIssue.parentName!]!);
+      if (typedefsHere[possibleIssue.parentIdentifier!] != null) {
+        possibleParentNames.add(typedefsHere[possibleIssue.parentIdentifier!]!);
       }
     }
 
-    // the names of the aliases which could have been used at all references of the identifier
+    // The names of the aliases which could have been used at ALL reference sites.
     final commonParentNames = possibleParentNames.fold<Set<String>>(
         possibleParentNames.isEmpty
             ? <String>{}
             : possibleParentNames.first.toSet(),
         (a, b) => a.intersection(b.toSet()));
 
-    // if replacing the parent class name with any one of the found aliases
+    // If replacing the parent class name with any one of the found aliases
     // results in the identifier being found in the dependency summary,
-    // then we have a false positive because a typedef alias was used
+    // then we have a false positive because a typedef alias was used.
     if (commonParentNames
         .any((classNameAlias) => possibleIssue.identifierExistsInPackage(
               package:
@@ -250,7 +265,8 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
       continue;
     }
 
-    // neither the current dependency version check nor the typedef check could reveal a false positive
+    // Neither the current dependency version check nor the typedef check could
+    // reveal a false positive.
     issues.add(possibleIssue);
   }
 
@@ -261,17 +277,19 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// The [PackageAnalysisContext] corresponding to the package being analyzed.
   final PackageAnalysisContext context;
 
-  /// The package URI for the currently analyzed unit, typically on the form
+  /// The package [Uri] for the currently analyzed unit, typically on the form
   /// `package:package_name/library_name.dart`.
   late Uri currentUri;
 
-  /// Maps from [Element.id] to either [PotentialLowerBoundConstraintIssue] if the lower
-  /// bound constraint on [PotentialLowerBoundConstraintIssue.dependencyPackageName] is
-  /// too low, making [Element] when the lowest allowed version
+  /// Maps from [Element.id] to either [PotentialLowerBoundConstraintIssue] if
+  /// the lower bound constraint on [PotentialLowerBoundConstraintIssue.dependencyPackageName]
+  /// is too low, making [Element] when the lowest allowed version
   /// [PotentialLowerBoundConstraintIssue.lowestVersion] is used, or null otherwise.
   final Map<int, PotentialLowerBoundConstraintIssue?> issues = {};
 
-  /// The summaries of each of the dependencies of the target package.
+  /// Maps from the [String] corresponding to the name of one of the direct
+  /// dependencies of the target package to the [PackageShape] public API
+  /// summary of this dependency at its lowest allowed version.
   final Map<String, PackageShape> dependencySummaries;
 
   _LowerBoundConstraintVisitor({
@@ -287,18 +305,21 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       throw AnalysisException('Could not determine library of parentElement.');
     }
     final tryPackageName = packageFromLibraryUri(element.library!.identifier);
-    // if the defining package isn't a HostedDependency of the target, then
-    // this symbol cannot be analyzed
+    // If the defining package isn't a [HostedDependency] of the target (a
+    // direct dependency published to pub.dev), then this symbol cannot be analyzed.
     if (tryPackageName == null ||
         !context.dependencies.keys.contains(tryPackageName)) {
       throw AnalysisException(
           'The defining package is not a hosted dependency of the target package.');
     }
 
+    // If we do not have a public API summary of the target package, this symbol
+    // cannot be analyzed.
     if (!dependencySummaries.keys.contains(tryPackageName)) {
       throw AnalysisException(
           'No summary was found for the defining package $tryPackageName.');
     }
+
     return IdentifierDependencyMetadata(
       packageName: tryPackageName,
       packageShape: dependencySummaries[tryPackageName]!,
@@ -317,16 +338,16 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
         url: currentUri,
       ).span(identifier.offset, identifier.end),
       elementId: element.id,
-      // if the element is a getter or a setter, pull out just the variable name
+      // If the element is a getter or a setter, extract just the variable name.
       identifierName: element is PropertyAccessorElement
           ? element.variable.name
           : element.name!,
     );
 
-    // if we have seen this symbol before, we need to do no further analysis
+    // If we have seen this symbol before, we need to do no further analysis.
     if (issues.containsKey(identifierMetadata.elementId)) {
-      // if we have seen this element before and there is an issue with it,
-      // add this usage/invocation to its list of references
+      // If we have seen this element before and there is an issue with it,
+      // add this usage/invocation to its list of references.
       issues[identifierMetadata.elementId]
           ?.references
           .add(identifierMetadata.span);
@@ -339,18 +360,17 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
   @override
   void visitCompilationUnit(CompilationUnit node) {
-    // this must be able to handle cases of a library split into multiple files
-    // with the part keyword
+    // Handle cases of a library split into multiple files with the part keyword.
     currentUri = node.declaredElement!.source.uri;
     super.visitCompilationUnit(node);
   }
 
   @override
   void visitPrefixedIdentifier(PrefixedIdentifier node) {
-    // an access of an object property
+    // An access of an object property.
     super.visitPrefixedIdentifier(node);
 
-    // the definition of the symbol being analysed, and its parent (where applicable)
+    // The definition of the symbol being analysed, and its parent (where applicable).
     late final Element element;
     late final Element parentElement;
 
@@ -359,17 +379,17 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       element = node.staticElement!;
     } else if (parentNode is AssignmentExpression &&
         parentNode.writeElement != null) {
-      // this special case is needed to retrieve the PropertyAccessorElement for a setter
+      // This special case is needed to retrieve the PropertyAccessorElement for a setter.
       element = parentNode.writeElement!;
     } else if (node.identifier.staticElement != null) {
       element = node.identifier.staticElement!;
     } else {
-      // we cannot statically resolve what was invoked
+      // Cannot statically resolve what was invoked.
       return;
     }
 
     if (element is! PropertyAccessorElement && element is! MethodElement) {
-      // a PrefixedIdentifier does not necessarily represent a property access
+      // A [PrefixedIdentifier] does not necessarily represent a property access.
       return;
     }
 
@@ -380,8 +400,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if (element.enclosingElement3 is ExtensionElement) {
         parentElement = element.enclosingElement3!;
       } else if (node.prefix.staticType is FunctionType) {
-        // do not allow the parent to be a Function
-        // this breaks the assertion node.prefix.staticType?.element2 != null
+        // Do not allow the parent to be a [Function].
+        // This breaks the assertion `node.prefix.staticType?.element2 != null`.
         return;
       } else {
         parentElement =
@@ -389,14 +409,14 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       }
       dependencyMetadata = identifyDependencyName(element: parentElement);
     } on AnalysisException {
-      // do not continue if this invocation is unfit for analysis
+      // Do not continue if this invocation is unfit for analysis.
       return;
     }
 
     late bool constraintIssue;
 
     if (parentElement is ClassElement) {
-      // ignore generics
+      // Ignore generics.
       if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
@@ -412,7 +432,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           : !dependencyMetadata.packageShape.containsExtensionPropertyWithName(
               parentElement.name!, metadata.identifierName);
     } else {
-      // this node may be an invocation of a top-level getter or setter
+      // This node may be an invocation of a top-level getter or setter.
       return;
     }
 
@@ -426,7 +446,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             lowestVersion:
                 Version.parse(dependencyMetadata.packageShape.version),
             identifier: metadata.identifierName,
-            parentName: parentElement.name!,
+            parentIdentifier: parentElement.name!,
             kind: element.kind.toKind(),
             parentKind: parentElement.kind.toParentKind(),
             references: [metadata.span],
@@ -436,25 +456,25 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
   @override
   void visitPropertyAccess(PropertyAccess node) {
-    // an access of an object property
+    // An access of an object property.
     super.visitPropertyAccess(node);
 
-    // the definition of the symbol being analysed, and its parent (where applicable)
+    // The definition of the symbol being analysed, and its parent (where applicable).
     late final Element element;
     late final Element parentElement;
 
     if (node.parent is CommentReference) {
-      // do not perform analysis on invocations inside comment references
+      // Do not perform analysis on invocations inside comment references.
       return;
     } else if (node.parent is CompoundAssignmentExpression &&
         (node.parent as CompoundAssignmentExpression).writeElement != null &&
         node.parent?.parent is CascadeExpression) {
-      // we need to go up one level up in the AST if an assignment is happening in cascade notation
+      // We need to go up one level up in the AST if an assignment is happening in cascade notation.
       element = (node.parent as CompoundAssignmentExpression).writeElement!;
     } else if (node.propertyName.staticElement != null) {
       element = node.propertyName.staticElement!;
     } else {
-      // we cannot statically resolve what was invoked
+      // Cannot statically resolve what was invoked.
       return;
     }
 
@@ -465,8 +485,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       if (element.enclosingElement3 is ExtensionElement) {
         parentElement = element.enclosingElement3!;
       } else if (node.realTarget.staticType is FunctionType) {
-        // do not allow the parent to be a Function
-        // this breaks the assertion node.realTarget.staticType?.element2 != null
+        // Do not allow the parent to be a [Function].
+        // This breaks the assertion `node.realTarget.staticType?.element2 != null`.
         return;
       } else {
         parentElement = node.realTarget.staticType?.element2! ??
@@ -477,15 +497,15 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       }
       dependencyMetadata = identifyDependencyName(element: parentElement);
     } on AnalysisException {
-      // do not continue if this invocation is unfit for analysis
+      // Do not continue if this invocation is unfit for analysis.
       return;
     }
 
     late bool constraintIssue;
 
-    // differentiate between class methods and top-level functions
+    // Differentiate between class methods and top-level functions.
     if (parentElement is ClassElement) {
-      // ignore generics
+      // Ignore generics.
       if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
@@ -495,7 +515,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
           : !dependencyMetadata.packageShape.containsPropertyWithName(
               parentElement.name, metadata.identifierName);
     } else if (parentElement is ExtensionElement) {
-      // ignore generics
+      // Ignore generics.
       if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
@@ -518,7 +538,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             lowestVersion:
                 Version.parse(dependencyMetadata.packageShape.version),
             identifier: metadata.identifierName,
-            parentName: parentElement.name!,
+            parentIdentifier: parentElement.name!,
             kind: element.kind.toKind(),
             parentKind: parentElement.kind.toParentKind(),
             references: [metadata.span],
@@ -528,15 +548,15 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
-    // an invocation of a top-level function or a class method
+    // An invocation of a top-level function or a class method.
     super.visitMethodInvocation(node);
 
-    // the definition of the symbol being analysed, and its parent (where applicable)
+    // The definition of the symbol being analysed, and its parent (where applicable).
     late final Element element;
     late final Element parentElement;
 
     if (node.methodName.staticElement == null) {
-      // we cannot statically resolve what was invoked
+      // Cannot statically resolve what was invoked.
       return;
     }
     element = node.methodName.staticElement!;
@@ -554,8 +574,8 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             (node.parent as CascadeExpression).target.staticType!.element2!;
       } else if (node.realTarget == null ||
           node.realTarget!.staticType is FunctionType) {
-        // do not allow the parent to be a Function
-        // this breaks the assertion node.realTarget!.staticType?.element2 != null
+        // Do not allow the parent to be a [Function].
+        // This breaks the assertion `node.realTarget!.staticType?.element2 != null`.
         return;
       } else {
         parentElement = node.realTarget!.staticType?.element2! ??
@@ -563,15 +583,15 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       }
       dependencyMetadata = identifyDependencyName(element: parentElement);
     } on AnalysisException {
-      // do not continue if this invocation is unfit for analysis
+      // Do not continue if this invocation is unfit for analysis.
       return;
     }
 
     late bool constraintIssue;
 
-    // differentiate between class methods and top-level functions
+    // Differentiate between class methods and top-level functions.
     if (parentElement is ClassElement) {
-      // ignore generics
+      // Ignore generics.
       if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
@@ -581,7 +601,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
       constraintIssue = !dependencyMetadata.packageShape
           .containsFunctionWithName(metadata.identifierName);
     } else if (parentElement is ExtensionElement) {
-      // ignore generics
+      // Ignore generics.
       if (parentElement.typeParameters.isNotEmpty) {
         return;
       }
@@ -602,7 +622,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
             lowestVersion:
                 Version.parse(dependencyMetadata.packageShape.version),
             identifier: metadata.identifierName,
-            parentName: element.kind == ElementKind.FUNCTION
+            parentIdentifier: element.kind == ElementKind.FUNCTION
                 ? null
                 : parentElement.name!,
             kind: element.kind.toKind(),

@@ -34,9 +34,9 @@ abstract class ApiAnalysisCommand extends Command {
   String get usageFooter =>
       'See https://github.com/dart-lang/pana/blob/master/lib/src/api_analysis/README.md for detailed documentation.';
 
-  // Implementation copied from Command with a small change to include argumentsDescription.
   @override
   String get invocation {
+    // Implementation copied from Command with a small change to include argumentsDescription.
     var parents = [name];
     for (var command = parent; command != null; command = command.parent) {
       parents.add(command.name);
@@ -128,19 +128,19 @@ class LowerBoundConstraintAnalysisCommand extends ApiAnalysisCommand {
           'The directory containing package version list cache could not be found.');
     }
 
-    // create a unique temporary directory for the target and the dependencies
+    // Create a unique temporary directory for the target and the dependencies.
     final tempDir = await Directory(Directory.systemTemp.path)
         .createTemp('lbcanalysis_temp');
 
     final c = http.Client();
 
     Future<void> cleanUp() async {
-      // clean up the temp directory and the http client
+      // Clean up the temp directory and the http client.
       await tempDir.delete(recursive: true);
       c.close();
     }
 
-    // sigterm is not supported on Windows
+    // Sigterm is not supported on Windows, but sigint is.
     if (!Platform.isWindows) {
       await Isolate.spawn((message) {
         ProcessSignal.sigterm.watch().listen((event) async {
@@ -169,6 +169,8 @@ class LowerBoundConstraintAnalysisCommand extends ApiAnalysisCommand {
         cachePath: cachePath,
       );
 
+      // Only produce a human-readable report of discovered issues if there is
+      // at least one.
       if (foundIssues.isNotEmpty) {
         final report = <String, dynamic>{'issues': []};
 
@@ -232,17 +234,17 @@ class LowerBoundConstraintAnalysisCommand extends ApiAnalysisCommand {
 
             case ParentKind.classKind:
               thisReport['identifier']['description'] =
-                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the class `${issue.parentName!}`';
+                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the class `${issue.parentIdentifier!}`';
               break;
 
             case ParentKind.extensionKind:
               thisReport['identifier']['description'] =
-                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the extension `${issue.parentName!}`';
+                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the extension `${issue.parentIdentifier!}`';
               break;
 
             case ParentKind.enumKind:
               thisReport['identifier']['description'] =
-                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the enum `${issue.parentName!}`';
+                  'Identifier `${issue.identifier}` is a ${issue.kind.toString()}, member of the enum `${issue.parentIdentifier!}`';
               break;
           }
           thisReport['identifier']['references'] = issue.references
@@ -279,13 +281,13 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
           'This command accepts exactly 4 positional arguments.');
     }
 
-    // extract positional arguments
+    // Extract positional arguments.
     var packageCountToAnalyze = int.tryParse(arguments[0]);
     final resourceCount = int.tryParse(arguments[1]);
     final logPath = path.canonicalize(arguments[2]);
     final cachePath = path.canonicalize(arguments[3]);
 
-    // ensure numeric arguments are valid
+    // Ensure numeric arguments are valid.
     if (packageCountToAnalyze == null ||
         resourceCount == null ||
         packageCountToAnalyze <= 0 ||
@@ -294,7 +296,7 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
           'Failed to parse positional arguments, they must both be positive integers.');
     }
 
-    // ensure that the log and cache directories exist
+    // Ensure that the log and cache directories exist.
     if (!(await Directory(logPath).exists())) {
       throw ArgumentError(
           'Log path $logPath points to a directory which does not exist.');
@@ -304,7 +306,7 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
           'Cache path $cachePath points to a directory which does not exist.');
     }
 
-    // ensure that api_analysis.dart is at the expected location
+    // Ensure that api_analysis.dart is at the expected location.
     final packageAnalysisFilePath = path.join(
       Directory.current.path,
       'bin',
@@ -320,8 +322,8 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
     late final List<String> topPackages;
     late final List<String> allPackages;
     try {
-      // fetch the list of top packages from the pub endpoint
-      // they will already be sorted in descending order of popularity
+      // Fetch the list of top packages.
+      // They will already be sorted in descending order of popularity.
       final topPackagesResponse = await retry(
         () => c
             .get(Uri.parse('https://pub.dev/api/package-name-completion-data')),
@@ -331,8 +333,8 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
           .map((packageName) => packageName as String)
           .toList();
 
-      // fetch the list of all package names
-      // this is alphabetically sorted
+      // Fetch the list of all packages.
+      // This is alphabetically sorted.
       final allPackagesResponse = await retry(
         () => c.get(Uri.parse('https://pub.dev/api/package-names')),
         retryIf: (e) => e is IOException,
@@ -341,10 +343,13 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
           .map((packageName) => packageName as String)
           .toList();
 
-      // assuming topPackages is a subset of allPackages, iterate over allPackages,
-      // removing packages from both lists where either of the following is true:
-      // - lower bound sdk constraint is < 2.12.0
-      // - sdk constraint is not satisfied by current version of the sdk
+      // Assuming topPackages is a subset of allPackages, iterate over
+      // [allPackages], removing packages from both lists where any of the
+      // following is true:
+      // - The package is discontinued.
+      // - The package's sdk constraint lower bound is < 2.12.0 .
+      // - The package's sdk constraint is not satisfied by current version of the sdk.
+      // - There are no available (non-redacted) versions of the package.
       final incompatiblePackages = <String>[];
       final pool = Pool(16);
       final currentSdkVersion =
@@ -357,7 +362,7 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
           );
           final packageMetadata = json.decode(packageMetadataResponse.body);
 
-          // do not analyse discontinued packages
+          // The package is discontinued.
           if (packageMetadata['isDiscontinued'] == true) {
             incompatiblePackages.add(packageName);
             return;
@@ -366,12 +371,13 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
           final sdkConstraintStr = packageMetadata['latest']?['pubspec']
               ?['environment']?['sdk'] as String?;
 
-          // could not determine sdk constraint
+          // Could not find sdk constraint.
           if (sdkConstraintStr == null) {
             incompatiblePackages.add(packageName);
             return;
           }
 
+          // The package does not support null safety.
           final sdkConstraint =
               VersionConstraint.parse(sdkConstraintStr) as VersionRange;
           if (sdkConstraint.min == null ||
@@ -381,7 +387,7 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
             return;
           }
 
-          // if there are no available versions of this package, do not analyse it
+          // There are no available (non-redacted) versions of the package.
           if ((await fetchSortedPackageVersionList(
             packageName: packageName,
             cachePath: cachePath,
@@ -406,13 +412,15 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
     final packagesToAnalyse =
         packageCountToAnalyze > topPackages.length ? allPackages : topPackages;
 
-    // ensures that the indexes up to and including packageCountToAnalyze do not
-    // lose their order when ordered lexicographically
+    // Ensure that the indexes up to and including packageCountToAnalyze do not
+    // lose their order when ordered lexicographically. This is a useful
+    // property to have when browsing logs after analysis is complete.
     String formatIndexForLogfile(int index) {
       final numberOfZeroes = packageCountToAnalyze.toString().length;
       return (index + 1).toString().padLeft(numberOfZeroes, '0');
     }
 
+    // Limit the number of concurrent analysis processes.
     final pool = Pool(resourceCount);
 
     await Future.wait(packagesToAnalyse
@@ -422,6 +430,7 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
         stdout.writeln(
             '${DateTime.now().toIso8601String()} Analyzing package $targetPackageName (${targetPackageIndex + 1}/$packageCountToAnalyze)...');
 
+        // Attempt to start the analysis process.
         late final Process process;
         try {
           process = await Process.start(
@@ -444,15 +453,16 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
           final logPathPrefix = path.join(logPath,
               '${formatIndexForLogfile(targetPackageIndex)} $targetPackageName');
 
-          // wait for the analysis to complete or time out after 10 minutes
+          // Wait for the analysis to complete or time out after 10 minutes.
           final exitCode =
               await process.exitCode.timeout(const Duration(minutes: 10));
 
-          // capture all output
+          // Capture all output.
           final out = await process.stdout.toList();
           final err = await process.stderr.toList();
 
-          // do not write empty log files
+          // Save any standard output/standard error returned by the analysis
+          // process, but do not write empty log files.
           if (out.isNotEmpty) {
             final stdoutLog = File('$logPathPrefix stdout.txt').openWrite();
             out.forEach(stdoutLog.add);

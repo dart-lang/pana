@@ -64,18 +64,15 @@ class LibraryShape {
   /// within the given [PackageShape]. This uses the syntax beginning with
   /// `package:` which would usually be used for importing this library.
   ///
-  /// Example:
-  /// ```
-  /// package:my_package/my_library.dart
-  /// ```
+  /// Example: ` package:my_package/my_library.dart`
   final String uri;
 
-  /// `List` of `GlobalPropertyShape.id` elements, where each one corresponds to a
-  /// top-level getter exported in this library.
+  /// `List` of `GlobalPropertyShape.id` elements, where each one corresponds to
+  /// a top-level getter exported in this library.
   final List<int> exportedGetters;
 
-  /// `List` of `GlobalPropertyShape.id` elements, where each one corresponds to a
-  /// top-level setter exported in this library.
+  /// `List` of `GlobalPropertyShape.id` elements, where each one corresponds to
+  /// a top-level setter exported in this library.
   final List<int> exportedSetters;
 
   /// `List` of `FunctionShape.id` elements, where each one corresponds to a
@@ -231,7 +228,7 @@ class NamedConstructorShape extends ClassMemberShapeBase {
   Map<String, dynamic> toJson() => _$NamedConstructorShapeToJson(this);
 }
 
-/// A Shape for describing a top-level function
+/// A Shape for describing a top-level function.
 @sealed
 @JsonSerializable()
 class FunctionShape extends GlobalShapeBase {
@@ -243,7 +240,7 @@ class FunctionShape extends GlobalShapeBase {
   Map<String, dynamic> toJson() => _$FunctionShapeToJson(this);
 }
 
-/// A Shape for describing a getter/setter of a top-level variable
+/// A Shape for describing a getter/setter of a top-level variable.
 @sealed
 @JsonSerializable()
 class GlobalPropertyShape extends GlobalShapeBase {
@@ -260,7 +257,7 @@ class GlobalPropertyShape extends GlobalShapeBase {
 @sealed
 @JsonSerializable()
 class TypedefShape extends GlobalShapeBase {
-  /// The `ClassShape.id` that this typedef points to, or null if defined as function type
+  /// The `ClassShape.id` that this typedef points to, or null if defined as function type.
   final int? targetClassId;
 
   TypedefShape(
