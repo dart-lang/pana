@@ -144,11 +144,23 @@ class LowerBoundConstraintAnalysisCommand extends ApiAnalysisCommand {
     if (!Platform.isWindows) {
       await Isolate.spawn((message) {
         ProcessSignal.sigterm.watch().listen((event) async {
-          await cleanUp();
-          exit(0);
+          try {
+            await cleanUp();
+          } finally {
+            exit(0);
+          }
         });
       }, null);
     }
+    await Isolate.spawn((message) {
+      ProcessSignal.sigint.watch().listen((event) async {
+        try {
+          await cleanUp();
+        } finally {
+          exit(0);
+        }
+      });
+    }, null);
 
     try {
       final foundIssues = await lowerBoundConstraintAnalysis(
