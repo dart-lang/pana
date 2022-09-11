@@ -5,7 +5,6 @@
 import 'package:collection/collection.dart';
 
 import 'shapes.dart';
-import 'shapes_ext.dart';
 
 /// Given a [PackageShape] create a new [PackageShape] structure where the
 /// elements of [PackageShape.getters], [PackageShape.setters],
@@ -164,4 +163,92 @@ PackageShape normalizePackageShape(PackageShape package) {
     typedefs: newTypedefs,
     extensions: newExtensions,
   );
+}
+
+extension _GlobalPropertyShapeExt on GlobalPropertyShape {
+  /// Creates a new [GlobalPropertyShape] based on this one, but with the id replaced.
+  GlobalPropertyShape withId(int newId) => GlobalPropertyShape(
+        id: newId,
+        name: name,
+      );
+}
+
+extension _FunctionShapeExt on FunctionShape {
+  /// Creates a new [FunctionShape] based on this one, but with the id replaced.
+  FunctionShape withId(int newId) => FunctionShape(
+        id: newId,
+        name: name,
+      );
+}
+
+extension _TypedefShapeExt on TypedefShape {
+  /// Creates a new [TypedefShape] based on this one, but with the id and targetClassId replaced.
+  TypedefShape withIds({
+    required int newId,
+    required int? newTargetId,
+  }) =>
+      TypedefShape(
+        id: newId,
+        name: name,
+        targetClassId: newTargetId,
+      );
+}
+
+extension _ExtensionShapeExt on ExtensionShape {
+  /// Creates a new [ExtensionShape] based on this one, but with the id and extendedClassId replaced.
+  ExtensionShape withIds({
+    required int newId,
+    required int newExtendedClassId,
+  }) =>
+      ExtensionShape(
+        id: newId,
+        name: name,
+        extendedClassId: newExtendedClassId,
+        getters: getters,
+        setters: setters,
+        methods: methods,
+        staticGetters: staticGetters,
+        staticSetters: staticSetters,
+        staticMethods: staticMethods,
+        annotations: annotations,
+      );
+}
+
+extension _ClassShapeExt on ClassShape {
+  /// Creates a new [ClassShape] based on this one, but with the id replaced.
+  ClassShape withId(int newId) => ClassShape(
+        id: newId,
+        name: name,
+        getters: getters,
+        setters: setters,
+        methods: methods,
+        staticGetters: staticGetters,
+        staticSetters: staticSetters,
+        staticMethods: staticMethods,
+        unnamedConstructor: unnamedConstructor,
+        namedConstructors: namedConstructors,
+        annotations: annotations,
+      );
+}
+
+extension _LibraryShapeExt on LibraryShape {
+  /// Creates a new [LibraryShape] based on this one, but with all the parts
+  /// (except `uri`) replaced.
+  LibraryShape replaceAll({
+    required List<int> exportedGetters,
+    required List<int> exportedSetters,
+    required List<int> exportedFunctions,
+    required List<int> exportedClasses,
+    required List<int> exportedExtensions,
+    required List<int> exportedTypedefs,
+  }) =>
+      LibraryShape(
+        uri: uri,
+        exportedGetters: exportedGetters,
+        exportedSetters: exportedSetters,
+        exportedFunctions: exportedFunctions,
+        exportedClasses: exportedClasses,
+        exportedExtensions: exportedExtensions,
+        exportedTypedefs: exportedTypedefs,
+      );
 }

@@ -50,6 +50,126 @@ class PackageShape {
     required this.typedefs,
   });
 
+  /// Returns `true` if this package has a function named [name].
+  bool containsFunctionWithName(String name) =>
+      functions.map((function) => function.name).contains(name);
+
+  /// Returns an [Iterable<ClassShape>] corresponding to the classes which can
+  /// be accessed by the name [name], whether that is their name, or the name of
+  /// a typedef which points to the class.
+  Iterable<ClassShape> classesMatchingName(String name) {
+    // Either the name of the class has to match, or there must exist a typedef
+    // with a matching name and a target id which matches that of the class
+    // named [name].
+    return classes.where((thisClass) =>
+        thisClass.name == name ||
+        typedefs.any((thisTypedef) =>
+            thisTypedef.name == name &&
+            thisClass.id == thisTypedef.targetClassId));
+  }
+
+  /// Returns `true` if this package has a class (or a typedef pointing to a
+  /// class) named [className] with a method (static or not) named [name].
+  bool containsMethodWithName(String className, String name) {
+    for (final thisClass in classesMatchingName(className)) {
+      for (final method
+          in thisClass.methods.followedBy(thisClass.staticMethods)) {
+        if (method.name == name) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /// Returns `true` if this package has a class (or a typedef pointing to a
+  /// class) named [className] with a property (static or not, getter or setter)
+  /// named [name].
+  bool containsPropertyWithName(String className, String name) =>
+      containsGetterWithName(className, name) ||
+      containsSetterWithName(className, name);
+
+  /// Returns `true` if this package has a class (or a typedef pointing to a
+  /// class) named [className] with a getter (static or not) named [name].
+  bool containsGetterWithName(String className, String name) {
+    for (final thisClass in classesMatchingName(className)) {
+      for (final property
+          in thisClass.getters.followedBy(thisClass.staticGetters)) {
+        if (property.name == name) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /// Returns `true` if this package has a class (or a typedef pointing to a
+  /// class) named [className] with a setter (static or not) named [name].
+  bool containsSetterWithName(String className, String name) {
+    for (final thisClass in classesMatchingName(className)) {
+      for (final property
+          in thisClass.setters.followedBy(thisClass.staticSetters)) {
+        if (property.name == name) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /// Returns an [Iterable<ExtensionShape>] corresponding to the extensions
+  /// named [name].
+  Iterable<ExtensionShape> extensionsMatchingName(String name) =>
+      extensions.where((thisExtension) => thisExtension.name == name);
+
+  /// Returns `true` if this package has an extension named [extensionName] with
+  /// a method (static or not) named [name].
+  bool containsExtensionMethodWithName(String extensionName, String name) {
+    for (final thisExtension in extensionsMatchingName(extensionName)) {
+      for (final method
+          in thisExtension.methods.followedBy(thisExtension.staticMethods)) {
+        if (method.name == name) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /// Returns `true` if this package has an extension named [extensionName] with
+  /// a property (static or not, getter or setter) named [name].
+  bool containsExtensionPropertyWithName(String extensionName, String name) =>
+      containsExtensionGetterWithName(extensionName, name) ||
+      containsExtensionSetterWithName(extensionName, name);
+
+  /// Returns `true` if this package has an extension named [extensionName] with
+  /// a getter (static or not) named [name].
+  bool containsExtensionGetterWithName(String extensionName, String name) {
+    for (final thisExtension in extensionsMatchingName(extensionName)) {
+      for (final property
+          in thisExtension.getters.followedBy(thisExtension.staticGetters)) {
+        if (property.name == name) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /// Returns `true` if this package has an extension named [extensionName] with
+  /// a setter (static or not) named [name].
+  bool containsExtensionSetterWithName(String extensionName, String name) {
+    for (final thisExtension in extensionsMatchingName(extensionName)) {
+      for (final property
+          in thisExtension.setters.followedBy(thisExtension.staticSetters)) {
+        if (property.name == name) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   factory PackageShape.fromJson(Map<String, dynamic> json) =>
       _$PackageShapeFromJson(json);
 
@@ -144,6 +264,29 @@ class ClassShape extends GlobalShapeBase {
     required this.namedConstructors,
     required this.annotations,
   });
+
+  /// Modifies this [ClassShape] based on a list of others.
+  ///
+  /// The fields [getters], [setters] and [methods] are expanded with the
+  /// corresponding fields from the elements of [others], only where the
+  /// addition of elements of the field [List]s does not cause result in
+  /// duplicate class members.
+  void extendWith({required List<ClassShape> others}) {
+    /// Adds elements of [other] to [list] without creating duplicates.
+    void addWithoutDuplicates(
+      List<ClassMemberShapeBase> list,
+      List<ClassMemberShapeBase> other,
+    ) {
+      list.addAll(other.where((otherMember) => !list
+          .any((existingMember) => existingMember.name == otherMember.name)));
+    }
+
+    for (final otherClass in others) {
+      addWithoutDuplicates(getters, otherClass.getters);
+      addWithoutDuplicates(setters, otherClass.setters);
+      addWithoutDuplicates(methods, otherClass.methods);
+    }
+  }
 
   factory ClassShape.fromJson(Map<String, dynamic> json) =>
       _$ClassShapeFromJson(json);

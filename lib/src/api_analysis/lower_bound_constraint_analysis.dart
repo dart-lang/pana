@@ -20,7 +20,6 @@ import 'common.dart';
 import 'issue.dart';
 import 'kind.dart';
 import 'shapes.dart';
-import 'shapes_ext.dart';
 import 'summary.dart';
 
 /// Analyze the target package [targetName], using the temporary directory

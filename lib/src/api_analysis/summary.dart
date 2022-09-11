@@ -11,7 +11,6 @@ import 'package:path/path.dart' as path;
 import 'common.dart';
 import 'normalize_shape.dart';
 import 'shapes.dart';
-import 'shapes_ext.dart';
 
 List<Annotation> _summarizeAnnotations(Element element) => [
       if (element.hasDeprecated) Annotation.deprecated,

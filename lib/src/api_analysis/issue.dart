@@ -8,7 +8,6 @@ import 'package:source_span/source_span.dart';
 
 import 'kind.dart';
 import 'shapes.dart';
-import 'shapes_ext.dart';
 
 class PotentialLowerBoundConstraintIssue {
   /// The name of the package on which the analyzed package has an incorrect
