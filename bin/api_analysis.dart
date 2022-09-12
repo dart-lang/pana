@@ -22,10 +22,10 @@ import 'package:retry/retry.dart';
 
 Future<void> main(List<String> arguments) async {
   var runner = CommandRunner(
-      'api_analysis', 'A tool for analysing the public API of a dart package.')
+      'api-analysis', 'A tool for analysing the public API of a dart package.')
     ..addCommand(SummaryCommand())
-    ..addCommand(LowerBoundConstraintAnalysisCommand())
-    ..addCommand(BatchLBCAnalysisCommand());
+    ..addCommand(LowerBoundsCommand())
+    ..addCommand(LowerBoundsBatchCommand());
   await runner.run(arguments);
 }
 
@@ -52,12 +52,14 @@ abstract class ApiAnalysisCommand extends Command {
 
 class SummaryCommand extends ApiAnalysisCommand {
   @override
-  final name = 'summary';
-  @override
-  final description = 'Displays a summary of the public API of a package.';
+  String get name => 'summary';
 
   @override
-  final argumentsDescription = 'package_path';
+  String get description =>
+      'Displays a summary of the public API of a package.';
+
+  @override
+  String get argumentsDescription => '<package-path>';
 
   SummaryCommand();
 
@@ -102,16 +104,18 @@ class SummaryCommand extends ApiAnalysisCommand {
   }
 }
 
-class LowerBoundConstraintAnalysisCommand extends ApiAnalysisCommand {
+class LowerBoundsCommand extends ApiAnalysisCommand {
   @override
-  final name = 'lbcanalysis';
-  @override
-  final description = 'Performs lower bound analysis on a single package.';
+  String get name => 'lower-bounds';
 
   @override
-  String get argumentsDescription => 'cache_path target_name';
+  String get description =>
+      'Runs lower bound constraint analysis on a single package.';
 
-  LowerBoundConstraintAnalysisCommand();
+  @override
+  String get argumentsDescription => '<cache-path> <target-name>';
+
+  LowerBoundsCommand();
 
   @override
   Future<void> run() async {
@@ -130,7 +134,7 @@ class LowerBoundConstraintAnalysisCommand extends ApiAnalysisCommand {
 
     // Create a unique temporary directory for the target and the dependencies.
     final tempDir = await Directory(Directory.systemTemp.path)
-        .createTemp('lbcanalysis_temp');
+        .createTemp('lower-bounds-temp');
 
     final c = http.Client();
 
@@ -261,17 +265,19 @@ class LowerBoundConstraintAnalysisCommand extends ApiAnalysisCommand {
   }
 }
 
-class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
+class LowerBoundsBatchCommand extends ApiAnalysisCommand {
   @override
-  final name = 'batchlbca';
-  @override
-  final description = 'Runs lower bound constraint analysis on many packages.';
+  String get name => 'lower-bounds-batch';
 
   @override
-  final argumentsDescription =
-      'package_number process_number log_path cache_path';
+  String get description =>
+      'Runs lower bound constraint analysis on many packages.';
 
-  BatchLBCAnalysisCommand();
+  @override
+  String get argumentsDescription =>
+      '<package-number> <process-number> <log-path> <cache-path>';
+
+  LowerBoundsBatchCommand();
 
   @override
   Future<void> run() async {
@@ -312,10 +318,10 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
       'bin',
       'api_analysis.dart',
     );
-    final lbcAnalysisCommandName = LowerBoundConstraintAnalysisCommand().name;
+    final lowerBoundsCommandName = LowerBoundsCommand().name;
     if (!(await File(packageAnalysisFilePath).exists())) {
       throw ArgumentError(
-          'Failed to find file "api_analysis.dart" which is needed for invoking the $lbcAnalysisCommandName command, ensure $packageAnalysisFilePath points to this file.');
+          'Failed to find file "api_analysis.dart" which is needed for invoking the $lowerBoundsCommandName command, ensure $packageAnalysisFilePath points to this file.');
     }
 
     final c = http.Client();
@@ -438,7 +444,7 @@ class BatchLBCAnalysisCommand extends ApiAnalysisCommand {
             [
               'run',
               packageAnalysisFilePath,
-              lbcAnalysisCommandName,
+              lowerBoundsCommandName,
               cachePath,
               targetPackageName,
             ],

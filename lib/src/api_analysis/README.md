@@ -4,38 +4,38 @@ Refer to the [introductory blog post](https://arseny.uk/posts/gsoc2022/) before 
 
 ## Running API analysis
 
-Three CLI subcommands are provided. Run `dart pub global activate --source git https://github.com/dart-lang/pana` to make them globally available and run them with `dart pub global run pana:api_analysis subcommand`.
+Three CLI subcommands are provided. Run `dart pub global activate --source git https://github.com/dart-lang/pana` to make them globally available and run them with `dart pub global run pana:api_analysis <subcommand>`.
 
 ### `summary`
 
 ```
 Displays a summary of the public API of a package.
-Usage: api_analysis summary package_path
+Usage: api-analysis summary <package-path>
 ```
 
-This command writes a JSON *summary* of the package at `package_path`, which must point to the root directory of a package, to standard output.
+This command writes a JSON *summary* of the package at `<package-path>`, which must point to the root directory of a package, to standard output.
 
-This package does not have to be published to pub.dev , and `package_path` can point to a directory in the [pub cache](https://dart.dev/tools/pub/glossary#system-cache).
+This package does not have to be published to pub.dev , and `<package-path>` can point to a directory in the [pub cache](https://dart.dev/tools/pub/glossary#system-cache).
 
-### `lbcanalysis`
+### `lower-bounds`
 
 ```
-Performs lower bound analysis on a single package.
-Usage: api_analysis lbcanalysis cache_path target_name
+Runs lower bound constraint analysis on a single package.
+Usage: api-analysis lower-bounds <cache-path> <target-name>
 ```
 
-This command performs *lower bound constraint analysis* on the latest version of the package named `target_name`, which must be the name of a package published to pub.dev . If at least one *issue* is discovered, a report is written to standard output. Any warnings are written to standard error.
+This command performs *lower bound constraint analysis* on the latest version of the package named `<target-name>`, which must be the name of a package published to pub.dev . If at least one *issue* is discovered, a report is written to standard output. Any warnings are written to standard error.
 
-`cache_path` must point to a directory where http requests to `https://pub.dev/api/packages/PACKAGE_NAME` will be cached (where `PACKAGE_NAME` is the name of the *target* or that of one of its direct dependencies).
+`<cache-path>` must point to a directory where http requests to `https://pub.dev/api/packages/PACKAGE_NAME` will be cached (where `PACKAGE_NAME` is the name of the *target* or that of one of its direct dependencies).
 
-### `batchlbca`
+### `lower-bounds-batch`
 
 ```
 Runs lower bound constraint analysis on many packages.
-Usage: api_analysis batchlbca package_number process_number log_path cache_path
+Usage: api-analysis lower-bounds-batch <package-number> <process-number> <log-path> <cache-path>
 ```
 
-This command performs *lower bound constraint analysis* on a number of packages published to pub.dev .
+This command performs *lower bound constraint analysis* on a number of eligible packages published to pub.dev .
 
 A package is considered eligible if it satisfies the following requirements:
 - The current version of the Dart SDK satisfies the SDK constraint of the package.
@@ -43,15 +43,15 @@ A package is considered eligible if it satisfies the following requirements:
 - The package is not marked as discontinued.
 - There is at least one non-retracted version of the package.
 
-`package_number` specifies the number of eligible packages to *analyse*.
+`<package-number>` specifies the number of eligible packages to *analyse*.
 
-If the number of packages provided by https://pub.dev/api/package-name-completion-data is greater than or equal to `package_number`, the first `package_number` eligible packages from this list are *analysed*.
+If the number of packages provided by https://pub.dev/api/package-name-completion-data is greater than or equal to `<package-number>`, the first `<package-number>` eligible packages from this list are *analysed*.
 
-Otherwise, the first `package_number` eligible packages from https://pub.dev/api/package-names are *analysed*. If `package_number` is strictly greater than the number of eligible packages from this list, all the eligible packages from the list are *analysed*.
+Otherwise, the first `<package-number>` eligible packages from https://pub.dev/api/package-names are *analysed*. If `<package-number>` is strictly greater than the number of eligible packages from this list, all the eligible packages from the list are *analysed*.
 
-*Analysis* consists of `process_number` concurrent child processes of the `lbcanalysis` command running in parallel. The standard output and standard error streams produced by these processes are saved as text files in the `log_path` directory. If a package takes over 10 minutes to analyse, the `lbcanalysis` process is killed.
+*Analysis* consists of `<process-number>` concurrent child processes of the `lower-bounds` command running in parallel. The standard output and standard error streams produced by these processes are saved as text files in the `<log-path>` directory. If a package takes over 10 minutes to analyse, the `lower-bounds` process is killed.
 
-`cache_path` must point to a directory where http requests to `https://pub.dev/api/packages/PACKAGE_NAME` will be cached, (where `PACKAGE_NAME` is the name of any eligible package). In an effort to make the results consistent (the parent `batchlbca` process can take several hours), this cache is populated before any child `lbcanalysis` processes are started.
+`<cache-path>` must point to a directory where http requests to `https://pub.dev/api/packages/PACKAGE_NAME` will be cached, (where `PACKAGE_NAME` is the name of any eligible package). In an effort to make the results consistent (the parent `lower-bounds-batch` process can take several hours), this cache is populated before any child `lower-bounds` processes are started.
 
 ## Hacking on API analysis
 
