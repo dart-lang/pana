@@ -18,6 +18,7 @@ import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec;
 import 'package:retry/retry.dart';
+import 'package:yaml/yaml.dart';
 
 const indentedEncoder = JsonEncoder.withIndent('  ');
 
@@ -34,7 +35,12 @@ class PackageAnalysisContext {
   /// The name of the package being analyzed.
   late final String packageName = _dummy ? _targetPackageName! : pubspec.name;
 
-  /// The absolute path of the package being analyzed.
+  /// The path of the package being analyzed, or that of the dummy package, if a
+  /// dummy package is used. This path will never be in the pub cache.
+  late final String _topLevelPackagePath;
+
+  /// The path of the package being analyzed. If a dummy package is being used,
+  /// this path may be in the pub cache.
   late final String packagePath;
 
   /// The pubspec of the package being analyzed.
@@ -99,11 +105,14 @@ class PackageAnalysisContext {
   /// Given the context for a package and the name of one of its dependencies,
   /// which may be transitive, return the dependency version which is installed.
   Version findInstalledVersion(String packageName) {
-    final packagePubspecPath = path.join(
-      findPackagePath(packageName),
-      'pubspec.yaml',
+    final lockfilePath = path.join(
+      _topLevelPackagePath,
+      'pubspec.lock',
     );
-    return Pubspec.parseYaml(readFile(packagePubspecPath)).version!;
+    final lockfileDoc = loadYaml(readFile(lockfilePath));
+    final versionString =
+        lockfileDoc['packages'][packageName]['version'] as String;
+    return Version.parse(versionString);
   }
 
   /// Finds all the typedefs made available by the imports in the library at
@@ -156,6 +165,7 @@ class PackageAnalysisContext {
   }) {
     analysisSession = session;
     _targetPackageName = targetPackageName;
+    _topLevelPackagePath = packagePath;
     this.packagePath =
         _dummy ? findPackagePath(targetPackageName!) : packagePath;
     _warningSink = warningSink;
