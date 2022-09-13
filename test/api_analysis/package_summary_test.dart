@@ -50,9 +50,10 @@ Future<void> main() async {
         includedPaths: [packagePath],
         resourceProvider: provider,
       ).contextFor(packagePath).currentSession;
-      final packageAnalysisContext = PackageAnalysisContextWithStderr(
+      final packageAnalysisContext = PackageAnalysisContext(
         session: session,
         packagePath: packagePath,
+        warningSink: stderr.nonBlocking,
       );
 
       final packageShape = await summarizePackage(

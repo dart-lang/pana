@@ -71,10 +71,11 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
 
   // Create analysis session for analysing the target package.
   final collection = AnalysisContextCollection(includedPaths: [dummyPath]);
-  final context = PackageAnalysisContextWithStderr(
+  final context = PackageAnalysisContext(
     session: collection.contextFor(dummyPath).currentSession,
     packagePath: dummyPath,
     targetPackageName: targetName,
+    warningSink: stderr.nonBlocking,
   );
 
   // If there are no dependencies, there will be no issues.
@@ -142,9 +143,10 @@ Future<List<PotentialLowerBoundConstraintIssue>> lowerBoundConstraintAnalysis({
     final collection = AnalysisContextCollection(includedPaths: [
       dependencyDestination,
     ]);
-    final dependencyPackageAnalysisContext = PackageAnalysisContextWithStderr(
+    final dependencyPackageAnalysisContext = PackageAnalysisContext(
       session: collection.contextFor(dependencyDestination).currentSession,
       packagePath: dependencyDestination,
+      warningSink: stderr.nonBlocking,
     );
 
     // Produce a summary of the minimum allowed version of this dependency and store it.

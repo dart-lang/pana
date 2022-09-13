@@ -87,9 +87,10 @@ class SummaryCommand extends ApiAnalysisCommand {
     final session = AnalysisContextCollection(includedPaths: [packageLocation])
         .contextFor(packageLocation)
         .currentSession;
-    final packageAnalysisContext = PackageAnalysisContextWithStderr(
+    final packageAnalysisContext = PackageAnalysisContext(
       session: session,
       packagePath: packageLocation,
+      warningSink: stderr.nonBlocking,
     );
 
     final packageShape = await summarizePackage(

@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -20,7 +21,7 @@ import 'package:retry/retry.dart';
 
 const indentedEncoder = JsonEncoder.withIndent('  ');
 
-abstract class PackageAnalysisContext {
+class PackageAnalysisContext {
   late final AnalysisSession analysisSession;
 
   /// Whether the package being analysed uses a dummy.
@@ -49,8 +50,12 @@ abstract class PackageAnalysisContext {
           .map(
               (entry) => MapEntry(entry.key, entry.value as HostedDependency)));
 
+  late final StringSink _warningSink;
+
   /// Log [message] as a warning that something unexpected happened.
-  void warning(String message);
+  void warning(String message) {
+    _warningSink.writeln(message);
+  }
 
   /// Get the contents of the file at [path] using the `analysisSession.resourceProvider`.
   String readFile(String path) =>
@@ -146,25 +151,14 @@ abstract class PackageAnalysisContext {
   PackageAnalysisContext({
     required AnalysisSession session,
     required String packagePath,
+    required StringSink warningSink,
     String? targetPackageName,
   }) {
     analysisSession = session;
     _targetPackageName = targetPackageName;
     this.packagePath =
         _dummy ? findPackagePath(targetPackageName!) : packagePath;
-  }
-}
-
-class PackageAnalysisContextWithStderr extends PackageAnalysisContext {
-  PackageAnalysisContextWithStderr({
-    required super.session,
-    required super.packagePath,
-    super.targetPackageName,
-  });
-
-  @override
-  void warning(String message) {
-    stderr.writeln(message);
+    _warningSink = warningSink;
   }
 }
 
