@@ -283,8 +283,7 @@ class LowerBoundsBatchCommand extends ApiAnalysisCommand {
       'Runs lower bound constraint analysis on many packages.';
 
   @override
-  String get argumentsDescription =>
-      '<package-number> <process-number> <log-path>';
+  String get argumentsDescription => '<N> <concurrency> <log-path>';
 
   LowerBoundsBatchCommand() {
     argParser.addOption(

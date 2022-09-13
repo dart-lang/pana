@@ -36,7 +36,7 @@ If `--cache=<path>` is not provided, a temporary folder is created automatically
 ```
 Runs lower bound constraint analysis on many packages.
 
-Usage: api-analysis lower-bounds-batch <package-number> <process-number> <log-path>
+Usage: api-analysis lower-bounds-batch <N> <concurrency> <log-path>
 -c, --cache=<path>    Cache directory for requests to https://pub.dev/api/packages/PACKAGE-NAME .
 ```
 
@@ -48,13 +48,13 @@ A package is considered eligible if it satisfies the following requirements:
 - The package is not marked as discontinued.
 - There is at least one non-retracted version of the package.
 
-`<package-number>` specifies the number of eligible packages to *analyse*.
+`<N>` specifies the number of eligible packages to *analyse*.
 
-If the number of packages provided by https://pub.dev/api/package-name-completion-data is greater than or equal to `<package-number>`, the first `<package-number>` eligible packages from this list are *analysed*.
+If the number of packages provided by https://pub.dev/api/package-name-completion-data is greater than or equal to `<N>`, the first `<N>` eligible packages from this list are *analysed*.
 
-Otherwise, the first `<package-number>` eligible packages from https://pub.dev/api/package-names are *analysed*. If `<package-number>` is strictly greater than the number of eligible packages from this list, all the eligible packages from the list are *analysed*.
+Otherwise, the first `<N>` eligible packages from https://pub.dev/api/package-names are *analysed*. If `<N>` is strictly greater than the number of eligible packages from this list, all the eligible packages from the list are *analysed*.
 
-*Analysis* consists of `<process-number>` concurrent child processes of the `lower-bounds` command running in parallel. The standard output and standard error streams produced by these processes are saved as text files in the `<log-path>` directory. If a package takes over 10 minutes to analyse, the `lower-bounds` process is killed.
+*Analysis* consists of `<concurrency>` concurrent child processes of the `lower-bounds` command running in parallel. The standard output and standard error streams produced by these processes are saved as text files in the `<log-path>` directory. If a package takes over 10 minutes to analyse, the `lower-bounds` process is killed.
 
 If `--cache=<path>` is not provided, a temporary folder is created automatically in the system temp directory and deleted after *analysis* exits. In an effort to make the results consistent (the parent `lower-bounds-batch` process can take several hours), this cache is populated before any child `lower-bounds` processes are started.
 
