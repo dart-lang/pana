@@ -113,24 +113,29 @@ class LowerBoundsCommand extends ApiAnalysisCommand {
       'Runs lower bound constraint analysis on a single package.';
 
   @override
-  String get argumentsDescription => '<cache-path> <target-name>';
+  String get argumentsDescription => '<target-name>';
 
-  LowerBoundsCommand();
+  LowerBoundsCommand() {
+    argParser.addOption(
+      'cache',
+      abbr: 'c',
+      valueHelp: 'path',
+      help:
+          'Cache directory for requests to https://pub.dev/api/packages/PACKAGE-NAME .',
+    );
+  }
 
   @override
   Future<void> run() async {
     final arguments = argResults!.rest;
-    if (arguments.length != 2) {
+    if (arguments.length != 1) {
       throw ArgumentError(
-          'This command accepts exactly 2 positional arguments.');
+          'This command accepts exactly 1 positional argument.');
     }
 
-    final cachePath = arguments[0];
-    final targetName = arguments[1];
-    if (!(await Directory(cachePath).exists())) {
-      throw ArgumentError(
-          'The directory containing package version list cache could not be found.');
-    }
+    final targetName = arguments[0];
+    final cache =
+        await validateCacheOrAutoGenerate(argResults!['cache'] as String?);
 
     // Create a unique temporary directory for the target and the dependencies.
     final tempDir = await Directory(Directory.systemTemp.path)
@@ -142,6 +147,9 @@ class LowerBoundsCommand extends ApiAnalysisCommand {
       // Clean up the temp directory and the http client.
       await tempDir.delete(recursive: true);
       c.close();
+
+      // If the cache was auto-generated, it must be auto-deleted.
+      await cache.tempDir?.delete(recursive: true);
     }
 
     // Sigterm is not supported on Windows, but sigint is.
@@ -170,7 +178,7 @@ class LowerBoundsCommand extends ApiAnalysisCommand {
       final foundIssues = await lowerBoundConstraintAnalysis(
         targetName: targetName,
         tempPath: path.canonicalize(tempDir.path),
-        cachePath: cachePath,
+        cachePath: cache.path,
       );
 
       // Only produce a human-readable report of discovered issues if there is
@@ -275,23 +283,32 @@ class LowerBoundsBatchCommand extends ApiAnalysisCommand {
 
   @override
   String get argumentsDescription =>
-      '<package-number> <process-number> <log-path> <cache-path>';
+      '<package-number> <process-number> <log-path>';
 
-  LowerBoundsBatchCommand();
+  LowerBoundsBatchCommand() {
+    argParser.addOption(
+      'cache',
+      abbr: 'c',
+      valueHelp: 'path',
+      help:
+          'Cache directory for requests to https://pub.dev/api/packages/PACKAGE-NAME .',
+    );
+  }
 
   @override
   Future<void> run() async {
     final arguments = argResults!.rest;
-    if (arguments.length != 4) {
+    if (arguments.length != 3) {
       throw ArgumentError(
-          'This command accepts exactly 4 positional arguments.');
+          'This command accepts exactly 3 positional arguments.');
     }
 
     // Extract positional arguments.
     var packageCountToAnalyze = int.tryParse(arguments[0]);
     final resourceCount = int.tryParse(arguments[1]);
     final logPath = path.canonicalize(arguments[2]);
-    final cachePath = path.canonicalize(arguments[3]);
+    final cache =
+        await validateCacheOrAutoGenerate(argResults!['cache'] as String?);
 
     // Ensure numeric arguments are valid.
     if (packageCountToAnalyze == null ||
@@ -306,10 +323,6 @@ class LowerBoundsBatchCommand extends ApiAnalysisCommand {
     if (!(await Directory(logPath).exists())) {
       throw ArgumentError(
           'Log path $logPath points to a directory which does not exist.');
-    }
-    if (!(await Directory(cachePath).exists())) {
-      throw ArgumentError(
-          'Cache path $cachePath points to a directory which does not exist.');
     }
 
     // Ensure that api_analysis.dart is at the expected location.
@@ -396,7 +409,7 @@ class LowerBoundsBatchCommand extends ApiAnalysisCommand {
           // There are no available (non-redacted) versions of the package.
           if ((await fetchSortedPackageVersionList(
             packageName: packageName,
-            cachePath: cachePath,
+            cachePath: cache.path,
           ))
               .isEmpty) {
             incompatiblePackages.add(packageName);
@@ -445,8 +458,8 @@ class LowerBoundsBatchCommand extends ApiAnalysisCommand {
               'run',
               packageAnalysisFilePath,
               lowerBoundsCommandName,
-              cachePath,
               targetPackageName,
+              '--cache=${cache.path}',
             ],
           );
         } catch (e) {
@@ -493,5 +506,8 @@ class LowerBoundsBatchCommand extends ApiAnalysisCommand {
         }
       });
     }));
+
+    // If the cache was auto-generated, it must be auto-deleted.
+    await cache.tempDir?.delete(recursive: true);
   }
 }

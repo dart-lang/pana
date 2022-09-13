@@ -331,3 +331,43 @@ String? packageFromLibraryUri(String libraryUri) {
   }
   return null;
 }
+
+/// Validates existence of [userProvidedPath] if it's not `null`. Otherwise,
+/// creates a temporary cache in the system temp directory, to be deleted after
+/// analysis terminates.
+Future<CacheMetadata> validateCacheOrAutoGenerate(
+    String? userProvidedPath) async {
+  if (userProvidedPath != null) {
+    // If the user has provided a cache path, ensure it exists on disk.
+    if (!(await Directory(userProvidedPath).exists())) {
+      throw ArgumentError(
+          'The directory $userProvidedPath containing package metadata cache could not be found.');
+    }
+    return CacheMetadata(
+      path: userProvidedPath,
+      tempDir: null,
+    );
+  } else {
+    // Otherwise, create a temporary cache directory.
+    final generatedCacheDir = await Directory(Directory.systemTemp.path)
+        .createTemp('lower-bounds-cache');
+    return CacheMetadata(
+      path: generatedCacheDir.path,
+      tempDir: generatedCacheDir,
+    );
+  }
+}
+
+class CacheMetadata {
+  /// The path of the cache.
+  final String path;
+
+  /// The temporary, auto-generated cache [Directory], or `null` if the cache
+  /// path was user-provided.
+  final Directory? tempDir;
+
+  CacheMetadata({
+    required this.path,
+    required this.tempDir,
+  });
+}

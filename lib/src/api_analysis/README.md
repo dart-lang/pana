@@ -10,6 +10,7 @@ Three CLI subcommands are provided. Run `dart pub global activate --source git h
 
 ```
 Displays a summary of the public API of a package.
+
 Usage: api-analysis summary <package-path>
 ```
 
@@ -21,18 +22,22 @@ This package does not have to be published to pub.dev , and `<package-path>` can
 
 ```
 Runs lower bound constraint analysis on a single package.
-Usage: api-analysis lower-bounds <cache-path> <target-name>
+
+Usage: api-analysis lower-bounds <target-name>
+-c, --cache=<path>    Cache directory for requests to https://pub.dev/api/packages/PACKAGE-NAME .
 ```
 
 This command performs *lower bound constraint analysis* on the latest version of the package named `<target-name>`, which must be the name of a package published to pub.dev . If at least one *issue* is discovered, a report is written to standard output. Any warnings are written to standard error.
 
-`<cache-path>` must point to a directory where http requests to `https://pub.dev/api/packages/PACKAGE_NAME` will be cached (where `PACKAGE_NAME` is the name of the *target* or that of one of its direct dependencies).
+If `--cache=<path>` is not provided, a temporary folder is created automatically in the system temp directory and deleted after *analysis* exits.
 
 ### `lower-bounds-batch`
 
 ```
 Runs lower bound constraint analysis on many packages.
-Usage: api-analysis lower-bounds-batch <package-number> <process-number> <log-path> <cache-path>
+
+Usage: api-analysis lower-bounds-batch <package-number> <process-number> <log-path>
+-c, --cache=<path>    Cache directory for requests to https://pub.dev/api/packages/PACKAGE-NAME .
 ```
 
 This command performs *lower bound constraint analysis* on a number of eligible packages published to pub.dev .
@@ -51,7 +56,7 @@ Otherwise, the first `<package-number>` eligible packages from https://pub.dev/a
 
 *Analysis* consists of `<process-number>` concurrent child processes of the `lower-bounds` command running in parallel. The standard output and standard error streams produced by these processes are saved as text files in the `<log-path>` directory. If a package takes over 10 minutes to analyse, the `lower-bounds` process is killed.
 
-`<cache-path>` must point to a directory where http requests to `https://pub.dev/api/packages/PACKAGE_NAME` will be cached, (where `PACKAGE_NAME` is the name of any eligible package). In an effort to make the results consistent (the parent `lower-bounds-batch` process can take several hours), this cache is populated before any child `lower-bounds` processes are started.
+If `--cache=<path>` is not provided, a temporary folder is created automatically in the system temp directory and deleted after *analysis* exits. In an effort to make the results consistent (the parent `lower-bounds-batch` process can take several hours), this cache is populated before any child `lower-bounds` processes are started.
 
 ## Hacking on API analysis
 
