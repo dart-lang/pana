@@ -278,10 +278,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
   /// The [PackageAnalysisContext] corresponding to the package being analyzed.
   final PackageAnalysisContext context;
 
-  /// The package [Uri] for the currently analyzed unit, typically on the form
-  /// `package:package_name/library_name.dart`.
-  late Uri currentUri;
-
   /// Maps from [Element.id] to one of:
   /// - [PotentialLowerBoundConstraintIssue], if there is a lower bound
   /// constraint issue associated to the [Element] with this [Element.id]
@@ -334,10 +330,12 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     SimpleIdentifier identifier, {
     required Element element,
   }) {
+    final uri =
+        (identifier.root as CompilationUnit).declaredElement!.source.uri;
     final identifierMetadata = IdentifierMetadata(
       span: SourceFile.fromString(
-        context.readFile(context.uriToPath(currentUri)!),
-        url: currentUri,
+        context.readFile(context.uriToPath(uri)!),
+        url: uri,
       ).span(identifier.offset, identifier.end),
       elementId: element.id,
       // If the element is a getter or a setter, extract just the variable name.
@@ -364,8 +362,6 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
 
   @override
   void visitCompilationUnit(CompilationUnit node) {
-    // Handle cases of a library split into multiple files with the part keyword.
-    currentUri = node.declaredElement!.source.uri;
     super.visitCompilationUnit(node);
   }
 
