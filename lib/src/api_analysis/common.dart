@@ -312,18 +312,13 @@ Future<List<Version>> fetchSortedPackageVersionList({
   return metadataStringToSortedVersions(metadataResponse.body);
 }
 
-/// Returns the package name from a library identifier/uri, or null if
-/// [libraryUri] isn't of the form `package:*/*`.
-///
-/// Example:
-/// `packageFromLibraryUri('package:my_package/my_library.dart')` returns
-/// `'my_package'`.
-String? packageFromLibraryUri(String libraryUri) {
-  if (libraryUri.startsWith('package:') && libraryUri.contains('/')) {
-    final endIndex = libraryUri.indexOf('/');
-    return libraryUri.substring(8, endIndex);
+/// Returns the package name from a library identifier/uri, or `null` if [uri]
+/// isn't of the form `package:*`.
+String? packageFromLibraryUri(Uri uri) {
+  if (uri.scheme != 'package') {
+    return null;
   }
-  return null;
+  return uri.pathSegments.firstOrNull;
 }
 
 /// Validates existence of [userProvidedPath] if it's not `null`. Otherwise,

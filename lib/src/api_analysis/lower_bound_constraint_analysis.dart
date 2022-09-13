@@ -302,7 +302,7 @@ class _LowerBoundConstraintVisitor extends GeneralizingAstVisitor {
     if (element.library == null) {
       throw AnalysisException('Could not determine library of parentElement.');
     }
-    final tryPackageName = packageFromLibraryUri(element.library!.identifier);
+    final tryPackageName = packageFromLibraryUri(element.library!.source.uri);
     // If the defining package isn't a [HostedDependency] of the target (a
     // direct dependency published to pub.dev), then this symbol cannot be analyzed.
     if (tryPackageName == null ||
