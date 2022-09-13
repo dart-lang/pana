@@ -56,13 +56,15 @@ ExtensionShape _summarizeExtension(ExtensionElement extensionElement) {
   // An accessor is a getter or a setter.
   final publicAccessors = extensionElement.accessors
       .where((element) => !element.isStatic)
-      .where((element) => element.isPublic);
+      .where((element) => element.isPublic)
+      .toList();
   final publicStaticAccessors = extensionElement.accessors
       .where((element) => element.isStatic)
-      .where((element) => element.isPublic);
+      .where((element) => element.isPublic)
+      .toList();
 
   final publicMethods =
-      extensionElement.methods.where((element) => element.isPublic);
+      extensionElement.methods.where((element) => element.isPublic).toList();
 
   final methods = publicMethods
       .where((element) => !element.isStatic)
@@ -112,13 +114,15 @@ ClassShape _summarizeClassElement(ClassElement classElement) {
   // An accessor is a getter or a setter.
   final publicAccessors = classElement.accessors
       .where((element) => !element.isStatic)
-      .where((element) => element.isPublic);
+      .where((element) => element.isPublic)
+      .toList();
   final publicStaticAccessors = classElement.accessors
       .where((element) => element.isStatic)
-      .where((element) => element.isPublic);
+      .where((element) => element.isPublic)
+      .toList();
 
   final publicMethods =
-      classElement.methods.where((element) => element.isPublic);
+      classElement.methods.where((element) => element.isPublic).toList();
 
   final methods = publicMethods
       .where((element) => !element.isStatic)
