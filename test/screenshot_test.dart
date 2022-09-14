@@ -129,7 +129,7 @@ void main() {
     }
   }, skip: !hasWebpTools);
 
-  test('No more than 5 screenshots', () async {
+  test('No more than 10 screenshots', () async {
     if (!hasWebpTools) return;
     final pkgDir = _testImagesDir;
     final s = Screenshot('description', 'static.webp');
@@ -138,16 +138,22 @@ void main() {
     final s3 = Screenshot('description', 'static.gif');
     final s4 = Screenshot('description', 'animated.gif');
     final s5 = Screenshot('description', 'static.webp');
-    final declared = <Screenshot>[s, s1, s2, s3, s4, s5];
+    final s6 = Screenshot('description', 'static.webp');
+    final s7 = Screenshot('description', 'static.webp');
+    final s8 = Screenshot('description', 'static.webp');
+    final s9 = Screenshot('description', 'static.webp');
+    final s10 = Screenshot('description', 'static.webp');
+
+    final declared = <Screenshot>[s, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10];
 
     final result = await processAllScreenshots(declared, pkgDir);
 
-    expect(result.length, 6);
-    expect(result[5].problems, isNotEmpty);
-    expect(result[5].processedScreenshot, isNull);
-    expect(result[5].problems.first,
-        contains('Not processed. pub.dev shows at most 5 screenshots'));
-    for (var i = 0; i < 5; i++) {
+    expect(result.length, 11);
+    expect(result[10].problems, isNotEmpty);
+    expect(result[10].processedScreenshot, isNull);
+    expect(result[10].problems.first,
+        contains('Not processed. pub.dev shows at most 10 screenshots'));
+    for (var i = 0; i < 10; i++) {
       expect(result[i].processedScreenshot, isNotNull);
       expect(result[i].problems, isEmpty);
     }
