@@ -147,7 +147,7 @@ class ToolEnvironment {
       [_join(resolvedDartSdk, 'bin', 'dart')],
       [_join(resolvedDartSdk, 'bin', 'dart'), 'pub'],
       [_join(resolvedDartSdk, 'bin', 'dart'), 'analyze'],
-      [_join(resolvedDartSdk, 'bin', 'dartdoc')],
+      [_join(resolvedDartSdk, 'bin', 'dart'), 'doc'],
       [_join(resolvedFlutterSdk, 'bin', 'flutter'), '--no-version-check'],
       [_join(flutterDartSdkDir, 'bin', 'dart'), 'analyze'],
       env,
