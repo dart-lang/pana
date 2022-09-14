@@ -89,7 +89,7 @@ Cannot assign Web automatically to a binary only package.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.33.0|1.33.0|
+|[`dcli`]|`^1.15.5`|1.34.0|1.34.0|
 
 <details><summary>Transitive dependencies</summary>
 
@@ -98,7 +98,7 @@ Cannot assign Web automatically to a binary only package.
 |[`archive`]|-|3.3.1|3.3.1|
 |[`args`]|-|2.3.1|2.3.1|
 |[`async`]|-|2.9.0|2.9.0|
-|[`basic_utils`]|-|3.9.4|4.5.2|
+|[`basic_utils`]|-|3.9.4|5.2.2|
 |[`chunked_stream`]|-|1.4.1|1.4.1|
 |[`circular_buffer`]|-|0.11.0|0.11.0|
 |[`clock`]|-|1.1.1|1.1.1|
@@ -107,10 +107,10 @@ Cannot assign Web automatically to a binary only package.
 |[`crypto`]|-|3.0.2|3.0.2|
 |[`csv`]|-|5.0.1|5.0.1|
 |[`dart_console2`]|-|2.0.0|2.0.0|
-|[`dcli_core`]|-|1.33.1|1.33.1|
-|[`equatable`]|-|2.0.3|2.0.3|
+|[`dcli_core`]|-|1.34.0|1.34.0|
+|[`equatable`]|-|2.0.5|2.0.5|
 |[`ffi`]|-|2.0.1|2.0.1|
-|[`file`]|-|6.1.2|6.1.2|
+|[`file`]|-|6.1.4|6.1.4|
 |[`file_utils`]|-|1.0.1|1.0.1|
 |[`glob`]|-|2.1.0|2.1.0|
 |[`globbing`]|-|1.0.0|1.0.0|
@@ -125,14 +125,14 @@ Cannot assign Web automatically to a binary only package.
 |[`meta`]|-|1.8.0|1.8.0|
 |[`mime`]|-|1.0.2|1.0.2|
 |[`path`]|-|1.8.2|1.8.2|
-|[`pointycastle`]|-|3.6.1|3.6.1|
+|[`pointycastle`]|-|3.6.2|3.6.2|
 |[`posix`]|-|4.0.0|4.0.0|
 |[`pub_semver`]|-|2.1.1|2.1.1|
 |[`pubspec2`]|-|2.4.1|2.4.1|
 |[`quiver`]|-|3.1.0|3.1.0|
 |[`random_string`]|-|2.3.1|2.3.1|
 |[`scope`]|-|2.2.1|2.2.1|
-|[`settings_yaml`]|-|3.4.2|3.4.2|
+|[`settings_yaml`]|-|3.5.0|4.0.0|
 |[`source_span`]|-|1.9.1|1.9.1|
 |[`stack_trace`]|-|1.10.0|1.10.0|
 |[`stacktrace_impl`]|-|2.3.0|2.3.0|
@@ -144,7 +144,7 @@ Cannot assign Web automatically to a binary only package.
 |[`uuid`]|-|3.0.6|3.0.6|
 |[`validators2`]|-|3.0.0|3.0.0|
 |[`vin_decoder`]|-|0.2.1-nullsafety|0.2.1-nullsafety|
-|[`win32`]|-|2.7.0|2.7.0|
+|[`win32`]|-|2.7.0|3.0.0|
 |[`yaml`]|-|3.1.1|3.1.1|
 </details>
 

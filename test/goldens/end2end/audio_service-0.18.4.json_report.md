@@ -65,36 +65,36 @@ Because:
 
 ### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 23 issues. Showing the first 2:
+Found 16 issues. Showing the first 2:
 
 <details>
 <summary>
-INFO: 'hashValues' is deprecated and shouldn't be used. Use Object.hash() instead. This feature was deprecated in v3.1.0-0.0.pre.897.
+INFO: Close instances of `dart.core.Sink`.
 </summary>
 
-`lib/audio_service.dart:301:23`
+`lib/audio_service.dart:1889:40`
 
 ```
-    ╷
-301 │   int get hashCode => hashValues(
-    │                       ^^^^^^^^^^
-    ╵
+     ╷
+1889 │   final BehaviorSubject<PlaybackState> _playbackState = BehaviorSubject();
+     │                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
 ```
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
 </details>
 <details>
 <summary>
-INFO: 'hashList' is deprecated and shouldn't be used. Use Object.hashAll() or Object.hashAllUnordered() instead. This feature was deprecated in v3.1.0-0.0.pre.897.
+INFO: Close instances of `dart.core.Sink`.
 </summary>
 
-`lib/audio_service.dart:304:9`
+`lib/audio_service.dart:1890:42`
 
 ```
-    ╷
-304 │         hashList(controls),
-    │         ^^^^^^^^
-    ╵
+     ╷
+1890 │   final BehaviorSubject<List<MediaItem>> _queue = BehaviorSubject();
+     │                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
 ```
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
@@ -121,23 +121,23 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`async`]|-|2.9.0|2.9.0|
-|[`characters`]|-|1.2.1|1.2.1|
+|[`characters`]|-|1.2.0|1.2.1|
 |[`collection`]|-|1.16.0|1.16.0|
 |[`crypto`]|-|3.0.2|3.0.2|
 |[`ffi`]|-|2.0.1|2.0.1|
-|[`file`]|-|6.1.2|6.1.2|
+|[`file`]|-|6.1.4|6.1.4|
 |[`http`]|-|0.13.5|0.13.5|
 |[`http_parser`]|-|4.0.1|4.0.1|
-|[`material_color_utilities`]|-|0.1.5|0.2.0|
-|[`meta`]|-|1.8.0|1.8.0|
+|[`material_color_utilities`]|-|0.1.4|0.2.0|
+|[`meta`]|-|1.7.0|1.8.0|
 |[`path`]|-|1.8.2|1.8.2|
 |[`path_provider`]|-|2.0.11|2.0.11|
-|[`path_provider_android`]|-|2.0.19|2.0.19|
+|[`path_provider_android`]|-|2.0.20|2.0.20|
 |[`path_provider_ios`]|-|2.0.11|2.0.11|
 |[`path_provider_linux`]|-|2.1.7|2.1.7|
 |[`path_provider_macos`]|-|2.0.6|2.0.6|
 |[`path_provider_platform_interface`]|-|2.0.4|2.0.4|
-|[`path_provider_windows`]|-|2.1.2|2.1.2|
+|[`path_provider_windows`]|-|2.1.3|2.1.3|
 |[`pedantic`]|-|1.11.1|1.11.1|
 |[`platform`]|-|3.1.0|3.1.0|
 |[`plugin_platform_interface`]|-|2.1.2|2.1.2|
@@ -147,13 +147,13 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`sqflite`]|-|2.0.3+1|2.0.3+1|
 |[`sqflite_common`]|-|2.2.1+1|2.2.1+1|
 |[`string_scanner`]|-|1.1.1|1.1.1|
-|[`synchronized`]|-|3.0.0+2|3.0.0+2|
+|[`synchronized`]|-|3.0.0+3|3.0.0+3|
 |[`term_glyph`]|-|1.2.1|1.2.1|
 |[`typed_data`]|-|1.3.1|1.3.1|
 |[`uuid`]|-|3.0.6|3.0.6|
-|[`vector_math`]|-|2.1.2|2.1.2|
-|[`win32`]|-|2.7.0|2.7.0|
-|[`xdg_directories`]|-|0.2.0+1|0.2.0+1|
+|[`vector_math`]|-|2.1.2|2.1.3|
+|[`win32`]|-|3.0.0|3.0.0|
+|[`xdg_directories`]|-|0.2.0+2|0.2.0+2|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
