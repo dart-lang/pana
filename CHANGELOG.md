@@ -1,6 +1,7 @@
 ## 0.21.17
 
 - Verify `funding` URLs and store the working ones in `AnalysisResult.fundingUrls`.
+- Increase screenshot size limit to 4 MB and allow up to 10 screenshots.
 
 ## 0.21.16
 

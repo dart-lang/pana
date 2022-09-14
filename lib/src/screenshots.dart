@@ -10,9 +10,9 @@ import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
-final maxFileSizeInBytes = 2097152; // 2MB
+final maxFileSizeInBytes = 4194304; // 4MB
 final maxFileSizeInMegaBytes = maxFileSizeInBytes / (1024 * 1024);
-final maxNumberOfScreenshots = 5;
+final maxNumberOfScreenshots = 10;
 
 /// [ScreenshotResult] holds either a [ProcessedScreenshot] or a list of
 /// problems describing what went wrong when trying to generate thumbnails and
