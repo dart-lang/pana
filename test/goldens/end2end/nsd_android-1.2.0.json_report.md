@@ -89,7 +89,7 @@ Because:
 |[`material_color_utilities`]|-|0.1.4|0.2.0|
 |[`meta`]|-|1.7.0|1.8.0|
 |[`sky_engine`]|-|0.0.99|0.0.99|
-|[`vector_math`]|-|2.1.2|2.1.3|
+|[`vector_math`]|-|2.1.2|2.1.2|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
