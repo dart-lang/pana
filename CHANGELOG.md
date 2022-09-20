@@ -1,3 +1,7 @@
+## 0.21.18
+
+- Upgraded `package:analyzer` dependency.
+
 ## 0.21.17
 
 - Verify `funding` URLs and store the working ones in `AnalysisResult.fundingUrls`.
