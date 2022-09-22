@@ -22,14 +22,21 @@ part 'model.g.dart';
 class ProcessedScreenshot {
   final String originalImage; // <imagePath>
   final String webpImage; // gen/<imagePath>.webp
-  final String webpThumbnail; // gen/100x100/<imagePath>.webp
-  final String pngThumbnail; // gen/100x100/<imagePath>.png
+  final String webp100Thumbnail; // gen/100x100/<imagePath>.webp
+  final String png100Thumbnail; // gen/100x100/<imagePath>.png
+  final String webp190Thumbnail; // gen/190x190/<imagePath>.webp
+  final String png190Thumbnail; // gen/190x190/<imagePath>.png
   final String description;
 
-  ProcessedScreenshot(this.originalImage, this.description,
-      {required this.webpImage,
-      required this.webpThumbnail,
-      required this.pngThumbnail});
+  ProcessedScreenshot(
+    this.originalImage,
+    this.description, {
+    required this.webpImage,
+    required this.webp100Thumbnail,
+    required this.png100Thumbnail,
+    required this.webp190Thumbnail,
+    required this.png190Thumbnail,
+  });
 
   factory ProcessedScreenshot.fromJson(Map<String, dynamic> json) =>
       _$ProcessedScreenshotFromJson(json);
