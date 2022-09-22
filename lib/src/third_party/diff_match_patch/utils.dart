@@ -440,7 +440,7 @@ void diffCleanupSemanticLossless(List<Diff> diffs) {
   /// [one] the first string.
   /// [two] the second string.
   /// Returns the score.
-  int _diffCleanupSemanticScore(String one, String two) {
+  int diffCleanupSemanticScore(String one, String two) {
     if (one.isEmpty || two.isEmpty) {
       // Edges are the best.
       return 6;
@@ -504,8 +504,8 @@ void diffCleanupSemanticLossless(List<Diff> diffs) {
       var bestEquality1 = equality1;
       var bestEdit = edit;
       var bestEquality2 = equality2;
-      var bestScore = _diffCleanupSemanticScore(equality1, edit) +
-          _diffCleanupSemanticScore(edit, equality2);
+      var bestScore = diffCleanupSemanticScore(equality1, edit) +
+          diffCleanupSemanticScore(edit, equality2);
 
       while (
           edit.isNotEmpty && equality2.isNotEmpty && edit[0] == equality2[0]) {
@@ -513,8 +513,8 @@ void diffCleanupSemanticLossless(List<Diff> diffs) {
         edit = edit.substring(1) + equality2[0];
         equality2 = equality2.substring(1);
 
-        final score = _diffCleanupSemanticScore(equality1, edit) +
-            _diffCleanupSemanticScore(edit, equality2);
+        final score = diffCleanupSemanticScore(equality1, edit) +
+            diffCleanupSemanticScore(edit, equality2);
 
         // The >= encourages trailing rather than leading whitespace on edits.
         if (score >= bestScore) {
