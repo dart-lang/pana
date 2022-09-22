@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io' hide BytesBuilder;
-import 'dart:typed_data' show BytesBuilder;
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';

@@ -1,4 +1,4 @@
-## 20/20 Follow Dart file conventions
+## 30/30 Follow Dart file conventions
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
@@ -8,6 +8,10 @@
 
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
+
+### [*] 10/10 points: Use an OSI-approved license
+
+Detected license: `BSD-3-Clause`.
 
 ## 10/10 Provide documentation
 
@@ -36,21 +40,20 @@
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`http_parser`]|`^4.0.0`|4.0.0|4.0.0|
-|[`meta`]|`^1.3.0`|1.7.0|1.7.0|
-|[`path`]|`^1.8.0`|1.8.1|1.8.1|
+|[`http_parser`]|`^4.0.0`|4.0.1|4.0.1|
+|[`meta`]|`^1.3.0`|1.8.0|1.8.0|
+|[`path`]|`^1.8.0`|1.8.2|1.8.2|
 |[`pedantic`]|`^1.10.0`|1.11.1|1.11.1|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`charcode`]|-|1.3.1|1.3.1|
-|[`collection`]|-|1.15.0|1.15.0|
-|[`source_span`]|-|1.8.2|1.8.2|
-|[`string_scanner`]|-|1.1.0|1.1.0|
-|[`term_glyph`]|-|1.2.0|1.2.0|
-|[`typed_data`]|-|1.3.0|1.3.0|
+|[`collection`]|-|1.16.0|1.16.0|
+|[`source_span`]|-|1.9.1|1.9.1|
+|[`string_scanner`]|-|1.1.1|1.1.1|
+|[`term_glyph`]|-|1.2.1|1.2.1|
+|[`typed_data`]|-|1.3.1|1.3.1|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -59,7 +62,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`meta`]: https://pub.dev/packages/meta
 [`path`]: https://pub.dev/packages/path
 [`pedantic`]: https://pub.dev/packages/pedantic
-[`charcode`]: https://pub.dev/packages/charcode
 [`collection`]: https://pub.dev/packages/collection
 [`source_span`]: https://pub.dev/packages/source_span
 [`string_scanner`]: https://pub.dev/packages/string_scanner

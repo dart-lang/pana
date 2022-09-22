@@ -56,6 +56,9 @@ class Range {
     return (start >= other.start && start <= other.end) ||
         (end >= other.start && end <= other.end);
   }
+
+  @override
+  String toString() => 'Range($start-$end)';
 }
 
 /// Returns a list of [MatchRange] for [unknownLicense] that might be the best possible match for [knownLicense].

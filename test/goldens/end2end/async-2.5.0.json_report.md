@@ -1,4 +1,4 @@
-## 20/20 Follow Dart file conventions
+## 30/30 Follow Dart file conventions
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
@@ -8,6 +8,10 @@
 
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
+
+### [*] 10/10 points: Use an OSI-approved license
+
+Detected license: `BSD-3-Clause`.
 
 ## 0/10 Provide documentation
 
@@ -59,7 +63,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|`^1.15.0`|1.15.0|1.15.0|
+|[`collection`]|`^1.15.0`|1.16.0|1.16.0|
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 

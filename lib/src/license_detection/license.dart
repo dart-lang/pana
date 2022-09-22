@@ -4,6 +4,10 @@
 
 part of 'license_detector.dart';
 
+/// Regular expression to match the common pattern of `Copyright (c) yyyy[-yyyy] <name>.`
+final _copyrightRegExp =
+    RegExp(r'^copyright\s+(?:\(c\)|©)\s+\d{4}.{0,100}$', caseSensitive: false);
+
 @sealed
 class License {
   /// SPDX identifier of the license, is empty in case of unknown license.
@@ -21,9 +25,22 @@ class License {
   License._(this.content, this.tokens, this.tokenFrequency, this.identifier);
 
   factory License.parse({required String identifier, required String content}) {
-    final tokens = tokenize(content);
+    // Remove some known patterns from the licenses that are not needed during matching.
+    final lines = content.split('\n');
+
+    // Remove `<IDENTIFIER> License:` as the first line, found in ISC license
+    if (lines.isNotEmpty &&
+        lines.first.toLowerCase() == '${identifier.toLowerCase()} license:') {
+      lines.removeAt(0);
+    }
+
+    // Remove `Copyright (c) yyyy[-yyyy] <name>.` and similar patterns.
+    lines.removeWhere((line) => _copyrightRegExp.matchAsPrefix(line) != null);
+
+    final strippedContent = lines.join('\n');
+    final tokens = tokenize(strippedContent);
     final table = generateFrequencyTable(tokens);
-    return License._(content, tokens, table, identifier);
+    return License._(strippedContent, tokens, table, identifier);
   }
 }
 
@@ -195,7 +212,7 @@ class LicenseMatch {
 /// [Token.value] is mapped to the number of occurrences in the license text.
 @visibleForTesting
 Map<String, int> generateFrequencyTable(List<Token> tokens) {
-  var table = <String, int>{};
+  final table = <String, int>{};
 
   for (var token in tokens) {
     table[token.value] = (table[token.value] ?? 0) + 1;
@@ -244,22 +261,15 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
 /// [1]: https://github.com/spdx/license-list-XML/blob/master/DOCS/license-fields.md#explanation-of-spdx-license-list-fields
 @visibleForTesting
 List<License> licensesFromFile(String path) {
-  var licenses = <License>[];
+  final licenses = <License>[];
   final file = File(path);
 
-  final rawContent = file.readAsBytesSync();
+  final content = file.readAsStringSync();
   final identifier = file.uri.pathSegments.last.split('.txt').first;
 
   if (_invalidIdentifier.hasMatch(identifier)) {
     throw ArgumentError(
         'Invalid file name: expected: "path/to/file/<spdx-identifier>.txt" actual: $path');
-  }
-  var content = '';
-
-  try {
-    content = utf8.decode(rawContent);
-  } on FormatException {
-    throw ArgumentError('Invalid utf-8 encoding: $path');
   }
 
   licenses.add(License.parse(identifier: identifier, content: content));
@@ -309,7 +319,7 @@ List<NGram> generateChecksums(List<Token> tokens, int granularity) {
 /// checksum value.
 @visibleForTesting
 Map<int, List<NGram>> generateChecksumMap(List<NGram> nGrams) {
-  var table = <int, List<NGram>>{};
+  final table = <int, List<NGram>>{};
   for (var gram in nGrams) {
     table.putIfAbsent(gram.checksum, () => []).add(gram);
   }

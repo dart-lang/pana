@@ -42,10 +42,9 @@ Future<List<License>> detectLicenseInFile(File file,
 ///
 /// [1]: https://spdx.org/licenses/
 Future<List<License>> detectLicenseInContent(
-  String originalContent, {
+  String content, {
   required String relativePath,
 }) async {
-  var content = originalContent;
   final licenseResult = await detectLicense(content, 0.95);
 
   if (licenseResult.unclaimedTokenPercentage > 0.5 ||

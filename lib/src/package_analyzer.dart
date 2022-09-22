@@ -6,12 +6,12 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
 import 'internal_model.dart';
-import 'license.dart';
 import 'logging.dart';
 import 'maintenance.dart';
 import 'messages.dart';
@@ -21,7 +21,6 @@ import 'pubspec.dart';
 import 'report/create_report.dart';
 import 'sdk_env.dart';
 import 'tag/tagger.dart';
-import 'third_party/spdx/licenses.dart';
 import 'utils.dart';
 
 class InspectOptions {
@@ -190,21 +189,8 @@ class PackageAnalyzer {
       }
     }
 
-    final licenses = await detectLicenseInDir(pkgDir);
-    if (licenses.isNotEmpty) {
-      tags.addAll(licenses
-          .map((l) => 'license:${l.spdxIdentifier.toLowerCase()}')
-          .toSet());
-      if (licenses.every((l) => fsfLibreLicenses.contains(l.spdxIdentifier))) {
-        tags.add('license:fsf-libre');
-      }
-      if (licenses
-          .every((l) => osiApprovedLicenses.contains(l.spdxIdentifier))) {
-        tags.add('license:osi-approved');
-      }
-    } else {
-      tags.add('license:unknown');
-    }
+    final licenses = await context.licenses;
+    tags.addAll((await context.licenceTags).tags);
 
     List<ProcessedScreenshot>? processedScreenshots = [];
     final screenshotResults = await context.screenshots;
@@ -291,11 +277,14 @@ Future<void> _copy(String from, String to) async {
 Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
   final pubspecUrls = await context.pubspecUrlsWithIssues;
   final repository = (await context.repository)?.repository;
+  final fundingUrls =
+      pubspecUrls.funding.map((e) => e.verifiedUrl).whereNotNull().toList();
   return AnalysisResult(
     homepageUrl: pubspecUrls.homepage.verifiedUrl,
     repositoryUrl: pubspecUrls.repository.verifiedUrl,
     issueTrackerUrl: pubspecUrls.issueTracker.verifiedUrl,
     documentationUrl: pubspecUrls.documentation.verifiedUrl,
+    fundingUrls: fundingUrls.isEmpty ? null : fundingUrls,
     repository: repository,
   );
 }

@@ -354,6 +354,7 @@ class AnalysisResult {
   final String? repositoryUrl;
   final String? issueTrackerUrl;
   final String? documentationUrl;
+  final List<String>? fundingUrls;
   final Repository? repository;
 
   AnalysisResult({
@@ -361,6 +362,7 @@ class AnalysisResult {
     this.repositoryUrl,
     this.issueTrackerUrl,
     this.documentationUrl,
+    this.fundingUrls,
     this.repository,
   });
 

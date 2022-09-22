@@ -61,10 +61,10 @@
       {
         "id": "convention",
         "title": "Follow Dart file conventions",
-        "grantedPoints": 20,
-        "maxPoints": 20,
+        "grantedPoints": 30,
+        "maxPoints": 30,
         "status": "passed",
-        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `Apache-2.0`."
       },
       {
         "id": "documentation",
@@ -96,7 +96,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`archive`]|`^3.0.0`|3.1.11|3.1.11|\n|[`matcher`]|`^0.12.10`|0.12.11|0.12.11|\n|[`path`]|`^1.8.0`|1.8.1|1.8.1|\n|[`stack_trace`]|`^1.10.0`|1.10.0|1.10.0|\n|[`sync_http`]|`^0.3.0`|0.3.0|0.3.0|\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|-|1.15.0|1.15.0|\n|[`crypto`]|-|3.0.1|3.0.1|\n|[`typed_data`]|-|1.3.0|1.3.0|\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`archive`]: https://pub.dev/packages/archive\n[`matcher`]: https://pub.dev/packages/matcher\n[`path`]: https://pub.dev/packages/path\n[`stack_trace`]: https://pub.dev/packages/stack_trace\n[`sync_http`]: https://pub.dev/packages/sync_http\n[`collection`]: https://pub.dev/packages/collection\n[`crypto`]: https://pub.dev/packages/crypto\n[`typed_data`]: https://pub.dev/packages/typed_data\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`archive`]|`^3.0.0`|3.3.1|3.3.1|\n|[`matcher`]|`^0.12.10`|0.12.12|0.12.12|\n|[`path`]|`^1.8.0`|1.8.2|1.8.2|\n|[`stack_trace`]|`^1.10.0`|1.10.0|1.10.0|\n|[`sync_http`]|`^0.3.0`|0.3.1|0.3.1|\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|-|1.16.0|1.16.0|\n|[`crypto`]|-|3.0.2|3.0.2|\n|[`typed_data`]|-|1.3.1|1.3.1|\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`archive`]: https://pub.dev/packages/archive\n[`matcher`]: https://pub.dev/packages/matcher\n[`path`]: https://pub.dev/packages/path\n[`stack_trace`]: https://pub.dev/packages/stack_trace\n[`sync_http`]: https://pub.dev/packages/sync_http\n[`collection`]: https://pub.dev/packages/collection\n[`crypto`]: https://pub.dev/packages/crypto\n[`typed_data`]: https://pub.dev/packages/typed_data\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
         "id": "null-safety",

@@ -43,9 +43,19 @@
     }
   ],
   "allDependencies": [
-    "flutter"
+    "characters",
+    "collection",
+    "flutter",
+    "material_color_utilities",
+    "meta",
+    "sky_engine",
+    "vector_math"
   ],
   "tags": [
+    "sdk:flutter",
+    "platform:android",
+    "is:plugin",
+    "is:null-safe",
     "license:mit",
     "license:fsf-libre",
     "license:osi-approved"
@@ -55,10 +65,10 @@
       {
         "id": "convention",
         "title": "Follow Dart file conventions",
-        "grantedPoints": 20,
-        "maxPoints": 20,
+        "grantedPoints": 30,
+        "maxPoints": 30,
         "status": "passed",
-        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n"
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `MIT`."
       },
       {
         "id": "documentation",
@@ -71,10 +81,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 0,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "failed",
-        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `flutter pub get` for more information.\n</details>"
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, **Android**, Web, Windows, MacOS, Linux)\n\n* ✓ Android\n\nThese platforms are not supported:\n\n<details>\n<summary>\nPackage does not support platform `iOS`.\n</summary>\n\nBecause:\n* `nsd_android` that declares support for platforms: `Android`.\n</details>\n<details>\n<summary>\nPackage does not support platform `Windows`.\n</summary>\n\nBecause:\n* `nsd_android` that declares support for platforms: `Android`.\n</details>\n<details>\n<summary>\nPackage does not support platform `Linux`.\n</summary>\n\nBecause:\n* `nsd_android` that declares support for platforms: `Android`.\n</details>\n<details>\n<summary>\nPackage does not support platform `macOS`.\n</summary>\n\nBecause:\n* `nsd_android` that declares support for platforms: `Android`.\n</details>\n<details>\n<summary>\nPackage does not support platform `Web`.\n</summary>\n\nBecause:\n* `nsd_android` that declares support for platforms: `Android`.\n</details>"
       },
       {
         "id": "analysis",
@@ -87,18 +97,18 @@
       {
         "id": "dependency",
         "title": "Support up-to-date dependencies",
-        "grantedPoints": 10,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `flutter pub outdated`: `flutter pub get` failed:\n\n```\nOUT:\nRunning \"flutter pub get\" in ....\nERR:\nBecause every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because nsd_android depends on flutter from sdk, version solving failed.\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "status": "passed",
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`flutter`]|`flutter`|0.0.0|0.0.0|\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`characters`]|-|1.2.1|1.2.1|\n|[`collection`]|-|1.16.0|1.16.0|\n|[`material_color_utilities`]|-|0.1.5|0.2.0|\n|[`meta`]|-|1.8.0|1.8.0|\n|[`sky_engine`]|-|0.0.99|0.0.99|\n|[`vector_math`]|-|2.1.2|2.1.2|\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`flutter`]: https://pub.dev/packages/flutter\n[`characters`]: https://pub.dev/packages/characters\n[`collection`]: https://pub.dev/packages/collection\n[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities\n[`meta`]: https://pub.dev/packages/meta\n[`sky_engine`]: https://pub.dev/packages/sky_engine\n[`vector_math`]: https://pub.dev/packages/vector_math\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
         "id": "null-safety",
         "title": "Support sound null safety",
-        "grantedPoints": 0,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "failed",
-        "summary": "### [x] 0/20 points: Unable to detect null safety\n\n<details>\n<summary>\nPackage resolution failed. Could not determine null safety.\n</summary>\n\nRun `dart pub get` for more information.\n</details>"
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Package and dependencies are fully migrated to null safety!\n"
       }
     ]
   },
@@ -114,6 +124,5 @@
       "path": "nsd_android"
     }
   },
-  "urlProblems": [],
-  "errorMessage": "Running `flutter pub outdated` failed with the following output:\n\n```\nBecause every version of flutter from sdk depends on vector_math 2.1.2 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because nsd_android depends on flutter from sdk, version solving failed.\n```"
+  "urlProblems": []
 }

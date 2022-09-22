@@ -189,6 +189,9 @@ AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
       repositoryUrl: json['repositoryUrl'] as String?,
       issueTrackerUrl: json['issueTrackerUrl'] as String?,
       documentationUrl: json['documentationUrl'] as String?,
+      fundingUrls: (json['fundingUrls'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       repository: json['repository'] == null
           ? null
           : Repository.fromJson(json['repository'] as Map<String, dynamic>),
@@ -207,6 +210,7 @@ Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
   writeNotNull('repositoryUrl', instance.repositoryUrl);
   writeNotNull('issueTrackerUrl', instance.issueTrackerUrl);
   writeNotNull('documentationUrl', instance.documentationUrl);
+  writeNotNull('fundingUrls', instance.fundingUrls);
   writeNotNull('repository', instance.repository?.toJson());
   return val;
 }
