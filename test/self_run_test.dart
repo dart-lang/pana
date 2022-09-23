@@ -14,10 +14,12 @@ void main() {
     expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
 
     final output = pr.stdout.asString;
+    print(output);
     final snippets = [
-      'The package description is too short.',
+      '## ✓ Follow Dart file conventions (30 / 30)',
       '## ✓ Platform support (20 / 20)\n',
       '[*] 10/10 points: All of the package dependencies are supported in the latest version',
+      '### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs',
       'Support sound null safety (20 / 20)',
     ];
     for (final snippet in snippets) {
