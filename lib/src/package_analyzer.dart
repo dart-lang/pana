@@ -202,9 +202,13 @@ class PackageAnalyzer {
         if (storeResource != null) {
           await storeResource(processedScreenshot.webpImage, r.webpImageBytes!);
           await storeResource(
-              processedScreenshot.webpThumbnail, r.webpThumbnailBytes!);
+              processedScreenshot.webp100Thumbnail, r.webp100ThumbnailBytes!);
           await storeResource(
-              processedScreenshot.pngThumbnail, r.pngThumbnailBytes!);
+              processedScreenshot.png100Thumbnail, r.png100ThumbnailBytes!);
+          await storeResource(
+              processedScreenshot.webp190Thumbnail, r.webp190ThumbnailBytes!);
+          await storeResource(
+              processedScreenshot.png190Thumbnail, r.png190ThumbnailBytes!);
         }
       }
     }

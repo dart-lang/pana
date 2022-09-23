@@ -20,30 +20,43 @@ final maxNumberOfScreenshots = 10;
 class ScreenshotResult {
   ProcessedScreenshot? processedScreenshot;
   Uint8List? webpImageBytes;
-  Uint8List? webpThumbnailBytes;
-  Uint8List? pngThumbnailBytes;
+  Uint8List? webp100ThumbnailBytes;
+  Uint8List? png100ThumbnailBytes;
+  Uint8List? webp190ThumbnailBytes;
+  Uint8List? png190ThumbnailBytes;
   List<String> problems;
 
   ScreenshotResult._(
     this.processedScreenshot,
     this.webpImageBytes,
-    this.webpThumbnailBytes,
-    this.pngThumbnailBytes,
+    this.webp100ThumbnailBytes,
+    this.png100ThumbnailBytes,
+    this.webp190ThumbnailBytes,
+    this.png190ThumbnailBytes,
     this.problems,
   );
 
   factory ScreenshotResult.success(
     ProcessedScreenshot processedScreenshot,
     Uint8List webpImageBytes,
-    Uint8List webpThumbnailBytes,
-    Uint8List pngThumbnailBytes,
+    Uint8List webp100ThumbnailBytes,
+    Uint8List png100ThumbnailBytes,
+    Uint8List webp190ThumbnailBytes,
+    Uint8List png190ThumbnailBytes,
   ) {
-    return ScreenshotResult._(processedScreenshot, webpImageBytes,
-        webpThumbnailBytes, pngThumbnailBytes, []);
+    return ScreenshotResult._(
+      processedScreenshot,
+      webpImageBytes,
+      webp100ThumbnailBytes,
+      png100ThumbnailBytes,
+      webp190ThumbnailBytes,
+      png190ThumbnailBytes,
+      [],
+    );
   }
 
   factory ScreenshotResult.failed(List<String> problems) {
-    return ScreenshotResult._(null, null, null, null, problems);
+    return ScreenshotResult._(null, null, null, null, null, null, problems);
   }
 }
 
@@ -118,14 +131,18 @@ Future<ScreenshotResult> _processScreenshot(
   final basename = path.basenameWithoutExtension(e.path);
   final webpName = '$basename.webp';
   final genDir = 'gen';
-  final thumbnailDir = path.join(genDir, '100x100');
+  final thumbnail100Dir = path.join(genDir, '100x100');
+  final thumbnail190Dir = path.join(genDir, '190x190');
   final webpPath = path.join(genDir, webpName);
-  final webpThumbnailPath = path.join(thumbnailDir, webpName);
+  final webp100ThumbnailPath = path.join(thumbnail100Dir, webpName);
+  final webp190ThumbnailPath = path.join(thumbnail190Dir, webpName);
   final pngName = '$basename.png';
-  final pngThumbnailPath = path.join(thumbnailDir, pngName);
+  final png100ThumbnailPath = path.join(thumbnail100Dir, pngName);
+  final png190ThumbnailPath = path.join(thumbnail190Dir, pngName);
   final originalPath = path.join(pkgDir, e.path);
 
-  Directory(path.join(tempDir, thumbnailDir)).createSync(recursive: true);
+  Directory(path.join(tempDir, thumbnail100Dir)).createSync(recursive: true);
+  Directory(path.join(tempDir, thumbnail190Dir)).createSync(recursive: true);
 
   final webpScreenshotProblems =
       await _generateWebpScreenshot(originalPath, path.join(tempDir, webpPath));
@@ -136,8 +153,10 @@ Future<ScreenshotResult> _processScreenshot(
   final thumbnailProblems = await _generateThumbnails(
     originalPath,
     path.join(tempDir, webpPath),
-    path.join(tempDir, webpThumbnailPath),
-    path.join(tempDir, pngThumbnailPath),
+    path.join(tempDir, webp100ThumbnailPath),
+    path.join(tempDir, png100ThumbnailPath),
+    path.join(tempDir, webp190ThumbnailPath),
+    path.join(tempDir, png190ThumbnailPath),
     tempDir,
   );
   if (thumbnailProblems.isNotEmpty) {
@@ -147,11 +166,15 @@ Future<ScreenshotResult> _processScreenshot(
   return ScreenshotResult.success(
     ProcessedScreenshot(e.path, e.description,
         webpImage: webpPath,
-        webpThumbnail: webpThumbnailPath,
-        pngThumbnail: pngThumbnailPath),
+        webp100Thumbnail: webp100ThumbnailPath,
+        png100Thumbnail: png100ThumbnailPath,
+        webp190Thumbnail: webp190ThumbnailPath,
+        png190Thumbnail: png190ThumbnailPath),
     File(path.join(tempDir, webpPath)).readAsBytesSync(),
-    File(path.join(tempDir, webpThumbnailPath)).readAsBytesSync(),
-    File(path.join(tempDir, pngThumbnailPath)).readAsBytesSync(),
+    File(path.join(tempDir, webp100ThumbnailPath)).readAsBytesSync(),
+    File(path.join(tempDir, png100ThumbnailPath)).readAsBytesSync(),
+    File(path.join(tempDir, webp190ThumbnailPath)).readAsBytesSync(),
+    File(path.join(tempDir, png190ThumbnailPath)).readAsBytesSync(),
   );
 }
 
@@ -239,9 +262,9 @@ Future<List<String>> _convertGifToWebp(
   ];
 }
 
-/// Generates a PNG and a WebP thumbnail from the WebP screenshot found at
-/// [webpPath] and writes them to [pngThumbnailPath] and [webpThumbnailPath]
-/// respectively.
+/// Generates PNG and a WebP thumbnails from the WebP screenshot found at
+/// [webpPath] and writes them to [png100ThumbnailPath], [webp100ThumbnailPath]
+/// [png190ThumbnailPath], and [webp190ThumbnailPath] respectively.
 ///
 /// Returns a list of problems if generating the thumbnails did not succeed.
 /// On success, an empty list is returned.
@@ -255,8 +278,14 @@ Future<List<String>> _convertGifToWebp(
 ///
 /// Thumbnail generation will fail if any of the mentioned tools are not
 /// available on the command line and an error message will be written to stderr.
-Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
-    String webpThumbnailPath, String pngThumbnailPath, String tempDir) async {
+Future<List<String>> _generateThumbnails(
+    String originalPath,
+    String webpPath,
+    String webp100ThumbnailPath,
+    String png100ThumbnailPath,
+    String webp190ThumbnailPath,
+    String png190ThumbnailPath,
+    String tempDir) async {
   late String staticWebpPath;
   final infoResult = await _checkedRunProc(['webpinfo', webpPath]);
   if (infoResult.exitCode != 0) {
@@ -292,37 +321,69 @@ Future<List<String>> _generateThumbnails(String originalPath, String webpPath,
   final width = int.parse(widthString.split(':').last.trim());
   final height = int.parse(heightString.split(':').last.trim());
 
-  final int widthArgument;
-  final int heightArgument;
-  if (width > height) {
-    widthArgument = 100;
-    heightArgument = 0;
-  } else {
-    widthArgument = 0;
-    heightArgument = 100;
+  Future<List<String>> resizeWebp(
+    String originalPath,
+    int originalWidth,
+    int originalHeight,
+    int outuputSize,
+    String outputPath,
+  ) async {
+    final int widthArgument;
+    final int heightArgument;
+
+    if (originalWidth > originalHeight) {
+      widthArgument = outuputSize;
+      heightArgument = 0;
+    } else {
+      widthArgument = 0;
+      heightArgument = outuputSize;
+    }
+
+    var resizeResult = await _checkedRunProc([
+      'cwebp',
+      '-resize',
+      '$widthArgument',
+      '$heightArgument',
+      originalPath,
+      '-o',
+      outputPath
+    ]);
+
+    if (resizeResult.exitCode != 0) {
+      return [
+        '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$outputPath"` failed with exitcode ${resizeResult.exitCode}'
+      ];
+    }
+    return [];
   }
-  final resizeResult = await _checkedRunProc([
-    'cwebp',
-    '-resize',
-    '$widthArgument',
-    '$heightArgument',
-    staticWebpPath,
-    '-o',
-    webpThumbnailPath
-  ]);
-  if (resizeResult.exitCode != 0) {
+
+  final resizeWebp100Result = await resizeWebp(
+      staticWebpPath, width, height, 100, webp100ThumbnailPath);
+  if (resizeWebp100Result.isNotEmpty) {
+    return resizeWebp100Result;
+  }
+  final resizeWebp190Result = await resizeWebp(
+      staticWebpPath, width, height, 190, webp190ThumbnailPath);
+  if (resizeWebp190Result.isNotEmpty) {
+    return resizeWebp190Result;
+  }
+
+  final png100Result = await _checkedRunProc(
+      ['dwebp', webp100ThumbnailPath, '-o', png100ThumbnailPath]);
+  if (png100Result.exitCode != 0) {
     return [
-      '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$webpThumbnailPath"` failed with exitcode ${resizeResult.exitCode}'
+      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp100ThumbnailPath" -o "$png100ThumbnailPath"` failed with _exit code_ `${png100Result.exitCode}`.'
     ];
   }
 
-  final pngResult = await _checkedRunProc(
-      ['dwebp', webpThumbnailPath, '-o', pngThumbnailPath]);
-  if (pngResult.exitCode != 0) {
+  final png190Result = await _checkedRunProc(
+      ['dwebp', webp190ThumbnailPath, '-o', png190ThumbnailPath]);
+  if (png190Result.exitCode != 0) {
     return [
-      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webpThumbnailPath" -o "$pngThumbnailPath"` failed with _exit code_ `${pngResult.exitCode}`.'
+      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp190ThumbnailPath" -o "$png190ThumbnailPath"` failed with _exit code_ `${png100Result.exitCode}`.'
     ];
   }
+
   return [];
 }
 

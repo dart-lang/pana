@@ -11,8 +11,10 @@ ProcessedScreenshot _$ProcessedScreenshotFromJson(Map<String, dynamic> json) =>
       json['originalImage'] as String,
       json['description'] as String,
       webpImage: json['webpImage'] as String,
-      webpThumbnail: json['webpThumbnail'] as String,
-      pngThumbnail: json['pngThumbnail'] as String,
+      webp100Thumbnail: json['webp100Thumbnail'] as String,
+      png100Thumbnail: json['png100Thumbnail'] as String,
+      webp190Thumbnail: json['webp190Thumbnail'] as String,
+      png190Thumbnail: json['png190Thumbnail'] as String,
     );
 
 Map<String, dynamic> _$ProcessedScreenshotToJson(
@@ -20,8 +22,10 @@ Map<String, dynamic> _$ProcessedScreenshotToJson(
     <String, dynamic>{
       'originalImage': instance.originalImage,
       'webpImage': instance.webpImage,
-      'webpThumbnail': instance.webpThumbnail,
-      'pngThumbnail': instance.pngThumbnail,
+      'webp100Thumbnail': instance.webp100Thumbnail,
+      'png100Thumbnail': instance.png100Thumbnail,
+      'webp190Thumbnail': instance.webp190Thumbnail,
+      'png190Thumbnail': instance.png190Thumbnail,
       'description': instance.description,
     };
 
