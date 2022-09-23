@@ -319,68 +319,66 @@ Future<List<String>> _generateThumbnails(
   final width = int.parse(widthString.split(':').last.trim());
   final height = int.parse(heightString.split(':').last.trim());
 
-  final int width100Argument;
-  final int height100Argument;
-  final int width190Argument;
-  final int height190Argument;
+  Future<List<String>> resizeWebp(
+    String originalPath,
+    int originalWidth,
+    int originalHeight,
+    int outuputSize,
+    String outputPath,
+  ) async {
+    final int widthArgument;
+    final int heightArgument;
 
-  if (width > height) {
-    width100Argument = 100;
-    width190Argument = 190;
-    height100Argument = 0;
-    height190Argument = 0;
-  } else {
-    width100Argument = 0;
-    width190Argument = 0;
-    height100Argument = 100;
-    height190Argument = 190;
+    if (originalWidth > originalHeight) {
+      widthArgument = outuputSize;
+      heightArgument = 0;
+    } else {
+      widthArgument = 0;
+      heightArgument = outuputSize;
+    }
+
+    var resizeResult = await _checkedRunProc([
+      'cwebp',
+      '-resize',
+      '$widthArgument',
+      '$heightArgument',
+      originalPath,
+      '-o',
+      outputPath
+    ]);
+
+    if (resizeResult.exitCode != 0) {
+      return [
+        '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$outputPath"` failed with exitcode ${resizeResult.exitCode}'
+      ];
+    }
+    return [];
   }
 
-  var resizeResult = await _checkedRunProc([
-    'cwebp',
-    '-resize',
-    '$width100Argument',
-    '$height100Argument',
-    staticWebpPath,
-    '-o',
-    webp100ThumbnailPath
-  ]);
-
-  if (resizeResult.exitCode != 0) {
-    return [
-      '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $width100Argument $height100Argument "$staticWebpPath" -o "$webp100ThumbnailPath"` failed with exitcode ${resizeResult.exitCode}'
-    ];
+  final resizeWebp100Result = await resizeWebp(
+      staticWebpPath, width, height, 100, webp100ThumbnailPath);
+  if (resizeWebp100Result.isNotEmpty) {
+    return resizeWebp100Result;
+  }
+  final resizeWebp190Result = await resizeWebp(
+      staticWebpPath, width, height, 190, webp190ThumbnailPath);
+  if (resizeWebp190Result.isNotEmpty) {
+    return resizeWebp190Result;
   }
 
-  final resizeResult1 = await _checkedRunProc([
-    'cwebp',
-    '-resize',
-    '$width190Argument',
-    '$height190Argument',
-    staticWebpPath,
-    '-o',
-    webp190ThumbnailPath
-  ]);
-
-  if (resizeResult1.exitCode != 0) {
-    return [
-      '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $width190Argument $height190Argument "$staticWebpPath" -o "$webp190ThumbnailPath"` failed with exitcode ${resizeResult1.exitCode}'
-    ];
-  }
-
-  final pngResult = await _checkedRunProc(
+  final png100Result = await _checkedRunProc(
       ['dwebp', webp100ThumbnailPath, '-o', png100ThumbnailPath]);
-  if (pngResult.exitCode != 0) {
+  if (png100Result.exitCode != 0) {
     return [
-      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp100ThumbnailPath" -o "$png100ThumbnailPath"` failed with _exit code_ `${pngResult.exitCode}`.'
+      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp100ThumbnailPath" -o "$png100ThumbnailPath"` failed with _exit code_ `${png100Result.exitCode}`.'
     ];
   }
 
-  final pngResult1 = await _checkedRunProc(
+  final png190Result = await _checkedRunProc(
       ['dwebp', webp190ThumbnailPath, '-o', png190ThumbnailPath]);
-  if (pngResult1.exitCode != 0) {
+  if (png190Result.exitCode != 0) {
     return [
-      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp190ThumbnailPath" -o "$png190ThumbnailPath"` failed with _exit code_ `${pngResult.exitCode}`.'
+      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp190ThumbnailPath" -o "$png190ThumbnailPath"` failed with _exit code_ `${png100Result.exitCode}`.'
     ];
   }
 
