@@ -1,6 +1,7 @@
 ## 0.21.18
 
 - Upgraded `package:analyzer` dependency.
+- Generate 190x190 thumbnails of screenshots.
 
 ## 0.21.17
 
