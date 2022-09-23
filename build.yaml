@@ -5,3 +5,8 @@ targets:
         options:
           explicit_to_json: true
           include_if_null: false
+      # TODO: removed after LicenseFile.url gets removed
+      source_gen:combining_builder:
+        options:
+          ignore_for_file:
+          - deprecated_member_use_from_same_package
