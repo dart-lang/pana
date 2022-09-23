@@ -45,12 +45,14 @@ class ScreenshotResult {
     Uint8List png190ThumbnailBytes,
   ) {
     return ScreenshotResult._(
-        processedScreenshot,
-        webpImageBytes,
-        webp100ThumbnailBytes,
-        png100ThumbnailBytes,
-        webp190ThumbnailBytes,
-        png190ThumbnailBytes, []);
+      processedScreenshot,
+      webpImageBytes,
+      webp100ThumbnailBytes,
+      png100ThumbnailBytes,
+      webp190ThumbnailBytes,
+      png190ThumbnailBytes,
+      [],
+    );
   }
 
   factory ScreenshotResult.failed(List<String> problems) {
