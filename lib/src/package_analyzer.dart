@@ -43,8 +43,7 @@ class InspectOptions {
     this.dartdocOutputDir,
     this.dartdocRetry = 0,
     this.dartdocTimeout,
-    @Deprecated('Do not use, will be removed.')
-    this.isInternal = false,
+    @Deprecated('Do not use, will be removed.') this.isInternal = false,
     this.lineLength,
     this.analysisOptionsYaml,
     this.checkRemoteRepository = false,
