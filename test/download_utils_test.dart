@@ -98,54 +98,26 @@ void main() {
     test('problem: invalid', () async {
       final status = await UrlChecker().checkStatus('htp://pub.dev/');
       expect(status.isInvalid, true);
-      expect(status.isInternal, false);
       expect(status.isSecure, false);
       expect(status.exists, false);
-      expect(status.getProblemCode(packageIsKnownInternal: false), 'invalid');
-      expect(status.getProblemCode(packageIsKnownInternal: true), 'invalid');
-    });
-
-    test('problem: internal', () async {
-      final status = await UrlChecker().checkStatus('https://pub.dev/');
-      expect(status.isInvalid, false);
-      expect(status.isInternal, true);
-      expect(status.isSecure, true);
-      expect(status.exists, true);
-      expect(status.getProblemCode(packageIsKnownInternal: false), 'internal');
-      expect(status.getProblemCode(packageIsKnownInternal: true), isNull);
-    });
-
-    test('false positive: internal #1', () async {
-      final status =
-          await UrlChecker().hasExternalHostname(Uri.parse('https://pubxdev/'));
-      expect(status, isTrue);
-    });
-
-    test('false positive: internal #2', () async {
-      final status = await UrlChecker()
-          .hasExternalHostname(Uri.parse('https://onepub.dev/'));
-      expect(status, isTrue);
+      expect(status.getProblemCode(), 'invalid');
     });
 
     test('problem: insecure', () async {
       final status = await UrlChecker().checkStatus('http://pub.dev/');
       expect(status.isInvalid, false);
-      expect(status.isInternal, true);
       expect(status.isSecure, false);
       expect(status.exists, true);
-      expect(status.getProblemCode(packageIsKnownInternal: false), 'internal');
-      expect(status.getProblemCode(packageIsKnownInternal: true), 'insecure');
+      expect(status.getProblemCode(), 'insecure');
     });
 
     test('problem: missing', () async {
       final status = await UrlChecker()
           .checkStatus('https://github.com/dart-lang/pub-dev/missing-url');
       expect(status.isInvalid, false);
-      expect(status.isInternal, false);
       expect(status.isSecure, true);
       expect(status.exists, false);
-      expect(status.getProblemCode(packageIsKnownInternal: false), 'missing');
-      expect(status.getProblemCode(packageIsKnownInternal: true), 'missing');
+      expect(status.getProblemCode(), 'missing');
     });
   });
 }

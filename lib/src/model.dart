@@ -482,7 +482,6 @@ class UrlProblem {
 /// Possible values for [UrlProblem.problem].
 abstract class UrlProblemCodes {
   static const invalid = 'invalid';
-  static const internal = 'internal';
   static const insecure = 'insecure';
   static const missing = 'missing';
 }

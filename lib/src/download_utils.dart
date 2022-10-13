@@ -69,9 +69,6 @@ class UrlStatus {
   /// Whether the URL can be parsed and is valid.
   final bool isInvalid;
 
-  /// Whether the URL points to an internal domain.
-  final bool isInternal;
-
   /// Whether the URL uses HTTPS.
   final bool isSecure;
 
@@ -80,26 +77,19 @@ class UrlStatus {
 
   UrlStatus({
     required this.isInvalid,
-    required this.isInternal,
     required this.isSecure,
     required this.exists,
   });
 
   UrlStatus.invalid()
       : isInvalid = true,
-        isInternal = false,
         isSecure = false,
         exists = false;
 
   /// Returns a brief problem code that can be displayed when linking to it.
   /// Returns `null` when URL has no problem.
-  String? getProblemCode({
-    required bool packageIsKnownInternal,
-  }) {
+  String? getProblemCode() {
     if (isInvalid) return UrlProblemCodes.invalid;
-    if (isInternal && !packageIsKnownInternal) {
-      return UrlProblemCodes.internal;
-    }
     if (!isSecure) return UrlProblemCodes.insecure;
     if (!exists) return UrlProblemCodes.missing;
     return null;
@@ -108,45 +98,6 @@ class UrlStatus {
 
 /// Checks if an URL is valid and accessible.
 class UrlChecker {
-  final _internalHosts = <Pattern>{};
-
-  UrlChecker() {
-    addInternalHosts([
-      'dart.dev',
-      'flutter.dev',
-      'flutter.io',
-      'pub.dev',
-      'dartlang.org',
-      'example.com',
-      'localhost',
-    ]);
-  }
-
-  /// Specify hosts internal to Dart. Non-internal packages
-  /// should not reference internal hosts.
-  ///
-  /// When a host is [String], we will expand the rule to include:
-  /// - exact hostname match (`^$host$`), and
-  /// - subdomain hostname match (`^.+\.$host$`).
-  void addInternalHosts(Iterable<Pattern> hosts) {
-    _internalHosts.addAll(hosts.expand((host) {
-      if (host is String) {
-        final escaped = RegExp.escape(host);
-        return [
-          RegExp('^$escaped\$'),
-          RegExp('^.+\\.$escaped\$'),
-        ];
-      } else {
-        return [host];
-      }
-    }));
-  }
-
-  /// Check the hostname against known patterns.
-  Future<bool> hasExternalHostname(Uri uri) async {
-    return _internalHosts.every((p) => p.matchAsPrefix(uri.host) == null);
-  }
-
   /// Returns `true` if the [uri] exists,
   /// `false` if getting the page encountered problems.
   ///
@@ -166,13 +117,12 @@ class UrlChecker {
     if (uri.scheme != 'http' && uri.scheme != 'https') {
       return UrlStatus.invalid();
     }
-    final isSecure = uri.scheme == 'https';
-    final isExternal = await hasExternalHostname(uri);
+    // The safe URL check will verify if the resolved IP of the host name
+    // seems to be valid (e.g. not an a local loopback, multicast or private network).
     final exists = await checkUrlExists(uri);
     return UrlStatus(
       isInvalid: false,
-      isInternal: !isExternal,
-      isSecure: isSecure,
+      isSecure: uri.scheme == 'https',
       exists: exists,
     );
   }

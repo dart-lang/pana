@@ -143,14 +143,6 @@ Future<UrlWithIssue> _checkUrl(
         span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
       ),
     );
-  } else if (status.isInternal && !context.options.isInternal) {
-    return UrlWithIssue(
-      url,
-      Issue(
-        '$name is pointing to a domain reserved for internal packages only.',
-        span: tryGetSpanFromYamlMap(pubspec.originalYaml, key),
-      ),
-    );
   } else if (!status.exists) {
     return UrlWithIssue(
       url,
@@ -171,8 +163,7 @@ Future<UrlWithIssue> _checkUrl(
       ),
     );
   }
-  final problemCode =
-      status.getProblemCode(packageIsKnownInternal: context.options.isInternal);
+  final problemCode = status.getProblemCode();
   if (problemCode != null) {
     context.urlProblems[url] = problemCode;
   }
