@@ -82,11 +82,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.3
         with:
-          sdk: '2.19.0-146.1.beta' # TODO: switch back to rolling 'dev' channel after it gets updated.
+          sdk: '2.19.0-255.2.beta' # TODO: switch back to rolling 'dev' channel after it gets updated.
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.2'
-          channel: 'stable' # TODO: switch back to rolling 'dev' channel after it gets updated.
+          flutter-version: '3.4.0-34.1.pre'
+          channel: 'beta' # TODO: switch back to rolling 'dev' channel after it gets updated.
       - name: Check Flutter
         run: flutter --version --machine
       - id: install
