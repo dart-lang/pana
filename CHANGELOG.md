@@ -1,3 +1,12 @@
+## 0.21.19
+
+- Removed internal hostname check from the report and score.
+- Deprected `AnalysisOptions.isInternal`.
+- **BREAKING CHANGES** on rarely used external API:
+  - Removed `UrlProblemCodes.internal`.
+  - Removed `UrlChecker.addInternalHosts`.
+  - Removed named parameter from `UrlStatus.getProblemCode`.
+
 ## 0.21.18
 
 - Upgraded `package:analyzer` dependency.

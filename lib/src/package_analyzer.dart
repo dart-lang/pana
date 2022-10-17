@@ -28,6 +28,7 @@ class InspectOptions {
   final String? dartdocOutputDir;
   final int dartdocRetry;
   final Duration? dartdocTimeout;
+  @Deprecated('Do not use, will be removed.')
   final bool isInternal;
   final int? lineLength;
 
@@ -42,7 +43,7 @@ class InspectOptions {
     this.dartdocOutputDir,
     this.dartdocRetry = 0,
     this.dartdocTimeout,
-    this.isInternal = false,
+    @Deprecated('Do not use, will be removed.') this.isInternal = false,
     this.lineLength,
     this.analysisOptionsYaml,
     this.checkRemoteRepository = false,
