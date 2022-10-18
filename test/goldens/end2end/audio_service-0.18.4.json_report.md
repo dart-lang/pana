@@ -31,6 +31,7 @@ These platforms are not supported:
 
 <details>
 <summary>
+
 Package does not support platform `Windows`.
 </summary>
 
@@ -39,6 +40,7 @@ Because:
 </details>
 <details>
 <summary>
+
 Package does not support platform `Linux`.
 </summary>
 
@@ -50,6 +52,7 @@ These issues are present but do not affect the score, because they may not origi
 
 <details>
 <summary>
+
 Package does not support platform `Web`.
 </summary>
 
@@ -69,6 +72,7 @@ Found 23 issues. Showing the first 2:
 
 <details>
 <summary>
+
 INFO: 'hashValues' is deprecated and shouldn't be used. Use Object.hash() instead. This feature was deprecated in v3.1.0-0.0.pre.897.
 </summary>
 
@@ -85,6 +89,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
+
 INFO: 'hashList' is deprecated and shouldn't be used. Use Object.hashAll() or Object.hashAllUnordered() instead. This feature was deprecated in v3.1.0-0.0.pre.897.
 </summary>
 

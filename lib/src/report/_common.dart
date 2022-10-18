@@ -73,9 +73,10 @@ class Issue implements Paragraph {
     return [
       '<details>',
       '<summary>',
+      '', // This empty line is required for `package:markdown` to render the content.
       description,
       '</summary>',
-      '', // This empty line will make the span render its markdown.
+      '', // This empty line is required for `package:markdown` to render the content.
       if (span != null) span.markdown(basePath: basePath),
       if (suggestion != null) suggestion,
       '</details>',

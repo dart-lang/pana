@@ -5,6 +5,7 @@
 * Sdk-constraint doesn't allow future stable dart 2.x releases
 <details>
 <summary>
+
 The package description is too short.
 </summary>
 
@@ -27,6 +28,7 @@ Detected license: `MIT`.
 
 <details>
 <summary>
+
 No example found.
 </summary>
 
@@ -39,6 +41,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 <details>
 <summary>
+
 Could not determine supported platforms as package resolution failed.
 </summary>
 
@@ -53,6 +56,7 @@ Found 36 issues. Showing the first 2:
 
 <details>
 <summary>
+
 ERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.
 </summary>
 
@@ -69,6 +73,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
+
 ERROR: Non-nullable instance field '_header' must be initialized.
 </summary>
 
@@ -94,6 +99,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 <details>
 <summary>
+
 Pubspec.yaml does not have an sdk version constraint.
 </summary>
 
@@ -106,6 +112,7 @@ Try adding an sdk constraint to your `pubspec.yaml`
 
 <details>
 <summary>
+
 Package resolution failed. Could not determine null safety.
 </summary>
 
