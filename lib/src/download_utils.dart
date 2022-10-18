@@ -22,33 +22,47 @@ Future<void> downloadPackage(
   required String destination,
   String? pubHostedUrl,
 }) async {
-  // Find URI for the package tar-ball
-  final pubHostedUri = Uri.parse(pubHostedUrl ?? 'https://pub.dartlang.org');
-  if (version == null) {
-    final versionsUri = pubHostedUri.replace(path: '/api/packages/$package');
-    final versionsJson = json.decode(await http.read(versionsUri));
-    version = versionsJson['latest']['version'] as String;
-    log.fine('Latest version is: $version');
-  }
-
-  final packageUri = pubHostedUri.replace(
-    path: '/packages/$package/versions/$version.tar.gz',
-  );
-  log.info('Downloading package $package $version from $packageUri');
-
-  final c = http_retry.RetryClient(
+  pubHostedUrl ??= 'https://pub.dartlang.org';
+  final pubHostedUri = Uri.parse(pubHostedUrl);
+  final client = http_retry.RetryClient(
     http.Client(),
     when: (rs) => rs.statusCode >= 500,
   );
   try {
-    final rs = await c.get(packageUri);
+    // Find URI for the package archive
+    final versionsUri = pubHostedUri.replace(
+        path: p.join(pubHostedUri.path, '/api/packages/$package'));
+    final versionsRs = await client.get(versionsUri);
+    if (versionsRs.statusCode != 200) {
+      throw Exception(
+          'Unable to access URL: "$versionsUri" (status code: ${versionsRs.statusCode}).');
+    }
+    final versionsJson = json.decode(versionsRs.body);
+    if (version == null) {
+      version = versionsJson['latest']['version'] as String;
+      log.fine('Latest version is: $version');
+    }
+
+    final data = (versionsJson['versions'] as List)
+        .cast<Map<String, dynamic>>()
+        .firstWhere((e) => e['version'] == version);
+    final archiveUrl = data['archive_url'] as String;
+
+    var packageUri = Uri.parse(archiveUrl);
+    if (!packageUri.hasScheme) {
+      packageUri =
+          pubHostedUri.replace(path: p.join(pubHostedUri.path, archiveUrl));
+    }
+    log.info('Downloading package $package $version from $packageUri');
+
+    final rs = await client.get(packageUri);
     if (rs.statusCode != 200) {
       throw Exception(
           'Unable to access URL: "$packageUri" (status code: ${rs.statusCode}).');
     }
     await _extractTarGz(Stream.value(rs.bodyBytes), destination);
   } finally {
-    c.close();
+    client.close();
   }
 }
 
