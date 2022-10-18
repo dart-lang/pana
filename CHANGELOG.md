@@ -1,5 +1,6 @@
 ## 0.21.19
 
+- Null safety tagger does not check `dart:` libraries.
 - Removed internal hostname check from the report and score.
 - Deprected `AnalysisOptions.isInternal`.
 - **BREAKING CHANGES** on rarely used external API:
