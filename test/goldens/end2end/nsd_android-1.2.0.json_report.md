@@ -28,6 +28,7 @@ These platforms are not supported:
 
 <details>
 <summary>
+
 Package does not support platform `iOS`.
 </summary>
 
@@ -36,6 +37,7 @@ Because:
 </details>
 <details>
 <summary>
+
 Package does not support platform `Windows`.
 </summary>
 
@@ -44,6 +46,7 @@ Because:
 </details>
 <details>
 <summary>
+
 Package does not support platform `Linux`.
 </summary>
 
@@ -52,6 +55,7 @@ Because:
 </details>
 <details>
 <summary>
+
 Package does not support platform `macOS`.
 </summary>
 
@@ -60,6 +64,7 @@ Because:
 </details>
 <details>
 <summary>
+
 Package does not support platform `Web`.
 </summary>
 

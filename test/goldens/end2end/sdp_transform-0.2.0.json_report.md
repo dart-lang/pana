@@ -4,6 +4,7 @@
 
 <details>
 <summary>
+
 The package description is too short.
 </summary>
 
@@ -26,6 +27,7 @@ Detected license: `MIT`.
 
 <details>
 <summary>
+
 No example found.
 </summary>
 
@@ -51,6 +53,7 @@ Found 9 issues. Showing the first 2:
 
 <details>
 <summary>
+
 INFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.
 </summary>
 
@@ -67,6 +70,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
+
 INFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.
 </summary>
 
@@ -100,6 +104,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 <details>
 <summary>
+
 Package language version (indicated by the sdk constraint `<3.0.0`) is less than 2.12.
 </summary>
 

@@ -19,6 +19,7 @@ Detected license: `BSD-3-Clause`.
 
 <details>
 <summary>
+
 No example found.
 </summary>
 
@@ -42,6 +43,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 <details>
 <summary>
+
 INFO: Provide a deprecation message, via @Deprecated("message").
 </summary>
 

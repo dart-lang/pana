@@ -110,7 +110,7 @@
         "grantedPoints": 10,
         "maxPoints": 30,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nFailed to verify repository URL.\n</summary>\n\nPlease provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:\n\n * `repository` can be cloned,\n * a clone of the repository contains a `pubspec.yaml`, which:,\n    * contains `name: onepub`,\n    * contains a `version` property, and,\n    * does not contain a `publish_to` property.\n\n`pubspec.yaml` from the repository URL missmatch: expected `https://github.com/noojee/onepub.dev` but got `https://github.com/onepub-dev/onepub`.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [x] 0/10 points: Use an OSI-approved license\n\n<details>\n<summary>\nNo license was recognized.\n</summary>\n\nConsider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to make it more accessible to the community.\n</details>"
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\n\nFailed to verify repository URL.\n</summary>\n\nPlease provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:\n\n * `repository` can be cloned,\n * a clone of the repository contains a `pubspec.yaml`, which:,\n    * contains `name: onepub`,\n    * contains a `version` property, and,\n    * does not contain a `publish_to` property.\n\n`pubspec.yaml` from the repository URL missmatch: expected `https://github.com/noojee/onepub.dev` but got `https://github.com/onepub-dev/onepub`.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [x] 0/10 points: Use an OSI-approved license\n\n<details>\n<summary>\n\nNo license was recognized.\n</summary>\n\nConsider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to make it more accessible to the community.\n</details>"
       },
       {
         "id": "documentation",
@@ -118,7 +118,7 @@
         "grantedPoints": 0,
         "maxPoints": 10,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\n\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
       },
       {
         "id": "platform",
@@ -126,7 +126,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **MacOS**, **Linux**)\n\n* ✓ Linux\n* ✓ MacOS\n* ✓ Windows\n\nThese platforms are not supported:\n\n<details>\n<summary>\nAndroid\n</summary>\n\nCannot assign Android automatically to a binary only package.\n</details>\n<details>\n<summary>\niOS\n</summary>\n\nCannot assign iOS automatically to a binary only package.\n</details>\n<details>\n<summary>\nWeb\n</summary>\n\nCannot assign Web automatically to a binary only package.\n</details>"
+        "summary": "### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **MacOS**, **Linux**)\n\n* ✓ Linux\n* ✓ MacOS\n* ✓ Windows\n\nThese platforms are not supported:\n\n<details>\n<summary>\n\nAndroid\n</summary>\n\nCannot assign Android automatically to a binary only package.\n</details>\n<details>\n<summary>\n\niOS\n</summary>\n\nCannot assign iOS automatically to a binary only package.\n</details>\n<details>\n<summary>\n\nWeb\n</summary>\n\nCannot assign Web automatically to a binary only package.\n</details>"
       },
       {
         "id": "analysis",

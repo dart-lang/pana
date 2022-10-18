@@ -21,6 +21,7 @@ Detected license: `BSD-3-Clause`.
 
 <details>
 <summary>
+
 No example found.
 </summary>
 
