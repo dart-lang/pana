@@ -27,6 +27,7 @@
   ],
   "allDependencies": [],
   "tags": [
+    "has:tool-failure",
     "license:bsd-3-clause",
     "license:fsf-libre",
     "license:osi-approved"

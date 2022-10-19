@@ -34,6 +34,7 @@
     "test"
   ],
   "tags": [
+    "has:tool-failure",
     "license:mit",
     "license:fsf-libre",
     "license:osi-approved"
