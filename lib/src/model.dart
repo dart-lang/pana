@@ -363,6 +363,7 @@ class AnalysisResult {
   final String? documentationUrl;
   final List<String>? fundingUrls;
   final Repository? repository;
+  final String? contributingUrl;
 
   AnalysisResult({
     this.homepageUrl,
@@ -371,6 +372,7 @@ class AnalysisResult {
     this.documentationUrl,
     this.fundingUrls,
     this.repository,
+    required this.contributingUrl,
   });
 
   factory AnalysisResult.fromJson(Map<String, dynamic> json) =>

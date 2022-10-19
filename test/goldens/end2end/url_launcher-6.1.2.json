@@ -169,7 +169,8 @@
       "repository": "flutter/plugins",
       "branch": "main",
       "path": "packages/url_launcher/url_launcher"
-    }
+    },
+    "contributingUrl": "https://github.com/flutter/plugins/blob/main/CONTRIBUTING.md"
   },
   "urlProblems": []
 }

@@ -17,10 +17,12 @@ const _maxPubspecBytes = 256 * 1024;
 
 class VerifiedRepository {
   final Repository? repository;
+  final String? contributingUrl;
   final String? verificationFailure;
 
   VerifiedRepository({
     this.repository,
+    this.contributingUrl,
     this.verificationFailure,
   });
 }
@@ -31,28 +33,34 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
   if (sourceUrl == null) {
     return null;
   }
-  final url = Repository.tryParseUrl(sourceUrl);
-  if (url == null) {
+  final parsedSourceUrl = Repository.tryParseUrl(sourceUrl);
+  if (parsedSourceUrl == null) {
     return null;
   }
-  var branch = url.branch;
-  var isVerified = false;
+  var branch = parsedSourceUrl.branch;
+  var completed = false;
   String? verificationFailure;
-  var localPath = url.path;
+  var localPath = parsedSourceUrl.path;
+  String? contributingUrl;
+
+  Repository repositoryWithPath(String? path) {
+    if (path == '' || path == '.') {
+      path = null;
+    }
+    return Repository(
+      provider: parsedSourceUrl.provider,
+      host: parsedSourceUrl.host,
+      repository: parsedSourceUrl.repository,
+      branch: branch,
+      path: path,
+    );
+  }
 
   VerifiedRepository result() {
-    if (localPath == '.') {
-      localPath = null;
-    }
-    if (isVerified && verificationFailure == null) {
+    if (completed && verificationFailure == null) {
       return VerifiedRepository(
-        repository: Repository(
-          provider: url.provider,
-          host: url.host,
-          repository: url.repository,
-          branch: branch,
-          path: localPath,
-        ),
+        repository: repositoryWithPath(localPath),
+        contributingUrl: contributingUrl,
       );
     } else {
       return VerifiedRepository(
@@ -67,10 +75,10 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
   }
 
   if (context.options.checkRemoteRepository) {
-    isVerified = false;
     late GitLocalRepository repo;
     try {
-      repo = await GitLocalRepository.createLocalRepository(url.cloneUrl);
+      repo = await GitLocalRepository.createLocalRepository(
+          parsedSourceUrl.cloneUrl);
       branch = await repo.detectDefaultBranch();
 
       // list all pubspec.yaml files
@@ -80,9 +88,10 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
       final pubspecFiles =
           files.where((path) => p.basename(path) == 'pubspec.yaml').toList();
       if (pubspecFiles.isEmpty) {
-        failVerification(
-            'Could not find any `pubspec.yaml` in the repository.');
-        return result();
+        return VerifiedRepository(
+          verificationFailure:
+              'Could not find any `pubspec.yaml` in the repository.',
+        );
       }
 
       Future<_PubspecMatch> matchRepoPubspecYaml(String path) async {
@@ -136,9 +145,9 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
               '`$path` from the repository has no `repository` or `homepage` URL.');
         }
         final gitRepoUrl = Repository.tryParseUrl(gitRepoOrHomepage);
-        if (gitRepoUrl?.cloneUrl != url.cloneUrl) {
+        if (gitRepoUrl?.cloneUrl != parsedSourceUrl.cloneUrl) {
           return _PubspecMatch(path, true,
-              '`$path` from the repository URL missmatch: expected `${url.cloneUrl}` but got `${gitRepoUrl?.cloneUrl}`.');
+              '`$path` from the repository URL missmatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl?.cloneUrl}`.');
         }
         if (gitPubspec.version == null) {
           return _PubspecMatch(
@@ -172,6 +181,29 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
         if (nameMatches.single.verificationIssue != null) {
           failVerification(nameMatches.single.verificationIssue!);
         }
+
+        if (verificationFailure == null) {
+          final contributingCandidates = [
+            if (localPath.isNotEmpty && localPath != '.')
+              p.join(localPath, 'CONTRIBUTING.md'),
+            'CONTRIBUTING.md',
+          ];
+          for (final path in contributingCandidates) {
+            if (files.contains(path)) {
+              final url = repositoryWithPath(null).tryResolveUrl(path);
+              if (url != null) {
+                final status = await context.urlChecker.checkStatus(url);
+                if (status.exists) {
+                  contributingUrl = url;
+                  break;
+                }
+              }
+              break;
+            }
+          }
+        }
+
+        completed = true;
       }
     } on FormatException catch (e, st) {
       failVerification(
@@ -184,7 +216,6 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
     } finally {
       await repo.delete();
     }
-    isVerified = verificationFailure == null;
   }
   return result();
 }
