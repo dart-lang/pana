@@ -389,7 +389,15 @@ class Tagger {
           final optOutViolationFinder = PathFinder<Uri>(
             LibraryGraph(_session, runtime.declaredVariables),
             (library) {
+              // For completeness we should check every SDK libraries, however
+              // some `dart:` libraries are not available in the analysis session.
+              // TODO: investigate why some of the libraries (e.g. web_gl) are not available
+              //       see https://github.com/dart-lang/pana/issues/1136 for further details
+              if (library.scheme == 'dart') return null;
+
+              // Extension methods are not checked.
               if (library.scheme == 'dart-ext') return null;
+
               final resolvedPath = _session.uriConverter.uriToPath(library);
               if (resolvedPath == null) {
                 return (path) => Explanation(
