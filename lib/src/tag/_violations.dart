@@ -90,11 +90,19 @@ import '_specs.dart';
 
 /// Detects forbidden imports given a runtime.
 PathFinder<Uri> runtimeViolationFinder(
-    LibraryGraph libraryGraph, Runtime runtime, Explainer<Uri> explainer) {
+  LibraryGraph libraryGraph,
+  Runtime runtime,
+  Explainer<Uri> explainer, {
+  Set<String>? enabledLibs,
+}) {
+  final allEnabledLibs = <String>{
+    ...runtime.enabledLibs,
+    ...?enabledLibs,
+  };
   return PathFinder<Uri>(libraryGraph, (Uri uri) {
     final uriString = uri.toString();
     if (uriString.startsWith('dart:') &&
-        !runtime.enabledLibs.contains(uriString.substring(5))) {
+        !allEnabledLibs.contains(uriString.substring(5))) {
       return explainer;
     }
     return null;

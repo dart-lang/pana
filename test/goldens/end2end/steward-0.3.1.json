@@ -60,6 +60,9 @@
   ],
   "tags": [
     "sdk:dart",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
     "runtime:native-jit",
     "is:null-safe",
     "license:mit",
@@ -87,10 +90,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 0,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "failed",
-        "summary": "### [x] 0/20 points: Supports 0 of 6 possible platforms (iOS, Android, Web, Windows, MacOS, Linux)\n\n\nThese platforms are not supported:\n\n<details>\n<summary>\n\nPackage not compatible with platform Android\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/router/router.dart` that imports:\n* `package:steward/controllers/route_utils.dart` that imports:\n* `dart:mirrors`\n</details>\n<details>\n<summary>\n\nPackage not compatible with platform iOS\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/router/router.dart` that imports:\n* `package:steward/controllers/route_utils.dart` that imports:\n* `dart:mirrors`\n</details>\n<details>\n<summary>\n\nPackage not compatible with platform Windows\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/router/router.dart` that imports:\n* `package:steward/controllers/route_utils.dart` that imports:\n* `dart:mirrors`\n</details>\n<details>\n<summary>\n\nPackage not compatible with platform Linux\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/router/router.dart` that imports:\n* `package:steward/controllers/route_utils.dart` that imports:\n* `dart:mirrors`\n</details>\n<details>\n<summary>\n\nPackage not compatible with platform macOS\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/router/router.dart` that imports:\n* `package:steward/controllers/route_utils.dart` that imports:\n* `dart:mirrors`\n</details>\n<details>\n<summary>\n\nPackage not compatible with platform Web\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/config/config_reader.dart` that imports:\n* `dart:io`\n</details>"
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **MacOS**, **Linux**)\n\n* ✓ Windows\n* ✓ Linux\n* ✓ MacOS\n\nThese platforms are not supported:\n\n<details>\n<summary>\n\nPackage not compatible with platform Android\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/router/router.dart` that imports:\n* `package:steward/controllers/route_utils.dart` that imports:\n* `dart:mirrors`\n</details>\n<details>\n<summary>\n\nPackage not compatible with platform iOS\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/router/router.dart` that imports:\n* `package:steward/controllers/route_utils.dart` that imports:\n* `dart:mirrors`\n</details>\n<details>\n<summary>\n\nPackage not compatible with platform Web\n</summary>\n\nBecause:\n* `package:steward/steward.dart` that imports:\n* `package:steward/app/app.dart` that imports:\n* `package:steward/config/config_reader.dart` that imports:\n* `dart:io`\n</details>"
       },
       {
         "id": "analysis",

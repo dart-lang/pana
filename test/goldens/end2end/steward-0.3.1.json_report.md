@@ -18,10 +18,13 @@ Detected license: `MIT`.
 ### [*] 10/10 points: Package has an example
 
 
-## 0/20 Platform support
+## 20/20 Platform support
 
-### [x] 0/20 points: Supports 0 of 6 possible platforms (iOS, Android, Web, Windows, MacOS, Linux)
+### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **MacOS**, **Linux**)
 
+* ✓ Windows
+* ✓ Linux
+* ✓ MacOS
 
 These platforms are not supported:
 
@@ -42,45 +45,6 @@ Because:
 <summary>
 
 Package not compatible with platform iOS
-</summary>
-
-Because:
-* `package:steward/steward.dart` that imports:
-* `package:steward/app/app.dart` that imports:
-* `package:steward/router/router.dart` that imports:
-* `package:steward/controllers/route_utils.dart` that imports:
-* `dart:mirrors`
-</details>
-<details>
-<summary>
-
-Package not compatible with platform Windows
-</summary>
-
-Because:
-* `package:steward/steward.dart` that imports:
-* `package:steward/app/app.dart` that imports:
-* `package:steward/router/router.dart` that imports:
-* `package:steward/controllers/route_utils.dart` that imports:
-* `dart:mirrors`
-</details>
-<details>
-<summary>
-
-Package not compatible with platform Linux
-</summary>
-
-Because:
-* `package:steward/steward.dart` that imports:
-* `package:steward/app/app.dart` that imports:
-* `package:steward/router/router.dart` that imports:
-* `package:steward/controllers/route_utils.dart` that imports:
-* `dart:mirrors`
-</details>
-<details>
-<summary>
-
-Package not compatible with platform macOS
 </summary>
 
 Because:

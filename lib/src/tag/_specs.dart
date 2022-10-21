@@ -123,8 +123,14 @@ class Platform {
   final String name;
   final Runtime runtime;
   final String tag;
+  final bool allowsNativeJit;
 
-  Platform(this.name, this.runtime, {required this.tag});
+  Platform(
+    this.name,
+    this.runtime, {
+    required this.tag,
+    this.allowsNativeJit = false,
+  });
 
   static final List<Platform> recognizedPlatforms = [
     android,
@@ -160,11 +166,13 @@ class Platform {
     'Linux',
     Runtime.broadNative,
     tag: 'platform:linux',
+    allowsNativeJit: true,
   );
   static final macos = Platform(
     'macOS',
     Runtime.broadNative,
     tag: 'platform:macos',
+    allowsNativeJit: true,
   );
   static final web = Platform(
     'Web',
@@ -175,6 +183,7 @@ class Platform {
     'Windows',
     Runtime.broadNative,
     tag: 'platform:windows',
+    allowsNativeJit: true,
   );
 
   @override
