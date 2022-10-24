@@ -252,7 +252,7 @@ class Tagger {
                 'Because:\n${LibraryGraph.formatPath(path)}',
                 tag: platform.tag,
               ),
-              enabledLibs: extraEnabledLibs,
+              additionalLibs: extraEnabledLibs,
             ),
           );
 
@@ -281,7 +281,7 @@ class Tagger {
                   'Package not compatible with platform ${platform.name}',
                   'Because:\n${LibraryGraph.formatPath(path)}',
                   tag: platform.tag),
-              enabledLibs: extraEnabledLibs,
+              additionalLibs: extraEnabledLibs,
             ),
           );
           // Report only the first non-pruned violation as Explanation

@@ -93,11 +93,11 @@ PathFinder<Uri> runtimeViolationFinder(
   LibraryGraph libraryGraph,
   Runtime runtime,
   Explainer<Uri> explainer, {
-  Set<String>? enabledLibs,
+  Set<String> additionalLibs = const <String>{},
 }) {
   final allEnabledLibs = <String>{
     ...runtime.enabledLibs,
-    ...?enabledLibs,
+    ...additionalLibs,
   };
   return PathFinder<Uri>(libraryGraph, (Uri uri) {
     final uriString = uri.toString();
