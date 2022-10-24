@@ -117,7 +117,8 @@
       "host": "github.com",
       "repository": "google/webdriver.dart",
       "branch": "master"
-    }
+    },
+    "contributingUrl": "https://github.com/google/webdriver.dart/blob/master/CONTRIBUTING.md"
   },
   "urlProblems": []
 }

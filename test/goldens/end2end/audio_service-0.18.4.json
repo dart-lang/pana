@@ -191,7 +191,8 @@
       "repository": "ryanheise/audio_service",
       "branch": "minor",
       "path": "audio_service"
-    }
+    },
+    "contributingUrl": "https://github.com/ryanheise/audio_service/blob/minor/CONTRIBUTING.md"
   },
   "urlProblems": []
 }

@@ -281,7 +281,8 @@ Future<void> _copy(String from, String to) async {
 
 Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
   final pubspecUrls = await context.pubspecUrlsWithIssues;
-  final repository = (await context.repository)?.repository;
+  final repoVerification = await context.repository;
+  final repository = repoVerification?.repository;
   final fundingUrls =
       pubspecUrls.funding.map((e) => e.verifiedUrl).whereNotNull().toList();
   return AnalysisResult(
@@ -291,5 +292,6 @@ Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
     documentationUrl: pubspecUrls.documentation.verifiedUrl,
     fundingUrls: fundingUrls.isEmpty ? null : fundingUrls,
     repository: repository,
+    contributingUrl: repoVerification?.contributingUrl,
   );
 }

@@ -119,7 +119,8 @@
       "host": "github.com",
       "repository": "dart-lang/async",
       "branch": "master"
-    }
+    },
+    "contributingUrl": "https://github.com/dart-lang/async/blob/master/CONTRIBUTING.md"
   },
   "urlProblems": []
 }

@@ -3,6 +3,7 @@
 - Null safety tagger does not check `dart:` libraries.
 - Removed internal hostname check from the report and score.
 - Deprected `AnalysisOptions.isInternal`.
+- Detect `CONTRIBUTING.md` during repositority verification and expose if URL check succeeds.
 - **BREAKING CHANGES** on rarely used external API:
   - Removed `UrlProblemCodes.internal`.
   - Removed `UrlChecker.addInternalHosts`.
