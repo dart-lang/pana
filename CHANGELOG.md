@@ -1,7 +1,6 @@
 ## 0.21.19
 
-- Add tag `has:tool-failure` when any of the analysis tools failed.
-- Add tag `has:analysis-failure` when the package has severe issues that prevent further analysis.
+- Add tag `has:errors` when the package has severe issues that prevent further analysis.
 - Null safety tagger does not check `dart:` libraries.
 - Removed internal hostname check from the report and score.
 - Deprected `AnalysisOptions.isInternal`.

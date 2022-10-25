@@ -104,8 +104,7 @@ class PackageAnalyzer {
     InspectOptions options, {
     Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
-    const hasToolFailureTag = 'has:tool-failure';
-    const hasAnalysisFailureTag = 'has:analysis-failure';
+    const hasErrorsTag = 'has:errors';
     final tags = <String>{};
     final context = PackageContext(
       toolEnvironment: _toolEnv,
@@ -130,7 +129,7 @@ class PackageAnalyzer {
       pubspec = context.pubspec;
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
-      tags.add(hasAnalysisFailureTag);
+      tags.add(hasErrorsTag);
       return Summary(
         runtimeInfo: _toolEnv.runtimeInfo,
         packageName: null,
@@ -151,10 +150,6 @@ class PackageAnalyzer {
     }
 
     final dependenciesResolved = await context.resolveDependencies();
-    if (!dependenciesResolved) {
-      tags.add(hasToolFailureTag);
-    }
-
     if (dependenciesResolved && options.dartdocOutputDir != null) {
       for (var i = 0; i <= options.dartdocRetry; i++) {
         try {
@@ -179,7 +174,6 @@ class PackageAnalyzer {
         try {
           analyzerItems = await context.staticAnalysis();
         } on ToolException catch (e) {
-          tags.add(hasToolFailureTag);
           context.errors
               .add(runningDartanalyzerFailed(context.usesFlutter, e.message));
         }
@@ -200,7 +194,7 @@ class PackageAnalyzer {
         // TODO: use a single result object to derive tags + report
         tags.addAll(tags_);
       } else {
-        tags.add(hasAnalysisFailureTag);
+        tags.add(hasErrorsTag);
       }
     }
 
@@ -236,14 +230,12 @@ class PackageAnalyzer {
       final outdated = await context.outdated;
       allDependencies.addAll(outdated.packages.map((e) => e.package));
     } catch (_) {
-      tags.add(hasToolFailureTag);
       // do not update allDependencies.
     }
 
     String? errorMessage;
     if (context.errors.isNotEmpty) {
       errorMessage = context.errors.map((e) => e.trim()).join('\n\n');
-      tags.add(hasToolFailureTag);
     }
     return Summary(
       runtimeInfo: _toolEnv.runtimeInfo,
