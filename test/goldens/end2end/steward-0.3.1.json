@@ -130,7 +130,8 @@
       "host": "github.com",
       "repository": "pyrestudios/steward",
       "branch": "main"
-    }
+    },
+    "contributingUrl": "https://github.com/pyrestudios/steward/blob/main/CONTRIBUTING.md"
   },
   "urlProblems": []
 }
