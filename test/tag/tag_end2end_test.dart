@@ -91,7 +91,10 @@ int fourtyTwo() => 42;
       await descriptor.create();
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       _expectTagging(tagger.sdkTags, tags: {'sdk:dart'});
-      _expectTagging(tagger.platformTags, tags: isEmpty);
+      _expectTagging(
+        tagger.platformTags,
+        tags: {'platform:linux', 'platform:macos', 'platform:windows'},
+      );
       _expectTagging(tagger.runtimeTags, tags: {'runtime:native-jit'});
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
@@ -161,7 +164,10 @@ int fourtyTwo() => 42;
       await descriptor.create();
       final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
       _expectTagging(tagger.sdkTags, tags: {'sdk:dart'});
-      _expectTagging(tagger.platformTags, tags: isEmpty);
+      _expectTagging(
+        tagger.platformTags,
+        tags: {'platform:linux', 'platform:macos', 'platform:windows'},
+      );
       _expectTagging(tagger.runtimeTags, tags: {
         'runtime:native-jit',
       });
@@ -369,7 +375,7 @@ int fourtyThree() => 43;
                 'Package is not compatible with the Flutter SDK. Because:')),
       ]);
       _expectTagging(tagger.platformTags,
-          tags: isEmpty,
+          tags: {'platform:linux', 'platform:macos', 'platform:windows'},
           explanations: contains(
             _explanation(
                 finding: 'Package not compatible with platform Android'),

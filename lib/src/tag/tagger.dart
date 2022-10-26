@@ -97,6 +97,7 @@ class Tagger {
   final AnalysisSession _session;
   final PubspecCache _pubspecCache;
   final bool _isBinaryOnly;
+  final bool _usesFlutter;
 
   /// All libraries in `lib/` except those in `lib/src/`.
   final List<Uri> _publicLibraries;
@@ -118,6 +119,7 @@ class Tagger {
     this._session,
     PubspecCache pubspecCache,
     this._isBinaryOnly,
+    this._usesFlutter,
     this._topLibraries,
     this._publicLibraries,
   )   : _pubspecCache = pubspecCache,
@@ -176,6 +178,7 @@ class Tagger {
       session,
       pubspecCache,
       isBinaryOnly,
+      pubspec.usesFlutter,
       topLibraries,
       publicLibraries,
     );
@@ -228,6 +231,10 @@ class Tagger {
                 tag: p.tag)));
       } else {
         for (final platform in Platform.recognizedPlatforms) {
+          final extraEnabledLibs = <String>{
+            if (platform.allowsNativeJit && !_usesFlutter)
+              ...Runtime.nativeJit.enabledLibs,
+          };
           final libraryGraph =
               LibraryGraph(_session, platform.runtime.declaredVariables);
           final declaredPlatformDetector =
@@ -245,6 +252,7 @@ class Tagger {
                 'Because:\n${LibraryGraph.formatPath(path)}',
                 tag: platform.tag,
               ),
+              additionalLibs: extraEnabledLibs,
             ),
           );
 
@@ -262,17 +270,20 @@ class Tagger {
               : libraryGraph;
 
           final prunedViolationFinder = PlatformViolationFinder(
-              platform,
+            platform,
+            prunedLibraryGraph,
+            declaredPlatformDetector,
+            _pubspecCache,
+            runtimeViolationFinder(
               prunedLibraryGraph,
-              declaredPlatformDetector,
-              _pubspecCache,
-              runtimeViolationFinder(
-                  prunedLibraryGraph,
-                  platform.runtime,
-                  (List<Uri> path) => Explanation(
-                      'Package not compatible with platform ${platform.name}',
-                      'Because:\n${LibraryGraph.formatPath(path)}',
-                      tag: platform.tag)));
+              platform.runtime,
+              (List<Uri> path) => Explanation(
+                  'Package not compatible with platform ${platform.name}',
+                  'Because:\n${LibraryGraph.formatPath(path)}',
+                  tag: platform.tag),
+              additionalLibs: extraEnabledLibs,
+            ),
+          );
           // Report only the first non-pruned violation as Explanation
           final firstNonPrunedViolation =
               violationFinder.firstViolation(packageName, _topLibraries);

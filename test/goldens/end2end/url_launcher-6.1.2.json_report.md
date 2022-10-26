@@ -41,11 +41,11 @@ Detected license: `BSD-3-Clause`.
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`url_launcher_android`]|`^6.0.13`|6.0.17|6.0.17|
+|[`url_launcher_android`]|`^6.0.13`|6.0.19|6.0.19|
 |[`url_launcher_ios`]|`^6.0.13`|6.0.17|6.0.17|
 |[`url_launcher_linux`]|`>=2.0.0 <4.0.0`|3.0.1|3.0.1|
 |[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.0.1|3.0.1|
-|[`url_launcher_platform_interface`]|`^2.0.3`|2.1.0|2.1.0|
+|[`url_launcher_platform_interface`]|`^2.0.3`|2.1.1|2.1.1|
 |[`url_launcher_web`]|`^2.0.0`|2.0.13|2.0.13|
 |[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.0.1|3.0.1|
 
@@ -54,14 +54,14 @@ Detected license: `BSD-3-Clause`.
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`characters`]|-|1.2.1|1.2.1|
-|[`collection`]|-|1.16.0|1.16.0|
+|[`collection`]|-|1.16.0|1.17.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`js`]|-|0.6.4|0.6.4|
+|[`js`]|-|0.6.4|0.6.5|
 |[`material_color_utilities`]|-|0.1.5|0.2.0|
 |[`meta`]|-|1.8.0|1.8.0|
-|[`plugin_platform_interface`]|-|2.1.2|2.1.2|
+|[`plugin_platform_interface`]|-|2.1.3|2.1.3|
 |[`sky_engine`]|-|0.0.99|0.0.99|
-|[`vector_math`]|-|2.1.2|2.1.2|
+|[`vector_math`]|-|2.1.2|2.1.4|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

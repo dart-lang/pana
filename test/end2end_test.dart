@@ -178,6 +178,9 @@ void main() {
   // https://github.com/dart-lang/pana/issues/824
   verifyPackage('webdriver', '3.0.0');
 
+  // uses dart:mirrors
+  verifyPackage('steward', '0.3.1');
+
   // slightly old package
   verifyPackage('sdp_transform', '0.2.0');
 

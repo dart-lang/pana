@@ -3,6 +3,7 @@
 - Add tag `has:errors` when the package has severe issues that prevent further analysis.
 - Null safety tagger does not check `dart:` libraries.
 - Removed internal hostname check from the report and score.
+- Fixed: platform tagging with dart:mirrors.
 - Deprected `AnalysisOptions.isInternal`.
 - Detect `CONTRIBUTING.md` during repositority verification and expose if URL check succeeds.
 - **BREAKING CHANGES** on rarely used external API:

@@ -40,7 +40,7 @@ Detected license: `BSD-3-Clause`.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`http_parser`]|`^4.0.0`|4.0.1|4.0.1|
+|[`http_parser`]|`^4.0.0`|4.0.2|4.0.2|
 |[`meta`]|`^1.3.0`|1.8.0|1.8.0|
 |[`path`]|`^1.8.0`|1.8.2|1.8.2|
 |[`pedantic`]|`^1.10.0`|1.11.1|1.11.1|
@@ -49,7 +49,7 @@ Detected license: `BSD-3-Clause`.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.16.0|1.16.0|
+|[`collection`]|-|1.17.0|1.17.0|
 |[`source_span`]|-|1.9.1|1.9.1|
 |[`string_scanner`]|-|1.1.1|1.1.1|
 |[`term_glyph`]|-|1.2.1|1.2.1|
