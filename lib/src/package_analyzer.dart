@@ -104,6 +104,8 @@ class PackageAnalyzer {
     InspectOptions options, {
     Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
+    const hasErrorsTag = 'has:errors';
+    final tags = <String>{};
     final context = PackageContext(
       toolEnvironment: _toolEnv,
       packageDir: pkgDir,
@@ -127,6 +129,7 @@ class PackageAnalyzer {
       pubspec = context.pubspec;
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
+      tags.add(hasErrorsTag);
       return Summary(
         runtimeInfo: _toolEnv.runtimeInfo,
         packageName: null,
@@ -134,7 +137,7 @@ class PackageAnalyzer {
         pubspec: pubspec,
         allDependencies: null,
         licenseFile: null,
-        tags: null,
+        tags: tags.toList(),
         report: null,
         errorMessage: pubspecParseError(e),
       );
@@ -147,7 +150,6 @@ class PackageAnalyzer {
     }
 
     final dependenciesResolved = await context.resolveDependencies();
-
     if (dependenciesResolved && options.dartdocOutputDir != null) {
       for (var i = 0; i <= options.dartdocRetry; i++) {
         try {
@@ -166,7 +168,6 @@ class PackageAnalyzer {
       }
     }
 
-    final tags = <String>[];
     if (dependenciesResolved) {
       List<CodeProblem>? analyzerItems;
       if (dartFiles.isNotEmpty) {
@@ -181,12 +182,19 @@ class PackageAnalyzer {
       }
       if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
         final tagger = Tagger(pkgDir);
+        final tags_ = <String>[];
         final explanations = <Explanation>[];
-        tagger.sdkTags(tags, explanations);
-        tagger.platformTags(tags, explanations);
-        tagger.runtimeTags(tags, explanations);
-        tagger.flutterPluginTags(tags, explanations);
-        tagger.nullSafetyTags(tags, explanations);
+        // TODO: refactor these methods to return the tags+explanations
+        tagger.sdkTags(tags_, explanations);
+        tagger.platformTags(tags_, explanations);
+        tagger.runtimeTags(tags_, explanations);
+        tagger.flutterPluginTags(tags_, explanations);
+        tagger.nullSafetyTags(tags_, explanations);
+        // tags are exposed, explanations are ignored
+        // TODO: use a single result object to derive tags + report
+        tags.addAll(tags_);
+      } else {
+        tags.add(hasErrorsTag);
       }
     }
 
@@ -225,9 +233,10 @@ class PackageAnalyzer {
       // do not update allDependencies.
     }
 
-    final errorMessage = context.errors.isEmpty
-        ? null
-        : context.errors.map((e) => e.trim()).join('\n\n');
+    String? errorMessage;
+    if (context.errors.isNotEmpty) {
+      errorMessage = context.errors.map((e) => e.trim()).join('\n\n');
+    }
     return Summary(
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
@@ -238,7 +247,7 @@ class PackageAnalyzer {
           ? null
           : LicenseFile(licenses.first.path, licenses.first.spdxIdentifier),
       licenses: licenses,
-      tags: tags,
+      tags: tags.toList(),
       report: await createReport(context),
       result: await _createAnalysisResult(context),
       urlProblems: context.urlProblems.entries
