@@ -104,7 +104,7 @@ class PackageAnalyzer {
     InspectOptions options, {
     Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
-    const hasErrorsTag = 'has:errors';
+    const hasErrorTag = 'has:error';
     final tags = <String>{};
     final context = PackageContext(
       toolEnvironment: _toolEnv,
@@ -129,7 +129,7 @@ class PackageAnalyzer {
       pubspec = context.pubspec;
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
-      tags.add(hasErrorsTag);
+      tags.add(hasErrorTag);
       return Summary(
         runtimeInfo: _toolEnv.runtimeInfo,
         packageName: null,
@@ -194,7 +194,7 @@ class PackageAnalyzer {
         // TODO: use a single result object to derive tags + report
         tags.addAll(tags_);
       } else {
-        tags.add(hasErrorsTag);
+        tags.add(hasErrorTag);
       }
     }
 
