@@ -1,3 +1,7 @@
+## 0.21.20
+
+- Renamed tag: `has:errors` -> `has:error`.
+
 ## 0.21.19
 
 - Add tag `has:errors` when the package has severe issues that prevent further analysis.
