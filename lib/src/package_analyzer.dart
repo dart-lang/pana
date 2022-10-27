@@ -221,6 +221,9 @@ class PackageAnalyzer {
         }
       }
     }
+    if (processedScreenshots.isNotEmpty) {
+      tags.add('has:screenshot');
+    }
     final allDependencies = <String>{
       ...pubspec.dependencies.keys,
       ...pubspec.devDependencies.keys,

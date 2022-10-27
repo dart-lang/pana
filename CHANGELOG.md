@@ -1,3 +1,5 @@
+- Add tag `has:screenshot` for packages that have screenshots.
+
 ## 0.21.19
 
 - Add tag `has:errors` when the package has severe issues that prevent further analysis.
