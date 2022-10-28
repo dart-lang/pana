@@ -1,6 +1,7 @@
 ## 0.21.20
 
 - Renamed tag: `has:errors` -> `has:error`.
+- New platform tagging with separate SDK runtimes.
 
 ## 0.21.19
 

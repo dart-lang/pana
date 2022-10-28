@@ -221,22 +221,24 @@ class Tagger {
     List<Explanation> explanations, {
     bool trustDeclarations = true,
   }) {
-    try {
-      if (_isBinaryOnly) {
-        // TODO: consider checking `platforms:` is present in `pubspec.yaml`
-        tags.addAll(Platform.binaryOnlyAssignedPlatforms.map((p) => p.tag));
-        explanations.addAll(Platform.binaryOnlyNotAssignedPlatforms.map((p) =>
-            Explanation(p.name,
-                'Cannot assign ${p.name} automatically to a binary only package.',
-                tag: p.tag)));
-      } else {
-        for (final platform in Platform.recognizedPlatforms) {
-          final extraEnabledLibs = <String>{
-            if (platform.allowsNativeJit && !_usesFlutter)
-              ...Runtime.nativeJit.enabledLibs,
-          };
+    if (_isBinaryOnly) {
+      // TODO: consider checking `platforms:` is present in `pubspec.yaml`
+      tags.addAll(Platform.binaryOnlyAssignedPlatforms.map((p) => p.tag));
+      explanations.addAll(Platform.binaryOnlyNotAssignedPlatforms.map((p) =>
+          Explanation(p.name,
+              'Cannot assign ${p.name} automatically to a binary only package.',
+              tag: p.tag)));
+      return;
+    }
+
+    final platformResults = <TaggingResult>[];
+    for (final platform in Platform.recognizedPlatforms) {
+      TaggingResult checkRuntime(Runtime runtime) {
+        final innerTags = <String>{};
+        final innerExplanations = <Explanation>[];
+        try {
           final libraryGraph =
-              LibraryGraph(_session, platform.runtime.declaredVariables);
+              LibraryGraph(_session, runtime.declaredVariables);
           final declaredPlatformDetector =
               DeclaredPlatformDetector(_pubspecCache);
           final violationFinder = PlatformViolationFinder(
@@ -246,13 +248,12 @@ class Tagger {
             _pubspecCache,
             runtimeViolationFinder(
               libraryGraph,
-              platform.runtime,
+              runtime,
               (List<Uri> path) => Explanation(
                 'Package not compatible with platform ${platform.name}',
                 'Because:\n${LibraryGraph.formatPath(path)}',
                 tag: platform.tag,
               ),
-              additionalLibs: extraEnabledLibs,
             ),
           );
 
@@ -265,7 +266,7 @@ class Tagger {
           //
           // We still keep the unpruned detection for providing Explanations.
           final prunedLibraryGraph = trustDeclarations
-              ? LibraryGraph(_session, platform.runtime.declaredVariables,
+              ? LibraryGraph(_session, runtime.declaredVariables,
                   isLeaf: declaredPlatformDetector.hasDeclaredPlatforms)
               : libraryGraph;
 
@@ -276,34 +277,48 @@ class Tagger {
             _pubspecCache,
             runtimeViolationFinder(
               prunedLibraryGraph,
-              platform.runtime,
+              runtime,
               (List<Uri> path) => Explanation(
                   'Package not compatible with platform ${platform.name}',
                   'Because:\n${LibraryGraph.formatPath(path)}',
                   tag: platform.tag),
-              additionalLibs: extraEnabledLibs,
             ),
           );
           // Report only the first non-pruned violation as Explanation
           final firstNonPrunedViolation =
               violationFinder.firstViolation(packageName, _topLibraries);
           if (firstNonPrunedViolation != null) {
-            explanations.add(firstNonPrunedViolation);
+            innerExplanations.add(firstNonPrunedViolation);
           }
 
           // Tag is supported, if there is no pruned violations
           final firstPrunedViolation =
               prunedViolationFinder.firstViolation(packageName, _topLibraries);
           if (firstPrunedViolation == null) {
-            tags.add(platform.tag);
+            innerTags.add(platform.tag);
           }
+        } on TagException catch (e) {
+          innerExplanations
+              .add(Explanation('Tag detection failed.', e.message, tag: null));
         }
+        return TaggingResult(innerTags, innerExplanations);
       }
-    } on TagException catch (e) {
-      explanations
-          .add(Explanation('Tag detection failed.', e.message, tag: null));
-      return;
+
+      final results = [
+        if (!_usesFlutter) checkRuntime(platform.dartRuntime),
+        checkRuntime(platform.flutterRuntime),
+      ];
+
+      final success = results.where((r) => r.isSuccess).toList();
+      if (success.isNotEmpty) {
+        platformResults.addAll(success);
+      } else {
+        platformResults.add(results.first);
+      }
     }
+    final result = TaggingResult.merge(platformResults);
+    tags.addAll(result.tags);
+    explanations.addAll(result.explanations);
   }
 
   /// Adds tags for Flutter plugins.

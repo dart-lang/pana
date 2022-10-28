@@ -121,15 +121,15 @@ class Runtime {
 /// A platform where Dart and Flutter can be deployed.
 class Platform {
   final String name;
-  final Runtime runtime;
+  final Runtime dartRuntime;
+  final Runtime flutterRuntime;
   final String tag;
-  final bool allowsNativeJit;
 
   Platform(
-    this.name,
-    this.runtime, {
+    this.name, {
+    required this.dartRuntime,
+    required this.flutterRuntime,
     required this.tag,
-    this.allowsNativeJit = false,
   });
 
   static final List<Platform> recognizedPlatforms = [
@@ -154,36 +154,39 @@ class Platform {
 
   static final android = Platform(
     'Android',
-    Runtime.broadNative,
+    dartRuntime: Runtime.nativeAot,
+    flutterRuntime: Runtime.flutterNative,
     tag: 'platform:android',
   );
   static final ios = Platform(
     'iOS',
-    Runtime.broadNative,
+    dartRuntime: Runtime.nativeAot,
+    flutterRuntime: Runtime.flutterNative,
     tag: 'platform:ios',
   );
   static final linux = Platform(
     'Linux',
-    Runtime.broadNative,
+    dartRuntime: Runtime.nativeJit,
+    flutterRuntime: Runtime.flutterNative,
     tag: 'platform:linux',
-    allowsNativeJit: true,
   );
   static final macos = Platform(
     'macOS',
-    Runtime.broadNative,
+    dartRuntime: Runtime.nativeJit,
+    flutterRuntime: Runtime.flutterNative,
     tag: 'platform:macos',
-    allowsNativeJit: true,
   );
   static final web = Platform(
     'Web',
-    Runtime.broadWeb,
+    dartRuntime: Runtime.web,
+    flutterRuntime: Runtime.flutterWeb,
     tag: 'platform:web',
   );
   static final windows = Platform(
     'Windows',
-    Runtime.broadNative,
+    dartRuntime: Runtime.nativeJit,
+    flutterRuntime: Runtime.flutterNative,
     tag: 'platform:windows',
-    allowsNativeJit: true,
   );
 
   @override
