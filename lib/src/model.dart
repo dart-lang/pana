@@ -372,7 +372,7 @@ class AnalysisResult {
     this.documentationUrl,
     this.fundingUrls,
     this.repository,
-    required this.contributingUrl,
+    this.contributingUrl,
   });
 
   factory AnalysisResult.fromJson(Map<String, dynamic> json) =>
