@@ -1,4 +1,7 @@
+## 0.21.20
+
 - Add tag `has:screenshot` for packages that have screenshots.
+- Renamed tag: `has:errors` -> `has:error`.
 
 ## 0.21.19
 
