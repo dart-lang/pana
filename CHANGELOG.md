@@ -2,6 +2,7 @@
 
 - Add tag `has:screenshot` for packages that have screenshots.
 - Renamed tag: `has:errors` -> `has:error`.
+- New platform tagging with separate SDK runtimes.
 
 ## 0.21.19
 

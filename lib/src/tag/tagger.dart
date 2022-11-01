@@ -221,89 +221,109 @@ class Tagger {
     List<Explanation> explanations, {
     bool trustDeclarations = true,
   }) {
-    try {
-      if (_isBinaryOnly) {
-        // TODO: consider checking `platforms:` is present in `pubspec.yaml`
-        tags.addAll(Platform.binaryOnlyAssignedPlatforms.map((p) => p.tag));
-        explanations.addAll(Platform.binaryOnlyNotAssignedPlatforms.map((p) =>
-            Explanation(p.name,
-                'Cannot assign ${p.name} automatically to a binary only package.',
-                tag: p.tag)));
-      } else {
-        for (final platform in Platform.recognizedPlatforms) {
-          final extraEnabledLibs = <String>{
-            if (platform.allowsNativeJit && !_usesFlutter)
-              ...Runtime.nativeJit.enabledLibs,
-          };
-          final libraryGraph =
-              LibraryGraph(_session, platform.runtime.declaredVariables);
-          final declaredPlatformDetector =
-              DeclaredPlatformDetector(_pubspecCache);
-          final violationFinder = PlatformViolationFinder(
-            platform,
-            libraryGraph,
-            declaredPlatformDetector,
-            _pubspecCache,
-            runtimeViolationFinder(
-              libraryGraph,
-              platform.runtime,
-              (List<Uri> path) => Explanation(
-                'Package not compatible with platform ${platform.name}',
-                'Because:\n${LibraryGraph.formatPath(path)}',
-                tag: platform.tag,
-              ),
-              additionalLibs: extraEnabledLibs,
-            ),
-          );
-
-          // Wanting to trust the plugins annotations when assigning tags we
-          // make a library graph that treats all libraries in packages with
-          // declared platforms as leaf-nodes.
-          //
-          // In this way the restrictions of its dependencies are not
-          // restricting the result.
-          //
-          // We still keep the unpruned detection for providing Explanations.
-          final prunedLibraryGraph = trustDeclarations
-              ? LibraryGraph(_session, platform.runtime.declaredVariables,
-                  isLeaf: declaredPlatformDetector.hasDeclaredPlatforms)
-              : libraryGraph;
-
-          final prunedViolationFinder = PlatformViolationFinder(
-            platform,
-            prunedLibraryGraph,
-            declaredPlatformDetector,
-            _pubspecCache,
-            runtimeViolationFinder(
-              prunedLibraryGraph,
-              platform.runtime,
-              (List<Uri> path) => Explanation(
-                  'Package not compatible with platform ${platform.name}',
-                  'Because:\n${LibraryGraph.formatPath(path)}',
-                  tag: platform.tag),
-              additionalLibs: extraEnabledLibs,
-            ),
-          );
-          // Report only the first non-pruned violation as Explanation
-          final firstNonPrunedViolation =
-              violationFinder.firstViolation(packageName, _topLibraries);
-          if (firstNonPrunedViolation != null) {
-            explanations.add(firstNonPrunedViolation);
-          }
-
-          // Tag is supported, if there is no pruned violations
-          final firstPrunedViolation =
-              prunedViolationFinder.firstViolation(packageName, _topLibraries);
-          if (firstPrunedViolation == null) {
-            tags.add(platform.tag);
-          }
-        }
-      }
-    } on TagException catch (e) {
-      explanations
-          .add(Explanation('Tag detection failed.', e.message, tag: null));
+    if (_isBinaryOnly) {
+      // TODO: consider checking `platforms:` is present in `pubspec.yaml`
+      tags.addAll(Platform.binaryOnlyAssignedPlatforms.map((p) => p.tag));
+      explanations.addAll(Platform.binaryOnlyNotAssignedPlatforms.map((p) =>
+          Explanation(p.name,
+              'Cannot assign ${p.name} automatically to a binary only package.',
+              tag: p.tag)));
       return;
     }
+
+    final platformResults = <TaggingResult>[];
+    for (final platform in Platform.recognizedPlatforms) {
+      final results = [
+        if (!_usesFlutter && platform.dartRuntime != null)
+          _checkRuntime(platform, platform.dartRuntime!,
+              trustDeclarations: trustDeclarations),
+        _checkRuntime(platform, platform.flutterRuntime,
+            trustDeclarations: trustDeclarations),
+      ];
+
+      final success = results.where((r) => r.isSuccess).toList();
+      if (success.isNotEmpty) {
+        platformResults.addAll(success);
+      } else {
+        platformResults.add(results.first);
+      }
+    }
+    final result = TaggingResult.merge(platformResults);
+    tags.addAll(result.tags);
+    explanations.addAll(result.explanations);
+  }
+
+  TaggingResult _checkRuntime(
+    Platform platform,
+    Runtime runtime, {
+    required bool trustDeclarations,
+  }) {
+    final innerTags = <String>{};
+    final innerExplanations = <Explanation>[];
+    try {
+      final libraryGraph = LibraryGraph(_session, runtime.declaredVariables);
+      final declaredPlatformDetector = DeclaredPlatformDetector(_pubspecCache);
+      final violationFinder = PlatformViolationFinder(
+        platform,
+        libraryGraph,
+        declaredPlatformDetector,
+        _pubspecCache,
+        runtimeViolationFinder(
+          libraryGraph,
+          runtime,
+          (List<Uri> path) => Explanation(
+            'Package not compatible with platform ${platform.name}',
+            'Because:\n${LibraryGraph.formatPath(path)}',
+            tag: platform.tag,
+          ),
+        ),
+      );
+
+      // Wanting to trust the plugins annotations when assigning tags we
+      // make a library graph that treats all libraries in packages with
+      // declared platforms as leaf-nodes.
+      //
+      // In this way the restrictions of its dependencies are not
+      // restricting the result.
+      //
+      // We still keep the unpruned detection for providing Explanations.
+      final prunedLibraryGraph = trustDeclarations
+          ? LibraryGraph(_session, runtime.declaredVariables,
+              isLeaf: declaredPlatformDetector.hasDeclaredPlatforms)
+          : libraryGraph;
+
+      final prunedViolationFinder = PlatformViolationFinder(
+        platform,
+        prunedLibraryGraph,
+        declaredPlatformDetector,
+        _pubspecCache,
+        runtimeViolationFinder(
+          prunedLibraryGraph,
+          runtime,
+          (List<Uri> path) => Explanation(
+              'Package not compatible with platform ${platform.name}',
+              'Because:\n${LibraryGraph.formatPath(path)}',
+              tag: platform.tag),
+        ),
+      );
+      // Report only the first non-pruned violation as Explanation
+      final firstNonPrunedViolation =
+          violationFinder.firstViolation(packageName, _topLibraries);
+      if (firstNonPrunedViolation != null) {
+        innerExplanations.add(firstNonPrunedViolation);
+      }
+
+      // Tag is supported, if there is no pruned violations
+      final firstPrunedViolation =
+          prunedViolationFinder.firstViolation(packageName, _topLibraries);
+      if (firstPrunedViolation == null) {
+        innerTags.add(platform.tag);
+      }
+    } on TagException catch (e) {
+      innerExplanations
+          .add(Explanation('Tag detection failed.', e.message, tag: null));
+    }
+    return TaggingResult(innerTags, innerExplanations);
   }
 
   /// Adds tags for Flutter plugins.

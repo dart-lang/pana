@@ -16,6 +16,26 @@ typedef Explainer<N> = Explanation? Function(List<N> path);
 /// Explainer should give an explanation of the problem.
 typedef Predicate<T> = Explainer<T>? Function(T node);
 
+/// The accumulated values of a tagging step.
+class TaggingResult {
+  final Set<String> tags;
+  final List<Explanation> explanations;
+
+  TaggingResult(this.tags, this.explanations);
+
+  factory TaggingResult.merge(Iterable<TaggingResult> results) {
+    final tags = <String>{};
+    final explanations = <Explanation>[];
+    for (final result in results) {
+      tags.addAll(result.tags);
+      explanations.addAll(result.explanations);
+    }
+    return TaggingResult(tags, explanations);
+  }
+
+  bool get isSuccess => tags.isNotEmpty && explanations.isEmpty;
+}
+
 /// Indicates an issue.
 class Explanation {
   final String finding;
