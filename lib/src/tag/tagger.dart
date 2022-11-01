@@ -234,8 +234,8 @@ class Tagger {
     final platformResults = <TaggingResult>[];
     for (final platform in Platform.recognizedPlatforms) {
       final results = [
-        if (!_usesFlutter)
-          _checkRuntime(platform, platform.dartRuntime,
+        if (!_usesFlutter && platform.dartRuntime != null)
+          _checkRuntime(platform, platform.dartRuntime!,
               trustDeclarations: trustDeclarations),
         _checkRuntime(platform, platform.flutterRuntime,
             trustDeclarations: trustDeclarations),

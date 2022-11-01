@@ -121,7 +121,7 @@ class Runtime {
 /// A platform where Dart and Flutter can be deployed.
 class Platform {
   final String name;
-  final Runtime dartRuntime;
+  final Runtime? dartRuntime;
   final Runtime flutterRuntime;
   final String tag;
 
@@ -160,7 +160,7 @@ class Platform {
   );
   static final ios = Platform(
     'iOS',
-    dartRuntime: Runtime.nativeAot,
+    dartRuntime: null,
     flutterRuntime: Runtime.flutterNative,
     tag: 'platform:ios',
   );
