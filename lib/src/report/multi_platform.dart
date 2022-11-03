@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 
 import '../model.dart';
 import '../pubspec.dart';
+import '../tag/pana_tags.dart';
 import '../tag/tagger.dart';
 import '_common.dart';
 
@@ -37,12 +38,12 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
     Subsection scorePlatforms(
         List<String> tags, List<Explanation> explanations) {
       final tagNames = const {
-        'platform:ios': 'iOS',
-        'platform:android': 'Android',
-        'platform:web': 'Web',
-        'platform:windows': 'Windows',
-        'platform:macos': 'MacOS',
-        'platform:linux': 'Linux',
+        PanaTags.platformIos: 'iOS',
+        PanaTags.platformAndroid: 'Android',
+        PanaTags.platformWeb: 'Web',
+        PanaTags.platformWindows: 'Windows',
+        PanaTags.platformMacos: 'MacOS',
+        PanaTags.platformLinux: 'Linux',
       };
       final sdkExplanations =
           explanations.where((e) => e.tag != null && e.tag!.startsWith('sdk:'));

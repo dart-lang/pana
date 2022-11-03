@@ -64,11 +64,10 @@
 ///
 /// * platform:android
 /// * platform:ios
-/// * platform:web
-/// * platform:windows
 /// * platform:linux
 /// * platform:macos
 /// * platform:web
+/// * platform:windows
 ///
 /// A package has the same platform tags as the primary library.
 
@@ -87,6 +86,7 @@ import '_common.dart';
 import '_graphs.dart';
 import '_specs.dart';
 import '_violations.dart';
+import 'pana_tags.dart';
 
 export '_common.dart' show Explanation;
 export '_specs.dart' show Runtime;
@@ -328,10 +328,9 @@ class Tagger {
 
   /// Adds tags for Flutter plugins.
   void flutterPluginTags(List<String> tags, List<Explanation> explanations) {
-    const pluginTag = 'is:plugin';
     final pubspec = _pubspecCache.pubspecOfPackage(packageName);
     if (pubspec.hasFlutterPluginKey) {
-      tags.add(pluginTag);
+      tags.add(PanaTags.isPlugin);
     }
   }
 
@@ -390,8 +389,6 @@ class Tagger {
   /// - No libraries in the import closure of [_publicLibraries] opt out of
   ///   null-safety. (For each runtime in [Runtime.recognizedRuntimes]).
   void nullSafetyTags(List<String> tags, List<Explanation> explanations) {
-    const nullSafeTag = 'is:null-safe';
-
     try {
       var foundIssues = false;
 
@@ -406,7 +403,7 @@ class Tagger {
                   'Package is not null safe',
                   'Because:\n${PackageGraph.formatPath(path)} '
                       'that doesn\'t opt in to null safety',
-                  tag: nullSafeTag,
+                  tag: PanaTags.isNullSafe,
                 );
       });
 
@@ -434,7 +431,7 @@ class Tagger {
                 return (path) => Explanation(
                       'Unable to access import.',
                       'Because:\n${LibraryGraph.formatPath(path)} where $library is inaccessible.',
-                      tag: nullSafeTag,
+                      tag: PanaTags.isNullSafe,
                     );
               }
               final unit = parsedUnitFromUri(_session, library);
@@ -450,7 +447,7 @@ class Tagger {
                       'Package is not null safe',
                       'Because:\n${LibraryGraph.formatPath(path)} where $library '
                           'is opting out from null safety.',
-                      tag: nullSafeTag,
+                      tag: PanaTags.isNullSafe,
                     );
               }
               return null;
@@ -475,13 +472,13 @@ class Tagger {
       }
 
       if (!foundIssues) {
-        tags.add(nullSafeTag);
+        tags.add(PanaTags.isNullSafe);
       }
     } on TagException catch (e) {
       explanations.add(Explanation(
         'Tag detection failed.',
         e.message,
-        tag: nullSafeTag,
+        tag: PanaTags.isNullSafe,
       ));
     }
   }

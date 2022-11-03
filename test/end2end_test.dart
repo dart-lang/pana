@@ -141,6 +141,25 @@ void main() {
         var roundTrip = json.decode(json.encode(summary));
         expect(roundTrip, actualMap);
       });
+
+      test('Summary tags check', () {
+        final tagsFileContent =
+            File('lib/src/tag/pana_tags.dart').readAsStringSync();
+        final summary = Summary.fromJson(actualMap!);
+        final tags = summary.tags;
+        if (tags != null) {
+          for (final tag in tags) {
+            if (tagsFileContent.contains("'$tag'")) {
+              continue;
+            }
+            if (tag.startsWith('license:')) {
+              // SPDX license tags are skipped
+              continue;
+            }
+            fail('Unexpected tag in the result: "$tag"');
+          }
+        }
+      });
     }, timeout: const Timeout.factor(2));
   }
 
