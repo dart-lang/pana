@@ -5,17 +5,15 @@
 import '../model.dart';
 import '../third_party/spdx/licenses.dart';
 
-const _licenseFsfLibreTag = 'license:fsf-libre';
-const _licenseOsiApprovedTag = 'license:osi-approved';
-const _licenseUnknownTag = 'license:unknown';
+import 'pana_tags.dart';
 
 class LicenseTags {
   final List<License> licenses;
   final List<String> tags;
   LicenseTags(this.licenses, this.tags);
 
-  late final isOnlyOsiApproved = tags.contains(_licenseOsiApprovedTag);
-  late final wasDetected = !tags.contains(_licenseUnknownTag);
+  late final isOnlyOsiApproved = tags.contains(PanaTags.licenseOsiApproved);
+  late final wasDetected = !tags.contains(PanaTags.licenseUnknown);
 
   late final osiApprovedLicenses =
       licenses.where((l) => l.isOsiApproved).toList();
@@ -29,13 +27,13 @@ class LicenseTags {
           .map((l) => 'license:${l.spdxIdentifier.toLowerCase()}')
           .toSet());
       if (licenses.every((l) => l.isFsfLibre)) {
-        tags.add(_licenseFsfLibreTag);
+        tags.add(PanaTags.licenceFsfLibre);
       }
       if (licenses.every((l) => l.isOsiApproved)) {
-        tags.add(_licenseOsiApprovedTag);
+        tags.add(PanaTags.licenseOsiApproved);
       }
     } else {
-      tags.add(_licenseUnknownTag);
+      tags.add(PanaTags.licenseUnknown);
     }
     return LicenseTags(licenses, tags);
   }

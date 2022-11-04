@@ -2,22 +2,22 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'pana_tags.dart';
+
 /// Represents a dart runtime and the `dart:` libraries available on that
 /// platform.
 class Runtime {
   final String name;
   final Set<String> enabledLibs;
-  final String? _tag;
+  final String tag;
 
-  Runtime(this.name, this.enabledLibs, {String? tag}) : _tag = tag;
+  Runtime(this.name, this.enabledLibs, {required this.tag});
 
   Map<String, String> get declaredVariables =>
       {for (final lib in enabledLibs) 'dart.library.$lib': 'true'};
 
   @override
   String toString() => 'Runtime($name)';
-
-  String get tag => _tag ?? 'runtime:$name';
 
   static final _onAllPlatforms = {
     'async',
@@ -57,7 +57,7 @@ class Runtime {
   };
 
   static final nativeJit =
-      Runtime('vm-native', _onNativeJit, tag: 'runtime:native-jit');
+      Runtime('vm-native', _onNativeJit, tag: PanaTags.runtimeNativeJit);
 
   static final recognizedRuntimes = [
     nativeAot,
@@ -65,57 +65,86 @@ class Runtime {
     web,
   ];
 
-  static final nativeAot = Runtime('native-aot', {
-    ..._onAllPlatforms,
-    ..._onAllNative,
-    'cli',
-    'nativewrappers',
-  });
+  static final nativeAot = Runtime(
+    'native-aot',
+    {
+      ..._onAllPlatforms,
+      ..._onAllNative,
+      'cli',
+      'nativewrappers',
+    },
+    tag: PanaTags.runtimeNativeAot,
+  );
 
   static final web = Runtime(
-      'js',
-      {
-        ..._onAllPlatforms,
-        ..._onAllWeb,
-        'html_common',
-      },
-      tag: 'runtime:web');
+    'js',
+    {
+      ..._onAllPlatforms,
+      ..._onAllWeb,
+      'html_common',
+    },
+    tag: PanaTags.runtimeWeb,
+  );
 
-  static final flutterNative = Runtime('flutter-native', {
-    ..._onAllPlatforms,
-    ..._onAllNative,
-    'ui',
-  });
+  static final flutterNative = Runtime(
+    'flutter-native',
+    {
+      ..._onAllPlatforms,
+      ..._onAllNative,
+      'ui',
+    },
+    tag: PanaTags.runtimeFlutterNative,
+  );
 
-  static final flutterWeb = Runtime('flutter-web', {
-    ..._onAllPlatforms,
-    ..._onAllWeb,
-    'ui',
-  });
+  static final flutterWeb = Runtime(
+    'flutter-web',
+    {
+      ..._onAllPlatforms,
+      ..._onAllWeb,
+      'ui',
+    },
+    tag: PanaTags.runtimeFlutterWeb,
+  );
 
   /// For platform detection we allow dart:ui.
-  static final broadWeb = Runtime('web', {
-    ..._onAllPlatforms,
-    ..._onAllWeb,
-    'ui',
-  });
+  static final broadWeb = Runtime(
+    'web',
+    {
+      ..._onAllPlatforms,
+      ..._onAllWeb,
+      'ui',
+    },
+    tag: PanaTags.runtimeWeb,
+  );
 
   /// For platform detection we allow dart:ui.
-  static final broadNative = Runtime('native', {
-    ..._onAllPlatforms,
-    ..._onAllNative,
-    'ui',
-  });
+  static final broadNative = Runtime(
+    'native',
+    {
+      ..._onAllPlatforms,
+      ..._onAllNative,
+      'ui',
+    },
+    tag: PanaTags.runtimeNative,
+  );
 
   /// For sdk detection we allow everything except dart:ui.
-  static final broadDart = Runtime('dart', {..._onNativeJit, ..._onAllWeb});
+  static final broadDart = Runtime(
+    'dart',
+    {..._onNativeJit, ..._onAllWeb},
+    tag: PanaTags.runtimeDart,
+  );
 
   /// For sdk detection we allow more or less everything.
-  static final broadFlutter = Runtime('flutter', {
-    ..._onNativeAot,
-    ..._onAllWeb,
-    'ui',
-  });
+  static final broadFlutter = Runtime(
+    'flutter',
+    {
+      ..._onNativeAot,
+      ..._onAllWeb,
+      'ui',
+    },
+    tag: PanaTags.runtimeFlutter,
+  );
 }
 
 /// A platform where Dart and Flutter can be deployed.
@@ -156,37 +185,37 @@ class Platform {
     'Android',
     dartRuntime: Runtime.nativeAot,
     flutterRuntime: Runtime.flutterNative,
-    tag: 'platform:android',
+    tag: PanaTags.platformAndroid,
   );
   static final ios = Platform(
     'iOS',
     dartRuntime: null,
     flutterRuntime: Runtime.flutterNative,
-    tag: 'platform:ios',
+    tag: PanaTags.platformIos,
   );
   static final linux = Platform(
     'Linux',
     dartRuntime: Runtime.nativeJit,
     flutterRuntime: Runtime.flutterNative,
-    tag: 'platform:linux',
+    tag: PanaTags.platformLinux,
   );
   static final macos = Platform(
     'macOS',
     dartRuntime: Runtime.nativeJit,
     flutterRuntime: Runtime.flutterNative,
-    tag: 'platform:macos',
+    tag: PanaTags.platformMacos,
   );
   static final web = Platform(
     'Web',
     dartRuntime: Runtime.web,
     flutterRuntime: Runtime.flutterWeb,
-    tag: 'platform:web',
+    tag: PanaTags.platformWeb,
   );
   static final windows = Platform(
     'Windows',
     dartRuntime: Runtime.nativeJit,
     flutterRuntime: Runtime.flutterNative,
-    tag: 'platform:windows',
+    tag: PanaTags.platformWindows,
   );
 
   @override
@@ -198,14 +227,30 @@ class Sdk {
   final String formattedName;
   final List<String> allowedSdks;
   final Runtime allowedRuntime;
-  Sdk(this.name, this.formattedName, this.allowedSdks, this.allowedRuntime);
+  final String tag;
+  Sdk(
+    this.name,
+    this.formattedName,
+    this.allowedSdks,
+    this.allowedRuntime, {
+    required this.tag,
+  });
 
-  String get tag => 'sdk:$name';
+  static Sdk dart = Sdk(
+    'dart',
+    'Dart',
+    ['dart'],
+    Runtime.broadDart,
+    tag: PanaTags.sdkDart,
+  );
 
-  static Sdk dart = Sdk('dart', 'Dart', ['dart'], Runtime.broadDart);
-
-  static Sdk flutter =
-      Sdk('flutter', 'Flutter', ['dart', 'flutter'], Runtime.broadFlutter);
+  static Sdk flutter = Sdk(
+    'flutter',
+    'Flutter',
+    ['dart', 'flutter'],
+    Runtime.broadFlutter,
+    tag: PanaTags.sdkFlutter,
+  );
 
   static List<Sdk> knownSdks = [dart, flutter];
 }

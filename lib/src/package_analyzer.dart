@@ -20,6 +20,7 @@ import 'package_context.dart';
 import 'pubspec.dart';
 import 'report/create_report.dart';
 import 'sdk_env.dart';
+import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
 import 'utils.dart';
 
@@ -104,7 +105,6 @@ class PackageAnalyzer {
     InspectOptions options, {
     Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
-    const hasErrorTag = 'has:error';
     final tags = <String>{};
     final context = PackageContext(
       toolEnvironment: _toolEnv,
@@ -129,7 +129,7 @@ class PackageAnalyzer {
       pubspec = context.pubspec;
     } catch (e, st) {
       log.info('Unable to read pubspec.yaml', e, st);
-      tags.add(hasErrorTag);
+      tags.add(PanaTags.hasError);
       return Summary(
         runtimeInfo: _toolEnv.runtimeInfo,
         packageName: null,
@@ -194,7 +194,7 @@ class PackageAnalyzer {
         // TODO: use a single result object to derive tags + report
         tags.addAll(tags_);
       } else {
-        tags.add(hasErrorTag);
+        tags.add(PanaTags.hasError);
       }
     }
 
@@ -222,7 +222,7 @@ class PackageAnalyzer {
       }
     }
     if (processedScreenshots.isNotEmpty) {
-      tags.add('has:screenshot');
+      tags.add(PanaTags.hasScreenshot);
     }
     final allDependencies = <String>{
       ...pubspec.dependencies.keys,
