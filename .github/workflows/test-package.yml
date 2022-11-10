@@ -21,8 +21,8 @@ jobs:
       matrix:
         sdk: [2.18.0]
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1.0
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -50,8 +50,8 @@ jobs:
         sdk: [2.18.0]
         flutter: [3.3.0]
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1.0
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
         with:
           sdk: ${{ matrix.sdk }}
       - name: Setup Flutter
@@ -79,11 +79,11 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: dart-lang/setup-dart@6a218f2413a3e78e9087f638a238f6b40893203d
         with:
           sdk: '2.19.0-255.2.beta' # TODO: switch back to rolling 'dev' channel after it gets updated.
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
         with:
           flutter-version: '3.4.0-34.1.pre'
           channel: 'beta' # TODO: switch back to rolling 'dev' channel after it gets updated.
