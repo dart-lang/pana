@@ -33,6 +33,8 @@ class ToolEnvironment {
   // TODO: remove this after flutter analyze gets machine-readable output.
   // https://github.com/flutter/flutter/issues/23664
   final List<String> _flutterDartAnalyzerCmd;
+  final List<String> _futureDartAnalyzeCmd;
+  final List<String> _futureFlutterDartAnalyzeCmd;
   final Map<String, String> _environment;
   PanaRuntimeInfo? _runtimeInfo;
   final bool _useGlobalDartdoc;
@@ -47,6 +49,8 @@ class ToolEnvironment {
     this._dartdocCmd,
     this._flutterCmd,
     this._flutterDartAnalyzerCmd,
+    this._futureDartAnalyzeCmd,
+    this._futureFlutterDartAnalyzeCmd,
     this._environment,
     this._useGlobalDartdoc,
   );
@@ -61,6 +65,8 @@ class ToolEnvironment {
     List<String> dartdocCmd = const <String>[],
     List<String> flutterCmd = const <String>[],
     List<String> flutterDartAnalyzerCmd = const <String>[],
+    List<String> futureDartAnalyzeCmd = const <String>[],
+    List<String> futureFlutterDartAnalyzeCmd = const <String>[],
     Map<String, String> environment = const <String, String>{},
     bool useGlobalDartdoc = false,
     required PanaRuntimeInfo runtimeInfo,
@@ -70,6 +76,8 @@ class ToolEnvironment {
         _dartdocCmd = dartdocCmd,
         _flutterCmd = flutterCmd,
         _flutterDartAnalyzerCmd = flutterDartAnalyzerCmd,
+        _futureDartAnalyzeCmd = futureDartAnalyzeCmd,
+        _futureFlutterDartAnalyzeCmd = futureFlutterDartAnalyzeCmd,
         _environment = environment,
         _useGlobalDartdoc = useGlobalDartdoc,
         _runtimeInfo = runtimeInfo;
@@ -101,6 +109,12 @@ class ToolEnvironment {
     String? pubCacheDir,
     Map<String, String>? environment,
     bool useGlobalDartdoc = false,
+
+    /// NOTE: this is an experimental option, do not rely on it.
+    String? futureDartSdkDir,
+
+    /// NOTE: this is an experimental option, do not rely on it.
+    String? futureFlutterSdkDir,
   }) async {
     Future<String?> resolve(String? dir) async {
       if (dir == null) return null;
@@ -111,6 +125,8 @@ class ToolEnvironment {
     final resolvedDartSdk = await resolve(dartSdkDir);
     final resolvedFlutterSdk = await resolve(flutterSdkDir);
     final resolvedPubCache = await resolve(pubCacheDir);
+    final resolvedFutureDartSdk = await resolve(futureDartSdkDir);
+    final resolvedFutureFlutterSdk = await resolve(futureFlutterSdkDir);
     final env = <String, String>{};
     env.addAll(environment ?? const {});
 
@@ -139,6 +155,9 @@ class ToolEnvironment {
           'Flutter SDK path was not specified, pana will use the default '
           'Dart SDK to run `dart analyze` on Flutter packages.');
     }
+    final resolvedFutureFlutterDartSdkDir = resolvedFutureFlutterSdk == null
+        ? null
+        : p.join(resolvedFutureFlutterSdk, 'bin', 'cache', 'dart-sdk');
 
     final toolEnv = ToolEnvironment._(
       resolvedDartSdk,
@@ -150,6 +169,8 @@ class ToolEnvironment {
       [_join(resolvedDartSdk, 'bin', 'dart'), 'doc'],
       [_join(resolvedFlutterSdk, 'bin', 'flutter'), '--no-version-check'],
       [_join(flutterDartSdkDir, 'bin', 'dart'), 'analyze'],
+      [_join(resolvedFutureDartSdk, 'bin', 'dart'), 'analyze'],
+      [_join(resolvedFutureFlutterDartSdkDir, 'bin', 'dart'), 'analyze'],
       env,
       useGlobalDartdoc,
     );
@@ -162,7 +183,14 @@ class ToolEnvironment {
     String dir,
     bool usesFlutter, {
     required InspectOptions inspectOptions,
+
+    /// NOTE: this is an experimental option, do not rely on it.
+    bool useFutureSdk = false,
   }) async {
+    final command = useFutureSdk
+        ? (usesFlutter ? _futureFlutterDartAnalyzeCmd : _futureDartAnalyzeCmd)
+        : (usesFlutter ? _flutterDartAnalyzerCmd : _dartAnalyzerCmd);
+
     final analysisOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
     String? originalOptions;
@@ -179,12 +207,7 @@ class ToolEnvironment {
     try {
       await analysisOptionsFile.writeAsString(customOptionsContent);
       final proc = await runProc(
-        [
-          ...usesFlutter ? _flutterDartAnalyzerCmd : _dartAnalyzerCmd,
-          '--format',
-          'machine',
-          dir,
-        ],
+        [...command, '--format', 'machine', dir],
         environment: _environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),

@@ -27,10 +27,16 @@ void main() {
 
   void verifyPackage(String package) {
     test('end2end light: $package', () async {
-      final summary = await analyzer.inspectPackage(package);
+      final summary = await analyzer.inspectPackage(
+        package,
+        options: InspectOptions(
+          futureSdkTag: 'is:future-compatible',
+        ),
+      );
       expect(summary.report, isNotNull);
       expect(summary.allDependencies!, isNotEmpty);
       expect(summary.tags!, isNotEmpty);
+      expect(summary.tags, contains('is:future-compatible'));
       expect(summary.report!.grantedPoints,
           greaterThanOrEqualTo(summary.report!.maxPoints - 20));
     }, timeout: const Timeout.factor(2));
