@@ -113,28 +113,50 @@ class PackageContext {
 
   Future<List<CodeProblem>> staticAnalysis() async {
     if (_codeProblems != null) return _codeProblems!;
-    log.info('Analyzing package...');
     try {
-      final dirs = await listFocusDirs(packageDir);
-      final problems = <CodeProblem>[];
-      for (final dir in dirs) {
-        final output = await toolEnvironment
-            .runAnalyzer(packageDir, dir, usesFlutter, inspectOptions: options);
-        final list = LineSplitter.split(output)
-            .map((s) => parseCodeProblem(s, projectDir: packageDir))
-            .whereNotNull()
-            .toSet()
-            .toList();
-        list.sort();
-        problems.addAll(list);
-      }
-      _codeProblems = problems;
+      log.info('Analyzing package...');
+      _codeProblems = await _staticAnalysis();
       return _codeProblems!;
     } on ToolException catch (e) {
       errors.add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
       rethrow;
     }
   }
+
+  Future<List<CodeProblem>> _staticAnalysis({
+    bool useFutureSdk = false,
+  }) async {
+    final dirs = await listFocusDirs(packageDir);
+    final problems = <CodeProblem>[];
+    for (final dir in dirs) {
+      final output = await toolEnvironment.runAnalyzer(
+        packageDir,
+        dir,
+        usesFlutter,
+        inspectOptions: options,
+        useFutureSdk: useFutureSdk,
+      );
+      final list = LineSplitter.split(output)
+          .map((s) => parseCodeProblem(s, projectDir: packageDir))
+          .whereNotNull()
+          .toSet()
+          .toList();
+      list.sort();
+      problems.addAll(list);
+    }
+    return problems;
+  }
+
+  /// True if the configured future SDK analyzed the package without any error.
+  late final isCompatibleWithFutureSdk = () async {
+    try {
+      log.info('Analyzing package with future SDK...');
+      final problems = await _staticAnalysis(useFutureSdk: true);
+      return !problems.any((e) => e.isError);
+    } on ToolException catch (_) {
+      return false;
+    }
+  }();
 
   late final Future<Outdated> outdated = toolEnvironment.runPubOutdated(
     packageDir,
