@@ -7,6 +7,7 @@ import 'package:path/path.dart' as p;
 import '../model.dart';
 import '../package_context.dart';
 import '../report/_common.dart';
+import '../repository/repository_url_parser.dart';
 
 class PubspecUrlsWithIssues {
   final UrlWithIssue homepage;
@@ -58,12 +59,24 @@ Future<PubspecUrlsWithIssues> checkPubspecUrls(PackageContext context) async {
   // and it can be verified as a valid repository.
   final verifiedRepository = await context.repository;
   final isVerifiedRepository = verifiedRepository?.repository != null;
-  if (pubspec.homepage != null &&
-      pubspec.repository == null &&
-      isVerifiedRepository) {
-    var r = repository;
-    repository = homepage;
-    homepage = r;
+  if (pubspec.homepage != null && pubspec.repository == null) {
+    // We may switch these values if the repository has been verified, or
+    // if the verification was not enabled, but the URL parsing recognizes
+    // it as a valid repository.
+    var maySwitch = isVerifiedRepository;
+    if (!maySwitch && context.options.checkRemoteRepository == false) {
+      final r = tryParseRepositoryUrl(pubspec.homepage!);
+      if (r != null && r.provider != RepositoryProvider.unknown) {
+        maySwitch = true;
+      }
+    }
+
+    // do the actual switch
+    if (maySwitch) {
+      var r = repository;
+      repository = homepage;
+      homepage = r;
+    }
   }
 
   // Set known issue tracker link in cases where it was not provided.
