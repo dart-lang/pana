@@ -63,16 +63,17 @@ Future<PubspecUrlsWithIssues> checkPubspecUrls(PackageContext context) async {
     // We may switch these values if the repository has been verified, or
     // if the verification was not enabled, but the URL parsing recognizes
     // it as a valid repository.
-    var maySwitch = isVerifiedRepository;
-    if (!maySwitch && context.options.checkRemoteRepository == false) {
+    var canUseHomepageAsRepository = isVerifiedRepository;
+    if (!canUseHomepageAsRepository &&
+        context.options.checkRemoteRepository == false) {
       final r = tryParseRepositoryUrl(pubspec.homepage!);
       if (r != null && r.provider != RepositoryProvider.unknown) {
-        maySwitch = true;
+        canUseHomepageAsRepository = true;
       }
     }
 
     // do the actual switch
-    if (maySwitch) {
+    if (canUseHomepageAsRepository) {
       var r = repository;
       repository = homepage;
       homepage = r;
