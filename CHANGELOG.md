@@ -2,6 +2,7 @@
 
 - `PanaTags` fields provide a single place for most of the tags that a package can get.
 - Experimental options to analyze and tag compatibility with a future SDK.
+- Lenient repository/homepage URL switch for packages that have no repository verification enabled.
 
 ## 0.21.20
 
