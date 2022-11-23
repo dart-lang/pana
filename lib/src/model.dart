@@ -47,6 +47,7 @@ class ProcessedScreenshot {
 @JsonSerializable()
 @VersionConverter()
 class Summary {
+  final DateTime? createdAt;
   final PanaRuntimeInfo runtimeInfo;
   final String? packageName;
   final Version? packageVersion;
@@ -68,6 +69,7 @@ class Summary {
   final String? errorMessage;
 
   Summary({
+    required this.createdAt,
     required this.runtimeInfo,
     this.packageName,
     this.packageVersion,
@@ -89,10 +91,14 @@ class Summary {
   Map<String, dynamic> toJson() => _$SummaryToJson(this);
 
   Summary change({
+    DateTime? createdAt,
     PanaRuntimeInfo? runtimeInfo,
     List<String>? tags,
+    Report? report,
+    AnalysisResult? result,
   }) {
     return Summary(
+      createdAt: createdAt ?? this.createdAt,
       runtimeInfo: runtimeInfo ?? this.runtimeInfo,
       packageName: packageName,
       packageVersion: packageVersion,
@@ -101,8 +107,8 @@ class Summary {
       licenseFile: licenseFile,
       licenses: licenses,
       tags: tags ?? this.tags,
-      report: report,
-      result: result,
+      report: report ?? this.report,
+      result: result ?? this.result,
       urlProblems: urlProblems,
       errorMessage: errorMessage,
       screenshots: screenshots,
