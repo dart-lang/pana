@@ -138,6 +138,7 @@ class PackageAnalyzer {
       log.info('Unable to read pubspec.yaml', e, st);
       tags.add(PanaTags.hasError);
       return Summary(
+        createdAt: DateTime.now().toUtc(),
         runtimeInfo: _toolEnv.runtimeInfo,
         packageName: null,
         packageVersion: null,
@@ -255,6 +256,7 @@ class PackageAnalyzer {
       errorMessage = context.errors.map((e) => e.trim()).join('\n\n');
     }
     return Summary(
+      createdAt: DateTime.now(),
       runtimeInfo: _toolEnv.runtimeInfo,
       packageName: pubspec.name,
       packageVersion: pubspec.version,

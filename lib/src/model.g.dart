@@ -32,6 +32,9 @@ Map<String, dynamic> _$ProcessedScreenshotToJson(
     };
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
       runtimeInfo:
           PanaRuntimeInfo.fromJson(json['runtimeInfo'] as Map<String, dynamic>),
       packageName: json['packageName'] as String?,
@@ -66,9 +69,7 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
     );
 
 Map<String, dynamic> _$SummaryToJson(Summary instance) {
-  final val = <String, dynamic>{
-    'runtimeInfo': instance.runtimeInfo.toJson(),
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -76,6 +77,8 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) {
     }
   }
 
+  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
+  val['runtimeInfo'] = instance.runtimeInfo.toJson();
   writeNotNull('packageName', instance.packageName);
   writeNotNull('packageVersion',
       const VersionConverter().toJson(instance.packageVersion));

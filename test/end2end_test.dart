@@ -67,11 +67,13 @@ void main() {
         final flutterDartVersion =
             summary.runtimeInfo.flutterInternalDartSdkVersion;
         summary = summary.change(
-            runtimeInfo: PanaRuntimeInfo(
-          panaVersion: '{{pana-version}}',
-          sdkVersion: '{{sdk-version}}',
-          flutterVersions: {},
-        ));
+          createdAt: DateTime.utc(2022, 11, 23, 11, 09),
+          runtimeInfo: PanaRuntimeInfo(
+            panaVersion: '{{pana-version}}',
+            sdkVersion: '{{sdk-version}}',
+            flutterVersions: {},
+          ),
+        );
 
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick

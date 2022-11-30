@@ -1,6 +1,7 @@
 ## 0.21.22
 
 - Set `FLUTTER_ROOT` environment variable when running `flutter` commands.
+- Updated `Summary`: `createdAt` field + new fields in `change` method.
 
 ## 0.21.21
 
