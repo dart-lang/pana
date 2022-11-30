@@ -1,5 +1,5 @@
 {
-  "createdAt": "2022-11-23T11:09:00.000",
+  "createdAt": "2022-11-23T11:09:00.000Z",
   "runtimeInfo": {
     "panaVersion": "{{pana-version}}",
     "sdkVersion": "{{sdk-version}}",

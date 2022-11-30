@@ -67,7 +67,7 @@ void main() {
         final flutterDartVersion =
             summary.runtimeInfo.flutterInternalDartSdkVersion;
         summary = summary.change(
-          createdAt: DateTime(2022, 11, 23, 11, 09),
+          createdAt: DateTime.utc(2022, 11, 23, 11, 09),
           runtimeInfo: PanaRuntimeInfo(
             panaVersion: '{{pana-version}}',
             sdkVersion: '{{sdk-version}}',
