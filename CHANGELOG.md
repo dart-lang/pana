@@ -1,3 +1,7 @@
+## 0.21.22
+
+- Set `FLUTTER_ROOT` environment variable when running `flutter` commands.
+
 ## 0.21.21
 
 - `PanaTags` fields provide a single place for most of the tags that a package can get.

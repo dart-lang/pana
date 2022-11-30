@@ -25,6 +25,7 @@ class ToolEnvironment {
   final String? dartSdkDir;
   final String? flutterSdkDir;
   final String? pubCacheDir;
+  final String? _futureFlutterSdkDir;
   final List<String> _dartCmd;
   final List<String> _pubCmd;
   final List<String> _dartAnalyzerCmd;
@@ -43,6 +44,7 @@ class ToolEnvironment {
     this.dartSdkDir,
     this.flutterSdkDir,
     this.pubCacheDir,
+    this._futureFlutterSdkDir,
     this._dartCmd,
     this._pubCmd,
     this._dartAnalyzerCmd,
@@ -59,6 +61,7 @@ class ToolEnvironment {
     this.dartSdkDir,
     this.flutterSdkDir,
     this.pubCacheDir,
+    String? futureFlutterSdkDir,
     List<String> dartCmd = const <String>[],
     List<String> pubCmd = const <String>[],
     List<String> dartAnalyzerCmd = const <String>[],
@@ -70,7 +73,8 @@ class ToolEnvironment {
     Map<String, String> environment = const <String, String>{},
     bool useGlobalDartdoc = false,
     required PanaRuntimeInfo runtimeInfo,
-  })  : _dartCmd = dartCmd,
+  })  : _futureFlutterSdkDir = futureFlutterSdkDir,
+        _dartCmd = dartCmd,
         _pubCmd = pubCmd,
         _dartAnalyzerCmd = dartAnalyzerCmd,
         _dartdocCmd = dartdocCmd,
@@ -163,6 +167,7 @@ class ToolEnvironment {
       resolvedDartSdk,
       resolvedFlutterSdk,
       resolvedPubCache,
+      resolvedFutureFlutterSdk,
       [_join(resolvedDartSdk, 'bin', 'dart')],
       [_join(resolvedDartSdk, 'bin', 'dart'), 'pub'],
       [_join(resolvedDartSdk, 'bin', 'dart'), 'analyze'],
@@ -178,6 +183,17 @@ class ToolEnvironment {
     return toolEnv;
   }
 
+  Map<String, String> _extendedEnv({
+    required bool usesFlutter,
+    String? flutterRoot,
+  }) {
+    flutterRoot ??= flutterSdkDir;
+    return {
+      if (usesFlutter && flutterRoot != null) 'FLUTTER_ROOT': flutterRoot,
+      ..._environment,
+    };
+  }
+
   Future<String> runAnalyzer(
     String packageDir,
     String dir,
@@ -190,6 +206,10 @@ class ToolEnvironment {
     final command = useFutureSdk
         ? (usesFlutter ? _futureFlutterDartAnalyzeCmd : _futureDartAnalyzeCmd)
         : (usesFlutter ? _flutterDartAnalyzerCmd : _dartAnalyzerCmd);
+    final environment = _extendedEnv(
+      usesFlutter: usesFlutter,
+      flutterRoot: useFutureSdk ? _futureFlutterSdkDir : flutterSdkDir,
+    );
 
     final analysisOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
@@ -208,7 +228,7 @@ class ToolEnvironment {
       await analysisOptionsFile.writeAsString(customOptionsContent);
       final proc = await runProc(
         [...command, '--format', 'machine', dir],
-        environment: _environment,
+        environment: environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
       );
@@ -247,6 +267,7 @@ class ToolEnvironment {
     if (dirs.isEmpty) {
       return const [];
     }
+    final environment = _extendedEnv(usesFlutter: usesFlutter);
     final files = <String>{};
     for (final dir in dirs) {
       final fullPath = p.join(packageDir, dir);
@@ -263,7 +284,7 @@ class ToolEnvironment {
 
       final result = await runProc(
         [...usesFlutter ? _flutterCmd : _dartCmd, ...params],
-        environment: _environment,
+        environment: environment,
         timeout: _dartfmtTimeout,
       );
       if (result.exitCode == 0) {
@@ -298,29 +319,6 @@ class ToolEnvironment {
     return files.toList()..sort();
   }
 
-  Future<PanaProcessResult> _execPubUpgrade(
-      String packageDir, Map<String, String> environment) {
-    return runProc(
-      [..._pubCmd, 'upgrade', '--verbose'],
-      workingDirectory: packageDir,
-      environment: environment,
-    );
-  }
-
-  Future<PanaProcessResult> _execFlutterUpgrade(
-          String packageDir, Map<String, String> environment) =>
-      runProc(
-        [
-          ..._flutterCmd,
-          'packages',
-          'pub',
-          'upgrade',
-          '--verbose',
-        ],
-        workingDirectory: packageDir,
-        environment: environment,
-      );
-
   Future<Map<String, dynamic>> getFlutterVersion() async {
     final result = _handleProcessErrors(
         await runProc([..._flutterCmd, '--version', '--machine']));
@@ -349,12 +347,27 @@ class ToolEnvironment {
 
   Future<PanaProcessResult> runUpgrade(String packageDir, bool usesFlutter,
       {int retryCount = 3}) async {
+    final environment = _extendedEnv(usesFlutter: usesFlutter);
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _retryProc(() async {
         if (usesFlutter) {
-          return await _execFlutterUpgrade(packageDir, _environment);
+          return await runProc(
+            [
+              ..._flutterCmd,
+              'packages',
+              'pub',
+              'upgrade',
+              '--verbose',
+            ],
+            workingDirectory: packageDir,
+            environment: environment,
+          );
         } else {
-          return await _execPubUpgrade(packageDir, _environment);
+          return await runProc(
+            [..._pubCmd, 'upgrade', '--verbose'],
+            workingDirectory: packageDir,
+            environment: environment,
+          );
         }
       }, shouldRetry: (result) {
         if (result.exitCode == 0) return false;
@@ -385,11 +398,12 @@ class ToolEnvironment {
         [..._flutterCmd, 'pub', 'pub']
         : [..._dartCmd, 'pub'];
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
+    final environment = _extendedEnv(usesFlutter: usesFlutter);
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
         final pr = await runProc(
           [...pubCmd, 'get', '--no-example'],
-          environment: _environment,
+          environment: environment,
           workingDirectory: packageDir,
         );
         return pr;
@@ -422,7 +436,7 @@ class ToolEnvironment {
           'outdated',
           ...args,
         ],
-        environment: _environment,
+        environment: environment,
         workingDirectory: packageDir,
       );
       if (result.exitCode != 0) {
