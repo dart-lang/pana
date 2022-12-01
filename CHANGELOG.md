@@ -2,6 +2,7 @@
 
 - Set `FLUTTER_ROOT` environment variable when running `flutter` commands.
 - Updated `Summary`: `createdAt` field + new fields in `change` method.
+- Isolate `git` process from host config through environment variables.
 
 ## 0.21.21
 
