@@ -83,6 +83,8 @@ class GitLocalRepository {
         'GIT_CONFIG': p.join(homePath, '.gitconfig'),
         'GIT_CONFIG_GLOBAL': p.join(homePath, '.global-gitconfig'),
         'GIT_CONFIG_NOSYSTEM': '1',
+        // prevent git from command prompts
+        'GIT_TERMINAL_PROMPT': '0',
       },
       workingDirectory: localPath,
       maxOutputBytes: maxOutputBytes,
