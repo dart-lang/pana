@@ -61,6 +61,9 @@ Future<void> downloadPackage(
           'Unable to access URL: "$packageUri" (status code: ${rs.statusCode}).');
     }
     await _extractTarGz(Stream.value(rs.bodyBytes), destination);
+  } catch (e, st) {
+    log.warning('Unable to download $package $version', e, st);
+    rethrow;
   } finally {
     client.close();
   }
