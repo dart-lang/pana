@@ -21,6 +21,12 @@ const unlimitedFetchDepth = 0;
 /// This objects uses a local temporary folder for interfacing with remote repository.
 /// Hence, it is important to call [delete] or temporary files will be leaked.
 class GitLocalRepository {
+  /// The temporary directory which contains all the other directories.
+  final String rootPath;
+
+  /// The local filesystem path to act as $HOME.
+  final String homePath;
+
   /// The local filesystem path to store the git repository.
   final String localPath;
 
@@ -31,7 +37,9 @@ class GitLocalRepository {
   /// When the depth was unlimited (== `0`), this stores `0`.
   final _fetchedDepthsPerBranch = <String, int>{};
 
-  GitLocalRepository({
+  GitLocalRepository._({
+    required this.rootPath,
+    required this.homePath,
     required this.localPath,
     required this.origin,
   });
@@ -41,15 +49,21 @@ class GitLocalRepository {
   /// Throws [GitToolException] if there was a failure to create the repository.
   static Future<GitLocalRepository> createLocalRepository(String origin) async {
     final tempDir = await Directory.systemTemp.createTemp('git-repo');
-    final repo = GitLocalRepository(
-      localPath: tempDir.path,
+    final homeDir = Directory(p.join(tempDir.path, 'home'));
+    final localDir = Directory(p.join(tempDir.path, 'local'));
+    await homeDir.create();
+    await localDir.create();
+    final repo = GitLocalRepository._(
+      rootPath: tempDir.path,
+      homePath: homeDir.path,
+      localPath: localDir.path,
       origin: origin,
     );
     try {
       await repo._init();
       return repo;
     } on Exception catch (_) {
-      await tempDir.delete(recursive: true);
+      await repo.delete();
       rethrow;
     }
   }
@@ -64,6 +78,13 @@ class GitLocalRepository {
       environment: {
         'LANG': 'C', // default English locale that is always present
         'LC_ALL': 'en_US',
+        // prevent git from reading host configuration files
+        'HOME': homePath,
+        'GIT_CONFIG': p.join(homePath, '.gitconfig'),
+        'GIT_CONFIG_GLOBAL': p.join(homePath, '.global-gitconfig'),
+        'GIT_CONFIG_NOSYSTEM': '1',
+        // prevent git from command prompts
+        'GIT_TERMINAL_PROMPT': '0',
       },
       workingDirectory: localPath,
       maxOutputBytes: maxOutputBytes,
@@ -171,7 +192,7 @@ class GitLocalRepository {
 
   /// Deletes the local directory.
   Future<void> delete() async {
-    await Directory(localPath).delete(recursive: true);
+    await Directory(rootPath).delete(recursive: true);
   }
 
   Future<void> _fetch(String branch, int depth) async {
