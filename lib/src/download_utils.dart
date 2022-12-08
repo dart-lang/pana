@@ -155,6 +155,9 @@ Future _extractTarGz(Stream<List<int>> tarball, String destination) async {
     if (!p.isWithin(destination, path)) {
       throw ArgumentError('"${entry.name}" is outside of the archive.');
     }
+    if (entry.type == TypeFlag.dir) {
+      continue;
+    }
     final dir = File(path).parent;
     await dir.create(recursive: true);
     if (entry.header.linkName != null) {
