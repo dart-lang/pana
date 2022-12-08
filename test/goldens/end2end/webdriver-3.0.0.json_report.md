@@ -19,7 +19,6 @@ Detected license: `Apache-2.0`.
 
 <details>
 <summary>
-
 No example found.
 </summary>
 
@@ -35,7 +34,6 @@ These platforms are not supported:
 
 <details>
 <summary>
-
 Package not compatible with platform Android
 </summary>
 
@@ -46,7 +44,6 @@ Because:
 </details>
 <details>
 <summary>
-
 Package not compatible with platform iOS
 </summary>
 
@@ -57,7 +54,6 @@ Because:
 </details>
 <details>
 <summary>
-
 Package not compatible with platform Windows
 </summary>
 
@@ -68,7 +64,6 @@ Because:
 </details>
 <details>
 <summary>
-
 Package not compatible with platform Linux
 </summary>
 
@@ -79,7 +74,6 @@ Because:
 </details>
 <details>
 <summary>
-
 Package not compatible with platform macOS
 </summary>
 
@@ -90,7 +84,6 @@ Because:
 </details>
 <details>
 <summary>
-
 Package not compatible with platform Web
 </summary>
 
@@ -108,7 +101,6 @@ Found 15 issues. Showing the first 2:
 
 <details>
 <summary>
-
 INFO: Provide a deprecation message, via @Deprecated("message").
 </summary>
 
@@ -125,7 +117,6 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
-
 INFO: Provide a deprecation message, via @Deprecated("message").
 </summary>
 

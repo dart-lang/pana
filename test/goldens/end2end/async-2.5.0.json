@@ -75,7 +75,7 @@
         "grantedPoints": 0,
         "maxPoints": 10,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\n\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
       },
       {
         "id": "platform",
@@ -91,7 +91,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\n\nINFO: Provide a deprecation message, via @Deprecated(\"message\").\n</summary>\n\n`lib/src/stream_sink_transformer.dart:56:3`\n\n```\n   ╷\n56 │   @deprecated\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/stream_sink_transformer.dart`\n</details>"
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: Provide a deprecation message, via @Deprecated(\"message\").\n</summary>\n\n`lib/src/stream_sink_transformer.dart:56:3`\n\n```\n   ╷\n56 │   @deprecated\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/stream_sink_transformer.dart`\n</details>"
       },
       {
         "id": "dependency",

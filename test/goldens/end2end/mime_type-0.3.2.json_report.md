@@ -4,7 +4,6 @@
 
 <details>
 <summary>
-
 The package description is too short.
 </summary>
 
@@ -15,7 +14,6 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 
 <details>
 <summary>
-
 Links in `README.md` should be secure. 1 link is insecure.
 </summary>
 
@@ -38,7 +36,6 @@ Use `https` URLs instead.
 
 <details>
 <summary>
-
 No license was recognized.
 </summary>
 
@@ -51,7 +48,6 @@ Consider using an [OSI-approved license](https://opensource.org/licenses) in the
 
 <details>
 <summary>
-
 No example found.
 </summary>
 
@@ -92,7 +88,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 <details>
 <summary>
-
 Package language version (indicated by the sdk constraint `>=0.8.10 <3.0.0`) is less than 2.12.
 </summary>
 

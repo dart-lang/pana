@@ -73,7 +73,6 @@ class Issue implements Paragraph {
     return [
       '<details>',
       '<summary>',
-      '', // This empty line is required for `package:markdown` to render the content.
       description,
       '</summary>',
       '', // This empty line is required for `package:markdown` to render the content.
