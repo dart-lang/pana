@@ -1,3 +1,7 @@
+## 0.21.23
+
+- Fix: tar extraction issue with directory entries.
+
 ## 0.21.22
 
 - Set `FLUTTER_ROOT` environment variable when running `flutter` commands.
