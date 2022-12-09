@@ -119,6 +119,22 @@ void main() {
       expect(section.grantedPoints, 20);
     });
 
+    test('Understands `>=2.12.0 <3.0.0` as `>=2.12.0 <4.0.0`', () async {
+      final descriptor = package('my_package', pubspecExtras: {
+        'environment': {
+          'sdk': '>=2.12.0 <3.0.0',
+        }
+      });
+      await descriptor.create();
+      final context = PackageContext(
+        toolEnvironment: await testToolEnvironment(sdkVersion: '3.0.0'),
+        packageDir: descriptor.io.path,
+        options: InspectOptions(),
+      );
+      final section = await trustworthyDependency(context);
+      expect(section.grantedPoints, 20);
+    });
+
     test('complains about Flutter constraint upper bound', () async {
       final toolEnv = await ToolEnvironment.create();
       final version = int.parse(
