@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:pana/pana.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
-Future<ToolEnvironment> testToolEnvironment() async {
+Future<ToolEnvironment> testToolEnvironment({String? sdkVersion}) async {
   final fakeFlutterRoot =
       d.dir('fake_flutter_root', [d.file('version', '2.0.0')]);
   await fakeFlutterRoot.create();
@@ -17,7 +17,7 @@ Future<ToolEnvironment> testToolEnvironment() async {
     environment: {'FLUTTER_ROOT': fakeFlutterRoot.io.path},
     runtimeInfo: PanaRuntimeInfo(
       panaVersion: '1.2.3',
-      sdkVersion: '2.12.0',
+      sdkVersion: sdkVersion ?? '2.12.0',
       flutterVersions: {
         'frameworkVersion': '2.0.0',
         'channel': 'stable',
