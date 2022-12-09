@@ -2,6 +2,7 @@
 
 - Fix: tar extraction issue with directory entries.
 - Fix: revert the extra line in <summary> blocks.
+- Use 'archiveUrl' when specified.
 
 ## 0.21.22
 

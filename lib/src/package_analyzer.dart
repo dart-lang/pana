@@ -39,6 +39,9 @@ class InspectOptions {
   /// Whether pana should also access the remote repository specified in pubspec.yaml.
   final bool checkRemoteRepository;
 
+  /// The package archive's URL to use when download is needed.
+  final String? archiveUrl;
+
   /// If specified, pana will analyze the package with future SDKs configured in
   /// [ToolEnvironment], and grant this tag if the analysis passes without errors.
   final String? futureSdkTag;
@@ -52,6 +55,7 @@ class InspectOptions {
     this.lineLength,
     this.analysisOptionsYaml,
     this.checkRemoteRepository = false,
+    this.archiveUrl,
 
     /// NOTE: this is an experimental option, do not rely on it.
     this.futureSdkTag,
@@ -90,8 +94,13 @@ class PackageAnalyzer {
     options ??= InspectOptions();
     return withLogger(() async {
       return withTempDir((tempDir) async {
-        await downloadPackage(package, version,
-            destination: tempDir, pubHostedUrl: options!.pubHostedUrl);
+        await downloadPackage(
+          package,
+          version,
+          destination: tempDir,
+          pubHostedUrl: options!.pubHostedUrl,
+          archiveUrl: options.archiveUrl,
+        );
         return await _inspect(tempDir, options, storeResource: storeResource);
       });
     }, logger: logger);

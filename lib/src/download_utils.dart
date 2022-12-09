@@ -21,6 +21,7 @@ Future<void> downloadPackage(
   String? version, {
   required String destination,
   String? pubHostedUrl,
+  String? archiveUrl,
 }) async {
   pubHostedUrl ??= 'https://pub.dartlang.org';
   final pubHostedUri = Uri.parse(pubHostedUrl);
@@ -29,24 +30,26 @@ Future<void> downloadPackage(
     when: (rs) => rs.statusCode >= 500,
   );
   try {
-    // Find URI for the package archive
-    final versionsUri = pubHostedUri.replace(
-        path: p.join(pubHostedUri.path, '/api/packages/$package'));
-    final versionsRs = await client.get(versionsUri);
-    if (versionsRs.statusCode != 200) {
-      throw Exception(
-          'Unable to access URL: "$versionsUri" (status code: ${versionsRs.statusCode}).');
-    }
-    final versionsJson = json.decode(versionsRs.body);
-    if (version == null) {
-      version = versionsJson['latest']['version'] as String;
-      log.fine('Latest version is: $version');
-    }
+    if (archiveUrl == null) {
+      // Find URI for the package archive
+      final versionsUri = pubHostedUri.replace(
+          path: p.join(pubHostedUri.path, '/api/packages/$package'));
+      final versionsRs = await client.get(versionsUri);
+      if (versionsRs.statusCode != 200) {
+        throw Exception(
+            'Unable to access URL: "$versionsUri" (status code: ${versionsRs.statusCode}).');
+      }
+      final versionsJson = json.decode(versionsRs.body);
+      if (version == null) {
+        version = versionsJson['latest']['version'] as String;
+        log.fine('Latest version is: $version');
+      }
 
-    final data = (versionsJson['versions'] as List)
-        .cast<Map<String, dynamic>>()
-        .firstWhere((e) => e['version'] == version);
-    final archiveUrl = data['archive_url'] as String;
+      final data = (versionsJson['versions'] as List)
+          .cast<Map<String, dynamic>>()
+          .firstWhere((e) => e['version'] == version);
+      archiveUrl = data['archive_url'] as String;
+    }
 
     var packageUri = Uri.parse(archiveUrl);
     if (!packageUri.hasScheme) {
