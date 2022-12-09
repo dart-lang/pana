@@ -30,7 +30,6 @@ These platforms are not supported:
 
 <details>
 <summary>
-
 Package not compatible with platform Android
 </summary>
 
@@ -43,7 +42,6 @@ Because:
 </details>
 <details>
 <summary>
-
 Package not compatible with platform iOS
 </summary>
 
@@ -56,7 +54,6 @@ Because:
 </details>
 <details>
 <summary>
-
 Package not compatible with platform Web
 </summary>
 
@@ -75,7 +72,6 @@ Found 24 issues. Showing the first 2:
 
 <details>
 <summary>
-
 INFO: Name non-constant identifiers using lowerCamelCase.
 </summary>
 
@@ -92,7 +88,6 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
-
 INFO: Name non-constant identifiers using lowerCamelCase.
 </summary>
 

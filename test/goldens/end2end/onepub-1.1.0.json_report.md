@@ -4,7 +4,6 @@
 
 <details>
 <summary>
-
 Failed to verify repository URL.
 </summary>
 
@@ -29,7 +28,6 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
 
 <details>
 <summary>
-
 No license was recognized.
 </summary>
 
@@ -42,7 +40,6 @@ Consider using an [OSI-approved license](https://opensource.org/licenses) in the
 
 <details>
 <summary>
-
 No example found.
 </summary>
 
@@ -61,7 +58,6 @@ These platforms are not supported:
 
 <details>
 <summary>
-
 Android
 </summary>
 
@@ -69,7 +65,6 @@ Cannot assign Android automatically to a binary only package.
 </details>
 <details>
 <summary>
-
 iOS
 </summary>
 
@@ -77,7 +72,6 @@ Cannot assign iOS automatically to a binary only package.
 </details>
 <details>
 <summary>
-
 Web
 </summary>
 

@@ -61,7 +61,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\n\nThe package description is too short.\n</summary>\n\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `MIT`."
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nThe package description is too short.\n</summary>\n\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `MIT`."
       },
       {
         "id": "documentation",
@@ -69,7 +69,7 @@
         "grantedPoints": 0,
         "maxPoints": 10,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\n\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
       },
       {
         "id": "platform",
@@ -85,7 +85,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 9 issues. Showing the first 2:\n\n<details>\n<summary>\n\nINFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.\n</summary>\n\n`lib/src/parser.dart:100:33`\n\n```\n    ╷\n100 │           location['invalid'] = List();\n    │                                 ^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`\n</details>\n<details>\n<summary>\n\nINFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.\n</summary>\n\n`lib/src/parser.dart:140:24`\n\n```\n    ╷\n140 │   List<String> parts = List();\n    │                        ^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`\n</details>"
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 9 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.\n</summary>\n\n`lib/src/parser.dart:100:33`\n\n```\n    ╷\n100 │           location['invalid'] = List();\n    │                                 ^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`\n</details>\n<details>\n<summary>\nINFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.\n</summary>\n\n`lib/src/parser.dart:140:24`\n\n```\n    ╷\n140 │   List<String> parts = List();\n    │                        ^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`\n</details>"
       },
       {
         "id": "dependency",
@@ -101,7 +101,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "partial",
-        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\n\nPackage language version (indicated by the sdk constraint `<3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
+        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `<3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
       }
     ]
   },

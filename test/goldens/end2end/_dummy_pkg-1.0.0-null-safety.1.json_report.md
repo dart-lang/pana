@@ -4,7 +4,6 @@
 
 <details>
 <summary>
-
 Sdk-constraint doesn't allow future stable dart 2.x releases
 </summary>
 
@@ -20,7 +19,6 @@ Sdk-constraint doesn't allow future stable dart 2.x releases
 </details>
 <details>
 <summary>
-
 The package description is too short.
 </summary>
 
@@ -28,7 +26,6 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 </details>
 <details>
 <summary>
-
 Failed to verify repository URL.
 </summary>
 
@@ -50,7 +47,6 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
 
 <details>
 <summary>
-
 No `CHANGELOG.md` found.
 </summary>
 
@@ -67,7 +63,6 @@ Detected license: `BSD-3-Clause`.
 
 <details>
 <summary>
-
 No example found.
 </summary>
 
@@ -80,7 +75,6 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 <details>
 <summary>
-
 Could not determine supported platforms as package resolution failed.
 </summary>
 
@@ -98,7 +92,6 @@ Run `dart pub get` for more information.
 
 <details>
 <summary>
-
 Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.
 </summary>
 
@@ -117,7 +110,6 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run 
 
 <details>
 <summary>
-
 Sdk constraint doesn't support current Dart version {{sdk-version}}.
 </summary>
 
@@ -139,7 +131,6 @@ Try widening the upper boundary of the constraint.
 
 <details>
 <summary>
-
 Package resolution failed. Could not determine null safety.
 </summary>
 
