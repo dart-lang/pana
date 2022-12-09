@@ -127,14 +127,14 @@ class Pubspec {
         isNullSafety(constraint.min!) &&
         // <3.0.0 is parsed into a max of 3.0.0-0, so that is what we look for
         // here.
-        constraint.max == Version(3, 0, 0).firstPreRelease &&
+        constraint.max == _version3.firstPreRelease &&
         constraint.includeMax == false) {
       return VersionRange(
         min: constraint.min,
         includeMin: constraint.includeMin,
         // We don't have to use .firstPreRelease as the constructor will do that
         // if needed.
-        max: Version(4, 0, 0),
+        max: _version4,
       );
     }
     return constraint;
@@ -166,6 +166,9 @@ class Pubspec {
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');
 final _range2Latest = VersionConstraint.parse('>=2.9999.0 <3.0.0');
 final _futureRange = VersionConstraint.parse('>=3.0.0');
+
+final _version3 = Version(3, 0, 0);
+final _version4 = Version(4, 0, 0);
 
 /// Detailed support coverage for the SDK constraint.
 class SdkConstraintStatus {
