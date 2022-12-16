@@ -1,3 +1,7 @@
+## 0.21.24
+
+- Fix: limit highlighted code snippet sizes in the report.
+
 ## 0.21.23
 
 - Fix: tar extraction issue with directory entries.
