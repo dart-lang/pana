@@ -1,7 +1,7 @@
 ## 0.21.23
 
 - Fix: tar extraction issue with directory entries.
-- Fix: revert the extra line in <summary> blocks.
+- Fix: revert the extra line in `<summary>` blocks.
 
 ## 0.21.22
 
