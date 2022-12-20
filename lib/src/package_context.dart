@@ -33,6 +33,7 @@ class SharedAnalysisContext {
   final UrlChecker _urlChecker;
 
   final _cachedUrlStatuses = <String, UrlStatus>{};
+  final _cachedVerifiedRepositories = <String, VerifiedRepository?>{};
 
   SharedAnalysisContext({
     required this.toolEnvironment,
@@ -49,6 +50,26 @@ class SharedAnalysisContext {
     final status = await _urlChecker.checkStatus(url);
     _cachedUrlStatuses[url] = status;
     return status;
+  }
+
+  Future<VerifiedRepository?> verifyRepository(
+    String package,
+    String? repositoryOrHomepage,
+  ) async {
+    if (repositoryOrHomepage == null) {
+      return null;
+    }
+    final cacheKey = '$package/$repositoryOrHomepage';
+    if (_cachedVerifiedRepositories.containsKey(cacheKey)) {
+      return _cachedVerifiedRepositories[cacheKey];
+    }
+    final repository = await checkRepository(
+      sharedContext: this,
+      packageName: package,
+      sourceUrl: repositoryOrHomepage,
+    );
+    _cachedVerifiedRepositories[cacheKey] = repository;
+    return repository;
   }
 }
 
@@ -204,7 +225,8 @@ class PackageContext {
 
   late final pubspecUrlsWithIssues = checkPubspecUrls(this);
 
-  late final repository = checkRepository(this);
+  late final repository = sharedContext.verifyRepository(
+      pubspec.name, pubspec.repositoryOrHomepage);
 
   late final licenses = detectLicenseInDir(packageDir);
   late final licenceTags = () async {
