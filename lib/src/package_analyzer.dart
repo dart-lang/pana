@@ -70,6 +70,7 @@ class PackageAnalyzer {
     String? flutterDir,
     String? pubCacheDir,
     String? pubHostedUrl,
+    Map<String, String>? environment,
   }) async {
     return PackageAnalyzer(await ToolEnvironment.create(
         dartSdkDir: sdkDir,
@@ -77,6 +78,7 @@ class PackageAnalyzer {
         pubCacheDir: pubCacheDir,
         environment: <String, String>{
           if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
+          ...?environment,
         }));
   }
 

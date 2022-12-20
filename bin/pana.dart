@@ -136,6 +136,7 @@ Future main(List<String> args) async {
       sdkDir: result['dart-sdk'] as String?,
       flutterDir: result['flutter-sdk'] as String?,
       pubHostedUrl: pubHostedUrl,
+      environment: Platform.environment,
     );
     final options = InspectOptions(
       pubHostedUrl: pubHostedUrl,

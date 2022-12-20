@@ -168,14 +168,26 @@ class ToolEnvironment {
       resolvedFlutterSdk,
       resolvedPubCache,
       resolvedFutureFlutterSdk,
-      [_join(resolvedDartSdk, 'bin', 'dart')],
-      [_join(resolvedDartSdk, 'bin', 'dart'), 'pub'],
-      [_join(resolvedDartSdk, 'bin', 'dart'), 'analyze'],
-      [_join(resolvedDartSdk, 'bin', 'dart'), 'doc'],
-      [_join(resolvedFlutterSdk, 'bin', 'flutter'), '--no-version-check'],
-      [_join(flutterDartSdkDir, 'bin', 'dart'), 'analyze'],
-      [_join(resolvedFutureDartSdk, 'bin', 'dart'), 'analyze'],
-      [_join(resolvedFutureFlutterDartSdkDir, 'bin', 'dart'), 'analyze'],
+      [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics'],
+      [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics', 'pub'],
+      [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics', 'analyze'],
+      [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics', 'doc'],
+      [
+        _join(resolvedFlutterSdk, 'bin', 'flutter'),
+        '--suppress-analytics',
+        '--no-version-check'
+      ],
+      [_join(flutterDartSdkDir, 'bin', 'dart'), '--no-analytics', 'analyze'],
+      [
+        _join(resolvedFutureDartSdk, 'bin', 'dart'),
+        '--no-analytics',
+        'analyze'
+      ],
+      [
+        _join(resolvedFutureFlutterDartSdkDir, 'bin', 'dart'),
+        '--no-analytics',
+        'analyze'
+      ],
       env,
       useGlobalDartdoc,
     );
