@@ -29,9 +29,10 @@ void main() {
       await descriptor.create();
 
       Future<PackageContext> newContext() async => PackageContext(
-            toolEnvironment: await testToolEnvironment(),
+            sharedContext: SharedAnalysisContext(
+              toolEnvironment: await testToolEnvironment(),
+            ),
             packageDir: descriptor.io.path,
-            options: InspectOptions(),
           );
       final currentSdkVersion =
           Version.parse((await testToolEnvironment()).runtimeInfo.sdkVersion);
@@ -111,9 +112,10 @@ void main() {
       });
       await descriptor.create();
       final context = PackageContext(
-        toolEnvironment: await ToolEnvironment.create(),
+        sharedContext: SharedAnalysisContext(
+          toolEnvironment: await ToolEnvironment.create(),
+        ),
         packageDir: descriptor.io.path,
-        options: InspectOptions(),
       );
       final section = await trustworthyDependency(context);
       expect(section.grantedPoints, 20);
@@ -127,9 +129,10 @@ void main() {
       });
       await descriptor.create();
       final context = PackageContext(
-        toolEnvironment: await testToolEnvironment(sdkVersion: '3.0.0'),
+        sharedContext: SharedAnalysisContext(
+          toolEnvironment: await testToolEnvironment(sdkVersion: '3.0.0'),
+        ),
         packageDir: descriptor.io.path,
-        options: InspectOptions(),
       );
       final section = await trustworthyDependency(context);
       expect(section.grantedPoints, 20);
@@ -148,9 +151,10 @@ void main() {
       });
       await descriptor.create();
       final context = PackageContext(
-        toolEnvironment: toolEnv,
+        sharedContext: SharedAnalysisContext(
+          toolEnvironment: toolEnv,
+        ),
         packageDir: descriptor.io.path,
-        options: InspectOptions(),
       );
       final section = await trustworthyDependency(context);
       expect(

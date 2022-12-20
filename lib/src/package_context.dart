@@ -24,13 +24,27 @@ import 'screenshots.dart';
 import 'sdk_env.dart';
 import 'utils.dart' show listFocusDirs;
 
+/// Shared (intermediate) results between different packages or versions.
+/// External systems that may be independent of the archive content may be
+/// stored here, e.g. repository and URL verification.
+class SharedAnalysisContext {
+  final ToolEnvironment toolEnvironment;
+  final InspectOptions options;
+  final UrlChecker urlChecker;
+
+  SharedAnalysisContext({
+    required this.toolEnvironment,
+    InspectOptions? options,
+    UrlChecker? urlChecker,
+  })  : options = options ?? InspectOptions(),
+        urlChecker = urlChecker ?? UrlChecker();
+}
+
 /// Calculates and stores the intermediate analysis and processing results that
 /// are required for the final report.
 class PackageContext {
-  final ToolEnvironment toolEnvironment;
+  final SharedAnalysisContext sharedContext;
   final String packageDir;
-  final InspectOptions options;
-  final UrlChecker urlChecker;
   final errors = <String>[];
   final urlProblems = <String, String>{};
 
@@ -39,11 +53,13 @@ class PackageContext {
   List<CodeProblem>? _codeProblems;
 
   PackageContext({
-    required this.toolEnvironment,
+    required this.sharedContext,
     required this.packageDir,
-    required this.options,
-    UrlChecker? urlChecker,
-  }) : urlChecker = urlChecker ?? UrlChecker();
+  });
+
+  ToolEnvironment get toolEnvironment => sharedContext.toolEnvironment;
+  InspectOptions get options => sharedContext.options;
+  UrlChecker get urlChecker => sharedContext.urlChecker;
 
   late final Version currentSdkVersion =
       Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
