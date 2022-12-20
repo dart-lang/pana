@@ -30,14 +30,26 @@ import 'utils.dart' show listFocusDirs;
 class SharedAnalysisContext {
   final ToolEnvironment toolEnvironment;
   final InspectOptions options;
-  final UrlChecker urlChecker;
+  final UrlChecker _urlChecker;
+
+  final _cachedUrlStatuses = <String, UrlStatus>{};
 
   SharedAnalysisContext({
     required this.toolEnvironment,
     InspectOptions? options,
     UrlChecker? urlChecker,
   })  : options = options ?? InspectOptions(),
-        urlChecker = urlChecker ?? UrlChecker();
+        _urlChecker = urlChecker ?? UrlChecker();
+
+  Future<UrlStatus> checkUrlStatus(String url) async {
+    final cached = _cachedUrlStatuses[url];
+    if (cached != null) {
+      return cached;
+    }
+    final status = await _urlChecker.checkStatus(url);
+    _cachedUrlStatuses[url] = status;
+    return status;
+  }
 }
 
 /// Calculates and stores the intermediate analysis and processing results that
@@ -59,7 +71,6 @@ class PackageContext {
 
   ToolEnvironment get toolEnvironment => sharedContext.toolEnvironment;
   InspectOptions get options => sharedContext.options;
-  UrlChecker get urlChecker => sharedContext.urlChecker;
 
   late final Version currentSdkVersion =
       Version.parse(toolEnvironment.runtimeInfo.sdkVersion);

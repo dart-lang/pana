@@ -192,7 +192,7 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
             if (files.contains(path)) {
               final url = repositoryWithPath(null).tryResolveUrl(path);
               if (url != null) {
-                final status = await context.urlChecker.checkStatus(url);
+                final status = await context.sharedContext.checkUrlStatus(url);
                 if (status.exists) {
                   contributingUrl = url;
                   break;
