@@ -441,7 +441,7 @@ class ToolEnvironment {
           stderr,
         );
       }
-      print(environment);
+
       final result = await runProc(
         [
           ...pubCmd,
