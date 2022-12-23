@@ -33,10 +33,10 @@ void main() {
     expect(dart2Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
 
     expect(dart1andDart3Pubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
-    expect(dart1andDart3Pubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
+    expect(dart1andDart3Pubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
 
     expect(unboundedSdkPubspec.sdkConstraintStatus.enablesDart2Latest, isTrue);
-    expect(unboundedSdkPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
+    expect(unboundedSdkPubspec.sdkConstraintStatus.isDart2Compatible, isTrue);
   });
 
   test('flutter', () {
