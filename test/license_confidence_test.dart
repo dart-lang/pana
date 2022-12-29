@@ -153,13 +153,13 @@ void _testVerifyNoGplChange(
 
 void testInducedPhraseChange() {
   group('Induced phrase change:', () {
-    test('Throws exception', () {
+    test('Apache license no longer throws', () {
       expect(
           () => verifyInducedPhraseChange('Apache', [
                 Diff(Operation.equal, 'some equal text'),
-                Diff(Operation.insert, 'apache')
+                Diff(Operation.insert, 'apache license')
               ]),
-          throwsA(isA<LicenseMismatchException>()));
+          returnsNormally);
     });
 
     test('Returns normally', () {
