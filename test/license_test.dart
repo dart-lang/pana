@@ -46,7 +46,8 @@ void main() {
       await expectFile('test/licenses/bsd_2_clause.txt', ['BSD-2-Clause']);
       await expectFile(
           'test/licenses/bsd_2_clause_in_comments.txt', ['BSD-2-Clause']);
-      await expectFile('test/licenses/bsd_3_clause.txt', ['unknown']);
+      await expectFile(
+          'test/licenses/bsd_3_clause.txt', ['BSD-3-Clause-Clear']);
       await expectFile('test/licenses/bsd_revised.txt', ['BSD-3-Clause']);
     });
   });

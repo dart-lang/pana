@@ -280,8 +280,8 @@ const lesserGplChange = -2;
 final _inducedPhrases = {
   'AGPL': ['affero'],
   'Atmel': ['atmel'],
-  'Apache': ['apache'],
-  'BSD': ['bsd'],
+  // 'Apache': ['apache'],
+  // 'BSD': ['bsd'],
   'BSD-3-Clause-Attribution': ['acknowledgment'],
   'bzip2': ['seward'],
   'GPL-2.0-with-GCC-exception': ['gcc linking exception'],
