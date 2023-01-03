@@ -28,8 +28,11 @@ class VerifiedRepository {
 }
 
 /// Returns the repository information for the current package.
-Future<VerifiedRepository?> checkRepository(PackageContext context) async {
-  final sourceUrl = context.pubspec.repositoryOrHomepage;
+Future<VerifiedRepository?> checkRepository({
+  required SharedAnalysisContext sharedContext,
+  required String packageName,
+  required String? sourceUrl,
+}) async {
   if (sourceUrl == null) {
     return null;
   }
@@ -74,7 +77,7 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
     log.info(message, error, st);
   }
 
-  if (context.options.checkRemoteRepository) {
+  if (sharedContext.options.checkRemoteRepository) {
     late GitLocalRepository repo;
     try {
       repo = await GitLocalRepository.createLocalRepository(
@@ -135,9 +138,9 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
         }
 
         // verification steps
-        if (gitPubspec.name != context.pubspec.name) {
+        if (gitPubspec.name != packageName) {
           return _PubspecMatch(path, false,
-              '`$path` from the repository name missmatch: expected `${context.pubspec.name}` but got `${gitPubspec.name}`.');
+              '`$path` from the repository name missmatch: expected `$packageName` but got `${gitPubspec.name}`.');
         }
         final gitRepoOrHomepage = gitPubspec.repositoryOrHomepage;
         if (gitRepoOrHomepage == null) {
@@ -170,10 +173,10 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
       final nameMatches = results.where((e) => e.hasMatchingName).toList();
       if (nameMatches.isEmpty) {
         failVerification(
-            'Repository has no matching `pubspec.yaml` with `name: ${context.pubspec.name}`.');
+            'Repository has no matching `pubspec.yaml` with `name: $packageName`.');
       } else if (nameMatches.length > 1) {
         failVerification(
-            'Repository has multiple matching `pubspec.yaml` with `name: ${context.pubspec.name}`.');
+            'Repository has multiple matching `pubspec.yaml` with `name: $packageName`.');
       } else {
         // confirmed name match, storing path
         localPath = p.dirname(nameMatches.single.path);
@@ -192,7 +195,7 @@ Future<VerifiedRepository?> checkRepository(PackageContext context) async {
             if (files.contains(path)) {
               final url = repositoryWithPath(null).tryResolveUrl(path);
               if (url != null) {
-                final status = await context.urlChecker.checkStatus(url);
+                final status = await sharedContext.checkUrlStatus(url);
                 if (status.exists) {
                   contributingUrl = url;
                   break;

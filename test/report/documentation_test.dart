@@ -51,9 +51,10 @@ Call this method..
 
       await descriptor.create();
       final report = await createReport(PackageContext(
-        toolEnvironment: await ToolEnvironment.create(),
+        sharedContext: SharedAnalysisContext(
+          toolEnvironment: await ToolEnvironment.create(),
+        ),
         packageDir: descriptor.io.path,
-        options: InspectOptions(),
       ));
       final section =
           report.sections.firstWhere((s) => s.title == 'Provide documentation');
@@ -66,9 +67,10 @@ Call this method..
 
       await descriptor.create();
       final report = await createReport(PackageContext(
-        toolEnvironment: await ToolEnvironment.create(),
+        sharedContext: SharedAnalysisContext(
+          toolEnvironment: await ToolEnvironment.create(),
+        ),
         packageDir: descriptor.io.path,
-        options: InspectOptions(),
       ));
       final section =
           report.sections.firstWhere((s) => s.title == 'Provide documentation');

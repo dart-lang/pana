@@ -148,7 +148,7 @@ Future<UrlWithIssue> _checkUrl(
   String url,
 ) async {
   final pubspec = context.pubspec;
-  final status = await context.urlChecker.checkStatus(url);
+  final status = await context.sharedContext.checkUrlStatus(url);
   if (status.isInvalid) {
     return UrlWithIssue(
       url,

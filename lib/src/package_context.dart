@@ -24,13 +24,60 @@ import 'screenshots.dart';
 import 'sdk_env.dart';
 import 'utils.dart' show listFocusDirs;
 
+/// Shared (intermediate) results between different packages or versions.
+/// External systems that may be independent of the archive content may be
+/// stored here, e.g. repository and URL verification.
+class SharedAnalysisContext {
+  final ToolEnvironment toolEnvironment;
+  final InspectOptions options;
+  final UrlChecker _urlChecker;
+
+  final _cachedUrlStatuses = <String, UrlStatus>{};
+  final _cachedVerifiedRepositories = <String, VerifiedRepository?>{};
+
+  SharedAnalysisContext({
+    required this.toolEnvironment,
+    InspectOptions? options,
+    UrlChecker? urlChecker,
+  })  : options = options ?? InspectOptions(),
+        _urlChecker = urlChecker ?? UrlChecker();
+
+  Future<UrlStatus> checkUrlStatus(String url) async {
+    final cached = _cachedUrlStatuses[url];
+    if (cached != null) {
+      return cached;
+    }
+    final status = await _urlChecker.checkStatus(url);
+    _cachedUrlStatuses[url] = status;
+    return status;
+  }
+
+  Future<VerifiedRepository?> verifyRepository(
+    String package,
+    String? repositoryOrHomepage,
+  ) async {
+    if (repositoryOrHomepage == null) {
+      return null;
+    }
+    final cacheKey = '$package/$repositoryOrHomepage';
+    if (_cachedVerifiedRepositories.containsKey(cacheKey)) {
+      return _cachedVerifiedRepositories[cacheKey];
+    }
+    final repository = await checkRepository(
+      sharedContext: this,
+      packageName: package,
+      sourceUrl: repositoryOrHomepage,
+    );
+    _cachedVerifiedRepositories[cacheKey] = repository;
+    return repository;
+  }
+}
+
 /// Calculates and stores the intermediate analysis and processing results that
 /// are required for the final report.
 class PackageContext {
-  final ToolEnvironment toolEnvironment;
+  final SharedAnalysisContext sharedContext;
   final String packageDir;
-  final InspectOptions options;
-  final UrlChecker urlChecker;
   final errors = <String>[];
   final urlProblems = <String, String>{};
 
@@ -39,11 +86,12 @@ class PackageContext {
   List<CodeProblem>? _codeProblems;
 
   PackageContext({
-    required this.toolEnvironment,
+    required this.sharedContext,
     required this.packageDir,
-    required this.options,
-    UrlChecker? urlChecker,
-  }) : urlChecker = urlChecker ?? UrlChecker();
+  });
+
+  ToolEnvironment get toolEnvironment => sharedContext.toolEnvironment;
+  InspectOptions get options => sharedContext.options;
 
   late final Version currentSdkVersion =
       Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
@@ -177,7 +225,8 @@ class PackageContext {
 
   late final pubspecUrlsWithIssues = checkPubspecUrls(this);
 
-  late final repository = checkRepository(this);
+  late final repository = sharedContext.verifyRepository(
+      pubspec.name, pubspec.repositoryOrHomepage);
 
   late final licenses = detectLicenseInDir(packageDir);
   late final licenceTags = () async {

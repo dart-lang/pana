@@ -89,38 +89,80 @@ class PackageAnalyzer {
     Logger? logger,
     Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
-    options ??= InspectOptions();
+    final sharedContext = _createSharedContext(options: options);
     return withLogger(() async {
       return withTempDir((tempDir) async {
         await downloadPackage(package, version,
             destination: tempDir, pubHostedUrl: options!.pubHostedUrl);
-        return await _inspect(tempDir, options, storeResource: storeResource);
+        return await _inspect(sharedContext, tempDir,
+            storeResource: storeResource);
       });
     }, logger: logger);
   }
 
+  Future<List<Summary>> inspectVersions(
+    String package,
+    List<String> versions, {
+    InspectOptions? options,
+    Logger Function(String version)? loggerFn,
+    Future<void> Function(String version, String filename, Uint8List data)?
+        storeResourceFn,
+  }) async {
+    final results = <Summary>[];
+    final sharedContext = _createSharedContext(options: options);
+    for (final version in versions) {
+      final summary = await withLogger(
+        () async {
+          return withTempDir((tempDir) async {
+            await downloadPackage(package, version,
+                destination: tempDir, pubHostedUrl: options!.pubHostedUrl);
+            return await _inspect(
+              sharedContext,
+              tempDir,
+              storeResource: storeResourceFn == null
+                  ? null
+                  : (filename, data) =>
+                      storeResourceFn(version, filename, data),
+            );
+          });
+        },
+        logger: loggerFn == null ? null : loggerFn(version),
+      );
+      results.add(summary);
+    }
+    return results;
+  }
+
   Future<Summary> inspectDir(String packageDir, {InspectOptions? options}) {
-    options ??= InspectOptions();
+    final sharedContext = _createSharedContext(options: options);
     return withTempDir((tempDir) async {
       final rootDir = await _detectGitRoot(packageDir) ?? packageDir;
       await _copy(rootDir, tempDir);
       final relativeDir = path.relative(packageDir, from: rootDir);
-      return await _inspect(path.join(tempDir, relativeDir), options!);
+      return await _inspect(sharedContext, path.join(tempDir, relativeDir));
     });
   }
 
+  SharedAnalysisContext _createSharedContext({
+    required InspectOptions? options,
+  }) =>
+      SharedAnalysisContext(
+        toolEnvironment: _toolEnv,
+        options: options ?? InspectOptions(),
+        urlChecker: _urlChecker,
+      );
+
   Future<Summary> _inspect(
-    String pkgDir,
-    InspectOptions options, {
+    SharedAnalysisContext sharedContext,
+    String pkgDir, {
     Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
     final tags = <String>{};
     final context = PackageContext(
-      toolEnvironment: _toolEnv,
+      sharedContext: sharedContext,
       packageDir: pkgDir,
-      options: options,
-      urlChecker: _urlChecker,
     );
+    final options = sharedContext.options;
 
     final dartFiles = <String>[];
     final fileList = listFiles(pkgDir, deleteBadExtracted: true);
