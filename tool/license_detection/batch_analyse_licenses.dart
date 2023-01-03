@@ -16,6 +16,7 @@ Future<void> main(List<String> args) async {
         'aggregated summary of the results.');
     return;
   }
+  final outputFileName = args.single;
 
   final files = Directory('.dart_tool/pana/license-cache')
       .listSync()
@@ -38,10 +39,6 @@ Future<void> main(List<String> args) async {
       // TODO: also track errors
     }
   }
-  final outputBaseName = DateTime.now()
-      .toIso8601String()
-      .replaceAll('T', '-')
-      .replaceAll(':', '-');
-  await File('$outputBaseName.json')
+  await File(outputFileName)
       .writeAsString(const JsonEncoder.withIndent('  ').convert(result));
 }
