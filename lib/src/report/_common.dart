@@ -21,8 +21,12 @@ extension on SourceSpan {
   String markdown({String? basePath}) {
     assert(sourceUrl != null);
     final path = p.relative(sourceUrl!.path, from: basePath);
+    var content = highlight();
+    if (content.length > 1024) {
+      content = '${content.substring(0, 1020)}\n[...]';
+    }
     return '`$path:${start.line + 1}:${start.column + 1}`\n\n'
-        '```\n${highlight()}\n```\n';
+        '```\n$content\n```\n';
   }
 }
 
