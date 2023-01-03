@@ -1,6 +1,8 @@
 ## 0.21.24
 
+- Fix: allow <4.0.0 for Dart 3 packages.
 - Fix: limit highlighted code snippet sizes in the report.
+- Analyze multiple versions of the same package with shared result context (URLs, repository).
 
 ## 0.21.23
 
