@@ -9,7 +9,7 @@ mkdir -p "${LICENSES_DIR}"
 cd "${LICENSES_DIR}"
 
 # Get all package names
-get_all_package_names() { curl -s  -H "Accept-Encoding: gzip" https://pub.dev/api/package-names | gunzip | jq -r .packages[]; }
+get_all_package_names() { curl -s  -H 'Accept-Encoding: gzip' 'https://pub.dev/api/package-names' | gzip -d | jq -r .packages[]; }
 
 # Given a package name, get archive URL for latest version
 get_archive_url() { curl -sL "https://pub.dev/api/packages/$1" | jq -r .latest.archive_url; }
