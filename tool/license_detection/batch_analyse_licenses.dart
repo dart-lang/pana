@@ -7,8 +7,17 @@ import 'dart:io';
 
 import 'package:pana/src/license.dart';
 
-Future<void> main() async {
-  final files = Directory('third_party/pub/licenses')
+Future<void> main(List<String> args) async {
+  if (args.isEmpty || args.contains('--help')) {
+    print('dart batch_analyse_licenses.dart <output.json>');
+    print('');
+    print(
+        'Read all license files from the license cache directory and create an '
+        'aggregated summary of the results.');
+    return;
+  }
+
+  final files = Directory('.dart_tool/pana/license-cache')
       .listSync()
       .whereType<File>()
       .toList();

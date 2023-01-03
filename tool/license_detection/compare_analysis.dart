@@ -6,6 +6,14 @@ import 'dart:convert';
 import 'dart:io';
 
 Future<void> main(List<String> args) async {
+  if (args.isEmpty || args.contains('--help')) {
+    print('dart batch_compare_analysis.dart <before.json> <after.json>');
+    print('');
+    print(
+        'Compare analysis results and highlight changes using the output of the '
+        '`batch_compare_licenses.dart script.');
+    return;
+  }
   final a = await _read(args[0]);
   final b = await _read(args[1]);
 

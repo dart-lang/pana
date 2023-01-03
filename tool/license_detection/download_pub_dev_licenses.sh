@@ -3,7 +3,8 @@
 set -e
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-LICENSES_DIR="${SCRIPT_DIR}/licenses"
+PROJECT_DIR="$( cd ${SCRIPT_DIR}/../.. && pwd )"
+LICENSES_DIR="${PROJECT_DIR}/.dart_tool/pana/license-cache"
 
 mkdir -p "${LICENSES_DIR}"
 cd "${LICENSES_DIR}"
