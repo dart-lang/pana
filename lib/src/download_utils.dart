@@ -8,12 +8,13 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart' as http_retry;
-import 'package:pana/pana.dart';
 import 'package:path/path.dart' as p;
 import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
 import 'logging.dart';
+import 'model.dart';
+import 'version.dart';
 
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
@@ -121,10 +122,8 @@ class UrlChecker {
   /// A cached [UrlChecker] implementation should override this method,
   /// wrap it in a cached callback, still invoking it via `super.checkUrlExists()`.
   Future<bool> checkUrlExists(Uri uri) async {
-    return await safeUrlCheck(
-      uri,
-      userAgent: 'pana/$packageVersion (https://pub.dev/packages/pana)',
-    );
+    return await safeUrlCheck(uri,
+        userAgent: 'pana/$packageVersion (https://pub.dev/packages/pana)');
   }
 
   /// Check the status of the URL, using validity checks, cache and
