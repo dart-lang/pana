@@ -14,7 +14,6 @@ import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
 import 'logging.dart';
-import 'model.dart';
 
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
