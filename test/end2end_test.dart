@@ -28,16 +28,20 @@ void main() {
         .createTempSync('pana-test')
         .resolveSymbolicLinksSync();
     final pubCacheDir = p.join(tempDir, 'pub-cache');
+    final panaCacheDir = p.join(tempDir, 'pana-cache');
     final goldenDirLastModified = await _detectGoldenLastModified();
     Directory(pubCacheDir).createSync();
+    Directory(panaCacheDir).createSync();
     httpClient = http.Client();
     httpServer = await _startLocalProxy(
       httpClient: httpClient,
       blockPublishAfter: goldenDirLastModified,
     );
     analyzer = await PackageAnalyzer.create(
-        pubCacheDir: pubCacheDir,
-        pubHostedUrl: 'http://127.0.0.1:${httpServer.port}');
+      pubCacheDir: pubCacheDir,
+      panaCacheDir: panaCacheDir,
+      pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
+    );
   });
 
   tearDownAll(() async {

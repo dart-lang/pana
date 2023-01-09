@@ -69,6 +69,7 @@ class PackageAnalyzer {
     String? sdkDir,
     String? flutterDir,
     String? pubCacheDir,
+    String? panaCacheDir,
     String? pubHostedUrl,
     Map<String, String>? environment,
   }) async {
@@ -76,6 +77,7 @@ class PackageAnalyzer {
         dartSdkDir: sdkDir,
         flutterSdkDir: flutterDir,
         pubCacheDir: pubCacheDir,
+        panaCacheDir: panaCacheDir,
         environment: <String, String>{
           if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
           ...?environment,

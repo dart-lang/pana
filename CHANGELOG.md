@@ -1,6 +1,8 @@
 ## 0.21.25
 
 - Strict names in package layout checks.
+- Use different user-agent for URL checks.
+- Use `PANA_CACHE` local directory to cache some of the shared result context (URLs, repository).
 
 ## 0.21.24
 

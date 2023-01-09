@@ -7,6 +7,7 @@ import 'package:pana/src/pubspec.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
+import '../internal_model.dart';
 import '../logging.dart';
 import '../model.dart';
 import '../package_context.dart';
@@ -14,18 +15,6 @@ import '../package_context.dart';
 import 'git_local_repository.dart';
 
 const _maxPubspecBytes = 256 * 1024;
-
-class VerifiedRepository {
-  final Repository? repository;
-  final String? contributingUrl;
-  final String? verificationFailure;
-
-  VerifiedRepository({
-    this.repository,
-    this.contributingUrl,
-    this.verificationFailure,
-  });
-}
 
 /// Returns the repository information for the current package.
 Future<VerifiedRepository?> checkRepository({

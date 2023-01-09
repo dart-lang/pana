@@ -133,6 +133,7 @@ Future main(List<String> args) async {
     final pubHostedUrl = result['hosted-url'] as String?;
     final analyzer = await PackageAnalyzer.create(
       pubCacheDir: tempPath,
+      panaCacheDir: Platform.environment['PANA_CACHE'],
       sdkDir: result['dart-sdk'] as String?,
       flutterDir: result['flutter-sdk'] as String?,
       pubHostedUrl: pubHostedUrl,
