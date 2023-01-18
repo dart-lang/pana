@@ -13,10 +13,17 @@
 
 Detected license: `MIT`.
 
-## 10/10 Provide documentation
+## 0/10 Provide documentation
 
-### [*] 10/10 points: Package has an example
+### [x] 0/10 points: Package has an example
 
+<details>
+<summary>
+No example found.
+</summary>
+
+See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
+</details>
 
 ## 20/20 Platform support
 

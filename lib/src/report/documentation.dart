@@ -20,7 +20,7 @@ Future<ReportSection> hasDocumentation(
   final packageDir = context.packageDir;
   // TODO: run dartdoc for coverage
 
-  final candidates = exampleFileCandidates(pubspec.name, caseSensitive: true);
+  final candidates = exampleFileCandidates(pubspec.name);
   final examplePath = candidates
       .firstWhereOrNull((c) => File(p.join(packageDir, c)).existsSync());
   final issues = <Issue>[

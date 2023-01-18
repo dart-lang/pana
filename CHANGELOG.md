@@ -1,3 +1,7 @@
+## 0.21.25
+
+- Strict names in package layout checks.
+
 ## 0.21.24
 
 - Fix: allow <4.0.0 for Dart 3 packages.
