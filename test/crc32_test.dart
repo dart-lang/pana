@@ -9,9 +9,6 @@ import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final file = File('test/license_test_assets/crc32_random.json');
-  var z = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
-
   /// The random vectors were generate using this python code and then
   /// verified with [GO crc32 package][]
   /// ```python
@@ -31,22 +28,19 @@ void main() {
   /// json.dump(jsonJ, f)
   /// ```
   /// [GO crc32 package] : https://golang.org/pkg/hash/crc32/
-  group('crc32 - random vectors', () {
-    z.forEach((key, value) {
-      test(key, () {
-        expect(crc32(utf8.encode(key)), value);
-      });
-    });
+  test('crc32 - random vectors', () {
+    final file = File('test/license_test_assets/crc32_random.json');
+    final z = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
+    for (final entry in z.entries) {
+      expect(crc32(utf8.encode(entry.key)), entry.value, reason: entry.key);
+    }
   });
 
-  final allAscii = File('test/license_test_assets/crc32_ascii_values.json');
-  z = jsonDecode(allAscii.readAsStringSync()) as Map<String, dynamic>;
-
-  group('crc32 - all ascii value ', () {
-    z.forEach((key, value) {
-      test('Ascii value $key', () {
-        expect(crc32([int.parse(key)]), value);
-      });
-    });
+  test('crc32 - all ascii value ', () {
+    final allAscii = File('test/license_test_assets/crc32_ascii_values.json');
+    final z = jsonDecode(allAscii.readAsStringSync()) as Map<String, dynamic>;
+    for (final entry in z.entries) {
+      expect(crc32([int.parse(entry.key)]), entry.value, reason: entry.key);
+    }
   });
 }
