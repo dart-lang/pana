@@ -201,7 +201,7 @@ void main() {
     final descriptor =
         package('my_package', pubspecExtras: pubspecExtras, extraFiles: [
       d.dir('example', [
-        d.file('EXAMPLE.md', 'Example'),
+        d.file('README.md', 'Example'),
       ]),
     ]);
     await descriptor.create();
