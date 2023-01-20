@@ -12,9 +12,12 @@ import 'package:path/path.dart' as p;
 import 'package:safe_url_check/safe_url_check.dart';
 import 'package:tar/tar.dart';
 
+import 'internal_model.dart' show UrlStatus;
 import 'logging.dart';
 import 'model.dart';
 import 'version.dart';
+
+export 'internal_model.dart' show UrlStatus;
 
 /// Downloads [package] and unpacks it into [destination]
 Future<void> downloadPackage(
@@ -80,38 +83,6 @@ String? getRepositoryUrl(
   if (repository == null) return null;
   final url = Repository.tryParseUrl(repository);
   return url?.resolveUrl(relativePath, branch: branch);
-}
-
-/// The URL's parsed and queried status.
-class UrlStatus {
-  /// Whether the URL can be parsed and is valid.
-  final bool isInvalid;
-
-  /// Whether the URL uses HTTPS.
-  final bool isSecure;
-
-  /// Whether the URL exists and responds with an OK status code.
-  final bool exists;
-
-  UrlStatus({
-    required this.isInvalid,
-    required this.isSecure,
-    required this.exists,
-  });
-
-  UrlStatus.invalid()
-      : isInvalid = true,
-        isSecure = false,
-        exists = false;
-
-  /// Returns a brief problem code that can be displayed when linking to it.
-  /// Returns `null` when URL has no problem.
-  String? getProblemCode() {
-    if (isInvalid) return UrlProblemCodes.invalid;
-    if (!isSecure) return UrlProblemCodes.insecure;
-    if (!exists) return UrlProblemCodes.missing;
-    return null;
-  }
 }
 
 /// Checks if an URL is valid and accessible.

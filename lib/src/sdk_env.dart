@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
+import 'package:pana/src/pana_cache.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -25,6 +26,7 @@ class ToolEnvironment {
   final String? dartSdkDir;
   final String? flutterSdkDir;
   final String? pubCacheDir;
+  final PanaCache panaCache;
   final String? _futureFlutterSdkDir;
   final List<String> _dartCmd;
   final List<String> _pubCmd;
@@ -44,6 +46,7 @@ class ToolEnvironment {
     this.dartSdkDir,
     this.flutterSdkDir,
     this.pubCacheDir,
+    this.panaCache,
     this._futureFlutterSdkDir,
     this._dartCmd,
     this._pubCmd,
@@ -61,6 +64,7 @@ class ToolEnvironment {
     this.dartSdkDir,
     this.flutterSdkDir,
     this.pubCacheDir,
+    PanaCache? panaCache,
     String? futureFlutterSdkDir,
     List<String> dartCmd = const <String>[],
     List<String> pubCmd = const <String>[],
@@ -73,7 +77,8 @@ class ToolEnvironment {
     Map<String, String> environment = const <String, String>{},
     bool useGlobalDartdoc = false,
     required PanaRuntimeInfo runtimeInfo,
-  })  : _futureFlutterSdkDir = futureFlutterSdkDir,
+  })  : panaCache = panaCache ?? PanaCache(),
+        _futureFlutterSdkDir = futureFlutterSdkDir,
         _dartCmd = dartCmd,
         _pubCmd = pubCmd,
         _dartAnalyzerCmd = dartAnalyzerCmd,
@@ -111,6 +116,7 @@ class ToolEnvironment {
     String? dartSdkDir,
     String? flutterSdkDir,
     String? pubCacheDir,
+    String? panaCacheDir,
     Map<String, String>? environment,
     bool useGlobalDartdoc = false,
 
@@ -129,6 +135,7 @@ class ToolEnvironment {
     final resolvedDartSdk = await resolve(dartSdkDir);
     final resolvedFlutterSdk = await resolve(flutterSdkDir);
     final resolvedPubCache = await resolve(pubCacheDir);
+    final resolvedPanaCache = await resolve(panaCacheDir);
     final resolvedFutureDartSdk = await resolve(futureDartSdkDir);
     final resolvedFutureFlutterSdk = await resolve(futureFlutterSdkDir);
     final env = <String, String>{};
@@ -167,6 +174,7 @@ class ToolEnvironment {
       resolvedDartSdk,
       resolvedFlutterSdk,
       resolvedPubCache,
+      PanaCache(path: resolvedPanaCache),
       resolvedFutureFlutterSdk,
       [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics'],
       [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics', 'pub'],

@@ -32,9 +32,6 @@ class SharedAnalysisContext {
   final InspectOptions options;
   final UrlChecker _urlChecker;
 
-  final _cachedUrlStatuses = <String, UrlStatus>{};
-  final _cachedVerifiedRepositories = <String, VerifiedRepository?>{};
-
   SharedAnalysisContext({
     required this.toolEnvironment,
     InspectOptions? options,
@@ -43,12 +40,16 @@ class SharedAnalysisContext {
         _urlChecker = urlChecker ?? UrlChecker();
 
   Future<UrlStatus> checkUrlStatus(String url) async {
-    final cached = _cachedUrlStatuses[url];
-    if (cached != null) {
-      return cached;
+    final cacheType = 'url';
+    final cacheKey = url;
+    final cachedData =
+        await toolEnvironment.panaCache.readData(cacheType, cacheKey);
+    if (cachedData != null) {
+      return UrlStatus.fromJson(cachedData);
     }
     final status = await _urlChecker.checkStatus(url);
-    _cachedUrlStatuses[url] = status;
+    await toolEnvironment.panaCache
+        .writeData(cacheType, cacheKey, status.toJson());
     return status;
   }
 
@@ -59,16 +60,22 @@ class SharedAnalysisContext {
     if (repositoryOrHomepage == null) {
       return null;
     }
+    final cacheType = 'repository';
     final cacheKey = '$package/$repositoryOrHomepage';
-    if (_cachedVerifiedRepositories.containsKey(cacheKey)) {
-      return _cachedVerifiedRepositories[cacheKey];
+    final cachedData =
+        await toolEnvironment.panaCache.readData(cacheType, cacheKey);
+    if (cachedData != null) {
+      return VerifiedRepository.fromJson(cachedData);
     }
     final repository = await checkRepository(
       sharedContext: this,
       packageName: package,
       sourceUrl: repositoryOrHomepage,
     );
-    _cachedVerifiedRepositories[cacheKey] = repository;
+    if (repository != null) {
+      await toolEnvironment.panaCache
+          .writeData(cacheType, cacheKey, repository.toJson());
+    }
     return repository;
   }
 }

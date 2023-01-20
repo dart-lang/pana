@@ -4,6 +4,8 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'model.dart';
+
 part 'internal_model.g.dart';
 
 /// The json output from `dart pub outdated --json`.
@@ -147,4 +149,60 @@ class CodeProblem implements Comparable<CodeProblem> {
 
   List<Object> get _values =>
       [file, line, col, severity, errorType, errorCode, description];
+}
+
+/// The URL's parsed and queried status.
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
+class UrlStatus {
+  /// Whether the URL can be parsed and is valid.
+  final bool isInvalid;
+
+  /// Whether the URL uses HTTPS.
+  final bool isSecure;
+
+  /// Whether the URL exists and responds with an OK status code.
+  final bool exists;
+
+  UrlStatus({
+    required this.isInvalid,
+    required this.isSecure,
+    required this.exists,
+  });
+
+  UrlStatus.invalid()
+      : isInvalid = true,
+        isSecure = false,
+        exists = false;
+
+  /// Returns a brief problem code that can be displayed when linking to it.
+  /// Returns `null` when URL has no problem.
+  String? getProblemCode() {
+    if (isInvalid) return UrlProblemCodes.invalid;
+    if (!isSecure) return UrlProblemCodes.insecure;
+    if (!exists) return UrlProblemCodes.missing;
+    return null;
+  }
+
+  static UrlStatus fromJson(Map<String, dynamic> json) =>
+      _$UrlStatusFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UrlStatusToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
+class VerifiedRepository {
+  final Repository? repository;
+  final String? contributingUrl;
+  final String? verificationFailure;
+
+  VerifiedRepository({
+    this.repository,
+    this.contributingUrl,
+    this.verificationFailure,
+  });
+
+  static VerifiedRepository fromJson(Map<String, dynamic> json) =>
+      _$VerifiedRepositoryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VerifiedRepositoryToJson(this);
 }

@@ -78,3 +78,39 @@ Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>
       'length': instance.length,
       'description': instance.description,
     };
+
+UrlStatus _$UrlStatusFromJson(Map<String, dynamic> json) => UrlStatus(
+      isInvalid: json['isInvalid'] as bool,
+      isSecure: json['isSecure'] as bool,
+      exists: json['exists'] as bool,
+    );
+
+Map<String, dynamic> _$UrlStatusToJson(UrlStatus instance) => <String, dynamic>{
+      'isInvalid': instance.isInvalid,
+      'isSecure': instance.isSecure,
+      'exists': instance.exists,
+    };
+
+VerifiedRepository _$VerifiedRepositoryFromJson(Map<String, dynamic> json) =>
+    VerifiedRepository(
+      repository: json['repository'] == null
+          ? null
+          : Repository.fromJson(json['repository'] as Map<String, dynamic>),
+      contributingUrl: json['contributingUrl'] as String?,
+      verificationFailure: json['verificationFailure'] as String?,
+    );
+
+Map<String, dynamic> _$VerifiedRepositoryToJson(VerifiedRepository instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('repository', instance.repository?.toJson());
+  writeNotNull('contributingUrl', instance.contributingUrl);
+  writeNotNull('verificationFailure', instance.verificationFailure);
+  return val;
+}
