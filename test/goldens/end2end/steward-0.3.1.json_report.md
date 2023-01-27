@@ -72,7 +72,7 @@ Found 24 issues. Showing the first 2:
 
 <details>
 <summary>
-INFO: Name non-constant identifiers using lowerCamelCase.
+INFO: The variable name 'GetAnnotation' isn't a lowerCamelCase identifier.
 </summary>
 
 `lib/controllers/route_utils.dart:79:7`
@@ -88,7 +88,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
-INFO: Name non-constant identifiers using lowerCamelCase.
+INFO: The variable name 'PutAnnotation' isn't a lowerCamelCase identifier.
 </summary>
 
 `lib/controllers/route_utils.dart:82:7`

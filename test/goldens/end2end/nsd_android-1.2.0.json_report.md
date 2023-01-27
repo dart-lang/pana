@@ -92,11 +92,12 @@ Because:
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`characters`]|-|1.2.1|1.2.1|
-|[`collection`]|-|1.16.0|1.17.0|
-|[`material_color_utilities`]|-|0.1.5|0.2.0|
+|[`collection`]|-|1.17.0|1.17.0|
+|[`js`]|-|0.6.5|0.6.5|
+|[`material_color_utilities`]|-|0.2.0|0.2.0|
 |[`meta`]|-|1.8.0|1.8.0|
 |[`sky_engine`]|-|0.0.99|0.0.99|
-|[`vector_math`]|-|2.1.2|2.1.4|
+|[`vector_math`]|-|2.1.4|2.1.4|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -104,6 +105,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`flutter`]: https://pub.dev/packages/flutter
 [`characters`]: https://pub.dev/packages/characters
 [`collection`]: https://pub.dev/packages/collection
+[`js`]: https://pub.dev/packages/js
 [`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
 [`sky_engine`]: https://pub.dev/packages/sky_engine
