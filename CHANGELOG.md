@@ -1,3 +1,7 @@
+## 0.21.26
+
+- Upgrading CI for new SDKs and enabling `pubspec.yaml` for Dart 3.
+
 ## 0.21.25
 
 - Strict names in package layout checks.
