@@ -78,7 +78,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 3 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Provide a deprecation message, via @Deprecated(\"message\").\n</summary>\n\n`lib/src/draggable.dart:62:3`\n\n```\n   ╷\n62 │   @deprecated\r\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`\n</details>\n<details>\n<summary>\nINFO: Provide a deprecation message, via @Deprecated(\"message\").\n</summary>\n\n`lib/src/draggable.dart:66:3`\n\n```\n   ╷\n66 │   @deprecated\r\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`\n</details>"
+        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 3 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Missing a deprecation message.\n</summary>\n\n`lib/src/draggable.dart:62:3`\n\n```\n   ╷\n62 │   @deprecated\r\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`\n</details>\n<details>\n<summary>\nINFO: Missing a deprecation message.\n</summary>\n\n`lib/src/draggable.dart:66:3`\n\n```\n   ╷\n66 │   @deprecated\r\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`\n</details>"
       },
       {
         "id": "dependency",

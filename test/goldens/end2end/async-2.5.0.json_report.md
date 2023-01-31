@@ -42,7 +42,23 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 <details>
 <summary>
-INFO: Provide a deprecation message, via @Deprecated("message").
+INFO: This 'onError' handler must return a value assignable to 'T', but ends without returning a value.
+</summary>
+
+`lib/src/cancelable_operation.dart:192:29`
+
+```
+    ╷
+192 │       future.catchError((_) {});
+    │                             ^
+    ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/cancelable_operation.dart`
+</details>
+<details>
+<summary>
+INFO: Missing a deprecation message.
 </summary>
 
 `lib/src/stream_sink_transformer.dart:56:3`

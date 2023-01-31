@@ -101,7 +101,7 @@ Found 15 issues. Showing the first 2:
 
 <details>
 <summary>
-INFO: Provide a deprecation message, via @Deprecated("message").
+INFO: Missing a deprecation message.
 </summary>
 
 `lib/src/async/web_driver.dart:139:3`
@@ -117,7 +117,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
-INFO: Provide a deprecation message, via @Deprecated("message").
+INFO: Missing a deprecation message.
 </summary>
 
 `lib/src/async/web_element.dart:135:3`

@@ -80,7 +80,7 @@ Found 3 issues. Showing the first 2:
 
 <details>
 <summary>
-INFO: Provide a deprecation message, via @Deprecated("message").
+INFO: Missing a deprecation message.
 </summary>
 
 `lib/src/draggable.dart:62:3`
@@ -96,7 +96,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
-INFO: Provide a deprecation message, via @Deprecated("message").
+INFO: Missing a deprecation message.
 </summary>
 
 `lib/src/draggable.dart:66:3`

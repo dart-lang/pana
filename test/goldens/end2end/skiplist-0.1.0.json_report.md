@@ -49,7 +49,7 @@ Run `dart pub get` for more information.
 
 ### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 36 issues. Showing the first 2:
+Found 38 issues. Showing the first 2:
 
 <details>
 <summary>
