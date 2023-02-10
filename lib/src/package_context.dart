@@ -210,11 +210,16 @@ class PackageContext {
     return await withTempDir((tempPackageDir) async {
       try {
         log.info('Prepare package for future SDK compatibility check.');
-        // Copy package to temp directory and delete the .dart_tool directory inside it.
+        // Copy package to temp directory and delete the .dart_tool directory and
+        // the pubspec.lock file inside it.
         await copyDir(packageDir, tempPackageDir);
         final tempDartToolDir = Directory(p.join(tempPackageDir, '.dart_tool'));
         if (await tempDartToolDir.exists()) {
           await tempDartToolDir.delete(recursive: true);
+        }
+        final tempPubspecLock = File(p.join(tempPackageDir, 'pubspec.lock'));
+        if (await tempPubspecLock.exists()) {
+          await tempPubspecLock.delete();
         }
 
         log.info('Resolve dependencies with future SDK...');
