@@ -3,9 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:pana/src/tag/license_tags.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
@@ -22,7 +24,7 @@ import 'references/pubspec_urls.dart';
 import 'repository/check_repository.dart';
 import 'screenshots.dart';
 import 'sdk_env.dart';
-import 'utils.dart' show listFocusDirs;
+import 'utils.dart' show copyDir, listFocusDirs, withTempDir;
 
 /// Shared (intermediate) results between different packages or versions.
 /// External systems that may be independent of the archive content may be
@@ -170,7 +172,7 @@ class PackageContext {
     if (_codeProblems != null) return _codeProblems!;
     try {
       log.info('Analyzing package...');
-      _codeProblems = await _staticAnalysis();
+      _codeProblems = await _staticAnalysis(packageDir: packageDir);
       return _codeProblems!;
     } on ToolException catch (e) {
       errors.add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
@@ -179,6 +181,7 @@ class PackageContext {
   }
 
   Future<List<CodeProblem>> _staticAnalysis({
+    required String packageDir,
     bool useFutureSdk = false,
   }) async {
     final dirs = await listFocusDirs(packageDir);
@@ -204,13 +207,42 @@ class PackageContext {
 
   /// True if the configured future SDK analyzed the package without any error.
   late final isCompatibleWithFutureSdk = () async {
-    try {
-      log.info('Analyzing package with future SDK...');
-      final problems = await _staticAnalysis(useFutureSdk: true);
-      return !problems.any((e) => e.isError);
-    } on ToolException catch (_) {
-      return false;
-    }
+    return await withTempDir((tempPackageDir) async {
+      try {
+        log.info('Prepare package for future SDK compatibility check.');
+        // Copy package to temp directory and delete the .dart_tool directory and
+        // the pubspec.lock file inside it.
+        await copyDir(packageDir, tempPackageDir);
+        final tempDartToolDir = Directory(p.join(tempPackageDir, '.dart_tool'));
+        if (await tempDartToolDir.exists()) {
+          await tempDartToolDir.delete(recursive: true);
+        }
+        final tempPubspecLock = File(p.join(tempPackageDir, 'pubspec.lock'));
+        if (await tempPubspecLock.exists()) {
+          await tempPubspecLock.delete();
+        }
+
+        log.info('Resolve dependencies with future SDK...');
+        final pr = await toolEnvironment.runUpgrade(
+          tempPackageDir,
+          usesFlutter,
+          useFutureSdk: true,
+          retryCount: 1,
+        );
+        if (pr.wasError) {
+          return false;
+        }
+
+        log.info('Analyzing package with future SDK...');
+        final problems = await _staticAnalysis(
+          packageDir: tempPackageDir,
+          useFutureSdk: true,
+        );
+        return !problems.any((e) => e.isError);
+      } on ToolException catch (_) {
+        return false;
+      }
+    });
   }();
 
   late final Future<Outdated> outdated = toolEnvironment.runPubOutdated(

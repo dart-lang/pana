@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
@@ -139,7 +138,7 @@ class PackageAnalyzer {
     final sharedContext = _createSharedContext(options: options);
     return withTempDir((tempDir) async {
       final rootDir = await _detectGitRoot(packageDir) ?? packageDir;
-      await _copy(rootDir, tempDir);
+      await copyDir(rootDir, tempDir);
       final relativeDir = path.relative(packageDir, from: rootDir);
       return await _inspect(sharedContext, path.join(tempDir, relativeDir));
     });
@@ -334,23 +333,6 @@ Future<String?> _detectGitRoot(String packageDir) async {
     return pr.stdout.asString.trim();
   }
   return null;
-}
-
-Future<void> _copy(String from, String to) async {
-  await for (final fse in Directory(from).list(recursive: true)) {
-    if (fse is File) {
-      final relativePath = path.relative(fse.path, from: from);
-      final newFile = File(path.join(to, relativePath));
-      await newFile.parent.create(recursive: true);
-      await fse.copy(newFile.path);
-    } else if (fse is Link) {
-      final relativePath = path.relative(fse.path, from: from);
-      final linkTarget = await fse.target();
-      final newLink = Link(path.join(to, relativePath));
-      await newLink.parent.create(recursive: true);
-      await newLink.create(linkTarget);
-    }
-  }
 }
 
 Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {

@@ -239,6 +239,23 @@ Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
   }
 }
 
+Future<void> copyDir(String from, String to) async {
+  await for (final fse in Directory(from).list(recursive: true)) {
+    if (fse is File) {
+      final relativePath = p.relative(fse.path, from: from);
+      final newFile = File(p.join(to, relativePath));
+      await newFile.parent.create(recursive: true);
+      await fse.copy(newFile.path);
+    } else if (fse is Link) {
+      final relativePath = p.relative(fse.path, from: from);
+      final linkTarget = await fse.target();
+      final newLink = Link(p.join(to, relativePath));
+      await newLink.parent.create(recursive: true);
+      await newLink.create(linkTarget);
+    }
+  }
+}
+
 Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
   final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
       .resolve('/api/packages/$package');
