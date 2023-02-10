@@ -224,7 +224,6 @@ class PackageContext {
           useFutureSdk: true,
           retryCount: 1,
         );
-        print(pr.asJoinedOutput);
         if (pr.wasError) {
           return false;
         }
