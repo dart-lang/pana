@@ -1,6 +1,7 @@
 ## 0.21.26
 
 - Upgrading CI for new SDKs and enabling `pubspec.yaml` for Dart 3.
+- Future SDK check is running on a copy, and resolves dependencies first.
 
 ## 0.21.25
 

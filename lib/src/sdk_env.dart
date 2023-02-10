@@ -36,6 +36,8 @@ class ToolEnvironment {
   // TODO: remove this after flutter analyze gets machine-readable output.
   // https://github.com/flutter/flutter/issues/23664
   final List<String> _flutterDartAnalyzerCmd;
+  final List<String> _futureDartCmd;
+  final List<String> _futureFlutterCmd;
   final List<String> _futureDartAnalyzeCmd;
   final List<String> _futureFlutterDartAnalyzeCmd;
   final Map<String, String> _environment;
@@ -54,6 +56,8 @@ class ToolEnvironment {
     this._dartdocCmd,
     this._flutterCmd,
     this._flutterDartAnalyzerCmd,
+    this._futureDartCmd,
+    this._futureFlutterCmd,
     this._futureDartAnalyzeCmd,
     this._futureFlutterDartAnalyzeCmd,
     this._environment,
@@ -73,6 +77,8 @@ class ToolEnvironment {
     List<String> flutterCmd = const <String>[],
     List<String> flutterDartAnalyzerCmd = const <String>[],
     List<String> futureDartAnalyzeCmd = const <String>[],
+    List<String> futureDartCmd = const <String>[],
+    List<String> futureFlutterCmd = const <String>[],
     List<String> futureFlutterDartAnalyzeCmd = const <String>[],
     Map<String, String> environment = const <String, String>{},
     bool useGlobalDartdoc = false,
@@ -85,6 +91,8 @@ class ToolEnvironment {
         _dartdocCmd = dartdocCmd,
         _flutterCmd = flutterCmd,
         _flutterDartAnalyzerCmd = flutterDartAnalyzerCmd,
+        _futureDartCmd = futureDartCmd,
+        _futureFlutterCmd = futureFlutterCmd,
         _futureDartAnalyzeCmd = futureDartAnalyzeCmd,
         _futureFlutterDartAnalyzeCmd = futureFlutterDartAnalyzeCmd,
         _environment = environment,
@@ -183,9 +191,18 @@ class ToolEnvironment {
       [
         _join(resolvedFlutterSdk, 'bin', 'flutter'),
         '--suppress-analytics',
-        '--no-version-check'
+        '--no-version-check',
       ],
       [_join(flutterDartSdkDir, 'bin', 'dart'), '--no-analytics', 'analyze'],
+      [
+        _join(resolvedFutureDartSdk, 'bin', 'dart'),
+        '--no-analytics',
+      ],
+      [
+        _join(resolvedFutureFlutterSdk, 'bin', 'flutter'),
+        '--suppress-analytics',
+        '--no-version-check',
+      ],
       [
         _join(resolvedFutureDartSdk, 'bin', 'dart'),
         '--no-analytics',
@@ -365,15 +382,24 @@ class ToolEnvironment {
     return false;
   }
 
-  Future<PanaProcessResult> runUpgrade(String packageDir, bool usesFlutter,
-      {int retryCount = 3}) async {
-    final environment = _extendedEnv(usesFlutter: usesFlutter);
+  Future<PanaProcessResult> runUpgrade(
+    String packageDir,
+    bool usesFlutter, {
+    int retryCount = 3,
+
+    /// NOTE: this is an experimental option, do not rely on it.
+    bool useFutureSdk = false,
+  }) async {
+    final environment = _extendedEnv(
+      usesFlutter: usesFlutter,
+      flutterRoot: useFutureSdk ? _futureFlutterSdkDir : flutterSdkDir,
+    );
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _retryProc(() async {
         if (usesFlutter) {
           return await runProc(
             [
-              ..._flutterCmd,
+              ...(useFutureSdk ? _futureFlutterCmd : _flutterCmd),
               'packages',
               'pub',
               'upgrade',
@@ -384,7 +410,12 @@ class ToolEnvironment {
           );
         } else {
           return await runProc(
-            [..._pubCmd, 'upgrade', '--verbose'],
+            [
+              ...(useFutureSdk ? _futureDartCmd : _dartCmd),
+              'pub',
+              'upgrade',
+              '--verbose',
+            ],
             workingDirectory: packageDir,
             environment: environment,
           );
@@ -400,7 +431,7 @@ class ToolEnvironment {
           return false;
         }
         return true;
-      });
+      }, maxAttempt: retryCount);
     });
   }
 
