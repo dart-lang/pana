@@ -1,3 +1,7 @@
+## 0.21.27
+
+- Upgraded dependency: `package:markdown`.
+
 ## 0.21.26
 
 - Upgrading CI for new SDKs and enabling `pubspec.yaml` for Dart 3.
