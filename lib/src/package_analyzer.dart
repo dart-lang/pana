@@ -284,6 +284,13 @@ class PackageAnalyzer {
     if (processedScreenshots.isNotEmpty) {
       tags.add(PanaTags.hasScreenshot);
     }
+
+    if (pubspec.topics.isNotEmpty) {
+      for (final topic in pubspec.topics) {
+        tags.add(PanaTags.topics(topic));
+      }
+    }
+
     final allDependencies = <String>{
       ...pubspec.dependencies.keys,
       ...pubspec.devDependencies.keys,

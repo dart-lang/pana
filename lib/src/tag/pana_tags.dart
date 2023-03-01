@@ -36,4 +36,7 @@ abstract class PanaTags {
   static const hasScreenshot = 'has:screenshot';
   static const isPlugin = 'is:plugin';
   static const isNullSafe = 'is:null-safe';
+
+  /// Given a [topic] returns the `topics` tag assigned to an analyzed package.
+  static String topics(String topic) => 'topics:$topic';
 }
