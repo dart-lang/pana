@@ -286,7 +286,7 @@ class PackageAnalyzer {
     }
 
     for (final topic in pubspec.topics) {
-      tags.add(PanaTags.topics(topic));
+      tags.add(PanaTags.topic(topic));
     }
 
     final allDependencies = <String>{
