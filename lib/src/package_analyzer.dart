@@ -285,10 +285,8 @@ class PackageAnalyzer {
       tags.add(PanaTags.hasScreenshot);
     }
 
-    if (pubspec.topics.isNotEmpty) {
-      for (final topic in pubspec.topics) {
-        tags.add(PanaTags.topics(topic));
-      }
+    for (final topic in pubspec.topics) {
+      tags.add(PanaTags.topics(topic));
     }
 
     final allDependencies = <String>{
