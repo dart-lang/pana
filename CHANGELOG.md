@@ -1,6 +1,7 @@
 ## 0.21.27
 
 - Upgraded dependency: `package:markdown`.
+- Add tag `topic:<topic>` for packages that have assigned topics.
 
 ## 0.21.26
 
