@@ -21,8 +21,13 @@ Future<ReportSection> hasDocumentation(
   // TODO: run dartdoc for coverage
 
   final candidates = exampleFileCandidates(pubspec.name);
-  final examplePath = candidates
-      .firstWhereOrNull((c) => File(p.join(packageDir, c)).existsSync());
+  // Because we care about the file-names case, we first list all files, and
+  // then test for presence of candidates in that list.
+  //
+  // This should work on case-preserving but insensitive file-systems.
+  final files = Directory(packageDir).listSync(recursive: true).map(
+      (e) => p.posix.joinAll(p.split(p.relative(e.path, from: packageDir))));
+  final examplePath = candidates.firstWhereOrNull(files.contains);
   final issues = <Issue>[
     if (examplePath == null)
       Issue(
