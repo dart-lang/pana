@@ -104,6 +104,8 @@ class Pubspec {
 
   late final List<Uri> funding = _inner.funding ?? const <Uri>[];
 
+  late final List<String> topics = _inner.topics ?? const <String>[];
+
   bool get hasDartSdkConstraint => sdkConstraintStatus.hasConstraint;
 
   bool get shouldWarnDart2Constraint => !sdkConstraintStatus.enablesDart2Latest;

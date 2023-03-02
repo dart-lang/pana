@@ -21,7 +21,7 @@ dependencies:
   markdown: ^7.0.0
   path: ^1.6.2
   pub_semver: ^2.0.0
-  pubspec_parse: ^1.2.1
+  pubspec_parse: ^1.2.2
   source_span: ^1.7.0
   tar: ^0.5.4
   yaml: ^3.0.0
