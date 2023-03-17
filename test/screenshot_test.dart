@@ -236,7 +236,7 @@ void main() {
     final descriptor =
         package('my_package', pubspecExtras: pubspecExtras, extraFiles: [
       d.dir('example', [
-        d.file('example.md', 'Example'),
+        d.file('EXAMPLE.md', 'Example'),
       ]),
       d.file('static.webp',
           File(p.join(_testImagesDir, 'static.webp')).readAsBytesSync())
