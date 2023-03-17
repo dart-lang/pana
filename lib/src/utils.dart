@@ -69,10 +69,10 @@ Future<PanaProcessResult> runProc(
     process.stdout.forEach((outLine) {
       stdoutLines.add(outLine);
       remainingBytes -= outLine.length;
-      // if (remainingBytes < 0) {
-      //   wasOutputExceeded = true;
-      //   killProc('Output exceeded $maxOutputBytes bytes.');
-      // }
+      if (remainingBytes < 0) {
+        wasOutputExceeded = true;
+        killProc('Output exceeded $maxOutputBytes bytes.');
+      }
     }),
     process.stderr.forEach((errLine) {
       stderrLines.add(errLine);
