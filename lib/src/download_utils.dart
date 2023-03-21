@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart' as http_retry;
 import 'package:path/path.dart' as p;
@@ -47,9 +48,15 @@ Future<void> downloadPackage(
       log.fine('Latest version is: $version');
     }
 
-    final data = (versionsJson['versions'] as List)
+    final versions = versionsJson['versions'] as List;
+    final data = versions
         .cast<Map<String, dynamic>>()
-        .firstWhere((e) => e['version'] == version);
+        .firstWhereOrNull((e) => e['version'] == version);
+    if (data == null) {
+      log.info(
+          'Available versions: ${versions.map((e) => e['version']).join(', ')}');
+      throw Exception('Version $version not found in version listing');
+    }
     final archiveUrl = data['archive_url'] as String;
 
     var packageUri = Uri.parse(archiveUrl);

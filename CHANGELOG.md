@@ -1,3 +1,6 @@
+## 0.21.28
+- Nicer error message if trying to download non-existing version of package.
+
 ## 0.21.27
 
 - Upgraded dependency: `package:markdown`.
