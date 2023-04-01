@@ -83,7 +83,7 @@ jobs:
       - uses: dart-lang/setup-dart@a57a6c04cf7d4840e88432aad6281d1e125f0d46
         with:
           sdk: '3.0.0-163.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
-      - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
+      - uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
         with:
           # flutter-version: '3.4.0-34.1.pre'
           channel: 'master' # TODO: switch back to rolling 'dev' channel after it gets updated.
