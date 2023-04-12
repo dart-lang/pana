@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:pana/pana.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
@@ -12,8 +10,6 @@ Future<ToolEnvironment> testToolEnvironment({String? sdkVersion}) async {
       d.dir('fake_flutter_root', [d.file('version', '2.0.0')]);
   await fakeFlutterRoot.create();
   return ToolEnvironment.fake(
-    dartCmd: [Platform.resolvedExecutable],
-    pubCmd: [Platform.resolvedExecutable, 'pub'],
     environment: {'FLUTTER_ROOT': fakeFlutterRoot.io.path},
     runtimeInfo: PanaRuntimeInfo(
       panaVersion: '1.2.3',
