@@ -28,18 +28,10 @@ class ToolEnvironment {
   final String? pubCacheDir;
   final PanaCache panaCache;
   final String? _futureFlutterSdkDir;
-  final List<String> _dartCmd;
-  final List<String> _pubCmd;
-  final List<String> _dartAnalyzerCmd;
-  final List<String> _dartdocCmd;
-  final List<String> _flutterCmd;
-  // TODO: remove this after flutter analyze gets machine-readable output.
-  // https://github.com/flutter/flutter/issues/23664
-  final List<String> _flutterDartAnalyzerCmd;
-  final List<String> _futureDartCmd;
-  final List<String> _futureFlutterCmd;
-  final List<String> _futureDartAnalyzeCmd;
-  final List<String> _futureFlutterDartAnalyzeCmd;
+  final _DartSdk _dartSdk;
+  final _DartSdk _futureDartSdk;
+  final _FlutterSdk _flutterSdk;
+  final _FlutterSdk _futureFlutterSdk;
   final Map<String, String> _environment;
   PanaRuntimeInfo? _runtimeInfo;
   final bool _useGlobalDartdoc;
@@ -50,16 +42,10 @@ class ToolEnvironment {
     this.pubCacheDir,
     this.panaCache,
     this._futureFlutterSdkDir,
-    this._dartCmd,
-    this._pubCmd,
-    this._dartAnalyzerCmd,
-    this._dartdocCmd,
-    this._flutterCmd,
-    this._flutterDartAnalyzerCmd,
-    this._futureDartCmd,
-    this._futureFlutterCmd,
-    this._futureDartAnalyzeCmd,
-    this._futureFlutterDartAnalyzeCmd,
+    this._dartSdk,
+    this._futureDartSdk,
+    this._flutterSdk,
+    this._futureFlutterSdk,
     this._environment,
     this._useGlobalDartdoc,
   );
@@ -70,31 +56,15 @@ class ToolEnvironment {
     this.pubCacheDir,
     PanaCache? panaCache,
     String? futureFlutterSdkDir,
-    List<String> dartCmd = const <String>[],
-    List<String> pubCmd = const <String>[],
-    List<String> dartAnalyzerCmd = const <String>[],
-    List<String> dartdocCmd = const <String>[],
-    List<String> flutterCmd = const <String>[],
-    List<String> flutterDartAnalyzerCmd = const <String>[],
-    List<String> futureDartAnalyzeCmd = const <String>[],
-    List<String> futureDartCmd = const <String>[],
-    List<String> futureFlutterCmd = const <String>[],
-    List<String> futureFlutterDartAnalyzeCmd = const <String>[],
     Map<String, String> environment = const <String, String>{},
     bool useGlobalDartdoc = false,
     required PanaRuntimeInfo runtimeInfo,
   })  : panaCache = panaCache ?? PanaCache(),
+        _dartSdk = _DartSdk._(null),
+        _futureDartSdk = _DartSdk._(null),
+        _flutterSdk = _FlutterSdk._(null, _DartSdk._(null)),
+        _futureFlutterSdk = _FlutterSdk._(null, _DartSdk._(null)),
         _futureFlutterSdkDir = futureFlutterSdkDir,
-        _dartCmd = dartCmd,
-        _pubCmd = pubCmd,
-        _dartAnalyzerCmd = dartAnalyzerCmd,
-        _dartdocCmd = dartdocCmd,
-        _flutterCmd = flutterCmd,
-        _flutterDartAnalyzerCmd = flutterDartAnalyzerCmd,
-        _futureDartCmd = futureDartCmd,
-        _futureFlutterCmd = futureFlutterCmd,
-        _futureDartAnalyzeCmd = futureDartAnalyzeCmd,
-        _futureFlutterDartAnalyzeCmd = futureFlutterDartAnalyzeCmd,
         _environment = environment,
         _useGlobalDartdoc = useGlobalDartdoc,
         _runtimeInfo = runtimeInfo;
@@ -104,8 +74,9 @@ class ToolEnvironment {
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
   Future _init() async {
-    final dartVersionResult = _handleProcessErrors(
-        await runProc([..._dartCmd, '--version'], environment: _environment));
+    final dartVersionResult = _handleProcessErrors(await runProc(
+        [..._dartSdk.dartCmd, '--version'],
+        environment: _environment));
     final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
     Map<String, dynamic>? flutterVersions;
     try {
@@ -134,24 +105,17 @@ class ToolEnvironment {
     /// NOTE: this is an experimental option, do not rely on it.
     String? futureFlutterSdkDir,
   }) async {
-    Future<String?> resolve(String? dir) async {
-      if (dir == null) return null;
-      return Directory(dir).resolveSymbolicLinks();
-    }
-
     dartSdkDir ??= cli.getSdkPath();
-    final resolvedDartSdk = await resolve(dartSdkDir);
-    final resolvedFlutterSdk = await resolve(flutterSdkDir);
-    final resolvedPubCache = await resolve(pubCacheDir);
-    final resolvedPanaCache = await resolve(panaCacheDir);
-    final resolvedFutureDartSdk = await resolve(futureDartSdkDir);
-    final resolvedFutureFlutterSdk = await resolve(futureFlutterSdkDir);
-    final env = <String, String>{};
-    env.addAll(environment ?? const {});
-
-    if (resolvedPubCache != null) {
-      env[_pubCacheKey] = resolvedPubCache;
-    }
+    final resolvedDartSdk = await _resolve(dartSdkDir);
+    final resolvedFlutterSdk = await _resolve(flutterSdkDir);
+    final resolvedPubCache = await _resolve(pubCacheDir);
+    final resolvedPanaCache = await _resolve(panaCacheDir);
+    final resolvedFutureFlutterSdk = await _resolve(futureFlutterSdkDir);
+    final env = <String, String>{
+      ...?environment,
+      if (resolvedPubCache != null) _pubCacheKey: resolvedPubCache,
+      'CI': 'true', // suppresses analytics for both Dart and Flutter
+    };
 
     final pubEnvValues = <String>[];
     final origPubEnvValue = Platform.environment[_pubEnvironmentKey] ?? '';
@@ -166,17 +130,12 @@ class ToolEnvironment {
     // We can use that directory only if Flutter SDK path was specified,
     // TODO: remove this after flutter analyze gets machine-readable output.
     // https://github.com/flutter/flutter/issues/23664
-    final flutterDartSdkDir = resolvedFlutterSdk == null
-        ? resolvedDartSdk
-        : p.join(resolvedFlutterSdk, 'bin', 'cache', 'dart-sdk');
-    if (flutterDartSdkDir == null) {
+    final flutterSdk = await _FlutterSdk.detect(flutterSdkDir);
+    if (flutterSdk._dartSdk._baseDir == null) {
       log.warning(
           'Flutter SDK path was not specified, pana will use the default '
           'Dart SDK to run `dart analyze` on Flutter packages.');
     }
-    final resolvedFutureFlutterDartSdkDir = resolvedFutureFlutterSdk == null
-        ? null
-        : p.join(resolvedFutureFlutterSdk, 'bin', 'cache', 'dart-sdk');
 
     final toolEnv = ToolEnvironment._(
       resolvedDartSdk,
@@ -184,35 +143,10 @@ class ToolEnvironment {
       resolvedPubCache,
       PanaCache(path: resolvedPanaCache),
       resolvedFutureFlutterSdk,
-      [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics'],
-      [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics', 'pub'],
-      [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics', 'analyze'],
-      [_join(resolvedDartSdk, 'bin', 'dart'), '--no-analytics', 'doc'],
-      [
-        _join(resolvedFlutterSdk, 'bin', 'flutter'),
-        '--suppress-analytics',
-        '--no-version-check',
-      ],
-      [_join(flutterDartSdkDir, 'bin', 'dart'), '--no-analytics', 'analyze'],
-      [
-        _join(resolvedFutureDartSdk, 'bin', 'dart'),
-        '--no-analytics',
-      ],
-      [
-        _join(resolvedFutureFlutterSdk, 'bin', 'flutter'),
-        '--suppress-analytics',
-        '--no-version-check',
-      ],
-      [
-        _join(resolvedFutureDartSdk, 'bin', 'dart'),
-        '--no-analytics',
-        'analyze'
-      ],
-      [
-        _join(resolvedFutureFlutterDartSdkDir, 'bin', 'dart'),
-        '--no-analytics',
-        'analyze'
-      ],
+      await _DartSdk.detect(dartSdkDir),
+      await _DartSdk.detect(futureDartSdkDir),
+      flutterSdk,
+      await _FlutterSdk.detect(futureFlutterSdkDir),
       env,
       useGlobalDartdoc,
     );
@@ -241,8 +175,10 @@ class ToolEnvironment {
     bool useFutureSdk = false,
   }) async {
     final command = useFutureSdk
-        ? (usesFlutter ? _futureFlutterDartAnalyzeCmd : _futureDartAnalyzeCmd)
-        : (usesFlutter ? _flutterDartAnalyzerCmd : _dartAnalyzerCmd);
+        ? (usesFlutter
+            ? _futureFlutterSdk.dartAnalyzeCmd
+            : _futureDartSdk.dartAnalyzeCmd)
+        : (usesFlutter ? _flutterSdk.dartAnalyzeCmd : _dartSdk.dartAnalyzeCmd);
     final environment = _extendedEnv(
       usesFlutter: usesFlutter,
       flutterRoot: useFutureSdk ? _futureFlutterSdkDir : flutterSdkDir,
@@ -320,7 +256,10 @@ class ToolEnvironment {
       params.add(fullPath);
 
       final result = await runProc(
-        [...usesFlutter ? _flutterCmd : _dartCmd, ...params],
+        [
+          ...usesFlutter ? _flutterSdk.flutterCmd : _dartSdk.dartCmd,
+          ...params,
+        ],
         environment: environment,
         timeout: _dartfmtTimeout,
       );
@@ -358,7 +297,7 @@ class ToolEnvironment {
 
   Future<Map<String, dynamic>> getFlutterVersion() async {
     final result = _handleProcessErrors(
-        await runProc([..._flutterCmd, '--version', '--machine']));
+        await runProc([..._flutterSdk.flutterCmd, '--version', '--machine']));
     final waitingForString = 'Waiting for another flutter';
     return result.parseJson(transform: (content) {
       if (content.contains(waitingForString)) {
@@ -399,7 +338,9 @@ class ToolEnvironment {
         if (usesFlutter) {
           return await runProc(
             [
-              ...(useFutureSdk ? _futureFlutterCmd : _flutterCmd),
+              ...(useFutureSdk
+                  ? _futureFlutterSdk.flutterCmd
+                  : _flutterSdk.flutterCmd),
               'packages',
               'pub',
               'upgrade',
@@ -411,7 +352,7 @@ class ToolEnvironment {
         } else {
           return await runProc(
             [
-              ...(useFutureSdk ? _futureDartCmd : _dartCmd),
+              ...(useFutureSdk ? _futureDartSdk.dartCmd : _dartSdk.dartCmd),
               'pub',
               'upgrade',
               '--verbose',
@@ -446,8 +387,8 @@ class ToolEnvironment {
         // issues with `flutter pub get` running in the example directory,
         // argument parsing differing and other misalignments between `dart pub`
         // and `flutter pub` (see https://github.com/dart-lang/pub/issues/2971).
-        [..._flutterCmd, 'pub', 'pub']
-        : [..._dartCmd, 'pub'];
+        [..._flutterSdk.flutterCmd, 'pub', 'pub']
+        : [..._dartSdk.dartCmd, 'pub'];
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     final environment = _extendedEnv(usesFlutter: usesFlutter);
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
@@ -541,14 +482,14 @@ class ToolEnvironment {
     }
     if (_useGlobalDartdoc) {
       pr = await runProc(
-        [..._pubCmd, 'global', 'run', 'dartdoc', ...args],
+        [..._dartSdk.dartPubCmd, 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment: _globalDartdocEnv(),
         timeout: timeout,
       );
     } else {
       pr = await runProc(
-        [..._dartdocCmd, ...args],
+        [..._dartSdk.dartDocCmd, ...args],
         workingDirectory: packageDir,
         environment: _environment,
         timeout: timeout,
@@ -746,4 +687,54 @@ Future<PanaProcessResult> _retryProc(
     }
   }
   return result!;
+}
+
+Future<String?> _resolve(String? dir) async {
+  if (dir == null) return null;
+  return Directory(dir).resolveSymbolicLinks();
+}
+
+class _DartSdk {
+  final String? _baseDir;
+
+  _DartSdk._(this._baseDir);
+
+  static Future<_DartSdk> detect(String? path) async {
+    final resolved = await _resolve(path);
+    return _DartSdk._(resolved);
+  }
+
+  late final dartCmd = [
+    _join(_baseDir, 'bin', 'dart'),
+  ];
+
+  late final dartPubCmd = [...dartCmd, 'pub'];
+  late final dartAnalyzeCmd = [...dartCmd, 'analyze'];
+  late final dartDocCmd = [...dartCmd, 'doc'];
+}
+
+class _FlutterSdk {
+  final String? _baseDir;
+  final _DartSdk _dartSdk;
+
+  _FlutterSdk._(this._baseDir, this._dartSdk);
+
+  static Future<_FlutterSdk> detect(String? path) async {
+    final resolved = await _resolve(path);
+
+    final dartSdkDir = resolved == null
+        ? resolved
+        : p.join(resolved, 'bin', 'cache', 'dart-sdk');
+
+    return _FlutterSdk._(resolved, await _DartSdk.detect(dartSdkDir));
+  }
+
+  late final flutterCmd = [
+    _join(_baseDir, 'bin', 'flutter'),
+    '--no-version-check',
+  ];
+
+  // TODO: remove this after flutter analyze gets machine-readable output.
+  // https://github.com/flutter/flutter/issues/23664
+  late final dartAnalyzeCmd = _dartSdk.dartAnalyzeCmd;
 }

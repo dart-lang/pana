@@ -1,5 +1,8 @@
 ## 0.21.28
+
 - Nicer error message if trying to download non-existing version of package.
+- Removed `--[no|suppress]-analytics` flags and using `CI=true` instead.
+  *Breaking changes* in `ToolEnvironment.fake` (removal of commands). 
 
 ## 0.21.27
 
