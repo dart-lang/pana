@@ -287,6 +287,7 @@ class Report {
 abstract class ReportSectionId {
   static const analysis = 'analysis';
   static const convention = 'convention';
+  static const dart3Compatiblity = 'dart3-compatibility';
   static const dependency = 'dependency';
   static const documentation = 'documentation';
   static const platform = 'platform';
