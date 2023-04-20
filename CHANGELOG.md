@@ -1,3 +1,7 @@
+## 0.21.29
+
+- New report section: Dart 3 compatiblity.
+
 ## 0.21.28
 
 - Nicer error message if trying to download non-existing version of package.

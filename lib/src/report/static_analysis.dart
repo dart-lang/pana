@@ -5,7 +5,6 @@
 import 'dart:io';
 import 'dart:math' as math;
 
-import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
@@ -118,7 +117,6 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
   }
 }
 
-@visibleForTesting
 FileSpan? sourceSpanFromFile({
   required String path,
   required int line,

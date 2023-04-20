@@ -207,41 +207,46 @@ class PackageContext {
 
   /// True if the configured future SDK analyzed the package without any error.
   late final isCompatibleWithFutureSdk = () async {
+    try {
+      final problems = await codeProblemsWithFutureSdk;
+      return !problems.any((e) => e.isError);
+    } on ToolException catch (_) {
+      return false;
+    }
+  }();
+
+  /// List of code problems when analyzed with the future SDK.
+  late final codeProblemsWithFutureSdk = () async {
     return await withTempDir((tempPackageDir) async {
-      try {
-        log.info('Prepare package for future SDK compatibility check.');
-        // Copy package to temp directory and delete the .dart_tool directory and
-        // the pubspec.lock file inside it.
-        await copyDir(packageDir, tempPackageDir);
-        final tempDartToolDir = Directory(p.join(tempPackageDir, '.dart_tool'));
-        if (await tempDartToolDir.exists()) {
-          await tempDartToolDir.delete(recursive: true);
-        }
-        final tempPubspecLock = File(p.join(tempPackageDir, 'pubspec.lock'));
-        if (await tempPubspecLock.exists()) {
-          await tempPubspecLock.delete();
-        }
-
-        log.info('Resolve dependencies with future SDK...');
-        final pr = await toolEnvironment.runUpgrade(
-          tempPackageDir,
-          usesFlutter,
-          useFutureSdk: true,
-          retryCount: 1,
-        );
-        if (pr.wasError) {
-          return false;
-        }
-
-        log.info('Analyzing package with future SDK...');
-        final problems = await _staticAnalysis(
-          packageDir: tempPackageDir,
-          useFutureSdk: true,
-        );
-        return !problems.any((e) => e.isError);
-      } on ToolException catch (_) {
-        return false;
+      log.info('Prepare package for future SDK compatibility check.');
+      // Copy package to temp directory and delete the .dart_tool directory and
+      // the pubspec.lock file inside it.
+      await copyDir(packageDir, tempPackageDir);
+      final tempDartToolDir = Directory(p.join(tempPackageDir, '.dart_tool'));
+      if (await tempDartToolDir.exists()) {
+        await tempDartToolDir.delete(recursive: true);
       }
+      final tempPubspecLock = File(p.join(tempPackageDir, 'pubspec.lock'));
+      if (await tempPubspecLock.exists()) {
+        await tempPubspecLock.delete();
+      }
+
+      log.info('Resolve dependencies with future SDK...');
+      final pr = await toolEnvironment.runUpgrade(
+        tempPackageDir,
+        usesFlutter,
+        useFutureSdk: true,
+        retryCount: 1,
+      );
+      if (pr.wasError) {
+        throw ToolException('Unable to run pub upgrade.', pr.stderr);
+      }
+
+      log.info('Analyzing package with future SDK...');
+      return await _staticAnalysis(
+        packageDir: tempPackageDir,
+        useFutureSdk: true,
+      );
     });
   }();
 
