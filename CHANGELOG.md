@@ -1,3 +1,7 @@
+## 0.21.30
+
+- Fix `pub upgrade` to exclude example directory.
+
 ## 0.21.29
 
 - New report section: Dart 3 compatiblity.
