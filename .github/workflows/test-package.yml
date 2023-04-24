@@ -22,7 +22,7 @@ jobs:
         sdk: [2.19.0]
     steps:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
-      - uses: dart-lang/setup-dart@a57a6c04cf7d4840e88432aad6281d1e125f0d46
+      - uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -51,7 +51,7 @@ jobs:
         flutter: [3.7.0]
     steps:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
-      - uses: dart-lang/setup-dart@a57a6c04cf7d4840e88432aad6281d1e125f0d46
+      - uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: ${{ matrix.sdk }}
       - name: Setup Flutter
@@ -80,7 +80,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
-      - uses: dart-lang/setup-dart@a57a6c04cf7d4840e88432aad6281d1e125f0d46
+      - uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
           sdk: '3.0.0-163.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
       - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
