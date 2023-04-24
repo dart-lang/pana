@@ -27,7 +27,6 @@ class ToolEnvironment {
   final String? flutterSdkDir;
   final String? pubCacheDir;
   final PanaCache panaCache;
-  final String? _futureFlutterSdkDir;
   final _DartSdk _dartSdk;
   final _DartSdk _futureDartSdk;
   final _FlutterSdk _flutterSdk;
@@ -41,7 +40,6 @@ class ToolEnvironment {
     this.flutterSdkDir,
     this.pubCacheDir,
     this.panaCache,
-    this._futureFlutterSdkDir,
     this._dartSdk,
     this._futureDartSdk,
     this._flutterSdk,
@@ -55,7 +53,6 @@ class ToolEnvironment {
     this.flutterSdkDir,
     this.pubCacheDir,
     PanaCache? panaCache,
-    String? futureFlutterSdkDir,
     Map<String, String> environment = const <String, String>{},
     bool useGlobalDartdoc = false,
     required PanaRuntimeInfo runtimeInfo,
@@ -64,7 +61,6 @@ class ToolEnvironment {
         _futureDartSdk = _DartSdk._(null),
         _flutterSdk = _FlutterSdk._(null, _DartSdk._(null)),
         _futureFlutterSdk = _FlutterSdk._(null, _DartSdk._(null)),
-        _futureFlutterSdkDir = futureFlutterSdkDir,
         _environment = environment,
         _useGlobalDartdoc = useGlobalDartdoc,
         _runtimeInfo = runtimeInfo;
@@ -110,7 +106,6 @@ class ToolEnvironment {
     final resolvedFlutterSdk = await _resolve(flutterSdkDir);
     final resolvedPubCache = await _resolve(pubCacheDir);
     final resolvedPanaCache = await _resolve(panaCacheDir);
-    final resolvedFutureFlutterSdk = await _resolve(futureFlutterSdkDir);
     final env = <String, String>{
       ...?environment,
       if (resolvedPubCache != null) _pubCacheKey: resolvedPubCache,
@@ -142,7 +137,6 @@ class ToolEnvironment {
       resolvedFlutterSdk,
       resolvedPubCache,
       PanaCache(path: resolvedPanaCache),
-      resolvedFutureFlutterSdk,
       await _DartSdk.detect(dartSdkDir),
       await _DartSdk.detect(futureDartSdkDir),
       flutterSdk,
@@ -174,14 +168,13 @@ class ToolEnvironment {
     /// NOTE: this is an experimental option, do not rely on it.
     bool useFutureSdk = false,
   }) async {
-    final command = useFutureSdk
-        ? (usesFlutter
-            ? _futureFlutterSdk.dartAnalyzeCmd
-            : _futureDartSdk.dartAnalyzeCmd)
-        : (usesFlutter ? _flutterSdk.dartAnalyzeCmd : _dartSdk.dartAnalyzeCmd);
+    final flutterSdk = useFutureSdk ? _futureFlutterSdk : _flutterSdk;
+    final dartSdk = useFutureSdk ? _futureDartSdk : _dartSdk;
+    final command =
+        usesFlutter ? flutterSdk.dartAnalyzeCmd : dartSdk.dartAnalyzeCmd;
     final environment = _extendedEnv(
       usesFlutter: usesFlutter,
-      flutterRoot: useFutureSdk ? _futureFlutterSdkDir : flutterSdkDir,
+      flutterRoot: flutterSdk._baseDir,
     );
 
     final analysisOptionsFile =
@@ -329,18 +322,17 @@ class ToolEnvironment {
     /// NOTE: this is an experimental option, do not rely on it.
     bool useFutureSdk = false,
   }) async {
+    final flutterSdk = useFutureSdk ? _futureFlutterSdk : _flutterSdk;
     final environment = _extendedEnv(
       usesFlutter: usesFlutter,
-      flutterRoot: useFutureSdk ? _futureFlutterSdkDir : flutterSdkDir,
+      flutterRoot: flutterSdk._baseDir,
     );
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _retryProc(() async {
         if (usesFlutter) {
           return await runProc(
             [
-              ...(useFutureSdk
-                  ? _futureFlutterSdk.flutterCmd
-                  : _flutterSdk.flutterCmd),
+              ...flutterSdk.flutterCmd,
               'packages',
               'pub',
               'upgrade',
