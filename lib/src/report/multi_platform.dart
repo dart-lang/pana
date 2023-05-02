@@ -56,6 +56,9 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
       final paragraphs = <Paragraph>[
         if (sdkExplanations.isNotEmpty) RawParagraph('SDK issues found:'),
         ...sdkExplanations.map(explanationToIssue),
+        if (sdkExplanations.isNotEmpty)
+          // This empty line is required for `package:markdown` to render the following list correctly.
+          RawParagraph(''),
         for (final tag in tags.where((e) => e.startsWith('platform')))
           RawParagraph('* ✓ ${tagNames[tag]}'),
         if (officialExplanations.isNotEmpty)
