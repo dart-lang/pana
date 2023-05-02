@@ -34,8 +34,10 @@ class Runtime {
 
   static final _onAllWeb = {
     'html',
+    'html_common',
     'indexed_db',
     'js',
+    'js_interop',
     'js_util',
     'svg',
     'web_audio',
