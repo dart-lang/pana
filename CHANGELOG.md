@@ -1,3 +1,7 @@
+## 0.21.31
+
+- Dart 3 compatibility section label includes Flutter 3.10 when applicable.
+
 ## 0.21.30
 
 - Fix `pub upgrade` to exclude example directory.
