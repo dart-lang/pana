@@ -1,6 +1,6 @@
 ## 0.21.31
 
-- Dart 3 compatibility section label includes Flutter 10 when applicable.
+- Dart 3 compatibility section label includes Flutter 3.10 when applicable.
 
 ## 0.21.30
 
