@@ -14,12 +14,13 @@ import 'static_analysis.dart';
 Future<ReportSection> dart3Compatibility(PackageContext context) async {
   final maxPoints = 20;
   late Subsection subsection;
+  final dart3Label = context.usesFlutter ? 'Dart 3 & Flutter 3.10' : 'Dart 3';
   try {
     final problems = await context.codeProblemsWithFutureSdk;
     final errors = problems.where((e) => e.isError).toList();
     if (errors.isEmpty) {
       subsection = Subsection(
-        'Package is Dart 3 compatible!',
+        'Package is $dart3Label compatible!',
         [],
         maxPoints,
         maxPoints,
@@ -27,12 +28,13 @@ Future<ReportSection> dart3Compatibility(PackageContext context) async {
       );
     } else {
       subsection = Subsection(
-        'Dart 3 compatibility has one or more issues.',
+        '$dart3Label compatibility has one or more issues.',
         errors
             .take(5)
             .map((e) => Issue(
                   '${e.severity}: ${e.description}',
-                  suggestion: 'To reproduce make sure you are using Dart 3 and '
+                  suggestion:
+                      'To reproduce make sure you are using $dart3Label and '
                       'run `${context.usesFlutter ? 'flutter analyze' : 'dart analyze'} ${e.file}`',
                   spanFn: () => sourceSpanFromFile(
                     path: p.join(context.packageDir, e.file),
@@ -49,10 +51,10 @@ Future<ReportSection> dart3Compatibility(PackageContext context) async {
     }
   } on ToolException catch (e) {
     subsection = subsection = Subsection(
-      'Unable to detect Dart 3 compatibility',
+      'Unable to detect $dart3Label compatibility',
       [
         Issue(
-            'Failed to analyze Dart 3 compatibilty:\n```\n${e.message}\n${e.stderr}\n```\n'),
+            'Failed to analyze $dart3Label compatibilty:\n```\n${e.message}\n${e.stderr}\n```\n'),
       ],
       0,
       maxPoints,
@@ -60,7 +62,7 @@ Future<ReportSection> dart3Compatibility(PackageContext context) async {
     );
   }
   return makeSection(
-    title: 'Dart 3 compatibility',
+    title: '$dart3Label compatibility',
     maxPoints: maxPoints,
     id: ReportSectionId.dart3Compatiblity,
     subsections: [subsection],
