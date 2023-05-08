@@ -108,7 +108,9 @@ class Pubspec {
 
   bool get hasDartSdkConstraint => sdkConstraintStatus.hasConstraint;
 
-  bool get shouldWarnDart2Constraint => !sdkConstraintStatus.enablesDart2Latest;
+  bool get shouldWarnDart2Constraint =>
+      sdkConstraintStatus.isDart2Compatible &&
+      !sdkConstraintStatus.enablesDart2Latest;
 
   bool get hasGitDependency =>
       _inner.dependencies.values.any((d) => d is GitDependency);

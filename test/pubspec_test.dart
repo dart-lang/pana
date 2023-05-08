@@ -7,14 +7,14 @@ void main() {
     expect(emptyPubspec.hasFlutterPluginKey, isFalse);
     expect(emptyPubspec.dependsOnFlutterSdk, isFalse);
     expect(emptyPubspec.hasDartSdkConstraint, isFalse);
-    expect(emptyPubspec.shouldWarnDart2Constraint, isTrue);
+    expect(emptyPubspec.shouldWarnDart2Constraint, isFalse);
     expect(emptyPubspec.sdkConstraintStatus.enablesDart2Latest, isFalse);
     expect(emptyPubspec.sdkConstraintStatus.isDart2Compatible, isFalse);
   });
 
   test('dart1 vs dart2', () {
     expect(dart1OnlyPubspec.hasDartSdkConstraint, isTrue);
-    expect(dart1OnlyPubspec.shouldWarnDart2Constraint, isTrue);
+    expect(dart1OnlyPubspec.shouldWarnDart2Constraint, isFalse);
     expect(devSdkOnlyPubspec.hasDartSdkConstraint, isTrue);
     expect(devSdkOnlyPubspec.shouldWarnDart2Constraint, isTrue);
     expect(dart2Pubspec.hasDartSdkConstraint, isTrue);
