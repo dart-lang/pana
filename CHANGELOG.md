@@ -1,3 +1,7 @@
+## 0.21.32
+
+- Check the latest 2.x release compatibility only for Dart 2.x packages.
+
 ## 0.21.31
 
 - Dart 3 compatibility section label includes Flutter 3.10 when applicable.
