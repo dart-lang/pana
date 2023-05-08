@@ -16,7 +16,7 @@ void main() {
     expect(dart1OnlyPubspec.hasDartSdkConstraint, isTrue);
     expect(dart1OnlyPubspec.shouldWarnDart2Constraint, isFalse);
     expect(devSdkOnlyPubspec.hasDartSdkConstraint, isTrue);
-    expect(devSdkOnlyPubspec.shouldWarnDart2Constraint, isTrue);
+    expect(devSdkOnlyPubspec.shouldWarnDart2Constraint, isFalse);
     expect(dart2Pubspec.hasDartSdkConstraint, isTrue);
     expect(dart2Pubspec.shouldWarnDart2Constraint, isFalse);
 

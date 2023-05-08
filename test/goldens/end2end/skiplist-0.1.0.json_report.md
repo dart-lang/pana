@@ -2,7 +2,6 @@
 
 ### [x] 0/10 points: Provide a valid `pubspec.yaml`
 
-* Sdk-constraint doesn't allow future stable dart 2.x releases
 <details>
 <summary>
 The package description is too short.
