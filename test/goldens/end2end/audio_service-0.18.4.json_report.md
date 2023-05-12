@@ -65,7 +65,7 @@ Because:
 
 ### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 23 issues. Showing the first 2:
+Found 24 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -108,52 +108,51 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|
 |[`audio_service_platform_interface`]|`^0.1.0`|0.1.0|0.1.0|
 |[`audio_service_web`]|`^0.1.1`|0.1.1|0.1.1|
-|[`audio_session`]|`^0.1.6+1`|0.1.10|0.1.10|
+|[`audio_session`]|`^0.1.6+1`|0.1.13|0.1.13|
 |[`clock`]|`^1.1.0`|1.1.1|1.1.1|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
 |[`flutter_cache_manager`]|`^3.0.1`|3.3.0|3.3.0|
 |[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0|
-|[`js`]|`^0.6.3`|0.6.5|0.6.5|
-|[`rxdart`]|`>=0.26.0 <0.28.0`|0.27.5|0.27.5|
+|[`js`]|`^0.6.3`|0.6.7|0.6.7|
+|[`rxdart`]|`>=0.26.0 <0.28.0`|0.27.7|0.27.7|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`async`]|-|2.9.0|2.9.0|
-|[`characters`]|-|1.2.1|1.2.1|
-|[`collection`]|-|1.17.0|1.17.0|
-|[`crypto`]|-|3.0.2|3.0.2|
-|[`ffi`]|-|2.0.1|2.0.1|
+|[`async`]|-|2.11.0|2.11.0|
+|[`characters`]|-|1.3.0|1.3.0|
+|[`collection`]|-|1.17.1|1.17.1|
+|[`crypto`]|-|3.0.3|3.0.3|
+|[`ffi`]|-|2.0.2|2.0.2|
 |[`file`]|-|6.1.4|6.1.4|
-|[`http`]|-|0.13.5|0.13.5|
+|[`http`]|-|0.13.6|0.13.6|
 |[`http_parser`]|-|4.0.2|4.0.2|
-|[`material_color_utilities`]|-|0.2.0|0.2.0|
-|[`meta`]|-|1.8.0|1.8.0|
-|[`path`]|-|1.8.2|1.8.2|
-|[`path_provider`]|-|2.0.11|2.0.11|
-|[`path_provider_android`]|-|2.0.20|2.0.20|
-|[`path_provider_ios`]|-|2.0.11|2.0.11|
-|[`path_provider_linux`]|-|2.1.7|2.1.7|
-|[`path_provider_macos`]|-|2.0.6|2.0.6|
-|[`path_provider_platform_interface`]|-|2.0.5|2.0.5|
-|[`path_provider_windows`]|-|2.1.3|2.1.3|
+|[`material_color_utilities`]|-|0.2.0|0.5.0|
+|[`meta`]|-|1.9.1|1.9.1|
+|[`path`]|-|1.8.3|1.8.3|
+|[`path_provider`]|-|2.0.15|2.0.15|
+|[`path_provider_android`]|-|2.0.27|2.0.27|
+|[`path_provider_foundation`]|-|2.2.3|2.2.3|
+|[`path_provider_linux`]|-|2.1.10|2.1.10|
+|[`path_provider_platform_interface`]|-|2.0.6|2.0.6|
+|[`path_provider_windows`]|-|2.1.6|2.1.6|
 |[`pedantic`]|-|1.11.1|1.11.1|
 |[`platform`]|-|3.1.0|3.1.0|
-|[`plugin_platform_interface`]|-|2.1.3|2.1.3|
+|[`plugin_platform_interface`]|-|2.1.4|2.1.4|
 |[`process`]|-|4.2.4|4.2.4|
 |[`sky_engine`]|-|0.0.99|0.0.99|
-|[`source_span`]|-|1.9.1|1.9.1|
-|[`sqflite`]|-|2.1.0+1|2.1.0+1|
-|[`sqflite_common`]|-|2.3.0|2.3.0|
-|[`string_scanner`]|-|1.1.1|1.1.1|
-|[`synchronized`]|-|3.0.0+3|3.0.0+3|
+|[`source_span`]|-|1.10.0|1.10.0|
+|[`sqflite`]|-|2.2.8+2|2.2.8+2|
+|[`sqflite_common`]|-|2.4.5|2.4.5|
+|[`string_scanner`]|-|1.2.0|1.2.0|
+|[`synchronized`]|-|3.1.0|3.1.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
-|[`typed_data`]|-|1.3.1|1.3.1|
-|[`uuid`]|-|3.0.6|3.0.6|
+|[`typed_data`]|-|1.3.2|1.3.2|
+|[`uuid`]|-|3.0.7|3.0.7|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`win32`]|-|3.0.1|3.0.1|
-|[`xdg_directories`]|-|0.2.0+2|0.2.0+2|
+|[`win32`]|-|4.1.4|5.0.0|
+|[`xdg_directories`]|-|1.0.0|1.0.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -180,9 +179,8 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`path`]: https://pub.dev/packages/path
 [`path_provider`]: https://pub.dev/packages/path_provider
 [`path_provider_android`]: https://pub.dev/packages/path_provider_android
-[`path_provider_ios`]: https://pub.dev/packages/path_provider_ios
+[`path_provider_foundation`]: https://pub.dev/packages/path_provider_foundation
 [`path_provider_linux`]: https://pub.dev/packages/path_provider_linux
-[`path_provider_macos`]: https://pub.dev/packages/path_provider_macos
 [`path_provider_platform_interface`]: https://pub.dev/packages/path_provider_platform_interface
 [`path_provider_windows`]: https://pub.dev/packages/path_provider_windows
 [`pedantic`]: https://pub.dev/packages/pedantic

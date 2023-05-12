@@ -138,9 +138,9 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|`^3.0.0`|3.3.2|3.3.2|
-|[`matcher`]|`^0.12.10`|0.12.12|0.12.12|
-|[`path`]|`^1.8.0`|1.8.2|1.8.2|
+|[`archive`]|`^3.0.0`|3.3.7|3.3.7|
+|[`matcher`]|`^0.12.10`|0.12.15|0.12.16|
+|[`path`]|`^1.8.0`|1.8.3|1.8.3|
 |[`stack_trace`]|`^1.10.0`|1.11.0|1.11.0|
 |[`sync_http`]|`^0.3.0`|0.3.1|0.3.1|
 
@@ -148,9 +148,20 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.17.0|1.17.0|
-|[`crypto`]|-|3.0.2|3.0.2|
-|[`typed_data`]|-|1.3.1|1.3.1|
+|[`async`]|-|2.11.0|2.11.0|
+|[`boolean_selector`]|-|2.1.1|2.1.1|
+|[`collection`]|-|1.17.1|1.17.1|
+|[`convert`]|-|3.1.1|3.1.1|
+|[`crypto`]|-|3.0.3|3.0.3|
+|[`js`]|-|0.6.7|0.6.7|
+|[`meta`]|-|1.9.1|1.9.1|
+|[`pointycastle`]|-|3.7.3|3.7.3|
+|[`source_span`]|-|1.10.0|1.10.0|
+|[`stream_channel`]|-|2.1.1|2.1.1|
+|[`string_scanner`]|-|1.2.0|1.2.0|
+|[`term_glyph`]|-|1.2.1|1.2.1|
+|[`test_api`]|-|0.5.2|0.5.2|
+|[`typed_data`]|-|1.3.2|1.3.2|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -160,8 +171,19 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`path`]: https://pub.dev/packages/path
 [`stack_trace`]: https://pub.dev/packages/stack_trace
 [`sync_http`]: https://pub.dev/packages/sync_http
+[`async`]: https://pub.dev/packages/async
+[`boolean_selector`]: https://pub.dev/packages/boolean_selector
 [`collection`]: https://pub.dev/packages/collection
+[`convert`]: https://pub.dev/packages/convert
 [`crypto`]: https://pub.dev/packages/crypto
+[`js`]: https://pub.dev/packages/js
+[`meta`]: https://pub.dev/packages/meta
+[`pointycastle`]: https://pub.dev/packages/pointycastle
+[`source_span`]: https://pub.dev/packages/source_span
+[`stream_channel`]: https://pub.dev/packages/stream_channel
+[`string_scanner`]: https://pub.dev/packages/string_scanner
+[`term_glyph`]: https://pub.dev/packages/term_glyph
+[`test_api`]: https://pub.dev/packages/test_api
 [`typed_data`]: https://pub.dev/packages/typed_data
 
 

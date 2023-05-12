@@ -91,11 +91,11 @@ Because:
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`characters`]|-|1.2.1|1.2.1|
-|[`collection`]|-|1.17.0|1.17.0|
-|[`js`]|-|0.6.5|0.6.5|
-|[`material_color_utilities`]|-|0.2.0|0.2.0|
-|[`meta`]|-|1.8.0|1.8.0|
+|[`characters`]|-|1.3.0|1.3.0|
+|[`collection`]|-|1.17.1|1.17.1|
+|[`js`]|-|0.6.7|0.6.7|
+|[`material_color_utilities`]|-|0.2.0|0.5.0|
+|[`meta`]|-|1.9.1|1.9.1|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
 </details>

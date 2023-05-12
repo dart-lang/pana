@@ -29,10 +29,11 @@ Detected license: `BSD-3-Clause`.
 * ✓ MacOS
 * ✓ Web
 
-## 30/30 Pass static analysis
+## 20/30 Pass static analysis
 
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
+### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
 
+* Running `dartfmt` failed.
 
 ## 20/20 Support up-to-date dependencies
 
@@ -41,25 +42,25 @@ Detected license: `BSD-3-Clause`.
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`url_launcher_android`]|`^6.0.13`|6.0.19|6.0.19|
-|[`url_launcher_ios`]|`^6.0.13`|6.0.17|6.0.17|
-|[`url_launcher_linux`]|`>=2.0.0 <4.0.0`|3.0.1|3.0.1|
-|[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.0.1|3.0.1|
-|[`url_launcher_platform_interface`]|`^2.0.3`|2.1.1|2.1.1|
-|[`url_launcher_web`]|`^2.0.0`|2.0.13|2.0.13|
-|[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.0.1|3.0.1|
+|[`url_launcher_android`]|`^6.0.13`|6.0.31|6.0.31|
+|[`url_launcher_ios`]|`^6.0.13`|6.1.4|6.1.4|
+|[`url_launcher_linux`]|`>=2.0.0 <4.0.0`|3.0.5|3.0.5|
+|[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.0.5|3.0.5|
+|[`url_launcher_platform_interface`]|`^2.0.3`|2.1.2|2.1.2|
+|[`url_launcher_web`]|`^2.0.0`|2.0.16|2.0.16|
+|[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.0.6|3.0.6|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`characters`]|-|1.2.1|1.2.1|
-|[`collection`]|-|1.17.0|1.17.0|
+|[`characters`]|-|1.3.0|1.3.0|
+|[`collection`]|-|1.17.1|1.17.1|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`js`]|-|0.6.5|0.6.5|
-|[`material_color_utilities`]|-|0.2.0|0.2.0|
-|[`meta`]|-|1.8.0|1.8.0|
-|[`plugin_platform_interface`]|-|2.1.3|2.1.3|
+|[`js`]|-|0.6.7|0.6.7|
+|[`material_color_utilities`]|-|0.2.0|0.5.0|
+|[`meta`]|-|1.9.1|1.9.1|
+|[`plugin_platform_interface`]|-|2.1.4|2.1.4|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
 </details>
