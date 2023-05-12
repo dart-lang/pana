@@ -93,43 +93,43 @@ Because:
 * `dart:io`
 </details>
 
-## 20/30 Pass static analysis
+## 10/30 Pass static analysis
 
-### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
+### [x] 10/30 points: code has no errors, warnings, lints, or formatting issues
 
 Found 15 issues. Showing the first 2:
 
 <details>
 <summary>
-INFO: Missing a deprecation message.
+WARNING: Unnecessary type check; the result is always 'true'.
 </summary>
 
-`lib/src/async/web_driver.dart:139:3`
+`lib/src/async/web_element.dart:154:7`
 
 ```
     ╷
-139 │   @deprecated
-    │   ^^^^^^^^^^^
-    ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/async/web_driver.dart`
-</details>
-<details>
-<summary>
-INFO: Missing a deprecation message.
-</summary>
-
-`lib/src/async/web_element.dart:135:3`
-
-```
-    ╷
-135 │   @deprecated
-    │   ^^^^^^^^^^^
+154 │       other is WebElement && other.driver == driver && other.id == id;
+    │       ^^^^^^^^^^^^^^^^^^^
     ╵
 ```
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/async/web_element.dart`
+</details>
+<details>
+<summary>
+WARNING: Unnecessary type check; the result is always 'true'.
+</summary>
+
+`lib/src/handler/json_wire/utils.dart:26:8`
+
+```
+   ╷
+26 │       (responseBody is Map &&
+   │        ^^^^^^^^^^^^^^^^^^^
+   ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/handler/json_wire/utils.dart`
 </details>
 
 ## 20/20 Support up-to-date dependencies

@@ -29,17 +29,6 @@
   ],
   "allDependencies": [],
   "tags": [
-    "sdk:dart",
-    "sdk:flutter",
-    "platform:android",
-    "platform:ios",
-    "platform:windows",
-    "platform:linux",
-    "platform:macos",
-    "platform:web",
-    "runtime:native-aot",
-    "runtime:native-jit",
-    "runtime:web",
     "license:mit",
     "license:fsf-libre",
     "license:osi-approved"
@@ -65,10 +54,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 20,
+        "grantedPoints": 0,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)\n\n* ✓ Android\n* ✓ iOS\n* ✓ Windows\n* ✓ Linux\n* ✓ MacOS\n* ✓ Web"
+        "status": "failed",
+        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `dart pub get` for more information.\n</details>"
       },
       {
         "id": "analysis",
@@ -81,18 +70,18 @@
       {
         "id": "dependency",
         "title": "Support up-to-date dependencies",
-        "grantedPoints": 20,
+        "grantedPoints": 0,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "status": "failed",
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.0.0 <3.0.0'\n  │        ^^^^^^^^^^^^^^^^\n  ╵\n```\n\n</details>\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version {{sdk-version}}.\n</summary>\n\n`pubspec.yaml:8:8`\n\n```\n  ╷\n8 │   sdk: '>=1.0.0 <3.0.0'\n  │        ^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTry widening the upper boundary of the constraint.\n</details>"
       },
       {
         "id": "null-safety",
         "title": "Support sound null safety",
         "grantedPoints": 0,
         "maxPoints": 20,
-        "status": "partial",
-        "summary": "### [~] 0/20 points: Package does not opt in to null safety.\n\n<details>\n<summary>\nPackage language version (indicated by the sdk constraint `>=1.0.0 <3.0.0`) is less than 2.12.\n</summary>\n\nConsider [migrating](https://dart.dev/null-safety/migration-guide).\n</details>"
+        "status": "failed",
+        "summary": "### [x] 0/20 points: Unable to detect null safety\n\n<details>\n<summary>\nPackage resolution failed. Could not determine null safety.\n</summary>\n\nRun `dart pub get` for more information.\n</details>"
       }
     ]
   },
@@ -107,5 +96,6 @@
       "branch": "master"
     }
   },
-  "urlProblems": []
+  "urlProblems": [],
+  "errorMessage": "Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=1.0.0 <3.0.0'\" must be 2.12.0'\nor higher to enable null safety.\n```"
 }

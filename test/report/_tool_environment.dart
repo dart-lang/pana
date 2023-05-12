@@ -13,7 +13,7 @@ Future<ToolEnvironment> testToolEnvironment({String? sdkVersion}) async {
     environment: {'FLUTTER_ROOT': fakeFlutterRoot.io.path},
     runtimeInfo: PanaRuntimeInfo(
       panaVersion: '1.2.3',
-      sdkVersion: sdkVersion ?? '2.12.0',
+      sdkVersion: sdkVersion ?? '3.0.0',
       flutterVersions: {
         'frameworkVersion': '2.0.0',
         'channel': 'stable',

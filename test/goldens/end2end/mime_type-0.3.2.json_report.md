@@ -54,42 +54,104 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 20/20 Platform support
+## 0/20 Platform support
 
-### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)
-
-* ✓ Android
-* ✓ iOS
-* ✓ Windows
-* ✓ Linux
-* ✓ MacOS
-* ✓ Web
-
-## 30/30 Pass static analysis
-
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
-
-
-## 20/20 Support up-to-date dependencies
-
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
-
-No dependencies.
-
-To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
-
-
-### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
-
-## 0/20 Support sound null safety
-
-### [~] 0/20 points: Package does not opt in to null safety.
+### [x] 0/20 points: Platform support detection failed
 
 <details>
 <summary>
-Package language version (indicated by the sdk constraint `>=0.8.10 <3.0.0`) is less than 2.12.
+Could not determine supported platforms as package resolution failed.
 </summary>
 
-Consider [migrating](https://dart.dev/null-safety/migration-guide).
+Run `dart pub get` for more information.
+</details>
+
+## 0/30 Pass static analysis
+
+### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
+
+Found 6 issues. Showing the first 2:
+
+<details>
+<summary>
+ERROR: A value of type 'Null' can't be returned from the function 'mime' because it has a return type of 'String'.
+</summary>
+
+`lib/mime_type.dart:8:12`
+
+```
+  ╷
+8 │     return null;
+  │            ^^^^
+  ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/mime_type.dart`
+</details>
+<details>
+<summary>
+ERROR: A value of type 'String?' can't be returned from the function 'mime' because it has a return type of 'String'.
+</summary>
+
+`lib/mime_type.dart:14:12`
+
+```
+   ╷
+14 │     return _mimeMaps[extension.toLowerCase()];
+   │            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/mime_type.dart`
+</details>
+
+## 0/20 Support up-to-date dependencies
+
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
+
+<details>
+<summary>
+Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.
+</summary>
+
+`pubspec.yaml:10:10`
+
+```
+   ╷
+10 │     sdk: '>=0.8.10 <3.0.0'
+   │          ^^^^^^^^^^^^^^^^^
+   ╵
+```
+
+</details>
+
+### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
+
+<details>
+<summary>
+Sdk constraint doesn't support current Dart version {{sdk-version}}.
+</summary>
+
+`pubspec.yaml:10:10`
+
+```
+   ╷
+10 │     sdk: '>=0.8.10 <3.0.0'
+   │          ^^^^^^^^^^^^^^^^^
+   ╵
+```
+
+Try widening the upper boundary of the constraint.
+</details>
+
+## 0/20 Support sound null safety
+
+### [x] 0/20 points: Unable to detect null safety
+
+<details>
+<summary>
+Package resolution failed. Could not determine null safety.
+</summary>
+
+Run `dart pub get` for more information.
 </details>

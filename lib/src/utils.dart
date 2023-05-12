@@ -338,14 +338,10 @@ class _ChunksProcessOutput implements ProcessOutput {
   String toString() => asString;
 }
 
-class PanaProcessResult implements ProcessResult {
-  @override
+class PanaProcessResult {
   final int pid;
-  @override
   final int exitCode;
-  @override
   final ProcessOutput stdout;
-  @override
   final ProcessOutput stderr;
   final bool wasTimeout;
   final bool wasOutputExceeded;

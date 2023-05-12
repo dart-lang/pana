@@ -19,7 +19,7 @@ void main() {
         ..serve('foo', '1.2.3',
             published: DateTime.now().subtract(const Duration(days: 2))));
       final descriptor = package('my_package',
-          sdkConstraint: '>=2.10.0 <3.0.0',
+          sdkConstraint: '>=2.14.0 <4.0.0',
           dependencies: {
             'foo': {
               'hosted': {'name': 'foo', 'url': globalPackageServer!.url},
@@ -48,8 +48,7 @@ void main() {
           (b) => b!.serve('foo', '4.0.0',
               pubspec: {
                 'environment': {
-                  'sdk': VersionConstraint.compatibleWith(
-                          currentSdkVersion.nextBreaking)
+                  'sdk': VersionConstraint.compatibleWith(currentSdkVersion)
                       .toString()
                 }
               },
@@ -60,10 +59,9 @@ void main() {
         expect(
             section.summary,
             contains(
-                '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
-                'but that version doesn\'t support the current Dart SDK version $currentSdkVersion'));
+                'The constraint `^1.1.0` on foo does not support the stable version `4.0.0`'));
 
-        expect(section.grantedPoints, 20);
+        expect(section.grantedPoints, 10);
       }
       {
         globalPackageServer!
@@ -73,10 +71,10 @@ void main() {
         expect(
           section.summary,
           contains(
-              'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.'),
+              'The constraint `^1.1.0` on foo does not support the stable version `4.0.0`.'),
         );
 
-        expect(section.grantedPoints, 20);
+        expect(section.grantedPoints, 10);
       }
       {
         globalPackageServer!.add(
@@ -97,7 +95,7 @@ void main() {
         expect(
           section.summary,
           contains(
-              'The constraint `^1.1.0` on foo does not support the stable version `2.0.0`.'),
+              'The constraint `^1.1.0` on foo does not support the stable version `4.0.0`.'),
         );
         expect(section.grantedPoints, 10);
       }
@@ -106,8 +104,8 @@ void main() {
     test('ignores Flutter constraint upper bound', () async {
       final descriptor = package('my_package', pubspecExtras: {
         'environment': {
-          'sdk': '>=2.10.0 <3.0.0',
-          'flutter': '>=1.6.0 <2.0.0',
+          'sdk': '>=3.0.0 <4.0.0',
+          'flutter': '>=2.6.0 <3.0.0',
         }
       });
       await descriptor.create();
@@ -145,7 +143,7 @@ void main() {
       final nextVersion = version + 1;
       final descriptor = package('my_package', pubspecExtras: {
         'environment': {
-          'sdk': '>=2.10.0 <3.0.0',
+          'sdk': '>=3.0.0 <4.0.0',
           'flutter': '>=$nextVersion.0.0 <${nextVersion + 1}.0.0',
         }
       });
