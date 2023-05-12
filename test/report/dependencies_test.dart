@@ -48,7 +48,8 @@ void main() {
           (b) => b!.serve('foo', '4.0.0',
               pubspec: {
                 'environment': {
-                  'sdk': VersionConstraint.compatibleWith(currentSdkVersion)
+                  'sdk': VersionConstraint.compatibleWith(
+                          currentSdkVersion.nextBreaking)
                       .toString()
                 }
               },
@@ -61,7 +62,7 @@ void main() {
             contains(
                 'The constraint `^1.1.0` on foo does not support the stable version `4.0.0`'));
 
-        expect(section.grantedPoints, 10);
+        expect(section.grantedPoints, 20);
       }
       {
         globalPackageServer!
@@ -71,10 +72,10 @@ void main() {
         expect(
           section.summary,
           contains(
-              'The constraint `^1.1.0` on foo does not support the stable version `4.0.0`.'),
+              'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.'),
         );
 
-        expect(section.grantedPoints, 10);
+        expect(section.grantedPoints, 20);
       }
       {
         globalPackageServer!.add(
@@ -95,7 +96,7 @@ void main() {
         expect(
           section.summary,
           contains(
-              'The constraint `^1.1.0` on foo does not support the stable version `4.0.0`.'),
+              'The constraint `^1.1.0` on foo does not support the stable version `2.0.0`.'),
         );
         expect(section.grantedPoints, 10);
       }
