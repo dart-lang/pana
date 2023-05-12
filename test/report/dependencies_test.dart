@@ -60,7 +60,8 @@ void main() {
         expect(
             section.summary,
             contains(
-                'The constraint `^1.1.0` on foo does not support the stable version `4.0.0`'));
+                '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
+                'but that version doesn\'t support the current Dart SDK version $currentSdkVersion'));
 
         expect(section.grantedPoints, 20);
       }
