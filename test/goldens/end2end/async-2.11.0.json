@@ -1,0 +1,129 @@
+{
+  "createdAt": "2022-11-23T11:09:00.000Z",
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "async",
+  "packageVersion": "2.11.0",
+  "pubspec": {
+    "name": "async",
+    "version": "2.11.0",
+    "description": "Utility functions and classes related to the 'dart:async' library.",
+    "repository": "https://github.com/dart-lang/async",
+    "environment": {
+      "sdk": ">=2.18.0 <3.0.0"
+    },
+    "dependencies": {
+      "collection": "^1.15.0",
+      "meta": "^1.1.7"
+    },
+    "dev_dependencies": {
+      "fake_async": "^1.2.0",
+      "lints": "^2.0.0",
+      "stack_trace": "^1.10.0",
+      "test": "^1.16.0"
+    }
+  },
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "BSD-3-Clause"
+  },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "BSD-3-Clause"
+    }
+  ],
+  "allDependencies": [
+    "collection",
+    "fake_async",
+    "lints",
+    "meta",
+    "stack_trace",
+    "test"
+  ],
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "platform:web",
+    "runtime:native-aot",
+    "runtime:native-jit",
+    "runtime:web",
+    "is:null-safe",
+    "license:bsd-3-clause",
+    "license:fsf-libre",
+    "license:osi-approved"
+  ],
+  "report": {
+    "sections": [
+      {
+        "id": "convention",
+        "title": "Follow Dart file conventions",
+        "grantedPoints": 30,
+        "maxPoints": 30,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`."
+      },
+      {
+        "id": "documentation",
+        "title": "Provide documentation",
+        "grantedPoints": 0,
+        "maxPoints": 10,
+        "status": "failed",
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+      },
+      {
+        "id": "platform",
+        "title": "Platform support",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)\n\n* ✓ Android\n* ✓ iOS\n* ✓ Windows\n* ✓ Linux\n* ✓ MacOS\n* ✓ Web"
+      },
+      {
+        "id": "analysis",
+        "title": "Pass static analysis",
+        "grantedPoints": 30,
+        "maxPoints": 30,
+        "status": "passed",
+        "summary": "### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues\n"
+      },
+      {
+        "id": "dependency",
+        "title": "Support up-to-date dependencies",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|`^1.15.0`|1.17.1|1.17.1|\n|[`meta`]|`^1.1.7`|1.9.1|1.9.1|\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`collection`]: https://pub.dev/packages/collection\n[`meta`]: https://pub.dev/packages/meta\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+      },
+      {
+        "id": "null-safety",
+        "title": "Support sound null safety",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Package and dependencies are fully migrated to null safety!\n"
+      }
+    ]
+  },
+  "screenshots": [],
+  "result": {
+    "repositoryUrl": "https://github.com/dart-lang/async",
+    "issueTrackerUrl": "https://github.com/dart-lang/async/issues",
+    "repository": {
+      "provider": "github",
+      "host": "github.com",
+      "repository": "dart-lang/async",
+      "branch": "master"
+    },
+    "contributingUrl": "https://github.com/dart-lang/async/blob/master/CONTRIBUTING.md"
+  },
+  "urlProblems": []
+}
