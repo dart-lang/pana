@@ -4,10 +4,12 @@ version: 2
 enable-beta-ecosystems: true
 
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "monthly"
+      interval: monthly
+    labels:
+      - autosubmit
   - package-ecosystem: pub
     directory: /
     schedule:
