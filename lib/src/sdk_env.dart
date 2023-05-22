@@ -454,7 +454,7 @@ class ToolEnvironment {
     Duration? timeout,
     List<String>? excludedLibs,
   }) async {
-    ProcessResult pr;
+    PanaProcessResult pr;
     final args = [
       '--output',
       outputDir,
@@ -575,7 +575,7 @@ class ToolEnvironment {
 }
 
 class DartdocResult {
-  final ProcessResult processResult;
+  final PanaProcessResult processResult;
   final bool wasTimeout;
   final bool hasIndexHtml;
   final bool hasIndexJson;

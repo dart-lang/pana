@@ -114,16 +114,16 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`mustache_template`]|`^2.0.0`|2.0.0|2.0.0|
 |[`path_to_regexp`]|`^0.4.0`|0.4.0|0.4.0|
 |[`recase`]|`^4.0.0`|4.1.0|4.1.0|
-|[`yaml`]|`^3.1.0`|3.1.1|3.1.1|
+|[`yaml`]|`^3.1.0`|3.1.2|3.1.2|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.17.0|1.17.0|
-|[`path`]|-|1.8.2|1.8.2|
-|[`source_span`]|-|1.9.1|1.9.1|
-|[`string_scanner`]|-|1.1.1|1.1.1|
+|[`collection`]|-|1.17.1|1.17.1|
+|[`path`]|-|1.8.3|1.8.3|
+|[`source_span`]|-|1.10.0|1.10.0|
+|[`string_scanner`]|-|1.2.0|1.2.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
 |[`tree_iterator`]|-|2.0.0|2.0.0|
 </details>

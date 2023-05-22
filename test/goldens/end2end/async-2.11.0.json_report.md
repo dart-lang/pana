@@ -36,42 +36,10 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 * ✓ MacOS
 * ✓ Web
 
-## 20/30 Pass static analysis
+## 30/30 Pass static analysis
 
-### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
+### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
 
-<details>
-<summary>
-INFO: This 'onError' handler must return a value assignable to 'T', but ends without returning a value.
-</summary>
-
-`lib/src/cancelable_operation.dart:192:29`
-
-```
-    ╷
-192 │       future.catchError((_) {});
-    │                             ^
-    ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/cancelable_operation.dart`
-</details>
-<details>
-<summary>
-INFO: Missing a deprecation message.
-</summary>
-
-`lib/src/stream_sink_transformer.dart:56:3`
-
-```
-   ╷
-56 │   @deprecated
-   │   ^^^^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/stream_sink_transformer.dart`
-</details>
 
 ## 20/20 Support up-to-date dependencies
 
@@ -79,11 +47,13 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|`^1.15.0`|1.17.0|1.17.0|
+|[`collection`]|`^1.15.0`|1.17.1|1.17.1|
+|[`meta`]|`^1.1.7`|1.9.1|1.9.1|
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
 [`collection`]: https://pub.dev/packages/collection
+[`meta`]: https://pub.dev/packages/meta
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs

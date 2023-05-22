@@ -6,10 +6,10 @@
     "flutterVersions": {}
   },
   "packageName": "dnd",
-  "packageVersion": "2.0.0",
+  "packageVersion": "2.0.1",
   "pubspec": {
     "name": "dnd",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "author": "Marco Jakob <majakob@gmx.ch>",
     "description": "Drag and Drop for Dart web apps with mouse and touch support.",
     "repository": "https://github.com/marcojakob/dart-dnd",
@@ -75,10 +75,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 30,
-        "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 3 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Missing a deprecation message.\n</summary>\n\n`lib/src/draggable.dart:62:3`\n\n```\n   ╷\n62 │   @deprecated\r\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`\n</details>\n<details>\n<summary>\nINFO: Missing a deprecation message.\n</summary>\n\n`lib/src/draggable.dart:66:3`\n\n```\n   ╷\n66 │   @deprecated\r\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`\n</details>"
+        "status": "failed",
+        "summary": "### [x] 10/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 3 issues. Showing the first 2:\n\n<details>\n<summary>\nWARNING: Unnecessary type check; the result is always 'true'.\n</summary>\n\n`lib/src/draggable_manager.dart:183:9`\n\n```\n    ╷\n183 │     if (target is Element &&\r\n    │         ^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable_manager.dart`\n</details>\n<details>\n<summary>\nINFO: Missing a deprecation message.\n</summary>\n\n`lib/src/draggable.dart:62:3`\n\n```\n   ╷\n62 │   @deprecated\r\n   │   ^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`\n</details>"
       },
       {
         "id": "dependency",

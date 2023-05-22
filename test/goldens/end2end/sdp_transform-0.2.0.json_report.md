@@ -43,15 +43,15 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 * ✓ MacOS
 * ✓ Web
 
-## 20/30 Pass static analysis
+## 0/30 Pass static analysis
 
-### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
+### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
 
-Found 9 issues. Showing the first 2:
+Found 10 issues. Showing the first 2:
 
 <details>
 <summary>
-INFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.
+ERROR: The class 'List' doesn't have an unnamed constructor.
 </summary>
 
 `lib/src/parser.dart:100:33`
@@ -67,7 +67,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
-INFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], or the List.filled constructor instead.
+ERROR: The constructor returns type 'List<dynamic>' that isn't of expected type 'List<String>'.
 </summary>
 
 `lib/src/parser.dart:140:24`
@@ -75,24 +75,51 @@ INFO: 'List.List' is deprecated and shouldn't be used. Use a list literal, [], o
 ```
     ╷
 140 │   List<String> parts = List();
-    │                        ^^^^
+    │                        ^^^^^^
     ╵
 ```
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`
 </details>
 
-## 20/20 Support up-to-date dependencies
+## 0/20 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-No dependencies.
+<details>
+<summary>
+Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.
+</summary>
 
-To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
+`pubspec.yaml:10:8`
 
+```
+   ╷
+10 │   sdk: '<3.0.0'
+   │        ^^^^^^^^
+   ╵
+```
 
-### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
+</details>
 
+### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs
+
+<details>
+<summary>
+Sdk constraint doesn't support current Dart version {{sdk-version}}.
+</summary>
+
+`pubspec.yaml:10:8`
+
+```
+   ╷
+10 │   sdk: '<3.0.0'
+   │        ^^^^^^^^
+   ╵
+```
+
+Try widening the upper boundary of the constraint.
+</details>
 
 ## 0/20 Support sound null safety
 

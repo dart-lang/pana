@@ -19,7 +19,7 @@ void main() {
         ..serve('foo', '1.2.3',
             published: DateTime.now().subtract(const Duration(days: 2))));
       final descriptor = package('my_package',
-          sdkConstraint: '>=2.10.0 <3.0.0',
+          sdkConstraint: '>=2.14.0 <4.0.0',
           dependencies: {
             'foo': {
               'hosted': {'name': 'foo', 'url': globalPackageServer!.url},
@@ -106,8 +106,8 @@ void main() {
     test('ignores Flutter constraint upper bound', () async {
       final descriptor = package('my_package', pubspecExtras: {
         'environment': {
-          'sdk': '>=2.10.0 <3.0.0',
-          'flutter': '>=1.6.0 <2.0.0',
+          'sdk': '>=3.0.0 <4.0.0',
+          'flutter': '>=2.6.0 <3.0.0',
         }
       });
       await descriptor.create();
@@ -145,7 +145,7 @@ void main() {
       final nextVersion = version + 1;
       final descriptor = package('my_package', pubspecExtras: {
         'environment': {
-          'sdk': '>=2.10.0 <3.0.0',
+          'sdk': '>=3.0.0 <4.0.0',
           'flutter': '>=$nextVersion.0.0 <${nextVersion + 1}.0.0',
         }
       });

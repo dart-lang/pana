@@ -71,7 +71,7 @@
         "grantedPoints": 0,
         "maxPoints": 30,
         "status": "failed",
-        "summary": "### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 38 issues. Showing the first 2:\n\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n</summary>\n\n`lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/skiplist.dart`\n</details>\n<details>\n<summary>\nERROR: Non-nullable instance field '_header' must be initialized.\n</summary>\n\n`lib/skiplist.dart:48:3`\n\n```\n   ╷\n48 │   SkipList({double this.p: 1 / 4, int this.maxLevel: 8}) {\n   │   ^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/skiplist.dart`\n</details>"
+        "summary": "### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 37 issues. Showing the first 2:\n\n<details>\n<summary>\nERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.\n</summary>\n\n`lib/skiplist.dart:12:8`\n\n```\n   ╷\n12 │ import \"package:quiver_iterables/iterables.dart\" as iterables;\n   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/skiplist.dart`\n</details>\n<details>\n<summary>\nERROR: Non-nullable instance field '_header' must be initialized.\n</summary>\n\n`lib/skiplist.dart:48:3`\n\n```\n   ╷\n48 │   SkipList({double this.p: 1 / 4, int this.maxLevel: 8}) {\n   │   ^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/skiplist.dart`\n</details>"
       },
       {
         "id": "dependency",
@@ -103,5 +103,5 @@
     }
   },
   "urlProblems": [],
-  "errorMessage": "Running `dart pub outdated` failed with the following output:\n\n```\nThe current Dart SDK version is {{sdk-version}}.\nBecause skiplist depends on quiver_iterables >=1.0.0 which requires SDK version >=1.9.0 <2.0.0, version solving failed.\n```"
+  "errorMessage": "Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=1.0.0 <=3.0.0'\" must be 2.12.0'\nor higher to enable null safety.\n```"
 }

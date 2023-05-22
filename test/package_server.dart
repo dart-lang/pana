@@ -209,7 +209,7 @@ class PackageServerBuilder {
     var pubspecFields = <String, dynamic>{
       'name': name,
       'version': version,
-      'environment': {'sdk': '>=2.10.0 <3.0.0'}
+      'environment': {'sdk': '>=2.12.0 <4.0.0'}
     };
     if (pubspec != null) pubspecFields.addAll(pubspec);
     if (deps != null) pubspecFields['dependencies'] = deps;

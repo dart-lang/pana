@@ -72,12 +72,28 @@ Because:
 * `dart:js`
 </details>
 
-## 20/30 Pass static analysis
+## 10/30 Pass static analysis
 
-### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
+### [x] 10/30 points: code has no errors, warnings, lints, or formatting issues
 
 Found 3 issues. Showing the first 2:
 
+<details>
+<summary>
+WARNING: Unnecessary type check; the result is always 'true'.
+</summary>
+
+`lib/src/draggable_manager.dart:183:9`
+
+```
+    ╷
+183 │     if (target is Element &&
+    │         ^^^^^^^^^^^^^^^^^
+    ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable_manager.dart`
+</details>
 <details>
 <summary>
 INFO: Missing a deprecation message.
@@ -88,22 +104,6 @@ INFO: Missing a deprecation message.
 ```
    ╷
 62 │   @deprecated
-   │   ^^^^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`
-</details>
-<details>
-<summary>
-INFO: Missing a deprecation message.
-</summary>
-
-`lib/src/draggable.dart:66:3`
-
-```
-   ╷
-66 │   @deprecated
    │   ^^^^^^^^^^^
    ╵
 ```

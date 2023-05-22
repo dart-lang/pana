@@ -170,13 +170,13 @@ void main() {
   }
 
   // generic, cross-platform package
-  verifyPackage('async', '2.5.0');
+  verifyPackage('async', '2.11.0');
 
   // cross-platform package with platform-specific code
   verifyPackage('http', '0.13.0');
 
   // js-only package
-  verifyPackage('dnd', '2.0.0');
+  verifyPackage('dnd', '2.0.1');
 
   // flutter-only package
   verifyPackage('url_launcher', '6.1.2');

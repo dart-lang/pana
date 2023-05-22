@@ -1,3 +1,11 @@
+## 0.21.33
+
+- Upgraded to Dart 3.0.
+
+**Breaking changes**:
+- `PanaProcessResult` no longer implements `dart:io`'s `ProcessResult`.
+- `DartdocResult` uses `PanaProcessResult` instead of `ProcessResult`.
+
 ## 0.21.32
 
 - Check the latest 2.x release compatibility only for Dart 2.x packages.
