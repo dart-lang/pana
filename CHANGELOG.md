@@ -1,6 +1,8 @@
 ## 0.21.33
 
 - Upgraded to Dart 3.0.
+- Resolve `package:lints/core.yaml` locally before loading from GitHub.
+- `InspectOptions.analysisOptionsYaml` is now deprecated.
 
 **Breaking changes**:
 - `PanaProcessResult` no longer implements `dart:io`'s `ProcessResult`.

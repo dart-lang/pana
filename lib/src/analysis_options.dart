@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
@@ -14,6 +15,7 @@ import 'package:yaml/yaml.dart' as yaml;
 final _logger = Logger('analysis_options');
 
 String? _cachedFlutterOptionsOnGithub;
+String? _cachedLintsCoreInResolvedReferences;
 String? _cachedLintsCoreOptionsOnGithub;
 
 /// Returns the default analysis options (in yaml format).
@@ -62,6 +64,20 @@ Future<String> _getFlutterAnalysisOptions(String? flutterSdkDir) async {
 }
 
 Future<String> _getLintsCoreAnalysisOptions() async {
+  // try to load local lints from the resolved package references
+  if (_cachedLintsCoreInResolvedReferences != null) {
+    return _cachedLintsCoreInResolvedReferences!;
+  }
+  try {
+    final resource =
+        await Isolate.resolvePackageUri(Uri.parse('package:lints/core.yaml'));
+    final file = File.fromUri(resource!);
+    _cachedLintsCoreInResolvedReferences = await file.readAsString();
+    return _cachedLintsCoreInResolvedReferences!;
+  } on Exception catch (_) {
+    // no-op
+  }
+
   // try to load latest from github
   if (_cachedLintsCoreOptionsOnGithub != null) {
     return _cachedLintsCoreOptionsOnGithub!;

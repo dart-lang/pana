@@ -33,6 +33,7 @@ class InspectOptions {
   final int? lineLength;
 
   /// The analysis options (in yaml format) to use for the analysis.
+  @Deprecated('Do not use, will be removed.')
   final String? analysisOptionsYaml;
 
   /// Whether pana should also access the remote repository specified in pubspec.yaml.
