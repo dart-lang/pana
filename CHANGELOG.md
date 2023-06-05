@@ -1,5 +1,6 @@
 ## 0.21.33
 
+- Allow more characters in repository path segments.
 - Upgraded to Dart 3.0.
 
 **Breaking changes**:

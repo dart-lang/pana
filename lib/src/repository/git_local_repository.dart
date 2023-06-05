@@ -11,7 +11,7 @@ import '../utils.dart' show runProc, PanaProcessResult;
 
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
 final _acceptedPathSegmentsRegExp =
-    RegExp(r'^[a-z0-9_\-\.]+$', caseSensitive: false);
+    RegExp(r'^[a-z0-9_\-\.\{\}\(\)]+$', caseSensitive: false);
 
 /// The value to indicate we are fetching the branch without depth restriction.
 const unlimitedFetchDepth = 0;
