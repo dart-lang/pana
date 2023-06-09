@@ -95,7 +95,7 @@ Future<VerifiedRepository?> checkRepository({
             path,
             maxOutputBytes: _maxPubspecBytes,
           );
-        } on ArgumentError catch (e) {
+        } on GitToolException catch (e) {
           log.info('Unable to read "$path".', e);
           return _PubspecMatch(path, false, 'Unable to read `$path`: $e.');
         }

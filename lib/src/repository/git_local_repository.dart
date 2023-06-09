@@ -214,17 +214,17 @@ class GitLocalRepository {
 
   void _assertBranchFormat(String branch) {
     if (_acceptedBranchNameRegExp.matchAsPrefix(branch) == null) {
-      throw ArgumentError('Branch name "$branch" is not accepted.');
+      throw GitToolException.argument('Branch name "$branch" is not accepted.');
     }
   }
 
   void _assertPathFormat(String path) {
     if (p.normalize(path) != path) {
-      throw ArgumentError('Path "$path" is not normalized.');
+      throw GitToolException.argument('Path "$path" is not normalized.');
     }
     if (p.split(path).any((segment) =>
         _acceptedPathSegmentsRegExp.matchAsPrefix(segment) == null)) {
-      throw ArgumentError('Path "$path" is not accepted.');
+      throw GitToolException.argument('Path "$path" is not accepted.');
     }
   }
 }
@@ -237,6 +237,8 @@ class GitToolException implements Exception {
 
   factory GitToolException.failedToRun(String command, PanaProcessResult pr) =>
       GitToolException('Failed to run `$command`.', pr.asJoinedOutput);
+
+  GitToolException.argument(this.message) : output = null;
 
   @override
   String toString() => [message, output].whereType<String>().join('\n');
