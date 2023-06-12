@@ -228,6 +228,6 @@ Try running `dart pub upgrade --major-versions dcli` to update the constraint.
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 
 
-## 20/20 Support sound null safety
+## 20/20 Dart 3 compatibility
 
-### [*] 20/20 points: Package and dependencies are fully migrated to null safety!
+### [*] 20/20 points: Package is Dart 3 compatible!

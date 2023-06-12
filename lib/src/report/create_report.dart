@@ -14,7 +14,6 @@ import 'dart3_compatiblity.dart';
 import 'dependencies.dart';
 import 'documentation.dart';
 import 'multi_platform.dart';
-import 'null_safety.dart';
 import 'static_analysis.dart';
 import 'template.dart';
 
@@ -45,9 +44,6 @@ Future<Report> createReport(PackageContext context) async {
     await multiPlatform(context.packageDir, pubspec),
     await staticAnalysis(context),
     await trustworthyDependency(context),
-    if (context.options.futureSdkTag != null)
-      await dart3Compatibility(context)
-    else
-      await nullSafety(context.packageDir, pubspec),
+    await dart3Compatibility(context)
   ]);
 }

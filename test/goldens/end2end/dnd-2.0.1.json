@@ -42,6 +42,7 @@
     "platform:web",
     "runtime:web",
     "is:null-safe",
+    "is:dart3-compatible",
     "license:mit",
     "license:fsf-libre",
     "license:osi-approved"
@@ -89,12 +90,12 @@
         "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       },
       {
-        "id": "null-safety",
-        "title": "Support sound null safety",
+        "id": "dart3-compatibility",
+        "title": "Dart 3 compatibility",
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 20/20 points: Package and dependencies are fully migrated to null safety!\n"
+        "summary": "### [*] 20/20 points: Package is Dart 3 compatible!\n"
       }
     ]
   },

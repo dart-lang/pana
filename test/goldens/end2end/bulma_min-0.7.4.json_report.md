@@ -81,14 +81,18 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}.
 Try widening the upper boundary of the constraint.
 </details>
 
-## 0/20 Support sound null safety
+## 0/20 Dart 3 compatibility
 
-### [x] 0/20 points: Unable to detect null safety
+### [x] 0/20 points: Unable to detect Dart 3 compatibility
 
-<details>
-<summary>
-Package resolution failed. Could not determine null safety.
-</summary>
+* Failed to analyze Dart 3 compatibilty:
+```
+Unable to run pub upgrade.
+The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
+or higher to enable null safety.
 
-Run `dart pub get` for more information.
-</details>
+The current Dart SDK (3.0.0) only supports null safety.
+
+For details, see https://dart.dev/null-safety
+
+```

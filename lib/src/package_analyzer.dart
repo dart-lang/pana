@@ -52,9 +52,7 @@ class InspectOptions {
     this.lineLength,
     this.analysisOptionsYaml,
     this.checkRemoteRepository = false,
-
-    /// NOTE: this is an experimental option, do not rely on it.
-    this.futureSdkTag,
+    @Deprecated('No longer used.') this.futureSdkTag,
   });
 }
 
@@ -94,8 +92,12 @@ class PackageAnalyzer {
     final sharedContext = _createSharedContext(options: options);
     return withLogger(() async {
       return withTempDir((tempDir) async {
-        await downloadPackage(package, version,
-            destination: tempDir, pubHostedUrl: options!.pubHostedUrl);
+        await downloadPackage(
+          package,
+          version,
+          destination: tempDir,
+          pubHostedUrl: options?.pubHostedUrl,
+        );
         return await _inspect(sharedContext, tempDir,
             storeResource: storeResource);
       });
@@ -248,11 +250,10 @@ class PackageAnalyzer {
         // TODO: use a single result object to derive tags + report
         tags.addAll(tags_);
 
-        // When analysis was successful up until this point, also analyse with
-        // future SDKs and award tag - if available.
-        if (options.futureSdkTag != null &&
-            await context.isCompatibleWithFutureSdk) {
-          tags.add(options.futureSdkTag!);
+        // When analysis was successful up until this point, also analyse for
+        // Dart 3 SDK compatibility.
+        if (await context.isCompatibleWithFutureSdk) {
+          tags.add(PanaTags.isDart3Compatible);
         }
       } else {
         tags.add(PanaTags.hasError);

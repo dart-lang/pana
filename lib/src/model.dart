@@ -291,6 +291,7 @@ abstract class ReportSectionId {
   static const dependency = 'dependency';
   static const documentation = 'documentation';
   static const platform = 'platform';
+  @Deprecated('No longer in use')
   static const nullSafety = 'null-safety';
 }
 
