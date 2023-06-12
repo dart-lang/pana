@@ -1,5 +1,6 @@
 ## 0.21.33
 
+- Do not block repository check when `pubspec.yaml` is in path that is not accepted.
 - Upgraded to Dart 3.0.
 
 **Breaking changes**:

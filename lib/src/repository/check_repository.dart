@@ -87,12 +87,18 @@ Future<VerifiedRepository?> checkRepository({
       }
 
       Future<_PubspecMatch> matchRepoPubspecYaml(String path) async {
+        late String content;
         // checkout the pubspec.yaml at the assumed location
-        final content = await repo.showStringContent(
-          branch!,
-          path,
-          maxOutputBytes: _maxPubspecBytes,
-        );
+        try {
+          content = await repo.showStringContent(
+            branch!,
+            path,
+            maxOutputBytes: _maxPubspecBytes,
+          );
+        } on GitToolException catch (e) {
+          log.info('Unable to read "$path".', e);
+          return _PubspecMatch(path, false, 'Unable to read `$path`: $e.');
+        }
         if (content.trim().isEmpty) {
           return _PubspecMatch(
               path, false, '`$path` from the repository is empty.');
