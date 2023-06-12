@@ -54,7 +54,7 @@ void main() {
 
       test('not expected branch format', () async {
         await expectLater(
-            () => fn('not//accepted'), throwsA(isA<ArgumentError>()));
+            () => fn('not//accepted'), throwsA(isA<GitToolException>()));
       });
     }
 
