@@ -2,6 +2,8 @@
 
 - Do not block repository check when `pubspec.yaml` is in path that is not accepted.
 - Upgraded to Dart 3.0.
+- Resolve `package:lints/core.yaml` locally before loading from GitHub.
+- `InspectOptions.analysisOptionsYaml` is now deprecated.
 
 **Breaking changes**:
 - `PanaProcessResult` no longer implements `dart:io`'s `ProcessResult`.
