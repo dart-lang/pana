@@ -4,10 +4,12 @@
 - Upgraded to Dart 3.0.
 - Resolve `package:lints/core.yaml` locally before loading from GitHub.
 - `InspectOptions.analysisOptionsYaml` is now deprecated.
+- Removed null-safety report (Dart 3 compatibility report is used by default).
 
 **Breaking changes**:
 - `PanaProcessResult` no longer implements `dart:io`'s `ProcessResult`.
 - `DartdocResult` uses `PanaProcessResult` instead of `ProcessResult`.
+- Deprecating `InspectOptions.futureSdkTag`, configuration no longer used.
 
 ## 0.21.32
 

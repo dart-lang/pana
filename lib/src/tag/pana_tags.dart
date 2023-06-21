@@ -37,6 +37,9 @@ abstract class PanaTags {
   static const isPlugin = 'is:plugin';
   static const isNullSafe = 'is:null-safe';
 
+  /// Package version is compatible with Dart 3.
+  static const isDart3Compatible = 'is:dart3-compatible';
+
   /// Given a [topic] returns the `topic` tag assigned to an analyzed package.
   static String topic(String topic) => 'topic:$topic';
 }
