@@ -6,7 +6,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:pana/pana.dart';
-import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
