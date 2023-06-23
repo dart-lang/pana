@@ -1,6 +1,7 @@
 ## 0.21.34
 
 - Export missing `PanaProcessResult`.
+- Fix `package:lints` as main dependency.
 
 ## 0.21.33
 
