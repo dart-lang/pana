@@ -2,13 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:pana/pana.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final timeout = Duration(minutes: Platform.isMacOS ? 5 : 2);
+  final timeout = const Duration(minutes: 5);
   test('running pana locally with relative path', () async {
     final pr = await runProc(
       ['dart', 'bin/pana.dart', '--no-warning', '.'],
