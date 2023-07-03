@@ -81,9 +81,9 @@ Could not determine supported platforms as package resolution failed.
 Run `dart pub get` for more information.
 </details>
 
-## 30/30 Pass static analysis
+## 50/50 Pass static analysis
 
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
+### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
 
 ## 0/20 Support up-to-date dependencies
@@ -124,16 +124,3 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}.
 
 Try widening the upper boundary of the constraint.
 </details>
-
-## 0/20 Dart 3 compatibility
-
-### [x] 0/20 points: Unable to detect Dart 3 compatibility
-
-* Failed to analyze Dart 3 compatibilty:
-```
-Unable to run pub upgrade.
-The current Dart SDK version is {{sdk-version}}.
-
-Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.
-
-```

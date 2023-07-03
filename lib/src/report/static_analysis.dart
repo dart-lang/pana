@@ -40,29 +40,29 @@ Future<ReportSection> staticAnalysis(PackageContext context) async {
           : ReportStatus.partial)
       : ReportStatus.failed;
 
-  // 10 points: static analysis has 0 errors
-  // 20 points: static analysis has 0 errors, warnings
-  // 30 points: static analysis has 0 errors, warnings, lints
+  // 30 points: static analysis has 0 errors
+  // 40 points: static analysis has 0 errors, warnings
+  // 50 points: static analysis has 0 errors, warnings, lints
   var grantedPoints = 0;
   if (errors.isEmpty) {
-    grantedPoints = 10;
+    grantedPoints = 30;
     if (warnings.isEmpty) {
-      grantedPoints = 20;
+      grantedPoints = 40;
       if (lints.isEmpty && formattingIssues.isEmpty) {
-        grantedPoints = 30;
+        grantedPoints = 50;
       }
     }
   }
   return makeSection(
     id: ReportSectionId.analysis,
     title: 'Pass static analysis',
-    maxPoints: 30,
+    maxPoints: 50,
     subsections: [
       Subsection(
         'code has no errors, warnings, lints, or formatting issues',
         [...errors, ...warnings, ...lints, ...formattingIssues],
         grantedPoints,
-        30,
+        50,
         status,
       )
     ],

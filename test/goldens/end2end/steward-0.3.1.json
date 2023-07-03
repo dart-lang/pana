@@ -100,10 +100,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 20,
-        "maxPoints": 30,
+        "grantedPoints": 40,
+        "maxPoints": 50,
         "status": "partial",
-        "summary": "### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues\n\nFound 24 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: The variable name 'GetAnnotation' isn't a lowerCamelCase identifier.\n</summary>\n\n`lib/controllers/route_utils.dart:79:7`\n\n```\n   ╷\n79 │ final GetAnnotation = reflectClass(Get);\n   │       ^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/controllers/route_utils.dart`\n</details>\n<details>\n<summary>\nINFO: The variable name 'PutAnnotation' isn't a lowerCamelCase identifier.\n</summary>\n\n`lib/controllers/route_utils.dart:82:7`\n\n```\n   ╷\n82 │ final PutAnnotation = reflectClass(Put);\n   │       ^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/controllers/route_utils.dart`\n</details>"
+        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\nFound 24 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: The variable name 'GetAnnotation' isn't a lowerCamelCase identifier.\n</summary>\n\n`lib/controllers/route_utils.dart:79:7`\n\n```\n   ╷\n79 │ final GetAnnotation = reflectClass(Get);\n   │       ^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/controllers/route_utils.dart`\n</details>\n<details>\n<summary>\nINFO: The variable name 'PutAnnotation' isn't a lowerCamelCase identifier.\n</summary>\n\n`lib/controllers/route_utils.dart:82:7`\n\n```\n   ╷\n82 │ final PutAnnotation = reflectClass(Put);\n   │       ^^^^^^^^^^^^^\n   ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/controllers/route_utils.dart`\n</details>"
       },
       {
         "id": "dependency",
@@ -112,14 +112,6 @@
         "maxPoints": 20,
         "status": "passed",
         "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`bosun`]|`^0.2.1`|0.2.2|0.2.2|\n|[`flat`]|`^0.4.0`|0.4.1|0.4.1|\n|[`mustache_template`]|`^2.0.0`|2.0.0|2.0.0|\n|[`path_to_regexp`]|`^0.4.0`|0.4.0|0.4.0|\n|[`recase`]|`^4.0.0`|4.1.0|4.1.0|\n|[`yaml`]|`^3.1.0`|3.1.2|3.1.2|\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|-|1.17.1|1.17.1|\n|[`path`]|-|1.8.3|1.8.3|\n|[`source_span`]|-|1.10.0|1.10.0|\n|[`string_scanner`]|-|1.2.0|1.2.0|\n|[`term_glyph`]|-|1.2.1|1.2.1|\n|[`tree_iterator`]|-|2.0.0|2.0.0|\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`bosun`]: https://pub.dev/packages/bosun\n[`flat`]: https://pub.dev/packages/flat\n[`mustache_template`]: https://pub.dev/packages/mustache_template\n[`path_to_regexp`]: https://pub.dev/packages/path_to_regexp\n[`recase`]: https://pub.dev/packages/recase\n[`yaml`]: https://pub.dev/packages/yaml\n[`collection`]: https://pub.dev/packages/collection\n[`path`]: https://pub.dev/packages/path\n[`source_span`]: https://pub.dev/packages/source_span\n[`string_scanner`]: https://pub.dev/packages/string_scanner\n[`term_glyph`]: https://pub.dev/packages/term_glyph\n[`tree_iterator`]: https://pub.dev/packages/tree_iterator\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
-      },
-      {
-        "id": "dart3-compatibility",
-        "title": "Dart 3 compatibility",
-        "grantedPoints": 20,
-        "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 20/20 points: Package is Dart 3 compatible!\n"
       }
     ]
   },

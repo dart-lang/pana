@@ -1,3 +1,9 @@
+## 0.21.35
+
+- Merge Dart 3 compatibility report into static analysis.
+- *Breaking change*: Remove future SDK flags.
+- Upgrading to `package:analyzer 6.0.0`
+
 ## 0.21.34
 
 - Export missing `PanaProcessResult`.
