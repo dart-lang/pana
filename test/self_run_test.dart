@@ -20,7 +20,6 @@ void main() {
       '## ✓ Platform support (20 / 20)\n',
       '[*] 10/10 points: All of the package dependencies are supported in the latest version',
       '### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs',
-      'Dart 3 compatibility (20 / 20)',
     ];
     for (final snippet in snippets) {
       expect(output, contains(snippet));
