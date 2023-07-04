@@ -39,10 +39,6 @@ class InspectOptions {
   /// Whether pana should also access the remote repository specified in pubspec.yaml.
   final bool checkRemoteRepository;
 
-  /// If specified, pana will analyze the package with future SDKs configured in
-  /// [ToolEnvironment], and grant this tag if the analysis passes without errors.
-  final String? futureSdkTag;
-
   InspectOptions({
     this.pubHostedUrl,
     this.dartdocOutputDir,
@@ -52,7 +48,6 @@ class InspectOptions {
     this.lineLength,
     this.analysisOptionsYaml,
     this.checkRemoteRepository = false,
-    @Deprecated('No longer used.') this.futureSdkTag,
   });
 }
 
@@ -250,9 +245,7 @@ class PackageAnalyzer {
         // TODO: use a single result object to derive tags + report
         tags.addAll(tags_);
 
-        // When analysis was successful up until this point, also analyse for
-        // Dart 3 SDK compatibility.
-        if (await context.isCompatibleWithFutureSdk) {
+        if (context.currentSdkVersion.major >= 3) {
           tags.add(PanaTags.isDart3Compatible);
         }
       } else {

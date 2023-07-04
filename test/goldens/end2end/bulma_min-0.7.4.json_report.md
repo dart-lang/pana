@@ -37,9 +37,9 @@ Could not determine supported platforms as package resolution failed.
 Run `dart pub get` for more information.
 </details>
 
-## 30/30 Pass static analysis
+## 50/50 Pass static analysis
 
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
+### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
 
 ## 0/20 Support up-to-date dependencies
@@ -80,19 +80,3 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}.
 
 Try widening the upper boundary of the constraint.
 </details>
-
-## 0/20 Dart 3 compatibility
-
-### [x] 0/20 points: Unable to detect Dart 3 compatibility
-
-* Failed to analyze Dart 3 compatibilty:
-```
-Unable to run pub upgrade.
-The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
-or higher to enable null safety.
-
-The current Dart SDK (3.0.0) only supports null safety.
-
-For details, see https://dart.dev/null-safety
-
-```

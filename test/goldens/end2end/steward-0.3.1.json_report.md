@@ -64,9 +64,9 @@ Because:
 * `dart:io`
 </details>
 
-## 20/30 Pass static analysis
+## 40/50 Pass static analysis
 
-### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
+### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
 
 Found 24 issues. Showing the first 2:
 
@@ -145,8 +145,3 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
-
-## 20/20 Dart 3 compatibility
-
-### [*] 20/20 points: Package is Dart 3 compatible!

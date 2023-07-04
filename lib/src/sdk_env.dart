@@ -28,9 +28,7 @@ class ToolEnvironment {
   final String? pubCacheDir;
   final PanaCache panaCache;
   final _DartSdk _dartSdk;
-  final _DartSdk _futureDartSdk;
   final _FlutterSdk _flutterSdk;
-  final _FlutterSdk _futureFlutterSdk;
   final Map<String, String> _environment;
   PanaRuntimeInfo? _runtimeInfo;
   final bool _useGlobalDartdoc;
@@ -41,9 +39,7 @@ class ToolEnvironment {
     this.pubCacheDir,
     this.panaCache,
     this._dartSdk,
-    this._futureDartSdk,
     this._flutterSdk,
-    this._futureFlutterSdk,
     this._environment,
     this._useGlobalDartdoc,
   );
@@ -58,9 +54,7 @@ class ToolEnvironment {
     required PanaRuntimeInfo runtimeInfo,
   })  : panaCache = panaCache ?? PanaCache(),
         _dartSdk = _DartSdk._(null),
-        _futureDartSdk = _DartSdk._(null),
         _flutterSdk = _FlutterSdk._(null, _DartSdk._(null)),
-        _futureFlutterSdk = _FlutterSdk._(null, _DartSdk._(null)),
         _environment = environment,
         _useGlobalDartdoc = useGlobalDartdoc,
         _runtimeInfo = runtimeInfo;
@@ -94,12 +88,6 @@ class ToolEnvironment {
     String? panaCacheDir,
     Map<String, String>? environment,
     bool useGlobalDartdoc = false,
-
-    /// NOTE: this is an experimental option, do not rely on it.
-    String? futureDartSdkDir,
-
-    /// NOTE: this is an experimental option, do not rely on it.
-    String? futureFlutterSdkDir,
   }) async {
     dartSdkDir ??= cli.getSdkPath();
     final resolvedDartSdk = await _resolve(dartSdkDir);
@@ -138,9 +126,7 @@ class ToolEnvironment {
       resolvedPubCache,
       PanaCache(path: resolvedPanaCache),
       await _DartSdk.detect(dartSdkDir),
-      await _DartSdk.detect(futureDartSdkDir),
       flutterSdk,
-      await _FlutterSdk.detect(futureFlutterSdkDir),
       env,
       useGlobalDartdoc,
     );
@@ -164,17 +150,12 @@ class ToolEnvironment {
     String dir,
     bool usesFlutter, {
     required InspectOptions inspectOptions,
-
-    /// NOTE: this is an experimental option, do not rely on it.
-    bool useFutureSdk = false,
   }) async {
-    final flutterSdk = useFutureSdk ? _futureFlutterSdk : _flutterSdk;
-    final dartSdk = useFutureSdk ? _futureDartSdk : _dartSdk;
     final command =
-        usesFlutter ? flutterSdk.dartAnalyzeCmd : dartSdk.dartAnalyzeCmd;
+        usesFlutter ? _flutterSdk.dartAnalyzeCmd : _dartSdk.dartAnalyzeCmd;
     final environment = _extendedEnv(
       usesFlutter: usesFlutter,
-      flutterRoot: flutterSdk._baseDir,
+      flutterRoot: _flutterSdk._baseDir,
     );
 
     final analysisOptionsFile =
@@ -318,26 +299,22 @@ class ToolEnvironment {
     String packageDir,
     bool usesFlutter, {
     int retryCount = 3,
-
-    /// NOTE: this is an experimental option, do not rely on it.
-    bool useFutureSdk = false,
   }) async {
-    final flutterSdk = useFutureSdk ? _futureFlutterSdk : _flutterSdk;
     final environment = _extendedEnv(
       usesFlutter: usesFlutter,
-      flutterRoot: flutterSdk._baseDir,
+      flutterRoot: _flutterSdk._baseDir,
     );
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _retryProc(() async {
         if (usesFlutter) {
           return await runProc(
             [
-              ...flutterSdk.flutterCmd,
+              ..._flutterSdk.flutterCmd,
               'packages',
               'pub',
               'upgrade',
               '--no-example',
-              if (!useFutureSdk) '--verbose',
+              '--verbose',
             ],
             workingDirectory: packageDir,
             environment: environment,
@@ -345,11 +322,11 @@ class ToolEnvironment {
         } else {
           return await runProc(
             [
-              ...(useFutureSdk ? _futureDartSdk.dartCmd : _dartSdk.dartCmd),
+              ..._dartSdk.dartCmd,
               'pub',
               'upgrade',
               '--no-example',
-              if (!useFutureSdk) '--verbose',
+              '--verbose',
             ],
             workingDirectory: packageDir,
             environment: environment,

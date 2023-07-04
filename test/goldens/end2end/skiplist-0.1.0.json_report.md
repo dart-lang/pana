@@ -44,9 +44,9 @@ Could not determine supported platforms as package resolution failed.
 Run `dart pub get` for more information.
 </details>
 
-## 0/30 Pass static analysis
+## 0/50 Pass static analysis
 
-### [x] 0/30 points: code has no errors, warnings, lints, or formatting issues
+### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues
 
 Found 37 issues. Showing the first 2:
 
@@ -98,19 +98,3 @@ Pubspec.yaml does not have an sdk version constraint.
 
 Try adding an sdk constraint to your `pubspec.yaml`
 </details>
-
-## 0/20 Dart 3 compatibility
-
-### [x] 0/20 points: Unable to detect Dart 3 compatibility
-
-* Failed to analyze Dart 3 compatibilty:
-```
-Unable to run pub upgrade.
-The lower bound of "sdk: '>=1.0.0 <=3.0.0'" must be 2.12.0'
-or higher to enable null safety.
-
-The current Dart SDK (3.0.0) only supports null safety.
-
-For details, see https://dart.dev/null-safety
-
-```

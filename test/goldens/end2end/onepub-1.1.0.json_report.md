@@ -78,9 +78,9 @@ Web
 Cannot assign Web automatically to a binary only package.
 </details>
 
-## 30/30 Pass static analysis
+## 50/50 Pass static analysis
 
-### [*] 30/30 points: code has no errors, warnings, lints, or formatting issues
+### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
 
 ## 10/20 Support up-to-date dependencies
@@ -226,8 +226,3 @@ Try running `dart pub upgrade --major-versions dcli` to update the constraint.
 </details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
-
-## 20/20 Dart 3 compatibility
-
-### [*] 20/20 points: Package is Dart 3 compatible!

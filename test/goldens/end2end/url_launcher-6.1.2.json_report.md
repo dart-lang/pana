@@ -29,9 +29,9 @@ Detected license: `BSD-3-Clause`.
 * ✓ MacOS
 * ✓ Web
 
-## 20/30 Pass static analysis
+## 40/50 Pass static analysis
 
-### [~] 20/30 points: code has no errors, warnings, lints, or formatting issues
+### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
 
 * Running `dartfmt` failed.
 
@@ -87,8 +87,3 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
-
-## 20/20 Dart 3 & Flutter 3.10 compatibility
-
-### [*] 20/20 points: Package is Dart 3 & Flutter 3.10 compatible!
