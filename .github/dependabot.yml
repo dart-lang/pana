@@ -10,8 +10,12 @@ updates:
       interval: monthly
     labels:
       - autosubmit
+      - type-infra
+
   - package-ecosystem: pub
     directory: /
     schedule:
       interval: weekly
     versioning-strategy: increase-if-necessary
+    labels:
+      - type-infra
