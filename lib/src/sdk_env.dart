@@ -231,7 +231,7 @@ class ToolEnvironment {
 
       final result = await runProc(
         [
-          ...usesFlutter ? _flutterSdk.flutterCmd : _dartSdk.dartCmd,
+          ..._dartSdk.dartCmd,
           ...params,
         ],
         environment: environment,
