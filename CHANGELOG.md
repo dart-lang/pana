@@ -1,3 +1,6 @@
+## 0.21.36
+- Always use `dart format`
+
 ## 0.21.35
 
 - Merge Dart 3 compatibility report into static analysis.
