@@ -181,9 +181,7 @@ Future<List<Issue>> _formatPackage(
     return unformattedFiles
         .map((f) => Issue(
               '$f doesn\'t match the Dart formatter.',
-              suggestion: usesFlutter
-                  ? 'To format your files run: `flutter format .`'
-                  : 'To format your files run: `dart format .`',
+              suggestion: 'To format your files run: `dart format .`',
             ))
         .toList();
   } on ToolException catch (e) {

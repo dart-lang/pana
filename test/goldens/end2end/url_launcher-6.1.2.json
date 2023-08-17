@@ -138,10 +138,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 40,
+        "grantedPoints": 50,
         "maxPoints": 50,
-        "status": "partial",
-        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\n* Running `dartfmt` failed."
+        "status": "passed",
+        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
       },
       {
         "id": "dependency",

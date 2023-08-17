@@ -230,10 +230,7 @@ class ToolEnvironment {
       params.add(fullPath);
 
       final result = await runProc(
-        [
-          ...usesFlutter ? _flutterSdk.flutterCmd : _dartSdk.dartCmd,
-          ...params,
-        ],
+        [..._dartSdk.dartCmd, ...params],
         environment: environment,
         timeout: _dartfmtTimeout,
       );

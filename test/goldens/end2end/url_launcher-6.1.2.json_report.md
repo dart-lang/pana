@@ -29,11 +29,10 @@ Detected license: `BSD-3-Clause`.
 * ✓ MacOS
 * ✓ Web
 
-## 40/50 Pass static analysis
+## 50/50 Pass static analysis
 
-### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
+### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
-* Running `dartfmt` failed.
 
 ## 20/20 Support up-to-date dependencies
 
