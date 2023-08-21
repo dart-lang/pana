@@ -37,7 +37,7 @@ final _parser = ArgParser()
   ..addOption('hosted-url',
       help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
   ..addOption('line-length',
-      abbr: 'l', help: 'The line length to use with dartfmt.')
+      abbr: 'l', help: 'The line length to use with dart format.')
   ..addFlag('hosted',
       help: 'Download and analyze a hosted package (from $defaultHostedUrl).',
       negatable: false)

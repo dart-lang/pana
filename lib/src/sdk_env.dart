@@ -20,7 +20,7 @@ import 'pubspec_io.dart';
 import 'utils.dart';
 import 'version.dart';
 
-const _dartfmtTimeout = Duration(minutes: 5);
+const _dartFormatTimeout = Duration(minutes: 5);
 
 class ToolEnvironment {
   final String? dartSdkDir;
@@ -232,7 +232,7 @@ class ToolEnvironment {
       final result = await runProc(
         [..._dartSdk.dartCmd, ...params],
         environment: environment,
-        timeout: _dartfmtTimeout,
+        timeout: _dartFormatTimeout,
       );
       if (result.exitCode == 0) {
         continue;
@@ -245,7 +245,7 @@ class ToolEnvironment {
           .map((l) => l.substring(8).replaceAll(dirPrefix, '').trim())
           .toList();
 
-      // `dartfmt` exits with code = 1, `flutter format` exits with code = 127
+      // `dart format` exits with code = 1
       if (result.exitCode == 1 || result.exitCode == 127) {
         assert(lines.isNotEmpty);
         files.addAll(lines);
@@ -258,7 +258,7 @@ class ToolEnvironment {
           output.contains('The formatter produced unexpected output.');
       if (!isUserProblem) {
         throw Exception(
-          'dartfmt on $dir/ failed with exit code ${result.exitCode}\n$output',
+          'dart format on $dir/ failed with exit code ${result.exitCode}\n$output',
         );
       }
       throw ToolException(errorMsg, result.stderr);
