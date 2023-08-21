@@ -7,7 +7,7 @@ Reports are created in the following categories:
 
 * [Follow Dart conventions](https://pub.dev/help/scoring#follow-dart-file-conventions)
 * [Provide documentation](https://pub.dev/help/scoring#provide-documentation)
-* [Support multiple platforms](https://pub.dev/help/scoring#support-multiple-platforms)
+* [Support multiple platforms](https://pub.dev/help/scoring#platform-support)
 * [Pass static analysis](https://pub.dev/help/scoring#pass-static-analysis)
 * [Support up-to-date dependencies](https://pub.dev/help/scoring#support-up-to-date-dependencies)
 
