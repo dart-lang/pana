@@ -246,7 +246,7 @@ class ToolEnvironment {
           .toList();
 
       // `dart format` exits with code = 1
-      if (result.exitCode == 1 || result.exitCode == 127) {
+      if (result.exitCode == 1) {
         assert(lines.isNotEmpty);
         files.addAll(lines);
         continue;
