@@ -24,7 +24,7 @@ Future<ReportSection> staticAnalysis(PackageContext context) async {
   final warnings = analysisResult.warnings;
   final lints = analysisResult.lints;
 
-  // Only try to run dartfmt if there where no errors.
+  // Only try to run dart format if there where no errors.
   final formattingIssues = errors.isEmpty
       ? await _formatPackage(
           packageDir,
@@ -186,12 +186,12 @@ Future<List<Issue>> _formatPackage(
         .toList();
   } on ToolException catch (e) {
     return [
-      Issue('Running `dartfmt` failed:\n```\n${e.message}```'),
+      Issue('Running `dart format` failed:\n```\n${e.message}```'),
     ];
   } catch (e, stack) {
-    log.severe('`dartfmt` failed.\n$e', e, stack);
+    log.severe('`dart format` failed.\n$e', e, stack);
     return [
-      Issue('Running `dartfmt` failed.'),
+      Issue('Running `dart format` failed.'),
     ];
   }
 }
