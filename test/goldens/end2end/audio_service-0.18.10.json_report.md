@@ -65,36 +65,36 @@ Because:
 
 ### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 23 issues. Showing the first 2:
+Found 16 issues. Showing the first 2:
 
 <details>
 <summary>
-INFO: 'hashValues' is deprecated and shouldn't be used. Use Object.hash() instead. This feature was deprecated in v3.1.0-0.0.pre.897.
+INFO: Unclosed instance of 'Sink'.
 </summary>
 
-`lib/audio_service.dart:301:23`
+`lib/audio_service.dart:1943:40`
 
 ```
-    ╷
-301 │   int get hashCode => hashValues(
-    │                       ^^^^^^^^^^
-    ╵
+     ╷
+1943 │   final BehaviorSubject<PlaybackState> _playbackState = BehaviorSubject();
+     │                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
 ```
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
 </details>
 <details>
 <summary>
-INFO: 'hashList' is deprecated and shouldn't be used. Use Object.hashAll() or Object.hashAllUnordered() instead. This feature was deprecated in v3.1.0-0.0.pre.897.
+INFO: Unclosed instance of 'Sink'.
 </summary>
 
-`lib/audio_service.dart:304:9`
+`lib/audio_service.dart:1944:42`
 
 ```
-    ╷
-304 │         hashList(controls),
-    │         ^^^^^^^^
-    ╵
+     ╷
+1944 │   final BehaviorSubject<List<MediaItem>> _queue = BehaviorSubject();
+     │                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
 ```
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
@@ -108,10 +108,10 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|
 |[`audio_service_platform_interface`]|`^0.1.0`|0.1.0|0.1.0|
 |[`audio_service_web`]|`^0.1.1`|0.1.1|0.1.1|
-|[`audio_session`]|`^0.1.6+1`|0.1.13|0.1.13|
+|[`audio_session`]|`^0.1.6+1`|0.1.16|0.1.16|
 |[`clock`]|`^1.1.0`|1.1.1|1.1.1|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`flutter_cache_manager`]|`^3.0.1`|3.3.0|3.3.0|
+|[`flutter_cache_manager`]|`^3.0.1`|3.3.1|3.3.1|
 |[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0|
 |[`js`]|`^0.6.3`|0.6.7|0.6.7|
 |[`rxdart`]|`>=0.26.0 <0.28.0`|0.27.7|0.27.7|
@@ -122,37 +122,36 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|
 |[`async`]|-|2.11.0|2.11.0|
 |[`characters`]|-|1.3.0|1.3.0|
-|[`collection`]|-|1.17.1|1.17.1|
+|[`collection`]|-|1.17.2|1.18.0|
 |[`crypto`]|-|3.0.3|3.0.3|
-|[`ffi`]|-|2.0.2|2.0.2|
-|[`file`]|-|6.1.4|6.1.4|
-|[`http`]|-|0.13.6|0.13.6|
+|[`ffi`]|-|2.1.0|2.1.0|
+|[`file`]|-|7.0.0|7.0.0|
+|[`http`]|-|1.1.0|1.1.0|
 |[`http_parser`]|-|4.0.2|4.0.2|
-|[`material_color_utilities`]|-|0.2.0|0.5.0|
+|[`material_color_utilities`]|-|0.5.0|0.8.0|
 |[`meta`]|-|1.9.1|1.9.1|
 |[`path`]|-|1.8.3|1.8.3|
-|[`path_provider`]|-|2.0.15|2.0.15|
-|[`path_provider_android`]|-|2.0.27|2.0.27|
-|[`path_provider_foundation`]|-|2.2.3|2.2.3|
-|[`path_provider_linux`]|-|2.1.10|2.1.10|
-|[`path_provider_platform_interface`]|-|2.0.6|2.0.6|
-|[`path_provider_windows`]|-|2.1.6|2.1.6|
-|[`pedantic`]|-|1.11.1|1.11.1|
-|[`platform`]|-|3.1.0|3.1.0|
-|[`plugin_platform_interface`]|-|2.1.4|2.1.4|
-|[`process`]|-|4.2.4|4.2.4|
+|[`path_provider`]|-|2.1.0|2.1.0|
+|[`path_provider_android`]|-|2.1.0|2.1.0|
+|[`path_provider_foundation`]|-|2.3.0|2.3.0|
+|[`path_provider_linux`]|-|2.2.0|2.2.0|
+|[`path_provider_platform_interface`]|-|2.1.0|2.1.0|
+|[`path_provider_windows`]|-|2.2.0|2.2.0|
+|[`platform`]|-|3.1.1|3.1.1|
+|[`plugin_platform_interface`]|-|2.1.5|2.1.5|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`source_span`]|-|1.10.0|1.10.0|
-|[`sqflite`]|-|2.2.8+2|2.2.8+2|
-|[`sqflite_common`]|-|2.4.5|2.4.5|
+|[`sqflite`]|-|2.3.0|2.3.0|
+|[`sqflite_common`]|-|2.5.0|2.5.0|
 |[`string_scanner`]|-|1.2.0|1.2.0|
 |[`synchronized`]|-|3.1.0|3.1.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
 |[`typed_data`]|-|1.3.2|1.3.2|
 |[`uuid`]|-|3.0.7|3.0.7|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`win32`]|-|4.1.4|5.0.0|
-|[`xdg_directories`]|-|1.0.0|1.0.0|
+|[`web`]|-|0.1.4-beta|0.1.4-beta|
+|[`win32`]|-|5.0.7|5.0.7|
+|[`xdg_directories`]|-|1.0.2|1.0.2|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -183,10 +182,8 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`path_provider_linux`]: https://pub.dev/packages/path_provider_linux
 [`path_provider_platform_interface`]: https://pub.dev/packages/path_provider_platform_interface
 [`path_provider_windows`]: https://pub.dev/packages/path_provider_windows
-[`pedantic`]: https://pub.dev/packages/pedantic
 [`platform`]: https://pub.dev/packages/platform
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
-[`process`]: https://pub.dev/packages/process
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`source_span`]: https://pub.dev/packages/source_span
 [`sqflite`]: https://pub.dev/packages/sqflite
@@ -197,6 +194,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`typed_data`]: https://pub.dev/packages/typed_data
 [`uuid`]: https://pub.dev/packages/uuid
 [`vector_math`]: https://pub.dev/packages/vector_math
+[`web`]: https://pub.dev/packages/web
 [`win32`]: https://pub.dev/packages/win32
 [`xdg_directories`]: https://pub.dev/packages/xdg_directories
 

@@ -92,12 +92,12 @@ Because:
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`characters`]|-|1.3.0|1.3.0|
-|[`collection`]|-|1.17.1|1.17.1|
-|[`js`]|-|0.6.7|0.6.7|
-|[`material_color_utilities`]|-|0.2.0|0.5.0|
+|[`collection`]|-|1.17.2|1.18.0|
+|[`material_color_utilities`]|-|0.5.0|0.8.0|
 |[`meta`]|-|1.9.1|1.9.1|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
+|[`web`]|-|0.1.4-beta|0.1.4-beta|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -105,11 +105,11 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`flutter`]: https://pub.dev/packages/flutter
 [`characters`]: https://pub.dev/packages/characters
 [`collection`]: https://pub.dev/packages/collection
-[`js`]: https://pub.dev/packages/js
 [`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`vector_math`]: https://pub.dev/packages/vector_math
+[`web`]: https://pub.dev/packages/web
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs

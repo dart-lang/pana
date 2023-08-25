@@ -49,7 +49,7 @@ Detected license: `BSD-3-Clause`.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.17.1|1.17.1|
+|[`collection`]|-|1.18.0|1.18.0|
 |[`source_span`]|-|1.10.0|1.10.0|
 |[`string_scanner`]|-|1.2.0|1.2.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|

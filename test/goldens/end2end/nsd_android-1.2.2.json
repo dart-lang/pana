@@ -6,11 +6,11 @@
     "flutterVersions": {}
   },
   "packageName": "nsd_android",
-  "packageVersion": "1.2.0",
+  "packageVersion": "1.2.2",
   "pubspec": {
     "name": "nsd_android",
     "description": "Flutter network service discovery plugin (Android submodule - will be installed with the parent plugin).",
-    "version": "1.2.0",
+    "version": "1.2.2",
     "repository": "https://github.com/sebastianhaberey/nsd/tree/main/nsd_android",
     "issue_tracker": "https://github.com/sebastianhaberey/nsd/issues",
     "environment": {
@@ -47,11 +47,11 @@
     "characters",
     "collection",
     "flutter",
-    "js",
     "material_color_utilities",
     "meta",
     "sky_engine",
-    "vector_math"
+    "vector_math",
+    "web"
   ],
   "tags": [
     "sdk:flutter",
@@ -103,7 +103,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`flutter`]|`flutter`|0.0.0|0.0.0|\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`characters`]|-|1.3.0|1.3.0|\n|[`collection`]|-|1.17.1|1.17.1|\n|[`js`]|-|0.6.7|0.6.7|\n|[`material_color_utilities`]|-|0.2.0|0.5.0|\n|[`meta`]|-|1.9.1|1.9.1|\n|[`sky_engine`]|-|0.0.99|0.0.99|\n|[`vector_math`]|-|2.1.4|2.1.4|\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`flutter`]: https://pub.dev/packages/flutter\n[`characters`]: https://pub.dev/packages/characters\n[`collection`]: https://pub.dev/packages/collection\n[`js`]: https://pub.dev/packages/js\n[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities\n[`meta`]: https://pub.dev/packages/meta\n[`sky_engine`]: https://pub.dev/packages/sky_engine\n[`vector_math`]: https://pub.dev/packages/vector_math\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`flutter`]|`flutter`|0.0.0|0.0.0|\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`characters`]|-|1.3.0|1.3.0|\n|[`collection`]|-|1.17.2|1.18.0|\n|[`material_color_utilities`]|-|0.5.0|0.8.0|\n|[`meta`]|-|1.9.1|1.9.1|\n|[`sky_engine`]|-|0.0.99|0.0.99|\n|[`vector_math`]|-|2.1.4|2.1.4|\n|[`web`]|-|0.1.4-beta|0.1.4-beta|\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`flutter`]: https://pub.dev/packages/flutter\n[`characters`]: https://pub.dev/packages/characters\n[`collection`]: https://pub.dev/packages/collection\n[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities\n[`meta`]: https://pub.dev/packages/meta\n[`sky_engine`]: https://pub.dev/packages/sky_engine\n[`vector_math`]: https://pub.dev/packages/vector_math\n[`web`]: https://pub.dev/packages/web\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       }
     ]
   },
