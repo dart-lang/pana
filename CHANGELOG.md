@@ -1,3 +1,7 @@
+## 0.21.37
+
+- Upgraded `package:tar` to `1.0.0`.
+
 ## 0.21.36
 
 - Always use `dart format` instead of `flutter format`.

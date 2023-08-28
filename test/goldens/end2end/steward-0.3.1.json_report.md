@@ -120,12 +120,12 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.17.1|1.17.1|
+|[`collection`]|-|1.18.0|1.18.0|
 |[`path`]|-|1.8.3|1.8.3|
 |[`source_span`]|-|1.10.0|1.10.0|
 |[`string_scanner`]|-|1.2.0|1.2.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
-|[`tree_iterator`]|-|2.0.0|2.0.0|
+|[`tree_iterator`]|-|2.0.0|3.0.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

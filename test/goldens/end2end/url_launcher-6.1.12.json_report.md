@@ -41,27 +41,27 @@ Detected license: `BSD-3-Clause`.
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`url_launcher_android`]|`^6.0.13`|6.0.31|6.0.31|
+|[`url_launcher_android`]|`^6.0.13`|6.0.38|6.0.38|
 |[`url_launcher_ios`]|`^6.0.13`|6.1.4|6.1.4|
 |[`url_launcher_linux`]|`>=2.0.0 <4.0.0`|3.0.5|3.0.5|
-|[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.0.5|3.0.5|
-|[`url_launcher_platform_interface`]|`^2.0.3`|2.1.2|2.1.2|
-|[`url_launcher_web`]|`^2.0.0`|2.0.16|2.0.16|
-|[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.0.6|3.0.6|
+|[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.0.6|3.0.6|
+|[`url_launcher_platform_interface`]|`^2.1.0`|2.1.3|2.1.3|
+|[`url_launcher_web`]|`^2.0.0`|2.0.18|2.0.18|
+|[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.0.7|3.0.7|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`characters`]|-|1.3.0|1.3.0|
-|[`collection`]|-|1.17.1|1.17.1|
+|[`collection`]|-|1.17.2|1.18.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`js`]|-|0.6.7|0.6.7|
-|[`material_color_utilities`]|-|0.2.0|0.5.0|
+|[`material_color_utilities`]|-|0.5.0|0.8.0|
 |[`meta`]|-|1.9.1|1.9.1|
-|[`plugin_platform_interface`]|-|2.1.4|2.1.4|
+|[`plugin_platform_interface`]|-|2.1.5|2.1.5|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
+|[`web`]|-|0.1.4-beta|0.1.4-beta|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -77,12 +77,12 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`characters`]: https://pub.dev/packages/characters
 [`collection`]: https://pub.dev/packages/collection
 [`flutter_web_plugins`]: https://pub.dev/packages/flutter_web_plugins
-[`js`]: https://pub.dev/packages/js
 [`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`vector_math`]: https://pub.dev/packages/vector_math
+[`web`]: https://pub.dev/packages/web
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs

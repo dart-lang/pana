@@ -179,16 +179,16 @@ void main() {
   verifyPackage('dnd', '2.0.1');
 
   // flutter-only package
-  verifyPackage('url_launcher', '6.1.2');
+  verifyPackage('url_launcher', '6.1.12');
 
   // single-platform Flutter plugin without Dart files or assets
-  verifyPackage('nsd_android', '1.2.0');
+  verifyPackage('nsd_android', '1.2.2');
 
   // binary-only package (without `platforms:` in pubspec)
   verifyPackage('onepub', '1.1.0');
 
   // multi-level symlink
-  verifyPackage('audio_service', '0.18.4');
+  verifyPackage('audio_service', '0.18.10');
 
   // mime_type 0.3.2 has no recognized LICENSE file
   verifyPackage('mime_type', '0.3.2');

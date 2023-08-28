@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [3.0.0]
+        sdk: [3.1.0]
     steps:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
       - uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
@@ -47,8 +47,8 @@ jobs:
         # TODO(sigurdm): our end2end test creates longer filenames than we can
         # handle on windows. See https://github.com/dart-lang/sdk/issues/42416
         os: [ubuntu-latest, macos-latest]
-        sdk: [3.0.0]
-        flutter: [3.10.0]
+        sdk: [3.1.0]
+        flutter: [3.13.1]
     steps:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
       - uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
@@ -82,7 +82,7 @@ jobs:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
       - uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: '3.1.0-94.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
+          sdk: '3.2.0-94.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
       - uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
         with:
           # flutter-version: '3.4.0-34.1.pre'
