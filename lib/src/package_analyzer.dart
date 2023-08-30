@@ -300,6 +300,7 @@ class PackageAnalyzer {
     if (context.errors.isNotEmpty) {
       errorMessage = context.errors.map((e) => e.trim()).join('\n\n');
     }
+    final report = await createReport(context);
     return Summary(
       createdAt: DateTime.now(),
       runtimeInfo: _toolEnv.runtimeInfo,
@@ -312,8 +313,8 @@ class PackageAnalyzer {
           : LicenseFile(licenses.first.path, licenses.first.spdxIdentifier),
       licenses: licenses,
       tags: tags.toList(),
-      report: await createReport(context),
-      result: await _createAnalysisResult(context),
+      report: report,
+      result: await _createAnalysisResult(context, report),
       urlProblems: context.urlProblems.entries
           .map((e) => UrlProblem(url: e.key, problem: e.value))
           .toList()
@@ -335,7 +336,8 @@ Future<String?> _detectGitRoot(String packageDir) async {
   return null;
 }
 
-Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
+Future<AnalysisResult> _createAnalysisResult(
+    PackageContext context, Report report) async {
   final pubspecUrls = await context.pubspecUrlsWithIssues;
   final repoVerification = await context.repository;
   final repository = repoVerification?.repository;
@@ -349,5 +351,7 @@ Future<AnalysisResult> _createAnalysisResult(PackageContext context) async {
     fundingUrls: fundingUrls.isEmpty ? null : fundingUrls,
     repository: repository,
     contributingUrl: repoVerification?.contributingUrl,
+    grantedPoints: report.grantedPoints,
+    maxPoints: report.maxPoints,
   );
 }

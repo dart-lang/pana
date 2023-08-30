@@ -117,7 +117,9 @@
       "repository": "sebastianhaberey/nsd",
       "branch": "main",
       "path": "nsd_android"
-    }
+    },
+    "grantedPoints": 120,
+    "maxPoints": 130
   },
   "urlProblems": []
 }

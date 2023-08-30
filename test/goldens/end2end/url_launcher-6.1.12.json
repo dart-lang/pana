@@ -164,7 +164,9 @@
       "branch": "main",
       "path": "packages/url_launcher/url_launcher"
     },
-    "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md"
+    "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md",
+    "grantedPoints": 130,
+    "maxPoints": 130
   },
   "urlProblems": []
 }

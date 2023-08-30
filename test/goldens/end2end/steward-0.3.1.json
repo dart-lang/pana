@@ -125,7 +125,9 @@
       "repository": "pyrestudios/steward",
       "branch": "main"
     },
-    "contributingUrl": "https://github.com/pyrestudios/steward/blob/main/CONTRIBUTING.md"
+    "contributingUrl": "https://github.com/pyrestudios/steward/blob/main/CONTRIBUTING.md",
+    "grantedPoints": 120,
+    "maxPoints": 130
   },
   "urlProblems": []
 }

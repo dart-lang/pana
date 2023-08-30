@@ -116,7 +116,9 @@
       "repository": "dart-lang/async",
       "branch": "master"
     },
-    "contributingUrl": "https://github.com/dart-lang/async/blob/master/CONTRIBUTING.md"
+    "contributingUrl": "https://github.com/dart-lang/async/blob/master/CONTRIBUTING.md",
+    "grantedPoints": 120,
+    "maxPoints": 130
   },
   "urlProblems": []
 }
