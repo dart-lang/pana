@@ -143,9 +143,16 @@ Future<VerifiedRepository?> checkRepository({
               '`$path` from the repository has no `repository` or `homepage` URL.');
         }
         final gitRepoUrl = Repository.tryParseUrl(gitRepoOrHomepage);
-        if (gitRepoUrl?.cloneUrl != parsedSourceUrl.cloneUrl) {
+        if (gitRepoUrl == null) {
+          return _PubspecMatch(
+              path,
+              true,
+              '`$path` from the repository has a `repository` or `homepage` field '
+              '"`$gitRepoOrHomepage`" but cannot be parsed as a repository URL.');
+        }
+        if (gitRepoUrl.cloneUrl != parsedSourceUrl.cloneUrl) {
           return _PubspecMatch(path, true,
-              '`$path` from the repository URL missmatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl?.cloneUrl}`.');
+              '`$path` from the repository URL missmatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl.cloneUrl}`.');
         }
         if (gitPubspec.version == null) {
           return _PubspecMatch(
