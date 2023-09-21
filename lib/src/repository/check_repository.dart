@@ -155,13 +155,15 @@ Future<VerifiedRepository?> checkRepository({
               hasMatchingName: true,
               '`$path` from the repository has no `repository` or `homepage` URL.');
         }
-        final gitRepoUrl = Repository.tryParseUrl(gitRepoOrHomepage);
-        if (gitRepoUrl == null) {
+        late Repository gitRepoUrl;
+        try {
+          gitRepoUrl = Repository.parseUrl(gitRepoOrHomepage);
+        } on FormatException catch (e) {
           return _PubspecMatch(
               path,
               hasMatchingName: true,
               '`$path` from the repository has a `repository` or `homepage` field '
-              '"`$gitRepoOrHomepage`" but cannot be parsed as a repository URL.');
+              '"`$gitRepoOrHomepage`" but cannot be parsed as a repository URL: ${e.message}');
         }
         if (gitRepoUrl.cloneUrl != parsedSourceUrl.cloneUrl) {
           return _PubspecMatch(

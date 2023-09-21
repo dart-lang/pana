@@ -444,11 +444,10 @@ class Repository {
   /// Parses [input] and return the parsed [Repository] if successful,
   /// or throws [FormatException] if it was unable to recognize the pattern.
   factory Repository.parseUrl(String input) {
-    final v = tryParseUrl(input);
-    if (v == null) {
-      throw FormatException('Invalid repository URL: `$input`.');
-    } else {
-      return v;
+    try {
+      return parseRepositoryUrl(input);
+    } on FormatException catch (e) {
+      throw FormatException('Invalid repository URL: ${e.message}');
     }
   }
 
