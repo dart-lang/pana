@@ -13,6 +13,7 @@ import 'package:io/ansi.dart';
 import 'package:io/io.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pana/pana.dart';
+import 'package:path/path.dart' as p;
 
 const defaultHostedUrl = 'https://pub.dev';
 
@@ -47,7 +48,7 @@ final _parser = ArgParser()
       negatable: true,
       defaultsTo: true);
 
-void _printHelp({String? errorMessage}) {
+Never _printHelp({String? errorMessage}) {
   if (errorMessage != null) {
     print(red.wrap(errorMessage));
     print('');
@@ -57,6 +58,7 @@ void _printHelp({String? errorMessage}) {
 
 Options:
 ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
+  exit(ExitCode.usage.code);
 }
 
 Future main(List<String> args) async {
@@ -65,8 +67,6 @@ Future main(List<String> args) async {
     result = _parser.parse(args);
   } on FormatException catch (e) {
     _printHelp(errorMessage: e.message);
-    exitCode = ExitCode.usage.code;
-    return;
   }
 
   final isJson = result['json'] as bool;
@@ -159,12 +159,21 @@ Future main(List<String> args) async {
           _printHelp(
               errorMessage:
                   'Version must be specified when using --hosted-url option.');
-          return;
         }
-        summary = await analyzer.inspectPackage(package!,
-            version: version, options: options);
+        summary = await analyzer.inspectPackage(
+          package,
+          version: version,
+          options: options,
+        );
       } else if (source == 'path') {
         final path = firstArg() ?? '.';
+        final pubspecPath = p.join(path, 'pubspec.yaml');
+        if (!File(pubspecPath).existsSync()) {
+          _printHelp(
+            errorMessage: 'Found no pubspec file at $pubspecPath.',
+          );
+        }
+
         final absolutePath = await Directory(path).resolveSymbolicLinks();
         if (showWarning!) {
           log.Logger.root
