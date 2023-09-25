@@ -140,6 +140,7 @@ class GitLocalRepository {
           throw GitToolException('Could not accept branch name: `$branch`.');
         }
       }
+      // DEFAULT_BRANCH=$(git rev-parse --abbrev-ref $FIRST_REMOTE/HEAD)
     }
     throw GitToolException('Could not find HEAD branch.', output);
   }

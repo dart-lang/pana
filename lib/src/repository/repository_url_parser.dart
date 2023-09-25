@@ -54,7 +54,7 @@ Repository parseRepositoryUrl(String input) {
   final repoSegmentIndex = _repoSegmentIndex(provider, segments);
   if (repoSegmentIndex < 0) {
     throw FormatException(
-        'Could not find repository segment separator in `${normalizedUri.path}`.');
+        'Could not recognize URL segments: `${normalizedUri.path}`.');
   }
 
   String? separator;
