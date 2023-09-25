@@ -54,7 +54,8 @@ Repository parseRepositoryUrl(String input) {
   final repoSegmentIndex = _repoSegmentIndex(provider, segments);
   if (repoSegmentIndex < 0) {
     throw FormatException(
-        'Could not recognize URL segments: `${normalizedUri.path}`.');
+        'Could not recognize URL segments: `${normalizedUri.path}`. '
+        'Please report at [pana](https://github.com/dart-lang/pana/issues).');
   }
 
   String? separator;
