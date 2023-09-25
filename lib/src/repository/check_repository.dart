@@ -169,7 +169,7 @@ Future<VerifiedRepository?> checkRepository({
           return _PubspecMatch(
               path,
               hasMatchingName: true,
-              '`$path` from the repository URL missmatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl.cloneUrl}`.');
+              '`$path` from the repository URL mismatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl.cloneUrl}`.');
         }
         if (gitPubspec.version == null) {
           return _PubspecMatch(
