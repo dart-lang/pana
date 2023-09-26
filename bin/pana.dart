@@ -42,11 +42,14 @@ final _parser = ArgParser()
   ..addFlag('hosted',
       help: 'Download and analyze a hosted package (from $defaultHostedUrl).',
       negatable: false)
-  ..addFlag('warning',
-      help:
-          'Shows the warning message before potentially destructive operation.',
-      negatable: true,
-      defaultsTo: true);
+  // Has no effect, but kept for backwards compatibility.
+  ..addFlag(
+    'warning',
+    help: 'Deprecated has no effect.',
+    negatable: true,
+    defaultsTo: true,
+    hide: true,
+  );
 
 Never _printHelp({String? errorMessage}) {
   if (errorMessage != null) {
@@ -70,7 +73,7 @@ Future main(List<String> args) async {
   }
 
   final isJson = result['json'] as bool;
-  final showWarning = result['warning'] as bool?;
+
   final exitCodeThresholdArg = result['exit-code-threshold'] as String?;
   final exitCodeThreshold =
       exitCodeThresholdArg == null ? null : int.parse(exitCodeThresholdArg);
@@ -175,13 +178,6 @@ Future main(List<String> args) async {
         }
 
         final absolutePath = await Directory(path).resolveSymbolicLinks();
-        if (showWarning!) {
-          log.Logger.root
-              .warning('pana might update or modify files in `$path`.\n'
-                  'Analysis will begin in 15 seconds, hit CTRL+C to abort it.\n'
-                  'To remove this message, use `--no-warning`.');
-          await Future.delayed(const Duration(seconds: 15));
-        }
         summary = await analyzer.inspectDir(absolutePath, options: options);
       }
       if (isJson) {
