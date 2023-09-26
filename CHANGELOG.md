@@ -1,5 +1,6 @@
 ## 0.21.37
 
+- Fix: expose repository verification issues in report.
 - Upgraded `package:tar` to `1.0.0`.
 
 ## 0.21.36
