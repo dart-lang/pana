@@ -97,11 +97,14 @@ Future<VerifiedRepository?> checkRepository({
           );
         } on GitToolException catch (e) {
           log.info('Unable to read "$path".', e);
-          return _PubspecMatch(path, false, 'Unable to read `$path`: $e.');
+          return _PubspecMatch(
+              path, hasMatchingName: false, 'Unable to read `$path`: $e.');
         }
         if (content.trim().isEmpty) {
           return _PubspecMatch(
-              path, false, '`$path` from the repository is empty.');
+              path,
+              hasMatchingName: false,
+              '`$path` from the repository is empty.');
         }
         // TODO: consider to allow the exceptions to pass here, to allow an
         //       unrelated, but badly formatted pubspec.yaml in the repository.
@@ -115,7 +118,9 @@ Future<VerifiedRepository?> checkRepository({
           log.info('Invalid yaml file: $path', e, st);
         }
         if (yamlDoc == null) {
-          return _PubspecMatch(path, false,
+          return _PubspecMatch(
+              path,
+              hasMatchingName: false,
               '`$path` from the repository is not a valid YAML document.');
         }
 
@@ -124,40 +129,63 @@ Future<VerifiedRepository?> checkRepository({
           gitPubspec = Pubspec.parseYaml(content);
         } on FormatException catch (e, st) {
           log.info('Invalid pubspec content: $path', e, st);
-          return _PubspecMatch(path, false,
+          return _PubspecMatch(
+              path,
+              hasMatchingName: false,
               '`$path` from the repository is not a valid pubspec.');
         } on CheckedFromJsonException catch (e, st) {
           log.info('Invalid pubspec content: $path', e, st);
-          return _PubspecMatch(path, false,
+          return _PubspecMatch(
+              path,
+              hasMatchingName: false,
               '`$path` from the repository is not a valid pubspec.');
         }
 
         // verification steps
         if (gitPubspec.name != packageName) {
-          return _PubspecMatch(path, false,
+          return _PubspecMatch(
+              path,
+              hasMatchingName: false,
               '`$path` from the repository name missmatch: expected `$packageName` but got `${gitPubspec.name}`.');
         }
         final gitRepoOrHomepage = gitPubspec.repositoryOrHomepage;
         if (gitRepoOrHomepage == null) {
-          return _PubspecMatch(path, true,
+          return _PubspecMatch(
+              path,
+              hasMatchingName: true,
               '`$path` from the repository has no `repository` or `homepage` URL.');
         }
-        final gitRepoUrl = Repository.tryParseUrl(gitRepoOrHomepage);
-        if (gitRepoUrl?.cloneUrl != parsedSourceUrl.cloneUrl) {
-          return _PubspecMatch(path, true,
-              '`$path` from the repository URL missmatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl?.cloneUrl}`.');
+        late Repository gitRepoUrl;
+        try {
+          gitRepoUrl = Repository.parseUrl(gitRepoOrHomepage);
+        } on FormatException catch (e) {
+          return _PubspecMatch(
+              path,
+              hasMatchingName: true,
+              '`$path` from the repository has a `repository` or `homepage` field '
+              '"`$gitRepoOrHomepage`" but cannot be parsed as a repository URL: ${e.message}');
+        }
+        if (gitRepoUrl.cloneUrl != parsedSourceUrl.cloneUrl) {
+          return _PubspecMatch(
+              path,
+              hasMatchingName: true,
+              '`$path` from the repository URL mismatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl.cloneUrl}`.');
         }
         if (gitPubspec.version == null) {
           return _PubspecMatch(
-              path, true, '`$path` from the repository has no `version`.');
+              path,
+              hasMatchingName: true,
+              '`$path` from the repository has no `version`.');
         }
         if (gitPubspec.toJson().containsKey('publish_to')) {
-          return _PubspecMatch(path, true,
+          return _PubspecMatch(
+              path,
+              hasMatchingName: true,
               '`$path` from the repository defines `publish_to`, thus, we are unable to verify the package is published from here.');
         }
 
         // found no issue
-        return _PubspecMatch(path, true);
+        return _PubspecMatch(path, hasMatchingName: true, null);
       }
 
       final results = <_PubspecMatch>[];
@@ -223,7 +251,11 @@ class _PubspecMatch {
   final bool hasMatchingName;
   final String? verificationIssue;
 
-  _PubspecMatch(this.path, this.hasMatchingName, [this.verificationIssue]);
+  _PubspecMatch(
+    this.path,
+    this.verificationIssue, {
+    required this.hasMatchingName,
+  });
 }
 
 extension on Repository {

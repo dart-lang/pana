@@ -18,15 +18,18 @@ const _replaceHosts = {
 const _githubSegmentSeparators = ['tree', 'blob', 'raw'];
 
 Repository? tryParseRepositoryUrl(String input) {
-  var uri = Uri.tryParse(input);
-  if (uri == null) return null;
   try {
-    // trigger exception if there is an issue
-    uri.pathSegments;
-    uri.queryParameters;
+    return parseRepositoryUrl(input);
   } on FormatException {
     return null;
   }
+}
+
+Repository parseRepositoryUrl(String input) {
+  var uri = Uri.parse(input);
+  // trigger exception if there is an issue
+  uri.pathSegments;
+  uri.queryParameters;
 
   // apply known prefix replace patterns
   if (_replaceSchemes.containsKey(uri.scheme)) {
@@ -40,18 +43,20 @@ Repository? tryParseRepositoryUrl(String input) {
 
   // Normalizing the URL path and rejecting URLs that may differ more than
   // a trailing slash.
-  final normalizedUri = Uri.tryParse(p.normalize(uri.path));
-  if (normalizedUri == null) {
-    return null;
-  }
+  final normalizedUri = Uri.parse(p.normalize(uri.path));
   if (uri.path != normalizedUri.path && uri.path != '${normalizedUri.path}/') {
-    return null;
+    throw FormatException(
+        'URL path is not normalized: `${uri.path}` != `${normalizedUri.path}`');
   }
   // detect repo vs path segments
   final segments =
       normalizedUri.pathSegments.where((s) => s.isNotEmpty).toList();
   final repoSegmentIndex = _repoSegmentIndex(provider, segments);
-  if (repoSegmentIndex < 0) return null;
+  if (repoSegmentIndex < 0) {
+    throw FormatException(
+        'Could not recognize URL segments: `${normalizedUri.path}`. '
+        'Please report at [pana](https://github.com/dart-lang/pana/issues).');
+  }
 
   String? separator;
   String? branch;

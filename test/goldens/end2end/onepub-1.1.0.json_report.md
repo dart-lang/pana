@@ -15,7 +15,7 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
     * contains a `version` property, and,
     * does not contain a `publish_to` property.
 
-`pubspec.yaml` from the repository URL missmatch: expected `https://github.com/noojee/onepub.dev` but got `https://github.com/onepub-dev/onepub`.
+`pubspec.yaml` from the repository URL mismatch: expected `https://github.com/noojee/onepub.dev` but got `https://github.com/onepub-dev/onepub`.
 </details>
 
 ### [*] 5/5 points: Provide a valid `README.md`
