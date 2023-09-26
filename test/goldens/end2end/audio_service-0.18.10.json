@@ -184,7 +184,9 @@
       "branch": "minor",
       "path": "audio_service"
     },
-    "contributingUrl": "https://github.com/ryanheise/audio_service/blob/minor/CONTRIBUTING.md"
+    "contributingUrl": "https://github.com/ryanheise/audio_service/blob/minor/CONTRIBUTING.md",
+    "grantedPoints": 120,
+    "maxPoints": 130
   },
   "urlProblems": []
 }

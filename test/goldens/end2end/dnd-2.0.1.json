@@ -101,7 +101,9 @@
       "host": "github.com",
       "repository": "marcojakob/dart-dnd",
       "branch": "master"
-    }
+    },
+    "grantedPoints": 110,
+    "maxPoints": 130
   },
   "urlProblems": []
 }

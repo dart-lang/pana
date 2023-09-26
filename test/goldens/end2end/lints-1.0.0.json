@@ -89,6 +89,9 @@
     ]
   },
   "screenshots": [],
-  "result": {},
+  "result": {
+    "grantedPoints": 110,
+    "maxPoints": 130
+  },
   "urlProblems": []
 }

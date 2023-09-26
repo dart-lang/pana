@@ -1,6 +1,7 @@
 ## 0.21.37
 
 - Upgraded `package:tar` to `1.0.0`.
+- Added `AnalysisResult.grantedPoints` and `AnalysisResult.maxPoints`.
 
 ## 0.21.36
 

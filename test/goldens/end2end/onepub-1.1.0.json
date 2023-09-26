@@ -180,7 +180,9 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://github.com/noojee/onepub.dev"
+    "homepageUrl": "https://github.com/noojee/onepub.dev",
+    "grantedPoints": 90,
+    "maxPoints": 130
   },
   "urlProblems": []
 }

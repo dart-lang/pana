@@ -78,7 +78,9 @@
   },
   "screenshots": [],
   "result": {
-    "homepageUrl": "https://github.com/dart-lang/pub-dev"
+    "homepageUrl": "https://github.com/dart-lang/pub-dev",
+    "grantedPoints": 65,
+    "maxPoints": 130
   },
   "urlProblems": [],
   "errorMessage": "Running `dart pub outdated` failed with the following output:\n\n```\nThe current Dart SDK version is {{sdk-version}}.\nBecause _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.\n```"

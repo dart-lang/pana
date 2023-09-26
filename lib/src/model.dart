@@ -372,6 +372,8 @@ class AnalysisResult {
   final List<String>? fundingUrls;
   final Repository? repository;
   final String? contributingUrl;
+  final int? grantedPoints;
+  final int? maxPoints;
 
   AnalysisResult({
     this.homepageUrl,
@@ -381,6 +383,8 @@ class AnalysisResult {
     this.fundingUrls,
     this.repository,
     this.contributingUrl,
+    this.grantedPoints,
+    this.maxPoints,
   });
 
   factory AnalysisResult.fromJson(Map<String, dynamic> json) =>

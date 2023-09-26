@@ -121,7 +121,9 @@
       "repository": "dart-lang/http",
       "branch": "master",
       "path": "pkgs/http"
-    }
+    },
+    "grantedPoints": 130,
+    "maxPoints": 130
   },
   "urlProblems": []
 }
