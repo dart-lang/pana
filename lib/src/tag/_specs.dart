@@ -104,6 +104,7 @@ class Runtime {
       ..._onAllPlatforms,
       ..._onAllWeb,
       'ui',
+      'ui_web',
     },
     tag: PanaTags.runtimeFlutterWeb,
   );

@@ -1,3 +1,7 @@
+## 0.21.38
+
+- Added `dart:ui_web` as Flutter Web platform.
+
 ## 0.21.37
 
 - `--no-warning` is no longer needed, and has no effect.
