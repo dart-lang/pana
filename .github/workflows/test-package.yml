@@ -21,7 +21,7 @@ jobs:
       matrix:
         sdk: [3.1.0]
     steps:
-      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
       - uses: dart-lang/setup-dart@8a4b97ea2017cc079571daec46542f76189836b1
         with:
           sdk: ${{ matrix.sdk }}
@@ -50,7 +50,7 @@ jobs:
         sdk: [3.1.0]
         flutter: [3.13.1]
     steps:
-      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
       - uses: dart-lang/setup-dart@8a4b97ea2017cc079571daec46542f76189836b1
         with:
           sdk: ${{ matrix.sdk }}
@@ -79,7 +79,7 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
       - uses: dart-lang/setup-dart@8a4b97ea2017cc079571daec46542f76189836b1
         with:
           sdk: '3.2.0-94.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
