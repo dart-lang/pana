@@ -89,7 +89,6 @@ class PackageContext {
   final urlProblems = <String, String>{};
 
   Pubspec? _pubspec;
-  bool? _dependenciesResolved;
   List<CodeProblem>? _codeProblems;
 
   PackageContext({
@@ -116,22 +115,19 @@ class PackageContext {
 
   late final bool usesFlutter = pubspec.usesFlutter;
 
-  Future<bool> resolveDependencies() async {
-    if (_dependenciesResolved != null) {
-      return _dependenciesResolved!;
-    }
+  Future<bool> resolveDependencies() async =>
+      (await resolveErrorMessage) == null;
 
+  late final resolveErrorMessage = () async {
     String? stderr;
     try {
       await outdated;
-      _dependenciesResolved = true;
-      return true;
+      return null;
     } on ToolException catch (e) {
       stderr = e.stderr?.asString ?? e.message;
     } catch (e) {
       stderr = e.toString();
     }
-    _dependenciesResolved = false;
 
     final errEntries =
         PubEntry.parse(stderr).where((e) => e.header == 'ERR').join('\n');
@@ -158,13 +154,13 @@ class PackageContext {
     // Note: calling `flutter pub pub` ensures we get the raw `pub` output.
     // TODO: get the actual command from [ToolException].
     final cmd = usesFlutter ? 'flutter pub outdated' : 'dart pub outdated';
-    errors.add(message.isEmpty
+    final errorMessage = message.isEmpty
         ? 'Running `$cmd` failed.'
         : 'Running `$cmd` failed with the following output:\n\n'
-            '```\n$message\n```\n');
-
-    return _dependenciesResolved!;
-  }
+            '```\n$message\n```\n';
+    errors.add(errorMessage);
+    return errorMessage;
+  }();
 
   Future<List<CodeProblem>> staticAnalysis() async {
     if (_codeProblems != null) return _codeProblems!;

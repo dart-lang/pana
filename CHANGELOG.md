@@ -1,6 +1,7 @@
 ## 0.21.38
 
 - Added `dart:ui_web` as Flutter Web platform.
+- Fix: static analysis is done only when the package resolution was successful.
 
 ## 0.21.37
 

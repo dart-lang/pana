@@ -89,6 +89,15 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
   final dirs = await listFocusDirs(context.packageDir);
 
   try {
+    final resolveErrorMessage = await context.resolveErrorMessage;
+    if (resolveErrorMessage != null) {
+      return _AnalysisResult(
+        [Issue(resolveErrorMessage)],
+        [],
+        [],
+        context.usesFlutter ? 'flutter pub get' : 'dart pub get',
+      );
+    }
     final list = await context.staticAnalysis();
 
     return _AnalysisResult(

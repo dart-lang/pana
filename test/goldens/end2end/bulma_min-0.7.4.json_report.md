@@ -37,9 +37,16 @@ Could not determine supported platforms as package resolution failed.
 Run `dart pub get` for more information.
 </details>
 
-## 50/50 Pass static analysis
+## 0/50 Pass static analysis
 
-### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
+### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues
+
+* Running `dart pub outdated` failed with the following output:
+
+```
+The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
+or higher to enable null safety.
+```
 
 
 ## 0/20 Support up-to-date dependencies

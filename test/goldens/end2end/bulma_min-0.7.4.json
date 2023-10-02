@@ -29,6 +29,7 @@
   ],
   "allDependencies": [],
   "tags": [
+    "has:error",
     "license:mit",
     "license:fsf-libre",
     "license:osi-approved"
@@ -62,10 +63,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 50,
+        "grantedPoints": 0,
         "maxPoints": 50,
-        "status": "passed",
-        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
+        "status": "failed",
+        "summary": "### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues\n\n* Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=1.0.0 <3.0.0'\" must be 2.12.0'\nor higher to enable null safety.\n```\n"
       },
       {
         "id": "dependency",
@@ -87,7 +88,7 @@
       "repository": "agilord/bulma_min",
       "branch": "master"
     },
-    "grantedPoints": 80,
+    "grantedPoints": 30,
     "maxPoints": 130
   },
   "urlProblems": [],

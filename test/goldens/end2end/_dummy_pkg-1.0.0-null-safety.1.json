@@ -28,6 +28,7 @@
   ],
   "allDependencies": [],
   "tags": [
+    "has:error",
     "license:bsd-3-clause",
     "license:fsf-libre",
     "license:osi-approved"
@@ -61,10 +62,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 50,
+        "grantedPoints": 0,
         "maxPoints": 50,
-        "status": "passed",
-        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
+        "status": "failed",
+        "summary": "### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues\n\n* Running `dart pub outdated` failed with the following output:\n\n```\nThe current Dart SDK version is {{sdk-version}}.\nBecause _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.\n```\n"
       },
       {
         "id": "dependency",
@@ -79,7 +80,7 @@
   "screenshots": [],
   "result": {
     "homepageUrl": "https://github.com/dart-lang/pub-dev",
-    "grantedPoints": 65,
+    "grantedPoints": 15,
     "maxPoints": 130
   },
   "urlProblems": [],
