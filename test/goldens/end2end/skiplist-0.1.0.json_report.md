@@ -48,40 +48,13 @@ Run `dart pub get` for more information.
 
 ### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 37 issues. Showing the first 2:
-
-<details>
-<summary>
-ERROR: Target of URI doesn't exist: 'package:quiver_iterables/iterables.dart'.
-</summary>
-
-`lib/skiplist.dart:12:8`
+* Running `dart pub outdated` failed with the following output:
 
 ```
-   ╷
-12 │ import "package:quiver_iterables/iterables.dart" as iterables;
-   │        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╵
+The lower bound of "sdk: '>=1.0.0 <=3.1.0'" must be 2.12.0'
+or higher to enable null safety.
 ```
 
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/skiplist.dart`
-</details>
-<details>
-<summary>
-ERROR: Non-nullable instance field '_header' must be initialized.
-</summary>
-
-`lib/skiplist.dart:48:3`
-
-```
-   ╷
-48 │   SkipList({double this.p: 1 / 4, int this.maxLevel: 8}) {
-   │   ^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/skiplist.dart`
-</details>
 
 ## 0/20 Support up-to-date dependencies
 

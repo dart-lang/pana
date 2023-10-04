@@ -70,40 +70,13 @@ Run `dart pub get` for more information.
 
 ### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 6 issues. Showing the first 2:
-
-<details>
-<summary>
-ERROR: A value of type 'Null' can't be returned from the function 'mime' because it has a return type of 'String'.
-</summary>
-
-`lib/mime_type.dart:8:12`
+* Running `dart pub outdated` failed with the following output:
 
 ```
-  ╷
-8 │     return null;
-  │            ^^^^
-  ╵
+The lower bound of "sdk: '>=0.8.10 <3.0.0'" must be 2.12.0'
+or higher to enable null safety.
 ```
 
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/mime_type.dart`
-</details>
-<details>
-<summary>
-ERROR: A value of type 'String?' can't be returned from the function 'mime' because it has a return type of 'String'.
-</summary>
-
-`lib/mime_type.dart:14:12`
-
-```
-   ╷
-14 │     return _mimeMaps[extension.toLowerCase()];
-   │            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/mime_type.dart`
-</details>
 
 ## 0/20 Support up-to-date dependencies
 

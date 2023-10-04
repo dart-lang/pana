@@ -251,6 +251,8 @@ class PackageAnalyzer {
       } else {
         tags.add(PanaTags.hasError);
       }
+    } else {
+      tags.add(PanaTags.hasError);
     }
 
     final licenses = await context.licenses;

@@ -47,40 +47,13 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 10 issues. Showing the first 2:
-
-<details>
-<summary>
-ERROR: The class 'List' doesn't have an unnamed constructor.
-</summary>
-
-`lib/src/parser.dart:100:33`
+* Running `dart pub outdated` failed with the following output:
 
 ```
-    ╷
-100 │           location['invalid'] = List();
-    │                                 ^^^^
-    ╵
+The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
+or higher to enable null safety.
 ```
 
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`
-</details>
-<details>
-<summary>
-ERROR: The constructor returns type 'List<dynamic>' that isn't of expected type 'List<String>'.
-</summary>
-
-`lib/src/parser.dart:140:24`
-
-```
-    ╷
-140 │   List<String> parts = List();
-    │                        ^^^^^^
-    ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/parser.dart`
-</details>
 
 ## 0/20 Support up-to-date dependencies
 
