@@ -1,3 +1,7 @@
+## 0.21.39
+
+- Removed file size checks. (If upload limits allow it, `pana` should not complain.)
+
 ## 0.21.38
 
 - Added `dart:ui_web` as Flutter Web platform.
