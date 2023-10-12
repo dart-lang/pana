@@ -22,22 +22,6 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
   final packageDir = context.packageDir;
   final pubspec = context.pubspec;
 
-  List<Issue> findFileSizeIssues(File file,
-      {int limitInKB = 128, String? missingSuggestion}) {
-    final length = file.lengthSync();
-    final lengthInKB = length / 1024.0;
-    return [
-      if (length == 0)
-        Issue('${p.relative(file.path, from: packageDir)} is empty.',
-            suggestion: missingSuggestion),
-      if (lengthInKB > limitInKB)
-        Issue(
-          '${p.relative(file.path, from: packageDir)} too large.',
-          suggestion: 'Try to keep the file size under ${limitInKB}k.',
-        )
-    ];
-  }
-
   /// Analyze a markdown file and return suggestions.
   Future<List<Issue>> findMarkdownIssues(File file) async {
     final issues = <Issue>[];
@@ -199,9 +183,6 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
               '${repository!.verificationFailure}'));
     }
 
-    issues.addAll(findFileSizeIssues(File(p.join(packageDir, 'pubspec.yaml')),
-        limitInKB: 32));
-
     final status = issues.isEmpty ? ReportStatus.passed : ReportStatus.failed;
     final points = issues.isEmpty ? 10 : 0;
     return Subsection(
@@ -226,8 +207,11 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
         Issue('No `$filename` found.', suggestion: missingSuggestion),
       );
     } else {
-      issues.addAll(
-          findFileSizeIssues(file, missingSuggestion: missingSuggestion));
+      final length = await file.length();
+      if (length == 0) {
+        issues
+            .add(Issue('`$filename` is empty.', suggestion: missingSuggestion));
+      }
       issues.addAll(await findMarkdownIssues(file));
     }
     final status = issues.isEmpty ? ReportStatus.passed : ReportStatus.failed;
