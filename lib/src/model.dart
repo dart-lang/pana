@@ -430,16 +430,8 @@ class Repository {
     required this.path,
   }) : provider = provider ?? RepositoryProvider.unknown;
 
-  factory Repository.fromJson(Map<String, dynamic> json) {
-    final baseUrl = json['baseUrl'] as String?;
-    final host = baseUrl == null ? null : Uri.tryParse(baseUrl)?.host;
-    return _$RepositoryFromJson({
-      // TODO: remove these after pub-dev uses the new format
-      if (host != null) 'host': host,
-      if (json.containsKey('packagePath')) 'path': json['packagePath'],
-      ...json,
-    });
-  }
+  factory Repository.fromJson(Map<String, dynamic> json) =>
+      _$RepositoryFromJson(json);
 
   /// Parses [input] and return the parsed [Repository] if successful,
   /// or returns `null` if it was unable to recognize the pattern.
