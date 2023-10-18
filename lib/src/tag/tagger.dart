@@ -70,7 +70,7 @@
 /// * platform:windows
 ///
 /// A package has the same platform tags as the primary library.
-library tagger;
+library;
 
 import 'dart:io';
 
