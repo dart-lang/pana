@@ -81,6 +81,8 @@
 /// If both "platforms" and "flutter.platforms" are declared "platforms" takes
 /// precedence. (There might be rare cases where you want to declare a more
 /// narrow set of platforms than you have plugin support for).
+library _violations;
+
 import 'package:analyzer/dart/analysis/session.dart';
 
 import '../sdk_env.dart' show ToolException;

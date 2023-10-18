@@ -262,9 +262,9 @@ class _ServedPackageVersion {
 class TarFileDescriptor extends d.FileDescriptor {
   final List<d.Descriptor> contents;
 
-  TarFileDescriptor(String name, Iterable<d.Descriptor> contents)
+  TarFileDescriptor(super.name, Iterable<d.Descriptor> contents)
       : contents = contents.toList(),
-        super.protected(name);
+        super.protected();
 
   Future<Iterable<TarEntry>> allFiles(d.Descriptor descriptor,
       [String path = '.']) async {

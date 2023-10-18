@@ -1,6 +1,6 @@
 name: pana
 description: PAckage aNAlyzer - produce a report summarizing the health and quality of a Dart package.
-version: 0.21.39
+version: 0.21.40-dev
 repository: https://github.com/dart-lang/pana
 topics:
   - tool
@@ -19,7 +19,7 @@ dependencies:
   http: ^1.0.0
   io: ^1.0.0
   json_annotation: ^4.8.1
-  lints: ^2.0.0
+  lints: ^3.0.0
   logging: ^1.0.0
   markdown: ^7.0.0
   path: ^1.6.2

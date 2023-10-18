@@ -96,10 +96,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 50,
+        "grantedPoints": 40,
         "maxPoints": 50,
-        "status": "passed",
-        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
+        "status": "partial",
+        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: Dangling library doc comment.\n</summary>\n\n`lib/http.dart:5:1`\n\n```\n  ╷\n5 │ /// A composable, [Future]-based library for making HTTP requests.\n  │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/http.dart`\n</details>"
       },
       {
         "id": "dependency",
@@ -122,7 +122,7 @@
       "branch": "master",
       "path": "pkgs/http"
     },
-    "grantedPoints": 130,
+    "grantedPoints": 120,
     "maxPoints": 130
   },
   "urlProblems": []

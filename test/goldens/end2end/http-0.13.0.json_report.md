@@ -29,10 +29,26 @@ Detected license: `BSD-3-Clause`.
 * ✓ MacOS
 * ✓ Web
 
-## 50/50 Pass static analysis
+## 40/50 Pass static analysis
 
-### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
+### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
 
+<details>
+<summary>
+INFO: Dangling library doc comment.
+</summary>
+
+`lib/http.dart:5:1`
+
+```
+  ╷
+5 │ /// A composable, [Future]-based library for making HTTP requests.
+  │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/http.dart`
+</details>
 
 ## 20/20 Support up-to-date dependencies
 
