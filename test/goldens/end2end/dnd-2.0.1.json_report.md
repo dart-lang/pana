@@ -76,7 +76,7 @@ Because:
 
 ### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 3 issues. Showing the first 2:
+Found 9 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -96,16 +96,16 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 </details>
 <details>
 <summary>
-INFO: Missing a deprecation message.
+INFO: The part-of directive uses a library name.
 </summary>
 
-`lib/src/draggable.dart:62:3`
+`lib/src/draggable.dart:1:1`
 
 ```
-   ╷
-62 │   @deprecated
-   │   ^^^^^^^^^^^
-   ╵
+  ╷
+1 │ part of dnd;
+  │ ^^^^^^^^^^^^
+  ╵
 ```
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`

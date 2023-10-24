@@ -1,3 +1,7 @@
+## 0.21.40
+
+- Upgraded `package:lints` to `3.0.0`.
+
 ## 0.21.39
 
 - Removed file size checks. (If upload limits allow it, `pana` should not complain.)
