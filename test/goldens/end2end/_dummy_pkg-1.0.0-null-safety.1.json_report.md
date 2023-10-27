@@ -57,7 +57,11 @@ Changelog entries help developers follow the progress of your package. See the [
 
 Detected license: `BSD-3-Clause`.
 
-## 0/10 Provide documentation
+## 0/20 Provide documentation
+
+### [x] 0/10 points: 20% or more of the public API has dartdoc comments
+
+Dependency resultion failed, unable to run `dartdoc`.
 
 ### [x] 0/10 points: Package has an example
 

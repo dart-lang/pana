@@ -1,3 +1,11 @@
+## 0.21.41
+
+- (Optionally enabled) `dartdoc`-based report (the same that pub-dev is using).
+- **Breaking change**: when the dartdoc output directory is specified (and also
+  when running `bin/pana`), running the global dartdoc has become the default (instead
+  of the SDK's `dart doc`), because the latest SDK is behind the latest `dartdoc`
+  version, and we want to control what is being used by the analysis.
+
 ## 0.21.40
 
 - Fix: empty `yaml` parsing.

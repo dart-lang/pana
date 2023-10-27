@@ -5,10 +5,11 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:pana/src/tag/license_tags.dart';
+import 'package:pana/src/dartdoc/dartdoc_options.dart';
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
+import 'dartdoc/dartdoc.dart';
 import 'download_utils.dart';
 import 'internal_model.dart';
 import 'license.dart';
@@ -22,6 +23,7 @@ import 'references/pubspec_urls.dart';
 import 'repository/check_repository.dart';
 import 'screenshots.dart';
 import 'sdk_env.dart';
+import 'tag/license_tags.dart';
 import 'utils.dart' show listFocusDirs;
 
 /// Shared (intermediate) results between different packages or versions.
@@ -222,5 +224,54 @@ class PackageContext {
   late final licenses = detectLicenseInDir(packageDir);
   late final licenceTags = () async {
     return LicenseTags.fromLicenses(await licenses);
+  }();
+
+  late final dartdocReportSubsection = () async {
+    final dartdocOutputDir = options.dartdocOutputDir;
+    if (dartdocOutputDir == null) {
+      return null;
+    }
+    DartdocResult? dartdocResult;
+    String? errorReason;
+    if (await resolveDependencies()) {
+      final timeout = options.dartdocTimeout ?? const Duration(minutes: 5);
+      await normalizeDartdocOptionsYaml(packageDir);
+      for (var i = options.dartdocRetry; i >= 0; i--) {
+        try {
+          final r = await toolEnvironment.dartdoc(
+            packageDir,
+            dartdocOutputDir,
+            validateLinks: false,
+            timeout: timeout,
+            usesFlutter: usesFlutter,
+          );
+          dartdocResult = r;
+          if (r.wasTimeout) {
+            errorReason = '`dartdoc` could not complete in $timeout.';
+            continue;
+          } else {
+            break;
+          }
+        } catch (e, st) {
+          errorReason = 'Could not run `dartdoc`: $e';
+          log.severe('Could not run dartdoc.', e, st);
+        }
+      }
+    } else {
+      return dartdocFailedSubsection(
+          'Dependency resultion failed, unable to run `dartdoc`.');
+    }
+
+    if (dartdocResult == null) {
+      return dartdocFailedSubsection(errorReason ?? 'Could not run `dartdoc`.');
+    }
+
+    if (!dartdocResult.wasSuccessful) {
+      return dartdocFailedSubsection(
+          dartdocResult.processResult.asTrimmedOutput);
+    }
+
+    final pubData = await generateAndSavePubDataJson(dartdocOutputDir);
+    return await createDocumentationCoverageSection(pubData);
   }();
 }

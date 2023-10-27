@@ -64,9 +64,11 @@ class PackageAnalyzer {
     String? pubCacheDir,
     String? panaCacheDir,
     String? pubHostedUrl,
+    String? globalDartdocVersion,
     Map<String, String>? environment,
   }) async {
-    return PackageAnalyzer(await ToolEnvironment.create(
+    return PackageAnalyzer(
+      await ToolEnvironment.create(
         dartSdkDir: sdkDir,
         flutterSdkDir: flutterDir,
         pubCacheDir: pubCacheDir,
@@ -74,7 +76,10 @@ class PackageAnalyzer {
         environment: <String, String>{
           if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
           ...?environment,
-        }));
+        },
+        globalDartdocVersion: globalDartdocVersion,
+      ),
+    );
   }
 
   Future<Summary> inspectPackage(
@@ -161,7 +166,6 @@ class PackageAnalyzer {
       sharedContext: sharedContext,
       packageDir: pkgDir,
     );
-    final options = sharedContext.options;
 
     final dartFiles = <String>[];
     final fileList = listFiles(pkgDir, deleteBadExtracted: true);
@@ -200,26 +204,7 @@ class PackageAnalyzer {
           '[report the issue](https://github.com/dart-lang/pana/issues).');
     }
 
-    final dependenciesResolved = await context.resolveDependencies();
-    if (dependenciesResolved && options.dartdocOutputDir != null) {
-      for (var i = 0; i <= options.dartdocRetry; i++) {
-        try {
-          final r = await _toolEnv.dartdoc(
-            pkgDir,
-            options.dartdocOutputDir!,
-            validateLinks: i == 0,
-            timeout: options.dartdocTimeout,
-          );
-          if (!r.wasTimeout) {
-            break;
-          }
-        } catch (e, st) {
-          log.severe('Could not run dartdoc.', e, st);
-        }
-      }
-    }
-
-    if (dependenciesResolved) {
+    if (await context.resolveDependencies()) {
       List<CodeProblem>? analyzerItems;
       if (dartFiles.isNotEmpty) {
         try {

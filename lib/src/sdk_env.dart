@@ -21,6 +21,8 @@ import 'utils.dart';
 import 'version.dart';
 
 const _dartFormatTimeout = Duration(minutes: 5);
+const _defaultMaxFileCount = 10 * 1000 * 1000; // 10 million files
+const _defaultMaxTotalLengthBytes = 2 * 1024 * 1024 * 1024; // 2 GiB
 
 class ToolEnvironment {
   final String? dartSdkDir;
@@ -32,6 +34,9 @@ class ToolEnvironment {
   final Map<String, String> _environment;
   PanaRuntimeInfo? _runtimeInfo;
   final bool _useGlobalDartdoc;
+  final String? _globalDartdocVersion;
+
+  bool _globalDartdocActivated = false;
 
   ToolEnvironment._(
     this.dartSdkDir,
@@ -42,6 +47,7 @@ class ToolEnvironment {
     this._flutterSdk,
     this._environment,
     this._useGlobalDartdoc,
+    this._globalDartdocVersion,
   );
 
   ToolEnvironment.fake({
@@ -50,13 +56,13 @@ class ToolEnvironment {
     this.pubCacheDir,
     PanaCache? panaCache,
     Map<String, String> environment = const <String, String>{},
-    bool useGlobalDartdoc = false,
     required PanaRuntimeInfo runtimeInfo,
   })  : panaCache = panaCache ?? PanaCache(),
         _dartSdk = _DartSdk._(null),
         _flutterSdk = _FlutterSdk._(null, _DartSdk._(null)),
         _environment = environment,
-        _useGlobalDartdoc = useGlobalDartdoc,
+        _useGlobalDartdoc = false,
+        _globalDartdocVersion = null,
         _runtimeInfo = runtimeInfo;
 
   Map<String, String> get environment => _environment;
@@ -87,7 +93,8 @@ class ToolEnvironment {
     String? pubCacheDir,
     String? panaCacheDir,
     Map<String, String>? environment,
-    bool useGlobalDartdoc = false,
+    bool useGlobalDartdoc = true,
+    String? globalDartdocVersion,
   }) async {
     dartSdkDir ??= cli.getSdkPath();
     final resolvedDartSdk = await _resolve(dartSdkDir);
@@ -129,6 +136,7 @@ class ToolEnvironment {
       flutterSdk,
       env,
       useGlobalDartdoc,
+      globalDartdocVersion,
     );
     await toolEnv._init();
     return toolEnv;
@@ -410,14 +418,6 @@ class ToolEnvironment {
     });
   }
 
-  Map<String, String> _globalDartdocEnv() {
-    final env = Map<String, String>.from(_environment);
-    if (pubCacheDir != null) {
-      env.remove(_pubCacheKey);
-    }
-    return env;
-  }
-
   Future<DartdocResult> dartdoc(
     String packageDir,
     String outputDir, {
@@ -427,11 +427,17 @@ class ToolEnvironment {
     bool linkToRemote = false,
     Duration? timeout,
     List<String>? excludedLibs,
+    required bool usesFlutter,
   }) async {
     PanaProcessResult pr;
     final args = [
       '--output',
       outputDir,
+      '--sanitize-html',
+      '--max-file-count',
+      '$_defaultMaxFileCount',
+      '--max-total-size',
+      '$_defaultMaxTotalLengthBytes',
     ];
     if (excludedLibs != null && excludedLibs.isNotEmpty) {
       args.addAll(['--exclude', excludedLibs.join(',')]);
@@ -448,16 +454,36 @@ class ToolEnvironment {
     if (linkToRemote) {
       args.add('--link-to-remote');
     }
+    final sdkDir =
+        usesFlutter ? _flutterSdk._dartSdk._baseDir : _dartSdk._baseDir;
+    if (sdkDir != null) {
+      args.addAll(['--sdk-dir', sdkDir]);
+    }
+
     if (_useGlobalDartdoc) {
+      if (!_globalDartdocActivated) {
+        _handleProcessErrors(await runProc(
+          [
+            ..._dartSdk.dartCmd,
+            'pub',
+            'global',
+            'activate',
+            'dartdoc',
+            if (_globalDartdocVersion != null) _globalDartdocVersion!,
+          ],
+          environment: _environment,
+        ));
+        _globalDartdocActivated = true;
+      }
       pr = await runProc(
-        [..._dartSdk.dartPubCmd, 'global', 'run', 'dartdoc', ...args],
+        [..._dartSdk.dartCmd, 'pub', 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
-        environment: _globalDartdocEnv(),
+        environment: _environment,
         timeout: timeout,
       );
     } else {
       pr = await runProc(
-        [..._dartSdk.dartDocCmd, ...args],
+        [..._dartSdk.dartCmd, 'doc', ...args],
         workingDirectory: packageDir,
         environment: _environment,
         timeout: timeout,
@@ -676,9 +702,7 @@ class _DartSdk {
     _join(_baseDir, 'bin', 'dart'),
   ];
 
-  late final dartPubCmd = [...dartCmd, 'pub'];
   late final dartAnalyzeCmd = [...dartCmd, 'analyze'];
-  late final dartDocCmd = [...dartCmd, 'doc'];
 }
 
 class _FlutterSdk {

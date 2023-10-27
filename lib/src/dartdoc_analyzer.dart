@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dartdoc/dartdoc.dart';
 import 'model.dart';
 import 'report/create_report.dart' show renderSimpleSectionSummary;
 
@@ -44,7 +45,7 @@ ReportSection documentationCoverageSection({
     grantedPoints: grantedPoints,
     maxPoints: maxPoints,
     summary: renderSimpleSectionSummary(
-      title: '20% or more of the public API has dartdoc comments',
+      title: dartdocSubsectionHeadline,
       description: summary.toString(),
       grantedPoints: grantedPoints,
       maxPoints: 10,
