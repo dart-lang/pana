@@ -179,10 +179,13 @@ dynamic _toSortedMap(dynamic item) {
 }
 
 Map<String, dynamic>? yamlToJson(String? yamlContent) {
-  if (yamlContent == null) {
+  if (yamlContent == null || yamlContent.trim().isEmpty) {
     return null;
   }
-  var yamlMap = loadYaml(yamlContent) as YamlMap;
+  var yamlMap = loadYaml(yamlContent);
+  if (yamlMap is! Map) {
+    return null;
+  }
 
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
