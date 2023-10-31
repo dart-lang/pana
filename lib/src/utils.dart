@@ -179,7 +179,7 @@ dynamic _toSortedMap(dynamic item) {
 }
 
 Map<String, dynamic>? yamlToJson(String? yamlContent) {
-  if (yamlContent == null || yamlContent.trim().isEmpty) {
+  if (yamlContent == null) {
     return null;
   }
   var yamlMap = loadYaml(yamlContent);
