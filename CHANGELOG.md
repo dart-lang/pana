@@ -1,5 +1,6 @@
 ## 0.21.40
 
+- Fix: empty `yaml` parsing.
 - Upgraded `package:lints` to `3.0.0`.
 
 ## 0.21.39

@@ -182,7 +182,10 @@ Map<String, dynamic>? yamlToJson(String? yamlContent) {
   if (yamlContent == null) {
     return null;
   }
-  var yamlMap = loadYaml(yamlContent) as YamlMap;
+  var yamlMap = loadYaml(yamlContent);
+  if (yamlMap is! Map) {
+    return null;
+  }
 
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
