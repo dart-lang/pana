@@ -3,12 +3,15 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:pana/src/tag/license_tags.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'code_problem.dart';
+import 'dartdoc/dartdoc.dart';
+import 'dartdoc/dartdoc_options.dart';
 import 'download_utils.dart';
 import 'internal_model.dart';
 import 'license.dart';
@@ -22,7 +25,8 @@ import 'references/pubspec_urls.dart';
 import 'repository/check_repository.dart';
 import 'screenshots.dart';
 import 'sdk_env.dart';
-import 'utils.dart' show listFocusDirs;
+import 'tag/license_tags.dart';
+import 'utils.dart' show listFocusDirs, PanaProcessResult;
 
 /// Shared (intermediate) results between different packages or versions.
 /// External systems that may be independent of the archive content may be
@@ -223,4 +227,70 @@ class PackageContext {
   late final licenceTags = () async {
     return LicenseTags.fromLicenses(await licenses);
   }();
+
+  late final Future<DartdocResult?> dartdocResult = () async {
+    final dartdocOutputDir = options.dartdocOutputDir;
+    if (dartdocOutputDir == null) {
+      return null;
+    }
+    if (await resolveDependencies()) {
+      final timeout = options.dartdocTimeout ?? const Duration(minutes: 5);
+      await normalizeDartdocOptionsYaml(packageDir);
+      try {
+        final pr = await toolEnvironment.dartdoc(
+          packageDir,
+          dartdocOutputDir,
+          validateLinks: false,
+          timeout: timeout,
+          usesFlutter: usesFlutter,
+        );
+        if (pr.exitCode == 15) {
+          return DartdocResult(
+              errorReason: '`dartdoc` could not complete in $timeout.');
+        }
+        if (pr.exitCode != 0) {
+          return DartdocResult(errorReason: pr.asTrimmedOutput);
+        }
+
+        final hasIndexHtml =
+            await File(p.join(dartdocOutputDir, 'index.html')).exists();
+        final hasIndexJson =
+            await File(p.join(dartdocOutputDir, 'index.json')).exists();
+        return DartdocResult(
+            processResult: pr, hasOutputFiles: hasIndexHtml && hasIndexJson);
+      } catch (e, st) {
+        log.severe('Could not run dartdoc.', e, st);
+        return DartdocResult(errorReason: 'Could not run `dartdoc`: $e');
+      }
+    } else {
+      return DartdocResult(
+          errorReason: 'Dependency resultion failed, unable to run `dartdoc`.');
+    }
+  }();
+
+  late final dartdocPubData = () async {
+    final dr = await dartdocResult;
+    if (dr == null || !dr.wasSuccessful) {
+      return null;
+    }
+    return await generateAndSavePubDataJson(options.dartdocOutputDir!);
+  }();
+}
+
+class DartdocResult {
+  final PanaProcessResult? processResult;
+  final String? errorReason;
+  final bool hasOutputFiles;
+
+  DartdocResult({
+    this.processResult,
+    this.errorReason,
+    this.hasOutputFiles = false,
+  });
+
+  bool get wasSuccessful =>
+      processResult != null &&
+      processResult!.exitCode == 0 &&
+      errorReason == null &&
+      hasOutputFiles;
 }

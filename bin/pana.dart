@@ -126,16 +126,21 @@ Future main(List<String> args) async {
     exit(130);
   });
 
-  var tempDir = Directory.systemTemp
+  final tempDir = Directory.systemTemp
       .createTempSync('pana.${DateTime.now().millisecondsSinceEpoch}.');
 
   // Critical to make sure analyzer paths align well
-  var tempPath = await tempDir.resolveSymbolicLinks();
+  final tempPath = await tempDir.resolveSymbolicLinks();
+
+  final pubCacheDir = p.join(tempPath, 'pub-cache');
+  await Directory(pubCacheDir).create(recursive: true);
+  final dartdocOutputDir = p.join(tempPath, 'doc');
+  await Directory(dartdocOutputDir).create(recursive: true);
 
   try {
     final pubHostedUrl = result['hosted-url'] as String?;
     final analyzer = await PackageAnalyzer.create(
-      pubCacheDir: tempPath,
+      pubCacheDir: pubCacheDir,
       panaCacheDir: Platform.environment['PANA_CACHE'],
       sdkDir: result['dart-sdk'] as String?,
       flutterDir: result['flutter-sdk'] as String?,
@@ -146,6 +151,7 @@ Future main(List<String> args) async {
       pubHostedUrl: pubHostedUrl,
       lineLength: int.tryParse(result['line-length'] as String? ?? ''),
       checkRemoteRepository: true,
+      dartdocOutputDir: dartdocOutputDir,
     );
     try {
       late Summary summary;

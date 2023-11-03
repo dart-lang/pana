@@ -75,10 +75,10 @@
       {
         "id": "documentation",
         "title": "Provide documentation",
-        "grantedPoints": 0,
-        "maxPoints": 10,
+        "grantedPoints": 10,
+        "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n246 out of 263 API elements (93.5 %) have documentation comments.\n\nSome symbols that are missing documentation: `AsyncMemoizer`, `ChunkedStreamReader`, `DelegatingFuture`, `DelegatingStream`, `ErrorResult`.\n\n### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
       },
       {
         "id": "platform",
@@ -102,7 +102,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|`^1.15.0`|1.18.0|1.18.0|\n|[`meta`]|`^1.1.7`|1.9.1|1.9.1|\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`collection`]: https://pub.dev/packages/collection\n[`meta`]: https://pub.dev/packages/meta\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`collection`]|`^1.15.0`|1.18.0|1.18.0|\n|[`meta`]|`^1.1.7`|1.11.0|1.11.0|\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`collection`]: https://pub.dev/packages/collection\n[`meta`]: https://pub.dev/packages/meta\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       }
     ]
   },
@@ -117,8 +117,8 @@
       "branch": "master"
     },
     "contributingUrl": "https://github.com/dart-lang/async/blob/master/CONTRIBUTING.md",
-    "grantedPoints": 120,
-    "maxPoints": 130
+    "grantedPoints": 130,
+    "maxPoints": 140
   },
   "urlProblems": []
 }

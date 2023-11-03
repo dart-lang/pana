@@ -34,7 +34,11 @@ No license was recognized.
 Consider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to make it more accessible to the community.
 </details>
 
-## 0/10 Provide documentation
+## 10/20 Provide documentation
+
+### [*] 10/10 points: 20% or more of the public API has dartdoc comments
+
+0 out of 0 API elements (100.0 %) have documentation comments.
 
 ### [x] 0/10 points: Package has an example
 
@@ -89,16 +93,16 @@ Cannot assign Web automatically to a binary only package.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.36.2|**3.0.3**|
+|[`dcli`]|`^1.15.5`|1.36.2|**3.1.0**|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|-|3.3.7|3.3.7|
+|[`archive`]|-|3.4.6|3.4.6|
 |[`args`]|-|2.4.2|2.4.2|
 |[`async`]|-|2.11.0|2.11.0|
-|[`basic_utils`]|-|3.9.4|5.6.1|
+|[`basic_utils`]|-|3.9.4|5.7.0|
 |[`boolean_selector`]|-|2.1.1|2.1.1|
 |[`characters`]|-|1.3.0|1.3.0|
 |[`chunked_stream`]|-|1.4.2|1.4.2|
@@ -107,9 +111,9 @@ Cannot assign Web automatically to a binary only package.
 |[`collection`]|-|1.18.0|1.18.0|
 |[`convert`]|-|3.1.1|3.1.1|
 |[`crypto`]|-|3.0.3|3.0.3|
-|[`csv`]|-|5.0.2|5.0.2|
+|[`csv`]|-|5.1.0|5.1.0|
 |[`dart_console2`]|-|2.0.1|3.0.0|
-|[`dcli_core`]|-|1.36.2|3.0.6|
+|[`dcli_core`]|-|1.36.2|3.1.0|
 |[`equatable`]|-|2.0.5|2.0.5|
 |[`ffi`]|-|2.1.0|2.1.0|
 |[`file`]|-|6.1.4|7.0.0|
@@ -126,7 +130,7 @@ Cannot assign Web automatically to a binary only package.
 |[`json_annotation`]|-|4.8.1|4.8.1|
 |[`logging`]|-|1.2.0|1.2.0|
 |[`matcher`]|-|0.12.16|0.12.16|
-|[`meta`]|-|1.9.1|1.9.1|
+|[`meta`]|-|1.11.0|1.11.0|
 |[`mime`]|-|1.0.4|1.0.4|
 |[`path`]|-|1.8.3|1.8.3|
 |[`pointycastle`]|-|3.7.3|3.7.3|
@@ -137,7 +141,7 @@ Cannot assign Web automatically to a binary only package.
 |[`quiver`]|-|3.2.1|3.2.1|
 |[`random_string`]|-|2.3.1|2.3.1|
 |[`scope`]|-|3.0.0|4.1.0|
-|[`settings_yaml`]|-|4.0.1|7.0.0|
+|[`settings_yaml`]|-|4.0.1|7.1.0|
 |[`source_span`]|-|1.10.0|1.10.0|
 |[`stack_trace`]|-|1.11.1|1.11.1|
 |[`stacktrace_impl`]|-|2.3.0|2.3.0|
@@ -148,10 +152,10 @@ Cannot assign Web automatically to a binary only package.
 |[`term_glyph`]|-|1.2.1|1.2.1|
 |[`test_api`]|-|0.6.1|0.6.1|
 |[`typed_data`]|-|1.3.2|1.3.2|
-|[`uuid`]|-|3.0.7|3.0.7|
+|[`uuid`]|-|3.0.7|4.1.0|
 |[`validators2`]|-|3.0.0|5.0.0|
 |[`vin_decoder`]|-|0.2.1-nullsafety|0.2.1-nullsafety|
-|[`win32`]|-|3.1.4|5.0.7|
+|[`win32`]|-|3.1.4|5.0.9|
 |[`yaml`]|-|3.1.2|3.1.2|
 </details>
 

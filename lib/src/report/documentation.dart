@@ -5,21 +5,19 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:pana/src/package_context.dart';
 import 'package:path/path.dart' as p;
 
+import '../dartdoc/dartdoc.dart';
 import '../dartdoc_analyzer.dart';
 import '../maintenance.dart';
 import '../model.dart';
-import '../pubspec.dart';
+import '../package_context.dart';
 
 import '_common.dart';
 
-Future<ReportSection> hasDocumentation(
-    PackageContext context, Pubspec pubspec) async {
+Future<Subsection> _exampleSubsection(PackageContext context) async {
   final packageDir = context.packageDir;
-  // TODO: run dartdoc for coverage
-
+  final pubspec = context.pubspec;
   final candidates = exampleFileCandidates(pubspec.name);
   // Because we care about the file-names case, we first list all files, and
   // then test for presence of candidates in that list.
@@ -41,9 +39,6 @@ Future<ReportSection> hasDocumentation(
   final screenshotIssues = <Issue>[];
   final declaredScreenshots = pubspec.screenshots;
 
-  final headline = declaredScreenshots.isNotEmpty
-      ? 'Package has an example and has no issues with screenshots'
-      : 'Package has an example';
   final screenshotResults = await context.screenshots;
   for (var result in screenshotResults) {
     screenshotIssues.addAll(result.problems.map(Issue.new));
@@ -51,16 +46,35 @@ Future<ReportSection> hasDocumentation(
 
   issues.addAll(screenshotIssues);
 
+  final headline = declaredScreenshots.isNotEmpty
+      ? 'Package has an example and has no issues with screenshots'
+      : 'Package has an example';
   final status = screenshotIssues.isEmpty && examplePath != null
       ? ReportStatus.passed
       : ReportStatus.failed;
   final points = status == ReportStatus.passed ? 10 : 0;
+  return Subsection(headline, issues, points, 10, status);
+}
+
+Future<ReportSection> hasDocumentation(PackageContext context) async {
+  final dartdocResult = await context.dartdocResult;
+  final dartdocPubData = await context.dartdocPubData;
+  Subsection? documentation;
+  if (dartdocPubData != null) {
+    documentation = await createDocumentationCoverageSection(dartdocPubData);
+  } else if (dartdocResult != null) {
+    documentation = dartdocFailedSubsection(
+        dartdocResult.errorReason ?? 'Running or processing dartdoc failed.');
+  }
+
+  final example = await _exampleSubsection(context);
   return makeSection(
     id: ReportSectionId.documentation,
     title: documentationSectionTitle,
-    maxPoints: 10,
+    maxPoints: (documentation?.maxPoints ?? 0) + example.maxPoints,
     subsections: [
-      Subsection(headline, issues, points, 10, status),
+      if (documentation != null) documentation,
+      example,
     ],
     basePath: null,
   );

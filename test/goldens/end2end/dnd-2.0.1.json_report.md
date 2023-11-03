@@ -13,7 +13,13 @@
 
 Detected license: `MIT`.
 
-## 10/10 Provide documentation
+## 20/20 Provide documentation
+
+### [*] 10/10 points: 20% or more of the public API has dartdoc comments
+
+70 out of 77 API elements (90.9 %) have documentation comments.
+
+Some symbols that are missing documentation: `dnd`, `Acceptor`, `AnimationHelper`, `CloneAvatarHandler`, `DraggablesAcceptor`.
 
 ### [*] 10/10 points: Package has an example
 

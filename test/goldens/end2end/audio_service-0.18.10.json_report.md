@@ -106,7 +106,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`audio_service_platform_interface`]|`^0.1.0`|0.1.0|0.1.0|
+|[`audio_service_platform_interface`]|`^0.1.0`|0.1.1|0.1.1|
 |[`audio_service_web`]|`^0.1.1`|0.1.1|0.1.1|
 |[`audio_session`]|`^0.1.6+1`|0.1.16|0.1.16|
 |[`clock`]|`^1.1.0`|1.1.1|1.1.1|
@@ -129,29 +129,30 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`http`]|-|1.1.0|1.1.0|
 |[`http_parser`]|-|4.0.2|4.0.2|
 |[`material_color_utilities`]|-|0.5.0|0.8.0|
-|[`meta`]|-|1.9.1|1.9.1|
+|[`meta`]|-|1.9.1|1.11.0|
 |[`path`]|-|1.8.3|1.8.3|
-|[`path_provider`]|-|2.1.0|2.1.0|
-|[`path_provider_android`]|-|2.1.0|2.1.0|
-|[`path_provider_foundation`]|-|2.3.0|2.3.0|
-|[`path_provider_linux`]|-|2.2.0|2.2.0|
-|[`path_provider_platform_interface`]|-|2.1.0|2.1.0|
-|[`path_provider_windows`]|-|2.2.0|2.2.0|
-|[`platform`]|-|3.1.1|3.1.1|
-|[`plugin_platform_interface`]|-|2.1.5|2.1.5|
+|[`path_provider`]|-|2.1.1|2.1.1|
+|[`path_provider_android`]|-|2.2.1|2.2.1|
+|[`path_provider_foundation`]|-|2.3.1|2.3.1|
+|[`path_provider_linux`]|-|2.2.1|2.2.1|
+|[`path_provider_platform_interface`]|-|2.1.1|2.1.1|
+|[`path_provider_windows`]|-|2.2.1|2.2.1|
+|[`platform`]|-|3.1.3|3.1.3|
+|[`plugin_platform_interface`]|-|2.1.6|2.1.6|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`source_span`]|-|1.10.0|1.10.0|
+|[`sprintf`]|-|7.0.0|7.0.0|
 |[`sqflite`]|-|2.3.0|2.3.0|
 |[`sqflite_common`]|-|2.5.0|2.5.0|
 |[`string_scanner`]|-|1.2.0|1.2.0|
 |[`synchronized`]|-|3.1.0|3.1.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
 |[`typed_data`]|-|1.3.2|1.3.2|
-|[`uuid`]|-|3.0.7|3.0.7|
+|[`uuid`]|-|4.1.0|4.1.0|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|0.1.4-beta|0.1.4-beta|
-|[`win32`]|-|5.0.7|5.0.7|
-|[`xdg_directories`]|-|1.0.2|1.0.2|
+|[`web`]|-|0.1.4-beta|0.3.0|
+|[`win32`]|-|5.0.9|5.0.9|
+|[`xdg_directories`]|-|1.0.3|1.0.3|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -186,6 +187,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`source_span`]: https://pub.dev/packages/source_span
+[`sprintf`]: https://pub.dev/packages/sprintf
 [`sqflite`]: https://pub.dev/packages/sqflite
 [`sqflite_common`]: https://pub.dev/packages/sqflite_common
 [`string_scanner`]: https://pub.dev/packages/string_scanner

@@ -13,7 +13,13 @@
 
 Detected license: `BSD-3-Clause`.
 
-## 0/10 Provide documentation
+## 10/20 Provide documentation
+
+### [*] 10/10 points: 20% or more of the public API has dartdoc comments
+
+246 out of 263 API elements (93.5 %) have documentation comments.
+
+Some symbols that are missing documentation: `AsyncMemoizer`, `ChunkedStreamReader`, `DelegatingFuture`, `DelegatingStream`, `ErrorResult`.
 
 ### [x] 0/10 points: Package has an example
 
@@ -48,7 +54,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`collection`]|`^1.15.0`|1.18.0|1.18.0|
-|[`meta`]|`^1.1.7`|1.9.1|1.9.1|
+|[`meta`]|`^1.1.7`|1.11.0|1.11.0|
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 

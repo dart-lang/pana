@@ -13,7 +13,13 @@
 
 Detected license: `BSD-3-Clause`.
 
-## 10/10 Provide documentation
+## 20/20 Provide documentation
+
+### [*] 10/10 points: 20% or more of the public API has dartdoc comments
+
+29 out of 33 API elements (87.9 %) have documentation comments.
+
+Some symbols that are missing documentation: `link`, `url_launcher`, `url_launcher_string`, `LaunchMode`.
 
 ### [*] 10/10 points: Package has an example
 
@@ -41,13 +47,13 @@ Detected license: `BSD-3-Clause`.
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`url_launcher_android`]|`^6.0.13`|6.0.38|6.0.38|
-|[`url_launcher_ios`]|`^6.0.13`|6.1.4|6.1.4|
-|[`url_launcher_linux`]|`>=2.0.0 <4.0.0`|3.0.5|3.0.5|
-|[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.0.6|3.0.6|
-|[`url_launcher_platform_interface`]|`^2.1.0`|2.1.3|2.1.3|
-|[`url_launcher_web`]|`^2.0.0`|2.0.18|2.0.18|
-|[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.0.7|3.0.7|
+|[`url_launcher_android`]|`^6.0.13`|6.2.0|6.2.0|
+|[`url_launcher_ios`]|`^6.0.13`|6.2.0|6.2.0|
+|[`url_launcher_linux`]|`>=2.0.0 <4.0.0`|3.1.0|3.1.0|
+|[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.1.0|3.1.0|
+|[`url_launcher_platform_interface`]|`^2.1.0`|2.2.0|2.2.0|
+|[`url_launcher_web`]|`^2.0.0`|2.2.0|2.2.0|
+|[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.1.0|3.1.0|
 
 <details><summary>Transitive dependencies</summary>
 
@@ -57,11 +63,11 @@ Detected license: `BSD-3-Clause`.
 |[`collection`]|-|1.17.2|1.18.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
 |[`material_color_utilities`]|-|0.5.0|0.8.0|
-|[`meta`]|-|1.9.1|1.9.1|
-|[`plugin_platform_interface`]|-|2.1.5|2.1.5|
+|[`meta`]|-|1.9.1|1.11.0|
+|[`plugin_platform_interface`]|-|2.1.6|2.1.6|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|0.1.4-beta|0.1.4-beta|
+|[`web`]|-|0.1.4-beta|0.3.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

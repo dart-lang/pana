@@ -41,6 +41,7 @@ void main() {
       pubCacheDir: pubCacheDir,
       panaCacheDir: panaCacheDir,
       pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
+      globalDartdocVersion: '7.0.0',
     );
   });
 
@@ -50,18 +51,26 @@ void main() {
     Directory(tempDir).deleteSync(recursive: true);
   });
 
-  void verifyPackage(String package, String version) {
+  void verifyPackage(
+    String package,
+    String version, {
+    bool skipDartdoc = false,
+  }) {
     final filename = '$package-$version.json';
     group('end2end: $package $version', () {
       Map<String, dynamic>? actualMap;
 
       setUpAll(() async {
+        final dartdocOutputDir = p.join(tempDir, 'doc', '$package-version');
+        await Directory(dartdocOutputDir).create(recursive: true);
+
         var summary = await analyzer.inspectPackage(
           package,
           version: version,
           options: InspectOptions(
             pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
             checkRemoteRepository: true,
+            dartdocOutputDir: skipDartdoc ? null : dartdocOutputDir,
           ),
         );
 
@@ -173,7 +182,7 @@ void main() {
   verifyPackage('async', '2.11.0');
 
   // cross-platform package with platform-specific code
-  verifyPackage('http', '0.13.0');
+  verifyPackage('http', '0.13.0', skipDartdoc: true);
 
   // js-only package
   verifyPackage('dnd', '2.0.1');
@@ -182,35 +191,35 @@ void main() {
   verifyPackage('url_launcher', '6.1.12');
 
   // single-platform Flutter plugin without Dart files or assets
-  verifyPackage('nsd_android', '1.2.2');
+  verifyPackage('nsd_android', '1.2.2', skipDartdoc: true);
 
   // binary-only package (without `platforms:` in pubspec)
   verifyPackage('onepub', '1.1.0');
 
   // multi-level symlink
-  verifyPackage('audio_service', '0.18.10');
+  verifyPackage('audio_service', '0.18.10', skipDartdoc: true);
 
   // mime_type 0.3.2 has no recognized LICENSE file
-  verifyPackage('mime_type', '0.3.2');
+  verifyPackage('mime_type', '0.3.2', skipDartdoc: true);
 
   // no dart files, only assets (pre-2.12)
-  verifyPackage('bulma_min', '0.7.4');
+  verifyPackage('bulma_min', '0.7.4', skipDartdoc: true);
 
   // no dart files, only assets (post-2.12)
-  verifyPackage('lints', '1.0.0');
+  verifyPackage('lints', '1.0.0', skipDartdoc: true);
 
   // debugging why platforms are not recognized
   // https://github.com/dart-lang/pana/issues/824
-  verifyPackage('webdriver', '3.0.0');
+  verifyPackage('webdriver', '3.0.0', skipDartdoc: true);
 
   // uses dart:mirrors
-  verifyPackage('steward', '0.3.1');
+  verifyPackage('steward', '0.3.1', skipDartdoc: true);
 
   // slightly old package
-  verifyPackage('sdp_transform', '0.2.0');
+  verifyPackage('sdp_transform', '0.2.0', skipDartdoc: true);
 
   // really old package
-  verifyPackage('skiplist', '0.1.0');
+  verifyPackage('skiplist', '0.1.0', skipDartdoc: true);
 
   // packages with bad content
   verifyPackage('_dummy_pkg', '1.0.0-null-safety.1');
