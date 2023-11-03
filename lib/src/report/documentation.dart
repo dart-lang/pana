@@ -5,12 +5,13 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:pana/src/package_context.dart';
 import 'package:path/path.dart' as p;
 
+import '../dartdoc/dartdoc.dart';
 import '../dartdoc_analyzer.dart';
 import '../maintenance.dart';
 import '../model.dart';
+import '../package_context.dart';
 
 import '_common.dart';
 
@@ -56,7 +57,16 @@ Future<Subsection> _exampleSubsection(PackageContext context) async {
 }
 
 Future<ReportSection> hasDocumentation(PackageContext context) async {
-  final documentation = await context.dartdocReportSubsection;
+  final dartdocResult = await context.dartdocResult;
+  final dartdocPubData = await context.dartdocPubData;
+  Subsection? documentation;
+  if (dartdocPubData != null) {
+    documentation = await createDocumentationCoverageSection(dartdocPubData);
+  } else if (dartdocResult != null) {
+    documentation = dartdocFailedSubsection(
+        dartdocResult.errorReason ?? 'Running or processing dartdoc failed.');
+  }
+
   final example = await _exampleSubsection(context);
   return makeSection(
     id: ReportSectionId.documentation,

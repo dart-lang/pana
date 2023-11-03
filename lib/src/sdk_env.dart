@@ -418,7 +418,7 @@ class ToolEnvironment {
     });
   }
 
-  Future<DartdocResult> dartdoc(
+  Future<PanaProcessResult> dartdoc(
     String packageDir,
     String outputDir, {
     String? hostedUrl,
@@ -489,9 +489,7 @@ class ToolEnvironment {
         timeout: timeout,
       );
     }
-    final hasIndexHtml = await File(p.join(outputDir, 'index.html')).exists();
-    final hasIndexJson = await File(p.join(outputDir, 'index.json')).exists();
-    return DartdocResult(pr, pr.exitCode == 15, hasIndexHtml, hasIndexJson);
+    return pr;
   }
 
   /// Removes the `dev_dependencies` from the `pubspec.yaml`,
@@ -572,19 +570,6 @@ class ToolEnvironment {
 
     return backup;
   }
-}
-
-class DartdocResult {
-  final PanaProcessResult processResult;
-  final bool wasTimeout;
-  final bool hasIndexHtml;
-  final bool hasIndexJson;
-
-  DartdocResult(this.processResult, this.wasTimeout, this.hasIndexHtml,
-      this.hasIndexJson);
-
-  bool get wasSuccessful =>
-      processResult.exitCode == 0 && hasIndexHtml && hasIndexJson;
 }
 
 class DartSdkInfo {

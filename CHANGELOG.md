@@ -5,6 +5,7 @@
   when running `bin/pana`), running the global dartdoc has become the default (instead
   of the SDK's `dart doc`), because the latest SDK is behind the latest `dartdoc`
   version, and we want to control what is being used by the analysis.
+- **Breaking change**: `ToolEnvironment.dartdoc` returns `PanaProcessResult`.
 
 ## 0.21.40
 
