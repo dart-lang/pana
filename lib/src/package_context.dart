@@ -236,26 +236,20 @@ class PackageContext {
     if (await resolveDependencies()) {
       final timeout = options.dartdocTimeout ?? const Duration(minutes: 5);
       await normalizeDartdocOptionsYaml(packageDir);
-      for (var i = options.dartdocRetry; i >= 0; i--) {
-        try {
-          final r = await toolEnvironment.dartdoc(
-            packageDir,
-            dartdocOutputDir,
-            validateLinks: false,
-            timeout: timeout,
-            usesFlutter: usesFlutter,
-          );
-          dartdocResult = r;
-          if (r.wasTimeout) {
-            errorReason = '`dartdoc` could not complete in $timeout.';
-            continue;
-          } else {
-            break;
-          }
-        } catch (e, st) {
-          errorReason = 'Could not run `dartdoc`: $e';
-          log.severe('Could not run dartdoc.', e, st);
+      try {
+        dartdocResult = await toolEnvironment.dartdoc(
+          packageDir,
+          dartdocOutputDir,
+          validateLinks: false,
+          timeout: timeout,
+          usesFlutter: usesFlutter,
+        );
+        if (dartdocResult.wasTimeout) {
+          errorReason = '`dartdoc` could not complete in $timeout.';
         }
+      } catch (e, st) {
+        errorReason = 'Could not run `dartdoc`: $e';
+        log.severe('Could not run dartdoc.', e, st);
       }
     } else {
       return dartdocFailedSubsection(

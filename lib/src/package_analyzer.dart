@@ -26,6 +26,7 @@ import 'utils.dart';
 class InspectOptions {
   final String? pubHostedUrl;
   final String? dartdocOutputDir;
+  @Deprecated('Do not use, will be removed.')
   final int dartdocRetry;
   final Duration? dartdocTimeout;
   @Deprecated('Do not use, will be removed.')
@@ -42,7 +43,7 @@ class InspectOptions {
   InspectOptions({
     this.pubHostedUrl,
     this.dartdocOutputDir,
-    this.dartdocRetry = 0,
+    @Deprecated('Do not use, will be removed.') this.dartdocRetry = 0,
     this.dartdocTimeout,
     @Deprecated('Do not use, will be removed.') this.isInternal = false,
     this.lineLength,
