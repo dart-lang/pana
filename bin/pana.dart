@@ -42,6 +42,11 @@ final _parser = ArgParser()
   ..addFlag('hosted',
       help: 'Download and analyze a hosted package (from $defaultHostedUrl).',
       negatable: false)
+  ..addFlag(
+    'dartdoc',
+    help: 'Run dartdoc and score the package on documentation coverage.',
+    defaultsTo: true,
+  )
   // Has no effect, but kept for backwards compatibility.
   ..addFlag(
     'warning',
@@ -126,12 +131,12 @@ Future main(List<String> args) async {
     exit(130);
   });
 
+  final runDartdoc = result['dartdoc'] == true;
+
   final tempDir = Directory.systemTemp
       .createTempSync('pana.${DateTime.now().millisecondsSinceEpoch}.');
-
   // Critical to make sure analyzer paths align well
   final tempPath = await tempDir.resolveSymbolicLinks();
-
   final pubCacheDir = p.join(tempPath, 'pub-cache');
   await Directory(pubCacheDir).create(recursive: true);
   final dartdocOutputDir = p.join(tempPath, 'doc');
@@ -151,7 +156,7 @@ Future main(List<String> args) async {
       pubHostedUrl: pubHostedUrl,
       lineLength: int.tryParse(result['line-length'] as String? ?? ''),
       checkRemoteRepository: true,
-      dartdocOutputDir: dartdocOutputDir,
+      dartdocOutputDir: runDartdoc ? dartdocOutputDir : null,
     );
     try {
       late Summary summary;
