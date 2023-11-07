@@ -1,8 +1,9 @@
 ## 0.21.41
 
-- (Optionally enabled) `dartdoc`-based report (the same that pub-dev is using).
-- **Breaking change**: when the dartdoc output directory is specified (and also
-  when running `bin/pana`), running the global dartdoc has become the default (instead
+- Pana binary now runs `dartdoc` and generates report based on the coverage
+  (the same that pub-dev is using). The `--no-dartdoc` command line argument
+  skips this part of the analysis.
+- **Breaking change**: running the global dartdoc has become the default (instead
   of the SDK's `dart doc`), because the latest SDK is behind the latest `dartdoc`
   version, and we want to control what is being used by the analysis.
 - **Breaking change**: `ToolEnvironment.dartdoc` returns `PanaProcessResult`.

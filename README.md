@@ -38,4 +38,6 @@ Options:
                                (defaults to "https://pub.dev")
   -l, --line-length            The line length to use with dart format.
       --hosted                 Download and analyze a hosted package (from https://pub.dev).
+      --[no-]dartdoc           Run dartdoc and score the package on documentation coverage.
+                               (defaults to on)
 ```
