@@ -1,3 +1,7 @@
+## 0.21.42
+
+- Fix: global `dartdoc` activation is forced to happen from `pub.dev`.
+
 ## 0.21.41
 
 - Pana binary now runs `dartdoc` and generates report based on the coverage
