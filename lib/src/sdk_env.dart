@@ -471,7 +471,10 @@ class ToolEnvironment {
             'dartdoc',
             if (_globalDartdocVersion != null) _globalDartdocVersion!,
           ],
-          environment: _environment,
+          environment: {
+            ..._environment,
+            'PUB_HOSTED_URL': 'https://pub.dev',
+          },
         ));
         _globalDartdocActivated = true;
       }
