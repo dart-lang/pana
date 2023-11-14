@@ -2,6 +2,7 @@
 
 - Fix: limit number of documentation entries exported in `pub-data.json`.
 - Fix: Add `dart:js_interop_unsafe` as a web library.
+- Pre-compute missing documentation symbol before pruning the results.
 
 ## 0.21.42
 
