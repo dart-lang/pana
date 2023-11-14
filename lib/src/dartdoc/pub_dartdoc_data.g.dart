@@ -64,9 +64,25 @@ Map<String, dynamic> _$ApiElementToJson(ApiElement instance) {
 Coverage _$CoverageFromJson(Map<String, dynamic> json) => Coverage(
       total: json['total'] as int,
       documented: json['documented'] as int,
+      symbolsMissingDocumentation:
+          (json['symbolsMissingDocumentation'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
     );
 
-Map<String, dynamic> _$CoverageToJson(Coverage instance) => <String, dynamic>{
-      'total': instance.total,
-      'documented': instance.documented,
-    };
+Map<String, dynamic> _$CoverageToJson(Coverage instance) {
+  final val = <String, dynamic>{
+    'total': instance.total,
+    'documented': instance.documented,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'symbolsMissingDocumentation', instance.symbolsMissingDocumentation);
+  return val;
+}

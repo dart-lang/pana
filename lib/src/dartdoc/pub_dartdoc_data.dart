@@ -64,9 +64,15 @@ class Coverage {
   /// The number of API elements with accepted documentation.
   final int documented;
 
+  /// Some of the API symbols that are without accepted documentation.
+  ///
+  /// To limit the output size, we only store the a subset of the missing symbols.
+  final List<String>? symbolsMissingDocumentation;
+
   Coverage({
     required this.total,
     required this.documented,
+    required this.symbolsMissingDocumentation,
   });
 
   factory Coverage.fromJson(Map<String, dynamic> json) =>

@@ -38,6 +38,12 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
   }
 
   final documented = apiElements.where((e) => e.documentation != null).length;
+  final symbolsMissingDocumentation = apiElements
+      .where((e) => e.documentation == null)
+      .map((e) => e.name)
+      .take(5)
+      .toList();
+
   if (documented > 1000) {
     // Too much content, removing the documentation from everything except
     // libraries and classes.
@@ -50,6 +56,7 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
     coverage: Coverage(
       documented: documented,
       total: apiElements.length,
+      symbolsMissingDocumentation: symbolsMissingDocumentation,
     ),
     apiElements: apiElements,
   );
