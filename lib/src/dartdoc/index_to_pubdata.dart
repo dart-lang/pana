@@ -36,9 +36,19 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
       documentation: (e.desc == null || e.desc!.isEmpty) ? null : e.desc,
     ));
   }
+
+  final documented = apiElements.where((e) => e.documentation != null).length;
+  if (documented > 1000) {
+    // Too much content, removing the documentation from everything except
+    // libraries and classes.
+    apiElements
+        .where((e) => e.kind != 'library' && e.kind != 'class')
+        .forEach((e) => e.documentation = null);
+  }
+
   return PubDartdocData(
     coverage: Coverage(
-      documented: apiElements.where((e) => e.documentation != null).length,
+      documented: documented,
       total: apiElements.length,
     ),
     apiElements: apiElements,
