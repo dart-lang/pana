@@ -60,14 +60,14 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`characters`]|-|1.3.0|1.3.0|
-|[`collection`]|-|1.17.2|1.18.0|
+|[`collection`]|-|1.18.0|1.18.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
 |[`material_color_utilities`]|-|0.5.0|0.8.0|
-|[`meta`]|-|1.9.1|1.11.0|
+|[`meta`]|-|1.10.0|1.11.0|
 |[`plugin_platform_interface`]|-|2.1.6|2.1.6|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|0.1.4-beta|0.3.0|
+|[`web`]|-|0.3.0|0.3.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

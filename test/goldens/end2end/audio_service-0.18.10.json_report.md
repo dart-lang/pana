@@ -122,14 +122,14 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|
 |[`async`]|-|2.11.0|2.11.0|
 |[`characters`]|-|1.3.0|1.3.0|
-|[`collection`]|-|1.17.2|1.18.0|
+|[`collection`]|-|1.18.0|1.18.0|
 |[`crypto`]|-|3.0.3|3.0.3|
 |[`ffi`]|-|2.1.0|2.1.0|
 |[`file`]|-|7.0.0|7.0.0|
 |[`http`]|-|1.1.0|1.1.0|
 |[`http_parser`]|-|4.0.2|4.0.2|
 |[`material_color_utilities`]|-|0.5.0|0.8.0|
-|[`meta`]|-|1.9.1|1.11.0|
+|[`meta`]|-|1.10.0|1.11.0|
 |[`path`]|-|1.8.3|1.8.3|
 |[`path_provider`]|-|2.1.1|2.1.1|
 |[`path_provider_android`]|-|2.2.1|2.2.1|
@@ -150,7 +150,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`typed_data`]|-|1.3.2|1.3.2|
 |[`uuid`]|-|4.1.0|4.1.0|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|0.1.4-beta|0.3.0|
+|[`web`]|-|0.3.0|0.3.0|
 |[`win32`]|-|5.0.9|5.0.9|
 |[`xdg_directories`]|-|1.0.3|1.0.3|
 </details>
