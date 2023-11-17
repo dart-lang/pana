@@ -38,6 +38,7 @@ class Runtime {
     'indexed_db',
     'js',
     'js_interop',
+    'js_interop_unsafe',
     'js_util',
     'svg',
     'web_audio',
