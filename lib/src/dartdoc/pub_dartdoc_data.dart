@@ -66,7 +66,7 @@ class Coverage {
 
   /// Some of the API symbols that are without accepted documentation.
   ///
-  /// To limit the output size, we only store the a subset of the missing symbols.
+  /// To limit the output size, we only store a subset of the missing symbols.
   final List<String>? symbolsMissingDocumentation;
 
   Coverage({
