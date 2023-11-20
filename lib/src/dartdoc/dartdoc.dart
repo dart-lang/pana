@@ -41,10 +41,8 @@ Future<Subsection> createDocumentationCoverageSection(
     PubDartdocData data) async {
   final documented = data.coverage?.documented ?? 0;
   final total = data.coverage?.total ?? 0;
-  final symbolsMissingDocumentation = data.apiElements
-      ?.where((e) => e.documentation == null || e.documentation!.isEmpty)
-      .map((e) => e.name)
-      .toList();
+  final symbolsMissingDocumentation =
+      data.coverage?.symbolsMissingDocumentation;
 
   final maxPoints = 10;
   final ratio = total <= 0 ? 1.0 : documented / total;
