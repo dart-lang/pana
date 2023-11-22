@@ -145,7 +145,8 @@ class Runtime {
     {
       ..._onNativeAot,
       ..._onAllWeb,
-      'ui',
+      ...flutterNative.enabledLibs,
+      ...flutterWeb.enabledLibs,
     },
     tag: PanaTags.runtimeFlutter,
   );
