@@ -24,7 +24,7 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
   }
   final apiElements = <ApiElement>[];
   for (final e in entries) {
-    final kind = kindNames[e.kind!]!;
+    final kind = e.kind == null ? null : kindNames[e.kind!];
     final showHref = e.isLibrary || e.isClass;
     final parent = hrefToQualifiedNames[e.enclosedBy?.href ?? ''];
     apiElements.add(ApiElement(
@@ -48,7 +48,7 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
     // Too much content, removing the documentation from everything except
     // libraries and classes.
     apiElements
-        .where((e) => e.kind != 'library' && e.kind != 'class')
+        .where((e) => !e.isLibrary && !e.isClass)
         .forEach((e) => e.documentation = null);
   }
 
