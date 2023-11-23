@@ -1,3 +1,7 @@
+## 0.21.44
+
+- Fix: `dart:ui_web` is now part of the SDK-detection library list.
+
 ## 0.21.43
 
 - Fix: limit number of documentation entries exported in `pub-data.json`.
