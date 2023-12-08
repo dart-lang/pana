@@ -1,6 +1,9 @@
 ## 0.21.44
 
 - Fix: `dart:ui_web` is now part of the SDK-detection library list.
+- The use of `kind` in `pub-data.json` is deprecated, as it may contain
+  different value on different `dartdoc` version. The field may be
+  removed in a future version.
 
 ## 0.21.43
 

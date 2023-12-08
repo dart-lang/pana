@@ -19,7 +19,7 @@ Detected license: `BSD-3-Clause`.
 
 29 out of 33 API elements (87.9 %) have documentation comments.
 
-Some symbols that are missing documentation: `link`, `url_launcher`, `url_launcher_string`, `LaunchMode`.
+Some symbols that are missing documentation: `link`, `url_launcher`, `LaunchMode`, `url_launcher_string`.
 
 ### [*] 10/10 points: Package has an example
 

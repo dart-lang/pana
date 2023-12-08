@@ -26,7 +26,8 @@ class PubDartdocData {
 class ApiElement {
   /// The last part of the [qualifiedName].
   final String name;
-  final String kind;
+  @Deprecated('Do not use, will be removed.')
+  final String? kind;
   final String? parent;
   final String? source;
   final String? href;
@@ -53,6 +54,10 @@ class ApiElement {
   Map<String, dynamic> toJson() => _$ApiElementToJson(this);
 
   String get qualifiedName => parent == null ? name : '$parent.$name';
+
+  /// Wether the entry is a top-level library.
+  late final isLibrary = href != null && href!.endsWith('-library.html');
+  late final isClass = href != null && href!.endsWith('-class.html');
 }
 
 /// The documentation coverage numbers and the derived scores.

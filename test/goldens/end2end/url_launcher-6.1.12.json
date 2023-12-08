@@ -125,7 +125,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n29 out of 33 API elements (87.9 %) have documentation comments.\n\nSome symbols that are missing documentation: `link`, `url_launcher`, `url_launcher_string`, `LaunchMode`.\n\n### [*] 10/10 points: Package has an example\n"
+        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n29 out of 33 API elements (87.9 %) have documentation comments.\n\nSome symbols that are missing documentation: `link`, `url_launcher`, `LaunchMode`, `url_launcher_string`.\n\n### [*] 10/10 points: Package has an example\n"
       },
       {
         "id": "platform",

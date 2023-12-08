@@ -9,6 +9,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'dartdoc_index.g.dart';
 
 // TODO(https://github.com/dart-lang/pana/issues/1273): remove these and use a different pub-data.json file format.
+@Deprecated('Do not use, will be removed.')
 const kindNames = <int, String>{
   0: 'accessor',
   1: 'constant',
