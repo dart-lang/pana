@@ -5,9 +5,21 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 
 import 'package:pana/src/download_utils.dart';
+import 'package:pana/src/model.dart';
 import 'package:test/test.dart';
 
 void main() {
+  /// Returns an URL that is likely the downloadable URL of the given path.
+  String? getRepositoryUrl(
+    String? repository,
+    String relativePath, {
+    String? branch,
+  }) {
+    if (repository == null) return null;
+    final url = Repository.tryParseUrl(repository);
+    return url?.resolveUrl(relativePath, branch: branch);
+  }
+
   void testGitHubUrls(String prefix) {
     test('user root', () {
       expect(getRepositoryUrl('$prefix/dart-lang', 'README.md'), null);

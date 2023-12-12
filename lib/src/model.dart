@@ -182,19 +182,13 @@ class LicenseFile {
   final String path;
   final String name;
   final String? version;
-  @Deprecated('`url` is deprecated and will be removed in a future release')
-  final String? url;
 
-  LicenseFile(this.path, this.name, {this.version, this.url});
+  LicenseFile(this.path, this.name, {this.version});
 
   factory LicenseFile.fromJson(Map<String, dynamic> json) =>
       _$LicenseFileFromJson(json);
 
   Map<String, dynamic> toJson() => _$LicenseFileToJson(this);
-
-  @Deprecated('`url` is deprecated and will be removed in a future release')
-  LicenseFile change({String? url}) =>
-      LicenseFile(path, name, version: version, url: url ?? this.url);
 
   String get shortFormatted => version == null ? name : '$name $version';
 
@@ -208,14 +202,10 @@ class LicenseFile {
           runtimeType == other.runtimeType &&
           path == other.path &&
           name == other.name &&
-          version == other.version &&
-          // ignore: deprecated_member_use_from_same_package
-          url == other.url;
+          version == other.version;
 
   @override
-  int get hashCode =>
-      // ignore: deprecated_member_use_from_same_package
-      path.hashCode ^ name.hashCode ^ version.hashCode ^ url.hashCode;
+  int get hashCode => path.hashCode ^ name.hashCode ^ version.hashCode;
 }
 
 abstract class LicenseNames {
@@ -291,8 +281,6 @@ abstract class ReportSectionId {
   static const dependency = 'dependency';
   static const documentation = 'documentation';
   static const platform = 'platform';
-  @Deprecated('No longer in use')
-  static const nullSafety = 'null-safety';
 }
 
 enum ReportStatus {

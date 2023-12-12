@@ -26,8 +26,6 @@ class PubDartdocData {
 class ApiElement {
   /// The last part of the [qualifiedName].
   final String name;
-  @Deprecated('Do not use, will be removed.')
-  final String? kind;
   final String? parent;
   final String? source;
   final String? href;
@@ -35,7 +33,6 @@ class ApiElement {
 
   ApiElement({
     required this.name,
-    required this.kind,
     required this.parent,
     required this.source,
     required this.href,

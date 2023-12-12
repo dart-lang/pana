@@ -15,7 +15,6 @@ import 'package:tar/tar.dart';
 
 import 'internal_model.dart' show UrlStatus;
 import 'logging.dart';
-import 'model.dart';
 import 'version.dart';
 
 export 'internal_model.dart' show UrlStatus;
@@ -78,18 +77,6 @@ Future<void> downloadPackage(
   } finally {
     client.close();
   }
-}
-
-/// Returns an URL that is likely the downloadable URL of the given path.
-@Deprecated('The method will be removed in a future release.')
-String? getRepositoryUrl(
-  String? repository,
-  String relativePath, {
-  String? branch,
-}) {
-  if (repository == null) return null;
-  final url = Repository.tryParseUrl(repository);
-  return url?.resolveUrl(relativePath, branch: branch);
 }
 
 /// Checks if an URL is valid and accessible.
