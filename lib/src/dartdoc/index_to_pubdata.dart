@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:collection/collection.dart';
+
 import 'dartdoc_index.dart';
 import 'pub_dartdoc_data.dart';
 
@@ -37,12 +39,29 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
     ));
   }
 
-  final documented = apiElements.where((e) => e.documentation != null).length;
+  /// Some symbols are repeated, and one instance may have a documentation, while
+  /// the other misses it. E.g. an enum with a default constructor may have dartdoc
+  /// on the enum type, but won't have anything on the (likely absent-from-code)
+  /// constructor.
+  final symbolsWithDocumentation = apiElements
+      .where((e) => e.documentation != null)
+      .map((e) => e.qualifiedName)
+      .toSet();
   final symbolsMissingDocumentation = apiElements
-      .where((e) => e.documentation == null)
-      .map((e) => e.name)
+      // filter out names that have documentation
+      .whereNot((e) => symbolsWithDocumentation.contains(e.qualifiedName))
+      // filter out names that are typically hidden constructors (e.g. `<A>.<A>`)
+      // and the parent has documentation
+      .whereNot((e) =>
+          e.parent != null &&
+          e.parent!.split('.').last == e.name &&
+          symbolsWithDocumentation.contains(e.parent!))
+      .map((e) => e.qualifiedName)
       .take(5)
       .toList();
+  final documented = symbolsWithDocumentation.length;
+  final total =
+      symbolsWithDocumentation.length + symbolsMissingDocumentation.length;
 
   if (documented > 1000) {
     // Too much content, removing the documentation from everything except
@@ -55,7 +74,7 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
   return PubDartdocData(
     coverage: Coverage(
       documented: documented,
-      total: apiElements.length,
+      total: total,
       symbolsMissingDocumentation: symbolsMissingDocumentation,
     ),
     apiElements: apiElements,

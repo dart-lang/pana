@@ -1,3 +1,7 @@
+## 0.21.45
+
+- Fix: don't report hidden constructors as undocumented API symbols.
+
 ## 0.21.44
 
 - Fix: `dart:ui_web` is now part of the SDK-detection library list.
