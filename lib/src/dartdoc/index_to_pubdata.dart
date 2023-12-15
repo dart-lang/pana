@@ -39,10 +39,6 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
     ));
   }
 
-  /// Some symbols are repeated, and one instance may have a documentation, while
-  /// the other misses it. E.g. an enum with a default constructor may have dartdoc
-  /// on the enum type, but won't have anything on the (likely absent-from-code)
-  /// constructor.
   final symbolsWithDocumentation = apiElements
       .where((e) => e.documentation != null)
       .map((e) => e.qualifiedName)
@@ -50,14 +46,16 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
   final symbolsMissingDocumentation = apiElements
       // filter out names that have documentation
       .whereNot((e) => symbolsWithDocumentation.contains(e.qualifiedName))
-      // filter out names that are typically hidden constructors (e.g. `<A>.<A>`)
-      // and the parent has documentation
+
+      // Some symbols are present here without being in the code. E.g. an enum may
+      // omit the default constructor, and we would report it as undocumented here.
+      // Filtering out typically hidden constructors (e.g. `<A>.<A>`) if the parent
+      // type has a documentation.
       .whereNot((e) =>
           e.parent != null &&
           e.parent!.split('.').last == e.name &&
           symbolsWithDocumentation.contains(e.parent!))
       .map((e) => e.qualifiedName)
-      .take(5)
       .toList();
   final documented = symbolsWithDocumentation.length;
   final total =
@@ -75,7 +73,7 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
     coverage: Coverage(
       documented: documented,
       total: total,
-      symbolsMissingDocumentation: symbolsMissingDocumentation,
+      symbolsMissingDocumentation: symbolsMissingDocumentation.take(5).toList(),
     ),
     apiElements: apiElements,
   );
