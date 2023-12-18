@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:collection/collection.dart';
+
 import 'dartdoc_index.dart';
 import 'pub_dartdoc_data.dart';
 
@@ -37,12 +39,27 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
     ));
   }
 
-  final documented = apiElements.where((e) => e.documentation != null).length;
+  final symbolsWithDocumentation = apiElements
+      .where((e) => e.documentation != null)
+      .map((e) => e.qualifiedName)
+      .toSet();
   final symbolsMissingDocumentation = apiElements
-      .where((e) => e.documentation == null)
-      .map((e) => e.name)
-      .take(5)
+      // filter out names that have documentation
+      .whereNot((e) => symbolsWithDocumentation.contains(e.qualifiedName))
+
+      // Some symbols are present here without being in the code. E.g. an enum may
+      // omit the default constructor, and we would report it as undocumented here.
+      // Filtering out typically hidden constructors (e.g. `<A>.<A>`) if the parent
+      // type has a documentation.
+      .whereNot((e) =>
+          e.parent != null &&
+          e.parent!.split('.').last == e.name &&
+          symbolsWithDocumentation.contains(e.parent!))
+      .map((e) => e.qualifiedName)
       .toList();
+  final documented = symbolsWithDocumentation.length;
+  final total =
+      symbolsWithDocumentation.length + symbolsMissingDocumentation.length;
 
   if (documented > 1000) {
     // Too much content, removing the documentation from everything except
@@ -55,8 +72,8 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
   return PubDartdocData(
     coverage: Coverage(
       documented: documented,
-      total: apiElements.length,
-      symbolsMissingDocumentation: symbolsMissingDocumentation,
+      total: total,
+      symbolsMissingDocumentation: symbolsMissingDocumentation.take(5).toList(),
     ),
     apiElements: apiElements,
   );

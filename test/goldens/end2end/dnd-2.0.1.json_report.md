@@ -17,9 +17,9 @@ Detected license: `MIT`.
 
 ### [*] 10/10 points: 20% or more of the public API has dartdoc comments
 
-70 out of 77 API elements (90.9 %) have documentation comments.
+70 out of 72 API elements (97.2 %) have documentation comments.
 
-Some symbols that are missing documentation: `dnd`, `Acceptor`, `AnimationHelper`, `CloneAvatarHandler`, `DraggablesAcceptor`.
+Some symbols that are missing documentation: `dnd`, `dnd.DraggablesAcceptor.draggableIds`.
 
 ### [*] 10/10 points: Package has an example
 

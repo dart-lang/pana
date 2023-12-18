@@ -63,7 +63,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n70 out of 77 API elements (90.9 %) have documentation comments.\n\nSome symbols that are missing documentation: `dnd`, `Acceptor`, `AnimationHelper`, `CloneAvatarHandler`, `DraggablesAcceptor`.\n\n### [*] 10/10 points: Package has an example\n"
+        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n70 out of 72 API elements (97.2 %) have documentation comments.\n\nSome symbols that are missing documentation: `dnd`, `dnd.DraggablesAcceptor.draggableIds`.\n\n### [*] 10/10 points: Package has an example\n"
       },
       {
         "id": "platform",
