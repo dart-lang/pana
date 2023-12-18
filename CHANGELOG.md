@@ -1,6 +1,6 @@
 ## 0.22.0
 
-- Removed deprecated APIs.
+- Removed deprecated APIs and CLI arguments (`--no-warning`).
 
 ## 0.21.45
 

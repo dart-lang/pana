@@ -46,14 +46,6 @@ final _parser = ArgParser()
     'dartdoc',
     help: 'Run dartdoc and score the package on documentation coverage.',
     defaultsTo: true,
-  )
-  // Has no effect, but kept for backwards compatibility.
-  ..addFlag(
-    'warning',
-    help: 'Deprecated has no effect.',
-    negatable: true,
-    defaultsTo: true,
-    hide: true,
   );
 
 Never _printHelp({String? errorMessage}) {
