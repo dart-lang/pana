@@ -9,7 +9,7 @@ void main() {
   final timeout = const Duration(minutes: 5);
   test('running pana locally with relative path', () async {
     final pr = await runProc(
-      ['dart', 'bin/pana.dart', '--no-warning', '.'],
+      ['dart', 'bin/pana.dart', '.'],
       timeout: timeout,
     );
     expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
