@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:http/http.dart' as http;
 import 'package:pana/src/package_analyzer.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
@@ -56,18 +55,15 @@ class BatchCompareCommand extends Command {
       final experimentEnv = await _initToolEnv(experimentConfig, tempDir);
       final controlEnv = await _initToolEnv(controlConfig, tempDir);
 
-      final experimentalOptions = await _parseOptions(experimentConfig);
-      final controlOptions = await _parseOptions(controlConfig);
-
       var unchangedCount = 0;
       final increased = <String, int>{};
       final decreased = <String, int>{};
 
       for (final package in packages) {
-        final expSummary = await PackageAnalyzer(experimentEnv)
-            .inspectPackage(package, options: experimentalOptions);
-        final controlSummary = await PackageAnalyzer(controlEnv)
-            .inspectPackage(package, options: controlOptions);
+        final expSummary =
+            await PackageAnalyzer(experimentEnv).inspectPackage(package);
+        final controlSummary =
+            await PackageAnalyzer(controlEnv).inspectPackage(package);
 
         final diff = (expSummary.report?.grantedPoints ?? 0) -
             (controlSummary.report?.grantedPoints ?? 0);
@@ -128,30 +124,6 @@ class BatchCompareCommand extends Command {
       flutterSdkDir: config.flutterSdk,
       environment: config.environment,
       pubCacheDir: pubCache,
-    );
-  }
-
-  Future<InspectOptions> _parseOptions(BatchConfig config) async {
-    String? analysisOptionsYaml;
-    if (config.analysisOptions != null) {
-      if (config.analysisOptions!.startsWith('https://')) {
-        final rs = await http.get(Uri.parse(config.analysisOptions!));
-        if (rs.statusCode != 200) {
-          throw ArgumentError('Unable to access `${config.analysisOptions}`.');
-        }
-        analysisOptionsYaml = rs.body;
-      } else {
-        // local file
-        final file = File(config.analysisOptions!);
-        if (file.existsSync()) {
-          analysisOptionsYaml = await file.readAsString();
-        } else {
-          throw ArgumentError('Unable to access `${config.analysisOptions}`.');
-        }
-      }
-    }
-    return InspectOptions(
-      analysisOptionsYaml: analysisOptionsYaml,
     );
   }
 }

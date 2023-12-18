@@ -134,7 +134,6 @@ LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) => LicenseFile(
       json['path'] as String,
       json['name'] as String,
       version: json['version'] as String?,
-      url: json['url'] as String?,
     );
 
 Map<String, dynamic> _$LicenseFileToJson(LicenseFile instance) {
@@ -150,7 +149,6 @@ Map<String, dynamic> _$LicenseFileToJson(LicenseFile instance) {
   }
 
   writeNotNull('version', instance.version);
-  writeNotNull('url', instance.url);
   return val;
 }
 

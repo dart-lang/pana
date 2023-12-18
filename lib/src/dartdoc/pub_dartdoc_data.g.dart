@@ -35,7 +35,6 @@ Map<String, dynamic> _$PubDartdocDataToJson(PubDartdocData instance) {
 
 ApiElement _$ApiElementFromJson(Map<String, dynamic> json) => ApiElement(
       name: json['name'] as String,
-      kind: json['kind'] as String?,
       parent: json['parent'] as String?,
       source: json['source'] as String?,
       href: json['href'] as String?,
@@ -53,7 +52,6 @@ Map<String, dynamic> _$ApiElementToJson(ApiElement instance) {
     }
   }
 
-  writeNotNull('kind', instance.kind);
   writeNotNull('parent', instance.parent);
   writeNotNull('source', instance.source);
   writeNotNull('href', instance.href);

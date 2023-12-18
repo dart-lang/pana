@@ -26,16 +26,8 @@ import 'utils.dart';
 class InspectOptions {
   final String? pubHostedUrl;
   final String? dartdocOutputDir;
-  @Deprecated('Do not use, will be removed.')
-  final int dartdocRetry;
   final Duration? dartdocTimeout;
-  @Deprecated('Do not use, will be removed.')
-  final bool isInternal;
   final int? lineLength;
-
-  /// The analysis options (in yaml format) to use for the analysis.
-  @Deprecated('Do not use, will be removed.')
-  final String? analysisOptionsYaml;
 
   /// Whether pana should also access the remote repository specified in pubspec.yaml.
   final bool checkRemoteRepository;
@@ -43,11 +35,8 @@ class InspectOptions {
   InspectOptions({
     this.pubHostedUrl,
     this.dartdocOutputDir,
-    @Deprecated('Do not use, will be removed.') this.dartdocRetry = 0,
     this.dartdocTimeout,
-    @Deprecated('Do not use, will be removed.') this.isInternal = false,
     this.lineLength,
-    this.analysisOptionsYaml,
     this.checkRemoteRepository = false,
   });
 }

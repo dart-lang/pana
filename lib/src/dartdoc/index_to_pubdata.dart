@@ -26,12 +26,10 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
   }
   final apiElements = <ApiElement>[];
   for (final e in entries) {
-    final kind = e.kind == null ? null : kindNames[e.kind!];
     final showHref = e.isLibrary || e.isClass;
     final parent = hrefToQualifiedNames[e.enclosedBy?.href ?? ''];
     apiElements.add(ApiElement(
       name: e.name!,
-      kind: kind,
       parent: parent,
       source: null,
       href: showHref ? e.href : null,

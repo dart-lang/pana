@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:http/http.dart' as http;
 import 'package:pana/src/package_analyzer.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
@@ -48,7 +47,6 @@ class BatchRunCommand extends Command {
 
     await withTempDir((tempDir) async {
       final env = await _initToolEnv(config, tempDir);
-      final options = await _parseOptions(config);
 
       final results = <String, dynamic>{};
 
@@ -56,8 +54,7 @@ class BatchRunCommand extends Command {
         dynamic result;
         try {
           print('analyzing $package...');
-          final summary = await PackageAnalyzer(env)
-              .inspectPackage(package, options: options);
+          final summary = await PackageAnalyzer(env).inspectPackage(package);
           result = summary.report?.grantedPoints;
         } catch (e, st) {
           result = '$e\n$st';
@@ -107,30 +104,6 @@ class BatchRunCommand extends Command {
       flutterSdkDir: config.flutterSdk,
       environment: config.environment,
       pubCacheDir: pubCache,
-    );
-  }
-
-  Future<InspectOptions> _parseOptions(BatchConfig config) async {
-    String? analysisOptionsYaml;
-    if (config.analysisOptions != null) {
-      if (config.analysisOptions!.startsWith('https://')) {
-        final rs = await http.get(Uri.parse(config.analysisOptions!));
-        if (rs.statusCode != 200) {
-          throw ArgumentError('Unable to access `${config.analysisOptions}`.');
-        }
-        analysisOptionsYaml = rs.body;
-      } else {
-        // local file
-        final file = File(config.analysisOptions!);
-        if (file.existsSync()) {
-          analysisOptionsYaml = await file.readAsString();
-        } else {
-          throw ArgumentError('Unable to access `${config.analysisOptions}`.');
-        }
-      }
-    }
-    return InspectOptions(
-      analysisOptionsYaml: analysisOptionsYaml,
     );
   }
 }

@@ -1,3 +1,7 @@
+## 0.22.0
+
+- Removed deprecated APIs.
+
 ## 0.21.45
 
 - Fix: don't report hidden constructors as undocumented API symbols.
