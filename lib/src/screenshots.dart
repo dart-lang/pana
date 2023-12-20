@@ -2,12 +2,15 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' as p;
+
+import 'logging.dart';
 
 final maxFileSizeInBytes = 4194304; // 4MB
 final maxFileSizeInMegaBytes = maxFileSizeInBytes / (1024 * 1024);
@@ -226,39 +229,32 @@ Future<List<String>> _generateWebpScreenshot(
 
 Future<List<String>> _copyIfAlreadyWebp(
     String originalPath, String webpPath) async {
-  final infoResult = await _checkedRunProc(['webpinfo', originalPath]);
-  if (infoResult.exitCode == 0) {
-    await File(originalPath).copy(webpPath);
-    return [];
-  }
-  return [
-    '`$originalPath`: Tried interpreting screenshot as WebP with `webpinfo "$originalPath"` failed with _exit code_ `${infoResult.exitCode}`.'
-  ];
+  return await _checkedRunProc(
+    ['webpinfo', originalPath],
+    description:
+        '`$originalPath`: Tried interpreting screenshot as WebP with `webpinfo "$originalPath"`',
+    onSuccess: (_) async {
+      await File(originalPath).copy(webpPath);
+    },
+  );
 }
 
 Future<List<String>> _convertWithCWebp(
     String originalPath, String webpPath) async {
-  final cwebpResult =
-      await _checkedRunProc(['cwebp', originalPath, '-o', webpPath]);
-  if (cwebpResult.exitCode == 0) {
-    return [];
-  }
-  return [
-    '`$originalPath`: Converting screenshot with `cwebp "$originalPath" -o "$webpPath"` failed with _exit code_ `${cwebpResult.exitCode}`.'
-  ];
+  return await _checkedRunProc(
+    ['cwebp', originalPath, '-o', webpPath],
+    description:
+        '`$originalPath`: Converting screenshot with `cwebp "$originalPath" -o "$webpPath"`',
+  );
 }
 
 Future<List<String>> _convertGifToWebp(
     String originalPath, String webpPath) async {
-  final gif2webpResult =
-      await _checkedRunProc(['gif2webp', originalPath, '-o', webpPath]);
-
-  if (gif2webpResult.exitCode == 0) {
-    return [];
-  }
-  return [
-    '`$originalPath`: Tried interpreting screenshot as GIF with `gif2webp "$originalPath" -o "$webpPath"` failed with _exit code_ `${gif2webpResult.exitCode}`.'
-  ];
+  return await _checkedRunProc(
+    ['gif2webp', originalPath, '-o', webpPath],
+    description:
+        '`$originalPath`: Tried interpreting screenshot as GIF with `gif2webp "$originalPath" -o "$webpPath"`',
+  );
 }
 
 /// Generates PNG and a WebP thumbnails from the WebP screenshot found at
@@ -286,33 +282,38 @@ Future<List<String>> _generateThumbnails(
     String png190ThumbnailPath,
     String tempDir) async {
   late String staticWebpPath;
-  final infoResult = await _checkedRunProc(['webpinfo', webpPath]);
-  if (infoResult.exitCode != 0) {
-    return [
-      '`$originalPath`: Running `webpinfo "$webpPath"` failed with _exit code_ ${infoResult.exitCode}.'
-    ];
+  late String infoOutput;
+  final infoResult = await _checkedRunProc(
+    ['webpinfo', webpPath],
+    onSuccess: (infoResult) {
+      infoOutput = infoResult.stdout.asString;
+    },
+    description: '`$originalPath`: Running `webpinfo "$webpPath"`',
+  );
+  if (infoResult.isNotEmpty) {
+    return infoResult;
   }
 
-  if ((infoResult.stdout.asString).contains('Animation: 1')) {
+  if (infoOutput.contains('Animation: 1')) {
     staticWebpPath = path.join(
       tempDir,
       '${path.basenameWithoutExtension(webpPath)}_static.webp',
     );
     // input file is animated, extract the first frame.
     final webpmuxResult = await _checkedRunProc(
-        ['webpmux', '-get', 'frame', '1', webpPath, '-o', staticWebpPath]);
+      ['webpmux', '-get', 'frame', '1', webpPath, '-o', staticWebpPath],
+      description:
+          '`$originalPath`: Extracting frame from $webpPath with `webpmux -get frame 1 "$webpPath" -o "$staticWebpPath"`',
+    );
 
-    if (webpmuxResult.exitCode != 0) {
-      return [
-        '`$originalPath`: Extracting frame from $webpPath with `webpmux -get frame 1 "$webpPath" -o "$staticWebpPath"` failed with _exit code_ `${webpmuxResult.exitCode}`.'
-      ];
+    if (webpmuxResult.isNotEmpty) {
+      return webpmuxResult;
     }
   } else {
     staticWebpPath = webpPath;
   }
 
-  final stdout = infoResult.stdout.asString;
-  final lines = stdout.split('\n');
+  final lines = infoOutput.split('\n');
   final widthString =
       lines.firstWhere((String line) => line.contains('Width:'));
   final heightString =
@@ -338,22 +339,19 @@ Future<List<String>> _generateThumbnails(
       heightArgument = outuputSize;
     }
 
-    var resizeResult = await _checkedRunProc([
-      'cwebp',
-      '-resize',
-      '$widthArgument',
-      '$heightArgument',
-      originalPath,
-      '-o',
-      outputPath
-    ]);
-
-    if (resizeResult.exitCode != 0) {
-      return [
-        '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$outputPath"` failed with exitcode ${resizeResult.exitCode}'
-      ];
-    }
-    return [];
+    return await _checkedRunProc(
+      [
+        'cwebp',
+        '-resize',
+        '$widthArgument',
+        '$heightArgument',
+        originalPath,
+        '-o',
+        outputPath
+      ],
+      description:
+          '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$outputPath"`',
+    );
   }
 
   final resizeWebp100Result = await resizeWebp(
@@ -368,32 +366,47 @@ Future<List<String>> _generateThumbnails(
   }
 
   final png100Result = await _checkedRunProc(
-      ['dwebp', webp100ThumbnailPath, '-o', png100ThumbnailPath]);
-  if (png100Result.exitCode != 0) {
-    return [
-      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp100ThumbnailPath" -o "$png100ThumbnailPath"` failed with _exit code_ `${png100Result.exitCode}`.'
-    ];
+    ['dwebp', webp100ThumbnailPath, '-o', png100ThumbnailPath],
+    description:
+        '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp100ThumbnailPath" -o "$png100ThumbnailPath"`',
+  );
+  if (png100Result.isNotEmpty) {
+    return png100Result;
   }
 
   final png190Result = await _checkedRunProc(
-      ['dwebp', webp190ThumbnailPath, '-o', png190ThumbnailPath]);
-  if (png190Result.exitCode != 0) {
-    return [
-      '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp190ThumbnailPath" -o "$png190ThumbnailPath"` failed with _exit code_ `${png100Result.exitCode}`.'
-    ];
+    ['dwebp', webp190ThumbnailPath, '-o', png190ThumbnailPath],
+    description:
+        '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp190ThumbnailPath" -o "$png190ThumbnailPath"`',
+  );
+  if (png190Result.isNotEmpty) {
+    return png190Result;
   }
 
   return [];
 }
 
-Future<PanaProcessResult> _checkedRunProc(List<String> cmdAndArgs) async {
-  PanaProcessResult result;
+Future<List<String>> _checkedRunProc(
+  List<String> cmdAndArgs, {
+  FutureOr<void> Function(PanaProcessResult pr)? onSuccess,
+  required String description,
+}) async {
   try {
-    result = await runConstrained(cmdAndArgs);
+    final pr = await runConstrained(cmdAndArgs);
+    if (pr.exitCode == 0) {
+      if (onSuccess != null) {
+        await onSuccess(pr);
+      }
+      return [];
+    } else {
+      return [
+        '$description failed with _exit code_ ${pr.exitCode}.',
+      ];
+    }
   } on ProcessException catch (e) {
-    stderr.write("'${cmdAndArgs[0]}' tool not found.");
-    return PanaProcessResult(-1, e.errorCode, e.message, e.message,
-        wasError: true);
+    log.severe("'${cmdAndArgs[0]}' tool not found.");
+    final message =
+        e.message.isEmpty ? "'${cmdAndArgs[0]}' tool not found." : e.message;
+    return [message];
   }
-  return result;
 }
