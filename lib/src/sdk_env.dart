@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
-import 'package:pana/src/pana_cache.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -16,7 +15,9 @@ import 'internal_model.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
+import 'pana_cache.dart';
 import 'pubspec_io.dart';
+import 'tool/run_proc.dart';
 import 'utils.dart';
 import 'version.dart';
 
@@ -609,17 +610,6 @@ String _join(String? path, String binDir, String executable) {
     cmd = '$cmd.$ext';
   }
   return cmd;
-}
-
-class ToolException implements Exception {
-  final String message;
-  final ProcessOutput? stderr;
-  ToolException(this.message, [this.stderr]);
-
-  @override
-  String toString() {
-    return 'Exception: $message';
-  }
 }
 
 PanaProcessResult _handleProcessErrors(PanaProcessResult result) {

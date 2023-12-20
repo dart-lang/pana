@@ -21,6 +21,7 @@ import 'report/create_report.dart';
 import 'sdk_env.dart';
 import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
+import 'tool/run_proc.dart';
 import 'utils.dart';
 
 class InspectOptions {

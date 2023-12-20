@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
-import '../utils.dart' show runProc, PanaProcessResult;
+import '../tool/run_proc.dart';
 
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
 final _acceptedPathSegmentsRegExp =
