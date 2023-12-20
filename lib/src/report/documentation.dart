@@ -62,7 +62,7 @@ Future<ReportSection> hasDocumentation(PackageContext context) async {
   Subsection? documentation;
   if (dartdocPubData != null) {
     documentation = await createDocumentationCoverageSection(dartdocPubData);
-  } else if (dartdocResult != null) {
+  } else if (dartdocResult.wasRunning) {
     documentation = dartdocFailedSubsection(
         dartdocResult.errorReason ?? 'Running or processing dartdoc failed.');
   }
