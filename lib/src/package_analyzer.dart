@@ -21,7 +21,7 @@ import 'report/create_report.dart';
 import 'sdk_env.dart';
 import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
-import 'tool/run_proc.dart';
+import 'tool/run_constrained.dart';
 import 'utils.dart';
 
 class InspectOptions {
@@ -304,7 +304,7 @@ class PackageAnalyzer {
 }
 
 Future<String?> _detectGitRoot(String packageDir) async {
-  final pr = await runProc(
+  final pr = await runConstrained(
     ['git', 'rev-parse', '--show-toplevel'],
     workingDirectory: packageDir,
   );

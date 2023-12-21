@@ -18,7 +18,7 @@ import '../logging.dart';
 import '../model.dart';
 import '../package_context.dart';
 import '../pubspec.dart';
-import '../tool/run_proc.dart';
+import '../tool/run_constrained.dart';
 import '../utils.dart';
 
 import '_common.dart';

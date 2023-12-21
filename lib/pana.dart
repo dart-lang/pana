@@ -11,6 +11,6 @@ export 'src/pubspec.dart';
 export 'src/report/create_report.dart' show renderSimpleSectionSummary;
 export 'src/sdk_env.dart';
 export 'src/tag/pana_tags.dart';
-export 'src/tool/run_proc.dart';
+export 'src/tool/run_constrained.dart';
 export 'src/utils.dart' show yamlToJson;
 export 'src/version.dart';

@@ -19,7 +19,7 @@ const _maxOutputLinesWhenKilled = 1000;
 /// Kills the process if its output is more than [maxOutputBytes] (10 MiB if not specified).
 ///
 /// If the process is killed, it returns only the first 1000 lines of both `stdout` and `stderr`.
-Future<PanaProcessResult> runProc(
+Future<PanaProcessResult> runConstrained(
   List<String> arguments, {
   String? workingDirectory,
   Map<String, String>? environment,

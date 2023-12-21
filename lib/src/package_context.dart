@@ -26,7 +26,7 @@ import 'repository/check_repository.dart';
 import 'screenshots.dart';
 import 'sdk_env.dart';
 import 'tag/license_tags.dart';
-import 'tool/run_proc.dart';
+import 'tool/run_constrained.dart';
 import 'utils.dart' show listFocusDirs;
 
 /// Shared (intermediate) results between different packages or versions.

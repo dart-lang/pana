@@ -85,7 +85,7 @@ library;
 
 import 'package:analyzer/dart/analysis/session.dart';
 
-import '../tool/run_proc.dart' show ToolException;
+import '../tool/run_constrained.dart' show ToolException;
 import '_common.dart';
 import '_graphs.dart';
 import '_specs.dart';
