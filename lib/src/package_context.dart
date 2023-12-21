@@ -26,7 +26,7 @@ import 'repository/check_repository.dart';
 import 'screenshots.dart';
 import 'sdk_env.dart';
 import 'tag/license_tags.dart';
-import 'utils.dart' show listFocusDirs, PanaProcessResult;
+import 'utils.dart' show listFocusDirs;
 
 /// Shared (intermediate) results between different packages or versions.
 /// External systems that may be independent of the archive content may be
@@ -228,10 +228,10 @@ class PackageContext {
     return LicenseTags.fromLicenses(await licenses);
   }();
 
-  late final Future<DartdocResult?> dartdocResult = () async {
+  late final Future<DartdocResult> dartdocResult = () async {
     final dartdocOutputDir = options.dartdocOutputDir;
     if (dartdocOutputDir == null) {
-      return null;
+      return DartdocResult.skipped();
     }
     if (await resolveDependencies()) {
       final timeout = options.dartdocTimeout ?? const Duration(minutes: 5);
@@ -245,52 +245,57 @@ class PackageContext {
           usesFlutter: usesFlutter,
         );
         if (pr.exitCode == 15) {
-          return DartdocResult(
-              errorReason: '`dartdoc` could not complete in $timeout.');
+          return DartdocResult.error(
+              '`dartdoc` could not complete in $timeout.');
         }
         if (pr.exitCode != 0) {
-          return DartdocResult(errorReason: pr.asTrimmedOutput);
+          return DartdocResult.error(pr.asTrimmedOutput);
         }
 
         final hasIndexHtml =
             await File(p.join(dartdocOutputDir, 'index.html')).exists();
         final hasIndexJson =
             await File(p.join(dartdocOutputDir, 'index.json')).exists();
-        return DartdocResult(
-            processResult: pr, hasOutputFiles: hasIndexHtml && hasIndexJson);
+        if (!hasIndexHtml || !hasIndexJson) {
+          return DartdocResult.error(
+              '`dartdoc` did not create expected output files.');
+        }
+        return DartdocResult.success();
       } catch (e, st) {
         log.severe('Could not run dartdoc.', e, st);
-        return DartdocResult(errorReason: 'Could not run `dartdoc`: $e');
+        return DartdocResult.error('Could not run `dartdoc`: $e');
       }
     } else {
-      return DartdocResult(
-          errorReason: 'Dependency resultion failed, unable to run `dartdoc`.');
+      return DartdocResult.error(
+          'Dependency resultion failed, unable to run `dartdoc`.');
     }
   }();
 
   late final dartdocPubData = () async {
     final dr = await dartdocResult;
-    if (dr == null || !dr.wasSuccessful) {
+    if (dr.wasSuccessful) {
+      return await generateAndSavePubDataJson(options.dartdocOutputDir!);
+    } else {
       return null;
     }
-    return await generateAndSavePubDataJson(options.dartdocOutputDir!);
   }();
 }
 
 class DartdocResult {
-  final PanaProcessResult? processResult;
+  final bool wasRunning;
   final String? errorReason;
-  final bool hasOutputFiles;
 
-  DartdocResult({
-    this.processResult,
+  DartdocResult.error(
     this.errorReason,
-    this.hasOutputFiles = false,
-  });
+  ) : wasRunning = true;
 
-  bool get wasSuccessful =>
-      processResult != null &&
-      processResult!.exitCode == 0 &&
-      errorReason == null &&
-      hasOutputFiles;
+  DartdocResult.skipped()
+      : wasRunning = false,
+        errorReason = null;
+
+  DartdocResult.success()
+      : wasRunning = true,
+        errorReason = null;
+
+  bool get wasSuccessful => wasRunning && errorReason == null;
 }
