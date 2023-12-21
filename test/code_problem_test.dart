@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/src/code_problem.dart';
-import 'package:pana/src/sdk_env.dart';
+import 'package:pana/src/tool/run_constrained.dart';
 import 'package:test/test.dart';
 
 void main() {

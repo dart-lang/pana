@@ -1,6 +1,9 @@
 ## 0.22.0
 
+**BREAKING CHANGES**
+
 - Removed deprecated APIs.
+- Renamed `runProc` -> `runWithTimeout`.
 
 ## 0.21.45
 

@@ -389,7 +389,7 @@ Future<List<String>> _generateThumbnails(
 Future<PanaProcessResult> _checkedRunProc(List<String> cmdAndArgs) async {
   PanaProcessResult result;
   try {
-    result = await runProc(cmdAndArgs);
+    result = await runConstrained(cmdAndArgs);
   } on ProcessException catch (e) {
     stderr.write("'${cmdAndArgs[0]}' tool not found.");
     return PanaProcessResult(-1, e.errorCode, e.message, e.message,

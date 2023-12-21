@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
-import '../utils.dart' show runProc, PanaProcessResult;
+import '../tool/run_constrained.dart';
 
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
 final _acceptedPathSegmentsRegExp =
@@ -73,7 +73,7 @@ class GitLocalRepository {
     int? maxOutputBytes,
     GitToolException Function(PanaProcessResult pr)? createException,
   }) async {
-    final pr = await runProc(
+    final pr = await runConstrained(
       ['git', ...args],
       environment: {
         'LANG': 'C', // default English locale that is always present

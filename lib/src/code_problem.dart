@@ -7,7 +7,7 @@ library pana.code_problem;
 import 'package:path/path.dart' as p;
 
 import 'internal_model.dart';
-import 'sdk_env.dart' show ToolException;
+import 'tool/run_constrained.dart' show ToolException;
 
 // ignore: prefer_interpolation_to_compose_strings
 final _regexp = RegExp('^' + // beginning of line

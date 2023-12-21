@@ -13,6 +13,7 @@ import '../logging.dart';
 import '../model.dart';
 import '../package_context.dart';
 import '../sdk_env.dart';
+import '../tool/run_constrained.dart';
 import '../utils.dart';
 import '_common.dart';
 

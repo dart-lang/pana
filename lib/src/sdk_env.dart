@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
-import 'package:pana/src/pana_cache.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -16,7 +15,9 @@ import 'internal_model.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
+import 'pana_cache.dart';
 import 'pubspec_io.dart';
+import 'tool/run_constrained.dart';
 import 'utils.dart';
 import 'version.dart';
 
@@ -70,7 +71,7 @@ class ToolEnvironment {
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
   Future _init() async {
-    final dartVersionResult = _handleProcessErrors(await runProc(
+    final dartVersionResult = _handleProcessErrors(await runConstrained(
         [..._dartSdk.dartCmd, '--version'],
         environment: _environment));
     final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
@@ -180,7 +181,7 @@ class ToolEnvironment {
         original: originalOptions, custom: rawOptionsContent);
     try {
       await analysisOptionsFile.writeAsString(customOptionsContent);
-      final proc = await runProc(
+      final proc = await runConstrained(
         [...command, '--format', 'machine', dir],
         environment: environment,
         workingDirectory: packageDir,
@@ -236,7 +237,7 @@ class ToolEnvironment {
       }
       params.add(fullPath);
 
-      final result = await runProc(
+      final result = await runConstrained(
         [..._dartSdk.dartCmd, ...params],
         environment: environment,
         timeout: _dartFormatTimeout,
@@ -274,8 +275,8 @@ class ToolEnvironment {
   }
 
   Future<Map<String, dynamic>> getFlutterVersion() async {
-    final result = _handleProcessErrors(
-        await runProc([..._flutterSdk.flutterCmd, '--version', '--machine']));
+    final result = _handleProcessErrors(await runConstrained(
+        [..._flutterSdk.flutterCmd, '--version', '--machine']));
     final waitingForString = 'Waiting for another flutter';
     return result.parseJson(transform: (content) {
       if (content.contains(waitingForString)) {
@@ -311,7 +312,7 @@ class ToolEnvironment {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _retryProc(() async {
         if (usesFlutter) {
-          return await runProc(
+          return await runConstrained(
             [
               ..._flutterSdk.flutterCmd,
               'packages',
@@ -324,7 +325,7 @@ class ToolEnvironment {
             environment: environment,
           );
         } else {
-          return await runProc(
+          return await runConstrained(
             [
               ..._dartSdk.dartCmd,
               'pub',
@@ -368,7 +369,7 @@ class ToolEnvironment {
     final environment = _extendedEnv(usesFlutter: usesFlutter);
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
-        final pr = await runProc(
+        final pr = await runConstrained(
           [...pubCmd, 'get', '--no-example'],
           environment: environment,
           workingDirectory: packageDir,
@@ -397,7 +398,7 @@ class ToolEnvironment {
         );
       }
 
-      final result = await runProc(
+      final result = await runConstrained(
         [
           ...pubCmd,
           'outdated',
@@ -461,7 +462,7 @@ class ToolEnvironment {
 
     if (_useGlobalDartdoc) {
       if (!_globalDartdocActivated) {
-        _handleProcessErrors(await runProc(
+        _handleProcessErrors(await runConstrained(
           [
             ..._dartSdk.dartCmd,
             'pub',
@@ -477,14 +478,14 @@ class ToolEnvironment {
         ));
         _globalDartdocActivated = true;
       }
-      pr = await runProc(
+      pr = await runConstrained(
         [..._dartSdk.dartCmd, 'pub', 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment: _environment,
         timeout: timeout,
       );
     } else {
-      pr = await runProc(
+      pr = await runConstrained(
         [..._dartSdk.dartCmd, 'doc', ...args],
         workingDirectory: packageDir,
         environment: _environment,
@@ -609,17 +610,6 @@ String _join(String? path, String binDir, String executable) {
     cmd = '$cmd.$ext';
   }
   return cmd;
-}
-
-class ToolException implements Exception {
-  final String message;
-  final ProcessOutput? stderr;
-  ToolException(this.message, [this.stderr]);
-
-  @override
-  String toString() {
-    return 'Exception: $message';
-  }
 }
 
 PanaProcessResult _handleProcessErrors(PanaProcessResult result) {
