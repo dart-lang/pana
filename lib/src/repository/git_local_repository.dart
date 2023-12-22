@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
+import '../tool/git_tool.dart';
 import '../tool/run_constrained.dart';
 
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
@@ -73,29 +74,13 @@ class GitLocalRepository {
     int? maxOutputBytes,
     GitToolException Function(PanaProcessResult pr)? createException,
   }) async {
-    final pr = await runConstrained(
-      ['git', ...args],
-      environment: {
-        'LANG': 'C', // default English locale that is always present
-        'LC_ALL': 'en_US',
-        // prevent git from reading host configuration files
-        'HOME': homePath,
-        'GIT_CONFIG': p.join(homePath, '.gitconfig'),
-        'GIT_CONFIG_GLOBAL': p.join(homePath, '.global-gitconfig'),
-        'GIT_CONFIG_NOSYSTEM': '1',
-        // prevent git from command prompts
-        'GIT_TERMINAL_PROMPT': '0',
-      },
+    return await runGit(
+      args,
+      homePath: homePath,
       workingDirectory: localPath,
       maxOutputBytes: maxOutputBytes,
+      createException: createException,
     );
-    if (pr.wasError) {
-      final ex = createException == null
-          ? GitToolException.failedToRun(args.join(' '), pr)
-          : createException(pr);
-      throw ex;
-    }
-    return pr;
   }
 
   Future<PanaProcessResult> _runGitWithRetry(
@@ -228,19 +213,4 @@ class GitLocalRepository {
       throw GitToolException.argument('Path "$path" is not accepted.');
     }
   }
-}
-
-class GitToolException implements Exception {
-  final String message;
-  final String? output;
-
-  GitToolException(this.message, [this.output]);
-
-  factory GitToolException.failedToRun(String command, PanaProcessResult pr) =>
-      GitToolException('Failed to run `$command`.', pr.asJoinedOutput);
-
-  GitToolException.argument(this.message) : output = null;
-
-  @override
-  String toString() => [message, output].whereType<String>().join('\n');
 }
