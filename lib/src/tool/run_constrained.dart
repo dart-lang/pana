@@ -203,7 +203,6 @@ class PanaProcessResult {
   /// Parses the output of the process as JSON.
   Map<String, dynamic> parseJson({
     String Function(String value)? transform,
-    ProcessOutput? stderr,
   }) {
     final value =
         transform == null ? asJoinedOutput : transform(asJoinedOutput);
@@ -211,8 +210,7 @@ class PanaProcessResult {
       return json.decode(value) as Map<String, dynamic>;
     } on FormatException catch (_) {
       throw ToolException(
-          'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n',
-          stderr);
+          'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n');
     }
   }
 }
@@ -225,13 +223,12 @@ abstract class ProcessOutput {
       return _ChunksProcessOutput(value, encoding);
     }
     if (value is String) {
-      return _StringProcessOutput(value, encoding);
+      return _StringProcessOutput(value);
     }
     throw ArgumentError('Invalid ProcessOutput argument: ${value.runtimeType}');
   }
 
   String get asString;
-  List<int> get asBytes;
 
   @override
   String toString();
@@ -240,11 +237,7 @@ abstract class ProcessOutput {
 class _StringProcessOutput implements ProcessOutput {
   @override
   final String asString;
-  final Encoding _encoding;
-  _StringProcessOutput(this.asString, this._encoding);
-
-  @override
-  late final asBytes = _encoding.encode(asString);
+  _StringProcessOutput(this.asString);
 
   @override
   String toString() => asString;
@@ -256,10 +249,9 @@ class _ChunksProcessOutput implements ProcessOutput {
   _ChunksProcessOutput(this._chunks, this._encoding);
 
   @override
-  late final asString = _chunks.map(_encoding.decode).join();
+  late final asString = _encoding.decode(_asBytes);
 
-  @override
-  late final List<int> asBytes = _chunks
+  late final _asBytes = _chunks
       .fold<BytesBuilder>(BytesBuilder(), (bb, chunk) => bb..add(chunk))
       .toBytes();
 

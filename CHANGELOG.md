@@ -4,6 +4,7 @@
 
 - Removed deprecated APIs.
 - Renamed `runProc` -> `runWithTimeout`.
+- Removed `ProcessOutput.asBytes`.
 
 ## 0.21.45
 
