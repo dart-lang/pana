@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:logging/logging.dart';
+import 'package:pana/src/tool/git_tool.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
@@ -304,8 +305,8 @@ class PackageAnalyzer {
 }
 
 Future<String?> _detectGitRoot(String packageDir) async {
-  final pr = await runConstrained(
-    ['git', 'rev-parse', '--show-toplevel'],
+  final pr = await runGitIsolated(
+    ['rev-parse', '--show-toplevel'],
     workingDirectory: packageDir,
   );
   if (pr.exitCode == 0) {

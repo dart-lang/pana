@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/src/repository/git_local_repository.dart';
+import 'package:pana/src/tool/git_tool.dart';
 import 'package:test/test.dart';
 
 void main() {

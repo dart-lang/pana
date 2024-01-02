@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pana/src/pubspec.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart' as yaml;
 
@@ -11,6 +10,8 @@ import '../internal_model.dart';
 import '../logging.dart';
 import '../model.dart';
 import '../package_context.dart';
+import '../pubspec.dart';
+import '../tool/git_tool.dart';
 
 import 'git_local_repository.dart';
 
