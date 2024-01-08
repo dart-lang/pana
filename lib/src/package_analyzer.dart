@@ -31,15 +31,11 @@ class InspectOptions {
   final Duration? dartdocTimeout;
   final int? lineLength;
 
-  /// Whether pana should also access the remote repository specified in pubspec.yaml.
-  final bool checkRemoteRepository;
-
   InspectOptions({
     this.pubHostedUrl,
     this.dartdocOutputDir,
     this.dartdocTimeout,
     this.lineLength,
-    this.checkRemoteRepository = false,
   });
 }
 
