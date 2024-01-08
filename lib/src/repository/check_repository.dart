@@ -67,183 +67,182 @@ Future<VerifiedRepository?> checkRepository({
     log.info(message, error, st);
   }
 
-  if (sharedContext.options.checkRemoteRepository) {
-    late GitLocalRepository repo;
-    try {
-      repo = await GitLocalRepository.createLocalRepository(
-          parsedSourceUrl.cloneUrl);
-      branch = await repo.detectDefaultBranch();
+  late GitLocalRepository repo;
+  try {
+    repo = await GitLocalRepository.createLocalRepository(
+        parsedSourceUrl.cloneUrl);
+    branch = await repo.detectDefaultBranch();
 
-      // list all pubspec.yaml files
-      final files = await repo.listFiles(branch);
-      // TODO: verify all file name patterns
+    // list all pubspec.yaml files
+    final files = await repo.listFiles(branch);
+    // TODO: verify all file name patterns
 
-      final pubspecFiles =
-          files.where((path) => p.basename(path) == 'pubspec.yaml').toList();
-      if (pubspecFiles.isEmpty) {
-        return VerifiedRepository(
-          verificationFailure:
-              'Could not find any `pubspec.yaml` in the repository.',
+    final pubspecFiles =
+        files.where((path) => p.basename(path) == 'pubspec.yaml').toList();
+    if (pubspecFiles.isEmpty) {
+      return VerifiedRepository(
+        verificationFailure:
+            'Could not find any `pubspec.yaml` in the repository.',
+      );
+    }
+
+    Future<_PubspecMatch> matchRepoPubspecYaml(String path) async {
+      late String content;
+      // checkout the pubspec.yaml at the assumed location
+      try {
+        content = await repo.showStringContent(
+          branch!,
+          path,
+          maxOutputBytes: _maxPubspecBytes,
         );
+      } on GitToolException catch (e) {
+        log.info('Unable to read "$path".', e);
+        return _PubspecMatch(
+            path, hasMatchingName: false, 'Unable to read `$path`: $e.');
       }
-
-      Future<_PubspecMatch> matchRepoPubspecYaml(String path) async {
-        late String content;
-        // checkout the pubspec.yaml at the assumed location
-        try {
-          content = await repo.showStringContent(
-            branch!,
+      if (content.trim().isEmpty) {
+        return _PubspecMatch(
             path,
-            maxOutputBytes: _maxPubspecBytes,
-          );
-        } on GitToolException catch (e) {
-          log.info('Unable to read "$path".', e);
-          return _PubspecMatch(
-              path, hasMatchingName: false, 'Unable to read `$path`: $e.');
-        }
-        if (content.trim().isEmpty) {
-          return _PubspecMatch(
-              path,
-              hasMatchingName: false,
-              '`$path` from the repository is empty.');
-        }
-        // TODO: consider to allow the exceptions to pass here, to allow an
-        //       unrelated, but badly formatted pubspec.yaml in the repository.
-        // ignore: prefer_typing_uninitialized_variables
-        var yamlDoc;
-        try {
-          yamlDoc = yaml.loadYaml(content);
-        } on FormatException catch (e, st) {
-          log.info('Invalid yaml file: $path', e, st);
-        } on ArgumentError catch (e, st) {
-          log.info('Invalid yaml file: $path', e, st);
-        }
-        if (yamlDoc == null) {
-          return _PubspecMatch(
-              path,
-              hasMatchingName: false,
-              '`$path` from the repository is not a valid YAML document.');
-        }
-
-        late final Pubspec gitPubspec;
-        try {
-          gitPubspec = Pubspec.parseYaml(content);
-        } on FormatException catch (e, st) {
-          log.info('Invalid pubspec content: $path', e, st);
-          return _PubspecMatch(
-              path,
-              hasMatchingName: false,
-              '`$path` from the repository is not a valid pubspec.');
-        } on CheckedFromJsonException catch (e, st) {
-          log.info('Invalid pubspec content: $path', e, st);
-          return _PubspecMatch(
-              path,
-              hasMatchingName: false,
-              '`$path` from the repository is not a valid pubspec.');
-        }
-
-        // verification steps
-        if (gitPubspec.name != packageName) {
-          return _PubspecMatch(
-              path,
-              hasMatchingName: false,
-              '`$path` from the repository name missmatch: expected `$packageName` but got `${gitPubspec.name}`.');
-        }
-        final gitRepoOrHomepage = gitPubspec.repositoryOrHomepage;
-        if (gitRepoOrHomepage == null) {
-          return _PubspecMatch(
-              path,
-              hasMatchingName: true,
-              '`$path` from the repository has no `repository` or `homepage` URL.');
-        }
-        late Repository gitRepoUrl;
-        try {
-          gitRepoUrl = Repository.parseUrl(gitRepoOrHomepage);
-        } on FormatException catch (e) {
-          return _PubspecMatch(
-              path,
-              hasMatchingName: true,
-              '`$path` from the repository has a `repository` or `homepage` field '
-              '"`$gitRepoOrHomepage`" but cannot be parsed as a repository URL: ${e.message}');
-        }
-        if (gitRepoUrl.cloneUrl != parsedSourceUrl.cloneUrl) {
-          return _PubspecMatch(
-              path,
-              hasMatchingName: true,
-              '`$path` from the repository URL mismatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl.cloneUrl}`.');
-        }
-        if (gitPubspec.version == null) {
-          return _PubspecMatch(
-              path,
-              hasMatchingName: true,
-              '`$path` from the repository has no `version`.');
-        }
-        if (gitPubspec.toJson().containsKey('publish_to')) {
-          return _PubspecMatch(
-              path,
-              hasMatchingName: true,
-              '`$path` from the repository defines `publish_to`, thus, we are unable to verify the package is published from here.');
-        }
-
-        // found no issue
-        return _PubspecMatch(path, hasMatchingName: true, null);
+            hasMatchingName: false,
+            '`$path` from the repository is empty.');
+      }
+      // TODO: consider to allow the exceptions to pass here, to allow an
+      //       unrelated, but badly formatted pubspec.yaml in the repository.
+      // ignore: prefer_typing_uninitialized_variables
+      var yamlDoc;
+      try {
+        yamlDoc = yaml.loadYaml(content);
+      } on FormatException catch (e, st) {
+        log.info('Invalid yaml file: $path', e, st);
+      } on ArgumentError catch (e, st) {
+        log.info('Invalid yaml file: $path', e, st);
+      }
+      if (yamlDoc == null) {
+        return _PubspecMatch(
+            path,
+            hasMatchingName: false,
+            '`$path` from the repository is not a valid YAML document.');
       }
 
-      final results = <_PubspecMatch>[];
-      for (final path in pubspecFiles) {
-        results.add(await matchRepoPubspecYaml(path));
+      late final Pubspec gitPubspec;
+      try {
+        gitPubspec = Pubspec.parseYaml(content);
+      } on FormatException catch (e, st) {
+        log.info('Invalid pubspec content: $path', e, st);
+        return _PubspecMatch(
+            path,
+            hasMatchingName: false,
+            '`$path` from the repository is not a valid pubspec.');
+      } on CheckedFromJsonException catch (e, st) {
+        log.info('Invalid pubspec content: $path', e, st);
+        return _PubspecMatch(
+            path,
+            hasMatchingName: false,
+            '`$path` from the repository is not a valid pubspec.');
       }
 
-      final nameMatches = results.where((e) => e.hasMatchingName).toList();
-      if (nameMatches.isEmpty) {
-        failVerification(
-            'Repository has no matching `pubspec.yaml` with `name: $packageName`.');
-      } else if (nameMatches.length > 1) {
-        failVerification(
-            'Repository has multiple matching `pubspec.yaml` with `name: $packageName`.');
-      } else {
-        // confirmed name match, storing path
-        localPath = p.dirname(nameMatches.single.path);
+      // verification steps
+      if (gitPubspec.name != packageName) {
+        return _PubspecMatch(
+            path,
+            hasMatchingName: false,
+            '`$path` from the repository name missmatch: expected `$packageName` but got `${gitPubspec.name}`.');
+      }
+      final gitRepoOrHomepage = gitPubspec.repositoryOrHomepage;
+      if (gitRepoOrHomepage == null) {
+        return _PubspecMatch(
+            path,
+            hasMatchingName: true,
+            '`$path` from the repository has no `repository` or `homepage` URL.');
+      }
+      late Repository gitRepoUrl;
+      try {
+        gitRepoUrl = Repository.parseUrl(gitRepoOrHomepage);
+      } on FormatException catch (e) {
+        return _PubspecMatch(
+            path,
+            hasMatchingName: true,
+            '`$path` from the repository has a `repository` or `homepage` field '
+            '"`$gitRepoOrHomepage`" but cannot be parsed as a repository URL: ${e.message}');
+      }
+      if (gitRepoUrl.cloneUrl != parsedSourceUrl.cloneUrl) {
+        return _PubspecMatch(
+            path,
+            hasMatchingName: true,
+            '`$path` from the repository URL mismatch: expected `${parsedSourceUrl.cloneUrl}` but got `${gitRepoUrl.cloneUrl}`.');
+      }
+      if (gitPubspec.version == null) {
+        return _PubspecMatch(
+            path,
+            hasMatchingName: true,
+            '`$path` from the repository has no `version`.');
+      }
+      if (gitPubspec.toJson().containsKey('publish_to')) {
+        return _PubspecMatch(
+            path,
+            hasMatchingName: true,
+            '`$path` from the repository defines `publish_to`, thus, we are unable to verify the package is published from here.');
+      }
 
-        if (nameMatches.single.verificationIssue != null) {
-          failVerification(nameMatches.single.verificationIssue!);
-        }
+      // found no issue
+      return _PubspecMatch(path, hasMatchingName: true, null);
+    }
 
-        if (verificationFailure == null) {
-          final contributingCandidates = [
-            if (localPath.isNotEmpty && localPath != '.')
-              p.join(localPath, 'CONTRIBUTING.md'),
-            'CONTRIBUTING.md',
-          ];
-          for (final path in contributingCandidates) {
-            if (files.contains(path)) {
-              final url = repositoryWithPath(null).tryResolveUrl(path);
-              if (url != null) {
-                final status = await sharedContext.checkUrlStatus(url);
-                if (status.exists) {
-                  contributingUrl = url;
-                  break;
-                }
+    final results = <_PubspecMatch>[];
+    for (final path in pubspecFiles) {
+      results.add(await matchRepoPubspecYaml(path));
+    }
+
+    final nameMatches = results.where((e) => e.hasMatchingName).toList();
+    if (nameMatches.isEmpty) {
+      failVerification(
+          'Repository has no matching `pubspec.yaml` with `name: $packageName`.');
+    } else if (nameMatches.length > 1) {
+      failVerification(
+          'Repository has multiple matching `pubspec.yaml` with `name: $packageName`.');
+    } else {
+      // confirmed name match, storing path
+      localPath = p.dirname(nameMatches.single.path);
+
+      if (nameMatches.single.verificationIssue != null) {
+        failVerification(nameMatches.single.verificationIssue!);
+      }
+
+      if (verificationFailure == null) {
+        final contributingCandidates = [
+          if (localPath.isNotEmpty && localPath != '.')
+            p.join(localPath, 'CONTRIBUTING.md'),
+          'CONTRIBUTING.md',
+        ];
+        for (final path in contributingCandidates) {
+          if (files.contains(path)) {
+            final url = repositoryWithPath(null).tryResolveUrl(path);
+            if (url != null) {
+              final status = await sharedContext.checkUrlStatus(url);
+              if (status.exists) {
+                contributingUrl = url;
+                break;
               }
-              break;
             }
+            break;
           }
         }
-
-        completed = true;
       }
-    } on FormatException catch (e, st) {
-      failVerification(
-          'Unable to parse `pubspec.yaml` from git repository. $e', e, st);
-    } on ArgumentError catch (e, st) {
-      failVerification(
-          'Unable to parse `pubspec.yaml` from git repository. $e', e, st);
-    } on GitToolException catch (e, st) {
-      failVerification('Unable to access git repository: ${e.message}', e, st);
-    } finally {
-      await repo.delete();
+
+      completed = true;
     }
+  } on FormatException catch (e, st) {
+    failVerification(
+        'Unable to parse `pubspec.yaml` from git repository. $e', e, st);
+  } on ArgumentError catch (e, st) {
+    failVerification(
+        'Unable to parse `pubspec.yaml` from git repository. $e', e, st);
+  } on GitToolException catch (e, st) {
+    failVerification('Unable to access git repository: ${e.message}', e, st);
+  } finally {
+    await repo.delete();
   }
+
   return result();
 }
 

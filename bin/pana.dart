@@ -155,7 +155,6 @@ Future main(List<String> args) async {
     final options = InspectOptions(
       pubHostedUrl: pubHostedUrl,
       lineLength: int.tryParse(result['line-length'] as String? ?? ''),
-      checkRemoteRepository: true,
       dartdocOutputDir: runDartdoc ? dartdocOutputDir : null,
     );
     try {

@@ -3,6 +3,7 @@
 **BREAKING CHANGES**
 
 - Removed deprecated APIs.
+- Removed `InspectOptions.checkRemoteRepository` - repositories are verified by default.
 - Renamed `runProc` -> `runWithTimeout`.
 - Removed `ProcessOutput.asBytes`.
 
