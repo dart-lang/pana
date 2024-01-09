@@ -231,7 +231,7 @@ Future<List<String>> _copyIfAlreadyWebp(
     String originalPath, String webpPath) async {
   return await _checkedRunProc(
     ['webpinfo', originalPath],
-    description:
+    failureText:
         '`$originalPath`: Tried interpreting screenshot as WebP with `webpinfo "$originalPath"`',
     onSuccess: (_) async {
       await File(originalPath).copy(webpPath);
@@ -243,7 +243,7 @@ Future<List<String>> _convertWithCWebp(
     String originalPath, String webpPath) async {
   return await _checkedRunProc(
     ['cwebp', originalPath, '-o', webpPath],
-    description:
+    failureText:
         '`$originalPath`: Converting screenshot with `cwebp "$originalPath" -o "$webpPath"`',
   );
 }
@@ -252,7 +252,7 @@ Future<List<String>> _convertGifToWebp(
     String originalPath, String webpPath) async {
   return await _checkedRunProc(
     ['gif2webp', originalPath, '-o', webpPath],
-    description:
+    failureText:
         '`$originalPath`: Tried interpreting screenshot as GIF with `gif2webp "$originalPath" -o "$webpPath"`',
   );
 }
@@ -288,7 +288,7 @@ Future<List<String>> _generateThumbnails(
     onSuccess: (infoResult) {
       infoOutput = infoResult.stdout.asString;
     },
-    description: '`$originalPath`: Running `webpinfo "$webpPath"`',
+    failureText: '`$originalPath`: Running `webpinfo "$webpPath"`',
   );
   if (infoResult.isNotEmpty) {
     return infoResult;
@@ -302,7 +302,7 @@ Future<List<String>> _generateThumbnails(
     // input file is animated, extract the first frame.
     final webpmuxResult = await _checkedRunProc(
       ['webpmux', '-get', 'frame', '1', webpPath, '-o', staticWebpPath],
-      description:
+      failureText:
           '`$originalPath`: Extracting frame from $webpPath with `webpmux -get frame 1 "$webpPath" -o "$staticWebpPath"`',
     );
 
@@ -349,7 +349,7 @@ Future<List<String>> _generateThumbnails(
         '-o',
         outputPath
       ],
-      description:
+      failureText:
           '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$outputPath"`',
     );
   }
@@ -367,7 +367,7 @@ Future<List<String>> _generateThumbnails(
 
   final png100Result = await _checkedRunProc(
     ['dwebp', webp100ThumbnailPath, '-o', png100ThumbnailPath],
-    description:
+    failureText:
         '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp100ThumbnailPath" -o "$png100ThumbnailPath"`',
   );
   if (png100Result.isNotEmpty) {
@@ -376,7 +376,7 @@ Future<List<String>> _generateThumbnails(
 
   final png190Result = await _checkedRunProc(
     ['dwebp', webp190ThumbnailPath, '-o', png190ThumbnailPath],
-    description:
+    failureText:
         '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp190ThumbnailPath" -o "$png190ThumbnailPath"`',
   );
   if (png190Result.isNotEmpty) {
@@ -389,7 +389,7 @@ Future<List<String>> _generateThumbnails(
 Future<List<String>> _checkedRunProc(
   List<String> cmdAndArgs, {
   FutureOr<void> Function(PanaProcessResult pr)? onSuccess,
-  required String description,
+  required String failureText,
 }) async {
   try {
     final pr = await runConstrained(cmdAndArgs);
@@ -400,7 +400,7 @@ Future<List<String>> _checkedRunProc(
       return [];
     } else {
       return [
-        '$description failed with _exit code_ ${pr.exitCode}.',
+        '$failureText failed with _exit code_ ${pr.exitCode}.',
       ];
     }
   } on ProcessException catch (e) {
