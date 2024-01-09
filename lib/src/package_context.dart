@@ -245,11 +245,11 @@ class PackageContext {
           timeout: timeout,
           usesFlutter: usesFlutter,
         );
-        if (pr.exitCode == 15) {
+        if (pr.wasTimeout) {
           return DartdocResult.error(
               '`dartdoc` could not complete in $timeout.');
         }
-        if (pr.exitCode != 0) {
+        if (pr.wasError) {
           return DartdocResult.error(pr.asTrimmedOutput);
         }
 

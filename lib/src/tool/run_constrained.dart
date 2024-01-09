@@ -19,12 +19,15 @@ const _maxOutputLinesWhenKilled = 1000;
 /// Kills the process if its output is more than [maxOutputBytes] (10 MiB if not specified).
 ///
 /// If the process is killed, it returns only the first 1000 lines of both `stdout` and `stderr`.
+///
+/// When [throwOnError] is `true`, non-zero exit codes will throw a [ToolException].
 Future<PanaProcessResult> runConstrained(
   List<String> arguments, {
   String? workingDirectory,
   Map<String, String>? environment,
   Duration? timeout,
   int? maxOutputBytes,
+  bool throwOnError = false,
 }) async {
   timeout ??= _timeout;
   maxOutputBytes ??= _maxOutputBytes;
@@ -79,9 +82,10 @@ Future<PanaProcessResult> runConstrained(
   timer.cancel();
 
   final exitCode = items[0] as int;
+  late PanaProcessResult result;
   if (killed) {
     final encoding = systemEncoding;
-    return PanaProcessResult(
+    result = PanaProcessResult(
       process.pid,
       exitCode,
       stdoutLines
@@ -100,22 +104,36 @@ Future<PanaProcessResult> runConstrained(
       wasOutputExceeded: wasOutputExceeded,
       wasError: true,
     );
+  } else {
+    result = PanaProcessResult(
+      process.pid,
+      exitCode,
+      stdoutLines,
+      stderrLines,
+      wasTimeout: wasTimeout,
+      wasOutputExceeded: wasOutputExceeded,
+    );
   }
-
-  return PanaProcessResult(
-    process.pid,
-    exitCode,
-    stdoutLines,
-    stderrLines,
-    wasTimeout: wasTimeout,
-    wasOutputExceeded: wasOutputExceeded,
-  );
+  if (throwOnError && result.wasError) {
+    throw ToolException.fromProcessResult(result);
+  }
+  return result;
 }
 
 class ToolException implements Exception {
   final String message;
   final ProcessOutput? stderr;
+
   ToolException(this.message, [this.stderr]);
+
+  factory ToolException.fromProcessResult(PanaProcessResult result) {
+    final fullOutput = [
+      result.exitCode.toString(),
+      result.stdout.asString,
+      result.stderr.asString,
+    ].map((e) => e.trim()).join('\n<***>\n');
+    return ToolException(fullOutput, result.stderr);
+  }
 
   @override
   String toString() {
