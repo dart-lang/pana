@@ -71,9 +71,11 @@ class ToolEnvironment {
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
   Future _init() async {
-    final dartVersionResult = _handleProcessErrors(await runConstrained(
-        [..._dartSdk.dartCmd, '--version'],
-        environment: _environment));
+    final dartVersionResult = await runConstrained(
+      [..._dartSdk.dartCmd, '--version'],
+      environment: _environment,
+      throwOnError: true,
+    );
     final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
     Map<String, dynamic>? flutterVersions;
     try {
@@ -275,8 +277,10 @@ class ToolEnvironment {
   }
 
   Future<Map<String, dynamic>> getFlutterVersion() async {
-    final result = _handleProcessErrors(await runConstrained(
-        [..._flutterSdk.flutterCmd, '--version', '--machine']));
+    final result = await runConstrained(
+      [..._flutterSdk.flutterCmd, '--version', '--machine'],
+      throwOnError: true,
+    );
     final waitingForString = 'Waiting for another flutter';
     return result.parseJson(transform: (content) {
       if (content.contains(waitingForString)) {
@@ -382,7 +386,7 @@ class ToolEnvironment {
       // the output and won't match the expected on in the golden files.
       // Running a second `pub get` will make sure that the output is consistent.
       final secondPubGet = usesFlutter ? await runPubGet() : firstPubGet;
-      if (secondPubGet.exitCode != 0) {
+      if (secondPubGet.wasError) {
         // Stripping extra verbose log lines which make Flutter differ on different environment.
         final stderr = ProcessOutput.from(
           secondPubGet.stderr.asString
@@ -407,7 +411,7 @@ class ToolEnvironment {
         environment: environment,
         workingDirectory: packageDir,
       );
-      if (result.exitCode != 0) {
+      if (result.wasError) {
         throw ToolException(
           '`$cmdLabel pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```',
           result.stderr,
@@ -462,7 +466,7 @@ class ToolEnvironment {
 
     if (_useGlobalDartdoc) {
       if (!_globalDartdocActivated) {
-        _handleProcessErrors(await runConstrained(
+        await runConstrained(
           [
             ..._dartSdk.dartCmd,
             'pub',
@@ -475,7 +479,8 @@ class ToolEnvironment {
             ..._environment,
             'PUB_HOSTED_URL': 'https://pub.dev',
           },
-        ));
+          throwOnError: true,
+        );
         _globalDartdocActivated = true;
       }
       pr = await runConstrained(
@@ -610,28 +615,6 @@ String _join(String? path, String binDir, String executable) {
     cmd = '$cmd.$ext';
   }
   return cmd;
-}
-
-PanaProcessResult _handleProcessErrors(PanaProcessResult result) {
-  if (result.exitCode != 0) {
-    if (result.exitCode == 69) {
-      // could be a pub error. Let's try to parse!
-      var lines = LineSplitter.split(result.stderr.asString)
-          .where((l) => l.startsWith('ERR '))
-          .join('\n');
-      if (lines.isNotEmpty) {
-        throw Exception(lines);
-      }
-    }
-
-    final fullOutput = [
-      result.exitCode.toString(),
-      result.stdout.asString,
-      result.stderr.asString,
-    ].map((e) => e.trim()).join('<***>');
-    throw Exception('Problem running proc: exit code - $fullOutput');
-  }
-  return result;
 }
 
 /// Executes [body] and returns with the first clean or the last failure result.
