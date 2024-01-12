@@ -129,7 +129,7 @@ class PackageContext {
       await outdated;
       return null;
     } on ToolException catch (e) {
-      stderr = e.stderr?.asString ?? e.message;
+      stderr = e.result?.stderr.asString ?? e.message;
     } catch (e) {
       stderr = e.toString();
     }
