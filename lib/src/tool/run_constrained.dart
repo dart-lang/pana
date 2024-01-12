@@ -8,6 +8,7 @@ import 'dart:io' hide BytesBuilder;
 import 'dart:typed_data';
 
 import 'package:pana/src/logging.dart';
+import 'package:retry/retry.dart';
 
 final _timeout = const Duration(minutes: 2);
 const _maxOutputBytes = 10 * 1024 * 1024; // 10 MiB
@@ -21,6 +22,9 @@ const _maxOutputLinesWhenKilled = 1000;
 /// If the process is killed, it returns only the first 1000 lines of both `stdout` and `stderr`.
 ///
 /// When [throwOnError] is `true`, non-zero exit codes will throw a [ToolException].
+///
+/// When [retryIf] and [retryOptions] is set, non-zero exit codes may
+/// be retried. This setting forces [throwOnError] to set `true`.
 Future<PanaProcessResult> runConstrained(
   List<String> arguments, {
   String? workingDirectory,
@@ -28,6 +32,33 @@ Future<PanaProcessResult> runConstrained(
   Duration? timeout,
   int? maxOutputBytes,
   bool throwOnError = false,
+  FutureOr<bool> Function(PanaProcessResult)? retryIf,
+  RetryOptions? retryOptions,
+}) async {
+  retryOptions ??= RetryOptions(maxAttempts: retryIf == null ? 1 : 2);
+  return retryOptions.retry(
+    () async {
+      return await _runConstrained(
+        arguments,
+        workingDirectory: workingDirectory,
+        environment: environment,
+        timeout: timeout,
+        maxOutputBytes: maxOutputBytes,
+        throwOnError: throwOnError || retryOptions!.maxAttempts > 1,
+      );
+    },
+    retryIf: (e) async =>
+        retryIf != null && e is ToolException && await retryIf(e.result!),
+  );
+}
+
+Future<PanaProcessResult> _runConstrained(
+  List<String> arguments, {
+  required String? workingDirectory,
+  required Map<String, String>? environment,
+  required Duration? timeout,
+  required int? maxOutputBytes,
+  required bool throwOnError,
 }) async {
   timeout ??= _timeout;
   maxOutputBytes ??= _maxOutputBytes;
@@ -122,9 +153,9 @@ Future<PanaProcessResult> runConstrained(
 
 class ToolException implements Exception {
   final String message;
-  final ProcessOutput? stderr;
+  final PanaProcessResult? result;
 
-  ToolException(this.message, [this.stderr]);
+  ToolException(this.message, [this.result]);
 
   factory ToolException.fromProcessResult(PanaProcessResult result) {
     final fullOutput = [
@@ -132,7 +163,7 @@ class ToolException implements Exception {
       result.stdout.asString,
       result.stderr.asString,
     ].map((e) => e.trim()).join('\n<***>\n');
-    return ToolException(fullOutput, result.stderr);
+    return ToolException(fullOutput, result);
   }
 
   @override

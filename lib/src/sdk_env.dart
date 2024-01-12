@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:cli_util/cli_util.dart' as cli;
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
+import 'package:retry/retry.dart';
 
 import 'analysis_options.dart';
 import 'internal_model.dart';
@@ -191,11 +192,11 @@ class ToolEnvironment {
       );
       if (proc.wasOutputExceeded) {
         throw ToolException(
-            'Running `dart analyze` produced too large output.', proc.stderr);
+            'Running `dart analyze` produced too large output.', proc);
       }
       final output = proc.asJoinedOutput;
       if (proc.wasTimeout) {
-        throw ToolException('Running `dart analyze` timed out.', proc.stderr);
+        throw ToolException('Running `dart analyze` timed out.', proc);
       }
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
         if (output.contains('No dart files found at: .')) {
@@ -205,8 +206,7 @@ class ToolEnvironment {
         }
         var errorMessage =
             '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
-        throw ToolException(
-            'dart analyze exception: $errorMessage', proc.stderr);
+        throw ToolException('dart analyze exception: $errorMessage', proc);
       }
       return output;
     } finally {
@@ -271,7 +271,7 @@ class ToolEnvironment {
           'dart format on $dir/ failed with exit code ${result.exitCode}\n$output',
         );
       }
-      throw ToolException(errorMsg, result.stderr);
+      throw ToolException(errorMsg, result);
     }
     return files.toList()..sort();
   }
@@ -314,35 +314,8 @@ class ToolEnvironment {
       flutterRoot: _flutterSdk._baseDir,
     );
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      return await _retryProc(() async {
-        if (usesFlutter) {
-          return await runConstrained(
-            [
-              ..._flutterSdk.flutterCmd,
-              'packages',
-              'pub',
-              'upgrade',
-              '--no-example',
-              '--verbose',
-            ],
-            workingDirectory: packageDir,
-            environment: environment,
-          );
-        } else {
-          return await runConstrained(
-            [
-              ..._dartSdk.dartCmd,
-              'pub',
-              'upgrade',
-              '--no-example',
-              '--verbose',
-            ],
-            workingDirectory: packageDir,
-            environment: environment,
-          );
-        }
-      }, shouldRetry: (result) {
-        if (result.exitCode == 0) return false;
+      final retryOptions = const RetryOptions(maxAttempts: 3);
+      bool retryIf(PanaProcessResult result) {
         final errOutput = result.stderr.asString;
         // find cases where retrying is not going to help – and short-circuit
         if (errOutput.contains('Could not get versions for flutter from sdk')) {
@@ -352,7 +325,38 @@ class ToolEnvironment {
           return false;
         }
         return true;
-      }, maxAttempt: retryCount);
+      }
+
+      if (usesFlutter) {
+        return await runConstrained(
+          [
+            ..._flutterSdk.flutterCmd,
+            'packages',
+            'pub',
+            'upgrade',
+            '--no-example',
+            '--verbose',
+          ],
+          workingDirectory: packageDir,
+          environment: environment,
+          retryIf: retryIf,
+          retryOptions: retryOptions,
+        );
+      } else {
+        return await runConstrained(
+          [
+            ..._dartSdk.dartCmd,
+            'pub',
+            'upgrade',
+            '--no-example',
+            '--verbose',
+          ],
+          workingDirectory: packageDir,
+          environment: environment,
+          retryIf: retryIf,
+          retryOptions: retryOptions,
+        );
+      }
     });
   }
 
@@ -398,7 +402,7 @@ class ToolEnvironment {
         final pr = secondPubGet.change(stderr: stderr);
         throw ToolException(
           '`$cmdLabel pub get` failed:\n\n```\n${pr.asTrimmedOutput}\n```',
-          stderr,
+          pr,
         );
       }
 
@@ -414,7 +418,7 @@ class ToolEnvironment {
       if (result.wasError) {
         throw ToolException(
           '`$cmdLabel pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```',
-          result.stderr,
+          result,
         );
       } else {
         return Outdated.fromJson(result.parseJson());
@@ -615,32 +619,6 @@ String _join(String? path, String binDir, String executable) {
     cmd = '$cmd.$ext';
   }
   return cmd;
-}
-
-/// Executes [body] and returns with the first clean or the last failure result.
-Future<PanaProcessResult> _retryProc(
-  Future<PanaProcessResult> Function() body, {
-  required bool Function(PanaProcessResult pr) shouldRetry,
-  int maxAttempt = 3,
-  Duration sleep = const Duration(seconds: 1),
-}) async {
-  PanaProcessResult? result;
-  for (var i = 1; i <= maxAttempt; i++) {
-    try {
-      result = await body();
-      if (!shouldRetry(result)) {
-        break;
-      }
-    } catch (e, st) {
-      if (i < maxAttempt) {
-        log.info('Async operation failed (attempt: $i of $maxAttempt).', e, st);
-        await Future.delayed(sleep);
-        continue;
-      }
-      rethrow;
-    }
-  }
-  return result!;
 }
 
 Future<String?> _resolve(String? dir) async {

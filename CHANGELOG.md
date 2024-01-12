@@ -4,8 +4,9 @@
 
 - Removed deprecated APIs.
 - Removed `InspectOptions.checkRemoteRepository` - repositories are verified by default.
-- Renamed `runProc` -> `runWithTimeout`.
+- Renamed `runProc` -> `runConstrained`.
 - Removed `ProcessOutput.asBytes`.
+- `ToolException` has reference to the entire `PanaProcessResult`, instead of just the `stderr`.
 
 ## 0.21.45
 
