@@ -122,6 +122,7 @@
       "branch": "master",
       "path": "pkgs/http"
     },
+    "contributingUrl": "https://github.com/dart-lang/http/blob/master/CONTRIBUTING.md",
     "grantedPoints": 120,
     "maxPoints": 130
   },

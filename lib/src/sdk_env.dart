@@ -33,7 +33,6 @@ class ToolEnvironment {
   final PanaCache panaCache;
   final _DartSdk _dartSdk;
   final _FlutterSdk _flutterSdk;
-  final Map<String, String> _environment;
   PanaRuntimeInfo? _runtimeInfo;
   final bool _useGlobalDartdoc;
   final String? _globalDartdocVersion;
@@ -47,7 +46,6 @@ class ToolEnvironment {
     this.panaCache,
     this._dartSdk,
     this._flutterSdk,
-    this._environment,
     this._useGlobalDartdoc,
     this._globalDartdocVersion,
   );
@@ -60,21 +58,19 @@ class ToolEnvironment {
     Map<String, String> environment = const <String, String>{},
     required PanaRuntimeInfo runtimeInfo,
   })  : panaCache = panaCache ?? PanaCache(),
-        _dartSdk = _DartSdk._(null),
-        _flutterSdk = _FlutterSdk._(null, _DartSdk._(null)),
-        _environment = environment,
+        _dartSdk = _DartSdk._(null, environment),
+        _flutterSdk =
+            _FlutterSdk._(null, environment, _DartSdk._(null, environment)),
         _useGlobalDartdoc = false,
         _globalDartdocVersion = null,
         _runtimeInfo = runtimeInfo;
-
-  Map<String, String> get environment => _environment;
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
   Future _init() async {
     final dartVersionResult = await runConstrained(
       [..._dartSdk.dartCmd, '--version'],
-      environment: _environment,
+      environment: _dartSdk.environment,
       throwOnError: true,
     );
     final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
@@ -124,7 +120,7 @@ class ToolEnvironment {
     // We can use that directory only if Flutter SDK path was specified,
     // TODO: remove this after flutter analyze gets machine-readable output.
     // https://github.com/flutter/flutter/issues/23664
-    final flutterSdk = await _FlutterSdk.detect(flutterSdkDir);
+    final flutterSdk = await _FlutterSdk.detect(flutterSdkDir, env);
     if (flutterSdk._dartSdk._baseDir == null) {
       log.warning(
           'Flutter SDK path was not specified, pana will use the default '
@@ -136,25 +132,13 @@ class ToolEnvironment {
       resolvedFlutterSdk,
       resolvedPubCache,
       PanaCache(path: resolvedPanaCache),
-      await _DartSdk.detect(dartSdkDir),
+      await _DartSdk.detect(dartSdkDir, env),
       flutterSdk,
-      env,
       useGlobalDartdoc,
       globalDartdocVersion,
     );
     await toolEnv._init();
     return toolEnv;
-  }
-
-  Map<String, String> _extendedEnv({
-    required bool usesFlutter,
-    String? flutterRoot,
-  }) {
-    flutterRoot ??= flutterSdkDir;
-    return {
-      if (usesFlutter && flutterRoot != null) 'FLUTTER_ROOT': flutterRoot,
-      ..._environment,
-    };
   }
 
   Future<String> runAnalyzer(
@@ -165,10 +149,6 @@ class ToolEnvironment {
   }) async {
     final command =
         usesFlutter ? _flutterSdk.dartAnalyzeCmd : _dartSdk.dartAnalyzeCmd;
-    final environment = _extendedEnv(
-      usesFlutter: usesFlutter,
-      flutterRoot: _flutterSdk._baseDir,
-    );
 
     final analysisOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
@@ -186,7 +166,8 @@ class ToolEnvironment {
       await analysisOptionsFile.writeAsString(customOptionsContent);
       final proc = await runConstrained(
         [...command, '--format', 'machine', dir],
-        environment: environment,
+        environment:
+            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
       );
@@ -224,7 +205,6 @@ class ToolEnvironment {
     if (dirs.isEmpty) {
       return const [];
     }
-    final environment = _extendedEnv(usesFlutter: usesFlutter);
     final files = <String>{};
     for (final dir in dirs) {
       final fullPath = p.join(packageDir, dir);
@@ -241,7 +221,8 @@ class ToolEnvironment {
 
       final result = await runConstrained(
         [..._dartSdk.dartCmd, ...params],
-        environment: environment,
+        environment:
+            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
         timeout: _dartFormatTimeout,
       );
       if (result.exitCode == 0) {
@@ -309,10 +290,6 @@ class ToolEnvironment {
     bool usesFlutter, {
     int retryCount = 3,
   }) async {
-    final environment = _extendedEnv(
-      usesFlutter: usesFlutter,
-      flutterRoot: _flutterSdk._baseDir,
-    );
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       final retryOptions = const RetryOptions(maxAttempts: 3);
       bool retryIf(PanaProcessResult result) {
@@ -338,7 +315,8 @@ class ToolEnvironment {
             '--verbose',
           ],
           workingDirectory: packageDir,
-          environment: environment,
+          environment:
+              usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
           retryIf: retryIf,
           retryOptions: retryOptions,
         );
@@ -352,7 +330,8 @@ class ToolEnvironment {
             '--verbose',
           ],
           workingDirectory: packageDir,
-          environment: environment,
+          environment:
+              usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
           retryIf: retryIf,
           retryOptions: retryOptions,
         );
@@ -374,12 +353,12 @@ class ToolEnvironment {
         [..._flutterSdk.flutterCmd, 'pub', 'pub']
         : [..._dartSdk.dartCmd, 'pub'];
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
-    final environment = _extendedEnv(usesFlutter: usesFlutter);
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
         final pr = await runConstrained(
           [...pubCmd, 'get', '--no-example'],
-          environment: environment,
+          environment:
+              usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
           workingDirectory: packageDir,
         );
         return pr;
@@ -412,7 +391,8 @@ class ToolEnvironment {
           'outdated',
           ...args,
         ],
-        environment: environment,
+        environment:
+            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
         workingDirectory: packageDir,
       );
       if (result.wasError) {
@@ -480,7 +460,7 @@ class ToolEnvironment {
             if (_globalDartdocVersion != null) _globalDartdocVersion!,
           ],
           environment: {
-            ..._environment,
+            ..._dartSdk.environment,
             'PUB_HOSTED_URL': 'https://pub.dev',
           },
           throwOnError: true,
@@ -490,14 +470,14 @@ class ToolEnvironment {
       pr = await runConstrained(
         [..._dartSdk.dartCmd, 'pub', 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
-        environment: _environment,
+        environment: _dartSdk.environment,
         timeout: timeout,
       );
     } else {
       pr = await runConstrained(
         [..._dartSdk.dartCmd, 'doc', ...args],
         workingDirectory: packageDir,
-        environment: _environment,
+        environment: _dartSdk.environment,
         timeout: timeout,
       );
     }
@@ -628,12 +608,14 @@ Future<String?> _resolve(String? dir) async {
 
 class _DartSdk {
   final String? _baseDir;
+  final Map<String, String> environment;
 
-  _DartSdk._(this._baseDir);
+  _DartSdk._(this._baseDir, this.environment);
 
-  static Future<_DartSdk> detect(String? path) async {
+  static Future<_DartSdk> detect(
+      String? path, Map<String, String> environment) async {
     final resolved = await _resolve(path);
-    return _DartSdk._(resolved);
+    return _DartSdk._(resolved, environment);
   }
 
   late final dartCmd = [
@@ -646,17 +628,24 @@ class _DartSdk {
 class _FlutterSdk {
   final String? _baseDir;
   final _DartSdk _dartSdk;
+  final Map<String, String> environment;
 
-  _FlutterSdk._(this._baseDir, this._dartSdk);
+  _FlutterSdk._(this._baseDir, Map<String, String> environment, this._dartSdk)
+      : environment = {
+          ...environment,
+          if (_baseDir != null) 'FLUTTER_ROOT': _baseDir,
+        };
 
-  static Future<_FlutterSdk> detect(String? path) async {
+  static Future<_FlutterSdk> detect(
+      String? path, Map<String, String> environment) async {
     final resolved = await _resolve(path);
 
     final dartSdkDir = resolved == null
         ? resolved
         : p.join(resolved, 'bin', 'cache', 'dart-sdk');
 
-    return _FlutterSdk._(resolved, await _DartSdk.detect(dartSdkDir));
+    return _FlutterSdk._(
+        resolved, environment, await _DartSdk.detect(dartSdkDir, environment));
   }
 
   late final flutterCmd = [
