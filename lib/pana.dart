@@ -4,7 +4,7 @@
 
 export 'src/dartdoc_analyzer.dart';
 export 'src/download_utils.dart';
-export 'src/maintenance.dart';
+export 'src/maintenance.dart' show exampleFileCandidates;
 export 'src/model.dart';
 export 'src/package_analyzer.dart';
 export 'src/pubspec.dart';

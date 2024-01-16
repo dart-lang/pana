@@ -2,14 +2,25 @@
 
 **BREAKING CHANGES**
 
-- Removed deprecated APIs.
-- Removed `InspectOptions.checkRemoteRepository` - repositories are verified by default.
 - Renamed `runProc` -> `runConstrained`.
-- Removed `ProcessOutput.asBytes`.
+- Removed:
+  - deprecated APIs
+  - `InspectOptions.checkRemoteRepository` - repositories are verified by default
+  - `ProcessOutput.asBytes`
+  - `ToolEnvironment`:
+    - removed parameters from `dartdoc()`
+    - `detectFlutterUse()`
+    - `get environment`
+    - `getFlutterVersion()`
+  - `analysisOptionsFiles`
+  - `changelogFileNames`
+  - `currentAnalysisOptionsFileName`
+  - `dartdocFailedSection`
+  - `firstFileFromNames`
+  - `licenseFileNames`
+  - `pubspecParseError`
+  - `readmeFileNames`
 - `ToolException` has reference to the entire `PanaProcessResult`, instead of just the `stderr`.
-- `ToolEnvironment`:
-  - removed parameters from `dartdoc()`
-  - removed `get environment`, `detectFlutterUse()` and `getFlutterVersion()`
 
 ## 0.21.45
 

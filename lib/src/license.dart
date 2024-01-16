@@ -12,12 +12,13 @@ import 'package:meta/meta.dart';
 import 'package:pana/src/license_detection/license_detector.dart' hide License;
 import 'package:path/path.dart' as p;
 
-import 'maintenance.dart';
 import 'model.dart';
+
+const _licenseFileNames = ['LICENSE'];
 
 Future<List<License>> detectLicenseInDir(String baseDir) async {
   final licenses = <License>[];
-  for (final candidate in licenseFileNames) {
+  for (final candidate in _licenseFileNames) {
     final file = File(p.join(baseDir, candidate));
     if (!file.existsSync()) continue;
     licenses.addAll(await detectLicenseInFile(file, relativePath: candidate));
