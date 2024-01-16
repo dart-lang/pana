@@ -241,7 +241,6 @@ class PackageContext {
         final pr = await toolEnvironment.dartdoc(
           packageDir,
           dartdocOutputDir,
-          validateLinks: false,
           timeout: timeout,
           usesFlutter: usesFlutter,
         );

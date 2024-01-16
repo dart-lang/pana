@@ -17,7 +17,6 @@ import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
 import 'pana_cache.dart';
-import 'pubspec_io.dart';
 import 'tool/run_constrained.dart';
 import 'utils.dart';
 import 'version.dart';
@@ -76,7 +75,7 @@ class ToolEnvironment {
     final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
     Map<String, dynamic>? flutterVersions;
     try {
-      flutterVersions = await getFlutterVersion();
+      flutterVersions = await _getFlutterVersion();
     } catch (e) {
       log.warning('Unable to detect Flutter version.', e);
     }
@@ -257,7 +256,7 @@ class ToolEnvironment {
     return files.toList()..sort();
   }
 
-  Future<Map<String, dynamic>> getFlutterVersion() async {
+  Future<Map<String, dynamic>> _getFlutterVersion() async {
     final result = await runConstrained(
       [..._flutterSdk.flutterCmd, '--version', '--machine'],
       throwOnError: true,
@@ -273,16 +272,6 @@ class ToolEnvironment {
         return content;
       }
     });
-  }
-
-  Future<bool> detectFlutterUse(String packageDir) async {
-    try {
-      final pubspec = pubspecFromDir(packageDir);
-      return pubspec.usesFlutter;
-    } catch (e, st) {
-      log.info('Unable to read pubspec.yaml', e, st);
-    }
-    return false;
   }
 
   Future<PanaProcessResult> runUpgrade(
@@ -409,15 +398,12 @@ class ToolEnvironment {
   Future<PanaProcessResult> dartdoc(
     String packageDir,
     String outputDir, {
-    String? hostedUrl,
-    String? canonicalPrefix,
-    bool validateLinks = true,
-    bool linkToRemote = false,
     Duration? timeout,
-    List<String>? excludedLibs,
     required bool usesFlutter,
   }) async {
-    PanaProcessResult pr;
+    final sdkDir =
+        usesFlutter ? _flutterSdk._dartSdk._baseDir : _dartSdk._baseDir;
+
     final args = [
       '--output',
       outputDir,
@@ -426,27 +412,11 @@ class ToolEnvironment {
       '$_defaultMaxFileCount',
       '--max-total-size',
       '$_defaultMaxTotalLengthBytes',
+      '--no-validate-links',
+      if (sdkDir != null) ...['--sdk-dir', sdkDir],
     ];
-    if (excludedLibs != null && excludedLibs.isNotEmpty) {
-      args.addAll(['--exclude', excludedLibs.join(',')]);
-    }
-    if (hostedUrl != null) {
-      args.addAll(['--hosted-url', hostedUrl]);
-    }
-    if (canonicalPrefix != null) {
-      args.addAll(['--rel-canonical-prefix', canonicalPrefix]);
-    }
-    if (!validateLinks) {
-      args.add('--no-validate-links');
-    }
-    if (linkToRemote) {
-      args.add('--link-to-remote');
-    }
-    final sdkDir =
-        usesFlutter ? _flutterSdk._dartSdk._baseDir : _dartSdk._baseDir;
-    if (sdkDir != null) {
-      args.addAll(['--sdk-dir', sdkDir]);
-    }
+
+    PanaProcessResult pr;
 
     if (_useGlobalDartdoc) {
       if (!_globalDartdocActivated) {
