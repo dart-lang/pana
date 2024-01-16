@@ -7,7 +7,9 @@
 - Renamed `runProc` -> `runConstrained`.
 - Removed `ProcessOutput.asBytes`.
 - `ToolException` has reference to the entire `PanaProcessResult`, instead of just the `stderr`.
-- `ToolEnvironment` does not expose `environment`.
+- `ToolEnvironment`:
+  - removed parameters from `dartdoc()`
+  - removed `get environment`, `detectFlutterUse()` and `getFlutterVersion()`
 
 ## 0.21.45
 
