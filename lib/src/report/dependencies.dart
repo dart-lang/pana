@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart'
@@ -283,12 +284,13 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
   }
   final result = <OutdatedVersionDescription>[];
 
-  final hostUrlString = context.toolEnvironment.environment['PUB_HOSTED_URL'];
-  final environmentUri = (hostUrlString != null && hostUrlString.isNotEmpty)
-      ? Uri.tryParse(hostUrlString)
-      : null;
+  final pubHostedUrlFromEnv = Platform.environment['PUB_HOSTED_URL'];
+  final pubHostedUriFromEnv =
+      (pubHostedUrlFromEnv != null && pubHostedUrlFromEnv.isNotEmpty)
+          ? Uri.tryParse(pubHostedUrlFromEnv)
+          : null;
   final versionListing = jsonDecode(await getVersionListing(name,
-      pubHostedUrl: hostedDependency.hosted?.url ?? environmentUri));
+      pubHostedUrl: hostedDependency.hosted?.url ?? pubHostedUriFromEnv));
 
   try {
     final versions = tryGetFromJson<List>(
