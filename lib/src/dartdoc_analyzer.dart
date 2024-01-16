@@ -53,20 +53,3 @@ ReportSection documentationCoverageSection({
     status: accepted ? ReportStatus.passed : ReportStatus.failed,
   );
 }
-
-/// Creates a report section when running dartdoc failed to produce content.
-ReportSection dartdocFailedSection(String abortMessage) {
-  return ReportSection(
-    id: ReportSectionId.documentation,
-    title: documentationSectionTitle,
-    grantedPoints: 0,
-    maxPoints: 10,
-    summary: renderSimpleSectionSummary(
-      title: 'Failed to run dartdoc',
-      description: abortMessage,
-      grantedPoints: 0,
-      maxPoints: 10,
-    ),
-    status: ReportStatus.failed,
-  );
-}

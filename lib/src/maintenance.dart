@@ -6,9 +6,6 @@ library pana.maintenance;
 
 import 'package:json_annotation/json_annotation.dart';
 
-const changelogFileNames = ['CHANGELOG.md'];
-const readmeFileNames = ['README.md'];
-
 /// Returns the candidates in priority order to display under the 'Example' tab.
 List<String> exampleFileCandidates(String package) {
   return <String>[
@@ -23,28 +20,6 @@ List<String> exampleFileCandidates(String package) {
     'example/example.dart',
     'example/README.md',
   ];
-}
-
-const licenseFileNames = ['LICENSE'];
-
-const String currentAnalysisOptionsFileName = 'analysis_options.yaml';
-final List<String> analysisOptionsFiles = const [
-  currentAnalysisOptionsFileName,
-  '.analysis_options',
-];
-
-String? firstFileFromNames(List<String> files, List<String> names,
-    {bool caseSensitive = false}) {
-  for (var name in names) {
-    for (var file in files) {
-      if (file == name) {
-        return file;
-      } else if (!caseSensitive && file.toLowerCase() == name) {
-        return file;
-      }
-    }
-  }
-  return null;
 }
 
 /// Returns a markdown-formatted error message for pubspec.yaml parse error.
