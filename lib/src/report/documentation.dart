@@ -8,7 +8,6 @@ import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 
 import '../dartdoc/dartdoc.dart';
-import '../dartdoc_analyzer.dart';
 import '../maintenance.dart';
 import '../model.dart';
 import '../package_context.dart';
@@ -70,7 +69,7 @@ Future<ReportSection> hasDocumentation(PackageContext context) async {
   final example = await _exampleSubsection(context);
   return makeSection(
     id: ReportSectionId.documentation,
-    title: documentationSectionTitle,
+    title: 'Provide documentation',
     maxPoints: (documentation?.maxPoints ?? 0) + example.maxPoints,
     subsections: [
       if (documentation != null) documentation,

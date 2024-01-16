@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-export 'src/dartdoc_analyzer.dart';
 export 'src/download_utils.dart';
 export 'src/maintenance.dart' show exampleFileCandidates;
 export 'src/model.dart';

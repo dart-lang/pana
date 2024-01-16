@@ -4,7 +4,6 @@
 
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pub_semver/pub_semver.dart';
 
@@ -237,41 +236,6 @@ class Report {
 
   int get maxPoints =>
       sections.fold<int>(0, (sum, section) => sum + section.maxPoints);
-
-  /// Creates a new [Report] instance with [section] extending and already
-  /// existing [ReportSection]. The sections are matched via the `title`.
-  ///
-  /// The granted and max points will be added to the existing section.
-  /// The status will be min of the two statuses.
-  ///
-  /// The summary will be appended to the end of the existing summary.
-  ///
-  ///
-  /// If there is no section matched, the section will be added to the end of
-  /// the sections list.
-  Report joinSection(ReportSection section) {
-    final matched = sections.firstWhereOrNull(
-        (s) => (s.id == section.id) || s.title == section.title);
-    if (matched == null) {
-      return Report(sections: [...sections, section]);
-    } else {
-      return Report(
-          sections: sections.map(
-        (s) {
-          if (s != matched) {
-            return s;
-          }
-          return ReportSection(
-              id: s.id,
-              title: s.title,
-              maxPoints: s.maxPoints + section.maxPoints,
-              grantedPoints: s.grantedPoints + section.grantedPoints,
-              summary: [s.summary.trim(), section.summary.trim()].join('\n\n'),
-              status: minStatus(s.status, section.status)!);
-        },
-      ).toList());
-    }
-  }
 }
 
 abstract class ReportSectionId {

@@ -13,7 +13,7 @@ import 'dartdoc_index.dart';
 import 'index_to_pubdata.dart';
 import 'pub_dartdoc_data.dart';
 
-final dartdocSubsectionHeadline =
+final _dartdocSubsectionHeadline =
     '20% or more of the public API has dartdoc comments';
 
 Future<PubDartdocData> generateAndSavePubDataJson(
@@ -29,7 +29,7 @@ Future<PubDartdocData> generateAndSavePubDataJson(
 
 Subsection dartdocFailedSubsection(String reason) {
   return Subsection(
-    dartdocSubsectionHeadline,
+    _dartdocSubsectionHeadline,
     [RawParagraph(reason)],
     0,
     10,
@@ -68,7 +68,7 @@ Future<Subsection> createDocumentationCoverageSection(
   }
 
   return Subsection(
-    dartdocSubsectionHeadline,
+    _dartdocSubsectionHeadline,
     [RawParagraph(summary.toString())],
     grantedPoints,
     maxPoints,
