@@ -52,7 +52,7 @@ class PackageAnalyzer {
     String? pubCacheDir,
     String? panaCacheDir,
     String? pubHostedUrl,
-    String? globalDartdocVersion,
+    String? dartdocVersion,
     Map<String, String>? environment,
   }) async {
     return PackageAnalyzer(
@@ -65,7 +65,7 @@ class PackageAnalyzer {
           if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
           ...?environment,
         },
-        dartdocVersion: globalDartdocVersion,
+        dartdocVersion: dartdocVersion,
       ),
     );
   }

@@ -18,7 +18,10 @@ void main() {
         .resolveSymbolicLinksSync();
     final pubCacheDir = p.join(tempDir, 'pub-cache');
     Directory(pubCacheDir).createSync();
-    analyzer = await PackageAnalyzer.create(pubCacheDir: pubCacheDir);
+    analyzer = await PackageAnalyzer.create(
+      pubCacheDir: pubCacheDir,
+      dartdocVersion: 'any',
+    );
   });
 
   tearDownAll(() async {
