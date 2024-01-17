@@ -7,6 +7,7 @@
   - deprecated APIs
   - `InspectOptions.checkRemoteRepository` - repositories are verified by default
   - `ProcessOutput.asBytes`
+  - `Report.joinSection()`
   - `ToolEnvironment`:
     - removed parameters from `dartdoc()`
     - `detectFlutterUse()`
@@ -16,6 +17,8 @@
   - `changelogFileNames`
   - `currentAnalysisOptionsFileName`
   - `dartdocFailedSection`
+  - `documentationCoverageSection()`
+  - `documentationSectionTitle`
   - `firstFileFromNames`
   - `licenseFileNames`
   - `pubspecParseError`
