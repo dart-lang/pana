@@ -65,7 +65,7 @@ class PackageAnalyzer {
           if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
           ...?environment,
         },
-        globalDartdocVersion: globalDartdocVersion,
+        dartdocVersion: globalDartdocVersion,
       ),
     );
   }
