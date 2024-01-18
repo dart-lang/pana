@@ -9,6 +9,8 @@
   - `ProcessOutput.asBytes`
   - `Report.joinSection()`
   - `ToolEnvironment`:
+    - `create()` method dropped `useGlobalDartdoc` flag, will use global dartdoc
+      when `dartdocVersion` is specified, otherwise uses the Dart SDK's `dart doc`.
     - removed parameters from `dartdoc()`
     - `detectFlutterUse()`
     - `get environment`

@@ -33,8 +33,7 @@ class ToolEnvironment {
   final _DartSdk _dartSdk;
   final _FlutterSdk _flutterSdk;
   PanaRuntimeInfo? _runtimeInfo;
-  final bool _useGlobalDartdoc;
-  final String? _globalDartdocVersion;
+  final String? _dartdocVersion;
 
   bool _globalDartdocActivated = false;
 
@@ -45,8 +44,7 @@ class ToolEnvironment {
     this.panaCache,
     this._dartSdk,
     this._flutterSdk,
-    this._useGlobalDartdoc,
-    this._globalDartdocVersion,
+    this._dartdocVersion,
   );
 
   ToolEnvironment.fake({
@@ -60,8 +58,7 @@ class ToolEnvironment {
         _dartSdk = _DartSdk._(null, environment),
         _flutterSdk =
             _FlutterSdk._(null, environment, _DartSdk._(null, environment)),
-        _useGlobalDartdoc = false,
-        _globalDartdocVersion = null,
+        _dartdocVersion = null,
         _runtimeInfo = runtimeInfo;
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
@@ -92,8 +89,13 @@ class ToolEnvironment {
     String? pubCacheDir,
     String? panaCacheDir,
     Map<String, String>? environment,
-    bool useGlobalDartdoc = true,
-    String? globalDartdocVersion,
+
+    /// When specified, this version of `dartdoc` will be initialized
+    /// through `dart pub global activate` and used with `dart pub global run`,
+    /// otherwise the SDK's will be used.
+    ///
+    /// Note: To use the latest `dartdoc`, use the version value `any`.
+    String? dartdocVersion,
   }) async {
     dartSdkDir ??= cli.getSdkPath();
     final resolvedDartSdk = await _resolve(dartSdkDir);
@@ -133,8 +135,7 @@ class ToolEnvironment {
       PanaCache(path: resolvedPanaCache),
       await _DartSdk.detect(dartSdkDir, env),
       flutterSdk,
-      useGlobalDartdoc,
-      globalDartdocVersion,
+      dartdocVersion,
     );
     await toolEnv._init();
     return toolEnv;
@@ -418,7 +419,7 @@ class ToolEnvironment {
 
     PanaProcessResult pr;
 
-    if (_useGlobalDartdoc) {
+    if (_dartdocVersion != null) {
       if (!_globalDartdocActivated) {
         await runConstrained(
           [
@@ -427,7 +428,7 @@ class ToolEnvironment {
             'global',
             'activate',
             'dartdoc',
-            if (_globalDartdocVersion != null) _globalDartdocVersion!,
+            _dartdocVersion!,
           ],
           environment: {
             ..._dartSdk.environment,

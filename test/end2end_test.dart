@@ -41,6 +41,7 @@ void main() {
       pubCacheDir: pubCacheDir,
       panaCacheDir: panaCacheDir,
       pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
+      dartdocVersion: 'any',
     );
   });
 
