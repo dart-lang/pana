@@ -1,11 +1,17 @@
 ## 0.22.0
 
+- `ToolEnvironment.create()` takes `configHomeDir` to specify config the home
+  directory used for the analysis (helps switching different analyzer SDKs).
+- `ToolEnvironment.create()` takes `pubHostedUrl` as `PackageAnalyzer.create()`
+  was removed.
+
 **BREAKING CHANGES**
 
 - Renamed `runProc` -> `runConstrained`.
 - Removed:
   - deprecated APIs
   - `InspectOptions.checkRemoteRepository` - repositories are verified by default
+  - `PackageAnalyzer.create()`
   - `ProcessOutput.asBytes`
   - `Report.joinSection()`
   - `ToolEnvironment`:

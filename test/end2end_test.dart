@@ -37,12 +37,12 @@ void main() {
       httpClient: httpClient,
       blockPublishAfter: goldenDirLastModified,
     );
-    analyzer = await PackageAnalyzer.create(
+    analyzer = PackageAnalyzer(await ToolEnvironment.create(
       pubCacheDir: pubCacheDir,
       panaCacheDir: panaCacheDir,
       pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
       dartdocVersion: 'any',
-    );
+    ));
   });
 
   tearDownAll(() async {
