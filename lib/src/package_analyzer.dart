@@ -68,39 +68,6 @@ class PackageAnalyzer {
     }, logger: logger);
   }
 
-  Future<List<Summary>> inspectVersions(
-    String package,
-    List<String> versions, {
-    InspectOptions? options,
-    Logger Function(String version)? loggerFn,
-    Future<void> Function(String version, String filename, Uint8List data)?
-        storeResourceFn,
-  }) async {
-    final results = <Summary>[];
-    final sharedContext = _createSharedContext(options: options);
-    for (final version in versions) {
-      final summary = await withLogger(
-        () async {
-          return withTempDir((tempDir) async {
-            await downloadPackage(package, version,
-                destination: tempDir, pubHostedUrl: options!.pubHostedUrl);
-            return await _inspect(
-              sharedContext,
-              tempDir,
-              storeResource: storeResourceFn == null
-                  ? null
-                  : (filename, data) =>
-                      storeResourceFn(version, filename, data),
-            );
-          });
-        },
-        logger: loggerFn == null ? null : loggerFn(version),
-      );
-      results.add(summary);
-    }
-    return results;
-  }
-
   Future<Summary> inspectDir(String packageDir, {InspectOptions? options}) {
     final sharedContext = _createSharedContext(options: options);
     return withTempDir((tempDir) async {

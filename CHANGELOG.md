@@ -12,6 +12,7 @@
   - deprecated APIs
   - `InspectOptions.checkRemoteRepository` - repositories are verified by default
   - `PackageAnalyzer.create()`
+  - `PackageAnalyzer.inspectVersions()`
   - `ProcessOutput.asBytes`
   - `Report.joinSection()`
   - `ToolEnvironment`:
