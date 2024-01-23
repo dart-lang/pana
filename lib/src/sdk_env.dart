@@ -84,10 +84,14 @@ class ToolEnvironment {
   }
 
   static Future<ToolEnvironment> create({
+    /// The path (usually in `$HOME/.config` on Linux) where applications may
+    /// store their local configuration data.
+    String? configHomeDir,
     String? dartSdkDir,
     String? flutterSdkDir,
     String? pubCacheDir,
     String? panaCacheDir,
+    String? pubHostedUrl,
     Map<String, String>? environment,
 
     /// When specified, this version of `dartdoc` will be initialized
@@ -102,20 +106,21 @@ class ToolEnvironment {
     final resolvedFlutterSdk = await _resolve(flutterSdkDir);
     final resolvedPubCache = await _resolve(pubCacheDir);
     final resolvedPanaCache = await _resolve(panaCacheDir);
-    final env = <String, String>{
-      ...?environment,
-      if (resolvedPubCache != null) _pubCacheKey: resolvedPubCache,
-      'CI': 'true', // suppresses analytics for both Dart and Flutter
-    };
 
-    final pubEnvValues = <String>[];
     final origPubEnvValue = Platform.environment[_pubEnvironmentKey] ?? '';
-    pubEnvValues.addAll(origPubEnvValue
+    final origPubEnvValues = origPubEnvValue
         .split(':')
         .map((s) => s.trim())
-        .where((s) => s.isNotEmpty));
-    pubEnvValues.add('bot.pkg_pana');
-    env[_pubEnvironmentKey] = pubEnvValues.join(':');
+        .where((s) => s.isNotEmpty);
+
+    final env = <String, String>{
+      ...?environment,
+      'CI': 'true', // suppresses analytics for both Dart and Flutter
+      if (resolvedPubCache != null) _pubCacheKey: resolvedPubCache,
+      if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
+      if (configHomeDir != null) 'XDG_CONFIG_HOME': configHomeDir,
+      _pubEnvironmentKey: [...origPubEnvValues, 'bot.pkg_pana'].join(':'),
+    };
 
     // Flutter stores its internal SDK in its bin/cache/dart-sdk directory.
     // We can use that directory only if Flutter SDK path was specified,

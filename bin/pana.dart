@@ -144,14 +144,14 @@ Future main(List<String> args) async {
 
   try {
     final pubHostedUrl = result['hosted-url'] as String?;
-    final analyzer = await PackageAnalyzer.create(
+    final analyzer = PackageAnalyzer(await ToolEnvironment.create(
       pubCacheDir: pubCacheDir,
       panaCacheDir: Platform.environment['PANA_CACHE'],
-      sdkDir: result['dart-sdk'] as String?,
-      flutterDir: result['flutter-sdk'] as String?,
+      dartSdkDir: result['dart-sdk'] as String?,
+      flutterSdkDir: result['flutter-sdk'] as String?,
       pubHostedUrl: pubHostedUrl,
       environment: Platform.environment,
-    );
+    ));
     final options = InspectOptions(
       pubHostedUrl: pubHostedUrl,
       lineLength: int.tryParse(result['line-length'] as String? ?? ''),
