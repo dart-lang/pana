@@ -147,10 +147,9 @@ Future main(List<String> args) async {
     final analyzer = PackageAnalyzer(await ToolEnvironment.create(
       pubCacheDir: pubCacheDir,
       panaCacheDir: Platform.environment['PANA_CACHE'],
-      dartSdkDir: result['dart-sdk'] as String?,
-      flutterSdkDir: result['flutter-sdk'] as String?,
+      dartSdkConfig: SdkConfig(rootPath: result['dart-sdk'] as String?),
+      flutterSdkConfig: SdkConfig(rootPath: result['flutter-sdk'] as String?),
       pubHostedUrl: pubHostedUrl,
-      environment: Platform.environment,
     ));
     final options = InspectOptions(
       pubHostedUrl: pubHostedUrl,
