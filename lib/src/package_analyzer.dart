@@ -28,12 +28,14 @@ import 'utils.dart';
 class InspectOptions {
   final String? pubHostedUrl;
   final String? dartdocOutputDir;
+  final Duration? totalTimeBudget;
   final Duration? dartdocTimeout;
   final int? lineLength;
 
   InspectOptions({
     this.pubHostedUrl,
     this.dartdocOutputDir,
+    this.totalTimeBudget,
     this.dartdocTimeout,
     this.lineLength,
   });

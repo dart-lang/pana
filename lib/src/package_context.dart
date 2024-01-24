@@ -92,6 +92,7 @@ class PackageContext {
   final String packageDir;
   final errors = <String>[];
   final urlProblems = <String, String>{};
+  final _stopwatch = Stopwatch();
 
   Pubspec? _pubspec;
   List<CodeProblem>? _codeProblems;
@@ -99,10 +100,15 @@ class PackageContext {
   PackageContext({
     required this.sharedContext,
     required this.packageDir,
-  });
+  }) {
+    _stopwatch.start();
+  }
 
   ToolEnvironment get toolEnvironment => sharedContext.toolEnvironment;
   InspectOptions get options => sharedContext.options;
+  Duration? remainingTimeBudget() => options.totalTimeBudget == null
+      ? null
+      : (options.totalTimeBudget! - _stopwatch.elapsed);
 
   late final Version currentSdkVersion =
       Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
@@ -235,7 +241,11 @@ class PackageContext {
       return DartdocResult.skipped();
     }
     if (await resolveDependencies()) {
-      final timeout = options.dartdocTimeout ?? const Duration(minutes: 5);
+      var timeout = options.dartdocTimeout ?? const Duration(minutes: 5);
+      final rtb = remainingTimeBudget();
+      if (rtb != null && rtb < timeout) {
+        timeout = rtb;
+      }
       await normalizeDartdocOptionsYaml(packageDir);
       try {
         final pr = await toolEnvironment.dartdoc(

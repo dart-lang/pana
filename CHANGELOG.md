@@ -4,6 +4,7 @@
   directory used for the analysis (helps switching different analyzer SDKs).
 - `ToolEnvironment.create()` takes `pubHostedUrl` as `PackageAnalyzer.create()`
   was removed.
+- `InspectOptions.totalTimeBudget` to allow the dynamic reduction of `dartdocTimeout`.
 
 **BREAKING CHANGES**
 
