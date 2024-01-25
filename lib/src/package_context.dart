@@ -106,9 +106,19 @@ class PackageContext {
 
   ToolEnvironment get toolEnvironment => sharedContext.toolEnvironment;
   InspectOptions get options => sharedContext.options;
-  Duration? remainingTimeBudget() => options.totalTimeBudget == null
-      ? null
-      : (options.totalTimeBudget! - _stopwatch.elapsed);
+
+  /// Returns the remaining time budget, or a very small but positive duration
+  /// if we are already above the total budget.
+  ///
+  /// Returns `null` if the total budget was not specified.
+  Duration? _remainingTimeBudget() {
+    if (options.totalTimeBudget == null) {
+      return null;
+    }
+    final threshold = const Duration(seconds: 1);
+    final remaining = options.totalTimeBudget! - _stopwatch.elapsed;
+    return remaining > threshold ? remaining : threshold;
+  }
 
   late final Version currentSdkVersion =
       Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
@@ -241,8 +251,8 @@ class PackageContext {
       return DartdocResult.skipped();
     }
     if (await resolveDependencies()) {
-      var timeout = options.dartdocTimeout ?? const Duration(minutes: 5);
-      final rtb = remainingTimeBudget();
+      var timeout = options.dartdocTimeout;
+      final rtb = _remainingTimeBudget();
       if (rtb != null && rtb < timeout) {
         timeout = rtb;
       }

@@ -26,17 +26,33 @@ import 'tool/run_constrained.dart';
 import 'utils.dart';
 
 class InspectOptions {
+  /// The PUB_HOSTED_URL to use for the package download and dependency analysis.
   final String? pubHostedUrl;
+
+  /// The output directory to copy the generated docs. When not specified,
+  /// the documents will be discarded.
   final String? dartdocOutputDir;
+
+  /// The total time budget allocated for the full analysis. `pana` may not be
+  /// able to finish the analysis withing this time, but some parts will be
+  /// running with reduced timeouts in the attempt to complete the analysis
+  /// with partial results.
   final Duration? totalTimeBudget;
-  final Duration? dartdocTimeout;
+
+  /// The timeout to use when running `dartdoc` on the package.
+  ///
+  /// When [totalTimeBudget] is also specified, the lower of
+  /// [dartdocTimeout] and the remaining budget will be used.
+  final Duration dartdocTimeout;
+
+  /// The line length parameter to be used for dart format checks.
   final int? lineLength;
 
   InspectOptions({
     this.pubHostedUrl,
     this.dartdocOutputDir,
     this.totalTimeBudget,
-    this.dartdocTimeout,
+    this.dartdocTimeout = const Duration(minutes: 5),
     this.lineLength,
   });
 }
