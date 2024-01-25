@@ -18,8 +18,12 @@
   - `ToolEnvironment`:
     - `create()` method dropped `useGlobalDartdoc` flag, will use global dartdoc
       when `dartdocVersion` is specified, otherwise uses the Dart SDK's `dart doc`.
+    - `create()` method dropped `dartSdkDir`, `flutterSdkDir`, and `environment`,
+      using `SdkConfig` for each of the SDKs.
     - removed parameters from `dartdoc()`
     - `detectFlutterUse()`
+    - `get dartSdkDir`
+    - `get flutterSdkDir`
     - `get environment`
     - `getFlutterVersion()`
   - `analysisOptionsFiles`

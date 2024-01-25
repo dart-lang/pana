@@ -9,7 +9,7 @@ import 'package:args/command_runner.dart';
 import 'package:pana/src/package_analyzer.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
-import '../sdk_env.dart' show ToolEnvironment;
+import '../sdk_env.dart' show SdkConfig, ToolEnvironment;
 import '../utils.dart' show withTempDir;
 
 import 'batch_model.dart';
@@ -120,9 +120,14 @@ class BatchCompareCommand extends Command {
   Future<ToolEnvironment> _initToolEnv(
       BatchConfig config, String pubCache) async {
     return await ToolEnvironment.create(
-      dartSdkDir: config.dartSdk,
-      flutterSdkDir: config.flutterSdk,
-      environment: config.environment,
+      dartSdkConfig: SdkConfig(
+        rootPath: config.dartSdk,
+        environment: config.environment ?? const {},
+      ),
+      flutterSdkConfig: SdkConfig(
+        rootPath: config.flutterSdk,
+        environment: config.environment ?? const {},
+      ),
       pubCacheDir: pubCache,
     );
   }
