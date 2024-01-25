@@ -34,7 +34,7 @@ class InspectOptions {
   final String? dartdocOutputDir;
 
   /// The total time budget allocated for the full analysis. `pana` may not be
-  /// able to finish the analysis withing this time, but some parts will be
+  /// able to finish the analysis within this time, but some parts will be
   /// running with reduced timeouts in the attempt to complete the analysis
   /// with partial results.
   final Duration? totalTimeBudget;
