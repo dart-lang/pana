@@ -30,7 +30,7 @@ class InspectOptions {
   final String? pubHostedUrl;
 
   /// The output directory to copy the generated docs. When not specified,
-  /// the documents will be discarded.
+  /// the generated docs will be discarded.
   final String? dartdocOutputDir;
 
   /// The total time budget allocated for the full analysis. `pana` may not be
