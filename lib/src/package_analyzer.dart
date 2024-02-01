@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
@@ -33,6 +34,10 @@ class InspectOptions {
   /// the generated docs will be discarded.
   final String? dartdocOutputDir;
 
+  /// The output directory to store the extracted/derived resources like screenshots.
+  /// When not specified, the resources will be discarded.
+  final String? resourcesOutputDir;
+
   /// The total time budget allocated for the full analysis. `pana` may not be
   /// able to finish the analysis within this time, but some parts will be
   /// running with reduced timeouts in the attempt to complete the analysis
@@ -51,6 +56,7 @@ class InspectOptions {
   InspectOptions({
     this.pubHostedUrl,
     this.dartdocOutputDir,
+    this.resourcesOutputDir,
     this.totalTimeBudget,
     this.dartdocTimeout = const Duration(minutes: 5),
     this.lineLength,
@@ -69,7 +75,6 @@ class PackageAnalyzer {
     String? version,
     InspectOptions? options,
     Logger? logger,
-    Future<void> Function(String filename, Uint8List data)? storeResource,
   }) async {
     final sharedContext = _createSharedContext(options: options);
     return withLogger(() async {
@@ -80,8 +85,7 @@ class PackageAnalyzer {
           destination: tempDir,
           pubHostedUrl: options?.pubHostedUrl,
         );
-        return await _inspect(sharedContext, tempDir,
-            storeResource: storeResource);
+        return await _inspect(sharedContext, tempDir);
       });
     }, logger: logger);
   }
@@ -106,10 +110,7 @@ class PackageAnalyzer {
       );
 
   Future<Summary> _inspect(
-    SharedAnalysisContext sharedContext,
-    String pkgDir, {
-    Future<void> Function(String filename, Uint8List data)? storeResource,
-  }) async {
+      SharedAnalysisContext sharedContext, String pkgDir) async {
     final tags = <String>{};
     final context = PackageContext(
       sharedContext: sharedContext,
@@ -199,7 +200,15 @@ class PackageAnalyzer {
         final processedScreenshot = r.processedScreenshot!;
         processedScreenshots.add(processedScreenshot);
 
-        if (storeResource != null) {
+        final resourcesOutputDir = context.options.resourcesOutputDir;
+        if (resourcesOutputDir != null) {
+          Future<void> storeResource(
+              String resourcePath, Uint8List bytes) async {
+            final f = File(path.join(resourcesOutputDir, resourcePath));
+            await f.parent.create(recursive: true);
+            await f.writeAsBytes(bytes);
+          }
+
           await storeResource(processedScreenshot.webpImage, r.webpImageBytes!);
           await storeResource(
               processedScreenshot.webp100Thumbnail, r.webp100ThumbnailBytes!);
