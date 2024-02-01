@@ -1,10 +1,13 @@
 ## 0.22.0
 
-- `ToolEnvironment.create()` takes `configHomeDir` to specify config the home
-  directory used for the analysis (helps switching different analyzer SDKs).
-- `ToolEnvironment.create()` takes `pubHostedUrl` as `PackageAnalyzer.create()`
-  was removed.
-- `InspectOptions.totalTimeBudget` to allow the dynamic reduction of `dartdocTimeout`.
+- `ToolEnvironment`:
+  - `.create()` takes `configHomeDir` to specify config the home
+    directory used for the analysis (helps switching different analyzer SDKs).
+  - `create()` takes `pubHostedUrl` as `PackageAnalyzer.create()` was removed.
+- `InspectOptions`:
+  - `totalTimeBudget` to allow the dynamic reduction of `dartdocTimeout`.
+  - `resourcesOutputDir` to store the resources files (without the previous callback).
+
 
 **BREAKING CHANGES**
 
@@ -12,8 +15,10 @@
 - Removed:
   - deprecated APIs
   - `InspectOptions.checkRemoteRepository` - repositories are verified by default
-  - `PackageAnalyzer.create()`
-  - `PackageAnalyzer.inspectVersions()`
+  - `PackageAnalyzer`:
+    - `create()`
+    - `inspectVersions()`
+    - `storeResource` callback in `inspectPackage()`, use `InspectOptions.resourcesOutputDir` instead
   - `ProcessOutput.asBytes`
   - `Report.joinSection()`
   - `ToolEnvironment`:
