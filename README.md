@@ -40,4 +40,5 @@ Options:
       --hosted                 Download and analyze a hosted package (from https://pub.dev).
       --[no-]dartdoc           Run dartdoc and score the package on documentation coverage.
                                (defaults to on)
+      --dartdoc-version        The dartdoc version to use (otherwise the latest stable).
 ```
