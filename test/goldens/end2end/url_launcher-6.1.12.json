@@ -114,10 +114,10 @@
       {
         "id": "convention",
         "title": "Follow Dart file conventions",
-        "grantedPoints": 30,
+        "grantedPoints": 20,
         "maxPoints": 30,
-        "status": "passed",
-        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`."
+        "status": "failed",
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nIssue tracker URL doesn't exist.\n</summary>\n\nAt the time of the analysis `https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`."
       },
       {
         "id": "documentation",
@@ -156,7 +156,6 @@
   "screenshots": [],
   "result": {
     "repositoryUrl": "https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher",
-    "issueTrackerUrl": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22",
     "repository": {
       "provider": "github",
       "host": "github.com",
@@ -165,7 +164,7 @@
       "path": "packages/url_launcher/url_launcher"
     },
     "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md",
-    "grantedPoints": 140,
+    "grantedPoints": 130,
     "maxPoints": 140
   },
   "urlProblems": []

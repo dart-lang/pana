@@ -58,9 +58,9 @@ class InspectOptions {
     this.dartdocOutputDir,
     this.resourcesOutputDir,
     this.totalTimeBudget,
-    this.dartdocTimeout = const Duration(minutes: 5),
+    Duration? dartdocTimeout,
     this.lineLength,
-  });
+  }) : dartdocTimeout = dartdocTimeout ?? const Duration(minutes: 5);
 }
 
 class PackageAnalyzer {

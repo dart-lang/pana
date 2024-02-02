@@ -7,7 +7,14 @@
 - `InspectOptions`:
   - `totalTimeBudget` to allow the dynamic reduction of `dartdocTimeout`.
   - `resourcesOutputDir` to store the resources files (without the previous callback).
-
+- `bin/pana.dart` accepts new CLI arguments:
+  - `--dart-config-home` (hidden)
+  - `--flutter-config-home` (hidden)
+  - `--dartdoc-output` (hidden)
+  - `--dartdoc-version`
+  - `--dartdoc-timeout` (hidden)
+  - `--resources-output` (hidden)
+  - `--total-time-budget` (hidden)
 
 **BREAKING CHANGES**
 
