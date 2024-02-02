@@ -42,11 +42,11 @@ class InspectOptions {
   /// able to finish the analysis within this time, but some parts will be
   /// running with reduced timeouts in the attempt to complete the analysis
   /// with partial results.
-  final Duration? totalTimeBudget;
+  final Duration? totalTimeout;
 
   /// The timeout to use when running `dartdoc` on the package.
   ///
-  /// When [totalTimeBudget] is also specified, the lower of
+  /// When [totalTimeout] is also specified, the lower of
   /// [dartdocTimeout] and the remaining budget will be used.
   final Duration dartdocTimeout;
 
@@ -57,7 +57,7 @@ class InspectOptions {
     this.pubHostedUrl,
     this.dartdocOutputDir,
     this.resourcesOutputDir,
-    this.totalTimeBudget,
+    this.totalTimeout,
     Duration? dartdocTimeout,
     this.lineLength,
   }) : dartdocTimeout = dartdocTimeout ?? const Duration(minutes: 5);

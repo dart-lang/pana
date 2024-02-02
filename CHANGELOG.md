@@ -14,7 +14,7 @@
   - `--dartdoc-version`
   - `--dartdoc-timeout` (hidden)
   - `--resources-output` (hidden)
-  - `--total-time-budget` (hidden)
+  - `--total-timeout` (hidden)
 
 **BREAKING CHANGES**
 

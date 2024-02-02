@@ -81,7 +81,7 @@ final _parser = ArgParser()
     hide: true,
   )
   ..addOption(
-    'total-time-budget',
+    'total-timeout',
     help: 'The total time budget (in seconds) allocated for the full analysis.',
     hide: true,
   )
@@ -212,7 +212,7 @@ Future main(List<String> args) async {
       dartdocOutputDir: runDartdoc ? dartdocOutputDir : null,
       resourcesOutputDir: resourcesOutputDir,
       dartdocTimeout: _parseDuration(result['dartdoc-timeout'] as String?),
-      totalTimeBudget: _parseDuration(result['total-time-budget'] as String?),
+      totalTimeout: _parseDuration(result['total-timeout'] as String?),
     );
     try {
       late Summary summary;

@@ -112,11 +112,11 @@ class PackageContext {
   ///
   /// Returns `null` if the total budget was not specified.
   Duration? _remainingTimeBudget() {
-    if (options.totalTimeBudget == null) {
+    if (options.totalTimeout == null) {
       return null;
     }
     final threshold = const Duration(seconds: 1);
-    final remaining = options.totalTimeBudget! - _stopwatch.elapsed;
+    final remaining = options.totalTimeout! - _stopwatch.elapsed;
     return remaining > threshold ? remaining : threshold;
   }
 
