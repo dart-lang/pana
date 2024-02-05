@@ -5,7 +5,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -209,7 +208,7 @@ class PackageContext {
       );
       final list = LineSplitter.split(output)
           .map((s) => parseCodeProblem(s, projectDir: packageDir))
-          .whereNotNull()
+          .nonNulls
           .toSet()
           .toList();
       list.sort();

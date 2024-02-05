@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:collection/collection.dart';
 import 'package:logging/logging.dart';
 import 'package:pana/src/tool/git_tool.dart';
 import 'package:path/path.dart' as path;
@@ -287,7 +286,7 @@ Future<AnalysisResult> _createAnalysisResult(
   final repoVerification = await context.repository;
   final repository = repoVerification?.repository;
   final fundingUrls =
-      pubspecUrls.funding.map((e) => e.verifiedUrl).whereNotNull().toList();
+      pubspecUrls.funding.map((e) => e.verifiedUrl).nonNulls.toList();
   return AnalysisResult(
     homepageUrl: pubspecUrls.homepage.verifiedUrl,
     repositoryUrl: pubspecUrls.repository.verifiedUrl,
