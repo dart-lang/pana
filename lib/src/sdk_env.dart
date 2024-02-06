@@ -512,21 +512,22 @@ class ToolEnvironment {
     final now = DateTime.now();
     final pubspecBackup = await _stripAndAugmentPubspecYaml(packageDir);
 
-    // backup of pubspec_overrides.yaml
-    final poyamlFile = File(p.join(packageDir, 'pubspec_overrides.yaml'));
-    File? poyamlBackup;
-    if (await poyamlFile.exists()) {
+    // Create a backup of the pubspec_overrides.yaml file.
+    final pubspecOverridesFile =
+        File(p.join(packageDir, 'pubspec_overrides.yaml'));
+    File? pubspecOverridesBackup;
+    if (await pubspecOverridesFile.exists()) {
       final path = p.join(
         packageDir,
         'pana-${now.millisecondsSinceEpoch}-pubspec_overrides.yaml',
       );
-      poyamlBackup = await poyamlFile.rename(path);
+      pubspecOverridesBackup = await pubspecOverridesFile.rename(path);
     }
 
     try {
       return await fn();
     } finally {
-      await poyamlBackup?.rename(poyamlFile.path);
+      await pubspecOverridesBackup?.rename(pubspecOverridesFile.path);
       await pubspecBackup.rename(p.join(packageDir, 'pubspec.yaml'));
     }
   }

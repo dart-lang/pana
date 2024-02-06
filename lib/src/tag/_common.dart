@@ -6,11 +6,11 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 
-/// Creates a [Explanation] indicating an issue, using [path] to give the location
-/// of the issue.
+/// Creates a [Explanation] indicating an issue, using [path] to
+/// give the location of the issue.
 typedef Explainer<N> = Explanation? Function(List<N> path);
 
-/// Returns an [Explainer] if node fullfills the predicate (if it violates some
+/// Returns an [Explainer] if [node] fulfills the predicate (if it violates some
 /// property) and `null` otherwise.
 ///
 /// Explainer should give an explanation of the problem.

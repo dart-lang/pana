@@ -142,7 +142,7 @@ void testDetectRuns() {
 
     // Set number of license count = 80.
     // If confidence threshold = 0.8, minimum number of hits required in
-    // a window of 80 lenght equals 80 * 0.8 = 64.
+    // a window of 80 length equals 80 * 0.8 = 64.
     // Though the total number hits in matches equal to 71 (> nor of target tokens)
     // no window has hits >= 64 and hence should return an empty list.
     _testDetectRuns(
@@ -161,7 +161,8 @@ void testDetectRuns() {
 
     // Detect multiple fragmented runs.
     // Changing license token count to 50 (subset length becomes 50).
-    // Setting source range to (0, 0) will not effect the result as it is not considerd in detectRuns routine.
+    // Setting source range to (0, 0) will not effect the result as it is
+    // not considered in detectRuns routine.
     _testDetectRuns(
       name: 'Multiple runs',
       licenseTokenCount: 50,
@@ -316,7 +317,7 @@ void testPotentialMatches() {
       knownText: perfect100,
       expected: [MatchRange(Range(0, 80), Range(0, 80), 80)],
     );
-    // Changing confidenceThresold to 0.9 should not produce
+    // Changing confidenceThreshold to 0.9 should not produce
     // a hit as we would need minimum of 90 tokens to be matched.
     _testPotentialMatches(
       name: 'No hits',
@@ -336,10 +337,10 @@ void testPotentialMatches() {
 
     // Should expect any hits.
     // Though the offset difference(unknownStart - knownStart) is 19 abs(72 - 91)
-    // is less tham error margin(100 * (1 - 0.8)), it's contribution i.e 10
+    // is less than error margin(100 * (1 - 0.8)), it's contribution i.e 10
     // is still lesser than than the error it introduces.
     _testPotentialMatches(
-      name: 'No hits, error introduced greather than contribution',
+      name: 'No hits, error introduced greater than contribution',
       unknownText: thirtyIntervalGap,
       knownText: perfect100,
       expected: [],

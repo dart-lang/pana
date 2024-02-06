@@ -61,7 +61,7 @@ Detected license: `BSD-3-Clause`.
 
 ### [x] 0/10 points: 20% or more of the public API has dartdoc comments
 
-Dependency resultion failed, unable to run `dartdoc`.
+Dependency resolution failed, unable to run `dartdoc`.
 
 ### [x] 0/10 points: Package has an example
 

@@ -142,7 +142,7 @@ class LibraryGraph implements DirectedGraph<Uri> {
 
             if (actualValue == testValue) {
               dependency = uri.resolve(configuration.uri.stringValue!);
-              break; // Aways pick the first satisfied configuration.
+              break; // Always pick the first satisfied configuration.
             }
           }
 

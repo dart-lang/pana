@@ -42,7 +42,7 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
         PanaTags.platformAndroid: 'Android',
         PanaTags.platformWeb: 'Web',
         PanaTags.platformWindows: 'Windows',
-        PanaTags.platformMacos: 'MacOS',
+        PanaTags.platformMacos: 'macOS',
         PanaTags.platformLinux: 'Linux',
       };
       final sdkExplanations =

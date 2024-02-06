@@ -170,17 +170,17 @@ Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
         // does not retry on errors
         throw Exception(message);
       } else {
-        throw _RetryExpception(message);
+        throw _RetryException(message);
       }
     },
     onRetry: (e) =>
-        e is _RetryExpception || e is IOException || e is TimeoutException,
+        e is _RetryException || e is IOException || e is TimeoutException,
   );
 }
 
-class _RetryExpception implements Exception {
+class _RetryException implements Exception {
   final String _message;
-  _RetryExpception(this._message);
+  _RetryException(this._message);
 
   @override
   String toString() => _message;

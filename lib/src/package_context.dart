@@ -286,7 +286,7 @@ class PackageContext {
       }
     } else {
       return DartdocResult.error(
-          'Dependency resultion failed, unable to run `dartdoc`.');
+          'Dependency resolution failed, unable to run `dartdoc`.');
     }
   }();
 

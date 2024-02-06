@@ -215,7 +215,7 @@ class PanaProcessResult {
   late final wasError =
       _wasError || exitCode != 0 || wasTimeout || wasOutputExceeded;
 
-  /// Returns the line-concatened output of `stdout` and `stderr`
+  /// Returns the line-concatenated output of `stdout` and `stderr`
   /// (both converted to [String]), and the final output trimmed.
   String get asJoinedOutput {
     return [

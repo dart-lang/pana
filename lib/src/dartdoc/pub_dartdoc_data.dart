@@ -52,7 +52,7 @@ class ApiElement {
 
   String get qualifiedName => parent == null ? name : '$parent.$name';
 
-  /// Wether the entry is a top-level library.
+  /// Weather the entry is a top-level library.
   late final isLibrary = href != null && href!.endsWith('-library.html');
   late final isClass = href != null && href!.endsWith('-class.html');
 }

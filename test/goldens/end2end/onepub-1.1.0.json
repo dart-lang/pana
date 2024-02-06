@@ -138,7 +138,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **MacOS**, **Linux**)\n\n* ✓ Linux\n* ✓ MacOS\n* ✓ Windows\n\nThese platforms are not supported:\n\n<details>\n<summary>\nAndroid\n</summary>\n\nCannot assign Android automatically to a binary only package.\n</details>\n<details>\n<summary>\niOS\n</summary>\n\nCannot assign iOS automatically to a binary only package.\n</details>\n<details>\n<summary>\nWeb\n</summary>\n\nCannot assign Web automatically to a binary only package.\n</details>"
+        "summary": "### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)\n\n* ✓ Linux\n* ✓ macOS\n* ✓ Windows\n\nThese platforms are not supported:\n\n<details>\n<summary>\nAndroid\n</summary>\n\nCannot assign Android automatically to a binary only package.\n</details>\n<details>\n<summary>\niOS\n</summary>\n\nCannot assign iOS automatically to a binary only package.\n</details>\n<details>\n<summary>\nWeb\n</summary>\n\nCannot assign Web automatically to a binary only package.\n</details>"
       },
       {
         "id": "analysis",

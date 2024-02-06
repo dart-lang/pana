@@ -21,8 +21,8 @@ class LicenseMismatchException implements Exception {
 /// Computes the confidence of [knownLicense] matching with [unknownLicense] and
 /// returns an instance of [LicenseMatch].
 ///
-/// Throws [LicenseMismatchException] if an unaccepatable change was made or the calculated confidence is
-/// lesser than the set threshold.
+/// Throws [LicenseMismatchException] if an unacceptable change was made or
+/// the calculated confidence is lesser than the set threshold.
 @visibleForTesting
 LicenseMatch licenseMatch(
   LicenseWithNGrams unknownLicense,
@@ -32,7 +32,7 @@ LicenseMatch licenseMatch(
 ) {
   if (unknownLicense.granularity != knownLicense.granularity) {
     throw LicenseMismatchException(
-        "Can't comapare the licenses due to different granularity");
+        "Can't compare the licenses due to different granularity");
   }
   final diffs = getDiffs(
     unknownLicense.tokens,

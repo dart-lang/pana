@@ -33,13 +33,13 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 
 ## 20/20 Platform support
 
-### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)
+### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
 * ✓ iOS
 * ✓ Windows
 * ✓ Linux
-* ✓ MacOS
+* ✓ macOS
 * ✓ Web
 
 ## 50/50 Pass static analysis
