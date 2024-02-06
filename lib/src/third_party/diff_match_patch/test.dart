@@ -210,7 +210,7 @@ void testDiffMain() {
     diffMain(a, b),
     a,
     b,
-    checklines: true,
+    checkLines: true,
   );
 
   a = '123  4567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890';
@@ -221,7 +221,7 @@ void testDiffMain() {
     diffMain(a, b),
     a,
     b,
-    checklines: true,
+    checkLines: true,
   );
 
   a = '1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n1234567890\n';
@@ -231,7 +231,7 @@ void testDiffMain() {
     final textsLineMode = diffRebuildtexts(diffMain(
       a,
       b,
-      checklines: true,
+      checkLines: true,
     ));
     final textsTextMode = diffRebuildtexts(diffMain(
       a,
@@ -427,29 +427,29 @@ void testDiffLineToChars() {
       'Shared lines',
       'alpha\nbeta\nalpha\n',
       'beta\nalpha\nbeta\n',
-      {
-        'chars1': '\u0001\u0002\u0001',
-        'chars2': '\u0002\u0001\u0002',
-        'lineArray': ['', 'alpha\n', 'beta\n']
-      },
+      (
+        chars1: '\u0001\u0002\u0001',
+        chars2: '\u0002\u0001\u0002',
+        lineArray: ['', 'alpha\n', 'beta\n'],
+      ),
     );
 
     _testDiffLineToChars(
       'Empty string and blank lines.',
       '',
       'alpha\r\nbeta\r\n\r\n\r\n',
-      {
-        'chars1': '',
-        'chars2': '\u0001\u0002\u0003\u0003',
-        'lineArray': ['', 'alpha\r\n', 'beta\r\n', '\r\n']
-      },
+      (
+        chars1: '',
+        chars2: '\u0001\u0002\u0003\u0003',
+        lineArray: ['', 'alpha\r\n', 'beta\r\n', '\r\n'],
+      ),
     );
 
-    _testDiffLineToChars('No linebreaks.', 'a', 'b', {
-      'chars1': '\u0001',
-      'chars2': '\u0002',
-      'lineArray': ['', 'a', 'b']
-    });
+    _testDiffLineToChars('No linebreaks.', 'a', 'b', (
+      chars1: '\u0001',
+      chars2: '\u0002',
+      lineArray: ['', 'a', 'b'],
+    ));
 
     // More than 256 to reveal any 8-bit limitations.
     var n = 300;
@@ -479,7 +479,7 @@ void testDiffLineToChars() {
       'More than 256.',
       lines,
       '',
-      {'chars1': chars, 'chars2': '', 'lineArray': lineList},
+      (chars1: chars, chars2: '', lineArray: lineList),
     );
   });
 }
@@ -544,8 +544,8 @@ void testDiffCharsToLines() {
 
     chars = lineList.join();
     final results = diffLinesToChars(chars, '');
-    diffs = [Diff(Operation.insert, results['chars1'] as String)];
-    diffCharsToLines(diffs, results['lineArray'] as List<String>);
+    diffs = [Diff(Operation.insert, results.chars1)];
+    diffCharsToLines(diffs, results.lineArray);
     test('More than 65536.', () => expect(chars, diffs[0].text));
   });
 }
@@ -1026,10 +1026,10 @@ void _testDiffMain(
   List<Diff> expected,
   String text1,
   String text2, {
-  bool checklines = false,
+  bool checkLines = false,
 }) =>
     test(name, () {
-      _testOutput(diffMain(text1, text2, checklines: checklines), expected);
+      _testOutput(diffMain(text1, text2, checkLines: checkLines), expected);
     });
 
 void _testCommonPrefix(
@@ -1099,26 +1099,22 @@ void _testDiffLineToChars(
   String name,
   String text1,
   String text2,
-  Map<String, dynamic> expected,
+  ({String chars1, String chars2, List<String> lineArray}) expected,
 ) {
   test(name, () {
     final actual = diffLinesToChars(text1, text2);
     expect(
-      actual['chars1'],
-      expected['chars1'],
+      actual.chars1,
+      expected.chars1,
     );
     expect(
-      actual['chars2'],
-      expected['chars2'],
+      actual.chars2,
+      expected.chars2,
     );
     expect(
-      actual['lineArray'].length,
-      expected['lineArray'].length,
+      actual.lineArray,
+      expected.lineArray,
     );
-
-    for (var i = 0; i < (actual['lineArray'] as List<String>).length; i++) {
-      expect(actual['lineArray'][i], expected['lineArray'][i]);
-    }
   });
 }
 
