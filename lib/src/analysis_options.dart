@@ -13,49 +13,39 @@ import 'package:yaml/yaml.dart' as yaml;
 
 final _logger = Logger('analysis_options');
 
-String? _cachedLintsCoreInResolvedReferences;
-String? _cachedLintsCoreOptionsOnGithub;
+String? _cachedCoreLints;
 
 /// The default analysis options configuration (in its raw yaml format).
 Future<String> getDefaultAnalysisOptionsYaml() async =>
-    await _getLintsCoreAnalysisOptions();
+    _cachedCoreLints ??= await _getLintsCoreAnalysisOptions();
 
 Future<String> _getLintsCoreAnalysisOptions() async {
   // Try to load local lints from the resolved package references.
-  if (_cachedLintsCoreInResolvedReferences case final cachedCoreLints?) {
-    return cachedCoreLints;
-  }
-
   try {
-    final resource =
-        await Isolate.resolvePackageUri(Uri.parse('package:lints/core.yaml'));
-    final file = File.fromUri(resource!);
-    final lintConfigAsString = await file.readAsString();
-    _cachedLintsCoreInResolvedReferences = lintConfigAsString;
-    return lintConfigAsString;
+    final coreLintsUri = Uri(scheme: 'package', path: 'lints/core.yaml');
+    final resource = await Isolate.resolvePackageUri(coreLintsUri);
+    if (resource != null) {
+      final file = File.fromUri(resource);
+      return await file.readAsString();
+    }
   } on Exception catch (_) {
-    // Gracefully handle exception to fallback to empty options.
+    // Gracefully handle exception to fall back to an empty config.
   }
 
   // Try to load latest version of the core lints from GitHub.
-  if (_cachedLintsCoreOptionsOnGithub case final cachedCoreLints?) {
-    return cachedCoreLints;
-  }
   try {
     final rs = await _httpGetWithRetry(Uri.parse(
         'https://raw.githubusercontent.com/dart-lang/lints/main/lib/core.yaml'));
     if (rs.statusCode == 200 && rs.body.contains('rules:')) {
-      final resultBody = rs.body;
-      _cachedLintsCoreOptionsOnGithub = resultBody;
-      return resultBody;
+      return rs.body;
     }
   } on Exception catch (_) {
-    // Gracefully handle exception to fallback to empty options.
+    // Gracefully handle exception to fall back to an empty config.
   }
 
   // If we couldn't load the core lints,
-  // log a warning and return an empty analysis config.
-  _logger.warning('Unable to load default analysis options.');
+  // log a warning and fall back to an empty analysis config.
+  _logger.warning('Unable to load the core set of analysis options.');
   return '';
 }
 
