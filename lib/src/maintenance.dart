@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library pana.maintenance;
-
 import 'package:json_annotation/json_annotation.dart';
 
 /// Returns the candidates in priority order to display under the 'Example' tab.
