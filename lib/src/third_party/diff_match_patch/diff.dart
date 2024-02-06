@@ -70,7 +70,7 @@ double diffTimeout = 1.0;
 /// off the texts before diffing.
 /// [text1] is the old string to be diffed.
 /// [text2] is the new string to be diffed.
-/// [checklines] is an optional speedup flag.  If present and false, then don't
+/// [checkLines] is an optional speedup flag.  If present and false, then don't
 /// run a line-level diff first to identify the changed areas.
 /// Defaults to true, which does a faster, slightly less optimal diff.
 /// [deadline] is an optional time when the diff should be complete by.  Used
@@ -79,7 +79,7 @@ double diffTimeout = 1.0;
 List<Diff> diffMain(
   String text1,
   String text2, {
-  bool checklines = true,
+  bool checkLines = true,
   DateTime? deadline,
 }) {
   // Set a deadline by which time the diff must be complete.
@@ -104,26 +104,26 @@ List<Diff> diffMain(
   }
 
   // Trim off common prefix (speedup).
-  var commonlength = diffCommonPrefix(text1, text2);
-  var commonprefix = text1.substring(0, commonlength);
-  text1 = text1.substring(commonlength);
-  text2 = text2.substring(commonlength);
+  var commonLength = diffCommonPrefix(text1, text2);
+  var commonPrefix = text1.substring(0, commonLength);
+  text1 = text1.substring(commonLength);
+  text2 = text2.substring(commonLength);
 
   // Trim off common suffix (speedup).
-  commonlength = diffCommonSuffix(text1, text2);
-  var commonsuffix = text1.substring(text1.length - commonlength);
-  text1 = text1.substring(0, text1.length - commonlength);
-  text2 = text2.substring(0, text2.length - commonlength);
+  commonLength = diffCommonSuffix(text1, text2);
+  var commonSuffix = text1.substring(text1.length - commonLength);
+  text1 = text1.substring(0, text1.length - commonLength);
+  text2 = text2.substring(0, text2.length - commonLength);
 
   // Compute the diff on the middle block.
-  diffs = diffCompute(text1, text2, checklines, deadline);
+  diffs = diffCompute(text1, text2, checkLines, deadline);
 
   // Restore the prefix and suffix.
-  if (commonprefix.isNotEmpty) {
-    diffs.insert(0, Diff(Operation.equal, commonprefix));
+  if (commonPrefix.isNotEmpty) {
+    diffs.insert(0, Diff(Operation.equal, commonPrefix));
   }
-  if (commonsuffix.isNotEmpty) {
-    diffs.add(Diff(Operation.equal, commonsuffix));
+  if (commonSuffix.isNotEmpty) {
+    diffs.add(Diff(Operation.equal, commonSuffix));
   }
 
   diffCleanupMerge(diffs);
@@ -135,7 +135,7 @@ List<Diff> diffMain(
 /// Assumes that the texts do not have any common prefix or suffix.
 /// [text1] is the old string to be diffed.
 /// [text2] is the new string to be diffed.
-/// [checklines] is a speedup flag.  If false, then don't run a
+/// [checkLines] is a speedup flag.  If false, then don't run a
 /// line-level diff first to identify the changed areas.
 /// If true, then run a faster slightly less optimal diff.
 /// [deadline] is the time when the diff should be complete by.
@@ -144,7 +144,7 @@ List<Diff> diffMain(
 List<Diff> diffCompute(
   String text1,
   String text2,
-  bool checklines,
+  bool checkLines,
   DateTime deadline,
 ) {
   var diffs = <Diff>[];
@@ -199,14 +199,14 @@ List<Diff> diffCompute(
     final diffsA = diffMain(
       text1A,
       text2A,
-      checklines: checklines,
+      checkLines: checkLines,
       deadline: deadline,
     );
 
     final diffsB = diffMain(
       textB,
       text2B,
-      checklines: checklines,
+      checkLines: checkLines,
       deadline: deadline,
     );
 
@@ -217,7 +217,7 @@ List<Diff> diffCompute(
     return diffs;
   }
 
-  if (checklines && text1.length > 100 && text2.length > 100) {
+  if (checkLines && text1.length > 100 && text2.length > 100) {
     return _diffLineMode(text1, text2, deadline);
   }
 
@@ -237,7 +237,7 @@ void diffCleanupMerge(List<Diff> diffs) {
   var countInsert = 0;
   var textDelete = '';
   var textInsert = '';
-  int commonlength;
+  int commonLength;
 
   while (pointer < diffs.length) {
     switch (diffs[pointer].operation) {
@@ -256,35 +256,35 @@ void diffCleanupMerge(List<Diff> diffs) {
         if (countDelete + countInsert > 1) {
           if (countDelete != 0 && countInsert != 0) {
             // Factor out any common prefixes.
-            commonlength = diffCommonPrefix(textInsert, textDelete);
-            if (commonlength != 0) {
+            commonLength = diffCommonPrefix(textInsert, textDelete);
+            if (commonLength != 0) {
               if ((pointer - countDelete - countInsert) > 0 &&
                   diffs[pointer - countDelete - countInsert - 1].operation ==
                       Operation.equal) {
                 final i = pointer - countDelete - countInsert - 1;
                 diffs[i].text =
-                    diffs[i].text + textInsert.substring(0, commonlength);
+                    diffs[i].text + textInsert.substring(0, commonLength);
               } else {
                 diffs.insert(
                     0,
                     Diff(Operation.equal,
-                        textInsert.substring(0, commonlength)));
+                        textInsert.substring(0, commonLength)));
                 pointer++;
               }
-              textInsert = textInsert.substring(commonlength);
-              textDelete = textDelete.substring(commonlength);
+              textInsert = textInsert.substring(commonLength);
+              textDelete = textDelete.substring(commonLength);
             }
 
             // Factor out any common suffixes.
-            commonlength = diffCommonSuffix(textInsert, textDelete);
-            if (commonlength != 0) {
+            commonLength = diffCommonSuffix(textInsert, textDelete);
+            if (commonLength != 0) {
               diffs[pointer].text =
-                  textInsert.substring(textInsert.length - commonlength) +
+                  textInsert.substring(textInsert.length - commonLength) +
                       diffs[pointer].text;
               textInsert =
-                  textInsert.substring(0, textInsert.length - commonlength);
+                  textInsert.substring(0, textInsert.length - commonLength);
               textDelete =
-                  textDelete.substring(0, textDelete.length - commonlength);
+                  textDelete.substring(0, textDelete.length - commonLength);
             }
           }
           // Delete the offending records and add the merged ones.
@@ -378,25 +378,25 @@ List<String>? diffHalfMatch(String text1, String text2) {
     return null;
   }
 
-  final longtext = text1.length > text2.length ? text1 : text2;
-  final shorttext = text1.length > text2.length ? text2 : text1;
+  final longText = text1.length > text2.length ? text1 : text2;
+  final shortText = text1.length > text2.length ? text2 : text1;
 
-  if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
+  if (longText.length < 4 || shortText.length * 2 < longText.length) {
     return null; // Pointless.
   }
 
   // First check if the second quarter is the seed for a half-match.
   final hm1 = _diffHalfMatchI(
-    longtext,
-    shorttext,
-    ((longtext.length + 3) / 4).ceil().toInt(),
+    longText,
+    shortText,
+    ((longText.length + 3) / 4).ceil().toInt(),
   );
 
   // Check again based on the third quarter.
   final hm2 = _diffHalfMatchI(
-    longtext,
-    shorttext,
-    ((longtext.length + 1) / 2).ceil().toInt(),
+    longText,
+    shortText,
+    ((longText.length + 1) / 2).ceil().toInt(),
   );
 
   List<String>? hm;
@@ -420,7 +420,8 @@ List<String>? diffHalfMatch(String text1, String text2) {
   }
 }
 
-/// Do a quick line-level diff on both strings, then rediff the parts for greater accuracy.
+/// Do a quick line-level diff on both strings,
+/// then rediff the parts for greater accuracy.
 ///
 /// This speedup can produce non-minimal diffs.
 /// [text1] is the old string to be diffed.
@@ -429,21 +430,17 @@ List<String>? diffHalfMatch(String text1, String text2) {
 /// Returns a List of Diff objects.
 List<Diff> _diffLineMode(String text1, String text2, DateTime deadline) {
   // Scan the text on a line-by-line basis first.
-  final a = diffLinesToChars(text1, text2);
-
-  final linearray = a['lineArray'] as List<String>;
-  text1 = a['chars1'] as String;
-  text2 = a['chars2'] as String;
+  final (:chars1, :chars2, :lineArray) = diffLinesToChars(text1, text2);
 
   final diffs = diffMain(
-    text1,
-    text2,
-    checklines: false,
+    chars1,
+    chars2,
+    checkLines: false,
     deadline: deadline,
   );
 
   // Convert the diff back to original text.
-  diffCharsToLines(diffs, linearray);
+  diffCharsToLines(diffs, lineArray);
   // Eliminate freak matches (e.g. blank lines)
   diffCleanupSemantic(diffs);
 
@@ -479,7 +476,7 @@ List<Diff> _diffLineMode(String text1, String text2, DateTime deadline) {
           final subDiff = diffMain(
             textDelete.toString(),
             textInsert.toString(),
-            checklines: false,
+            checkLines: false,
             deadline: deadline,
           );
 
@@ -630,44 +627,44 @@ List<Diff> diffBisect(String text1, String text2, DateTime deadline) {
   return [Diff(Operation.delete, text1), Diff(Operation.insert, text2)];
 }
 
-/// Does a substring of shorttext exist within longtext such that the
-/// substring is at least half the length of longtext?
+/// Does a substring of [shortText] exist within [longText] such that the
+/// substring is at least half the length of [longText]?
 ///
-/// [longtext] is the longer string. [shorttext] is the shorter string.
-/// [i] Start index of quarter length substring within longtext.
-/// Returns a five element String array, containing the prefix of longtext,
-/// the suffix of longtext, the prefix of shorttext, the suffix of
-/// shorttext and the common middle.  Or null if there was no match.
-List<String>? _diffHalfMatchI(String longtext, String shorttext, int i) {
+/// [longText] is the longer string. [shortText] is the shorter string.
+/// [i] Start index of quarter length substring within [longText].
+/// Returns a five element String array, containing the prefix of [longText],
+/// the suffix of [longText], the prefix of [shortText], the suffix of
+/// [shortText] and the common middle.  Or `null` if there was no match.
+List<String>? _diffHalfMatchI(String longText, String shortText, int i) {
   // Start with a 1/4 length substring at position i as a seed.
-  final seed = longtext.substring(i, i + (longtext.length / 4).floor().toInt());
+  final seed = longText.substring(i, i + (longText.length / 4).floor().toInt());
   var j = -1;
   var bestCommon = '';
   var bestLongtextA = '', bestLongtextB = '';
   var bestShortTextA = '', bestShortTextB = '';
 
-  while ((j = shorttext.indexOf(seed, j + 1)) != -1) {
+  while ((j = shortText.indexOf(seed, j + 1)) != -1) {
     final prefixLength = diffCommonPrefix(
-      longtext.substring(i),
-      shorttext.substring(j),
+      longText.substring(i),
+      shortText.substring(j),
     );
 
     final suffixLength = diffCommonSuffix(
-      longtext.substring(0, i),
-      shorttext.substring(0, j),
+      longText.substring(0, i),
+      shortText.substring(0, j),
     );
 
     if (bestCommon.length < suffixLength + prefixLength) {
-      bestCommon = shorttext.substring(j - suffixLength, j) +
-          shorttext.substring(j, j + prefixLength);
-      bestLongtextA = longtext.substring(0, i - suffixLength);
-      bestLongtextB = longtext.substring(i + prefixLength);
-      bestShortTextA = shorttext.substring(0, j - suffixLength);
-      bestShortTextB = shorttext.substring(j + prefixLength);
+      bestCommon = shortText.substring(j - suffixLength, j) +
+          shortText.substring(j, j + prefixLength);
+      bestLongtextA = longText.substring(0, i - suffixLength);
+      bestLongtextB = longText.substring(i + prefixLength);
+      bestShortTextA = shortText.substring(0, j - suffixLength);
+      bestShortTextB = shortText.substring(j + prefixLength);
     }
   }
 
-  if (bestCommon.length * 2 >= longtext.length) {
+  if (bestCommon.length * 2 >= longText.length) {
     return [
       bestLongtextA,
       bestLongtextB,
@@ -680,17 +677,18 @@ List<String>? _diffHalfMatchI(String longtext, String shorttext, int i) {
   }
 }
 
-/// Rehydrate the text in a diff from a string of line hashes to real lines of text.
+/// Rehydrate the text in a diff from a
+/// string of line hashes to real lines of text.
 ///
 /// [diffs] is a List of Diff objects.
 /// [lineArray] is a List of unique strings.
 @visibleForTesting
-void diffCharsToLines(List<Diff> diffs, List<String>? lineArray) {
+void diffCharsToLines(List<Diff> diffs, List<String> lineArray) {
   final text = StringBuffer();
 
   for (var diff in diffs) {
     for (var j = 0; j < diff.text.length; j++) {
-      text.write(lineArray![diff.text.codeUnitAt(j)]);
+      text.write(lineArray[diff.text.codeUnitAt(j)]);
     }
     diff.text = text.toString();
     text.clear();
@@ -722,13 +720,13 @@ List<Diff> _diffBisectSplit(
   final diffs = diffMain(
     text1a,
     text2a,
-    checklines: false,
+    checkLines: false,
     deadline: deadline,
   );
   final diffsb = diffMain(
     text1b,
     text2b,
-    checklines: false,
+    checkLines: false,
     deadline: deadline,
   );
 
