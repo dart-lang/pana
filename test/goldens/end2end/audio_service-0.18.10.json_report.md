@@ -61,44 +61,10 @@ Because:
 * `package:path_provider/path_provider.dart` that declares support for platforms: `Android`, `iOS`, `Windows`, `Linux`, `macOS`.
 </details>
 
-## 40/50 Pass static analysis
+## 50/50 Pass static analysis
 
-### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
+### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 16 issues. Showing the first 2:
-
-<details>
-<summary>
-INFO: Unclosed instance of 'Sink'.
-</summary>
-
-`lib/audio_service.dart:1943:40`
-
-```
-     ╷
-1943 │   final BehaviorSubject<PlaybackState> _playbackState = BehaviorSubject();
-     │                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
-</details>
-<details>
-<summary>
-INFO: Unclosed instance of 'Sink'.
-</summary>
-
-`lib/audio_service.dart:1944:42`
-
-```
-     ╷
-1944 │   final BehaviorSubject<List<MediaItem>> _queue = BehaviorSubject();
-     │                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
-     ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
-</details>
 
 ## 20/20 Support up-to-date dependencies
 
@@ -128,8 +94,8 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`file`]|-|7.0.0|7.0.0|
 |[`http`]|-|1.1.0|1.1.0|
 |[`http_parser`]|-|4.0.2|4.0.2|
-|[`material_color_utilities`]|-|0.5.0|0.8.0|
-|[`meta`]|-|1.10.0|1.11.0|
+|[`material_color_utilities`]|-|0.8.0|0.8.0|
+|[`meta`]|-|1.11.0|1.11.0|
 |[`path`]|-|1.8.3|1.8.3|
 |[`path_provider`]|-|2.1.1|2.1.1|
 |[`path_provider_android`]|-|2.2.1|2.2.1|
@@ -150,7 +116,6 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`typed_data`]|-|1.3.2|1.3.2|
 |[`uuid`]|-|4.1.0|4.1.0|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|0.3.0|0.3.0|
 |[`win32`]|-|5.0.9|5.0.9|
 |[`xdg_directories`]|-|1.0.3|1.0.3|
 </details>
@@ -196,7 +161,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`typed_data`]: https://pub.dev/packages/typed_data
 [`uuid`]: https://pub.dev/packages/uuid
 [`vector_math`]: https://pub.dev/packages/vector_math
-[`web`]: https://pub.dev/packages/web
 [`win32`]: https://pub.dev/packages/win32
 [`xdg_directories`]: https://pub.dev/packages/xdg_directories
 

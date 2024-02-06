@@ -69,12 +69,11 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 |[`characters`]|-|1.3.0|1.3.0|
 |[`collection`]|-|1.18.0|1.18.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`material_color_utilities`]|-|0.5.0|0.8.0|
-|[`meta`]|-|1.10.0|1.11.0|
+|[`material_color_utilities`]|-|0.8.0|0.8.0|
+|[`meta`]|-|1.11.0|1.11.0|
 |[`plugin_platform_interface`]|-|2.1.6|2.1.6|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|0.3.0|0.3.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -95,7 +94,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`vector_math`]: https://pub.dev/packages/vector_math
-[`web`]: https://pub.dev/packages/web
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
