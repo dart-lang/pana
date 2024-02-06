@@ -10,28 +10,12 @@ import 'package:yaml/yaml.dart' as yaml;
 
 void main() {
   test('default options', () async {
-    final content = await getDefaultAnalysisOptionsYaml(
-        usesFlutter: false, flutterSdkDir: null);
+    final content = await getDefaultAnalysisOptionsYaml();
     expect(content, contains('linter:'));
     expect(content, contains('rules:'));
     expect(content, contains('avoid_empty_else'));
     expect(content, isNot(contains('avoid_init_to_null')));
     expect(json.decode(json.encode(yaml.loadYaml(content))), {
-      'linter': {
-        'rules': hasLength(greaterThan(10)),
-      },
-    });
-  });
-
-  test('default Flutter options', () async {
-    final content = await getDefaultAnalysisOptionsYaml(
-        usesFlutter: true, flutterSdkDir: null);
-    expect(json.decode(json.encode(yaml.loadYaml(content))), {
-      'analyzer': {
-        'errors': {
-          'missing_required_param': 'warning',
-        },
-      },
       'linter': {
         'rules': hasLength(greaterThan(10)),
       },

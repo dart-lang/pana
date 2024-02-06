@@ -194,10 +194,7 @@ class ToolEnvironment {
     if (await analysisOptionsFile.exists()) {
       originalOptions = await analysisOptionsFile.readAsString();
     }
-    final rawOptionsContent = await getDefaultAnalysisOptionsYaml(
-      usesFlutter: usesFlutter,
-      flutterSdkDir: _flutterSdk._config.rootPath,
-    );
+    final rawOptionsContent = await getDefaultAnalysisOptionsYaml();
     final customOptionsContent = updatePassthroughOptions(
         original: originalOptions, custom: rawOptionsContent);
     try {
