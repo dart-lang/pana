@@ -10,7 +10,7 @@ import 'package:test_descriptor/test_descriptor.dart' as d;
 import '../package_descriptor.dart';
 
 void expectTagging(void Function(List<String>, List<Explanation>) f,
-    {dynamic tags = anything, dynamic explanations = anything}) {
+    {Object? tags = anything, Object? explanations = anything}) {
   final actualTags = <String>[];
   final actualExplanations = <Explanation>[];
   f(actualTags, actualExplanations);
@@ -266,7 +266,8 @@ void main() {
   });
 }
 
-Matcher explanation({finding = anything, explanation = anything}) {
+Matcher explanation(
+    {Object? finding = anything, Object? explanation = anything}) {
   return allOf(
     HasFinding(finding),
     HasDescription(explanation),
@@ -274,15 +275,16 @@ Matcher explanation({finding = anything, explanation = anything}) {
 }
 
 class HasDescription extends CustomMatcher {
-  HasDescription(matcher) : super('Explanation with a', 'explanation', matcher);
+  HasDescription(Object? matcher)
+      : super('Explanation with a', 'explanation', matcher);
 
   @override
-  String? featureValueOf(actual) => (actual as Explanation).explanation;
+  String? featureValueOf(Object? actual) => (actual as Explanation).explanation;
 }
 
 class HasFinding extends CustomMatcher {
-  HasFinding(matcher) : super('Explanation with a', 'finding', matcher);
+  HasFinding(Object? matcher) : super('Explanation with a', 'finding', matcher);
 
   @override
-  String featureValueOf(actual) => (actual as Explanation).finding;
+  String featureValueOf(Object? actual) => (actual as Explanation).finding;
 }
