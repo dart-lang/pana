@@ -23,7 +23,8 @@ PackageServer? _globalPackageServer;
 ///
 /// Calls [callback] with a [PackageServerBuilder] that's used to specify
 /// which packages to serve.
-Future servePackages([void Function(PackageServerBuilder?)? callback]) async {
+Future<void> servePackages(
+    [void Function(PackageServerBuilder?)? callback]) async {
   _globalPackageServer = await PackageServer.start(callback ?? (_) {});
 
   addTearDown(() {
@@ -35,7 +36,7 @@ Future servePackages([void Function(PackageServerBuilder?)? callback]) async {
 /// registered.
 ///
 /// This will always replace a previous server.
-Future serveNoPackages() => servePackages((_) {});
+Future<void> serveNoPackages() => servePackages((_) {});
 
 class PackageServer {
   /// The underlying server.
@@ -109,7 +110,7 @@ class PackageServer {
   }
 
   /// Closes this server.
-  Future close() => _server.close();
+  Future<void> close() => _server.close();
 
   /// The [d.DirectoryDescriptor] describing the server layout of
   /// `/api/packages` on the test server.
@@ -166,11 +167,12 @@ class PackageServer {
 
 /// Returns a Map in the format used by the pub.dartlang.org API to represent a
 /// package version.
-Map _packageVersionApiMap(String hostedUrl, _ServedPackageVersion package) {
+Map<String, Object?> _packageVersionApiMap(
+    String hostedUrl, _ServedPackageVersion package) {
   final pubspec = package.pubspec;
   final name = pubspec['name'];
   final version = pubspec['version'];
-  final map = {
+  final map = <String, Object?>{
     'pubspec': pubspec,
     'version': version,
     'archive_url': '$hostedUrl/packages/$name/versions/$version.tar.gz',
@@ -201,12 +203,12 @@ class PackageServerBuilder {
   /// If [contents] is passed, it's used as the contents of the package. By
   /// default, a package just contains a dummy lib directory.
   void serve(String name, String version,
-      {Map<String, dynamic>? deps,
-      Map<String, dynamic>? pubspec,
+      {Map<String, Object>? deps,
+      Map<String, Object>? pubspec,
       Map<String, String>? versionData,
       Iterable<d.Descriptor>? contents,
       DateTime? published}) {
-    var pubspecFields = <String, dynamic>{
+    var pubspecFields = <String, Object>{
       'name': name,
       'version': version,
       'environment': {'sdk': '>=2.12.0 <4.0.0'}

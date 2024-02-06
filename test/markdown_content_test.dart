@@ -30,7 +30,7 @@ void main() {
         'http://example.com/logo.png',
         'gopher://example.com/logo.png',
       ],
-      'links': [],
+      'links': <String>[],
       'isMalformedUtf8': false,
       'nonAsciiRatio': 0.0,
     });
@@ -52,8 +52,8 @@ void main() {
       ]);
       final content = await scanMarkdownFileContent(file);
       expect(content.toJson(), {
-        'images': [],
-        'links': [],
+        'images': <String>[],
+        'links': <String>[],
         'isMalformedUtf8': true,
         'nonAsciiRatio': greaterThan(0.01),
       });
@@ -67,8 +67,8 @@ void main() {
       ]);
       final content = await scanMarkdownFileContent(file);
       expect(content.toJson(), {
-        'images': [],
-        'links': [],
+        'images': <String>[],
+        'links': <String>[],
         'isMalformedUtf8': true,
         'nonAsciiRatio': greaterThan(0.01),
       });
