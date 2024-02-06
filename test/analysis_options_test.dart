@@ -24,7 +24,7 @@ void main() {
 
   test('passthrough for empty options', () {
     final content = updatePassthroughOptions(original: '', custom: '');
-    expect(json.decode(content), {});
+    expect(json.decode(content), <String, Object?>{});
   });
 
   test('passthrough for some options', () {

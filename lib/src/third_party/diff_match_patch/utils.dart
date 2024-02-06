@@ -70,8 +70,8 @@ String _diffLinesToCharsMunge(
     }
     line = text.substring(lineStart, lineEnd + 1);
 
-    if (lineHash.containsKey(line)) {
-      chars.writeCharCode(lineHash[line]!);
+    if (lineHash[line] case final lineHashIndex?) {
+      chars.writeCharCode(lineHashIndex);
     } else {
       if (lineArray.length == maxLines) {
         // Bail out at 65535 because
@@ -99,7 +99,8 @@ String _diffLinesToCharsMunge(
 /// the List of unique strings. The zeroth element of the List of
 /// unique strings is intentionally blank.
 @visibleForTesting
-Map<String, dynamic> diffLinesToChars(String text1, String text2) {
+({String chars1, String chars2, List<String> lineArray}) diffLinesToChars(
+    String text1, String text2) {
   final lineArray = <String>[];
   final lineHash = HashMap<String, int>();
   // e.g. linearray[4] == 'Hello\n'
@@ -113,7 +114,7 @@ Map<String, dynamic> diffLinesToChars(String text1, String text2) {
   final chars1 = _diffLinesToCharsMunge(text1, lineArray, lineHash, 40000);
   final chars2 = _diffLinesToCharsMunge(text2, lineArray, lineHash, 65535);
 
-  return {'chars1': chars1, 'chars2': chars2, 'lineArray': lineArray};
+  return (chars1: chars1, chars2: chars2, lineArray: lineArray);
 }
 
 int diffLevenshteinWord(Iterable<Diff> diffs) {
@@ -350,7 +351,7 @@ void diffCleanupSemantic(List<Diff> diffs) {
         // Throw away the equality we just deleted.
         equalities.removeLast();
 
-        // Throw away the previous equality (it needs to be revaluated).
+        // Throw away the previous equality (it needs to be reevaluated).
         if (equalities.isNotEmpty) {
           equalities.removeLast();
         }
@@ -453,14 +454,14 @@ void diffCleanupSemanticLossless(List<Diff> diffs) {
     // rather than force total conformity.
     final char1 = one[one.length - 1];
     final char2 = two[0];
-    final nonAlphaNumeric1 = char1.contains(nonAlphaNumericRegex);
-    final nonAlphaNumeric2 = char2.contains(nonAlphaNumericRegex);
-    final whitespace1 = nonAlphaNumeric1 && char1.contains(whitespaceRegex);
-    final whitespace2 = nonAlphaNumeric2 && char2.contains(whitespaceRegex);
-    final lineBreak1 = whitespace1 && char1.contains(linebreakRegex);
-    final lineBreak2 = whitespace2 && char2.contains(linebreakRegex);
-    final blankLine1 = lineBreak1 && one.contains(blanklineEndRegex);
-    final blankLine2 = lineBreak2 && two.contains(blanklineStartRegex);
+    final nonAlphaNumeric1 = char1.contains(_nonAlphaNumericRegex);
+    final nonAlphaNumeric2 = char2.contains(_nonAlphaNumericRegex);
+    final whitespace1 = nonAlphaNumeric1 && char1.contains(_whitespaceRegex);
+    final whitespace2 = nonAlphaNumeric2 && char2.contains(_whitespaceRegex);
+    final lineBreak1 = whitespace1 && char1.contains(_lineBreakRegex);
+    final lineBreak2 = whitespace2 && char2.contains(_lineBreakRegex);
+    final blankLine1 = lineBreak1 && one.contains(_blankLineEndRegex);
+    final blankLine2 = lineBreak2 && two.contains(_blankLineStartRegex);
 
     if (blankLine1 || blankLine2) {
       // Five points for blank lines.
@@ -546,8 +547,8 @@ void diffCleanupSemanticLossless(List<Diff> diffs) {
   }
 }
 
-final nonAlphaNumericRegex = RegExp(r'[^a-zA-Z0-9]');
-final whitespaceRegex = RegExp(r'\s');
-final linebreakRegex = RegExp(r'[\r\n]');
-final blanklineEndRegex = RegExp(r'\n\r?\n$');
-final blanklineStartRegex = RegExp(r'^\r?\n\r?\n');
+final _nonAlphaNumericRegex = RegExp(r'[^a-zA-Z0-9]');
+final _whitespaceRegex = RegExp(r'\s');
+final _lineBreakRegex = RegExp(r'[\r\n]');
+final _blankLineEndRegex = RegExp(r'\n\r?\n$');
+final _blankLineStartRegex = RegExp(r'^\r?\n\r?\n');

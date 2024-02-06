@@ -183,8 +183,20 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
               '${repository!.verificationFailure}'));
     }
 
-    final status = issues.isEmpty ? ReportStatus.passed : ReportStatus.failed;
-    final points = issues.isEmpty ? 10 : 0;
+    final unreachableFailuresIgnored =
+        // every issue is about an URL being unreachable
+        issues.isNotEmpty &&
+            issues.every((issue) =>
+                (issue.suggestion ?? '').contains('was unreachable')) &&
+            // repository verification succeeded
+            repository?.repository != null;
+
+    final status = issues.isEmpty
+        ? ReportStatus.passed
+        : (unreachableFailuresIgnored
+            ? ReportStatus.partial
+            : ReportStatus.failed);
+    final points = (issues.isEmpty || unreachableFailuresIgnored) ? 10 : 0;
     return Subsection(
       'Provide a valid `pubspec.yaml`',
       issues,
