@@ -1,6 +1,6 @@
-## 20/30 Follow Dart file conventions
+## 30/30 Follow Dart file conventions
 
-### [x] 0/10 points: Provide a valid `pubspec.yaml`
+### [~] 10/10 points: Provide a valid `pubspec.yaml`
 
 <details>
 <summary>
