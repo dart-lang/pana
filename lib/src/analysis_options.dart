@@ -8,93 +8,44 @@ import 'dart:isolate';
 
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
-import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
 final _logger = Logger('analysis_options');
 
-String? _cachedFlutterOptionsOnGithub;
-String? _cachedLintsCoreInResolvedReferences;
-String? _cachedLintsCoreOptionsOnGithub;
+String? _cachedCoreLints;
 
-/// Returns the default analysis options (in yaml format).
-Future<String> getDefaultAnalysisOptionsYaml({
-  required bool usesFlutter,
-  required String? flutterSdkDir,
-}) async {
-  if (usesFlutter) {
-    return await _getFlutterAnalysisOptions(flutterSdkDir);
-  } else {
-    return await _getLintsCoreAnalysisOptions();
-  }
-}
-
-Future<String> _getFlutterAnalysisOptions(String? flutterSdkDir) async {
-  // try to load local file
-  flutterSdkDir ??= Platform.environment['FLUTTER_ROOT'];
-  if (flutterSdkDir != null &&
-      flutterSdkDir.isNotEmpty &&
-      await Directory(flutterSdkDir).exists()) {
-    final file = File(p.join(flutterSdkDir, 'packages', 'flutter', 'lib',
-        'analysis_options_user.yaml'));
-    if (await file.exists()) {
-      return await file.readAsString();
-    }
-  }
-
-  // try to load latest from github
-  if (_cachedFlutterOptionsOnGithub != null) {
-    return _cachedFlutterOptionsOnGithub!;
-  }
-  try {
-    final rs = await _httpGetWithRetry(Uri.parse(
-        'https://raw.githubusercontent.com/flutter/flutter/master/packages/flutter/lib/analysis_options_user.yaml'));
-    if (rs.statusCode == 200) {
-      _cachedFlutterOptionsOnGithub = rs.body;
-      return _cachedFlutterOptionsOnGithub!;
-    }
-  } catch (_) {
-    // no-op
-  }
-
-  // fallback empty options
-  _logger.warning('Unable to load default Flutter analysis options.');
-  return '';
-}
+/// The default analysis options configuration (in its raw yaml format).
+Future<String> getDefaultAnalysisOptionsYaml() async =>
+    _cachedCoreLints ??= await _getLintsCoreAnalysisOptions();
 
 Future<String> _getLintsCoreAnalysisOptions() async {
-  // try to load local lints from the resolved package references
-  if (_cachedLintsCoreInResolvedReferences != null) {
-    return _cachedLintsCoreInResolvedReferences!;
-  }
+  // Try to load local lints from the resolved package references.
   try {
-    final resource =
-        await Isolate.resolvePackageUri(Uri.parse('package:lints/core.yaml'));
-    final file = File.fromUri(resource!);
-    _cachedLintsCoreInResolvedReferences = await file.readAsString();
-    return _cachedLintsCoreInResolvedReferences!;
+    final coreLintsUri = Uri(scheme: 'package', path: 'lints/core.yaml');
+    final resource = await Isolate.resolvePackageUri(coreLintsUri);
+    if (resource != null) {
+      final file = File.fromUri(resource);
+      return await file.readAsString();
+    }
   } on Exception catch (_) {
-    // no-op
+    // Gracefully handle exception to fall back to an empty config.
   }
 
-  // try to load latest from github
-  if (_cachedLintsCoreOptionsOnGithub != null) {
-    return _cachedLintsCoreOptionsOnGithub!;
-  }
+  // Try to load latest version of the core lints from GitHub.
   try {
     final rs = await _httpGetWithRetry(Uri.parse(
         'https://raw.githubusercontent.com/dart-lang/lints/main/lib/core.yaml'));
     if (rs.statusCode == 200 && rs.body.contains('rules:')) {
-      _cachedLintsCoreOptionsOnGithub = rs.body;
-      return _cachedLintsCoreOptionsOnGithub!;
+      return rs.body;
     }
   } on Exception catch (_) {
-    // no-op
+    // Gracefully handle exception to fall back to an empty config.
   }
 
-  // fallback empty options
-  _logger.warning('Unable to load default analysis options.');
+  // If we couldn't load the core lints,
+  // log a warning and fall back to an empty analysis config.
+  _logger.warning('Unable to load the core set of analysis options.');
   return '';
 }
 

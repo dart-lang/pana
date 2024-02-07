@@ -159,10 +159,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 40,
+        "grantedPoints": 50,
         "maxPoints": 50,
-        "status": "partial",
-        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\nFound 16 issues. Showing the first 2:\n\n<details>\n<summary>\nINFO: Unclosed instance of 'Sink'.\n</summary>\n\n`lib/audio_service.dart:1943:40`\n\n```\n     ╷\n1943 │   final BehaviorSubject<PlaybackState> _playbackState = BehaviorSubject();\n     │                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n     ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`\n</details>\n<details>\n<summary>\nINFO: Unclosed instance of 'Sink'.\n</summary>\n\n`lib/audio_service.dart:1944:42`\n\n```\n     ╷\n1944 │   final BehaviorSubject<List<MediaItem>> _queue = BehaviorSubject();\n     │                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n     ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`\n</details>"
+        "status": "passed",
+        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
       },
       {
         "id": "dependency",
@@ -186,7 +186,7 @@
       "path": "audio_service"
     },
     "contributingUrl": "https://github.com/ryanheise/audio_service/blob/minor/CONTRIBUTING.md",
-    "grantedPoints": 120,
+    "grantedPoints": 130,
     "maxPoints": 130
   },
   "urlProblems": []
