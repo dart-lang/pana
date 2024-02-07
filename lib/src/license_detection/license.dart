@@ -143,17 +143,17 @@ class LicenseMatch {
   String get identifier => license.identifier;
 
   /// Offset in the input license text considered to be possible starting point
-  /// of known license subtring.
+  /// of known license substring.
   int get start => tokens.first.span.start.offset;
 
   /// Offset in the input license text considered to be possible starting point
-  /// of known license subtring.
+  /// of known license substring.
   int get end => tokens.last.span.end.offset;
 
   /// Count of the tokens claimed in this match.
   ///
-  /// It is intialized to the number of tokens claimed by this match.
-  /// Incase of match with the same spdx-identifier we create a new
+  /// It is initialized to the number of tokens claimed by this match.
+  /// In case of match with the same spdx-identifier we create a new
   /// instance with tokenClaimed assigned to the maximum of both
   /// the identical matches.
   ///
@@ -168,7 +168,7 @@ class LicenseMatch {
 
   /// Range of tokens in the unknown text claimed by this match.
   ///
-  /// Range is initilalized from start index of first
+  /// Range is initialized from start index of first
   /// token claimed in the match
   @visibleForTesting
   final Range tokenRange;
@@ -228,7 +228,8 @@ Map<String, int> generateFrequencyTable(List<Token> tokens) {
 /// to be in the form of [`<spdx-identifier>.txt`][1].
 /// The [directories] are not searched recursively.
 ///
-/// Throws if any of the [directories] contains a file not meeting the above criteria's.
+/// Throws if any of the [directories] contains a file that
+/// doesn't meet the above criteria.
 ///
 /// [1]: https://spdx.dev/ids/
 List<License> loadLicensesFromDirectories(Iterable<String> directories) {
@@ -285,7 +286,7 @@ List<License> licensesFromFile(String path) {
   return licenses;
 }
 
-/// Regex to match the all the text starting from `END OF TERMS AND CONDTIONS`.
+/// Regex to match the all the text starting from `END OF TERMS AND CONDITIONS`.
 const _endOfTerms = 'END OF TERMS AND CONDITIONS';
 
 /// Generates crc-32 checksum for the given list of tokens

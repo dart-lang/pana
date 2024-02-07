@@ -103,8 +103,8 @@ String _diffLinesToCharsMunge(
     String text1, String text2) {
   final lineArray = <String>[];
   final lineHash = HashMap<String, int>();
-  // e.g. linearray[4] == 'Hello\n'
-  // e.g. linehash['Hello\n'] == 4
+  // e.g. lineArray[4] == 'Hello\n'
+  // e.g. lineHash['Hello\n'] == 4
 
   // '\x00' is a valid character, but various debuggers don't like it.
   // So we'll insert a junk entry to avoid generating a null character.
@@ -152,7 +152,7 @@ int _countWords(String text) {
 }
 
 @visibleForTesting
-List<String> diffRebuildtexts(List<Diff> diffs) {
+List<String> diffRebuildTexts(List<Diff> diffs) {
   // Construct the two texts which made up the diff originally.
   final text1 = StringBuffer();
   final text2 = StringBuffer();

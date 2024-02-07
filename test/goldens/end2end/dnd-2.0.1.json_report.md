@@ -26,7 +26,7 @@ Some symbols that are missing documentation: `dnd`, `dnd.DraggablesAcceptor.drag
 
 ## 20/20 Platform support
 
-### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, MacOS, Linux)
+### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, macOS, Linux)
 
 * ✓ Web
 

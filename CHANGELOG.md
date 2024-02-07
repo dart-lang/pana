@@ -146,7 +146,7 @@
 
 ## 0.21.29
 
-- New report section: Dart 3 compatiblity.
+- New report section: Dart 3 compatibility.
 
 ## 0.21.28
 
@@ -205,8 +205,8 @@
 - Null safety tagger does not check `dart:` libraries.
 - Removed internal hostname check from the report and score.
 - Fixed: platform tagging with dart:mirrors.
-- Deprected `AnalysisOptions.isInternal`.
-- Detect `CONTRIBUTING.md` during repositority verification and expose if URL check succeeds.
+- Deprecated `AnalysisOptions.isInternal`.
+- Detect `CONTRIBUTING.md` during repository verification and expose if URL check succeeds.
 - **BREAKING CHANGES** on rarely used external API:
   - Removed `UrlProblemCodes.internal`.
   - Removed `UrlChecker.addInternalHosts`.
@@ -262,7 +262,7 @@
 - Cache the currently fetched depth in `GitLocalRepository`.
 - List files and check all `pubspec.yaml` during repository verification.
 - Typed `stdout` and `stderr` in `PanaProcessResult`.
-- Updated SPDX linceses.
+- Updated SPDX licenses.
 - Emit `license:<license>` tag on all the detected licenses.
 - Emit `license:osi-approved` and `license:fsf-libre`.
 
@@ -289,7 +289,7 @@
 ## 0.21.6
 
 - `package:analyzer` dependency upgraded to `^3.1.0`.
-- Fix dart analysis. Code problems are now propagatet to the pana report.
+- Fix dart analysis. Code problems are now propagated to the pana report.
 - Fix retry on version listing HTTP requests during `getVersionListing`.
 - `RepositoryUrl` (private API) to detect repository patterns and resolve paths.
 
@@ -329,7 +329,7 @@
 * New license detection.
 * Use `package:lints/core.yaml` as default `analysis_options.yaml` override.
 * Upgraded `package:analyzer` to `^2.1.0` and updated deprecated code use.
-* Updated tool environemnt to use `[ dart | flutter ] format` instead of `dartfmt`.
+* Updated tool environment to use `[ dart | flutter ] format` instead of `dartfmt`.
 * Updated tool environment to use `flutter pub outdated` when package uses Flutter. 
 
 ## 0.20.1
@@ -432,10 +432,10 @@
 * More graceful behavior when the analyzer crashes.
 
 ## 0.15.3
-* Ignore Flutter version constraint upper bounds
-.
+* Ignore Flutter version constraint upper bounds.
+
 ## 0.15.2
-* If unsupported versions of dependencies are newer than 30 days or depend on a 
+* If unsupported versions of dependencies are newer than 30 days or depend on an
   unreleased sdk the dependencies section will be marked as passing instead of
   partial.
   
@@ -467,7 +467,7 @@
 * **BREAKING** `ToolEnvironment.runProc` and `ToolEnvironment.runProcSync` now 
   take the executable as the first element of the argument list instead of as a 
   separate argument.
-* If unsupported versions of dependencies are newer than 30 days or depend on a 
+* If unsupported versions of dependencies are newer than 30 days or depend on an
   unreleased sdk the package will still be awarded points in the report.
 * Better timeout message for dartdoc section
 * Adjust `runProc` timeout/kill handler.
@@ -609,7 +609,7 @@
 * Adds suggestions for why tags don't apply.
 * Command line uses `--source=path` by default.
 * Support platform tagging of old-style flutter plugin declarations.
-* Give penality for old-style flutter plugin declarations.
+* Give penalty for old-style flutter plugin declarations.
 
 ## 0.13.8
 
@@ -1212,13 +1212,13 @@ Updates:
 
 ## 0.2.3
 
-* Lot's of stability improvements.
+* Lots of stability improvements.
 
 * Improvements to error handling.
 
 ## 0.2.2
 
-* Lot's of cleanup to JSON output.
+* Lots of cleanup to JSON output.
 
 * Improved stability.
 

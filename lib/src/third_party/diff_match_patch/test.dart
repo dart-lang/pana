@@ -228,12 +228,12 @@ void testDiffMain() {
   b = 'abcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n1234567890\n1234567890\n1234567890\nabcdefghij\n';
 
   test('diff_main: Overlap mode', () {
-    final textsLineMode = diffRebuildtexts(diffMain(
+    final textsLineMode = diffRebuildTexts(diffMain(
       a,
       b,
       checkLines: true,
     ));
-    final textsTextMode = diffRebuildtexts(diffMain(
+    final textsTextMode = diffRebuildTexts(diffMain(
       a,
       b,
     ));

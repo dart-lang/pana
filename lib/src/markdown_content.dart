@@ -13,13 +13,13 @@ import 'package:source_span/source_span.dart';
 import 'utils.dart';
 
 /// The extracted content of a markdown file.
-class ExctractedMarkdownContent {
+class ExtractedMarkdownContent {
   final List<Link> images;
   final List<Link> links;
   final bool isMalformedUtf8;
   final double nonAsciiRatio;
 
-  ExctractedMarkdownContent({
+  ExtractedMarkdownContent({
     required this.images,
     required this.links,
     required this.isMalformedUtf8,
@@ -35,12 +35,12 @@ class ExctractedMarkdownContent {
 }
 
 /// Scans a markdown text and extracts its content.
-ExctractedMarkdownContent _scanMarkdownText(
+ExtractedMarkdownContent _scanMarkdownText(
     String text, Uri sourceUrl, bool isMalformedUtf8) {
   final htmlText = markdownToHtml(text);
   final html = html_parser.parseFragment(htmlText,
       sourceUrl: sourceUrl.toString(), generateSpans: true);
-  return ExctractedMarkdownContent(
+  return ExtractedMarkdownContent(
     images: _unique(html
         .querySelectorAll('img')
         .where((e) => e.attributes.containsKey('src'))
@@ -57,7 +57,7 @@ ExctractedMarkdownContent _scanMarkdownText(
 List<T> _unique<T>(Iterable<T> l) => l.toSet().toList();
 
 /// Scans a markdown file and extracts its content.
-Future<ExctractedMarkdownContent> scanMarkdownFileContent(File file) async {
+Future<ExtractedMarkdownContent> scanMarkdownFileContent(File file) async {
   final bytes = await file.readAsBytes();
   String text;
   var isMalformedUtf8 = false;

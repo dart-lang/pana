@@ -50,7 +50,7 @@ void _testDiffRange(
   });
 }
 
-void testCofidencePercentage() {
+void testConfidencePercentage() {
   group('Test confidencePercentage:', () {
     test('avoid divide by zero', () {
       expect(confidencePercentage(0, 5), 1);
@@ -175,7 +175,7 @@ void testInducedPhraseChange() {
 
 void main() {
   testDiffRange();
-  testCofidencePercentage();
+  testConfidencePercentage();
   testVerifyNoVersionChange();
   testVerifyNoGplChange();
   testInducedPhraseChange();

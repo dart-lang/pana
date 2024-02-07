@@ -4,7 +4,7 @@ import 'package:test/scaffolding.dart';
 
 void main() {
   group('computeGranularity test:', () {
-    test('Expect grnularity 3', () {
+    test('Expect granularity 3', () {
       expect(computeGranularity(0.75), 3);
     });
 
@@ -74,7 +74,7 @@ void main() {
     });
   });
 
-  group('removeoverLappingMatches tests:', () {
+  group('removeOverLappingMatches tests:', () {
     _testOverLappingMatches(
       name: 'No overlaps',
       input: [
@@ -188,15 +188,15 @@ void main() {
     );
   });
 
-  group('findLongestUnlaimedTokenRange', () {
-    _testLongestUncliamedTokenRange(
+  group('findLongestUnclaimedTokenRange', () {
+    _testLongestUnclaimedTokenRange(
       'Expect the unknown license length for no match found',
       [],
       100,
       100,
     );
 
-    _testLongestUncliamedTokenRange(
+    _testLongestUnclaimedTokenRange(
       'Longest unclaimed tokens at start of license',
       [
         _dummyLicenseMatchInstance(0.9, '', start: 30, end: 60),
@@ -206,7 +206,7 @@ void main() {
       100,
     );
 
-    _testLongestUncliamedTokenRange(
+    _testLongestUnclaimedTokenRange(
       'Longest unclaimed tokens at end of license',
       [
         _dummyLicenseMatchInstance(0.9, '', start: 0, end: 80),
@@ -215,7 +215,7 @@ void main() {
       100,
     );
 
-    _testLongestUncliamedTokenRange(
+    _testLongestUnclaimedTokenRange(
         'Longest unclaimed range in between',
         [
           _dummyLicenseMatchInstance(0.9, '', start: 30, end: 250),
@@ -235,13 +235,13 @@ void _testUnclaimedPercentage(
 ) {
   test(name, () {
     final actual =
-        claculateUnclaimedTokenPercentage(result, unknownTokensCount);
+        calculateUnclaimedTokenPercentage(result, unknownTokensCount);
 
     expect(actual, expected);
   });
 }
 
-void _testLongestUncliamedTokenRange(
+void _testLongestUnclaimedTokenRange(
   String name,
   List<LicenseMatch> matches,
   int expected,

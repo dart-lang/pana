@@ -20,11 +20,11 @@ Detected license: `MIT`.
 
 ## 20/20 Platform support
 
-### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **MacOS**, **Linux**)
+### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)
 
 * ✓ Windows
 * ✓ Linux
-* ✓ MacOS
+* ✓ macOS
 
 These platforms are not supported:
 

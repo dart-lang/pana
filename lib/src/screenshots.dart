@@ -325,18 +325,18 @@ Future<List<String>> _generateThumbnails(
     String originalPath,
     int originalWidth,
     int originalHeight,
-    int outuputSize,
+    int outputSize,
     String outputPath,
   ) async {
     final int widthArgument;
     final int heightArgument;
 
     if (originalWidth > originalHeight) {
-      widthArgument = outuputSize;
+      widthArgument = outputSize;
       heightArgument = 0;
     } else {
       widthArgument = 0;
-      heightArgument = outuputSize;
+      heightArgument = outputSize;
     }
 
     return await _checkedRunProc(

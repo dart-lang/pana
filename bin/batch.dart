@@ -30,7 +30,7 @@ import 'package:pana/src/batch/batch_run_command.dart';
 ///       analysisOptions: local-file.yaml
 ///
 ///    The `analysisOptions` parameter may be an URL if it starts with https://
-///    The `analysisOptions` file must be self-containaing, `include` is not supported.
+///    The `analysisOptions` file must be self-containing, `include` is not supported.
 ///
 /// 4. Run batch compare:
 ///

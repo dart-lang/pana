@@ -344,7 +344,7 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
                 Issue(
                     'The constraint `${hostedDependency.version}` on $name does not support the stable version `$versionString`, '
                     'but that version doesn\'t support the current Dart SDK version ${context.currentSdkVersion}.'
-                    '\n\nWhen a supporting stable sdk is pubslished, this package will no longer be awarded points in this category.'),
+                    '\n\nWhen a supporting stable sdk is published, this package will no longer be awarded points in this category.'),
                 OutdatedStatus.outdatedByPreview));
           } else {
             result.add(OutdatedVersionDescription(

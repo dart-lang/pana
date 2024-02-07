@@ -52,10 +52,10 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ## 20/20 Platform support
 
-### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **MacOS**, **Linux**)
+### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)
 
 * ✓ Linux
-* ✓ MacOS
+* ✓ macOS
 * ✓ Windows
 
 These platforms are not supported:

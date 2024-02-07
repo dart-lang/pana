@@ -146,7 +146,7 @@ Future<VerifiedRepository?> checkRepository({
         return _PubspecMatch(
             path,
             hasMatchingName: false,
-            '`$path` from the repository name missmatch: expected `$packageName` but got `${gitPubspec.name}`.');
+            '`$path` from the repository name mismatch: expected `$packageName` but got `${gitPubspec.name}`.');
       }
       final gitRepoOrHomepage = gitPubspec.repositoryOrHomepage;
       if (gitRepoOrHomepage == null) {

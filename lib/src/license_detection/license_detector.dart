@@ -85,7 +85,7 @@ Future<Result> detectLicense(String text, double threshold) async {
   result.sort(sortOnConfidence);
   result = removeOverLappingMatches(result);
   final unclaimedPercentage =
-      claculateUnclaimedTokenPercentage(result, unknownLicense.tokens.length);
+      calculateUnclaimedTokenPercentage(result, unknownLicense.tokens.length);
   final longestUnclaimedTokenCount =
       findLongestUnclaimedTokenRange(result, unknownLicense.tokens.length);
   return Result(List.unmodifiable(result), unclaimedPercentage,
@@ -98,7 +98,7 @@ Future<Result> detectLicense(String text, double threshold) async {
 /// In a worst case scenario where the error is evenly
 /// distributed (breaking the token runs most times), if we
 /// consider 100 tokens and threshold 0.8, we'll have
-/// 4 continuos matching tokens and a mismatch.
+/// 4 continuous matching tokens and a mismatch.
 ///
 /// So this function returns the minimum number of tokens
 /// or 1 (which is greater) to consider them as part
@@ -112,8 +112,8 @@ int computeGranularity(double threshold) {
   return max(1, threshold ~/ (1 - threshold));
 }
 
-/// For [LicenseMatch] in [matches] having the same `spdx-identifier` the one with highest confidence
-/// is considered and rest are discared.
+/// Determines each [LicenseMatch] in [matches] that has the highest confidence
+/// among all [LicenseMatch] with the same [LicenseMatch.identifier].
 @visibleForTesting
 List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
   var identifierToLicense = <String, LicenseMatch>{};
@@ -121,7 +121,8 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
   for (var match in matches) {
     if (identifierToLicense.containsKey(match.identifier)) {
       var prevMatch = identifierToLicense[match.identifier];
-      // As both the licenses are same consider tha max of tokens claimed among these two.
+      // As both the licenses are same consider the
+      // max of tokens claimed among these two.
       var tempMatch =
           prevMatch!.confidence > match.confidence ? prevMatch : match;
 
@@ -140,11 +141,12 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
   return identifierToLicense.values.toList();
 }
 
-/// Custom comparator to the sort the licenses based on decreasing order of confidence.
+/// Custom comparator to the sort the licenses based on
+/// decreasing order of confidence.
 ///
-/// Incase the confidence detected is same for the matches, ratio of tokens claimed
-/// in the unkown text to the number of tokens present in the known license text
-/// is considered
+/// In case the confidence detected is same for the matches,
+/// the ratio of tokens claimed in the unknown text to the
+/// number of tokens present in the known license text is considered
 @visibleForTesting
 int sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) {
   if (matchA.confidence > matchB.confidence) {
@@ -163,19 +165,20 @@ int sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) {
   return (matchATokensPercent > matchBTokensPercent) ? -1 : 1;
 }
 
-/// Fliters out licenses having overlapping ranges giving preferences to a match with higher token density.
+/// Filters out licenses having overlapping ranges,
+/// giving preference to a match with higher token density.
 ///
 /// Token density is the product of number of tokens claimed in the range and
-/// confidence score of the match. Incase of exact match we retain both
+/// confidence score of the match. In case of an exact match we retain both
 /// the matches so that the user can resolve them.
 @visibleForTesting
 List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
   var retain = List.filled(matches.length, false);
-  var retainedmatches = <LicenseMatch>[];
+  var retainedMatches = <LicenseMatch>[];
 
   // We consider token density to retain matches of larger licenses
   // having lesser confidence when compared to a smaller license
-  // haing a  perfect match.
+  // having a perfect match.
   for (var i = 0; i < matches.length; i++) {
     var keep = true;
     final matchA = matches[i];
@@ -188,15 +191,15 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
       }
       final matchB = matches[j];
       final rangeB = Range(matchB.tokenRange.start, matchB.tokenRange.end);
-      // Check if matchA is larger license containing an insatnce of
+      // Check if matchA is larger license containing an instance of
       // smaller license within it and decide to whether retain it
-      // or not by comapring their token densities. Example NPL
+      // or not by comparing their token densities. Example NPL
       // contains MPL.
       if (rangeA.contains(rangeB) && retain[j]) {
         final aConf = matchA.tokensClaimed * matchA.confidence;
         final bConf = matchB.tokensClaimed * matchB.confidence;
 
-        // Retain both the licenses incase of a exact match,
+        // Retain both the licenses in case of an exact match,
         // so that it can be resolved by the user.
         if (aConf > bConf) {
           proposals[j] = true;
@@ -218,24 +221,24 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
 
   for (var i = 0; i < matches.length; i++) {
     if (retain[i]) {
-      retainedmatches.add(matches[i]);
+      retainedMatches.add(matches[i]);
     }
   }
 
-  return retainedmatches;
+  return retainedMatches;
 }
 
 /// Returns the ratio of tokens claimed in all the matches to the number of
 /// tokens present in the unknown license.
 ///
-/// Minimum possible score is 0 incase none of the known licenses are detected.
+/// Minimum possible score is 0 in case none of the known licenses are detected.
 /// The maximum score can be greater than 1 in cases where the same range of
 /// tokens is claimed for two licenses.
 ///
 /// For example NPL contains MPL in this case we detect 2 licenses in the
-/// same range and hence we have a possibilty of getting a score
+/// same range and hence we have a possibility of getting a score
 /// than 1.
-double claculateUnclaimedTokenPercentage(
+double calculateUnclaimedTokenPercentage(
     List<LicenseMatch> matches, int unknownTokensCount) {
   var claimedTokenCount = 0;
 
