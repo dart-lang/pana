@@ -223,12 +223,6 @@ class Platform {
     flutterRuntime: Runtime.flutterWeb,
     tag: PanaTags.platformWeb,
   );
-  static final wasm = Platform(
-    'Wasm',
-    dartRuntime: Runtime.wasm,
-    flutterRuntime: Runtime.wasm,
-    tag: PanaTags.platformWasm,
-  );
   static final windows = Platform(
     'Windows',
     dartRuntime: Runtime.nativeJit,

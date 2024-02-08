@@ -25,7 +25,6 @@ abstract class PanaTags {
   static const platformLinux = 'platform:linux';
   static const platformMacos = 'platform:macos';
   static const platformWeb = 'platform:web';
-  static const platformWasm = 'platform:wasm';
   static const platformWindows = 'platform:windows';
 
   // license tags
