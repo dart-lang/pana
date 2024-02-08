@@ -35,6 +35,7 @@
     "platform:linux",
     "platform:macos",
     "platform:web",
+    "platform:wasm",
     "runtime:native-aot",
     "runtime:native-jit",
     "runtime:web",

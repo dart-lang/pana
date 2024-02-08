@@ -51,7 +51,7 @@ Run `dart pub get` for more information.
 * Running `dart pub outdated` failed with the following output:
 
 ```
-The lower bound of "sdk: '>=1.0.0 <=3.2.0'" must be 2.12.0'
+The lower bound of "sdk: '>=1.0.0 <=3.2.5'" must be 2.12.0'
 or higher to enable null safety.
 ```
 
