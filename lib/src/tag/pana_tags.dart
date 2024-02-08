@@ -17,6 +17,8 @@ abstract class PanaTags {
   static const runtimeFlutterNative = 'runtime:flutter-native';
   static const runtimeFlutterWeb = 'runtime:flutter-web';
   static const runtimeWeb = 'runtime:web';
+  static const runtimeWasm = 'runtime:wasm';
+  static const runtimeFlutterWasm = 'runtime:flutter-wasm';
 
   // platform tags
   static const platformAndroid = 'platform:android';
@@ -24,6 +26,7 @@ abstract class PanaTags {
   static const platformLinux = 'platform:linux';
   static const platformMacos = 'platform:macos';
   static const platformWeb = 'platform:web';
+  static const platformWasm = 'platform:wasm';
   static const platformWindows = 'platform:windows';
 
   // license tags

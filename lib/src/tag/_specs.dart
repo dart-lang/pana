@@ -89,6 +89,12 @@ class Runtime {
     tag: PanaTags.runtimeWeb,
   );
 
+  static final wasm = Runtime(
+    'wasm',
+    {..._onAllPlatforms},
+    tag: PanaTags.runtimeWasm,
+  );
+
   static final flutterNative = Runtime(
     'flutter-native',
     {
@@ -108,6 +114,12 @@ class Runtime {
       'ui_web',
     },
     tag: PanaTags.runtimeFlutterWeb,
+  );
+
+  static final flutterWasm = Runtime(
+    'flutter-wasm',
+    {..._onAllPlatforms, 'ui', 'ui_web'},
+    tag: PanaTags.runtimeFlutterWasm,
   );
 
   /// For platform detection we allow dart:ui.
@@ -173,6 +185,7 @@ class Platform {
     linux,
     macos,
     web,
+    wasm,
   ];
 
   /// Platforms that binary-only packages will be assigned to.
@@ -215,6 +228,12 @@ class Platform {
     dartRuntime: Runtime.web,
     flutterRuntime: Runtime.flutterWeb,
     tag: PanaTags.platformWeb,
+  );
+  static final wasm = Platform(
+    'Wasm',
+    dartRuntime: Runtime.wasm,
+    flutterRuntime: Runtime.wasm,
+    tag: PanaTags.platformWasm,
   );
   static final windows = Platform(
     'Windows',
