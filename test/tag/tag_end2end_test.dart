@@ -311,8 +311,12 @@ int fourtyTwo() => 42;
       _expectTagging(tagger.sdkTags, tags: {'sdk:flutter', 'sdk:dart'});
       _expectTagging(tagger.platformTags,
           tags: {'platform:windows', 'platform:android'});
-      _expectTagging(tagger.runtimeTags,
-          tags: ['runtime:native-aot', 'runtime:native-jit', 'runtime:web']);
+      _expectTagging(tagger.runtimeTags, tags: [
+        'runtime:native-aot',
+        'runtime:native-jit',
+        'runtime:web',
+        'is:wasm-ready'
+      ]);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
 
@@ -407,7 +411,13 @@ Because:
             finding: 'Package not compatible with runtime js', explanation: '''
 Because:
 * `package:my_package/my_package.dart` that imports:
-* `dart:io`''')
+* `dart:io`'''),
+        _explanation(
+            finding: 'Package not compatible with runtime wasm',
+            explanation: '''
+Because:
+* `package:my_package/my_package.dart` that imports:
+* `dart:io`'''),
       });
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
@@ -450,7 +460,12 @@ int fourtyThree() => 43;
           },
           explanations: isEmpty);
       _expectTagging(tagger.runtimeTags,
-          tags: {'runtime:native-aot', 'runtime:native-jit', 'runtime:web'},
+          tags: {
+            'runtime:native-aot',
+            'runtime:native-jit',
+            'runtime:web',
+            'is:wasm-ready',
+          },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
@@ -508,6 +523,7 @@ name: my_package
             'runtime:native-jit',
             'runtime:native-aot',
             'runtime:web',
+            'is:wasm-ready',
           },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
@@ -537,6 +553,7 @@ name: my_package
             'runtime:native-jit',
             'runtime:native-aot',
             'runtime:web',
+            'is:wasm-ready',
           },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
