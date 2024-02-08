@@ -116,8 +116,8 @@
         "title": "Follow Dart file conventions",
         "grantedPoints": 30,
         "maxPoints": 30,
-        "status": "passed",
-        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`."
+        "status": "partial",
+        "summary": "### [~] 10/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nIssue tracker URL doesn't exist.\n</summary>\n\nAt the time of the analysis `https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`."
       },
       {
         "id": "documentation",
@@ -133,7 +133,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)\n\n* ✓ Android\n* ✓ iOS\n* ✓ Windows\n* ✓ Linux\n* ✓ MacOS\n* ✓ Web"
+        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n* ✓ iOS\n* ✓ Windows\n* ✓ Linux\n* ✓ macOS\n* ✓ Web"
       },
       {
         "id": "analysis",
@@ -156,7 +156,6 @@
   "screenshots": [],
   "result": {
     "repositoryUrl": "https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher",
-    "issueTrackerUrl": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22",
     "repository": {
       "provider": "github",
       "host": "github.com",

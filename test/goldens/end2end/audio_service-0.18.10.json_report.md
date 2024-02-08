@@ -20,11 +20,11 @@ Detected license: `MIT`.
 
 ## 20/20 Platform support
 
-### [*] 20/20 points: Supports 4 of 6 possible platforms (**iOS**, **Android**, **Web**, Windows, **MacOS**, Linux)
+### [*] 20/20 points: Supports 4 of 6 possible platforms (**iOS**, **Android**, **Web**, Windows, **macOS**, Linux)
 
 * ✓ Android
 * ✓ iOS
-* ✓ MacOS
+* ✓ macOS
 * ✓ Web
 
 These platforms are not supported:
@@ -61,44 +61,10 @@ Because:
 * `package:path_provider/path_provider.dart` that declares support for platforms: `Android`, `iOS`, `Windows`, `Linux`, `macOS`.
 </details>
 
-## 40/50 Pass static analysis
+## 50/50 Pass static analysis
 
-### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
+### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 16 issues. Showing the first 2:
-
-<details>
-<summary>
-INFO: Unclosed instance of 'Sink'.
-</summary>
-
-`lib/audio_service.dart:1943:40`
-
-```
-     ╷
-1943 │   final BehaviorSubject<PlaybackState> _playbackState = BehaviorSubject();
-     │                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
-</details>
-<details>
-<summary>
-INFO: Unclosed instance of 'Sink'.
-</summary>
-
-`lib/audio_service.dart:1944:42`
-
-```
-     ╷
-1944 │   final BehaviorSubject<List<MediaItem>> _queue = BehaviorSubject();
-     │                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
-     ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
-</details>
 
 ## 20/20 Support up-to-date dependencies
 

@@ -1,7 +1,14 @@
 ## 30/30 Follow Dart file conventions
 
-### [*] 10/10 points: Provide a valid `pubspec.yaml`
+### [~] 10/10 points: Provide a valid `pubspec.yaml`
 
+<details>
+<summary>
+Issue tracker URL doesn't exist.
+</summary>
+
+At the time of the analysis `https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.
+</details>
 
 ### [*] 5/5 points: Provide a valid `README.md`
 
@@ -26,13 +33,13 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 
 ## 20/20 Platform support
 
-### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)
+### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
 * ✓ iOS
 * ✓ Windows
 * ✓ Linux
-* ✓ MacOS
+* ✓ macOS
 * ✓ Web
 
 ## 50/50 Pass static analysis
