@@ -66,6 +66,7 @@ class Runtime {
     nativeAot,
     nativeJit,
     web,
+    wasm,
   ];
 
   static final nativeAot = Runtime(
@@ -91,8 +92,8 @@ class Runtime {
 
   static final wasm = Runtime(
     'wasm',
-    {..._onAllPlatforms},
-    tag: PanaTags.runtimeWasm,
+    {..._onAllPlatforms, 'ui', 'ui_web', 'js_interop', 'js_interop_unsafe'},
+    tag: PanaTags.isWasmReady,
   );
 
   static final flutterNative = Runtime(
@@ -114,12 +115,6 @@ class Runtime {
       'ui_web',
     },
     tag: PanaTags.runtimeFlutterWeb,
-  );
-
-  static final flutterWasm = Runtime(
-    'flutter-wasm',
-    {..._onAllPlatforms, 'ui', 'ui_web'},
-    tag: PanaTags.runtimeFlutterWasm,
   );
 
   /// For platform detection we allow dart:ui.
@@ -185,7 +180,6 @@ class Platform {
     linux,
     macos,
     web,
-    wasm,
   ];
 
   /// Platforms that binary-only packages will be assigned to.

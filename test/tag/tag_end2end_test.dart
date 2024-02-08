@@ -48,6 +48,7 @@ void main() {
             'runtime:native-jit',
             'runtime:native-aot',
             'runtime:web',
+            'is:wasm-ready',
           },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
