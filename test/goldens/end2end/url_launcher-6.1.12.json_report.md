@@ -1,14 +1,7 @@
 ## 30/30 Follow Dart file conventions
 
-### [~] 10/10 points: Provide a valid `pubspec.yaml`
+### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-<details>
-<summary>
-Issue tracker URL doesn't exist.
-</summary>
-
-At the time of the analysis `https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.
-</details>
 
 ### [*] 5/5 points: Provide a valid `README.md`
 
@@ -33,13 +26,13 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 
 ## 20/20 Platform support
 
-### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
+### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **MacOS**, **Linux**)
 
 * ✓ Android
 * ✓ iOS
 * ✓ Windows
 * ✓ Linux
-* ✓ macOS
+* ✓ MacOS
 * ✓ Web
 
 ## 50/50 Pass static analysis
@@ -69,11 +62,12 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 |[`characters`]|-|1.3.0|1.3.0|
 |[`collection`]|-|1.18.0|1.18.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`material_color_utilities`]|-|0.8.0|0.8.0|
-|[`meta`]|-|1.11.0|1.11.0|
+|[`material_color_utilities`]|-|0.5.0|0.8.0|
+|[`meta`]|-|1.10.0|1.11.0|
 |[`plugin_platform_interface`]|-|2.1.6|2.1.6|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
+|[`web`]|-|0.3.0|0.3.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -94,6 +88,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`vector_math`]: https://pub.dev/packages/vector_math
+[`web`]: https://pub.dev/packages/web
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
