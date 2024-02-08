@@ -44,6 +44,7 @@ class Runtime {
     'web_audio',
     'web_gl',
     'web_sql',
+    '_js_annotations' // Used by package:js.
   };
 
   static final _onNativeAot = {
