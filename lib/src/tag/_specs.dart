@@ -63,13 +63,6 @@ class Runtime {
   static final nativeJit =
       Runtime('vm-native', _onNativeJit, tag: PanaTags.runtimeNativeJit);
 
-  static final recognizedRuntimes = [
-    nativeAot,
-    nativeJit,
-    web,
-    wasm,
-  ];
-
   static final nativeAot = Runtime(
     'native-aot',
     {
@@ -247,23 +240,23 @@ class Sdk {
     this.allowedSdks,
     this.allowedRuntime, {
     required this.tag,
+    required this.recognizedRuntimes,
   });
 
-  static Sdk dart = Sdk(
-    'dart',
-    'Dart',
-    ['dart'],
-    Runtime.broadDart,
-    tag: PanaTags.sdkDart,
-  );
+  static Sdk dart = Sdk('dart', 'Dart', ['dart'], Runtime.broadDart,
+      tag: PanaTags.sdkDart,
+      recognizedRuntimes: [
+        Runtime.nativeAot,
+        Runtime.nativeJit,
+        Runtime.web,
+        Runtime.wasm,
+      ]);
 
   static Sdk flutter = Sdk(
-    'flutter',
-    'Flutter',
-    ['dart', 'flutter'],
-    Runtime.broadFlutter,
-    tag: PanaTags.sdkFlutter,
-  );
+      'flutter', 'Flutter', ['dart', 'flutter'], Runtime.broadFlutter,
+      tag: PanaTags.sdkFlutter, recognizedRuntimes: [Runtime.wasm]);
+
+  final List<Runtime> recognizedRuntimes;
 
   static List<Sdk> knownSdks = [dart, flutter];
 }

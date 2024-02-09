@@ -343,14 +343,14 @@ class Tagger {
       if (_isBinaryOnly) {
         tags.addAll(<String>[Runtime.nativeAot.tag, Runtime.nativeJit.tag]);
       } else {
-        final dartSdkViolationFinder = SdkViolationFinder(
-            _packageGraph, Sdk.dart, _pubspecCache, _session);
+        final sdkViolationFinder = SdkViolationFinder(_packageGraph,
+            _usesFlutter ? Sdk.dart : Sdk.flutter, _pubspecCache, _session);
         final sdkViolation =
-            dartSdkViolationFinder.findSdkViolation(packageName, _topLibraries);
+            sdkViolationFinder.findSdkViolation(packageName, _topLibraries);
         if (sdkViolation != null) {
           explanations.add(sdkViolation);
         } else {
-          for (final runtime in Runtime.recognizedRuntimes) {
+          for (final runtime in sdkViolationFinder.sdk.recognizedRuntimes) {
             final finder = runtimeViolationFinder(
                 LibraryGraph(_session, runtime.declaredVariables),
                 runtime,
@@ -414,7 +414,7 @@ class Tagger {
         explanations.add(sdkConstraintResult);
         foundIssues = true;
       } else {
-        for (final runtime in Runtime.recognizedRuntimes) {
+        for (final runtime in Sdk.dart.recognizedRuntimes) {
           final optOutViolationFinder = PathFinder<Uri>(
             LibraryGraph(_session, runtime.declaredVariables),
             (library) {

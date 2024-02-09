@@ -588,6 +588,71 @@ name: my_package
       _expectTagging(tagger.flutterPluginTags, tags: {'is:plugin'});
     });
   });
+
+  group('wasm tag', () {
+    test('Excluded with dart:js', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:js';
+'''),
+        ])
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.runtimeTags,
+          tags: isNot(contains('is:wasm-ready')));
+    });
+
+    test('Excluded with dart:js_util', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:js_util';
+'''),
+        ])
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.runtimeTags,
+          tags: isNot(contains('is:wasm-ready')));
+    });
+    test('Excluded with dart:html', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:html';
+'''),
+        ])
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.runtimeTags,
+          tags: isNot(contains('is:wasm-ready')));
+    });
+
+    test(
+        'Included with dart:ui, dart:ui_web dart:js_interop dart:js_interop_unsafe',
+        () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:ui';
+import 'dart:ui_web';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
+'''),
+        ])
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.runtimeTags, tags: contains('is:wasm-ready'));
+    });
+  });
 }
 
 Matcher _explanation(
