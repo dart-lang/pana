@@ -335,6 +335,30 @@ class Tagger {
     }
   }
 
+  /// Adds the is:wasm-ready tag if there are no uses of disallowed dart: libraries.
+  void wasmReadyTag(List<String> tags, List<Explanation> explanations) {
+    final runtime = Runtime.wasm;
+    final finder = runtimeViolationFinder(
+        LibraryGraph(_session, runtime.declaredVariables),
+        runtime,
+        (List<Uri> path) => Explanation(
+            'Package not compatible with runtime ${runtime.name}',
+            'Because:\n${LibraryGraph.formatPath(path)}',
+            tag: runtime.tag));
+    var supports = true;
+    for (final lib in _topLibraries) {
+      final violationResult = finder.findViolation(lib);
+      if (violationResult != null) {
+        explanations.add(violationResult);
+        supports = false;
+        break;
+      }
+    }
+    if (supports) {
+      tags.add(runtime.tag);
+    }
+  }
+
   /// Adds tags for the Dart runtimes that this package supports to [tags].
   ///
   /// Adds [Explanation]s to [explanations] for runtimes not supported.
@@ -343,14 +367,14 @@ class Tagger {
       if (_isBinaryOnly) {
         tags.addAll(<String>[Runtime.nativeAot.tag, Runtime.nativeJit.tag]);
       } else {
-        final sdkViolationFinder = SdkViolationFinder(_packageGraph,
-            _usesFlutter ? Sdk.dart : Sdk.flutter, _pubspecCache, _session);
+        final dartSdkViolationFinder = SdkViolationFinder(
+            _packageGraph, Sdk.dart, _pubspecCache, _session);
         final sdkViolation =
-            sdkViolationFinder.findSdkViolation(packageName, _topLibraries);
+            dartSdkViolationFinder.findSdkViolation(packageName, _topLibraries);
         if (sdkViolation != null) {
           explanations.add(sdkViolation);
         } else {
-          for (final runtime in sdkViolationFinder.sdk.recognizedRuntimes) {
+          for (final runtime in Runtime.recognizedRuntimes) {
             final finder = runtimeViolationFinder(
                 LibraryGraph(_session, runtime.declaredVariables),
                 runtime,
@@ -388,7 +412,7 @@ class Tagger {
   ///   specifying a lower dart sdk bound >= 2.12.
   ///
   /// - No libraries in the import closure of [_publicLibraries] opt out of
-  ///   null-safety. (For each runtime in [Sdk.recognizedRuntimes]).
+  ///   null-safety. (For each runtime in [Runtime.recognizedRuntimes]).
   void nullSafetyTags(List<String> tags, List<Explanation> explanations) {
     try {
       var foundIssues = false;
@@ -414,7 +438,7 @@ class Tagger {
         explanations.add(sdkConstraintResult);
         foundIssues = true;
       } else {
-        for (final runtime in Sdk.dart.recognizedRuntimes) {
+        for (final runtime in Runtime.recognizedRuntimes) {
           final optOutViolationFinder = PathFinder<Uri>(
             LibraryGraph(_session, runtime.declaredVariables),
             (library) {

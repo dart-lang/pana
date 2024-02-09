@@ -175,6 +175,7 @@ class PackageAnalyzer {
         tagger.runtimeTags(tags_, explanations);
         tagger.flutterPluginTags(tags_, explanations);
         tagger.nullSafetyTags(tags_, explanations);
+        tagger.wasmReadyTag(tags_, explanations);
         // tags are exposed, explanations are ignored
         // TODO: use a single result object to derive tags + report
         tags.addAll(tags_);

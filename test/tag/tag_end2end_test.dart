@@ -48,7 +48,6 @@ void main() {
             'runtime:native-jit',
             'runtime:native-aot',
             'runtime:web',
-            'is:wasm-ready',
           },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
@@ -315,7 +314,6 @@ int fourtyTwo() => 42;
         'runtime:native-aot',
         'runtime:native-jit',
         'runtime:web',
-        'is:wasm-ready'
       ]);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
@@ -412,12 +410,6 @@ Because:
 Because:
 * `package:my_package/my_package.dart` that imports:
 * `dart:io`'''),
-        _explanation(
-            finding: 'Package not compatible with runtime wasm',
-            explanation: '''
-Because:
-* `package:my_package/my_package.dart` that imports:
-* `dart:io`'''),
       });
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
@@ -464,7 +456,6 @@ int fourtyThree() => 43;
             'runtime:native-aot',
             'runtime:native-jit',
             'runtime:web',
-            'is:wasm-ready',
           },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
@@ -523,7 +514,6 @@ name: my_package
             'runtime:native-jit',
             'runtime:native-aot',
             'runtime:web',
-            'is:wasm-ready',
           },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
@@ -553,7 +543,6 @@ name: my_package
             'runtime:native-jit',
             'runtime:native-aot',
             'runtime:web',
-            'is:wasm-ready',
           },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
@@ -601,7 +590,7 @@ import 'dart:js';
 
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
-      _expectTagging(tagger.runtimeTags,
+      _expectTagging(tagger.wasmReadyTag,
           tags: isNot(contains('is:wasm-ready')));
     });
 
@@ -616,7 +605,7 @@ import 'dart:js_util';
 
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
-      _expectTagging(tagger.runtimeTags,
+      _expectTagging(tagger.wasmReadyTag,
           tags: isNot(contains('is:wasm-ready')));
     });
     test('Excluded with dart:html', () async {
@@ -630,7 +619,7 @@ import 'dart:html';
 
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
-      _expectTagging(tagger.runtimeTags,
+      _expectTagging(tagger.wasmReadyTag,
           tags: isNot(contains('is:wasm-ready')));
     });
 
@@ -650,7 +639,7 @@ import 'dart:js_interop_unsafe';
 
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
-      _expectTagging(tagger.runtimeTags, tags: contains('is:wasm-ready'));
+      _expectTagging(tagger.wasmReadyTag, tags: contains('is:wasm-ready'));
     });
   });
 }
