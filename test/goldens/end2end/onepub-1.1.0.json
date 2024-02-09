@@ -111,6 +111,7 @@
     "runtime:native-aot",
     "runtime:native-jit",
     "is:null-safe",
+    "is:wasm-ready",
     "is:dart3-compatible",
     "license:unknown"
   ],

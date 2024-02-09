@@ -335,6 +335,30 @@ class Tagger {
     }
   }
 
+  /// Adds the is:wasm-ready tag if there are no uses of disallowed dart: libraries.
+  void wasmReadyTag(List<String> tags, List<Explanation> explanations) {
+    final runtime = Runtime.wasm;
+    final finder = runtimeViolationFinder(
+        LibraryGraph(_session, runtime.declaredVariables),
+        runtime,
+        (List<Uri> path) => Explanation(
+            'Package not compatible with runtime ${runtime.name}',
+            'Because:\n${LibraryGraph.formatPath(path)}',
+            tag: runtime.tag));
+    var supports = true;
+    for (final lib in _topLibraries) {
+      final violationResult = finder.findViolation(lib);
+      if (violationResult != null) {
+        explanations.add(violationResult);
+        supports = false;
+        break;
+      }
+    }
+    if (supports) {
+      tags.add(runtime.tag);
+    }
+  }
+
   /// Adds tags for the Dart runtimes that this package supports to [tags].
   ///
   /// Adds [Explanation]s to [explanations] for runtimes not supported.

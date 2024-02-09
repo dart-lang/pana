@@ -57,6 +57,7 @@
     "runtime:native-jit",
     "runtime:web",
     "is:null-safe",
+    "is:wasm-ready",
     "is:dart3-compatible",
     "license:bsd-3-clause",
     "license:fsf-libre",

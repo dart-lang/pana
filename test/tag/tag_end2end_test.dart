@@ -310,8 +310,11 @@ int fourtyTwo() => 42;
       _expectTagging(tagger.sdkTags, tags: {'sdk:flutter', 'sdk:dart'});
       _expectTagging(tagger.platformTags,
           tags: {'platform:windows', 'platform:android'});
-      _expectTagging(tagger.runtimeTags,
-          tags: ['runtime:native-aot', 'runtime:native-jit', 'runtime:web']);
+      _expectTagging(tagger.runtimeTags, tags: [
+        'runtime:native-aot',
+        'runtime:native-jit',
+        'runtime:web',
+      ]);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
 
@@ -406,7 +409,7 @@ Because:
             finding: 'Package not compatible with runtime js', explanation: '''
 Because:
 * `package:my_package/my_package.dart` that imports:
-* `dart:io`''')
+* `dart:io`'''),
       });
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
@@ -449,7 +452,11 @@ int fourtyThree() => 43;
           },
           explanations: isEmpty);
       _expectTagging(tagger.runtimeTags,
-          tags: {'runtime:native-aot', 'runtime:native-jit', 'runtime:web'},
+          tags: {
+            'runtime:native-aot',
+            'runtime:native-jit',
+            'runtime:web',
+          },
           explanations: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: isEmpty);
     });
@@ -568,6 +575,71 @@ name: my_package
       });
       _expectTagging(tagger.runtimeTags, tags: isEmpty);
       _expectTagging(tagger.flutterPluginTags, tags: {'is:plugin'});
+    });
+  });
+
+  group('wasm tag', () {
+    test('Excluded with dart:js', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:js';
+'''),
+        ])
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')));
+    });
+
+    test('Excluded with dart:js_util', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:js_util';
+'''),
+        ])
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')));
+    });
+    test('Excluded with dart:html', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:html';
+'''),
+        ])
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')));
+    });
+
+    test(
+        'Included with dart:ui, dart:ui_web dart:js_interop dart:js_interop_unsafe',
+        () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', lib: [
+          d.file('my_package.dart', '''
+import 'dart:ui';
+import 'dart:ui_web';
+import 'dart:js_interop';
+import 'dart:js_interop_unsafe';
+'''),
+        ])
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.wasmReadyTag, tags: contains('is:wasm-ready'));
     });
   });
 }

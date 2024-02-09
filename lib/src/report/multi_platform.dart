@@ -37,6 +37,7 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
 
     Subsection scorePlatforms(
         List<String> tags, List<Explanation> explanations) {
+      // Scoring and the report only takes these platforms into account.
       final tagNames = const {
         PanaTags.platformIos: 'iOS',
         PanaTags.platformAndroid: 'Android',
@@ -45,12 +46,13 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
         PanaTags.platformMacos: 'macOS',
         PanaTags.platformLinux: 'Linux',
       };
+      final officialTags = tags.where(tagNames.containsKey).toList();
       final sdkExplanations =
           explanations.where((e) => e.tag != null && e.tag!.startsWith('sdk:'));
       final platformExplanations = explanations
           .where((e) => e.tag == null || !e.tag!.startsWith('sdk:'));
       final officialExplanations = platformExplanations.where((e) =>
-          !tags.contains(e.tag) &&
+          !officialTags.contains(e.tag) &&
           (e.tag == null || tagNames.containsKey(e.tag)));
       final trustExplanations = explanations.where((e) => tags.contains(e.tag));
       final paragraphs = <Paragraph>[
@@ -59,7 +61,7 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
         if (sdkExplanations.isNotEmpty)
           // This empty line is required for `package:markdown` to render the following list correctly.
           RawParagraph(''),
-        for (final tag in tags.where((e) => e.startsWith('platform')))
+        for (final tag in officialTags.where((e) => e.startsWith('platform')))
           RawParagraph('* ✓ ${tagNames[tag]}'),
         if (officialExplanations.isNotEmpty)
           RawParagraph('\nThese platforms are not supported:\n'),
@@ -69,8 +71,6 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
               '\nThese issues are present but do not affect the score, because they may not originate in your package:\n'),
         ...trustExplanations.map(explanationToIssue),
       ];
-
-      final officialTags = tags.where(tagNames.containsKey).toList();
 
       final status =
           officialTags.where((tag) => tag.startsWith('platform:')).isEmpty

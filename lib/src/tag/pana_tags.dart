@@ -17,6 +17,7 @@ abstract class PanaTags {
   static const runtimeFlutterNative = 'runtime:flutter-native';
   static const runtimeFlutterWeb = 'runtime:flutter-web';
   static const runtimeWeb = 'runtime:web';
+  static const isWasmReady = 'is:wasm-ready';
 
   // platform tags
   static const platformAndroid = 'platform:android';

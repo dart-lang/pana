@@ -58,6 +58,7 @@
     "platform:android",
     "is:plugin",
     "is:null-safe",
+    "is:wasm-ready",
     "is:dart3-compatible",
     "license:mit",
     "license:fsf-libre",

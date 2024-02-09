@@ -90,6 +90,12 @@ class Runtime {
     tag: PanaTags.runtimeWeb,
   );
 
+  static final wasm = Runtime(
+    'wasm',
+    {..._onAllPlatforms, 'ui', 'ui_web', 'js_interop', 'js_interop_unsafe'},
+    tag: PanaTags.isWasmReady,
+  );
+
   static final flutterNative = Runtime(
     'flutter-native',
     {
