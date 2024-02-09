@@ -388,7 +388,7 @@ class Tagger {
   ///   specifying a lower dart sdk bound >= 2.12.
   ///
   /// - No libraries in the import closure of [_publicLibraries] opt out of
-  ///   null-safety. (For each runtime in [Runtime.recognizedRuntimes]).
+  ///   null-safety. (For each runtime in [Sdk.recognizedRuntimes]).
   void nullSafetyTags(List<String> tags, List<Explanation> explanations) {
     try {
       var foundIssues = false;
