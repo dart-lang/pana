@@ -104,6 +104,7 @@
     "platform:web",
     "is:plugin",
     "is:null-safe",
+    "is:wasm-ready",
     "is:dart3-compatible",
     "license:bsd-3-clause",
     "license:fsf-libre",
