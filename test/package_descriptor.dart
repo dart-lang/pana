@@ -11,7 +11,7 @@ d.DirectoryDescriptor packageWithPathDeps(String name,
     {String? sdkConstraint,
     List<String> dependencies = const [],
     List<d.Descriptor> lib = const [],
-    Map pubspecExtras = const {},
+    Map<String, Object> pubspecExtras = const {},
     List<d.Descriptor> extraFiles = const []}) {
   final pubspec = json.encode(
     {
@@ -57,7 +57,7 @@ d.DirectoryDescriptor package(String name,
     {String? sdkConstraint,
     Map<String, Object> dependencies = const {},
     List<d.Descriptor> lib = const [],
-    Map pubspecExtras = const {},
+    Map<String, Object> pubspecExtras = const {},
     List<d.Descriptor> extraFiles = const []}) {
   final pubspec = json.encode(
     {

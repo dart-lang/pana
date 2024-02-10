@@ -57,14 +57,14 @@ List<String> dartFilesFromLib(String packageDir) {
 }
 
 @visibleForTesting
-dynamic sortedJson(obj) {
-  var fullJson = json.decode(json.encode(obj));
+Object? sortedJson(Object? obj) {
+  final fullJson = json.decode(json.encode(obj));
   return _toSortedMap(fullJson);
 }
 
-dynamic _toSortedMap(dynamic item) {
+Object? _toSortedMap(Object? item) {
   if (item is Map) {
-    return SplayTreeMap<String, dynamic>.fromIterable(item.keys,
+    return SplayTreeMap<String, Object?>.fromIterable(item.keys,
         value: (k) => _toSortedMap(item[k]));
   } else if (item is List) {
     return item.map(_toSortedMap).toList();
@@ -73,7 +73,7 @@ dynamic _toSortedMap(dynamic item) {
   }
 }
 
-Map<String, dynamic>? yamlToJson(String? yamlContent) {
+Map<String, Object?>? yamlToJson(String? yamlContent) {
   if (yamlContent == null) {
     return null;
   }
@@ -84,7 +84,7 @@ Map<String, dynamic>? yamlToJson(String? yamlContent) {
 
   // A bit paranoid, but I want to make sure this is valid JSON before we got to
   // the encode phase.
-  return sortedJson(json.decode(json.encode(yamlMap))) as Map<String, dynamic>;
+  return sortedJson(json.decode(json.encode(yamlMap))) as Map<String, Object?>;
 }
 
 /// Returns the list of directories to focus on (e.g. bin, lib) - if they exist.

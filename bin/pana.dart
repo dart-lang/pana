@@ -107,8 +107,8 @@ ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
   exit(ExitCode.usage.code);
 }
 
-Future main(List<String> args) async {
-  ArgResults result;
+Future<void> main(List<String> args) async {
+  final ArgResults result;
   try {
     result = _parser.parse(args);
   } on FormatException catch (e) {

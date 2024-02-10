@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 ///
 /// Additional filters are applied in the order of this list, up to the
 /// `--limit` parameter.
-class BatchQueryCommand extends Command {
+class BatchQueryCommand extends Command<void> {
   final _client = http.Client();
 
   @override

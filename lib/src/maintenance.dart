@@ -21,9 +21,9 @@ List<String> exampleFileCandidates(String package) {
 }
 
 /// Returns a markdown-formatted error message for pubspec.yaml parse error.
-String pubspecParseError(error) {
+String pubspecParseError(Object error) {
   // TODO: remove this after json_annotation is updated with CheckedFromJsonException.toString()
-  var message = error?.toString();
+  var message = error.toString();
   if (error is CheckedFromJsonException) {
     final msg =
         error.message ?? 'Error with `${error.key}`: ${error.innerError}';

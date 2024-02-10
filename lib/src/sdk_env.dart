@@ -105,7 +105,7 @@ class ToolEnvironment {
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
-  Future _init() async {
+  Future<void> _init() async {
     final dartVersionResult = await runConstrained(
       [..._dartSdk.dartCmd, '--version'],
       environment: _dartSdk.environment,
@@ -547,7 +547,8 @@ class ToolEnvironment {
     // and throws an exception if it is missing. While we no longer accept
     // new packages without such constraint, the old versions are still valid
     // and should be analyzed.
-    final environment = parsed.putIfAbsent('environment', () => {});
+    final environment =
+        parsed.putIfAbsent('environment', () => <String, Object?>{});
     if (environment is Map) {
       VersionConstraint? vc;
       if (environment['sdk'] is String) {
