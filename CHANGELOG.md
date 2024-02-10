@@ -1,3 +1,7 @@
+## 0.22.1-wip
+
+- Require Dart 3.2.0 or later to run `pana`.
+
 ## 0.22.0
 
 - `ToolEnvironment`:
