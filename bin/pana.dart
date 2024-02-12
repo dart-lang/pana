@@ -72,7 +72,8 @@ final _parser = ArgParser()
   )
   ..addOption(
     'dartdoc-version',
-    help: 'The dartdoc version to use (otherwise the latest stable).',
+    help:
+        'The dartdoc version to use: `sdk`, `latest` (default) or `<version constraint>`.',
   )
   ..addOption(
     'resources-output',

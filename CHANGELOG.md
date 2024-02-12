@@ -1,3 +1,8 @@
+## 0.22.1
+
+- Fix: unspecified `--dartdoc-version` will use the latest version in an isolated
+  environment. To use the SDK's `dartdoc`, set the value to `sdk`.
+
 ## 0.22.0
 
 - `ToolEnvironment`:
