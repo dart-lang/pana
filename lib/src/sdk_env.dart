@@ -453,9 +453,16 @@ class ToolEnvironment {
       if (sdkDir != null) ...['--sdk-dir', sdkDir],
     ];
 
-    PanaProcessResult pr;
-
-    if (_dartdocVersion != null) {
+    if (_dartdocVersion == 'sdk') {
+      final command =
+          usesFlutter ? _flutterSdk._dartSdk.dartCmd : _dartSdk.dartCmd;
+      return await runConstrained(
+        [...command, 'doc', ...args],
+        workingDirectory: packageDir,
+        environment: _dartSdk.environment,
+        timeout: timeout,
+      );
+    } else {
       if (!_globalDartdocActivated) {
         await runConstrained(
           [
@@ -464,7 +471,7 @@ class ToolEnvironment {
             'global',
             'activate',
             'dartdoc',
-            _dartdocVersion!,
+            if (_dartdocVersion != null) _dartdocVersion!,
           ],
           environment: {
             ..._dartSdk.environment,
@@ -475,24 +482,14 @@ class ToolEnvironment {
         _globalDartdocActivated = true;
       }
       final command = usesFlutter ? _flutterSdk.flutterCmd : _dartSdk.dartCmd;
-      pr = await runConstrained(
+      return await runConstrained(
         [...command, 'pub', 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment:
             usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
         timeout: timeout,
       );
-    } else {
-      final command =
-          usesFlutter ? _flutterSdk._dartSdk.dartCmd : _dartSdk.dartCmd;
-      pr = await runConstrained(
-        [...command, 'doc', ...args],
-        workingDirectory: packageDir,
-        environment: _dartSdk.environment,
-        timeout: timeout,
-      );
     }
-    return pr;
   }
 
   /// Removes the `dev_dependencies` from the `pubspec.yaml`,
