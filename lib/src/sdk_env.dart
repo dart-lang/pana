@@ -471,7 +471,7 @@ class ToolEnvironment {
             'global',
             'activate',
             'dartdoc',
-            if (_dartdocVersion != null) _dartdocVersion!,
+            if (_dartdocVersion != null) _dartdocVersion,
           ],
           environment: {
             ..._dartSdk.environment,
