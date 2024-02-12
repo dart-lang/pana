@@ -1,3 +1,7 @@
+## 0.22.2
+
+- `dartdoc` processing is run as the last step of the generated report.
+
 ## 0.22.1
 
 - Fix: unspecified `--dartdoc-version` will use the latest version in an isolated

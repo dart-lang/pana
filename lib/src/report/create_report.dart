@@ -37,11 +37,20 @@ Future<Report> createReport(PackageContext context) async {
     );
   }
 
+  final templateReport = await followsTemplate(context);
+  final platformReport = await multiPlatform(context.packageDir, pubspec);
+  final staticAnalysisReport = await staticAnalysis(context);
+  final dependenciesReport = await trustworthyDependency(context);
+
+  // Create the documentation report (and run `dartdoc`) as the last step
+  // to allow better budgeting for large packages.
+  final documentationReport = await hasDocumentation(context);
+
   return Report(sections: [
-    await followsTemplate(context),
-    await hasDocumentation(context),
-    await multiPlatform(context.packageDir, pubspec),
-    await staticAnalysis(context),
-    await trustworthyDependency(context),
+    templateReport,
+    documentationReport,
+    platformReport,
+    staticAnalysisReport,
+    dependenciesReport,
   ]);
 }
