@@ -251,7 +251,7 @@ class _ServedPackage {
 
 /// A package that's intended to be served.
 class _ServedPackageVersion {
-  final Map pubspec;
+  final Map<String, Object> pubspec;
   final List<d.Descriptor> contents;
   final DateTime? published;
 

@@ -72,7 +72,8 @@ final _parser = ArgParser()
   )
   ..addOption(
     'dartdoc-version',
-    help: 'The dartdoc version to use (otherwise the latest stable).',
+    help:
+        'The dartdoc version to use: `sdk`, `latest` (default) or `<version constraint>`.',
   )
   ..addOption(
     'resources-output',
@@ -107,8 +108,8 @@ ${LineSplitter.split(_parser.usage).map((l) => '  $l').join('\n')}''');
   exit(ExitCode.usage.code);
 }
 
-Future main(List<String> args) async {
-  ArgResults result;
+Future<void> main(List<String> args) async {
+  final ArgResults result;
   try {
     result = _parser.parse(args);
   } on FormatException catch (e) {

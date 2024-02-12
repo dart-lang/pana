@@ -1,6 +1,11 @@
-## 0.22.1-wip
+## 0.22.2-wip
 
-- Require Dart 3.2.0 or later to run `pana`.
+- Require Dart 3.2.0 or later to use `pana`.
+
+## 0.22.1
+
+- Fix: unspecified `--dartdoc-version` will use the latest version in an isolated
+  environment. To use the SDK's `dartdoc`, set the value to `sdk`.
 
 ## 0.22.0
 

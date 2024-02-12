@@ -160,7 +160,7 @@ class PackageAnalyzer {
           analyzerItems = await context.staticAnalysis();
         } on ToolException catch (e) {
           context.errors
-              .add(runningDartanalyzerFailed(context.usesFlutter, e.message));
+              .add(runningDartAnalyzerFailed(context.usesFlutter, e.message));
         }
       } else {
         analyzerItems = <CodeProblem>[];

@@ -189,7 +189,7 @@ class PackageContext {
       _codeProblems = await _staticAnalysis(packageDir: packageDir);
       return _codeProblems!;
     } on ToolException catch (e) {
-      errors.add(messages.runningDartanalyzerFailed(usesFlutter, e.message));
+      errors.add(messages.runningDartAnalyzerFailed(usesFlutter, e.message));
       rethrow;
     }
   }

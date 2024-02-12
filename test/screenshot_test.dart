@@ -193,7 +193,7 @@ void main() {
   }, skip: hasWebpTools);
 
   test('Report shows screenshot problems', () async {
-    Map pubspecExtras = <String, List>{
+    final pubspecExtras = {
       'screenshots': [
         {'description': '', 'path': 'doesNotExist'}
       ]
@@ -228,7 +228,7 @@ void main() {
 
   test('Successful report', () async {
     if (!hasWebpTools) return;
-    Map pubspecExtras = <String, List>{
+    final pubspecExtras = {
       'screenshots': [
         {'description': 'description', 'path': 'static.webp'}
       ]

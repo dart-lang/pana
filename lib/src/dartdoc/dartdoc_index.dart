@@ -18,7 +18,7 @@ class DartdocIndex {
     return DartdocIndex.fromJsonList(json.decode(content) as List);
   }
 
-  factory DartdocIndex.fromJsonList(List jsonList) {
+  factory DartdocIndex.fromJsonList(List<Object?> jsonList) {
     final list = jsonList
         .map((item) => DartdocIndexEntry.fromJson(item as Map<String, dynamic>))
         .toList();

@@ -263,7 +263,7 @@ class OutdatedVersionDescription {
 Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
     PackageContext context, OutdatedPackage package) async {
   const acceptableUpdateDelay = Duration(days: 30);
-  T? tryGetFromJson<T>(Map<String, dynamic> json, String key) {
+  T? tryGetFromJson<T>(Map<String, Object?> json, String key) {
     final element = json[key];
     return element is T ? element : null;
   }
@@ -293,7 +293,7 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
       pubHostedUrl: hostedDependency.hosted?.url ?? pubHostedUriFromEnv));
 
   try {
-    final versions = tryGetFromJson<List>(
+    final versions = tryGetFromJson<List<Object?>>(
         versionListing as Map<String, dynamic>, 'versions');
     if (versions == null) {
       // Bad response from pub host.
