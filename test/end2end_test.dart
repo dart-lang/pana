@@ -58,7 +58,7 @@ void main() {
   }) {
     final filename = '$package-$version.json';
     group('end2end: $package $version', () {
-      Map<String, dynamic>? actualMap;
+      late final Map<String, Object?> actualMap;
 
       setUpAll(() async {
         final dartdocOutputDir = p.join(tempDir, 'doc', '$package-version');
@@ -102,11 +102,11 @@ void main() {
                 'the Dart version used by the latest stable Flutter ({{flutter-dart-version}})')
             .replaceAll(RegExp('that was published [0-9]+ days ago'),
                 'that was published N days ago');
-        actualMap = json.decode(updated) as Map<String, dynamic>?;
+        actualMap = json.decode(updated) as Map<String, Object?>;
       });
 
       test('matches known good', () {
-        void removeDependencyDetails(Map map) {
+        void removeDependencyDetails(Map<String, dynamic> map) {
           if (map.containsKey('pkgResolution') &&
               (map['pkgResolution'] as Map).containsKey('dependencies')) {
             final deps = (map['pkgResolution']['dependencies'] as List)
@@ -120,7 +120,7 @@ void main() {
 
         // Reduce the time-invariability of the tests: resolved and available
         // versions may change over time or because of SDK version changes.
-        removeDependencyDetails(actualMap!);
+        removeDependencyDetails(actualMap);
 
         final json =
             '${const JsonEncoder.withIndent('  ').convert(actualMap)}\n';
@@ -134,7 +134,7 @@ void main() {
       });
 
       test('Report matches known good', () {
-        final jsonReport = actualMap!['report'] as Map<String, dynamic>?;
+        final jsonReport = actualMap['report'] as Map<String, Object?>?;
         if (jsonReport != null) {
           final report = Report.fromJson(jsonReport);
           final renderedSections = report.sections
@@ -150,7 +150,7 @@ void main() {
       });
 
       test('Summary can round-trip', () {
-        var summary = Summary.fromJson(actualMap!);
+        var summary = Summary.fromJson(actualMap);
 
         var roundTrip = json.decode(json.encode(summary));
         expect(roundTrip, actualMap);
@@ -159,7 +159,7 @@ void main() {
       test('Summary tags check', () {
         final tagsFileContent =
             File('lib/src/tag/pana_tags.dart').readAsStringSync();
-        final summary = Summary.fromJson(actualMap!);
+        final summary = Summary.fromJson(actualMap);
         final tags = summary.tags;
         if (tags != null) {
           for (final tag in tags) {

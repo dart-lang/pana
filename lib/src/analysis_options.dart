@@ -86,9 +86,10 @@ String updatePassthroughOptions({
   if (origAnalyzer is Map) {
     final origErrors = origAnalyzer['errors'];
     if (origErrors is Map) {
-      final customAnalyzer = customMap.putIfAbsent('analyzer', () => {}) as Map;
-      final customErrors =
-          customAnalyzer.putIfAbsent('errors', () => {}) as Map;
+      final customAnalyzer =
+          customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
+      final customErrors = customAnalyzer.putIfAbsent(
+          'errors', () => <String, Object?>{}) as Map;
 
       for (var key in _analyzerErrorKeys) {
         if (origErrors.containsKey(key)) {

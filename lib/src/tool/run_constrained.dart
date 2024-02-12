@@ -90,7 +90,7 @@ Future<PanaProcessResult> _runConstrained(
     killProc('Exceeded timeout of $timeout');
   });
 
-  var items = await Future.wait(<Future>[
+  final (exitCode, _, _) = await (
     process.exitCode,
     process.stdout.forEach((outLine) {
       stdoutLines.add(outLine);
@@ -108,12 +108,11 @@ Future<PanaProcessResult> _runConstrained(
         killProc('Output exceeded $maxOutputBytes bytes.');
       }
     })
-  ]);
+  ).wait;
 
   timer.cancel();
 
-  final exitCode = items[0] as int;
-  late PanaProcessResult result;
+  final PanaProcessResult result;
   if (killed) {
     final encoding = systemEncoding;
     result = PanaProcessResult(

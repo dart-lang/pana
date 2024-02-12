@@ -15,7 +15,7 @@ import '../utils.dart' show withTempDir;
 import 'batch_model.dart';
 
 /// Runs pana on the selected packages.
-class BatchRunCommand extends Command {
+class BatchRunCommand extends Command<void> {
   @override
   String get name => 'run';
 

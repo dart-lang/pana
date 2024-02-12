@@ -15,7 +15,7 @@ import '../utils.dart' show withTempDir;
 import 'batch_model.dart';
 
 /// Compares pana outcomes on the selected packages.
-class BatchCompareCommand extends Command {
+class BatchCompareCommand extends Command<void> {
   @override
   String get name => 'compare';
 

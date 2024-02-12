@@ -47,7 +47,7 @@ void main() {
       await repo.delete();
     });
 
-    void setupBranchFailures(Future Function(String branch) fn) {
+    void setupBranchFailures(Future<void> Function(String branch) fn) {
       test('no such branch', () async {
         await expectLater(
             () => fn('branchdoesnotexists'), throwsA(isA<GitToolException>()));

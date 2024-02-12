@@ -62,7 +62,7 @@ Future<VerifiedRepository?> checkRepository({
     }
   }
 
-  void failVerification(String message, [error, StackTrace? st]) {
+  void failVerification(String message, [Object? error, StackTrace? st]) {
     verificationFailure = message;
     log.info(message, error, st);
   }
@@ -109,7 +109,7 @@ Future<VerifiedRepository?> checkRepository({
       // TODO: consider to allow the exceptions to pass here, to allow an
       //       unrelated, but badly formatted pubspec.yaml in the repository.
       // ignore: prefer_typing_uninitialized_variables
-      var yamlDoc;
+      Object? yamlDoc;
       try {
         yamlDoc = yaml.loadYaml(content);
       } on FormatException catch (e, st) {

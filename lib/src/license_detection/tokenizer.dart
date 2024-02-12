@@ -192,7 +192,7 @@ String _normalizeWord(String text) {
   return text;
 }
 
-final _headers = HashSet.from(
+final _headers = HashSet.of(
     'q w e r t y u i o p a s d f g h j k l z x c v b n m i ii iii iv vi vii ix xi xii xiii xiv xv'
         .split(' '));
 

@@ -113,7 +113,8 @@ class UrlChecker {
 }
 
 /// Extracts a `.tar.gz` file from [tarball] to [destination].
-Future _extractTarGz(Stream<List<int>> tarball, String destination) async {
+Future<void> _extractTarGz(
+    Stream<List<int>> tarball, String destination) async {
   log.fine('Extracting .tar.gz stream to $destination.');
   final reader = TarReader(tarball.transform(gzip.decoder));
   while (await reader.moveNext()) {

@@ -266,18 +266,18 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
 
 Subsection _licenseSection(LicenseTags tags) {
   const title = 'Use an OSI-approved license';
-  late List<Paragraph> paragraphs;
   final maxPoints = 10;
   var grantedPoints = 0;
   var reportStatus = ReportStatus.failed;
 
-  String licensePluralized(List value) =>
+  String licensePluralized(List<License> value) =>
       value.length > 1 ? 'licenses' : 'license';
   String licenseList(List<License> values) =>
       values.map((e) => '`${e.spdxIdentifier}`').join(', ');
   final detected = RawParagraph(
       'Detected ${licensePluralized(tags.licenses)}: ${licenseList(tags.licenses)}.');
 
+  final List<Paragraph> paragraphs;
   if (tags.isOnlyOsiApproved) {
     paragraphs = [detected];
     grantedPoints = maxPoints;
