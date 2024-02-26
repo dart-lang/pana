@@ -72,7 +72,7 @@
         "grantedPoints": 0,
         "maxPoints": 50,
         "status": "failed",
-        "summary": "### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues\n\n* Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=1.0.0 <=3.2.0'\" must be 2.12.0'\nor higher to enable null safety.\n```\n"
+        "summary": "### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues\n\n* Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=1.0.0 <=3.3.0'\" must be 2.12.0'\nor higher to enable null safety.\n```\n"
       },
       {
         "id": "dependency",
@@ -98,5 +98,5 @@
     "maxPoints": 130
   },
   "urlProblems": [],
-  "errorMessage": "Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=1.0.0 <=3.2.0'\" must be 2.12.0'\nor higher to enable null safety.\n```"
+  "errorMessage": "Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=1.0.0 <=3.3.0'\" must be 2.12.0'\nor higher to enable null safety.\n```"
 }
