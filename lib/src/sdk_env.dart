@@ -17,6 +17,7 @@ import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
 import 'pana_cache.dart';
+import 'tool/flutter_tool.dart';
 import 'tool/run_constrained.dart';
 import 'utils.dart';
 import 'version.dart';
@@ -298,25 +299,7 @@ class ToolEnvironment {
       environment: _flutterSdk.environment,
       throwOnError: true,
     );
-    return result.parseJson(transform: (String content) {
-      // filter for concurrent flutter execution
-      final waitingForString = 'Waiting for another flutter';
-      if (content.contains(waitingForString)) {
-        content = content
-            .split('\n')
-            .where((e) => !e.contains(waitingForString))
-            .join('\n');
-      }
-      // filter for welcome screen
-      if (content.contains('Welcome to Flutter!')) {
-        final lines = content.split('\n');
-        final separator = lines.indexWhere((l) => l.trim().isEmpty);
-        if (separator >= 0) {
-          content = lines.take(separator).join('\n');
-        }
-      }
-      return content;
-    });
+    return result.parseJson(transform: stripIntermittentFlutterMessages);
   }
 
   Future<PanaProcessResult> runUpgrade(
