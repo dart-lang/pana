@@ -9,35 +9,43 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
-  late String tempDir;
-  late PackageAnalyzer analyzer;
-
-  setUpAll(() async {
-    tempDir = Directory.systemTemp
-        .createTempSync('pana-test')
-        .resolveSymbolicLinksSync();
-    final pubCacheDir = p.join(tempDir, 'pub-cache');
-    Directory(pubCacheDir).createSync();
-    analyzer = PackageAnalyzer(await ToolEnvironment.create(
-      pubCacheDir: pubCacheDir,
-      dartdocVersion: 'any',
-    ));
-  });
-
-  tearDownAll(() async {
-    Directory(tempDir).deleteSync(recursive: true);
-  });
-
   void verifyPackage(String package) {
-    test('end2end light: $package', () async {
-      final summary = await analyzer.inspectPackage(package);
-      expect(summary.report, isNotNull);
-      expect(summary.allDependencies!, isNotEmpty);
-      expect(summary.tags!, isNotEmpty);
-      expect(summary.tags, contains('is:dart3-compatible'));
-      expect(summary.report!.grantedPoints,
-          greaterThanOrEqualTo(summary.report!.maxPoints - 20));
-    }, timeout: const Timeout.factor(2));
+    group('end2end light: $package', () {
+      late String tempDir;
+      late PackageAnalyzer analyzer;
+
+      setUpAll(() async {
+        tempDir = Directory.systemTemp
+            .createTempSync('pana-test')
+            .resolveSymbolicLinksSync();
+        final pubCacheDir = p.join(tempDir, 'pub-cache');
+        final dartConfigDir = p.join(tempDir, 'config', 'dart');
+        final flutterConfigDir = p.join(tempDir, 'config', 'flutter');
+        Directory(pubCacheDir).createSync();
+        Directory(dartConfigDir).createSync(recursive: true);
+        Directory(flutterConfigDir).createSync(recursive: true);
+        analyzer = PackageAnalyzer(await ToolEnvironment.create(
+          dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
+          flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
+          pubCacheDir: pubCacheDir,
+          dartdocVersion: 'any',
+        ));
+      });
+
+      tearDownAll(() async {
+        Directory(tempDir).deleteSync(recursive: true);
+      });
+
+      test('analysis', () async {
+        final summary = await analyzer.inspectPackage(package);
+        expect(summary.report, isNotNull);
+        expect(summary.allDependencies!, isNotEmpty);
+        expect(summary.tags!, isNotEmpty);
+        expect(summary.tags, contains('is:dart3-compatible'));
+        expect(summary.report!.grantedPoints,
+            greaterThanOrEqualTo(summary.report!.maxPoints - 20));
+      }, timeout: const Timeout.factor(4));
+    });
   }
 
   // generic, cross-platform package

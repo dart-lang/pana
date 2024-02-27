@@ -18,45 +18,6 @@ final _goldenDir = p.join('test', 'goldens', 'end2end');
 final _pubDevUri = Uri.parse('https://pub.dartlang.org/');
 
 void main() {
-  late String tempDir;
-  late PackageAnalyzer analyzer;
-  http.Client? httpClient;
-  late HttpServer httpServer;
-
-  setUpAll(() async {
-    tempDir = Directory.systemTemp
-        .createTempSync('pana-test')
-        .resolveSymbolicLinksSync();
-    final pubCacheDir = p.join(tempDir, 'pub-cache');
-    final panaCacheDir = p.join(tempDir, 'pana-cache');
-    final dartConfigDir = p.join(tempDir, 'config', 'dart');
-    final flutterConfigDir = p.join(tempDir, 'config', 'flutter');
-    final goldenDirLastModified = await _detectGoldenLastModified();
-    Directory(pubCacheDir).createSync();
-    Directory(panaCacheDir).createSync();
-    Directory(dartConfigDir).createSync(recursive: true);
-    Directory(flutterConfigDir).createSync(recursive: true);
-    httpClient = http.Client();
-    httpServer = await _startLocalProxy(
-      httpClient: httpClient,
-      blockPublishAfter: goldenDirLastModified,
-    );
-    analyzer = PackageAnalyzer(await ToolEnvironment.create(
-      dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
-      flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
-      pubCacheDir: pubCacheDir,
-      panaCacheDir: panaCacheDir,
-      pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
-      dartdocVersion: 'any',
-    ));
-  });
-
-  tearDownAll(() async {
-    await httpServer.close(force: true);
-    httpClient!.close();
-    Directory(tempDir).deleteSync(recursive: true);
-  });
-
   void verifyPackage(
     String package,
     String version, {
@@ -64,10 +25,40 @@ void main() {
   }) {
     final filename = '$package-$version.json';
     group('end2end: $package $version', () {
+      late String tempDir;
+      late PackageAnalyzer analyzer;
+      http.Client? httpClient;
+      late HttpServer httpServer;
       late final Map<String, Object?> actualMap;
 
       setUpAll(() async {
-        final dartdocOutputDir = p.join(tempDir, 'doc', '$package-version');
+        tempDir = Directory.systemTemp
+            .createTempSync('pana-test')
+            .resolveSymbolicLinksSync();
+        final pubCacheDir = p.join(tempDir, 'pub-cache');
+        final panaCacheDir = p.join(tempDir, 'pana-cache');
+        final dartConfigDir = p.join(tempDir, 'config', 'dart');
+        final flutterConfigDir = p.join(tempDir, 'config', 'flutter');
+        final goldenDirLastModified = await _detectGoldenLastModified();
+        Directory(pubCacheDir).createSync();
+        Directory(panaCacheDir).createSync();
+        Directory(dartConfigDir).createSync(recursive: true);
+        Directory(flutterConfigDir).createSync(recursive: true);
+        httpClient = http.Client();
+        httpServer = await _startLocalProxy(
+          httpClient: httpClient,
+          blockPublishAfter: goldenDirLastModified,
+        );
+        analyzer = PackageAnalyzer(await ToolEnvironment.create(
+          dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
+          flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
+          pubCacheDir: pubCacheDir,
+          panaCacheDir: panaCacheDir,
+          pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
+          dartdocVersion: 'any',
+        ));
+
+        final dartdocOutputDir = p.join(tempDir, 'doc', '$package-$version');
         await Directory(dartdocOutputDir).create(recursive: true);
 
         var summary = await analyzer.inspectPackage(
@@ -109,6 +100,12 @@ void main() {
             .replaceAll(RegExp('that was published [0-9]+ days ago'),
                 'that was published N days ago');
         actualMap = json.decode(updated) as Map<String, Object?>;
+      });
+
+      tearDownAll(() async {
+        await httpServer.close(force: true);
+        httpClient!.close();
+        Directory(tempDir).deleteSync(recursive: true);
       });
 
       test('matches known good', () {
