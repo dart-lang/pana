@@ -1,6 +1,7 @@
 ## 0.22.2
 
 - `dartdoc` processing is run as the last step of the generated report.
+- Fix: missing custom SDK environment (config directory use) when invoking Flutter.
 
 ## 0.22.1
 

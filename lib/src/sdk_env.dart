@@ -17,6 +17,7 @@ import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
 import 'pana_cache.dart';
+import 'tool/flutter_tool.dart';
 import 'tool/run_constrained.dart';
 import 'utils.dart';
 import 'version.dart';
@@ -295,19 +296,10 @@ class ToolEnvironment {
   Future<Map<String, dynamic>> _getFlutterVersion() async {
     final result = await runConstrained(
       [..._flutterSdk.flutterCmd, '--version', '--machine'],
+      environment: _flutterSdk.environment,
       throwOnError: true,
     );
-    final waitingForString = 'Waiting for another flutter';
-    return result.parseJson(transform: (content) {
-      if (content.contains(waitingForString)) {
-        return content
-            .split('\n')
-            .where((e) => !e.contains(waitingForString))
-            .join('\n');
-      } else {
-        return content;
-      }
-    });
+    return result.parseJson(transform: stripIntermittentFlutterMessages);
   }
 
   Future<PanaProcessResult> runUpgrade(

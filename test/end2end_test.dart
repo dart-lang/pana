@@ -29,15 +29,21 @@ void main() {
         .resolveSymbolicLinksSync();
     final pubCacheDir = p.join(tempDir, 'pub-cache');
     final panaCacheDir = p.join(tempDir, 'pana-cache');
+    final dartConfigDir = p.join(tempDir, 'config', 'dart');
+    final flutterConfigDir = p.join(tempDir, 'config', 'flutter');
     final goldenDirLastModified = await _detectGoldenLastModified();
     Directory(pubCacheDir).createSync();
     Directory(panaCacheDir).createSync();
+    Directory(dartConfigDir).createSync(recursive: true);
+    Directory(flutterConfigDir).createSync(recursive: true);
     httpClient = http.Client();
     httpServer = await _startLocalProxy(
       httpClient: httpClient,
       blockPublishAfter: goldenDirLastModified,
     );
     analyzer = PackageAnalyzer(await ToolEnvironment.create(
+      dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
+      flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
       pubCacheDir: pubCacheDir,
       panaCacheDir: panaCacheDir,
       pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
