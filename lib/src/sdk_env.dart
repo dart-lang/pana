@@ -295,18 +295,27 @@ class ToolEnvironment {
   Future<Map<String, dynamic>> _getFlutterVersion() async {
     final result = await runConstrained(
       [..._flutterSdk.flutterCmd, '--version', '--machine'],
+      environment: _flutterSdk.environment,
       throwOnError: true,
     );
-    final waitingForString = 'Waiting for another flutter';
-    return result.parseJson(transform: (content) {
+    return result.parseJson(transform: (String content) {
+      // filter for concurrent flutter execution
+      final waitingForString = 'Waiting for another flutter';
       if (content.contains(waitingForString)) {
-        return content
+        content = content
             .split('\n')
             .where((e) => !e.contains(waitingForString))
             .join('\n');
-      } else {
-        return content;
       }
+      // filter for welcome screen
+      if (content.contains('Welcome to Flutter!')) {
+        final lines = content.split('\n');
+        final separator = lines.indexWhere((l) => l.trim().isEmpty);
+        if (separator >= 0) {
+          content = lines.take(separator).join('\n');
+        }
+      }
+      return content;
     });
   }
 
