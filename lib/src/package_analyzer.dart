@@ -240,6 +240,9 @@ class PackageAnalyzer {
     } catch (_) {
       // do not update allDependencies.
     }
+    // trivial filter to remove not supported dependencies
+    allDependencies
+        .removeWhere((pkg) => pkg.contains('-') || pkg.contains('.'));
 
     String? errorMessage;
     if (context.errors.isNotEmpty) {

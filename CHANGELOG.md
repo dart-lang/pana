@@ -1,3 +1,7 @@
+## 0.22.3
+
+- Do not emit package names in `allDependencies` with trivial syntax issues.
+
 ## 0.22.2
 
 - `dartdoc` processing is run as the last step of the generated report.
