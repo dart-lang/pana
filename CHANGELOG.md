@@ -1,6 +1,7 @@
 ## 0.22.3
 
 - Do not emit package names in `allDependencies` with trivial syntax issues.
+- Log `dartdoc` output.
 
 ## 0.22.2
 

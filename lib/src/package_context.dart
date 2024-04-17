@@ -264,10 +264,12 @@ class PackageContext {
           usesFlutter: usesFlutter,
         );
         if (pr.wasTimeout) {
+          log.warning('`dartdoc` timed out:\n${pr.asJoinedOutput}');
           return DartdocResult.error(
               '`dartdoc` could not complete in $timeout.');
         }
         if (pr.wasError) {
+          log.warning('`dartdoc` failed:\n${pr.asJoinedOutput}');
           return DartdocResult.error(pr.asTrimmedOutput);
         }
 
@@ -276,9 +278,11 @@ class PackageContext {
         final hasIndexJson =
             await File(p.join(dartdocOutputDir, 'index.json')).exists();
         if (!hasIndexHtml || !hasIndexJson) {
+          log.warning('`dartdoc` failed:\n${pr.asJoinedOutput}');
           return DartdocResult.error(
               '`dartdoc` did not create expected output files.');
         }
+        log.info('`dartdoc` completed:\n${pr.asJoinedOutput}');
         return DartdocResult.success();
       } catch (e, st) {
         log.severe('Could not run dartdoc.', e, st);
