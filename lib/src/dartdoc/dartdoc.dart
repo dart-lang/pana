@@ -57,7 +57,10 @@ Future<Subsection> createDocumentationCoverageSection(
     summary.write('\n\n'
         'Providing good documentation for libraries, classes, functions, and other API '
         'elements improves code readability and helps developers find and use your API. '
-        'Document at least 20% of the public API elements.');
+        'Document at least 20% of the public API elements.'
+        '\n\n'
+        'To highlight public API members missing documentation consider enabling the '
+        '[`public_member_api_docs`](https://dart.dev/tools/linter-rules/public_member_api_docs) lint.');
   }
 
   if (symbolsMissingDocumentation != null &&
