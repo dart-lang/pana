@@ -62,9 +62,9 @@ CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) => CodeProblem(
       errorCode: json['errorCode'] as String,
       description: json['description'] as String,
       file: json['file'] as String,
-      line: json['line'] as int,
-      col: json['col'] as int,
-      length: json['length'] as int,
+      line: (json['line'] as num).toInt(),
+      col: (json['col'] as num).toInt(),
+      length: (json['length'] as num).toInt(),
     );
 
 Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>

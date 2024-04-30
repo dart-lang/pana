@@ -60,8 +60,8 @@ Map<String, dynamic> _$ApiElementToJson(ApiElement instance) {
 }
 
 Coverage _$CoverageFromJson(Map<String, dynamic> json) => Coverage(
-      total: json['total'] as int,
-      documented: json['documented'] as int,
+      total: (json['total'] as num).toInt(),
+      documented: (json['documented'] as num).toInt(),
       symbolsMissingDocumentation:
           (json['symbolsMissingDocumentation'] as List<dynamic>?)
               ?.map((e) => e as String)

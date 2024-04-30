@@ -13,9 +13,9 @@ DartdocIndexEntry _$DartdocIndexEntryFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       qualifiedName: json['qualifiedName'] as String?,
       href: json['href'] as String?,
-      kind: json['kind'] as int?,
-      packageRank: json['packageRank'] as int?,
-      overriddenDepth: json['overriddenDepth'] as int?,
+      kind: (json['kind'] as num?)?.toInt(),
+      packageRank: (json['packageRank'] as num?)?.toInt(),
+      overriddenDepth: (json['overriddenDepth'] as num?)?.toInt(),
       packageName: json['packageName'] as String?,
       desc: json['desc'] as String?,
       enclosedBy: json['enclosedBy'] == null
@@ -49,7 +49,7 @@ DartdocIndexEntryEnclosedBy _$DartdocIndexEntryEnclosedByFromJson(
         Map<String, dynamic> json) =>
     DartdocIndexEntryEnclosedBy(
       name: json['name'] as String?,
-      kind: json['kind'] as int?,
+      kind: (json['kind'] as num?)?.toInt(),
       href: json['href'] as String?,
     );
 

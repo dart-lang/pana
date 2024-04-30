@@ -34,7 +34,7 @@ Map<String, dynamic> _$BatchConfigToJson(BatchConfig instance) {
 }
 
 BatchResult _$BatchResultFromJson(Map<String, dynamic> json) => BatchResult(
-      unchangedCount: json['unchangedCount'] as int,
+      unchangedCount: (json['unchangedCount'] as num).toInt(),
       increased:
           BatchChanged.fromJson(json['increased'] as Map<String, dynamic>),
       decreased:
@@ -49,7 +49,7 @@ Map<String, dynamic> _$BatchResultToJson(BatchResult instance) =>
     };
 
 BatchChanged _$BatchChangedFromJson(Map<String, dynamic> json) => BatchChanged(
-      count: json['count'] as int,
+      count: (json['count'] as num).toInt(),
       packages: Map<String, int>.from(json['packages'] as Map),
     );
 

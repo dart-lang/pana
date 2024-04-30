@@ -166,8 +166,8 @@ ReportSection _$ReportSectionFromJson(Map<String, dynamic> json) =>
     ReportSection(
       id: json['id'] as String,
       title: json['title'] as String,
-      grantedPoints: json['grantedPoints'] as int,
-      maxPoints: json['maxPoints'] as int,
+      grantedPoints: (json['grantedPoints'] as num).toInt(),
+      maxPoints: (json['maxPoints'] as num).toInt(),
       summary: json['summary'] as String,
       status: $enumDecode(_$ReportStatusEnumMap, json['status']),
     );
@@ -201,8 +201,8 @@ AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
           ? null
           : Repository.fromJson(json['repository'] as Map<String, dynamic>),
       contributingUrl: json['contributingUrl'] as String?,
-      grantedPoints: json['grantedPoints'] as int?,
-      maxPoints: json['maxPoints'] as int?,
+      grantedPoints: (json['grantedPoints'] as num?)?.toInt(),
+      maxPoints: (json['maxPoints'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
