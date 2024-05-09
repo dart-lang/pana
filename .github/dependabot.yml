@@ -10,7 +10,10 @@ updates:
       interval: monthly
     labels:
       - autosubmit
-      - type-infra
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   - package-ecosystem: pub
     directory: /
