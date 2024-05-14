@@ -39,7 +39,7 @@ void main() {
 
       {
         final section = await trustworthyDependency(await newContext());
-        expect(section.grantedPoints, 20);
+        expect(section.grantedPoints, section.maxPoints);
       }
       DateTime daysAgo(int days) =>
           DateTime.now().subtract(Duration(days: days));
@@ -63,7 +63,7 @@ void main() {
                 '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
                 'but that version doesn\'t support the current Dart SDK version $currentSdkVersion'));
 
-        expect(section.grantedPoints, 20);
+        expect(section.grantedPoints, section.maxPoints);
       }
       {
         globalPackageServer!
@@ -76,7 +76,7 @@ void main() {
               'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.'),
         );
 
-        expect(section.grantedPoints, 20);
+        expect(section.grantedPoints, section.maxPoints);
       }
       {
         globalPackageServer!.add(
@@ -99,7 +99,7 @@ void main() {
           contains(
               'The constraint `^1.1.0` on foo does not support the stable version `2.0.0`.'),
         );
-        expect(section.grantedPoints, 10);
+        expect(section.grantedPoints, section.maxPoints - 10);
       }
     });
 
@@ -118,7 +118,7 @@ void main() {
         packageDir: descriptor.io.path,
       );
       final section = await trustworthyDependency(context);
-      expect(section.grantedPoints, 20);
+      expect(section.grantedPoints, section.maxPoints);
     });
 
     test('Understands `>=2.12.0 <3.0.0` as `>=2.12.0 <4.0.0`', () async {
@@ -135,7 +135,7 @@ void main() {
         packageDir: descriptor.io.path,
       );
       final section = await trustworthyDependency(context);
-      expect(section.grantedPoints, 20);
+      expect(section.grantedPoints, section.maxPoints);
     });
 
     test('complains about Flutter constraint upper bound', () async {
