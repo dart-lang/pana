@@ -20,13 +20,15 @@ At the time of the analysis `https://github.com/flutter/flutter/issues?q=is%3Ais
 
 Detected license: `BSD-3-Clause`.
 
-## 20/20 Provide documentation
+## 10/20 Provide documentation
 
-### [*] 10/10 points: 20% or more of the public API has dartdoc comments
+### [x] 0/10 points: 20% or more of the public API has dartdoc comments
 
-29 out of 32 API elements (90.6 %) have documentation comments.
+ERR:
+dartdoc as globally activated doesn't support Dart 3.3.1.
 
-Some symbols that are missing documentation: `link`, `url_launcher`, `url_launcher_string`.
+try:
+`flutter pub global activate dartdoc` to reactivate.
 
 ### [*] 10/10 points: Package has an example
 

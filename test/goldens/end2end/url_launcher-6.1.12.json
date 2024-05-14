@@ -122,10 +122,10 @@
       {
         "id": "documentation",
         "title": "Provide documentation",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n29 out of 32 API elements (90.6 %) have documentation comments.\n\nSome symbols that are missing documentation: `link`, `url_launcher`, `url_launcher_string`.\n\n### [*] 10/10 points: Package has an example\n"
+        "status": "failed",
+        "summary": "### [x] 0/10 points: 20% or more of the public API has dartdoc comments\n\nERR:\ndartdoc as globally activated doesn't support Dart 3.3.1.\n\ntry:\n`flutter pub global activate dartdoc` to reactivate.\n\n### [*] 10/10 points: Package has an example\n"
       },
       {
         "id": "platform",
@@ -164,7 +164,7 @@
       "path": "packages/url_launcher/url_launcher"
     },
     "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md",
-    "grantedPoints": 140,
+    "grantedPoints": 130,
     "maxPoints": 140
   },
   "urlProblems": []
