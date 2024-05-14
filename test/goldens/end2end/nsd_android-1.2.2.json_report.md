@@ -25,89 +25,46 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
-## 20/20 Platform support
+## 0/20 Platform support
 
-### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, **Android**, Web, Windows, macOS, Linux)
-
-* ✓ Android
-
-These platforms are not supported:
+### [x] 0/20 points: Platform support detection failed
 
 <details>
 <summary>
-Package does not support platform `iOS`.
+Could not determine supported platforms as package resolution failed.
 </summary>
 
-Because:
-* `nsd_android` that declares support for platforms: `Android`.
-</details>
-<details>
-<summary>
-Package does not support platform `Windows`.
-</summary>
-
-Because:
-* `nsd_android` that declares support for platforms: `Android`.
-</details>
-<details>
-<summary>
-Package does not support platform `Linux`.
-</summary>
-
-Because:
-* `nsd_android` that declares support for platforms: `Android`.
-</details>
-<details>
-<summary>
-Package does not support platform `macOS`.
-</summary>
-
-Because:
-* `nsd_android` that declares support for platforms: `Android`.
-</details>
-<details>
-<summary>
-Package does not support platform `Web`.
-</summary>
-
-Because:
-* `nsd_android` that declares support for platforms: `Android`.
+Run `flutter pub get` for more information.
 </details>
 
-## 50/50 Pass static analysis
+## 0/50 Pass static analysis
 
-### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
+### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues
+
+* Running `flutter pub outdated` failed with the following output:
+
+```
+Note: meta is pinned to version 1.12.0 by flutter from the flutter SDK.
+See https://dart.dev/go/sdk-version-pinning for details.
+```
 
 
-## 20/20 Support up-to-date dependencies
+## 10/20 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`flutter`]|`flutter`|0.0.0|0.0.0|
+* Could not run `flutter pub outdated`: `flutter pub get` failed:
 
-<details><summary>Transitive dependencies</summary>
+```
+OUT:
+Resolving dependencies...
+ERR:
+Note: meta is pinned to version 1.12.0 by flutter from the flutter SDK.
+See https://dart.dev/go/sdk-version-pinning for details.
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`characters`]|-|1.3.0|1.3.0|
-|[`collection`]|-|1.18.0|1.18.0|
-|[`material_color_utilities`]|-|0.8.0|0.8.0|
-|[`meta`]|-|1.11.0|1.11.0|
-|[`sky_engine`]|-|0.0.99|0.0.99|
-|[`vector_math`]|-|2.1.4|2.1.4|
-</details>
 
-To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
-
-[`flutter`]: https://pub.dev/packages/flutter
-[`characters`]: https://pub.dev/packages/characters
-[`collection`]: https://pub.dev/packages/collection
-[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
-[`meta`]: https://pub.dev/packages/meta
-[`sky_engine`]: https://pub.dev/packages/sky_engine
-[`vector_math`]: https://pub.dev/packages/vector_math
-
+Because every version of flutter from sdk depends on meta 1.12.0 which doesn't match any versions, flutter from sdk is forbidden.
+So, because nsd_android depends on flutter from sdk, version solving failed.
+```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
