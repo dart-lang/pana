@@ -73,16 +73,10 @@
     }
   ],
   "allDependencies": [
-    "characters",
-    "collection",
     "flutter",
     "flutter_test",
-    "flutter_web_plugins",
-    "material_color_utilities",
-    "meta",
     "mockito",
     "plugin_platform_interface",
-    "sky_engine",
     "test",
     "url_launcher_android",
     "url_launcher_ios",
@@ -90,21 +84,10 @@
     "url_launcher_macos",
     "url_launcher_platform_interface",
     "url_launcher_web",
-    "url_launcher_windows",
-    "vector_math"
+    "url_launcher_windows"
   ],
   "tags": [
-    "sdk:flutter",
-    "platform:android",
-    "platform:ios",
-    "platform:windows",
-    "platform:linux",
-    "platform:macos",
-    "platform:web",
-    "is:plugin",
-    "is:null-safe",
-    "is:wasm-ready",
-    "is:dart3-compatible",
+    "has:error",
     "license:bsd-3-clause",
     "license:fsf-libre",
     "license:osi-approved"
@@ -125,31 +108,31 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/10 points: 20% or more of the public API has dartdoc comments\n\nERR:\ndartdoc as globally activated doesn't support Dart 3.3.1.\n\ntry:\n`flutter pub global activate dartdoc` to reactivate.\n\n### [*] 10/10 points: Package has an example\n"
+        "summary": "### [x] 0/10 points: 20% or more of the public API has dartdoc comments\n\nDependency resolution failed, unable to run `dartdoc`.\n\n### [*] 10/10 points: Package has an example\n"
       },
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 20,
+        "grantedPoints": 0,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n* ✓ iOS\n* ✓ Windows\n* ✓ Linux\n* ✓ macOS\n* ✓ Web"
+        "status": "failed",
+        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `flutter pub get` for more information.\n</details>"
       },
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 50,
+        "grantedPoints": 0,
         "maxPoints": 50,
-        "status": "passed",
-        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
+        "status": "failed",
+        "summary": "### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues\n\n* Running `flutter pub outdated` failed with the following output:\n\n```\nNote: meta is pinned to version 1.12.0 by flutter from the flutter SDK.\nSee https://dart.dev/go/sdk-version-pinning for details.\n```\n"
       },
       {
         "id": "dependency",
         "title": "Support up-to-date dependencies",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`flutter`]|`flutter`|0.0.0|0.0.0|\n|[`url_launcher_android`]|`^6.0.13`|6.2.0|6.2.0|\n|[`url_launcher_ios`]|`^6.0.13`|6.2.0|6.2.0|\n|[`url_launcher_linux`]|`>=2.0.0 <4.0.0`|3.1.0|3.1.0|\n|[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.1.0|3.1.0|\n|[`url_launcher_platform_interface`]|`^2.1.0`|2.2.0|2.2.0|\n|[`url_launcher_web`]|`^2.0.0`|2.2.0|2.2.0|\n|[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.1.0|3.1.0|\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`characters`]|-|1.3.0|1.3.0|\n|[`collection`]|-|1.18.0|1.18.0|\n|[`flutter_web_plugins`]|-|0.0.0|0.0.0|\n|[`material_color_utilities`]|-|0.8.0|0.8.0|\n|[`meta`]|-|1.11.0|1.11.0|\n|[`plugin_platform_interface`]|-|2.1.6|2.1.6|\n|[`sky_engine`]|-|0.0.99|0.0.99|\n|[`vector_math`]|-|2.1.4|2.1.4|\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`flutter`]: https://pub.dev/packages/flutter\n[`url_launcher_android`]: https://pub.dev/packages/url_launcher_android\n[`url_launcher_ios`]: https://pub.dev/packages/url_launcher_ios\n[`url_launcher_linux`]: https://pub.dev/packages/url_launcher_linux\n[`url_launcher_macos`]: https://pub.dev/packages/url_launcher_macos\n[`url_launcher_platform_interface`]: https://pub.dev/packages/url_launcher_platform_interface\n[`url_launcher_web`]: https://pub.dev/packages/url_launcher_web\n[`url_launcher_windows`]: https://pub.dev/packages/url_launcher_windows\n[`characters`]: https://pub.dev/packages/characters\n[`collection`]: https://pub.dev/packages/collection\n[`flutter_web_plugins`]: https://pub.dev/packages/flutter_web_plugins\n[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities\n[`meta`]: https://pub.dev/packages/meta\n[`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface\n[`sky_engine`]: https://pub.dev/packages/sky_engine\n[`vector_math`]: https://pub.dev/packages/vector_math\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "status": "failed",
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `flutter pub outdated`: `flutter pub get` failed:\n\n```\nOUT:\nResolving dependencies...\nERR:\nNote: meta is pinned to version 1.12.0 by flutter from the flutter SDK.\nSee https://dart.dev/go/sdk-version-pinning for details.\n\n\nBecause every version of flutter from sdk depends on meta 1.12.0 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because url_launcher depends on flutter from sdk, version solving failed.\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
       }
     ]
   },
@@ -164,8 +147,9 @@
       "path": "packages/url_launcher/url_launcher"
     },
     "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md",
-    "grantedPoints": 130,
+    "grantedPoints": 50,
     "maxPoints": 140
   },
-  "urlProblems": []
+  "urlProblems": [],
+  "errorMessage": "Running `flutter pub outdated` failed with the following output:\n\n```\nNote: meta is pinned to version 1.12.0 by flutter from the flutter SDK.\nSee https://dart.dev/go/sdk-version-pinning for details.\n```"
 }
