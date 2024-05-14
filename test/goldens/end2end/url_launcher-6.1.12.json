@@ -130,9 +130,9 @@
         "id": "dependency",
         "title": "Support up-to-date dependencies",
         "grantedPoints": 10,
-        "maxPoints": 20,
+        "maxPoints": 40,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `flutter pub outdated`: `flutter pub get` failed:\n\n```\nOUT:\nResolving dependencies...\nERR:\nNote: meta is pinned to version 1.12.0 by flutter from the flutter SDK.\nSee https://dart.dev/go/sdk-version-pinning for details.\n\n\nBecause every version of flutter from sdk depends on meta 1.12.0 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because url_launcher depends on flutter from sdk, version solving failed.\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n"
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Could not run `flutter pub outdated`: `flutter pub get` failed:\n\n```\nOUT:\nResolving dependencies...\nERR:\nNote: meta is pinned to version 1.12.0 by flutter from the flutter SDK.\nSee https://dart.dev/go/sdk-version-pinning for details.\n\n\nBecause every version of flutter from sdk depends on meta 1.12.0 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because url_launcher depends on flutter from sdk, version solving failed.\n```\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n\n\n### [x] 0/20 points: Dependency constraint lower bounds are not breaking\n\n* `pub downgrade` finds static analysis issue(s):\n\n`pub downgrade` failed with:\nOUT:\nResolving dependencies...\nERR:\nNote: meta is pinned to version 1.12.0 by flutter from the flutter SDK.\nSee https://dart.dev/go/sdk-version-pinning for details.\n\n\nBecause every version of flutter from sdk depends on meta 1.12.0 which doesn't match any versions, flutter from sdk is forbidden.\nSo, because url_launcher depends on flutter from sdk, version solving failed.\nYou may run `dart pub upgrade --tighten` to update your dependency constraints."
       }
     ]
   },
@@ -148,7 +148,7 @@
     },
     "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md",
     "grantedPoints": 50,
-    "maxPoints": 140
+    "maxPoints": 160
   },
   "urlProblems": [],
   "errorMessage": "Running `flutter pub outdated` failed with the following output:\n\n```\nNote: meta is pinned to version 1.12.0 by flutter from the flutter SDK.\nSee https://dart.dev/go/sdk-version-pinning for details.\n```"

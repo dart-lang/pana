@@ -43,7 +43,7 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
 
-## 20/20 Support up-to-date dependencies
+## 40/40 Support up-to-date dependencies
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
@@ -53,3 +53,8 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
+
+
+### [*] 20/20 points: Dependency constraint lower bounds are not breaking
+
+`pub downgrade` does not expose any static analysis error.

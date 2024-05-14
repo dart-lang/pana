@@ -49,7 +49,7 @@ or higher to enable null safety.
 ```
 
 
-## 0/20 Support up-to-date dependencies
+## 0/40 Support up-to-date dependencies
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
@@ -87,3 +87,19 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}.
 
 Try widening the upper boundary of the constraint.
 </details>
+
+### [x] 0/20 points: Dependency constraint lower bounds are not breaking
+
+* `pub downgrade` finds static analysis issue(s):
+
+`pub downgrade` failed with:
+OUT:
+Resolving dependencies...
+ERR:
+The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
+or higher to enable null safety.
+
+The current Dart SDK (3.4.0) only supports null safety.
+
+For details, see https://dart.dev/null-safety
+You may run `dart pub upgrade --tighten` to update your dependency constraints.

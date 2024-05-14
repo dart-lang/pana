@@ -1,3 +1,7 @@
+## 0.22.4
+
+- Report and score `pub downgrade` + `dart analyze`.
+
 ## 0.22.3
 
 - Do not emit package names in `allDependencies` with trivial syntax issues.
