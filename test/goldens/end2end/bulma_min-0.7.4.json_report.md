@@ -88,11 +88,13 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}.
 Try widening the upper boundary of the constraint.
 </details>
 
-### [x] 0/20 points: Dependency constraint lower bounds are not breaking
+### [x] 0/20 points: Compatible with dependency constraint lower bounds
 
 * `pub downgrade` finds static analysis issue(s):
 
 `pub downgrade` failed with:
+
+```
 OUT:
 Resolving dependencies...
 ERR:
@@ -102,4 +104,6 @@ or higher to enable null safety.
 The current Dart SDK (3.4.0) only supports null safety.
 
 For details, see https://dart.dev/null-safety
+```
+
 You may run `dart pub upgrade --tighten` to update your dependency constraints.

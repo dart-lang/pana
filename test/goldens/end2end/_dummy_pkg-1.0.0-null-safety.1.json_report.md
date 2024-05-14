@@ -136,15 +136,19 @@ Sdk constraint doesn't support current Dart version {{sdk-version}}.
 Try widening the upper boundary of the constraint.
 </details>
 
-### [x] 0/20 points: Dependency constraint lower bounds are not breaking
+### [x] 0/20 points: Compatible with dependency constraint lower bounds
 
 * `pub downgrade` finds static analysis issue(s):
 
 `pub downgrade` failed with:
+
+```
 OUT:
 Resolving dependencies...
 ERR:
 The current Dart SDK version is {{sdk-version}}.
 
 Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.
+```
+
 You may run `dart pub upgrade --tighten` to update your dependency constraints.

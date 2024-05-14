@@ -70,11 +70,13 @@ So, because nsd_android depends on flutter from sdk, version solving failed.
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 
 
-### [x] 0/20 points: Dependency constraint lower bounds are not breaking
+### [x] 0/20 points: Compatible with dependency constraint lower bounds
 
 * `pub downgrade` finds static analysis issue(s):
 
 `pub downgrade` failed with:
+
+```
 OUT:
 Resolving dependencies...
 ERR:
@@ -84,4 +86,6 @@ See https://dart.dev/go/sdk-version-pinning for details.
 
 Because every version of flutter from sdk depends on meta 1.12.0 which doesn't match any versions, flutter from sdk is forbidden.
 So, because nsd_android depends on flutter from sdk, version solving failed.
+```
+
 You may run `dart pub upgrade --tighten` to update your dependency constraints.

@@ -193,7 +193,7 @@ class PackageContext {
         command: 'downgrade',
       );
       if (pr.exitCode != 0) {
-        return '`pub downgrade` failed with:\n${pr.asTrimmedOutput}';
+        return '`pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n';
       }
 
       final problems = await _staticAnalysis(packageDir: packageDir);

@@ -232,6 +232,6 @@ Try running `dart pub upgrade --major-versions dcli` to update the constraint.
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 
 
-### [*] 20/20 points: Dependency constraint lower bounds are not breaking
+### [*] 20/20 points: Compatible with dependency constraint lower bounds
 
 `pub downgrade` does not expose any static analysis error.

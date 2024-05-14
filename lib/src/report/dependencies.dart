@@ -239,7 +239,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
                 'You may run `dart pub upgrade --tighten` to update your dependency constraints.'),
           ];
     return Subsection(
-      'Dependency constraint lower bounds are not breaking',
+      'Compatible with dependency constraint lower bounds',
       issues,
       isPassed ? 20 : 0,
       20,
