@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:archive/archive.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as p;
 
 const _spdxPath = 'lib/src/third_party/spdx';
 const _targetPath = '$_spdxPath/licenses';
@@ -14,17 +13,26 @@ void main() async {
   final client = http.Client();
   final licenseDirectory = Directory(_targetPath);
   final response = await client.get(Uri.parse(downloadUrl));
-  final decoder = ZipDecoder();
 
   if (response.statusCode != 200) {
     print('Error downloading files');
     print(response.statusCode);
-    return;
+    exit(-1);
   }
 
   await _emptyDirectory(licenseDirectory);
-  await writeFiles(decoder.decodeBytes(response.bodyBytes));
-  await removeUnnecessaryFiles();
+  final masterZip = File(p.join(_targetPath, 'master.zip'));
+  await masterZip.writeAsBytes(response.bodyBytes);
+  final pr = await Process.run('unzip', ['-q', 'master.zip'],
+      workingDirectory: _targetPath);
+  if (pr.exitCode != 0) {
+    print('Error extracting files.');
+    print(pr.stdout);
+    print(pr.stderr);
+    exit(-1);
+  }
+  await masterZip.delete();
+  await _removeUnnecessaryFiles();
 }
 
 Future<void> _emptyDirectory(Directory dir) async {
@@ -34,23 +42,10 @@ Future<void> _emptyDirectory(Directory dir) async {
   await dir.create(recursive: true);
 }
 
-Future<void> writeFiles(Archive archive) async {
-  for (var f in archive.files) {
-    if (f.isFile) {
-      final name = f.name;
-      final file = File('$_targetPath/$name');
-      await file.create();
-      await file.writeAsBytes(f.content as Uint8List);
-    } else {
-      await Directory('$_targetPath/${f.name}').create(recursive: true);
-    }
-  }
-}
-
-Future<void> removeUnnecessaryFiles() async {
+Future<void> _removeUnnecessaryFiles() async {
   final jsonDirectory =
-      Directory('$_targetPath/license-list-data-master/json/details/');
-  final spdxDirectory = Directory('$_targetPath/license-list-data-master');
+      Directory('$_targetPath/license-list-data-main/json/details/');
+  final spdxDirectory = Directory('$_targetPath/license-list-data-main');
   final entities = jsonDirectory.listSync();
 
   final licenses = <_LicenseData>[];
