@@ -81,4 +81,4 @@ Because every version of flutter_web_plugins from sdk depends on meta 1.12.0 whi
 So, because audio_service depends on flutter_web_plugins from sdk, version solving failed.
 ```
 
-You may run `dart pub upgrade --tighten` to update your dependency constraints.
+You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.

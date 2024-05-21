@@ -92,4 +92,4 @@ Because every version of flutter from sdk depends on meta 1.12.0 which doesn't m
 So, because url_launcher depends on flutter from sdk, version solving failed.
 ```
 
-You may run `dart pub upgrade --tighten` to update your dependency constraints.
+You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.

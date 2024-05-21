@@ -151,4 +151,4 @@ The current Dart SDK version is {{sdk-version}}.
 Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.
 ```
 
-You may run `dart pub upgrade --tighten` to update your dependency constraints.
+You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.
