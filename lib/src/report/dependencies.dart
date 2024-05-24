@@ -227,15 +227,16 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
   Future<Subsection> downgrade() async {
     final message = await context.downgradeAnalysisErrorMessage;
     final isPassed = message == null;
+    final tool = context.usesFlutter ? 'flutter' : 'dart';
     final issues = isPassed
         ? [
             RawParagraph(
                 '`pub downgrade` does not expose any static analysis error.'),
           ]
         : [
-            Issue(
-                '`pub downgrade` finds static analysis issue(s):\n\n$message'),
+            Issue(message),
             RawParagraph(
+                'Run `$tool pub downgrade` and then `$tool analyze` to reproduce the above problem.\n\n'
                 'You may run `dart pub upgrade --tighten` to update your dependency constraints, '
                 'or visit http://dart.dev/go/downgrade-testing for further help.'),
           ];

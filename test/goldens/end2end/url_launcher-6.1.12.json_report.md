@@ -76,9 +76,7 @@ So, because url_launcher depends on flutter from sdk, version solving failed.
 
 ### [x] 0/20 points: Compatible with dependency constraint lower bounds
 
-* `pub downgrade` finds static analysis issue(s):
-
-`pub downgrade` failed with:
+* `flutter pub downgrade` failed with:
 
 ```
 OUT:
@@ -91,5 +89,7 @@ See https://dart.dev/go/sdk-version-pinning for details.
 Because every version of flutter from sdk depends on meta 1.12.0 which doesn't match any versions, flutter from sdk is forbidden.
 So, because url_launcher depends on flutter from sdk, version solving failed.
 ```
+
+Run `flutter pub downgrade` and then `flutter analyze` to reproduce the above problem.
 
 You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.

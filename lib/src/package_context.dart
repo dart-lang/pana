@@ -187,28 +187,29 @@ class PackageContext {
   late final downgradeAnalysisErrorMessage = () async {
     try {
       log.info('Analyzing pub downgrade...');
+      final tool = usesFlutter ? 'flutter' : 'dart';
       final pr = await toolEnvironment.runPub(
         packageDir,
         usesFlutter: usesFlutter,
         command: 'downgrade',
       );
       if (pr.exitCode != 0) {
-        return '`pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n';
+        return '`$tool pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n';
       }
 
       final problems = await _staticAnalysis(packageDir: packageDir);
-      final issues = problems.where((e) => e.isError).toList();
-      if (issues.isEmpty) {
+      final errors = problems.where((e) => e.isError).toList();
+      if (errors.isEmpty) {
         // success returning `null`
         return null;
       } else {
-        final issueLines = issues
+        final issueLines = errors
             .take(3)
             .map((cp) =>
-                ' - `${cp.errorCode}` - `${cp.file}:${cp.line}:${cp.col}}` - ${cp.description}\n')
+                ' - `${cp.errorCode}` - `${cp.file}:${cp.line}:${cp.col}` - ${cp.description}\n')
             .join();
-        final issueLabel = issues.length == 1 ? 'issue' : 'issues';
-        return '`pub downgrade` analysis failed with ${issues.length} $issueLabel:\n\n$issueLines';
+        final issueLabel = errors.length == 1 ? 'error' : 'errors';
+        return 'downgrade analysis failed failed with ${errors.length} $issueLabel:\n\n$issueLines';
       }
     } on ToolException catch (e) {
       return 'downgrade analysis failed with:\n${e.message}';

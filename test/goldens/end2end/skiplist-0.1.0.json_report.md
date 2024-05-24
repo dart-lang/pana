@@ -74,9 +74,7 @@ Try adding an sdk constraint to your `pubspec.yaml`
 
 ### [x] 0/20 points: Compatible with dependency constraint lower bounds
 
-* `pub downgrade` finds static analysis issue(s):
-
-`pub downgrade` failed with:
+* `dart pub downgrade` failed with:
 
 ```
 OUT:
@@ -89,5 +87,7 @@ The current Dart SDK (3.4.0) only supports null safety.
 
 For details, see https://dart.dev/null-safety
 ```
+
+Run `dart pub downgrade` and then `dart analyze` to reproduce the above problem.
 
 You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.
