@@ -224,13 +224,39 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
     );
   }
 
+  Future<Subsection> downgrade() async {
+    final message = await context.downgradeAnalysisErrorMessage;
+    final isPassed = message == null;
+    final tool = context.usesFlutter ? 'flutter' : 'dart';
+    final issues = isPassed
+        ? [
+            RawParagraph(
+                '`pub downgrade` does not expose any static analysis error.'),
+          ]
+        : [
+            Issue(message),
+            RawParagraph(
+                'Run `$tool pub downgrade` and then `$tool analyze` to reproduce the above problem.\n\n'
+                'You may run `dart pub upgrade --tighten` to update your dependency constraints, '
+                'or visit http://dart.dev/go/downgrade-testing for further help.'),
+          ];
+    return Subsection(
+      'Compatible with dependency constraint lower bounds',
+      issues,
+      isPassed ? 20 : 0,
+      20,
+      isPassed ? ReportStatus.passed : ReportStatus.failed,
+    );
+  }
+
   final dependencySection = await dependencies();
   final sdkSection = await sdkSupport();
-  final subsections = [dependencySection, sdkSection];
+  final downgradeSection = await downgrade();
+  final subsections = [dependencySection, sdkSection, downgradeSection];
   return makeSection(
     id: ReportSectionId.dependency,
     title: 'Support up-to-date dependencies',
-    maxPoints: 20,
+    maxPoints: subsections.map((e) => e.maxPoints).fold(0, (a, b) => a + b),
     subsections: subsections,
     basePath: packageDir,
   );

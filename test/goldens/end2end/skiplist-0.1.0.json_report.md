@@ -56,7 +56,7 @@ or higher to enable null safety.
 ```
 
 
-## 0/20 Support up-to-date dependencies
+## 0/40 Support up-to-date dependencies
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
@@ -71,3 +71,23 @@ Pubspec.yaml does not have an sdk version constraint.
 
 Try adding an sdk constraint to your `pubspec.yaml`
 </details>
+
+### [x] 0/20 points: Compatible with dependency constraint lower bounds
+
+* `dart pub downgrade` failed with:
+
+```
+OUT:
+Resolving dependencies...
+ERR:
+The lower bound of "sdk: '>=1.0.0 <=3.4.0'" must be 2.12.0'
+or higher to enable null safety.
+
+The current Dart SDK (3.4.0) only supports null safety.
+
+For details, see https://dart.dev/null-safety
+```
+
+Run `dart pub downgrade` and then `dart analyze` to reproduce the above problem.
+
+You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.

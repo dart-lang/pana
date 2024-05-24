@@ -132,7 +132,7 @@ WARNING: Unnecessary type check; the result is always 'true'.
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/handler/json_wire/utils.dart`
 </details>
 
-## 20/20 Support up-to-date dependencies
+## 40/40 Support up-to-date dependencies
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
@@ -188,3 +188,8 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
+
+
+### [*] 20/20 points: Compatible with dependency constraint lower bounds
+
+`pub downgrade` does not expose any static analysis error.

@@ -42,7 +42,7 @@ See https://dart.dev/go/sdk-version-pinning for details.
 ```
 
 
-## 10/20 Support up-to-date dependencies
+## 10/40 Support up-to-date dependencies
 
 ### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
@@ -61,3 +61,24 @@ So, because audio_service depends on flutter_web_plugins from sdk, version solvi
 ```
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
+
+
+### [x] 0/20 points: Compatible with dependency constraint lower bounds
+
+* `flutter pub downgrade` failed with:
+
+```
+OUT:
+Resolving dependencies...
+ERR:
+Note: meta is pinned to version 1.12.0 by flutter_web_plugins from the flutter SDK.
+See https://dart.dev/go/sdk-version-pinning for details.
+
+
+Because every version of flutter_web_plugins from sdk depends on meta 1.12.0 which doesn't match any versions, flutter_web_plugins from sdk is forbidden.
+So, because audio_service depends on flutter_web_plugins from sdk, version solving failed.
+```
+
+Run `flutter pub downgrade` and then `flutter analyze` to reproduce the above problem.
+
+You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.

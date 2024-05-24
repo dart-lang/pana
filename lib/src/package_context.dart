@@ -182,6 +182,48 @@ class PackageContext {
     return errorMessage;
   }();
 
+  /// Runs `pub downgrade` and then static analysis.
+  /// Returns `null` when no issues found or a String description of the issues.
+  late final downgradeAnalysisErrorMessage = () async {
+    try {
+      log.info('Analyzing pub downgrade...');
+      final tool = usesFlutter ? 'flutter' : 'dart';
+      final pr = await toolEnvironment.runPub(
+        packageDir,
+        usesFlutter: usesFlutter,
+        command: 'downgrade',
+      );
+      if (pr.exitCode != 0) {
+        return '`$tool pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n';
+      }
+
+      final problems = await _staticAnalysis(packageDir: packageDir);
+      final errors = problems.where((e) => e.isError).toList();
+      if (errors.isEmpty) {
+        // success returning `null`
+        return null;
+      } else {
+        final issueLines = errors
+            .take(3)
+            .map((cp) =>
+                ' - `${cp.errorCode}` - `${cp.file}:${cp.line}:${cp.col}` - ${cp.description}\n')
+            .join();
+        final issueLabel = errors.length == 1 ? 'error' : 'errors';
+        return 'downgrade analysis failed failed with ${errors.length} $issueLabel:\n\n$issueLines';
+      }
+    } on ToolException catch (e) {
+      return 'downgrade analysis failed with:\n${e.message}';
+    } finally {
+      try {
+        await toolEnvironment.runPub(packageDir,
+            usesFlutter: usesFlutter, command: 'upgrade');
+      } on ToolException catch (e, st) {
+        errors.add('`dart upgrade` failed');
+        log.warning('dart upgrade failed', e, st);
+      }
+    }
+  }();
+
   Future<List<CodeProblem>> staticAnalysis() async {
     if (_codeProblems != null) return _codeProblems!;
     try {

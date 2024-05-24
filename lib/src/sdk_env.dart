@@ -9,7 +9,6 @@ import 'dart:io';
 import 'package:cli_util/cli_util.dart' as cli;
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
-import 'package:retry/retry.dart';
 
 import 'analysis_options.dart';
 import 'internal_model.dart';
@@ -305,54 +304,36 @@ class ToolEnvironment {
   Future<PanaProcessResult> runUpgrade(
     String packageDir,
     bool usesFlutter, {
-    int retryCount = 3,
+    @Deprecated('retryCount is ignored') int retryCount = 3,
+  }) async {
+    return await runPub(
+      packageDir,
+      usesFlutter: usesFlutter,
+      command: 'upgrade',
+    );
+  }
+
+  Future<PanaProcessResult> runPub(
+    String packageDir, {
+    required bool usesFlutter,
+    required String command,
   }) async {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      final retryOptions = const RetryOptions(maxAttempts: 3);
-      bool retryIf(PanaProcessResult result) {
-        final errOutput = result.stderr.asString;
-        // find cases where retrying is not going to help – and short-circuit
-        if (errOutput.contains('Could not get versions for flutter from sdk')) {
-          return false;
-        }
-        if (errOutput.contains('FINE: Exception type: NoVersionException')) {
-          return false;
-        }
-        return true;
-      }
-
-      if (usesFlutter) {
-        return await runConstrained(
-          [
+      return await runConstrained(
+        [
+          if (usesFlutter) ...[
             ..._flutterSdk.flutterCmd,
             'packages',
-            'pub',
-            'upgrade',
-            '--no-example',
-            '--verbose',
-          ],
-          workingDirectory: packageDir,
-          environment:
-              usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
-          retryIf: retryIf,
-          retryOptions: retryOptions,
-        );
-      } else {
-        return await runConstrained(
-          [
+          ] else
             ..._dartSdk.dartCmd,
-            'pub',
-            'upgrade',
-            '--no-example',
-            '--verbose',
-          ],
-          workingDirectory: packageDir,
-          environment:
-              usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
-          retryIf: retryIf,
-          retryOptions: retryOptions,
-        );
-      }
+          'pub',
+          command,
+          '--no-example',
+        ],
+        workingDirectory: packageDir,
+        environment:
+            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
+      );
     });
   }
 
