@@ -202,7 +202,13 @@ class PackageContext {
         // success returning `null`
         return null;
       } else {
-        return 'downgrade analysis failed with ${issues.length} ${issues.length == 1 ? 'issue' : 'issues'}.';
+        final issueLines = issues
+            .take(3)
+            .map((cp) =>
+                ' - `${cp.errorCode}` - `${cp.file}:${cp.line}:${cp.col}}` - ${cp.description}\n')
+            .join();
+        final issueLabel = issues.length == 1 ? 'issue' : 'issues';
+        return '`pub downgrade` analysis failed with ${issues.length} $issueLabel:\n\n$issueLines';
       }
     } on ToolException catch (e) {
       return 'downgrade analysis failed with:\n${e.message}';
