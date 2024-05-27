@@ -81,4 +81,4 @@ So, because audio_service depends on flutter_web_plugins from sdk, version solvi
 
 Run `flutter pub downgrade` and then `flutter analyze` to reproduce the above problem.
 
-You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.
+You may run `dart pub upgrade --tighten` to update your dependency constraints, see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details.
