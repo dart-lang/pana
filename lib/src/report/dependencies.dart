@@ -238,7 +238,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
             RawParagraph(
                 'Run `$tool pub downgrade` and then `$tool analyze` to reproduce the above problem.\n\n'
                 'You may run `dart pub upgrade --tighten` to update your dependency constraints, '
-                'or visit http://dart.dev/go/downgrade-testing for further help.'),
+                'see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details.'),
           ];
     return Subsection(
       'Compatible with dependency constraint lower bounds',
