@@ -1,3 +1,7 @@
+## 0.22.5
+
+- Updated text and link on downgrade analysis.
+
 ## 0.22.4
 
 - Report and score `pub downgrade` + `dart analyze`.
