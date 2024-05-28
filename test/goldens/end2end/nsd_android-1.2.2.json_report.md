@@ -88,4 +88,4 @@ So, because nsd_android depends on flutter from sdk, version solving failed.
 
 Run `flutter pub downgrade` and then `flutter analyze` to reproduce the above problem.
 
-You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.
+You may run `dart pub upgrade --tighten` to update your dependency constraints, see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details.

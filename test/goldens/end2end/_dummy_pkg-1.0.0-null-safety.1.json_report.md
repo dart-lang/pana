@@ -151,4 +151,4 @@ Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving fail
 
 Run `dart pub downgrade` and then `dart analyze` to reproduce the above problem.
 
-You may run `dart pub upgrade --tighten` to update your dependency constraints, or visit http://dart.dev/go/downgrade-testing for further help.
+You may run `dart pub upgrade --tighten` to update your dependency constraints, see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details.
