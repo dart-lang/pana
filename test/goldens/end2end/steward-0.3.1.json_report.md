@@ -103,14 +103,14 @@ INFO: The variable name 'PutAnnotation' isn't a lowerCamelCase identifier.
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/controllers/route_utils.dart`
 </details>
 
-## 40/40 Support up-to-date dependencies
+## 30/40 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`bosun`]|`^0.2.1`|0.2.2|0.2.2|
-|[`flat`]|`^0.4.0`|0.4.1|0.4.1|
+|[`flat`]|`^0.4.0`|0.4.1|**0.5.0**|
 |[`mustache_template`]|`^2.0.0`|2.0.0|2.0.0|
 |[`path_to_regexp`]|`^0.4.0`|0.4.0|0.4.0|
 |[`recase`]|`^4.0.0`|4.1.0|4.1.0|
@@ -121,7 +121,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`collection`]|-|1.18.0|1.18.0|
-|[`path`]|-|1.8.3|1.8.3|
+|[`path`]|-|1.9.0|1.9.0|
 |[`source_span`]|-|1.10.0|1.10.0|
 |[`string_scanner`]|-|1.2.0|1.2.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
@@ -143,6 +143,13 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`term_glyph`]: https://pub.dev/packages/term_glyph
 [`tree_iterator`]: https://pub.dev/packages/tree_iterator
 
+<details>
+<summary>
+The constraint `^0.4.0` on flat does not support the stable version `0.5.0`.
+</summary>
+
+Try running `dart pub upgrade --major-versions flat` to update the constraint.
+</details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 

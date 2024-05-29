@@ -1,0 +1,183 @@
+{
+  "createdAt": "2022-11-23T11:09:00.000Z",
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "gg",
+  "packageVersion": "1.0.12",
+  "pubspec": {
+    "name": "gg",
+    "description": "A collection of checks and actions like analyzing, linting, testing, code coverage, committing, pushing, publishing.",
+    "version": "1.0.12",
+    "repository": "https://github.com/inlavigo/gg.git",
+    "environment": {
+      "sdk": ">=3.3.0 <4.0.0"
+    },
+    "dependencies": {
+      "args": "^2.4.2",
+      "gg_args": "^1.1.10",
+      "gg_console_colors": "^2.0.1",
+      "gg_git": "^2.0.0",
+      "gg_is_flutter": "^1.0.3",
+      "gg_json": "^1.0.0",
+      "gg_log": "^1.0.0",
+      "gg_process": "^1.0.6",
+      "gg_publish": "^2.0.0",
+      "gg_status_printer": "^1.1.0",
+      "gg_test": "^1.0.3",
+      "gg_version": "^1.0.0",
+      "meta": "^1.12.0",
+      "mocktail": "^1.0.3",
+      "path": "^1.8.0",
+      "pub_semver": "^2.1.4",
+      "recase": "^4.1.0",
+      "yaml": "^3.1.2",
+      "yaml_edit": "^2.2.0"
+    },
+    "dev_dependencies": {
+      "fake_async": "^1.3.1",
+      "gg_capture_print": "^1.0.3",
+      "gg_install_gg": "^1.0.1",
+      "lints": "^3.0.0",
+      "pana": "^0.22.2",
+      "test": "^1.24.0"
+    },
+    "executables": {
+      "gg": null
+    }
+  },
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "MIT"
+  },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "MIT"
+    }
+  ],
+  "allDependencies": [
+    "args",
+    "async",
+    "boolean_selector",
+    "checked_yaml",
+    "collection",
+    "colorize",
+    "fake_async",
+    "gg_args",
+    "gg_capture_print",
+    "gg_console_colors",
+    "gg_git",
+    "gg_hash",
+    "gg_install_gg",
+    "gg_is_flutter",
+    "gg_is_github",
+    "gg_json",
+    "gg_log",
+    "gg_process",
+    "gg_project_root",
+    "gg_publish",
+    "gg_status_printer",
+    "gg_test",
+    "gg_version",
+    "http",
+    "http_parser",
+    "json_annotation",
+    "lints",
+    "matcher",
+    "meta",
+    "mocktail",
+    "pana",
+    "path",
+    "pub_semver",
+    "pubspec_parse",
+    "recase",
+    "source_span",
+    "stack_trace",
+    "stream_channel",
+    "string_scanner",
+    "term_glyph",
+    "test",
+    "test_api",
+    "typed_data",
+    "web",
+    "yaml",
+    "yaml_edit"
+  ],
+  "tags": [
+    "sdk:dart",
+    "sdk:flutter",
+    "platform:android",
+    "platform:ios",
+    "platform:windows",
+    "platform:linux",
+    "platform:macos",
+    "runtime:native-aot",
+    "runtime:native-jit",
+    "is:null-safe",
+    "is:dart3-compatible",
+    "license:mit",
+    "license:fsf-libre",
+    "license:osi-approved"
+  ],
+  "report": {
+    "sections": [
+      {
+        "id": "convention",
+        "title": "Follow Dart file conventions",
+        "grantedPoints": 30,
+        "maxPoints": 30,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `MIT`."
+      },
+      {
+        "id": "documentation",
+        "title": "Provide documentation",
+        "grantedPoints": 10,
+        "maxPoints": 10,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: Package has an example\n"
+      },
+      {
+        "id": "platform",
+        "title": "Platform support",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Supports 5 of 6 possible platforms (**iOS**, **Android**, Web, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n* ✓ iOS\n* ✓ Windows\n* ✓ Linux\n* ✓ macOS\n\nThese platforms are not supported:\n\n<details>\n<summary>\nPackage not compatible with platform Web\n</summary>\n\nBecause:\n* `package:gg/gg.dart` that imports:\n* `package:gg/src/tools/checks.dart` that imports:\n* `package:gg_publish/gg_publish.dart` that imports:\n* `package:gg_publish/src/commands/publish.dart` that imports:\n* `package:gg_version/gg_version.dart` that imports:\n* `package:gg_version/src/commands/published_version.dart` that imports:\n* `package:gg_args/gg_args.dart` that imports:\n* `package:gg_args/src/missing_sub_commands.dart` that imports:\n* `dart:io`\n</details>"
+      },
+      {
+        "id": "analysis",
+        "title": "Pass static analysis",
+        "grantedPoints": 50,
+        "maxPoints": 50,
+        "status": "passed",
+        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
+      },
+      {
+        "id": "dependency",
+        "title": "Support up-to-date dependencies",
+        "grantedPoints": 10,
+        "maxPoints": 40,
+        "status": "failed",
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`args`]|`^2.4.2`|2.5.0|2.5.0|\n|[`gg_args`]|`^1.1.10`|1.1.17|**2.0.4**|\n|[`gg_console_colors`]|`^2.0.1`|2.1.4|2.1.4|\n|[`gg_git`]|`^2.0.0`|2.5.9|2.5.12|\n|[`gg_is_flutter`]|`^1.0.3`|1.0.5|1.0.7|\n|[`gg_json`]|`^1.0.0`|1.0.6|1.0.6|\n|[`gg_log`]|`^1.0.0`|1.0.6|1.0.6|\n|[`gg_process`]|`^1.0.6`|1.1.6|1.1.6|\n|[`gg_publish`]|`^2.0.0`|2.0.1|**3.0.16**|\n|[`gg_status_printer`]|`^1.1.0`|1.1.4|1.1.4|\n|[`gg_test`]|`^1.0.3`|1.0.11|1.0.16|\n|[`gg_version`]|`^1.0.0`|1.3.1|**4.0.3**|\n|[`meta`]|`^1.12.0`|1.15.0|1.15.0|\n|[`mocktail`]|`^1.0.3`|1.0.3|1.0.3|\n|[`path`]|`^1.8.0`|1.9.0|1.9.0|\n|[`pub_semver`]|`^2.1.4`|2.1.4|2.1.4|\n|[`recase`]|`^4.1.0`|4.1.0|4.1.0|\n|[`yaml`]|`^3.1.2`|3.1.2|3.1.2|\n|[`yaml_edit`]|`^2.2.0`|2.2.1|2.2.1|\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|\n|:-|:-|:-|:-|\n|[`async`]|-|2.11.0|2.11.0|\n|[`boolean_selector`]|-|2.1.1|2.1.1|\n|[`checked_yaml`]|-|2.0.3|2.0.3|\n|[`collection`]|-|1.18.0|1.18.0|\n|[`colorize`]|-|3.0.0|3.0.0|\n|[`gg_capture_print`]|-|1.0.9|1.0.9|\n|[`gg_hash`]|-|1.0.4|1.0.4|\n|[`gg_is_github`]|-|1.0.6|1.0.6|\n|[`gg_project_root`]|-|1.0.2|1.0.4|\n|[`http`]|-|1.2.1|1.2.1|\n|[`http_parser`]|-|4.0.2|4.0.2|\n|[`json_annotation`]|-|4.9.0|4.9.0|\n|[`matcher`]|-|0.12.16+1|0.12.16+1|\n|[`pubspec_parse`]|-|1.3.0|1.3.0|\n|[`source_span`]|-|1.10.0|1.10.0|\n|[`stack_trace`]|-|1.11.1|1.11.1|\n|[`stream_channel`]|-|2.1.2|2.1.2|\n|[`string_scanner`]|-|1.2.0|1.2.0|\n|[`term_glyph`]|-|1.2.1|1.2.1|\n|[`test_api`]|-|0.7.1|0.7.1|\n|[`typed_data`]|-|1.3.2|1.3.2|\n|[`web`]|-|0.5.1|0.5.1|\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`args`]: https://pub.dev/packages/args\n[`gg_args`]: https://pub.dev/packages/gg_args\n[`gg_console_colors`]: https://pub.dev/packages/gg_console_colors\n[`gg_git`]: https://pub.dev/packages/gg_git\n[`gg_is_flutter`]: https://pub.dev/packages/gg_is_flutter\n[`gg_json`]: https://pub.dev/packages/gg_json\n[`gg_log`]: https://pub.dev/packages/gg_log\n[`gg_process`]: https://pub.dev/packages/gg_process\n[`gg_publish`]: https://pub.dev/packages/gg_publish\n[`gg_status_printer`]: https://pub.dev/packages/gg_status_printer\n[`gg_test`]: https://pub.dev/packages/gg_test\n[`gg_version`]: https://pub.dev/packages/gg_version\n[`meta`]: https://pub.dev/packages/meta\n[`mocktail`]: https://pub.dev/packages/mocktail\n[`path`]: https://pub.dev/packages/path\n[`pub_semver`]: https://pub.dev/packages/pub_semver\n[`recase`]: https://pub.dev/packages/recase\n[`yaml`]: https://pub.dev/packages/yaml\n[`yaml_edit`]: https://pub.dev/packages/yaml_edit\n[`async`]: https://pub.dev/packages/async\n[`boolean_selector`]: https://pub.dev/packages/boolean_selector\n[`checked_yaml`]: https://pub.dev/packages/checked_yaml\n[`collection`]: https://pub.dev/packages/collection\n[`colorize`]: https://pub.dev/packages/colorize\n[`gg_capture_print`]: https://pub.dev/packages/gg_capture_print\n[`gg_hash`]: https://pub.dev/packages/gg_hash\n[`gg_is_github`]: https://pub.dev/packages/gg_is_github\n[`gg_project_root`]: https://pub.dev/packages/gg_project_root\n[`http`]: https://pub.dev/packages/http\n[`http_parser`]: https://pub.dev/packages/http_parser\n[`json_annotation`]: https://pub.dev/packages/json_annotation\n[`matcher`]: https://pub.dev/packages/matcher\n[`pubspec_parse`]: https://pub.dev/packages/pubspec_parse\n[`source_span`]: https://pub.dev/packages/source_span\n[`stack_trace`]: https://pub.dev/packages/stack_trace\n[`stream_channel`]: https://pub.dev/packages/stream_channel\n[`string_scanner`]: https://pub.dev/packages/string_scanner\n[`term_glyph`]: https://pub.dev/packages/term_glyph\n[`test_api`]: https://pub.dev/packages/test_api\n[`typed_data`]: https://pub.dev/packages/typed_data\n[`web`]: https://pub.dev/packages/web\n\nFound 3 issues. Showing the first 2:\n\n<details>\n<summary>\nThe constraint `^1.1.10` on gg_args does not support the stable version `2.0.0`.\n</summary>\n\nTry running `dart pub upgrade --major-versions gg_args` to update the constraint.\n</details>\n<details>\n<summary>\nThe constraint `^2.0.0` on gg_publish does not support the stable version `3.0.0`.\n</summary>\n\nTry running `dart pub upgrade --major-versions gg_publish` to update the constraint.\n</details>\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n\n\n### [x] 0/20 points: Compatible with dependency constraint lower bounds\n\n* downgrade analysis failed failed with 10 errors:\n\n - `UNDEFINED_CLASS` - `lib/src/commands/can/can_publish.dart:21:5` - Undefined class 'IsVersionPrepared'.\n - `UNDEFINED_METHOD` - `lib/src/commands/can/can_publish.dart:25:34` - The method 'IsVersionPrepared' isn't defined for the type 'CanPublish'.\n - `UNDEFINED_METHOD` - `lib/src/commands/check/analyze.dart:48:12` - The method 'ErrorInfoReader' isn't defined for the type 'Analyze'.\n\nRun `dart pub downgrade` and then `dart analyze` to reproduce the above problem.\n\nYou may run `dart pub upgrade --tighten` to update your dependency constraints, see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details."
+      }
+    ]
+  },
+  "screenshots": [],
+  "result": {
+    "repositoryUrl": "https://github.com/inlavigo/gg.git",
+    "issueTrackerUrl": "https://github.com/inlavigo/gg/issues",
+    "repository": {
+      "provider": "github",
+      "host": "github.com",
+      "repository": "inlavigo/gg",
+      "branch": "main"
+    },
+    "grantedPoints": 120,
+    "maxPoints": 150
+  },
+  "urlProblems": []
+}

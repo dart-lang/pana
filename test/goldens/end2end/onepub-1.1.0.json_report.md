@@ -93,14 +93,14 @@ Cannot assign Web automatically to a binary only package.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.36.2|**3.1.0**|
+|[`dcli`]|`^1.15.5`|1.36.2|**4.0.1**|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|-|3.4.6|3.4.6|
-|[`args`]|-|2.4.2|2.4.2|
+|[`archive`]|-|3.6.0|3.6.0|
+|[`args`]|-|2.5.0|2.5.0|
 |[`async`]|-|2.11.0|2.11.0|
 |[`basic_utils`]|-|3.9.4|5.7.0|
 |[`boolean_selector`]|-|2.1.1|2.1.1|
@@ -111,37 +111,37 @@ Cannot assign Web automatically to a binary only package.
 |[`collection`]|-|1.18.0|1.18.0|
 |[`convert`]|-|3.1.1|3.1.1|
 |[`crypto`]|-|3.0.3|3.0.3|
-|[`csv`]|-|5.1.0|5.1.0|
-|[`dart_console2`]|-|2.0.1|3.0.0|
-|[`dcli_core`]|-|1.36.2|3.1.0|
+|[`csv`]|-|5.1.1|6.0.0|
+|[`dart_console2`]|-|2.0.1|3.1.1|
+|[`dcli_core`]|-|1.36.2|4.0.0|
 |[`equatable`]|-|2.0.5|2.0.5|
-|[`ffi`]|-|2.1.0|2.1.0|
+|[`ffi`]|-|2.1.2|2.1.2|
 |[`file`]|-|6.1.4|7.0.0|
 |[`file_utils`]|-|1.0.1|1.0.1|
-|[`functional_data`]|-|1.1.1|1.1.1|
+|[`functional_data`]|-|1.2.0|1.2.0|
 |[`glob`]|-|2.1.2|2.1.2|
 |[`globbing`]|-|1.0.0|1.0.0|
-|[`http`]|-|0.13.6|1.1.0|
+|[`http`]|-|0.13.6|1.2.1|
 |[`http_parser`]|-|4.0.2|4.0.2|
 |[`ini`]|-|2.1.0|2.1.0|
-|[`intl`]|-|0.17.0|0.18.1|
-|[`js`]|-|0.6.7|0.6.7|
+|[`intl`]|-|0.17.0|0.19.0|
+|[`js`]|-|0.7.1|0.7.1|
 |[`json2yaml`]|-|3.0.1|3.0.1|
-|[`json_annotation`]|-|4.8.1|4.8.1|
+|[`json_annotation`]|-|4.9.0|4.9.0|
 |[`logging`]|-|1.2.0|1.2.0|
-|[`matcher`]|-|0.12.16|0.12.16|
-|[`meta`]|-|1.11.0|1.11.0|
-|[`mime`]|-|1.0.4|1.0.4|
-|[`path`]|-|1.8.3|1.8.3|
-|[`pointycastle`]|-|3.7.3|3.7.3|
-|[`posix`]|-|4.1.0|5.0.0|
+|[`matcher`]|-|0.12.16+1|0.12.16+1|
+|[`meta`]|-|1.15.0|1.15.0|
+|[`mime`]|-|1.0.5|1.0.5|
+|[`path`]|-|1.9.0|1.9.0|
+|[`pointycastle`]|-|3.9.1|3.9.1|
+|[`posix`]|-|4.1.0|6.0.1|
 |[`pub_semver`]|-|2.1.4|2.1.4|
 |[`pubspec2`]|-|2.4.2|4.0.0|
 |[`pubspec_lock`]|-|3.0.2|3.0.2|
 |[`quiver`]|-|3.2.1|3.2.1|
 |[`random_string`]|-|2.3.1|2.3.1|
 |[`scope`]|-|3.0.0|4.1.0|
-|[`settings_yaml`]|-|4.0.1|7.1.0|
+|[`settings_yaml`]|-|4.0.1|8.1.0|
 |[`source_span`]|-|1.10.0|1.10.0|
 |[`stack_trace`]|-|1.11.1|1.11.1|
 |[`stacktrace_impl`]|-|2.3.0|2.3.0|
@@ -150,12 +150,12 @@ Cannot assign Web automatically to a binary only package.
 |[`sum_types`]|-|0.3.5|0.3.5|
 |[`system_info2`]|-|2.0.4|4.0.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
-|[`test_api`]|-|0.6.1|0.6.1|
+|[`test_api`]|-|0.7.1|0.7.1|
 |[`typed_data`]|-|1.3.2|1.3.2|
-|[`uuid`]|-|3.0.7|4.1.0|
+|[`uuid`]|-|3.0.7|4.4.0|
 |[`validators2`]|-|3.0.0|5.0.0|
 |[`vin_decoder`]|-|0.2.1-nullsafety|0.2.1-nullsafety|
-|[`win32`]|-|3.1.4|5.0.9|
+|[`win32`]|-|3.1.4|5.5.1|
 |[`yaml`]|-|3.1.2|3.1.2|
 </details>
 
