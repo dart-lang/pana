@@ -172,7 +172,7 @@ Try running `dart pub upgrade --major-versions gg_publish` to update the constra
 
 ### [x] 0/20 points: Compatible with dependency constraint lower bounds
 
-* downgrade analysis failed failed with 10 errors:
+downgrade analysis failed failed with 10 errors:
 
  - `UNDEFINED_CLASS` - `lib/src/commands/can/can_publish.dart:21:5` - Undefined class 'IsVersionPrepared'.
  - `UNDEFINED_METHOD` - `lib/src/commands/can/can_publish.dart:25:34` - The method 'IsVersionPrepared' isn't defined for the type 'CanPublish'.

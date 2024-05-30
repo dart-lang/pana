@@ -234,7 +234,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
                 '`pub downgrade` does not expose any static analysis error.'),
           ]
         : [
-            Issue(message),
+            RawParagraph(message),
             RawParagraph(
                 'Run `$tool pub downgrade` and then `$tool analyze` to reproduce the above problem.\n\n'
                 'You may run `dart pub upgrade --tighten` to update your dependency constraints, '
