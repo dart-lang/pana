@@ -194,13 +194,15 @@ class PackageContext {
         command: 'downgrade',
       );
       if (pr.exitCode != 0) {
+        log.info('[pub-downgrade-error]');
+        log.info(pr.asJoinedOutput);
         return '`$tool pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n';
       }
 
       final problems = await _staticAnalysis(packageDir: packageDir);
       final errors = problems.where((e) => e.isError).toList();
       if (errors.isEmpty) {
-        // success returning `null`
+        log.info('[pub-downgrade-success]');
         return null;
       } else {
         final issueLines = errors
@@ -209,9 +211,11 @@ class PackageContext {
                 ' - `${cp.errorCode}` - `${cp.file}:${cp.line}:${cp.col}` - ${cp.description}\n')
             .join();
         final issueLabel = errors.length == 1 ? 'error' : 'errors';
+        log.info('[pub-downgrade-failed]');
         return 'downgrade analysis failed failed with ${errors.length} $issueLabel:\n\n$issueLines';
       }
-    } on ToolException catch (e) {
+    } on ToolException catch (e, st) {
+      log.info('[pub-downgrade-error]', e, st);
       return 'downgrade analysis failed with:\n${e.message}';
     } finally {
       try {

@@ -90,7 +90,7 @@ Try widening the upper boundary of the constraint.
 
 ### [x] 0/20 points: Compatible with dependency constraint lower bounds
 
-* `dart pub downgrade` failed with:
+`dart pub downgrade` failed with:
 
 ```
 OUT:

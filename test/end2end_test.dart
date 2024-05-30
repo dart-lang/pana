@@ -201,6 +201,9 @@ void main() {
   // multi-level symlink
   verifyPackage('audio_service', '0.18.10', skipDartdoc: true);
 
+  // downgrade failure
+  verifyPackage('gg', '1.0.12', skipDartdoc: true);
+
   // mime_type 0.3.2 has no recognized LICENSE file
   verifyPackage('mime_type', '0.3.2', skipDartdoc: true);
 

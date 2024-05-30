@@ -74,7 +74,7 @@ Try adding an sdk constraint to your `pubspec.yaml`
 
 ### [x] 0/20 points: Compatible with dependency constraint lower bounds
 
-* `dart pub downgrade` failed with:
+`dart pub downgrade` failed with:
 
 ```
 OUT:

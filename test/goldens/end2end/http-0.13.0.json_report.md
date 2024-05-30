@@ -57,8 +57,8 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`http_parser`]|`^4.0.0`|4.0.2|4.0.2|
-|[`meta`]|`^1.3.0`|1.11.0|1.11.0|
-|[`path`]|`^1.8.0`|1.8.3|1.8.3|
+|[`meta`]|`^1.3.0`|1.15.0|1.15.0|
+|[`path`]|`^1.8.0`|1.9.0|1.9.0|
 |[`pedantic`]|`^1.10.0`|1.11.1|1.11.1|
 
 <details><summary>Transitive dependencies</summary>

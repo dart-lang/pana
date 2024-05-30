@@ -138,9 +138,9 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|`^3.0.0`|3.4.6|3.4.6|
-|[`matcher`]|`^0.12.10`|0.12.16|0.12.16|
-|[`path`]|`^1.8.0`|1.8.3|1.8.3|
+|[`archive`]|`^3.0.0`|3.6.0|3.6.0|
+|[`matcher`]|`^0.12.10`|0.12.16+1|0.12.16+1|
+|[`path`]|`^1.8.0`|1.9.0|1.9.0|
 |[`stack_trace`]|`^1.10.0`|1.11.1|1.11.1|
 |[`sync_http`]|`^0.3.0`|0.3.1|0.3.1|
 
@@ -151,16 +151,13 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`async`]|-|2.11.0|2.11.0|
 |[`boolean_selector`]|-|2.1.1|2.1.1|
 |[`collection`]|-|1.18.0|1.18.0|
-|[`convert`]|-|3.1.1|3.1.1|
 |[`crypto`]|-|3.0.3|3.0.3|
-|[`js`]|-|0.6.7|0.6.7|
-|[`meta`]|-|1.11.0|1.11.0|
-|[`pointycastle`]|-|3.7.3|3.7.3|
+|[`meta`]|-|1.15.0|1.15.0|
 |[`source_span`]|-|1.10.0|1.10.0|
 |[`stream_channel`]|-|2.1.2|2.1.2|
 |[`string_scanner`]|-|1.2.0|1.2.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
-|[`test_api`]|-|0.6.1|0.6.1|
+|[`test_api`]|-|0.7.1|0.7.1|
 |[`typed_data`]|-|1.3.2|1.3.2|
 </details>
 
@@ -174,11 +171,8 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`async`]: https://pub.dev/packages/async
 [`boolean_selector`]: https://pub.dev/packages/boolean_selector
 [`collection`]: https://pub.dev/packages/collection
-[`convert`]: https://pub.dev/packages/convert
 [`crypto`]: https://pub.dev/packages/crypto
-[`js`]: https://pub.dev/packages/js
 [`meta`]: https://pub.dev/packages/meta
-[`pointycastle`]: https://pub.dev/packages/pointycastle
 [`source_span`]: https://pub.dev/packages/source_span
 [`stream_channel`]: https://pub.dev/packages/stream_channel
 [`string_scanner`]: https://pub.dev/packages/string_scanner
