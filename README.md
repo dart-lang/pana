@@ -32,7 +32,7 @@ Usage: pana [<options>] --hosted <published package name> [<version>]
 Options:
       --dart-sdk               The directory of the Dart SDK.
       --flutter-sdk            The directory of the Flutter SDK.
-      --exit-code-threshold    The exit code will indicate if (max - granted points) <= threshold.
+      --exit-code-threshold    The exit code will indicate if (max - granted points) > threshold.
   -j, --json                   Output log records and full report as JSON.
       --hosted-url             The server that hosts <package>.
                                (defaults to "https://pub.dev")
