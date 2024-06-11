@@ -1,3 +1,7 @@
+## 0.22.6
+
+- New recognized example files in the `example/bin` directory.
+
 ## 0.22.5
 
 - Updated text and link on downgrade analysis.

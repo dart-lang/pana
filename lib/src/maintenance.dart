@@ -9,12 +9,16 @@ List<String> exampleFileCandidates(String package) {
   return <String>[
     'example/example.md',
     'example/lib/main.dart',
+    'example/bin/main.dart',
     'example/main.dart',
     'example/lib/$package.dart',
+    'example/bin/$package.dart',
     'example/$package.dart',
     'example/lib/${package}_example.dart',
+    'example/bin/${package}_example.dart',
     'example/${package}_example.dart',
     'example/lib/example.dart',
+    'example/bin/example.dart',
     'example/example.dart',
     'example/README.md',
   ];
