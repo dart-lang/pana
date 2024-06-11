@@ -57,21 +57,14 @@ Changelog entries help developers follow the progress of your package. Check out
 
 Detected license: `BSD-3-Clause`.
 
-## 0/20 Provide documentation
+## 10/20 Provide documentation
 
 ### [x] 0/10 points: 20% or more of the public API has dartdoc comments
 
 Dependency resolution failed, unable to run `dartdoc`.
 
-### [x] 0/10 points: Package has an example
+### [*] 10/10 points: Package has an example
 
-<details>
-<summary>
-No example found.
-</summary>
-
-See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
-</details>
 
 ## 0/20 Platform support
 
