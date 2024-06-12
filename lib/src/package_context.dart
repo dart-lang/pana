@@ -348,6 +348,27 @@ class PackageContext {
       return null;
     }
   }();
+
+  late final hasExecutableInBinDirectory = () async {
+    final binDir = Directory(p.join(packageDir, 'bin'));
+    if (!await binDir.exists()) {
+      return false;
+    }
+    final entries = await binDir.list().toList();
+    for (final file in entries.whereType<File>()) {
+      if (!file.path.endsWith('.dart')) {
+        continue;
+      }
+      // minimal sanity check without parsing the source code
+      final content = await file.readAsString();
+      if (content.contains('main')) {
+        continue;
+      }
+
+      return true;
+    }
+    return false;
+  }();
 }
 
 class DartdocResult {

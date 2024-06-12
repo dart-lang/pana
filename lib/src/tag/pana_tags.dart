@@ -34,6 +34,7 @@ abstract class PanaTags {
 
   // others
   static const hasError = 'has:error';
+  static const hasExecutable = 'has:executable';
   static const hasScreenshot = 'has:screenshot';
   static const isPlugin = 'is:plugin';
   static const isNullSafe = 'is:null-safe';

@@ -1,6 +1,7 @@
 ## 0.22.6
 
 - New recognized example files in the `example/bin` directory.
+- Add `has:executable` tag for packages with `bin/<executable>.dart` files.
 
 ## 0.22.5
 

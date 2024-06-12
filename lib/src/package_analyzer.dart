@@ -193,6 +193,10 @@ class PackageAnalyzer {
     final licenses = await context.licenses;
     tags.addAll((await context.licenceTags).tags);
 
+    if (await context.hasExecutableInBinDirectory) {
+      tags.add(PanaTags.hasExecutable);
+    }
+
     List<ProcessedScreenshot>? processedScreenshots = [];
     final screenshotResults = await context.screenshots;
     for (final r in screenshotResults) {
