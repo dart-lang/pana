@@ -97,6 +97,15 @@ String updatePassthroughOptions({
         }
       }
     }
+
+    final origExperiments = origAnalyzer['enable-experiment'];
+    if (origExperiments is List && origExperiments.contains('macros')) {
+      final customAnalyzer =
+          customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
+      final customExperiments = customAnalyzer.putIfAbsent(
+          'enable-experiment', () => <String>[]) as List;
+      customExperiments.add('macros');
+    }
   }
 
   return json.encode(customMap);
