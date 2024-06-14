@@ -1,3 +1,7 @@
+## 0.22.7
+
+- Enable `macros` experiment pass-through in `analysis_options.yaml`.
+
 ## 0.22.6
 
 - New recognized example files in the `example/bin` directory.

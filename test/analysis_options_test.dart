@@ -33,12 +33,18 @@ analyzer:
   errors:
     todo: ignore
     uri_has_not_been_generated: ignore
+  enable-experiment:
+    - ignored
+    - macros
 ''', custom: '');
     expect(json.decode(content), {
       'analyzer': {
         'errors': {
           'uri_has_not_been_generated': 'ignore',
         },
+        'enable-experiment': [
+          'macros',
+        ],
       },
     });
   });
