@@ -122,7 +122,8 @@
     "is:null-safe",
     "is:wasm-ready",
     "is:dart3-compatible",
-    "license:unknown"
+    "license:unknown",
+    "has:executable"
   ],
   "report": {
     "sections": [

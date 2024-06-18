@@ -165,6 +165,15 @@ class Pubspec {
         'iosPrefix',
         'pluginClass',
       }.any((_inner.flutter!['plugin'] as Map<String, dynamic>).containsKey);
+
+  late final executables = () {
+    final map = _content['executables'];
+    if (map == null || map is! Map) {
+      return const <String, String>{};
+    }
+    return map.map(
+        (k, v) => MapEntry(k.toString().trim(), (v ?? '').toString().trim()));
+  }();
 }
 
 final _range2 = VersionConstraint.parse('>=2.0.0 <3.0.0');

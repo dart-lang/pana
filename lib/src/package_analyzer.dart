@@ -193,7 +193,7 @@ class PackageAnalyzer {
     final licenses = await context.licenses;
     tags.addAll((await context.licenceTags).tags);
 
-    if (await context.hasExecutableInBinDirectory) {
+    if ((await context.executablesInBinDirectory).isNotEmpty) {
       tags.add(PanaTags.hasExecutable);
     }
 
