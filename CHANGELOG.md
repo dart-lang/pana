@@ -1,6 +1,8 @@
 ## 0.22.7
 
 - Enable `macros` experiment pass-through in `analysis_options.yaml`.
+- Verify `executables` in `pubspec.yaml` and check if the related files exist.
+- Fixed `has:executable` check.
 
 ## 0.22.6
 

@@ -349,25 +349,20 @@ class PackageContext {
     }
   }();
 
-  late final hasExecutableInBinDirectory = () async {
+  late final executablesInBinDirectory = () async {
     final binDir = Directory(p.join(packageDir, 'bin'));
     if (!await binDir.exists()) {
-      return false;
+      return <String>[];
     }
+    final executables = <String>[];
     final entries = await binDir.list().toList();
     for (final file in entries.whereType<File>()) {
       if (!file.path.endsWith('.dart')) {
         continue;
       }
-      // minimal sanity check without parsing the source code
-      final content = await file.readAsString();
-      if (content.contains('main')) {
-        continue;
-      }
-
-      return true;
+      executables.add(p.basename(file.path));
     }
-    return false;
+    return executables;
   }();
 }
 

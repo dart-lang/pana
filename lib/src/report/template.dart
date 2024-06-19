@@ -183,6 +183,20 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
               '${repository!.verificationFailure}'));
     }
 
+    final executableFiles = await context.executablesInBinDirectory;
+    for (final e in context.pubspec.executables.entries) {
+      final filename = e.value.endsWith('.dart')
+          ? e.value
+          : (e.value.isEmpty ? '${e.key}.dart' : '${e.value}.dart');
+      if (!executableFiles.contains(filename)) {
+        issues.add(Issue(
+          'Missing or invalid executable file: `bin/$filename`.',
+          suggestion: 'Update `executable` field in `pubspec.yaml` or '
+              'fix the missing or invalid file in the `bin/` directory.',
+        ));
+      }
+    }
+
     final unreachableFailuresIgnored =
         // every issue is about an URL being unreachable
         issues.isNotEmpty &&
