@@ -34,7 +34,7 @@ final _parser = ArgParser()
   )
   ..addOption('exit-code-threshold',
       help:
-          'The exit code will indicate if (max - granted points) <= threshold.')
+          'The exit code will indicate if (max - granted points) > threshold.')
   ..addFlag('json',
       abbr: 'j',
       help: 'Output log records and full report as JSON.',
@@ -266,8 +266,8 @@ Future<void> main(List<String> args) async {
       }
       if (exitCodeThreshold != null &&
           exitCodeThreshold >= 0 &&
-          exitCodeThreshold + summary.report!.grantedPoints <
-              summary.report!.maxPoints) {
+          summary.report!.maxPoints - summary.report!.grantedPoints >
+              exitCodeThreshold) {
         exitCode = 127;
       }
     } catch (e, stack) {
