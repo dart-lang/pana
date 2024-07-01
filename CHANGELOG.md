@@ -1,6 +1,7 @@
 ## 0.22.8
 
 - Updated dependency: `tar: ^2.0.0`.
+- New text logging format.
 
 ## 0.22.7
 
