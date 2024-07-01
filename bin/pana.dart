@@ -135,24 +135,14 @@ Future<void> main(List<String> args) async {
 
   if (isJson) {
     log.Logger.root.onRecord.listen((log) {
-      var map = <String, Object>{};
-
-      if (log.loggerName.isNotEmpty) {
-        map['logName'] = log.loggerName;
-      }
-
-      map.addAll({
+      final map = {
+        if (log.loggerName.isNotEmpty) 'logName': log.loggerName,
         'level': log.level.name,
         'message': log.message,
-      });
+        if (log.error != null) 'error': log.error.toString(),
+        if (log.stackTrace != null) 'stackTrace': log.stackTrace.toString(),
+      };
 
-      if (log.error != null) {
-        map['error'] = log.error.toString();
-      }
-
-      if (log.stackTrace != null) {
-        map['stackTrace'] = log.stackTrace.toString();
-      }
       stderr.writeln(json.encode(map));
     });
   } else {
@@ -288,22 +278,29 @@ Future<void> main(List<String> args) async {
 void _logWriter(log.LogRecord record) {
   var wroteHeader = false;
 
-  var msg = LineSplitter.split([record.message, record.error, record.stackTrace]
-          .where((e) => e != null)
-          .join('\n'))
-      .map((l) {
-    String prefix;
-    if (wroteHeader) {
-      prefix = '';
-    } else {
+  final output = <String>[];
+  final prefix = '${record.time} ${record.level.name}:';
+  final emptyPrefix = ' ' * prefix.length;
+  void printLinesWithPrefix(String lines) {
+    for (final line in lines.split('\n')) {
+      final currentPrefix = wroteHeader ? emptyPrefix : prefix;
+      output.add('$currentPrefix $line');
       wroteHeader = true;
-      prefix = record.level.toString();
     }
-    return '${prefix.padRight(10)} $l';
-  }).join('\n');
+  }
+
+  printLinesWithPrefix(record.message);
+  final e = record.error;
+  if (e != null) {
+    printLinesWithPrefix(e.toString());
+    final st = record.stackTrace;
+    if (st != null) {
+      printLinesWithPrefix(st.toString());
+    }
+  }
 
   overrideAnsiOutput(stderr.supportsAnsiEscapes, () {
-    stderr.writeln(darkGray.wrap(msg));
+    stderr.writeln(darkGray.wrap(output.join('\n')));
   });
 }
 
