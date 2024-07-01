@@ -1,3 +1,7 @@
+## 0.22.8
+
+- Updated dependency: `tar: ^2.0.0`.
+
 ## 0.22.7
 
 - Enable `macros` experiment pass-through in `analysis_options.yaml`.
