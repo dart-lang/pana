@@ -13,6 +13,7 @@ import 'package:io/ansi.dart';
 import 'package:io/io.dart';
 import 'package:logging/logging.dart' as log;
 import 'package:pana/pana.dart';
+import 'package:pana/src/logging.dart';
 import 'package:path/path.dart' as p;
 
 const defaultHostedUrl = 'https://pub.dev';
@@ -132,22 +133,7 @@ Future<void> main(List<String> args) async {
   }
 
   log.Logger.root.level = log.Level.ALL;
-
-  if (isJson) {
-    log.Logger.root.onRecord.listen((log) {
-      final map = {
-        if (log.loggerName.isNotEmpty) 'logName': log.loggerName,
-        'level': log.level.name,
-        'message': log.message,
-        if (log.error != null) 'error': log.error.toString(),
-        if (log.stackTrace != null) 'stackTrace': log.stackTrace.toString(),
-      };
-
-      stderr.writeln(json.encode(map));
-    });
-  } else {
-    log.Logger.root.onRecord.listen(_logWriter);
-  }
+  initializePanaLogging(isJson: isJson);
 
   // Docker is WEIRD
   // The SIGTERM signal sent to `docker run...` DOES propagate a signal to the
@@ -273,35 +259,6 @@ Future<void> main(List<String> args) async {
   }
 
   await subscription.cancel();
-}
-
-void _logWriter(log.LogRecord record) {
-  var wroteHeader = false;
-
-  final output = <String>[];
-  final prefix = '${record.time} ${record.level.name}:';
-  final emptyPrefix = ' ' * prefix.length;
-  void printLinesWithPrefix(String lines) {
-    for (final line in lines.split('\n')) {
-      final currentPrefix = wroteHeader ? emptyPrefix : prefix;
-      output.add('$currentPrefix $line');
-      wroteHeader = true;
-    }
-  }
-
-  printLinesWithPrefix(record.message);
-  final e = record.error;
-  if (e != null) {
-    printLinesWithPrefix(e.toString());
-    final st = record.stackTrace;
-    if (st != null) {
-      printLinesWithPrefix(st.toString());
-    }
-  }
-
-  overrideAnsiOutput(stderr.supportsAnsiEscapes, () {
-    stderr.writeln(darkGray.wrap(output.join('\n')));
-  });
 }
 
 /// A merged stream of all signals that tell the test runner to shut down
