@@ -241,6 +241,7 @@ class Report {
 abstract class ReportSectionId {
   static const analysis = 'analysis';
   static const convention = 'convention';
+  @Deprecated('The value will be removed.')
   static const dart3Compatibility = 'dart3-compatibility';
   static const dependency = 'dependency';
   static const documentation = 'documentation';
@@ -257,6 +258,7 @@ enum ReportStatus {
 }
 
 /// Returns the lowest of [statuses] to represent them.
+@Deprecated('The method will be removed from public API.')
 ReportStatus summarizeStatuses(Iterable<ReportStatus> statuses) {
   return statuses.fold(ReportStatus.passed, (a, b) => minStatus(a, b)!);
 }
@@ -266,6 +268,7 @@ ReportStatus summarizeStatuses(Iterable<ReportStatus> statuses) {
 /// Example: `minStatus(ReportStatus.failed, ReportStatus.partial) == ReportStatus.partial`.
 ///
 /// Returns `null` when any of them is `null` (may be the case with old data).
+@Deprecated('The method will be removed from public API.')
 ReportStatus? minStatus(ReportStatus? a, ReportStatus? b) {
   if (a == null || b == null) return null;
   return ReportStatus.values[min(a.index, b.index)];
