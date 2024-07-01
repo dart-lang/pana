@@ -49,7 +49,7 @@ jobs:
         # TODO(sigurdm): our end2end test creates longer filenames than we can
         # handle on windows. See https://github.com/dart-lang/sdk/issues/42416
         os: [ubuntu-latest, macos-latest]
-        sdk: [3.4.4]
+        sdk: [3.4.3]
         flutter: [3.22.2]
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
