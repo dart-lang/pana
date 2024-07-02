@@ -2,6 +2,7 @@
 
 - Updated dependency: `tar: ^2.0.0`.
 - New text logging format.
+- *Breaking change:* Removed `ToolEnvironment.panaCache` field (not intended for public API).
 
 ## 0.22.7
 

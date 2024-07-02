@@ -171,7 +171,6 @@ Future<void> main(List<String> args) async {
     final pubHostedUrl = result['hosted-url'] as String?;
     final analyzer = PackageAnalyzer(await ToolEnvironment.create(
       pubCacheDir: pubCacheDir,
-      panaCacheDir: Platform.environment['PANA_CACHE'],
       dartSdkConfig: SdkConfig(
         rootPath: result['dart-sdk'] as String?,
         configHomePath: result['dart-config-home'] as String?,
@@ -185,6 +184,7 @@ Future<void> main(List<String> args) async {
     ));
     final options = InspectOptions(
       pubHostedUrl: pubHostedUrl,
+      panaCacheDir: Platform.environment['PANA_CACHE'],
       lineLength: int.tryParse(result['line-length'] as String? ?? ''),
       dartdocOutputDir: runDartdoc ? dartdocOutputDir : null,
       resourcesOutputDir: resourcesOutputDir,
