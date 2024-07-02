@@ -53,7 +53,6 @@ void main() {
           dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
           flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
           pubCacheDir: pubCacheDir,
-          panaCacheDir: panaCacheDir,
           pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
           dartdocVersion: 'any',
         ));
@@ -66,6 +65,7 @@ void main() {
           version: version,
           options: InspectOptions(
             pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
+            panaCacheDir: panaCacheDir,
             dartdocOutputDir: skipDartdoc ? null : dartdocOutputDir,
           ),
         );

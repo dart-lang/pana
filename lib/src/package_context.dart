@@ -17,6 +17,7 @@ import 'license.dart';
 import 'logging.dart';
 import 'messages.dart' as messages;
 import 'package_analyzer.dart' show InspectOptions;
+import 'pana_cache.dart';
 import 'pkg_resolution.dart';
 import 'pubspec.dart';
 import 'pubspec_io.dart';
@@ -32,28 +33,29 @@ import 'utils.dart' show listFocusDirs;
 /// External systems that may be independent of the archive content may be
 /// stored here, e.g. repository and URL verification.
 class SharedAnalysisContext {
+  final PanaCache panaCache;
   final ToolEnvironment toolEnvironment;
   final InspectOptions options;
   final UrlChecker _urlChecker;
 
   SharedAnalysisContext({
+    PanaCache? panaCache,
     required this.toolEnvironment,
     InspectOptions? options,
     UrlChecker? urlChecker,
-  })  : options = options ?? InspectOptions(),
+  })  : panaCache = panaCache ?? PanaCache(),
+        options = options ?? InspectOptions(),
         _urlChecker = urlChecker ?? UrlChecker();
 
   Future<UrlStatus> checkUrlStatus(String url) async {
     final cacheType = 'url';
     final cacheKey = url;
-    final cachedData =
-        await toolEnvironment.panaCache.readData(cacheType, cacheKey);
+    final cachedData = await panaCache.readData(cacheType, cacheKey);
     if (cachedData != null) {
       return UrlStatus.fromJson(cachedData);
     }
     final status = await _urlChecker.checkStatus(url);
-    await toolEnvironment.panaCache
-        .writeData(cacheType, cacheKey, status.toJson());
+    await panaCache.writeData(cacheType, cacheKey, status.toJson());
     return status;
   }
 
@@ -66,8 +68,7 @@ class SharedAnalysisContext {
     }
     final cacheType = 'repository';
     final cacheKey = '$package/$repositoryOrHomepage';
-    final cachedData =
-        await toolEnvironment.panaCache.readData(cacheType, cacheKey);
+    final cachedData = await panaCache.readData(cacheType, cacheKey);
     if (cachedData != null) {
       return VerifiedRepository.fromJson(cachedData);
     }
@@ -77,8 +78,7 @@ class SharedAnalysisContext {
       sourceUrl: repositoryOrHomepage,
     );
     if (repository != null) {
-      await toolEnvironment.panaCache
-          .writeData(cacheType, cacheKey, repository.toJson());
+      await panaCache.writeData(cacheType, cacheKey, repository.toJson());
     }
     return repository;
   }

@@ -15,7 +15,6 @@ import 'internal_model.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
-import 'pana_cache.dart';
 import 'tool/flutter_tool.dart';
 import 'tool/run_constrained.dart';
 import 'utils.dart';
@@ -75,7 +74,6 @@ class SdkConfig {
 
 class ToolEnvironment {
   final String? pubCacheDir;
-  final PanaCache panaCache;
   final _DartSdk _dartSdk;
   final _FlutterSdk _flutterSdk;
   PanaRuntimeInfo? _runtimeInfo;
@@ -85,7 +83,6 @@ class ToolEnvironment {
 
   ToolEnvironment._(
     this.pubCacheDir,
-    this.panaCache,
     this._dartSdk,
     this._flutterSdk,
     this._dartdocVersion,
@@ -93,11 +90,9 @@ class ToolEnvironment {
 
   ToolEnvironment.fake({
     this.pubCacheDir,
-    PanaCache? panaCache,
     Map<String, String> environment = const <String, String>{},
     required PanaRuntimeInfo runtimeInfo,
-  })  : panaCache = panaCache ?? PanaCache(),
-        _dartSdk = _DartSdk._(SdkConfig(environment: environment)),
+  })  : _dartSdk = _DartSdk._(SdkConfig(environment: environment)),
         _flutterSdk = _FlutterSdk._(SdkConfig(environment: environment),
             _DartSdk._(SdkConfig(environment: environment))),
         _dartdocVersion = null,
@@ -129,7 +124,7 @@ class ToolEnvironment {
     SdkConfig? dartSdkConfig,
     SdkConfig? flutterSdkConfig,
     String? pubCacheDir,
-    String? panaCacheDir,
+    @Deprecated('parameter no longer used') String? panaCacheDir,
     String? pubHostedUrl,
 
     /// When specified, this version of `dartdoc` will be initialized
@@ -142,7 +137,6 @@ class ToolEnvironment {
     dartSdkConfig ??= SdkConfig(rootPath: cli.getSdkPath());
     flutterSdkConfig ??= SdkConfig();
     final resolvedPubCache = await _resolve(pubCacheDir);
-    final resolvedPanaCache = await _resolve(panaCacheDir);
 
     final origPubEnvValue = Platform.environment[_pubEnvironmentKey] ?? '';
     final origPubEnvValues = origPubEnvValue
@@ -170,7 +164,6 @@ class ToolEnvironment {
 
     final toolEnv = ToolEnvironment._(
       resolvedPubCache,
-      PanaCache(path: resolvedPanaCache),
       await _DartSdk.detect(dartSdkConfig, env),
       flutterSdk,
       dartdocVersion,
