@@ -51,7 +51,9 @@ class Summary {
   final String? packageName;
   final Version? packageVersion;
   final Pubspec? pubspec;
+  @Deprecated('Use `result.licenses` instead.')
   final LicenseFile? licenseFile;
+  @Deprecated('Use `result.licenses` instead.')
   final List<License>? licenses;
 
   /// The packages that are either direct-, dev- or transient dependencies.
@@ -160,6 +162,8 @@ class PanaRuntimeInfo {
 @JsonSerializable()
 class License {
   /// The file path that was recognized as a license.
+  @Deprecated(
+      'The field will be removed, as we only accept `LICENSE` as filename.')
   final String path;
 
   /// The SPDX identifier of the license.
@@ -177,6 +181,7 @@ class License {
 }
 
 @JsonSerializable()
+@Deprecated('The class will be removed.')
 class LicenseFile {
   final String path;
   final String name;
@@ -207,6 +212,7 @@ class LicenseFile {
   int get hashCode => path.hashCode ^ name.hashCode ^ version.hashCode;
 }
 
+@Deprecated('The class will be removed.')
 abstract class LicenseNames {
   static const String agpl = 'AGPL';
   static const String apache = 'Apache';
@@ -327,6 +333,7 @@ class AnalysisResult {
   final List<String>? fundingUrls;
   final Repository? repository;
   final String? contributingUrl;
+  final List<License>? licenses;
   final int? grantedPoints;
   final int? maxPoints;
 
@@ -338,6 +345,7 @@ class AnalysisResult {
     this.fundingUrls,
     this.repository,
     this.contributingUrl,
+    this.licenses,
     this.grantedPoints,
     this.maxPoints,
   });
