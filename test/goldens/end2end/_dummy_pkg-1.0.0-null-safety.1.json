@@ -80,6 +80,12 @@
   "screenshots": [],
   "result": {
     "homepageUrl": "https://github.com/dart-lang/pub-dev",
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "BSD-3-Clause"
+      }
+    ],
     "grantedPoints": 25,
     "maxPoints": 160
   },

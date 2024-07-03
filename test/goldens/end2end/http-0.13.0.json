@@ -124,6 +124,12 @@
       "path": "pkgs/http"
     },
     "contributingUrl": "https://github.com/dart-lang/http/blob/master/CONTRIBUTING.md",
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "BSD-3-Clause"
+      }
+    ],
     "grantedPoints": 140,
     "maxPoints": 150
   },

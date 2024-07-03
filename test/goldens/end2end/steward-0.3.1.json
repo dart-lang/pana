@@ -127,6 +127,12 @@
       "branch": "main"
     },
     "contributingUrl": "https://github.com/pyrestudios/steward/blob/main/CONTRIBUTING.md",
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "MIT"
+      }
+    ],
     "grantedPoints": 130,
     "maxPoints": 150
   },

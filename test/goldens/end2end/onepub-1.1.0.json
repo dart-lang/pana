@@ -172,6 +172,12 @@
   "screenshots": [],
   "result": {
     "homepageUrl": "https://github.com/noojee/onepub.dev",
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "unknown"
+      }
+    ],
     "grantedPoints": 120,
     "maxPoints": 160
   },

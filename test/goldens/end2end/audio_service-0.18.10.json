@@ -187,6 +187,12 @@
       "path": "audio_service"
     },
     "contributingUrl": "https://github.com/ryanheise/audio_service/blob/minor/CONTRIBUTING.md",
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "MIT"
+      }
+    ],
     "grantedPoints": 140,
     "maxPoints": 150
   },

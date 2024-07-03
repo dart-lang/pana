@@ -91,6 +91,12 @@
   },
   "screenshots": [],
   "result": {
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "BSD-3-Clause"
+      }
+    ],
     "grantedPoints": 130,
     "maxPoints": 150
   },

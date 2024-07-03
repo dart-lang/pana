@@ -118,6 +118,12 @@
       "branch": "main",
       "path": "nsd_android"
     },
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "MIT"
+      }
+    ],
     "grantedPoints": 140,
     "maxPoints": 150
   },

@@ -97,6 +97,12 @@
       "repository": "cloudwebrtc/dart-sdp-transform",
       "branch": "master"
     },
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "MIT"
+      }
+    ],
     "grantedPoints": 40,
     "maxPoints": 150
   },

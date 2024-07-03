@@ -88,6 +88,12 @@
       "repository": "agilord/bulma_min",
       "branch": "master"
     },
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "MIT"
+      }
+    ],
     "grantedPoints": 30,
     "maxPoints": 150
   },

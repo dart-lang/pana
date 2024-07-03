@@ -102,6 +102,12 @@
       "repository": "marcojakob/dart-dnd",
       "branch": "master"
     },
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "MIT"
+      }
+    ],
     "grantedPoints": 140,
     "maxPoints": 160
   },

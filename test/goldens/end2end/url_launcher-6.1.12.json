@@ -165,6 +165,12 @@
       "path": "packages/url_launcher/url_launcher"
     },
     "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md",
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "BSD-3-Clause"
+      }
+    ],
     "grantedPoints": 160,
     "maxPoints": 160
   },

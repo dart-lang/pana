@@ -121,6 +121,12 @@
       "branch": "master"
     },
     "contributingUrl": "https://github.com/google/webdriver.dart/blob/master/CONTRIBUTING.md",
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "Apache-2.0"
+      }
+    ],
     "grantedPoints": 100,
     "maxPoints": 150
   },

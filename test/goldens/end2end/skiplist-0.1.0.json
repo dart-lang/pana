@@ -94,6 +94,12 @@
       "repository": "stevenroose/dart-skiplist",
       "branch": "master"
     },
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "MIT"
+      }
+    ],
     "grantedPoints": 20,
     "maxPoints": 150
   },
