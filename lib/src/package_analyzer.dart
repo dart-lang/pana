@@ -307,6 +307,7 @@ Future<AnalysisResult> _createAnalysisResult(
     fundingUrls: fundingUrls.isEmpty ? null : fundingUrls,
     repository: repository,
     contributingUrl: repoVerification?.contributingUrl,
+    licenses: await context.licenses,
     grantedPoints: report.grantedPoints,
     maxPoints: report.maxPoints,
   );

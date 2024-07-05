@@ -177,6 +177,12 @@
       "repository": "inlavigo/gg",
       "branch": "main"
     },
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "MIT"
+      }
+    ],
     "grantedPoints": 120,
     "maxPoints": 150
   },

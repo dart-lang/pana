@@ -2,6 +2,7 @@
 
 - Updated dependency: `tar: ^2.0.0`.
 - New text logging format.
+- Migrating `Summary.licenseFile` and `Summary.licenses` to `AnalysisResult.licenses`.
 - *Breaking change:* Removed `ToolEnvironment.panaCache` field (not intended for public API).
 
 ## 0.22.7

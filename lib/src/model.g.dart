@@ -201,6 +201,9 @@ AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
           ? null
           : Repository.fromJson(json['repository'] as Map<String, dynamic>),
       contributingUrl: json['contributingUrl'] as String?,
+      licenses: (json['licenses'] as List<dynamic>?)
+          ?.map((e) => License.fromJson(e as Map<String, dynamic>))
+          .toList(),
       grantedPoints: (json['grantedPoints'] as num?)?.toInt(),
       maxPoints: (json['maxPoints'] as num?)?.toInt(),
     );
@@ -221,6 +224,7 @@ Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
   writeNotNull('fundingUrls', instance.fundingUrls);
   writeNotNull('repository', instance.repository?.toJson());
   writeNotNull('contributingUrl', instance.contributingUrl);
+  writeNotNull('licenses', instance.licenses?.map((e) => e.toJson()).toList());
   writeNotNull('grantedPoints', instance.grantedPoints);
   writeNotNull('maxPoints', instance.maxPoints);
   return val;
