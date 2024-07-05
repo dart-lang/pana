@@ -29,6 +29,9 @@ class InspectOptions {
   /// The PUB_HOSTED_URL to use for the package download and dependency analysis.
   final String? pubHostedUrl;
 
+  /// The cache directory for cross-analysis (shared) pana results.
+  final String? panaCacheDir;
+
   /// The output directory to copy the generated docs. When not specified,
   /// the generated docs will be discarded.
   final String? dartdocOutputDir;
@@ -54,6 +57,7 @@ class InspectOptions {
 
   InspectOptions({
     this.pubHostedUrl,
+    this.panaCacheDir,
     this.dartdocOutputDir,
     this.resourcesOutputDir,
     this.totalTimeout,
