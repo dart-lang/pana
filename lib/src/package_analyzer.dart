@@ -7,7 +7,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:logging/logging.dart';
-import 'package:pana/src/tool/git_tool.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
@@ -22,6 +21,7 @@ import 'report/create_report.dart';
 import 'sdk_env.dart';
 import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
+import 'tool/git_tool.dart';
 import 'tool/run_constrained.dart';
 import 'utils.dart';
 

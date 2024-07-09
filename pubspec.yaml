@@ -32,8 +32,8 @@ dependencies:
   source_span: ^1.7.0
   string_scanner: ^1.1.0
   tar: ^2.0.0
-  yaml: ^3.0.0
   test: ^1.5.2 # needed for lib/src/third_party/diff_match_patch/test.dart
+  yaml: ^3.0.0
 
 dev_dependencies:
   build: ^2.0.1
@@ -41,6 +41,7 @@ dev_dependencies:
   build_runner: ^2.0.4
   build_verify: ^3.0.0
   build_version: ^2.0.0
+  dart_flutter_team_lints: ^3.1.0
   json_serializable: ^6.0.0
   shelf: ^1.0.0
   source_gen: ^1.0.0

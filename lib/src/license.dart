@@ -7,9 +7,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:meta/meta.dart';
-import 'package:pana/src/license_detection/license_detector.dart' hide License;
 import 'package:path/path.dart' as p;
 
+import 'license_detection/license_detector.dart' hide License;
 import 'model.dart';
 
 const _licenseFileNames = ['LICENSE'];

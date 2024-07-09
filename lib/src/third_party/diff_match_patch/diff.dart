@@ -539,7 +539,7 @@ List<Diff> diffBisect(String text1, String text2, DateTime deadline) {
 
   for (var d = 0; d < maxD; d++) {
     // Bail out if deadline is reached.
-    if ((DateTime.now()).compareTo(deadline) == 1) {
+    if (DateTime.now().compareTo(deadline) == 1) {
       break;
     }
 

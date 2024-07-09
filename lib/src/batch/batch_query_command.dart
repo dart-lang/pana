@@ -104,7 +104,7 @@ class BatchQueryCommand extends Command<void> {
 
   Future<int> _ageInDays(String package) async {
     final rs = await _client
-        .get((Uri.parse('https://pub.dartlang.org/api/packages/$package')));
+        .get(Uri.parse('https://pub.dartlang.org/api/packages/$package'));
     if (rs.statusCode != 200) {
       throw AssertionError('Unexpected status code: ${rs.statusCode}');
     }

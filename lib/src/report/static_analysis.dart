@@ -159,6 +159,7 @@ FileSpan? sourceSpanFromFile({
       return null;
     }
     return sourceFile.span(startOffset, startOffset + newLength);
+    // ignore: avoid_catching_errors
   } on RangeError {
     // Note: This happens if the file contains CR as line terminators.
     // If the range is invalid, then we just return null.

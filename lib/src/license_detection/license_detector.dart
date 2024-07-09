@@ -9,9 +9,10 @@ import 'dart:isolate';
 import 'dart:math';
 
 import 'package:meta/meta.dart';
-import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 import 'package:source_span/source_span.dart';
 import 'package:string_scanner/string_scanner.dart';
+
+import '../third_party/diff_match_patch/diff.dart';
 
 part 'confidence.dart';
 part 'crc32.dart';
