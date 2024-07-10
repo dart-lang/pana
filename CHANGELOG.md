@@ -1,3 +1,7 @@
+## 0.22.9
+
+- Updated suggestion for packages depending on SDK `_macros`.
+
 ## 0.22.8
 
 - Updated dependency: `tar: ^2.0.0`.
