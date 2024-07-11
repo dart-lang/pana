@@ -90,10 +90,17 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
   final dirs = await listFocusDirs(context.packageDir);
 
   try {
-    final resolveErrorMessage = await context.resolveErrorMessage;
-    if (resolveErrorMessage != null) {
+    final errorMessage = await context.resolveErrorMessage;
+    if (errorMessage != null) {
+      String? suggestion;
+      if (errorMessage.contains('from sdk which doesn\'t match any versions') &&
+          errorMessage.contains('requires _macros ')) {
+        suggestion =
+            'The SDK package `_macros` is an experimental feature which is only available in newer SDKs. '
+            'Increase your minimum SDK constraint for `pub.dev` to select such SDK for analysis.';
+      }
       return _AnalysisResult(
-        [Issue(resolveErrorMessage)],
+        [Issue(errorMessage, suggestion: suggestion)],
         [],
         [],
         context.usesFlutter ? 'flutter pub get' : 'dart pub get',
