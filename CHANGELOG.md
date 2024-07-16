@@ -1,6 +1,7 @@
 ## 0.22.9
 
 - Updated suggestion for packages depending on SDK `_macros`.
+- Deprecated the `renderSimpleSectionSummary` method in public API.
 
 ## 0.22.8
 
