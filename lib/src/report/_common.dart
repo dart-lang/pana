@@ -150,6 +150,7 @@ String? _reportStatusMarker(ReportStatus status) => const {
     }[status];
 
 /// Renders a summary block for sections that can have only a single issue.
+@Deprecated('Do not use this API, it will be removed.')
 String renderSimpleSectionSummary({
   required String title,
   required String? description,
