@@ -31,6 +31,7 @@ void main() {
         allLibraries.where((e) => !e.startsWith('_')).toList();
 
     final exempted = {
+      'concurrent',
       'vmservice',
       'vmservice_io',
     };
