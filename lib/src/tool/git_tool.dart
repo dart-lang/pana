@@ -2,9 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as p;
 
+import '../utils.dart';
 import 'run_constrained.dart';
 
 /// Runs `git` in an isolated environment using the [homePath] to access its

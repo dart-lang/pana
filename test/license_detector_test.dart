@@ -162,7 +162,7 @@ void main() {
     ]);
   });
 
-  group(('longestUnclaimedPercentage tests:'), () {
+  group('longestUnclaimedPercentage tests:', () {
     _testUnclaimedPercentage(
       'Expect 1.0 for no matches found',
       [],

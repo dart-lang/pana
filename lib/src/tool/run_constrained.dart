@@ -7,8 +7,9 @@ import 'dart:convert';
 import 'dart:io' hide BytesBuilder;
 import 'dart:typed_data';
 
-import 'package:pana/src/logging.dart';
 import 'package:retry/retry.dart';
+
+import '../logging.dart';
 
 final _timeout = const Duration(minutes: 2);
 const _maxOutputBytes = 10 * 1024 * 1024; // 10 MiB

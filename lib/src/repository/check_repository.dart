@@ -114,6 +114,7 @@ Future<VerifiedRepository?> checkRepository({
         yamlDoc = yaml.loadYaml(content);
       } on FormatException catch (e, st) {
         log.info('Invalid yaml file: $path', e, st);
+        // ignore: avoid_catching_errors
       } on ArgumentError catch (e, st) {
         log.info('Invalid yaml file: $path', e, st);
       }
@@ -234,6 +235,7 @@ Future<VerifiedRepository?> checkRepository({
   } on FormatException catch (e, st) {
     failVerification(
         'Unable to parse `pubspec.yaml` from git repository. $e', e, st);
+    // ignore: avoid_catching_errors
   } on ArgumentError catch (e, st) {
     failVerification(
         'Unable to parse `pubspec.yaml` from git repository. $e', e, st);

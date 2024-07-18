@@ -1,8 +1,9 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
-import 'package:pana/src/third_party/diff_match_patch/diff.dart';
 // ignore: depend_on_referenced_packages
 import 'package:test/test.dart';
+
+import 'diff.dart';
 
 void testDiffMain() {
   var expected = <Diff>[];

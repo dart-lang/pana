@@ -6,10 +6,10 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:pana/pana.dart';
 import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
+import '../pana.dart';
 import 'logging.dart';
 
 final maxFileSizeInBytes = 4194304; // 4MB

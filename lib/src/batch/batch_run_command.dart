@@ -6,12 +6,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:pana/src/package_analyzer.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
+import '../package_analyzer.dart';
 import '../sdk_env.dart' show SdkConfig, ToolEnvironment;
 import '../utils.dart' show withTempDir;
-
 import 'batch_model.dart';
 
 /// Runs pana on the selected packages.

@@ -4,15 +4,14 @@
 
 import 'dart:io';
 
-import 'package:pana/src/tag/license_tags.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart' show GitDependency;
 
 import '../markdown_content.dart';
 import '../model.dart';
 import '../package_context.dart';
+import '../tag/license_tags.dart';
 import '../utils.dart';
-
 import '_common.dart';
 
 const _pluginDocsUrl =
