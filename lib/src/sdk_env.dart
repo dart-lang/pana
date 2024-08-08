@@ -492,8 +492,16 @@ class ToolEnvironment {
     }
   }
 
-  /// Removes the dev_dependencies from the pubspec.yaml
-  /// Adds lower-bound minimal SDK constraint - if missing.
+  /// Removes aspects of `pubspec.yaml` that are irrelevant when consuming the
+  /// package.
+  ///
+  /// * Removes `dev_dependencies` and `dependency_overrides` These have no
+  ///   effect on the consuming resolution.
+  /// * Removes `workspace` and `resolution` These have no effect on the
+  ///   consuming resolution, and might prevent the package from resolving on
+  ///   its own.
+  /// * Adds lower-bound minimal SDK constraint - if missing.
+  ///
   /// Returns the backup file with the original content.
   Future<File> _stripAndAugmentPubspecYaml(String packageDir) async {
     final now = DateTime.now();
@@ -505,6 +513,8 @@ class ToolEnvironment {
     final parsed = yamlToJson(original) ?? <String, dynamic>{};
     parsed.remove('dev_dependencies');
     parsed.remove('dependency_overrides');
+    parsed.remove('workspace');
+    parsed.remove('resolution');
 
     // `pub` client checks if pubspec.yaml has no lower-bound SDK constraint,
     // and throws an exception if it is missing. While we no longer accept
