@@ -1,3 +1,7 @@
+## 0.22.10
+
+- Remove `workspace` and `resolution` properties from pubspec before analyzing.
+
 ## 0.22.9
 
 - Updated suggestion for packages depending on SDK `_macros`.
