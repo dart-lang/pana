@@ -69,8 +69,8 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 |[`characters`]|-|1.3.0|1.3.0|
 |[`collection`]|-|1.18.0|1.18.0|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`material_color_utilities`]|-|0.8.0|0.11.1|
-|[`meta`]|-|1.12.0|1.15.0|
+|[`material_color_utilities`]|-|0.11.1|0.11.1|
+|[`meta`]|-|1.15.0|1.15.0|
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
