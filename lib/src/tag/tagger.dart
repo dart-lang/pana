@@ -127,10 +127,10 @@ class Tagger {
 
   /// Assumes that `dart pub get` has been run.
   factory Tagger(String packageDir) {
-    final session =
-        AnalysisContextCollection(includedPaths: [path.normalize(packageDir)])
-            .contextFor(packageDir)
-            .currentSession;
+    final normalizedPath = path.normalize(packageDir);
+    final session = AnalysisContextCollection(includedPaths: [normalizedPath])
+        .contextFor(normalizedPath)
+        .currentSession;
     final pubspecCache = PubspecCache(session);
     final pubspec = pubspecFromDir(packageDir);
 
