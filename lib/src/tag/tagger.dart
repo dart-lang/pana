@@ -74,8 +74,7 @@ library;
 
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/context_builder.dart';
-import 'package:analyzer/dart/analysis/context_locator.dart';
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
@@ -128,13 +127,10 @@ class Tagger {
 
   /// Assumes that `dart pub get` has been run.
   factory Tagger(String packageDir) {
-    final session = ContextBuilder()
-        .createContext(
-          contextRoot: ContextLocator().locateRoots(
-            includedPaths: [path.normalize(packageDir)],
-          ).first,
-        )
-        .currentSession;
+    final session =
+        AnalysisContextCollection(includedPaths: [path.normalize(packageDir)])
+            .contextFor(packageDir)
+            .currentSession;
     final pubspecCache = PubspecCache(session);
     final pubspec = pubspecFromDir(packageDir);
 
