@@ -93,8 +93,8 @@ Because:
 |:-|:-|:-|:-|
 |[`characters`]|-|1.3.0|1.3.0|
 |[`collection`]|-|1.18.0|1.18.0|
-|[`material_color_utilities`]|-|0.8.0|0.11.1|
-|[`meta`]|-|1.12.0|1.15.0|
+|[`material_color_utilities`]|-|0.11.1|0.11.1|
+|[`meta`]|-|1.15.0|1.15.0|
 |[`sky_engine`]|-|0.0.99|0.0.99|
 |[`vector_math`]|-|2.1.4|2.1.4|
 </details>

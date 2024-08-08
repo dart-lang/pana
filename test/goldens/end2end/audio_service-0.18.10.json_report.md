@@ -95,8 +95,8 @@ Because:
 |[`fixnum`]|-|1.1.0|1.1.0|
 |[`http`]|-|1.2.1|1.2.1|
 |[`http_parser`]|-|4.0.2|4.0.2|
-|[`material_color_utilities`]|-|0.8.0|0.11.1|
-|[`meta`]|-|1.12.0|1.15.0|
+|[`material_color_utilities`]|-|0.11.1|0.11.1|
+|[`meta`]|-|1.15.0|1.15.0|
 |[`path`]|-|1.9.0|1.9.0|
 |[`path_provider`]|-|2.1.3|2.1.3|
 |[`path_provider_android`]|-|2.2.5|2.2.5|
