@@ -10,19 +10,15 @@ import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
-import 'internal_model.dart';
 import 'logging.dart';
 import 'maintenance.dart';
-import 'messages.dart';
 import 'model.dart';
 import 'package_context.dart';
 import 'pubspec.dart';
 import 'report/create_report.dart';
 import 'sdk_env.dart';
 import 'tag/pana_tags.dart';
-import 'tag/tagger.dart';
 import 'tool/git_tool.dart';
-import 'tool/run_constrained.dart';
 import 'utils.dart';
 
 class InspectOptions {
@@ -120,17 +116,6 @@ class PackageAnalyzer {
       packageDir: pkgDir,
     );
 
-    final dartFiles = <String>[];
-    final fileList = listFiles(pkgDir, deleteBadExtracted: true);
-    await for (final file in fileList) {
-      final isInBin = path.isWithin('bin', file);
-      final isInLib = path.isWithin('lib', file);
-      final isDart = file.endsWith('.dart');
-      if (isDart && (isInLib || isInBin)) {
-        dartFiles.add(file);
-      }
-    }
-
     Pubspec? pubspec;
     try {
       pubspec = context.pubspec;
@@ -157,42 +142,8 @@ class PackageAnalyzer {
           '[report the issue](https://github.com/dart-lang/pana/issues).');
     }
 
-    if (await context.resolveDependencies()) {
-      List<CodeProblem>? analyzerItems;
-      if (dartFiles.isNotEmpty) {
-        try {
-          analyzerItems = await context.staticAnalysis();
-        } on ToolException catch (e) {
-          context.errors
-              .add(runningDartAnalyzerFailed(context.usesFlutter, e.message));
-        }
-      } else {
-        analyzerItems = <CodeProblem>[];
-      }
-      if (analyzerItems != null && !analyzerItems.any((item) => item.isError)) {
-        final tagger = Tagger(pkgDir);
-        final tags_ = <String>[];
-        final explanations = <Explanation>[];
-        // TODO: refactor these methods to return the tags+explanations
-        tagger.sdkTags(tags_, explanations);
-        tagger.platformTags(tags_, explanations);
-        tagger.runtimeTags(tags_, explanations);
-        tagger.flutterPluginTags(tags_, explanations);
-        tagger.nullSafetyTags(tags_, explanations);
-        tagger.wasmReadyTag(tags_, explanations);
-        // tags are exposed, explanations are ignored
-        // TODO: use a single result object to derive tags + report
-        tags.addAll(tags_);
-
-        if (context.currentSdkVersion.major >= 3) {
-          tags.add(PanaTags.isDart3Compatible);
-        }
-      } else {
-        tags.add(PanaTags.hasError);
-      }
-    } else {
-      tags.add(PanaTags.hasError);
-    }
+    final tr = await context.staticAnalysis;
+    tags.addAll(tr.tags);
 
     final licenses = await context.licenses;
     tags.addAll((await context.licenceTags).tags);

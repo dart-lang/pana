@@ -26,8 +26,10 @@ import 'repository/check_repository.dart';
 import 'screenshots.dart';
 import 'sdk_env.dart';
 import 'tag/license_tags.dart';
+import 'tag/pana_tags.dart';
+import 'tag/tagger.dart';
 import 'tool/run_constrained.dart';
-import 'utils.dart' show listFocusDirs;
+import 'utils.dart' show listFiles, listFocusDirs;
 
 /// Shared (intermediate) results between different packages or versions.
 /// External systems that may be independent of the archive content may be
@@ -94,7 +96,6 @@ class PackageContext {
   final _stopwatch = Stopwatch();
 
   Pubspec? _pubspec;
-  List<CodeProblem>? _codeProblems;
 
   PackageContext({
     required this.sharedContext,
@@ -228,17 +229,58 @@ class PackageContext {
     }
   }();
 
-  Future<List<CodeProblem>> staticAnalysis() async {
-    if (_codeProblems != null) return _codeProblems!;
-    try {
-      log.info('Analyzing package...');
-      _codeProblems = await _staticAnalysis(packageDir: packageDir);
-      return _codeProblems!;
-    } on ToolException catch (e) {
-      errors.add(messages.runningDartAnalyzerFailed(usesFlutter, e.message));
-      rethrow;
+  late final Future<List<String>> _dartFiles = () async {
+    final results = <String>[];
+    final fileList = listFiles(packageDir, deleteBadExtracted: true);
+    await for (final file in fileList) {
+      final isInBin = p.isWithin('bin', file);
+      final isInLib = p.isWithin('lib', file);
+      final isDart = file.endsWith('.dart');
+      if (isDart && (isInLib || isInBin)) {
+        results.add(file);
+      }
     }
-  }
+    return results;
+  }();
+
+  late final Future<AnalyzeToolResult> staticAnalysis = () async {
+    final tags = <String>[];
+    List<CodeProblem>? items;
+    final dartFiles = await _dartFiles;
+
+    if (!await resolveDependencies()) {
+      tags.add(PanaTags.hasError);
+    } else if (dartFiles.isEmpty) {
+      items = [];
+    } else {
+      log.info('Analyzing package...');
+      try {
+        items = await _staticAnalysis(packageDir: packageDir);
+      } on ToolException catch (e) {
+        errors.add(messages.runningDartAnalyzerFailed(usesFlutter, e.message));
+        return AnalyzeToolResult.toolError(e);
+      }
+    }
+
+    if (items != null && !items.any((item) => item.isError)) {
+      final tagger = Tagger(packageDir);
+      // tags are exposed, explanations are ignored
+      final explanations = <Explanation>[];
+      // TODO: refactor these methods to return the tags+explanations
+      tagger.sdkTags(tags, explanations);
+      tagger.platformTags(tags, explanations);
+      tagger.runtimeTags(tags, explanations);
+      tagger.flutterPluginTags(tags, explanations);
+      tagger.nullSafetyTags(tags, explanations);
+      tagger.wasmReadyTag(tags, explanations);
+      if (currentSdkVersion.major >= 3) {
+        tags.add(PanaTags.isDart3Compatible);
+      }
+    } else {
+      tags.add(PanaTags.hasError);
+    }
+    return AnalyzeToolResult(items: items, tags: tags);
+  }();
 
   Future<List<CodeProblem>> _staticAnalysis({
     required String packageDir,

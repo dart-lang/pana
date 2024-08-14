@@ -3,6 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:pana/src/tag/pana_tags.dart';
+import 'package:pana/src/tool/run_constrained.dart';
 
 import 'model.dart';
 
@@ -45,6 +47,23 @@ class VersionDescriptor {
       _$VersionDescriptorFromJson(json);
 
   Map<String, dynamic> toJson() => _$VersionDescriptorToJson(this);
+}
+
+class AnalyzeToolResult {
+  final List<CodeProblem>? items;
+  final List<String> tags;
+  final ToolException? toolError;
+
+  AnalyzeToolResult({
+    required this.items,
+    required this.tags,
+  }) : toolError = null;
+
+  AnalyzeToolResult.toolError(this.toolError)
+      : items = null,
+        tags = [PanaTags.hasError];
+
+  bool get hasError => toolError != null;
 }
 
 @JsonSerializable()

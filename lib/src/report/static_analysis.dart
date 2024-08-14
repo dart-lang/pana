@@ -106,18 +106,18 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
         context.usesFlutter ? 'flutter pub get' : 'dart pub get',
       );
     }
-    final list = await context.staticAnalysis();
+    final rs = await context.staticAnalysis;
 
     return _AnalysisResult(
-        list
+        rs.items!
             .where((element) => element.isError)
             .map(issueFromCodeProblem)
             .toList(),
-        list
+        rs.items!
             .where((element) => element.isWarning)
             .map(issueFromCodeProblem)
             .toList(),
-        list
+        rs.items!
             .where((element) => element.isInfo)
             .map(issueFromCodeProblem)
             .toList(),
