@@ -61,6 +61,25 @@ Because:
 * `package:path_provider/path_provider.dart` that declares support for platforms: `Android`, `iOS`, `Windows`, `Linux`, `macOS`.
 </details>
 
+### [x] 0/0 points: WASM readiness
+
+<details>
+<summary>
+Package not compatible with runtime wasm
+</summary>
+
+Because:
+* `package:audio_service/audio_service.dart` that imports:
+* `package:flutter_cache_manager/flutter_cache_manager.dart` that imports:
+* `package:flutter_cache_manager/src/web/web_helper.dart` that imports:
+* `package:flutter_cache_manager/src/cache_store.dart` that imports:
+* `package:flutter_cache_manager/src/storage/file_system/file_system.dart` that imports:
+* `package:file/file.dart` that imports:
+* `package:file/src/interface.dart` that imports:
+* `package:file/src/io.dart` that imports:
+* `dart:io`
+</details>
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues

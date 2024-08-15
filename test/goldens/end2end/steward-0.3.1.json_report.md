@@ -64,6 +64,20 @@ Because:
 * `dart:io`
 </details>
 
+### [x] 0/0 points: WASM readiness
+
+<details>
+<summary>
+Package not compatible with runtime wasm
+</summary>
+
+Because:
+* `package:steward/steward.dart` that imports:
+* `package:steward/app/app.dart` that imports:
+* `package:steward/config/config_reader.dart` that imports:
+* `dart:io`
+</details>
+
 ## 40/50 Pass static analysis
 
 ### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues

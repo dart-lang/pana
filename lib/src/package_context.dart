@@ -244,8 +244,9 @@ class PackageContext {
   }();
 
   late final Future<AnalyzeToolResult> staticAnalysis = () async {
-    final tags = <String>[];
     List<CodeProblem>? items;
+    final tags = <String>[];
+    final explanations = <Explanation>[];
     final dartFiles = await _dartFiles;
 
     if (!await resolveDependencies()) {
@@ -264,8 +265,6 @@ class PackageContext {
 
     if (items != null && !items.any((item) => item.isError)) {
       final tagger = Tagger(packageDir);
-      // tags are exposed, explanations are ignored
-      final explanations = <Explanation>[];
       // TODO: refactor these methods to return the tags+explanations
       tagger.sdkTags(tags, explanations);
       tagger.platformTags(tags, explanations);
@@ -279,7 +278,11 @@ class PackageContext {
     } else {
       tags.add(PanaTags.hasError);
     }
-    return AnalyzeToolResult(items: items, tags: tags);
+    return AnalyzeToolResult(
+      items: items,
+      tags: tags,
+      explanations: explanations,
+    );
   }();
 
   Future<List<CodeProblem>> _staticAnalysis({

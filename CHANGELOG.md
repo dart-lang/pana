@@ -1,3 +1,7 @@
+## 0.22.11
+
+- Expose `wasm` readiness analysis in the report (without any score).
+
 ## 0.22.10
 
 - Remove `workspace` and `resolution` properties from pubspec before analyzing.

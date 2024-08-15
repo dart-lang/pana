@@ -42,6 +42,10 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 * ✓ macOS
 * ✓ Web
 
+### [*] 0/0 points: WASM readiness
+
+Package is compatible with runtime `wasm`.
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues

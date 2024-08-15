@@ -40,6 +40,10 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 * ✓ macOS
 * ✓ Web
 
+### [*] 0/0 points: WASM readiness
+
+Package is compatible with runtime `wasm`.
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues

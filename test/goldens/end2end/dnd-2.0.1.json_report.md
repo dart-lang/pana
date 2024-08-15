@@ -78,6 +78,18 @@ Because:
 * `dart:js`
 </details>
 
+### [x] 0/0 points: WASM readiness
+
+<details>
+<summary>
+Package not compatible with runtime wasm
+</summary>
+
+Because:
+* `package:dnd/dnd.dart` that imports:
+* `dart:js`
+</details>
+
 ## 30/50 Pass static analysis
 
 ### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues

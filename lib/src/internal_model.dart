@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pana/src/tag/pana_tags.dart';
-import 'package:pana/src/tool/run_constrained.dart';
 
 import 'model.dart';
+import 'tag/_common.dart';
+import 'tag/pana_tags.dart';
+import 'tool/run_constrained.dart';
 
 part 'internal_model.g.dart';
 
@@ -52,16 +53,19 @@ class VersionDescriptor {
 class AnalyzeToolResult {
   final List<CodeProblem>? items;
   final List<String> tags;
+  final List<Explanation> explanations;
   final ToolException? toolError;
 
   AnalyzeToolResult({
     required this.items,
     required this.tags,
+    required this.explanations,
   }) : toolError = null;
 
   AnalyzeToolResult.toolError(this.toolError)
       : items = null,
-        tags = [PanaTags.hasError];
+        tags = [PanaTags.hasError],
+        explanations = [];
 
   bool get hasError => toolError != null;
 }

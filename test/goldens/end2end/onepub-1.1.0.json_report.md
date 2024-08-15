@@ -82,6 +82,10 @@ Web
 Cannot assign Web automatically to a binary only package.
 </details>
 
+### [*] 0/0 points: WASM readiness
+
+Package is compatible with runtime `wasm`.
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
