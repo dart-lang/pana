@@ -47,7 +47,7 @@ Because:
 * `dart:io`
 </details>
 
-### [x] 0/0 points: WASM readiness
+### [x] 0/0 points: WASM compatibility
 
 <details>
 <summary>
@@ -65,6 +65,7 @@ Because:
 * `package:gg_args/src/missing_sub_commands.dart` that imports:
 * `dart:io`
 </details>
+See https://dart.dev/web/wasm for details.
 
 ## 50/50 Pass static analysis
 

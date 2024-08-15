@@ -61,7 +61,7 @@ Because:
 * `package:path_provider/path_provider.dart` that declares support for platforms: `Android`, `iOS`, `Windows`, `Linux`, `macOS`.
 </details>
 
-### [x] 0/0 points: WASM readiness
+### [x] 0/0 points: WASM compatibility
 
 <details>
 <summary>
@@ -79,6 +79,7 @@ Because:
 * `package:file/src/io.dart` that imports:
 * `dart:io`
 </details>
+See https://dart.dev/web/wasm for details.
 
 ## 50/50 Pass static analysis
 

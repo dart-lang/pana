@@ -57,7 +57,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `dart pub get` for more information.\n</details>\n\n### [x] 0/0 points: WASM readiness\n\nUnable to detect compatibility with runtime `wasm`."
+        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `dart pub get` for more information.\n</details>\n\n### [x] 0/0 points: WASM compatibility\n\nUnable to detect compatibility with runtime `wasm`.\nSee https://dart.dev/web/wasm for details."
       },
       {
         "id": "analysis",

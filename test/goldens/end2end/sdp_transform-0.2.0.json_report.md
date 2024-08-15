@@ -43,9 +43,10 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 * ✓ macOS
 * ✓ Web
 
-### [x] 0/0 points: WASM readiness
+### [x] 0/0 points: WASM compatibility
 
 Unable to detect compatibility with runtime `wasm`.
+See https://dart.dev/web/wasm for details.
 
 ## 0/50 Pass static analysis
 

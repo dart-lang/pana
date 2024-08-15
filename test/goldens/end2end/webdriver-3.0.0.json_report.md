@@ -93,7 +93,7 @@ Because:
 * `dart:io`
 </details>
 
-### [x] 0/0 points: WASM readiness
+### [x] 0/0 points: WASM compatibility
 
 <details>
 <summary>
@@ -105,6 +105,7 @@ Because:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 </details>
+See https://dart.dev/web/wasm for details.
 
 ## 30/50 Pass static analysis
 

@@ -37,9 +37,10 @@ Could not determine supported platforms as package resolution failed.
 Run `dart pub get` for more information.
 </details>
 
-### [x] 0/0 points: WASM readiness
+### [x] 0/0 points: WASM compatibility
 
 Unable to detect compatibility with runtime `wasm`.
+See https://dart.dev/web/wasm for details.
 
 ## 0/50 Pass static analysis
 

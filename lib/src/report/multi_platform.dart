@@ -130,13 +130,16 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
 
 Future<Subsection> _createWasmSubsection(PackageContext context) async {
   final tr = await context.staticAnalysis;
-  final description = 'WASM readiness';
+  final description = 'WASM compatibility';
   final explanation =
       tr.explanations.where((e) => e.tag == PanaTags.isWasmReady).firstOrNull;
   if (explanation != null) {
     return Subsection(
       description,
-      [explanationToIssue(explanation)],
+      [
+        explanationToIssue(explanation),
+        RawParagraph('See https://dart.dev/web/wasm for details.'),
+      ],
       0,
       0,
       ReportStatus.failed,
@@ -146,7 +149,10 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
   if (tr.tags.contains(PanaTags.isWasmReady)) {
     return Subsection(
       description,
-      [RawParagraph('Package is compatible with runtime `wasm`.')],
+      [
+        RawParagraph('Package is compatible with runtime `wasm`. '
+            'See https://dart.dev/web/wasm for details.')
+      ],
       0,
       0,
       ReportStatus.passed,
@@ -154,7 +160,10 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
   } else {
     return Subsection(
       description,
-      [RawParagraph('Unable to detect compatibility with runtime `wasm`.')],
+      [
+        RawParagraph('Unable to detect compatibility with runtime `wasm`.'),
+        RawParagraph('See https://dart.dev/web/wasm for details.'),
+      ],
       0,
       0,
       ReportStatus.failed,

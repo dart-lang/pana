@@ -149,7 +149,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)\n\n* ✓ Linux\n* ✓ macOS\n* ✓ Windows\n\nThese platforms are not supported:\n\n<details>\n<summary>\nAndroid\n</summary>\n\nCannot assign Android automatically to a binary only package.\n</details>\n<details>\n<summary>\niOS\n</summary>\n\nCannot assign iOS automatically to a binary only package.\n</details>\n<details>\n<summary>\nWeb\n</summary>\n\nCannot assign Web automatically to a binary only package.\n</details>\n\n### [*] 0/0 points: WASM readiness\n\nPackage is compatible with runtime `wasm`."
+        "summary": "### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)\n\n* ✓ Linux\n* ✓ macOS\n* ✓ Windows\n\nThese platforms are not supported:\n\n<details>\n<summary>\nAndroid\n</summary>\n\nCannot assign Android automatically to a binary only package.\n</details>\n<details>\n<summary>\niOS\n</summary>\n\nCannot assign iOS automatically to a binary only package.\n</details>\n<details>\n<summary>\nWeb\n</summary>\n\nCannot assign Web automatically to a binary only package.\n</details>\n\n### [*] 0/0 points: WASM compatibility\n\nPackage is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details."
       },
       {
         "id": "analysis",

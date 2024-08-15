@@ -29,9 +29,9 @@ Detected license: `BSD-3-Clause`.
 * ✓ macOS
 * ✓ Web
 
-### [*] 0/0 points: WASM readiness
+### [*] 0/0 points: WASM compatibility
 
-Package is compatible with runtime `wasm`.
+Package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.
 
 ## 40/50 Pass static analysis
 

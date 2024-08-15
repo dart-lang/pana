@@ -64,7 +64,7 @@ Because:
 * `dart:io`
 </details>
 
-### [x] 0/0 points: WASM readiness
+### [x] 0/0 points: WASM compatibility
 
 <details>
 <summary>
@@ -77,6 +77,7 @@ Because:
 * `package:steward/config/config_reader.dart` that imports:
 * `dart:io`
 </details>
+See https://dart.dev/web/wasm for details.
 
 ## 40/50 Pass static analysis
 
