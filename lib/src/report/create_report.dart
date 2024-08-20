@@ -8,7 +8,6 @@
 
 import '../model.dart';
 import '../package_context.dart';
-import '../pubspec.dart';
 
 import 'dependencies.dart';
 import 'documentation.dart';
@@ -19,9 +18,8 @@ import 'template.dart';
 export '_common.dart' show renderSimpleSectionSummary;
 
 Future<Report> createReport(PackageContext context) async {
-  Pubspec pubspec;
   try {
-    pubspec = context.pubspec;
+    context.pubspec;
   } on Exception catch (e) {
     return Report(
       sections: [
@@ -38,7 +36,7 @@ Future<Report> createReport(PackageContext context) async {
   }
 
   final templateReport = await followsTemplate(context);
-  final platformReport = await multiPlatform(context.packageDir, pubspec);
+  final platformReport = await multiPlatform(context);
   final staticAnalysisReport = await staticAnalysis(context);
   final dependenciesReport = await trustworthyDependency(context);
 

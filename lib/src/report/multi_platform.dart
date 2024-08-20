@@ -7,20 +7,20 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 
 import '../model.dart';
-import '../pubspec.dart';
+import '../package_context.dart';
 import '../tag/pana_tags.dart';
 import '../tag/tagger.dart';
 import '_common.dart';
 
-Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
+Future<ReportSection> multiPlatform(PackageContext context) async {
   Subsection subsection;
-  final flutterPackage = pubspec.usesFlutter;
+  final flutterPackage = context.pubspec.usesFlutter;
 
-  if (File(p.join(packageDir, '.dart_tool', 'package_config.json'))
+  if (File(p.join(context.packageDir, '.dart_tool', 'package_config.json'))
       .existsSync()) {
     final tags = <String>[];
     final explanations = <Explanation>[];
-    final tagger = Tagger(packageDir);
+    final tagger = Tagger(context.packageDir);
     final sdkTags = <String>[];
     final sdkExplanations = <Explanation>[];
     tagger.sdkTags(sdkTags, sdkExplanations);
@@ -117,11 +117,56 @@ Future<ReportSection> multiPlatform(String packageDir, Pubspec pubspec) async {
     );
   }
 
+  final wasmSubsection = await _createWasmSubsection(context);
+
   return makeSection(
       id: ReportSectionId.platform,
       title: 'Platform support',
       maxPoints: 20,
-      basePath: packageDir,
-      subsections: [subsection],
+      basePath: context.packageDir,
+      subsections: [subsection, wasmSubsection],
       maxIssues: 20);
+}
+
+Future<Subsection> _createWasmSubsection(PackageContext context) async {
+  final tr = await context.staticAnalysis;
+  final description = 'WASM compatibility';
+  final explanation =
+      tr.explanations.where((e) => e.tag == PanaTags.isWasmReady).firstOrNull;
+  if (explanation != null) {
+    return Subsection(
+      description,
+      [
+        explanationToIssue(explanation),
+        RawParagraph('See https://dart.dev/web/wasm for details.'),
+      ],
+      0,
+      0,
+      ReportStatus.failed,
+    );
+  }
+
+  if (tr.tags.contains(PanaTags.isWasmReady)) {
+    return Subsection(
+      description,
+      [
+        RawParagraph('Package is compatible with runtime `wasm`. '
+            'See https://dart.dev/web/wasm for details.')
+      ],
+      0,
+      0,
+      ReportStatus.passed,
+    );
+  } else {
+    return Subsection(
+      description,
+      [
+        RawParagraph('Unable to detect compatibility with runtime `wasm`.'),
+        RawParagraph('See https://dart.dev/web/wasm for details.'),
+      ],
+      0,
+      0,
+      ReportStatus.failed,
+    );
+  }
 }

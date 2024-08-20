@@ -47,6 +47,26 @@ Because:
 * `dart:io`
 </details>
 
+### [x] 0/0 points: WASM compatibility
+
+<details>
+<summary>
+Package not compatible with runtime wasm
+</summary>
+
+Because:
+* `package:gg/gg.dart` that imports:
+* `package:gg/src/tools/checks.dart` that imports:
+* `package:gg_publish/gg_publish.dart` that imports:
+* `package:gg_publish/src/commands/publish.dart` that imports:
+* `package:gg_version/gg_version.dart` that imports:
+* `package:gg_version/src/commands/published_version.dart` that imports:
+* `package:gg_args/gg_args.dart` that imports:
+* `package:gg_args/src/missing_sub_commands.dart` that imports:
+* `dart:io`
+</details>
+See https://dart.dev/web/wasm for details.
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues

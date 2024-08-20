@@ -82,6 +82,10 @@ Web
 Cannot assign Web automatically to a binary only package.
 </details>
 
+### [*] 0/0 points: WASM compatibility
+
+Package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues

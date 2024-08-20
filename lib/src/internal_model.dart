@@ -5,6 +5,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'model.dart';
+import 'tag/_common.dart';
+import 'tag/pana_tags.dart';
+import 'tool/run_constrained.dart';
 
 part 'internal_model.g.dart';
 
@@ -45,6 +48,26 @@ class VersionDescriptor {
       _$VersionDescriptorFromJson(json);
 
   Map<String, dynamic> toJson() => _$VersionDescriptorToJson(this);
+}
+
+class AnalyzeToolResult {
+  final List<CodeProblem>? items;
+  final List<String> tags;
+  final List<Explanation> explanations;
+  final ToolException? toolError;
+
+  AnalyzeToolResult({
+    required this.items,
+    required this.tags,
+    required this.explanations,
+  }) : toolError = null;
+
+  AnalyzeToolResult.toolError(this.toolError)
+      : items = null,
+        tags = [PanaTags.hasError],
+        explanations = [];
+
+  bool get hasError => toolError != null;
 }
 
 @JsonSerializable()
