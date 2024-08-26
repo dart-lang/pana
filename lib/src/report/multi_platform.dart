@@ -139,7 +139,7 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
       [
         explanationToIssue(explanation),
         RawParagraph(
-          'Package is not compatible with runtime wasm, and will not be rewarded '
+          'This package is not compatible with runtime `wasm`, and will not be rewarded '
           'full points in a future version of the scoring model.',
         ),
         RawParagraph('See https://dart.dev/web/wasm for details.'),
@@ -155,7 +155,7 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
       description,
       [
         RawParagraph(
-            'Package is compatible with runtime wasm, and will be rewarded '
+            'This package is compatible with runtime `wasm`, and will be rewarded '
             'additional points in a future version of the scoring model.'),
         RawParagraph('See https://dart.dev/web/wasm for details.'),
       ],
@@ -168,7 +168,7 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
       description,
       [
         RawParagraph(
-            'Unable to detect compatibility with runtime `wasm`, and the package will not '
+            'Unable to detect compatibility with runtime `wasm`, and this package will not '
             'be rewarded full points in a future version of the scoring model.'),
         RawParagraph('See https://dart.dev/web/wasm for details.'),
       ],

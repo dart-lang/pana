@@ -79,7 +79,7 @@ Because:
 * `package:file/src/io.dart` that imports:
 * `dart:io`
 </details>
-Package is not compatible with runtime wasm, and will not be rewarded full points in a future version of the scoring model.
+This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
 See https://dart.dev/web/wasm for details.
 
 ## 50/50 Pass static analysis

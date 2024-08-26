@@ -31,7 +31,7 @@ Detected license: `BSD-3-Clause`.
 
 ### [*] 0/0 points: WASM compatibility
 
-Package is compatible with runtime wasm, and will be rewarded additional points in a future version of the scoring model.
+This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
 See https://dart.dev/web/wasm for details.
 
 ## 40/50 Pass static analysis
