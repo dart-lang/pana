@@ -89,6 +89,7 @@ Because:
 * `package:dnd/dnd.dart` that imports:
 * `dart:js`
 </details>
+Package is not compatible with runtime wasm, and will not be rewarded full points in a future version of the scoring model.
 See https://dart.dev/web/wasm for details.
 
 ## 30/50 Pass static analysis
