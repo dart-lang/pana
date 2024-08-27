@@ -2,16 +2,14 @@
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `Apache-2.0`.
+
 
 ## 0/10 Provide documentation
 
@@ -24,6 +22,7 @@ No example found.
 
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
+
 
 ## 0/20 Platform support
 
@@ -42,6 +41,7 @@ Because:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform iOS
@@ -52,6 +52,7 @@ Because:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform Windows
@@ -62,6 +63,7 @@ Because:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform Linux
@@ -72,6 +74,7 @@ Because:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform macOS
@@ -82,6 +85,7 @@ Because:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform Web
@@ -105,8 +109,11 @@ Because:
 * `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
 * `dart:html`
 </details>
+
 This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 30/50 Pass static analysis
 
@@ -130,6 +137,7 @@ WARNING: Unnecessary type check; the result is always 'true'.
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/async/web_element.dart`
 </details>
+
 <details>
 <summary>
 WARNING: Unnecessary type check; the result is always 'true'.
@@ -146,6 +154,7 @@ WARNING: Unnecessary type check; the result is always 'true'.
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/handler/json_wire/utils.dart`
 </details>
+
 
 ## 40/40 Support up-to-date dependencies
 
@@ -195,9 +204,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`test_api`]: https://pub.dev/packages/test_api
 [`typed_data`]: https://pub.dev/packages/typed_data
 
-
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [*] 20/20 points: Compatible with dependency constraint lower bounds
 

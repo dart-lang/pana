@@ -20,9 +20,7 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
 
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [x] 0/10 points: Use an OSI-approved license
 
@@ -33,6 +31,7 @@ No license was recognized.
 
 Consider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to make it more accessible to the community.
 </details>
+
 
 ## 10/20 Provide documentation
 
@@ -50,13 +49,17 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
+
 ## 20/20 Platform support
 
 ### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)
 
 * ✓ Linux
+
 * ✓ macOS
+
 * ✓ Windows
+
 
 These platforms are not supported:
 
@@ -67,6 +70,7 @@ Android
 
 Cannot assign Android automatically to a binary only package.
 </details>
+
 <details>
 <summary>
 iOS
@@ -74,6 +78,7 @@ iOS
 
 Cannot assign iOS automatically to a binary only package.
 </details>
+
 <details>
 <summary>
 Web
@@ -85,7 +90,9 @@ Cannot assign Web automatically to a binary only package.
 ### [*] 0/0 points: WASM compatibility
 
 This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 50/50 Pass static analysis
 
@@ -235,7 +242,6 @@ Try running `dart pub upgrade --major-versions dcli` to update the constraint.
 </details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [*] 20/20 points: Compatible with dependency constraint lower bounds
 

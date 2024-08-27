@@ -31,7 +31,6 @@ Use `https` URLs instead.
 
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
 
-
 ### [x] 0/10 points: Use an OSI-approved license
 
 <details>
@@ -41,6 +40,7 @@ No license was recognized.
 
 Consider using an [OSI-approved license](https://opensource.org/licenses) in the `LICENSE` file to make it more accessible to the community.
 </details>
+
 
 ## 0/10 Provide documentation
 
@@ -53,6 +53,7 @@ No example found.
 
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
+
 
 ## 0/20 Platform support
 
@@ -69,7 +70,9 @@ Run `dart pub get` for more information.
 ### [x] 0/0 points: WASM compatibility
 
 Unable to detect compatibility with runtime `wasm`, and this package will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 0/50 Pass static analysis
 

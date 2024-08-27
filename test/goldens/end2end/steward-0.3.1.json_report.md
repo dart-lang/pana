@@ -2,16 +2,14 @@
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `MIT`.
+
 
 ## 10/10 Provide documentation
 
@@ -23,8 +21,11 @@ Detected license: `MIT`.
 ### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)
 
 * ✓ Windows
+
 * ✓ Linux
+
 * ✓ macOS
+
 
 These platforms are not supported:
 
@@ -40,6 +41,7 @@ Because:
 * `package:steward/controllers/route_utils.dart` that imports:
 * `dart:mirrors`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform iOS
@@ -52,6 +54,7 @@ Because:
 * `package:steward/controllers/route_utils.dart` that imports:
 * `dart:mirrors`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform Web
@@ -77,8 +80,11 @@ Because:
 * `package:steward/config/config_reader.dart` that imports:
 * `dart:io`
 </details>
+
 This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 40/50 Pass static analysis
 
@@ -102,6 +108,7 @@ INFO: The variable name 'GetAnnotation' isn't a lowerCamelCase identifier.
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/controllers/route_utils.dart`
 </details>
+
 <details>
 <summary>
 INFO: The variable name 'PutAnnotation' isn't a lowerCamelCase identifier.
@@ -118,6 +125,7 @@ INFO: The variable name 'PutAnnotation' isn't a lowerCamelCase identifier.
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/controllers/route_utils.dart`
 </details>
+
 
 ## 30/40 Support up-to-date dependencies
 
@@ -168,7 +176,6 @@ Try running `dart pub upgrade --major-versions flat` to update the constraint.
 </details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [*] 20/20 points: Compatible with dependency constraint lower bounds
 

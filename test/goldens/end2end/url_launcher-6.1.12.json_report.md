@@ -12,13 +12,12 @@ At the time of the analysis `https://github.com/flutter/flutter/issues?q=is%3Ais
 
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `BSD-3-Clause`.
+
 
 ## 20/20 Provide documentation
 
@@ -36,16 +35,23 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 ### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
+
 * ✓ iOS
+
 * ✓ Windows
+
 * ✓ Linux
+
 * ✓ macOS
+
 * ✓ Web
 
 ### [*] 0/0 points: WASM compatibility
 
 This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 50/50 Pass static analysis
 
@@ -102,9 +108,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`vector_math`]: https://pub.dev/packages/vector_math
 [`web`]: https://pub.dev/packages/web
 
-
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [*] 20/20 points: Compatible with dependency constraint lower bounds
 

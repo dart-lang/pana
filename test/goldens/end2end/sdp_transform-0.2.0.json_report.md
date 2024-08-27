@@ -12,13 +12,12 @@ Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 char
 
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `MIT`.
+
 
 ## 0/10 Provide documentation
 
@@ -32,21 +31,29 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
+
 ## 20/20 Platform support
 
 ### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
+
 * ✓ iOS
+
 * ✓ Windows
+
 * ✓ Linux
+
 * ✓ macOS
+
 * ✓ Web
 
 ### [x] 0/0 points: WASM compatibility
 
 Unable to detect compatibility with runtime `wasm`, and this package will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 0/50 Pass static analysis
 
