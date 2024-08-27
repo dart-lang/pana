@@ -1,3 +1,7 @@
+## 0.22.12
+
+- Updated report text for `wasm` readiness.
+
 ## 0.22.11
 
 - Expose `wasm` readiness analysis in the report (without any score).

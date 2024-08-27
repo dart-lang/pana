@@ -17,7 +17,9 @@ Detected license: `BSD-3-Clause`.
 
 ### [*] 10/10 points: 20% or more of the public API has dartdoc comments
 
-246 out of 246 API elements (100.0 %) have documentation comments.
+246 out of 263 API elements (93.5 %) have documentation comments.
+
+Some symbols that are missing documentation: `async.AsyncMemoizer.AsyncMemoizer`, `async.ChunkedStreamReader.ChunkedStreamReader`, `async.DelegatingFuture.DelegatingFuture`, `async.DelegatingStream.DelegatingStream`, `async.ErrorResult.ErrorResult`.
 
 ### [x] 0/10 points: Package has an example
 
@@ -42,7 +44,8 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 ### [*] 0/0 points: WASM compatibility
 
-Package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.
+This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
+See https://dart.dev/web/wasm for details.
 
 ## 50/50 Pass static analysis
 

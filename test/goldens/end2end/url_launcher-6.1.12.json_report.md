@@ -44,7 +44,8 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 
 ### [*] 0/0 points: WASM compatibility
 
-Package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.
+This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
+See https://dart.dev/web/wasm for details.
 
 ## 50/50 Pass static analysis
 
