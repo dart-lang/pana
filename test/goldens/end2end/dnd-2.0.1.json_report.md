@@ -2,16 +2,14 @@
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `MIT`.
+
 
 ## 20/20 Provide documentation
 
@@ -30,6 +28,7 @@ Some symbols that are missing documentation: `dnd`, `dnd.DraggablesAcceptor.drag
 
 * ✓ Web
 
+
 These platforms are not supported:
 
 <details>
@@ -41,6 +40,7 @@ Because:
 * `package:dnd/dnd.dart` that imports:
 * `dart:js`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform iOS
@@ -50,6 +50,7 @@ Because:
 * `package:dnd/dnd.dart` that imports:
 * `dart:js`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform Windows
@@ -59,6 +60,7 @@ Because:
 * `package:dnd/dnd.dart` that imports:
 * `dart:js`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform Linux
@@ -68,6 +70,7 @@ Because:
 * `package:dnd/dnd.dart` that imports:
 * `dart:js`
 </details>
+
 <details>
 <summary>
 Package not compatible with platform macOS
@@ -89,8 +92,11 @@ Because:
 * `package:dnd/dnd.dart` that imports:
 * `dart:js`
 </details>
+
 This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 30/50 Pass static analysis
 
@@ -114,6 +120,7 @@ WARNING: Unnecessary type check; the result is always 'true'.
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable_manager.dart`
 </details>
+
 <details>
 <summary>
 INFO: The part-of directive uses a library name.
@@ -131,6 +138,7 @@ INFO: The part-of directive uses a library name.
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable.dart`
 </details>
 
+
 ## 40/40 Support up-to-date dependencies
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
@@ -139,9 +147,7 @@ No dependencies.
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
-
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [*] 20/20 points: Compatible with dependency constraint lower bounds
 

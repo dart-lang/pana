@@ -53,7 +53,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n* `pubspec.yaml` doesn't have a `homepage` entry.\n* `pubspec.yaml` doesn't have a `repository` entry.\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`."
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n* `pubspec.yaml` doesn't have a `homepage` entry.\n\n* `pubspec.yaml` doesn't have a `repository` entry.\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`.\n"
       },
       {
         "id": "documentation",
@@ -61,7 +61,7 @@
         "grantedPoints": 0,
         "maxPoints": 10,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>\n"
       },
       {
         "id": "platform",
@@ -69,7 +69,7 @@
         "grantedPoints": 20,
         "maxPoints": 20,
         "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n* ✓ iOS\n* ✓ Windows\n* ✓ Linux\n* ✓ macOS\n* ✓ Web\n\n### [*] 0/0 points: WASM compatibility\n\nThis package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.\nSee https://dart.dev/web/wasm for details."
+        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n\n* ✓ iOS\n\n* ✓ Windows\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Web\n\n### [*] 0/0 points: WASM compatibility\n\nThis package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.\n\nSee https://dart.dev/web/wasm for details.\n"
       },
       {
         "id": "analysis",
@@ -85,7 +85,7 @@
         "grantedPoints": 40,
         "maxPoints": 40,
         "status": "passed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n\n\n### [*] 20/20 points: Compatible with dependency constraint lower bounds\n\n`pub downgrade` does not expose any static analysis error."
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\nNo dependencies.\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n\n### [*] 20/20 points: Compatible with dependency constraint lower bounds\n\n`pub downgrade` does not expose any static analysis error.\n"
       }
     ]
   },

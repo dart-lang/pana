@@ -2,16 +2,14 @@
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `MIT`.
+
 
 ## 0/10 Provide documentation
 
@@ -25,11 +23,13 @@ No example found.
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
 
+
 ## 20/20 Platform support
 
 ### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, **Android**, Web, Windows, macOS, Linux)
 
 * ✓ Android
+
 
 These platforms are not supported:
 
@@ -41,6 +41,7 @@ Package does not support platform `iOS`.
 Because:
 * `nsd_android` that declares support for platforms: `Android`.
 </details>
+
 <details>
 <summary>
 Package does not support platform `Windows`.
@@ -49,6 +50,7 @@ Package does not support platform `Windows`.
 Because:
 * `nsd_android` that declares support for platforms: `Android`.
 </details>
+
 <details>
 <summary>
 Package does not support platform `Linux`.
@@ -57,6 +59,7 @@ Package does not support platform `Linux`.
 Because:
 * `nsd_android` that declares support for platforms: `Android`.
 </details>
+
 <details>
 <summary>
 Package does not support platform `macOS`.
@@ -65,6 +68,7 @@ Package does not support platform `macOS`.
 Because:
 * `nsd_android` that declares support for platforms: `Android`.
 </details>
+
 <details>
 <summary>
 Package does not support platform `Web`.
@@ -77,7 +81,9 @@ Because:
 ### [*] 0/0 points: WASM compatibility
 
 This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 50/50 Pass static analysis
 
@@ -114,9 +120,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`sky_engine`]: https://pub.dev/packages/sky_engine
 [`vector_math`]: https://pub.dev/packages/vector_math
 
-
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [*] 20/20 points: Compatible with dependency constraint lower bounds
 

@@ -48,7 +48,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nThe package description is too short.\n</summary>\n\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `MIT`."
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nThe package description is too short.\n</summary>\n\nAdd more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `MIT`.\n"
       },
       {
         "id": "documentation",
@@ -56,7 +56,7 @@
         "grantedPoints": 0,
         "maxPoints": 10,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>"
+        "summary": "### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>\n"
       },
       {
         "id": "platform",
@@ -64,7 +64,7 @@
         "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `dart pub get` for more information.\n</details>\n\n### [x] 0/0 points: WASM compatibility\n\nUnable to detect compatibility with runtime `wasm`, and this package will not be rewarded full points in a future version of the scoring model.\nSee https://dart.dev/web/wasm for details."
+        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `dart pub get` for more information.\n</details>\n\n### [x] 0/0 points: WASM compatibility\n\nUnable to detect compatibility with runtime `wasm`, and this package will not be rewarded full points in a future version of the scoring model.\n\nSee https://dart.dev/web/wasm for details.\n"
       },
       {
         "id": "analysis",
@@ -80,7 +80,7 @@
         "grantedPoints": 0,
         "maxPoints": 40,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your `pubspec.yaml`\n</details>\n\n### [x] 0/20 points: Compatible with dependency constraint lower bounds\n\n`dart pub downgrade` failed with:\n\n```\nOUT:\nResolving dependencies...\nERR:\nThe lower bound of \"sdk: '>=1.0.0 <=3.5.0'\" must be 2.12.0'\nor higher to enable null safety.\n\nThe current Dart SDK (3.5.0) only supports null safety.\n\nFor details, see https://dart.dev/null-safety\n```\n\nRun `dart pub downgrade` and then `dart analyze` to reproduce the above problem.\n\nYou may run `dart pub upgrade --tighten` to update your dependency constraints, see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details."
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n* Sdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nPubspec.yaml does not have an sdk version constraint.\n</summary>\n\nTry adding an sdk constraint to your `pubspec.yaml`\n</details>\n\n### [x] 0/20 points: Compatible with dependency constraint lower bounds\n\n`dart pub downgrade` failed with:\n\n```\nOUT:\nResolving dependencies...\nERR:\nThe lower bound of \"sdk: '>=1.0.0 <=3.5.0'\" must be 2.12.0'\nor higher to enable null safety.\n\nThe current Dart SDK (3.5.0) only supports null safety.\n\nFor details, see https://dart.dev/null-safety\n```\n\nRun `dart pub downgrade` and then `dart analyze` to reproduce the above problem.\n\nYou may run `dart pub upgrade --tighten` to update your dependency constraints, see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details.\n"
       }
     ]
   },

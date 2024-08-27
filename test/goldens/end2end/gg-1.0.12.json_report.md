@@ -2,16 +2,14 @@
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `MIT`.
+
 
 ## 10/10 Provide documentation
 
@@ -23,10 +21,15 @@ Detected license: `MIT`.
 ### [*] 20/20 points: Supports 5 of 6 possible platforms (**iOS**, **Android**, Web, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
+
 * ✓ iOS
+
 * ✓ Windows
+
 * ✓ Linux
+
 * ✓ macOS
+
 
 These platforms are not supported:
 
@@ -65,8 +68,11 @@ Because:
 * `package:gg_args/src/missing_sub_commands.dart` that imports:
 * `dart:io`
 </details>
+
 This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 50/50 Pass static analysis
 
@@ -180,6 +186,7 @@ The constraint `^1.1.10` on gg_args does not support the stable version `2.0.0`.
 
 Try running `dart pub upgrade --major-versions gg_args` to update the constraint.
 </details>
+
 <details>
 <summary>
 The constraint `^2.0.0` on gg_publish does not support the stable version `3.0.0`.
@@ -189,7 +196,6 @@ Try running `dart pub upgrade --major-versions gg_publish` to update the constra
 </details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [x] 0/20 points: Compatible with dependency constraint lower bounds
 

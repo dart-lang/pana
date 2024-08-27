@@ -1,6 +1,7 @@
 ## 0.22.12
 
 - Updated report text for `wasm` readiness.
+- Updated paragraph separation in report sections.
 
 ## 0.22.11
 

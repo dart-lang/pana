@@ -17,6 +17,7 @@ Sdk-constraint doesn't allow future stable dart 2.x releases
 ```
 
 </details>
+
 <details>
 <summary>
 The package description is too short.
@@ -24,6 +25,7 @@ The package description is too short.
 
 Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
 </details>
+
 <details>
 <summary>
 Failed to verify repository URL.
@@ -42,7 +44,6 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
 
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [x] 0/5 points: Provide a valid `CHANGELOG.md`
 
 <details>
@@ -56,6 +57,7 @@ Changelog entries help developers follow the progress of your package. Check out
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `BSD-3-Clause`.
+
 
 ## 10/20 Provide documentation
 
@@ -81,7 +83,9 @@ Run `dart pub get` for more information.
 ### [x] 0/0 points: WASM compatibility
 
 Unable to detect compatibility with runtime `wasm`, and this package will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 0/50 Pass static analysis
 

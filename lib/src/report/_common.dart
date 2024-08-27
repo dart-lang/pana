@@ -130,7 +130,9 @@ String _makeSummary(List<Subsection> subsections,
     ...subsections.map((subsection) {
       final paragraphsMarkdown = subsection
           .takeIssues(maxIssues)
-          .map((e) => e.markdown(basePath: basePath));
+          .map((e) => e.markdown(basePath: basePath))
+          // ensures that paragraphs are separated but only with a single empty line
+          .map((p) => p.endsWith('\n') ? p : '$p\n');
       final statusMarker = _reportStatusMarker(subsection.status);
       return [
         '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
@@ -140,7 +142,10 @@ String _makeSummary(List<Subsection> subsections,
         ...paragraphsMarkdown,
       ].join('\n');
     }),
-  ].join('\n\n');
+  ]
+      // ensures that paragraphs are separated but only with a single empty line
+      .map((l) => l.endsWith('\n') ? l : '$l\n')
+      .join('\n');
 }
 
 String? _reportStatusMarker(ReportStatus status) => const {

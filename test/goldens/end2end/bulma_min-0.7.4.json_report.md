@@ -2,16 +2,14 @@
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `MIT`.
+
 
 ## 0/10 Provide documentation
 
@@ -24,6 +22,7 @@ No example found.
 
 See [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.
 </details>
+
 
 ## 0/20 Platform support
 
@@ -40,7 +39,9 @@ Run `dart pub get` for more information.
 ### [x] 0/0 points: WASM compatibility
 
 Unable to detect compatibility with runtime `wasm`, and this package will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 0/50 Pass static analysis
 

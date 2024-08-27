@@ -2,16 +2,14 @@
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `BSD-3-Clause`.
+
 
 ## 10/10 Provide documentation
 
@@ -23,16 +21,23 @@ Detected license: `BSD-3-Clause`.
 ### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
+
 * ✓ iOS
+
 * ✓ Windows
+
 * ✓ Linux
+
 * ✓ macOS
+
 * ✓ Web
 
 ### [*] 0/0 points: WASM compatibility
 
 This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 40/50 Pass static analysis
 
@@ -54,6 +59,7 @@ INFO: Dangling library doc comment.
 
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/http.dart`
 </details>
+
 
 ## 40/40 Support up-to-date dependencies
 
@@ -89,9 +95,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`term_glyph`]: https://pub.dev/packages/term_glyph
 [`typed_data`]: https://pub.dev/packages/typed_data
 
-
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [*] 20/20 points: Compatible with dependency constraint lower bounds
 

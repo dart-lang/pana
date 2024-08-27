@@ -2,16 +2,14 @@
 
 ### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
-
 ### [*] 5/5 points: Provide a valid `README.md`
 
-
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`
-
 
 ### [*] 10/10 points: Use an OSI-approved license
 
 Detected license: `MIT`.
+
 
 ## 10/10 Provide documentation
 
@@ -23,9 +21,13 @@ Detected license: `MIT`.
 ### [*] 20/20 points: Supports 4 of 6 possible platforms (**iOS**, **Android**, **Web**, Windows, **macOS**, Linux)
 
 * ✓ Android
+
 * ✓ iOS
+
 * ✓ macOS
+
 * ✓ Web
+
 
 These platforms are not supported:
 
@@ -37,6 +39,7 @@ Package does not support platform `Windows`.
 Because:
 * `package:audio_service/audio_service.dart` that declares support for platforms: `Android`, `iOS`, `macOS`, `Web`.
 </details>
+
 <details>
 <summary>
 Package does not support platform `Linux`.
@@ -45,6 +48,7 @@ Package does not support platform `Linux`.
 Because:
 * `package:audio_service/audio_service.dart` that declares support for platforms: `Android`, `iOS`, `macOS`, `Web`.
 </details>
+
 
 These issues are present but do not affect the score, because they may not originate in your package:
 
@@ -79,8 +83,11 @@ Because:
 * `package:file/src/io.dart` that imports:
 * `dart:io`
 </details>
+
 This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
+
 See https://dart.dev/web/wasm for details.
+
 
 ## 50/50 Pass static analysis
 
@@ -198,7 +205,6 @@ Try running `dart pub upgrade --major-versions js` to update the constraint.
 </details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
-
 
 ### [*] 20/20 points: Compatible with dependency constraint lower bounds
 
