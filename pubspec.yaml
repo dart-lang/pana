@@ -20,7 +20,7 @@ dependencies:
   http: ^1.0.0
   io: ^1.0.0
   json_annotation: ^4.9.0
-  lints: ^4.0.0
+  lints: ^5.0.0
   logging: ^1.0.0
   markdown: ^7.0.0
   meta: ^1.4.0
