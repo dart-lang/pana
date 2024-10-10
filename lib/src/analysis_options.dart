@@ -108,5 +108,15 @@ String updatePassthroughOptions({
     }
   }
 
+  final origFormatter = origMap['formatter'];
+  if (origFormatter is Map) {
+    final pageWidth = origFormatter['page_width'];
+    if (pageWidth is int) {
+      final customFormatter =
+          customMap.putIfAbsent('formatter', () => <String, Object?>{}) as Map;
+      customFormatter['page_width'] = pageWidth;
+    }
+  }
+
   return json.encode(customMap);
 }
