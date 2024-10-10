@@ -36,6 +36,9 @@ analyzer:
   enable-experiment:
     - ignored
     - macros
+formatter:
+  unknown_key: true
+  page_width: 123
 ''', custom: '');
     expect(json.decode(content), {
       'analyzer': {
@@ -45,6 +48,9 @@ analyzer:
         'enable-experiment': [
           'macros',
         ],
+      },
+      'formatter': {
+        'page_width': 123,
       },
     });
   });

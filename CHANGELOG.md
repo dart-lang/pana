@@ -1,3 +1,8 @@
+## 0.22.13
+
+- Pass-through for `formatter/page_width` in `analysis_options.yaml`.
+- Upgraded `lints` to `^5.0.0`
+
 ## 0.22.12
 
 - Updated report text for `wasm` readiness.
