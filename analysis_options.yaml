@@ -1,4 +1,5 @@
 include: package:dart_flutter_team_lints/analysis_options.yaml
+
 analyzer:
   language:
     strict-casts: true
@@ -21,7 +22,6 @@ linter:
     - no_adjacent_strings_in_list
     - omit_local_variable_types
     - only_throw_errors
-    - package_api_docs
     - prefer_const_constructors
     - prefer_single_quotes
     - sort_child_properties_last
