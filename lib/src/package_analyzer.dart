@@ -89,14 +89,23 @@ class PackageAnalyzer {
     }, logger: logger);
   }
 
-  Future<Summary> inspectDir(String packageDir, {InspectOptions? options}) {
+  Future<Summary> inspectDir(
+    String packageDir, {
+    InspectOptions? options,
+    Logger? logger,
+  }) {
     final sharedContext = _createSharedContext(options: options);
-    return withTempDir((tempDir) async {
-      final rootDir = await _detectGitRoot(packageDir) ?? packageDir;
-      await copyDir(rootDir, tempDir);
-      final relativeDir = path.relative(packageDir, from: rootDir);
-      return await _inspect(sharedContext, path.join(tempDir, relativeDir));
-    });
+    return withLogger(
+      logger: logger,
+      () async {
+        return withTempDir((tempDir) async {
+          final rootDir = await _detectGitRoot(packageDir) ?? packageDir;
+          await copyDir(rootDir, tempDir);
+          final relativeDir = path.relative(packageDir, from: rootDir);
+          return await _inspect(sharedContext, path.join(tempDir, relativeDir));
+        });
+      },
+    );
   }
 
   SharedAnalysisContext _createSharedContext({
