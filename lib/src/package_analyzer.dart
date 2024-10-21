@@ -242,12 +242,16 @@ class PackageAnalyzer {
 }
 
 Future<String?> _detectGitRoot(String packageDir) async {
-  final pr = await runGitIsolated(
-    ['rev-parse', '--show-toplevel'],
-    workingDirectory: packageDir,
-  );
-  if (pr.exitCode == 0) {
-    return pr.stdout.asString.trim();
+  try {
+    final pr = await runGitIsolated(
+      ['rev-parse', '--show-toplevel'],
+      workingDirectory: packageDir,
+    );
+    if (pr.exitCode == 0) {
+      return pr.stdout.asString.trim();
+    }
+  } on GitToolException catch (_) {
+    // ignore exception
   }
   return null;
 }
