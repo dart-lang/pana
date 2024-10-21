@@ -24,7 +24,7 @@ void main() {
 
     var output = await process.stdoutStream().join('\n');
 
-    const prefix = 'Could not find an option named "monkey".\n\n';
+    const prefix = 'Could not find an option named "--monkey".\n\n';
 
     expect(output, startsWith(prefix));
     expectMatchesGoldenFile(output.substring(prefix.length), helpGoldenPath);
