@@ -1,5 +1,6 @@
 ## 0.22.14
 
+- Fixes issue with local analysis without git repository root.
 - Accept `logger` in `PackageAnalyzer.inspectDir` method.
 
 ## 0.22.13
