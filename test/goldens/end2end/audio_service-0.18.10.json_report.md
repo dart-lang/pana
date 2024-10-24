@@ -88,6 +88,23 @@ This package is not compatible with runtime `wasm`, and will not be rewarded ful
 
 See https://dart.dev/web/wasm for details.
 
+### [x] 0/0 points: Swift Package Manager support
+
+<details>
+<summary>
+Package does not support the Swift Package Manager on macos
+</summary>
+
+It contains none of
+* macos/audio_service/Package.swift
+* darwin/audio_service/Package.swift
+
+</details>
+
+This package for iOS or MacOs does not support the Swift Package Manager. It will not receive full points in a future version of the scoring model.
+
+See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors for details.
+
 
 ## 50/50 Pass static analysis
 

@@ -365,21 +365,22 @@ class Tagger {
       return true;
     }
 
-    var support = true;
+    var isDarwinPlugin = false;
+    var swiftPmSupport = true;
 
     for (final darwinOs in ['macos', 'ios']) {
       if (pathExists(
           pubspec.originalYaml, ['flutter', 'plugin', 'platforms', darwinOs])) {
+        isDarwinPlugin = true;
         final specificPackageSwiftFile =
             path.join(darwinOs, packageName, 'Package.swift');
         final genericPackageSwiftFile =
             path.join('darwin', packageName, 'Package.swift');
-
         if (!(File(path.join(packageDir, specificPackageSwiftFile))
                 .existsSync() ||
             File(path.join(packageDir, genericPackageSwiftFile))
                 .existsSync())) {
-          support = false;
+          swiftPmSupport = false;
           explanations.add(Explanation(
               'Package does not support the Swift Package Manager on $darwinOs',
               '''
@@ -391,7 +392,7 @@ It contains none of
         }
       }
     }
-    if (support) {
+    if (isDarwinPlugin && swiftPmSupport) {
       tags.add(PanaTags.isSwiftPackageManagerReady);
     }
   }
