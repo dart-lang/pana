@@ -251,7 +251,7 @@ Future<String?> _detectGitRoot(String packageDir) async {
       return pr.stdout.asString.trim();
     }
   } on GitToolException catch (_) {
-    // ignore exception
+    // not in a git directory (or git is broken) - ignore exception
   }
   return null;
 }
