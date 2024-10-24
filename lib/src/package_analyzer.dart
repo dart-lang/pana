@@ -247,9 +247,7 @@ Future<String?> _detectGitRoot(String packageDir) async {
       ['rev-parse', '--show-toplevel'],
       workingDirectory: packageDir,
     );
-    if (pr.exitCode == 0) {
-      return pr.stdout.asString.trim();
-    }
+    return pr.stdout.asString.trim();
   } on GitToolException catch (_) {
     // not in a git directory (or git is broken) - ignore exception
   }
