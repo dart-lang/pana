@@ -1,3 +1,7 @@
+## 0.22.14
+
+- Accept `logger` in `PackageAnalyzer.inspectDir` method.
+
 ## 0.22.13
 
 - Pass-through for `formatter/page_width` in `analysis_options.yaml`.
