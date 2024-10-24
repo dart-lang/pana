@@ -272,6 +272,7 @@ class PackageContext {
       tagger.flutterPluginTags(tags, explanations);
       tagger.nullSafetyTags(tags, explanations);
       tagger.wasmReadyTag(tags, explanations);
+      tagger.swiftPackageManagerPluginTag(tags, explanations);
       if (currentSdkVersion.major >= 3) {
         tags.add(PanaTags.isDart3Compatible);
       }

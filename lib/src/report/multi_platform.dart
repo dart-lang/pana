@@ -118,13 +118,19 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
   }
 
   final wasmSubsection = await _createWasmSubsection(context);
+  final swiftPackageManagerSubsection =
+      await _createSwiftPackageManagerSubSection(context);
 
   return makeSection(
       id: ReportSectionId.platform,
       title: 'Platform support',
       maxPoints: 20,
       basePath: context.packageDir,
-      subsections: [subsection, wasmSubsection],
+      subsections: [
+        subsection,
+        wasmSubsection,
+        if (swiftPackageManagerSubsection != null) swiftPackageManagerSubsection
+      ],
       maxIssues: 20);
 }
 
@@ -177,4 +183,49 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
       ReportStatus.failed,
     );
   }
+}
+
+Future<Subsection?> _createSwiftPackageManagerSubSection(
+    PackageContext context) async {
+  final tr = await context.staticAnalysis;
+  final description = 'Swift Package Manager support';
+
+  if (tr.tags.contains(PanaTags.isSwiftPackageManagerReady)) {
+    return Subsection(
+      description,
+      [
+        RawParagraph(
+            'This iOS or MacOs plugin supports the Swift Package Manager. '
+            'It will be rewarded additional points in a future version of the scoring model.'),
+        RawParagraph(
+            'See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors for details.'),
+      ],
+      0,
+      0,
+      ReportStatus.passed,
+    );
+  } else {
+    final explanation = tr.explanations
+        .where((e) => e.tag == PanaTags.isSwiftPackageManagerReady)
+        .firstOrNull;
+    if (explanation != null) {
+      return Subsection(
+        description,
+        [
+          explanationToIssue(explanation),
+          RawParagraph(
+            'This package for iOS or MacOs does not support the Swift Package Manager. '
+            'It will not receive full points in a future version of the scoring model.',
+          ),
+          RawParagraph(
+              'See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors for details.'),
+        ],
+        0,
+        0,
+        ReportStatus.failed,
+      );
+    }
+  }
+  // Don't complain if this is not an ios/macos plugin.
+  return null;
 }
