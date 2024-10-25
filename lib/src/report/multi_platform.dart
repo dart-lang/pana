@@ -185,6 +185,8 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
   }
 }
 
+/// Create a subsection for ios and macos plugins, to highlight supported
+/// for swift package manager (or lack there of).
 Future<Subsection?> _createSwiftPackageManagerSubSection(
     PackageContext context) async {
   final tr = await context.staticAnalysis;
