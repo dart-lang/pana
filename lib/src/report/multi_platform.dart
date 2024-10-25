@@ -206,27 +206,26 @@ Future<Subsection?> _createSwiftPackageManagerSubSection(
       0,
       ReportStatus.passed,
     );
-  } else {
-    final explanation = tr.explanations
-        .where((e) => e.tag == PanaTags.isSwiftPmPlugin)
-        .firstOrNull;
-    if (explanation != null) {
-      return Subsection(
-        description,
-        [
-          explanationToIssue(explanation),
-          RawParagraph(
-            'This package for iOS or MacOs does not support the Swift Package Manager. '
-            'It will not receive full points in a future version of the scoring model.',
-          ),
-          RawParagraph(
-              'See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors for details.'),
-        ],
-        0,
-        0,
-        ReportStatus.failed,
-      );
-    }
+  }
+  final explanation = tr.explanations
+      .where((e) => e.tag == PanaTags.isSwiftPmPlugin)
+      .firstOrNull;
+  if (explanation != null) {
+    return Subsection(
+      description,
+      [
+        explanationToIssue(explanation),
+        RawParagraph(
+          'This package for iOS or MacOs does not support the Swift Package Manager. '
+          'It will not receive full points in a future version of the scoring model.',
+        ),
+        RawParagraph(
+            'See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors for details.'),
+      ],
+      0,
+      0,
+      ReportStatus.failed,
+    );
   }
   // Don't complain if this is not an ios/macos plugin.
   return null;
