@@ -388,12 +388,12 @@ It contains none of
 * $specificPackageSwiftFile
 * $genericPackageSwiftFile
 ''',
-              tag: PanaTags.isSwiftPackageManagerReady));
+              tag: PanaTags.isSwiftPmPlugin));
         }
       }
     }
     if (isDarwinPlugin && swiftPmSupport) {
-      tags.add(PanaTags.isSwiftPackageManagerReady);
+      tags.add(PanaTags.isSwiftPmPlugin);
     }
   }
 

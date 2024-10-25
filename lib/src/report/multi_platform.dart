@@ -190,7 +190,7 @@ Future<Subsection?> _createSwiftPackageManagerSubSection(
   final tr = await context.staticAnalysis;
   final description = 'Swift Package Manager support';
 
-  if (tr.tags.contains(PanaTags.isSwiftPackageManagerReady)) {
+  if (tr.tags.contains(PanaTags.isSwiftPmPlugin)) {
     return Subsection(
       description,
       [
@@ -206,7 +206,7 @@ Future<Subsection?> _createSwiftPackageManagerSubSection(
     );
   } else {
     final explanation = tr.explanations
-        .where((e) => e.tag == PanaTags.isSwiftPackageManagerReady)
+        .where((e) => e.tag == PanaTags.isSwiftPmPlugin)
         .firstOrNull;
     if (explanation != null) {
       return Subsection(
