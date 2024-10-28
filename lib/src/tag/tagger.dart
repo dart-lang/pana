@@ -372,22 +372,20 @@ class Tagger {
       if (pathExists(
           pubspec.originalYaml, ['flutter', 'plugin', 'platforms', darwinOs])) {
         isDarwinPlugin = true;
-        final specificPackageSwiftFile =
-            path.join(darwinOs, packageName, 'Package.swift');
-        final genericPackageSwiftFile =
-            path.join('darwin', packageName, 'Package.swift');
-        if (!(File(path.join(packageDir, specificPackageSwiftFile))
-                .existsSync() ||
-            File(path.join(packageDir, genericPackageSwiftFile))
-                .existsSync())) {
+        final osDir = pubspec.originalYaml['flutter']?['plugin']?['platforms']
+                    ?[darwinOs]?['sharedDarwinSource'] ==
+                true
+            ? 'darwin'
+            : darwinOs;
+
+        final packageSwiftFile = path.join(osDir, packageName, 'Package.swift');
+        if (!File(path.join(packageDir, packageSwiftFile)).existsSync()) {
           swiftPmSupport = false;
           final osName = {'macos': 'macOS', 'ios': 'iOS'}[darwinOs];
           explanations.add(Explanation(
               'Package does not support the Swift Package Manager on $osName',
               '''
-It contains none of
-* $specificPackageSwiftFile
-* $genericPackageSwiftFile
+It does not contain `$packageSwiftFile`.
 ''',
               tag: PanaTags.isSwiftPmPlugin));
         }
