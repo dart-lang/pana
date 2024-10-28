@@ -197,7 +197,7 @@ Future<Subsection?> _createSwiftPackageManagerSubSection(
       description,
       [
         RawParagraph(
-            'This iOS or MacOs plugin supports the Swift Package Manager. '
+            'This iOS or macOS plugin supports the Swift Package Manager. '
             'It will be rewarded additional points in a future version of the scoring model.'),
         RawParagraph(
             'See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors for details.'),
