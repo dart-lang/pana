@@ -216,7 +216,7 @@ Future<Subsection?> _createSwiftPackageManagerSubSection(
       [
         explanationToIssue(explanation),
         RawParagraph(
-          'This package for iOS or MacOs does not support the Swift Package Manager. '
+          'This package for iOS or macOS does not support the Swift Package Manager. '
           'It will not receive full points in a future version of the scoring model.',
         ),
         RawParagraph(
