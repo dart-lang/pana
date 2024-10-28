@@ -199,8 +199,7 @@ Future<Subsection?> _createSwiftPackageManagerSubSection(
         RawParagraph(
             'This iOS or macOS plugin supports the Swift Package Manager. '
             'It will be rewarded additional points in a future version of the scoring model.'),
-        RawParagraph(
-            'See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors for details.'),
+        RawParagraph('See https://docs.flutter.dev/to/spm for details.'),
       ],
       0,
       0,
@@ -219,8 +218,7 @@ Future<Subsection?> _createSwiftPackageManagerSubSection(
           'This package for iOS or macOS does not support the Swift Package Manager. '
           'It will not receive full points in a future version of the scoring model.',
         ),
-        RawParagraph(
-            'See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors for details.'),
+        RawParagraph('See https://docs.flutter.dev/to/spm for details.'),
       ],
       0,
       0,
