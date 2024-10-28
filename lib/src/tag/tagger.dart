@@ -381,8 +381,9 @@ class Tagger {
             File(path.join(packageDir, genericPackageSwiftFile))
                 .existsSync())) {
           swiftPmSupport = false;
+          final osName = {'macos': 'macOS', 'ios': 'iOS'}[darwinOs];
           explanations.add(Explanation(
-              'Package does not support the Swift Package Manager on $darwinOs',
+              'Package does not support the Swift Package Manager on $osName',
               '''
 It contains none of
 * $specificPackageSwiftFile
