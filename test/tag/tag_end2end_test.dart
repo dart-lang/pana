@@ -605,8 +605,8 @@ name: my_package
           'flutter': {
             'plugin': {
               'platforms': {
-                'ios': <String, dynamic>{},
-                'macos': <String, dynamic>{}
+                'ios': <String, dynamic>{'sharedDarwinSource': true},
+                'macos': <String, dynamic>{'sharedDarwinSource': true}
               }
             }
           }
