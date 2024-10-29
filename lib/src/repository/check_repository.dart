@@ -50,14 +50,22 @@ Future<VerifiedRepository?> checkRepository({
   }
 
   VerifiedRepository result() {
-    if (completed && verificationFailure == null) {
+    if (!completed) {
       return VerifiedRepository(
         repository: repositoryWithPath(localPath),
         contributingUrl: contributingUrl,
+        status: RepositoryVerificationStatus.verificationUnknown,
+      );
+    } else if (verificationFailure == null) {
+      return VerifiedRepository(
+        repository: repositoryWithPath(localPath),
+        contributingUrl: contributingUrl,
+        status: RepositoryVerificationStatus.repositoryLinkValid,
       );
     } else {
       return VerifiedRepository(
         verificationFailure: verificationFailure,
+        status: RepositoryVerificationStatus.repositoryLinkInvalid,
       );
     }
   }

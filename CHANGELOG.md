@@ -1,12 +1,15 @@
-## 0.22.14
+## 0.22.15
 
+- Detect support for Swift Package Manager for ios/macos plugins.
 - Fixes issue with local analysis without git repository root.
 - Accept `logger` in `PackageAnalyzer.inspectDir` method.
+
+## 0.22.14
+- Doesn't exist.
 
 ## 0.22.13
 
 - Pass-through for `formatter/page_width` in `analysis_options.yaml`.
-- Detect support for Swift Package Manager for ios/macos plugins.
 - Upgraded `lints` to `^5.0.0`
 
 ## 0.22.12

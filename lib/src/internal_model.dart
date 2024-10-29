@@ -217,15 +217,26 @@ class VerifiedRepository {
   final Repository? repository;
   final String? contributingUrl;
   final String? verificationFailure;
+  final RepositoryVerificationStatus status;
 
   VerifiedRepository({
     this.repository,
     this.contributingUrl,
     this.verificationFailure,
+    required this.status,
   });
 
   static VerifiedRepository fromJson(Map<String, dynamic> json) =>
       _$VerifiedRepositoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$VerifiedRepositoryToJson(this);
+}
+
+enum RepositoryVerificationStatus {
+  // Eg. failed to clone the repository.
+  verificationUnknown,
+  // The repository did not contain the correct pubspec.yaml.
+  repositoryLinkInvalid,
+  // The repository contains the correct pubspec.yaml.
+  repositoryLinkValid,
 }
