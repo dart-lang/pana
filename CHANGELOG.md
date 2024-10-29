@@ -6,6 +6,7 @@
 ## 0.22.13
 
 - Pass-through for `formatter/page_width` in `analysis_options.yaml`.
+- Detect support for Swift Package Manager for ios/macos plugins.
 - Upgraded `lints` to `^5.0.0`
 
 ## 0.22.12

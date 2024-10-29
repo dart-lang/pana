@@ -94,6 +94,7 @@ export '_specs.dart' show Runtime;
 /// Calculates the tags for the package residing in a given directory.
 class Tagger {
   final String packageName;
+  final String packageDir;
   final AnalysisSession _session;
   final PubspecCache _pubspecCache;
   final bool _isBinaryOnly;
@@ -115,14 +116,15 @@ class Tagger {
   final PackageGraph _packageGraph;
 
   Tagger._(
-    this.packageName,
-    this._session,
-    PubspecCache pubspecCache,
-    this._isBinaryOnly,
-    this._usesFlutter,
-    this._topLibraries,
-    this._publicLibraries,
-  )   : _pubspecCache = pubspecCache,
+      this.packageName,
+      this._session,
+      PubspecCache pubspecCache,
+      this._isBinaryOnly,
+      this._usesFlutter,
+      this._topLibraries,
+      this._publicLibraries,
+      this.packageDir)
+      : _pubspecCache = pubspecCache,
         _packageGraph = PackageGraph(pubspecCache);
 
   /// Assumes that `dart pub get` has been run.
@@ -170,15 +172,8 @@ class Tagger {
     final publicLibraries = nonSrcDartFiles
         .map((s) => Uri.parse('package:${pubspec.name}/$s'))
         .toList();
-    return Tagger._(
-      pubspec.name,
-      session,
-      pubspecCache,
-      isBinaryOnly,
-      pubspec.usesFlutter,
-      topLibraries,
-      publicLibraries,
-    );
+    return Tagger._(pubspec.name, session, pubspecCache, isBinaryOnly,
+        pubspec.usesFlutter, topLibraries, publicLibraries, packageDir);
   }
 
   void sdkTags(List<String> tags, List<Explanation> explanations) {
@@ -352,6 +347,52 @@ class Tagger {
     }
     if (supports) {
       tags.add(runtime.tag);
+    }
+  }
+
+  void swiftPackageManagerPluginTag(
+      List<String> tags, List<Explanation> explanations) {
+    if (!_usesFlutter) return;
+    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
+
+    bool pathExists(dynamic m, List<String> path) {
+      dynamic current = m;
+      for (final e in path) {
+        if (current is! Map) return false;
+        if (!current.containsKey(e)) return false;
+        current = current[e];
+      }
+      return true;
+    }
+
+    var isDarwinPlugin = false;
+    var swiftPmSupport = true;
+
+    for (final darwinOs in ['macos', 'ios']) {
+      if (pathExists(
+          pubspec.originalYaml, ['flutter', 'plugin', 'platforms', darwinOs])) {
+        isDarwinPlugin = true;
+        final osDir = pubspec.originalYaml['flutter']?['plugin']?['platforms']
+                    ?[darwinOs]?['sharedDarwinSource'] ==
+                true
+            ? 'darwin'
+            : darwinOs;
+
+        final packageSwiftFile = path.join(osDir, packageName, 'Package.swift');
+        if (!File(path.join(packageDir, packageSwiftFile)).existsSync()) {
+          swiftPmSupport = false;
+          final osName = {'macos': 'macOS', 'ios': 'iOS'}[darwinOs];
+          explanations.add(Explanation(
+              'Package does not support the Swift Package Manager on $osName',
+              '''
+It does not contain `$packageSwiftFile`.
+''',
+              tag: PanaTags.isSwiftPmPlugin));
+        }
+      }
+    }
+    if (isDarwinPlugin && swiftPmSupport) {
+      tags.add(PanaTags.isSwiftPmPlugin);
     }
   }
 

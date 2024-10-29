@@ -578,6 +578,81 @@ name: my_package
     });
   });
 
+  group('swift package manager tag', () {
+    test('Works with ios/<package_name>/Package.swift', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', pubspecExtras: {
+          'flutter': {
+            'plugin': {
+              'platforms': {'ios': <String, dynamic>{}}
+            }
+          }
+        }, extraFiles: [
+          d.dir('ios', [
+            d.dir('my_package', [d.file('Package.swift')])
+          ]),
+        ])
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.swiftPackageManagerPluginTag,
+          tags: contains('is:swiftpm-plugin'));
+    });
+
+    test('Works with darwin/package_name/Package.swift', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', pubspecExtras: {
+          'flutter': {
+            'plugin': {
+              'platforms': {
+                'ios': <String, dynamic>{'sharedDarwinSource': true},
+                'macos': <String, dynamic>{'sharedDarwinSource': true}
+              }
+            }
+          }
+        }, extraFiles: [
+          d.dir('darwin', [
+            d.dir('my_package', [d.file('Package.swift')])
+          ]),
+        ])
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.swiftPackageManagerPluginTag,
+          tags: contains('is:swiftpm-plugin'));
+    });
+
+    test('Fails with the wrong os/package_name/Package.swift', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', pubspecExtras: {
+          'flutter': {
+            'plugin': {
+              'platforms': {'macos': <String, dynamic>{}}
+            }
+          }
+        }, extraFiles: [
+          d.dir('ios', [
+            d.dir('my_package', [d.file('Package.swift')])
+          ]),
+        ])
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.swiftPackageManagerPluginTag,
+          tags: isEmpty,
+          explanations: contains(isA<Explanation>()
+              .having((e) => e.tag, 'tag', 'is:swiftpm-plugin')));
+    });
+
+    test('Does not complain about non-plugins', () async {
+      final descriptor = d.dir('cache', [packageWithPathDeps('my_package')]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.swiftPackageManagerPluginTag,
+          tags: isEmpty, explanations: isEmpty);
+    });
+  });
+
   group('wasm tag', () {
     test('Excluded with dart:js', () async {
       final descriptor = d.dir('cache', [
