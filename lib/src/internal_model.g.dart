@@ -98,8 +98,6 @@ VerifiedRepository _$VerifiedRepositoryFromJson(Map<String, dynamic> json) =>
           : Repository.fromJson(json['repository'] as Map<String, dynamic>),
       contributingUrl: json['contributingUrl'] as String?,
       verificationFailure: json['verificationFailure'] as String?,
-      status:
-          $enumDecode(_$RepositoryVerificationStatusEnumMap, json['status']),
     );
 
 Map<String, dynamic> _$VerifiedRepositoryToJson(VerifiedRepository instance) {
@@ -114,12 +112,5 @@ Map<String, dynamic> _$VerifiedRepositoryToJson(VerifiedRepository instance) {
   writeNotNull('repository', instance.repository?.toJson());
   writeNotNull('contributingUrl', instance.contributingUrl);
   writeNotNull('verificationFailure', instance.verificationFailure);
-  val['status'] = _$RepositoryVerificationStatusEnumMap[instance.status]!;
   return val;
 }
-
-const _$RepositoryVerificationStatusEnumMap = {
-  RepositoryVerificationStatus.verificationUnknown: 'verificationUnknown',
-  RepositoryVerificationStatus.repositoryLinkInvalid: 'repositoryLinkInvalid',
-  RepositoryVerificationStatus.repositoryLinkValid: 'repositoryLinkValid',
-};
