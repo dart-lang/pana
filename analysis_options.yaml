@@ -21,7 +21,6 @@ linter:
     - no_adjacent_strings_in_list
     - omit_local_variable_types
     - only_throw_errors
-    - package_api_docs
     - prefer_const_constructors
     - prefer_single_quotes
     - sort_child_properties_last
