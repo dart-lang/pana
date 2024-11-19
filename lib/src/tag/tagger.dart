@@ -378,8 +378,10 @@ class Tagger {
             ? 'darwin'
             : darwinOs;
 
+        final podspecFile = path.join(osDir, '$packageName.podspec');
         final packageSwiftFile = path.join(osDir, packageName, 'Package.swift');
-        if (!File(path.join(packageDir, packageSwiftFile)).existsSync()) {
+        if (File(path.join(packageDir, podspecFile)).existsSync() &&
+            !File(path.join(packageDir, packageSwiftFile)).existsSync()) {
           swiftPmSupport = false;
           final osName = {'macos': 'macOS', 'ios': 'iOS'}[darwinOs];
           explanations.add(Explanation(
