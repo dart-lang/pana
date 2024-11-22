@@ -1,3 +1,8 @@
+## 0.22.16
+
+- Fixed deprecated API use.
+- Preparing to use with `dartdoc 8.3.0`.
+
 ## 0.22.15
 
 - Detect support for Swift Package Manager for ios/macos plugins.

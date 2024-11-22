@@ -18,20 +18,13 @@ PubDartdocData _$PubDartdocDataFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$PubDartdocDataToJson(PubDartdocData instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('coverage', instance.coverage?.toJson());
-  writeNotNull(
-      'apiElements', instance.apiElements?.map((e) => e.toJson()).toList());
-  return val;
-}
+Map<String, dynamic> _$PubDartdocDataToJson(PubDartdocData instance) =>
+    <String, dynamic>{
+      if (instance.coverage?.toJson() case final value?) 'coverage': value,
+      if (instance.apiElements?.map((e) => e.toJson()).toList()
+          case final value?)
+        'apiElements': value,
+    };
 
 ApiElement _$ApiElementFromJson(Map<String, dynamic> json) => ApiElement(
       name: json['name'] as String,
@@ -41,23 +34,14 @@ ApiElement _$ApiElementFromJson(Map<String, dynamic> json) => ApiElement(
       documentation: json['documentation'] as String?,
     );
 
-Map<String, dynamic> _$ApiElementToJson(ApiElement instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('parent', instance.parent);
-  writeNotNull('source', instance.source);
-  writeNotNull('href', instance.href);
-  writeNotNull('documentation', instance.documentation);
-  return val;
-}
+Map<String, dynamic> _$ApiElementToJson(ApiElement instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      if (instance.parent case final value?) 'parent': value,
+      if (instance.source case final value?) 'source': value,
+      if (instance.href case final value?) 'href': value,
+      if (instance.documentation case final value?) 'documentation': value,
+    };
 
 Coverage _$CoverageFromJson(Map<String, dynamic> json) => Coverage(
       total: (json['total'] as num).toInt(),
@@ -68,19 +52,9 @@ Coverage _$CoverageFromJson(Map<String, dynamic> json) => Coverage(
               .toList(),
     );
 
-Map<String, dynamic> _$CoverageToJson(Coverage instance) {
-  final val = <String, dynamic>{
-    'total': instance.total,
-    'documented': instance.documented,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'symbolsMissingDocumentation', instance.symbolsMissingDocumentation);
-  return val;
-}
+Map<String, dynamic> _$CoverageToJson(Coverage instance) => <String, dynamic>{
+      'total': instance.total,
+      'documented': instance.documented,
+      if (instance.symbolsMissingDocumentation case final value?)
+        'symbolsMissingDocumentation': value,
+    };
