@@ -369,8 +369,9 @@ class Tagger {
     var swiftPmSupport = true;
 
     for (final darwinOs in ['macos', 'ios']) {
-      if (pathExists(
-          pubspec.originalYaml, ['flutter', 'plugin', 'platforms', darwinOs])) {
+      if (
+        pathExists(
+          pubspec.originalYaml, ['flutter', 'plugin', 'platforms', darwinOs, 'pluginClass'])) {
         isDarwinPlugin = true;
         final osDir = pubspec.originalYaml['flutter']?['plugin']?['platforms']
                     ?[darwinOs]?['sharedDarwinSource'] ==
@@ -378,10 +379,8 @@ class Tagger {
             ? 'darwin'
             : darwinOs;
 
-        final podspecFile = path.join(osDir, '$packageName.podspec');
         final packageSwiftFile = path.join(osDir, packageName, 'Package.swift');
-        if (File(path.join(packageDir, podspecFile)).existsSync() &&
-            !File(path.join(packageDir, packageSwiftFile)).existsSync()) {
+        if (!File(path.join(packageDir, packageSwiftFile)).existsSync()) {
           swiftPmSupport = false;
           final osName = {'macos': 'macOS', 'ios': 'iOS'}[darwinOs];
           explanations.add(Explanation(
