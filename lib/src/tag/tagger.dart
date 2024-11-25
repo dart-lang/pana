@@ -379,9 +379,8 @@ class Tagger {
     var swiftPmSupport = true;
 
     for (final darwinOs in ['macos', 'ios']) {
-      if (
-        pathExists(
-          pubspec.originalYaml, ['flutter', 'plugin', 'platforms', darwinOs, 'pluginClass'])) {
+      if (pathExists(pubspec.originalYaml,
+          ['flutter', 'plugin', 'platforms', darwinOs, 'pluginClass'])) {
         isDarwinPlugin = true;
         final osDir = pubspec.originalYaml['flutter']?['plugin']?['platforms']
                     ?[darwinOs]?['sharedDarwinSource'] ==
