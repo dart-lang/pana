@@ -85,21 +85,21 @@ See https://dart.dev/web/wasm for details.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`args`]|`^2.4.2`|2.5.0|2.5.0|
+|[`args`]|`^2.4.2`|2.6.0|2.6.0|
 |[`gg_args`]|`^1.1.10`|1.1.17|**2.0.4**|
 |[`gg_console_colors`]|`^2.0.1`|2.1.4|2.1.4|
-|[`gg_git`]|`^2.0.0`|2.5.9|2.5.12|
+|[`gg_git`]|`^2.0.0`|2.5.9|2.5.16|
 |[`gg_is_flutter`]|`^1.0.3`|1.0.5|1.0.7|
 |[`gg_json`]|`^1.0.0`|1.0.6|1.0.6|
 |[`gg_log`]|`^1.0.0`|1.0.6|1.0.6|
 |[`gg_process`]|`^1.0.6`|1.1.6|1.1.6|
 |[`gg_publish`]|`^2.0.0`|2.0.1|**3.0.16**|
 |[`gg_status_printer`]|`^1.1.0`|1.1.4|1.1.4|
-|[`gg_test`]|`^1.0.3`|1.0.11|1.0.16|
+|[`gg_test`]|`^1.0.3`|1.0.11|1.1.3|
 |[`gg_version`]|`^1.0.0`|1.3.1|**4.0.3**|
-|[`meta`]|`^1.12.0`|1.15.0|1.15.0|
-|[`mocktail`]|`^1.0.3`|1.0.3|1.0.3|
-|[`path`]|`^1.8.0`|1.9.0|1.9.0|
+|[`meta`]|`^1.12.0`|1.16.0|1.16.0|
+|[`mocktail`]|`^1.0.3`|1.0.4|1.0.4|
+|[`path`]|`^1.8.0`|1.9.1|1.9.1|
 |[`pub_semver`]|`^2.1.4`|2.1.4|2.1.4|
 |[`recase`]|`^4.1.0`|4.1.0|4.1.0|
 |[`yaml`]|`^3.1.2`|3.1.2|3.1.2|
@@ -109,28 +109,28 @@ See https://dart.dev/web/wasm for details.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`async`]|-|2.11.0|2.11.0|
-|[`boolean_selector`]|-|2.1.1|2.1.1|
+|[`async`]|-|2.12.0|2.12.0|
+|[`boolean_selector`]|-|2.1.2|2.1.2|
 |[`checked_yaml`]|-|2.0.3|2.0.3|
-|[`collection`]|-|1.18.0|1.18.0|
+|[`collection`]|-|1.19.1|1.19.1|
 |[`colorize`]|-|3.0.0|3.0.0|
 |[`gg_capture_print`]|-|1.0.9|1.0.9|
 |[`gg_hash`]|-|1.0.4|1.0.4|
 |[`gg_is_github`]|-|1.0.6|1.0.6|
 |[`gg_project_root`]|-|1.0.2|1.0.4|
-|[`http`]|-|1.2.1|1.2.1|
-|[`http_parser`]|-|4.0.2|4.0.2|
+|[`http`]|-|1.2.2|1.2.2|
+|[`http_parser`]|-|4.1.1|4.1.1|
 |[`json_annotation`]|-|4.9.0|4.9.0|
-|[`matcher`]|-|0.12.16+1|0.12.16+1|
+|[`matcher`]|-|0.12.17|0.12.17|
 |[`pubspec_parse`]|-|1.3.0|1.3.0|
 |[`source_span`]|-|1.10.0|1.10.0|
-|[`stack_trace`]|-|1.11.1|1.11.1|
+|[`stack_trace`]|-|1.12.0|1.12.0|
 |[`stream_channel`]|-|2.1.2|2.1.2|
-|[`string_scanner`]|-|1.2.0|1.2.0|
+|[`string_scanner`]|-|1.4.0|1.4.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
-|[`test_api`]|-|0.7.1|0.7.1|
-|[`typed_data`]|-|1.3.2|1.3.2|
-|[`web`]|-|0.5.1|0.5.1|
+|[`test_api`]|-|0.7.3|0.7.3|
+|[`typed_data`]|-|1.4.0|1.4.0|
+|[`web`]|-|1.1.0|1.1.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

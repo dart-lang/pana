@@ -68,8 +68,12 @@ class DartdocIndexEntry {
 
   Map<String, dynamic> toJson() => _$DartdocIndexEntryToJson(this);
 
-  /// Whether the entry is a top-level library.
-  bool get isLibrary => href != null && href!.endsWith('-library.html');
+  /// Weather the entry is a top-level library:
+  /// - pre-8.3.0 the file ended with `-library.html`
+  /// - with 8.3.0 the reference is a top-level directory with no slash in it
+  late final isLibrary = href != null &&
+      href!.isNotEmpty &&
+      (href!.endsWith('-library.html') || !href!.contains('/'));
 
   /// Whether the entry is a class declaration.
   bool get isClass => href != null && href!.endsWith('-class.html');

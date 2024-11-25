@@ -54,7 +54,8 @@ void main() {
           flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
           pubCacheDir: pubCacheDir,
           pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
-          dartdocVersion: 'any',
+          // TODO: revert to 'any' after SDK 3.6 is out
+          dartdocVersion: '^8.3.0',
         ));
 
         final dartdocOutputDir = p.join(tempDir, 'doc', '$package-$version');
@@ -166,11 +167,16 @@ void main() {
         final tags = summary.tags;
         if (tags != null) {
           for (final tag in tags) {
+            // tags that are in the `pana_tags.dart` file are skipped
             if (tagsFileContent.contains("'$tag'")) {
               continue;
             }
             if (tag.startsWith('license:')) {
               // SPDX license tags are skipped
+              continue;
+            }
+            if (tag.startsWith('topic:')) {
+              // topic tags are skipped
               continue;
             }
             fail('Unexpected tag in the result: "$tag"');
@@ -190,16 +196,16 @@ void main() {
   verifyPackage('dnd', '2.0.1');
 
   // flutter-only package
-  verifyPackage('url_launcher', '6.1.12');
+  verifyPackage('url_launcher', '6.3.1');
 
   // single-platform Flutter plugin without Dart files or assets
-  verifyPackage('nsd_android', '1.2.2', skipDartdoc: true);
+  verifyPackage('nsd_android', '2.1.2', skipDartdoc: true);
 
   // binary-only package (without `platforms:` in pubspec)
   verifyPackage('onepub', '1.1.0');
 
   // multi-level symlink
-  verifyPackage('audio_service', '0.18.10', skipDartdoc: true);
+  verifyPackage('audio_service', '0.18.15', skipDartdoc: true);
 
   // downgrade failure
   verifyPackage('gg', '1.0.12', skipDartdoc: true);

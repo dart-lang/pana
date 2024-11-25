@@ -119,7 +119,7 @@ See https://dart.dev/web/wasm for details.
 
 ### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 15 issues. Showing the first 2:
+Found 18 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -162,27 +162,27 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|`^3.0.0`|3.6.0|3.6.0|
-|[`matcher`]|`^0.12.10`|0.12.16+1|0.12.16+1|
-|[`path`]|`^1.8.0`|1.9.0|1.9.0|
-|[`stack_trace`]|`^1.10.0`|1.11.1|1.11.1|
+|[`archive`]|`^3.0.0`|3.6.1|3.6.1|
+|[`matcher`]|`^0.12.10`|0.12.17|0.12.17|
+|[`path`]|`^1.8.0`|1.9.1|1.9.1|
+|[`stack_trace`]|`^1.10.0`|1.12.0|1.12.0|
 |[`sync_http`]|`^0.3.0`|0.3.1|0.3.1|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`async`]|-|2.11.0|2.11.0|
-|[`boolean_selector`]|-|2.1.1|2.1.1|
-|[`collection`]|-|1.18.0|1.18.0|
-|[`crypto`]|-|3.0.3|3.0.3|
-|[`meta`]|-|1.15.0|1.15.0|
+|[`async`]|-|2.12.0|2.12.0|
+|[`boolean_selector`]|-|2.1.2|2.1.2|
+|[`collection`]|-|1.19.1|1.19.1|
+|[`crypto`]|-|3.0.6|3.0.6|
+|[`meta`]|-|1.16.0|1.16.0|
 |[`source_span`]|-|1.10.0|1.10.0|
 |[`stream_channel`]|-|2.1.2|2.1.2|
-|[`string_scanner`]|-|1.2.0|1.2.0|
+|[`string_scanner`]|-|1.4.0|1.4.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
-|[`test_api`]|-|0.7.1|0.7.1|
-|[`typed_data`]|-|1.3.2|1.3.2|
+|[`test_api`]|-|0.7.3|0.7.3|
+|[`typed_data`]|-|1.4.0|1.4.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

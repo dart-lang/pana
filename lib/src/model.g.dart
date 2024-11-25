@@ -68,34 +68,31 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
           .toList(),
     );
 
-Map<String, dynamic> _$SummaryToJson(Summary instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
-  val['runtimeInfo'] = instance.runtimeInfo.toJson();
-  writeNotNull('packageName', instance.packageName);
-  writeNotNull('packageVersion',
-      const VersionConverter().toJson(instance.packageVersion));
-  writeNotNull('pubspec', instance.pubspec?.toJson());
-  writeNotNull('licenseFile', instance.licenseFile?.toJson());
-  writeNotNull('licenses', instance.licenses?.map((e) => e.toJson()).toList());
-  writeNotNull('allDependencies', instance.allDependencies);
-  writeNotNull('tags', instance.tags);
-  writeNotNull('report', instance.report?.toJson());
-  writeNotNull(
-      'screenshots', instance.screenshots?.map((e) => e.toJson()).toList());
-  writeNotNull('result', instance.result?.toJson());
-  writeNotNull(
-      'urlProblems', instance.urlProblems?.map((e) => e.toJson()).toList());
-  writeNotNull('errorMessage', instance.errorMessage);
-  return val;
-}
+Map<String, dynamic> _$SummaryToJson(Summary instance) => <String, dynamic>{
+      if (instance.createdAt?.toIso8601String() case final value?)
+        'createdAt': value,
+      'runtimeInfo': instance.runtimeInfo.toJson(),
+      if (instance.packageName case final value?) 'packageName': value,
+      if (const VersionConverter().toJson(instance.packageVersion)
+          case final value?)
+        'packageVersion': value,
+      if (instance.pubspec?.toJson() case final value?) 'pubspec': value,
+      if (instance.licenseFile?.toJson() case final value?)
+        'licenseFile': value,
+      if (instance.licenses?.map((e) => e.toJson()).toList() case final value?)
+        'licenses': value,
+      if (instance.allDependencies case final value?) 'allDependencies': value,
+      if (instance.tags case final value?) 'tags': value,
+      if (instance.report?.toJson() case final value?) 'report': value,
+      if (instance.screenshots?.map((e) => e.toJson()).toList()
+          case final value?)
+        'screenshots': value,
+      if (instance.result?.toJson() case final value?) 'result': value,
+      if (instance.urlProblems?.map((e) => e.toJson()).toList()
+          case final value?)
+        'urlProblems': value,
+      if (instance.errorMessage case final value?) 'errorMessage': value,
+    };
 
 PanaRuntimeInfo _$PanaRuntimeInfoFromJson(Map<String, dynamic> json) =>
     PanaRuntimeInfo(
@@ -104,21 +101,12 @@ PanaRuntimeInfo _$PanaRuntimeInfoFromJson(Map<String, dynamic> json) =>
       flutterVersions: json['flutterVersions'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) {
-  final val = <String, dynamic>{
-    'panaVersion': instance.panaVersion,
-    'sdkVersion': instance.sdkVersion,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('flutterVersions', instance.flutterVersions);
-  return val;
-}
+Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) =>
+    <String, dynamic>{
+      'panaVersion': instance.panaVersion,
+      'sdkVersion': instance.sdkVersion,
+      if (instance.flutterVersions case final value?) 'flutterVersions': value,
+    };
 
 License _$LicenseFromJson(Map<String, dynamic> json) => License(
       path: json['path'] as String,
@@ -136,21 +124,12 @@ LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) => LicenseFile(
       version: json['version'] as String?,
     );
 
-Map<String, dynamic> _$LicenseFileToJson(LicenseFile instance) {
-  final val = <String, dynamic>{
-    'path': instance.path,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('version', instance.version);
-  return val;
-}
+Map<String, dynamic> _$LicenseFileToJson(LicenseFile instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'name': instance.name,
+      if (instance.version case final value?) 'version': value,
+    };
 
 Report _$ReportFromJson(Map<String, dynamic> json) => Report(
       sections: (json['sections'] as List<dynamic>)
@@ -208,27 +187,21 @@ AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
       maxPoints: (json['maxPoints'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('homepageUrl', instance.homepageUrl);
-  writeNotNull('repositoryUrl', instance.repositoryUrl);
-  writeNotNull('issueTrackerUrl', instance.issueTrackerUrl);
-  writeNotNull('documentationUrl', instance.documentationUrl);
-  writeNotNull('fundingUrls', instance.fundingUrls);
-  writeNotNull('repository', instance.repository?.toJson());
-  writeNotNull('contributingUrl', instance.contributingUrl);
-  writeNotNull('licenses', instance.licenses?.map((e) => e.toJson()).toList());
-  writeNotNull('grantedPoints', instance.grantedPoints);
-  writeNotNull('maxPoints', instance.maxPoints);
-  return val;
-}
+Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) =>
+    <String, dynamic>{
+      if (instance.homepageUrl case final value?) 'homepageUrl': value,
+      if (instance.repositoryUrl case final value?) 'repositoryUrl': value,
+      if (instance.issueTrackerUrl case final value?) 'issueTrackerUrl': value,
+      if (instance.documentationUrl case final value?)
+        'documentationUrl': value,
+      if (instance.fundingUrls case final value?) 'fundingUrls': value,
+      if (instance.repository?.toJson() case final value?) 'repository': value,
+      if (instance.contributingUrl case final value?) 'contributingUrl': value,
+      if (instance.licenses?.map((e) => e.toJson()).toList() case final value?)
+        'licenses': value,
+      if (instance.grantedPoints case final value?) 'grantedPoints': value,
+      if (instance.maxPoints case final value?) 'maxPoints': value,
+    };
 
 Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
       provider:
@@ -239,23 +212,14 @@ Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
       path: json['path'] as String?,
     );
 
-Map<String, dynamic> _$RepositoryToJson(Repository instance) {
-  final val = <String, dynamic>{
-    'provider': _$RepositoryProviderEnumMap[instance.provider]!,
-    'host': instance.host,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('repository', instance.repository);
-  writeNotNull('branch', instance.branch);
-  writeNotNull('path', instance.path);
-  return val;
-}
+Map<String, dynamic> _$RepositoryToJson(Repository instance) =>
+    <String, dynamic>{
+      'provider': _$RepositoryProviderEnumMap[instance.provider]!,
+      'host': instance.host,
+      if (instance.repository case final value?) 'repository': value,
+      if (instance.branch case final value?) 'branch': value,
+      if (instance.path case final value?) 'path': value,
+    };
 
 const _$RepositoryProviderEnumMap = {
   RepositoryProvider.github: 'github',

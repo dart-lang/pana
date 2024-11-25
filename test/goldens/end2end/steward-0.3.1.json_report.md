@@ -90,7 +90,7 @@ See https://dart.dev/web/wasm for details.
 
 ### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 25 issues. Showing the first 2:
+Found 26 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -144,10 +144,10 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.18.0|1.18.0|
-|[`path`]|-|1.9.0|1.9.0|
+|[`collection`]|-|1.19.1|1.19.1|
+|[`path`]|-|1.9.1|1.9.1|
 |[`source_span`]|-|1.10.0|1.10.0|
-|[`string_scanner`]|-|1.2.0|1.2.0|
+|[`string_scanner`]|-|1.4.0|1.4.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
 |[`tree_iterator`]|-|2.0.0|3.0.0|
 </details>
