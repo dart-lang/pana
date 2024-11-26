@@ -4,6 +4,8 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'dartdoc_internals.dart';
+
 part 'pub_dartdoc_data.g.dart';
 
 @JsonSerializable()
@@ -55,9 +57,7 @@ class ApiElement {
   /// Weather the entry is a top-level library:
   /// - pre-8.3.0 the file ended with `-library.html`
   /// - with 8.3.0 the reference is a top-level directory with no slash in it
-  late final isLibrary = href != null &&
-      href!.isNotEmpty &&
-      (href!.endsWith('-library.html') || !href!.contains('/'));
+  late final isLibrary = isHrefALibrary(href);
 
   /// Whether the entry is a class declaration.
   late final isClass =
