@@ -17,6 +17,11 @@ bool isHrefALibrary(String? href) {
   if (href.endsWith('.html')) {
     return false;
   }
-  // libraries have no slash in their hrefs
-  return !href.contains('/');
+  final segments = href.split('/');
+  // remove if the last segment is empty, indicating a trailing slash
+  if (segments.last.isEmpty) {
+    segments.removeLast();
+  }
+  // libraries have only a single segment
+  return segments.length == 1;
 }
