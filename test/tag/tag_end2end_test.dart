@@ -584,7 +584,9 @@ name: my_package
         packageWithPathDeps('my_package', pubspecExtras: {
           'flutter': {
             'plugin': {
-              'platforms': {'ios': <String, dynamic>{}}
+              'platforms': {
+                'ios': <String, dynamic>{'pluginClass': ''}
+              }
             }
           }
         }, extraFiles: [
@@ -605,8 +607,14 @@ name: my_package
           'flutter': {
             'plugin': {
               'platforms': {
-                'ios': <String, dynamic>{'sharedDarwinSource': true},
-                'macos': <String, dynamic>{'sharedDarwinSource': true}
+                'ios': <String, dynamic>{
+                  'sharedDarwinSource': true,
+                  'pluginClass': ''
+                },
+                'macos': <String, dynamic>{
+                  'sharedDarwinSource': true,
+                  'pluginClass': ''
+                }
               }
             }
           }
@@ -627,7 +635,9 @@ name: my_package
         packageWithPathDeps('my_package', pubspecExtras: {
           'flutter': {
             'plugin': {
-              'platforms': {'macos': <String, dynamic>{}}
+              'platforms': {
+                'macos': <String, dynamic>{'pluginClass': ''}
+              }
             }
           }
         }, extraFiles: [
