@@ -24,26 +24,18 @@ DartdocIndexEntry _$DartdocIndexEntryFromJson(Map<String, dynamic> json) =>
               json['enclosedBy'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DartdocIndexEntryToJson(DartdocIndexEntry instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('qualifiedName', instance.qualifiedName);
-  writeNotNull('href', instance.href);
-  writeNotNull('kind', instance.kind);
-  writeNotNull('packageRank', instance.packageRank);
-  writeNotNull('overriddenDepth', instance.overriddenDepth);
-  writeNotNull('packageName', instance.packageName);
-  writeNotNull('desc', instance.desc);
-  writeNotNull('enclosedBy', instance.enclosedBy?.toJson());
-  return val;
-}
+Map<String, dynamic> _$DartdocIndexEntryToJson(DartdocIndexEntry instance) =>
+    <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.qualifiedName case final value?) 'qualifiedName': value,
+      if (instance.href case final value?) 'href': value,
+      if (instance.kind case final value?) 'kind': value,
+      if (instance.packageRank case final value?) 'packageRank': value,
+      if (instance.overriddenDepth case final value?) 'overriddenDepth': value,
+      if (instance.packageName case final value?) 'packageName': value,
+      if (instance.desc case final value?) 'desc': value,
+      if (instance.enclosedBy?.toJson() case final value?) 'enclosedBy': value,
+    };
 
 DartdocIndexEntryEnclosedBy _$DartdocIndexEntryEnclosedByFromJson(
         Map<String, dynamic> json) =>
@@ -54,17 +46,9 @@ DartdocIndexEntryEnclosedBy _$DartdocIndexEntryEnclosedByFromJson(
     );
 
 Map<String, dynamic> _$DartdocIndexEntryEnclosedByToJson(
-    DartdocIndexEntryEnclosedBy instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('kind', instance.kind);
-  writeNotNull('href', instance.href);
-  return val;
-}
+        DartdocIndexEntryEnclosedBy instance) =>
+    <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.kind case final value?) 'kind': value,
+      if (instance.href case final value?) 'href': value,
+    };

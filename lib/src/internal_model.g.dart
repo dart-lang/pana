@@ -30,21 +30,12 @@ OutdatedPackage _$OutdatedPackageFromJson(Map<String, dynamic> json) =>
           : VersionDescriptor.fromJson(json['latest'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$OutdatedPackageToJson(OutdatedPackage instance) {
-  final val = <String, dynamic>{
-    'package': instance.package,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('upgradable', instance.upgradable?.toJson());
-  writeNotNull('latest', instance.latest?.toJson());
-  return val;
-}
+Map<String, dynamic> _$OutdatedPackageToJson(OutdatedPackage instance) =>
+    <String, dynamic>{
+      'package': instance.package,
+      if (instance.upgradable?.toJson() case final value?) 'upgradable': value,
+      if (instance.latest?.toJson() case final value?) 'latest': value,
+    };
 
 VersionDescriptor _$VersionDescriptorFromJson(Map<String, dynamic> json) =>
     VersionDescriptor(
@@ -100,17 +91,10 @@ VerifiedRepository _$VerifiedRepositoryFromJson(Map<String, dynamic> json) =>
       verificationFailure: json['verificationFailure'] as String?,
     );
 
-Map<String, dynamic> _$VerifiedRepositoryToJson(VerifiedRepository instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('repository', instance.repository?.toJson());
-  writeNotNull('contributingUrl', instance.contributingUrl);
-  writeNotNull('verificationFailure', instance.verificationFailure);
-  return val;
-}
+Map<String, dynamic> _$VerifiedRepositoryToJson(VerifiedRepository instance) =>
+    <String, dynamic>{
+      if (instance.repository?.toJson() case final value?) 'repository': value,
+      if (instance.contributingUrl case final value?) 'contributingUrl': value,
+      if (instance.verificationFailure case final value?)
+        'verificationFailure': value,
+    };

@@ -134,7 +134,7 @@ class ToolEnvironment {
     /// Note: To use the latest `dartdoc`, use the version value `any`.
     String? dartdocVersion,
   }) async {
-    dartSdkConfig ??= SdkConfig(rootPath: cli.getSdkPath());
+    dartSdkConfig ??= SdkConfig(rootPath: cli.sdkPath);
     flutterSdkConfig ??= SdkConfig();
     final resolvedPubCache = await _resolve(pubCacheDir);
 

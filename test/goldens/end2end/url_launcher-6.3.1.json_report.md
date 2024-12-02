@@ -23,7 +23,7 @@ Detected license: `BSD-3-Clause`.
 
 ### [*] 10/10 points: 20% or more of the public API has dartdoc comments
 
-29 out of 32 API elements (90.6 %) have documentation comments.
+34 out of 37 API elements (91.9 %) have documentation comments.
 
 Some symbols that are missing documentation: `link`, `url_launcher`, `url_launcher_string`.
 
@@ -53,9 +53,26 @@ This package is compatible with runtime `wasm`, and will be rewarded additional 
 See https://dart.dev/web/wasm for details.
 
 
-## 50/50 Pass static analysis
+## 40/50 Pass static analysis
 
-### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
+### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
+
+<details>
+<summary>
+INFO: 'launch' is deprecated and shouldn't be used. Use launchUrl instead.
+</summary>
+
+`lib/src/legacy_api.dart:150:6`
+
+```
+    ╷
+150 │ /// [launch] predates multi-window support, and it doesn't have enough context
+    │      ^^^^^^
+    ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/src/legacy_api.dart`
+</details>
 
 
 ## 40/40 Support up-to-date dependencies
@@ -65,27 +82,27 @@ See https://dart.dev/web/wasm for details.
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`url_launcher_android`]|`^6.0.13`|6.3.3|6.3.3|
-|[`url_launcher_ios`]|`^6.0.13`|6.3.0|6.3.0|
-|[`url_launcher_linux`]|`>=2.0.0 <4.0.0`|3.1.1|3.1.1|
-|[`url_launcher_macos`]|`>=2.0.0 <4.0.0`|3.2.0|3.2.0|
-|[`url_launcher_platform_interface`]|`^2.1.0`|2.3.2|2.3.2|
-|[`url_launcher_web`]|`^2.0.0`|2.3.1|2.3.1|
-|[`url_launcher_windows`]|`>=2.0.0 <4.0.0`|3.1.1|3.1.1|
+|[`url_launcher_android`]|`^6.3.0`|6.3.14|6.3.14|
+|[`url_launcher_ios`]|`^6.2.4`|6.3.1|6.3.1|
+|[`url_launcher_linux`]|`^3.1.0`|3.2.1|3.2.1|
+|[`url_launcher_macos`]|`^3.1.0`|3.2.1|3.2.1|
+|[`url_launcher_platform_interface`]|`^2.3.0`|2.3.2|2.3.2|
+|[`url_launcher_web`]|`^2.2.0`|2.3.3|2.3.3|
+|[`url_launcher_windows`]|`^3.1.0`|3.1.3|3.1.3|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`characters`]|-|1.3.0|1.3.0|
-|[`collection`]|-|1.18.0|1.18.0|
+|[`characters`]|-|1.3.0|1.3.1|
+|[`collection`]|-|1.19.0|1.19.1|
 |[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`material_color_utilities`]|-|0.11.1|0.11.1|
-|[`meta`]|-|1.15.0|1.15.0|
+|[`material_color_utilities`]|-|0.11.1|0.12.0|
+|[`meta`]|-|1.15.0|1.16.0|
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8|
-|[`sky_engine`]|-|0.0.99|0.0.99|
+|[`sky_engine`]|-|0.0.0|0.0.0|
 |[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|0.5.1|0.5.1|
+|[`web`]|-|1.1.0|1.1.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

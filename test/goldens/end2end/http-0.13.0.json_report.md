@@ -67,20 +67,20 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`http_parser`]|`^4.0.0`|4.0.2|4.0.2|
-|[`meta`]|`^1.3.0`|1.15.0|1.15.0|
-|[`path`]|`^1.8.0`|1.9.0|1.9.0|
+|[`http_parser`]|`^4.0.0`|4.1.1|4.1.1|
+|[`meta`]|`^1.3.0`|1.16.0|1.16.0|
+|[`path`]|`^1.8.0`|1.9.1|1.9.1|
 |[`pedantic`]|`^1.10.0`|1.11.1|1.11.1|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`collection`]|-|1.18.0|1.18.0|
+|[`collection`]|-|1.19.1|1.19.1|
 |[`source_span`]|-|1.10.0|1.10.0|
-|[`string_scanner`]|-|1.2.0|1.2.0|
+|[`string_scanner`]|-|1.4.0|1.4.0|
 |[`term_glyph`]|-|1.2.1|1.2.1|
-|[`typed_data`]|-|1.3.2|1.3.2|
+|[`typed_data`]|-|1.4.0|1.4.0|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

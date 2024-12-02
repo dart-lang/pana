@@ -4,6 +4,8 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'dartdoc_internals.dart';
+
 part 'pub_dartdoc_data.g.dart';
 
 @JsonSerializable()
@@ -52,9 +54,14 @@ class ApiElement {
 
   String get qualifiedName => parent == null ? name : '$parent.$name';
 
-  /// Weather the entry is a top-level library.
-  late final isLibrary = href != null && href!.endsWith('-library.html');
-  late final isClass = href != null && href!.endsWith('-class.html');
+  /// Weather the entry is a top-level library:
+  /// - pre-8.3.0 the file ended with `-library.html`
+  /// - with 8.3.0 the reference is a top-level directory with no slash in it
+  late final isLibrary = isHrefALibrary(href);
+
+  /// Whether the entry is a class declaration.
+  late final isClass =
+      href != null && href!.isNotEmpty && href!.endsWith('-class.html');
 }
 
 /// The documentation coverage numbers and the derived scores.
