@@ -52,21 +52,6 @@ This package is compatible with runtime `wasm`, and will be rewarded additional 
 
 See https://dart.dev/web/wasm for details.
 
-### [x] 0/0 points: Swift Package Manager support
-
-<details>
-<summary>
-Package does not support the Swift Package Manager on macOS
-</summary>
-
-It does not contain `macos/url_launcher/Package.swift`.
-
-</details>
-
-This package for iOS or macOS does not support the Swift Package Manager. It will not receive full points in a future version of the scoring model.
-
-See https://docs.flutter.dev/to/spm for details.
-
 
 ## 50/50 Pass static analysis
 
