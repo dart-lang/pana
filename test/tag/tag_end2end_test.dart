@@ -630,6 +630,33 @@ name: my_package
           tags: contains('is:swiftpm-plugin'));
     });
 
+    test('Doesn\'t analyze when there is no pluginClass', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps('my_package', pubspecExtras: {
+          'flutter': {
+            'plugin': {
+              'platforms': {
+                'ios': <String, dynamic>{
+                  'sharedDarwinSource': true,
+                  'pluginClass': ''
+                },
+                'macos': <String, dynamic>{
+                  'sharedDarwinSource': true,
+                }
+              }
+            }
+          }
+        }, extraFiles: [
+          d.dir('darwin', [
+            d.dir('my_package'),
+          ]),
+        ])
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.swiftPackageManagerPluginTag, tags: isEmpty);
+    });
+
     test('Fails with the wrong os/package_name/Package.swift', () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps('my_package', pubspecExtras: {
