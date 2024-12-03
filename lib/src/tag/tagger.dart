@@ -350,6 +350,16 @@ class Tagger {
     }
   }
 
+  /// Tag if iOS/macOS plugin has migrated to Swift Package Manager (swiftpm).
+  ///
+  /// A plugin only needs to be swiftpm enabled if it has a native component, we
+  /// detect that if it has the `flutter.plugin.platforms.<os>.pluginClass` key
+  /// present in the pubspec.
+  ///
+  /// A plugin can share code and package-manager manifest between iOS and
+  /// macOS by specifying `flutter.plugin.platforms.<os>.sharedDarwinSource`.
+  ///
+  /// See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors
   void swiftPackageManagerPluginTag(
       List<String> tags, List<Explanation> explanations) {
     if (!_usesFlutter) return;
@@ -369,8 +379,8 @@ class Tagger {
     var swiftPmSupport = true;
 
     for (final darwinOs in ['macos', 'ios']) {
-      if (pathExists(
-          pubspec.originalYaml, ['flutter', 'plugin', 'platforms', darwinOs])) {
+      if (pathExists(pubspec.originalYaml,
+          ['flutter', 'plugin', 'platforms', darwinOs, 'pluginClass'])) {
         isDarwinPlugin = true;
         final osDir = pubspec.originalYaml['flutter']?['plugin']?['platforms']
                     ?[darwinOs]?['sharedDarwinSource'] ==
