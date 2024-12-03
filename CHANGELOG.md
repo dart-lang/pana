@@ -1,3 +1,7 @@
+## 0.22.17
+
+- Fixed lower dependency constraint for `cli_util`.
+
 ## 0.22.16
 
 - Fixed deprecated API use.
