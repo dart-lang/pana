@@ -1,6 +1,7 @@
 ## 0.22.17
 
 - Fixed lower dependency constraint for `cli_util`.
+- Use `flutter pub global activate dartdoc` for Flutter packages.
 
 ## 0.22.16
 
