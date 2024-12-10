@@ -429,10 +429,11 @@ class ToolEnvironment {
         timeout: timeout,
       );
     } else {
+      final command = usesFlutter ? _flutterSdk.flutterCmd : _dartSdk.dartCmd;
       if (!_globalDartdocActivated) {
         await runConstrained(
           [
-            ..._dartSdk.dartCmd,
+            ...command,
             'pub',
             'global',
             'activate',
@@ -447,7 +448,6 @@ class ToolEnvironment {
         );
         _globalDartdocActivated = true;
       }
-      final command = usesFlutter ? _flutterSdk.flutterCmd : _dartSdk.dartCmd;
       return await runConstrained(
         [...command, 'pub', 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
