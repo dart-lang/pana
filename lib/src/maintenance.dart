@@ -7,6 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 /// Returns the candidates in priority order to display under the 'Example' tab.
 List<String> exampleFileCandidates(String package) {
   return <String>[
+    'example/README.md',
     'example/example.md',
     'example/lib/main.dart',
     'example/bin/main.dart',
@@ -20,7 +21,6 @@ List<String> exampleFileCandidates(String package) {
     'example/lib/example.dart',
     'example/bin/example.dart',
     'example/example.dart',
-    'example/README.md',
   ];
 }
 
