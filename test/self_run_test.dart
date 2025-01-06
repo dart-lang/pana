@@ -18,7 +18,8 @@ void main() {
     final snippets = [
       '## ✓ Follow Dart file conventions (30 / 30)',
       '## ✓ Platform support (20 / 20)\n',
-      '[*] 10/10 points: All of the package dependencies are supported in the latest version',
+      // TODO: consider dropping this, as we don't always resolve to the latest dependencies
+      // '[*] 10/10 points: All of the package dependencies are supported in the latest version',
       '### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs',
     ];
     for (final snippet in snippets) {
