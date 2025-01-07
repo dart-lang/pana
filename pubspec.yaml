@@ -44,7 +44,7 @@ dev_dependencies:
   dart_flutter_team_lints: ^3.2.1
   json_serializable: ^6.9.0
   shelf: ^1.4.2
-  source_gen: ^1.5.0
+  source_gen: ^2.0.0
   test_descriptor: ^2.0.2
   test_process: ^2.1.1
 
