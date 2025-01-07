@@ -76,11 +76,9 @@ class Pubspec {
           _dependentSdks!.add(value.sdk);
         }
       }
-      if (_inner.environment != null) {
-        final keys = _inner.environment!.keys.toList();
-        keys.remove('sdk');
-        _dependentSdks!.addAll(keys);
-      }
+      final keys = _inner.environment.keys.toList();
+      keys.remove('sdk');
+      _dependentSdks!.addAll(keys);
     }
     return _dependentSdks!;
   }
@@ -119,10 +117,10 @@ class Pubspec {
       .any((d) => d is GitDependency && (d.ref == null || d.ref!.length < 40));
 
   SdkConstraintStatus get sdkConstraintStatus =>
-      SdkConstraintStatus.fromSdkVersion(_inner.environment?['sdk']);
+      SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
 
   VersionConstraint? get dartSdkConstraint {
-    final constraint = _inner.environment?['sdk'];
+    final constraint = _inner.environment['sdk'];
     // If a package is null safe it should also be compatible with dart 3.
     // Therefore we rewrite a null-safety enabled constraint with the upper
     // bound <3.0.0 to be have upper bound <4.0.0
@@ -147,7 +145,7 @@ class Pubspec {
   VersionConstraint? get flutterSdkConstraint =>
       // Flutter constraints get special treatment, as Flutter won't be
       // using semantic versioning to mark breaking releases.
-      _removeUpperBound(_inner.environment?['flutter']);
+      _removeUpperBound(_inner.environment['flutter']);
 
   VersionConstraint? _removeUpperBound(VersionConstraint? constraint) {
     if (constraint is VersionRange) {
