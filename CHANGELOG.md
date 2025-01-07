@@ -1,3 +1,7 @@
+## 0.22.18-dev
+
+- Make example's `README.md` priority over any dart file in the examples directory.
+
 ## 0.22.17
 
 - Fixed lower dependency constraint for `cli_util`.
