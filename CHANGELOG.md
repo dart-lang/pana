@@ -1,6 +1,7 @@
 ## 0.22.18-dev
 
 - Make example's `README.md` priority over any dart file in the examples directory.
+- Expose more precise repository verification status in `AnalysisResult`.
 
 ## 0.22.17
 

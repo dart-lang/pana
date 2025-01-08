@@ -16,6 +16,7 @@ import 'internal_model.dart';
 import 'license.dart';
 import 'logging.dart';
 import 'messages.dart' as messages;
+import 'model.dart';
 import 'package_analyzer.dart' show InspectOptions;
 import 'pana_cache.dart';
 import 'pkg_resolution.dart';
@@ -61,12 +62,16 @@ class SharedAnalysisContext {
     return status;
   }
 
-  Future<VerifiedRepository?> verifyRepository(
+  Future<VerifiedRepository> verifyRepository(
     String package,
     String? repositoryOrHomepage,
   ) async {
-    if (repositoryOrHomepage == null) {
-      return null;
+    repositoryOrHomepage = repositoryOrHomepage?.trim();
+    if (repositoryOrHomepage == null || repositoryOrHomepage.isEmpty) {
+      return VerifiedRepository(
+        status: RepositoryStatus.unspecified,
+        verificationFailure: 'Repository URL is missing.',
+      );
     }
     final cacheType = 'repository';
     final cacheKey = '$package/$repositoryOrHomepage';
@@ -79,9 +84,7 @@ class SharedAnalysisContext {
       packageName: package,
       sourceUrl: repositoryOrHomepage,
     );
-    if (repository != null) {
-      await panaCache.writeData(cacheType, cacheKey, repository.toJson());
-    }
+    await panaCache.writeData(cacheType, cacheKey, repository.toJson());
     return repository;
   }
 }

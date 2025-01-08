@@ -176,6 +176,8 @@ AnalysisResult _$AnalysisResultFromJson(Map<String, dynamic> json) =>
       fundingUrls: (json['fundingUrls'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      repositoryStatus: $enumDecodeNullable(
+          _$RepositoryStatusEnumMap, json['repositoryStatus']),
       repository: json['repository'] == null
           ? null
           : Repository.fromJson(json['repository'] as Map<String, dynamic>),
@@ -195,6 +197,9 @@ Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) =>
       if (instance.documentationUrl case final value?)
         'documentationUrl': value,
       if (instance.fundingUrls case final value?) 'fundingUrls': value,
+      if (_$RepositoryStatusEnumMap[instance.repositoryStatus]
+          case final value?)
+        'repositoryStatus': value,
       if (instance.repository?.toJson() case final value?) 'repository': value,
       if (instance.contributingUrl case final value?) 'contributingUrl': value,
       if (instance.licenses?.map((e) => e.toJson()).toList() case final value?)
@@ -202,6 +207,15 @@ Map<String, dynamic> _$AnalysisResultToJson(AnalysisResult instance) =>
       if (instance.grantedPoints case final value?) 'grantedPoints': value,
       if (instance.maxPoints case final value?) 'maxPoints': value,
     };
+
+const _$RepositoryStatusEnumMap = {
+  RepositoryStatus.unspecified: 'unspecified',
+  RepositoryStatus.invalid: 'invalid',
+  RepositoryStatus.missing: 'missing',
+  RepositoryStatus.failed: 'failed',
+  RepositoryStatus.verified: 'verified',
+  RepositoryStatus.inconclusive: 'inconclusive',
+};
 
 Repository _$RepositoryFromJson(Map<String, dynamic> json) => Repository(
       provider:

@@ -258,7 +258,7 @@ Future<AnalysisResult> _createAnalysisResult(
     PackageContext context, Report report) async {
   final pubspecUrls = await context.pubspecUrlsWithIssues;
   final repoVerification = await context.repository;
-  final repository = repoVerification?.repository;
+  final repository = repoVerification.repository;
   final fundingUrls =
       pubspecUrls.funding.map((e) => e.verifiedUrl).nonNulls.toList();
   return AnalysisResult(
@@ -267,8 +267,9 @@ Future<AnalysisResult> _createAnalysisResult(
     issueTrackerUrl: pubspecUrls.issueTracker.verifiedUrl,
     documentationUrl: pubspecUrls.documentation.verifiedUrl,
     fundingUrls: fundingUrls.isEmpty ? null : fundingUrls,
+    repositoryStatus: repoVerification.status,
     repository: repository,
-    contributingUrl: repoVerification?.contributingUrl,
+    contributingUrl: repoVerification.contributingUrl,
     licenses: await context.licenses,
     grantedPoints: report.grantedPoints,
     maxPoints: report.maxPoints,

@@ -120,6 +120,7 @@
   "result": {
     "repositoryUrl": "https://www.github.com/pyrestudios/steward",
     "issueTrackerUrl": "https://github.com/pyrestudios/steward/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

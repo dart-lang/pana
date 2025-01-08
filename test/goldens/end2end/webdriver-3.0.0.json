@@ -114,6 +114,7 @@
   "result": {
     "repositoryUrl": "https://github.com/google/webdriver.dart",
     "issueTrackerUrl": "https://github.com/google/webdriver.dart/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

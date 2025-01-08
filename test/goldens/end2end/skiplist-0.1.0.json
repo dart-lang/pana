@@ -88,6 +88,7 @@
   "result": {
     "repositoryUrl": "https://github.com/stevenroose/dart-skiplist",
     "issueTrackerUrl": "https://github.com/stevenroose/dart-skiplist/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

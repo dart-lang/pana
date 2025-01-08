@@ -111,6 +111,7 @@
   "result": {
     "repositoryUrl": "https://github.com/sebastianhaberey/nsd/tree/main/nsd_android",
     "issueTrackerUrl": "https://github.com/sebastianhaberey/nsd/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

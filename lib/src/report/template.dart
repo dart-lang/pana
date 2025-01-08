@@ -170,7 +170,10 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
     issues.addAll(pubspecUrls.issues);
 
     final repository = await context.repository;
-    if (repository?.verificationFailure != null) {
+    final repositoryStatus = repository.status;
+    final repositoryFailed = repositoryStatus != RepositoryStatus.verified &&
+        repositoryStatus != RepositoryStatus.inconclusive;
+    if (repositoryFailed) {
       issues.add(Issue('Failed to verify repository URL.',
           suggestion:
               'Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:\n\n'
@@ -179,7 +182,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
               '    * contains `name: ${pubspec.name}`,\n'
               '    * contains a `version` property, and,\n'
               '    * does not contain a `publish_to` property.\n\n'
-              '${repository!.verificationFailure}'));
+              '${repository.verificationFailure ?? 'status: `${repositoryStatus.name}`'}'));
     }
 
     final executableFiles = await context.executablesInBinDirectory;
@@ -202,7 +205,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
             issues.every((issue) =>
                 (issue.suggestion ?? '').contains('was unreachable')) &&
             // repository verification succeeded
-            repository?.repository != null;
+            repository.repository != null;
 
     final status = issues.isEmpty
         ? ReportStatus.passed

@@ -6,6 +6,22 @@
 
 * `pubspec.yaml` doesn't have a `repository` entry.
 
+<details>
+<summary>
+Failed to verify repository URL.
+</summary>
+
+Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:
+
+ * `repository` can be cloned,
+ * a clone of the repository contains a `pubspec.yaml`, which:,
+    * contains `name: lints`,
+    * contains a `version` property, and,
+    * does not contain a `publish_to` property.
+
+Repository URL is missing.
+</details>
+
 ### [*] 5/5 points: Provide a valid `README.md`
 
 ### [*] 5/5 points: Provide a valid `CHANGELOG.md`

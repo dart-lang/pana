@@ -84,6 +84,7 @@ Map<String, dynamic> _$UrlStatusToJson(UrlStatus instance) => <String, dynamic>{
 
 VerifiedRepository _$VerifiedRepositoryFromJson(Map<String, dynamic> json) =>
     VerifiedRepository(
+      status: $enumDecode(_$RepositoryStatusEnumMap, json['status']),
       repository: json['repository'] == null
           ? null
           : Repository.fromJson(json['repository'] as Map<String, dynamic>),
@@ -93,8 +94,18 @@ VerifiedRepository _$VerifiedRepositoryFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$VerifiedRepositoryToJson(VerifiedRepository instance) =>
     <String, dynamic>{
+      'status': _$RepositoryStatusEnumMap[instance.status]!,
       if (instance.repository?.toJson() case final value?) 'repository': value,
       if (instance.contributingUrl case final value?) 'contributingUrl': value,
       if (instance.verificationFailure case final value?)
         'verificationFailure': value,
     };
+
+const _$RepositoryStatusEnumMap = {
+  RepositoryStatus.unspecified: 'unspecified',
+  RepositoryStatus.invalid: 'invalid',
+  RepositoryStatus.missing: 'missing',
+  RepositoryStatus.failed: 'failed',
+  RepositoryStatus.verified: 'verified',
+  RepositoryStatus.inconclusive: 'inconclusive',
+};

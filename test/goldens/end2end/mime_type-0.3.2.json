@@ -75,6 +75,7 @@
   "result": {
     "repositoryUrl": "https://github.com/mitsuoka/mime_type",
     "issueTrackerUrl": "https://github.com/mitsuoka/mime_type/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

@@ -80,6 +80,7 @@
   "screenshots": [],
   "result": {
     "homepageUrl": "https://github.com/dart-lang/pub-dev",
+    "repositoryStatus": "failed",
     "licenses": [
       {
         "path": "LICENSE",
