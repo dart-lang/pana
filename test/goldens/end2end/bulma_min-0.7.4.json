@@ -82,6 +82,7 @@
   "result": {
     "repositoryUrl": "https://github.com/agilord/bulma_min",
     "issueTrackerUrl": "https://github.com/agilord/bulma_min/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

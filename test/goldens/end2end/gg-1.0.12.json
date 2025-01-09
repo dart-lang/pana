@@ -171,6 +171,7 @@
   "result": {
     "repositoryUrl": "https://github.com/inlavigo/gg.git",
     "issueTrackerUrl": "https://github.com/inlavigo/gg/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

@@ -214,11 +214,13 @@ class UrlStatus {
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)
 class VerifiedRepository {
+  final RepositoryStatus status;
   final Repository? repository;
   final String? contributingUrl;
   final String? verificationFailure;
 
   VerifiedRepository({
+    required this.status,
     this.repository,
     this.contributingUrl,
     this.verificationFailure,

@@ -116,6 +116,7 @@
   "result": {
     "repositoryUrl": "https://github.com/dart-lang/http",
     "issueTrackerUrl": "https://github.com/dart-lang/http/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

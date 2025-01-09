@@ -331,6 +331,7 @@ class AnalysisResult {
   final String? issueTrackerUrl;
   final String? documentationUrl;
   final List<String>? fundingUrls;
+  final RepositoryStatus? repositoryStatus;
   final Repository? repository;
   final String? contributingUrl;
   final List<License>? licenses;
@@ -343,6 +344,7 @@ class AnalysisResult {
     this.issueTrackerUrl,
     this.documentationUrl,
     this.fundingUrls,
+    this.repositoryStatus,
     this.repository,
     this.contributingUrl,
     this.licenses,
@@ -354,6 +356,36 @@ class AnalysisResult {
       _$AnalysisResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$AnalysisResultToJson(this);
+}
+
+/// The status of the repository verification.
+enum RepositoryStatus {
+  /// The repository URL was not specified, empty, or we were not able to
+  /// infer it (e.g. from `homepage`).
+  ///
+  /// No verification was done.
+  unspecified,
+
+  /// The specified URL was not a valid or secure URL.
+  ///
+  /// No verification was done.
+  invalid,
+
+  /// There was no repository found on the specified URL.
+  /// The issue may be transient, a repeated access may find it.
+  ///
+  /// No verification was done.
+  missing,
+
+  /// The repository did not pass verification tests.
+  failed,
+
+  /// The repository passed verification tests.
+  verified,
+
+  /// The repository verification encountered a failure, result is
+  /// not conclusive.
+  inconclusive;
 }
 
 /// NOTE: the content of the class is experimental, clients should not rely on it yet.

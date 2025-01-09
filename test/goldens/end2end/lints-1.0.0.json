@@ -91,6 +91,7 @@
   },
   "screenshots": [],
   "result": {
+    "repositoryStatus": "unspecified",
     "licenses": [
       {
         "path": "LICENSE",

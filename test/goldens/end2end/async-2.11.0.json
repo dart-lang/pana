@@ -111,6 +111,7 @@
   "result": {
     "repositoryUrl": "https://github.com/dart-lang/async",
     "issueTrackerUrl": "https://github.com/dart-lang/async/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

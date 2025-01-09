@@ -188,6 +188,7 @@
   "result": {
     "repositoryUrl": "https://github.com/ryanheise/audio_service/tree/minor/audio_service",
     "issueTrackerUrl": "https://github.com/ryanheise/audio_service/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

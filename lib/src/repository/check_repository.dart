@@ -18,23 +18,33 @@ import 'git_local_repository.dart';
 const _maxPubspecBytes = 256 * 1024;
 
 /// Returns the repository information for the current package.
-Future<VerifiedRepository?> checkRepository({
+Future<VerifiedRepository> checkRepository({
   required SharedAnalysisContext sharedContext,
   required String packageName,
   required String? sourceUrl,
 }) async {
-  if (sourceUrl == null) {
-    return null;
+  sourceUrl = sourceUrl?.trim();
+  if (sourceUrl == null || sourceUrl.isEmpty) {
+    return VerifiedRepository(
+      status: RepositoryStatus.missing,
+      verificationFailure: 'Repository URL is missing.',
+    );
   }
-  final parsedSourceUrl = Repository.tryParseUrl(sourceUrl);
-  if (parsedSourceUrl == null) {
-    return null;
+  late Repository parsedSourceUrl;
+  try {
+    parsedSourceUrl = Repository.parseUrl(sourceUrl);
+  } on Exception catch (e) {
+    return VerifiedRepository(
+      status: RepositoryStatus.invalid,
+      verificationFailure: e.toString(),
+    );
   }
   var branch = parsedSourceUrl.branch;
   var completed = false;
   String? verificationFailure;
   var localPath = parsedSourceUrl.path;
   String? contributingUrl;
+  RepositoryStatus? status;
 
   Repository repositoryWithPath(String? path) {
     if (path == '' || path == '.') {
@@ -52,11 +62,13 @@ Future<VerifiedRepository?> checkRepository({
   VerifiedRepository result() {
     if (completed && verificationFailure == null) {
       return VerifiedRepository(
+        status: RepositoryStatus.verified,
         repository: repositoryWithPath(localPath),
         contributingUrl: contributingUrl,
       );
     } else {
       return VerifiedRepository(
+        status: status ?? RepositoryStatus.inconclusive,
         verificationFailure: verificationFailure,
       );
     }
@@ -64,6 +76,9 @@ Future<VerifiedRepository?> checkRepository({
 
   void failVerification(String message, [Object? error, StackTrace? st]) {
     verificationFailure = message;
+    if (error == null) {
+      status = RepositoryStatus.failed;
+    }
     log.info(message, error, st);
   }
 
@@ -81,6 +96,7 @@ Future<VerifiedRepository?> checkRepository({
         files.where((path) => p.basename(path) == 'pubspec.yaml').toList();
     if (pubspecFiles.isEmpty) {
       return VerifiedRepository(
+        status: RepositoryStatus.failed,
         verificationFailure:
             'Could not find any `pubspec.yaml` in the repository.',
       );

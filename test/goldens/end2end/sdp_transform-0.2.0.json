@@ -91,6 +91,7 @@
   "result": {
     "repositoryUrl": "https://github.com/cloudwebrtc/dart-sdp-transform",
     "issueTrackerUrl": "https://github.com/cloudwebrtc/dart-sdp-transform/issues",
+    "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",

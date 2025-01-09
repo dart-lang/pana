@@ -170,6 +170,7 @@
   "screenshots": [],
   "result": {
     "homepageUrl": "https://github.com/noojee/onepub.dev",
+    "repositoryStatus": "failed",
     "licenses": [
       {
         "path": "LICENSE",

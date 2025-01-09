@@ -57,7 +57,8 @@ Future<PubspecUrlsWithIssues> checkPubspecUrls(PackageContext context) async {
   // Switch homepage and repository if only homepage is given,
   // and it can be verified as a valid repository.
   final verifiedRepository = await context.repository;
-  final isVerifiedRepository = verifiedRepository?.repository != null;
+  final status = verifiedRepository.status;
+  final isVerifiedRepository = status == RepositoryStatus.verified;
   // We should switch these values if the repository has been verified.
   if (isVerifiedRepository &&
       pubspec.homepage != null &&
@@ -69,7 +70,7 @@ Future<PubspecUrlsWithIssues> checkPubspecUrls(PackageContext context) async {
 
   // Set known issue tracker link in cases where it was not provided.
   if (pubspec.issueTracker == null && isVerifiedRepository) {
-    final vr = verifiedRepository!.repository!;
+    final vr = verifiedRepository.repository!;
     final repoSegments = vr.repository;
     if (RepositoryProvider.isGitHubCompatible(vr.provider) &&
         repoSegments != null) {
