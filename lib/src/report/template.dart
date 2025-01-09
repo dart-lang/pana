@@ -171,9 +171,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
 
     final repository = await context.repository;
     final repositoryStatus = repository.status;
-    final repositoryFailed = repositoryStatus != RepositoryStatus.verified &&
-        repositoryStatus != RepositoryStatus.inconclusive;
-    if (repositoryFailed) {
+    if (repositoryStatus == RepositoryStatus.failed) {
       issues.add(Issue('Failed to verify repository URL.',
           suggestion:
               'Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:\n\n'
