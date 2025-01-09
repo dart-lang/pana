@@ -53,7 +53,7 @@
         "grantedPoints": 20,
         "maxPoints": 30,
         "status": "failed",
-        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n* `pubspec.yaml` doesn't have a `homepage` entry.\n\n* `pubspec.yaml` doesn't have a `repository` entry.\n\n<details>\n<summary>\nFailed to verify repository URL.\n</summary>\n\nPlease provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:\n\n * `repository` can be cloned,\n * a clone of the repository contains a `pubspec.yaml`, which:,\n    * contains `name: lints`,\n    * contains a `version` property, and,\n    * does not contain a `publish_to` property.\n\nRepository URL is missing.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`.\n"
+        "summary": "### [x] 0/10 points: Provide a valid `pubspec.yaml`\n\n* `pubspec.yaml` doesn't have a `homepage` entry.\n\n* `pubspec.yaml` doesn't have a `repository` entry.\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`.\n"
       },
       {
         "id": "documentation",
