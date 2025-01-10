@@ -2,6 +2,8 @@
 
 - Make example's `README.md` priority over any dart file in the examples directory.
 - Expose more precise repository verification status in `AnalysisResult`.
+- Track URL issues with explicit acceptance state (404 status does not cause score deduction).
+  Also display such URLs in `AnalysisResult`.
 
 ## 0.22.17
 
