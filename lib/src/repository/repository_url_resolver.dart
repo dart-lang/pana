@@ -6,7 +6,16 @@ import 'package:path/path.dart' as p;
 
 import '../model.dart';
 
-final _imageExtensions = <String>{'.gif', '.jpg', '.jpeg', '.png'};
+final _imageExtensions = <String>{
+  '.apng',
+  '.avif',
+  '.gif',
+  '.jpg',
+  '.jpeg',
+  '.png',
+  '.svg',
+  '.webp',
+};
 
 extension RepositoryUrlResolverExt on Repository {
   /// Resolves a reference in relationship with the repository, and returns:
