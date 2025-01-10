@@ -166,9 +166,6 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
       ));
     }
 
-    final pubspecUrls = await context.pubspecUrlsWithIssues;
-    issues.addAll(pubspecUrls.issues);
-
     final repository = await context.repository;
     final repositoryStatus = repository.status;
     if (repositoryStatus == RepositoryStatus.failed) {
@@ -197,20 +194,16 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
       }
     }
 
-    final unreachableFailuresIgnored =
-        // every issue is about an URL being unreachable
-        issues.isNotEmpty &&
-            issues.every((issue) =>
-                (issue.suggestion ?? '').contains('was unreachable')) &&
-            // repository verification succeeded
-            repository.repository != null;
+    final pubspecUrls = await context.pubspecUrlsWithIssues;
+    // Checks the issues identified so far.
+    final hasAnyNonUrlIssue = issues.isNotEmpty;
+    issues.addAll(pubspecUrls.issues);
+    final hasFailure = hasAnyNonUrlIssue || pubspecUrls.hasRejected;
 
     final status = issues.isEmpty
         ? ReportStatus.passed
-        : (unreachableFailuresIgnored
-            ? ReportStatus.partial
-            : ReportStatus.failed);
-    final points = (issues.isEmpty || unreachableFailuresIgnored) ? 10 : 0;
+        : (hasFailure ? ReportStatus.failed : ReportStatus.partial);
+    final points = hasFailure ? 0 : 10;
     return Subsection(
       'Provide a valid `pubspec.yaml`',
       issues,

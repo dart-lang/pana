@@ -167,6 +167,7 @@
   "screenshots": [],
   "result": {
     "repositoryUrl": "https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher",
+    "issueTrackerUrl": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22",
     "repositoryStatus": "verified",
     "repository": {
       "provider": "github",

@@ -260,12 +260,12 @@ Future<AnalysisResult> _createAnalysisResult(
   final repoVerification = await context.repository;
   final repository = repoVerification.repository;
   final fundingUrls =
-      pubspecUrls.funding.map((e) => e.verifiedUrl).nonNulls.toList();
+      pubspecUrls.funding.map((e) => e.acceptedUrl).nonNulls.toList();
   return AnalysisResult(
-    homepageUrl: pubspecUrls.homepage.verifiedUrl,
-    repositoryUrl: pubspecUrls.repository.verifiedUrl,
-    issueTrackerUrl: pubspecUrls.issueTracker.verifiedUrl,
-    documentationUrl: pubspecUrls.documentation.verifiedUrl,
+    homepageUrl: pubspecUrls.homepage.acceptedUrl,
+    repositoryUrl: pubspecUrls.repository.acceptedUrl,
+    issueTrackerUrl: pubspecUrls.issueTracker.acceptedUrl,
+    documentationUrl: pubspecUrls.documentation.acceptedUrl,
     fundingUrls: fundingUrls.isEmpty ? null : fundingUrls,
     repositoryStatus: repoVerification.status,
     repository: repository,
