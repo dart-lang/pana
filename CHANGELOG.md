@@ -1,4 +1,8 @@
-## 0.22.18-dev
+## 0.22.19
+
+- Extended recognized image extensions in URL resolver.
+
+## 0.22.18
 
 - Make example's `README.md` priority over any dart file in the examples directory.
 - Expose more precise repository verification status in `AnalysisResult`.
