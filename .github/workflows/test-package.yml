@@ -83,10 +83,10 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94
         with:
-          sdk: '3.8.0-91.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
+          channel: beta
       - uses: flutter-actions/setup-flutter@v4
         with:
-          channel: master
+          channel: beta
       - name: Check Flutter
         run: flutter --version --machine
       - id: install
