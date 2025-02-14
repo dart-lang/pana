@@ -86,7 +86,7 @@ jobs:
           sdk: '3.8.0-91.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
       - uses: flutter-actions/setup-flutter@v4
         with:
-          channel: main
+          channel: master
       - name: Check Flutter
         run: flutter --version --machine
       - id: install
