@@ -88,7 +88,7 @@ jobs:
       - uses: subosito/flutter-action@f2c4f6686ca8e8d6e6d0f28410eeef506ed66aff
         with:
           # flutter-version: '3.4.0-34.1.pre'
-          channel: 'master' # TODO: switch back to rolling 'dev' channel after it gets updated.
+          channel: 'main' # TODO: switch back to rolling 'dev' channel after it gets updated.
       - name: Check Flutter
         run: flutter --version --machine
       - id: install
