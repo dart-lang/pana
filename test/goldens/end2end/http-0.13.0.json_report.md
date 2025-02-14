@@ -60,6 +60,23 @@ INFO: Dangling library doc comment.
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/http.dart`
 </details>
 
+<details>
+<summary>
+INFO: 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead.
+</summary>
+
+`lib/src/browser_client.dart:6:1`
+
+```
+  ╷
+6 │ import 'dart:html';
+  │ ^^^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/browser_client.dart`
+</details>
+
 
 ## 40/40 Support up-to-date dependencies
 
@@ -67,7 +84,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`http_parser`]|`^4.0.0`|4.1.1|4.1.1|
+|[`http_parser`]|`^4.0.0`|4.1.2|4.1.2|
 |[`meta`]|`^1.3.0`|1.16.0|1.16.0|
 |[`path`]|`^1.8.0`|1.9.1|1.9.1|
 |[`pedantic`]|`^1.10.0`|1.11.1|1.11.1|
@@ -77,9 +94,9 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
 |[`collection`]|-|1.19.1|1.19.1|
-|[`source_span`]|-|1.10.0|1.10.0|
-|[`string_scanner`]|-|1.4.0|1.4.0|
-|[`term_glyph`]|-|1.2.1|1.2.1|
+|[`source_span`]|-|1.10.1|1.10.1|
+|[`string_scanner`]|-|1.4.1|1.4.1|
+|[`term_glyph`]|-|1.2.2|1.2.2|
 |[`typed_data`]|-|1.4.0|1.4.0|
 </details>
 

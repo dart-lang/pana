@@ -105,18 +105,18 @@ See https://dart.dev/web/wasm for details.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.36.2|**6.1.0**|
+|[`dcli`]|`^1.15.5`|1.36.2|**7.0.0**|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`archive`]|-|3.6.1|3.6.1|
+|[`archive`]|-|3.6.1|4.0.2|
 |[`args`]|-|2.6.0|2.6.0|
-|[`async`]|-|2.12.0|2.12.0|
+|[`async`]|-|2.13.0|2.13.0|
 |[`basic_utils`]|-|3.9.4|5.7.0|
 |[`boolean_selector`]|-|2.1.2|2.1.2|
-|[`characters`]|-|1.3.1|1.3.1|
+|[`characters`]|-|1.4.0|1.4.0|
 |[`chunked_stream`]|-|1.4.2|1.4.2|
 |[`circular_buffer`]|-|0.11.0|0.12.0|
 |[`clock`]|-|1.1.2|1.1.2|
@@ -125,19 +125,19 @@ See https://dart.dev/web/wasm for details.
 |[`crypto`]|-|3.0.6|3.0.6|
 |[`csv`]|-|5.1.1|6.0.0|
 |[`dart_console2`]|-|2.0.1|3.1.1|
-|[`dcli_core`]|-|1.36.2|6.1.0|
+|[`dcli_core`]|-|1.36.2|7.0.0|
 |[`equatable`]|-|2.0.7|2.0.7|
 |[`ffi`]|-|2.1.3|2.1.3|
 |[`file`]|-|6.1.4|7.0.1|
 |[`file_utils`]|-|1.0.1|1.0.1|
 |[`functional_data`]|-|1.2.0|1.2.0|
-|[`glob`]|-|2.1.2|2.1.2|
+|[`glob`]|-|2.1.3|2.1.3|
 |[`globbing`]|-|1.0.0|1.0.0|
-|[`http`]|-|0.13.6|1.2.2|
-|[`http_parser`]|-|4.1.1|4.1.1|
+|[`http`]|-|0.13.6|1.3.0|
+|[`http_parser`]|-|4.1.2|4.1.2|
 |[`ini`]|-|2.1.0|2.1.0|
-|[`intl`]|-|0.17.0|0.20.0|
-|[`js`]|-|0.7.1|0.7.1|
+|[`intl`]|-|0.17.0|0.20.2|
+|[`js`]|-|0.7.2|0.7.2|
 |[`json2yaml`]|-|3.0.1|3.0.1|
 |[`json_annotation`]|-|4.9.0|4.9.0|
 |[`logging`]|-|1.3.0|1.3.0|
@@ -147,28 +147,28 @@ See https://dart.dev/web/wasm for details.
 |[`path`]|-|1.9.1|1.9.1|
 |[`pointycastle`]|-|3.9.1|3.9.1|
 |[`posix`]|-|4.1.0|6.0.1|
-|[`pub_semver`]|-|2.1.4|2.1.4|
+|[`pub_semver`]|-|2.1.5|2.1.5|
 |[`pubspec2`]|-|2.4.2|4.0.0|
 |[`pubspec_lock`]|-|3.0.2|3.0.2|
 |[`quiver`]|-|3.2.2|3.2.2|
 |[`random_string`]|-|2.3.1|2.3.1|
 |[`scope`]|-|3.0.0|5.1.0|
 |[`settings_yaml`]|-|4.0.1|8.2.0|
-|[`source_span`]|-|1.10.0|1.10.0|
-|[`stack_trace`]|-|1.12.0|1.12.0|
+|[`source_span`]|-|1.10.1|1.10.1|
+|[`stack_trace`]|-|1.12.1|1.12.1|
 |[`stacktrace_impl`]|-|2.3.0|2.3.0|
-|[`stream_channel`]|-|2.1.2|2.1.2|
-|[`string_scanner`]|-|1.4.0|1.4.0|
+|[`stream_channel`]|-|2.1.4|2.1.4|
+|[`string_scanner`]|-|1.4.1|1.4.1|
 |[`sum_types`]|-|0.3.5|0.4.0|
 |[`system_info2`]|-|2.0.4|4.0.0|
-|[`term_glyph`]|-|1.2.1|1.2.1|
-|[`test_api`]|-|0.7.3|0.7.3|
+|[`term_glyph`]|-|1.2.2|1.2.2|
+|[`test_api`]|-|0.7.4|0.7.4|
 |[`typed_data`]|-|1.4.0|1.4.0|
 |[`uuid`]|-|3.0.7|4.5.1|
 |[`validators2`]|-|3.0.0|5.0.0|
 |[`vin_decoder`]|-|0.2.1-nullsafety|0.2.1-nullsafety|
-|[`win32`]|-|3.1.4|5.8.0|
-|[`yaml`]|-|3.1.2|3.1.2|
+|[`win32`]|-|3.1.4|5.10.1|
+|[`yaml`]|-|3.1.3|3.1.3|
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

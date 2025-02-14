@@ -84,18 +84,9 @@ This package is not compatible with runtime `wasm`, and will not be rewarded ful
 
 See https://dart.dev/web/wasm for details.
 
-### [x] 0/0 points: Swift Package Manager support
+### [*] 0/0 points: Swift Package Manager support
 
-<details>
-<summary>
-Package does not support the Swift Package Manager on macOS
-</summary>
-
-It does not contain `macos/audio_service/Package.swift`.
-
-</details>
-
-This package for iOS or macOS does not support the Swift Package Manager. It will not receive full points in a future version of the scoring model.
+This iOS or macOS plugin supports the Swift Package Manager. It will be rewarded additional points in a future version of the scoring model.
 
 See https://docs.flutter.dev/to/spm for details.
 
@@ -111,51 +102,51 @@ See https://docs.flutter.dev/to/spm for details.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`audio_service_platform_interface`]|`^0.1.1`|0.1.1|0.1.1|
-|[`audio_service_web`]|`^0.1.3`|0.1.3|0.1.3|
-|[`audio_session`]|`^0.1.20`|0.1.21|0.1.21|
+|[`audio_service_platform_interface`]|`^0.1.3`|0.1.3|0.1.3|
+|[`audio_service_web`]|`^0.1.4`|0.1.4|0.1.4|
+|[`audio_session`]|`^0.1.25`|0.1.25|0.1.25|
 |[`clock`]|`^1.1.0`|1.1.2|1.1.2|
 |[`flutter`]|`flutter`|0.0.0|0.0.0|
 |[`flutter_cache_manager`]|`^3.3.1`|3.4.1|3.4.1|
 |[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0|
-|[`js`]|`>=0.6.3 <0.8.0`|0.7.1|0.7.1|
+|[`js`]|`>=0.6.3 <0.8.0`|0.7.2|0.7.2|
 |[`rxdart`]|`>=0.26.0 <0.29.0`|0.28.0|0.28.0|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`async`]|-|2.12.0|2.12.0|
-|[`characters`]|-|1.3.0|1.3.1|
-|[`collection`]|-|1.19.0|1.19.1|
+|[`async`]|-|2.13.0|2.13.0|
+|[`characters`]|-|1.4.0|1.4.0|
+|[`collection`]|-|1.19.1|1.19.1|
 |[`crypto`]|-|3.0.6|3.0.6|
 |[`ffi`]|-|2.1.3|2.1.3|
 |[`file`]|-|7.0.1|7.0.1|
 |[`fixnum`]|-|1.1.1|1.1.1|
-|[`http`]|-|1.2.2|1.2.2|
-|[`http_parser`]|-|4.1.1|4.1.1|
+|[`http`]|-|1.3.0|1.3.0|
+|[`http_parser`]|-|4.1.2|4.1.2|
 |[`material_color_utilities`]|-|0.11.1|0.12.0|
-|[`meta`]|-|1.15.0|1.16.0|
+|[`meta`]|-|1.16.0|1.16.0|
 |[`path`]|-|1.9.1|1.9.1|
 |[`path_provider`]|-|2.1.5|2.1.5|
-|[`path_provider_android`]|-|2.2.12|2.2.12|
-|[`path_provider_foundation`]|-|2.4.0|2.4.0|
+|[`path_provider_android`]|-|2.2.15|2.2.15|
+|[`path_provider_foundation`]|-|2.4.1|2.4.1|
 |[`path_provider_linux`]|-|2.2.1|2.2.1|
 |[`path_provider_platform_interface`]|-|2.1.2|2.1.2|
 |[`path_provider_windows`]|-|2.3.0|2.3.0|
 |[`platform`]|-|3.1.6|3.1.6|
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8|
 |[`sky_engine`]|-|0.0.0|0.0.0|
-|[`source_span`]|-|1.10.0|1.10.0|
+|[`source_span`]|-|1.10.1|1.10.1|
 |[`sprintf`]|-|7.0.0|7.0.0|
-|[`sqflite`]|-|2.4.1|2.4.1|
-|[`sqflite_android`]|-|2.4.0|2.4.0|
-|[`sqflite_common`]|-|2.5.4+6|2.5.4+6|
-|[`sqflite_darwin`]|-|2.4.1|2.4.1|
+|[`sqflite`]|-|2.4.2|2.4.2|
+|[`sqflite_android`]|-|2.4.1|2.4.1|
+|[`sqflite_common`]|-|2.5.5|2.5.5|
+|[`sqflite_darwin`]|-|2.4.2|2.4.2|
 |[`sqflite_platform_interface`]|-|2.4.0|2.4.0|
-|[`string_scanner`]|-|1.4.0|1.4.0|
-|[`synchronized`]|-|3.3.0+3|3.3.0+3|
-|[`term_glyph`]|-|1.2.1|1.2.1|
+|[`string_scanner`]|-|1.4.1|1.4.1|
+|[`synchronized`]|-|3.3.1|3.3.1|
+|[`term_glyph`]|-|1.2.2|1.2.2|
 |[`typed_data`]|-|1.4.0|1.4.0|
 |[`uuid`]|-|4.5.1|4.5.1|
 |[`vector_math`]|-|2.1.4|2.1.4|

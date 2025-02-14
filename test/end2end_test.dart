@@ -205,7 +205,7 @@ void main() {
   verifyPackage('onepub', '1.1.0');
 
   // multi-level symlink
-  verifyPackage('audio_service', '0.18.15', skipDartdoc: true);
+  verifyPackage('audio_service', '0.18.17', skipDartdoc: true);
 
   // downgrade failure
   verifyPackage('gg', '1.0.12', skipDartdoc: true);
