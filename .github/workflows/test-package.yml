@@ -56,10 +56,11 @@ jobs:
       - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94
         with:
           sdk: ${{ matrix.sdk }}
-      - uses: subosito/flutter-action@f2c4f6686ca8e8d6e6d0f28410eeef506ed66aff
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v4
         with:
-          flutter-version: ${{ matrix.flutter }}
-          channel: 'stable'
+          channel: stable
+          version: ${{ matrix.flutter }}
       - name: Check Flutter
         run: flutter --version --machine
       - id: install
@@ -83,10 +84,9 @@ jobs:
       - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94
         with:
           sdk: '3.8.0-91.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
-      - uses: subosito/flutter-action@f2c4f6686ca8e8d6e6d0f28410eeef506ed66aff
+      - uses: flutter-actions/setup-flutter@v4
         with:
-          # flutter-version: '3.4.0-34.1.pre'
-          channel: 'main' # TODO: switch back to rolling 'dev' channel after it gets updated.
+          channel: main
       - name: Check Flutter
         run: flutter --version --machine
       - id: install
