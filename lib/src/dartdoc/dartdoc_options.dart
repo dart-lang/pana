@@ -61,5 +61,6 @@ final _passThroughKeys = <String>[
   // 'examplePathPrefix',
   'exclude',
   'include',
+  'showUndocumentedCategories',
   'nodoc',
 ];
