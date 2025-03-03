@@ -102,10 +102,10 @@ See https://dart.dev/web/wasm for details.
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`characters`]|-|1.3.0|1.3.1|
-|[`collection`]|-|1.19.0|1.19.1|
+|[`characters`]|-|1.4.0|1.4.0|
+|[`collection`]|-|1.19.1|1.19.1|
 |[`material_color_utilities`]|-|0.11.1|0.12.0|
-|[`meta`]|-|1.15.0|1.16.0|
+|[`meta`]|-|1.16.0|1.16.0|
 |[`sky_engine`]|-|0.0.0|0.0.0|
 |[`vector_math`]|-|2.1.4|2.1.4|
 </details>

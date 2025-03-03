@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [3.6.0]
+        sdk: [3.7.0]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94
@@ -49,19 +49,18 @@ jobs:
         # TODO(sigurdm): our end2end test creates longer filenames than we can
         # handle on windows. See https://github.com/dart-lang/sdk/issues/42416
         os: [ubuntu-latest, macos-latest]
-        sdk: [3.6.0]
-        flutter: [3.27.0]
+        sdk: [3.7.0]
+        flutter: [3.29.0]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94
         with:
           sdk: ${{ matrix.sdk }}
-      - name: Setup Flutter
-        run: |
-          cd $HOME
-          git clone https://github.com/flutter/flutter.git --depth 1 -b ${{ matrix.flutter }} _flutter
-          echo "$HOME/_flutter/bin" >> $GITHUB_PATH
-          cd $GITHUB_WORKSPACE
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v4
+        with:
+          channel: stable
+          version: ${{ matrix.flutter }}
       - name: Check Flutter
         run: flutter --version --machine
       - id: install
@@ -84,11 +83,10 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dart-lang/setup-dart@e630b99d28a3b71860378cafdc2a067c71107f94
         with:
-          sdk: '3.7.0-164.0.dev' # TODO: switch back to rolling 'dev' channel after it gets updated.
-      - uses: subosito/flutter-action@f2c4f6686ca8e8d6e6d0f28410eeef506ed66aff
+          channel: beta
+      - uses: flutter-actions/setup-flutter@v4
         with:
-          # flutter-version: '3.4.0-34.1.pre'
-          channel: 'master' # TODO: switch back to rolling 'dev' channel after it gets updated.
+          channel: beta
       - name: Check Flutter
         run: flutter --version --machine
       - id: install

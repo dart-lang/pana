@@ -138,7 +138,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`mustache_template`]|`^2.0.0`|2.0.0|2.0.0|
 |[`path_to_regexp`]|`^0.4.0`|0.4.0|0.4.0|
 |[`recase`]|`^4.0.0`|4.1.0|4.1.0|
-|[`yaml`]|`^3.1.0`|3.1.2|3.1.2|
+|[`yaml`]|`^3.1.0`|3.1.3|3.1.3|
 
 <details><summary>Transitive dependencies</summary>
 
@@ -146,9 +146,9 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|
 |[`collection`]|-|1.19.1|1.19.1|
 |[`path`]|-|1.9.1|1.9.1|
-|[`source_span`]|-|1.10.0|1.10.0|
-|[`string_scanner`]|-|1.4.0|1.4.0|
-|[`term_glyph`]|-|1.2.1|1.2.1|
+|[`source_span`]|-|1.10.1|1.10.1|
+|[`string_scanner`]|-|1.4.1|1.4.1|
+|[`term_glyph`]|-|1.2.2|1.2.2|
 |[`tree_iterator`]|-|2.0.0|3.0.0|
 </details>
 

@@ -90,7 +90,7 @@ See https://dart.dev/web/wasm for details.
 |[`gg_console_colors`]|`^2.0.1`|2.1.4|2.1.4|
 |[`gg_git`]|`^2.0.0`|2.5.9|2.5.16|
 |[`gg_is_flutter`]|`^1.0.3`|1.0.5|1.0.7|
-|[`gg_json`]|`^1.0.0`|1.0.6|1.0.6|
+|[`gg_json`]|`^1.0.0`|1.0.6|**2.0.2**|
 |[`gg_log`]|`^1.0.0`|1.0.6|1.0.6|
 |[`gg_process`]|`^1.0.6`|1.1.6|1.1.6|
 |[`gg_publish`]|`^2.0.0`|2.0.1|**3.0.16**|
@@ -100,16 +100,16 @@ See https://dart.dev/web/wasm for details.
 |[`meta`]|`^1.12.0`|1.16.0|1.16.0|
 |[`mocktail`]|`^1.0.3`|1.0.4|1.0.4|
 |[`path`]|`^1.8.0`|1.9.1|1.9.1|
-|[`pub_semver`]|`^2.1.4`|2.1.4|2.1.4|
+|[`pub_semver`]|`^2.1.4`|2.1.5|2.1.5|
 |[`recase`]|`^4.1.0`|4.1.0|4.1.0|
-|[`yaml`]|`^3.1.2`|3.1.2|3.1.2|
-|[`yaml_edit`]|`^2.2.0`|2.2.1|2.2.1|
+|[`yaml`]|`^3.1.2`|3.1.3|3.1.3|
+|[`yaml_edit`]|`^2.2.0`|2.2.2|2.2.2|
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|
 |:-|:-|:-|:-|
-|[`async`]|-|2.12.0|2.12.0|
+|[`async`]|-|2.13.0|2.13.0|
 |[`boolean_selector`]|-|2.1.2|2.1.2|
 |[`checked_yaml`]|-|2.0.3|2.0.3|
 |[`collection`]|-|1.19.1|1.19.1|
@@ -118,17 +118,17 @@ See https://dart.dev/web/wasm for details.
 |[`gg_hash`]|-|1.0.4|1.0.4|
 |[`gg_is_github`]|-|1.0.6|1.0.6|
 |[`gg_project_root`]|-|1.0.2|1.0.4|
-|[`http`]|-|1.2.2|1.2.2|
-|[`http_parser`]|-|4.1.1|4.1.1|
+|[`http`]|-|1.3.0|1.3.0|
+|[`http_parser`]|-|4.1.2|4.1.2|
 |[`json_annotation`]|-|4.9.0|4.9.0|
 |[`matcher`]|-|0.12.17|0.12.17|
-|[`pubspec_parse`]|-|1.3.0|1.3.0|
-|[`source_span`]|-|1.10.0|1.10.0|
-|[`stack_trace`]|-|1.12.0|1.12.0|
-|[`stream_channel`]|-|2.1.2|2.1.2|
-|[`string_scanner`]|-|1.4.0|1.4.0|
-|[`term_glyph`]|-|1.2.1|1.2.1|
-|[`test_api`]|-|0.7.3|0.7.3|
+|[`pubspec_parse`]|-|1.5.0|1.5.0|
+|[`source_span`]|-|1.10.1|1.10.1|
+|[`stack_trace`]|-|1.12.1|1.12.1|
+|[`stream_channel`]|-|2.1.4|2.1.4|
+|[`string_scanner`]|-|1.4.1|1.4.1|
+|[`term_glyph`]|-|1.2.2|1.2.2|
+|[`test_api`]|-|0.7.4|0.7.4|
 |[`typed_data`]|-|1.4.0|1.4.0|
 |[`web`]|-|1.1.0|1.1.0|
 </details>
@@ -177,7 +177,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`typed_data`]: https://pub.dev/packages/typed_data
 [`web`]: https://pub.dev/packages/web
 
-Found 3 issues. Showing the first 2:
+Found 4 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -189,10 +189,10 @@ Try running `dart pub upgrade --major-versions gg_args` to update the constraint
 
 <details>
 <summary>
-The constraint `^2.0.0` on gg_publish does not support the stable version `3.0.0`.
+The constraint `^1.0.0` on gg_json does not support the stable version `2.0.0`.
 </summary>
 
-Try running `dart pub upgrade --major-versions gg_publish` to update the constraint.
+Try running `dart pub upgrade --major-versions gg_json` to update the constraint.
 </details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
