@@ -15,7 +15,9 @@ Detected license: `BSD-3-Clause`.
 
 ### [*] 10/10 points: 20% or more of the public API has dartdoc comments
 
-246 out of 246 API elements (100.0 %) have documentation comments.
+246 out of 263 API elements (93.5 %) have documentation comments.
+
+Some symbols that are missing documentation: `async.AsyncMemoizer.AsyncMemoizer.new`, `async.ChunkedStreamReader.ChunkedStreamReader.new`, `async.DelegatingFuture.DelegatingFuture.new`, `async.DelegatingStream.DelegatingStream.new`, `async.ErrorResult.ErrorResult.new`.
 
 ### [x] 0/10 points: Package has an example
 

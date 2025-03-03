@@ -79,7 +79,7 @@
         "grantedPoints": 10,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n246 out of 246 API elements (100.0 %) have documentation comments.\n\n### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>\n"
+        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n246 out of 263 API elements (93.5 %) have documentation comments.\n\nSome symbols that are missing documentation: `async.AsyncMemoizer.AsyncMemoizer.new`, `async.ChunkedStreamReader.ChunkedStreamReader.new`, `async.DelegatingFuture.DelegatingFuture.new`, `async.DelegatingStream.DelegatingStream.new`, `async.ErrorResult.ErrorResult.new`.\n\n### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>\n"
       },
       {
         "id": "platform",
