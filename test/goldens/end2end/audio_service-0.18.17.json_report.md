@@ -96,62 +96,62 @@ See https://docs.flutter.dev/to/spm for details.
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
 
-## 40/40 Support up-to-date dependencies
+## 30/40 Support up-to-date dependencies
 
-### [*] 10/10 points: All of the package dependencies are supported in the latest version
+### [x] 0/10 points: All of the package dependencies are supported in the latest version
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`audio_service_platform_interface`]|`^0.1.3`|0.1.3|0.1.3|
-|[`audio_service_web`]|`^0.1.4`|0.1.4|0.1.4|
-|[`audio_session`]|`^0.1.25`|0.1.25|0.1.25|
-|[`clock`]|`^1.1.0`|1.1.2|1.1.2|
-|[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`flutter_cache_manager`]|`^3.3.1`|3.4.1|3.4.1|
-|[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0|
-|[`js`]|`>=0.6.3 <0.8.0`|0.7.2|0.7.2|
-|[`rxdart`]|`>=0.26.0 <0.29.0`|0.28.0|0.28.0|
+|Package|Constraint|Compatible|Latest|Notes|
+|:-|:-|:-|:-|:-|
+|[`audio_service_platform_interface`]|`^0.1.3`|0.1.3|0.1.3||
+|[`audio_service_web`]|`^0.1.4`|0.1.4|0.1.4||
+|[`audio_session`]|`^0.1.25`|0.1.25|0.1.25||
+|[`clock`]|`^1.1.0`|1.1.2|1.1.2||
+|[`flutter`]|`flutter`|0.0.0|0.0.0||
+|[`flutter_cache_manager`]|`^3.3.1`|3.4.1|3.4.1||
+|[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0||
+|[`js`]|`>=0.6.3 <0.8.0`|0.7.2|0.7.2|**Discontinued**|
+|[`rxdart`]|`>=0.26.0 <0.29.0`|0.28.0|0.28.0||
 
 <details><summary>Transitive dependencies</summary>
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`async`]|-|2.13.0|2.13.0|
-|[`characters`]|-|1.4.0|1.4.0|
-|[`collection`]|-|1.19.1|1.19.1|
-|[`crypto`]|-|3.0.6|3.0.6|
-|[`ffi`]|-|2.1.3|2.1.3|
-|[`file`]|-|7.0.1|7.0.1|
-|[`fixnum`]|-|1.1.1|1.1.1|
-|[`http`]|-|1.3.0|1.3.0|
-|[`http_parser`]|-|4.1.2|4.1.2|
-|[`material_color_utilities`]|-|0.11.1|0.12.0|
-|[`meta`]|-|1.16.0|1.16.0|
-|[`path`]|-|1.9.1|1.9.1|
-|[`path_provider`]|-|2.1.5|2.1.5|
-|[`path_provider_android`]|-|2.2.15|2.2.15|
-|[`path_provider_foundation`]|-|2.4.1|2.4.1|
-|[`path_provider_linux`]|-|2.2.1|2.2.1|
-|[`path_provider_platform_interface`]|-|2.1.2|2.1.2|
-|[`path_provider_windows`]|-|2.3.0|2.3.0|
-|[`platform`]|-|3.1.6|3.1.6|
-|[`plugin_platform_interface`]|-|2.1.8|2.1.8|
-|[`sky_engine`]|-|0.0.0|0.0.0|
-|[`source_span`]|-|1.10.1|1.10.1|
-|[`sprintf`]|-|7.0.0|7.0.0|
-|[`sqflite`]|-|2.4.2|2.4.2|
-|[`sqflite_android`]|-|2.4.1|2.4.1|
-|[`sqflite_common`]|-|2.5.5|2.5.5|
-|[`sqflite_darwin`]|-|2.4.2|2.4.2|
-|[`sqflite_platform_interface`]|-|2.4.0|2.4.0|
-|[`string_scanner`]|-|1.4.1|1.4.1|
-|[`synchronized`]|-|3.3.1|3.3.1|
-|[`term_glyph`]|-|1.2.2|1.2.2|
-|[`typed_data`]|-|1.4.0|1.4.0|
-|[`uuid`]|-|4.5.1|4.5.1|
-|[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|1.1.0|1.1.0|
-|[`xdg_directories`]|-|1.1.0|1.1.0|
+|Package|Constraint|Compatible|Latest|Notes|
+|:-|:-|:-|:-|:-|
+|[`async`]|-|2.13.0|2.13.0||
+|[`characters`]|-|1.4.0|1.4.0||
+|[`collection`]|-|1.19.1|1.19.1||
+|[`crypto`]|-|3.0.6|3.0.6||
+|[`ffi`]|-|2.1.3|2.1.3||
+|[`file`]|-|7.0.1|7.0.1||
+|[`fixnum`]|-|1.1.1|1.1.1||
+|[`http`]|-|1.3.0|1.3.0||
+|[`http_parser`]|-|4.1.2|4.1.2||
+|[`material_color_utilities`]|-|0.11.1|0.12.0||
+|[`meta`]|-|1.16.0|1.16.0||
+|[`path`]|-|1.9.1|1.9.1||
+|[`path_provider`]|-|2.1.5|2.1.5||
+|[`path_provider_android`]|-|2.2.15|2.2.15||
+|[`path_provider_foundation`]|-|2.4.1|2.4.1||
+|[`path_provider_linux`]|-|2.2.1|2.2.1||
+|[`path_provider_platform_interface`]|-|2.1.2|2.1.2||
+|[`path_provider_windows`]|-|2.3.0|2.3.0||
+|[`platform`]|-|3.1.6|3.1.6||
+|[`plugin_platform_interface`]|-|2.1.8|2.1.8||
+|[`sky_engine`]|-|0.0.0|0.0.0||
+|[`source_span`]|-|1.10.1|1.10.1||
+|[`sprintf`]|-|7.0.0|7.0.0||
+|[`sqflite`]|-|2.4.2|2.4.2||
+|[`sqflite_android`]|-|2.4.1|2.4.1||
+|[`sqflite_common`]|-|2.5.5|2.5.5||
+|[`sqflite_darwin`]|-|2.4.2|2.4.2||
+|[`sqflite_platform_interface`]|-|2.4.0|2.4.0||
+|[`string_scanner`]|-|1.4.1|1.4.1||
+|[`synchronized`]|-|3.3.1|3.3.1||
+|[`term_glyph`]|-|1.2.2|1.2.2||
+|[`typed_data`]|-|1.4.0|1.4.0||
+|[`uuid`]|-|4.5.1|4.5.1||
+|[`vector_math`]|-|2.1.4|2.1.4||
+|[`web`]|-|1.1.0|1.1.0||
+|[`xdg_directories`]|-|1.1.0|1.1.0||
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -201,6 +201,21 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`vector_math`]: https://pub.dev/packages/vector_math
 [`web`]: https://pub.dev/packages/web
 [`xdg_directories`]: https://pub.dev/packages/xdg_directories
+
+<details>
+<summary>
+The package has one or more discontinued direct dependencies.
+
+Discontinued packages are no longer maintained, and can end up being a
+liability.
+
+</summary>
+
+Consider migrating away from these dependencies: 
+
+* js.
+
+</details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs
 
