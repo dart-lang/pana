@@ -100,7 +100,7 @@
         "grantedPoints": 40,
         "maxPoints": 50,
         "status": "partial",
-        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: Dangling library doc comment.\n</summary>\n\n`lib/http.dart:5:1`\n\n```\n  ╷\n5 │ /// A composable, [Future]-based library for making HTTP requests.\n  │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/http.dart`\n</details>\n"
+        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: Dangling library doc comment.\n</summary>\n\n`lib/http.dart:5:1`\n\n```\n  ╷\n5 │ /// A composable, [Future]-based library for making HTTP requests.\n  │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/http.dart`\n</details>\n\n<details>\n<summary>\nINFO: 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead.\n</summary>\n\n`lib/src/browser_client.dart:6:1`\n\n```\n  ╷\n6 │ import 'dart:html';\n  │ ^^^^^^^^^^^^^^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/browser_client.dart`\n</details>\n"
       },
       {
         "id": "dependency",

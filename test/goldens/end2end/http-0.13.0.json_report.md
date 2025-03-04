@@ -60,6 +60,23 @@ INFO: Dangling library doc comment.
 To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/http.dart`
 </details>
 
+<details>
+<summary>
+INFO: 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead.
+</summary>
+
+`lib/src/browser_client.dart:6:1`
+
+```
+  ╷
+6 │ import 'dart:html';
+  │ ^^^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/browser_client.dart`
+</details>
+
 
 ## 30/40 Support up-to-date dependencies
 

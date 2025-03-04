@@ -137,7 +137,7 @@ See https://dart.dev/web/wasm for details.
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`ini`]|-|2.1.0|2.1.0||
 |[`intl`]|-|0.17.0|0.20.2||
-|[`js`]|-|0.7.1|0.7.2|**Discontinued**|
+|[`js`]|-|0.7.2|0.7.2|**Discontinued**|
 |[`json2yaml`]|-|3.0.1|3.0.1||
 |[`json_annotation`]|-|4.9.0|4.9.0||
 |[`logging`]|-|1.3.0|1.3.0||
