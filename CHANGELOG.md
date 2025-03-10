@@ -2,6 +2,7 @@
 
 - Extended recognized image extensions in URL resolver.
 - Preserve  formatter:page-width when doing `dart format`.
+- Lower score for packages with discontinued dependency.
 
 ## 0.22.18
 
