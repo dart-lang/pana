@@ -1,6 +1,7 @@
 ## 0.22.19
 
 - Extended recognized image extensions in URL resolver.
+- Preserve  formatter:page-width when doing `dart format`.
 
 ## 0.22.18
 
