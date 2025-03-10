@@ -58,8 +58,8 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
 
         String makeTable(List<List<String>> rows) {
           return [
-            ['Package', 'Constraint', 'Compatible', 'Latest'],
-            [':-', ':-', ':-', ':-'],
+            ['Package', 'Constraint', 'Compatible', 'Latest', 'Notes'],
+            [':-', ':-', ':-', ':-', ':-'],
             ...rows,
           ].map((r) => '|${r.join('|')}|').join('\n');
         }
@@ -84,6 +84,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
                     '**${p.latest?.version ?? '-'}**'
                   else
                     p.latest?.version ?? '-',
+                  if (p.isDiscontinued) '**Discontinued**' else ''
                 ])
             .toList();
 
@@ -96,6 +97,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
                   '-',
                   p.upgradable?.version ?? '-',
                   p.latest?.version ?? '-',
+                  if (p.isDiscontinued) '**Discontinued**' else ''
                 ])
             .toList();
 
@@ -133,11 +135,26 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
               status = ReportStatus.failed;
             } else if (worst.status == OutdatedStatus.outdatedByPreview ||
                 worst.status == OutdatedStatus.outdatedByRecent) {
-              // TODO(sigurdm): Could we find some way of indicating that
-              // points will be lost soon?
-              status = ReportStatus.passed;
+              status = ReportStatus.partial;
             }
           }
+        }
+        final discontinuedDirectDependencies = outdated.packages
+            .where((p) =>
+                p.isDiscontinued && pubspec.dependencies.containsKey(p.package))
+            .map((p) => p.package);
+        if (discontinuedDirectDependencies.isNotEmpty) {
+          points = 0;
+          status = ReportStatus.failed;
+          issues.add(Issue('''
+The package has one or more discontinued direct dependencies.
+
+Discontinued packages are no longer maintained, and can end up being a
+liability.
+''', suggestion: '''Consider migrating away from these dependencies: 
+
+${discontinuedDirectDependencies.map((p) => '* $p').join('\n')}.
+'''));
         }
       } on ToolException catch (e) {
         issues.add(Issue(

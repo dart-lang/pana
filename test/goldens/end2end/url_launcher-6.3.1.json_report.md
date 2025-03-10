@@ -79,30 +79,30 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`flutter`]|`flutter`|0.0.0|0.0.0|
-|[`url_launcher_android`]|`^6.3.0`|6.3.14|6.3.14|
-|[`url_launcher_ios`]|`^6.2.4`|6.3.2|6.3.2|
-|[`url_launcher_linux`]|`^3.1.0`|3.2.1|3.2.1|
-|[`url_launcher_macos`]|`^3.1.0`|3.2.2|3.2.2|
-|[`url_launcher_platform_interface`]|`^2.3.0`|2.3.2|2.3.2|
-|[`url_launcher_web`]|`^2.2.0`|2.4.0|2.4.0|
-|[`url_launcher_windows`]|`^3.1.0`|3.1.4|3.1.4|
+|Package|Constraint|Compatible|Latest|Notes|
+|:-|:-|:-|:-|:-|
+|[`flutter`]|`flutter`|0.0.0|0.0.0||
+|[`url_launcher_android`]|`^6.3.0`|6.3.14|6.3.14||
+|[`url_launcher_ios`]|`^6.2.4`|6.3.2|6.3.2||
+|[`url_launcher_linux`]|`^3.1.0`|3.2.1|3.2.1||
+|[`url_launcher_macos`]|`^3.1.0`|3.2.2|3.2.2||
+|[`url_launcher_platform_interface`]|`^2.3.0`|2.3.2|2.3.2||
+|[`url_launcher_web`]|`^2.2.0`|2.4.0|2.4.0||
+|[`url_launcher_windows`]|`^3.1.0`|3.1.4|3.1.4||
 
 <details><summary>Transitive dependencies</summary>
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`characters`]|-|1.4.0|1.4.0|
-|[`collection`]|-|1.19.1|1.19.1|
-|[`flutter_web_plugins`]|-|0.0.0|0.0.0|
-|[`material_color_utilities`]|-|0.11.1|0.12.0|
-|[`meta`]|-|1.16.0|1.16.0|
-|[`plugin_platform_interface`]|-|2.1.8|2.1.8|
-|[`sky_engine`]|-|0.0.0|0.0.0|
-|[`vector_math`]|-|2.1.4|2.1.4|
-|[`web`]|-|1.1.0|1.1.0|
+|Package|Constraint|Compatible|Latest|Notes|
+|:-|:-|:-|:-|:-|
+|[`characters`]|-|1.4.0|1.4.0||
+|[`collection`]|-|1.19.1|1.19.1||
+|[`flutter_web_plugins`]|-|0.0.0|0.0.0||
+|[`material_color_utilities`]|-|0.11.1|0.12.0||
+|[`meta`]|-|1.16.0|1.16.0||
+|[`plugin_platform_interface`]|-|2.1.8|2.1.8||
+|[`sky_engine`]|-|0.0.0|0.0.0||
+|[`vector_math`]|-|2.1.4|2.1.4||
+|[`web`]|-|1.1.0|1.1.0||
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

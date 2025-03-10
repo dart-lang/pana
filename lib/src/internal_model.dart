@@ -29,8 +29,10 @@ class OutdatedPackage {
   final String package;
   final VersionDescriptor? upgradable;
   final VersionDescriptor? latest;
+  final bool isDiscontinued;
 
-  OutdatedPackage(this.package, this.upgradable, this.latest);
+  OutdatedPackage(this.package, this.upgradable, this.latest,
+      {this.isDiscontinued = false});
 
   static OutdatedPackage fromJson(Map<String, dynamic> json) =>
       _$OutdatedPackageFromJson(json);

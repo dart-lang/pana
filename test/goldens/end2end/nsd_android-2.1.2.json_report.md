@@ -94,20 +94,20 @@ See https://dart.dev/web/wasm for details.
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`flutter`]|`flutter`|0.0.0|0.0.0|
+|Package|Constraint|Compatible|Latest|Notes|
+|:-|:-|:-|:-|:-|
+|[`flutter`]|`flutter`|0.0.0|0.0.0||
 
 <details><summary>Transitive dependencies</summary>
 
-|Package|Constraint|Compatible|Latest|
-|:-|:-|:-|:-|
-|[`characters`]|-|1.4.0|1.4.0|
-|[`collection`]|-|1.19.1|1.19.1|
-|[`material_color_utilities`]|-|0.11.1|0.12.0|
-|[`meta`]|-|1.16.0|1.16.0|
-|[`sky_engine`]|-|0.0.0|0.0.0|
-|[`vector_math`]|-|2.1.4|2.1.4|
+|Package|Constraint|Compatible|Latest|Notes|
+|:-|:-|:-|:-|:-|
+|[`characters`]|-|1.4.0|1.4.0||
+|[`collection`]|-|1.19.1|1.19.1||
+|[`material_color_utilities`]|-|0.11.1|0.12.0||
+|[`meta`]|-|1.16.0|1.16.0||
+|[`sky_engine`]|-|0.0.0|0.0.0||
+|[`vector_math`]|-|2.1.4|2.1.4||
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
