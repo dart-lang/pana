@@ -172,15 +172,8 @@ class ToolEnvironment {
     return toolEnv;
   }
 
-  Future<String> runAnalyzer(
-    String packageDir,
-    String dir,
-    bool usesFlutter, {
-    required InspectOptions inspectOptions,
-  }) async {
-    final command =
-        usesFlutter ? _flutterSdk.dartAnalyzeCmd : _dartSdk.dartAnalyzeCmd;
-
+  Future<T> withRestrictedAnalysisOptions<T>(
+      String packageDir, Future<T> Function() fn) async {
     final analysisOptionsFile =
         File(p.join(packageDir, 'analysis_options.yaml'));
     String? originalOptions;
@@ -192,6 +185,26 @@ class ToolEnvironment {
         original: originalOptions, custom: rawOptionsContent);
     try {
       await analysisOptionsFile.writeAsString(customOptionsContent);
+      return await fn();
+    } finally {
+      if (originalOptions == null) {
+        await analysisOptionsFile.delete();
+      } else {
+        await analysisOptionsFile.writeAsString(originalOptions);
+      }
+    }
+  }
+
+  Future<String> runAnalyzer(
+    String packageDir,
+    String dir,
+    bool usesFlutter, {
+    required InspectOptions inspectOptions,
+  }) async {
+    final command =
+        usesFlutter ? _flutterSdk.dartAnalyzeCmd : _dartSdk.dartAnalyzeCmd;
+
+    return await withRestrictedAnalysisOptions(packageDir, () async {
       final proc = await runConstrained(
         [...command, '--format', 'machine', dir],
         environment:
@@ -218,13 +231,7 @@ class ToolEnvironment {
         throw ToolException('dart analyze exception: $errorMessage', proc);
       }
       return output;
-    } finally {
-      if (originalOptions == null) {
-        await analysisOptionsFile.delete();
-      } else {
-        await analysisOptionsFile.writeAsString(originalOptions);
-      }
-    }
+    });
   }
 
   Future<List<String>> filesNeedingFormat(String packageDir, bool usesFlutter,
@@ -233,56 +240,59 @@ class ToolEnvironment {
     if (dirs.isEmpty) {
       return const [];
     }
-    final files = <String>{};
-    for (final dir in dirs) {
-      final fullPath = p.join(packageDir, dir);
+    return withRestrictedAnalysisOptions(packageDir, () async {
+      final files = <String>{};
+      for (final dir in dirs) {
+        final fullPath = p.join(packageDir, dir);
 
-      final params = <String>[
-        'format',
-        '--output=none',
-        '--set-exit-if-changed',
-      ];
-      if (lineLength != null && lineLength > 0) {
-        params.addAll(<String>['--line-length', lineLength.toString()]);
-      }
-      params.add(fullPath);
+        final params = <String>[
+          'format',
+          '--output=none',
+          '--set-exit-if-changed',
+        ];
+        if (lineLength != null && lineLength > 0) {
+          params.addAll(<String>['--line-length', lineLength.toString()]);
+        }
+        params.add(fullPath);
 
-      final result = await runConstrained(
-        [..._dartSdk.dartCmd, ...params],
-        environment:
-            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
-        timeout: _dartFormatTimeout,
-      );
-      if (result.exitCode == 0) {
-        continue;
-      }
-
-      final dirPrefix = packageDir.endsWith('/') ? packageDir : '$packageDir/';
-      final output = result.asJoinedOutput;
-      final lines = LineSplitter.split(result.asJoinedOutput)
-          .where((l) => l.startsWith('Changed'))
-          .map((l) => l.substring(8).replaceAll(dirPrefix, '').trim())
-          .toList();
-
-      // `dart format` exits with code = 1
-      if (result.exitCode == 1) {
-        assert(lines.isNotEmpty);
-        files.addAll(lines);
-        continue;
-      }
-
-      final errorMsg = LineSplitter.split(output).take(10).join('\n');
-      final isUserProblem = output.contains(
-              'Could not format because the source could not be parsed') ||
-          output.contains('The formatter produced unexpected output.');
-      if (!isUserProblem) {
-        throw Exception(
-          'dart format on $dir/ failed with exit code ${result.exitCode}\n$output',
+        final result = await runConstrained(
+          [..._dartSdk.dartCmd, ...params],
+          environment:
+              usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
+          timeout: _dartFormatTimeout,
         );
+        if (result.exitCode == 0) {
+          continue;
+        }
+
+        final dirPrefix =
+            packageDir.endsWith('/') ? packageDir : '$packageDir/';
+        final output = result.asJoinedOutput;
+        final lines = LineSplitter.split(result.asJoinedOutput)
+            .where((l) => l.startsWith('Changed'))
+            .map((l) => l.substring(8).replaceAll(dirPrefix, '').trim())
+            .toList();
+
+        // `dart format` exits with code = 1
+        if (result.exitCode == 1) {
+          assert(lines.isNotEmpty);
+          files.addAll(lines);
+          continue;
+        }
+
+        final errorMsg = LineSplitter.split(output).take(10).join('\n');
+        final isUserProblem = output.contains(
+                'Could not format because the source could not be parsed') ||
+            output.contains('The formatter produced unexpected output.');
+        if (!isUserProblem) {
+          throw Exception(
+            'dart format on $dir/ failed with exit code ${result.exitCode}\n$output',
+          );
+        }
+        throw ToolException(errorMsg, result);
       }
-      throw ToolException(errorMsg, result);
-    }
-    return files.toList()..sort();
+      return files.toList()..sort();
+    });
   }
 
   Future<Map<String, dynamic>> _getFlutterVersion() async {
