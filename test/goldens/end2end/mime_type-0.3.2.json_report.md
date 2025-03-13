@@ -1,14 +1,6 @@
-## 5/30 Follow Dart file conventions
+## 15/30 Follow Dart file conventions
 
-### [x] 0/10 points: Provide a valid `pubspec.yaml`
-
-<details>
-<summary>
-The package description is too short.
-</summary>
-
-Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
-</details>
+### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
 ### [x] 0/5 points: Provide a valid `README.md`
 

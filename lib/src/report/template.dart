@@ -132,15 +132,15 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
           suggestion:
               'The description gives users information about the features of your '
               'package and why it is relevant to their query. We recommend a '
-              'description length of 60 to 180 characters.',
+              'description length of 50 to 180 characters.',
         ),
       );
-    } else if (description.length < 60) {
+    } else if (description.length < 50) {
       issues.add(
         Issue('The package description is too short.',
             span: span,
             suggestion:
-                'Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 '
+                'Add more detail to the `description` field of `pubspec.yaml`. Use 50 to 180 '
                 'characters to describe the package, what it does, and its target use case.'),
       );
     } else if (description.length > 180) {

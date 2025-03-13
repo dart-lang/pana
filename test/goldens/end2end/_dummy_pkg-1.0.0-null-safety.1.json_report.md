@@ -20,14 +20,6 @@ Sdk-constraint doesn't allow future stable dart 2.x releases
 
 <details>
 <summary>
-The package description is too short.
-</summary>
-
-Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
-</details>
-
-<details>
-<summary>
 Failed to verify repository URL.
 </summary>
 

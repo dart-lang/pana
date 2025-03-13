@@ -7,7 +7,7 @@
 The package description is too short.
 </summary>
 
-Add more detail to the `description` field of `pubspec.yaml`. Use 60 to 180 characters to describe the package, what it does, and its target use case.
+Add more detail to the `description` field of `pubspec.yaml`. Use 50 to 180 characters to describe the package, what it does, and its target use case.
 </details>
 
 ### [*] 5/5 points: Provide a valid `README.md`
