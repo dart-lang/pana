@@ -1,3 +1,7 @@
+## 0.22.20
+
+- Reduced minimum description length to 50 characters.
+
 ## 0.22.19
 
 - Extended recognized image extensions in URL resolver.
