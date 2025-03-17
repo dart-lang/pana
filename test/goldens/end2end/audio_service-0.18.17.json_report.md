@@ -106,7 +106,6 @@ See https://docs.flutter.dev/to/spm for details.
 |[`audio_service_web`]|`^0.1.4`|0.1.4|0.1.4||
 |[`audio_session`]|`^0.1.25`|0.1.25|0.1.25||
 |[`clock`]|`^1.1.0`|1.1.2|1.1.2||
-|[`flutter`]|`flutter`|0.0.0|0.0.0||
 |[`flutter_cache_manager`]|`^3.3.1`|3.4.1|3.4.1||
 |[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0||
 |[`js`]|`>=0.6.3 <0.8.0`|0.7.2|0.7.2|**Discontinued**|
@@ -160,7 +159,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`audio_service_web`]: https://pub.dev/packages/audio_service_web
 [`audio_session`]: https://pub.dev/packages/audio_session
 [`clock`]: https://pub.dev/packages/clock
-[`flutter`]: https://pub.dev/packages/flutter
 [`flutter_cache_manager`]: https://pub.dev/packages/flutter_cache_manager
 [`flutter_web_plugins`]: https://pub.dev/packages/flutter_web_plugins
 [`js`]: https://pub.dev/packages/js

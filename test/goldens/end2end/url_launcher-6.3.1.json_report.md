@@ -81,7 +81,6 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`flutter`]|`flutter`|0.0.0|0.0.0||
 |[`url_launcher_android`]|`^6.3.0`|6.3.14|6.3.14||
 |[`url_launcher_ios`]|`^6.2.4`|6.3.2|6.3.2||
 |[`url_launcher_linux`]|`^3.1.0`|3.2.1|3.2.1||
@@ -107,7 +106,6 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
-[`flutter`]: https://pub.dev/packages/flutter
 [`url_launcher_android`]: https://pub.dev/packages/url_launcher_android
 [`url_launcher_ios`]: https://pub.dev/packages/url_launcher_ios
 [`url_launcher_linux`]: https://pub.dev/packages/url_launcher_linux

@@ -94,9 +94,7 @@ See https://dart.dev/web/wasm for details.
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
-|Package|Constraint|Compatible|Latest|Notes|
-|:-|:-|:-|:-|:-|
-|[`flutter`]|`flutter`|0.0.0|0.0.0||
+No dependencies.
 
 <details><summary>Transitive dependencies</summary>
 
@@ -112,7 +110,6 @@ See https://dart.dev/web/wasm for details.
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
-[`flutter`]: https://pub.dev/packages/flutter
 [`characters`]: https://pub.dev/packages/characters
 [`collection`]: https://pub.dev/packages/collection
 [`material_color_utilities`]: https://pub.dev/packages/material_color_utilities

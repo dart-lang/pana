@@ -402,7 +402,14 @@ class ToolEnvironment {
           result,
         );
       } else {
-        return Outdated.fromJson(result.parseJson());
+        final outdated = Outdated.fromJson(result.parseJson());
+        return Outdated(outdated.packages.where((p) {
+          // Filter Flutter SDK package.
+          if (p.package == 'flutter' && p.latest?.version == '0.0.0') {
+            return false;
+          }
+          return true;
+        }).toList());
       }
     });
   }
