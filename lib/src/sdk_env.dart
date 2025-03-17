@@ -403,13 +403,31 @@ class ToolEnvironment {
         );
       } else {
         final outdated = Outdated.fromJson(result.parseJson());
-        return Outdated(outdated.packages.where((p) {
-          // Filter Flutter SDK package.
-          if (p.package == 'flutter' && p.latest?.version == '0.0.0') {
-            return false;
-          }
-          return true;
-        }).toList());
+        final lockFile = File(p.join(packageDir, 'pubspec.lock'));
+        final lockContent =
+            yamlToJson(await lockFile.readAsString()) ?? const {};
+        final lockPackages = lockContent['packages'];
+        if (lockPackages is! Map<String, dynamic>) {
+          throw ToolException(
+              '`$cmdLabel pub outdated` failed to generate a valid `pubspec.lock`.');
+        }
+        final sdkPackages = lockPackages.entries
+            .where((e) {
+              final data = e.value;
+              if (data is! Map<String, dynamic>) {
+                return false;
+              }
+              return data['source'] == 'sdk';
+            })
+            .map((e) => e.key)
+            .toSet();
+
+        return Outdated(
+          outdated.packages
+              // Filter SDK packages.
+              .where((p) => !sdkPackages.contains(p.package))
+              .toList(),
+        );
       }
     });
   }

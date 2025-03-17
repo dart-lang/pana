@@ -95,11 +95,9 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|:-|
 |[`characters`]|-|1.4.0|1.4.0||
 |[`collection`]|-|1.19.1|1.19.1||
-|[`flutter_web_plugins`]|-|0.0.0|0.0.0||
 |[`material_color_utilities`]|-|0.11.1|0.12.0||
 |[`meta`]|-|1.16.0|1.16.0||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
-|[`sky_engine`]|-|0.0.0|0.0.0||
 |[`vector_math`]|-|2.1.4|2.1.4||
 |[`web`]|-|1.1.0|1.1.0||
 </details>
@@ -115,11 +113,9 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`url_launcher_windows`]: https://pub.dev/packages/url_launcher_windows
 [`characters`]: https://pub.dev/packages/characters
 [`collection`]: https://pub.dev/packages/collection
-[`flutter_web_plugins`]: https://pub.dev/packages/flutter_web_plugins
 [`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
-[`sky_engine`]: https://pub.dev/packages/sky_engine
 [`vector_math`]: https://pub.dev/packages/vector_math
 [`web`]: https://pub.dev/packages/web
 

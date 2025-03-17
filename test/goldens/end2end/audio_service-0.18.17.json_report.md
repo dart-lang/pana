@@ -107,7 +107,6 @@ See https://docs.flutter.dev/to/spm for details.
 |[`audio_session`]|`^0.1.25`|0.1.25|0.1.25||
 |[`clock`]|`^1.1.0`|1.1.2|1.1.2||
 |[`flutter_cache_manager`]|`^3.3.1`|3.4.1|3.4.1||
-|[`flutter_web_plugins`]|`flutter`|0.0.0|0.0.0||
 |[`js`]|`>=0.6.3 <0.8.0`|0.7.2|0.7.2|**Discontinued**|
 |[`rxdart`]|`>=0.26.0 <0.29.0`|0.28.0|0.28.0||
 
@@ -135,7 +134,6 @@ See https://docs.flutter.dev/to/spm for details.
 |[`path_provider_windows`]|-|2.3.0|2.3.0||
 |[`platform`]|-|3.1.6|3.1.6||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
-|[`sky_engine`]|-|0.0.0|0.0.0||
 |[`source_span`]|-|1.10.1|1.10.1||
 |[`sprintf`]|-|7.0.0|7.0.0||
 |[`sqflite`]|-|2.4.2|2.4.2||
@@ -160,7 +158,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`audio_session`]: https://pub.dev/packages/audio_session
 [`clock`]: https://pub.dev/packages/clock
 [`flutter_cache_manager`]: https://pub.dev/packages/flutter_cache_manager
-[`flutter_web_plugins`]: https://pub.dev/packages/flutter_web_plugins
 [`js`]: https://pub.dev/packages/js
 [`rxdart`]: https://pub.dev/packages/rxdart
 [`async`]: https://pub.dev/packages/async
@@ -183,7 +180,6 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`path_provider_windows`]: https://pub.dev/packages/path_provider_windows
 [`platform`]: https://pub.dev/packages/platform
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
-[`sky_engine`]: https://pub.dev/packages/sky_engine
 [`source_span`]: https://pub.dev/packages/source_span
 [`sprintf`]: https://pub.dev/packages/sprintf
 [`sqflite`]: https://pub.dev/packages/sqflite
