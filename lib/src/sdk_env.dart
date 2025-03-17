@@ -402,7 +402,32 @@ class ToolEnvironment {
           result,
         );
       } else {
-        return Outdated.fromJson(result.parseJson());
+        final outdated = Outdated.fromJson(result.parseJson());
+        final lockFile = File(p.join(packageDir, 'pubspec.lock'));
+        final lockContent =
+            yamlToJson(await lockFile.readAsString()) ?? const {};
+        final lockPackages = lockContent['packages'];
+        if (lockPackages is! Map<String, dynamic>) {
+          throw ToolException(
+              '`$cmdLabel pub outdated` failed to generate a valid `pubspec.lock`.');
+        }
+        final sdkPackages = lockPackages.entries
+            .where((e) {
+              final data = e.value;
+              if (data is! Map<String, dynamic>) {
+                return false;
+              }
+              return data['source'] == 'sdk';
+            })
+            .map((e) => e.key)
+            .toSet();
+
+        return Outdated(
+          outdated.packages
+              // Filter SDK packages.
+              .where((p) => !sdkPackages.contains(p.package))
+              .toList(),
+        );
       }
     });
   }

@@ -94,9 +94,7 @@ See https://dart.dev/web/wasm for details.
 
 ### [*] 10/10 points: All of the package dependencies are supported in the latest version
 
-|Package|Constraint|Compatible|Latest|Notes|
-|:-|:-|:-|:-|:-|
-|[`flutter`]|`flutter`|0.0.0|0.0.0||
+No dependencies.
 
 <details><summary>Transitive dependencies</summary>
 
@@ -106,18 +104,15 @@ See https://dart.dev/web/wasm for details.
 |[`collection`]|-|1.19.1|1.19.1||
 |[`material_color_utilities`]|-|0.11.1|0.12.0||
 |[`meta`]|-|1.16.0|1.16.0||
-|[`sky_engine`]|-|0.0.0|0.0.0||
 |[`vector_math`]|-|2.1.4|2.1.4||
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
-[`flutter`]: https://pub.dev/packages/flutter
 [`characters`]: https://pub.dev/packages/characters
 [`collection`]: https://pub.dev/packages/collection
 [`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
-[`sky_engine`]: https://pub.dev/packages/sky_engine
 [`vector_math`]: https://pub.dev/packages/vector_math
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs

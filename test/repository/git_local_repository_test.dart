@@ -60,8 +60,8 @@ void main() {
     }
 
     group('show string content', () {
-      setupBranchFailures(
-          (branch) => repo.showStringContent(branch, 'pubspec.yaml'));
+      setupBranchFailures((branch) async =>
+          await repo.showStringContent(branch, 'pubspec.yaml'));
 
       test('bad file', () async {
         final branch = await repo.detectDefaultBranch();
@@ -79,7 +79,7 @@ void main() {
     });
 
     group('list files', () {
-      setupBranchFailures((branch) => repo.listFiles(branch));
+      setupBranchFailures((branch) async => await repo.listFiles(branch));
 
       test('list files in root', () async {
         final branch = await repo.detectDefaultBranch();
