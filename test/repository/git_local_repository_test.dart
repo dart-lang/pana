@@ -60,8 +60,8 @@ void main() {
     }
 
     group('show string content', () {
-      setupBranchFailures(
-          (branch) async => await repo.showStringContent(branch, 'pubspec.yaml'));
+      setupBranchFailures((branch) async =>
+          await repo.showStringContent(branch, 'pubspec.yaml'));
 
       test('bad file', () async {
         final branch = await repo.detectDefaultBranch();
