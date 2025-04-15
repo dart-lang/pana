@@ -110,11 +110,16 @@ String updatePassthroughOptions({
 
   final origFormatter = origMap['formatter'];
   if (origFormatter is Map) {
+    final customFormatter =
+        customMap.putIfAbsent('formatter', () => <String, Object?>{}) as Map;
     final pageWidth = origFormatter['page_width'];
     if (pageWidth is int) {
-      final customFormatter =
-          customMap.putIfAbsent('formatter', () => <String, Object?>{}) as Map;
       customFormatter['page_width'] = pageWidth;
+    }
+
+    final trailingCommas = origFormatter['trailing_commas'];
+    if (trailingCommas is String) {
+      customFormatter['trailing_commas'] = trailingCommas;
     }
   }
 
