@@ -39,6 +39,7 @@ analyzer:
 formatter:
   unknown_key: true
   page_width: 123
+  trailing_commas: preserve
 ''', custom: '');
     expect(json.decode(content), {
       'analyzer': {
@@ -50,7 +51,9 @@ formatter:
         ],
       },
       'formatter': {
+        'unknown_key': true,
         'page_width': 123,
+        'trailing_commas': 'preserve',
       },
     });
   });
