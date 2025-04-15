@@ -51,6 +51,7 @@ formatter:
         ],
       },
       'formatter': {
+        'unknown_key': true,
         'page_width': 123,
         'trailing_commas': 'preserve',
       },

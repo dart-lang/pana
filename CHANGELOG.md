@@ -1,6 +1,6 @@
 ## 0.22.21
 
-- Preserve `formatter:trailing_commas` in `analysis_options.yaml` when doing `dart format`.
+- Preserve all `formatter` settings in `analysis_options.yaml` when doing `dart format`.
 
 ## 0.22.20
 
