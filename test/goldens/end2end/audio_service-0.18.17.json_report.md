@@ -104,7 +104,7 @@ See https://docs.flutter.dev/to/spm for details.
 |:-|:-|:-|:-|:-|
 |[`audio_service_platform_interface`]|`^0.1.3`|0.1.3|0.1.3||
 |[`audio_service_web`]|`^0.1.4`|0.1.4|0.1.4||
-|[`audio_session`]|`^0.1.25`|0.1.25|0.1.25||
+|[`audio_session`]|`^0.1.25`|0.1.25|**0.2.2**||
 |[`clock`]|`^1.1.0`|1.1.2|1.1.2||
 |[`flutter_cache_manager`]|`^3.3.1`|3.4.1|3.4.1||
 |[`js`]|`>=0.6.3 <0.8.0`|0.7.2|0.7.2|**Discontinued**|
@@ -118,16 +118,16 @@ See https://docs.flutter.dev/to/spm for details.
 |[`characters`]|-|1.4.0|1.4.0||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`crypto`]|-|3.0.6|3.0.6||
-|[`ffi`]|-|2.1.3|2.1.3||
+|[`ffi`]|-|2.1.4|2.1.4||
 |[`file`]|-|7.0.1|7.0.1||
 |[`fixnum`]|-|1.1.1|1.1.1||
-|[`http`]|-|1.3.0|1.3.0||
+|[`http`]|-|1.4.0|1.4.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`material_color_utilities`]|-|0.11.1|0.12.0||
-|[`meta`]|-|1.16.0|1.16.0||
+|[`meta`]|-|1.16.0|1.17.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`path_provider`]|-|2.1.5|2.1.5||
-|[`path_provider_android`]|-|2.2.15|2.2.15||
+|[`path_provider_android`]|-|2.2.17|2.2.17||
 |[`path_provider_foundation`]|-|2.4.1|2.4.1||
 |[`path_provider_linux`]|-|2.2.1|2.2.1||
 |[`path_provider_platform_interface`]|-|2.1.2|2.1.2||
@@ -146,8 +146,8 @@ See https://docs.flutter.dev/to/spm for details.
 |[`term_glyph`]|-|1.2.2|1.2.2||
 |[`typed_data`]|-|1.4.0|1.4.0||
 |[`uuid`]|-|4.5.1|4.5.1||
-|[`vector_math`]|-|2.1.4|2.1.4||
-|[`web`]|-|1.1.0|1.1.0||
+|[`vector_math`]|-|2.1.4|2.2.0||
+|[`web`]|-|1.1.1|1.1.1||
 |[`xdg_directories`]|-|1.1.0|1.1.0||
 </details>
 
@@ -195,6 +195,14 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`vector_math`]: https://pub.dev/packages/vector_math
 [`web`]: https://pub.dev/packages/web
 [`xdg_directories`]: https://pub.dev/packages/xdg_directories
+
+<details>
+<summary>
+The constraint `^0.1.25` on audio_session does not support the stable version `0.2.0`.
+</summary>
+
+Try running `dart pub upgrade --major-versions audio_session` to update the constraint.
+</details>
 
 <details>
 <summary>

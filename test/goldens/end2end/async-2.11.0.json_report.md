@@ -82,7 +82,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
 |[`collection`]|`^1.15.0`|1.19.1|1.19.1||
-|[`meta`]|`^1.1.7`|1.16.0|1.16.0||
+|[`meta`]|`^1.1.7`|1.17.0|1.17.0||
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
