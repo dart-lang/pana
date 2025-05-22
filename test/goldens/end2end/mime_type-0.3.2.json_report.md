@@ -128,7 +128,7 @@ ERR:
 The lower bound of "sdk: '>=0.8.10 <3.0.0'" must be 2.12.0'
 or higher to enable null safety.
 
-The current Dart SDK (3.7.0) only supports null safety.
+The current Dart SDK (3.8.0) only supports null safety.
 
 For details, see https://dart.dev/null-safety
 ```

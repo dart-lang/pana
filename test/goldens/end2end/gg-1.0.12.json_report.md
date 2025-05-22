@@ -85,7 +85,7 @@ See https://dart.dev/web/wasm for details.
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`args`]|`^2.4.2`|2.6.0|2.6.0||
+|[`args`]|`^2.4.2`|2.7.0|2.7.0||
 |[`gg_args`]|`^1.1.10`|1.1.17|**2.0.4**||
 |[`gg_console_colors`]|`^2.0.1`|2.1.4|2.1.4||
 |[`gg_git`]|`^2.0.0`|2.5.9|2.5.16||
@@ -97,10 +97,10 @@ See https://dart.dev/web/wasm for details.
 |[`gg_status_printer`]|`^1.1.0`|1.1.4|1.1.4||
 |[`gg_test`]|`^1.0.3`|1.0.11|1.1.3||
 |[`gg_version`]|`^1.0.0`|1.3.1|**4.0.3**||
-|[`meta`]|`^1.12.0`|1.16.0|1.16.0||
+|[`meta`]|`^1.12.0`|1.17.0|1.17.0||
 |[`mocktail`]|`^1.0.3`|1.0.4|1.0.4||
 |[`path`]|`^1.8.0`|1.9.1|1.9.1||
-|[`pub_semver`]|`^2.1.4`|2.1.5|2.1.5||
+|[`pub_semver`]|`^2.1.4`|2.2.0|2.2.0||
 |[`recase`]|`^4.1.0`|4.1.0|4.1.0||
 |[`yaml`]|`^3.1.2`|3.1.3|3.1.3||
 |[`yaml_edit`]|`^2.2.0`|2.2.2|2.2.2||
@@ -118,7 +118,7 @@ See https://dart.dev/web/wasm for details.
 |[`gg_hash`]|-|1.0.4|1.0.4||
 |[`gg_is_github`]|-|1.0.6|1.0.6||
 |[`gg_project_root`]|-|1.0.2|1.0.4||
-|[`http`]|-|1.3.0|1.3.0||
+|[`http`]|-|1.4.0|1.4.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`json_annotation`]|-|4.9.0|4.9.0||
 |[`matcher`]|-|0.12.17|0.12.17||
@@ -128,9 +128,9 @@ See https://dart.dev/web/wasm for details.
 |[`stream_channel`]|-|2.1.4|2.1.4||
 |[`string_scanner`]|-|1.4.1|1.4.1||
 |[`term_glyph`]|-|1.2.2|1.2.2||
-|[`test_api`]|-|0.7.4|0.7.4||
+|[`test_api`]|-|0.7.6|0.7.6||
 |[`typed_data`]|-|1.4.0|1.4.0||
-|[`web`]|-|1.1.0|1.1.0||
+|[`web`]|-|1.1.1|1.1.1||
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

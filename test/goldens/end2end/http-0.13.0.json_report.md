@@ -85,7 +85,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
 |[`http_parser`]|`^4.0.0`|4.1.2|4.1.2||
-|[`meta`]|`^1.3.0`|1.16.0|1.16.0||
+|[`meta`]|`^1.3.0`|1.17.0|1.17.0||
 |[`path`]|`^1.8.0`|1.9.1|1.9.1||
 |[`pedantic`]|`^1.10.0`|1.11.1|1.11.1|**Discontinued**|
 
