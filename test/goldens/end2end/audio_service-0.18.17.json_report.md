@@ -146,7 +146,7 @@ See https://docs.flutter.dev/to/spm for details.
 |[`term_glyph`]|-|1.2.2|1.2.2||
 |[`typed_data`]|-|1.4.0|1.4.0||
 |[`uuid`]|-|4.5.1|4.5.1||
-|[`vector_math`]|-|2.2.0|2.2.0||
+|[`vector_math`]|-|2.1.4|2.2.0||
 |[`web`]|-|1.1.1|1.1.1||
 |[`xdg_directories`]|-|1.1.0|1.1.0||
 </details>
