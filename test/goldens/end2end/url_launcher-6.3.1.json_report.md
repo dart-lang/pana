@@ -87,7 +87,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|:-|
 |[`characters`]|-|1.4.0|1.4.0||
 |[`collection`]|-|1.19.1|1.19.1||
-|[`material_color_utilities`]|-|0.11.1|0.13.0||
+|[`material_color_utilities`]|-|0.11.1|0.12.0||
 |[`meta`]|-|1.16.0|1.17.0||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
 |[`vector_math`]|-|2.2.0|2.2.0||

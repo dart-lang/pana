@@ -123,7 +123,7 @@ See https://docs.flutter.dev/to/spm for details.
 |[`fixnum`]|-|1.1.1|1.1.1||
 |[`http`]|-|1.4.0|1.4.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
-|[`material_color_utilities`]|-|0.11.1|0.13.0||
+|[`material_color_utilities`]|-|0.11.1|0.12.0||
 |[`meta`]|-|1.16.0|1.17.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`path_provider`]|-|2.1.5|2.1.5||
