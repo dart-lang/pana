@@ -105,7 +105,7 @@ See https://dart.dev/web/wasm for details.
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.36.2|**7.0.3**||
+|[`dcli`]|`^1.15.5`|1.36.2|**7.0.5**||
 
 <details><summary>Transitive dependencies</summary>
 
@@ -125,7 +125,7 @@ See https://dart.dev/web/wasm for details.
 |[`crypto`]|-|3.0.6|3.0.6||
 |[`csv`]|-|5.1.1|6.0.0||
 |[`dart_console2`]|-|2.0.1|3.1.1|**Discontinued**|
-|[`dcli_core`]|-|1.36.2|7.0.2||
+|[`dcli_core`]|-|1.36.2|7.0.3||
 |[`equatable`]|-|2.0.7|2.0.7||
 |[`ffi`]|-|2.1.4|2.1.4||
 |[`file`]|-|6.1.4|7.0.1||
@@ -153,7 +153,7 @@ See https://dart.dev/web/wasm for details.
 |[`quiver`]|-|3.2.2|3.2.2||
 |[`random_string`]|-|2.3.1|2.3.1||
 |[`scope`]|-|3.0.0|5.1.0||
-|[`settings_yaml`]|-|4.0.1|8.2.0||
+|[`settings_yaml`]|-|4.0.1|8.3.0||
 |[`source_span`]|-|1.10.1|1.10.1||
 |[`stack_trace`]|-|1.12.1|1.12.1||
 |[`stacktrace_impl`]|-|2.3.0|2.3.0|**Discontinued**|
@@ -167,7 +167,7 @@ See https://dart.dev/web/wasm for details.
 |[`uuid`]|-|3.0.7|4.5.1||
 |[`validators2`]|-|3.0.0|5.0.0||
 |[`vin_decoder`]|-|0.2.1-nullsafety|0.2.1-nullsafety||
-|[`win32`]|-|3.1.4|5.13.0||
+|[`win32`]|-|3.1.4|5.14.0||
 |[`yaml`]|-|3.1.3|3.1.3||
 </details>
 

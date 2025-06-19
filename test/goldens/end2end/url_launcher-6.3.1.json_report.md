@@ -1,14 +1,6 @@
 ## 30/30 Follow Dart file conventions
 
-### [~] 10/10 points: Provide a valid `pubspec.yaml`
-
-<details>
-<summary>
-Issue tracker URL doesn't exist.
-</summary>
-
-At the time of the analysis `https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.
-</details>
+### [*] 10/10 points: Provide a valid `pubspec.yaml`
 
 ### [*] 5/5 points: Provide a valid `README.md`
 
@@ -95,10 +87,10 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|:-|
 |[`characters`]|-|1.4.0|1.4.0||
 |[`collection`]|-|1.19.1|1.19.1||
-|[`material_color_utilities`]|-|0.11.1|0.12.0||
+|[`material_color_utilities`]|-|0.11.1|0.13.0||
 |[`meta`]|-|1.16.0|1.17.0||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
-|[`vector_math`]|-|2.1.4|2.2.0||
+|[`vector_math`]|-|2.2.0|2.2.0||
 |[`web`]|-|1.1.1|1.1.1||
 </details>
 

@@ -123,7 +123,7 @@ See https://docs.flutter.dev/to/spm for details.
 |[`fixnum`]|-|1.1.1|1.1.1||
 |[`http`]|-|1.4.0|1.4.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
-|[`material_color_utilities`]|-|0.11.1|0.12.0||
+|[`material_color_utilities`]|-|0.11.1|0.13.0||
 |[`meta`]|-|1.16.0|1.17.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`path_provider`]|-|2.1.5|2.1.5||
@@ -146,7 +146,7 @@ See https://docs.flutter.dev/to/spm for details.
 |[`term_glyph`]|-|1.2.2|1.2.2||
 |[`typed_data`]|-|1.4.0|1.4.0||
 |[`uuid`]|-|4.5.1|4.5.1||
-|[`vector_math`]|-|2.1.4|2.2.0||
+|[`vector_math`]|-|2.2.0|2.2.0||
 |[`web`]|-|1.1.1|1.1.1||
 |[`xdg_directories`]|-|1.1.0|1.1.0||
 </details>
