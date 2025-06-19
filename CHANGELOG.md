@@ -1,3 +1,8 @@
+## 0.22.22
+
+- Fix issue with analyzing packages nested inside git repositories on windows.
+  https://github.com/dart-lang/pana/issues/1207 
+
 ## 0.22.21
 
 - Preserve all `formatter` settings in `analysis_options.yaml` when doing `dart format`.

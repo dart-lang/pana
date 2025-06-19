@@ -205,6 +205,7 @@ class GitLocalRepository {
   }
 
   void _assertPathFormat(String path) {
+    // Git always wants forward slashes. Even on windows.
     if (p.posix.normalize(path) != path) {
       throw GitToolException.argument('Path "$path" is not normalized.');
     }
