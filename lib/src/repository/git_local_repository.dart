@@ -205,7 +205,7 @@ class GitLocalRepository {
   }
 
   void _assertPathFormat(String path) {
-    if (p.normalize(path) != path) {
+    if (p.posix.normalize(path) != path) {
       throw GitToolException.argument('Path "$path" is not normalized.');
     }
     if (p.split(path).any((segment) =>
