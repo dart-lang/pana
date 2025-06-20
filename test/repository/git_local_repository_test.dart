@@ -73,8 +73,8 @@ void main() {
 
       test('checkout files from default branch', () async {
         final branch = await repo.detectDefaultBranch();
-        final content = await repo.showStringContent(branch, 'pubspec.yaml');
-        expect(content, contains('name: pana'));
+        final content = await repo.showStringContent(branch, 'bin/pana.dart');
+        expect(content, contains('main(List<String> args)'));
       });
     });
 
