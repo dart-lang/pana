@@ -125,8 +125,8 @@
         "title": "Follow Dart file conventions",
         "grantedPoints": 30,
         "maxPoints": 30,
-        "status": "partial",
-        "summary": "### [~] 10/10 points: Provide a valid `pubspec.yaml`\n\n<details>\n<summary>\nIssue tracker URL doesn't exist.\n</summary>\n\nAt the time of the analysis `https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+url_launcher%22` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.\n</details>\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`.\n"
+        "status": "passed",
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`.\n"
       },
       {
         "id": "documentation",
