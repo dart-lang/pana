@@ -169,15 +169,47 @@ class License {
   /// The SPDX identifier of the license.
   final String spdxIdentifier;
 
+  /// The start position of the recognized part.
+  final Position? start;
+
+  /// The end position of the recognized part.
+  final Position? end;
+
   License({
     required this.path,
     required this.spdxIdentifier,
+    this.start,
+    this.end,
   });
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LicenseToJson(this);
+}
+
+/// Describes a position in a source file.
+@JsonSerializable()
+class Position {
+  /// The 0-based offset in the source.
+  final int offset;
+
+  /// The 0-based line in the source.
+  final int line;
+
+  /// The 0-based column in the source
+  final int column;
+
+  Position({
+    required this.offset,
+    required this.line,
+    required this.column,
+  });
+
+  factory Position.fromJson(Map<String, dynamic> json) =>
+      _$PositionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PositionToJson(this);
 }
 
 @JsonSerializable()
