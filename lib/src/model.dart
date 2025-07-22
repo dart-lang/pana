@@ -170,9 +170,13 @@ class License {
   final String spdxIdentifier;
 
   /// The start position of the recognized part.
+  ///
+  /// WARNING: this field is experimental, do not rely on it.
   final Position? start;
 
   /// The end position of the recognized part.
+  ///
+  /// WARNING: this field is experimental, do not rely on it.
   final Position? end;
 
   License({
@@ -189,6 +193,8 @@ class License {
 }
 
 /// Describes a position in a source file.
+///
+/// WARNING: this class is experimental, do not rely on it.
 @JsonSerializable()
 class Position {
   /// The 0-based offset in the source.
