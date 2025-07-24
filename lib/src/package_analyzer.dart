@@ -78,10 +78,10 @@ class PackageAnalyzer {
     final sharedContext = _createSharedContext(options: options);
     return withLogger(() async {
       return withTempDir((tempDir) async {
-        await downloadPackage(
-          package,
-          version,
-          destination: tempDir,
+        await sharedContext.toolEnvironment.unpack(
+          package: package,
+          version: version,
+          outputDir: tempDir,
           pubHostedUrl: options?.pubHostedUrl,
         );
         return await _inspect(sharedContext, tempDir);

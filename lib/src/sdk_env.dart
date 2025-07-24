@@ -172,6 +172,35 @@ class ToolEnvironment {
     return toolEnv;
   }
 
+  /// Downloads and unpacks a package archive into the [outputDir] path
+  /// using the `dart pub unpack` command.
+  Future<void> unpack({
+    required String package,
+    String? version,
+    String? pubHostedUrl,
+    required String outputDir,
+  }) async {
+    final param = [
+      package,
+      if (version != null) version,
+    ].join(':');
+    final targetDir = Directory(outputDir);
+    if (await targetDir.exists()) {
+      await targetDir.delete(recursive: true);
+    }
+    await withTempDir((downloadDir) async {
+      await _runPub(
+        ['unpack', param, '--output', downloadDir, '--no-resolve'],
+        usesFlutter: false,
+        environment: {if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl},
+        throwOnError: true,
+      );
+      final subdir =
+          Directory(downloadDir).listSync().whereType<Directory>().single;
+      await subdir.rename(targetDir.path);
+    });
+  }
+
   Future<T> withRestrictedAnalysisOptions<T>(
       String packageDir, Future<T> Function() fn) async {
     final analysisOptionsFile =
@@ -322,22 +351,38 @@ class ToolEnvironment {
     required String command,
   }) async {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      return await runConstrained(
-        [
-          if (usesFlutter) ...[
-            ..._flutterSdk.flutterCmd,
-            'packages',
-          ] else
-            ..._dartSdk.dartCmd,
-          'pub',
-          command,
-          '--no-example',
-        ],
+      return await _runPub(
+        [command, '--no-example'],
+        usesFlutter: usesFlutter,
         workingDirectory: packageDir,
-        environment:
-            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
       );
     });
+  }
+
+  Future<PanaProcessResult> _runPub(
+    List<String> commands, {
+    required bool usesFlutter,
+    String? workingDirectory,
+    bool? throwOnError,
+    Map<String, String>? environment,
+  }) async {
+    return await runConstrained(
+      [
+        if (usesFlutter) ...[
+          ..._flutterSdk.flutterCmd,
+          'packages',
+        ] else
+          ..._dartSdk.dartCmd,
+        'pub',
+        ...commands,
+      ],
+      workingDirectory: workingDirectory,
+      environment: {
+        ...(usesFlutter ? _flutterSdk.environment : _dartSdk.environment),
+        ...?environment,
+      },
+      throwOnError: throwOnError ?? false,
+    );
   }
 
   Future<Outdated> runPubOutdated(
