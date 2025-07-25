@@ -1,5 +1,6 @@
 ## 0.22.22
 
+- Do not list SDK packages in the outdated packages report.
 - Fix issue with analyzing packages nested inside git repositories on windows.
   https://github.com/dart-lang/pana/issues/1207 
 

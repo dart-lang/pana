@@ -29,11 +29,13 @@ OutdatedPackage _$OutdatedPackageFromJson(Map<String, dynamic> json) =>
           ? null
           : VersionDescriptor.fromJson(json['latest'] as Map<String, dynamic>),
       isDiscontinued: json['isDiscontinued'] as bool? ?? false,
+      kind: json['kind'] as String,
     );
 
 Map<String, dynamic> _$OutdatedPackageToJson(OutdatedPackage instance) =>
     <String, dynamic>{
       'package': instance.package,
+      'kind': instance.kind,
       if (instance.upgradable?.toJson() case final value?) 'upgradable': value,
       if (instance.latest?.toJson() case final value?) 'latest': value,
       'isDiscontinued': instance.isDiscontinued,

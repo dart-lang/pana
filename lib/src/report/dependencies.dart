@@ -37,8 +37,10 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
     if (context.pubspecAllowsCurrentSdk) {
       try {
         final outdated = await context.outdated;
+        final packagesWithoutSdk =
+            outdated.packages.where((p) => p.kind != 'sdk').toList();
         final outdatedVersions = <String, List<OutdatedVersionDescription>>{};
-        for (final p in outdated.packages) {
+        for (final p in packagesWithoutSdk) {
           outdatedVersions[p.package] =
               await computeOutdatedVersions(context, p);
         }
@@ -73,7 +75,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
           return '[`$pkg`]';
         }
 
-        final depsTable = outdated.packages
+        final depsTable = packagesWithoutSdk
             .where((p) => pubspec.dependencies.containsKey(p.package))
             .map((p) => [
                   linkToPackage(p.package),
@@ -88,7 +90,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
                 ])
             .toList();
 
-        final transitiveTable = outdated.packages
+        final transitiveTable = packagesWithoutSdk
             .where((p) => !pubspec.dependencies.containsKey(p.package))
             // See: https://github.com/dart-lang/pub/issues/2552
             .where((p) => p.upgradable != null)
@@ -139,7 +141,7 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
             }
           }
         }
-        final discontinuedDirectDependencies = outdated.packages
+        final discontinuedDirectDependencies = packagesWithoutSdk
             .where((p) =>
                 p.isDiscontinued && pubspec.dependencies.containsKey(p.package))
             .map((p) => p.package);
