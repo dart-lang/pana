@@ -54,7 +54,8 @@ d.DirectoryDescriptor packageWithPathDeps(String name,
 
 /// Convenience for creating a descriptor of a package.
 d.DirectoryDescriptor package(String name,
-    {String? sdkConstraint,
+    {String? version,
+    String? sdkConstraint,
     Map<String, Object> dependencies = const {},
     List<d.Descriptor> lib = const [],
     Map<String, Object> pubspecExtras = const {},
@@ -62,6 +63,7 @@ d.DirectoryDescriptor package(String name,
   final pubspec = json.encode(
     {
       'name': name,
+      if (version != null) 'version': version,
       if (sdkConstraint != null) 'environment': {'sdk': sdkConstraint},
       'dependencies': dependencies,
       ...pubspecExtras,
