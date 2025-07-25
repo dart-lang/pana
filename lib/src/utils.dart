@@ -139,13 +139,17 @@ Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
 
 Future<void> copyDir(String from, String to) async {
   await for (final fse in Directory(from).list(recursive: true)) {
+    final relativePath = p.relative(fse.path, from: from);
+    // The following file is used by `git-fsmonitor` and copying is blocked.
+    // https://git-scm.com/docs/git-fsmonitor--daemon
+    if (relativePath == '.git/fsmonitor--daemon.ipc') {
+      continue;
+    }
     if (fse is File) {
-      final relativePath = p.relative(fse.path, from: from);
       final newFile = File(p.join(to, relativePath));
       await newFile.parent.create(recursive: true);
       await fse.copy(newFile.path);
     } else if (fse is Link) {
-      final relativePath = p.relative(fse.path, from: from);
       final linkTarget = await fse.target();
       final newLink = Link(p.join(to, relativePath));
       await newLink.parent.create(recursive: true);
