@@ -270,7 +270,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
           context.pubspec.version.toString().split('-').first.split('+').first;
       if (!content.contains(versionPart)) {
         yield Issue(
-          '`CHANGELOG.md` does not contain reference to the current version.',
+          '`CHANGELOG.md` does not contain reference to the current version ("${context.pubspec.version}").',
           suggestion: changelogSuggestion,
         );
       }
