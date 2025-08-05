@@ -215,8 +215,9 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
 
   Future<Subsection> checkAsset(
     String filename,
-    String missingSuggestion,
-  ) async {
+    String missingSuggestion, {
+    Iterable<Issue> Function(String content)? checkContent,
+  }) async {
     final fullPath = p.join(packageDir, filename);
     final file = File(fullPath);
     final issues = <Issue>[];
@@ -232,6 +233,10 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
             .add(Issue('`$filename` is empty.', suggestion: missingSuggestion));
       }
       issues.addAll(await findMarkdownIssues(file));
+      if (checkContent != null) {
+        final content = await file.readAsString();
+        issues.addAll(checkContent(content));
+      }
     }
     final status = issues.isEmpty ? ReportStatus.passed : ReportStatus.failed;
     final points = issues.isEmpty ? 5 : 0;
@@ -251,11 +256,25 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
         'Check out the guidelines on '
         '[Writing great package pages](https://dart.dev/guides/libraries/writing-package-pages).',
   );
+  final changelogSuggestion =
+      'Changelog entries help developers follow the progress of your package. '
+      'Check out the Dart conventions for '
+      '[Maintaining a package changelog](https://dart.dev/tools/pub/package-layout#changelog).';
   final changelogSubsection = await checkAsset(
     'CHANGELOG.md',
-    'Changelog entries help developers follow the progress of your package. '
-        'Check out the Dart conventions for '
-        '[Maintaining a package changelog](https://dart.dev/tools/pub/package-layout#changelog).',
+    changelogSuggestion,
+    checkContent: (content) sync* {
+      // Note: this is not the entire current version, only the part before the first `-` or `+`.
+      //       Checking only the part to reduce misreporting around ongoing version patterns (`-wip`, `-dev`).
+      final versionPart =
+          context.pubspec.version.toString().split('-').first.split('+').first;
+      if (!content.contains(versionPart)) {
+        yield Issue(
+          '`CHANGELOG.md` does not contain reference to the current version ("${context.pubspec.version}").',
+          suggestion: changelogSuggestion,
+        );
+      }
+    },
   );
   final pubspecSection = await checkPubspec();
   final subsections = [
