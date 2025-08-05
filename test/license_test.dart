@@ -140,6 +140,8 @@ void main() {
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'BSD-3-Clause',
+          'start': {'offset': 44, 'line': 2, 'column': 0},
+          'end': {'offset': 1503, 'line': 26, 'column': 68},
         }
       ]);
     });

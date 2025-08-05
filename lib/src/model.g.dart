@@ -111,11 +111,31 @@ Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) =>
 License _$LicenseFromJson(Map<String, dynamic> json) => License(
       path: json['path'] as String,
       spdxIdentifier: json['spdxIdentifier'] as String,
+      start: json['start'] == null
+          ? null
+          : Position.fromJson(json['start'] as Map<String, dynamic>),
+      end: json['end'] == null
+          ? null
+          : Position.fromJson(json['end'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LicenseToJson(License instance) => <String, dynamic>{
       'path': instance.path,
       'spdxIdentifier': instance.spdxIdentifier,
+      if (instance.start?.toJson() case final value?) 'start': value,
+      if (instance.end?.toJson() case final value?) 'end': value,
+    };
+
+Position _$PositionFromJson(Map<String, dynamic> json) => Position(
+      offset: (json['offset'] as num).toInt(),
+      line: (json['line'] as num).toInt(),
+      column: (json['column'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$PositionToJson(Position instance) => <String, dynamic>{
+      'offset': instance.offset,
+      'line': instance.line,
+      'column': instance.column,
     };
 
 LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) => LicenseFile(

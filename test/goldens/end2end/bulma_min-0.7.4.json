@@ -24,7 +24,17 @@
   "licenses": [
     {
       "path": "LICENSE",
-      "spdxIdentifier": "MIT"
+      "spdxIdentifier": "MIT",
+      "start": {
+        "offset": 24,
+        "line": 3,
+        "column": 0
+      },
+      "end": {
+        "offset": 1046,
+        "line": 19,
+        "column": 13
+      }
     }
   ],
   "allDependencies": [],
@@ -92,7 +102,17 @@
     "licenses": [
       {
         "path": "LICENSE",
-        "spdxIdentifier": "MIT"
+        "spdxIdentifier": "MIT",
+        "start": {
+          "offset": 24,
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "offset": 1046,
+          "line": 19,
+          "column": 13
+        }
       }
     ],
     "grantedPoints": 30,

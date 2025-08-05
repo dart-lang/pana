@@ -22,7 +22,17 @@
   "licenses": [
     {
       "path": "LICENSE",
-      "spdxIdentifier": "BSD-3-Clause"
+      "spdxIdentifier": "BSD-3-Clause",
+      "start": {
+        "offset": 43,
+        "line": 2,
+        "column": 0
+      },
+      "end": {
+        "offset": 1502,
+        "line": 26,
+        "column": 68
+      }
     }
   ],
   "allDependencies": [],
@@ -95,7 +105,17 @@
     "licenses": [
       {
         "path": "LICENSE",
-        "spdxIdentifier": "BSD-3-Clause"
+        "spdxIdentifier": "BSD-3-Clause",
+        "start": {
+          "offset": 43,
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "offset": 1502,
+          "line": 26,
+          "column": 68
+        }
       }
     ],
     "grantedPoints": 130,

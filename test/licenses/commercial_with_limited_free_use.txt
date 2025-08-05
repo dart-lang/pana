@@ -1,0 +1,11 @@
+All items and source code Copyright (c) 2025 Scanbot SDK GmbH
+(https://scanbot.io).
+
+Scanbot Document and Barcode Scanner SDK for Flutter Plugin is
+a commercial product and requires a license to be used in a
+production environment. It will run without a license for one
+minute per session. Get a free trial license
+(https://scanbot.io/trial/) to evaluate and integrate it into
+your project.
+
+Please contact us via sdk@scanbot.io for more information.
