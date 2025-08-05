@@ -20,6 +20,7 @@ import 'version.dart';
 export 'internal_model.dart' show UrlStatus;
 
 /// Downloads [package] and unpacks it into [destination]
+@Deprecated('Use ToolEnvironment.unpack instead.')
 Future<void> downloadPackage(
   String package,
   String? version, {
