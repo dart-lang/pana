@@ -1,3 +1,7 @@
+## 0.22.23
+
+- Updated `License` with `start` and `end` `Position` fields that identifies the recognized block.
+
 ## 0.22.22
 
 - Do not list SDK packages in the outdated packages report.
@@ -5,7 +9,6 @@
 - Fix issue with analyzing packages nested inside git repositories on windows.
   https://github.com/dart-lang/pana/issues/1207 
 - Check the reference of the current version in `CHANGELOG.md`.
-- Updated `License` with `start` and `end` `Position` fields that identifies the recognized block.
 
 ## 0.22.21
 
