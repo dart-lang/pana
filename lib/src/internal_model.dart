@@ -27,12 +27,18 @@ class Outdated {
 @JsonSerializable()
 class OutdatedPackage {
   final String package;
+  final String kind;
   final VersionDescriptor? upgradable;
   final VersionDescriptor? latest;
   final bool isDiscontinued;
 
-  OutdatedPackage(this.package, this.upgradable, this.latest,
-      {this.isDiscontinued = false});
+  OutdatedPackage(
+    this.package,
+    this.upgradable,
+    this.latest, {
+    this.isDiscontinued = false,
+    required this.kind,
+  });
 
   static OutdatedPackage fromJson(Map<String, dynamic> json) =>
       _$OutdatedPackageFromJson(json);
