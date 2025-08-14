@@ -1,6 +1,14 @@
 ## 30/30 Follow Dart file conventions
 
-### [*] 10/10 points: Provide a valid `pubspec.yaml`
+### [~] 10/10 points: Provide a valid `pubspec.yaml`
+
+<details>
+<summary>
+Homepage URL doesn't exist.
+</summary>
+
+At the time of the analysis `https://code.makery.ch/library/dart-drag-and-drop/` was unreachable. Make sure that the website is reachable via [`HEAD`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) requests.
+</details>
 
 ### [*] 5/5 points: Provide a valid `README.md`
 

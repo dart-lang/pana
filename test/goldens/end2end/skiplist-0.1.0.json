@@ -28,15 +28,17 @@
     {
       "path": "LICENSE",
       "spdxIdentifier": "MIT",
-      "start": {
-        "offset": 24,
-        "line": 3,
-        "column": 0
-      },
-      "end": {
-        "offset": 1046,
-        "line": 19,
-        "column": 9
+      "range": {
+        "start": {
+          "offset": 24,
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "offset": 1046,
+          "line": 19,
+          "column": 9
+        }
       }
     }
   ],
@@ -109,15 +111,17 @@
       {
         "path": "LICENSE",
         "spdxIdentifier": "MIT",
-        "start": {
-          "offset": 24,
-          "line": 3,
-          "column": 0
-        },
-        "end": {
-          "offset": 1046,
-          "line": 19,
-          "column": 9
+        "range": {
+          "start": {
+            "offset": 24,
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "offset": 1046,
+            "line": 19,
+            "column": 9
+          }
         }
       }
     ],

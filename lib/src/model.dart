@@ -169,27 +169,39 @@ class License {
   /// The SPDX identifier of the license.
   final String spdxIdentifier;
 
-  /// The start position of the recognized part.
+  /// The range (start and end position) of the recognized part.
   ///
   /// WARNING: this field is experimental, do not rely on it.
-  final Position? start;
-
-  /// The end position of the recognized part.
-  ///
-  /// WARNING: this field is experimental, do not rely on it.
-  final Position? end;
+  final Range? range;
 
   License({
     required this.path,
     required this.spdxIdentifier,
-    this.start,
-    this.end,
+    this.range,
   });
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LicenseToJson(this);
+}
+
+/// Describes a range in a source file.
+///
+/// WARNING: this class is experimental, do not rely on it.
+@JsonSerializable()
+class Range {
+  final Position start;
+  final Position end;
+
+  Range({
+    required this.start,
+    required this.end,
+  });
+
+  factory Range.fromJson(Map<String, dynamic> json) => _$RangeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RangeToJson(this);
 }
 
 /// Describes a position in a source file.

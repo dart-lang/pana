@@ -9,7 +9,7 @@ import 'dart:io';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 
-import 'license_detection/license_detector.dart' hide License;
+import 'license_detection/license_detector.dart' hide License, Range;
 import 'model.dart';
 
 const _licenseFileNames = ['LICENSE'];
@@ -55,10 +55,12 @@ Future<List<License>> detectLicenseInContent(
     return License(
       path: relativePath,
       spdxIdentifier: e.identifier,
-      start: Position(
-          offset: e.start.offset, line: e.start.line, column: e.start.column),
-      end: Position(
-          offset: e.end.offset, line: e.end.line, column: e.end.column),
+      range: Range(
+        start: Position(
+            offset: e.start.offset, line: e.start.line, column: e.start.column),
+        end: Position(
+            offset: e.end.offset, line: e.end.line, column: e.end.column),
+      ),
     );
   }).toList();
 }

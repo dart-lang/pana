@@ -111,19 +111,25 @@ Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) =>
 License _$LicenseFromJson(Map<String, dynamic> json) => License(
       path: json['path'] as String,
       spdxIdentifier: json['spdxIdentifier'] as String,
-      start: json['start'] == null
+      range: json['range'] == null
           ? null
-          : Position.fromJson(json['start'] as Map<String, dynamic>),
-      end: json['end'] == null
-          ? null
-          : Position.fromJson(json['end'] as Map<String, dynamic>),
+          : Range.fromJson(json['range'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LicenseToJson(License instance) => <String, dynamic>{
       'path': instance.path,
       'spdxIdentifier': instance.spdxIdentifier,
-      if (instance.start?.toJson() case final value?) 'start': value,
-      if (instance.end?.toJson() case final value?) 'end': value,
+      if (instance.range?.toJson() case final value?) 'range': value,
+    };
+
+Range _$RangeFromJson(Map<String, dynamic> json) => Range(
+      start: Position.fromJson(json['start'] as Map<String, dynamic>),
+      end: Position.fromJson(json['end'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$RangeToJson(Range instance) => <String, dynamic>{
+      'start': instance.start.toJson(),
+      'end': instance.end.toJson(),
     };
 
 Position _$PositionFromJson(Map<String, dynamic> json) => Position(

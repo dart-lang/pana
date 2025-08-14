@@ -23,15 +23,17 @@
     {
       "path": "LICENSE",
       "spdxIdentifier": "BSD-3-Clause",
-      "start": {
-        "offset": 43,
-        "line": 2,
-        "column": 0
-      },
-      "end": {
-        "offset": 1502,
-        "line": 26,
-        "column": 68
+      "range": {
+        "start": {
+          "offset": 43,
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "offset": 1502,
+          "line": 26,
+          "column": 68
+        }
       }
     }
   ],
@@ -106,15 +108,17 @@
       {
         "path": "LICENSE",
         "spdxIdentifier": "BSD-3-Clause",
-        "start": {
-          "offset": 43,
-          "line": 2,
-          "column": 0
-        },
-        "end": {
-          "offset": 1502,
-          "line": 26,
-          "column": 68
+        "range": {
+          "start": {
+            "offset": 43,
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "offset": 1502,
+            "line": 26,
+            "column": 68
+          }
         }
       }
     ],

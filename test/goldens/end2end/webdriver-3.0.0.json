@@ -35,15 +35,17 @@
     {
       "path": "LICENSE",
       "spdxIdentifier": "Apache-2.0",
-      "start": {
-        "offset": 33,
-        "line": 0,
-        "column": 33
-      },
-      "end": {
-        "offset": 11356,
-        "line": 200,
-        "column": 33
+      "range": {
+        "start": {
+          "offset": 33,
+          "line": 0,
+          "column": 33
+        },
+        "end": {
+          "offset": 11356,
+          "line": 200,
+          "column": 33
+        }
       }
     }
   ],
@@ -138,15 +140,17 @@
       {
         "path": "LICENSE",
         "spdxIdentifier": "Apache-2.0",
-        "start": {
-          "offset": 33,
-          "line": 0,
-          "column": 33
-        },
-        "end": {
-          "offset": 11356,
-          "line": 200,
-          "column": 33
+        "range": {
+          "start": {
+            "offset": 33,
+            "line": 0,
+            "column": 33
+          },
+          "end": {
+            "offset": 11356,
+            "line": 200,
+            "column": 33
+          }
         }
       }
     ],
