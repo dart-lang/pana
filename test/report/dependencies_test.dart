@@ -15,27 +15,35 @@ import '_tool_environment.dart';
 void main() {
   group('trustworthy dependency', () {
     test('Gives points despite outdated package', () async {
-      await servePackages((b) => b!
-        ..serve('foo', '1.2.3',
-            published: DateTime.now().subtract(const Duration(days: 2))));
-      final descriptor = package('my_package',
-          sdkConstraint: '>=2.14.0 <4.0.0',
-          dependencies: {
-            'foo': {
-              'hosted': {'name': 'foo', 'url': globalPackageServer!.url},
-              'version': '^1.1.0'
-            }
-          });
+      await servePackages(
+        (b) => b!
+          ..serve(
+            'foo',
+            '1.2.3',
+            published: DateTime.now().subtract(const Duration(days: 2)),
+          ),
+      );
+      final descriptor = package(
+        'my_package',
+        sdkConstraint: '>=2.14.0 <4.0.0',
+        dependencies: {
+          'foo': {
+            'hosted': {'name': 'foo', 'url': globalPackageServer!.url},
+            'version': '^1.1.0',
+          },
+        },
+      );
       await descriptor.create();
 
       Future<PackageContext> newContext() async => PackageContext(
-            sharedContext: SharedAnalysisContext(
-              toolEnvironment: await testToolEnvironment(),
-            ),
-            packageDir: descriptor.io.path,
-          );
-      final currentSdkVersion =
-          Version.parse((await testToolEnvironment()).runtimeInfo.sdkVersion);
+        sharedContext: SharedAnalysisContext(
+          toolEnvironment: await testToolEnvironment(),
+        ),
+        packageDir: descriptor.io.path,
+      );
+      final currentSdkVersion = Version.parse(
+        (await testToolEnvironment()).runtimeInfo.sdkVersion,
+      );
 
       {
         final section = await trustworthyDependency(await newContext());
@@ -45,35 +53,42 @@ void main() {
           DateTime.now().subtract(Duration(days: days));
       {
         globalPackageServer!.add(
-          (b) => b!.serve('foo', '4.0.0',
-              pubspec: {
-                'environment': {
-                  'sdk': VersionConstraint.compatibleWith(
-                          currentSdkVersion.nextBreaking)
-                      .toString()
-                }
+          (b) => b!.serve(
+            'foo',
+            '4.0.0',
+            pubspec: {
+              'environment': {
+                'sdk': VersionConstraint.compatibleWith(
+                  currentSdkVersion.nextBreaking,
+                ).toString(),
               },
-              published: daysAgo(200)),
+            },
+            published: daysAgo(200),
+          ),
         );
-
-        final section = await trustworthyDependency(await newContext());
-        expect(
-            section.summary,
-            contains(
-                '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
-                'but that version doesn\'t support the current Dart SDK version $currentSdkVersion'));
-
-        expect(section.grantedPoints, section.maxPoints);
-      }
-      {
-        globalPackageServer!
-            .add((b) => b!.serve('foo', '3.0.0', published: daysAgo(3)));
 
         final section = await trustworthyDependency(await newContext());
         expect(
           section.summary,
           contains(
-              'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.'),
+            '* The constraint `^1.1.0` on foo does not support the stable version `4.0.0`, '
+            'but that version doesn\'t support the current Dart SDK version $currentSdkVersion',
+          ),
+        );
+
+        expect(section.grantedPoints, section.maxPoints);
+      }
+      {
+        globalPackageServer!.add(
+          (b) => b!.serve('foo', '3.0.0', published: daysAgo(3)),
+        );
+
+        final section = await trustworthyDependency(await newContext());
+        expect(
+          section.summary,
+          contains(
+            'The constraint `^1.1.0` on foo does not support the stable version `3.0.0`, that was published 3 days ago.',
+          ),
         );
 
         expect(section.grantedPoints, section.maxPoints);
@@ -85,9 +100,10 @@ void main() {
             '2.0.0',
             pubspec: {
               'environment': {
-                'sdk': VersionConstraint.compatibleWith(currentSdkVersion)
-                    .toString()
-              }
+                'sdk': VersionConstraint.compatibleWith(
+                  currentSdkVersion,
+                ).toString(),
+              },
             },
             published: daysAgo(200),
           ),
@@ -97,19 +113,20 @@ void main() {
         expect(
           section.summary,
           contains(
-              'The constraint `^1.1.0` on foo does not support the stable version `2.0.0`.'),
+            'The constraint `^1.1.0` on foo does not support the stable version `2.0.0`.',
+          ),
         );
         expect(section.grantedPoints, section.maxPoints - 10);
       }
     });
 
     test('ignores Flutter constraint upper bound', () async {
-      final descriptor = package('my_package', pubspecExtras: {
-        'environment': {
-          'sdk': '>=3.0.0 <4.0.0',
-          'flutter': '>=2.6.0 <3.0.0',
-        }
-      });
+      final descriptor = package(
+        'my_package',
+        pubspecExtras: {
+          'environment': {'sdk': '>=3.0.0 <4.0.0', 'flutter': '>=2.6.0 <3.0.0'},
+        },
+      );
       await descriptor.create();
       final context = PackageContext(
         sharedContext: SharedAnalysisContext(
@@ -122,11 +139,12 @@ void main() {
     });
 
     test('Understands `>=2.12.0 <3.0.0` as `>=2.12.0 <4.0.0`', () async {
-      final descriptor = package('my_package', pubspecExtras: {
-        'environment': {
-          'sdk': '>=2.12.0 <3.0.0',
-        }
-      });
+      final descriptor = package(
+        'my_package',
+        pubspecExtras: {
+          'environment': {'sdk': '>=2.12.0 <3.0.0'},
+        },
+      );
       await descriptor.create();
       final context = PackageContext(
         sharedContext: SharedAnalysisContext(
@@ -141,26 +159,30 @@ void main() {
     test('complains about Flutter constraint upper bound', () async {
       final toolEnv = await ToolEnvironment.create();
       final version = int.parse(
-          toolEnv.runtimeInfo.flutterVersion?.split('.').first ?? '4');
+        toolEnv.runtimeInfo.flutterVersion?.split('.').first ?? '4',
+      );
       final nextVersion = version + 1;
-      final descriptor = package('my_package', pubspecExtras: {
-        'environment': {
-          'sdk': '>=3.0.0 <4.0.0',
-          'flutter': '>=$nextVersion.0.0 <${nextVersion + 1}.0.0',
-        }
-      });
+      final descriptor = package(
+        'my_package',
+        pubspecExtras: {
+          'environment': {
+            'sdk': '>=3.0.0 <4.0.0',
+            'flutter': '>=$nextVersion.0.0 <${nextVersion + 1}.0.0',
+          },
+        },
+      );
       await descriptor.create();
       final context = PackageContext(
-        sharedContext: SharedAnalysisContext(
-          toolEnvironment: toolEnv,
-        ),
+        sharedContext: SharedAnalysisContext(toolEnvironment: toolEnv),
         packageDir: descriptor.io.path,
       );
       final section = await trustworthyDependency(context);
       expect(
-          section.summary,
-          contains(
-              'The current flutter constraint does not allow the latest Flutter'));
+        section.summary,
+        contains(
+          'The current flutter constraint does not allow the latest Flutter',
+        ),
+      );
       expect(section.grantedPoints, 0);
     });
   });

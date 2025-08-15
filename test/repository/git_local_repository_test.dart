@@ -21,13 +21,17 @@ void main() {
     }
 
     test('master', () async {
-      expect(await getDefaultBranch('https://github.com/dart-lang/pana.git'),
-          'master');
+      expect(
+        await getDefaultBranch('https://github.com/dart-lang/pana.git'),
+        'master',
+      );
     });
 
     test('main', () async {
       expect(
-          await getDefaultBranch('https://github.com/dart-lang/lints'), 'main');
+        await getDefaultBranch('https://github.com/dart-lang/lints'),
+        'main',
+      );
     });
 
     test('bad url', () async {
@@ -40,7 +44,8 @@ void main() {
 
     setUpAll(() async {
       repo = await GitLocalRepository.createLocalRepository(
-          'https://github.com/dart-lang/pana.git');
+        'https://github.com/dart-lang/pana.git',
+      );
     });
 
     tearDownAll(() async {
@@ -50,18 +55,23 @@ void main() {
     void setupBranchFailures(Future<void> Function(String branch) fn) {
       test('no such branch', () async {
         await expectLater(
-            () => fn('branchdoesnotexists'), throwsA(isA<GitToolException>()));
+          () => fn('branchdoesnotexists'),
+          throwsA(isA<GitToolException>()),
+        );
       });
 
       test('not expected branch format', () async {
         await expectLater(
-            () => fn('not//accepted'), throwsA(isA<GitToolException>()));
+          () => fn('not//accepted'),
+          throwsA(isA<GitToolException>()),
+        );
       });
     }
 
     group('show string content', () {
-      setupBranchFailures((branch) async =>
-          await repo.showStringContent(branch, 'pubspec.yaml'));
+      setupBranchFailures(
+        (branch) async => await repo.showStringContent(branch, 'pubspec.yaml'),
+      );
 
       test('bad file', () async {
         final branch = await repo.detectDefaultBranch();
@@ -84,12 +94,7 @@ void main() {
       test('list files in root', () async {
         final branch = await repo.detectDefaultBranch();
         final files = await repo.listFiles(branch);
-        expect(
-            files,
-            containsAll([
-              'lib/pana.dart',
-              'pubspec.yaml',
-            ]));
+        expect(files, containsAll(['lib/pana.dart', 'pubspec.yaml']));
       });
     });
   });

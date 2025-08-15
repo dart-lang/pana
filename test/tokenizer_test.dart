@@ -8,66 +8,55 @@ import 'package:test/test.dart';
 
 void main() {
   group('Basic Tokenizer tests', () {
-    testTokenizer('Ignore standalone punctuations',
-        text: '// hello! ^& world %^& 1.1',
-        expected: [
-          'hello',
-          'world',
-          '1.1',
-        ]);
+    testTokenizer(
+      'Ignore standalone punctuations',
+      text: '// hello! ^& world %^& 1.1',
+      expected: ['hello', 'world', '1.1'],
+    );
 
-    testTokenizer('Normalize equivalent words',
-        text: 'analogue  favorite per cent copyright holder copyright-holder ',
-        expected: [
-          'analog',
-          'favourite',
-          'percent',
-          'copyright',
-          'owner',
-          'copyrightowner'
-        ]);
+    testTokenizer(
+      'Normalize equivalent words',
+      text: 'analogue  favorite per cent copyright holder copyright-holder ',
+      expected: [
+        'analog',
+        'favourite',
+        'percent',
+        'copyright',
+        'owner',
+        'copyrightowner',
+      ],
+    );
 
-    testTokenizer('Ignore punctuations at start of word',
-        text: '// !hello @#world -1.1.1',
-        expected: [
-          'hello',
-          'world',
-          '1.1.1',
-        ]);
+    testTokenizer(
+      'Ignore punctuations at start of word',
+      text: '// !hello @#world -1.1.1',
+      expected: ['hello', 'world', '1.1.1'],
+    );
 
-    testTokenizer('Ignore punctuations in between a textual world',
-        text: '// hell@o wo\$%^rld', expected: ['hello', 'world']);
+    testTokenizer(
+      'Ignore punctuations in between a textual world',
+      text: '// hell@o wo\$%^rld',
+      expected: ['hello', 'world'],
+    );
 
-    testTokenizer('Allow only hyphens and dots if token starts with digit',
-        text: 'H.E.L.L.O W.O.R.L.D 1!.2#-3',
-        expected: [
-          'hello',
-          'world',
-          '1.2-3',
-        ]);
+    testTokenizer(
+      'Allow only hyphens and dots if token starts with digit',
+      text: 'H.E.L.L.O W.O.R.L.D 1!.2#-3',
+      expected: ['hello', 'world', '1.2-3'],
+    );
 
-    testTokenizer('Ignore List Items',
-        text: '// 1) hello world.\n   vii. This is a text vii.',
-        expected: [
-          'hello',
-          'world',
-          'this',
-          'is',
-          'a',
-          'text',
-          'vii',
-        ]);
+    testTokenizer(
+      'Ignore List Items',
+      text: '// 1) hello world.\n   vii. This is a text vii.',
+      expected: ['hello', 'world', 'this', 'is', 'a', 'text', 'vii'],
+    );
 
     // Tokenize at space or new line.
-    testTokenizer('Basic tokenization',
-        text: 'hello    world\r\n take some\n tokens',
-        expected: [
-          'hello',
-          'world',
-          'take',
-          'some',
-          'tokens',
-        ]);
+    testTokenizer(
+      'Basic tokenization',
+      text: 'hello    world\r\n take some\n tokens',
+      expected: ['hello', 'world', 'take', 'some', 'tokens'],
+    );
   });
 
   test('Complex tokenizer test', () {
@@ -155,8 +144,11 @@ Permission to use/copy, modify    granted.''';
   });
 }
 
-void testTokenizer(String name,
-    {required String text, required List<String> expected}) {
+void testTokenizer(
+  String name, {
+  required String text,
+  required List<String> expected,
+}) {
   test(name, () => testOutput(tokenize(text), expected));
 }
 

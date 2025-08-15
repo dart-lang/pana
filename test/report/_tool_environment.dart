@@ -6,8 +6,9 @@ import 'package:pana/pana.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
 Future<ToolEnvironment> testToolEnvironment({String? sdkVersion}) async {
-  final fakeFlutterRoot =
-      d.dir('fake_flutter_root', [d.file('version', '2.0.0')]);
+  final fakeFlutterRoot = d.dir('fake_flutter_root', [
+    d.file('version', '2.0.0'),
+  ]);
   await fakeFlutterRoot.create();
   return ToolEnvironment.fake(
     environment: {'FLUTTER_ROOT': fakeFlutterRoot.io.path},
@@ -22,7 +23,7 @@ Future<ToolEnvironment> testToolEnvironment({String? sdkVersion}) async {
         'frameworkCommitDate': '2021-02-19 10:03:46 +0100',
         'engineRevision': 'b04955656c87de0d80d259792e3a0e4a23b7c260',
         'dartSdkVersion': '2.12.0 (build 2.12.0)',
-        'flutterRoot': fakeFlutterRoot.io.path
+        'flutterRoot': fakeFlutterRoot.io.path,
       },
     ),
   );

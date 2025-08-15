@@ -10,8 +10,9 @@ Future<void> main(List<String> args) async {
     print('dart batch_compare_analysis.dart <before.json> <after.json>');
     print('');
     print(
-        'Compare analysis results and highlight changes using the output of the '
-        '`batch_compare_licenses.dart script.');
+      'Compare analysis results and highlight changes using the output of the '
+      '`batch_compare_licenses.dart script.',
+    );
     return;
   }
   final a = await _read(args[0]);
@@ -29,7 +30,8 @@ Future<void> main(List<String> args) async {
     ..sort((a, b) => -a.value.length.compareTo(b.value.length));
   for (final entry in entries) {
     print(
-        '${entry.value.length.toString().padLeft(6)} ${entry.key.padLeft(30)}: ${entry.value.take(5).join(', ')}');
+      '${entry.value.length.toString().padLeft(6)} ${entry.key.padLeft(30)}: ${entry.value.take(5).join(', ')}',
+    );
   }
 }
 
@@ -39,8 +41,8 @@ class LicenseResult {
   LicenseResult({required this.spdxIds});
   factory LicenseResult.fromJson(Map<String, dynamic> input) {
     return LicenseResult(
-        spdxIds:
-            (input['spdxIds'] as List?)?.cast<String>() ?? const <String>[]);
+      spdxIds: (input['spdxIds'] as List?)?.cast<String>() ?? const <String>[],
+    );
   }
 
   List<String> diff(LicenseResult other) {
@@ -54,6 +56,8 @@ class LicenseResult {
 Future<Map<String, LicenseResult>> _read(String inputFilePath) async {
   final content = await File(inputFilePath).readAsString();
   final data = json.decode(content) as Map<String, dynamic>;
-  return data.map((key, value) =>
-      MapEntry(key, LicenseResult.fromJson(value as Map<String, dynamic>)));
+  return data.map(
+    (key, value) =>
+        MapEntry(key, LicenseResult.fromJson(value as Map<String, dynamic>)),
+  );
 }

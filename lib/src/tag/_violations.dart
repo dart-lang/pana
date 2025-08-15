@@ -92,7 +92,10 @@ import '_specs.dart';
 
 /// Detects forbidden imports given a runtime.
 PathFinder<Uri> runtimeViolationFinder(
-    LibraryGraph libraryGraph, Runtime runtime, Explainer<Uri> explainer) {
+  LibraryGraph libraryGraph,
+  Runtime runtime,
+  Explainer<Uri> explainer,
+) {
   return PathFinder<Uri>(libraryGraph, (Uri uri) {
     final uriString = uri.toString();
     if (uriString.startsWith('dart:') &&
@@ -170,37 +173,38 @@ class PlatformViolationFinder {
     this.platformDetector,
     PubspecCache pubspecCache,
     this._runtimeSupport,
-  )   : _packageDeclaredFinder =
-            PathFinder(PackageGraph(pubspecCache), (package) {
-          final detectedPlatforms =
-              platformDetector._declaredPlatforms(package);
+  ) : _packageDeclaredFinder = PathFinder(PackageGraph(pubspecCache), (
+        package,
+      ) {
+        final detectedPlatforms = platformDetector._declaredPlatforms(package);
+        if (detectedPlatforms != null &&
+            !detectedPlatforms.contains(platform)) {
+          return (path) => Explanation(
+            'Package does not support platform `${platform.name}`.',
+            'Because:\n${PackageGraph.formatPath(path)} that declares support for '
+                'platforms: ${detectedPlatforms.map((e) => '`${e.name}`').join(', ')}.',
+            tag: platform.tag,
+          );
+        }
+        return null;
+      }),
+      _libraryDeclaredFinder = PathFinder(libraryGraph, (uri) {
+        if (uri.scheme == 'package') {
+          final detectedPlatforms = platformDetector._declaredPlatforms(
+            pubspecCache.packageName(uri),
+          );
           if (detectedPlatforms != null &&
               !detectedPlatforms.contains(platform)) {
             return (path) => Explanation(
-                  'Package does not support platform `${platform.name}`.',
-                  'Because:\n${PackageGraph.formatPath(path)} that declares support for '
-                      'platforms: ${detectedPlatforms.map((e) => '`${e.name}`').join(', ')}.',
-                  tag: platform.tag,
-                );
+              'Package does not support platform `${platform.name}`.',
+              'Because:\n${LibraryGraph.formatPath(path)} that declares support for '
+                  'platforms: ${detectedPlatforms.map((e) => '`${e.name}`').join(', ')}.',
+              tag: platform.tag,
+            );
           }
-          return null;
-        }),
-        _libraryDeclaredFinder = PathFinder(libraryGraph, (uri) {
-          if (uri.scheme == 'package') {
-            final detectedPlatforms = platformDetector
-                ._declaredPlatforms(pubspecCache.packageName(uri));
-            if (detectedPlatforms != null &&
-                !detectedPlatforms.contains(platform)) {
-              return (path) => Explanation(
-                    'Package does not support platform `${platform.name}`.',
-                    'Because:\n${LibraryGraph.formatPath(path)} that declares support for '
-                        'platforms: ${detectedPlatforms.map((e) => '`${e.name}`').join(', ')}.',
-                    tag: platform.tag,
-                  );
-            }
-          }
-          return null;
-        });
+        }
+        return null;
+      });
 
   /// Returns the first platform violation using the transitive dependencies of
   /// [topLibraries] or, if no such library is present, using the declared
@@ -232,31 +236,33 @@ class SdkViolationFinder {
   final Sdk sdk;
   final AnalysisSession _session;
 
-  SdkViolationFinder(PackageGraph packageGraph, this.sdk,
-      PubspecCache pubspecCache, this._session)
-      : _declaredSdkViolationFinder = PathFinder(
-          packageGraph,
-          (String packageDir) {
-            final declaredSdks = {
-              ...pubspecCache.pubspecOfPackage(packageDir).dependentSdks,
-              'dart'
-            };
-            final nonAllowedSdks =
-                declaredSdks.difference(sdk.allowedSdks.toSet());
-            return nonAllowedSdks.isEmpty
-                ? null
-                : (path) => Explanation(
-                      'Package is not compatible with the ${sdk.formattedName} SDK.',
-                      'Because:\n${PackageGraph.formatPath(path)} that is a package requiring'
-                          ' ${nonAllowedSdks.join(', ')}.',
-                      tag: sdk.tag,
-                    );
-          },
-        );
+  SdkViolationFinder(
+    PackageGraph packageGraph,
+    this.sdk,
+    PubspecCache pubspecCache,
+    this._session,
+  ) : _declaredSdkViolationFinder = PathFinder(packageGraph, (
+        String packageDir,
+      ) {
+        final declaredSdks = {
+          ...pubspecCache.pubspecOfPackage(packageDir).dependentSdks,
+          'dart',
+        };
+        final nonAllowedSdks = declaredSdks.difference(sdk.allowedSdks.toSet());
+        return nonAllowedSdks.isEmpty
+            ? null
+            : (path) => Explanation(
+                'Package is not compatible with the ${sdk.formattedName} SDK.',
+                'Because:\n${PackageGraph.formatPath(path)} that is a package requiring'
+                    ' ${nonAllowedSdks.join(', ')}.',
+                tag: sdk.tag,
+              );
+      });
 
   Explanation? findSdkViolation(String packageName, List<Uri> topLibraries) {
-    final declaredSdkResult =
-        _declaredSdkViolationFinder.findViolation(packageName);
+    final declaredSdkResult = _declaredSdkViolationFinder.findViolation(
+      packageName,
+    );
     if (declaredSdkResult != null) return declaredSdkResult;
 
     final explanations = <Explanation>[];

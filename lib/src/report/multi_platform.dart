@@ -16,8 +16,9 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
   Subsection subsection;
   final flutterPackage = context.pubspec.usesFlutter;
 
-  if (File(p.join(context.packageDir, '.dart_tool', 'package_config.json'))
-      .existsSync()) {
+  if (File(
+    p.join(context.packageDir, '.dart_tool', 'package_config.json'),
+  ).existsSync()) {
     final tags = <String>[];
     final explanations = <Explanation>[];
     final tagger = Tagger(context.packageDir);
@@ -26,17 +27,21 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
     tagger.sdkTags(sdkTags, sdkExplanations);
 
     String platformList(List<String> tags, Map<String, String> tagNames) {
-      return tagNames.entries.map((entry) {
-        if (tags.contains(entry.key)) {
-          return '**${entry.value}**';
-        } else {
-          return entry.value;
-        }
-      }).join(', ');
+      return tagNames.entries
+          .map((entry) {
+            if (tags.contains(entry.key)) {
+              return '**${entry.value}**';
+            } else {
+              return entry.value;
+            }
+          })
+          .join(', ');
     }
 
     Subsection scorePlatforms(
-        List<String> tags, List<Explanation> explanations) {
+      List<String> tags,
+      List<Explanation> explanations,
+    ) {
       // Scoring and the report only takes these platforms into account.
       final tagNames = const {
         PanaTags.platformIos: 'iOS',
@@ -47,13 +52,17 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
         PanaTags.platformLinux: 'Linux',
       };
       final officialTags = tags.where(tagNames.containsKey).toList();
-      final sdkExplanations =
-          explanations.where((e) => e.tag != null && e.tag!.startsWith('sdk:'));
-      final platformExplanations = explanations
-          .where((e) => e.tag == null || !e.tag!.startsWith('sdk:'));
-      final officialExplanations = platformExplanations.where((e) =>
-          !officialTags.contains(e.tag) &&
-          (e.tag == null || tagNames.containsKey(e.tag)));
+      final sdkExplanations = explanations.where(
+        (e) => e.tag != null && e.tag!.startsWith('sdk:'),
+      );
+      final platformExplanations = explanations.where(
+        (e) => e.tag == null || !e.tag!.startsWith('sdk:'),
+      );
+      final officialExplanations = platformExplanations.where(
+        (e) =>
+            !officialTags.contains(e.tag) &&
+            (e.tag == null || tagNames.containsKey(e.tag)),
+      );
       final trustExplanations = explanations.where((e) => tags.contains(e.tag));
       final paragraphs = <Paragraph>[
         if (sdkExplanations.isNotEmpty) RawParagraph('SDK issues found:'),
@@ -68,22 +77,24 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
         ...officialExplanations.map(explanationToIssue),
         if (trustExplanations.isNotEmpty)
           RawParagraph(
-              '\nThese issues are present but do not affect the score, because they may not originate in your package:\n'),
+            '\nThese issues are present but do not affect the score, because they may not originate in your package:\n',
+          ),
         ...trustExplanations.map(explanationToIssue),
       ];
 
       final status =
           officialTags.where((tag) => tag.startsWith('platform:')).isEmpty
-              ? ReportStatus.failed
-              : ReportStatus.passed;
+          ? ReportStatus.failed
+          : ReportStatus.passed;
       final score = {
         ReportStatus.failed: 0,
         ReportStatus.partial: 10,
-        ReportStatus.passed: 20
+        ReportStatus.passed: 20,
       }[status];
 
       final platforms = platformList(tags, tagNames);
-      final description = 'Supports ${officialTags.length} of '
+      final description =
+          'Supports ${officialTags.length} of '
           '${tagNames.length} possible platforms ($platforms)';
       return Subsection(description, paragraphs, score!, 20, status);
     }
@@ -97,10 +108,7 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
       );
     }
 
-    subsection = scorePlatforms(
-      tags,
-      explanations,
-    );
+    subsection = scorePlatforms(tags, explanations);
   } else {
     subsection = Subsection(
       'Platform support detection failed',
@@ -109,7 +117,7 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
           'Could not determine supported platforms as package resolution failed.',
           suggestion:
               'Run `${flutterPackage ? 'flutter' : 'dart'} pub get` for more information.',
-        )
+        ),
       ],
       0,
       20,
@@ -122,23 +130,25 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
       await _createSwiftPackageManagerSubSection(context);
 
   return makeSection(
-      id: ReportSectionId.platform,
-      title: 'Platform support',
-      maxPoints: 20,
-      basePath: context.packageDir,
-      subsections: [
-        subsection,
-        wasmSubsection,
-        if (swiftPackageManagerSubsection != null) swiftPackageManagerSubsection
-      ],
-      maxIssues: 20);
+    id: ReportSectionId.platform,
+    title: 'Platform support',
+    maxPoints: 20,
+    basePath: context.packageDir,
+    subsections: [
+      subsection,
+      wasmSubsection,
+      if (swiftPackageManagerSubsection != null) swiftPackageManagerSubsection,
+    ],
+    maxIssues: 20,
+  );
 }
 
 Future<Subsection> _createWasmSubsection(PackageContext context) async {
   final tr = await context.staticAnalysis;
   final description = 'WASM compatibility';
-  final explanation =
-      tr.explanations.where((e) => e.tag == PanaTags.isWasmReady).firstOrNull;
+  final explanation = tr.explanations
+      .where((e) => e.tag == PanaTags.isWasmReady)
+      .firstOrNull;
   if (explanation != null) {
     return Subsection(
       description,
@@ -161,8 +171,9 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
       description,
       [
         RawParagraph(
-            'This package is compatible with runtime `wasm`, and will be rewarded '
-            'additional points in a future version of the scoring model.'),
+          'This package is compatible with runtime `wasm`, and will be rewarded '
+          'additional points in a future version of the scoring model.',
+        ),
         RawParagraph('See https://dart.dev/web/wasm for details.'),
       ],
       0,
@@ -174,8 +185,9 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
       description,
       [
         RawParagraph(
-            'Unable to detect compatibility with runtime `wasm`, and this package will not '
-            'be rewarded full points in a future version of the scoring model.'),
+          'Unable to detect compatibility with runtime `wasm`, and this package will not '
+          'be rewarded full points in a future version of the scoring model.',
+        ),
         RawParagraph('See https://dart.dev/web/wasm for details.'),
       ],
       0,
@@ -188,7 +200,8 @@ Future<Subsection> _createWasmSubsection(PackageContext context) async {
 /// Create a subsection for ios and macos plugins, to highlight supported
 /// for swift package manager (or lack there of).
 Future<Subsection?> _createSwiftPackageManagerSubSection(
-    PackageContext context) async {
+  PackageContext context,
+) async {
   final tr = await context.staticAnalysis;
   final description = 'Swift Package Manager support';
 
@@ -197,8 +210,9 @@ Future<Subsection?> _createSwiftPackageManagerSubSection(
       description,
       [
         RawParagraph(
-            'This iOS or macOS plugin supports the Swift Package Manager. '
-            'It will be rewarded additional points in a future version of the scoring model.'),
+          'This iOS or macOS plugin supports the Swift Package Manager. '
+          'It will be rewarded additional points in a future version of the scoring model.',
+        ),
         RawParagraph('See https://docs.flutter.dev/to/spm for details.'),
       ],
       0,

@@ -14,11 +14,11 @@ part of 'license_detector.dart';
 List<License> filter(
   Map<String, int> occurrences,
   List<License> knownLicenses,
-) =>
-    knownLicenses
-        .where((license) =>
-            tokenSimilarity(occurrences, license.tokenFrequency) >= 0.75)
-        .toList();
+) => knownLicenses
+    .where(
+      (license) => tokenSimilarity(occurrences, license.tokenFrequency) >= 0.75,
+    )
+    .toList();
 
 /// Returns a measure for token similarity, between [input] and [knownLicense].
 ///

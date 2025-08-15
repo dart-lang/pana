@@ -8,10 +8,12 @@ import 'package:test/test.dart';
 void main() {
   final timeout = const Duration(minutes: 5);
   test('running pana locally with relative path', () async {
-    final pr = await runConstrained(
-      ['dart', 'bin/pana.dart', '--no-warning', '.'],
-      timeout: timeout,
-    );
+    final pr = await runConstrained([
+      'dart',
+      'bin/pana.dart',
+      '--no-warning',
+      '.',
+    ], timeout: timeout);
     expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
 
     final output = pr.stdout.asString;

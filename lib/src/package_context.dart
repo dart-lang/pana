@@ -46,9 +46,9 @@ class SharedAnalysisContext {
     required this.toolEnvironment,
     InspectOptions? options,
     UrlChecker? urlChecker,
-  })  : panaCache = panaCache ?? PanaCache(),
-        options = options ?? InspectOptions(),
-        _urlChecker = urlChecker ?? UrlChecker();
+  }) : panaCache = panaCache ?? PanaCache(),
+       options = options ?? InspectOptions(),
+       _urlChecker = urlChecker ?? UrlChecker();
 
   Future<UrlStatus> checkUrlStatus(String url) async {
     final cacheType = 'url';
@@ -100,10 +100,7 @@ class PackageContext {
 
   Pubspec? _pubspec;
 
-  PackageContext({
-    required this.sharedContext,
-    required this.packageDir,
-  }) {
+  PackageContext({required this.sharedContext, required this.packageDir}) {
     _stopwatch.start();
   }
 
@@ -123,8 +120,9 @@ class PackageContext {
     return remaining > threshold ? remaining : threshold;
   }
 
-  late final Version currentSdkVersion =
-      Version.parse(toolEnvironment.runtimeInfo.sdkVersion);
+  late final Version currentSdkVersion = Version.parse(
+    toolEnvironment.runtimeInfo.sdkVersion,
+  );
 
   Pubspec get pubspec {
     if (_pubspec != null) return _pubspec!;
@@ -153,21 +151,23 @@ class PackageContext {
       stderr = e.toString();
     }
 
-    final errEntries =
-        PubEntry.parse(stderr).where((e) => e.header == 'ERR').join('\n');
+    final errEntries = PubEntry.parse(
+      stderr,
+    ).where((e) => e.header == 'ERR').join('\n');
     final message = errEntries.isNotEmpty
         ? errEntries
         : stderr
-            .split('\n')
-            .map((e) => e.trim())
-            .where((l) => l.isNotEmpty)
-            .take(2)
-            .join('\n');
+              .split('\n')
+              .map((e) => e.trim())
+              .where((l) => l.isNotEmpty)
+              .take(2)
+              .join('\n');
 
     // 1: Version constraint issue with direct or transitive dependencies.
     //
     // 2: Code in a git repository could change or disappear.
-    final isUserProblem = message.contains('version solving failed') || // 1
+    final isUserProblem =
+        message.contains('version solving failed') || // 1
         pubspec.hasGitDependency || // 2
         message.contains('Git error.'); // 2
 
@@ -181,7 +181,7 @@ class PackageContext {
     final errorMessage = message.isEmpty
         ? 'Running `$cmd` failed.'
         : 'Running `$cmd` failed with the following output:\n\n'
-            '```\n$message\n```\n';
+              '```\n$message\n```\n';
     errors.add(errorMessage);
     return errorMessage;
   }();
@@ -211,8 +211,10 @@ class PackageContext {
       } else {
         final issueLines = errors
             .take(3)
-            .map((cp) =>
-                ' - `${cp.errorCode}` - `${cp.file}:${cp.line}:${cp.col}` - ${cp.description}\n')
+            .map(
+              (cp) =>
+                  ' - `${cp.errorCode}` - `${cp.file}:${cp.line}:${cp.col}` - ${cp.description}\n',
+            )
             .join();
         final issueLabel = errors.length == 1 ? 'error' : 'errors';
         log.info('[pub-downgrade-failed]');
@@ -223,8 +225,11 @@ class PackageContext {
       return 'downgrade analysis failed with:\n${e.message}';
     } finally {
       try {
-        await toolEnvironment.runPub(packageDir,
-            usesFlutter: usesFlutter, command: 'upgrade');
+        await toolEnvironment.runPub(
+          packageDir,
+          usesFlutter: usesFlutter,
+          command: 'upgrade',
+        );
       } on ToolException catch (e, st) {
         errors.add('`dart upgrade` failed');
         log.warning('dart upgrade failed', e, st);
@@ -323,16 +328,21 @@ class PackageContext {
     usesFlutter: usesFlutter,
   );
 
-  late final Future<List<ScreenshotResult>> screenshots =
-      processAllScreenshots(pubspec.screenshots, packageDir);
+  late final Future<List<ScreenshotResult>> screenshots = processAllScreenshots(
+    pubspec.screenshots,
+    packageDir,
+  );
 
-  late final pubspecAllowsCurrentSdk = pubspec.dartSdkConstraint != null &&
+  late final pubspecAllowsCurrentSdk =
+      pubspec.dartSdkConstraint != null &&
       pubspec.dartSdkConstraint!.allows(currentSdkVersion);
 
   late final pubspecUrlsWithIssues = checkPubspecUrls(this);
 
   late final repository = sharedContext.verifyRepository(
-      pubspec.name, pubspec.repositoryOrHomepage);
+    pubspec.name,
+    pubspec.repositoryOrHomepage,
+  );
 
   late final licenses = detectLicenseInDir(packageDir);
   late final licenceTags = () async {
@@ -361,21 +371,25 @@ class PackageContext {
         if (pr.wasTimeout) {
           log.warning('`dartdoc` timed out:\n${pr.asJoinedOutput}');
           return DartdocResult.error(
-              '`dartdoc` could not complete in $timeout.');
+            '`dartdoc` could not complete in $timeout.',
+          );
         }
         if (pr.wasError) {
           log.warning('`dartdoc` failed:\n${pr.asJoinedOutput}');
           return DartdocResult.error(pr.asTrimmedOutput);
         }
 
-        final hasIndexHtml =
-            await File(p.join(dartdocOutputDir, 'index.html')).exists();
-        final hasIndexJson =
-            await File(p.join(dartdocOutputDir, 'index.json')).exists();
+        final hasIndexHtml = await File(
+          p.join(dartdocOutputDir, 'index.html'),
+        ).exists();
+        final hasIndexJson = await File(
+          p.join(dartdocOutputDir, 'index.json'),
+        ).exists();
         if (!hasIndexHtml || !hasIndexJson) {
           log.warning('`dartdoc` failed:\n${pr.asJoinedOutput}');
           return DartdocResult.error(
-              '`dartdoc` did not create expected output files.');
+            '`dartdoc` did not create expected output files.',
+          );
         }
         log.info('`dartdoc` completed:\n${pr.asJoinedOutput}');
         return DartdocResult.success();
@@ -385,7 +399,8 @@ class PackageContext {
       }
     } else {
       return DartdocResult.error(
-          'Dependency resolution failed, unable to run `dartdoc`.');
+        'Dependency resolution failed, unable to run `dartdoc`.',
+      );
     }
   }();
 
@@ -419,17 +434,11 @@ class DartdocResult {
   final bool wasRunning;
   final String? errorReason;
 
-  DartdocResult.error(
-    this.errorReason,
-  ) : wasRunning = true;
+  DartdocResult.error(this.errorReason) : wasRunning = true;
 
-  DartdocResult.skipped()
-      : wasRunning = false,
-        errorReason = null;
+  DartdocResult.skipped() : wasRunning = false, errorReason = null;
 
-  DartdocResult.success()
-      : wasRunning = true,
-        errorReason = null;
+  DartdocResult.success() : wasRunning = true, errorReason = null;
 
   bool get wasSuccessful => wasRunning && errorReason == null;
 }

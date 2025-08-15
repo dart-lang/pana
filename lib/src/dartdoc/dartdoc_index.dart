@@ -85,11 +85,7 @@ class DartdocIndexEntryEnclosedBy {
   final int? kind;
   final String? href;
 
-  DartdocIndexEntryEnclosedBy({
-    this.name,
-    this.kind,
-    this.href,
-  });
+  DartdocIndexEntryEnclosedBy({this.name, this.kind, this.href});
 
   factory DartdocIndexEntryEnclosedBy.fromJson(Map<String, dynamic> json) =>
       _$DartdocIndexEntryEnclosedByFromJson(json);

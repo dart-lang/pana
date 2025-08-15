@@ -116,34 +116,36 @@ class Tagger {
   final PackageGraph _packageGraph;
 
   Tagger._(
-      this.packageName,
-      this._session,
-      PubspecCache pubspecCache,
-      this._isBinaryOnly,
-      this._usesFlutter,
-      this._topLibraries,
-      this._publicLibraries,
-      this.packageDir)
-      : _pubspecCache = pubspecCache,
-        _packageGraph = PackageGraph(pubspecCache);
+    this.packageName,
+    this._session,
+    PubspecCache pubspecCache,
+    this._isBinaryOnly,
+    this._usesFlutter,
+    this._topLibraries,
+    this._publicLibraries,
+    this.packageDir,
+  ) : _pubspecCache = pubspecCache,
+      _packageGraph = PackageGraph(pubspecCache);
 
   /// Assumes that `dart pub get` has been run.
   factory Tagger(String packageDir) {
     final normalizedPath = path.normalize(packageDir);
-    final session = AnalysisContextCollection(includedPaths: [normalizedPath])
-        .contextFor(normalizedPath)
-        .currentSession;
+    final session = AnalysisContextCollection(
+      includedPaths: [normalizedPath],
+    ).contextFor(normalizedPath).currentSession;
     final pubspecCache = PubspecCache(session);
     final pubspec = pubspecFromDir(packageDir);
 
     final libDartFiles = dartFilesFromLib(packageDir);
-    final nonSrcDartFiles =
-        libDartFiles.where((p) => path.split(p).first != 'src').toList();
+    final nonSrcDartFiles = libDartFiles
+        .where((p) => path.split(p).first != 'src')
+        .toList();
 
     Uri? primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
-      primaryLibrary =
-          Uri.parse('package:${pubspec.name}/${pubspec.name}.dart');
+      primaryLibrary = Uri.parse(
+        'package:${pubspec.name}/${pubspec.name}.dart',
+      );
     }
 
     // If there is a primary library, use it as a single source for top libraries,
@@ -160,20 +162,29 @@ class Tagger {
     final binDir = Directory(path.join(packageDir, 'bin'));
     final allBinFiles = binDir.existsSync()
         ? binDir
-            .listSync(recursive: true)
-            .where((e) => e is File && e.path.endsWith('.dart'))
-            .map((f) => path.relative(f.path, from: binDir.path))
-            .toList()
+              .listSync(recursive: true)
+              .where((e) => e is File && e.path.endsWith('.dart'))
+              .map((f) => path.relative(f.path, from: binDir.path))
+              .toList()
         : <String>[];
-    final isBinaryOnly = !pubspec.usesFlutter &&
+    final isBinaryOnly =
+        !pubspec.usesFlutter &&
         nonSrcDartFiles.isEmpty &&
         allBinFiles.isNotEmpty;
 
     final publicLibraries = nonSrcDartFiles
         .map((s) => Uri.parse('package:${pubspec.name}/$s'))
         .toList();
-    return Tagger._(pubspec.name, session, pubspecCache, isBinaryOnly,
-        pubspec.usesFlutter, topLibraries, publicLibraries, packageDir);
+    return Tagger._(
+      pubspec.name,
+      session,
+      pubspecCache,
+      isBinaryOnly,
+      pubspec.usesFlutter,
+      topLibraries,
+      publicLibraries,
+      packageDir,
+    );
   }
 
   void sdkTags(List<String> tags, List<Explanation> explanations) {
@@ -185,9 +196,12 @@ class Tagger {
         for (final sdk in Sdk.knownSdks) {
           // Will find a path in the package graph where a package declares an sdk
           // not supported by [sdk].
-          final violationResult =
-              SdkViolationFinder(_packageGraph, sdk, _pubspecCache, _session)
-                  .findSdkViolation(packageName, _topLibraries);
+          final violationResult = SdkViolationFinder(
+            _packageGraph,
+            sdk,
+            _pubspecCache,
+            _session,
+          ).findSdkViolation(packageName, _topLibraries);
           if (violationResult != null) {
             explanations.add(violationResult);
           } else {
@@ -196,11 +210,9 @@ class Tagger {
         }
       }
     } on TagException catch (e) {
-      explanations.add(Explanation(
-        'Tag detection failed.',
-        e.message,
-        tag: null,
-      ));
+      explanations.add(
+        Explanation('Tag detection failed.', e.message, tag: null),
+      );
       return;
     }
   }
@@ -216,10 +228,15 @@ class Tagger {
     if (_isBinaryOnly) {
       // TODO: consider checking `platforms:` is present in `pubspec.yaml`
       tags.addAll(Platform.binaryOnlyAssignedPlatforms.map((p) => p.tag));
-      explanations.addAll(Platform.binaryOnlyNotAssignedPlatforms.map((p) =>
-          Explanation(p.name,
-              'Cannot assign ${p.name} automatically to a binary only package.',
-              tag: p.tag)));
+      explanations.addAll(
+        Platform.binaryOnlyNotAssignedPlatforms.map(
+          (p) => Explanation(
+            p.name,
+            'Cannot assign ${p.name} automatically to a binary only package.',
+            tag: p.tag,
+          ),
+        ),
+      );
       return;
     }
 
@@ -227,10 +244,16 @@ class Tagger {
     for (final platform in Platform.recognizedPlatforms) {
       final results = [
         if (!_usesFlutter && platform.dartRuntime != null)
-          _checkRuntime(platform, platform.dartRuntime!,
-              trustDeclarations: trustDeclarations),
-        _checkRuntime(platform, platform.flutterRuntime,
-            trustDeclarations: trustDeclarations),
+          _checkRuntime(
+            platform,
+            platform.dartRuntime!,
+            trustDeclarations: trustDeclarations,
+          ),
+        _checkRuntime(
+          platform,
+          platform.flutterRuntime,
+          trustDeclarations: trustDeclarations,
+        ),
       ];
 
       final success = results.where((r) => r.isSuccess).toList();
@@ -280,8 +303,11 @@ class Tagger {
       //
       // We still keep the unpruned detection for providing Explanations.
       final prunedLibraryGraph = trustDeclarations
-          ? LibraryGraph(_session, runtime.declaredVariables,
-              isLeaf: declaredPlatformDetector.hasDeclaredPlatforms)
+          ? LibraryGraph(
+              _session,
+              runtime.declaredVariables,
+              isLeaf: declaredPlatformDetector.hasDeclaredPlatforms,
+            )
           : libraryGraph;
 
       final prunedViolationFinder = PlatformViolationFinder(
@@ -293,27 +319,33 @@ class Tagger {
           prunedLibraryGraph,
           runtime,
           (List<Uri> path) => Explanation(
-              'Package not compatible with platform ${platform.name}',
-              'Because:\n${LibraryGraph.formatPath(path)}',
-              tag: platform.tag),
+            'Package not compatible with platform ${platform.name}',
+            'Because:\n${LibraryGraph.formatPath(path)}',
+            tag: platform.tag,
+          ),
         ),
       );
       // Report only the first non-pruned violation as Explanation
-      final firstNonPrunedViolation =
-          violationFinder.firstViolation(packageName, _topLibraries);
+      final firstNonPrunedViolation = violationFinder.firstViolation(
+        packageName,
+        _topLibraries,
+      );
       if (firstNonPrunedViolation != null) {
         innerExplanations.add(firstNonPrunedViolation);
       }
 
       // Tag is supported, if there is no pruned violations
-      final firstPrunedViolation =
-          prunedViolationFinder.firstViolation(packageName, _topLibraries);
+      final firstPrunedViolation = prunedViolationFinder.firstViolation(
+        packageName,
+        _topLibraries,
+      );
       if (firstPrunedViolation == null) {
         innerTags.add(platform.tag);
       }
     } on TagException catch (e) {
-      innerExplanations
-          .add(Explanation('Tag detection failed.', e.message, tag: null));
+      innerExplanations.add(
+        Explanation('Tag detection failed.', e.message, tag: null),
+      );
     }
     return TaggingResult(innerTags, innerExplanations);
   }
@@ -330,12 +362,14 @@ class Tagger {
   void wasmReadyTag(List<String> tags, List<Explanation> explanations) {
     final runtime = Runtime.wasm;
     final finder = runtimeViolationFinder(
-        LibraryGraph(_session, runtime.declaredVariables),
-        runtime,
-        (List<Uri> path) => Explanation(
-            'Package not compatible with runtime ${runtime.name}',
-            'Because:\n${LibraryGraph.formatPath(path)}',
-            tag: runtime.tag));
+      LibraryGraph(_session, runtime.declaredVariables),
+      runtime,
+      (List<Uri> path) => Explanation(
+        'Package not compatible with runtime ${runtime.name}',
+        'Because:\n${LibraryGraph.formatPath(path)}',
+        tag: runtime.tag,
+      ),
+    );
     var supports = true;
     for (final lib in _topLibraries) {
       final violationResult = finder.findViolation(lib);
@@ -361,7 +395,9 @@ class Tagger {
   ///
   /// See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors
   void swiftPackageManagerPluginTag(
-      List<String> tags, List<Explanation> explanations) {
+    List<String> tags,
+    List<Explanation> explanations,
+  ) {
     if (!_usesFlutter) return;
     final pubspec = _pubspecCache.pubspecOfPackage(packageName);
 
@@ -379,11 +415,16 @@ class Tagger {
     var swiftPmSupport = true;
 
     for (final darwinOs in ['macos', 'ios']) {
-      if (pathExists(pubspec.originalYaml,
-          ['flutter', 'plugin', 'platforms', darwinOs, 'pluginClass'])) {
+      if (pathExists(pubspec.originalYaml, [
+        'flutter',
+        'plugin',
+        'platforms',
+        darwinOs,
+        'pluginClass',
+      ])) {
         isDarwinPlugin = true;
-        final osDir = pubspec.originalYaml['flutter']?['plugin']?['platforms']
-                    ?[darwinOs]?['sharedDarwinSource'] ==
+        final osDir =
+            pubspec.originalYaml['flutter']?['plugin']?['platforms']?[darwinOs]?['sharedDarwinSource'] ==
                 true
             ? 'darwin'
             : darwinOs;
@@ -392,12 +433,15 @@ class Tagger {
         if (!File(path.join(packageDir, packageSwiftFile)).existsSync()) {
           swiftPmSupport = false;
           final osName = {'macos': 'macOS', 'ios': 'iOS'}[darwinOs];
-          explanations.add(Explanation(
+          explanations.add(
+            Explanation(
               'Package does not support the Swift Package Manager on $osName',
               '''
 It does not contain `$packageSwiftFile`.
 ''',
-              tag: PanaTags.isSwiftPmPlugin));
+              tag: PanaTags.isSwiftPmPlugin,
+            ),
+          );
         }
       }
     }
@@ -415,20 +459,28 @@ It does not contain `$packageSwiftFile`.
         tags.addAll(<String>[Runtime.nativeAot.tag, Runtime.nativeJit.tag]);
       } else {
         final dartSdkViolationFinder = SdkViolationFinder(
-            _packageGraph, Sdk.dart, _pubspecCache, _session);
-        final sdkViolation =
-            dartSdkViolationFinder.findSdkViolation(packageName, _topLibraries);
+          _packageGraph,
+          Sdk.dart,
+          _pubspecCache,
+          _session,
+        );
+        final sdkViolation = dartSdkViolationFinder.findSdkViolation(
+          packageName,
+          _topLibraries,
+        );
         if (sdkViolation != null) {
           explanations.add(sdkViolation);
         } else {
           for (final runtime in Runtime.recognizedRuntimes) {
             final finder = runtimeViolationFinder(
-                LibraryGraph(_session, runtime.declaredVariables),
-                runtime,
-                (List<Uri> path) => Explanation(
-                    'Package not compatible with runtime ${runtime.name}',
-                    'Because:\n${LibraryGraph.formatPath(path)}',
-                    tag: runtime.tag));
+              LibraryGraph(_session, runtime.declaredVariables),
+              runtime,
+              (List<Uri> path) => Explanation(
+                'Package not compatible with runtime ${runtime.name}',
+                'Because:\n${LibraryGraph.formatPath(path)}',
+                tag: runtime.tag,
+              ),
+            );
             var supports = true;
             for (final lib in _topLibraries) {
               final violationResult = finder.findViolation(lib);
@@ -445,8 +497,9 @@ It does not contain `$packageSwiftFile`.
         }
       }
     } on TagException catch (e) {
-      explanations
-          .add(Explanation('Tag detection failed.', e.message, tag: null));
+      explanations.add(
+        Explanation('Tag detection failed.', e.message, tag: null),
+      );
       return;
     }
   }
@@ -472,15 +525,16 @@ It does not contain `$packageSwiftFile`.
         return pubspec.sdkConstraintStatus.hasOptedIntoNullSafety
             ? null
             : (path) => Explanation(
-                  'Package is not null safe',
-                  'Because:\n${PackageGraph.formatPath(path)} '
-                      'that doesn\'t opt in to null safety',
-                  tag: PanaTags.isNullSafe,
-                );
+                'Package is not null safe',
+                'Because:\n${PackageGraph.formatPath(path)} '
+                    'that doesn\'t opt in to null safety',
+                tag: PanaTags.isNullSafe,
+              );
       });
 
-      final sdkConstraintResult =
-          sdkConstraintFinder.findViolation(packageName);
+      final sdkConstraintResult = sdkConstraintFinder.findViolation(
+        packageName,
+      );
       if (sdkConstraintResult != null) {
         explanations.add(sdkConstraintResult);
         foundIssues = true;
@@ -501,10 +555,10 @@ It does not contain `$packageSwiftFile`.
               final resolvedPath = _session.uriConverter.uriToPath(library);
               if (resolvedPath == null) {
                 return (path) => Explanation(
-                      'Unable to access import.',
-                      'Because:\n${LibraryGraph.formatPath(path)} where $library is inaccessible.',
-                      tag: PanaTags.isNullSafe,
-                    );
+                  'Unable to access import.',
+                  'Because:\n${LibraryGraph.formatPath(path)} where $library is inaccessible.',
+                  tag: PanaTags.isNullSafe,
+                );
               }
               final unit = parsedUnitFromUri(_session, library);
               if (unit == null) return null;
@@ -513,22 +567,28 @@ It does not contain `$packageSwiftFile`.
               // dart:ui has no package name. So we cannot trivially look it up in
               // the allowed experiments. We just assume it is opted in.
               if (!library.isScheme('package')) return null;
-              if (!isNullSafety(Version(
-                  languageVersionToken.major, languageVersionToken.minor, 0))) {
+              if (!isNullSafety(
+                Version(
+                  languageVersionToken.major,
+                  languageVersionToken.minor,
+                  0,
+                ),
+              )) {
                 return (path) => Explanation(
-                      'Package is not null safe',
-                      'Because:\n${LibraryGraph.formatPath(path)} where $library '
-                          'is opting out from null safety.',
-                      tag: PanaTags.isNullSafe,
-                    );
+                  'Package is not null safe',
+                  'Because:\n${LibraryGraph.formatPath(path)} where $library '
+                      'is opting out from null safety.',
+                  tag: PanaTags.isNullSafe,
+                );
               }
               return null;
             },
           );
 
           for (final library in _publicLibraries) {
-            final nullSafetyResult =
-                optOutViolationFinder.findViolation(library);
+            final nullSafetyResult = optOutViolationFinder.findViolation(
+              library,
+            );
             if (nullSafetyResult != null) {
               explanations.add(nullSafetyResult);
               foundIssues = true;
@@ -547,11 +607,13 @@ It does not contain `$packageSwiftFile`.
         tags.add(PanaTags.isNullSafe);
       }
     } on TagException catch (e) {
-      explanations.add(Explanation(
-        'Tag detection failed.',
-        e.message,
-        tag: PanaTags.isNullSafe,
-      ));
+      explanations.add(
+        Explanation(
+          'Tag detection failed.',
+          e.message,
+          tag: PanaTags.isNullSafe,
+        ),
+      );
     }
   }
 }

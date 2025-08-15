@@ -1,3 +1,7 @@
+## 0.22.23
+
+- Upgraded SDK constraint: `^3.8.0`.
+
 ## 0.22.22
 
 - Do not list SDK packages in the outdated packages report.

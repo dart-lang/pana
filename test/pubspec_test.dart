@@ -66,104 +66,75 @@ void main() {
   });
 }
 
-final Pubspec emptyPubspec = Pubspec({
-  'name': 'sample',
-});
+final Pubspec emptyPubspec = Pubspec({'name': 'sample'});
 
 final Pubspec flutterPluginPubspec = Pubspec({
   'name': 'sample',
-  'flutter': {
-    'plugin': <String, Object>{},
-  },
+  'flutter': {'plugin': <String, Object>{}},
 });
 
 final Pubspec flutterSdkPubspec = Pubspec({
   'name': 'sample',
   'dependencies': {
-    'example': {
-      'sdk': 'flutter',
-    },
+    'example': {'sdk': 'flutter'},
   },
 });
 
 final Pubspec flutterSdkDevPubspec = Pubspec({
   'name': 'sample',
   'dev_dependencies': {
-    'example': {
-      'sdk': 'flutter',
-    },
+    'example': {'sdk': 'flutter'},
   },
 });
 
 final Pubspec unknownSdkPubspec = Pubspec({
   'name': 'sample',
   'dependencies': {
-    'example': {
-      'sdk': 'unknown',
-    },
+    'example': {'sdk': 'unknown'},
   },
 });
 
 final Pubspec dart2Pubspec = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '^2.0.0',
-  },
+  'environment': {'sdk': '^2.0.0'},
 });
 
 final Pubspec nullSafetyPubspec = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '^2.12.0',
-  },
+  'environment': {'sdk': '^2.12.0'},
 });
 
 final Pubspec nullSafetyPubspec2 = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '>=2.13.0<2.14.0',
-  },
+  'environment': {'sdk': '>=2.13.0<2.14.0'},
 });
 
 final Pubspec flutterInEnvPubspec = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '^2.0.0',
-    'flutter': '^1.0.0',
-  },
+  'environment': {'sdk': '^2.0.0', 'flutter': '^1.0.0'},
 });
 
 final Pubspec dart1OnlyPubspec = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '<1.25.0',
-  },
+  'environment': {'sdk': '<1.25.0'},
 });
 
 final unboundedSdkPubspec = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '>1.2.0',
-  },
+  'environment': {'sdk': '>1.2.0'},
 });
 
 final dart1andDart2Pubspec = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '>1.2.0 <3.0.0',
-  },
+  'environment': {'sdk': '>1.2.0 <3.0.0'},
 });
 
 final dart1andDart3Pubspec = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '>1.2.0 <4.0.0',
-  },
+  'environment': {'sdk': '>1.2.0 <4.0.0'},
 });
 
 final Pubspec devSdkOnlyPubspec = Pubspec({
   'name': 'sample',
-  'environment': {
-    'sdk': '<2.0.0',
-  },
+  'environment': {'sdk': '<2.0.0'},
 });

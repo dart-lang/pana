@@ -72,7 +72,7 @@ void testTargetMatchRanges() {
       expected: [
         MatchRange(Range(25, 51), Range(0, 26), 26),
         MatchRange(Range(11, 24), Range(0, 13), 13),
-        MatchRange(Range(4, 10), Range(0, 6), 6)
+        MatchRange(Range(4, 10), Range(0, 6), 6),
       ],
     );
 
@@ -109,11 +109,7 @@ void _testTargetMatchRanges({
 
 void testDetectRuns() {
   group('detectRuns test:', () {
-    _testDetectRuns(
-      name: 'Zero match case',
-      matches: [],
-      expected: [],
-    );
+    _testDetectRuns(name: 'Zero match case', matches: [], expected: []);
 
     _testDetectRuns(
       name: 'Perfect match case',
@@ -171,7 +167,7 @@ void testDetectRuns() {
         MatchRange(Range(10, 35), Range(0, 0), 25),
         MatchRange(Range(75, 100), Range(0, 0), 25),
         MatchRange(Range(45, 60), Range(0, 0), 15),
-        MatchRange(Range(64, 69), Range(0, 0), 5)
+        MatchRange(Range(64, 69), Range(0, 0), 5),
       ],
     );
   });
@@ -219,7 +215,7 @@ void testFuseRanges() {
       matches: [
         MatchRange(Range(0, 45), Range(0, 45), 45),
         MatchRange(Range(55, 90), Range(65, 100), 35),
-        MatchRange(Range(46, 50), Range(56, 60), 4)
+        MatchRange(Range(46, 50), Range(56, 60), 4),
       ],
       runs: [Range(0, 23)],
     );
@@ -295,9 +291,7 @@ void testPotentialMatches() {
       name: 'Perfect Match',
       unknownText: perfect100,
       knownText: perfect100,
-      expected: [
-        MatchRange(Range(0, 100), Range(0, 100), 100),
-      ],
+      expected: [MatchRange(Range(0, 100), Range(0, 100), 100)],
     );
 
     // Finds a match as the number of tokens claimed is >= threshold number of tokens.
@@ -360,8 +354,11 @@ void _testPotentialMatches({
     final unknownLicense = _getLicense(unknownText, n);
     final knownLicense = _getLicense(knownText, n);
 
-    final actual =
-        findPotentialMatches(unknownLicense, knownLicense, confidence);
+    final actual = findPotentialMatches(
+      unknownLicense,
+      knownLicense,
+      confidence,
+    );
 
     _testOutput(actual, expected);
   });
@@ -381,7 +378,9 @@ void _testOutput(List<MatchRange> actual, List<MatchRange> expected) {
 
 LicenseWithNGrams _getLicense(String content, int n) {
   return LicenseWithNGrams.parse(
-      License.parse(identifier: '', content: content), n);
+    License.parse(identifier: '', content: content),
+    n,
+  );
 }
 
 void main() {

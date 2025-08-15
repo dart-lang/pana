@@ -44,8 +44,10 @@ void main() {
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
     expect(r.first.problems, isNotEmpty);
-    expect(r.first.problems.first,
-        contains('Screenshot `description` property is missing.'));
+    expect(
+      r.first.problems.first,
+      contains('Screenshot `description` property is missing.'),
+    );
   });
   test('validates empty path', () async {
     final pkgDir = 'my_pkg';
@@ -57,8 +59,10 @@ void main() {
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
     expect(r.first.problems, isNotEmpty);
-    expect(r.first.problems.first,
-        contains('Screenshot `path` property is missing.'));
+    expect(
+      r.first.problems.first,
+      contains('Screenshot `path` property is missing.'),
+    );
   });
   test('validates long description', () async {
     final pkgDir = 'my_pkg';
@@ -74,8 +78,10 @@ void main() {
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
     expect(r.first.problems, isNotEmpty);
-    expect(r.first.problems.first,
-        contains('Screenshot `description` is too long.'));
+    expect(
+      r.first.problems.first,
+      contains('Screenshot `description` is too long.'),
+    );
   });
 
   test('validates image outside package', () async {
@@ -91,8 +97,10 @@ void main() {
     for (final result in r) {
       expect(result.processedScreenshot, isNull);
       expect(result.problems, isNotEmpty);
-      expect(result.problems.first,
-          contains('Screenshot file path should be within the package'));
+      expect(
+        result.problems.first,
+        contains('Screenshot file path should be within the package'),
+      );
     }
   });
 
@@ -106,8 +114,10 @@ void main() {
 
     expect(result.first.processedScreenshot, isNull);
     expect(result.first.problems, isNotEmpty);
-    expect(result.first.problems.first,
-        contains('No file found at specified screenshot `path`'));
+    expect(
+      result.first.problems.first,
+      contains('No file found at specified screenshot `path`'),
+    );
   });
 
   test('success - process WebP, PNG and GIFs', () async {
@@ -151,8 +161,10 @@ void main() {
     expect(result.length, 11);
     expect(result[10].problems, isNotEmpty);
     expect(result[10].processedScreenshot, isNull);
-    expect(result[10].problems.first,
-        contains('Not processed. pub.dev shows at most 10 screenshots'));
+    expect(
+      result[10].problems.first,
+      contains('Not processed. pub.dev shows at most 10 screenshots'),
+    );
     for (var i = 0; i < 10; i++) {
       expect(result[i].processedScreenshot, isNotNull);
       expect(result[i].problems, isEmpty);
@@ -170,14 +182,20 @@ void main() {
     expect(r.first.processedScreenshot, isNull);
     expect(r.first.problems.length, 4);
     expect(
-        r.first.problems[0], contains('Tried interpreting screenshot as WebP'));
+      r.first.problems[0],
+      contains('Tried interpreting screenshot as WebP'),
+    );
     expect(r.first.problems[1], contains('Converting screenshot with `cwebp '));
     expect(
-        r.first.problems[2], contains('Tried interpreting screenshot as GIF'));
+      r.first.problems[2],
+      contains('Tried interpreting screenshot as GIF'),
+    );
     expect(
-        r.first.problems[3],
-        contains(
-            "Generating webp image for ${p.join(pkgDir, 'notAnImage.txt')} failed"));
+      r.first.problems[3],
+      contains(
+        "Generating webp image for ${p.join(pkgDir, 'notAnImage.txt')} failed",
+      ),
+    );
   }, skip: !hasWebpTools);
 
   test('Failure: when webp tools are not installed', () async {
@@ -195,65 +213,79 @@ void main() {
   test('Report shows screenshot problems', () async {
     final pubspecExtras = {
       'screenshots': [
-        {'description': '', 'path': 'doesNotExist'}
-      ]
+        {'description': '', 'path': 'doesNotExist'},
+      ],
     };
-    final descriptor =
-        package('my_package', pubspecExtras: pubspecExtras, extraFiles: [
-      d.dir('example', [
-        d.file('README.md', 'Example'),
-      ]),
-    ]);
+    final descriptor = package(
+      'my_package',
+      pubspecExtras: pubspecExtras,
+      extraFiles: [
+        d.dir('example', [d.file('README.md', 'Example')]),
+      ],
+    );
     await descriptor.create();
 
-    final report = await createReport(PackageContext(
-      sharedContext: SharedAnalysisContext(
-        toolEnvironment: await ToolEnvironment.create(),
+    final report = await createReport(
+      PackageContext(
+        sharedContext: SharedAnalysisContext(
+          toolEnvironment: await ToolEnvironment.create(),
+        ),
+        packageDir: descriptor.io.path,
       ),
-      packageDir: descriptor.io.path,
-    ));
+    );
 
-    final section =
-        report.sections.firstWhere((s) => s.title == 'Provide documentation');
+    final section = report.sections.firstWhere(
+      (s) => s.title == 'Provide documentation',
+    );
     expect(section.grantedPoints, 0);
     expect(
-        section.summary,
-        contains(
-            'doesNotExist: Screenshot `description` property is missing.'));
+      section.summary,
+      contains('doesNotExist: Screenshot `description` property is missing.'),
+    );
     expect(
-        section.summary,
-        contains(
-            'doesNotExist: No file found at specified screenshot `path` doesNotExist'));
+      section.summary,
+      contains(
+        'doesNotExist: No file found at specified screenshot `path` doesNotExist',
+      ),
+    );
   });
 
   test('Successful report', () async {
     if (!hasWebpTools) return;
     final pubspecExtras = {
       'screenshots': [
-        {'description': 'description', 'path': 'static.webp'}
-      ]
+        {'description': 'description', 'path': 'static.webp'},
+      ],
     };
-    final descriptor =
-        package('my_package', pubspecExtras: pubspecExtras, extraFiles: [
-      d.dir('example', [
-        d.file('example.md', 'Example'),
-      ]),
-      d.file('static.webp',
-          File(p.join(_testImagesDir, 'static.webp')).readAsBytesSync())
-    ]);
+    final descriptor = package(
+      'my_package',
+      pubspecExtras: pubspecExtras,
+      extraFiles: [
+        d.dir('example', [d.file('example.md', 'Example')]),
+        d.file(
+          'static.webp',
+          File(p.join(_testImagesDir, 'static.webp')).readAsBytesSync(),
+        ),
+      ],
+    );
     await descriptor.create();
 
-    final report = await createReport(PackageContext(
-      sharedContext: SharedAnalysisContext(
-        toolEnvironment: await ToolEnvironment.create(),
+    final report = await createReport(
+      PackageContext(
+        sharedContext: SharedAnalysisContext(
+          toolEnvironment: await ToolEnvironment.create(),
+        ),
+        packageDir: descriptor.io.path,
       ),
-      packageDir: descriptor.io.path,
-    ));
+    );
 
-    final section =
-        report.sections.firstWhere((s) => s.title == 'Provide documentation');
+    final section = report.sections.firstWhere(
+      (s) => s.title == 'Provide documentation',
+    );
     expect(section.grantedPoints, 10);
     expect(
-        section.summary, isNot(contains('Issues with declared screenshots')));
+      section.summary,
+      isNot(contains('Issues with declared screenshots')),
+    );
   }, skip: !hasWebpTools);
 }

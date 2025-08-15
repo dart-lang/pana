@@ -92,11 +92,13 @@ class ToolEnvironment {
     this.pubCacheDir,
     Map<String, String> environment = const <String, String>{},
     required PanaRuntimeInfo runtimeInfo,
-  })  : _dartSdk = _DartSdk._(SdkConfig(environment: environment)),
-        _flutterSdk = _FlutterSdk._(SdkConfig(environment: environment),
-            _DartSdk._(SdkConfig(environment: environment))),
-        _dartdocVersion = null,
-        _runtimeInfo = runtimeInfo;
+  }) : _dartSdk = _DartSdk._(SdkConfig(environment: environment)),
+       _flutterSdk = _FlutterSdk._(
+         SdkConfig(environment: environment),
+         _DartSdk._(SdkConfig(environment: environment)),
+       ),
+       _dartdocVersion = null,
+       _runtimeInfo = runtimeInfo;
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
@@ -158,8 +160,9 @@ class ToolEnvironment {
     final flutterSdk = await _FlutterSdk.detect(flutterSdkConfig, env);
     if (flutterSdk._dartSdk._config.rootPath == null) {
       log.warning(
-          'Flutter SDK path was not specified, pana will use the default '
-          'Dart SDK to run `dart analyze` on Flutter packages.');
+        'Flutter SDK path was not specified, pana will use the default '
+        'Dart SDK to run `dart analyze` on Flutter packages.',
+      );
     }
 
     final toolEnv = ToolEnvironment._(
@@ -180,10 +183,7 @@ class ToolEnvironment {
     String? pubHostedUrl,
     required String outputDir,
   }) async {
-    final param = [
-      package,
-      if (version != null) version,
-    ].join(':');
+    final param = [package, if (version != null) version].join(':');
     final targetDir = Directory(outputDir);
     if (await targetDir.exists()) {
       await targetDir.delete(recursive: true);
@@ -195,23 +195,29 @@ class ToolEnvironment {
         environment: {if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl},
         throwOnError: true,
       );
-      final subdir =
-          Directory(downloadDir).listSync().whereType<Directory>().single;
+      final subdir = Directory(
+        downloadDir,
+      ).listSync().whereType<Directory>().single;
       await subdir.rename(targetDir.path);
     });
   }
 
   Future<T> withRestrictedAnalysisOptions<T>(
-      String packageDir, Future<T> Function() fn) async {
-    final analysisOptionsFile =
-        File(p.join(packageDir, 'analysis_options.yaml'));
+    String packageDir,
+    Future<T> Function() fn,
+  ) async {
+    final analysisOptionsFile = File(
+      p.join(packageDir, 'analysis_options.yaml'),
+    );
     String? originalOptions;
     if (await analysisOptionsFile.exists()) {
       originalOptions = await analysisOptionsFile.readAsString();
     }
     final rawOptionsContent = await getDefaultAnalysisOptionsYaml();
     final customOptionsContent = updatePassthroughOptions(
-        original: originalOptions, custom: rawOptionsContent);
+      original: originalOptions,
+      custom: rawOptionsContent,
+    );
     try {
       await analysisOptionsFile.writeAsString(customOptionsContent);
       return await fn();
@@ -230,20 +236,24 @@ class ToolEnvironment {
     bool usesFlutter, {
     required InspectOptions inspectOptions,
   }) async {
-    final command =
-        usesFlutter ? _flutterSdk.dartAnalyzeCmd : _dartSdk.dartAnalyzeCmd;
+    final command = usesFlutter
+        ? _flutterSdk.dartAnalyzeCmd
+        : _dartSdk.dartAnalyzeCmd;
 
     return await withRestrictedAnalysisOptions(packageDir, () async {
       final proc = await runConstrained(
         [...command, '--format', 'machine', dir],
-        environment:
-            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
+        environment: usesFlutter
+            ? _flutterSdk.environment
+            : _dartSdk.environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
       );
       if (proc.wasOutputExceeded) {
         throw ToolException(
-            'Running `dart analyze` produced too large output.', proc);
+          'Running `dart analyze` produced too large output.',
+          proc,
+        );
       }
       final output = proc.asJoinedOutput;
       if (proc.wasTimeout) {
@@ -255,16 +265,21 @@ class ToolEnvironment {
         } else {
           log.severe('Bad input?: $output');
         }
-        var errorMessage =
-            '\n$output'.split('\nUnhandled exception:\n')[1].split('\n').first;
+        var errorMessage = '\n$output'
+            .split('\nUnhandled exception:\n')[1]
+            .split('\n')
+            .first;
         throw ToolException('dart analyze exception: $errorMessage', proc);
       }
       return output;
     });
   }
 
-  Future<List<String>> filesNeedingFormat(String packageDir, bool usesFlutter,
-      {int? lineLength}) async {
+  Future<List<String>> filesNeedingFormat(
+    String packageDir,
+    bool usesFlutter, {
+    int? lineLength,
+  }) async {
     final dirs = await listFocusDirs(packageDir);
     if (dirs.isEmpty) {
       return const [];
@@ -286,16 +301,18 @@ class ToolEnvironment {
 
         final result = await runConstrained(
           [..._dartSdk.dartCmd, ...params],
-          environment:
-              usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
+          environment: usesFlutter
+              ? _flutterSdk.environment
+              : _dartSdk.environment,
           timeout: _dartFormatTimeout,
         );
         if (result.exitCode == 0) {
           continue;
         }
 
-        final dirPrefix =
-            packageDir.endsWith('/') ? packageDir : '$packageDir/';
+        final dirPrefix = packageDir.endsWith('/')
+            ? packageDir
+            : '$packageDir/';
         final output = result.asJoinedOutput;
         final lines = LineSplitter.split(result.asJoinedOutput)
             .where((l) => l.startsWith('Changed'))
@@ -310,8 +327,10 @@ class ToolEnvironment {
         }
 
         final errorMsg = LineSplitter.split(output).take(10).join('\n');
-        final isUserProblem = output.contains(
-                'Could not format because the source could not be parsed') ||
+        final isUserProblem =
+            output.contains(
+              'Could not format because the source could not be parsed',
+            ) ||
             output.contains('The formatter produced unexpected output.');
         if (!isUserProblem) {
           throw Exception(
@@ -392,19 +411,20 @@ class ToolEnvironment {
   }) async {
     final pubCmd = usesFlutter
         ?
-        // Use `flutter pub pub` to get the 'raw' pub command. This avoids
-        // issues with `flutter pub get` running in the example directory,
-        // argument parsing differing and other misalignments between `dart pub`
-        // and `flutter pub` (see https://github.com/dart-lang/pub/issues/2971).
-        [..._flutterSdk.flutterCmd, 'pub', 'pub']
+          // Use `flutter pub pub` to get the 'raw' pub command. This avoids
+          // issues with `flutter pub get` running in the example directory,
+          // argument parsing differing and other misalignments between `dart pub`
+          // and `flutter pub` (see https://github.com/dart-lang/pub/issues/2971).
+          [..._flutterSdk.flutterCmd, 'pub', 'pub']
         : [..._dartSdk.dartCmd, 'pub'];
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
         final pr = await runConstrained(
           [...pubCmd, 'get', '--no-example'],
-          environment:
-              usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
+          environment: usesFlutter
+              ? _flutterSdk.environment
+              : _dartSdk.environment,
           workingDirectory: packageDir,
         );
         return pr;
@@ -432,13 +452,10 @@ class ToolEnvironment {
       }
 
       final result = await runConstrained(
-        [
-          ...pubCmd,
-          'outdated',
-          ...args,
-        ],
-        environment:
-            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
+        [...pubCmd, 'outdated', ...args],
+        environment: usesFlutter
+            ? _flutterSdk.environment
+            : _dartSdk.environment,
         workingDirectory: packageDir,
       );
       if (result.wasError) {
@@ -454,7 +471,8 @@ class ToolEnvironment {
         final lockPackages = lockContent['packages'];
         if (lockPackages is! Map<String, dynamic>) {
           throw ToolException(
-              '`$cmdLabel pub outdated` failed to generate a valid `pubspec.lock`.');
+            '`$cmdLabel pub outdated` failed to generate a valid `pubspec.lock`.',
+          );
         }
         final sdkPackages = lockPackages.entries
             .where((e) {
@@ -500,8 +518,9 @@ class ToolEnvironment {
     ];
 
     if (_dartdocVersion == 'sdk') {
-      final command =
-          usesFlutter ? _flutterSdk._dartSdk.dartCmd : _dartSdk.dartCmd;
+      final command = usesFlutter
+          ? _flutterSdk._dartSdk.dartCmd
+          : _dartSdk.dartCmd;
       return await runConstrained(
         [...command, 'doc', ...args],
         workingDirectory: packageDir,
@@ -518,7 +537,7 @@ class ToolEnvironment {
             'global',
             'activate',
             'dartdoc',
-            if (_dartdocVersion != null) _dartdocVersion!,
+            if (_dartdocVersion != null) _dartdocVersion,
           ],
           environment: {
             ..._dartSdk.environment,
@@ -531,8 +550,9 @@ class ToolEnvironment {
       return await runConstrained(
         [...command, 'pub', 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
-        environment:
-            usesFlutter ? _flutterSdk.environment : _dartSdk.environment,
+        environment: usesFlutter
+            ? _flutterSdk.environment
+            : _dartSdk.environment,
         timeout: timeout,
       );
     }
@@ -553,8 +573,9 @@ class ToolEnvironment {
     final pubspecBackup = await _stripAndAugmentPubspecYaml(packageDir);
 
     // Create a backup of the pubspec_overrides.yaml file.
-    final pubspecOverridesFile =
-        File(p.join(packageDir, 'pubspec_overrides.yaml'));
+    final pubspecOverridesFile = File(
+      p.join(packageDir, 'pubspec_overrides.yaml'),
+    );
     File? pubspecOverridesBackup;
     if (await pubspecOverridesFile.exists()) {
       final path = p.join(
@@ -586,7 +607,8 @@ class ToolEnvironment {
   Future<File> _stripAndAugmentPubspecYaml(String packageDir) async {
     final now = DateTime.now();
     final backup = File(
-        p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'));
+      p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'),
+    );
 
     final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
     final original = await pubspec.readAsString();
@@ -600,8 +622,10 @@ class ToolEnvironment {
     // and throws an exception if it is missing. While we no longer accept
     // new packages without such constraint, the old versions are still valid
     // and should be analyzed.
-    final environment =
-        parsed.putIfAbsent('environment', () => <String, Object?>{});
+    final environment = parsed.putIfAbsent(
+      'environment',
+      () => <String, Object?>{},
+    );
     if (environment is Map) {
       VersionConstraint? vc;
       if (environment['sdk'] is String) {
@@ -679,14 +703,14 @@ class _DartSdk {
   _DartSdk._(this._config);
 
   static Future<_DartSdk> detect(
-      SdkConfig config, Map<String, String> environment) async {
+    SdkConfig config,
+    Map<String, String> environment,
+  ) async {
     final resolved = await config._resolveAndExtend(environment: environment);
     return _DartSdk._(resolved);
   }
 
-  late final dartCmd = [
-    _join(_config.rootPath, 'bin', 'dart'),
-  ];
+  late final dartCmd = [_join(_config.rootPath, 'bin', 'dart')];
 
   late final dartAnalyzeCmd = [...dartCmd, 'analyze'];
 }
@@ -699,7 +723,9 @@ class _FlutterSdk {
   _FlutterSdk._(this._config, this._dartSdk);
 
   static Future<_FlutterSdk> detect(
-      SdkConfig config, Map<String, String> environment) async {
+    SdkConfig config,
+    Map<String, String> environment,
+  ) async {
     final resolved = await config._resolveAndExtend(
       environment: environment,
       isFlutterSdk: true,

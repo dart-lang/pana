@@ -38,8 +38,9 @@ void main() {
 
   group('Malformed content', () {
     final time = DateTime.now().millisecondsSinceEpoch;
-    final file =
-        File(p.join(Directory.systemTemp.path, 'pana-test-malformed-$time.md'));
+    final file = File(
+      p.join(Directory.systemTemp.path, 'pana-test-malformed-$time.md'),
+    );
 
     tearDownAll(() async {
       await file.delete();

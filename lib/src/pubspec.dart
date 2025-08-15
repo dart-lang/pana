@@ -18,12 +18,18 @@ class Pubspec {
   Set<String>? _dependentSdks;
 
   Pubspec(Map content)
-      : _inner = pubspek.Pubspec.fromJson(content, lenient: true),
-        _content = content;
+    : _inner = pubspek.Pubspec.fromJson(content, lenient: true),
+      _content = content;
 
-  factory Pubspec.parseYaml(String content, {String? sourceUrl}) =>
-      Pubspec(Map<String, dynamic>.from(yaml.loadYaml(content,
-          sourceUrl: sourceUrl == null ? null : Uri.parse(sourceUrl)) as Map));
+  factory Pubspec.parseYaml(String content, {String? sourceUrl}) => Pubspec(
+    Map<String, dynamic>.from(
+      yaml.loadYaml(
+            content,
+            sourceUrl: sourceUrl == null ? null : Uri.parse(sourceUrl),
+          )
+          as Map,
+    ),
+  );
 
   factory Pubspec.fromJson(Map<String, dynamic> json) => Pubspec(json);
 
@@ -113,8 +119,9 @@ class Pubspec {
   bool get hasGitDependency =>
       _inner.dependencies.values.any((d) => d is GitDependency);
 
-  bool get hasUnrestrictedGitDependency => _inner.dependencies.values
-      .any((d) => d is GitDependency && (d.ref == null || d.ref!.length < 40));
+  bool get hasUnrestrictedGitDependency => _inner.dependencies.values.any(
+    (d) => d is GitDependency && (d.ref == null || d.ref!.length < 40),
+  );
 
   SdkConstraintStatus get sdkConstraintStatus =>
       SdkConstraintStatus.fromSdkVersion(_inner.environment['sdk']);
@@ -150,7 +157,9 @@ class Pubspec {
   VersionConstraint? _removeUpperBound(VersionConstraint? constraint) {
     if (constraint is VersionRange) {
       return VersionRange(
-          min: constraint.min, includeMin: constraint.includeMin);
+        min: constraint.min,
+        includeMin: constraint.includeMin,
+      );
     }
     return constraint;
   }
@@ -170,7 +179,8 @@ class Pubspec {
       return const <String, String>{};
     }
     return map.map(
-        (k, v) => MapEntry(k.toString().trim(), (v ?? '').toString().trim()));
+      (k, v) => MapEntry(k.toString().trim(), (v ?? '').toString().trim()),
+    );
   }();
 }
 
@@ -213,7 +223,8 @@ class SdkConstraintStatus {
   ]) {
     final hasConstraint =
         constraint != null && !constraint.isAny && !constraint.isEmpty;
-    final hasOptedIntoNullSafety = hasConstraint &&
+    final hasOptedIntoNullSafety =
+        hasConstraint &&
         constraint is VersionRange &&
         constraint.min != null &&
         isNullSafety(constraint.min!);

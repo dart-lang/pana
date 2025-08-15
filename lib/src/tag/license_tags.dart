@@ -15,17 +15,21 @@ class LicenseTags {
   late final isOnlyOsiApproved = tags.contains(PanaTags.licenseOsiApproved);
   late final wasDetected = !tags.contains(PanaTags.licenseUnknown);
 
-  late final osiApprovedLicenses =
-      licenses.where((l) => l.isOsiApproved).toList();
-  late final nonOsiApprovedLicenses =
-      licenses.where((l) => !l.isOsiApproved).toList();
+  late final osiApprovedLicenses = licenses
+      .where((l) => l.isOsiApproved)
+      .toList();
+  late final nonOsiApprovedLicenses = licenses
+      .where((l) => !l.isOsiApproved)
+      .toList();
 
   factory LicenseTags.fromLicenses(List<License> licenses) {
     final tags = <String>[];
     if (licenses.isNotEmpty) {
-      tags.addAll(licenses
-          .map((l) => 'license:${l.spdxIdentifier.toLowerCase()}')
-          .toSet());
+      tags.addAll(
+        licenses
+            .map((l) => 'license:${l.spdxIdentifier.toLowerCase()}')
+            .toSet(),
+      );
       if (licenses.every((l) => l.isFsfLibre)) {
         tags.add(PanaTags.licenceFsfLibre);
       }
