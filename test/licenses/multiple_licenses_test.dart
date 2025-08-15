@@ -11,11 +11,14 @@ void main() {
   group('Multiple licenses in the same file', () {
     test('Licenses separated by comments', () async {
       // Note: this kind of license is only suggested by LLMs for now.
-      final input = File('test/licenses/multiple_licenses_comments.txt')
-          .readAsStringSync();
+      final input = File(
+        'test/licenses/multiple_licenses_comments.txt',
+      ).readAsStringSync();
 
-      final detected =
-          await detectLicenseInContent(input, relativePath: 'LICENSE');
+      final detected = await detectLicenseInContent(
+        input,
+        relativePath: 'LICENSE',
+      );
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'path': 'LICENSE',
@@ -34,11 +37,14 @@ void main() {
 
     test('Licenses separated by sections', () async {
       // Note: this kind of license is only suggested by LLMs for now.
-      final input = File('test/licenses/multiple_licenses_sections.txt')
-          .readAsStringSync();
+      final input = File(
+        'test/licenses/multiple_licenses_sections.txt',
+      ).readAsStringSync();
 
-      final detected =
-          await detectLicenseInContent(input, relativePath: 'LICENSE');
+      final detected = await detectLicenseInContent(
+        input,
+        relativePath: 'LICENSE',
+      );
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'path': 'LICENSE',
@@ -64,11 +70,14 @@ void main() {
       //     bundle. Each license in that file is separated from the next by a line of eighty
       //     hyphens (-), and begins with a list of package names that the license applies to,
       //     one to a line, separated from the next by a blank line.
-      final input = File('test/licenses/multiple_licenses_allnotifications.txt')
-          .readAsStringSync();
+      final input = File(
+        'test/licenses/multiple_licenses_allnotifications.txt',
+      ).readAsStringSync();
 
-      final detected =
-          await detectLicenseInContent(input, relativePath: 'LICENSE');
+      final detected = await detectLicenseInContent(
+        input,
+        relativePath: 'LICENSE',
+      );
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'path': 'LICENSE',
@@ -86,11 +95,13 @@ void main() {
     });
 
     test('Licenses without separation', () async {
-      final input =
-          File('test/licenses/multiple_licenses_pikaday_datepicker.txt')
-              .readAsStringSync();
-      final detected =
-          await detectLicenseInContent(input, relativePath: 'LICENSE');
+      final input = File(
+        'test/licenses/multiple_licenses_pikaday_datepicker.txt',
+      ).readAsStringSync();
+      final detected = await detectLicenseInContent(
+        input,
+        relativePath: 'LICENSE',
+      );
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'path': 'LICENSE',

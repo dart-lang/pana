@@ -175,11 +175,7 @@ class License {
   /// WARNING: this field is experimental, do not rely on it.
   final Range? range;
 
-  License({
-    required this.path,
-    required this.spdxIdentifier,
-    this.range,
-  });
+  License({required this.path, required this.spdxIdentifier, this.range});
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);
@@ -195,10 +191,7 @@ class Range {
   final Position start;
   final Position end;
 
-  Range({
-    required this.start,
-    required this.end,
-  });
+  Range({required this.start, required this.end});
 
   factory Range.fromJson(Map<String, dynamic> json) => _$RangeFromJson(json);
 
@@ -219,11 +212,7 @@ class Position {
   /// The 0-based column in the source
   final int column;
 
-  Position({
-    required this.offset,
-    required this.line,
-    required this.column,
-  });
+  Position({required this.offset, required this.line, required this.column});
 
   factory Position.fromJson(Map<String, dynamic> json) =>
       _$PositionFromJson(json);

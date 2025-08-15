@@ -61,9 +61,15 @@ Future<List<License>> detectLicenseInContent(
       spdxIdentifier: e.identifier,
       range: Range(
         start: Position(
-            offset: e.start.offset, line: e.start.line, column: e.start.column),
+          offset: e.start.offset,
+          line: e.start.line,
+          column: e.start.column,
+        ),
         end: Position(
-            offset: e.end.offset, line: e.end.line, column: e.end.column),
+          offset: e.end.offset,
+          line: e.end.line,
+          column: e.end.column,
+        ),
       ),
     );
   }).toList();
