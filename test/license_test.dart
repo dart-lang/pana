@@ -153,7 +153,14 @@ void main() {
     test('detect pana LICENSE', () async {
       final licenses = await detectLicenseInDir('.');
       expect(licenses.map((e) => e.toJson()).toList(), [
-        {'path': 'LICENSE', 'spdxIdentifier': 'BSD-3-Clause'},
+        {
+          'path': 'LICENSE',
+          'spdxIdentifier': 'BSD-3-Clause',
+          'range': {
+            'start': {'offset': 44, 'line': 2, 'column': 0},
+            'end': {'offset': 1503, 'line': 26, 'column': 68},
+          },
+        },
       ]);
     });
 

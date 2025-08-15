@@ -141,11 +141,11 @@ class LicenseMatch {
 
   /// Offset in the input license text considered to be possible starting point
   /// of known license substring.
-  int get start => tokens.first.span.start.offset;
+  SourceLocation get start => tokens.first.span.start;
 
   /// Offset in the input license text considered to be possible starting point
   /// of known license substring.
-  int get end => tokens.last.span.end.offset;
+  SourceLocation get end => tokens.last.span.end;
 
   /// Count of the tokens claimed in this match.
   ///

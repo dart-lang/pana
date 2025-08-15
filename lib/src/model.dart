@@ -170,12 +170,54 @@ class License {
   /// The SPDX identifier of the license.
   final String spdxIdentifier;
 
-  License({required this.path, required this.spdxIdentifier});
+  /// The range (start and end position) of the recognized part.
+  ///
+  /// WARNING: this field is experimental, do not rely on it.
+  final Range? range;
+
+  License({required this.path, required this.spdxIdentifier, this.range});
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LicenseToJson(this);
+}
+
+/// Describes a range in a source file.
+///
+/// WARNING: this class is experimental, do not rely on it.
+@JsonSerializable()
+class Range {
+  final Position start;
+  final Position end;
+
+  Range({required this.start, required this.end});
+
+  factory Range.fromJson(Map<String, dynamic> json) => _$RangeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RangeToJson(this);
+}
+
+/// Describes a position in a source file.
+///
+/// WARNING: this class is experimental, do not rely on it.
+@JsonSerializable()
+class Position {
+  /// The 0-based offset in the source.
+  final int offset;
+
+  /// The 0-based line in the source.
+  final int line;
+
+  /// The 0-based column in the source
+  final int column;
+
+  Position({required this.offset, required this.line, required this.column});
+
+  factory Position.fromJson(Map<String, dynamic> json) =>
+      _$PositionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PositionToJson(this);
 }
 
 @JsonSerializable()

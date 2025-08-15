@@ -1,6 +1,7 @@
 ## 0.22.23
 
 - Upgraded SDK constraint: `^3.8.0`.
+- Updated `License` with `start` and `end` `Position` fields that identifies the recognized block.
 
 ## 0.22.22
 
