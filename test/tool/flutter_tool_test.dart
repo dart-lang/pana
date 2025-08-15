@@ -9,8 +9,9 @@ import 'package:test/test.dart';
 
 void main() {
   group('Intermittent messages', () {
-    final jsonOutput =
-        const JsonEncoder.withIndent('  ').convert({'key': 'value'});
+    final jsonOutput = const JsonEncoder.withIndent(
+      '  ',
+    ).convert({'key': 'value'});
 
     test('unchanged text', () {
       expect(stripIntermittentFlutterMessages(jsonOutput), jsonOutput);
@@ -19,7 +20,8 @@ void main() {
     test('waiting for another process', () {
       expect(
         stripIntermittentFlutterMessages(
-            'Waiting for another flutter process to complete.\n$jsonOutput'),
+          'Waiting for another flutter process to complete.\n$jsonOutput',
+        ),
         jsonOutput,
       );
     });
@@ -27,7 +29,8 @@ void main() {
     test('welcome screen', () {
       expect(
         stripIntermittentFlutterMessages(
-            '$jsonOutput\n\n$_welcomeScreenOutput'),
+          '$jsonOutput\n\n$_welcomeScreenOutput',
+        ),
         jsonOutput,
       );
     });

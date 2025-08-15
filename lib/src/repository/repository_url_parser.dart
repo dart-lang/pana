@@ -6,9 +6,7 @@ import 'package:path/path.dart' as p;
 
 import '../model.dart';
 
-const _replaceSchemes = {
-  'http': 'https',
-};
+const _replaceSchemes = {'http': 'https'};
 
 const _replaceHosts = {
   'www.github.com': 'github.com',
@@ -46,16 +44,19 @@ Repository parseRepositoryUrl(String input) {
   final normalizedUri = Uri.parse(p.normalize(uri.path));
   if (uri.path != normalizedUri.path && uri.path != '${normalizedUri.path}/') {
     throw FormatException(
-        'URL path is not normalized: `${uri.path}` != `${normalizedUri.path}`');
+      'URL path is not normalized: `${uri.path}` != `${normalizedUri.path}`',
+    );
   }
   // detect repo vs path segments
-  final segments =
-      normalizedUri.pathSegments.where((s) => s.isNotEmpty).toList();
+  final segments = normalizedUri.pathSegments
+      .where((s) => s.isNotEmpty)
+      .toList();
   final repoSegmentIndex = _repoSegmentIndex(provider, segments);
   if (repoSegmentIndex < 0) {
     throw FormatException(
-        'Could not recognize URL segments: `${normalizedUri.path}`. '
-        'Please report at [pana](https://github.com/dart-lang/pana/issues).');
+      'Could not recognize URL segments: `${normalizedUri.path}`. '
+      'Please report at [pana](https://github.com/dart-lang/pana/issues).',
+    );
   }
 
   String? separator;
@@ -71,8 +72,9 @@ Repository parseRepositoryUrl(String input) {
     }
   }
 
-  String? repository =
-      Uri(pathSegments: segments.sublist(0, repoSegmentIndex + 1)).toString();
+  String? repository = Uri(
+    pathSegments: segments.sublist(0, repoSegmentIndex + 1),
+  ).toString();
   if (repository.endsWith('.git')) {
     repository = repository.substring(0, repository.length - 4);
   }

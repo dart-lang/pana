@@ -27,10 +27,12 @@ const _defaultSpdxLicenseDir = 'lib/src/third_party/spdx/licenses';
 List<License>? _cachedLicenses;
 Future<List<License>> _getDefaultLicenses() async {
   if (_cachedLicenses == null) {
-    final uri = await Isolate.resolvePackageUri(Uri.parse(
-        _defaultSpdxLicenseDir.replaceFirst('lib/', 'package:pana/')));
-    _cachedLicenses =
-        loadLicensesFromDirectories([Directory.fromUri(uri!).path]);
+    final uri = await Isolate.resolvePackageUri(
+      Uri.parse(_defaultSpdxLicenseDir.replaceFirst('lib/', 'package:pana/')),
+    );
+    _cachedLicenses = loadLicensesFromDirectories([
+      Directory.fromUri(uri!).path,
+    ]);
   }
   return _cachedLicenses!;
 }
@@ -48,8 +50,11 @@ class Result {
   /// text that was not a part of any detected license.
   final int longestUnclaimedTokenCount;
 
-  Result(this.matches, this.unclaimedTokenPercentage,
-      this.longestUnclaimedTokenCount);
+  Result(
+    this.matches,
+    this.unclaimedTokenPercentage,
+    this.longestUnclaimedTokenCount,
+  );
 }
 
 /// Returns an instance of [Result] for every license in the corpus detected
@@ -58,19 +63,18 @@ Future<Result> detectLicense(String text, double threshold) async {
   final granularity = computeGranularity(threshold);
 
   final unknownLicense = LicenseWithNGrams.parse(
-      License.parse(identifier: '', content: text), granularity);
+    License.parse(identifier: '', content: text),
+    granularity,
+  );
 
-  final possibleLicenses =
-      filter(unknownLicense.tokenFrequency, await _getDefaultLicenses())
-          .map((e) => LicenseWithNGrams.parse(e, granularity));
+  final possibleLicenses = filter(
+    unknownLicense.tokenFrequency,
+    await _getDefaultLicenses(),
+  ).map((e) => LicenseWithNGrams.parse(e, granularity));
   var result = <LicenseMatch>[];
 
   for (var license in possibleLicenses) {
-    final matches = findPotentialMatches(
-      unknownLicense,
-      license,
-      threshold,
-    );
+    final matches = findPotentialMatches(unknownLicense, license, threshold);
 
     for (var match in matches) {
       try {
@@ -85,12 +89,19 @@ Future<Result> detectLicense(String text, double threshold) async {
   result = removeDuplicates(result);
   result.sort(sortOnConfidence);
   result = removeOverLappingMatches(result);
-  final unclaimedPercentage =
-      calculateUnclaimedTokenPercentage(result, unknownLicense.tokens.length);
-  final longestUnclaimedTokenCount =
-      findLongestUnclaimedTokenRange(result, unknownLicense.tokens.length);
-  return Result(List.unmodifiable(result), unclaimedPercentage,
-      longestUnclaimedTokenCount);
+  final unclaimedPercentage = calculateUnclaimedTokenPercentage(
+    result,
+    unknownLicense.tokens.length,
+  );
+  final longestUnclaimedTokenCount = findLongestUnclaimedTokenRange(
+    result,
+    unknownLicense.tokens.length,
+  );
+  return Result(
+    List.unmodifiable(result),
+    unclaimedPercentage,
+    longestUnclaimedTokenCount,
+  );
 }
 
 /// Returns the minimum number of token runs that must match according to
@@ -124,8 +135,9 @@ List<LicenseMatch> removeDuplicates(List<LicenseMatch> matches) {
       var prevMatch = identifierToLicense[match.identifier];
       // As both the licenses are same consider the
       // max of tokens claimed among these two.
-      var tempMatch =
-          prevMatch!.confidence > match.confidence ? prevMatch : match;
+      var tempMatch = prevMatch!.confidence > match.confidence
+          ? prevMatch
+          : match;
 
       tempMatch = tempMatch.updateTokenIndex(
         min(prevMatch.tokenRange.start, match.tokenRange.start),
@@ -240,7 +252,9 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
 /// same range and hence we have a possibility of getting a score
 /// than 1.
 double calculateUnclaimedTokenPercentage(
-    List<LicenseMatch> matches, int unknownTokensCount) {
+  List<LicenseMatch> matches,
+  int unknownTokensCount,
+) {
   var claimedTokenCount = 0;
 
   for (var match in matches) {
@@ -264,8 +278,10 @@ int findLongestUnclaimedTokenRange(List<LicenseMatch> matches, int end) {
   var maxTokenSequence = ranges.first.start - 0;
 
   for (var i = 1; i < ranges.length; i++) {
-    maxTokenSequence =
-        max(ranges[i].start - ranges[i - 1].end, maxTokenSequence);
+    maxTokenSequence = max(
+      ranges[i].start - ranges[i - 1].end,
+      maxTokenSequence,
+    );
   }
 
   maxTokenSequence = max(maxTokenSequence, end - ranges.last.end);

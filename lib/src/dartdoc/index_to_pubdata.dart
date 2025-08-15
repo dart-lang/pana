@@ -28,13 +28,15 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
   for (final e in entries) {
     final showHref = e.isLibrary || e.isClass;
     final parent = hrefToQualifiedNames[e.enclosedBy?.href ?? ''];
-    apiElements.add(ApiElement(
-      name: e.name!,
-      parent: parent,
-      source: null,
-      href: showHref ? e.href : null,
-      documentation: (e.desc == null || e.desc!.isEmpty) ? null : e.desc,
-    ));
+    apiElements.add(
+      ApiElement(
+        name: e.name!,
+        parent: parent,
+        source: null,
+        href: showHref ? e.href : null,
+        documentation: (e.desc == null || e.desc!.isEmpty) ? null : e.desc,
+      ),
+    );
   }
 
   final symbolsWithDocumentation = apiElements
@@ -44,15 +46,16 @@ PubDartdocData dataFromDartdocIndex(DartdocIndex index) {
   final symbolsMissingDocumentation = apiElements
       // filter out names that have documentation
       .whereNot((e) => symbolsWithDocumentation.contains(e.qualifiedName))
-
       // Some symbols are present here without being in the code. E.g. an enum may
       // omit the default constructor, and we would report it as undocumented here.
       // Filtering out typically hidden constructors (e.g. `<A>.<A>`) if the parent
       // type has a documentation.
-      .whereNot((e) =>
-          e.parent != null &&
-          e.parent!.split('.').last == e.name &&
-          symbolsWithDocumentation.contains(e.parent!))
+      .whereNot(
+        (e) =>
+            e.parent != null &&
+            e.parent!.split('.').last == e.name &&
+            symbolsWithDocumentation.contains(e.parent!),
+      )
       .map((e) => e.qualifiedName)
       .toList();
   final documented = symbolsWithDocumentation.length;

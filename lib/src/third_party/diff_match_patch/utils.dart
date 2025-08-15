@@ -100,7 +100,9 @@ String _diffLinesToCharsMunge(
 /// unique strings is intentionally blank.
 @visibleForTesting
 ({String chars1, String chars2, List<String> lineArray}) diffLinesToChars(
-    String text1, String text2) {
+  String text1,
+  String text2,
+) {
   final lineArray = <String>[];
   final lineHash = HashMap<String, int>();
   // e.g. lineArray[4] == 'Hello\n'
@@ -399,8 +401,10 @@ void diffCleanupSemantic(List<Diff> diffs) {
             Diff(Operation.equal, insertion.substring(0, overlapLength1)),
           );
 
-          diffs[pointer - 1].text =
-              deletion.substring(0, deletion.length - overlapLength1);
+          diffs[pointer - 1].text = deletion.substring(
+            0,
+            deletion.length - overlapLength1,
+          );
 
           diffs[pointer + 1].text = insertion.substring(overlapLength1);
           pointer++;
@@ -415,11 +419,15 @@ void diffCleanupSemantic(List<Diff> diffs) {
             Diff(Operation.equal, deletion.substring(0, overlapLength2)),
           );
 
-          diffs[pointer - 1] = Diff(Operation.insert,
-              insertion.substring(0, insertion.length - overlapLength2));
+          diffs[pointer - 1] = Diff(
+            Operation.insert,
+            insertion.substring(0, insertion.length - overlapLength2),
+          );
 
-          diffs[pointer + 1] =
-              Diff(Operation.delete, deletion.substring(overlapLength2));
+          diffs[pointer + 1] = Diff(
+            Operation.delete,
+            deletion.substring(overlapLength2),
+          );
           pointer++;
         }
       }
@@ -505,16 +513,19 @@ void diffCleanupSemanticLossless(List<Diff> diffs) {
       var bestEquality1 = equality1;
       var bestEdit = edit;
       var bestEquality2 = equality2;
-      var bestScore = diffCleanupSemanticScore(equality1, edit) +
+      var bestScore =
+          diffCleanupSemanticScore(equality1, edit) +
           diffCleanupSemanticScore(edit, equality2);
 
-      while (
-          edit.isNotEmpty && equality2.isNotEmpty && edit[0] == equality2[0]) {
+      while (edit.isNotEmpty &&
+          equality2.isNotEmpty &&
+          edit[0] == equality2[0]) {
         equality1 = equality1 + edit[0];
         edit = edit.substring(1) + equality2[0];
         equality2 = equality2.substring(1);
 
-        final score = diffCleanupSemanticScore(equality1, edit) +
+        final score =
+            diffCleanupSemanticScore(equality1, edit) +
             diffCleanupSemanticScore(edit, equality2);
 
         // The >= encourages trailing rather than leading whitespace on edits.

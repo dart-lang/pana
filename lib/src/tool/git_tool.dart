@@ -50,11 +50,7 @@ Future<PanaProcessResult> runGitIsolated(
   required String workingDirectory,
 }) async {
   return await withTempDir((path) async {
-    return runGit(
-      args,
-      homePath: path,
-      workingDirectory: workingDirectory,
-    );
+    return runGit(args, homePath: path, workingDirectory: workingDirectory);
   });
 }
 

@@ -11,8 +11,10 @@ import '../tool/git_tool.dart';
 import '../tool/run_constrained.dart';
 
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
-final _acceptedPathSegmentsRegExp =
-    RegExp(r'^[a-z0-9_\-\.]+$', caseSensitive: false);
+final _acceptedPathSegmentsRegExp = RegExp(
+  r'^[a-z0-9_\-\.]+$',
+  caseSensitive: false,
+);
 
 /// The value to indicate we are fetching the branch without depth restriction.
 const unlimitedFetchDepth = 0;
@@ -141,13 +143,10 @@ class GitLocalRepository {
     _assertBranchFormat(branch);
     _assertPathFormat(path);
     await _fetch(branch, 1);
-    final pr = await _runGitWithRetry(
-      [
-        'show',
-        'origin/$branch:$path',
-      ],
-      createException: (_) => GitToolException('Could not read `$path`.'),
-    );
+    final pr = await _runGitWithRetry([
+      'show',
+      'origin/$branch:$path',
+    ], createException: (_) => GitToolException('Could not read `$path`.'));
     return pr.stdout.asString;
   }
 
@@ -158,13 +157,7 @@ class GitLocalRepository {
     _assertBranchFormat(branch);
     await _fetch(branch, 1);
     final pr = await _runGitWithRetry(
-      [
-        'ls-tree',
-        '-r',
-        '--name-only',
-        '--full-tree',
-        'origin/$branch',
-      ],
+      ['ls-tree', '-r', '--name-only', '--full-tree', 'origin/$branch'],
       createException: (pr) =>
           GitToolException('Could not list `$branch`.', pr.asTrimmedOutput),
     );
@@ -209,8 +202,12 @@ class GitLocalRepository {
     if (p.posix.normalize(path) != path) {
       throw GitToolException.argument('Path "$path" is not normalized.');
     }
-    if (p.split(path).any((segment) =>
-        _acceptedPathSegmentsRegExp.matchAsPrefix(segment) == null)) {
+    if (p
+        .split(path)
+        .any(
+          (segment) =>
+              _acceptedPathSegmentsRegExp.matchAsPrefix(segment) == null,
+        )) {
       throw GitToolException.argument('Path "$path" is not accepted.');
     }
   }

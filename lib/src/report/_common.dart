@@ -123,36 +123,40 @@ class Subsection {
 
 /// Given an introduction and a list of issues, formats the summary of a
 /// section.
-String _makeSummary(List<Subsection> subsections,
-    {String? introduction, String? basePath, int maxIssues = 2}) {
+String _makeSummary(
+  List<Subsection> subsections, {
+  String? introduction,
+  String? basePath,
+  int maxIssues = 2,
+}) {
   return [
-    if (introduction != null) introduction,
-    ...subsections.map((subsection) {
-      final paragraphsMarkdown = subsection
-          .takeIssues(maxIssues)
-          .map((e) => e.markdown(basePath: basePath))
-          // ensures that paragraphs are separated but only with a single empty line
-          .map((p) => p.endsWith('\n') ? p : '$p\n');
-      final statusMarker = _reportStatusMarker(subsection.status);
-      return [
-        '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
-        if (subsection.bodyPrefix.isNotEmpty) subsection.bodyPrefix,
-        if (subsection.issueCount > maxIssues)
-          'Found ${subsection.issueCount} issues. Showing the first $maxIssues:\n',
-        ...paragraphsMarkdown,
-      ].join('\n');
-    }),
-  ]
+        if (introduction != null) introduction,
+        ...subsections.map((subsection) {
+          final paragraphsMarkdown = subsection
+              .takeIssues(maxIssues)
+              .map((e) => e.markdown(basePath: basePath))
+              // ensures that paragraphs are separated but only with a single empty line
+              .map((p) => p.endsWith('\n') ? p : '$p\n');
+          final statusMarker = _reportStatusMarker(subsection.status);
+          return [
+            '### $statusMarker ${subsection.grantedPoints}/${subsection.maxPoints} points: ${subsection.description}\n',
+            if (subsection.bodyPrefix.isNotEmpty) subsection.bodyPrefix,
+            if (subsection.issueCount > maxIssues)
+              'Found ${subsection.issueCount} issues. Showing the first $maxIssues:\n',
+            ...paragraphsMarkdown,
+          ].join('\n');
+        }),
+      ]
       // ensures that paragraphs are separated but only with a single empty line
       .map((l) => l.endsWith('\n') ? l : '$l\n')
       .join('\n');
 }
 
 String? _reportStatusMarker(ReportStatus status) => const {
-      ReportStatus.passed: '[*]',
-      ReportStatus.failed: '[x]',
-      ReportStatus.partial: '[~]'
-    }[status];
+  ReportStatus.passed: '[*]',
+  ReportStatus.failed: '[x]',
+  ReportStatus.partial: '[~]',
+}[status];
 
 /// Renders a summary block for sections that can have only a single issue.
 @Deprecated('Do not use this API, it will be removed.')
@@ -171,28 +175,35 @@ String renderSimpleSectionSummary({
       maxPoints == grantedPoints
           ? ReportStatus.passed
           : grantedPoints == 0
-              ? ReportStatus.failed
-              : ReportStatus.partial,
-    )
+          ? ReportStatus.failed
+          : ReportStatus.partial,
+    ),
   ], basePath: null);
 }
 
-ReportSection makeSection(
-    {required String id,
-    required String title,
-    required int maxPoints,
-    required List<Subsection> subsections,
-    required String? basePath,
-    int maxIssues = 2}) {
+ReportSection makeSection({
+  required String id,
+  required String title,
+  required int maxPoints,
+  required List<Subsection> subsections,
+  required String? basePath,
+  int maxIssues = 2,
+}) {
   return ReportSection(
-      id: id,
-      title: title,
-      grantedPoints:
-          subsections.fold(0, (p, subsection) => p + subsection.grantedPoints),
-      maxPoints: maxPoints,
-      summary:
-          _makeSummary(subsections, basePath: basePath, maxIssues: maxIssues),
-      status: summarizeStatuses(subsections.map((s) => s.status)));
+    id: id,
+    title: title,
+    grantedPoints: subsections.fold(
+      0,
+      (p, subsection) => p + subsection.grantedPoints,
+    ),
+    maxPoints: maxPoints,
+    summary: _makeSummary(
+      subsections,
+      basePath: basePath,
+      maxIssues: maxIssues,
+    ),
+    status: summarizeStatuses(subsections.map((s) => s.status)),
+  );
 }
 
 SourceSpan? tryGetSpanFromYamlMap(Object map, String key) {

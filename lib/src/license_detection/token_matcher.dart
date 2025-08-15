@@ -18,18 +18,15 @@ class MatchRange {
   final int tokensClaimed;
 
   @visibleForTesting
-  MatchRange(
-    this.input,
-    this.source,
-    this.tokensClaimed,
-  );
+  MatchRange(this.input, this.source, this.tokensClaimed);
 
-  MatchRange update(
-      {int? inputStart,
-      int? inputEnd,
-      int? srcStart,
-      int? srcEnd,
-      int? newClaim}) {
+  MatchRange update({
+    int? inputStart,
+    int? inputEnd,
+    int? srcStart,
+    int? srcEnd,
+    int? newClaim,
+  }) {
     final newInput = Range(inputStart ?? input.start, inputEnd ?? input.end);
     final newSource = Range(srcStart ?? source.start, srcEnd ?? source.end);
     return MatchRange(newInput, newSource, newClaim ?? tokensClaimed);
@@ -70,7 +67,8 @@ List<MatchRange> findPotentialMatches(
 ) {
   if (knownLicense.granularity != unknownLicense.granularity) {
     throw ArgumentError(
-        'n-gram size for knownLicense and unknownLicense must be the same!');
+      'n-gram size for knownLicense and unknownLicense must be the same!',
+    );
   }
 
   final matchedRanges = getMatchRanges(
@@ -122,7 +120,12 @@ List<MatchRange> getMatchRanges(
   }
 
   return fuseMatchedRanges(
-      matches, confidence, source.tokens.length, runs, input.tokens.length);
+    matches,
+    confidence,
+    source.tokens.length,
+    runs,
+    input.tokens.length,
+  );
 }
 
 /// Returns a list of [MatchRange] for all the continuous range of [Ngram](s) matched in [unknownLicense] and [knownLicense].
@@ -161,9 +164,14 @@ List<MatchRange> getTargetMatchedRanges(
 
       // Add new instance of matchRange if doesn't extend the last
       // match of the same offset.
-      offsetMap.putIfAbsent(offset, () => []).add(
-            MatchRange(Range(tgtChecksum.start, tgtChecksum.end),
-                Range(srcChecksum.start, srcChecksum.end), n),
+      offsetMap
+          .putIfAbsent(offset, () => [])
+          .add(
+            MatchRange(
+              Range(tgtChecksum.start, tgtChecksum.end),
+              Range(srcChecksum.start, srcChecksum.end),
+              n,
+            ),
           );
     }
   }
@@ -255,12 +263,7 @@ List<Range> detectRuns(
     return [];
   }
 
-  var finalOut = <Range>[
-    Range(
-      out[0],
-      out[0] + n,
-    )
-  ];
+  var finalOut = <Range>[Range(out[0], out[0] + n)];
 
   // Create a list of matchRange from the token indexes that were
   // were considered to be a potential match.
@@ -333,8 +336,9 @@ List<MatchRange> fuseMatchedRanges(
         // of token count.
         if (match.input.start >= claim.input.start &&
             match.input.end <= claim.input.end) {
-          claim =
-              claim.update(newClaim: claim.tokensClaimed + match.tokensClaimed);
+          claim = claim.update(
+            newClaim: claim.tokensClaimed + match.tokensClaimed,
+          );
           unclaimed = false;
         }
         // Check if the claim and match can be merged.
@@ -390,8 +394,5 @@ List<MatchRange> fuseMatchedRanges(
 
 /// [Comparator] to sort list of [MatchRange] in descending order of the number of
 /// token claimed in range.
-int _compareTokenCount(
-  MatchRange a,
-  MatchRange b,
-) =>
+int _compareTokenCount(MatchRange a, MatchRange b) =>
     b.tokensClaimed - a.tokensClaimed;

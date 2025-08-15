@@ -16,18 +16,19 @@ void main() {
 
     test('no build', () {
       final info = PanaRuntimeInfo(
-          panaVersion: '1.0.0',
-          sdkVersion: '2.0.0',
-          flutterVersions: {
-            'frameworkVersion': '2.1.0-13.0.pre.292',
-            'channel': 'master',
-            'repositoryUrl': 'https://github.com/flutter/flutter',
-            'frameworkRevision': 'b60c855af5150b695638b2195f500d3c003b71ab',
-            'frameworkCommitDate': '2021-03-26 22:14:01 -0700',
-            'engineRevision': 'b5e15d055d135c5b82feb3263f47f9f9a038343e',
-            'dartSdkVersion': '2.13.0',
-            'flutterRoot': '/bin/flutter',
-          });
+        panaVersion: '1.0.0',
+        sdkVersion: '2.0.0',
+        flutterVersions: {
+          'frameworkVersion': '2.1.0-13.0.pre.292',
+          'channel': 'master',
+          'repositoryUrl': 'https://github.com/flutter/flutter',
+          'frameworkRevision': 'b60c855af5150b695638b2195f500d3c003b71ab',
+          'frameworkCommitDate': '2021-03-26 22:14:01 -0700',
+          'engineRevision': 'b5e15d055d135c5b82feb3263f47f9f9a038343e',
+          'dartSdkVersion': '2.13.0',
+          'flutterRoot': '/bin/flutter',
+        },
+      );
       expect(info.hasFlutter, isTrue);
       expect(info.flutterVersion, '2.1.0-13.0.pre.292');
       expect(info.flutterInternalDartSdkVersion, '2.13.0');
@@ -35,18 +36,19 @@ void main() {
 
     test('full build', () {
       final info = PanaRuntimeInfo(
-          panaVersion: '1.0.0',
-          sdkVersion: '2.0.0',
-          flutterVersions: {
-            'frameworkVersion': '2.1.0-13.0.pre.292',
-            'channel': 'master',
-            'repositoryUrl': 'https://github.com/flutter/flutter',
-            'frameworkRevision': 'b60c855af5150b695638b2195f500d3c003b71ab',
-            'frameworkCommitDate': '2021-03-26 22:14:01 -0700',
-            'engineRevision': 'b5e15d055d135c5b82feb3263f47f9f9a038343e',
-            'dartSdkVersion': '2.13.0 (build 2.13.0-162.0.dev)',
-            'flutterRoot': '/bin/flutter',
-          });
+        panaVersion: '1.0.0',
+        sdkVersion: '2.0.0',
+        flutterVersions: {
+          'frameworkVersion': '2.1.0-13.0.pre.292',
+          'channel': 'master',
+          'repositoryUrl': 'https://github.com/flutter/flutter',
+          'frameworkRevision': 'b60c855af5150b695638b2195f500d3c003b71ab',
+          'frameworkCommitDate': '2021-03-26 22:14:01 -0700',
+          'engineRevision': 'b5e15d055d135c5b82feb3263f47f9f9a038343e',
+          'dartSdkVersion': '2.13.0 (build 2.13.0-162.0.dev)',
+          'flutterRoot': '/bin/flutter',
+        },
+      );
       expect(info.hasFlutter, isTrue);
       expect(info.flutterVersion, '2.1.0-13.0.pre.292');
       expect(info.flutterInternalDartSdkVersion, '2.13.0-162.0.dev');

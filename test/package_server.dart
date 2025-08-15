@@ -23,8 +23,9 @@ PackageServer? _globalPackageServer;
 ///
 /// Calls [callback] with a [PackageServerBuilder] that's used to specify
 /// which packages to serve.
-Future<void> servePackages(
-    [void Function(PackageServerBuilder?)? callback]) async {
+Future<void> servePackages([
+  void Function(PackageServerBuilder?)? callback,
+]) async {
   _globalPackageServer = await PackageServer.start(callback ?? (_) {});
 
   addTearDown(() {
@@ -66,9 +67,11 @@ class PackageServer {
   /// This server exists only for the duration of the pub run. Subsequent calls
   /// to [serve()] replace the previous server.
   static Future<PackageServer> start(
-      void Function(PackageServerBuilder?) callback) async {
-    final result =
-        PackageServer._(await shelf_io.IOServer.bind('localhost', 0));
+    void Function(PackageServerBuilder?) callback,
+  ) async {
+    final result = PackageServer._(
+      await shelf_io.IOServer.bind('localhost', 0),
+    );
     result.add(callback);
     return result;
   }
@@ -76,8 +79,10 @@ class PackageServer {
   /// From now on, serve errors on all requests.
   void serveErrors() {
     extraHandlers[RegExp('.*')] = (request) {
-      fail('The HTTP server received an unexpected request:\n'
-          '${request.method} ${request.requestedUri}');
+      fail(
+        'The HTTP server received an unexpected request:\n'
+        '${request.method} ${request.requestedUri}',
+      );
     };
   }
 
@@ -142,25 +147,33 @@ class PackageServer {
     _builder!._packages.forEach((name, package) {
       _servedApiPackageDir.contents.addAll([
         d.file(
-            name,
-            jsonEncode({
-              'name': name,
-              'uploaders': ['example@google.com'],
-              'versions': package.versions
-                  .map((version) => _packageVersionApiMap(url, version))
-                  .toList(),
-              if (package.isDiscontinued) 'isDiscontinued': true,
-              if (package.discontinuedReplacementText != null)
-                'replacedBy': package.discontinuedReplacementText,
-            })),
+          name,
+          jsonEncode({
+            'name': name,
+            'uploaders': ['example@google.com'],
+            'versions': package.versions
+                .map((version) => _packageVersionApiMap(url, version))
+                .toList(),
+            if (package.isDiscontinued) 'isDiscontinued': true,
+            if (package.discontinuedReplacementText != null)
+              'replacedBy': package.discontinuedReplacementText,
+          }),
+        ),
       ]);
 
-      _servedPackageDir.contents.add(d.dir(name, [
-        d.dir(
+      _servedPackageDir.contents.add(
+        d.dir(name, [
+          d.dir(
             'versions',
-            package.versions.map((version) => TarFileDescriptor(
-                '${version.version}.tar.gz', version.contents)))
-      ]));
+            package.versions.map(
+              (version) => TarFileDescriptor(
+                '${version.version}.tar.gz',
+                version.contents,
+              ),
+            ),
+          ),
+        ]),
+      );
     });
   }
 }
@@ -168,7 +181,9 @@ class PackageServer {
 /// Returns a Map in the format used by the pub.dartlang.org API to represent a
 /// package version.
 Map<String, Object?> _packageVersionApiMap(
-    String hostedUrl, _ServedPackageVersion package) {
+  String hostedUrl,
+  _ServedPackageVersion package,
+) {
   final pubspec = package.pubspec;
   final name = pubspec['name'];
   final version = pubspec['version'];
@@ -202,16 +217,19 @@ class PackageServerBuilder {
   ///
   /// If [contents] is passed, it's used as the contents of the package. By
   /// default, a package just contains a dummy lib directory.
-  void serve(String name, String version,
-      {Map<String, Object>? deps,
-      Map<String, Object>? pubspec,
-      Map<String, String>? versionData,
-      Iterable<d.Descriptor>? contents,
-      DateTime? published}) {
+  void serve(
+    String name,
+    String version, {
+    Map<String, Object>? deps,
+    Map<String, Object>? pubspec,
+    Map<String, String>? versionData,
+    Iterable<d.Descriptor>? contents,
+    DateTime? published,
+  }) {
     var pubspecFields = <String, Object>{
       'name': name,
       'version': version,
-      'environment': {'sdk': '>=2.12.0 <4.0.0'}
+      'environment': {'sdk': '>=2.12.0 <4.0.0'},
     };
     if (pubspec != null) pubspecFields.addAll(pubspec);
     if (deps != null) pubspecFields['dependencies'] = deps;
@@ -220,17 +238,13 @@ class PackageServerBuilder {
 
     var package = _packages.putIfAbsent(name, _ServedPackage.new);
     package.versions.add(
-      _ServedPackageVersion(
-        pubspecFields,
-        [
-          d.file(
-            'pubspec.yaml',
-            const JsonEncoder.withIndent('  ').convert(pubspecFields),
-          ),
-          ...contents
-        ],
-        published: published,
-      ),
+      _ServedPackageVersion(pubspecFields, [
+        d.file(
+          'pubspec.yaml',
+          const JsonEncoder.withIndent('  ').convert(pubspecFields),
+        ),
+        ...contents,
+      ], published: published),
     );
   }
 }
@@ -265,14 +279,18 @@ class TarFileDescriptor extends d.FileDescriptor {
   final List<d.Descriptor> contents;
 
   TarFileDescriptor(super.name, Iterable<d.Descriptor> contents)
-      : contents = contents.toList(),
-        super.protected();
+    : contents = contents.toList(),
+      super.protected();
 
-  Future<Iterable<TarEntry>> allFiles(d.Descriptor descriptor,
-      [String path = '.']) async {
+  Future<Iterable<TarEntry>> allFiles(
+    d.Descriptor descriptor, [
+    String path = '.',
+  ]) async {
     if (descriptor is d.FileDescriptor) {
-      final size =
-          await descriptor.readAsBytes().fold<int>(0, (i, l) => i + l.length);
+      final size = await descriptor.readAsBytes().fold<int>(
+        0,
+        (i, l) => i + l.length,
+      );
       return [
         TarEntry(
           TarHeader(
@@ -284,21 +302,20 @@ class TarFileDescriptor extends d.FileDescriptor {
             groupName: 'pub',
           ),
           descriptor.readAsBytes(),
-        )
+        ),
       ];
     }
 
     final dir = descriptor as d.DirectoryDescriptor;
     return [
-      for (final c in dir.contents) ...await allFiles(c, '$path/${dir.name}')
+      for (final c in dir.contents) ...await allFiles(c, '$path/${dir.name}'),
     ];
   }
 
   @override
   Stream<List<int>> readAsBytes() {
-    return Stream.fromFutures(contents.map(allFiles))
-        .expand((x) => x)
-        .transform(tarWriter)
-        .transform(gzip.encoder);
+    return Stream.fromFutures(
+      contents.map(allFiles),
+    ).expand((x) => x).transform(tarWriter).transform(gzip.encoder);
   }
 }

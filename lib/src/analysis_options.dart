@@ -34,8 +34,11 @@ Future<String> _getLintsCoreAnalysisOptions() async {
 
   // Try to load latest version of the core lints from GitHub.
   try {
-    final rs = await _httpGetWithRetry(Uri.parse(
-        'https://raw.githubusercontent.com/dart-lang/lints/main/lib/core.yaml'));
+    final rs = await _httpGetWithRetry(
+      Uri.parse(
+        'https://raw.githubusercontent.com/dart-lang/lints/main/lib/core.yaml',
+      ),
+    );
     if (rs.statusCode == 200 && rs.body.contains('rules:')) {
       return rs.body;
     }
@@ -55,7 +58,8 @@ Future<http.Response> _httpGetWithRetry(Uri uri) async {
       final rs = await http.get(uri);
       if (rs.statusCode >= 500 && rs.statusCode < 600) {
         throw http.ClientException(
-            'Server returned status code: ${rs.statusCode}');
+          'Server returned status code: ${rs.statusCode}',
+        );
       }
       return rs;
     },
@@ -88,8 +92,9 @@ String updatePassthroughOptions({
     if (origErrors is Map) {
       final customAnalyzer =
           customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
-      final customErrors = customAnalyzer.putIfAbsent(
-          'errors', () => <String, Object?>{}) as Map;
+      final customErrors =
+          customAnalyzer.putIfAbsent('errors', () => <String, Object?>{})
+              as Map;
 
       for (var key in _analyzerErrorKeys) {
         if (origErrors.containsKey(key)) {
@@ -102,8 +107,9 @@ String updatePassthroughOptions({
     if (origExperiments is List && origExperiments.contains('macros')) {
       final customAnalyzer =
           customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
-      final customExperiments = customAnalyzer.putIfAbsent(
-          'enable-experiment', () => <String>[]) as List;
+      final customExperiments =
+          customAnalyzer.putIfAbsent('enable-experiment', () => <String>[])
+              as List;
       customExperiments.add('macros');
     }
   }

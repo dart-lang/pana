@@ -9,29 +9,27 @@ part of 'batch_model.dart';
 // **************************************************************************
 
 BatchConfig _$BatchConfigFromJson(Map<String, dynamic> json) => BatchConfig(
-      dartSdk: json['dartSdk'] as String?,
-      flutterSdk: json['flutterSdk'] as String?,
-      environment: (json['environment'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      analysisOptions: json['analysisOptions'] as String?,
-    );
+  dartSdk: json['dartSdk'] as String?,
+  flutterSdk: json['flutterSdk'] as String?,
+  environment: (json['environment'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
+  ),
+  analysisOptions: json['analysisOptions'] as String?,
+);
 
 Map<String, dynamic> _$BatchConfigToJson(BatchConfig instance) =>
     <String, dynamic>{
-      if (instance.dartSdk case final value?) 'dartSdk': value,
-      if (instance.flutterSdk case final value?) 'flutterSdk': value,
-      if (instance.environment case final value?) 'environment': value,
-      if (instance.analysisOptions case final value?) 'analysisOptions': value,
+      'dartSdk': ?instance.dartSdk,
+      'flutterSdk': ?instance.flutterSdk,
+      'environment': ?instance.environment,
+      'analysisOptions': ?instance.analysisOptions,
     };
 
 BatchResult _$BatchResultFromJson(Map<String, dynamic> json) => BatchResult(
-      unchangedCount: (json['unchangedCount'] as num).toInt(),
-      increased:
-          BatchChanged.fromJson(json['increased'] as Map<String, dynamic>),
-      decreased:
-          BatchChanged.fromJson(json['decreased'] as Map<String, dynamic>),
-    );
+  unchangedCount: (json['unchangedCount'] as num).toInt(),
+  increased: BatchChanged.fromJson(json['increased'] as Map<String, dynamic>),
+  decreased: BatchChanged.fromJson(json['decreased'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$BatchResultToJson(BatchResult instance) =>
     <String, dynamic>{
@@ -41,12 +39,9 @@ Map<String, dynamic> _$BatchResultToJson(BatchResult instance) =>
     };
 
 BatchChanged _$BatchChangedFromJson(Map<String, dynamic> json) => BatchChanged(
-      count: (json['count'] as num).toInt(),
-      packages: Map<String, int>.from(json['packages'] as Map),
-    );
+  count: (json['count'] as num).toInt(),
+  packages: Map<String, int>.from(json['packages'] as Map),
+);
 
 Map<String, dynamic> _$BatchChangedToJson(BatchChanged instance) =>
-    <String, dynamic>{
-      'count': instance.count,
-      'packages': instance.packages,
-    };
+    <String, dynamic>{'count': instance.count, 'packages': instance.packages};

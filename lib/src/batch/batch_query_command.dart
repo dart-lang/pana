@@ -43,10 +43,7 @@ class BatchQueryCommand extends Command<void> {
       defaultsTo: '100',
       help: 'Limits the number of packages (ordered by total score).',
     )
-    ..addOption(
-      'output',
-      help: 'Write packages to file (stdout otherwise).',
-    );
+    ..addOption('output', help: 'Write packages to file (stdout otherwise).');
 
   @override
   Future<void> run() async {
@@ -85,13 +82,19 @@ class BatchQueryCommand extends Command<void> {
   }
 
   Future<List<String>> _getPackages(
-      String? query, String sort, int page) async {
-    final rs = await _client
-        .get(Uri.parse('https://pub.dev/api/search').replace(queryParameters: {
-      if (query != null && query.isNotEmpty) 'q': query,
-      if (page > 1) 'page': page.toString(),
-      'sort': sort,
-    }));
+    String? query,
+    String sort,
+    int page,
+  ) async {
+    final rs = await _client.get(
+      Uri.parse('https://pub.dev/api/search').replace(
+        queryParameters: {
+          if (query != null && query.isNotEmpty) 'q': query,
+          if (page > 1) 'page': page.toString(),
+          'sort': sort,
+        },
+      ),
+    );
     if (rs.statusCode != 200) {
       throw AssertionError('Unexpected status code: ${rs.statusCode}');
     }
@@ -103,8 +106,9 @@ class BatchQueryCommand extends Command<void> {
   }
 
   Future<int> _ageInDays(String package) async {
-    final rs = await _client
-        .get(Uri.parse('https://pub.dartlang.org/api/packages/$package'));
+    final rs = await _client.get(
+      Uri.parse('https://pub.dartlang.org/api/packages/$package'),
+    );
     if (rs.statusCode != 200) {
       throw AssertionError('Unexpected status code: ${rs.statusCode}');
     }

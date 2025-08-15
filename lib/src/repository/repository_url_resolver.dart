@@ -59,10 +59,9 @@ extension RepositoryUrlResolverExt on Repository {
       referenceIsAbsolute = true;
     }
     if (relativeFrom != null && !referenceIsAbsolute) {
-      referencePath = p.normalize(p.joinAll([
-        p.dirname(relativeFrom),
-        referencePath,
-      ]));
+      referencePath = p.normalize(
+        p.joinAll([p.dirname(relativeFrom), referencePath]),
+      );
       while (referencePath.startsWith('/')) {
         referencePath = referencePath.substring(1);
       }
@@ -78,37 +77,43 @@ extension RepositoryUrlResolverExt on Repository {
 
       final normalizedPath = referenceIsAbsolute
           ? referencePath
-          : p.normalize(p.joinAll([
-              if (path != null) path!,
-              referencePath,
-            ]));
+          : p.normalize(p.joinAll([if (path != null) path!, referencePath]));
       final parts = p.split(normalizedPath);
       final sanitizedPath = parts.contains('..')
           ? p.joinAll(parts.sublist(parts.lastIndexOf('..') + 1))
           : normalizedPath;
 
-      finalPath = p.normalize(p.joinAll([
-        repository,
-        separator,
-        branch ?? this.branch ?? 'master',
-        sanitizedPath
-      ].whereType<String>()));
+      finalPath = p.normalize(
+        p.joinAll(
+          [
+            repository,
+            separator,
+            branch ?? this.branch ?? 'master',
+            sanitizedPath,
+          ].whereType<String>(),
+        ),
+      );
     } else {
       // For unknown providers resolution follows normal URL rules.
       finalPath = referenceIsAbsolute
           ? referencePath
-          : p.normalize(p.joinAll([
-              repository,
-              if (path != null) path!,
-              referencePath,
-            ].whereType<String>()));
+          : p.normalize(
+              p.joinAll(
+                [
+                  repository,
+                  if (path != null) path!,
+                  referencePath,
+                ].whereType<String>(),
+              ),
+            );
     }
 
     final queryParametersAll =
         parsedReference.hasQuery && parsedReference.queryParameters.isNotEmpty
-            ? parsedReference.queryParametersAll
-            : null;
-    final fragment = parsedReference.hasFragment &&
+        ? parsedReference.queryParametersAll
+        : null;
+    final fragment =
+        parsedReference.hasFragment &&
             parsedReference.fragment.trim().isNotEmpty
         ? parsedReference.fragment.trim()
         : null;

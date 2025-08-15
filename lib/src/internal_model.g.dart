@@ -9,14 +9,14 @@ part of 'internal_model.dart';
 // **************************************************************************
 
 Outdated _$OutdatedFromJson(Map<String, dynamic> json) => Outdated(
-      (json['packages'] as List<dynamic>)
-          .map((e) => OutdatedPackage.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  (json['packages'] as List<dynamic>)
+      .map((e) => OutdatedPackage.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$OutdatedToJson(Outdated instance) => <String, dynamic>{
-      'packages': instance.packages.map((e) => e.toJson()).toList(),
-    };
+  'packages': instance.packages.map((e) => e.toJson()).toList(),
+};
 
 OutdatedPackage _$OutdatedPackageFromJson(Map<String, dynamic> json) =>
     OutdatedPackage(
@@ -24,7 +24,8 @@ OutdatedPackage _$OutdatedPackageFromJson(Map<String, dynamic> json) =>
       json['upgradable'] == null
           ? null
           : VersionDescriptor.fromJson(
-              json['upgradable'] as Map<String, dynamic>),
+              json['upgradable'] as Map<String, dynamic>,
+            ),
       json['latest'] == null
           ? null
           : VersionDescriptor.fromJson(json['latest'] as Map<String, dynamic>),
@@ -36,31 +37,27 @@ Map<String, dynamic> _$OutdatedPackageToJson(OutdatedPackage instance) =>
     <String, dynamic>{
       'package': instance.package,
       'kind': instance.kind,
-      if (instance.upgradable?.toJson() case final value?) 'upgradable': value,
-      if (instance.latest?.toJson() case final value?) 'latest': value,
+      'upgradable': ?instance.upgradable?.toJson(),
+      'latest': ?instance.latest?.toJson(),
       'isDiscontinued': instance.isDiscontinued,
     };
 
 VersionDescriptor _$VersionDescriptorFromJson(Map<String, dynamic> json) =>
-    VersionDescriptor(
-      json['version'] as String,
-    );
+    VersionDescriptor(json['version'] as String);
 
 Map<String, dynamic> _$VersionDescriptorToJson(VersionDescriptor instance) =>
-    <String, dynamic>{
-      'version': instance.version,
-    };
+    <String, dynamic>{'version': instance.version};
 
 CodeProblem _$CodeProblemFromJson(Map<String, dynamic> json) => CodeProblem(
-      severity: json['severity'] as String,
-      errorType: json['errorType'] as String,
-      errorCode: json['errorCode'] as String,
-      description: json['description'] as String,
-      file: json['file'] as String,
-      line: (json['line'] as num).toInt(),
-      col: (json['col'] as num).toInt(),
-      length: (json['length'] as num).toInt(),
-    );
+  severity: json['severity'] as String,
+  errorType: json['errorType'] as String,
+  errorCode: json['errorCode'] as String,
+  description: json['description'] as String,
+  file: json['file'] as String,
+  line: (json['line'] as num).toInt(),
+  col: (json['col'] as num).toInt(),
+  length: (json['length'] as num).toInt(),
+);
 
 Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>
     <String, dynamic>{
@@ -75,16 +72,16 @@ Map<String, dynamic> _$CodeProblemToJson(CodeProblem instance) =>
     };
 
 UrlStatus _$UrlStatusFromJson(Map<String, dynamic> json) => UrlStatus(
-      isInvalid: json['isInvalid'] as bool,
-      isSecure: json['isSecure'] as bool,
-      exists: json['exists'] as bool,
-    );
+  isInvalid: json['isInvalid'] as bool,
+  isSecure: json['isSecure'] as bool,
+  exists: json['exists'] as bool,
+);
 
 Map<String, dynamic> _$UrlStatusToJson(UrlStatus instance) => <String, dynamic>{
-      'isInvalid': instance.isInvalid,
-      'isSecure': instance.isSecure,
-      'exists': instance.exists,
-    };
+  'isInvalid': instance.isInvalid,
+  'isSecure': instance.isSecure,
+  'exists': instance.exists,
+};
 
 VerifiedRepository _$VerifiedRepositoryFromJson(Map<String, dynamic> json) =>
     VerifiedRepository(
@@ -99,10 +96,9 @@ VerifiedRepository _$VerifiedRepositoryFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$VerifiedRepositoryToJson(VerifiedRepository instance) =>
     <String, dynamic>{
       'status': _$RepositoryStatusEnumMap[instance.status]!,
-      if (instance.repository?.toJson() case final value?) 'repository': value,
-      if (instance.contributingUrl case final value?) 'contributingUrl': value,
-      if (instance.verificationFailure case final value?)
-        'verificationFailure': value,
+      'repository': ?instance.repository?.toJson(),
+      'contributingUrl': ?instance.contributingUrl,
+      'verificationFailure': ?instance.verificationFailure,
     };
 
 const _$RepositoryStatusEnumMap = {

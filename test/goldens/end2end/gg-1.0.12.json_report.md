@@ -87,16 +87,16 @@ See https://dart.dev/web/wasm for details.
 |:-|:-|:-|:-|:-|
 |[`args`]|`^2.4.2`|2.7.0|2.7.0||
 |[`gg_args`]|`^1.1.10`|1.1.17|**2.0.4**||
-|[`gg_console_colors`]|`^2.0.1`|2.1.4|2.1.4||
-|[`gg_git`]|`^2.0.0`|2.5.9|2.5.16||
+|[`gg_console_colors`]|`^2.0.1`|2.1.5|2.1.5||
+|[`gg_git`]|`^2.0.0`|2.5.9|**3.0.2**||
 |[`gg_is_flutter`]|`^1.0.3`|1.0.5|1.0.7||
 |[`gg_json`]|`^1.0.0`|1.0.6|**2.0.2**|**Discontinued**|
 |[`gg_log`]|`^1.0.0`|1.0.6|1.0.6||
 |[`gg_process`]|`^1.0.6`|1.1.6|1.1.6||
-|[`gg_publish`]|`^2.0.0`|2.0.1|**3.0.16**||
+|[`gg_publish`]|`^2.0.0`|2.0.1|**3.0.18**||
 |[`gg_status_printer`]|`^1.1.0`|1.1.4|1.1.4||
-|[`gg_test`]|`^1.0.3`|1.0.11|1.1.3||
-|[`gg_version`]|`^1.0.0`|1.3.1|**4.0.3**||
+|[`gg_test`]|`^1.0.3`|1.0.11|1.1.7||
+|[`gg_version`]|`^1.0.0`|1.3.1|**4.0.4**||
 |[`meta`]|`^1.12.0`|1.17.0|1.17.0||
 |[`mocktail`]|`^1.0.3`|1.0.4|1.0.4||
 |[`path`]|`^1.8.0`|1.9.1|1.9.1||
@@ -111,14 +111,14 @@ See https://dart.dev/web/wasm for details.
 |:-|:-|:-|:-|:-|
 |[`async`]|-|2.13.0|2.13.0||
 |[`boolean_selector`]|-|2.1.2|2.1.2||
-|[`checked_yaml`]|-|2.0.3|2.0.3||
+|[`checked_yaml`]|-|2.0.4|2.0.4||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`colorize`]|-|3.0.0|3.0.0||
 |[`gg_capture_print`]|-|1.0.9|1.0.9||
 |[`gg_hash`]|-|1.0.4|1.0.4||
 |[`gg_is_github`]|-|1.0.6|1.0.6||
 |[`gg_project_root`]|-|1.0.2|1.0.4||
-|[`http`]|-|1.4.0|1.4.0||
+|[`http`]|-|1.5.0|1.5.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`json_annotation`]|-|4.9.0|4.9.0||
 |[`matcher`]|-|0.12.17|0.12.17||
@@ -128,7 +128,7 @@ See https://dart.dev/web/wasm for details.
 |[`stream_channel`]|-|2.1.4|2.1.4||
 |[`string_scanner`]|-|1.4.1|1.4.1||
 |[`term_glyph`]|-|1.2.2|1.2.2||
-|[`test_api`]|-|0.7.6|0.7.6||
+|[`test_api`]|-|0.7.7|0.7.7||
 |[`typed_data`]|-|1.4.0|1.4.0||
 |[`web`]|-|1.1.1|1.1.1||
 </details>
@@ -177,7 +177,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`typed_data`]: https://pub.dev/packages/typed_data
 [`web`]: https://pub.dev/packages/web
 
-Found 5 issues. Showing the first 2:
+Found 6 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -189,10 +189,12 @@ Try running `dart pub upgrade --major-versions gg_args` to update the constraint
 
 <details>
 <summary>
-The constraint `^1.0.0` on gg_json does not support the stable version `2.0.0`.
+The constraint `^2.0.0` on gg_git does not support the stable version `3.0.0`, that was published N days ago. 
+
+ When gg_git is 30 days old, this package will no longer be awarded points in this category.
 </summary>
 
-Try running `dart pub upgrade --major-versions gg_json` to update the constraint.
+Try running `dart pub upgrade --major-versions gg_git` to update the constraint.
 </details>
 
 ### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs

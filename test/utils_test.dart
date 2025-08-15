@@ -10,13 +10,16 @@ import 'package:test/test.dart';
 void main() {
   test('sorted json', () {
     expect(
-        json.encode(sortedJson({
+      json.encode(
+        sortedJson({
           'b': [
-            {'e': 3, 'd': 4}
+            {'e': 3, 'd': 4},
           ],
-          'a': 2
-        })),
-        '{"a":2,"b":[{"d":4,"e":3}]}');
+          'a': 2,
+        }),
+      ),
+      '{"a":2,"b":[{"d":4,"e":3}]}',
+    );
   });
 
   group('runes', () {

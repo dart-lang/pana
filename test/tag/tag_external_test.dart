@@ -19,23 +19,30 @@ void main() {
     Set<String> extractLibraries(Map<String, Object?> map) {
       return map.entries
           .where(
-              (e) => e.value is Map && (e.value as Map)['supported'] != false)
+            (e) => e.value is Map && (e.value as Map)['supported'] != false,
+          )
           .map((e) => e.key)
           .toSet();
     }
 
     setUpAll(() async {
       // Download and parse https://github.com/dart-lang/sdk/blob/master/sdk/lib/libraries.json
-      final librariesContent = await get(Uri.parse(
-          'https://raw.githubusercontent.com/dart-lang/sdk/master/sdk/lib/libraries.json'));
+      final librariesContent = await get(
+        Uri.parse(
+          'https://raw.githubusercontent.com/dart-lang/sdk/master/sdk/lib/libraries.json',
+        ),
+      );
       libraries = json.decode(librariesContent.body) as Map<String, dynamic>?;
       allVmLibs = extractLibraries(
-          libraries!['vm']['libraries'] as Map<String, Object?>);
+        libraries!['vm']['libraries'] as Map<String, Object?>,
+      );
       publicVmLibs = allVmLibs.where((s) => !s.startsWith('_')).toSet();
       allDart2jsLibs = extractLibraries(
-          libraries!['dart2js']['libraries'] as Map<String, Object?>);
-      publicDart2jsLibs =
-          allDart2jsLibs.where((s) => !s.startsWith('_')).toSet();
+        libraries!['dart2js']['libraries'] as Map<String, Object?>,
+      );
+      publicDart2jsLibs = allDart2jsLibs
+          .where((s) => !s.startsWith('_'))
+          .toSet();
     });
 
     test('VM libraries', () {

@@ -65,8 +65,12 @@ Future<PanaProcessResult> _runConstrained(
   maxOutputBytes ??= _maxOutputBytes;
 
   log.info('Running `${[...arguments].join(' ')}`...');
-  var process = await Process.start(arguments.first, arguments.skip(1).toList(),
-      workingDirectory: workingDirectory, environment: environment);
+  var process = await Process.start(
+    arguments.first,
+    arguments.skip(1).toList(),
+    workingDirectory: workingDirectory,
+    environment: environment,
+  );
 
   var stdoutLines = <List<int>>[];
   var stderrLines = <List<int>>[];
@@ -108,7 +112,7 @@ Future<PanaProcessResult> _runConstrained(
         wasOutputExceeded = true;
         killProc('Output exceeded $maxOutputBytes bytes.');
       }
-    })
+    }),
   ).wait;
 
   timer.cancel();
@@ -190,26 +194,23 @@ class PanaProcessResult {
     this.wasOutputExceeded = false,
     bool wasError = false,
     Encoding? encoding,
-  })  : _wasError = wasError,
-        stdout = stdout is ProcessOutput
-            ? stdout
-            : ProcessOutput.from(stdout, encoding: encoding),
-        stderr = stderr is ProcessOutput
-            ? stderr
-            : ProcessOutput.from(stderr, encoding: encoding);
+  }) : _wasError = wasError,
+       stdout = stdout is ProcessOutput
+           ? stdout
+           : ProcessOutput.from(stdout, encoding: encoding),
+       stderr = stderr is ProcessOutput
+           ? stderr
+           : ProcessOutput.from(stderr, encoding: encoding);
 
-  PanaProcessResult change({
-    ProcessOutput? stderr,
-  }) =>
-      PanaProcessResult(
-        pid,
-        exitCode,
-        stdout,
-        stderr ?? this.stderr,
-        wasTimeout: wasTimeout,
-        wasOutputExceeded: wasOutputExceeded,
-        wasError: wasError,
-      );
+  PanaProcessResult change({ProcessOutput? stderr}) => PanaProcessResult(
+    pid,
+    exitCode,
+    stdout,
+    stderr ?? this.stderr,
+    wasTimeout: wasTimeout,
+    wasOutputExceeded: wasOutputExceeded,
+    wasError: wasError,
+  );
 
   /// True if the process completed with some error, false if successful.
   late final wasError =
@@ -218,10 +219,7 @@ class PanaProcessResult {
   /// Returns the line-concatenated output of `stdout` and `stderr`
   /// (both converted to [String]), and the final output trimmed.
   String get asJoinedOutput {
-    return [
-      stdout.asString.trim(),
-      stderr.asString.trim(),
-    ].join('\n').trim();
+    return [stdout.asString.trim(), stderr.asString.trim()].join('\n').trim();
   }
 
   /// Return the line-concatenated output of `stdout` and `stderr`
@@ -250,16 +248,16 @@ class PanaProcessResult {
   }
 
   /// Parses the output of the process as JSON.
-  Map<String, dynamic> parseJson({
-    String Function(String value)? transform,
-  }) {
-    final value =
-        transform == null ? asJoinedOutput : transform(asJoinedOutput);
+  Map<String, dynamic> parseJson({String Function(String value)? transform}) {
+    final value = transform == null
+        ? asJoinedOutput
+        : transform(asJoinedOutput);
     try {
       return json.decode(value) as Map<String, dynamic>;
     } on FormatException catch (_) {
       throw ToolException(
-          'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n');
+        'Unable to parse output as JSON:\n\n```\n$asTrimmedOutput\n```\n',
+      );
     }
   }
 }

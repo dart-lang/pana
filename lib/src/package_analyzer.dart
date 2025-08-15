@@ -67,7 +67,7 @@ class PackageAnalyzer {
   final UrlChecker _urlChecker;
 
   PackageAnalyzer(this._toolEnv, {UrlChecker? urlChecker})
-      : _urlChecker = urlChecker ?? UrlChecker();
+    : _urlChecker = urlChecker ?? UrlChecker();
 
   Future<Summary> inspectPackage(
     String package, {
@@ -95,30 +95,28 @@ class PackageAnalyzer {
     Logger? logger,
   }) {
     final sharedContext = _createSharedContext(options: options);
-    return withLogger(
-      logger: logger,
-      () async {
-        return withTempDir((tempDir) async {
-          final rootDir = await _detectGitRoot(packageDir) ?? packageDir;
-          await copyDir(rootDir, tempDir);
-          final relativeDir = path.relative(packageDir, from: rootDir);
-          return await _inspect(sharedContext, path.join(tempDir, relativeDir));
-        });
-      },
-    );
+    return withLogger(logger: logger, () async {
+      return withTempDir((tempDir) async {
+        final rootDir = await _detectGitRoot(packageDir) ?? packageDir;
+        await copyDir(rootDir, tempDir);
+        final relativeDir = path.relative(packageDir, from: rootDir);
+        return await _inspect(sharedContext, path.join(tempDir, relativeDir));
+      });
+    });
   }
 
   SharedAnalysisContext _createSharedContext({
     required InspectOptions? options,
-  }) =>
-      SharedAnalysisContext(
-        toolEnvironment: _toolEnv,
-        options: options ?? InspectOptions(),
-        urlChecker: _urlChecker,
-      );
+  }) => SharedAnalysisContext(
+    toolEnvironment: _toolEnv,
+    options: options ?? InspectOptions(),
+    urlChecker: _urlChecker,
+  );
 
   Future<Summary> _inspect(
-      SharedAnalysisContext sharedContext, String pkgDir) async {
+    SharedAnalysisContext sharedContext,
+    String pkgDir,
+  ) async {
     final tags = <String>{};
     final context = PackageContext(
       sharedContext: sharedContext,
@@ -145,10 +143,12 @@ class PackageAnalyzer {
       );
     }
     if (pubspec.hasUnknownSdks) {
-      context.errors.add('The following unknown SDKs are in `pubspec.yaml`:\n'
-          '  `${pubspec.unknownSdks}`.\n\n'
-          '`pana` doesn’t recognize them; please remove the `sdk` entry or '
-          '[report the issue](https://github.com/dart-lang/pana/issues).');
+      context.errors.add(
+        'The following unknown SDKs are in `pubspec.yaml`:\n'
+        '  `${pubspec.unknownSdks}`.\n\n'
+        '`pana` doesn’t recognize them; please remove the `sdk` entry or '
+        '[report the issue](https://github.com/dart-lang/pana/issues).',
+      );
     }
 
     final tr = await context.staticAnalysis;
@@ -171,7 +171,9 @@ class PackageAnalyzer {
         final resourcesOutputDir = context.options.resourcesOutputDir;
         if (resourcesOutputDir != null) {
           Future<void> storeResource(
-              String resourcePath, Uint8List bytes) async {
+            String resourcePath,
+            Uint8List bytes,
+          ) async {
             final f = File(path.join(resourcesOutputDir, resourcePath));
             await f.parent.create(recursive: true);
             await f.writeAsBytes(bytes);
@@ -179,13 +181,21 @@ class PackageAnalyzer {
 
           await storeResource(processedScreenshot.webpImage, r.webpImageBytes!);
           await storeResource(
-              processedScreenshot.webp100Thumbnail, r.webp100ThumbnailBytes!);
+            processedScreenshot.webp100Thumbnail,
+            r.webp100ThumbnailBytes!,
+          );
           await storeResource(
-              processedScreenshot.png100Thumbnail, r.png100ThumbnailBytes!);
+            processedScreenshot.png100Thumbnail,
+            r.png100ThumbnailBytes!,
+          );
           await storeResource(
-              processedScreenshot.webp190Thumbnail, r.webp190ThumbnailBytes!);
+            processedScreenshot.webp190Thumbnail,
+            r.webp190ThumbnailBytes!,
+          );
           await storeResource(
-              processedScreenshot.png190Thumbnail, r.png190ThumbnailBytes!);
+            processedScreenshot.png190Thumbnail,
+            r.png190ThumbnailBytes!,
+          );
         }
       }
     }
@@ -209,8 +219,9 @@ class PackageAnalyzer {
       // do not update allDependencies.
     }
     // trivial filter to remove not supported dependencies
-    allDependencies
-        .removeWhere((pkg) => pkg.contains('-') || pkg.contains('.'));
+    allDependencies.removeWhere(
+      (pkg) => pkg.contains('-') || pkg.contains('.'),
+    );
 
     String? errorMessage;
     if (context.errors.isNotEmpty) {
@@ -231,10 +242,11 @@ class PackageAnalyzer {
       tags: tags.toList(),
       report: report,
       result: await _createAnalysisResult(context, report),
-      urlProblems: context.urlProblems.entries
-          .map((e) => UrlProblem(url: e.key, problem: e.value))
-          .toList()
-        ..sort((a, b) => a.url.compareTo(b.url)),
+      urlProblems:
+          context.urlProblems.entries
+              .map((e) => UrlProblem(url: e.key, problem: e.value))
+              .toList()
+            ..sort((a, b) => a.url.compareTo(b.url)),
       errorMessage: errorMessage,
       screenshots: processedScreenshots,
     );
@@ -243,10 +255,10 @@ class PackageAnalyzer {
 
 Future<String?> _detectGitRoot(String packageDir) async {
   try {
-    final pr = await runGitIsolated(
-      ['rev-parse', '--show-toplevel'],
-      workingDirectory: packageDir,
-    );
+    final pr = await runGitIsolated([
+      'rev-parse',
+      '--show-toplevel',
+    ], workingDirectory: packageDir);
     return pr.stdout.asString.trim();
   } on GitToolException catch (_) {
     // not in a git directory (or git is broken) - ignore exception
@@ -255,12 +267,16 @@ Future<String?> _detectGitRoot(String packageDir) async {
 }
 
 Future<AnalysisResult> _createAnalysisResult(
-    PackageContext context, Report report) async {
+  PackageContext context,
+  Report report,
+) async {
   final pubspecUrls = await context.pubspecUrlsWithIssues;
   final repoVerification = await context.repository;
   final repository = repoVerification.repository;
-  final fundingUrls =
-      pubspecUrls.funding.map((e) => e.acceptedUrl).nonNulls.toList();
+  final fundingUrls = pubspecUrls.funding
+      .map((e) => e.acceptedUrl)
+      .nonNulls
+      .toList();
   return AnalysisResult(
     homepageUrl: pubspecUrls.homepage.acceptedUrl,
     repositoryUrl: pubspecUrls.repository.acceptedUrl,

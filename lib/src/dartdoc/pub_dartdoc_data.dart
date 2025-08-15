@@ -13,10 +13,7 @@ class PubDartdocData {
   final Coverage? coverage;
   final List<ApiElement>? apiElements;
 
-  PubDartdocData({
-    required this.coverage,
-    required this.apiElements,
-  });
+  PubDartdocData({required this.coverage, required this.apiElements});
 
   factory PubDartdocData.fromJson(Map<String, dynamic> json) =>
       _$PubDartdocDataFromJson(json);

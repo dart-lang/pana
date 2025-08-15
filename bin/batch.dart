@@ -41,10 +41,13 @@ import 'package:pana/src/batch/batch_run_command.dart';
 ///
 ///       dart bin/batch.dart run --packages packages.txt --config config.yaml
 Future<void> main(List<String> args) async {
-  final runner = CommandRunner<void>('batch',
-      'Runs analysis on multiple packages and compares granted score impact.')
-    ..addCommand(BatchQueryCommand())
-    ..addCommand(BatchCompareCommand())
-    ..addCommand(BatchRunCommand());
+  final runner =
+      CommandRunner<void>(
+          'batch',
+          'Runs analysis on multiple packages and compares granted score impact.',
+        )
+        ..addCommand(BatchQueryCommand())
+        ..addCommand(BatchCompareCommand())
+        ..addCommand(BatchRunCommand());
   await runner.run(args);
 }

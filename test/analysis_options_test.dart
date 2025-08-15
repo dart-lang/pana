@@ -16,9 +16,7 @@ void main() {
     expect(content, contains('avoid_empty_else'));
     expect(content, isNot(contains('avoid_init_to_null')));
     expect(json.decode(json.encode(yaml.loadYaml(content))), {
-      'linter': {
-        'rules': hasLength(greaterThan(10)),
-      },
+      'linter': {'rules': hasLength(greaterThan(10))},
     });
   });
 
@@ -28,7 +26,8 @@ void main() {
   });
 
   test('passthrough for some options', () {
-    final content = updatePassthroughOptions(original: '''
+    final content = updatePassthroughOptions(
+      original: '''
 analyzer:
   errors:
     todo: ignore
@@ -40,15 +39,13 @@ formatter:
   unknown_key: true
   page_width: 123
   trailing_commas: preserve
-''', custom: '');
+''',
+      custom: '',
+    );
     expect(json.decode(content), {
       'analyzer': {
-        'errors': {
-          'uri_has_not_been_generated': 'ignore',
-        },
-        'enable-experiment': [
-          'macros',
-        ],
+        'errors': {'uri_has_not_been_generated': 'ignore'},
+        'enable-experiment': ['macros'],
       },
       'formatter': {
         'unknown_key': true,

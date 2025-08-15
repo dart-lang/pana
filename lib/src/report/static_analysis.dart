@@ -37,8 +37,8 @@ Future<ReportSection> staticAnalysis(PackageContext context) async {
 
   final status = (errors.isEmpty && warnings.isEmpty)
       ? (formattingIssues.isEmpty && lints.isEmpty
-          ? ReportStatus.passed
-          : ReportStatus.partial)
+            ? ReportStatus.passed
+            : ReportStatus.partial)
       : ReportStatus.failed;
 
   // 30 points: static analysis has 0 errors
@@ -65,7 +65,7 @@ Future<ReportSection> staticAnalysis(PackageContext context) async {
         grantedPoints,
         50,
         status,
-      )
+      ),
     ],
     basePath: packageDir,
   );
@@ -109,24 +109,23 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
     final rs = await context.staticAnalysis;
 
     return _AnalysisResult(
-        rs.items!
-            .where((element) => element.isError)
-            .map(issueFromCodeProblem)
-            .toList(),
-        rs.items!
-            .where((element) => element.isWarning)
-            .map(issueFromCodeProblem)
-            .toList(),
-        rs.items!
-            .where((element) => element.isInfo)
-            .map(issueFromCodeProblem)
-            .toList(),
-        'dart analyze ${dirs.join(' ')}');
+      rs.items!
+          .where((element) => element.isError)
+          .map(issueFromCodeProblem)
+          .toList(),
+      rs.items!
+          .where((element) => element.isWarning)
+          .map(issueFromCodeProblem)
+          .toList(),
+      rs.items!
+          .where((element) => element.isInfo)
+          .map(issueFromCodeProblem)
+          .toList(),
+      'dart analyze ${dirs.join(' ')}',
+    );
   } on ToolException catch (e) {
     return _AnalysisResult(
-      [
-        Issue('Failed to run `dart analyze`:\n```\n${e.message}\n```\n'),
-      ],
+      [Issue('Failed to run `dart analyze`:\n```\n${e.message}\n```\n')],
       [],
       [],
       'dart analyze ${dirs.join(' ')}',
@@ -181,7 +180,11 @@ class _AnalysisResult {
   final String reproductionCommand;
 
   _AnalysisResult(
-      this.errors, this.warnings, this.lints, this.reproductionCommand);
+    this.errors,
+    this.warnings,
+    this.lints,
+    this.reproductionCommand,
+  );
 }
 
 Future<List<Issue>> _formatPackage(
@@ -197,19 +200,17 @@ Future<List<Issue>> _formatPackage(
       lineLength: lineLength,
     );
     return unformattedFiles
-        .map((f) => Issue(
-              '$f doesn\'t match the Dart formatter.',
-              suggestion: 'To format your files run: `dart format .`',
-            ))
+        .map(
+          (f) => Issue(
+            '$f doesn\'t match the Dart formatter.',
+            suggestion: 'To format your files run: `dart format .`',
+          ),
+        )
         .toList();
   } on ToolException catch (e) {
-    return [
-      Issue('Running `dart format` failed:\n```\n${e.message}```'),
-    ];
+    return [Issue('Running `dart format` failed:\n```\n${e.message}```')];
   } catch (e, stack) {
     log.severe('`dart format` failed.\n$e', e, stack);
-    return [
-      Issue('Running `dart format` failed.'),
-    ];
+    return [Issue('Running `dart format` failed.')];
   }
 }

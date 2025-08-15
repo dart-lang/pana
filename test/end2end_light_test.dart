@@ -24,12 +24,14 @@ void main() {
         Directory(pubCacheDir).createSync();
         Directory(dartConfigDir).createSync(recursive: true);
         Directory(flutterConfigDir).createSync(recursive: true);
-        analyzer = PackageAnalyzer(await ToolEnvironment.create(
-          dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
-          flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
-          pubCacheDir: pubCacheDir,
-          dartdocVersion: 'any',
-        ));
+        analyzer = PackageAnalyzer(
+          await ToolEnvironment.create(
+            dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
+            flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
+            pubCacheDir: pubCacheDir,
+            dartdocVersion: 'any',
+          ),
+        );
       });
 
       tearDownAll(() async {
@@ -42,8 +44,10 @@ void main() {
         expect(summary.allDependencies!, isNotEmpty);
         expect(summary.tags!, isNotEmpty);
         expect(summary.tags, contains('is:dart3-compatible'));
-        expect(summary.report!.grantedPoints,
-            greaterThanOrEqualTo(summary.report!.maxPoints - 20));
+        expect(
+          summary.report!.grantedPoints,
+          greaterThanOrEqualTo(summary.report!.maxPoints - 20),
+        );
       }, timeout: const Timeout.factor(4));
     });
   }

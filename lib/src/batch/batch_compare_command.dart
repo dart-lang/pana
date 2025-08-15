@@ -45,8 +45,9 @@ class BatchCompareCommand extends Command<void> {
   @override
   Future<void> run() async {
     final packages = await _parsePackages(argResults!['packages'] as String);
-    final experimentConfig =
-        await _parseConfig(argResults!['experiment'] as String);
+    final experimentConfig = await _parseConfig(
+      argResults!['experiment'] as String,
+    );
     final controlConfig = await _parseConfig(argResults!['control'] as String);
     final output = argResults!['output'] as String?;
 
@@ -59,12 +60,15 @@ class BatchCompareCommand extends Command<void> {
       final decreased = <String, int>{};
 
       for (final package in packages) {
-        final expSummary =
-            await PackageAnalyzer(experimentEnv).inspectPackage(package);
-        final controlSummary =
-            await PackageAnalyzer(controlEnv).inspectPackage(package);
+        final expSummary = await PackageAnalyzer(
+          experimentEnv,
+        ).inspectPackage(package);
+        final controlSummary = await PackageAnalyzer(
+          controlEnv,
+        ).inspectPackage(package);
 
-        final diff = (expSummary.report?.grantedPoints ?? 0) -
+        final diff =
+            (expSummary.report?.grantedPoints ?? 0) -
             (controlSummary.report?.grantedPoints ?? 0);
         print('$package: $diff');
 
@@ -83,8 +87,9 @@ class BatchCompareCommand extends Command<void> {
         decreased: BatchChanged(count: decreased.length, packages: decreased),
       );
 
-      final formatted =
-          const JsonEncoder.withIndent('  ').convert(result.toJson());
+      final formatted = const JsonEncoder.withIndent(
+        '  ',
+      ).convert(result.toJson());
       if (output == null) {
         print(formatted);
       } else {
@@ -117,7 +122,9 @@ class BatchCompareCommand extends Command<void> {
   }
 
   Future<ToolEnvironment> _initToolEnv(
-      BatchConfig config, String pubCache) async {
+    BatchConfig config,
+    String pubCache,
+  ) async {
     return await ToolEnvironment.create(
       dartSdkConfig: SdkConfig(
         rootPath: config.dartSdk,

@@ -20,41 +20,38 @@ PubDartdocData _$PubDartdocDataFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PubDartdocDataToJson(PubDartdocData instance) =>
     <String, dynamic>{
-      if (instance.coverage?.toJson() case final value?) 'coverage': value,
-      if (instance.apiElements?.map((e) => e.toJson()).toList()
-          case final value?)
-        'apiElements': value,
+      'coverage': ?instance.coverage?.toJson(),
+      'apiElements': ?instance.apiElements?.map((e) => e.toJson()).toList(),
     };
 
 ApiElement _$ApiElementFromJson(Map<String, dynamic> json) => ApiElement(
-      name: json['name'] as String,
-      parent: json['parent'] as String?,
-      source: json['source'] as String?,
-      href: json['href'] as String?,
-      documentation: json['documentation'] as String?,
-    );
+  name: json['name'] as String,
+  parent: json['parent'] as String?,
+  source: json['source'] as String?,
+  href: json['href'] as String?,
+  documentation: json['documentation'] as String?,
+);
 
 Map<String, dynamic> _$ApiElementToJson(ApiElement instance) =>
     <String, dynamic>{
       'name': instance.name,
-      if (instance.parent case final value?) 'parent': value,
-      if (instance.source case final value?) 'source': value,
-      if (instance.href case final value?) 'href': value,
-      if (instance.documentation case final value?) 'documentation': value,
+      'parent': ?instance.parent,
+      'source': ?instance.source,
+      'href': ?instance.href,
+      'documentation': ?instance.documentation,
     };
 
 Coverage _$CoverageFromJson(Map<String, dynamic> json) => Coverage(
-      total: (json['total'] as num).toInt(),
-      documented: (json['documented'] as num).toInt(),
-      symbolsMissingDocumentation:
-          (json['symbolsMissingDocumentation'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList(),
-    );
+  total: (json['total'] as num).toInt(),
+  documented: (json['documented'] as num).toInt(),
+  symbolsMissingDocumentation:
+      (json['symbolsMissingDocumentation'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+);
 
 Map<String, dynamic> _$CoverageToJson(Coverage instance) => <String, dynamic>{
-      'total': instance.total,
-      'documented': instance.documented,
-      if (instance.symbolsMissingDocumentation case final value?)
-        'symbolsMissingDocumentation': value,
-    };
+  'total': instance.total,
+  'documented': instance.documented,
+  'symbolsMissingDocumentation': ?instance.symbolsMissingDocumentation,
+};

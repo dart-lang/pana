@@ -17,13 +17,16 @@ final _dartdocSubsectionHeadline =
     '20% or more of the public API has dartdoc comments';
 
 Future<PubDartdocData> generateAndSavePubDataJson(
-    String dartdocOutputDir) async {
-  final content =
-      await File(p.join(dartdocOutputDir, 'index.json')).readAsString();
+  String dartdocOutputDir,
+) async {
+  final content = await File(
+    p.join(dartdocOutputDir, 'index.json'),
+  ).readAsString();
   final index = DartdocIndex.parseJsonText(content);
   final data = dataFromDartdocIndex(index);
-  await File(p.join(dartdocOutputDir, 'pub-data.json'))
-      .writeAsString(json.encode(data.toJson()));
+  await File(
+    p.join(dartdocOutputDir, 'pub-data.json'),
+  ).writeAsString(json.encode(data.toJson()));
   return data;
 }
 
@@ -38,7 +41,8 @@ Subsection dartdocFailedSubsection(String reason) {
 }
 
 Future<Subsection> createDocumentationCoverageSection(
-    PubDartdocData data) async {
+  PubDartdocData data,
+) async {
   final documented = data.coverage?.documented ?? 0;
   final total = data.coverage?.total ?? 0;
   final symbolsMissingDocumentation =
@@ -51,23 +55,28 @@ Future<Subsection> createDocumentationCoverageSection(
   final summary = StringBuffer();
   final grantedPoints = accepted ? maxPoints : 0;
   summary.write(
-      '$documented out of $total API elements ($percent %) have documentation comments.');
+    '$documented out of $total API elements ($percent %) have documentation comments.',
+  );
 
   if (!accepted) {
-    summary.write('\n\n'
-        'Providing good documentation for libraries, classes, functions, and other API '
-        'elements improves code readability and helps developers find and use your API. '
-        'Document at least 20% of the public API elements.'
-        '\n\n'
-        'To highlight public API members missing documentation consider enabling the '
-        '[`public_member_api_docs`](https://dart.dev/tools/linter-rules/public_member_api_docs) lint.');
+    summary.write(
+      '\n\n'
+      'Providing good documentation for libraries, classes, functions, and other API '
+      'elements improves code readability and helps developers find and use your API. '
+      'Document at least 20% of the public API elements.'
+      '\n\n'
+      'To highlight public API members missing documentation consider enabling the '
+      '[`public_member_api_docs`](https://dart.dev/tools/linter-rules/public_member_api_docs) lint.',
+    );
   }
 
   if (symbolsMissingDocumentation != null &&
       symbolsMissingDocumentation.isNotEmpty) {
-    summary.write('\n\n'
-        'Some symbols that are missing documentation: '
-        '${symbolsMissingDocumentation.take(5).map((e) => '`$e`').join(', ')}.');
+    summary.write(
+      '\n\n'
+      'Some symbols that are missing documentation: '
+      '${symbolsMissingDocumentation.take(5).map((e) => '`$e`').join(', ')}.',
+    );
   }
 
   return Subsection(

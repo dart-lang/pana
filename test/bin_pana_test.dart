@@ -16,25 +16,30 @@ final helpGoldenPath = p.join('test', 'goldens', 'help.txt');
 void main() {
   // This is really two tests in one, because the second one depends on the
   // golden file from the first.
-  test('run with bad option shows help text. Help text is included in readme ',
-      () async {
-    var process = await TestProcess.start(
+  test(
+    'run with bad option shows help text. Help text is included in readme ',
+    () async {
+      var process = await TestProcess.start(
         p.join(p.dirname(Platform.resolvedExecutable), 'dart'),
-        ['pub', 'run', 'pana', '--monkey']);
+        ['pub', 'run', 'pana', '--monkey'],
+      );
 
-    var output = await process.stdoutStream().join('\n');
+      var output = await process.stdoutStream().join('\n');
 
-    const prefix = 'Could not find an option named "--monkey".\n\n';
+      const prefix = 'Could not find an option named "--monkey".\n\n';
 
-    expect(output, startsWith(prefix));
-    expectMatchesGoldenFile(output.substring(prefix.length), helpGoldenPath);
+      expect(output, startsWith(prefix));
+      expectMatchesGoldenFile(output.substring(prefix.length), helpGoldenPath);
 
-    await process.shouldExit(ExitCode.usage.code);
+      await process.shouldExit(ExitCode.usage.code);
 
-    var readme = File('README.md');
-    expect(
+      var readme = File('README.md');
+      expect(
         readme.readAsStringSync().replaceAll('\r\n', '\n'),
         contains(
-            '```\n${File(helpGoldenPath).readAsStringSync().replaceAll('\r\n', '\n')}\n```'));
-  });
+          '```\n${File(helpGoldenPath).readAsStringSync().replaceAll('\r\n', '\n')}\n```',
+        ),
+      );
+    },
+  );
 }

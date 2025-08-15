@@ -49,14 +49,16 @@ void main() {
           httpClient: httpClient,
           blockPublishAfter: goldenDirLastModified,
         );
-        analyzer = PackageAnalyzer(await ToolEnvironment.create(
-          dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
-          flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
-          pubCacheDir: pubCacheDir,
-          pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
-          // TODO: revert to 'any' after SDK 3.6 is out
-          dartdocVersion: '^8.3.0',
-        ));
+        analyzer = PackageAnalyzer(
+          await ToolEnvironment.create(
+            dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
+            flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
+            pubCacheDir: pubCacheDir,
+            pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
+            // TODO: revert to 'any' after SDK 3.6 is out
+            dartdocVersion: '^8.3.0',
+          ),
+        );
 
         final dartdocOutputDir = p.join(tempDir, 'doc', '$package-$version');
         await Directory(dartdocOutputDir).create(recursive: true);
@@ -90,16 +92,25 @@ void main() {
         final encoded = json.encode(summary);
         final updated = encoded
             .replaceAll(
-                '"sdkVersion":"$sdkVersion"', '"sdkVersion":"{{sdk-version}}"')
-            .replaceAll('The current Dart SDK version is $sdkVersion.',
-                'The current Dart SDK version is {{sdk-version}}.')
-            .replaceAll(' support current Dart version $sdkVersion.',
-                ' support current Dart version {{sdk-version}}.')
+              '"sdkVersion":"$sdkVersion"',
+              '"sdkVersion":"{{sdk-version}}"',
+            )
             .replaceAll(
-                'the Dart version used by the latest stable Flutter ($flutterDartVersion)',
-                'the Dart version used by the latest stable Flutter ({{flutter-dart-version}})')
-            .replaceAll(RegExp('that was published [0-9]+ days ago'),
-                'that was published N days ago');
+              'The current Dart SDK version is $sdkVersion.',
+              'The current Dart SDK version is {{sdk-version}}.',
+            )
+            .replaceAll(
+              ' support current Dart version $sdkVersion.',
+              ' support current Dart version {{sdk-version}}.',
+            )
+            .replaceAll(
+              'the Dart version used by the latest stable Flutter ($flutterDartVersion)',
+              'the Dart version used by the latest stable Flutter ({{flutter-dart-version}})',
+            )
+            .replaceAll(
+              RegExp('that was published [0-9]+ days ago'),
+              'that was published N days ago',
+            );
         actualMap = json.decode(updated) as Map<String, Object?>;
       });
 
@@ -131,8 +142,9 @@ void main() {
 
         // The tempdir creeps in to an error message.
         final jsonNoTempDir = json.replaceAll(
-            RegExp(r'Error on line 5, column 1 of .*pubspec.yaml'),
-            r'Error on line 5, column 1 of $TEMPDIR/pubspec.yaml');
+          RegExp(r'Error on line 5, column 1 of .*pubspec.yaml'),
+          r'Error on line 5, column 1 of $TEMPDIR/pubspec.yaml',
+        );
 
         expectMatchesGoldenFile(jsonNoTempDir, p.join(_goldenDir, filename));
       });
@@ -149,7 +161,9 @@ void main() {
               .join('\n\n');
           // For readability we output the report in its own file.
           expectMatchesGoldenFile(
-              renderedSections, p.join(_goldenDir, '${filename}_report.md'));
+            renderedSections,
+            p.join(_goldenDir, '${filename}_report.md'),
+          );
         }
       });
 
@@ -161,8 +175,9 @@ void main() {
       });
 
       test('Summary tags check', () {
-        final tagsFileContent =
-            File('lib/src/tag/pana_tags.dart').readAsStringSync();
+        final tagsFileContent = File(
+          'lib/src/tag/pana_tags.dart',
+        ).readAsStringSync();
         final summary = Summary.fromJson(actualMap);
         final tags = summary.tags;
         if (tags != null) {
@@ -263,8 +278,8 @@ Future<HttpServer> _startLocalProxy({
           segments[0] == 'api' &&
           segments[1] == 'packages') {
         final content = json.decode(rs.body) as Map<String, dynamic>;
-        final versions =
-            (content['versions'] as List).cast<Map<String, dynamic>>();
+        final versions = (content['versions'] as List)
+            .cast<Map<String, dynamic>>();
         versions.removeWhere((item) {
           final published = DateTime.parse(item['published'] as String);
           return published.isAfter(blockPublishAfter);
@@ -274,9 +289,7 @@ Future<HttpServer> _startLocalProxy({
       return shelf.Response(
         rs.statusCode,
         body: gzip.encode(rs.bodyBytes),
-        headers: {
-          'content-encoding': 'gzip',
-        },
+        headers: {'content-encoding': 'gzip'},
       );
     },
     '127.0.0.1',

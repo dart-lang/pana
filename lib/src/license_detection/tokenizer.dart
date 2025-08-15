@@ -26,7 +26,7 @@ class Token {
   Token(this.value, this.index, this.span);
 
   Token._fromSpan(this.span, this.index)
-      : value = _normalizeWord(span.text.toLowerCase());
+    : value = _normalizeWord(span.text.toLowerCase());
 }
 
 /// Tokenizes license text and returns a list of [Token]s.
@@ -193,8 +193,9 @@ String _normalizeWord(String text) {
 }
 
 final _headers = HashSet.of(
-    'q w e r t y u i o p a s d f g h j k l z x c v b n m i ii iii iv vi vii ix xi xii xiii xiv xv'
-        .split(' '));
+  'q w e r t y u i o p a s d f g h j k l z x c v b n m i ii iii iv vi vii ix xi xii xiii xiv xv'
+      .split(' '),
+);
 
 final _numberHeaderRe = RegExp(r'^\d{1,2}(\.\d{1,2})*[\.)]$');
 
@@ -208,7 +209,7 @@ final Map<RegExp, String> _equivalentPunctuationMarks = {
   RegExp(r'[“‟”’"‘‛❛❜〝〞«»‹›❝❞]'): "'",
 
   // Guideline 9.1.1: “©”, “(c)”, or “Copyright” should be considered equivalent and interchangeable.
-  RegExp(r'©'): '(c)'
+  RegExp(r'©'): '(c)',
 };
 
 final _wordRegex = RegExp(r'[\w\d][^\s]*');
@@ -263,5 +264,5 @@ final _equivalentWords = {
 final _remainingEquivalentWords = {
   'copyright': ['holder', 'owner'],
   'per': ['cent', 'percent'],
-  'sub': ['license', 'sublicense']
+  'sub': ['license', 'sublicense'],
 };

@@ -36,11 +36,13 @@ Future<void> downloadPackage(
   try {
     // Find URI for the package archive
     final versionsUri = pubHostedUri.replace(
-        path: p.join(pubHostedUri.path, '/api/packages/$package'));
+      path: p.join(pubHostedUri.path, '/api/packages/$package'),
+    );
     final versionsRs = await client.get(versionsUri);
     if (versionsRs.statusCode != 200) {
       throw Exception(
-          'Unable to access URL: "$versionsUri" (status code: ${versionsRs.statusCode}).');
+        'Unable to access URL: "$versionsUri" (status code: ${versionsRs.statusCode}).',
+      );
     }
     final versionsJson = json.decode(versionsRs.body);
     if (version == null) {
@@ -49,27 +51,30 @@ Future<void> downloadPackage(
     }
 
     final versions = versionsJson['versions'] as List;
-    final data = versions
-        .cast<Map<String, dynamic>>()
-        .firstWhereOrNull((e) => e['version'] == version);
+    final data = versions.cast<Map<String, dynamic>>().firstWhereOrNull(
+      (e) => e['version'] == version,
+    );
     if (data == null) {
       log.info(
-          'Available versions: ${versions.map((e) => e['version']).join(', ')}');
+        'Available versions: ${versions.map((e) => e['version']).join(', ')}',
+      );
       throw Exception('Version $version not found in version listing');
     }
     final archiveUrl = data['archive_url'] as String;
 
     var packageUri = Uri.parse(archiveUrl);
     if (!packageUri.hasScheme) {
-      packageUri =
-          pubHostedUri.replace(path: p.join(pubHostedUri.path, archiveUrl));
+      packageUri = pubHostedUri.replace(
+        path: p.join(pubHostedUri.path, archiveUrl),
+      );
     }
     log.info('Downloading package $package $version from $packageUri');
 
     final rs = await client.get(packageUri);
     if (rs.statusCode != 200) {
       throw Exception(
-          'Unable to access URL: "$packageUri" (status code: ${rs.statusCode}).');
+        'Unable to access URL: "$packageUri" (status code: ${rs.statusCode}).',
+      );
     }
     await _extractTarGz(Stream.value(rs.bodyBytes), destination);
   } catch (e, st) {
@@ -88,8 +93,10 @@ class UrlChecker {
   /// A cached [UrlChecker] implementation should override this method,
   /// wrap it in a cached callback, still invoking it via `super.checkUrlExists()`.
   Future<bool> checkUrlExists(Uri uri) async {
-    return await safeUrlCheck(uri,
-        userAgent: 'pana/$packageVersion (https://pub.dev/packages/pana)');
+    return await safeUrlCheck(
+      uri,
+      userAgent: 'pana/$packageVersion (https://pub.dev/packages/pana)',
+    );
   }
 
   /// Check the status of the URL, using validity checks, cache and
@@ -115,7 +122,9 @@ class UrlChecker {
 
 /// Extracts a `.tar.gz` file from [tarball] to [destination].
 Future<void> _extractTarGz(
-    Stream<List<int>> tarball, String destination) async {
+  Stream<List<int>> tarball,
+  String destination,
+) async {
   log.fine('Extracting .tar.gz stream to $destination.');
   final reader = TarReader(tarball.transform(gzip.decoder));
   while (await reader.moveNext()) {

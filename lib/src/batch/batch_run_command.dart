@@ -28,10 +28,7 @@ class BatchRunCommand extends Command<void> {
         help:
             'The file that contains the list of packages, or the comma separated names.',
       )
-      ..addOption(
-        'config',
-        help: 'The configuration file to use.',
-      )
+      ..addOption('config', help: 'The configuration file to use.')
       ..addOption(
         'output',
         help: 'Write the result to file (stdout otherwise).',
@@ -97,7 +94,9 @@ class BatchRunCommand extends Command<void> {
   }
 
   Future<ToolEnvironment> _initToolEnv(
-      BatchConfig config, String pubCache) async {
+    BatchConfig config,
+    String pubCache,
+  ) async {
     return await ToolEnvironment.create(
       dartSdkConfig: SdkConfig(
         rootPath: config.dartSdk,

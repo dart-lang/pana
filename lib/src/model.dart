@@ -163,16 +163,14 @@ class PanaRuntimeInfo {
 class License {
   /// The file path that was recognized as a license.
   @Deprecated(
-      'The field will be removed, as we only accept `LICENSE` as filename.')
+    'The field will be removed, as we only accept `LICENSE` as filename.',
+  )
   final String path;
 
   /// The SPDX identifier of the license.
   final String spdxIdentifier;
 
-  License({
-    required this.path,
-    required this.spdxIdentifier,
-  });
+  License({required this.path, required this.spdxIdentifier});
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);
@@ -385,7 +383,7 @@ enum RepositoryStatus {
 
   /// The repository verification encountered a failure, result is
   /// not conclusive.
-  inconclusive;
+  inconclusive,
 }
 
 /// NOTE: the content of the class is experimental, clients should not rely on it yet.
@@ -468,10 +466,7 @@ class UrlProblem {
   /// One of [UrlProblemCodes].
   final String problem;
 
-  UrlProblem({
-    required this.url,
-    required this.problem,
-  });
+  UrlProblem({required this.url, required this.problem});
 
   factory UrlProblem.fromJson(Map<String, dynamic> json) =>
       _$UrlProblemFromJson(json);

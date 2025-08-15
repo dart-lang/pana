@@ -33,28 +33,41 @@ final _parser = ArgParser()
         'The config home directory where the Flutter SDK may store its settings.',
     hide: true,
   )
-  ..addOption('exit-code-threshold',
-      help:
-          'The exit code will indicate if (max - granted points) > threshold.')
-  ..addFlag('json',
-      abbr: 'j',
-      help: 'Output log records and full report as JSON.',
-      defaultsTo: false,
-      negatable: false)
-  ..addOption('source',
-      abbr: 's',
-      help:
-          'The source where the package is located (hosted on $defaultHostedUrl, or local directory path).',
-      allowed: ['hosted', 'path'],
-      defaultsTo: 'path',
-      hide: true)
-  ..addOption('hosted-url',
-      help: 'The server that hosts <package>.', defaultsTo: defaultHostedUrl)
-  ..addOption('line-length',
-      abbr: 'l', help: 'The line length to use with dart format.')
-  ..addFlag('hosted',
-      help: 'Download and analyze a hosted package (from $defaultHostedUrl).',
-      negatable: false)
+  ..addOption(
+    'exit-code-threshold',
+    help: 'The exit code will indicate if (max - granted points) > threshold.',
+  )
+  ..addFlag(
+    'json',
+    abbr: 'j',
+    help: 'Output log records and full report as JSON.',
+    defaultsTo: false,
+    negatable: false,
+  )
+  ..addOption(
+    'source',
+    abbr: 's',
+    help:
+        'The source where the package is located (hosted on $defaultHostedUrl, or local directory path).',
+    allowed: ['hosted', 'path'],
+    defaultsTo: 'path',
+    hide: true,
+  )
+  ..addOption(
+    'hosted-url',
+    help: 'The server that hosts <package>.',
+    defaultsTo: defaultHostedUrl,
+  )
+  ..addOption(
+    'line-length',
+    abbr: 'l',
+    help: 'The line length to use with dart format.',
+  )
+  ..addFlag(
+    'hosted',
+    help: 'Download and analyze a hosted package (from $defaultHostedUrl).',
+    negatable: false,
+  )
   ..addFlag(
     'dartdoc',
     help: 'Run dartdoc and score the package on documentation coverage.',
@@ -120,8 +133,9 @@ Future<void> main(List<String> args) async {
   final isJson = result['json'] as bool;
 
   final exitCodeThresholdArg = result['exit-code-threshold'] as String?;
-  final exitCodeThreshold =
-      exitCodeThresholdArg == null ? null : int.parse(exitCodeThresholdArg);
+  final exitCodeThreshold = exitCodeThresholdArg == null
+      ? null
+      : int.parse(exitCodeThresholdArg);
 
   var source = result['source'] as String?;
   if (result['hosted'] == true) {
@@ -150,13 +164,15 @@ Future<void> main(List<String> args) async {
   final runDartdoc = result['dartdoc'] == true;
   if (!runDartdoc && dartdocOutputDirParam != null) {
     _printHelp(
-        errorMessage:
-            'Must not disable dartdoc when --dartdoc-output is specified.');
+      errorMessage:
+          'Must not disable dartdoc when --dartdoc-output is specified.',
+    );
   }
   final resourcesOutputDirParam = result['resources-output'] as String?;
 
-  final tempDir = Directory.systemTemp
-      .createTempSync('pana.${DateTime.now().millisecondsSinceEpoch}.');
+  final tempDir = Directory.systemTemp.createTempSync(
+    'pana.${DateTime.now().millisecondsSinceEpoch}.',
+  );
   // Critical to make sure analyzer paths align well
   final tempPath = await tempDir.resolveSymbolicLinks();
   final pubCacheDir = p.join(tempPath, 'pub-cache');
@@ -169,19 +185,21 @@ Future<void> main(List<String> args) async {
 
   try {
     final pubHostedUrl = result['hosted-url'] as String?;
-    final analyzer = PackageAnalyzer(await ToolEnvironment.create(
-      pubCacheDir: pubCacheDir,
-      dartSdkConfig: SdkConfig(
-        rootPath: result['dart-sdk'] as String?,
-        configHomePath: result['dart-config-home'] as String?,
+    final analyzer = PackageAnalyzer(
+      await ToolEnvironment.create(
+        pubCacheDir: pubCacheDir,
+        dartSdkConfig: SdkConfig(
+          rootPath: result['dart-sdk'] as String?,
+          configHomePath: result['dart-config-home'] as String?,
+        ),
+        flutterSdkConfig: SdkConfig(
+          rootPath: result['flutter-sdk'] as String?,
+          configHomePath: result['flutter-config-home'] as String?,
+        ),
+        pubHostedUrl: pubHostedUrl,
+        dartdocVersion: result['dartdoc-version'] as String?,
       ),
-      flutterSdkConfig: SdkConfig(
-        rootPath: result['flutter-sdk'] as String?,
-        configHomePath: result['flutter-config-home'] as String?,
-      ),
-      pubHostedUrl: pubHostedUrl,
-      dartdocVersion: result['dartdoc-version'] as String?,
-    ));
+    );
     final options = InspectOptions(
       pubHostedUrl: pubHostedUrl,
       panaCacheDir: Platform.environment['PANA_CACHE'],
@@ -204,8 +222,9 @@ Future<void> main(List<String> args) async {
         }
         if (pubHostedUrl != defaultHostedUrl && version == null) {
           _printHelp(
-              errorMessage:
-                  'Version must be specified when using --hosted-url option.');
+            errorMessage:
+                'Version must be specified when using --hosted-url option.',
+          );
         }
         summary = await analyzer.inspectPackage(
           package,
@@ -216,9 +235,7 @@ Future<void> main(List<String> args) async {
         final path = firstArg() ?? '.';
         final pubspecPath = p.join(path, 'pubspec.yaml');
         if (!File(pubspecPath).existsSync()) {
-          _printHelp(
-            errorMessage: 'Found no pubspec file at $pubspecPath.',
-          );
+          _printHelp(errorMessage: 'Found no pubspec file at $pubspecPath.');
         }
 
         final absolutePath = await Directory(path).resolveSymbolicLinks();
@@ -269,8 +286,10 @@ Future<void> main(List<String> args) async {
 /// terminates the program immediately.
 Stream<ProcessSignal> _getSignals() => Platform.isWindows
     ? ProcessSignal.sigint.watch()
-    : StreamGroup.merge(
-        [ProcessSignal.sigterm.watch(), ProcessSignal.sigint.watch()]);
+    : StreamGroup.merge([
+        ProcessSignal.sigterm.watch(),
+        ProcessSignal.sigint.watch(),
+      ]);
 
 Duration? _parseDuration(String? value) {
   if (value == null || value.isEmpty) return null;

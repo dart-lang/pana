@@ -29,10 +29,16 @@ void main() {
     });
 
     test('Check token density when both have same matches', () {
-      final matchA =
-          _dummyLicenseMatchInstance(0.9, 'matchA', tokensClaimed: 1);
-      final matchB =
-          _dummyLicenseMatchInstance(0.9, 'matchB', tokensClaimed: 2);
+      final matchA = _dummyLicenseMatchInstance(
+        0.9,
+        'matchA',
+        tokensClaimed: 1,
+      );
+      final matchB = _dummyLicenseMatchInstance(
+        0.9,
+        'matchB',
+        tokensClaimed: 2,
+      );
 
       // Expect -1 as matchA has more number of tokens claimed and both the matches
       // have same instance of license detected.
@@ -92,15 +98,30 @@ void main() {
     _testOverLappingMatches(
       name: 'discard a match that contains other with in less token density',
       input: [
-        _dummyLicenseMatchInstance(1.0, 'matchA',
-            start: 10, end: 70, tokensClaimed: 60),
-        _dummyLicenseMatchInstance(0.7, 'matchB',
-            start: 0, end: 100, tokensClaimed: 80),
+        _dummyLicenseMatchInstance(
+          1.0,
+          'matchA',
+          start: 10,
+          end: 70,
+          tokensClaimed: 60,
+        ),
+        _dummyLicenseMatchInstance(
+          0.7,
+          'matchB',
+          start: 0,
+          end: 100,
+          tokensClaimed: 80,
+        ),
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
       expected: [
-        _dummyLicenseMatchInstance(1.0, 'matchA',
-            start: 10, end: 70, tokensClaimed: 60),
+        _dummyLicenseMatchInstance(
+          1.0,
+          'matchA',
+          start: 10,
+          end: 70,
+          tokensClaimed: 60,
+        ),
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
     );
@@ -108,67 +129,81 @@ void main() {
     _testOverLappingMatches(
       name: 'Does not discard match contained in other with less token density',
       input: [
-        _dummyLicenseMatchInstance(1, 'matchB',
-            start: 5, end: 95, tokensClaimed: 75),
-        _dummyLicenseMatchInstance(0.9, 'matchA',
-            start: 0, end: 100, tokensClaimed: 90),
+        _dummyLicenseMatchInstance(
+          1,
+          'matchB',
+          start: 5,
+          end: 95,
+          tokensClaimed: 75,
+        ),
+        _dummyLicenseMatchInstance(
+          0.9,
+          'matchA',
+          start: 0,
+          end: 100,
+          tokensClaimed: 90,
+        ),
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
       expected: [
-        _dummyLicenseMatchInstance(1, 'matchB',
-            start: 5, end: 95, tokensClaimed: 75),
-        _dummyLicenseMatchInstance(0.9, 'matchA',
-            start: 0, end: 100, tokensClaimed: 90),
+        _dummyLicenseMatchInstance(
+          1,
+          'matchB',
+          start: 5,
+          end: 95,
+          tokensClaimed: 75,
+        ),
+        _dummyLicenseMatchInstance(
+          0.9,
+          'matchA',
+          start: 0,
+          end: 100,
+          tokensClaimed: 90,
+        ),
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
     );
 
-    _testOverLappingMatches(name: 'Removes a overlapping match', input: [
-      _dummyLicenseMatchInstance(
-        1,
-        'matchA',
-        start: 0,
-        end: 100,
-        tokensClaimed: 75,
-      ),
-      _dummyLicenseMatchInstance(
-        0.9,
-        'matchB',
-        start: 200,
-        end: 300,
-        tokensClaimed: 90,
-      ),
-      _dummyLicenseMatchInstance(
-        0.8,
-        'matchC',
-        start: 90,
-        end: 180,
-      ),
-    ], expected: [
-      _dummyLicenseMatchInstance(
-        1,
-        'matchA',
-        start: 0,
-        end: 100,
-        tokensClaimed: 75,
-      ),
-      _dummyLicenseMatchInstance(
-        0.9,
-        'matchB',
-        start: 200,
-        end: 300,
-        tokensClaimed: 90,
-      ),
-    ]);
+    _testOverLappingMatches(
+      name: 'Removes a overlapping match',
+      input: [
+        _dummyLicenseMatchInstance(
+          1,
+          'matchA',
+          start: 0,
+          end: 100,
+          tokensClaimed: 75,
+        ),
+        _dummyLicenseMatchInstance(
+          0.9,
+          'matchB',
+          start: 200,
+          end: 300,
+          tokensClaimed: 90,
+        ),
+        _dummyLicenseMatchInstance(0.8, 'matchC', start: 90, end: 180),
+      ],
+      expected: [
+        _dummyLicenseMatchInstance(
+          1,
+          'matchA',
+          start: 0,
+          end: 100,
+          tokensClaimed: 75,
+        ),
+        _dummyLicenseMatchInstance(
+          0.9,
+          'matchB',
+          start: 200,
+          end: 300,
+          tokensClaimed: 90,
+        ),
+      ],
+    );
   });
 
   group('longestUnclaimedPercentage tests:', () {
-    _testUnclaimedPercentage(
-      'Expect 1.0 for no matches found',
-      [],
-      1,
-      100,
-    );
+    _testUnclaimedPercentage('Expect 1.0 for no matches found', [], 1, 100);
 
     _testUnclaimedPercentage(
       'Expect 0.5',
@@ -208,22 +243,21 @@ void main() {
 
     _testLongestUnclaimedTokenRange(
       'Longest unclaimed tokens at end of license',
-      [
-        _dummyLicenseMatchInstance(0.9, '', start: 0, end: 80),
-      ],
+      [_dummyLicenseMatchInstance(0.9, '', start: 0, end: 80)],
       20,
       100,
     );
 
     _testLongestUnclaimedTokenRange(
-        'Longest unclaimed range in between',
-        [
-          _dummyLicenseMatchInstance(0.9, '', start: 30, end: 250),
-          _dummyLicenseMatchInstance(0.89, '', start: 300, end: 550),
-          _dummyLicenseMatchInstance(0.87, '', start: 710, end: 940),
-        ],
-        160,
-        1000);
+      'Longest unclaimed range in between',
+      [
+        _dummyLicenseMatchInstance(0.9, '', start: 30, end: 250),
+        _dummyLicenseMatchInstance(0.89, '', start: 300, end: 550),
+        _dummyLicenseMatchInstance(0.87, '', start: 710, end: 940),
+      ],
+      160,
+      1000,
+    );
   });
 }
 
@@ -234,8 +268,10 @@ void _testUnclaimedPercentage(
   int unknownTokensCount,
 ) {
   test(name, () {
-    final actual =
-        calculateUnclaimedTokenPercentage(result, unknownTokensCount);
+    final actual = calculateUnclaimedTokenPercentage(
+      result,
+      unknownTokensCount,
+    );
 
     expect(actual, expected);
   });
@@ -282,14 +318,17 @@ LicenseMatch _dummyLicenseMatchInstance(
   int end = 3,
 }) {
   return LicenseMatch.createInstance(
-      [],
-      confidence,
-      tokensClaimed,
-      diffRange ?? dummyDiffRange,
-      [],
-      LicenseWithNGrams.parse(
-          License.parse(identifier: identifier, content: 'take some text'), 3),
-      Range(start, end));
+    [],
+    confidence,
+    tokensClaimed,
+    diffRange ?? dummyDiffRange,
+    [],
+    LicenseWithNGrams.parse(
+      License.parse(identifier: identifier, content: 'take some text'),
+      3,
+    ),
+    Range(start, end),
+  );
 }
 
 final dummyDiffRange = Range(2, 20);
