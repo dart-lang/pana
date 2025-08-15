@@ -23,14 +23,18 @@ void main() {
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'Apache-2.0',
-          'start': {'offset': 1569, 'line': 33, 'column': 33},
-          'end': {'offset': 12892, 'line': 233, 'column': 33},
+          'range': {
+            'start': {'offset': 1569, 'line': 33, 'column': 33},
+            'end': {'offset': 12892, 'line': 233, 'column': 33},
+          },
         },
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'BSD-2-Clause',
-          'start': {'offset': 240, 'line': 8, 'column': 0},
-          'end': {'offset': 1479, 'line': 27, 'column': 68},
+          'range': {
+            'start': {'offset': 240, 'line': 8, 'column': 0},
+            'end': {'offset': 1479, 'line': 27, 'column': 68},
+          },
         },
       ]);
     });
@@ -49,14 +53,18 @@ void main() {
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'Apache-2.0',
-          'start': {'offset': 1441, 'line': 30, 'column': 33},
-          'end': {'offset': 12764, 'line': 230, 'column': 33},
+          'range': {
+            'start': {'offset': 1441, 'line': 30, 'column': 33},
+            'end': {'offset': 12764, 'line': 230, 'column': 33},
+          },
         },
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'BSD-2-Clause',
-          'start': {'offset': 134, 'line': 7, 'column': 0},
-          'end': {'offset': 1373, 'line': 26, 'column': 68},
+          'range': {
+            'start': {'offset': 134, 'line': 7, 'column': 0},
+            'end': {'offset': 1373, 'line': 26, 'column': 68},
+          },
         },
       ]);
     });
@@ -82,14 +90,18 @@ void main() {
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'BSD-3-Clause',
-          'start': {'offset': 1215, 'line': 28, 'column': 0},
-          'end': {'offset': 2645, 'line': 52, 'column': 68},
+          'range': {
+            'start': {'offset': 1215, 'line': 28, 'column': 0},
+            'end': {'offset': 2645, 'line': 52, 'column': 68},
+          },
         },
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'MIT',
-          'start': {'offset': 31, 'line': 5, 'column': 0},
-          'end': {'offset': 1053, 'line': 21, 'column': 9},
+          'range': {
+            'start': {'offset': 31, 'line': 5, 'column': 0},
+            'end': {'offset': 1053, 'line': 21, 'column': 9},
+          },
         },
       ]);
     });
@@ -106,14 +118,18 @@ void main() {
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'BSD-2-Clause',
-          'start': {'offset': 1276, 'line': 30, 'column': 0},
-          'end': {'offset': 2511, 'line': 36, 'column': 755},
+          'range': {
+            'start': {'offset': 1276, 'line': 30, 'column': 0},
+            'end': {'offset': 2511, 'line': 36, 'column': 755},
+          },
         },
         {
           'path': 'LICENSE',
           'spdxIdentifier': 'MIT',
-          'start': {'offset': 213, 'line': 8, 'column': 0},
-          'end': {'offset': 1235, 'line': 24, 'column': 13},
+          'range': {
+            'start': {'offset': 213, 'line': 8, 'column': 0},
+            'end': {'offset': 1235, 'line': 24, 'column': 13},
+          },
         },
       ]);
     });
