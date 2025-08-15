@@ -105,7 +105,7 @@ See https://dart.dev/web/wasm for details.
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.36.2|**7.0.3**||
+|[`dcli`]|`^1.15.5`|1.36.2|**7.0.5**||
 
 <details><summary>Transitive dependencies</summary>
 
@@ -116,7 +116,7 @@ See https://dart.dev/web/wasm for details.
 |[`async`]|-|2.13.0|2.13.0||
 |[`basic_utils`]|-|3.9.4|5.8.2||
 |[`boolean_selector`]|-|2.1.2|2.1.2||
-|[`characters`]|-|1.4.0|1.4.0||
+|[`characters`]|-|1.4.1|1.4.1||
 |[`chunked_stream`]|-|1.4.2|1.4.2||
 |[`circular_buffer`]|-|0.11.0|0.12.0||
 |[`clock`]|-|1.1.2|1.1.2||
@@ -125,7 +125,7 @@ See https://dart.dev/web/wasm for details.
 |[`crypto`]|-|3.0.6|3.0.6||
 |[`csv`]|-|5.1.1|6.0.0||
 |[`dart_console2`]|-|2.0.1|3.1.1|**Discontinued**|
-|[`dcli_core`]|-|1.36.2|7.0.2||
+|[`dcli_core`]|-|1.36.2|7.0.3||
 |[`equatable`]|-|2.0.7|2.0.7||
 |[`ffi`]|-|2.1.4|2.1.4||
 |[`file`]|-|6.1.4|7.0.1||
@@ -133,7 +133,7 @@ See https://dart.dev/web/wasm for details.
 |[`functional_data`]|-|1.2.0|1.2.0||
 |[`glob`]|-|2.1.3|2.1.3||
 |[`globbing`]|-|1.0.0|1.0.0|**Discontinued**|
-|[`http`]|-|0.13.6|1.4.0||
+|[`http`]|-|0.13.6|1.5.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`ini`]|-|2.1.0|2.1.0||
 |[`intl`]|-|0.17.0|0.20.2||
@@ -146,14 +146,14 @@ See https://dart.dev/web/wasm for details.
 |[`mime`]|-|1.0.6|2.0.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`pointycastle`]|-|3.9.1|4.0.0||
-|[`posix`]|-|4.1.0|6.0.2||
+|[`posix`]|-|4.1.0|6.0.3||
 |[`pub_semver`]|-|2.2.0|2.2.0||
 |[`pubspec2`]|-|2.4.2|4.0.0|**Discontinued**|
 |[`pubspec_lock`]|-|3.0.2|3.0.2||
 |[`quiver`]|-|3.2.2|3.2.2||
 |[`random_string`]|-|2.3.1|2.3.1||
 |[`scope`]|-|3.0.0|5.1.0||
-|[`settings_yaml`]|-|4.0.1|8.2.0||
+|[`settings_yaml`]|-|4.0.1|8.3.1||
 |[`source_span`]|-|1.10.1|1.10.1||
 |[`stack_trace`]|-|1.12.1|1.12.1||
 |[`stacktrace_impl`]|-|2.3.0|2.3.0|**Discontinued**|
@@ -162,12 +162,12 @@ See https://dart.dev/web/wasm for details.
 |[`sum_types`]|-|0.3.5|0.4.0||
 |[`system_info2`]|-|2.0.4|4.0.0||
 |[`term_glyph`]|-|1.2.2|1.2.2||
-|[`test_api`]|-|0.7.6|0.7.6||
+|[`test_api`]|-|0.7.7|0.7.7||
 |[`typed_data`]|-|1.4.0|1.4.0||
 |[`uuid`]|-|3.0.7|4.5.1||
 |[`validators2`]|-|3.0.0|5.0.0||
 |[`vin_decoder`]|-|0.2.1-nullsafety|0.2.1-nullsafety||
-|[`win32`]|-|3.1.4|5.13.0||
+|[`win32`]|-|3.1.4|5.14.0||
 |[`yaml`]|-|3.1.3|3.1.3||
 </details>
 

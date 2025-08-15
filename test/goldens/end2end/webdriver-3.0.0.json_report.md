@@ -119,7 +119,7 @@ See https://dart.dev/web/wasm for details.
 
 ### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 19 issues. Showing the first 2:
+Found 27 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -181,7 +181,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`stream_channel`]|-|2.1.4|2.1.4||
 |[`string_scanner`]|-|1.4.1|1.4.1||
 |[`term_glyph`]|-|1.2.2|1.2.2||
-|[`test_api`]|-|0.7.6|0.7.6||
+|[`test_api`]|-|0.7.7|0.7.7||
 |[`typed_data`]|-|1.4.0|1.4.0||
 </details>
 
