@@ -18,12 +18,10 @@ class PanaCache {
 
   PanaCache._(this._storage, this._ttl);
 
-  factory PanaCache({
-    String? path,
-    Duration? ttl,
-  }) {
-    final storage =
-        path == null ? _MemoryPanaCacheStorage() : _FilePanaCacheStorage(path);
+  factory PanaCache({String? path, Duration? ttl}) {
+    final storage = path == null
+        ? _MemoryPanaCacheStorage()
+        : _FilePanaCacheStorage(path);
     return PanaCache._(storage, ttl ?? const Duration(hours: 4));
   }
 
@@ -58,11 +56,13 @@ class PanaCache {
     String id,
     Map<String, dynamic> data,
   ) async {
-    final bytes = utf8.encode(json.encode({
-      'id': id,
-      'ts': DateTime.now().toUtc().toIso8601String(),
-      'data': data,
-    }));
+    final bytes = utf8.encode(
+      json.encode({
+        'id': id,
+        'ts': DateTime.now().toUtc().toIso8601String(),
+        'data': data,
+      }),
+    );
     await _storage.writeBytes(_filePath(type, id), bytes);
   }
 

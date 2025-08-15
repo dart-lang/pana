@@ -26,11 +26,15 @@ Future<List<License>> detectLicenseInDir(String baseDir) async {
 }
 
 @visibleForTesting
-Future<List<License>> detectLicenseInFile(File file,
-    {required String relativePath}) async {
+Future<List<License>> detectLicenseInFile(
+  File file, {
+  required String relativePath,
+}) async {
   final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);
-  final licenses =
-      await detectLicenseInContent(content, relativePath: relativePath);
+  final licenses = await detectLicenseInContent(
+    content,
+    relativePath: relativePath,
+  );
   if (licenses.isEmpty) {
     return [License(path: relativePath, spdxIdentifier: LicenseNames.unknown)];
   }

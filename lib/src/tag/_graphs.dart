@@ -134,8 +134,9 @@ class LibraryGraph implements DirectedGraph<Uri> {
           var dependency = uri.resolve(directive.uri.stringValue!);
 
           for (final configuration in directive.configurations) {
-            final dottedName =
-                configuration.name.components.map((i) => i.name).join('.');
+            final dottedName = configuration.name.components
+                .map((i) => i.name)
+                .join('.');
 
             final testValue = configuration.value?.stringValue ?? 'true';
             final actualValue = _declaredVariables[dottedName] ?? '';
@@ -153,7 +154,8 @@ class LibraryGraph implements DirectedGraph<Uri> {
     } catch (e) {
       log.info('Unable to parse "$uri".\n$e');
       throw TagException(
-          'Unable to parse uri: "$uri": `${e.toString().split('\n').first}`.');
+        'Unable to parse uri: "$uri": `${e.toString().split('\n').first}`.',
+      );
     }
   }
 
@@ -201,7 +203,7 @@ class PathFinder<T> {
   PathResult<T> findPath(T root) {
     final pathToCurrent = <T>[];
     final todo = <List<T>>[
-      [root]
+      [root],
     ];
     final visited = <T>{};
 
@@ -246,12 +248,10 @@ class PathResult<T> {
   bool get hasPath => path != null;
   final List<T>? path;
   final Explainer<T>? explainer;
-  PathResult.noPath()
-      : path = null,
-        explainer = null;
+  PathResult.noPath() : path = null, explainer = null;
   PathResult.path(this.path, this.explainer)
-      : assert(path != null),
-        assert(explainer != null);
+    : assert(path != null),
+      assert(explainer != null);
 
   PathResult<T> prefix(List<T> prefix) {
     return hasPath

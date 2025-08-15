@@ -30,9 +30,11 @@ void main(List<String> arguments) async {
   } else {
     var i = 1;
     print(
-        'unclaimedTokenPercentage:  ${detectionResult.unclaimedTokenPercentage}');
+      'unclaimedTokenPercentage:  ${detectionResult.unclaimedTokenPercentage}',
+    );
     print(
-        'longestUnclaimedTokenCount:  ${detectionResult.longestUnclaimedTokenCount}');
+      'longestUnclaimedTokenCount:  ${detectionResult.longestUnclaimedTokenCount}',
+    );
     for (var match in detectionResult.matches) {
       print('\nDetection result $i: ');
       print('Spdx identifier: ${match.identifier}');

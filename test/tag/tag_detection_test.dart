@@ -33,37 +33,51 @@ void main() {
 
     test('succeeds on ok graph', () async {
       expect(
-          runtimeViolationFinder(graph, Runtime.nativeAot, (p) => null)
-              .findPath(Uri.parse('native_main.dart'))
-              .hasPath,
-          false);
+        runtimeViolationFinder(
+          graph,
+          Runtime.nativeAot,
+          (p) => null,
+        ).findPath(Uri.parse('native_main.dart')).hasPath,
+        false,
+      );
     });
     test('fails with counter-example', () {
       expect(
-          runtimeViolationFinder(graph, Runtime.web, (p) => null)
-              .findPath(Uri.parse('native_main.dart'))
-              .path,
-          ['native_main.dart', 'native_helper.dart', 'dart:io']
-              .map(Uri.parse)
-              .toList());
+        runtimeViolationFinder(
+          graph,
+          Runtime.web,
+          (p) => null,
+        ).findPath(Uri.parse('native_main.dart')).path,
+        [
+          'native_main.dart',
+          'native_helper.dart',
+          'dart:io',
+        ].map(Uri.parse).toList(),
+      );
     });
     test('handles cycles', () {
       expect(
-          runtimeViolationFinder(graph, Runtime.web, (p) => null)
-              .findPath(Uri.parse('cyclic_main.dart'))
-              .hasPath,
-          false);
+        runtimeViolationFinder(
+          graph,
+          Runtime.web,
+          (p) => null,
+        ).findPath(Uri.parse('cyclic_main.dart')).hasPath,
+        false,
+      );
       expect(
-          runtimeViolationFinder(graph, Runtime.nativeAot, (p) => null)
-              .findPath(Uri.parse('cyclic_main.dart'))
-              .path,
-          [
-            'cyclic_main.dart',
-            'cyclic1.dart',
-            'cyclic2.dart',
-            'web_helper.dart',
-            'dart:html',
-          ].map(Uri.parse).toList());
+        runtimeViolationFinder(
+          graph,
+          Runtime.nativeAot,
+          (p) => null,
+        ).findPath(Uri.parse('cyclic_main.dart')).path,
+        [
+          'cyclic_main.dart',
+          'cyclic1.dart',
+          'cyclic2.dart',
+          'web_helper.dart',
+          'dart:html',
+        ].map(Uri.parse).toList(),
+      );
     });
   });
 }

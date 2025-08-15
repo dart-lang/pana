@@ -71,9 +71,9 @@ class AnalyzeToolResult {
   }) : toolError = null;
 
   AnalyzeToolResult.toolError(this.toolError)
-      : items = null,
-        tags = [PanaTags.hasError],
-        explanations = [];
+    : items = null,
+      tags = [PanaTags.hasError],
+      explanations = [];
 
   bool get hasError => toolError != null;
 }
@@ -178,8 +178,15 @@ class CodeProblem implements Comparable<CodeProblem> {
     return false;
   }
 
-  List<Object> get _values =>
-      [file, line, col, severity, errorType, errorCode, description];
+  List<Object> get _values => [
+    file,
+    line,
+    col,
+    severity,
+    errorType,
+    errorCode,
+    description,
+  ];
 }
 
 /// The URL's parsed and queried status.
@@ -200,10 +207,7 @@ class UrlStatus {
     required this.exists,
   });
 
-  UrlStatus.invalid()
-      : isInvalid = true,
-        isSecure = false,
-        exists = false;
+  UrlStatus.invalid() : isInvalid = true, isSecure = false, exists = false;
 
   /// Returns a brief problem code that can be displayed when linking to it.
   /// Returns `null` when URL has no problem.

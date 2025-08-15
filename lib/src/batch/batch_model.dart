@@ -56,10 +56,7 @@ class BatchChanged {
   final int count;
   final Map<String, int> packages;
 
-  BatchChanged({
-    required this.count,
-    required this.packages,
-  });
+  BatchChanged({required this.count, required this.packages});
 
   factory BatchChanged.fromJson(Map<String, dynamic> json) =>
       _$BatchChangedFromJson(json);

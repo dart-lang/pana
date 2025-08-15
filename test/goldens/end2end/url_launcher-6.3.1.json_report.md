@@ -73,7 +73,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`url_launcher_android`]|`^6.3.0`|6.3.16|6.3.16||
+|[`url_launcher_android`]|`^6.3.0`|6.3.17|6.3.17||
 |[`url_launcher_ios`]|`^6.2.4`|6.3.3|6.3.3||
 |[`url_launcher_linux`]|`^3.1.0`|3.2.1|3.2.1||
 |[`url_launcher_macos`]|`^3.1.0`|3.2.2|3.2.2||
@@ -85,12 +85,12 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`characters`]|-|1.4.0|1.4.0||
+|[`characters`]|-|1.4.0|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
-|[`material_color_utilities`]|-|0.11.1|0.12.0||
+|[`material_color_utilities`]|-|0.11.1|0.13.0||
 |[`meta`]|-|1.16.0|1.17.0||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
-|[`vector_math`]|-|2.1.4|2.2.0||
+|[`vector_math`]|-|2.2.0|2.2.0||
 |[`web`]|-|1.1.1|1.1.1||
 </details>
 

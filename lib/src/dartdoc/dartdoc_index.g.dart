@@ -21,34 +21,35 @@ DartdocIndexEntry _$DartdocIndexEntryFromJson(Map<String, dynamic> json) =>
       enclosedBy: json['enclosedBy'] == null
           ? null
           : DartdocIndexEntryEnclosedBy.fromJson(
-              json['enclosedBy'] as Map<String, dynamic>),
+              json['enclosedBy'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$DartdocIndexEntryToJson(DartdocIndexEntry instance) =>
     <String, dynamic>{
-      if (instance.name case final value?) 'name': value,
-      if (instance.qualifiedName case final value?) 'qualifiedName': value,
-      if (instance.href case final value?) 'href': value,
-      if (instance.kind case final value?) 'kind': value,
-      if (instance.packageRank case final value?) 'packageRank': value,
-      if (instance.overriddenDepth case final value?) 'overriddenDepth': value,
-      if (instance.packageName case final value?) 'packageName': value,
-      if (instance.desc case final value?) 'desc': value,
-      if (instance.enclosedBy?.toJson() case final value?) 'enclosedBy': value,
+      'name': ?instance.name,
+      'qualifiedName': ?instance.qualifiedName,
+      'href': ?instance.href,
+      'kind': ?instance.kind,
+      'packageRank': ?instance.packageRank,
+      'overriddenDepth': ?instance.overriddenDepth,
+      'packageName': ?instance.packageName,
+      'desc': ?instance.desc,
+      'enclosedBy': ?instance.enclosedBy?.toJson(),
     };
 
 DartdocIndexEntryEnclosedBy _$DartdocIndexEntryEnclosedByFromJson(
-        Map<String, dynamic> json) =>
-    DartdocIndexEntryEnclosedBy(
-      name: json['name'] as String?,
-      kind: (json['kind'] as num?)?.toInt(),
-      href: json['href'] as String?,
-    );
+  Map<String, dynamic> json,
+) => DartdocIndexEntryEnclosedBy(
+  name: json['name'] as String?,
+  kind: (json['kind'] as num?)?.toInt(),
+  href: json['href'] as String?,
+);
 
 Map<String, dynamic> _$DartdocIndexEntryEnclosedByToJson(
-        DartdocIndexEntryEnclosedBy instance) =>
-    <String, dynamic>{
-      if (instance.name case final value?) 'name': value,
-      if (instance.kind case final value?) 'kind': value,
-      if (instance.href case final value?) 'href': value,
-    };
+  DartdocIndexEntryEnclosedBy instance,
+) => <String, dynamic>{
+  'name': ?instance.name,
+  'kind': ?instance.kind,
+  'href': ?instance.href,
+};

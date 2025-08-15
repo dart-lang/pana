@@ -32,7 +32,8 @@ LicenseMatch licenseMatch(
 ) {
   if (unknownLicense.granularity != knownLicense.granularity) {
     throw LicenseMismatchException(
-        "Can't compare the licenses due to different granularity");
+      "Can't compare the licenses due to different granularity",
+    );
   }
   final diffs = getDiffs(
     unknownLicense.tokens,
@@ -50,14 +51,12 @@ LicenseMatch licenseMatch(
   verifyInducedPhraseChange(knownLicense.identifier, valuationDiffs);
 
   final distance = scoreDiffs(valuationDiffs);
-  final confidence = confidencePercentage(
-    knownLicense.tokens.length,
-    distance,
-  );
+  final confidence = confidencePercentage(knownLicense.tokens.length, distance);
 
   if (confidence < threshold) {
     throw LicenseMismatchException(
-        'Confidence $confidence is less than threshold $threshold');
+      'Confidence $confidence is less than threshold $threshold',
+    );
   }
 
   return LicenseMatch(
@@ -91,13 +90,13 @@ List<Diff> getDiffs(
   List<Token> knownTokens,
   MatchRange matchRange,
 ) {
-  final unknownText = normalizedContent(inputTokens
-      .skip(matchRange.input.start)
-      .take(matchRange.input.end - matchRange.input.start));
-
-  final knownText = normalizedContent(
-    knownTokens.take(matchRange.source.end),
+  final unknownText = normalizedContent(
+    inputTokens
+        .skip(matchRange.input.start)
+        .take(matchRange.input.end - matchRange.input.start),
   );
+
+  final knownText = normalizedContent(knownTokens.take(matchRange.source.end));
 
   final diffs = diffMain(unknownText, knownText);
 
@@ -170,7 +169,8 @@ void verifyNoVersionChange(Iterable<Diff> diffs, String identifier) {
         if (!prevText.endsWith('the standard version') &&
             !prevText.endsWith('the contributor version')) {
           throw LicenseMismatchException(
-              'License does not match due to version change');
+            'License does not match due to version change',
+          );
         }
       }
     } else if (diff.operation == Operation.equal) {
@@ -232,7 +232,8 @@ void verifyNoGplChange(Iterable<Diff> diffs, String identifier) {
             prevDelete != 'library') {
           if (!prevText.contains('warranty')) {
             throw LicenseMismatchException(
-                'License does not match with $identifier due to lesser GPL change');
+              'License does not match with $identifier due to lesser GPL change',
+            );
           }
         }
         break;
@@ -241,7 +242,8 @@ void verifyNoGplChange(Iterable<Diff> diffs, String identifier) {
         if (text == 'lesser' && prevText.endsWith('gnu')) {
           if (!prevText.contains('warranty')) {
             throw LicenseMismatchException(
-                'License does not match with $identifier due to lesser GPL change');
+              'License does not match with $identifier due to lesser GPL change',
+            );
           }
         }
 

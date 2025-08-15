@@ -30,7 +30,7 @@ Future<Report> createReport(PackageContext context) async {
           title: 'Failed to parse the pubspec',
           summary: e.toString(),
           status: ReportStatus.failed,
-        )
+        ),
       ],
     );
   }
@@ -44,11 +44,13 @@ Future<Report> createReport(PackageContext context) async {
   // to allow better budgeting for large packages.
   final documentationReport = await hasDocumentation(context);
 
-  return Report(sections: [
-    templateReport,
-    documentationReport,
-    platformReport,
-    staticAnalysisReport,
-    dependenciesReport,
-  ]);
+  return Report(
+    sections: [
+      templateReport,
+      documentationReport,
+      platformReport,
+      staticAnalysisReport,
+      dependenciesReport,
+    ],
+  );
 }

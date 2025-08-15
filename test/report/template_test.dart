@@ -15,60 +15,79 @@ void main() {
     test('finds missing README and CHANGELOG', () async {
       final descriptor = package('my_package', extraFiles: []);
       await descriptor.create();
-      final report = await createReport(PackageContext(
-        sharedContext: SharedAnalysisContext(
-          toolEnvironment: await ToolEnvironment.create(),
+      final report = await createReport(
+        PackageContext(
+          sharedContext: SharedAnalysisContext(
+            toolEnvironment: await ToolEnvironment.create(),
+          ),
+          packageDir: descriptor.io.path,
         ),
-        packageDir: descriptor.io.path,
-      ));
-      final section = report.sections
-          .firstWhere((s) => s.title == 'Follow Dart file conventions');
+      );
+      final section = report.sections.firstWhere(
+        (s) => s.title == 'Follow Dart file conventions',
+      );
       expect(section.grantedPoints, 0);
       expect(section.summary, contains('No `README.md` found'));
       expect(section.summary, contains('No `CHANGELOG.md` found'));
     });
 
     test('finds missing version in CHANGELOG', () async {
-      final descriptor = package('my_package', version: '2.0.0', extraFiles: [
-        d.file('CHANGELOG.md', '''
+      final descriptor = package(
+        'my_package',
+        version: '2.0.0',
+        extraFiles: [
+          d.file('CHANGELOG.md', '''
 ## 1.0.0 First release!
 '''),
-      ]);
+        ],
+      );
       await descriptor.create();
-      final report = await createReport(PackageContext(
-        sharedContext: SharedAnalysisContext(
-          toolEnvironment: await ToolEnvironment.create(),
+      final report = await createReport(
+        PackageContext(
+          sharedContext: SharedAnalysisContext(
+            toolEnvironment: await ToolEnvironment.create(),
+          ),
+          packageDir: descriptor.io.path,
         ),
-        packageDir: descriptor.io.path,
-      ));
-      final section = report.sections
-          .firstWhere((s) => s.title == 'Follow Dart file conventions');
+      );
+      final section = report.sections.firstWhere(
+        (s) => s.title == 'Follow Dart file conventions',
+      );
       expect(section.grantedPoints, 0);
-      expect(section.summary,
-          contains('does not contain reference to the current version'));
+      expect(
+        section.summary,
+        contains('does not contain reference to the current version'),
+      );
     });
 
     test('Detects insecure links', () async {
-      final descriptor = package('my_package', version: '1.0.0', extraFiles: [
-        d.file('README.md', '''
+      final descriptor = package(
+        'my_package',
+        version: '1.0.0',
+        extraFiles: [
+          d.file('README.md', '''
 # my_package
 Check it out on [github](http://github.com/example/my_package).
 ![alt text](http://example.com/icon1.png "Icon1")
 ![alt text](http://example.com/icon1.png "Icon2")
 '''),
-        d.file('CHANGELOG.md', '''
+          d.file('CHANGELOG.md', '''
 ## 1.0.0 First release!
 '''),
-      ]);
+        ],
+      );
       await descriptor.create();
-      final report = await createReport(PackageContext(
-        sharedContext: SharedAnalysisContext(
-          toolEnvironment: await ToolEnvironment.create(),
+      final report = await createReport(
+        PackageContext(
+          sharedContext: SharedAnalysisContext(
+            toolEnvironment: await ToolEnvironment.create(),
+          ),
+          packageDir: descriptor.io.path,
         ),
-        packageDir: descriptor.io.path,
-      ));
-      final section = report.sections
-          .firstWhere((s) => s.title == 'Follow Dart file conventions');
+      );
+      final section = report.sections.firstWhere(
+        (s) => s.title == 'Follow Dart file conventions',
+      );
       expect(section.grantedPoints, 5);
       expect(section.summary, isNot(contains('No `README.md` found')));
       expect(section.summary, isNot(contains('No `CHANGELOG.md` found')));

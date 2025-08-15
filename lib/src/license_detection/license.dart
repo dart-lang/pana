@@ -5,8 +5,10 @@
 part of 'license_detector.dart';
 
 /// Regular expression to match the common pattern of `Copyright (c) yyyy[-yyyy] <name>.`
-final _copyrightRegExp =
-    RegExp(r'^copyright\s+(?:\(c\)|©)\s+\d{4}.{0,100}$', caseSensitive: false);
+final _copyrightRegExp = RegExp(
+  r'^copyright\s+(?:\(c\)|©)\s+\d{4}.{0,100}$',
+  caseSensitive: false,
+);
 
 @sealed
 class License {
@@ -93,12 +95,7 @@ class LicenseWithNGrams extends License {
     String content,
     List<Token> tokens,
     Map<String, int> table,
-  ) : super._(
-          content,
-          tokens,
-          table,
-          identifier,
-        );
+  ) : super._(content, tokens, table, identifier);
 
   factory LicenseWithNGrams.parse(License license, int n) {
     final nGrams = generateChecksums(license.tokens, n);
@@ -180,8 +177,8 @@ class LicenseMatch {
     this.license,
     this.diffs,
     this.diffRange,
-  )   : tokensClaimed = tokens.length,
-        tokenRange = Range(tokens.first.index, tokens.last.index);
+  ) : tokensClaimed = tokens.length,
+      tokenRange = Range(tokens.first.index, tokens.last.index);
 
   @visibleForTesting
   LicenseMatch.createInstance(
@@ -242,7 +239,8 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
         licenses.addAll(license);
       } else {
         throw FormatException(
-            'Invalid file type:\nExpected: "spdx-identifier" Actual: ${file.uri.pathSegments.last}');
+          'Invalid file type:\nExpected: "spdx-identifier" Actual: ${file.uri.pathSegments.last}',
+        );
       }
     });
   }
@@ -270,7 +268,8 @@ List<License> licensesFromFile(String path) {
 
   if (_invalidIdentifier.hasMatch(identifier)) {
     throw ArgumentError(
-        'Invalid file name: expected: "path/to/file/<spdx-identifier>.txt" actual: $path');
+      'Invalid file name: expected: "path/to/file/<spdx-identifier>.txt" actual: $path',
+    );
   }
 
   licenses.add(License.parse(identifier: identifier, content: content));
@@ -280,8 +279,9 @@ List<License> licensesFromFile(String path) {
   // better chances of matching.
   if (content.contains(_endOfTerms)) {
     final modifiedContent = content.split(_endOfTerms).first + _endOfTerms;
-    licenses
-        .add(License.parse(identifier: identifier, content: modifiedContent));
+    licenses.add(
+      License.parse(identifier: identifier, content: modifiedContent),
+    );
   }
   return licenses;
 }

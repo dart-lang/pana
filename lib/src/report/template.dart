@@ -36,38 +36,48 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
         final count = checked.unparsed.length;
         final first = checked.unparsed.first;
         final s = count == 1 ? '' : 's';
-        issues.add(Issue(
+        issues.add(
+          Issue(
             'Links in `$filename` should be well formed '
             'Unable to parse $count image link$s.',
-            span: first.span));
+            span: first.span,
+          ),
+        );
       }
       if (checked.insecure.isNotEmpty) {
         final count = checked.insecure.length;
         final first = checked.insecure.first;
         final sAre = count == 1 ? ' is' : 's are';
-        issues.add(Issue(
+        issues.add(
+          Issue(
             'Links in `$filename` should be secure. $count $linkType$sAre insecure.',
             suggestion: 'Use `https` URLs instead.',
-            span: first.span));
+            span: first.span,
+          ),
+        );
       }
     }
 
     await findLinkIssues(analysis.links, 'link');
     await findLinkIssues(analysis.images, 'image link');
     if (analysis.isMalformedUtf8) {
-      issues.add(Issue(
-        '`$filename` is not a valid UTF-8 file.',
-        suggestion:
-            'The content of `$filename` in your package should contain valid UTF-8 characters.',
-      ));
+      issues.add(
+        Issue(
+          '`$filename` is not a valid UTF-8 file.',
+          suggestion:
+              'The content of `$filename` in your package should contain valid UTF-8 characters.',
+        ),
+      );
     }
     if (analysis.nonAsciiRatio > 0.2) {
-      issues.add(Issue(
-        '`$filename` contains too many non-ASCII characters.',
-        suggestion:
-            'The site uses English as its primary language. The content of '
-            '`$filename` in your package should primarily contain characters used in English.',
-      ));
+      issues.add(
+        Issue(
+          '`$filename` contains too many non-ASCII characters.',
+          suggestion:
+              'The site uses English as its primary language. The content of '
+              '`$filename` in your package should primarily contain characters used in English.',
+        ),
+      );
     }
 
     return issues;
@@ -76,23 +86,35 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
   Future<Subsection> checkPubspec() async {
     final issues = <Issue>[];
     if (pubspec.hasUnknownSdks) {
-      issues.add(Issue('Unknown SDKs in `pubspec.yaml`.',
+      issues.add(
+        Issue(
+          'Unknown SDKs in `pubspec.yaml`.',
           span: tryGetSpanFromYamlMap(
-              pubspec.environment, pubspec.unknownSdks.first),
-          suggestion: 'The following unknown SDKs are in `pubspec.yaml`:\n'
+            pubspec.environment,
+            pubspec.unknownSdks.first,
+          ),
+          suggestion:
+              'The following unknown SDKs are in `pubspec.yaml`:\n'
               '`${pubspec.unknownSdks}`.\n\n'
-              '`pana` doesn’t recognize them; please remove the `sdk` entry.'));
+              '`pana` doesn’t recognize them; please remove the `sdk` entry.',
+        ),
+      );
     }
 
-    final gitDependencies =
-        pubspec.dependencies.entries.where((e) => e.value is GitDependency);
+    final gitDependencies = pubspec.dependencies.entries.where(
+      (e) => e.value is GitDependency,
+    );
     if (gitDependencies.isNotEmpty) {
-      issues.add(Issue(
-        'The package has a git dependency.',
-        span: tryGetSpanFromYamlMap(pubspec.originalYaml['dependencies'] as Map,
-            gitDependencies.first.key),
-        suggestion: "The pub site doesn't allow git dependencies.",
-      ));
+      issues.add(
+        Issue(
+          'The package has a git dependency.',
+          span: tryGetSpanFromYamlMap(
+            pubspec.originalYaml['dependencies'] as Map,
+            gitDependencies.first.key,
+          ),
+          suggestion: "The pub site doesn't allow git dependencies.",
+        ),
+      );
     }
 
     if (pubspec.usesOldFlutterPluginFormat) {
@@ -100,7 +122,9 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
         Issue(
           'Flutter plugin descriptor uses old format.',
           span: tryGetSpanFromYamlMap(
-              pubspec.originalYaml['flutter'] as Map, 'plugin'),
+            pubspec.originalYaml['flutter'] as Map,
+            'plugin',
+          ),
           suggestion:
               'The flutter.plugin.{androidPackage,iosPrefix,pluginClass} keys are '
               'deprecated. Consider using the flutter.plugin.platforms key '
@@ -113,10 +137,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
       issues.add(
         Issue(
           "Sdk-constraint doesn't allow future stable dart 2.x releases",
-          span: tryGetSpanFromYamlMap(
-            pubspec.environment,
-            'sdk',
-          ),
+          span: tryGetSpanFromYamlMap(pubspec.environment, 'sdk'),
         ),
       );
     }
@@ -137,39 +158,47 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
       );
     } else if (description.length < 50) {
       issues.add(
-        Issue('The package description is too short.',
-            span: span,
-            suggestion:
-                'Add more detail to the `description` field of `pubspec.yaml`. Use 50 to 180 '
-                'characters to describe the package, what it does, and its target use case.'),
+        Issue(
+          'The package description is too short.',
+          span: span,
+          suggestion:
+              'Add more detail to the `description` field of `pubspec.yaml`. Use 50 to 180 '
+              'characters to describe the package, what it does, and its target use case.',
+        ),
       );
     } else if (description.length > 180) {
       issues.add(
-        Issue('The package description is too long.',
-            span: span,
-            suggestion:
-                'Search engines display only the first part of the description. '
-                "Try to keep the value of the `description` field in your package's "
-                '`pubspec.yaml` file between 60 and 180 characters.'),
+        Issue(
+          'The package description is too long.',
+          span: span,
+          suggestion:
+              'Search engines display only the first part of the description. '
+              "Try to keep the value of the `description` field in your package's "
+              '`pubspec.yaml` file between 60 and 180 characters.',
+        ),
       );
     }
 
     // characters in description
     if (nonAsciiRuneRatio(description) > 0.1) {
-      issues.add(Issue(
-        'The package description contains too many non-ASCII characters.',
-        span: span,
-        suggestion:
-            'The site uses English as its primary language. The content of the '
-            "`description` field in your package's `pubspec.yaml` should "
-            'primarily contain characters used in English.',
-      ));
+      issues.add(
+        Issue(
+          'The package description contains too many non-ASCII characters.',
+          span: span,
+          suggestion:
+              'The site uses English as its primary language. The content of the '
+              "`description` field in your package's `pubspec.yaml` should "
+              'primarily contain characters used in English.',
+        ),
+      );
     }
 
     final repository = await context.repository;
     final repositoryStatus = repository.status;
     if (repositoryStatus == RepositoryStatus.failed) {
-      issues.add(Issue('Failed to verify repository URL.',
+      issues.add(
+        Issue(
+          'Failed to verify repository URL.',
           suggestion:
               'Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:\n\n'
               ' * `repository` can be cloned,\n'
@@ -177,7 +206,9 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
               '    * contains `name: ${pubspec.name}`,\n'
               '    * contains a `version` property, and,\n'
               '    * does not contain a `publish_to` property.\n\n'
-              '${repository.verificationFailure ?? 'status: `${repositoryStatus.name}`'}'));
+              '${repository.verificationFailure ?? 'status: `${repositoryStatus.name}`'}',
+        ),
+      );
     }
 
     final executableFiles = await context.executablesInBinDirectory;
@@ -186,11 +217,14 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
           ? e.value
           : (e.value.isEmpty ? '${e.key}.dart' : '${e.value}.dart');
       if (!executableFiles.contains(filename)) {
-        issues.add(Issue(
-          'Missing or invalid executable file: `bin/$filename`.',
-          suggestion: 'Update `executable` field in `pubspec.yaml` or '
-              'fix the missing or invalid file in the `bin/` directory.',
-        ));
+        issues.add(
+          Issue(
+            'Missing or invalid executable file: `bin/$filename`.',
+            suggestion:
+                'Update `executable` field in `pubspec.yaml` or '
+                'fix the missing or invalid file in the `bin/` directory.',
+          ),
+        );
       }
     }
 
@@ -223,14 +257,13 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
     final issues = <Issue>[];
 
     if (!file.existsSync()) {
-      issues.add(
-        Issue('No `$filename` found.', suggestion: missingSuggestion),
-      );
+      issues.add(Issue('No `$filename` found.', suggestion: missingSuggestion));
     } else {
       final length = await file.length();
       if (length == 0) {
-        issues
-            .add(Issue('`$filename` is empty.', suggestion: missingSuggestion));
+        issues.add(
+          Issue('`$filename` is empty.', suggestion: missingSuggestion),
+        );
       }
       issues.addAll(await findMarkdownIssues(file));
       if (checkContent != null) {
@@ -240,13 +273,7 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
     }
     final status = issues.isEmpty ? ReportStatus.passed : ReportStatus.failed;
     final points = issues.isEmpty ? 5 : 0;
-    return Subsection(
-      'Provide a valid `$filename`',
-      issues,
-      points,
-      5,
-      status,
-    );
+    return Subsection('Provide a valid `$filename`', issues, points, 5, status);
   }
 
   final readmeSubsection = await checkAsset(
@@ -266,8 +293,12 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
     checkContent: (content) sync* {
       // Note: this is not the entire current version, only the part before the first `-` or `+`.
       //       Checking only the part to reduce misreporting around ongoing version patterns (`-wip`, `-dev`).
-      final versionPart =
-          context.pubspec.version.toString().split('-').first.split('+').first;
+      final versionPart = context.pubspec.version
+          .toString()
+          .split('-')
+          .first
+          .split('+')
+          .first;
       if (!content.contains(versionPart)) {
         yield Issue(
           '`CHANGELOG.md` does not contain reference to the current version ("${context.pubspec.version}").',
@@ -304,7 +335,8 @@ Subsection _licenseSection(LicenseTags tags) {
   String licenseList(List<License> values) =>
       values.map((e) => '`${e.spdxIdentifier}`').join(', ');
   final detected = RawParagraph(
-      'Detected ${licensePluralized(tags.licenses)}: ${licenseList(tags.licenses)}.');
+    'Detected ${licensePluralized(tags.licenses)}: ${licenseList(tags.licenses)}.',
+  );
 
   final List<Paragraph> paragraphs;
   if (tags.isOnlyOsiApproved) {

@@ -9,9 +9,12 @@ import 'package:test/test.dart';
 void main() {
   test('windows double escape', () {
     final cp = parseCodeProblem(
-        r"INFO|HINT|UNUSED_FIELD|D:\\Documents\\youtube_explode_dart\\lib\\src\\extensions\\helpers_extension.dart|16|16|4|The value of the field '_exp' isn't used.")!;
-    expect(cp.file,
-        r'D:\Documents\youtube_explode_dart\lib\src\extensions\helpers_extension.dart');
+      r"INFO|HINT|UNUSED_FIELD|D:\\Documents\\youtube_explode_dart\\lib\\src\\extensions\\helpers_extension.dart|16|16|4|The value of the field '_exp' isn't used.",
+    )!;
+    expect(
+      cp.file,
+      r'D:\Documents\youtube_explode_dart\lib\src\extensions\helpers_extension.dart',
+    );
   });
 
   test('too many lines', () {
@@ -20,7 +23,9 @@ void main() {
   });
 
   test('analysis server failure', () {
-    expect(() => parseCodeProblem('Please report this at dartbug.com.'),
-        throwsA(isA<ToolException>()));
+    expect(
+      () => parseCodeProblem('Please report this at dartbug.com.'),
+      throwsA(isA<ToolException>()),
+    );
   });
 }

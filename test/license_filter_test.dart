@@ -16,14 +16,18 @@ void main() {
 
       expect(
         tokenSimilarity(
-            license.tokenFrequency, generateFrequencyTable(tokens2)),
+          license.tokenFrequency,
+          generateFrequencyTable(tokens2),
+        ),
         1,
       );
 
       tokens2 = tokenize('some tokens are different');
       expect(
         tokenSimilarity(
-            license.tokenFrequency, generateFrequencyTable(tokens2)),
+          license.tokenFrequency,
+          generateFrequencyTable(tokens2),
+        ),
         0.5,
       );
 
@@ -39,7 +43,9 @@ void main() {
       tokens2 = tokenize('');
       expect(
         tokenSimilarity(
-            license.tokenFrequency, generateFrequencyTable(tokens2)),
+          license.tokenFrequency,
+          generateFrequencyTable(tokens2),
+        ),
         0,
       );
     });
@@ -71,15 +77,15 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''';
       final unknownLicense = License.parse(identifier: '', content: input);
-      final knownLicenses =
-          loadLicensesFromDirectories(['test/license_test_assets/licenses']);
+      final knownLicenses = loadLicensesFromDirectories([
+        'test/license_test_assets/licenses',
+      ]);
 
-      final possibleLicenses =
-          filter(unknownLicense.tokenFrequency, knownLicenses);
-      const possibleLicenseNames = [
-        'bsd_2_clause',
-        'bsd_2_clause_in_comments',
-      ];
+      final possibleLicenses = filter(
+        unknownLicense.tokenFrequency,
+        knownLicenses,
+      );
+      const possibleLicenseNames = ['bsd_2_clause', 'bsd_2_clause_in_comments'];
       expect(possibleLicenses.length, 2);
 
       for (var i = 0; i < 2; i++) {

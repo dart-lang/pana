@@ -12,33 +12,39 @@ Future<void> main(List<String> args) async {
     print('dart batch_analyse_licenses.dart <output.json>');
     print('');
     print(
-        'Read all license files from the license cache directory and create an '
-        'aggregated summary of the results.');
+      'Read all license files from the license cache directory and create an '
+      'aggregated summary of the results.',
+    );
     return;
   }
   final outputFileName = args.single;
 
-  final files = Directory('.dart_tool/pana/license-cache')
-      .listSync()
-      .whereType<File>()
-      .toList();
+  final files = Directory(
+    '.dart_tool/pana/license-cache',
+  ).listSync().whereType<File>().toList();
   files.sort((a, b) => a.path.compareTo(b.path));
   final result = <String, dynamic>{};
   for (final file in files) {
     try {
       final content = file.readAsStringSync();
-      final list =
-          await detectLicenseInContent(content, relativePath: 'LICENSE');
+      final list = await detectLicenseInContent(
+        content,
+        relativePath: 'LICENSE',
+      );
       final spdxIds = list.map((e) => e.spdxIdentifier).toList()..sort();
-      final packageName =
-          file.path.split('/').last.split('LICENSE-').last.split('.txt').first;
-      result[packageName] = {
-        'spdxIds': spdxIds,
-      };
+      final packageName = file.path
+          .split('/')
+          .last
+          .split('LICENSE-')
+          .last
+          .split('.txt')
+          .first;
+      result[packageName] = {'spdxIds': spdxIds};
     } catch (_) {
       // TODO: also track errors
     }
   }
-  await File(outputFileName)
-      .writeAsString(const JsonEncoder.withIndent('  ').convert(result));
+  await File(
+    outputFileName,
+  ).writeAsString(const JsonEncoder.withIndent('  ').convert(result));
 }

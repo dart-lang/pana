@@ -89,8 +89,9 @@ List<Diff> diffMain(
       // One year should be sufficient for 'infinity'.
       deadline = deadline.add(const Duration(days: 365));
     } else {
-      deadline =
-          deadline.add(Duration(milliseconds: (diffTimeout * 1000).toInt()));
+      deadline = deadline.add(
+        Duration(milliseconds: (diffTimeout * 1000).toInt()),
+      );
     }
   }
 
@@ -168,8 +169,9 @@ List<Diff> diffCompute(
 
   if (i != -1) {
     // Shorter text is inside the longer text (speedup).
-    final op =
-        (text1.length > text2.length) ? Operation.delete : Operation.insert;
+    final op = (text1.length > text2.length)
+        ? Operation.delete
+        : Operation.insert;
 
     diffs.add(Diff(op, longText.substring(0, i)));
     diffs.add(Diff(Operation.equal, shortText));
@@ -266,9 +268,9 @@ void diffCleanupMerge(List<Diff> diffs) {
                     diffs[i].text + textInsert.substring(0, commonLength);
               } else {
                 diffs.insert(
-                    0,
-                    Diff(Operation.equal,
-                        textInsert.substring(0, commonLength)));
+                  0,
+                  Diff(Operation.equal, textInsert.substring(0, commonLength)),
+                );
                 pointer++;
               }
               textInsert = textInsert.substring(commonLength);
@@ -280,11 +282,15 @@ void diffCleanupMerge(List<Diff> diffs) {
             if (commonLength != 0) {
               diffs[pointer].text =
                   textInsert.substring(textInsert.length - commonLength) +
-                      diffs[pointer].text;
-              textInsert =
-                  textInsert.substring(0, textInsert.length - commonLength);
-              textDelete =
-                  textDelete.substring(0, textDelete.length - commonLength);
+                  diffs[pointer].text;
+              textInsert = textInsert.substring(
+                0,
+                textInsert.length - commonLength,
+              );
+              textDelete = textDelete.substring(
+                0,
+                textDelete.length - commonLength,
+              );
             }
           }
           // Delete the offending records and add the merged ones.
@@ -331,11 +337,12 @@ void diffCleanupMerge(List<Diff> diffs) {
       // This is a single edit surrounded by equalities.
       if (diffs[pointer].text.endsWith(diffs[pointer - 1].text)) {
         // Shift the edit over the previous equality.
-        diffs[pointer].text = diffs[pointer - 1].text +
+        diffs[pointer].text =
+            diffs[pointer - 1].text +
             diffs[pointer].text.substring(
-                  0,
-                  diffs[pointer].text.length - diffs[pointer - 1].text.length,
-                );
+              0,
+              diffs[pointer].text.length - diffs[pointer - 1].text.length,
+            );
 
         diffs[pointer + 1].text =
             diffs[pointer - 1].text + diffs[pointer + 1].text;
@@ -349,7 +356,7 @@ void diffCleanupMerge(List<Diff> diffs) {
 
         diffs[pointer].text =
             diffs[pointer].text.substring(diffs[pointer + 1].text.length) +
-                diffs[pointer + 1].text;
+            diffs[pointer + 1].text;
 
         diffs.removeAt(pointer + 1);
         changes = true;
@@ -432,12 +439,7 @@ List<Diff> _diffLineMode(String text1, String text2, DateTime deadline) {
   // Scan the text on a line-by-line basis first.
   final (:chars1, :chars2, :lineArray) = diffLinesToChars(text1, text2);
 
-  final diffs = diffMain(
-    chars1,
-    chars2,
-    checkLines: false,
-    deadline: deadline,
-  );
+  final diffs = diffMain(chars1, chars2, checkLines: false, deadline: deadline);
 
   // Convert the diff back to original text.
   diffCharsToLines(diffs, lineArray);
@@ -655,7 +657,8 @@ List<String>? _diffHalfMatchI(String longText, String shortText, int i) {
     );
 
     if (bestCommon.length < suffixLength + prefixLength) {
-      bestCommon = shortText.substring(j - suffixLength, j) +
+      bestCommon =
+          shortText.substring(j - suffixLength, j) +
           shortText.substring(j, j + prefixLength);
       bestLongtextA = longText.substring(0, i - suffixLength);
       bestLongtextB = longText.substring(i + prefixLength);
@@ -670,7 +673,7 @@ List<String>? _diffHalfMatchI(String longText, String shortText, int i) {
       bestLongtextB,
       bestShortTextA,
       bestShortTextB,
-      bestCommon
+      bestCommon,
     ];
   } else {
     return null;
@@ -717,12 +720,7 @@ List<Diff> _diffBisectSplit(
   final text2b = text2.substring(y);
 
   // Compute both diffs serially.
-  final diffs = diffMain(
-    text1a,
-    text2a,
-    checkLines: false,
-    deadline: deadline,
-  );
+  final diffs = diffMain(text1a, text2a, checkLines: false, deadline: deadline);
   final diffsb = diffMain(
     text1b,
     text2b,

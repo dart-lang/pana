@@ -27,28 +27,42 @@ void main() {
     });
 
     test('project root', () {
-      expect(getRepositoryUrl('$prefix/dart-lang/angular', 'README.md'),
-          '$prefix/dart-lang/angular/blob/master/README.md');
-      expect(getRepositoryUrl('$prefix/dart-lang/angular/', 'README.md'),
-          '$prefix/dart-lang/angular/blob/master/README.md');
+      expect(
+        getRepositoryUrl('$prefix/dart-lang/angular', 'README.md'),
+        '$prefix/dart-lang/angular/blob/master/README.md',
+      );
+      expect(
+        getRepositoryUrl('$prefix/dart-lang/angular/', 'README.md'),
+        '$prefix/dart-lang/angular/blob/master/README.md',
+      );
     });
 
     test('project subdir', () {
       expect(
-          getRepositoryUrl(
-              '$prefix/dart-lang/angular/tree/master/angular', 'README.md'),
-          '$prefix/dart-lang/angular/blob/master/angular/README.md');
+        getRepositoryUrl(
+          '$prefix/dart-lang/angular/tree/master/angular',
+          'README.md',
+        ),
+        '$prefix/dart-lang/angular/blob/master/angular/README.md',
+      );
       expect(
-          getRepositoryUrl(
-              '$prefix/dart-lang/angular/tree/master/angular/', 'README.md'),
-          '$prefix/dart-lang/angular/blob/master/angular/README.md');
+        getRepositoryUrl(
+          '$prefix/dart-lang/angular/tree/master/angular/',
+          'README.md',
+        ),
+        '$prefix/dart-lang/angular/blob/master/angular/README.md',
+      );
     });
 
     test('image links in root', () {
-      expect(getRepositoryUrl('$prefix/dart-lang/angular', 'logo.png'),
-          '$prefix/dart-lang/angular/raw/master/logo.png');
-      expect(getRepositoryUrl('$prefix/dart-lang/angular/', 'logo.png'),
-          '$prefix/dart-lang/angular/raw/master/logo.png');
+      expect(
+        getRepositoryUrl('$prefix/dart-lang/angular', 'logo.png'),
+        '$prefix/dart-lang/angular/raw/master/logo.png',
+      );
+      expect(
+        getRepositoryUrl('$prefix/dart-lang/angular/', 'logo.png'),
+        '$prefix/dart-lang/angular/raw/master/logo.png',
+      );
     });
 
     test('image links in specific branch', () {
@@ -64,13 +78,19 @@ void main() {
 
     test('image links in project subdir', () {
       expect(
-          getRepositoryUrl(
-              '$prefix/dart-lang/angular/tree/master/angular', 'logo.png'),
-          '$prefix/dart-lang/angular/raw/master/angular/logo.png');
+        getRepositoryUrl(
+          '$prefix/dart-lang/angular/tree/master/angular',
+          'logo.png',
+        ),
+        '$prefix/dart-lang/angular/raw/master/angular/logo.png',
+      );
       expect(
-          getRepositoryUrl(
-              '$prefix/dart-lang/angular/tree/master/angular/', 'logo.png'),
-          '$prefix/dart-lang/angular/raw/master/angular/logo.png');
+        getRepositoryUrl(
+          '$prefix/dart-lang/angular/tree/master/angular/',
+          'logo.png',
+        ),
+        '$prefix/dart-lang/angular/raw/master/angular/logo.png',
+      );
     });
   }
 
@@ -84,25 +104,32 @@ void main() {
 
   group('URL replacements', () {
     test('GitHub replacements', () {
-      expect(getRepositoryUrl('http://github.com/user/project/', 'README.md'),
-          'https://github.com/user/project/blob/master/README.md');
       expect(
-          getRepositoryUrl('https://www.github.com/user/project/', 'README.md'),
-          'https://github.com/user/project/blob/master/README.md');
+        getRepositoryUrl('http://github.com/user/project/', 'README.md'),
+        'https://github.com/user/project/blob/master/README.md',
+      );
+      expect(
+        getRepositoryUrl('https://www.github.com/user/project/', 'README.md'),
+        'https://github.com/user/project/blob/master/README.md',
+      );
     });
 
     test('.git URL', () {
       expect(
-          getRepositoryUrl(
-              'https://github.com/daniel-maxhari/dynamic_text_highlighting.git',
-              'LICENSE'),
-          'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/LICENSE');
+        getRepositoryUrl(
+          'https://github.com/daniel-maxhari/dynamic_text_highlighting.git',
+          'LICENSE',
+        ),
+        'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/LICENSE',
+      );
 
       expect(
-          getRepositoryUrl(
-              'https://github.com/daniel-maxhari/dynamic_text_highlighting.git/blob/master/subdir',
-              'LICENSE'),
-          'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/subdir/LICENSE');
+        getRepositoryUrl(
+          'https://github.com/daniel-maxhari/dynamic_text_highlighting.git/blob/master/subdir',
+          'LICENSE',
+        ),
+        'https://github.com/daniel-maxhari/dynamic_text_highlighting/blob/master/subdir/LICENSE',
+      );
     });
   });
 
@@ -124,8 +151,9 @@ void main() {
     });
 
     test('problem: missing', () async {
-      final status = await UrlChecker()
-          .checkStatus('https://github.com/dart-lang/pub-dev/missing-url');
+      final status = await UrlChecker().checkStatus(
+        'https://github.com/dart-lang/pub-dev/missing-url',
+      );
       expect(status.isInvalid, false);
       expect(status.isSecure, true);
       expect(status.exists, false);

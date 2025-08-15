@@ -15,8 +15,11 @@ import 'package:yaml/yaml.dart';
 
 import 'logging.dart';
 
-Stream<String> listFiles(String directory,
-    {String? endsWith, bool deleteBadExtracted = false}) {
+Stream<String> listFiles(
+  String directory, {
+  String? endsWith,
+  bool deleteBadExtracted = false,
+}) {
   var dir = Directory(directory);
   return dir
       .list(recursive: true)
@@ -45,10 +48,10 @@ List<String> dartFilesFromLib(String packageDir) {
   final libDirExists = libDir.existsSync();
   final dartFiles = libDirExists
       ? libDir
-          .listSync(recursive: true)
-          .where((e) => e is File && e.path.endsWith('.dart'))
-          .map((f) => p.relative(f.path, from: libDir.path))
-          .toList()
+            .listSync(recursive: true)
+            .where((e) => e is File && e.path.endsWith('.dart'))
+            .map((f) => p.relative(f.path, from: libDir.path))
+            .toList()
       : <String>[];
 
   // Sort to make the order of files and the reported events deterministic.
@@ -64,8 +67,10 @@ Object? sortedJson(Object? obj) {
 
 Object? _toSortedMap(Object? item) {
   if (item is Map) {
-    return SplayTreeMap<String, Object?>.fromIterable(item.keys,
-        value: (k) => _toSortedMap(item[k]));
+    return SplayTreeMap<String, Object?>.fromIterable(
+      item.keys,
+      value: (k) => _toSortedMap(item[k]),
+    );
   } else if (item is List) {
     return item.map(_toSortedMap).toList();
   } else {
@@ -159,8 +164,9 @@ Future<void> copyDir(String from, String to) async {
 }
 
 Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
-  final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
-      .resolve('/api/packages/$package');
+  final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org')).resolve(
+    '/api/packages/$package',
+  );
   log.fine('Downloading: $url');
 
   return await retry(

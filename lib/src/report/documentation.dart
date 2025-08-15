@@ -22,8 +22,11 @@ Future<Subsection> _exampleSubsection(PackageContext context) async {
   // then test for presence of candidates in that list.
   //
   // This should work on case-preserving but insensitive file-systems.
-  final files = Directory(packageDir).listSync(recursive: true).map(
-      (e) => p.posix.joinAll(p.split(p.relative(e.path, from: packageDir))));
+  final files = Directory(packageDir)
+      .listSync(recursive: true)
+      .map(
+        (e) => p.posix.joinAll(p.split(p.relative(e.path, from: packageDir))),
+      );
   final examplePath = candidates.firstWhereOrNull(files.contains);
   final issues = <Issue>[
     if (examplePath == null)
@@ -32,7 +35,7 @@ Future<Subsection> _exampleSubsection(PackageContext context) async {
         suggestion:
             'See [package layout](https://dart.dev/tools/pub/package-layout#examples) '
             'guidelines on how to add an example.',
-      )
+      ),
   ];
 
   final screenshotIssues = <Issue>[];
@@ -63,7 +66,8 @@ Future<ReportSection> hasDocumentation(PackageContext context) async {
     documentation = await createDocumentationCoverageSection(dartdocPubData);
   } else if (dartdocResult.wasRunning) {
     documentation = dartdocFailedSubsection(
-        dartdocResult.errorReason ?? 'Running or processing dartdoc failed.');
+      dartdocResult.errorReason ?? 'Running or processing dartdoc failed.',
+    );
   }
 
   final example = await _exampleSubsection(context);
@@ -71,10 +75,7 @@ Future<ReportSection> hasDocumentation(PackageContext context) async {
     id: ReportSectionId.documentation,
     title: 'Provide documentation',
     maxPoints: (documentation?.maxPoints ?? 0) + example.maxPoints,
-    subsections: [
-      if (documentation != null) documentation,
-      example,
-    ],
+    subsections: [if (documentation != null) documentation, example],
     basePath: null,
   );
 }

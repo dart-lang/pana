@@ -27,28 +27,38 @@ class ExtractedMarkdownContent {
   });
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'images': images.map((l) => l.url).toList(),
-        'links': links.map((l) => l.url).toList(),
-        'isMalformedUtf8': isMalformedUtf8,
-        'nonAsciiRatio': nonAsciiRatio,
-      };
+    'images': images.map((l) => l.url).toList(),
+    'links': links.map((l) => l.url).toList(),
+    'isMalformedUtf8': isMalformedUtf8,
+    'nonAsciiRatio': nonAsciiRatio,
+  };
 }
 
 /// Scans a markdown text and extracts its content.
 ExtractedMarkdownContent _scanMarkdownText(
-    String text, Uri sourceUrl, bool isMalformedUtf8) {
+  String text,
+  Uri sourceUrl,
+  bool isMalformedUtf8,
+) {
   final htmlText = markdownToHtml(text);
-  final html = html_parser.parseFragment(htmlText,
-      sourceUrl: sourceUrl.toString(), generateSpans: true);
+  final html = html_parser.parseFragment(
+    htmlText,
+    sourceUrl: sourceUrl.toString(),
+    generateSpans: true,
+  );
   return ExtractedMarkdownContent(
-    images: _unique(html
-        .querySelectorAll('img')
-        .where((e) => e.attributes.containsKey('src'))
-        .map((e) => Link(e.attributes['src']!, e.sourceSpan))),
-    links: _unique(html
-        .querySelectorAll('a')
-        .where((e) => e.attributes.containsKey('href'))
-        .map((e) => Link(e.attributes['href']!, e.sourceSpan))),
+    images: _unique(
+      html
+          .querySelectorAll('img')
+          .where((e) => e.attributes.containsKey('src'))
+          .map((e) => Link(e.attributes['src']!, e.sourceSpan)),
+    ),
+    links: _unique(
+      html
+          .querySelectorAll('a')
+          .where((e) => e.attributes.containsKey('href'))
+          .map((e) => Link(e.attributes['href']!, e.sourceSpan)),
+    ),
     isMalformedUtf8: isMalformedUtf8,
     nonAsciiRatio: nonAsciiRuneRatio(text),
   );
@@ -102,9 +112,5 @@ class Links {
   final List<Link> parsed;
   final List<Link> insecure;
 
-  Links({
-    required this.unparsed,
-    required this.parsed,
-    required this.insecure,
-  });
+  Links({required this.unparsed, required this.parsed, required this.insecure});
 }
