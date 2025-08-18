@@ -159,6 +159,7 @@ void main() {
           'range': {
             'start': {'offset': 44, 'line': 2, 'column': 0},
             'end': {'offset': 1503, 'line': 26, 'column': 68},
+            'coverages': isNotEmpty,
           },
         },
       ]);

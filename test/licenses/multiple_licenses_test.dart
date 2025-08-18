@@ -26,6 +26,7 @@ void main() {
           'range': {
             'start': {'offset': 1569, 'line': 33, 'column': 33},
             'end': {'offset': 12892, 'line': 233, 'column': 33},
+            'coverages': isNotEmpty,
           },
         },
         {
@@ -34,6 +35,7 @@ void main() {
           'range': {
             'start': {'offset': 240, 'line': 8, 'column': 0},
             'end': {'offset': 1479, 'line': 27, 'column': 68},
+            'coverages': isNotEmpty,
           },
         },
       ]);
@@ -56,6 +58,7 @@ void main() {
           'range': {
             'start': {'offset': 1441, 'line': 30, 'column': 33},
             'end': {'offset': 12764, 'line': 230, 'column': 33},
+            'coverages': isNotEmpty,
           },
         },
         {
@@ -64,6 +67,7 @@ void main() {
           'range': {
             'start': {'offset': 134, 'line': 7, 'column': 0},
             'end': {'offset': 1373, 'line': 26, 'column': 68},
+            'coverages': isNotEmpty,
           },
         },
       ]);
@@ -93,6 +97,7 @@ void main() {
           'range': {
             'start': {'offset': 1215, 'line': 28, 'column': 0},
             'end': {'offset': 2645, 'line': 52, 'column': 68},
+            'coverages': isNotEmpty,
           },
         },
         {
@@ -101,6 +106,7 @@ void main() {
           'range': {
             'start': {'offset': 31, 'line': 5, 'column': 0},
             'end': {'offset': 1053, 'line': 21, 'column': 9},
+            'coverages': isNotEmpty,
           },
         },
       ]);
@@ -121,6 +127,7 @@ void main() {
           'range': {
             'start': {'offset': 1276, 'line': 30, 'column': 0},
             'end': {'offset': 2511, 'line': 36, 'column': 755},
+            'coverages': isNotEmpty,
           },
         },
         {
@@ -129,6 +136,7 @@ void main() {
           'range': {
             'start': {'offset': 213, 'line': 8, 'column': 0},
             'end': {'offset': 1235, 'line': 24, 'column': 13},
+            'coverages': isNotEmpty,
           },
         },
       ]);

@@ -110,7 +110,16 @@ void main() {
             .replaceAll(
               RegExp('that was published [0-9]+ days ago'),
               'that was published N days ago',
-            );
+            )
+            .replaceAllMapped(RegExp(r'"coverages":\[(\d+(\,\d+)+)\]'), (m) {
+              final parts = m.group(1)!.split(',');
+              final remaning = parts.indexed
+                  .where((p) => p.$1 < 6 || p.$1 >= parts.length - 6)
+                  .map((p) => p.$2)
+                  .join(',');
+              return '"coverages":[$remaning]';
+            });
+
         actualMap = json.decode(updated) as Map<String, Object?>;
       });
 
