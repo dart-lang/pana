@@ -118,11 +118,15 @@ Map<String, dynamic> _$LicenseToJson(License instance) => <String, dynamic>{
 Range _$RangeFromJson(Map<String, dynamic> json) => Range(
   start: Position.fromJson(json['start'] as Map<String, dynamic>),
   end: Position.fromJson(json['end'] as Map<String, dynamic>),
+  coverages: (json['coverages'] as List<dynamic>)
+      .map((e) => (e as num).toInt())
+      .toList(),
 );
 
 Map<String, dynamic> _$RangeToJson(Range instance) => <String, dynamic>{
   'start': instance.start.toJson(),
   'end': instance.end.toJson(),
+  'coverages': instance.coverages,
 };
 
 Position _$PositionFromJson(Map<String, dynamic> json) => Position(

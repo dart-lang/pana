@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
+import 'package:source_span/source_span.dart';
 
 import 'license_detection/license_detector.dart' hide License, Range;
 import 'model.dart';
@@ -41,6 +42,11 @@ Future<List<License>> detectLicenseInFile(
   return licenses;
 }
 
+/// Characters and expression that are accepted as non-relevant range gaps,
+/// and consecutive [Range] values can be merged if they have only these
+/// between.
+final _rangeMergeRegexp = RegExp(r'^[\s\.\-\(\)\*]+$');
+
 /// Returns the license(s) detected from the [SPDX-corpus][1].
 ///
 /// [1]: https://spdx.org/licenses/
@@ -55,22 +61,52 @@ Future<List<License>> detectLicenseInContent(
     return <License>[];
   }
 
+  List<int> buildCoverages(LicenseMatch match) {
+    final ranges = <({int start, int end})>[];
+    // ignore: invalid_use_of_visible_for_testing_member
+    for (final token in match.tokens) {
+      // check to merge into last range
+      final last = ranges.lastOrNull;
+      if (last != null) {
+        var mergeWithLast = false;
+        if (last.end == token.span.start.offset) {
+          mergeWithLast = true;
+        } else {
+          final textBetween = content.substring(
+            last.end,
+            token.span.start.offset,
+          );
+          if (_rangeMergeRegexp.matchAsPrefix(textBetween) != null) {
+            mergeWithLast = true;
+          }
+        }
+        if (mergeWithLast) {
+          ranges[ranges.length - 1] = (
+            start: last.start,
+            end: token.span.end.offset,
+          );
+          continue;
+        }
+      }
+      // fallback: start a new range
+      ranges.add((start: token.span.start.offset, end: token.span.end.offset));
+    }
+    return ranges.expand((e) => [e.start, e.end]).toList();
+  }
+
   return licenseResult.matches.map((e) {
     return License(
       path: relativePath,
       spdxIdentifier: e.identifier,
       range: Range(
-        start: Position(
-          offset: e.start.offset,
-          line: e.start.line,
-          column: e.start.column,
-        ),
-        end: Position(
-          offset: e.end.offset,
-          line: e.end.line,
-          column: e.end.column,
-        ),
+        start: e.start.toPosition(),
+        end: e.end.toPosition(),
+        coverages: buildCoverages(e),
       ),
     );
   }).toList();
+}
+
+extension on SourceLocation {
+  Position toPosition() => Position(offset: offset, line: line, column: column);
 }

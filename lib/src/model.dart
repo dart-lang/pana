@@ -191,7 +191,11 @@ class Range {
   final Position start;
   final Position end;
 
-  Range({required this.start, required this.end});
+  /// Pair of values that indicate start-end offsets that inside the range are
+  /// covering the license text.
+  final List<int> coverages;
+
+  Range({required this.start, required this.end, required this.coverages});
 
   factory Range.fromJson(Map<String, dynamic> json) => _$RangeFromJson(json);
 
