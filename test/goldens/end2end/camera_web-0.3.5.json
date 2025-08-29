@@ -1,0 +1,192 @@
+{
+  "createdAt": "2022-11-23T11:09:00.000Z",
+  "runtimeInfo": {
+    "panaVersion": "{{pana-version}}",
+    "sdkVersion": "{{sdk-version}}",
+    "flutterVersions": {}
+  },
+  "packageName": "camera_web",
+  "packageVersion": "0.3.5",
+  "pubspec": {
+    "name": "camera_web",
+    "description": "A Flutter plugin for getting information about and controlling the camera on Web.",
+    "repository": "https://github.com/flutter/packages/tree/main/packages/camera/camera_web",
+    "issue_tracker": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+camera%22",
+    "version": "0.3.5",
+    "environment": {
+      "sdk": "^3.3.0",
+      "flutter": ">=3.19.0"
+    },
+    "flutter": {
+      "plugin": {
+        "implements": "camera",
+        "platforms": {
+          "web": {
+            "pluginClass": "CameraPlugin",
+            "fileName": "camera_web.dart"
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "camera_platform_interface": "^2.6.0",
+      "flutter": {
+        "sdk": "flutter"
+      },
+      "flutter_web_plugins": {
+        "sdk": "flutter"
+      },
+      "stream_transform": "^2.0.0",
+      "web": ">=0.5.1 <2.0.0"
+    },
+    "dev_dependencies": {
+      "flutter_test": {
+        "sdk": "flutter"
+      }
+    },
+    "topics": [
+      "camera"
+    ]
+  },
+  "licenseFile": {
+    "path": "LICENSE",
+    "name": "BSD-3-Clause"
+  },
+  "licenses": [
+    {
+      "path": "LICENSE",
+      "spdxIdentifier": "BSD-3-Clause",
+      "range": {
+        "start": {
+          "offset": 58,
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "offset": 1518,
+          "line": 24,
+          "column": 60
+        },
+        "coverages": [
+          58,
+          831,
+          833,
+          1518
+        ]
+      }
+    }
+  ],
+  "allDependencies": [
+    "camera_platform_interface",
+    "characters",
+    "collection",
+    "cross_file",
+    "flutter",
+    "flutter_test",
+    "flutter_web_plugins",
+    "material_color_utilities",
+    "meta",
+    "plugin_platform_interface",
+    "stream_transform",
+    "vector_math",
+    "web"
+  ],
+  "tags": [
+    "sdk:flutter",
+    "platform:web",
+    "is:plugin",
+    "implementsFederatedPlugin:camera",
+    "is:null-safe",
+    "is:wasm-ready",
+    "is:dart3-compatible",
+    "license:bsd-3-clause",
+    "license:fsf-libre",
+    "license:osi-approved",
+    "topic:camera"
+  ],
+  "report": {
+    "sections": [
+      {
+        "id": "convention",
+        "title": "Follow Dart file conventions",
+        "grantedPoints": 30,
+        "maxPoints": 30,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: Provide a valid `pubspec.yaml`\n\n### [*] 5/5 points: Provide a valid `README.md`\n\n### [*] 5/5 points: Provide a valid `CHANGELOG.md`\n\n### [*] 10/10 points: Use an OSI-approved license\n\nDetected license: `BSD-3-Clause`.\n"
+      },
+      {
+        "id": "documentation",
+        "title": "Provide documentation",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n50 out of 51 API elements (98.0 %) have documentation comments.\n\nSome symbols that are missing documentation: `camera_web`.\n\n### [*] 10/10 points: Package has an example\n"
+      },
+      {
+        "id": "platform",
+        "title": "Platform support",
+        "grantedPoints": 20,
+        "maxPoints": 20,
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, macOS, Linux)\n\n* ✓ Web\n\n\nThese platforms are not supported:\n\n<details>\n<summary>\nPackage does not support platform `Android`.\n</summary>\n\nBecause:\n* `package:camera_web/camera_web.dart` that declares support for platforms: `Web`.\n</details>\n\n<details>\n<summary>\nPackage does not support platform `iOS`.\n</summary>\n\nBecause:\n* `package:camera_web/camera_web.dart` that declares support for platforms: `Web`.\n</details>\n\n<details>\n<summary>\nPackage does not support platform `Windows`.\n</summary>\n\nBecause:\n* `package:camera_web/camera_web.dart` that declares support for platforms: `Web`.\n</details>\n\n<details>\n<summary>\nPackage does not support platform `Linux`.\n</summary>\n\nBecause:\n* `package:camera_web/camera_web.dart` that declares support for platforms: `Web`.\n</details>\n\n<details>\n<summary>\nPackage does not support platform `macOS`.\n</summary>\n\nBecause:\n* `package:camera_web/camera_web.dart` that declares support for platforms: `Web`.\n</details>\n\n### [*] 0/0 points: WASM compatibility\n\nThis package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.\n\nSee https://dart.dev/web/wasm for details.\n"
+      },
+      {
+        "id": "analysis",
+        "title": "Pass static analysis",
+        "grantedPoints": 40,
+        "maxPoints": 50,
+        "status": "partial",
+        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: 'drawImageScaled' is deprecated and shouldn't be used. See CanvasRenderingContext2D.drawImage.\n</summary>\n\n`lib/src/camera.dart:268:22`\n\n```\n    ╷\n268 │     canvas.context2D.drawImageScaled(\n    │                      ^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/src/camera.dart`\n</details>\n"
+      },
+      {
+        "id": "dependency",
+        "title": "Support up-to-date dependencies",
+        "grantedPoints": 40,
+        "maxPoints": 40,
+        "status": "passed",
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|Notes|\n|:-|:-|:-|:-|:-|\n|[`camera_platform_interface`]|`^2.6.0`|2.10.0|2.10.0||\n|[`stream_transform`]|`^2.0.0`|2.1.1|2.1.1||\n|[`web`]|`>=0.5.1 <2.0.0`|1.1.1|1.1.1||\n\n<details><summary>Transitive dependencies</summary>\n\n|Package|Constraint|Compatible|Latest|Notes|\n|:-|:-|:-|:-|:-|\n|[`characters`]|-|1.4.0|1.4.1||\n|[`collection`]|-|1.19.1|1.19.1||\n|[`cross_file`]|-|0.3.4+2|0.3.4+2||\n|[`material_color_utilities`]|-|0.11.1|0.13.0||\n|[`meta`]|-|1.17.0|1.17.0||\n|[`plugin_platform_interface`]|-|2.1.8|2.1.8||\n|[`vector_math`]|-|2.2.0|2.2.0||\n</details>\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`camera_platform_interface`]: https://pub.dev/packages/camera_platform_interface\n[`stream_transform`]: https://pub.dev/packages/stream_transform\n[`web`]: https://pub.dev/packages/web\n[`characters`]: https://pub.dev/packages/characters\n[`collection`]: https://pub.dev/packages/collection\n[`cross_file`]: https://pub.dev/packages/cross_file\n[`material_color_utilities`]: https://pub.dev/packages/material_color_utilities\n[`meta`]: https://pub.dev/packages/meta\n[`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface\n[`vector_math`]: https://pub.dev/packages/vector_math\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n\n### [*] 20/20 points: Compatible with dependency constraint lower bounds\n\n`pub downgrade` does not expose any static analysis error.\n"
+      }
+    ]
+  },
+  "screenshots": [],
+  "result": {
+    "repositoryUrl": "https://github.com/flutter/packages/tree/main/packages/camera/camera_web",
+    "issueTrackerUrl": "https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+camera%22",
+    "repositoryStatus": "verified",
+    "repository": {
+      "provider": "github",
+      "host": "github.com",
+      "repository": "flutter/packages",
+      "branch": "main",
+      "path": "packages/camera/camera_web"
+    },
+    "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md",
+    "licenses": [
+      {
+        "path": "LICENSE",
+        "spdxIdentifier": "BSD-3-Clause",
+        "range": {
+          "start": {
+            "offset": 58,
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "offset": 1518,
+            "line": 24,
+            "column": 60
+          },
+          "coverages": [
+            58,
+            831,
+            833,
+            1518
+          ]
+        }
+      }
+    ],
+    "grantedPoints": 150,
+    "maxPoints": 160
+  },
+  "urlProblems": []
+}

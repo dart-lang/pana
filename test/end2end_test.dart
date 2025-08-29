@@ -32,9 +32,10 @@ void main() {
       late final Map<String, Object?> actualMap;
 
       setUpAll(() async {
-        tempDir = Directory.systemTemp
-            .createTempSync('pana-test')
-            .resolveSymbolicLinksSync();
+        tempDir =
+            Directory.systemTemp
+                .createTempSync('pana-test')
+                .resolveSymbolicLinksSync();
         final pubCacheDir = p.join(tempDir, 'pub-cache');
         final panaCacheDir = p.join(tempDir, 'pana-cache');
         final dartConfigDir = p.join(tempDir, 'config', 'dart');
@@ -133,8 +134,9 @@ void main() {
         void removeDependencyDetails(Map<String, dynamic> map) {
           if (map.containsKey('pkgResolution') &&
               (map['pkgResolution'] as Map).containsKey('dependencies')) {
-            final deps = (map['pkgResolution']['dependencies'] as List)
-                .cast<Map<dynamic, dynamic>>();
+            final deps =
+                (map['pkgResolution']['dependencies'] as List)
+                    .cast<Map<dynamic, dynamic>>();
             for (final m in deps) {
               m.remove('resolved');
               m.remove('available');
@@ -184,9 +186,8 @@ void main() {
       });
 
       test('Summary tags check', () {
-        final tagsFileContent = File(
-          'lib/src/tag/pana_tags.dart',
-        ).readAsStringSync();
+        final tagsFileContent =
+            File('lib/src/tag/pana_tags.dart').readAsStringSync();
         final summary = Summary.fromJson(actualMap);
         final tags = summary.tags;
         if (tags != null) {
@@ -258,6 +259,9 @@ void main() {
 
   // packages with bad content
   verifyPackage('_dummy_pkg', '1.0.0-null-safety.1');
+
+  // federated plugin
+  verifyPackage('camera_web', '0.3.5');
 }
 
 Future<DateTime> _detectGoldenLastModified() async {
@@ -287,8 +291,8 @@ Future<HttpServer> _startLocalProxy({
           segments[0] == 'api' &&
           segments[1] == 'packages') {
         final content = json.decode(rs.body) as Map<String, dynamic>;
-        final versions = (content['versions'] as List)
-            .cast<Map<String, dynamic>>();
+        final versions =
+            (content['versions'] as List).cast<Map<String, dynamic>>();
         versions.removeWhere((item) {
           final published = DateTime.parse(item['published'] as String);
           return published.isAfter(blockPublishAfter);

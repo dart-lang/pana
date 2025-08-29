@@ -130,16 +130,16 @@ class Tagger {
   /// Assumes that `dart pub get` has been run.
   factory Tagger(String packageDir) {
     final normalizedPath = path.normalize(packageDir);
-    final session = AnalysisContextCollection(
-      includedPaths: [normalizedPath],
-    ).contextFor(normalizedPath).currentSession;
+    final session =
+        AnalysisContextCollection(
+          includedPaths: [normalizedPath],
+        ).contextFor(normalizedPath).currentSession;
     final pubspecCache = PubspecCache(session);
     final pubspec = pubspecFromDir(packageDir);
 
     final libDartFiles = dartFilesFromLib(packageDir);
-    final nonSrcDartFiles = libDartFiles
-        .where((p) => path.split(p).first != 'src')
-        .toList();
+    final nonSrcDartFiles =
+        libDartFiles.where((p) => path.split(p).first != 'src').toList();
 
     Uri? primaryLibrary;
     if (libDartFiles.contains('${pubspec.name}.dart')) {
@@ -154,27 +154,30 @@ class Tagger {
     if (primaryLibrary != null) {
       topLibraries = <Uri>[primaryLibrary];
     } else {
-      topLibraries = (nonSrcDartFiles.isEmpty ? libDartFiles : nonSrcDartFiles)
-          .map((name) => Uri.parse('package:${pubspec.name}/$name'))
-          .toList();
+      topLibraries =
+          (nonSrcDartFiles.isEmpty ? libDartFiles : nonSrcDartFiles)
+              .map((name) => Uri.parse('package:${pubspec.name}/$name'))
+              .toList();
     }
 
     final binDir = Directory(path.join(packageDir, 'bin'));
-    final allBinFiles = binDir.existsSync()
-        ? binDir
-              .listSync(recursive: true)
-              .where((e) => e is File && e.path.endsWith('.dart'))
-              .map((f) => path.relative(f.path, from: binDir.path))
-              .toList()
-        : <String>[];
+    final allBinFiles =
+        binDir.existsSync()
+            ? binDir
+                .listSync(recursive: true)
+                .where((e) => e is File && e.path.endsWith('.dart'))
+                .map((f) => path.relative(f.path, from: binDir.path))
+                .toList()
+            : <String>[];
     final isBinaryOnly =
         !pubspec.usesFlutter &&
         nonSrcDartFiles.isEmpty &&
         allBinFiles.isNotEmpty;
 
-    final publicLibraries = nonSrcDartFiles
-        .map((s) => Uri.parse('package:${pubspec.name}/$s'))
-        .toList();
+    final publicLibraries =
+        nonSrcDartFiles
+            .map((s) => Uri.parse('package:${pubspec.name}/$s'))
+            .toList();
     return Tagger._(
       pubspec.name,
       session,
@@ -302,13 +305,14 @@ class Tagger {
       // restricting the result.
       //
       // We still keep the unpruned detection for providing Explanations.
-      final prunedLibraryGraph = trustDeclarations
-          ? LibraryGraph(
-              _session,
-              runtime.declaredVariables,
-              isLeaf: declaredPlatformDetector.hasDeclaredPlatforms,
-            )
-          : libraryGraph;
+      final prunedLibraryGraph =
+          trustDeclarations
+              ? LibraryGraph(
+                _session,
+                runtime.declaredVariables,
+                isLeaf: declaredPlatformDetector.hasDeclaredPlatforms,
+              )
+              : libraryGraph;
 
       final prunedViolationFinder = PlatformViolationFinder(
         platform,
@@ -355,6 +359,18 @@ class Tagger {
     final pubspec = _pubspecCache.pubspecOfPackage(packageName);
     if (pubspec.hasFlutterPluginKey) {
       tags.add(PanaTags.isPlugin);
+    }
+  }
+
+  /// Adds tags for flutter plugins that implements other packages.
+  void flutterImplementsTags(
+    List<String> tags,
+    List<Explanation> explanations,
+  ) {
+    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
+    final implements = pubspec.flutterFederatedPluginImplements;
+    if (implements != null) {
+      tags.add('implementsFederatedPlugin:$implements');
     }
   }
 
@@ -425,9 +441,9 @@ class Tagger {
         isDarwinPlugin = true;
         final osDir =
             pubspec.originalYaml['flutter']?['plugin']?['platforms']?[darwinOs]?['sharedDarwinSource'] ==
-                true
-            ? 'darwin'
-            : darwinOs;
+                    true
+                ? 'darwin'
+                : darwinOs;
 
         final packageSwiftFile = path.join(osDir, packageName, 'Package.swift');
         if (!File(path.join(packageDir, packageSwiftFile)).existsSync()) {
@@ -525,11 +541,11 @@ It does not contain `$packageSwiftFile`.
         return pubspec.sdkConstraintStatus.hasOptedIntoNullSafety
             ? null
             : (path) => Explanation(
-                'Package is not null safe',
-                'Because:\n${PackageGraph.formatPath(path)} '
-                    'that doesn\'t opt in to null safety',
-                tag: PanaTags.isNullSafe,
-              );
+              'Package is not null safe',
+              'Because:\n${PackageGraph.formatPath(path)} '
+                  'that doesn\'t opt in to null safety',
+              tag: PanaTags.isNullSafe,
+            );
       });
 
       final sdkConstraintResult = sdkConstraintFinder.findViolation(
@@ -540,50 +556,49 @@ It does not contain `$packageSwiftFile`.
         foundIssues = true;
       } else {
         for (final runtime in Runtime.recognizedRuntimes) {
-          final optOutViolationFinder = PathFinder<Uri>(
-            LibraryGraph(_session, runtime.declaredVariables),
-            (library) {
-              // For completeness we should check every SDK libraries, however
-              // some `dart:` libraries are not available in the analysis session.
-              // TODO: investigate why some of the libraries (e.g. web_gl) are not available
-              //       see https://github.com/dart-lang/pana/issues/1136 for further details
-              if (library.scheme == 'dart') return null;
+          final optOutViolationFinder = PathFinder<
+            Uri
+          >(LibraryGraph(_session, runtime.declaredVariables), (library) {
+            // For completeness we should check every SDK libraries, however
+            // some `dart:` libraries are not available in the analysis session.
+            // TODO: investigate why some of the libraries (e.g. web_gl) are not available
+            //       see https://github.com/dart-lang/pana/issues/1136 for further details
+            if (library.scheme == 'dart') return null;
 
-              // Extension methods are not checked.
-              if (library.scheme == 'dart-ext') return null;
+            // Extension methods are not checked.
+            if (library.scheme == 'dart-ext') return null;
 
-              final resolvedPath = _session.uriConverter.uriToPath(library);
-              if (resolvedPath == null) {
-                return (path) => Explanation(
-                  'Unable to access import.',
-                  'Because:\n${LibraryGraph.formatPath(path)} where $library is inaccessible.',
-                  tag: PanaTags.isNullSafe,
-                );
-              }
-              final unit = parsedUnitFromUri(_session, library);
-              if (unit == null) return null;
-              final languageVersionToken = unit.languageVersionToken;
-              if (languageVersionToken == null) return null;
-              // dart:ui has no package name. So we cannot trivially look it up in
-              // the allowed experiments. We just assume it is opted in.
-              if (!library.isScheme('package')) return null;
-              if (!isNullSafety(
-                Version(
-                  languageVersionToken.major,
-                  languageVersionToken.minor,
-                  0,
-                ),
-              )) {
-                return (path) => Explanation(
-                  'Package is not null safe',
-                  'Because:\n${LibraryGraph.formatPath(path)} where $library '
-                      'is opting out from null safety.',
-                  tag: PanaTags.isNullSafe,
-                );
-              }
-              return null;
-            },
-          );
+            final resolvedPath = _session.uriConverter.uriToPath(library);
+            if (resolvedPath == null) {
+              return (path) => Explanation(
+                'Unable to access import.',
+                'Because:\n${LibraryGraph.formatPath(path)} where $library is inaccessible.',
+                tag: PanaTags.isNullSafe,
+              );
+            }
+            final unit = parsedUnitFromUri(_session, library);
+            if (unit == null) return null;
+            final languageVersionToken = unit.languageVersionToken;
+            if (languageVersionToken == null) return null;
+            // dart:ui has no package name. So we cannot trivially look it up in
+            // the allowed experiments. We just assume it is opted in.
+            if (!library.isScheme('package')) return null;
+            if (!isNullSafety(
+              Version(
+                languageVersionToken.major,
+                languageVersionToken.minor,
+                0,
+              ),
+            )) {
+              return (path) => Explanation(
+                'Package is not null safe',
+                'Because:\n${LibraryGraph.formatPath(path)} where $library '
+                    'is opting out from null safety.',
+                tag: PanaTags.isNullSafe,
+              );
+            }
+            return null;
+          });
 
           for (final library in _publicLibraries) {
             final nullSafetyResult = optOutViolationFinder.findViolation(

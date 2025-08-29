@@ -62,6 +62,23 @@ class Pubspec {
       _content['flutter'] is Map &&
       _content['flutter']['plugin'] != null;
 
+  /// The name of the package that this plugin implements, or null if it is not
+  /// an implementation.
+  ///
+  /// See https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms
+  String? get flutterFederatedPluginImplements {
+    if (hasFlutterPluginKey) {
+      final plugin = _content['flutter']['plugin'];
+      if (plugin is Map) {
+        final implements = plugin['implements'];
+        if (implements is String) {
+          return implements;
+        }
+      }
+    }
+    return null;
+  }
+
   bool get dependsOnFlutterSdk => dependentSdks.contains('flutter');
 
   bool get dependsOnFlutterPackage => dependsOnPackage('flutter');
@@ -150,9 +167,9 @@ class Pubspec {
   }
 
   VersionConstraint? get flutterSdkConstraint =>
-      // Flutter constraints get special treatment, as Flutter won't be
-      // using semantic versioning to mark breaking releases.
-      _removeUpperBound(_inner.environment['flutter']);
+  // Flutter constraints get special treatment, as Flutter won't be
+  // using semantic versioning to mark breaking releases.
+  _removeUpperBound(_inner.environment['flutter']);
 
   VersionConstraint? _removeUpperBound(VersionConstraint? constraint) {
     if (constraint is VersionRange) {

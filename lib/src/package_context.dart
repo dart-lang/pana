@@ -200,7 +200,7 @@ class PackageContext {
       if (pr.exitCode != 0) {
         log.info('[pub-downgrade-error]');
         log.info(pr.asJoinedOutput);
-        return '`$tool pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n';
+        return '''`$tool pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n''';
       }
 
       final problems = await _staticAnalysis(packageDir: packageDir);
@@ -278,6 +278,7 @@ class PackageContext {
       tagger.platformTags(tags, explanations);
       tagger.runtimeTags(tags, explanations);
       tagger.flutterPluginTags(tags, explanations);
+      tagger.flutterImplementsTags(tags, explanations);
       tagger.nullSafetyTags(tags, explanations);
       tagger.wasmReadyTag(tags, explanations);
       tagger.swiftPackageManagerPluginTag(tags, explanations);
