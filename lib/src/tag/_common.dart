@@ -80,7 +80,7 @@ CompilationUnit? parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
     throw TagException('Broken import $uri');
   }
   final unitResult = analysisSession.getParsedUnit(path) as ParsedUnitResult;
-  if (unitResult.errors.isNotEmpty) return null;
+  if (unitResult.diagnostics.isNotEmpty) return null;
   if (unitResult.isPart) {
     // Part files cannot contain import/export directives or language
     // directives.
