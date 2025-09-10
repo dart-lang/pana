@@ -1,3 +1,7 @@
+## 0.22.24
+
+- Fixed small ambiguity in the order of license match evaluation.
+
 ## 0.22.23
 
 - Upgraded SDK constraint: `^3.8.0`.
