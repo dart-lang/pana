@@ -244,7 +244,14 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
       }
     });
   }
-  licenses.sort((a, b) => a.identifier.compareTo(b.identifier));
+  licenses.sort((a, b) {
+    final x = a.identifier.compareTo(b.identifier);
+    if (x != 0) return x;
+    // there are a few licenes that have multiple versions:
+    final y = a.content.length.compareTo(b.content.length);
+    if (y != 0) return y;
+    return a.content.compareTo(b.content);
+  });
   return List.unmodifiable(licenses);
 }
 
