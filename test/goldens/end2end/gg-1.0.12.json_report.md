@@ -189,9 +189,7 @@ Try running `dart pub upgrade --major-versions gg_args` to update the constraint
 
 <details>
 <summary>
-The constraint `^2.0.0` on gg_git does not support the stable version `3.0.0`, that was published N days ago. 
-
- When gg_git is 30 days old, this package will no longer be awarded points in this category.
+The constraint `^2.0.0` on gg_git does not support the stable version `3.0.0`.
 </summary>
 
 Try running `dart pub upgrade --major-versions gg_git` to update the constraint.
