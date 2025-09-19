@@ -54,4 +54,63 @@ formatter:
       },
     });
   });
+
+  test('ignore include in original', () {
+    final content = updatePassthroughOptions(
+      original: 'include: package:lints/other.yaml',
+      custom: '',
+    );
+    expect(json.decode(content), <String, Object?>{});
+  });
+
+  test('include only in custom: keepInclude=false', () {
+    final content = updatePassthroughOptions(
+      original: '',
+      custom: 'include: package:lints/other.yaml',
+    );
+    expect(json.decode(content), <String, Object?>{
+      'include': 'package:lints/other.yaml',
+    });
+  });
+
+  test('include only in custom: keepInclude=true', () {
+    final content = updatePassthroughOptions(
+      original: '',
+      custom: 'include: package:lints/other.yaml',
+    );
+    expect(json.decode(content), <String, Object?>{
+      'include': 'package:lints/other.yaml',
+    });
+  });
+
+  test('keep include preserves the value', () {
+    final content = updatePassthroughOptions(
+      original: 'include: package:lints/other.yaml',
+      custom: '',
+      keepInclude: true,
+    );
+    expect(json.decode(content), <String, Object?>{
+      'include': 'package:lints/other.yaml',
+    });
+  });
+
+  test('keep include does not override the value', () {
+    final content = updatePassthroughOptions(
+      original: 'include: package:lints/other.yaml',
+      custom: 'include: package:lints/core.yaml',
+      keepInclude: true,
+    );
+    expect(json.decode(content), <String, Object?>{
+      'include': 'package:lints/core.yaml',
+    });
+  });
+
+  test('keep include without include value', () {
+    final content = updatePassthroughOptions(
+      original: '',
+      custom: '',
+      keepInclude: true,
+    );
+    expect(json.decode(content), <String, Object?>{});
+  });
 }

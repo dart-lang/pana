@@ -217,6 +217,7 @@ class ToolEnvironment {
     final customOptionsContent = updatePassthroughOptions(
       original: originalOptions,
       custom: rawOptionsContent,
+      keepInclude: true,
     );
     try {
       await analysisOptionsFile.writeAsString(customOptionsContent);
@@ -285,6 +286,8 @@ class ToolEnvironment {
       return const [];
     }
     return withRestrictedAnalysisOptions(packageDir, () async {
+      await runPub(packageDir, usesFlutter: usesFlutter, command: 'get');
+
       final files = <String>{};
       for (final dir in dirs) {
         final fullPath = p.join(packageDir, dir);
@@ -341,6 +344,7 @@ class ToolEnvironment {
       }
       return files.toList()..sort();
     });
+    // });
   }
 
   Future<Map<String, dynamic>> _getFlutterVersion() async {
@@ -610,10 +614,42 @@ class ToolEnvironment {
       p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'),
     );
 
+    // extract the package name from the `include: package:<package>/path.yaml` entry in analysis options:
+    String? includedPackage;
+    final analysisOptionsFile = File(
+      p.join(packageDir, 'analysis_options.yaml'),
+    );
+    if (await analysisOptionsFile.exists()) {
+      final analysisOptions = await analysisOptionsFile.readAsString();
+      final parsed = yamlToJson(analysisOptions);
+      final include = (parsed?['include'] as String?)?.trim() ?? '';
+      if (include.startsWith('package:')) {
+        includedPackage = include.substring('package:'.length).split('/').first;
+      }
+    }
+
     final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
     final original = await pubspec.readAsString();
     final parsed = yamlToJson(original) ?? <String, dynamic>{};
-    parsed.remove('dev_dependencies');
+    final oldDevDependencies = parsed.remove('dev_dependencies');
+    if (oldDevDependencies is Map<String, dynamic>) {
+      final keptDevDependencies = <String, dynamic>{};
+      for (final name in oldDevDependencies.keys) {
+        if (name != includedPackage) continue;
+        final value = oldDevDependencies[name];
+        var passthrough = true;
+        if (value is Map &&
+            (value.containsKey('path') || value.containsKey('git'))) {
+          passthrough = false;
+        }
+        if (passthrough) {
+          keptDevDependencies[name] = value;
+        }
+      }
+      if (keptDevDependencies.isNotEmpty) {
+        parsed['dev_dependencies'] = keptDevDependencies;
+      }
+    }
     parsed.remove('dependency_overrides');
     parsed.remove('workspace');
     parsed.remove('resolution');

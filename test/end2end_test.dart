@@ -5,17 +5,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as p;
-import 'package:shelf/shelf.dart' as shelf;
-import 'package:shelf/shelf_io.dart';
 import 'package:test/test.dart';
 
+import 'env_utils.dart';
 import 'golden_file.dart';
 
 final _goldenDir = p.join('test', 'goldens', 'end2end');
-final _pubDevUri = Uri.parse('https://pub.dartlang.org/');
 
 void main() {
   void verifyPackage(
@@ -25,50 +22,28 @@ void main() {
   }) {
     final filename = '$package-$version.json';
     group('end2end: $package $version', () {
-      late String tempDir;
-      late PackageAnalyzer analyzer;
-      http.Client? httpClient;
-      late HttpServer httpServer;
+      late TestEnv testEnv;
       late final Map<String, Object?> actualMap;
 
       setUpAll(() async {
-        tempDir = Directory.systemTemp
-            .createTempSync('pana-test')
-            .resolveSymbolicLinksSync();
-        final pubCacheDir = p.join(tempDir, 'pub-cache');
-        final panaCacheDir = p.join(tempDir, 'pana-cache');
-        final dartConfigDir = p.join(tempDir, 'config', 'dart');
-        final flutterConfigDir = p.join(tempDir, 'config', 'flutter');
         final goldenDirLastModified = await _detectGoldenLastModified();
-        Directory(pubCacheDir).createSync();
-        Directory(panaCacheDir).createSync();
-        Directory(dartConfigDir).createSync(recursive: true);
-        Directory(flutterConfigDir).createSync(recursive: true);
-        httpClient = http.Client();
-        httpServer = await _startLocalProxy(
-          httpClient: httpClient,
-          blockPublishAfter: goldenDirLastModified,
-        );
-        analyzer = PackageAnalyzer(
-          await ToolEnvironment.create(
-            dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
-            flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
-            pubCacheDir: pubCacheDir,
-            pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
-            // TODO: revert to 'any' after SDK 3.6 is out
-            dartdocVersion: '^8.3.0',
-          ),
+        testEnv = await TestEnv.createTemp(
+          proxyPublishCutoff: goldenDirLastModified,
+          // TODO: revert to 'any' after SDK 3.6 is out
+          dartdocVersion: '^8.3.0',
         );
 
-        final dartdocOutputDir = p.join(tempDir, 'doc', '$package-$version');
+        final dartdocOutputDir = p.join(
+          testEnv.tempDir.path,
+          'doc',
+          '$package-$version',
+        );
         await Directory(dartdocOutputDir).create(recursive: true);
 
-        var summary = await analyzer.inspectPackage(
+        var summary = await testEnv.analyzer.inspectPackage(
           package,
           version: version,
-          options: InspectOptions(
-            pubHostedUrl: 'http://127.0.0.1:${httpServer.port}',
-            panaCacheDir: panaCacheDir,
+          options: testEnv.inspectOptions(
             dartdocOutputDir: skipDartdoc ? null : dartdocOutputDir,
           ),
         );
@@ -124,9 +99,7 @@ void main() {
       });
 
       tearDownAll(() async {
-        await httpServer.close(force: true);
-        httpClient!.close();
-        Directory(tempDir).deleteSync(recursive: true);
+        await testEnv.close();
       });
 
       test('matches known good', () {
@@ -271,37 +244,4 @@ Future<DateTime> _detectGoldenLastModified() async {
     await timestampFile.writeAsString('${now.toIso8601String()}\n');
     return now;
   }
-}
-
-Future<HttpServer> _startLocalProxy({
-  required http.Client? httpClient,
-  required DateTime blockPublishAfter,
-}) {
-  return serve(
-    (shelf.Request rq) async {
-      final pubDevUri = _pubDevUri.replace(path: rq.requestedUri.path);
-      final rs = await httpClient!.get(pubDevUri);
-      final segments = rq.requestedUri.pathSegments;
-      if (rs.statusCode == 200 &&
-          segments.length == 3 &&
-          segments[0] == 'api' &&
-          segments[1] == 'packages') {
-        final content = json.decode(rs.body) as Map<String, dynamic>;
-        final versions = (content['versions'] as List)
-            .cast<Map<String, dynamic>>();
-        versions.removeWhere((item) {
-          final published = DateTime.parse(item['published'] as String);
-          return published.isAfter(blockPublishAfter);
-        });
-        return shelf.Response.ok(json.encode(content));
-      }
-      return shelf.Response(
-        rs.statusCode,
-        body: gzip.encode(rs.bodyBytes),
-        headers: {'content-encoding': 'gzip'},
-      );
-    },
-    '127.0.0.1',
-    0,
-  );
 }
