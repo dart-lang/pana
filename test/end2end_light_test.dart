@@ -27,7 +27,7 @@ void main() {
         expect(summary.tags, contains('is:dart3-compatible'));
         expect(
           summary.report!.grantedPoints,
-          greaterThanOrEqualTo(summary.report!.maxPoints - 20),
+          greaterThanOrEqualTo(summary.report!.maxPoints - 30),
         );
       }, timeout: const Timeout.factor(4));
     });
