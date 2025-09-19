@@ -197,10 +197,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 50,
+        "grantedPoints": 40,
         "maxPoints": 50,
-        "status": "passed",
-        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
+        "status": "partial",
+        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: The parameter name 'newQueue' doesn't match the name 'queue' in the overridden method.\n</summary>\n\n`lib/audio_service.dart:3321:44`\n\n```\n     ╷\n3321 │   Future<void> updateQueue(List<MediaItem> newQueue) async {\n     │                                            ^^^^^^^^\n     ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`\n</details>\n"
       },
       {
         "id": "dependency",
@@ -257,7 +257,7 @@
         }
       }
     ],
-    "grantedPoints": 140,
+    "grantedPoints": 130,
     "maxPoints": 150
   },
   "urlProblems": []
