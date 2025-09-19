@@ -74,6 +74,7 @@ const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 String updatePassthroughOptions({
   required String? original,
   required String custom,
+  bool keepInclude = false,
 }) {
   Map? origMap;
   if (original != null) {
@@ -119,6 +120,13 @@ String updatePassthroughOptions({
     final customFormatter =
         customMap.putIfAbsent('formatter', () => <String, dynamic>{}) as Map;
     customFormatter.addAll(origFormatter.cast<String, dynamic>());
+  }
+
+  if (keepInclude) {
+    final newInclude = customMap['include'] ?? origMap['include'];
+    if (newInclude != null) {
+      customMap['include'] = newInclude;
+    }
   }
 
   return json.encode(customMap);

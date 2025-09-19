@@ -74,9 +74,26 @@ This package is not compatible with runtime `wasm`, and will not be rewarded ful
 See https://dart.dev/web/wasm for details.
 
 
-## 50/50 Pass static analysis
+## 40/50 Pass static analysis
 
-### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
+### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
+
+<details>
+<summary>
+INFO: The member 'get' overrides an inherited member but isn't annotated with '@override'.
+</summary>
+
+`lib/src/tools/did_command.dart:59:16`
+
+```
+   ╷
+59 │   Future<bool> get({
+   │                ^^^
+   ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/tools/did_command.dart`
+</details>
 
 
 ## 10/40 Support up-to-date dependencies

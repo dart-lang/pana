@@ -2,51 +2,32 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
-
-import 'package:pana/pana.dart';
-import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+
+import 'env_utils.dart';
 
 void main() {
   void verifyPackage(String package) {
     group('end2end light: $package', () {
-      late String tempDir;
-      late PackageAnalyzer analyzer;
+      late TestEnv testEnv;
 
       setUpAll(() async {
-        tempDir = Directory.systemTemp
-            .createTempSync('pana-test')
-            .resolveSymbolicLinksSync();
-        final pubCacheDir = p.join(tempDir, 'pub-cache');
-        final dartConfigDir = p.join(tempDir, 'config', 'dart');
-        final flutterConfigDir = p.join(tempDir, 'config', 'flutter');
-        Directory(pubCacheDir).createSync();
-        Directory(dartConfigDir).createSync(recursive: true);
-        Directory(flutterConfigDir).createSync(recursive: true);
-        analyzer = PackageAnalyzer(
-          await ToolEnvironment.create(
-            dartSdkConfig: SdkConfig(configHomePath: dartConfigDir),
-            flutterSdkConfig: SdkConfig(configHomePath: flutterConfigDir),
-            pubCacheDir: pubCacheDir,
-            dartdocVersion: 'any',
-          ),
-        );
+        testEnv = await TestEnv.createTemp();
       });
 
       tearDownAll(() async {
-        Directory(tempDir).deleteSync(recursive: true);
+        await testEnv.close();
       });
 
       test('analysis', () async {
-        final summary = await analyzer.inspectPackage(package);
+        final summary = await testEnv.analyzer.inspectPackage(package);
         expect(summary.report, isNotNull);
         expect(summary.allDependencies!, isNotEmpty);
         expect(summary.tags!, isNotEmpty);
         expect(summary.tags, contains('is:dart3-compatible'));
         expect(
           summary.report!.grantedPoints,
-          greaterThanOrEqualTo(summary.report!.maxPoints - 20),
+          greaterThanOrEqualTo(summary.report!.maxPoints - 30),
         );
       }, timeout: const Timeout.factor(4));
     });

@@ -1,6 +1,7 @@
 ## 0.22.24
 
 - Fixed small ambiguity in the order of license match evaluation.
+- Resolve `analysis_options.yaml` dev dependency to expose transitive formatter options.
 
 ## 0.22.23
 

@@ -91,9 +91,26 @@ This iOS or macOS plugin supports the Swift Package Manager. It will be rewarded
 See https://docs.flutter.dev/to/spm for details.
 
 
-## 50/50 Pass static analysis
+## 40/50 Pass static analysis
 
-### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
+### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
+
+<details>
+<summary>
+INFO: The parameter name 'newQueue' doesn't match the name 'queue' in the overridden method.
+</summary>
+
+`lib/audio_service.dart:3321:44`
+
+```
+     ╷
+3321 │   Future<void> updateQueue(List<MediaItem> newQueue) async {
+     │                                            ^^^^^^^^
+     ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
+</details>
 
 
 ## 30/40 Support up-to-date dependencies
