@@ -344,7 +344,6 @@ class ToolEnvironment {
       }
       return files.toList()..sort();
     });
-    // });
   }
 
   Future<Map<String, dynamic>> _getFlutterVersion() async {
@@ -622,9 +621,15 @@ class ToolEnvironment {
     if (await analysisOptionsFile.exists()) {
       final analysisOptions = await analysisOptionsFile.readAsString();
       final parsed = yamlToJson(analysisOptions);
-      final include = (parsed?['include'] as String?)?.trim() ?? '';
-      if (include.startsWith('package:')) {
-        includedPackage = include.substring('package:'.length).split('/').first;
+      final includeValue = parsed?['include'];
+      if (includeValue is String) {
+        final include = includeValue.trim();
+        if (include.startsWith('package:')) {
+          includedPackage = include
+              .substring('package:'.length)
+              .split('/')
+              .first;
+        }
       }
     }
 
