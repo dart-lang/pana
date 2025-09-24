@@ -25,7 +25,8 @@ const _defaultSpdxLicenseDir = 'lib/src/third_party/spdx/licenses';
 
 // Load corpus licenses.
 List<License>? _cachedLicenses;
-Future<List<License>> _getDefaultLicenses() async {
+@visibleForTesting
+Future<List<License>> listDefaultLicenses() async {
   if (_cachedLicenses == null) {
     final uri = await Isolate.resolvePackageUri(
       Uri.parse(_defaultSpdxLicenseDir.replaceFirst('lib/', 'package:pana/')),
@@ -69,7 +70,7 @@ Future<Result> detectLicense(String text, double threshold) async {
 
   final possibleLicenses = filter(
     unknownLicense.tokenFrequency,
-    await _getDefaultLicenses(),
+    await listDefaultLicenses(),
   ).map((e) => LicenseWithNGrams.parse(e, granularity));
   var result = <LicenseMatch>[];
 
