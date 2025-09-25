@@ -16,7 +16,7 @@ void main() {
           license.content,
           relativePath: 'LICENSE',
         );
-        // TODO: fix detection and return at least one match
+        // TODO: fix detection and return at least one match (https://github.com/dart-lang/pana/issues/1484)
         if (license.identifier == 'SSH-OpenSSH') {
           continue;
         }
@@ -24,7 +24,7 @@ void main() {
             .where((l) => l.spdxIdentifier == license.identifier)
             .single;
 
-        // TODO: fix coverage calculation as 1:1 matches shouldn't have too many ranges
+        // TODO: fix coverage calculation as 1:1 matches shouldn't have too many ranges (https://github.com/dart-lang/pana/issues/1481)
         final excessiveLicenses = [
           'AFL-2.0',
           'AFL-2.1',
