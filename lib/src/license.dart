@@ -58,9 +58,10 @@ Future<List<License>> detectLicenseInContent(
   }
 
   List<int> buildCoverages(LicenseMatch match) {
-    // ignore: invalid_use_of_visible_for_testing_member
     final common = longestCommonSubsequence(
+      // ignore: invalid_use_of_visible_for_testing_member
       unknown: match.tokens,
+      // ignore: invalid_use_of_visible_for_testing_member
       known: match.license.tokens,
     );
 
