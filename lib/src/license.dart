@@ -10,6 +10,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
+import 'license_detection/lcs.dart';
 import 'license_detection/license_detector.dart' hide License, Range;
 import 'model.dart';
 
@@ -42,11 +43,6 @@ Future<List<License>> detectLicenseInFile(
   return licenses;
 }
 
-/// Characters and expression that are accepted as non-relevant range gaps,
-/// and consecutive [Range] values can be merged if they have only these
-/// between.
-final _rangeMergeRegexp = RegExp(r'^[\s\.\-\(\)\*]+$');
-
 /// Returns the license(s) detected from the [SPDX-corpus][1].
 ///
 /// [1]: https://spdx.org/licenses/
@@ -62,34 +58,31 @@ Future<List<License>> detectLicenseInContent(
   }
 
   List<int> buildCoverages(LicenseMatch match) {
-    final ranges = <({int start, int end})>[];
-    // ignore: invalid_use_of_visible_for_testing_member
-    for (final token in match.tokens) {
+    final common = longestCommonSubsequence(
+      // ignore: invalid_use_of_visible_for_testing_member
+      unknown: match.tokens,
+      // ignore: invalid_use_of_visible_for_testing_member
+      known: match.license.tokens,
+    );
+
+    final ranges = <({int index, int start, int end})>[];
+    for (final token in common) {
       // check to merge into last range
       final last = ranges.lastOrNull;
-      if (last != null) {
-        var mergeWithLast = false;
-        if (last.end == token.span.start.offset) {
-          mergeWithLast = true;
-        } else {
-          final textBetween = content.substring(
-            last.end,
-            token.span.start.offset,
-          );
-          if (_rangeMergeRegexp.matchAsPrefix(textBetween) != null) {
-            mergeWithLast = true;
-          }
-        }
-        if (mergeWithLast) {
-          ranges[ranges.length - 1] = (
-            start: last.start,
-            end: token.span.end.offset,
-          );
-          continue;
-        }
+      if (last != null && last.index + 1 == token.unknown.index) {
+        ranges[ranges.length - 1] = (
+          index: token.unknown.index,
+          start: last.start,
+          end: token.unknown.span.end.offset,
+        );
+        continue;
       }
       // fallback: start a new range
-      ranges.add((start: token.span.start.offset, end: token.span.end.offset));
+      ranges.add((
+        index: token.unknown.index,
+        start: token.unknown.span.start.offset,
+        end: token.unknown.span.end.offset,
+      ));
     }
     return ranges.expand((e) => [e.start, e.end]).toList();
   }
