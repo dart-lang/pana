@@ -35,6 +35,7 @@ LicenseMatch licenseMatch(
       "Can't compare the licenses due to different granularity",
     );
   }
+  // TODO: use the token-based LCS algorithm from `lcs.dart` (https://github.com/dart-lang/pana/issues/1487)
   final diffs = getDiffs(
     unknownLicense.tokens,
     knownLicense.tokens,
