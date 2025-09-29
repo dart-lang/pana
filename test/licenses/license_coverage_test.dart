@@ -16,10 +16,6 @@ void main() {
           license.content,
           relativePath: 'LICENSE',
         );
-        // TODO: fix detection and return at least one match (https://github.com/dart-lang/pana/issues/1484)
-        if (license.identifier == 'SSH-OpenSSH') {
-          continue;
-        }
         final match = detected
             .where((l) => l.spdxIdentifier == license.identifier)
             .single;

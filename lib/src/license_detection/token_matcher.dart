@@ -54,6 +54,8 @@ class Range {
         (end >= other.start && end <= other.end);
   }
 
+  bool containsIndex(int value) => start <= value && value < end;
+
   @override
   String toString() => 'Range($start-$end)';
 }

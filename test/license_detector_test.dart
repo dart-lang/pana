@@ -258,6 +258,16 @@ void main() {
       160,
       1000,
     );
+
+    _testLongestUnclaimedTokenRange(
+      'Trailing contained range',
+      [
+        _dummyLicenseMatchInstance(0.9, '', start: 30, end: 940),
+        _dummyLicenseMatchInstance(0.9, '', start: 50, end: 70),
+      ],
+      60,
+      1000,
+    );
   });
 }
 
