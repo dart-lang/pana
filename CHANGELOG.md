@@ -3,6 +3,7 @@
 - Fixed small ambiguity in the order of license match evaluation.
 - Resolve `analysis_options.yaml` dev dependency to expose transitive formatter options.
 - Fixed license coverage calculation.
+- Fixed license match post-filtering.
 
 ## 0.22.23
 

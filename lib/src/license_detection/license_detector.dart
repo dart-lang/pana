@@ -268,25 +268,33 @@ double calculateUnclaimedTokenPercentage(
 /// Returns the number of tokens in the longest unclaimed token
 /// sequence.
 int findLongestUnclaimedTokenRange(List<LicenseMatch> matches, int end) {
-  var ranges = <Range>[];
   if (matches.isEmpty) return end;
 
-  for (var match in matches) {
-    ranges.add(Range(match.tokenRange.start, match.tokenRange.end));
+  var maxUnclaimed = 0;
+
+  // create an end-of-range marker at the end of ranges for easier computation
+  final ranges = [...matches.map((m) => m.tokenRange), Range(end, end)];
+
+  // move position from the start up to the end, checking uncovered ranges
+  for (var pos = 0; pos < end;) {
+    // check if inside a range
+    final skipToEnd = ranges
+        .where((r) => r.containsIndex(pos))
+        .map((r) => r.end)
+        .fold(-1, max);
+    if (skipToEnd > -1) {
+      assert(pos < skipToEnd);
+      pos = skipToEnd;
+      continue;
+    }
+
+    // jump to next range
+    final nextRange = ranges
+        .where((r) => r.start > pos)
+        .reduce((a, b) => a.start.compareTo(b.start) <= 0 ? a : b);
+    maxUnclaimed = max(maxUnclaimed, nextRange.start - pos);
+    pos = nextRange.end;
   }
 
-  ranges.sort(sortRangeOnStartValue);
-  var maxTokenSequence = ranges.first.start - 0;
-
-  for (var i = 1; i < ranges.length; i++) {
-    maxTokenSequence = max(
-      ranges[i].start - ranges[i - 1].end,
-      maxTokenSequence,
-    );
-  }
-
-  maxTokenSequence = max(maxTokenSequence, end - ranges.last.end);
-  return maxTokenSequence;
+  return maxUnclaimed;
 }
-
-int sortRangeOnStartValue(Range a, Range b) => a.start - b.start;
