@@ -216,7 +216,7 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
         // Retain both the licenses in case of an exact match,
         // so that it can be resolved by the user.
         if (aConf > bConf) {
-          proposals[j] = true;
+          proposals[j] = false;
         } else if (bConf > aConf) {
           keep = false;
         }
