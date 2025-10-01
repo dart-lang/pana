@@ -127,7 +127,7 @@ void main() {
     );
 
     _testOverLappingMatches(
-      name: 'Does not discard match contained in other with less token density',
+      name: 'discard a match contained in other with less token density',
       input: [
         _dummyLicenseMatchInstance(
           1,
@@ -146,13 +146,6 @@ void main() {
         _dummyLicenseMatchInstance(0.65, 'matchC', start: 140, end: 200),
       ],
       expected: [
-        _dummyLicenseMatchInstance(
-          1,
-          'matchB',
-          start: 5,
-          end: 95,
-          tokensClaimed: 75,
-        ),
         _dummyLicenseMatchInstance(
           0.9,
           'matchA',
