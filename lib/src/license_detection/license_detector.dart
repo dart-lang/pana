@@ -171,12 +171,7 @@ int sortOnConfidence(LicenseMatch matchA, LicenseMatch matchB) {
     return 1;
   }
 
-  final matchATokensPercent =
-      matchA.tokensClaimed / matchA.license.tokens.length;
-  final matchBTokensPercent =
-      matchB.tokensClaimed / matchB.license.tokens.length;
-
-  return (matchATokensPercent > matchBTokensPercent) ? -1 : 1;
+  return (matchA.tokenPercent > matchB.tokenPercent) ? -1 : 1;
 }
 
 /// Filters out licenses having overlapping ranges,
@@ -199,10 +194,7 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
     final rangeA = Range(matchA.tokenRange.start, matchA.tokenRange.end);
 
     var proposals = <int, bool>{};
-    for (var j = 0; j < matches.length; j++) {
-      if (j == i) {
-        break;
-      }
+    for (var j = 0; j < i; j++) {
       final matchB = matches[j];
       final rangeB = Range(matchB.tokenRange.start, matchB.tokenRange.end);
       // Check if matchA is larger license containing an instance of
@@ -210,14 +202,11 @@ List<LicenseMatch> removeOverLappingMatches(List<LicenseMatch> matches) {
       // or not by comparing their token densities. Example NPL
       // contains MPL.
       if (rangeA.contains(rangeB) && retain[j]) {
-        final aConf = matchA.tokensClaimed * matchA.confidence;
-        final bConf = matchB.tokensClaimed * matchB.confidence;
-
         // Retain both the licenses in case of an exact match,
         // so that it can be resolved by the user.
-        if (aConf > bConf) {
+        if (matchA.tokenDensity > matchB.tokenDensity) {
           proposals[j] = false;
-        } else if (bConf > aConf) {
+        } else if (matchA.tokenDensity < matchB.tokenDensity) {
           keep = false;
         }
       } else if (rangeA.overlapsWith(rangeB)) {
@@ -256,12 +245,7 @@ double calculateUnclaimedTokenPercentage(
   List<LicenseMatch> matches,
   int unknownTokensCount,
 ) {
-  var claimedTokenCount = 0;
-
-  for (var match in matches) {
-    claimedTokenCount += match.tokensClaimed;
-  }
-
+  final claimedTokenCount = matches.fold(0, (a, b) => a + b.tokensClaimed);
   return max(0, (unknownTokensCount - claimedTokenCount) / unknownTokensCount);
 }
 
