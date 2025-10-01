@@ -11,20 +11,45 @@ import 'license_detector.dart' show Token;
 /// A pair representing matching tokens from unknown to known sequences.
 typedef TokenPair = ({Token unknown, Token known});
 
-/// Calculates the longest common subsequence (LCS) between [unknown] and [known] token lists.
-///
-/// Tokens are compared using their normalized [Token.value]. Returns the longest
-/// common subsequence as a list of [TokenPair] objects containing references to
-/// both the unknown and known tokens that match.
-List<TokenPair> longestCommonSubsequence({
+/// Describes an edit operation on the token list.
+abstract class TokenOp {}
+
+/// Describes an insertion into the unknown tokens.
+class InsertOp extends TokenOp {
+  final List<Token> tokens;
+  InsertOp(this.tokens);
+}
+
+/// Describes a deletion from the known tokens.
+class DeleteOp extends TokenOp {
+  final List<Token> tokens;
+  DeleteOp(this.tokens);
+}
+
+/// Describes a match of token pairs.
+class MatchOp extends TokenOp {
+  final List<TokenPair> pairs;
+  MatchOp(this.pairs);
+}
+
+/// Calculates the difference between [unknown] and [known] token lists and creates
+/// a list of token-editing operations that are needed to transform the tokens from
+/// [known] to [unknown].
+List<TokenOp> calculateTokenEditOps({
   required List<Token> unknown,
   required List<Token> known,
 }) {
-  final maxPrefixLength = min(unknown.length, known.length);
-  if (maxPrefixLength == 0) {
+  if (unknown.isEmpty && known.isEmpty) {
     return [];
   }
+  if (unknown.isEmpty) {
+    return [DeleteOp(known)];
+  }
+  if (known.isEmpty) {
+    return [InsertOp(unknown)];
+  }
 
+  final maxPrefixLength = min(unknown.length, known.length);
   final matchedPrefix = <TokenPair>[];
   for (var i = 0; i < maxPrefixLength; i++) {
     final utoken = unknown[i];
@@ -62,20 +87,27 @@ List<TokenPair> longestCommonSubsequence({
         .toList();
   }
 
-  return [
-    ...matchedPrefix,
+  return <TokenOp>[
+    if (matchedPrefix.isNotEmpty) MatchOp(matchedPrefix),
     ..._dynamicLcs(unknown: trimList(unknown), known: trimList(known)),
-    ...matchedPostfix,
+    if (matchedPostfix.isNotEmpty) MatchOp(matchedPostfix),
   ];
 }
 
-Iterable<TokenPair> _dynamicLcs({
+List<TokenOp> _dynamicLcs({
   required List<Token> unknown,
   required List<Token> known,
 }) {
-  if (unknown.isEmpty || known.isEmpty) {
+  if (unknown.isEmpty && known.isEmpty) {
     return [];
   }
+  if (unknown.isEmpty) {
+    return [DeleteOp(known)];
+  }
+  if (known.isEmpty) {
+    return [InsertOp(unknown)];
+  }
+
   final m = unknown.length;
   final n = known.length;
 
@@ -91,22 +123,52 @@ Iterable<TokenPair> _dynamicLcs({
     }
   }
 
-  // backtrack to construct the sequence
-  final matchesBackwards = <TokenPair>[];
+  // backtrack to construct the operations
+  final opsBackwards = <TokenOp>[];
   var i = m;
   var j = n;
 
-  while (i > 0 && j > 0) {
-    if (unknown[i - 1].value == known[j - 1].value) {
-      // building backwards, will need to reverse the list
-      matchesBackwards.add((unknown: unknown[i - 1], known: known[j - 1]));
-      i--;
-      j--;
-    } else if (table[i - 1][j] > table[i][j - 1]) {
-      i--;
+  while (i > 0 || j > 0) {
+    bool isMatch() => i > 0 && j > 0 && table[i][j] == table[i - 1][j - 1] + 1;
+    bool isInsert() => i > 0 && (j == 0 || table[i - 1][j] >= table[i][j - 1]);
+    bool isDelete() => j > 0 && (i == 0 || table[i - 1][j] < table[i][j - 1]);
+
+    if (isMatch()) {
+      // match found
+      final matchPairsBackwards = <TokenPair>[];
+      do {
+        matchPairsBackwards.add((unknown: unknown[i - 1], known: known[j - 1]));
+        i--;
+        j--;
+      } while (isMatch());
+      opsBackwards.add(MatchOp(matchPairsBackwards.reverseIfNeeded()));
+    } else if (isInsert()) {
+      // insert into unknown
+      final insertTokens = <Token>[];
+      do {
+        insertTokens.add(unknown[i - 1]);
+        i--;
+      } while (isInsert() && !isMatch());
+      opsBackwards.add(InsertOp(insertTokens.reverseIfNeeded()));
     } else {
-      j--;
+      // delete from known
+      final deleteTokens = <Token>[];
+      do {
+        deleteTokens.add(known[j - 1]);
+        j--;
+      } while (isDelete() && !isMatch());
+      opsBackwards.add(DeleteOp(deleteTokens.reverseIfNeeded()));
     }
   }
-  return matchesBackwards.reversed;
+
+  return opsBackwards.reverseIfNeeded();
+}
+
+extension _ListExt<T> on List<T> {
+  List<T> reverseIfNeeded() {
+    if (length <= 1) {
+      return this;
+    }
+    return reversed.toList();
+  }
 }
