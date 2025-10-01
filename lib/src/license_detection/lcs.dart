@@ -129,9 +129,20 @@ List<TokenOp> _dynamicLcs({
   var j = n;
 
   while (i > 0 || j > 0) {
+    // shortcut: only deletes left
+    if (i == 0) {
+      opsBackwards.add(DeleteOp(known.take(j).toList()));
+      break;
+    }
+    // shortcut: only inserts left
+    if (j == 0) {
+      opsBackwards.add(InsertOp(unknown.take(i).toList()));
+      break;
+    }
+
     bool isMatch() => i > 0 && j > 0 && table[i][j] == table[i - 1][j - 1] + 1;
-    bool isInsert() => i > 0 && (j == 0 || table[i - 1][j] >= table[i][j - 1]);
-    bool isDelete() => j > 0 && (i == 0 || table[i - 1][j] < table[i][j - 1]);
+    bool isInsert() => i > 0 && table[i - 1][j] >= table[i][j - 1]; // j != 0
+    bool isDelete() => j > 0 && table[i - 1][j] < table[i][j - 1]; // i != 0
 
     if (isMatch()) {
       // match found
