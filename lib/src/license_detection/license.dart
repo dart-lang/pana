@@ -202,6 +202,14 @@ class LicenseMatch {
       Range(startIndex, endIndex),
     );
   }
+
+  /// The ratio of tokens claimed in the unknown text to the
+  /// number of tokens present in the known license text.
+  late final tokenPercent = tokensClaimed / license.tokens.length;
+
+  /// Token density is the product of number of tokens claimed in
+  /// the range and confidence score of the match.
+  late final tokenDensity = tokensClaimed * confidence;
 }
 
 /// Generates a frequency table for the given list of [tokens].
