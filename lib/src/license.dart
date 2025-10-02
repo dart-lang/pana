@@ -58,33 +58,22 @@ Future<List<License>> detectLicenseInContent(
   }
 
   List<int> buildCoverages(LicenseMatch match) {
-    final common = longestCommonSubsequence(
+    final ops = calculateTokenEditOps(
       // ignore: invalid_use_of_visible_for_testing_member
       unknown: match.tokens,
       // ignore: invalid_use_of_visible_for_testing_member
       known: match.license.tokens,
     );
 
-    final ranges = <({int index, int start, int end})>[];
-    for (final token in common) {
-      // check to merge into last range
-      final last = ranges.lastOrNull;
-      if (last != null && last.index + 1 == token.unknown.index) {
-        ranges[ranges.length - 1] = (
-          index: token.unknown.index,
-          start: last.start,
-          end: token.unknown.span.end.offset,
-        );
-        continue;
-      }
-      // fallback: start a new range
-      ranges.add((
-        index: token.unknown.index,
-        start: token.unknown.span.start.offset,
-        end: token.unknown.span.end.offset,
-      ));
-    }
-    return ranges.expand((e) => [e.start, e.end]).toList();
+    return ops
+        .whereType<MatchOp>()
+        .expand(
+          (op) => [
+            op.pairs.first.unknown.span.start.offset,
+            op.pairs.last.unknown.span.end.offset,
+          ],
+        )
+        .toList();
   }
 
   return licenseResult.matches.map((e) {
