@@ -16,10 +16,10 @@ void main() {
           license.content,
           relativePath: 'LICENSE',
         );
-        final match = detected
-            .where((l) => l.spdxIdentifier == license.identifier)
-            .single;
-
+        // should only match the same license
+        expect(detected, hasLength(1));
+        final match = detected.single;
+        expect(match.spdxIdentifier, license.identifier);
         expect(match.range!.coverages, hasLength(2));
       }
     });
