@@ -54,7 +54,7 @@ List<TokenOp> calculateTokenEditOps({
   for (var i = 0; i < maxPrefixLength; i++) {
     final utoken = unknown[i];
     final ktoken = known[i];
-    if (utoken.value != ktoken.value) {
+    if (!utoken.matches(ktoken)) {
       break;
     }
     matchedPrefix.add((unknown: utoken, known: ktoken));
@@ -66,7 +66,7 @@ List<TokenOp> calculateTokenEditOps({
   for (var i = 1; i <= maxPostfixLength; i++) {
     final utoken = unknown[unknown.length - i];
     final ktoken = known[known.length - i];
-    if (utoken.value != ktoken.value) {
+    if (!utoken.matches(ktoken)) {
       break;
     }
     matchedPostfixCount++;
@@ -115,7 +115,7 @@ List<TokenOp> _dynamicLcs({
   final table = List.generate(m + 1, (_) => List.filled(n + 1, 0));
   for (var i = 1; i <= m; i++) {
     for (var j = 1; j <= n; j++) {
-      if (unknown[i - 1].value == known[j - 1].value) {
+      if (unknown[i - 1].matches(known[j - 1])) {
         table[i][j] = table[i - 1][j - 1] + 1;
       } else {
         table[i][j] = max(table[i - 1][j], table[i][j - 1]);

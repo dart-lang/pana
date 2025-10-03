@@ -27,6 +27,12 @@ class Token {
 
   Token._fromSpan(this.span, this.index)
     : value = _normalizeWord(span.text.toLowerCase());
+
+  /// The hashCode of the normalized text.
+  late final checksum = value.hashCode;
+
+  bool matches(Token other) =>
+      checksum == other.checksum && value == other.value;
 }
 
 /// Tokenizes license text and returns a list of [Token]s.
