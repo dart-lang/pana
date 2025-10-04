@@ -28,11 +28,8 @@ class Token {
   Token._fromSpan(this.span, this.index)
     : value = _normalizeWord(span.text.toLowerCase());
 
-  /// The normalized form ([value]) encoded as UTF-8 bytes.
-  late final _valueAsBytes = utf8.encode(value);
-
-  /// The CRC32 checksum of the normalized text.
-  late final checksum = crc32(_valueAsBytes);
+  /// The hashCode of the normalized text.
+  late final checksum = value.hashCode;
 
   bool matches(Token other) =>
       checksum == other.checksum && value == other.value;

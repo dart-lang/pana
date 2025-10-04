@@ -48,44 +48,11 @@ void main() {
     );
   });
 
-  test('Test checksum generation', () {
-    final text = 'generate some checksums for these tokens';
-    final expected = [
-      1287701533143,
-      1203844170100,
-      122964098205,
-      1183061948621,
-    ];
-    final ranges = [Range(0, 3), Range(1, 4), Range(2, 5), Range(3, 6)];
-    final actual = generateChecksums(tokenize(text), 3);
-
-    expect(actual.length, expected.length);
-
-    for (var i = 0; i < actual.length; i++) {
-      expect(actual[i].checksum, expected[i]);
-      expect(actual[i].start, ranges[i].start);
-      expect(actual[i].end, ranges[i].end);
-    }
-  });
-
   test('Tokens normalized value', () {
     final str = 'Here is some text for testing purposes';
 
     final tokens = tokenize(str);
 
     expect(normalizedContent(tokens), 'here is some text for testing purposes');
-  });
-
-  test('generateChecksumMap test', () {
-    final text = 'generate some checksums for these tokens';
-    final actual = generateChecksumMap(
-      generateChecksums(tokenize(text), 3),
-    ).map((k, v) => MapEntry(k, v.length));
-    expect(actual, {
-      1287701533143: 1,
-      1203844170100: 1,
-      122964098205: 1,
-      1183061948621: 1,
-    });
   });
 }

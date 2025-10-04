@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:collection';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:math';
@@ -15,7 +14,6 @@ import 'package:string_scanner/string_scanner.dart';
 import '../third_party/diff_match_patch/diff.dart';
 
 part 'confidence.dart';
-part 'crc32.dart';
 part 'license.dart';
 part 'primary_filter.dart';
 part 'token_matcher.dart';

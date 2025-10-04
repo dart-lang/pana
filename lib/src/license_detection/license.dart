@@ -60,10 +60,7 @@ class NGram {
   final List<Token> _tokens;
 
   /// The combination of token checksums.
-  late final checksum = _tokens.fold(
-    0,
-    (c, token) => (c * 17) + token.checksum,
-  );
+  late final checksum = Object.hashAll(_tokens.map((t) => t.value));
 
   /// Index of the first token in the checksum.
   final int start;
