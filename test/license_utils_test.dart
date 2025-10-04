@@ -50,7 +50,12 @@ void main() {
 
   test('Test checksum generation', () {
     final text = 'generate some checksums for these tokens';
-    final expected = [3898316725, 3188174184, 1984569744, 820879958];
+    final expected = [
+      1287701533143,
+      1203844170100,
+      122964098205,
+      1183061948621,
+    ];
     final ranges = [Range(0, 3), Range(1, 4), Range(2, 5), Range(3, 6)];
     final actual = generateChecksums(tokenize(text), 3);
 
@@ -73,20 +78,14 @@ void main() {
 
   test('generateChecksumMap test', () {
     final text = 'generate some checksums for these tokens';
-    final expected = {
-      3898316725: 1,
-      3188174184: 1,
-      1984569744: 1,
-      820879958: 1,
-    };
-
-    final actual = generateChecksumMap(generateChecksums(tokenize(text), 3));
-
-    expect(actual.length, expected.length);
-
-    actual.forEach((key, value) {
-      expect(value.length, expected[key]!);
-      expect(key, value[0].checksum);
+    final actual = generateChecksumMap(
+      generateChecksums(tokenize(text), 3),
+    ).map((k, v) => MapEntry(k, v.length));
+    expect(actual, {
+      1287701533143: 1,
+      1203844170100: 1,
+      122964098205: 1,
+      1183061948621: 1,
     });
   });
 }

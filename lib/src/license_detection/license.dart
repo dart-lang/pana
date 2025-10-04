@@ -56,14 +56,14 @@ String normalizedContent(Iterable<Token> tokens) {
 /// See: [computeGranularity].
 @sealed
 class NGram {
-  /// Text for which the hash value was generated.
-  @visibleForTesting
-  final String text;
+  /// The tokens for which the hash value is generated.
+  final List<Token> _tokens;
 
-  /// [CRC-32][1] checksum value generated for text.
-  ///
-  /// [1]: https://en.wikipedia.org/wiki/Cyclic_redundancy_check
-  final int checksum;
+  /// The combination of token checksums.
+  late final checksum = _tokens.fold(
+    0,
+    (c, token) => (c * 17) + token.checksum,
+  );
 
   /// Index of the first token in the checksum.
   final int start;
@@ -71,7 +71,7 @@ class NGram {
   /// Index of the last token in the checksum.
   final int end;
 
-  NGram(this.text, this.checksum, this.start, this.end);
+  NGram(this._tokens, this.start, this.end);
 }
 
 /// A [License] instance with generated [nGrams].
@@ -308,24 +308,14 @@ const _endOfTerms = 'END OF TERMS AND CONDITIONS';
 /// by taking [granularity] token values at a time.
 @visibleForTesting
 List<NGram> generateChecksums(List<Token> tokens, int granularity) {
-  if (tokens.length < granularity) {
-    final text = tokens.join(' ');
-    return [NGram(text, crc32(utf8.encode(text)), 0, tokens.length - 1)];
+  if (tokens.length <= granularity) {
+    return [NGram(tokens, 0, tokens.length - 1)];
   }
-
-  var nGrams = <NGram>[];
-
+  final nGrams = <NGram>[];
   for (var i = 0; i + granularity <= tokens.length; i++) {
-    var text = '';
-    tokens.skip(i).take(granularity).forEach((token) {
-      text = '$text${token.value} ';
-    });
-
-    final crcValue = crc32(utf8.encode(text));
-
-    nGrams.add(NGram(text, crcValue, i, i + granularity));
+    final sublist = tokens.sublist(i, i + granularity);
+    nGrams.add(NGram(sublist, i, i + granularity));
   }
-
   return nGrams;
 }
 
