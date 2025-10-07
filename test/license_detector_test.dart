@@ -326,6 +326,7 @@ LicenseMatch _dummyLicenseMatchInstance(
     tokensClaimed,
     diffRange ?? dummyDiffRange,
     [],
+    () => [],
     LicenseWithNGrams.parse(
       License.parse(identifier: identifier, content: 'take some text'),
       3,
