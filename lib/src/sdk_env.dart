@@ -126,7 +126,6 @@ class ToolEnvironment {
     SdkConfig? dartSdkConfig,
     SdkConfig? flutterSdkConfig,
     String? pubCacheDir,
-    @Deprecated('parameter no longer used') String? panaCacheDir,
     String? pubHostedUrl,
 
     /// When specified, this version of `dartdoc` will be initialized
@@ -357,9 +356,8 @@ class ToolEnvironment {
 
   Future<PanaProcessResult> runUpgrade(
     String packageDir,
-    bool usesFlutter, {
-    @Deprecated('retryCount is ignored') int retryCount = 3,
-  }) async {
+    bool usesFlutter,
+  ) async {
     return await runPub(
       packageDir,
       usesFlutter: usesFlutter,

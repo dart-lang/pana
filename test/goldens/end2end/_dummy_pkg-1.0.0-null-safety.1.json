@@ -16,34 +16,6 @@
       "sdk": ">=2.12.0-0 <2.12.0"
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "BSD-3-Clause"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "BSD-3-Clause",
-      "range": {
-        "start": {
-          "offset": 63,
-          "line": 1,
-          "column": 0
-        },
-        "end": {
-          "offset": 1523,
-          "line": 25,
-          "column": 68
-        },
-        "coverages": [
-          63,
-          596,
-          604,
-          1523
-        ]
-      }
-    }
-  ],
   "allDependencies": [],
   "tags": [
     "has:error",
@@ -101,7 +73,6 @@
     "repositoryStatus": "failed",
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "BSD-3-Clause",
         "range": {
           "start": {

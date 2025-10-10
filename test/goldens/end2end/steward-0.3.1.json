@@ -32,32 +32,6 @@
       "mockito": "^5.1.0"
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "MIT"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "MIT",
-      "range": {
-        "start": {
-          "offset": 14,
-          "line": 3,
-          "column": 0
-        },
-        "end": {
-          "offset": 1036,
-          "line": 19,
-          "column": 9
-        },
-        "coverages": [
-          14,
-          1036
-        ]
-      }
-    }
-  ],
   "allDependencies": [
     "bosun",
     "collection",
@@ -146,7 +120,6 @@
     "contributingUrl": "https://github.com/pyrestudios/steward/blob/main/CONTRIBUTING.md",
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "MIT",
         "range": {
           "start": {
