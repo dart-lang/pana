@@ -15,34 +15,6 @@
       "sdk": ">=2.12.0 <3.0.0"
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "BSD-3-Clause"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "BSD-3-Clause",
-      "range": {
-        "start": {
-          "offset": 43,
-          "line": 2,
-          "column": 0
-        },
-        "end": {
-          "offset": 1502,
-          "line": 26,
-          "column": 68
-        },
-        "coverages": [
-          43,
-          576,
-          584,
-          1502
-        ]
-      }
-    }
-  ],
   "allDependencies": [],
   "tags": [
     "sdk:dart",
@@ -112,7 +84,6 @@
     "repositoryStatus": "unspecified",
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "BSD-3-Clause",
         "range": {
           "start": {

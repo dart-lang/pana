@@ -20,32 +20,6 @@
       "test": ">=0.12.7 <0.13.0"
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "MIT"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "MIT",
-      "range": {
-        "start": {
-          "offset": 24,
-          "line": 3,
-          "column": 0
-        },
-        "end": {
-          "offset": 1046,
-          "line": 19,
-          "column": 9
-        },
-        "coverages": [
-          24,
-          1046
-        ]
-      }
-    }
-  ],
   "allDependencies": [
     "quiver_iterables",
     "test"
@@ -113,7 +87,6 @@
     },
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "MIT",
         "range": {
           "start": {

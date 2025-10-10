@@ -68,34 +68,6 @@
       "urls"
     ]
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "BSD-3-Clause"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "BSD-3-Clause",
-      "range": {
-        "start": {
-          "offset": 58,
-          "line": 2,
-          "column": 0
-        },
-        "end": {
-          "offset": 1518,
-          "line": 24,
-          "column": 60
-        },
-        "coverages": [
-          58,
-          591,
-          599,
-          1518
-        ]
-      }
-    }
-  ],
   "allDependencies": [
     "characters",
     "collection",
@@ -195,7 +167,6 @@
     "contributingUrl": "https://github.com/flutter/packages/blob/main/CONTRIBUTING.md",
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "BSD-3-Clause",
         "range": {
           "start": {

@@ -15,8 +15,6 @@ import 'multi_platform.dart';
 import 'static_analysis.dart';
 import 'template.dart';
 
-export '_common.dart' show renderSimpleSectionSummary;
-
 Future<Report> createReport(PackageContext context) async {
   try {
     context.pubspec;

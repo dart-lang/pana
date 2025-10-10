@@ -27,16 +27,6 @@
       "pubd": null
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "unknown"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "unknown"
-    }
-  ],
   "allDependencies": [
     "archive",
     "args",
@@ -173,7 +163,6 @@
     "repositoryStatus": "failed",
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "unknown"
       }
     ],

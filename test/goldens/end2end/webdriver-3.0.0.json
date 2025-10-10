@@ -27,32 +27,6 @@
       "test": "^1.16.0-nullsafety.0"
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "Apache-2.0"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "Apache-2.0",
-      "range": {
-        "start": {
-          "offset": 33,
-          "line": 0,
-          "column": 33
-        },
-        "end": {
-          "offset": 11356,
-          "line": 200,
-          "column": 33
-        },
-        "coverages": [
-          33,
-          11356
-        ]
-      }
-    }
-  ],
   "allDependencies": [
     "archive",
     "async",
@@ -142,7 +116,6 @@
     "contributingUrl": "https://github.com/google/webdriver.dart/blob/master/CONTRIBUTING.md",
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "Apache-2.0",
         "range": {
           "start": {

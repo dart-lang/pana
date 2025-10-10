@@ -1,3 +1,8 @@
+## 0.23.0
+
+**Breaking changes:**
+- Removed deprecated API. 
+
 ## 0.22.24
 
 - Fixed small ambiguity in the order of license match evaluation.

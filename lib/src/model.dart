@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:math';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pub_semver/pub_semver.dart';
 
@@ -51,10 +49,6 @@ class Summary {
   final String? packageName;
   final Version? packageVersion;
   final Pubspec? pubspec;
-  @Deprecated('Use `result.licenses` instead.')
-  final LicenseFile? licenseFile;
-  @Deprecated('Use `result.licenses` instead.')
-  final List<License>? licenses;
 
   /// The packages that are either direct-, dev- or transient dependencies.
   final List<String>? allDependencies;
@@ -76,8 +70,6 @@ class Summary {
     this.packageVersion,
     this.pubspec,
     this.allDependencies,
-    this.licenseFile,
-    this.licenses,
     this.tags,
     this.report,
     this.result,
@@ -105,8 +97,6 @@ class Summary {
       packageVersion: packageVersion,
       pubspec: pubspec,
       allDependencies: allDependencies,
-      licenseFile: licenseFile,
-      licenses: licenses,
       tags: tags ?? this.tags,
       report: report ?? this.report,
       result: result ?? this.result,
@@ -161,12 +151,6 @@ class PanaRuntimeInfo {
 /// NOTE: the content of the class is experimental, clients should not rely on it yet.
 @JsonSerializable()
 class License {
-  /// The file path that was recognized as a license.
-  @Deprecated(
-    'The field will be removed, as we only accept `LICENSE` as filename.',
-  )
-  final String path;
-
   /// The SPDX identifier of the license.
   final String spdxIdentifier;
 
@@ -175,7 +159,7 @@ class License {
   /// WARNING: this field is experimental, do not rely on it.
   final Range? range;
 
-  License({required this.path, required this.spdxIdentifier, this.range});
+  License({required this.spdxIdentifier, this.range});
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);
@@ -224,51 +208,6 @@ class Position {
   Map<String, dynamic> toJson() => _$PositionToJson(this);
 }
 
-@JsonSerializable()
-@Deprecated('The class will be removed.')
-class LicenseFile {
-  final String path;
-  final String name;
-  final String? version;
-
-  LicenseFile(this.path, this.name, {this.version});
-
-  factory LicenseFile.fromJson(Map<String, dynamic> json) =>
-      _$LicenseFileFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LicenseFileToJson(this);
-
-  String get shortFormatted => version == null ? name : '$name $version';
-
-  @override
-  String toString() => '$path: $shortFormatted';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is LicenseFile &&
-          runtimeType == other.runtimeType &&
-          path == other.path &&
-          name == other.name &&
-          version == other.version;
-
-  @override
-  int get hashCode => path.hashCode ^ name.hashCode ^ version.hashCode;
-}
-
-@Deprecated('The class will be removed.')
-abstract class LicenseNames {
-  static const String agpl = 'AGPL';
-  static const String apache = 'Apache';
-  static const String bsd = 'BSD';
-  static const String gpl = 'GPL';
-  static const String lgpl = 'LGPL';
-  static const String mit = 'MIT';
-  static const String mpl = 'MPL';
-  static const String unlicense = 'Unlicense';
-  static const String unknown = 'unknown';
-}
-
 /// Models the 'new-style' pana report.
 @JsonSerializable()
 class Report {
@@ -291,8 +230,6 @@ class Report {
 abstract class ReportSectionId {
   static const analysis = 'analysis';
   static const convention = 'convention';
-  @Deprecated('The value will be removed.')
-  static const dart3Compatibility = 'dart3-compatibility';
   static const dependency = 'dependency';
   static const documentation = 'documentation';
   static const platform = 'platform';
@@ -305,23 +242,6 @@ enum ReportStatus {
   partial,
   @JsonValue('passed')
   passed,
-}
-
-/// Returns the lowest of [statuses] to represent them.
-@Deprecated('The method will be removed from public API.')
-ReportStatus summarizeStatuses(Iterable<ReportStatus> statuses) {
-  return statuses.fold(ReportStatus.passed, (a, b) => minStatus(a, b)!);
-}
-
-/// Returns the lowest status of [a] and [b] ranked in the order of the enum.
-///
-/// Example: `minStatus(ReportStatus.failed, ReportStatus.partial) == ReportStatus.partial`.
-///
-/// Returns `null` when any of them is `null` (may be the case with old data).
-@Deprecated('The method will be removed from public API.')
-ReportStatus? minStatus(ReportStatus? a, ReportStatus? b) {
-  if (a == null || b == null) return null;
-  return ReportStatus.values[min(a.index, b.index)];
 }
 
 @JsonSerializable()

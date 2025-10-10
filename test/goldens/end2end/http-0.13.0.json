@@ -26,34 +26,6 @@
       "test": "^1.16.0-nullsafety.4"
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "BSD-3-Clause"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "BSD-3-Clause",
-      "range": {
-        "start": {
-          "offset": 63,
-          "line": 1,
-          "column": 0
-        },
-        "end": {
-          "offset": 1523,
-          "line": 25,
-          "column": 68
-        },
-        "coverages": [
-          63,
-          596,
-          604,
-          1523
-        ]
-      }
-    }
-  ],
   "allDependencies": [
     "collection",
     "http_parser",
@@ -145,7 +117,6 @@
     "contributingUrl": "https://github.com/dart-lang/http/blob/master/CONTRIBUTING.md",
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "BSD-3-Clause",
         "range": {
           "start": {

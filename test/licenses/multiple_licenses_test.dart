@@ -21,7 +21,6 @@ void main() {
       );
       expect(detected.map((l) => l.toJson()).toList(), [
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'Apache-2.0',
           'range': {
             'start': {'offset': 1569, 'line': 33, 'column': 33},
@@ -30,7 +29,6 @@ void main() {
           },
         },
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'BSD-2-Clause',
           'range': {
             'start': {'offset': 240, 'line': 8, 'column': 0},
@@ -53,7 +51,6 @@ void main() {
       );
       expect(detected.map((l) => l.toJson()).toList(), [
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'Apache-2.0',
           'range': {
             'start': {'offset': 1441, 'line': 30, 'column': 33},
@@ -62,7 +59,6 @@ void main() {
           },
         },
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'BSD-2-Clause',
           'range': {
             'start': {'offset': 134, 'line': 7, 'column': 0},
@@ -92,7 +88,6 @@ void main() {
       );
       expect(detected.map((l) => l.toJson()).toList(), [
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'BSD-3-Clause',
           'range': {
             'start': {'offset': 1215, 'line': 28, 'column': 0},
@@ -101,7 +96,6 @@ void main() {
           },
         },
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'MIT',
           'range': {
             'start': {'offset': 31, 'line': 5, 'column': 0},
@@ -122,7 +116,6 @@ void main() {
       );
       expect(detected.map((l) => l.toJson()).toList(), [
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'BSD-2-Clause',
           'range': {
             'start': {'offset': 1276, 'line': 30, 'column': 0},
@@ -131,7 +124,6 @@ void main() {
           },
         },
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'MIT',
           'range': {
             'start': {'offset': 213, 'line': 8, 'column': 0},

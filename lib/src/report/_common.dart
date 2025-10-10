@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:math';
+
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 import 'package:yaml/yaml.dart';
@@ -158,29 +160,6 @@ String? _reportStatusMarker(ReportStatus status) => const {
   ReportStatus.partial: '[~]',
 }[status];
 
-/// Renders a summary block for sections that can have only a single issue.
-@Deprecated('Do not use this API, it will be removed.')
-String renderSimpleSectionSummary({
-  required String title,
-  required String? description,
-  required int grantedPoints,
-  required int maxPoints,
-}) {
-  return _makeSummary([
-    Subsection(
-      title,
-      [if (description != null) Issue(description)],
-      grantedPoints,
-      maxPoints,
-      maxPoints == grantedPoints
-          ? ReportStatus.passed
-          : grantedPoints == 0
-          ? ReportStatus.failed
-          : ReportStatus.partial,
-    ),
-  ], basePath: null);
-}
-
 ReportSection makeSection({
   required String id,
   required String title,
@@ -202,8 +181,20 @@ ReportSection makeSection({
       basePath: basePath,
       maxIssues: maxIssues,
     ),
-    status: summarizeStatuses(subsections.map((s) => s.status)),
+    status: subsections
+        .map((s) => s.status)
+        .fold(ReportStatus.passed, (a, b) => _minStatus(a, b)!),
   );
+}
+
+/// Returns the lowest status of [a] and [b] ranked in the order of the enum.
+///
+/// Example: `minStatus(ReportStatus.failed, ReportStatus.partial) == ReportStatus.partial`.
+///
+/// Returns `null` when any of them is `null` (may be the case with old data).
+ReportStatus? _minStatus(ReportStatus? a, ReportStatus? b) {
+  if (a == null || b == null) return null;
+  return ReportStatus.values[min(a.index, b.index)];
 }
 
 SourceSpan? tryGetSpanFromYamlMap(Object map, String key) {

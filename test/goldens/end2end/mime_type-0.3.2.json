@@ -21,7 +21,6 @@
       "sdk": ">=0.8.10 <3.0.0"
     }
   },
-  "licenses": [],
   "allDependencies": [],
   "tags": [
     "has:error",
