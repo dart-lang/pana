@@ -35,8 +35,7 @@ LicenseMatch licenseMatch(
       "Can't compare the licenses due to different granularity",
     );
   }
-  // TODO: use the token-based LCS algorithm from `lcs.dart` (https://github.com/dart-lang/pana/issues/1487)
-  final diffs = getDiffs(
+  final (diffs, tokenOpsFn) = getDiffs(
     unknownLicense.tokens,
     knownLicense.tokens,
     matchRange,
@@ -68,6 +67,7 @@ LicenseMatch licenseMatch(
     confidence,
     knownLicense,
     diffs,
+    tokenOpsFn,
     Range(range.start, range.end),
   );
 }
@@ -86,24 +86,97 @@ double confidencePercentage(int knownLength, int distance) {
 }
 
 @visibleForTesting
-List<Diff> getDiffs(
+(List<Diff>, TokenOpsFn) getDiffs(
   List<Token> inputTokens,
   List<Token> knownTokens,
   MatchRange matchRange,
 ) {
-  final unknownText = normalizedContent(
-    inputTokens
-        .skip(matchRange.input.start)
-        .take(matchRange.input.end - matchRange.input.start),
-  );
+  final filteredInputTokens = inputTokens
+      .skip(matchRange.input.start)
+      .take(matchRange.input.end - matchRange.input.start)
+      .toList();
+  final unknownText = normalizedContent(filteredInputTokens);
 
-  final knownText = normalizedContent(knownTokens.take(matchRange.source.end));
+  final filteredKnownTokens = knownTokens.take(matchRange.source.end).toList();
+  final knownText = normalizedContent(filteredKnownTokens);
 
   final diffs = diffMain(unknownText, knownText);
 
   diffCleanupEfficiency(diffs);
 
-  return List.unmodifiable(diffs);
+  /// Lazily builds a list of [TokenOp] from the text-based diffs, re-tracking
+  /// the origin of the characters to tokens.
+  ///
+  /// Note: the text diff algorighm calculated the operations as updates to the
+  ///       known license file, while these fields represent the changes from
+  ///       the unknown input, to be easier to display the difference overlayed
+  ///       on that text.
+  ///
+  /// TODO: consider updating the parameter order + post-verification so that we don't need to flip the edit direction
+  List<TokenOp> tokenOpsFn() {
+    final inputPositions = _tokenPositions(
+      filteredInputTokens,
+      unknownText.length,
+    );
+    final knownPositions = _tokenPositions(
+      filteredKnownTokens,
+      knownText.length,
+    );
+    var inputOffset = 0;
+    var knownOffset = 0;
+    return diffs.map((diff) {
+      switch (diff.operation) {
+        case Operation.equal:
+          final inputend =
+              inputPositions[inputOffset + diff.text.length - 1] + 1;
+          final tokensFromInput = filteredInputTokens.sublist(
+            inputPositions[inputOffset],
+            inputend,
+          );
+          final tokensFromKnown = filteredKnownTokens.sublist(
+            knownPositions[knownOffset],
+            knownPositions[knownOffset] + tokensFromInput.length,
+          );
+          inputOffset += diff.text.length;
+          knownOffset += diff.text.length;
+          return MatchOp(
+            tokensFromInput
+                .mapIndexed((i, t) => (unknown: t, known: tokensFromKnown[i]))
+                .toList(),
+          );
+        case Operation.delete:
+          final end = inputPositions[inputOffset + diff.text.length - 1] + 1;
+          final tokensFromInput = filteredInputTokens.sublist(
+            inputPositions[inputOffset],
+            end,
+          );
+          inputOffset += diff.text.length;
+          return InsertOp(tokensFromInput);
+
+        case Operation.insert:
+          final end = knownPositions[knownOffset + diff.text.length - 1] + 1;
+          final tokensFromKnown = filteredKnownTokens.sublist(
+            knownPositions[knownOffset],
+            end,
+          );
+          knownOffset += diff.text.length;
+          return DeleteOp(tokensFromKnown);
+      }
+    }).toList();
+  }
+
+  return (List.unmodifiable(diffs), tokenOpsFn);
+}
+
+List<int> _tokenPositions(Iterable<Token> tokens, int length) {
+  final positions = List.filled(length + 1, -1);
+  var index = 0;
+  for (final entry in tokens.indexed) {
+    for (var i = entry.$2.value.length; i >= 0; i--) {
+      positions[index++] = entry.$1;
+    }
+  }
+  return positions;
 }
 
 /// Returns the range in [diffs] that best resembles the known license text.

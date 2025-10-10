@@ -10,7 +10,6 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
-import 'license_detection/lcs.dart';
 import 'license_detection/license_detector.dart' hide License, Range;
 import 'model.dart';
 
@@ -58,14 +57,7 @@ Future<List<License>> detectLicenseInContent(
   }
 
   List<int> buildCoverages(LicenseMatch match) {
-    final ops = calculateTokenEditOps(
-      // ignore: invalid_use_of_visible_for_testing_member
-      unknown: match.tokens,
-      // ignore: invalid_use_of_visible_for_testing_member
-      known: match.license.tokens,
-    );
-
-    return ops
+    return match.tokenOps
         .whereType<MatchOp>()
         .expand(
           (op) => [

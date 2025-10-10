@@ -109,6 +109,33 @@ class LicenseWithNGrams extends License {
   }
 }
 
+/// A callback to lazily calculate the list of token-based operations (prepared alongside the diff operation).
+typedef TokenOpsFn = List<TokenOp> Function();
+
+/// A pair representing matching tokens from unknown to known sequences.
+typedef TokenPair = ({Token unknown, Token known});
+
+/// Describes an edit operation on the token list.
+abstract class TokenOp {}
+
+/// Describes an insertion into the unknown tokens.
+class InsertOp extends TokenOp {
+  final List<Token> tokens;
+  InsertOp(this.tokens);
+}
+
+/// Describes a deletion from the known tokens.
+class DeleteOp extends TokenOp {
+  final List<Token> tokens;
+  DeleteOp(this.tokens);
+}
+
+/// Describes a match of token pairs.
+class MatchOp extends TokenOp {
+  final List<TokenPair> pairs;
+  MatchOp(this.pairs);
+}
+
 /// Contains details regarding the results of corpus license match with unknown text.
 @sealed
 class LicenseMatch {
@@ -119,6 +146,9 @@ class LicenseMatch {
   /// [Diff]s calculated between target tokens and [license] tokens.
   @visibleForTesting
   final List<Diff> diffs;
+
+  /// Callback to lazily calculate the list of token-based operations.
+  final TokenOpsFn _tokenOpsFn;
 
   /// Range of [diffs] which represents the diffs between known license and unknown license.
   ///
@@ -173,9 +203,11 @@ class LicenseMatch {
     this.confidence,
     this.license,
     this.diffs,
+    TokenOpsFn tokenOpsFn,
     this.diffRange,
   ) : tokensClaimed = tokens.length,
-      tokenRange = Range(tokens.first.index, tokens.last.index);
+      tokenRange = Range(tokens.first.index, tokens.last.index),
+      _tokenOpsFn = tokenOpsFn;
 
   @visibleForTesting
   LicenseMatch.createInstance(
@@ -184,9 +216,10 @@ class LicenseMatch {
     this.tokensClaimed,
     this.diffRange,
     this.diffs,
+    TokenOpsFn tokenOpsFn,
     this.license,
     this.tokenRange,
-  );
+  ) : _tokenOpsFn = tokenOpsFn;
 
   LicenseMatch updateTokenIndex(int startIndex, int endIndex) {
     return LicenseMatch.createInstance(
@@ -195,6 +228,7 @@ class LicenseMatch {
       endIndex - startIndex,
       diffRange,
       diffs,
+      _tokenOpsFn,
       license,
       Range(startIndex, endIndex),
     );
@@ -207,6 +241,9 @@ class LicenseMatch {
   /// Token density is the product of number of tokens claimed in
   /// the range and confidence score of the match.
   late final tokenDensity = tokensClaimed * confidence;
+
+  /// The list of token based operations.
+  late final tokenOps = _tokenOpsFn();
 }
 
 /// Generates a frequency table for the given list of [tokens].
