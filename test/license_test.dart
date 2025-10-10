@@ -154,7 +154,6 @@ void main() {
       final licenses = await detectLicenseInDir('.');
       expect(licenses.map((e) => e.toJson()).toList(), [
         {
-          'path': 'LICENSE',
           'spdxIdentifier': 'BSD-3-Clause',
           'range': {
             'start': {'offset': 44, 'line': 2, 'column': 0},
