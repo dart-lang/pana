@@ -22,19 +22,19 @@ void main() {
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'spdxIdentifier': 'Apache-2.0',
-          'range': {
-            'start': {'offset': 1569, 'line': 33, 'column': 33},
-            'end': {'offset': 12892, 'line': 233, 'column': 33},
-            'coverages': [1569, 12892],
-          },
+          'operations': [1, 1569, 11323],
         },
         {
           'spdxIdentifier': 'BSD-2-Clause',
-          'range': {
-            'start': {'offset': 240, 'line': 8, 'column': 0},
-            'end': {'offset': 1479, 'line': 27, 'column': 68},
-            'coverages': [240, 1479],
-          },
+          'operations': [
+            0,
+            240,
+            28,
+            'Copyright (c) <year> <owner>',
+            1,
+            240,
+            1239,
+          ],
         },
       ]);
     });
@@ -52,19 +52,19 @@ void main() {
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'spdxIdentifier': 'Apache-2.0',
-          'range': {
-            'start': {'offset': 1441, 'line': 30, 'column': 33},
-            'end': {'offset': 12764, 'line': 230, 'column': 33},
-            'coverages': [1441, 12764],
-          },
+          'operations': [1, 1441, 11323],
         },
         {
           'spdxIdentifier': 'BSD-2-Clause',
-          'range': {
-            'start': {'offset': 134, 'line': 7, 'column': 0},
-            'end': {'offset': 1373, 'line': 26, 'column': 68},
-            'coverages': [134, 1373],
-          },
+          'operations': [
+            0,
+            134,
+            28,
+            'Copyright (c) <year> <owner>',
+            1,
+            134,
+            1239,
+          ],
         },
       ]);
     });
@@ -89,19 +89,27 @@ void main() {
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'spdxIdentifier': 'BSD-3-Clause',
-          'range': {
-            'start': {'offset': 1215, 'line': 28, 'column': 0},
-            'end': {'offset': 2645, 'line': 52, 'column': 68},
-            'coverages': [1215, 2645],
-          },
+          'operations': [
+            0,
+            1215,
+            29,
+            'Copyright (c) <year> <owner>.',
+            1,
+            1215,
+            1430,
+          ],
         },
         {
           'spdxIdentifier': 'MIT',
-          'range': {
-            'start': {'offset': 31, 'line': 5, 'column': 0},
-            'end': {'offset': 1053, 'line': 21, 'column': 9},
-            'coverages': [31, 1053],
-          },
+          'operations': [
+            0,
+            31,
+            53,
+            'MIT License\n\nCopyright (c) <year> <copyright holders>',
+            1,
+            31,
+            1022,
+          ],
         },
       ]);
     });
@@ -117,19 +125,27 @@ void main() {
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'spdxIdentifier': 'BSD-2-Clause',
-          'range': {
-            'start': {'offset': 1276, 'line': 30, 'column': 0},
-            'end': {'offset': 2511, 'line': 36, 'column': 755},
-            'coverages': isNotEmpty,
-          },
+          'operations': [
+            0,
+            1276,
+            28,
+            'Copyright (c) <year> <owner>',
+            1,
+            1276,
+            1235,
+          ],
         },
         {
           'spdxIdentifier': 'MIT',
-          'range': {
-            'start': {'offset': 213, 'line': 8, 'column': 0},
-            'end': {'offset': 1235, 'line': 24, 'column': 13},
-            'coverages': isNotEmpty,
-          },
+          'operations': [
+            0,
+            213,
+            53,
+            'MIT License\n\nCopyright (c) <year> <copyright holders>',
+            1,
+            213,
+            1022,
+          ],
         },
       ]);
     });

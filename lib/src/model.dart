@@ -154,12 +154,11 @@ class License {
   /// The SPDX identifier of the license.
   final String spdxIdentifier;
 
-  /// The range (start and end position) of the recognized part.
-  ///
-  /// WARNING: this field is experimental, do not rely on it.
-  final Range? range;
+  /// Describes the operations of the text from the view of the original reference.
+  @JsonKey(fromJson: TextOp._parseList, toJson: TextOp._expandList)
+  final List<TextOp>? operations;
 
-  License({required this.spdxIdentifier, this.range});
+  License({required this.spdxIdentifier, this.operations});
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);
@@ -167,45 +166,73 @@ class License {
   Map<String, dynamic> toJson() => _$LicenseToJson(this);
 }
 
-/// Describes a range in a source file.
-///
-/// WARNING: this class is experimental, do not rely on it.
-@JsonSerializable()
-class Range {
-  final Position start;
-  final Position end;
+/// Describes the type of the operation from the view of the original content.
+enum TextOpType {
+  /// Deleted text block from the original content.
+  delete(0),
 
-  /// Pair of values that indicate start-end offsets that inside the range are
-  /// covering the license text.
-  final List<int> coverages;
+  /// Matching text content.
+  match(1),
 
-  Range({required this.start, required this.end, required this.coverages});
+  /// Additional text content.
+  insert(2);
 
-  factory Range.fromJson(Map<String, dynamic> json) => _$RangeFromJson(json);
+  final int code;
 
-  Map<String, dynamic> toJson() => _$RangeToJson(this);
+  const TextOpType(this.code);
+
+  static TextOpType fromCode(int code) {
+    switch (code) {
+      case 0:
+        return delete;
+      case 1:
+        return match;
+      case 2:
+        return insert;
+    }
+    throw ArgumentError('Unknown code: $code');
+  }
 }
 
-/// Describes a position in a source file.
-///
-/// WARNING: this class is experimental, do not rely on it.
-@JsonSerializable()
-class Position {
-  /// The 0-based offset in the source.
-  final int offset;
+/// Describes a text operation.
+class TextOp {
+  final TextOpType type;
+  final int start;
+  final int length;
+  final String? content;
 
-  /// The 0-based line in the source.
-  final int line;
+  TextOp({
+    required this.type,
+    required this.start,
+    required this.length,
+    this.content,
+  });
 
-  /// The 0-based column in the source
-  final int column;
+  List _expand() => [type.code, start, length, if (content != null) content];
 
-  Position({required this.offset, required this.line, required this.column});
+  static List? _expandList(List<TextOp>? values) =>
+      values?.expand((v) => v._expand()).toList();
 
-  factory Position.fromJson(Map<String, dynamic> json) =>
-      _$PositionFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PositionToJson(this);
+  static List<TextOp>? _parseList(List? values) {
+    if (values == null) return null;
+    final result = <TextOp>[];
+    for (var i = 0; i < values.length;) {
+      final type = TextOpType.fromCode(values[i] as int);
+      final start = values[i + 1] as int;
+      final length = values[i + 2] as int;
+      String? content;
+      if (type == TextOpType.delete &&
+          i + 3 < values.length &&
+          values[i + 3] is String) {
+        content = values[i + 3] as String;
+      }
+      result.add(
+        TextOp(type: type, start: start, length: length, content: content),
+      );
+      i += content == null ? 3 : 4;
+    }
+    return result;
+  }
 }
 
 /// Models the 'new-style' pana report.

@@ -160,7 +160,16 @@ double confidencePercentage(int knownLength, int distance) {
             end,
           );
           knownOffset += diff.text.length;
-          return DeleteOp(tokensFromKnown);
+          final unknownPosition = inputOffset > 0
+              ? filteredInputTokens[inputPositions[inputOffset - 1]]
+                    .span
+                    .end
+                    .offset
+              : filteredInputTokens[inputPositions[inputOffset]]
+                    .span
+                    .start
+                    .offset;
+          return DeleteOp(unknownPosition, tokensFromKnown);
       }
     }).toList();
   }

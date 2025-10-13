@@ -168,24 +168,25 @@
     "licenses": [
       {
         "spdxIdentifier": "BSD-3-Clause",
-        "range": {
-          "start": {
-            "offset": 58,
-            "line": 2,
-            "column": 0
-          },
-          "end": {
-            "offset": 1518,
-            "line": 24,
-            "column": 60
-          },
-          "coverages": [
-            58,
-            591,
-            599,
-            1518
-          ]
-        }
+        "operations": [
+          0,
+          58,
+          29,
+          "Copyright (c) <year> <owner>.",
+          1,
+          58,
+          533,
+          2,
+          592,
+          11,
+          0,
+          603,
+          20,
+          "the copyright holder",
+          1,
+          599,
+          919
+        ]
       }
     ],
     "grantedPoints": 150,

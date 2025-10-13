@@ -95,40 +95,12 @@ Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) =>
 
 License _$LicenseFromJson(Map<String, dynamic> json) => License(
   spdxIdentifier: json['spdxIdentifier'] as String,
-  range: json['range'] == null
-      ? null
-      : Range.fromJson(json['range'] as Map<String, dynamic>),
+  operations: TextOp._parseList(json['operations'] as List?),
 );
 
 Map<String, dynamic> _$LicenseToJson(License instance) => <String, dynamic>{
   'spdxIdentifier': instance.spdxIdentifier,
-  'range': ?instance.range?.toJson(),
-};
-
-Range _$RangeFromJson(Map<String, dynamic> json) => Range(
-  start: Position.fromJson(json['start'] as Map<String, dynamic>),
-  end: Position.fromJson(json['end'] as Map<String, dynamic>),
-  coverages: (json['coverages'] as List<dynamic>)
-      .map((e) => (e as num).toInt())
-      .toList(),
-);
-
-Map<String, dynamic> _$RangeToJson(Range instance) => <String, dynamic>{
-  'start': instance.start.toJson(),
-  'end': instance.end.toJson(),
-  'coverages': instance.coverages,
-};
-
-Position _$PositionFromJson(Map<String, dynamic> json) => Position(
-  offset: (json['offset'] as num).toInt(),
-  line: (json['line'] as num).toInt(),
-  column: (json['column'] as num).toInt(),
-);
-
-Map<String, dynamic> _$PositionToJson(Position instance) => <String, dynamic>{
-  'offset': instance.offset,
-  'line': instance.line,
-  'column': instance.column,
+  'operations': ?TextOp._expandList(instance.operations),
 };
 
 Report _$ReportFromJson(Map<String, dynamic> json) => Report(

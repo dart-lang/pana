@@ -2,6 +2,7 @@
 
 **Breaking changes:**
 - Removed deprecated API. 
+- Removed `Range` and `Position` from the model, added `TextOp` to list changes and matching parts in the license.
 
 ## 0.22.24
 
