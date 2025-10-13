@@ -48,12 +48,6 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
   allDependencies: (json['allDependencies'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
-  licenseFile: json['licenseFile'] == null
-      ? null
-      : LicenseFile.fromJson(json['licenseFile'] as Map<String, dynamic>),
-  licenses: (json['licenses'] as List<dynamic>?)
-      ?.map((e) => License.fromJson(e as Map<String, dynamic>))
-      .toList(),
   tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
   report: json['report'] == null
       ? null
@@ -76,8 +70,6 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) => <String, dynamic>{
   'packageName': ?instance.packageName,
   'packageVersion': ?const VersionConverter().toJson(instance.packageVersion),
   'pubspec': ?instance.pubspec?.toJson(),
-  'licenseFile': ?instance.licenseFile?.toJson(),
-  'licenses': ?instance.licenses?.map((e) => e.toJson()).toList(),
   'allDependencies': ?instance.allDependencies,
   'tags': ?instance.tags,
   'report': ?instance.report?.toJson(),
@@ -102,7 +94,6 @@ Map<String, dynamic> _$PanaRuntimeInfoToJson(PanaRuntimeInfo instance) =>
     };
 
 License _$LicenseFromJson(Map<String, dynamic> json) => License(
-  path: json['path'] as String,
   spdxIdentifier: json['spdxIdentifier'] as String,
   range: json['range'] == null
       ? null
@@ -110,7 +101,6 @@ License _$LicenseFromJson(Map<String, dynamic> json) => License(
 );
 
 Map<String, dynamic> _$LicenseToJson(License instance) => <String, dynamic>{
-  'path': instance.path,
   'spdxIdentifier': instance.spdxIdentifier,
   'range': ?instance.range?.toJson(),
 };
@@ -140,19 +130,6 @@ Map<String, dynamic> _$PositionToJson(Position instance) => <String, dynamic>{
   'line': instance.line,
   'column': instance.column,
 };
-
-LicenseFile _$LicenseFileFromJson(Map<String, dynamic> json) => LicenseFile(
-  json['path'] as String,
-  json['name'] as String,
-  version: json['version'] as String?,
-);
-
-Map<String, dynamic> _$LicenseFileToJson(LicenseFile instance) =>
-    <String, dynamic>{
-      'path': instance.path,
-      'name': instance.name,
-      'version': ?instance.version,
-    };
 
 Report _$ReportFromJson(Map<String, dynamic> json) => Report(
   sections: (json['sections'] as List<dynamic>)

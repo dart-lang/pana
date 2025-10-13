@@ -136,7 +136,6 @@ class PackageAnalyzer {
         packageVersion: null,
         pubspec: pubspec,
         allDependencies: null,
-        licenseFile: null,
         tags: tags.toList(),
         report: null,
         errorMessage: pubspecParseError(e),
@@ -154,7 +153,6 @@ class PackageAnalyzer {
     final tr = await context.staticAnalysis;
     tags.addAll(tr.tags);
 
-    final licenses = await context.licenses;
     tags.addAll((await context.licenceTags).tags);
 
     if ((await context.executablesInBinDirectory).isNotEmpty) {
@@ -235,10 +233,6 @@ class PackageAnalyzer {
       packageVersion: pubspec.version,
       pubspec: pubspec,
       allDependencies: allDependencies.toList()..sort(),
-      licenseFile: licenses.isEmpty
-          ? null
-          : LicenseFile(licenses.first.path, licenses.first.spdxIdentifier),
-      licenses: licenses,
       tags: tags.toList(),
       report: report,
       result: await _createAnalysisResult(context, report),

@@ -26,34 +26,6 @@
       "test": "^1.16.0"
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "BSD-3-Clause"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "BSD-3-Clause",
-      "range": {
-        "start": {
-          "offset": 44,
-          "line": 2,
-          "column": 0
-        },
-        "end": {
-          "offset": 1503,
-          "line": 26,
-          "column": 68
-        },
-        "coverages": [
-          44,
-          577,
-          585,
-          1503
-        ]
-      }
-    }
-  ],
   "allDependencies": [
     "collection",
     "fake_async",
@@ -139,7 +111,6 @@
     "contributingUrl": "https://github.com/dart-lang/async/blob/master/CONTRIBUTING.md",
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "BSD-3-Clause",
         "range": {
           "start": {

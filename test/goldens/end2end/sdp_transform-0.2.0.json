@@ -24,32 +24,6 @@
       "test": "^1.9.3"
     }
   },
-  "licenseFile": {
-    "path": "LICENSE",
-    "name": "MIT"
-  },
-  "licenses": [
-    {
-      "path": "LICENSE",
-      "spdxIdentifier": "MIT",
-      "range": {
-        "start": {
-          "offset": 14,
-          "line": 3,
-          "column": 0
-        },
-        "end": {
-          "offset": 1036,
-          "line": 19,
-          "column": 9
-        },
-        "coverages": [
-          14,
-          1036
-        ]
-      }
-    }
-  ],
   "allDependencies": [
     "test"
   ],
@@ -116,7 +90,6 @@
     },
     "licenses": [
       {
-        "path": "LICENSE",
         "spdxIdentifier": "MIT",
         "range": {
           "start": {
