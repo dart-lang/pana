@@ -11,7 +11,6 @@ import 'package:path/path.dart' as path;
 
 import 'download_utils.dart';
 import 'logging.dart';
-import 'maintenance.dart';
 import 'model.dart';
 import 'package_context.dart';
 import 'pubspec.dart';
@@ -138,7 +137,9 @@ class PackageAnalyzer {
         allDependencies: null,
         tags: tags.toList(),
         report: null,
-        errorMessage: pubspecParseError(e),
+        errorMessage:
+            'Parsing `pubspec.yaml` throws an exception:\n\n'
+            '```\n$e\n```',
       );
     }
     if (pubspec.hasUnknownSdks) {
