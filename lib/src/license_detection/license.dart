@@ -126,8 +126,9 @@ class InsertOp extends TokenOp {
 
 /// Describes a deletion from the known tokens.
 class DeleteOp extends TokenOp {
+  final int unknownPosition;
   final List<Token> tokens;
-  DeleteOp(this.tokens);
+  DeleteOp(this.unknownPosition, this.tokens);
 }
 
 /// Describes a match of token pairs.

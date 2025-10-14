@@ -155,11 +155,25 @@ void main() {
       expect(licenses.map((e) => e.toJson()).toList(), [
         {
           'spdxIdentifier': 'BSD-3-Clause',
-          'range': {
-            'start': {'offset': 44, 'line': 2, 'column': 0},
-            'end': {'offset': 1503, 'line': 26, 'column': 68},
-            'coverages': isNotEmpty,
-          },
+          'operations': [
+            0,
+            44,
+            29,
+            'Copyright (c) <year> <owner>.',
+            1,
+            44,
+            533,
+            2,
+            578,
+            10,
+            0,
+            588,
+            20,
+            'the copyright holder',
+            1,
+            585,
+            918,
+          ],
         },
       ]);
     });

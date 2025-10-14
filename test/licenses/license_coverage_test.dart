@@ -20,7 +20,7 @@ void main() {
         expect(detected, hasLength(1));
         final match = detected.single;
         expect(match.spdxIdentifier, license.identifier);
-        expect(match.range!.coverages, hasLength(2));
+        expect(match.operations!, hasLength(1));
       }
     });
   });

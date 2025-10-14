@@ -117,22 +117,11 @@
     "licenses": [
       {
         "spdxIdentifier": "Apache-2.0",
-        "range": {
-          "start": {
-            "offset": 33,
-            "line": 0,
-            "column": 33
-          },
-          "end": {
-            "offset": 11356,
-            "line": 200,
-            "column": 33
-          },
-          "coverages": [
-            33,
-            11356
-          ]
-        }
+        "operations": [
+          1,
+          33,
+          11323
+        ]
       }
     ],
     "grantedPoints": 90,

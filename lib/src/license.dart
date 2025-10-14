@@ -8,7 +8,6 @@ import 'dart:io';
 
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
-import 'package:source_span/source_span.dart';
 
 import 'license_detection/license_detector.dart' hide License, Range;
 import 'model.dart';
@@ -56,30 +55,49 @@ Future<List<License>> detectLicenseInContent(
     return <License>[];
   }
 
-  List<int> buildCoverages(LicenseMatch match) {
-    return match.tokenOps
-        .whereType<MatchOp>()
-        .expand(
-          (op) => [
-            op.pairs.first.unknown.span.start.offset,
-            op.pairs.last.unknown.span.end.offset,
-          ],
-        )
-        .toList();
+  List<TextOp> buildCoverages(LicenseMatch match) {
+    return match.tokenOps.map((op) {
+      switch (op) {
+        case MatchOp _:
+          final start = op.pairs.first.unknown.span.start.offset;
+          return TextOp(
+            type: TextOpType.match,
+            start: start,
+            length: op.pairs.last.unknown.span.end.offset - start,
+          );
+        case InsertOp _:
+          final start = op.tokens.first.span.start.offset;
+          return TextOp(
+            type: TextOpType.insert,
+            start: start,
+            length: op.tokens.last.span.end.offset - start,
+          );
+        case DeleteOp _:
+          final deleteStart = op.tokens.first.span.start.offset;
+          final deleteEnd = op.tokens.last.span.end.offset;
+          final deleteLength = deleteEnd - deleteStart;
+
+          // ignore: invalid_use_of_visible_for_testing_member
+          final knownContent = match.license.content;
+          final content = deleteLength < 64
+              ? knownContent.substring(deleteStart, deleteEnd)
+              : [
+                  knownContent.substring(deleteStart, deleteStart + 24),
+                  knownContent.substring(deleteEnd - 24, deleteEnd),
+                ].join('[...]');
+
+          return TextOp(
+            type: TextOpType.delete,
+            start: op.unknownPosition,
+            length: deleteLength,
+            content: content,
+          );
+      }
+      throw UnimplementedError('Unknown op type: ${op.runtimeType}.');
+    }).toList();
   }
 
   return licenseResult.matches.map((e) {
-    return License(
-      spdxIdentifier: e.identifier,
-      range: Range(
-        start: e.start.toPosition(),
-        end: e.end.toPosition(),
-        coverages: buildCoverages(e),
-      ),
-    );
+    return License(spdxIdentifier: e.identifier, operations: buildCoverages(e));
   }).toList();
-}
-
-extension on SourceLocation {
-  Position toPosition() => Position(offset: offset, line: line, column: column);
 }

@@ -82,22 +82,15 @@
     "licenses": [
       {
         "spdxIdentifier": "MIT",
-        "range": {
-          "start": {
-            "offset": 24,
-            "line": 3,
-            "column": 0
-          },
-          "end": {
-            "offset": 1046,
-            "line": 19,
-            "column": 13
-          },
-          "coverages": [
-            24,
-            1046
-          ]
-        }
+        "operations": [
+          0,
+          24,
+          53,
+          "MIT License\n\nCopyright (c) <year> <copyright holders>",
+          1,
+          24,
+          1022
+        ]
       }
     ],
     "grantedPoints": 30,
