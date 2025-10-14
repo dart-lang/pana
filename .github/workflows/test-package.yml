@@ -51,6 +51,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         sdk: [3.9.0]
         flutter: [3.35.1]
+        shard: [0, 1, 2, 3]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
@@ -70,7 +71,7 @@ jobs:
         # Run the tests -- include the default-skipped presubmit tests
         # Run with concurrency = 1 – the build-test command edits files, which might
         #   crash other tests run in parallel
-        run: dart test --platform vm --run-skipped -j 1
+        run: dart test --platform vm --run-skipped -j 1 --shard-index ${{matrix.shard}} --total-shards 4
         if: always() && steps.install.outcome == 'success'
 
   # Runs tests on beta SDKs.
