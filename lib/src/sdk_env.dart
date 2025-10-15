@@ -591,7 +591,6 @@ class ToolEnvironment {
   /// * Removes `workspace` and `resolution` These have no effect on the
   ///   consuming resolution, and might prevent the package from resolving on
   ///   its own.
-  /// * Adds lower-bound minimal SDK constraint - if missing.
   ///
   /// Returns the backup file with the original content.
   Future<File> _stripAndAugmentPubspecYaml(String packageDir) async {
@@ -645,35 +644,6 @@ class ToolEnvironment {
     parsed.remove('dependency_overrides');
     parsed.remove('workspace');
     parsed.remove('resolution');
-
-    // `pub` client checks if pubspec.yaml has no lower-bound SDK constraint,
-    // and throws an exception if it is missing. While we no longer accept
-    // new packages without such constraint, the old versions are still valid
-    // and should be analyzed.
-    final environment = parsed.putIfAbsent(
-      'environment',
-      () => <String, Object?>{},
-    );
-    if (environment is Map) {
-      VersionConstraint? vc;
-      if (environment['sdk'] is String) {
-        try {
-          vc = VersionConstraint.parse(environment['sdk'] as String);
-        } catch (_) {}
-      }
-      final range = vc is VersionRange ? vc : null;
-      if (range != null &&
-          range.min != null &&
-          !range.min!.isAny &&
-          !range.min!.isEmpty) {
-        // looks good
-      } else {
-        final maxValue = range?.max == null
-            ? '<=${_runtimeInfo!.sdkVersion}'
-            : '${range!.includeMax ? '<=' : '<'}${range.max}';
-        environment['sdk'] = '>=1.0.0 $maxValue';
-      }
-    }
 
     await pubspec.rename(backup.path);
     await pubspec.writeAsString(json.encode(parsed));

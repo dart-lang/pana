@@ -5,6 +5,7 @@
 - Removed `Range` and `Position` from the model, added `TextOp` to list changes and matching parts in the license.
 - Removed `packageName` from `SdkConstraintStatus.fromSdkVersion` constructor.
 - Removed `ToolEnvironment` methods: `runUpgrade` (use `runPub` instead) and `withRestrictedAnalysisOptions` (no replacement).
+- SDK constraint is no longer added to old `pubspec.yaml`
 
 ## 0.22.24
 
