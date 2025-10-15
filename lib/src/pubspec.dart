@@ -215,12 +215,7 @@ class SdkConstraintStatus {
     required this.hasOptedIntoNullSafety,
   });
 
-  // TODO: remove [packageName] in a future breaking release.
-  factory SdkConstraintStatus.fromSdkVersion(
-    VersionConstraint? constraint, [
-    // ignore: avoid_unused_constructor_parameters
-    String? packageName,
-  ]) {
+  factory SdkConstraintStatus.fromSdkVersion(VersionConstraint? constraint) {
     final hasConstraint =
         constraint != null && !constraint.isAny && !constraint.isEmpty;
     final hasOptedIntoNullSafety =
