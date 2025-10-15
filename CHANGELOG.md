@@ -6,6 +6,7 @@
 - Removed `packageName` from `SdkConstraintStatus.fromSdkVersion` constructor.
 - Removed `ToolEnvironment` methods: `runUpgrade` (use `runPub` instead) and `withRestrictedAnalysisOptions` (no replacement).
 - SDK constraint is no longer added to old `pubspec.yaml`
+- Removed `--line-length` CLI argument and also `lineLength` from analysis options. Use [configurable page width](https://dart.dev/tools/dart-format#configuring-formatter-page-width) instead.
 
 ## 0.22.24
 

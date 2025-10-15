@@ -47,9 +47,6 @@ class InspectOptions {
   /// [dartdocTimeout] and the remaining budget will be used.
   final Duration dartdocTimeout;
 
-  /// The line length parameter to be used for dart format checks.
-  final int? lineLength;
-
   InspectOptions({
     this.pubHostedUrl,
     this.panaCacheDir,
@@ -57,7 +54,6 @@ class InspectOptions {
     this.resourcesOutputDir,
     this.totalTimeout,
     Duration? dartdocTimeout,
-    this.lineLength,
   }) : dartdocTimeout = dartdocTimeout ?? const Duration(minutes: 5);
 }
 
