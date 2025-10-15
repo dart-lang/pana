@@ -10,19 +10,41 @@ import 'package:test/test.dart';
 ///
 /// If the file doesn't exist, the file is instead created containing [actual].
 void expectMatchesGoldenFile(String actual, String goldenFilePath) {
-  var goldenFile = File(goldenFilePath);
-  if (goldenFile.existsSync()) {
-    expect(
-      actual.replaceAll('\r\n', '\n'),
-      equals(goldenFile.readAsStringSync().replaceAll('\r\n', '\n')),
-      reason:
-          'goldenFilePath: "$goldenFilePath". '
-          'To update the expectation delete this file and rerun the test.',
-    );
-  } else {
-    goldenFile
-      ..createSync(recursive: true)
-      ..writeAsStringSync(actual);
-    fail('Golden file $goldenFilePath was recreated!');
+  final goldenFile = GoldenFile(goldenFilePath);
+  goldenFile.writeContentIfNotExists(actual);
+  goldenFile.expectContent(actual);
+}
+
+/// Access to a file that contains the expected output of a process.
+class GoldenFile {
+  final String path;
+  late final File _file;
+  late final bool _didExists;
+  late final String? _oldContent;
+
+  GoldenFile(this.path) {
+    _file = File(path);
+    _didExists = _file.existsSync();
+    _oldContent = _didExists ? _file.readAsStringSync() : null;
+  }
+
+  void writeContentIfNotExists(String content) {
+    if (_didExists) return;
+    _file.createSync(recursive: true);
+    _file.writeAsStringSync(content);
+  }
+
+  void expectContent(String actual) {
+    if (_didExists) {
+      expect(
+        actual.replaceAll('\r\n', '\n'),
+        equals(_oldContent!.replaceAll('\r\n', '\n')),
+        reason:
+            'goldenFilePath: "$path". '
+            'To update the expectation delete this file and rerun the test.',
+      );
+    } else {
+      fail('Golden file $path was recreated!');
+    }
   }
 }

@@ -119,19 +119,18 @@ void main() {
         // versions may change over time or because of SDK version changes.
         removeDependencyDetails(actualMap);
 
-        final json =
+        final jsonContent =
             '${const JsonEncoder.withIndent('  ').convert(actualMap)}\n';
 
         // The tempdir creeps in to an error message.
-        final jsonNoTempDir = json.replaceAll(
+        final jsonNoTempDir = jsonContent.replaceAll(
           RegExp(r'Error on line 5, column 1 of .*pubspec.yaml'),
           r'Error on line 5, column 1 of $TEMPDIR/pubspec.yaml',
         );
 
-        expectMatchesGoldenFile(jsonNoTempDir, p.join(_goldenDir, filename));
-      });
+        final jsonGoldenFile = GoldenFile(p.join(_goldenDir, filename));
+        jsonGoldenFile.writeContentIfNotExists(jsonNoTempDir);
 
-      test('Report matches known good', () {
         final jsonReport = actualMap['report'] as Map<String, Object?>?;
         if (jsonReport != null) {
           final report = Report.fromJson(jsonReport);
@@ -142,25 +141,25 @@ void main() {
               )
               .join('\n\n');
           // For readability we output the report in its own file.
-          expectMatchesGoldenFile(
-            renderedSections,
+          final reportGoldenFile = GoldenFile(
             p.join(_goldenDir, '${filename}_report.md'),
           );
+          reportGoldenFile.writeContentIfNotExists(renderedSections);
+          reportGoldenFile.expectContent(renderedSections);
         }
-      });
 
-      test('Summary can round-trip', () {
+        // note: golden file expectations happen after content is already written
+        jsonGoldenFile.expectContent(jsonNoTempDir);
+
         var summary = Summary.fromJson(actualMap);
 
         var roundTrip = json.decode(json.encode(summary));
         expect(roundTrip, actualMap);
-      });
 
-      test('Summary tags check', () {
         final tagsFileContent = File(
           'lib/src/tag/pana_tags.dart',
         ).readAsStringSync();
-        final summary = Summary.fromJson(actualMap);
+
         final tags = summary.tags;
         if (tags != null) {
           for (final tag in tags) {
