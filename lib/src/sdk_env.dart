@@ -201,7 +201,7 @@ class ToolEnvironment {
     });
   }
 
-  Future<T> withRestrictedAnalysisOptions<T>(
+  Future<T> _withRestrictedAnalysisOptions<T>(
     String packageDir,
     Future<T> Function() fn,
   ) async {
@@ -240,7 +240,7 @@ class ToolEnvironment {
         ? _flutterSdk.dartAnalyzeCmd
         : _dartSdk.dartAnalyzeCmd;
 
-    return await withRestrictedAnalysisOptions(packageDir, () async {
+    return await _withRestrictedAnalysisOptions(packageDir, () async {
       final proc = await runConstrained(
         [...command, '--format', 'machine', dir],
         environment: usesFlutter
@@ -284,7 +284,7 @@ class ToolEnvironment {
     if (dirs.isEmpty) {
       return const [];
     }
-    return withRestrictedAnalysisOptions(packageDir, () async {
+    return _withRestrictedAnalysisOptions(packageDir, () async {
       await runPub(packageDir, usesFlutter: usesFlutter, command: 'get');
 
       final files = <String>{};
@@ -352,17 +352,6 @@ class ToolEnvironment {
       throwOnError: true,
     );
     return result.parseJson(transform: stripIntermittentFlutterMessages);
-  }
-
-  Future<PanaProcessResult> runUpgrade(
-    String packageDir,
-    bool usesFlutter,
-  ) async {
-    return await runPub(
-      packageDir,
-      usesFlutter: usesFlutter,
-      command: 'upgrade',
-    );
   }
 
   Future<PanaProcessResult> runPub(
