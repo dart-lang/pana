@@ -277,9 +277,8 @@ class ToolEnvironment {
 
   Future<List<String>> filesNeedingFormat(
     String packageDir,
-    bool usesFlutter, {
-    int? lineLength,
-  }) async {
+    bool usesFlutter,
+  ) async {
     final dirs = await listFocusDirs(packageDir);
     if (dirs.isEmpty) {
       return const [];
@@ -296,9 +295,6 @@ class ToolEnvironment {
           '--output=none',
           '--set-exit-if-changed',
         ];
-        if (lineLength != null && lineLength > 0) {
-          params.addAll(<String>['--line-length', lineLength.toString()]);
-        }
         params.add(fullPath);
 
         final result = await runConstrained(

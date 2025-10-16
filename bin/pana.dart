@@ -58,11 +58,6 @@ final _parser = ArgParser()
     help: 'The server that hosts <package>.',
     defaultsTo: defaultHostedUrl,
   )
-  ..addOption(
-    'line-length',
-    abbr: 'l',
-    help: 'The line length to use with dart format.',
-  )
   ..addFlag(
     'hosted',
     help: 'Download and analyze a hosted package (from $defaultHostedUrl).',
@@ -203,7 +198,6 @@ Future<void> main(List<String> args) async {
     final options = InspectOptions(
       pubHostedUrl: pubHostedUrl,
       panaCacheDir: Platform.environment['PANA_CACHE'],
-      lineLength: int.tryParse(result['line-length'] as String? ?? ''),
       dartdocOutputDir: runDartdoc ? dartdocOutputDir : null,
       resourcesOutputDir: resourcesOutputDir,
       dartdocTimeout: _parseDuration(result['dartdoc-timeout'] as String?),

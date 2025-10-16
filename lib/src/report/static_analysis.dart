@@ -31,7 +31,6 @@ Future<ReportSection> staticAnalysis(PackageContext context) async {
           packageDir,
           context.toolEnvironment,
           usesFlutter: context.usesFlutter,
-          lineLength: context.options.lineLength,
         )
       : <Issue>[];
 
@@ -191,13 +190,11 @@ Future<List<Issue>> _formatPackage(
   String packageDir,
   ToolEnvironment toolEnvironment, {
   required bool usesFlutter,
-  int? lineLength,
 }) async {
   try {
     final unformattedFiles = await toolEnvironment.filesNeedingFormat(
       packageDir,
       usesFlutter,
-      lineLength: lineLength,
     );
     return unformattedFiles
         .map(
