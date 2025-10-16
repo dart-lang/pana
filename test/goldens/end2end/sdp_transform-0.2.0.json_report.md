@@ -62,8 +62,8 @@ See https://dart.dev/web/wasm for details.
 * Running `dart pub outdated` failed with the following output:
 
 ```
-The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
-or higher to enable null safety.
+pubspec.yaml has no lower-bound SDK constraint.
+You should edit pubspec.yaml to contain an SDK constraint:
 ```
 
 
@@ -114,12 +114,13 @@ Try widening the upper boundary of the constraint.
 OUT:
 Resolving dependencies...
 ERR:
-The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
-or higher to enable null safety.
+pubspec.yaml has no lower-bound SDK constraint.
+You should edit pubspec.yaml to contain an SDK constraint:
 
-The current Dart SDK (3.9.0) only supports null safety.
+environment:
+  sdk: '^3.9.0'
 
-For details, see https://dart.dev/null-safety
+See https://dart.dev/go/sdk-constraint
 ```
 
 Run `dart pub downgrade` and then `dart analyze` to reproduce the above problem.
