@@ -115,6 +115,35 @@ String updatePassthroughOptions({
     }
   }
 
+  final origLinter = origMap['linter'];
+  if (origLinter is Map) {
+    final origRules = origLinter['rules'];
+    if (origRules is Map) {
+      final customLinter = customMap.putIfAbsent(
+        'linter',
+        () => <String, Object?>{},
+      );
+      var customRules = customLinter.putIfAbsent(
+        'rules',
+        () => <String, Object?>{},
+      );
+      if (customRules is List) {
+        customRules = Map.fromEntries(
+          customRules.map((e) => MapEntry(e, true)),
+        );
+        customLinter['rules'] = customRules;
+      }
+      if (customRules is Map) {
+        for (var e in origRules.entries) {
+          if (customRules.containsKey(e.key)) {
+            continue;
+          }
+          customRules[e.key] = e.value;
+        }
+      }
+    }
+  }
+
   final origFormatter = origMap['formatter'];
   if (origFormatter is Map) {
     final customFormatter =
