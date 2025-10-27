@@ -71,10 +71,18 @@ Future<http.Response> _httpGetWithRetry(Uri uri) async {
 
 const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 
+/// Update the well-known [custom] `analysis_options.yaml` content with
+/// pass-through options from the package-provided [original] content.
+/// Such options are:
+/// - the `include:` predicate,
+/// - the `formatter:` options (without any filtering),
+/// - the `analyzer: / errors:` keys passing through keys
+///   from [_analyzerErrorKeys],
+/// - the `linter: / rules:` section, passing `true`/`false`
+///   values if their key is not present in [custom].
 String updatePassthroughOptions({
   required String? original,
   required String custom,
-  bool keepInclude = false,
 }) {
   Map? origMap;
   if (original != null) {
@@ -115,6 +123,29 @@ String updatePassthroughOptions({
     }
   }
 
+  if (origMap case {'linter': {'rules': Map origRules}}) {
+    final customLinter = customMap.putIfAbsent(
+      'linter',
+      () => <String, Object?>{},
+    );
+    var customRules = customLinter.putIfAbsent(
+      'rules',
+      () => <String, Object?>{},
+    );
+    if (customRules is List) {
+      customRules = Map.fromEntries(customRules.map((e) => MapEntry(e, true)));
+      customLinter['rules'] = customRules;
+    }
+    if (customRules is Map) {
+      for (var e in origRules.entries) {
+        if (customRules.containsKey(e.key)) {
+          continue;
+        }
+        customRules[e.key] = e.value;
+      }
+    }
+  }
+
   final origFormatter = origMap['formatter'];
   if (origFormatter is Map) {
     final customFormatter =
@@ -122,11 +153,9 @@ String updatePassthroughOptions({
     customFormatter.addAll(origFormatter.cast<String, dynamic>());
   }
 
-  if (keepInclude) {
-    final newInclude = customMap['include'] ?? origMap['include'];
-    if (newInclude != null) {
-      customMap['include'] = newInclude;
-    }
+  final newInclude = customMap['include'] ?? origMap['include'];
+  if (newInclude != null) {
+    customMap['include'] = newInclude;
   }
 
   return json.encode(customMap);

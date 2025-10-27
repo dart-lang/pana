@@ -216,7 +216,6 @@ class ToolEnvironment {
     final customOptionsContent = updatePassthroughOptions(
       original: originalOptions,
       custom: rawOptionsContent,
-      keepInclude: true,
     );
     try {
       await analysisOptionsFile.writeAsString(customOptionsContent);

@@ -55,25 +55,41 @@ formatter:
     });
   });
 
-  test('ignore include in original', () {
+  test('passthrough linter rules', () {
+    final content = updatePassthroughOptions(
+      original: '''
+linter:
+  rules:
+    avoid_relative_lib_imports: true
+    prefer_relative_imports: false
+    public_member_api_docs: false
+''',
+      custom: '''
+linter:
+  rules:
+    - prefer_relative_imports
+''',
+    );
+    expect(json.decode(content), {
+      'linter': {
+        'rules': {
+          'avoid_relative_lib_imports': true,
+          'prefer_relative_imports': true,
+          'public_member_api_docs': false,
+        },
+      },
+    });
+  });
+
+  test('update include from original', () {
     final content = updatePassthroughOptions(
       original: 'include: package:lints/other.yaml',
       custom: '',
     );
-    expect(json.decode(content), <String, Object?>{});
+    expect(json.decode(content), {'include': 'package:lints/other.yaml'});
   });
 
-  test('include only in custom: keepInclude=false', () {
-    final content = updatePassthroughOptions(
-      original: '',
-      custom: 'include: package:lints/other.yaml',
-    );
-    expect(json.decode(content), <String, Object?>{
-      'include': 'package:lints/other.yaml',
-    });
-  });
-
-  test('include only in custom: keepInclude=true', () {
+  test('include only in custom', () {
     final content = updatePassthroughOptions(
       original: '',
       custom: 'include: package:lints/other.yaml',
@@ -87,7 +103,6 @@ formatter:
     final content = updatePassthroughOptions(
       original: 'include: package:lints/other.yaml',
       custom: '',
-      keepInclude: true,
     );
     expect(json.decode(content), <String, Object?>{
       'include': 'package:lints/other.yaml',
@@ -98,7 +113,6 @@ formatter:
     final content = updatePassthroughOptions(
       original: 'include: package:lints/other.yaml',
       custom: 'include: package:lints/core.yaml',
-      keepInclude: true,
     );
     expect(json.decode(content), <String, Object?>{
       'include': 'package:lints/core.yaml',
@@ -106,11 +120,7 @@ formatter:
   });
 
   test('keep include without include value', () {
-    final content = updatePassthroughOptions(
-      original: '',
-      custom: '',
-      keepInclude: true,
-    );
+    final content = updatePassthroughOptions(original: '', custom: '');
     expect(json.decode(content), <String, Object?>{});
   });
 }
