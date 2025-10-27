@@ -71,6 +71,15 @@ Future<http.Response> _httpGetWithRetry(Uri uri) async {
 
 const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 
+/// Update the well-known [custom] `analysis_options.yaml` content with
+/// pass-through options from the package-provided [original] content.
+/// Such options are:
+/// - the `include:` predicate,
+/// - the `formatter:` options (without any filtering),
+/// - the `analyzer: / errors:` keys passing through keys
+///   from [_analyzerErrorKeys],
+/// - the `linter: / rules:` section, passing `true`/`false`
+///   values if their key is not present in [custom].
 String updatePassthroughOptions({
   required String? original,
   required String custom,
