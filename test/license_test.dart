@@ -127,6 +127,19 @@ void main() {
     });
   });
 
+  group('Unicode v3', () {
+    test('explicit', () async {
+      expect(
+        await detectLicenseInContent(
+          '\n\n   UNICODE LICENSE V3\n\nCOPYRIGHT AND PERMISSION NOTICE\n',
+          relativePath: 'LICENSE',
+        ),
+        isEmpty,
+      );
+      await expectFile('test/licenses/unicode3-icu4x.txt', ['Unicode-3.0']);
+    });
+  });
+
   group('Unlicense', () {
     test('explicit', () async {
       expect(
