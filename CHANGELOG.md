@@ -1,6 +1,7 @@
 ## 0.23.1
 
 - Support passthrough of unrelated linter rules in analysis option customization.
+- Support passthrough of unrelated analyzer errors in analysis option customization.
 
 ## 0.23.0
 

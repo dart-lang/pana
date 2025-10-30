@@ -25,7 +25,7 @@ void main() {
     expect(json.decode(content), <String, Object?>{});
   });
 
-  test('passthrough for some options', () {
+  test('passthrough for most options', () {
     final content = updatePassthroughOptions(
       original: '''
 analyzer:
@@ -44,7 +44,7 @@ formatter:
     );
     expect(json.decode(content), {
       'analyzer': {
-        'errors': {'uri_has_not_been_generated': 'ignore'},
+        'errors': {'todo': 'ignore', 'uri_has_not_been_generated': 'ignore'},
         'enable-experiment': ['macros'],
       },
       'formatter': {
@@ -55,7 +55,34 @@ formatter:
     });
   });
 
-  test('passthrough linter rules', () {
+  test('passthrough analysis errors except one', () {
+    final content = updatePassthroughOptions(
+      original: '''
+analyzer:
+  errors:
+    todo: ignore
+    another-todo: ignore
+    uri_has_not_been_generated: ignore
+''',
+      custom: '''
+linter:
+  rules:
+    - todo
+    - uri_has_not_been_generated
+''',
+    );
+    expect(json.decode(content), {
+      'analyzer': {
+        'errors': {
+          'another-todo': 'ignore',
+          'uri_has_not_been_generated': 'ignore',
+        },
+      },
+      'linter': isNotEmpty,
+    });
+  });
+
+  test('passthrough linter rules except one', () {
     final content = updatePassthroughOptions(
       original: '''
 linter:
