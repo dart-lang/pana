@@ -10,19 +10,13 @@ void main() {
   //       https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/
   group('SPDX license expressions', () {
     test('Simple expression', () async {
-      final detected = await detectLicenseInContent(
-        'BSD-3-Clause',
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent('BSD-3-Clause');
       // TODO: update detection and report the matched license
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });
 
     test('Complex expression', () async {
-      final detected = await detectLicenseInContent(
-        'MIT OR BSD-3-Clause',
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent('MIT OR BSD-3-Clause');
       // TODO: update detection and report the matched licenses
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });

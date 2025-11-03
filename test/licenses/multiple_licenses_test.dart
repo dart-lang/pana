@@ -15,10 +15,7 @@ void main() {
         'test/licenses/multiple_licenses_comments.txt',
       ).readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'spdxIdentifier': 'Apache-2.0',
@@ -45,10 +42,7 @@ void main() {
         'test/licenses/multiple_licenses_sections.txt',
       ).readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'spdxIdentifier': 'Apache-2.0',
@@ -82,10 +76,7 @@ void main() {
         'test/licenses/multiple_licenses_allnotifications.txt',
       ).readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'spdxIdentifier': 'BSD-3-Clause',
@@ -118,10 +109,7 @@ void main() {
       final input = File(
         'test/licenses/multiple_licenses_pikaday_datepicker.txt',
       ).readAsStringSync();
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       expect(detected.map((l) => l.toJson()).toList(), [
         {
           'spdxIdentifier': 'BSD-2-Clause',
