@@ -15,10 +15,7 @@ void main() {
         'test/licenses/as_is_with_contributors.txt',
       ).readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       // TODO: update detection and report the as-is license
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });
@@ -29,10 +26,7 @@ void main() {
         'test/licenses/commercial_with_limited_free_use.txt',
       ).readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       // TODO: update detection and report the commercial license
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });
@@ -43,10 +37,7 @@ void main() {
         'test/licenses/apache_v2_short.txt',
       ).readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       // TODO: update detection and report the apache license
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });
@@ -55,10 +46,7 @@ void main() {
       // License text is from package:onesignal_flutter
       final input = File('test/licenses/modified_mit.txt').readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       // TODO: update detection and report the MIT license + its modifications
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });
@@ -67,10 +55,7 @@ void main() {
       // License text is from package:simple_icons
       final input = File('test/licenses/cc0_universal.txt').readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       // TODO: update detection and report the CC0 license
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });
@@ -81,10 +66,7 @@ void main() {
         'test/licenses/gpl_v2_with_extras.txt',
       ).readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       // TODO: update detection and report the GPL v2 license + the extras separately
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });
@@ -95,10 +77,7 @@ void main() {
         'test/licenses/non_free_i18n_extension.txt',
       ).readAsStringSync();
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       // TODO: update detection and report the non-free parts
       expect(detected.map((l) => l.toJson()).toList(), <Map>[]);
     });

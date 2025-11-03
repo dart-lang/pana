@@ -19,22 +19,16 @@ Future<List<License>> detectLicenseInDir(String baseDir) async {
   for (final candidate in _licenseFileNames) {
     final file = File(p.join(baseDir, candidate));
     if (!file.existsSync()) continue;
-    licenses.addAll(await detectLicenseInFile(file, relativePath: candidate));
+    licenses.addAll(await detectLicenseInFile(file));
   }
   // TODO: sort by confidence (the current order is per-file confidence).
   return licenses;
 }
 
 @visibleForTesting
-Future<List<License>> detectLicenseInFile(
-  File file, {
-  required String relativePath,
-}) async {
+Future<List<License>> detectLicenseInFile(File file) async {
   final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);
-  final licenses = await detectLicenseInContent(
-    content,
-    relativePath: relativePath,
-  );
+  final licenses = await detectLicenseInContent(content);
   if (licenses.isEmpty) {
     return [License(spdxIdentifier: 'unknown')];
   }
@@ -44,10 +38,7 @@ Future<List<License>> detectLicenseInFile(
 /// Returns the license(s) detected from the [SPDX-corpus][1].
 ///
 /// [1]: https://spdx.org/licenses/
-Future<List<License>> detectLicenseInContent(
-  String content, {
-  required String relativePath,
-}) async {
+Future<List<License>> detectLicenseInContent(String content) async {
   final licenseResult = await detectLicense(content, 0.95);
 
   if (licenseResult.unclaimedTokenPercentage > 0.5 ||

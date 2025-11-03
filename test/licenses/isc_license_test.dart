@@ -24,10 +24,7 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ''';
 
-      final detected = await detectLicenseInContent(
-        input,
-        relativePath: 'LICENSE',
-      );
+      final detected = await detectLicenseInContent(input);
       expect(detected, hasLength(1));
       expect(detected.single.spdxIdentifier, 'ISC');
     });
