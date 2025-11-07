@@ -163,15 +163,17 @@ $actual''');
     Object? exitCodeExpectation = 0,
   }) async {
     final sectionIndex = _nextSectionIndex++;
+    final executable = command.first;
+    final args = command.skip(1).toList();
     final result = await Process.run(
-      command.first,
-      command.skip(1).toList(),
+      executable,
+      args,
       environment: environment,
       workingDirectory: workingDirectory,
     );
     final s = StringBuffer();
     s.writeln('## Section $sectionIndex');
-    s.writeln('Run \$ ${command.join(' ')}');
+    s.writeln('Run \$ ${p.basename(executable)} ${args.join(' ')}');
     s.writeln('Exit code: ${result.exitCode}');
     s.write('stdout: ${result.stdout}');
     s.write('stderr: ${result.stderr}');
