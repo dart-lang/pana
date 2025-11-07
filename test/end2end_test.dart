@@ -12,7 +12,7 @@ import 'package:test/test.dart';
 import 'env_utils.dart';
 import 'golden_file.dart';
 
-final _goldenDir = p.join('test', 'goldens', 'end2end');
+final _testDataDir = p.join('test', 'testData');
 
 void main() {
   void verifyPackage(
@@ -20,7 +20,6 @@ void main() {
     String version, {
     bool skipDartdoc = false,
   }) {
-    final filename = '$package-$version.json';
     group('end2end: $package $version', () {
       late TestEnv testEnv;
       late final Map<String, Object?> actualMap;
@@ -102,7 +101,7 @@ void main() {
         await testEnv.close();
       });
 
-      test('matches known good', () {
+      testWithGolden('$package $version report', (context) {
         void removeDependencyDetails(Map<String, dynamic> map) {
           if (map.containsKey('pkgResolution') &&
               (map['pkgResolution'] as Map).containsKey('dependencies')) {
@@ -128,9 +127,6 @@ void main() {
           r'Error on line 5, column 1 of $TEMPDIR/pubspec.yaml',
         );
 
-        final jsonGoldenFile = GoldenFile(p.join(_goldenDir, filename));
-        jsonGoldenFile.writeContentIfNotExists(jsonNoTempDir);
-
         final jsonReport = actualMap['report'] as Map<String, Object?>?;
         if (jsonReport != null) {
           final report = Report.fromJson(jsonReport);
@@ -140,16 +136,12 @@ void main() {
                     '## ${s.grantedPoints}/${s.maxPoints} ${s.title}\n\n${s.summary}',
               )
               .join('\n\n');
-          // For readability we output the report in its own file.
-          final reportGoldenFile = GoldenFile(
-            p.join(_goldenDir, '${filename}_report.md'),
+          context.expectSection(
+            renderedSections.replaceAll('\r\n', '\n'),
+            sectionTitle: 'rendered report',
           );
-          reportGoldenFile.writeContentIfNotExists(renderedSections);
-          reportGoldenFile.expectContent(renderedSections);
         }
-
-        // note: golden file expectations happen after content is already written
-        jsonGoldenFile.expectContent(jsonNoTempDir);
+        context.expectSection(jsonNoTempDir, sectionTitle: 'json report');
 
         var summary = Summary.fromJson(actualMap);
 
@@ -233,7 +225,7 @@ void main() {
 }
 
 Future<DateTime> _detectGoldenLastModified() async {
-  final timestampFile = File(p.join(_goldenDir, '__timestamp.txt'));
+  final timestampFile = File(p.join(_testDataDir, '__timestamp.txt'));
   await timestampFile.parent.create(recursive: true);
   if (timestampFile.existsSync()) {
     final content = await timestampFile.readAsString();
