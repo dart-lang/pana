@@ -67,24 +67,6 @@ Because:
 * `dart:io`
 </details>
 
-### [x] 0/0 points: WASM compatibility
-
-<details>
-<summary>
-Package not compatible with runtime wasm
-</summary>
-
-Because:
-* `package:steward/steward.dart` that imports:
-* `package:steward/app/app.dart` that imports:
-* `package:steward/config/config_reader.dart` that imports:
-* `dart:io`
-</details>
-
-This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
-
-See https://dart.dev/web/wasm for details.
-
 
 ## 40/50 Pass static analysis
 

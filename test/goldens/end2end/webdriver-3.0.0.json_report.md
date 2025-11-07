@@ -97,23 +97,6 @@ Because:
 * `dart:io`
 </details>
 
-### [x] 0/0 points: WASM compatibility
-
-<details>
-<summary>
-Package not compatible with runtime wasm
-</summary>
-
-Because:
-* `package:webdriver/async_html.dart` that imports:
-* `package:webdriver/src/request/async_xhr_request_client.dart` that imports:
-* `dart:html`
-</details>
-
-This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
-
-See https://dart.dev/web/wasm for details.
-
 
 ## 30/50 Pass static analysis
 

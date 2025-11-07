@@ -136,19 +136,20 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
     basePath: context.packageDir,
     subsections: [
       subsection,
-      wasmSubsection,
+      ?wasmSubsection,
       if (swiftPackageManagerSubsection != null) swiftPackageManagerSubsection,
     ],
     maxIssues: 20,
   );
 }
 
-Future<Subsection> _createWasmSubsection(PackageContext context) async {
+Future<Subsection?> _createWasmSubsection(PackageContext context) async {
   final tr = await context.staticAnalysis;
   final description = 'WASM compatibility';
   final explanation = tr.explanations
       .where((e) => e.tag == PanaTags.isWasmReady)
       .firstOrNull;
+  if (!tr.tags.contains(PanaTags.platformWeb)) return null;
   if (explanation != null) {
     return Subsection(
       description,
