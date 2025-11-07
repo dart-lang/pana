@@ -137,7 +137,7 @@ void main() {
               )
               .join('\n\n');
           context.expectSection(
-            renderedSections,
+            renderedSections.replaceAll('\r\n', '\n'),
             sectionTitle: 'rendered report',
           );
         }
