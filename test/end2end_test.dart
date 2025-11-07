@@ -12,7 +12,7 @@ import 'package:test/test.dart';
 import 'env_utils.dart';
 import 'golden_file.dart';
 
-final _goldenDir = p.join('test', 'goldens', 'end2end');
+final _testDataDir = p.join('test', 'testData');
 
 void main() {
   void verifyPackage(
@@ -225,7 +225,7 @@ void main() {
 }
 
 Future<DateTime> _detectGoldenLastModified() async {
-  final timestampFile = File(p.join(_goldenDir, '__timestamp.txt'));
+  final timestampFile = File(p.join(_testDataDir, '__timestamp.txt'));
   await timestampFile.parent.create(recursive: true);
   if (timestampFile.existsSync()) {
     final content = await timestampFile.readAsString();
