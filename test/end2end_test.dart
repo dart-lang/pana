@@ -20,7 +20,6 @@ void main() {
     String version, {
     bool skipDartdoc = false,
   }) {
-    final filename = '$package-$version.json';
     group('end2end: $package $version', () {
       late TestEnv testEnv;
       late final Map<String, Object?> actualMap;
@@ -102,7 +101,7 @@ void main() {
         await testEnv.close();
       });
 
-      test('matches known good', () {
+      testWithGolden('$package $version report', (context) {
         void removeDependencyDetails(Map<String, dynamic> map) {
           if (map.containsKey('pkgResolution') &&
               (map['pkgResolution'] as Map).containsKey('dependencies')) {
@@ -128,9 +127,6 @@ void main() {
           r'Error on line 5, column 1 of $TEMPDIR/pubspec.yaml',
         );
 
-        final jsonGoldenFile = GoldenFile(p.join(_goldenDir, filename));
-        jsonGoldenFile.writeContentIfNotExists(jsonNoTempDir);
-
         final jsonReport = actualMap['report'] as Map<String, Object?>?;
         if (jsonReport != null) {
           final report = Report.fromJson(jsonReport);
@@ -140,16 +136,12 @@ void main() {
                     '## ${s.grantedPoints}/${s.maxPoints} ${s.title}\n\n${s.summary}',
               )
               .join('\n\n');
-          // For readability we output the report in its own file.
-          final reportGoldenFile = GoldenFile(
-            p.join(_goldenDir, '${filename}_report.md'),
+          context.expectSection(
+            renderedSections,
+            sectionTitle: 'rendered report',
           );
-          reportGoldenFile.writeContentIfNotExists(renderedSections);
-          reportGoldenFile.expectContent(renderedSections);
         }
-
-        // note: golden file expectations happen after content is already written
-        jsonGoldenFile.expectContent(jsonNoTempDir);
+        context.expectSection(jsonNoTempDir, sectionTitle: 'json report');
 
         var summary = Summary.fromJson(actualMap);
 
