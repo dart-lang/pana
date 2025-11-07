@@ -12,10 +12,7 @@ void main() {
       final allLicenses = await listDefaultLicenses();
       expect(allLicenses, hasLength(greaterThan(30)));
       for (final license in allLicenses) {
-        final detected = await detectLicenseInContent(
-          license.content,
-          relativePath: 'LICENSE',
-        );
+        final detected = await detectLicenseInContent(license.content);
         // should only match the same license
         expect(detected, hasLength(1));
         final match = detected.single;

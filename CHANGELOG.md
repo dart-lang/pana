@@ -1,3 +1,13 @@
+## 0.23.2
+
+- Allow `package:analyzer` range to accept `^9.0.0`  too.
+
+## 0.23.1
+
+- Support passthrough of unrelated linter rules in analysis option customization.
+- Support passthrough of unrelated analyzer errors in analysis option customization.
+- Added new license files.
+
 ## 0.23.0
 
 **Breaking changes:**

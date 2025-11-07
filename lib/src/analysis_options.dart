@@ -71,10 +71,18 @@ Future<http.Response> _httpGetWithRetry(Uri uri) async {
 
 const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 
+/// Update the well-known [custom] `analysis_options.yaml` content with
+/// pass-through options from the package-provided [original] content.
+/// Such options are:
+/// - the `include:` predicate,
+/// - the `formatter:` options (without any filtering),
+/// - the `analyzer: / errors:` keys passing the values if
+///   their key is not present in [custom] or are in [_analyzerErrorKeys],
+/// - the `linter: / rules:` section, passing `true`/`false`
+///   values if their key is not present in [custom].
 String updatePassthroughOptions({
   required String? original,
   required String custom,
-  bool keepInclude = false,
 }) {
   Map? origMap;
   if (original != null) {
@@ -85,21 +93,23 @@ String updatePassthroughOptions({
   origMap ??= {};
 
   final customMap =
-      json.decode(json.encode(yaml.loadYaml(custom))) ?? <String, dynamic>{};
+      (json.decode(json.encode(yaml.loadYaml(custom))) as Map?) ??
+      <String, dynamic>{};
 
-  final origAnalyzer = origMap['analyzer'];
-  if (origAnalyzer is Map) {
-    final origErrors = origAnalyzer['errors'];
-    if (origErrors is Map) {
+  final appliedCustomRules = _extractAppliedRules(customMap);
+
+  if (origMap case {'analyzer': Map origAnalyzer}) {
+    if (origAnalyzer case {'errors': Map origErrors}) {
       final customAnalyzer =
           customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
       final customErrors =
           customAnalyzer.putIfAbsent('errors', () => <String, Object?>{})
               as Map;
 
-      for (var key in _analyzerErrorKeys) {
-        if (origErrors.containsKey(key)) {
-          customErrors[key] = origErrors[key];
+      for (var entry in origErrors.entries) {
+        if (_analyzerErrorKeys.contains(entry.key) ||
+            !appliedCustomRules.contains(entry.key)) {
+          customErrors[entry.key] = entry.value;
         }
       }
     }
@@ -115,6 +125,29 @@ String updatePassthroughOptions({
     }
   }
 
+  if (origMap case {'linter': {'rules': Map origRules}}) {
+    final customLinter = customMap.putIfAbsent(
+      'linter',
+      () => <String, Object?>{},
+    );
+    var customRules = customLinter.putIfAbsent(
+      'rules',
+      () => <String, Object?>{},
+    );
+    if (customRules is List) {
+      customRules = Map.fromEntries(customRules.map((e) => MapEntry(e, true)));
+      customLinter['rules'] = customRules;
+    }
+    if (customRules is Map) {
+      for (var e in origRules.entries) {
+        if (appliedCustomRules.contains(e.key)) {
+          continue;
+        }
+        customRules[e.key] = e.value;
+      }
+    }
+  }
+
   final origFormatter = origMap['formatter'];
   if (origFormatter is Map) {
     final customFormatter =
@@ -122,12 +155,24 @@ String updatePassthroughOptions({
     customFormatter.addAll(origFormatter.cast<String, dynamic>());
   }
 
-  if (keepInclude) {
-    final newInclude = customMap['include'] ?? origMap['include'];
-    if (newInclude != null) {
-      customMap['include'] = newInclude;
-    }
+  final newInclude = customMap['include'] ?? origMap['include'];
+  if (newInclude != null) {
+    customMap['include'] = newInclude;
   }
 
   return json.encode(customMap);
+}
+
+Set<String> _extractAppliedRules(Map map) {
+  final appliedRules = <String>{};
+  if (map case {'linter': {'rules': List rules}}) {
+    appliedRules.addAll(rules.map((e) => e.toString()));
+  }
+  if (map case {'linter': {'rules': Map rules}}) {
+    appliedRules.addAll(rules.keys.map((e) => e.toString()));
+  }
+  if (map case {'analyzer': {'errors': Map errors}}) {
+    appliedRules.addAll(errors.keys.map((e) => e.toString()));
+  }
+  return appliedRules;
 }

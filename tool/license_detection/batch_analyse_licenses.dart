@@ -27,10 +27,7 @@ Future<void> main(List<String> args) async {
   for (final file in files) {
     try {
       final content = file.readAsStringSync();
-      final list = await detectLicenseInContent(
-        content,
-        relativePath: 'LICENSE',
-      );
+      final list = await detectLicenseInContent(content);
       final spdxIds = list.map((e) => e.spdxIdentifier).toList()..sort();
       final packageName = file.path
           .split('/')
