@@ -24,8 +24,7 @@ class GoldenFile {
 
   GoldenFile(this.path) {
     _file = File(path);
-    _didExists = false;
-    //_file.existsSync();
+    _didExists = _file.existsSync();
     _oldContent = _didExists ? _file.readAsStringSync() : null;
   }
 
