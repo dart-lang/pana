@@ -165,7 +165,7 @@ Future<void> copyDir(String from, String to) async {
 
 Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
   final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org')).resolve(
-    '/api/packages/$package',
+    'api/packages/$package',
   );
   log.fine('Downloading: $url');
 
