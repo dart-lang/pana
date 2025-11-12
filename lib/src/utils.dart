@@ -164,9 +164,17 @@ Future<void> copyDir(String from, String to) async {
 }
 
 Future<String> getVersionListing(String package, {Uri? pubHostedUrl}) async {
-  final url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org')).resolve(
-    'api/packages/$package',
-  );
+  var url = (pubHostedUrl ?? Uri.parse('https://pub.dartlang.org'))
+      .normalizePath();
+  // If we have a path of only '/'
+  if (url.path == '/') {
+    url = url.replace(path: '');
+  }
+  // If there is a path, and it doesn't end in a slash we normalize to slash
+  if (url.path.isNotEmpty && !url.path.endsWith('/')) {
+    url = url.replace(path: '${url.path}/');
+  }
+  url = url.resolve('api/packages/$package');
   log.fine('Downloading: $url');
 
   return await retry(
