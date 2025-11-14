@@ -120,6 +120,43 @@ void main() {
     );
   });
 
+  test('same name screenshots are not overridden', () async {
+    final descriptor = package('my_package', pubspecExtras: {
+      'screenshots': [
+        {'description': 'description', 'path': 's1/static.webp'},
+        {'description': 'description', 'path': 's2/static.webp'},
+      ],
+    }, extraFiles: [
+      d.dir('s1', [
+        d.file(
+          'static.webp',
+          File(p.join(_testImagesDir, 'static.webp')).readAsBytesSync(),
+        ),
+      ]),
+      d.dir('s2', [
+        d.file(
+          'static.webp',
+          File(p.join(_testImagesDir, 'static.webp')).readAsBytesSync(),
+        ),
+      ]),
+    ]);
+
+    await descriptor.create();
+    final screenshots = [
+      Screenshot('description', 's1/static.webp'),
+      Screenshot('description', 's2/static.webp')
+    ];
+    final result = await processAllScreenshots(screenshots, descriptor.io.path);
+
+    expect(result.length, 2);
+    expect(result[0].problems, isEmpty);
+    expect(result[0].processedScreenshot, isNotNull);
+    expect(result[1].problems, isEmpty);
+    expect(result[1].processedScreenshot, isNotNull);
+    expect(result[0].processedScreenshot!.webpImage,
+        isNot(equals(result[1].processedScreenshot!.webpImage)));
+  }, skip: !hasWebpTools);
+
   test('success - process WebP, PNG and GIFs', () async {
     if (!hasWebpTools) return;
     final pkgDir = _testImagesDir;
