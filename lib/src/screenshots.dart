@@ -140,21 +140,26 @@ Future<ScreenshotResult> _processScreenshot(
   p.Screenshot e,
   String tempDir,
 ) async {
-  final basename = path.basenameWithoutExtension(e.path);
-  final webpName = '$basename.webp';
+  final nameWithNoExt = path.withoutExtension(e.path);
+  final webpName = '$nameWithNoExt.webp';
+  final pngName = '$nameWithNoExt.png';
+
   final genDir = 'gen';
   final thumbnail100Dir = path.join(genDir, '100x100');
   final thumbnail190Dir = path.join(genDir, '190x190');
   final webpPath = path.join(genDir, webpName);
   final webp100ThumbnailPath = path.join(thumbnail100Dir, webpName);
   final webp190ThumbnailPath = path.join(thumbnail190Dir, webpName);
-  final pngName = '$basename.png';
   final png100ThumbnailPath = path.join(thumbnail100Dir, pngName);
   final png190ThumbnailPath = path.join(thumbnail190Dir, pngName);
   final originalPath = path.join(pkgDir, e.path);
 
-  Directory(path.join(tempDir, thumbnail100Dir)).createSync(recursive: true);
-  Directory(path.join(tempDir, thumbnail190Dir)).createSync(recursive: true);
+  Directory(path.join(tempDir, path.dirname(webpPath)))
+      .createSync(recursive: true);
+  Directory(path.join(tempDir, path.dirname(webp100ThumbnailPath)))
+      .createSync(recursive: true);
+  Directory(path.join(tempDir, path.dirname(webp190ThumbnailPath)))
+      .createSync(recursive: true);
 
   final webpScreenshotProblems = await _generateWebpScreenshot(
     originalPath,
@@ -444,9 +449,8 @@ Future<List<String>> _checkedRunProc(
     }
   } on ProcessException catch (e) {
     log.severe("'${cmdAndArgs[0]}' tool not found.");
-    final message = e.message.isEmpty
-        ? "'${cmdAndArgs[0]}' tool not found."
-        : e.message;
+    final message =
+        e.message.isEmpty ? "'${cmdAndArgs[0]}' tool not found." : e.message;
     return [message];
   }
 }
