@@ -1,6 +1,7 @@
 ## 0.23.2
 
 - Allow `package:analyzer` range to accept `^9.0.0`  too.
+- Fix issue where screenshots with same filenames but located in different subdirectories were overwriting each other during processing.
 
 ## 0.23.1
 

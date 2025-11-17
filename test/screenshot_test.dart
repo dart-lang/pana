@@ -120,6 +120,26 @@ void main() {
     );
   });
 
+  test('same name screenshots are not overridden', () async {
+    if (!hasWebpTools) return;
+
+    final pkgDir = _testImagesDir;
+    final s = Screenshot('description', 'static.webp');
+    final s2 = Screenshot('description', 's2/static.webp');
+
+    final result = await processAllScreenshots([s, s2], pkgDir);
+
+    expect(result.length, 2);
+    expect(result[0].problems, isEmpty);
+    expect(result[0].processedScreenshot, isNotNull);
+    expect(result[1].problems, isEmpty);
+    expect(result[1].processedScreenshot, isNotNull);
+    expect(
+      result[0].processedScreenshot!.webpImage,
+      isNot(equals(result[1].processedScreenshot!.webpImage)),
+    );
+  }, skip: !hasWebpTools);
+
   test('success - process WebP, PNG and GIFs', () async {
     if (!hasWebpTools) return;
     final pkgDir = _testImagesDir;
