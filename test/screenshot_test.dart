@@ -121,36 +121,13 @@ void main() {
   });
 
   test('same name screenshots are not overridden', () async {
-    final descriptor = package(
-      'my_package',
-      pubspecExtras: {
-        'screenshots': [
-          {'description': 'description', 'path': 's1/static.webp'},
-          {'description': 'description', 'path': 's2/static.webp'},
-        ],
-      },
-      extraFiles: [
-        d.dir('s1', [
-          d.file(
-            'static.webp',
-            File(p.join(_testImagesDir, 'static.webp')).readAsBytesSync(),
-          ),
-        ]),
-        d.dir('s2', [
-          d.file(
-            'static.webp',
-            File(p.join(_testImagesDir, 'static.webp')).readAsBytesSync(),
-          ),
-        ]),
-      ],
-    );
+    if (!hasWebpTools) return;
 
-    await descriptor.create();
-    final screenshots = [
-      Screenshot('description', 's1/static.webp'),
-      Screenshot('description', 's2/static.webp'),
-    ];
-    final result = await processAllScreenshots(screenshots, descriptor.io.path);
+    final pkgDir = _testImagesDir;
+    final s = Screenshot('description', 'static.webp');
+    final s2 = Screenshot('description', 's2/static.webp');
+
+    final result = await processAllScreenshots([s, s2], pkgDir);
 
     expect(result.length, 2);
     expect(result[0].problems, isEmpty);
