@@ -154,12 +154,15 @@ Future<ScreenshotResult> _processScreenshot(
   final png190ThumbnailPath = path.join(thumbnail190Dir, pngName);
   final originalPath = path.join(pkgDir, e.path);
 
-  Directory(path.join(tempDir, path.dirname(webpPath)))
-      .createSync(recursive: true);
-  Directory(path.join(tempDir, path.dirname(webp100ThumbnailPath)))
-      .createSync(recursive: true);
-  Directory(path.join(tempDir, path.dirname(webp190ThumbnailPath)))
-      .createSync(recursive: true);
+  Directory(
+    path.join(tempDir, path.dirname(webpPath)),
+  ).createSync(recursive: true);
+  Directory(
+    path.join(tempDir, path.dirname(webp100ThumbnailPath)),
+  ).createSync(recursive: true);
+  Directory(
+    path.join(tempDir, path.dirname(webp190ThumbnailPath)),
+  ).createSync(recursive: true);
 
   final webpScreenshotProblems = await _generateWebpScreenshot(
     originalPath,
@@ -449,8 +452,9 @@ Future<List<String>> _checkedRunProc(
     }
   } on ProcessException catch (e) {
     log.severe("'${cmdAndArgs[0]}' tool not found.");
-    final message =
-        e.message.isEmpty ? "'${cmdAndArgs[0]}' tool not found." : e.message;
+    final message = e.message.isEmpty
+        ? "'${cmdAndArgs[0]}' tool not found."
+        : e.message;
     return [message];
   }
 }
