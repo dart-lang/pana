@@ -2,6 +2,7 @@
 
 - Allow `package:analyzer` range to accept `^9.0.0`  too.
 - Fix issue where screenshots with same filenames but located in different subdirectories were overwriting each other during processing.
+- Only complain about wasm support for web-enabled packages.
 
 ## 0.23.1
 
