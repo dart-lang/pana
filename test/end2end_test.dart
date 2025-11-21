@@ -75,6 +75,10 @@ void main() {
               'The current Dart SDK version is {{sdk-version}}.',
             )
             .replaceAll(
+              'The current Dart SDK ($sdkVersion)',
+              'The current Dart SDK ({{sdk-version}})',
+            )
+            .replaceAll(
               ' support current Dart version $sdkVersion.',
               ' support current Dart version {{sdk-version}}.',
             )
