@@ -85,7 +85,7 @@ pubspec.yaml has no lower-bound SDK constraint.
 You should edit pubspec.yaml to contain an SDK constraint:
 
 environment:
-  sdk: '^3.9.0'
+  sdk: '^3.10.0'
 
 See https://dart.dev/go/sdk-constraint
 ```

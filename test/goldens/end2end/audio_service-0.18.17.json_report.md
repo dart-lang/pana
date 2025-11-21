@@ -141,7 +141,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`http`]|-|1.5.0|1.5.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`material_color_utilities`]|-|0.11.1|0.13.0||
-|[`meta`]|-|1.16.0|1.17.0||
+|[`meta`]|-|1.17.0|1.17.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`path_provider`]|-|2.1.5|2.1.5||
 |[`path_provider_android`]|-|2.2.17|2.2.17||
