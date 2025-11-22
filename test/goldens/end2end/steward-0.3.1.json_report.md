@@ -117,7 +117,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|:-|
 |[`bosun`]|`^0.2.1`|0.2.2|0.2.2||
 |[`flat`]|`^0.4.0`|0.4.1|**0.5.0**||
-|[`mustache_template`]|`^2.0.0`|2.0.0|2.0.0||
+|[`mustache_template`]|`^2.0.0`|2.0.2|2.0.2||
 |[`path_to_regexp`]|`^0.4.0`|0.4.0|0.4.0||
 |[`recase`]|`^4.0.0`|4.1.0|4.1.0||
 |[`yaml`]|`^3.1.0`|3.1.3|3.1.3||

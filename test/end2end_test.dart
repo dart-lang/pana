@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as p;
+import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
 import 'env_utils.dart';
@@ -61,6 +62,13 @@ void main() {
             flutterVersions: {},
           ),
         );
+        // 3.10.1 -> 3.10.0
+        final parsedSdkVersion = Version.parse(sdkVersion);
+        final sdkZeroVersion = Version(
+          parsedSdkVersion.major,
+          parsedSdkVersion.minor,
+          0,
+        ).toString();
 
         // summary.toJson contains types which are not directly JSON-able
         // throwing it through `JSON.encode` does the trick
@@ -75,8 +83,16 @@ void main() {
               'The current Dart SDK version is {{sdk-version}}.',
             )
             .replaceAll(
+              'The current Dart SDK ($sdkVersion)',
+              'The current Dart SDK ({{sdk-version}})',
+            )
+            .replaceAll(
               ' support current Dart version $sdkVersion.',
               ' support current Dart version {{sdk-version}}.',
+            )
+            .replaceAll(
+              'sdk: \'^$sdkZeroVersion\'',
+              'sdk: \'^{{sdk-zero-version}}\'',
             )
             .replaceAll(
               'the Dart version used by the latest stable Flutter ($flutterDartVersion)',
