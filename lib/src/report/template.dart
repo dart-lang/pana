@@ -200,13 +200,13 @@ Future<ReportSection> followsTemplate(PackageContext context) async {
         Issue(
           'Failed to verify repository URL.',
           suggestion:
+              '*${repository.verificationFailure ?? 'See logs for further details.'}*\n\n'
               'Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:\n\n'
               ' * `repository` can be cloned,\n'
               ' * a clone of the repository contains a `pubspec.yaml`, which:,\n'
               '    * contains `name: ${pubspec.name}`,\n'
               '    * contains a `version` property, and,\n'
-              '    * does not contain a `publish_to` property.\n\n'
-              '${repository.verificationFailure ?? 'status: `${repositoryStatus.name}`'}',
+              '    * does not contain a `publish_to` property.',
         ),
       );
     }

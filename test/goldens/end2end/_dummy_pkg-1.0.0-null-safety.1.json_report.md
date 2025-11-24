@@ -23,6 +23,8 @@ Sdk-constraint doesn't allow future stable dart 2.x releases
 Failed to verify repository URL.
 </summary>
 
+*`pkg/pub_integration/test_data/_dummy_pkg/pubspec.yaml` from the repository has no `version`.*
+
 Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:
 
  * `repository` can be cloned,
@@ -30,8 +32,6 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
     * contains `name: _dummy_pkg`,
     * contains a `version` property, and,
     * does not contain a `publish_to` property.
-
-`pkg/pub_integration/test_data/_dummy_pkg/pubspec.yaml` from the repository has no `version`.
 </details>
 
 ### [*] 5/5 points: Provide a valid `README.md`
