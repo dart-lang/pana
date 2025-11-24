@@ -6,30 +6,34 @@
     "flutterVersions": {}
   },
   "packageName": "async",
-  "packageVersion": "2.11.0",
+  "packageVersion": "2.13.0",
   "pubspec": {
     "name": "async",
-    "version": "2.11.0",
+    "version": "2.13.0",
     "description": "Utility functions and classes related to the 'dart:async' library.",
-    "repository": "https://github.com/dart-lang/async",
+    "repository": "https://github.com/dart-lang/core/tree/main/pkgs/async",
+    "issue_tracker": "https://github.com/dart-lang/core/issues?q=is%3Aissue+is%3Aopen+label%3Apackage%3Aasync",
+    "topics": [
+      "async"
+    ],
     "environment": {
-      "sdk": ">=2.18.0 <3.0.0"
+      "sdk": "^3.4.0"
     },
     "dependencies": {
       "collection": "^1.15.0",
-      "meta": "^1.1.7"
+      "meta": "^1.3.0"
     },
     "dev_dependencies": {
+      "dart_flutter_team_lints": "^3.0.0",
       "fake_async": "^1.2.0",
-      "lints": "^2.0.0",
       "stack_trace": "^1.10.0",
-      "test": "^1.16.0"
+      "test": "^1.16.6"
     }
   },
   "allDependencies": [
     "collection",
+    "dart_flutter_team_lints",
     "fake_async",
-    "lints",
     "meta",
     "stack_trace",
     "test"
@@ -51,7 +55,8 @@
     "is:dart3-compatible",
     "license:bsd-3-clause",
     "license:fsf-libre",
-    "license:osi-approved"
+    "license:osi-approved",
+    "topic:async"
   ],
   "report": {
     "sections": [
@@ -82,10 +87,10 @@
       {
         "id": "analysis",
         "title": "Pass static analysis",
-        "grantedPoints": 40,
+        "grantedPoints": 50,
         "maxPoints": 50,
-        "status": "partial",
-        "summary": "### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues\n\n<details>\n<summary>\nINFO: 'whereNotNull' is deprecated and shouldn't be used. Use .nonNulls instead.\n</summary>\n\n`lib/src/stream_group.dart:242:10`\n\n```\n    ╷\n242 │         .whereNotNull()\n    │          ^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/stream_group.dart`\n</details>\n"
+        "status": "passed",
+        "summary": "### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues\n"
       },
       {
         "id": "dependency",
@@ -93,22 +98,23 @@
         "grantedPoints": 40,
         "maxPoints": 40,
         "status": "passed",
-        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|Notes|\n|:-|:-|:-|:-|:-|\n|[`collection`]|`^1.15.0`|1.19.1|1.19.1||\n|[`meta`]|`^1.1.7`|1.17.0|1.17.0||\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`collection`]: https://pub.dev/packages/collection\n[`meta`]: https://pub.dev/packages/meta\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n\n### [*] 20/20 points: Compatible with dependency constraint lower bounds\n\n`pub downgrade` does not expose any static analysis error.\n"
+        "summary": "### [*] 10/10 points: All of the package dependencies are supported in the latest version\n\n|Package|Constraint|Compatible|Latest|Notes|\n|:-|:-|:-|:-|:-|\n|[`collection`]|`^1.15.0`|1.19.1|1.19.1||\n|[`meta`]|`^1.3.0`|1.17.0|1.17.0||\n\nTo reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.\n\n[`collection`]: https://pub.dev/packages/collection\n[`meta`]: https://pub.dev/packages/meta\n\n### [*] 10/10 points: Package supports latest stable Dart and Flutter SDKs\n\n### [*] 20/20 points: Compatible with dependency constraint lower bounds\n\n`pub downgrade` does not expose any static analysis error.\n"
       }
     ]
   },
   "screenshots": [],
   "result": {
-    "repositoryUrl": "https://github.com/dart-lang/async",
-    "issueTrackerUrl": "https://github.com/dart-lang/async/issues",
+    "repositoryUrl": "https://github.com/dart-lang/core/tree/main/pkgs/async",
+    "issueTrackerUrl": "https://github.com/dart-lang/core/issues?q=is%3Aissue+is%3Aopen+label%3Apackage%3Aasync",
     "repositoryStatus": "verified",
     "repository": {
       "provider": "github",
       "host": "github.com",
-      "repository": "dart-lang/async",
-      "branch": "master"
+      "repository": "dart-lang/core",
+      "branch": "main",
+      "path": "pkgs/async"
     },
-    "contributingUrl": "https://github.com/dart-lang/async/blob/master/CONTRIBUTING.md",
+    "contributingUrl": "https://github.com/dart-lang/core/blob/main/CONTRIBUTING.md",
     "licenses": [
       {
         "spdxIdentifier": "BSD-3-Clause",
@@ -133,7 +139,7 @@
         ]
       }
     ],
-    "grantedPoints": 140,
+    "grantedPoints": 150,
     "maxPoints": 160
   },
   "urlProblems": []

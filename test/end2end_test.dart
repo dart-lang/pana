@@ -199,7 +199,7 @@ void main() {
   }
 
   // generic, cross-platform package
-  verifyPackage('async', '2.11.0');
+  verifyPackage('async', '2.13.0');
 
   // cross-platform package with platform-specific code
   verifyPackage('http', '0.13.0', skipDartdoc: true);

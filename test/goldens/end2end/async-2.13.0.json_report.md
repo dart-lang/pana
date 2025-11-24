@@ -53,26 +53,9 @@ This package is compatible with runtime `wasm`, and will be rewarded additional 
 See https://dart.dev/web/wasm for details.
 
 
-## 40/50 Pass static analysis
+## 50/50 Pass static analysis
 
-### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
-
-<details>
-<summary>
-INFO: 'whereNotNull' is deprecated and shouldn't be used. Use .nonNulls instead.
-</summary>
-
-`lib/src/stream_group.dart:242:10`
-
-```
-    ╷
-242 │         .whereNotNull()
-    │          ^^^^^^^^^^^^
-    ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/stream_group.dart`
-</details>
+### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
 
 ## 40/40 Support up-to-date dependencies
@@ -82,7 +65,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
 |[`collection`]|`^1.15.0`|1.19.1|1.19.1||
-|[`meta`]|`^1.1.7`|1.17.0|1.17.0||
+|[`meta`]|`^1.3.0`|1.17.0|1.17.0||
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
 
