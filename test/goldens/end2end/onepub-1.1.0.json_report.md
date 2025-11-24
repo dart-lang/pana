@@ -7,6 +7,8 @@
 Failed to verify repository URL.
 </summary>
 
+*`pubspec.yaml` from the repository URL mismatch: expected `https://github.com/noojee/onepub.dev` but got `https://github.com/onepub-dev/onepub`.*
+
 Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#repository) URL in `pubspec.yaml`, such that:
 
  * `repository` can be cloned,
@@ -14,8 +16,6 @@ Please provide a valid [`repository`](https://dart.dev/tools/pub/pubspec#reposit
     * contains `name: onepub`,
     * contains a `version` property, and,
     * does not contain a `publish_to` property.
-
-`pubspec.yaml` from the repository URL mismatch: expected `https://github.com/noojee/onepub.dev` but got `https://github.com/onepub-dev/onepub`.
 </details>
 
 ### [*] 5/5 points: Provide a valid `README.md`
