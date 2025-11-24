@@ -116,6 +116,19 @@ linter:
     expect(json.decode(content), {'include': 'package:lints/other.yaml'});
   });
 
+  test('update includes from original', () {
+    final content = updatePassthroughOptions(
+      original:
+          'include:\n'
+          ' - package:lints/other.yaml\n'
+          ' - package:lints/core.yaml\n',
+      custom: '',
+    );
+    expect(json.decode(content), {
+      'include': ['package:lints/other.yaml', 'package:lints/core.yaml'],
+    });
+  });
+
   test('include only in custom', () {
     final content = updatePassthroughOptions(
       original: '',
