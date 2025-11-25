@@ -595,21 +595,28 @@ class ToolEnvironment {
     );
 
     // extract the package name from the `include: package:<package>/path.yaml` entry in analysis options:
-    String? includedPackage;
+    final includedPackages = <String>{};
     final analysisOptionsFile = File(
       p.join(packageDir, 'analysis_options.yaml'),
     );
     if (await analysisOptionsFile.exists()) {
+      void addPackageInclude(String includeValue) {
+        final include = includeValue.trim();
+        if (include.startsWith('package:')) {
+          includedPackages.add(
+            include.substring('package:'.length).split('/').first,
+          );
+        }
+      }
+
       final analysisOptions = await analysisOptionsFile.readAsString();
       final parsed = yamlToJson(analysisOptions);
       final includeValue = parsed?['include'];
       if (includeValue is String) {
-        final include = includeValue.trim();
-        if (include.startsWith('package:')) {
-          includedPackage = include
-              .substring('package:'.length)
-              .split('/')
-              .first;
+        addPackageInclude(includeValue);
+      } else if (includeValue is List) {
+        for (final v in includeValue.whereType<String>()) {
+          addPackageInclude(v);
         }
       }
     }
@@ -621,16 +628,15 @@ class ToolEnvironment {
     if (oldDevDependencies is Map<String, dynamic>) {
       final keptDevDependencies = <String, dynamic>{};
       for (final name in oldDevDependencies.keys) {
-        if (name != includedPackage) continue;
+        if (!includedPackages.contains(name)) {
+          continue;
+        }
         final value = oldDevDependencies[name];
-        var passthrough = true;
         if (value is Map &&
             (value.containsKey('path') || value.containsKey('git'))) {
-          passthrough = false;
+          continue;
         }
-        if (passthrough) {
-          keptDevDependencies[name] = value;
-        }
+        keptDevDependencies[name] = value;
       }
       if (keptDevDependencies.isNotEmpty) {
         parsed['dev_dependencies'] = keptDevDependencies;
