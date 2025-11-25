@@ -1,6 +1,7 @@
 ## 0.23.3
 
 - Support for multiple `include:` entry in `analysis_options.yaml`.
+- Fix issue with `PUB_HOSTED_URL` with custom path segments.
 
 ## 0.23.2
 
