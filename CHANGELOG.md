@@ -1,3 +1,7 @@
+## 0.23.4
+
+- `ToolEnvironment` flag to use `include:` entries in `analysis_options.yaml`.
+
 ## 0.23.3
 
 - Support for multiple `include:` entry in `analysis_options.yaml`.

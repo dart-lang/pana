@@ -83,6 +83,7 @@ const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
 String updatePassthroughOptions({
   required String? original,
   required String custom,
+  bool useAnalysisIncludes = false,
 }) {
   Map? origMap;
   if (original != null) {
@@ -155,7 +156,8 @@ String updatePassthroughOptions({
     customFormatter.addAll(origFormatter.cast<String, dynamic>());
   }
 
-  final newInclude = customMap['include'] ?? origMap['include'];
+  final newInclude =
+      customMap['include'] ?? (useAnalysisIncludes ? origMap['include'] : null);
   if (newInclude != null) {
     customMap['include'] = newInclude;
   }

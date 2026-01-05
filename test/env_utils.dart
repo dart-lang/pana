@@ -49,6 +49,7 @@ class TestEnv {
       pubCacheDir: pubCacheDir,
       pubHostedUrl: 'http://localhost:${httpServer.port}',
       dartdocVersion: dartdocVersion ?? 'any',
+      useAnalysisIncludes: true,
     );
 
     return TestEnv._(tempDir, httpServer, httpClient, toolEnv);

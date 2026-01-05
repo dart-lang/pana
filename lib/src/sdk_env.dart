@@ -78,6 +78,7 @@ class ToolEnvironment {
   final _FlutterSdk _flutterSdk;
   PanaRuntimeInfo? _runtimeInfo;
   final String? _dartdocVersion;
+  final bool _useAnalysisIncludes;
 
   bool _globalDartdocActivated = false;
 
@@ -86,6 +87,7 @@ class ToolEnvironment {
     this._dartSdk,
     this._flutterSdk,
     this._dartdocVersion,
+    this._useAnalysisIncludes,
   );
 
   ToolEnvironment.fake({
@@ -98,7 +100,8 @@ class ToolEnvironment {
          _DartSdk._(SdkConfig(environment: environment)),
        ),
        _dartdocVersion = null,
-       _runtimeInfo = runtimeInfo;
+       _runtimeInfo = runtimeInfo,
+       _useAnalysisIncludes = false;
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
@@ -134,6 +137,9 @@ class ToolEnvironment {
     ///
     /// Note: To use the latest `dartdoc`, use the version value `any`.
     String? dartdocVersion,
+
+    /// When true, the analysis_options.yaml's `include` references will be used.
+    bool? useAnalysisIncludes,
   }) async {
     dartSdkConfig ??= SdkConfig(rootPath: cli.sdkPath);
     flutterSdkConfig ??= SdkConfig();
@@ -169,6 +175,8 @@ class ToolEnvironment {
       await _DartSdk.detect(dartSdkConfig, env),
       flutterSdk,
       dartdocVersion,
+      useAnalysisIncludes ??
+          Platform.environment['PANA_ANALYSIS_INCLUDES'] == '1',
     );
     await toolEnv._init();
     return toolEnv;
@@ -216,6 +224,7 @@ class ToolEnvironment {
     final customOptionsContent = updatePassthroughOptions(
       original: originalOptions,
       custom: rawOptionsContent,
+      useAnalysisIncludes: _useAnalysisIncludes,
     );
     try {
       await analysisOptionsFile.writeAsString(customOptionsContent);
@@ -599,7 +608,7 @@ class ToolEnvironment {
     final analysisOptionsFile = File(
       p.join(packageDir, 'analysis_options.yaml'),
     );
-    if (await analysisOptionsFile.exists()) {
+    if (_useAnalysisIncludes && await analysisOptionsFile.exists()) {
       void addPackageInclude(String includeValue) {
         final include = includeValue.trim();
         if (include.startsWith('package:')) {
