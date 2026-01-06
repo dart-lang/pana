@@ -47,8 +47,8 @@ void main() {
                 .firstWhere((s) => s.id == ReportSectionId.analysis)
                 .summary,
             hasIssue
-                ? contains('match the Dart formatter')
-                : isNot(contains('match the Dart formatter')),
+                ? contains('Running `dart format` failed.')
+                : isNot(contains('Running `dart format` failed.')),
           );
         }
 
