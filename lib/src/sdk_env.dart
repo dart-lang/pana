@@ -287,65 +287,56 @@ class ToolEnvironment {
     String packageDir,
     bool usesFlutter,
   ) async {
-    final dirs = await listFocusDirs(packageDir);
-    if (dirs.isEmpty) {
-      return const [];
-    }
     return _withRestrictedAnalysisOptions(packageDir, () async {
       await runPub(packageDir, usesFlutter: usesFlutter, command: 'get');
 
       final files = <String>{};
-      for (final dir in dirs) {
-        final fullPath = p.join(packageDir, dir);
 
-        final params = <String>[
-          'format',
-          '--output=none',
-          '--set-exit-if-changed',
-        ];
-        params.add(fullPath);
+      final params = <String>[
+        'format',
+        '--output=none',
+        '--set-exit-if-changed',
+      ];
+      params.add(packageDir);
 
-        final result = await runConstrained(
-          [..._dartSdk.dartCmd, ...params],
-          environment: usesFlutter
-              ? _flutterSdk.environment
-              : _dartSdk.environment,
-          timeout: _dartFormatTimeout,
-        );
-        if (result.exitCode == 0) {
-          continue;
-        }
-
-        final dirPrefix = packageDir.endsWith('/')
-            ? packageDir
-            : '$packageDir/';
-        final output = result.asJoinedOutput;
-        final lines = LineSplitter.split(result.asJoinedOutput)
-            .where((l) => l.startsWith('Changed'))
-            .map((l) => l.substring(8).replaceAll(dirPrefix, '').trim())
-            .toList();
-
-        // `dart format` exits with code = 1
-        if (result.exitCode == 1) {
-          assert(lines.isNotEmpty);
-          files.addAll(lines);
-          continue;
-        }
-
-        final errorMsg = LineSplitter.split(output).take(10).join('\n');
-        final isUserProblem =
-            output.contains(
-              'Could not format because the source could not be parsed',
-            ) ||
-            output.contains('The formatter produced unexpected output.');
-        if (!isUserProblem) {
-          throw Exception(
-            'dart format on $dir/ failed with exit code ${result.exitCode}\n$output',
-          );
-        }
-        throw ToolException(errorMsg, result);
+      final result = await runConstrained(
+        [..._dartSdk.dartCmd, ...params],
+        environment: usesFlutter
+            ? _flutterSdk.environment
+            : _dartSdk.environment,
+        timeout: _dartFormatTimeout,
+      );
+      if (result.exitCode == 0) {
+        return [];
       }
-      return files.toList()..sort();
+
+      final dirPrefix = packageDir.endsWith('/') ? packageDir : '$packageDir/';
+      final output = result.asJoinedOutput;
+      final lines = LineSplitter.split(result.asJoinedOutput)
+          .where((l) => l.startsWith('Changed'))
+          .map((l) => l.substring(8).replaceAll(dirPrefix, '').trim())
+          .where(isAnalysisTarget)
+          .toList();
+
+      // `dart format` exits with code = 1
+      if (result.exitCode == 1) {
+        assert(lines.isNotEmpty);
+        files.addAll(lines);
+        return files.toList()..sort();
+      }
+
+      final errorMsg = LineSplitter.split(output).take(10).join('\n');
+      final isUserProblem =
+          output.contains(
+            'Could not format because the source could not be parsed',
+          ) ||
+          output.contains('The formatter produced unexpected output.');
+      if (!isUserProblem) {
+        throw Exception(
+          '`dart format` failed with exit code ${result.exitCode}\n$output',
+        );
+      }
+      throw ToolException(errorMsg, result);
     });
   }
 

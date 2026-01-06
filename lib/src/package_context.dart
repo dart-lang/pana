@@ -30,7 +30,7 @@ import 'tag/license_tags.dart';
 import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
 import 'tool/run_constrained.dart';
-import 'utils.dart' show listFiles, listFocusDirs;
+import 'utils.dart' show isAnalysisTarget, listFiles;
 
 /// Shared (intermediate) results between different packages or versions.
 /// External systems that may be independent of the archive content may be
@@ -287,6 +287,7 @@ class PackageContext {
     } else {
       tags.add(PanaTags.hasError);
     }
+
     return AnalyzeToolResult(
       items: items,
       tags: tags,
@@ -297,24 +298,20 @@ class PackageContext {
   Future<List<CodeProblem>> _staticAnalysis({
     required String packageDir,
   }) async {
-    final dirs = await listFocusDirs(packageDir);
-    final problems = <CodeProblem>[];
-    for (final dir in dirs) {
-      final output = await toolEnvironment.runAnalyzer(
-        packageDir,
-        dir,
-        usesFlutter,
-        inspectOptions: options,
-      );
-      final list = LineSplitter.split(output)
-          .map((s) => parseCodeProblem(s, projectDir: packageDir))
-          .nonNulls
-          .toSet()
-          .toList();
-      list.sort();
-      problems.addAll(list);
-    }
-    return problems;
+    final output = await toolEnvironment.runAnalyzer(
+      packageDir,
+      '.',
+      usesFlutter,
+      inspectOptions: options,
+    );
+    final list = LineSplitter.split(output)
+        .map((s) => parseCodeProblem(s, projectDir: packageDir))
+        .nonNulls
+        .toSet()
+        .where((c) => isAnalysisTarget(c.file))
+        .toList();
+    list.sort();
+    return list;
   }
 
   late final Future<Outdated> outdated = toolEnvironment.runPubOutdated(

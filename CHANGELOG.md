@@ -1,3 +1,7 @@
+## 0.23.5
+
+- Include more top-level analysis target in static checks.
+
 ## 0.23.4
 
 - `ToolEnvironment` flag to use `include:` entries in `analysis_options.yaml`.

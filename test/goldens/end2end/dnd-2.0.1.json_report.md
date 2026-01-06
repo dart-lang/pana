@@ -102,7 +102,7 @@ See https://dart.dev/web/wasm for details.
 
 ### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 13 issues. Showing the first 2:
+Found 15 issues. Showing the first 2:
 
 <details>
 <summary>
@@ -123,19 +123,19 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 <details>
 <summary>
-INFO: 'dart:html' is deprecated and shouldn't be used. Use package:web and dart:js_interop instead.
+WARNING: The 'author' field is no longer used and can be removed.
 </summary>
 
-`lib/dnd.dart:3:1`
+`pubspec.yaml:3:1`
 
 ```
   ╷
-3 │ import 'dart:html';
-  │ ^^^^^^^^^^^^^^^^^^^
+3 │ author: Marco Jakob <majakob@gmx.ch>
+  │ ^^^^^^
   ╵
 ```
 
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/dnd.dart`
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze pubspec.yaml`
 </details>
 
 

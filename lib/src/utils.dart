@@ -92,22 +92,6 @@ Map<String, Object?>? yamlToJson(String? yamlContent) {
   return sortedJson(json.decode(json.encode(yamlMap))) as Map<String, Object?>;
 }
 
-/// Returns the list of directories to focus on (e.g. bin, lib) - if they exist.
-Future<List<String>> listFocusDirs(String packageDir) async {
-  final dirs = <String>[];
-  for (final dir in ['bin', 'lib']) {
-    final path = p.join(packageDir, dir);
-    if ((await FileSystemEntity.type(path)) != FileSystemEntityType.directory) {
-      continue;
-    }
-    if (await listFiles(path, endsWith: '.dart').isEmpty) {
-      continue;
-    }
-    dirs.add(dir);
-  }
-  return dirs;
-}
-
 /// Returns the ratio of non-ASCII runes (Unicode characters) in a given text:
 /// (number of runes that are non-ASCII) / (total number of character runes).
 ///
@@ -202,4 +186,18 @@ class _RetryException implements Exception {
 
   @override
   String toString() => _message;
+}
+
+final _binOrLibSet = {'bin', 'lib'};
+final _topLevelTargets = {'pubspec.yaml'};
+
+/// Returns true wether a [path] inside the package is an analysis target
+/// (primarily the  `bin/` and `lib/` directories).
+bool isAnalysisTarget(String path) {
+  if (_topLevelTargets.contains(path)) {
+    return true;
+  }
+  // filter path prefixes
+  final parts = p.split(path);
+  return parts.isNotEmpty && _binOrLibSet.contains(parts.first);
 }
