@@ -14,7 +14,6 @@ import '../model.dart';
 import '../package_context.dart';
 import '../sdk_env.dart';
 import '../tool/run_constrained.dart';
-import '../utils.dart';
 import '_common.dart';
 
 Future<ReportSection> staticAnalysis(PackageContext context) async {
@@ -86,8 +85,6 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
     );
   }
 
-  final dirs = await listFocusDirs(context.packageDir);
-
   try {
     final errorMessage = await context.resolveErrorMessage;
     if (errorMessage != null) {
@@ -107,6 +104,19 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
     }
     final rs = await context.staticAnalysis;
 
+    if (rs.hasError) {
+      return _AnalysisResult(
+        [
+          Issue(
+            'Failed to run `dart analyze .`:\n```\n${rs.toolError?.message}\n```\n',
+          ),
+        ],
+        [],
+        [],
+        'dart analyze',
+      );
+    }
+
     return _AnalysisResult(
       rs.items!
           .where((element) => element.isError)
@@ -120,14 +130,14 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
           .where((element) => element.isInfo)
           .map(issueFromCodeProblem)
           .toList(),
-      'dart analyze ${dirs.join(' ')}',
+      'dart analyze',
     );
   } on ToolException catch (e) {
     return _AnalysisResult(
-      [Issue('Failed to run `dart analyze`:\n```\n${e.message}\n```\n')],
+      [Issue('Failed to run `dart analyze .`:\n```\n${e.message}\n```\n')],
       [],
       [],
-      'dart analyze ${dirs.join(' ')}',
+      'dart analyze .',
     );
   }
 }
