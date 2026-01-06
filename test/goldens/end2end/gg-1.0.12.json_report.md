@@ -97,7 +97,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`pub_semver`]|`^2.1.4`|2.2.0|2.2.0||
 |[`recase`]|`^4.1.0`|4.1.0|4.1.0||
 |[`yaml`]|`^3.1.2`|3.1.3|3.1.3||
-|[`yaml_edit`]|`^2.2.0`|2.2.2|2.2.2||
+|[`yaml_edit`]|`^2.2.0`|2.2.3|2.2.3||
 
 <details><summary>Transitive dependencies</summary>
 

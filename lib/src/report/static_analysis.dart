@@ -104,7 +104,7 @@ Future<_AnalysisResult> _analyzePackage(PackageContext context) async {
     }
     final rs = await context.staticAnalysis;
 
-    if (rs.hasError) {
+    if (rs.items == null || rs.hasError) {
       return _AnalysisResult(
         [
           Issue(

@@ -145,7 +145,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`path`]|-|1.9.1|1.9.1||
 |[`path_provider`]|-|2.1.5|2.1.5||
 |[`path_provider_android`]|-|2.2.22|2.2.22||
-|[`path_provider_foundation`]|-|2.4.4|2.4.4||
+|[`path_provider_foundation`]|-|2.5.1|2.5.1||
 |[`path_provider_linux`]|-|2.2.1|2.2.1||
 |[`path_provider_platform_interface`]|-|2.1.2|2.1.2||
 |[`path_provider_windows`]|-|2.3.0|2.3.0||

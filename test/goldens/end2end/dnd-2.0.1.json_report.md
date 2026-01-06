@@ -102,7 +102,7 @@ See https://dart.dev/web/wasm for details.
 
 ### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 14 issues. Showing the first 2:
+Found 15 issues. Showing the first 2:
 
 <details>
 <summary>

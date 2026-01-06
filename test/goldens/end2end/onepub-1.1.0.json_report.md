@@ -99,7 +99,7 @@ Cannot assign Web automatically to a binary only package.
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.36.2|**8.2.0**||
+|[`dcli`]|`^1.15.5`|1.36.2|**8.3.0**||
 
 <details><summary>Transitive dependencies</summary>
 
@@ -119,8 +119,8 @@ Cannot assign Web automatically to a binary only package.
 |[`crypto`]|-|3.0.7|3.0.7||
 |[`csv`]|-|5.1.1|6.0.0||
 |[`dart_console2`]|-|2.0.1|3.1.1|**Discontinued**|
-|[`dcli_core`]|-|1.36.2|8.0.0||
-|[`equatable`]|-|2.0.7|2.0.7||
+|[`dcli_core`]|-|1.36.2|8.3.0||
+|[`equatable`]|-|2.0.8|2.0.8||
 |[`ffi`]|-|2.1.4|2.1.4||
 |[`file`]|-|6.1.4|7.0.1||
 |[`file_utils`]|-|1.0.1|1.0.1|**Discontinued**|
