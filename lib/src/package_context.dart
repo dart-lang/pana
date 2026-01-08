@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -309,6 +310,12 @@ class PackageContext {
         .nonNulls
         .toSet()
         .where((c) => isAnalysisTarget(c.file))
+        // we are using the original pubspec.yaml to keep the source spans correct,
+        // but we want to ignore warnings about local dependencies in `dev_dependencies`.
+        .whereNot(
+          (c) =>
+              c.file == 'pubspec.yaml' && c.errorCode == 'PATH_DOES_NOT_EXIST',
+        )
         .toList();
     list.sort();
     return list;

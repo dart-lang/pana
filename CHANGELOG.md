@@ -1,3 +1,7 @@
+## 0.23.6
+
+- Omit `pubspec.yaml` warning about local path dependency in the report.
+
 ## 0.23.5
 
 - Include more top-level analysis target in static checks.
