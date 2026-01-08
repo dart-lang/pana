@@ -1,6 +1,7 @@
 ## 0.23.6
 
 - Omit `pubspec.yaml` warning about local path dependency in the report.
+- Fix type cast issue when customizing `analysis_options.yaml`.
 
 ## 0.23.5
 
