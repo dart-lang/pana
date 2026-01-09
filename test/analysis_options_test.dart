@@ -166,4 +166,29 @@ linter:
     final content = updatePassthroughOptions(original: '', custom: '');
     expect(json.decode(content), <String, Object?>{});
   });
+
+  test('type check', () {
+    final content = updatePassthroughOptions(
+      original: '''
+linter:
+  rules:
+    a: ignore
+''',
+      custom: '''
+linter:
+  rules:
+    - constant_identifier_names
+    - deprecated_member_use_from_same_package
+''',
+    );
+    expect(json.decode(content), {
+      'linter': {
+        'rules': {
+          'constant_identifier_names': true,
+          'deprecated_member_use_from_same_package': true,
+          'a': 'ignore',
+        },
+      },
+    });
+  });
 }

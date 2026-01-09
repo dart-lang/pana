@@ -136,7 +136,9 @@ String updatePassthroughOptions({
       () => <String, Object?>{},
     );
     if (customRules is List) {
-      customRules = Map.fromEntries(customRules.map((e) => MapEntry(e, true)));
+      customRules = Map<String, Object?>.fromEntries(
+        customRules.map((e) => MapEntry<String, Object?>(e.toString(), true)),
+      );
       customLinter['rules'] = customRules;
     }
     if (customRules is Map) {
@@ -144,7 +146,7 @@ String updatePassthroughOptions({
         if (appliedCustomRules.contains(e.key)) {
           continue;
         }
-        customRules[e.key] = e.value;
+        customRules[e.key.toString()] = e.value;
       }
     }
   }
