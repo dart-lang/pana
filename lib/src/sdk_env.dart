@@ -79,6 +79,7 @@ class ToolEnvironment {
   PanaRuntimeInfo? _runtimeInfo;
   final String? _dartdocVersion;
   final bool _useAnalysisIncludes;
+  final ToolProcessOverride _toolProcessOverride;
 
   bool _globalDartdocActivated = false;
 
@@ -88,6 +89,7 @@ class ToolEnvironment {
     this._flutterSdk,
     this._dartdocVersion,
     this._useAnalysisIncludes,
+    this._toolProcessOverride,
   );
 
   ToolEnvironment.fake({
@@ -101,7 +103,8 @@ class ToolEnvironment {
        ),
        _dartdocVersion = null,
        _runtimeInfo = runtimeInfo,
-       _useAnalysisIncludes = false;
+       _useAnalysisIncludes = false,
+       _toolProcessOverride = ToolProcessOverride();
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
@@ -140,6 +143,9 @@ class ToolEnvironment {
 
     /// When true, the analysis_options.yaml's `include` references will be used.
     bool? useAnalysisIncludes,
+
+    /// Configurable override for sub-process handling.
+    ToolProcessOverride? toolProcessOverride,
   }) async {
     dartSdkConfig ??= SdkConfig(rootPath: cli.sdkPath);
     flutterSdkConfig ??= SdkConfig();
@@ -177,6 +183,7 @@ class ToolEnvironment {
       dartdocVersion,
       useAnalysisIncludes ??
           Platform.environment['PANA_ANALYSIS_INCLUDES'] == '1',
+      toolProcessOverride ?? ToolProcessOverride(),
     );
     await toolEnv._init();
     return toolEnv;
@@ -242,21 +249,26 @@ class ToolEnvironment {
     String packageDir,
     String dir,
     bool usesFlutter, {
-    required InspectOptions inspectOptions,
+    @Deprecated('Value is ignored, will be removed in a future version.')
+    InspectOptions? inspectOptions,
   }) async {
-    final command = usesFlutter
-        ? _flutterSdk.dartAnalyzeCmd
-        : _dartSdk.dartAnalyzeCmd;
-
     return await _withRestrictedAnalysisOptions(packageDir, () async {
-      final proc = await runConstrained(
-        [...command, '--format', 'machine', dir],
-        environment: usesFlutter
-            ? _flutterSdk.environment
-            : _dartSdk.environment,
-        workingDirectory: packageDir,
-        timeout: const Duration(minutes: 5),
+      final sdkConfig = usesFlutter ? _flutterSdk._config : _dartSdk._config;
+      final proc = await _toolProcessOverride.runAnalyzeProcess(
+        AnalyzeProcessInput(
+          packageDir: packageDir,
+          targetRelativePath: dir,
+          usesFlutter: usesFlutter,
+          pubCacheDir: pubCacheDir,
+          sdkRootPath: sdkConfig.rootPath,
+          sdkConfigHomePath: sdkConfig.configHomePath,
+          dartExecutablePath: usesFlutter
+              ? _flutterSdk._dartSdk._dartExecutablePath
+              : _dartSdk._dartExecutablePath,
+          environment: sdkConfig.environment,
+        ),
       );
+
       if (proc.wasOutputExceeded) {
         throw ToolException(
           'Running `dart analyze` produced too large output.',
@@ -489,30 +501,9 @@ class ToolEnvironment {
     final sdkDir = usesFlutter
         ? _flutterSdk._dartSdk._config.rootPath
         : _dartSdk._config.rootPath;
-
-    final args = [
-      '--output',
-      outputDir,
-      '--sanitize-html',
-      '--max-file-count',
-      '$_defaultMaxFileCount',
-      '--max-total-size',
-      '$_defaultMaxTotalLengthBytes',
-      '--no-validate-links',
-      if (sdkDir != null) ...['--sdk-dir', sdkDir],
-    ];
-
-    if (_dartdocVersion == 'sdk') {
-      final command = usesFlutter
-          ? _flutterSdk._dartSdk.dartCmd
-          : _dartSdk.dartCmd;
-      return await runConstrained(
-        [...command, 'doc', ...args],
-        workingDirectory: packageDir,
-        environment: _dartSdk.environment,
-        timeout: timeout,
-      );
-    } else {
+    final sdkConfig = usesFlutter ? _flutterSdk._config : _dartSdk._config;
+    final useSdkDartdoc = _dartdocVersion == 'sdk';
+    if (!useSdkDartdoc) {
       final command = usesFlutter ? _flutterSdk.flutterCmd : _dartSdk.dartCmd;
       if (!_globalDartdocActivated) {
         await runConstrained(
@@ -532,15 +523,34 @@ class ToolEnvironment {
         );
         _globalDartdocActivated = true;
       }
-      return await runConstrained(
-        [...command, 'pub', 'global', 'run', 'dartdoc', ...args],
-        workingDirectory: packageDir,
-        environment: usesFlutter
-            ? _flutterSdk.environment
-            : _dartSdk.environment,
-        timeout: timeout,
-      );
     }
+
+    final dartExecutablePath = usesFlutter
+        ? _flutterSdk._dartSdk._dartExecutablePath
+        : _dartSdk._dartExecutablePath;
+    final flutterExecutablePath = usesFlutter
+        ? _join(_flutterSdk._config.rootPath, 'bin', 'flutter')
+        : null;
+
+    return await _toolProcessOverride.runDartdocProcess(
+      DartdocProcessInput(
+        packageDir: packageDir,
+        outputDir: outputDir,
+        usesFlutter: usesFlutter,
+        useSdkDartdoc: useSdkDartdoc,
+        pubCacheDir: pubCacheDir,
+        sdkRootPath: sdkConfig.rootPath,
+        sdkConfigHomePath: sdkConfig.configHomePath,
+        dartExecutablePath: dartExecutablePath,
+        flutterExecutablePath: flutterExecutablePath,
+        sdkDir: sdkDir,
+        validateLinks: false,
+        environment: useSdkDartdoc
+            ? _dartSdk.environment
+            : (usesFlutter ? _flutterSdk.environment : _dartSdk.environment),
+        timeout: timeout,
+      ),
+    );
   }
 
   /// Removes the `dev_dependencies` from the `pubspec.yaml`,
@@ -653,6 +663,123 @@ class ToolEnvironment {
   }
 }
 
+/// Provides an API to override some process executions.
+class ToolProcessOverride {
+  /// Override this method to have a custom dart analyze process.
+  Future<PanaProcessResult> runAnalyzeProcess(AnalyzeProcessInput input) async {
+    return await runConstrained(
+      [
+        input.dartExecutablePath ?? 'dart',
+        'analyze',
+        '--format',
+        'machine',
+        input.targetRelativePath,
+      ],
+      environment: input.environment,
+      workingDirectory: input.packageDir,
+      timeout: const Duration(minutes: 5),
+    );
+  }
+
+  /// Override this method to have a custom dartdoc process.
+  Future<PanaProcessResult> runDartdocProcess(DartdocProcessInput input) async {
+    final args = <String>[
+      '--output',
+      input.outputDir,
+      '--sanitize-html',
+      '--max-file-count',
+      '$_defaultMaxFileCount',
+      '--max-total-size',
+      '$_defaultMaxTotalLengthBytes',
+      if (input.validateLinks) '--validate-links' else '--no-validate-links',
+      if (input.sdkDir != null) ...['--sdk-dir', input.sdkDir!],
+    ];
+
+    final command = <String>[];
+    if (input.useSdkDartdoc) {
+      // Use 'dart doc' - always uses dart command even for Flutter packages
+      command.add(input.dartExecutablePath ?? 'dart');
+      command.addAll(['doc', ...args]);
+    } else {
+      // Use 'dart pub global run dartdoc' or 'flutter pub global run dartdoc'
+      if (input.usesFlutter) {
+        if (input.flutterExecutablePath != null) {
+          command.add(input.flutterExecutablePath!);
+          command.add('--no-version-check');
+        } else {
+          command.addAll(['flutter', '--no-version-check']);
+        }
+      } else {
+        command.add(input.dartExecutablePath ?? 'dart');
+      }
+      command.addAll(['pub', 'global', 'run', 'dartdoc', ...args]);
+    }
+
+    return await runConstrained(
+      command,
+      workingDirectory: input.packageDir,
+      environment: input.environment,
+      timeout: input.timeout,
+    );
+  }
+}
+
+/// Describes the input fields for the customizable analyze process.
+class AnalyzeProcessInput {
+  final String packageDir;
+  final String targetRelativePath;
+  final bool usesFlutter;
+  final String? pubCacheDir;
+  final String? sdkRootPath;
+  final String? sdkConfigHomePath;
+  final String? dartExecutablePath;
+  final Map<String, String>? environment;
+
+  AnalyzeProcessInput({
+    required this.packageDir,
+    required this.targetRelativePath,
+    required this.usesFlutter,
+    required this.pubCacheDir,
+    required this.sdkRootPath,
+    required this.sdkConfigHomePath,
+    required this.dartExecutablePath,
+    required this.environment,
+  });
+}
+
+/// Describes the input fields for the customizable dartdoc process.
+class DartdocProcessInput {
+  final String packageDir;
+  final String outputDir;
+  final bool usesFlutter;
+  final bool useSdkDartdoc;
+  final String? pubCacheDir;
+  final String? sdkRootPath;
+  final String? sdkConfigHomePath;
+  final String? dartExecutablePath;
+  final String? flutterExecutablePath;
+  final String? sdkDir;
+  final bool validateLinks;
+  final Map<String, String>? environment;
+  final Duration? timeout;
+
+  DartdocProcessInput({
+    required this.packageDir,
+    required this.outputDir,
+    required this.usesFlutter,
+    required this.useSdkDartdoc,
+    required this.pubCacheDir,
+    required this.sdkRootPath,
+    required this.sdkConfigHomePath,
+    required this.dartExecutablePath,
+    required this.flutterExecutablePath,
+    required this.sdkDir,
+    required this.validateLinks,
+    required this.environment,
+    required this.timeout,
+  });
+}
+
 class DartSdkInfo {
   static final _sdkRegexp = RegExp(
     r'Dart \w+ version:\s([^\s]+)(?:\s\((?:[^\)]+)\))?\s\(([^\)]+)\) on "(\w+)"',
@@ -709,7 +836,8 @@ class _DartSdk {
     return _DartSdk._(resolved);
   }
 
-  late final dartCmd = [_join(_config.rootPath, 'bin', 'dart')];
+  late final _dartExecutablePath = _join(_config.rootPath, 'bin', 'dart');
+  late final dartCmd = [_dartExecutablePath];
 
   late final dartAnalyzeCmd = [...dartCmd, 'analyze'];
 }

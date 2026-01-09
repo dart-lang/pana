@@ -303,7 +303,6 @@ class PackageContext {
       packageDir,
       '.',
       usesFlutter,
-      inspectOptions: options,
     );
     final list = LineSplitter.split(output)
         .map((s) => parseCodeProblem(s, projectDir: packageDir))
