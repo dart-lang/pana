@@ -196,10 +196,19 @@ class ToolEnvironment {
       await targetDir.delete(recursive: true);
     }
     await withTempDir((downloadDir) async {
-      await _runPub(
-        ['unpack', param, '--output', downloadDir, '--no-resolve'],
-        usesFlutter: false,
-        environment: {if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl},
+      await runConstrained(
+        [
+          ..._dartSdk.pubCmd,
+          'unpack',
+          param,
+          '--output',
+          downloadDir,
+          '--no-resolve',
+        ],
+        environment: {
+          ..._dartSdk.environment,
+          if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
+        },
         throwOnError: true,
       );
       final subdir = Directory(
@@ -355,38 +364,17 @@ class ToolEnvironment {
     required String command,
   }) async {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      return await _runPub(
-        [command, '--no-example'],
-        usesFlutter: usesFlutter,
+      return await runConstrained(
+        [
+          if (usesFlutter) ..._flutterSdk.pubCmd else ..._dartSdk.pubCmd,
+          ...[command, '--no-example'],
+        ],
         workingDirectory: packageDir,
+        environment: {
+          ...(usesFlutter ? _flutterSdk.environment : _dartSdk.environment),
+        },
       );
     });
-  }
-
-  Future<PanaProcessResult> _runPub(
-    List<String> commands, {
-    required bool usesFlutter,
-    String? workingDirectory,
-    bool? throwOnError,
-    Map<String, String>? environment,
-  }) async {
-    return await runConstrained(
-      [
-        if (usesFlutter) ...[
-          ..._flutterSdk.flutterCmd,
-          'packages',
-        ] else
-          ..._dartSdk.dartCmd,
-        'pub',
-        ...commands,
-      ],
-      workingDirectory: workingDirectory,
-      environment: {
-        ...(usesFlutter ? _flutterSdk.environment : _dartSdk.environment),
-        ...?environment,
-      },
-      throwOnError: throwOnError ?? false,
-    );
   }
 
   Future<Outdated> runPubOutdated(
@@ -394,14 +382,7 @@ class ToolEnvironment {
     List<String> args = const [],
     required bool usesFlutter,
   }) async {
-    final pubCmd = usesFlutter
-        ?
-          // Use `flutter pub pub` to get the 'raw' pub command. This avoids
-          // issues with `flutter pub get` running in the example directory,
-          // argument parsing differing and other misalignments between `dart pub`
-          // and `flutter pub` (see https://github.com/dart-lang/pub/issues/2971).
-          [..._flutterSdk.flutterCmd, 'pub', 'pub']
-        : [..._dartSdk.dartCmd, 'pub'];
+    final pubCmd = usesFlutter ? _flutterSdk.pubCmd : _dartSdk.pubCmd;
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
@@ -513,12 +494,11 @@ class ToolEnvironment {
         timeout: timeout,
       );
     } else {
-      final command = usesFlutter ? _flutterSdk.flutterCmd : _dartSdk.dartCmd;
+      final command = usesFlutter ? _flutterSdk.pubCmd : _dartSdk.pubCmd;
       if (!_globalDartdocActivated) {
         await runConstrained(
           [
             ...command,
-            'pub',
             'global',
             'activate',
             'dartdoc',
@@ -712,6 +692,8 @@ class _DartSdk {
   late final dartCmd = [_join(_config.rootPath, 'bin', 'dart')];
 
   late final dartAnalyzeCmd = [...dartCmd, 'analyze'];
+
+  late final pubCmd = [...dartCmd, 'pub'];
 }
 
 class _FlutterSdk {
@@ -747,6 +729,8 @@ class _FlutterSdk {
     _join(_config.rootPath, 'bin', 'flutter'),
     '--no-version-check',
   ];
+
+  late final pubCmd = [...flutterCmd, 'pub'];
 
   // TODO: remove this after flutter analyze gets machine-readable output.
   // https://github.com/flutter/flutter/issues/23664
