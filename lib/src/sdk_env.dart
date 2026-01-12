@@ -81,6 +81,10 @@ class ToolEnvironment {
   final String? _dartdocVersion;
   final bool _useAnalysisIncludes;
 
+  /// When a sandbox environment is present, this identifies the executable path
+  /// which will be used to prepend subprocess calls.
+  final String? _sandboxRunner;
+
   bool _globalDartdocActivated = false;
 
   ToolEnvironment._(
@@ -89,6 +93,7 @@ class ToolEnvironment {
     this._flutterSdk,
     this._dartdocVersion,
     this._useAnalysisIncludes,
+    this._sandboxRunner,
   );
 
   ToolEnvironment.fake({
@@ -102,15 +107,63 @@ class ToolEnvironment {
        ),
        _dartdocVersion = null,
        _runtimeInfo = runtimeInfo,
-       _useAnalysisIncludes = false;
+       _useAnalysisIncludes = false,
+       _sandboxRunner = null;
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
+  /// Runs the [arguments] with the sandbox runner script.
+  ///
+  /// The script is expected to mount the following paths into the sandbox
+  /// environment (read-only, unless otherwise specified):
+  /// - The Dart and Flutter SDKs that pana is using.
+  /// - The directory identified by `PUB_CACHE` (may be writable, depends on `SANDBOX_PROCESS_KIND`).
+  /// - The current working directory / package directory (may be writable, depends on `SANDBOX_PROCESS_KIND`).
+  /// - The directory identified by `SANDBOX_OUTPUT_FOLDER` (if present, is writable).
+  ///
+  /// The script will use its command line arguments to pass-through execution inside the sandbox.
+  ///
+  /// The script will pass-through the following environment variables inside the sandbox:
+  /// - `CI`
+  /// - `NO_COLOR`
+  /// - `PATH`
+  /// - `XDG_CONFIG_HOME`
+  /// - `FLUTTER_ROOT`
+  /// - `PUB_ENVIRONMENT`
+  /// - `PUB_HOSTED_URL`
+  ///
+  /// The script will restrict network access, unless
+  /// `SANDBOX_NETWORK_ENABLED=true` is specified.
+  Future<PanaProcessResult> _runSandboxed(
+    List<String> arguments, {
+    String? workingDirectory,
+    Map<String, String>? environment,
+    Duration? timeout,
+    bool throwOnError = false,
+    required String processKind,
+    String? outputFolder,
+    bool needsNetwork = false,
+  }) async {
+    return await runConstrained(
+      [?_sandboxRunner, ...arguments],
+      workingDirectory: workingDirectory,
+      environment: {
+        ...?environment,
+        'SANDBOX_PROCESS_KIND': processKind,
+        if (outputFolder != null) 'SANDBOX_OUTPUT_FOLDER': outputFolder,
+        if (needsNetwork) 'SANDBOX_NETWORK_ENABLED': 'true',
+      },
+      timeout: timeout,
+      throwOnError: throwOnError,
+    );
+  }
+
   Future<void> _init() async {
-    final dartVersionResult = await runConstrained(
+    final dartVersionResult = await _runSandboxed(
       [..._dartSdk.dartCmd, '--version'],
       environment: _dartSdk.environment,
       throwOnError: true,
+      processKind: 'dart-version',
     );
     final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
     Map<String, dynamic>? flutterVersions;
@@ -141,6 +194,10 @@ class ToolEnvironment {
 
     /// When true, the analysis_options.yaml's `include` references will be used.
     bool? useAnalysisIncludes,
+
+    /// When a sandbox environment is present, this identifies the executable path
+    /// which will be used to prepend subprocess calls.
+    String? sandboxRunner,
   }) async {
     dartSdkConfig ??= SdkConfig(rootPath: cli.sdkPath);
     flutterSdkConfig ??= SdkConfig();
@@ -178,6 +235,7 @@ class ToolEnvironment {
       dartdocVersion,
       useAnalysisIncludes ??
           Platform.environment['PANA_ANALYSIS_INCLUDES'] == '1',
+      sandboxRunner,
     );
     await toolEnv._init();
     return toolEnv;
@@ -197,7 +255,7 @@ class ToolEnvironment {
       await targetDir.delete(recursive: true);
     }
     await withTempDir((downloadDir) async {
-      await runConstrained(
+      await _runSandboxed(
         [
           ..._dartSdk.pubCmd,
           'unpack',
@@ -211,6 +269,9 @@ class ToolEnvironment {
           if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
         },
         throwOnError: true,
+        processKind: 'pub-unpack',
+        outputFolder: downloadDir,
+        needsNetwork: true,
       );
       final subdir = Directory(
         downloadDir,
@@ -259,13 +320,14 @@ class ToolEnvironment {
         : _dartSdk.dartAnalyzeCmd;
 
     return await _withRestrictedAnalysisOptions(packageDir, () async {
-      final proc = await runConstrained(
+      final proc = await _runSandboxed(
         [...command, '--format', 'machine', dir],
         environment: usesFlutter
             ? _flutterSdk.environment
             : _dartSdk.environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
+        processKind: 'analyze',
       );
       if (proc.wasOutputExceeded) {
         throw ToolException(
@@ -309,12 +371,13 @@ class ToolEnvironment {
       ];
       params.add(packageDir);
 
-      final result = await runConstrained(
+      final result = await _runSandboxed(
         [..._dartSdk.dartCmd, ...params],
         environment: usesFlutter
             ? _flutterSdk.environment
             : _dartSdk.environment,
         timeout: _dartFormatTimeout,
+        processKind: 'format',
       );
       if (result.exitCode == 0) {
         return [];
@@ -351,10 +414,11 @@ class ToolEnvironment {
   }
 
   Future<Map<String, dynamic>> _getFlutterVersion() async {
-    final result = await runConstrained(
+    final result = await _runSandboxed(
       [..._flutterSdk.flutterCmd, '--version', '--machine'],
       environment: _flutterSdk.environment,
       throwOnError: true,
+      processKind: 'flutter-version',
     );
     return result.parseJson(transform: stripIntermittentFlutterMessages);
   }
@@ -365,7 +429,7 @@ class ToolEnvironment {
     required String command,
   }) async {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      return await runConstrained(
+      return await _runSandboxed(
         [
           if (usesFlutter) ..._flutterSdk.pubCmd else ..._dartSdk.pubCmd,
           ...[command, '--no-example'],
@@ -374,6 +438,9 @@ class ToolEnvironment {
         environment: {
           ...(usesFlutter ? _flutterSdk.environment : _dartSdk.environment),
         },
+        processKind: 'pub-$command',
+        outputFolder: packageDir,
+        needsNetwork: true,
       );
     });
   }
@@ -387,12 +454,15 @@ class ToolEnvironment {
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
-        final pr = await runConstrained(
+        final pr = await _runSandboxed(
           [...pubCmd, 'get', '--no-example'],
           environment: usesFlutter
               ? _flutterSdk.environment
               : _dartSdk.environment,
           workingDirectory: packageDir,
+          processKind: 'pub-get',
+          needsNetwork: true,
+          outputFolder: packageDir,
         );
         return pr;
       }
@@ -418,12 +488,15 @@ class ToolEnvironment {
         );
       }
 
-      final result = await runConstrained(
+      final result = await _runSandboxed(
         [...pubCmd, 'outdated', ...args],
         environment: usesFlutter
             ? _flutterSdk.environment
             : _dartSdk.environment,
         workingDirectory: packageDir,
+        processKind: 'pub-outdated',
+        outputFolder: packageDir,
+        needsNetwork: true,
       );
       if (result.wasError) {
         throw ToolException(
@@ -488,16 +561,18 @@ class ToolEnvironment {
       final command = usesFlutter
           ? _flutterSdk._dartSdk.dartCmd
           : _dartSdk.dartCmd;
-      return await runConstrained(
+      return await _runSandboxed(
         [...command, 'doc', ...args],
         workingDirectory: packageDir,
         environment: _dartSdk.environment,
         timeout: timeout,
+        processKind: 'dartdoc',
+        outputFolder: outputDir,
       );
     } else {
       final command = usesFlutter ? _flutterSdk.pubCmd : _dartSdk.pubCmd;
       if (!_globalDartdocActivated) {
-        await runConstrained(
+        await _runSandboxed(
           [
             ...command,
             'global',
@@ -510,16 +585,20 @@ class ToolEnvironment {
             'PUB_HOSTED_URL': 'https://pub.dev',
           },
           throwOnError: true,
+          processKind: 'pub-activate',
+          needsNetwork: true,
         );
         _globalDartdocActivated = true;
       }
-      return await runConstrained(
+      return await _runSandboxed(
         [...command, 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment: usesFlutter
             ? _flutterSdk.environment
             : _dartSdk.environment,
         timeout: timeout,
+        processKind: 'dartdoc',
+        outputFolder: outputDir,
       );
     }
   }
