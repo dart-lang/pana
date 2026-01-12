@@ -513,7 +513,7 @@ class ToolEnvironment {
         _globalDartdocActivated = true;
       }
       return await runConstrained(
-        [...command, 'pub', 'global', 'run', 'dartdoc', ...args],
+        [...command, 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment: usesFlutter
             ? _flutterSdk.environment
