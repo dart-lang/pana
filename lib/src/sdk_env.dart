@@ -730,7 +730,7 @@ class _FlutterSdk {
     '--no-version-check',
   ];
 
-  late final pubCmd = [...flutterCmd, 'pub'];
+  late final pubCmd = [...flutterCmd, 'pub', 'pub'];
 
   // TODO: remove this after flutter analyze gets machine-readable output.
   // https://github.com/flutter/flutter/issues/23664
