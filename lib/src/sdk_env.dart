@@ -66,7 +66,8 @@ class SdkConfig {
         ...environment,
         if (resolvedConfigHomePath != null)
           'XDG_CONFIG_HOME': resolvedConfigHomePath,
-        if (resolvedRootPath != null) 'FLUTTER_ROOT': resolvedRootPath,
+        if (resolvedRootPath != null && isFlutterSdk)
+          'FLUTTER_ROOT': resolvedRootPath,
       },
     );
   }
