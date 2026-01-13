@@ -73,6 +73,22 @@ class SdkConfig {
   }
 }
 
+/// The known values for sandbox process kinds.
+const _knownProcessKinds = <String>{
+  'dart-version',
+  'flutter-version',
+  'pub-get',
+  'pub-upgrade',
+  'pub-downgrade',
+  'pub-unpack',
+  'pub-outdated',
+  'dart-analyze',
+  'dart-doc',
+  'dart-format',
+  'pub-global-activate-dartdoc',
+  'pub-global-run-dartdoc',
+};
+
 class ToolEnvironment {
   final String? pubCacheDir;
   final _DartSdk _dartSdk;
@@ -144,6 +160,7 @@ class ToolEnvironment {
     String? outputFolder,
     bool needsNetwork = false,
   }) async {
+    assert(_knownProcessKinds.contains(processKind));
     return await runConstrained(
       [?_sandboxRunner, ...arguments],
       workingDirectory: workingDirectory,
@@ -327,7 +344,7 @@ class ToolEnvironment {
             : _dartSdk.environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
-        processKind: 'analyze',
+        processKind: 'dart-analyze',
       );
       if (proc.wasOutputExceeded) {
         throw ToolException(
@@ -377,7 +394,7 @@ class ToolEnvironment {
             ? _flutterSdk.environment
             : _dartSdk.environment,
         timeout: _dartFormatTimeout,
-        processKind: 'format',
+        processKind: 'dart-format',
       );
       if (result.exitCode == 0) {
         return [];
@@ -566,7 +583,7 @@ class ToolEnvironment {
         workingDirectory: packageDir,
         environment: _dartSdk.environment,
         timeout: timeout,
-        processKind: 'dartdoc',
+        processKind: 'dart-doc',
         outputFolder: outputDir,
       );
     } else {
@@ -585,7 +602,7 @@ class ToolEnvironment {
             'PUB_HOSTED_URL': 'https://pub.dev',
           },
           throwOnError: true,
-          processKind: 'pub-activate',
+          processKind: 'pub-global-activate-dartdoc',
           needsNetwork: true,
         );
         _globalDartdocActivated = true;
@@ -597,7 +614,7 @@ class ToolEnvironment {
             ? _flutterSdk.environment
             : _dartSdk.environment,
         timeout: timeout,
-        processKind: 'dartdoc',
+        processKind: 'pub-global-run-dartdoc',
         outputFolder: outputDir,
       );
     }
