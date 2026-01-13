@@ -1,5 +1,6 @@
 ## 0.23.6
 
+- Always use `flutter pub` when invoking `pub` with Flutter SDK.
 - Omit `pubspec.yaml` warning about local path dependency in the report.
 - Fix type cast issue when customizing `analysis_options.yaml`.
 - Do not export `FLUTTER_ROOT` environment for Dart-only SDK.
