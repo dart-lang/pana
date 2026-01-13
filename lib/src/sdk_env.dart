@@ -133,6 +133,8 @@ class ToolEnvironment {
   /// The script is expected to mount the following paths into the sandbox
   /// environment (read-only, unless otherwise specified):
   /// - The Dart and Flutter SDKs that pana is using.
+  /// - The `webp` binaries (if not otherwise installed).
+  /// - The directory identified by `XDG_CONFIG_HOME` (may be writable, depends on `SANDBOX_PROCESS_KIND`).
   /// - The directory identified by `PUB_CACHE` (may be writable, depends on `SANDBOX_PROCESS_KIND`).
   /// - The current working directory / package directory (may be writable, depends on `SANDBOX_PROCESS_KIND`).
   /// - The directory identified by `SANDBOX_OUTPUT_FOLDER` (if present, is writable).
