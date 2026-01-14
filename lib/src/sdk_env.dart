@@ -73,22 +73,6 @@ class SdkConfig {
   }
 }
 
-/// The known values for sandbox process kinds.
-const _knownProcessKinds = <String>{
-  'dart-version',
-  'flutter-version',
-  'pub-get',
-  'pub-upgrade',
-  'pub-downgrade',
-  'pub-unpack',
-  'pub-outdated',
-  'dart-analyze',
-  'dart-doc',
-  'dart-format',
-  'pub-global-activate-dartdoc',
-  'pub-global-run-dartdoc',
-};
-
 class ToolEnvironment {
   final String? pubCacheDir;
   final _DartSdk _dartSdk;
@@ -134,9 +118,9 @@ class ToolEnvironment {
   /// environment (read-only, unless otherwise specified):
   /// - The Dart and Flutter SDKs that pana is using.
   /// - The `webp` binaries (if available).
-  /// - The directory identified by `XDG_CONFIG_HOME` (may be writable, depends on `SANDBOX_PROCESS_KIND`).
-  /// - The directory identified by `PUB_CACHE` (may be writable, depends on `SANDBOX_PROCESS_KIND`).
-  /// - The current working directory / package directory (may be writable, depends on `SANDBOX_PROCESS_KIND`).
+  /// - The directory identified by `XDG_CONFIG_HOME`.
+  /// - The directory identified by `PUB_CACHE`.
+  /// - The current working directory / package directory.
   /// - The directory identified by `SANDBOX_OUTPUT_FOLDER` (if present, is writable).
   ///
   /// The script will use its command line arguments to pass-through execution inside the sandbox.
@@ -158,17 +142,14 @@ class ToolEnvironment {
     Map<String, String>? environment,
     Duration? timeout,
     bool throwOnError = false,
-    required String processKind,
     String? outputFolder,
     bool needsNetwork = false,
   }) async {
-    assert(_knownProcessKinds.contains(processKind));
     return await runConstrained(
       [?_sandboxRunner, ...arguments],
       workingDirectory: workingDirectory,
       environment: {
         ...?environment,
-        'SANDBOX_PROCESS_KIND': processKind,
         if (outputFolder != null) 'SANDBOX_OUTPUT_FOLDER': outputFolder,
         if (needsNetwork) 'SANDBOX_NETWORK_ENABLED': 'true',
       },
@@ -182,7 +163,6 @@ class ToolEnvironment {
       [..._dartSdk.dartCmd, '--version'],
       environment: _dartSdk.environment,
       throwOnError: true,
-      processKind: 'dart-version',
     );
     final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
     Map<String, dynamic>? flutterVersions;
@@ -288,7 +268,6 @@ class ToolEnvironment {
           if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
         },
         throwOnError: true,
-        processKind: 'pub-unpack',
         outputFolder: downloadDir,
         needsNetwork: true,
       );
@@ -346,7 +325,6 @@ class ToolEnvironment {
             : _dartSdk.environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
-        processKind: 'dart-analyze',
       );
       if (proc.wasOutputExceeded) {
         throw ToolException(
@@ -396,7 +374,6 @@ class ToolEnvironment {
             ? _flutterSdk.environment
             : _dartSdk.environment,
         timeout: _dartFormatTimeout,
-        processKind: 'dart-format',
       );
       if (result.exitCode == 0) {
         return [];
@@ -437,7 +414,6 @@ class ToolEnvironment {
       [..._flutterSdk.flutterCmd, '--version', '--machine'],
       environment: _flutterSdk.environment,
       throwOnError: true,
-      processKind: 'flutter-version',
     );
     return result.parseJson(transform: stripIntermittentFlutterMessages);
   }
@@ -457,7 +433,6 @@ class ToolEnvironment {
         environment: {
           ...(usesFlutter ? _flutterSdk.environment : _dartSdk.environment),
         },
-        processKind: 'pub-$command',
         outputFolder: packageDir,
         needsNetwork: true,
       );
@@ -479,7 +454,6 @@ class ToolEnvironment {
               ? _flutterSdk.environment
               : _dartSdk.environment,
           workingDirectory: packageDir,
-          processKind: 'pub-get',
           needsNetwork: true,
           outputFolder: packageDir,
         );
@@ -513,7 +487,6 @@ class ToolEnvironment {
             ? _flutterSdk.environment
             : _dartSdk.environment,
         workingDirectory: packageDir,
-        processKind: 'pub-outdated',
         outputFolder: packageDir,
         needsNetwork: true,
       );
@@ -585,7 +558,6 @@ class ToolEnvironment {
         workingDirectory: packageDir,
         environment: _dartSdk.environment,
         timeout: timeout,
-        processKind: 'dart-doc',
         outputFolder: outputDir,
       );
     } else {
@@ -604,7 +576,6 @@ class ToolEnvironment {
             'PUB_HOSTED_URL': 'https://pub.dev',
           },
           throwOnError: true,
-          processKind: 'pub-global-activate-dartdoc',
           needsNetwork: true,
         );
         _globalDartdocActivated = true;
@@ -616,7 +587,6 @@ class ToolEnvironment {
             ? _flutterSdk.environment
             : _dartSdk.environment,
         timeout: timeout,
-        processKind: 'pub-global-run-dartdoc',
         outputFolder: outputDir,
       );
     }
