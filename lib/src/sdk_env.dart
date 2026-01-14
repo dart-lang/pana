@@ -144,13 +144,24 @@ class ToolEnvironment {
     bool throwOnError = false,
     String? outputFolder,
     bool needsNetwork = false,
+    bool writableConfigHome = false,
+    bool writableCurrentDir = false,
+    bool writablePubCacheDir = false,
   }) async {
+    environment ??= const <String, String>{};
+    final outputFolders = <String>{
+      ?outputFolder,
+      ?(writableConfigHome ? environment['XDG_CONFIG_HOME'] : null),
+      ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
+      ?(writableCurrentDir ? workingDirectory : null),
+    };
     return await runConstrained(
       [?_sandboxRunner, ...arguments],
       workingDirectory: workingDirectory,
       environment: {
-        ...?environment,
-        if (outputFolder != null) 'SANDBOX_OUTPUT_FOLDER': outputFolder,
+        ...environment,
+        if (outputFolders.isNotEmpty)
+          'SANDBOX_OUTPUT_FOLDER': outputFolders.join(':'),
         if (needsNetwork) 'SANDBOX_NETWORK_ENABLED': 'true',
       },
       timeout: timeout,
@@ -163,6 +174,7 @@ class ToolEnvironment {
       [..._dartSdk.dartCmd, '--version'],
       environment: _dartSdk.environment,
       throwOnError: true,
+      writableConfigHome: true,
     );
     final dartSdkInfo = DartSdkInfo.parse(dartVersionResult.asJoinedOutput);
     Map<String, dynamic>? flutterVersions;
@@ -270,6 +282,8 @@ class ToolEnvironment {
         throwOnError: true,
         outputFolder: downloadDir,
         needsNetwork: true,
+        writableConfigHome: true,
+        writablePubCacheDir: true,
       );
       final subdir = Directory(
         downloadDir,
@@ -414,6 +428,7 @@ class ToolEnvironment {
       [..._flutterSdk.flutterCmd, '--version', '--machine'],
       environment: _flutterSdk.environment,
       throwOnError: true,
+      writableConfigHome: true,
     );
     return result.parseJson(transform: stripIntermittentFlutterMessages);
   }
@@ -433,8 +448,10 @@ class ToolEnvironment {
         environment: {
           ...(usesFlutter ? _flutterSdk.environment : _dartSdk.environment),
         },
-        outputFolder: packageDir,
         needsNetwork: true,
+        writableConfigHome: true,
+        writablePubCacheDir: true,
+        writableCurrentDir: true,
       );
     });
   }
@@ -455,7 +472,9 @@ class ToolEnvironment {
               : _dartSdk.environment,
           workingDirectory: packageDir,
           needsNetwork: true,
-          outputFolder: packageDir,
+          writableConfigHome: true,
+          writableCurrentDir: true,
+          writablePubCacheDir: true,
         );
         return pr;
       }
@@ -487,8 +506,10 @@ class ToolEnvironment {
             ? _flutterSdk.environment
             : _dartSdk.environment,
         workingDirectory: packageDir,
-        outputFolder: packageDir,
         needsNetwork: true,
+        writableConfigHome: true,
+        writableCurrentDir: true,
+        writablePubCacheDir: true,
       );
       if (result.wasError) {
         throw ToolException(
@@ -559,6 +580,8 @@ class ToolEnvironment {
         environment: _dartSdk.environment,
         timeout: timeout,
         outputFolder: outputDir,
+        writableConfigHome: true,
+        writablePubCacheDir: true,
       );
     } else {
       final command = usesFlutter ? _flutterSdk.pubCmd : _dartSdk.pubCmd;
@@ -577,6 +600,8 @@ class ToolEnvironment {
           },
           throwOnError: true,
           needsNetwork: true,
+          writableConfigHome: true,
+          writablePubCacheDir: true,
         );
         _globalDartdocActivated = true;
       }
@@ -588,6 +613,8 @@ class ToolEnvironment {
             : _dartSdk.environment,
         timeout: timeout,
         outputFolder: outputDir,
+        writableConfigHome: true,
+        writablePubCacheDir: true,
       );
     }
   }
