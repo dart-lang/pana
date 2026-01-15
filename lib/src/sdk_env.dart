@@ -159,8 +159,7 @@ class ToolEnvironment {
       workingDirectory: workingDirectory,
       environment: {
         ...environment,
-        if (outputFolders.isNotEmpty)
-          'SANDBOX_OUTPUT': outputFolders.join(':'),
+        if (outputFolders.isNotEmpty) 'SANDBOX_OUTPUT': outputFolders.join(':'),
         if (needsNetwork) 'SANDBOX_NETWORK_ENABLED': 'true',
       },
       timeout: timeout,
