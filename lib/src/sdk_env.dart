@@ -527,6 +527,11 @@ class ToolEnvironment {
     Duration? timeout,
     required bool usesFlutter,
   }) async {
+    final sdkDir = usesFlutter
+        ? (_dartSdk.flutterRootEnvVar != null
+              ? p.join(_dartSdk.flutterRootEnvVar!, 'bin', 'cache', 'dart-sdk')
+              : null)
+        : _dartSdk._config.rootPath;
     final args = [
       '--output',
       outputDir,
@@ -536,6 +541,7 @@ class ToolEnvironment {
       '--max-total-size',
       '$_defaultMaxTotalLengthBytes',
       '--no-validate-links',
+      if (sdkDir != null) ...['--sdk-dir', sdkDir],
     ];
 
     if (_dartdocVersion == 'sdk') {
