@@ -15,7 +15,6 @@ import 'internal_model.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
-import 'tool/flutter_tool.dart';
 import 'tool/run_constrained.dart';
 import 'utils.dart';
 import 'version.dart';
@@ -325,9 +324,7 @@ class ToolEnvironment {
     bool usesFlutter, {
     required InspectOptions inspectOptions,
   }) async {
-    final command = usesFlutter
-        ? _flutterSdk.dartAnalyzeCmd
-        : _dartSdk.dartAnalyzeCmd;
+    final command = _dartSdk.dartAnalyzeCmd;
 
     return await _withRestrictedAnalysisOptions(packageDir, () async {
       final proc = await _runSandboxed(
@@ -422,13 +419,11 @@ class ToolEnvironment {
   }
 
   Future<Map<String, dynamic>> _getFlutterVersion() async {
-    final result = await _runSandboxed(
-      [..._flutterSdk.flutterCmd, '--version', '--machine'],
-      environment: _flutterSdk.environment,
-      throwOnError: true,
-      writableConfigHome: true,
-    );
-    return result.parseJson(transform: stripIntermittentFlutterMessages);
+    final rootPath = _flutterSdk._config.rootPath;
+    if (rootPath != null) {
+      return {'flutterVersion': File('$rootPath/version').readAsString()};
+    }
+    throw Exception('Flutter rootPath is missing');
   }
 
   Future<PanaProcessResult> runPub(
@@ -439,7 +434,7 @@ class ToolEnvironment {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _runSandboxed(
         [
-          if (usesFlutter) ..._flutterSdk.pubCmd else ..._dartSdk.pubCmd,
+          ..._dartSdk.pubCmd,
           ...[command, '--no-example'],
         ],
         workingDirectory: packageDir,
@@ -459,8 +454,8 @@ class ToolEnvironment {
     List<String> args = const [],
     required bool usesFlutter,
   }) async {
-    final pubCmd = usesFlutter ? _flutterSdk.pubCmd : _dartSdk.pubCmd;
-    final cmdLabel = usesFlutter ? 'flutter' : 'dart';
+    final pubCmd = _dartSdk.pubCmd;
+    final cmdLabel = 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
         final pr = await _runSandboxed(
@@ -569,9 +564,7 @@ class ToolEnvironment {
     ];
 
     if (_dartdocVersion == 'sdk') {
-      final command = usesFlutter
-          ? _flutterSdk._dartSdk.dartCmd
-          : _dartSdk.dartCmd;
+      final command = _dartSdk.dartCmd;
       return await _runSandboxed(
         [...command, 'doc', ...args],
         workingDirectory: packageDir,
@@ -582,7 +575,7 @@ class ToolEnvironment {
         writablePubCacheDir: true,
       );
     } else {
-      final command = usesFlutter ? _flutterSdk.pubCmd : _dartSdk.pubCmd;
+      final command = _dartSdk.pubCmd;
       if (!_globalDartdocActivated) {
         await _runSandboxed(
           [
@@ -818,13 +811,6 @@ class _FlutterSdk {
       ),
     );
   }
-
-  late final flutterCmd = [
-    _join(_config.rootPath, 'bin', 'flutter'),
-    '--no-version-check',
-  ];
-
-  late final pubCmd = [...flutterCmd, 'pub', 'pub'];
 
   // TODO: remove this after flutter analyze gets machine-readable output.
   // https://github.com/flutter/flutter/issues/23664
