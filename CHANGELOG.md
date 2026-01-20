@@ -1,3 +1,7 @@
+## 0.23.7
+
+- Use only `dart` commands, Flutter SDK will be used when `FLUTTER_ROOT` is set.
+
 ## 0.23.6
 
 - Always use `flutter pub pub` when invoking `pub` with Flutter SDK.
