@@ -65,6 +65,7 @@ class ToolEnvironment {
   final String? pubCacheDir;
   final _DartSdk _dartSdk;
   PanaRuntimeInfo? _runtimeInfo;
+  final String? _dartdocPath;
   final String? _dartdocVersion;
   final bool _useAnalysisIncludes;
 
@@ -77,6 +78,7 @@ class ToolEnvironment {
   ToolEnvironment._(
     this.pubCacheDir,
     this._dartSdk,
+    this._dartdocPath,
     this._dartdocVersion,
     this._useAnalysisIncludes,
     this._sandboxRunner,
@@ -87,6 +89,7 @@ class ToolEnvironment {
     Map<String, String> environment = const <String, String>{},
     required PanaRuntimeInfo runtimeInfo,
   }) : _dartSdk = _DartSdk._(SdkConfig(environment: environment)),
+       _dartdocPath = null,
        _dartdocVersion = null,
        _runtimeInfo = runtimeInfo,
        _useAnalysisIncludes = false,
@@ -176,6 +179,12 @@ class ToolEnvironment {
     String? pubCacheDir,
     String? pubHostedUrl,
 
+    /// When specified, this binary will be used to generate the documentation.
+    ///
+    /// When specified, the dartdoc version parameter will be ignored
+    /// (`pub global activate` will not run).
+    String? dartdocPath,
+
     /// When specified, this version of `dartdoc` will be initialized
     /// through `dart pub global activate` and used with `dart pub global run`,
     /// otherwise the SDK's will be used.
@@ -222,6 +231,7 @@ class ToolEnvironment {
         ...env,
         if (resolvedFlutterRoot != null) 'FLUTTER_ROOT': resolvedFlutterRoot,
       }),
+      dartdocPath,
       dartdocVersion,
       useAnalysisIncludes ??
           Platform.environment['PANA_ANALYSIS_INCLUDES'] == '1',
@@ -543,6 +553,16 @@ class ToolEnvironment {
       '--no-validate-links',
       if (sdkDir != null) ...['--sdk-dir', sdkDir],
     ];
+
+    if (_dartdocPath != null) {
+      return await _runSandboxed(
+        [_dartdocPath, ...args],
+        workingDirectory: packageDir,
+        environment: _dartSdk.environment,
+        timeout: timeout,
+        outputFolder: outputDir,
+      );
+    }
 
     if (_dartdocVersion == 'sdk') {
       return await _runSandboxed(
