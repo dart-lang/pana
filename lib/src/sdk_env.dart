@@ -65,6 +65,7 @@ class ToolEnvironment {
   final String? pubCacheDir;
   final _DartSdk _dartSdk;
   PanaRuntimeInfo? _runtimeInfo;
+  final String? _dartdocBinary;
   final String? _dartdocVersion;
   final bool _useAnalysisIncludes;
 
@@ -77,6 +78,7 @@ class ToolEnvironment {
   ToolEnvironment._(
     this.pubCacheDir,
     this._dartSdk,
+    this._dartdocBinary,
     this._dartdocVersion,
     this._useAnalysisIncludes,
     this._sandboxRunner,
@@ -87,6 +89,7 @@ class ToolEnvironment {
     Map<String, String> environment = const <String, String>{},
     required PanaRuntimeInfo runtimeInfo,
   }) : _dartSdk = _DartSdk._(SdkConfig(environment: environment)),
+       _dartdocBinary = null,
        _dartdocVersion = null,
        _runtimeInfo = runtimeInfo,
        _useAnalysisIncludes = false,
@@ -176,6 +179,12 @@ class ToolEnvironment {
     String? pubCacheDir,
     String? pubHostedUrl,
 
+    /// When specified, this binary will be used to generate the documentation.
+    ///
+    /// When specified, the dartdoc version parameter will be ignored
+    /// (`pub global activate` will not run).
+    String? dartdocBinary,
+
     /// When specified, this version of `dartdoc` will be initialized
     /// through `dart pub global activate` and used with `dart pub global run`,
     /// otherwise the SDK's will be used.
@@ -222,6 +231,7 @@ class ToolEnvironment {
         ...env,
         if (resolvedFlutterRoot != null) 'FLUTTER_ROOT': resolvedFlutterRoot,
       }),
+      dartdocBinary,
       dartdocVersion,
       useAnalysisIncludes ??
           Platform.environment['PANA_ANALYSIS_INCLUDES'] == '1',
@@ -543,6 +553,16 @@ class ToolEnvironment {
       '--no-validate-links',
       if (sdkDir != null) ...['--sdk-dir', sdkDir],
     ];
+
+    if (_dartdocBinary != null) {
+      return await _runSandboxed(
+        [_dartdocBinary, ...args],
+        workingDirectory: packageDir,
+        environment: _dartSdk.environment,
+        timeout: timeout,
+        outputFolder: outputDir,
+      );
+    }
 
     if (_dartdocVersion == 'sdk') {
       return await _runSandboxed(
