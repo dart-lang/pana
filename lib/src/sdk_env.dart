@@ -65,7 +65,7 @@ class ToolEnvironment {
   final String? pubCacheDir;
   final _DartSdk _dartSdk;
   PanaRuntimeInfo? _runtimeInfo;
-  final String? _dartdocPath;
+  final List<String>? _dartdocCommand;
   final String? _dartdocVersion;
   final bool _useAnalysisIncludes;
 
@@ -78,7 +78,7 @@ class ToolEnvironment {
   ToolEnvironment._(
     this.pubCacheDir,
     this._dartSdk,
-    this._dartdocPath,
+    this._dartdocCommand,
     this._dartdocVersion,
     this._useAnalysisIncludes,
     this._sandboxRunner,
@@ -89,7 +89,7 @@ class ToolEnvironment {
     Map<String, String> environment = const <String, String>{},
     required PanaRuntimeInfo runtimeInfo,
   }) : _dartSdk = _DartSdk._(SdkConfig(environment: environment)),
-       _dartdocPath = null,
+       _dartdocCommand = null,
        _dartdocVersion = null,
        _runtimeInfo = runtimeInfo,
        _useAnalysisIncludes = false,
@@ -183,7 +183,7 @@ class ToolEnvironment {
     ///
     /// When specified, the dartdoc version parameter will be ignored
     /// (`pub global activate` will not run).
-    String? dartdocPath,
+    List<String>? dartdocCommand,
 
     /// When specified, this version of `dartdoc` will be initialized
     /// through `dart pub global activate` and used with `dart pub global run`,
@@ -231,7 +231,7 @@ class ToolEnvironment {
         ...env,
         if (resolvedFlutterRoot != null) 'FLUTTER_ROOT': resolvedFlutterRoot,
       }),
-      dartdocPath,
+      dartdocCommand,
       dartdocVersion,
       useAnalysisIncludes ??
           Platform.environment['PANA_ANALYSIS_INCLUDES'] == '1',
@@ -554,9 +554,9 @@ class ToolEnvironment {
       if (sdkDir != null) ...['--sdk-dir', sdkDir],
     ];
 
-    if (_dartdocPath != null) {
+    if (_dartdocCommand != null && _dartdocCommand.isNotEmpty) {
       return await _runSandboxed(
-        [_dartdocPath, ...args],
+        [..._dartdocCommand, ...args],
         workingDirectory: packageDir,
         environment: _dartSdk.environment,
         timeout: timeout,
