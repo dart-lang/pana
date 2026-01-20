@@ -1,3 +1,7 @@
+## 0.23.8
+
+- Updated option to list of arguments to run precompiled `dartdoc` binary.
+
 ## 0.23.7
 
 - Use only `dart` commands, Flutter SDK will be used when `FLUTTER_ROOT` is set.
