@@ -757,7 +757,7 @@ String _join(String? path, String binDir, String executable) {
 
 Future<String?> _resolve(String? dir) async {
   if (dir == null) return null;
-  return Directory(dir).resolveSymbolicLinks();
+  return Directory(dir).absolute.path;
 }
 
 class _DartSdk {

@@ -2,6 +2,7 @@
 
 - Use only `dart` commands, Flutter SDK will be used when `FLUTTER_ROOT` is set.
 - Option to use a precompiled `dartdoc` binary.
+- Do not resolve symbolic links before running the analysis.
 
 ## 0.23.6
 

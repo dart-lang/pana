@@ -172,11 +172,11 @@ Future<void> main(List<String> args) async {
   }
   final resourcesOutputDirParam = result['resources-output'] as String?;
 
-  final tempDir = Directory.systemTemp.createTempSync(
-    'pana.${DateTime.now().millisecondsSinceEpoch}.',
-  );
+  final tempDir = Directory.systemTemp
+      .createTempSync('pana.${DateTime.now().millisecondsSinceEpoch}.')
+      .absolute;
   // Critical to make sure analyzer paths align well
-  final tempPath = await tempDir.resolveSymbolicLinks();
+  final tempPath = tempDir.path;
   final pubCacheDir = p.join(tempPath, 'pub-cache');
   await Directory(pubCacheDir).create(recursive: true);
   final dartdocOutputDir = dartdocOutputDirParam ?? p.join(tempPath, 'doc');
@@ -240,7 +240,7 @@ Future<void> main(List<String> args) async {
           _printHelp(errorMessage: 'Found no pubspec file at $pubspecPath.');
         }
 
-        final absolutePath = await Directory(path).resolveSymbolicLinks();
+        final absolutePath = Directory(path).absolute.path;
         summary = await analyzer.inspectDir(absolutePath, options: options);
       }
       if (isJson) {

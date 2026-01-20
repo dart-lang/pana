@@ -120,7 +120,7 @@ Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
   Directory? tempDir;
   try {
     tempDir = await Directory.systemTemp.createTemp('pana_');
-    return await fn(tempDir.resolveSymbolicLinksSync());
+    return await fn(tempDir.absolute.path);
   } finally {
     tempDir?.deleteSync(recursive: true);
   }
