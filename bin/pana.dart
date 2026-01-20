@@ -69,7 +69,7 @@ final _parser = ArgParser()
     defaultsTo: true,
   )
   ..addOption(
-    'dartdoc-binary',
+    'dartdoc-path',
     help:
         'When specified, pana will run the given binary for document generation.',
     hide: true,
@@ -162,7 +162,7 @@ Future<void> main(List<String> args) async {
   });
 
   final dartdocOutputDirParam = result['dartdoc-output'] as String?;
-  final dartdocBinaryParam = result['dartdoc-binary'] as String?;
+  final dartdocBinaryParam = result['dartdoc-path'] as String?;
   final runDartdoc = result['dartdoc'] == true;
   if (!runDartdoc && dartdocOutputDirParam != null) {
     _printHelp(
@@ -199,7 +199,7 @@ Future<void> main(List<String> args) async {
           configHomePath: result['flutter-config-home'] as String?,
         ),
         pubHostedUrl: pubHostedUrl,
-        dartdocBinary: dartdocBinaryParam,
+        dartdocPath: dartdocBinaryParam,
         dartdocVersion: result['dartdoc-version'] as String?,
       ),
     );
