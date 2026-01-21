@@ -95,6 +95,10 @@ final _parser = ArgParser()
     help: 'The total time budget (in seconds) allocated for the full analysis.',
     hide: true,
   )
+  ..addOption(
+    'license-data',
+    help: 'The path to the directory containing the SPDX license data.',
+  )
   // Has no effect, but kept for backwards compatibility.
   ..addFlag(
     'warning',
@@ -202,6 +206,7 @@ Future<void> main(List<String> args) async {
       resourcesOutputDir: resourcesOutputDir,
       dartdocTimeout: _parseDuration(result['dartdoc-timeout'] as String?),
       totalTimeout: _parseDuration(result['total-timeout'] as String?),
+      licenseDataDir: result['license-data'] as String?,
     );
     try {
       late Summary summary;
