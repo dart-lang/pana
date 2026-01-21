@@ -1,3 +1,7 @@
+## 0.23.9
+
+- Added `--license-data` argument to specify the location of SPDX license data (useful for AOT compilation).
+
 ## 0.23.8
 
 - Updated option to list of arguments to run precompiled `dartdoc` binary.

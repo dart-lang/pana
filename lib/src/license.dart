@@ -14,21 +14,32 @@ import 'model.dart';
 
 const _licenseFileNames = ['LICENSE'];
 
-Future<List<License>> detectLicenseInDir(String baseDir) async {
+Future<List<License>> detectLicenseInDir(
+  String baseDir, {
+  String? licenseDataDir,
+}) async {
   final licenses = <License>[];
   for (final candidate in _licenseFileNames) {
     final file = File(p.join(baseDir, candidate));
     if (!file.existsSync()) continue;
-    licenses.addAll(await detectLicenseInFile(file));
+    licenses.addAll(
+      await detectLicenseInFile(file, licenseDataDir: licenseDataDir),
+    );
   }
   // TODO: sort by confidence (the current order is per-file confidence).
   return licenses;
 }
 
 @visibleForTesting
-Future<List<License>> detectLicenseInFile(File file) async {
+Future<List<License>> detectLicenseInFile(
+  File file, {
+  String? licenseDataDir,
+}) async {
   final content = utf8.decode(await file.readAsBytes(), allowMalformed: true);
-  final licenses = await detectLicenseInContent(content);
+  final licenses = await detectLicenseInContent(
+    content,
+    licenseDataDir: licenseDataDir,
+  );
   if (licenses.isEmpty) {
     return [License(spdxIdentifier: 'unknown')];
   }
@@ -38,8 +49,15 @@ Future<List<License>> detectLicenseInFile(File file) async {
 /// Returns the license(s) detected from the [SPDX-corpus][1].
 ///
 /// [1]: https://spdx.org/licenses/
-Future<List<License>> detectLicenseInContent(String content) async {
-  final licenseResult = await detectLicense(content, 0.95);
+Future<List<License>> detectLicenseInContent(
+  String content, {
+  String? licenseDataDir,
+}) async {
+  final licenseResult = await detectLicense(
+    content,
+    0.95,
+    licenseDataDir: licenseDataDir,
+  );
 
   if (licenseResult.unclaimedTokenPercentage > 0.5 ||
       licenseResult.longestUnclaimedTokenCount >= 50) {

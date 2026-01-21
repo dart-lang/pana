@@ -47,6 +47,9 @@ class InspectOptions {
   /// [dartdocTimeout] and the remaining budget will be used.
   final Duration dartdocTimeout;
 
+  /// The path to the directory containing the SPDX license data.
+  final String? licenseDataDir;
+
   InspectOptions({
     this.pubHostedUrl,
     this.panaCacheDir,
@@ -54,6 +57,7 @@ class InspectOptions {
     this.resourcesOutputDir,
     this.totalTimeout,
     Duration? dartdocTimeout,
+    this.licenseDataDir,
   }) : dartdocTimeout = dartdocTimeout ?? const Duration(minutes: 5);
 }
 

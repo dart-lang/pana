@@ -25,14 +25,23 @@ const _defaultSpdxLicenseDir = 'lib/src/third_party/spdx/licenses';
 // Load corpus licenses.
 List<License>? _cachedLicenses;
 @visibleForTesting
-Future<List<License>> listDefaultLicenses() async {
+Future<List<License>> listDefaultLicenses({String? licenseDataDir}) async {
   if (_cachedLicenses == null) {
-    final uri = await Isolate.resolvePackageUri(
-      Uri.parse(_defaultSpdxLicenseDir.replaceFirst('lib/', 'package:pana/')),
-    );
-    _cachedLicenses = loadLicensesFromDirectories([
-      Directory.fromUri(uri!).path,
-    ]);
+    var path = licenseDataDir;
+    if (path == null) {
+      final uri = await Isolate.resolvePackageUri(
+        Uri.parse(_defaultSpdxLicenseDir.replaceFirst('lib/', 'package:pana/')),
+      );
+      if (uri != null) {
+        path = Directory.fromUri(uri).path;
+      }
+    }
+    if (path == null) {
+      throw StateError(
+        'Could not resolve license directory. If running in AOT mode, use --license-data to specify the location of SPDX licenses.',
+      );
+    }
+    _cachedLicenses = loadLicensesFromDirectories([path]);
   }
   return _cachedLicenses!;
 }
@@ -59,7 +68,11 @@ class Result {
 
 /// Returns an instance of [Result] for every license in the corpus detected
 /// in the unknown text with a confidence greater than [threshold].
-Future<Result> detectLicense(String text, double threshold) async {
+Future<Result> detectLicense(
+  String text,
+  double threshold, {
+  String? licenseDataDir,
+}) async {
   final granularity = computeGranularity(threshold);
 
   final unknownLicense = LicenseWithNGrams.parse(
@@ -69,7 +82,7 @@ Future<Result> detectLicense(String text, double threshold) async {
 
   final possibleLicenses = filter(
     unknownLicense.tokenFrequency,
-    await listDefaultLicenses(),
+    await listDefaultLicenses(licenseDataDir: licenseDataDir),
   ).map((e) => LicenseWithNGrams.parse(e, granularity));
   var result = <LicenseMatch>[];
 
