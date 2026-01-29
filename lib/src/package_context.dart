@@ -335,6 +335,7 @@ class PackageContext {
   late final Future<List<ScreenshotResult>> screenshots = processAllScreenshots(
     pubspec.screenshots,
     packageDir,
+    toolEnvironment.sandboxRunner,
   );
 
   late final pubspecAllowsCurrentSdk =

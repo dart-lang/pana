@@ -11,10 +11,11 @@ import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
 import '../pana.dart';
 import 'logging.dart';
+import 'sandbox_runner.dart';
 
-final maxFileSizeInBytes = 4194304; // 4MB
-final maxFileSizeInMegaBytes = maxFileSizeInBytes / (1024 * 1024);
-final maxNumberOfScreenshots = 10;
+final _maxFileSizeInMegaBytes = 4;
+final _maxFileSizeInBytes = _maxFileSizeInMegaBytes * (1024 * 1024);
+final _maxNumberOfScreenshots = 10;
 
 /// [ScreenshotResult] holds either a [ProcessedScreenshot] or a list of
 /// problems describing what went wrong when trying to generate thumbnails and
@@ -65,6 +66,7 @@ class ScreenshotResult {
 Future<List<ScreenshotResult>> processAllScreenshots(
   List<p.Screenshot> screenshots,
   String pkgDir,
+  SandboxRunner sandboxRunner,
 ) async {
   final tempDir = Directory.systemTemp.createTempSync();
   try {
@@ -72,10 +74,10 @@ Future<List<ScreenshotResult>> processAllScreenshots(
     var processedScreenshots = 0;
     for (final screenshot in screenshots) {
       final problems = <String>[];
-      if (processedScreenshots == maxNumberOfScreenshots) {
+      if (processedScreenshots == _maxNumberOfScreenshots) {
         results.add(
           ScreenshotResult.failed([
-            '${screenshot.path}: Not processed. pub.dev shows at most $maxNumberOfScreenshots screenshots.',
+            '${screenshot.path}: Not processed. pub.dev shows at most $_maxNumberOfScreenshots screenshots.',
           ]),
         );
         continue;
@@ -87,7 +89,12 @@ Future<List<ScreenshotResult>> processAllScreenshots(
         continue;
       }
 
-      final result = await _processScreenshot(pkgDir, screenshot, tempDir.path);
+      final result = await _processScreenshot(
+        sandboxRunner,
+        pkgDir,
+        screenshot,
+        tempDir.path,
+      );
       if (result.problems.isEmpty) {
         processedScreenshots++;
       }
@@ -127,15 +134,16 @@ List<String> _validateScreenshot(p.Screenshot screenshot, String pkgDir) {
     problems.add(
       '${screenshot.path}: No file found at specified screenshot `path` ${screenshot.path}',
     );
-  } else if (origImage.lengthSync() > maxFileSizeInBytes) {
+  } else if (origImage.lengthSync() > _maxFileSizeInBytes) {
     problems.add(
-      '${screenshot.path}: Screenshot file size exceeds limit of $maxFileSizeInMegaBytes MB',
+      '${screenshot.path}: Screenshot file size exceeds limit of $_maxFileSizeInMegaBytes MB',
     );
   }
   return problems;
 }
 
 Future<ScreenshotResult> _processScreenshot(
+  SandboxRunner sandboxRunner,
   String pkgDir,
   p.Screenshot e,
   String tempDir,
@@ -165,6 +173,7 @@ Future<ScreenshotResult> _processScreenshot(
   ).createSync(recursive: true);
 
   final webpScreenshotProblems = await _generateWebpScreenshot(
+    sandboxRunner,
     originalPath,
     path.join(tempDir, webpPath),
   );
@@ -173,6 +182,7 @@ Future<ScreenshotResult> _processScreenshot(
   }
 
   final thumbnailProblems = await _generateThumbnails(
+    sandboxRunner,
     originalPath,
     path.join(tempDir, webpPath),
     path.join(tempDir, webp100ThumbnailPath),
@@ -221,11 +231,13 @@ Future<ScreenshotResult> _processScreenshot(
 /// fail if any of the mentioned tools are not available on the command line and
 /// an error message will be written to stderr.
 Future<List<String>> _generateWebpScreenshot(
+  SandboxRunner sandboxRunner,
   String originalPath,
   String targetWebpPath,
 ) async {
   final problems = <String>[];
   final copyIfWebpProblems = await _copyIfAlreadyWebp(
+    sandboxRunner,
     originalPath,
     targetWebpPath,
   );
@@ -235,6 +247,7 @@ Future<List<String>> _generateWebpScreenshot(
   problems.addAll(copyIfWebpProblems);
 
   final convertWithCwebpProblems = await _convertWithCWebp(
+    sandboxRunner,
     originalPath,
     targetWebpPath,
   );
@@ -244,6 +257,7 @@ Future<List<String>> _generateWebpScreenshot(
   problems.addAll(convertWithCwebpProblems);
 
   final gif2webpProblems = await _convertGifToWebp(
+    sandboxRunner,
     originalPath,
     targetWebpPath,
   );
@@ -258,38 +272,50 @@ Future<List<String>> _generateWebpScreenshot(
 }
 
 Future<List<String>> _copyIfAlreadyWebp(
+  SandboxRunner sandboxRunner,
   String originalPath,
   String webpPath,
 ) async {
   return await _checkedRunProc(
+    sandboxRunner,
     ['webpinfo', originalPath],
     failureText:
         '`$originalPath`: Tried interpreting screenshot as WebP with `webpinfo "$originalPath"`',
     onSuccess: (_) async {
       await File(originalPath).copy(webpPath);
     },
+    inputFilePath: originalPath,
+    outputFilePath: null,
   );
 }
 
 Future<List<String>> _convertWithCWebp(
+  SandboxRunner sandboxRunner,
   String originalPath,
   String webpPath,
 ) async {
   return await _checkedRunProc(
+    sandboxRunner,
     ['cwebp', originalPath, '-o', webpPath],
     failureText:
         '`$originalPath`: Converting screenshot with `cwebp "$originalPath" -o "$webpPath"`',
+    inputFilePath: originalPath,
+    outputFilePath: webpPath,
   );
 }
 
 Future<List<String>> _convertGifToWebp(
+  SandboxRunner sandboxRunner,
   String originalPath,
   String webpPath,
 ) async {
   return await _checkedRunProc(
+    sandboxRunner,
     ['gif2webp', originalPath, '-o', webpPath],
     failureText:
         '`$originalPath`: Tried interpreting screenshot as GIF with `gif2webp "$originalPath" -o "$webpPath"`',
+    inputFilePath: originalPath,
+    outputFilePath: webpPath,
   );
 }
 
@@ -310,6 +336,7 @@ Future<List<String>> _convertGifToWebp(
 /// Thumbnail generation will fail if any of the mentioned tools are not
 /// available on the command line and an error message will be written to stderr.
 Future<List<String>> _generateThumbnails(
+  SandboxRunner sandboxRunner,
   String originalPath,
   String webpPath,
   String webp100ThumbnailPath,
@@ -321,11 +348,14 @@ Future<List<String>> _generateThumbnails(
   late String staticWebpPath;
   late String infoOutput;
   final infoResult = await _checkedRunProc(
+    sandboxRunner,
     ['webpinfo', webpPath],
     onSuccess: (infoResult) {
       infoOutput = infoResult.stdout.asString;
     },
     failureText: '`$originalPath`: Running `webpinfo "$webpPath"`',
+    inputFilePath: webpPath,
+    outputFilePath: null,
   );
   if (infoResult.isNotEmpty) {
     return infoResult;
@@ -338,9 +368,12 @@ Future<List<String>> _generateThumbnails(
     );
     // input file is animated, extract the first frame.
     final webpmuxResult = await _checkedRunProc(
+      sandboxRunner,
       ['webpmux', '-get', 'frame', '1', webpPath, '-o', staticWebpPath],
       failureText:
           '`$originalPath`: Extracting frame from $webpPath with `webpmux -get frame 1 "$webpPath" -o "$staticWebpPath"`',
+      inputFilePath: webpPath,
+      outputFilePath: staticWebpPath,
     );
 
     if (webpmuxResult.isNotEmpty) {
@@ -379,6 +412,7 @@ Future<List<String>> _generateThumbnails(
     }
 
     return await _checkedRunProc(
+      sandboxRunner,
       [
         'cwebp',
         '-resize',
@@ -390,6 +424,8 @@ Future<List<String>> _generateThumbnails(
       ],
       failureText:
           '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$outputPath"`',
+      inputFilePath: originalPath,
+      outputFilePath: outputPath,
     );
   }
 
@@ -415,18 +451,24 @@ Future<List<String>> _generateThumbnails(
   }
 
   final png100Result = await _checkedRunProc(
+    sandboxRunner,
     ['dwebp', webp100ThumbnailPath, '-o', png100ThumbnailPath],
     failureText:
         '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp100ThumbnailPath" -o "$png100ThumbnailPath"`',
+    inputFilePath: webp100ThumbnailPath,
+    outputFilePath: png100ThumbnailPath,
   );
   if (png100Result.isNotEmpty) {
     return png100Result;
   }
 
   final png190Result = await _checkedRunProc(
+    sandboxRunner,
     ['dwebp', webp190ThumbnailPath, '-o', png190ThumbnailPath],
     failureText:
         '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp190ThumbnailPath" -o "$png190ThumbnailPath"`',
+    inputFilePath: webp190ThumbnailPath,
+    outputFilePath: png190ThumbnailPath,
   );
   if (png190Result.isNotEmpty) {
     return png190Result;
@@ -436,12 +478,23 @@ Future<List<String>> _generateThumbnails(
 }
 
 Future<List<String>> _checkedRunProc(
+  SandboxRunner sandboxRunner,
   List<String> cmdAndArgs, {
   FutureOr<void> Function(PanaProcessResult pr)? onSuccess,
+  required String inputFilePath,
+  required String? outputFilePath,
   required String failureText,
 }) async {
   try {
-    final pr = await runConstrained(cmdAndArgs);
+    final inputDirPath = path.dirname(inputFilePath);
+    final outputDirPath = outputFilePath == null
+        ? null
+        : path.dirname(outputFilePath);
+    final pr = await sandboxRunner.runSandboxed(
+      cmdAndArgs,
+      workingDirectory: inputDirPath,
+      outputFolder: outputDirPath,
+    );
     if (pr.exitCode == 0) {
       if (onSuccess != null) {
         await onSuccess(pr);

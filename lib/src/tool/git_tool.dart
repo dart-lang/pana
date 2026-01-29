@@ -4,6 +4,7 @@
 
 import 'package:path/path.dart' as p;
 
+import '../sandbox_runner.dart';
 import '../utils.dart';
 import 'run_constrained.dart';
 
@@ -12,13 +13,14 @@ import 'run_constrained.dart';
 /// access the user's custom configuration files and settings, allowing a safe
 /// and reproducible execution.
 Future<PanaProcessResult> runGit(
+  SandboxRunner sandboxRunner,
   List<String> args, {
   required String homePath,
   required String workingDirectory,
   int? maxOutputBytes,
   GitToolException Function(PanaProcessResult pr)? createException,
 }) async {
-  final pr = await runConstrained(
+  final pr = await sandboxRunner.runSandboxed(
     ['git', ...args],
     environment: {
       'LANG': 'C', // default English locale that is always present
@@ -33,6 +35,9 @@ Future<PanaProcessResult> runGit(
     },
     workingDirectory: workingDirectory,
     maxOutputBytes: maxOutputBytes,
+    needsNetwork: true,
+    outputFolder: homePath, // allow home path updates
+    writableCurrentDir: true,
   );
   if (pr.wasError) {
     final ex = createException == null
@@ -46,11 +51,17 @@ Future<PanaProcessResult> runGit(
 /// Runs `git` with a temporary config directory, isolating it from any global
 /// user settings.
 Future<PanaProcessResult> runGitIsolated(
+  SandboxRunner sandboxRunner,
   List<String> args, {
   required String workingDirectory,
 }) async {
   return await withTempDir((path) async {
-    return runGit(args, homePath: path, workingDirectory: workingDirectory);
+    return runGit(
+      sandboxRunner,
+      args,
+      homePath: path,
+      workingDirectory: workingDirectory,
+    );
   });
 }
 

@@ -7,7 +7,7 @@ export 'src/maintenance.dart' show exampleFileCandidates;
 export 'src/model.dart';
 export 'src/package_analyzer.dart';
 export 'src/pubspec.dart';
-export 'src/sdk_env.dart';
+export 'src/sdk_env.dart' hide SandboxRunnerProviderExt;
 export 'src/tag/pana_tags.dart';
 export 'src/tool/run_constrained.dart';
 export 'src/utils.dart' show yamlToJson;

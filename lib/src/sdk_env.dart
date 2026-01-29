@@ -15,6 +15,7 @@ import 'internal_model.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
+import 'sandbox_runner.dart';
 import 'tool/run_constrained.dart';
 import 'utils.dart';
 import 'version.dart';
@@ -68,10 +69,7 @@ class ToolEnvironment {
   final List<String>? _dartdocCommand;
   final String? _dartdocVersion;
   final bool _useAnalysisIncludes;
-
-  /// When a sandbox environment is present, this identifies the executable path
-  /// which will be used to prepend subprocess calls.
-  final String? _sandboxRunner;
+  final SandboxRunner _sandboxRunner;
 
   bool _globalDartdocActivated = false;
 
@@ -93,67 +91,12 @@ class ToolEnvironment {
        _dartdocVersion = null,
        _runtimeInfo = runtimeInfo,
        _useAnalysisIncludes = false,
-       _sandboxRunner = null;
+       _sandboxRunner = SandboxRunner(null);
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
 
-  /// Runs the [arguments] with the sandbox runner script.
-  ///
-  /// The script is expected to mount the following paths into the sandbox
-  /// environment (read-only, unless otherwise specified):
-  /// - The SDKs and binaries (webp) required by pana.
-  /// - The directory identified by `XDG_CONFIG_HOME`.
-  /// - The directory identified by `PUB_CACHE`.
-  /// - The current working directory / package directory.
-  /// - The directory identified by `SANDBOX_OUTPUT` (if present, is writable).
-  ///
-  /// The script will use its command line arguments to pass-through execution inside the sandbox.
-  ///
-  /// The script will pass-through the following environment variables inside the sandbox:
-  /// - `CI`
-  /// - `NO_COLOR`
-  /// - `PATH`
-  /// - `XDG_CONFIG_HOME`
-  /// - `FLUTTER_ROOT`
-  /// - `PUB_ENVIRONMENT`
-  /// - `PUB_HOSTED_URL`
-  ///
-  /// The script will restrict network access, unless
-  /// `SANDBOX_NETWORK_ENABLED=true` is specified.
-  Future<PanaProcessResult> _runSandboxed(
-    List<String> arguments, {
-    String? workingDirectory,
-    Map<String, String>? environment,
-    Duration? timeout,
-    bool throwOnError = false,
-    String? outputFolder,
-    bool needsNetwork = false,
-    bool writableConfigHome = false,
-    bool writableCurrentDir = false,
-    bool writablePubCacheDir = false,
-  }) async {
-    environment ??= const <String, String>{};
-    final outputFolders = <String>{
-      ?outputFolder,
-      ?(writableConfigHome ? environment['XDG_CONFIG_HOME'] : null),
-      ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
-      ?(writableCurrentDir ? workingDirectory : null),
-    };
-    return await runConstrained(
-      [?_sandboxRunner, ...arguments],
-      workingDirectory: workingDirectory,
-      environment: {
-        ...environment,
-        if (outputFolders.isNotEmpty) 'SANDBOX_OUTPUT': outputFolders.join(':'),
-        if (needsNetwork) 'SANDBOX_NETWORK_ENABLED': 'true',
-      },
-      timeout: timeout,
-      throwOnError: throwOnError,
-    );
-  }
-
   Future<void> _init() async {
-    final dartVersionResult = await _runSandboxed(
+    final dartVersionResult = await _sandboxRunner.runSandboxed(
       [..._dartSdk.dartCmd, '--version'],
       environment: _dartSdk.environment,
       throwOnError: true,
@@ -235,7 +178,7 @@ class ToolEnvironment {
       dartdocVersion,
       useAnalysisIncludes ??
           Platform.environment['PANA_ANALYSIS_INCLUDES'] == '1',
-      sandboxRunner,
+      SandboxRunner(sandboxRunner),
     );
     await toolEnv._init();
     return toolEnv;
@@ -255,7 +198,7 @@ class ToolEnvironment {
       await targetDir.delete(recursive: true);
     }
     await withTempDir((downloadDir) async {
-      await _runSandboxed(
+      await _sandboxRunner.runSandboxed(
         [
           ..._dartSdk.pubCmd,
           'unpack',
@@ -317,7 +260,7 @@ class ToolEnvironment {
     required InspectOptions inspectOptions,
   }) async {
     return await _withRestrictedAnalysisOptions(packageDir, () async {
-      final proc = await _runSandboxed(
+      final proc = await _sandboxRunner.runSandboxed(
         [..._dartSdk.dartAnalyzeCmd, '--format', 'machine', dir],
         environment: _dartSdk.environment,
         workingDirectory: packageDir,
@@ -365,7 +308,7 @@ class ToolEnvironment {
       ];
       params.add(packageDir);
 
-      final result = await _runSandboxed(
+      final result = await _sandboxRunner.runSandboxed(
         [..._dartSdk.dartCmd, ...params],
         environment: _dartSdk.environment,
         timeout: _dartFormatTimeout,
@@ -428,7 +371,7 @@ class ToolEnvironment {
     required String command,
   }) async {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      return await _runSandboxed(
+      return await _sandboxRunner.runSandboxed(
         [
           ..._dartSdk.pubCmd,
           ...[command, '--no-example'],
@@ -452,7 +395,7 @@ class ToolEnvironment {
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       Future<PanaProcessResult> runPubGet() async {
-        final pr = await _runSandboxed(
+        final pr = await _sandboxRunner.runSandboxed(
           [...pubCmd, 'get', '--no-example'],
           environment: _dartSdk.environment,
           workingDirectory: packageDir,
@@ -485,7 +428,7 @@ class ToolEnvironment {
         );
       }
 
-      final result = await _runSandboxed(
+      final result = await _sandboxRunner.runSandboxed(
         [...pubCmd, 'outdated', ...args],
         environment: _dartSdk.environment,
         workingDirectory: packageDir,
@@ -555,7 +498,7 @@ class ToolEnvironment {
     ];
 
     if (_dartdocCommand != null && _dartdocCommand.isNotEmpty) {
-      return await _runSandboxed(
+      return await _sandboxRunner.runSandboxed(
         [..._dartdocCommand, ...args],
         workingDirectory: packageDir,
         environment: _dartSdk.environment,
@@ -565,7 +508,7 @@ class ToolEnvironment {
     }
 
     if (_dartdocVersion == 'sdk') {
-      return await _runSandboxed(
+      return await _sandboxRunner.runSandboxed(
         [..._dartSdk.dartCmd, 'doc', ...args],
         workingDirectory: packageDir,
         environment: _dartSdk.environment,
@@ -577,7 +520,7 @@ class ToolEnvironment {
     } else {
       final command = _dartSdk.pubCmd;
       if (!_globalDartdocActivated) {
-        await _runSandboxed(
+        await _sandboxRunner.runSandboxed(
           [
             ...command,
             'global',
@@ -596,7 +539,7 @@ class ToolEnvironment {
         );
         _globalDartdocActivated = true;
       }
-      return await _runSandboxed(
+      return await _sandboxRunner.runSandboxed(
         [...command, 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
         environment: _dartSdk.environment,
@@ -781,4 +724,8 @@ class _DartSdk {
   late final pubCmd = [...dartCmd, 'pub'];
 
   late final flutterRootEnvVar = environment['FLUTTER_ROOT'];
+}
+
+extension SandboxRunnerProviderExt on ToolEnvironment {
+  SandboxRunner get sandboxRunner => _sandboxRunner;
 }

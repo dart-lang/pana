@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:pana/pana.dart';
 import 'package:pana/src/package_context.dart';
 import 'package:pana/src/report/create_report.dart';
+import 'package:pana/src/sandbox_runner.dart';
 import 'package:pana/src/screenshots.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
@@ -39,7 +40,11 @@ void main() {
 
     final s = Screenshot('', 'p');
     final declared = <Screenshot>[s];
-    final r = await processAllScreenshots(declared, pkgDir);
+    final r = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
 
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
@@ -54,7 +59,11 @@ void main() {
 
     final s = Screenshot('d', '');
     final declared = <Screenshot>[s];
-    final r = await processAllScreenshots(declared, pkgDir);
+    final r = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
 
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
@@ -74,7 +83,11 @@ void main() {
     final s = Screenshot(longDescription, 's');
     final declared = <Screenshot>[s];
 
-    final r = await processAllScreenshots(declared, pkgDir);
+    final r = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
     expect(r.first.problems, isNotEmpty);
@@ -91,7 +104,11 @@ void main() {
     final s1 = Screenshot('description', 's/../../s');
     final declared = <Screenshot>[s, s1];
 
-    final r = await processAllScreenshots(declared, pkgDir);
+    final r = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
 
     expect(r.length, 2);
     for (final result in r) {
@@ -110,7 +127,11 @@ void main() {
     final s = Screenshot('description', 's');
     final declared = <Screenshot>[s];
 
-    final result = await processAllScreenshots(declared, pkgDir);
+    final result = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
 
     expect(result.first.processedScreenshot, isNull);
     expect(result.first.problems, isNotEmpty);
@@ -127,7 +148,11 @@ void main() {
     final s = Screenshot('description', 'static.webp');
     final s2 = Screenshot('description', 's2/static.webp');
 
-    final result = await processAllScreenshots([s, s2], pkgDir);
+    final result = await processAllScreenshots(
+      [s, s2],
+      pkgDir,
+      SandboxRunner(null),
+    );
 
     expect(result.length, 2);
     expect(result[0].problems, isEmpty);
@@ -150,7 +175,11 @@ void main() {
     final s4 = Screenshot('description', 'animated.gif');
     final declared = <Screenshot>[s, s1, s2, s3, s4];
 
-    final result = await processAllScreenshots(declared, pkgDir);
+    final result = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
 
     expect(result.length, 5);
     for (final sr in result) {
@@ -176,7 +205,11 @@ void main() {
 
     final declared = <Screenshot>[s, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10];
 
-    final result = await processAllScreenshots(declared, pkgDir);
+    final result = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
 
     expect(result.length, 11);
     expect(result[10].problems, isNotEmpty);
@@ -197,7 +230,11 @@ void main() {
     final s = Screenshot('description', 'notAnImage.txt');
     final declared = <Screenshot>[s];
 
-    final r = await processAllScreenshots(declared, pkgDir);
+    final r = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
     expect(r.first.problems.length, 4);
@@ -224,7 +261,11 @@ void main() {
     final s = Screenshot('description', 'static.webp');
     final declared = <Screenshot>[s];
 
-    final r = await processAllScreenshots(declared, pkgDir);
+    final r = await processAllScreenshots(
+      declared,
+      pkgDir,
+      SandboxRunner(null),
+    );
     expect(r.length, 1);
     expect(r.first.processedScreenshot, isNull);
     expect(r.first.problems.length, greaterThan(0));

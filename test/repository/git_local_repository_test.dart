@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pana/src/repository/git_local_repository.dart';
+import 'package:pana/src/sandbox_runner.dart';
 import 'package:pana/src/tool/git_tool.dart';
 import 'package:test/test.dart';
 
@@ -11,7 +12,10 @@ void main() {
     Future<String?> getDefaultBranch(String url) async {
       GitLocalRepository? repo;
       try {
-        repo = await GitLocalRepository.createLocalRepository(url);
+        repo = await GitLocalRepository.createLocalRepository(
+          SandboxRunner(null),
+          url,
+        );
         return await repo.detectDefaultBranch();
       } on GitToolException catch (_) {
         return null;
@@ -44,6 +48,7 @@ void main() {
 
     setUpAll(() async {
       repo = await GitLocalRepository.createLocalRepository(
+        SandboxRunner(null),
         'https://github.com/dart-lang/pana.git',
       );
     });
