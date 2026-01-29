@@ -40,4 +40,5 @@ Options:
       --[no-]dartdoc           Run dartdoc and score the package on documentation coverage.
                                (defaults to on)
       --dartdoc-version        The dartdoc version to use: `sdk`, `latest` (default) or `<version constraint>`.
+      --license-data           The path to the directory containing the SPDX license data.
 ```

@@ -84,7 +84,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`gg_console_colors`]|`^2.0.1`|2.1.5|2.1.5||
 |[`gg_git`]|`^2.0.0`|2.5.9|**3.0.6**||
 |[`gg_is_flutter`]|`^1.0.3`|1.0.5|1.0.7||
-|[`gg_json`]|`^1.0.0`|1.0.6|**2.0.2**|**Discontinued**|
+|[`gg_json`]|`^1.0.0`|1.0.6|**2.0.2**||
 |[`gg_log`]|`^1.0.0`|1.0.6|1.0.6||
 |[`gg_process`]|`^1.0.6`|1.1.6|1.1.6||
 |[`gg_publish`]|`^2.0.0`|2.0.1|**3.0.18**||
@@ -171,7 +171,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`typed_data`]: https://pub.dev/packages/typed_data
 [`web`]: https://pub.dev/packages/web
 
-Found 6 issues. Showing the first 2:
+Found 5 issues. Showing the first 2:
 
 <details>
 <summary>

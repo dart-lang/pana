@@ -348,7 +348,10 @@ class PackageContext {
     pubspec.repositoryOrHomepage,
   );
 
-  late final licenses = detectLicenseInDir(packageDir);
+  late final licenses = detectLicenseInDir(
+    packageDir,
+    licenseDataDir: options.licenseDataDir,
+  );
   late final licenceTags = () async {
     return LicenseTags.fromLicenses(await licenses);
   }();
