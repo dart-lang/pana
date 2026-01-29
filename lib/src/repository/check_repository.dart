@@ -11,6 +11,7 @@ import '../logging.dart';
 import '../model.dart';
 import '../package_context.dart';
 import '../pubspec.dart';
+import '../sdk_env.dart';
 import '../tool/git_tool.dart';
 
 import 'git_local_repository.dart';
@@ -85,6 +86,7 @@ Future<VerifiedRepository> checkRepository({
   late GitLocalRepository repo;
   try {
     repo = await GitLocalRepository.createLocalRepository(
+      sharedContext.toolEnvironment.sandboxRunner,
       parsedSourceUrl.cloneUrl,
     );
     branch = await repo.detectDefaultBranch();

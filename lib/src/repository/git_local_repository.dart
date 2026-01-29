@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
+import '../sandbox_runner.dart';
 import '../tool/git_tool.dart';
 import '../tool/run_constrained.dart';
 
@@ -24,6 +25,9 @@ const unlimitedFetchDepth = 0;
 /// This objects uses a local temporary folder for interfacing with remote repository.
 /// Hence, it is important to call [delete] or temporary files will be leaked.
 class GitLocalRepository {
+  /// The sandbox runner environment (if present).
+  final SandboxRunner sandboxRunner;
+
   /// The temporary directory which contains all the other directories.
   final String rootPath;
 
@@ -41,6 +45,7 @@ class GitLocalRepository {
   final _fetchedDepthsPerBranch = <String, int>{};
 
   GitLocalRepository._({
+    required this.sandboxRunner,
     required this.rootPath,
     required this.homePath,
     required this.localPath,
@@ -50,13 +55,17 @@ class GitLocalRepository {
   /// Creates a new local git repository by accessing the [origin] URL.
   ///
   /// Throws [GitToolException] if there was a failure to create the repository.
-  static Future<GitLocalRepository> createLocalRepository(String origin) async {
+  static Future<GitLocalRepository> createLocalRepository(
+    SandboxRunner sandboxRunner,
+    String origin,
+  ) async {
     final tempDir = await Directory.systemTemp.createTemp('git-repo');
     final homeDir = Directory(p.join(tempDir.path, 'home'));
     final localDir = Directory(p.join(tempDir.path, 'local'));
     await homeDir.create();
     await localDir.create();
     final repo = GitLocalRepository._(
+      sandboxRunner: sandboxRunner,
       rootPath: tempDir.path,
       homePath: homeDir.path,
       localPath: localDir.path,
@@ -77,6 +86,7 @@ class GitLocalRepository {
     GitToolException Function(PanaProcessResult pr)? createException,
   }) async {
     return await runGit(
+      sandboxRunner,
       args,
       homePath: homePath,
       workingDirectory: localPath,

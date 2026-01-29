@@ -1,6 +1,7 @@
 ## 0.23.9
 
 - Added `--license-data` argument to specify the location of SPDX license data (useful for AOT compilation).
+- Run `webp`- and `git`-commands inside the sandbox (if it was provided).
 
 ## 0.23.8
 

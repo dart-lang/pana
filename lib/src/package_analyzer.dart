@@ -15,6 +15,7 @@ import 'model.dart';
 import 'package_context.dart';
 import 'pubspec.dart';
 import 'report/create_report.dart';
+import 'sandbox_runner.dart';
 import 'sdk_env.dart';
 import 'tag/pana_tags.dart';
 import 'tool/git_tool.dart';
@@ -96,7 +97,12 @@ class PackageAnalyzer {
     final sharedContext = _createSharedContext(options: options);
     return withLogger(logger: logger, () async {
       return withTempDir((tempDir) async {
-        final rootDir = await _detectGitRoot(packageDir) ?? packageDir;
+        final rootDir =
+            await _detectGitRoot(
+              sharedContext.toolEnvironment.sandboxRunner,
+              packageDir,
+            ) ??
+            packageDir;
         await copyDir(rootDir, tempDir);
         final relativeDir = path.relative(packageDir, from: rootDir);
         return await _inspect(sharedContext, path.join(tempDir, relativeDir));
@@ -248,9 +254,12 @@ class PackageAnalyzer {
   }
 }
 
-Future<String?> _detectGitRoot(String packageDir) async {
+Future<String?> _detectGitRoot(
+  SandboxRunner sandboxRunner,
+  String packageDir,
+) async {
   try {
-    final pr = await runGitIsolated([
+    final pr = await runGitIsolated(sandboxRunner, [
       'rev-parse',
       '--show-toplevel',
     ], workingDirectory: packageDir);
