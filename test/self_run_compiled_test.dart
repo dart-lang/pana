@@ -15,9 +15,13 @@ void main() {
     await withTempDir((dir) async {
       // detect SDK directory
       final dartPathPr = await Process.run('which', ['dart']);
-      final sdkPath = Directory(
+      var sdkPath = Directory(
         p.dirname(p.dirname(dartPathPr.stdout.toString())),
       ).resolveSymbolicLinksSync();
+      // if we using Flutter SDK, we need to use the internal Dart SDK's directory
+      if (await File(p.join(sdkPath, 'bin', 'flutter')).exists()) {
+        sdkPath = p.join(sdkPath, 'bin', 'cached', 'dart-sdk');
+      }
 
       // compile pana binary
       final compiledBinaryPath = p.join(dir, 'pana');
