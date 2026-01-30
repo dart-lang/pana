@@ -20,7 +20,9 @@ void main() {
       ).resolveSymbolicLinksSync();
       // if we using Flutter SDK, we need to use the internal Dart SDK's directory
       if (await File(p.join(sdkPath, 'bin', 'flutter')).exists()) {
-        sdkPath = p.join(sdkPath, 'bin', 'cache', 'dart-sdk');
+        sdkPath = Directory(
+          p.join(sdkPath, 'bin', 'cache', 'dart-sdk'),
+        ).resolveSymbolicLinksSync();
       }
 
       // compile pana binary
