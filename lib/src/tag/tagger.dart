@@ -128,10 +128,11 @@ class Tagger {
       _packageGraph = PackageGraph(pubspecCache);
 
   /// Assumes that `dart pub get` has been run.
-  factory Tagger(String packageDir) {
+  factory Tagger(String packageDir, {String? dartSdkPath}) {
     final normalizedPath = path.normalize(packageDir);
     final session = AnalysisContextCollection(
       includedPaths: [normalizedPath],
+      sdkPath: dartSdkPath,
     ).contextFor(normalizedPath).currentSession;
     final pubspecCache = PubspecCache(session);
     final pubspec = pubspecFromDir(packageDir);

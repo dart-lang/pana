@@ -273,7 +273,10 @@ class PackageContext {
     }
 
     if (items != null && !items.any((item) => item.isError)) {
-      final tagger = Tagger(packageDir);
+      final tagger = Tagger(
+        packageDir,
+        dartSdkPath: toolEnvironment.dartSdkPath,
+      );
       // TODO: refactor these methods to return the tags+explanations
       tagger.sdkTags(tags, explanations);
       tagger.platformTags(tags, explanations);
