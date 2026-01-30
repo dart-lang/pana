@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 
 import '../model.dart';
 import '../package_context.dart';
+import '../sdk_env.dart';
 import '../tag/pana_tags.dart';
 import '../tag/tagger.dart';
 import '_common.dart';
@@ -21,7 +22,10 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
   ).existsSync()) {
     final tags = <String>[];
     final explanations = <Explanation>[];
-    final tagger = Tagger(context.packageDir);
+    final tagger = Tagger(
+      context.packageDir,
+      dartSdkPath: context.toolEnvironment.dartSdkPath,
+    );
     final sdkTags = <String>[];
     final sdkExplanations = <Explanation>[];
     tagger.sdkTags(sdkTags, sdkExplanations);

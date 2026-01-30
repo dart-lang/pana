@@ -728,4 +728,5 @@ class _DartSdk {
 
 extension SandboxRunnerProviderExt on ToolEnvironment {
   SandboxRunner get sandboxRunner => _sandboxRunner;
+  String? get dartSdkPath => _dartSdk._config.rootPath;
 }
