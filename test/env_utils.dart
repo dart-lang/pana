@@ -130,7 +130,7 @@ class PackageDirBuilder {
         'name': name,
         'publish_to': 'none',
         'environment': {'sdk': '^3.9.0'},
-        if (devDependencies != null) 'dev_dependencies': devDependencies,
+        'dev_dependencies': ?devDependencies,
       }),
     );
   }

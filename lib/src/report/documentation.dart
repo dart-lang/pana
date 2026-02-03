@@ -75,7 +75,7 @@ Future<ReportSection> hasDocumentation(PackageContext context) async {
     id: ReportSectionId.documentation,
     title: 'Provide documentation',
     maxPoints: (documentation?.maxPoints ?? 0) + example.maxPoints,
-    subsections: [if (documentation != null) documentation, example],
+    subsections: [?documentation, example],
     basePath: null,
   );
 }

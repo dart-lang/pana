@@ -64,7 +64,7 @@ d.DirectoryDescriptor package(
 }) {
   final pubspec = json.encode({
     'name': name,
-    if (version != null) 'version': version,
+    'version': ?version,
     if (sdkConstraint != null) 'environment': {'sdk': sdkConstraint},
     'dependencies': dependencies,
     ...pubspecExtras,

@@ -138,11 +138,7 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
     title: 'Platform support',
     maxPoints: 20,
     basePath: context.packageDir,
-    subsections: [
-      subsection,
-      ?wasmSubsection,
-      if (swiftPackageManagerSubsection != null) swiftPackageManagerSubsection,
-    ],
+    subsections: [subsection, ?wasmSubsection, ?swiftPackageManagerSubsection],
     maxIssues: 20,
   );
 }

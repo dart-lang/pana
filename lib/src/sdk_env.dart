@@ -55,8 +55,7 @@ class SdkConfig {
       environment: {
         ...this.environment,
         ...environment,
-        if (resolvedConfigHomePath != null)
-          'XDG_CONFIG_HOME': resolvedConfigHomePath,
+        'XDG_CONFIG_HOME': ?resolvedConfigHomePath,
       },
     );
   }
@@ -154,8 +153,8 @@ class ToolEnvironment {
 
     final env = <String, String>{
       'CI': 'true', // suppresses analytics for both Dart and Flutter
-      if (resolvedPubCache != null) _pubCacheKey: resolvedPubCache,
-      if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
+      _pubCacheKey: ?resolvedPubCache,
+      'PUB_HOSTED_URL': ?pubHostedUrl,
       _pubEnvironmentKey: [...origPubEnvValues, 'bot.pkg_pana'].join(':'),
     };
 
@@ -172,7 +171,7 @@ class ToolEnvironment {
       resolvedPubCache,
       await _DartSdk.detect(dartSdkConfig, {
         ...env,
-        if (resolvedFlutterRoot != null) 'FLUTTER_ROOT': resolvedFlutterRoot,
+        'FLUTTER_ROOT': ?resolvedFlutterRoot,
       }),
       dartdocCommand,
       dartdocVersion,
@@ -192,7 +191,7 @@ class ToolEnvironment {
     String? pubHostedUrl,
     required String outputDir,
   }) async {
-    final param = [package, if (version != null) version].join(':');
+    final param = [package, ?version].join(':');
     final targetDir = Directory(outputDir);
     if (await targetDir.exists()) {
       await targetDir.delete(recursive: true);
@@ -207,10 +206,7 @@ class ToolEnvironment {
           downloadDir,
           '--no-resolve',
         ],
-        environment: {
-          ..._dartSdk.environment,
-          if (pubHostedUrl != null) 'PUB_HOSTED_URL': pubHostedUrl,
-        },
+        environment: {..._dartSdk.environment, 'PUB_HOSTED_URL': ?pubHostedUrl},
         throwOnError: true,
         outputFolder: downloadDir,
         needsNetwork: true,
