@@ -77,7 +77,7 @@ extension RepositoryUrlResolverExt on Repository {
 
       final normalizedPath = referenceIsAbsolute
           ? referencePath
-          : p.normalize(p.joinAll([if (path != null) path!, referencePath]));
+          : p.normalize(p.joinAll([?path, referencePath]));
       final parts = p.split(normalizedPath);
       final sanitizedPath = parts.contains('..')
           ? p.joinAll(parts.sublist(parts.lastIndexOf('..') + 1))
@@ -98,13 +98,7 @@ extension RepositoryUrlResolverExt on Repository {
       finalPath = referenceIsAbsolute
           ? referencePath
           : p.normalize(
-              p.joinAll(
-                [
-                  repository,
-                  if (path != null) path!,
-                  referencePath,
-                ].whereType<String>(),
-              ),
+              p.joinAll([repository, ?path, referencePath].whereType<String>()),
             );
     }
 

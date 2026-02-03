@@ -129,7 +129,7 @@ Future<PanaProcessResult> _runConstrained(
           .take(_maxOutputLinesWhenKilled)
           .join('\n'),
       [
-        if (killMessage != null) killMessage,
+        ?killMessage,
         ...stderrLines
             .map(encoding.decode)
             .expand(const LineSplitter().convert)

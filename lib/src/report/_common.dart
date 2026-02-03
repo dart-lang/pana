@@ -132,7 +132,7 @@ String _makeSummary(
   int maxIssues = 2,
 }) {
   return [
-        if (introduction != null) introduction,
+        ?introduction,
         ...subsections.map((subsection) {
           final paragraphsMarkdown = subsection
               .takeIssues(maxIssues)
