@@ -80,8 +80,9 @@ Run `dart pub get` for more information.
 * Running `dart pub outdated` failed with the following output:
 
 ```
-The current Dart SDK version is {{sdk-version}}.
-Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.
+ERR: The current Dart SDK version is {{sdk-version}}.
+ 
+ Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.
 ```
 
 
@@ -130,11 +131,20 @@ Try widening the upper boundary of the constraint.
 
 ```
 OUT:
-Resolving dependencies...
+MSG : Resolving dependencies...
+MSG : Logs written to /tmp/pana-testBICIBV/pub-cache/log/pub_log.txt.
 ERR:
-The current Dart SDK version is {{sdk-version}}.
-
-Because _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0, version solving failed.
+FINE: Pub 3.10.1
+SLVR: fact: _dummy_pkg is 1.0.0-null-safety.1
+SLVR: derived: _dummy_pkg
+SLVR: fact: _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0
+SLVR: conflict: _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0
+SLVR: Version solving took 0:00:00.000625 seconds.
+    | Tried 1 solutions.
+FINE: Resolving dependencies finished (0.000s).
+IO  : HTTP GET https://storage.googleapis.com/flutter_infra_release/releases/releases_linux.json
+    | user-agent: Dart pub 3.10.1
+[118 more lines]
 ```
 
 Run `dart pub downgrade` and then `dart analyze` to reproduce the above problem.
