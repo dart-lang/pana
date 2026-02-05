@@ -324,7 +324,7 @@ class ToolEnvironment {
             ..sort();
 
       // clean exit of `dart format` with code = 1
-      // it should report at least on changed file
+      // it should report at least one changed file
       if (result.exitCode == 1 && changedFiles.isNotEmpty) {
         return changedFiles;
       }
