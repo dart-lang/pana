@@ -56,8 +56,13 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 * Running `dart pub outdated` failed with the following output:
 
 ```
-pubspec.yaml has no lower-bound SDK constraint.
-You should edit pubspec.yaml to contain an SDK constraint:
+ERR: pubspec.yaml has no lower-bound SDK constraint.
+ You should edit pubspec.yaml to contain an SDK constraint:
+ 
+ environment:
+   sdk: '^{{sdk-zero-version}}'
+ 
+ See https://dart.dev/go/sdk-constraint
 ```
 
 
@@ -106,15 +111,20 @@ Try widening the upper boundary of the constraint.
 
 ```
 OUT:
-Resolving dependencies...
+MSG : Resolving dependencies...
+MSG : Logs written to /tmp/pana-testNMTUHL/pub-cache/log/pub_log.txt.
 ERR:
-pubspec.yaml has no lower-bound SDK constraint.
-You should edit pubspec.yaml to contain an SDK constraint:
-
-environment:
-  sdk: '^{{sdk-zero-version}}'
-
-See https://dart.dev/go/sdk-constraint
+FINE: Pub 3.10.1
+FINE: Resolving dependencies finished (0.000s).
+ERR : pubspec.yaml has no lower-bound SDK constraint.
+    | You should edit pubspec.yaml to contain an SDK constraint:
+    | 
+    | environment:
+    |   sdk: '^{{sdk-zero-version}}'
+    | 
+    | See https://dart.dev/go/sdk-constraint
+FINE: Exception type: DataException
+[76 more lines]
 ```
 
 Run `dart pub downgrade` and then `dart analyze` to reproduce the above problem.
