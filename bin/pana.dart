@@ -84,6 +84,12 @@ final _parser = ArgParser()
     help:
         'The dartdoc version to use: `sdk`, `latest` (default) or `<version constraint>`.',
   )
+  ..addMultiOption(
+    'dartdoc-command',
+    help:
+        'The dartdoc command to use for pre-initialized dartdoc execution. Ignores `--dartdoc-version`.',
+    hide: true,
+  )
   ..addOption(
     'resources-output',
     help:
@@ -98,6 +104,11 @@ final _parser = ArgParser()
   ..addOption(
     'license-data',
     help: 'The path to the directory containing the SPDX license data.',
+  )
+  ..addOption(
+    'sandbox-runner',
+    help: 'The binary to use for sandboxed subprocess executions.',
+    hide: true,
   )
   // Has no effect, but kept for backwards compatibility.
   ..addFlag(
@@ -197,6 +208,8 @@ Future<void> main(List<String> args) async {
         ),
         pubHostedUrl: pubHostedUrl,
         dartdocVersion: result['dartdoc-version'] as String?,
+        dartdocCommand: result['dartdoc-command'] as List<String>?,
+        sandboxRunner: result['sandbox-runner'] as String?,
       ),
     );
     final options = InspectOptions(

@@ -1,3 +1,7 @@
+## 0.23.10
+
+- Support for `--sandbox-runner` and `--dartdoc-command` CLI options.
+
 ## 0.23.9
 
 - Added `--license-data` argument to specify the location of SPDX license data (useful for AOT compilation).
