@@ -29,7 +29,7 @@ List<String> parseDartFormatOutput({
           .where(isAnalysisTarget)
           .toList()
         ..sort();
- 
+
   // clean exit of `dart format` with code = 1
   // it should report at least one changed file
   if (exitCode == 1 && changedFiles.isNotEmpty) {
