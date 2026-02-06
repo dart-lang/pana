@@ -47,8 +47,8 @@ void main() {
                 .firstWhere((s) => s.id == ReportSectionId.analysis)
                 .summary,
             hasIssue
-                ? contains('Running `dart format` failed.')
-                : isNot(contains('Running `dart format` failed.')),
+                ? contains('To format your files run')
+                : isNot(contains('To format your files run')),
           );
         }
 
