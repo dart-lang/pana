@@ -1,6 +1,7 @@
 ## 0.23.10
 
 - Support for `--sandbox-runner` and `--dartdoc-command` CLI options.
+- Better parsing of `dart format` output.
 
 ## 0.23.9
 
