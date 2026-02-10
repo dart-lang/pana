@@ -112,7 +112,7 @@ void main() {
               'finished ({{elapsed}}s).',
             )
             .replaceAllMapped(
-              RegExp('([^\\d])$sdkVersion([^\\d\\-])'),
+              RegExp('([^\\d])${RegExp.escape(sdkVersion)}([^\\d\\-\\+])'),
               (match) =>
                   [match.group(1), '{{sdk-version}}', match.group(2)].join(''),
             )
