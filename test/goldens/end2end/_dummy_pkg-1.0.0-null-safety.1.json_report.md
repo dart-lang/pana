@@ -132,18 +132,18 @@ Try widening the upper boundary of the constraint.
 ```
 OUT:
 MSG : Resolving dependencies...
-MSG : Logs written to /tmp/pana-testBICIBV/pub-cache/log/pub_log.txt.
+MSG : Logs written to {{temp-dir}}/pub-cache/log/pub_log.txt.
 ERR:
-FINE: Pub 3.10.1
+FINE: Pub {{sdk-version}}
 SLVR: fact: _dummy_pkg is 1.0.0-null-safety.1
 SLVR: derived: _dummy_pkg
 SLVR: fact: _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0
 SLVR: conflict: _dummy_pkg requires SDK version >=2.12.0-0 <2.12.0
-SLVR: Version solving took 0:00:00.000625 seconds.
+SLVR: Version solving took {{elapsed}} seconds.
     | Tried 1 solutions.
-FINE: Resolving dependencies finished (0.000s).
+FINE: Resolving dependencies finished ({{elapsed}}s).
 IO  : HTTP GET https://storage.googleapis.com/flutter_infra_release/releases/releases_linux.json
-    | user-agent: Dart pub 3.10.1
+    | user-agent: Dart pub {{sdk-version}}
 [118 more lines]
 ```
 

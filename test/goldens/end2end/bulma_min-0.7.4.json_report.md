@@ -99,10 +99,10 @@ Try widening the upper boundary of the constraint.
 ```
 OUT:
 MSG : Resolving dependencies...
-MSG : Logs written to /tmp/pana-testXRVQKF/pub-cache/log/pub_log.txt.
+MSG : Logs written to {{temp-dir}}/pub-cache/log/pub_log.txt.
 ERR:
-FINE: Pub 3.10.1
-FINE: Resolving dependencies finished (0.000s).
+FINE: Pub {{sdk-version}}
+FINE: Resolving dependencies finished ({{elapsed}}s).
 ERR : The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
     | or higher to enable null safety.
     | 

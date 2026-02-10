@@ -85,10 +85,10 @@ Try adding an sdk constraint to your `pubspec.yaml`
 ```
 OUT:
 MSG : Resolving dependencies...
-MSG : Logs written to /tmp/pana-testJQFXBI/pub-cache/log/pub_log.txt.
+MSG : Logs written to {{temp-dir}}/pub-cache/log/pub_log.txt.
 ERR:
-FINE: Pub 3.10.1
-FINE: Resolving dependencies finished (0.000s).
+FINE: Pub {{sdk-version}}
+FINE: Resolving dependencies finished ({{elapsed}}s).
 ERR : pubspec.yaml has no lower-bound SDK constraint.
     | You should edit pubspec.yaml to contain an SDK constraint:
     | 
