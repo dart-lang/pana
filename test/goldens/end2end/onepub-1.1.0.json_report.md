@@ -117,7 +117,7 @@ Cannot assign Web automatically to a binary only package.
 |[`collection`]|-|1.19.1|1.19.1||
 |[`convert`]|-|3.1.2|3.1.2||
 |[`crypto`]|-|3.0.7|3.0.7||
-|[`csv`]|-|5.1.1|6.0.0||
+|[`csv`]|-|5.1.1|7.1.0||
 |[`dart_console2`]|-|2.0.1|3.1.1|**Discontinued**|
 |[`dcli_core`]|-|1.36.2|8.4.2||
 |[`equatable`]|-|2.0.8|2.0.8||
