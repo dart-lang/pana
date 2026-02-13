@@ -79,10 +79,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n\n* ✓ iOS\n\n* ✓ Windows\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Web\n\n### [*] 0/0 points: WASM compatibility\n\nThis package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.\n\nSee https://dart.dev/web/wasm for details.\n"
+        "status": "partial",
+        "summary": "### [~] 10/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n\n* ✓ iOS\n\n* ✓ Windows\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Web\n\n\n**WASM-ready:** This package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.\n\n\n**Note:** This iOS or macOS plugin does not support the Swift Package Manager, resulting in a partial score. See https://docs.flutter.dev/to/spm for details.\n"
       },
       {
         "id": "analysis",
@@ -139,7 +139,7 @@
         ]
       }
     ],
-    "grantedPoints": 150,
+    "grantedPoints": 140,
     "maxPoints": 160
   },
   "urlProblems": []

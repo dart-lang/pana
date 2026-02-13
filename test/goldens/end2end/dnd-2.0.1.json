@@ -58,10 +58,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 20,
-        "status": "failed",
-        "summary": "### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, macOS, Linux)\n\n* ✓ Web\n\n\nThese platforms are not supported:\n\n<details>\n<summary>\nPackage not compatible with platform Android\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n<details>\n<summary>\nPackage not compatible with platform iOS\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n<details>\n<summary>\nPackage not compatible with platform Windows\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n<details>\n<summary>\nPackage not compatible with platform Linux\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n<details>\n<summary>\nPackage not compatible with platform macOS\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n### [x] 0/0 points: WASM compatibility\n\n<details>\n<summary>\nPackage not compatible with runtime wasm\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\nThis package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.\n\nSee https://dart.dev/web/wasm for details.\n"
+        "status": "partial",
+        "summary": "### [~] 10/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, macOS, Linux)\n\n* ✓ Web\n\n\nThese platforms are not supported:\n\n<details>\n<summary>\nPackage not compatible with platform Android\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n<details>\n<summary>\nPackage not compatible with platform iOS\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n<details>\n<summary>\nPackage not compatible with platform Windows\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n<details>\n<summary>\nPackage not compatible with platform Linux\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n<details>\n<summary>\nPackage not compatible with platform macOS\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n\nWASM compatibility:\n\n<details>\n<summary>\nPackage not compatible with runtime wasm\n</summary>\n\nBecause:\n* `package:dnd/dnd.dart` that imports:\n* `dart:js`\n</details>\n\n\n**Note:** This package supports Web but is not WASM-compatible, resulting in a partial score. See https://dart.dev/web/wasm for details.\n"
       },
       {
         "id": "analysis",
@@ -69,7 +69,7 @@
         "grantedPoints": 30,
         "maxPoints": 50,
         "status": "failed",
-        "summary": "### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues\n\nFound 15 issues. Showing the first 2:\n\n<details>\n<summary>\nWARNING: Unnecessary type check; the result is always 'true'.\n</summary>\n\n`lib/src/draggable_manager.dart:183:9`\n\n```\n    ╷\n183 │     if (target is Element &&\r\n    │         ^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable_manager.dart`\n</details>\n\n<details>\n<summary>\nWARNING: The 'author' field is no longer used and can be removed.\n</summary>\n\n`pubspec.yaml:3:1`\n\n```\n  ╷\n3 │ author: Marco Jakob <majakob@gmx.ch>\r\n  │ ^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze pubspec.yaml`\n</details>\n"
+        "summary": "### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues\n\nFound 14 issues. Showing the first 2:\n\n<details>\n<summary>\nWARNING: Unnecessary type check; the result is always 'true'.\n</summary>\n\n`lib/src/draggable_manager.dart:183:9`\n\n```\n    ╷\n183 │     if (target is Element &&\r\n    │         ^^^^^^^^^^^^^^^^^\n    ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/draggable_manager.dart`\n</details>\n\n<details>\n<summary>\nWARNING: The 'author' field is no longer used and can be removed.\n</summary>\n\n`pubspec.yaml:3:1`\n\n```\n  ╷\n3 │ author: Marco Jakob <majakob@gmx.ch>\r\n  │ ^^^^^^\n  ╵\n```\n\nTo reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze pubspec.yaml`\n</details>\n"
       },
       {
         "id": "dependency",
@@ -107,7 +107,7 @@
         ]
       }
     ],
-    "grantedPoints": 140,
+    "grantedPoints": 130,
     "maxPoints": 160
   },
   "urlProblems": []

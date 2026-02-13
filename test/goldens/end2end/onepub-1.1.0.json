@@ -133,10 +133,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Windows\n\n\nThese platforms are not supported:\n\n<details>\n<summary>\nAndroid\n</summary>\n\nCannot assign Android automatically to a binary only package.\n</details>\n\n<details>\n<summary>\niOS\n</summary>\n\nCannot assign iOS automatically to a binary only package.\n</details>\n\n<details>\n<summary>\nWeb\n</summary>\n\nCannot assign Web automatically to a binary only package.\n</details>\n"
+        "status": "partial",
+        "summary": "### [~] 10/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Windows\n\n\nThese platforms are not supported:\n\n<details>\n<summary>\nAndroid\n</summary>\n\nCannot assign Android automatically to a binary only package.\n</details>\n\n<details>\n<summary>\niOS\n</summary>\n\nCannot assign iOS automatically to a binary only package.\n</details>\n\n<details>\n<summary>\nWeb\n</summary>\n\nCannot assign Web automatically to a binary only package.\n</details>\n\n\n**Note:** This iOS or macOS plugin does not support the Swift Package Manager, resulting in a partial score. See https://docs.flutter.dev/to/spm for details.\n"
       },
       {
         "id": "analysis",
@@ -165,7 +165,7 @@
         "spdxIdentifier": "unknown"
       }
     ],
-    "grantedPoints": 120,
+    "grantedPoints": 110,
     "maxPoints": 160
   },
   "urlProblems": []

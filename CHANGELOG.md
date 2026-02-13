@@ -1,6 +1,7 @@
 ## 0.23.10
 
 - Support for `--sandbox-runner` and `--dartdoc-command` CLI options.
+-  Updated platform report: partial score for wasm and switft manager incompatibility.
 
 ## 0.23.9
 
