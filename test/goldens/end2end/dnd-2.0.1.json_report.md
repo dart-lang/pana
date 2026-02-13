@@ -22,9 +22,9 @@ Some symbols that are missing documentation: `dnd`, `dnd.Acceptor.Acceptor.new`,
 ### [*] 10/10 points: Package has an example
 
 
-## 20/20 Platform support
+## 10/20 Platform support
 
-### [*] 20/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, macOS, Linux)
+### [~] 10/20 points: Supports 1 of 6 possible platforms (iOS, Android, **Web**, Windows, macOS, Linux)
 
 * ✓ Web
 
@@ -81,7 +81,8 @@ Because:
 * `dart:js`
 </details>
 
-### [x] 0/0 points: WASM compatibility
+
+WASM compatibility:
 
 <details>
 <summary>
@@ -93,16 +94,15 @@ Because:
 * `dart:js`
 </details>
 
-This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
 
-See https://dart.dev/web/wasm for details.
+**Note:** This package supports Web but is not WASM-compatible, resulting in a partial score. See https://dart.dev/web/wasm for details.
 
 
 ## 30/50 Pass static analysis
 
 ### [x] 30/50 points: code has no errors, warnings, lints, or formatting issues
 
-Found 15 issues. Showing the first 2:
+Found 14 issues. Showing the first 2:
 
 <details>
 <summary>

@@ -22,9 +22,9 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 ### [*] 10/10 points: Package has an example
 
 
-## 20/20 Platform support
+## 10/20 Platform support
 
-### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
+### [~] 10/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
 
@@ -38,11 +38,11 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 
 * ✓ Web
 
-### [*] 0/0 points: WASM compatibility
 
-This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
+**WASM-ready:** This package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.
 
-See https://dart.dev/web/wasm for details.
+
+**Note:** This iOS or macOS plugin does not support the Swift Package Manager, resulting in a partial score. See https://docs.flutter.dev/to/spm for details.
 
 
 ## 40/50 Pass static analysis
