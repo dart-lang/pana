@@ -45,26 +45,9 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 **Note:** This iOS or macOS plugin does not support the Swift Package Manager, resulting in a partial score. See https://docs.flutter.dev/to/spm for details.
 
 
-## 40/50 Pass static analysis
+## 50/50 Pass static analysis
 
-### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
-
-<details>
-<summary>
-INFO: 'launch' is deprecated and shouldn't be used. Use launchUrl instead.
-</summary>
-
-`lib/src/legacy_api.dart:150:6`
-
-```
-    ╷
-150 │ /// [launch] predates multi-window support, and it doesn't have enough context
-    │      ^^^^^^
-    ╵
-```
-
-To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/src/legacy_api.dart`
-</details>
+### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
 
 
 ## 40/40 Support up-to-date dependencies
@@ -85,9 +68,9 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`characters`]|-|1.4.0|1.4.1||
+|[`characters`]|-|1.4.1|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
-|[`material_color_utilities`]|-|0.11.1|0.13.0||
+|[`material_color_utilities`]|-|0.13.0|0.13.0||
 |[`meta`]|-|1.17.0|1.17.0||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
 |[`vector_math`]|-|2.2.0|2.2.0||

@@ -129,7 +129,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
 |[`async`]|-|2.13.0|2.13.0||
-|[`characters`]|-|1.4.0|1.4.1||
+|[`characters`]|-|1.4.1|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`crypto`]|-|3.0.7|3.0.7||
 |[`ffi`]|-|2.1.4|2.1.4||
@@ -137,7 +137,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`fixnum`]|-|1.1.1|1.1.1||
 |[`http`]|-|1.6.0|1.6.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
-|[`material_color_utilities`]|-|0.11.1|0.13.0||
+|[`material_color_utilities`]|-|0.13.0|0.13.0||
 |[`meta`]|-|1.17.0|1.17.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`path_provider`]|-|2.1.5|2.1.5||
