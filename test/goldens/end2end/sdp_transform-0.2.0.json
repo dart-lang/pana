@@ -54,10 +54,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 20,
+        "grantedPoints": 0,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n\n* ✓ iOS\n\n* ✓ Windows\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Web\n"
+        "status": "failed",
+        "summary": "### [x] 0/20 points: Platform support detection failed\n\n<details>\n<summary>\nCould not determine supported platforms as package resolution failed.\n</summary>\n\nRun `dart pub get` for more information.\n</details>\n"
       },
       {
         "id": "analysis",
@@ -102,7 +102,7 @@
         ]
       }
     ],
-    "grantedPoints": 40,
+    "grantedPoints": 20,
     "maxPoints": 150
   },
   "urlProblems": [],

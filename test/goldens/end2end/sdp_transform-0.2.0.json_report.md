@@ -32,21 +32,17 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 </details>
 
 
-## 20/20 Platform support
+## 0/20 Platform support
 
-### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
+### [x] 0/20 points: Platform support detection failed
 
-* ✓ Android
+<details>
+<summary>
+Could not determine supported platforms as package resolution failed.
+</summary>
 
-* ✓ iOS
-
-* ✓ Windows
-
-* ✓ Linux
-
-* ✓ macOS
-
-* ✓ Web
+Run `dart pub get` for more information.
+</details>
 
 
 ## 0/50 Pass static analysis

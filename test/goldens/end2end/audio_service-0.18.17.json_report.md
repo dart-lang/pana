@@ -16,9 +16,9 @@ Detected license: `MIT`.
 ### [*] 10/10 points: Package has an example
 
 
-## 20/20 Platform support
+## 10/20 Platform support
 
-### [*] 20/20 points: Supports 4 of 6 possible platforms (**iOS**, **Android**, **Web**, Windows, **macOS**, Linux)
+### [~] 10/20 points: Supports 4 of 6 possible platforms (**iOS**, **Android**, **Web**, Windows, **macOS**, Linux)
 
 * ✓ Android
 
@@ -65,7 +65,8 @@ Because:
 * `package:path_provider/path_provider.dart` that declares support for platforms: `Android`, `iOS`, `Windows`, `Linux`, `macOS`.
 </details>
 
-### [x] 0/0 points: WASM compatibility
+
+WASM compatibility:
 
 <details>
 <summary>
@@ -80,15 +81,11 @@ Because:
 * `dart:io`
 </details>
 
-This package is not compatible with runtime `wasm`, and will not be rewarded full points in a future version of the scoring model.
 
-See https://dart.dev/web/wasm for details.
+**Note:** This package supports Web but is not WASM-compatible, resulting in a partial score. See https://dart.dev/web/wasm for details.
 
-### [*] 0/0 points: Swift Package Manager support
 
-This iOS or macOS plugin supports the Swift Package Manager. It will be rewarded additional points in a future version of the scoring model.
-
-See https://docs.flutter.dev/to/spm for details.
+**Swift PM-ready:** This iOS or macOS plugin supports the Swift Package Manager. See https://docs.flutter.dev/to/spm for details.
 
 
 ## 40/50 Pass static analysis
@@ -132,7 +129,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
 |[`async`]|-|2.13.0|2.13.0||
-|[`characters`]|-|1.4.0|1.4.1||
+|[`characters`]|-|1.4.1|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`crypto`]|-|3.0.7|3.0.7||
 |[`ffi`]|-|2.1.4|2.1.4||
@@ -140,7 +137,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`fixnum`]|-|1.1.1|1.1.1||
 |[`http`]|-|1.6.0|1.6.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
-|[`material_color_utilities`]|-|0.11.1|0.13.0||
+|[`material_color_utilities`]|-|0.13.0|0.13.0||
 |[`meta`]|-|1.17.0|1.17.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`path_provider`]|-|2.1.5|2.1.5||

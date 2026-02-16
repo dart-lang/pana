@@ -44,11 +44,8 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 * ✓ Web
 
-### [*] 0/0 points: WASM compatibility
 
-This package is compatible with runtime `wasm`, and will be rewarded additional points in a future version of the scoring model.
-
-See https://dart.dev/web/wasm for details.
+**WASM-ready:** This package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.
 
 
 ## 50/50 Pass static analysis

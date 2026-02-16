@@ -94,9 +94,9 @@ No dependencies.
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`characters`]|-|1.4.0|1.4.1||
+|[`characters`]|-|1.4.1|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
-|[`material_color_utilities`]|-|0.11.1|0.13.0||
+|[`material_color_utilities`]|-|0.13.0|0.13.0||
 |[`meta`]|-|1.17.0|1.17.0||
 |[`vector_math`]|-|2.2.0|2.2.0||
 </details>
