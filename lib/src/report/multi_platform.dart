@@ -70,6 +70,8 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
     final hasIosOrMacosPlatform =
         tags.contains(PanaTags.platformIos) ||
         tags.contains(PanaTags.platformMacos);
+    final needsToBeSwitftPmReady =
+        tags.contains(PanaTags.isPlugin) && hasIosOrMacosPlatform;
     final isSwiftPmReady = tags.contains(PanaTags.isSwiftPmPlugin);
     final swiftPmExplanations = explanations
         .where((e) => e.tag == PanaTags.isSwiftPmPlugin)
@@ -128,16 +130,16 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
           'See https://dart.dev/web/wasm for details.',
         ),
       // Swift Package Manager
-      if (hasIosOrMacosPlatform && swiftPmExplanations.isNotEmpty) ...[
+      if (needsToBeSwitftPmReady && swiftPmExplanations.isNotEmpty) ...[
         RawParagraph('\nSwift Package Manager support:'),
         ...swiftPmExplanations.map(explanationToIssue),
       ],
-      if (hasIosOrMacosPlatform && !isSwiftPmReady)
+      if (needsToBeSwitftPmReady && !isSwiftPmReady)
         RawParagraph(
           '\n**Note:** This iOS or macOS plugin does not support the Swift Package Manager, '
           'resulting in a partial score. See https://docs.flutter.dev/to/spm for details.',
         ),
-      if (hasIosOrMacosPlatform && isSwiftPmReady)
+      if (needsToBeSwitftPmReady && isSwiftPmReady)
         RawParagraph(
           '\n**Swift PM-ready:** This iOS or macOS plugin supports the Swift Package Manager. '
           'See https://docs.flutter.dev/to/spm for details.',
@@ -153,7 +155,7 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
       score = 0;
       status = ReportStatus.failed;
     } else if ((hasWebPlatform && !isWasmReady) ||
-        (hasIosOrMacosPlatform && !isSwiftPmReady)) {
+        (needsToBeSwitftPmReady && !isSwiftPmReady)) {
       // Web platform but not WASM-ready OR iOS/macOS but not Swift PM-ready = partial score
       score = 10;
       status = ReportStatus.partial;

@@ -50,9 +50,9 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 </details>
 
 
-## 10/20 Platform support
+## 20/20 Platform support
 
-### [~] 10/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)
+### [*] 20/20 points: Supports 3 of 6 possible platforms (iOS, Android, Web, **Windows**, **macOS**, **Linux**)
 
 * ✓ Linux
 
@@ -86,9 +86,6 @@ Web
 
 Cannot assign Web automatically to a binary only package.
 </details>
-
-
-**Note:** This iOS or macOS plugin does not support the Swift Package Manager, resulting in a partial score. See https://docs.flutter.dev/to/spm for details.
 
 
 ## 50/50 Pass static analysis

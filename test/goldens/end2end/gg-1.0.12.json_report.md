@@ -16,9 +16,9 @@ Detected license: `MIT`.
 ### [*] 10/10 points: Package has an example
 
 
-## 10/20 Platform support
+## 20/20 Platform support
 
-### [~] 10/20 points: Supports 5 of 6 possible platforms (**iOS**, **Android**, Web, **Windows**, **macOS**, **Linux**)
+### [*] 20/20 points: Supports 5 of 6 possible platforms (**iOS**, **Android**, Web, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
 
@@ -49,9 +49,6 @@ Because:
 * `package:gg_args/src/missing_sub_commands.dart` that imports:
 * `dart:io`
 </details>
-
-
-**Note:** This iOS or macOS plugin does not support the Swift Package Manager, resulting in a partial score. See https://docs.flutter.dev/to/spm for details.
 
 
 ## 40/50 Pass static analysis

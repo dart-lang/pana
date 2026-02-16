@@ -28,9 +28,9 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 </details>
 
 
-## 10/20 Platform support
+## 20/20 Platform support
 
-### [~] 10/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
+### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
 
@@ -46,9 +46,6 @@ See [package layout](https://dart.dev/tools/pub/package-layout#examples) guideli
 
 
 **WASM-ready:** This package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.
-
-
-**Note:** This iOS or macOS plugin does not support the Swift Package Manager, resulting in a partial score. See https://docs.flutter.dev/to/spm for details.
 
 
 ## 50/50 Pass static analysis
