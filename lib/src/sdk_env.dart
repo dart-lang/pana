@@ -16,6 +16,7 @@ import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
 import 'package_analyzer.dart' show InspectOptions;
 import 'sandbox_runner.dart';
+import 'tool/format_output_parser.dart';
 import 'tool/run_constrained.dart';
 import 'utils.dart';
 import 'version.dart';
@@ -295,8 +296,6 @@ class ToolEnvironment {
     return _withRestrictedAnalysisOptions(packageDir, () async {
       await runPub(packageDir, usesFlutter: usesFlutter, command: 'get');
 
-      final files = <String>{};
-
       final params = <String>[
         'format',
         '--output=none',
@@ -313,33 +312,13 @@ class ToolEnvironment {
         return [];
       }
 
-      final dirPrefix = packageDir.endsWith('/') ? packageDir : '$packageDir/';
       final output = result.asJoinedOutput;
-      final lines = LineSplitter.split(result.asJoinedOutput)
-          .where((l) => l.startsWith('Changed'))
-          .map((l) => l.substring(8).replaceAll(dirPrefix, '').trim())
-          .where(isAnalysisTarget)
-          .toList();
-
-      // `dart format` exits with code = 1
-      if (result.exitCode == 1) {
-        assert(lines.isNotEmpty);
-        files.addAll(lines);
-        return files.toList()..sort();
-      }
-
-      final errorMsg = LineSplitter.split(output).take(10).join('\n');
-      final isUserProblem =
-          output.contains(
-            'Could not format because the source could not be parsed',
-          ) ||
-          output.contains('The formatter produced unexpected output.');
-      if (!isUserProblem) {
-        throw Exception(
-          '`dart format` failed with exit code ${result.exitCode}\n$output',
-        );
-      }
-      throw ToolException(errorMsg, result);
+      return parseDartFormatOutput(
+        packageDir: packageDir,
+        exitCode: exitCode,
+        output: output,
+        result: result,
+      );
     });
   }
 

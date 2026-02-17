@@ -2,6 +2,7 @@
 
 - Support for `--sandbox-runner` and `--dartdoc-command` CLI options.
 - Updated platform report: partial score for WASM and Swift package manager incompatibility.
+- Better parsing of `dart format` output.
 
 ## 0.23.9
 
