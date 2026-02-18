@@ -117,7 +117,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|:-|
 |[`bosun`]|`^0.2.1`|0.2.2|0.2.2||
 |[`flat`]|`^0.4.0`|0.4.1|**0.5.0**||
-|[`mustache_template`]|`^2.0.0`|2.0.2|2.0.2||
+|[`mustache_template`]|`^2.0.0`|2.0.3|2.0.3||
 |[`path_to_regexp`]|`^0.4.0`|0.4.0|0.4.0||
 |[`recase`]|`^4.0.0`|4.1.0|4.1.0||
 |[`yaml`]|`^3.1.0`|3.1.3|3.1.3||
@@ -128,7 +128,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|:-|
 |[`collection`]|-|1.19.1|1.19.1||
 |[`path`]|-|1.9.1|1.9.1||
-|[`source_span`]|-|1.10.1|1.10.1||
+|[`source_span`]|-|1.10.2|1.10.2||
 |[`string_scanner`]|-|1.4.1|1.4.1||
 |[`term_glyph`]|-|1.2.2|1.2.2||
 |[`tree_iterator`]|-|2.0.0|3.0.0||

@@ -145,7 +145,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`archive`]|`^3.0.0`|3.6.1|**4.0.7**||
+|[`archive`]|`^3.0.0`|3.6.1|**4.0.9**||
 |[`matcher`]|`^0.12.10`|0.12.18|0.12.18||
 |[`path`]|`^1.8.0`|1.9.1|1.9.1||
 |[`stack_trace`]|`^1.10.0`|1.12.1|1.12.1||
@@ -159,12 +159,12 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`boolean_selector`]|-|2.1.2|2.1.2||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`crypto`]|-|3.0.7|3.0.7||
-|[`meta`]|-|1.17.0|1.17.0||
-|[`source_span`]|-|1.10.1|1.10.1||
+|[`meta`]|-|1.18.1|1.18.1||
+|[`source_span`]|-|1.10.2|1.10.2||
 |[`stream_channel`]|-|2.1.4|2.1.4||
 |[`string_scanner`]|-|1.4.1|1.4.1||
 |[`term_glyph`]|-|1.2.2|1.2.2||
-|[`test_api`]|-|0.7.8|0.7.8||
+|[`test_api`]|-|0.7.9|0.7.9||
 |[`typed_data`]|-|1.4.0|1.4.0||
 </details>
 

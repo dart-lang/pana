@@ -1,6 +1,7 @@
 ## 0.23.11
 
 - Re-run `pub` commands with `--verbose` after a failure.
+- Updated end2end tests to latest dartdoc.
 
 ## 0.23.10
 
