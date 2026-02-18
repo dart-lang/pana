@@ -71,10 +71,10 @@
       {
         "id": "documentation",
         "title": "Provide documentation",
-        "grantedPoints": 10,
+        "grantedPoints": 0,
         "maxPoints": 20,
         "status": "failed",
-        "summary": "### [*] 10/10 points: 20% or more of the public API has dartdoc comments\n\n246 out of 263 API elements (93.5 %) have documentation comments.\n\nSome symbols that are missing documentation: `async.AsyncMemoizer.AsyncMemoizer.new`, `async.ChunkedStreamReader.ChunkedStreamReader.new`, `async.DelegatingFuture.DelegatingFuture.new`, `async.DelegatingStream.DelegatingStream.new`, `async.ErrorResult.ErrorResult.new`.\n\n### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>\n"
+        "summary": "### [x] 0/10 points: 20% or more of the public API has dartdoc comments\n\nCould not run `dartdoc`: Exception: 1\n<***>\nResolving dependencies...\nDownloading packages...\n+ _fe_analyzer_shared 95.0.0\n+ analyzer 10.1.0\n+ args 2.7.0\n+ async 2.13.0\n+ collection 1.19.1\n+ convert 3.1.2\n+ crypto 3.0.7\n+ csslib 1.0.2\n+ dartdoc 9.0.2\n+ file 7.0.1\n+ glob 2.1.3\n+ html 0.15.6\n+ logging 1.3.0\n+ markdown 7.3.0\n+ meta 1.18.1\n+ package_config 2.2.0\n+ path 1.9.1\n+ pub_semver 2.2.0\n+ source_span 1.10.2\n+ string_scanner 1.4.1\n+ term_glyph 1.2.2\n+ typed_data 1.4.0\n+ watcher 1.2.1\n+ yaml 3.1.3\nBuilding package executables...\n<***>\nFailed to build dartdoc:dartdoc:\n{{temp-dir}}/pub-cache/hosted/pub.dev/dartdoc-9.0.2/lib/src/model/package_builder.dart:120:9: Error: Undefined name 'EmbedderYamlLocator'.\n        EmbedderYamlLocator.forLibFolder(skyEngineLibFolder).embedderYamls,\n        ^^^^^^^^^^^^^^^^^^^\n{{temp-dir}}/pub-cache/hosted/pub.dev/dartdoc-9.0.2/lib/src/model/package_builder.dart:119:23: Error: Couldn't find constructor 'EmbedderSdk'.\n    var embedderSdk = EmbedderSdk(resourceProvider,\n                      ^^^^^^^^^^^\n\n### [x] 0/10 points: Package has an example\n\n<details>\n<summary>\nNo example found.\n</summary>\n\nSee [package layout](https://dart.dev/tools/pub/package-layout#examples) guidelines on how to add an example.\n</details>\n"
       },
       {
         "id": "platform",
@@ -139,7 +139,7 @@
         ]
       }
     ],
-    "grantedPoints": 150,
+    "grantedPoints": 140,
     "maxPoints": 160
   },
   "urlProblems": []

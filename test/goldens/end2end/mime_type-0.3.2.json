@@ -58,7 +58,7 @@
         "grantedPoints": 0,
         "maxPoints": 50,
         "status": "failed",
-        "summary": "### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues\n\n* Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=0.8.10 <3.0.0'\" must be 2.12.0'\nor higher to enable null safety.\n```\n"
+        "summary": "### [x] 0/50 points: code has no errors, warnings, lints, or formatting issues\n\n* Running `dart pub outdated` failed with the following output:\n\n```\nERR: The lower bound of \"sdk: '>=0.8.10 <3.0.0'\" must be 2.12.0'\n or higher to enable null safety.\n \n The current Dart SDK ({{sdk-version}}) only supports null safety.\n \n For details, see https://dart.dev/null-safety\n```\n"
       },
       {
         "id": "dependency",
@@ -66,7 +66,7 @@
         "grantedPoints": 0,
         "maxPoints": 40,
         "status": "failed",
-        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.\n</summary>\n\n`pubspec.yaml:10:10`\n\n```\n   ╷\n10 │     sdk: '>=0.8.10 <3.0.0'\n   │          ^^^^^^^^^^^^^^^^^\n   ╵\n```\n\n</details>\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version {{sdk-version}}.\n</summary>\n\n`pubspec.yaml:10:10`\n\n```\n   ╷\n10 │     sdk: '>=0.8.10 <3.0.0'\n   │          ^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTry widening the upper boundary of the constraint.\n</details>\n\n### [x] 0/20 points: Compatible with dependency constraint lower bounds\n\n`dart pub downgrade` failed with:\n\n```\nOUT:\nResolving dependencies...\nERR:\nThe lower bound of \"sdk: '>=0.8.10 <3.0.0'\" must be 2.12.0'\nor higher to enable null safety.\n\nThe current Dart SDK ({{sdk-version}}) only supports null safety.\n\nFor details, see https://dart.dev/null-safety\n```\n\nRun `dart pub downgrade` and then `dart analyze` to reproduce the above problem.\n\nYou may run `dart pub upgrade --tighten` to update your dependency constraints, see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details.\n"
+        "summary": "### [x] 0/10 points: All of the package dependencies are supported in the latest version\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version {{sdk-version}}. Cannot run `dart pub outdated`.\n</summary>\n\n`pubspec.yaml:10:10`\n\n```\n   ╷\n10 │     sdk: '>=0.8.10 <3.0.0'\n   │          ^^^^^^^^^^^^^^^^^\n   ╵\n```\n\n</details>\n\n### [x] 0/10 points: Package supports latest stable Dart and Flutter SDKs\n\n<details>\n<summary>\nSdk constraint doesn't support current Dart version {{sdk-version}}.\n</summary>\n\n`pubspec.yaml:10:10`\n\n```\n   ╷\n10 │     sdk: '>=0.8.10 <3.0.0'\n   │          ^^^^^^^^^^^^^^^^^\n   ╵\n```\n\nTry widening the upper boundary of the constraint.\n</details>\n\n### [x] 0/20 points: Compatible with dependency constraint lower bounds\n\n`dart pub downgrade` failed with:\n\n```\nOUT:\nMSG : Resolving dependencies...\nMSG : Logs written to {{temp-dir}}/pub-cache/log/pub_log.txt.\nERR:\nFINE: Pub {{sdk-version}}\nFINE: Resolving dependencies finished ({{elapsed}}s).\nERR : The lower bound of \"sdk: '>=0.8.10 <3.0.0'\" must be 2.12.0'\n    | or higher to enable null safety.\n    | \n    | The current Dart SDK ({{sdk-version}}) only supports null safety.\n    | \n    | For details, see https://dart.dev/null-safety\nFINE: Exception type: DataException\nFINE: package:pub/src/entrypoint.dart 1385               Entrypoint._checkSdkConstraint\n[74 more lines]\n```\n\nRun `dart pub downgrade` and then `dart analyze` to reproduce the above problem.\n\nYou may run `dart pub upgrade --tighten` to update your dependency constraints, see [dart.dev/go/downgrade-testing](https://dart.dev/go/downgrade-testing) for details.\n"
       }
     ]
   },
@@ -86,5 +86,5 @@
     "maxPoints": 150
   },
   "urlProblems": [],
-  "errorMessage": "Running `dart pub outdated` failed with the following output:\n\n```\nThe lower bound of \"sdk: '>=0.8.10 <3.0.0'\" must be 2.12.0'\nor higher to enable null safety.\n```"
+  "errorMessage": "Running `dart pub outdated` failed with the following output:\n\n```\nERR: The lower bound of \"sdk: '>=0.8.10 <3.0.0'\" must be 2.12.0'\n or higher to enable null safety.\n \n The current Dart SDK ({{sdk-version}}) only supports null safety.\n \n For details, see https://dart.dev/null-safety\n```"
 }

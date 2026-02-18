@@ -198,22 +198,32 @@ class ToolEnvironment {
       await targetDir.delete(recursive: true);
     }
     await withTempDir((downloadDir) async {
-      await _sandboxRunner.runSandboxed(
-        [
-          ..._dartSdk.pubCmd,
-          'unpack',
-          param,
-          '--output',
-          downloadDir,
-          '--no-resolve',
-        ],
-        environment: {..._dartSdk.environment, 'PUB_HOSTED_URL': ?pubHostedUrl},
-        throwOnError: true,
-        outputFolder: downloadDir,
-        needsNetwork: true,
-        writableConfigHome: true,
-        writablePubCacheDir: true,
-      );
+      Future<PanaProcessResult> runPubUnpack({bool verbose = false}) async {
+        return await _sandboxRunner.runSandboxed(
+          [
+            ..._dartSdk.pubCmd,
+            'unpack',
+            param,
+            '--output',
+            downloadDir,
+            '--no-resolve',
+          ],
+          environment: {
+            ..._dartSdk.environment,
+            'PUB_HOSTED_URL': ?pubHostedUrl,
+          },
+          throwOnError: !verbose,
+          outputFolder: downloadDir,
+          needsNetwork: true,
+          writableConfigHome: true,
+          writablePubCacheDir: true,
+        );
+      }
+
+      final firstRun = await runPubUnpack();
+      if (firstRun.wasError) {
+        await runPubUnpack(verbose: true); // will throw exception on error
+      }
       final subdir = Directory(
         downloadDir,
       ).listSync().whereType<Directory>().single;
@@ -344,12 +354,14 @@ class ToolEnvironment {
     String packageDir, {
     required bool usesFlutter,
     required String command,
+    bool verbose = false,
+    bool throwOnError = false,
   }) async {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _sandboxRunner.runSandboxed(
         [
           ..._dartSdk.pubCmd,
-          ...[command, '--no-example'],
+          ...[command, '--no-example', if (verbose) '--verbose'],
         ],
         workingDirectory: packageDir,
         environment: {..._dartSdk.environment},
@@ -357,6 +369,7 @@ class ToolEnvironment {
         writableConfigHome: true,
         writablePubCacheDir: true,
         writableCurrentDir: true,
+        throwOnError: throwOnError,
       );
     });
   }
@@ -369,9 +382,9 @@ class ToolEnvironment {
     final pubCmd = _dartSdk.pubCmd;
     final cmdLabel = usesFlutter ? 'flutter' : 'dart';
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
-      Future<PanaProcessResult> runPubGet() async {
+      Future<PanaProcessResult> runPubGet({bool verbose = false}) async {
         final pr = await _sandboxRunner.runSandboxed(
-          [...pubCmd, 'get', '--no-example'],
+          [...pubCmd, 'get', '--no-example', if (verbose) '--verbose'],
           environment: _dartSdk.environment,
           workingDirectory: packageDir,
           needsNetwork: true,
@@ -382,36 +395,52 @@ class ToolEnvironment {
         return pr;
       }
 
-      final firstPubGet = await runPubGet();
+      var pubGetOutput = await runPubGet();
       // Flutter on CI may download additional assets, which will change
       // the output and won't match the expected on in the golden files.
       // Running a second `pub get` will make sure that the output is consistent.
-      final secondPubGet = usesFlutter ? await runPubGet() : firstPubGet;
-      if (secondPubGet.wasError) {
+      if (usesFlutter) {
+        pubGetOutput = await runPubGet();
+      }
+      // Re-run with verbose output on error.
+      if (pubGetOutput.wasError) {
+        pubGetOutput = await runPubGet(verbose: true);
+      }
+      // Fail if it is still an error.
+      if (pubGetOutput.wasError) {
         // Stripping extra verbose log lines which make Flutter differ on different environment.
         final stderr = ProcessOutput.from(
-          secondPubGet.stderr.asString
+          pubGetOutput.stderr.asString
               .split('---- Log transcript ----\n')
               .first
               .split('pub get failed (1;')
               .first,
         );
-        final pr = secondPubGet.change(stderr: stderr);
+        final pr = pubGetOutput.change(stderr: stderr);
         throw ToolException(
           '`$cmdLabel pub get` failed:\n\n```\n${pr.asTrimmedOutput}\n```',
           pr,
         );
       }
 
-      final result = await _sandboxRunner.runSandboxed(
-        [...pubCmd, 'outdated', ...args],
-        environment: _dartSdk.environment,
-        workingDirectory: packageDir,
-        needsNetwork: true,
-        writableConfigHome: true,
-        writableCurrentDir: true,
-        writablePubCacheDir: true,
-      );
+      Future<PanaProcessResult> runPubOutdated({bool verbose = false}) async {
+        return await _sandboxRunner.runSandboxed(
+          [...pubCmd, 'outdated', if (verbose) '--verbose', ...args],
+          environment: _dartSdk.environment,
+          workingDirectory: packageDir,
+          needsNetwork: true,
+          writableConfigHome: true,
+          writableCurrentDir: true,
+          writablePubCacheDir: true,
+        );
+      }
+
+      var result = await runPubOutdated();
+      // Re-run with verbose output on error.
+      if (result.wasError) {
+        result = await runPubOutdated(verbose: true);
+      }
+      // Fail if it is still an error.
       if (result.wasError) {
         throw ToolException(
           '`$cmdLabel pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```',

@@ -1,3 +1,7 @@
+## 0.23.11
+
+- Re-run `pub` commands with `--verbose` after a failure.
+
 ## 0.23.10
 
 - Support for `--sandbox-runner` and `--dartdoc-command` CLI options.
