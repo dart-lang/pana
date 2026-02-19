@@ -31,7 +31,7 @@ void main() {
         testEnv = await TestEnv.createTemp(
           proxyPublishCutoff: goldenDirLastModified,
           // TODO: revert to 'any' after SDK 3.6 is out
-          dartdocVersion: '^9.0.0',
+          dartdocVersion: '^8.3.0',
         );
 
         final dartdocOutputDir = p.join(
