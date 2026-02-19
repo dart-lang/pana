@@ -44,12 +44,8 @@ Run `dart pub get` for more information.
 * Running `dart pub outdated` failed with the following output:
 
 ```
-ERR: The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
- or higher to enable null safety.
- 
- The current Dart SDK ({{sdk-version}}) only supports null safety.
- 
- For details, see https://dart.dev/null-safety
+The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
+or higher to enable null safety.
 ```
 
 
@@ -98,20 +94,14 @@ Try widening the upper boundary of the constraint.
 
 ```
 OUT:
-MSG : Resolving dependencies...
-MSG : Logs written to {{temp-dir}}/pub-cache/log/pub_log.txt.
+Resolving dependencies...
 ERR:
-FINE: Pub {{sdk-version}}
-FINE: Resolving dependencies finished ({{elapsed}}s).
-ERR : The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
-    | or higher to enable null safety.
-    | 
-    | The current Dart SDK ({{sdk-version}}) only supports null safety.
-    | 
-    | For details, see https://dart.dev/null-safety
-FINE: Exception type: DataException
-FINE: package:pub/src/entrypoint.dart 1385               Entrypoint._checkSdkConstraint
-[74 more lines]
+The lower bound of "sdk: '>=1.0.0 <3.0.0'" must be 2.12.0'
+or higher to enable null safety.
+
+The current Dart SDK ({{sdk-version}}) only supports null safety.
+
+For details, see https://dart.dev/null-safety
 ```
 
 Run `dart pub downgrade` and then `dart analyze` to reproduce the above problem.

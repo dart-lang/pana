@@ -193,23 +193,22 @@ class PackageContext {
     try {
       log.info('Analyzing pub downgrade...');
       final tool = usesFlutter ? 'flutter' : 'dart';
-      var pr = await toolEnvironment.runPub(
+      final pr = await toolEnvironment.runPub(
         packageDir,
         usesFlutter: usesFlutter,
         command: 'downgrade',
       );
-      // Re-run with verbose output on error.
       if (pr.wasError) {
-        pr = await toolEnvironment.runPub(
+        log.info('[pub-downgrade-error]');
+        log.info(pr.asJoinedOutput);
+        log.info('Re-running with verbose output:');
+        final rerun = await toolEnvironment.runPub(
           packageDir,
           usesFlutter: usesFlutter,
           command: 'downgrade',
           verbose: true,
         );
-      }
-      if (pr.exitCode != 0) {
-        log.info('[pub-downgrade-error]');
-        log.info(pr.asJoinedOutput);
+        log.info(rerun.asJoinedOutput);
         return '`$tool pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n';
       }
 
@@ -240,15 +239,15 @@ class PackageContext {
           usesFlutter: usesFlutter,
           command: 'upgrade',
         );
-        // Re-run with verbose on error
         if (pr.wasError) {
-          await toolEnvironment.runPub(
+          log.info('Re-running with verbose output:');
+          final rerun = await toolEnvironment.runPub(
             packageDir,
             usesFlutter: usesFlutter,
             command: 'upgrade',
             verbose: true,
-            throwOnError: true,
           );
+          log.info(rerun.asJoinedOutput);
         }
       } on ToolException catch (e, st) {
         errors.add('`dart upgrade` failed');

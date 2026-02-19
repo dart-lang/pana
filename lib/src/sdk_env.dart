@@ -402,12 +402,12 @@ class ToolEnvironment {
       if (usesFlutter) {
         pubGetOutput = await runPubGet();
       }
-      // Re-run with verbose output on error.
-      if (pubGetOutput.wasError) {
-        pubGetOutput = await runPubGet(verbose: true);
-      }
       // Fail if it is still an error.
       if (pubGetOutput.wasError) {
+        log.info('Re-running with verbose output:');
+        final rerun = await runPubGet(verbose: true);
+        log.info(rerun.asJoinedOutput);
+
         // Stripping extra verbose log lines which make Flutter differ on different environment.
         final stderr = ProcessOutput.from(
           pubGetOutput.stderr.asString
@@ -435,13 +435,13 @@ class ToolEnvironment {
         );
       }
 
-      var result = await runPubOutdated();
-      // Re-run with verbose output on error.
-      if (result.wasError) {
-        result = await runPubOutdated(verbose: true);
-      }
+      final result = await runPubOutdated();
       // Fail if it is still an error.
       if (result.wasError) {
+        log.info('Re-running with verbose output:');
+        final rerun = await runPubOutdated(verbose: true);
+        log.info(rerun.asJoinedOutput);
+
         throw ToolException(
           '`$cmdLabel pub outdated` failed:\n\n```\n${result.asTrimmedOutput}\n```',
           result,
