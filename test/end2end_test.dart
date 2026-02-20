@@ -102,20 +102,6 @@ void main() {
               RegExp('that was published [0-9]+ days ago'),
               'that was published N days ago',
             )
-            .replaceAll(testEnv.tempDir.path, '{{temp-dir}}')
-            .replaceAll(
-              RegExp(r'took [\d\.\:]+ seconds'),
-              'took {{elapsed}} seconds',
-            )
-            .replaceAll(
-              RegExp(r'finished \([\d\.]+s\)\.'),
-              'finished ({{elapsed}}s).',
-            )
-            .replaceAllMapped(
-              RegExp('([^\\d])${RegExp.escape(sdkVersion)}([^\\d\\-\\+])'),
-              (match) =>
-                  [match.group(1), '{{sdk-version}}', match.group(2)].join(''),
-            )
             .replaceAllMapped(RegExp(r'"coverages":\[(\d+(\,\d+)+)\]'), (m) {
               final parts = m.group(1)!.split(',');
               final remaning = parts.indexed
