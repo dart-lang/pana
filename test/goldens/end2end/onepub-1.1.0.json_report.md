@@ -99,13 +99,13 @@ Cannot assign Web automatically to a binary only package.
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.36.2|**8.3.0**||
+|[`dcli`]|`^1.15.5`|1.36.2|**8.4.2**||
 
 <details><summary>Transitive dependencies</summary>
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`archive`]|-|3.6.1|4.0.7||
+|[`archive`]|-|3.6.1|4.0.9||
 |[`args`]|-|2.7.0|2.7.0||
 |[`async`]|-|2.13.0|2.13.0||
 |[`basic_utils`]|-|3.9.4|5.8.2||
@@ -117,11 +117,11 @@ Cannot assign Web automatically to a binary only package.
 |[`collection`]|-|1.19.1|1.19.1||
 |[`convert`]|-|3.1.2|3.1.2||
 |[`crypto`]|-|3.0.7|3.0.7||
-|[`csv`]|-|5.1.1|6.0.0||
+|[`csv`]|-|5.1.1|7.1.0||
 |[`dart_console2`]|-|2.0.1|3.1.1|**Discontinued**|
-|[`dcli_core`]|-|1.36.2|8.3.0||
+|[`dcli_core`]|-|1.36.2|8.4.2||
 |[`equatable`]|-|2.0.8|2.0.8||
-|[`ffi`]|-|2.1.4|2.1.4||
+|[`ffi`]|-|2.2.0|2.2.0||
 |[`file`]|-|6.1.4|7.0.1||
 |[`file_utils`]|-|1.0.1|1.0.1|**Discontinued**|
 |[`functional_data`]|-|1.2.0|1.2.0||
@@ -133,10 +133,10 @@ Cannot assign Web automatically to a binary only package.
 |[`intl`]|-|0.17.0|0.20.2||
 |[`js`]|-|0.7.2|0.7.2|**Discontinued**|
 |[`json2yaml`]|-|3.0.1|3.0.1||
-|[`json_annotation`]|-|4.9.0|4.9.0||
+|[`json_annotation`]|-|4.10.0|4.10.0||
 |[`logging`]|-|1.3.0|1.3.0||
 |[`matcher`]|-|0.12.18|0.12.18||
-|[`meta`]|-|1.17.0|1.17.0||
+|[`meta`]|-|1.18.1|1.18.1||
 |[`mime`]|-|1.0.6|2.0.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`pointycastle`]|-|3.9.1|4.0.0||
@@ -148,7 +148,7 @@ Cannot assign Web automatically to a binary only package.
 |[`random_string`]|-|2.3.1|2.3.1||
 |[`scope`]|-|3.0.0|5.1.0||
 |[`settings_yaml`]|-|4.0.1|8.3.1||
-|[`source_span`]|-|1.10.1|1.10.1||
+|[`source_span`]|-|1.10.2|1.10.2||
 |[`stack_trace`]|-|1.12.1|1.12.1||
 |[`stacktrace_impl`]|-|2.3.0|2.3.0|**Discontinued**|
 |[`stream_channel`]|-|2.1.4|2.1.4||
@@ -156,7 +156,7 @@ Cannot assign Web automatically to a binary only package.
 |[`sum_types`]|-|0.3.5|0.4.0||
 |[`system_info2`]|-|2.0.4|4.1.0||
 |[`term_glyph`]|-|1.2.2|1.2.2||
-|[`test_api`]|-|0.7.8|0.7.8||
+|[`test_api`]|-|0.7.9|0.7.9||
 |[`typed_data`]|-|1.4.0|1.4.0||
 |[`uuid`]|-|3.0.7|4.5.2||
 |[`validators2`]|-|3.0.0|5.1.0||

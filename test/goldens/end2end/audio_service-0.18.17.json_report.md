@@ -130,25 +130,32 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|:-|
 |[`async`]|-|2.13.0|2.13.0||
 |[`characters`]|-|1.4.1|1.4.1||
+|[`code_assets`]|-|1.0.0|1.0.0||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`crypto`]|-|3.0.7|3.0.7||
-|[`ffi`]|-|2.1.4|2.1.4||
+|[`ffi`]|-|2.2.0|2.2.0||
 |[`file`]|-|7.0.1|7.0.1||
 |[`fixnum`]|-|1.1.1|1.1.1||
+|[`glob`]|-|2.1.3|2.1.3||
+|[`hooks`]|-|1.0.1|1.0.1||
 |[`http`]|-|1.6.0|1.6.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
+|[`logging`]|-|1.3.0|1.3.0||
 |[`material_color_utilities`]|-|0.13.0|0.13.0||
-|[`meta`]|-|1.17.0|1.17.0||
+|[`meta`]|-|1.17.0|1.18.1||
+|[`native_toolchain_c`]|-|0.17.4|0.17.4||
+|[`objective_c`]|-|9.3.0|9.3.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`path_provider`]|-|2.1.5|2.1.5||
 |[`path_provider_android`]|-|2.2.22|2.2.22||
-|[`path_provider_foundation`]|-|2.5.1|2.5.1||
+|[`path_provider_foundation`]|-|2.6.0|2.6.0||
 |[`path_provider_linux`]|-|2.2.1|2.2.1||
 |[`path_provider_platform_interface`]|-|2.1.2|2.1.2||
 |[`path_provider_windows`]|-|2.3.0|2.3.0||
 |[`platform`]|-|3.1.6|3.1.6||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
-|[`source_span`]|-|1.10.1|1.10.1||
+|[`pub_semver`]|-|2.2.0|2.2.0||
+|[`source_span`]|-|1.10.2|1.10.2||
 |[`sqflite`]|-|2.4.2|2.4.2||
 |[`sqflite_android`]|-|2.4.2+2|2.4.2+2||
 |[`sqflite_common`]|-|2.5.6|2.5.6||
@@ -162,6 +169,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`vector_math`]|-|2.2.0|2.2.0||
 |[`web`]|-|1.1.1|1.1.1||
 |[`xdg_directories`]|-|1.1.0|1.1.0||
+|[`yaml`]|-|3.1.3|3.1.3||
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
@@ -175,15 +183,21 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`rxdart`]: https://pub.dev/packages/rxdart
 [`async`]: https://pub.dev/packages/async
 [`characters`]: https://pub.dev/packages/characters
+[`code_assets`]: https://pub.dev/packages/code_assets
 [`collection`]: https://pub.dev/packages/collection
 [`crypto`]: https://pub.dev/packages/crypto
 [`ffi`]: https://pub.dev/packages/ffi
 [`file`]: https://pub.dev/packages/file
 [`fixnum`]: https://pub.dev/packages/fixnum
+[`glob`]: https://pub.dev/packages/glob
+[`hooks`]: https://pub.dev/packages/hooks
 [`http`]: https://pub.dev/packages/http
 [`http_parser`]: https://pub.dev/packages/http_parser
+[`logging`]: https://pub.dev/packages/logging
 [`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
+[`native_toolchain_c`]: https://pub.dev/packages/native_toolchain_c
+[`objective_c`]: https://pub.dev/packages/objective_c
 [`path`]: https://pub.dev/packages/path
 [`path_provider`]: https://pub.dev/packages/path_provider
 [`path_provider_android`]: https://pub.dev/packages/path_provider_android
@@ -193,6 +207,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`path_provider_windows`]: https://pub.dev/packages/path_provider_windows
 [`platform`]: https://pub.dev/packages/platform
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
+[`pub_semver`]: https://pub.dev/packages/pub_semver
 [`source_span`]: https://pub.dev/packages/source_span
 [`sqflite`]: https://pub.dev/packages/sqflite
 [`sqflite_android`]: https://pub.dev/packages/sqflite_android
@@ -207,6 +222,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`vector_math`]: https://pub.dev/packages/vector_math
 [`web`]: https://pub.dev/packages/web
 [`xdg_directories`]: https://pub.dev/packages/xdg_directories
+[`yaml`]: https://pub.dev/packages/yaml
 
 <details>
 <summary>
