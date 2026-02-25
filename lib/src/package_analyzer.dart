@@ -258,16 +258,16 @@ Future<String?> _detectGitRoot(
   SandboxRunner sandboxRunner,
   String packageDir,
 ) async {
-  try {
-    final pr = await runGitIsolated(sandboxRunner, [
-      'rev-parse',
-      '--show-toplevel',
-    ], workingDirectory: packageDir);
-    return pr.stdout.asString.trim();
-  } on GitToolException catch (_) {
-    // not in a git directory (or git is broken) - ignore exception
-  }
-  return null;
+  /// Runs `git` with a temporary config directory, isolating it from any global
+  /// user settings.
+  return await withTempDir((path) async {
+    final tool = GitTool(
+      sandboxRunner: sandboxRunner,
+      homePath: path,
+      workingDirectory: packageDir,
+    );
+    return await tool.detectRootDir();
+  });
 }
 
 Future<AnalysisResult> _createAnalysisResult(
