@@ -5,11 +5,9 @@
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
-import 'package:retry/retry.dart';
 
 import '../sandbox_runner.dart';
 import '../tool/git_tool.dart';
-import '../tool/run_constrained.dart';
 
 final _acceptedBranchNameRegExp = RegExp(r'^[a-z0-9]+$');
 final _acceptedPathSegmentsRegExp = RegExp(
@@ -80,41 +78,16 @@ class GitLocalRepository {
     }
   }
 
-  Future<PanaProcessResult> _runGit(
-    List<String> args, {
-    int? maxOutputBytes,
-    GitToolException Function(PanaProcessResult pr)? createException,
-  }) async {
-    return await runGit(
-      sandboxRunner,
-      args,
-      homePath: homePath,
-      workingDirectory: localPath,
-      maxOutputBytes: maxOutputBytes,
-      createException: createException,
-    );
-  }
-
-  Future<PanaProcessResult> _runGitWithRetry(
-    List<String> args, {
-    int maxAttempts = 3,
-    GitToolException Function(PanaProcessResult pr)? createException,
-    int? maxOutputBytes,
-  }) async {
-    return await retry(
-      () => _runGit(
-        args,
-        maxOutputBytes: maxOutputBytes,
-        createException: createException,
-      ),
-      maxAttempts: maxAttempts,
-      retryIf: (e) => e is GitToolException,
-    );
-  }
+  /// The git tool for running git commands.
+  late final _gitTool = GitTool(
+    sandboxRunner: sandboxRunner,
+    homePath: homePath,
+    workingDirectory: localPath,
+  );
 
   Future<void> _init() async {
-    await _runGit(['init']);
-    await _runGit(['remote', 'add', 'origin', origin]);
+    await _gitTool.init();
+    await _gitTool.addRemote('origin', origin);
   }
 
   /// Detects the default branch name (typically `master` or `main`)
@@ -124,22 +97,7 @@ class GitLocalRepository {
   /// branch name is missing, or if the default branch name has
   /// unexpected pattern.
   Future<String> detectDefaultBranch() async {
-    final pr = await _runGitWithRetry(['remote', 'show', 'origin']);
-    final output = pr.stdout.asString;
-    final lines = output.split('\n');
-    for (final line in lines) {
-      final parts = line.trim().split(':');
-      if (parts.length == 2 && parts[0].trim() == 'HEAD branch') {
-        final branch = parts[1].trim();
-        if (_acceptedBranchNameRegExp.matchAsPrefix(branch) != null) {
-          return branch;
-        } else {
-          throw GitToolException('Could not accept branch name: `$branch`.');
-        }
-      }
-      // DEFAULT_BRANCH=$(git rev-parse --abbrev-ref $FIRST_REMOTE/HEAD)
-    }
-    throw GitToolException('Could not find HEAD branch.', output);
+    return await _gitTool.detectDefaultBranch('origin');
   }
 
   /// Return the String content of the file in [branch] and [path].
@@ -153,11 +111,7 @@ class GitLocalRepository {
     _assertBranchFormat(branch);
     _assertPathFormat(path);
     await _fetch(branch, 1);
-    final pr = await _runGitWithRetry([
-      'show',
-      'origin/$branch:$path',
-    ], createException: (_) => GitToolException('Could not read `$path`.'));
-    return pr.stdout.asString;
+    return await _gitTool.showFile('origin/$branch', path);
   }
 
   /// List file names of [branch].
@@ -166,17 +120,7 @@ class GitLocalRepository {
   Future<List<String>> listFiles(String branch) async {
     _assertBranchFormat(branch);
     await _fetch(branch, 1);
-    final pr = await _runGitWithRetry(
-      ['ls-tree', '-r', '--name-only', '--full-tree', 'origin/$branch'],
-      createException: (pr) =>
-          GitToolException('Could not list `$branch`.', pr.asTrimmedOutput),
-    );
-    return pr.stdout
-        .toString()
-        .split('\n')
-        .map((e) => e.trim())
-        .where((e) => e.isNotEmpty)
-        .toList();
+    return await _gitTool.listFiles('origin/$branch');
   }
 
   /// Deletes the local directory.
@@ -191,13 +135,11 @@ class GitLocalRepository {
       return;
     }
     _assertBranchFormat(branch);
-    await _runGitWithRetry([
-      'fetch',
-      if (depth != unlimitedFetchDepth) ...['--depth', '$depth'],
-      '--no-recurse-submodules',
+    await _gitTool.fetch(
       'origin',
       branch,
-    ]);
+      depth: depth == unlimitedFetchDepth ? null : depth,
+    );
     _fetchedDepthsPerBranch[branch] = depth;
   }
 
