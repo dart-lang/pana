@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
+import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
@@ -165,15 +168,15 @@ class GitTool {
   /// List all files at a specific ref (e.g., 'origin/main').
   Future<List<String>> listFiles(String ref) async {
     final pr = await _runWithRetry(
-      ['ls-tree', '-r', '--name-only', '--full-tree', ref],
+      ['ls-tree', '-r', '-z', '--name-only', '--full-tree', ref],
       createException: (pr) =>
           GitToolException('Could not list `$ref`.', pr.asTrimmedOutput),
     );
-    return pr.stdout
-        .toString()
-        .split('\n')
-        .map((e) => e.trim())
-        .where((e) => e.isNotEmpty)
+    return pr.stdout.asBytes
+        .splitBefore((b) => b == 0)
+        .where((chunk) => chunk.isNotEmpty)
+        .map((chunk) => chunk.first == 0 ? utf8.decode(chunk.sublist(1)) : '')
+        .where((item) => item.isNotEmpty)
         .toList();
   }
 }

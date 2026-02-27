@@ -276,6 +276,7 @@ abstract class ProcessOutput {
   }
 
   String get asString;
+  List<int> get asBytes;
 
   @override
   String toString();
@@ -287,6 +288,9 @@ class _StringProcessOutput implements ProcessOutput {
   _StringProcessOutput(this.asString);
 
   @override
+  late final asBytes = utf8.encode(asString);
+
+  @override
   String toString() => asString;
 }
 
@@ -296,9 +300,10 @@ class _ChunksProcessOutput implements ProcessOutput {
   _ChunksProcessOutput(this._chunks, this._encoding);
 
   @override
-  late final asString = _encoding.decode(_asBytes);
+  late final asString = _encoding.decode(asBytes);
 
-  late final _asBytes = _chunks
+  @override
+  late final asBytes = _chunks
       .fold<BytesBuilder>(BytesBuilder(), (bb, chunk) => bb..add(chunk))
       .toBytes();
 

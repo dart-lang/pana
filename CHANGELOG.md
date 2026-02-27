@@ -2,6 +2,7 @@
 
 - Re-run `pub` commands with `--verbose` after a failure.
 - Updated end2end tests to latest dartdoc.
+- Use `-z` (zero-byte separator) for git listing.
 
 ## 0.23.10
 
