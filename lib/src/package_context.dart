@@ -31,6 +31,7 @@ import 'tag/license_tags.dart';
 import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
 import 'tool/run_constrained.dart';
+import 'tool/web_tool.dart';
 import 'utils.dart' show isAnalysisTarget, listFiles;
 
 /// Shared (intermediate) results between different packages or versions.
@@ -356,7 +357,7 @@ class PackageContext {
   late final Future<List<ScreenshotResult>> screenshots = processAllScreenshots(
     pubspec.screenshots,
     packageDir,
-    toolEnvironment.sandboxRunner,
+    WebpTool(toolEnvironment.sandboxRunner),
   );
 
   late final pubspecAllowsCurrentSdk =
