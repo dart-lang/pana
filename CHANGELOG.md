@@ -3,6 +3,7 @@
 - Re-run `pub` commands with `--verbose` after a failure.
 - Updated end2end tests to latest dartdoc.
 - Use `-z` (zero-byte separator) for git listing.
+- Allow some safe symbols to be imported from `dart:io` while keeping platform-support.
 
 ## 0.23.10
 

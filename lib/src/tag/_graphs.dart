@@ -10,6 +10,7 @@ import '../logging.dart';
 import '../pubspec.dart';
 import '../pubspec_io.dart' show pubspecFromDir;
 import '_common.dart';
+import 'safe_imports.dart';
 
 abstract class DirectedGraph<T> {
   Set<T> directSuccessors(T t);
@@ -145,6 +146,11 @@ class LibraryGraph implements DirectedGraph<Uri> {
               dependency = uri.resolve(configuration.uri.stringValue!);
               break; // Always pick the first satisfied configuration.
             }
+          }
+
+          // Skip if this is a safe import
+          if (isSafeImport(directive, dependency)) {
+            continue;
           }
 
           dependencies.add(dependency);
