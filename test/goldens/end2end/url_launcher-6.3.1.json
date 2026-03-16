@@ -99,6 +99,7 @@
     "is:plugin",
     "is:null-safe",
     "is:wasm-ready",
+    "is:swiftpm-plugin",
     "is:dart3-compatible",
     "license:bsd-3-clause",
     "license:fsf-libre",
@@ -129,10 +130,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 10,
+        "grantedPoints": 20,
         "maxPoints": 20,
-        "status": "partial",
-        "summary": "### [~] 10/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n\n* ✓ iOS\n\n* ✓ Windows\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Web\n\n\n**WASM-ready:** This package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.\n\n\n**Note:** This iOS or macOS plugin does not support the Swift Package Manager, resulting in a partial score. See https://docs.flutter.dev/to/spm for details.\n"
+        "status": "passed",
+        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n\n* ✓ iOS\n\n* ✓ Windows\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Web\n\n\n**WASM-ready:** This package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.\n\n\n**Swift PM-ready:** This iOS or macOS plugin supports the Swift Package Manager. See https://docs.flutter.dev/to/spm for details.\n"
       },
       {
         "id": "analysis",
@@ -189,7 +190,7 @@
         ]
       }
     ],
-    "grantedPoints": 150,
+    "grantedPoints": 160,
     "maxPoints": 160
   },
   "urlProblems": []

@@ -446,7 +446,7 @@ It does not contain `$packageSwiftFile`.
         }
       }
     }
-    if (isDarwinPlugin && swiftPmSupport) {
+    if (pubspec.hasFlutterPluginKey && (!isDarwinPlugin || swiftPmSupport)) {
       tags.add(PanaTags.isSwiftPmPlugin);
     }
   }
