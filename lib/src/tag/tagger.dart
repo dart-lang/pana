@@ -400,7 +400,7 @@ class Tagger {
     List<Explanation> explanations,
   ) {
     if (!_usesFlutter) return;
-    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
+    final mainPackagePubspec = _pubspecCache.pubspecOfPackage(packageName);
 
     bool pathExists(dynamic m, List<String> path) {
       dynamic current = m;
@@ -416,7 +416,19 @@ class Tagger {
     var swiftPmSupport = true;
 
     for (final darwinOs in ['macos', 'ios']) {
-      if (pathExists(pubspec.originalYaml, [
+      var defaultPackagePubspec = mainPackagePubspec;
+      var defaultPackageDir = packageDir;
+      final defaultPackageName = defaultPackagePubspec
+          .originalYaml['flutter']?['plugin']?['platforms']?[darwinOs]?['default_package'];
+
+      if (defaultPackageName is String) {
+        defaultPackagePubspec = _pubspecCache.pubspecOfPackage(
+          defaultPackageName,
+        );
+        defaultPackageDir = _pubspecCache.packageDir(defaultPackageName);
+      }
+
+      if (pathExists(defaultPackagePubspec.originalYaml, [
         'flutter',
         'plugin',
         'platforms',
@@ -425,21 +437,28 @@ class Tagger {
       ])) {
         isDarwinPlugin = true;
         final osDir =
-            pubspec.originalYaml['flutter']?['plugin']?['platforms']?[darwinOs]?['sharedDarwinSource'] ==
+            defaultPackagePubspec
+                    .originalYaml['flutter']?['plugin']?['platforms']?[darwinOs]?['sharedDarwinSource'] ==
                 true
             ? 'darwin'
             : darwinOs;
 
-        final packageSwiftFile = path.join(osDir, packageName, 'Package.swift');
-        if (!File(path.join(packageDir, packageSwiftFile)).existsSync()) {
+        final packageSwiftFile = path.join(
+          osDir,
+          defaultPackageName is String ? defaultPackageName : packageName,
+          'Package.swift',
+        );
+        if (!File(
+          path.join(defaultPackageDir, packageSwiftFile),
+        ).existsSync()) {
           swiftPmSupport = false;
           final osName = {'macos': 'macOS', 'ios': 'iOS'}[darwinOs];
           explanations.add(
             Explanation(
               'Package does not support the Swift Package Manager on $osName',
-              '''
-It does not contain `$packageSwiftFile`.
-''',
+              defaultPackageName is String
+                  ? 'The default package $defaultPackageName does not contain `$packageSwiftFile`.'
+                  : 'The package does not contain `$packageSwiftFile`.',
               tag: PanaTags.isSwiftPmPlugin,
             ),
           );
