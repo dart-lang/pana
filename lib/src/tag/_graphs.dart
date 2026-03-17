@@ -24,7 +24,7 @@ class PubspecCache {
 
   PubspecCache(this._analysisSession);
 
-  String _packageDir(String packageName) {
+  String packageDir(String packageName) {
     final packageUri = Uri.parse('package:$packageName/');
     final filePath = _analysisSession.uriConverter.uriToPath(packageUri);
     // Could not resolve uri.
@@ -50,7 +50,7 @@ class PubspecCache {
   Pubspec pubspecOfPackage(String packageName) {
     return _pubspecs.putIfAbsent(packageName, () {
       try {
-        return pubspecFromDir(_packageDir(packageName));
+        return pubspecFromDir(packageDir(packageName));
       } on Exception catch (e) {
         throw TagException(e.toString());
       }
