@@ -1,3 +1,7 @@
+## 0.23.12
+
+- Only subtract points for missing swiftpm support for actual darwin plugins.
+
 ## 0.23.11
 
 - Re-run `pub` commands with `--verbose` after a failure.

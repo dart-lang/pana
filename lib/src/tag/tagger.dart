@@ -465,8 +465,12 @@ class Tagger {
         }
       }
     }
-    if (isDarwinPlugin && swiftPmSupport) {
-      tags.add(PanaTags.isSwiftPmPlugin);
+    if (isDarwinPlugin) {
+      if (swiftPmSupport) {
+        tags.add(PanaTags.isSwiftPmPlugin);
+      } else {
+        tags.add(PanaTags.isDarwinLegacyNativeBuild);
+      }
     }
   }
 
