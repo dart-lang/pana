@@ -72,7 +72,6 @@
 /// A package has the same platform tags as the primary library.
 library;
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
@@ -436,9 +435,6 @@ class Tagger {
         darwinOs,
         'pluginClass',
       ])) {
-        print(
-          'Found pluginClass for $darwinOs in $packageName ${JsonEncoder.withIndent('  ').convert(defaultPackagePubspec.originalYaml)}',
-        );
         isDarwinPlugin = true;
         final osDir =
             defaultPackagePubspec
