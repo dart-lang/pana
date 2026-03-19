@@ -153,8 +153,7 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
       // No platforms supported
       score = 0;
       status = ReportStatus.failed;
-    } else if ((hasWebPlatform && !isWasmReady) ||
-        isDarwinLegacyNativeBuild) {
+    } else if ((hasWebPlatform && !isWasmReady) || isDarwinLegacyNativeBuild) {
       // Web platform but not WASM-ready OR iOS/macOS but not Swift PM-ready = partial score
       score = 10;
       status = ReportStatus.partial;
