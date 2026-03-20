@@ -39,6 +39,7 @@ abstract class PanaTags {
   static const isPlugin = 'is:plugin';
   static const isNullSafe = 'is:null-safe';
   static const isSwiftPmPlugin = 'is:swiftpm-plugin';
+  static const isDarwinLegacyNativeBuild = 'is:darwin-legacy-native-build';
 
   /// Package version is compatible with Dart 3.
   static const isDart3Compatible = 'is:dart3-compatible';

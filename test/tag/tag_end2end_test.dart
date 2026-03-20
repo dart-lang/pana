@@ -713,10 +713,7 @@ name: my_package
             'flutter': {
               'plugin': {
                 'platforms': {
-                  'ios': <String, dynamic>{
-                    'sharedDarwinSource': true,
-                    'pluginClass': '',
-                  },
+                  'ios': <String, dynamic>{'sharedDarwinSource': true},
                   'macos': <String, dynamic>{'sharedDarwinSource': true},
                 },
               },
@@ -756,7 +753,7 @@ name: my_package
       final tagger = Tagger('${descriptor.io.path}/my_package');
       _expectTagging(
         tagger.swiftPackageManagerPluginTag,
-        tags: isEmpty,
+        tags: contains('is:darwin-legacy-native-build'),
         explanations: contains(
           isA<Explanation>().having((e) => e.tag, 'tag', 'is:swiftpm-plugin'),
         ),

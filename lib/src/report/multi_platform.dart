@@ -67,12 +67,10 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
         .where((e) => e.tag == PanaTags.isWasmReady)
         .toList();
 
-    final hasIosOrMacosPlatform =
-        tags.contains(PanaTags.platformIos) ||
-        tags.contains(PanaTags.platformMacos);
-    final needsToBeSwiftPmReady =
-        tags.contains(PanaTags.isPlugin) && hasIosOrMacosPlatform;
     final isSwiftPmReady = tags.contains(PanaTags.isSwiftPmPlugin);
+    final isDarwinLegacyNativeBuild = tags.contains(
+      PanaTags.isDarwinLegacyNativeBuild,
+    );
     final swiftPmExplanations = explanations
         .where((e) => e.tag == PanaTags.isSwiftPmPlugin)
         .toList();
@@ -130,16 +128,17 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
           'See https://dart.dev/web/wasm for details.',
         ),
       // Swift Package Manager
-      if (needsToBeSwiftPmReady && swiftPmExplanations.isNotEmpty) ...[
+      if ((isDarwinLegacyNativeBuild || isSwiftPmReady) &&
+          swiftPmExplanations.isNotEmpty) ...[
         RawParagraph('\nSwift Package Manager support:'),
         ...swiftPmExplanations.map(explanationToIssue),
       ],
-      if (needsToBeSwiftPmReady && !isSwiftPmReady)
+      if (isDarwinLegacyNativeBuild)
         RawParagraph(
           '\n**Note:** This iOS or macOS plugin does not support the Swift Package Manager, '
           'resulting in a partial score. See https://docs.flutter.dev/to/spm for details.',
-        ),
-      if (needsToBeSwiftPmReady && isSwiftPmReady)
+        )
+      else if (isSwiftPmReady)
         RawParagraph(
           '\n**Swift PM-ready:** This iOS or macOS plugin supports the Swift Package Manager. '
           'See https://docs.flutter.dev/to/spm for details.',
@@ -154,8 +153,7 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
       // No platforms supported
       score = 0;
       status = ReportStatus.failed;
-    } else if ((hasWebPlatform && !isWasmReady) ||
-        (needsToBeSwiftPmReady && !isSwiftPmReady)) {
+    } else if ((hasWebPlatform && !isWasmReady) || isDarwinLegacyNativeBuild) {
       // Web platform but not WASM-ready OR iOS/macOS but not Swift PM-ready = partial score
       score = 10;
       status = ReportStatus.partial;
