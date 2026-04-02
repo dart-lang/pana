@@ -10,8 +10,7 @@ import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
 import '../pana.dart';
-import 'logging.dart';
-import 'sandbox_runner.dart';
+import 'tool/web_tool.dart';
 
 final _maxFileSizeInMegaBytes = 4;
 final _maxFileSizeInBytes = _maxFileSizeInMegaBytes * (1024 * 1024);
@@ -66,7 +65,7 @@ class ScreenshotResult {
 Future<List<ScreenshotResult>> processAllScreenshots(
   List<p.Screenshot> screenshots,
   String pkgDir,
-  SandboxRunner sandboxRunner,
+  WebpTool webpTool,
 ) async {
   final tempDir = Directory.systemTemp.createTempSync();
   try {
@@ -90,7 +89,7 @@ Future<List<ScreenshotResult>> processAllScreenshots(
       }
 
       final result = await _processScreenshot(
-        sandboxRunner,
+        webpTool,
         pkgDir,
         screenshot,
         tempDir.path,
@@ -143,7 +142,7 @@ List<String> _validateScreenshot(p.Screenshot screenshot, String pkgDir) {
 }
 
 Future<ScreenshotResult> _processScreenshot(
-  SandboxRunner sandboxRunner,
+  WebpTool webpTool,
   String pkgDir,
   p.Screenshot e,
   String tempDir,
@@ -172,8 +171,7 @@ Future<ScreenshotResult> _processScreenshot(
     path.join(tempDir, path.dirname(webp190ThumbnailPath)),
   ).createSync(recursive: true);
 
-  final webpScreenshotProblems = await _generateWebpScreenshot(
-    sandboxRunner,
+  final webpScreenshotProblems = await webpTool.convertToWebp(
     originalPath,
     path.join(tempDir, webpPath),
   );
@@ -181,8 +179,7 @@ Future<ScreenshotResult> _processScreenshot(
     return ScreenshotResult.failed(webpScreenshotProblems);
   }
 
-  final thumbnailProblems = await _generateThumbnails(
-    sandboxRunner,
+  final thumbnailProblems = await webpTool.generateThumbnails(
     originalPath,
     path.join(tempDir, webpPath),
     path.join(tempDir, webp100ThumbnailPath),
@@ -211,303 +208,4 @@ Future<ScreenshotResult> _processScreenshot(
     File(path.join(tempDir, webp190ThumbnailPath)).readAsBytesSync(),
     File(path.join(tempDir, png190ThumbnailPath)).readAsBytesSync(),
   );
-}
-
-/// Generates a WebP screenshot given the original image at [originalPath] and
-/// writes it to [targetWebpPath].
-///
-/// Returns a list of problems if generating the screenshot did not succeed.
-/// On success, an empty list is returned.
-///
-/// The WebP screenshot can be either static or animated.
-///
-/// If the original image format is already WebP, the screenshot will simply be
-/// copied over. The `webpinfo` tool is used for determining this.
-/// Otherwise, a conversion is tried, using the `cwebp` tool which can handle
-/// PNG, JPEG, and TIFF as input. For GIF files the `gif2webp` conversion tool
-/// is used.
-///
-/// For any other input format the screenshot generation will fail. It will also
-/// fail if any of the mentioned tools are not available on the command line and
-/// an error message will be written to stderr.
-Future<List<String>> _generateWebpScreenshot(
-  SandboxRunner sandboxRunner,
-  String originalPath,
-  String targetWebpPath,
-) async {
-  final problems = <String>[];
-  final copyIfWebpProblems = await _copyIfAlreadyWebp(
-    sandboxRunner,
-    originalPath,
-    targetWebpPath,
-  );
-  if (copyIfWebpProblems.isEmpty) {
-    return [];
-  }
-  problems.addAll(copyIfWebpProblems);
-
-  final convertWithCwebpProblems = await _convertWithCWebp(
-    sandboxRunner,
-    originalPath,
-    targetWebpPath,
-  );
-  if (convertWithCwebpProblems.isEmpty) {
-    return [];
-  }
-  problems.addAll(convertWithCwebpProblems);
-
-  final gif2webpProblems = await _convertGifToWebp(
-    sandboxRunner,
-    originalPath,
-    targetWebpPath,
-  );
-  if (gif2webpProblems.isEmpty) {
-    return [];
-  }
-  problems.addAll(gif2webpProblems);
-  problems.add(
-    'Generating webp image for $originalPath failed due to invalid input',
-  );
-  return problems;
-}
-
-Future<List<String>> _copyIfAlreadyWebp(
-  SandboxRunner sandboxRunner,
-  String originalPath,
-  String webpPath,
-) async {
-  return await _checkedRunProc(
-    sandboxRunner,
-    ['webpinfo', originalPath],
-    failureText:
-        '`$originalPath`: Tried interpreting screenshot as WebP with `webpinfo "$originalPath"`',
-    onSuccess: (_) async {
-      await File(originalPath).copy(webpPath);
-    },
-    inputFilePath: originalPath,
-    outputFilePath: null,
-  );
-}
-
-Future<List<String>> _convertWithCWebp(
-  SandboxRunner sandboxRunner,
-  String originalPath,
-  String webpPath,
-) async {
-  return await _checkedRunProc(
-    sandboxRunner,
-    ['cwebp', originalPath, '-o', webpPath],
-    failureText:
-        '`$originalPath`: Converting screenshot with `cwebp "$originalPath" -o "$webpPath"`',
-    inputFilePath: originalPath,
-    outputFilePath: webpPath,
-  );
-}
-
-Future<List<String>> _convertGifToWebp(
-  SandboxRunner sandboxRunner,
-  String originalPath,
-  String webpPath,
-) async {
-  return await _checkedRunProc(
-    sandboxRunner,
-    ['gif2webp', originalPath, '-o', webpPath],
-    failureText:
-        '`$originalPath`: Tried interpreting screenshot as GIF with `gif2webp "$originalPath" -o "$webpPath"`',
-    inputFilePath: originalPath,
-    outputFilePath: webpPath,
-  );
-}
-
-/// Generates PNG and a WebP thumbnails from the WebP screenshot found at
-/// [webpPath] and writes them to [png100ThumbnailPath], [webp100ThumbnailPath]
-/// [png190ThumbnailPath], and [webp190ThumbnailPath] respectively.
-///
-/// Returns a list of problems if generating the thumbnails did not succeed.
-/// On success, an empty list is returned.
-//
-/// If the WebP screenshot is animated, the `webpmux` tool is used to extract
-/// the first frame for the thumbnail.
-///
-/// The `webpinfo` tool is used to determine the original height and width. The
-/// `cwebp` converter is used for resizing the screenshot. The `dwebp` converter
-/// is used for generating the thumbnail in PNG.
-///
-/// Thumbnail generation will fail if any of the mentioned tools are not
-/// available on the command line and an error message will be written to stderr.
-Future<List<String>> _generateThumbnails(
-  SandboxRunner sandboxRunner,
-  String originalPath,
-  String webpPath,
-  String webp100ThumbnailPath,
-  String png100ThumbnailPath,
-  String webp190ThumbnailPath,
-  String png190ThumbnailPath,
-  String tempDir,
-) async {
-  late String staticWebpPath;
-  late String infoOutput;
-  final infoResult = await _checkedRunProc(
-    sandboxRunner,
-    ['webpinfo', webpPath],
-    onSuccess: (infoResult) {
-      infoOutput = infoResult.stdout.asString;
-    },
-    failureText: '`$originalPath`: Running `webpinfo "$webpPath"`',
-    inputFilePath: webpPath,
-    outputFilePath: null,
-  );
-  if (infoResult.isNotEmpty) {
-    return infoResult;
-  }
-
-  if (infoOutput.contains('Animation: 1')) {
-    staticWebpPath = path.join(
-      tempDir,
-      '${path.basenameWithoutExtension(webpPath)}_static.webp',
-    );
-    // input file is animated, extract the first frame.
-    final webpmuxResult = await _checkedRunProc(
-      sandboxRunner,
-      ['webpmux', '-get', 'frame', '1', webpPath, '-o', staticWebpPath],
-      failureText:
-          '`$originalPath`: Extracting frame from $webpPath with `webpmux -get frame 1 "$webpPath" -o "$staticWebpPath"`',
-      inputFilePath: webpPath,
-      outputFilePath: staticWebpPath,
-    );
-
-    if (webpmuxResult.isNotEmpty) {
-      return webpmuxResult;
-    }
-  } else {
-    staticWebpPath = webpPath;
-  }
-
-  final lines = infoOutput.split('\n');
-  final widthString = lines.firstWhere(
-    (String line) => line.contains('Width:'),
-  );
-  final heightString = lines.firstWhere(
-    (String line) => line.contains('Height:'),
-  );
-  final width = int.parse(widthString.split(':').last.trim());
-  final height = int.parse(heightString.split(':').last.trim());
-
-  Future<List<String>> resizeWebp(
-    String originalPath,
-    int originalWidth,
-    int originalHeight,
-    int outputSize,
-    String outputPath,
-  ) async {
-    final int widthArgument;
-    final int heightArgument;
-
-    if (originalWidth > originalHeight) {
-      widthArgument = outputSize;
-      heightArgument = 0;
-    } else {
-      widthArgument = 0;
-      heightArgument = outputSize;
-    }
-
-    return await _checkedRunProc(
-      sandboxRunner,
-      [
-        'cwebp',
-        '-resize',
-        '$widthArgument',
-        '$heightArgument',
-        originalPath,
-        '-o',
-        outputPath,
-      ],
-      failureText:
-          '`$originalPath`: Resizing to WebP thumbnail with `cwebp -resize $widthArgument $heightArgument "$staticWebpPath" -o "$outputPath"`',
-      inputFilePath: originalPath,
-      outputFilePath: outputPath,
-    );
-  }
-
-  final resizeWebp100Result = await resizeWebp(
-    staticWebpPath,
-    width,
-    height,
-    100,
-    webp100ThumbnailPath,
-  );
-  if (resizeWebp100Result.isNotEmpty) {
-    return resizeWebp100Result;
-  }
-  final resizeWebp190Result = await resizeWebp(
-    staticWebpPath,
-    width,
-    height,
-    190,
-    webp190ThumbnailPath,
-  );
-  if (resizeWebp190Result.isNotEmpty) {
-    return resizeWebp190Result;
-  }
-
-  final png100Result = await _checkedRunProc(
-    sandboxRunner,
-    ['dwebp', webp100ThumbnailPath, '-o', png100ThumbnailPath],
-    failureText:
-        '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp100ThumbnailPath" -o "$png100ThumbnailPath"`',
-    inputFilePath: webp100ThumbnailPath,
-    outputFilePath: png100ThumbnailPath,
-  );
-  if (png100Result.isNotEmpty) {
-    return png100Result;
-  }
-
-  final png190Result = await _checkedRunProc(
-    sandboxRunner,
-    ['dwebp', webp190ThumbnailPath, '-o', png190ThumbnailPath],
-    failureText:
-        '`$originalPath`: Generating PNG thumbnail with `dwebp "$webp190ThumbnailPath" -o "$png190ThumbnailPath"`',
-    inputFilePath: webp190ThumbnailPath,
-    outputFilePath: png190ThumbnailPath,
-  );
-  if (png190Result.isNotEmpty) {
-    return png190Result;
-  }
-
-  return [];
-}
-
-Future<List<String>> _checkedRunProc(
-  SandboxRunner sandboxRunner,
-  List<String> cmdAndArgs, {
-  FutureOr<void> Function(PanaProcessResult pr)? onSuccess,
-  required String inputFilePath,
-  required String? outputFilePath,
-  required String failureText,
-}) async {
-  try {
-    final inputDirPath = path.dirname(inputFilePath);
-    final outputDirPath = outputFilePath == null
-        ? null
-        : path.dirname(outputFilePath);
-    final pr = await sandboxRunner.runSandboxed(
-      cmdAndArgs,
-      workingDirectory: inputDirPath,
-      outputFolder: outputDirPath,
-    );
-    if (pr.exitCode == 0) {
-      if (onSuccess != null) {
-        await onSuccess(pr);
-      }
-      return [];
-    } else {
-      return ['$failureText failed with _exit code_ ${pr.exitCode}.'];
-    }
-  } on ProcessException catch (e) {
-    log.severe("'${cmdAndArgs[0]}' tool not found.");
-    final message = e.message.isEmpty
-        ? "'${cmdAndArgs[0]}' tool not found."
-        : e.message;
-    return [message];
-  }
 }
