@@ -1,3 +1,7 @@
+## 0.23.13
+
+- Upgraded dependencies to the latest.
+
 ## 0.23.12
 
 - Only subtract points for missing swiftpm support for actual darwin plugins.
