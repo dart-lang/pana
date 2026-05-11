@@ -134,9 +134,9 @@ class LibraryGraph implements DirectedGraph<Uri> {
           var dependency = uri.resolve(directive.uri.stringValue!);
 
           for (final configuration in directive.configurations) {
-            final dottedName = configuration.name.components
-                .map((i) => i.name)
-                .join('.');
+            final dottedName = configuration.name.tokens
+                .map((i) => i.value())
+                .join();
 
             final testValue = configuration.value?.stringValue ?? 'true';
             final actualValue = _declaredVariables[dottedName] ?? '';
