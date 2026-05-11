@@ -7,7 +7,7 @@ topics:
   - analysis
 
 environment:
-  sdk: '^3.9.0'
+  sdk: '^3.11.0'
 
 dependencies:
   analyzer: '>=13.0.0 <14.0.0'
