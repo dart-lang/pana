@@ -142,7 +142,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`logging`]|-|1.3.0|1.3.0||
 |[`material_color_utilities`]|-|0.13.0|0.13.0||
-|[`meta`]|-|1.17.0|1.18.1||
+|[`meta`]|-|1.18.0|1.18.1||
 |[`native_toolchain_c`]|-|0.17.4|0.17.4||
 |[`objective_c`]|-|9.3.0|9.3.0||
 |[`path`]|-|1.9.1|1.9.1||
