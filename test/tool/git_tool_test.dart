@@ -43,10 +43,13 @@ void main() {
       await tempDir.delete(recursive: true);
     });
 
-    test('configure writes the committer email to the provided config', () async {
-      final config = File(p.join(homePath, '.global-gitconfig'));
-      expect(config.readAsStringSync(), contains('test@example.com'));
-    });
+    test(
+      'configure writes the committer email to the provided config',
+      () async {
+        final config = File(p.join(homePath, '.global-gitconfig'));
+        expect(config.readAsStringSync(), contains('test@example.com'));
+      },
+    );
 
     test('lists all files, including the first tree entry', () async {
       final files = await gitTool.listFiles('HEAD');
