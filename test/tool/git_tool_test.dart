@@ -10,13 +10,14 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
-  group('GitTool.listFiles', () {
+  group('GitTool', () {
     late Directory tempDir;
+    late String homePath;
     late GitTool gitTool;
 
     setUp(() async {
       tempDir = await Directory.systemTemp.createTemp('git-tool-test');
-      final homePath = p.join(tempDir.path, 'home');
+      homePath = p.join(tempDir.path, 'home');
       final repoPath = p.join(tempDir.path, 'repo');
       Directory(homePath).createSync();
       Directory(repoPath).createSync();
@@ -40,6 +41,11 @@ void main() {
 
     tearDown(() async {
       await tempDir.delete(recursive: true);
+    });
+
+    test('configure writes the committer email to the provided config', () async {
+      final config = File(p.join(homePath, '.global-gitconfig'));
+      expect(config.readAsStringSync(), contains('test@example.com'));
     });
 
     test('lists all files, including the first tree entry', () async {
