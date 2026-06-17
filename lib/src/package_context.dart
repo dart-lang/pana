@@ -31,7 +31,7 @@ import 'tag/license_tags.dart';
 import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
 import 'tool/run_constrained.dart';
-import 'tool/web_tool.dart';
+import 'tool/webp_tool.dart';
 import 'utils.dart' show isAnalysisTarget, listFiles;
 
 /// Shared (intermediate) results between different packages or versions.
