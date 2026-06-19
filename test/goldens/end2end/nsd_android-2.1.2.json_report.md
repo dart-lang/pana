@@ -79,6 +79,20 @@ Because:
 </details>
 
 
+Built-in Kotlin support:
+
+<details>
+<summary>
+Legacy Kotlin plugin DSL detected in `android/build.gradle`.
+</summary>
+
+This plugin applies Kotlin Gradle Plugin (KGP) or uses `android.kotlinOptions`.
+</details>
+
+
+**Note:** This Android plugin does not support built-in Kotlin. In the future, this might affect scoring. See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors for details.
+
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
@@ -97,8 +111,8 @@ No dependencies.
 |[`characters`]|-|1.4.1|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`material_color_utilities`]|-|0.13.0|0.13.0||
-|[`meta`]|-|1.17.0|1.18.1||
-|[`vector_math`]|-|2.2.0|2.2.0||
+|[`meta`]|-|1.18.3|1.18.3||
+|[`vector_math`]|-|2.4.0|2.4.0||
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.

@@ -21,10 +21,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [3.10.1]
+        sdk: [3.12.0]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-      - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+      - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -49,12 +49,12 @@ jobs:
         # TODO(sigurdm): our end2end test creates longer filenames than we can
         # handle on windows. See https://github.com/dart-lang/sdk/issues/42416
         os: [ubuntu-latest, macos-latest]
-        sdk: [3.11.0]
-        flutter: [3.41.1]
+        sdk: [3.12.0]
+        flutter: [3.44.0]
         shard: [0, 1, 2, 3, 4, 5, 6, 7]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-      - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+      - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
         with:
           sdk: ${{ matrix.sdk }}
       - name: Setup Flutter SDK
@@ -82,7 +82,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-      - uses: dart-lang/setup-dart@e51d8e571e22473a2ddebf0ef8a2123f0ab2c02c
+      - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
         with:
           channel: beta
       - uses: flutter-actions/setup-flutter@v4

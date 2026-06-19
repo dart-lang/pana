@@ -99,7 +99,7 @@ Cannot assign Web automatically to a binary only package.
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`dcli`]|`^1.15.5`|1.36.2|**8.4.2**||
+|[`dcli`]|`^1.15.5`|1.36.2|**9.0.0**||
 
 <details><summary>Transitive dependencies</summary>
 
@@ -107,19 +107,19 @@ Cannot assign Web automatically to a binary only package.
 |:-|:-|:-|:-|:-|
 |[`archive`]|-|3.6.1|4.0.9||
 |[`args`]|-|2.7.0|2.7.0||
-|[`async`]|-|2.13.0|2.13.0||
+|[`async`]|-|2.13.1|2.13.1||
 |[`basic_utils`]|-|3.9.4|5.8.2||
 |[`boolean_selector`]|-|2.1.2|2.1.2||
 |[`characters`]|-|1.4.1|1.4.1||
 |[`chunked_stream`]|-|1.4.2|1.4.2||
-|[`circular_buffer`]|-|0.11.0|0.12.0||
+|[`circular_buffer`]|-|0.11.0|0.13.0||
 |[`clock`]|-|1.1.2|1.1.2||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`convert`]|-|3.1.2|3.1.2||
 |[`crypto`]|-|3.0.7|3.0.7||
-|[`csv`]|-|5.1.1|7.1.0||
+|[`csv`]|-|5.1.1|8.0.0||
 |[`dart_console2`]|-|2.0.1|3.1.1|**Discontinued**|
-|[`dcli_core`]|-|1.36.2|8.4.2||
+|[`dcli_core`]|-|1.36.2|9.0.0||
 |[`equatable`]|-|2.0.8|2.0.8||
 |[`ffi`]|-|2.2.0|2.2.0||
 |[`file`]|-|6.1.4|7.0.1||
@@ -133,14 +133,14 @@ Cannot assign Web automatically to a binary only package.
 |[`intl`]|-|0.17.0|0.20.2||
 |[`js`]|-|0.7.2|0.7.2|**Discontinued**|
 |[`json2yaml`]|-|3.0.1|3.0.1||
-|[`json_annotation`]|-|4.10.0|4.10.0||
+|[`json_annotation`]|-|4.12.0|4.12.0||
 |[`logging`]|-|1.3.0|1.3.0||
-|[`matcher`]|-|0.12.18|0.12.18||
-|[`meta`]|-|1.18.1|1.18.1||
+|[`matcher`]|-|0.12.20|0.12.20||
+|[`meta`]|-|1.18.3|1.18.3||
 |[`mime`]|-|1.0.6|2.0.0||
 |[`path`]|-|1.9.1|1.9.1||
 |[`pointycastle`]|-|3.9.1|4.0.0||
-|[`posix`]|-|4.1.0|6.0.3||
+|[`posix`]|-|4.1.0|6.5.0||
 |[`pub_semver`]|-|2.2.0|2.2.0||
 |[`pubspec2`]|-|2.4.2|4.0.0|**Discontinued**|
 |[`pubspec_lock`]|-|3.0.2|3.0.2||
@@ -156,12 +156,12 @@ Cannot assign Web automatically to a binary only package.
 |[`sum_types`]|-|0.3.5|0.4.0||
 |[`system_info2`]|-|2.0.4|4.1.0||
 |[`term_glyph`]|-|1.2.2|1.2.2||
-|[`test_api`]|-|0.7.9|0.7.9||
+|[`test_api`]|-|0.7.12|0.7.12||
 |[`typed_data`]|-|1.4.0|1.4.0||
-|[`uuid`]|-|3.0.7|4.5.2||
+|[`uuid`]|-|3.0.7|4.5.3||
 |[`validators2`]|-|3.0.0|5.1.0||
 |[`vin_decoder`]|-|0.2.1-nullsafety|0.2.1-nullsafety||
-|[`win32`]|-|3.1.4|5.15.0||
+|[`win32`]|-|3.1.4|6.3.0||
 |[`yaml`]|-|3.1.3|3.1.3||
 </details>
 

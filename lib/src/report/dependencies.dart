@@ -376,14 +376,13 @@ Future<List<OutdatedVersionDescription>> computeOutdatedVersions(
       (pubHostedUrlFromEnv != null && pubHostedUrlFromEnv.isNotEmpty)
       ? Uri.tryParse(pubHostedUrlFromEnv)
       : null;
-  final versionListing = jsonDecode(
-    await getVersionListing(
-      name,
-      pubHostedUrl: hostedDependency.hosted?.url ?? pubHostedUriFromEnv,
-    ),
-  );
-
   try {
+    final versionListing = jsonDecode(
+      await getVersionListing(
+        name,
+        pubHostedUrl: hostedDependency.hosted?.url ?? pubHostedUriFromEnv,
+      ),
+    );
     final versions = tryGetFromJson<List<Object?>>(
       versionListing as Map<String, dynamic>,
       'versions',

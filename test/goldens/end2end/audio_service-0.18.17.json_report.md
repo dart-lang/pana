@@ -88,6 +88,9 @@ Because:
 **Swift PM-ready:** This iOS or macOS plugin supports the Swift Package Manager. See https://docs.flutter.dev/to/spm for details.
 
 
+**Built-in Kotlin-ready:** This Android plugin supports built-in Kotlin. See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors for details.
+
+
 ## 40/50 Pass static analysis
 
 ### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
@@ -118,7 +121,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |:-|:-|:-|:-|:-|
 |[`audio_service_platform_interface`]|`^0.1.3`|0.1.3|0.1.3||
 |[`audio_service_web`]|`^0.1.4`|0.1.4|0.1.4||
-|[`audio_session`]|`^0.1.25`|0.1.25|**0.2.2**||
+|[`audio_session`]|`^0.1.25`|0.1.25|**0.2.3**||
 |[`clock`]|`^1.1.0`|1.1.2|1.1.2||
 |[`flutter_cache_manager`]|`^3.3.1`|3.4.1|3.4.1||
 |[`js`]|`>=0.6.3 <0.8.0`|0.7.2|0.7.2|**Discontinued**|
@@ -128,45 +131,48 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`async`]|-|2.13.0|2.13.0||
+|[`args`]|-|2.7.0|2.7.0||
+|[`async`]|-|2.13.1|2.13.1||
 |[`characters`]|-|1.4.1|1.4.1||
-|[`code_assets`]|-|1.0.0|1.0.0||
+|[`code_assets`]|-|1.2.1|1.2.1||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`crypto`]|-|3.0.7|3.0.7||
 |[`ffi`]|-|2.2.0|2.2.0||
 |[`file`]|-|7.0.1|7.0.1||
 |[`fixnum`]|-|1.1.1|1.1.1||
-|[`glob`]|-|2.1.3|2.1.3||
-|[`hooks`]|-|1.0.1|1.0.1||
+|[`hooks`]|-|2.0.2|2.0.2||
 |[`http`]|-|1.6.0|1.6.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
+|[`jni`]|-|1.0.0|1.0.0||
+|[`jni_flutter`]|-|1.0.1|1.0.1||
 |[`logging`]|-|1.3.0|1.3.0||
 |[`material_color_utilities`]|-|0.13.0|0.13.0||
-|[`meta`]|-|1.17.0|1.18.1||
-|[`native_toolchain_c`]|-|0.17.4|0.17.4||
-|[`objective_c`]|-|9.3.0|9.3.0||
+|[`meta`]|-|1.18.3|1.18.3||
+|[`objective_c`]|-|9.4.1|9.4.1||
+|[`package_config`]|-|2.2.0|3.0.0||
 |[`path`]|-|1.9.1|1.9.1||
-|[`path_provider`]|-|2.1.5|2.1.5||
-|[`path_provider_android`]|-|2.2.22|2.2.22||
+|[`path_provider`]|-|2.1.6|2.1.6||
+|[`path_provider_android`]|-|2.3.1|2.3.1||
 |[`path_provider_foundation`]|-|2.6.0|2.6.0||
 |[`path_provider_linux`]|-|2.2.1|2.2.1||
-|[`path_provider_platform_interface`]|-|2.1.2|2.1.2||
+|[`path_provider_platform_interface`]|-|2.1.3|2.1.3||
 |[`path_provider_windows`]|-|2.3.0|2.3.0||
 |[`platform`]|-|3.1.6|3.1.6||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
 |[`pub_semver`]|-|2.2.0|2.2.0||
+|[`record_use`]|-|0.6.0|0.6.0||
 |[`source_span`]|-|1.10.2|1.10.2||
-|[`sqflite`]|-|2.4.2|2.4.2||
-|[`sqflite_android`]|-|2.4.2+2|2.4.2+2||
-|[`sqflite_common`]|-|2.5.6|2.5.6||
-|[`sqflite_darwin`]|-|2.4.2|2.4.2||
-|[`sqflite_platform_interface`]|-|2.4.0|2.4.0||
+|[`sqflite`]|-|2.4.2+1|2.4.3||
+|[`sqflite_android`]|-|2.4.2+3|2.4.3||
+|[`sqflite_common`]|-|2.5.11|2.5.11||
+|[`sqflite_darwin`]|-|2.4.2|2.4.3||
+|[`sqflite_platform_interface`]|-|2.4.0|2.4.1||
 |[`string_scanner`]|-|1.4.1|1.4.1||
-|[`synchronized`]|-|3.4.0|3.4.0||
+|[`synchronized`]|-|3.4.1|3.4.1||
 |[`term_glyph`]|-|1.2.2|1.2.2||
 |[`typed_data`]|-|1.4.0|1.4.0||
-|[`uuid`]|-|4.5.2|4.5.2||
-|[`vector_math`]|-|2.2.0|2.2.0||
+|[`uuid`]|-|4.5.3|4.5.3||
+|[`vector_math`]|-|2.4.0|2.4.0||
 |[`web`]|-|1.1.1|1.1.1||
 |[`xdg_directories`]|-|1.1.0|1.1.0||
 |[`yaml`]|-|3.1.3|3.1.3||
@@ -181,6 +187,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`flutter_cache_manager`]: https://pub.dev/packages/flutter_cache_manager
 [`js`]: https://pub.dev/packages/js
 [`rxdart`]: https://pub.dev/packages/rxdart
+[`args`]: https://pub.dev/packages/args
 [`async`]: https://pub.dev/packages/async
 [`characters`]: https://pub.dev/packages/characters
 [`code_assets`]: https://pub.dev/packages/code_assets
@@ -189,15 +196,16 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`ffi`]: https://pub.dev/packages/ffi
 [`file`]: https://pub.dev/packages/file
 [`fixnum`]: https://pub.dev/packages/fixnum
-[`glob`]: https://pub.dev/packages/glob
 [`hooks`]: https://pub.dev/packages/hooks
 [`http`]: https://pub.dev/packages/http
 [`http_parser`]: https://pub.dev/packages/http_parser
+[`jni`]: https://pub.dev/packages/jni
+[`jni_flutter`]: https://pub.dev/packages/jni_flutter
 [`logging`]: https://pub.dev/packages/logging
 [`material_color_utilities`]: https://pub.dev/packages/material_color_utilities
 [`meta`]: https://pub.dev/packages/meta
-[`native_toolchain_c`]: https://pub.dev/packages/native_toolchain_c
 [`objective_c`]: https://pub.dev/packages/objective_c
+[`package_config`]: https://pub.dev/packages/package_config
 [`path`]: https://pub.dev/packages/path
 [`path_provider`]: https://pub.dev/packages/path_provider
 [`path_provider_android`]: https://pub.dev/packages/path_provider_android
@@ -208,6 +216,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`platform`]: https://pub.dev/packages/platform
 [`plugin_platform_interface`]: https://pub.dev/packages/plugin_platform_interface
 [`pub_semver`]: https://pub.dev/packages/pub_semver
+[`record_use`]: https://pub.dev/packages/record_use
 [`source_span`]: https://pub.dev/packages/source_span
 [`sqflite`]: https://pub.dev/packages/sqflite
 [`sqflite_android`]: https://pub.dev/packages/sqflite_android

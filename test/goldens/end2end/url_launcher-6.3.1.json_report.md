@@ -45,6 +45,20 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 **Swift PM-ready:** This iOS or macOS plugin supports the Swift Package Manager. See https://docs.flutter.dev/to/spm for details.
 
 
+Built-in Kotlin support:
+
+<details>
+<summary>
+Legacy Kotlin plugin DSL detected in `android/build.gradle.kts`.
+</summary>
+
+This plugin applies Kotlin Gradle Plugin (KGP) or uses `android.kotlinOptions`.
+</details>
+
+
+**Note:** This Android plugin does not support built-in Kotlin. In the future, this might affect scoring. See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors for details.
+
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
@@ -56,12 +70,12 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`url_launcher_android`]|`^6.3.0`|6.3.28|6.3.28||
+|[`url_launcher_android`]|`^6.3.0`|6.3.30|6.3.32||
 |[`url_launcher_ios`]|`^6.2.4`|6.4.1|6.4.1||
 |[`url_launcher_linux`]|`^3.1.0`|3.2.2|3.2.2||
 |[`url_launcher_macos`]|`^3.1.0`|3.2.5|3.2.5||
 |[`url_launcher_platform_interface`]|`^2.3.0`|2.3.2|2.3.2||
-|[`url_launcher_web`]|`^2.2.0`|2.4.2|2.4.2||
+|[`url_launcher_web`]|`^2.2.0`|2.4.3|2.4.3||
 |[`url_launcher_windows`]|`^3.1.0`|3.1.5|3.1.5||
 
 <details><summary>Transitive dependencies</summary>
@@ -71,9 +85,9 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 |[`characters`]|-|1.4.1|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`material_color_utilities`]|-|0.13.0|0.13.0||
-|[`meta`]|-|1.17.0|1.18.1||
+|[`meta`]|-|1.18.3|1.18.3||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
-|[`vector_math`]|-|2.2.0|2.2.0||
+|[`vector_math`]|-|2.4.0|2.4.0||
 |[`web`]|-|1.1.1|1.1.1||
 </details>
 

@@ -146,7 +146,7 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
 |[`archive`]|`^3.0.0`|3.6.1|**4.0.9**||
-|[`matcher`]|`^0.12.10`|0.12.18|0.12.18||
+|[`matcher`]|`^0.12.10`|0.12.20|0.12.20||
 |[`path`]|`^1.8.0`|1.9.1|1.9.1||
 |[`stack_trace`]|`^1.10.0`|1.12.1|1.12.1||
 |[`sync_http`]|`^0.3.0`|0.3.1|0.3.1||
@@ -155,16 +155,16 @@ To reproduce make sure you are using the [lints_core](https://pub.dev/packages/l
 
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
-|[`async`]|-|2.13.0|2.13.0||
+|[`async`]|-|2.13.1|2.13.1||
 |[`boolean_selector`]|-|2.1.2|2.1.2||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`crypto`]|-|3.0.7|3.0.7||
-|[`meta`]|-|1.18.1|1.18.1||
+|[`meta`]|-|1.18.3|1.18.3||
 |[`source_span`]|-|1.10.2|1.10.2||
 |[`stream_channel`]|-|2.1.4|2.1.4||
 |[`string_scanner`]|-|1.4.1|1.4.1||
 |[`term_glyph`]|-|1.2.2|1.2.2||
-|[`test_api`]|-|0.7.9|0.7.9||
+|[`test_api`]|-|0.7.12|0.7.12||
 |[`typed_data`]|-|1.4.0|1.4.0||
 </details>
 
