@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:retry/retry.dart';
 
@@ -30,7 +31,6 @@ Future<PanaProcessResult> _runGit(
       'LC_ALL': 'en_US',
       // prevent git from reading host configuration files
       'HOME': homePath,
-      'GIT_CONFIG': p.join(homePath, '.gitconfig'),
       'GIT_CONFIG_GLOBAL': p.join(homePath, '.global-gitconfig'),
       'GIT_CONFIG_NOSYSTEM': '1',
       // prevent git from command prompts
@@ -79,6 +79,23 @@ class GitTool {
       maxOutputBytes: maxOutputBytes,
       createException: createException,
     );
+  }
+
+  /// Runs an arbitrary git command in the configured isolated environment.
+  ///
+  /// Exposed for tests to set up repository (e.g. `add`, `commit`)
+  /// using the exact same isolation as the production operations.
+  @visibleForTesting
+  Future<PanaProcessResult> run(List<String> args) => _run(args);
+
+  /// Configures a committer identity, to be used in test environment preparation.
+  @visibleForTesting
+  Future<void> configure({
+    String name = 'Test',
+    String email = 'test@example.com',
+  }) async {
+    await _run(['config', '--global', 'user.email', email]);
+    await _run(['config', '--global', 'user.name', name]);
   }
 
   /// Runs a git command with retry logic.
@@ -175,7 +192,11 @@ class GitTool {
     return pr.stdout.asBytes
         .splitBefore((b) => b == 0)
         .where((chunk) => chunk.isNotEmpty)
-        .map((chunk) => chunk.first == 0 ? utf8.decode(chunk.sublist(1)) : '')
+        .map(
+          (chunk) => chunk.first == 0
+              ? utf8.decode(chunk.sublist(1))
+              : utf8.decode(chunk.sublist(0)),
+        )
         .where((item) => item.isNotEmpty)
         .toList();
   }
