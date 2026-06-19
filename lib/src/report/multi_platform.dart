@@ -75,6 +75,10 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
         .where((e) => e.tag == PanaTags.isSwiftPmPlugin)
         .toList();
 
+    final legacyKotlinExplanations = explanations
+        .where((e) => e.tag == PanaTags.isLegacyKotlinPlugin)
+        .toList();
+
     // Scoring and the report only takes these platforms into account.
     final tagNames = const {
       PanaTags.platformIos: 'iOS',
@@ -143,6 +147,11 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
           '\n**Swift PM-ready:** This iOS or macOS plugin supports the Swift Package Manager. '
           'See https://docs.flutter.dev/to/spm for details.',
         ),
+      // Built-in Kotlin
+      if (legacyKotlinExplanations.isNotEmpty) ...[
+        RawParagraph('\nBuilt-in Kotlin support:'),
+        ...legacyKotlinExplanations.map(explanationToIssue),
+      ],
     ];
 
     // Determine score based on platforms, WASM, and Swift PM

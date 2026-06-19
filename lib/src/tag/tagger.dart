@@ -474,6 +474,75 @@ class Tagger {
     }
   }
 
+  /// Tag if Android plugin uses legacy Kotlin configuration.
+  void kotlinPluginTag(List<String> tags, List<Explanation> explanations) {
+    if (!_usesFlutter) return;
+    final mainPackagePubspec = _pubspecCache.pubspecOfPackage(packageName);
+
+    final flutter = mainPackagePubspec.originalYaml['flutter'];
+    if (flutter is! Map) return;
+    final plugin = flutter['plugin'];
+    if (plugin is! Map) return;
+    final isAndroidPlugin =
+        plugin['androidPackage'] is String ||
+        (plugin['platforms'] is Map && plugin['platforms']['android'] is Map);
+
+    if (!isAndroidPlugin) return;
+
+    var defaultPackagePubspec = mainPackagePubspec;
+    var defaultPackageDir = packageDir;
+    final defaultPackageName = defaultPackagePubspec
+        .originalYaml['flutter']?['plugin']?['platforms']?['android']?['default_package'];
+
+    if (defaultPackageName is String) {
+      try {
+        defaultPackagePubspec = _pubspecCache.pubspecOfPackage(
+          defaultPackageName,
+        );
+        defaultPackageDir = _pubspecCache.packageDir(defaultPackageName);
+      } catch (e) {
+        return;
+      }
+    }
+
+    final androidDir = Directory(path.join(defaultPackageDir, 'android'));
+    if (!androidDir.existsSync()) return;
+
+    final buildGradle = File(path.join(androidDir.path, 'build.gradle'));
+    final buildGradleKts = File(path.join(androidDir.path, 'build.gradle.kts'));
+
+    var hasLegacyKotlin = false;
+    String? buildGradlePath;
+
+    if (buildGradle.existsSync()) {
+      final content = buildGradle.readAsStringSync();
+      if (_hasLegacyKotlinGroovy(content)) {
+        hasLegacyKotlin = true;
+        buildGradlePath = 'android/build.gradle';
+      }
+    } else if (buildGradleKts.existsSync()) {
+      final content = buildGradleKts.readAsStringSync();
+      if (_hasLegacyKotlinKotlin(content)) {
+        hasLegacyKotlin = true;
+        buildGradlePath = 'android/build.gradle.kts';
+      }
+    }
+
+    if (hasLegacyKotlin) {
+      tags.add(PanaTags.isLegacyKotlinPlugin);
+      explanations.add(
+        Explanation(
+          'Legacy Kotlin plugin DSL detected in `$buildGradlePath`.',
+          'This plugin applies Kotlin Gradle Plugin (KGP) or uses `android.kotlinOptions`. '
+              'In the future, this might affect scoring. '
+              'Please migrate to built-in Kotlin support: '
+              'https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors',
+          tag: PanaTags.isLegacyKotlinPlugin,
+        ),
+      );
+    }
+  }
+
   /// Adds tags for the Dart runtimes that this package supports to [tags].
   ///
   /// Adds [Explanation]s to [explanations] for runtimes not supported.
@@ -639,5 +708,31 @@ class Tagger {
         ),
       );
     }
+  }
+
+  bool _hasLegacyKotlinGroovy(String content) {
+    final kgpRegexGroovy = RegExp(
+      r'''^[ \t]*apply[ \t]+plugin[ \t]*:[ \t]*(['"])(?:kotlin-android|org\.jetbrains\.kotlin\.android)\1|^[ \t]*plugins[ \t]*\{[^{}]*?(?<=[\n{])[ \t]*(?:id|alias)(?:[ \t]*\(\s*|[ \t]+)(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)(?:\s*\))?(?=[ \t]*(\n|$|\}))''',
+      multiLine: true,
+    );
+    final kotlinOptionsRegex = RegExp(
+      r'''^[ \t]*(?:[a-zA-Z0-9_]+\.)*kotlinOptions[ \t]*\{''',
+      multiLine: true,
+    );
+    return kgpRegexGroovy.hasMatch(content) ||
+        kotlinOptionsRegex.hasMatch(content);
+  }
+
+  bool _hasLegacyKotlinKotlin(String content) {
+    final kgpRegexKotlin = RegExp(
+      r'''^[ \t]*plugins[ \t]*\{[^{}]*?(?<=[\n{])[ \t]*(?:id|alias)[ \t]*\(\s*(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)\s*\)(?=[ \t]*(\n|$|\}))''',
+      multiLine: true,
+    );
+    final kotlinOptionsRegex = RegExp(
+      r'''^[ \t]*(?:[a-zA-Z0-9_]+\.)*kotlinOptions[ \t]*\{''',
+      multiLine: true,
+    );
+    return kgpRegexKotlin.hasMatch(content) ||
+        kotlinOptionsRegex.hasMatch(content);
   }
 }
