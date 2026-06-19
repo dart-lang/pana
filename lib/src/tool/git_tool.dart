@@ -190,10 +190,14 @@ class GitTool {
           GitToolException('Could not list `$ref`.', pr.asTrimmedOutput),
     );
     return pr.stdout.asBytes
-        .splitAfter((b) => b == 0)
-        .map((chunk) => chunk.where((b) => b != 0).toList())
+        .splitBefore((b) => b == 0)
         .where((chunk) => chunk.isNotEmpty)
-        .map(utf8.decode)
+        .map(
+          (chunk) => chunk.first == 0
+              ? utf8.decode(chunk.sublist(1))
+              : utf8.decode(chunk.sublist(0)),
+        )
+        .where((item) => item.isNotEmpty)
         .toList();
   }
 }
