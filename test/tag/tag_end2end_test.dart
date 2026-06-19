@@ -884,7 +884,10 @@ import 'dart:js_interop_unsafe';
       ]);
       await descriptor.create();
       final tagger = Tagger('${descriptor.io.path}/my_package');
-      _expectTagging(tagger.kotlinPluginTag, tags: isEmpty);
+      _expectTagging(
+        tagger.kotlinPluginTag,
+        tags: contains('is:built-in-kotlin'),
+      );
     });
 
     test('Legacy Kotlin KGP in Groovy -> tag and explanation', () async {
@@ -914,12 +917,13 @@ import 'dart:js_interop_unsafe';
       final tagger = Tagger('${descriptor.io.path}/my_package');
       _expectTagging(
         tagger.kotlinPluginTag,
-        tags: contains('is:legacy-kotlin-plugin'),
+        tags: isNot(contains('is:built-in-kotlin')),
         explanations: contains(
           _explanation(
             finding: contains(
               'Legacy Kotlin plugin DSL detected in `android/build.gradle`.',
             ),
+            tag: 'is:built-in-kotlin',
           ),
         ),
       );
@@ -954,12 +958,13 @@ import 'dart:js_interop_unsafe';
       final tagger = Tagger('${descriptor.io.path}/my_package');
       _expectTagging(
         tagger.kotlinPluginTag,
-        tags: contains('is:legacy-kotlin-plugin'),
+        tags: isNot(contains('is:built-in-kotlin')),
         explanations: contains(
           _explanation(
             finding: contains(
               'Legacy Kotlin plugin DSL detected in `android/build.gradle.kts`.',
             ),
+            tag: 'is:built-in-kotlin',
           ),
         ),
       );
@@ -995,7 +1000,15 @@ import 'dart:js_interop_unsafe';
       final tagger = Tagger('${descriptor.io.path}/my_package');
       _expectTagging(
         tagger.kotlinPluginTag,
-        tags: contains('is:legacy-kotlin-plugin'),
+        tags: isNot(contains('is:built-in-kotlin')),
+        explanations: contains(
+          _explanation(
+            finding: contains(
+              'Legacy Kotlin plugin DSL detected in `android/build.gradle`.',
+            ),
+            tag: 'is:built-in-kotlin',
+          ),
+        ),
       );
     });
   });
@@ -1004,8 +1017,9 @@ import 'dart:js_interop_unsafe';
 Matcher _explanation({
   Object? finding = anything,
   Object? explanation = anything,
+  Object? tag = anything,
 }) {
-  return allOf(HasFinding(finding), _HasDescription(explanation));
+  return allOf(HasFinding(finding), _HasDescription(explanation), _HasTag(tag));
 }
 
 class _HasDescription extends CustomMatcher {
@@ -1021,4 +1035,11 @@ class HasFinding extends CustomMatcher {
 
   @override
   String featureValueOf(Object? actual) => (actual as Explanation).finding;
+}
+
+class _HasTag extends CustomMatcher {
+  _HasTag(Object? matcher) : super('Explanation with a', 'tag', matcher);
+
+  @override
+  String? featureValueOf(Object? actual) => (actual as Explanation).tag;
 }

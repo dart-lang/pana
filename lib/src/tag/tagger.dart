@@ -529,17 +529,15 @@ class Tagger {
     }
 
     if (hasLegacyKotlin) {
-      tags.add(PanaTags.isLegacyKotlinPlugin);
       explanations.add(
         Explanation(
           'Legacy Kotlin plugin DSL detected in `$buildGradlePath`.',
-          'This plugin applies Kotlin Gradle Plugin (KGP) or uses `android.kotlinOptions`. '
-              'In the future, this might affect scoring. '
-              'Please migrate to built-in Kotlin support: '
-              'https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors',
-          tag: PanaTags.isLegacyKotlinPlugin,
+          'This plugin applies Kotlin Gradle Plugin (KGP) or uses `android.kotlinOptions`.',
+          tag: PanaTags.isBuiltInKotlin,
         ),
       );
+    } else {
+      tags.add(PanaTags.isBuiltInKotlin);
     }
   }
 

@@ -75,8 +75,9 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
         .where((e) => e.tag == PanaTags.isSwiftPmPlugin)
         .toList();
 
-    final legacyKotlinExplanations = explanations
-        .where((e) => e.tag == PanaTags.isLegacyKotlinPlugin)
+    final isBuiltInKotlinReady = tags.contains(PanaTags.isBuiltInKotlin);
+    final kotlinExplanations = explanations
+        .where((e) => e.tag == PanaTags.isBuiltInKotlin)
         .toList();
 
     // Scoring and the report only takes these platforms into account.
@@ -148,9 +149,21 @@ Future<ReportSection> multiPlatform(PackageContext context) async {
           'See https://docs.flutter.dev/to/spm for details.',
         ),
       // Built-in Kotlin
-      if (legacyKotlinExplanations.isNotEmpty) ...[
-        RawParagraph('\nBuilt-in Kotlin support:'),
-        ...legacyKotlinExplanations.map(explanationToIssue),
+      if (isBuiltInKotlinReady || kotlinExplanations.isNotEmpty) ...[
+        if (kotlinExplanations.isNotEmpty) ...[
+          RawParagraph('\nBuilt-in Kotlin support:'),
+          ...kotlinExplanations.map(explanationToIssue),
+          RawParagraph(
+            '\n**Note:** This Android plugin does not support built-in Kotlin. '
+            'In the future, this might affect scoring. '
+            'See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors for details.',
+          ),
+        ] else if (isBuiltInKotlinReady) ...[
+          RawParagraph(
+            '\n**Built-in Kotlin-ready:** This Android plugin supports built-in Kotlin. '
+            'See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors for details.',
+          ),
+        ],
       ],
     ];
 

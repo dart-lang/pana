@@ -104,6 +104,7 @@ void main() {
         reportSection.summary,
         isNot(contains('Legacy Kotlin plugin DSL detected')),
       );
+      expect(reportSection.summary, contains('Built-in Kotlin-ready'));
     });
   });
 }
