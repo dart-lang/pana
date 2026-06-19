@@ -111,8 +111,8 @@ No dependencies.
 |[`characters`]|-|1.4.1|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`material_color_utilities`]|-|0.13.0|0.13.0||
-|[`meta`]|-|1.18.3|1.18.3||
-|[`vector_math`]|-|2.4.0|2.4.0||
+|[`meta`]|-|1.18.1|1.18.1||
+|[`vector_math`]|-|2.2.0|2.2.0||
 </details>
 
 To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-dependency-overrides`.
