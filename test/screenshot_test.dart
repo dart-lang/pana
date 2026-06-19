@@ -9,7 +9,7 @@ import 'package:pana/src/package_context.dart';
 import 'package:pana/src/report/create_report.dart';
 import 'package:pana/src/sandbox_runner.dart';
 import 'package:pana/src/screenshots.dart';
-import 'package:pana/src/tool/web_tool.dart';
+import 'package:pana/src/tool/webp_tool.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:test/test.dart';

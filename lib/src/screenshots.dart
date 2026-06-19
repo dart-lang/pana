@@ -10,7 +10,7 @@ import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart' as p;
 
 import '../pana.dart';
-import 'tool/web_tool.dart';
+import 'tool/webp_tool.dart';
 
 final _maxFileSizeInMegaBytes = 4;
 final _maxFileSizeInBytes = _maxFileSizeInMegaBytes * (1024 * 1024);
