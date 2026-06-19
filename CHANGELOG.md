@@ -1,5 +1,6 @@
 ## 0.23.12
 
+- Detect legacy Kotlin Gradle Plugin application and `kotlinOptions` in Android plugins.
 - Only subtract points for missing swiftpm support for actual darwin plugins.
 
 ## 0.23.11
