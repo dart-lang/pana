@@ -76,6 +76,7 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/session.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -516,13 +517,13 @@ class Tagger {
 
     if (buildGradle.existsSync()) {
       final content = buildGradle.readAsStringSync();
-      if (_hasLegacyKotlinGroovy(content)) {
+      if (hasLegacyKotlinGroovy(content)) {
         hasLegacyKotlin = true;
         buildGradlePath = 'android/build.gradle';
       }
     } else if (buildGradleKts.existsSync()) {
       final content = buildGradleKts.readAsStringSync();
-      if (_hasLegacyKotlinKotlin(content)) {
+      if (hasLegacyKotlinKotlin(content)) {
         hasLegacyKotlin = true;
         buildGradlePath = 'android/build.gradle.kts';
       }
@@ -708,7 +709,8 @@ class Tagger {
     }
   }
 
-  bool _hasLegacyKotlinGroovy(String content) {
+  @visibleForTesting
+  static bool hasLegacyKotlinGroovy(String content) {
     // Matches the Kotlin Gradle Plugin (KGP) application in Groovy DSL (build.gradle).
     //
     // Ported from Flutter SDK's FlutterPluginUtils.kgpRegexGroovy:
@@ -763,7 +765,8 @@ class Tagger {
         kotlinOptionsRegex.hasMatch(content);
   }
 
-  bool _hasLegacyKotlinKotlin(String content) {
+  @visibleForTesting
+  static bool hasLegacyKotlinKotlin(String content) {
     // Matches the Kotlin Gradle Plugin (KGP) application in Kotlin DSL (build.gradle.kts).
     //
     // Ported from Flutter SDK's FlutterPluginUtils.kgpRegexKotlin:
