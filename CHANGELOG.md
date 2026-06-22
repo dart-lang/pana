@@ -2,6 +2,8 @@
 
 - Detect legacy Kotlin Gradle Plugin application and `kotlinOptions` in Android plugins.
 - Upgraded dependencies to the latest.
+- Run static analysis on `lib/` and `bin/` instead of the whole package, so a large `test/` 
+  directory can no longer exceed the analyzer output limit and fail analysis.
 
 ## 0.23.12
 

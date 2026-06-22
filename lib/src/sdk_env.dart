@@ -262,13 +262,13 @@ class ToolEnvironment {
 
   Future<String> runAnalyzer(
     String packageDir,
-    String dir,
+    List<String> analysisTargets,
     bool usesFlutter, {
     required InspectOptions inspectOptions,
   }) async {
     return await _withRestrictedAnalysisOptions(packageDir, () async {
       final proc = await _sandboxRunner.runSandboxed(
-        [..._dartSdk.dartAnalyzeCmd, '--format', 'machine', dir],
+        [..._dartSdk.dartAnalyzeCmd, '--format', 'machine', ...analysisTargets],
         environment: _dartSdk.environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
@@ -284,7 +284,7 @@ class ToolEnvironment {
         throw ToolException('Running `dart analyze` timed out.', proc);
       }
       if ('\n$output'.contains('\nUnhandled exception:\n')) {
-        if (output.contains('No dart files found at: .')) {
+        if (output.contains('No dart files found at:')) {
           log.warning('`dart analyze` found no files to analyze.');
         } else {
           log.severe('Bad input?: $output');

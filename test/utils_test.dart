@@ -3,8 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:pana/src/utils.dart';
+import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
@@ -36,6 +38,34 @@ void main() {
 
     test('non-ascii text', () {
       expect(nonAsciiRuneRatio('封装http业务接口'), 0.6);
+    });
+  });
+
+  group('analysisTargetPaths', () {
+    late Directory dir;
+
+    setUp(() {
+      dir = Directory.systemTemp.createTempSync('pana-analysis-targets');
+      File(p.join(dir.path, 'pubspec.yaml')).writeAsStringSync('name: x\n');
+    });
+
+    tearDown(() => dir.deleteSync(recursive: true));
+
+    test('only existing targets are returned', () {
+      expect(analysisTargetPaths(dir.path), ['pubspec.yaml']);
+
+      Directory(p.join(dir.path, 'lib')).createSync();
+      expect(analysisTargetPaths(dir.path), ['pubspec.yaml', 'lib']);
+
+      Directory(p.join(dir.path, 'bin')).createSync();
+      expect(analysisTargetPaths(dir.path), ['pubspec.yaml', 'bin', 'lib']);
+    });
+
+    test('non-target directories are excluded', () {
+      Directory(p.join(dir.path, 'lib')).createSync();
+      Directory(p.join(dir.path, 'test')).createSync();
+      Directory(p.join(dir.path, 'example')).createSync();
+      expect(analysisTargetPaths(dir.path), ['pubspec.yaml', 'lib']);
     });
   });
 }
