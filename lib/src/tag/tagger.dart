@@ -709,27 +709,100 @@ class Tagger {
   }
 
   bool _hasLegacyKotlinGroovy(String content) {
+    // Matches the Kotlin Gradle Plugin (KGP) application in Groovy DSL (build.gradle).
+    //
+    // Ported from Flutter SDK's FlutterPluginUtils.kgpRegexGroovy:
+    // https://github.com/flutter/flutter/blob/main/packages/flutter_tools/gradle/src/main/kotlin/FlutterPluginUtils.kt
+    //
+    // This regex matches two main patterns:
+    // 1. Legacy apply plugin syntax:
+    //    apply plugin: 'kotlin-android'
+    // 2. Modern plugins block syntax (with or without parentheses):
+    //    plugins {
+    //        id 'org.jetbrains.kotlin.android'
+    //    }
+    //    or using version catalog:
+    //    plugins {
+    //        alias(libs.plugins.kotlin.android)
+    //    }
+    final applyPluginPattern =
+        r'''^[ \t]*apply[ \t]+plugin[ \t]*:[ \t]*(['"])(?:kotlin-android|org\.jetbrains\.kotlin\.android)\1''';
+
+    final pluginsStart = r'^[ \t]*plugins[ \t]*\{';
+    final insideBlockLazy = r'[^{}]*?';
+    final startOfLineInBlock = r'(?<=[\n{])[ \t]*';
+    final idOrAlias = r'(?:id|alias)';
+    final separator = r'(?:[ \t]*\(\s*|[ \t]+)'; // e.g. "id(" or "id "
+    final pluginTargets =
+        r'''(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)''';
+    final closingParenthesis = r'(?:\s*\))?';
+    final endOfStatement = r'(?=[ \t]*(\n|$|\}))';
+
+    final pluginsBlockPattern =
+        '$pluginsStart$insideBlockLazy$startOfLineInBlock'
+        '$idOrAlias$separator$pluginTargets$closingParenthesis$endOfStatement';
+
     final kgpRegexGroovy = RegExp(
-      r'''^[ \t]*apply[ \t]+plugin[ \t]*:[ \t]*(['"])(?:kotlin-android|org\.jetbrains\.kotlin\.android)\1|^[ \t]*plugins[ \t]*\{[^{}]*?(?<=[\n{])[ \t]*(?:id|alias)(?:[ \t]*\(\s*|[ \t]+)(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)(?:\s*\))?(?=[ \t]*(\n|$|\}))''',
+      '$applyPluginPattern|$pluginsBlockPattern',
       multiLine: true,
     );
+
+    // Matches the legacy android.kotlinOptions {} block.
+    // Example:
+    // android {
+    //     kotlinOptions { ... }
+    // }
+    // or:
+    // android.kotlinOptions { ... }
     final kotlinOptionsRegex = RegExp(
       r'''^[ \t]*(?:[a-zA-Z0-9_]+\.)*kotlinOptions[ \t]*\{''',
       multiLine: true,
     );
+
     return kgpRegexGroovy.hasMatch(content) ||
         kotlinOptionsRegex.hasMatch(content);
   }
 
   bool _hasLegacyKotlinKotlin(String content) {
+    // Matches the Kotlin Gradle Plugin (KGP) application in Kotlin DSL (build.gradle.kts).
+    //
+    // Ported from Flutter SDK's FlutterPluginUtils.kgpRegexKotlin:
+    // https://github.com/flutter/flutter/blob/main/packages/flutter_tools/gradle/src/main/kotlin/FlutterPluginUtils.kt
+    //
+    // This regex matches KGP declaration within a plugins {} block:
+    //    plugins {
+    //        id("org.jetbrains.kotlin.android")
+    //        // or
+    //        alias(libs.plugins.kotlin.android)
+    //    }
+    final pluginsStart = r'^[ \t]*plugins[ \t]*\{';
+    final insideBlockLazy = r'[^{}]*?';
+    final startOfLineInBlock = r'(?<=[\n{])[ \t]*';
+    final idOrAlias = r'(?:id|alias)';
+    final kotlinSeparator =
+        r'[ \t]*\(\s*'; // Kotlin DSL requires parentheses, e.g. "id("
+    final pluginTargets =
+        r'''(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)''';
+    final kotlinClosingParenthesis =
+        r'\s*\)'; // Kotlin DSL requires closing parenthesis ")"
+    final endOfStatement = r'(?=[ \t]*(\n|$|\}))';
+
     final kgpRegexKotlin = RegExp(
-      r'''^[ \t]*plugins[ \t]*\{[^{}]*?(?<=[\n{])[ \t]*(?:id|alias)[ \t]*\(\s*(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)\s*\)(?=[ \t]*(\n|$|\}))''',
+      '$pluginsStart$insideBlockLazy$startOfLineInBlock'
+      '$idOrAlias$kotlinSeparator$pluginTargets$kotlinClosingParenthesis$endOfStatement',
       multiLine: true,
     );
+
+    // Matches the legacy android.kotlinOptions {} block.
+    // Example:
+    // android {
+    //     kotlinOptions { ... }
+    // }
     final kotlinOptionsRegex = RegExp(
       r'''^[ \t]*(?:[a-zA-Z0-9_]+\.)*kotlinOptions[ \t]*\{''',
       multiLine: true,
     );
+
     return kgpRegexKotlin.hasMatch(content) ||
         kotlinOptionsRegex.hasMatch(content);
   }
