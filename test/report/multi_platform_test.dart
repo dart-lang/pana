@@ -54,7 +54,7 @@ void main() {
       expect(
         reportSection.summary,
         contains(
-          'Legacy Kotlin plugin DSL detected in `android/build.gradle`.',
+          'Legacy Kotlin configuration detected in `android/build.gradle`.',
         ),
       );
       expect(
