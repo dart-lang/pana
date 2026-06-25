@@ -134,8 +134,10 @@ class LibraryGraph implements DirectedGraph<Uri> {
           var dependency = uri.resolve(directive.uri.stringValue!);
 
           for (final configuration in directive.configurations) {
+            // Use lexemes to preserve source spelling of keywords such as
+            // `library` in `dart.library.js_interop`.
             final dottedName = configuration.name.tokens
-                .map((i) => i.value())
+                .map((i) => i.lexeme)
                 .join();
 
             final testValue = configuration.value?.stringValue ?? 'true';
