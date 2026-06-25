@@ -1,5 +1,6 @@
 ## 0.23.13
 
+- Detect legacy Kotlin Gradle Plugin application and `kotlinOptions` in Android plugins.
 - Upgraded dependencies to the latest.
 
 ## 0.23.12

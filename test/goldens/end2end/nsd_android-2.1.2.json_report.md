@@ -79,6 +79,20 @@ Because:
 </details>
 
 
+Built-in Kotlin support:
+
+<details>
+<summary>
+Legacy Kotlin configuration detected in `android/build.gradle`.
+</summary>
+
+This plugin applies the Kotlin Gradle Plugin (KGP) or uses the `android.kotlinOptions{}` block.
+</details>
+
+
+**Note:** This Android plugin does not support built-in Kotlin. In the future, this might affect scoring. See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors for details.
+
+
 ## 50/50 Pass static analysis
 
 ### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues

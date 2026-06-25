@@ -88,6 +88,9 @@ Because:
 **Swift PM-ready:** This iOS or macOS plugin supports the Swift Package Manager. See https://docs.flutter.dev/to/spm for details.
 
 
+**Built-in Kotlin-ready:** This Android plugin supports built-in Kotlin. See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors for details.
+
+
 ## 40/50 Pass static analysis
 
 ### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues

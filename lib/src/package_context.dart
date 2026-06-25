@@ -304,6 +304,7 @@ class PackageContext {
       tagger.nullSafetyTags(tags, explanations);
       tagger.wasmReadyTag(tags, explanations);
       tagger.swiftPackageManagerPluginTag(tags, explanations);
+      tagger.kotlinPluginTag(tags, explanations);
       if (currentSdkVersion.major >= 3) {
         tags.add(PanaTags.isDart3Compatible);
       }

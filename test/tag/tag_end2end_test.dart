@@ -855,13 +855,171 @@ import 'dart:js_interop_unsafe';
       },
     );
   });
+
+  group('kotlin plugin tag', () {
+    test('No legacy Kotlin -> no tag', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps(
+          'my_package',
+          pubspecExtras: {
+            'flutter': {
+              'plugin': {
+                'platforms': {
+                  'android': <String, dynamic>{'pluginClass': 'MyPlugin'},
+                },
+              },
+            },
+          },
+          extraFiles: [
+            d.dir('android', [
+              d.file('build.gradle', '''
+                plugins {
+                    id("com.android.library")
+                    // No KGP
+                }
+              '''),
+            ]),
+          ],
+        ),
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(
+        tagger.kotlinPluginTag,
+        tags: contains('is:built-in-kotlin'),
+      );
+    });
+
+    test('Legacy Kotlin KGP in Groovy -> tag and explanation', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps(
+          'my_package',
+          pubspecExtras: {
+            'flutter': {
+              'plugin': {
+                'platforms': {
+                  'android': <String, dynamic>{'pluginClass': 'MyPlugin'},
+                },
+              },
+            },
+          },
+          extraFiles: [
+            d.dir('android', [
+              d.file('build.gradle', '''
+                apply plugin: 'com.android.library'
+                apply plugin: 'kotlin-android'
+              '''),
+            ]),
+          ],
+        ),
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(
+        tagger.kotlinPluginTag,
+        tags: isNot(contains('is:built-in-kotlin')),
+        explanations: contains(
+          _explanation(
+            finding: contains(
+              'Legacy Kotlin configuration detected in `android/build.gradle`.',
+            ),
+            tag: 'is:built-in-kotlin',
+          ),
+        ),
+      );
+    });
+
+    test('Legacy Kotlin KGP in Kotlin DSL -> tag and explanation', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps(
+          'my_package',
+          pubspecExtras: {
+            'flutter': {
+              'plugin': {
+                'platforms': {
+                  'android': <String, dynamic>{'pluginClass': 'MyPlugin'},
+                },
+              },
+            },
+          },
+          extraFiles: [
+            d.dir('android', [
+              d.file('build.gradle.kts', '''
+                plugins {
+                    id("com.android.library")
+                    id("org.jetbrains.kotlin.android")
+                }
+              '''),
+            ]),
+          ],
+        ),
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(
+        tagger.kotlinPluginTag,
+        tags: isNot(contains('is:built-in-kotlin')),
+        explanations: contains(
+          _explanation(
+            finding: contains(
+              'Legacy Kotlin configuration detected in `android/build.gradle.kts`.',
+            ),
+            tag: 'is:built-in-kotlin',
+          ),
+        ),
+      );
+    });
+
+    test('Legacy kotlinOptions in Groovy -> tag and explanation', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps(
+          'my_package',
+          pubspecExtras: {
+            'flutter': {
+              'plugin': {
+                'platforms': {
+                  'android': <String, dynamic>{'pluginClass': 'MyPlugin'},
+                },
+              },
+            },
+          },
+          extraFiles: [
+            d.dir('android', [
+              d.file('build.gradle', '''
+                android {
+                    kotlinOptions {
+                        jvmTarget = '1.8'
+                    }
+                }
+              '''),
+            ]),
+          ],
+        ),
+      ]);
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(
+        tagger.kotlinPluginTag,
+        tags: isNot(contains('is:built-in-kotlin')),
+        explanations: contains(
+          _explanation(
+            finding: contains(
+              'Legacy Kotlin configuration detected in `android/build.gradle`.',
+            ),
+            tag: 'is:built-in-kotlin',
+          ),
+        ),
+      );
+    });
+  });
 }
 
 Matcher _explanation({
   Object? finding = anything,
   Object? explanation = anything,
+  Object? tag = anything,
 }) {
-  return allOf(HasFinding(finding), _HasDescription(explanation));
+  return allOf(HasFinding(finding), _HasDescription(explanation), _HasTag(tag));
 }
 
 class _HasDescription extends CustomMatcher {
@@ -877,4 +1035,11 @@ class HasFinding extends CustomMatcher {
 
   @override
   String featureValueOf(Object? actual) => (actual as Explanation).finding;
+}
+
+class _HasTag extends CustomMatcher {
+  _HasTag(Object? matcher) : super('Explanation with a', 'tag', matcher);
+
+  @override
+  String? featureValueOf(Object? actual) => (actual as Explanation).tag;
 }
