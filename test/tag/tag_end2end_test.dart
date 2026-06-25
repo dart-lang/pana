@@ -921,7 +921,7 @@ import 'dart:js_interop_unsafe';
         explanations: contains(
           _explanation(
             finding: contains(
-              'Legacy Kotlin plugin DSL detected in `android/build.gradle`.',
+              'Legacy Kotlin configuration detected in `android/build.gradle`.',
             ),
             tag: 'is:built-in-kotlin',
           ),
@@ -962,7 +962,7 @@ import 'dart:js_interop_unsafe';
         explanations: contains(
           _explanation(
             finding: contains(
-              'Legacy Kotlin plugin DSL detected in `android/build.gradle.kts`.',
+              'Legacy Kotlin configuration detected in `android/build.gradle.kts`.',
             ),
             tag: 'is:built-in-kotlin',
           ),
@@ -1004,7 +1004,7 @@ import 'dart:js_interop_unsafe';
         explanations: contains(
           _explanation(
             finding: contains(
-              'Legacy Kotlin plugin DSL detected in `android/build.gradle`.',
+              'Legacy Kotlin configuration detected in `android/build.gradle`.',
             ),
             tag: 'is:built-in-kotlin',
           ),
