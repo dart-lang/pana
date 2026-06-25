@@ -83,10 +83,10 @@ Built-in Kotlin support:
 
 <details>
 <summary>
-Legacy Kotlin plugin DSL detected in `android/build.gradle`.
+Legacy Kotlin configuration detected in `android/build.gradle`.
 </summary>
 
-This plugin applies Kotlin Gradle Plugin (KGP) or uses `android.kotlinOptions`.
+This plugin applies the Kotlin Gradle Plugin (KGP) or uses the `android.kotlinOptions{}` block.
 </details>
 
 

@@ -532,8 +532,8 @@ class Tagger {
     if (hasLegacyKotlin) {
       explanations.add(
         Explanation(
-          'Legacy Kotlin plugin DSL detected in `$buildGradlePath`.',
-          'This plugin applies Kotlin Gradle Plugin (KGP) or uses `android.kotlinOptions`.',
+          'Legacy Kotlin configuration detected in `$buildGradlePath`.',
+          'This plugin applies the Kotlin Gradle Plugin (KGP) or uses the `android.kotlinOptions{}` block.',
           tag: PanaTags.isBuiltInKotlin,
         ),
       );
