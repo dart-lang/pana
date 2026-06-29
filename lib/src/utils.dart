@@ -201,3 +201,12 @@ bool isAnalysisTarget(String path) {
   final parts = p.split(path);
   return parts.isNotEmpty && _binOrLibSet.contains(parts.first);
 }
+
+/// The existing analysis targets in [packageDir].
+/// This is used to scope `dart analyze`.
+List<String> analysisTargetPaths(String packageDir) {
+  return [
+    ..._topLevelTargets.where((t) => File(p.join(packageDir, t)).existsSync()),
+    ..._binOrLibSet.where((d) => Directory(p.join(packageDir, d)).existsSync()),
+  ];
+}

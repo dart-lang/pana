@@ -32,7 +32,7 @@ import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
 import 'tool/run_constrained.dart';
 import 'tool/webp_tool.dart';
-import 'utils.dart' show isAnalysisTarget, listFiles;
+import 'utils.dart' show analysisTargetPaths, isAnalysisTarget, listFiles;
 
 /// Shared (intermediate) results between different packages or versions.
 /// External systems that may be independent of the archive content may be
@@ -324,7 +324,7 @@ class PackageContext {
   }) async {
     final output = await toolEnvironment.runAnalyzer(
       packageDir,
-      '.',
+      analysisTargetPaths(packageDir),
       usesFlutter,
       inspectOptions: options,
     );
