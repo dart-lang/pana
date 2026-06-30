@@ -11,6 +11,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'analysis_options.dart';
+import 'code_problem.dart';
 import 'internal_model.dart';
 import 'logging.dart';
 import 'model.dart' show PanaRuntimeInfo;
@@ -260,18 +261,40 @@ class ToolEnvironment {
     }
   }
 
-  Future<String> runAnalyzer(
+  /// Runs `dart analyze --format machine` and returns the parsed [CodeProblem]s that apply.
+  Future<List<CodeProblem>> runAnalyze(
+    String packageDir,
+    bool usesFlutter, {
+    required InspectOptions inspectOptions,
+  }) async {
+    return await runAnalyzer(
+      packageDir,
+      '.',
+      usesFlutter,
+      inspectOptions: inspectOptions,
+    );
+  }
+
+  /// Runs `dart analyze --format machine` and returns the parsed [CodeProblem]s that apply.
+  ///
+  /// Warning: the method takes [dir] as a generic parameter, but all real-world usage should
+  ///          call it only with `.`, the parameter is kept only for API-level backwards compatibility,
+  ///          and will be removed in a future breaking change.
+  @Deprecated('Call `runAnalyze` without the [dir] parameter instead.')
+  Future<List<CodeProblem>> runAnalyzer(
     String packageDir,
     String dir,
     bool usesFlutter, {
     required InspectOptions inspectOptions,
   }) async {
     return await _withRestrictedAnalysisOptions(packageDir, () async {
+      final problemSink = _AnalyzerProblemSink(projectDir: packageDir);
       final proc = await _sandboxRunner.runSandboxed(
         [..._dartSdk.dartAnalyzeCmd, '--format', 'machine', dir],
         environment: _dartSdk.environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
+        stdoutSink: problemSink,
       );
       if (proc.wasOutputExceeded) {
         throw ToolException(
@@ -279,6 +302,7 @@ class ToolEnvironment {
           proc,
         );
       }
+      // `stdout` was consumed by [problemSink]; the joined output is `stderr`.
       final output = proc.asJoinedOutput;
       if (proc.wasTimeout) {
         throw ToolException('Running `dart analyze` timed out.', proc);
@@ -295,7 +319,13 @@ class ToolEnvironment {
             .first;
         throw ToolException('dart analyze exception: $errorMessage', proc);
       }
-      return output;
+      final parseError = problemSink.parseError;
+      if (parseError != null) {
+        Error.throwWithStackTrace(parseError, problemSink.parseStackTrace!);
+      }
+      final problems = problemSink.problems.toSet().toList();
+      problems.sort();
+      return problems;
     });
   }
 
@@ -733,4 +763,71 @@ class _DartSdk {
 extension SandboxRunnerProviderExt on ToolEnvironment {
   SandboxRunner get sandboxRunner => _sandboxRunner;
   String? get dartSdkPath => _dartSdk._config.rootPath;
+}
+
+/// Consumes the raw `stdout` of `dart analyze --format machine`, parsing each
+/// completed line into a [CodeProblem] and keeping only the ones that are
+/// analysis targets.
+class _AnalyzerProblemSink implements Sink<List<int>> {
+  final String _projectDir;
+
+  final problems = <CodeProblem>[];
+
+  /// The first [ToolException] thrown while parsing a line, if any. Once set,
+  /// the remaining lines are ignored and the error is surfaced by the caller.
+  ToolException? parseError;
+  StackTrace? parseStackTrace;
+
+  /// Bytes of the line currently being assembled (newlines are stripped).
+  final _lineBytes = <int>[];
+
+  _AnalyzerProblemSink({required String projectDir}) : _projectDir = projectDir;
+
+  @override
+  void add(List<int> chunk) {
+    if (parseError != null) {
+      return;
+    }
+    for (final byte in chunk) {
+      if (byte == 0x0a /* \n */ || byte == 0x0d /* \r */ ) {
+        _flushLine();
+      } else {
+        _lineBytes.add(byte);
+      }
+    }
+  }
+
+  @override
+  void close() {
+    // Handle a trailing line without a final newline.
+    _flushLine();
+  }
+
+  void _flushLine() {
+    if (_lineBytes.isEmpty) {
+      return;
+    }
+    if (parseError != null) {
+      return;
+    }
+    final line = utf8.decode(_lineBytes, allowMalformed: true);
+    _lineBytes.clear();
+    try {
+      final problem = parseCodeProblem(line, projectDir: _projectDir);
+      if (problem == null || !isAnalysisTarget(problem.file)) {
+        return;
+      }
+      // We are using the original pubspec.yaml to keep the source spans
+      // correct, but we want to ignore warnings about local dependencies in
+      // `dev_dependencies`.
+      if (problem.file == 'pubspec.yaml' &&
+          problem.errorCode == 'PATH_DOES_NOT_EXIST') {
+        return;
+      }
+      problems.add(problem);
+    } on ToolException catch (e, st) {
+      parseError = e;
+      parseStackTrace = st;
+    }
+  }
 }

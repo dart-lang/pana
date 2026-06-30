@@ -26,6 +26,12 @@ const _maxOutputLinesWhenKilled = 1000;
 ///
 /// When [retryIf] and [retryOptions] is set, non-zero exit codes may
 /// be retried. This setting forces [throwOnError] to set `true`.
+///
+/// When [stdoutSink] is provided, the process `stdout` is forwarded to it
+/// chunk-by-chunk instead of being accumulated in the result. In that case the
+/// `stdout` is neither counted against [maxOutputBytes] nor used to decide
+/// whether the output was exceeded; the sink is responsible for its own parsing
+/// and memory bounds. The sink is closed once the process has completed.
 Future<PanaProcessResult> runConstrained(
   List<String> arguments, {
   String? workingDirectory,
@@ -35,6 +41,7 @@ Future<PanaProcessResult> runConstrained(
   bool throwOnError = false,
   FutureOr<bool> Function(PanaProcessResult)? retryIf,
   RetryOptions? retryOptions,
+  Sink<List<int>>? stdoutSink,
 }) async {
   retryOptions ??= RetryOptions(maxAttempts: retryIf == null ? 1 : 2);
   return retryOptions.retry(
@@ -46,6 +53,7 @@ Future<PanaProcessResult> runConstrained(
         timeout: timeout,
         maxOutputBytes: maxOutputBytes,
         throwOnError: throwOnError || retryOptions!.maxAttempts > 1,
+        stdoutSink: stdoutSink,
       );
     },
     retryIf: (e) async =>
@@ -60,6 +68,7 @@ Future<PanaProcessResult> _runConstrained(
   required Duration? timeout,
   required int? maxOutputBytes,
   required bool throwOnError,
+  Sink<List<int>>? stdoutSink,
 }) async {
   timeout ??= _timeout;
   maxOutputBytes ??= _maxOutputBytes;
@@ -98,6 +107,12 @@ Future<PanaProcessResult> _runConstrained(
   final (exitCode, _, _) = await (
     process.exitCode,
     process.stdout.forEach((outLine) {
+      if (stdoutSink != null) {
+        // The sink takes over parsing and memory bounds; do not accumulate or
+        // count `stdout` against the output limit.
+        stdoutSink.add(outLine);
+        return;
+      }
       stdoutLines.add(outLine);
       remainingBytes -= outLine.length;
       if (remainingBytes < 0) {
@@ -116,6 +131,7 @@ Future<PanaProcessResult> _runConstrained(
   ).wait;
 
   timer.cancel();
+  stdoutSink?.close();
 
   final PanaProcessResult result;
   if (killed) {

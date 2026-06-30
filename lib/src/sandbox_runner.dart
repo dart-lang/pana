@@ -48,6 +48,7 @@ class SandboxRunner {
     bool writableCurrentDir = false,
     bool writablePubCacheDir = false,
     int? maxOutputBytes,
+    Sink<List<int>>? stdoutSink,
   }) async {
     environment ??= const <String, String>{};
     final allOutputFolders = <String>{
@@ -69,6 +70,7 @@ class SandboxRunner {
       timeout: timeout,
       throwOnError: throwOnError,
       maxOutputBytes: maxOutputBytes,
+      stdoutSink: stdoutSink,
     );
   }
 }
