@@ -854,6 +854,32 @@ import 'dart:js_interop_unsafe';
         _expectTagging(tagger.wasmReadyTag, tags: contains('is:wasm-ready'));
       },
     );
+
+    test('Included with dart.library.js_interop conditional export', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps(
+          'my_package',
+          lib: [
+            d.file('my_package.dart', '''
+export 'src/native.dart'
+    if (dart.library.js_interop) 'src/web.dart';
+'''),
+            d.dir('src', [
+              d.file('native.dart', '''
+import 'dart:io';
+'''),
+              d.file('web.dart', '''
+import 'dart:js_interop';
+'''),
+            ]),
+          ],
+        ),
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(tagger.wasmReadyTag, tags: contains('is:wasm-ready'));
+    });
   });
 
   group('kotlin plugin tag', () {
