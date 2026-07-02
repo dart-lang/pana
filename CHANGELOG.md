@@ -1,6 +1,7 @@
 ## 0.23.14
 
 - Fix: use `lexeme` in `package:analyzer` to properly detect conditional imports.
+- Stream processing of `dart analyze` stdout for better and more resilient parsing.
 
 ## 0.23.13
 
