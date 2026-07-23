@@ -164,6 +164,16 @@ String updatePassthroughOptions({
     customMap['include'] = newInclude;
   }
 
+  // Temporary override as `dart analyze` hasn't recognized the `@example` directive yet.
+  // TODO(https://github.com/dart-lang/sdk/pull/63646): remove after the SDK supporting it becomes stable
+  final customAnalyzer =
+      customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
+  final customErrors =
+      customAnalyzer.putIfAbsent('errors', () => <String, Object?>{}) as Map;
+  if (!customErrors.containsKey('doc_directive_unknown')) {
+    customErrors['doc_directive_unknown'] = 'ignore';
+  }
+
   return json.encode(customMap);
 }
 

@@ -1,3 +1,7 @@
+## 0.23.15
+
+- Temporarily ignore the `doc_directive_unknown` lint in `analysis_options.yaml`.
+
 ## 0.23.14
 
 - Fix: use `lexeme` in `package:analyzer` to properly detect conditional imports.
