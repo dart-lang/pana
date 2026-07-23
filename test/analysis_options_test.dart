@@ -22,7 +22,11 @@ void main() {
 
   test('passthrough for empty options', () {
     final content = updatePassthroughOptions(original: '', custom: '');
-    expect(json.decode(content), <String, Object?>{});
+    expect(json.decode(content), <String, Object?>{
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
+      },
+    });
   });
 
   test('passthrough for most options', () {
@@ -44,7 +48,11 @@ formatter:
     );
     expect(json.decode(content), {
       'analyzer': {
-        'errors': {'todo': 'ignore', 'uri_has_not_been_generated': 'ignore'},
+        'errors': {
+          'todo': 'ignore',
+          'uri_has_not_been_generated': 'ignore',
+          'doc_directive_unknown': 'ignore',
+        },
         'enable-experiment': ['macros'],
       },
       'formatter': {
@@ -76,6 +84,7 @@ linter:
         'errors': {
           'another-todo': 'ignore',
           'uri_has_not_been_generated': 'ignore',
+          'doc_directive_unknown': 'ignore',
         },
       },
       'linter': isNotEmpty,
@@ -105,6 +114,9 @@ linter:
           'public_member_api_docs': false,
         },
       },
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
+      },
     });
   });
 
@@ -114,7 +126,12 @@ linter:
       custom: '',
       useAnalysisIncludes: true,
     );
-    expect(json.decode(content), {'include': 'package:lints/other.yaml'});
+    expect(json.decode(content), {
+      'include': 'package:lints/other.yaml',
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
+      },
+    });
   });
 
   test('update includes from original', () {
@@ -128,6 +145,9 @@ linter:
     );
     expect(json.decode(content), {
       'include': ['package:lints/other.yaml', 'package:lints/core.yaml'],
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
+      },
     });
   });
 
@@ -138,6 +158,9 @@ linter:
     );
     expect(json.decode(content), <String, Object?>{
       'include': 'package:lints/other.yaml',
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
+      },
     });
   });
 
@@ -149,6 +172,9 @@ linter:
     );
     expect(json.decode(content), <String, Object?>{
       'include': 'package:lints/other.yaml',
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
+      },
     });
   });
 
@@ -159,12 +185,19 @@ linter:
     );
     expect(json.decode(content), <String, Object?>{
       'include': 'package:lints/core.yaml',
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
+      },
     });
   });
 
   test('keep include without include value', () {
     final content = updatePassthroughOptions(original: '', custom: '');
-    expect(json.decode(content), <String, Object?>{});
+    expect(json.decode(content), <String, Object?>{
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
+      },
+    });
   });
 
   test('type check', () {
@@ -188,6 +221,9 @@ linter:
           'deprecated_member_use_from_same_package': true,
           'a': 'ignore',
         },
+      },
+      'analyzer': {
+        'errors': {'doc_directive_unknown': 'ignore'},
       },
     });
   });
