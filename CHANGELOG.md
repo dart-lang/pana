@@ -1,3 +1,9 @@
+## 0.23.15
+
+- Set `PANA_OPT_OUT_DARTDOC_SANITIZE_HTML` environment variable to `true`
+  to skip `--sanitize-html` CLI arg when running `dartdoc`. This is an internal,
+  temporary option, which will be changed (or reverted) in a future release.
+
 ## 0.23.14
 
 - Fix: use `lexeme` in `package:analyzer` to properly detect conditional imports.
