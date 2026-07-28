@@ -489,10 +489,12 @@ class ToolEnvironment {
               ? p.join(_dartSdk.flutterRootEnvVar!, 'bin', 'cache', 'dart-sdk')
               : null)
         : _dartSdk._config.rootPath;
+    final optOutDartdocSanitizeHtml =
+        Platform.environment['PANA_OPT_OUT_DARTDOC_SANITIZE_HTML'] == 'true';
     final args = [
       '--output',
       outputDir,
-      '--sanitize-html',
+      if (!optOutDartdocSanitizeHtml) '--sanitize-html',
       '--max-file-count',
       '$_defaultMaxFileCount',
       '--max-total-size',
