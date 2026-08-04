@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:convert';
 import 'dart:io' hide BytesBuilder;
 
 import 'package:http/http.dart' as http;
@@ -61,14 +60,14 @@ List<String> dartFilesFromLib(String packageDir) {
 
 @visibleForTesting
 Object? sortedJson(Object? obj) {
-  final fullJson = json.decode(json.encode(obj));
-  return _toSortedMap(fullJson);
+  return _toSortedMap(obj);
 }
 
 Object? _toSortedMap(Object? item) {
   if (item is Map) {
     return SplayTreeMap<String, Object?>.fromIterable(
       item.keys,
+      key: (k) => k.toString(),
       value: (k) => _toSortedMap(item[k]),
     );
   } else if (item is List) {
@@ -78,7 +77,24 @@ Object? _toSortedMap(Object? item) {
   }
 }
 
-Map<String, Object?>? yamlToJson(String? yamlContent) {
+/// Converts a YAML-formatted string [yamlContent] into a JSON-compatible map
+/// with alphabetically sorted keys.
+///
+/// Returns `null` if [yamlContent] is `null` or if the parsed YAML root is not a [Map].
+///
+/// Throws a [FormatException] if the YAML contains cyclic references, exceeds
+/// the maximum allowed nesting depth ([maxDepth], default `64`), or exceeds the
+/// maximum allowed node count ([maxNodes], default `10000`) during expansion.
+///
+/// Throws a [YamlException] if the YAML syntax is invalid.
+///
+/// Performance: Runs in $O(N \log K)$ time where $N$ is the number of expanded
+/// nodes (capped by [maxNodes]) and $K$ is the average number of keys per map.
+Map<String, Object?>? yamlToJson(
+  String? yamlContent, {
+  int maxDepth = 64,
+  int maxNodes = 10000,
+}) {
   if (yamlContent == null) {
     return null;
   }
@@ -87,9 +103,115 @@ Map<String, Object?>? yamlToJson(String? yamlContent) {
     return null;
   }
 
-  // A bit paranoid, but I want to make sure this is valid JSON before we got to
-  // the encode phase.
-  return sortedJson(json.decode(json.encode(yamlMap))) as Map<String, Object?>;
+  final converter = _YamlConverter(maxDepth: maxDepth, maxNodes: maxNodes);
+  final converted = converter.convert(yamlMap, 0);
+  if (converted is! Map<String, Object?>) {
+    return null;
+  }
+  return converted;
+}
+
+final class _YamlConverter {
+  final int maxDepth;
+  final int maxNodes;
+  int _nodeCount = 0;
+  final Set<Object> _ancestors = Set<Object>.identity();
+
+  _YamlConverter({required this.maxDepth, required this.maxNodes});
+
+  Object? convert(Object? node, int depth) {
+    if (depth > maxDepth) {
+      throw const FormatException(
+        'YAML structure exceeds maximum allowed depth.',
+      );
+    }
+    _nodeCount++;
+    if (_nodeCount > maxNodes) {
+      throw const FormatException(
+        'YAML structure exceeds maximum allowed node count.',
+      );
+    }
+
+    if (node is YamlScalar) {
+      return _convertScalar(node.value);
+    } else if (node is YamlMap) {
+      if (!_ancestors.add(node)) {
+        throw const FormatException('Cyclic reference detected in YAML.');
+      }
+      try {
+        final result = SplayTreeMap<String, Object?>();
+        for (final entry in node.nodes.entries) {
+          final keyStr = _convertKey(entry.key);
+          result[keyStr] = convert(entry.value, depth + 1);
+        }
+        return result;
+      } finally {
+        _ancestors.remove(node);
+      }
+    } else if (node is YamlList) {
+      if (!_ancestors.add(node)) {
+        throw const FormatException('Cyclic reference detected in YAML.');
+      }
+      try {
+        final result = <Object?>[];
+        for (final item in node.nodes) {
+          result.add(convert(item, depth + 1));
+        }
+        return result;
+      } finally {
+        _ancestors.remove(node);
+      }
+    } else if (node is Map) {
+      if (!_ancestors.add(node)) {
+        throw const FormatException('Cyclic reference detected in YAML.');
+      }
+      try {
+        final result = SplayTreeMap<String, Object?>();
+        for (final entry in node.entries) {
+          final keyStr = _convertKey(entry.key);
+          result[keyStr] = convert(entry.value, depth + 1);
+        }
+        return result;
+      } finally {
+        _ancestors.remove(node);
+      }
+    } else if (node is List) {
+      if (!_ancestors.add(node)) {
+        throw const FormatException('Cyclic reference detected in YAML.');
+      }
+      try {
+        final result = <Object?>[];
+        for (final item in node) {
+          result.add(convert(item, depth + 1));
+        }
+        return result;
+      } finally {
+        _ancestors.remove(node);
+      }
+    } else {
+      return _convertScalar(node);
+    }
+  }
+
+  String _convertKey(Object? key) {
+    if (key is YamlScalar) {
+      key = key.value;
+    }
+    if (key == null) {
+      return 'null';
+    }
+    if (key is String || key is num || key is bool) {
+      return key.toString();
+    }
+    throw FormatException('Unsupported key type in YAML: ${key.runtimeType}');
+  }
+
+  Object? _convertScalar(Object? value) {
+    if (value == null || value is String || value is num || value is bool) {
+      return value;
+    }
+    return value.toString();
+  }
 }
 
 /// Returns the ratio of non-ASCII runes (Unicode characters) in a given text:

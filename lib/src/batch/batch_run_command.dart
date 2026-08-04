@@ -6,11 +6,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:yaml/yaml.dart' as yaml;
 
 import '../package_analyzer.dart';
 import '../sdk_env.dart' show SdkConfig, ToolEnvironment;
-import '../utils.dart' show withTempDir;
+import '../utils.dart' show withTempDir, yamlToJson;
 import 'batch_model.dart';
 
 /// Runs pana on the selected packages.
@@ -86,7 +85,11 @@ class BatchRunCommand extends Command<void> {
     if (file.existsSync()) {
       var content = await file.readAsString();
       if (file.path.endsWith('.yaml')) {
-        content = json.encode(yaml.loadYaml(content));
+        final parsed = yamlToJson(content);
+        if (parsed == null) {
+          throw ArgumentError('Unable to load config: `$arg`.');
+        }
+        return BatchConfig.fromJson(parsed);
       }
       return BatchConfig.fromJson(json.decode(content) as Map<String, dynamic>);
     }
