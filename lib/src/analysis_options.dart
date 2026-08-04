@@ -90,14 +90,16 @@ String updatePassthroughOptions({
   if (original != null) {
     try {
       origMap = yamlToJson(original);
-    } catch (_) {}
+    } on FormatException {
+      // pass, ignore broken YAML
+    }
   }
   origMap ??= {};
 
   Map customMap;
   try {
     customMap = yamlToJson(custom) ?? <String, dynamic>{};
-  } catch (_) {
+  } on FormatException {
     customMap = <String, dynamic>{};
   }
 
