@@ -102,7 +102,8 @@ class GitLocalRepository {
 
   /// Return the String content of the file in [branch] and [path].
   ///
-  /// Throws [GitToolException] if the git command fails.
+  /// Throws [GitToolException] if the git command fails, if the branch or path
+  /// format is invalid, or if output exceeds [maxOutputBytes].
   Future<String> showStringContent(
     String branch,
     String path, {
@@ -111,7 +112,11 @@ class GitLocalRepository {
     _assertBranchFormat(branch);
     _assertPathFormat(path);
     await _fetch(branch, 1);
-    return await _gitTool.showFile('origin/$branch', path);
+    return await _gitTool.showFile(
+      'origin/$branch',
+      path,
+      maxOutputBytes: maxOutputBytes,
+    );
   }
 
   /// List file names of [branch].

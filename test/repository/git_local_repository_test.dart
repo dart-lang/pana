@@ -91,6 +91,18 @@ void main() {
         final content = await repo.showStringContent(branch, 'bin/pana.dart');
         expect(content, contains('main(List<String> args)'));
       });
+
+      test('maxOutputBytes exceeded', () async {
+        final branch = await repo.detectDefaultBranch();
+        await expectLater(
+          () => repo.showStringContent(
+            branch,
+            'bin/pana.dart',
+            maxOutputBytes: 10,
+          ),
+          throwsA(isA<GitToolException>()),
+        );
+      });
     });
 
     group('list files', () {
