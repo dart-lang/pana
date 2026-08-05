@@ -2,14 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
-import 'code_problem.dart';
 import 'dartdoc/dartdoc.dart';
 import 'dartdoc/dartdoc_options.dart';
 import 'download_utils.dart';
@@ -32,7 +29,7 @@ import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
 import 'tool/run_constrained.dart';
 import 'tool/webp_tool.dart';
-import 'utils.dart' show isAnalysisTarget, listFiles;
+import 'utils.dart' show listFiles;
 
 /// Shared (intermediate) results between different packages or versions.
 /// External systems that may be independent of the archive content may be
@@ -213,7 +210,7 @@ class PackageContext {
         return '`$tool pub downgrade` failed with:\n\n```\n${pr.asTrimmedOutput}\n```\n';
       }
 
-      final problems = await _staticAnalysis(packageDir: packageDir);
+      final problems = await _staticAnalysis();
       final errors = problems.where((e) => e.isError).toList();
       if (errors.isEmpty) {
         log.info('[pub-downgrade-success]');
@@ -284,7 +281,7 @@ class PackageContext {
     } else {
       log.info('Analyzing package...');
       try {
-        items = await _staticAnalysis(packageDir: packageDir);
+        items = await _staticAnalysis();
       } on ToolException catch (e) {
         errors.add(messages.runningDartAnalyzerFailed(usesFlutter, e.message));
         return AnalyzeToolResult.toolError(e);
@@ -319,29 +316,12 @@ class PackageContext {
     );
   }();
 
-  Future<List<CodeProblem>> _staticAnalysis({
-    required String packageDir,
-  }) async {
-    final output = await toolEnvironment.runAnalyzer(
+  Future<List<CodeProblem>> _staticAnalysis() async {
+    return await toolEnvironment.runAnalyze(
       packageDir,
-      '.',
       usesFlutter,
       inspectOptions: options,
     );
-    final list = LineSplitter.split(output)
-        .map((s) => parseCodeProblem(s, projectDir: packageDir))
-        .nonNulls
-        .toSet()
-        .where((c) => isAnalysisTarget(c.file))
-        // we are using the original pubspec.yaml to keep the source spans correct,
-        // but we want to ignore warnings about local dependencies in `dev_dependencies`.
-        .whereNot(
-          (c) =>
-              c.file == 'pubspec.yaml' && c.errorCode == 'PATH_DOES_NOT_EXIST',
-        )
-        .toList();
-    list.sort();
-    return list;
   }
 
   late final Future<Outdated> outdated = toolEnvironment.runPubOutdated(
