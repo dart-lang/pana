@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:collection';
 import 'dart:io' hide BytesBuilder;
 
 import 'package:http/http.dart' as http;
@@ -65,11 +64,12 @@ Object? sortedJson(Object? obj) {
 
 Object? _toSortedMap(Object? item) {
   if (item is Map) {
-    return SplayTreeMap<String, Object?>.fromIterable(
-      item.keys,
-      key: (k) => k.toString(),
-      value: (k) => _toSortedMap(item[k]),
-    );
+    final sortedKeys = item.keys.map((k) => k.toString()).toList()..sort();
+    final result = <String, Object?>{};
+    for (final k in sortedKeys) {
+      result[k] = _toSortedMap(item[k]);
+    }
+    return result;
   } else if (item is List) {
     return item.map(_toSortedMap).toList();
   } else {
@@ -139,10 +139,13 @@ final class _YamlConverter {
         throw const FormatException('Cyclic reference detected in YAML.');
       }
       try {
-        final result = SplayTreeMap<String, Object?>();
-        for (final entry in node.nodes.entries) {
-          final keyStr = _convertKey(entry.key);
-          result[keyStr] = convert(entry.value, depth + 1);
+        final entries = [
+          for (final entry in node.nodes.entries)
+            MapEntry(_convertKey(entry.key), entry.value),
+        ]..sort((a, b) => a.key.compareTo(b.key));
+        final result = <String, Object?>{};
+        for (final entry in entries) {
+          result[entry.key] = convert(entry.value, depth + 1);
         }
         return result;
       } finally {
@@ -166,10 +169,13 @@ final class _YamlConverter {
         throw const FormatException('Cyclic reference detected in YAML.');
       }
       try {
-        final result = SplayTreeMap<String, Object?>();
-        for (final entry in node.entries) {
-          final keyStr = _convertKey(entry.key);
-          result[keyStr] = convert(entry.value, depth + 1);
+        final entries = [
+          for (final entry in node.entries)
+            MapEntry(_convertKey(entry.key), entry.value),
+        ]..sort((a, b) => a.key.compareTo(b.key));
+        final result = <String, Object?>{};
+        for (final entry in entries) {
+          result[entry.key] = convert(entry.value, depth + 1);
         }
         return result;
       } finally {
