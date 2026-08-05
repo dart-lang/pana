@@ -160,7 +160,7 @@
   "screenshots": [],
   "result": {
     "repositoryUrl": "https://github.com/inlavigo/gg.git",
-    "repositoryStatus": "inconclusive",
+    "repositoryStatus": "missing",
     "licenses": [
       {
         "spdxIdentifier": "MIT",

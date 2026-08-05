@@ -85,11 +85,27 @@ Future<VerifiedRepository> checkRepository({
     log.info(message, error, st);
   }
 
+  final cloneUrl = parsedSourceUrl.cloneUrl;
+  final urlStatus = await sharedContext.checkUrlStatus(cloneUrl);
+  if (urlStatus.isInvalid) {
+    return VerifiedRepository(
+      status: RepositoryStatus.invalid,
+      verificationFailure: 'Repository URL `$cloneUrl` is not valid or secure.',
+    );
+  }
+  if (!urlStatus.exists) {
+    return VerifiedRepository(
+      status: RepositoryStatus.missing,
+      verificationFailure:
+          'Repository URL `$cloneUrl` does not exist or is not reachable.',
+    );
+  }
+
   late GitLocalRepository repo;
   try {
     repo = await GitLocalRepository.createLocalRepository(
       sharedContext.toolEnvironment.sandboxRunner,
-      parsedSourceUrl.cloneUrl,
+      cloneUrl,
     );
     branch = await repo.detectDefaultBranch();
 

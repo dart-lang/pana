@@ -20,6 +20,10 @@ Future<void> normalizeDartdocOptionsYaml(String packageDir) async {
     // pass, ignore broken file
   }
   final updatedContent = _customizeDartdocOptions(originalContent);
+  if (await FileSystemEntity.type(optionsFile.path, followLinks: false) ==
+      FileSystemEntityType.link) {
+    await Link(optionsFile.path).delete();
+  }
   await optionsFile.writeAsString(json.encode(updatedContent));
 }
 

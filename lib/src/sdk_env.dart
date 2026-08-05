@@ -238,8 +238,14 @@ class ToolEnvironment {
     final analysisOptionsFile = File(
       p.join(packageDir, 'analysis_options.yaml'),
     );
+    final isLink =
+        await FileSystemEntity.type(
+          analysisOptionsFile.path,
+          followLinks: false,
+        ) ==
+        FileSystemEntityType.link;
     String? originalOptions;
-    if (await analysisOptionsFile.exists()) {
+    if (!isLink && await analysisOptionsFile.exists()) {
       originalOptions = await analysisOptionsFile.readAsString();
     }
     final rawOptionsContent = await getDefaultAnalysisOptionsYaml();
@@ -248,12 +254,17 @@ class ToolEnvironment {
       custom: rawOptionsContent,
       useAnalysisIncludes: _useAnalysisIncludes,
     );
+    if (isLink) {
+      await Link(analysisOptionsFile.path).delete();
+    }
     try {
       await analysisOptionsFile.writeAsString(customOptionsContent);
       return await fn();
     } finally {
       if (originalOptions == null) {
-        await analysisOptionsFile.delete();
+        if (await analysisOptionsFile.exists()) {
+          await analysisOptionsFile.delete();
+        }
       } else {
         await analysisOptionsFile.writeAsString(originalOptions);
       }

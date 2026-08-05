@@ -48,17 +48,33 @@ void main() {
       );
     });
 
-    test('inaccessible repository', () async {
+    test(
+      'private/loopback URL is rejected without git access (SSRF)',
+      () async {
+        final result = await checkRepository(
+          sharedContext: SharedAnalysisContext(toolEnvironment: toolEnv),
+          packageName: 'pana',
+          sourceUrl: 'https://127.0.0.1/dart-lang/pana.git',
+        );
+        expect(result.status, RepositoryStatus.missing);
+        expect(
+          result.verificationFailure,
+          contains('does not exist or is not reachable'),
+        );
+      },
+    );
+
+    test('non-existent repository URL', () async {
       final result = await checkRepository(
         sharedContext: SharedAnalysisContext(toolEnvironment: toolEnv),
         packageName: 'pana',
         sourceUrl:
             'https://github.com/dart-lang/non-existing-repository-1234567',
       );
-      expect(result.status, RepositoryStatus.inconclusive);
+      expect(result.status, RepositoryStatus.missing);
       expect(
         result.verificationFailure,
-        contains('Unable to access git repository'),
+        contains('does not exist or is not reachable'),
       );
     });
 

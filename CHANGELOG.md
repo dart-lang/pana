@@ -1,6 +1,14 @@
 ## 0.23.17-wip
 
+- Delete symlinks before writing `dartdoc_options.yaml` and `analysis_options.yaml` to prevent out-of-tree file writes.
+- Reject screenshot paths containing colons and validate sandbox output folders.
+- Validate repository URL reachability before creating local git repository.
 - Bound `pubspec.yaml` scanning in repository verification with a timeout and enforce `maxOutputBytes` in `GitTool.showFile`.
+
+## 0.23.16
+
+- Protect against YAML alias expansion bombs (Billion Laughs), cyclic references, and extreme nesting depth in `yamlToJson`.
+>>>>>>> origin/master
 
 ## 0.23.15
 
