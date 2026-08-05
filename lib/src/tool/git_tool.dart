@@ -174,11 +174,18 @@ class GitTool {
   }
 
   /// Read the content of a file at a specific ref (e.g., 'origin/main:path/to/file').
-  Future<String> showFile(String ref, String path) async {
-    final pr = await _runWithRetry([
-      'show',
-      '$ref:$path',
-    ], createException: (_) => GitToolException('Could not read `$path`.'));
+  ///
+  /// Throws [GitToolException] if the git command fails or if output exceeds [maxOutputBytes].
+  Future<String> showFile(
+    String ref,
+    String path, {
+    int? maxOutputBytes,
+  }) async {
+    final pr = await _runWithRetry(
+      ['show', '$ref:$path'],
+      maxOutputBytes: maxOutputBytes,
+      createException: (_) => GitToolException('Could not read `$path`.'),
+    );
     return pr.stdout.asString;
   }
 

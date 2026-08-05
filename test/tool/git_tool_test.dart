@@ -58,5 +58,30 @@ void main() {
         unorderedEquals(['a-first.txt', 'b-second.txt', 'lib/c-third.dart']),
       );
     });
+
+    test('showFile returns file contents', () async {
+      final content = await gitTool.showFile('HEAD', 'a-first.txt');
+      expect(content, 'a');
+    });
+
+    test('showFile respects maxOutputBytes', () async {
+      File(
+        p.join(tempDir.path, 'repo', 'large.txt'),
+      ).writeAsStringSync('0123456789' * 100);
+      await gitTool.run(['add', 'large.txt']);
+      await gitTool.run(['commit', '-m', 'add large file']);
+
+      await expectLater(
+        () => gitTool.showFile('HEAD', 'large.txt', maxOutputBytes: 50),
+        throwsA(isA<GitToolException>()),
+      );
+
+      final content = await gitTool.showFile(
+        'HEAD',
+        'large.txt',
+        maxOutputBytes: 2000,
+      );
+      expect(content, '0123456789' * 100);
+    });
   });
 }

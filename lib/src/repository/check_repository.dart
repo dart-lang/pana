@@ -17,6 +17,7 @@ import '../tool/git_tool.dart';
 import 'git_local_repository.dart';
 
 const _maxPubspecBytes = 256 * 1024;
+const _maxPubspecCount = 100;
 
 /// Returns the repository information for the current package.
 Future<VerifiedRepository> checkRepository({
@@ -103,6 +104,13 @@ Future<VerifiedRepository> checkRepository({
         status: RepositoryStatus.failed,
         verificationFailure:
             'Could not find any `pubspec.yaml` in the repository.',
+      );
+    }
+    if (pubspecFiles.length > _maxPubspecCount) {
+      return VerifiedRepository(
+        status: RepositoryStatus.failed,
+        verificationFailure:
+            'Repository has too many `pubspec.yaml` files (found ${pubspecFiles.length}, limit is $_maxPubspecCount).',
       );
     }
 
