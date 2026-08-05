@@ -1,3 +1,7 @@
+## 0.23.17-wip
+
+- Bound `pubspec.yaml` scanning in repository verification with a timeout and enforce `maxOutputBytes` in `GitTool.showFile`.
+
 ## 0.23.15
 
 - Set `PANA_OPT_OUT_DARTDOC_SANITIZE_HTML` environment variable to `true`
