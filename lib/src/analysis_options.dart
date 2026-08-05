@@ -9,7 +9,8 @@ import 'dart:isolate';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:retry/retry.dart';
-import 'package:yaml/yaml.dart' as yaml;
+
+import 'utils.dart' show yamlToJson;
 
 final _logger = Logger('analysis_options');
 
@@ -88,14 +89,19 @@ String updatePassthroughOptions({
   Map? origMap;
   if (original != null) {
     try {
-      origMap = yaml.loadYaml(original) as Map;
-    } catch (_) {}
+      origMap = yamlToJson(original);
+    } on FormatException {
+      // pass, ignore broken YAML
+    }
   }
   origMap ??= {};
 
-  final customMap =
-      (json.decode(json.encode(yaml.loadYaml(custom))) as Map?) ??
-      <String, dynamic>{};
+  Map customMap;
+  try {
+    customMap = yamlToJson(custom) ?? <String, dynamic>{};
+  } on FormatException {
+    customMap = <String, dynamic>{};
+  }
 
   final appliedCustomRules = _extractAppliedRules(customMap);
 

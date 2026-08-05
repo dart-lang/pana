@@ -1,3 +1,7 @@
+## 0.23.16
+
+- Protect against YAML alias expansion bombs (Billion Laughs), cyclic references, and extreme nesting depth in `yamlToJson`.
+
 ## 0.23.15
 
 - Set `PANA_OPT_OUT_DARTDOC_SANITIZE_HTML` environment variable to `true`
