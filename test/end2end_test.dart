@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:pana/pana.dart';
 import 'package:path/path.dart' as p;
+import 'package:pool/pool.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
 
@@ -74,31 +75,6 @@ const _packages = [
   _PackageToVerify('_dummy_pkg', '1.0.0-null-safety.1'),
 ];
 
-final class _Pool {
-  final int _max;
-  int _running = 0;
-  final _queue = <Completer<void>>[];
-
-  _Pool(this._max);
-
-  Future<T> withResource<T>(Future<T> Function() fn) async {
-    while (_running >= _max) {
-      final completer = Completer<void>();
-      _queue.add(completer);
-      await completer.future;
-    }
-    _running++;
-    try {
-      return await fn();
-    } finally {
-      _running--;
-      if (_queue.isNotEmpty) {
-        _queue.removeAt(0).complete();
-      }
-    }
-  }
-}
-
 void main() {
   late final TestEnv testEnv;
   final results =
@@ -114,7 +90,7 @@ void main() {
       dartdocVersion: 'any',
     );
 
-    final pool = _Pool(Platform.numberOfProcessors.clamp(1, _packages.length));
+    final pool = Pool(Platform.numberOfProcessors.clamp(1, _packages.length));
     await Future.wait(
       _packages.map(
         (pkg) => pool.withResource(() async {
