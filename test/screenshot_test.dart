@@ -74,6 +74,25 @@ void main() {
       contains('Screenshot `path` property is missing.'),
     );
   });
+  test('validates path with colon', () async {
+    final pkgDir = 'my_pkg';
+
+    final s = Screenshot('d', 'a:/home:/x.png');
+    final declared = <Screenshot>[s];
+    final r = await processAllScreenshots(
+      declared,
+      pkgDir,
+      WebpTool(SandboxRunner(null)),
+    );
+
+    expect(r.length, 1);
+    expect(r.first.processedScreenshot, isNull);
+    expect(r.first.problems, isNotEmpty);
+    expect(
+      r.first.problems.first,
+      contains('Screenshot `path` must not contain a colon (`:`).'),
+    );
+  });
   test('validates long description', () async {
     final pkgDir = 'my_pkg';
 
