@@ -17,7 +17,7 @@ import '../tool/git_tool.dart';
 import 'git_local_repository.dart';
 
 const _maxPubspecBytes = 256 * 1024;
-const _maxPubspecCount = 100;
+const _maxPubspecCount = 1000;
 
 /// Returns the repository information for the current package.
 Future<VerifiedRepository> checkRepository({

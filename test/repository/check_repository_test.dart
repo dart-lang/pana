@@ -73,6 +73,17 @@ void main() {
       expect(result.repository?.repository, 'dart-lang/pana');
     });
 
+    test('verified repository in large monorepo (flutter/packages)', () async {
+      final result = await checkRepository(
+        sharedContext: SharedAnalysisContext(toolEnvironment: toolEnv),
+        packageName: 'url_launcher',
+        sourceUrl: 'https://github.com/flutter/packages',
+      );
+      expect(result.status, RepositoryStatus.verified);
+      expect(result.verificationFailure, isNull);
+      expect(result.repository?.repository, 'flutter/packages');
+    });
+
     test('package name mismatch in repository', () async {
       final result = await checkRepository(
         sharedContext: SharedAnalysisContext(toolEnvironment: toolEnv),
