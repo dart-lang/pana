@@ -119,6 +119,10 @@ List<String> _validateScreenshot(p.Screenshot screenshot, String pkgDir) {
   }
   if (screenshot.path.isEmpty) {
     problems.add('${screenshot.path}: Screenshot `path` property is missing.');
+  } else if (screenshot.path.contains(':')) {
+    problems.add(
+      '${screenshot.path}: Screenshot `path` must not contain a colon (`:`).',
+    );
   }
 
   final fullPath = path.join(pkgDir, screenshot.path);

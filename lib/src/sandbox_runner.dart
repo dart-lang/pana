@@ -35,6 +35,9 @@ class SandboxRunner {
   ///
   /// The script will restrict network access, unless
   /// `SANDBOX_NETWORK_ENABLED=true` is specified.
+  ///
+  /// It is an error if any directory path in [outputFolder], [outputFolders],
+  /// or derived writable directories contains a colon (`:`).
   Future<PanaProcessResult> runSandboxed(
     List<String> arguments, {
     String? workingDirectory,
@@ -57,6 +60,15 @@ class SandboxRunner {
       ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
       ?(writableCurrentDir ? workingDirectory : null),
     };
+    for (final folder in allOutputFolders) {
+      if (folder.contains(':')) {
+        throw ArgumentError.value(
+          folder,
+          'outputFolder',
+          'Sandbox output folder must not contain ":"',
+        );
+      }
+    }
     return await runConstrained(
       [?_executable, ...arguments],
       workingDirectory: workingDirectory,

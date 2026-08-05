@@ -1,6 +1,7 @@
 ## 0.23.17-wip
 
 - Delete symlinks before writing `dartdoc_options.yaml` and `analysis_options.yaml` to prevent out-of-tree file writes.
+- Reject screenshot paths containing colons and validate sandbox output folders.
 
 ## 0.23.16
 
