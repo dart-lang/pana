@@ -559,7 +559,10 @@ class ToolEnvironment {
       return await _sandboxRunner.runSandboxed(
         [...command, 'global', 'run', 'dartdoc', ...args],
         workingDirectory: packageDir,
-        environment: _dartSdk.environment,
+        environment: {
+          ..._dartSdk.environment,
+          'PUB_HOSTED_URL': 'https://pub.dev',
+        },
         timeout: timeout,
         outputFolder: outputDir,
         writableConfigHome: true,
