@@ -112,11 +112,12 @@ String updatePassthroughOptions({
   final existingExclude = customAnalyzer['exclude'];
   final customExclude = existingExclude is List ? existingExclude : <String>[];
   customAnalyzer['exclude'] = customExclude;
-  if (!customExclude.contains('test/**')) {
-    customExclude.add('test/**');
-  }
-  if (!customExclude.contains('example/**')) {
-    customExclude.add('example/**');
+
+  const excludeDirs = ['test/**', 'example/**'];
+  for (final dir in excludeDirs) {
+    if (!customExclude.contains(dir)) {
+      customExclude.add(dir);
+    }
   }
 
   if (origMap case {'analyzer': Map origAnalyzer}) {
