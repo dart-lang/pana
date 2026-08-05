@@ -96,5 +96,19 @@ void main() {
         'Repository has no matching `pubspec.yaml` with `name: non_existing_pkg_name`.',
       );
     });
+
+    test('timeout while scanning pubspec.yaml files', () async {
+      final result = await checkRepository(
+        sharedContext: SharedAnalysisContext(toolEnvironment: toolEnv),
+        packageName: 'url_launcher',
+        sourceUrl: 'https://github.com/flutter/packages',
+        pubspecSearchTimeout: Duration.zero,
+      );
+      expect(result.status, RepositoryStatus.failed);
+      expect(
+        result.verificationFailure,
+        'Timeout reached while scanning `pubspec.yaml` files in the repository.',
+      );
+    });
   });
 }

@@ -17,13 +17,14 @@ import '../tool/git_tool.dart';
 import 'git_local_repository.dart';
 
 const _maxPubspecBytes = 256 * 1024;
-const _maxPubspecCount = 1000;
+const _pubspecSearchTimeout = Duration(minutes: 2);
 
 /// Returns the repository information for the current package.
 Future<VerifiedRepository> checkRepository({
   required SharedAnalysisContext sharedContext,
   required String packageName,
   required String? sourceUrl,
+  Duration pubspecSearchTimeout = _pubspecSearchTimeout,
 }) async {
   sourceUrl = sourceUrl?.trim();
   if (sourceUrl == null || sourceUrl.isEmpty) {
@@ -104,13 +105,6 @@ Future<VerifiedRepository> checkRepository({
         status: RepositoryStatus.failed,
         verificationFailure:
             'Could not find any `pubspec.yaml` in the repository.',
-      );
-    }
-    if (pubspecFiles.length > _maxPubspecCount) {
-      return VerifiedRepository(
-        status: RepositoryStatus.failed,
-        verificationFailure:
-            'Repository has too many `pubspec.yaml` files (found ${pubspecFiles.length}, limit is $_maxPubspecCount).',
       );
     }
 
@@ -230,8 +224,16 @@ Future<VerifiedRepository> checkRepository({
       return _PubspecMatch(path, hasMatchingName: true, null);
     }
 
+    final sw = Stopwatch()..start();
     final results = <_PubspecMatch>[];
     for (final path in pubspecFiles) {
+      if (sw.elapsed > pubspecSearchTimeout) {
+        return VerifiedRepository(
+          status: RepositoryStatus.failed,
+          verificationFailure:
+              'Timeout reached while scanning `pubspec.yaml` files in the repository.',
+        );
+      }
       results.add(await matchRepoPubspecYaml(path));
     }
 
