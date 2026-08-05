@@ -105,10 +105,22 @@ String updatePassthroughOptions({
 
   final appliedCustomRules = _extractAppliedRules(customMap);
 
+  final customAnalyzer =
+      customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
+
+  // exclude test and example from analysis
+  final existingExclude = customAnalyzer['exclude'];
+  final customExclude = existingExclude is List ? existingExclude : <String>[];
+  customAnalyzer['exclude'] = customExclude;
+  if (!customExclude.contains('test/**')) {
+    customExclude.add('test/**');
+  }
+  if (!customExclude.contains('example/**')) {
+    customExclude.add('example/**');
+  }
+
   if (origMap case {'analyzer': Map origAnalyzer}) {
     if (origAnalyzer case {'errors': Map origErrors}) {
-      final customAnalyzer =
-          customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
       final customErrors =
           customAnalyzer.putIfAbsent('errors', () => <String, Object?>{})
               as Map;

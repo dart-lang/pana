@@ -22,7 +22,11 @@ void main() {
 
   test('passthrough for empty options', () {
     final content = updatePassthroughOptions(original: '', custom: '');
-    expect(json.decode(content), <String, Object?>{});
+    expect(json.decode(content), <String, Object?>{
+      'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
+    });
   });
 
   test('passthrough for most options', () {
@@ -46,6 +50,7 @@ formatter:
       'analyzer': {
         'errors': {'todo': 'ignore', 'uri_has_not_been_generated': 'ignore'},
         'enable-experiment': ['macros'],
+        'exclude': ['test/**', 'example/**'],
       },
       'formatter': {
         'unknown_key': true,
@@ -77,6 +82,7 @@ linter:
           'another-todo': 'ignore',
           'uri_has_not_been_generated': 'ignore',
         },
+        'exclude': ['test/**', 'example/**'],
       },
       'linter': isNotEmpty,
     });
@@ -98,6 +104,9 @@ linter:
 ''',
     );
     expect(json.decode(content), {
+      'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
       'linter': {
         'rules': {
           'avoid_relative_lib_imports': true,
@@ -114,7 +123,11 @@ linter:
       custom: '',
       useAnalysisIncludes: true,
     );
-    expect(json.decode(content), {'include': 'package:lints/other.yaml'});
+    expect(json.decode(content), {'include': 'package:lints/other.yaml',
+          'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
+});
   });
 
   test('update includes from original', () {
@@ -128,6 +141,9 @@ linter:
     );
     expect(json.decode(content), {
       'include': ['package:lints/other.yaml', 'package:lints/core.yaml'],
+      'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
     });
   });
 
@@ -138,6 +154,9 @@ linter:
     );
     expect(json.decode(content), <String, Object?>{
       'include': 'package:lints/other.yaml',
+      'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
     });
   });
 
@@ -149,6 +168,9 @@ linter:
     );
     expect(json.decode(content), <String, Object?>{
       'include': 'package:lints/other.yaml',
+      'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
     });
   });
 
@@ -159,12 +181,19 @@ linter:
     );
     expect(json.decode(content), <String, Object?>{
       'include': 'package:lints/core.yaml',
+      'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
     });
   });
 
   test('keep include without include value', () {
     final content = updatePassthroughOptions(original: '', custom: '');
-    expect(json.decode(content), <String, Object?>{});
+    expect(json.decode(content), <String, Object?>{
+            'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
+    });
   });
 
   test('type check', () {
@@ -182,6 +211,9 @@ linter:
 ''',
     );
     expect(json.decode(content), {
+      'analyzer': {
+        'exclude': ['test/**', 'example/**'],
+      },
       'linter': {
         'rules': {
           'constant_identifier_names': true,
