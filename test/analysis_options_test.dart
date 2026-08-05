@@ -123,11 +123,12 @@ linter:
       custom: '',
       useAnalysisIncludes: true,
     );
-    expect(json.decode(content), {'include': 'package:lints/other.yaml',
-          'analyzer': {
+    expect(json.decode(content), {
+      'include': 'package:lints/other.yaml',
+      'analyzer': {
         'exclude': ['test/**', 'example/**'],
       },
-});
+    });
   });
 
   test('update includes from original', () {
@@ -190,7 +191,7 @@ linter:
   test('keep include without include value', () {
     final content = updatePassthroughOptions(original: '', custom: '');
     expect(json.decode(content), <String, Object?>{
-            'analyzer': {
+      'analyzer': {
         'exclude': ['test/**', 'example/**'],
       },
     });
