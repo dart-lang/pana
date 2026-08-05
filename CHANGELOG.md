@@ -1,7 +1,10 @@
+## 0.23.17-wip
+
+- Delete symlinks before writing `dartdoc_options.yaml` and `analysis_options.yaml` to prevent out-of-tree file writes.
+
 ## 0.23.16
 
 - Protect against YAML alias expansion bombs (Billion Laughs), cyclic references, and extreme nesting depth in `yamlToJson`.
-- Delete symlinks before writing `dartdoc_options.yaml` and `analysis_options.yaml` to prevent out-of-tree file writes.
 
 ## 0.23.15
 

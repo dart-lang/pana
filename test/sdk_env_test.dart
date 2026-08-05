@@ -4,7 +4,6 @@
 
 import 'dart:io';
 
-import 'package:pana/src/package_analyzer.dart';
 import 'package:pana/src/sdk_env.dart';
 import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as p;
@@ -56,7 +55,7 @@ void main() {
   });
 
   test(
-    'runAnalyzer handles dangling symlink analysis_options.yaml safely',
+    'filesNeedingFormat handles dangling symlink analysis_options.yaml safely',
     () async {
       final toolEnv = await ToolEnvironment.create();
       await withTempDir((dir) async {
@@ -80,12 +79,7 @@ environment:
 
           expect(await File(outsideTarget).exists(), isFalse);
 
-          await toolEnv.runAnalyzer(
-            dir,
-            'lib',
-            false,
-            inspectOptions: InspectOptions(),
-          );
+          await toolEnv.filesNeedingFormat(dir, false);
 
           // Target file outside should not be created.
           expect(await File(outsideTarget).exists(), isFalse);
