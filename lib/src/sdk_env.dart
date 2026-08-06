@@ -686,15 +686,43 @@ class ToolEnvironment {
     if (oldDevDependencies is Map<String, dynamic>) {
       final keptDevDependencies = <String, dynamic>{};
       for (final name in oldDevDependencies.keys) {
-        if (!includedPackages.contains(name)) {
-          continue;
-        }
         final value = oldDevDependencies[name];
+
+        // do not keep path or git dependencies
         if (value is Map &&
             (value.containsKey('path') || value.containsKey('git'))) {
           continue;
         }
-        keptDevDependencies[name] = value;
+
+        // do not keep hosted dependencies outside of pub.dev
+        if (value is Map &&
+            value.containsKey('url') &&
+            value['url'] != 'https://pub.dev') {
+          continue;
+        }
+
+        // keep SDK dependencies
+        if (value is Map && value.containsKey('sdk')) {
+          // sanity check on keys
+          final keys = value.keys.toSet();
+          if (keys.length != 2 || !keys.containsAll(['name', 'sdk'])) {
+            continue;
+          }
+          // sanity check that sdk is filled
+          final sdkValue = value['sdk'];
+          if (sdkValue is! String || sdkValue.trim().isEmpty) {
+            continue;
+          }
+          // keeping it
+          keptDevDependencies[name] = value;
+          continue;
+        }
+
+        // keep included dependencies from analysis options
+        if (includedPackages.contains(name)) {
+          keptDevDependencies[name] = value;
+          continue;
+        }
       }
       if (keptDevDependencies.isNotEmpty) {
         parsed['dev_dependencies'] = keptDevDependencies;
