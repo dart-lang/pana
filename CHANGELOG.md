@@ -8,7 +8,7 @@
 - Stream processing of `dart analyze` stdout for better and more resilient parsing.
 - Re-enabled `include:` in `analysis_options.yaml`.
 - Disabled plugins in `dart analyze`
-- Passthrough for non-wide `analyzer: exclude:` in `analysis_options.yaml`
+- Passthrough for `analyzer: exclude:` in `analysis_options.yaml`
 
 ## 0.23.16
 

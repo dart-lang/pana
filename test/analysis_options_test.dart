@@ -211,7 +211,7 @@ linter:
     });
   });
 
-  test('do not keep too wide exclude rule', () {
+  test('keeps wide exclude rules too', () {
     final content = updatePassthroughOptions(
       original: '''
 analyzer:
@@ -227,7 +227,16 @@ analyzer:
     );
     expect(json.decode(content), <String, Object?>{
       'analyzer': {
-        'exclude': ['test/**', 'example/**', '*.dart', '**/*.g.dart'],
+        'exclude': [
+          'test/**',
+          'example/**',
+          '*.dart',
+          'lib/src/**.dart',
+          '**/*.dart',
+          '**/*.g.dart',
+          'pubspec.*',
+          'bin/*.dart',
+        ],
       },
     });
   });

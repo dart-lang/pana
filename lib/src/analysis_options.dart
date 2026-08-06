@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:glob/glob.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:retry/retry.dart';
@@ -135,20 +134,11 @@ String updatePassthroughOptions({
     }
 
     if (origAnalyzer case {'exclude': List origExclude}) {
+      // Note: In the future we need to consider if we want to detect too wide exclude rules.
       for (var pattern in origExclude) {
-        if (pattern is! String) continue;
-        // sanity check to prevent too wide excludes
-        final glob = Glob(pattern);
-        if (glob.matches(
-              'bin/pana_pattern_check_for_some_random_entrypoint.dart',
-            ) ||
-            glob.matches(
-              'lib/src/pana_pattern_check_for_some_random_lib.dart',
-            ) ||
-            glob.matches('pubspec.yaml')) {
-          continue;
+        if (!customExclude.contains(pattern)) {
+          customExclude.add(pattern);
         }
-        customExclude.add(pattern);
       }
     }
 
