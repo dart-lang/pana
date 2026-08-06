@@ -90,7 +90,11 @@ void main() {
       dartdocVersion: 'any',
     );
 
-    final pool = Pool(Platform.numberOfProcessors.clamp(1, _packages.length));
+    final pool = Pool(
+      Platform.environment.containsKey('CI')
+          ? 2
+          : Platform.numberOfProcessors.clamp(1, _packages.length),
+    );
     await Future.wait(
       _packages.map(
         (pkg) => pool.withResource(() async {

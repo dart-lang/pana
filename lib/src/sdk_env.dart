@@ -295,7 +295,13 @@ class ToolEnvironment {
     return await _withRestrictedAnalysisOptions(packageDir, () async {
       final problemSink = _AnalyzerProblemSink(projectDir: packageDir);
       final proc = await _sandboxRunner.runSandboxed(
-        [..._dartSdk.dartAnalyzeCmd, '--format', 'machine', dir],
+        [
+          ..._dartSdk.dartAnalyzeCmd,
+          '--format',
+          'machine',
+          '--no-plugins',
+          dir,
+        ],
         environment: _dartSdk.environment,
         workingDirectory: packageDir,
         timeout: const Duration(minutes: 5),
