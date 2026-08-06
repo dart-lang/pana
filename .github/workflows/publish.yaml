@@ -19,3 +19,4 @@ jobs:
     with:
       environment: pub-dev
       tag-prefix: ""
+      write-comments: false
