@@ -41,4 +41,5 @@ Options:
                                (defaults to on)
       --dartdoc-version        The dartdoc version to use: `sdk`, `latest` (default) or `<version constraint>`.
       --license-data           The path to the directory containing the SPDX license data.
+      --project-root           The root directory path of the project (pub workspace or otherwise). Use this when the package is located in a subdirectory so pana can copy and analyze the entire project tree.
 ```
