@@ -133,6 +133,15 @@ String updatePassthroughOptions({
       }
     }
 
+    if (origAnalyzer case {'exclude': List origExclude}) {
+      // Note: In the future we need to consider if we want to detect too wide exclude rules.
+      for (var pattern in origExclude) {
+        if (!customExclude.contains(pattern)) {
+          customExclude.add(pattern);
+        }
+      }
+    }
+
     final origExperiments = origAnalyzer['enable-experiment'];
     if (origExperiments is List && origExperiments.contains('macros')) {
       final customAnalyzer =

@@ -1,4 +1,4 @@
-## 0.23.17-wip
+## 0.23.17
 
 - Parallelize end-to-end golden tests with a shared test environment and concurrency pool.
 - Delete symlinks before writing `dartdoc_options.yaml` and `analysis_options.yaml` to prevent out-of-tree file writes.
@@ -8,6 +8,7 @@
 - Stream processing of `dart analyze` stdout for better and more resilient parsing.
 - Re-enabled `include:` in `analysis_options.yaml`.
 - Disabled plugins in `dart analyze`
+- Passthrough for `analyzer: exclude:` in `analysis_options.yaml`
 - Keeping `sdk:` `dev_dependencies` when updating `pubspec.yaml`.
 
 ## 0.23.16
