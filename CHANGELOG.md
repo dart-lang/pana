@@ -1,4 +1,4 @@
-## 0.23.18
+## 0.23.18-dev
 
 - `--workspace-root` CLI option to specify the project's root directory.
   When specified, `pana` copies the entire tree for analysis.  
