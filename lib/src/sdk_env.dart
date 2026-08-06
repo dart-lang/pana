@@ -69,7 +69,6 @@ class ToolEnvironment {
   PanaRuntimeInfo? _runtimeInfo;
   final List<String>? _dartdocCommand;
   final String? _dartdocVersion;
-  final bool _useAnalysisIncludes;
   final SandboxRunner _sandboxRunner;
 
   bool _globalDartdocActivated = false;
@@ -79,7 +78,6 @@ class ToolEnvironment {
     this._dartSdk,
     this._dartdocCommand,
     this._dartdocVersion,
-    this._useAnalysisIncludes,
     this._sandboxRunner,
   );
 
@@ -91,7 +89,6 @@ class ToolEnvironment {
        _dartdocCommand = null,
        _dartdocVersion = null,
        _runtimeInfo = runtimeInfo,
-       _useAnalysisIncludes = false,
        _sandboxRunner = SandboxRunner(null);
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
@@ -177,8 +174,6 @@ class ToolEnvironment {
       }),
       dartdocCommand,
       dartdocVersion,
-      useAnalysisIncludes ??
-          Platform.environment['PANA_ANALYSIS_INCLUDES'] == '1',
       SandboxRunner(sandboxRunner),
     );
     await toolEnv._init();
@@ -253,7 +248,6 @@ class ToolEnvironment {
     final customOptionsContent = updatePassthroughOptions(
       original: originalOptions,
       custom: rawOptionsContent,
-      useAnalysisIncludes: _useAnalysisIncludes,
     );
     if (isLink) {
       await Link(analysisOptionsFile.path).delete();
@@ -657,7 +651,7 @@ class ToolEnvironment {
     final analysisOptionsFile = File(
       p.join(packageDir, 'analysis_options.yaml'),
     );
-    if (_useAnalysisIncludes && await analysisOptionsFile.exists()) {
+    if (await analysisOptionsFile.exists()) {
       void addPackageInclude(String includeValue) {
         final include = includeValue.trim();
         if (include.startsWith('package:')) {
