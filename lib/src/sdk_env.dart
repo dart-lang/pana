@@ -715,12 +715,6 @@ class ToolEnvironment {
 
         // keep SDK dependencies
         if (value is Map && value.containsKey('sdk')) {
-          // sanity check on keys
-          final keys = value.keys.toSet();
-          if (keys.length != 2 || !keys.containsAll(['name', 'sdk'])) {
-            continue;
-          }
-          // keeping it
           keptDevDependencies[name] = value;
           continue;
         }
