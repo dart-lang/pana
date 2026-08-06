@@ -720,11 +720,6 @@ class ToolEnvironment {
           if (keys.length != 2 || !keys.containsAll(['name', 'sdk'])) {
             continue;
           }
-          // sanity check that sdk is filled
-          final sdkValue = value['sdk'];
-          if (sdkValue is! String || sdkValue.trim().isEmpty) {
-            continue;
-          }
           // keeping it
           keptDevDependencies[name] = value;
           continue;
