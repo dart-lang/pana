@@ -695,9 +695,21 @@ class ToolEnvironment {
         }
 
         // do not keep hosted dependencies outside of pub.dev
-        if (value is Map &&
-            value.containsKey('url') &&
-            value['url'] != 'https://pub.dev') {
+        if (value is Map && value.containsKey('hosted')) {
+          final hosted = value['hosted'];
+          if (hosted is String && hosted == 'https://pub.dev') {
+            // keeping it
+            keptDevDependencies[name] = value;
+            continue;
+          }
+
+          if (hosted is Map && hosted['url'] != 'https://pub.dev') {
+            // keeping it
+            keptDevDependencies[name] = value;
+            continue;
+          }
+
+          // hosted outside of pub.dev, do not keep
           continue;
         }
 
