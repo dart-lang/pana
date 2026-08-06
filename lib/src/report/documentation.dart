@@ -23,7 +23,7 @@ Future<Subsection> _exampleSubsection(PackageContext context) async {
   //
   // This should work on case-preserving but insensitive file-systems.
   final files = Directory(packageDir)
-      .listSync(recursive: true)
+      .listSync(recursive: true, followLinks: false)
       .map(
         (e) => p.posix.joinAll(p.split(p.relative(e.path, from: packageDir))),
       );

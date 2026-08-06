@@ -1,3 +1,7 @@
+## 0.23.18-wip
+
+- Prevent following symlinks when listing and inspecting files in a package directory.
+
 ## 0.23.17
 
 - Parallelize end-to-end golden tests with a shared test environment and concurrency pool.
