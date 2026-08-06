@@ -9,6 +9,7 @@
 - Re-enabled `include:` in `analysis_options.yaml`.
 - Disabled plugins in `dart analyze`
 - Passthrough for `analyzer: exclude:` in `analysis_options.yaml`
+- Keeping `sdk:` `dev_dependencies` when updating `pubspec.yaml`.
 
 ## 0.23.16
 
