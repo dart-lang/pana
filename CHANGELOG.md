@@ -7,6 +7,7 @@
 - Bound `pubspec.yaml` scanning in repository verification with a timeout and enforce `maxOutputBytes` in `GitTool.showFile`.
 - Stream processing of `dart analyze` stdout for better and more resilient parsing.
 - Re-enabled `include:` in `analysis_options.yaml`.
+- Disabled plugins in `dart analyze`
 
 ## 0.23.16
 
