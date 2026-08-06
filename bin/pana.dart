@@ -110,6 +110,12 @@ final _parser = ArgParser()
     help: 'The binary to use for sandboxed subprocess executions.',
     hide: true,
   )
+  ..addOption(
+    'workspace-root',
+    help:
+        'The root directory path of the workspace. '
+        'When specified, pana copies the entire tree for analysis.',
+  )
   // Has no effect, but kept for backwards compatibility.
   ..addFlag(
     'warning',
@@ -246,12 +252,33 @@ Future<void> main(List<String> args) async {
       } else if (source == 'path') {
         final path = firstArg() ?? '.';
         final pubspecPath = p.join(path, 'pubspec.yaml');
-        if (!File(pubspecPath).existsSync()) {
+        final pubspecFile = File(pubspecPath);
+        if (!pubspecFile.existsSync()) {
           _printHelp(errorMessage: 'Found no pubspec file at $pubspecPath.');
         }
 
+        final workspaceRoot = result['workspace-root'] as String?;
+        if (workspaceRoot != null) {
+          if (!FileSystemEntity.isDirectorySync(workspaceRoot)) {
+            _printHelp(
+              errorMessage: 'The specified workspace root is not a directory.',
+            );
+          }
+          final wrd = Directory(workspaceRoot).absolute;
+          if (!p.isWithin(wrd.path, pubspecFile.absolute.path)) {
+            _printHelp(
+              errorMessage:
+                  'The package is not inside the specified workspace root.',
+            );
+          }
+        }
+
         final absolutePath = await Directory(path).resolveSymbolicLinks();
-        summary = await analyzer.inspectDir(absolutePath, options: options);
+        summary = await analyzer.inspectDir(
+          absolutePath,
+          options: options,
+          workspaceRoot: workspaceRoot,
+        );
       }
       if (isJson) {
         final map = summary.toJson();
