@@ -111,10 +111,11 @@ final _parser = ArgParser()
     hide: true,
   )
   ..addOption(
-    'workspace-root',
+    'project-root',
     help:
-        'The root directory path of the workspace. '
-        'When specified, pana copies the entire tree for analysis.',
+        'The root directory path of the project (pub workspace or otherwise). '
+        'Use this when the package is located in a subdirectory so pana '
+        'can copy and analyze the entire project tree.',
   )
   // Has no effect, but kept for backwards compatibility.
   ..addFlag(
@@ -257,18 +258,18 @@ Future<void> main(List<String> args) async {
           _printHelp(errorMessage: 'Found no pubspec file at $pubspecPath.');
         }
 
-        final workspaceRoot = result['workspace-root'] as String?;
-        if (workspaceRoot != null) {
-          if (!FileSystemEntity.isDirectorySync(workspaceRoot)) {
+        final projectRoot = result['project-root'] as String?;
+        if (projectRoot != null) {
+          if (!FileSystemEntity.isDirectorySync(projectRoot)) {
             _printHelp(
-              errorMessage: 'The specified workspace root is not a directory.',
+              errorMessage: 'The specified project root is not a directory.',
             );
           }
-          final wrd = Directory(workspaceRoot).absolute;
-          if (!p.isWithin(wrd.path, pubspecFile.absolute.path)) {
+          final dir = Directory(projectRoot).absolute;
+          if (!p.isWithin(dir.path, pubspecFile.absolute.path)) {
             _printHelp(
               errorMessage:
-                  'The package is not inside the specified workspace root.',
+                  'The package is not inside the specified project root.',
             );
           }
         }
@@ -277,7 +278,7 @@ Future<void> main(List<String> args) async {
         summary = await analyzer.inspectDir(
           absolutePath,
           options: options,
-          workspaceRoot: workspaceRoot,
+          projectRoot: projectRoot,
         );
       }
       if (isJson) {

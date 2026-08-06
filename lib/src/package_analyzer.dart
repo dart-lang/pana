@@ -91,12 +91,12 @@ class PackageAnalyzer {
     String packageDir, {
     InspectOptions? options,
     Logger? logger,
-    String? workspaceRoot,
+    String? projectRoot,
   }) {
     final sharedContext = _createSharedContext(options: options);
     return withLogger(logger: logger, () async {
       return withTempDir((tempDir) async {
-        final rootDir = workspaceRoot ?? packageDir;
+        final rootDir = projectRoot ?? packageDir;
         await copyDir(rootDir, tempDir);
         final relativeDir = path.relative(packageDir, from: rootDir);
         return await _inspect(sharedContext, path.join(tempDir, relativeDir));
