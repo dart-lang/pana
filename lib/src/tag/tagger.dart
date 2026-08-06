@@ -164,7 +164,7 @@ class Tagger {
     final binDir = Directory(path.join(packageDir, 'bin'));
     final allBinFiles = binDir.existsSync()
         ? binDir
-              .listSync(recursive: true)
+              .listSync(recursive: true, followLinks: false)
               .where((e) => e is File && e.path.endsWith('.dart'))
               .map((f) => path.relative(f.path, from: binDir.path))
               .toList()

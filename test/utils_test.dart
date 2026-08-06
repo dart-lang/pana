@@ -3,8 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:pana/src/utils.dart';
+import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
@@ -155,6 +157,165 @@ b: [6, 7, 8, 9, 10]
 
     test('non-ascii text', () {
       expect(nonAsciiRuneRatio('封装http业务接口'), 0.6);
+    });
+  });
+
+  group('listFiles', () {
+    test('lists files in directory and subdirectories', () async {
+      await withTempDir((dir) async {
+        File(p.join(dir, 'a.txt')).writeAsStringSync('a');
+        final subDir = Directory(p.join(dir, 'sub'))..createSync();
+        File(p.join(subDir.path, 'b.txt')).writeAsStringSync('b');
+        final nestedDir = Directory(p.join(subDir.path, 'nested'))
+          ..createSync();
+        File(p.join(nestedDir.path, 'c.dart')).writeAsStringSync('c');
+
+        final files = await listFiles(dir).toList();
+        expect(
+          files,
+          unorderedEquals([
+            'a.txt',
+            p.join('sub', 'b.txt'),
+            p.join('sub', 'nested', 'c.dart'),
+          ]),
+        );
+      });
+    });
+
+    test('filters by endsWith', () async {
+      await withTempDir((dir) async {
+        File(p.join(dir, 'a.txt')).writeAsStringSync('a');
+        final subDir = Directory(p.join(dir, 'sub'))..createSync();
+        File(p.join(subDir.path, 'b.dart')).writeAsStringSync('b');
+
+        final files = await listFiles(dir, endsWith: '.dart').toList();
+        expect(files, [p.join('sub', 'b.dart')]);
+      });
+    });
+
+    test(
+      'deletes invalid AppleDouble files when deleteBadExtracted is true',
+      () async {
+        await withTempDir((dir) async {
+          final badFile = File(p.join(dir, '._bad.txt'))
+            ..writeAsStringSync('bad');
+          final subDir = Directory(p.join(dir, 'sub'))..createSync();
+          final nestedBadFile = File(p.join(subDir.path, '._nested.dart'))
+            ..writeAsStringSync('bad');
+          File(p.join(dir, 'good.txt')).writeAsStringSync('good');
+
+          expect(badFile.existsSync(), isTrue);
+          expect(nestedBadFile.existsSync(), isTrue);
+
+          final files = await listFiles(dir, deleteBadExtracted: true).toList();
+          expect(files, ['good.txt']);
+          expect(badFile.existsSync(), isFalse);
+          expect(nestedBadFile.existsSync(), isFalse);
+        });
+      },
+    );
+
+    test(
+      'does not follow directory symlinks and does not delete out-of-tree files',
+      () async {
+        await withTempDir((dir) async {
+          final outsideDir = await Directory.systemTemp.createTemp('outside_');
+          try {
+            final outsideBadFile = File(
+              p.join(outsideDir.path, '._outside.txt'),
+            )..writeAsStringSync('secret');
+            final outsideGoodFile = File(
+              p.join(outsideDir.path, 'outside.dart'),
+            )..writeAsStringSync('code');
+
+            // Create a symlink to outsideDir inside dir
+            final link = Link(p.join(dir, 'symlink_dir'));
+            await link.create(outsideDir.path);
+
+            File(p.join(dir, 'local.dart')).writeAsStringSync('local');
+
+            final files = await listFiles(
+              dir,
+              deleteBadExtracted: true,
+            ).toList();
+
+            // Only local file should be returned
+            expect(files, ['local.dart']);
+
+            // Out-of-tree files should be intact
+            expect(outsideBadFile.existsSync(), isTrue);
+            expect(outsideGoodFile.existsSync(), isTrue);
+          } finally {
+            await outsideDir.delete(recursive: true);
+          }
+        });
+      },
+    );
+
+    test(
+      'does not follow file symlinks and does not delete out-of-tree target file',
+      () async {
+        await withTempDir((dir) async {
+          final outsideDir = await Directory.systemTemp.createTemp('outside_');
+          try {
+            final outsideBadFile = File(p.join(outsideDir.path, '._target.txt'))
+              ..writeAsStringSync('secret');
+
+            // Create a file symlink inside dir pointing to outside bad file
+            final link = Link(p.join(dir, 'symlink_file'));
+            await link.create(outsideBadFile.path);
+
+            final files = await listFiles(
+              dir,
+              deleteBadExtracted: true,
+            ).toList();
+
+            expect(files, isEmpty);
+            expect(outsideBadFile.existsSync(), isTrue);
+          } finally {
+            await outsideDir.delete(recursive: true);
+          }
+        });
+      },
+    );
+
+    test('handles cyclic directory symlinks safely', () async {
+      await withTempDir((dir) async {
+        final subDir = Directory(p.join(dir, 'sub'))..createSync();
+        File(p.join(dir, 'a.txt')).writeAsStringSync('a');
+
+        // Create a cyclic symlink: sub/loop -> dir
+        final link = Link(p.join(subDir.path, 'loop'));
+        await link.create(dir);
+
+        final files = await listFiles(dir).toList();
+        expect(files, ['a.txt']);
+      });
+    });
+  });
+
+  group('dartFilesFromLib', () {
+    test('does not follow symlinks outside package lib', () async {
+      await withTempDir((dir) async {
+        final outsideDir = await Directory.systemTemp.createTemp('outside_');
+        try {
+          File(
+            p.join(outsideDir.path, 'outside.dart'),
+          ).writeAsStringSync('void f() {}');
+          final libDir = Directory(p.join(dir, 'lib'))..createSync();
+          File(
+            p.join(libDir.path, 'local.dart'),
+          ).writeAsStringSync('void g() {}');
+
+          final link = Link(p.join(libDir.path, 'outside_lib'));
+          await link.create(outsideDir.path);
+
+          final dartFiles = dartFilesFromLib(dir);
+          expect(dartFiles, ['local.dart']);
+        } finally {
+          await outsideDir.delete(recursive: true);
+        }
+      });
     });
   });
 }

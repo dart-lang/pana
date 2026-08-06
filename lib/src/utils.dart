@@ -13,6 +13,14 @@ import 'package:yaml/yaml.dart';
 
 import 'logging.dart';
 
+/// Lists all regular files in [directory] recursively without following symlinks.
+///
+/// If [endsWith] is provided, only files ending with the specified string are returned.
+///
+/// If [deleteBadExtracted] is `true`, files whose names start with `._` (such as
+/// AppleDouble resource forks) are deleted and excluded from the stream.
+///
+/// Paths are returned relative to [directory].
 Stream<String> listFiles(
   String directory, {
   String? endsWith,
@@ -20,7 +28,7 @@ Stream<String> listFiles(
 }) {
   var dir = Directory(directory);
   return dir
-      .list(recursive: true)
+      .list(recursive: true, followLinks: false)
       .where((fse) => fse is File)
       .where((fse) {
         if (deleteBadExtracted) {
@@ -46,7 +54,7 @@ List<String> dartFilesFromLib(String packageDir) {
   final libDirExists = libDir.existsSync();
   final dartFiles = libDirExists
       ? libDir
-            .listSync(recursive: true)
+            .listSync(recursive: true, followLinks: false)
             .where((e) => e is File && e.path.endsWith('.dart'))
             .map((f) => p.relative(f.path, from: libDir.path))
             .toList()
@@ -255,7 +263,9 @@ Future<T> withTempDir<T>(FutureOr<T> Function(String path) fn) async {
 }
 
 Future<void> copyDir(String from, String to) async {
-  await for (final fse in Directory(from).list(recursive: true)) {
+  await for (final fse in Directory(
+    from,
+  ).list(recursive: true, followLinks: false)) {
     final relativePath = p.relative(fse.path, from: from);
     // The following file is used by `git-fsmonitor` and copying is blocked.
     // https://git-scm.com/docs/git-fsmonitor--daemon

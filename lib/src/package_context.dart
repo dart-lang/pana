@@ -430,7 +430,7 @@ class PackageContext {
       return <String>[];
     }
     final executables = <String>[];
-    final entries = await binDir.list().toList();
+    final entries = await binDir.list(followLinks: false).toList();
     for (final file in entries.whereType<File>()) {
       if (!file.path.endsWith('.dart')) {
         continue;
