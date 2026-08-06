@@ -121,7 +121,6 @@ linter:
     final content = updatePassthroughOptions(
       original: 'include: package:lints/other.yaml',
       custom: '',
-      useAnalysisIncludes: true,
     );
     expect(json.decode(content), {
       'include': 'package:lints/other.yaml',
@@ -138,7 +137,6 @@ linter:
           ' - package:lints/other.yaml\n'
           ' - package:lints/core.yaml\n',
       custom: '',
-      useAnalysisIncludes: true,
     );
     expect(json.decode(content), {
       'include': ['package:lints/other.yaml', 'package:lints/core.yaml'],
@@ -161,21 +159,7 @@ linter:
     });
   });
 
-  test('keep include preserves the value', () {
-    final content = updatePassthroughOptions(
-      original: 'include: package:lints/other.yaml',
-      custom: '',
-      useAnalysisIncludes: true,
-    );
-    expect(json.decode(content), <String, Object?>{
-      'include': 'package:lints/other.yaml',
-      'analyzer': {
-        'exclude': ['test/**', 'example/**'],
-      },
-    });
-  });
-
-  test('keep include does not override the value', () {
+  test('include does not override the value', () {
     final content = updatePassthroughOptions(
       original: 'include: package:lints/other.yaml',
       custom: 'include: package:lints/core.yaml',
