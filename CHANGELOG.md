@@ -1,4 +1,4 @@
-## 0.23.17-wip
+## 0.23.17
 
 - Parallelize end-to-end golden tests with a shared test environment and concurrency pool.
 - Delete symlinks before writing `dartdoc_options.yaml` and `analysis_options.yaml` to prevent out-of-tree file writes.
