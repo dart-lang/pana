@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:glob/glob.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:retry/retry.dart';
@@ -130,6 +131,24 @@ String updatePassthroughOptions({
             !appliedCustomRules.contains(entry.key)) {
           customErrors[entry.key] = entry.value;
         }
+      }
+    }
+
+    if (origAnalyzer case {'exclude': List origExclude}) {
+      for (var pattern in origExclude) {
+        if (pattern is! String) continue;
+        // sanity check to prevent too wide excludes
+        final glob = Glob(pattern);
+        if (glob.matches(
+              'bin/pana_pattern_check_for_some_random_entrypoint.dart',
+            ) ||
+            glob.matches(
+              'lib/src/pana_pattern_check_for_some_random_lib.dart',
+            ) ||
+            glob.matches('pubspec.yaml')) {
+          continue;
+        }
+        customExclude.add(pattern);
       }
     }
 

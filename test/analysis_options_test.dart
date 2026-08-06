@@ -39,6 +39,8 @@ analyzer:
   enable-experiment:
     - ignored
     - macros
+  exclude:
+    - build/**
 formatter:
   unknown_key: true
   page_width: 123
@@ -50,7 +52,7 @@ formatter:
       'analyzer': {
         'errors': {'todo': 'ignore', 'uri_has_not_been_generated': 'ignore'},
         'enable-experiment': ['macros'],
-        'exclude': ['test/**', 'example/**'],
+        'exclude': ['test/**', 'example/**', 'build/**'],
       },
       'formatter': {
         'unknown_key': true,
@@ -205,6 +207,27 @@ linter:
           'deprecated_member_use_from_same_package': true,
           'a': 'ignore',
         },
+      },
+    });
+  });
+
+  test('do not keep too wide exclude rule', () {
+    final content = updatePassthroughOptions(
+      original: '''
+analyzer:
+  exclude:
+    - '*.dart'
+    - lib/src/**.dart
+    - '**/*.dart'
+    - '**/*.g.dart'
+    - pubspec.*
+    - bin/*.dart
+''',
+      custom: '',
+    );
+    expect(json.decode(content), <String, Object?>{
+      'analyzer': {
+        'exclude': ['test/**', 'example/**', '*.dart', '**/*.g.dart'],
       },
     });
   });
