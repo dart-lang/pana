@@ -15,10 +15,8 @@ import 'model.dart';
 import 'package_context.dart';
 import 'pubspec.dart';
 import 'report/create_report.dart';
-import 'sandbox_runner.dart';
 import 'sdk_env.dart';
 import 'tag/pana_tags.dart';
-import 'tool/git_tool.dart';
 import 'utils.dart';
 
 class InspectOptions {
@@ -93,16 +91,12 @@ class PackageAnalyzer {
     String packageDir, {
     InspectOptions? options,
     Logger? logger,
+    String? projectRoot,
   }) {
     final sharedContext = _createSharedContext(options: options);
     return withLogger(logger: logger, () async {
       return withTempDir((tempDir) async {
-        final rootDir =
-            await _detectGitRoot(
-              sharedContext.toolEnvironment.sandboxRunner,
-              packageDir,
-            ) ??
-            packageDir;
+        final rootDir = projectRoot ?? packageDir;
         await copyDir(rootDir, tempDir);
         final relativeDir = path.relative(packageDir, from: rootDir);
         return await _inspect(sharedContext, path.join(tempDir, relativeDir));
@@ -252,22 +246,6 @@ class PackageAnalyzer {
       screenshots: processedScreenshots,
     );
   }
-}
-
-Future<String?> _detectGitRoot(
-  SandboxRunner sandboxRunner,
-  String packageDir,
-) async {
-  /// Runs `git` with a temporary config directory, isolating it from any global
-  /// user settings.
-  return await withTempDir((path) async {
-    final tool = GitTool(
-      sandboxRunner: sandboxRunner,
-      homePath: path,
-      workingDirectory: packageDir,
-    );
-    return await tool.detectRootDir();
-  });
 }
 
 Future<AnalysisResult> _createAnalysisResult(
