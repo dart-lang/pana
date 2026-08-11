@@ -1,6 +1,7 @@
 ## 0.23.18-wip
 
 - Prevent following symlinks when listing and inspecting files in a package directory.
+- Tagger now checks web plugin implementations for `is:wasm-ready`.
 - `--project-root` CLI option to specify the project's root directory.
   When specified, `pana` copies the entire tree for analysis.  
   **BREAKING CHANGE**: the git-based detection is no longer used, users
