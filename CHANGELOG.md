@@ -1,4 +1,4 @@
-## 0.23.18-wip
+## 0.23.18
 
 - Allow more pass-through in `analysis_options.yaml`.
 - Prevent following symlinks when listing and inspecting files in a package directory.
