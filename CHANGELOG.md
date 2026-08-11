@@ -2,6 +2,7 @@
 
 - Allow more pass-through in `analysis_options.yaml`.
 - Prevent following symlinks when listing and inspecting files in a package directory.
+- Tagger now checks web plugin implementations for `is:wasm-ready`.
 - Updated `dev_dependency` handling: keep for analysis, remove for upgradability.
 - `--project-root` CLI option to specify the project's root directory.
   When specified, `pana` copies the entire tree for analysis.  
