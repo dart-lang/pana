@@ -358,6 +358,9 @@ class Tagger {
     return TaggingResult(innerTags, innerExplanations);
   }
 
+  /// Returns the declared web plugin platform implementation library URIs
+  /// from `pubspec.yaml` (under `flutter.plugin.platforms.web.fileName`,
+  /// defaulting to `<package_name>_web.dart`), if the file exists.
   List<Uri> _getWebPluginLibraries() {
     final pubspec = _pubspecCache.pubspecOfPackage(packageName);
     if (!pubspec.hasFlutterPluginKey) return const <Uri>[];
@@ -371,7 +374,7 @@ class Tagger {
     final webConfig = platforms['web'];
     if (webConfig is! Map) return const <Uri>[];
 
-    String fileName = '${packageName}_web.dart';
+    var fileName = '${packageName}_web.dart';
     if (webConfig['fileName'] is String) {
       fileName = webConfig['fileName'] as String;
     }
