@@ -278,6 +278,12 @@ class Tagger {
     final innerTags = <String>{};
     final innerExplanations = <Explanation>[];
     try {
+      final webPluginLibraries =
+          (platform.name == 'Web' || runtime.name == 'web')
+          ? _getWebPluginLibraries()
+          : const <Uri>[];
+      final librariesToCheck = [..._topLibraries, ...webPluginLibraries];
+
       final libraryGraph = LibraryGraph(_session, runtime.declaredVariables);
       final declaredPlatformDetector = DeclaredPlatformDetector(_pubspecCache);
       final violationFinder = PlatformViolationFinder(
@@ -330,7 +336,7 @@ class Tagger {
       // Report only the first non-pruned violation as Explanation
       final firstNonPrunedViolation = violationFinder.firstViolation(
         packageName,
-        _topLibraries,
+        librariesToCheck,
       );
       if (firstNonPrunedViolation != null) {
         innerExplanations.add(firstNonPrunedViolation);
@@ -339,7 +345,7 @@ class Tagger {
       // Tag is supported, if there is no pruned violations
       final firstPrunedViolation = prunedViolationFinder.firstViolation(
         packageName,
-        _topLibraries,
+        librariesToCheck,
       );
       if (firstPrunedViolation == null) {
         innerTags.add(platform.tag);
@@ -350,6 +356,32 @@ class Tagger {
       );
     }
     return TaggingResult(innerTags, innerExplanations);
+  }
+
+  List<Uri> _getWebPluginLibraries() {
+    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
+    if (!pubspec.hasFlutterPluginKey) return const <Uri>[];
+
+    final plugin = pubspec.originalYaml['flutter'];
+    if (plugin is! Map || plugin['plugin'] is! Map) return const <Uri>[];
+
+    final platforms = plugin['plugin']['platforms'];
+    if (platforms is! Map) return const <Uri>[];
+
+    final webConfig = platforms['web'];
+    if (webConfig is! Map) return const <Uri>[];
+
+    String fileName = '${packageName}_web.dart';
+    if (webConfig['fileName'] is String) {
+      fileName = webConfig['fileName'] as String;
+    }
+
+    final fileUri = Uri.parse('package:$packageName/$fileName');
+    final path = _session.uriConverter.uriToPath(fileUri);
+    if (path != null && File(path).existsSync()) {
+      return <Uri>[fileUri];
+    }
+    return const <Uri>[];
   }
 
   /// Adds tags for Flutter plugins.
@@ -373,7 +405,7 @@ class Tagger {
       ),
     );
     var supports = true;
-    for (final lib in _topLibraries) {
+    for (final lib in [..._topLibraries, ..._getWebPluginLibraries()]) {
       final violationResult = finder.findViolation(lib);
       if (violationResult != null) {
         explanations.add(violationResult);

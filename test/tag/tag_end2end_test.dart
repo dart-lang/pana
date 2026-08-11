@@ -773,6 +773,53 @@ name: my_package
   });
 
   group('wasm tag', () {
+    test('Excluded by web plugin using dart:html', () async {
+      final descriptor = d.dir('cache', [
+        packageWithPathDeps(
+          'my_package',
+          lib: [
+            d.file('my_package.dart', '''
+int fourtyTwo() => 42;
+'''),
+            d.file('my_package_web.dart', '''
+import 'dart:html';
+int fourtyThree() => 43;
+'''),
+          ],
+          pubspecExtras: {
+            'environment': {'flutter': '>=1.2.0<=2.0.0'},
+            'flutter': {
+              'plugin': {
+                'platforms': {
+                  'web': <String, dynamic>{
+                    'pluginClass': 'MyPackageWeb',
+                    'fileName': 'my_package_web.dart',
+                  },
+                },
+              },
+            },
+          },
+        ),
+      ]);
+
+      await descriptor.create();
+      final tagger = Tagger('${descriptor.io.path}/my_package');
+      _expectTagging(
+        tagger.wasmReadyTag,
+        tags: isNot(contains('is:wasm-ready')),
+        explanations: [
+          _explanation(
+            finding: 'Package not compatible with runtime wasm',
+            explanation: '''
+Because:
+* `package:my_package/my_package_web.dart` that imports:
+* `dart:html`''',
+            tag: 'is:wasm-ready',
+          ),
+        ],
+      );
+    });
+
     test('Excluded with dart:js', () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps(
