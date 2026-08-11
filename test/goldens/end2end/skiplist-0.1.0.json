@@ -76,15 +76,8 @@
   },
   "screenshots": [],
   "result": {
-    "repositoryUrl": "https://github.com/stevenroose/dart-skiplist",
-    "issueTrackerUrl": "https://github.com/stevenroose/dart-skiplist/issues",
-    "repositoryStatus": "verified",
-    "repository": {
-      "provider": "github",
-      "host": "github.com",
-      "repository": "stevenroose/dart-skiplist",
-      "branch": "master"
-    },
+    "homepageUrl": "https://github.com/stevenroose/dart-skiplist",
+    "repositoryStatus": "inconclusive",
     "licenses": [
       {
         "spdxIdentifier": "MIT",

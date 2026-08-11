@@ -397,6 +397,7 @@ class ToolEnvironment {
     required String command,
     bool verbose = false,
     bool throwOnError = false,
+    bool stripAllDevDependencies = false,
   }) async {
     return await _withStripAndAugmentPubspecYaml(packageDir, () async {
       return await _sandboxRunner.runSandboxed(
@@ -412,7 +413,7 @@ class ToolEnvironment {
         writableCurrentDir: true,
         throwOnError: throwOnError,
       );
-    });
+    }, stripAllDevDependencies: stripAllDevDependencies);
   }
 
   Future<Outdated> runPubOutdated(
@@ -516,7 +517,7 @@ class ToolEnvironment {
               .toList(),
         );
       }
-    });
+    }, stripAllDevDependencies: true);
   }
 
   Future<PanaProcessResult> dartdoc(
@@ -610,10 +611,14 @@ class ToolEnvironment {
   /// original content upon return.
   Future<R> _withStripAndAugmentPubspecYaml<R>(
     String packageDir,
-    FutureOr<R> Function() fn,
-  ) async {
+    FutureOr<R> Function() fn, {
+    required bool stripAllDevDependencies,
+  }) async {
     final now = DateTime.now();
-    final pubspecBackup = await _stripAndAugmentPubspecYaml(packageDir);
+    final pubspecBackup = await _stripAndAugmentPubspecYaml(
+      packageDir,
+      stripAllDevDependencies: stripAllDevDependencies,
+    );
 
     // Create a backup of the pubspec_overrides.yaml file.
     final pubspecOverridesFile = File(
@@ -646,44 +651,21 @@ class ToolEnvironment {
   ///   its own.
   ///
   /// Returns the backup file with the original content.
-  Future<File> _stripAndAugmentPubspecYaml(String packageDir) async {
+  Future<File> _stripAndAugmentPubspecYaml(
+    String packageDir, {
+    required bool stripAllDevDependencies,
+  }) async {
     final now = DateTime.now();
     final backup = File(
       p.join(packageDir, 'pana-${now.millisecondsSinceEpoch}-pubspec.yaml'),
     );
 
-    // extract the package name from the `include: package:<package>/path.yaml` entry in analysis options:
-    final includedPackages = <String>{};
-    final analysisOptionsFile = File(
-      p.join(packageDir, 'analysis_options.yaml'),
-    );
-    if (await analysisOptionsFile.exists()) {
-      void addPackageInclude(String includeValue) {
-        final include = includeValue.trim();
-        if (include.startsWith('package:')) {
-          includedPackages.add(
-            include.substring('package:'.length).split('/').first,
-          );
-        }
-      }
-
-      final analysisOptions = await analysisOptionsFile.readAsString();
-      final parsed = yamlToJson(analysisOptions);
-      final includeValue = parsed?['include'];
-      if (includeValue is String) {
-        addPackageInclude(includeValue);
-      } else if (includeValue is List) {
-        for (final v in includeValue.whereType<String>()) {
-          addPackageInclude(v);
-        }
-      }
-    }
-
     final pubspec = File(p.join(packageDir, 'pubspec.yaml'));
     final original = await pubspec.readAsString();
     final parsed = yamlToJson(original) ?? <String, dynamic>{};
     final oldDevDependencies = parsed.remove('dev_dependencies');
-    if (oldDevDependencies is Map<String, dynamic>) {
+    if (!stripAllDevDependencies &&
+        oldDevDependencies is Map<String, dynamic>) {
       final keptDevDependencies = <String, dynamic>{};
       for (final name in oldDevDependencies.keys) {
         final value = oldDevDependencies[name];
@@ -713,17 +695,8 @@ class ToolEnvironment {
           continue;
         }
 
-        // keep SDK dependencies
-        if (value is Map && value.containsKey('sdk')) {
-          keptDevDependencies[name] = value;
-          continue;
-        }
-
-        // keep included dependencies from analysis options
-        if (includedPackages.contains(name)) {
-          keptDevDependencies[name] = value;
-          continue;
-        }
+        // keeping the dependency otherwise
+        keptDevDependencies[name] = value;
       }
       if (keptDevDependencies.isNotEmpty) {
         parsed['dev_dependencies'] = keptDevDependencies;

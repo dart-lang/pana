@@ -1,6 +1,7 @@
 ## 0.23.18-wip
 
 - Prevent following symlinks when listing and inspecting files in a package directory.
+- Updated `dev_dependency` handling: keep for analysis, remove for upgradability.
 - `--project-root` CLI option to specify the project's root directory.
   When specified, `pana` copies the entire tree for analysis.  
   **BREAKING CHANGE**: the git-based detection is no longer used, users
