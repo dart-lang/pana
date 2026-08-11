@@ -62,7 +62,7 @@ formatter:
     });
   });
 
-  test('passthrough analysis errors except one', () {
+  test('passthrough analysis errors including override', () {
     final content = updatePassthroughOptions(
       original: '''
 analyzer:
@@ -82,6 +82,7 @@ linter:
       'analyzer': {
         'errors': {
           'another-todo': 'ignore',
+          'todo': 'ignore',
           'uri_has_not_been_generated': 'ignore',
         },
         'exclude': ['test/**', 'example/**'],
@@ -90,7 +91,7 @@ linter:
     });
   });
 
-  test('passthrough linter rules except one', () {
+  test('passthrough linter rules including override', () {
     final content = updatePassthroughOptions(
       original: '''
 linter:
@@ -112,7 +113,7 @@ linter:
       'linter': {
         'rules': {
           'avoid_relative_lib_imports': true,
-          'prefer_relative_imports': true,
+          'prefer_relative_imports': false,
           'public_member_api_docs': false,
         },
       },

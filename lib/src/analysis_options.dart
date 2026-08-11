@@ -70,17 +70,13 @@ Future<http.Response> _httpGetWithRetry(Uri uri) async {
   );
 }
 
-const _analyzerErrorKeys = <String>['uri_has_not_been_generated'];
-
 /// Update the well-known [custom] `analysis_options.yaml` content with
 /// pass-through options from the package-provided [original] content.
 /// Such options are:
 /// - the `include:` predicate,
 /// - the `formatter:` options (without any filtering),
-/// - the `analyzer: / errors:` keys passing the values if
-///   their key is not present in [custom] or are in [_analyzerErrorKeys],
-/// - the `linter: / rules:` section, passing `true`/`false`
-///   values if their key is not present in [custom].
+/// - the `analyzer: / errors:` keys passing the values
+/// - the `linter: / rules:` section, passing `true`/`false` values.
 String updatePassthroughOptions({
   required String? original,
   required String custom,
@@ -102,8 +98,6 @@ String updatePassthroughOptions({
     customMap = <String, dynamic>{};
   }
 
-  final appliedCustomRules = _extractAppliedRules(customMap);
-
   final customAnalyzer =
       customMap.putIfAbsent('analyzer', () => <String, Object?>{}) as Map;
 
@@ -124,13 +118,7 @@ String updatePassthroughOptions({
       final customErrors =
           customAnalyzer.putIfAbsent('errors', () => <String, Object?>{})
               as Map;
-
-      for (var entry in origErrors.entries) {
-        if (_analyzerErrorKeys.contains(entry.key) ||
-            !appliedCustomRules.contains(entry.key)) {
-          customErrors[entry.key] = entry.value;
-        }
-      }
+      customErrors.addAll(origErrors);
     }
 
     if (origAnalyzer case {'exclude': List origExclude}) {
@@ -169,12 +157,7 @@ String updatePassthroughOptions({
       customLinter['rules'] = customRules;
     }
     if (customRules is Map) {
-      for (var e in origRules.entries) {
-        if (appliedCustomRules.contains(e.key)) {
-          continue;
-        }
-        customRules[e.key.toString()] = e.value;
-      }
+      customRules.addAll(origRules);
     }
   }
 
@@ -191,18 +174,4 @@ String updatePassthroughOptions({
   }
 
   return json.encode(customMap);
-}
-
-Set<String> _extractAppliedRules(Map map) {
-  final appliedRules = <String>{};
-  if (map case {'linter': {'rules': List rules}}) {
-    appliedRules.addAll(rules.map((e) => e.toString()));
-  }
-  if (map case {'linter': {'rules': Map rules}}) {
-    appliedRules.addAll(rules.keys.map((e) => e.toString()));
-  }
-  if (map case {'analyzer': {'errors': Map errors}}) {
-    appliedRules.addAll(errors.keys.map((e) => e.toString()));
-  }
-  return appliedRules;
 }

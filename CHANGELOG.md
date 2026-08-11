@@ -1,5 +1,6 @@
 ## 0.23.18-wip
 
+- Allow more pass-through in `analysis_options.yaml`.
 - Prevent following symlinks when listing and inspecting files in a package directory.
 - Updated `dev_dependency` handling: keep for analysis, remove for upgradability.
 - `--project-root` CLI option to specify the project's root directory.
