@@ -379,7 +379,8 @@ class Tagger {
       fileName = webConfig['fileName'] as String;
     }
 
-    final fileUri = Uri.parse('package:$packageName/$fileName');
+    final fileUri = Uri.tryParse('package:$packageName/$fileName');
+    if (fileUri == null) return const <Uri>[];
     final path = _session.uriConverter.uriToPath(fileUri);
     if (path != null && File(path).existsSync()) {
       return <Uri>[fileUri];
