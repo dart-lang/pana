@@ -59,9 +59,26 @@ Because:
 </details>
 
 
-## 50/50 Pass static analysis
+## 40/50 Pass static analysis
 
-### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
+### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
+
+<details>
+<summary>
+INFO: The member 'get' overrides an inherited member but isn't annotated with '@override'.
+</summary>
+
+`lib/src/tools/did_command.dart:59:16`
+
+```
+   ╷
+59 │   Future<bool> get({
+   │                ^^^
+   ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `dart analyze lib/src/tools/did_command.dart`
+</details>
 
 
 ## 10/40 Support up-to-date dependencies
@@ -71,17 +88,17 @@ Because:
 |Package|Constraint|Compatible|Latest|Notes|
 |:-|:-|:-|:-|:-|
 |[`args`]|`^2.4.2`|2.7.0|2.7.0||
-|[`gg_args`]|`^1.1.10`|1.1.17|**2.2.0**||
-|[`gg_console_colors`]|`^2.0.1`|2.3.0|2.3.0||
-|[`gg_git`]|`^2.0.0`|2.5.9|**3.2.2**||
-|[`gg_is_flutter`]|`^1.0.3`|1.0.5|1.0.7||
+|[`gg_args`]|`^1.1.10`|1.1.17|**3.0.1**||
+|[`gg_console_colors`]|`^2.0.1`|2.3.1|2.3.1||
+|[`gg_git`]|`^2.0.0`|2.5.9|**4.1.2**||
+|[`gg_is_flutter`]|`^1.0.3`|1.0.5|**2.0.1**||
 |[`gg_json`]|`^1.0.0`|1.0.6|**4.0.1**||
-|[`gg_log`]|`^1.0.0`|1.0.6|1.0.6||
-|[`gg_process`]|`^1.0.6`|1.1.6|1.1.6||
-|[`gg_publish`]|`^2.0.0`|2.0.1|**3.10.2**||
-|[`gg_status_printer`]|`^1.1.0`|1.4.2|1.4.2||
-|[`gg_test`]|`^1.0.3`|1.0.11|**2.4.1**||
-|[`gg_version`]|`^1.0.0`|1.3.1|**4.6.1**||
+|[`gg_log`]|`^1.0.0`|1.0.7|1.0.7||
+|[`gg_process`]|`^1.0.6`|1.1.7|1.1.7||
+|[`gg_publish`]|`^2.0.0`|2.0.1|**4.3.3**||
+|[`gg_status_printer`]|`^1.1.0`|1.4.3|1.4.3||
+|[`gg_test`]|`^1.0.3`|1.0.11|**3.1.1**||
+|[`gg_version`]|`^1.0.0`|1.3.1|**5.2.2**||
 |[`meta`]|`^1.12.0`|1.19.0|1.19.0||
 |[`mocktail`]|`^1.0.3`|1.0.5|1.0.5||
 |[`path`]|`^1.8.0`|1.9.1|1.9.1||
@@ -99,10 +116,10 @@ Because:
 |[`checked_yaml`]|-|2.0.4|2.0.4||
 |[`collection`]|-|1.19.1|1.19.1||
 |[`colorize`]|-|3.0.0|3.0.0||
-|[`gg_capture_print`]|-|1.0.9|1.0.9||
-|[`gg_hash`]|-|1.1.0|1.1.0||
-|[`gg_is_github`]|-|1.0.6|1.0.6||
-|[`gg_project_root`]|-|1.0.2|1.0.4||
+|[`gg_capture_print`]|-|1.0.10|1.0.10||
+|[`gg_hash`]|-|1.1.1|1.1.1||
+|[`gg_is_github`]|-|1.0.7|1.0.7||
+|[`gg_project_root`]|-|1.0.2|2.0.1||
 |[`http`]|-|1.6.0|1.6.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`json_annotation`]|-|4.12.0|4.12.0||
@@ -162,7 +179,7 @@ To reproduce run `dart pub outdated --no-dev-dependencies --up-to-date --no-depe
 [`typed_data`]: https://pub.dev/packages/typed_data
 [`web`]: https://pub.dev/packages/web
 
-Found 6 issues. Showing the first 2:
+Found 7 issues. Showing the first 2:
 
 <details>
 <summary>
