@@ -1,3 +1,7 @@
+## 0.23.19
+
+- Fix: try to resolve with kept `dev_dependencies` after `pub outdated` succeeded without them.
+
 ## 0.23.18
 
 - Allow more pass-through in `analysis_options.yaml`.

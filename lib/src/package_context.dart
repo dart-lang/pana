@@ -143,6 +143,25 @@ class PackageContext {
     String? stderr;
     try {
       await outdated;
+
+      // Outdated stripped all dev-dependencies. We will try to continue
+      // analysis with allowing the resolve of hosted and sdk dev-dependencies.
+      try {
+        await toolEnvironment.runPub(
+          packageDir,
+          usesFlutter: usesFlutter,
+          command: 'upgrade',
+        );
+      } catch (_) {
+        // However, if it fails, we fall back to the fully stripped pubspec
+        await toolEnvironment.runPub(
+          packageDir,
+          usesFlutter: usesFlutter,
+          command: 'get',
+          stripAllDevDependencies: true,
+        );
+      }
+
       return null;
     } on ToolException catch (e) {
       stderr = e.result?.stderr.asString ?? e.message;
