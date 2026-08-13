@@ -73,10 +73,10 @@ Some symbols that are missing documentation: `link`, `url_launcher`, `url_launch
 |:-|:-|:-|:-|:-|
 |[`characters`]|-|1.4.1|1.4.1||
 |[`collection`]|-|1.19.1|1.19.1||
-|[`material_color_utilities`]|-|0.13.0|0.13.0||
-|[`meta`]|-|1.18.0|1.19.0||
+|[`material_color_utilities`]|-|0.13.0|0.13.1||
+|[`meta`]|-|1.19.0|1.19.0||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
-|[`vector_math`]|-|2.2.0|2.4.2||
+|[`vector_math`]|-|2.4.2|2.4.2||
 |[`web`]|-|1.1.1|1.1.1||
 </details>
 

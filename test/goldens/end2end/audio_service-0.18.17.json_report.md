@@ -91,9 +91,26 @@ Because:
 **Built-in Kotlin-ready:** This Android plugin supports built-in Kotlin. See https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors for details.
 
 
-## 50/50 Pass static analysis
+## 40/50 Pass static analysis
 
-### [*] 50/50 points: code has no errors, warnings, lints, or formatting issues
+### [~] 40/50 points: code has no errors, warnings, lints, or formatting issues
+
+<details>
+<summary>
+INFO: The parameter name 'newQueue' doesn't match the name 'queue' in the overridden method.
+</summary>
+
+`lib/audio_service.dart:3321:44`
+
+```
+     ╷
+3321 │   Future<void> updateQueue(List<MediaItem> newQueue) async {
+     │                                            ^^^^^^^^
+     ╵
+```
+
+To reproduce make sure you are using the [lints_core](https://pub.dev/packages/lints) and run `flutter analyze lib/audio_service.dart`
+</details>
 
 
 ## 30/40 Support up-to-date dependencies
@@ -123,15 +140,15 @@ Because:
 |[`ffi`]|-|2.2.0|2.2.0||
 |[`file`]|-|7.0.1|7.0.1||
 |[`fixnum`]|-|1.1.1|1.1.1||
-|[`hooks`]|-|2.0.2|2.1.0||
+|[`hooks`]|-|2.1.0|2.1.0||
 |[`http`]|-|1.6.0|1.6.0||
 |[`http_parser`]|-|4.1.2|4.1.2||
 |[`jni`]|-|1.0.3|1.0.3||
 |[`jni_flutter`]|-|1.0.2|1.0.2||
 |[`jni_util`]|-|1.0.0|1.0.0||
 |[`logging`]|-|1.3.0|1.3.0||
-|[`material_color_utilities`]|-|0.13.0|0.13.0||
-|[`meta`]|-|1.18.0|1.19.0||
+|[`material_color_utilities`]|-|0.13.0|0.13.1||
+|[`meta`]|-|1.19.0|1.19.0||
 |[`objective_c`]|-|9.5.0|9.5.0||
 |[`package_config`]|-|3.0.0|3.0.0||
 |[`path`]|-|1.9.1|1.9.1||
@@ -144,7 +161,7 @@ Because:
 |[`platform`]|-|3.1.6|3.1.6||
 |[`plugin_platform_interface`]|-|2.1.8|2.1.8||
 |[`pub_semver`]|-|2.2.0|2.2.0||
-|[`record_use`]|-|0.6.0|1.0.0||
+|[`record_use`]|-|1.1.0|1.1.0||
 |[`source_span`]|-|1.10.2|1.10.2||
 |[`sqflite`]|-|2.4.3|2.4.3||
 |[`sqflite_android`]|-|2.4.3|2.4.3||
@@ -156,7 +173,7 @@ Because:
 |[`term_glyph`]|-|1.2.2|1.2.2||
 |[`typed_data`]|-|1.4.0|1.4.0||
 |[`uuid`]|-|4.6.0|4.6.0||
-|[`vector_math`]|-|2.2.0|2.4.2||
+|[`vector_math`]|-|2.4.2|2.4.2||
 |[`web`]|-|1.1.1|1.1.1||
 |[`xdg_directories`]|-|1.1.0|1.1.0||
 |[`yaml`]|-|3.1.3|3.1.3||
