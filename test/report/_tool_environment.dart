@@ -5,13 +5,19 @@
 import 'package:pana/pana.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
+import '../package_server.dart';
+
 Future<ToolEnvironment> testToolEnvironment({String? sdkVersion}) async {
   final fakeFlutterRoot = d.dir('fake_flutter_root', [
     d.file('version', '2.0.0'),
   ]);
   await fakeFlutterRoot.create();
   return ToolEnvironment.fake(
-    environment: {'FLUTTER_ROOT': fakeFlutterRoot.io.path},
+    environment: {
+      'FLUTTER_ROOT': fakeFlutterRoot.io.path,
+      if (globalPackageServer != null)
+        'PUB_HOSTED_URL': globalPackageServer!.url,
+    },
     runtimeInfo: PanaRuntimeInfo(
       panaVersion: '1.2.3',
       sdkVersion: sdkVersion ?? '3.0.0',

@@ -89,4 +89,69 @@ environment:
       });
     },
   );
+  group('stripAndAugmentPubspecYaml', () {
+    test(
+      'keeps SDK and standard dev_dependencies, strips path/git/hosted',
+      () async {
+        final toolEnv = await ToolEnvironment.create();
+        await withTempDir((dir) async {
+          final pubspec = File(p.join(dir, 'pubspec.yaml'));
+          await pubspec.writeAsString('''
+name: test_pkg
+version: 1.0.0
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+dependencies:
+  meta: ^1.0.0
+dev_dependencies:
+  test: ^1.24.0
+  lints:
+  custom_version_map:
+    version: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  path_dep:
+    path: ../path_dep
+  git_dep:
+    git: git://github.com/org/repo.git
+  hosted_string:
+    hosted: https://custom-pub.org
+  hosted_map:
+    hosted:
+      url: https://pub.dev
+      name: hosted_map
+dependency_overrides:
+  meta: 1.1.0
+workspace:
+  - pkgs/a
+resolution: workspace
+''');
+
+          final backup = await toolEnv.stripAndAugmentPubspecYaml(dir);
+          expect(await backup.exists(), isTrue);
+
+          final strippedContent = await pubspec.readAsString();
+          final stripped = yamlToJson(strippedContent)!;
+
+          expect(stripped['name'], 'test_pkg');
+          expect(stripped['dependencies'], {'meta': '^1.0.0'});
+          expect(stripped.containsKey('dependency_overrides'), isFalse);
+          expect(stripped.containsKey('workspace'), isFalse);
+          expect(stripped.containsKey('resolution'), isFalse);
+
+          final devDeps = stripped['dev_dependencies'] as Map<String, dynamic>;
+          expect(devDeps['test'], '^1.24.0');
+          expect(devDeps.containsKey('lints'), isTrue);
+          expect(devDeps['custom_version_map'], {'version': '^2.0.0'});
+          expect(devDeps['flutter_test'], {'sdk': 'flutter'});
+
+          // Excluded dependencies
+          expect(devDeps.containsKey('path_dep'), isFalse);
+          expect(devDeps.containsKey('git_dep'), isFalse);
+          expect(devDeps.containsKey('hosted_string'), isFalse);
+          expect(devDeps.containsKey('hosted_map'), isFalse);
+        });
+      },
+    );
+  });
 }
