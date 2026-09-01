@@ -1,3 +1,7 @@
+## 0.23.19
+
+- Include hosted and SDK `dev_dependencies` during static analysis and documentation generation.
+
 ## 0.23.18
 
 - Allow more pass-through in `analysis_options.yaml`.
