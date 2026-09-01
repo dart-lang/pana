@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cli_util/cli_util.dart' as cli;
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -509,10 +510,8 @@ class ToolEnvironment {
             })
             .map((e) => e.key)
             .toSet();
-
         return Outdated(
           outdated.packages
-              // Filter SDK packages.
               .where((p) => !sdkPackages.contains(p.package))
               .toList(),
         );
@@ -602,17 +601,10 @@ class ToolEnvironment {
     }
   }
 
-  /// Removes the `dev_dependencies` from the `pubspec.yaml`,
-  /// and also removes `pubspec_overrides.yaml`.
-  ///
-  /// Adds lower-bound minimal SDK constraint - if missing.
-  ///
-  /// Returns the result of the inner function, and restores the
-  /// original content upon return.
   Future<R> _withStripAndAugmentPubspecYaml<R>(
     String packageDir,
     FutureOr<R> Function() fn, {
-    required bool stripAllDevDependencies,
+    bool stripAllDevDependencies = false,
   }) async {
     final now = DateTime.now();
     final pubspecBackup = await _stripAndAugmentPubspecYaml(
@@ -642,18 +634,18 @@ class ToolEnvironment {
   }
 
   /// Removes aspects of `pubspec.yaml` that are irrelevant when consuming the
-  /// package.
+  /// package or when preparing for analysis.
   ///
-  /// * Removes `dev_dependencies` and `dependency_overrides` These have no
-  ///   effect on the consuming resolution.
-  /// * Removes `workspace` and `resolution` These have no effect on the
-  ///   consuming resolution, and might prevent the package from resolving on
-  ///   its own.
+  /// * When [stripAllDevDependencies] is false, includes `dev_dependencies` that
+  ///   are either from the SDK or have a version constraint without custom
+  ///   host/path/git source, and removes path, git, or hosted `dev_dependencies`.
+  ///   When [stripAllDevDependencies] is true, removes all `dev_dependencies`.
+  /// * Removes `dependency_overrides`, `workspace`, and `resolution`.
   ///
   /// Returns the backup file with the original content.
   Future<File> _stripAndAugmentPubspecYaml(
     String packageDir, {
-    required bool stripAllDevDependencies,
+    bool stripAllDevDependencies = false,
   }) async {
     final now = DateTime.now();
     final backup = File(
@@ -670,38 +662,21 @@ class ToolEnvironment {
       for (final name in oldDevDependencies.keys) {
         final value = oldDevDependencies[name];
 
-        // do not keep path or git dependencies
+        // Do not keep path, git, or custom hosted dependencies.
         if (value is Map &&
-            (value.containsKey('path') || value.containsKey('git'))) {
+            (value.containsKey('path') ||
+                value.containsKey('git') ||
+                value.containsKey('hosted'))) {
           continue;
         }
 
-        // do not keep hosted dependencies outside of pub.dev
-        if (value is Map && value.containsKey('hosted')) {
-          final hosted = value['hosted'];
-          if (hosted is String && hosted == 'https://pub.dev') {
-            // keeping it
-            keptDevDependencies[name] = value;
-            continue;
-          }
-
-          if (hosted is Map && hosted['url'] != 'https://pub.dev') {
-            // keeping it
-            keptDevDependencies[name] = value;
-            continue;
-          }
-
-          // hosted outside of pub.dev, do not keep
-          continue;
-        }
-
-        // keeping the dependency otherwise
         keptDevDependencies[name] = value;
       }
       if (keptDevDependencies.isNotEmpty) {
         parsed['dev_dependencies'] = keptDevDependencies;
       }
     }
+
     parsed.remove('dependency_overrides');
     parsed.remove('workspace');
     parsed.remove('resolution');
@@ -781,6 +756,15 @@ class _DartSdk {
 extension SandboxRunnerProviderExt on ToolEnvironment {
   SandboxRunner get sandboxRunner => _sandboxRunner;
   String? get dartSdkPath => _dartSdk._config.rootPath;
+
+  @visibleForTesting
+  Future<File> stripAndAugmentPubspecYaml(
+    String packageDir, {
+    bool stripAllDevDependencies = false,
+  }) => _stripAndAugmentPubspecYaml(
+    packageDir,
+    stripAllDevDependencies: stripAllDevDependencies,
+  );
 }
 
 /// Consumes the raw `stdout` of `dart analyze --format machine`, parsing each

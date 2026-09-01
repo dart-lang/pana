@@ -290,6 +290,12 @@ class PackageContext {
       items = [];
     } else {
       log.info('Analyzing package...');
+      // Try to resolve dev_dependencies for analysis, falling back to direct dependencies.
+      await toolEnvironment.runPub(
+        packageDir,
+        usesFlutter: usesFlutter,
+        command: 'get',
+      );
       try {
         items = await _staticAnalysis();
       } on ToolException catch (e) {

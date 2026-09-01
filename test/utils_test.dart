@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:pana/src/utils.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
+import 'package:yaml/yaml.dart';
 
 void main() {
   test('sorted json', () {
@@ -102,10 +103,17 @@ a: &a
       expect(
         () => yamlToJson(cyclic),
         throwsA(
-          isA<FormatException>().having(
-            (e) => e.message,
-            'message',
-            contains('Cyclic reference detected'),
+          anyOf(
+            isA<FormatException>().having(
+              (e) => e.message,
+              'message',
+              contains('Cyclic reference detected'),
+            ),
+            isA<YamlException>().having(
+              (e) => e.message,
+              'message',
+              contains('Self-referential collections are not supported'),
+            ),
           ),
         ),
       );

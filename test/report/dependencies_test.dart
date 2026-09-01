@@ -7,6 +7,7 @@ import 'package:pana/src/package_context.dart';
 import 'package:pana/src/report/dependencies.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:test/test.dart';
+import 'package:test_descriptor/test_descriptor.dart' as d;
 
 import '../package_descriptor.dart';
 import '../package_server.dart';
@@ -185,5 +186,64 @@ void main() {
       );
       expect(section.grantedPoints, 0);
     });
+
+    test(
+      'pub outdated ignores dev_dependencies while static analysis includes them',
+      () async {
+        await servePackages(
+          (b) => b!
+            ..serve(
+              'hosted_dep',
+              '1.0.0',
+              contents: [d.file('lib.dart', 'const hostedValue = 1;')],
+            )
+            ..serve(
+              'hosted_dev_dep',
+              '1.0.0',
+              contents: [d.file('lib.dart', 'const devValue = 2;')],
+            ),
+        );
+
+        final descriptor = package(
+          'my_package',
+          sdkConstraint: '>=3.0.0 <4.0.0',
+          dependencies: {'hosted_dep': '^1.0.0'},
+          pubspecExtras: {
+            'dev_dependencies': {
+              'hosted_dev_dep': '^1.0.0',
+              // Path dev_dep should be stripped and not cause failure
+              'broken_path_dev_dep': {'path': '../does_not_exist'},
+            },
+          },
+          lib: [
+            d.file('my_package.dart', '''
+import 'package:hosted_dep/lib.dart';
+void main() {
+  print(hostedValue);
+}
+'''),
+          ],
+        );
+        await descriptor.create();
+
+        final context = PackageContext(
+          sharedContext: SharedAnalysisContext(
+            toolEnvironment: await testToolEnvironment(),
+          ),
+          packageDir: descriptor.io.path,
+        );
+
+        // Outdated should only include hosted_dep, NOT hosted_dev_dep
+        final outdated = await context.outdated;
+        final packageNames = outdated.packages.map((p) => p.package).toList();
+        expect(packageNames, contains('hosted_dep'));
+        expect(packageNames, isNot(contains('hosted_dev_dep')));
+        expect(packageNames, isNot(contains('broken_path_dev_dep')));
+
+        // Static analysis should succeed
+        final analysisResult = await context.staticAnalysis;
+        expect(analysisResult.hasError, isFalse);
+      },
+    );
   });
 }
