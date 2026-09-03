@@ -3,16 +3,17 @@ name: Dart CI
 on:
   # Run on PRs and pushes to the default branch.
   push:
-    branches: [ master ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ master ]
+    branches: [ main, master ]
   schedule:
     - cron: "0 0 * * 0"
 
 env:
   PUB_ENVIRONMENT: bot.github
 
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   # Check code formatting and static analysis on a single OS (linux).
@@ -58,7 +59,7 @@ jobs:
         with:
           sdk: ${{ matrix.sdk }}
       - name: Setup Flutter SDK
-        uses: flutter-actions/setup-flutter@v4
+        uses: flutter-actions/setup-flutter@adb607ae976a9e00473569facfc69813c637a060 # v4.3
         with:
           channel: stable
           version: ${{ matrix.flutter }}
@@ -85,7 +86,7 @@ jobs:
       - uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
         with:
           channel: beta
-      - uses: flutter-actions/setup-flutter@v4
+      - uses: flutter-actions/setup-flutter@adb607ae976a9e00473569facfc69813c637a060 # v4.3
         with:
           channel: beta
           version: latest
