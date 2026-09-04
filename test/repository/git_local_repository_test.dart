@@ -26,9 +26,7 @@ void main() {
 
     test('master', () async {
       expect(
-        await getDefaultBranch(
-          'https://github.com/sigurdm/test-git-repo-master.git',
-        ),
+        await getDefaultBranch('https://github.com/flutter/flutter'),
         'master',
       );
     });
