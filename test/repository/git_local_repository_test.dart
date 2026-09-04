@@ -26,14 +26,14 @@ void main() {
 
     test('master', () async {
       expect(
-        await getDefaultBranch('https://github.com/dart-lang/pana.git'),
+        await getDefaultBranch('https://github.com/flutter/flutter'),
         'master',
       );
     });
 
     test('main', () async {
       expect(
-        await getDefaultBranch('https://github.com/dart-lang/lints'),
+        await getDefaultBranch('https://github.com/dart-lang/pana.git'),
         'main',
       );
     });
