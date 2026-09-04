@@ -26,7 +26,9 @@ void main() {
 
     test('master', () async {
       expect(
-        await getDefaultBranch('https://github.com/dart-lang/build.git'),
+        await getDefaultBranch(
+          'https://github.com/sigurdm/test-git-repo-master.git',
+        ),
         'master',
       );
     });
