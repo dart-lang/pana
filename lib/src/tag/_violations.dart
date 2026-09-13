@@ -314,6 +314,9 @@ class SdkViolationFinder {
   }
 }
 
+// TODO(kevmoo): Remove this workaround once the analyzer surfaces JS-interop
+// errors directly.
+// https://github.com/dart-lang/sdk/issues/54366#issuecomment-5651742483
 class _WasmJsInteropVisitor extends RecursiveAstVisitor<void> {
   bool hasViolations = false;
 
