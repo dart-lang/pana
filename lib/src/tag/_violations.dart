@@ -319,7 +319,11 @@ class _WasmJsInteropVisitor extends RecursiveAstVisitor<void> {
     for (final member in node.body.members) {
       if (member is ConstructorDeclaration) {
         for (final annotation in member.metadata) {
-          if (annotation.name.name == 'JS') {
+          final name = annotation.name;
+          final annotationName = name is PrefixedIdentifier
+              ? name.identifier.name
+              : name.name;
+          if (annotationName == 'JS') {
             hasViolations = true;
           }
         }

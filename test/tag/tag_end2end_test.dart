@@ -938,6 +938,42 @@ extension type ZXingWasmReaderOptions._(JSObject _) implements JSObject {
       },
     );
 
+    test(
+      'Excluded to invalid prefixed @JS annotation on extension type constructor',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package_prefixed',
+            sdkConstraint: '>=3.3.0 <4.0.0',
+            languageVersion: '3.3',
+            lib: [
+              d.file('my_package.dart', '''
+import 'dart:js_interop' as js;
+
+extension type ZXingWasmReaderOptions._(js.JSObject _) implements js.JSObject {
+  @js.JS('ZXingWasmReaderOptions')
+  external factory ZXingWasmReaderOptions.withFormats();
+}
+'''),
+            ],
+          ),
+        ]);
+
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package_prefixed');
+        _expectTagging(
+          tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')),
+          explanations: contains(
+            _explanation(
+              finding: contains('not compatible with runtime wasm'),
+              tag: 'is:wasm-ready',
+            ),
+          ),
+        );
+      },
+    );
+
     test('Included with dart.library.js_interop conditional export', () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps(
