@@ -84,6 +84,8 @@
 library;
 
 import 'package:analyzer/dart/analysis/session.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 
 import '../tool/run_constrained.dart' show ToolException;
 import '_common.dart';
@@ -97,6 +99,16 @@ PathFinder<Uri> runtimeViolationFinder(
   Explainer<Uri> explainer,
 ) {
   return PathFinder<Uri>(libraryGraph, (Uri uri) {
+    if (uri.scheme == 'package' && runtime.name == 'wasm') {
+      final unit = parsedUnitFromUri(libraryGraph.analysisSession, uri);
+      if (unit != null) {
+        final visitor = _WasmJsInteropVisitor();
+        unit.accept(visitor);
+        if (visitor.hasViolations) {
+          return explainer;
+        }
+      }
+    }
     final uriString = uri.toString();
     if (uriString.startsWith('dart:') &&
         !runtime.enabledLibs.contains(uriString.substring(5))) {
@@ -296,5 +308,23 @@ class SdkViolationFinder {
       explanations.map((e) => '${e.finding} ${e.explanation}').join('\n\n'),
       tag: sdk.tag,
     );
+  }
+}
+
+class _WasmJsInteropVisitor extends RecursiveAstVisitor<void> {
+  bool hasViolations = false;
+
+  @override
+  void visitExtensionTypeDeclaration(ExtensionTypeDeclaration node) {
+    for (final member in node.body.members) {
+      if (member is ConstructorDeclaration) {
+        for (final annotation in member.metadata) {
+          if (annotation.name.name == 'JS') {
+            hasViolations = true;
+          }
+        }
+      }
+    }
+    super.visitExtensionTypeDeclaration(node);
   }
 }

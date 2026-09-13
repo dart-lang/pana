@@ -1,3 +1,7 @@
+## 0.23.20-wip
+
+- Deny `is:wasm-ready` tag when `@JS()` annotations are placed on `extension type` constructors.
+
 ## 0.23.19
 
 - Include hosted and SDK `dev_dependencies` during static analysis and documentation generation.
