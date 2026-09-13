@@ -100,12 +100,15 @@ PathFinder<Uri> runtimeViolationFinder(
 ) {
   return PathFinder<Uri>(libraryGraph, (Uri uri) {
     if (uri.scheme == 'package' && runtime.name == 'wasm') {
-      final unit = parsedUnitFromUri(libraryGraph.analysisSession, uri);
-      if (unit != null) {
-        final visitor = _WasmJsInteropVisitor();
-        unit.accept(visitor);
-        if (visitor.hasViolations) {
-          return explainer;
+      final session = libraryGraph.analysisSession;
+      if (session != null) {
+        final unit = parsedUnitFromUri(session, uri);
+        if (unit != null) {
+          final visitor = _WasmJsInteropVisitor();
+          unit.accept(visitor);
+          if (visitor.hasViolations) {
+            return explainer;
+          }
         }
       }
     }
