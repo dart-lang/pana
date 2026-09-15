@@ -10,6 +10,7 @@ import 'package:test_descriptor/test_descriptor.dart' as d;
 d.DirectoryDescriptor packageWithPathDeps(
   String name, {
   String? sdkConstraint,
+  String languageVersion = '2.12',
   List<String> dependencies = const [],
   List<d.Descriptor> lib = const [],
   Map<String, Object> pubspecExtras = const {},
@@ -30,7 +31,7 @@ d.DirectoryDescriptor packageWithPathDeps(
         'name': name,
         'rootUri': '..',
         'packageUri': 'lib/',
-        'languageVersion': '2.12',
+        'languageVersion': languageVersion,
       },
       for (final dep in dependencies)
         {
@@ -40,7 +41,7 @@ d.DirectoryDescriptor packageWithPathDeps(
           // TODO(sigurdm) somehow communicate the real language-version
           // Our analysis uses the bound in pubspec.yaml, so this doesn't cause
           // problems yet.
-          'languageVersion': '2.12',
+          'languageVersion': languageVersion,
         },
     ],
   });

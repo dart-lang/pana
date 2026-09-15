@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:analyzer/dart/analysis/session.dart';
 import 'package:pana/src/tag/_graphs.dart';
 import 'package:pana/src/tag/_specs.dart';
 import 'package:pana/src/tag/_violations.dart';
@@ -15,6 +16,9 @@ class FakeLibraryGraph implements LibraryGraph {
   Set<Uri> directSuccessors(Uri uri) {
     return successors[uri.toString()]!.map(Uri.parse).toSet();
   }
+
+  @override
+  AnalysisSession? get analysisSession => null;
 }
 
 void main() {

@@ -84,6 +84,8 @@
 library;
 
 import 'package:analyzer/dart/analysis/session.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 
 import '../tool/run_constrained.dart' show ToolException;
 import '_common.dart';
@@ -97,6 +99,19 @@ PathFinder<Uri> runtimeViolationFinder(
   Explainer<Uri> explainer,
 ) {
   return PathFinder<Uri>(libraryGraph, (Uri uri) {
+    if (uri.scheme == 'package' && runtime.name == 'wasm') {
+      final session = libraryGraph.analysisSession;
+      if (session != null) {
+        final unit = parsedUnitFromUri(session, uri);
+        if (unit != null) {
+          final visitor = _WasmJsInteropVisitor();
+          unit.accept(visitor);
+          if (visitor.hasViolations) {
+            return explainer;
+          }
+        }
+      }
+    }
     final uriString = uri.toString();
     if (uriString.startsWith('dart:') &&
         !runtime.enabledLibs.contains(uriString.substring(5))) {
@@ -296,5 +311,30 @@ class SdkViolationFinder {
       explanations.map((e) => '${e.finding} ${e.explanation}').join('\n\n'),
       tag: sdk.tag,
     );
+  }
+}
+
+// TODO(kevmoo): Remove this workaround once the analyzer surfaces JS-interop
+// errors directly.
+// https://github.com/dart-lang/sdk/issues/54366#issuecomment-5651742483
+class _WasmJsInteropVisitor extends RecursiveAstVisitor<void> {
+  bool hasViolations = false;
+
+  @override
+  void visitExtensionTypeDeclaration(ExtensionTypeDeclaration node) {
+    for (final member in node.body.members) {
+      if (member is ConstructorDeclaration) {
+        for (final annotation in member.metadata) {
+          final name = annotation.name;
+          final annotationName = name is PrefixedIdentifier
+              ? name.identifier.name
+              : name.name;
+          if (annotationName == 'JS') {
+            hasViolations = true;
+          }
+        }
+      }
+    }
+    super.visitExtensionTypeDeclaration(node);
   }
 }

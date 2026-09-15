@@ -62,6 +62,7 @@ class PubspecCache {
 /// of declared variables.
 class LibraryGraph implements DirectedGraph<Uri> {
   final AnalysisSession _analysisSession;
+  AnalysisSession? get analysisSession => _analysisSession;
   final Map<String, String> _declaredVariables;
   final Map<Uri, Set<Uri>> _cache = <Uri, Set<Uri>>{};
   final bool Function(Uri) _isLeaf;
