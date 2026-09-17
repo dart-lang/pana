@@ -1,4 +1,4 @@
-## 0.23.20-wip
+## 0.24.0-wip
 
 - Pass writable sandbox output folders via `SANDBOX_OUTPUT_JSON` (JSON-encoded list of paths) instead of `SANDBOX_OUTPUT` (#1633).
 
