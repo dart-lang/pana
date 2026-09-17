@@ -98,12 +98,12 @@
         "spdxIdentifier": "MIT",
         "operations": [
           0,
-          59,
+          24,
           53,
           "MIT License\n\nCopyright (c) <year> <copyright holders>",
           1,
-          59,
-          1038
+          24,
+          1022
         ]
       }
     ],
