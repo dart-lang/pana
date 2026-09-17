@@ -1,6 +1,6 @@
-## 0.24.0-wip
+## 0.23.20-wip
 
-- **BREAKING CHANGE**: `SANDBOX_OUTPUT` environment variable passed to `--sandbox-runner` is now a JSON-encoded list of directory paths instead of a colon-separated string.
+- Pass writable sandbox output folders via `SANDBOX_OUTPUT_JSON` (JSON-encoded list of paths) instead of `SANDBOX_OUTPUT`.
 - Fix Windows failure by only populating sandbox environment variables when `--sandbox-runner` is specified (#1633).
 
 ## 0.23.19

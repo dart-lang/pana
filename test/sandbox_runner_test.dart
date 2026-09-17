@@ -12,12 +12,13 @@ import 'package:test/test.dart';
 
 void main() {
   group('SandboxRunner', () {
-    test('JSON-encodes output folders when executable is set', () async {
+    test('sets SANDBOX_OUTPUT_JSON when executable is set', () async {
       await withTempDir((dir) async {
         final script = File(p.join(dir, 'print_env.dart'));
         await script.writeAsString('''
 import 'dart:io';
 void main() {
+  print(Platform.environment['SANDBOX_OUTPUT_JSON'] ?? 'NONE');
   print(Platform.environment['SANDBOX_OUTPUT'] ?? 'NONE');
 }
 ''');
@@ -28,21 +29,23 @@ void main() {
           outputFolders: ['/tmp/valid', r'C:\Users\runner\out'],
         );
         expect(result.exitCode, 0);
-        expect(json.decode(result.stdout.asString.trim()), [
+        final lines = result.stdout.asString.trim().split('\n');
+        expect(json.decode(lines[0].trim()), [
           '/tmp/gen/a:/home:',
           '/tmp/valid',
           r'C:\Users\runner\out',
         ]);
+        expect(lines[1].trim(), 'NONE');
       });
     });
 
-    test('does not set SANDBOX_OUTPUT when executable is null', () async {
+    test('does not set SANDBOX_OUTPUT_JSON when executable is null', () async {
       await withTempDir((dir) async {
         final script = File(p.join(dir, 'print_env.dart'));
         await script.writeAsString('''
 import 'dart:io';
 void main() {
-  print(Platform.environment['SANDBOX_OUTPUT'] ?? 'NONE');
+  print(Platform.environment['SANDBOX_OUTPUT_JSON'] ?? 'NONE');
 }
 ''');
         final runner = SandboxRunner(null);

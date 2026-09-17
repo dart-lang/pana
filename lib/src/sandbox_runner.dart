@@ -22,7 +22,7 @@ final class SandboxRunner {
   /// - The directory identified by `XDG_CONFIG_HOME`.
   /// - The directory identified by `PUB_CACHE`.
   /// - The current working directory / package directory.
-  /// - The directories identified by `SANDBOX_OUTPUT` (JSON-encoded list of
+  /// - The directories identified by `SANDBOX_OUTPUT_JSON` (JSON-encoded list of
   ///   writable directory paths, if present).
   ///
   /// The script will use its command line arguments to pass-through execution inside the sandbox.
@@ -69,7 +69,7 @@ final class SandboxRunner {
       environment: {
         ...environment,
         if (allOutputFolders.isNotEmpty)
-          'SANDBOX_OUTPUT': jsonEncode(allOutputFolders.toList()),
+          'SANDBOX_OUTPUT_JSON': jsonEncode(allOutputFolders.toList()),
         if (_executable != null && needsNetwork)
           'SANDBOX_NETWORK_ENABLED': 'true',
       },
