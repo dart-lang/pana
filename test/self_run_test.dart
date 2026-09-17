@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:pana/pana.dart';
 import 'package:test/test.dart';
 
@@ -9,14 +11,14 @@ void main() {
   final timeout = const Duration(minutes: 5);
   test('running pana locally with relative path', () async {
     final pr = await runConstrained([
-      'dart',
+      Platform.resolvedExecutable,
       'bin/pana.dart',
       '--no-warning',
       '.',
     ], timeout: timeout);
     expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
 
-    final output = pr.stdout.asString;
+    final output = pr.stdout.asString.replaceAll('\r\n', '\n');
     final snippets = [
       '## ✓ Follow Dart file conventions (30 / 30)',
       '## ✓ Platform support (20 / 20)\n',

@@ -55,7 +55,7 @@ void main() {
       ], timeout: timeout);
       expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
 
-      final output = pr.stdout.asString;
+      final output = pr.stdout.asString.replaceAll('\r\n', '\n');
       final snippets = [
         '## ✓ Follow Dart file conventions (30 / 30)',
         '## ✓ Platform support (20 / 20)\n',

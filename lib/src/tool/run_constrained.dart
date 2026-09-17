@@ -281,7 +281,7 @@ class PanaProcessResult {
 /// The output of a process as String or byte stream.
 abstract class ProcessOutput {
   factory ProcessOutput.from(Object value, {Encoding? encoding}) {
-    encoding ??= systemEncoding;
+    encoding ??= const Utf8Codec(allowMalformed: true);
     if (value is List<List<int>>) {
       return _ChunksProcessOutput(value, encoding);
     }
