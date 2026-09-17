@@ -14,20 +14,23 @@ void main() {
   test('running pana locally with compiled executable', () async {
     await withTempDir((dir) async {
       // detect SDK directory
-      final dartPathPr = await Process.run('which', ['dart']);
       var sdkPath = Directory(
-        p.dirname(p.dirname(dartPathPr.stdout.toString())),
+        p.dirname(p.dirname(Platform.resolvedExecutable)),
       ).resolveSymbolicLinksSync();
       // if we using Flutter SDK, we need to use the internal Dart SDK's directory
-      if (await File(p.join(sdkPath, 'bin', 'flutter')).exists()) {
+      if (await File(p.join(sdkPath, 'bin', 'flutter')).exists() ||
+          await File(p.join(sdkPath, 'bin', 'flutter.bat')).exists()) {
         sdkPath = Directory(
           p.join(sdkPath, 'bin', 'cache', 'dart-sdk'),
         ).resolveSymbolicLinksSync();
       }
 
       // compile pana binary
-      final compiledBinaryPath = p.join(dir, 'pana');
-      final compilePr = await Process.run('dart', [
+      final compiledBinaryPath = p.join(
+        dir,
+        Platform.isWindows ? 'pana.exe' : 'pana',
+      );
+      final compilePr = await Process.run(Platform.resolvedExecutable, [
         'compile',
         'exe',
         '-o',

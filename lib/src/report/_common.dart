@@ -22,7 +22,9 @@ extension on SourceSpan {
   /// The file path will be relative to [basePath].
   String markdown({String? basePath}) {
     assert(sourceUrl != null);
-    final path = p.relative(sourceUrl!.path, from: basePath);
+    final path = p.posix.joinAll(
+      p.split(p.relative(p.fromUri(sourceUrl!), from: basePath)),
+    );
     var content = highlight();
     if (content.length > 1024) {
       content = '${content.substring(0, 1020)}\n[...]';

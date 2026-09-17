@@ -39,15 +39,33 @@ void main() {
       expect(list, ['lib/unformatted.dart']);
     });
 
-    test('some files need updating (regular output, absolute path)', () {
+    test('some files need updating (regular output, Windows absolute path)', () {
       final list = parseDartFormatOutput(
-        packageDir: '/tmp/x',
+        packageDir: r'C:\Users\runner\AppData\Local\Temp\pana_1234',
         exitCode: 1,
         output:
-            'Changed /tmp/x/lib/unformatted.dart\n'
+            'Changed C:\\Users\\runner\\AppData\\Local\\Temp\\pana_1234\\lib\\unformatted.dart\n'
             'Formatted 130 files (1 changed) in 0.35 seconds.',
       );
       expect(list, ['lib/unformatted.dart']);
+    });
+
+    test('example directory is not parsed (Windows paths)', () {
+      final list = parseDartFormatOutput(
+        packageDir: r'C:\Temp\pana_ZVVKSB',
+        exitCode: -1,
+        output:
+            '''Changed C:\\Temp\\pana_ZVVKSB\\example\\lib\\components\\menu.dart
+Formatted 32 files (1 changed) in 0.04 seconds.
+Could not format because the source could not be parsed:
+
+line 142, column 21 of C:\\Temp\\pana_ZVVKSB\\example\\lib\\main.dart: This requires the 'null-aware-elements' language feature to be enabled.
+    ╷
+142 │           strokes: [?controller.currentStroke],
+    │                     ^
+    ╵''',
+      );
+      expect(list, isEmpty);
     });
 
     test('example directory is not parsed', () {

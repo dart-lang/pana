@@ -149,7 +149,7 @@ FileSpan? sourceSpanFromFile({
   required int length,
 }) {
   final sourceText = File(path).readAsStringSync();
-  final sourceFile = SourceFile.fromString(sourceText, url: path);
+  final sourceFile = SourceFile.fromString(sourceText, url: p.toUri(path));
   try {
     // SourceSpans are 0-based, so we subtract 1 from line and column.
     var startOffset = sourceFile.getOffset(line - 1, col - 1);

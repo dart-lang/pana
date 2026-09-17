@@ -2,13 +2,15 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:pana/src/sandbox_runner.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('SandboxRunner', () {
-    test('rejects outputFolder with colon', () async {
-      final runner = SandboxRunner(null);
+    test('rejects outputFolder with colon when executable is set', () async {
+      final runner = SandboxRunner('/path/to/sandbox');
       expect(
         () => runner.runSandboxed([
           'echo',
@@ -24,8 +26,8 @@ void main() {
       );
     });
 
-    test('rejects outputFolders with colon', () async {
-      final runner = SandboxRunner(null);
+    test('rejects outputFolders with colon when executable is set', () async {
+      final runner = SandboxRunner('/path/to/sandbox');
       expect(
         () => runner.runSandboxed(
           ['echo', 'hello'],
@@ -39,6 +41,15 @@ void main() {
           ),
         ),
       );
+    });
+
+    test('allows outputFolder with colon when executable is null', () async {
+      final runner = SandboxRunner(null);
+      final result = await runner.runSandboxed([
+        Platform.resolvedExecutable,
+        '--version',
+      ], outputFolder: r'C:\Users\runner\AppData\Local\Temp\out');
+      expect(result.exitCode, 0);
     });
   });
 }

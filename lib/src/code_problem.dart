@@ -33,7 +33,9 @@ CodeProblem? parseCodeProblem(String content, {String? projectDir}) {
 
       if (projectDir != null) {
         assert(p.isWithin(projectDir, filePath));
-        filePath = p.relative(filePath, from: projectDir);
+        filePath = p.posix.joinAll(
+          p.split(p.relative(filePath, from: projectDir)),
+        );
       }
 
       return CodeProblem(
@@ -88,7 +90,7 @@ CodeProblem? parseCodeProblem(String content, {String? projectDir}) {
 
   if (projectDir != null) {
     assert(p.isWithin(projectDir, filePath));
-    filePath = p.relative(filePath, from: projectDir);
+    filePath = p.posix.joinAll(p.split(p.relative(filePath, from: projectDir)));
   }
 
   return CodeProblem(

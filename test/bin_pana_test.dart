@@ -19,10 +19,12 @@ void main() {
   test(
     'run with bad option shows help text. Help text is included in readme ',
     () async {
-      var process = await TestProcess.start(
-        p.join(p.dirname(Platform.resolvedExecutable), 'dart'),
-        ['pub', 'run', 'pana', '--monkey'],
-      );
+      var process = await TestProcess.start(Platform.resolvedExecutable, [
+        'pub',
+        'run',
+        'pana',
+        '--monkey',
+      ]);
 
       var output = await process.stdoutStream().join('\n');
 

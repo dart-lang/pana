@@ -367,7 +367,7 @@ class ToolEnvironment {
       final output = result.asJoinedOutput;
       return parseDartFormatOutput(
         packageDir: packageDir,
-        exitCode: exitCode,
+        exitCode: result.exitCode,
         output: output,
         result: result,
       );

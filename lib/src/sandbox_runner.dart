@@ -5,7 +5,7 @@
 import 'tool/run_constrained.dart';
 
 /// Provides an interface to wrap an optional sandbox-runner script.
-class SandboxRunner {
+final class SandboxRunner {
   /// When a sandbox environment is present, this identifies the executable path
   /// which will be used to prepend subprocess calls.
   final String? _executable;
@@ -36,8 +36,9 @@ class SandboxRunner {
   /// The script will restrict network access, unless
   /// `SANDBOX_NETWORK_ENABLED=true` is specified.
   ///
-  /// It is an error if any directory path in [outputFolder], [outputFolders],
-  /// or derived writable directories contains a colon (`:`).
+  /// It is an error if a sandbox executable is configured and any directory path
+  /// in [outputFolder], [outputFolders], or derived writable directories
+  /// contains a colon (`:`).
   Future<PanaProcessResult> runSandboxed(
     List<String> arguments, {
     String? workingDirectory,
@@ -55,11 +56,13 @@ class SandboxRunner {
   }) async {
     environment ??= const <String, String>{};
     final allOutputFolders = <String>{
-      ?outputFolder,
-      ...?outputFolders,
-      ?(writableConfigHome ? environment['XDG_CONFIG_HOME'] : null),
-      ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
-      ?(writableCurrentDir ? workingDirectory : null),
+      if (_executable != null) ...[
+        ?outputFolder,
+        ...?outputFolders,
+        ?(writableConfigHome ? environment['XDG_CONFIG_HOME'] : null),
+        ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
+        ?(writableCurrentDir ? workingDirectory : null),
+      ],
     };
     for (final folder in allOutputFolders) {
       if (folder.contains(':')) {
@@ -77,7 +80,8 @@ class SandboxRunner {
         ...environment,
         if (allOutputFolders.isNotEmpty)
           'SANDBOX_OUTPUT': allOutputFolders.join(':'),
-        if (needsNetwork) 'SANDBOX_NETWORK_ENABLED': 'true',
+        if (_executable != null && needsNetwork)
+          'SANDBOX_NETWORK_ENABLED': 'true',
       },
       timeout: timeout,
       throwOnError: throwOnError,

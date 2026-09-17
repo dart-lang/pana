@@ -56,7 +56,11 @@ List<String> dartFilesFromLib(String packageDir) {
       ? libDir
             .listSync(recursive: true, followLinks: false)
             .where((e) => e is File && e.path.endsWith('.dart'))
-            .map((f) => p.relative(f.path, from: libDir.path))
+            .map(
+              (f) => p.posix.joinAll(
+                p.split(p.relative(f.path, from: libDir.path)),
+              ),
+            )
             .toList()
       : <String>[];
 
@@ -269,7 +273,8 @@ Future<void> copyDir(String from, String to) async {
     final relativePath = p.relative(fse.path, from: from);
     // The following file is used by `git-fsmonitor` and copying is blocked.
     // https://git-scm.com/docs/git-fsmonitor--daemon
-    if (relativePath == '.git/fsmonitor--daemon.ipc') {
+    if (p.posix.joinAll(p.split(relativePath)) ==
+        '.git/fsmonitor--daemon.ipc') {
       continue;
     }
     if (fse is File) {
