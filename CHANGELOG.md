@@ -1,8 +1,3 @@
-## 0.23.20-wip
-
-- Pass writable sandbox output folders via `SANDBOX_OUTPUT_JSON` (JSON-encoded list of paths) instead of `SANDBOX_OUTPUT`.
-- Fix Windows failure by only populating sandbox environment variables when `--sandbox-runner` is specified (#1633).
-
 ## 0.23.19
 
 - Include hosted and SDK `dev_dependencies` during static analysis and documentation generation.

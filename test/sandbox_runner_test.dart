@@ -2,60 +2,54 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:pana/src/sandbox_runner.dart';
-import 'package:pana/src/utils.dart';
-import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
   group('SandboxRunner', () {
-    test('sets SANDBOX_OUTPUT_JSON when executable is set', () async {
-      await withTempDir((dir) async {
-        final script = File(p.join(dir, 'print_env.dart'));
-        await script.writeAsString('''
-import 'dart:io';
-void main() {
-  print(Platform.environment['SANDBOX_OUTPUT_JSON'] ?? 'NONE');
-  print(Platform.environment['SANDBOX_OUTPUT'] ?? 'NONE');
-}
-''');
-        final runner = SandboxRunner(Platform.resolvedExecutable);
-        final result = await runner.runSandboxed(
-          [script.path],
-          outputFolder: '/tmp/gen/a:/home:',
-          outputFolders: ['/tmp/valid', r'C:\Users\runner\out'],
-        );
-        expect(result.exitCode, 0);
-        final lines = result.stdout.asString.trim().split('\n');
-        expect(json.decode(lines[0].trim()), [
-          '/tmp/gen/a:/home:',
-          '/tmp/valid',
-          r'C:\Users\runner\out',
-        ]);
-        expect(lines[1].trim(), 'NONE');
-      });
+    test('rejects outputFolder with colon when executable is set', () async {
+      final runner = SandboxRunner('/path/to/sandbox');
+      expect(
+        () => runner.runSandboxed([
+          'echo',
+          'hello',
+        ], outputFolder: '/tmp/gen/a:/home:'),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => e.message,
+            'message',
+            contains('must not contain ":"'),
+          ),
+        ),
+      );
     });
 
-    test('does not set SANDBOX_OUTPUT_JSON when executable is null', () async {
-      await withTempDir((dir) async {
-        final script = File(p.join(dir, 'print_env.dart'));
-        await script.writeAsString('''
-import 'dart:io';
-void main() {
-  print(Platform.environment['SANDBOX_OUTPUT_JSON'] ?? 'NONE');
-}
-''');
-        final runner = SandboxRunner(null);
-        final result = await runner.runSandboxed([
-          Platform.resolvedExecutable,
-          script.path,
-        ], outputFolder: r'C:\Users\runner\AppData\Local\Temp\out');
-        expect(result.exitCode, 0);
-        expect(result.stdout.asString.trim(), 'NONE');
-      });
+    test('rejects outputFolders with colon when executable is set', () async {
+      final runner = SandboxRunner('/path/to/sandbox');
+      expect(
+        () => runner.runSandboxed(
+          ['echo', 'hello'],
+          outputFolders: ['/tmp/valid', '/tmp/a:/b'],
+        ),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => e.message,
+            'message',
+            contains('must not contain ":"'),
+          ),
+        ),
+      );
+    });
+
+    test('allows outputFolder with colon when executable is null', () async {
+      final runner = SandboxRunner(null);
+      final result = await runner.runSandboxed([
+        Platform.resolvedExecutable,
+        '--version',
+      ], outputFolder: r'C:\Users\runner\AppData\Local\Temp\out');
+      expect(result.exitCode, 0);
     });
   });
 }
