@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert' show jsonEncode;
+
 import 'tool/run_constrained.dart';
 
 /// Provides an interface to wrap an optional sandbox-runner script.
@@ -20,7 +22,9 @@ final class SandboxRunner {
   /// - The directory identified by `XDG_CONFIG_HOME`.
   /// - The directory identified by `PUB_CACHE`.
   /// - The current working directory / package directory.
-  /// - The directory identified by `SANDBOX_OUTPUT` (if present, is writable).
+  /// - The directories identified by `SANDBOX_OUTPUT_JSON` (JSON-encoded list of
+  ///   writable directory paths, if present) or legacy `SANDBOX_OUTPUT`
+  ///   (colon-separated list of writable directory paths).
   ///
   /// The script will use its command line arguments to pass-through execution inside the sandbox.
   ///
@@ -35,10 +39,6 @@ final class SandboxRunner {
   ///
   /// The script will restrict network access, unless
   /// `SANDBOX_NETWORK_ENABLED=true` is specified.
-  ///
-  /// It is an error if a sandbox executable is configured and any directory path
-  /// in [outputFolder], [outputFolders], or derived writable directories
-  /// contains a colon (`:`).
   Future<PanaProcessResult> runSandboxed(
     List<String> arguments, {
     String? workingDirectory,
@@ -56,32 +56,23 @@ final class SandboxRunner {
   }) async {
     environment ??= const <String, String>{};
     final allOutputFolders = <String>{
-      if (_executable != null) ...[
-        ?outputFolder,
-        ...?outputFolders,
-        ?(writableConfigHome ? environment['XDG_CONFIG_HOME'] : null),
-        ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
-        ?(writableCurrentDir ? workingDirectory : null),
-      ],
+      ?outputFolder,
+      ...?outputFolders,
+      ?(writableConfigHome ? environment['XDG_CONFIG_HOME'] : null),
+      ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
+      ?(writableCurrentDir ? workingDirectory : null),
     };
-    for (final folder in allOutputFolders) {
-      if (folder.contains(':')) {
-        throw ArgumentError.value(
-          folder,
-          'outputFolder',
-          'Sandbox output folder must not contain ":"',
-        );
-      }
-    }
     return await runConstrained(
       [?_executable, ...arguments],
       workingDirectory: workingDirectory,
       environment: {
         ...environment,
-        if (allOutputFolders.isNotEmpty)
-          'SANDBOX_OUTPUT': allOutputFolders.join(':'),
-        if (_executable != null && needsNetwork)
-          'SANDBOX_NETWORK_ENABLED': 'true',
+        if (allOutputFolders.isNotEmpty) ...{
+          if (allOutputFolders.every((f) => !f.contains(':')))
+            'SANDBOX_OUTPUT': allOutputFolders.join(':'),
+          'SANDBOX_OUTPUT_JSON': jsonEncode(allOutputFolders.toList()),
+        },
+        if (needsNetwork) 'SANDBOX_NETWORK_ENABLED': 'true',
       },
       timeout: timeout,
       throwOnError: throwOnError,
