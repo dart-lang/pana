@@ -27,6 +27,7 @@ class License {
   License._(this.content, this.tokens, this.tokenFrequency, this.identifier);
 
   factory License.parse({required String identifier, required String content}) {
+    content = content.replaceAll('\r\n', '\n');
     // Remove some known patterns from the licenses that are not needed during matching.
     final lines = content.split('\n');
 
@@ -313,7 +314,7 @@ List<License> licensesFromFile(String path) {
   final licenses = <License>[];
   final file = File(path);
 
-  final content = file.readAsStringSync();
+  final content = file.readAsStringSync().replaceAll('\r\n', '\n');
   final identifier = file.uri.pathSegments.last.split('.txt').first;
 
   if (_invalidIdentifier.hasMatch(identifier)) {
