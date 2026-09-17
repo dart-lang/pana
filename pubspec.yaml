@@ -31,6 +31,7 @@ dependencies:
   safe_url_check: ^1.1.2
   source_span: ^1.10.1
   string_scanner: ^1.4.1
+  term_glyph: ^1.2.1
   test: ^1.26.2 # needed for lib/src/third_party/diff_match_patch/test.dart
   yaml: ^3.1.3
 

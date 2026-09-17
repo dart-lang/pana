@@ -114,7 +114,7 @@ Future<VerifiedRepository> checkRepository({
     // TODO: verify all file name patterns
 
     final pubspecFiles = files
-        .where((path) => p.basename(path) == 'pubspec.yaml')
+        .where((path) => p.posix.basename(path) == 'pubspec.yaml')
         .toList();
     if (pubspecFiles.isEmpty) {
       return VerifiedRepository(
@@ -264,7 +264,7 @@ Future<VerifiedRepository> checkRepository({
       );
     } else {
       // confirmed name match, storing path
-      localPath = p.dirname(nameMatches.single.path);
+      localPath = p.posix.dirname(nameMatches.single.path);
 
       if (nameMatches.single.verificationIssue != null) {
         failVerification(nameMatches.single.verificationIssue!);
@@ -273,7 +273,7 @@ Future<VerifiedRepository> checkRepository({
       if (verificationFailure == null) {
         final contributingCandidates = [
           if (localPath.isNotEmpty && localPath != '.')
-            p.join(localPath, 'CONTRIBUTING.md'),
+            p.posix.join(localPath, 'CONTRIBUTING.md'),
           'CONTRIBUTING.md',
         ];
         for (final path in contributingCandidates) {

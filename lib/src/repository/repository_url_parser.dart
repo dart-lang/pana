@@ -41,7 +41,7 @@ Repository parseRepositoryUrl(String input) {
 
   // Normalizing the URL path and rejecting URLs that may differ more than
   // a trailing slash.
-  final normalizedUri = Uri.parse(p.normalize(uri.path));
+  final normalizedUri = Uri.parse(p.posix.normalize(uri.path));
   if (uri.path != normalizedUri.path && uri.path != '${normalizedUri.path}/') {
     throw FormatException(
       'URL path is not normalized: `${uri.path}` != `${normalizedUri.path}`',

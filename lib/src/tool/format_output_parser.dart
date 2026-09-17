@@ -20,12 +20,22 @@ List<String> parseDartFormatOutput({
   required String output,
   PanaProcessResult? result,
 }) {
-  final dirPrefix = '${p.normalize(packageDir)}/';
+  final normalizedDir = p.posix.normalize(packageDir.replaceAll(r'\', '/'));
+  final dirPrefix = normalizedDir.endsWith('/')
+      ? normalizedDir
+      : '$normalizedDir/';
+  String stripDirPrefix(String rawPath) {
+    final normalized = rawPath.trim().replaceAll(r'\', '/');
+    return normalized.startsWith(dirPrefix)
+        ? normalized.substring(dirPrefix.length)
+        : normalized;
+  }
+
   final lines = LineSplitter.split(output).toList();
   final changedFiles =
       lines
           .where((l) => l.startsWith('Changed'))
-          .map((l) => l.substring(8).replaceFirst(dirPrefix, '').trim())
+          .map((l) => stripDirPrefix(l.substring(8)))
           .where(isAnalysisTarget)
           .toList()
         ..sort();
@@ -55,10 +65,11 @@ List<String> parseDartFormatOutput({
       // parse lines like `line 142, column 21 of /tmp/pana_CAMRUS/example/lib/main.dart: This requires the 'null-aware-elements' language feature to be enabled.`
       .whereNot((l) {
         if (!l.startsWith('line ')) return false;
-        final path = RegExp(
-          r'^line \d+, column \d+ of (/.+)\:',
-        ).matchAsPrefix(l)?.group(1)?.replaceFirst(dirPrefix, '');
-        if (path == null) return false;
+        final rawPath = RegExp(
+          r'^line \d+, column \d+ of (.+?): ',
+        ).matchAsPrefix(l)?.group(1);
+        if (rawPath == null) return false;
+        final path = stripDirPrefix(rawPath);
         if (isAnalysisTarget(path)) {
           // keeping the line, since it may be important
           return false;

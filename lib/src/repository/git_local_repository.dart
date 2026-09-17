@@ -159,7 +159,7 @@ class GitLocalRepository {
     if (p.posix.normalize(path) != path) {
       throw GitToolException.argument('Path "$path" is not normalized.');
     }
-    if (p
+    if (p.posix
         .split(path)
         .any(
           (segment) =>

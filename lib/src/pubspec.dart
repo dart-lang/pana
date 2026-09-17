@@ -4,6 +4,7 @@
 
 import 'dart:collection';
 
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:pubspec_parse/pubspec_parse.dart' as pubspek;
 import 'package:pubspec_parse/pubspec_parse.dart' hide Pubspec, Screenshot;
@@ -25,7 +26,7 @@ class Pubspec {
     Map<String, dynamic>.from(
       yaml.loadYaml(
             content,
-            sourceUrl: sourceUrl == null ? null : Uri.parse(sourceUrl),
+            sourceUrl: sourceUrl == null ? null : p.toUri(sourceUrl),
           )
           as Map,
     ),

@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
+import 'package:term_glyph/term_glyph.dart' as glyph;
 import 'package:yaml/yaml.dart';
 
 import '../model.dart';
@@ -22,8 +23,13 @@ extension on SourceSpan {
   /// The file path will be relative to [basePath].
   String markdown({String? basePath}) {
     assert(sourceUrl != null);
-    final path = p.relative(sourceUrl!.path, from: basePath);
+    final path = p.posix.joinAll(
+      p.split(p.relative(p.fromUri(sourceUrl!), from: basePath)),
+    );
+    final oldAscii = glyph.ascii;
+    glyph.ascii = false;
     var content = highlight();
+    glyph.ascii = oldAscii;
     if (content.length > 1024) {
       content = '${content.substring(0, 1020)}\n[...]';
     }

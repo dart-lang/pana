@@ -53,6 +53,7 @@ Future<List<License>> detectLicenseInContent(
   String content, {
   String? licenseDataDir,
 }) async {
+  content = content.replaceAll('\r\n', '\n');
   final licenseResult = await detectLicense(
     content,
     0.95,

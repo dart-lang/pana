@@ -53,14 +53,14 @@ extension RepositoryUrlResolverExt on Repository {
       return reference;
     }
     var referenceIsAbsolute = false;
-    var referencePath = p.normalize(parsedReference.path);
+    var referencePath = p.posix.normalize(parsedReference.path);
     while (referencePath.startsWith('/')) {
       referencePath = referencePath.substring(1);
       referenceIsAbsolute = true;
     }
     if (relativeFrom != null && !referenceIsAbsolute) {
-      referencePath = p.normalize(
-        p.joinAll([p.dirname(relativeFrom), referencePath]),
+      referencePath = p.posix.normalize(
+        p.posix.joinAll([p.posix.dirname(relativeFrom), referencePath]),
       );
       while (referencePath.startsWith('/')) {
         referencePath = referencePath.substring(1);
@@ -71,20 +71,20 @@ extension RepositoryUrlResolverExt on Repository {
 
     // GitHub resolves references only inside the repository.
     if (RepositoryProvider.isGitHubCompatible(provider)) {
-      final extension = p.extension(reference).toLowerCase();
+      final extension = p.posix.extension(reference).toLowerCase();
       final needsRaw = isEmbeddedObject || _imageExtensions.contains(extension);
       final separator = (needsRaw ? 'raw' : null) ?? 'blob';
 
       final normalizedPath = referenceIsAbsolute
           ? referencePath
-          : p.normalize(p.joinAll([?path, referencePath]));
-      final parts = p.split(normalizedPath);
+          : p.posix.normalize(p.posix.joinAll([?path, referencePath]));
+      final parts = p.posix.split(normalizedPath);
       final sanitizedPath = parts.contains('..')
-          ? p.joinAll(parts.sublist(parts.lastIndexOf('..') + 1))
+          ? p.posix.joinAll(parts.sublist(parts.lastIndexOf('..') + 1))
           : normalizedPath;
 
-      finalPath = p.normalize(
-        p.joinAll(
+      finalPath = p.posix.normalize(
+        p.posix.joinAll(
           [
             repository,
             separator,
@@ -97,8 +97,10 @@ extension RepositoryUrlResolverExt on Repository {
       // For unknown providers resolution follows normal URL rules.
       finalPath = referenceIsAbsolute
           ? referencePath
-          : p.normalize(
-              p.joinAll([repository, ?path, referencePath].whereType<String>()),
+          : p.posix.normalize(
+              p.posix.joinAll(
+                [repository, ?path, referencePath].whereType<String>(),
+              ),
             );
     }
 

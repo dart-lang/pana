@@ -325,5 +325,16 @@ b: [6, 7, 8, 9, 10]
         }
       });
     });
+
+    test('returns POSIX paths for nested files', () async {
+      await withTempDir((dir) async {
+        final srcDir = Directory(p.join(dir, 'lib', 'src'))
+          ..createSync(recursive: true);
+        File(p.join(dir, 'lib', 'root.dart')).writeAsStringSync('void r() {}');
+        File(p.join(srcDir.path, 'sub.dart')).writeAsStringSync('void s() {}');
+
+        expect(dartFilesFromLib(dir), ['root.dart', 'src/sub.dart']);
+      });
+    });
   });
 }
