@@ -23,7 +23,8 @@ final class SandboxRunner {
   /// - The directory identified by `PUB_CACHE`.
   /// - The current working directory / package directory.
   /// - The directories identified by `SANDBOX_OUTPUT_JSON` (JSON-encoded list of
-  ///   writable directory paths, if present).
+  ///   writable directory paths, if present) or legacy `SANDBOX_OUTPUT`
+  ///   (colon-separated list of writable directory paths).
   ///
   /// The script will use its command line arguments to pass-through execution inside the sandbox.
   ///
@@ -55,23 +56,23 @@ final class SandboxRunner {
   }) async {
     environment ??= const <String, String>{};
     final allOutputFolders = <String>{
-      if (_executable != null) ...[
-        ?outputFolder,
-        ...?outputFolders,
-        ?(writableConfigHome ? environment['XDG_CONFIG_HOME'] : null),
-        ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
-        ?(writableCurrentDir ? workingDirectory : null),
-      ],
+      ?outputFolder,
+      ...?outputFolders,
+      ?(writableConfigHome ? environment['XDG_CONFIG_HOME'] : null),
+      ?(writablePubCacheDir ? environment['PUB_CACHE'] : null),
+      ?(writableCurrentDir ? workingDirectory : null),
     };
     return await runConstrained(
       [?_executable, ...arguments],
       workingDirectory: workingDirectory,
       environment: {
         ...environment,
-        if (allOutputFolders.isNotEmpty)
+        if (allOutputFolders.isNotEmpty) ...{
+          if (allOutputFolders.every((f) => !f.contains(':')))
+            'SANDBOX_OUTPUT': allOutputFolders.join(':'),
           'SANDBOX_OUTPUT_JSON': jsonEncode(allOutputFolders.toList()),
-        if (_executable != null && needsNetwork)
-          'SANDBOX_NETWORK_ENABLED': 'true',
+        },
+        if (needsNetwork) 'SANDBOX_NETWORK_ENABLED': 'true',
       },
       timeout: timeout,
       throwOnError: throwOnError,
