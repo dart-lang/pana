@@ -76,7 +76,6 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/session.dart';
-import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
 import 'package:pub_semver/pub_semver.dart';
 
@@ -84,6 +83,7 @@ import '../null_safety.dart';
 import '../pubspec_io.dart' show pubspecFromDir;
 import '../utils.dart' show dartFilesFromLib;
 import '_common.dart';
+import '_flutter_plugins.dart';
 import '_graphs.dart';
 import '_specs.dart';
 import '_violations.dart';
@@ -280,7 +280,7 @@ class Tagger {
     try {
       final webPluginLibraries =
           (platform.name == 'Web' || runtime.name == 'web')
-          ? _getWebPluginLibraries()
+          ? findWebPluginLibraries(_session, _pubspecCache, packageName)
           : const <Uri>[];
       final librariesToCheck = [..._topLibraries, ...webPluginLibraries];
 
@@ -358,42 +358,9 @@ class Tagger {
     return TaggingResult(innerTags, innerExplanations);
   }
 
-  /// Returns the declared web plugin platform implementation library URIs
-  /// from `pubspec.yaml` (under `flutter.plugin.platforms.web.fileName`,
-  /// defaulting to `<package_name>_web.dart`), if the file exists.
-  List<Uri> _getWebPluginLibraries() {
-    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
-    if (!pubspec.hasFlutterPluginKey) return const <Uri>[];
-
-    final plugin = pubspec.originalYaml['flutter'];
-    if (plugin is! Map || plugin['plugin'] is! Map) return const <Uri>[];
-
-    final platforms = plugin['plugin']['platforms'];
-    if (platforms is! Map) return const <Uri>[];
-
-    final webConfig = platforms['web'];
-    if (webConfig is! Map) return const <Uri>[];
-
-    var fileName = '${packageName}_web.dart';
-    if (webConfig['fileName'] is String) {
-      fileName = webConfig['fileName'] as String;
-    }
-
-    final fileUri = Uri.tryParse('package:$packageName/$fileName');
-    if (fileUri == null) return const <Uri>[];
-    final path = _session.uriConverter.uriToPath(fileUri);
-    if (path != null && File(path).existsSync()) {
-      return <Uri>[fileUri];
-    }
-    return const <Uri>[];
-  }
-
   /// Adds tags for Flutter plugins.
   void flutterPluginTags(List<String> tags, List<Explanation> explanations) {
-    final pubspec = _pubspecCache.pubspecOfPackage(packageName);
-    if (pubspec.hasFlutterPluginKey) {
-      tags.add(PanaTags.isPlugin);
-    }
+    findFlutterPluginTags(_pubspecCache, packageName, tags, explanations);
   }
 
   /// Adds the is:wasm-ready tag if there are no uses of disallowed dart: libraries.
@@ -409,7 +376,10 @@ class Tagger {
       ),
     );
     var supports = true;
-    for (final lib in [..._topLibraries, ..._getWebPluginLibraries()]) {
+    for (final lib in [
+      ..._topLibraries,
+      ...findWebPluginLibraries(_session, _pubspecCache, packageName),
+    ]) {
       final violationResult = finder.findViolation(lib);
       if (violationResult != null) {
         explanations.add(violationResult);
@@ -423,159 +393,30 @@ class Tagger {
   }
 
   /// Tag if iOS/macOS plugin has migrated to Swift Package Manager (swiftpm).
-  ///
-  /// A plugin only needs to be swiftpm enabled if it has a native component, we
-  /// detect that if it has the `flutter.plugin.platforms.<os>.pluginClass` key
-  /// present in the pubspec.
-  ///
-  /// A plugin can share code and package-manager manifest between iOS and
-  /// macOS by specifying `flutter.plugin.platforms.<os>.sharedDarwinSource`.
-  ///
-  /// See https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors
   void swiftPackageManagerPluginTag(
     List<String> tags,
     List<Explanation> explanations,
   ) {
     if (!_usesFlutter) return;
-    final mainPackagePubspec = _pubspecCache.pubspecOfPackage(packageName);
-
-    bool pathExists(dynamic m, List<String> path) {
-      dynamic current = m;
-      for (final e in path) {
-        if (current is! Map) return false;
-        if (!current.containsKey(e)) return false;
-        current = current[e];
-      }
-      return true;
-    }
-
-    var isDarwinPlugin = false;
-    var swiftPmSupport = true;
-
-    for (final darwinOs in ['macos', 'ios']) {
-      var defaultPackagePubspec = mainPackagePubspec;
-      var defaultPackageDir = packageDir;
-      final defaultPackageName = defaultPackagePubspec
-          .originalYaml['flutter']?['plugin']?['platforms']?[darwinOs]?['default_package'];
-
-      if (defaultPackageName is String) {
-        defaultPackagePubspec = _pubspecCache.pubspecOfPackage(
-          defaultPackageName,
-        );
-        defaultPackageDir = _pubspecCache.packageDir(defaultPackageName);
-      }
-
-      if (pathExists(defaultPackagePubspec.originalYaml, [
-        'flutter',
-        'plugin',
-        'platforms',
-        darwinOs,
-        'pluginClass',
-      ])) {
-        isDarwinPlugin = true;
-        final osDir =
-            defaultPackagePubspec
-                    .originalYaml['flutter']?['plugin']?['platforms']?[darwinOs]?['sharedDarwinSource'] ==
-                true
-            ? 'darwin'
-            : darwinOs;
-
-        final packageSwiftFile = path.join(
-          osDir,
-          defaultPackageName is String ? defaultPackageName : packageName,
-          'Package.swift',
-        );
-        if (!File(
-          path.join(defaultPackageDir, packageSwiftFile),
-        ).existsSync()) {
-          swiftPmSupport = false;
-          final osName = {'macos': 'macOS', 'ios': 'iOS'}[darwinOs];
-          explanations.add(
-            Explanation(
-              'Package does not support the Swift Package Manager on $osName',
-              defaultPackageName is String
-                  ? 'The default package $defaultPackageName does not contain `$packageSwiftFile`.'
-                  : 'The package does not contain `$packageSwiftFile`.',
-              tag: PanaTags.isSwiftPmPlugin,
-            ),
-          );
-        }
-      }
-    }
-    if (isDarwinPlugin) {
-      if (swiftPmSupport) {
-        tags.add(PanaTags.isSwiftPmPlugin);
-      } else {
-        tags.add(PanaTags.isDarwinLegacyNativeBuild);
-      }
-    }
+    findSwiftPackageManagerPluginTags(
+      _pubspecCache,
+      packageName,
+      packageDir,
+      tags,
+      explanations,
+    );
   }
 
-  /// Tag if Android plugin uses legacy Kotlin configuration.
+  /// Tag if Android plugin uses built-in Kotlin or legacy Kotlin configuration.
   void kotlinPluginTag(List<String> tags, List<Explanation> explanations) {
     if (!_usesFlutter) return;
-    final mainPackagePubspec = _pubspecCache.pubspecOfPackage(packageName);
-
-    final flutter = mainPackagePubspec.originalYaml['flutter'];
-    if (flutter is! Map) return;
-    final plugin = flutter['plugin'];
-    if (plugin is! Map) return;
-    final isAndroidPlugin =
-        plugin['androidPackage'] is String ||
-        (plugin['platforms'] is Map && plugin['platforms']['android'] is Map);
-
-    if (!isAndroidPlugin) return;
-
-    var defaultPackagePubspec = mainPackagePubspec;
-    var defaultPackageDir = packageDir;
-    final defaultPackageName = defaultPackagePubspec
-        .originalYaml['flutter']?['plugin']?['platforms']?['android']?['default_package'];
-
-    if (defaultPackageName is String) {
-      try {
-        defaultPackagePubspec = _pubspecCache.pubspecOfPackage(
-          defaultPackageName,
-        );
-        defaultPackageDir = _pubspecCache.packageDir(defaultPackageName);
-      } catch (e) {
-        return;
-      }
-    }
-
-    final androidDir = Directory(path.join(defaultPackageDir, 'android'));
-    if (!androidDir.existsSync()) return;
-
-    final buildGradle = File(path.join(androidDir.path, 'build.gradle'));
-    final buildGradleKts = File(path.join(androidDir.path, 'build.gradle.kts'));
-
-    var hasLegacyKotlin = false;
-    String? buildGradlePath;
-
-    if (buildGradle.existsSync()) {
-      final content = buildGradle.readAsStringSync();
-      if (hasLegacyKotlinGroovy(content)) {
-        hasLegacyKotlin = true;
-        buildGradlePath = 'android/build.gradle';
-      }
-    } else if (buildGradleKts.existsSync()) {
-      final content = buildGradleKts.readAsStringSync();
-      if (hasLegacyKotlinKotlin(content)) {
-        hasLegacyKotlin = true;
-        buildGradlePath = 'android/build.gradle.kts';
-      }
-    }
-
-    if (hasLegacyKotlin) {
-      explanations.add(
-        Explanation(
-          'Legacy Kotlin configuration detected in `$buildGradlePath`.',
-          'This plugin applies the Kotlin Gradle Plugin (KGP) or uses the `android.kotlinOptions{}` block.',
-          tag: PanaTags.isBuiltInKotlin,
-        ),
-      );
-    } else {
-      tags.add(PanaTags.isBuiltInKotlin);
-    }
+    findKotlinPluginTags(
+      _pubspecCache,
+      packageName,
+      packageDir,
+      tags,
+      explanations,
+    );
   }
 
   /// Adds tags for the Dart runtimes that this package supports to [tags].
@@ -743,106 +584,5 @@ class Tagger {
         ),
       );
     }
-  }
-
-  @visibleForTesting
-  static bool hasLegacyKotlinGroovy(String content) {
-    // Matches the Kotlin Gradle Plugin (KGP) application in Groovy DSL (build.gradle).
-    //
-    // Ported from Flutter SDK's FlutterPluginUtils.kgpRegexGroovy:
-    // https://github.com/flutter/flutter/blob/main/packages/flutter_tools/gradle/src/main/kotlin/FlutterPluginUtils.kt
-    //
-    // This regex matches two main patterns:
-    // 1. Legacy apply plugin syntax:
-    //    apply plugin: 'kotlin-android'
-    // 2. Modern plugins block syntax (with or without parentheses):
-    //    plugins {
-    //        id 'org.jetbrains.kotlin.android'
-    //    }
-    //    or using version catalog:
-    //    plugins {
-    //        alias(libs.plugins.kotlin.android)
-    //    }
-    final applyPluginPattern =
-        r'''^[ \t]*apply[ \t]+plugin[ \t]*:[ \t]*(['"])(?:kotlin-android|org\.jetbrains\.kotlin\.android)\1''';
-
-    final pluginsStart = r'^[ \t]*plugins[ \t]*\{';
-    final insideBlockLazy = r'[^{}]*?';
-    final startOfLineInBlock = r'(?<=[\n{])[ \t]*';
-    final idOrAlias = r'(?:id|alias)';
-    final separator = r'(?:[ \t]*\(\s*|[ \t]+)'; // e.g. "id(" or "id "
-    final pluginTargets =
-        r'''(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)''';
-    final closingParenthesis = r'(?:\s*\))?';
-    final endOfStatement = r'(?=[ \t]*(\n|$|\}))';
-
-    final pluginsBlockPattern =
-        '$pluginsStart$insideBlockLazy$startOfLineInBlock'
-        '$idOrAlias$separator$pluginTargets$closingParenthesis$endOfStatement';
-
-    final kgpRegexGroovy = RegExp(
-      '$applyPluginPattern|$pluginsBlockPattern',
-      multiLine: true,
-    );
-
-    // Matches the legacy android.kotlinOptions {} block.
-    // Example:
-    // android {
-    //     kotlinOptions { ... }
-    // }
-    // or:
-    // android.kotlinOptions { ... }
-    final kotlinOptionsRegex = RegExp(
-      r'''^[ \t]*(?:[a-zA-Z0-9_]+\.)*kotlinOptions[ \t]*\{''',
-      multiLine: true,
-    );
-
-    return kgpRegexGroovy.hasMatch(content) ||
-        kotlinOptionsRegex.hasMatch(content);
-  }
-
-  @visibleForTesting
-  static bool hasLegacyKotlinKotlin(String content) {
-    // Matches the Kotlin Gradle Plugin (KGP) application in Kotlin DSL (build.gradle.kts).
-    //
-    // Ported from Flutter SDK's FlutterPluginUtils.kgpRegexKotlin:
-    // https://github.com/flutter/flutter/blob/main/packages/flutter_tools/gradle/src/main/kotlin/FlutterPluginUtils.kt
-    //
-    // This regex matches KGP declaration within a plugins {} block:
-    //    plugins {
-    //        id("org.jetbrains.kotlin.android")
-    //        // or
-    //        alias(libs.plugins.kotlin.android)
-    //    }
-    final pluginsStart = r'^[ \t]*plugins[ \t]*\{';
-    final insideBlockLazy = r'[^{}]*?';
-    final startOfLineInBlock = r'(?<=[\n{])[ \t]*';
-    final idOrAlias = r'(?:id|alias)';
-    final kotlinSeparator =
-        r'[ \t]*\(\s*'; // Kotlin DSL requires parentheses, e.g. "id("
-    final pluginTargets =
-        r'''(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)''';
-    final kotlinClosingParenthesis =
-        r'\s*\)'; // Kotlin DSL requires closing parenthesis ")"
-    final endOfStatement = r'(?=[ \t]*(\n|$|\}))';
-
-    final kgpRegexKotlin = RegExp(
-      '$pluginsStart$insideBlockLazy$startOfLineInBlock'
-      '$idOrAlias$kotlinSeparator$pluginTargets$kotlinClosingParenthesis$endOfStatement',
-      multiLine: true,
-    );
-
-    // Matches the legacy android.kotlinOptions {} block.
-    // Example:
-    // android {
-    //     kotlinOptions { ... }
-    // }
-    final kotlinOptionsRegex = RegExp(
-      r'''^[ \t]*(?:[a-zA-Z0-9_]+\.)*kotlinOptions[ \t]*\{''',
-      multiLine: true,
-    );
-
-    return kgpRegexKotlin.hasMatch(content) ||
-        kotlinOptionsRegex.hasMatch(content);
   }
 }

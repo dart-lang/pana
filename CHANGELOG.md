@@ -1,6 +1,7 @@
 ## 0.23.20-wip
 
 - Pass writable sandbox output folders via `SANDBOX_OUTPUT_JSON` (JSON-encoded list of paths) alongside `SANDBOX_OUTPUT` (#1633).
+- Fix `is:built-in-kotlin` tag false positives and remove report note for tagged plugins (#1639).
 
 ## 0.23.19
 

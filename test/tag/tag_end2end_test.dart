@@ -930,40 +930,114 @@ import 'dart:js_interop';
   });
 
   group('kotlin plugin tag', () {
-    test('No legacy Kotlin -> no tag', () async {
-      final descriptor = d.dir('cache', [
-        packageWithPathDeps(
-          'my_package',
-          pubspecExtras: {
-            'flutter': {
-              'plugin': {
-                'platforms': {
-                  'android': <String, dynamic>{'pluginClass': 'MyPlugin'},
+    test(
+      'No legacy Kotlin with .kt source -> is:built-in-kotlin tag',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            pubspecExtras: {
+              'flutter': {
+                'plugin': {
+                  'platforms': {
+                    'android': <String, dynamic>{'pluginClass': 'MyPlugin'},
+                  },
                 },
               },
             },
-          },
-          extraFiles: [
-            d.dir('android', [
-              d.file('build.gradle', '''
+            extraFiles: [
+              d.dir('android', [
+                d.file('build.gradle', '''
                 plugins {
                     id("com.android.library")
                     // No KGP
                 }
               '''),
-            ]),
-          ],
-        ),
-      ]);
-      await descriptor.create();
-      final tagger = Tagger('${descriptor.io.path}/my_package');
-      _expectTagging(
-        tagger.kotlinPluginTag,
-        tags: contains('is:built-in-kotlin'),
-      );
-    });
+                d.dir('src', [d.file('MyPlugin.kt', 'class MyPlugin')]),
+              ]),
+            ],
+          ),
+        ]);
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(
+          tagger.kotlinPluginTag,
+          tags: contains('is:built-in-kotlin'),
+          explanations: isEmpty,
+        );
+      },
+    );
 
-    test('Legacy Kotlin KGP in Groovy -> tag and explanation', () async {
+    test(
+      'Java-only plugin (no .kt files under android/) -> no tag and no explanation',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            pubspecExtras: {
+              'flutter': {
+                'plugin': {
+                  'platforms': {
+                    'android': <String, dynamic>{'pluginClass': 'MyPlugin'},
+                  },
+                },
+              },
+            },
+            extraFiles: [
+              d.dir('android', [
+                d.file('build.gradle', '''
+                plugins {
+                    id("com.android.library")
+                }
+              '''),
+                d.dir('src', [d.file('MyPlugin.java', 'class MyPlugin {}')]),
+              ]),
+            ],
+          ),
+        ]);
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(
+          tagger.kotlinPluginTag,
+          tags: isEmpty,
+          explanations: isEmpty,
+        );
+      },
+    );
+
+    test(
+      'No build.gradle or build.gradle.kts -> no tag and no explanation',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            pubspecExtras: {
+              'flutter': {
+                'plugin': {
+                  'platforms': {
+                    'android': <String, dynamic>{'pluginClass': 'MyPlugin'},
+                  },
+                },
+              },
+            },
+            extraFiles: [
+              d.dir('android', [
+                d.dir('src', [d.file('MyPlugin.kt', 'class MyPlugin')]),
+              ]),
+            ],
+          ),
+        ]);
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(
+          tagger.kotlinPluginTag,
+          tags: isEmpty,
+          explanations: isEmpty,
+        );
+      },
+    );
+
+    test('Legacy Kotlin KGP in Groovy -> no tag and explanation', () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps(
           'my_package',
@@ -982,6 +1056,7 @@ import 'dart:js_interop';
                 apply plugin: 'com.android.library'
                 apply plugin: 'kotlin-android'
               '''),
+              d.dir('src', [d.file('MyPlugin.kt', 'class MyPlugin')]),
             ]),
           ],
         ),
@@ -1002,7 +1077,7 @@ import 'dart:js_interop';
       );
     });
 
-    test('Legacy Kotlin KGP in Kotlin DSL -> tag and explanation', () async {
+    test('Legacy Kotlin KGP in Kotlin DSL -> no tag and explanation', () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps(
           'my_package',
@@ -1023,6 +1098,7 @@ import 'dart:js_interop';
                     id("org.jetbrains.kotlin.android")
                 }
               '''),
+              d.dir('src', [d.file('MyPlugin.kt', 'class MyPlugin')]),
             ]),
           ],
         ),
@@ -1043,7 +1119,7 @@ import 'dart:js_interop';
       );
     });
 
-    test('Legacy kotlinOptions in Groovy -> tag and explanation', () async {
+    test('Legacy kotlinOptions in Groovy -> no tag and explanation', () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps(
           'my_package',
@@ -1065,6 +1141,7 @@ import 'dart:js_interop';
                     }
                 }
               '''),
+              d.dir('src', [d.file('MyPlugin.kt', 'class MyPlugin')]),
             ]),
           ],
         ),
