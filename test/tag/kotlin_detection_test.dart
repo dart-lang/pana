@@ -1,41 +1,31 @@
-import 'package:pana/src/tag/tagger.dart';
+import 'package:pana/src/tag/_flutter_plugins.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('hasLegacyKotlinGroovy', () {
     test('matches legacy apply plugin: kotlin-android', () {
+      expect(hasLegacyKotlinGroovy("apply plugin: 'kotlin-android'"), isTrue);
+      expect(hasLegacyKotlinGroovy('apply plugin: "kotlin-android"'), isTrue);
       expect(
-        Tagger.hasLegacyKotlinGroovy("apply plugin: 'kotlin-android'"),
-        isTrue,
-      );
-      expect(
-        Tagger.hasLegacyKotlinGroovy('apply plugin: "kotlin-android"'),
-        isTrue,
-      );
-      expect(
-        Tagger.hasLegacyKotlinGroovy("  apply   plugin:   'kotlin-android'  "),
+        hasLegacyKotlinGroovy("  apply   plugin:   'kotlin-android'  "),
         isTrue,
       );
     });
 
     test('matches legacy apply plugin: org.jetbrains.kotlin.android', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy(
-          "apply plugin: 'org.jetbrains.kotlin.android'",
-        ),
+        hasLegacyKotlinGroovy("apply plugin: 'org.jetbrains.kotlin.android'"),
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy(
-          'apply plugin: "org.jetbrains.kotlin.android"',
-        ),
+        hasLegacyKotlinGroovy('apply plugin: "org.jetbrains.kotlin.android"'),
         isTrue,
       );
     });
 
     test('matches plugins block with id "kotlin-android"', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               id 'kotlin-android'
           }
@@ -43,7 +33,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               id("kotlin-android")
           }
@@ -54,7 +44,7 @@ void main() {
 
     test('matches plugins block with id "org.jetbrains.kotlin.android"', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               id 'org.jetbrains.kotlin.android'
           }
@@ -65,7 +55,7 @@ void main() {
 
     test('matches plugins block with alias', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               alias(libs.plugins.kotlin.android)
           }
@@ -73,7 +63,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               alias libs.plugins.kotlin.android
           }
@@ -84,7 +74,7 @@ void main() {
 
     test('matches plugins block with id and version', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               id 'kotlin-android' version '1.9.22'
           }
@@ -92,7 +82,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               id("org.jetbrains.kotlin.android") version "1.9.22"
           }
@@ -103,17 +93,17 @@ void main() {
 
     test('matches pluginManager.apply', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy("pluginManager.apply('kotlin-android')"),
+        hasLegacyKotlinGroovy("pluginManager.apply('kotlin-android')"),
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy(
+        hasLegacyKotlinGroovy(
           'pluginManager.apply("org.jetbrains.kotlin.android")',
         ),
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy(
+        hasLegacyKotlinGroovy(
           "pluginManager.apply 'org.jetbrains.kotlin.android'",
         ),
         isTrue,
@@ -122,7 +112,7 @@ void main() {
 
     test('matches guarded KGP application', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           if (agpMajor < 9) {
               apply plugin: 'kotlin-android'
           }
@@ -130,13 +120,13 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy(
+        hasLegacyKotlinGroovy(
           "if (agpMajor < 9) { apply plugin: 'kotlin-android' }",
         ),
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           if (agpMajor < 9) {
               pluginManager.apply("org.jetbrains.kotlin.android")
           }
@@ -147,7 +137,7 @@ void main() {
 
     test('matches kotlinOptions block and property access', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           android {
               kotlinOptions {
                   jvmTarget = '1.8'
@@ -157,13 +147,11 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy(
-          'android.kotlinOptions { jvmTarget = "1.8" }',
-        ),
+        hasLegacyKotlinGroovy('android.kotlinOptions { jvmTarget = "1.8" }'),
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           android {
               kotlinOptions.jvmTarget = '1.8'
           }
@@ -171,20 +159,20 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('android.kotlinOptions.jvmTarget = "1.8"'),
+        hasLegacyKotlinGroovy('android.kotlinOptions.jvmTarget = "1.8"'),
         isTrue,
       );
     });
 
     test('does not match commented out legacy KGP or kotlinOptions', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           // apply plugin: 'kotlin-android'
         '''),
         isFalse,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               // id 'kotlin-android'
           }
@@ -192,13 +180,13 @@ void main() {
         isFalse,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           // android.kotlinOptions { jvmTarget = "1.8" }
         '''),
         isFalse,
       );
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           /*
           apply plugin: 'kotlin-android'
           plugins {
@@ -217,7 +205,7 @@ void main() {
 
     test('does not match modern kotlin compilerOptions', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           kotlin {
               compilerOptions {
                   jvmTarget.set(JvmTarget.JVM_1_8)
@@ -230,7 +218,7 @@ void main() {
 
     test('does not match unrelated plugins', () {
       expect(
-        Tagger.hasLegacyKotlinGroovy('''
+        hasLegacyKotlinGroovy('''
           plugins {
               id 'com.android.library'
           }
@@ -243,7 +231,7 @@ void main() {
   group('hasLegacyKotlinKotlin', () {
     test('matches plugins block with id("kotlin-android")', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               id("kotlin-android")
           }
@@ -254,7 +242,7 @@ void main() {
 
     test('matches plugins block with id("org.jetbrains.kotlin.android")', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               id("org.jetbrains.kotlin.android")
           }
@@ -265,7 +253,7 @@ void main() {
 
     test('matches plugins block with id and version', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               id("kotlin-android") version "1.9.22"
           }
@@ -273,7 +261,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               id("org.jetbrains.kotlin.android") version "1.9.22"
           }
@@ -284,7 +272,7 @@ void main() {
 
     test('matches plugins block with kotlin("android")', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               kotlin("android")
           }
@@ -292,7 +280,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               kotlin("android") version "1.9.22"
           }
@@ -303,7 +291,7 @@ void main() {
 
     test('matches plugins block with alias', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               alias(libs.plugins.kotlin.android)
           }
@@ -313,25 +301,20 @@ void main() {
     });
 
     test('matches apply(plugin = ...)', () {
+      expect(hasLegacyKotlinKotlin('apply(plugin = "kotlin-android")'), isTrue);
       expect(
-        Tagger.hasLegacyKotlinKotlin('apply(plugin = "kotlin-android")'),
-        isTrue,
-      );
-      expect(
-        Tagger.hasLegacyKotlinKotlin(
-          'apply(plugin = "org.jetbrains.kotlin.android")',
-        ),
+        hasLegacyKotlinKotlin('apply(plugin = "org.jetbrains.kotlin.android")'),
         isTrue,
       );
     });
 
     test('matches pluginManager.apply(...)', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('pluginManager.apply("kotlin-android")'),
+        hasLegacyKotlinKotlin('pluginManager.apply("kotlin-android")'),
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinKotlin(
+        hasLegacyKotlinKotlin(
           'pluginManager.apply("org.jetbrains.kotlin.android")',
         ),
         isTrue,
@@ -340,7 +323,7 @@ void main() {
 
     test('matches guarded KGP application', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           if (agpMajor < 9) {
               apply(plugin = "org.jetbrains.kotlin.android")
           }
@@ -348,7 +331,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           if (agpMajor < 9) {
               pluginManager.apply("org.jetbrains.kotlin.android")
           }
@@ -356,7 +339,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               id("com.android.library")
               if (agpMajor < 9) {
@@ -370,7 +353,7 @@ void main() {
 
     test('matches kotlinOptions block and property access', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           android {
               kotlinOptions {
                   jvmTarget = "1.8"
@@ -380,7 +363,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           android {
               kotlinOptions.jvmTarget = "1.8"
           }
@@ -388,7 +371,7 @@ void main() {
         isTrue,
       );
       expect(
-        Tagger.hasLegacyKotlinKotlin('android.kotlinOptions.jvmTarget = "17"'),
+        hasLegacyKotlinKotlin('android.kotlinOptions.jvmTarget = "17"'),
         isTrue,
       );
     });
@@ -396,7 +379,7 @@ void main() {
     test('does not match Groovy-style id without parentheses', () {
       // Kotlin DSL requires parentheses for id(...)
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               id 'kotlin-android'
           }
@@ -407,7 +390,7 @@ void main() {
 
     test('does not match commented out KGP or kotlinOptions', () {
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           plugins {
               // id("kotlin-android")
           }
@@ -415,7 +398,7 @@ void main() {
         isFalse,
       );
       expect(
-        Tagger.hasLegacyKotlinKotlin('''
+        hasLegacyKotlinKotlin('''
           /*
           plugins {
               kotlin("android")
