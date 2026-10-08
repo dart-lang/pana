@@ -547,17 +547,25 @@ class Tagger {
 
     final buildGradle = File(path.join(androidDir.path, 'build.gradle'));
     final buildGradleKts = File(path.join(androidDir.path, 'build.gradle.kts'));
+    final hasBuildGradle = buildGradle.existsSync();
+    final hasBuildGradleKts = buildGradleKts.existsSync();
+    if (!hasBuildGradle && !hasBuildGradleKts) return;
+
+    final hasKotlinSources = androidDir
+        .listSync(recursive: true, followLinks: false)
+        .any((e) => e is File && e.path.endsWith('.kt'));
+    if (!hasKotlinSources) return;
 
     var hasLegacyKotlin = false;
     String? buildGradlePath;
 
-    if (buildGradle.existsSync()) {
+    if (hasBuildGradle) {
       final content = buildGradle.readAsStringSync();
       if (hasLegacyKotlinGroovy(content)) {
         hasLegacyKotlin = true;
         buildGradlePath = 'android/build.gradle';
       }
-    } else if (buildGradleKts.existsSync()) {
+    } else if (hasBuildGradleKts) {
       final content = buildGradleKts.readAsStringSync();
       if (hasLegacyKotlinKotlin(content)) {
         hasLegacyKotlin = true;
@@ -745,104 +753,109 @@ class Tagger {
     }
   }
 
+  static final _gradleCommentsOrStringsRegex = RegExp(
+    r'"""[\s\S]*?"""|'
+    r"'''[\s\S]*?'''|"
+    r'"(?:\\.|[^"\\\n])*"|'
+    r"'(?:\\.|[^'\\\n])*'|"
+    r'/\*[\s\S]*?\*/|'
+    r'//[^\n]*',
+  );
+
+  /// Strips `//` line comments and `/* ... */` block comments from Gradle build
+  /// file content while preserving string literals.
+  static String _stripGradleComments(String content) {
+    return content.replaceAllMapped(_gradleCommentsOrStringsRegex, (match) {
+      final value = match.group(0)!;
+      if (value.startsWith('//')) {
+        return '';
+      }
+      if (value.startsWith('/*')) {
+        return value.contains('\n') ? '\n' : ' ';
+      }
+      return value;
+    });
+  }
+
+  static const _quotedKgpIds =
+      r'''(?:'(?:kotlin-android|org\.jetbrains\.kotlin\.android)'|"(?:kotlin-android|org\.jetbrains\.kotlin\.android)")''';
+
+  static const _quotedAndroid = r'''(?:'android'|"android")''';
+
+  static const _versionCatalogAliases =
+      r'libs\.plugins\.(?:android|kotlin)\.android';
+
+  static const _pluginsStart = r'\bplugins\s*\{';
+  static const _insideBlockLazy = r'(?:\{[^{}]*\}|[^{}])*?(?:\{[^{}]*?)?';
+  static const _startOfStatementInBlock = r'(?<=[\n{;])[ \t]*';
+  static const _optionalVersion =
+      r'(?:(?:[ \t]+version\b|[ \t]*\.version\s*\()[^\n;}]*)?';
+  static const _endOfStatement = r'(?=[ \t]*(?:\n|$|\}|;))';
+
+  // Matches legacy `kotlinOptions { ... }` blocks and property assignments
+  // like `kotlinOptions.jvmTarget = ...` or `android.kotlinOptions.jvmTarget = ...`.
+  static final _kotlinOptionsRegex = RegExp(
+    r'\b(?:[a-zA-Z0-9_]+\.)*kotlinOptions(?:\s*\{|\.[a-zA-Z0-9_]+)',
+    multiLine: true,
+  );
+
+  static final _kgpRegexGroovy = () {
+    final applyPluginPattern =
+        r'\bapply(?:\s*\(\s*|\s+)plugin\s*[:=]\s*'
+        '$_quotedKgpIds(?:\\s*\\))?';
+    final pluginManagerApplyPattern =
+        r'\b(?:pluginManager|plugins)\.apply(?:\s*\(\s*|\s+)'
+        '$_quotedKgpIds(?:\\s*\\))?';
+    final groovyPluginDeclaration =
+        r'\b(?:'
+        '(?:id|alias)(?:[ \\t]*\\(\\s*|[ \\t]+)'
+        '(?:$_quotedKgpIds|$_versionCatalogAliases)(?:\\s*\\))?'
+        '|'
+        'kotlin(?:[ \\t]*\\(\\s*|[ \\t]+)$_quotedAndroid(?:\\s*\\))?'
+        ')';
+    final pluginsBlockPattern =
+        '$_pluginsStart$_insideBlockLazy$_startOfStatementInBlock'
+        '$groovyPluginDeclaration$_optionalVersion$_endOfStatement';
+    return RegExp(
+      '$applyPluginPattern|$pluginManagerApplyPattern|$pluginsBlockPattern',
+      multiLine: true,
+    );
+  }();
+
+  static final _kgpRegexKotlin = () {
+    final applyPluginPattern =
+        r'\bapply\s*\(\s*plugin\s*=\s*'
+        '$_quotedKgpIds\\s*\\)';
+    final pluginManagerApplyPattern =
+        r'\b(?:pluginManager|plugins)\.apply\s*\(\s*'
+        '$_quotedKgpIds\\s*\\)';
+    final kotlinPluginDeclaration =
+        r'\b(?:'
+        '(?:id|alias)[ \\t]*\\(\\s*'
+        '(?:$_quotedKgpIds|$_versionCatalogAliases)\\s*\\)'
+        '|'
+        'kotlin[ \\t]*\\(\\s*$_quotedAndroid\\s*\\)'
+        ')';
+    final pluginsBlockPattern =
+        '$_pluginsStart$_insideBlockLazy$_startOfStatementInBlock'
+        '$kotlinPluginDeclaration$_optionalVersion$_endOfStatement';
+    return RegExp(
+      '$applyPluginPattern|$pluginManagerApplyPattern|$pluginsBlockPattern',
+      multiLine: true,
+    );
+  }();
+
   @visibleForTesting
   static bool hasLegacyKotlinGroovy(String content) {
-    // Matches the Kotlin Gradle Plugin (KGP) application in Groovy DSL (build.gradle).
-    //
-    // Ported from Flutter SDK's FlutterPluginUtils.kgpRegexGroovy:
-    // https://github.com/flutter/flutter/blob/main/packages/flutter_tools/gradle/src/main/kotlin/FlutterPluginUtils.kt
-    //
-    // This regex matches two main patterns:
-    // 1. Legacy apply plugin syntax:
-    //    apply plugin: 'kotlin-android'
-    // 2. Modern plugins block syntax (with or without parentheses):
-    //    plugins {
-    //        id 'org.jetbrains.kotlin.android'
-    //    }
-    //    or using version catalog:
-    //    plugins {
-    //        alias(libs.plugins.kotlin.android)
-    //    }
-    final applyPluginPattern =
-        r'''^[ \t]*apply[ \t]+plugin[ \t]*:[ \t]*(['"])(?:kotlin-android|org\.jetbrains\.kotlin\.android)\1''';
-
-    final pluginsStart = r'^[ \t]*plugins[ \t]*\{';
-    final insideBlockLazy = r'[^{}]*?';
-    final startOfLineInBlock = r'(?<=[\n{])[ \t]*';
-    final idOrAlias = r'(?:id|alias)';
-    final separator = r'(?:[ \t]*\(\s*|[ \t]+)'; // e.g. "id(" or "id "
-    final pluginTargets =
-        r'''(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)''';
-    final closingParenthesis = r'(?:\s*\))?';
-    final endOfStatement = r'(?=[ \t]*(\n|$|\}))';
-
-    final pluginsBlockPattern =
-        '$pluginsStart$insideBlockLazy$startOfLineInBlock'
-        '$idOrAlias$separator$pluginTargets$closingParenthesis$endOfStatement';
-
-    final kgpRegexGroovy = RegExp(
-      '$applyPluginPattern|$pluginsBlockPattern',
-      multiLine: true,
-    );
-
-    // Matches the legacy android.kotlinOptions {} block.
-    // Example:
-    // android {
-    //     kotlinOptions { ... }
-    // }
-    // or:
-    // android.kotlinOptions { ... }
-    final kotlinOptionsRegex = RegExp(
-      r'''^[ \t]*(?:[a-zA-Z0-9_]+\.)*kotlinOptions[ \t]*\{''',
-      multiLine: true,
-    );
-
-    return kgpRegexGroovy.hasMatch(content) ||
-        kotlinOptionsRegex.hasMatch(content);
+    final stripped = _stripGradleComments(content);
+    return _kgpRegexGroovy.hasMatch(stripped) ||
+        _kotlinOptionsRegex.hasMatch(stripped);
   }
 
   @visibleForTesting
   static bool hasLegacyKotlinKotlin(String content) {
-    // Matches the Kotlin Gradle Plugin (KGP) application in Kotlin DSL (build.gradle.kts).
-    //
-    // Ported from Flutter SDK's FlutterPluginUtils.kgpRegexKotlin:
-    // https://github.com/flutter/flutter/blob/main/packages/flutter_tools/gradle/src/main/kotlin/FlutterPluginUtils.kt
-    //
-    // This regex matches KGP declaration within a plugins {} block:
-    //    plugins {
-    //        id("org.jetbrains.kotlin.android")
-    //        // or
-    //        alias(libs.plugins.kotlin.android)
-    //    }
-    final pluginsStart = r'^[ \t]*plugins[ \t]*\{';
-    final insideBlockLazy = r'[^{}]*?';
-    final startOfLineInBlock = r'(?<=[\n{])[ \t]*';
-    final idOrAlias = r'(?:id|alias)';
-    final kotlinSeparator =
-        r'[ \t]*\(\s*'; // Kotlin DSL requires parentheses, e.g. "id("
-    final pluginTargets =
-        r'''(?:['"](?:kotlin-android|org\.jetbrains\.kotlin\.android)['"]|libs\.plugins\.(?:android|kotlin)\.android)''';
-    final kotlinClosingParenthesis =
-        r'\s*\)'; // Kotlin DSL requires closing parenthesis ")"
-    final endOfStatement = r'(?=[ \t]*(\n|$|\}))';
-
-    final kgpRegexKotlin = RegExp(
-      '$pluginsStart$insideBlockLazy$startOfLineInBlock'
-      '$idOrAlias$kotlinSeparator$pluginTargets$kotlinClosingParenthesis$endOfStatement',
-      multiLine: true,
-    );
-
-    // Matches the legacy android.kotlinOptions {} block.
-    // Example:
-    // android {
-    //     kotlinOptions { ... }
-    // }
-    final kotlinOptionsRegex = RegExp(
-      r'''^[ \t]*(?:[a-zA-Z0-9_]+\.)*kotlinOptions[ \t]*\{''',
-      multiLine: true,
-    );
-
-    return kgpRegexKotlin.hasMatch(content) ||
-        kotlinOptionsRegex.hasMatch(content);
+    final stripped = _stripGradleComments(content);
+    return _kgpRegexKotlin.hasMatch(stripped) ||
+        _kotlinOptionsRegex.hasMatch(stripped);
   }
 }
