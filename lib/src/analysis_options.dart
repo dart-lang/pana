@@ -6,13 +6,57 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:http/http.dart' as http;
-import 'package:logging/logging.dart';
-import 'package:retry/retry.dart';
+import 'package:meta/meta.dart';
 
 import 'utils.dart' show yamlToJson;
 
-final _logger = Logger('analysis_options');
+/// The default `package:lints/core.yaml` analysis options configuration.
+@visibleForTesting
+const defaultAnalysisOptionsYaml = '''
+# This is a set of core lints used to identify critical issues.
+# Check out https://github.com/dart-lang/lints for more information.
+#
+# To learn more about customizing static analysis for your package or app,
+# visit https://dart.dev/tools/analysis.
+
+linter:
+  rules:
+    - avoid_empty_else
+    - avoid_relative_lib_imports
+    - avoid_shadowing_type_parameters
+    - avoid_types_as_parameter_names
+    - await_only_futures
+    - camel_case_extensions
+    - camel_case_types
+    - collection_methods_unrelated_type
+    - curly_braces_in_flow_control_structures
+    - dangling_library_doc_comments
+    - depend_on_referenced_packages
+    - empty_catches
+    - file_names
+    - hash_and_equals
+    - implicit_call_tearoffs
+    - library_annotations
+    - no_duplicate_case_values
+    - no_wildcard_variable_uses
+    - non_constant_identifier_names
+    - null_check_on_nullable_type_parameter
+    - prefer_generic_function_type_aliases
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - prefer_iterable_whereType
+    - prefer_typing_uninitialized_variables
+    - provide_deprecation_message
+    - secure_pubspec_urls
+    - strict_top_level_inference
+    - type_literal_in_constant_pattern
+    - unintended_html_in_doc_comment
+    - unnecessary_overrides
+    - unrelated_type_equality_checks
+    - use_string_in_part_of_directives
+    - valid_regexps
+    - void_checks
+''';
 
 String? _cachedCoreLints;
 
@@ -30,44 +74,10 @@ Future<String> _getLintsCoreAnalysisOptions() async {
       return await file.readAsString();
     }
   } on Exception catch (_) {
-    // Gracefully handle exception to fall back to an empty config.
+    // Gracefully handle exception to fall back to the embedded default config.
   }
 
-  // Try to load latest version of the core lints from GitHub.
-  try {
-    final rs = await _httpGetWithRetry(
-      Uri.parse(
-        'https://raw.githubusercontent.com/dart-lang/lints/main/lib/core.yaml',
-      ),
-    );
-    if (rs.statusCode == 200 && rs.body.contains('rules:')) {
-      return rs.body;
-    }
-  } on Exception catch (_) {
-    // Gracefully handle exception to fall back to an empty config.
-  }
-
-  // If we couldn't load the core lints,
-  // log a warning and fall back to an empty analysis config.
-  _logger.warning('Unable to load the core set of analysis options.');
-  return '';
-}
-
-Future<http.Response> _httpGetWithRetry(Uri uri) async {
-  return retry(
-    () async {
-      final rs = await http.get(uri);
-      if (rs.statusCode >= 500 && rs.statusCode < 600) {
-        throw http.ClientException(
-          'Server returned status code: ${rs.statusCode}',
-        );
-      }
-      return rs;
-    },
-    retryIf: (e) => e is SocketException || e is http.ClientException,
-    maxAttempts: 3,
-    delayFactor: const Duration(seconds: 2),
-  );
+  return defaultAnalysisOptionsYaml;
 }
 
 /// Update the well-known [custom] `analysis_options.yaml` content with
