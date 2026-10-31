@@ -1,0 +1,19 @@
+name: Health
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches: [ main, master ]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+jobs:
+  health:
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@32dbf145b8f3dae3c4a29e4d75ee750be04ad7e5 # dart-lang/ecosystem#480
+    with:
+      checks: "publish"
+      fail_on: "publish"
+      warn_on: "license,coverage,breaking,leaking,unused-dependencies"
+      tag_prefix: ""
+    permissions:
+      pull-requests: write
