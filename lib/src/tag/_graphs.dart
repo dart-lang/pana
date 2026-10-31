@@ -63,6 +63,7 @@ class PubspecCache {
 class LibraryGraph implements DirectedGraph<Uri> {
   final AnalysisSession _analysisSession;
   final Map<String, String> _declaredVariables;
+  final Set<String> _disallowedConfigurationLibs;
   final Map<Uri, Set<Uri>> _cache = <Uri, Set<Uri>>{};
   final bool Function(Uri) _isLeaf;
 
@@ -70,7 +71,9 @@ class LibraryGraph implements DirectedGraph<Uri> {
     this._analysisSession,
     this._declaredVariables, {
     bool Function(Uri) isLeaf = _constantFalse,
-  }) : _isLeaf = isLeaf;
+    Set<String> disallowedConfigurationLibs = const {},
+  }) : _isLeaf = isLeaf,
+       _disallowedConfigurationLibs = disallowedConfigurationLibs;
 
   /// The direct successors of the library [uri] are the libraries imported or
   /// exported by that library.
@@ -132,6 +135,8 @@ class LibraryGraph implements DirectedGraph<Uri> {
           // evaluates to true.
           final directive = node as NamespaceDirective;
           var dependency = uri.resolve(directive.uri.stringValue!);
+          var matchedConfiguration = false;
+          Uri? disallowedConfigurationLibUri;
 
           for (final configuration in directive.configurations) {
             // Use lexemes to preserve source spelling of keywords such as
@@ -145,10 +150,22 @@ class LibraryGraph implements DirectedGraph<Uri> {
 
             if (actualValue == testValue) {
               dependency = uri.resolve(configuration.uri.stringValue!);
+              matchedConfiguration = true;
               break; // Always pick the first satisfied configuration.
+            }
+            if (disallowedConfigurationLibUri == null &&
+                testValue == 'true' &&
+                dottedName.startsWith('dart.library.')) {
+              final libName = dottedName.substring('dart.library.'.length);
+              if (_disallowedConfigurationLibs.contains(libName)) {
+                disallowedConfigurationLibUri = Uri.parse('dart:$libName');
+              }
             }
           }
 
+          if (!matchedConfiguration && disallowedConfigurationLibUri != null) {
+            dependencies.add(disallowedConfigurationLibUri);
+          }
           dependencies.add(dependency);
         }
         return dependencies;
