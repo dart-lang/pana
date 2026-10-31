@@ -52,7 +52,6 @@
     "runtime:native-jit",
     "runtime:web",
     "is:null-safe",
-    "is:wasm-ready",
     "is:dart3-compatible",
     "license:bsd-3-clause",
     "license:fsf-libre",
@@ -79,10 +78,10 @@
       {
         "id": "platform",
         "title": "Platform support",
-        "grantedPoints": 20,
+        "grantedPoints": 10,
         "maxPoints": 20,
-        "status": "passed",
-        "summary": "### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n\n* ✓ iOS\n\n* ✓ Windows\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Web\n\n\n**WASM-ready:** This package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.\n"
+        "status": "partial",
+        "summary": "### [~] 10/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)\n\n* ✓ Android\n\n* ✓ iOS\n\n* ✓ Windows\n\n* ✓ Linux\n\n* ✓ macOS\n\n* ✓ Web\n\n\nWASM compatibility:\n\n<details>\n<summary>\nPackage not compatible with runtime wasm\n</summary>\n\nBecause:\n* `package:http/http.dart` that imports:\n* `package:http/src/streamed_response.dart` that imports:\n* `package:http/src/base_response.dart` that imports:\n* `package:http/src/base_request.dart` that imports:\n* `package:http/src/client.dart` that imports:\n* `dart:html`\n</details>\n\n\n**Note:** This package supports Web but is not WASM-compatible, resulting in a partial score. See https://dart.dev/web/wasm for details.\n"
       },
       {
         "id": "analysis",
@@ -139,7 +138,7 @@
         ]
       }
     ],
-    "grantedPoints": 130,
+    "grantedPoints": 120,
     "maxPoints": 150
   },
   "urlProblems": []
