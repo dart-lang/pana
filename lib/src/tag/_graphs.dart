@@ -135,7 +135,6 @@ class LibraryGraph implements DirectedGraph<Uri> {
           // evaluates to true.
           final directive = node as NamespaceDirective;
           var dependency = uri.resolve(directive.uri.stringValue!);
-          var matchedConfiguration = false;
           Uri? disallowedConfigurationLibUri;
 
           for (final configuration in directive.configurations) {
@@ -150,7 +149,9 @@ class LibraryGraph implements DirectedGraph<Uri> {
 
             if (actualValue == testValue) {
               dependency = uri.resolve(configuration.uri.stringValue!);
-              matchedConfiguration = true;
+              if (_wasmWebConfigurationVars.contains(dottedName)) {
+                disallowedConfigurationLibUri = null;
+              }
               break; // Always pick the first satisfied configuration.
             }
             if (disallowedConfigurationLibUri == null &&
@@ -163,10 +164,10 @@ class LibraryGraph implements DirectedGraph<Uri> {
             }
           }
 
-          if (!matchedConfiguration && disallowedConfigurationLibUri != null) {
+          dependencies.add(dependency);
+          if (disallowedConfigurationLibUri != null) {
             dependencies.add(disallowedConfigurationLibUri);
           }
-          dependencies.add(dependency);
         }
         return dependencies;
       });
@@ -182,6 +183,13 @@ class LibraryGraph implements DirectedGraph<Uri> {
     assert(path.isNotEmpty);
     return path.map((p) => '* `$p`').join(' that imports:\n');
   }
+
+  static const _wasmWebConfigurationVars = {
+    'dart.library.js_interop',
+    'dart.library.js_interop_unsafe',
+    'dart.library.js',
+    'dart.library.ui_web',
+  };
 
   static bool _constantFalse(Uri _) => false;
 }
