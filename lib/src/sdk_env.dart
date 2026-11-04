@@ -70,15 +70,20 @@ class ToolEnvironment {
   PanaRuntimeInfo? _runtimeInfo;
   final List<String>? _dartdocCommand;
   final String? _dartdocVersion;
+  final List<String>? _apitoolCommand;
+  final String? _apitoolVersion;
   final SandboxRunner _sandboxRunner;
 
   bool _globalDartdocActivated = false;
+  bool _globalApitoolActivated = false;
 
   ToolEnvironment._(
     this.pubCacheDir,
     this._dartSdk,
     this._dartdocCommand,
     this._dartdocVersion,
+    this._apitoolCommand,
+    this._apitoolVersion,
     this._sandboxRunner,
   );
 
@@ -89,10 +94,15 @@ class ToolEnvironment {
   }) : _dartSdk = _DartSdk._(SdkConfig(environment: environment)),
        _dartdocCommand = null,
        _dartdocVersion = null,
+       _apitoolCommand = null,
+       _apitoolVersion = null,
        _runtimeInfo = runtimeInfo,
        _sandboxRunner = SandboxRunner(null);
 
   PanaRuntimeInfo get runtimeInfo => _runtimeInfo!;
+
+  /// Root directory of the configured Dart SDK, if explicitly set.
+  String? get dartSdkDir => _dartSdk._config.rootPath;
 
   Future<void> _init() async {
     final dartVersionResult = await _sandboxRunner.runSandboxed(
@@ -133,6 +143,13 @@ class ToolEnvironment {
     ///
     /// Note: To use the latest `dartdoc`, use the version value `any`.
     String? dartdocVersion,
+
+    /// When specified, this binary will be used to compute public API diffs.
+    List<String>? apitoolCommand,
+
+    /// When specified, this version of `api_summary` will be initialized
+    /// through `dart pub global activate`.
+    String? apitoolVersion,
 
     /// When true, the analysis_options.yaml's `include` references will be used.
     bool? useAnalysisIncludes,
@@ -175,6 +192,8 @@ class ToolEnvironment {
       }),
       dartdocCommand,
       dartdocVersion,
+      apitoolCommand,
+      apitoolVersion,
       SandboxRunner(sandboxRunner),
     );
     await toolEnv._init();
@@ -599,6 +618,148 @@ class ToolEnvironment {
         writablePubCacheDir: true,
       );
     }
+  }
+
+  /// Runs `api_summary diff` as a sandboxed subprocess between [oldPackageDir]
+  /// and [newPackageDir], writing a JSON report to [reportFilePath] and
+  /// optionally the canonical `api.json` of [newPackageDir] to
+  /// [newSummaryOutputPath].
+  Future<PanaProcessResult> apiSummaryDiff({
+    required String oldPackageDir,
+    required String newPackageDir,
+    required String reportFilePath,
+    String? newSummaryOutputPath,
+    Duration? timeout,
+  }) async {
+    final sdkDir = _dartSdk._config.rootPath;
+    final args = [
+      'diff',
+      '--old',
+      oldPackageDir,
+      '--new',
+      newPackageDir,
+      if (sdkDir != null) ...['--sdk-path', sdkDir],
+      if (newSummaryOutputPath != null) ...[
+        '--new-summary-output',
+        newSummaryOutputPath,
+      ],
+      '--output',
+      reportFilePath,
+    ];
+    return _runApiSummaryArgs(
+      args,
+      outputDir: p.dirname(reportFilePath),
+      timeout: timeout,
+    );
+  }
+
+  /// Runs `api_summary` on a single [packageDir], writing its canonical
+  /// `api.json` summary to [outputFilePath].
+  Future<PanaProcessResult> apiSummaryExtract({
+    required String packageDir,
+    required String outputFilePath,
+    Duration? timeout,
+  }) async {
+    final sdkDir = _dartSdk._config.rootPath;
+    final args = [
+      '--package-path',
+      packageDir,
+      '--format',
+      'json',
+      if (sdkDir != null) ...['--sdk-path', sdkDir],
+      '--output',
+      outputFilePath,
+    ];
+    return _runApiSummaryArgs(
+      args,
+      outputDir: p.dirname(outputFilePath),
+      timeout: timeout,
+    );
+  }
+
+  Future<PanaProcessResult> _runApiSummaryArgs(
+    List<String> args, {
+    required String outputDir,
+    Duration? timeout,
+  }) async {
+    final sdkDir = _dartSdk._config.rootPath;
+    final sdkBinDir = sdkDir != null ? p.join(sdkDir, 'bin') : null;
+    final currentPath = Platform.environment['PATH'] ?? '';
+    final env = <String, String>{
+      ..._dartSdk.environment,
+      if (sdkBinDir != null)
+        'PATH': [
+          sdkBinDir,
+          if (currentPath.isNotEmpty) currentPath,
+        ].join(Platform.isWindows ? ';' : ':'),
+    };
+
+    if (_apitoolCommand != null && _apitoolCommand.isNotEmpty) {
+      return await _sandboxRunner.runSandboxed(
+        [..._apitoolCommand, ...args],
+        environment: env,
+        timeout: timeout,
+        outputFolder: outputDir,
+        writableConfigHome: true,
+        writablePubCacheDir: true,
+      );
+    }
+
+    final homeDir = Platform.environment['HOME'];
+    final candidates = <String>[
+      if (Platform.environment['API_SUMMARY_BINARY'] case final envBin?
+          when envBin.isNotEmpty)
+        envBin,
+      if (!Platform.isWindows) '/home/worker/bin/api_summary',
+      if (homeDir != null && homeDir.isNotEmpty)
+        p.join(
+          homeDir,
+          '.pub-cache',
+          'bin',
+          Platform.isWindows ? 'api_summary.bat' : 'api_summary',
+        ),
+    ];
+    if (_apitoolVersion == null) {
+      for (final candidate in candidates) {
+        if (await File(candidate).exists()) {
+          return await _sandboxRunner.runSandboxed(
+            [candidate, ...args],
+            environment: env,
+            timeout: timeout,
+            outputFolder: outputDir,
+            writableConfigHome: true,
+            writablePubCacheDir: true,
+          );
+        }
+      }
+    }
+
+    final command = _dartSdk.pubCmd;
+    if (!_globalApitoolActivated) {
+      await _sandboxRunner.runSandboxed(
+        [
+          ...command,
+          'global',
+          'activate',
+          'api_summary',
+          if (_apitoolVersion != null) _apitoolVersion,
+        ],
+        environment: {...env, 'PUB_HOSTED_URL': 'https://pub.dev'},
+        throwOnError: true,
+        needsNetwork: true,
+        writableConfigHome: true,
+        writablePubCacheDir: true,
+      );
+      _globalApitoolActivated = true;
+    }
+    return await _sandboxRunner.runSandboxed(
+      [...command, 'global', 'run', 'api_summary', ...args],
+      environment: {...env, 'PUB_HOSTED_URL': 'https://pub.dev'},
+      timeout: timeout,
+      outputFolder: outputDir,
+      writableConfigHome: true,
+      writablePubCacheDir: true,
+    );
   }
 
   Future<R> _withStripAndAugmentPubspecYaml<R>(

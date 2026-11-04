@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
@@ -29,7 +30,7 @@ import 'tag/pana_tags.dart';
 import 'tag/tagger.dart';
 import 'tool/run_constrained.dart';
 import 'tool/webp_tool.dart';
-import 'utils.dart' show listFiles;
+import 'utils.dart' show getVersionListing, listFiles, withTempDir;
 
 /// Shared (intermediate) results between different packages or versions.
 /// External systems that may be independent of the archive content may be
@@ -455,6 +456,334 @@ class PackageContext {
     }
     return executables;
   }();
+
+  late final Future<ApiDiffToolResult> apiDiffResult = () async {
+    if (!options.runApiDiff) {
+      return ApiDiffToolResult.skipped();
+    }
+    if (!await resolveDependencies()) {
+      return ApiDiffToolResult.error(
+        'Dependency resolution failed, unable to run `api_summary`.',
+      );
+    }
+
+    final currentVersion = pubspec.version;
+    if (currentVersion == null) {
+      return ApiDiffToolResult.noPreviousVersion();
+    }
+    final Version? previousVersion;
+    if (options.apiDiffOldVersion != null &&
+        options.apiDiffOldVersion!.isNotEmpty) {
+      previousVersion = Version.parse(options.apiDiffOldVersion!);
+    } else {
+      previousVersion = await _findPreviousPublishedVersion(
+        pubspec.name,
+        currentVersion,
+      );
+    }
+
+    if (previousVersion == null) {
+      if (options.resourcesOutputDir != null) {
+        final apiJsonOut = p.join(
+          p.dirname(options.resourcesOutputDir!),
+          'api.json',
+        );
+        try {
+          await toolEnvironment.apiSummaryExtract(
+            packageDir: packageDir,
+            outputFilePath: apiJsonOut,
+            timeout: const Duration(minutes: 2),
+          );
+        } catch (e, st) {
+          log.warning('Could not extract api.json for first version.', e, st);
+        }
+      }
+      return ApiDiffToolResult.noPreviousVersion();
+    }
+
+    return await withTempDir((tempDir) async {
+      final oldPkgDir = p.join(tempDir, 'old');
+      final outDir = p.join(tempDir, 'out');
+      await Directory(outDir).create(recursive: true);
+      final reportFilePath = p.join(outDir, 'api_diff.json');
+      final newSummaryTempPath = p.join(outDir, 'api.json');
+
+      try {
+        log.info(
+          'Unpacking ${pubspec.name}:$previousVersion for API diff comparison...',
+        );
+        await toolEnvironment.unpack(
+          package: pubspec.name,
+          version: previousVersion.toString(),
+          pubHostedUrl: options.pubHostedUrl,
+          outputDir: oldPkgDir,
+        );
+
+        final oldPubspec = Pubspec.parseYaml(
+          await File(p.join(oldPkgDir, 'pubspec.yaml')).readAsString(),
+        );
+        final oldPubGet = await toolEnvironment.runPub(
+          oldPkgDir,
+          usesFlutter: oldPubspec.usesFlutter,
+          command: 'get',
+          stripAllDevDependencies: true,
+        );
+        if (oldPubGet.wasError) {
+          log.warning(
+            'Could not resolve previous version $previousVersion for API diff:\n${oldPubGet.asJoinedOutput}',
+          );
+          if (options.resourcesOutputDir != null) {
+            final destPath = p.join(
+              p.dirname(options.resourcesOutputDir!),
+              'api.json',
+            );
+            try {
+              await toolEnvironment.apiSummaryExtract(
+                packageDir: packageDir,
+                outputFilePath: destPath,
+                timeout: const Duration(minutes: 2),
+              );
+            } catch (e, st) {
+              log.warning(
+                'Could not extract api.json for current version.',
+                e,
+                st,
+              );
+            }
+          }
+          return ApiDiffToolResult.error(
+            'Could not resolve previous version `$previousVersion`:\n\n```\n${oldPubGet.asTrimmedOutput}\n```',
+          );
+        }
+
+        // Ensure current package is resolved as well (no-op if already resolved).
+        final newPackageConfig = File(
+          p.join(packageDir, '.dart_tool', 'package_config.json'),
+        );
+        if (!await newPackageConfig.exists()) {
+          final newPubGet = await toolEnvironment.runPub(
+            packageDir,
+            usesFlutter: usesFlutter,
+            command: 'get',
+            stripAllDevDependencies: true,
+          );
+          if (newPubGet.wasError) {
+            return ApiDiffToolResult.error(
+              'Could not resolve current version `$currentVersion`:\n\n```\n${newPubGet.asTrimmedOutput}\n```',
+            );
+          }
+        }
+
+        var timeout = const Duration(minutes: 3);
+        final rtb = _remainingTimeBudget();
+        if (rtb != null && rtb < timeout) {
+          timeout = rtb;
+        }
+
+        log.info(
+          'Running api_summary diff (${pubspec.name} $previousVersion -> $currentVersion)...',
+        );
+        final pr = await toolEnvironment.apiSummaryDiff(
+          oldPackageDir: oldPkgDir,
+          newPackageDir: packageDir,
+          reportFilePath: reportFilePath,
+          newSummaryOutputPath: newSummaryTempPath,
+          timeout: timeout,
+        );
+        log.info(
+          'Finished api_summary diff (${pubspec.name} $previousVersion -> $currentVersion).',
+        );
+
+        if (options.resourcesOutputDir != null &&
+            await File(newSummaryTempPath).exists()) {
+          final destPath = p.join(
+            p.dirname(options.resourcesOutputDir!),
+            'api.json',
+          );
+          await File(newSummaryTempPath).copy(destPath);
+        }
+
+        if (pr.wasTimeout) {
+          log.warning('`api_summary` timed out:\n${pr.asJoinedOutput}');
+          return ApiDiffToolResult.error(
+            '`api_summary` could not complete in $timeout.',
+          );
+        }
+
+        final reportFile = File(reportFilePath);
+        if (pr.wasError || !await reportFile.exists()) {
+          log.warning('`api_summary` failed:\n${pr.asJoinedOutput}');
+          return ApiDiffToolResult.error(
+            '`api_summary` failed:\n\n```\n${pr.asTrimmedOutput}\n```',
+          );
+        }
+
+        final reportJson =
+            json.decode(await reportFile.readAsString())
+                as Map<String, Object?>;
+        final summary = _parseApiSummaryDiffReport(
+          reportJson,
+          previousVersion: previousVersion!,
+          currentVersion: currentVersion,
+        );
+        return ApiDiffToolResult.success(summary);
+      } catch (e, st) {
+        log.warning('Could not run api_summary diff.', e, st);
+        return ApiDiffToolResult.error('Could not run `api_summary`: $e');
+      }
+    });
+  }();
+
+  Future<Version?> _findPreviousPublishedVersion(
+    String packageName,
+    Version currentVersion,
+  ) async {
+    final pubHostedUrl =
+        options.pubHostedUrl ?? Platform.environment['PUB_HOSTED_URL'];
+    final pubHostedUri = (pubHostedUrl != null && pubHostedUrl.isNotEmpty)
+        ? Uri.tryParse(pubHostedUrl)
+        : null;
+    try {
+      final rawListing = await getVersionListing(
+        packageName,
+        pubHostedUrl: pubHostedUri,
+      );
+      final decoded = json.decode(rawListing);
+      if (decoded is! Map<String, Object?>) {
+        return null;
+      }
+      final versions = decoded['versions'];
+      if (versions is! List<Object?>) {
+        return null;
+      }
+
+      final candidates = <Version>[];
+      for (final entry in versions) {
+        if (entry is Map<String, Object?>) {
+          if (entry['retracted'] == true) {
+            continue;
+          }
+          final vStr = entry['version'];
+          if (vStr is String) {
+            try {
+              final parsed = Version.parse(vStr);
+              if (parsed < currentVersion) {
+                candidates.add(parsed);
+              }
+            } on FormatException {
+              // ignore malformed version
+            }
+          }
+        }
+      }
+      if (candidates.isEmpty) {
+        return null;
+      }
+      candidates.sort();
+      if (!currentVersion.isPreRelease) {
+        final stableCandidates = candidates
+            .where((v) => !v.isPreRelease)
+            .toList();
+        if (stableCandidates.isNotEmpty) {
+          return stableCandidates.last;
+        }
+      }
+      return candidates.last;
+    } catch (e) {
+      log.info(
+        'Unable to fetch version listing for $packageName to compute API diff: $e',
+      );
+      return null;
+    }
+  }
+}
+
+ApiDiffSummary _parseApiSummaryDiffReport(
+  Map<String, Object?> reportJson, {
+  required Version previousVersion,
+  required Version currentVersion,
+}) {
+  final toolVersion = reportJson['toolVersion'] as String?;
+  final breakingChanges = [
+    if (reportJson['breakingChanges'] case final List<Object?> list)
+      for (final item in list)
+        if (item is Map<String, Object?>) ApiChange.fromJson(item),
+  ];
+  final nonBreakingChanges = [
+    if (reportJson['nonBreakingChanges'] case final List<Object?> list)
+      for (final item in list)
+        if (item is Map<String, Object?>) ApiChange.fromJson(item),
+  ];
+  final textDiff = reportJson['textDiff'] as String?;
+
+  final hasBreaking = breakingChanges.isNotEmpty;
+  final hasMinor = nonBreakingChanges.any((c) => c.type == 'minor');
+  final hasPatch = nonBreakingChanges.isNotEmpty && !hasMinor;
+
+  final String requiredBump;
+  final Version minimumExpected;
+  if (hasBreaking) {
+    requiredBump = 'major';
+    minimumExpected = previousVersion.nextBreaking;
+  } else if (hasMinor) {
+    requiredBump = 'minor';
+    minimumExpected = previousVersion.major > 0
+        ? previousVersion.nextMinor
+        : previousVersion.nextPatch;
+  } else if (hasPatch) {
+    requiredBump = 'patch';
+    minimumExpected = previousVersion.nextPatch;
+  } else {
+    requiredBump = 'none';
+    minimumExpected = previousVersion;
+  }
+
+  final bool isSufficient;
+  if (currentVersion.isPreRelease) {
+    isSufficient = currentVersion > previousVersion;
+  } else if (previousVersion.isPreRelease) {
+    final prevBase = Version(
+      previousVersion.major,
+      previousVersion.minor,
+      previousVersion.patch,
+    );
+    isSufficient =
+        currentVersion >= prevBase && currentVersion >= minimumExpected;
+  } else {
+    isSufficient = currentVersion >= minimumExpected;
+  }
+
+  return ApiDiffSummary(
+    previousVersion: previousVersion.toString(),
+    currentVersion: currentVersion.toString(),
+    requiredVersionBump: requiredBump,
+    minimumExpectedVersion: minimumExpected.toString(),
+    isVersionIncrementSufficient: isSufficient,
+    toolVersion: toolVersion,
+    breakingChanges: breakingChanges,
+    nonBreakingChanges: nonBreakingChanges,
+    textDiff: (textDiff != null && textDiff.isNotEmpty) ? textDiff : null,
+  );
+}
+
+class ApiDiffToolResult {
+  final bool wasRun;
+  final ApiDiffSummary? summary;
+  final String? errorReason;
+
+  ApiDiffToolResult.skipped()
+    : wasRun = false,
+      summary = null,
+      errorReason = null;
+
+  ApiDiffToolResult.noPreviousVersion()
+    : wasRun = true,
+      summary = null,
+      errorReason = null;
+
+  ApiDiffToolResult.success(this.summary) : wasRun = true, errorReason = null;
+
+  ApiDiffToolResult.error(this.errorReason) : wasRun = true, summary = null;
 }
 
 class DartdocResult {

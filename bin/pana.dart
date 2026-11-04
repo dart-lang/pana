@@ -1,4 +1,5 @@
 #!/usr/bin/env dart --checked
+
 // Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
@@ -88,6 +89,28 @@ final _parser = ArgParser()
     'dartdoc-command',
     help:
         'The dartdoc command to use for pre-initialized dartdoc execution. Ignores `--dartdoc-version`.',
+    hide: true,
+  )
+  ..addFlag(
+    'api-diff',
+    help:
+        'Run api_summary to compute the public API diff against the previous published version.',
+    defaultsTo: true,
+  )
+  ..addOption(
+    'api-diff-old-version',
+    help: 'Explicit previous version to compare against when running api-diff.',
+    hide: true,
+  )
+  ..addOption(
+    'apitool-version',
+    help: 'The api_summary version to activate when running api-diff.',
+    hide: true,
+  )
+  ..addMultiOption(
+    'apitool-command',
+    help:
+        'The api_summary command to use for pre-initialized execution. Ignores `--apitool-version`.',
     hide: true,
   )
   ..addOption(
@@ -185,6 +208,7 @@ Future<void> main(List<String> args) async {
           'Must not disable dartdoc when --dartdoc-output is specified.',
     );
   }
+  final runApiDiff = result['api-diff'] == true;
   final resourcesOutputDirParam = result['resources-output'] as String?;
 
   final tempDir = Directory.systemTemp.createTempSync(
@@ -216,6 +240,8 @@ Future<void> main(List<String> args) async {
         pubHostedUrl: pubHostedUrl,
         dartdocVersion: result['dartdoc-version'] as String?,
         dartdocCommand: result['dartdoc-command'] as List<String>?,
+        apitoolVersion: result['apitool-version'] as String?,
+        apitoolCommand: result['apitool-command'] as List<String>?,
         sandboxRunner: result['sandbox-runner'] as String?,
       ),
     );
@@ -227,6 +253,8 @@ Future<void> main(List<String> args) async {
       dartdocTimeout: _parseDuration(result['dartdoc-timeout'] as String?),
       totalTimeout: _parseDuration(result['total-timeout'] as String?),
       licenseDataDir: result['license-data'] as String?,
+      runApiDiff: runApiDiff,
+      apiDiffOldVersion: result['api-diff-old-version'] as String?,
     );
     try {
       late Summary summary;
@@ -291,8 +319,11 @@ Future<void> main(List<String> args) async {
       } else {
         final report = summary.report!;
         for (final s in report.sections) {
-          final mark = s.grantedPoints == s.maxPoints ? '\u2713' : '\u2717';
-          print('\n## $mark ${s.title} (${s.grantedPoints} / ${s.maxPoints})');
+          final mark = s.status == ReportStatus.passed ? '\u2713' : '\u2717';
+          final pointsSuffix = s.maxPoints > 0
+              ? ' (${s.grantedPoints} / ${s.maxPoints})'
+              : '';
+          print('\n## $mark ${s.title}$pointsSuffix');
           print(s.summary);
         }
         print('\nPoints: ${report.grantedPoints}/${report.maxPoints}.');
