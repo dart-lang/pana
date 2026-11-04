@@ -927,6 +927,280 @@ import 'dart:js_interop';
       final tagger = Tagger('${descriptor.io.path}/my_package');
       _expectTagging(tagger.wasmReadyTag, tags: contains('is:wasm-ready'));
     });
+
+    test(
+      'Excluded with dart.library.html conditional export falling back to stub',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            lib: [
+              d.file('my_package.dart', '''
+export 'src/stub.dart'
+    if (dart.library.html) 'src/web.dart';
+'''),
+              d.dir('src', [
+                d.file('stub.dart', '''
+int fourtyTwo() => 42;
+'''),
+                d.file('web.dart', '''
+import 'dart:js_interop';
+int fourtyTwo() => 42;
+'''),
+              ]),
+            ],
+          ),
+        ]);
+
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(
+          tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')),
+          explanations: [
+            _explanation(
+              finding: 'Package not compatible with runtime wasm',
+              explanation: '''
+Because:
+* `package:my_package/my_package.dart` that imports:
+* `dart:html`''',
+              tag: 'is:wasm-ready',
+            ),
+          ],
+        );
+      },
+    );
+
+    test(
+      'Excluded with dart.library.js_util conditional import alongside dart.library.io',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            lib: [
+              d.file('my_package.dart', '''
+import 'src/stub.dart'
+    if (dart.library.io) 'src/native.dart'
+    if (dart.library.js_util) 'src/web.dart';
+'''),
+              d.dir('src', [
+                d.file('stub.dart', '''
+int fourtyTwo() => 42;
+'''),
+                d.file('native.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+                d.file('web.dart', '''
+import 'dart:js_interop';
+int fourtyTwo() => 42;
+'''),
+              ]),
+            ],
+          ),
+        ]);
+
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(
+          tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')),
+          explanations: [
+            _explanation(
+              finding: 'Package not compatible with runtime wasm',
+              explanation: '''
+Because:
+* `package:my_package/my_package.dart` that imports:
+* `dart:js_util`''',
+              tag: 'is:wasm-ready',
+            ),
+          ],
+        );
+      },
+    );
+
+    test(
+      'Included with dual-branch dart.library.js_interop and dart.library.html conditional export',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            lib: [
+              d.file('my_package.dart', '''
+export 'src/stub.dart'
+    if (dart.library.js_interop) 'src/web.dart'
+    if (dart.library.html) 'src/web_legacy.dart';
+export 'src/stub.dart'
+    if (dart.library.html) 'src/web_legacy.dart'
+    if (dart.library.js_interop) 'src/web.dart';
+'''),
+              d.dir('src', [
+                d.file('stub.dart', '''
+int fourtyTwo() => 42;
+'''),
+                d.file('web.dart', '''
+import 'dart:js_interop';
+int fourtyTwo() => 42;
+'''),
+                d.file('web_legacy.dart', '''
+import 'dart:html';
+int fourtyTwo() => 42;
+'''),
+              ]),
+            ],
+          ),
+        ]);
+
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(tagger.wasmReadyTag, tags: contains('is:wasm-ready'));
+      },
+    );
+
+    test(
+      'Excluded with dart.library.html conditional import falling back to dart:io default',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            lib: [
+              d.file('my_package.dart', '''
+import 'src/native_a.dart'
+    if (dart.library.html) 'src/web_a.dart';
+import 'src/native_b.dart'
+    if (dart.library.html) 'src/web_b.dart';
+'''),
+              d.dir('src', [
+                d.file('native_a.dart', '''
+import 'dart:io';
+int fourtyTwo() => 42;
+'''),
+                d.file('web_a.dart', '''
+import 'dart:js_interop';
+int fourtyTwo() => 42;
+'''),
+                d.file('native_b.dart', '''
+import 'dart:io';
+int fourtyThree() => 43;
+'''),
+                d.file('web_b.dart', '''
+import 'dart:js_interop';
+int fourtyThree() => 43;
+'''),
+              ]),
+            ],
+          ),
+        ]);
+
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(
+          tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')),
+          explanations: [
+            _explanation(
+              finding: 'Package not compatible with runtime wasm',
+              explanation: '''
+Because:
+* `package:my_package/my_package.dart` that imports:
+* `dart:html`''',
+              tag: 'is:wasm-ready',
+            ),
+          ],
+        );
+      },
+    );
+
+    test(
+      'Excluded with explicit dart.library.html == "true" conditional import',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            lib: [
+              d.file('my_package.dart', '''
+import 'src/stub.dart'
+    if (dart.library.html == "true") 'src/web.dart';
+'''),
+              d.dir('src', [
+                d.file('stub.dart', '''
+int fourtyTwo() => 42;
+'''),
+                d.file('web.dart', '''
+import 'dart:js_interop';
+int fourtyTwo() => 42;
+'''),
+              ]),
+            ],
+          ),
+        ]);
+
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(
+          tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')),
+          explanations: [
+            _explanation(
+              finding: 'Package not compatible with runtime wasm',
+              explanation: '''
+Because:
+* `package:my_package/my_package.dart` that imports:
+* `dart:html`''',
+              tag: 'is:wasm-ready',
+            ),
+          ],
+        );
+      },
+    );
+
+    test(
+      'Excluded with 3-way dart.library.html and dart.library.ui conditional import',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            lib: [
+              d.file('my_package.dart', '''
+import 'src/stub.dart'
+    if (dart.library.html) 'src/web.dart'
+    if (dart.library.ui) 'src/flutter_native.dart';
+'''),
+              d.dir('src', [
+                d.file('stub.dart', '''
+int fourtyTwo() => 42;
+'''),
+                d.file('web.dart', '''
+import 'dart:html';
+int fourtyTwo() => 42;
+'''),
+                d.file('flutter_native.dart', '''
+import 'dart:ui';
+int fourtyTwo() => 42;
+'''),
+              ]),
+            ],
+          ),
+        ]);
+
+        await descriptor.create();
+        final tagger = Tagger('${descriptor.io.path}/my_package');
+        _expectTagging(
+          tagger.wasmReadyTag,
+          tags: isNot(contains('is:wasm-ready')),
+          explanations: [
+            _explanation(
+              finding: 'Package not compatible with runtime wasm',
+              explanation: '''
+Because:
+* `package:my_package/my_package.dart` that imports:
+* `dart:html`''',
+              tag: 'is:wasm-ready',
+            ),
+          ],
+        );
+      },
+    );
   });
 
   group('kotlin plugin tag', () {

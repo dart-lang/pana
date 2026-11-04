@@ -400,7 +400,11 @@ class Tagger {
   void wasmReadyTag(List<String> tags, List<Explanation> explanations) {
     final runtime = Runtime.wasm;
     final finder = runtimeViolationFinder(
-      LibraryGraph(_session, runtime.declaredVariables),
+      LibraryGraph(
+        _session,
+        runtime.declaredVariables,
+        disallowedConfigurationLibs: runtime.disallowedConfigurationLibs,
+      ),
       runtime,
       (List<Uri> path) => Explanation(
         'Package not compatible with runtime ${runtime.name}',

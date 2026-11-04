@@ -9,9 +9,15 @@ import 'pana_tags.dart';
 class Runtime {
   final String name;
   final Set<String> enabledLibs;
+  final Set<String> disallowedConfigurationLibs;
   final String tag;
 
-  Runtime(this.name, this.enabledLibs, {required this.tag});
+  Runtime(
+    this.name,
+    this.enabledLibs, {
+    required this.tag,
+    this.disallowedConfigurationLibs = const {},
+  });
 
   Map<String, String> get declaredVariables => {
     for (final lib in enabledLibs) 'dart.library.$lib': 'true',
@@ -33,19 +39,23 @@ class Runtime {
   };
   static final _onAllNative = {'ffi', 'io', 'isolate'};
 
-  static final _onAllWeb = {
+  static final _legacyWebLibs = {
     'html',
     'html_common',
     'indexed_db',
     'js',
-    'js_interop',
-    'js_interop_unsafe',
     'js_util',
     'svg',
     'web_audio',
     'web_gl',
     'web_sql',
     '_js_annotations', // Used by package:js.
+  };
+
+  static final _onAllWeb = {
+    ..._legacyWebLibs,
+    'js_interop',
+    'js_interop_unsafe',
   };
 
   static final _onNativeAot = {
@@ -78,13 +88,12 @@ class Runtime {
     'html_common',
   }, tag: PanaTags.runtimeWeb);
 
-  static final wasm = Runtime('wasm', {
-    ..._onAllPlatforms,
-    'ui',
-    'ui_web',
-    'js_interop',
-    'js_interop_unsafe',
-  }, tag: PanaTags.isWasmReady);
+  static final wasm = Runtime(
+    'wasm',
+    {..._onAllPlatforms, 'ui', 'ui_web', 'js_interop', 'js_interop_unsafe'},
+    tag: PanaTags.isWasmReady,
+    disallowedConfigurationLibs: _legacyWebLibs,
+  );
 
   static final flutterNative = Runtime('flutter-native', {
     ..._onAllPlatforms,

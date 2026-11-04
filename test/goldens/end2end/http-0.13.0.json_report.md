@@ -16,9 +16,9 @@ Detected license: `BSD-3-Clause`.
 ### [*] 10/10 points: Package has an example
 
 
-## 20/20 Platform support
+## 10/20 Platform support
 
-### [*] 20/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
+### [~] 10/20 points: Supports 6 of 6 possible platforms (**iOS**, **Android**, **Web**, **Windows**, **macOS**, **Linux**)
 
 * ✓ Android
 
@@ -33,7 +33,24 @@ Detected license: `BSD-3-Clause`.
 * ✓ Web
 
 
-**WASM-ready:** This package is compatible with runtime `wasm`. See https://dart.dev/web/wasm for details.
+WASM compatibility:
+
+<details>
+<summary>
+Package not compatible with runtime wasm
+</summary>
+
+Because:
+* `package:http/http.dart` that imports:
+* `package:http/src/streamed_response.dart` that imports:
+* `package:http/src/base_response.dart` that imports:
+* `package:http/src/base_request.dart` that imports:
+* `package:http/src/client.dart` that imports:
+* `dart:html`
+</details>
+
+
+**Note:** This package supports Web but is not WASM-compatible, resulting in a partial score. See https://dart.dev/web/wasm for details.
 
 
 ## 40/50 Pass static analysis
