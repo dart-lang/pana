@@ -49,6 +49,15 @@ class InspectOptions {
   /// The path to the directory containing the SPDX license data.
   final String? licenseDataDir;
 
+  /// Whether to run `api_summary` to compute the public API diff against the
+  /// previous published version.
+  final bool runApiDiff;
+
+  /// Optional explicit baseline version to compare against when [runApiDiff] is
+  /// enabled. When omitted, the highest non-retracted published version `<`
+  /// the current version is selected automatically.
+  final String? apiDiffOldVersion;
+
   InspectOptions({
     this.pubHostedUrl,
     this.panaCacheDir,
@@ -57,6 +66,8 @@ class InspectOptions {
     this.totalTimeout,
     Duration? dartdocTimeout,
     this.licenseDataDir,
+    this.runApiDiff = false,
+    this.apiDiffOldVersion,
   }) : dartdocTimeout = dartdocTimeout ?? const Duration(minutes: 5);
 }
 
@@ -227,6 +238,9 @@ class PackageAnalyzer {
       errorMessage = context.errors.map((e) => e.trim()).join('\n\n');
     }
     final report = await createReport(context);
+    final apiDiff = context.options.runApiDiff
+        ? (await context.apiDiffResult).summary
+        : null;
     return Summary(
       createdAt: DateTime.now(),
       runtimeInfo: _toolEnv.runtimeInfo,
@@ -244,6 +258,7 @@ class PackageAnalyzer {
             ..sort((a, b) => a.url.compareTo(b.url)),
       errorMessage: errorMessage,
       screenshots: processedScreenshots,
+      apiDiff: apiDiff,
     );
   }
 }

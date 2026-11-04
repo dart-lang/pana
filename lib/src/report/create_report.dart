@@ -9,6 +9,7 @@
 import '../model.dart';
 import '../package_context.dart';
 
+import 'api_diff.dart';
 import 'dependencies.dart';
 import 'documentation.dart';
 import 'multi_platform.dart';
@@ -37,6 +38,7 @@ Future<Report> createReport(PackageContext context) async {
   final platformReport = await multiPlatform(context);
   final staticAnalysisReport = await staticAnalysis(context);
   final dependenciesReport = await trustworthyDependency(context);
+  final apiDiffReport = await apiDiffSection(context);
 
   // Create the documentation report (and run `dartdoc`) as the last step
   // to allow better budgeting for large packages.
@@ -49,6 +51,7 @@ Future<Report> createReport(PackageContext context) async {
       platformReport,
       staticAnalysisReport,
       dependenciesReport,
+      ?apiDiffReport,
     ],
   );
 }
