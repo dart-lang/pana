@@ -32,6 +32,7 @@ void main() {
                 apply plugin: 'com.android.library'
                 apply plugin: 'kotlin-android'
               '''),
+              d.dir('src', [d.file('MyPlugin.kt', 'class MyPlugin')]),
             ]),
           ],
         ),
@@ -63,7 +64,7 @@ void main() {
       );
     });
 
-    test('No warning if modern Kotlin is used', () async {
+    test('No warning or note if modern Kotlin is used', () async {
       final descriptor = d.dir('cache', [
         packageWithPathDeps(
           'my_package',
@@ -84,6 +85,7 @@ void main() {
                     id("com.android.library")
                 }
               '''),
+              d.dir('src', [d.file('MyPlugin.kt', 'class MyPlugin')]),
             ]),
           ],
         ),
@@ -102,9 +104,9 @@ void main() {
       expect(reportSection.grantedPoints, 20);
       expect(
         reportSection.summary,
-        isNot(contains('Legacy Kotlin plugin DSL detected')),
+        isNot(contains('Legacy Kotlin configuration detected')),
       );
-      expect(reportSection.summary, contains('Built-in Kotlin-ready'));
+      expect(reportSection.summary, isNot(contains('Built-in Kotlin-ready')));
     });
   });
 }
