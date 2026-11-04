@@ -1065,17 +1065,27 @@ int fourtyTwo() => 42;
             'my_package',
             lib: [
               d.file('my_package.dart', '''
-import 'src/native.dart'
-    if (dart.library.html) 'src/web.dart';
+import 'src/native_a.dart'
+    if (dart.library.html) 'src/web_a.dart';
+import 'src/native_b.dart'
+    if (dart.library.html) 'src/web_b.dart';
 '''),
               d.dir('src', [
-                d.file('native.dart', '''
+                d.file('native_a.dart', '''
 import 'dart:io';
 int fourtyTwo() => 42;
 '''),
-                d.file('web.dart', '''
+                d.file('web_a.dart', '''
 import 'dart:js_interop';
 int fourtyTwo() => 42;
+'''),
+                d.file('native_b.dart', '''
+import 'dart:io';
+int fourtyThree() => 43;
+'''),
+                d.file('web_b.dart', '''
+import 'dart:js_interop';
+int fourtyThree() => 43;
 '''),
               ]),
             ],

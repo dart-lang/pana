@@ -164,10 +164,7 @@ class LibraryGraph implements DirectedGraph<Uri> {
             }
           }
 
-          dependencies.add(dependency);
-          if (disallowedConfigurationLibUri != null) {
-            dependencies.add(disallowedConfigurationLibUri);
-          }
+          dependencies.add(disallowedConfigurationLibUri ?? dependency);
         }
         return dependencies;
       });
@@ -187,7 +184,6 @@ class LibraryGraph implements DirectedGraph<Uri> {
   static const _wasmWebConfigurationVars = {
     'dart.library.js_interop',
     'dart.library.js_interop_unsafe',
-    'dart.library.js',
     'dart.library.ui_web',
   };
 
