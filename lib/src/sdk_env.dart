@@ -141,7 +141,11 @@ class ToolEnvironment {
     /// which will be used to prepend subprocess calls.
     String? sandboxRunner,
   }) async {
-    dartSdkConfig ??= SdkConfig(rootPath: cli.sdkPath);
+    dartSdkConfig = SdkConfig(
+      rootPath: dartSdkConfig?.rootPath ?? cli.sdkPath,
+      configHomePath: dartSdkConfig?.configHomePath,
+      environment: dartSdkConfig?.environment ?? const <String, String>{},
+    );
     flutterSdkConfig ??= SdkConfig();
     final resolvedPubCache = await _resolve(pubCacheDir);
 

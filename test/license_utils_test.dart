@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:test/test.dart';
 
@@ -46,6 +49,32 @@ void main() {
       () => loadLicensesFromDirectories(['test/license_test_assets/']),
       throwsFormatException,
     );
+  });
+
+  test('decodeCompressedLicenses matches loadLicensesFromDirectories', () {
+    final fromDir = loadLicensesFromDirectories([
+      'test/license_test_assets/licenses',
+    ]);
+    final files =
+        Directory('test/license_test_assets/licenses')
+            .listSync()
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.txt'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    final licenseTexts = <String, String>{
+      for (final file in files)
+        file.uri.pathSegments.last.split('.txt').first: file
+            .readAsStringSync()
+            .replaceAll('\r\n', '\n'),
+    };
+    final compressed = zlib.encode(utf8.encode(json.encode(licenseTexts)));
+    final fromCompressed = decodeCompressedLicenses(compressed);
+    expect(fromCompressed.length, fromDir.length);
+    for (var i = 0; i < fromDir.length; i++) {
+      expect(fromCompressed[i].identifier, fromDir[i].identifier);
+      expect(fromCompressed[i].content, fromDir[i].content);
+    }
   });
 
   test('Tokens normalized value', () {

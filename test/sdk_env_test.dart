@@ -55,6 +55,15 @@ void main() {
   });
 
   test(
+    'ToolEnvironment.create resolves dartSdkPath when SdkConfig.rootPath is null',
+    () async {
+      final toolEnv = await ToolEnvironment.create(dartSdkConfig: SdkConfig());
+      expect(toolEnv.dartSdkPath, isNotNull);
+      expect(Directory(toolEnv.dartSdkPath!).existsSync(), isTrue);
+    },
+  );
+
+  test(
     'filesNeedingFormat handles dangling symlink analysis_options.yaml safely',
     () async {
       final toolEnv = await ToolEnvironment.create();

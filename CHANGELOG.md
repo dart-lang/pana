@@ -1,6 +1,7 @@
 ## 0.23.20-wip
 
 - Pass writable sandbox output folders via `SANDBOX_OUTPUT_JSON` (JSON-encoded list of paths) alongside `SANDBOX_OUTPUT` (#1633).
+- Support standalone AOT compilation (`dart build cli` / `dart install`) by bundling the SPDX license corpus via `hook/build.dart`, falling back to embedded `package:lints/core.yaml` analysis options, and defaulting `SdkConfig.rootPath` to `cli_util`'s `sdkPath`.
 
 ## 0.23.19
 

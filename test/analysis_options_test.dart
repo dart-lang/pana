@@ -3,6 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
 
 import 'package:pana/src/analysis_options.dart';
 import 'package:test/test.dart';
@@ -19,6 +21,19 @@ void main() {
       'linter': {'rules': hasLength(greaterThan(10))},
     });
   });
+
+  test(
+    'embedded defaultAnalysisOptionsYaml matches package:lints/core.yaml',
+    () async {
+      final coreLintsUri = Uri(scheme: 'package', path: 'lints/core.yaml');
+      final resource = await Isolate.resolvePackageUri(coreLintsUri);
+      expect(resource, isNotNull);
+      final fileContent = (await File.fromUri(
+        resource!,
+      ).readAsString()).replaceAll('\r\n', '\n');
+      expect(defaultAnalysisOptionsYaml, fileContent);
+    },
+  );
 
   test('passthrough for empty options', () {
     final content = updatePassthroughOptions(original: '', custom: '');
