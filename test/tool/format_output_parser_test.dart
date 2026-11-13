@@ -101,5 +101,18 @@ Failed to resolve package URI "package:flutter_lints/flutter.yaml" in include.''
         throwsA(isA<ToolException>()),
       );
     });
+
+    test('Missing package directory', () {
+      expect(
+        () => parseDartFormatOutput(
+          packageDir: '/tmp/x',
+          exitCode: 0,
+          output:
+              'No file or directory found at "/tmp/x".\n'
+              'Formatted no files in 0.00 seconds.',
+        ),
+        throwsA(isA<ToolException>()),
+      );
+    });
   });
 }
