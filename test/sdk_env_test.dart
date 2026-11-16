@@ -89,6 +89,49 @@ environment:
       });
     },
   );
+  test(
+    'filesNeedingFormat runs dart format in the package directory',
+    () async {
+      await withTempDir((dir) async {
+        final packageDir = p.join(dir, 'test_pkg');
+        final libDir = Directory(p.join(packageDir, 'lib'))
+          ..createSync(recursive: true);
+        File(p.join(packageDir, 'pubspec.yaml')).writeAsStringSync('''
+name: test_pkg
+version: 1.0.0
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+''');
+        File(
+          p.join(libDir.path, 'test_pkg.dart'),
+        ).writeAsStringSync('void   main( ) {}\n');
+
+        final log = File(p.join(dir, 'sandbox.log'));
+        final sandboxRunner = File(p.join(dir, 'sandbox_runner.sh'))
+          ..writeAsStringSync(
+            '#!/bin/sh\n'
+            'echo "\$(pwd -P) \$*" >> "${log.path}"\n'
+            'exec "\$@"\n',
+          );
+        await Process.run('chmod', ['+x', sandboxRunner.path]);
+
+        final toolEnv = await ToolEnvironment.create(
+          sandboxRunner: sandboxRunner.path,
+        );
+        final files = await toolEnv.filesNeedingFormat(packageDir, false);
+        expect(files, ['lib/test_pkg.dart']);
+
+        final formatCall = log.readAsLinesSync().singleWhere(
+          (line) => line.contains(' format '),
+        );
+        expect(
+          formatCall,
+          startsWith('${Directory(packageDir).resolveSymbolicLinksSync()} '),
+        );
+      });
+    },
+    skip: Platform.isWindows ? 'The sandbox runner is a shell script.' : false,
+  );
   group('stripAndAugmentPubspecYaml', () {
     test(
       'keeps SDK and standard dev_dependencies, strips path/git/hosted',

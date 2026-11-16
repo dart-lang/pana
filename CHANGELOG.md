@@ -1,6 +1,7 @@
 ## 0.23.20-wip
 
 - Pass writable sandbox output folders via `SANDBOX_OUTPUT_JSON` (JSON-encoded list of paths) alongside `SANDBOX_OUTPUT` (#1633).
+- Run `dart format` in the package directory, so the sandbox mounts the package and the formatting check no longer passes without checking any files (#1648).
 
 ## 0.23.19
 

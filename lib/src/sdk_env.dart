@@ -357,14 +357,16 @@ class ToolEnvironment {
 
       final result = await _sandboxRunner.runSandboxed(
         [..._dartSdk.dartCmd, ...params],
+        workingDirectory: packageDir,
         environment: _dartSdk.environment,
         timeout: _dartFormatTimeout,
       );
-      if (result.exitCode == 0) {
+      final output = result.asJoinedOutput;
+      if (result.exitCode == 0 &&
+          !output.contains('No file or directory found')) {
         return [];
       }
 
-      final output = result.asJoinedOutput;
       return parseDartFormatOutput(
         packageDir: packageDir,
         exitCode: result.exitCode,
