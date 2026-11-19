@@ -2,10 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/dart/analysis/session.dart';
-import 'package:analyzer/dart/ast/ast.dart';
-
 /// Creates a [Explanation] indicating an issue, using [path] to
 /// give the location of the issue.
 typedef Explainer<N> = Explanation? Function(List<N> path);
@@ -64,27 +60,4 @@ class TagException implements Exception {
     if (message == null) return 'Exception';
     return 'Exception: $message';
   }
-}
-
-/// Returns a parsed (not resolved) compilation unit of [uri] created by
-/// [analysisSession].
-///
-/// Returns `null` in case of any errors.
-///
-/// Returns `null` if [uri] points to a part file.
-CompilationUnit? parsedUnitFromUri(AnalysisSession analysisSession, Uri uri) {
-  final path = analysisSession.uriConverter.uriToPath(uri);
-  if (path == null) {
-    // Could not resolve uri.
-    // Probably a missing/broken dependency.
-    throw TagException('Broken import $uri');
-  }
-  final unitResult = analysisSession.getParsedUnit(path) as ParsedUnitResult;
-  if (unitResult.diagnostics.isNotEmpty) return null;
-  if (unitResult.isPart) {
-    // Part files cannot contain import/export directives or language
-    // directives.
-    return null;
-  }
-  return unitResult.unit;
 }

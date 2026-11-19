@@ -305,6 +305,7 @@ class PackageContext {
     }
 
     if (items != null && !items.any((item) => item.isError)) {
+      log.info('Detecting package tags...');
       final tagger = Tagger(
         packageDir,
         dartSdkPath: toolEnvironment.dartSdkPath,

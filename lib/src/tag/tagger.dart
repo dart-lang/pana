@@ -78,7 +78,6 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
-import 'package:pub_semver/pub_semver.dart';
 
 import '../null_safety.dart';
 import '../pubspec_io.dart' show pubspecFromDir;
@@ -98,6 +97,8 @@ class Tagger {
   final String packageDir;
   final AnalysisSession _session;
   final PubspecCache _pubspecCache;
+  final ParsedLibraryCache _parsedLibraryCache;
+  final DeclaredPlatformDetector _declaredPlatformDetector;
   final bool _isBinaryOnly;
   final bool _usesFlutter;
 
@@ -126,6 +127,8 @@ class Tagger {
     this._publicLibraries,
     this.packageDir,
   ) : _pubspecCache = pubspecCache,
+      _parsedLibraryCache = ParsedLibraryCache(_session),
+      _declaredPlatformDetector = DeclaredPlatformDetector(pubspecCache),
       _packageGraph = PackageGraph(pubspecCache);
 
   /// Assumes that `dart pub get` has been run.
@@ -203,6 +206,7 @@ class Tagger {
             sdk,
             _pubspecCache,
             _session,
+            parsedLibraryCache: _parsedLibraryCache,
           ).findSdkViolation(packageName, _topLibraries);
           if (violationResult != null) {
             explanations.add(violationResult);
@@ -284,12 +288,15 @@ class Tagger {
           : const <Uri>[];
       final librariesToCheck = [..._topLibraries, ...webPluginLibraries];
 
-      final libraryGraph = LibraryGraph(_session, runtime.declaredVariables);
-      final declaredPlatformDetector = DeclaredPlatformDetector(_pubspecCache);
+      final libraryGraph = LibraryGraph(
+        _session,
+        runtime.declaredVariables,
+        parsedLibraryCache: _parsedLibraryCache,
+      );
       final violationFinder = PlatformViolationFinder(
         platform,
         libraryGraph,
-        declaredPlatformDetector,
+        _declaredPlatformDetector,
         _pubspecCache,
         runtimeViolationFinder(
           libraryGraph,
@@ -314,14 +321,15 @@ class Tagger {
           ? LibraryGraph(
               _session,
               runtime.declaredVariables,
-              isLeaf: declaredPlatformDetector.hasDeclaredPlatforms,
+              isLeaf: _declaredPlatformDetector.hasDeclaredPlatforms,
+              parsedLibraryCache: _parsedLibraryCache,
             )
           : libraryGraph;
 
       final prunedViolationFinder = PlatformViolationFinder(
         platform,
         prunedLibraryGraph,
-        declaredPlatformDetector,
+        _declaredPlatformDetector,
         _pubspecCache,
         runtimeViolationFinder(
           prunedLibraryGraph,
@@ -404,6 +412,7 @@ class Tagger {
         _session,
         runtime.declaredVariables,
         disallowedConfigurationLibs: runtime.disallowedConfigurationLibs,
+        parsedLibraryCache: _parsedLibraryCache,
       ),
       runtime,
       (List<Uri> path) => Explanation(
@@ -595,6 +604,7 @@ class Tagger {
           Sdk.dart,
           _pubspecCache,
           _session,
+          parsedLibraryCache: _parsedLibraryCache,
         );
         final sdkViolation = dartSdkViolationFinder.findSdkViolation(
           packageName,
@@ -605,7 +615,11 @@ class Tagger {
         } else {
           for (final runtime in Runtime.recognizedRuntimes) {
             final finder = runtimeViolationFinder(
-              LibraryGraph(_session, runtime.declaredVariables),
+              LibraryGraph(
+                _session,
+                runtime.declaredVariables,
+                parsedLibraryCache: _parsedLibraryCache,
+              ),
               runtime,
               (List<Uri> path) => Explanation(
                 'Package not compatible with runtime ${runtime.name}',
@@ -673,7 +687,11 @@ class Tagger {
       } else {
         for (final runtime in Runtime.recognizedRuntimes) {
           final optOutViolationFinder = PathFinder<Uri>(
-            LibraryGraph(_session, runtime.declaredVariables),
+            LibraryGraph(
+              _session,
+              runtime.declaredVariables,
+              parsedLibraryCache: _parsedLibraryCache,
+            ),
             (library) {
               // For completeness we should check every SDK libraries, however
               // some `dart:` libraries are not available in the analysis session.
@@ -692,20 +710,13 @@ class Tagger {
                   tag: PanaTags.isNullSafe,
                 );
               }
-              final unit = parsedUnitFromUri(_session, library);
-              if (unit == null) return null;
-              final languageVersionToken = unit.languageVersionToken;
-              if (languageVersionToken == null) return null;
+              final parsedLibrary = _parsedLibraryCache.parseFile(resolvedPath);
+              final languageVersion = parsedLibrary.languageVersion;
+              if (languageVersion == null) return null;
               // dart:ui has no package name. So we cannot trivially look it up in
               // the allowed experiments. We just assume it is opted in.
               if (!library.isScheme('package')) return null;
-              if (!isNullSafety(
-                Version(
-                  languageVersionToken.major,
-                  languageVersionToken.minor,
-                  0,
-                ),
-              )) {
+              if (!isNullSafety(languageVersion)) {
                 return (path) => Explanation(
                   'Package is not null safe',
                   'Because:\n${LibraryGraph.formatPath(path)} where $library '
@@ -724,6 +735,7 @@ class Tagger {
             if (nullSafetyResult != null) {
               explanations.add(nullSafetyResult);
               foundIssues = true;
+              break;
             }
           }
           // If we have a problem one runtime, there is no need to explore the

@@ -1,5 +1,6 @@
 ## 0.23.20-wip
 
+- Cache parsed library directives and language versions across `Tagger` passes, and fix `PathFinder` memoization to avoid repeated traversals on large packages.
 - Pass writable sandbox output folders via `SANDBOX_OUTPUT_JSON` (JSON-encoded list of paths) alongside `SANDBOX_OUTPUT` (#1633).
 - Support standalone AOT compilation (`dart compile exe` / `dart build cli` / `dart install`) by embedding the compressed SPDX license corpus in Dart, falling back to embedded `package:lints/core.yaml` analysis options, and defaulting `SdkConfig.rootPath` to `cli_util`'s `sdkPath`.
 

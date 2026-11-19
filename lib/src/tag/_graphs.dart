@@ -2,9 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:path/path.dart' as path;
+import 'package:pub_semver/pub_semver.dart';
 
 import '../logging.dart';
 import '../pubspec.dart';
@@ -58,6 +60,108 @@ class PubspecCache {
   }
 }
 
+/// A parsed conditional import or export configuration
+/// (`if (dottedName == testValue) uri`).
+final class ParsedConfiguration {
+  final String dottedName;
+  final String testValue;
+  final String? uri;
+
+  const ParsedConfiguration({
+    required this.dottedName,
+    required this.testValue,
+    required this.uri,
+  });
+}
+
+/// A parsed `import` or `export` directive.
+final class ParsedDirective {
+  final String? uri;
+  final List<ParsedConfiguration> configurations;
+
+  const ParsedDirective({required this.uri, required this.configurations});
+}
+
+/// Lightweight metadata extracted from a parsed Dart compilation unit.
+///
+/// Retaining only directive and language-version metadata avoids keeping full
+/// ASTs in memory while preventing repeated parsing across multiple
+/// [LibraryGraph] configurations and tagging passes.
+final class ParsedLibrary {
+  static const empty = ParsedLibrary(directives: [], languageVersion: null);
+
+  final List<ParsedDirective> directives;
+  final Version? languageVersion;
+
+  const ParsedLibrary({
+    required this.directives,
+    required this.languageVersion,
+  });
+}
+
+/// Caches lightweight parsed metadata for Dart files in an [AnalysisSession].
+final class ParsedLibraryCache {
+  final AnalysisSession _analysisSession;
+  final _cache = <String, ParsedLibrary>{};
+
+  ParsedLibraryCache(this._analysisSession);
+
+  /// Returns cached directive and language-version metadata for [filePath].
+  ///
+  /// Returns [ParsedLibrary.empty] if [filePath] has parse errors or is a part
+  /// file.
+  ParsedLibrary parseFile(String filePath) {
+    return _cache.putIfAbsent(filePath, () {
+      final unitResult =
+          _analysisSession.getParsedUnit(filePath) as ParsedUnitResult;
+      if (unitResult.diagnostics.isNotEmpty || unitResult.isPart) {
+        // Ignore files with parse errors and part files (part files cannot
+        // contain import/export directives or language-version overrides).
+        return ParsedLibrary.empty;
+      }
+
+      final unit = unitResult.unit;
+      final languageVersionToken = unit.languageVersionToken;
+      final languageVersion = languageVersionToken == null
+          ? null
+          : Version(languageVersionToken.major, languageVersionToken.minor, 0);
+
+      final directives = <ParsedDirective>[];
+      for (final directive in unit.directives) {
+        if (directive is! NamespaceDirective) continue;
+        final configurations = directive.configurations.isEmpty
+            ? const <ParsedConfiguration>[]
+            : <ParsedConfiguration>[
+                for (final configuration in directive.configurations)
+                  ParsedConfiguration(
+                    // Use lexemes to preserve source spelling of keywords such
+                    // as `library` in `dart.library.js_interop`.
+                    dottedName: configuration.name.tokens
+                        .map((i) => i.lexeme)
+                        .join(),
+                    testValue: configuration.value?.stringValue ?? 'true',
+                    uri: configuration.uri.stringValue,
+                  ),
+              ];
+        directives.add(
+          ParsedDirective(
+            uri: directive.uri.stringValue,
+            configurations: configurations,
+          ),
+        );
+      }
+
+      if (directives.isEmpty && languageVersion == null) {
+        return ParsedLibrary.empty;
+      }
+      return ParsedLibrary(
+        directives: directives.isEmpty ? const [] : directives,
+        languageVersion: languageVersion,
+      );
+    });
+  }
+}
+
 /// A graph of import/export dependencies for libraries under some configuration
 /// of declared variables.
 class LibraryGraph implements DirectedGraph<Uri> {
@@ -66,14 +170,18 @@ class LibraryGraph implements DirectedGraph<Uri> {
   final Set<String> _disallowedConfigurationLibs;
   final Map<Uri, Set<Uri>> _cache = <Uri, Set<Uri>>{};
   final bool Function(Uri) _isLeaf;
+  final ParsedLibraryCache _parsedLibraryCache;
 
   LibraryGraph(
     this._analysisSession,
     this._declaredVariables, {
     bool Function(Uri) isLeaf = _constantFalse,
     Set<String> disallowedConfigurationLibs = const {},
+    ParsedLibraryCache? parsedLibraryCache,
   }) : _isLeaf = isLeaf,
-       _disallowedConfigurationLibs = disallowedConfigurationLibs;
+       _disallowedConfigurationLibs = disallowedConfigurationLibs,
+       _parsedLibraryCache =
+           parsedLibraryCache ?? ParsedLibraryCache(_analysisSession);
 
   /// The direct successors of the library [uri] are the libraries imported or
   /// exported by that library.
@@ -104,22 +212,18 @@ class LibraryGraph implements DirectedGraph<Uri> {
           return <Uri>{Uri.parse('dart:ui')};
         }
 
-        final path = _analysisSession.uriConverter.uriToPath(uri);
-        if (path == null) {
+        final filePath = _analysisSession.uriConverter.uriToPath(uri);
+        if (filePath == null) {
           // Could not resolve uri.
           // Probably a missing/broken dependency.
           throw TagException('Could not resolve import: $uri');
         }
-        final unit = parsedUnitFromUri(_analysisSession, uri);
-        if (unit == null) {
-          // Part files cannot contain import/export directives.
+        final library = _parsedLibraryCache.parseFile(filePath);
+        if (library.directives.isEmpty) {
           return <Uri>{};
         }
         final dependencies = <Uri>{};
-        for (final node in unit.sortedDirectivesAndDeclarations) {
-          if (node is! ImportDirective && node is! ExportDirective) {
-            continue;
-          }
+        for (final directive in library.directives) {
           // The syntax for an import:
           //
           //    directive ::=
@@ -133,22 +237,16 @@ class LibraryGraph implements DirectedGraph<Uri> {
           // We have dependency upon `directive.uri` resolved relative to this
           // library `uri`. Unless there is a `configuration` for which the `test`
           // evaluates to true.
-          final directive = node as NamespaceDirective;
-          var dependency = uri.resolve(directive.uri.stringValue!);
+          var dependency = uri.resolve(directive.uri!);
           Uri? disallowedConfigurationLibUri;
 
           for (final configuration in directive.configurations) {
-            // Use lexemes to preserve source spelling of keywords such as
-            // `library` in `dart.library.js_interop`.
-            final dottedName = configuration.name.tokens
-                .map((i) => i.lexeme)
-                .join();
-
-            final testValue = configuration.value?.stringValue ?? 'true';
+            final dottedName = configuration.dottedName;
+            final testValue = configuration.testValue;
             final actualValue = _declaredVariables[dottedName] ?? '';
 
             if (actualValue == testValue) {
-              dependency = uri.resolve(configuration.uri.stringValue!);
+              dependency = uri.resolve(configuration.uri!);
               if (_wasmWebConfigurationVars.contains(dottedName)) {
                 disallowedConfigurationLibUri = null;
               }
@@ -215,15 +313,21 @@ class PackageGraph implements DirectedGraph<String> {
 class PathFinder<T> {
   final DirectedGraph<T> graph;
   final Predicate<T> predicate;
-  final Map<T, PathResult<T>> _cache = <T, PathResult<T>>{};
+
+  /// Nodes from which no node satisfying [predicate] is reachable.
+  ///
+  /// Populated whenever a search completes without finding a match, so checking
+  /// a sequence of roots until the first violation runs in O(V + E) total time.
+  final _noPathNodes = <T>{};
 
   PathFinder(this.graph, this.predicate);
 
-  /// Searches [graph] for nodes reachable from [root] to a node full-filling
+  /// Searches [graph] for nodes reachable from [root] to a node fulfilling
   /// [predicate].
   ///
   /// Uses depth-first search.
   PathResult<T> findPath(T root) {
+    if (_noPathNodes.contains(root)) return PathResult<T>.noPath();
     final pathToCurrent = <T>[];
     final todo = <List<T>>[
       [root],
@@ -239,27 +343,25 @@ class PathFinder<T> {
       }
       final current = x.removeLast();
 
+      if (_noPathNodes.contains(current)) continue;
       if (!visited.add(current)) continue;
 
-      if (_cache.containsKey(current)) {
-        return _cache[root] = _cache[current]!.prefix(pathToCurrent);
-      }
-
-      pathToCurrent.add(current);
       final explainer = predicate(current);
-      if (explainer == null) {
-        todo.add(graph.directSuccessors(current).toList());
-      } else {
+      if (explainer != null) {
+        pathToCurrent.add(current);
         return PathResult<T>.path(pathToCurrent, explainer);
       }
+      pathToCurrent.add(current);
+      todo.add(graph.directSuccessors(current).toList());
     }
+    _noPathNodes.addAll(visited);
     return PathResult<T>.noPath();
   }
 
-  /// Finds a path from [root] to a node violating of [predicate] and returns a
-  /// Explanation indicating the issue.
+  /// Finds a path from [root] to a node violating [predicate] and returns an
+  /// [Explanation] indicating the issue.
   ///
-  /// Returns `null` if no issue was found
+  /// Returns `null` if no issue was found.
   Explanation? findViolation(T root) => findPath(root).explain();
 }
 
@@ -275,12 +377,6 @@ class PathResult<T> {
   PathResult.path(this.path, this.explainer)
     : assert(path != null),
       assert(explainer != null);
-
-  PathResult<T> prefix(List<T> prefix) {
-    return hasPath
-        ? PathResult.path([...prefix, ...path!], explainer)
-        : PathResult<T>.noPath();
-  }
 
   Explanation? explain() => hasPath ? explainer!(path!) : null;
 }
