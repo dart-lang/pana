@@ -148,35 +148,6 @@ void main() {
       },
     );
 
-    test('caches violation paths across calls without cycles', () {
-      final countingGraph = _CountingGraph<String>({
-        'r1': {'mid'},
-        'r2': {'mid'},
-        'r3': {'r2'},
-        'c1': {'c2', 'mid'},
-        'c2': {'c1'},
-        'mid': {'violation'},
-        'violation': {},
-      });
-      final predicateCalls = <String, int>{};
-      final finder = PathFinder<String>(countingGraph, (node) {
-        predicateCalls[node] = (predicateCalls[node] ?? 0) + 1;
-        return node == 'violation'
-            ? (path) => Explanation('bad', path.join('->'), tag: 't')
-            : null;
-      });
-
-      expect(finder.findPath('r1').path, ['r1', 'mid', 'violation']);
-      expect(finder.findPath('r2').path, ['r2', 'mid', 'violation']);
-      expect(finder.findViolation('r3')?.explanation, 'r3->r2->mid->violation');
-      expect(finder.findPath('c2').path, ['c2', 'c1', 'mid', 'violation']);
-      expect(finder.findPath('violation').path, ['violation']);
-
-      expect(predicateCalls['mid'], 1);
-      expect(predicateCalls['violation'], 1);
-      expect(countingGraph.successorCalls['mid'], 1);
-    });
-
     test('does not mark cyclic node safe when violation is found', () {
       // DFS pops from the end of directSuccessors.toList(), so placing 'b'
       // after 'violation' makes 'a' explore 'b' -> 'a' (cycle) first, finish

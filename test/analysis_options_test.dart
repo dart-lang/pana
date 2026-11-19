@@ -241,4 +241,35 @@ analyzer:
       },
     });
   });
+
+  test('deduplicates exclude rules preserving order', () {
+    final content = updatePassthroughOptions(
+      original: '''
+analyzer:
+  exclude:
+    - example/**
+    - build/**
+    - lib/gen/**
+    - build/**
+    - custom/**
+''',
+      custom: '''
+analyzer:
+  exclude:
+    - custom/**
+    - test/**
+''',
+    );
+    expect(json.decode(content), <String, Object?>{
+      'analyzer': {
+        'exclude': [
+          'custom/**',
+          'test/**',
+          'example/**',
+          'build/**',
+          'lib/gen/**',
+        ],
+      },
+    });
+  });
 }

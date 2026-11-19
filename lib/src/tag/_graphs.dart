@@ -310,33 +310,15 @@ class PackageGraph implements DirectedGraph<String> {
   }
 }
 
-sealed class _ViolationStep<T> {}
-
-final class _ViolationLeaf<T> extends _ViolationStep<T> {
-  final Explainer<T> explainer;
-
-  _ViolationLeaf(this.explainer);
-}
-
-final class _ViolationEdge<T> extends _ViolationStep<T> {
-  final T next;
-
-  _ViolationEdge(this.next);
-}
-
 class PathFinder<T> {
   final DirectedGraph<T> graph;
   final Predicate<T> predicate;
 
   /// Nodes from which no node satisfying [predicate] is reachable.
-  final _noPathNodes = <T>{};
-
-  /// Next-hop cache for nodes known to reach a node satisfying [predicate].
   ///
-  /// Every node referenced by an entry in this map is also a key in this map,
-  /// and following [_ViolationEdge.next] always terminates at a
-  /// [_ViolationLeaf] without cycles.
-  final _violationSteps = <T, _ViolationStep<T>>{};
+  /// Populated whenever a search completes without finding a match, so checking
+  /// a sequence of roots until the first violation runs in O(V + E) total time.
+  final _noPathNodes = <T>{};
 
   PathFinder(this.graph, this.predicate);
 
@@ -345,6 +327,7 @@ class PathFinder<T> {
   ///
   /// Uses depth-first search.
   PathResult<T> findPath(T root) {
+    if (_noPathNodes.contains(root)) return PathResult<T>.noPath();
     final pathToCurrent = <T>[];
     final todo = <List<T>>[
       [root],
@@ -363,24 +346,8 @@ class PathFinder<T> {
       if (_noPathNodes.contains(current)) continue;
       if (!visited.add(current)) continue;
 
-      if (_violationSteps[current] case var step?) {
-        _cacheViolationEdges(pathToCurrent, current);
-        final path = [...pathToCurrent, current];
-        while (true) {
-          switch (step) {
-            case _ViolationLeaf<T>(:final explainer):
-              return PathResult<T>.path(path, explainer);
-            case _ViolationEdge<T>(:final next):
-              path.add(next);
-              step = _violationSteps[next]!;
-          }
-        }
-      }
-
       final explainer = predicate(current);
       if (explainer != null) {
-        _violationSteps[current] = _ViolationLeaf<T>(explainer);
-        _cacheViolationEdges(pathToCurrent, current);
         pathToCurrent.add(current);
         return PathResult<T>.path(pathToCurrent, explainer);
       }
@@ -389,13 +356,6 @@ class PathFinder<T> {
     }
     _noPathNodes.addAll(visited);
     return PathResult<T>.noPath();
-  }
-
-  void _cacheViolationEdges(List<T> prefix, T target) {
-    for (var i = 0; i < prefix.length; i++) {
-      final next = i + 1 < prefix.length ? prefix[i + 1] : target;
-      _violationSteps[prefix[i]] = _ViolationEdge<T>(next);
-    }
   }
 
   /// Finds a path from [root] to a node violating [predicate] and returns an

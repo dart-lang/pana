@@ -735,6 +735,7 @@ class Tagger {
             if (nullSafetyResult != null) {
               explanations.add(nullSafetyResult);
               foundIssues = true;
+              break;
             }
           }
           // If we have a problem one runtime, there is no need to explore the
