@@ -292,19 +292,8 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
   return List.unmodifiable(licenses);
 }
 
-@Native<Uint8>(symbol: 'pana_spdx_corpus')
-external int _spdxCorpus;
-
-@Native<Uint64>(symbol: 'pana_spdx_corpus_len')
-external int _spdxCorpusLen;
-
-List<License> _loadEmbeddedLicenses() {
-  final length = _spdxCorpusLen;
-  final compressedBytes = Native.addressOf<Uint8>(
-    _spdxCorpus,
-  ).asTypedList(length);
-  return decodeCompressedLicenses(compressedBytes);
-}
+List<License> _loadEmbeddedLicenses() =>
+    decodeCompressedLicenses(base64Decode(spdxCorpusBase64));
 
 /// Decodes a zlib-compressed UTF-8 JSON map of SPDX license identifiers to
 /// license texts into a sorted list of [License]s.
@@ -345,7 +334,7 @@ void _sortLicenses(List<License> licenses) {
 List<License> licensesFromFile(String path) {
   final file = File(path);
 
-  final content = file.readAsStringSync().replaceAll('\r\n', '\n');
+  final content = file.readAsStringSync();
   final identifier = file.uri.pathSegments.last.split('.txt').first;
 
   if (_invalidIdentifier.hasMatch(identifier)) {

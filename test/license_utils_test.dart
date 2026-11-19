@@ -77,6 +77,27 @@ void main() {
     }
   });
 
+  test(
+    'embedded SPDX corpus matches lib/src/third_party/spdx/licenses',
+    () async {
+      final fromDir = loadLicensesFromDirectories([
+        'lib/src/third_party/spdx/licenses',
+      ]);
+      final fromEmbedded = await listDefaultLicenses();
+      expect(
+        fromEmbedded.length,
+        fromDir.length,
+        reason:
+            'Run `dart run third_party/spdx/update_licenses.dart --corpus-only` '
+            'to regenerate lib/src/third_party/spdx/spdx_corpus.dart.',
+      );
+      for (var i = 0; i < fromDir.length; i++) {
+        expect(fromEmbedded[i].identifier, fromDir[i].identifier);
+        expect(fromEmbedded[i].content, fromDir[i].content);
+      }
+    },
+  );
+
   test('Tokens normalized value', () {
     final str = 'Here is some text for testing purposes';
 

@@ -4,9 +4,7 @@
 
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
-import 'dart:isolate';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -15,14 +13,13 @@ import 'package:source_span/source_span.dart';
 import 'package:string_scanner/string_scanner.dart';
 
 import '../third_party/diff_match_patch/diff.dart';
+import '../third_party/spdx/spdx_corpus.dart';
 
 part 'confidence.dart';
 part 'license.dart';
 part 'primary_filter.dart';
 part 'token_matcher.dart';
 part 'tokenizer.dart';
-
-const _defaultSpdxLicenseDir = 'lib/src/third_party/spdx/licenses';
 
 // Load corpus licenses.
 List<License>? _cachedLicenses;
@@ -31,19 +28,7 @@ Future<List<License>> listDefaultLicenses({String? licenseDataDir}) async {
   if (licenseDataDir != null) {
     return loadLicensesFromDirectories([licenseDataDir]);
   }
-  if (_cachedLicenses == null) {
-    final uri = await Isolate.resolvePackageUri(
-      Uri.parse(_defaultSpdxLicenseDir.replaceFirst('lib/', 'package:pana/')),
-    );
-    if (uri != null) {
-      final dir = Directory.fromUri(uri);
-      if (dir.existsSync()) {
-        _cachedLicenses = loadLicensesFromDirectories([dir.path]);
-      }
-    }
-    _cachedLicenses ??= _loadEmbeddedLicenses();
-  }
-  return _cachedLicenses!;
+  return _cachedLicenses ??= _loadEmbeddedLicenses();
 }
 
 class Result {
