@@ -13,44 +13,32 @@ void main() {
   final timeout = const Duration(minutes: 5);
   test('running pana locally with compiled executable', () async {
     await withTempDir((dir) async {
-      // detect SDK directory
-      var sdkPath = Directory(
-        p.dirname(p.dirname(Platform.resolvedExecutable)),
-      ).resolveSymbolicLinksSync();
-      // if we using Flutter SDK, we need to use the internal Dart SDK's directory
-      if (await File(p.join(sdkPath, 'bin', 'flutter')).exists() ||
-          await File(p.join(sdkPath, 'bin', 'flutter.bat')).exists()) {
-        sdkPath = Directory(
-          p.join(sdkPath, 'bin', 'cache', 'dart-sdk'),
-        ).resolveSymbolicLinksSync();
-      }
-
-      // compile pana binary
-      final compiledBinaryPath = p.join(
-        dir,
-        Platform.isWindows ? 'pana.exe' : 'pana',
-      );
+      // build pana CLI bundle (`dart build cli` / `dart install`)
       final compilePr = await Process.run(Platform.resolvedExecutable, [
-        'compile',
-        'exe',
-        '-o',
-        compiledBinaryPath,
+        'build',
+        'cli',
+        '--target',
         p.join('bin', 'pana.dart'),
+        '--output',
+        dir,
       ]);
       expect(
         compilePr.exitCode,
         0,
-        reason: 'dart compile failed\n${compilePr.stdout}\n${compilePr.stderr}',
+        reason:
+            'dart build cli failed\n${compilePr.stdout}\n${compilePr.stderr}',
+      );
+      final compiledBinaryPath = p.join(
+        dir,
+        'bundle',
+        'bin',
+        Platform.isWindows ? 'pana.exe' : 'pana',
       );
 
-      // run pana
+      // run pana without --dart-sdk or --license-data to verify AOT defaults
       final pr = await runConstrained([
         compiledBinaryPath,
         '--no-warning',
-        '--dart-sdk',
-        sdkPath,
-        '--license-data',
-        p.join('lib', 'src', 'third_party', 'spdx', 'licenses'),
         '.',
       ], timeout: timeout);
       expect(pr.exitCode, 0, reason: pr.asJoinedOutput);
@@ -66,6 +54,30 @@ void main() {
       for (final snippet in snippets) {
         expect(output, contains(snippet));
       }
+    });
+  }, timeout: Timeout(timeout));
+
+  test('compiling pana with dart compile exe', () async {
+    await withTempDir((dir) async {
+      // Verify `dart compile exe` works (requires no build hooks)
+      final exePath = p.join(dir, Platform.isWindows ? 'pana.exe' : 'pana');
+      final compilePr = await Process.run(Platform.resolvedExecutable, [
+        'compile',
+        'exe',
+        '-o',
+        exePath,
+        p.join('bin', 'pana.dart'),
+      ]);
+      expect(
+        compilePr.exitCode,
+        0,
+        reason:
+            'dart compile exe failed\n${compilePr.stdout}\n${compilePr.stderr}',
+      );
+
+      final runPr = await Process.run(exePath, const ['--help']);
+      expect(runPr.exitCode, 64);
+      expect(runPr.stdout, contains('Usage: pana'));
     });
   }, timeout: Timeout(timeout));
 }

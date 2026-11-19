@@ -3,8 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
-import 'dart:isolate';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -13,6 +13,7 @@ import 'package:source_span/source_span.dart';
 import 'package:string_scanner/string_scanner.dart';
 
 import '../third_party/diff_match_patch/diff.dart';
+import '../third_party/spdx/spdx_corpus.dart';
 
 part 'confidence.dart';
 part 'license.dart';
@@ -20,30 +21,14 @@ part 'primary_filter.dart';
 part 'token_matcher.dart';
 part 'tokenizer.dart';
 
-const _defaultSpdxLicenseDir = 'lib/src/third_party/spdx/licenses';
-
 // Load corpus licenses.
 List<License>? _cachedLicenses;
 @visibleForTesting
 Future<List<License>> listDefaultLicenses({String? licenseDataDir}) async {
-  if (_cachedLicenses == null) {
-    var path = licenseDataDir;
-    if (path == null) {
-      final uri = await Isolate.resolvePackageUri(
-        Uri.parse(_defaultSpdxLicenseDir.replaceFirst('lib/', 'package:pana/')),
-      );
-      if (uri != null) {
-        path = Directory.fromUri(uri).path;
-      }
-    }
-    if (path == null) {
-      throw StateError(
-        'Could not resolve license directory. If running in AOT mode, use --license-data to specify the location of SPDX licenses.',
-      );
-    }
-    _cachedLicenses = loadLicensesFromDirectories([path]);
+  if (licenseDataDir != null) {
+    return loadLicensesFromDirectories([licenseDataDir]);
   }
-  return _cachedLicenses!;
+  return _cachedLicenses ??= _loadEmbeddedLicenses();
 }
 
 class Result {

@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:pana/src/license_detection/license_detector.dart';
 import 'package:test/test.dart';
 
@@ -47,6 +50,53 @@ void main() {
       throwsFormatException,
     );
   });
+
+  test('decodeCompressedLicenses matches loadLicensesFromDirectories', () {
+    final fromDir = loadLicensesFromDirectories([
+      'test/license_test_assets/licenses',
+    ]);
+    final files =
+        Directory('test/license_test_assets/licenses')
+            .listSync()
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.txt'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    final licenseTexts = <String, String>{
+      for (final file in files)
+        file.uri.pathSegments.last.split('.txt').first: file
+            .readAsStringSync()
+            .replaceAll('\r\n', '\n'),
+    };
+    final compressed = zlib.encode(utf8.encode(json.encode(licenseTexts)));
+    final fromCompressed = decodeCompressedLicenses(compressed);
+    expect(fromCompressed.length, fromDir.length);
+    for (var i = 0; i < fromDir.length; i++) {
+      expect(fromCompressed[i].identifier, fromDir[i].identifier);
+      expect(fromCompressed[i].content, fromDir[i].content);
+    }
+  });
+
+  test(
+    'embedded SPDX corpus matches lib/src/third_party/spdx/licenses',
+    () async {
+      final fromDir = loadLicensesFromDirectories([
+        'lib/src/third_party/spdx/licenses',
+      ]);
+      final fromEmbedded = await listDefaultLicenses();
+      expect(
+        fromEmbedded.length,
+        fromDir.length,
+        reason:
+            'Run `dart run third_party/spdx/update_licenses.dart --corpus-only` '
+            'to regenerate lib/src/third_party/spdx/spdx_corpus.dart.',
+      );
+      for (var i = 0; i < fromDir.length; i++) {
+        expect(fromEmbedded[i].identifier, fromDir[i].identifier);
+        expect(fromEmbedded[i].content, fromDir[i].content);
+      }
+    },
+  );
 
   test('Tokens normalized value', () {
     final str = 'Here is some text for testing purposes';

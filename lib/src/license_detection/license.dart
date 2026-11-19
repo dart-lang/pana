@@ -288,6 +288,28 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
       }
     });
   }
+  _sortLicenses(licenses);
+  return List.unmodifiable(licenses);
+}
+
+List<License> _loadEmbeddedLicenses() =>
+    decodeCompressedLicenses(base64Decode(spdxCorpusBase64));
+
+/// Decodes a zlib-compressed UTF-8 JSON map of SPDX license identifiers to
+/// license texts into a sorted list of [License]s.
+@visibleForTesting
+List<License> decodeCompressedLicenses(List<int> compressedBytes) {
+  final decodedBytes = zlib.decode(compressedBytes);
+  final map = json.decode(utf8.decode(decodedBytes)) as Map<String, dynamic>;
+  final licenses = <License>[];
+  for (final entry in map.entries) {
+    licenses.addAll(_licensesFromContent(entry.key, entry.value as String));
+  }
+  _sortLicenses(licenses);
+  return List.unmodifiable(licenses);
+}
+
+void _sortLicenses(List<License> licenses) {
   licenses.sort((a, b) {
     final x = a.identifier.compareTo(b.identifier);
     if (x != 0) return x;
@@ -296,7 +318,6 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
     if (y != 0) return y;
     return a.content.compareTo(b.content);
   });
-  return List.unmodifiable(licenses);
 }
 
 /// Returns a list of [License] from the given license file.
@@ -311,10 +332,9 @@ List<License> loadLicensesFromDirectories(Iterable<String> directories) {
 /// [1]: https://github.com/spdx/license-list-XML/blob/master/DOCS/license-fields.md#explanation-of-spdx-license-list-fields
 @visibleForTesting
 List<License> licensesFromFile(String path) {
-  final licenses = <License>[];
   final file = File(path);
 
-  final content = file.readAsStringSync().replaceAll('\r\n', '\n');
+  final content = file.readAsStringSync();
   final identifier = file.uri.pathSegments.last.split('.txt').first;
 
   if (_invalidIdentifier.hasMatch(identifier)) {
@@ -323,7 +343,14 @@ List<License> licensesFromFile(String path) {
     );
   }
 
-  licenses.add(License.parse(identifier: identifier, content: content));
+  return _licensesFromContent(identifier, content);
+}
+
+List<License> _licensesFromContent(String identifier, String content) {
+  content = content.replaceAll('\r\n', '\n');
+  final licenses = <License>[
+    License.parse(identifier: identifier, content: content),
+  ];
 
   // If a license contains a optional part create an additional license
   // instance with the optional part of text removed to have
