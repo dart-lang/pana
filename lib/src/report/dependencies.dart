@@ -69,9 +69,12 @@ Future<ReportSection> trustworthyDependency(PackageContext context) async {
           ].map((r) => '|${r.join('|')}|').join('\n');
         }
 
-        final links = <String>{};
+        final links = <String>[];
         String linkToPackage(String pkg) {
-          links.add('[`$pkg`]: https://pub.dev/packages/$pkg');
+          final link = '[`$pkg`]: https://pub.dev/packages/$pkg';
+          if (!links.contains(link)) {
+            links.add(link);
+          }
           return '[`$pkg`]';
         }
 

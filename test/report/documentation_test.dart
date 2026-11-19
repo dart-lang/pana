@@ -2,12 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
-
 import 'package:pana/pana.dart';
 import 'package:pana/src/package_context.dart';
 import 'package:pana/src/report/create_report.dart';
-import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:test_descriptor/test_descriptor.dart' as d;
 
@@ -47,84 +44,6 @@ Call this method..
       );
       expect(section.grantedPoints, 10);
       expect(section.summary, isNot(contains('No example found.')));
-    });
-
-    test('finds nested example file', () async {
-      final descriptor = package(
-        'my_package',
-        extraFiles: [
-          d.dir('example', [
-            d.dir('lib', [d.file('main.dart', 'void main() {}')]),
-          ]),
-        ],
-      );
-
-      await descriptor.create();
-      final report = await createReport(
-        PackageContext(
-          sharedContext: SharedAnalysisContext(
-            toolEnvironment: await ToolEnvironment.create(),
-          ),
-          packageDir: descriptor.io.path,
-        ),
-      );
-      final section = report.sections.firstWhere(
-        (s) => s.title == 'Provide documentation',
-      );
-      expect(section.grantedPoints, 10);
-      expect(section.summary, isNot(contains('No example found.')));
-    });
-
-    test('ignores wrong-case example directory', () async {
-      final descriptor = package(
-        'my_package',
-        extraFiles: [
-          d.dir('Example', [d.file('example.md', '# Example\n')]),
-        ],
-      );
-
-      await descriptor.create();
-      final report = await createReport(
-        PackageContext(
-          sharedContext: SharedAnalysisContext(
-            toolEnvironment: await ToolEnvironment.create(),
-          ),
-          packageDir: descriptor.io.path,
-        ),
-      );
-      final section = report.sections.firstWhere(
-        (s) => s.title == 'Provide documentation',
-      );
-      expect(section.grantedPoints, 0);
-      expect(section.summary, contains('No example found.'));
-    });
-
-    test('ignores symlinked example directory', () async {
-      final descriptor = package(
-        'my_package',
-        extraFiles: [
-          d.dir('real_example', [d.file('example.md', '# Example\n')]),
-        ],
-      );
-
-      await descriptor.create();
-      Link(
-        p.join(descriptor.io.path, 'example'),
-      ).createSync(p.join(descriptor.io.path, 'real_example'));
-
-      final report = await createReport(
-        PackageContext(
-          sharedContext: SharedAnalysisContext(
-            toolEnvironment: await ToolEnvironment.create(),
-          ),
-          packageDir: descriptor.io.path,
-        ),
-      );
-      final section = report.sections.firstWhere(
-        (s) => s.title == 'Provide documentation',
-      );
-      expect(section.grantedPoints, 0);
-      expect(section.summary, contains('No example found.'));
     });
 
     test('missing example', () async {

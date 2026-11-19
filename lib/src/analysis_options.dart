@@ -103,13 +103,12 @@ String updatePassthroughOptions({
 
   // exclude test and example from analysis
   final existingExclude = customAnalyzer['exclude'];
-  final customExclude = existingExclude is List ? existingExclude : <Object?>[];
+  final customExclude = existingExclude is List ? existingExclude : <String>[];
   customAnalyzer['exclude'] = customExclude;
-  final seenExclude = Set<Object?>.of(customExclude);
 
   const excludeDirs = ['test/**', 'example/**'];
   for (final dir in excludeDirs) {
-    if (seenExclude.add(dir)) {
+    if (!customExclude.contains(dir)) {
       customExclude.add(dir);
     }
   }
@@ -125,7 +124,7 @@ String updatePassthroughOptions({
     if (origAnalyzer case {'exclude': List origExclude}) {
       // Note: In the future we need to consider if we want to detect too wide exclude rules.
       for (var pattern in origExclude) {
-        if (seenExclude.add(pattern)) {
+        if (!customExclude.contains(pattern)) {
           customExclude.add(pattern);
         }
       }
