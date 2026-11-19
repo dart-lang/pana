@@ -1,5 +1,6 @@
 ## 0.23.20-wip
 
+- Cache parsed library directives and language versions across `Tagger` passes, and fix `PathFinder` memoization to avoid repeated traversals on large packages.
 - Pass writable sandbox output folders via `SANDBOX_OUTPUT_JSON` (JSON-encoded list of paths) alongside `SANDBOX_OUTPUT` (#1633).
 
 ## 0.23.19

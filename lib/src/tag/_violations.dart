@@ -235,29 +235,34 @@ class SdkViolationFinder {
   final PathFinder<String> _declaredSdkViolationFinder;
   final Sdk sdk;
   final AnalysisSession _session;
+  final ParsedLibraryCache? _parsedLibraryCache;
 
   SdkViolationFinder(
     PackageGraph packageGraph,
     this.sdk,
     PubspecCache pubspecCache,
-    this._session,
-  ) : _declaredSdkViolationFinder = PathFinder(packageGraph, (
-        String packageDir,
-      ) {
-        final declaredSdks = {
-          ...pubspecCache.pubspecOfPackage(packageDir).dependentSdks,
-          'dart',
-        };
-        final nonAllowedSdks = declaredSdks.difference(sdk.allowedSdks.toSet());
-        return nonAllowedSdks.isEmpty
-            ? null
-            : (path) => Explanation(
-                'Package is not compatible with the ${sdk.formattedName} SDK.',
-                'Because:\n${PackageGraph.formatPath(path)} that is a package requiring'
-                    ' ${nonAllowedSdks.join(', ')}.',
-                tag: sdk.tag,
-              );
-      });
+    this._session, {
+    ParsedLibraryCache? parsedLibraryCache,
+  }) : _parsedLibraryCache = parsedLibraryCache,
+       _declaredSdkViolationFinder = PathFinder(packageGraph, (
+         String packageDir,
+       ) {
+         final declaredSdks = {
+           ...pubspecCache.pubspecOfPackage(packageDir).dependentSdks,
+           'dart',
+         };
+         final nonAllowedSdks = declaredSdks.difference(
+           sdk.allowedSdks.toSet(),
+         );
+         return nonAllowedSdks.isEmpty
+             ? null
+             : (path) => Explanation(
+                 'Package is not compatible with the ${sdk.formattedName} SDK.',
+                 'Because:\n${PackageGraph.formatPath(path)} that is a package requiring'
+                     ' ${nonAllowedSdks.join(', ')}.',
+                 tag: sdk.tag,
+               );
+       });
 
   Explanation? findSdkViolation(String packageName, List<Uri> topLibraries) {
     final declaredSdkResult = _declaredSdkViolationFinder.findViolation(
@@ -267,7 +272,11 @@ class SdkViolationFinder {
 
     final explanations = <Explanation>[];
     final violationFinder = runtimeViolationFinder(
-      LibraryGraph(_session, sdk.allowedRuntime.declaredVariables),
+      LibraryGraph(
+        _session,
+        sdk.allowedRuntime.declaredVariables,
+        parsedLibraryCache: _parsedLibraryCache,
+      ),
       sdk.allowedRuntime,
       (path) => Explanation(
         'Package is not compatible with the ${sdk.formattedName} SDK.',

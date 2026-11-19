@@ -286,6 +286,64 @@ void main() {
         explanations: isEmpty,
       );
     });
+
+    test(
+      'many public libraries sharing a cyclic import graph with opt-out',
+      () async {
+        final descriptor = d.dir('cache', [
+          packageWithPathDeps(
+            'my_package',
+            sdkConstraint: '>=2.12.0 <3.0.0',
+            lib: [
+              d.dir('nested', [
+                d.file('a.dart', "import 'b.dart'; import 'safe.dart';"),
+                d.file('b.dart', "import 'a.dart'; import 'opt_out.dart';"),
+                d.file('c.dart', "import 'safe.dart';"),
+                d.file('safe.dart', 'int safe() => 1;'),
+                d.file('opt_out.dart', '// @dart = 2.9\nint old() => 0;'),
+              ]),
+            ],
+          ),
+        ]);
+        await descriptor.create();
+        final tagger = Tagger(p.join(descriptor.io.path, 'my_package'));
+        expectTagging(
+          tagger.nullSafetyTags,
+          tags: isEmpty,
+          explanations: unorderedEquals([
+            explanation(
+              finding: 'Package is not null safe',
+              explanation: allOf(
+                startsWith('Because:\n* `package:my_package/nested/a.dart`'),
+                contains(
+                  'where package:my_package/nested/opt_out.dart is opting out',
+                ),
+              ),
+            ),
+            explanation(
+              finding: 'Package is not null safe',
+              explanation: allOf(
+                startsWith('Because:\n* `package:my_package/nested/b.dart`'),
+                contains(
+                  'where package:my_package/nested/opt_out.dart is opting out',
+                ),
+              ),
+            ),
+            explanation(
+              finding: 'Package is not null safe',
+              explanation: allOf(
+                startsWith(
+                  'Because:\n* `package:my_package/nested/opt_out.dart`',
+                ),
+                contains(
+                  'where package:my_package/nested/opt_out.dart is opting out',
+                ),
+              ),
+            ),
+          ]),
+        );
+      },
+    );
   });
 }
 
